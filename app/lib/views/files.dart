@@ -294,12 +294,16 @@ class _FilesViewState extends State<FilesView> {
                               ));
                       if (asset == null) return;
                       final path = _locationController.text;
-                      var newPath = '$path/$name';
+                      var newPath =
+                          '$path/${_fileSystem.convertNameToFile(name!)}';
                       if (!newPath.endsWith('.bfly')) {
                         newPath += '.bfly';
                       }
                       await _fileSystem.updateDocument(
-                          newPath, asset.createDocument());
+                          newPath,
+                          asset.createDocument(
+                            name: name,
+                          ));
                       _reloadFileSystem();
                     }
                   },
