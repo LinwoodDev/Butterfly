@@ -396,7 +396,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
       document,
       page,
       info,
-      transform: state.transformCubit.state,
+      transform: transform,
       states: state.allRendererStates,
       cameraViewport: reset
           ? cameraViewport.unbake(
@@ -427,9 +427,9 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
             height: size.height.ceil(),
             width: size.width.ceil(),
             pixelRatio: ratio,
-            scale: state.transformCubit.state.size,
-            x: state.transformCubit.state.position.dx,
-            y: state.transformCubit.state.position.dy,
+            scale: transform.size,
+            x: transform.position.dx,
+            y: transform.position.dy,
             image: newImage,
             bakedElements: renderers,
             unbakedElements: currentRenderers,

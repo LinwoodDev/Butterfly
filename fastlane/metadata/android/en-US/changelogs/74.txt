@@ -11,6 +11,7 @@
 * Fix performance of pen tool
 * Fix tool reordering
 * Fix pattern background rendering
+* Fix baking transform problems if it was changed when baking
 * Improve default pattern templates values
 * Improve documentation
 * Improve file name validator to support -, (, ), comma and space

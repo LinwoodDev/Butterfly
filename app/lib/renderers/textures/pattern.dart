@@ -39,7 +39,6 @@ void drawPatternTextureOnCanvas(PatternTexture texture, Canvas canvas,
     int yCount = (offset.dy / part).floor() + 1;
     double y = -yCount * part + offset.dy;
     y *= scale;
-
     int count = 0;
     while (y < size.height) {
       canvas.drawLine(
