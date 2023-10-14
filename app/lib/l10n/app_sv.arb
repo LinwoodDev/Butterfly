@@ -550,5 +550,6 @@
   "show": "Visa",
   "pause": "Pausa",
   "stop": "Stoppa",
-  "refresh": "Uppdatera"
+  "refresh": "Uppdatera",
+  "print": "Print"
 }
