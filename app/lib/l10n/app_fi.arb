@@ -550,5 +550,6 @@
   "show": "Näytä",
   "pause": "Tauko",
   "stop": "Pysäytä",
-  "refresh": "Päivitä"
+  "refresh": "Päivitä",
+  "print": "Print"
 }
