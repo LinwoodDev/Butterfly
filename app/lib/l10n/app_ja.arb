@@ -550,5 +550,6 @@
   "show": "表示",
   "pause": "一時停止",
   "stop": "停止",
-  "refresh": "更新"
+  "refresh": "更新",
+  "print": "Print"
 }
