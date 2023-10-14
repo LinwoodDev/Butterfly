@@ -13,8 +13,11 @@ Existem alguns atalhos que você pode usar no editor. Alguns deles estão escrit
 * `Ctrl` + `N`: Novo arquivo
 * `Ctrl` + `Shift` + `N`: Novo arquivo a partir do modelo
 * `Ctrl` + `E`: Exportar arquivo
+* `Ctrl` + `P`: Print file
 * `Ctrl` + `Shift` + `E`: Exportar o arquivo como imagem
 * `Ctrl` + `Alt` + `E`: Exportar o arquivo como svg
+* `Ctrl` + `Alt` + `Shift` + `E`: Export file as svg
+* `Ctrl` + `Alt` + `P`: Open packs
 * `Ctrl` + `Alt` + `S`: Abrir configurações
 
 ### Projecto
