@@ -13,8 +13,11 @@ Det er noen snarveier du kan benytte i editoren. Noen av dem er skrevet under kn
 * `Ctrl` + `N`: Ny fil
 * `Ctrl` + `Shift` + `N`: Ny fil fra mal
 * `Ctrl` + `E`: Eksportfil
+* `Ctrl` + `P`: Print file
 * `Ctrl` + `Shift` + `E`: Eksporter fil som bilde
 * `Ctrl` + `Alt` + `E`: Eksporter filen som svg
+* `Ctrl` + `Alt` + `Shift` + `E`: Export file as svg
+* `Ctrl` + `Alt` + `P`: Open packs
 * `Ctrl` + `Alt` + `S`: Åpne innstillinger
 
 ### Prosjekt
