@@ -550,5 +550,6 @@
   "show": "Mostra",
   "pause": "Pausa",
   "stop": "Ferma",
-  "refresh": "Aggiorna"
+  "refresh": "Aggiorna",
+  "print": "Print"
 }
