@@ -1,6 +1,6 @@
 ---
 title: "Tilføj"
-id: "tilføj"
+id: "add"
 slug: "/add"
 sidebar_position: 3
 ---
