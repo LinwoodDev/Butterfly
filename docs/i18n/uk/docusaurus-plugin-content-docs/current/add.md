@@ -1,6 +1,6 @@
 ---
 title: "Додати"
-id: "додати"
+id: "add"
 slug: "/add"
 sidebar_position: 3
 ---
