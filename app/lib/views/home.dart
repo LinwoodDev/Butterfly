@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:butterfly/actions/settings.dart';
 import 'package:butterfly/api/file_system/file_system.dart';
 import 'package:butterfly/api/open.dart';
@@ -408,7 +410,6 @@ class _QuickstartHomeViewState extends State<_QuickstartHomeView> {
 
   @override
   Widget build(BuildContext context) {
-    final colorScheme = Theme.of(context).colorScheme;
     return Card(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(24),
@@ -479,60 +480,15 @@ class _QuickstartHomeViewState extends State<_QuickstartHomeView> {
                     (e) {
                       final thumbnail = e.getThumbnail();
                       final metadata = e.getMetadata()!;
-                      return ConstrainedBox(
-                          constraints: const BoxConstraints(maxHeight: 200),
-                          child: AspectRatio(
-                            aspectRatio: 16 / 9,
-                            child: Card(
-                              elevation: 5,
-                              clipBehavior: Clip.hardEdge,
-                              child: InkWell(
-                                onTap: () async {
-                                  GoRouter.of(context).pushReplacementNamed(
-                                      'new',
-                                      queryParameters: {
-                                        'path': metadata.directory
-                                      },
-                                      extra: e.createDocument().save());
-                                },
-                                child: Stack(
-                                  children: [
-                                    if (thumbnail?.isNotEmpty ?? false)
-                                      Align(
-                                        child: Image.memory(
-                                          thumbnail!,
-                                          fit: BoxFit.cover,
-                                          width: 640,
-                                          alignment: Alignment.center,
-                                        ),
-                                      ),
-                                    Align(
-                                      alignment: Alignment.bottomLeft,
-                                      child: Container(
-                                        padding: const EdgeInsets.all(8),
-                                        margin: const EdgeInsets.all(8),
-                                        decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(8),
-                                          color: colorScheme.primaryContainer
-                                              .withAlpha(200),
-                                        ),
-                                        child: Text(
-                                          metadata.name,
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .bodyLarge
-                                              ?.copyWith(
-                                                color: colorScheme.onSurface,
-                                              ),
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ));
+                      return AssetCard(
+                        metadata: metadata,
+                        thumbnail: thumbnail,
+                        onTap: () async {
+                          GoRouter.of(context).pushReplacementNamed('new',
+                              queryParameters: {'path': metadata.directory},
+                              extra: e.createDocument().save());
+                        },
+                      );
                     },
                   ).toList(),
                 );
@@ -540,5 +496,65 @@ class _QuickstartHomeViewState extends State<_QuickstartHomeView> {
         ]),
       ),
     );
+  }
+}
+
+class AssetCard extends StatelessWidget {
+  const AssetCard({
+    super.key,
+    required this.metadata,
+    required this.thumbnail,
+    required this.onTap,
+  });
+
+  final FileMetadata metadata;
+  final Uint8List? thumbnail;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+    return ConstrainedBox(
+        constraints: const BoxConstraints(maxHeight: 200),
+        child: AspectRatio(
+          aspectRatio: 16 / 9,
+          child: Card(
+            elevation: 5,
+            clipBehavior: Clip.hardEdge,
+            child: InkWell(
+              onTap: onTap,
+              child: Stack(
+                children: [
+                  if (thumbnail?.isNotEmpty ?? false)
+                    Align(
+                      child: Image.memory(
+                        thumbnail!,
+                        fit: BoxFit.cover,
+                        width: 640,
+                        alignment: Alignment.center,
+                      ),
+                    ),
+                  Align(
+                    alignment: Alignment.bottomLeft,
+                    child: Container(
+                      padding: const EdgeInsets.all(8),
+                      margin: const EdgeInsets.all(8),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(8),
+                        color: colorScheme.primaryContainer.withAlpha(200),
+                      ),
+                      child: Text(
+                        metadata.name,
+                        style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                              color: colorScheme.onSurface,
+                            ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ));
   }
 }

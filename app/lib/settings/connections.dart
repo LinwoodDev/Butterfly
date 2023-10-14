@@ -47,12 +47,15 @@ class ConnectionsSettingsPage extends StatelessWidget {
             }),
           ],
         ),
-        floatingActionButton: FloatingActionButton.extended(
-          onPressed: () => showDialog<void>(
-              context: context, builder: (context) => const _AddRemoteDialog()),
-          label: Text(AppLocalizations.of(context).addConnection),
-          icon: const PhosphorIcon(PhosphorIconsLight.plus),
-        ),
+        floatingActionButton: kIsWeb
+            ? null
+            : FloatingActionButton.extended(
+                onPressed: () => showDialog<void>(
+                    context: context,
+                    builder: (context) => const _AddRemoteDialog()),
+                label: Text(AppLocalizations.of(context).addConnection),
+                icon: const PhosphorIcon(PhosphorIconsLight.plus),
+              ),
         body: Builder(builder: (context) {
           if (kIsWeb) {
             return Center(

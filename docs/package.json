@@ -24,7 +24,7 @@
     "@docusaurus/preset-classic": "2.4.3",
     "@docusaurus/theme-common": "2.4.3",
     "@mdx-js/react": "^1.6.22",
-    "@swc/core": "^1.3.92",
+    "@swc/core": "^1.3.93",
     "animate.css": "^4.1.1",
     "clsx": "^2.0.0",
     "node-fetch": "^3.3.2",
@@ -53,6 +53,6 @@
     "@tsconfig/docusaurus": "^2.0.1",
     "markdownlint-cli2": "^0.10.0",
     "typescript": "^5.2.2",
-    "webpack": "^5.88.2"
+    "webpack": "^5.89.0"
   }
 }

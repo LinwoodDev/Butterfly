@@ -7,8 +7,9 @@ import '../dialogs/pdf_export.dart';
 
 class PdfExportIntent extends Intent {
   final BuildContext context;
+  final bool print;
 
-  const PdfExportIntent(this.context);
+  const PdfExportIntent(this.context, [this.print = false]);
 }
 
 class PdfExportAction extends Action<PdfExportIntent> {
@@ -36,6 +37,7 @@ class PdfExportAction extends Action<PdfExportIntent> {
                 value: bloc,
                 child: PdfExportDialog(
                   areas: areas,
+                  print: intent.print,
                 ),
               ),
           context: context);

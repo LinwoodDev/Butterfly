@@ -14,8 +14,11 @@ Some of them are written below the buttons.
 * `Ctrl` + `N`: New file
 * `Ctrl` + `Shift` + `N`: New file from template
 * `Ctrl` + `E`: Export file
+* `Ctrl` + `P`: Print file
 * `Ctrl` + `Shift` + `E`: Export file as image
 * `Ctrl` + `Alt` + `E`: Export file as svg
+* `Ctrl` + `Alt` + `Shift` + `E`: Export file as svg
+* `Ctrl` + `Alt` + `P`: Open packs
 * `Ctrl` + `Alt` + `S`: Open settings
 
 ### Project

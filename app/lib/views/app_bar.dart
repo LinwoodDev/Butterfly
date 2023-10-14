@@ -394,6 +394,18 @@ class _MainPopupMenu extends StatelessWidget {
                   },
                   child: Text(AppLocalizations.of(context).pdf),
                 ),
+                MenuItemButton(
+                  leadingIcon: const PhosphorIcon(PhosphorIconsLight.printer),
+                  shortcut: const SingleActivator(
+                    LogicalKeyboardKey.keyP,
+                    control: true,
+                  ),
+                  onPressed: () {
+                    Actions.maybeInvoke<PdfExportIntent>(
+                        context, PdfExportIntent(context, true));
+                  },
+                  child: Text(AppLocalizations.of(context).print),
+                ),
               ],
               leadingIcon:
                   const PhosphorIcon(PhosphorIconsLight.paperPlaneRight),
@@ -401,8 +413,11 @@ class _MainPopupMenu extends StatelessWidget {
             ),
             MenuItemButton(
               leadingIcon: const PhosphorIcon(PhosphorIconsLight.package),
-              shortcut:
-                  const SingleActivator(LogicalKeyboardKey.keyP, control: true),
+              shortcut: const SingleActivator(
+                LogicalKeyboardKey.keyP,
+                control: true,
+                alt: true,
+              ),
               onPressed: () {
                 Actions.maybeInvoke<PacksIntent>(context, PacksIntent(context));
               },

@@ -1,4 +1,3 @@
-import 'package:butterfly/api/save_data.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
@@ -7,16 +6,19 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
+import 'package:printing/printing.dart';
 
 import '../bloc/document_bloc.dart';
 import 'name.dart';
 
 class PdfExportDialog extends StatefulWidget {
   final List<AreaPreset> areas;
+  final bool print;
 
   const PdfExportDialog({
     super.key,
     this.areas = const [],
+    this.print = false,
   });
 
   @override
@@ -137,13 +139,17 @@ class _PdfExportDialogState extends State<PdfExportDialog> {
                         onPressed: () => Navigator.of(context).pop(),
                       ),
                       ElevatedButton(
-                        child: Text(AppLocalizations.of(context).export),
+                        child: Text(widget.print
+                            ? AppLocalizations.of(context).print
+                            : AppLocalizations.of(context).export),
                         onPressed: () async {
                           Navigator.of(context).pop();
-                          final document = await currentIndex
-                              .renderPDF(state.data, state.info, areas: areas);
-                          final data = await document.save();
-                          exportPdf(context, data);
+                          Printing.layoutPdf(
+                            onLayout: (_) async => (await currentIndex
+                                    .renderPDF(state.data, state.info,
+                                        areas: areas))
+                                .save(),
+                          );
                         },
                       ),
                     ],
@@ -191,7 +197,7 @@ class _AreaPreview extends StatelessWidget {
               min: 1,
               max: 10,
               onChanged: onQualityChanged,
-              label: AppLocalizations.of(context).quality,
+              header: Text(AppLocalizations.of(context).quality),
             ),
             OutlinedButton(
                 onPressed: onRemove,

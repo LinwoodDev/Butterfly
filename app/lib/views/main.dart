@@ -317,9 +317,6 @@ class _ProjectPageState extends State<ProjectPage> {
                                           LogicalKeyboardKey.keyN):
                                       NewIntent(context, fromTemplate: true),
                                   LogicalKeySet(LogicalKeyboardKey.control,
-                                          LogicalKeyboardKey.keyP):
-                                      ColorPaletteIntent(context),
-                                  LogicalKeySet(LogicalKeyboardKey.control,
                                           LogicalKeyboardKey.keyB):
                                       BackgroundIntent(context),
                                   LogicalKeySet(
@@ -355,6 +352,9 @@ class _ProjectPageState extends State<ProjectPage> {
                                             LogicalKeyboardKey.shift,
                                             LogicalKeyboardKey.keyE):
                                         PdfExportIntent(context),
+                                    LogicalKeySet(LogicalKeyboardKey.control,
+                                            LogicalKeyboardKey.keyP):
+                                        PdfExportIntent(context, true),
                                     LogicalKeySet(
                                             LogicalKeyboardKey.control,
                                             LogicalKeyboardKey.alt,
