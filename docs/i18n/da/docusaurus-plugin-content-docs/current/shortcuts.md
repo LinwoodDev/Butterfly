@@ -13,8 +13,11 @@ Der er et par genveje, som du kan bruge i editoren. Nogle af dem er skrevet unde
 * `Ctrl` + `N`: Ny fil
 * `Ctrl` + `Shift` + `N`: Ny fil fra skabelon
 * `Ctrl` + `E`: Eksporter fil
+* `Ctrl` + `P`: Print file
 * `Ctrl` + `Shift` + `E`: Eksporter fil som billede
 * `Ctrl` + `Alt` + `E`: Eksporter fil som svg
+* `Ctrl` + `Alt` + `Shift` + `E`: Export file as svg
+* `Ctrl` + `Alt` + `P`: Open packs
 * `Ctrl` + `Alt` + `S`: Åbn indstillinger
 
 ### Projekt
