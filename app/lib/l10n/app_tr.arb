@@ -550,5 +550,6 @@
   "show": "Show",
   "pause": "Pause",
   "stop": "Stop",
-  "refresh": "Yenile"
+  "refresh": "Yenile",
+  "print": "Print"
 }
