@@ -550,5 +550,6 @@
   "show": "Zeigen",
   "pause": "Pause",
   "stop": "Stoppen",
-  "refresh": "Aktualisieren"
+  "refresh": "Aktualisieren",
+  "print": "Print"
 }
