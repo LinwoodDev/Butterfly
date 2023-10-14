@@ -550,5 +550,6 @@
   "show": "إظهار",
   "pause": "إيقاف",
   "stop": "توقف",
-  "refresh": "تحديث"
+  "refresh": "تحديث",
+  "print": "Print"
 }
