@@ -13,8 +13,11 @@ sidebar_position: 2
 * `Ctrl` + `N`: ملف جديد
 * `Ctrl` + `Shift` + `N`: ملف جديد من القالب
 * `Ctrl` + `E`: تصدير الملف
+* `Ctrl` + `P`: Print file
 * `Ctrl` + `Shift` + `E`: تصدير الملف كصورة
 * `Ctrl` + `Alt` + `E`: تصدير الملف كـ svg
+* `Ctrl` + `Alt` + `Shift` + `E`: Export file as svg
+* `Ctrl` + `Alt` + `P`: Open packs
 * `Ctrl` + `Alt` + `S`: فتح الإعدادات
 
 ### مشروع
