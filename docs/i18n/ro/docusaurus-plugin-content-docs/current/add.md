@@ -1,7 +1,7 @@
 ---
 title: "Adăugare"
-id: "adaugă"
-slug: "/adaugă"
+id: "add"
+slug: "/add"
 sidebar_position: 3
 ---
 
