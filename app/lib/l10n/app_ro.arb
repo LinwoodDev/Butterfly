@@ -550,5 +550,6 @@
   "show": "Afișare",
   "pause": "Întrerupeți",
   "stop": "Oprește",
-  "refresh": "Împrospătează"
+  "refresh": "Împrospătează",
+  "print": "Print"
 }
