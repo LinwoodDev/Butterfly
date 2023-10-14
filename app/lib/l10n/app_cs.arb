@@ -550,5 +550,6 @@
   "show": "Zobrazit",
   "pause": "Pozastavit",
   "stop": "Zastavit",
-  "refresh": "Aktualizovat"
+  "refresh": "Aktualizovat",
+  "print": "Print"
 }
