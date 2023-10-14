@@ -550,5 +550,6 @@
   "show": "Apresentar",
   "pause": "Suspender",
   "stop": "Interromper",
-  "refresh": "atualizar"
+  "refresh": "atualizar",
+  "print": "Print"
 }
