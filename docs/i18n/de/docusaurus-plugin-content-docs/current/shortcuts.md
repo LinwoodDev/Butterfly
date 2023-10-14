@@ -13,8 +13,11 @@ Es gibt ein paar Verknüpfungen, die Sie im Editor verwenden können. Einige dav
 * `Strg` + `N`: Neue Datei
 * `Strg` + `Umschalt` + `N`: Neue Datei aus Vorlage
 * `Strg` + `E`: Datei exportieren
+* `Ctrl` + `P`: Print file
 * `Strg` + `Shift` + `E`: Datei als Bild exportieren
 * `Strg` + `Alt` + `E`: Datei als svg exportieren
+* `Ctrl` + `Alt` + `Shift` + `E`: Export file as svg
+* `Ctrl` + `Alt` + `P`: Open packs
 * `Strg` + `Alt` + `S`: Einstellungen öffnen
 
 ### Projekt
