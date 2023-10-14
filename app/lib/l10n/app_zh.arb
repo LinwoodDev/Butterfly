@@ -550,5 +550,6 @@
   "show": "显示",
   "pause": "暂停",
   "stop": "停止",
-  "refresh": "刷新"
+  "refresh": "刷新",
+  "print": "Print"
 }
