@@ -550,5 +550,6 @@
   "show": "Weergeven",
   "pause": "Onderbreken",
   "stop": "Stoppen",
-  "refresh": "Vernieuwen"
+  "refresh": "Vernieuwen",
+  "print": "Print"
 }
