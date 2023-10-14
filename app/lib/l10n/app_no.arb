@@ -550,5 +550,6 @@
   "show": "Vis",
   "pause": "pause",
   "stop": "Stopp",
-  "refresh": "Oppdater"
+  "refresh": "Oppdater",
+  "print": "Print"
 }
