@@ -299,7 +299,7 @@
   "update": "Actualizare",
   "updateAvailable": "Actualizare disponibilă",
   "stable": "Stabil",
-  "nightly": "Nightly",
+  "nightly": "Noptez",
   "checkForUpdates": "Verifică pentru actualizări",
   "usingLatestStable": "Folosești cea mai recentă versiune stabilă",
   "usingLatestNightly": "Folosești ultima versiune nocturnă",
@@ -551,5 +551,5 @@
   "pause": "Întrerupeți",
   "stop": "Oprește",
   "refresh": "Împrospătează",
-  "print": "Print"
+  "print": "Tipărește"
 }
