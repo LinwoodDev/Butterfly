@@ -77,3 +77,5 @@ Per saperne di più sulla versione notturna di Butterfly [qui](/nightly).
   Snap
 </a>
 </div>
+
+The nightly version is also available on the flathub beta repository. Read more about the flathub beta repository [here](https://discourse.flathub.org/t/how-to-use-flathub-beta/2111).
