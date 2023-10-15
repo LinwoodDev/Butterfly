@@ -1,4 +1,5 @@
 * Add print as export option
+* Fix leading icon on exact slider on larger screens
 * Remove add connection button on web
 
 View all changes in the blog: https://linwood.dev/butterfly/2.0.0-beta.11
