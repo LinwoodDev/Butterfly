@@ -13,11 +13,11 @@ Ci sono alcune scorciatoie che puoi usare nell'editor. Alcuni di loro sono scrit
 * `Ctrl` + `N`: Nuovo file
 * `Ctrl` + `Maiusc` + `N`: Nuovo file dal modello
 * `Ctrl` + `E`: Esporta file
-* `Ctrl` + `P`: Print file
+* `Ctrl` + `P`: Stampa file
 * `Ctrl` + `Maiusc` + `E`: Esporta file come immagine
 * `Ctrl` + `Alt` + `E`: Esporta file come svg
-* `Ctrl` + `Alt` + `Shift` + `E`: Export file as svg
-* `Ctrl` + `Alt` + `P`: Open packs
+* `Ctrl` + `Alt` + `Maiusc` + `E`: Esporta file come svg
+* `Ctrl` + `Alt` + `P`: Pacchetti aperti
 * `Ctrl` + `Alt` + `S`: Apri le impostazioni
 
 ### Progetto
