@@ -7,9 +7,9 @@ sidebar_position: 3
 import DownloadButton from '@site/src/components/DownloadButton.tsx';
 ```
 
-![Versão de lançamento estável](https://img.shields.io/badge/dynamic/yaml?color=c4840d&label=Stable&query=%24.version&url=https%3A%2F%2Fraw.githubusercontent.com%2FLinwoodDev%2Fbutterfly%2Fstable%2Fapp%2Fpubspec.yaml&style=for-the-badge) ![Nightly release version](https://img.shields.io/badge/dynamic/yaml?color=f7d28c&label=Nightly&query=%24.version&url=https%3A%2F%2Fraw.githubusercontent.com%2FLinwoodDev%2Fbutterfly%2Fnightly%2Fapp%2Fpubspec.yaml&style=for-the-badge)
+![Versão de lançamento estável](https://img.shields.io/badge/dynamic/yaml?color=c4840d&label=Stable&query=%24.version&url=https%3A%2F%2Fraw.githubusercontent.com%2FLinwoodDev%2Fbutterfly%2Fstable%2Fapp%2Fpubspec.yaml&style=for-the-badge) ![Versão de lançamento noturna](https://img.shields.io/badge/dynamic/yaml?color=f7d28c&label=Nightly&query=%24.version&url=https%3A%2F%2Fraw.githubusercontent.com%2FLinwoodDev%2Fbutterfly%2Fnightly%2Fapp%2Fpubspec.yaml&style=for-the-badge)
 
-:::note
+:::nota
 
 Por favor, use a versão flatpak, se possível. Caso contrário, você precisa instalar o `libsecret-1-dev` e `libjsoncpp-dev`.
 
@@ -39,7 +39,7 @@ Por favor, use a versão flatpak, se possível. Caso contrário, você precisa i
   </ul>
 </div>
 <div className="dropdown dropdown--hoverable margin--sm">
-  <button className="button button--outline button--danger button--lg">Nightly</button>
+  <button className="button button--outline button--danger button--lg">Noturno</button>
   <ul className="dropdown__menu">
     <li>
       <DownloadButton className="dropdown__link" href="https://github.com/LinwoodDev/butterfly/releases/download/nightly/linwood-butterfly-linux.tar.gz">
@@ -78,4 +78,4 @@ Leia mais sobre a versão noturna da Borboleta [aqui](/nightly).
 </a>
 </div>
 
-The nightly version is also available on the flathub beta repository. Read more about the flathub beta repository [here](https://discourse.flathub.org/t/how-to-use-flathub-beta/2111).
+A versão noturna também está disponível no repositório beta do flathub. Leia mais sobre o repositório beta do flathub [aqui](https://discourse.flathub.org/t/how-to-use-flathub-beta/2111).
