@@ -197,13 +197,10 @@ extension LabelElementLayouter on LabelElement {
   Point<double> getOffset(double height) {
     final align = areaProperty.alignment;
     final current = position;
-    switch (align) {
-      case txt.VerticalAlignment.top:
-        return current;
-      case txt.VerticalAlignment.bottom:
-        return current + Point(0, height);
-      case txt.VerticalAlignment.center:
-        return current + Point(0, height / 2);
-    }
+    return switch (align) {
+      txt.VerticalAlignment.top => current,
+      txt.VerticalAlignment.bottom => current + Point(0, height),
+      txt.VerticalAlignment.center => current + Point(0, height / 2),
+    };
   }
 }

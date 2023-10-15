@@ -20,36 +20,22 @@ enum SettingsView {
   personalization,
   connections;
 
-  String getLocalizedName(BuildContext context) {
-    switch (this) {
-      case SettingsView.general:
-        return AppLocalizations.of(context).general;
-      case SettingsView.data:
-        return AppLocalizations.of(context).data;
-      case SettingsView.behaviors:
-        return AppLocalizations.of(context).behaviors;
-      case SettingsView.personalization:
-        return AppLocalizations.of(context).personalization;
-      case SettingsView.connections:
-        return AppLocalizations.of(context).connections;
-    }
-  }
+  String getLocalizedName(BuildContext context) => switch (this) {
+        SettingsView.general => AppLocalizations.of(context).general,
+        SettingsView.data => AppLocalizations.of(context).data,
+        SettingsView.behaviors => AppLocalizations.of(context).behaviors,
+        SettingsView.personalization =>
+          AppLocalizations.of(context).personalization,
+        SettingsView.connections => AppLocalizations.of(context).connections,
+      };
 
-  PhosphorIconData getIcon() {
-    switch (this) {
-      case SettingsView.general:
-        return PhosphorIconsLight.gear;
-      case SettingsView.data:
-        return PhosphorIconsLight.database;
-      case SettingsView.behaviors:
-        return PhosphorIconsLight.faders;
-      case SettingsView.personalization:
-        return PhosphorIconsLight.monitor;
-      case SettingsView.connections:
-        return PhosphorIconsLight.cloud;
-    }
-  }
-
+  IconGetter get icon => switch (this) {
+        SettingsView.general => PhosphorIcons.gear,
+        SettingsView.data => PhosphorIcons.database,
+        SettingsView.behaviors => PhosphorIcons.faders,
+        SettingsView.personalization => PhosphorIcons.monitor,
+        SettingsView.connections => PhosphorIcons.cloud,
+      };
   String get path => '/settings/$name';
 }
 
@@ -107,7 +93,8 @@ class _SettingsPageState extends State<SettingsPage> {
                     shrinkWrap: true,
                     children: [
                       ...SettingsView.values.map((view) => ListTile(
-                            leading: PhosphorIcon(view.getIcon()),
+                            leading: PhosphorIcon(
+                                view.icon(PhosphorIconsStyle.light)),
                             title: Text(view.getLocalizedName(context)),
                             onTap: () => navigateTo(view),
                             selected: _view == view && !isMobile,
@@ -146,24 +133,15 @@ class _SettingsPageState extends State<SettingsPage> {
           if (isMobile) {
             return navigation;
           }
-          Widget content;
-          switch (_view) {
-            case SettingsView.general:
-              content = const GeneralSettingsPage(inView: true);
-              break;
-            case SettingsView.data:
-              content = const DataSettingsPage(inView: true);
-              break;
-            case SettingsView.behaviors:
-              content = const BehaviorsSettingsPage(inView: true);
-              break;
-            case SettingsView.personalization:
-              content = const PersonalizationSettingsPage(inView: true);
-              break;
-            case SettingsView.connections:
-              content = const ConnectionsSettingsPage(inView: true);
-              break;
-          }
+          final content = switch (_view) {
+            SettingsView.general => const GeneralSettingsPage(inView: true),
+            SettingsView.data => const DataSettingsPage(inView: true),
+            SettingsView.behaviors => const BehaviorsSettingsPage(inView: true),
+            SettingsView.personalization =>
+              const PersonalizationSettingsPage(inView: true),
+            SettingsView.connections =>
+              const ConnectionsSettingsPage(inView: true),
+          };
           return Row(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
             SizedBox(width: 300, child: navigation),
             Expanded(child: content),

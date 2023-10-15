@@ -120,28 +120,17 @@ extension HandTransformCornerExtension on HandTransformCorner {
     }
   }
 
-  Offset getFromRect(Rect rect) {
-    switch (this) {
-      case HandTransformCorner.topLeft:
-        return rect.topLeft;
-      case HandTransformCorner.topCenter:
-        return rect.topCenter;
-      case HandTransformCorner.topRight:
-        return rect.topRight;
-      case HandTransformCorner.centerLeft:
-        return rect.centerLeft;
-      case HandTransformCorner.centerRight:
-        return rect.centerRight;
-      case HandTransformCorner.bottomLeft:
-        return rect.bottomLeft;
-      case HandTransformCorner.bottomCenter:
-        return rect.bottomCenter;
-      case HandTransformCorner.bottomRight:
-        return rect.bottomRight;
-      case HandTransformCorner.center:
-        return rect.center;
-    }
-  }
+  Offset getFromRect(Rect rect) => switch (this) {
+        HandTransformCorner.topLeft => rect.topLeft,
+        HandTransformCorner.topCenter => rect.topCenter,
+        HandTransformCorner.topRight => rect.topRight,
+        HandTransformCorner.centerLeft => rect.centerLeft,
+        HandTransformCorner.centerRight => rect.centerRight,
+        HandTransformCorner.bottomLeft => rect.bottomLeft,
+        HandTransformCorner.bottomCenter => rect.bottomCenter,
+        HandTransformCorner.bottomRight => rect.bottomRight,
+        HandTransformCorner.center => rect.center,
+      };
 }
 
 class SelectHandler extends Handler<SelectTool> {

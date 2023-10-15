@@ -6,119 +6,66 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 extension FileSyncStatusVisualizer on FileSyncStatus? {
-  String getLocalizedName(BuildContext context) {
-    switch (this) {
-      case FileSyncStatus.localLatest:
-        return AppLocalizations.of(context).localLatest;
-      case FileSyncStatus.remoteLatest:
-        return AppLocalizations.of(context).connectionLatest;
-      case FileSyncStatus.synced:
-        return AppLocalizations.of(context).synced;
-      case FileSyncStatus.conflict:
-        return AppLocalizations.of(context).conflict;
-      case FileSyncStatus.offline:
-        return AppLocalizations.of(context).offline;
-      default:
-        return AppLocalizations.of(context).loading;
-    }
-  }
+  String getLocalizedName(BuildContext context) => switch (this) {
+        FileSyncStatus.localLatest => AppLocalizations.of(context).localLatest,
+        FileSyncStatus.remoteLatest =>
+          AppLocalizations.of(context).connectionLatest,
+        FileSyncStatus.synced => AppLocalizations.of(context).synced,
+        FileSyncStatus.conflict => AppLocalizations.of(context).conflict,
+        FileSyncStatus.offline => AppLocalizations.of(context).offline,
+        _ => AppLocalizations.of(context).loading,
+      };
 
-  PhosphorIconData getIcon() {
-    switch (this) {
-      case FileSyncStatus.localLatest:
-        return PhosphorIconsLight.upload;
-      case FileSyncStatus.remoteLatest:
-        return PhosphorIconsLight.download;
-      case FileSyncStatus.synced:
-        return PhosphorIconsLight.check;
-      case FileSyncStatus.conflict:
-        return PhosphorIconsLight.warning;
-      case FileSyncStatus.offline:
-        return PhosphorIconsLight.wifiSlash;
-      default:
-        return PhosphorIconsLight.arrowClockwise;
-    }
-  }
+  PhosphorIconData getIcon() => switch (this) {
+        FileSyncStatus.localLatest => PhosphorIconsLight.upload,
+        FileSyncStatus.remoteLatest => PhosphorIconsLight.download,
+        FileSyncStatus.synced => PhosphorIconsLight.check,
+        FileSyncStatus.conflict => PhosphorIconsLight.warning,
+        FileSyncStatus.offline => PhosphorIconsLight.wifiSlash,
+        _ => PhosphorIconsLight.arrowClockwise,
+      };
 
-  Color getColor(ColorScheme colorScheme) {
-    switch (this) {
-      case FileSyncStatus.synced:
-        return colorScheme.primary;
-      case FileSyncStatus.localLatest:
-        return colorScheme.secondary;
-      case FileSyncStatus.remoteLatest:
-        return colorScheme.tertiary;
-      case FileSyncStatus.conflict:
-        return colorScheme.error;
-      case FileSyncStatus.offline:
-        return colorScheme.onSurface;
-      default:
-        return colorScheme.onSurface;
-    }
-  }
+  Color getColor(ColorScheme colorScheme) => switch (this) {
+        FileSyncStatus.synced => colorScheme.primary,
+        FileSyncStatus.localLatest => colorScheme.secondary,
+        FileSyncStatus.remoteLatest => colorScheme.tertiary,
+        FileSyncStatus.conflict => colorScheme.error,
+        FileSyncStatus.offline => colorScheme.onSurface,
+        _ => colorScheme.onSurface,
+      };
 }
 
 extension SyncStatusVisualizer on SyncStatus? {
-  String getLocalizedName(BuildContext context) {
-    switch (this) {
-      case SyncStatus.syncing:
-        return AppLocalizations.of(context).syncing;
-      case SyncStatus.synced:
-        return AppLocalizations.of(context).synced;
-      case SyncStatus.error:
-        return AppLocalizations.of(context).error;
-      default:
-        return AppLocalizations.of(context).loading;
-    }
-  }
+  String getLocalizedName(BuildContext context) => switch (this) {
+        SyncStatus.syncing => AppLocalizations.of(context).syncing,
+        SyncStatus.synced => AppLocalizations.of(context).synced,
+        SyncStatus.error => AppLocalizations.of(context).error,
+        _ => AppLocalizations.of(context).loading,
+      };
 
-  PhosphorIconData getIcon() {
-    switch (this) {
-      case SyncStatus.syncing:
-        return PhosphorIconsLight.arrowClockwise;
-      case SyncStatus.synced:
-        return PhosphorIconsLight.check;
-      case SyncStatus.error:
-        return PhosphorIconsLight.warning;
-      default:
-        return PhosphorIconsLight.arrowClockwise;
-    }
-  }
+  PhosphorIconData getIcon() => switch (this) {
+        SyncStatus.synced => PhosphorIconsLight.check,
+        SyncStatus.error => PhosphorIconsLight.warning,
+        _ => PhosphorIconsLight.arrowClockwise,
+      };
 
-  Color getColor(ColorScheme colorScheme) {
-    switch (this) {
-      case SyncStatus.syncing:
-        return colorScheme.onSurface;
-      case SyncStatus.synced:
-        return colorScheme.primary;
-      case SyncStatus.error:
-        return colorScheme.error;
-      default:
-        return colorScheme.onSurface;
-    }
-  }
+  Color getColor(ColorScheme colorScheme) => switch (this) {
+        SyncStatus.synced => colorScheme.primary,
+        SyncStatus.error => colorScheme.error,
+        _ => colorScheme.onSurface,
+      };
 }
 
 extension SyncModeVisualizer on SyncMode {
-  String getLocalizedName(BuildContext context) {
-    switch (this) {
-      case SyncMode.always:
-        return AppLocalizations.of(context).always;
-      case SyncMode.noMobile:
-        return AppLocalizations.of(context).noMobile;
-      case SyncMode.manual:
-        return AppLocalizations.of(context).manual;
-    }
-  }
+  String getLocalizedName(BuildContext context) => switch (this) {
+        SyncMode.always => AppLocalizations.of(context).always,
+        SyncMode.noMobile => AppLocalizations.of(context).noMobile,
+        SyncMode.manual => AppLocalizations.of(context).manual,
+      };
 
-  PhosphorIconData getIcon() {
-    switch (this) {
-      case SyncMode.always:
-        return PhosphorIconsLight.wifiHigh;
-      case SyncMode.noMobile:
-        return PhosphorIconsLight.wifiSlash;
-      case SyncMode.manual:
-        return PhosphorIconsLight.arrowClockwise;
-    }
-  }
+  PhosphorIconData getIcon() => switch (this) {
+        SyncMode.always => PhosphorIconsLight.wifiHigh,
+        SyncMode.noMobile => PhosphorIconsLight.wifiSlash,
+        SyncMode.manual => PhosphorIconsLight.arrowClockwise,
+      };
 }

@@ -21,31 +21,17 @@ class SelectPackAssetDialog extends StatelessWidget {
     this.selected,
   });
 
-  List<PackAssetLocation> _getAssets(NoteData document) {
-    final packs = document
-        .getPacks()
-        .map((e) => document.getPack(e))
-        .whereNotNull()
-        .toList();
-    switch (type) {
-      case PackAssetType.component:
-        return packs
-            .expand((pack) => pack
-                .getComponents()
-                .map((e) => PackAssetLocation(pack.name!, e)))
-            .toList();
-      case PackAssetType.style:
-        return packs
-            .expand((pack) =>
-                pack.getStyles().map((e) => PackAssetLocation(pack.name!, e)))
-            .toList();
-      case PackAssetType.palette:
-        return packs
-            .expand((pack) =>
-                pack.getPalettes().map((e) => PackAssetLocation(pack.name!, e)))
-            .toList();
-    }
-  }
+  List<PackAssetLocation> _getAssets(NoteData document) => document
+      .getPacks()
+      .map((e) => document.getPack(e))
+      .whereNotNull()
+      .expand((pack) => switch (type) {
+            PackAssetType.component => pack.getComponents(),
+            PackAssetType.style => pack.getStyles(),
+            PackAssetType.palette => pack.getPalettes(),
+          }
+              .map((e) => PackAssetLocation(pack.name!, e)))
+      .toList();
 
   NoteData _createAsset(NoteData pack, String name) => switch (type) {
         PackAssetType.component =>

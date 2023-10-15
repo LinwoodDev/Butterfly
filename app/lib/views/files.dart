@@ -80,16 +80,11 @@ class _FilesViewState extends State<FilesView> {
     }
   }
 
-  String getLocalizedNameOfSortBy(SortBy sortBy) {
-    switch (sortBy) {
-      case SortBy.name:
-        return AppLocalizations.of(context).name;
-      case SortBy.created:
-        return AppLocalizations.of(context).created;
-      case SortBy.modified:
-        return AppLocalizations.of(context).modified;
-    }
-  }
+  String getLocalizedNameOfSortBy(SortBy sortBy) => switch (sortBy) {
+        SortBy.name => AppLocalizations.of(context).name,
+        SortBy.created => AppLocalizations.of(context).created,
+        SortBy.modified => AppLocalizations.of(context).modified,
+      };
 
   void _setFilesFuture() {
     _fileSystem = DocumentFileSystem.fromPlatform(remote: _remote);

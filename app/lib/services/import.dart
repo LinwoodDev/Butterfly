@@ -85,23 +85,16 @@ class ImportService {
   }
 
   Future<NoteData?> import(
-      AssetFileType type, Uint8List bytes, NoteData document,
-      {Offset? position}) async {
-    switch (type) {
-      case AssetFileType.note:
-        return importBfly(bytes, document, position);
-      case AssetFileType.image:
-        return importImage(bytes, document, position);
-      case AssetFileType.svg:
-        return importSvg(bytes, document, position);
-      case AssetFileType.markdown:
-        return importMarkdown(bytes, document, position);
-      case AssetFileType.pdf:
-        return importPdf(bytes, document, position, true);
-      case AssetFileType.page:
-        return importPage(bytes, document, position);
-    }
-  }
+          AssetFileType type, Uint8List bytes, NoteData document,
+          {Offset? position}) async =>
+      switch (type) {
+        AssetFileType.note => importBfly(bytes, document, position),
+        AssetFileType.image => importImage(bytes, document, position),
+        AssetFileType.svg => importSvg(bytes, document, position),
+        AssetFileType.markdown => importMarkdown(bytes, document, position),
+        AssetFileType.pdf => importPdf(bytes, document, position, true),
+        AssetFileType.page => importPage(bytes, document, position),
+      };
 
   FutureOr<NoteData?> importBfly(Uint8List bytes,
       [NoteData? document, Offset? position]) async {

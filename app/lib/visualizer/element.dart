@@ -73,32 +73,21 @@ extension ElementConstraintsVisualizer on ElementConstraints? {
 }
 
 extension LabelModeVisualizer on LabelMode {
-  String getLocalizedName(BuildContext context) {
-    switch (this) {
-      case LabelMode.markdown:
-        return AppLocalizations.of(context).markdown;
-      case LabelMode.text:
-        return AppLocalizations.of(context).text;
-    }
-  }
+  String getLocalizedName(BuildContext context) => switch (this) {
+        LabelMode.markdown => AppLocalizations.of(context).markdown,
+        LabelMode.text => AppLocalizations.of(context).text,
+      };
 
-  IconGetter get icon {
-    switch (this) {
-      case LabelMode.markdown:
-        return PhosphorIcons.textbox;
-      case LabelMode.text:
-        return PhosphorIcons.textT;
-    }
-  }
+  IconGetter get icon => switch (this) {
+        LabelMode.markdown => PhosphorIcons.textbox,
+        LabelMode.text => PhosphorIcons.textT,
+      };
 }
 
 extension SurfaceTextureVisualizer on SurfaceTexture {
-  String getLocalizedName(BuildContext context) {
-    final loc = AppLocalizations.of(context);
-    return switch (this) {
-      PatternTexture() => loc.pattern,
-    };
-  }
+  String getLocalizedName(BuildContext context) => switch (this) {
+        PatternTexture() => AppLocalizations.of(context).pattern,
+      };
 
   IconGetter get icon => switch (this) {
         PatternTexture() => PhosphorIcons.gridFour,

@@ -53,17 +53,11 @@ class _FileSystemAssetMoveDialogState extends State<FileSystemAssetMoveDialog> {
 
   @override
   Widget build(BuildContext context) {
-    String title;
-    switch (widget.moveMode) {
-      case MoveMode.duplicate:
-        title = AppLocalizations.of(context).duplicate;
-        break;
-      case MoveMode.move:
-        title = AppLocalizations.of(context).move;
-        break;
-      default:
-        title = AppLocalizations.of(context).changeDocumentPath;
-    }
+    String title = switch (widget.moveMode) {
+      MoveMode.duplicate => AppLocalizations.of(context).duplicate,
+      MoveMode.move => AppLocalizations.of(context).move,
+      _ => AppLocalizations.of(context).changeDocumentPath,
+    };
     return AlertDialog(
         actions: [
           TextButton(

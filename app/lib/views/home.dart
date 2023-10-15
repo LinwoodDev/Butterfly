@@ -17,28 +17,21 @@ import '../api/open_release_notes.dart';
 import '../main.dart';
 import 'files.dart';
 
-PhosphorIconData _getIconOfBannerVisibility(BannerVisibility visibility) {
-  switch (visibility) {
-    case BannerVisibility.always:
-      return PhosphorIconsLight.caretDown;
-    case BannerVisibility.never:
-      return PhosphorIconsLight.caretUp;
-    case BannerVisibility.onlyOnUpdates:
-      return PhosphorIconsLight.caretRight;
-  }
-}
+PhosphorIconData _getIconOfBannerVisibility(BannerVisibility visibility) =>
+    switch (visibility) {
+      BannerVisibility.always => PhosphorIconsLight.caretDown,
+      BannerVisibility.never => PhosphorIconsLight.caretUp,
+      BannerVisibility.onlyOnUpdates => PhosphorIconsLight.caretRight,
+    };
 
 String _getLocalizedNameOfBannerVisibility(
-    BuildContext context, BannerVisibility visibility) {
-  switch (visibility) {
-    case BannerVisibility.always:
-      return AppLocalizations.of(context).always;
-    case BannerVisibility.never:
-      return AppLocalizations.of(context).never;
-    case BannerVisibility.onlyOnUpdates:
-      return AppLocalizations.of(context).onlyOnUpdates;
-  }
-}
+        BuildContext context, BannerVisibility visibility) =>
+    switch (visibility) {
+      BannerVisibility.always => AppLocalizations.of(context).always,
+      BannerVisibility.never => AppLocalizations.of(context).never,
+      BannerVisibility.onlyOnUpdates =>
+        AppLocalizations.of(context).onlyOnUpdates,
+    };
 
 Widget _getBannerVisibilityWidget(
     BuildContext context, ButterflySettings settings) {

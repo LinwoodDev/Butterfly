@@ -14,18 +14,11 @@ class PersonalizationSettingsPage extends StatelessWidget {
   final bool inView;
   const PersonalizationSettingsPage({super.key, this.inView = false});
 
-  String _getThemeName(BuildContext context, ThemeMode mode) {
-    switch (mode) {
-      case ThemeMode.system:
-        return AppLocalizations.of(context).systemTheme;
-      case ThemeMode.light:
-        return AppLocalizations.of(context).lightTheme;
-      case ThemeMode.dark:
-        return AppLocalizations.of(context).darkTheme;
-      default:
-        return AppLocalizations.of(context).systemTheme;
-    }
-  }
+  String _getThemeName(BuildContext context, ThemeMode mode) => switch (mode) {
+        ThemeMode.system => AppLocalizations.of(context).systemTheme,
+        ThemeMode.light => AppLocalizations.of(context).lightTheme,
+        ThemeMode.dark => AppLocalizations.of(context).darkTheme,
+      };
 
   String _getPlatformThemeName(BuildContext context, PlatformTheme theme) =>
       switch (theme) {

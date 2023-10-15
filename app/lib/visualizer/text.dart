@@ -1,37 +1,25 @@
 import 'package:butterfly_api/butterfly_text.dart' as text;
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:material_leap/material_leap.dart';
 
 extension HorizontalTextAlignmentFlutterConverter on text.HorizontalAlignment {
-  TextAlign toFlutter() {
-    switch (this) {
-      case text.HorizontalAlignment.left:
-        return TextAlign.left;
-      case text.HorizontalAlignment.right:
-        return TextAlign.right;
-      case text.HorizontalAlignment.center:
-        return TextAlign.center;
-      case text.HorizontalAlignment.justify:
-        return TextAlign.justify;
-    }
-  }
+  TextAlign toFlutter() => switch (this) {
+        text.HorizontalAlignment.left => TextAlign.left,
+        text.HorizontalAlignment.right => TextAlign.right,
+        text.HorizontalAlignment.center => TextAlign.center,
+        text.HorizontalAlignment.justify => TextAlign.justify,
+      };
 }
 
 extension TextDecorationStyleFlutterConverter on text.TextDecorationStyle {
-  TextDecorationStyle toFlutter() {
-    switch (this) {
-      case text.TextDecorationStyle.solid:
-        return TextDecorationStyle.solid;
-      case text.TextDecorationStyle.double:
-        return TextDecorationStyle.double;
-      case text.TextDecorationStyle.dotted:
-        return TextDecorationStyle.dotted;
-      case text.TextDecorationStyle.dashed:
-        return TextDecorationStyle.dashed;
-      case text.TextDecorationStyle.wavy:
-        return TextDecorationStyle.wavy;
-    }
-  }
+  TextDecorationStyle toFlutter() => switch (this) {
+        text.TextDecorationStyle.solid => TextDecorationStyle.solid,
+        text.TextDecorationStyle.double => TextDecorationStyle.double,
+        text.TextDecorationStyle.dotted => TextDecorationStyle.dotted,
+        text.TextDecorationStyle.dashed => TextDecorationStyle.dashed,
+        text.TextDecorationStyle.wavy => TextDecorationStyle.wavy,
+      };
 
   String toCss() => name;
 }
@@ -93,4 +81,14 @@ extension StyleSheetVisualizer on text.TextStyleSheet {
         ...spanProperties.entries
             .map((e) => '$spanPrefix${e.key}{\n${e.value.toCss()}}')
       ].join('\n');
+}
+
+extension TextDecorationStyleVisualizer on text.TextDecorationStyle {
+  String getLocalizedName(BuildContext context) => switch (this) {
+        text.TextDecorationStyle.solid => AppLocalizations.of(context).solid,
+        text.TextDecorationStyle.double => AppLocalizations.of(context).double,
+        text.TextDecorationStyle.dotted => AppLocalizations.of(context).dotted,
+        text.TextDecorationStyle.dashed => AppLocalizations.of(context).dashed,
+        text.TextDecorationStyle.wavy => AppLocalizations.of(context).wavy,
+      };
 }
