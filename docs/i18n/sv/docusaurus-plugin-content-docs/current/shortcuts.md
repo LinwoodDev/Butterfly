@@ -13,11 +13,11 @@ Det finns några genvägar som du kan använda i editorn. Några av dem är skri
 * `Ctrl` + `N`: Ny fil
 * `Ctrl` + `Shift` + `N`: Ny fil från mall
 * `Ctrl` + `E`: Exportera fil
-* `Ctrl` + `P`: Print file
+* `Ctrl` + `P`: Skriv ut fil
 * `Ctrl` + `Shift` + `E`: Exportera filen som bild
 * `Ctrl` + `Alt` + `E`: Exportera filen som svg
-* `Ctrl` + `Alt` + `Shift` + `E`: Export file as svg
-* `Ctrl` + `Alt` + `P`: Open packs
+* `Ctrl` + `Alt` + `Shift` + `E`: Exportera filen som svg
+* `Ctrl` + `Alt` + `P`: Öppna paket
 * `Ctrl` + `Alt` + `S`: Öppna inställningar
 
 ### Projekt
