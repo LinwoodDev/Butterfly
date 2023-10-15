@@ -4,12 +4,12 @@ sidebar_position: 3
 ---
 
 ```mdx-code-block
-import DownloadButton from '@site/src/components/DownloadButton.tsx';
+import DownloadButton fra '@site/src/components/DownloadButton.tsx'
 ```
 
 ![Stabil version](https://img.shields.io/badge/dynamic/yaml?color=c4840d&label=Stable&query=%24.version&url=https%3A%2F%2Fraw.githubusercontent.com%2FLinwoodDev%2Fbutterfly%2Fstable%2Fapp%2Fpubspec.yaml&style=for-the-badge) ![Nightly release version](https://img.shields.io/badge/dynamic/yaml?color=f7d28c&label=Nightly&query=%24.version&url=https%3A%2F%2Fraw.githubusercontent.com%2FLinwoodDev%2Fbutterfly%2Fnightly%2Fapp%2Fpubspec.yaml&style=for-the-badge)
 
-:::note
+::note
 
 Brug venligst flatpak versionen hvis det er muligt. Ellers skal du installere `libsecret-1-dev` og `libjsoncpp-dev`.
 
@@ -39,7 +39,7 @@ Brug venligst flatpak versionen hvis det er muligt. Ellers skal du installere `l
   </ul>
 </div>
 <div className="dropdown dropdown--hoverable margin--sm">
-  <button className="button button--outline button--danger button--lg">Nightly</button>
+  <button className="button button--outline button--danger button--lg">Natligt</button>
   <ul className="dropdown__menu">
     <li>
       <DownloadButton className="dropdown__link" href="https://github.com/LinwoodDev/butterfly/releases/download/nightly/linwood-butterfly-linux.tar.gz">
@@ -78,4 +78,4 @@ Læs mere om natteversionen af Butterfly [her](/nightly).
 </a>
 </div>
 
-The nightly version is also available on the flathub beta repository. Read more about the flathub beta repository [here](https://discourse.flathub.org/t/how-to-use-flathub-beta/2111).
+Den natlige version er også tilgængelig på flathub beta repository. Læs mere om flathub beta repository [her](https://discourse.flathub.org/t/how-to-use-flathub-beta/2111).
