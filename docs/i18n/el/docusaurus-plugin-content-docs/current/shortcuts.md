@@ -13,11 +13,11 @@ sidebar_position: 2
 * `Ctrl` + `N`: Νέο αρχείο
 * `Ctrl` + `Shift` + `N`: Νέο αρχείο από πρότυπο
 * `Ctrl` + `E`: Εξαγωγή αρχείου
-* `Ctrl` + `P`: Print file
+* `Ctrl` + `P`: Εκτύπωση αρχείου
 * `Ctrl` + `Shift` + `E`: Εξαγωγή αρχείου ως εικόνα
 * `Ctrl` + `Alt` + `E`: Εξαγωγή αρχείου ως svg
-* `Ctrl` + `Alt` + `Shift` + `E`: Export file as svg
-* `Ctrl` + `Alt` + `P`: Open packs
+* `Ctrl` + `Alt` + `Shift` + `E`: Εξαγωγή αρχείου ως svg
+* `Ctrl` + `Alt` + `P`: Ανοιχτά πακέτα
 * `Ctrl` + `Alt` + `S`: Άνοιγμα ρυθμίσεων
 
 ### Έργο
