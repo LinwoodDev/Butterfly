@@ -13,11 +13,11 @@ Er zijn een paar snelkoppelingen die je in de editor kunt gebruiken. Sommige erv
 * `Ctrl` + `N`: Nieuw bestand
 * `Ctrl` + `Shift` + `N`: Nieuw bestand van sjabloon
 * `Ctrl` + `E`: Bestand exporteren
-* `Ctrl` + `P`: Print file
+* `Ctrl` + `P`: Print bestand
 * `Ctrl` + `Shift` + `E`: Bestand als afbeelding exporteren
 * `Ctrl` + `Alt` + `E`: Bestand als svg exporteren
-* `Ctrl` + `Alt` + `Shift` + `E`: Export file as svg
-* `Ctrl` + `Alt` + `P`: Open packs
+* `Ctrl` + `Alt` + `Shift` + `E`: Exporteer bestand als svg
+* `Ctrl` + `Alt` + `P`: Open pakketten
 * `Ctrl` + `Alt` + `S`: Instellingen openen
 
 ### Project
