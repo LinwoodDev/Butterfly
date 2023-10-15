@@ -13,11 +13,11 @@ Existuje několik zkratek, které můžete použít v editoru. Některé z nich 
 * `Ctrl` + `N`: Nový soubor
 * `Ctrl` + `Shift` + `N`: Nový soubor ze šablony
 * `Ctrl` + `E`: Exportovat soubor
-* `Ctrl` + `P`: Print file
+* `Ctrl` + `P`: Tisk souboru
 * `Ctrl` + `Shift` + `E`: Exportovat soubor jako obrázek
 * `Ctrl` + `Alt` + `E`: Exportovat soubor jako svg
-* `Ctrl` + `Alt` + `Shift` + `E`: Export file as svg
-* `Ctrl` + `Alt` + `P`: Open packs
+* `Ctrl` + `Alt` + `Shift` + `E`: Exportovat soubor jako svg
+* `Ctrl` + `Alt` + `P`: Otevřené balíčky
 * `Ctrl` + `Alt` + `S`: Otevřít nastavení
 
 ### Projekt
