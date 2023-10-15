@@ -4,10 +4,10 @@ sidebar_position: 3
 ---
 
 ```mdx-code-block
-import DownloadButton from '@site/src/components/DownloadButton.tsx';
+importuj przycisk DownloadButton z '@site/src/components/DownloadButton.tsx';
 ```
 
-![Stabilna wersja wydania](https://img.shields.io/badge/dynamic/yaml?color=c4840d&label=Stable&query=%24.version&url=https%3A%2F%2Fraw.githubusercontent.com%2FLinwoodDev%2Fbutterfly%2Fstable%2Fapp%2Fpubspec.yaml&style=for-the-badge) ![Nightly release version](https://img.shields.io/badge/dynamic/yaml?color=f7d28c&label=Nightly&query=%24.version&url=https%3A%2F%2Fraw.githubusercontent.com%2FLinwoodDev%2Fbutterfly%2Fnightly%2Fapp%2Fpubspec.yaml&style=for-the-badge)
+![Stabilna wersja wydania](https://img.shields.io/badge/dynamic/yaml?color=c4840d&label=Stable&query=%24.version&url=https%3A%2F%2Fraw.githubusercontent.com%2FLinwoodDev%2Fbutterfly%2Fstable%2Fapp%2Fpubspec.yaml&style=for-the-badge) ![Wersja Nightly](https://img.shields.io/badge/dynamic/yaml?color=f7d28c&label=Nightly&query=%24.version&url=https%3A%2F%2Fraw.githubusercontent.com%2FLinwoodDev%2Fbutterfly%2Fnightly%2Fapp%2Fpubspec.yaml&style=for-the-badge)
 
 :::note
 
@@ -28,7 +28,7 @@ Użyj wersji flatpak, jeśli to możliwe. W przeciwnym razie musisz zainstalowa�
     </li>
     <li>
       <DownloadButton className="dropdown__link" href="https://github.com/LinwoodDev/butterfly/releases/download/stable/linwood-butterfly-linux.deb">
-        DEB
+        PT
       </DownloadButton>
     </li>
     <li>
@@ -39,7 +39,7 @@ Użyj wersji flatpak, jeśli to możliwe. W przeciwnym razie musisz zainstalowa�
   </ul>
 </div>
 <div className="dropdown dropdown--hoverable margin--sm">
-  <button className="button button--outline button--danger button--lg">Nightly</button>
+  <button className="button button--outline button--danger button--lg">Nocny</button>
   <ul className="dropdown__menu">
     <li>
       <DownloadButton className="dropdown__link" href="https://github.com/LinwoodDev/butterfly/releases/download/nightly/linwood-butterfly-linux.tar.gz">
@@ -48,7 +48,7 @@ Użyj wersji flatpak, jeśli to możliwe. W przeciwnym razie musisz zainstalowa�
     </li>
     <li>
       <DownloadButton className="dropdown__link" href="https://github.com/LinwoodDev/butterfly/releases/download/nightly/linwood-butterfly-linux.deb">
-        DEB
+        PT
       </DownloadButton>
     </li>
     <li>
@@ -81,4 +81,4 @@ Dowiedz się więcej o nocnej wersji Motylka [tutaj](/nightly).
 </a>
 </div>
 
-The nightly version is also available on the flathub beta repository. Read more about the flathub beta repository [here](https://discourse.flathub.org/t/how-to-use-flathub-beta/2111).
+Wersja nocna jest również dostępna w repozytorium flathub beta. Dowiedz się więcej o repozytorium beta flathub [tutaj](https://discourse.flathub.org/t/how-to-use-flathub-beta/2111).
