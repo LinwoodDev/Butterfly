@@ -1734,7 +1734,7 @@ packages:
       webpack: 5.89.0(@swc/core@1.3.93)
       webpack-bundle-analyzer: 4.9.1
       webpack-dev-server: 4.15.1(webpack@5.89.0)
-      webpack-merge: 5.9.0
+      webpack-merge: 5.10.0
       webpackbar: 5.0.2(webpack@5.89.0)
     transitivePeerDependencies:
       - '@docusaurus/types'
@@ -2139,7 +2139,7 @@ packages:
       terser-webpack-plugin: 5.3.9(@swc/core@1.3.93)(webpack@5.89.0)
       tslib: 2.6.2
       webpack: 5.89.0(@swc/core@1.3.93)
-      webpack-merge: 5.9.0
+      webpack-merge: 5.10.0
       workbox-build: 6.6.0
       workbox-precaching: 6.6.0
       workbox-window: 6.6.0
@@ -2417,7 +2417,7 @@ packages:
       react-helmet-async: 1.3.0(react-dom@18.2.0)(react@18.2.0)
       utility-types: 3.10.0
       webpack: 5.89.0(@swc/core@1.3.93)
-      webpack-merge: 5.9.0
+      webpack-merge: 5.10.0
     transitivePeerDependencies:
       - '@swc/core'
       - esbuild
@@ -5097,6 +5097,10 @@ packages:
       path-exists: 4.0.0
     dev: false
 
+  /flat@5.0.2:
+    resolution: {integrity: sha512-b6suED+5/3rTpUBdG1gupIl8MPFCAMA0QXwmljLhvCUKcUvdE4gWky9zpuGCcXHOsz4J9wPGNWq6OKpmIzz3hQ==}
+    hasBin: true
+
   /flux@4.0.4(react@18.2.0):
     resolution: {integrity: sha512-NCj3XlayA2UsapRpM7va6wU1+9rE5FIL7qoMcmxWHRzbp0yujihMBm9BBHZ1MDIk5h5o2Bl6eGiCe8rYELAmYw==}
     peerDependencies:
@@ -5566,7 +5570,7 @@ packages:
       he: 1.2.0
       param-case: 3.0.4
       relateurl: 0.2.7
-      terser: 5.21.0
+      terser: 5.22.0
     dev: false
 
   /html-tags@3.3.1:
@@ -7987,7 +7991,7 @@ packages:
       jest-worker: 26.6.2
       rollup: 2.79.1
       serialize-javascript: 4.0.0
-      terser: 5.21.0
+      terser: 5.22.0
     dev: false
 
   /rollup@2.79.1:
@@ -8657,11 +8661,11 @@ packages:
       jest-worker: 27.5.1
       schema-utils: 3.3.0
       serialize-javascript: 6.0.1
-      terser: 5.21.0
+      terser: 5.22.0
       webpack: 5.89.0(@swc/core@1.3.93)
 
-  /terser@5.21.0:
-    resolution: {integrity: sha512-WtnFKrxu9kaoXuiZFSGrcAvvBqAdmKx0SFNmVNYdJamMu9yyN3I/QF0FbH4QcqJQ+y1CJnzxGIKH0cSj+FGYRw==}
+  /terser@5.22.0:
+    resolution: {integrity: sha512-hHZVLgRA2z4NWcN6aS5rQDc+7Dcy58HOf2zbYwmFcQ+ua3h6eEFf5lIDKTzbWwlazPyOZsFQO8V80/IjVNExEw==}
     engines: {node: '>=10'}
     hasBin: true
     dependencies:
@@ -9243,11 +9247,12 @@ packages:
       - utf-8-validate
     dev: false
 
-  /webpack-merge@5.9.0:
-    resolution: {integrity: sha512-6NbRQw4+Sy50vYNTw7EyOn41OZItPiXB8GNv3INSoe3PSFaHJEz3SHTrYVaRm2LilNGnFUzh0FAwqPEmU/CwDg==}
+  /webpack-merge@5.10.0:
+    resolution: {integrity: sha512-+4zXKdx7UnO+1jaN4l2lHVD+mFvnlZQP/6ljaJVb4SZiwIKeUnrT5l0gkT8z+n4hKpC+jpOv6O9R+gLtag7pSA==}
     engines: {node: '>=10.0.0'}
     dependencies:
       clone-deep: 4.0.1
+      flat: 5.0.2
       wildcard: 2.0.1
 
   /webpack-sources@3.2.3:

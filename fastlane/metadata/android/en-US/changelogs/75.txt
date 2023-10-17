@@ -1,4 +1,5 @@
 * Add print as export option
+* Improve performance of file fetching
 * Fix leading icon on exact slider on larger screens
 * Remove add connection button on web
 

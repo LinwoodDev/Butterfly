@@ -59,7 +59,7 @@ class _FilesViewState extends State<FilesView> {
   RemoteStorage? _remote;
   String _search = '';
   late final SettingsCubit _settingsCubit;
-  Future<AppDocumentEntity?>? _filesFuture;
+  Stream<AppDocumentEntity?>? _filesStream;
 
   @override
   void initState() {
@@ -68,7 +68,7 @@ class _FilesViewState extends State<FilesView> {
     _sortBy = _settingsCubit.state.sortBy;
     _sortOrder = _settingsCubit.state.sortOrder;
     _remote = widget.remote ?? _settingsCubit.getRemote();
-    _setFilesFuture();
+    _setFilesStream();
   }
 
   @override
@@ -76,7 +76,7 @@ class _FilesViewState extends State<FilesView> {
     super.didUpdateWidget(oldWidget);
     if (oldWidget.remote != widget.remote) {
       _remote = widget.remote;
-      _setFilesFuture();
+      _setFilesStream();
     }
   }
 
@@ -86,18 +86,18 @@ class _FilesViewState extends State<FilesView> {
         SortBy.modified => AppLocalizations.of(context).modified,
       };
 
-  void _setFilesFuture() {
+  void _setFilesStream() {
     _fileSystem = DocumentFileSystem.fromPlatform(remote: _remote);
-    _filesFuture = _fileSystem.getAsset(_locationController.text);
+    _filesStream = _fileSystem.fetchAsset(_locationController.text);
   }
 
   void _reloadFileSystem() {
-    setState(_setFilesFuture);
+    setState(_setFilesStream);
   }
 
   void _setRemote(RemoteStorage? remote) {
     _remote = remote;
-    _setFilesFuture();
+    _setFilesStream();
     widget.onRemoteChanged?.call(remote);
   }
 
@@ -350,7 +350,7 @@ class _FilesViewState extends State<FilesView> {
                     ? null
                     : () => setState(() {
                           _locationController.text = parent;
-                          _setFilesFuture();
+                          _setFilesStream();
                         }),
                 icon: const PhosphorIcon(PhosphorIconsLight.arrowUp),
                 tooltip: AppLocalizations.of(context).goUp,
@@ -400,8 +400,8 @@ class _FilesViewState extends State<FilesView> {
       const SizedBox(height: 16),
       BlocBuilder<SettingsCubit, ButterflySettings>(
         buildWhen: (previous, current) => previous.starred != current.starred,
-        builder: (context, settings) => FutureBuilder<AppDocumentEntity?>(
-            future: _filesFuture,
+        builder: (context, settings) => StreamBuilder<AppDocumentEntity?>(
+            stream: _filesStream,
             builder: (context, snapshot) {
               if (snapshot.hasError) {
                 return Text(snapshot.error.toString());
@@ -472,7 +472,7 @@ class _FilesViewState extends State<FilesView> {
     if (entity is! AppDocumentFile) {
       setState(() {
         _locationController.text = entity.pathWithoutLeadingSlash;
-        _setFilesFuture();
+        _setFilesStream();
       });
       return;
     }

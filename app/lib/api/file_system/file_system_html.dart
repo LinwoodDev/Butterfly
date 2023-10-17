@@ -124,7 +124,7 @@ class WebDocumentFileSystem extends DocumentFileSystem {
   }
 
   @override
-  Future<AppDocumentEntity?> getAsset(String path) async {
+  Stream<AppDocumentEntity?> fetchAsset(String path) async* {
     // Add leading slash
     if (!path.startsWith('/')) {
       path = '/$path';
@@ -148,15 +148,20 @@ class WebDocumentFileSystem extends DocumentFileSystem {
     }
     if (data == null) {
       await txn.completed;
-      return null;
+      yield null;
+      return;
     }
     var map = Map<String, dynamic>.from(data as Map);
     if (map['type'] == 'file') {
       final data = await getData(path);
-      if (data == null) return null;
+      if (data == null) {
+        yield null;
+        return;
+      }
       final file = getAppDocumentFile(AssetLocation.local(path), data);
       await txn.completed;
-      return file;
+      yield await file;
+      return;
     } else if (map['type'] == 'directory') {
       var cursor = store.openCursor(autoAdvance: true);
       var assets = await Future.wait(
@@ -190,9 +195,10 @@ class WebDocumentFileSystem extends DocumentFileSystem {
               ? ''
               : (b as AppDocumentFile).fileName));
       await txn.completed;
-      return AppDocumentDirectory(AssetLocation.local(path), assets.toList());
+      yield AppDocumentDirectory(AssetLocation.local(path), assets.toList());
+      return;
     }
-    return null;
+    yield null;
   }
 
   @override

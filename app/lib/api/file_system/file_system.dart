@@ -88,7 +88,7 @@ Future<AppDocumentFile> getAppDocumentFile(
       readMetadata ? await compute(_getFileDisplay, data) : (null, null);
   return AppDocumentFile(
     location,
-    data,
+    data: data,
     metadata: metadata,
     thumbnail: thumbnail,
     cached: cached,
@@ -103,7 +103,9 @@ abstract class DocumentFileSystem extends GeneralFileSystem {
   @override
   FutureOr<String> getDirectory();
 
-  Future<AppDocumentEntity?> getAsset(String path);
+  Stream<AppDocumentEntity?> fetchAsset(String path);
+
+  Future<AppDocumentEntity?> getAsset(String path) => fetchAsset(path).last;
 
   Future<AppDocumentDirectory> createDirectory(String path);
 

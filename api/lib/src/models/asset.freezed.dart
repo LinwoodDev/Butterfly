@@ -333,7 +333,7 @@ class __$$AppDocumentFileImplCopyWithImpl<$Res>
           ? _value.location
           : location // ignore: cast_nullable_to_non_nullable
               as AssetLocation,
-      null == data
+      data: null == data
           ? _value._data
           : data // ignore: cast_nullable_to_non_nullable
               as List<int>,
@@ -368,8 +368,11 @@ class __$$AppDocumentFileImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$AppDocumentFileImpl extends AppDocumentFile {
-  const _$AppDocumentFileImpl(this.location, final List<int> data,
-      {this.cached = false, this.metadata, this.thumbnail})
+  const _$AppDocumentFileImpl(this.location,
+      {final List<int> data = const [],
+      this.cached = false,
+      this.metadata,
+      this.thumbnail})
       : _data = data,
         super._();
 
@@ -377,6 +380,7 @@ class _$AppDocumentFileImpl extends AppDocumentFile {
   final AssetLocation location;
   final List<int> _data;
   @override
+  @JsonKey()
   List<int> get data {
     if (_data is EqualUnmodifiableListView) return _data;
     // ignore: implicit_dynamic_type
@@ -500,9 +504,9 @@ class _$AppDocumentFileImpl extends AppDocumentFile {
 }
 
 abstract class AppDocumentFile extends AppDocumentEntity {
-  const factory AppDocumentFile(
-      final AssetLocation location, final List<int> data,
-      {final bool cached,
+  const factory AppDocumentFile(final AssetLocation location,
+      {final List<int> data,
+      final bool cached,
       final FileMetadata? metadata,
       final Uint8List? thumbnail}) = _$AppDocumentFileImpl;
   const AppDocumentFile._() : super._();
@@ -563,8 +567,8 @@ class __$$AppDocumentDirectoryImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$AppDocumentDirectoryImpl extends AppDocumentDirectory {
-  const _$AppDocumentDirectoryImpl(
-      this.location, final List<AppDocumentEntity> assets)
+  const _$AppDocumentDirectoryImpl(this.location,
+      [final List<AppDocumentEntity> assets = const []])
       : _assets = assets,
         super._();
 
@@ -572,6 +576,7 @@ class _$AppDocumentDirectoryImpl extends AppDocumentDirectory {
   final AssetLocation location;
   final List<AppDocumentEntity> _assets;
   @override
+  @JsonKey()
   List<AppDocumentEntity> get assets {
     if (_assets is EqualUnmodifiableListView) return _assets;
     // ignore: implicit_dynamic_type
@@ -679,9 +684,8 @@ class _$AppDocumentDirectoryImpl extends AppDocumentDirectory {
 }
 
 abstract class AppDocumentDirectory extends AppDocumentEntity {
-  const factory AppDocumentDirectory(
-          final AssetLocation location, final List<AppDocumentEntity> assets) =
-      _$AppDocumentDirectoryImpl;
+  const factory AppDocumentDirectory(final AssetLocation location,
+      [final List<AppDocumentEntity> assets]) = _$AppDocumentDirectoryImpl;
   const AppDocumentDirectory._() : super._();
 
   @override

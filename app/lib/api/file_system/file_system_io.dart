@@ -6,6 +6,7 @@ import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:rxdart/rxdart.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'file_system.dart';
@@ -48,8 +49,8 @@ class IODocumentFileSystem extends DocumentFileSystem {
   }
 
   @override
-  Future<AppDocumentEntity?> getAsset(String path,
-      [bool? readMetadata = true]) async {
+  Stream<AppDocumentEntity?> fetchAsset(String path,
+      [bool goFurther = true]) async* {
     // Add leading slash
     if (!path.startsWith('/')) {
       path = '/$path';
@@ -61,44 +62,41 @@ class IODocumentFileSystem extends DocumentFileSystem {
     var directory = Directory(absolutePath);
     if (await file.exists()) {
       var data = await file.readAsBytes();
+      yield AppDocumentFile(AssetLocation.local(path), data: data);
       try {
-        return getAppDocumentFile(AssetLocation.local(path), data,
-            readMetadata: readMetadata ?? true);
+        yield await getAppDocumentFile(
+          AssetLocation.local(path),
+          data,
+        );
       } catch (e) {
-        return null;
+        yield null;
       }
     } else if (await directory.exists()) {
-      final files = await directory.list().toList();
-      final assets = <AppDocumentEntity>[];
-      final nextReadMetadata =
-          readMetadata == null || !readMetadata ? false : null;
-      await Future.wait(files.map((e) async {
-        try {
-          var currentPath =
+      yield AppDocumentDirectory(AssetLocation.local(path), []);
+      if (goFurther) {
+        final files = <AppDocumentEntity>[];
+        final streams = directory.list().asyncExpand((e) async* {
+          final currentPath =
               '$path/${e.path.replaceAll('\\', '/').split('/').last}';
-          if (currentPath.startsWith('//')) {
-            currentPath = currentPath.substring(1);
+          int? index;
+          await for (final file
+              in fetchAsset(currentPath, false).whereNotNull()) {
+            if (index == null) {
+              index = files.length;
+              files.add(file);
+            } else {
+              files[index] = file;
+            }
+            yield AppDocumentDirectory(AssetLocation.local(path), files);
           }
-          var asset = await getAsset(currentPath, nextReadMetadata);
-          if (asset != null) {
-            assets.add(asset);
-          }
-        } catch (e) {
-          if (kDebugMode) {
-            print(e);
-          }
+        });
+        await for (final stream in streams) {
+          yield stream;
         }
-      }));
-      // Sort assets, AppDocumentDirectory should be first, AppDocumentFile should be sorted by name
-      assets.sort((a, b) => a is AppDocumentDirectory
-          ? -1
-          : (a as AppDocumentFile).fileName.compareTo(b is AppDocumentDirectory
-              ? ''
-              : (b as AppDocumentFile).fileName));
-
-      return AppDocumentDirectory(AssetLocation.local(path), assets);
+      }
+    } else {
+      yield null;
     }
-    return null;
   }
 
   @override
