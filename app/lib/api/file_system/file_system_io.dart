@@ -87,11 +87,11 @@ class IODocumentFileSystem extends DocumentFileSystem {
             } else {
               files[index] = file;
             }
-            yield AppDocumentDirectory(AssetLocation.local(path), files);
+            yield null;
           }
         });
-        await for (final stream in streams) {
-          yield stream;
+        await for (final _ in streams) {
+          yield AppDocumentDirectory(AssetLocation.local(path), files);
         }
       }
     } else {

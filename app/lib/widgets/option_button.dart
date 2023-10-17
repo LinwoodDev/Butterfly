@@ -24,14 +24,35 @@ class OptionButton extends StatefulWidget {
   State<OptionButton> createState() => _OptionButtonState();
 }
 
-class _OptionButtonState extends State<OptionButton> {
+class _OptionButtonState extends State<OptionButton>
+    with TickerProviderStateMixin {
   final GlobalKey<TooltipState> _tooltipKey = GlobalKey();
+  late final AnimationController _animationController;
+  late final Animation<double> _animation;
+
+  @override
+  void initState() {
+    super.initState();
+    _animationController = AnimationController(
+      duration: const Duration(milliseconds: 100),
+      vsync: this,
+      value: _nextValue,
+    );
+    _animation = CurvedAnimation(
+      parent: _animationController,
+      curve: Curves.easeInOut,
+    );
+  }
+
+  double get _nextValue => widget.selected || widget.highlighted ? 1 : 0;
 
   @override
   void didUpdateWidget(covariant OptionButton oldWidget) {
     super.didUpdateWidget(oldWidget);
-    if (widget.selected != oldWidget.selected) {
+    if (widget.selected != oldWidget.selected ||
+        widget.highlighted != oldWidget.highlighted) {
       setState(() {});
+      _animationController.animateTo(_nextValue);
     }
   }
 
@@ -55,29 +76,35 @@ class _OptionButtonState extends State<OptionButton> {
                 _tooltipKey.currentState?.ensureTooltipVisible();
                 widget.onLongPressed?.call();
               },
-        child: Container(
-          decoration: widget.highlighted
-              ? BoxDecoration(
-                  // Border
-                  border: Border.all(
-                    color: Theme.of(context).colorScheme.primary,
-                    width: 2,
-                  ),
-                  borderRadius: BorderRadius.circular(12),
-                )
-              : (widget.focussed
+        child: AnimatedBuilder(
+          animation: _animation,
+          builder: (context, child) {
+            return Container(
+              decoration: widget.highlighted
                   ? BoxDecoration(
                       // Border
                       border: Border.all(
-                        color: Theme.of(context).colorScheme.outlineVariant,
-                        width: 2,
+                        color: Theme.of(context).colorScheme.primary,
+                        width: 2 * _animation.value,
                       ),
                       borderRadius: BorderRadius.circular(12),
                     )
-                  : null),
-          margin: (widget.highlighted || widget.focussed)
-              ? null
-              : const EdgeInsets.all(2),
+                  : (widget.focussed
+                      ? BoxDecoration(
+                          // Border
+                          border: Border.all(
+                            color: Theme.of(context).colorScheme.outlineVariant,
+                            width: 2 * _animation.value,
+                          ),
+                          borderRadius: BorderRadius.circular(12),
+                        )
+                      : null),
+              margin: (widget.highlighted || widget.focussed)
+                  ? null
+                  : const EdgeInsets.all(2),
+              child: child,
+            );
+          },
           child: Padding(
             padding: const EdgeInsets.all(4),
             child: IconTheme(

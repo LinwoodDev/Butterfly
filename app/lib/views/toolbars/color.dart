@@ -213,7 +213,8 @@ class _ColorButton extends StatelessWidget {
         borderRadius: BorderRadius.circular(12),
         child: AspectRatio(
           aspectRatio: 1,
-          child: Container(
+          child: AnimatedContainer(
+            duration: const Duration(milliseconds: 200),
             decoration: BoxDecoration(
               color: Color(value),
               borderRadius: BorderRadius.circular(12),
