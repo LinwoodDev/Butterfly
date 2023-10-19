@@ -37,7 +37,7 @@ class AreaHandler extends Handler<AreaTool> {
               width: rect.width,
               height: rect.height,
               position: rect.topLeft.toPoint())),
-        ...page.areas.map((e) => AreaForegroundRenderer(e)).toList()
+        ...page.areas.map((e) => AreaForegroundRenderer(e))
       ],
     ];
   }

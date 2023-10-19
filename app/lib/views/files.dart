@@ -144,12 +144,10 @@ class _FilesViewState extends State<FilesView> {
                         value: null,
                         label: AppLocalizations.of(context).local,
                       ),
-                      ...state.remotes
-                          .map((e) => DropdownMenuEntry(
-                                value: e.identifier,
-                                label: e.uri.host,
-                              ))
-                          .toList(),
+                      ...state.remotes.map((e) => DropdownMenuEntry(
+                            value: e.identifier,
+                            label: e.uri.host,
+                          )),
                     ],
                     initialSelection: _remote?.identifier,
                     onSelected: (value) => _setRemote(

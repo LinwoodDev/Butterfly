@@ -405,7 +405,7 @@ abstract class PastingHandler<T> extends Handler<T> {
           [Area? currentArea]) =>
       [
         if (_firstPos != null && _secondPos != null)
-          ...getTransformed().map((e) => Renderer.fromInstance(e)).toList(),
+          ...getTransformed().map((e) => Renderer.fromInstance(e)),
       ];
 
   List<PadElement> transformElements(Rect rect, String layer);

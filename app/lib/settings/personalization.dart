@@ -302,13 +302,11 @@ class PersonalizationSettingsPage extends StatelessWidget {
                 title: Text(AppLocalizations.of(context).defaultLocale),
                 selected: currentLocale.isEmpty,
                 onTap: () => changeLocale(null)),
-            ...locales
-                .map((e) => ListTile(
-                    title: Text(_getLocaleName(context, e.toLanguageTag())),
-                    selected: currentLocale == e.toLanguageTag(),
-                    onTap: () => changeLocale(e)))
-                .toList(),
             const SizedBox(height: 32),
+            ...locales.map((e) => ListTile(
+                title: Text(_getLocaleName(context, e.toLanguageTag())),
+                selected: currentLocale == e.toLanguageTag(),
+                onTap: () => changeLocale(e))),
           ];
         });
   }
@@ -319,19 +317,15 @@ class PersonalizationSettingsPage extends StatelessWidget {
     showLeapBottomSheet(
         context: context,
         title: AppLocalizations.of(context).platformTheme,
-        childrenBuilder: (context) {
-          void changeTheme(PlatformTheme locale) {
-            cubit.changePlatformTheme(locale);
-            Navigator.of(context).pop();
-          }
-
-          return PlatformTheme.values
-              .map((e) => ListTile(
-                  title: Text(_getPlatformThemeName(context, e)),
-                  selected: currentTheme == e,
-                  onTap: () => changeTheme(e)))
-              .toList();
-        });
+        childrenBuilder: (context) => PlatformTheme.values
+            .map((e) => ListTile(
+                title: Text(_getPlatformThemeName(context, e)),
+                selected: currentTheme == e,
+                onTap: () {
+                  cubit.changePlatformTheme(e);
+                  Navigator.of(context).pop();
+                }))
+            .toList());
   }
 
   void _openToolbarPositionModal(BuildContext context) {
@@ -340,21 +334,14 @@ class PersonalizationSettingsPage extends StatelessWidget {
     showLeapBottomSheet(
         context: context,
         title: AppLocalizations.of(context).toolbarPosition,
-        childrenBuilder: (context) {
-          void changePos(ToolbarPosition pos) {
-            cubit.changeToolbarPosition(pos);
-            Navigator.of(context).pop();
-          }
-
-          return [
-            ...ToolbarPosition.values
-                .map((e) => ListTile(
-                    title: Text(e.getLocalizedName(context)),
-                    selected: currentPos == e,
-                    onTap: () => changePos(e)))
-                .toList(),
-            const SizedBox(height: 32),
-          ];
-        });
+        childrenBuilder: (context) => ToolbarPosition.values
+            .map((e) => ListTile(
+                title: Text(e.getLocalizedName(context)),
+                selected: currentPos == e,
+                onTap: () {
+                  cubit.changeToolbarPosition(e);
+                  Navigator.of(context).pop();
+                }))
+            .toList());
   }
 }

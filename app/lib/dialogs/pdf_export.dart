@@ -339,20 +339,18 @@ class _ExportPresetsDialogState extends State<ExportPresetsDialog> {
               return Column(mainAxisSize: MainAxisSize.min, children: [
                 ...state.info.exportPresets
                     .where((element) => element.name.contains(_searchQuery))
-                    .map((e) {
-                  return Dismissible(
-                    key: ObjectKey(e.name),
-                    onDismissed: (direction) {
-                      context
-                          .read<DocumentBloc>()
-                          .add(ExportPresetRemoved(e.name));
-                    },
-                    child: ListTile(
-                      title: Text(e.name),
-                      onTap: () => Navigator.of(context).pop(e),
-                    ),
-                  );
-                }).toList(),
+                    .map((e) => Dismissible(
+                          key: ObjectKey(e.name),
+                          onDismissed: (direction) {
+                            context
+                                .read<DocumentBloc>()
+                                .add(ExportPresetRemoved(e.name));
+                          },
+                          child: ListTile(
+                            title: Text(e.name),
+                            onTap: () => Navigator.of(context).pop(e),
+                          ),
+                        )),
                 if (widget.areas == null)
                   ListTile(
                     title: Text(AppLocalizations.of(context).newContent),

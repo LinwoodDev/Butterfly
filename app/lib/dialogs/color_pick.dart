@@ -223,7 +223,7 @@ class _ColorPalettePickerDialogState extends State<ColorPalettePickerDialog> {
                     Align(
                       alignment: Alignment.center,
                       child: Wrap(alignment: WrapAlignment.start, children: [
-                        ...(List.generate(
+                        ...List.generate(
                             palette?.colors.length ?? 0,
                             (index) => InkWell(
                                 borderRadius:
@@ -241,7 +241,7 @@ class _ColorPalettePickerDialogState extends State<ColorPalettePickerDialog> {
                                       color: Color(palette!.colors[index]),
                                       borderRadius: const BorderRadius.all(
                                           Radius.circular(32))),
-                                )))).toList(),
+                                ))),
                         if (palette != null)
                           Padding(
                             padding: const EdgeInsets.all(4.0),

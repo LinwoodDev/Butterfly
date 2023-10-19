@@ -186,8 +186,7 @@ class _TextStyleViewState extends State<TextStyleView> {
                                             value: style,
                                             label:
                                                 style.getLocalizedName(context),
-                                          ))
-                                      .toList(),
+                                          )),
                                   DropdownMenuEntry(
                                     value: null,
                                     label: AppLocalizations.of(context).notSet,
