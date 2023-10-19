@@ -39,8 +39,30 @@ enum NavigatorPage {
       };
 }
 
-class NavigatorView extends StatelessWidget {
+class NavigatorView extends StatefulWidget {
   const NavigatorView({super.key});
+
+  @override
+  State<NavigatorView> createState() => _NavigatorViewState();
+}
+
+class _NavigatorViewState extends State<NavigatorView>
+    with TickerProviderStateMixin {
+  late final AnimationController _animationController;
+  late final Animation<double> _animation;
+
+  @override
+  void initState() {
+    super.initState();
+    _animationController = AnimationController(
+      duration: const Duration(milliseconds: 100),
+      vsync: this,
+    );
+    _animation = CurvedAnimation(
+      parent: _animationController,
+      curve: Curves.easeInOut,
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -50,52 +72,46 @@ class NavigatorView extends StatelessWidget {
             previous.navigatorPage != current.navigatorPage,
         builder: (context, settings) {
           final selected = NavigatorPage.values.indexOf(settings.navigatorPage);
+          if (settings.navigatorEnabled) {
+            _animationController.forward();
+          } else {
+            _animationController.reverse();
+          }
           return Row(
+            textDirection: TextDirection.rtl,
             children: [
-              Column(
-                children: [
-                  Expanded(
-                    child: NavigationRail(
-                      minWidth: 110,
-                      destinations: NavigatorPage.values
-                          .map(
-                            (e) => NavigationRailDestination(
-                              icon: PhosphorIcon(
-                                  e.icon(PhosphorIconsStyle.light)),
-                              label: Text(
-                                e.getLocalizedName(context),
-                              ),
-                            ),
-                          )
-                          .toList(),
-                      labelType: NavigationRailLabelType.all,
-                      selectedIndex:
-                          settings.navigatorEnabled ? selected : null,
-                      onDestinationSelected: (index) {
-                        final cubit = context.read<SettingsCubit>();
-                        if (selected == index) {
-                          cubit.changeNavigatorEnabled(
-                              !settings.navigatorEnabled);
-                          return;
-                        }
-                        cubit.setNavigatorPage(NavigatorPage.values[index]);
-                        cubit.changeNavigatorEnabled(true);
-                      },
-                    ),
-                  ),
-                ],
-              ),
-              AnimatedContainer(
-                duration: const Duration(milliseconds: 100),
-                curve: Curves.easeInOut,
-                width: settings.navigatorEnabled ? drawerWidth : 0,
-                child: const ClipRect(
-                  child: OverflowBox(
-                    minWidth: drawerWidth,
-                    maxWidth: drawerWidth,
-                    child: Card(child: DocumentNavigator(asDrawer: false)),
-                  ),
+              SizeTransition(
+                sizeFactor: _animation,
+                axis: Axis.horizontal,
+                axisAlignment: 1,
+                child: const SizedBox(
+                  width: drawerWidth,
+                  child: Card(child: DocumentNavigator(asDrawer: false)),
                 ),
+              ),
+              NavigationRail(
+                minWidth: 110,
+                destinations: NavigatorPage.values
+                    .map(
+                      (e) => NavigationRailDestination(
+                        icon: PhosphorIcon(e.icon(PhosphorIconsStyle.light)),
+                        label: Text(
+                          e.getLocalizedName(context),
+                        ),
+                      ),
+                    )
+                    .toList(),
+                labelType: NavigationRailLabelType.all,
+                selectedIndex: settings.navigatorEnabled ? selected : null,
+                onDestinationSelected: (index) {
+                  final cubit = context.read<SettingsCubit>();
+                  if (selected == index) {
+                    cubit.changeNavigatorEnabled(!settings.navigatorEnabled);
+                    return;
+                  }
+                  cubit.setNavigatorPage(NavigatorPage.values[index]);
+                  cubit.changeNavigatorEnabled(true);
+                },
               ),
             ],
           );

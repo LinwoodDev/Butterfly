@@ -119,20 +119,11 @@ class _OptionButtonState extends State<OptionButton>
                     widget.selected
                         ? (widget.selectedIcon ?? widget.icon)
                         : widget.icon,
-                    AnimatedContainer(
-                      duration: const Duration(milliseconds: 100),
-                      height: widget.selected ? 12 : 0,
-                      width: 12,
-                      clipBehavior: Clip.antiAlias,
-                      decoration: const BoxDecoration(),
-                      child: const OverflowBox(
-                        maxHeight: 12,
-                        maxWidth: 12,
-                        minHeight: 12,
-                        minWidth: 12,
-                        alignment: Alignment.topCenter,
-                        child: selectedBottom,
-                      ),
+                    SizeTransition(
+                      axisAlignment: -1,
+                      axis: Axis.vertical,
+                      sizeFactor: _animation,
+                      child: selectedBottom,
                     ),
                   ],
                 )),

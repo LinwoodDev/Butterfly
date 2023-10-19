@@ -216,7 +216,6 @@ class _HeaderHomeViewState extends State<_HeaderHomeView>
     _runExpandCheck();
   }
 
-  ///Setting up the animation
   void prepareAnimations() {
     expandController = AnimationController(
         vsync: this, duration: const Duration(milliseconds: 500));
