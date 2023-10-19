@@ -1,6 +1,7 @@
 * Add print as export option
 * Add selected animation to color toolbar
 * Improve performance of file fetching
+* Improve home page header
 * Fix leading icon on exact slider on larger screens
 * Remove add connection button on web
 

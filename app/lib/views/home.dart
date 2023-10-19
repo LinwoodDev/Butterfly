@@ -133,21 +133,10 @@ class _HomePageState extends State<HomePage> {
                           const SizedBox(height: 64),
                           LayoutBuilder(builder: (context, constraints) {
                             final isDesktop = constraints.maxWidth > 1000;
-                            final height = isDesktop ? 120.0 : 300.0;
-                            return AnimatedContainer(
-                              height: showBanner ? height : 0,
-                              duration: const Duration(milliseconds: 300),
-                              clipBehavior: Clip.antiAlias,
-                              decoration: const BoxDecoration(),
-                              child: OverflowBox(
-                                alignment: Alignment.topCenter,
-                                maxHeight: height,
-                                minHeight: height,
-                                child: _HeaderHomeView(
-                                  hasNewerVersion: hasNewerVersion,
-                                  isDesktop: isDesktop,
-                                ),
-                              ),
+                            return _HeaderHomeView(
+                              hasNewerVersion: hasNewerVersion,
+                              isDesktop: isDesktop,
+                              showBanner: showBanner,
                             );
                           }),
                           const SizedBox(height: 64),
@@ -203,10 +192,59 @@ class _HomePageState extends State<HomePage> {
   }
 }
 
-class _HeaderHomeView extends StatelessWidget {
-  final bool hasNewerVersion, isDesktop;
-  const _HeaderHomeView(
-      {this.hasNewerVersion = false, required this.isDesktop});
+class _HeaderHomeView extends StatefulWidget {
+  final bool hasNewerVersion, isDesktop, showBanner;
+  const _HeaderHomeView({
+    this.hasNewerVersion = false,
+    required this.isDesktop,
+    required this.showBanner,
+  });
+
+  @override
+  State<_HeaderHomeView> createState() => _HeaderHomeViewState();
+}
+
+class _HeaderHomeViewState extends State<_HeaderHomeView>
+    with TickerProviderStateMixin {
+  late AnimationController expandController;
+  late Animation<double> animation;
+
+  @override
+  void initState() {
+    super.initState();
+    prepareAnimations();
+    _runExpandCheck();
+  }
+
+  ///Setting up the animation
+  void prepareAnimations() {
+    expandController = AnimationController(
+        vsync: this, duration: const Duration(milliseconds: 500));
+    animation = CurvedAnimation(
+      parent: expandController,
+      curve: Curves.fastOutSlowIn,
+    );
+  }
+
+  void _runExpandCheck({double? from}) {
+    if (widget.showBanner) {
+      expandController.forward(from: from);
+    } else {
+      expandController.reverse();
+    }
+  }
+
+  @override
+  void didUpdateWidget(_HeaderHomeView oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    _runExpandCheck(from: oldWidget.isDesktop != widget.isDesktop ? 0 : null);
+  }
+
+  @override
+  void dispose() {
+    expandController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -244,7 +282,7 @@ class _HeaderHomeView extends StatelessWidget {
     final whatsNew = Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        hasNewerVersion
+        widget.hasNewerVersion
             ? FilledButton(
                 onPressed: openNew,
                 style: style,
@@ -255,7 +293,7 @@ class _HeaderHomeView extends StatelessWidget {
                 style: style,
                 child: Text(AppLocalizations.of(context).whatsNew),
               ),
-        if (hasNewerVersion)
+        if (widget.hasNewerVersion)
           const SizedBox(
             height: 0,
             child: Stack(
@@ -300,7 +338,7 @@ class _HeaderHomeView extends StatelessWidget {
         ),
       ],
     );
-    final innerCard = isDesktop
+    final innerCard = widget.isDesktop
         ? Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
@@ -338,25 +376,27 @@ class _HeaderHomeView extends StatelessWidget {
         child: innerCard,
       ),
     );
-    if (isDesktop) {
-      return Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Expanded(child: card),
-          const SizedBox(width: 32),
-          actions,
-        ],
-      );
-    } else {
-      return Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          card,
-          const SizedBox(height: 32),
-          actions,
-        ],
-      );
-    }
+    final child = widget.isDesktop
+        ? Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Expanded(child: card),
+              const SizedBox(width: 32),
+              actions,
+            ],
+          )
+        : Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              card,
+              const SizedBox(height: 32),
+              actions,
+            ],
+          );
+    return SizeTransition(
+      sizeFactor: animation,
+      child: child,
+    );
   }
 }
 
