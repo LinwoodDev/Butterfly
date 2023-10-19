@@ -13,8 +13,11 @@ Există câteva comenzi rapide pe care le poți folosi în editor. Unele dintre 
 * `Ctrl` + `N`: Fișier nou
 * `Ctrl` + `Shift` + `N`: Fișier nou din șablon
 * `Ctrl` + `E`: Fișier export
+* `Ctrl` + `P`: Printare fișier
 * `Ctrl` + `Shift` + `E`: Export fișier ca imagine
 * `Ctrl` + `Alt` + `E`: Export fișier svg
+* `Ctrl` + `Alt` + `Shift` + `E`: Export fisier ca svg
+* `Ctrl` + `Alt` + `P`: Deschide pachete
 * `Ctrl` + `Alt` + `S`: Deschideți setările
 
 ### Proiect

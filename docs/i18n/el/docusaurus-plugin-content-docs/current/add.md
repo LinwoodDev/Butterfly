@@ -1,7 +1,7 @@
 ---
 title: "Προσθήκη"
-id: "προσθήκη"
-slug: "/προσθήκη"
+id: "add"
+slug: "/add"
 sidebar_position: 3
 ---
 

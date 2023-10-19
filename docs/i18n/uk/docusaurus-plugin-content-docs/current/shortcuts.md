@@ -13,8 +13,11 @@ sidebar_position: 2
 * `Ctrl` + `N`: новий файл
 * `Ctrl` + `Shift` + `N`: новий файл з шаблону
 * `Ctrl` + `E`: Експорт файлу
+* `Ctrl` + `P`: Друк файлу
 * `Ctrl` + `Shift` + `E`: Експорт файлу як зображення
 * `Ctrl` + `Alt` + `E`: Експорт файлу як svg
+* `Ctrl` + `Alt` + `Shift` + `E`: Export file as svg
+* `Ctrl` + `Alt` + `P`: Відкриті пакети
 * `Ctrl` + `Alt` + `S`: Відкрити налаштування
 
 ### Проект

@@ -299,7 +299,7 @@
   "update": "تحديث",
   "updateAvailable": "التحديث متاح",
   "stable": "اسطبل",
-  "nightly": "Nightly",
+  "nightly": "ليلي",
   "checkForUpdates": "التحقق من وجود تحديثات",
   "usingLatestStable": "أنت تستخدم أحدث إصدار مستقر",
   "usingLatestNightly": "أنت تستخدم أحدث إصدار ليلي",
@@ -550,5 +550,6 @@
   "show": "إظهار",
   "pause": "إيقاف",
   "stop": "توقف",
-  "refresh": "تحديث"
+  "refresh": "تحديث",
+  "print": "طباعة"
 }

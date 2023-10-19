@@ -13,8 +13,11 @@ Il y a quelques raccourcis que vous pouvez utiliser dans l'éditeur. Certaines d
 * `Ctrl` + `N`: Nouveau fichier
 * `Ctrl` + `Maj` + `N`: Nouveau fichier à partir du modèle
 * `Ctrl` + `E`: Exporter le fichier
+* `Ctrl` + `P`: Imprimer le fichier
 * `Ctrl` + `Maj` + `E`: Exporter le fichier en tant qu'image
 * `Ctrl` + `Alt` + `E`: Exporter le fichier en svg
+* `Ctrl` + `Alt` + `Shift` + `E`: Exporter le fichier au format svg
+* `Ctrl` + `Alt` + `P`: Packs ouverts
 * `Ctrl` + `Alt` + `S`: Ouvrir les paramètres
 
 ### Projet

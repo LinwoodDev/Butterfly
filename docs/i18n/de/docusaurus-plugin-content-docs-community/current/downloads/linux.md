@@ -4,10 +4,10 @@ sidebar_position: 3
 ---
 
 ```mdx-code-block
-import DownloadButton from '@site/src/components/DownloadButton.tsx';
+Importiere DownloadButton von '@site/src/components/DownloadButton.tsx';
 ```
 
-![Stable Release-Version](https://img.shields.io/badge/dynamic/yaml?color=c4840d&label=Stable&query=%24.version&url=https%3A%2F%2Fraw.githubusercontent.com%2FLinwoodDev%2Fbutterfly%2Fstable%2Fapp%2Fpubspec.yaml&style=for-the-badge) ![Nightly release version](https://img.shields.io/badge/dynamic/yaml?color=f7d28c&label=Nightly&query=%24.version&url=https%3A%2F%2Fraw.githubusercontent.com%2FLinwoodDev%2Fbutterfly%2Fnightly%2Fapp%2Fpubspec.yaml&style=for-the-badge)
+![Stable Release-Version](https://img.shields.io/badge/dynamic/yaml?color=c4840d&label=Stable&query=%24.version&url=https%3A%2F%2Fraw.githubusercontent.com%2FLinwoodDev%2Fbutterfly%2Fstable%2Fapp%2Fpubspec.yaml&style=for-the-badge) ![Nachts Release Version](https://img.shields.io/badge/dynamic/yaml?color=f7d28c&label=Nightly&query=%24.version&url=https%3A%2F%2Fraw.githubusercontent.com%2FLinwoodDev%2Fbutterfly%2Fnightly%2Fapp%2Fpubspec.yaml&style=for-the-badge)
 
 :::note
 
@@ -28,7 +28,7 @@ Bitte verwenden Sie nach Möglichkeit die flatpak Version. Ansonsten müssen Sie
     </li>
     <li>
       <DownloadButton className="dropdown__link" href="https://github.com/LinwoodDev/butterfly/releases/download/stable/linwood-butterfly-linux.deb">
-        DEB
+        TB
       </DownloadButton>
     </li>
     <li>
@@ -48,7 +48,7 @@ Bitte verwenden Sie nach Möglichkeit die flatpak Version. Ansonsten müssen Sie
     </li>
     <li>
       <DownloadButton className="dropdown__link" href="https://github.com/LinwoodDev/butterfly/releases/download/nightly/linwood-butterfly-linux.deb">
-        DEB
+        TB
       </DownloadButton>
     </li>
     <li>
@@ -77,3 +77,5 @@ Lesen Sie mehr über die nächtliche Version von Butterfly [hier](/nightly).
   Einrasten
 </a>
 </div>
+
+Die nächtliche Version ist auch im flathub Beta Repository verfügbar. Lesen Sie mehr über das flathub beta repository [hier](https://discourse.flathub.org/t/how-to-use-flathub-beta/2111).

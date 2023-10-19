@@ -1,7 +1,7 @@
 ---
 title: "添加"
-id: "添加"
-slug: "/添加"
+id: "add"
+slug: "/add"
 sidebar_position: 3
 ---
 

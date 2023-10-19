@@ -299,7 +299,7 @@
   "update": "Actualizar",
   "updateAvailable": "Actualización disponible",
   "stable": "Estable",
-  "nightly": "Nightly",
+  "nightly": "Noche",
   "checkForUpdates": "Buscar actualizaciones",
   "usingLatestStable": "Estás usando la última versión estable",
   "usingLatestNightly": "Estás usando la última versión nocturna",
@@ -550,5 +550,6 @@
   "show": "Mostrar",
   "pause": "Pausa",
   "stop": "Parar",
-  "refresh": "Refrescar"
+  "refresh": "Refrescar",
+  "print": "Imprimir"
 }

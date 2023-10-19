@@ -299,7 +299,7 @@
   "update": "Оновити",
   "updateAvailable": "Доступне оновлення",
   "stable": "Стабільний",
-  "nightly": "Nightly",
+  "nightly": "Нічна",
   "checkForUpdates": "Перевірити наявність оновлень",
   "usingLatestStable": "Ви використовуєте останню стабільну версію",
   "usingLatestNightly": "Ви використовуєте останню нічну версію",
@@ -550,5 +550,6 @@
   "show": "Показати",
   "pause": "Пауза",
   "stop": "Зупинити",
-  "refresh": "Оновити"
+  "refresh": "Оновити",
+  "print": "Друк"
 }

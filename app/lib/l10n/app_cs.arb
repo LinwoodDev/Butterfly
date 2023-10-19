@@ -299,7 +299,7 @@
   "update": "Aktualizovat",
   "updateAvailable": "K dispozici je aktualizace",
   "stable": "Stabilní",
-  "nightly": "Nightly",
+  "nightly": "Noční",
   "checkForUpdates": "Zkontrolovat aktualizace",
   "usingLatestStable": "Používáte nejnovější stabilní verzi",
   "usingLatestNightly": "Používáte nejnovější noční verzi",
@@ -550,5 +550,6 @@
   "show": "Zobrazit",
   "pause": "Pozastavit",
   "stop": "Zastavit",
-  "refresh": "Aktualizovat"
+  "refresh": "Aktualizovat",
+  "print": "Tisk"
 }

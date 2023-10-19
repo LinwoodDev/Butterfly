@@ -1,6 +1,6 @@
 ---
 title: "追加"
-id: "追加"
+id: "add"
 slug: "/add"
 sidebar_position: 3
 ---

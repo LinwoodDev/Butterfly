@@ -299,7 +299,7 @@
   "update": "Päivitä",
   "updateAvailable": "Päivitys saatavilla",
   "stable": "Vakaa",
-  "nightly": "Nightly",
+  "nightly": "Yöllä",
   "checkForUpdates": "Tarkista päivitykset",
   "usingLatestStable": "Käytät viimeisintä vakaata versiota",
   "usingLatestNightly": "Olet käyttämässä uusinta yöllä versiota",
@@ -550,5 +550,6 @@
   "show": "Näytä",
   "pause": "Tauko",
   "stop": "Pysäytä",
-  "refresh": "Päivitä"
+  "refresh": "Päivitä",
+  "print": "Tulosta"
 }

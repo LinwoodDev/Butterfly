@@ -1,6 +1,6 @@
 ---
 title: "Přidat"
-id: "přidat"
+id: "add"
 slug: "/add"
 sidebar_position: 3
 ---

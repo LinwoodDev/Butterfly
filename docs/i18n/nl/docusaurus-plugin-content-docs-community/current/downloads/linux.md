@@ -4,12 +4,12 @@ sidebar_position: 3
 ---
 
 ```mdx-code-block
-import DownloadButton from '@site/src/components/DownloadButton.tsx';
+DownloadKnop importeren van '@site/src/components/DownloadButton.tsx';
 ```
 
-![Stabiele versie van release](https://img.shields.io/badge/dynamic/yaml?color=c4840d&label=Stable&query=%24.version&url=https%3A%2F%2Fraw.githubusercontent.com%2FLinwoodDev%2Fbutterfly%2Fstable%2Fapp%2Fpubspec.yaml&style=for-the-badge) ![Nightly release version](https://img.shields.io/badge/dynamic/yaml?color=f7d28c&label=Nightly&query=%24.version&url=https%3A%2F%2Fraw.githubusercontent.com%2FLinwoodDev%2Fbutterfly%2Fnightly%2Fapp%2Fpubspec.yaml&style=for-the-badge)
+![Stabiele versie van release](https://img.shields.io/badge/dynamic/yaml?color=c4840d&label=Stable&query=%24.version&url=https%3A%2F%2Fraw.githubusercontent.com%2FLinwoodDev%2Fbutterfly%2Fstable%2Fapp%2Fpubspec.yaml&style=for-the-badge) ![Nachtelijke versie versie](https://img.shields.io/badge/dynamic/yaml?color=f7d28c&label=Nightly&query=%24.version&url=https%3A%2F%2Fraw.githubusercontent.com%2FLinwoodDev%2Fbutterfly%2Fnightly%2Fapp%2Fpubspec.yaml&style=for-the-badge)
 
-:::note
+::note
 
 Gebruik indien mogelijk de flatpak versie. Anders moet je `libsecret-1-dev` en `libjsoncpp-dev` installeren.
 
@@ -28,7 +28,7 @@ Gebruik indien mogelijk de flatpak versie. Anders moet je `libsecret-1-dev` en `
     </li>
     <li>
       <DownloadButton className="dropdown__link" href="https://github.com/LinwoodDev/butterfly/releases/download/stable/linwood-butterfly-linux.deb">
-        DEB
+        VERWIJDER
       </DownloadButton>
     </li>
     <li>
@@ -39,7 +39,7 @@ Gebruik indien mogelijk de flatpak versie. Anders moet je `libsecret-1-dev` en `
   </ul>
 </div>
 <div className="dropdown dropdown--hoverable margin--sm">
-  <button className="button button--outline button--danger button--lg">Nightly</button>
+  <button className="button button--outline button--danger button--lg">Nachtelijk</button>
   <ul className="dropdown__menu">
     <li>
       <DownloadButton className="dropdown__link" href="https://github.com/LinwoodDev/butterfly/releases/download/nightly/linwood-butterfly-linux.tar.gz">
@@ -48,7 +48,7 @@ Gebruik indien mogelijk de flatpak versie. Anders moet je `libsecret-1-dev` en `
     </li>
     <li>
       <DownloadButton className="dropdown__link" href="https://github.com/LinwoodDev/butterfly/releases/download/nightly/linwood-butterfly-linux.deb">
-        DEB
+        VERWIJDER
       </DownloadButton>
     </li>
     <li>
@@ -77,3 +77,5 @@ Lees meer over de nachtelijke versie van Butterfly [hier](/nightly).
   Snap
 </a>
 </div>
+
+De nightly versie is ook beschikbaar op de flathub bèta-repository. Lees meer over de flathub bèta repository [hier](https://discourse.flathub.org/t/how-to-use-flathub-beta/2111).

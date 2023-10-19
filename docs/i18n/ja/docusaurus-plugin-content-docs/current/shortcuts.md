@@ -13,8 +13,11 @@ sidebar_position: 2
 * `Ctrl` + `N`: 新規ファイル
 * `Ctrl` + `Shift` + `N`: テンプレートから新規ファイル
 * `Ctrl` + `E`: ファイルをエクスポート
+* `Ctrl` + `P`: ファイルを印刷
 * `Ctrl` + `Shift` + `E`: 画像としてファイルをエクスポート
 * `Ctrl` + `Alt` + `E`: svg としてファイルをエクスポート
+* `Ctrl` + `Alt` + `Shift` + `E`: svg としてファイルをエクスポート
+* `Ctrl` + `Alt` + `P`: パックを開く
 * `Ctrl` + `Alt` + `S`: 設定を開く
 
 ### プロジェクト
