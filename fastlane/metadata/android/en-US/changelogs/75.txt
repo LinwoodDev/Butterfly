@@ -4,6 +4,7 @@
 * Improve performance of file fetching
 * Improve home page header
 * Improve slide transition
+* Change user data directory for portable apps
 * Fix leading icon on exact slider on larger screens
 * Remove add connection button on web
 
