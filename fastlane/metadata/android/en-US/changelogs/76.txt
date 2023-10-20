@@ -1,0 +1,3 @@
+* Fix home page header
+
+View all changes in the blog: https://linwood.dev/butterfly/2.0.0-beta.12

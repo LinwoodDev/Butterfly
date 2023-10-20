@@ -206,25 +206,21 @@ class _HeaderHomeView extends StatefulWidget {
 
 class _HeaderHomeViewState extends State<_HeaderHomeView>
     with TickerProviderStateMixin {
-  late AnimationController expandController;
-  late Animation<double> animation;
+  late final AnimationController _expandController;
+  late final Animation<double> _animation;
   late final SettingsCubit _settingsCubit;
 
   @override
   void initState() {
     super.initState();
     _settingsCubit = context.read<SettingsCubit>();
-    prepareAnimations();
-  }
-
-  void prepareAnimations() {
-    final expandController = AnimationController(
+    _expandController = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 500),
       value: widget.showBanner ? 1 : 0,
     );
-    animation = CurvedAnimation(
-      parent: expandController,
+    _animation = CurvedAnimation(
+      parent: _expandController,
       curve: Curves.fastOutSlowIn,
     );
   }
@@ -233,16 +229,16 @@ class _HeaderHomeViewState extends State<_HeaderHomeView>
   void didUpdateWidget(_HeaderHomeView oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (widget.showBanner) {
-      expandController.forward(
+      _expandController.forward(
           from: oldWidget.isDesktop != widget.isDesktop ? 0 : null);
     } else {
-      expandController.reverse();
+      _expandController.reverse();
     }
   }
 
   @override
   void dispose() {
-    expandController.dispose();
+    _expandController.dispose();
     super.dispose();
   }
 
@@ -393,7 +389,7 @@ class _HeaderHomeViewState extends State<_HeaderHomeView>
             ],
           );
     return SizeTransition(
-      sizeFactor: animation,
+      sizeFactor: _animation,
       child: child,
     );
   }
