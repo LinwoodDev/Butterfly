@@ -208,35 +208,36 @@ class _HeaderHomeViewState extends State<_HeaderHomeView>
     with TickerProviderStateMixin {
   late AnimationController expandController;
   late Animation<double> animation;
+  late final SettingsCubit _settingsCubit;
 
   @override
   void initState() {
     super.initState();
+    _settingsCubit = context.read<SettingsCubit>();
     prepareAnimations();
-    _runExpandCheck();
   }
 
   void prepareAnimations() {
-    expandController = AnimationController(
-        vsync: this, duration: const Duration(milliseconds: 500));
+    final expandController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 500),
+      value: widget.showBanner ? 1 : 0,
+    );
     animation = CurvedAnimation(
       parent: expandController,
       curve: Curves.fastOutSlowIn,
     );
   }
 
-  void _runExpandCheck({double? from}) {
-    if (widget.showBanner) {
-      expandController.forward(from: from);
-    } else {
-      expandController.reverse();
-    }
-  }
-
   @override
   void didUpdateWidget(_HeaderHomeView oldWidget) {
     super.didUpdateWidget(oldWidget);
-    _runExpandCheck(from: oldWidget.isDesktop != widget.isDesktop ? 0 : null);
+    if (widget.showBanner) {
+      expandController.forward(
+          from: oldWidget.isDesktop != widget.isDesktop ? 0 : null);
+    } else {
+      expandController.reverse();
+    }
   }
 
   @override
@@ -265,7 +266,6 @@ class _HeaderHomeViewState extends State<_HeaderHomeView>
             context, context.read<SettingsCubit>().state),
       ],
     );
-    final settingsCubit = context.read<SettingsCubit>();
     final style = FilledButton.styleFrom(
       padding: const EdgeInsets.symmetric(
         horizontal: 32,
@@ -275,7 +275,7 @@ class _HeaderHomeViewState extends State<_HeaderHomeView>
     );
     void openNew() {
       openReleaseNotes();
-      settingsCubit.updateLastVersion();
+      _settingsCubit.updateLastVersion();
     }
 
     final whatsNew = Column(

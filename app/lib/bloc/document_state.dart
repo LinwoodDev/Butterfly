@@ -228,6 +228,13 @@ class DocumentLoadSuccess extends DocumentLoaded {
       : settingsCubit.state.getRemote(location.remote);
 
   Tool? get tool => currentIndexCubit.state.handler.data;
+
+  AreaPreset get areaPreset => AreaPreset(
+        name: pageName,
+        area: cameraViewport.toArea(),
+        page: pageName,
+        quality: settingsCubit.state.pdfQuality,
+      );
 }
 
 class DocumentPresentationState extends DocumentLoaded {

@@ -1,3 +1,4 @@
+import 'dart:math';
 import 'dart:ui' as ui;
 
 import 'package:butterfly/renderers/renderer.dart';
@@ -49,7 +50,19 @@ class CameraViewport extends Equatable {
 
   ui.Offset toOffset() => ui.Offset(x, y);
 
+  Point<double> toPoint() => Point(x, y);
+
   ui.Size toSize() => ui.Size(width?.toDouble() ?? 0, height?.toDouble() ?? 0);
+
+  ui.Rect toRect() =>
+      ui.Rect.fromLTWH(x, y, width?.toDouble() ?? 0, height?.toDouble() ?? 0);
+
+  Area toArea() => Area(
+        name: '',
+        position: -toPoint(),
+        width: (width?.toDouble() ?? 0) / scale,
+        height: (height?.toDouble() ?? 0) / scale,
+      );
 
   bool hasSameViewport(CameraViewport other) {
     return other.width == width &&

@@ -1,5 +1,6 @@
 * Add print as export option
 * Add selected animation to color toolbar
+* Use current view as default for pdf export option
 * Improve performance of file fetching
 * Improve home page header
 * Improve slide transition
