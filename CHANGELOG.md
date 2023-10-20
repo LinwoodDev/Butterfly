@@ -2,6 +2,20 @@
 
 <!--ENTER CHANGELOG HERE-->
 
+## 2.0.0-beta.11 (2023-10-20)
+
+* Add print as export option
+* Add selected animation to color toolbar
+* Use current view as default for pdf export option
+* Improve performance of file fetching
+* Improve home page header
+* Improve slide transition
+* Change user data directory for portable apps
+* Fix leading icon on exact slider on larger screens
+* Remove add connection button on web
+
+View all changes in the blog: https://linwood.dev/butterfly/2.0.0-beta.11
+
 ## 2.0.0-beta.10 (2023-10-13)
 
 * Add tooltips to icon buttons
