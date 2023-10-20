@@ -305,7 +305,7 @@ class SelectHandler extends Handler<SelectTool> {
       var diff = oldPos - transformRect.topLeft;
       // Scale and calculate relative position based on transformRect
       var newPos =
-          -Offset(diff.dx * scaleX, diff.dy * scaleY) + position + diff;
+          Offset(diff.dx * (scaleX - 1), diff.dy * (scaleY - 1)) + position;
       // Rotate around center
       if (rotation != 0) {
         final center = e.expandedRect?.center ?? Offset.zero;
