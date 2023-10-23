@@ -31,6 +31,8 @@ sidebar_position: 2
 * `Ctrl` + `S`: Αποθήκευση
 * `Alt` + `S`: Αλλαγή διαδρομής
 * `Ctrl` + (`1` - `0`): Αλλαγή σε εργαλείο
+* `Ctrl` + `+`: Zoom in
+* `Ctrl` + `-`: Zoom out
 
 ## Stylus
 
