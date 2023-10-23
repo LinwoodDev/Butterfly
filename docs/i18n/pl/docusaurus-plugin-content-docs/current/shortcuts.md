@@ -31,6 +31,8 @@ Jest kilka skrótów, których możesz użyć w edytorze. Niektóre z nich są n
 * `Ctrl` + `S`: Zapisz
 * `Alt` + `S`: Zmień ścieżkę
 * `Ctrl` + (`1` - `0`): Przełącz na narzędzie
+* `Ctrl` + `+`: Zoom in
+* `Ctrl` + `-`: Zoom out
 
 ## Stylus
 
