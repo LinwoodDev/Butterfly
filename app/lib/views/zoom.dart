@@ -75,16 +75,16 @@ class _ZoomViewState extends State<ZoomView> with TickerProviderStateMixin {
                 currentIndexCubit.state.hideUi != HideState.visible;
             void zoom(double value, [bool bake = true]) {
               final state = context.read<DocumentBloc>().state;
+              final currentIndex = context.read<CurrentIndexCubit>().state;
               if (state is! DocumentLoaded) {
                 return;
               }
-              final viewport =
-                  context.read<CurrentIndexCubit>().state.cameraViewport;
+              final viewport = currentIndex.cameraViewport;
               final center = Offset(
                 (viewport.width ?? 0) / 2,
                 (viewport.height ?? 0) / 2,
               );
-              context.read<TransformCubit>().size(value, center);
+              currentIndex.transformCubit.size(value, center);
               if (bake) {
                 currentIndexCubit.bake(state.data, state.page, state.info);
               }

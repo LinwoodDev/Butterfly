@@ -48,6 +48,7 @@ import '../actions/select.dart';
 import '../actions/settings.dart';
 import '../actions/svg_export.dart';
 import '../actions/undo.dart';
+import '../actions/zoom.dart';
 import '../main.dart';
 import '../models/viewport.dart';
 import '../services/asset.dart';
@@ -101,6 +102,7 @@ class _ProjectPageState extends State<ProjectPage> {
     PreviousIntent: PreviousAction(),
     PasteIntent: PasteAction(),
     SelectAllIntent: SelectAllAction(),
+    ZoomIntent: ZoomAction(),
   };
 
   @override
@@ -376,6 +378,12 @@ class _ProjectPageState extends State<ProjectPage> {
                                             LogicalKeyboardKey.alt,
                                             LogicalKeyboardKey.keyP):
                                         PacksIntent(context),
+                                    LogicalKeySet(LogicalKeyboardKey.control,
+                                            LogicalKeyboardKey.add):
+                                        ZoomIntent(context),
+                                    LogicalKeySet(LogicalKeyboardKey.control,
+                                            LogicalKeyboardKey.minus):
+                                        ZoomIntent(context, true),
                                     ...[
                                       LogicalKeyboardKey.digit1,
                                       LogicalKeyboardKey.digit2,

@@ -1,3 +1,4 @@
+* Add zoom shortcuts ([#507](https://github.com/LinwoodDev/Butterfly/issues/507))
 * Fix home page header
 * Fix offset in scaling multiple elements ([#506](https://github.com/LinwoodDev/Butterfly/issues/506))
 
