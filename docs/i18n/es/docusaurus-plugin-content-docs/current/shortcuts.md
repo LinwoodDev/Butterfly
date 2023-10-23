@@ -31,6 +31,8 @@ Hay algunos atajos que puedes usar en el editor. Algunos de ellos se escriben de
 * `Ctrl` + `S`: Guardar
 * `Alt` + `S`: Cambiar ruta
 * `Ctrl` + (`1` - `0`): Cambiar a herramienta
+* `Ctrl` + `+`: Zoom in
+* `Ctrl` + `-`: Zoom out
 
 ## Stylus
 
