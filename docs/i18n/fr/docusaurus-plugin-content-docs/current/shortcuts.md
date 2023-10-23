@@ -31,6 +31,8 @@ Il y a quelques raccourcis que vous pouvez utiliser dans l'éditeur. Certaines d
 * `Ctrl` + `S`: Enregistrer
 * `Alt` + `S`: Changer le chemin
 * `Ctrl` + (`1` - `0`) : Passer à l'outil
+* `Ctrl` + `+`: Zoom in
+* `Ctrl` + `-`: Zoom out
 
 ## Stylus
 
