@@ -31,6 +31,8 @@ Ci sono alcune scorciatoie che puoi usare nell'editor. Alcuni di loro sono scrit
 * `Ctrl` + `S`: Salva
 * `Alt` + `S`: Cambia percorso
 * `Ctrl` + (`1` - `0`): Passa allo strumento
+* `Ctrl` + `+`: Zoom in
+* `Ctrl` + `-`: Zoom out
 
 ## Stylus
 
