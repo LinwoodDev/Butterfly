@@ -31,8 +31,8 @@ On olemassa muutamia pikakuvakkeita, joita voit käyttää editorissa. Osa niist
 * `Ctrl` + `S`: Tallenna
 * `Alt` + `S`: Muuta polkua
 * `Ctrl` + (`1` - `0`): Vaihda työkaluun
-* `Ctrl` + `+`: Zoom in
-* `Ctrl` + `-`: Zoom out
+* `Ctrl` + `+`: Lähennä
+* `Ctrl` + `-`: Lähennä
 
 ## Stylus
 
