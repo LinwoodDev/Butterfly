@@ -551,5 +551,6 @@
   "pause": "Pausa",
   "stop": "Stoppa",
   "refresh": "Uppdatera",
-  "print": "Skriv ut"
+  "print": "Skriv ut",
+  "dav": "DAV"
 }
