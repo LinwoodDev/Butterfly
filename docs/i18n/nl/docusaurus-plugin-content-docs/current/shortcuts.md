@@ -31,8 +31,8 @@ Er zijn een paar snelkoppelingen die je in de editor kunt gebruiken. Sommige erv
 * `Ctrl` + `S`: Opslaan
 * `ALT` + `S`: pad wijzigen
 * `Ctrl` + (`1` - `0`): Schakel over naar gereedschap
-* `Ctrl` + `+`: Zoom in
-* `Ctrl` + `-`: Zoom out
+* `Ctrl` + `+`: inzoomen
+* `Ctrl` + `-`: uitzoomen
 
 ## Stylus
 
