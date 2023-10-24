@@ -551,5 +551,6 @@
   "pause": "Wstrzymaj",
   "stop": "Zatrzymaj",
   "refresh": "Odśwież",
-  "print": "Drukuj"
+  "print": "Drukuj",
+  "dav": "DAV"
 }
