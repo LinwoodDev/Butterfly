@@ -31,7 +31,7 @@ Există câteva comenzi rapide pe care le poți folosi în editor. Unele dintre 
 * `Ctrl` + `S`: Salvare
 * `Alt` + `S`: Schimbare cale
 * `Ctrl` + (`1` - `0`): Comutați la unealtă
-* `Ctrl` + `+`: Zoom in
+* `Ctrl` + `+`: Mărire
 * `Ctrl` + `-`: Zoom out
 
 ## Stylus
