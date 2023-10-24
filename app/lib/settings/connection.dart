@@ -24,8 +24,10 @@ class _ConnectionSettingsPageState extends State<ConnectionSettingsPage>
   void initState() {
     super.initState();
     storage = context.read<SettingsCubit>().getRemote(widget.remote);
-    _tabController = TabController(length: 2, vsync: this);
+    _tabController = TabController(length: _isRemote ? 2 : 1, vsync: this);
   }
+
+  bool get _isRemote => storage is RemoteStorage;
 
   @override
   void dispose() {
@@ -46,21 +48,23 @@ class _ConnectionSettingsPageState extends State<ConnectionSettingsPage>
     return Scaffold(
       appBar: WindowTitleBar(
         title: Text(widget.remote),
-        bottom: TabBar(
-          controller: _tabController,
-          onTap: (_) => setState(() {}),
-          tabs: [
-            HorizontalTab(
-              icon: const PhosphorIcon(PhosphorIconsLight.gear),
-              label: Text(AppLocalizations.of(context).general),
-            ),
-            HorizontalTab(
-              icon: const PhosphorIcon(PhosphorIconsLight.files),
-              label: Text(AppLocalizations.of(context).caches),
-            ),
-          ],
-          isScrollable: true,
-        ),
+        bottom: _isRemote
+            ? TabBar(
+                controller: _tabController,
+                onTap: (_) => setState(() {}),
+                tabs: [
+                  HorizontalTab(
+                    icon: const PhosphorIcon(PhosphorIconsLight.gear),
+                    label: Text(AppLocalizations.of(context).general),
+                  ),
+                  HorizontalTab(
+                    icon: const PhosphorIcon(PhosphorIconsLight.files),
+                    label: Text(AppLocalizations.of(context).caches),
+                  ),
+                ],
+                isScrollable: true,
+              )
+            : null,
       ),
       body: storage == null
           ? Center(child: Text(AppLocalizations.of(context).noConnections))
@@ -68,7 +72,7 @@ class _ConnectionSettingsPageState extends State<ConnectionSettingsPage>
               controller: _tabController,
               children: [
                 _GeneralConnectionSettingsView(storage: storage!),
-                if (storage is RemoteStorage)
+                if (_isRemote)
                   _CachesConnectionSettingsView(
                       storage: storage as RemoteStorage),
               ],
@@ -134,7 +138,7 @@ class _GeneralConnectionSettingsView extends StatelessWidget {
                     Text(AppLocalizations.of(context).manage,
                         style: Theme.of(context).textTheme.headlineSmall),
                     const SizedBox(height: 16),
-                    if (storage is RemoteStorage)
+                    if (storage is RemoteStorage) ...[
                       BlocBuilder<SettingsCubit, ButterflySettings>(
                           builder: (context, state) {
                         final storage = state.getRemote(this.storage.identifier)
@@ -161,13 +165,14 @@ class _GeneralConnectionSettingsView extends StatelessWidget {
                               const PhosphorIcon(PhosphorIconsLight.folder),
                         );
                       }),
-                    ListTile(
-                      title: Text(AppLocalizations.of(context).clearCaches),
-                      leading: const PhosphorIcon(PhosphorIconsLight.fileX),
-                      onTap: () {
-                        context.read<SettingsCubit>().clearCaches(storage);
-                      },
-                    ),
+                      ListTile(
+                        title: Text(AppLocalizations.of(context).clearCaches),
+                        leading: const PhosphorIcon(PhosphorIconsLight.fileX),
+                        onTap: () {
+                          context.read<SettingsCubit>().clearCaches(storage);
+                        },
+                      ),
+                    ],
                     ListTile(
                       title: Text(AppLocalizations.of(context).delete),
                       leading: const PhosphorIcon(PhosphorIconsLight.trash),

@@ -313,6 +313,7 @@ class _MainPopupMenu extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<DocumentBloc, DocumentState>(builder: (context, state) {
       if (state is! DocumentLoadSuccess) return const SizedBox();
+      final settingsCubit = context.read<SettingsCubit>();
 
       return MenuAnchor(
         menuChildren: [
@@ -330,13 +331,12 @@ class _MainPopupMenu extends StatelessWidget {
               },
             ),
             if (MediaQuery.of(context).size.width < kLargeWidth ||
-                !context.read<SettingsCubit>().state.navigationRail)
+                !settingsCubit.state.navigationRail)
               ...NavigatorPage.values.map(
                 (e) => MenuItemButton(
                   leadingIcon: PhosphorIcon(e.icon(PhosphorIconsStyle.light)),
                   child: Text(e.getLocalizedName(context)),
                   onPressed: () {
-                    final settingsCubit = context.read<SettingsCubit>();
                     settingsCubit.setNavigatorPage(e);
                     Scaffold.of(context).openDrawer();
                   },
@@ -471,7 +471,7 @@ class _MainPopupMenu extends StatelessWidget {
                           : const PhosphorIcon(PhosphorIconsLight.arrowsOut),
                       shortcut: const SingleActivator(LogicalKeyboardKey.f11),
                       onPressed: () async {
-                        context.read<SettingsCubit>().toggleFullScreen();
+                        settingsCubit.toggleFullScreen();
                       },
                       child: Text(AppLocalizations.of(context).fullScreen),
                     )),
