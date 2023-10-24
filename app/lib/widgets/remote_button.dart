@@ -3,6 +3,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 class RemoteButton extends StatefulWidget {
@@ -26,6 +27,13 @@ class _RemoteButtonState extends State<RemoteButton> {
     super.initState();
   }
 
+  void _onChange(RemoteStorage? value) {
+    setState(() {
+      _currentRemote = value;
+    });
+    widget.onChanged(value);
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<SettingsCubit, ButterflySettings>(
@@ -37,47 +45,27 @@ class _RemoteButtonState extends State<RemoteButton> {
           tooltip: AppLocalizations.of(context).refresh,
         );
       }
-      return PopupMenuButton<RemoteStorage?>(
-        initialValue: _currentRemote,
-        position: PopupMenuPosition.under,
-        constraints: const BoxConstraints(maxWidth: 500),
-        icon: _currentRemote == null
-            ? const PhosphorIcon(PhosphorIconsLight.house)
-            : _currentRemote!.icon.isEmpty
-                ? const PhosphorIcon(PhosphorIconsLight.cloud)
-                : Image.memory(_currentRemote!.icon, width: 24),
-        onSelected: (remote) {
-          setState(() {
-            _currentRemote = remote;
-          });
-          widget.onChanged(remote);
-        },
-        itemBuilder: (context) => [
-          PopupMenuItem(
-            value: null,
+      return MenuAnchor(
+        builder: defaultMenuButton(
+          icon: _currentRemote == null
+              ? const PhosphorIcon(PhosphorIconsLight.house)
+              : _currentRemote!.icon.isEmpty
+                  ? const PhosphorIcon(PhosphorIconsLight.cloud)
+                  : Image.memory(_currentRemote!.icon, width: 24),
+        ),
+        menuChildren: [
+          MenuItemButton(
             child: Text(AppLocalizations.of(context).local),
-            onTap: () {
-              setState(() {
-                _currentRemote = null;
-              });
-              widget.onChanged(null);
-            },
+            onPressed: () => _onChange(null),
           ),
-          const PopupMenuDivider(),
+          const Divider(),
           ...settings.remotes.map((remote) {
-            return PopupMenuItem(
-              value: remote,
-              child: Row(
-                children: [
-                  if (remote.icon.isNotEmpty) ...[
-                    Image.memory(remote.icon, width: 24),
-                    const SizedBox(width: 8),
-                  ],
-                  Flexible(
-                      child:
-                          Text(remote.identifier, overflow: TextOverflow.clip)),
-                ],
-              ),
+            return MenuItemButton(
+              onPressed: () => _onChange(remote),
+              leadingIcon: remote.icon.isNotEmpty
+                  ? Image.memory(remote.icon, width: 24)
+                  : null,
+              child: Text(remote.identifier, overflow: TextOverflow.clip),
             );
           }),
         ],

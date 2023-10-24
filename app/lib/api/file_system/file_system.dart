@@ -19,7 +19,7 @@ abstract class GeneralFileSystem {
   RemoteStorage? get remote => null;
 
   String convertNameToFile(String name) {
-    return name.replaceAll(RegExp(r'[^a-zA-Z0-9\-_() ,]'), '_');
+    return name.replaceAll(RegExp(r'[\\/:\*\?"<>\|\n\0-\x1F\x7F-\xFF]'), '_');
   }
 
   Future<String> _findAvailableName(

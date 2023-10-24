@@ -1,5 +1,8 @@
 * Add zoom shortcuts ([#507](https://github.com/LinwoodDev/Butterfly/issues/507))
+* Add name to hand tool selection
+* Change remote button dropdown to material 3
 * Fix home page header
 * Fix offset in scaling multiple elements ([#506](https://github.com/LinwoodDev/Butterfly/issues/506))
+* Allow more valid file names
 
 View all changes in the blog: https://linwood.dev/butterfly/2.0.0-beta.12
