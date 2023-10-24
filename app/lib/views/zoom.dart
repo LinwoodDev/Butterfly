@@ -145,9 +145,7 @@ class _ZoomViewState extends State<ZoomView> with TickerProviderStateMixin {
             if ((!_focusNode.hasFocus && widget.isMobile) || hideZoom) {
               _controller.reverse();
             } else {
-              if (_controller.status != AnimationStatus.completed) {
-                _controller.forward(from: 0);
-              }
+              _controller.forward();
             }
             if (!widget.floating) return body;
             return AnimatedBuilder(
