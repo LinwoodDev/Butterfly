@@ -164,7 +164,7 @@ abstract class DocumentFileSystem extends GeneralFileSystem {
     } else {
       return remote?.map(
             dav: (e) => DavRemoteDocumentFileSystem(e),
-            local: (e) => IODocumentFileSystem(e.documentsPath),
+            local: (e) => IODocumentFileSystem(e.fullDocumentsPath),
           ) ??
           IODocumentFileSystem();
     }
@@ -233,7 +233,7 @@ abstract class TemplateFileSystem extends GeneralFileSystem {
     } else {
       return remote?.map(
             dav: (e) => DavRemoteTemplateFileSystem(e),
-            local: (e) => IOTemplateFileSystem(e.templatesPath),
+            local: (e) => IOTemplateFileSystem(e.fullTemplatesPath),
           ) ??
           IOTemplateFileSystem();
     }
@@ -302,7 +302,7 @@ abstract class PackFileSystem extends GeneralFileSystem {
     } else {
       return remote?.map(
             dav: (e) => DavRemotePackFileSystem(e),
-            local: (e) => IOPackFileSystem(e.packsPath),
+            local: (e) => IOPackFileSystem(e.fullPacksPath),
           ) ??
           IOPackFileSystem();
     }

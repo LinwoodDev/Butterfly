@@ -4,6 +4,7 @@ import 'dart:ui';
 import 'package:butterfly/api/open.dart';
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/widgets/window.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -77,7 +78,7 @@ class ConnectionsSettingsPage extends StatelessWidget {
           }
           return BlocBuilder<SettingsCubit, ButterflySettings>(
               builder: (context, state) {
-            if (state.remotes.isEmpty) {
+            if (state.connections.isEmpty) {
               return Center(
                 child: Text(AppLocalizations.of(context).noConnections),
               );
@@ -85,9 +86,9 @@ class ConnectionsSettingsPage extends StatelessWidget {
             return Material(
               color: Colors.transparent,
               child: ListView.builder(
-                  itemCount: state.remotes.length,
+                  itemCount: state.connections.length,
                   itemBuilder: (context, index) {
-                    final remote = state.remotes[index];
+                    final remote = state.connections[index];
                     return Dismissible(
                       key: Key(remote.identifier),
                       onDismissed: (details) {
@@ -231,7 +232,7 @@ class __AddRemoteDialogState extends State<_AddRemoteDialog> {
           packsPath: _packsDirectoryController.text,
           icon: icon,
           cachedDocuments: [if (_syncRootDirectory) '/']),
-      ExternalStorageType.local => LocalRemoteStorage(
+      ExternalStorageType.local => LocalStorage(
           path: _directoryController.text,
           documentsPath: _documentsDirectoryController.text,
           templatesPath: _templatesDirectoryController.text,
@@ -355,16 +356,17 @@ class __AddRemoteDialogState extends State<_AddRemoteDialog> {
                   _DirectoryField(
                     controller: _directoryController,
                     label: AppLocalizations.of(context).directory,
-                    onChanged: (value) {
-                      var prefix = value;
-                      if (prefix.isNotEmpty) {
-                        prefix += '/';
-                      }
-                      _documentsDirectoryController.text = '${prefix}Documents';
-                      _templatesDirectoryController.text = '${prefix}Templates';
-                      _packsDirectoryController.text = '${prefix}Packs';
-                    },
                     icon: const PhosphorIcon(PhosphorIconsLight.folder),
+                    readOnly: !_isRemote,
+                    onTap: _isRemote
+                        ? null
+                        : () async {
+                            final result =
+                                await FilePicker.platform.getDirectoryPath();
+                            if (result != null) {
+                              _directoryController.text = result;
+                            }
+                          },
                   ),
                   const SizedBox(height: 8),
                   ExpansionPanelList(
@@ -444,14 +446,22 @@ class _DirectoryField extends StatelessWidget {
   final TextEditingController? controller;
   final String? label;
   final Widget? icon;
-  final ValueChanged<String>? onChanged;
-  const _DirectoryField(
-      {this.controller, this.label, this.onChanged, this.icon});
+  final VoidCallback? onTap;
+  final bool readOnly;
+
+  const _DirectoryField({
+    this.controller,
+    this.label,
+    this.onTap,
+    this.readOnly = false,
+    this.icon,
+  });
 
   @override
   Widget build(BuildContext context) {
     return TextField(
       controller: controller,
+      readOnly: readOnly,
       decoration: InputDecoration(
         labelText: label,
         icon: icon,
@@ -460,7 +470,7 @@ class _DirectoryField extends StatelessWidget {
             icon: PhosphorIcon(PhosphorIconsLight.folder),
             onPressed: () async {}),*/
       ),
-      onChanged: onChanged,
+      onTap: onTap,
     );
   }
 }

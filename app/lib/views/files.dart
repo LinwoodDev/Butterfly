@@ -144,7 +144,7 @@ class _FilesViewState extends State<FilesView> {
                         value: null,
                         label: AppLocalizations.of(context).local,
                       ),
-                      ...state.remotes.map((e) => DropdownMenuEntry(
+                      ...state.connections.map((e) => DropdownMenuEntry(
                             value: e.identifier,
                             label: e.label,
                           )),
@@ -156,8 +156,8 @@ class _FilesViewState extends State<FilesView> {
                 }),
                 BlocBuilder<SettingsCubit, ButterflySettings>(
                   buildWhen: (previous, current) =>
-                      previous.remotes != current.remotes,
-                  builder: (context, state) => state.remotes.isEmpty
+                      previous.connections != current.connections,
+                  builder: (context, state) => state.connections.isEmpty
                       ? const SizedBox.shrink()
                       : const SyncButton(),
                 ),

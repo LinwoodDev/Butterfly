@@ -59,8 +59,7 @@ Json? _$JsonConverterToJson<Json, Value>(
 ) =>
     value == null ? null : toJson(value);
 
-_$LocalRemoteStorageImpl _$$LocalRemoteStorageImplFromJson(Map json) =>
-    _$LocalRemoteStorageImpl(
+_$LocalStorageImpl _$$LocalStorageImplFromJson(Map json) => _$LocalStorageImpl(
       path: json['path'] as String? ?? '',
       documentsPath: json['documentsPath'] as String? ?? '',
       templatesPath: json['templatesPath'] as String? ?? '',
@@ -74,8 +73,7 @@ _$LocalRemoteStorageImpl _$$LocalRemoteStorageImplFromJson(Map json) =>
       $type: json['type'] as String?,
     );
 
-Map<String, dynamic> _$$LocalRemoteStorageImplToJson(
-        _$LocalRemoteStorageImpl instance) =>
+Map<String, dynamic> _$$LocalStorageImplToJson(_$LocalStorageImpl instance) =>
     <String, dynamic>{
       'path': instance.path,
       'documentsPath': instance.documentsPath,

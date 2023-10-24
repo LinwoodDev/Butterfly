@@ -52,6 +52,9 @@ mixin RemoteStorage {
   String get documentsPath;
   String get templatesPath;
   String get packsPath;
+  String get fullDocumentsPath;
+  String get fullTemplatesPath;
+  String get fullPacksPath;
   DateTime? get lastSynced;
   String get identifier;
   List<String> get cachedDocuments;
@@ -88,7 +91,7 @@ mixin RemoteStorage {
     Map<String, String> query = const {},
   }) {
     return buildUri(
-      path: [...documentsPath.split('/'), ...path],
+      path: [...fullDocumentsPath.split('/'), ...path],
       query: query,
     );
   }
@@ -98,7 +101,7 @@ mixin RemoteStorage {
     Map<String, String> query = const {},
   }) {
     return buildUri(
-      path: [...templatesPath.split('/'), ...path],
+      path: [...fullTemplatesPath.split('/'), ...path],
       query: query,
     );
   }
@@ -108,7 +111,7 @@ mixin RemoteStorage {
     Map<String, String> query = const {},
   }) {
     return buildUri(
-      path: [...packsPath.split('/'), ...path],
+      path: [...fullPacksPath.split('/'), ...path],
       query: query,
     );
   }
@@ -154,12 +157,30 @@ class ExternalStorage with _$ExternalStorage {
     @Default('') String packsPath,
     @Uint8ListJsonConverter() Uint8List? icon,
     @Default([]) List<String> starred,
-  }) = LocalRemoteStorage;
+  }) = LocalStorage;
 
   factory ExternalStorage.fromJson(Map<String, dynamic> json) =>
       _$ExternalStorageFromJson(json);
 
   const ExternalStorage._();
+
+  String get fullDocumentsPath => documentsPath.isEmpty
+      ? path
+      : path.endsWith('/')
+          ? '$path$documentsPath'
+          : '$path/$documentsPath';
+
+  String get fullTemplatesPath => templatesPath.isEmpty
+      ? path
+      : path.endsWith('/')
+          ? '$path$templatesPath'
+          : '$path/$templatesPath';
+
+  String get fullPacksPath => packsPath.isEmpty
+      ? path
+      : path.endsWith('/')
+          ? '$path$packsPath'
+          : '$path/$packsPath';
 
   bool hasDocumentCached(String name) {
     if (!name.startsWith('/')) {
@@ -307,7 +328,7 @@ class ButterflySettings with _$ButterflySettings {
     @Default(false) bool navigatorEnabled,
     @Default(true) bool zoomEnabled,
     String? lastVersion,
-    @Default([]) List<ExternalStorage> remotes,
+    @Default([]) List<ExternalStorage> connections,
     @Default('') String defaultRemote,
     @Default(false) bool nativeTitleBar,
     @Default(false) bool startInFullScreen,
@@ -329,13 +350,10 @@ class ButterflySettings with _$ButterflySettings {
 
   factory ButterflySettings.fromPrefs(
       SharedPreferences prefs, bool fullScreen) {
-    final remotes = prefs.getStringList('remotes')?.map((e) {
-          final data = json.decode(e) as Map<String, dynamic>;
-          if (!data.containsKey('packsPath')) {
-            data['packsPath'] = data['path'] + '/Packs';
-          }
-          return ExternalStorage.fromJson(data);
-        }).toList() ??
+    final connections = prefs
+            .getStringList('connections')
+            ?.map((e) => ExternalStorage.fromJson(json.decode(e)))
+            .toList() ??
         const [];
     return ButterflySettings(
       fullScreen: fullScreen,
@@ -373,7 +391,7 @@ class ButterflySettings with _$ButterflySettings {
           [],
       zoomEnabled: prefs.getBool('zoom_enabled') ?? true,
       lastVersion: prefs.getString('last_version'),
-      remotes: remotes,
+      connections: connections,
       defaultRemote: prefs.getString('default_remote') ?? '',
       nativeTitleBar: prefs.getBool('native_title_bar') ?? false,
       startInFullScreen: prefs.getBool('start_in_full_screen') ?? false,
@@ -435,8 +453,8 @@ class ButterflySettings with _$ButterflySettings {
     } else if (lastVersion != null) {
       await prefs.setString('last_version', lastVersion!);
     }
-    await prefs.setStringList(
-        'remotes', remotes.map((e) => json.encode(e.toJson())).toList());
+    await prefs.setStringList('connections',
+        connections.map((e) => json.encode(e.toJson())).toList());
     await prefs.setString('default_remote', defaultRemote);
     await prefs.setBool('native_title_bar', nativeTitleBar);
     await prefs.setBool('start_in_full_screen', startInFullScreen);
@@ -455,16 +473,16 @@ class ButterflySettings with _$ButterflySettings {
   }
 
   ExternalStorage? getRemote(String? identifier) {
-    return remotes
+    return connections
         .firstWhereOrNull((e) => e.identifier == (identifier ?? defaultRemote));
   }
 
   bool hasRemote(String identifier) {
-    return remotes.any((e) => e.identifier == identifier);
+    return connections.any((e) => e.identifier == identifier);
   }
 
   ExternalStorage? getDefaultRemote() {
-    return remotes.firstWhereOrNull((e) => e.identifier == defaultRemote);
+    return connections.firstWhereOrNull((e) => e.identifier == defaultRemote);
   }
 
   DocumentFileSystem getDefaultDocumentFileSystem() =>
@@ -672,7 +690,7 @@ class SettingsCubit extends Cubit<ButterflySettings> {
 
   Future<void> addRemote(ExternalStorage storage, {required String password}) {
     emit(state.copyWith(
-        remotes: List.from(state.remotes)
+        connections: List.from(state.connections)
           ..removeWhere((element) => element.identifier == storage.identifier)
           ..add(storage)));
     storage.writeRemotePassword(password);
@@ -681,9 +699,10 @@ class SettingsCubit extends Cubit<ButterflySettings> {
 
   Future<void> deleteRemote(String identifier) async {
     emit(state.copyWith(
-        remotes:
-            state.remotes.where((r) => r.identifier != identifier).toList()));
-    const FlutterSecureStorage().delete(key: 'remotes/$identifier');
+        connections: state.connections
+            .where((r) => r.identifier != identifier)
+            .toList()));
+    const FlutterSecureStorage().delete(key: 'connections/$identifier');
     return save();
   }
 
@@ -700,7 +719,7 @@ class SettingsCubit extends Cubit<ButterflySettings> {
       current = '/$current';
     }
     emit(state.copyWith(
-        remotes: List<ExternalStorage>.from(state.remotes).map((e) {
+        connections: List<ExternalStorage>.from(state.connections).map((e) {
       if (e.identifier == identifier && e is RemoteStorage) {
         final documents =
             List<String>.from((e as RemoteStorage).cachedDocuments);
@@ -716,7 +735,7 @@ class SettingsCubit extends Cubit<ButterflySettings> {
 
   Future<void> removeCache(String identifier, String current) {
     emit(state.copyWith(
-        remotes: List<ExternalStorage>.from(state.remotes).map((e) {
+        connections: List<ExternalStorage>.from(state.connections).map((e) {
       if (e.identifier == identifier && e is RemoteStorage) {
         return (e as dynamic).copyWith(
             cachedDocuments:
@@ -730,7 +749,7 @@ class SettingsCubit extends Cubit<ButterflySettings> {
 
   Future<void> updateLastSynced(String identifier) {
     emit(state.copyWith(
-        remotes: List<ExternalStorage>.from(state.remotes).map((e) {
+        connections: List<ExternalStorage>.from(state.connections).map((e) {
       if (e.identifier == identifier && e is RemoteStorage) {
         return (e as dynamic).copyWith(lastSynced: DateTime.now().toUtc())
             as ExternalStorage;
@@ -742,7 +761,7 @@ class SettingsCubit extends Cubit<ButterflySettings> {
 
   Future<void> clearCaches(ExternalStorage storage) {
     emit(state.copyWith(
-        remotes: List<ExternalStorage>.from(state.remotes).map((e) {
+        connections: List<ExternalStorage>.from(state.connections).map((e) {
       if (e.identifier == storage.identifier && e is RemoteStorage) {
         return (e as dynamic).copyWith(cachedDocuments: []) as ExternalStorage;
       }
@@ -779,7 +798,7 @@ class SettingsCubit extends Cubit<ButterflySettings> {
   }
 
   ExternalStorage? getRemote([String? remote]) {
-    return state.remotes.firstWhereOrNull(
+    return state.connections.firstWhereOrNull(
         (element) => element.identifier == (remote ?? state.defaultRemote));
   }
 
@@ -802,7 +821,7 @@ class SettingsCubit extends Cubit<ButterflySettings> {
           starred.add(location.path);
         }
         emit(state.copyWith(
-            remotes: List<ExternalStorage>.from(state.remotes).map((e) {
+            connections: List<ExternalStorage>.from(state.connections).map((e) {
           if (e.identifier == remote.identifier) {
             return e.copyWith(starred: starred);
           }

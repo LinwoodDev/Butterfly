@@ -61,7 +61,7 @@ class SyncService {
 
   void _loadSettings(ButterflySettings settings) {
     if (kIsWeb) return;
-    for (final remote in settings.remotes) {
+    for (final remote in settings.connections) {
       if (!_hasSync(remote.identifier)) _createSync(remote.identifier);
     }
     _refreshStatus();

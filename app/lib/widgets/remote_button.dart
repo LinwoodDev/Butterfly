@@ -38,7 +38,7 @@ class _RemoteButtonState extends State<RemoteButton> {
   Widget build(BuildContext context) {
     return BlocBuilder<SettingsCubit, ButterflySettings>(
         builder: (context, settings) {
-      if (settings.remotes.isEmpty || kIsWeb) {
+      if (settings.connections.isEmpty || kIsWeb) {
         return IconButton(
           onPressed: () => widget.onChanged(null),
           icon: const PhosphorIcon(PhosphorIconsLight.arrowClockwise),
@@ -60,7 +60,7 @@ class _RemoteButtonState extends State<RemoteButton> {
             onPressed: () => _onChange(null),
           ),
           const Divider(),
-          ...settings.remotes.map((remote) => MenuItemButton(
+          ...settings.connections.map((remote) => MenuItemButton(
                 onPressed: () => _onChange(remote),
                 leadingIcon: remote.icon?.isEmpty ?? true
                     ? PhosphorIcon(remote.type.icon(PhosphorIconsStyle.light))

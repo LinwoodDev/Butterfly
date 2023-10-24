@@ -19,7 +19,7 @@ ExternalStorage _$ExternalStorageFromJson(Map<String, dynamic> json) {
     case 'dav':
       return DavRemoteStorage.fromJson(json);
     case 'local':
-      return LocalRemoteStorage.fromJson(json);
+      return LocalStorage.fromJson(json);
 
     default:
       throw CheckedFromJsonException(json, 'type', 'ExternalStorage',
@@ -112,19 +112,19 @@ mixin _$ExternalStorage {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(DavRemoteStorage value) dav,
-    required TResult Function(LocalRemoteStorage value) local,
+    required TResult Function(LocalStorage value) local,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(DavRemoteStorage value)? dav,
-    TResult? Function(LocalRemoteStorage value)? local,
+    TResult? Function(LocalStorage value)? local,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(DavRemoteStorage value)? dav,
-    TResult Function(LocalRemoteStorage value)? local,
+    TResult Function(LocalStorage value)? local,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -514,7 +514,7 @@ class _$DavRemoteStorageImpl extends DavRemoteStorage
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(DavRemoteStorage value) dav,
-    required TResult Function(LocalRemoteStorage value) local,
+    required TResult Function(LocalStorage value) local,
   }) {
     return dav(this);
   }
@@ -523,7 +523,7 @@ class _$DavRemoteStorageImpl extends DavRemoteStorage
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(DavRemoteStorage value)? dav,
-    TResult? Function(LocalRemoteStorage value)? local,
+    TResult? Function(LocalStorage value)? local,
   }) {
     return dav?.call(this);
   }
@@ -532,7 +532,7 @@ class _$DavRemoteStorageImpl extends DavRemoteStorage
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(DavRemoteStorage value)? dav,
-    TResult Function(LocalRemoteStorage value)? local,
+    TResult Function(LocalStorage value)? local,
     required TResult orElse(),
   }) {
     if (dav != null) {
@@ -591,11 +591,11 @@ abstract class DavRemoteStorage extends ExternalStorage
 }
 
 /// @nodoc
-abstract class _$$LocalRemoteStorageImplCopyWith<$Res>
+abstract class _$$LocalStorageImplCopyWith<$Res>
     implements $ExternalStorageCopyWith<$Res> {
-  factory _$$LocalRemoteStorageImplCopyWith(_$LocalRemoteStorageImpl value,
-          $Res Function(_$LocalRemoteStorageImpl) then) =
-      __$$LocalRemoteStorageImplCopyWithImpl<$Res>;
+  factory _$$LocalStorageImplCopyWith(
+          _$LocalStorageImpl value, $Res Function(_$LocalStorageImpl) then) =
+      __$$LocalStorageImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -608,11 +608,11 @@ abstract class _$$LocalRemoteStorageImplCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$LocalRemoteStorageImplCopyWithImpl<$Res>
-    extends _$ExternalStorageCopyWithImpl<$Res, _$LocalRemoteStorageImpl>
-    implements _$$LocalRemoteStorageImplCopyWith<$Res> {
-  __$$LocalRemoteStorageImplCopyWithImpl(_$LocalRemoteStorageImpl _value,
-      $Res Function(_$LocalRemoteStorageImpl) _then)
+class __$$LocalStorageImplCopyWithImpl<$Res>
+    extends _$ExternalStorageCopyWithImpl<$Res, _$LocalStorageImpl>
+    implements _$$LocalStorageImplCopyWith<$Res> {
+  __$$LocalStorageImplCopyWithImpl(
+      _$LocalStorageImpl _value, $Res Function(_$LocalStorageImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -625,7 +625,7 @@ class __$$LocalRemoteStorageImplCopyWithImpl<$Res>
     Object? icon = freezed,
     Object? starred = null,
   }) {
-    return _then(_$LocalRemoteStorageImpl(
+    return _then(_$LocalStorageImpl(
       path: null == path
           ? _value.path
           : path // ignore: cast_nullable_to_non_nullable
@@ -656,9 +656,8 @@ class __$$LocalRemoteStorageImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$LocalRemoteStorageImpl extends LocalRemoteStorage
-    with DiagnosticableTreeMixin {
-  const _$LocalRemoteStorageImpl(
+class _$LocalStorageImpl extends LocalStorage with DiagnosticableTreeMixin {
+  const _$LocalStorageImpl(
       {this.path = '',
       this.documentsPath = '',
       this.templatesPath = '',
@@ -670,8 +669,8 @@ class _$LocalRemoteStorageImpl extends LocalRemoteStorage
         $type = $type ?? 'local',
         super._();
 
-  factory _$LocalRemoteStorageImpl.fromJson(Map<String, dynamic> json) =>
-      _$$LocalRemoteStorageImplFromJson(json);
+  factory _$LocalStorageImpl.fromJson(Map<String, dynamic> json) =>
+      _$$LocalStorageImplFromJson(json);
 
   @override
   @JsonKey()
@@ -722,7 +721,7 @@ class _$LocalRemoteStorageImpl extends LocalRemoteStorage
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$LocalRemoteStorageImpl &&
+            other is _$LocalStorageImpl &&
             (identical(other.path, path) || other.path == path) &&
             (identical(other.documentsPath, documentsPath) ||
                 other.documentsPath == documentsPath) &&
@@ -748,9 +747,8 @@ class _$LocalRemoteStorageImpl extends LocalRemoteStorage
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$LocalRemoteStorageImplCopyWith<_$LocalRemoteStorageImpl> get copyWith =>
-      __$$LocalRemoteStorageImplCopyWithImpl<_$LocalRemoteStorageImpl>(
-          this, _$identity);
+  _$$LocalStorageImplCopyWith<_$LocalStorageImpl> get copyWith =>
+      __$$LocalStorageImplCopyWithImpl<_$LocalStorageImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -843,7 +841,7 @@ class _$LocalRemoteStorageImpl extends LocalRemoteStorage
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(DavRemoteStorage value) dav,
-    required TResult Function(LocalRemoteStorage value) local,
+    required TResult Function(LocalStorage value) local,
   }) {
     return local(this);
   }
@@ -852,7 +850,7 @@ class _$LocalRemoteStorageImpl extends LocalRemoteStorage
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(DavRemoteStorage value)? dav,
-    TResult? Function(LocalRemoteStorage value)? local,
+    TResult? Function(LocalStorage value)? local,
   }) {
     return local?.call(this);
   }
@@ -861,7 +859,7 @@ class _$LocalRemoteStorageImpl extends LocalRemoteStorage
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(DavRemoteStorage value)? dav,
-    TResult Function(LocalRemoteStorage value)? local,
+    TResult Function(LocalStorage value)? local,
     required TResult orElse(),
   }) {
     if (local != null) {
@@ -872,24 +870,24 @@ class _$LocalRemoteStorageImpl extends LocalRemoteStorage
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$LocalRemoteStorageImplToJson(
+    return _$$LocalStorageImplToJson(
       this,
     );
   }
 }
 
-abstract class LocalRemoteStorage extends ExternalStorage {
-  const factory LocalRemoteStorage(
+abstract class LocalStorage extends ExternalStorage {
+  const factory LocalStorage(
       {final String path,
       final String documentsPath,
       final String templatesPath,
       final String packsPath,
       @Uint8ListJsonConverter() final Uint8List? icon,
-      final List<String> starred}) = _$LocalRemoteStorageImpl;
-  const LocalRemoteStorage._() : super._();
+      final List<String> starred}) = _$LocalStorageImpl;
+  const LocalStorage._() : super._();
 
-  factory LocalRemoteStorage.fromJson(Map<String, dynamic> json) =
-      _$LocalRemoteStorageImpl.fromJson;
+  factory LocalStorage.fromJson(Map<String, dynamic> json) =
+      _$LocalStorageImpl.fromJson;
 
   @override
   String get path;
@@ -906,7 +904,7 @@ abstract class LocalRemoteStorage extends ExternalStorage {
   List<String> get starred;
   @override
   @JsonKey(ignore: true)
-  _$$LocalRemoteStorageImplCopyWith<_$LocalRemoteStorageImpl> get copyWith =>
+  _$$LocalStorageImplCopyWith<_$LocalStorageImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -1216,7 +1214,7 @@ mixin _$ButterflySettings {
   bool get navigatorEnabled => throw _privateConstructorUsedError;
   bool get zoomEnabled => throw _privateConstructorUsedError;
   String? get lastVersion => throw _privateConstructorUsedError;
-  List<ExternalStorage> get remotes => throw _privateConstructorUsedError;
+  List<ExternalStorage> get connections => throw _privateConstructorUsedError;
   String get defaultRemote => throw _privateConstructorUsedError;
   bool get nativeTitleBar => throw _privateConstructorUsedError;
   bool get startInFullScreen => throw _privateConstructorUsedError;
@@ -1264,7 +1262,7 @@ abstract class $ButterflySettingsCopyWith<$Res> {
       bool navigatorEnabled,
       bool zoomEnabled,
       String? lastVersion,
-      List<ExternalStorage> remotes,
+      List<ExternalStorage> connections,
       String defaultRemote,
       bool nativeTitleBar,
       bool startInFullScreen,
@@ -1315,7 +1313,7 @@ class _$ButterflySettingsCopyWithImpl<$Res, $Val extends ButterflySettings>
     Object? navigatorEnabled = null,
     Object? zoomEnabled = null,
     Object? lastVersion = freezed,
-    Object? remotes = null,
+    Object? connections = null,
     Object? defaultRemote = null,
     Object? nativeTitleBar = null,
     Object? startInFullScreen = null,
@@ -1399,9 +1397,9 @@ class _$ButterflySettingsCopyWithImpl<$Res, $Val extends ButterflySettings>
           ? _value.lastVersion
           : lastVersion // ignore: cast_nullable_to_non_nullable
               as String?,
-      remotes: null == remotes
-          ? _value.remotes
-          : remotes // ignore: cast_nullable_to_non_nullable
+      connections: null == connections
+          ? _value.connections
+          : connections // ignore: cast_nullable_to_non_nullable
               as List<ExternalStorage>,
       defaultRemote: null == defaultRemote
           ? _value.defaultRemote
@@ -1509,7 +1507,7 @@ abstract class _$$ButterflySettingsImplCopyWith<$Res>
       bool navigatorEnabled,
       bool zoomEnabled,
       String? lastVersion,
-      List<ExternalStorage> remotes,
+      List<ExternalStorage> connections,
       String defaultRemote,
       bool nativeTitleBar,
       bool startInFullScreen,
@@ -1559,7 +1557,7 @@ class __$$ButterflySettingsImplCopyWithImpl<$Res>
     Object? navigatorEnabled = null,
     Object? zoomEnabled = null,
     Object? lastVersion = freezed,
-    Object? remotes = null,
+    Object? connections = null,
     Object? defaultRemote = null,
     Object? nativeTitleBar = null,
     Object? startInFullScreen = null,
@@ -1643,9 +1641,9 @@ class __$$ButterflySettingsImplCopyWithImpl<$Res>
           ? _value.lastVersion
           : lastVersion // ignore: cast_nullable_to_non_nullable
               as String?,
-      remotes: null == remotes
-          ? _value._remotes
-          : remotes // ignore: cast_nullable_to_non_nullable
+      connections: null == connections
+          ? _value._connections
+          : connections // ignore: cast_nullable_to_non_nullable
               as List<ExternalStorage>,
       defaultRemote: null == defaultRemote
           ? _value.defaultRemote
@@ -1740,7 +1738,7 @@ class _$ButterflySettingsImpl extends _ButterflySettings
       this.navigatorEnabled = false,
       this.zoomEnabled = true,
       this.lastVersion,
-      final List<ExternalStorage> remotes = const [],
+      final List<ExternalStorage> connections = const [],
       this.defaultRemote = '',
       this.nativeTitleBar = false,
       this.startInFullScreen = false,
@@ -1759,7 +1757,7 @@ class _$ButterflySettingsImpl extends _ButterflySettings
       this.pdfQuality = 2,
       this.platformTheme = PlatformTheme.system})
       : _history = history,
-        _remotes = remotes,
+        _connections = connections,
         _starred = starred,
         super._();
 
@@ -1816,13 +1814,13 @@ class _$ButterflySettingsImpl extends _ButterflySettings
   final bool zoomEnabled;
   @override
   final String? lastVersion;
-  final List<ExternalStorage> _remotes;
+  final List<ExternalStorage> _connections;
   @override
   @JsonKey()
-  List<ExternalStorage> get remotes {
-    if (_remotes is EqualUnmodifiableListView) return _remotes;
+  List<ExternalStorage> get connections {
+    if (_connections is EqualUnmodifiableListView) return _connections;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_remotes);
+    return EqualUnmodifiableListView(_connections);
   }
 
   @override
@@ -1884,7 +1882,7 @@ class _$ButterflySettingsImpl extends _ButterflySettings
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'ButterflySettings(theme: $theme, density: $density, localeTag: $localeTag, documentPath: $documentPath, touchSensitivity: $touchSensitivity, mouseSensitivity: $mouseSensitivity, penSensitivity: $penSensitivity, selectSensitivity: $selectSensitivity, penOnlyInput: $penOnlyInput, inputGestures: $inputGestures, design: $design, bannerVisibility: $bannerVisibility, history: $history, navigatorEnabled: $navigatorEnabled, zoomEnabled: $zoomEnabled, lastVersion: $lastVersion, remotes: $remotes, defaultRemote: $defaultRemote, nativeTitleBar: $nativeTitleBar, startInFullScreen: $startInFullScreen, navigationRail: $navigationRail, fullScreen: $fullScreen, syncMode: $syncMode, inputConfiguration: $inputConfiguration, fallbackPack: $fallbackPack, starred: $starred, defaultTemplate: $defaultTemplate, navigatorPage: $navigatorPage, toolbarPosition: $toolbarPosition, sortBy: $sortBy, sortOrder: $sortOrder, imageScale: $imageScale, pdfQuality: $pdfQuality, platformTheme: $platformTheme)';
+    return 'ButterflySettings(theme: $theme, density: $density, localeTag: $localeTag, documentPath: $documentPath, touchSensitivity: $touchSensitivity, mouseSensitivity: $mouseSensitivity, penSensitivity: $penSensitivity, selectSensitivity: $selectSensitivity, penOnlyInput: $penOnlyInput, inputGestures: $inputGestures, design: $design, bannerVisibility: $bannerVisibility, history: $history, navigatorEnabled: $navigatorEnabled, zoomEnabled: $zoomEnabled, lastVersion: $lastVersion, connections: $connections, defaultRemote: $defaultRemote, nativeTitleBar: $nativeTitleBar, startInFullScreen: $startInFullScreen, navigationRail: $navigationRail, fullScreen: $fullScreen, syncMode: $syncMode, inputConfiguration: $inputConfiguration, fallbackPack: $fallbackPack, starred: $starred, defaultTemplate: $defaultTemplate, navigatorPage: $navigatorPage, toolbarPosition: $toolbarPosition, sortBy: $sortBy, sortOrder: $sortOrder, imageScale: $imageScale, pdfQuality: $pdfQuality, platformTheme: $platformTheme)';
   }
 
   @override
@@ -1908,7 +1906,7 @@ class _$ButterflySettingsImpl extends _ButterflySettings
       ..add(DiagnosticsProperty('navigatorEnabled', navigatorEnabled))
       ..add(DiagnosticsProperty('zoomEnabled', zoomEnabled))
       ..add(DiagnosticsProperty('lastVersion', lastVersion))
-      ..add(DiagnosticsProperty('remotes', remotes))
+      ..add(DiagnosticsProperty('connections', connections))
       ..add(DiagnosticsProperty('defaultRemote', defaultRemote))
       ..add(DiagnosticsProperty('nativeTitleBar', nativeTitleBar))
       ..add(DiagnosticsProperty('startInFullScreen', startInFullScreen))
@@ -1961,7 +1959,8 @@ class _$ButterflySettingsImpl extends _ButterflySettings
                 other.zoomEnabled == zoomEnabled) &&
             (identical(other.lastVersion, lastVersion) ||
                 other.lastVersion == lastVersion) &&
-            const DeepCollectionEquality().equals(other._remotes, _remotes) &&
+            const DeepCollectionEquality()
+                .equals(other._connections, _connections) &&
             (identical(other.defaultRemote, defaultRemote) ||
                 other.defaultRemote == defaultRemote) &&
             (identical(other.nativeTitleBar, nativeTitleBar) ||
@@ -2015,7 +2014,7 @@ class _$ButterflySettingsImpl extends _ButterflySettings
         navigatorEnabled,
         zoomEnabled,
         lastVersion,
-        const DeepCollectionEquality().hash(_remotes),
+        const DeepCollectionEquality().hash(_connections),
         defaultRemote,
         nativeTitleBar,
         startInFullScreen,
@@ -2061,7 +2060,7 @@ abstract class _ButterflySettings extends ButterflySettings {
       final bool navigatorEnabled,
       final bool zoomEnabled,
       final String? lastVersion,
-      final List<ExternalStorage> remotes,
+      final List<ExternalStorage> connections,
       final String defaultRemote,
       final bool nativeTitleBar,
       final bool startInFullScreen,
@@ -2114,7 +2113,7 @@ abstract class _ButterflySettings extends ButterflySettings {
   @override
   String? get lastVersion;
   @override
-  List<ExternalStorage> get remotes;
+  List<ExternalStorage> get connections;
   @override
   String get defaultRemote;
   @override
