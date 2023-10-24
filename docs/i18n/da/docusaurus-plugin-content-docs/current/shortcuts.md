@@ -31,8 +31,8 @@ Der er et par genveje, som du kan bruge i editoren. Nogle af dem er skrevet unde
 * `Ctrl` + `S`: Gem
 * `Alt` + `S`: Skift sti
 * `Ctrl` + (`1` - `0`): Skift til værktøj
-* `Ctrl` + `+`: Zoom in
-* `Ctrl` + `-`: Zoom out
+* `Ctrl` + `+`: Zoom ind
+* `Ctrl` + `-`: Zoom ud
 
 ## Stylus
 
