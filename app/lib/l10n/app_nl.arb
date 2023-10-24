@@ -551,5 +551,6 @@
   "pause": "Onderbreken",
   "stop": "Stoppen",
   "refresh": "Vernieuwen",
-  "print": "Afdrukken"
+  "print": "Afdrukken",
+  "dav": "DAV"
 }
