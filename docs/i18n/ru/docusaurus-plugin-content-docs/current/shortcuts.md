@@ -31,8 +31,8 @@ sidebar_position: 2
 * `Ctrl` + `S`: Сохранить
 * `Alt` + `S`: Изменить путь
 * `Ctrl` + (`1` - `0`): Переключение на инструмент
-* `Ctrl` + `+`: Zoom in
-* `Ctrl` + `-`: Zoom out
+* `Ctrl` + `+`: Масштаб
+* `Ctrl` + `-`: Уменьшить
 
 ## Stylus
 
