@@ -31,8 +31,8 @@ Es gibt ein paar Verknüpfungen, die Sie im Editor verwenden können. Einige dav
 * `Strg` + `S`: Speichern
 * `Alt` + `S`: Pfad ändern
 * `Strg` + (`1` - `0`): Wechseln Sie zum Werkzeug
-* `Ctrl` + `+`: Zoom in
-* `Ctrl` + `-`: Zoom out
+* `Strg` + `+`: Zoomen
+* `Strg` + `-`: Verkleinern
 
 ## Stylus
 
