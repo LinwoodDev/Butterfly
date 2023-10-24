@@ -551,5 +551,6 @@
   "pause": "Tauko",
   "stop": "Pysäytä",
   "refresh": "Päivitä",
-  "print": "Tulosta"
+  "print": "Tulosta",
+  "dav": "DAV"
 }
