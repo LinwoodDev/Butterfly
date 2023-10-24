@@ -551,5 +551,6 @@
   "pause": "Pause",
   "stop": "Stop",
   "refresh": "Opdater",
-  "print": "Udskriv"
+  "print": "Udskriv",
+  "dav": "DAV"
 }
