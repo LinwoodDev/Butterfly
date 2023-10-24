@@ -31,8 +31,8 @@ sidebar_position: 2
 * `Ctrl` + `S`: 保存
 * `Alt` + `S`: パスを変更
 * `Ctrl` + (`1` - `0`): ツールに切り替える
-* `Ctrl` + `+`: Zoom in
-* `Ctrl` + `-`: Zoom out
+* `Ctrl` + `+`: 拡大
+* `Ctrl` + `-`: ズームアウト
 
 ## Stylus
 
