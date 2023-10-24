@@ -132,7 +132,7 @@ class DocumentNavigator extends StatefulWidget {
 
 class _DocumentNavigatorState extends State<DocumentNavigator>
     with SingleTickerProviderStateMixin {
-  RemoteStorage? _remote;
+  ExternalStorage? _remote;
 
   @override
   void initState() {

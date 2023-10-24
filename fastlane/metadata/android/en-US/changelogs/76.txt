@@ -1,3 +1,4 @@
+* Add local directory connection
 * Add zoom shortcuts ([#507](https://github.com/LinwoodDev/Butterfly/issues/507))
 * Add name to hand tool selection
 * Change remote button dropdown to material 3

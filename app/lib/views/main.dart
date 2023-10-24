@@ -74,7 +74,7 @@ class _ProjectPageState extends State<ProjectPage> {
   DocumentBloc? _bloc;
   TransformCubit? _transformCubit;
   CurrentIndexCubit? _currentIndexCubit;
-  RemoteStorage? _remote;
+  ExternalStorage? _remote;
   ImportService? _importService;
   ExportService? _exportService;
   late final CloseSubscription _closeSubscription;

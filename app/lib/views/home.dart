@@ -68,7 +68,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  RemoteStorage? _remote;
+  ExternalStorage? _remote;
 
   @override
   void initState() {
@@ -396,7 +396,7 @@ class _HeaderHomeViewState extends State<_HeaderHomeView>
 }
 
 class _QuickstartHomeView extends StatefulWidget {
-  final RemoteStorage? remote;
+  final ExternalStorage? remote;
   final VoidCallback onReload;
 
   const _QuickstartHomeView({

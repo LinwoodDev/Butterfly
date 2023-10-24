@@ -158,11 +158,14 @@ abstract class DocumentFileSystem extends GeneralFileSystem {
     return asset;
   }
 
-  static DocumentFileSystem fromPlatform({final RemoteStorage? remote}) {
+  static DocumentFileSystem fromPlatform({final ExternalStorage? remote}) {
     if (kIsWeb) {
       return WebDocumentFileSystem();
     } else {
-      return remote?.map(dav: (e) => DavRemoteDocumentFileSystem(e)) ??
+      return remote?.map(
+            dav: (e) => DavRemoteDocumentFileSystem(e),
+            local: (e) => IODocumentFileSystem(e.documentsPath),
+          ) ??
           IODocumentFileSystem();
     }
   }
@@ -224,11 +227,14 @@ abstract class TemplateFileSystem extends GeneralFileSystem {
     return newTemplate;
   }
 
-  static TemplateFileSystem fromPlatform({RemoteStorage? remote}) {
+  static TemplateFileSystem fromPlatform({ExternalStorage? remote}) {
     if (kIsWeb) {
       return WebTemplateFileSystem();
     } else {
-      return remote?.map(dav: (e) => DavRemoteTemplateFileSystem(e)) ??
+      return remote?.map(
+            dav: (e) => DavRemoteTemplateFileSystem(e),
+            local: (e) => IOTemplateFileSystem(e.templatesPath),
+          ) ??
           IOTemplateFileSystem();
     }
   }
@@ -290,11 +296,14 @@ abstract class PackFileSystem extends GeneralFileSystem {
     return pack;
   }
 
-  static PackFileSystem fromPlatform({RemoteStorage? remote}) {
+  static PackFileSystem fromPlatform({ExternalStorage? remote}) {
     if (kIsWeb) {
       return WebPackFileSystem();
     } else {
-      return remote?.map(dav: (e) => DavRemotePackFileSystem(e)) ??
+      return remote?.map(
+            dav: (e) => DavRemotePackFileSystem(e),
+            local: (e) => IOPackFileSystem(e.packsPath),
+          ) ??
           IOPackFileSystem();
     }
   }

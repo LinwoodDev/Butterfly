@@ -36,6 +36,10 @@ Future<String> getButterflyDirectory([bool root = false]) async {
 }
 
 class IODocumentFileSystem extends DocumentFileSystem {
+  final String? root;
+
+  IODocumentFileSystem([this.root]);
+
   @override
   Future<void> deleteAsset(String path) async {
     var absolutePath = await getAbsolutePath(path);
@@ -117,6 +121,9 @@ class IODocumentFileSystem extends DocumentFileSystem {
 
   @override
   FutureOr<String> getDirectory() async {
+    if (root != null) {
+      return root!;
+    }
     var path = await getButterflyDirectory();
     // Convert \ to /
     path = path.replaceAll('\\', '/');
@@ -149,10 +156,10 @@ class IODocumentFileSystem extends DocumentFileSystem {
   @override
   Future<bool> moveAbsolute(String oldPath, String newPath) async {
     if (oldPath.isEmpty) {
-      oldPath = await getButterflyDirectory();
+      oldPath = root ?? await getButterflyDirectory();
     }
     if (newPath.isEmpty) {
-      newPath = await getButterflyDirectory();
+      newPath = root ?? await getButterflyDirectory();
     }
     if (oldPath == newPath) {
       return false;
@@ -187,6 +194,10 @@ class IODocumentFileSystem extends DocumentFileSystem {
 }
 
 class IOTemplateFileSystem extends TemplateFileSystem {
+  final String? root;
+
+  IOTemplateFileSystem([this.root]);
+
   @override
   Future<bool> createDefault(BuildContext context, {bool force = false}) async {
     var defaults = await DocumentDefaults.getDefaults(context);
@@ -232,19 +243,18 @@ class IOTemplateFileSystem extends TemplateFileSystem {
 
   @override
   FutureOr<String> getDirectory() async {
-    var prefs = await SharedPreferences.getInstance();
-    String? path;
-    if (prefs.containsKey('document_path')) {
-      path = prefs.getString('document_path');
+    if (root != null) {
+      return root!;
     }
-    if (path == '') {
-      path = null;
-    }
-    path ??= await getButterflyDirectory();
+    var path = await getButterflyDirectory();
     // Convert \ to /
     path = path.replaceAll('\\', '/');
     path += '/Templates';
-    return path;
+    var directory = Directory(path);
+    if (!await directory.exists()) {
+      await directory.create(recursive: true);
+    }
+    return directory.path;
   }
 
   @override
@@ -278,6 +288,10 @@ class IOTemplateFileSystem extends TemplateFileSystem {
 }
 
 class IOPackFileSystem extends PackFileSystem {
+  final String? root;
+
+  IOPackFileSystem([this.root]);
+
   @override
   Future<void> deletePack(String name) async {
     final file = File(await getAbsolutePath('${escapeName(name)}.bfly'));
@@ -308,19 +322,18 @@ class IOPackFileSystem extends PackFileSystem {
 
   @override
   FutureOr<String> getDirectory() async {
-    var prefs = await SharedPreferences.getInstance();
-    String? path;
-    if (prefs.containsKey('document_path')) {
-      path = prefs.getString('document_path');
+    if (root != null) {
+      return root!;
     }
-    if (path == '') {
-      path = null;
-    }
-    path ??= await getButterflyDirectory();
+    var path = await getButterflyDirectory();
     // Convert \ to /
     path = path.replaceAll('\\', '/');
     path += '/Packs';
-    return path;
+    var directory = Directory(path);
+    if (!await directory.exists()) {
+      await directory.create(recursive: true);
+    }
+    return directory.path;
   }
 
   @override

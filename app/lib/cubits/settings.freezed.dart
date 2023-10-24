@@ -14,23 +14,28 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
-RemoteStorage _$RemoteStorageFromJson(Map<String, dynamic> json) {
-  return DavRemoteStorage.fromJson(json);
+ExternalStorage _$ExternalStorageFromJson(Map<String, dynamic> json) {
+  switch (json['type']) {
+    case 'dav':
+      return DavRemoteStorage.fromJson(json);
+    case 'local':
+      return LocalRemoteStorage.fromJson(json);
+
+    default:
+      throw CheckedFromJsonException(json, 'type', 'ExternalStorage',
+          'Invalid union type "${json['type']}"!');
+  }
 }
 
 /// @nodoc
-mixin _$RemoteStorage {
-  String get username => throw _privateConstructorUsedError;
-  String get url => throw _privateConstructorUsedError;
+mixin _$ExternalStorage {
   String get path => throw _privateConstructorUsedError;
   String get documentsPath => throw _privateConstructorUsedError;
   String get templatesPath => throw _privateConstructorUsedError;
   String get packsPath => throw _privateConstructorUsedError;
-  List<String> get cachedDocuments => throw _privateConstructorUsedError;
   List<String> get starred => throw _privateConstructorUsedError;
   @Uint8ListJsonConverter()
-  Uint8List get icon => throw _privateConstructorUsedError;
-  DateTime? get lastSynced => throw _privateConstructorUsedError;
+  Uint8List? get icon => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(
@@ -42,9 +47,17 @@ mixin _$RemoteStorage {
             String packsPath,
             List<String> cachedDocuments,
             List<String> starred,
-            @Uint8ListJsonConverter() Uint8List icon,
+            @Uint8ListJsonConverter() Uint8List? icon,
             DateTime? lastSynced)
         dav,
+    required TResult Function(
+            String path,
+            String documentsPath,
+            String templatesPath,
+            String packsPath,
+            @Uint8ListJsonConverter() Uint8List? icon,
+            List<String> starred)
+        local,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -58,9 +71,17 @@ mixin _$RemoteStorage {
             String packsPath,
             List<String> cachedDocuments,
             List<String> starred,
-            @Uint8ListJsonConverter() Uint8List icon,
+            @Uint8ListJsonConverter() Uint8List? icon,
             DateTime? lastSynced)?
         dav,
+    TResult? Function(
+            String path,
+            String documentsPath,
+            String templatesPath,
+            String packsPath,
+            @Uint8ListJsonConverter() Uint8List? icon,
+            List<String> starred)?
+        local,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -74,57 +95,64 @@ mixin _$RemoteStorage {
             String packsPath,
             List<String> cachedDocuments,
             List<String> starred,
-            @Uint8ListJsonConverter() Uint8List icon,
+            @Uint8ListJsonConverter() Uint8List? icon,
             DateTime? lastSynced)?
         dav,
+    TResult Function(
+            String path,
+            String documentsPath,
+            String templatesPath,
+            String packsPath,
+            @Uint8ListJsonConverter() Uint8List? icon,
+            List<String> starred)?
+        local,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(DavRemoteStorage value) dav,
+    required TResult Function(LocalRemoteStorage value) local,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(DavRemoteStorage value)? dav,
+    TResult? Function(LocalRemoteStorage value)? local,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(DavRemoteStorage value)? dav,
+    TResult Function(LocalRemoteStorage value)? local,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $RemoteStorageCopyWith<RemoteStorage> get copyWith =>
+  $ExternalStorageCopyWith<ExternalStorage> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $RemoteStorageCopyWith<$Res> {
-  factory $RemoteStorageCopyWith(
-          RemoteStorage value, $Res Function(RemoteStorage) then) =
-      _$RemoteStorageCopyWithImpl<$Res, RemoteStorage>;
+abstract class $ExternalStorageCopyWith<$Res> {
+  factory $ExternalStorageCopyWith(
+          ExternalStorage value, $Res Function(ExternalStorage) then) =
+      _$ExternalStorageCopyWithImpl<$Res, ExternalStorage>;
   @useResult
   $Res call(
-      {String username,
-      String url,
-      String path,
+      {String path,
       String documentsPath,
       String templatesPath,
       String packsPath,
-      List<String> cachedDocuments,
       List<String> starred,
-      @Uint8ListJsonConverter() Uint8List icon,
-      DateTime? lastSynced});
+      @Uint8ListJsonConverter() Uint8List? icon});
 }
 
 /// @nodoc
-class _$RemoteStorageCopyWithImpl<$Res, $Val extends RemoteStorage>
-    implements $RemoteStorageCopyWith<$Res> {
-  _$RemoteStorageCopyWithImpl(this._value, this._then);
+class _$ExternalStorageCopyWithImpl<$Res, $Val extends ExternalStorage>
+    implements $ExternalStorageCopyWith<$Res> {
+  _$ExternalStorageCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -134,26 +162,14 @@ class _$RemoteStorageCopyWithImpl<$Res, $Val extends RemoteStorage>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? username = null,
-    Object? url = null,
     Object? path = null,
     Object? documentsPath = null,
     Object? templatesPath = null,
     Object? packsPath = null,
-    Object? cachedDocuments = null,
     Object? starred = null,
-    Object? icon = null,
-    Object? lastSynced = freezed,
+    Object? icon = freezed,
   }) {
     return _then(_value.copyWith(
-      username: null == username
-          ? _value.username
-          : username // ignore: cast_nullable_to_non_nullable
-              as String,
-      url: null == url
-          ? _value.url
-          : url // ignore: cast_nullable_to_non_nullable
-              as String,
       path: null == path
           ? _value.path
           : path // ignore: cast_nullable_to_non_nullable
@@ -170,29 +186,21 @@ class _$RemoteStorageCopyWithImpl<$Res, $Val extends RemoteStorage>
           ? _value.packsPath
           : packsPath // ignore: cast_nullable_to_non_nullable
               as String,
-      cachedDocuments: null == cachedDocuments
-          ? _value.cachedDocuments
-          : cachedDocuments // ignore: cast_nullable_to_non_nullable
-              as List<String>,
       starred: null == starred
           ? _value.starred
           : starred // ignore: cast_nullable_to_non_nullable
               as List<String>,
-      icon: null == icon
+      icon: freezed == icon
           ? _value.icon
           : icon // ignore: cast_nullable_to_non_nullable
-              as Uint8List,
-      lastSynced: freezed == lastSynced
-          ? _value.lastSynced
-          : lastSynced // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
+              as Uint8List?,
     ) as $Val);
   }
 }
 
 /// @nodoc
 abstract class _$$DavRemoteStorageImplCopyWith<$Res>
-    implements $RemoteStorageCopyWith<$Res> {
+    implements $ExternalStorageCopyWith<$Res> {
   factory _$$DavRemoteStorageImplCopyWith(_$DavRemoteStorageImpl value,
           $Res Function(_$DavRemoteStorageImpl) then) =
       __$$DavRemoteStorageImplCopyWithImpl<$Res>;
@@ -207,13 +215,13 @@ abstract class _$$DavRemoteStorageImplCopyWith<$Res>
       String packsPath,
       List<String> cachedDocuments,
       List<String> starred,
-      @Uint8ListJsonConverter() Uint8List icon,
+      @Uint8ListJsonConverter() Uint8List? icon,
       DateTime? lastSynced});
 }
 
 /// @nodoc
 class __$$DavRemoteStorageImplCopyWithImpl<$Res>
-    extends _$RemoteStorageCopyWithImpl<$Res, _$DavRemoteStorageImpl>
+    extends _$ExternalStorageCopyWithImpl<$Res, _$DavRemoteStorageImpl>
     implements _$$DavRemoteStorageImplCopyWith<$Res> {
   __$$DavRemoteStorageImplCopyWithImpl(_$DavRemoteStorageImpl _value,
       $Res Function(_$DavRemoteStorageImpl) _then)
@@ -230,7 +238,7 @@ class __$$DavRemoteStorageImplCopyWithImpl<$Res>
     Object? packsPath = null,
     Object? cachedDocuments = null,
     Object? starred = null,
-    Object? icon = null,
+    Object? icon = freezed,
     Object? lastSynced = freezed,
   }) {
     return _then(_$DavRemoteStorageImpl(
@@ -266,10 +274,10 @@ class __$$DavRemoteStorageImplCopyWithImpl<$Res>
           ? _value._starred
           : starred // ignore: cast_nullable_to_non_nullable
               as List<String>,
-      icon: null == icon
+      icon: freezed == icon
           ? _value.icon
           : icon // ignore: cast_nullable_to_non_nullable
-              as Uint8List,
+              as Uint8List?,
       lastSynced: freezed == lastSynced
           ? _value.lastSynced
           : lastSynced // ignore: cast_nullable_to_non_nullable
@@ -281,36 +289,44 @@ class __$$DavRemoteStorageImplCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$DavRemoteStorageImpl extends DavRemoteStorage
-    with DiagnosticableTreeMixin {
+    with DiagnosticableTreeMixin, RemoteStorage {
   const _$DavRemoteStorageImpl(
-      {required this.username,
-      required this.url,
-      required this.path,
-      required this.documentsPath,
-      required this.templatesPath,
-      required this.packsPath,
+      {this.username = '',
+      this.url = '',
+      this.path = '',
+      this.documentsPath = '',
+      this.templatesPath = '',
+      this.packsPath = '',
       final List<String> cachedDocuments = const [],
       final List<String> starred = const [],
-      @Uint8ListJsonConverter() required this.icon,
-      this.lastSynced})
+      @Uint8ListJsonConverter() this.icon,
+      this.lastSynced,
+      final String? $type})
       : _cachedDocuments = cachedDocuments,
         _starred = starred,
+        $type = $type ?? 'dav',
         super._();
 
   factory _$DavRemoteStorageImpl.fromJson(Map<String, dynamic> json) =>
       _$$DavRemoteStorageImplFromJson(json);
 
   @override
+  @JsonKey()
   final String username;
   @override
+  @JsonKey()
   final String url;
   @override
+  @JsonKey()
   final String path;
   @override
+  @JsonKey()
   final String documentsPath;
   @override
+  @JsonKey()
   final String templatesPath;
   @override
+  @JsonKey()
   final String packsPath;
   final List<String> _cachedDocuments;
   @override
@@ -332,20 +348,23 @@ class _$DavRemoteStorageImpl extends DavRemoteStorage
 
   @override
   @Uint8ListJsonConverter()
-  final Uint8List icon;
+  final Uint8List? icon;
   @override
   final DateTime? lastSynced;
 
+  @JsonKey(name: 'type')
+  final String $type;
+
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'RemoteStorage.dav(username: $username, url: $url, path: $path, documentsPath: $documentsPath, templatesPath: $templatesPath, packsPath: $packsPath, cachedDocuments: $cachedDocuments, starred: $starred, icon: $icon, lastSynced: $lastSynced)';
+    return 'ExternalStorage.dav(username: $username, url: $url, path: $path, documentsPath: $documentsPath, templatesPath: $templatesPath, packsPath: $packsPath, cachedDocuments: $cachedDocuments, starred: $starred, icon: $icon, lastSynced: $lastSynced)';
   }
 
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
     properties
-      ..add(DiagnosticsProperty('type', 'RemoteStorage.dav'))
+      ..add(DiagnosticsProperty('type', 'ExternalStorage.dav'))
       ..add(DiagnosticsProperty('username', username))
       ..add(DiagnosticsProperty('url', url))
       ..add(DiagnosticsProperty('path', path))
@@ -415,9 +434,17 @@ class _$DavRemoteStorageImpl extends DavRemoteStorage
             String packsPath,
             List<String> cachedDocuments,
             List<String> starred,
-            @Uint8ListJsonConverter() Uint8List icon,
+            @Uint8ListJsonConverter() Uint8List? icon,
             DateTime? lastSynced)
         dav,
+    required TResult Function(
+            String path,
+            String documentsPath,
+            String templatesPath,
+            String packsPath,
+            @Uint8ListJsonConverter() Uint8List? icon,
+            List<String> starred)
+        local,
   }) {
     return dav(username, url, path, documentsPath, templatesPath, packsPath,
         cachedDocuments, starred, icon, lastSynced);
@@ -435,9 +462,17 @@ class _$DavRemoteStorageImpl extends DavRemoteStorage
             String packsPath,
             List<String> cachedDocuments,
             List<String> starred,
-            @Uint8ListJsonConverter() Uint8List icon,
+            @Uint8ListJsonConverter() Uint8List? icon,
             DateTime? lastSynced)?
         dav,
+    TResult? Function(
+            String path,
+            String documentsPath,
+            String templatesPath,
+            String packsPath,
+            @Uint8ListJsonConverter() Uint8List? icon,
+            List<String> starred)?
+        local,
   }) {
     return dav?.call(username, url, path, documentsPath, templatesPath,
         packsPath, cachedDocuments, starred, icon, lastSynced);
@@ -455,9 +490,17 @@ class _$DavRemoteStorageImpl extends DavRemoteStorage
             String packsPath,
             List<String> cachedDocuments,
             List<String> starred,
-            @Uint8ListJsonConverter() Uint8List icon,
+            @Uint8ListJsonConverter() Uint8List? icon,
             DateTime? lastSynced)?
         dav,
+    TResult Function(
+            String path,
+            String documentsPath,
+            String templatesPath,
+            String packsPath,
+            @Uint8ListJsonConverter() Uint8List? icon,
+            List<String> starred)?
+        local,
     required TResult orElse(),
   }) {
     if (dav != null) {
@@ -471,6 +514,7 @@ class _$DavRemoteStorageImpl extends DavRemoteStorage
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(DavRemoteStorage value) dav,
+    required TResult Function(LocalRemoteStorage value) local,
   }) {
     return dav(this);
   }
@@ -479,6 +523,7 @@ class _$DavRemoteStorageImpl extends DavRemoteStorage
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(DavRemoteStorage value)? dav,
+    TResult? Function(LocalRemoteStorage value)? local,
   }) {
     return dav?.call(this);
   }
@@ -487,6 +532,7 @@ class _$DavRemoteStorageImpl extends DavRemoteStorage
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(DavRemoteStorage value)? dav,
+    TResult Function(LocalRemoteStorage value)? local,
     required TResult orElse(),
   }) {
     if (dav != null) {
@@ -503,26 +549,25 @@ class _$DavRemoteStorageImpl extends DavRemoteStorage
   }
 }
 
-abstract class DavRemoteStorage extends RemoteStorage {
+abstract class DavRemoteStorage extends ExternalStorage
+    implements RemoteStorage {
   const factory DavRemoteStorage(
-      {required final String username,
-      required final String url,
-      required final String path,
-      required final String documentsPath,
-      required final String templatesPath,
-      required final String packsPath,
+      {final String username,
+      final String url,
+      final String path,
+      final String documentsPath,
+      final String templatesPath,
+      final String packsPath,
       final List<String> cachedDocuments,
       final List<String> starred,
-      @Uint8ListJsonConverter() required final Uint8List icon,
+      @Uint8ListJsonConverter() final Uint8List? icon,
       final DateTime? lastSynced}) = _$DavRemoteStorageImpl;
   const DavRemoteStorage._() : super._();
 
   factory DavRemoteStorage.fromJson(Map<String, dynamic> json) =
       _$DavRemoteStorageImpl.fromJson;
 
-  @override
   String get username;
-  @override
   String get url;
   @override
   String get path;
@@ -532,18 +577,336 @@ abstract class DavRemoteStorage extends RemoteStorage {
   String get templatesPath;
   @override
   String get packsPath;
-  @override
   List<String> get cachedDocuments;
   @override
   List<String> get starred;
   @override
   @Uint8ListJsonConverter()
-  Uint8List get icon;
-  @override
+  Uint8List? get icon;
   DateTime? get lastSynced;
   @override
   @JsonKey(ignore: true)
   _$$DavRemoteStorageImplCopyWith<_$DavRemoteStorageImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$LocalRemoteStorageImplCopyWith<$Res>
+    implements $ExternalStorageCopyWith<$Res> {
+  factory _$$LocalRemoteStorageImplCopyWith(_$LocalRemoteStorageImpl value,
+          $Res Function(_$LocalRemoteStorageImpl) then) =
+      __$$LocalRemoteStorageImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call(
+      {String path,
+      String documentsPath,
+      String templatesPath,
+      String packsPath,
+      @Uint8ListJsonConverter() Uint8List? icon,
+      List<String> starred});
+}
+
+/// @nodoc
+class __$$LocalRemoteStorageImplCopyWithImpl<$Res>
+    extends _$ExternalStorageCopyWithImpl<$Res, _$LocalRemoteStorageImpl>
+    implements _$$LocalRemoteStorageImplCopyWith<$Res> {
+  __$$LocalRemoteStorageImplCopyWithImpl(_$LocalRemoteStorageImpl _value,
+      $Res Function(_$LocalRemoteStorageImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? path = null,
+    Object? documentsPath = null,
+    Object? templatesPath = null,
+    Object? packsPath = null,
+    Object? icon = freezed,
+    Object? starred = null,
+  }) {
+    return _then(_$LocalRemoteStorageImpl(
+      path: null == path
+          ? _value.path
+          : path // ignore: cast_nullable_to_non_nullable
+              as String,
+      documentsPath: null == documentsPath
+          ? _value.documentsPath
+          : documentsPath // ignore: cast_nullable_to_non_nullable
+              as String,
+      templatesPath: null == templatesPath
+          ? _value.templatesPath
+          : templatesPath // ignore: cast_nullable_to_non_nullable
+              as String,
+      packsPath: null == packsPath
+          ? _value.packsPath
+          : packsPath // ignore: cast_nullable_to_non_nullable
+              as String,
+      icon: freezed == icon
+          ? _value.icon
+          : icon // ignore: cast_nullable_to_non_nullable
+              as Uint8List?,
+      starred: null == starred
+          ? _value._starred
+          : starred // ignore: cast_nullable_to_non_nullable
+              as List<String>,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$LocalRemoteStorageImpl extends LocalRemoteStorage
+    with DiagnosticableTreeMixin {
+  const _$LocalRemoteStorageImpl(
+      {this.path = '',
+      this.documentsPath = '',
+      this.templatesPath = '',
+      this.packsPath = '',
+      @Uint8ListJsonConverter() this.icon,
+      final List<String> starred = const [],
+      final String? $type})
+      : _starred = starred,
+        $type = $type ?? 'local',
+        super._();
+
+  factory _$LocalRemoteStorageImpl.fromJson(Map<String, dynamic> json) =>
+      _$$LocalRemoteStorageImplFromJson(json);
+
+  @override
+  @JsonKey()
+  final String path;
+  @override
+  @JsonKey()
+  final String documentsPath;
+  @override
+  @JsonKey()
+  final String templatesPath;
+  @override
+  @JsonKey()
+  final String packsPath;
+  @override
+  @Uint8ListJsonConverter()
+  final Uint8List? icon;
+  final List<String> _starred;
+  @override
+  @JsonKey()
+  List<String> get starred {
+    if (_starred is EqualUnmodifiableListView) return _starred;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_starred);
+  }
+
+  @JsonKey(name: 'type')
+  final String $type;
+
+  @override
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+    return 'ExternalStorage.local(path: $path, documentsPath: $documentsPath, templatesPath: $templatesPath, packsPath: $packsPath, icon: $icon, starred: $starred)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'ExternalStorage.local'))
+      ..add(DiagnosticsProperty('path', path))
+      ..add(DiagnosticsProperty('documentsPath', documentsPath))
+      ..add(DiagnosticsProperty('templatesPath', templatesPath))
+      ..add(DiagnosticsProperty('packsPath', packsPath))
+      ..add(DiagnosticsProperty('icon', icon))
+      ..add(DiagnosticsProperty('starred', starred));
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$LocalRemoteStorageImpl &&
+            (identical(other.path, path) || other.path == path) &&
+            (identical(other.documentsPath, documentsPath) ||
+                other.documentsPath == documentsPath) &&
+            (identical(other.templatesPath, templatesPath) ||
+                other.templatesPath == templatesPath) &&
+            (identical(other.packsPath, packsPath) ||
+                other.packsPath == packsPath) &&
+            const DeepCollectionEquality().equals(other.icon, icon) &&
+            const DeepCollectionEquality().equals(other._starred, _starred));
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  int get hashCode => Object.hash(
+      runtimeType,
+      path,
+      documentsPath,
+      templatesPath,
+      packsPath,
+      const DeepCollectionEquality().hash(icon),
+      const DeepCollectionEquality().hash(_starred));
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$LocalRemoteStorageImplCopyWith<_$LocalRemoteStorageImpl> get copyWith =>
+      __$$LocalRemoteStorageImplCopyWithImpl<_$LocalRemoteStorageImpl>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(
+            String username,
+            String url,
+            String path,
+            String documentsPath,
+            String templatesPath,
+            String packsPath,
+            List<String> cachedDocuments,
+            List<String> starred,
+            @Uint8ListJsonConverter() Uint8List? icon,
+            DateTime? lastSynced)
+        dav,
+    required TResult Function(
+            String path,
+            String documentsPath,
+            String templatesPath,
+            String packsPath,
+            @Uint8ListJsonConverter() Uint8List? icon,
+            List<String> starred)
+        local,
+  }) {
+    return local(path, documentsPath, templatesPath, packsPath, icon, starred);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(
+            String username,
+            String url,
+            String path,
+            String documentsPath,
+            String templatesPath,
+            String packsPath,
+            List<String> cachedDocuments,
+            List<String> starred,
+            @Uint8ListJsonConverter() Uint8List? icon,
+            DateTime? lastSynced)?
+        dav,
+    TResult? Function(
+            String path,
+            String documentsPath,
+            String templatesPath,
+            String packsPath,
+            @Uint8ListJsonConverter() Uint8List? icon,
+            List<String> starred)?
+        local,
+  }) {
+    return local?.call(
+        path, documentsPath, templatesPath, packsPath, icon, starred);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(
+            String username,
+            String url,
+            String path,
+            String documentsPath,
+            String templatesPath,
+            String packsPath,
+            List<String> cachedDocuments,
+            List<String> starred,
+            @Uint8ListJsonConverter() Uint8List? icon,
+            DateTime? lastSynced)?
+        dav,
+    TResult Function(
+            String path,
+            String documentsPath,
+            String templatesPath,
+            String packsPath,
+            @Uint8ListJsonConverter() Uint8List? icon,
+            List<String> starred)?
+        local,
+    required TResult orElse(),
+  }) {
+    if (local != null) {
+      return local(
+          path, documentsPath, templatesPath, packsPath, icon, starred);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(DavRemoteStorage value) dav,
+    required TResult Function(LocalRemoteStorage value) local,
+  }) {
+    return local(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(DavRemoteStorage value)? dav,
+    TResult? Function(LocalRemoteStorage value)? local,
+  }) {
+    return local?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(DavRemoteStorage value)? dav,
+    TResult Function(LocalRemoteStorage value)? local,
+    required TResult orElse(),
+  }) {
+    if (local != null) {
+      return local(this);
+    }
+    return orElse();
+  }
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$LocalRemoteStorageImplToJson(
+      this,
+    );
+  }
+}
+
+abstract class LocalRemoteStorage extends ExternalStorage {
+  const factory LocalRemoteStorage(
+      {final String path,
+      final String documentsPath,
+      final String templatesPath,
+      final String packsPath,
+      @Uint8ListJsonConverter() final Uint8List? icon,
+      final List<String> starred}) = _$LocalRemoteStorageImpl;
+  const LocalRemoteStorage._() : super._();
+
+  factory LocalRemoteStorage.fromJson(Map<String, dynamic> json) =
+      _$LocalRemoteStorageImpl.fromJson;
+
+  @override
+  String get path;
+  @override
+  String get documentsPath;
+  @override
+  String get templatesPath;
+  @override
+  String get packsPath;
+  @override
+  @Uint8ListJsonConverter()
+  Uint8List? get icon;
+  @override
+  List<String> get starred;
+  @override
+  @JsonKey(ignore: true)
+  _$$LocalRemoteStorageImplCopyWith<_$LocalRemoteStorageImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -853,7 +1216,7 @@ mixin _$ButterflySettings {
   bool get navigatorEnabled => throw _privateConstructorUsedError;
   bool get zoomEnabled => throw _privateConstructorUsedError;
   String? get lastVersion => throw _privateConstructorUsedError;
-  List<RemoteStorage> get remotes => throw _privateConstructorUsedError;
+  List<ExternalStorage> get remotes => throw _privateConstructorUsedError;
   String get defaultRemote => throw _privateConstructorUsedError;
   bool get nativeTitleBar => throw _privateConstructorUsedError;
   bool get startInFullScreen => throw _privateConstructorUsedError;
@@ -901,7 +1264,7 @@ abstract class $ButterflySettingsCopyWith<$Res> {
       bool navigatorEnabled,
       bool zoomEnabled,
       String? lastVersion,
-      List<RemoteStorage> remotes,
+      List<ExternalStorage> remotes,
       String defaultRemote,
       bool nativeTitleBar,
       bool startInFullScreen,
@@ -1039,7 +1402,7 @@ class _$ButterflySettingsCopyWithImpl<$Res, $Val extends ButterflySettings>
       remotes: null == remotes
           ? _value.remotes
           : remotes // ignore: cast_nullable_to_non_nullable
-              as List<RemoteStorage>,
+              as List<ExternalStorage>,
       defaultRemote: null == defaultRemote
           ? _value.defaultRemote
           : defaultRemote // ignore: cast_nullable_to_non_nullable
@@ -1146,7 +1509,7 @@ abstract class _$$ButterflySettingsImplCopyWith<$Res>
       bool navigatorEnabled,
       bool zoomEnabled,
       String? lastVersion,
-      List<RemoteStorage> remotes,
+      List<ExternalStorage> remotes,
       String defaultRemote,
       bool nativeTitleBar,
       bool startInFullScreen,
@@ -1283,7 +1646,7 @@ class __$$ButterflySettingsImplCopyWithImpl<$Res>
       remotes: null == remotes
           ? _value._remotes
           : remotes // ignore: cast_nullable_to_non_nullable
-              as List<RemoteStorage>,
+              as List<ExternalStorage>,
       defaultRemote: null == defaultRemote
           ? _value.defaultRemote
           : defaultRemote // ignore: cast_nullable_to_non_nullable
@@ -1377,7 +1740,7 @@ class _$ButterflySettingsImpl extends _ButterflySettings
       this.navigatorEnabled = false,
       this.zoomEnabled = true,
       this.lastVersion,
-      final List<RemoteStorage> remotes = const [],
+      final List<ExternalStorage> remotes = const [],
       this.defaultRemote = '',
       this.nativeTitleBar = false,
       this.startInFullScreen = false,
@@ -1453,10 +1816,10 @@ class _$ButterflySettingsImpl extends _ButterflySettings
   final bool zoomEnabled;
   @override
   final String? lastVersion;
-  final List<RemoteStorage> _remotes;
+  final List<ExternalStorage> _remotes;
   @override
   @JsonKey()
-  List<RemoteStorage> get remotes {
+  List<ExternalStorage> get remotes {
     if (_remotes is EqualUnmodifiableListView) return _remotes;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_remotes);
@@ -1698,7 +2061,7 @@ abstract class _ButterflySettings extends ButterflySettings {
       final bool navigatorEnabled,
       final bool zoomEnabled,
       final String? lastVersion,
-      final List<RemoteStorage> remotes,
+      final List<ExternalStorage> remotes,
       final String defaultRemote,
       final bool nativeTitleBar,
       final bool startInFullScreen,
@@ -1751,7 +2114,7 @@ abstract class _ButterflySettings extends ButterflySettings {
   @override
   String? get lastVersion;
   @override
-  List<RemoteStorage> get remotes;
+  List<ExternalStorage> get remotes;
   @override
   String get defaultRemote;
   @override

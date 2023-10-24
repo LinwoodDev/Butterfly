@@ -31,8 +31,8 @@ part 'files/list.dart';
 
 class FilesView extends StatefulWidget {
   final AssetLocation? selectedAsset;
-  final RemoteStorage? remote;
-  final ValueChanged<RemoteStorage?>? onRemoteChanged;
+  final ExternalStorage? remote;
+  final ValueChanged<ExternalStorage?>? onRemoteChanged;
   final bool collapsed;
   final bool isMobile;
 
@@ -56,7 +56,7 @@ class _FilesViewState extends State<FilesView> {
   bool _gridView = false;
   SortBy _sortBy = SortBy.name;
   SortOrder _sortOrder = SortOrder.ascending;
-  RemoteStorage? _remote;
+  ExternalStorage? _remote;
   String _search = '';
   late final SettingsCubit _settingsCubit;
   Stream<AppDocumentEntity?>? _filesStream;
@@ -95,7 +95,7 @@ class _FilesViewState extends State<FilesView> {
     setState(_setFilesStream);
   }
 
-  void _setRemote(RemoteStorage? remote) {
+  void _setRemote(ExternalStorage? remote) {
     _remote = remote;
     _setFilesStream();
     widget.onRemoteChanged?.call(remote);
@@ -146,7 +146,7 @@ class _FilesViewState extends State<FilesView> {
                       ),
                       ...state.remotes.map((e) => DropdownMenuEntry(
                             value: e.identifier,
-                            label: e.uri.host,
+                            label: e.label,
                           )),
                     ],
                     initialSelection: _remote?.identifier,

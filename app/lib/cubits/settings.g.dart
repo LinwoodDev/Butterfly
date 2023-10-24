@@ -8,12 +8,12 @@ part of 'settings.dart';
 
 _$DavRemoteStorageImpl _$$DavRemoteStorageImplFromJson(Map json) =>
     _$DavRemoteStorageImpl(
-      username: json['username'] as String,
-      url: json['url'] as String,
-      path: json['path'] as String,
-      documentsPath: json['documentsPath'] as String,
-      templatesPath: json['templatesPath'] as String,
-      packsPath: json['packsPath'] as String,
+      username: json['username'] as String? ?? '',
+      url: json['url'] as String? ?? '',
+      path: json['path'] as String? ?? '',
+      documentsPath: json['documentsPath'] as String? ?? '',
+      templatesPath: json['templatesPath'] as String? ?? '',
+      packsPath: json['packsPath'] as String? ?? '',
       cachedDocuments: (json['cachedDocuments'] as List<dynamic>?)
               ?.map((e) => e as String)
               .toList() ??
@@ -22,10 +22,12 @@ _$DavRemoteStorageImpl _$$DavRemoteStorageImplFromJson(Map json) =>
               ?.map((e) => e as String)
               .toList() ??
           const [],
-      icon: const Uint8ListJsonConverter().fromJson(json['icon'] as String),
+      icon: _$JsonConverterFromJson<String, Uint8List>(
+          json['icon'], const Uint8ListJsonConverter().fromJson),
       lastSynced: json['lastSynced'] == null
           ? null
           : DateTime.parse(json['lastSynced'] as String),
+      $type: json['type'] as String?,
     );
 
 Map<String, dynamic> _$$DavRemoteStorageImplToJson(
@@ -39,8 +41,50 @@ Map<String, dynamic> _$$DavRemoteStorageImplToJson(
       'packsPath': instance.packsPath,
       'cachedDocuments': instance.cachedDocuments,
       'starred': instance.starred,
-      'icon': const Uint8ListJsonConverter().toJson(instance.icon),
+      'icon': _$JsonConverterToJson<String, Uint8List>(
+          instance.icon, const Uint8ListJsonConverter().toJson),
       'lastSynced': instance.lastSynced?.toIso8601String(),
+      'type': instance.$type,
+    };
+
+Value? _$JsonConverterFromJson<Json, Value>(
+  Object? json,
+  Value? Function(Json json) fromJson,
+) =>
+    json == null ? null : fromJson(json as Json);
+
+Json? _$JsonConverterToJson<Json, Value>(
+  Value? value,
+  Json? Function(Value value) toJson,
+) =>
+    value == null ? null : toJson(value);
+
+_$LocalRemoteStorageImpl _$$LocalRemoteStorageImplFromJson(Map json) =>
+    _$LocalRemoteStorageImpl(
+      path: json['path'] as String? ?? '',
+      documentsPath: json['documentsPath'] as String? ?? '',
+      templatesPath: json['templatesPath'] as String? ?? '',
+      packsPath: json['packsPath'] as String? ?? '',
+      icon: _$JsonConverterFromJson<String, Uint8List>(
+          json['icon'], const Uint8ListJsonConverter().fromJson),
+      starred: (json['starred'] as List<dynamic>?)
+              ?.map((e) => e as String)
+              .toList() ??
+          const [],
+      $type: json['type'] as String?,
+    );
+
+Map<String, dynamic> _$$LocalRemoteStorageImplToJson(
+        _$LocalRemoteStorageImpl instance) =>
+    <String, dynamic>{
+      'path': instance.path,
+      'documentsPath': instance.documentsPath,
+      'templatesPath': instance.templatesPath,
+      'packsPath': instance.packsPath,
+      'icon': _$JsonConverterToJson<String, Uint8List>(
+          instance.icon, const Uint8ListJsonConverter().toJson),
+      'starred': instance.starred,
+      'type': instance.$type,
     };
 
 _$InputConfigurationImpl _$$InputConfigurationImplFromJson(Map json) =>

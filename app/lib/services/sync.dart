@@ -92,7 +92,7 @@ enum SyncStatus {
 
 class RemoteSync {
   final BuildContext context;
-  final RemoteStorage remoteStorage;
+  final ExternalStorage remoteStorage;
   final SettingsCubit settingsCubit;
   final BehaviorSubject<List<SyncFile>> _filesSubject =
       BehaviorSubject<List<SyncFile>>();

@@ -223,7 +223,7 @@ class DocumentLoadSuccess extends DocumentLoaded {
           location: value, saved: SaveState.saved));
   }
 
-  RemoteStorage? getRemoteStorage() => location.remote.isEmpty
+  ExternalStorage? getRemoteStorage() => location.remote.isEmpty
       ? null
       : settingsCubit.state.getRemote(location.remote);
 
