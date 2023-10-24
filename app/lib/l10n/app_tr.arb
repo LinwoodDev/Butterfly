@@ -551,5 +551,6 @@
   "pause": "Pause",
   "stop": "Stop",
   "refresh": "Yenile",
-  "print": "Print"
+  "print": "Print",
+  "dav": "DAV"
 }
