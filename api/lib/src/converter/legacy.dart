@@ -12,8 +12,7 @@ Archive convertLegacyDataToArchive(Map<String, dynamic> data) {
     'fileVersion': 8,
     ...legacyNoteDataJsonMigrator(data),
   };
-  final archive = Archive();
-  var reader = NoteData(archive);
+  var reader = NoteData(Archive());
   reader = reader.setAsset(kMetaArchiveFile, utf8.encode(jsonEncode(data)));
   NoteFileType type = NoteFileType.document;
   try {
@@ -55,7 +54,7 @@ Archive convertLegacyDataToArchive(Map<String, dynamic> data) {
         reader = reader.setThumbnail(data);
       }
   }
-  return archive;
+  return reader.export();
 }
 
 Map<String, dynamic> legacyNoteDataJsonMigrator(Map<String, dynamic> data) {
@@ -78,7 +77,6 @@ Map<String, dynamic> legacyNoteDataJsonMigrator(Map<String, dynamic> data) {
 
 Map<String, dynamic> _legacyDocumentJsonMigrator(
     Map<String, dynamic> data, int? fileVersion) {
-  final fileVersion = data['fileVersion'] as int?;
   if (fileVersion != null && fileVersion >= 0) {
     if (fileVersion < 4) {
       data['palettes'] = List.from(
