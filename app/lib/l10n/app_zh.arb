@@ -551,5 +551,6 @@
   "pause": "暂停",
   "stop": "停止",
   "refresh": "刷新",
-  "print": "打印"
+  "print": "打印",
+  "dav": "DAV"
 }

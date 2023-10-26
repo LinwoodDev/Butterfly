@@ -31,6 +31,8 @@ There are a few shortcuts that you can use in the editor. Some of them are writt
 * `Ctrl` + `S`: Save
 * `Alt` + `S`: Change path
 * `Ctrl` + (`1` - `0`): Switch to tool
+* `Ctrl` + `+`: Zoom in
+* `Ctrl` + `-`: Zoom out
 
 ## Stylus
 

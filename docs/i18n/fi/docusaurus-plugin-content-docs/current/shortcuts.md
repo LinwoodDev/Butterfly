@@ -31,6 +31,8 @@ On olemassa muutamia pikakuvakkeita, joita voit käyttää editorissa. Osa niist
 * `Ctrl` + `S`: Tallenna
 * `Alt` + `S`: Muuta polkua
 * `Ctrl` + (`1` - `0`): Vaihda työkaluun
+* `Ctrl` + `+`: Lähennä
+* `Ctrl` + `-`: Lähennä
 
 ## Stylus
 

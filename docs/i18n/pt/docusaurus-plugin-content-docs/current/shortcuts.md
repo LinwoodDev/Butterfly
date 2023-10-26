@@ -31,6 +31,8 @@ Existem alguns atalhos que você pode usar no editor. Alguns deles estão escrit
 * `Ctrl` + `S`: Salvar
 * `Alt` + `S`: Mudar caminho
 * `Ctrl` + (`1` - `0`): Mudar para ferramenta
+* `Ctrl` + `+`: Zoom para
+* `Ctrl` + `-`: Zoom para fora
 
 ## Stylus
 

@@ -31,6 +31,8 @@ Existuje několik zkratek, které můžete použít v editoru. Některé z nich 
 * `Ctrl` + `S`: Uložit
 * `Alt` + `S`: Změna cesty
 * `Ctrl` + (`1` - `0`): Přepnout na nástroj
+* `Ctrl` + `+`: Přiblížení
+* `Ctrl` + `-`: Oddálit
 
 ## Stylus
 

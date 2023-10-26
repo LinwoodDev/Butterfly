@@ -31,6 +31,8 @@ Düzenleyicide kullanabileceğiniz birkaç kısayol vardır. Bazıları düğmel
 * `Ctrl` + `S`: Kaydet
 * `Alt` + `S`: Yolu değiştir
 * `Ctrl` + (`1` - `0`): Switch to tool
+* `Ctrl` + `+`: Zoom in
+* `Ctrl` + `-`: Zoom out
 
 ## Kalem
 

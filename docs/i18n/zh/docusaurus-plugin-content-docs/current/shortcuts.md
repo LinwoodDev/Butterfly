@@ -31,6 +31,8 @@ sidebar_position: 2
 * `Ctrl` + `S`: 保存
 * `Alt` + `S`: 更改路径
 * `Ctrl` + (`1` - `0`): 切换到工具
+* `Ctrl` + `+`: 缩放
+* `Ctrl` + `-`: 缩放
 
 ## Stylus
 

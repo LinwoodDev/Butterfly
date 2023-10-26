@@ -551,5 +551,6 @@
   "pause": "Pozastavit",
   "stop": "Zastavit",
   "refresh": "Aktualizovat",
-  "print": "Tisk"
+  "print": "Tisk",
+  "dav": "DAV"
 }
