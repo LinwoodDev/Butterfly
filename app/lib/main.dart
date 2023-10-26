@@ -47,10 +47,13 @@ Future<void> main([List<String> args = const []]) async {
   usePathUrlStrategy();
 
   await setup();
-  final prefs = await SharedPreferences.getInstance();
   var initialLocation = '/';
-  if (args.isNotEmpty && !kIsWeb) {
-    var path = args[0].replaceAll('\\', '/');
+  final argParser = ArgParser();
+  argParser.addOption('path', abbr: 'p');
+  final result = argParser.parse(args);
+  final prefs = await SharedPreferences.getInstance();
+  if (result.arguments.isNotEmpty && !kIsWeb) {
+    var path = result.arguments[0].replaceAll('\\', '/');
     var file = File(path);
     if (await file.exists()) {
       var directory =
@@ -104,9 +107,6 @@ Future<void> main([List<String> args = const []]) async {
       await windowManager.setResizable(true);
     });
   }
-  final argParser = ArgParser();
-  argParser.addOption('path', abbr: 'p');
-  final result = argParser.parse(args);
   final clipboardManager = await SysInfo.getClipboardManager();
   GeneralFileSystem.dataPath = result['path'];
   final isFullscreen = await isFullScreen();

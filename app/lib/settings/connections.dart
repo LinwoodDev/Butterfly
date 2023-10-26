@@ -414,7 +414,7 @@ class __AddRemoteDialogState extends State<_AddRemoteDialog> {
               children: [
                 TextButton(
                   onPressed: () {
-                    if (_isConnected) {
+                    if (_isConnected && _isRemote) {
                       setState(() => _isConnected = false);
                       return;
                     }
