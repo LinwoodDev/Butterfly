@@ -8,6 +8,7 @@ part of 'settings.dart';
 
 _$DavRemoteStorageImpl _$$DavRemoteStorageImplFromJson(Map json) =>
     _$DavRemoteStorageImpl(
+      defaultTemplate: json['defaultTemplate'] as String? ?? '',
       username: json['username'] as String? ?? '',
       url: json['url'] as String? ?? '',
       path: json['path'] as String? ?? '',
@@ -33,6 +34,7 @@ _$DavRemoteStorageImpl _$$DavRemoteStorageImplFromJson(Map json) =>
 Map<String, dynamic> _$$DavRemoteStorageImplToJson(
         _$DavRemoteStorageImpl instance) =>
     <String, dynamic>{
+      'defaultTemplate': instance.defaultTemplate,
       'username': instance.username,
       'url': instance.url,
       'path': instance.path,
@@ -60,6 +62,7 @@ Json? _$JsonConverterToJson<Json, Value>(
     value == null ? null : toJson(value);
 
 _$LocalStorageImpl _$$LocalStorageImplFromJson(Map json) => _$LocalStorageImpl(
+      defaultTemplate: json['defaultTemplate'] as String? ?? '',
       path: json['path'] as String? ?? '',
       documentsPath: json['documentsPath'] as String? ?? '',
       templatesPath: json['templatesPath'] as String? ?? '',
@@ -75,6 +78,7 @@ _$LocalStorageImpl _$$LocalStorageImplFromJson(Map json) => _$LocalStorageImpl(
 
 Map<String, dynamic> _$$LocalStorageImplToJson(_$LocalStorageImpl instance) =>
     <String, dynamic>{
+      'defaultTemplate': instance.defaultTemplate,
       'path': instance.path,
       'documentsPath': instance.documentsPath,
       'templatesPath': instance.templatesPath,

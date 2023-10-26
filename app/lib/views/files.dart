@@ -1,6 +1,7 @@
 import 'dart:typed_data';
 
 import 'package:butterfly/main.dart';
+import 'package:butterfly/models/defaults.dart';
 import 'package:butterfly/visualizer/asset.dart';
 import 'package:butterfly/visualizer/sync.dart';
 import 'package:butterfly_api/butterfly_api.dart';
@@ -52,6 +53,7 @@ class FilesView extends StatefulWidget {
 class _FilesViewState extends State<FilesView> {
   final TextEditingController _locationController = TextEditingController();
   late DocumentFileSystem _fileSystem;
+  late TemplateFileSystem _templateSystem;
 
   bool _gridView = false;
   SortBy _sortBy = SortBy.name;
@@ -69,6 +71,10 @@ class _FilesViewState extends State<FilesView> {
     _sortOrder = _settingsCubit.state.sortOrder;
     _remote = widget.remote ?? _settingsCubit.getRemote();
     _setFilesStream();
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      await _templateSystem.createDefault(context);
+      setState(() {});
+    });
   }
 
   @override
@@ -87,12 +93,32 @@ class _FilesViewState extends State<FilesView> {
       };
 
   void _setFilesStream() {
+    _templateSystem = TemplateFileSystem.fromPlatform(remote: _remote);
     _fileSystem = DocumentFileSystem.fromPlatform(remote: _remote);
     _filesStream = _fileSystem.fetchAsset(_locationController.text);
   }
 
   void _reloadFileSystem() {
     setState(_setFilesStream);
+  }
+
+  Future<void> _createFile(NoteData? template) async {
+    template ??= await DocumentDefaults.createTemplate();
+    final name = await showDialog<String>(
+      context: context,
+      builder: (context) => NameDialog(
+        validator: defaultFileNameValidator(context),
+      ),
+    );
+    if (name == null) return;
+    final path = _locationController.text;
+    final newPath = '$path/${_fileSystem.convertNameToFile(name)}.bfly';
+    await _fileSystem.updateDocument(
+        newPath,
+        template.createDocument(
+          name: name,
+        ));
+    _reloadFileSystem();
   }
 
   void _setRemote(ExternalStorage? remote) {
@@ -231,74 +257,43 @@ class _FilesViewState extends State<FilesView> {
                   leadingIcon: const PhosphorIcon(PhosphorIconsLight.folder),
                   child: Text(AppLocalizations.of(context).newFolder),
                   onPressed: () async {
-                    final name = await showDialog<String>(
-                      context: context,
-                      builder: (context) => NameDialog(
-                        validator: defaultFileNameValidator(context),
-                      ),
-                    );
-                    if (name == null) return;
-                    final path = _locationController.text;
-                    final newPath = '$path/$name';
-                    await _fileSystem.createDirectory(newPath);
                     _reloadFileSystem();
                   },
                 ),
                 MenuItemButton(
-                  onPressed: () async {
-                    final name = await showDialog<String>(
-                      context: context,
-                      builder: (context) => NameDialog(
-                        validator: defaultFileNameValidator(context),
-                      ),
-                    );
-                    if (name?.isEmpty ?? true) return;
-                    final templateFileSystem =
-                        TemplateFileSystem.fromPlatform(remote: _remote);
-                    if (context.mounted) {
-                      await templateFileSystem.createDefault(context);
-                    }
-                    final templates = await templateFileSystem.getTemplates();
-                    if (context.mounted) {
-                      final asset = await showDialog<NoteData>(
-                          context: context,
-                          builder: (context) => AlertDialog(
-                                title: Text(
-                                    AppLocalizations.of(context).templates),
-                                scrollable: true,
-                                content: Column(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: templates
-                                      .map((e) => ListTile(
-                                            title: Text(e.name!),
-                                            onTap: () =>
-                                                Navigator.of(context).pop(e),
-                                          ))
-                                      .toList(),
-                                ),
-                                actions: [
-                                  TextButton(
-                                    onPressed: () =>
-                                        Navigator.of(context).pop(null),
-                                    child: Text(
-                                        AppLocalizations.of(context).cancel),
-                                  ),
-                                ],
-                              ));
-                      if (asset == null) return;
-                      final path = _locationController.text;
-                      var newPath =
-                          '$path/${_fileSystem.convertNameToFile(name!)}.bfly';
-                      await _fileSystem.updateDocument(
-                          newPath,
-                          asset.createDocument(
-                            name: name,
-                          ));
-                      _reloadFileSystem();
-                    }
-                  },
-                  leadingIcon: const PhosphorIcon(PhosphorIconsLight.file),
+                  onPressed: () async => _createFile(
+                    await _templateSystem.getDefaultTemplate(
+                      _templateSystem.remote?.defaultTemplate ??
+                          _settingsCubit.state.defaultTemplate,
+                    ),
+                  ),
+                  leadingIcon: const PhosphorIcon(PhosphorIconsLight.filePlus),
                   child: Text(AppLocalizations.of(context).newFile),
+                ),
+                FutureBuilder<List<NoteData>>(
+                  future: _templateSystem.getTemplates(),
+                  builder: (context, snapshot) => SubmenuButton(
+                    leadingIcon: const PhosphorIcon(PhosphorIconsLight.file),
+                    menuChildren: snapshot.data?.map((e) {
+                          final metadata = e.getMetadata();
+                          final thumbnail = e.getThumbnail();
+                          return MenuItemButton(
+                            leadingIcon: thumbnail == null
+                                ? null
+                                : Image.memory(
+                                    thumbnail,
+                                    width: 32,
+                                    height: 18,
+                                    cacheWidth: 32,
+                                    cacheHeight: 18,
+                                  ),
+                            child: Text(metadata?.name ?? ''),
+                            onPressed: () => _createFile(e),
+                          );
+                        }).toList() ??
+                        [],
+                    child: Text(AppLocalizations.of(context).templates),
+                  ),
                 ),
                 MenuItemButton(
                   leadingIcon:

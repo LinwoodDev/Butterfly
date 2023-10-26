@@ -50,13 +50,9 @@ class NewAction extends Action<NewIntent> {
       if (template == null) return;
     } else {
       final templateSystem = settings.getDefaultTemplateFileSystem();
-      final defaultTemplate = settings.defaultTemplate;
-      template = await templateSystem.getTemplate(defaultTemplate);
-      if (template != null) {
-        final templates =
-            await settings.getDefaultTemplateFileSystem().getTemplates();
-        template = templates.firstOrNull;
-      }
+      template = await templateSystem.getDefaultTemplate(
+        templateSystem.remote?.defaultTemplate ?? settings.defaultTemplate,
+      );
     }
     if (template != null) {
       document = template.createDocument();

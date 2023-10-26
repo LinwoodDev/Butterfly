@@ -28,10 +28,10 @@ class SyncService {
 
   RemoteSync? getSync(String remote) {
     if (kIsWeb) return null;
-    var sync = _syncs
+    var current = _syncs
         .firstWhereOrNull((sync) => sync.remoteStorage.identifier == remote);
-    sync ??= _createSync(remote);
-    return sync;
+    current ??= _createSync(remote);
+    return current;
   }
 
   RemoteSync? _createSync(String remote) {
@@ -40,11 +40,11 @@ class SyncService {
     if (storage == null) {
       return null;
     }
-    final sync = RemoteSync(context, settingsCubit, storage);
-    sync.statusStream.listen((status) => _refreshStatus());
-    _syncs.add(sync);
-    sync.autoSync();
-    return sync;
+    final current = RemoteSync(context, settingsCubit, storage);
+    current.statusStream.listen((status) => _refreshStatus());
+    _syncs.add(current);
+    current.autoSync();
+    return current;
   }
 
   Future<void> sync() async {

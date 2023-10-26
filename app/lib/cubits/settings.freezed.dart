@@ -29,6 +29,7 @@ ExternalStorage _$ExternalStorageFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$ExternalStorage {
+  String get defaultTemplate => throw _privateConstructorUsedError;
   String get path => throw _privateConstructorUsedError;
   String get documentsPath => throw _privateConstructorUsedError;
   String get templatesPath => throw _privateConstructorUsedError;
@@ -39,6 +40,7 @@ mixin _$ExternalStorage {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(
+            String defaultTemplate,
             String username,
             String url,
             String path,
@@ -51,6 +53,7 @@ mixin _$ExternalStorage {
             DateTime? lastSynced)
         dav,
     required TResult Function(
+            String defaultTemplate,
             String path,
             String documentsPath,
             String templatesPath,
@@ -63,6 +66,7 @@ mixin _$ExternalStorage {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(
+            String defaultTemplate,
             String username,
             String url,
             String path,
@@ -75,6 +79,7 @@ mixin _$ExternalStorage {
             DateTime? lastSynced)?
         dav,
     TResult? Function(
+            String defaultTemplate,
             String path,
             String documentsPath,
             String templatesPath,
@@ -87,6 +92,7 @@ mixin _$ExternalStorage {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(
+            String defaultTemplate,
             String username,
             String url,
             String path,
@@ -99,6 +105,7 @@ mixin _$ExternalStorage {
             DateTime? lastSynced)?
         dav,
     TResult Function(
+            String defaultTemplate,
             String path,
             String documentsPath,
             String templatesPath,
@@ -141,7 +148,8 @@ abstract class $ExternalStorageCopyWith<$Res> {
       _$ExternalStorageCopyWithImpl<$Res, ExternalStorage>;
   @useResult
   $Res call(
-      {String path,
+      {String defaultTemplate,
+      String path,
       String documentsPath,
       String templatesPath,
       String packsPath,
@@ -162,6 +170,7 @@ class _$ExternalStorageCopyWithImpl<$Res, $Val extends ExternalStorage>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? defaultTemplate = null,
     Object? path = null,
     Object? documentsPath = null,
     Object? templatesPath = null,
@@ -170,6 +179,10 @@ class _$ExternalStorageCopyWithImpl<$Res, $Val extends ExternalStorage>
     Object? icon = freezed,
   }) {
     return _then(_value.copyWith(
+      defaultTemplate: null == defaultTemplate
+          ? _value.defaultTemplate
+          : defaultTemplate // ignore: cast_nullable_to_non_nullable
+              as String,
       path: null == path
           ? _value.path
           : path // ignore: cast_nullable_to_non_nullable
@@ -207,7 +220,8 @@ abstract class _$$DavRemoteStorageImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {String username,
+      {String defaultTemplate,
+      String username,
       String url,
       String path,
       String documentsPath,
@@ -230,6 +244,7 @@ class __$$DavRemoteStorageImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? defaultTemplate = null,
     Object? username = null,
     Object? url = null,
     Object? path = null,
@@ -242,6 +257,10 @@ class __$$DavRemoteStorageImplCopyWithImpl<$Res>
     Object? lastSynced = freezed,
   }) {
     return _then(_$DavRemoteStorageImpl(
+      defaultTemplate: null == defaultTemplate
+          ? _value.defaultTemplate
+          : defaultTemplate // ignore: cast_nullable_to_non_nullable
+              as String,
       username: null == username
           ? _value.username
           : username // ignore: cast_nullable_to_non_nullable
@@ -291,7 +310,8 @@ class __$$DavRemoteStorageImplCopyWithImpl<$Res>
 class _$DavRemoteStorageImpl extends DavRemoteStorage
     with DiagnosticableTreeMixin, RemoteStorage {
   const _$DavRemoteStorageImpl(
-      {this.username = '',
+      {this.defaultTemplate = '',
+      this.username = '',
       this.url = '',
       this.path = '',
       this.documentsPath = '',
@@ -310,6 +330,9 @@ class _$DavRemoteStorageImpl extends DavRemoteStorage
   factory _$DavRemoteStorageImpl.fromJson(Map<String, dynamic> json) =>
       _$$DavRemoteStorageImplFromJson(json);
 
+  @override
+  @JsonKey()
+  final String defaultTemplate;
   @override
   @JsonKey()
   final String username;
@@ -357,7 +380,7 @@ class _$DavRemoteStorageImpl extends DavRemoteStorage
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'ExternalStorage.dav(username: $username, url: $url, path: $path, documentsPath: $documentsPath, templatesPath: $templatesPath, packsPath: $packsPath, cachedDocuments: $cachedDocuments, starred: $starred, icon: $icon, lastSynced: $lastSynced)';
+    return 'ExternalStorage.dav(defaultTemplate: $defaultTemplate, username: $username, url: $url, path: $path, documentsPath: $documentsPath, templatesPath: $templatesPath, packsPath: $packsPath, cachedDocuments: $cachedDocuments, starred: $starred, icon: $icon, lastSynced: $lastSynced)';
   }
 
   @override
@@ -365,6 +388,7 @@ class _$DavRemoteStorageImpl extends DavRemoteStorage
     super.debugFillProperties(properties);
     properties
       ..add(DiagnosticsProperty('type', 'ExternalStorage.dav'))
+      ..add(DiagnosticsProperty('defaultTemplate', defaultTemplate))
       ..add(DiagnosticsProperty('username', username))
       ..add(DiagnosticsProperty('url', url))
       ..add(DiagnosticsProperty('path', path))
@@ -382,6 +406,8 @@ class _$DavRemoteStorageImpl extends DavRemoteStorage
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$DavRemoteStorageImpl &&
+            (identical(other.defaultTemplate, defaultTemplate) ||
+                other.defaultTemplate == defaultTemplate) &&
             (identical(other.username, username) ||
                 other.username == username) &&
             (identical(other.url, url) || other.url == url) &&
@@ -404,6 +430,7 @@ class _$DavRemoteStorageImpl extends DavRemoteStorage
   @override
   int get hashCode => Object.hash(
       runtimeType,
+      defaultTemplate,
       username,
       url,
       path,
@@ -426,6 +453,7 @@ class _$DavRemoteStorageImpl extends DavRemoteStorage
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(
+            String defaultTemplate,
             String username,
             String url,
             String path,
@@ -438,6 +466,7 @@ class _$DavRemoteStorageImpl extends DavRemoteStorage
             DateTime? lastSynced)
         dav,
     required TResult Function(
+            String defaultTemplate,
             String path,
             String documentsPath,
             String templatesPath,
@@ -446,14 +475,15 @@ class _$DavRemoteStorageImpl extends DavRemoteStorage
             List<String> starred)
         local,
   }) {
-    return dav(username, url, path, documentsPath, templatesPath, packsPath,
-        cachedDocuments, starred, icon, lastSynced);
+    return dav(defaultTemplate, username, url, path, documentsPath,
+        templatesPath, packsPath, cachedDocuments, starred, icon, lastSynced);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(
+            String defaultTemplate,
             String username,
             String url,
             String path,
@@ -466,6 +496,7 @@ class _$DavRemoteStorageImpl extends DavRemoteStorage
             DateTime? lastSynced)?
         dav,
     TResult? Function(
+            String defaultTemplate,
             String path,
             String documentsPath,
             String templatesPath,
@@ -474,14 +505,15 @@ class _$DavRemoteStorageImpl extends DavRemoteStorage
             List<String> starred)?
         local,
   }) {
-    return dav?.call(username, url, path, documentsPath, templatesPath,
-        packsPath, cachedDocuments, starred, icon, lastSynced);
+    return dav?.call(defaultTemplate, username, url, path, documentsPath,
+        templatesPath, packsPath, cachedDocuments, starred, icon, lastSynced);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(
+            String defaultTemplate,
             String username,
             String url,
             String path,
@@ -494,6 +526,7 @@ class _$DavRemoteStorageImpl extends DavRemoteStorage
             DateTime? lastSynced)?
         dav,
     TResult Function(
+            String defaultTemplate,
             String path,
             String documentsPath,
             String templatesPath,
@@ -504,8 +537,8 @@ class _$DavRemoteStorageImpl extends DavRemoteStorage
     required TResult orElse(),
   }) {
     if (dav != null) {
-      return dav(username, url, path, documentsPath, templatesPath, packsPath,
-          cachedDocuments, starred, icon, lastSynced);
+      return dav(defaultTemplate, username, url, path, documentsPath,
+          templatesPath, packsPath, cachedDocuments, starred, icon, lastSynced);
     }
     return orElse();
   }
@@ -552,7 +585,8 @@ class _$DavRemoteStorageImpl extends DavRemoteStorage
 abstract class DavRemoteStorage extends ExternalStorage
     implements RemoteStorage {
   const factory DavRemoteStorage(
-      {final String username,
+      {final String defaultTemplate,
+      final String username,
       final String url,
       final String path,
       final String documentsPath,
@@ -567,6 +601,8 @@ abstract class DavRemoteStorage extends ExternalStorage
   factory DavRemoteStorage.fromJson(Map<String, dynamic> json) =
       _$DavRemoteStorageImpl.fromJson;
 
+  @override
+  String get defaultTemplate;
   String get username;
   String get url;
   @override
@@ -599,7 +635,8 @@ abstract class _$$LocalStorageImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {String path,
+      {String defaultTemplate,
+      String path,
       String documentsPath,
       String templatesPath,
       String packsPath,
@@ -618,6 +655,7 @@ class __$$LocalStorageImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? defaultTemplate = null,
     Object? path = null,
     Object? documentsPath = null,
     Object? templatesPath = null,
@@ -626,6 +664,10 @@ class __$$LocalStorageImplCopyWithImpl<$Res>
     Object? starred = null,
   }) {
     return _then(_$LocalStorageImpl(
+      defaultTemplate: null == defaultTemplate
+          ? _value.defaultTemplate
+          : defaultTemplate // ignore: cast_nullable_to_non_nullable
+              as String,
       path: null == path
           ? _value.path
           : path // ignore: cast_nullable_to_non_nullable
@@ -658,7 +700,8 @@ class __$$LocalStorageImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$LocalStorageImpl extends LocalStorage with DiagnosticableTreeMixin {
   const _$LocalStorageImpl(
-      {this.path = '',
+      {this.defaultTemplate = '',
+      this.path = '',
       this.documentsPath = '',
       this.templatesPath = '',
       this.packsPath = '',
@@ -672,6 +715,9 @@ class _$LocalStorageImpl extends LocalStorage with DiagnosticableTreeMixin {
   factory _$LocalStorageImpl.fromJson(Map<String, dynamic> json) =>
       _$$LocalStorageImplFromJson(json);
 
+  @override
+  @JsonKey()
+  final String defaultTemplate;
   @override
   @JsonKey()
   final String path;
@@ -701,7 +747,7 @@ class _$LocalStorageImpl extends LocalStorage with DiagnosticableTreeMixin {
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'ExternalStorage.local(path: $path, documentsPath: $documentsPath, templatesPath: $templatesPath, packsPath: $packsPath, icon: $icon, starred: $starred)';
+    return 'ExternalStorage.local(defaultTemplate: $defaultTemplate, path: $path, documentsPath: $documentsPath, templatesPath: $templatesPath, packsPath: $packsPath, icon: $icon, starred: $starred)';
   }
 
   @override
@@ -709,6 +755,7 @@ class _$LocalStorageImpl extends LocalStorage with DiagnosticableTreeMixin {
     super.debugFillProperties(properties);
     properties
       ..add(DiagnosticsProperty('type', 'ExternalStorage.local'))
+      ..add(DiagnosticsProperty('defaultTemplate', defaultTemplate))
       ..add(DiagnosticsProperty('path', path))
       ..add(DiagnosticsProperty('documentsPath', documentsPath))
       ..add(DiagnosticsProperty('templatesPath', templatesPath))
@@ -722,6 +769,8 @@ class _$LocalStorageImpl extends LocalStorage with DiagnosticableTreeMixin {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$LocalStorageImpl &&
+            (identical(other.defaultTemplate, defaultTemplate) ||
+                other.defaultTemplate == defaultTemplate) &&
             (identical(other.path, path) || other.path == path) &&
             (identical(other.documentsPath, documentsPath) ||
                 other.documentsPath == documentsPath) &&
@@ -737,6 +786,7 @@ class _$LocalStorageImpl extends LocalStorage with DiagnosticableTreeMixin {
   @override
   int get hashCode => Object.hash(
       runtimeType,
+      defaultTemplate,
       path,
       documentsPath,
       templatesPath,
@@ -754,6 +804,7 @@ class _$LocalStorageImpl extends LocalStorage with DiagnosticableTreeMixin {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(
+            String defaultTemplate,
             String username,
             String url,
             String path,
@@ -766,6 +817,7 @@ class _$LocalStorageImpl extends LocalStorage with DiagnosticableTreeMixin {
             DateTime? lastSynced)
         dav,
     required TResult Function(
+            String defaultTemplate,
             String path,
             String documentsPath,
             String templatesPath,
@@ -774,13 +826,15 @@ class _$LocalStorageImpl extends LocalStorage with DiagnosticableTreeMixin {
             List<String> starred)
         local,
   }) {
-    return local(path, documentsPath, templatesPath, packsPath, icon, starred);
+    return local(defaultTemplate, path, documentsPath, templatesPath, packsPath,
+        icon, starred);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(
+            String defaultTemplate,
             String username,
             String url,
             String path,
@@ -793,6 +847,7 @@ class _$LocalStorageImpl extends LocalStorage with DiagnosticableTreeMixin {
             DateTime? lastSynced)?
         dav,
     TResult? Function(
+            String defaultTemplate,
             String path,
             String documentsPath,
             String templatesPath,
@@ -801,14 +856,15 @@ class _$LocalStorageImpl extends LocalStorage with DiagnosticableTreeMixin {
             List<String> starred)?
         local,
   }) {
-    return local?.call(
-        path, documentsPath, templatesPath, packsPath, icon, starred);
+    return local?.call(defaultTemplate, path, documentsPath, templatesPath,
+        packsPath, icon, starred);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(
+            String defaultTemplate,
             String username,
             String url,
             String path,
@@ -821,6 +877,7 @@ class _$LocalStorageImpl extends LocalStorage with DiagnosticableTreeMixin {
             DateTime? lastSynced)?
         dav,
     TResult Function(
+            String defaultTemplate,
             String path,
             String documentsPath,
             String templatesPath,
@@ -831,8 +888,8 @@ class _$LocalStorageImpl extends LocalStorage with DiagnosticableTreeMixin {
     required TResult orElse(),
   }) {
     if (local != null) {
-      return local(
-          path, documentsPath, templatesPath, packsPath, icon, starred);
+      return local(defaultTemplate, path, documentsPath, templatesPath,
+          packsPath, icon, starred);
     }
     return orElse();
   }
@@ -878,7 +935,8 @@ class _$LocalStorageImpl extends LocalStorage with DiagnosticableTreeMixin {
 
 abstract class LocalStorage extends ExternalStorage {
   const factory LocalStorage(
-      {final String path,
+      {final String defaultTemplate,
+      final String path,
       final String documentsPath,
       final String templatesPath,
       final String packsPath,
@@ -889,6 +947,8 @@ abstract class LocalStorage extends ExternalStorage {
   factory LocalStorage.fromJson(Map<String, dynamic> json) =
       _$LocalStorageImpl.fromJson;
 
+  @override
+  String get defaultTemplate;
   @override
   String get path;
   @override

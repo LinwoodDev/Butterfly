@@ -194,6 +194,9 @@ abstract class TemplateFileSystem extends GeneralFileSystem {
   Future<bool> createDefault(BuildContext context, {bool force = false});
 
   Future<NoteData?> getTemplate(String name);
+  Future<NoteData?> getDefaultTemplate(String name) async =>
+      await getTemplate(name) ??
+      await getTemplates().then((value) => value.firstOrNull);
 
   Future<String> findAvailableName(String path) =>
       _findAvailableName(path, hasTemplate);

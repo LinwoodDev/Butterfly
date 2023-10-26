@@ -46,6 +46,7 @@ enum PlatformTheme {
 }
 
 mixin RemoteStorage {
+  String get defaultTemplate;
   String get username;
   String get url;
   String get path;
@@ -138,6 +139,7 @@ enum ExternalStorageType {
 class ExternalStorage with _$ExternalStorage {
   @With<RemoteStorage>()
   const factory ExternalStorage.dav({
+    @Default('') String defaultTemplate,
     @Default('') String username,
     @Default('') String url,
     @Default('') String path,
@@ -151,6 +153,7 @@ class ExternalStorage with _$ExternalStorage {
   }) = DavRemoteStorage;
 
   const factory ExternalStorage.local({
+    @Default('') String defaultTemplate,
     @Default('') String path,
     @Default('') String documentsPath,
     @Default('') String templatesPath,
