@@ -300,11 +300,16 @@ class _MainViewViewportState extends State<MainViewViewport>
                               await changeTemporaryTool(
                                   event.kind, event.buttons);
                             }
-                            getHandler()
-                                .onPointerDown(event, getEventContext());
+                            if (_isScalingDisabled ?? true) {
+                              getHandler()
+                                  .onPointerDown(event, getEventContext());
+                            }
                           },
                           onPointerUp: (PointerUpEvent event) async {
-                            getHandler().onPointerUp(event, getEventContext());
+                            if (_isScalingDisabled ?? true) {
+                              getHandler()
+                                  .onPointerUp(event, getEventContext());
+                            }
                             cubit.removePointer(event.pointer);
                             cubit.removeButtons();
                             Future.sync(() => cubit.resetTemporaryHandler(
@@ -323,12 +328,16 @@ class _MainViewViewportState extends State<MainViewViewport>
                                 cubit.move(event.delta / transform.size);
                                 delayBake();
                               }
-                              getHandler().onPointerGestureMove(
-                                  event, getEventContext());
+                              if (_isScalingDisabled ?? true) {
+                                getHandler().onPointerGestureMove(
+                                    event, getEventContext());
+                              }
                               return;
                             }
-                            getHandler()
-                                .onPointerMove(event, getEventContext());
+                            if (_isScalingDisabled ?? true) {
+                              getHandler()
+                                  .onPointerMove(event, getEventContext());
+                            }
                           },
                           child: BlocBuilder<TransformCubit, CameraTransform>(
                             builder: (context, transform) => MouseRegion(
