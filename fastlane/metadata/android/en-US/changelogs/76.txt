@@ -1,5 +1,6 @@
 * Add local directory connection
 * Add zoom shortcuts ([#507](https://github.com/LinwoodDev/Butterfly/issues/507))
+* Add moving using trackpad ([#507](https://github.com/LinwoodDev/Butterfly/issues/507))
 * Add name to hand tool selection
 * Add default template file creation in home page
 * Change remote button dropdown to material 3

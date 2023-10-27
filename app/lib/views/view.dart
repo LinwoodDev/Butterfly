@@ -206,12 +206,11 @@ class _MainViewViewportState extends State<MainViewViewport>
                             .onSecondaryTapUp(details, getEventContext()),
                         onScaleUpdate: (details) {
                           final handler = getHandler();
-                          handler.onScaleUpdate(details, getEventContext());
-                          if (_isScalingDisabled ?? true) return;
-                          final cubit = context.read<CurrentIndexCubit>();
-                          if (details.scale == 1) {
+                          if (_isScalingDisabled ?? true) {
+                            handler.onScaleUpdate(details, getEventContext());
                             return;
                           }
+                          final cubit = context.read<CurrentIndexCubit>();
                           if (openView) openView = details.scale == 1;
                           final settings = context.read<SettingsCubit>().state;
                           if (cubit.fetchHandler<SelectHandler>() == null &&
@@ -222,8 +221,15 @@ class _MainViewViewportState extends State<MainViewViewport>
                               .read<SettingsCubit>()
                               .state
                               .touchSensitivity;
-                          cubit.zoom(current / sensitivity + 1, point);
+                          if (details.scale == 1) {
+                            cubit.move(details.focalPointDelta /
+                                sensitivity /
+                                cubit.state.transformCubit.state.size);
+                          } else {
+                            cubit.zoom(current / sensitivity + 1, point);
+                          }
                           size = details.scale;
+                          delayBake();
                         },
                         onLongPressEnd: (details) => getHandler()
                             .onLongPressEnd(details, getEventContext()),
@@ -233,9 +239,11 @@ class _MainViewViewportState extends State<MainViewViewport>
                           _isScalingDisabled = null;
                         },
                         onScaleStart: (details) {
-                          _isScalingDisabled = cubit
-                              .getHandler()
-                              .onScaleStart(details, getEventContext());
+                          if (_isScalingDisabled != true) {
+                            _isScalingDisabled = cubit
+                                .getHandler()
+                                .onScaleStart(details, getEventContext());
+                          }
                           point = details.localFocalPoint;
                           size = 1;
                         },
@@ -281,6 +289,10 @@ class _MainViewViewportState extends State<MainViewViewport>
                             }
                           },
                           onPointerDown: (PointerDownEvent event) async {
+                            _isScalingDisabled =
+                                event.kind == PointerDeviceKind.trackpad
+                                    ? false
+                                    : null;
                             cubit.addPointer(event.pointer);
                             cubit.setButtons(event.buttons);
                             final handler = getHandler();
