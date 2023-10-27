@@ -1,0 +1,4 @@
+* Allow moving tools when selected
+* Fix tool indicator alignment if toolbar is in column mode
+
+View all changes in the blog: https://linwood.dev/butterfly/2.0.0-beta.13

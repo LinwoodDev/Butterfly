@@ -58,9 +58,11 @@ class _OptionButtonState extends State<OptionButton>
 
   @override
   Widget build(BuildContext context) {
-    const selectedBottom = PhosphorIcon(
-      PhosphorIconsLight.caretDown,
-      size: 12,
+    const selectedBottom = Align(
+      child: PhosphorIcon(
+        PhosphorIconsLight.caretDown,
+        size: 12,
+      ),
     );
     return Tooltip(
       triggerMode: TooltipTriggerMode.manual,

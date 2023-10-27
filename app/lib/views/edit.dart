@@ -268,7 +268,7 @@ class _EditToolbarState extends State<EditToolbar> {
                     padding: const EdgeInsets.symmetric(horizontal: 4.0),
                     child: OptionButton(
                         tooltip: tooltip,
-                        onLongPressed: selected
+                        onLongPressed: selected || highlighted
                             ? null
                             : () => context
                                 .read<CurrentIndexCubit>()
@@ -299,7 +299,7 @@ class _EditToolbarState extends State<EditToolbar> {
                 return ReorderableDelayedDragStartListener(
                   index: i,
                   key: ObjectKey(i),
-                  enabled: selected,
+                  enabled: selected || highlighted,
                   child: toolWidget,
                 );
               },
