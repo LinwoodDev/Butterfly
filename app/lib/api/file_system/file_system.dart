@@ -5,6 +5,7 @@ import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
+import 'package:rxdart/rxdart.dart';
 
 import 'file_system_dav.dart';
 import 'file_system_io.dart';
@@ -103,7 +104,56 @@ abstract class DocumentFileSystem extends GeneralFileSystem {
   @override
   FutureOr<String> getDirectory();
 
-  Stream<AppDocumentEntity?> fetchAsset(String path);
+  Stream<AppDocumentEntity?> fetchAsset(String path, [bool listFiles = false]);
+
+  Stream<List<AppDocumentEntity>> fetchAssets(Stream<String> paths,
+      [bool listFiles = false]) {
+    final files = <AppDocumentEntity>[];
+    final streams = paths.asyncExpand((e) async* {
+      int? index;
+      await for (final file in fetchAsset(e, false).whereNotNull()) {
+        if (index == null) {
+          index = files.length;
+          files.add(file);
+        } else {
+          files[index] = file;
+        }
+        yield null;
+      }
+    });
+    return streams.map((event) => files);
+  }
+
+  Stream<List<AppDocumentEntity>> fetchAssetsSync(Iterable<String> paths,
+          [bool listFiles = false]) =>
+      fetchAssets(Stream.fromIterable(paths), listFiles);
+
+  static Stream<List<AppDocumentEntity>> fetchAssetsGlobal(
+      Stream<AssetLocation> locations, ButterflySettings settings,
+      [bool listFiles = true]) {
+    final files = <AppDocumentEntity>[];
+    final streams = locations.asyncExpand((e) async* {
+      final fileSystem =
+          DocumentFileSystem.fromPlatform(remote: settings.getRemote(e.remote));
+      int? index;
+      await for (final file
+          in fileSystem.fetchAsset(e.path, listFiles).whereNotNull()) {
+        if (index == null) {
+          index = files.length;
+          files.add(file);
+        } else {
+          files[index] = file;
+        }
+        yield null;
+      }
+    });
+    return streams.map((event) => files);
+  }
+
+  static Stream<List<AppDocumentEntity>> fetchAssetsGlobalSync(
+          Iterable<AssetLocation> locations, ButterflySettings settings,
+          [bool listFiles = true]) =>
+      fetchAssetsGlobal(Stream.fromIterable(locations), settings, listFiles);
 
   Future<AppDocumentEntity?> getAsset(String path) => fetchAsset(path).last;
 

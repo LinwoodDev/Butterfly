@@ -27,8 +27,10 @@ sealed class AssetLocation with _$AssetLocation {
 
   const AssetLocation._();
 
+  bool get isRemote => remote.isNotEmpty;
+
   String get identifier =>
-      remote == '' ? pathWithLeadingSlash : '$pathWithLeadingSlash@$remote';
+      isRemote ? '$pathWithLeadingSlash@$remote' : pathWithLeadingSlash;
 
   String get pathWithLeadingSlash => path.startsWith('/') ? path : '/$path';
 

@@ -15,7 +15,7 @@ class WebDocumentFileSystem extends DocumentFileSystem {
   }
 
   @override
-  Stream<AppDocumentEntity?> fetchAsset(String path) {
+  Stream<AppDocumentEntity?> fetchAsset(String path, [bool listFiles = true]) {
     throw UnimplementedError();
   }
 

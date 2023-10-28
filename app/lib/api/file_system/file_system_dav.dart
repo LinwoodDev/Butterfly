@@ -70,7 +70,7 @@ class DavRemoteDocumentFileSystem extends DocumentRemoteSystem {
 
   @override
   Stream<AppDocumentEntity?> fetchAsset(String path,
-      {bool forceRemote = false}) async* {
+      [bool listFiles = true, bool forceRemote = false]) async* {
     if (path.endsWith('/')) {
       path = path.substring(0, path.length - 1);
     }

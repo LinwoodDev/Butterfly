@@ -4,6 +4,7 @@ import 'package:butterfly/actions/change_path.dart';
 import 'package:butterfly/actions/settings.dart';
 import 'package:butterfly/actions/svg_export.dart';
 import 'package:butterfly/api/file_system/file_system.dart';
+import 'package:butterfly/api/open.dart';
 import 'package:butterfly/cubits/current_index.dart';
 import 'package:butterfly/services/import.dart';
 import 'package:butterfly/views/edit.dart';
@@ -423,7 +424,7 @@ class _MainPopupMenu extends StatelessWidget {
               },
               child: Text(AppLocalizations.of(context).packs),
             ),
-            const PopupMenuDivider(),
+            const Divider(),
             MenuItemButton(
               leadingIcon: const PhosphorIcon(PhosphorIconsLight.filePlus),
               shortcut:
@@ -442,6 +443,16 @@ class _MainPopupMenu extends StatelessWidget {
                     context, NewIntent(context, fromTemplate: true));
               },
               child: Text(AppLocalizations.of(context).templates),
+            ),
+            SubmenuButton(
+              menuChildren: settingsCubit.state.history
+                  .map((e) => MenuItemButton(
+                        child: Text(e.identifier),
+                        onPressed: () => openFile(context, e),
+                      ))
+                  .toList(),
+              leadingIcon: const PhosphorIcon(PhosphorIconsLight.clock),
+              child: Text(AppLocalizations.of(context).recentFiles),
             ),
           ],
           if (state.embedding == null) ...[

@@ -476,6 +476,9 @@ class ButterflySettings with _$ButterflySettings {
   }
 
   ExternalStorage? getRemote(String? identifier) {
+    if (identifier?.isEmpty ?? true) {
+      return getDefaultRemote();
+    }
     return connections
         .firstWhereOrNull((e) => e.identifier == (identifier ?? defaultRemote));
   }

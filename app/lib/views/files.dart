@@ -241,6 +241,8 @@ class _FilesViewState extends State<FilesView> {
           ],
         );
       }),
+      const SizedBox(height: 8),
+      const _RecentFilesView(),
       const SizedBox(height: 16),
       LayoutBuilder(builder: (context, constraints) {
         final searchBar = SearchBar(
@@ -471,26 +473,7 @@ class _FilesViewState extends State<FilesView> {
     }
     final location = entity.location;
     final data = entity.data;
-    if (location.remote != '') {
-      GoRouter.of(context).pushReplacementNamed('remote',
-          pathParameters: {
-            'remote': location.remote,
-            'path': location.pathWithoutLeadingSlash,
-          },
-          queryParameters: {
-            'type': location.fileType?.name,
-          },
-          extra: data);
-      return;
-    }
-    GoRouter.of(context).pushReplacementNamed('local',
-        pathParameters: {
-          'path': location.pathWithoutLeadingSlash,
-        },
-        queryParameters: {
-          'type': location.fileType?.name,
-        },
-        extra: data);
+    openFile(context, location, data);
   }
 
   int _sortAssets(AppDocumentEntity a, AppDocumentEntity b) {
@@ -559,5 +542,141 @@ class _FilesViewState extends State<FilesView> {
     } catch (e) {
       return 0;
     }
+  }
+}
+
+class _RecentFilesView extends StatefulWidget {
+  const _RecentFilesView();
+
+  @override
+  State<_RecentFilesView> createState() => _RecentFilesViewState();
+}
+
+class _RecentFilesViewState extends State<_RecentFilesView> {
+  late Stream<List<AppDocumentEntity>> _stream;
+
+  @override
+  void initState() {
+    super.initState();
+    _setStream(context.read<SettingsCubit>().state);
+  }
+
+  void _setStream(ButterflySettings settings) => _stream =
+      DocumentFileSystem.fetchAssetsGlobalSync(settings.history, settings);
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocListener<SettingsCubit, ButterflySettings>(
+      listener: (_, state) => setState(() {
+        _setStream(state);
+      }),
+      child: StreamBuilder<List<AppDocumentEntity>>(
+          stream: _stream,
+          builder: (context, snapshot) {
+            final files = snapshot.data ?? [];
+            if (files.isEmpty) {
+              return Container();
+            }
+            return SizedBox(
+              height: 150,
+              child: ListView.builder(
+                scrollDirection: Axis.horizontal,
+                itemCount: files.length,
+                itemBuilder: (context, index) {
+                  final entity = files[index];
+                  FileMetadata? metadata;
+                  Uint8List? thumbnail;
+                  List<int>? data;
+                  if (entity is AppDocumentFile) {
+                    metadata = entity.metadata;
+                    thumbnail = entity.thumbnail;
+                    data = entity.data;
+                  }
+                  return AssetCard(
+                    metadata: metadata,
+                    thumbnail: thumbnail,
+                    name: entity.fileName,
+                    onTap: () => openFile(context, entity.location, data),
+                  );
+                },
+              ),
+            );
+          }),
+    );
+  }
+}
+
+class AssetCard extends StatelessWidget {
+  const AssetCard({
+    super.key,
+    required this.metadata,
+    required this.thumbnail,
+    required this.onTap,
+    this.name,
+  });
+  final String? name;
+  final FileMetadata? metadata;
+  final Uint8List? thumbnail;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+    final textStyle = Theme.of(context).textTheme.bodyLarge?.copyWith(
+          color: colorScheme.onSurface,
+        );
+    return ConstrainedBox(
+        constraints: const BoxConstraints(maxHeight: 200),
+        child: AspectRatio(
+          aspectRatio: 16 / 9,
+          child: Card(
+            elevation: 5,
+            clipBehavior: Clip.hardEdge,
+            child: InkWell(
+              onTap: onTap,
+              child: Stack(
+                children: [
+                  if (thumbnail?.isNotEmpty ?? false)
+                    Align(
+                      child: Image.memory(
+                        thumbnail!,
+                        fit: BoxFit.cover,
+                        width: 640,
+                        alignment: Alignment.center,
+                      ),
+                    ),
+                  if ((metadata?.name.isNotEmpty ?? false) ||
+                      (name?.isNotEmpty ?? false))
+                    Align(
+                      alignment: Alignment.bottomLeft,
+                      child: Container(
+                        padding: const EdgeInsets.all(8),
+                        margin: const EdgeInsets.all(8),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(8),
+                          color: colorScheme.primaryContainer.withAlpha(200),
+                        ),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            if (metadata?.name.isNotEmpty ?? false)
+                              Text(
+                                metadata!.name,
+                                style: textStyle,
+                              ),
+                            if (name?.isNotEmpty ?? false)
+                              Text(
+                                name!,
+                                style: textStyle,
+                              ),
+                          ],
+                        ),
+                      ),
+                    ),
+                ],
+              ),
+            ),
+          ),
+        ));
   }
 }

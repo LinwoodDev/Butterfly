@@ -232,8 +232,7 @@ class RemoteSync {
         return fileSystem.deleteCachedContent(path);
       case FileSyncStatus.conflict:
         await fileSystem.cache(path);
-        final remoteAsset =
-            await fileSystem.fetchAsset(path, forceRemote: true).last;
+        final remoteAsset = await fileSystem.fetchAsset(path, true, true).last;
         await remoteAsset?.maybeMap(
           file: (file) async {
             if (remoteAsset is! AppDocumentFile) return;

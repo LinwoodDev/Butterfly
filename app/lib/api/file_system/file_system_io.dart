@@ -6,7 +6,6 @@ import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:rxdart/rxdart.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'file_system.dart';
@@ -54,7 +53,7 @@ class IODocumentFileSystem extends DocumentFileSystem {
 
   @override
   Stream<AppDocumentEntity?> fetchAsset(String path,
-      [bool goFurther = true]) async* {
+      [bool listFiles = true]) async* {
     // Add leading slash
     if (!path.startsWith('/')) {
       path = '/$path';
@@ -77,24 +76,12 @@ class IODocumentFileSystem extends DocumentFileSystem {
       }
     } else if (await directory.exists()) {
       yield AppDocumentDirectory(AssetLocation.local(path), []);
-      if (goFurther) {
-        final files = <AppDocumentEntity>[];
-        final streams = directory.list().asyncExpand((e) async* {
-          final currentPath =
-              '$path/${e.path.replaceAll('\\', '/').split('/').last}';
-          int? index;
-          await for (final file
-              in fetchAsset(currentPath, false).whereNotNull()) {
-            if (index == null) {
-              index = files.length;
-              files.add(file);
-            } else {
-              files[index] = file;
-            }
-            yield null;
-          }
-        });
-        await for (final _ in streams) {
+      if (listFiles) {
+        final streams = fetchAssets(
+            directory.list().map(
+                (e) => '$path/${e.path.replaceAll('\\', '/').split('/').last}'),
+            false);
+        await for (final files in streams) {
           yield AppDocumentDirectory(AssetLocation.local(path), files);
         }
       }
