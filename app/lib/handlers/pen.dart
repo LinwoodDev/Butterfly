@@ -116,6 +116,12 @@ class PenHandler extends Handler<PenTool> {
       event.kind);
 
   @override
+  void onScaleStartAbort(ScaleStartDetails details, EventContext context) {
+    elements.clear();
+    context.refresh();
+  }
+
+  @override
   PreferredSizeWidget getToolbar(DocumentBloc bloc) => ColorToolbarView(
         color: data.property.color,
         onChanged: (value) {

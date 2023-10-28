@@ -188,6 +188,8 @@ abstract class Handler<T> {
 
   bool onScaleStart(ScaleStartDetails details, EventContext context) => false;
 
+  void onScaleStartAbort(ScaleStartDetails details, EventContext context) {}
+
   void onScaleUpdate(ScaleUpdateDetails details, EventContext context) {}
 
   void onScaleEnd(ScaleEndDetails details, EventContext context) {}

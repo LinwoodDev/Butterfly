@@ -239,10 +239,15 @@ class _MainViewViewportState extends State<MainViewViewport>
                           _isScalingDisabled = null;
                         },
                         onScaleStart: (details) {
-                          if (_isScalingDisabled != true) {
-                            _isScalingDisabled = cubit
+                          if (_isScalingDisabled != false) {
+                            _isScalingDisabled = !cubit.state.moveEnabled ||
+                                cubit
+                                    .getHandler()
+                                    .onScaleStart(details, getEventContext());
+                          } else {
+                            cubit
                                 .getHandler()
-                                .onScaleStart(details, getEventContext());
+                                .onScaleStartAbort(details, getEventContext());
                           }
                           point = details.localFocalPoint;
                           size = 1;
@@ -287,6 +292,9 @@ class _MainViewViewportState extends State<MainViewViewport>
                               }
                               delayBake();
                             }
+                          },
+                          onPointerPanZoomStart: (event) {
+                            _isScalingDisabled = false;
                           },
                           onPointerDown: (PointerDownEvent event) async {
                             _isScalingDisabled =
