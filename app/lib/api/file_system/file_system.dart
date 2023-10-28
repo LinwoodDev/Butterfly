@@ -159,13 +159,14 @@ abstract class DocumentFileSystem extends GeneralFileSystem {
 
   Future<AppDocumentDirectory> createDirectory(String path);
 
-  Future<AppDocumentFile> updateFile(String path, List<int> data);
+  Future<void> updateFile(String path, List<int> data);
 
   Future<String> findAvailableName(String path) =>
       _findAvailableName(path, hasAsset);
 
-  Future<AppDocumentFile> createFile(String path, List<int> data) async =>
-      updateFile(await findAvailableName(path), data);
+  Future<AppDocumentFile?> createFile(String path, List<int> data) async =>
+      updateFile(await findAvailableName(path), data)
+          .then((_) => getAppDocumentFile(AssetLocation.local(path), data));
 
   Future<bool> hasAsset(String path);
 
@@ -227,10 +228,10 @@ abstract class DocumentFileSystem extends GeneralFileSystem {
 
   Future<void> saveAbsolute(String path, Uint8List bytes) => Future.value();
 
-  Future<AppDocumentFile> updateDocument(String path, NoteData document) =>
+  Future<void> updateDocument(String path, NoteData document) =>
       updateFile(path, document.save());
 
-  Future<AppDocumentFile> importDocument(NoteData document,
+  Future<AppDocumentFile?> importDocument(NoteData document,
       {String path = '/'}) {
     if (path.endsWith('/')) {
       path = path.substring(0, path.length - 1);

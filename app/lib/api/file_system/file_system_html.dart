@@ -218,7 +218,7 @@ class WebDocumentFileSystem extends DocumentFileSystem {
   }
 
   @override
-  Future<AppDocumentFile> updateFile(String path, List<int> data) async {
+  Future<bool> updateFile(String path, List<int> data) async {
     // Remove trailing slash
     if (path.endsWith('/')) {
       path = path.substring(0, path.length - 1);
@@ -243,7 +243,7 @@ class WebDocumentFileSystem extends DocumentFileSystem {
     final dataStore = txn.objectStore('documents-data');
     await dataStore.put(data, path);
     await txn.completed;
-    return getAppDocumentFile(AssetLocation.local(path), data);
+    return true;
   }
 
   @override

@@ -27,6 +27,8 @@ sealed class AssetLocation with _$AssetLocation {
 
   const AssetLocation._();
 
+  static const empty = AssetLocation(path: '');
+
   bool get isRemote => remote.isNotEmpty;
 
   String get identifier =>

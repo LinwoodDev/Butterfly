@@ -200,27 +200,27 @@ class DocumentLoadSuccess extends DocumentLoaded {
                       ?.hasDocumentCached(location.path) ??
                   false)));
 
-  Future<AssetLocation> save() {
+  Future<AssetLocation> save() async {
     currentIndexCubit.setSaveState(saved: SaveState.saving);
     final currentData = saveData();
     final storage = getRemoteStorage();
-    if (embedding != null) return Future.value(AssetLocation.local(''));
+    if (embedding != null) return AssetLocation.empty;
     if (!location.path.endsWith('.bfly') ||
         location.absolute ||
         location.fileType != AssetFileType.note) {
-      return DocumentFileSystem.fromPlatform(remote: storage)
-          .importDocument(currentData)
-          .then((value) => value.location)
-        ..then(settingsCubit.addRecentHistory)
-        ..then((value) => currentIndexCubit.setSaveState(
-            location: value, saved: SaveState.saved));
+      final document = await DocumentFileSystem.fromPlatform(remote: storage)
+          .importDocument(currentData);
+      if (document == null) return AssetLocation.empty;
+      await settingsCubit.addRecentHistory(document.location);
+      currentIndexCubit.setSaveState(
+          location: document.location, saved: SaveState.saved);
+      return document.location;
     }
-    return DocumentFileSystem.fromPlatform(remote: storage)
-        .updateDocument(location.path, currentData)
-        .then((value) => value.location)
-      ..then(settingsCubit.addRecentHistory)
-      ..then((value) => currentIndexCubit.setSaveState(
-          location: value, saved: SaveState.saved));
+    await DocumentFileSystem.fromPlatform(remote: storage)
+        .updateDocument(location.path, currentData);
+    settingsCubit.addRecentHistory(location);
+    currentIndexCubit.setSaveState(location: location, saved: SaveState.saved);
+    return location;
   }
 
   ExternalStorage? getRemoteStorage() => location.remote.isEmpty

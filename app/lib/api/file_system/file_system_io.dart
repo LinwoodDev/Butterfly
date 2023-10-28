@@ -96,14 +96,14 @@ class IODocumentFileSystem extends DocumentFileSystem {
   }
 
   @override
-  Future<AppDocumentFile> updateFile(String path, List<int> data) async {
+  Future<bool> updateFile(String path, List<int> data) async {
     var file = File(await getAbsolutePath(path));
     if (!(await file.exists())) {
       await file.create(recursive: true);
     }
     await file.writeAsBytes(data, flush: true);
 
-    return getAppDocumentFile(AssetLocation.local(path), data);
+    return true;
   }
 
   @override

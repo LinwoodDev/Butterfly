@@ -188,12 +188,10 @@ class DavRemoteDocumentFileSystem extends DocumentRemoteSystem {
   }
 
   @override
-  Future<AppDocumentFile> updateFile(String path, List<int> data,
+  Future<void> updateFile(String path, List<int> data,
       {bool forceSync = false}) async {
     if (!forceSync && remote.hasDocumentCached(path)) {
       cacheContent(path, data);
-      return getAppDocumentFile(
-          AssetLocation(remote: remote.identifier, path: path), data);
     }
     // Create directory if not exists
     final directoryPath = path.substring(0, path.lastIndexOf('/'));
@@ -206,12 +204,10 @@ class DavRemoteDocumentFileSystem extends DocumentRemoteSystem {
       throw Exception(
           'Failed to update document: ${response.statusCode} ${response.reasonPhrase}');
     }
-    return getAppDocumentFile(
-        AssetLocation(remote: remote.identifier, path: path), data);
   }
 
   @override
-  Future<AppDocumentFile> updateDocument(String path, NoteData document,
+  Future<void> updateDocument(String path, NoteData document,
           {bool forceSync = false}) =>
       updateFile(path, document.save(), forceSync: forceSync);
 
@@ -228,7 +224,9 @@ class DavRemoteDocumentFileSystem extends DocumentRemoteSystem {
   @override
   Future<AppDocumentFile> createFile(String path, List<int> data,
           {bool forceSync = false}) async =>
-      updateFile(await findAvailableName(path), data);
+      updateFile(await findAvailableName(path), data).then((_) =>
+          getAppDocumentFile(
+              AssetLocation(remote: remote.identifier, path: path), data));
 }
 
 class DavRemoteTemplateFileSystem extends TemplateFileSystem with RemoteSystem {
