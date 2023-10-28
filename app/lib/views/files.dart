@@ -133,14 +133,17 @@ class _FilesViewState extends State<FilesView> {
     final parent = _locationController.text.substring(0, index < 0 ? 0 : index);
     return Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
       LayoutBuilder(builder: (context, constraints) {
-        final isMobile = constraints.maxWidth <= kLargeWidth;
+        final isMobile = constraints.maxWidth <= kMobileWidth;
         final text = Text(
           AppLocalizations.of(context).files,
           style: Theme.of(context).textTheme.headlineMedium,
           textAlign: TextAlign.start,
         );
         final actions = OverflowBar(
-          spacing: 16,
+          spacing: 8,
+          overflowSpacing: 8,
+          overflowAlignment: OverflowBarAlignment.end,
+          alignment: MainAxisAlignment.end,
           children: [
             if (!widget.collapsed)
               Row(
@@ -225,7 +228,7 @@ class _FilesViewState extends State<FilesView> {
         }
         if (isMobile) {
           return Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               text,
               const SizedBox(height: 16),
@@ -649,27 +652,21 @@ class AssetCard extends StatelessWidget {
                       (name?.isNotEmpty ?? false))
                     Align(
                       alignment: Alignment.bottomLeft,
-                      child: Container(
-                        padding: const EdgeInsets.all(8),
-                        margin: const EdgeInsets.all(8),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(8),
-                          color: colorScheme.primaryContainer.withAlpha(200),
-                        ),
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            if (metadata?.name.isNotEmpty ?? false)
-                              Text(
-                                metadata!.name,
-                                style: textStyle,
-                              ),
-                            if (name?.isNotEmpty ?? false)
-                              Text(
-                                name!,
-                                style: textStyle,
-                              ),
-                          ],
+                      child: Tooltip(
+                        message: name ?? metadata!.name,
+                        child: Container(
+                          padding: const EdgeInsets.all(8),
+                          margin: const EdgeInsets.all(8),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(8),
+                            color: colorScheme.primaryContainer.withAlpha(200),
+                          ),
+                          child: Text(
+                            (metadata?.name.isNotEmpty ?? false)
+                                ? metadata!.name
+                                : name!,
+                            style: textStyle,
+                          ),
                         ),
                       ),
                     ),
