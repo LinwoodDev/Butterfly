@@ -17,7 +17,8 @@ class EraserHandler extends Handler<EraserTool> {
           [Area? currentArea]) =>
       [
         if (_currentPos != null)
-          EraserCursor(ToolCursorData(data, _currentPos!))
+          EraserCursor(
+              ToolCursorData(EraserInfo.fromEraser(data), _currentPos!))
       ];
 
   @override

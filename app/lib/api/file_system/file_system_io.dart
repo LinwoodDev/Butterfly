@@ -71,9 +71,7 @@ class IODocumentFileSystem extends DocumentFileSystem {
           AssetLocation.local(path),
           data,
         );
-      } catch (e) {
-        yield null;
-      }
+      } catch (_) {}
     } else if (await directory.exists()) {
       yield AppDocumentDirectory(AssetLocation.local(path), []);
       if (listFiles) {
