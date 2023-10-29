@@ -2,6 +2,7 @@
 * Readd recent files ([#512](https://github.com/LinwoodDev/Butterfly/issues/512))
 * Improve responsiveness in home page
 * Improve performance of saving files
+* Improve butterfly importer
 * Fix tool indicator alignment if toolbar is in column mode
 * Fix moving issues when painting
 * Fix painting issues when using gestures

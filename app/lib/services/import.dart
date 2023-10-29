@@ -12,6 +12,7 @@ import 'package:butterfly/helpers/offset_helper.dart';
 import 'package:butterfly/models/defaults.dart';
 import 'package:butterfly/renderers/renderer.dart';
 import 'package:butterfly_api/butterfly_api.dart';
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -133,10 +134,14 @@ class ImportService {
     if (position == null) {
       return data;
     }
-    return _importPage(data.getPage(), document, position) ??
-        data.createDocument(
-          createdAt: DateTime.now(),
-        );
+    for (final page in data.getPages().map((e) => data.getPage(e))) {
+      document = document.addPage(page).$1;
+    }
+    for (final packs
+        in data.getPacks().map((e) => data.getPack(e)).whereNotNull()) {
+      document = document.setPack(packs);
+    }
+    return document;
   }
 
   NoteData? importPage(Uint8List bytes, NoteData document, [Offset? position]) {
