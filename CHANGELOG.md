@@ -2,6 +2,18 @@
 
 <!--ENTER CHANGELOG HERE-->
 
+## 2.0.0-beta.13 (2023-10-29)
+
+* Allow moving tools when selected
+* Readd recent files ([#512](https://github.com/LinwoodDev/Butterfly/issues/512))
+* Improve responsiveness in home page
+* Improve performance of saving files
+* Fix tool indicator alignment if toolbar is in column mode
+* Fix moving issues when painting
+* Fix painting issues when using gestures
+
+View all changes in the blog: https://linwood.dev/butterfly/2.0.0-beta.13
+
 ## 2.0.0-beta.12 (2023-10-27)
 
 * Add local directory connection
