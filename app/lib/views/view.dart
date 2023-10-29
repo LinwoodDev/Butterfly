@@ -239,11 +239,11 @@ class _MainViewViewportState extends State<MainViewViewport>
                           _isScalingDisabled = null;
                         },
                         onScaleStart: (details) {
+                          _isScalingDisabled ??= !cubit.state.moveEnabled;
                           if (_isScalingDisabled != false) {
-                            _isScalingDisabled = !cubit.state.moveEnabled ||
-                                cubit
-                                    .getHandler()
-                                    .onScaleStart(details, getEventContext());
+                            _isScalingDisabled = cubit
+                                .getHandler()
+                                .onScaleStart(details, getEventContext());
                           } else {
                             cubit
                                 .getHandler()

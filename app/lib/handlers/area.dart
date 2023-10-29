@@ -54,7 +54,7 @@ class AreaHandler extends Handler<AreaTool> {
         context.getCameraTransform().localToGlobal(details.localFocalPoint);
 
     start = globalPosition;
-    return false;
+    return true;
   }
 
   @override

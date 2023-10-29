@@ -48,7 +48,7 @@ class SpacerHandler extends Handler<SpacerTool> {
     final transform = context.getCameraTransform();
     _startPosition = transform.localToGlobal(details.localFocalPoint);
     _refreshRenderers(_startPosition!, context).whenComplete(context.refresh);
-    return false;
+    return true;
   }
 
   @override

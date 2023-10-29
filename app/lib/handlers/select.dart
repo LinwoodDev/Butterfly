@@ -528,7 +528,7 @@ class SelectHandler extends Handler<SelectTool> {
       return true;
     }
     context.refresh();
-    return false;
+    return true;
   }
 
   @override

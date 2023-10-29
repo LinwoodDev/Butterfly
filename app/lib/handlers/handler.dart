@@ -186,7 +186,7 @@ abstract class Handler<T> {
 
   void onLongPressEnd(LongPressEndDetails details, EventContext context) {}
 
-  bool onScaleStart(ScaleStartDetails details, EventContext context) => false;
+  bool onScaleStart(ScaleStartDetails details, EventContext context) => true;
 
   void onScaleStartAbort(ScaleStartDetails details, EventContext context) {}
 
@@ -477,6 +477,7 @@ abstract class PastingHandler<T> extends Handler<T> {
       [bool first = false]) {
     final transform = context.getCameraTransform();
     if (first) _firstPos = transform.localToGlobal(event.localPosition);
+    if (!first && _firstPos == null) return;
     _secondPos = transform.localToGlobal(event.localPosition);
     _aspectRatio = context.isCtrlPressed;
     _center = context.isShiftPressed;
@@ -502,6 +503,13 @@ abstract class PastingHandler<T> extends Handler<T> {
     final current = List<PadElement>.from(elements);
     bloc.add(ElementsCreated(current));
     bloc.bake();
+    _firstPos = null;
+    _secondPos = null;
+    context.refresh();
+  }
+
+  @override
+  void onScaleStartAbort(ScaleStartDetails details, EventContext context) {
     _firstPos = null;
     _secondPos = null;
     context.refresh();

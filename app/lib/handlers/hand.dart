@@ -6,24 +6,15 @@ class GeneralHandHandler<T> extends Handler<T> {
   GeneralHandHandler(super.data);
 
   @override
-  void onScaleUpdate(ScaleUpdateDetails details, EventContext context) {
-    context
-        .getCurrentIndexCubit()
-        .move(details.focalPointDelta / context.getCameraTransform().size);
-    _moved = true;
-  }
-
-  @override
   void onScaleEnd(ScaleEndDetails details, EventContext context) {
-    if (_moved) {
-      context.bake();
-    }
     _moved = false;
+    context.refresh();
   }
 
   @override
   bool onScaleStart(ScaleStartDetails details, EventContext context) {
-    _moved = false;
+    _moved = true;
+    context.refresh();
     return false;
   }
 
