@@ -123,7 +123,7 @@ class _HomePageState extends State<HomePage> {
                   child: Align(
                     alignment: Alignment.topCenter,
                     child: Container(
-                      margin: const EdgeInsets.symmetric(horizontal: 32),
+                      margin: const EdgeInsets.symmetric(horizontal: 16),
                       constraints: const BoxConstraints(maxWidth: 1400),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -152,9 +152,9 @@ class _HomePageState extends State<HomePage> {
                                       onRemoteChanged: (value) =>
                                           setState(() => _remote = value),
                                     )),
-                                    const SizedBox(width: 32),
+                                    const SizedBox(width: 16),
                                     SizedBox(
-                                      width: 500,
+                                      width: 400,
                                       child: quickStart,
                                     ),
                                   ],

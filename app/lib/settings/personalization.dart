@@ -302,7 +302,6 @@ class PersonalizationSettingsPage extends StatelessWidget {
                 title: Text(AppLocalizations.of(context).defaultLocale),
                 selected: currentLocale.isEmpty,
                 onTap: () => changeLocale(null)),
-            const SizedBox(height: 32),
             ...locales.map((e) => ListTile(
                 title: Text(_getLocaleName(context, e.toLanguageTag())),
                 selected: currentLocale == e.toLanguageTag(),
