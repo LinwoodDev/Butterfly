@@ -71,10 +71,6 @@ class _FilesViewState extends State<FilesView> {
     _sortOrder = _settingsCubit.state.sortOrder;
     _remote = widget.remote ?? _settingsCubit.getRemote();
     _setFilesStream();
-    WidgetsBinding.instance.addPostFrameCallback((_) async {
-      await _templateSystem.createDefault(context);
-      setState(() {});
-    });
   }
 
   @override
@@ -276,7 +272,9 @@ class _FilesViewState extends State<FilesView> {
                   child: Text(AppLocalizations.of(context).newFile),
                 ),
                 FutureBuilder<List<NoteData>>(
-                  future: _templateSystem.getTemplates(),
+                  future: _templateSystem
+                      .createDefault(context)
+                      .then((_) => _templateSystem.getTemplates()),
                   builder: (context, snapshot) => SubmenuButton(
                     leadingIcon: const PhosphorIcon(PhosphorIconsLight.file),
                     menuChildren: snapshot.data?.map((e) {
@@ -557,11 +555,18 @@ class _RecentFilesView extends StatefulWidget {
 
 class _RecentFilesViewState extends State<_RecentFilesView> {
   late Stream<List<AppDocumentEntity>> _stream;
+  final ScrollController _recentScrollController = ScrollController();
 
   @override
   void initState() {
     super.initState();
     _setStream(context.read<SettingsCubit>().state);
+  }
+
+  @override
+  void dispose() {
+    _recentScrollController.dispose();
+    super.dispose();
   }
 
   void _setStream(ButterflySettings settings) => _stream =
@@ -582,26 +587,30 @@ class _RecentFilesViewState extends State<_RecentFilesView> {
             }
             return SizedBox(
               height: 150,
-              child: ListView.builder(
-                scrollDirection: Axis.horizontal,
-                itemCount: files.length,
-                itemBuilder: (context, index) {
-                  final entity = files[index];
-                  FileMetadata? metadata;
-                  Uint8List? thumbnail;
-                  List<int>? data;
-                  if (entity is AppDocumentFile) {
-                    metadata = entity.metadata;
-                    thumbnail = entity.thumbnail;
-                    data = entity.data;
-                  }
-                  return AssetCard(
-                    metadata: metadata,
-                    thumbnail: thumbnail,
-                    name: entity.fileName,
-                    onTap: () => openFile(context, entity.location, data),
-                  );
-                },
+              child: Scrollbar(
+                controller: _recentScrollController,
+                child: ListView.builder(
+                  controller: _recentScrollController,
+                  scrollDirection: Axis.horizontal,
+                  itemCount: files.length,
+                  itemBuilder: (context, index) {
+                    final entity = files[index];
+                    FileMetadata? metadata;
+                    Uint8List? thumbnail;
+                    List<int>? data;
+                    if (entity is AppDocumentFile) {
+                      metadata = entity.metadata;
+                      thumbnail = entity.thumbnail;
+                      data = entity.data;
+                    }
+                    return AssetCard(
+                      metadata: metadata,
+                      thumbnail: thumbnail,
+                      name: entity.fileName,
+                      onTap: () => openFile(context, entity.location, data),
+                    );
+                  },
+                ),
               ),
             );
           }),
