@@ -1,5 +1,6 @@
 * Add cursor to path eraser
 * Add scrollbar to recent files
+* Improve action buttons in add dialog
 * Fix folder creation ([#513](https://github.com/LinwoodDev/Butterfly/issues/513))
 * Fix locale spacing
 

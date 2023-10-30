@@ -103,6 +103,7 @@ extension ToolVisualizer on Tool {
       import: (_) => true,
       undo: (_) => true,
       redo: (_) => true,
+      fullSceen: (_) => true,
       orElse: () => false,
     );
   }

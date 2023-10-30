@@ -139,8 +139,8 @@ class _PacksDialogState extends State<PacksDialog>
                                     },
                                     trailing: MenuAnchor(
                                       builder: defaultMenuButton(
-                                        tooltip:
-                                            AppLocalizations.of(context).copy,
+                                        tooltip: AppLocalizations.of(context)
+                                            .actions,
                                       ),
                                       menuChildren: [
                                         MenuItemButton(

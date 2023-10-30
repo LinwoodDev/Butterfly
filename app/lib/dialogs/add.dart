@@ -41,28 +41,34 @@ class AddDialog extends StatelessWidget {
               ? Theme.of(context).disabledColor
               : null;
       return BoxTile(
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              tool.getLocalizedName(context),
-              textAlign: TextAlign.center,
-            ),
-            if (tool.isAction()) ...[
-              const SizedBox(width: 8),
-              IconButton(
-                onPressed: () =>
-                    handler.onSelected(bloc, currentIndexCubit, false),
-                icon: const PhosphorIcon(PhosphorIconsLight.playCircle),
-                tooltip: AppLocalizations.of(context).play,
-              ),
-            ],
-          ],
+        title: Text(
+          tool.getLocalizedName(context),
+          textAlign: TextAlign.center,
         ),
+        size: tool.isAction() ? 110 : 100,
         subtitle: caption.isEmpty ? null : Text(caption),
-        icon: PhosphorIcon(
-          tool.icon(PhosphorIconsStyle.light),
-          color: color,
+        icon: Stack(
+          alignment: Alignment.topCenter,
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: PhosphorIcon(
+                tool.icon(PhosphorIconsStyle.light),
+                color: color,
+                size: tool.isAction() ? 38 : 32,
+              ),
+            ),
+            if (tool.isAction())
+              Align(
+                alignment: Alignment.bottomRight,
+                child: IconButton(
+                  onPressed: () =>
+                      handler.onSelected(bloc, currentIndexCubit, false),
+                  icon: const PhosphorIcon(PhosphorIconsLight.playCircle),
+                  tooltip: AppLocalizations.of(context).play,
+                ),
+              ),
+          ],
         ),
         onTap: () => addTool(tool),
       );
