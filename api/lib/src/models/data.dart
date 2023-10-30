@@ -376,13 +376,10 @@ class NoteData {
 
   @useResult
   NoteData setPack(NoteData pack, [String? name]) {
-    final data = ZipEncoder().encode(pack.archive);
-    if (data != null) {
-      return setAsset(
-          '$kPacksArchiveDirectory/${name ?? pack.getMetadata()?.name}.bfly',
-          data);
-    }
-    return this;
+    final data = pack.save();
+    return setAsset(
+        '$kPacksArchiveDirectory/${name ?? pack.getMetadata()?.name}.bfly',
+        data);
   }
 
   @useResult

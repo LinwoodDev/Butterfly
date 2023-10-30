@@ -10,6 +10,8 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import '../../bloc/document_bloc.dart';
 
+enum ColorPickerToolbarAction { delete, pin }
+
 class ColorToolbarView extends StatefulWidget implements PreferredSizeWidget {
   final int color;
   final ValueChanged<int> onChanged;
@@ -69,13 +71,11 @@ class _ColorToolbarViewState extends State<ColorToolbarView> {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           if (!(palette?.colors.contains(color) ?? false)) ...[
-            _ColorButton(
-              value: widget.color,
-              color: widget.color,
-              bloc: bloc,
-              chooseOnPress: true,
-              onChanged: (value) {
-                widget.onChanged(value);
+            ColorButton(
+              color: Color(widget.color),
+              selected: true,
+              onTap: () {
+                widget.onChanged(widget.color);
               },
             ),
             if (palette != null) const VerticalDivider(),
@@ -90,21 +90,47 @@ class _ColorToolbarViewState extends State<ColorToolbarView> {
                   children: [
                     ...List.generate(palette.colors.length, (index) {
                       final value = palette!.colors[index];
-                      return _ColorButton(
-                        bloc: bloc,
-                        color: color,
-                        value: value,
-                        onChanged: (value) {
+                      return ColorButton(
+                        color: Color(value),
+                        selected: value == color,
+                        onTap: () {
                           widget.onChanged(value);
                         },
-                        onDeleted: () {
+                        onLongPress: () async {
                           var palette = pack?.getPalette(colorPalette!.name);
-                          palette = palette?.copyWith(
-                            colors: List<int>.from(palette.colors)
-                              ..removeAt(index),
+                          final response = await showDialog<
+                              ColorPickerResponse<ColorPickerToolbarAction>>(
+                            context: context,
+                            builder: (context) =>
+                                ColorPicker<ColorPickerToolbarAction>(
+                              value: Color(value),
+                              secondaryActions: (close) => [
+                                OutlinedButton(
+                                  onPressed: () =>
+                                      close(ColorPickerToolbarAction.delete),
+                                  child:
+                                      Text(AppLocalizations.of(context).delete),
+                                ),
+                              ],
+                            ),
                           );
+                          if (response == null) return;
+                          if (response.action ==
+                              ColorPickerToolbarAction.delete) {
+                            palette = palette?.copyWith(
+                              colors: List<int>.from(palette.colors)
+                                ..removeAt(index),
+                            );
+                          } else {
+                            palette = palette?.copyWith(
+                              colors: List<int>.from(palette.colors)
+                                ..[index] = response.color,
+                            );
+                          }
                           bloc.add(PackUpdated(
                               colorPalette!.pack, pack!.setPalette(palette!)));
+                          widget.onChanged(response.color);
+                          setState(() {});
                         },
                       );
                     }),
@@ -112,17 +138,30 @@ class _ColorToolbarViewState extends State<ColorToolbarView> {
                       padding: const EdgeInsets.all(8.0),
                       child: InkWell(
                         onTap: () async {
-                          final response =
-                              await showDialog<ColorPickerResponse>(
+                          final response = await showDialog<
+                              ColorPickerResponse<ColorPickerToolbarAction>>(
                             context: context,
-                            builder: (context) => ColorPicker(
+                            builder: (context) =>
+                                ColorPicker<ColorPickerToolbarAction>(
                               value: Color(widget.color),
-                              pinOption: palette != null,
+                              primaryActions: palette == null
+                                  ? null
+                                  : (close) => [
+                                        OutlinedButton(
+                                          onPressed: () => close(
+                                              ColorPickerToolbarAction.delete),
+                                          child: Text(
+                                              AppLocalizations.of(context)
+                                                  .delete),
+                                        ),
+                                      ],
                             ),
                           );
                           if (response == null) return;
                           widget.onChanged(response.color);
-                          if (!response.pin) return;
+                          if (response.action != ColorPickerToolbarAction.pin) {
+                            return;
+                          }
                           var currentPalette =
                               pack?.getPalette(colorPalette!.name);
                           currentPalette = currentPalette?.copyWith(
@@ -168,66 +207,5 @@ class _ColorToolbarViewState extends State<ColorToolbarView> {
     } catch (e) {
       return Container();
     }
-  }
-}
-
-class _ColorButton extends StatelessWidget {
-  final int value, color;
-  final DocumentBloc bloc;
-  final ValueChanged<int> onChanged;
-  final VoidCallback? onDeleted;
-  final bool chooseOnPress;
-
-  const _ColorButton({
-    required this.value,
-    required this.color,
-    required this.bloc,
-    required this.onChanged,
-    this.chooseOnPress = false,
-    this.onDeleted,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    Future<void> choose() async {
-      final newColor = await showDialog<ColorPickerResponse>(
-        context: context,
-        builder: (context) => ColorPicker(
-          value: Color(value),
-          deleteOption: onDeleted != null,
-        ),
-      );
-      if (newColor == null) return;
-      if (newColor.delete) {
-        onDeleted?.call();
-      } else {
-        onChanged(newColor.color);
-      }
-    }
-
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: InkWell(
-        onTap: () => chooseOnPress ? choose() : onChanged(value),
-        onLongPress: choose,
-        borderRadius: BorderRadius.circular(12),
-        child: AspectRatio(
-          aspectRatio: 1,
-          child: AnimatedContainer(
-            duration: const Duration(milliseconds: 200),
-            decoration: BoxDecoration(
-              color: Color(value),
-              borderRadius: BorderRadius.circular(12),
-              border: Border.all(
-                color: color == value
-                    ? Theme.of(context).colorScheme.primary
-                    : Colors.transparent,
-                width: 4,
-              ),
-            ),
-          ),
-        ),
-      ),
-    );
   }
 }

@@ -1,7 +1,9 @@
 * Add cursor to path eraser
 * Add scrollbar to recent files
 * Improve action buttons in add dialog
+* Improve color picker dialog
 * Fix folder creation ([#513](https://github.com/LinwoodDev/Butterfly/issues/513))
 * Fix locale spacing
+* Fix pack updating
 
 View all changes in the blog: https://linwood.dev/butterfly/2.0.0-beta.14
