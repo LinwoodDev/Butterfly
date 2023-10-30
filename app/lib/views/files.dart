@@ -258,6 +258,16 @@ class _FilesViewState extends State<FilesView> {
                   leadingIcon: const PhosphorIcon(PhosphorIconsLight.folder),
                   child: Text(AppLocalizations.of(context).newFolder),
                   onPressed: () async {
+                    final name = await showDialog<String>(
+                      context: context,
+                      builder: (context) => NameDialog(
+                        validator: defaultFileNameValidator(context),
+                      ),
+                    );
+                    if (name == null) return;
+                    final path = _locationController.text;
+                    final newPath = '$path/$name';
+                    await _fileSystem.createDirectory(newPath);
                     _reloadFileSystem();
                   },
                 ),
