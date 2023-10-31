@@ -191,16 +191,19 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       var selection = current.currentIndexCubit.state.selection;
       final page = current.page;
       bool shouldRefresh = false;
-      for (final renderer in current.renderers) {
+      final oldRenderers = current.renderers;
+      for (final renderer in oldRenderers) {
         final index = page.content.indexOf(renderer.element);
         final updated = event.elements[index];
         if (updated != null) {
+          renderer.dispose();
+          final updatedRenderers = <Renderer<PadElement>>[];
           for (final element in updated) {
             final newRenderer = Renderer.fromInstance(element);
             await newRenderer.setup(
                 current.data, current.assetService, current.page);
-            renderer.dispose();
             renderers.add(newRenderer);
+            updatedRenderers.add(newRenderer);
             var newSelection = selection?.remove(renderer);
             if (newSelection != selection && selection != null) {
               if (newSelection == null) {
@@ -210,33 +213,36 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
               }
               selection = newSelection;
             }
-            shouldRefresh = shouldRefresh ||
-                current.currentIndexCubit
-                    .getHandler()
-                    .onRendererUpdated(current.page, renderer, newRenderer);
           }
+          shouldRefresh = current.currentIndexCubit
+                  .getHandler()
+                  .onRendererUpdated(
+                      current.page, renderer, updatedRenderers) ||
+              shouldRefresh;
         } else {
           renderers.add(renderer);
         }
       }
       current.currentIndexCubit.unbake(unbakedElements: renderers);
       final content = List.of(page.content);
-      if (shouldRefresh) {
-        refresh();
-      }
       for (final updated in event.elements.entries) {
         if (updated.key >= content.length || updated.key < 0) continue;
         content.removeAt(updated.key);
         content.insertAll(updated.key, updated.value);
       }
       await _saveState(
-          emit,
-          current.copyWith(
-            page: page.copyWith(
-              content: content,
-            ),
-          ),
-          null);
+              emit,
+              current.copyWith(
+                page: page.copyWith(
+                  content: content,
+                ),
+              ),
+              null)
+          .then((value) {
+        if (shouldRefresh) {
+          return refresh();
+        }
+      });
     }, transformer: sequential());
     on<ElementsArranged>((event, emit) async {
       final current = state;
@@ -860,9 +866,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     emit(current);
 
     if (unbakedElements == null) {
-      current.currentIndexCubit.unbake(
-          unbakedElements: List<Renderer<PadElement>>.from(elements)
-            ..addAll(cameraViewport.bakedElements));
+      current.currentIndexCubit.unbake();
     } else {
       current.currentIndexCubit.withUnbaked(elements);
     }

@@ -3,9 +3,11 @@
 * Add recent colors to color picker
 * Improve action buttons in add dialog
 * Improve color picker dialog
+* Fix invalidation of selection when transforming ([#517](https://github.com/LinwoodDev/Butterfly/issues/517))
 * Fix folder creation ([#513](https://github.com/LinwoodDev/Butterfly/issues/513))
 * Fix locale spacing
 * Fix pack updating
+* Fix saving files in local external directory
 * Fixing missing saving of pdf quality and platform theme settings
 
 View all changes in the blog: https://linwood.dev/butterfly/2.0.0-beta.14

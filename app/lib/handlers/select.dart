@@ -201,21 +201,24 @@ class SelectHandler extends Handler<SelectTool> {
   }
 
   @override
-  bool onRendererUpdated(DocumentPage page, Renderer old, Renderer updated) {
+  bool onRendererUpdated(
+      DocumentPage page, Renderer old, List<Renderer> updated) {
+    bool changed = false;
     if (old is Renderer<PadElement> &&
         _selected.contains(old) &&
-        updated is Renderer<PadElement>) {
+        updated is List<Renderer<PadElement>>) {
       _selected.remove(old);
-      _selected.add(updated);
-    } else if (old is Renderer<PadElement> &&
-        _transformed.contains(old) &&
-        updated is Renderer<PadElement>) {
-      _transformed.remove(old);
-      _transformed.add(updated);
-    } else {
-      return false;
+      _selected.addAll(updated);
+      changed = true;
     }
-    return true;
+    if (old is Renderer<PadElement> &&
+        _transformed.contains(old) &&
+        updated is List<Renderer<PadElement>>) {
+      _transformed.remove(old);
+      _transformed.addAll(updated);
+      changed = true;
+    }
+    return changed;
   }
 
   Rect? getSelectionRect() {
@@ -342,7 +345,7 @@ class SelectHandler extends Handler<SelectTool> {
     return foregrounds;
   }
 
-  Future<bool> _submitTransform(DocumentBloc bloc) async {
+  bool _submitTransform(DocumentBloc bloc) {
     if (_transformed.isEmpty) return false;
     final state = bloc.state;
     if (state is! DocumentLoadSuccess) return false;
@@ -350,14 +353,12 @@ class SelectHandler extends Handler<SelectTool> {
     _selected = _transformed;
     _transformCorner = null;
     _transformMode = HandTransformMode.scale;
-    final transformed = _transformed;
     _transformed = [];
-    await bloc.refresh();
-    await Future.sync(() => bloc.add(_duplicate
+    bloc.add(_duplicate
         ? ElementsCreated(current!.map((e) => e.element).toList())
         : ElementsChanged(Map.fromEntries(current!.mapIndexed((i, e) =>
-            MapEntry(state.page.content.indexOf(transformed[i].element),
-                [e.element]))))));
+            MapEntry(state.page.content.indexOf(_selected[i].element),
+                [e.element])))));
     return true;
   }
 
@@ -609,7 +610,7 @@ class SelectHandler extends Handler<SelectTool> {
       _rulerRotation = null;
       return;
     }
-    if (await _submitTransform(context.getDocumentBloc())) return;
+    if (_submitTransform(context.getDocumentBloc())) return;
     _lassoFreeSelection = null;
     _rectangleFreeSelection = null;
     if (!context.isCtrlPressed) {

@@ -135,8 +135,8 @@ class RemoteSync {
       return;
     }
     _statusSubject.add(SyncStatus.syncing);
-    final fileSystem = DocumentFileSystem.fromPlatform(remote: remoteStorage)
-        as DocumentRemoteSystem;
+    final fileSystem = DocumentFileSystem.fromPlatform(remote: remoteStorage);
+    if (fileSystem is! DocumentRemoteSystem) return;
     var files = <SyncFile>[];
     _filesSubject.add([]);
     final currentFiles = await fileSystem.getAllSyncFiles();

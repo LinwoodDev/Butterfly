@@ -161,7 +161,8 @@ abstract class Handler<T> {
           [Area? currentArea]) =>
       [];
 
-  bool onRendererUpdated(DocumentPage page, Renderer old, Renderer updated) =>
+  bool onRendererUpdated(
+          DocumentPage page, Renderer old, List<Renderer> updated) =>
       false;
 
   bool onRenderersCreated(DocumentPage page, List<Renderer> renderers) => false;

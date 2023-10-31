@@ -33,7 +33,7 @@ Future<Uint8List?> openBfly() async {
 
 void openFile(BuildContext context, AssetLocation location, [Object? data]) {
   if (location.isRemote) {
-    GoRouter.of(context).goNamed('remote',
+    GoRouter.of(context).pushReplacementNamed('remote',
         pathParameters: {
           'remote': location.remote,
           'path': location.pathWithoutLeadingSlash,
@@ -44,7 +44,7 @@ void openFile(BuildContext context, AssetLocation location, [Object? data]) {
         extra: data);
     return;
   }
-  GoRouter.of(context).goNamed('local',
+  GoRouter.of(context).pushReplacementNamed('local',
       pathParameters: {
         'path': location.pathWithoutLeadingSlash,
       },

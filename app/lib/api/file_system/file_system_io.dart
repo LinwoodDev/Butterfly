@@ -36,8 +36,9 @@ Future<String> getButterflyDirectory([bool root = false]) async {
 
 class IODocumentFileSystem extends DocumentFileSystem {
   final String? root;
+  final String remoteName;
 
-  IODocumentFileSystem([this.root]);
+  IODocumentFileSystem([this.root, this.remoteName = '']);
 
   @override
   Future<void> deleteAsset(String path) async {
@@ -58,29 +59,27 @@ class IODocumentFileSystem extends DocumentFileSystem {
     if (!path.startsWith('/')) {
       path = '/$path';
     }
-    var absolutePath = await getAbsolutePath(path);
+    final location = AssetLocation(path: path, remote: remoteName);
+    final absolutePath = await getAbsolutePath(path);
     // Test if path is a file
-    var file = File(absolutePath);
+    final file = File(absolutePath);
     // Test if path is a directory
-    var directory = Directory(absolutePath);
+    final directory = Directory(absolutePath);
     if (await file.exists()) {
       var data = await file.readAsBytes();
-      yield AppDocumentFile(AssetLocation.local(path), data: data);
+      yield AppDocumentFile(location, data: data);
       try {
-        yield await getAppDocumentFile(
-          AssetLocation.local(path),
-          data,
-        );
+        yield await getAppDocumentFile(location, data);
       } catch (_) {}
     } else if (await directory.exists()) {
-      yield AppDocumentDirectory(AssetLocation.local(path), []);
+      yield AppDocumentDirectory(location, []);
       if (listFiles) {
         final streams = fetchAssets(
             directory.list().map(
                 (e) => '$path/${e.path.replaceAll('\\', '/').split('/').last}'),
             false);
         await for (final files in streams) {
-          yield AppDocumentDirectory(AssetLocation.local(path), files);
+          yield AppDocumentDirectory(location, files);
         }
       }
     } else {
@@ -99,7 +98,7 @@ class IODocumentFileSystem extends DocumentFileSystem {
     if (!(await file.exists())) {
       await file.create(recursive: true);
     }
-    await file.writeAsBytes(data, flush: true);
+    await file.writeAsBytes(data);
 
     return true;
   }
@@ -135,7 +134,8 @@ class IODocumentFileSystem extends DocumentFileSystem {
         assets.add(asset);
       }
     }
-    return AppDocumentDirectory(AssetLocation.local(path), assets);
+    return AppDocumentDirectory(
+        AssetLocation(path: path, remote: remoteName), assets);
   }
 
   @override

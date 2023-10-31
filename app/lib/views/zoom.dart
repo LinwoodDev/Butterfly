@@ -118,6 +118,7 @@ class _ZoomViewState extends State<ZoomView> with TickerProviderStateMixin {
                               },
                               onEditingComplete: () => zoom(scale),
                               onTapOutside: (event) {
+                                if (!_focusNode.hasFocus) return;
                                 zoom(scale);
                                 _focusNode.unfocus();
                               },

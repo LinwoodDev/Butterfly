@@ -215,7 +215,8 @@ abstract class DocumentFileSystem extends GeneralFileSystem {
     } else {
       return remote?.map(
             dav: (e) => DavRemoteDocumentFileSystem(e),
-            local: (e) => IODocumentFileSystem(e.fullDocumentsPath),
+            local: (e) =>
+                IODocumentFileSystem(e.fullDocumentsPath, remote.identifier),
           ) ??
           IODocumentFileSystem();
     }
