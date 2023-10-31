@@ -1293,6 +1293,7 @@ mixin _$ButterflySettings {
   double get imageScale => throw _privateConstructorUsedError;
   double get pdfQuality => throw _privateConstructorUsedError;
   PlatformTheme get platformTheme => throw _privateConstructorUsedError;
+  List<int> get recentColors => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $ButterflySettingsCopyWith<ButterflySettings> get copyWith =>
@@ -1339,7 +1340,8 @@ abstract class $ButterflySettingsCopyWith<$Res> {
       SortOrder sortOrder,
       double imageScale,
       double pdfQuality,
-      PlatformTheme platformTheme});
+      PlatformTheme platformTheme,
+      List<int> recentColors});
 
   $InputConfigurationCopyWith<$Res> get inputConfiguration;
 }
@@ -1391,6 +1393,7 @@ class _$ButterflySettingsCopyWithImpl<$Res, $Val extends ButterflySettings>
     Object? imageScale = null,
     Object? pdfQuality = null,
     Object? platformTheme = null,
+    Object? recentColors = null,
   }) {
     return _then(_value.copyWith(
       theme: null == theme
@@ -1529,6 +1532,10 @@ class _$ButterflySettingsCopyWithImpl<$Res, $Val extends ButterflySettings>
           ? _value.platformTheme
           : platformTheme // ignore: cast_nullable_to_non_nullable
               as PlatformTheme,
+      recentColors: null == recentColors
+          ? _value.recentColors
+          : recentColors // ignore: cast_nullable_to_non_nullable
+              as List<int>,
     ) as $Val);
   }
 
@@ -1584,7 +1591,8 @@ abstract class _$$ButterflySettingsImplCopyWith<$Res>
       SortOrder sortOrder,
       double imageScale,
       double pdfQuality,
-      PlatformTheme platformTheme});
+      PlatformTheme platformTheme,
+      List<int> recentColors});
 
   @override
   $InputConfigurationCopyWith<$Res> get inputConfiguration;
@@ -1635,6 +1643,7 @@ class __$$ButterflySettingsImplCopyWithImpl<$Res>
     Object? imageScale = null,
     Object? pdfQuality = null,
     Object? platformTheme = null,
+    Object? recentColors = null,
   }) {
     return _then(_$ButterflySettingsImpl(
       theme: null == theme
@@ -1773,6 +1782,10 @@ class __$$ButterflySettingsImplCopyWithImpl<$Res>
           ? _value.platformTheme
           : platformTheme // ignore: cast_nullable_to_non_nullable
               as PlatformTheme,
+      recentColors: null == recentColors
+          ? _value._recentColors
+          : recentColors // ignore: cast_nullable_to_non_nullable
+              as List<int>,
     ));
   }
 }
@@ -1815,10 +1828,12 @@ class _$ButterflySettingsImpl extends _ButterflySettings
       this.sortOrder = SortOrder.ascending,
       this.imageScale = 0.5,
       this.pdfQuality = 2,
-      this.platformTheme = PlatformTheme.system})
+      this.platformTheme = PlatformTheme.system,
+      final List<int> recentColors = const []})
       : _history = history,
         _connections = connections,
         _starred = starred,
+        _recentColors = recentColors,
         super._();
 
   @override
@@ -1939,10 +1954,18 @@ class _$ButterflySettingsImpl extends _ButterflySettings
   @override
   @JsonKey()
   final PlatformTheme platformTheme;
+  final List<int> _recentColors;
+  @override
+  @JsonKey()
+  List<int> get recentColors {
+    if (_recentColors is EqualUnmodifiableListView) return _recentColors;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_recentColors);
+  }
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'ButterflySettings(theme: $theme, density: $density, localeTag: $localeTag, documentPath: $documentPath, touchSensitivity: $touchSensitivity, mouseSensitivity: $mouseSensitivity, penSensitivity: $penSensitivity, selectSensitivity: $selectSensitivity, penOnlyInput: $penOnlyInput, inputGestures: $inputGestures, design: $design, bannerVisibility: $bannerVisibility, history: $history, navigatorEnabled: $navigatorEnabled, zoomEnabled: $zoomEnabled, lastVersion: $lastVersion, connections: $connections, defaultRemote: $defaultRemote, nativeTitleBar: $nativeTitleBar, startInFullScreen: $startInFullScreen, navigationRail: $navigationRail, fullScreen: $fullScreen, syncMode: $syncMode, inputConfiguration: $inputConfiguration, fallbackPack: $fallbackPack, starred: $starred, defaultTemplate: $defaultTemplate, navigatorPage: $navigatorPage, toolbarPosition: $toolbarPosition, sortBy: $sortBy, sortOrder: $sortOrder, imageScale: $imageScale, pdfQuality: $pdfQuality, platformTheme: $platformTheme)';
+    return 'ButterflySettings(theme: $theme, density: $density, localeTag: $localeTag, documentPath: $documentPath, touchSensitivity: $touchSensitivity, mouseSensitivity: $mouseSensitivity, penSensitivity: $penSensitivity, selectSensitivity: $selectSensitivity, penOnlyInput: $penOnlyInput, inputGestures: $inputGestures, design: $design, bannerVisibility: $bannerVisibility, history: $history, navigatorEnabled: $navigatorEnabled, zoomEnabled: $zoomEnabled, lastVersion: $lastVersion, connections: $connections, defaultRemote: $defaultRemote, nativeTitleBar: $nativeTitleBar, startInFullScreen: $startInFullScreen, navigationRail: $navigationRail, fullScreen: $fullScreen, syncMode: $syncMode, inputConfiguration: $inputConfiguration, fallbackPack: $fallbackPack, starred: $starred, defaultTemplate: $defaultTemplate, navigatorPage: $navigatorPage, toolbarPosition: $toolbarPosition, sortBy: $sortBy, sortOrder: $sortOrder, imageScale: $imageScale, pdfQuality: $pdfQuality, platformTheme: $platformTheme, recentColors: $recentColors)';
   }
 
   @override
@@ -1983,7 +2006,8 @@ class _$ButterflySettingsImpl extends _ButterflySettings
       ..add(DiagnosticsProperty('sortOrder', sortOrder))
       ..add(DiagnosticsProperty('imageScale', imageScale))
       ..add(DiagnosticsProperty('pdfQuality', pdfQuality))
-      ..add(DiagnosticsProperty('platformTheme', platformTheme));
+      ..add(DiagnosticsProperty('platformTheme', platformTheme))
+      ..add(DiagnosticsProperty('recentColors', recentColors));
   }
 
   @override
@@ -2052,7 +2076,9 @@ class _$ButterflySettingsImpl extends _ButterflySettings
             (identical(other.pdfQuality, pdfQuality) ||
                 other.pdfQuality == pdfQuality) &&
             (identical(other.platformTheme, platformTheme) ||
-                other.platformTheme == platformTheme));
+                other.platformTheme == platformTheme) &&
+            const DeepCollectionEquality()
+                .equals(other._recentColors, _recentColors));
   }
 
   @override
@@ -2091,7 +2117,8 @@ class _$ButterflySettingsImpl extends _ButterflySettings
         sortOrder,
         imageScale,
         pdfQuality,
-        platformTheme
+        platformTheme,
+        const DeepCollectionEquality().hash(_recentColors)
       ]);
 
   @JsonKey(ignore: true)
@@ -2137,7 +2164,8 @@ abstract class _ButterflySettings extends ButterflySettings {
       final SortOrder sortOrder,
       final double imageScale,
       final double pdfQuality,
-      final PlatformTheme platformTheme}) = _$ButterflySettingsImpl;
+      final PlatformTheme platformTheme,
+      final List<int> recentColors}) = _$ButterflySettingsImpl;
   const _ButterflySettings._() : super._();
 
   @override
@@ -2208,6 +2236,8 @@ abstract class _ButterflySettings extends ButterflySettings {
   double get pdfQuality;
   @override
   PlatformTheme get platformTheme;
+  @override
+  List<int> get recentColors;
   @override
   @JsonKey(ignore: true)
   _$$ButterflySettingsImplCopyWith<_$ButterflySettingsImpl> get copyWith =>

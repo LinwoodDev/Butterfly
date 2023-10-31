@@ -1,3 +1,4 @@
+import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/dialogs/packs/select.dart';
 import 'package:butterfly/views/toolbar.dart';
 import 'package:butterfly_api/butterfly_api.dart';
@@ -61,6 +62,39 @@ class _ColorToolbarViewState extends State<ColorToolbarView> {
     NoteData? pack;
     int color = Color(widget.color).withAlpha(255).value;
 
+    void addColor() async {
+      final settingsCubit = context.read<SettingsCubit>();
+      final response =
+          await showDialog<ColorPickerResponse<ColorPickerToolbarAction>>(
+        context: context,
+        builder: (context) => ColorPicker<ColorPickerToolbarAction>(
+          value: Color(widget.color),
+          suggested:
+              settingsCubit.state.recentColors.map((e) => Color(e)).toList(),
+          primaryActions: palette == null
+              ? null
+              : (close) => [
+                    OutlinedButton(
+                      onPressed: () => close(ColorPickerToolbarAction.pin),
+                      child: Text(AppLocalizations.of(context).pin),
+                    ),
+                  ],
+        ),
+      );
+      if (response == null) return;
+      widget.onChanged(response.color);
+      if (response.action != ColorPickerToolbarAction.pin) {
+        settingsCubit.addRecentColors(response.color);
+        return;
+      }
+      var currentPalette = pack?.getPalette(colorPalette!.name);
+      currentPalette = currentPalette?.copyWith(
+        colors: [...currentPalette.colors, response.color],
+      );
+      bloc.add(
+          PackUpdated(colorPalette!.pack, pack!.setPalette(currentPalette!)));
+    }
+
     try {
       if (colorPalette != null) {
         pack = document.getPack(colorPalette!.pack);
@@ -74,9 +108,7 @@ class _ColorToolbarViewState extends State<ColorToolbarView> {
             ColorButton(
               color: Color(widget.color),
               selected: true,
-              onTap: () {
-                widget.onChanged(widget.color);
-              },
+              onTap: addColor,
             ),
             if (palette != null) const VerticalDivider(),
           ],
@@ -98,12 +130,16 @@ class _ColorToolbarViewState extends State<ColorToolbarView> {
                         },
                         onLongPress: () async {
                           var palette = pack?.getPalette(colorPalette!.name);
+                          final settingsCubit = context.read<SettingsCubit>();
                           final response = await showDialog<
                               ColorPickerResponse<ColorPickerToolbarAction>>(
                             context: context,
                             builder: (context) =>
                                 ColorPicker<ColorPickerToolbarAction>(
                               value: Color(value),
+                              suggested: settingsCubit.state.recentColors
+                                  .map((e) => Color(e))
+                                  .toList(),
                               secondaryActions: (close) => [
                                 OutlinedButton(
                                   onPressed: () =>
@@ -137,39 +173,7 @@ class _ColorToolbarViewState extends State<ColorToolbarView> {
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: InkWell(
-                        onTap: () async {
-                          final response = await showDialog<
-                              ColorPickerResponse<ColorPickerToolbarAction>>(
-                            context: context,
-                            builder: (context) =>
-                                ColorPicker<ColorPickerToolbarAction>(
-                              value: Color(widget.color),
-                              primaryActions: palette == null
-                                  ? null
-                                  : (close) => [
-                                        OutlinedButton(
-                                          onPressed: () => close(
-                                              ColorPickerToolbarAction.delete),
-                                          child: Text(
-                                              AppLocalizations.of(context)
-                                                  .delete),
-                                        ),
-                                      ],
-                            ),
-                          );
-                          if (response == null) return;
-                          widget.onChanged(response.color);
-                          if (response.action != ColorPickerToolbarAction.pin) {
-                            return;
-                          }
-                          var currentPalette =
-                              pack?.getPalette(colorPalette!.name);
-                          currentPalette = currentPalette?.copyWith(
-                            colors: [...currentPalette.colors, response.color],
-                          );
-                          bloc.add(PackUpdated(colorPalette!.pack,
-                              pack!.setPalette(currentPalette!)));
-                        },
+                        onTap: addColor,
                         borderRadius: BorderRadius.circular(12),
                         child: const AspectRatio(
                           aspectRatio: 1,

@@ -349,6 +349,7 @@ class ButterflySettings with _$ButterflySettings {
     @Default(0.5) double imageScale,
     @Default(2) double pdfQuality,
     @Default(PlatformTheme.system) PlatformTheme platformTheme,
+    @Default([]) List<int> recentColors,
   }) = _ButterflySettings;
 
   factory ButterflySettings.fromPrefs(
@@ -421,6 +422,8 @@ class ButterflySettings with _$ButterflySettings {
       platformTheme: prefs.containsKey('platform_theme')
           ? PlatformTheme.values.byName(prefs.getString('platform_theme')!)
           : PlatformTheme.system,
+      recentColors:
+          prefs.getStringList('recent_colors')?.map(int.parse).toList() ?? [],
     );
   }
 
@@ -473,6 +476,10 @@ class ButterflySettings with _$ButterflySettings {
     await prefs.setString('sort_by', sortBy.name);
     await prefs.setString('sort_order', sortOrder.name);
     await prefs.setDouble('image_scale', imageScale);
+    await prefs.setDouble('pdf_quality', pdfQuality);
+    await prefs.setString('platform_theme', platformTheme.name);
+    await prefs.setStringList(
+        'recent_colors', recentColors.map((e) => e.toString()).toList());
   }
 
   ExternalStorage? getRemote(String? identifier) {
@@ -897,4 +904,27 @@ class SettingsCubit extends Cubit<ButterflySettings> {
 
   Future<void> resetPlatformTheme() =>
       changePlatformTheme(PlatformTheme.system);
+
+  Future<void> addRecentColors(int color) async {
+    final recentColors = state.recentColors.toList();
+    recentColors.remove(color);
+    recentColors.insert(0, color);
+    if (recentColors.length > 5) {
+      recentColors.removeLast();
+    }
+    emit(state.copyWith(recentColors: recentColors));
+    return save();
+  }
+
+  Future<void> removeRecentColors(int color) async {
+    final recentColors = state.recentColors.toList();
+    recentColors.remove(color);
+    emit(state.copyWith(recentColors: recentColors));
+    return save();
+  }
+
+  Future<void> resetRecentColors() {
+    emit(state.copyWith(recentColors: []));
+    return save();
+  }
 }
