@@ -130,6 +130,7 @@ class AddDialog extends StatelessWidget {
                   Tool.presentation,
                   () => Tool.spacer(axis: Axis2D.vertical),
                   () => Tool.spacer(axis: Axis2D.horizontal),
+                  Tool.eyeDropper,
                 ]
                     .map((e) => e())
                     .where((e) => e

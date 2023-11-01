@@ -1,6 +1,6 @@
 part of 'handler.dart';
 
-class PenHandler extends Handler<PenTool> {
+class PenHandler extends Handler<PenTool> with ColoredHandler {
   final Map<int, PenElement> elements = {};
 
   final Map<int, Offset> lastPosition = {};
@@ -122,19 +122,12 @@ class PenHandler extends Handler<PenTool> {
   }
 
   @override
-  PreferredSizeWidget getToolbar(DocumentBloc bloc) => ColorToolbarView(
-        color: data.property.color,
-        onChanged: (value) {
-          final state = bloc.state;
-          if (state is! DocumentLoadSuccess) return;
-          final index = state.info.tools.indexOf(data);
-          bloc.add(ToolsChanged({
-            index: data.copyWith(
-                property: data.property.copyWith(
-                    color: convertOldColor(value, data.property.color)))
-          }));
-        },
-      );
+  int getColor() => data.property.color;
+
+  @override
+  PenTool setColor(int color) => data.copyWith(
+      property: data.property
+          .copyWith(color: convertOldColor(color, data.property.color)));
 
   @override
   MouseCursor get cursor => SystemMouseCursors.precise;

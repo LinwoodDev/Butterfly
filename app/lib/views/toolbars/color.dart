@@ -11,16 +11,18 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import '../../bloc/document_bloc.dart';
 
-enum ColorPickerToolbarAction { delete, pin }
+enum ColorPickerToolbarAction { delete, pin, eyeDropper }
 
 class ColorToolbarView extends StatefulWidget implements PreferredSizeWidget {
   final int color;
   final ValueChanged<int> onChanged;
+  final VoidCallback? onEyeDropper;
 
   const ColorToolbarView({
     super.key,
     required this.color,
     required this.onChanged,
+    this.onEyeDropper,
   });
 
   @override
@@ -71,6 +73,15 @@ class _ColorToolbarViewState extends State<ColorToolbarView> {
           value: Color(widget.color),
           suggested:
               settingsCubit.state.recentColors.map((e) => Color(e)).toList(),
+          secondaryActions: widget.onEyeDropper == null
+              ? null
+              : (close) => [
+                    OutlinedButton(
+                      onPressed: () =>
+                          close(ColorPickerToolbarAction.eyeDropper),
+                      child: Text(AppLocalizations.of(context).eyeDropper),
+                    ),
+                  ],
           primaryActions: palette == null
               ? null
               : (close) => [
@@ -83,6 +94,10 @@ class _ColorToolbarViewState extends State<ColorToolbarView> {
       );
       if (response == null) return;
       widget.onChanged(response.color);
+      if (response.action == ColorPickerToolbarAction.eyeDropper) {
+        widget.onEyeDropper?.call();
+        return;
+      }
       if (response.action != ColorPickerToolbarAction.pin) {
         settingsCubit.addRecentColors(response.color);
         return;

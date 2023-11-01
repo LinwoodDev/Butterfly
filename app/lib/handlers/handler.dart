@@ -263,6 +263,27 @@ abstract class Handler<T> {
   MouseCursor? get cursor => null;
 }
 
+mixin ColoredHandler<T extends Tool> on Handler<T> {
+  int getColor();
+  T setColor(int color);
+
+  @override
+  PreferredSizeWidget getToolbar(DocumentBloc bloc) => ColorToolbarView(
+        color: getColor(),
+        onChanged: (value) {
+          final state = bloc.state;
+          if (state is! DocumentLoadSuccess) return;
+          final index = state.info.tools.indexOf(data);
+          bloc.add(ToolsChanged({index: setColor(value)}));
+        },
+        onEyeDropper: () {
+          final state = bloc.state;
+          state.currentIndexCubit
+              ?.changeTemporaryHandler(bloc, EyeDropperTool());
+        },
+      );
+}
+
 mixin HandlerWithCursor<T> on Handler<T> {
   Offset? _currentPos;
 

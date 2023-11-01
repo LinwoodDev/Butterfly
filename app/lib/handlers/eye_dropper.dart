@@ -4,9 +4,9 @@ class EyeDropperHandler extends Handler<EyeDropperTool> {
   EyeDropperHandler(super.data);
 
   @override
-  void onTapUp(TapUpDetails details, EventContext context) async {
+  void onPointerUp(PointerUpEvent event, EventContext context) async {
     final globalPos =
-        context.getCameraTransform().localToGlobal(details.localPosition);
+        context.getCameraTransform().localToGlobal(event.localPosition);
     final state = context.getState();
     if (state == null) return;
     final data = await context.getCurrentIndexCubit().render(
@@ -19,14 +19,29 @@ class EyeDropperHandler extends Handler<EyeDropperTool> {
           y: globalPos.dy,
         );
     if (data == null) return;
-    final image = img.Image.fromBytes(width: 1, height: 1, bytes: data.buffer);
+    final image = img.decodePng(data.buffer.asUint8List());
+    if (image == null) return;
     final pixel = image.getPixel(0, 0);
-    final color = pixel.r.toInt() << 24 |
-        pixel.g.toInt() << 16 |
-        pixel.b.toInt() << 8 |
-        pixel.a.toInt();
-    Clipboard.setData(ClipboardData(
-      text: '#${color.toRadixString(16).padLeft(8, '0').toUpperCase()}',
-    ));
+    final handler =
+        context.getCurrentIndexCubit().getHandler(disableTemporary: true);
+    if (handler is ColoredHandler) {
+      final color = pixel.a.toInt() << 24 |
+          pixel.r.toInt() << 16 |
+          pixel.g.toInt() << 8 |
+          pixel.b.toInt();
+      final newTool = handler.setColor(color);
+      final index = state.info.tools.indexOf(handler.data);
+      context.getDocumentBloc().add(ToolsChanged({index: newTool}));
+    } else {
+      final color =
+          pixel.r.toInt() << 16 | pixel.g.toInt() << 8 | pixel.b.toInt();
+      Clipboard.setData(ClipboardData(
+        text: '#${color.toRadixString(16).padLeft(6, '0')}',
+      ));
+      final loc = AppLocalizations.of(context.buildContext);
+      ScaffoldMessenger.of(context.buildContext).showSnackBar(SnackBar(
+        content: Text(loc.copyTitle),
+      ));
+    }
   }
 }

@@ -2,6 +2,7 @@
 * Add scrollbar to recent files
 * Add recent colors to color picker
 * Add version to web
+* Add eye dropper
 * Show remote on hover in recent files
 * Improve action buttons in add dialog
 * Improve color picker dialog
