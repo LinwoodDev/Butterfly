@@ -35,6 +35,7 @@ extension ToolVisualizer on Tool {
       presentation: (_) => loc.presentation,
       fullSceen: (_) => loc.fullScreen,
       asset: (tool) => tool.importType.getLocalizedName(context),
+      eyeDropper: (_) => loc.eyeDropper,
     );
   }
 
@@ -73,6 +74,7 @@ extension ToolVisualizer on Tool {
         presentation: (_) => PhosphorIcons.presentation,
         fullSceen: (_) => PhosphorIcons.arrowsOut,
         asset: (tool) => tool.importType.icon,
+        eyeDropper: (_) => PhosphorIcons.eyedropper,
       );
 
   List<String> get help {

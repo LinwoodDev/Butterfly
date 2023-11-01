@@ -54,6 +54,8 @@ Tool _$ToolFromJson(Map<String, dynamic> json) {
       return AssetTool.fromJson(json);
     case 'texture':
       return TextureTool.fromJson(json);
+    case 'eyeDropper':
+      return EyeDropperTool.fromJson(json);
 
     default:
       throw CheckedFromJsonException(
@@ -135,6 +137,7 @@ mixin _$Tool {
             double constrainedAspectRatio,
             SurfaceTexture texture)
         texture,
+    required TResult Function(String name, String displayIcon) eyeDropper,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -201,6 +204,7 @@ mixin _$Tool {
             double constrainedAspectRatio,
             SurfaceTexture texture)?
         texture,
+    TResult? Function(String name, String displayIcon)? eyeDropper,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -267,6 +271,7 @@ mixin _$Tool {
             double constrainedAspectRatio,
             SurfaceTexture texture)?
         texture,
+    TResult Function(String name, String displayIcon)? eyeDropper,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -291,6 +296,7 @@ mixin _$Tool {
     required TResult Function(FullScreenTool value) fullSceen,
     required TResult Function(AssetTool value) asset,
     required TResult Function(TextureTool value) texture,
+    required TResult Function(EyeDropperTool value) eyeDropper,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -314,6 +320,7 @@ mixin _$Tool {
     TResult? Function(FullScreenTool value)? fullSceen,
     TResult? Function(AssetTool value)? asset,
     TResult? Function(TextureTool value)? texture,
+    TResult? Function(EyeDropperTool value)? eyeDropper,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -337,6 +344,7 @@ mixin _$Tool {
     TResult Function(FullScreenTool value)? fullSceen,
     TResult Function(AssetTool value)? asset,
     TResult Function(TextureTool value)? texture,
+    TResult Function(EyeDropperTool value)? eyeDropper,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -533,6 +541,7 @@ class _$SelectToolImpl extends SelectTool {
             double constrainedAspectRatio,
             SurfaceTexture texture)
         texture,
+    required TResult Function(String name, String displayIcon) eyeDropper,
   }) {
     return select(name, displayIcon, mode);
   }
@@ -602,6 +611,7 @@ class _$SelectToolImpl extends SelectTool {
             double constrainedAspectRatio,
             SurfaceTexture texture)?
         texture,
+    TResult? Function(String name, String displayIcon)? eyeDropper,
   }) {
     return select?.call(name, displayIcon, mode);
   }
@@ -671,6 +681,7 @@ class _$SelectToolImpl extends SelectTool {
             double constrainedAspectRatio,
             SurfaceTexture texture)?
         texture,
+    TResult Function(String name, String displayIcon)? eyeDropper,
     required TResult orElse(),
   }) {
     if (select != null) {
@@ -701,6 +712,7 @@ class _$SelectToolImpl extends SelectTool {
     required TResult Function(FullScreenTool value) fullSceen,
     required TResult Function(AssetTool value) asset,
     required TResult Function(TextureTool value) texture,
+    required TResult Function(EyeDropperTool value) eyeDropper,
   }) {
     return select(this);
   }
@@ -727,6 +739,7 @@ class _$SelectToolImpl extends SelectTool {
     TResult? Function(FullScreenTool value)? fullSceen,
     TResult? Function(AssetTool value)? asset,
     TResult? Function(TextureTool value)? texture,
+    TResult? Function(EyeDropperTool value)? eyeDropper,
   }) {
     return select?.call(this);
   }
@@ -753,6 +766,7 @@ class _$SelectToolImpl extends SelectTool {
     TResult Function(FullScreenTool value)? fullSceen,
     TResult Function(AssetTool value)? asset,
     TResult Function(TextureTool value)? texture,
+    TResult Function(EyeDropperTool value)? eyeDropper,
     required TResult orElse(),
   }) {
     if (select != null) {
@@ -929,6 +943,7 @@ class _$HandToolImpl extends HandTool {
             double constrainedAspectRatio,
             SurfaceTexture texture)
         texture,
+    required TResult Function(String name, String displayIcon) eyeDropper,
   }) {
     return hand(name, displayIcon);
   }
@@ -998,6 +1013,7 @@ class _$HandToolImpl extends HandTool {
             double constrainedAspectRatio,
             SurfaceTexture texture)?
         texture,
+    TResult? Function(String name, String displayIcon)? eyeDropper,
   }) {
     return hand?.call(name, displayIcon);
   }
@@ -1067,6 +1083,7 @@ class _$HandToolImpl extends HandTool {
             double constrainedAspectRatio,
             SurfaceTexture texture)?
         texture,
+    TResult Function(String name, String displayIcon)? eyeDropper,
     required TResult orElse(),
   }) {
     if (hand != null) {
@@ -1097,6 +1114,7 @@ class _$HandToolImpl extends HandTool {
     required TResult Function(FullScreenTool value) fullSceen,
     required TResult Function(AssetTool value) asset,
     required TResult Function(TextureTool value) texture,
+    required TResult Function(EyeDropperTool value) eyeDropper,
   }) {
     return hand(this);
   }
@@ -1123,6 +1141,7 @@ class _$HandToolImpl extends HandTool {
     TResult? Function(FullScreenTool value)? fullSceen,
     TResult? Function(AssetTool value)? asset,
     TResult? Function(TextureTool value)? texture,
+    TResult? Function(EyeDropperTool value)? eyeDropper,
   }) {
     return hand?.call(this);
   }
@@ -1149,6 +1168,7 @@ class _$HandToolImpl extends HandTool {
     TResult Function(FullScreenTool value)? fullSceen,
     TResult Function(AssetTool value)? asset,
     TResult Function(TextureTool value)? texture,
+    TResult Function(EyeDropperTool value)? eyeDropper,
     required TResult orElse(),
   }) {
     if (hand != null) {
@@ -1358,6 +1378,7 @@ class _$ImportToolImpl extends ImportTool {
             double constrainedAspectRatio,
             SurfaceTexture texture)
         texture,
+    required TResult Function(String name, String displayIcon) eyeDropper,
   }) {
     return import(name, displayIcon, elements, areas);
   }
@@ -1427,6 +1448,7 @@ class _$ImportToolImpl extends ImportTool {
             double constrainedAspectRatio,
             SurfaceTexture texture)?
         texture,
+    TResult? Function(String name, String displayIcon)? eyeDropper,
   }) {
     return import?.call(name, displayIcon, elements, areas);
   }
@@ -1496,6 +1518,7 @@ class _$ImportToolImpl extends ImportTool {
             double constrainedAspectRatio,
             SurfaceTexture texture)?
         texture,
+    TResult Function(String name, String displayIcon)? eyeDropper,
     required TResult orElse(),
   }) {
     if (import != null) {
@@ -1526,6 +1549,7 @@ class _$ImportToolImpl extends ImportTool {
     required TResult Function(FullScreenTool value) fullSceen,
     required TResult Function(AssetTool value) asset,
     required TResult Function(TextureTool value) texture,
+    required TResult Function(EyeDropperTool value) eyeDropper,
   }) {
     return import(this);
   }
@@ -1552,6 +1576,7 @@ class _$ImportToolImpl extends ImportTool {
     TResult? Function(FullScreenTool value)? fullSceen,
     TResult? Function(AssetTool value)? asset,
     TResult? Function(TextureTool value)? texture,
+    TResult? Function(EyeDropperTool value)? eyeDropper,
   }) {
     return import?.call(this);
   }
@@ -1578,6 +1603,7 @@ class _$ImportToolImpl extends ImportTool {
     TResult Function(FullScreenTool value)? fullSceen,
     TResult Function(AssetTool value)? asset,
     TResult Function(TextureTool value)? texture,
+    TResult Function(EyeDropperTool value)? eyeDropper,
     required TResult orElse(),
   }) {
     if (import != null) {
@@ -1756,6 +1782,7 @@ class _$UndoToolImpl extends UndoTool {
             double constrainedAspectRatio,
             SurfaceTexture texture)
         texture,
+    required TResult Function(String name, String displayIcon) eyeDropper,
   }) {
     return undo(name, displayIcon);
   }
@@ -1825,6 +1852,7 @@ class _$UndoToolImpl extends UndoTool {
             double constrainedAspectRatio,
             SurfaceTexture texture)?
         texture,
+    TResult? Function(String name, String displayIcon)? eyeDropper,
   }) {
     return undo?.call(name, displayIcon);
   }
@@ -1894,6 +1922,7 @@ class _$UndoToolImpl extends UndoTool {
             double constrainedAspectRatio,
             SurfaceTexture texture)?
         texture,
+    TResult Function(String name, String displayIcon)? eyeDropper,
     required TResult orElse(),
   }) {
     if (undo != null) {
@@ -1924,6 +1953,7 @@ class _$UndoToolImpl extends UndoTool {
     required TResult Function(FullScreenTool value) fullSceen,
     required TResult Function(AssetTool value) asset,
     required TResult Function(TextureTool value) texture,
+    required TResult Function(EyeDropperTool value) eyeDropper,
   }) {
     return undo(this);
   }
@@ -1950,6 +1980,7 @@ class _$UndoToolImpl extends UndoTool {
     TResult? Function(FullScreenTool value)? fullSceen,
     TResult? Function(AssetTool value)? asset,
     TResult? Function(TextureTool value)? texture,
+    TResult? Function(EyeDropperTool value)? eyeDropper,
   }) {
     return undo?.call(this);
   }
@@ -1976,6 +2007,7 @@ class _$UndoToolImpl extends UndoTool {
     TResult Function(FullScreenTool value)? fullSceen,
     TResult Function(AssetTool value)? asset,
     TResult Function(TextureTool value)? texture,
+    TResult Function(EyeDropperTool value)? eyeDropper,
     required TResult orElse(),
   }) {
     if (undo != null) {
@@ -2149,6 +2181,7 @@ class _$RedoToolImpl extends RedoTool {
             double constrainedAspectRatio,
             SurfaceTexture texture)
         texture,
+    required TResult Function(String name, String displayIcon) eyeDropper,
   }) {
     return redo(name, displayIcon);
   }
@@ -2218,6 +2251,7 @@ class _$RedoToolImpl extends RedoTool {
             double constrainedAspectRatio,
             SurfaceTexture texture)?
         texture,
+    TResult? Function(String name, String displayIcon)? eyeDropper,
   }) {
     return redo?.call(name, displayIcon);
   }
@@ -2287,6 +2321,7 @@ class _$RedoToolImpl extends RedoTool {
             double constrainedAspectRatio,
             SurfaceTexture texture)?
         texture,
+    TResult Function(String name, String displayIcon)? eyeDropper,
     required TResult orElse(),
   }) {
     if (redo != null) {
@@ -2317,6 +2352,7 @@ class _$RedoToolImpl extends RedoTool {
     required TResult Function(FullScreenTool value) fullSceen,
     required TResult Function(AssetTool value) asset,
     required TResult Function(TextureTool value) texture,
+    required TResult Function(EyeDropperTool value) eyeDropper,
   }) {
     return redo(this);
   }
@@ -2343,6 +2379,7 @@ class _$RedoToolImpl extends RedoTool {
     TResult? Function(FullScreenTool value)? fullSceen,
     TResult? Function(AssetTool value)? asset,
     TResult? Function(TextureTool value)? texture,
+    TResult? Function(EyeDropperTool value)? eyeDropper,
   }) {
     return redo?.call(this);
   }
@@ -2369,6 +2406,7 @@ class _$RedoToolImpl extends RedoTool {
     TResult Function(FullScreenTool value)? fullSceen,
     TResult Function(AssetTool value)? asset,
     TResult Function(TextureTool value)? texture,
+    TResult Function(EyeDropperTool value)? eyeDropper,
     required TResult orElse(),
   }) {
     if (redo != null) {
@@ -2607,6 +2645,7 @@ class _$LabelToolImpl extends LabelTool {
             double constrainedAspectRatio,
             SurfaceTexture texture)
         texture,
+    required TResult Function(String name, String displayIcon) eyeDropper,
   }) {
     return label(
         name, displayIcon, mode, zoomDependent, foreground, styleSheet, scale);
@@ -2677,6 +2716,7 @@ class _$LabelToolImpl extends LabelTool {
             double constrainedAspectRatio,
             SurfaceTexture texture)?
         texture,
+    TResult? Function(String name, String displayIcon)? eyeDropper,
   }) {
     return label?.call(
         name, displayIcon, mode, zoomDependent, foreground, styleSheet, scale);
@@ -2747,6 +2787,7 @@ class _$LabelToolImpl extends LabelTool {
             double constrainedAspectRatio,
             SurfaceTexture texture)?
         texture,
+    TResult Function(String name, String displayIcon)? eyeDropper,
     required TResult orElse(),
   }) {
     if (label != null) {
@@ -2778,6 +2819,7 @@ class _$LabelToolImpl extends LabelTool {
     required TResult Function(FullScreenTool value) fullSceen,
     required TResult Function(AssetTool value) asset,
     required TResult Function(TextureTool value) texture,
+    required TResult Function(EyeDropperTool value) eyeDropper,
   }) {
     return label(this);
   }
@@ -2804,6 +2846,7 @@ class _$LabelToolImpl extends LabelTool {
     TResult? Function(FullScreenTool value)? fullSceen,
     TResult? Function(AssetTool value)? asset,
     TResult? Function(TextureTool value)? texture,
+    TResult? Function(EyeDropperTool value)? eyeDropper,
   }) {
     return label?.call(this);
   }
@@ -2830,6 +2873,7 @@ class _$LabelToolImpl extends LabelTool {
     TResult Function(FullScreenTool value)? fullSceen,
     TResult Function(AssetTool value)? asset,
     TResult Function(TextureTool value)? texture,
+    TResult Function(EyeDropperTool value)? eyeDropper,
     required TResult orElse(),
   }) {
     if (label != null) {
@@ -3039,6 +3083,7 @@ class _$PenToolImpl extends PenTool {
             double constrainedAspectRatio,
             SurfaceTexture texture)
         texture,
+    required TResult Function(String name, String displayIcon) eyeDropper,
   }) {
     return pen(name, displayIcon, zoomDependent, property);
   }
@@ -3108,6 +3153,7 @@ class _$PenToolImpl extends PenTool {
             double constrainedAspectRatio,
             SurfaceTexture texture)?
         texture,
+    TResult? Function(String name, String displayIcon)? eyeDropper,
   }) {
     return pen?.call(name, displayIcon, zoomDependent, property);
   }
@@ -3177,6 +3223,7 @@ class _$PenToolImpl extends PenTool {
             double constrainedAspectRatio,
             SurfaceTexture texture)?
         texture,
+    TResult Function(String name, String displayIcon)? eyeDropper,
     required TResult orElse(),
   }) {
     if (pen != null) {
@@ -3207,6 +3254,7 @@ class _$PenToolImpl extends PenTool {
     required TResult Function(FullScreenTool value) fullSceen,
     required TResult Function(AssetTool value) asset,
     required TResult Function(TextureTool value) texture,
+    required TResult Function(EyeDropperTool value) eyeDropper,
   }) {
     return pen(this);
   }
@@ -3233,6 +3281,7 @@ class _$PenToolImpl extends PenTool {
     TResult? Function(FullScreenTool value)? fullSceen,
     TResult? Function(AssetTool value)? asset,
     TResult? Function(TextureTool value)? texture,
+    TResult? Function(EyeDropperTool value)? eyeDropper,
   }) {
     return pen?.call(this);
   }
@@ -3259,6 +3308,7 @@ class _$PenToolImpl extends PenTool {
     TResult Function(FullScreenTool value)? fullSceen,
     TResult Function(AssetTool value)? asset,
     TResult Function(TextureTool value)? texture,
+    TResult Function(EyeDropperTool value)? eyeDropper,
     required TResult orElse(),
   }) {
     if (pen != null) {
@@ -3448,6 +3498,7 @@ class _$EraserToolImpl extends EraserTool {
             double constrainedAspectRatio,
             SurfaceTexture texture)
         texture,
+    required TResult Function(String name, String displayIcon) eyeDropper,
   }) {
     return eraser(name, displayIcon, strokeWidth);
   }
@@ -3517,6 +3568,7 @@ class _$EraserToolImpl extends EraserTool {
             double constrainedAspectRatio,
             SurfaceTexture texture)?
         texture,
+    TResult? Function(String name, String displayIcon)? eyeDropper,
   }) {
     return eraser?.call(name, displayIcon, strokeWidth);
   }
@@ -3586,6 +3638,7 @@ class _$EraserToolImpl extends EraserTool {
             double constrainedAspectRatio,
             SurfaceTexture texture)?
         texture,
+    TResult Function(String name, String displayIcon)? eyeDropper,
     required TResult orElse(),
   }) {
     if (eraser != null) {
@@ -3616,6 +3669,7 @@ class _$EraserToolImpl extends EraserTool {
     required TResult Function(FullScreenTool value) fullSceen,
     required TResult Function(AssetTool value) asset,
     required TResult Function(TextureTool value) texture,
+    required TResult Function(EyeDropperTool value) eyeDropper,
   }) {
     return eraser(this);
   }
@@ -3642,6 +3696,7 @@ class _$EraserToolImpl extends EraserTool {
     TResult? Function(FullScreenTool value)? fullSceen,
     TResult? Function(AssetTool value)? asset,
     TResult? Function(TextureTool value)? texture,
+    TResult? Function(EyeDropperTool value)? eyeDropper,
   }) {
     return eraser?.call(this);
   }
@@ -3668,6 +3723,7 @@ class _$EraserToolImpl extends EraserTool {
     TResult Function(FullScreenTool value)? fullSceen,
     TResult Function(AssetTool value)? asset,
     TResult Function(TextureTool value)? texture,
+    TResult Function(EyeDropperTool value)? eyeDropper,
     required TResult orElse(),
   }) {
     if (eraser != null) {
@@ -3858,6 +3914,7 @@ class _$PathEraserToolImpl extends PathEraserTool {
             double constrainedAspectRatio,
             SurfaceTexture texture)
         texture,
+    required TResult Function(String name, String displayIcon) eyeDropper,
   }) {
     return pathEraser(name, displayIcon, strokeWidth);
   }
@@ -3927,6 +3984,7 @@ class _$PathEraserToolImpl extends PathEraserTool {
             double constrainedAspectRatio,
             SurfaceTexture texture)?
         texture,
+    TResult? Function(String name, String displayIcon)? eyeDropper,
   }) {
     return pathEraser?.call(name, displayIcon, strokeWidth);
   }
@@ -3996,6 +4054,7 @@ class _$PathEraserToolImpl extends PathEraserTool {
             double constrainedAspectRatio,
             SurfaceTexture texture)?
         texture,
+    TResult Function(String name, String displayIcon)? eyeDropper,
     required TResult orElse(),
   }) {
     if (pathEraser != null) {
@@ -4026,6 +4085,7 @@ class _$PathEraserToolImpl extends PathEraserTool {
     required TResult Function(FullScreenTool value) fullSceen,
     required TResult Function(AssetTool value) asset,
     required TResult Function(TextureTool value) texture,
+    required TResult Function(EyeDropperTool value) eyeDropper,
   }) {
     return pathEraser(this);
   }
@@ -4052,6 +4112,7 @@ class _$PathEraserToolImpl extends PathEraserTool {
     TResult? Function(FullScreenTool value)? fullSceen,
     TResult? Function(AssetTool value)? asset,
     TResult? Function(TextureTool value)? texture,
+    TResult? Function(EyeDropperTool value)? eyeDropper,
   }) {
     return pathEraser?.call(this);
   }
@@ -4078,6 +4139,7 @@ class _$PathEraserToolImpl extends PathEraserTool {
     TResult Function(FullScreenTool value)? fullSceen,
     TResult Function(AssetTool value)? asset,
     TResult Function(TextureTool value)? texture,
+    TResult Function(EyeDropperTool value)? eyeDropper,
     required TResult orElse(),
   }) {
     if (pathEraser != null) {
@@ -4266,6 +4328,7 @@ class _$LayerToolImpl extends LayerTool {
             double constrainedAspectRatio,
             SurfaceTexture texture)
         texture,
+    required TResult Function(String name, String displayIcon) eyeDropper,
   }) {
     return layer(name, displayIcon, strokeWidth);
   }
@@ -4335,6 +4398,7 @@ class _$LayerToolImpl extends LayerTool {
             double constrainedAspectRatio,
             SurfaceTexture texture)?
         texture,
+    TResult? Function(String name, String displayIcon)? eyeDropper,
   }) {
     return layer?.call(name, displayIcon, strokeWidth);
   }
@@ -4404,6 +4468,7 @@ class _$LayerToolImpl extends LayerTool {
             double constrainedAspectRatio,
             SurfaceTexture texture)?
         texture,
+    TResult Function(String name, String displayIcon)? eyeDropper,
     required TResult orElse(),
   }) {
     if (layer != null) {
@@ -4434,6 +4499,7 @@ class _$LayerToolImpl extends LayerTool {
     required TResult Function(FullScreenTool value) fullSceen,
     required TResult Function(AssetTool value) asset,
     required TResult Function(TextureTool value) texture,
+    required TResult Function(EyeDropperTool value) eyeDropper,
   }) {
     return layer(this);
   }
@@ -4460,6 +4526,7 @@ class _$LayerToolImpl extends LayerTool {
     TResult? Function(FullScreenTool value)? fullSceen,
     TResult? Function(AssetTool value)? asset,
     TResult? Function(TextureTool value)? texture,
+    TResult? Function(EyeDropperTool value)? eyeDropper,
   }) {
     return layer?.call(this);
   }
@@ -4486,6 +4553,7 @@ class _$LayerToolImpl extends LayerTool {
     TResult Function(FullScreenTool value)? fullSceen,
     TResult Function(AssetTool value)? asset,
     TResult Function(TextureTool value)? texture,
+    TResult Function(EyeDropperTool value)? eyeDropper,
     required TResult orElse(),
   }) {
     if (layer != null) {
@@ -4707,6 +4775,7 @@ class _$AreaToolImpl extends AreaTool {
             double constrainedAspectRatio,
             SurfaceTexture texture)
         texture,
+    required TResult Function(String name, String displayIcon) eyeDropper,
   }) {
     return area(name, displayIcon, constrainedWidth, constrainedHeight,
         constrainedAspectRatio, askForName);
@@ -4777,6 +4846,7 @@ class _$AreaToolImpl extends AreaTool {
             double constrainedAspectRatio,
             SurfaceTexture texture)?
         texture,
+    TResult? Function(String name, String displayIcon)? eyeDropper,
   }) {
     return area?.call(name, displayIcon, constrainedWidth, constrainedHeight,
         constrainedAspectRatio, askForName);
@@ -4847,6 +4917,7 @@ class _$AreaToolImpl extends AreaTool {
             double constrainedAspectRatio,
             SurfaceTexture texture)?
         texture,
+    TResult Function(String name, String displayIcon)? eyeDropper,
     required TResult orElse(),
   }) {
     if (area != null) {
@@ -4878,6 +4949,7 @@ class _$AreaToolImpl extends AreaTool {
     required TResult Function(FullScreenTool value) fullSceen,
     required TResult Function(AssetTool value) asset,
     required TResult Function(TextureTool value) texture,
+    required TResult Function(EyeDropperTool value) eyeDropper,
   }) {
     return area(this);
   }
@@ -4904,6 +4976,7 @@ class _$AreaToolImpl extends AreaTool {
     TResult? Function(FullScreenTool value)? fullSceen,
     TResult? Function(AssetTool value)? asset,
     TResult? Function(TextureTool value)? texture,
+    TResult? Function(EyeDropperTool value)? eyeDropper,
   }) {
     return area?.call(this);
   }
@@ -4930,6 +5003,7 @@ class _$AreaToolImpl extends AreaTool {
     TResult Function(FullScreenTool value)? fullSceen,
     TResult Function(AssetTool value)? asset,
     TResult Function(TextureTool value)? texture,
+    TResult Function(EyeDropperTool value)? eyeDropper,
     required TResult orElse(),
   }) {
     if (area != null) {
@@ -5157,6 +5231,7 @@ class _$LaserToolImpl extends LaserTool {
             double constrainedAspectRatio,
             SurfaceTexture texture)
         texture,
+    required TResult Function(String name, String displayIcon) eyeDropper,
   }) {
     return laser(name, displayIcon, duration, strokeWidth, thinning, color);
   }
@@ -5226,6 +5301,7 @@ class _$LaserToolImpl extends LaserTool {
             double constrainedAspectRatio,
             SurfaceTexture texture)?
         texture,
+    TResult? Function(String name, String displayIcon)? eyeDropper,
   }) {
     return laser?.call(
         name, displayIcon, duration, strokeWidth, thinning, color);
@@ -5296,6 +5372,7 @@ class _$LaserToolImpl extends LaserTool {
             double constrainedAspectRatio,
             SurfaceTexture texture)?
         texture,
+    TResult Function(String name, String displayIcon)? eyeDropper,
     required TResult orElse(),
   }) {
     if (laser != null) {
@@ -5326,6 +5403,7 @@ class _$LaserToolImpl extends LaserTool {
     required TResult Function(FullScreenTool value) fullSceen,
     required TResult Function(AssetTool value) asset,
     required TResult Function(TextureTool value) texture,
+    required TResult Function(EyeDropperTool value) eyeDropper,
   }) {
     return laser(this);
   }
@@ -5352,6 +5430,7 @@ class _$LaserToolImpl extends LaserTool {
     TResult? Function(FullScreenTool value)? fullSceen,
     TResult? Function(AssetTool value)? asset,
     TResult? Function(TextureTool value)? texture,
+    TResult? Function(EyeDropperTool value)? eyeDropper,
   }) {
     return laser?.call(this);
   }
@@ -5378,6 +5457,7 @@ class _$LaserToolImpl extends LaserTool {
     TResult Function(FullScreenTool value)? fullSceen,
     TResult Function(AssetTool value)? asset,
     TResult Function(TextureTool value)? texture,
+    TResult Function(EyeDropperTool value)? eyeDropper,
     required TResult orElse(),
   }) {
     if (laser != null) {
@@ -5615,6 +5695,7 @@ class _$ShapeToolImpl extends ShapeTool {
             double constrainedAspectRatio,
             SurfaceTexture texture)
         texture,
+    required TResult Function(String name, String displayIcon) eyeDropper,
   }) {
     return shape(name, displayIcon, zoomDependent, constrainedWidth,
         constrainedHeight, constrainedAspectRatio, property);
@@ -5685,6 +5766,7 @@ class _$ShapeToolImpl extends ShapeTool {
             double constrainedAspectRatio,
             SurfaceTexture texture)?
         texture,
+    TResult? Function(String name, String displayIcon)? eyeDropper,
   }) {
     return shape?.call(name, displayIcon, zoomDependent, constrainedWidth,
         constrainedHeight, constrainedAspectRatio, property);
@@ -5755,6 +5837,7 @@ class _$ShapeToolImpl extends ShapeTool {
             double constrainedAspectRatio,
             SurfaceTexture texture)?
         texture,
+    TResult Function(String name, String displayIcon)? eyeDropper,
     required TResult orElse(),
   }) {
     if (shape != null) {
@@ -5786,6 +5869,7 @@ class _$ShapeToolImpl extends ShapeTool {
     required TResult Function(FullScreenTool value) fullSceen,
     required TResult Function(AssetTool value) asset,
     required TResult Function(TextureTool value) texture,
+    required TResult Function(EyeDropperTool value) eyeDropper,
   }) {
     return shape(this);
   }
@@ -5812,6 +5896,7 @@ class _$ShapeToolImpl extends ShapeTool {
     TResult? Function(FullScreenTool value)? fullSceen,
     TResult? Function(AssetTool value)? asset,
     TResult? Function(TextureTool value)? texture,
+    TResult? Function(EyeDropperTool value)? eyeDropper,
   }) {
     return shape?.call(this);
   }
@@ -5838,6 +5923,7 @@ class _$ShapeToolImpl extends ShapeTool {
     TResult Function(FullScreenTool value)? fullSceen,
     TResult Function(AssetTool value)? asset,
     TResult Function(TextureTool value)? texture,
+    TResult Function(EyeDropperTool value)? eyeDropper,
     required TResult orElse(),
   }) {
     if (shape != null) {
@@ -6044,6 +6130,7 @@ class _$StampToolImpl extends StampTool {
             double constrainedAspectRatio,
             SurfaceTexture texture)
         texture,
+    required TResult Function(String name, String displayIcon) eyeDropper,
   }) {
     return stamp(name, displayIcon, component);
   }
@@ -6113,6 +6200,7 @@ class _$StampToolImpl extends StampTool {
             double constrainedAspectRatio,
             SurfaceTexture texture)?
         texture,
+    TResult? Function(String name, String displayIcon)? eyeDropper,
   }) {
     return stamp?.call(name, displayIcon, component);
   }
@@ -6182,6 +6270,7 @@ class _$StampToolImpl extends StampTool {
             double constrainedAspectRatio,
             SurfaceTexture texture)?
         texture,
+    TResult Function(String name, String displayIcon)? eyeDropper,
     required TResult orElse(),
   }) {
     if (stamp != null) {
@@ -6212,6 +6301,7 @@ class _$StampToolImpl extends StampTool {
     required TResult Function(FullScreenTool value) fullSceen,
     required TResult Function(AssetTool value) asset,
     required TResult Function(TextureTool value) texture,
+    required TResult Function(EyeDropperTool value) eyeDropper,
   }) {
     return stamp(this);
   }
@@ -6238,6 +6328,7 @@ class _$StampToolImpl extends StampTool {
     TResult? Function(FullScreenTool value)? fullSceen,
     TResult? Function(AssetTool value)? asset,
     TResult? Function(TextureTool value)? texture,
+    TResult? Function(EyeDropperTool value)? eyeDropper,
   }) {
     return stamp?.call(this);
   }
@@ -6264,6 +6355,7 @@ class _$StampToolImpl extends StampTool {
     TResult Function(FullScreenTool value)? fullSceen,
     TResult Function(AssetTool value)? asset,
     TResult Function(TextureTool value)? texture,
+    TResult Function(EyeDropperTool value)? eyeDropper,
     required TResult orElse(),
   }) {
     if (stamp != null) {
@@ -6443,6 +6535,7 @@ class _$PresentationToolImpl extends PresentationTool {
             double constrainedAspectRatio,
             SurfaceTexture texture)
         texture,
+    required TResult Function(String name, String displayIcon) eyeDropper,
   }) {
     return presentation(name, displayIcon);
   }
@@ -6512,6 +6605,7 @@ class _$PresentationToolImpl extends PresentationTool {
             double constrainedAspectRatio,
             SurfaceTexture texture)?
         texture,
+    TResult? Function(String name, String displayIcon)? eyeDropper,
   }) {
     return presentation?.call(name, displayIcon);
   }
@@ -6581,6 +6675,7 @@ class _$PresentationToolImpl extends PresentationTool {
             double constrainedAspectRatio,
             SurfaceTexture texture)?
         texture,
+    TResult Function(String name, String displayIcon)? eyeDropper,
     required TResult orElse(),
   }) {
     if (presentation != null) {
@@ -6611,6 +6706,7 @@ class _$PresentationToolImpl extends PresentationTool {
     required TResult Function(FullScreenTool value) fullSceen,
     required TResult Function(AssetTool value) asset,
     required TResult Function(TextureTool value) texture,
+    required TResult Function(EyeDropperTool value) eyeDropper,
   }) {
     return presentation(this);
   }
@@ -6637,6 +6733,7 @@ class _$PresentationToolImpl extends PresentationTool {
     TResult? Function(FullScreenTool value)? fullSceen,
     TResult? Function(AssetTool value)? asset,
     TResult? Function(TextureTool value)? texture,
+    TResult? Function(EyeDropperTool value)? eyeDropper,
   }) {
     return presentation?.call(this);
   }
@@ -6663,6 +6760,7 @@ class _$PresentationToolImpl extends PresentationTool {
     TResult Function(FullScreenTool value)? fullSceen,
     TResult Function(AssetTool value)? asset,
     TResult Function(TextureTool value)? texture,
+    TResult Function(EyeDropperTool value)? eyeDropper,
     required TResult orElse(),
   }) {
     if (presentation != null) {
@@ -6848,6 +6946,7 @@ class _$SpacerToolImpl extends SpacerTool {
             double constrainedAspectRatio,
             SurfaceTexture texture)
         texture,
+    required TResult Function(String name, String displayIcon) eyeDropper,
   }) {
     return spacer(name, displayIcon, axis);
   }
@@ -6917,6 +7016,7 @@ class _$SpacerToolImpl extends SpacerTool {
             double constrainedAspectRatio,
             SurfaceTexture texture)?
         texture,
+    TResult? Function(String name, String displayIcon)? eyeDropper,
   }) {
     return spacer?.call(name, displayIcon, axis);
   }
@@ -6986,6 +7086,7 @@ class _$SpacerToolImpl extends SpacerTool {
             double constrainedAspectRatio,
             SurfaceTexture texture)?
         texture,
+    TResult Function(String name, String displayIcon)? eyeDropper,
     required TResult orElse(),
   }) {
     if (spacer != null) {
@@ -7016,6 +7117,7 @@ class _$SpacerToolImpl extends SpacerTool {
     required TResult Function(FullScreenTool value) fullSceen,
     required TResult Function(AssetTool value) asset,
     required TResult Function(TextureTool value) texture,
+    required TResult Function(EyeDropperTool value) eyeDropper,
   }) {
     return spacer(this);
   }
@@ -7042,6 +7144,7 @@ class _$SpacerToolImpl extends SpacerTool {
     TResult? Function(FullScreenTool value)? fullSceen,
     TResult? Function(AssetTool value)? asset,
     TResult? Function(TextureTool value)? texture,
+    TResult? Function(EyeDropperTool value)? eyeDropper,
   }) {
     return spacer?.call(this);
   }
@@ -7068,6 +7171,7 @@ class _$SpacerToolImpl extends SpacerTool {
     TResult Function(FullScreenTool value)? fullSceen,
     TResult Function(AssetTool value)? asset,
     TResult Function(TextureTool value)? texture,
+    TResult Function(EyeDropperTool value)? eyeDropper,
     required TResult orElse(),
   }) {
     if (spacer != null) {
@@ -7247,6 +7351,7 @@ class _$FullScreenToolImpl extends FullScreenTool {
             double constrainedAspectRatio,
             SurfaceTexture texture)
         texture,
+    required TResult Function(String name, String displayIcon) eyeDropper,
   }) {
     return fullSceen(name, displayIcon);
   }
@@ -7316,6 +7421,7 @@ class _$FullScreenToolImpl extends FullScreenTool {
             double constrainedAspectRatio,
             SurfaceTexture texture)?
         texture,
+    TResult? Function(String name, String displayIcon)? eyeDropper,
   }) {
     return fullSceen?.call(name, displayIcon);
   }
@@ -7385,6 +7491,7 @@ class _$FullScreenToolImpl extends FullScreenTool {
             double constrainedAspectRatio,
             SurfaceTexture texture)?
         texture,
+    TResult Function(String name, String displayIcon)? eyeDropper,
     required TResult orElse(),
   }) {
     if (fullSceen != null) {
@@ -7415,6 +7522,7 @@ class _$FullScreenToolImpl extends FullScreenTool {
     required TResult Function(FullScreenTool value) fullSceen,
     required TResult Function(AssetTool value) asset,
     required TResult Function(TextureTool value) texture,
+    required TResult Function(EyeDropperTool value) eyeDropper,
   }) {
     return fullSceen(this);
   }
@@ -7441,6 +7549,7 @@ class _$FullScreenToolImpl extends FullScreenTool {
     TResult? Function(FullScreenTool value)? fullSceen,
     TResult? Function(AssetTool value)? asset,
     TResult? Function(TextureTool value)? texture,
+    TResult? Function(EyeDropperTool value)? eyeDropper,
   }) {
     return fullSceen?.call(this);
   }
@@ -7467,6 +7576,7 @@ class _$FullScreenToolImpl extends FullScreenTool {
     TResult Function(FullScreenTool value)? fullSceen,
     TResult Function(AssetTool value)? asset,
     TResult Function(TextureTool value)? texture,
+    TResult Function(EyeDropperTool value)? eyeDropper,
     required TResult orElse(),
   }) {
     if (fullSceen != null) {
@@ -7652,6 +7762,7 @@ class _$AssetToolImpl extends AssetTool {
             double constrainedAspectRatio,
             SurfaceTexture texture)
         texture,
+    required TResult Function(String name, String displayIcon) eyeDropper,
   }) {
     return asset(name, displayIcon, importType);
   }
@@ -7721,6 +7832,7 @@ class _$AssetToolImpl extends AssetTool {
             double constrainedAspectRatio,
             SurfaceTexture texture)?
         texture,
+    TResult? Function(String name, String displayIcon)? eyeDropper,
   }) {
     return asset?.call(name, displayIcon, importType);
   }
@@ -7790,6 +7902,7 @@ class _$AssetToolImpl extends AssetTool {
             double constrainedAspectRatio,
             SurfaceTexture texture)?
         texture,
+    TResult Function(String name, String displayIcon)? eyeDropper,
     required TResult orElse(),
   }) {
     if (asset != null) {
@@ -7820,6 +7933,7 @@ class _$AssetToolImpl extends AssetTool {
     required TResult Function(FullScreenTool value) fullSceen,
     required TResult Function(AssetTool value) asset,
     required TResult Function(TextureTool value) texture,
+    required TResult Function(EyeDropperTool value) eyeDropper,
   }) {
     return asset(this);
   }
@@ -7846,6 +7960,7 @@ class _$AssetToolImpl extends AssetTool {
     TResult? Function(FullScreenTool value)? fullSceen,
     TResult? Function(AssetTool value)? asset,
     TResult? Function(TextureTool value)? texture,
+    TResult? Function(EyeDropperTool value)? eyeDropper,
   }) {
     return asset?.call(this);
   }
@@ -7872,6 +7987,7 @@ class _$AssetToolImpl extends AssetTool {
     TResult Function(FullScreenTool value)? fullSceen,
     TResult Function(AssetTool value)? asset,
     TResult Function(TextureTool value)? texture,
+    TResult Function(EyeDropperTool value)? eyeDropper,
     required TResult orElse(),
   }) {
     if (asset != null) {
@@ -8113,6 +8229,7 @@ class _$TextureToolImpl extends TextureTool {
             double constrainedAspectRatio,
             SurfaceTexture texture)
         texture,
+    required TResult Function(String name, String displayIcon) eyeDropper,
   }) {
     return texture(name, displayIcon, zoomDependent, constrainedWidth,
         constrainedHeight, constrainedAspectRatio, this.texture);
@@ -8183,6 +8300,7 @@ class _$TextureToolImpl extends TextureTool {
             double constrainedAspectRatio,
             SurfaceTexture texture)?
         texture,
+    TResult? Function(String name, String displayIcon)? eyeDropper,
   }) {
     return texture?.call(name, displayIcon, zoomDependent, constrainedWidth,
         constrainedHeight, constrainedAspectRatio, this.texture);
@@ -8253,6 +8371,7 @@ class _$TextureToolImpl extends TextureTool {
             double constrainedAspectRatio,
             SurfaceTexture texture)?
         texture,
+    TResult Function(String name, String displayIcon)? eyeDropper,
     required TResult orElse(),
   }) {
     if (texture != null) {
@@ -8284,6 +8403,7 @@ class _$TextureToolImpl extends TextureTool {
     required TResult Function(FullScreenTool value) fullSceen,
     required TResult Function(AssetTool value) asset,
     required TResult Function(TextureTool value) texture,
+    required TResult Function(EyeDropperTool value) eyeDropper,
   }) {
     return texture(this);
   }
@@ -8310,6 +8430,7 @@ class _$TextureToolImpl extends TextureTool {
     TResult? Function(FullScreenTool value)? fullSceen,
     TResult? Function(AssetTool value)? asset,
     TResult? Function(TextureTool value)? texture,
+    TResult? Function(EyeDropperTool value)? eyeDropper,
   }) {
     return texture?.call(this);
   }
@@ -8336,6 +8457,7 @@ class _$TextureToolImpl extends TextureTool {
     TResult Function(FullScreenTool value)? fullSceen,
     TResult Function(AssetTool value)? asset,
     TResult Function(TextureTool value)? texture,
+    TResult Function(EyeDropperTool value)? eyeDropper,
     required TResult orElse(),
   }) {
     if (texture != null) {
@@ -8378,5 +8500,407 @@ abstract class TextureTool extends Tool {
   @override
   @JsonKey(ignore: true)
   _$$TextureToolImplCopyWith<_$TextureToolImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$EyeDropperToolImplCopyWith<$Res>
+    implements $ToolCopyWith<$Res> {
+  factory _$$EyeDropperToolImplCopyWith(_$EyeDropperToolImpl value,
+          $Res Function(_$EyeDropperToolImpl) then) =
+      __$$EyeDropperToolImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({String name, String displayIcon});
+}
+
+/// @nodoc
+class __$$EyeDropperToolImplCopyWithImpl<$Res>
+    extends _$ToolCopyWithImpl<$Res, _$EyeDropperToolImpl>
+    implements _$$EyeDropperToolImplCopyWith<$Res> {
+  __$$EyeDropperToolImplCopyWithImpl(
+      _$EyeDropperToolImpl _value, $Res Function(_$EyeDropperToolImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? name = null,
+    Object? displayIcon = null,
+  }) {
+    return _then(_$EyeDropperToolImpl(
+      name: null == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      displayIcon: null == displayIcon
+          ? _value.displayIcon
+          : displayIcon // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$EyeDropperToolImpl extends EyeDropperTool {
+  _$EyeDropperToolImpl(
+      {this.name = '', this.displayIcon = '', final String? $type})
+      : $type = $type ?? 'eyeDropper',
+        super._();
+
+  factory _$EyeDropperToolImpl.fromJson(Map<String, dynamic> json) =>
+      _$$EyeDropperToolImplFromJson(json);
+
+  @override
+  @JsonKey()
+  final String name;
+  @override
+  @JsonKey()
+  final String displayIcon;
+
+  @JsonKey(name: 'type')
+  final String $type;
+
+  @override
+  String toString() {
+    return 'Tool.eyeDropper(name: $name, displayIcon: $displayIcon)';
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$EyeDropperToolImplCopyWith<_$EyeDropperToolImpl> get copyWith =>
+      __$$EyeDropperToolImplCopyWithImpl<_$EyeDropperToolImpl>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String name, String displayIcon, SelectMode mode)
+        select,
+    required TResult Function(String name, String displayIcon) hand,
+    required TResult Function(String name, String displayIcon,
+            List<PadElement> elements, List<Area> areas)
+        import,
+    required TResult Function(String name, String displayIcon) undo,
+    required TResult Function(String name, String displayIcon) redo,
+    required TResult Function(
+            String name,
+            String displayIcon,
+            LabelMode mode,
+            bool zoomDependent,
+            int foreground,
+            PackAssetLocation styleSheet,
+            double scale)
+        label,
+    required TResult Function(String name, String displayIcon,
+            bool zoomDependent, PenProperty property)
+        pen,
+    required TResult Function(
+            String name, String displayIcon, double strokeWidth)
+        eraser,
+    required TResult Function(
+            String name, String displayIcon, double strokeWidth)
+        pathEraser,
+    required TResult Function(
+            String name, String displayIcon, double strokeWidth)
+        layer,
+    required TResult Function(
+            String name,
+            String displayIcon,
+            double constrainedWidth,
+            double constrainedHeight,
+            double constrainedAspectRatio,
+            bool askForName)
+        area,
+    required TResult Function(String name, String displayIcon, double duration,
+            double strokeWidth, double thinning, int color)
+        laser,
+    required TResult Function(
+            String name,
+            String displayIcon,
+            bool zoomDependent,
+            double constrainedWidth,
+            double constrainedHeight,
+            double constrainedAspectRatio,
+            ShapeProperty property)
+        shape,
+    required TResult Function(
+            String name, String displayIcon, PackAssetLocation component)
+        stamp,
+    required TResult Function(String name, String displayIcon) presentation,
+    required TResult Function(String name, String displayIcon, Axis2D axis)
+        spacer,
+    required TResult Function(String name, String displayIcon) fullSceen,
+    required TResult Function(
+            String name, String displayIcon, ImportType importType)
+        asset,
+    required TResult Function(
+            String name,
+            String displayIcon,
+            bool zoomDependent,
+            double constrainedWidth,
+            double constrainedHeight,
+            double constrainedAspectRatio,
+            SurfaceTexture texture)
+        texture,
+    required TResult Function(String name, String displayIcon) eyeDropper,
+  }) {
+    return eyeDropper(name, displayIcon);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String name, String displayIcon, SelectMode mode)? select,
+    TResult? Function(String name, String displayIcon)? hand,
+    TResult? Function(String name, String displayIcon,
+            List<PadElement> elements, List<Area> areas)?
+        import,
+    TResult? Function(String name, String displayIcon)? undo,
+    TResult? Function(String name, String displayIcon)? redo,
+    TResult? Function(
+            String name,
+            String displayIcon,
+            LabelMode mode,
+            bool zoomDependent,
+            int foreground,
+            PackAssetLocation styleSheet,
+            double scale)?
+        label,
+    TResult? Function(String name, String displayIcon, bool zoomDependent,
+            PenProperty property)?
+        pen,
+    TResult? Function(String name, String displayIcon, double strokeWidth)?
+        eraser,
+    TResult? Function(String name, String displayIcon, double strokeWidth)?
+        pathEraser,
+    TResult? Function(String name, String displayIcon, double strokeWidth)?
+        layer,
+    TResult? Function(
+            String name,
+            String displayIcon,
+            double constrainedWidth,
+            double constrainedHeight,
+            double constrainedAspectRatio,
+            bool askForName)?
+        area,
+    TResult? Function(String name, String displayIcon, double duration,
+            double strokeWidth, double thinning, int color)?
+        laser,
+    TResult? Function(
+            String name,
+            String displayIcon,
+            bool zoomDependent,
+            double constrainedWidth,
+            double constrainedHeight,
+            double constrainedAspectRatio,
+            ShapeProperty property)?
+        shape,
+    TResult? Function(
+            String name, String displayIcon, PackAssetLocation component)?
+        stamp,
+    TResult? Function(String name, String displayIcon)? presentation,
+    TResult? Function(String name, String displayIcon, Axis2D axis)? spacer,
+    TResult? Function(String name, String displayIcon)? fullSceen,
+    TResult? Function(String name, String displayIcon, ImportType importType)?
+        asset,
+    TResult? Function(
+            String name,
+            String displayIcon,
+            bool zoomDependent,
+            double constrainedWidth,
+            double constrainedHeight,
+            double constrainedAspectRatio,
+            SurfaceTexture texture)?
+        texture,
+    TResult? Function(String name, String displayIcon)? eyeDropper,
+  }) {
+    return eyeDropper?.call(name, displayIcon);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String name, String displayIcon, SelectMode mode)? select,
+    TResult Function(String name, String displayIcon)? hand,
+    TResult Function(String name, String displayIcon, List<PadElement> elements,
+            List<Area> areas)?
+        import,
+    TResult Function(String name, String displayIcon)? undo,
+    TResult Function(String name, String displayIcon)? redo,
+    TResult Function(
+            String name,
+            String displayIcon,
+            LabelMode mode,
+            bool zoomDependent,
+            int foreground,
+            PackAssetLocation styleSheet,
+            double scale)?
+        label,
+    TResult Function(String name, String displayIcon, bool zoomDependent,
+            PenProperty property)?
+        pen,
+    TResult Function(String name, String displayIcon, double strokeWidth)?
+        eraser,
+    TResult Function(String name, String displayIcon, double strokeWidth)?
+        pathEraser,
+    TResult Function(String name, String displayIcon, double strokeWidth)?
+        layer,
+    TResult Function(
+            String name,
+            String displayIcon,
+            double constrainedWidth,
+            double constrainedHeight,
+            double constrainedAspectRatio,
+            bool askForName)?
+        area,
+    TResult Function(String name, String displayIcon, double duration,
+            double strokeWidth, double thinning, int color)?
+        laser,
+    TResult Function(
+            String name,
+            String displayIcon,
+            bool zoomDependent,
+            double constrainedWidth,
+            double constrainedHeight,
+            double constrainedAspectRatio,
+            ShapeProperty property)?
+        shape,
+    TResult Function(
+            String name, String displayIcon, PackAssetLocation component)?
+        stamp,
+    TResult Function(String name, String displayIcon)? presentation,
+    TResult Function(String name, String displayIcon, Axis2D axis)? spacer,
+    TResult Function(String name, String displayIcon)? fullSceen,
+    TResult Function(String name, String displayIcon, ImportType importType)?
+        asset,
+    TResult Function(
+            String name,
+            String displayIcon,
+            bool zoomDependent,
+            double constrainedWidth,
+            double constrainedHeight,
+            double constrainedAspectRatio,
+            SurfaceTexture texture)?
+        texture,
+    TResult Function(String name, String displayIcon)? eyeDropper,
+    required TResult orElse(),
+  }) {
+    if (eyeDropper != null) {
+      return eyeDropper(name, displayIcon);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(SelectTool value) select,
+    required TResult Function(HandTool value) hand,
+    required TResult Function(ImportTool value) import,
+    required TResult Function(UndoTool value) undo,
+    required TResult Function(RedoTool value) redo,
+    required TResult Function(LabelTool value) label,
+    required TResult Function(PenTool value) pen,
+    required TResult Function(EraserTool value) eraser,
+    required TResult Function(PathEraserTool value) pathEraser,
+    required TResult Function(LayerTool value) layer,
+    required TResult Function(AreaTool value) area,
+    required TResult Function(LaserTool value) laser,
+    required TResult Function(ShapeTool value) shape,
+    required TResult Function(StampTool value) stamp,
+    required TResult Function(PresentationTool value) presentation,
+    required TResult Function(SpacerTool value) spacer,
+    required TResult Function(FullScreenTool value) fullSceen,
+    required TResult Function(AssetTool value) asset,
+    required TResult Function(TextureTool value) texture,
+    required TResult Function(EyeDropperTool value) eyeDropper,
+  }) {
+    return eyeDropper(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(SelectTool value)? select,
+    TResult? Function(HandTool value)? hand,
+    TResult? Function(ImportTool value)? import,
+    TResult? Function(UndoTool value)? undo,
+    TResult? Function(RedoTool value)? redo,
+    TResult? Function(LabelTool value)? label,
+    TResult? Function(PenTool value)? pen,
+    TResult? Function(EraserTool value)? eraser,
+    TResult? Function(PathEraserTool value)? pathEraser,
+    TResult? Function(LayerTool value)? layer,
+    TResult? Function(AreaTool value)? area,
+    TResult? Function(LaserTool value)? laser,
+    TResult? Function(ShapeTool value)? shape,
+    TResult? Function(StampTool value)? stamp,
+    TResult? Function(PresentationTool value)? presentation,
+    TResult? Function(SpacerTool value)? spacer,
+    TResult? Function(FullScreenTool value)? fullSceen,
+    TResult? Function(AssetTool value)? asset,
+    TResult? Function(TextureTool value)? texture,
+    TResult? Function(EyeDropperTool value)? eyeDropper,
+  }) {
+    return eyeDropper?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(SelectTool value)? select,
+    TResult Function(HandTool value)? hand,
+    TResult Function(ImportTool value)? import,
+    TResult Function(UndoTool value)? undo,
+    TResult Function(RedoTool value)? redo,
+    TResult Function(LabelTool value)? label,
+    TResult Function(PenTool value)? pen,
+    TResult Function(EraserTool value)? eraser,
+    TResult Function(PathEraserTool value)? pathEraser,
+    TResult Function(LayerTool value)? layer,
+    TResult Function(AreaTool value)? area,
+    TResult Function(LaserTool value)? laser,
+    TResult Function(ShapeTool value)? shape,
+    TResult Function(StampTool value)? stamp,
+    TResult Function(PresentationTool value)? presentation,
+    TResult Function(SpacerTool value)? spacer,
+    TResult Function(FullScreenTool value)? fullSceen,
+    TResult Function(AssetTool value)? asset,
+    TResult Function(TextureTool value)? texture,
+    TResult Function(EyeDropperTool value)? eyeDropper,
+    required TResult orElse(),
+  }) {
+    if (eyeDropper != null) {
+      return eyeDropper(this);
+    }
+    return orElse();
+  }
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$EyeDropperToolImplToJson(
+      this,
+    );
+  }
+}
+
+abstract class EyeDropperTool extends Tool {
+  factory EyeDropperTool({final String name, final String displayIcon}) =
+      _$EyeDropperToolImpl;
+  EyeDropperTool._() : super._();
+
+  factory EyeDropperTool.fromJson(Map<String, dynamic> json) =
+      _$EyeDropperToolImpl.fromJson;
+
+  @override
+  String get name;
+  @override
+  String get displayIcon;
+  @override
+  @JsonKey(ignore: true)
+  _$$EyeDropperToolImplCopyWith<_$EyeDropperToolImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

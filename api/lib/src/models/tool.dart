@@ -176,5 +176,10 @@ sealed class Tool with _$Tool {
     @Default(SurfaceTexture.pattern()) SurfaceTexture texture,
   }) = TextureTool;
 
+  factory Tool.eyeDropper({
+    @Default('') String name,
+    @Default('') String displayIcon,
+  }) = EyeDropperTool;
+
   factory Tool.fromJson(Map<String, dynamic> json) => _$ToolFromJson(json);
 }

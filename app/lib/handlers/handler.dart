@@ -27,6 +27,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:image/image.dart' as img;
 import 'package:lw_sysinfo/lw_sysinfo.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:share_plus/share_plus.dart';
@@ -62,6 +63,7 @@ part 'laser.dart';
 part 'layer.dart';
 part 'path_eraser.dart';
 part 'pen.dart';
+part 'eye_dropper.dart';
 part 'presentation.dart';
 part 'redo.dart';
 part 'select.dart';
@@ -238,6 +240,7 @@ abstract class Handler<T> {
       fullSceen: (value) => FullScreenHandler(value),
       texture: (value) => TextureHandler(value),
       asset: (value) => AssetHandler(value),
+      eyeDropper: (value) => EyeDropperHandler(value),
     );
   }
 

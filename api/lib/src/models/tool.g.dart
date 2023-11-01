@@ -377,3 +377,18 @@ Map<String, dynamic> _$$TextureToolImplToJson(_$TextureToolImpl instance) =>
       'texture': instance.texture.toJson(),
       'type': instance.$type,
     };
+
+_$EyeDropperToolImpl _$$EyeDropperToolImplFromJson(Map json) =>
+    _$EyeDropperToolImpl(
+      name: json['name'] as String? ?? '',
+      displayIcon: json['displayIcon'] as String? ?? '',
+      $type: json['type'] as String?,
+    );
+
+Map<String, dynamic> _$$EyeDropperToolImplToJson(
+        _$EyeDropperToolImpl instance) =>
+    <String, dynamic>{
+      'name': instance.name,
+      'displayIcon': instance.displayIcon,
+      'type': instance.$type,
+    };
