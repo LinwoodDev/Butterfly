@@ -616,7 +616,7 @@ class _RecentFilesViewState extends State<_RecentFilesView> {
                     return AssetCard(
                       metadata: metadata,
                       thumbnail: thumbnail,
-                      name: entity.fileName,
+                      name: entity.location.identifier,
                       onTap: () => openFile(context, entity.location, data),
                     );
                   },

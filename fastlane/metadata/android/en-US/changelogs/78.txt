@@ -1,6 +1,8 @@
 * Add cursor to path eraser
 * Add scrollbar to recent files
 * Add recent colors to color picker
+* Add version to web
+* Show remote on hover in recent files
 * Improve action buttons in add dialog
 * Improve color picker dialog
 * Fix invalidation of selection when transforming ([#517](https://github.com/LinwoodDev/Butterfly/issues/517))
