@@ -552,5 +552,6 @@
   "stop": "Ferma",
   "refresh": "Aggiorna",
   "print": "Stampa",
-  "dav": "DAV"
+  "dav": "DAV",
+  "eyeDropper": "Eye dropper"
 }
