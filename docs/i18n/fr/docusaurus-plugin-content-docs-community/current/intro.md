@@ -12,9 +12,9 @@ Bienvenue dans la section de la communauté.
 
 Un remerciement spécial va à:
 
-* [https://github.com/flutter/flutter/flutter](https://github.com/flutter/flutter) pour fournir ce framework interplateforme utile Ui
-* <https://github.com/leanflutter/window_manager> pour toutes les fonctionnalités utiles de cette fenêtre de bureau
-* <https://github.com/facebook/docusaurus> pour un framework de documentation de réaction statique facile à utiliser
+* [Flutter](https://github.com/flutter/flutter) for providing this useful crossplatform ui framework
+* [window_manager](https://github.com/leanflutter/window_manager) for all this useful desktop window features
+* [Docusaurus](https://github.com/facebook/docusaurus) for an easy-to-use static react documentation framework
 
 Toutes les autres licences peuvent être trouvées dans les paramètres.
 
