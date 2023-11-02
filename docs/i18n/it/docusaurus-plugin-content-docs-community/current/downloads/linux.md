@@ -68,12 +68,12 @@ Per saperne di più sulla versione notturna di Butterfly [qui](/nightly).
 ## Negozi
 
 <div className="row margin-bottom--lg padding--sm">
-<a className="button button--outline button--primary button--lg margin--sm" href="https://flathub.org/apps/details/dev.linwood.butterfly">
+<Link className="button button--outline button--primary button--lg margin--sm" href="https://flathub.org/apps/details/dev.linwood.butterfly">
   Flathub
-</a>
-<a className="button button--outline button--primary button--lg margin--sm" href="https://snapcraft.io/butterfly">
+</Link>
+<Link className="button button--outline button--primary button--lg margin--sm" href="https://snapcraft.io/butterfly">
   Snap
-</a>
+</Link>
 </div>
 
 La versione notturna è disponibile anche sul repository flathub beta. Per saperne di più sul repository beta di flathub [qui](https://discourse.flathub.org/t/how-to-use-flathub-beta/2111).

@@ -10,12 +10,12 @@ slug: "/downloads/post-windows"
 # Kiitos, että lataat
 
 <div className="row margin-bottom--lg padding--sm flex-center">
-<a className="button button--outline button--warning button--lg margin--sm" href="/contributing">
+<Link className="button button--outline button--warning button--lg margin--sm" href="/contributing">
   Osallistu projektiin
-</a>
-<a className="button button--outline button--info button--lg margin--sm" href="https://linwood.dev/matrix">
+</Link>
+<Link className="button button--outline button--info button--lg margin--sm" href="https://linwood.dev/matrix">
   Liity yhteisöön
-</a>
+</Link>
 
 </div>
 

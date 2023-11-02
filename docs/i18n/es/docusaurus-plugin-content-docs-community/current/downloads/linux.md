@@ -68,12 +68,12 @@ Lea más sobre la versión nocturna de la mariposa [aquí](/nightly).
 ## Almacenes
 
 <div className="row margin-bottom--lg padding--sm">
-<a className="button button--outline button--primary button--lg margin--sm" href="https://flathub.org/apps/details/dev.linwood.butterfly">
+<Link className="button button--outline button--primary button--lg margin--sm" href="https://flathub.org/apps/details/dev.linwood.butterfly">
   Flathub
-</a>
-<a className="button button--outline button--primary button--lg margin--sm" href="https://snapcraft.io/butterfly">
+</Link>
+<Link className="button button--outline button--primary button--lg margin--sm" href="https://snapcraft.io/butterfly">
   Ajustar
-</a>
+</Link>
 </div>
 
 La versión nocturna también está disponible en el repositorio beta flathub. Lea más sobre el repositorio beta de flathub [aquí](https://discourse.flathub.org/t/how-to-use-flathub-beta/2111).

@@ -15,12 +15,12 @@ Dette er en progressiv webapplikasjon. Du kan installere den i nettleseren din o
 ## Lenker
 
 <div className="row margin-bottom--lg padding--sm">
-<a className="button button--outline button--info button--lg margin--sm" href="https://butterfly.linwood.dev">
+<Link className="button button--outline button--info button--lg margin--sm" href="https://butterfly.linwood.dev">
   Hoved
-</a>
-<a className="button button--outline button--danger button--lg margin--sm" href="https://preview.butterfly.linwood.dev">
+</Link>
+<Link className="button button--outline button--danger button--lg margin--sm" href="https://preview.butterfly.linwood.dev">
   Forhåndsvis
-</a>
+</Link>
 </div>
 
 ## Versjoner

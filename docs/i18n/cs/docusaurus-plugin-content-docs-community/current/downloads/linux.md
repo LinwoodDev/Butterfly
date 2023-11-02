@@ -68,15 +68,15 @@ Přečtěte si více o noční verzi Butterfly [zde](/nightly).
 ## Obchody
 
 <div className="row margin-bottom--lg padding--sm">
-<a className="button button--outline button--primary button--lg margin--sm" href="https://flathub.org/apps/details/dev.linwood.butterfly">
+<Link className="button button--outline button--primary button--lg margin--sm" href="https://flathub.org/apps/details/dev.linwood.butterfly">
   Lothub
-</a>
-<a className="button button--outline button--primary button--lg margin--sm" href="https://snapcraft.io/butterfly">
+</Link>
+<Link className="button button--outline button--primary button--lg margin--sm" href="https://snapcraft.io/butterfly">
   Přichytit
-</a>
-<a className="button button--outline button--primary button--lg margin--sm" href="https://snapcraft.io/butterfly">
+</Link>
+<Link className="button button--outline button--primary button--lg margin--sm" href="https://snapcraft.io/butterfly">
   Snap
-</a>
+</Link>
 </div>
 
 Nightly verze je také k dispozici v repozitáři flathub beta verze. Přečtěte si více o banthub beta repozitáři [zde](https://discourse.flathub.org/t/how-to-use-flathub-beta/2111).

@@ -15,12 +15,12 @@ T채m채 on progressiivinen web-sovellus. Voit asentaa sen selaimellesi ja k채ytt�
 ## Linkit
 
 <div className="row margin-bottom--lg padding--sm">
-<a className="button button--outline button--info button--lg margin--sm" href="https://butterfly.linwood.dev">
+<Link className="button button--outline button--info button--lg margin--sm" href="https://butterfly.linwood.dev">
   P채채sivu
-</a>
-<a className="button button--outline button--danger button--lg margin--sm" href="https://preview.butterfly.linwood.dev">
+</Link>
+<Link className="button button--outline button--danger button--lg margin--sm" href="https://preview.butterfly.linwood.dev">
   Esikatsele
-</a>
+</Link>
 </div>
 
 ## Versiot

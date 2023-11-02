@@ -27,12 +27,12 @@ Læs mere om natteversionen af Butterfly [her](/nightly).
 ## Butikker
 
 <div className="row margin-bottom--lg padding--sm">
-<a className="button button--outline button--primary button--lg margin--sm" href="https://play.google.com/store/apps/details?id=dev.linwood.butterfly">
+<Link className="button button--outline button--primary button--lg margin--sm" href="https://play.google.com/store/apps/details?id=dev.linwood.butterfly">
   Play Store
-</a>
-<a className="button button--outline button--primary button--lg margin--sm" href="https://f-droid.org/de/packages/dev.linwood.butterfly">
+</Link>
+<Link className="button button--outline button--primary button--lg margin--sm" href="https://f-droid.org/de/packages/dev.linwood.butterfly">
   F-Droid
-</a>
+</Link>
 </div>
 
 ## beta programmet på play butik

@@ -10,12 +10,12 @@ slug: "/downloads/thank-you"
 # Takk for at du lastet ned
 
 <div className="row margin-bottom--lg padding--sm flex-center">
-<a className="button button--outline button--warning button--lg margin--sm" href="/contributing">
+<Link className="button button--outline button--warning button--lg margin--sm" href="/contributing">
   Bidra til prosjektet
-</a>
-<a className="button button--outline button--info button--lg margin--sm" href="https://linwood.dev/matrix">
+</Link>
+<Link className="button button--outline button--info button--lg margin--sm" href="https://linwood.dev/matrix">
   Bli med i det fellesskapet
-</a>
+</Link>
 
 </div>
 

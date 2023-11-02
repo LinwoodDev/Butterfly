@@ -15,12 +15,12 @@ Esta es una aplicación web progresiva. Puedes instalarlo en tu navegador y usar
 ## Enlaces
 
 <div className="row margin-bottom--lg padding--sm">
-<a className="button button--outline button--info button--lg margin--sm" href="https://butterfly.linwood.dev">
+<Link className="button button--outline button--info button--lg margin--sm" href="https://butterfly.linwood.dev">
   Principal
-</a>
-<a className="button button--outline button--danger button--lg margin--sm" href="https://preview.butterfly.linwood.dev">
+</Link>
+<Link className="button button--outline button--danger button--lg margin--sm" href="https://preview.butterfly.linwood.dev">
   Vista previa
-</a>
+</Link>
 </div>
 
 ## Versiones

@@ -410,6 +410,7 @@ html {
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
+  margin: 0;
 }
 .button--panel {
   background-color: transparent;

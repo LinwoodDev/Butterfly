@@ -15,12 +15,12 @@ Toto je progresivní webová aplikace. Můžete jej nainstalovat na váš prohl�
 ## Odkazy
 
 <div className="row margin-bottom--lg padding--sm">
-<a className="button button--outline button--info button--lg margin--sm" href="https://butterfly.linwood.dev">
+<Link className="button button--outline button--info button--lg margin--sm" href="https://butterfly.linwood.dev">
   Hlavní
-</a>
-<a className="button button--outline button--danger button--lg margin--sm" href="https://preview.butterfly.linwood.dev">
+</Link>
+<Link className="button button--outline button--danger button--lg margin--sm" href="https://preview.butterfly.linwood.dev">
   Náhled
-</a>
+</Link>
 </div>
 
 ## Verze

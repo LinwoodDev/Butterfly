@@ -68,12 +68,12 @@ Lesen Sie mehr über die nächtliche Version von Butterfly [hier](/nightly).
 ## Filialen
 
 <div className="row margin-bottom--lg padding--sm">
-<a className="button button--outline button--primary button--lg margin--sm" href="https://flathub.org/apps/details/dev.linwood.butterfly">
+<Link className="button button--outline button--primary button--lg margin--sm" href="https://flathub.org/apps/details/dev.linwood.butterfly">
   Flathub
-</a>
-<a className="button button--outline button--primary button--lg margin--sm" href="https://snapcraft.io/butterfly">
+</Link>
+<Link className="button button--outline button--primary button--lg margin--sm" href="https://snapcraft.io/butterfly">
   Einrasten
-</a>
+</Link>
 </div>
 
 Die nächtliche Version ist auch im flathub Beta Repository verfügbar. Lesen Sie mehr über das flathub beta repository [hier](https://discourse.flathub.org/t/how-to-use-flathub-beta/2111).

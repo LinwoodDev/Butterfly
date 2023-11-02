@@ -68,15 +68,15 @@ Dowiedz się więcej o nocnej wersji Motylka [tutaj](/nightly).
 ## Sklepy
 
 <div className="row margin-bottom--lg padding--sm">
-<a className="button button--outline button--primary button--lg margin--sm" href="https://flathub.org/apps/details/dev.linwood.butterfly">
+<Link className="button button--outline button--primary button--lg margin--sm" href="https://flathub.org/apps/details/dev.linwood.butterfly">
   Flara
-</a>
-<a className="button button--outline button--primary button--lg margin--sm" href="https://snapcraft.io/butterfly">
+</Link>
+<Link className="button button--outline button--primary button--lg margin--sm" href="https://snapcraft.io/butterfly">
   Przyciągnij
-</a>
-<a className="button button--outline button--primary button--lg margin--sm" href="https://snapcraft.io/butterfly">
+</Link>
+<Link className="button button--outline button--primary button--lg margin--sm" href="https://snapcraft.io/butterfly">
   Snap
-</a>
+</Link>
 </div>
 
 Wersja nocna jest również dostępna w repozytorium flathub beta. Dowiedz się więcej o repozytorium beta flathub [tutaj](https://discourse.flathub.org/t/how-to-use-flathub-beta/2111).

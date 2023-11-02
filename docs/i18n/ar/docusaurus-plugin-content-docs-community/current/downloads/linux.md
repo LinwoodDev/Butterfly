@@ -68,15 +68,15 @@ import DownloadButton from '@site/src/components/DownloadButton.tsx';
 ## المتاجر
 
 <div className="row margin-bottom--lg padding--sm">
-<a className="button button--outline button--primary button--lg margin--sm" href="https://flathub.org/apps/details/dev.linwood.butterfly">
+<Link className="button button--outline button--primary button--lg margin--sm" href="https://flathub.org/apps/details/dev.linwood.butterfly">
   فلاثوب
-</a>
-<a className="button button--outline button--primary button--lg margin--sm" href="https://snapcraft.io/butterfly">
+</Link>
+<Link className="button button--outline button--primary button--lg margin--sm" href="https://snapcraft.io/butterfly">
   التقط
-</a>
-<a className="button button--outline button--primary button--lg margin--sm" href="https://snapcraft.io/butterfly">
+</Link>
+<Link className="button button--outline button--primary button--lg margin--sm" href="https://snapcraft.io/butterfly">
   Snap
-</a>
+</Link>
 </div>
 
 الإصدار الليلي متاح أيضا على مستودع النسخة التجريبية. اقرأ المزيد عن مستودع بيتا اللطيف [هنا](https://discourse.flathub.org/t/how-to-use-flathub-beta/2111).
