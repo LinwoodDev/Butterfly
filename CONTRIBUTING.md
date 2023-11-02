@@ -2,7 +2,7 @@
 
 There are many ways to contribute to this project.
 Thanks to everyone who has contributed!
-If you have any questions, please contact me at <contact@linwood.dev>.
+If you have any questions, please contact me at [contact@linwood.dev](mailto:contact@linwood.dev).
 
 There is a matrix server for this project [here](https://linwood.dev/matrix) and a discord server [here](https://discord.linwood.dev).
 
@@ -27,7 +27,7 @@ Read more about it [here](https://docs.butterfly.linwood.dev/nightly).
 Documentation is important for users to understand the program and its features.
 The documentation is written in markdown, a simple markup language. It can be found in the `docs` folder.
 
-To start, please install pnpm (<https://pnpm.io/installation>).
+To start, please install [pnpm](https://pnpm.io/installation).
 
 Get started by running:
 

@@ -1,24 +1,24 @@
 ---
 id: "community"
 slug: "/community"
-sidebar_label: "Αρχική"
+sidebar_label: "Home"
 sidebar_position: 0
-title: "Κοινότητα"
+title: "Community"
 ---
 
-Καλώς ήλθατε στο τμήμα της κοινότητας.
+Welcome to the community section.
 
-## Ευχαριστίες
+## Acknowledgements
 
-Ιδιαίτερες ευχαριστίες απευθύνεται:
+A special thanks goes to:
 
-* <https://github.com/flutter/flutter> για την παροχή αυτού του χρήσιμου crossplatform
-* <https://github.com/leanflutter/window_manager> για όλα αυτά τα χρήσιμα χαρακτηριστικά παραθύρου επιφάνειας εργασίας
-* <https://github.com/facebook/docusaurus> για ένα εύχρηστο πλαίσιο τεκμηρίωσης στατικής αντίδρασης
+* [Flutter](https://github.com/flutter/flutter) for providing this useful crossplatform ui framework
+* [window_manager](https://github.com/leanflutter/window_manager) for all this useful desktop window features
+* [Docusaurus](https://github.com/facebook/docusaurus) for an easy-to-use static react documentation framework
 
-Όλες οι άλλες άδειες χρήσης μπορείτε να βρείτε στις ρυθμίσεις.
+All other licenses can you found in the settings.
 
-## Χρήσιμοι σύνδεσμοι
+## Useful links
 
 * [GitHub](https://github.com/LinwoodDev/Butterfly)
 * [Discord](https://go.linwood.dev/discord)

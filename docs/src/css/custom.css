@@ -169,6 +169,14 @@ html[data-theme='dark'] .DocSearch {
 
 .dropdown__link {
   padding: 0.5rem 1rem;
+  display: flex;
+  align-items: center;
+}
+.dropdown__link p {
+  margin: 0;
+}
+.button p {
+  margin: 0;
 }
 
 .menu__list-item-collapsible {
@@ -395,6 +403,13 @@ html {
   gap: 1rem;
   margin: 0.5rem;
   transition: background-color 0.25s ease-in-out;
+}
+.grid-button p {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
 }
 .button--panel {
   background-color: transparent;

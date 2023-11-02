@@ -1,24 +1,24 @@
 ---
 id: "community"
 slug: "/community"
-sidebar_label: "Hem"
+sidebar_label: "Home"
 sidebar_position: 0
-title: "Gemenskap"
+title: "Community"
 ---
 
-Välkommen till sektionen gemenskap.
+Welcome to the community section.
 
-## Erkännanden
+## Acknowledgements
 
-Ett särskilt tack går till:
+A special thanks goes to:
 
-* <https://github.com/flutter/flutter> för att tillhandahålla denna användbara crossplatform ui framework
-* <https://github.com/leanflutter/window_manager> för alla dessa användbara skrivbordsfunktioner
-* <https://github.com/facebook/docusaurus> för en lättanvänd statisk reagerar dokumentation ram
+* [Flutter](https://github.com/flutter/flutter) for providing this useful crossplatform ui framework
+* [window_manager](https://github.com/leanflutter/window_manager) for all this useful desktop window features
+* [Docusaurus](https://github.com/facebook/docusaurus) for an easy-to-use static react documentation framework
 
-Alla andra licenser hittar du i inställningarna.
+All other licenses can you found in the settings.
 
-## Användbara länkar
+## Useful links
 
 * [GitHub](https://github.com/LinwoodDev/Butterfly)
 * [Discord](https://go.linwood.dev/discord)

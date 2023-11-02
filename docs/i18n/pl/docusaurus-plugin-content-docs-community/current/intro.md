@@ -1,24 +1,24 @@
 ---
 id: "community"
 slug: "/community"
-sidebar_label: "Strona główna"
+sidebar_label: "Home"
 sidebar_position: 0
-title: "Społeczność"
+title: "Community"
 ---
 
-Witamy w sekcji społeczności.
+Welcome to the community section.
 
-## Potwierdzenia
+## Acknowledgements
 
-Specjalne podziękowania należą się do:
+A special thanks goes to:
 
-* <https://github.com/flutter/flutter> aby udostępnić tę użyteczną ramkę crossplatform ui
-* <https://github.com/leanflutter/window_manager> dla wszystkich przydatnych funkcji okna desktopowego
-* <https://github.com/facebook/docusaurus> dla prostego do użycia ram dokumentacji statycznej reakcji
+* [Flutter](https://github.com/flutter/flutter) for providing this useful crossplatform ui framework
+* [window_manager](https://github.com/leanflutter/window_manager) for all this useful desktop window features
+* [Docusaurus](https://github.com/facebook/docusaurus) for an easy-to-use static react documentation framework
 
-Wszystkie inne licencje można znaleźć w ustawieniach.
+All other licenses can you found in the settings.
 
-## Przydatne linki
+## Useful links
 
 * [GitHub](https://github.com/LinwoodDev/Butterfly)
 * [Discord](https://go.linwood.dev/discord)

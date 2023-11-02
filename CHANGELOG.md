@@ -519,7 +519,7 @@ Things that need to be improved:
 
 ## 1.6.0 (2022-12-24)
 
-Read the whole 1.6 changelog at <https://go.linwood.dev/butterfly/1-6>
+Read the whole 1.6 changelog [here](https://go.linwood.dev/butterfly/1-6).
 
 <details>
  <summary>1.6 Nightly Changelog</summary>

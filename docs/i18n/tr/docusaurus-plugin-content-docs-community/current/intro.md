@@ -1,24 +1,24 @@
 ---
 id: "community"
 slug: "/community"
-sidebar_label: "Ana sayfa"
+sidebar_label: "Home"
 sidebar_position: 0
-title: "Topluluk"
+title: "Community"
 ---
 
-Topluluk bölümüne hoş geldiniz.
+Welcome to the community section.
 
-## Teşekkürler
+## Acknowledgements
 
-Özel teşekkürler:
+A special thanks goes to:
 
-* Bu kullanışlı çapraz platform kullanıcı arabirimi çerçevesini sağladıkları için <https://github.com/flutter/flutter>  'a,
-* Kullanışlı masaüstü penceresi özellikleri için <https://github.com/leanflutter/window_manager> 'a,
-* Kullanımı kolay, statik tepki belge çerçevesi için <https://github.com/facebook/docusaurus>  'a teşekkürler
+* [Flutter](https://github.com/flutter/flutter) for providing this useful crossplatform ui framework
+* [window_manager](https://github.com/leanflutter/window_manager) for all this useful desktop window features
+* [Docusaurus](https://github.com/facebook/docusaurus) for an easy-to-use static react documentation framework
 
-Diğer tüm lisansları ayarlar bölümünde bulabilirsiniz.
+All other licenses can you found in the settings.
 
-## Faydalı bağlantılar
+## Useful links
 
 * [GitHub](https://github.com/LinwoodDev/Butterfly)
 * [Discord](https://go.linwood.dev/discord)
