@@ -12,9 +12,9 @@ title: "コミュニティ"
 
 特別な感謝は次のとおりです:
 
-* <https://github.com/flutter/flutter> この便利なクロスプラットフォームUIフレームワークを提供する
-* <https://github.com/leanflutter/window_manager> この便利なデスクトップウインドウ機能すべてに対応
-* <https://github.com/facebook/docusaurus> で、使いやすい静的反応ドキュメンテーションフレームワーク
+* [Flutter](https://github.com/flutter/flutter) for providing this useful crossplatform ui framework
+* [window_manager](https://github.com/leanflutter/window_manager) for all this useful desktop window features
+* [Docusaurus](https://github.com/facebook/docusaurus) for an easy-to-use static react documentation framework
 
 他のすべてのライセンスは、設定で見つけることができます。
 
