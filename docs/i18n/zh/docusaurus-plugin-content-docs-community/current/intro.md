@@ -12,9 +12,9 @@ title: "社区"
 
 特别感谢：
 
-* [https://github.com/flutter/flotter](https://github.com/flutter/flutter) 用于提供这个有用的交叉平台 ui 框架
-* [https://github.com/unceflutter/window_manager](https://github.com/leanflutter/window_manager) 所有有用的桌面窗口功能
-* <https://github.com/facebook/docusaurus> 用于易于使用的静态反应文档框架
+* [Flutter](https://github.com/flutter/flutter) for providing this useful crossplatform ui framework
+* [window_manager](https://github.com/leanflutter/window_manager) for all this useful desktop window features
+* [Docusaurus](https://github.com/facebook/docusaurus) for an easy-to-use static react documentation framework
 
 所有其他许可都可以在设置中找到。
 
