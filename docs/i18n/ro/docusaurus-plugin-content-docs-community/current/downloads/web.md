@@ -15,12 +15,12 @@ Aceasta este o aplicație web progresivă. Îl poți instala în browser și îl
 ## Link-uri
 
 <div className="row margin-bottom--lg padding--sm">
-<a className="button button--outline button--info button--lg margin--sm" href="https://butterfly.linwood.dev">
-  Principal
-</a>
-<a className="button button--outline button--danger button--lg margin--sm" href="https://preview.butterfly.linwood.dev">
-  Previzualizare
-</a>
+<Link className="button button--outline button--info button--lg margin--sm" href="https://butterfly.linwood.dev">
+  Main
+</Link>
+<Link className="button button--outline button--danger button--lg margin--sm" href="https://preview.butterfly.linwood.dev">
+  Preview
+</Link>
 </div>
 
 ## Versiuni
