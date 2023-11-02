@@ -17,7 +17,7 @@ Older versions can be found [here](https://docs.butterfly.linwood.dev/pre-1-0).
 
 ## Reporting a Vulnerability
 
-Please use [the bug tracker](https://github.com/LinwoodDev/butterfly/issues) or use <bug@linwood.dev> if there is a critical bug.
+Please use [the bug tracker](https://github.com/LinwoodDev/butterfly/issues) or use [bug@linwood.dev](mailto:bug@linwood.dev) if there is a critical bug.
 
 ## Branches
 

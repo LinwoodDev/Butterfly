@@ -12,6 +12,7 @@
 * Fix folder creation ([#513](https://github.com/LinwoodDev/Butterfly/issues/513))
 * Fix locale spacing
 * Fix pack updating
+* Fix pdf operations on web
 * Set full screen tool to action tool
 * Fix saving files in local external directory
 * Fixing missing saving of pdf quality and platform theme settings
