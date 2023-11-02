@@ -12,9 +12,9 @@ Välkommen till sektionen gemenskap.
 
 Ett särskilt tack går till:
 
-* <https://github.com/flutter/flutter> för att tillhandahålla denna användbara crossplatform ui framework
-* <https://github.com/leanflutter/window_manager> för alla dessa användbara skrivbordsfunktioner
-* <https://github.com/facebook/docusaurus> för en lättanvänd statisk reagerar dokumentation ram
+* [Flutter](https://github.com/flutter/flutter) for providing this useful crossplatform ui framework
+* [window_manager](https://github.com/leanflutter/window_manager) for all this useful desktop window features
+* [Docusaurus](https://github.com/facebook/docusaurus) for an easy-to-use static react documentation framework
 
 Alla andra licenser hittar du i inställningarna.
 
