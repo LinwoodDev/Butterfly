@@ -12,9 +12,9 @@ Velkommen til samfunnsseksjonen.
 
 En spesiell takk går til:
 
-* <https://github.com/flutter/flutter> for å gi dette nyttige crossplatform ui rammeverket
-* <https://github.com/leanflutter/window_manager> for alle disse nyttige vindusfunksjonene i skrivebordet
-* <https://github.com/facebook/docusaurus> for et enkelt å bruke statisk react dokumentasjon rammeverk
+* [Flutter](https://github.com/flutter/flutter) for providing this useful crossplatform ui framework
+* [window_manager](https://github.com/leanflutter/window_manager) for all this useful desktop window features
+* [Docusaurus](https://github.com/facebook/docusaurus) for an easy-to-use static react documentation framework
 
 Du finner alle andre lisenser i innstillingene.
 
