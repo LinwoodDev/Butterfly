@@ -12,9 +12,9 @@ Tervetuloa yhteisön osioon.
 
 Erityinen kiitos kuuluu seuraaville:
 
-* <https://github.com/flutter/flutter> tämän hyödyllisen crossplatform ui -kehyksen tarjoamiseksi
-* <https://github.com/leanflutter/window_manager> kaikille tämän hyödyllisen työpöytäikkunan ominaisuuksille
-* <https://github.com/facebook/docusaurus> helppokäyttöisen staattisen reagoinnin dokumentointikehyksen luomiseksi
+* [Flutter](https://github.com/flutter/flutter) for providing this useful crossplatform ui framework
+* [window_manager](https://github.com/leanflutter/window_manager) for all this useful desktop window features
+* [Docusaurus](https://github.com/facebook/docusaurus) for an easy-to-use static react documentation framework
 
 Kaikki muut lisenssit löytyvät asetuksista.
 
