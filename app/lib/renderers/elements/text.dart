@@ -143,6 +143,7 @@ class TextRenderer extends GenericTextRenderer<TextElement> {
           element.copyWith(
             position: position.toPoint(),
             rotation: rotation,
+            scale: element.scale * max(scaleX, scaleY),
           ),
           context);
 

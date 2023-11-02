@@ -4,6 +4,7 @@
 * Add version to web
 * Add eye dropper
 * Add copy on click for versions in settings dialog ([#519](https://github.com/LinwoodDev/Butterfly/issues/519))
+* Add scaling to markdown and text renderers ([#520](https://github.com/LinwoodDev/Butterfly/issues/520))
 * Show remote on hover in recent files
 * Improve action buttons in add dialog
 * Improve color picker dialog

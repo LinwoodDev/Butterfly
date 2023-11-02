@@ -84,6 +84,7 @@ class MarkdownRenderer extends GenericTextRenderer<MarkdownElement> {
           element.copyWith(
             position: position.toPoint(),
             rotation: rotation,
+            scale: element.scale * max(scaleX, scaleY),
           ),
           context);
 
