@@ -12,9 +12,9 @@ title: "Κοινότητα"
 
 Ιδιαίτερες ευχαριστίες απευθύνεται:
 
-* <https://github.com/flutter/flutter> για την παροχή αυτού του χρήσιμου crossplatform
-* <https://github.com/leanflutter/window_manager> για όλα αυτά τα χρήσιμα χαρακτηριστικά παραθύρου επιφάνειας εργασίας
-* <https://github.com/facebook/docusaurus> για ένα εύχρηστο πλαίσιο τεκμηρίωσης στατικής αντίδρασης
+* [Flutter](https://github.com/flutter/flutter) for providing this useful crossplatform ui framework
+* [window_manager](https://github.com/leanflutter/window_manager) for all this useful desktop window features
+* [Docusaurus](https://github.com/facebook/docusaurus) for an easy-to-use static react documentation framework
 
 Όλες οι άλλες άδειες χρήσης μπορείτε να βρείτε στις ρυθμίσεις.
 
