@@ -12,9 +12,9 @@ Witamy w sekcji społeczności.
 
 Specjalne podziękowania należą się do:
 
-* <https://github.com/flutter/flutter> aby udostępnić tę użyteczną ramkę crossplatform ui
-* <https://github.com/leanflutter/window_manager> dla wszystkich przydatnych funkcji okna desktopowego
-* <https://github.com/facebook/docusaurus> dla prostego do użycia ram dokumentacji statycznej reakcji
+* [Flutter](https://github.com/flutter/flutter) for providing this useful crossplatform ui framework
+* [window_manager](https://github.com/leanflutter/window_manager) for all this useful desktop window features
+* [Docusaurus](https://github.com/facebook/docusaurus) for an easy-to-use static react documentation framework
 
 Wszystkie inne licencje można znaleźć w ustawieniach.
 
