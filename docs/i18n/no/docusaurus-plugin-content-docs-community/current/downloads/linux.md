@@ -3,15 +3,13 @@ title: "Linux"
 sidebar_position: 3
 ---
 
-```mdx-code-block
 import DownloadButton from '@site/src/components/DownloadButton.tsx';
-```
 
-![Stable utgivelsesversjon](https://img.shields.io/badge/dynamic/yaml?color=c4840d&label=Stable&query=%24.version&url=https%3A%2F%2Fraw.githubusercontent.com%2FLinwoodDev%2Fbutterfly%2Fstable%2Fapp%2Fpubspec.yaml&style=for-the-badge) ![Slipp versjon for nattlig](https://img.shields.io/badge/dynamic/yaml?color=f7d28c&label=Nightly&query=%24.version&url=https%3A%2F%2Fraw.githubusercontent.com%2FLinwoodDev%2Fbutterfly%2Fnightly%2Fapp%2Fpubspec.yaml&style=for-the-badge)
+![Stable utgivelsesversjon](https://img.shields.io/badge/dynamic/yaml?color=c4840d&label=Stable&query=%24.version&url=https%3A%2F%2Fraw.githubusercontent.com%2FLinwoodDev%2Fbutterfly%2Fstable%2Fapp%2Fpubspec.yaml&style=for-the-badge) ![Nightly release version](https://img.shields.io/badge/dynamic/yaml?color=f7d28c&label=Nightly&query=%24.version&url=https%3A%2F%2Fraw.githubusercontent.com%2FLinwoodDev%2Fbutterfly%2Fnightly%2Fapp%2Fpubspec.yaml&style=for-the-badge)
 
-::note
+:::note
 
-Vennligst bruk flatpak versjonen hvis det er mulig. Ellers må du installere `libsecret-1-dev` og `libjsoncpp-dev`.
+Please use the flatpak version if possible. Otherwise you need to install `libsecret-1-dev` and `libjsoncpp-dev`.
 
 :::
 
@@ -78,4 +76,4 @@ Les mer om den nattlige versjonen av Butterfly [her](/nightly).
 </a>
 </div>
 
-Den eksperimentelle versjonen er også tilgjengelig på flathub beta repository. Les mer om flathub beta repository [her](https://discourse.flathub.org/t/how-to-use-flathub-beta/2111).
+The nightly version is also available on the flathub beta repository. Read more about the flathub beta repository [here](https://discourse.flathub.org/t/how-to-use-flathub-beta/2111).
