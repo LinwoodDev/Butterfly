@@ -12,9 +12,9 @@ Welkom bij de community sectie.
 
 Een speciale dank aan:
 
-* <https://github.com/flutter/flutter> voor het leveren van dit nuttige crossplatform ui framework
-* <https://github.com/leanflutter/window_manager> voor al dit nuttige bureaublad venster functies
-* <https://github.com/facebook/docusaurus> voor een eenvoudig te gebruiken statische reactie documentatie framework
+* [Flutter](https://github.com/flutter/flutter) for providing this useful crossplatform ui framework
+* [window_manager](https://github.com/leanflutter/window_manager) for all this useful desktop window features
+* [Docusaurus](https://github.com/facebook/docusaurus) for an easy-to-use static react documentation framework
 
 Alle andere licenties vind je in de instellingen.
 
