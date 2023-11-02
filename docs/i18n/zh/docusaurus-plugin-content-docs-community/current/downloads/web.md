@@ -15,12 +15,12 @@ sidebar_position: 5
 ## 链接
 
 <div className="row margin-bottom--lg padding--sm">
-<a className="button button--outline button--info button--lg margin--sm" href="https://butterfly.linwood.dev">
-  主
-</a>
-<a className="button button--outline button--danger button--lg margin--sm" href="https://preview.butterfly.linwood.dev">
-  预览
-</a>
+<Link className="button button--outline button--info button--lg margin--sm" href="https://butterfly.linwood.dev">
+  Main
+</Link>
+<Link className="button button--outline button--danger button--lg margin--sm" href="https://preview.butterfly.linwood.dev">
+  Preview
+</Link>
 </div>
 
 ## 版本
