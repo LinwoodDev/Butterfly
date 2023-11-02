@@ -3,15 +3,13 @@ title: "Linux"
 sidebar_position: 3
 ---
 
-```mdx-code-block
 import DownloadButton from '@site/src/components/DownloadButton.tsx';
-```
 
-![Stabilní verze vydání](https://img.shields.io/badge/dynamic/yaml?color=c4840d&label=Stable&query=%24.version&url=https%3A%2F%2Fraw.githubusercontent.com%2FLinwoodDev%2Fbutterfly%2Fstable%2Fapp%2Fpubspec.yaml&style=for-the-badge) ![Nightly release verze](https://img.shields.io/badge/dynamic/yaml?color=f7d28c&label=Nightly&query=%24.version&url=https%3A%2F%2Fraw.githubusercontent.com%2FLinwoodDev%2Fbutterfly%2Fnightly%2Fapp%2Fpubspec.yaml&style=for-the-badge)
+![Stabilní verze vydání](https://img.shields.io/badge/dynamic/yaml?color=c4840d&label=Stable&query=%24.version&url=https%3A%2F%2Fraw.githubusercontent.com%2FLinwoodDev%2Fbutterfly%2Fstable%2Fapp%2Fpubspec.yaml&style=for-the-badge) ![Nightly release version](https://img.shields.io/badge/dynamic/yaml?color=f7d28c&label=Nightly&query=%24.version&url=https%3A%2F%2Fraw.githubusercontent.com%2FLinwoodDev%2Fbutterfly%2Fnightly%2Fapp%2Fpubspec.yaml&style=for-the-badge)
 
 :::note
 
-Pokud je to možné, použijte flatpak verzi. Jinak musíte nainstalovat `libsecret-1-dev` a `libjsoncpp-dev`.
+Please use the flatpak version if possible. Otherwise you need to install `libsecret-1-dev` and `libjsoncpp-dev`.
 
 :::
 
@@ -81,4 +79,4 @@ Přečtěte si více o noční verzi Butterfly [zde](/nightly).
 </a>
 </div>
 
-Nightly verze je také k dispozici v repozitáři flathub beta verze. Přečtěte si více o banthub beta repozitáři [zde](https://discourse.flathub.org/t/how-to-use-flathub-beta/2111).
+The nightly version is also available on the flathub beta repository. Read more about the flathub beta repository [here](https://discourse.flathub.org/t/how-to-use-flathub-beta/2111).
