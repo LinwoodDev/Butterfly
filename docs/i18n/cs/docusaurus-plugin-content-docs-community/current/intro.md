@@ -12,9 +12,9 @@ Vítejte v sekci komunity.
 
 Zvláštní poděkování patří na:
 
-* <https://github.com/flutter/flutter> pro poskytnutí tohoto užitečného crossplatform ui framework
-* <https://github.com/leanflutter/window_manager> pro všechny tyto užitečné funkce desktopového okna
-* <https://github.com/facebook/docusaurus> pro snadno použitelný rámec pro dokumentaci statické reakce
+* [Flutter](https://github.com/flutter/flutter) for providing this useful crossplatform ui framework
+* [window_manager](https://github.com/leanflutter/window_manager) for all this useful desktop window features
+* [Docusaurus](https://github.com/facebook/docusaurus) for an easy-to-use static react documentation framework
 
 Všechny ostatní licence naleznete v nastavení.
 
