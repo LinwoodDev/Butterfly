@@ -35,13 +35,10 @@ class EyeDropperHandler extends Handler<EyeDropperTool> {
     } else {
       final color =
           pixel.r.toInt() << 16 | pixel.g.toInt() << 8 | pixel.b.toInt();
-      Clipboard.setData(ClipboardData(
-        text: '#${color.toRadixString(16).padLeft(6, '0')}',
-      ));
-      final loc = AppLocalizations.of(context.buildContext);
-      ScaffoldMessenger.of(context.buildContext).showSnackBar(SnackBar(
-        content: Text(loc.copyTitle),
-      ));
+      saveToClipboard(
+        context.buildContext,
+        '#${color.toRadixString(16).padLeft(6, '0')}',
+      );
     }
   }
 }

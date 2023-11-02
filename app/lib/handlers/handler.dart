@@ -35,6 +35,7 @@ import 'package:share_plus/share_plus.dart';
 import '../actions/paste.dart';
 import '../actions/select.dart';
 import '../api/open.dart';
+import '../api/save_data.dart';
 import '../cubits/current_index.dart';
 import '../dialogs/camera.dart';
 import '../dialogs/name.dart';

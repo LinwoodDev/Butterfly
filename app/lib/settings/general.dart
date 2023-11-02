@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:butterfly/api/save_data.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:package_info_plus/package_info_plus.dart';
@@ -68,6 +69,7 @@ class GeneralSettingsPage extends StatelessWidget {
                         title:
                             Text(AppLocalizations.of(context).currentVersion),
                         subtitle: Text(currentVersion),
+                        onTap: () => saveToClipboard(context, currentVersion),
                       ),
                       if (!kIsWeb)
                         FutureBuilder<Meta>(
@@ -103,11 +105,15 @@ class GeneralSettingsPage extends StatelessWidget {
                                   title:
                                       Text(AppLocalizations.of(context).stable),
                                   subtitle: Text(stableVersion),
+                                  onTap: () =>
+                                      saveToClipboard(context, stableVersion),
                                 ),
                                 ListTile(
                                   title: Text(
                                       AppLocalizations.of(context).nightly),
                                   subtitle: Text(nightlyVersion),
+                                  onTap: () =>
+                                      saveToClipboard(context, nightlyVersion),
                                 ),
                                 const Divider(),
                                 if (isStable) ...[
