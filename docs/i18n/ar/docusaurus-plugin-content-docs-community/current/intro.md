@@ -12,9 +12,9 @@ title: "المجتمع"
 
 ويوجه الشكر الخاص إلى:
 
-* <https://github.com/flutter/flutter> لتوفير إطار مفترق المنصة المفيد هذا
-* [https://github.com/leanflutter/window_Manager](https://github.com/leanflutter/window_manager) لجميع ميزات نافذة سطح المكتب المفيدة هذه
-* <https://github.com/facebook/docusaurus> لإطار توثيق رد الفعل الثابت السهل الاستخدام
+* [Flutter](https://github.com/flutter/flutter) for providing this useful crossplatform ui framework
+* [window_manager](https://github.com/leanflutter/window_manager) for all this useful desktop window features
+* [Docusaurus](https://github.com/facebook/docusaurus) for an easy-to-use static react documentation framework
 
 يمكن العثور على جميع التراخيص الأخرى في الإعدادات.
 
