@@ -4,10 +4,8 @@ hide_title: true
 sidebar_label: "Przyczynianie się"
 ---
 
-```mdx-code-block
-import Contributing, {toc as ContributingTOC} from "@site/../CONTRIBUTING.md"
+importuj wkład {toc as ContributingTOC} z "@site/../CONTRIBUTING.md"
 
 <Contributing />
 
-export const toc = ContributingTOC;
-```
+eksportuj konst doc = ContributingTOC;
