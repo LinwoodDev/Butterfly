@@ -1,25 +1,25 @@
 ---
-id: "community"
+id: "comunitate"
 slug: "/community"
-sidebar_label: "Home"
+sidebar_label: "Acasă"
 sidebar_position: 0
-title: "Community"
+title: "Comunitate"
 ---
 
-Welcome to the community section.
+Bine ați venit la secțiunea comunitate.
 
-## Acknowledgements
+## Mulţumiri
 
-A special thanks goes to:
+Mulțumiri speciale se referă la:
 
-* [Flutter](https://github.com/flutter/flutter) for providing this useful crossplatform ui framework
-* [window_manager](https://github.com/leanflutter/window_manager) for all this useful desktop window features
-* [Docusaurus](https://github.com/facebook/docusaurus) for an easy-to-use static react documentation framework
+* [Flutter](https://github.com/flutter/flutter) pentru furnizarea acestui cadru util pentru platforma intersectare ui
+* [window_manager](https://github.com/leanflutter/window_manager) pentru toate aceste funcții utile pentru fereastra desktop
+* [Docusaurus](https://github.com/facebook/docusaurus) pentru un documentație de reacție statică ușor de utilizat
 
-All other licenses can you found in the settings.
+Toate celelalte licențe pot fi găsite în setări.
 
-## Useful links
+## Link-uri utile
 
 * [GitHub](https://github.com/LinwoodDev/Butterfly)
 * [Discord](https://go.linwood.dev/discord)
-* [Matrix](https://go.linwood.dev/matrix)
+* [Matricea](https://go.linwood.dev/matrix)
