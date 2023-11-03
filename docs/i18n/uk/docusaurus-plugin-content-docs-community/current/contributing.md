@@ -4,10 +4,8 @@ hide_title: true
 sidebar_label: "Зробити внесок"
 ---
 
-```mdx-code-block
-import Contributing, {toc as ContributingTOC} from "@site/../CONTRIBUTING.md"
+імпортувати свій внесок, {toc as ContributingTOC} з "@site/../CONTRIBUTING.md"
 
 <Contributing />
 
-export const toc = ContributingTOC;
-```
+експорт toc = вкладка;
