@@ -552,5 +552,6 @@
   "stop": "停止",
   "refresh": "刷新",
   "print": "打印",
-  "dav": "DAV"
+  "dav": "DAV",
+  "eyeDropper": "眼睛投射器"
 }
