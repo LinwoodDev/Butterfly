@@ -4,10 +4,8 @@ hide_title: true
 sidebar_label: 更新日志
 ---
 
-```mdx-code-block
-import Changelog, {toc as ChangelogTOC} from "@site/../CHANGELOG.md"
+从 "@site/../CHANGELOG.md" 导入 Changelog, {toc as ChangelogTOC}
 
 <Changelog />
 
-export const toc = ChangelogTOC;
-```
+导出const toc = ChangelogTOC;
