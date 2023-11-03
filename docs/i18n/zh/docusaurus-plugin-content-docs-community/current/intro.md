@@ -1,25 +1,25 @@
 ---
-id: "community"
+id: "社区"
 slug: "/community"
-sidebar_label: "Home"
+sidebar_label: "首页"
 sidebar_position: 0
-title: "Community"
+title: "社区"
 ---
 
-Welcome to the community section.
+欢迎来到社区部分。
 
-## Acknowledgements
+## 鸣谢
 
-A special thanks goes to:
+特别感谢：
 
 * [Flutter](https://github.com/flutter/flutter) for providing this useful crossplatform ui framework
-* [window_manager](https://github.com/leanflutter/window_manager) for all this useful desktop window features
-* [Docusaurus](https://github.com/facebook/docusaurus) for an easy-to-use static react documentation framework
+* [适合所有此有用的桌面窗口功能的](https://github.com/leanflutter/window_manager)
+* [简单易用的静态反应文档框架的 Docusaurus](https://github.com/facebook/docusaurus)
 
-All other licenses can you found in the settings.
+所有其他许可都可以在设置中找到。
 
-## Useful links
+## 有用的链接
 
 * [GitHub](https://github.com/LinwoodDev/Butterfly)
 * [Discord](https://go.linwood.dev/discord)
-* [Matrix](https://go.linwood.dev/matrix)
+* [矩阵列表](https://go.linwood.dev/matrix)
