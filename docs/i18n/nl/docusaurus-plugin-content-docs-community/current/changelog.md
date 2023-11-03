@@ -4,10 +4,8 @@ hide_title: true
 sidebar_label: Wijzigingslogboek
 ---
 
-```mdx-code-block
-import Changelog, {toc as ChangelogTOC} from "@site/../CHANGELOG.md"
+wijzigingslogboek, {toc as ChangelogTOC} van "@site/../CHANGELOG.md"
 
 <Changelog />
 
-export const toc = ChangelogTOC;
-```
+exporteer const toc = ChangelogTOC;
