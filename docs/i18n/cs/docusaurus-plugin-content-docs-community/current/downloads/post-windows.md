@@ -1,7 +1,7 @@
 ---
 title: Děkujeme za stažení
-hide_title: true
-hide_table_of_contents: true
+hide_title: pravda
+hide_table_of_contents: pravda
 slug: "/downloads/post-windows"
 ---
 
@@ -14,7 +14,7 @@ slug: "/downloads/post-windows"
   Přispějte k projektu
 </Link>
 <Link className="button button--outline button--info button--lg margin--sm" href="https://linwood.dev/matrix">
-  Připojte se ke komunitě
+  Připojte se k komunitě
 </Link>
 
 </div>
