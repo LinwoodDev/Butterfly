@@ -4,10 +4,8 @@ hide_title: true
 sidebar_label: Ändringslogg
 ---
 
-```mdx-code-block
-import Changelog, {toc as ChangelogTOC} from "@site/../CHANGELOG.md"
+import Changelog, {toc as ChangelogTOC} från "@site/../CHANGELOG.md"
 
 <Changelog />
 
-export const toc = ChangelogTOC;
-```
+exportera const toc = ChangelogTOC
