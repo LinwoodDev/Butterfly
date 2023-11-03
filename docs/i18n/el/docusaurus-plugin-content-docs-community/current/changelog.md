@@ -4,10 +4,8 @@ hide_title: true
 sidebar_label: Αρχείο Αλλαγών
 ---
 
-```mdx-code-block
-import Changelog, {toc as ChangelogTOC} from "@site/../CHANGELOG.md"
+εισαγωγή Changelog, {toc as ChangelogTOC} από "@site/../CHANGELOG.md"
 
 <Changelog />
 
-export const toc = ChangelogTOC;
-```
+export const toc = ChangelogTOC·
