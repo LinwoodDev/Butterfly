@@ -1,7 +1,7 @@
 ---
 title: Σας ευχαριστούμε για τη λήψη
-hide_title: true
-hide_table_of_contents: true
+hide_title: αληθές
+hide_table_of_contents: αληθές
 slug: "/downloads/post-windows"
 ---
 
