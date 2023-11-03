@@ -4,10 +4,8 @@ hide_title: true
 sidebar_label: "Contribuições"
 ---
 
-```mdx-code-block
-import Contributing, {toc as ContributingTOC} from "@site/../CONTRIBUTING.md"
+importar Contribuição, {toc as ContributingTOC} de "@site/../CONTRIBUTING.md"
 
 <Contributing />
 
-export const toc = ContributingTOC;
-```
+Exportar const toc = ContributingTOC;
