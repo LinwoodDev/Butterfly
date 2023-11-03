@@ -3,7 +3,7 @@ title: "Android"
 sidebar_position: 4
 ---
 
-import DownloadButton from '@site/src/components/DownloadButton.tsx';
+Tuo Latauspainike osoitteesta '@site/src/components/DownloadButton.tsx';
 
 ![Vakaa julkaisuversio](https://img.shields.io/badge/dynamic/yaml?color=c4840d&label=Stable&query=%24.version&url=https%3A%2F%2Fraw.githubusercontent.com%2FLinwoodDev%2Fbutterfly%2Fstable%2Fapp%2Fpubspec.yaml&style=for-the-badge) ![Nightly release version](https://img.shields.io/badge/dynamic/yaml?color=f7d28c&label=Nightly&query=%24.version&url=https%3A%2F%2Fraw.githubusercontent.com%2FLinwoodDev%2Fbutterfly%2Fnightly%2Fapp%2Fpubspec.yaml&style=for-the-badge)
 
@@ -18,7 +18,7 @@ import DownloadButton from '@site/src/components/DownloadButton.tsx';
   Vakaa
 </DownloadButton>
 <DownloadButton className="button button--outline button--danger button--lg margin--sm" href="https://github.com/LinwoodDev/butterfly/releases/download/nightly/linwood-butterfly-android.apk">
-  Nightly
+  Yöllä
 </DownloadButton>
 </div>
 
@@ -28,7 +28,7 @@ Lue lisää Butterfly yöllisestä versiosta [täältä](/nightly).
 
 <div className="row margin-bottom--lg padding--sm">
 <Link className="button button--outline button--primary button--lg margin--sm" href="https://play.google.com/store/apps/details?id=dev.linwood.butterfly">
-  Pelaa kauppaa
+  Pelaa Kauppa
 </Link>
 <Link className="button button--outline button--primary button--lg margin--sm" href="https://f-droid.org/de/packages/dev.linwood.butterfly">
   F-Droid
