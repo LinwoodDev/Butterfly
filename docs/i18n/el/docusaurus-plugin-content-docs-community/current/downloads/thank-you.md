@@ -1,8 +1,8 @@
 ---
 title: Σας ευχαριστούμε για τη λήψη
-hide_title: true
-hide_table_of_contents: true
-slug: "/downloads/thank-you"
+hide_title: αληθές
+hide_table_of_contents: αληθές
+slug: "/downloads/ευχαριστώ"
 ---
 
 <div className="text-center margin-top--xl">
