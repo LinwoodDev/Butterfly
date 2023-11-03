@@ -3,9 +3,9 @@ title: "Вікна"
 sidebar_position: 2
 ---
 
-import DownloadButton from '@site/src/components/DownloadButton.tsx';
+імпортувати кнопку завантаження з '@site/src/components/DownloadButton.tsx';
 
-![Стабільна версія](https://img.shields.io/badge/dynamic/yaml?color=c4840d&label=Stable&query=%24.version&url=https%3A%2F%2Fraw.githubusercontent.com%2FLinwoodDev%2Fbutterfly%2Fstable%2Fapp%2Fpubspec.yaml&style=for-the-badge) ![Nightly release version](https://img.shields.io/badge/dynamic/yaml?color=f7d28c&label=Nightly&query=%24.version&url=https%3A%2F%2Fraw.githubusercontent.com%2FLinwoodDev%2Fbutterfly%2Fnightly%2Fapp%2Fpubspec.yaml&style=for-the-badge)
+![Стабільна версія](https://img.shields.io/badge/dynamic/yaml?color=c4840d&label=Stable&query=%24.version&url=https%3A%2F%2Fraw.githubusercontent.com%2FLinwoodDev%2Fbutterfly%2Fstable%2Fapp%2Fpubspec.yaml&style=for-the-badge) ![Нічна версія](https://img.shields.io/badge/dynamic/yaml?color=f7d28c&label=Nightly&query=%24.version&url=https%3A%2F%2Fraw.githubusercontent.com%2FLinwoodDev%2Fbutterfly%2Fnightly%2Fapp%2Fpubspec.yaml&style=for-the-badge)
 
 ## Мінімальні вимоги системи
 
@@ -30,7 +30,7 @@ import DownloadButton from '@site/src/components/DownloadButton.tsx';
   </ul>
 </div>
 <div className="dropdown dropdown--hoverable margin--sm">
-  <button className="button button--outline button--danger button--lg">Nightly</button>
+  <button className="button button--outline button--danger button--lg">Нічна</button>
   <ul className="dropdown__menu">
     <li>
       <DownloadButton after="/downloads/post-windows" className="dropdown__link" href="https://github.com/LinwoodDev/butterfly/releases/download/nightly/linwood-butterfly-windows-setup.exe">
@@ -51,35 +51,35 @@ import DownloadButton from '@site/src/components/DownloadButton.tsx';
 ## Встановити за допомогою winget
 
 ```powershell
-winget install LinwoodCloud.Butterfly
+winget інсталюйте LinwoodCloud.Butterfly
 ```
 
 Щоб оновити пакет крил, запустіть :
 
 ```powershell
-winget upgrade LinwoodCloud.Butterfly
+модернізація крила LinwoodCloud.Butterfly
 ```
 
 Для видалення пакета крил, запустіть:
 
 ```powershell
-winget uninstall LinwoodCloud.Butterfly
+крилате видалити LinwoodCloud.Butterfly
 ```
 
 ### Нічна версія
 
 ```powershell
-winget install LinwoodCloud.Butterfly.Nightly
+winget встановити LinwoodCloud.Butterfly.Nightly
 ```
 
 Щоб оновити пакет крил, запустіть :
 
 ```powershell
-winget upgrade LinwoodCloud.Butterfly.Nightly
+winget покращити LinwoodCloud.Butterfly.Nightly
 ```
 
 Для видалення пакета крил, запустіть:
 
 ```powershell
-winget uninstall LinwoodCloud.Butterfly.Nightly
+крилате видалення LinwoodCloud.Butterfly.Nightly
 ```
