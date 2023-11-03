@@ -4,10 +4,8 @@ hide_title: true
 sidebar_label: "Bidragande"
 ---
 
-```mdx-code-block
-import Contributing, {toc as ContributingTOC} from "@site/../CONTRIBUTING.md"
+importera Bidragande, {toc as ContributingTOC} från "@site/../CONTRIBUTING.md"
 
 <Contributing />
 
 export const toc = ContributingTOC;
-```
