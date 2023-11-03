@@ -1,7 +1,7 @@
 ---
 title: Dziękujemy za pobranie
-hide_title: true
-hide_table_of_contents: true
+hide_title: prawda
+hide_table_of_contents: prawda
 slug: "/downloads/thank-you"
 ---
 
