@@ -1,8 +1,8 @@
 ---
 title: Grazie per il download
-hide_title: true
-hide_table_of_contents: true
-slug: "/downloads/thank-you"
+hide_title: vero
+hide_table_of_contents: vero
+slug: "/downloads/thank you"
 ---
 
 <div className="text-center margin-top--xl">
