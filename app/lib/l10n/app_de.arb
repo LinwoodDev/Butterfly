@@ -552,5 +552,6 @@
   "stop": "Stoppen",
   "refresh": "Aktualisieren",
   "print": "Drucken",
-  "dav": "DAV"
+  "dav": "DAV",
+  "eyeDropper": "Augentropfen"
 }
