@@ -3,9 +3,9 @@ title: "Окна"
 sidebar_position: 2
 ---
 
-import DownloadButton from '@site/src/components/DownloadButton.tsx';
+импортировать DownloadButton из '@site/src/components/DownloadButton.tsx';
 
-![Стабильная версия релиза](https://img.shields.io/badge/dynamic/yaml?color=c4840d&label=Stable&query=%24.version&url=https%3A%2F%2Fraw.githubusercontent.com%2FLinwoodDev%2Fbutterfly%2Fstable%2Fapp%2Fpubspec.yaml&style=for-the-badge) ![Nightly release version](https://img.shields.io/badge/dynamic/yaml?color=f7d28c&label=Nightly&query=%24.version&url=https%3A%2F%2Fraw.githubusercontent.com%2FLinwoodDev%2Fbutterfly%2Fnightly%2Fapp%2Fpubspec.yaml&style=for-the-badge)
+![Стабильная версия релиза](https://img.shields.io/badge/dynamic/yaml?color=c4840d&label=Stable&query=%24.version&url=https%3A%2F%2Fraw.githubusercontent.com%2FLinwoodDev%2Fbutterfly%2Fstable%2Fapp%2Fpubspec.yaml&style=for-the-badge) ![Ночной релиз версии](https://img.shields.io/badge/dynamic/yaml?color=f7d28c&label=Nightly&query=%24.version&url=https%3A%2F%2Fraw.githubusercontent.com%2FLinwoodDev%2Fbutterfly%2Fnightly%2Fapp%2Fpubspec.yaml&style=for-the-badge)
 
 ## Минимальные системные требования
 
@@ -30,7 +30,7 @@ import DownloadButton from '@site/src/components/DownloadButton.tsx';
   </ul>
 </div>
 <div className="dropdown dropdown--hoverable margin--sm">
-  <button className="button button--outline button--danger button--lg">Nightly</button>
+  <button className="button button--outline button--danger button--lg">Ночной</button>
   <ul className="dropdown__menu">
     <li>
       <DownloadButton after="/downloads/post-windows" className="dropdown__link" href="https://github.com/LinwoodDev/butterfly/releases/download/nightly/linwood-butterfly-windows-setup.exe">
@@ -51,35 +51,35 @@ import DownloadButton from '@site/src/components/DownloadButton.tsx';
 ## Установить с помощью Winget
 
 ```powershell
-winget install LinwoodCloud.Butterfly
+winget установить LinwoodCloud.Butterfly
 ```
 
 Для обновления пакета winget, запустите:
 
 ```powershell
-winget upgrade LinwoodCloud.Butterfly
+winget обновить LinwoodCloud.Butterfly
 ```
 
 Чтобы удалить пакет winget, запустите:
 
 ```powershell
-winget uninstall LinwoodCloud.Butterfly
+winget удалить LinwoodCloud.Butterfly
 ```
 
 ### Ночная версия
 
 ```powershell
-winget install LinwoodCloud.Butterfly.Nightly
+winget установить LinwoodCloud.Butterfly.Ночью
 ```
 
 Для обновления пакета winget, запустите:
 
 ```powershell
-winget upgrade LinwoodCloud.Butterfly.Nightly
+winget обновить LinwoodCloud.Butterfly.Ночью
 ```
 
 Чтобы удалить пакет winget, запустите:
 
 ```powershell
-winget uninstall LinwoodCloud.Butterfly.Nightly
+winget удалите LinwoodCloud.Butterfly.Ночью
 ```
