@@ -4,10 +4,8 @@ hide_title: true
 sidebar_label: Lista zmian
 ---
 
-```mdx-code-block
-import Changelog, {toc as ChangelogTOC} from "@site/../CHANGELOG.md"
+importuj zmianę, {toc as ChangelogTOC} z "@site/../CHANGELOG.md"
 
 <Changelog />
 
-export const toc = ChangelogTOC;
-```
+eksportuj konst doc = ChangelogTOC;
