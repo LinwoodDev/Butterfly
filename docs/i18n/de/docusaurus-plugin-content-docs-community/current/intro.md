@@ -1,24 +1,24 @@
 ---
-id: "community"
+id: "gemeinde"
 slug: "/community"
-sidebar_label: "Home"
+sidebar_label: "Zuhause"
 sidebar_position: 0
 title: "Community"
 ---
 
-Welcome to the community section.
+Willkommen im Community-Abschnitt.
 
-## Acknowledgements
+## Danksagungen
 
-A special thanks goes to:
+Ein besonderer Dank geht an:
 
-* [Flutter](https://github.com/flutter/flutter) for providing this useful crossplatform ui framework
-* [window_manager](https://github.com/leanflutter/window_manager) for all this useful desktop window features
-* [Docusaurus](https://github.com/facebook/docusaurus) for an easy-to-use static react documentation framework
+* [Flutter](https://github.com/flutter/flutter) für die Bereitstellung dieses nützlichen Crossplatform ui Frameworks
+* [window_manager](https://github.com/leanflutter/window_manager) für all diese nützlichen Desktop-Funktionen
+* [Docusaurus](https://github.com/facebook/docusaurus) für ein einfach zu bedienendes statisches Reaging-Dokumentations-Framework
 
-All other licenses can you found in the settings.
+Alle anderen Lizenzen finden Sie in den Einstellungen.
 
-## Useful links
+## Nützliche Links
 
 * [GitHub](https://github.com/LinwoodDev/Butterfly)
 * [Discord](https://go.linwood.dev/discord)
