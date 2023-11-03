@@ -5,7 +5,7 @@ sidebar_position: 2
 
 import DownloadButton from '@site/src/components/DownloadButton.tsx';
 
-![Versão de lançamento estável](https://img.shields.io/badge/dynamic/yaml?color=c4840d&label=Stable&query=%24.version&url=https%3A%2F%2Fraw.githubusercontent.com%2FLinwoodDev%2Fbutterfly%2Fstable%2Fapp%2Fpubspec.yaml&style=for-the-badge) ![Nightly release version](https://img.shields.io/badge/dynamic/yaml?color=f7d28c&label=Nightly&query=%24.version&url=https%3A%2F%2Fraw.githubusercontent.com%2FLinwoodDev%2Fbutterfly%2Fnightly%2Fapp%2Fpubspec.yaml&style=for-the-badge)
+![Versão de lançamento estável](https://img.shields.io/badge/dynamic/yaml?color=c4840d&label=Stable&query=%24.version&url=https%3A%2F%2Fraw.githubusercontent.com%2FLinwoodDev%2Fbutterfly%2Fstable%2Fapp%2Fpubspec.yaml&style=for-the-badge) ![Versão de lançamento noturna](https://img.shields.io/badge/dynamic/yaml?color=f7d28c&label=Nightly&query=%24.version&url=https%3A%2F%2Fraw.githubusercontent.com%2FLinwoodDev%2Fbutterfly%2Fnightly%2Fapp%2Fpubspec.yaml&style=for-the-badge)
 
 ## Requisitos mínimos do sistema
 
@@ -30,7 +30,7 @@ import DownloadButton from '@site/src/components/DownloadButton.tsx';
   </ul>
 </div>
 <div className="dropdown dropdown--hoverable margin--sm">
-  <button className="button button--outline button--danger button--lg">Nightly</button>
+  <button className="button button--outline button--danger button--lg">Noturno</button>
   <ul className="dropdown__menu">
     <li>
       <DownloadButton after="/downloads/post-windows" className="dropdown__link" href="https://github.com/LinwoodDev/butterfly/releases/download/nightly/linwood-butterfly-windows-setup.exe">
@@ -57,29 +57,29 @@ winget install LinwoodCloud.Butterfly
 Para atualizar o pacote da parede, execute:
 
 ```powershell
-winget upgrade LinwoodCloud.Butterfly
+melhoria das asas LinwoodCloud.Butterfly
 ```
 
 Para desinstalar o pacote da winget, execute:
 
 ```powershell
-winget uninstall LinwoodCloud.Butterfly
+asas desinstalam LinwoodCloud.Butterfly
 ```
 
 ### Versão noturna
 
 ```powershell
-winget install LinwoodCloud.Butterfly.Nightly
+asas instalam LinwoodCloud.Butterfly.Nightly
 ```
 
 Para atualizar o pacote da parede, execute:
 
 ```powershell
-winget upgrade LinwoodCloud.Butterfly.Nightly
+asas atualizam LinwoodCloud.Butterfly.Nightly
 ```
 
 Para desinstalar o pacote da winget, execute:
 
 ```powershell
-winget uninstall LinwoodCloud.Butterfly.Nightly
+asas desinstalam LinwoodCloud.Butterfly.Noite
 ```
