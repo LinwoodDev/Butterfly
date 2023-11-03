@@ -4,10 +4,8 @@ hide_title: true
 sidebar_label: "贡献中"
 ---
 
-```mdx-code-block
-import Contributing, {toc as ContributingTOC} from "@site/../CONTRIBUTING.md"
+从 "@site/../CORIBUTING.md" 导入贡献者， {toc as ContributingTOC}
 
 <Contributing />
 
-export const toc = ContributingTOC;
-```
+导出const toc = ContributingTOC;
