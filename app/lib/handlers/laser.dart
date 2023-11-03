@@ -1,6 +1,6 @@
 part of 'handler.dart';
 
-class LaserHandler extends Handler<LaserTool> {
+class LaserHandler extends Handler<LaserTool> with ColoredHandler {
   final Map<int, PenElement> elements = {};
   final List<PenElement> submittedElements = [];
   DateTime? _lastChanged;
@@ -165,17 +165,10 @@ class LaserHandler extends Handler<LaserTool> {
   }
 
   @override
-  PreferredSizeWidget getToolbar(DocumentBloc bloc) => ColorToolbarView(
-        color: data.color,
-        onChanged: (value) {
-          final state = bloc.state;
-          if (state is! DocumentLoadSuccess) return;
-          final index = state.info.tools.indexOf(data);
-          bloc.add(ToolsChanged({
-            index: data.copyWith(color: convertOldColor(value, data.color)),
-          }));
-        },
-      );
+  int getColor() => data.color;
+
+  @override
+  LaserTool setColor(int color) => data.copyWith(color: color);
 
   @override
   MouseCursor get cursor => SystemMouseCursors.precise;
