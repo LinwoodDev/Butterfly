@@ -115,7 +115,7 @@ class _DataSettingsPageState extends State<DataSettingsPage> {
                             final fileSystem =
                                 DocumentFileSystem.fromPlatform();
                             final directory =
-                                await fileSystem.getRootDirectory();
+                                await fileSystem.getRootDirectory(true);
                             final archive = exportDirectory(directory);
                             final encoder = ZipEncoder();
                             final bytes = encoder.encode(archive);

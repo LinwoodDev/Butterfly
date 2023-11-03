@@ -97,21 +97,23 @@ Future<AppDocumentFile> getAppDocumentFile(
 }
 
 abstract class DocumentFileSystem extends GeneralFileSystem {
-  Future<AppDocumentDirectory> getRootDirectory() {
-    return getAsset('').then((value) => value as AppDocumentDirectory);
+  Future<AppDocumentDirectory> getRootDirectory([bool recursive = false]) {
+    return getAsset('', recursive ? null : true)
+        .then((value) => value as AppDocumentDirectory);
   }
 
   @override
   FutureOr<String> getDirectory();
 
-  Stream<AppDocumentEntity?> fetchAsset(String path, [bool listFiles = false]);
+  /// If listFiles is null, it will fetch recursively
+  Stream<AppDocumentEntity?> fetchAsset(String path, [bool? listFiles = true]);
 
   Stream<List<AppDocumentEntity>> fetchAssets(Stream<String> paths,
-      [bool listFiles = false]) {
+      [bool? listFiles = true]) {
     final files = <AppDocumentEntity>[];
     final streams = paths.asyncExpand((e) async* {
       int? index;
-      await for (final file in fetchAsset(e, false).whereNotNull()) {
+      await for (final file in fetchAsset(e, listFiles).whereNotNull()) {
         if (index == null) {
           index = files.length;
           files.add(file);
@@ -125,12 +127,12 @@ abstract class DocumentFileSystem extends GeneralFileSystem {
   }
 
   Stream<List<AppDocumentEntity>> fetchAssetsSync(Iterable<String> paths,
-          [bool listFiles = false]) =>
+          [bool? listFiles = true]) =>
       fetchAssets(Stream.fromIterable(paths), listFiles);
 
   static Stream<List<AppDocumentEntity>> fetchAssetsGlobal(
       Stream<AssetLocation> locations, ButterflySettings settings,
-      [bool listFiles = true]) {
+      [bool? listFiles = true]) {
     final files = <AppDocumentEntity>[];
     final streams = locations.asyncExpand((e) async* {
       final fileSystem =
@@ -152,10 +154,11 @@ abstract class DocumentFileSystem extends GeneralFileSystem {
 
   static Stream<List<AppDocumentEntity>> fetchAssetsGlobalSync(
           Iterable<AssetLocation> locations, ButterflySettings settings,
-          [bool listFiles = true]) =>
+          [bool? listFiles = true]) =>
       fetchAssetsGlobal(Stream.fromIterable(locations), settings, listFiles);
 
-  Future<AppDocumentEntity?> getAsset(String path) => fetchAsset(path).last;
+  Future<AppDocumentEntity?> getAsset(String path, [bool? listFiles = true]) =>
+      fetchAsset(path, listFiles).last;
 
   Future<AppDocumentDirectory> createDirectory(String path);
 
