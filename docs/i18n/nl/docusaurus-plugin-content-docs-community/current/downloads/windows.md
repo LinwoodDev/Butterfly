@@ -3,9 +3,9 @@ title: "Vensters"
 sidebar_position: 2
 ---
 
-import DownloadButton from '@site/src/components/DownloadButton.tsx';
+DownloadKnop importeren van '@site/src/components/DownloadButton.tsx';
 
-![Stabiele versie van release](https://img.shields.io/badge/dynamic/yaml?color=c4840d&label=Stable&query=%24.version&url=https%3A%2F%2Fraw.githubusercontent.com%2FLinwoodDev%2Fbutterfly%2Fstable%2Fapp%2Fpubspec.yaml&style=for-the-badge) ![Nightly release version](https://img.shields.io/badge/dynamic/yaml?color=f7d28c&label=Nightly&query=%24.version&url=https%3A%2F%2Fraw.githubusercontent.com%2FLinwoodDev%2Fbutterfly%2Fnightly%2Fapp%2Fpubspec.yaml&style=for-the-badge)
+![Stabiele versie van release](https://img.shields.io/badge/dynamic/yaml?color=c4840d&label=Stable&query=%24.version&url=https%3A%2F%2Fraw.githubusercontent.com%2FLinwoodDev%2Fbutterfly%2Fstable%2Fapp%2Fpubspec.yaml&style=for-the-badge) ![Nachtelijke versie versie](https://img.shields.io/badge/dynamic/yaml?color=f7d28c&label=Nightly&query=%24.version&url=https%3A%2F%2Fraw.githubusercontent.com%2FLinwoodDev%2Fbutterfly%2Fnightly%2Fapp%2Fpubspec.yaml&style=for-the-badge)
 
 ## Minimale systeemvereisten
 
@@ -30,7 +30,7 @@ import DownloadButton from '@site/src/components/DownloadButton.tsx';
   </ul>
 </div>
 <div className="dropdown dropdown--hoverable margin--sm">
-  <button className="button button--outline button--danger button--lg">Nightly</button>
+  <button className="button button--outline button--danger button--lg">Nachtelijk</button>
   <ul className="dropdown__menu">
     <li>
       <DownloadButton after="/downloads/post-windows" className="dropdown__link" href="https://github.com/LinwoodDev/butterfly/releases/download/nightly/linwood-butterfly-windows-setup.exe">
@@ -51,35 +51,35 @@ Lees meer over de nachtelijke versie van Butterfly [hier](/nightly).
 ## Installeren met winget
 
 ```powershell
-winget install LinwoodCloud.Butterfly
+Installeer Linwinget Cloud.Vlinder
 ```
 
 Om het vleugelpakket te upgraden, run:
 
 ```powershell
-winget upgrade LinwoodCloud.Butterfly
+Winget upgrade LinwoodCloud.Vlinder
 ```
 
 Om het vleugelpakket te deïnstalleren, uitvoeren:
 
 ```powershell
-winget uninstall LinwoodCloud.Butterfly
+Winget deïnstalleer LinwoodCloud.Butterfly
 ```
 
 ### Nachtelijke versie
 
 ```powershell
-winget install LinwoodCloud.Butterfly.Nightly
+installeren van LinwoodCloud.Butterfly.Nightly
 ```
 
 Om het vleugelpakket te upgraden, run:
 
 ```powershell
-winget upgrade LinwoodCloud.Butterfly.Nightly
+upgrade Linwinget Cloud.Butterfly.Nachtnacht
 ```
 
 Om het vleugelpakket te deïnstalleren, uitvoeren:
 
 ```powershell
-winget uninstall LinwoodCloud.Butterfly.Nightly
+Winget verwijderen LinwoodCloud.Butterfly.Nightly
 ```
