@@ -552,5 +552,6 @@
   "stop": "停止",
   "refresh": "更新",
   "print": "印刷",
-  "dav": "DAV"
+  "dav": "DAV",
+  "eyeDropper": "スポイト"
 }
