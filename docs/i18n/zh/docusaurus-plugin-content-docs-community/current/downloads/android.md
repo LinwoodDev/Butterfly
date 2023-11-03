@@ -3,9 +3,9 @@ title: "Android"
 sidebar_position: 4
 ---
 
-import DownloadButton from '@site/src/components/DownloadButton.tsx';
+从 '@site/src/components/DownloadButton.tsx'导入下载按钮；
 
-![稳定发布版本](https://img.shields.io/badge/dynamic/yaml?color=c4840d&label=Stable&query=%24.version&url=https%3A%2F%2Fraw.githubusercontent.com%2FLinwoodDev%2Fbutterfly%2Fstable%2Fapp%2Fpubspec.yaml&style=for-the-badge) ![Nightly release version](https://img.shields.io/badge/dynamic/yaml?color=f7d28c&label=Nightly&query=%24.version&url=https%3A%2F%2Fraw.githubusercontent.com%2FLinwoodDev%2Fbutterfly%2Fnightly%2Fapp%2Fpubspec.yaml&style=for-the-badge)
+![稳定发布版本](https://img.shields.io/badge/dynamic/yaml?color=c4840d&label=Stable&query=%24.version&url=https%3A%2F%2Fraw.githubusercontent.com%2FLinwoodDev%2Fbutterfly%2Fstable%2Fapp%2Fpubspec.yaml&style=for-the-badge) ![每晚发布版本](https://img.shields.io/badge/dynamic/yaml?color=f7d28c&label=Nightly&query=%24.version&url=https%3A%2F%2Fraw.githubusercontent.com%2FLinwoodDev%2Fbutterfly%2Fnightly%2Fapp%2Fpubspec.yaml&style=for-the-badge)
 
 ## 最低制度要求
 
@@ -18,7 +18,7 @@ import DownloadButton from '@site/src/components/DownloadButton.tsx';
   稳定的
 </DownloadButton>
 <DownloadButton className="button button--outline button--danger button--lg margin--sm" href="https://github.com/LinwoodDev/butterfly/releases/download/nightly/linwood-butterfly-android.apk">
-  Nightly
+  每晚一次
 </DownloadButton>
 </div>
 
@@ -28,7 +28,7 @@ import DownloadButton from '@site/src/components/DownloadButton.tsx';
 
 <div className="row margin-bottom--lg padding--sm">
 <Link className="button button--outline button--primary button--lg margin--sm" href="https://play.google.com/store/apps/details?id=dev.linwood.butterfly">
-  Play商店
+  Play
 </Link>
 <Link className="button button--outline button--primary button--lg margin--sm" href="https://f-droid.org/de/packages/dev.linwood.butterfly">
   F-Droid
