@@ -1,7 +1,7 @@
 ---
 title: Takk for at du lastet ned
-hide_title: true
-hide_table_of_contents: true
+hide_title: sann
+hide_table_of_contents: sann
 slug: "/downloads/post-windows"
 ---
 
@@ -14,7 +14,7 @@ slug: "/downloads/post-windows"
   Bidra til prosjektet
 </Link>
 <Link className="button button--outline button--info button--lg margin--sm" href="https://linwood.dev/matrix">
-  Bli med i det fellesskapet
+  Bli med i samfunnet
 </Link>
 
 </div>
