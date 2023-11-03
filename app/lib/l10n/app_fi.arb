@@ -552,5 +552,6 @@
   "stop": "Pysäytä",
   "refresh": "Päivitä",
   "print": "Tulosta",
-  "dav": "DAV"
+  "dav": "DAV",
+  "eyeDropper": "Silmien pipetillä"
 }
