@@ -4,10 +4,8 @@ hide_title: true
 sidebar_label: تغيير
 ---
 
-```mdx-code-block
-import Changelog, {toc as ChangelogTOC} from "@site/../CHANGELOG.md"
+استيراد التغيير، {toc as ChangelogTOC} من "@site/../CHANGELOG.md"
 
 <Changelog />
 
-export const toc = ChangelogTOC;
-```
+تصدير الرمز المميز = التغيير؛
