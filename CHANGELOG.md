@@ -2,6 +2,30 @@
 
 <!--ENTER CHANGELOG HERE-->
 
+## 2.0.0-beta.14 (2023-11-04)
+
+* Add cursor to path eraser
+* Add scrollbar to recent files
+* Add recent colors to color picker
+* Add version to web
+* Add eye dropper
+* Add copy on click for versions in settings dialog ([#519](https://github.com/LinwoodDev/Butterfly/issues/519))
+* Add scaling to markdown and text renderers ([#520](https://github.com/LinwoodDev/Butterfly/issues/520))
+* Show remote on hover in recent files
+* Improve action buttons in add dialog
+* Improve color picker dialog
+* Fix invalidation of selection when transforming ([#517](https://github.com/LinwoodDev/Butterfly/issues/517))
+* Fix folder creation ([#513](https://github.com/LinwoodDev/Butterfly/issues/513))
+* Fix locale spacing
+* Fix pack updating
+* Fix pdf operations on web
+* Fix exporting whole directory ([#523](https://github.com/LinwoodDev/Butterfly/issues/523))
+* Set full screen tool to action tool
+* Fix saving files in local external directory
+* Fixing missing saving of pdf quality and platform theme settings
+
+View all changes in the blog: https://linwood.dev/butterfly/2.0.0-beta.14
+
 ## 2.0.0-beta.13 (2023-10-29)
 
 * Allow moving tools when selected

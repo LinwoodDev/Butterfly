@@ -3,6 +3,7 @@ import 'package:butterfly/api/file_system/file_system_io.dart';
 import 'package:butterfly/api/save_data.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/cubits/settings.dart';
+import 'package:butterfly/dialogs/template.dart';
 import 'package:butterfly/widgets/window.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart';
@@ -86,26 +87,32 @@ class _DataSettingsPageState extends State<DataSettingsPage> {
                                 : null,
                           ),
                         ListTile(
+                          title: Text(AppLocalizations.of(context).templates),
+                          leading: const PhosphorIcon(PhosphorIconsLight.file),
+                          onTap: () => showDialog(
+                            context: context,
+                            builder: (ctx) => const TemplateDialog(),
+                          ),
+                        ),
+                        ListTile(
                           title: Text(AppLocalizations.of(context).packs),
                           leading:
                               const PhosphorIcon(PhosphorIconsLight.package),
-                          onTap: () {
-                            showDialog(
-                              context: context,
-                              builder: (ctx) => MultiBlocProvider(
-                                providers: [
-                                  BlocProvider.value(
-                                      value: context.read<SettingsCubit>()),
-                                  BlocProvider(
-                                    lazy: false,
-                                    create: (ctx) => DocumentBloc.placeholder(
-                                        context.read<SettingsCubit>()),
-                                  ),
-                                ],
-                                child: const PacksDialog(globalOnly: true),
-                              ),
-                            );
-                          },
+                          onTap: () => showDialog(
+                            context: context,
+                            builder: (ctx) => MultiBlocProvider(
+                              providers: [
+                                BlocProvider.value(
+                                    value: context.read<SettingsCubit>()),
+                                BlocProvider(
+                                  lazy: false,
+                                  create: (ctx) => DocumentBloc.placeholder(
+                                      context.read<SettingsCubit>()),
+                                ),
+                              ],
+                              child: const PacksDialog(globalOnly: true),
+                            ),
+                          ),
                         ),
                         ListTile(
                           title: Text(AppLocalizations.of(context).export),
