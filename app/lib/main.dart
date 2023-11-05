@@ -231,7 +231,8 @@ class ButterflyApp extends StatelessWidget {
                     return ProjectPage(
                       data: state.extra,
                       location: AssetLocation(
-                        remote: defaultRemote,
+                        remote: state.uri.queryParameters['remote'] ??
+                            defaultRemote,
                         path: state.uri.queryParameters['path'] ?? '',
                       ),
                     );
