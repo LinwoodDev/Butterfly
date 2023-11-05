@@ -1,5 +1,5 @@
 ---
-id: "gemeinde"
+id: "community"
 slug: "/community"
 sidebar_label: "Zuhause"
 sidebar_position: 0
