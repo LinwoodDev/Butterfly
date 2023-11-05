@@ -1,7 +1,7 @@
 ---
 title: Merci d'avoir téléchargé
-hide_title: vrai
-hide_table_of_contents: vrai
+hide_title: true
+hide_table_of_contents: true
 slug: "/fr/downloads/post-windows"
 ---
 
