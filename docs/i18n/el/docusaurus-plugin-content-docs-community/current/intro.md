@@ -1,5 +1,5 @@
 ---
-id: "κοινότητα"
+id: "community"
 slug: "/community"
 sidebar_label: "Αρχική"
 sidebar_position: 0
