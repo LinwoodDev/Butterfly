@@ -19,7 +19,7 @@ Som standard gemmer programmet data i dine dokumenter mappe i en undermappe kald
 
 ## Ekstern lagerplads {#remote}
 
-::note
+:::note
 
 Denne funktion er ikke tilgængelig på nettet.
 
