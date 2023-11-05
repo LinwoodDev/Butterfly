@@ -1,5 +1,5 @@
 ---
-id: "المجتمع"
+id: "community"
 slug: "/community"
 sidebar_label: "المنزل"
 sidebar_position: 0
