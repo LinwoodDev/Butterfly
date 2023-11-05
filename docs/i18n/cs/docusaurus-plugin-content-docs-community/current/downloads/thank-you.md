@@ -1,7 +1,7 @@
 ---
 title: Děkujeme za stažení
-hide_title: pravda
-hide_table_of_contents: pravda
+hide_title: true
+hide_table_of_contents: true
 slug: "/downloads/thank-you"
 ---
 
