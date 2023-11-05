@@ -19,7 +19,7 @@ Oletuksena sovellus tallentaa asiakirjojesi kansiossa olevat tiedot "Linwood/But
 
 ## Etätallennus {#remote}
 
-::note
+:::note
 
 Tämä ominaisuus ei ole käytettävissä verkossa.
 
