@@ -1,5 +1,5 @@
 ---
-id: "社区"
+id: "community"
 slug: "/community"
 sidebar_label: "首页"
 sidebar_position: 0
