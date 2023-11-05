@@ -5,7 +5,7 @@ sidebar_position: 5
 
 ![Стабильная версия релиза](https://img.shields.io/badge/dynamic/yaml?color=c4840d&label=Stable&query=%24.version&url=https%3A%2F%2Fraw.githubusercontent.com%2FLinwoodDev%2Fbutterfly%2Fstable%2Fapp%2Fpubspec.yaml&style=for-the-badge) ![Ночной релиз версии](https://img.shields.io/badge/dynamic/yaml?color=f7d28c&label=Nightly&query=%24.version&url=https%3A%2F%2Fraw.githubusercontent.com%2FLinwoodDev%2Fbutterfly%2Fnightly%2Fapp%2Fpubspec.yaml&style=for-the-badge)
 
-::note
+:::note
 
 Это прогрессивное веб-приложение. Вы можете установить его в вашем браузере и использовать его в автономном режиме. Все данные хранятся в Вашем браузере.
 
