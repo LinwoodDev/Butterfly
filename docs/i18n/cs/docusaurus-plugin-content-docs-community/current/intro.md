@@ -1,5 +1,5 @@
 ---
-id: "komunita"
+id: "community"
 slug: "/community"
 sidebar_label: "Domů"
 sidebar_position: 0
