@@ -3,7 +3,7 @@ title: "Ventanas"
 sidebar_position: 2
 ---
 
-![Versión estable](https://img.shields.io/badge/dynamic/yaml?color=c4840d&label=Stable&query=%24.version&url=https%3A%2F%2Fraw.githubusercontent.com%2FLinwoodDev%2Fbutterfly%2Fstable%2Fapp%2Fpubspec.yaml&style=for-the-badge) ![Nightly release version](https://img.shields.io/badge/dynamic/yaml?color=f7d28c&label=Nightly&query=%24.version&url=https%3A%2F%2Fraw.githubusercontent.com%2FLinwoodDev%2Fbutterfly%2Fnightly%2Fapp%2Fpubspec.yaml&style=for-the-badge)
+![Versión estable](https://img.shields.io/badge/dynamic/yaml?color=c4840d&label=Stable&query=%24.version&url=https%3A%2F%2Fraw.githubusercontent.com%2FLinwoodDev%2Fbutterfly%2Fstable%2Fapp%2Fpubspec.yaml&style=for-the-badge) ![Versión de lanzamiento nocturno](https://img.shields.io/badge/dynamic/yaml?color=f7d28c&label=Nightly&query=%24.version&url=https%3A%2F%2Fraw.githubusercontent.com%2FLinwoodDev%2Fbutterfly%2Fnightly%2Fapp%2Fpubspec.yaml&style=for-the-badge)
 
 ## Requisitos mínimos del sistema
 
@@ -49,7 +49,7 @@ Lea más sobre la versión nocturna de la mariposa [aquí](/nightly).
 ## Instalar usando winget
 
 ```powershell
-winget instala LinwoodCloud.Butterfly
+winget install LinwoodCloud.Butterfly
 ```
 
 Para actualizar el paquete winget, ejecute:
@@ -79,5 +79,5 @@ winget actualiza LinwoodCloud.Butterfly.Nightly
 Para desinstalar el paquete winget, ejecute:
 
 ```powershell
-winget desinstala LinwoodCloud.Butterfly.Nocturno
+winget uninstall LinwoodCloud.Butterfly.Nightly
 ```
