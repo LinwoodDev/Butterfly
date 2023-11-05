@@ -1,5 +1,5 @@
 ---
-id: "gemenskap"
+id: "community"
 slug: "/community"
 sidebar_label: "Hem"
 sidebar_position: 0
