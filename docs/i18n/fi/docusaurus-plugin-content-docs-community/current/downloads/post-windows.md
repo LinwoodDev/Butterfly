@@ -1,7 +1,7 @@
 ---
 title: Kiitos, että lataat
-hide_title: tosi
-hide_table_of_contents: tosi
+hide_title: true
+hide_table_of_contents: true
 slug: "/downloads/post-windows"
 ---
 
