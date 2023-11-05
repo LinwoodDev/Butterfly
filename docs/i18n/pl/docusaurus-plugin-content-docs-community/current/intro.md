@@ -1,5 +1,5 @@
 ---
-id: "społeczność"
+id: "community"
 slug: "/community"
 sidebar_label: "Strona główna"
 sidebar_position: 0
