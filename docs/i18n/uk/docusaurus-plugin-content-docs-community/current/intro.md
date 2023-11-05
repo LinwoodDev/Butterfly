@@ -1,5 +1,5 @@
 ---
-id: "спільноти"
+id: "community"
 slug: "/community"
 sidebar_label: "Домашній екран"
 sidebar_position: 0
