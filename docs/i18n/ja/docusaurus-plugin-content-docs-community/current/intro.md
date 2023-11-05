@@ -1,5 +1,5 @@
 ---
-id: "コミュニティ"
+id: "community"
 slug: "/community"
 sidebar_label: "ホーム"
 sidebar_position: 0
