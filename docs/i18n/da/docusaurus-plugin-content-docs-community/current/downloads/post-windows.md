@@ -1,7 +1,7 @@
 ---
 title: Tak fordi du har downloadet
-hide_title: sandt
-hide_table_of_contents: sandt
+hide_title: true
+hide_table_of_contents: true
 slug: "/downloads/post-windows"
 ---
 
