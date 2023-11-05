@@ -1,7 +1,7 @@
 ---
 title: Vielen Dank für das Herunterladen
-hide_title: wahr
-hide_table_of_contents: wahr
+hide_title: true
+hide_table_of_contents: true
 slug: "/downloads/post-windows"
 ---
 
