@@ -1,7 +1,7 @@
 ---
 title: Спасибо за загрузку
-hide_title: истина
-hide_table_of_contents: истина
+hide_title: true
+hide_table_of_contents: true
 slug: "/downloads/post-windows"
 ---
 
