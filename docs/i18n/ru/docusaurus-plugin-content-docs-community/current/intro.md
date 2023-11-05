@@ -1,5 +1,5 @@
 ---
-id: "сообщество"
+id: "community"
 slug: "/community"
 sidebar_label: "Домашний"
 sidebar_position: 0
