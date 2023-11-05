@@ -1,5 +1,5 @@
 ---
-id: "comunitate"
+id: "community"
 slug: "/community"
 sidebar_label: "Acasă"
 sidebar_position: 0
