@@ -1,7 +1,7 @@
 ---
 title: شكرا لك على التحميل
-hide_title: صحيح
-hide_table_of_contents: صحيح
+hide_title: true
+hide_table_of_contents: true
 slug: "/تنزيلات/شكراً لك"
 ---
 
