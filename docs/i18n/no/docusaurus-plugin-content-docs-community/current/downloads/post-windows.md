@@ -1,7 +1,7 @@
 ---
 title: Takk for at du lastet ned
-hide_title: sann
-hide_table_of_contents: sann
+hide_title: true
+hide_table_of_contents: true
 slug: "/downloads/post-windows"
 ---
 
