@@ -19,7 +19,7 @@ Som standard lagrer programmet data i dokumentmappen i en undermappe kalt "Linwo
 
 ## Ekstern lagring {#remote}
 
-::note
+:::note
 
 Denne funksjonen er ikke tilgjengelig på nettet.
 
