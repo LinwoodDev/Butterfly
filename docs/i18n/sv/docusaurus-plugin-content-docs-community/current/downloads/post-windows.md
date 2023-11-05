@@ -1,7 +1,7 @@
 ---
 title: Tack för att du laddade ner
-hide_title: sant
-hide_table_of_contents: sant
+hide_title: true
+hide_table_of_contents: true
 slug: "/downloads/post-windows"
 ---
 
