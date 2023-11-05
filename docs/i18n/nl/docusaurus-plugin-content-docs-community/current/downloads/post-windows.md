@@ -1,7 +1,7 @@
 ---
 title: Bedankt voor het downloaden
-hide_title: waar
-hide_table_of_contents: waar
+hide_title: true
+hide_table_of_contents: true
 slug: "/downloads/post-vensters"
 ---
 
