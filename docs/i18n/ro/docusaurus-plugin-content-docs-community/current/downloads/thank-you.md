@@ -1,7 +1,7 @@
 ---
 title: Vă mulțumim pentru descărcare
-hide_title: adevărat
-hide_table_of_contents: adevărat
+hide_title: true
+hide_table_of_contents: true
 slug: "/download/mulțumește-ți"
 ---
 
