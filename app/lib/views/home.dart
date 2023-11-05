@@ -1,3 +1,4 @@
+import 'package:butterfly/actions/new.dart';
 import 'package:butterfly/actions/settings.dart';
 import 'package:butterfly/api/file_system/file_system.dart';
 import 'package:butterfly/api/open.dart';
@@ -8,7 +9,6 @@ import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:go_router/go_router.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import '../api/open_release_notes.dart';
@@ -510,9 +510,8 @@ class _QuickstartHomeViewState extends State<_QuickstartHomeView> {
                         metadata: metadata,
                         thumbnail: thumbnail,
                         onTap: () async {
-                          GoRouter.of(context).pushReplacementNamed('new',
-                              queryParameters: {'path': metadata.directory},
-                              extra: e.createDocument().save());
+                          openNewDocument(
+                              context, e, widget.remote?.identifier);
                         },
                       );
                     },

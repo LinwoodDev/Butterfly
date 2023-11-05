@@ -1,3 +1,4 @@
+import 'package:butterfly/actions/new.dart';
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/widgets/remote_button.dart';
 import 'package:butterfly_api/butterfly_api.dart';
@@ -13,8 +14,8 @@ import '../widgets/editable_list_tile.dart';
 import 'delete.dart';
 
 class TemplateDialog extends StatefulWidget {
-  final NoteData? currentDocument;
-  const TemplateDialog({super.key, required this.currentDocument});
+  final DocumentBloc? bloc;
+  const TemplateDialog({super.key, this.bloc});
 
   @override
   State<TemplateDialog> createState() => _TemplateDialogState();
@@ -113,12 +114,11 @@ class _TemplateDialogState extends State<TemplateDialog> {
                         );
                       },
                     ),
-                    ...widget.currentDocument == null
+                    ...widget.bloc == null
                         ? []
                         : [
                             IconButton(
-                              onPressed: () =>
-                                  _showCreateDialog(widget.currentDocument!),
+                              onPressed: () => _showCreateDialog(widget.bloc!),
                               tooltip: AppLocalizations.of(context).create,
                               icon: const PhosphorIcon(PhosphorIconsLight.plus),
                             )
@@ -175,7 +175,7 @@ class _TemplateDialogState extends State<TemplateDialog> {
             )));
   }
 
-  Future<void> _showCreateDialog(NoteData document) {
+  Future<void> _showCreateDialog(DocumentBloc bloc) {
     final directoryController = TextEditingController();
     return showDialog<void>(
         context: context,
@@ -207,10 +207,10 @@ class _TemplateDialogState extends State<TemplateDialog> {
               ElevatedButton(
                 child: Text(AppLocalizations.of(context).create),
                 onPressed: () async {
-                  this.context.read<DocumentBloc>().add(TemplateCreated(
-                        directoryController.text,
-                        _fileSystem.remote?.identifier,
-                      ));
+                  bloc.add(TemplateCreated(
+                    directoryController.text,
+                    _fileSystem.remote?.identifier,
+                  ));
                   Navigator.of(context).pop();
                   load();
                   setState(() {});
@@ -293,7 +293,8 @@ class _TemplateItem extends StatelessWidget {
           },
         ),
       ],
-      onTap: () => Navigator.of(context).pop(template),
+      onTap: () =>
+          openNewDocument(context, template, fileSystem.remote?.identifier),
     );
   }
 }

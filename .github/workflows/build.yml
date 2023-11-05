@@ -324,6 +324,9 @@ jobs:
         with:
           flutter-version: ${{ env.FLUTTER_VERSION }}
           channel: 'master'
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.11' 
       - name: ✅ Enable platforms
         run: flutter config --enable-macos-desktop
       - name: 📦 Get dependencies

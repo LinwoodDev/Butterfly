@@ -7,7 +7,6 @@ import 'dart:js_util';
 
 import 'package:butterfly/models/defaults.dart';
 import 'package:butterfly_api/butterfly_api.dart';
-import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 import 'package:idb_shim/idb.dart';
@@ -125,7 +124,7 @@ class WebDocumentFileSystem extends DocumentFileSystem {
 
   @override
   Stream<AppDocumentEntity?> fetchAsset(String path,
-      [bool listFiles = true]) async* {
+      [bool? listFiles = true]) async* {
     // Add leading slash
     if (!path.startsWith('/')) {
       path = '/$path';
@@ -134,6 +133,7 @@ class WebDocumentFileSystem extends DocumentFileSystem {
       path = '/';
     }
     var db = await _getDatabase();
+    final location = AssetLocation.local(path);
     var txn = db.transaction(['documents', 'documents-data'], 'readonly');
 
     Future<List<int>?> getData(String path) async {
@@ -159,49 +159,25 @@ class WebDocumentFileSystem extends DocumentFileSystem {
         yield null;
         return;
       }
-      final file = getAppDocumentFile(AssetLocation.local(path), data);
+      final file = getAppDocumentFile(location, data);
       await txn.completed;
       yield await file;
       return;
     } else if (map['type'] == 'directory') {
-      if (!listFiles) {
-        await txn.completed;
-        yield AppDocumentDirectory(AssetLocation.local(path), const []);
-        return;
+      yield AppDocumentDirectory(location, []);
+      if (listFiles ?? true) {
+        var cursor = store.openKeyCursor(autoAdvance: true);
+        final streams = fetchAssetsSync(
+            await cursor.map((e) => e.key.toString()).where((e) {
+              return e.startsWith(path) &&
+                  e != path &&
+                  !e.substring(path.length + 1).contains('/');
+            }).toList(),
+            listFiles == null ? null : false);
+        await for (var stream in streams) {
+          yield AppDocumentDirectory(location, stream);
+        }
       }
-      var cursor = store.openCursor(autoAdvance: true);
-      var assets = await Future.wait(
-              await cursor.map<Future<AppDocumentEntity?>>((cursor) async {
-        // Add leading slash
-        var key = cursor.key.toString();
-        if (!key.startsWith('/')) {
-          key = '/$key';
-        }
-        // Is in current directory
-        if (key.startsWith(path) &&
-            key != path &&
-            !key.substring(path.length + 1).contains('/')) {
-          var data = cursor.value as Map<dynamic, dynamic>;
-          if (data['type'] == 'file') {
-            final data = await getData(key);
-            if (data == null) return null;
-            return getAppDocumentFile(AssetLocation.local(key), data);
-          } else if (data['type'] == 'directory') {
-            return AppDocumentDirectory(AssetLocation.local(key), const []);
-          }
-          return null;
-        }
-        return null;
-      }).toList())
-          .then((value) => value.whereNotNull().toList());
-      // Sort assets, AppDocumentDirectory should be first, AppDocumentFile should be sorted by name
-      assets.sort((a, b) => a is AppDocumentDirectory
-          ? -1
-          : (a as AppDocumentFile).fileName.compareTo(b is AppDocumentDirectory
-              ? ''
-              : (b as AppDocumentFile).fileName));
-      await txn.completed;
-      yield AppDocumentDirectory(AssetLocation.local(path), assets.toList());
       return;
     }
     yield null;

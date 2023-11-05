@@ -54,7 +54,7 @@ class IODocumentFileSystem extends DocumentFileSystem {
 
   @override
   Stream<AppDocumentEntity?> fetchAsset(String path,
-      [bool listFiles = true]) async* {
+      [bool? listFiles = true]) async* {
     // Add leading slash
     if (!path.startsWith('/')) {
       path = '/$path';
@@ -73,11 +73,11 @@ class IODocumentFileSystem extends DocumentFileSystem {
       } catch (_) {}
     } else if (await directory.exists()) {
       yield AppDocumentDirectory(location, []);
-      if (listFiles) {
+      if (listFiles ?? true) {
         final streams = fetchAssets(
             directory.list().map(
                 (e) => '$path/${e.path.replaceAll('\\', '/').split('/').last}'),
-            false);
+            listFiles == null ? null : false);
         await for (final files in streams) {
           yield AppDocumentDirectory(location, files);
         }
