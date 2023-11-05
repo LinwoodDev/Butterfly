@@ -1,5 +1,5 @@
 ---
-id: "fællesskab"
+id: "community"
 slug: "/community"
 sidebar_label: "Hjem"
 sidebar_position: 0
