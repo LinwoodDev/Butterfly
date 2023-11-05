@@ -1,7 +1,7 @@
 ---
 title: Gracias por descargar
-hide_title: verdad
-hide_table_of_contents: verdad
+hide_title: true
+hide_table_of_contents: true
 slug: "/downloads/post-windows"
 ---
 
