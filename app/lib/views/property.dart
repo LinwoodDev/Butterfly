@@ -132,6 +132,12 @@ class _PropertyViewState extends State<PropertyView>
                                               controller.close();
                                             }))
                                   .toList();
+                          final icon = PhosphorIcon(
+                            selection.icon(multi
+                                ? PhosphorIconsStyle.fill
+                                : PhosphorIconsStyle.light),
+                            color: Theme.of(context).iconTheme.color,
+                          );
                           return Column(
                             mainAxisSize: MainAxisSize.min,
                             crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -139,19 +145,17 @@ class _PropertyViewState extends State<PropertyView>
                               Header(
                                 title:
                                     Text(selection.getLocalizedName(context)),
-                                leading: MenuAnchor(
-                                  controller: controller,
-                                  builder: defaultMenuButton(
-                                    icon: PhosphorIcon(
-                                      selection.icon(multi
-                                          ? PhosphorIconsStyle.fill
-                                          : PhosphorIconsStyle.light),
-                                      color: Theme.of(context).iconTheme.color,
-                                    ),
-                                    tooltip: AppLocalizations.of(context).icon,
-                                  ),
-                                  menuChildren: menuChildren,
-                                ),
+                                leading: menuChildren.length <= 1
+                                    ? icon
+                                    : MenuAnchor(
+                                        controller: controller,
+                                        builder: defaultMenuButton(
+                                          icon: icon,
+                                          tooltip:
+                                              AppLocalizations.of(context).icon,
+                                        ),
+                                        menuChildren: menuChildren,
+                                      ),
                                 actions: [
                                   if (selection.showDeleteButton)
                                     IconButton(
