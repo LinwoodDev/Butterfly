@@ -350,6 +350,10 @@ class _MainViewViewportState extends State<MainViewViewport>
                           child: BlocBuilder<TransformCubit, CameraTransform>(
                             builder: (context, transform) => MouseRegion(
                               cursor: currentIndex.currentCursor,
+                              onExit: (event) {
+                                cubit.removePointer(event.pointer);
+                                cubit.removeButtons();
+                              },
                               child: ClipRRect(
                                 child: Stack(children: [
                                   Container(color: Colors.white),

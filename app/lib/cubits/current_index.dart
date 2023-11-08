@@ -106,6 +106,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
 
   Handler? changeTool(DocumentBloc bloc, int index,
       [Handler? handler, bool justAdded = false, bool runSelected = true]) {
+    resetInput(bloc);
     final blocState = bloc.state;
     if (blocState is! DocumentLoadSuccess) return null;
     final document = blocState.data;
@@ -286,7 +287,8 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
   }
 
   void addPointer(int pointer) {
-    emit(state.copyWith(pointers: state.pointers.toList()..add(pointer)));
+    emit(state.copyWith(
+        pointers: (state.pointers.toSet()..add(pointer)).toList()));
   }
 
   void removePointer(int pointer) {

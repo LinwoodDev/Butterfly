@@ -1,4 +1,5 @@
 * Add templates to data settings
 * Fix icon button if no display icon available
+* Fix pointer list on window exit ([#521](https://github.com/LinwoodDev/Butterfly/issues/521))
 
 View all changes in the blog: https://linwood.dev/butterfly/2.0.0-beta.15

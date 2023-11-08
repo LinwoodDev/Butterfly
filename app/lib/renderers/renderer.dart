@@ -182,14 +182,18 @@ abstract class Renderer<T> {
     position ??= relative ? Offset.zero : rect.topLeft;
     final nextPosition = relative ? position + rect.topLeft : position;
 
-    final scale = Offset(scaleX, scaleY);
-    //     .rotate(const Offset(1, 1), useRotation / 180 * pi);
+    final radians = rotation * (pi / 180);
+    final cosRotation = cos(radians);
+    final sinRotation = sin(radians);
+
+    scaleX = scaleX * cosRotation - scaleY * sinRotation;
+    scaleY = scaleX * sinRotation + scaleY * cosRotation;
 
     return _transform(
       position: nextPosition,
       rotation: nextRotation,
-      scaleX: scale.dx,
-      scaleY: scale.dy,
+      scaleX: scaleX,
+      scaleY: scaleY,
     );
   }
 
