@@ -120,7 +120,7 @@
   "copyVersion": "Kopya sürümü",
   "input": "Girdi",
   "behaviors": "Davranışlar",
-  "dataDirectory": "Data directory",
+  "dataDirectory": "Veri dizini",
   "defaultPath": "Varsayılan yol",
   "dateFormat": "Tarih biçimi",
   "updatedAt": "Güncellenme tarihi: {dateTime}",
