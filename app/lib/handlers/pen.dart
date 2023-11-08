@@ -21,6 +21,7 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
 
   @override
   void resetInput(DocumentBloc bloc) {
+    submitElements(bloc, elements.keys);
     elements.clear();
     lastPosition.clear();
   }
@@ -30,18 +31,17 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
     addPoint(context.buildContext, event.pointer, event.localPosition,
         _getPressure(event), event.kind,
         refresh: false);
-    submitElement(context.viewportSize, context.buildContext, event.pointer);
+    submitElements(context.getDocumentBloc(), [event.pointer]);
   }
 
   bool _currentlyBaking = false;
 
-  Future<void> submitElement(
-      Size viewportSize, BuildContext context, int index) async {
-    final bloc = context.read<DocumentBloc>();
-    final element = elements.remove(index);
-    if (element == null) return;
-    lastPosition.remove(index);
-    bloc.add(ElementsCreated([element]));
+  Future<void> submitElements(DocumentBloc bloc, Iterable<int> indexes) async {
+    final elements =
+        indexes.map((e) => this.elements.remove(e)).whereNotNull().toList();
+    if (elements.isEmpty) return;
+    lastPosition.removeWhere((key, value) => indexes.contains(key));
+    bloc.add(ElementsCreated(elements));
     if (_currentlyBaking) return;
     _currentlyBaking = true;
     await bloc.bake();

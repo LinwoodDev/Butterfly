@@ -182,9 +182,10 @@ class _FilesViewState extends State<FilesView> {
                 BlocBuilder<SettingsCubit, ButterflySettings>(
                   buildWhen: (previous, current) =>
                       previous.connections != current.connections,
-                  builder: (context, state) => state.connections.isEmpty
-                      ? const SizedBox.shrink()
-                      : const SyncButton(),
+                  builder: (context, state) =>
+                      state.connections.any((e) => e is RemoteStorage)
+                          ? const SyncButton()
+                          : const SizedBox.shrink(),
                 ),
               ],
             ),

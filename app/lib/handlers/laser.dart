@@ -81,6 +81,7 @@ class LaserHandler extends Handler<LaserTool> with ColoredHandler {
 
   @override
   void resetInput(DocumentBloc bloc) {
+    _submit(bloc, elements.keys);
     elements.clear();
     submittedElements.clear();
     _stopTimer();
@@ -88,22 +89,24 @@ class LaserHandler extends Handler<LaserTool> with ColoredHandler {
 
   bool _moving = false;
 
-  void _submit(PointerEvent event, EventContext context) {
+  void _submit(DocumentBloc bloc, Iterable<int> indexes) {
     if (_moving) {
       _moving = false;
       return;
     }
-    addPoint(context.buildContext, event.pointer, event.localPosition,
-        event.pressure, event.kind);
-    var element = elements.remove(event.pointer);
-    if (element == null) return;
-    submittedElements.add(element);
-    context.refresh();
+    var elements =
+        indexes.map((e) => this.elements.remove(e)).whereNotNull().toList();
+    if (elements.isEmpty) return;
+    submittedElements.addAll(elements);
+    bloc.refresh();
   }
 
   @override
-  void onPointerUp(PointerUpEvent event, EventContext context) =>
-      _submit(event, context);
+  void onPointerUp(PointerUpEvent event, EventContext context) {
+    addPoint(context.buildContext, event.pointer, event.localPosition,
+        event.pressure, event.kind);
+    _submit(context.getDocumentBloc(), [event.pointer]);
+  }
 
   void addPoint(BuildContext context, int pointer, Offset localPosition,
       double pressure, PointerDeviceKind kind,
