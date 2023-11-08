@@ -350,9 +350,8 @@ class _MainViewViewportState extends State<MainViewViewport>
                           child: BlocBuilder<TransformCubit, CameraTransform>(
                             builder: (context, transform) => MouseRegion(
                               cursor: currentIndex.currentCursor,
-                              onExit: (event) {
-                                cubit.resetInput(context.read<DocumentBloc>());
-                              },
+                              onExit: (event) => cubit
+                                  .resetInput(context.read<DocumentBloc>()),
                               child: ClipRRect(
                                 child: Stack(children: [
                                   Container(color: Colors.white),

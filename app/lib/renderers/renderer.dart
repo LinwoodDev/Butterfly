@@ -89,6 +89,36 @@ abstract class Renderer<T> {
 
   Renderer(this.element);
 
+  factory Renderer.fromInstance(T element) {
+    // Elements
+    if (element is PadElement) {
+      return element.map(
+        pen: (value) => PenRenderer(value),
+        text: (value) => TextRenderer(value),
+        image: (value) => ImageRenderer(value),
+        svg: (value) => SvgRenderer(value),
+        shape: (value) => ShapeRenderer(value),
+        markdown: (value) => MarkdownRenderer(value),
+        texture: (value) => TextureRenderer(value),
+      ) as Renderer<T>;
+    }
+
+    // Backgrounds
+    if (element is Background) {
+      return element.map(
+        texture: (value) => TextureBackgroundRenderer(value),
+        image: (value) => ImageBackgroundRenderer(value),
+        svg: (value) => EmptyBackgroundRenderer(value),
+      ) as Renderer<T>;
+    }
+
+    if (element is UtilitiesState) {
+      return UtilitiesRenderer(element) as Renderer<T>;
+    }
+
+    throw Exception('Invalid instance type');
+  }
+
   double get rotation =>
       element is PadElement ? (element as PadElement).rotation : 0.0;
 
@@ -135,39 +165,12 @@ abstract class Renderer<T> {
   void build(Canvas canvas, Size size, NoteData document, DocumentPage page,
       DocumentInfo info, CameraTransform transform,
       [ColorScheme? colorScheme, bool foreground = false]);
+
   HitCalculator getHitCalculator() =>
       DefaultHitCalculator(rect, this.rotation * (pi / 180));
+
   void buildSvg(XmlDocument xml, NoteData document, DocumentPage page,
       Rect viewportRect) {}
-  factory Renderer.fromInstance(T element) {
-    // Elements
-    if (element is PadElement) {
-      return element.map(
-        pen: (value) => PenRenderer(value),
-        text: (value) => TextRenderer(value),
-        image: (value) => ImageRenderer(value),
-        svg: (value) => SvgRenderer(value),
-        shape: (value) => ShapeRenderer(value),
-        markdown: (value) => MarkdownRenderer(value),
-        texture: (value) => TextureRenderer(value),
-      ) as Renderer<T>;
-    }
-
-    // Backgrounds
-    if (element is Background) {
-      return element.map(
-        texture: (value) => TextureBackgroundRenderer(value),
-        image: (value) => ImageBackgroundRenderer(value),
-        svg: (value) => EmptyBackgroundRenderer(value),
-      ) as Renderer<T>;
-    }
-
-    if (element is UtilitiesState) {
-      return UtilitiesRenderer(element) as Renderer<T>;
-    }
-
-    throw Exception('Invalid instance type');
-  }
 
   Renderer<T>? transform({
     Offset? position,
@@ -182,12 +185,12 @@ abstract class Renderer<T> {
     position ??= relative ? Offset.zero : rect.topLeft;
     final nextPosition = relative ? position + rect.topLeft : position;
 
-    final radians = rotation * (pi / 180);
+    /*final radians = this.rotation * (pi / 180);
     final cosRotation = cos(radians);
     final sinRotation = sin(radians);
 
     scaleX = scaleX * cosRotation - scaleY * sinRotation;
-    scaleY = scaleX * sinRotation + scaleY * cosRotation;
+    scaleY = scaleX * sinRotation + scaleY * cosRotation;*/
 
     return _transform(
       position: nextPosition,

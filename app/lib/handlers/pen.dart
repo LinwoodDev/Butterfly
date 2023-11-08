@@ -21,7 +21,7 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
 
   @override
   void resetInput(DocumentBloc bloc) {
-    submitElements(bloc, elements.keys);
+    submitElements(bloc, elements.keys.toList());
     elements.clear();
     lastPosition.clear();
   }
@@ -36,7 +36,7 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
 
   bool _currentlyBaking = false;
 
-  Future<void> submitElements(DocumentBloc bloc, Iterable<int> indexes) async {
+  Future<void> submitElements(DocumentBloc bloc, List<int> indexes) async {
     final elements =
         indexes.map((e) => this.elements.remove(e)).whereNotNull().toList();
     if (elements.isEmpty) return;

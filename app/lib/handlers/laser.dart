@@ -67,21 +67,20 @@ class LaserHandler extends Handler<LaserTool> with ColoredHandler {
 
   @override
   List<Renderer> createForegrounds(CurrentIndexCubit currentIndexCubit,
-      NoteData document, DocumentPage page, DocumentInfo info,
-      [Area? currentArea]) {
-    return elements.values
-        .map((e) {
-          if (e.points.length > 1) return PenRenderer(e);
-          return null;
-        })
-        .whereType<Renderer>()
-        .toList()
-      ..addAll(submittedElements.map((e) => PenRenderer(e)));
-  }
+          NoteData document, DocumentPage page, DocumentInfo info,
+          [Area? currentArea]) =>
+      elements.values
+          .map((e) {
+            if (e.points.length > 1) return PenRenderer(e);
+            return null;
+          })
+          .whereType<Renderer>()
+          .toList()
+        ..addAll(submittedElements.map((e) => PenRenderer(e)));
 
   @override
   void resetInput(DocumentBloc bloc) {
-    _submit(bloc, elements.keys);
+    _submit(bloc, elements.keys.toList());
     elements.clear();
     submittedElements.clear();
     _stopTimer();
@@ -89,7 +88,7 @@ class LaserHandler extends Handler<LaserTool> with ColoredHandler {
 
   bool _moving = false;
 
-  void _submit(DocumentBloc bloc, Iterable<int> indexes) {
+  void _submit(DocumentBloc bloc, List<int> indexes) {
     if (_moving) {
       _moving = false;
       return;
