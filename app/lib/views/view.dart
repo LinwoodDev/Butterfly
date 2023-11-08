@@ -351,6 +351,10 @@ class _MainViewViewportState extends State<MainViewViewport>
                             builder: (context, transform) => MouseRegion(
                               cursor: currentIndex.currentCursor,
                               onExit: (event) {
+                                if (_isScalingDisabled ?? true) {
+                                  getHandler()
+                                      .onPointerExit(event, getEventContext());
+                                }
                                 cubit.removePointer(event.pointer);
                                 cubit.removeButtons();
                               },

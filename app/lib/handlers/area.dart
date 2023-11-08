@@ -58,6 +58,10 @@ class AreaHandler extends Handler<AreaTool> {
   }
 
   @override
+  void onPointerExit(PointerExitEvent event, EventContext context) =>
+      resetInput(context.getDocumentBloc());
+
+  @override
   void onScaleUpdate(ScaleUpdateDetails details, EventContext context) {
     final currentIndex = context.getCurrentIndex();
     if (details.pointerCount > 1 ||

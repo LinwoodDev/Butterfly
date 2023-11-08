@@ -180,6 +180,8 @@ abstract class Handler<T> {
 
   void onPointerHover(PointerHoverEvent event, EventContext context) {}
 
+  void onPointerExit(PointerExitEvent event, EventContext context) {}
+
   void onTapUp(TapUpDetails details, EventContext context) {}
 
   void onTapDown(TapDownDetails details, EventContext context) {}

@@ -33,6 +33,10 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
     submitElement(context.viewportSize, context.buildContext, event.pointer);
   }
 
+  @override
+  void onPointerExit(PointerExitEvent event, EventContext context) =>
+      submitElement(context.viewportSize, context.buildContext, event.pointer);
+
   bool _currentlyBaking = false;
 
   Future<void> submitElement(

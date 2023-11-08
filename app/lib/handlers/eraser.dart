@@ -77,8 +77,6 @@ class EraserHandler extends Handler<EraserTool> {
   @override
   void onPointerUp(PointerUpEvent event, EventContext context) {
     _changeElement(event.localPosition, context);
-    final content = context.getPage()?.content;
-    if (content == null) return;
   }
 
   @override

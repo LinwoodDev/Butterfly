@@ -88,8 +88,7 @@ class LaserHandler extends Handler<LaserTool> with ColoredHandler {
 
   bool _moving = false;
 
-  @override
-  void onPointerUp(PointerUpEvent event, EventContext context) {
+  void _submit(PointerEvent event, EventContext context) {
     if (_moving) {
       _moving = false;
       return;
@@ -101,6 +100,14 @@ class LaserHandler extends Handler<LaserTool> with ColoredHandler {
     submittedElements.add(element);
     context.refresh();
   }
+
+  @override
+  void onPointerUp(PointerUpEvent event, EventContext context) =>
+      _submit(event, context);
+
+  @override
+  void onPointerExit(PointerExitEvent event, EventContext context) =>
+      _submit(event, context);
 
   void addPoint(BuildContext context, int pointer, Offset localPosition,
       double pressure, PointerDeviceKind kind,
