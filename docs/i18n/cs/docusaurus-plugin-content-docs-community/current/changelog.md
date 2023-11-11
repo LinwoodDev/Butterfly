@@ -4,8 +4,8 @@ hide_title: true
 sidebar_label: Seznam změn
 ---
 
-importovat Changelog, {toc as ChangelogTOC} z "@site/../CHANGELOG.md"
+import Changelog, {toc as ChangelogTOC} from "@site/../CHANGELOG.md"
 
 <Changelog />
 
-soust vývozu toc = ChangelogTOC;
+export const toc = ChangelogTOC;
