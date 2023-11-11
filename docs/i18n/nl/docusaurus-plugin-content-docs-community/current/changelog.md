@@ -4,8 +4,8 @@ hide_title: true
 sidebar_label: Wijzigingslogboek
 ---
 
-wijzigingslogboek, {toc as ChangelogTOC} van "@site/../CHANGELOG.md"
+import Changelog, {toc as ChangelogTOC} from "@site/../CHANGELOG.md"
 
 <Changelog />
 
-exporteer const toc = ChangelogTOC;
+export const toc = ChangelogTOC;
