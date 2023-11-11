@@ -4,8 +4,8 @@ hide_title: true
 sidebar_label: Lista zmian
 ---
 
-importuj zmianę, {toc as ChangelogTOC} z "@site/../CHANGELOG.md"
+import Changelog, {toc as ChangelogTOC} from "@site/../CHANGELOG.md"
 
 <Changelog />
 
-eksportuj konst doc = ChangelogTOC;
+export const toc = ChangelogTOC;
