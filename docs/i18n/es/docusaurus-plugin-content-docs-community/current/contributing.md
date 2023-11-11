@@ -4,7 +4,7 @@ hide_title: true
 sidebar_label: "Contribuyendo"
 ---
 
-importar contribución, {toc as ContributingTOC} de "@site/../CONTRIBUTING.md"
+import Contributing, {toc as ContributingTOC} from "@site/../CONTRIBUTING.md"
 
 <Contributing />
 
