@@ -4,8 +4,8 @@ hide_title: true
 sidebar_label: Änderungsverlauf
 ---
 
-importieren Changelog, {toc as ChangelogTOC} von "@site/../CHANGELOG.md"
+import Changelog, {toc as ChangelogTOC} from "@site/../CHANGELOG.md"
 
 <Changelog />
 
-const toc exportieren = ChangelogTOC;
+export const toc = ChangelogTOC;
