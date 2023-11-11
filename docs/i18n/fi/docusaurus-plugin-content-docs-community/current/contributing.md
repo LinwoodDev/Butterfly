@@ -4,8 +4,8 @@ hide_title: true
 sidebar_label: "Osallistuminen"
 ---
 
-tuonnin edistäminen, {toc as ContributingTOC} lähteestä "@site/../CONTRIBUTING.md"
+import Contributing, {toc as ContributingTOC} from "@site/../CONTRIBUTING.md"
 
 <Contributing />
 
-Vie const toc = tributingTOC;
+export const toc = ContributingTOC;
