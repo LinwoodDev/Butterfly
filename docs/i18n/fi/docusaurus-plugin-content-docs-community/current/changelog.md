@@ -4,8 +4,8 @@ hide_title: true
 sidebar_label: Muutosloki
 ---
 
-tuonti Changelog, {toc as ChangelogTOC} lähteestä "@site/../CHANGELOG.md"
+import Changelog, {toc as ChangelogTOC} from "@site/../CHANGELOG.md"
 
 <Changelog />
 
-Vie const toc = MuutosogTOC;
+export const toc = ChangelogTOC;
