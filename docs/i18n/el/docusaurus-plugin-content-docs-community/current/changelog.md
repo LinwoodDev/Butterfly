@@ -4,8 +4,8 @@ hide_title: true
 sidebar_label: Αρχείο Αλλαγών
 ---
 
-εισαγωγή Changelog, {toc as ChangelogTOC} από "@site/../CHANGELOG.md"
+import Changelog, {toc as ChangelogTOC} from "@site/../CHANGELOG.md"
 
 <Changelog />
 
-export const toc = ChangelogTOC·
+export const toc = ChangelogTOC;
