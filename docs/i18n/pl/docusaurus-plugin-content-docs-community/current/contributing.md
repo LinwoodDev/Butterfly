@@ -4,8 +4,8 @@ hide_title: true
 sidebar_label: "Przyczynianie się"
 ---
 
-importuj wkład {toc as ContributingTOC} z "@site/../CONTRIBUTING.md"
+import Contributing, {toc as ContributingTOC} from "@site/../CONTRIBUTING.md"
 
 <Contributing />
 
-eksportuj konst doc = ContributingTOC;
+export const toc = ContributingTOC;
