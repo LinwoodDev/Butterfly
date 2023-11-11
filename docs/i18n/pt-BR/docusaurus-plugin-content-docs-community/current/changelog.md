@@ -8,4 +8,4 @@ import Changelog, {toc as ChangelogTOC} from "@site/../CHANGELOG.md"
 
 <Changelog />
 
-Exportar const toc = ChangelogTOC;
+export const toc = ChangelogTOC;
