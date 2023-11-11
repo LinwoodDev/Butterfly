@@ -8,4 +8,4 @@ import CodeOfConduct, {toc as CodeOfConductTOC} from "@site/../CODE_OF_CONDUCT.m
 
 <CodeOfConduct />
 
-Exportar const toc = CodeOfConductTOC;
+export const toc = CodeOfConductTOC;
