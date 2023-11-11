@@ -4,7 +4,7 @@ hide_title: true
 sidebar_label: "Вклад"
 ---
 
-импорт вклада, {toc as ContributingTOC} из "@site/../CONTRIBUTING.md"
+import Contributing, {toc as ContributingTOC} from "@site/../CONTRIBUTING.md"
 
 <Contributing />
 
