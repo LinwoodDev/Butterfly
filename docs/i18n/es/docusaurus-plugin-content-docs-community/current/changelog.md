@@ -4,7 +4,7 @@ hide_title: true
 sidebar_label: Cambios
 ---
 
-importar Cambios, {toc as ChangelogTOC} de "@site/../CHANGELOG.md"
+import Changelog, {toc as ChangelogTOC} from "@site/../CHANGELOG.md"
 
 <Changelog />
 
