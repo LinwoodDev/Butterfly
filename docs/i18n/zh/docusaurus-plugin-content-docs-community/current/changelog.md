@@ -4,8 +4,8 @@ hide_title: true
 sidebar_label: 更新日志
 ---
 
-从 "@site/../CHANGELOG.md" 导入 Changelog, {toc as ChangelogTOC}
+import Changelog, {toc as ChangelogTOC} from "@site/../CHANGELOG.md"
 
 <Changelog />
 
-导出const toc = ChangelogTOC;
+export const toc = ChangelogTOC;
