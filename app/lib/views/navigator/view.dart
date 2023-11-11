@@ -1,8 +1,8 @@
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/cubits/settings.dart';
-import 'package:butterfly/views/components.dart';
-import 'package:butterfly/views/files.dart';
-import 'package:butterfly/views/waypoints.dart';
+import 'package:butterfly/views/navigator/components.dart';
+import 'package:butterfly/views/files/view.dart';
+import 'package:butterfly/views/navigator/waypoints.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

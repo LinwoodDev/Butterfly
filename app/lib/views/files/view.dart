@@ -2,33 +2,20 @@ import 'dart:typed_data';
 
 import 'package:butterfly/main.dart';
 import 'package:butterfly/models/defaults.dart';
-import 'package:butterfly/visualizer/asset.dart';
-import 'package:butterfly/visualizer/sync.dart';
+import 'package:butterfly/views/files/entity.dart';
 import 'package:butterfly_api/butterfly_api.dart';
-import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:go_router/go_router.dart';
-import 'package:intl/intl.dart';
-import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
-import 'package:popover/popover.dart';
 
-import '../api/file_system/file_system.dart';
-import '../api/file_system/file_system_remote.dart';
-import '../api/open.dart';
-import '../api/save_data.dart';
-import '../cubits/settings.dart';
-import '../dialogs/file_system/move.dart';
-import '../dialogs/file_system/sync.dart';
-import '../dialogs/name.dart';
-import '../services/import.dart';
-import '../services/sync.dart';
-
-part 'files/entity.dart';
-part 'files/grid.dart';
-part 'files/list.dart';
+import '../../api/file_system/file_system.dart';
+import '../../api/open.dart';
+import '../../cubits/settings.dart';
+import '../../dialogs/file_system/sync.dart';
+import '../../dialogs/name.dart';
+import '../../services/import.dart';
 
 class FilesView extends StatefulWidget {
   final AssetLocation? selectedAsset;
@@ -438,7 +425,7 @@ class _FilesViewState extends State<FilesView> {
                     (e) {
                       final selected =
                           widget.selectedAsset?.isSame(e.location) ?? false;
-                      return _FileEntityItem(
+                      return FileEntityItem(
                         entity: e,
                         isMobile: widget.isMobile,
                         selected: selected,
@@ -459,7 +446,7 @@ class _FilesViewState extends State<FilesView> {
                   final entity = assets[index];
                   final selected =
                       widget.selectedAsset?.isSame(entity.location) ?? false;
-                  return _FileEntityItem(
+                  return FileEntityItem(
                     entity: entity,
                     selected: selected,
                     collapsed: widget.collapsed,

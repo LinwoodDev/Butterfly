@@ -17,7 +17,7 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:window_manager/window_manager.dart';
 
-import '../views/navigator.dart';
+import '../views/navigator/view.dart';
 
 part 'settings.freezed.dart';
 part 'settings.g.dart';

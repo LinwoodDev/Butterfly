@@ -29,7 +29,7 @@ import '../dialogs/search.dart';
 import '../embed/action.dart';
 import '../main.dart';
 import '../widgets/window.dart';
-import 'navigator.dart';
+import 'navigator/view.dart';
 
 class PadAppBar extends StatelessWidget implements PreferredSizeWidget {
   final GlobalKey viewportKey;
