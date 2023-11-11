@@ -4,8 +4,8 @@ hide_title: true
 sidebar_label: "Bidra"
 ---
 
-Importer bidrag, {toc as ContributingTOC} fra "@site/../CONTRIBUTING.md"
+import Contributing, {toc as ContributingTOC} from "@site/../CONTRIBUTING.md"
 
 <Contributing />
 
-eksporter konst til c = BidragsyterendeTOC;
+export const toc = ContributingTOC;
