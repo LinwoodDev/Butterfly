@@ -4,8 +4,8 @@ hide_title: true
 sidebar_label: "Mitwirken"
 ---
 
-importiere mit, {toc as ContributingTOC} von "@site/../CONTRIBUTING.md"
+import Contributing, {toc as ContributingTOC} from "@site/../CONTRIBUTING.md"
 
 <Contributing />
 
-export const toc = Mitwirkendes TOC;
+export const toc = ContributingTOC;
