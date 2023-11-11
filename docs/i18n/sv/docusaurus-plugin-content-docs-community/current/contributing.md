@@ -4,7 +4,7 @@ hide_title: true
 sidebar_label: "Bidragande"
 ---
 
-importera Bidragande, {toc as ContributingTOC} från "@site/../CONTRIBUTING.md"
+import Contributing, {toc as ContributingTOC} from "@site/../CONTRIBUTING.md"
 
 <Contributing />
 
