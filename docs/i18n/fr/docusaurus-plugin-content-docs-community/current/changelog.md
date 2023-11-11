@@ -4,7 +4,7 @@ hide_title: true
 sidebar_label: Historique des modifications
 ---
 
-Importer le changelog, {toc as ChangelogTOC} depuis "@site/../CHANGELOG.md"
+import Changelog, {toc as ChangelogTOC} from "@site/../CHANGELOG.md"
 
 <Changelog />
 
