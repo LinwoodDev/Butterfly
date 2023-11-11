@@ -4,8 +4,8 @@ hide_title: true
 sidebar_label: Ändringslogg
 ---
 
-import Changelog, {toc as ChangelogTOC} från "@site/../CHANGELOG.md"
+import Changelog, {toc as ChangelogTOC} from "@site/../CHANGELOG.md"
 
 <Changelog />
 
-exportera const toc = ChangelogTOC
+export const toc = ChangelogTOC;
