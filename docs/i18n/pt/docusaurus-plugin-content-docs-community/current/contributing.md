@@ -4,8 +4,8 @@ hide_title: true
 sidebar_label: "Contribuições"
 ---
 
-importar Contribuição, {toc as ContributingTOC} de "@site/../CONTRIBUTING.md"
+import Contributing, {toc as ContributingTOC} from "@site/../CONTRIBUTING.md"
 
 <Contributing />
 
-Exportar const toc = ContributingTOC;
+export const toc = ContributingTOC;
