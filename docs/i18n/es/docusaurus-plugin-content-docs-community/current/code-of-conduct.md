@@ -4,7 +4,7 @@ hide_title: true
 sidebar_label: Código de conducta
 ---
 
-importar CodeOfConduct, {toc as CodeOfConductTOC} de "@site/../CODE_OF_CONDUCT.md"
+import CodeOfConduct, {toc as CodeOfConductTOC} from "@site/../CODE_OF_CONDUCT.md"
 
 <CodeOfConduct />
 
