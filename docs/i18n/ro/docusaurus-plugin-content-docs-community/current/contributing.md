@@ -4,7 +4,7 @@ hide_title: true
 sidebar_label: "Contribuție"
 ---
 
-import Contributing, {toc as ContributingTOC} de la "@site/../CONTRIBUTING.md"
+import Contributing, {toc as ContributingTOC} from "@site/../CONTRIBUTING.md"
 
 <Contributing />
 
