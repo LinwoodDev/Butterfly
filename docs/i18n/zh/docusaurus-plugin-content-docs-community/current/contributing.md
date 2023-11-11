@@ -4,8 +4,8 @@ hide_title: true
 sidebar_label: "贡献中"
 ---
 
-从 "@site/../CORIBUTING.md" 导入贡献者， {toc as ContributingTOC}
+import Contributing, {toc as ContributingTOC} from "@site/../CONTRIBUTING.md"
 
 <Contributing />
 
-导出const toc = ContributingTOC;
+export const toc = ContributingTOC;
