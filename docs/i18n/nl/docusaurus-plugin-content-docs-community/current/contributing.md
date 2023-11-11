@@ -4,8 +4,8 @@ hide_title: true
 sidebar_label: "Bijdragen"
 ---
 
-Importeer bijdrage, {toc as ContributingTOC} van "@site/../CONTRIBUTING.md"
+import Contributing, {toc as ContributingTOC} from "@site/../CONTRIBUTING.md"
 
 <Contributing />
 
-exporteer const toc = Bijdrage TOC;
+export const toc = ContributingTOC;
