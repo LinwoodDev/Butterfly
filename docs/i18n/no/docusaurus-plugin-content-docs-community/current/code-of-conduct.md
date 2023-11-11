@@ -4,8 +4,8 @@ hide_title: true
 sidebar_label: Etiske retningslinjer
 ---
 
-importer CodeOfConduct, {toc as CodeOfConductTOC} fra "@site/../CODE_OF_CONDUCT.md"
+import CodeOfConduct, {toc as CodeOfConductTOC} from "@site/../CODE_OF_CONDUCT.md"
 
 <CodeOfConduct />
 
-eksportere samtidig med = CodeOfConductTOC;
+export const toc = CodeOfConductTOC;
