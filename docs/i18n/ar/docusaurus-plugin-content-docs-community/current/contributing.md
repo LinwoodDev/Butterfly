@@ -4,8 +4,8 @@ hide_title: true
 sidebar_label: "المساهمة"
 ---
 
-مساهمة الاستيراد، {toc as ContributingTOC} من "@site/../CONTRIBUTING.md"
+import Contributing, {toc as ContributingTOC} from "@site/../CONTRIBUTING.md"
 
 <Contributing />
 
-تصدير toc = المساهمة؛
+export const toc = ContributingTOC;
