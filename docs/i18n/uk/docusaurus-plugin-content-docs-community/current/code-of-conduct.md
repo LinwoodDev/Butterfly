@@ -4,8 +4,8 @@ hide_title: true
 sidebar_label: Кодекс поведінки
 ---
 
-імпортувати CodeOfCont, {toc as CodeOfConductTOC} з "@site/../CODE_OF_CONDUCT.md"
+import CodeOfConduct, {toc as CodeOfConductTOC} from "@site/../CODE_OF_CONDUCT.md"
 
 <CodeOfConduct />
 
-експорт const toc = CodeOfConductTOC;
+export const toc = CodeOfConductTOC;
