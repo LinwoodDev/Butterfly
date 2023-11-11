@@ -4,7 +4,7 @@ hide_title: true
 sidebar_label: Список изменений
 ---
 
-импортировать список изменений, {toc as ChangelogTOC} из "@site/../CHANGELOG.md"
+import Changelog, {toc as ChangelogTOC} from "@site/../CHANGELOG.md"
 
 <Changelog />
 
