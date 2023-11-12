@@ -61,19 +61,19 @@ winget upgrade LinwoodCloud.Butterfly
 Chcete-li balíček winget odinstalovat, spusťte:
 
 ```powershell
-winget odinstalovat LinwoodCloud.Butterfly
+winget uninstall LinwoodCloud.Butterfly
 ```
 
 ### Noční verze
 
 ```powershell
-winget nainstalujte LinwoodCloud.Butterfly.Nightly
+winget install LinwoodCloud.Butterfly.Nightly
 ```
 
 Chcete-li aktualizovat balíček winget, spusťte:
 
 ```powershell
-winget aktualizovat LinwoodCloud.Butterfly.Nightly
+winget upgrade LinwoodCloud.Butterfly.Nightly
 ```
 
 Chcete-li balíček winget odinstalovat, spusťte:
