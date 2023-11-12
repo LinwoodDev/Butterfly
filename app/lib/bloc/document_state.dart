@@ -200,24 +200,24 @@ class DocumentLoadSuccess extends DocumentLoaded {
                       ?.hasDocumentCached(location.path) ??
                   false)));
 
-  Future<AssetLocation> save() async {
-    currentIndexCubit.setSaveState(saved: SaveState.saving);
-    final currentData = saveData();
+  Future<AssetLocation> save([AssetLocation? location]) async {
     final storage = getRemoteStorage();
+    final fileSystem = DocumentFileSystem.fromPlatform(remote: storage);
+    currentIndexCubit.setSaveState(saved: SaveState.saving, location: location);
+    location ??= this.location;
+    final currentData = saveData();
     if (embedding != null) return AssetLocation.empty;
     if (!location.path.endsWith('.bfly') ||
         location.absolute ||
         location.fileType != AssetFileType.note) {
-      final document = await DocumentFileSystem.fromPlatform(remote: storage)
-          .importDocument(currentData);
+      final document = await fileSystem.importDocument(currentData);
       if (document == null) return AssetLocation.empty;
       await settingsCubit.addRecentHistory(document.location);
       currentIndexCubit.setSaveState(
           location: document.location, saved: SaveState.saved);
       return document.location;
     }
-    await DocumentFileSystem.fromPlatform(remote: storage)
-        .updateDocument(location.path, currentData);
+    await fileSystem.updateDocument(location.path, currentData);
     settingsCubit.addRecentHistory(location);
     currentIndexCubit.setSaveState(location: location, saved: SaveState.saved);
     return location;

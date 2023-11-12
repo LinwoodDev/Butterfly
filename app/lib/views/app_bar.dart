@@ -126,13 +126,12 @@ class _AppBarTitle extends StatelessWidget {
                               remote: settings.getRemote(location.remote));
 
                           await fileSystem.deleteAsset(location.path);
-
-                          cubit.setSaveState(
-                              location: location.copyWith(
-                            path:
-                                '${location.parent}/${fileSystem.convertNameToFile(value)}.bfly',
-                          ));
-                          if (state is DocumentLoadSuccess) await state.save();
+                          if (state is DocumentLoadSuccess) {
+                            await state.save(location.copyWith(
+                              path:
+                                  '${location.parent}/${fileSystem.convertNameToFile(value)}.bfly',
+                            ));
+                          }
                           bloc.add(DocumentDescriptionChanged(name: value));
                         } else {
                           bloc.add(AreaChanged(
