@@ -83,7 +83,8 @@ class ImportService {
       return null;
     }
     if (bytes == null) return null;
-    return import(fileType ?? AssetFileType.note, bytes, document);
+    return import(fileType ?? AssetFileType.note, bytes, document,
+        advanced: false);
   }
 
   Future<NoteData?> import(

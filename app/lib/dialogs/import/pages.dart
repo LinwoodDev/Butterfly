@@ -104,7 +104,7 @@ class _PagesDialogState extends State<PagesDialog> {
             label: AppLocalizations.of(context).quality,
           ),
           Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.all(16),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
