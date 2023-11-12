@@ -2,7 +2,7 @@
 title: Tak fordi du har downloadet
 hide_title: true
 hide_table_of_contents: true
-slug: "/downloads/tak-dig"
+slug: "/downloads/thank-you"
 ---
 
 <div className="text-center margin-top--xl">
