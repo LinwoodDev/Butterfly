@@ -61,7 +61,7 @@ winget upgrade LinwoodCloud.Butterfly
 Pentru a dezinstala pachetul winget, executați:
 
 ```powershell
-winget dezinstalare LinwoodCloud.Butterfly
+winget uninstall LinwoodCloud.Butterfly
 ```
 
 ### Versiunea nocturnă
@@ -79,5 +79,5 @@ winget upgrade LinwoodCloud.Butterfly.Nightly
 Pentru a dezinstala pachetul winget, executați:
 
 ```powershell
-winget dezinstalare LinwoodCloud.Butterfly.Nightly
+winget uninstall LinwoodCloud.Butterfly.Nightly
 ```
