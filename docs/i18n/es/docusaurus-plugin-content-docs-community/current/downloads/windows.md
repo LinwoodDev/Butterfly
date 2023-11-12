@@ -61,19 +61,19 @@ winget actualiza LinwoodCloud.Butterfly
 Para desinstalar el paquete winget, ejecute:
 
 ```powershell
-winget desinstalar LinwoodCloud.Butterfly
+winget uninstall LinwoodCloud.Butterfly
 ```
 
 ### Versión nocturna
 
 ```powershell
-winget instala LinwoodCloud.Butterfly.Nocturno
+winget install LinwoodCloud.Butterfly.Nightly
 ```
 
 Para actualizar el paquete winget, ejecute:
 
 ```powershell
-winget actualiza LinwoodCloud.Butterfly.Nightly
+winget upgrade LinwoodCloud.Butterfly.Nightly
 ```
 
 Para desinstalar el paquete winget, ejecute:
