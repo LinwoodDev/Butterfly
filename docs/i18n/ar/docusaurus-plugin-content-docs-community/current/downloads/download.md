@@ -1,5 +1,5 @@
 ---
-slug: "/التنزيلات"
+slug: "/downloads"
 sidebar_position: 0
 title: التنزيلات
 ---
