@@ -55,13 +55,13 @@ winget install LinwoodCloud.Butterfly
 Pour améliorer le paquet winget, exécutez :
 
 ```powershell
-aile améliorant LinwoodCloud.Butterfly
+winget upgrade LinwoodCloud.Butterfly
 ```
 
 Pour désinstaller le paquet winget, exécutez :
 
 ```powershell
-winget désinstalle LinwoodCloud.Butterfly
+winget uninstall LinwoodCloud.Butterfly
 ```
 
 ### Version de nuit
@@ -73,7 +73,7 @@ winget install LinwoodCloud.Butterfly.Nightly
 Pour améliorer le paquet winget, exécutez :
 
 ```powershell
-Winget améliore LinwoodCloud.Butterfly.Nightly
+winget upgrade LinwoodCloud.Butterfly.Nightly
 ```
 
 Pour désinstaller le paquet winget, exécutez :
