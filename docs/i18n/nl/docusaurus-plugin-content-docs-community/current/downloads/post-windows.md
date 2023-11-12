@@ -2,7 +2,7 @@
 title: Bedankt voor het downloaden
 hide_title: true
 hide_table_of_contents: true
-slug: "/downloads/post-vensters"
+slug: "/downloads/post-windows"
 ---
 
 <div className="text-center margin-top--xl">
