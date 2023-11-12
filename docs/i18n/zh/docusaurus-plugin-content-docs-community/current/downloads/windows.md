@@ -55,25 +55,25 @@ winget install LinwoodCloud.Butterflight
 要升级winget包，请运行：
 
 ```powershell
-winget 升级 LinwoodCloud.Butterflight
+winget upgrade LinwoodCloud.Butterfly
 ```
 
 要卸载winget包，请运行：
 
 ```powershell
-winget卸载LinwoodCloud.Butterflight
+winget uninstall LinwoodCloud.Butterfly
 ```
 
 ### 每晚版本
 
 ```powershell
-winget install LinwoodCloud.Butterfly.每晚安装
+winget install LinwoodCloud.Butterfly.Nightly
 ```
 
 要升级winget包，请运行：
 
 ```powershell
-winget 升级 LinwoodCloud.Butterfly.Nightly
+winget upgrade LinwoodCloud.Butterfly.Nightly
 ```
 
 要卸载winget包，请运行：
