@@ -2,7 +2,7 @@
 title: 感谢您下载
 hide_title: true
 hide_table_of_contents: true
-slug: "/downloads/postwindows"
+slug: "/downloads/post-windows"
 ---
 
 <div className="text-center margin-top--xl">
