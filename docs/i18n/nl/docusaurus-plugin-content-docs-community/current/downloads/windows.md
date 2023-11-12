@@ -61,19 +61,19 @@ Winget upgrade LinwoodCloud.Vlinder
 Om het vleugelpakket te deïnstalleren, uitvoeren:
 
 ```powershell
-Winget deïnstalleer LinwoodCloud.Butterfly
+winget uninstall LinwoodCloud.Butterfly
 ```
 
 ### Nachtelijke versie
 
 ```powershell
-installeren van LinwoodCloud.Butterfly.Nightly
+winget install LinwoodCloud.Butterfly.Nightly
 ```
 
 Om het vleugelpakket te upgraden, run:
 
 ```powershell
-upgrade Linwinget Cloud.Butterfly.Nachtnacht
+winget upgrade LinwoodCloud.Butterfly.Nightly
 ```
 
 Om het vleugelpakket te deïnstalleren, uitvoeren:
