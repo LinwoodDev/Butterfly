@@ -164,6 +164,7 @@ sealed class Tool with _$Tool {
     @Default('') String name,
     @Default('') String displayIcon,
     @Default(ImportType.document) ImportType importType,
+    @Default(true) bool advanced,
   }) = AssetTool;
 
   factory Tool.texture({

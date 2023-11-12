@@ -7,8 +7,8 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
-import 'delete.dart';
-import 'packs/select.dart';
+import '../delete.dart';
+import 'select.dart';
 
 class ColorPalettePickerDialog extends StatefulWidget {
   final bool viewMode;

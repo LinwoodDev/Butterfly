@@ -125,8 +125,8 @@ mixin _$Tool {
     required TResult Function(String name, String displayIcon, Axis2D axis)
         spacer,
     required TResult Function(String name, String displayIcon) fullSceen,
-    required TResult Function(
-            String name, String displayIcon, ImportType importType)
+    required TResult Function(String name, String displayIcon,
+            ImportType importType, bool advanced)
         asset,
     required TResult Function(
             String name,
@@ -193,7 +193,8 @@ mixin _$Tool {
     TResult? Function(String name, String displayIcon)? presentation,
     TResult? Function(String name, String displayIcon, Axis2D axis)? spacer,
     TResult? Function(String name, String displayIcon)? fullSceen,
-    TResult? Function(String name, String displayIcon, ImportType importType)?
+    TResult? Function(String name, String displayIcon, ImportType importType,
+            bool advanced)?
         asset,
     TResult? Function(
             String name,
@@ -260,7 +261,8 @@ mixin _$Tool {
     TResult Function(String name, String displayIcon)? presentation,
     TResult Function(String name, String displayIcon, Axis2D axis)? spacer,
     TResult Function(String name, String displayIcon)? fullSceen,
-    TResult Function(String name, String displayIcon, ImportType importType)?
+    TResult Function(String name, String displayIcon, ImportType importType,
+            bool advanced)?
         asset,
     TResult Function(
             String name,
@@ -529,8 +531,8 @@ class _$SelectToolImpl extends SelectTool {
     required TResult Function(String name, String displayIcon, Axis2D axis)
         spacer,
     required TResult Function(String name, String displayIcon) fullSceen,
-    required TResult Function(
-            String name, String displayIcon, ImportType importType)
+    required TResult Function(String name, String displayIcon,
+            ImportType importType, bool advanced)
         asset,
     required TResult Function(
             String name,
@@ -600,7 +602,8 @@ class _$SelectToolImpl extends SelectTool {
     TResult? Function(String name, String displayIcon)? presentation,
     TResult? Function(String name, String displayIcon, Axis2D axis)? spacer,
     TResult? Function(String name, String displayIcon)? fullSceen,
-    TResult? Function(String name, String displayIcon, ImportType importType)?
+    TResult? Function(String name, String displayIcon, ImportType importType,
+            bool advanced)?
         asset,
     TResult? Function(
             String name,
@@ -670,7 +673,8 @@ class _$SelectToolImpl extends SelectTool {
     TResult Function(String name, String displayIcon)? presentation,
     TResult Function(String name, String displayIcon, Axis2D axis)? spacer,
     TResult Function(String name, String displayIcon)? fullSceen,
-    TResult Function(String name, String displayIcon, ImportType importType)?
+    TResult Function(String name, String displayIcon, ImportType importType,
+            bool advanced)?
         asset,
     TResult Function(
             String name,
@@ -931,8 +935,8 @@ class _$HandToolImpl extends HandTool {
     required TResult Function(String name, String displayIcon, Axis2D axis)
         spacer,
     required TResult Function(String name, String displayIcon) fullSceen,
-    required TResult Function(
-            String name, String displayIcon, ImportType importType)
+    required TResult Function(String name, String displayIcon,
+            ImportType importType, bool advanced)
         asset,
     required TResult Function(
             String name,
@@ -1002,7 +1006,8 @@ class _$HandToolImpl extends HandTool {
     TResult? Function(String name, String displayIcon)? presentation,
     TResult? Function(String name, String displayIcon, Axis2D axis)? spacer,
     TResult? Function(String name, String displayIcon)? fullSceen,
-    TResult? Function(String name, String displayIcon, ImportType importType)?
+    TResult? Function(String name, String displayIcon, ImportType importType,
+            bool advanced)?
         asset,
     TResult? Function(
             String name,
@@ -1072,7 +1077,8 @@ class _$HandToolImpl extends HandTool {
     TResult Function(String name, String displayIcon)? presentation,
     TResult Function(String name, String displayIcon, Axis2D axis)? spacer,
     TResult Function(String name, String displayIcon)? fullSceen,
-    TResult Function(String name, String displayIcon, ImportType importType)?
+    TResult Function(String name, String displayIcon, ImportType importType,
+            bool advanced)?
         asset,
     TResult Function(
             String name,
@@ -1366,8 +1372,8 @@ class _$ImportToolImpl extends ImportTool {
     required TResult Function(String name, String displayIcon, Axis2D axis)
         spacer,
     required TResult Function(String name, String displayIcon) fullSceen,
-    required TResult Function(
-            String name, String displayIcon, ImportType importType)
+    required TResult Function(String name, String displayIcon,
+            ImportType importType, bool advanced)
         asset,
     required TResult Function(
             String name,
@@ -1437,7 +1443,8 @@ class _$ImportToolImpl extends ImportTool {
     TResult? Function(String name, String displayIcon)? presentation,
     TResult? Function(String name, String displayIcon, Axis2D axis)? spacer,
     TResult? Function(String name, String displayIcon)? fullSceen,
-    TResult? Function(String name, String displayIcon, ImportType importType)?
+    TResult? Function(String name, String displayIcon, ImportType importType,
+            bool advanced)?
         asset,
     TResult? Function(
             String name,
@@ -1507,7 +1514,8 @@ class _$ImportToolImpl extends ImportTool {
     TResult Function(String name, String displayIcon)? presentation,
     TResult Function(String name, String displayIcon, Axis2D axis)? spacer,
     TResult Function(String name, String displayIcon)? fullSceen,
-    TResult Function(String name, String displayIcon, ImportType importType)?
+    TResult Function(String name, String displayIcon, ImportType importType,
+            bool advanced)?
         asset,
     TResult Function(
             String name,
@@ -1770,8 +1778,8 @@ class _$UndoToolImpl extends UndoTool {
     required TResult Function(String name, String displayIcon, Axis2D axis)
         spacer,
     required TResult Function(String name, String displayIcon) fullSceen,
-    required TResult Function(
-            String name, String displayIcon, ImportType importType)
+    required TResult Function(String name, String displayIcon,
+            ImportType importType, bool advanced)
         asset,
     required TResult Function(
             String name,
@@ -1841,7 +1849,8 @@ class _$UndoToolImpl extends UndoTool {
     TResult? Function(String name, String displayIcon)? presentation,
     TResult? Function(String name, String displayIcon, Axis2D axis)? spacer,
     TResult? Function(String name, String displayIcon)? fullSceen,
-    TResult? Function(String name, String displayIcon, ImportType importType)?
+    TResult? Function(String name, String displayIcon, ImportType importType,
+            bool advanced)?
         asset,
     TResult? Function(
             String name,
@@ -1911,7 +1920,8 @@ class _$UndoToolImpl extends UndoTool {
     TResult Function(String name, String displayIcon)? presentation,
     TResult Function(String name, String displayIcon, Axis2D axis)? spacer,
     TResult Function(String name, String displayIcon)? fullSceen,
-    TResult Function(String name, String displayIcon, ImportType importType)?
+    TResult Function(String name, String displayIcon, ImportType importType,
+            bool advanced)?
         asset,
     TResult Function(
             String name,
@@ -2169,8 +2179,8 @@ class _$RedoToolImpl extends RedoTool {
     required TResult Function(String name, String displayIcon, Axis2D axis)
         spacer,
     required TResult Function(String name, String displayIcon) fullSceen,
-    required TResult Function(
-            String name, String displayIcon, ImportType importType)
+    required TResult Function(String name, String displayIcon,
+            ImportType importType, bool advanced)
         asset,
     required TResult Function(
             String name,
@@ -2240,7 +2250,8 @@ class _$RedoToolImpl extends RedoTool {
     TResult? Function(String name, String displayIcon)? presentation,
     TResult? Function(String name, String displayIcon, Axis2D axis)? spacer,
     TResult? Function(String name, String displayIcon)? fullSceen,
-    TResult? Function(String name, String displayIcon, ImportType importType)?
+    TResult? Function(String name, String displayIcon, ImportType importType,
+            bool advanced)?
         asset,
     TResult? Function(
             String name,
@@ -2310,7 +2321,8 @@ class _$RedoToolImpl extends RedoTool {
     TResult Function(String name, String displayIcon)? presentation,
     TResult Function(String name, String displayIcon, Axis2D axis)? spacer,
     TResult Function(String name, String displayIcon)? fullSceen,
-    TResult Function(String name, String displayIcon, ImportType importType)?
+    TResult Function(String name, String displayIcon, ImportType importType,
+            bool advanced)?
         asset,
     TResult Function(
             String name,
@@ -2633,8 +2645,8 @@ class _$LabelToolImpl extends LabelTool {
     required TResult Function(String name, String displayIcon, Axis2D axis)
         spacer,
     required TResult Function(String name, String displayIcon) fullSceen,
-    required TResult Function(
-            String name, String displayIcon, ImportType importType)
+    required TResult Function(String name, String displayIcon,
+            ImportType importType, bool advanced)
         asset,
     required TResult Function(
             String name,
@@ -2705,7 +2717,8 @@ class _$LabelToolImpl extends LabelTool {
     TResult? Function(String name, String displayIcon)? presentation,
     TResult? Function(String name, String displayIcon, Axis2D axis)? spacer,
     TResult? Function(String name, String displayIcon)? fullSceen,
-    TResult? Function(String name, String displayIcon, ImportType importType)?
+    TResult? Function(String name, String displayIcon, ImportType importType,
+            bool advanced)?
         asset,
     TResult? Function(
             String name,
@@ -2776,7 +2789,8 @@ class _$LabelToolImpl extends LabelTool {
     TResult Function(String name, String displayIcon)? presentation,
     TResult Function(String name, String displayIcon, Axis2D axis)? spacer,
     TResult Function(String name, String displayIcon)? fullSceen,
-    TResult Function(String name, String displayIcon, ImportType importType)?
+    TResult Function(String name, String displayIcon, ImportType importType,
+            bool advanced)?
         asset,
     TResult Function(
             String name,
@@ -3071,8 +3085,8 @@ class _$PenToolImpl extends PenTool {
     required TResult Function(String name, String displayIcon, Axis2D axis)
         spacer,
     required TResult Function(String name, String displayIcon) fullSceen,
-    required TResult Function(
-            String name, String displayIcon, ImportType importType)
+    required TResult Function(String name, String displayIcon,
+            ImportType importType, bool advanced)
         asset,
     required TResult Function(
             String name,
@@ -3142,7 +3156,8 @@ class _$PenToolImpl extends PenTool {
     TResult? Function(String name, String displayIcon)? presentation,
     TResult? Function(String name, String displayIcon, Axis2D axis)? spacer,
     TResult? Function(String name, String displayIcon)? fullSceen,
-    TResult? Function(String name, String displayIcon, ImportType importType)?
+    TResult? Function(String name, String displayIcon, ImportType importType,
+            bool advanced)?
         asset,
     TResult? Function(
             String name,
@@ -3212,7 +3227,8 @@ class _$PenToolImpl extends PenTool {
     TResult Function(String name, String displayIcon)? presentation,
     TResult Function(String name, String displayIcon, Axis2D axis)? spacer,
     TResult Function(String name, String displayIcon)? fullSceen,
-    TResult Function(String name, String displayIcon, ImportType importType)?
+    TResult Function(String name, String displayIcon, ImportType importType,
+            bool advanced)?
         asset,
     TResult Function(
             String name,
@@ -3486,8 +3502,8 @@ class _$EraserToolImpl extends EraserTool {
     required TResult Function(String name, String displayIcon, Axis2D axis)
         spacer,
     required TResult Function(String name, String displayIcon) fullSceen,
-    required TResult Function(
-            String name, String displayIcon, ImportType importType)
+    required TResult Function(String name, String displayIcon,
+            ImportType importType, bool advanced)
         asset,
     required TResult Function(
             String name,
@@ -3557,7 +3573,8 @@ class _$EraserToolImpl extends EraserTool {
     TResult? Function(String name, String displayIcon)? presentation,
     TResult? Function(String name, String displayIcon, Axis2D axis)? spacer,
     TResult? Function(String name, String displayIcon)? fullSceen,
-    TResult? Function(String name, String displayIcon, ImportType importType)?
+    TResult? Function(String name, String displayIcon, ImportType importType,
+            bool advanced)?
         asset,
     TResult? Function(
             String name,
@@ -3627,7 +3644,8 @@ class _$EraserToolImpl extends EraserTool {
     TResult Function(String name, String displayIcon)? presentation,
     TResult Function(String name, String displayIcon, Axis2D axis)? spacer,
     TResult Function(String name, String displayIcon)? fullSceen,
-    TResult Function(String name, String displayIcon, ImportType importType)?
+    TResult Function(String name, String displayIcon, ImportType importType,
+            bool advanced)?
         asset,
     TResult Function(
             String name,
@@ -3902,8 +3920,8 @@ class _$PathEraserToolImpl extends PathEraserTool {
     required TResult Function(String name, String displayIcon, Axis2D axis)
         spacer,
     required TResult Function(String name, String displayIcon) fullSceen,
-    required TResult Function(
-            String name, String displayIcon, ImportType importType)
+    required TResult Function(String name, String displayIcon,
+            ImportType importType, bool advanced)
         asset,
     required TResult Function(
             String name,
@@ -3973,7 +3991,8 @@ class _$PathEraserToolImpl extends PathEraserTool {
     TResult? Function(String name, String displayIcon)? presentation,
     TResult? Function(String name, String displayIcon, Axis2D axis)? spacer,
     TResult? Function(String name, String displayIcon)? fullSceen,
-    TResult? Function(String name, String displayIcon, ImportType importType)?
+    TResult? Function(String name, String displayIcon, ImportType importType,
+            bool advanced)?
         asset,
     TResult? Function(
             String name,
@@ -4043,7 +4062,8 @@ class _$PathEraserToolImpl extends PathEraserTool {
     TResult Function(String name, String displayIcon)? presentation,
     TResult Function(String name, String displayIcon, Axis2D axis)? spacer,
     TResult Function(String name, String displayIcon)? fullSceen,
-    TResult Function(String name, String displayIcon, ImportType importType)?
+    TResult Function(String name, String displayIcon, ImportType importType,
+            bool advanced)?
         asset,
     TResult Function(
             String name,
@@ -4316,8 +4336,8 @@ class _$LayerToolImpl extends LayerTool {
     required TResult Function(String name, String displayIcon, Axis2D axis)
         spacer,
     required TResult Function(String name, String displayIcon) fullSceen,
-    required TResult Function(
-            String name, String displayIcon, ImportType importType)
+    required TResult Function(String name, String displayIcon,
+            ImportType importType, bool advanced)
         asset,
     required TResult Function(
             String name,
@@ -4387,7 +4407,8 @@ class _$LayerToolImpl extends LayerTool {
     TResult? Function(String name, String displayIcon)? presentation,
     TResult? Function(String name, String displayIcon, Axis2D axis)? spacer,
     TResult? Function(String name, String displayIcon)? fullSceen,
-    TResult? Function(String name, String displayIcon, ImportType importType)?
+    TResult? Function(String name, String displayIcon, ImportType importType,
+            bool advanced)?
         asset,
     TResult? Function(
             String name,
@@ -4457,7 +4478,8 @@ class _$LayerToolImpl extends LayerTool {
     TResult Function(String name, String displayIcon)? presentation,
     TResult Function(String name, String displayIcon, Axis2D axis)? spacer,
     TResult Function(String name, String displayIcon)? fullSceen,
-    TResult Function(String name, String displayIcon, ImportType importType)?
+    TResult Function(String name, String displayIcon, ImportType importType,
+            bool advanced)?
         asset,
     TResult Function(
             String name,
@@ -4763,8 +4785,8 @@ class _$AreaToolImpl extends AreaTool {
     required TResult Function(String name, String displayIcon, Axis2D axis)
         spacer,
     required TResult Function(String name, String displayIcon) fullSceen,
-    required TResult Function(
-            String name, String displayIcon, ImportType importType)
+    required TResult Function(String name, String displayIcon,
+            ImportType importType, bool advanced)
         asset,
     required TResult Function(
             String name,
@@ -4835,7 +4857,8 @@ class _$AreaToolImpl extends AreaTool {
     TResult? Function(String name, String displayIcon)? presentation,
     TResult? Function(String name, String displayIcon, Axis2D axis)? spacer,
     TResult? Function(String name, String displayIcon)? fullSceen,
-    TResult? Function(String name, String displayIcon, ImportType importType)?
+    TResult? Function(String name, String displayIcon, ImportType importType,
+            bool advanced)?
         asset,
     TResult? Function(
             String name,
@@ -4906,7 +4929,8 @@ class _$AreaToolImpl extends AreaTool {
     TResult Function(String name, String displayIcon)? presentation,
     TResult Function(String name, String displayIcon, Axis2D axis)? spacer,
     TResult Function(String name, String displayIcon)? fullSceen,
-    TResult Function(String name, String displayIcon, ImportType importType)?
+    TResult Function(String name, String displayIcon, ImportType importType,
+            bool advanced)?
         asset,
     TResult Function(
             String name,
@@ -5219,8 +5243,8 @@ class _$LaserToolImpl extends LaserTool {
     required TResult Function(String name, String displayIcon, Axis2D axis)
         spacer,
     required TResult Function(String name, String displayIcon) fullSceen,
-    required TResult Function(
-            String name, String displayIcon, ImportType importType)
+    required TResult Function(String name, String displayIcon,
+            ImportType importType, bool advanced)
         asset,
     required TResult Function(
             String name,
@@ -5290,7 +5314,8 @@ class _$LaserToolImpl extends LaserTool {
     TResult? Function(String name, String displayIcon)? presentation,
     TResult? Function(String name, String displayIcon, Axis2D axis)? spacer,
     TResult? Function(String name, String displayIcon)? fullSceen,
-    TResult? Function(String name, String displayIcon, ImportType importType)?
+    TResult? Function(String name, String displayIcon, ImportType importType,
+            bool advanced)?
         asset,
     TResult? Function(
             String name,
@@ -5361,7 +5386,8 @@ class _$LaserToolImpl extends LaserTool {
     TResult Function(String name, String displayIcon)? presentation,
     TResult Function(String name, String displayIcon, Axis2D axis)? spacer,
     TResult Function(String name, String displayIcon)? fullSceen,
-    TResult Function(String name, String displayIcon, ImportType importType)?
+    TResult Function(String name, String displayIcon, ImportType importType,
+            bool advanced)?
         asset,
     TResult Function(
             String name,
@@ -5683,8 +5709,8 @@ class _$ShapeToolImpl extends ShapeTool {
     required TResult Function(String name, String displayIcon, Axis2D axis)
         spacer,
     required TResult Function(String name, String displayIcon) fullSceen,
-    required TResult Function(
-            String name, String displayIcon, ImportType importType)
+    required TResult Function(String name, String displayIcon,
+            ImportType importType, bool advanced)
         asset,
     required TResult Function(
             String name,
@@ -5755,7 +5781,8 @@ class _$ShapeToolImpl extends ShapeTool {
     TResult? Function(String name, String displayIcon)? presentation,
     TResult? Function(String name, String displayIcon, Axis2D axis)? spacer,
     TResult? Function(String name, String displayIcon)? fullSceen,
-    TResult? Function(String name, String displayIcon, ImportType importType)?
+    TResult? Function(String name, String displayIcon, ImportType importType,
+            bool advanced)?
         asset,
     TResult? Function(
             String name,
@@ -5826,7 +5853,8 @@ class _$ShapeToolImpl extends ShapeTool {
     TResult Function(String name, String displayIcon)? presentation,
     TResult Function(String name, String displayIcon, Axis2D axis)? spacer,
     TResult Function(String name, String displayIcon)? fullSceen,
-    TResult Function(String name, String displayIcon, ImportType importType)?
+    TResult Function(String name, String displayIcon, ImportType importType,
+            bool advanced)?
         asset,
     TResult Function(
             String name,
@@ -6118,8 +6146,8 @@ class _$StampToolImpl extends StampTool {
     required TResult Function(String name, String displayIcon, Axis2D axis)
         spacer,
     required TResult Function(String name, String displayIcon) fullSceen,
-    required TResult Function(
-            String name, String displayIcon, ImportType importType)
+    required TResult Function(String name, String displayIcon,
+            ImportType importType, bool advanced)
         asset,
     required TResult Function(
             String name,
@@ -6189,7 +6217,8 @@ class _$StampToolImpl extends StampTool {
     TResult? Function(String name, String displayIcon)? presentation,
     TResult? Function(String name, String displayIcon, Axis2D axis)? spacer,
     TResult? Function(String name, String displayIcon)? fullSceen,
-    TResult? Function(String name, String displayIcon, ImportType importType)?
+    TResult? Function(String name, String displayIcon, ImportType importType,
+            bool advanced)?
         asset,
     TResult? Function(
             String name,
@@ -6259,7 +6288,8 @@ class _$StampToolImpl extends StampTool {
     TResult Function(String name, String displayIcon)? presentation,
     TResult Function(String name, String displayIcon, Axis2D axis)? spacer,
     TResult Function(String name, String displayIcon)? fullSceen,
-    TResult Function(String name, String displayIcon, ImportType importType)?
+    TResult Function(String name, String displayIcon, ImportType importType,
+            bool advanced)?
         asset,
     TResult Function(
             String name,
@@ -6523,8 +6553,8 @@ class _$PresentationToolImpl extends PresentationTool {
     required TResult Function(String name, String displayIcon, Axis2D axis)
         spacer,
     required TResult Function(String name, String displayIcon) fullSceen,
-    required TResult Function(
-            String name, String displayIcon, ImportType importType)
+    required TResult Function(String name, String displayIcon,
+            ImportType importType, bool advanced)
         asset,
     required TResult Function(
             String name,
@@ -6594,7 +6624,8 @@ class _$PresentationToolImpl extends PresentationTool {
     TResult? Function(String name, String displayIcon)? presentation,
     TResult? Function(String name, String displayIcon, Axis2D axis)? spacer,
     TResult? Function(String name, String displayIcon)? fullSceen,
-    TResult? Function(String name, String displayIcon, ImportType importType)?
+    TResult? Function(String name, String displayIcon, ImportType importType,
+            bool advanced)?
         asset,
     TResult? Function(
             String name,
@@ -6664,7 +6695,8 @@ class _$PresentationToolImpl extends PresentationTool {
     TResult Function(String name, String displayIcon)? presentation,
     TResult Function(String name, String displayIcon, Axis2D axis)? spacer,
     TResult Function(String name, String displayIcon)? fullSceen,
-    TResult Function(String name, String displayIcon, ImportType importType)?
+    TResult Function(String name, String displayIcon, ImportType importType,
+            bool advanced)?
         asset,
     TResult Function(
             String name,
@@ -6934,8 +6966,8 @@ class _$SpacerToolImpl extends SpacerTool {
     required TResult Function(String name, String displayIcon, Axis2D axis)
         spacer,
     required TResult Function(String name, String displayIcon) fullSceen,
-    required TResult Function(
-            String name, String displayIcon, ImportType importType)
+    required TResult Function(String name, String displayIcon,
+            ImportType importType, bool advanced)
         asset,
     required TResult Function(
             String name,
@@ -7005,7 +7037,8 @@ class _$SpacerToolImpl extends SpacerTool {
     TResult? Function(String name, String displayIcon)? presentation,
     TResult? Function(String name, String displayIcon, Axis2D axis)? spacer,
     TResult? Function(String name, String displayIcon)? fullSceen,
-    TResult? Function(String name, String displayIcon, ImportType importType)?
+    TResult? Function(String name, String displayIcon, ImportType importType,
+            bool advanced)?
         asset,
     TResult? Function(
             String name,
@@ -7075,7 +7108,8 @@ class _$SpacerToolImpl extends SpacerTool {
     TResult Function(String name, String displayIcon)? presentation,
     TResult Function(String name, String displayIcon, Axis2D axis)? spacer,
     TResult Function(String name, String displayIcon)? fullSceen,
-    TResult Function(String name, String displayIcon, ImportType importType)?
+    TResult Function(String name, String displayIcon, ImportType importType,
+            bool advanced)?
         asset,
     TResult Function(
             String name,
@@ -7339,8 +7373,8 @@ class _$FullScreenToolImpl extends FullScreenTool {
     required TResult Function(String name, String displayIcon, Axis2D axis)
         spacer,
     required TResult Function(String name, String displayIcon) fullSceen,
-    required TResult Function(
-            String name, String displayIcon, ImportType importType)
+    required TResult Function(String name, String displayIcon,
+            ImportType importType, bool advanced)
         asset,
     required TResult Function(
             String name,
@@ -7410,7 +7444,8 @@ class _$FullScreenToolImpl extends FullScreenTool {
     TResult? Function(String name, String displayIcon)? presentation,
     TResult? Function(String name, String displayIcon, Axis2D axis)? spacer,
     TResult? Function(String name, String displayIcon)? fullSceen,
-    TResult? Function(String name, String displayIcon, ImportType importType)?
+    TResult? Function(String name, String displayIcon, ImportType importType,
+            bool advanced)?
         asset,
     TResult? Function(
             String name,
@@ -7480,7 +7515,8 @@ class _$FullScreenToolImpl extends FullScreenTool {
     TResult Function(String name, String displayIcon)? presentation,
     TResult Function(String name, String displayIcon, Axis2D axis)? spacer,
     TResult Function(String name, String displayIcon)? fullSceen,
-    TResult Function(String name, String displayIcon, ImportType importType)?
+    TResult Function(String name, String displayIcon, ImportType importType,
+            bool advanced)?
         asset,
     TResult Function(
             String name,
@@ -7618,7 +7654,8 @@ abstract class _$$AssetToolImplCopyWith<$Res> implements $ToolCopyWith<$Res> {
       __$$AssetToolImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String name, String displayIcon, ImportType importType});
+  $Res call(
+      {String name, String displayIcon, ImportType importType, bool advanced});
 }
 
 /// @nodoc
@@ -7635,6 +7672,7 @@ class __$$AssetToolImplCopyWithImpl<$Res>
     Object? name = null,
     Object? displayIcon = null,
     Object? importType = null,
+    Object? advanced = null,
   }) {
     return _then(_$AssetToolImpl(
       name: null == name
@@ -7649,6 +7687,10 @@ class __$$AssetToolImplCopyWithImpl<$Res>
           ? _value.importType
           : importType // ignore: cast_nullable_to_non_nullable
               as ImportType,
+      advanced: null == advanced
+          ? _value.advanced
+          : advanced // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -7660,6 +7702,7 @@ class _$AssetToolImpl extends AssetTool {
       {this.name = '',
       this.displayIcon = '',
       this.importType = ImportType.document,
+      this.advanced = true,
       final String? $type})
       : $type = $type ?? 'asset',
         super._();
@@ -7676,13 +7719,16 @@ class _$AssetToolImpl extends AssetTool {
   @override
   @JsonKey()
   final ImportType importType;
+  @override
+  @JsonKey()
+  final bool advanced;
 
   @JsonKey(name: 'type')
   final String $type;
 
   @override
   String toString() {
-    return 'Tool.asset(name: $name, displayIcon: $displayIcon, importType: $importType)';
+    return 'Tool.asset(name: $name, displayIcon: $displayIcon, importType: $importType, advanced: $advanced)';
   }
 
   @JsonKey(ignore: true)
@@ -7750,8 +7796,8 @@ class _$AssetToolImpl extends AssetTool {
     required TResult Function(String name, String displayIcon, Axis2D axis)
         spacer,
     required TResult Function(String name, String displayIcon) fullSceen,
-    required TResult Function(
-            String name, String displayIcon, ImportType importType)
+    required TResult Function(String name, String displayIcon,
+            ImportType importType, bool advanced)
         asset,
     required TResult Function(
             String name,
@@ -7764,7 +7810,7 @@ class _$AssetToolImpl extends AssetTool {
         texture,
     required TResult Function(String name, String displayIcon) eyeDropper,
   }) {
-    return asset(name, displayIcon, importType);
+    return asset(name, displayIcon, importType, advanced);
   }
 
   @override
@@ -7821,7 +7867,8 @@ class _$AssetToolImpl extends AssetTool {
     TResult? Function(String name, String displayIcon)? presentation,
     TResult? Function(String name, String displayIcon, Axis2D axis)? spacer,
     TResult? Function(String name, String displayIcon)? fullSceen,
-    TResult? Function(String name, String displayIcon, ImportType importType)?
+    TResult? Function(String name, String displayIcon, ImportType importType,
+            bool advanced)?
         asset,
     TResult? Function(
             String name,
@@ -7834,7 +7881,7 @@ class _$AssetToolImpl extends AssetTool {
         texture,
     TResult? Function(String name, String displayIcon)? eyeDropper,
   }) {
-    return asset?.call(name, displayIcon, importType);
+    return asset?.call(name, displayIcon, importType, advanced);
   }
 
   @override
@@ -7891,7 +7938,8 @@ class _$AssetToolImpl extends AssetTool {
     TResult Function(String name, String displayIcon)? presentation,
     TResult Function(String name, String displayIcon, Axis2D axis)? spacer,
     TResult Function(String name, String displayIcon)? fullSceen,
-    TResult Function(String name, String displayIcon, ImportType importType)?
+    TResult Function(String name, String displayIcon, ImportType importType,
+            bool advanced)?
         asset,
     TResult Function(
             String name,
@@ -7906,7 +7954,7 @@ class _$AssetToolImpl extends AssetTool {
     required TResult orElse(),
   }) {
     if (asset != null) {
-      return asset(name, displayIcon, importType);
+      return asset(name, displayIcon, importType, advanced);
     }
     return orElse();
   }
@@ -8008,7 +8056,8 @@ abstract class AssetTool extends Tool {
   factory AssetTool(
       {final String name,
       final String displayIcon,
-      final ImportType importType}) = _$AssetToolImpl;
+      final ImportType importType,
+      final bool advanced}) = _$AssetToolImpl;
   AssetTool._() : super._();
 
   factory AssetTool.fromJson(Map<String, dynamic> json) =
@@ -8019,6 +8068,7 @@ abstract class AssetTool extends Tool {
   @override
   String get displayIcon;
   ImportType get importType;
+  bool get advanced;
   @override
   @JsonKey(ignore: true)
   _$$AssetToolImplCopyWith<_$AssetToolImpl> get copyWith =>
@@ -8217,8 +8267,8 @@ class _$TextureToolImpl extends TextureTool {
     required TResult Function(String name, String displayIcon, Axis2D axis)
         spacer,
     required TResult Function(String name, String displayIcon) fullSceen,
-    required TResult Function(
-            String name, String displayIcon, ImportType importType)
+    required TResult Function(String name, String displayIcon,
+            ImportType importType, bool advanced)
         asset,
     required TResult Function(
             String name,
@@ -8289,7 +8339,8 @@ class _$TextureToolImpl extends TextureTool {
     TResult? Function(String name, String displayIcon)? presentation,
     TResult? Function(String name, String displayIcon, Axis2D axis)? spacer,
     TResult? Function(String name, String displayIcon)? fullSceen,
-    TResult? Function(String name, String displayIcon, ImportType importType)?
+    TResult? Function(String name, String displayIcon, ImportType importType,
+            bool advanced)?
         asset,
     TResult? Function(
             String name,
@@ -8360,7 +8411,8 @@ class _$TextureToolImpl extends TextureTool {
     TResult Function(String name, String displayIcon)? presentation,
     TResult Function(String name, String displayIcon, Axis2D axis)? spacer,
     TResult Function(String name, String displayIcon)? fullSceen,
-    TResult Function(String name, String displayIcon, ImportType importType)?
+    TResult Function(String name, String displayIcon, ImportType importType,
+            bool advanced)?
         asset,
     TResult Function(
             String name,
@@ -8633,8 +8685,8 @@ class _$EyeDropperToolImpl extends EyeDropperTool {
     required TResult Function(String name, String displayIcon, Axis2D axis)
         spacer,
     required TResult Function(String name, String displayIcon) fullSceen,
-    required TResult Function(
-            String name, String displayIcon, ImportType importType)
+    required TResult Function(String name, String displayIcon,
+            ImportType importType, bool advanced)
         asset,
     required TResult Function(
             String name,
@@ -8704,7 +8756,8 @@ class _$EyeDropperToolImpl extends EyeDropperTool {
     TResult? Function(String name, String displayIcon)? presentation,
     TResult? Function(String name, String displayIcon, Axis2D axis)? spacer,
     TResult? Function(String name, String displayIcon)? fullSceen,
-    TResult? Function(String name, String displayIcon, ImportType importType)?
+    TResult? Function(String name, String displayIcon, ImportType importType,
+            bool advanced)?
         asset,
     TResult? Function(
             String name,
@@ -8774,7 +8827,8 @@ class _$EyeDropperToolImpl extends EyeDropperTool {
     TResult Function(String name, String displayIcon)? presentation,
     TResult Function(String name, String displayIcon, Axis2D axis)? spacer,
     TResult Function(String name, String displayIcon)? fullSceen,
-    TResult Function(String name, String displayIcon, ImportType importType)?
+    TResult Function(String name, String displayIcon, ImportType importType,
+            bool advanced)?
         asset,
     TResult Function(
             String name,

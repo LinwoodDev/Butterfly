@@ -3,7 +3,7 @@ import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../dialogs/pdf_export.dart';
+import '../dialogs/export/pdf.dart';
 
 class PdfExportIntent extends Intent {
   final BuildContext context;

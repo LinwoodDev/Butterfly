@@ -37,7 +37,7 @@ import '../actions/select.dart';
 import '../api/open.dart';
 import '../api/save_data.dart';
 import '../cubits/current_index.dart';
-import '../dialogs/camera.dart';
+import '../dialogs/import/camera.dart';
 import '../dialogs/name.dart';
 import '../helpers/num_helper.dart';
 import '../models/label.dart';

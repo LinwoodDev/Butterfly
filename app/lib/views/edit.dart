@@ -1,6 +1,6 @@
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/cubits/current_index.dart';
-import 'package:butterfly/dialogs/add.dart';
+import 'package:butterfly/dialogs/import/add.dart';
 import 'package:butterfly/services/import.dart';
 import 'package:butterfly/visualizer/tool.dart';
 import 'package:butterfly/widgets/option_button.dart';

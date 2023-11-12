@@ -15,7 +15,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../api/full_screen.dart';
 import '../../../bloc/document_bloc.dart';
-import '../../../dialogs/pdf_export.dart';
+import '../../../dialogs/export/pdf.dart';
 import '../../../handlers/handler.dart';
 import 'timeline.dart';
 

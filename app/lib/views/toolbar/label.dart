@@ -1,6 +1,6 @@
 import 'dart:math';
 
-import 'package:butterfly/dialogs/color_pick.dart';
+import 'package:butterfly/dialogs/packs/color_pick.dart';
 import 'package:butterfly/visualizer/element.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:butterfly_api/butterfly_text.dart' as text;

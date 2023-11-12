@@ -331,6 +331,7 @@ _$AssetToolImpl _$$AssetToolImplFromJson(Map json) => _$AssetToolImpl(
       importType:
           $enumDecodeNullable(_$ImportTypeEnumMap, json['importType']) ??
               ImportType.document,
+      advanced: json['advanced'] as bool? ?? true,
       $type: json['type'] as String?,
     );
 
@@ -339,6 +340,7 @@ Map<String, dynamic> _$$AssetToolImplToJson(_$AssetToolImpl instance) =>
       'name': instance.name,
       'displayIcon': instance.displayIcon,
       'importType': _$ImportTypeEnumMap[instance.importType]!,
+      'advanced': instance.advanced,
       'type': instance.$type,
     };
 

@@ -6,7 +6,8 @@ import 'dart:ui' as ui;
 
 import 'package:butterfly/api/file_system/file_system.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
-import 'package:butterfly/dialogs/confirmation.dart';
+import 'package:butterfly/dialogs/import/confirmation.dart';
+import 'package:butterfly/dialogs/import/note.dart';
 import 'package:butterfly/helpers/color_helper.dart';
 import 'package:butterfly/helpers/offset_helper.dart';
 import 'package:butterfly/models/defaults.dart';
@@ -24,10 +25,10 @@ import '../api/save_data.dart';
 import '../cubits/current_index.dart';
 import '../cubits/settings.dart';
 import '../dialogs/error.dart';
-import '../dialogs/image_export.dart';
-import '../dialogs/pages.dart';
-import '../dialogs/pdf_export.dart';
-import '../dialogs/svg_export.dart';
+import '../dialogs/export/image.dart';
+import '../dialogs/import/pages.dart';
+import '../dialogs/export/pdf.dart';
+import '../dialogs/export/svg.dart';
 
 class ImportService {
   final DocumentBloc? bloc;
@@ -87,25 +88,28 @@ class ImportService {
 
   Future<NoteData?> import(
           AssetFileType type, Uint8List bytes, NoteData document,
-          {Offset? position}) async =>
+          {Offset? position, bool advanced = true}) async =>
       switch (type) {
-        AssetFileType.note => importBfly(bytes, document, position),
-        AssetFileType.image => importImage(bytes, document, position),
-        AssetFileType.svg => importSvg(bytes, document, position),
-        AssetFileType.markdown => importMarkdown(bytes, document, position),
-        AssetFileType.pdf => importPdf(bytes, document, position, true),
-        AssetFileType.page => importPage(bytes, document, position),
+        AssetFileType.note => importBfly(bytes,
+            document: document, position: position, advanced: advanced),
+        AssetFileType.image => importImage(bytes, document, position: position),
+        AssetFileType.svg => importSvg(bytes, document, position: position),
+        AssetFileType.markdown =>
+          importMarkdown(bytes, document, position: position),
+        AssetFileType.pdf => importPdf(bytes, document,
+            position: position, createAreas: true, advanced: advanced),
+        AssetFileType.page => importPage(bytes, document, position: position),
       };
 
   FutureOr<NoteData?> importBfly(Uint8List bytes,
-      [NoteData? document, Offset? position]) async {
+      {NoteData? document, Offset? position, bool advanced = true}) async {
     try {
       document ??= DocumentDefaults.createDocument();
       final data = NoteData.fromData(bytes);
       final type = data.getMetadata()?.type;
       switch (type) {
         case NoteFileType.document:
-          return _importDocument(data, document, position);
+          return _importDocument(data, document, advanced: advanced);
         case NoteFileType.template:
           await _importTemplate(data);
           break;
@@ -129,22 +133,31 @@ class ImportService {
     return null;
   }
 
-  NoteData? _importDocument(NoteData data, NoteData document,
-      [Offset? position]) {
-    if (position == null) {
-      return data;
+  Future<NoteData>? _importDocument(NoteData data, NoteData document,
+      {bool advanced = true}) async {
+    var pages = data.getPages();
+    var packs = data.getPacks().toList();
+    if (advanced) {
+      final callback = await showDialog<NoteDialogCallback>(
+          context: context,
+          builder: (context) => NoteImportDialog(
+                pages: pages,
+                packs: packs,
+              ));
+      if (callback == null) return document;
+      pages = callback.pages;
+      packs = callback.packs;
     }
-    for (final page in data.getPages().map((e) => data.getPage(e))) {
+    for (final page in pages.map((e) => data.getPage(e))) {
       document = document.addPage(page).$1;
     }
-    for (final packs
-        in data.getPacks().map((e) => data.getPack(e)).whereNotNull()) {
+    for (final packs in packs.map((e) => data.getPack(e)).whereNotNull()) {
       document = document.setPack(packs);
     }
     return document;
   }
 
-  NoteData? importPage(Uint8List bytes, NoteData document, [Offset? position]) {
+  NoteData? importPage(Uint8List bytes, NoteData document, {Offset? position}) {
     try {
       final page = DocumentPage.fromJson(json.decode(utf8.decode(bytes)));
       return _importPage(page, document, position);
@@ -207,7 +220,7 @@ class ImportService {
   }
 
   Future<NoteData?> importImage(Uint8List bytes, NoteData document,
-      [Offset? position]) async {
+      {Offset? position}) async {
     try {
       final screen = MediaQuery.of(context).size;
       final firstPos = position ?? Offset.zero;
@@ -253,7 +266,7 @@ class ImportService {
   }
 
   Future<NoteData?> importSvg(Uint8List bytes, NoteData document,
-      [Offset? position]) async {
+      {Offset? position}) async {
     try {
       final screen = MediaQuery.of(context).size;
       final firstPos = position ?? Offset.zero;
@@ -315,7 +328,7 @@ class ImportService {
   }
 
   Future<NoteData?> importMarkdown(Uint8List bytes, NoteData document,
-      [Offset? position]) async {
+      {Offset? position}) async {
     try {
       final firstPos = position ?? Offset.zero;
       final contentString = String.fromCharCodes(bytes);
@@ -346,7 +359,9 @@ class ImportService {
   }
 
   Future<NoteData?> importPdf(Uint8List bytes, NoteData document,
-      [Offset? position, bool createAreas = false]) async {
+      {Offset? position,
+      bool createAreas = false,
+      bool advanced = true}) async {
     try {
       final firstPos = position ?? Offset.zero;
       final elements = <Uint8List>[];
@@ -356,18 +371,23 @@ class ImportService {
         elements.add(png);
       }
       if (context.mounted) {
-        final callback = await showDialog<PageDialogCallback>(
-            context: context,
-            builder: (context) => PagesDialog(pages: elements));
-        if (callback == null) return document;
+        List<int> pages = List.generate(elements.length, (index) => index);
+        double quality = context.read<SettingsCubit>().state.pdfQuality;
+        if (advanced) {
+          final callback = await showDialog<PageDialogCallback>(
+              context: context,
+              builder: (context) => PagesDialog(pages: elements));
+          if (callback == null) return document;
+          pages = callback.pages;
+          quality = callback.quality;
+        }
         final selectedElements = <ImageElement>[];
         final areas = <Area>[];
         var y = firstPos.dx;
         await for (var page in Printing.raster(bytes,
-            pages: callback.pages,
-            dpi: PdfPageFormat.inch * callback.quality)) {
+            pages: pages, dpi: PdfPageFormat.inch * quality)) {
           final png = await page.toPng();
-          final scale = 1 / callback.quality;
+          final scale = 1 / quality;
           final height = page.height;
           final width = page.width;
           final dataPath = Uri.dataFromBytes(png).toString();

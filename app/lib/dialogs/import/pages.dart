@@ -17,23 +17,23 @@ class PageDialogCallback {
 
 class PagesDialog extends StatefulWidget {
   final List<Uint8List> pages;
-  const PagesDialog({super.key, this.pages = const []});
+  const PagesDialog({super.key, required this.pages});
 
   @override
   State<PagesDialog> createState() => _PagesDialogState();
 }
 
 class _PagesDialogState extends State<PagesDialog> {
-  List<int> selected = const [];
-  double quality = 2.0;
-  double defaultQuality = 2.0;
+  List<int> _selected = const [];
+  double _quality = 2.0;
+  double _defaultQuality = 2.0;
 
   @override
   void initState() {
     super.initState();
-    selected = List.generate(widget.pages.length, (i) => i);
-    defaultQuality = context.read<SettingsCubit>().state.pdfQuality;
-    quality = defaultQuality;
+    _selected = List.generate(widget.pages.length, (i) => i);
+    _defaultQuality = context.read<SettingsCubit>().state.pdfQuality;
+    _quality = _defaultQuality;
   }
 
   @override
@@ -46,7 +46,7 @@ class _PagesDialogState extends State<PagesDialog> {
         children: [
           Header(
             title:
-                Text(AppLocalizations.of(context).countPages(selected.length)),
+                Text(AppLocalizations.of(context).countPages(_selected.length)),
             actions: [
               IconButton(
                   tooltip: AppLocalizations.of(context).invertSelection,
@@ -54,9 +54,9 @@ class _PagesDialogState extends State<PagesDialog> {
                   onPressed: () {
                     setState(() {
                       // Remove all selected pages and add all other pages.
-                      selected = List.generate(widget.pages.length, (i) => i)
+                      _selected = List.generate(widget.pages.length, (i) => i)
                           .toSet()
-                          .difference(selected.toSet())
+                          .difference(_selected.toSet())
                           .toList();
                     });
                   }),
@@ -71,7 +71,7 @@ class _PagesDialogState extends State<PagesDialog> {
                 itemCount: widget.pages.length,
                 itemBuilder: (context, index) {
                   // Show border for selected pages
-                  final border = selected.contains(index)
+                  final border = _selected.contains(index)
                       ? Border.all(
                           width: 4,
                           color: Theme.of(context).primaryColor,
@@ -80,9 +80,9 @@ class _PagesDialogState extends State<PagesDialog> {
                   return InkWell(
                     onTap: () {
                       setState(() {
-                        selected = selected.contains(index)
-                            ? selected.where((e) => e != index).toList()
-                            : [...selected, index];
+                        _selected = _selected.contains(index)
+                            ? _selected.where((e) => e != index).toList()
+                            : [..._selected, index];
                       });
                     },
                     child: Container(
@@ -96,9 +96,9 @@ class _PagesDialogState extends State<PagesDialog> {
             ),
           )),
           ExactSlider(
-            onChanged: (value) => setState(() => quality = value),
-            defaultValue: defaultQuality,
-            value: quality,
+            onChanged: (value) => setState(() => _quality = value),
+            defaultValue: _defaultQuality,
+            value: _quality,
             max: 10,
             min: 0.5,
             label: AppLocalizations.of(context).quality,
@@ -115,7 +115,7 @@ class _PagesDialogState extends State<PagesDialog> {
                 ElevatedButton(
                   child: Text(AppLocalizations.of(context).ok),
                   onPressed: () => Navigator.of(context)
-                      .pop(PageDialogCallback(selected, quality)),
+                      .pop(PageDialogCallback(_selected, _quality)),
                 ),
               ],
             ),

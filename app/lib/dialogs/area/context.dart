@@ -1,7 +1,7 @@
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/dialogs/name.dart';
-import 'package:butterfly/dialogs/svg_export.dart';
+import 'package:butterfly/dialogs/export/svg.dart';
 import 'package:butterfly/helpers/point_helper.dart';
 import 'package:butterfly/helpers/rect_helper.dart';
 import 'package:butterfly/widgets/context_menu.dart';
@@ -12,9 +12,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
-import '../image_export.dart';
+import '../export/image.dart';
 import '../packs/asset.dart';
-import '../pdf_export.dart';
+import '../export/pdf.dart';
 
 ContextMenuBuilder buildAreaContextMenu(DocumentBloc bloc,
         DocumentLoadSuccess state, Area area, SettingsCubit settingsCubit) =>
