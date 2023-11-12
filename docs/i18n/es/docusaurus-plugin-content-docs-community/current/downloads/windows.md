@@ -55,7 +55,7 @@ winget install LinwoodCloud.Butterfly
 Para actualizar el paquete winget, ejecute:
 
 ```powershell
-winget actualiza LinwoodCloud.Butterfly
+winget upgrade LinwoodCloud.Butterfly
 ```
 
 Para desinstalar el paquete winget, ejecute:
