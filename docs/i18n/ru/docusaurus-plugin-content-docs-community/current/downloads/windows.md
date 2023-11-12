@@ -79,5 +79,5 @@ winget upgrade LinwoodCloud.Butterfly.Nightly
 Чтобы удалить пакет winget, запустите:
 
 ```powershell
-winget удалите LinwoodCloud.Butterfly.Ночью
+winget uninstall LinwoodCloud.Butterfly.Nightly
 ```
