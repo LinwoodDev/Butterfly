@@ -1,5 +1,5 @@
 ---
-slug: "/descărcări"
+slug: "/downloads"
 sidebar_position: 0
 title: Descărcări
 ---
