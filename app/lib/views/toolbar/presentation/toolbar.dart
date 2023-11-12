@@ -4,7 +4,7 @@ import 'package:butterfly/cubits/transform.dart';
 import 'package:butterfly/dialogs/name.dart';
 import 'package:butterfly/dialogs/presentation.dart';
 import 'package:butterfly/helpers/offset_helper.dart';
-import 'package:butterfly/views/toolbar.dart';
+import 'package:butterfly/views/toolbar/view.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';

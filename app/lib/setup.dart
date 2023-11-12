@@ -5,10 +5,10 @@ import 'api/full_screen.dart';
 
 Future<void> setup() async {
   setupFullScreen();
-  await setupLicenses();
+  setupLicenses();
 }
 
-Future<void> setupLicenses() async {
+void setupLicenses() {
   LicenseRegistry.addLicense(() async* {
     yield LicenseEntryWithLineBreaks(['Comfortaa'],
         await rootBundle.loadString('fonts/Comfortaa-LICENSE.txt'));

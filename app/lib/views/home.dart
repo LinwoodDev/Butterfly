@@ -13,7 +13,7 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import '../api/open_release_notes.dart';
 import '../main.dart';
-import 'files.dart';
+import 'files/view.dart';
 
 PhosphorIconData _getIconOfBannerVisibility(BannerVisibility visibility) =>
     switch (visibility) {

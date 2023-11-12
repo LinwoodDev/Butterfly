@@ -6,8 +6,8 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
-import '../dialogs/delete.dart';
-import '../widgets/editable_list_tile.dart';
+import '../../dialogs/delete.dart';
+import '../../widgets/editable_list_tile.dart';
 
 class LayersView extends StatelessWidget {
   const LayersView({super.key});
