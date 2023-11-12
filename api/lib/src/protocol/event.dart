@@ -16,7 +16,7 @@ enum DocumentPermission { read, write, admin }
 class DocumentEvent extends ReplayEvent with _$DocumentEvent {
   const DocumentEvent._();
 
-  const factory DocumentEvent.pageAdded(DocumentPage page, [int? index]) =
+  const factory DocumentEvent.pageAdded([int? index, DocumentPage? page]) =
       PageAdded;
 
   const factory DocumentEvent.pageChanged(

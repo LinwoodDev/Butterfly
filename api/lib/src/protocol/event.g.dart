@@ -7,15 +7,18 @@ part of 'event.dart';
 // **************************************************************************
 
 _$PageAddedImpl _$$PageAddedImplFromJson(Map json) => _$PageAddedImpl(
-      DocumentPage.fromJson(Map<String, dynamic>.from(json['page'] as Map)),
       json['index'] as int?,
+      json['page'] == null
+          ? null
+          : DocumentPage.fromJson(
+              Map<String, dynamic>.from(json['page'] as Map)),
       json['type'] as String?,
     );
 
 Map<String, dynamic> _$$PageAddedImplToJson(_$PageAddedImpl instance) =>
     <String, dynamic>{
-      'page': instance.page.toJson(),
       'index': instance.index,
+      'page': instance.page?.toJson(),
       'type': instance.$type,
     };
 

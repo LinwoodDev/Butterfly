@@ -23,13 +23,13 @@ class NoteImportDialog extends StatefulWidget {
 }
 
 class _NoteImportDialogState extends State<NoteImportDialog> {
-  List<String> _selectedPages = const [], _selectedPacks = const [];
+  late final List<String> _selectedPages;
+  final List<String> _selectedPacks = const [];
 
   @override
   void initState() {
     super.initState();
     _selectedPages = widget.pages.toList();
-    _selectedPacks = widget.packs.toList();
   }
 
   @override

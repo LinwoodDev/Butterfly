@@ -117,7 +117,7 @@ DocumentEvent _$DocumentEventFromJson(Map<String, dynamic> json) {
 mixin _$DocumentEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(DocumentPage page, int? index) pageAdded,
+    required TResult Function(int? index, DocumentPage? page) pageAdded,
     required TResult Function(String pageName) pageChanged,
     required TResult Function(String page, int? newIndex) pageReordered,
     required TResult Function(String oldName, String newName) pageRenamed,
@@ -178,7 +178,7 @@ mixin _$DocumentEvent {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(DocumentPage page, int? index)? pageAdded,
+    TResult? Function(int? index, DocumentPage? page)? pageAdded,
     TResult? Function(String pageName)? pageChanged,
     TResult? Function(String page, int? newIndex)? pageReordered,
     TResult? Function(String oldName, String newName)? pageRenamed,
@@ -232,7 +232,7 @@ mixin _$DocumentEvent {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(DocumentPage page, int? index)? pageAdded,
+    TResult Function(int? index, DocumentPage? page)? pageAdded,
     TResult Function(String pageName)? pageChanged,
     TResult Function(String page, int? newIndex)? pageReordered,
     TResult Function(String oldName, String newName)? pageRenamed,
@@ -469,9 +469,9 @@ abstract class _$$PageAddedImplCopyWith<$Res> {
           _$PageAddedImpl value, $Res Function(_$PageAddedImpl) then) =
       __$$PageAddedImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({DocumentPage page, int? index});
+  $Res call({int? index, DocumentPage? page});
 
-  $DocumentPageCopyWith<$Res> get page;
+  $DocumentPageCopyWith<$Res>? get page;
 }
 
 /// @nodoc
@@ -485,25 +485,29 @@ class __$$PageAddedImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? page = null,
     Object? index = freezed,
+    Object? page = freezed,
   }) {
     return _then(_$PageAddedImpl(
-      null == page
-          ? _value.page
-          : page // ignore: cast_nullable_to_non_nullable
-              as DocumentPage,
       freezed == index
           ? _value.index
           : index // ignore: cast_nullable_to_non_nullable
               as int?,
+      freezed == page
+          ? _value.page
+          : page // ignore: cast_nullable_to_non_nullable
+              as DocumentPage?,
     ));
   }
 
   @override
   @pragma('vm:prefer-inline')
-  $DocumentPageCopyWith<$Res> get page {
-    return $DocumentPageCopyWith<$Res>(_value.page, (value) {
+  $DocumentPageCopyWith<$Res>? get page {
+    if (_value.page == null) {
+      return null;
+    }
+
+    return $DocumentPageCopyWith<$Res>(_value.page!, (value) {
       return _then(_value.copyWith(page: value));
     });
   }
@@ -512,7 +516,7 @@ class __$$PageAddedImplCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$PageAddedImpl extends PageAdded {
-  const _$PageAddedImpl(this.page, [this.index, final String? $type])
+  const _$PageAddedImpl([this.index, this.page, final String? $type])
       : $type = $type ?? 'pageAdded',
         super._();
 
@@ -520,16 +524,16 @@ class _$PageAddedImpl extends PageAdded {
       _$$PageAddedImplFromJson(json);
 
   @override
-  final DocumentPage page;
-  @override
   final int? index;
+  @override
+  final DocumentPage? page;
 
   @JsonKey(name: 'type')
   final String $type;
 
   @override
   String toString() {
-    return 'DocumentEvent.pageAdded(page: $page, index: $index)';
+    return 'DocumentEvent.pageAdded(index: $index, page: $page)';
   }
 
   @override
@@ -537,13 +541,13 @@ class _$PageAddedImpl extends PageAdded {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$PageAddedImpl &&
-            (identical(other.page, page) || other.page == page) &&
-            (identical(other.index, index) || other.index == index));
+            (identical(other.index, index) || other.index == index) &&
+            (identical(other.page, page) || other.page == page));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, page, index);
+  int get hashCode => Object.hash(runtimeType, index, page);
 
   @JsonKey(ignore: true)
   @override
@@ -554,7 +558,7 @@ class _$PageAddedImpl extends PageAdded {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(DocumentPage page, int? index) pageAdded,
+    required TResult Function(int? index, DocumentPage? page) pageAdded,
     required TResult Function(String pageName) pageChanged,
     required TResult Function(String page, int? newIndex) pageReordered,
     required TResult Function(String oldName, String newName) pageRenamed,
@@ -612,13 +616,13 @@ class _$PageAddedImpl extends PageAdded {
     required TResult Function() presentationModeExited,
     required TResult Function(int tick) presentationTick,
   }) {
-    return pageAdded(page, index);
+    return pageAdded(index, page);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(DocumentPage page, int? index)? pageAdded,
+    TResult? Function(int? index, DocumentPage? page)? pageAdded,
     TResult? Function(String pageName)? pageChanged,
     TResult? Function(String page, int? newIndex)? pageReordered,
     TResult? Function(String oldName, String newName)? pageRenamed,
@@ -669,13 +673,13 @@ class _$PageAddedImpl extends PageAdded {
     TResult? Function()? presentationModeExited,
     TResult? Function(int tick)? presentationTick,
   }) {
-    return pageAdded?.call(page, index);
+    return pageAdded?.call(index, page);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(DocumentPage page, int? index)? pageAdded,
+    TResult Function(int? index, DocumentPage? page)? pageAdded,
     TResult Function(String pageName)? pageChanged,
     TResult Function(String page, int? newIndex)? pageReordered,
     TResult Function(String oldName, String newName)? pageRenamed,
@@ -728,7 +732,7 @@ class _$PageAddedImpl extends PageAdded {
     required TResult orElse(),
   }) {
     if (pageAdded != null) {
-      return pageAdded(page, index);
+      return pageAdded(index, page);
     }
     return orElse();
   }
@@ -911,15 +915,15 @@ class _$PageAddedImpl extends PageAdded {
 }
 
 abstract class PageAdded extends DocumentEvent {
-  const factory PageAdded(final DocumentPage page, [final int? index]) =
+  const factory PageAdded([final int? index, final DocumentPage? page]) =
       _$PageAddedImpl;
   const PageAdded._() : super._();
 
   factory PageAdded.fromJson(Map<String, dynamic> json) =
       _$PageAddedImpl.fromJson;
 
-  DocumentPage get page;
   int? get index;
+  DocumentPage? get page;
   @JsonKey(ignore: true)
   _$$PageAddedImplCopyWith<_$PageAddedImpl> get copyWith =>
       throw _privateConstructorUsedError;
@@ -999,7 +1003,7 @@ class _$PageChangedImpl extends PageChanged {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(DocumentPage page, int? index) pageAdded,
+    required TResult Function(int? index, DocumentPage? page) pageAdded,
     required TResult Function(String pageName) pageChanged,
     required TResult Function(String page, int? newIndex) pageReordered,
     required TResult Function(String oldName, String newName) pageRenamed,
@@ -1063,7 +1067,7 @@ class _$PageChangedImpl extends PageChanged {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(DocumentPage page, int? index)? pageAdded,
+    TResult? Function(int? index, DocumentPage? page)? pageAdded,
     TResult? Function(String pageName)? pageChanged,
     TResult? Function(String page, int? newIndex)? pageReordered,
     TResult? Function(String oldName, String newName)? pageRenamed,
@@ -1120,7 +1124,7 @@ class _$PageChangedImpl extends PageChanged {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(DocumentPage page, int? index)? pageAdded,
+    TResult Function(int? index, DocumentPage? page)? pageAdded,
     TResult Function(String pageName)? pageChanged,
     TResult Function(String page, int? newIndex)? pageReordered,
     TResult Function(String oldName, String newName)? pageRenamed,
@@ -1450,7 +1454,7 @@ class _$PageReorderedImpl extends PageReordered {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(DocumentPage page, int? index) pageAdded,
+    required TResult Function(int? index, DocumentPage? page) pageAdded,
     required TResult Function(String pageName) pageChanged,
     required TResult Function(String page, int? newIndex) pageReordered,
     required TResult Function(String oldName, String newName) pageRenamed,
@@ -1514,7 +1518,7 @@ class _$PageReorderedImpl extends PageReordered {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(DocumentPage page, int? index)? pageAdded,
+    TResult? Function(int? index, DocumentPage? page)? pageAdded,
     TResult? Function(String pageName)? pageChanged,
     TResult? Function(String page, int? newIndex)? pageReordered,
     TResult? Function(String oldName, String newName)? pageRenamed,
@@ -1571,7 +1575,7 @@ class _$PageReorderedImpl extends PageReordered {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(DocumentPage page, int? index)? pageAdded,
+    TResult Function(int? index, DocumentPage? page)? pageAdded,
     TResult Function(String pageName)? pageChanged,
     TResult Function(String page, int? newIndex)? pageReordered,
     TResult Function(String oldName, String newName)? pageRenamed,
@@ -1902,7 +1906,7 @@ class _$PageRenamedImpl extends PageRenamed {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(DocumentPage page, int? index) pageAdded,
+    required TResult Function(int? index, DocumentPage? page) pageAdded,
     required TResult Function(String pageName) pageChanged,
     required TResult Function(String page, int? newIndex) pageReordered,
     required TResult Function(String oldName, String newName) pageRenamed,
@@ -1966,7 +1970,7 @@ class _$PageRenamedImpl extends PageRenamed {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(DocumentPage page, int? index)? pageAdded,
+    TResult? Function(int? index, DocumentPage? page)? pageAdded,
     TResult? Function(String pageName)? pageChanged,
     TResult? Function(String page, int? newIndex)? pageReordered,
     TResult? Function(String oldName, String newName)? pageRenamed,
@@ -2023,7 +2027,7 @@ class _$PageRenamedImpl extends PageRenamed {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(DocumentPage page, int? index)? pageAdded,
+    TResult Function(int? index, DocumentPage? page)? pageAdded,
     TResult Function(String pageName)? pageChanged,
     TResult Function(String page, int? newIndex)? pageReordered,
     TResult Function(String oldName, String newName)? pageRenamed,
@@ -2346,7 +2350,7 @@ class _$PageRemovedImpl extends PageRemoved {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(DocumentPage page, int? index) pageAdded,
+    required TResult Function(int? index, DocumentPage? page) pageAdded,
     required TResult Function(String pageName) pageChanged,
     required TResult Function(String page, int? newIndex) pageReordered,
     required TResult Function(String oldName, String newName) pageRenamed,
@@ -2410,7 +2414,7 @@ class _$PageRemovedImpl extends PageRemoved {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(DocumentPage page, int? index)? pageAdded,
+    TResult? Function(int? index, DocumentPage? page)? pageAdded,
     TResult? Function(String pageName)? pageChanged,
     TResult? Function(String page, int? newIndex)? pageReordered,
     TResult? Function(String oldName, String newName)? pageRenamed,
@@ -2467,7 +2471,7 @@ class _$PageRemovedImpl extends PageRemoved {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(DocumentPage page, int? index)? pageAdded,
+    TResult Function(int? index, DocumentPage? page)? pageAdded,
     TResult Function(String pageName)? pageChanged,
     TResult Function(String page, int? newIndex)? pageReordered,
     TResult Function(String oldName, String newName)? pageRenamed,
@@ -2792,7 +2796,7 @@ class _$ThumbnailCapturedImpl extends ThumbnailCaptured {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(DocumentPage page, int? index) pageAdded,
+    required TResult Function(int? index, DocumentPage? page) pageAdded,
     required TResult Function(String pageName) pageChanged,
     required TResult Function(String page, int? newIndex) pageReordered,
     required TResult Function(String oldName, String newName) pageRenamed,
@@ -2856,7 +2860,7 @@ class _$ThumbnailCapturedImpl extends ThumbnailCaptured {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(DocumentPage page, int? index)? pageAdded,
+    TResult? Function(int? index, DocumentPage? page)? pageAdded,
     TResult? Function(String pageName)? pageChanged,
     TResult? Function(String page, int? newIndex)? pageReordered,
     TResult? Function(String oldName, String newName)? pageRenamed,
@@ -2913,7 +2917,7 @@ class _$ThumbnailCapturedImpl extends ThumbnailCaptured {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(DocumentPage page, int? index)? pageAdded,
+    TResult Function(int? index, DocumentPage? page)? pageAdded,
     TResult Function(String pageName)? pageChanged,
     TResult Function(String page, int? newIndex)? pageReordered,
     TResult Function(String oldName, String newName)? pageRenamed,
@@ -3246,7 +3250,7 @@ class _$ViewChangedImpl extends ViewChanged {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(DocumentPage page, int? index) pageAdded,
+    required TResult Function(int? index, DocumentPage? page) pageAdded,
     required TResult Function(String pageName) pageChanged,
     required TResult Function(String page, int? newIndex) pageReordered,
     required TResult Function(String oldName, String newName) pageRenamed,
@@ -3310,7 +3314,7 @@ class _$ViewChangedImpl extends ViewChanged {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(DocumentPage page, int? index)? pageAdded,
+    TResult? Function(int? index, DocumentPage? page)? pageAdded,
     TResult? Function(String pageName)? pageChanged,
     TResult? Function(String page, int? newIndex)? pageReordered,
     TResult? Function(String oldName, String newName)? pageRenamed,
@@ -3367,7 +3371,7 @@ class _$ViewChangedImpl extends ViewChanged {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(DocumentPage page, int? index)? pageAdded,
+    TResult Function(int? index, DocumentPage? page)? pageAdded,
     TResult Function(String pageName)? pageChanged,
     TResult Function(String page, int? newIndex)? pageReordered,
     TResult Function(String oldName, String newName)? pageRenamed,
@@ -3699,7 +3703,7 @@ class _$UtilitiesChangedImpl extends UtilitiesChanged {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(DocumentPage page, int? index) pageAdded,
+    required TResult Function(int? index, DocumentPage? page) pageAdded,
     required TResult Function(String pageName) pageChanged,
     required TResult Function(String page, int? newIndex) pageReordered,
     required TResult Function(String oldName, String newName) pageRenamed,
@@ -3763,7 +3767,7 @@ class _$UtilitiesChangedImpl extends UtilitiesChanged {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(DocumentPage page, int? index)? pageAdded,
+    TResult? Function(int? index, DocumentPage? page)? pageAdded,
     TResult? Function(String pageName)? pageChanged,
     TResult? Function(String page, int? newIndex)? pageReordered,
     TResult? Function(String oldName, String newName)? pageRenamed,
@@ -3820,7 +3824,7 @@ class _$UtilitiesChangedImpl extends UtilitiesChanged {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(DocumentPage page, int? index)? pageAdded,
+    TResult Function(int? index, DocumentPage? page)? pageAdded,
     TResult Function(String pageName)? pageChanged,
     TResult Function(String page, int? newIndex)? pageReordered,
     TResult Function(String oldName, String newName)? pageRenamed,
@@ -4151,7 +4155,7 @@ class _$ElementsCreatedImpl extends ElementsCreated {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(DocumentPage page, int? index) pageAdded,
+    required TResult Function(int? index, DocumentPage? page) pageAdded,
     required TResult Function(String pageName) pageChanged,
     required TResult Function(String page, int? newIndex) pageReordered,
     required TResult Function(String oldName, String newName) pageRenamed,
@@ -4215,7 +4219,7 @@ class _$ElementsCreatedImpl extends ElementsCreated {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(DocumentPage page, int? index)? pageAdded,
+    TResult? Function(int? index, DocumentPage? page)? pageAdded,
     TResult? Function(String pageName)? pageChanged,
     TResult? Function(String page, int? newIndex)? pageReordered,
     TResult? Function(String oldName, String newName)? pageRenamed,
@@ -4272,7 +4276,7 @@ class _$ElementsCreatedImpl extends ElementsCreated {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(DocumentPage page, int? index)? pageAdded,
+    TResult Function(int? index, DocumentPage? page)? pageAdded,
     TResult Function(String pageName)? pageChanged,
     TResult Function(String page, int? newIndex)? pageReordered,
     TResult Function(String oldName, String newName)? pageRenamed,
@@ -4603,7 +4607,7 @@ class _$ElementsChangedImpl extends ElementsChanged {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(DocumentPage page, int? index) pageAdded,
+    required TResult Function(int? index, DocumentPage? page) pageAdded,
     required TResult Function(String pageName) pageChanged,
     required TResult Function(String page, int? newIndex) pageReordered,
     required TResult Function(String oldName, String newName) pageRenamed,
@@ -4667,7 +4671,7 @@ class _$ElementsChangedImpl extends ElementsChanged {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(DocumentPage page, int? index)? pageAdded,
+    TResult? Function(int? index, DocumentPage? page)? pageAdded,
     TResult? Function(String pageName)? pageChanged,
     TResult? Function(String page, int? newIndex)? pageReordered,
     TResult? Function(String oldName, String newName)? pageRenamed,
@@ -4724,7 +4728,7 @@ class _$ElementsChangedImpl extends ElementsChanged {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(DocumentPage page, int? index)? pageAdded,
+    TResult Function(int? index, DocumentPage? page)? pageAdded,
     TResult Function(String pageName)? pageChanged,
     TResult Function(String page, int? newIndex)? pageReordered,
     TResult Function(String oldName, String newName)? pageRenamed,
@@ -5054,7 +5058,7 @@ class _$ElementsRemovedImpl extends ElementsRemoved {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(DocumentPage page, int? index) pageAdded,
+    required TResult Function(int? index, DocumentPage? page) pageAdded,
     required TResult Function(String pageName) pageChanged,
     required TResult Function(String page, int? newIndex) pageReordered,
     required TResult Function(String oldName, String newName) pageRenamed,
@@ -5118,7 +5122,7 @@ class _$ElementsRemovedImpl extends ElementsRemoved {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(DocumentPage page, int? index)? pageAdded,
+    TResult? Function(int? index, DocumentPage? page)? pageAdded,
     TResult? Function(String pageName)? pageChanged,
     TResult? Function(String page, int? newIndex)? pageReordered,
     TResult? Function(String oldName, String newName)? pageRenamed,
@@ -5175,7 +5179,7 @@ class _$ElementsRemovedImpl extends ElementsRemoved {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(DocumentPage page, int? index)? pageAdded,
+    TResult Function(int? index, DocumentPage? page)? pageAdded,
     TResult Function(String pageName)? pageChanged,
     TResult Function(String page, int? newIndex)? pageReordered,
     TResult Function(String oldName, String newName)? pageRenamed,
@@ -5515,7 +5519,7 @@ class _$ElementsArrangedImpl extends ElementsArranged {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(DocumentPage page, int? index) pageAdded,
+    required TResult Function(int? index, DocumentPage? page) pageAdded,
     required TResult Function(String pageName) pageChanged,
     required TResult Function(String page, int? newIndex) pageReordered,
     required TResult Function(String oldName, String newName) pageRenamed,
@@ -5579,7 +5583,7 @@ class _$ElementsArrangedImpl extends ElementsArranged {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(DocumentPage page, int? index)? pageAdded,
+    TResult? Function(int? index, DocumentPage? page)? pageAdded,
     TResult? Function(String pageName)? pageChanged,
     TResult? Function(String page, int? newIndex)? pageReordered,
     TResult? Function(String oldName, String newName)? pageRenamed,
@@ -5636,7 +5640,7 @@ class _$ElementsArrangedImpl extends ElementsArranged {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(DocumentPage page, int? index)? pageAdded,
+    TResult Function(int? index, DocumentPage? page)? pageAdded,
     TResult Function(String pageName)? pageChanged,
     TResult Function(String page, int? newIndex)? pageReordered,
     TResult Function(String oldName, String newName)? pageRenamed,
@@ -5974,7 +5978,7 @@ class _$DocumentDescriptionChangedImpl extends DocumentDescriptionChanged {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(DocumentPage page, int? index) pageAdded,
+    required TResult Function(int? index, DocumentPage? page) pageAdded,
     required TResult Function(String pageName) pageChanged,
     required TResult Function(String page, int? newIndex) pageReordered,
     required TResult Function(String oldName, String newName) pageRenamed,
@@ -6038,7 +6042,7 @@ class _$DocumentDescriptionChangedImpl extends DocumentDescriptionChanged {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(DocumentPage page, int? index)? pageAdded,
+    TResult? Function(int? index, DocumentPage? page)? pageAdded,
     TResult? Function(String pageName)? pageChanged,
     TResult? Function(String page, int? newIndex)? pageReordered,
     TResult? Function(String oldName, String newName)? pageRenamed,
@@ -6095,7 +6099,7 @@ class _$DocumentDescriptionChangedImpl extends DocumentDescriptionChanged {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(DocumentPage page, int? index)? pageAdded,
+    TResult Function(int? index, DocumentPage? page)? pageAdded,
     TResult Function(String pageName)? pageChanged,
     TResult Function(String page, int? newIndex)? pageReordered,
     TResult Function(String oldName, String newName)? pageRenamed,
@@ -6434,7 +6438,7 @@ class _$DocumentSavedImpl extends DocumentSaved {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(DocumentPage page, int? index) pageAdded,
+    required TResult Function(int? index, DocumentPage? page) pageAdded,
     required TResult Function(String pageName) pageChanged,
     required TResult Function(String page, int? newIndex) pageReordered,
     required TResult Function(String oldName, String newName) pageRenamed,
@@ -6498,7 +6502,7 @@ class _$DocumentSavedImpl extends DocumentSaved {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(DocumentPage page, int? index)? pageAdded,
+    TResult? Function(int? index, DocumentPage? page)? pageAdded,
     TResult? Function(String pageName)? pageChanged,
     TResult? Function(String page, int? newIndex)? pageReordered,
     TResult? Function(String oldName, String newName)? pageRenamed,
@@ -6555,7 +6559,7 @@ class _$DocumentSavedImpl extends DocumentSaved {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(DocumentPage page, int? index)? pageAdded,
+    TResult Function(int? index, DocumentPage? page)? pageAdded,
     TResult Function(String pageName)? pageChanged,
     TResult Function(String page, int? newIndex)? pageReordered,
     TResult Function(String oldName, String newName)? pageRenamed,
@@ -6887,7 +6891,7 @@ class _$ToolCreatedImpl extends ToolCreated {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(DocumentPage page, int? index) pageAdded,
+    required TResult Function(int? index, DocumentPage? page) pageAdded,
     required TResult Function(String pageName) pageChanged,
     required TResult Function(String page, int? newIndex) pageReordered,
     required TResult Function(String oldName, String newName) pageRenamed,
@@ -6951,7 +6955,7 @@ class _$ToolCreatedImpl extends ToolCreated {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(DocumentPage page, int? index)? pageAdded,
+    TResult? Function(int? index, DocumentPage? page)? pageAdded,
     TResult? Function(String pageName)? pageChanged,
     TResult? Function(String page, int? newIndex)? pageReordered,
     TResult? Function(String oldName, String newName)? pageRenamed,
@@ -7008,7 +7012,7 @@ class _$ToolCreatedImpl extends ToolCreated {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(DocumentPage page, int? index)? pageAdded,
+    TResult Function(int? index, DocumentPage? page)? pageAdded,
     TResult Function(String pageName)? pageChanged,
     TResult Function(String page, int? newIndex)? pageReordered,
     TResult Function(String oldName, String newName)? pageRenamed,
@@ -7336,7 +7340,7 @@ class _$ToolsChangedImpl extends ToolsChanged {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(DocumentPage page, int? index) pageAdded,
+    required TResult Function(int? index, DocumentPage? page) pageAdded,
     required TResult Function(String pageName) pageChanged,
     required TResult Function(String page, int? newIndex) pageReordered,
     required TResult Function(String oldName, String newName) pageRenamed,
@@ -7400,7 +7404,7 @@ class _$ToolsChangedImpl extends ToolsChanged {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(DocumentPage page, int? index)? pageAdded,
+    TResult? Function(int? index, DocumentPage? page)? pageAdded,
     TResult? Function(String pageName)? pageChanged,
     TResult? Function(String page, int? newIndex)? pageReordered,
     TResult? Function(String oldName, String newName)? pageRenamed,
@@ -7457,7 +7461,7 @@ class _$ToolsChangedImpl extends ToolsChanged {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(DocumentPage page, int? index)? pageAdded,
+    TResult Function(int? index, DocumentPage? page)? pageAdded,
     TResult Function(String pageName)? pageChanged,
     TResult Function(String page, int? newIndex)? pageReordered,
     TResult Function(String oldName, String newName)? pageRenamed,
@@ -7785,7 +7789,7 @@ class _$ToolsRemovedImpl extends ToolsRemoved {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(DocumentPage page, int? index) pageAdded,
+    required TResult Function(int? index, DocumentPage? page) pageAdded,
     required TResult Function(String pageName) pageChanged,
     required TResult Function(String page, int? newIndex) pageReordered,
     required TResult Function(String oldName, String newName) pageRenamed,
@@ -7849,7 +7853,7 @@ class _$ToolsRemovedImpl extends ToolsRemoved {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(DocumentPage page, int? index)? pageAdded,
+    TResult? Function(int? index, DocumentPage? page)? pageAdded,
     TResult? Function(String pageName)? pageChanged,
     TResult? Function(String page, int? newIndex)? pageReordered,
     TResult? Function(String oldName, String newName)? pageRenamed,
@@ -7906,7 +7910,7 @@ class _$ToolsRemovedImpl extends ToolsRemoved {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(DocumentPage page, int? index)? pageAdded,
+    TResult Function(int? index, DocumentPage? page)? pageAdded,
     TResult Function(String pageName)? pageChanged,
     TResult Function(String page, int? newIndex)? pageReordered,
     TResult Function(String oldName, String newName)? pageRenamed,
@@ -8237,7 +8241,7 @@ class _$ToolReorderedImpl extends ToolReordered {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(DocumentPage page, int? index) pageAdded,
+    required TResult Function(int? index, DocumentPage? page) pageAdded,
     required TResult Function(String pageName) pageChanged,
     required TResult Function(String page, int? newIndex) pageReordered,
     required TResult Function(String oldName, String newName) pageRenamed,
@@ -8301,7 +8305,7 @@ class _$ToolReorderedImpl extends ToolReordered {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(DocumentPage page, int? index)? pageAdded,
+    TResult? Function(int? index, DocumentPage? page)? pageAdded,
     TResult? Function(String pageName)? pageChanged,
     TResult? Function(String page, int? newIndex)? pageReordered,
     TResult? Function(String oldName, String newName)? pageRenamed,
@@ -8358,7 +8362,7 @@ class _$ToolReorderedImpl extends ToolReordered {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(DocumentPage page, int? index)? pageAdded,
+    TResult Function(int? index, DocumentPage? page)? pageAdded,
     TResult Function(String pageName)? pageChanged,
     TResult Function(String page, int? newIndex)? pageReordered,
     TResult Function(String oldName, String newName)? pageRenamed,
@@ -8694,7 +8698,7 @@ class _$DocumentBackgroundsChangedImpl extends DocumentBackgroundsChanged {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(DocumentPage page, int? index) pageAdded,
+    required TResult Function(int? index, DocumentPage? page) pageAdded,
     required TResult Function(String pageName) pageChanged,
     required TResult Function(String page, int? newIndex) pageReordered,
     required TResult Function(String oldName, String newName) pageRenamed,
@@ -8758,7 +8762,7 @@ class _$DocumentBackgroundsChangedImpl extends DocumentBackgroundsChanged {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(DocumentPage page, int? index)? pageAdded,
+    TResult? Function(int? index, DocumentPage? page)? pageAdded,
     TResult? Function(String pageName)? pageChanged,
     TResult? Function(String page, int? newIndex)? pageReordered,
     TResult? Function(String oldName, String newName)? pageRenamed,
@@ -8815,7 +8819,7 @@ class _$DocumentBackgroundsChangedImpl extends DocumentBackgroundsChanged {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(DocumentPage page, int? index)? pageAdded,
+    TResult Function(int? index, DocumentPage? page)? pageAdded,
     TResult Function(String pageName)? pageChanged,
     TResult Function(String page, int? newIndex)? pageReordered,
     TResult Function(String oldName, String newName)? pageRenamed,
@@ -9149,7 +9153,7 @@ class _$WaypointCreatedImpl extends WaypointCreated {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(DocumentPage page, int? index) pageAdded,
+    required TResult Function(int? index, DocumentPage? page) pageAdded,
     required TResult Function(String pageName) pageChanged,
     required TResult Function(String page, int? newIndex) pageReordered,
     required TResult Function(String oldName, String newName) pageRenamed,
@@ -9213,7 +9217,7 @@ class _$WaypointCreatedImpl extends WaypointCreated {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(DocumentPage page, int? index)? pageAdded,
+    TResult? Function(int? index, DocumentPage? page)? pageAdded,
     TResult? Function(String pageName)? pageChanged,
     TResult? Function(String page, int? newIndex)? pageReordered,
     TResult? Function(String oldName, String newName)? pageRenamed,
@@ -9270,7 +9274,7 @@ class _$WaypointCreatedImpl extends WaypointCreated {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(DocumentPage page, int? index)? pageAdded,
+    TResult Function(int? index, DocumentPage? page)? pageAdded,
     TResult Function(String pageName)? pageChanged,
     TResult Function(String page, int? newIndex)? pageReordered,
     TResult Function(String oldName, String newName)? pageRenamed,
@@ -9601,7 +9605,7 @@ class _$WaypointRenamedImpl extends WaypointRenamed {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(DocumentPage page, int? index) pageAdded,
+    required TResult Function(int? index, DocumentPage? page) pageAdded,
     required TResult Function(String pageName) pageChanged,
     required TResult Function(String page, int? newIndex) pageReordered,
     required TResult Function(String oldName, String newName) pageRenamed,
@@ -9665,7 +9669,7 @@ class _$WaypointRenamedImpl extends WaypointRenamed {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(DocumentPage page, int? index)? pageAdded,
+    TResult? Function(int? index, DocumentPage? page)? pageAdded,
     TResult? Function(String pageName)? pageChanged,
     TResult? Function(String page, int? newIndex)? pageReordered,
     TResult? Function(String oldName, String newName)? pageRenamed,
@@ -9722,7 +9726,7 @@ class _$WaypointRenamedImpl extends WaypointRenamed {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(DocumentPage page, int? index)? pageAdded,
+    TResult Function(int? index, DocumentPage? page)? pageAdded,
     TResult Function(String pageName)? pageChanged,
     TResult Function(String page, int? newIndex)? pageReordered,
     TResult Function(String oldName, String newName)? pageRenamed,
@@ -10046,7 +10050,7 @@ class _$WaypointRemovedImpl extends WaypointRemoved {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(DocumentPage page, int? index) pageAdded,
+    required TResult Function(int? index, DocumentPage? page) pageAdded,
     required TResult Function(String pageName) pageChanged,
     required TResult Function(String page, int? newIndex) pageReordered,
     required TResult Function(String oldName, String newName) pageRenamed,
@@ -10110,7 +10114,7 @@ class _$WaypointRemovedImpl extends WaypointRemoved {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(DocumentPage page, int? index)? pageAdded,
+    TResult? Function(int? index, DocumentPage? page)? pageAdded,
     TResult? Function(String pageName)? pageChanged,
     TResult? Function(String page, int? newIndex)? pageReordered,
     TResult? Function(String oldName, String newName)? pageRenamed,
@@ -10167,7 +10171,7 @@ class _$WaypointRemovedImpl extends WaypointRemoved {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(DocumentPage page, int? index)? pageAdded,
+    TResult Function(int? index, DocumentPage? page)? pageAdded,
     TResult Function(String pageName)? pageChanged,
     TResult Function(String page, int? newIndex)? pageReordered,
     TResult Function(String oldName, String newName)? pageRenamed,
@@ -10496,7 +10500,7 @@ class _$LayerRenamedImpl extends LayerRenamed {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(DocumentPage page, int? index) pageAdded,
+    required TResult Function(int? index, DocumentPage? page) pageAdded,
     required TResult Function(String pageName) pageChanged,
     required TResult Function(String page, int? newIndex) pageReordered,
     required TResult Function(String oldName, String newName) pageRenamed,
@@ -10560,7 +10564,7 @@ class _$LayerRenamedImpl extends LayerRenamed {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(DocumentPage page, int? index)? pageAdded,
+    TResult? Function(int? index, DocumentPage? page)? pageAdded,
     TResult? Function(String pageName)? pageChanged,
     TResult? Function(String page, int? newIndex)? pageReordered,
     TResult? Function(String oldName, String newName)? pageRenamed,
@@ -10617,7 +10621,7 @@ class _$LayerRenamedImpl extends LayerRenamed {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(DocumentPage page, int? index)? pageAdded,
+    TResult Function(int? index, DocumentPage? page)? pageAdded,
     TResult Function(String pageName)? pageChanged,
     TResult Function(String page, int? newIndex)? pageReordered,
     TResult Function(String oldName, String newName)? pageRenamed,
@@ -10940,7 +10944,7 @@ class _$LayerRemovedImpl extends LayerRemoved {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(DocumentPage page, int? index) pageAdded,
+    required TResult Function(int? index, DocumentPage? page) pageAdded,
     required TResult Function(String pageName) pageChanged,
     required TResult Function(String page, int? newIndex) pageReordered,
     required TResult Function(String oldName, String newName) pageRenamed,
@@ -11004,7 +11008,7 @@ class _$LayerRemovedImpl extends LayerRemoved {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(DocumentPage page, int? index)? pageAdded,
+    TResult? Function(int? index, DocumentPage? page)? pageAdded,
     TResult? Function(String pageName)? pageChanged,
     TResult? Function(String page, int? newIndex)? pageReordered,
     TResult? Function(String oldName, String newName)? pageRenamed,
@@ -11061,7 +11065,7 @@ class _$LayerRemovedImpl extends LayerRemoved {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(DocumentPage page, int? index)? pageAdded,
+    TResult Function(int? index, DocumentPage? page)? pageAdded,
     TResult Function(String pageName)? pageChanged,
     TResult Function(String page, int? newIndex)? pageReordered,
     TResult Function(String oldName, String newName)? pageRenamed,
@@ -11384,7 +11388,7 @@ class _$LayerElementsRemovedImpl extends LayerElementsRemoved {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(DocumentPage page, int? index) pageAdded,
+    required TResult Function(int? index, DocumentPage? page) pageAdded,
     required TResult Function(String pageName) pageChanged,
     required TResult Function(String page, int? newIndex) pageReordered,
     required TResult Function(String oldName, String newName) pageRenamed,
@@ -11448,7 +11452,7 @@ class _$LayerElementsRemovedImpl extends LayerElementsRemoved {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(DocumentPage page, int? index)? pageAdded,
+    TResult? Function(int? index, DocumentPage? page)? pageAdded,
     TResult? Function(String pageName)? pageChanged,
     TResult? Function(String page, int? newIndex)? pageReordered,
     TResult? Function(String oldName, String newName)? pageRenamed,
@@ -11505,7 +11509,7 @@ class _$LayerElementsRemovedImpl extends LayerElementsRemoved {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(DocumentPage page, int? index)? pageAdded,
+    TResult Function(int? index, DocumentPage? page)? pageAdded,
     TResult Function(String pageName)? pageChanged,
     TResult Function(String page, int? newIndex)? pageReordered,
     TResult Function(String oldName, String newName)? pageRenamed,
@@ -11830,7 +11834,7 @@ class _$LayerVisibilityChangedImpl extends LayerVisibilityChanged {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(DocumentPage page, int? index) pageAdded,
+    required TResult Function(int? index, DocumentPage? page) pageAdded,
     required TResult Function(String pageName) pageChanged,
     required TResult Function(String page, int? newIndex) pageReordered,
     required TResult Function(String oldName, String newName) pageRenamed,
@@ -11894,7 +11898,7 @@ class _$LayerVisibilityChangedImpl extends LayerVisibilityChanged {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(DocumentPage page, int? index)? pageAdded,
+    TResult? Function(int? index, DocumentPage? page)? pageAdded,
     TResult? Function(String pageName)? pageChanged,
     TResult? Function(String page, int? newIndex)? pageReordered,
     TResult? Function(String oldName, String newName)? pageRenamed,
@@ -11951,7 +11955,7 @@ class _$LayerVisibilityChangedImpl extends LayerVisibilityChanged {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(DocumentPage page, int? index)? pageAdded,
+    TResult Function(int? index, DocumentPage? page)? pageAdded,
     TResult Function(String pageName)? pageChanged,
     TResult Function(String page, int? newIndex)? pageReordered,
     TResult Function(String oldName, String newName)? pageRenamed,
@@ -12274,7 +12278,7 @@ class _$CurrentLayerChangedImpl extends CurrentLayerChanged {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(DocumentPage page, int? index) pageAdded,
+    required TResult Function(int? index, DocumentPage? page) pageAdded,
     required TResult Function(String pageName) pageChanged,
     required TResult Function(String page, int? newIndex) pageReordered,
     required TResult Function(String oldName, String newName) pageRenamed,
@@ -12338,7 +12342,7 @@ class _$CurrentLayerChangedImpl extends CurrentLayerChanged {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(DocumentPage page, int? index)? pageAdded,
+    TResult? Function(int? index, DocumentPage? page)? pageAdded,
     TResult? Function(String pageName)? pageChanged,
     TResult? Function(String page, int? newIndex)? pageReordered,
     TResult? Function(String oldName, String newName)? pageRenamed,
@@ -12395,7 +12399,7 @@ class _$CurrentLayerChangedImpl extends CurrentLayerChanged {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(DocumentPage page, int? index)? pageAdded,
+    TResult Function(int? index, DocumentPage? page)? pageAdded,
     TResult Function(String pageName)? pageChanged,
     TResult Function(String page, int? newIndex)? pageReordered,
     TResult Function(String oldName, String newName)? pageRenamed,
@@ -12735,7 +12739,7 @@ class _$ElementsLayerChangedImpl extends ElementsLayerChanged {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(DocumentPage page, int? index) pageAdded,
+    required TResult Function(int? index, DocumentPage? page) pageAdded,
     required TResult Function(String pageName) pageChanged,
     required TResult Function(String page, int? newIndex) pageReordered,
     required TResult Function(String oldName, String newName) pageRenamed,
@@ -12799,7 +12803,7 @@ class _$ElementsLayerChangedImpl extends ElementsLayerChanged {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(DocumentPage page, int? index)? pageAdded,
+    TResult? Function(int? index, DocumentPage? page)? pageAdded,
     TResult? Function(String pageName)? pageChanged,
     TResult? Function(String page, int? newIndex)? pageReordered,
     TResult? Function(String oldName, String newName)? pageRenamed,
@@ -12856,7 +12860,7 @@ class _$ElementsLayerChangedImpl extends ElementsLayerChanged {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(DocumentPage page, int? index)? pageAdded,
+    TResult Function(int? index, DocumentPage? page)? pageAdded,
     TResult Function(String pageName)? pageChanged,
     TResult Function(String page, int? newIndex)? pageReordered,
     TResult Function(String oldName, String newName)? pageRenamed,
@@ -13202,7 +13206,7 @@ class _$TemplateCreatedImpl extends TemplateCreated {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(DocumentPage page, int? index) pageAdded,
+    required TResult Function(int? index, DocumentPage? page) pageAdded,
     required TResult Function(String pageName) pageChanged,
     required TResult Function(String page, int? newIndex) pageReordered,
     required TResult Function(String oldName, String newName) pageRenamed,
@@ -13266,7 +13270,7 @@ class _$TemplateCreatedImpl extends TemplateCreated {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(DocumentPage page, int? index)? pageAdded,
+    TResult? Function(int? index, DocumentPage? page)? pageAdded,
     TResult? Function(String pageName)? pageChanged,
     TResult? Function(String page, int? newIndex)? pageReordered,
     TResult? Function(String oldName, String newName)? pageRenamed,
@@ -13323,7 +13327,7 @@ class _$TemplateCreatedImpl extends TemplateCreated {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(DocumentPage page, int? index)? pageAdded,
+    TResult Function(int? index, DocumentPage? page)? pageAdded,
     TResult Function(String pageName)? pageChanged,
     TResult Function(String page, int? newIndex)? pageReordered,
     TResult Function(String oldName, String newName)? pageRenamed,
@@ -13655,7 +13659,7 @@ class _$AreasCreatedImpl extends AreasCreated {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(DocumentPage page, int? index) pageAdded,
+    required TResult Function(int? index, DocumentPage? page) pageAdded,
     required TResult Function(String pageName) pageChanged,
     required TResult Function(String page, int? newIndex) pageReordered,
     required TResult Function(String oldName, String newName) pageRenamed,
@@ -13719,7 +13723,7 @@ class _$AreasCreatedImpl extends AreasCreated {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(DocumentPage page, int? index)? pageAdded,
+    TResult? Function(int? index, DocumentPage? page)? pageAdded,
     TResult? Function(String pageName)? pageChanged,
     TResult? Function(String page, int? newIndex)? pageReordered,
     TResult? Function(String oldName, String newName)? pageRenamed,
@@ -13776,7 +13780,7 @@ class _$AreasCreatedImpl extends AreasCreated {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(DocumentPage page, int? index)? pageAdded,
+    TResult Function(int? index, DocumentPage? page)? pageAdded,
     TResult Function(String pageName)? pageChanged,
     TResult Function(String page, int? newIndex)? pageReordered,
     TResult Function(String oldName, String newName)? pageRenamed,
@@ -14104,7 +14108,7 @@ class _$AreasRemovedImpl extends AreasRemoved {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(DocumentPage page, int? index) pageAdded,
+    required TResult Function(int? index, DocumentPage? page) pageAdded,
     required TResult Function(String pageName) pageChanged,
     required TResult Function(String page, int? newIndex) pageReordered,
     required TResult Function(String oldName, String newName) pageRenamed,
@@ -14168,7 +14172,7 @@ class _$AreasRemovedImpl extends AreasRemoved {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(DocumentPage page, int? index)? pageAdded,
+    TResult? Function(int? index, DocumentPage? page)? pageAdded,
     TResult? Function(String pageName)? pageChanged,
     TResult? Function(String page, int? newIndex)? pageReordered,
     TResult? Function(String oldName, String newName)? pageRenamed,
@@ -14225,7 +14229,7 @@ class _$AreasRemovedImpl extends AreasRemoved {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(DocumentPage page, int? index)? pageAdded,
+    TResult Function(int? index, DocumentPage? page)? pageAdded,
     TResult Function(String pageName)? pageChanged,
     TResult Function(String page, int? newIndex)? pageReordered,
     TResult Function(String oldName, String newName)? pageRenamed,
@@ -14564,7 +14568,7 @@ class _$AreaChangedImpl extends AreaChanged {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(DocumentPage page, int? index) pageAdded,
+    required TResult Function(int? index, DocumentPage? page) pageAdded,
     required TResult Function(String pageName) pageChanged,
     required TResult Function(String page, int? newIndex) pageReordered,
     required TResult Function(String oldName, String newName) pageRenamed,
@@ -14628,7 +14632,7 @@ class _$AreaChangedImpl extends AreaChanged {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(DocumentPage page, int? index)? pageAdded,
+    TResult? Function(int? index, DocumentPage? page)? pageAdded,
     TResult? Function(String pageName)? pageChanged,
     TResult? Function(String page, int? newIndex)? pageReordered,
     TResult? Function(String oldName, String newName)? pageRenamed,
@@ -14685,7 +14689,7 @@ class _$AreaChangedImpl extends AreaChanged {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(DocumentPage page, int? index)? pageAdded,
+    TResult Function(int? index, DocumentPage? page)? pageAdded,
     TResult Function(String pageName)? pageChanged,
     TResult Function(String page, int? newIndex)? pageReordered,
     TResult Function(String oldName, String newName)? pageRenamed,
@@ -15009,7 +15013,7 @@ class _$CurrentAreaChangedImpl extends CurrentAreaChanged {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(DocumentPage page, int? index) pageAdded,
+    required TResult Function(int? index, DocumentPage? page) pageAdded,
     required TResult Function(String pageName) pageChanged,
     required TResult Function(String page, int? newIndex) pageReordered,
     required TResult Function(String oldName, String newName) pageRenamed,
@@ -15073,7 +15077,7 @@ class _$CurrentAreaChangedImpl extends CurrentAreaChanged {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(DocumentPage page, int? index)? pageAdded,
+    TResult? Function(int? index, DocumentPage? page)? pageAdded,
     TResult? Function(String pageName)? pageChanged,
     TResult? Function(String page, int? newIndex)? pageReordered,
     TResult? Function(String oldName, String newName)? pageRenamed,
@@ -15130,7 +15134,7 @@ class _$CurrentAreaChangedImpl extends CurrentAreaChanged {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(DocumentPage page, int? index)? pageAdded,
+    TResult Function(int? index, DocumentPage? page)? pageAdded,
     TResult Function(String pageName)? pageChanged,
     TResult Function(String page, int? newIndex)? pageReordered,
     TResult Function(String oldName, String newName)? pageRenamed,
@@ -15470,7 +15474,7 @@ class _$ExportPresetCreatedImpl extends ExportPresetCreated {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(DocumentPage page, int? index) pageAdded,
+    required TResult Function(int? index, DocumentPage? page) pageAdded,
     required TResult Function(String pageName) pageChanged,
     required TResult Function(String page, int? newIndex) pageReordered,
     required TResult Function(String oldName, String newName) pageRenamed,
@@ -15534,7 +15538,7 @@ class _$ExportPresetCreatedImpl extends ExportPresetCreated {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(DocumentPage page, int? index)? pageAdded,
+    TResult? Function(int? index, DocumentPage? page)? pageAdded,
     TResult? Function(String pageName)? pageChanged,
     TResult? Function(String page, int? newIndex)? pageReordered,
     TResult? Function(String oldName, String newName)? pageRenamed,
@@ -15591,7 +15595,7 @@ class _$ExportPresetCreatedImpl extends ExportPresetCreated {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(DocumentPage page, int? index)? pageAdded,
+    TResult Function(int? index, DocumentPage? page)? pageAdded,
     TResult Function(String pageName)? pageChanged,
     TResult Function(String page, int? newIndex)? pageReordered,
     TResult Function(String oldName, String newName)? pageRenamed,
@@ -15931,7 +15935,7 @@ class _$ExportPresetUpdatedImpl extends ExportPresetUpdated {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(DocumentPage page, int? index) pageAdded,
+    required TResult Function(int? index, DocumentPage? page) pageAdded,
     required TResult Function(String pageName) pageChanged,
     required TResult Function(String page, int? newIndex) pageReordered,
     required TResult Function(String oldName, String newName) pageRenamed,
@@ -15995,7 +15999,7 @@ class _$ExportPresetUpdatedImpl extends ExportPresetUpdated {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(DocumentPage page, int? index)? pageAdded,
+    TResult? Function(int? index, DocumentPage? page)? pageAdded,
     TResult? Function(String pageName)? pageChanged,
     TResult? Function(String page, int? newIndex)? pageReordered,
     TResult? Function(String oldName, String newName)? pageRenamed,
@@ -16052,7 +16056,7 @@ class _$ExportPresetUpdatedImpl extends ExportPresetUpdated {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(DocumentPage page, int? index)? pageAdded,
+    TResult Function(int? index, DocumentPage? page)? pageAdded,
     TResult Function(String pageName)? pageChanged,
     TResult Function(String page, int? newIndex)? pageReordered,
     TResult Function(String oldName, String newName)? pageRenamed,
@@ -16377,7 +16381,7 @@ class _$ExportPresetRemovedImpl extends ExportPresetRemoved {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(DocumentPage page, int? index) pageAdded,
+    required TResult Function(int? index, DocumentPage? page) pageAdded,
     required TResult Function(String pageName) pageChanged,
     required TResult Function(String page, int? newIndex) pageReordered,
     required TResult Function(String oldName, String newName) pageRenamed,
@@ -16441,7 +16445,7 @@ class _$ExportPresetRemovedImpl extends ExportPresetRemoved {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(DocumentPage page, int? index)? pageAdded,
+    TResult? Function(int? index, DocumentPage? page)? pageAdded,
     TResult? Function(String pageName)? pageChanged,
     TResult? Function(String page, int? newIndex)? pageReordered,
     TResult? Function(String oldName, String newName)? pageRenamed,
@@ -16498,7 +16502,7 @@ class _$ExportPresetRemovedImpl extends ExportPresetRemoved {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(DocumentPage page, int? index)? pageAdded,
+    TResult Function(int? index, DocumentPage? page)? pageAdded,
     TResult Function(String pageName)? pageChanged,
     TResult Function(String page, int? newIndex)? pageReordered,
     TResult Function(String oldName, String newName)? pageRenamed,
@@ -16820,7 +16824,7 @@ class _$PackAddedImpl extends PackAdded {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(DocumentPage page, int? index) pageAdded,
+    required TResult Function(int? index, DocumentPage? page) pageAdded,
     required TResult Function(String pageName) pageChanged,
     required TResult Function(String page, int? newIndex) pageReordered,
     required TResult Function(String oldName, String newName) pageRenamed,
@@ -16884,7 +16888,7 @@ class _$PackAddedImpl extends PackAdded {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(DocumentPage page, int? index)? pageAdded,
+    TResult? Function(int? index, DocumentPage? page)? pageAdded,
     TResult? Function(String pageName)? pageChanged,
     TResult? Function(String page, int? newIndex)? pageReordered,
     TResult? Function(String oldName, String newName)? pageRenamed,
@@ -16941,7 +16945,7 @@ class _$PackAddedImpl extends PackAdded {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(DocumentPage page, int? index)? pageAdded,
+    TResult Function(int? index, DocumentPage? page)? pageAdded,
     TResult Function(String pageName)? pageChanged,
     TResult Function(String page, int? newIndex)? pageReordered,
     TResult Function(String oldName, String newName)? pageRenamed,
@@ -17270,7 +17274,7 @@ class _$PackUpdatedImpl extends PackUpdated {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(DocumentPage page, int? index) pageAdded,
+    required TResult Function(int? index, DocumentPage? page) pageAdded,
     required TResult Function(String pageName) pageChanged,
     required TResult Function(String page, int? newIndex) pageReordered,
     required TResult Function(String oldName, String newName) pageRenamed,
@@ -17334,7 +17338,7 @@ class _$PackUpdatedImpl extends PackUpdated {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(DocumentPage page, int? index)? pageAdded,
+    TResult? Function(int? index, DocumentPage? page)? pageAdded,
     TResult? Function(String pageName)? pageChanged,
     TResult? Function(String page, int? newIndex)? pageReordered,
     TResult? Function(String oldName, String newName)? pageRenamed,
@@ -17391,7 +17395,7 @@ class _$PackUpdatedImpl extends PackUpdated {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(DocumentPage page, int? index)? pageAdded,
+    TResult Function(int? index, DocumentPage? page)? pageAdded,
     TResult Function(String pageName)? pageChanged,
     TResult Function(String page, int? newIndex)? pageReordered,
     TResult Function(String oldName, String newName)? pageRenamed,
@@ -17714,7 +17718,7 @@ class _$PackRemovedImpl extends PackRemoved {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(DocumentPage page, int? index) pageAdded,
+    required TResult Function(int? index, DocumentPage? page) pageAdded,
     required TResult Function(String pageName) pageChanged,
     required TResult Function(String page, int? newIndex) pageReordered,
     required TResult Function(String oldName, String newName) pageRenamed,
@@ -17778,7 +17782,7 @@ class _$PackRemovedImpl extends PackRemoved {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(DocumentPage page, int? index)? pageAdded,
+    TResult? Function(int? index, DocumentPage? page)? pageAdded,
     TResult? Function(String pageName)? pageChanged,
     TResult? Function(String page, int? newIndex)? pageReordered,
     TResult? Function(String oldName, String newName)? pageRenamed,
@@ -17835,7 +17839,7 @@ class _$PackRemovedImpl extends PackRemoved {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(DocumentPage page, int? index)? pageAdded,
+    TResult Function(int? index, DocumentPage? page)? pageAdded,
     TResult Function(String pageName)? pageChanged,
     TResult Function(String page, int? newIndex)? pageReordered,
     TResult Function(String oldName, String newName)? pageRenamed,
@@ -18168,7 +18172,7 @@ class _$AnimationAddedImpl extends AnimationAdded {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(DocumentPage page, int? index) pageAdded,
+    required TResult Function(int? index, DocumentPage? page) pageAdded,
     required TResult Function(String pageName) pageChanged,
     required TResult Function(String page, int? newIndex) pageReordered,
     required TResult Function(String oldName, String newName) pageRenamed,
@@ -18232,7 +18236,7 @@ class _$AnimationAddedImpl extends AnimationAdded {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(DocumentPage page, int? index)? pageAdded,
+    TResult? Function(int? index, DocumentPage? page)? pageAdded,
     TResult? Function(String pageName)? pageChanged,
     TResult? Function(String page, int? newIndex)? pageReordered,
     TResult? Function(String oldName, String newName)? pageRenamed,
@@ -18289,7 +18293,7 @@ class _$AnimationAddedImpl extends AnimationAdded {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(DocumentPage page, int? index)? pageAdded,
+    TResult Function(int? index, DocumentPage? page)? pageAdded,
     TResult Function(String pageName)? pageChanged,
     TResult Function(String page, int? newIndex)? pageReordered,
     TResult Function(String oldName, String newName)? pageRenamed,
@@ -18631,7 +18635,7 @@ class _$AnimationUpdatedImpl extends AnimationUpdated {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(DocumentPage page, int? index) pageAdded,
+    required TResult Function(int? index, DocumentPage? page) pageAdded,
     required TResult Function(String pageName) pageChanged,
     required TResult Function(String page, int? newIndex) pageReordered,
     required TResult Function(String oldName, String newName) pageRenamed,
@@ -18695,7 +18699,7 @@ class _$AnimationUpdatedImpl extends AnimationUpdated {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(DocumentPage page, int? index)? pageAdded,
+    TResult? Function(int? index, DocumentPage? page)? pageAdded,
     TResult? Function(String pageName)? pageChanged,
     TResult? Function(String page, int? newIndex)? pageReordered,
     TResult? Function(String oldName, String newName)? pageRenamed,
@@ -18752,7 +18756,7 @@ class _$AnimationUpdatedImpl extends AnimationUpdated {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(DocumentPage page, int? index)? pageAdded,
+    TResult Function(int? index, DocumentPage? page)? pageAdded,
     TResult Function(String pageName)? pageChanged,
     TResult Function(String page, int? newIndex)? pageReordered,
     TResult Function(String oldName, String newName)? pageRenamed,
@@ -19077,7 +19081,7 @@ class _$AnimationRemovedImpl extends AnimationRemoved {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(DocumentPage page, int? index) pageAdded,
+    required TResult Function(int? index, DocumentPage? page) pageAdded,
     required TResult Function(String pageName) pageChanged,
     required TResult Function(String page, int? newIndex) pageReordered,
     required TResult Function(String oldName, String newName) pageRenamed,
@@ -19141,7 +19145,7 @@ class _$AnimationRemovedImpl extends AnimationRemoved {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(DocumentPage page, int? index)? pageAdded,
+    TResult? Function(int? index, DocumentPage? page)? pageAdded,
     TResult? Function(String pageName)? pageChanged,
     TResult? Function(String page, int? newIndex)? pageReordered,
     TResult? Function(String oldName, String newName)? pageRenamed,
@@ -19198,7 +19202,7 @@ class _$AnimationRemovedImpl extends AnimationRemoved {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(DocumentPage page, int? index)? pageAdded,
+    TResult Function(int? index, DocumentPage? page)? pageAdded,
     TResult Function(String pageName)? pageChanged,
     TResult Function(String page, int? newIndex)? pageReordered,
     TResult Function(String oldName, String newName)? pageRenamed,
@@ -19542,7 +19546,7 @@ class _$PresentationModeEnteredImpl extends PresentationModeEntered {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(DocumentPage page, int? index) pageAdded,
+    required TResult Function(int? index, DocumentPage? page) pageAdded,
     required TResult Function(String pageName) pageChanged,
     required TResult Function(String page, int? newIndex) pageReordered,
     required TResult Function(String oldName, String newName) pageRenamed,
@@ -19606,7 +19610,7 @@ class _$PresentationModeEnteredImpl extends PresentationModeEntered {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(DocumentPage page, int? index)? pageAdded,
+    TResult? Function(int? index, DocumentPage? page)? pageAdded,
     TResult? Function(String pageName)? pageChanged,
     TResult? Function(String page, int? newIndex)? pageReordered,
     TResult? Function(String oldName, String newName)? pageRenamed,
@@ -19663,7 +19667,7 @@ class _$PresentationModeEnteredImpl extends PresentationModeEntered {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(DocumentPage page, int? index)? pageAdded,
+    TResult Function(int? index, DocumentPage? page)? pageAdded,
     TResult Function(String pageName)? pageChanged,
     TResult Function(String page, int? newIndex)? pageReordered,
     TResult Function(String oldName, String newName)? pageRenamed,
@@ -19964,7 +19968,7 @@ class _$PresentationModeExitedImpl extends PresentationModeExited {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(DocumentPage page, int? index) pageAdded,
+    required TResult Function(int? index, DocumentPage? page) pageAdded,
     required TResult Function(String pageName) pageChanged,
     required TResult Function(String page, int? newIndex) pageReordered,
     required TResult Function(String oldName, String newName) pageRenamed,
@@ -20028,7 +20032,7 @@ class _$PresentationModeExitedImpl extends PresentationModeExited {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(DocumentPage page, int? index)? pageAdded,
+    TResult? Function(int? index, DocumentPage? page)? pageAdded,
     TResult? Function(String pageName)? pageChanged,
     TResult? Function(String page, int? newIndex)? pageReordered,
     TResult? Function(String oldName, String newName)? pageRenamed,
@@ -20085,7 +20089,7 @@ class _$PresentationModeExitedImpl extends PresentationModeExited {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(DocumentPage page, int? index)? pageAdded,
+    TResult Function(int? index, DocumentPage? page)? pageAdded,
     TResult Function(String pageName)? pageChanged,
     TResult Function(String page, int? newIndex)? pageReordered,
     TResult Function(String oldName, String newName)? pageRenamed,
@@ -20402,7 +20406,7 @@ class _$PresentationTickImpl extends PresentationTick {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(DocumentPage page, int? index) pageAdded,
+    required TResult Function(int? index, DocumentPage? page) pageAdded,
     required TResult Function(String pageName) pageChanged,
     required TResult Function(String page, int? newIndex) pageReordered,
     required TResult Function(String oldName, String newName) pageRenamed,
@@ -20466,7 +20470,7 @@ class _$PresentationTickImpl extends PresentationTick {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(DocumentPage page, int? index)? pageAdded,
+    TResult? Function(int? index, DocumentPage? page)? pageAdded,
     TResult? Function(String pageName)? pageChanged,
     TResult? Function(String page, int? newIndex)? pageReordered,
     TResult? Function(String oldName, String newName)? pageRenamed,
@@ -20523,7 +20527,7 @@ class _$PresentationTickImpl extends PresentationTick {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(DocumentPage page, int? index)? pageAdded,
+    TResult Function(int? index, DocumentPage? page)? pageAdded,
     TResult Function(String pageName)? pageChanged,
     TResult Function(String page, int? newIndex)? pageReordered,
     TResult Function(String oldName, String newName)? pageRenamed,

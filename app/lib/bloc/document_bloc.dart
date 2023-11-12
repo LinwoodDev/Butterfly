@@ -61,7 +61,8 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     on<PageAdded>((event, emit) async {
       final current = state;
       if (current is! DocumentLoadSuccess) return;
-      final page = DocumentPage(backgrounds: current.page.backgrounds);
+      final page =
+          event.page ?? DocumentPage(backgrounds: current.page.backgrounds);
       final (newData, pageName) = current.data.addPage(page, event.index);
       return _saveState(
         emit,
