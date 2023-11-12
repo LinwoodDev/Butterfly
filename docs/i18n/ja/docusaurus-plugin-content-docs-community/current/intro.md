@@ -1,25 +1,25 @@
 ---
 id: "community"
 slug: "/community"
-sidebar_label: "Home"
+sidebar_label: "ホーム"
 sidebar_position: 0
-title: "Community"
+title: "コミュニティ"
 ---
 
-Welcome to the community section.
+コミュニティセクションへようこそ。
 
-## Acknowledgements
+## 謝辞
 
-A special thanks goes to:
+特別な感謝は次のとおりです:
 
-* [Flutter](https://github.com/flutter/flutter) for providing this useful crossplatform ui framework
-* [window_manager](https://github.com/leanflutter/window_manager) for all this useful desktop window features
-* [Docusaurus](https://github.com/facebook/docusaurus) for an easy-to-use static react documentation framework
+* [Flutter](https://github.com/flutter/flutter) この便利なクロスプラットフォームUIフレームワークを提供する
+* [window_manager](https://github.com/leanflutter/window_manager) このすべての便利なデスクトップウィンドウ機能について
+* [Docusaurus](https://github.com/facebook/docusaurus) 使いやすい静的反応文書化フレームワーク用
 
-All other licenses can you found in the settings.
+他のすべてのライセンスは、設定で見つけることができます。
 
-## Useful links
+## 有用なリンク
 
 * [GitHub](https://github.com/LinwoodDev/Butterfly)
 * [Discord](https://go.linwood.dev/discord)
-* [Matrix](https://go.linwood.dev/matrix)
+* [マトリクス](https://go.linwood.dev/matrix)

@@ -26,7 +26,7 @@ sidebar_position: 4
 
 <div className="row margin-bottom--lg padding--sm">
 <Link className="button button--outline button--primary button--lg margin--sm" href="https://play.google.com/store/apps/details?id=dev.linwood.butterfly">
-  Play 商店
+  Play Store
 </Link>
 <Link className="button button--outline button--primary button--lg margin--sm" href="https://f-droid.org/de/packages/dev.linwood.butterfly">
   F-Droid

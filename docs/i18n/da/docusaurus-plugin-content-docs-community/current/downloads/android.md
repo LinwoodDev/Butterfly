@@ -16,7 +16,7 @@ sidebar_position: 4
   Stabil
 </DownloadButton>
 <DownloadButton className="button button--outline button--danger button--lg margin--sm" href="https://github.com/LinwoodDev/butterfly/releases/download/nightly/linwood-butterfly-android.apk">
-  Nightly
+  Natligt
 </DownloadButton>
 </div>
 

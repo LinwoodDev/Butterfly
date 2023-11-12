@@ -7,7 +7,7 @@ sidebar_position: 3
 
 :::note
 
-Vă rugăm să folosiți versiunea netedă, dacă este posibil. Altfel trebuie să instalezi `libsecret-1-dev` și `libjsoncpp-dev`.
+Vă rugăm să folosiți versiunea netedă, dacă este posibil. Altfel trebuie să instalați `libsecret-1-dev` și `libjsoncpp-dev`.
 
 :::
 

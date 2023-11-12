@@ -552,5 +552,6 @@
   "stop": "Arrêter",
   "refresh": "Rafraîchir",
   "print": "Imprimer",
-  "dav": "DAV"
+  "dav": "DAV",
+  "eyeDropper": "Goutteur d'yeux"
 }

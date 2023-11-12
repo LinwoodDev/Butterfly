@@ -14,7 +14,7 @@ slug: "/downloads/post-windows"
   Bidra til prosjektet
 </Link>
 <Link className="button button--outline button--info button--lg margin--sm" href="https://linwood.dev/matrix">
-  Bli med i det fellesskapet
+  Bli med i samfunnet
 </Link>
 
 </div>

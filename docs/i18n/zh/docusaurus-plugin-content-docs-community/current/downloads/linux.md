@@ -67,10 +67,10 @@ sidebar_position: 3
 
 <div className="row margin-bottom--lg padding--sm">
 <Link className="button button--outline button--primary button--lg margin--sm" href="https://flathub.org/apps/details/dev.linwood.butterfly">
-  Flathub
+  Flahub
 </Link>
 <Link className="button button--outline button--primary button--lg margin--sm" href="https://snapcraft.io/butterfly">
-  吸附
+  吸附器
 </Link>
 </div>
 

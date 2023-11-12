@@ -67,13 +67,10 @@ Přečtěte si více o noční verzi Butterfly [zde](/nightly).
 
 <div className="row margin-bottom--lg padding--sm">
 <Link className="button button--outline button--primary button--lg margin--sm" href="https://flathub.org/apps/details/dev.linwood.butterfly">
-  Lothub
+  Flathub
 </Link>
 <Link className="button button--outline button--primary button--lg margin--sm" href="https://snapcraft.io/butterfly">
-  Přichytit
-</Link>
-<Link className="button button--outline button--primary button--lg margin--sm" href="https://snapcraft.io/butterfly">
-  Snap
+  zachytit
 </Link>
 </div>
 

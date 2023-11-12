@@ -16,7 +16,7 @@ sidebar_position: 4
   Vakaa
 </DownloadButton>
 <DownloadButton className="button button--outline button--danger button--lg margin--sm" href="https://github.com/LinwoodDev/butterfly/releases/download/nightly/linwood-butterfly-android.apk">
-  Nightly
+  Yöllä
 </DownloadButton>
 </div>
 
@@ -26,7 +26,7 @@ Lue lisää Butterfly yöllisestä versiosta [täältä](/nightly).
 
 <div className="row margin-bottom--lg padding--sm">
 <Link className="button button--outline button--primary button--lg margin--sm" href="https://play.google.com/store/apps/details?id=dev.linwood.butterfly">
-  Pelaa kauppaa
+  Pelaa Kauppa
 </Link>
 <Link className="button button--outline button--primary button--lg margin--sm" href="https://f-droid.org/de/packages/dev.linwood.butterfly">
   F-Droid

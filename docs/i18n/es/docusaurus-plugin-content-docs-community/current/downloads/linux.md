@@ -70,7 +70,7 @@ Lea más sobre la versión nocturna de la mariposa [aquí](/nightly).
   Flathub
 </Link>
 <Link className="button button--outline button--primary button--lg margin--sm" href="https://snapcraft.io/butterfly">
-  Ajustar
+  Ajuste
 </Link>
 </div>
 

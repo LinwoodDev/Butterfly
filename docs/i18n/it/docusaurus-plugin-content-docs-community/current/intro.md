@@ -6,20 +6,20 @@ sidebar_position: 0
 title: "Community"
 ---
 
-Welcome to the community section.
+Benvenuti nella sezione della comunità.
 
-## Acknowledgements
+## Riconoscimenti
 
-A special thanks goes to:
+Un ringraziamento speciale va a:
 
-* [Flutter](https://github.com/flutter/flutter) for providing this useful crossplatform ui framework
-* [window_manager](https://github.com/leanflutter/window_manager) for all this useful desktop window features
-* [Docusaurus](https://github.com/facebook/docusaurus) for an easy-to-use static react documentation framework
+* [Flutter](https://github.com/flutter/flutter) per fornire questo utile framework cross-platform ui
+* [window_manager](https://github.com/leanflutter/window_manager) per tutte le utili funzioni della finestra desktop
+* [Docusaurus](https://github.com/facebook/docusaurus) per un quadro di documentazione di reazione statica facile da usare
 
-All other licenses can you found in the settings.
+Tutte le altre licenze possono essere trovate nelle impostazioni.
 
-## Useful links
+## Link utili
 
 * [GitHub](https://github.com/LinwoodDev/Butterfly)
 * [Discord](https://go.linwood.dev/discord)
-* [Matrix](https://go.linwood.dev/matrix)
+* [Matrice](https://go.linwood.dev/matrix)
