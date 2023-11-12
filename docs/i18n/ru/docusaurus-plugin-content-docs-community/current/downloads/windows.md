@@ -49,31 +49,31 @@ sidebar_position: 2
 ## Установить с помощью Winget
 
 ```powershell
-winget установить LinwoodCloud.Butterfly
+winget install LinwoodCloud.Butterfly
 ```
 
 Для обновления пакета winget, запустите:
 
 ```powershell
-winget обновить LinwoodCloud.Butterfly
+winget upgrade LinwoodCloud.Butterfly
 ```
 
 Чтобы удалить пакет winget, запустите:
 
 ```powershell
-winget удалить LinwoodCloud.Butterfly
+winget uninstall LinwoodCloud.Butterfly
 ```
 
 ### Ночная версия
 
 ```powershell
-winget установить LinwoodCloud.Butterfly.Ночью
+winget install LinwoodCloud.Butterfly.Nightly
 ```
 
 Для обновления пакета winget, запустите:
 
 ```powershell
-winget обновить LinwoodCloud.Butterfly.Ночью
+winget upgrade LinwoodCloud.Butterfly.Nightly
 ```
 
 Чтобы удалить пакет winget, запустите:
