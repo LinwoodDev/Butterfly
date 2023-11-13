@@ -52,7 +52,7 @@
     "description": "Navbar item with label Mastodon"
   },
   "item.label.License": {
-    "message": "License",
+    "message": "Giấy phép",
     "description": "Navbar item with label License"
   }
 }
