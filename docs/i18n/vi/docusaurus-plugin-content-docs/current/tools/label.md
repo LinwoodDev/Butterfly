@@ -1,6 +1,6 @@
 ---
 title: "Label tool"
-sidebar_label: "Label"
+sidebar_label: "Nhãn"
 sidebar_position: 6
 ---
 
