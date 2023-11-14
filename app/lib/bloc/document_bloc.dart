@@ -823,8 +823,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     on<PresentationModeEntered>((event, emit) {
       final current = state;
       if (current is! DocumentLoadSuccess) return;
-      current.currentIndexCubit.fetchHandler<PresentationHandler>()?.stop(this);
-      emit(DocumentPresentationState(
+      final newState = DocumentPresentationState(
         this,
         current,
         event.track,
@@ -834,13 +833,15 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
         pageName: current.pageName,
         page: current.page,
         metadata: current.metadata,
-      ));
+      );
+      current.currentIndexCubit.updateHandler(this, newState.handler);
+      emit(newState);
     });
     on<PresentationModeExited>((event, emit) {
       final current = state;
       if (current is! DocumentPresentationState) return;
-      current.handler.dispose(this);
       emit(current.oldState);
+      current.currentIndexCubit.changeTool(this);
       current.settingsCubit.setFullScreen(current.fullScreen);
     });
     on<PresentationTick>((event, emit) {

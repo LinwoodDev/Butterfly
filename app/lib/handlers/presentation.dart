@@ -191,6 +191,9 @@ class PresentationStateHandler extends Handler<AnimationTrack>
   }
 
   @override
+  bool onScaleStart(ScaleStartDetails details, EventContext context) => true;
+
+  @override
   void dispose(DocumentBloc bloc) {
     super.dispose(bloc);
     stop(bloc);

@@ -1,3 +1,4 @@
+import 'package:butterfly/api/save_data.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:collection/collection.dart';
@@ -86,6 +87,7 @@ class _ColorPalettePickerDialogState extends State<ColorPalettePickerDialog> {
           if (palette == null) return Container();
           if ((palette.colors.length) <= index) return Container();
           final color = palette.colors[index];
+          final colorText = color.toHexColor(alpha: false);
           return Column(mainAxisSize: MainAxisSize.min, children: [
             Padding(
               padding: const EdgeInsets.all(8.0),
@@ -101,9 +103,12 @@ class _ColorPalettePickerDialogState extends State<ColorPalettePickerDialog> {
                   ),
                   const SizedBox(width: 16),
                   Expanded(
-                      child: Text(
-                    color.toHexColor(alpha: false),
-                    style: Theme.of(context).textTheme.headlineLarge,
+                      child: GestureDetector(
+                    child: Text(
+                      colorText,
+                      style: Theme.of(context).textTheme.headlineLarge,
+                    ),
+                    onTap: () => saveToClipboard(context, colorText),
                   ))
                 ],
               ),

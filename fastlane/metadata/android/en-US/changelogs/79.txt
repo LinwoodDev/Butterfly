@@ -2,10 +2,14 @@
 * Add advanced note importer ([#511](https://github.com/LinwoodDev/Butterfly/issues/511))
 * Add progress indicator for pdf import
 * Add create button on missing span or paragraph style
+* Add copy to clipboard to color edit dialog
 * Fix icon button if no display icon available
 * Fix pointer list on window exit ([#521](https://github.com/LinwoodDev/Butterfly/issues/521))
 * Fix saving when changing path
 * Fix document importer
+* Fix updating ui in presentation toolbar
+* Fix moving in presentation state
+* Fix toolbar in presentation state
 * Remove sync button on local storage
 * Remove sync button on files in local storage
 

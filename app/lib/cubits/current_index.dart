@@ -104,13 +104,17 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
         .getGridPosition(position, page, info, this);
   }
 
-  Handler? changeTool(DocumentBloc bloc, int index,
-      [Handler? handler, bool justAdded = false, bool runSelected = true]) {
+  Handler? changeTool(DocumentBloc bloc,
+      [int? index,
+      Handler? handler,
+      bool justAdded = false,
+      bool runSelected = true]) {
     resetInput(bloc);
     final blocState = bloc.state;
     if (blocState is! DocumentLoadSuccess) return null;
     final document = blocState.data;
     final info = blocState.info;
+    index ??= state.index ?? 0;
     if (index < 0 || index >= info.tools.length) {
       return null;
     }
@@ -137,6 +141,12 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     }
     return handler;
   }
+
+  void updateHandler(DocumentBloc bloc, Handler handler) => emit(state.copyWith(
+      handler: handler,
+      cursor: handler.cursor ?? MouseCursor.defer,
+      toolbar: handler.getToolbar(bloc),
+      rendererStates: handler.rendererStates));
 
   Future<void> updateTool(DocumentBloc bloc, Tool tool) async {
     final docState = bloc.state;
