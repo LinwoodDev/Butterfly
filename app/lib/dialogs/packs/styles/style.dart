@@ -54,7 +54,7 @@ class _StyleDialogState extends State<StyleDialog> {
           child: Column(
             children: [
               TabBar(
-                  tabAlignment: TabAlignment.fill,
+                  isScrollable: true,
                   tabs: [
                     (
                       PhosphorIconsLight.gear,

@@ -25,6 +25,7 @@ class TextsStyleView extends StatefulWidget {
 }
 
 class _TextsStyleViewState extends State<TextsStyleView> {
+  final _controller = TextEditingController();
   String? _currentStyle;
 
   @override
@@ -58,6 +59,7 @@ class _TextsStyleViewState extends State<TextsStyleView> {
           children: [
             Expanded(
               child: DropdownMenu<String?>(
+                controller: _controller,
                 expandedInsets: const EdgeInsets.all(4),
                 dropdownMenuEntries: [
                   ...widget.value.spanProperties.entries.map(
@@ -176,16 +178,30 @@ class _TextsStyleViewState extends State<TextsStyleView> {
         Flexible(
           child: Builder(
             builder: (context) {
-              final currentspan = widget.value.spanProperties[_currentStyle];
-              if (currentspan == null) {
-                return const SizedBox();
+              final currentSpan = widget.value.spanProperties[_currentStyle];
+              if (currentSpan == null) {
+                return Center(
+                    child: ElevatedButton(
+                  child: Text(AppLocalizations.of(context).create),
+                  onPressed: () {
+                    widget.onChanged(widget.value.copyWith(
+                      spanProperties: {
+                        ...widget.value.spanProperties,
+                        _controller.text: const text.DefinedSpanProperty(),
+                      },
+                    ));
+                    setState(() {
+                      _currentStyle = _controller.text;
+                    });
+                  },
+                ));
               }
               return Card(
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: SingleChildScrollView(
                     child: TextStyleView(
-                      value: currentspan,
+                      value: currentSpan,
                       onChanged: (span) {
                         widget.onChanged(widget.value.copyWith(
                           spanProperties: {

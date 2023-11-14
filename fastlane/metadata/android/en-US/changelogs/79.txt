@@ -1,6 +1,7 @@
 * Add templates to data settings
 * Add advanced note importer ([#511](https://github.com/LinwoodDev/Butterfly/issues/511))
 * Add progress indicator for pdf import
+* Add create button on missing span or paragraph style
 * Fix icon button if no display icon available
 * Fix pointer list on window exit ([#521](https://github.com/LinwoodDev/Butterfly/issues/521))
 * Fix saving when changing path

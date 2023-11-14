@@ -1,6 +1,6 @@
 import 'package:butterfly/dialogs/name.dart';
 import 'package:butterfly/models/defaults.dart';
-import 'package:butterfly_api/butterfly_text.dart';
+import 'package:butterfly_api/butterfly_text.dart' as text;
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -11,8 +11,8 @@ import '../../delete.dart';
 import 'paragraph.dart';
 
 class ParagraphsStyleView extends StatefulWidget {
-  final TextStyleSheet value;
-  final ValueChanged<TextStyleSheet> onChanged;
+  final text.TextStyleSheet value;
+  final ValueChanged<text.TextStyleSheet> onChanged;
 
   const ParagraphsStyleView({
     super.key,
@@ -25,6 +25,7 @@ class ParagraphsStyleView extends StatefulWidget {
 }
 
 class _ParagraphsStyleViewState extends State<ParagraphsStyleView> {
+  final _controller = TextEditingController();
   String? _currentStyle;
 
   @override
@@ -66,6 +67,7 @@ class _ParagraphsStyleViewState extends State<ParagraphsStyleView> {
                   ),
                 ),
               ],
+              controller: _controller,
               initialSelection: _currentStyle,
               onSelected: (value) {
                 setState(() {
@@ -94,7 +96,7 @@ class _ParagraphsStyleViewState extends State<ParagraphsStyleView> {
               widget.onChanged(widget.value.copyWith(
                 paragraphProperties: {
                   ...widget.value.paragraphProperties,
-                  name: const DefinedParagraphProperty(),
+                  name: const text.DefinedParagraphProperty(),
                 },
               ));
             },
@@ -114,7 +116,7 @@ class _ParagraphsStyleViewState extends State<ParagraphsStyleView> {
                       widget.onChanged(widget.value.copyWith(
                         paragraphProperties: {
                           ...widget.value.paragraphProperties,
-                          e.key: const DefinedParagraphProperty(),
+                          e.key: const text.DefinedParagraphProperty(),
                         },
                       ));
                     },
@@ -145,7 +147,7 @@ class _ParagraphsStyleViewState extends State<ParagraphsStyleView> {
                 _currentStyle = name;
                 widget.onChanged(widget.value.copyWith(
                   paragraphProperties:
-                      Map<String, DefinedParagraphProperty>.from(
+                      Map<String, text.DefinedParagraphProperty>.from(
                           widget.value.paragraphProperties)
                         ..remove(lastStyle)
                         ..[name] = widget.value.paragraphProperties[lastStyle]!,
@@ -164,7 +166,7 @@ class _ParagraphsStyleViewState extends State<ParagraphsStyleView> {
                   _currentStyle = null;
                   widget.onChanged(widget.value.copyWith(
                     paragraphProperties:
-                        Map<String, DefinedParagraphProperty>.from(
+                        Map<String, text.DefinedParagraphProperty>.from(
                             widget.value.paragraphProperties)
                           ..remove(lastStyle),
                   ));
@@ -181,7 +183,21 @@ class _ParagraphsStyleViewState extends State<ParagraphsStyleView> {
             final currentParagraph =
                 widget.value.paragraphProperties[_currentStyle];
             if (currentParagraph == null) {
-              return const SizedBox();
+              return Center(
+                  child: ElevatedButton(
+                child: Text(AppLocalizations.of(context).create),
+                onPressed: () {
+                  widget.onChanged(widget.value.copyWith(
+                    paragraphProperties: {
+                      ...widget.value.paragraphProperties,
+                      _controller.text: const text.DefinedParagraphProperty(),
+                    },
+                  ));
+                  setState(() {
+                    _currentStyle = _controller.text;
+                  });
+                },
+              ));
             }
             return Card(
               child: Padding(
