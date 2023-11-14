@@ -151,7 +151,11 @@ class ImportService {
       packs = callback.packs;
     }
     for (final page in pages.map((e) => data.getPage(e)).whereNotNull()) {
-      document = document.addPage(page).$1;
+      if (advanced) {
+        document = document.addPage(page).$1;
+      } else {
+        document = document.setPage(page);
+      }
       bloc?.add(PageAdded(null, page));
     }
     for (final packs in packs.map((e) => data.getPack(e)).whereNotNull()) {

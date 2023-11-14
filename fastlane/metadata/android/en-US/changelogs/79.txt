@@ -10,6 +10,7 @@
 * Fix updating ui in presentation toolbar
 * Fix moving in presentation state
 * Fix toolbar in presentation state
+* Fix animation duplicates on rename
 * Remove sync button on local storage
 * Remove sync button on files in local storage
 

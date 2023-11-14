@@ -62,12 +62,11 @@ class _PresentationToolbarViewState extends State<PresentationToolbarView> {
     super.initState();
     _frame = widget.frame;
     _bloc = context.read<DocumentBloc>();
-    if (widget.animation != null) {
-      _selected = widget.animation;
-      _animation = _bloc.state.page?.getAnimation(_selected!);
-    } else {
-      _resetSelection();
-    }
+    _selected =
+        widget.animation ?? _bloc.state.page?.animations.firstOrNull?.name;
+    _animation =
+        _selected == null ? null : _bloc.state.page?.getAnimation(_selected!);
+    _updateControllers();
   }
 
   @override
@@ -82,6 +81,14 @@ class _PresentationToolbarViewState extends State<PresentationToolbarView> {
     }
   }
 
+  void _updateControllers() {
+    if (_animation != null) {
+      _durationController.text = _animation!.duration.toString();
+      _fpsController.text = _animation!.fps.toString();
+    }
+    _frameController.text = _frame.toString();
+  }
+
   void _setAnimation(String? value) {
     final animation =
         _selected == null ? null : _bloc.state.page?.getAnimation(_selected!);
@@ -90,11 +97,7 @@ class _PresentationToolbarViewState extends State<PresentationToolbarView> {
       _animation = animation;
       _key = animation?.keys[_frame];
     });
-    if (animation != null) {
-      _durationController.text = animation.duration.toString();
-      _fpsController.text = animation.fps.toString();
-    }
-    _frameController.text = _frame.toString();
+    _updateControllers();
     widget.onAnimationChanged?.call(value);
   }
 
@@ -197,12 +200,16 @@ class _PresentationToolbarViewState extends State<PresentationToolbarView> {
                                   builder: (context) => NameDialog(),
                                 );
                                 if (name == null) return;
-                                bloc.add(
-                                  AnimationAdded(AnimationTrack(
-                                    name: name,
-                                  )),
+                                final track = AnimationTrack(
+                                  name: name,
                                 );
-                                _setAnimation(name);
+                                bloc.add(
+                                  AnimationAdded(track),
+                                );
+                                setState(() {
+                                  _animation = track;
+                                  _updateControllers();
+                                });
                               },
                               child: Text(AppLocalizations.of(context).create),
                             ),
@@ -254,9 +261,11 @@ class _PresentationToolbarViewState extends State<PresentationToolbarView> {
                                       );
                                       if (name == null) return;
                                       bloc.add(
-                                        AnimationAdded(_animation!.copyWith(
-                                          name: name,
-                                        )),
+                                        AnimationUpdated(
+                                            _animation!.name,
+                                            _animation!.copyWith(
+                                              name: name,
+                                            )),
                                       );
                                       _setAnimation(name);
                                     },

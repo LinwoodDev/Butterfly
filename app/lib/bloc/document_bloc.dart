@@ -796,7 +796,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       if (!(current.embedding?.editable ?? true)) return;
       final currentDocument = current.page.copyWith(
           animations: current.page.animations.map((e) {
-        if (e.name == event.animation.name) {
+        if (e.name == event.name) {
           return event.animation;
         }
         return e;
