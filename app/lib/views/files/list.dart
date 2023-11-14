@@ -157,10 +157,10 @@ class FileEntityListTile extends StatelessWidget {
                       mainAxisSize: MainAxisSize.min,
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
-                        if (remote != null)
+                        if (remote is RemoteStorage)
                           StreamBuilder<List<SyncFile>>(
                             stream: syncService
-                                .getSync(remote.identifier)
+                                .getSync(remote!.identifier)
                                 ?.filesStream,
                             builder: (context, snapshot) {
                               final currentStatus = snapshot.data

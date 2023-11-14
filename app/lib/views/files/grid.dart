@@ -210,10 +210,10 @@ class FileEntityGridItem extends StatelessWidget {
                             tooltip: AppLocalizations.of(context).actions,
                           ),
                           menuChildren: [
-                            if (remote != null)
+                            if (remote is RemoteStorage)
                               StreamBuilder<List<SyncFile>>(
                                 stream: syncService
-                                    .getSync(remote.identifier)
+                                    .getSync(remote!.identifier)
                                     ?.filesStream,
                                 builder: (context, snapshot) {
                                   final currentStatus = snapshot.data
