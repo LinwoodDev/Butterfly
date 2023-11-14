@@ -69,8 +69,8 @@ class DavRemoteDocumentFileSystem extends DocumentRemoteSystem {
   }
 
   @override
-  Future<AppDocumentEntity?> getAsset(String path,
-      {bool forceRemote = false}) async {
+  Stream<AppDocumentEntity?> fetchAsset(String path,
+      [bool? listFiles = true, bool forceRemote = false]) async* {
     if (path.endsWith('/')) {
       path = path.substring(0, path.length - 1);
     }
@@ -79,13 +79,16 @@ class DavRemoteDocumentFileSystem extends DocumentRemoteSystem {
     }
     final cached = await getCachedContent(path);
     if (cached != null && !forceRemote) {
-      return getAppDocumentFile(
-          AssetLocation(remote: remote.identifier, path: path), cached);
+      yield await getAppDocumentFile(
+          AssetLocation(remote: remote.identifier, path: path), cached,
+          cached: true);
+      return;
     }
 
     var response = await _createRequest(path.split('/'), method: 'PROPFIND');
     if (response.statusCode != 207) {
-      return null;
+      yield null;
+      return;
     }
     var content = await response.stream.bytesToString();
     final xml = XmlDocument.parse(content);
@@ -139,15 +142,16 @@ class DavRemoteDocumentFileSystem extends DocumentRemoteSystem {
               AssetLocation(remote: remote.identifier, path: path), const []);
         }
       }).toList());
-      return AppDocumentEntity.directory(
+      yield AppDocumentEntity.directory(
           AssetLocation(remote: remote.identifier, path: path), assets);
+      return;
     }
     response = await _createRequest(path.split('/'), method: 'GET');
     if (response.statusCode != 200) {
       throw Exception('Failed to get asset: ${response.statusCode}');
     }
     var fileContent = await response.stream.toBytes();
-    return getAppDocumentFile(
+    yield await getAppDocumentFile(
         AssetLocation(remote: remote.identifier, path: path), fileContent);
   }
 
@@ -184,12 +188,10 @@ class DavRemoteDocumentFileSystem extends DocumentRemoteSystem {
   }
 
   @override
-  Future<AppDocumentFile> updateFile(String path, List<int> data,
+  Future<void> updateFile(String path, List<int> data,
       {bool forceSync = false}) async {
     if (!forceSync && remote.hasDocumentCached(path)) {
       cacheContent(path, data);
-      return getAppDocumentFile(
-          AssetLocation(remote: remote.identifier, path: path), data);
     }
     // Create directory if not exists
     final directoryPath = path.substring(0, path.lastIndexOf('/'));
@@ -202,12 +204,10 @@ class DavRemoteDocumentFileSystem extends DocumentRemoteSystem {
       throw Exception(
           'Failed to update document: ${response.statusCode} ${response.reasonPhrase}');
     }
-    return getAppDocumentFile(
-        AssetLocation(remote: remote.identifier, path: path), data);
   }
 
   @override
-  Future<AppDocumentFile> updateDocument(String path, NoteData document,
+  Future<void> updateDocument(String path, NoteData document,
           {bool forceSync = false}) =>
       updateFile(path, document.save(), forceSync: forceSync);
 
@@ -224,7 +224,9 @@ class DavRemoteDocumentFileSystem extends DocumentRemoteSystem {
   @override
   Future<AppDocumentFile> createFile(String path, List<int> data,
           {bool forceSync = false}) async =>
-      updateFile(await findAvailableName(path), data);
+      updateFile(await findAvailableName(path), data).then((_) =>
+          getAppDocumentFile(
+              AssetLocation(remote: remote.identifier, path: path), data));
 }
 
 class DavRemoteTemplateFileSystem extends TemplateFileSystem with RemoteSystem {

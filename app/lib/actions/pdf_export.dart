@@ -3,12 +3,13 @@ import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../dialogs/pdf_export.dart';
+import '../dialogs/export/pdf.dart';
 
 class PdfExportIntent extends Intent {
   final BuildContext context;
+  final bool print;
 
-  const PdfExportIntent(this.context);
+  const PdfExportIntent(this.context, [this.print = false]);
 }
 
 class PdfExportAction extends Action<PdfExportIntent> {
@@ -20,7 +21,9 @@ class PdfExportAction extends Action<PdfExportIntent> {
     final bloc = context.read<DocumentBloc>();
     final state = bloc.state;
     if (state is! DocumentLoadSuccess) return;
-    var areas = <AreaPreset>[];
+    var areas = <AreaPreset>[
+      state.areaPreset,
+    ];
     if (state.info.exportPresets.isNotEmpty) {
       final preset = await showDialog<ExportPreset>(
         context: intent.context,
@@ -36,6 +39,7 @@ class PdfExportAction extends Action<PdfExportIntent> {
                 value: bloc,
                 child: PdfExportDialog(
                   areas: areas,
+                  print: intent.print,
                 ),
               ),
           context: context);

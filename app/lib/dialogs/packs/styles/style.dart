@@ -4,6 +4,7 @@ import 'package:butterfly/dialogs/packs/styles/texts.dart';
 import 'package:butterfly_api/butterfly_text.dart' as text;
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 class StyleDialog extends StatefulWidget {
@@ -68,15 +69,9 @@ class _StyleDialogState extends State<StyleDialog> {
                       AppLocalizations.of(context).text
                     )
                   ]
-                      .map((e) => Tab(
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                PhosphorIcon(e.$1),
-                                const SizedBox(width: 8),
-                                Text(e.$2),
-                              ],
-                            ),
+                      .map((e) => HorizontalTab(
+                            icon: PhosphorIcon(e.$1),
+                            label: Text(e.$2),
                           ))
                       .toList()),
               const SizedBox(height: 8),

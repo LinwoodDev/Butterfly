@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import '../bloc/document_bloc.dart';
-import '../dialogs/color_pick.dart';
+import '../dialogs/packs/color_pick.dart';
 
 class ColorField extends StatelessWidget {
   final bool enabled, custom;
@@ -75,6 +76,7 @@ class ColorField extends StatelessWidget {
             IconButton(
               icon:
                   const PhosphorIcon(PhosphorIconsLight.clockCounterClockwise),
+              tooltip: AppLocalizations.of(context).reset,
               onPressed: () async {
                 onChanged?.call(defaultColor!);
               },

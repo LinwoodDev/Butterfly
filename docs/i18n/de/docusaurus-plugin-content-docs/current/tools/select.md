@@ -4,10 +4,10 @@ sidebar_label: "Auswählen"
 ---
 
 
-Mit diesem Tool können Sie Elemente auswählen und auf das Hintergrund-Kontextmenü zugreifen, um das [Einfügemenü](../insert) aufzurufen.
+Mit diesem Tool können Sie Elemente auswählen.
 
 ## Konfiguration
 
-| Objekt |          Standard          | Beschreibung                                                                             |
-| ------:|:--------------------------:|:---------------------------------------------------------------------------------------- |
-|  achse | (horizontal oder vertikal) | Richtung, wo der Raum hinzugefügt werden soll. Nur beim Hinzufügen des Werkzeugs wählbar |
+| Objekt |  Standard  | Beschreibung                                      |
+| ------:|:----------:|:------------------------------------------------- |
+|   mode | rechteckig | Modus der Auswahl. Gültig sind Rechteck und Lasso |

@@ -12,8 +12,8 @@ import 'package:butterfly/renderers/renderer.dart';
 import 'package:butterfly/services/export.dart';
 import 'package:butterfly/services/import.dart';
 import 'package:butterfly/views/app_bar.dart';
-import 'package:butterfly/views/navigator.dart';
-import 'package:butterfly/views/toolbar.dart';
+import 'package:butterfly/views/navigator/view.dart';
+import 'package:butterfly/views/toolbar/view.dart';
 import 'package:butterfly/views/edit.dart';
 import 'package:butterfly/views/error.dart';
 import 'package:butterfly/views/property.dart';
@@ -48,10 +48,11 @@ import '../actions/select.dart';
 import '../actions/settings.dart';
 import '../actions/svg_export.dart';
 import '../actions/undo.dart';
+import '../actions/zoom.dart';
 import '../main.dart';
 import '../models/viewport.dart';
 import '../services/asset.dart';
-import 'changes.dart';
+import '../api/changes.dart';
 import 'view.dart';
 import 'zoom.dart';
 
@@ -73,7 +74,7 @@ class _ProjectPageState extends State<ProjectPage> {
   DocumentBloc? _bloc;
   TransformCubit? _transformCubit;
   CurrentIndexCubit? _currentIndexCubit;
-  RemoteStorage? _remote;
+  ExternalStorage? _remote;
   ImportService? _importService;
   ExportService? _exportService;
   late final CloseSubscription _closeSubscription;
@@ -101,6 +102,7 @@ class _ProjectPageState extends State<ProjectPage> {
     PreviousIntent: PreviousAction(),
     PasteIntent: PasteAction(),
     SelectAllIntent: SelectAllAction(),
+    ZoomIntent: ZoomAction(),
   };
 
   @override
@@ -317,9 +319,6 @@ class _ProjectPageState extends State<ProjectPage> {
                                           LogicalKeyboardKey.keyN):
                                       NewIntent(context, fromTemplate: true),
                                   LogicalKeySet(LogicalKeyboardKey.control,
-                                          LogicalKeyboardKey.keyP):
-                                      ColorPaletteIntent(context),
-                                  LogicalKeySet(LogicalKeyboardKey.control,
                                           LogicalKeyboardKey.keyB):
                                       BackgroundIntent(context),
                                   LogicalKeySet(
@@ -355,6 +354,9 @@ class _ProjectPageState extends State<ProjectPage> {
                                             LogicalKeyboardKey.shift,
                                             LogicalKeyboardKey.keyE):
                                         PdfExportIntent(context),
+                                    LogicalKeySet(LogicalKeyboardKey.control,
+                                            LogicalKeyboardKey.keyP):
+                                        PdfExportIntent(context, true),
                                     LogicalKeySet(
                                             LogicalKeyboardKey.control,
                                             LogicalKeyboardKey.alt,
@@ -376,6 +378,12 @@ class _ProjectPageState extends State<ProjectPage> {
                                             LogicalKeyboardKey.alt,
                                             LogicalKeyboardKey.keyP):
                                         PacksIntent(context),
+                                    LogicalKeySet(LogicalKeyboardKey.control,
+                                            LogicalKeyboardKey.add):
+                                        ZoomIntent(context),
+                                    LogicalKeySet(LogicalKeyboardKey.control,
+                                            LogicalKeyboardKey.minus):
+                                        ZoomIntent(context, true),
                                     ...[
                                       LogicalKeyboardKey.digit1,
                                       LogicalKeyboardKey.digit2,

@@ -32,10 +32,8 @@ class _MainViewViewportState extends State<MainViewViewport>
   double size = 1.0;
   GlobalKey paintKey = GlobalKey();
   _MouseState _mouseState = _MouseState.normal;
-  bool _isShiftPressed = false,
-      _isAltPressed = false,
-      _isCtrlPressed = false,
-      _isScalingDisabled = false;
+  bool _isShiftPressed = false, _isAltPressed = false, _isCtrlPressed = false;
+  bool? _isScalingDisabled;
 
   @override
   void initState() {
@@ -93,7 +91,7 @@ class _MainViewViewportState extends State<MainViewViewport>
   @override
   Widget build(BuildContext context) {
     return SizedBox.expand(
-        child: ClipRRect(child: LayoutBuilder(builder: (context, constraints) {
+        child: LayoutBuilder(builder: (context, constraints) {
       void bake() {
         context.read<DocumentBloc>().bake(
             viewportSize: constraints.biggest,
@@ -171,6 +169,7 @@ class _MainViewViewportState extends State<MainViewViewport>
         }
 
         var openView = false;
+        var point = Offset.zero;
         final CurrentIndexCubit cubit = context.read<CurrentIndexCubit>();
 
         Handler getHandler() {
@@ -184,7 +183,10 @@ class _MainViewViewportState extends State<MainViewViewport>
                 previous.foregrounds != current.foregrounds ||
                 previous.handler != current.handler ||
                 previous.temporaryHandler != current.temporaryHandler ||
-                previous.temporaryForegrounds != current.temporaryForegrounds,
+                previous.temporaryForegrounds != current.temporaryForegrounds ||
+                previous.rendererStates != current.rendererStates ||
+                previous.temporaryRendererStates !=
+                    current.temporaryRendererStates,
             builder: (context, currentIndex) => Actions(
                 actions: getHandler().getActions(context),
                 child: DefaultTextEditingShortcuts(
@@ -204,12 +206,11 @@ class _MainViewViewportState extends State<MainViewViewport>
                             .onSecondaryTapUp(details, getEventContext()),
                         onScaleUpdate: (details) {
                           final handler = getHandler();
-                          handler.onScaleUpdate(details, getEventContext());
-                          if (_isScalingDisabled) return;
-                          final cubit = context.read<CurrentIndexCubit>();
-                          if (details.scale == 1) {
+                          if (_isScalingDisabled ?? true) {
+                            handler.onScaleUpdate(details, getEventContext());
                             return;
                           }
+                          final cubit = context.read<CurrentIndexCubit>();
                           if (openView) openView = details.scale == 1;
                           final settings = context.read<SettingsCubit>().state;
                           if (cubit.fetchHandler<SelectHandler>() == null &&
@@ -220,21 +221,35 @@ class _MainViewViewportState extends State<MainViewViewport>
                               .read<SettingsCubit>()
                               .state
                               .touchSensitivity;
-                          cubit.zoom(current / sensitivity + 1,
-                              details.localFocalPoint);
+                          if (details.scale == 1) {
+                            cubit.move(details.focalPointDelta /
+                                sensitivity /
+                                cubit.state.transformCubit.state.size);
+                          } else {
+                            cubit.zoom(current / sensitivity + 1, point);
+                          }
                           size = details.scale;
+                          delayBake();
                         },
                         onLongPressEnd: (details) => getHandler()
                             .onLongPressEnd(details, getEventContext()),
                         onScaleEnd: (details) {
                           getHandler().onScaleEnd(details, getEventContext());
-                          if (!_isScalingDisabled) delayBake();
-                          _isScalingDisabled = false;
+                          if (!(_isScalingDisabled ?? true)) delayBake();
+                          _isScalingDisabled = null;
                         },
                         onScaleStart: (details) {
-                          _isScalingDisabled = cubit
-                              .getHandler()
-                              .onScaleStart(details, getEventContext());
+                          _isScalingDisabled ??= !cubit.state.moveEnabled;
+                          if (_isScalingDisabled != false) {
+                            _isScalingDisabled = cubit
+                                .getHandler()
+                                .onScaleStart(details, getEventContext());
+                          } else {
+                            cubit
+                                .getHandler()
+                                .onScaleStartAbort(details, getEventContext());
+                          }
+                          point = details.localFocalPoint;
                           size = 1;
                         },
                         onDoubleTapDown: (details) => getHandler()
@@ -278,7 +293,14 @@ class _MainViewViewportState extends State<MainViewViewport>
                               delayBake();
                             }
                           },
+                          onPointerPanZoomStart: (event) {
+                            _isScalingDisabled = false;
+                          },
                           onPointerDown: (PointerDownEvent event) async {
+                            _isScalingDisabled =
+                                event.kind == PointerDeviceKind.trackpad
+                                    ? false
+                                    : null;
                             cubit.addPointer(event.pointer);
                             cubit.setButtons(event.buttons);
                             final handler = getHandler();
@@ -286,11 +308,16 @@ class _MainViewViewportState extends State<MainViewViewport>
                               await changeTemporaryTool(
                                   event.kind, event.buttons);
                             }
-                            getHandler()
-                                .onPointerDown(event, getEventContext());
+                            if (_isScalingDisabled ?? true) {
+                              getHandler()
+                                  .onPointerDown(event, getEventContext());
+                            }
                           },
                           onPointerUp: (PointerUpEvent event) async {
-                            getHandler().onPointerUp(event, getEventContext());
+                            if (_isScalingDisabled ?? true) {
+                              getHandler()
+                                  .onPointerUp(event, getEventContext());
+                            }
                             cubit.removePointer(event.pointer);
                             cubit.removeButtons();
                             Future.sync(() => cubit.resetTemporaryHandler(
@@ -309,46 +336,59 @@ class _MainViewViewportState extends State<MainViewViewport>
                                 cubit.move(event.delta / transform.size);
                                 delayBake();
                               }
-                              getHandler().onPointerGestureMove(
-                                  event, getEventContext());
+                              if (_isScalingDisabled ?? true) {
+                                getHandler().onPointerGestureMove(
+                                    event, getEventContext());
+                              }
                               return;
                             }
-                            getHandler()
-                                .onPointerMove(event, getEventContext());
+                            if (_isScalingDisabled ?? true) {
+                              getHandler()
+                                  .onPointerMove(event, getEventContext());
+                            }
                           },
                           child: BlocBuilder<TransformCubit, CameraTransform>(
                             builder: (context, transform) => MouseRegion(
                               cursor: currentIndex.currentCursor,
-                              child: Stack(children: [
-                                Container(color: Colors.white),
-                                CustomPaint(
-                                  size: Size.infinite,
-                                  foregroundPainter: ForegroundPainter(
-                                    [
-                                      ...cubit.foregrounds,
-                                    ],
-                                    state.data,
-                                    state.page,
-                                    state.info,
-                                    Theme.of(context).colorScheme,
-                                    transform,
-                                    cubit.state.selection,
-                                    currentIndex.cameraViewport.utilities,
-                                  ),
-                                  painter: ViewPainter(
-                                    state.data,
-                                    state.page,
-                                    state.info,
-                                    cameraViewport: currentIndex.cameraViewport,
-                                    transform: transform,
-                                    invisibleLayers: state.invisibleLayers,
-                                    currentArea: state.currentArea,
-                                    colorScheme: Theme.of(context).colorScheme,
-                                  ),
-                                  isComplex: true,
-                                  willChange: true,
-                                )
-                              ]),
+                              onExit: kIsWeb
+                                  ? (event) => cubit
+                                      .resetInput(context.read<DocumentBloc>())
+                                  : null,
+                              child: ClipRRect(
+                                child: Stack(children: [
+                                  Container(color: Colors.white),
+                                  CustomPaint(
+                                    size: Size.infinite,
+                                    foregroundPainter: ForegroundPainter(
+                                      [
+                                        ...cubit.foregrounds,
+                                      ],
+                                      state.data,
+                                      state.page,
+                                      state.info,
+                                      Theme.of(context).colorScheme,
+                                      transform,
+                                      cubit.state.selection,
+                                      currentIndex.cameraViewport.utilities,
+                                    ),
+                                    painter: ViewPainter(
+                                      state.data,
+                                      state.page,
+                                      state.info,
+                                      cameraViewport:
+                                          currentIndex.cameraViewport,
+                                      transform: transform,
+                                      invisibleLayers: state.invisibleLayers,
+                                      states: currentIndex.allRendererStates,
+                                      currentArea: state.currentArea,
+                                      colorScheme:
+                                          Theme.of(context).colorScheme,
+                                    ),
+                                    isComplex: true,
+                                    willChange: true,
+                                  )
+                                ]),
+                              ),
                             ),
                           ),
                         ),
@@ -357,6 +397,6 @@ class _MainViewViewportState extends State<MainViewViewport>
                   ),
                 )));
       });
-    })));
+    }));
   }
 }

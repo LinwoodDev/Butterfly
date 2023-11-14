@@ -12,9 +12,9 @@ title: "Спільнота"
 
 Особлива подяка:
 
-* <https://github.com/flutter/flutter> для забезпечення цього корисного кросплатформеру ui
-* <https://github.com/leanflutter/window_manager> для всіх цих корисних функцій робочого столу
-* <https://github.com/facebook/docusaurus> для просту у використанні файлової документації зі статичним реагуванням
+* [Flutter](https://github.com/flutter/flutter) for providing this useful crossplatform ui framework
+* [window_manager](https://github.com/leanflutter/window_manager) для всіх цих корисних функцій робочого столу
+* [Docusaurus](https://github.com/facebook/docusaurus) для простий у використанні статичний фреймворк для фізичного реагування
 
 Усі інші ліцензії ви можете знайти в налаштуваннях.
 
@@ -22,4 +22,4 @@ title: "Спільнота"
 
 * [GitHub](https://github.com/LinwoodDev/Butterfly)
 * [Discord](https://go.linwood.dev/discord)
-* [Matrix](https://go.linwood.dev/matrix)
+* [Матриця](https://go.linwood.dev/matrix)

@@ -1,4 +1,4 @@
-import 'package:butterfly/dialogs/color_pick.dart';
+import 'package:butterfly/dialogs/packs/color_pick.dart';
 import 'package:butterfly/dialogs/name.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/material.dart';
@@ -51,6 +51,7 @@ class PalettesPackView extends StatelessWidget {
                           onPressed: () async {
                             onChanged(value.removePalette(e));
                           },
+                          tooltip: AppLocalizations.of(context).delete,
                         ),
                       ),
                     ),

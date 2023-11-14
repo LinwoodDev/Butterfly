@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'dart:typed_data';
 
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -28,8 +27,12 @@ sealed class AssetLocation with _$AssetLocation {
 
   const AssetLocation._();
 
+  static const empty = AssetLocation(path: '');
+
+  bool get isRemote => remote.isNotEmpty;
+
   String get identifier =>
-      remote == '' ? pathWithLeadingSlash : '$pathWithLeadingSlash@$remote';
+      isRemote ? '$pathWithLeadingSlash@$remote' : pathWithLeadingSlash;
 
   String get pathWithLeadingSlash => path.startsWith('/') ? path : '/$path';
 
@@ -43,6 +46,11 @@ sealed class AssetLocation with _$AssetLocation {
       AssetFileTypeHelper.fromFileExtension(fileExtension);
 
   String get fileName => path.split('/').last;
+  String get parent {
+    final lastSlash = path.lastIndexOf('/');
+    if (lastSlash < 0) return '';
+    return path.substring(0, lastSlash);
+  }
 
   bool isSame(AssetLocation other) =>
       pathWithLeadingSlash == other.pathWithLeadingSlash &&
@@ -54,27 +62,15 @@ class AppDocumentEntity with _$AppDocumentEntity {
   const AppDocumentEntity._();
 
   const factory AppDocumentEntity.file(
-    AssetLocation location,
-    List<int> data, {
+    AssetLocation location, {
+    @Default([]) List<int> data,
     @Default(false) bool cached,
     FileMetadata? metadata,
     Uint8List? thumbnail,
   }) = AppDocumentFile;
 
-  factory AppDocumentEntity.fileFromMap(
-    AssetLocation location,
-    Map<String, dynamic> map, {
-    bool cached = false,
-    FileMetadata? metadata,
-    Uint8List? thumbnail,
-  }) =>
-      AppDocumentFile(
-          location, Uint8List.fromList(utf8.encode(json.encode(map))),
-          metadata: metadata, thumbnail: thumbnail, cached: cached);
-
-  const factory AppDocumentEntity.directory(
-          AssetLocation location, List<AppDocumentEntity> assets) =
-      AppDocumentDirectory;
+  const factory AppDocumentEntity.directory(AssetLocation location,
+      [@Default([]) List<AppDocumentEntity> assets]) = AppDocumentDirectory;
 
   String get fileName => location.fileName;
 

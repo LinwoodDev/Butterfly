@@ -240,7 +240,7 @@ abstract class DocumentRemoteSystem extends DocumentFileSystem
   }
 
   @override
-  Future<AppDocumentFile> updateFile(String path, List<int> data,
+  Future<void> updateFile(String path, List<int> data,
       {bool forceSync = false});
 
   Future<void> cache(String path) async {

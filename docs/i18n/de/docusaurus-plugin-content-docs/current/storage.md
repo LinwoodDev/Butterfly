@@ -3,6 +3,12 @@ title: "Speicher"
 sidebar_position: 2
 ---
 
+## Datenverzeichnis
+
+Das Datenverzeichnis ist das Verzeichnis, in dem Dokumente, Vorlagen und Pakete gespeichert werden. Auf dem Desktop können Sie es in `~/Documents/Linwood/Butterfly` finden. Auf dem Handy ist es in `getExternalFilesDir(null)/Linwood/Butterfly`. Sie können es auch in den Einstellungen unter `Daten` ändern.
+
+In diesem Verzeichnis finden Sie einen Ordner `Dokumente`, `Vorlagen` und `Pakete`.
+
 ## Web
 
 Die Anwendungsdaten werden in Ihrem Browser gespeichert. Es wird in einem lokalen Speicher gespeichert. Öffnen Sie die Entwicklerwerkzeuge in Ihrem Browser und Sie werden die Daten sehen.

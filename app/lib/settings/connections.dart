@@ -4,6 +4,7 @@ import 'dart:ui';
 import 'package:butterfly/api/open.dart';
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/widgets/window.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -27,14 +28,19 @@ class ConnectionsSettingsPage extends StatelessWidget {
           inView: inView,
           actions: [
             IconButton(
-                icon: const PhosphorIcon(PhosphorIconsLight.sealQuestion),
-                onPressed: () => openHelp(['storage'], 'remote')),
+              icon: const PhosphorIcon(PhosphorIconsLight.sealQuestion),
+              tooltip: AppLocalizations.of(context).help,
+              onPressed: () => openHelp(['storage'], 'remote'),
+            ),
             BlocBuilder<SettingsCubit, ButterflySettings>(
                 builder: (context, settings) {
               return IconButton(
                 icon: settings.defaultRemote.isEmpty
                     ? const PhosphorIcon(PhosphorIconsFill.house)
                     : const PhosphorIcon(PhosphorIconsLight.house),
+                tooltip: settings.defaultRemote.isEmpty
+                    ? AppLocalizations.of(context).defaultConnection
+                    : AppLocalizations.of(context).notDefaultConnection,
                 onPressed: () {
                   BlocProvider.of<SettingsCubit>(context).setDefaultRemote('');
                 },
@@ -42,12 +48,29 @@ class ConnectionsSettingsPage extends StatelessWidget {
             }),
           ],
         ),
-        floatingActionButton: FloatingActionButton.extended(
-          onPressed: () => showDialog<void>(
-              context: context, builder: (context) => const _AddRemoteDialog()),
-          label: Text(AppLocalizations.of(context).addConnection),
-          icon: const PhosphorIcon(PhosphorIconsLight.plus),
-        ),
+        floatingActionButton: kIsWeb
+            ? null
+            : FloatingActionButton.extended(
+                onPressed: () => showLeapBottomSheet(
+                    context: context,
+                    title: AppLocalizations.of(context).addConnection,
+                    childrenBuilder: (context) => ExternalStorageType.values
+                        .map((e) => ListTile(
+                              title: Text(e.getLocalizedName(context)),
+                              leading: PhosphorIcon(
+                                  e.icon(PhosphorIconsStyle.light)),
+                              onTap: () => Navigator.pop(context, e),
+                            ))
+                        .toList()).then((value) {
+                  if (value == null) return;
+                  showDialog<void>(
+                    context: context,
+                    builder: (context) => _AddRemoteDialog(type: value),
+                  );
+                }),
+                label: Text(AppLocalizations.of(context).addConnection),
+                icon: const PhosphorIcon(PhosphorIconsLight.plus),
+              ),
         body: Builder(builder: (context) {
           if (kIsWeb) {
             return Center(
@@ -55,7 +78,7 @@ class ConnectionsSettingsPage extends StatelessWidget {
           }
           return BlocBuilder<SettingsCubit, ButterflySettings>(
               builder: (context, state) {
-            if (state.remotes.isEmpty) {
+            if (state.connections.isEmpty) {
               return Center(
                 child: Text(AppLocalizations.of(context).noConnections),
               );
@@ -63,9 +86,9 @@ class ConnectionsSettingsPage extends StatelessWidget {
             return Material(
               color: Colors.transparent,
               child: ListView.builder(
-                  itemCount: state.remotes.length,
+                  itemCount: state.connections.length,
                   itemBuilder: (context, index) {
-                    final remote = state.remotes[index];
+                    final remote = state.connections[index];
                     return Dismissible(
                       key: Key(remote.identifier),
                       onDismissed: (details) {
@@ -73,16 +96,21 @@ class ConnectionsSettingsPage extends StatelessWidget {
                             .deleteRemote(remote.identifier);
                       },
                       child: ListTile(
-                        title: Text(remote.identifier),
-                        leading: remote.icon.isEmpty
-                            ? null
-                            : Image.memory(remote.icon),
+                        title: Text(remote.label),
+                        leading: remote.icon?.isEmpty ?? true
+                            ? PhosphorIcon(
+                                remote.type.icon(PhosphorIconsStyle.light))
+                            : Image.memory(remote.icon!),
                         onTap: () => context.pushNamed('connection',
                             pathParameters: {'id': remote.identifier}),
                         trailing: IconButton(
                           icon: remote.identifier == state.defaultRemote
                               ? const PhosphorIcon(PhosphorIconsFill.cloud)
                               : const PhosphorIcon(PhosphorIconsLight.cloud),
+                          tooltip: remote.identifier == state.defaultRemote
+                              ? AppLocalizations.of(context).defaultConnection
+                              : AppLocalizations.of(context)
+                                  .notDefaultConnection,
                           onPressed: () {
                             BlocProvider.of<SettingsCubit>(context)
                                 .setDefaultRemote(remote.identifier);
@@ -98,7 +126,9 @@ class ConnectionsSettingsPage extends StatelessWidget {
 }
 
 class _AddRemoteDialog extends StatefulWidget {
-  const _AddRemoteDialog();
+  final ExternalStorageType type;
+
+  const _AddRemoteDialog({required this.type});
 
   @override
   State<_AddRemoteDialog> createState() => __AddRemoteDialogState();
@@ -117,6 +147,14 @@ class __AddRemoteDialogState extends State<_AddRemoteDialog> {
       _advanced = false,
       _showPassword = false,
       _syncRootDirectory = false;
+
+  bool get _isRemote => widget.type != ExternalStorageType.local;
+
+  @override
+  void initState() {
+    super.initState();
+    _isConnected = !_isRemote;
+  }
 
   void _connect() async {
     try {
@@ -141,7 +179,8 @@ class __AddRemoteDialogState extends State<_AddRemoteDialog> {
     }
   }
 
-  Future<Uint8List> _getIcon() async {
+  Future<Uint8List?> _getIcon() async {
+    if (!_isRemote) return null;
     try {
       var url = Uri.tryParse(_iconController.text.trim());
 
@@ -150,12 +189,12 @@ class __AddRemoteDialogState extends State<_AddRemoteDialog> {
             ?.resolve(_iconController.text.trim());
       }
       if (url == null) {
-        return Uint8List(0);
+        return null;
       }
 
       final response = await http.get(url);
       if (response.statusCode != 200) {
-        return Uint8List(0);
+        return null;
       }
       try {
         final image = await decodeImageFromList(response.bodyBytes);
@@ -176,22 +215,31 @@ class __AddRemoteDialogState extends State<_AddRemoteDialog> {
         _showCreatingError(AppLocalizations.of(context).cannotConnect, e);
       }
     }
-    return Uint8List(0);
+    return null;
   }
 
   Future<void> _create() async {
     final navigator = Navigator.of(context);
     final settingsCubit = context.read<SettingsCubit>();
     final icon = await _getIcon();
-    final remoteStorage = DavRemoteStorage(
-        username: _usernameController.text,
-        url: _urlController.text,
-        path: _directoryController.text,
-        documentsPath: _documentsDirectoryController.text,
-        templatesPath: _templatesDirectoryController.text,
-        packsPath: _packsDirectoryController.text,
-        icon: icon,
-        cachedDocuments: [if (_syncRootDirectory) '/']);
+    final remoteStorage = switch (widget.type) {
+      ExternalStorageType.dav => DavRemoteStorage(
+          username: _usernameController.text,
+          url: _urlController.text,
+          path: _directoryController.text,
+          documentsPath: _documentsDirectoryController.text,
+          templatesPath: _templatesDirectoryController.text,
+          packsPath: _packsDirectoryController.text,
+          icon: icon,
+          cachedDocuments: [if (_syncRootDirectory) '/']),
+      ExternalStorageType.local => LocalStorage(
+          path: _directoryController.text,
+          documentsPath: _documentsDirectoryController.text,
+          templatesPath: _templatesDirectoryController.text,
+          packsPath: _packsDirectoryController.text,
+          icon: icon,
+        ),
+    };
     await settingsCubit.addRemote(
       remoteStorage,
       password: _passwordController.text,
@@ -239,29 +287,31 @@ class __AddRemoteDialogState extends State<_AddRemoteDialog> {
             const SizedBox(height: 16.0),
             Flexible(
               child: ListView(children: [
-                TextField(
-                  controller: _urlController,
-                  readOnly: _isConnected,
-                  keyboardType: TextInputType.url,
-                  decoration: InputDecoration(
-                    labelText: AppLocalizations.of(context).url,
-                    filled: true,
-                    icon: const PhosphorIcon(PhosphorIconsLight.link),
+                if (_isRemote) ...[
+                  TextField(
+                    controller: _urlController,
+                    readOnly: _isConnected,
+                    keyboardType: TextInputType.url,
+                    decoration: InputDecoration(
+                      labelText: AppLocalizations.of(context).url,
+                      filled: true,
+                      icon: const PhosphorIcon(PhosphorIconsLight.link),
+                    ),
                   ),
-                ),
-                const SizedBox(height: 8.0),
-                TextField(
-                  controller: _iconController,
-                  keyboardType: TextInputType.url,
-                  decoration: InputDecoration(
-                    labelText: AppLocalizations.of(context).icon,
-                    filled: true,
-                    icon: const PhosphorIcon(PhosphorIconsLight.image),
+                  const SizedBox(height: 8.0),
+                  TextField(
+                    controller: _iconController,
+                    keyboardType: TextInputType.url,
+                    decoration: InputDecoration(
+                      labelText: AppLocalizations.of(context).icon,
+                      filled: true,
+                      icon: const PhosphorIcon(PhosphorIconsLight.image),
+                    ),
                   ),
-                ),
-                const Divider(
-                  height: 32,
-                ),
+                  const Divider(
+                    height: 32,
+                  ),
+                ],
                 if (!_isConnected) ...[
                   TextField(
                     controller: _usernameController,
@@ -287,37 +337,41 @@ class __AddRemoteDialogState extends State<_AddRemoteDialog> {
                               ? PhosphorIconsLight.eye
                               : PhosphorIconsLight.eyeSlash,
                         ),
+                        tooltip: _showPassword
+                            ? AppLocalizations.of(context).hide
+                            : AppLocalizations.of(context).show,
                         onPressed: () =>
                             setState(() => _showPassword = !_showPassword),
                       ),
                       icon: const PhosphorIcon(PhosphorIconsLight.lock),
                     ),
                   ),
-                ] else ...[
                   CheckboxListTile(
                     value: _syncRootDirectory,
                     onChanged: (value) => setState(
                         () => _syncRootDirectory = value ?? _syncRootDirectory),
                     title: Text(AppLocalizations.of(context).syncRootDirectory),
                   ),
+                ] else ...[
                   _DirectoryField(
                     controller: _directoryController,
                     label: AppLocalizations.of(context).directory,
-                    onChanged: (value) {
-                      var prefix = value;
-                      if (prefix.isNotEmpty) {
-                        prefix += '/';
-                      }
-                      _documentsDirectoryController.text = '${prefix}Documents';
-                      _templatesDirectoryController.text = '${prefix}Templates';
-                      _packsDirectoryController.text = '${prefix}Packs';
-                    },
                     icon: const PhosphorIcon(PhosphorIconsLight.folder),
+                    readOnly: !_isRemote,
+                    onTap: _isRemote
+                        ? null
+                        : () async {
+                            final result =
+                                await FilePicker.platform.getDirectoryPath();
+                            if (result != null) {
+                              _directoryController.text = result;
+                            }
+                          },
                   ),
                   const SizedBox(height: 8),
                   ExpansionPanelList(
                     expansionCallback: (index, isExpanded) =>
-                        setState(() => _advanced = !isExpanded),
+                        setState(() => _advanced = isExpanded),
                     children: [
                       ExpansionPanel(
                         headerBuilder: (context, isExpanded) => ListTile(
@@ -360,7 +414,7 @@ class __AddRemoteDialogState extends State<_AddRemoteDialog> {
               children: [
                 TextButton(
                   onPressed: () {
-                    if (_isConnected) {
+                    if (_isConnected && _isRemote) {
                       setState(() => _isConnected = false);
                       return;
                     }
@@ -392,14 +446,22 @@ class _DirectoryField extends StatelessWidget {
   final TextEditingController? controller;
   final String? label;
   final Widget? icon;
-  final ValueChanged<String>? onChanged;
-  const _DirectoryField(
-      {this.controller, this.label, this.onChanged, this.icon});
+  final VoidCallback? onTap;
+  final bool readOnly;
+
+  const _DirectoryField({
+    this.controller,
+    this.label,
+    this.onTap,
+    this.readOnly = false,
+    this.icon,
+  });
 
   @override
   Widget build(BuildContext context) {
     return TextField(
       controller: controller,
+      readOnly: readOnly,
       decoration: InputDecoration(
         labelText: label,
         icon: icon,
@@ -408,7 +470,7 @@ class _DirectoryField extends StatelessWidget {
             icon: PhosphorIcon(PhosphorIconsLight.folder),
             onPressed: () async {}),*/
       ),
-      onChanged: onChanged,
+      onTap: onTap,
     );
   }
 }

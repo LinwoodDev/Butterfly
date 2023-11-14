@@ -2,6 +2,7 @@ import 'package:butterfly/dialogs/name.dart';
 import 'package:butterfly_api/butterfly_text.dart' as text;
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
@@ -24,6 +25,7 @@ class TextsStyleView extends StatefulWidget {
 }
 
 class _TextsStyleViewState extends State<TextsStyleView> {
+  final _controller = TextEditingController();
   String? _currentStyle;
 
   @override
@@ -47,12 +49,17 @@ class _TextsStyleViewState extends State<TextsStyleView> {
 
   @override
   Widget build(BuildContext context) {
+    final translations = DocumentDefaults.getSpanTranslations(context)
+        .entries
+        .where(
+            (element) => !widget.value.spanProperties.containsKey(element.key));
     return Column(
       children: [
         Row(
           children: [
             Expanded(
               child: DropdownMenu<String?>(
+                controller: _controller,
                 expandedInsets: const EdgeInsets.all(4),
                 dropdownMenuEntries: [
                   ...widget.value.spanProperties.entries.map(
@@ -73,6 +80,7 @@ class _TextsStyleViewState extends State<TextsStyleView> {
             const SizedBox(width: 8),
             IconButton.filledTonal(
               icon: const PhosphorIcon(PhosphorIconsLight.plus),
+              tooltip: AppLocalizations.of(context).add,
               onPressed: () async {
                 final name = await showDialog<String>(
                   context: context,
@@ -95,11 +103,11 @@ class _TextsStyleViewState extends State<TextsStyleView> {
               },
             ),
             MenuAnchor(
-              builder: defaultMenuButton(),
-              menuChildren: DocumentDefaults.getSpanTranslations(context)
-                  .entries
-                  .where((element) =>
-                      !widget.value.spanProperties.containsKey(element.key))
+              builder: defaultMenuButton(
+                tooltip: AppLocalizations.of(context).addElement,
+                enabled: translations.isNotEmpty,
+              ),
+              menuChildren: translations
                   .map(
                     (e) => MenuItemButton(
                       child: Text(e.value),
@@ -119,6 +127,7 @@ class _TextsStyleViewState extends State<TextsStyleView> {
               const VerticalDivider(),
               IconButton(
                 icon: const PhosphorIcon(PhosphorIconsLight.pencil),
+                tooltip: AppLocalizations.of(context).rename,
                 onPressed: () async {
                   final name = await showDialog<String>(
                     context: context,
@@ -145,6 +154,7 @@ class _TextsStyleViewState extends State<TextsStyleView> {
               ),
               IconButton(
                 icon: const PhosphorIcon(PhosphorIconsLight.trash),
+                tooltip: AppLocalizations.of(context).delete,
                 onPressed: () async {
                   final result = await showDialog<bool>(
                       context: context, builder: (ctx) => const DeleteDialog());
@@ -168,16 +178,30 @@ class _TextsStyleViewState extends State<TextsStyleView> {
         Flexible(
           child: Builder(
             builder: (context) {
-              final currentspan = widget.value.spanProperties[_currentStyle];
-              if (currentspan == null) {
-                return const SizedBox();
+              final currentSpan = widget.value.spanProperties[_currentStyle];
+              if (currentSpan == null) {
+                return Center(
+                    child: ElevatedButton(
+                  child: Text(AppLocalizations.of(context).create),
+                  onPressed: () {
+                    widget.onChanged(widget.value.copyWith(
+                      spanProperties: {
+                        ...widget.value.spanProperties,
+                        _controller.text: const text.DefinedSpanProperty(),
+                      },
+                    ));
+                    setState(() {
+                      _currentStyle = _controller.text;
+                    });
+                  },
+                ));
               }
               return Card(
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: SingleChildScrollView(
                     child: TextStyleView(
-                      value: currentspan,
+                      value: currentSpan,
                       onChanged: (span) {
                         widget.onChanged(widget.value.copyWith(
                           spanProperties: {

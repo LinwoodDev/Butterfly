@@ -376,13 +376,10 @@ class NoteData {
 
   @useResult
   NoteData setPack(NoteData pack, [String? name]) {
-    final data = ZipEncoder().encode(pack.archive);
-    if (data != null) {
-      return setAsset(
-          '$kPacksArchiveDirectory/${name ?? pack.getMetadata()?.name}.bfly',
-          data);
-    }
-    return this;
+    final data = pack.save();
+    return setAsset(
+        '$kPacksArchiveDirectory/${name ?? pack.getMetadata()?.name}.bfly',
+        data);
   }
 
   @useResult
@@ -486,21 +483,13 @@ class NoteData {
     return base64Encode(save());
   }
 
-  (NoteData, String) addPage([DocumentPage? page, int? index]) {
+  (NoteData, String) addPage(DocumentPage page, [int? index]) {
     var name = 'Page ${getPages().length + 1}';
     var i = 1;
     while (getPages().contains(name)) {
       name = 'Page ${i++}';
     }
-    return (
-      setPage(
-          page == null
-              ? DocumentPage()
-              : DocumentPage(backgrounds: page.backgrounds),
-          name,
-          index),
-      name
-    );
+    return (setPage(page, name, index), name);
   }
 
   NoteData undoDelete(String path) {

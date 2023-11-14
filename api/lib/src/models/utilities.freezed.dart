@@ -106,11 +106,11 @@ class _$UtilitiesStateCopyWithImpl<$Res, $Val extends UtilitiesState>
 }
 
 /// @nodoc
-abstract class _$$_UtilitiesStateCopyWith<$Res>
+abstract class _$$UtilitiesStateImplCopyWith<$Res>
     implements $UtilitiesStateCopyWith<$Res> {
-  factory _$$_UtilitiesStateCopyWith(
-          _$_UtilitiesState value, $Res Function(_$_UtilitiesState) then) =
-      __$$_UtilitiesStateCopyWithImpl<$Res>;
+  factory _$$UtilitiesStateImplCopyWith(_$UtilitiesStateImpl value,
+          $Res Function(_$UtilitiesStateImpl) then) =
+      __$$UtilitiesStateImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -124,11 +124,11 @@ abstract class _$$_UtilitiesStateCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_UtilitiesStateCopyWithImpl<$Res>
-    extends _$UtilitiesStateCopyWithImpl<$Res, _$_UtilitiesState>
-    implements _$$_UtilitiesStateCopyWith<$Res> {
-  __$$_UtilitiesStateCopyWithImpl(
-      _$_UtilitiesState _value, $Res Function(_$_UtilitiesState) _then)
+class __$$UtilitiesStateImplCopyWithImpl<$Res>
+    extends _$UtilitiesStateCopyWithImpl<$Res, _$UtilitiesStateImpl>
+    implements _$$UtilitiesStateImplCopyWith<$Res> {
+  __$$UtilitiesStateImplCopyWithImpl(
+      _$UtilitiesStateImpl _value, $Res Function(_$UtilitiesStateImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -142,7 +142,7 @@ class __$$_UtilitiesStateCopyWithImpl<$Res>
     Object? rulerPosition = null,
     Object? rulerAngle = null,
   }) {
-    return _then(_$_UtilitiesState(
+    return _then(_$UtilitiesStateImpl(
       lockZoom: null == lockZoom
           ? _value.lockZoom
           : lockZoom // ignore: cast_nullable_to_non_nullable
@@ -177,8 +177,8 @@ class __$$_UtilitiesStateCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_UtilitiesState implements _UtilitiesState {
-  const _$_UtilitiesState(
+class _$UtilitiesStateImpl implements _UtilitiesState {
+  const _$UtilitiesStateImpl(
       {this.lockZoom = false,
       this.lockHorizontal = false,
       this.lockVertical = false,
@@ -187,8 +187,8 @@ class _$_UtilitiesState implements _UtilitiesState {
       @DoublePointJsonConverter() this.rulerPosition = const Point(0.0, 0.0),
       this.rulerAngle = 0});
 
-  factory _$_UtilitiesState.fromJson(Map<String, dynamic> json) =>
-      _$$_UtilitiesStateFromJson(json);
+  factory _$UtilitiesStateImpl.fromJson(Map<String, dynamic> json) =>
+      _$$UtilitiesStateImplFromJson(json);
 
   @override
   @JsonKey()
@@ -222,7 +222,7 @@ class _$_UtilitiesState implements _UtilitiesState {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_UtilitiesState &&
+            other is _$UtilitiesStateImpl &&
             (identical(other.lockZoom, lockZoom) ||
                 other.lockZoom == lockZoom) &&
             (identical(other.lockHorizontal, lockHorizontal) ||
@@ -247,12 +247,13 @@ class _$_UtilitiesState implements _UtilitiesState {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_UtilitiesStateCopyWith<_$_UtilitiesState> get copyWith =>
-      __$$_UtilitiesStateCopyWithImpl<_$_UtilitiesState>(this, _$identity);
+  _$$UtilitiesStateImplCopyWith<_$UtilitiesStateImpl> get copyWith =>
+      __$$UtilitiesStateImplCopyWithImpl<_$UtilitiesStateImpl>(
+          this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_UtilitiesStateToJson(
+    return _$$UtilitiesStateImplToJson(
       this,
     );
   }
@@ -266,10 +267,10 @@ abstract class _UtilitiesState implements UtilitiesState {
       final bool rulerEnabled,
       final bool gridEnabled,
       @DoublePointJsonConverter() final Point<double> rulerPosition,
-      final double rulerAngle}) = _$_UtilitiesState;
+      final double rulerAngle}) = _$UtilitiesStateImpl;
 
   factory _UtilitiesState.fromJson(Map<String, dynamic> json) =
-      _$_UtilitiesState.fromJson;
+      _$UtilitiesStateImpl.fromJson;
 
   @override
   bool get lockZoom;
@@ -288,6 +289,6 @@ abstract class _UtilitiesState implements UtilitiesState {
   double get rulerAngle;
   @override
   @JsonKey(ignore: true)
-  _$$_UtilitiesStateCopyWith<_$_UtilitiesState> get copyWith =>
+  _$$UtilitiesStateImplCopyWith<_$UtilitiesStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

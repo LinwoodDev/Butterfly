@@ -7,6 +7,8 @@ sidebar_position: 3
 
 Use this tool to draw shapes on the paper. You can draw rectangles, circles, and other shapes.
 
+Use `ctrl` to have the same height and width and `shift` to draw from the center.
+
 ## Configuration
 
 |            Property |  Default   | คำอธิบาย                                                                                                                                         |

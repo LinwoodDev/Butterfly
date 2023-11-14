@@ -3,6 +3,7 @@ import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:material_leap/material_leap.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 class TextureView extends StatefulWidget {
   final SurfaceTexture value;
@@ -43,8 +44,14 @@ class _TextureViewState extends State<TextureView> {
           ),
           const SizedBox(height: 16),
           TabBar.secondary(tabs: [
-            Tab(child: Text(AppLocalizations.of(context).horizontal)),
-            Tab(child: Text(AppLocalizations.of(context).vertical)),
+            HorizontalTab(
+              label: Text(AppLocalizations.of(context).horizontal),
+              icon: const PhosphorIcon(PhosphorIconsLight.arrowsHorizontal),
+            ),
+            HorizontalTab(
+              label: Text(AppLocalizations.of(context).vertical),
+              icon: const PhosphorIcon(PhosphorIconsLight.arrowsVertical),
+            ),
           ]),
           Expanded(
             child: TabBarView(children: [
@@ -62,8 +69,9 @@ class _TextureViewState extends State<TextureView> {
                     header: Text(AppLocalizations.of(context).width,
                         style: Theme.of(context).textTheme.titleLarge),
                     value: widget.value.boxWidth,
+                    defaultValue: 0,
                     min: 0,
-                    max: 100),
+                    max: 500),
                 const SizedBox(height: 16),
                 ExactSlider(
                     onChanged: (value) => widget.onChanged(
@@ -72,8 +80,9 @@ class _TextureViewState extends State<TextureView> {
                         style: Theme.of(context).textTheme.titleLarge),
                     value: widget.value.boxXCount.toDouble(),
                     fractionDigits: 0,
+                    defaultValue: 0,
                     min: 0,
-                    max: 100),
+                    max: 500),
                 const SizedBox(height: 16),
                 ExactSlider(
                     onChanged: (value) => widget
@@ -81,8 +90,9 @@ class _TextureViewState extends State<TextureView> {
                     header: Text(AppLocalizations.of(context).space,
                         style: Theme.of(context).textTheme.titleLarge),
                     value: widget.value.boxXSpace,
+                    defaultValue: 0,
                     min: 0,
-                    max: 100),
+                    max: 500),
               ]),
               ListView(children: [
                 ColorField(
@@ -98,8 +108,9 @@ class _TextureViewState extends State<TextureView> {
                     header: Text(AppLocalizations.of(context).width,
                         style: Theme.of(context).textTheme.titleLarge),
                     value: widget.value.boxHeight,
+                    defaultValue: 0,
                     min: 0,
-                    max: 100),
+                    max: 500),
                 const SizedBox(height: 16),
                 ExactSlider(
                     onChanged: (value) => widget.onChanged(
@@ -107,9 +118,10 @@ class _TextureViewState extends State<TextureView> {
                     header: Text(AppLocalizations.of(context).count,
                         style: Theme.of(context).textTheme.titleLarge),
                     value: widget.value.boxYCount.toDouble(),
+                    defaultValue: 0,
                     fractionDigits: 0,
                     min: 0,
-                    max: 100),
+                    max: 500),
                 const SizedBox(height: 16),
                 ExactSlider(
                     onChanged: (value) => widget
@@ -117,8 +129,9 @@ class _TextureViewState extends State<TextureView> {
                     header: Text(AppLocalizations.of(context).space,
                         style: Theme.of(context).textTheme.titleLarge),
                     value: widget.value.boxYSpace,
+                    defaultValue: 0,
                     min: 0,
-                    max: 100),
+                    max: 500),
               ]),
             ]),
           ),

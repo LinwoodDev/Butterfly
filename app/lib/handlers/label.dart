@@ -357,7 +357,7 @@ class LabelHandler extends Handler<LabelTool>
   TextEditingValue? get currentTextEditingValue => _context?.element == null
       ? null
       : TextEditingValue(
-          text: _context!.selection.textInside(_context!.text!),
+          text: _context!.text!,
           selection: _context!.selection,
           composing: TextRange(start: 0, end: _context!.text!.length),
         );

@@ -7,7 +7,6 @@ import 'dart:js_util';
 
 import 'package:butterfly/models/defaults.dart';
 import 'package:butterfly_api/butterfly_api.dart';
-import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 import 'package:idb_shim/idb.dart';
@@ -124,7 +123,8 @@ class WebDocumentFileSystem extends DocumentFileSystem {
   }
 
   @override
-  Future<AppDocumentEntity?> getAsset(String path) async {
+  Stream<AppDocumentEntity?> fetchAsset(String path,
+      [bool? listFiles = true]) async* {
     // Add leading slash
     if (!path.startsWith('/')) {
       path = '/$path';
@@ -133,6 +133,7 @@ class WebDocumentFileSystem extends DocumentFileSystem {
       path = '/';
     }
     var db = await _getDatabase();
+    final location = AssetLocation.local(path);
     var txn = db.transaction(['documents', 'documents-data'], 'readonly');
 
     Future<List<int>?> getData(String path) async {
@@ -148,51 +149,38 @@ class WebDocumentFileSystem extends DocumentFileSystem {
     }
     if (data == null) {
       await txn.completed;
-      return null;
+      yield null;
+      return;
     }
     var map = Map<String, dynamic>.from(data as Map);
     if (map['type'] == 'file') {
       final data = await getData(path);
-      if (data == null) return null;
-      final file = getAppDocumentFile(AssetLocation.local(path), data);
+      if (data == null) {
+        yield null;
+        return;
+      }
+      final file = getAppDocumentFile(location, data);
       await txn.completed;
-      return file;
+      yield await file;
+      return;
     } else if (map['type'] == 'directory') {
-      var cursor = store.openCursor(autoAdvance: true);
-      var assets = await Future.wait(
-              await cursor.map<Future<AppDocumentEntity?>>((cursor) async {
-        // Add leading slash
-        var key = cursor.key.toString();
-        if (!key.startsWith('/')) {
-          key = '/$key';
+      yield AppDocumentDirectory(location, []);
+      if (listFiles ?? true) {
+        var cursor = store.openKeyCursor(autoAdvance: true);
+        final streams = fetchAssetsSync(
+            await cursor.map((e) => e.key.toString()).where((e) {
+              return e.startsWith(path) &&
+                  e != path &&
+                  !e.substring(path.length + 1).contains('/');
+            }).toList(),
+            listFiles == null ? null : false);
+        await for (var stream in streams) {
+          yield AppDocumentDirectory(location, stream);
         }
-        // Is in current directory
-        if (key.startsWith(path) &&
-            key != path &&
-            !key.substring(path.length + 1).contains('/')) {
-          var data = cursor.value as Map<dynamic, dynamic>;
-          if (data['type'] == 'file') {
-            final data = await getData(key);
-            if (data == null) return null;
-            return getAppDocumentFile(AssetLocation.local(key), data);
-          } else if (data['type'] == 'directory') {
-            return AppDocumentDirectory(AssetLocation.local(key), const []);
-          }
-          return null;
-        }
-        return null;
-      }).toList())
-          .then((value) => value.whereNotNull().toList());
-      // Sort assets, AppDocumentDirectory should be first, AppDocumentFile should be sorted by name
-      assets.sort((a, b) => a is AppDocumentDirectory
-          ? -1
-          : (a as AppDocumentFile).fileName.compareTo(b is AppDocumentDirectory
-              ? ''
-              : (b as AppDocumentFile).fileName));
-      await txn.completed;
-      return AppDocumentDirectory(AssetLocation.local(path), assets.toList());
+      }
+      return;
     }
-    return null;
+    yield null;
   }
 
   @override
@@ -206,7 +194,7 @@ class WebDocumentFileSystem extends DocumentFileSystem {
   }
 
   @override
-  Future<AppDocumentFile> updateFile(String path, List<int> data) async {
+  Future<bool> updateFile(String path, List<int> data) async {
     // Remove trailing slash
     if (path.endsWith('/')) {
       path = path.substring(0, path.length - 1);
@@ -231,7 +219,7 @@ class WebDocumentFileSystem extends DocumentFileSystem {
     final dataStore = txn.objectStore('documents-data');
     await dataStore.put(data, path);
     await txn.completed;
-    return getAppDocumentFile(AssetLocation.local(path), data);
+    return true;
   }
 
   @override

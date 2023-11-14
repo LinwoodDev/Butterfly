@@ -13,8 +13,11 @@ Ci sono alcune scorciatoie che puoi usare nell'editor. Alcuni di loro sono scrit
 * `Ctrl` + `N`: Nuovo file
 * `Ctrl` + `Maiusc` + `N`: Nuovo file dal modello
 * `Ctrl` + `E`: Esporta file
+* `Ctrl` + `P`: Stampa file
 * `Ctrl` + `Maiusc` + `E`: Esporta file come immagine
 * `Ctrl` + `Alt` + `E`: Esporta file come svg
+* `Ctrl` + `Alt` + `Maiusc` + `E`: Esporta file come svg
+* `Ctrl` + `Alt` + `P`: Pacchetti aperti
 * `Ctrl` + `Alt` + `S`: Apri le impostazioni
 
 ### Progetto
@@ -28,6 +31,8 @@ Ci sono alcune scorciatoie che puoi usare nell'editor. Alcuni di loro sono scrit
 * `Ctrl` + `S`: Salva
 * `Alt` + `S`: Cambia percorso
 * `Ctrl` + (`1` - `0`): Passa allo strumento
+* `Ctrl` + `+`: Zoom avanti
+* `Ctrl` + `-`: Zoom indietro
 
 ## Stylus
 

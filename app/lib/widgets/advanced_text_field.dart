@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 class AdvancedTextField extends StatelessWidget {
@@ -29,6 +30,7 @@ class AdvancedTextField extends StatelessWidget {
             controller.text = resetValue;
             onChanged?.call(resetValue);
           },
+          tooltip: AppLocalizations.of(context).reset,
           icon: const PhosphorIcon(PhosphorIconsLight.clockClockwise),
         ),
       ),

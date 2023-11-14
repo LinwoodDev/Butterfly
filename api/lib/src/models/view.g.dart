@@ -6,13 +6,13 @@ part of 'view.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_ViewOption _$$_ViewOptionFromJson(Map json) => _$_ViewOption(
+_$ViewOptionImpl _$$ViewOptionImplFromJson(Map json) => _$ViewOptionImpl(
       gridColor: json['gridColor'] as int? ?? kColorBlack,
       gridXSize: (json['gridXSize'] as num?)?.toDouble() ?? 20,
       gridYSize: (json['gridYSize'] as num?)?.toDouble() ?? 20,
     );
 
-Map<String, dynamic> _$$_ViewOptionToJson(_$_ViewOption instance) =>
+Map<String, dynamic> _$$ViewOptionImplToJson(_$ViewOptionImpl instance) =>
     <String, dynamic>{
       'gridColor': instance.gridColor,
       'gridXSize': instance.gridXSize,

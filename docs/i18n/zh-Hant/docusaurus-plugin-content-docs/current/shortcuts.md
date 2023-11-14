@@ -13,8 +13,11 @@ There are a few shortcuts that you can use in the editor. Some of them are writt
 * `Ctrl` + `N`: New file
 * `Ctrl` + `Shift` + `N`: New file from template
 * `Ctrl` + `E`: Export file
+* `Ctrl` + `P`: Print file
 * `Ctrl` + `Shift` + `E`: Export file as image
 * `Ctrl` + `Alt` + `E`: Export file as svg
+* `Ctrl` + `Alt` + `Shift` + `E`: Export file as svg
+* `Ctrl` + `Alt` + `P`: Open packs
 * `Ctrl` + `Alt` + `S`: Open settings
 
 ### Project
@@ -28,6 +31,8 @@ There are a few shortcuts that you can use in the editor. Some of them are writt
 * `Ctrl` + `S`: Save
 * `Alt` + `S`: Change path
 * `Ctrl` + (`1` - `0`): Switch to tool
+* `Ctrl` + `+`: Zoom in
+* `Ctrl` + `-`: Zoom out
 
 ## Stylus
 

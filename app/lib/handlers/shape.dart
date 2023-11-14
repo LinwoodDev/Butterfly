@@ -1,22 +1,7 @@
 part of 'handler.dart';
 
-class ShapeHandler extends PastingHandler<ShapeTool> {
+class ShapeHandler extends PastingHandler<ShapeTool> with ColoredHandler {
   ShapeHandler(super.data);
-
-  @override
-  PreferredSizeWidget getToolbar(DocumentBloc bloc) => ColorToolbarView(
-        color: data.property.color,
-        onChanged: (value) {
-          final state = bloc.state;
-          if (state is! DocumentLoadSuccess) return;
-          final index = state.info.tools.indexOf(data);
-          bloc.add(ToolsChanged({
-            index: data.copyWith(
-                property: data.property.copyWith(
-                    color: convertOldColor(value, data.property.color))),
-          }));
-        },
-      );
 
   @override
   List<PadElement> transformElements(Rect rect, String layer) {
@@ -46,4 +31,11 @@ class ShapeHandler extends PastingHandler<ShapeTool> {
   double get constraintedHeight => data.constrainedHeight;
   @override
   double get constraintedWidth => data.constrainedWidth;
+
+  @override
+  int getColor() => data.property.color;
+
+  @override
+  ShapeTool setColor(int color) =>
+      data.copyWith(property: data.property.copyWith(color: color));
 }

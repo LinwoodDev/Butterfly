@@ -3,6 +3,8 @@ import 'dart:math';
 import 'package:butterfly/actions/change_path.dart';
 import 'package:butterfly/actions/settings.dart';
 import 'package:butterfly/actions/svg_export.dart';
+import 'package:butterfly/api/file_system/file_system.dart';
+import 'package:butterfly/api/open.dart';
 import 'package:butterfly/cubits/current_index.dart';
 import 'package:butterfly/dialogs/collaboration/view.dart';
 import 'package:butterfly/services/import.dart';
@@ -28,7 +30,7 @@ import '../dialogs/search.dart';
 import '../embed/action.dart';
 import '../main.dart';
 import '../widgets/window.dart';
-import 'navigator.dart';
+import 'navigator/view.dart';
 
 class PadAppBar extends StatelessWidget implements PreferredSizeWidget {
   final GlobalKey viewportKey;
@@ -116,9 +118,22 @@ class _AppBarTitle extends StatelessWidget {
                 children: [
                   Flexible(
                     child: StatefulBuilder(builder: (context, setState) {
-                      void submit(String? value) {
+                      Future<void> submit(String? value) async {
                         if (value == null) return;
                         if (area == null || areaName == null) {
+                          final cubit = context.read<CurrentIndexCubit>();
+                          final settings = context.read<SettingsCubit>().state;
+                          final location = cubit.state.location;
+                          final fileSystem = DocumentFileSystem.fromPlatform(
+                              remote: settings.getRemote(location.remote));
+
+                          await fileSystem.deleteAsset(location.path);
+                          if (state is DocumentLoadSuccess) {
+                            await state.save(location.copyWith(
+                              path:
+                                  '${location.parent}/${fileSystem.convertNameToFile(value)}.bfly',
+                            ));
+                          }
                           bloc.add(DocumentDescriptionChanged(name: value));
                         } else {
                           bloc.add(AreaChanged(
@@ -301,6 +316,7 @@ class _MainPopupMenu extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<DocumentBloc, DocumentState>(builder: (context, state) {
       if (state is! DocumentLoadSuccess) return const SizedBox();
+      final settingsCubit = context.read<SettingsCubit>();
 
       return MenuAnchor(
         menuChildren: [
@@ -318,13 +334,12 @@ class _MainPopupMenu extends StatelessWidget {
               },
             ),
             if (MediaQuery.of(context).size.width < kLargeWidth ||
-                !context.read<SettingsCubit>().state.navigationRail)
+                !settingsCubit.state.navigationRail)
               ...NavigatorPage.values.map(
                 (e) => MenuItemButton(
                   leadingIcon: PhosphorIcon(e.icon(PhosphorIconsStyle.light)),
                   child: Text(e.getLocalizedName(context)),
                   onPressed: () {
-                    final settingsCubit = context.read<SettingsCubit>();
                     settingsCubit.setNavigatorPage(e);
                     Scaffold.of(context).openDrawer();
                   },
@@ -382,6 +397,18 @@ class _MainPopupMenu extends StatelessWidget {
                   },
                   child: Text(AppLocalizations.of(context).pdf),
                 ),
+                MenuItemButton(
+                  leadingIcon: const PhosphorIcon(PhosphorIconsLight.printer),
+                  shortcut: const SingleActivator(
+                    LogicalKeyboardKey.keyP,
+                    control: true,
+                  ),
+                  onPressed: () {
+                    Actions.maybeInvoke<PdfExportIntent>(
+                        context, PdfExportIntent(context, true));
+                  },
+                  child: Text(AppLocalizations.of(context).print),
+                ),
               ],
               leadingIcon:
                   const PhosphorIcon(PhosphorIconsLight.paperPlaneRight),
@@ -389,14 +416,17 @@ class _MainPopupMenu extends StatelessWidget {
             ),
             MenuItemButton(
               leadingIcon: const PhosphorIcon(PhosphorIconsLight.package),
-              shortcut:
-                  const SingleActivator(LogicalKeyboardKey.keyP, control: true),
+              shortcut: const SingleActivator(
+                LogicalKeyboardKey.keyP,
+                control: true,
+                alt: true,
+              ),
               onPressed: () {
                 Actions.maybeInvoke<PacksIntent>(context, PacksIntent(context));
               },
               child: Text(AppLocalizations.of(context).packs),
             ),
-            const PopupMenuDivider(),
+            const Divider(),
             MenuItemButton(
               leadingIcon: const PhosphorIcon(PhosphorIconsLight.filePlus),
               shortcut:
@@ -415,6 +445,16 @@ class _MainPopupMenu extends StatelessWidget {
                     context, NewIntent(context, fromTemplate: true));
               },
               child: Text(AppLocalizations.of(context).templates),
+            ),
+            SubmenuButton(
+              menuChildren: settingsCubit.state.history
+                  .map((e) => MenuItemButton(
+                        child: Text(e.identifier),
+                        onPressed: () => openFile(context, e),
+                      ))
+                  .toList(),
+              leadingIcon: const PhosphorIcon(PhosphorIconsLight.clock),
+              child: Text(AppLocalizations.of(context).recentFiles),
             ),
           ],
           if (state.embedding == null) ...[
@@ -444,7 +484,7 @@ class _MainPopupMenu extends StatelessWidget {
                           : const PhosphorIcon(PhosphorIconsLight.arrowsOut),
                       shortcut: const SingleActivator(LogicalKeyboardKey.f11),
                       onPressed: () async {
-                        context.read<SettingsCubit>().toggleFullScreen();
+                        settingsCubit.toggleFullScreen();
                       },
                       child: Text(AppLocalizations.of(context).fullScreen),
                     )),
@@ -475,6 +515,13 @@ class _MainPopupMenu extends StatelessWidget {
               icon: Image.asset(
                 'images/logo.png',
               ),
+              style: IconButton.styleFrom(
+                backgroundColor: controller.isOpen
+                    ? Theme.of(context).colorScheme.surfaceVariant
+                    : null,
+              ),
+              tooltip: AppLocalizations.of(context).actions,
+              isSelected: controller.isOpen,
               onPressed: () {
                 if (controller.isOpen) {
                   controller.close();

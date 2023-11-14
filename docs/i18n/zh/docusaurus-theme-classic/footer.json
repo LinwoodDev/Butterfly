@@ -16,7 +16,7 @@
     "description": "The label of footer link with label=Discord linking to https://discord.linwood.dev"
   },
   "link.item.label.Matrix": {
-    "message": "Matrix",
+    "message": "矩阵列表",
     "description": "The label of footer link with label=Matrix linking to https://linwood.dev/matrix"
   },
   "link.item.label.Twitter": {

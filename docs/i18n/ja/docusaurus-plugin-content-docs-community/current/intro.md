@@ -12,9 +12,9 @@ title: "コミュニティ"
 
 特別な感謝は次のとおりです:
 
-* <https://github.com/flutter/flutter> この便利なクロスプラットフォームUIフレームワークを提供する
-* <https://github.com/leanflutter/window_manager> この便利なデスクトップウインドウ機能すべてに対応
-* <https://github.com/facebook/docusaurus> で、使いやすい静的反応ドキュメンテーションフレームワーク
+* [Flutter](https://github.com/flutter/flutter) この便利なクロスプラットフォームUIフレームワークを提供する
+* [window_manager](https://github.com/leanflutter/window_manager) このすべての便利なデスクトップウィンドウ機能について
+* [Docusaurus](https://github.com/facebook/docusaurus) 使いやすい静的反応文書化フレームワーク用
 
 他のすべてのライセンスは、設定で見つけることができます。
 
@@ -22,4 +22,4 @@ title: "コミュニティ"
 
 * [GitHub](https://github.com/LinwoodDev/Butterfly)
 * [Discord](https://go.linwood.dev/discord)
-* [Matrix](https://go.linwood.dev/matrix)
+* [マトリクス](https://go.linwood.dev/matrix)

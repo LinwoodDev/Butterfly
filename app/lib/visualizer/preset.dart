@@ -16,14 +16,10 @@ extension PatternTemplateHelper on PatternTemplate {
 }
 
 extension AspectRatioPresetVisualizer on AspectRatioPreset {
-  String getLocalizedName(BuildContext context) {
-    switch (this) {
-      case AspectRatioPreset.square:
-        return AppLocalizations.of(context).square;
-      case AspectRatioPreset.portrait:
-        return AppLocalizations.of(context).pagePortrait;
-      case AspectRatioPreset.landscape:
-        return AppLocalizations.of(context).pageLandscape;
-    }
-  }
+  String getLocalizedName(BuildContext context) => switch (this) {
+        AspectRatioPreset.square => AppLocalizations.of(context).square,
+        AspectRatioPreset.portrait => AppLocalizations.of(context).pagePortrait,
+        AspectRatioPreset.landscape =>
+          AppLocalizations.of(context).pageLandscape,
+      };
 }

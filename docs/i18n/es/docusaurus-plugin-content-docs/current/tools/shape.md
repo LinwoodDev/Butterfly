@@ -7,6 +7,8 @@ sidebar_position: 3
 
 Utilice esta herramienta para dibujar formas sobre el papel. Puedes dibujar rectángulos, círculos y otras formas.
 
+Usa `ctrl` para tener la misma altura y anchura y `desplaza` para dibujar desde el centro.
+
 ## Configuración
 
 |           Propiedad | Por defecto | Descripción                                                                                                                                                               |

@@ -11,6 +11,9 @@ class UtilitiesSelection extends Selection<UtilitiesState> {
       AppLocalizations.of(context).document;
 
   @override
+  List<String> get help => ['utilities'];
+
+  @override
   List<Widget> buildProperties(BuildContext context) {
     final cubit = context.read<CurrentIndexCubit>();
     final currentIndex = cubit.state;
@@ -91,22 +94,14 @@ class _UtilitiesViewState extends State<_UtilitiesView>
       TabBar(
         controller: _tabController,
         isScrollable: true,
-        tabAlignment: TabAlignment.center,
         tabs: <List<dynamic>>[
           [PhosphorIconsLight.file, AppLocalizations.of(context).project],
           [PhosphorIconsLight.book, AppLocalizations.of(context).page],
           [PhosphorIconsLight.eye, AppLocalizations.of(context).view],
           [PhosphorIconsLight.camera, AppLocalizations.of(context).camera],
         ]
-            .map((e) => Tab(
-                    child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                      PhosphorIcon(e[0]),
-                      const SizedBox(width: 4),
-                      Text(e[1])
-                    ])))
+            .map((e) =>
+                HorizontalTab(icon: PhosphorIcon(e[0]), label: Text(e[1])))
             .toList(),
       ),
       const SizedBox(height: 8),

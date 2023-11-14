@@ -1,6 +1,6 @@
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/cubits/current_index.dart';
-import 'package:butterfly/dialogs/add.dart';
+import 'package:butterfly/dialogs/import/add.dart';
 import 'package:butterfly/services/import.dart';
 import 'package:butterfly/visualizer/tool.dart';
 import 'package:butterfly/widgets/option_button.dart';
@@ -84,6 +84,7 @@ class _EditToolbarState extends State<EditToolbar> {
 
                     return BlocBuilder<CurrentIndexCubit, CurrentIndex>(
                       buildWhen: (previous, current) =>
+                          previous.index != current.index ||
                           previous.handler != current.handler ||
                           previous.temporaryHandler !=
                               current.temporaryHandler ||
@@ -267,9 +268,11 @@ class _EditToolbarState extends State<EditToolbar> {
                     padding: const EdgeInsets.symmetric(horizontal: 4.0),
                     child: OptionButton(
                         tooltip: tooltip,
-                        onLongPressed: () => context
-                            .read<CurrentIndexCubit>()
-                            .insertSelection(e, true),
+                        onLongPressed: selected || highlighted
+                            ? null
+                            : () => context
+                                .read<CurrentIndexCubit>()
+                                .insertSelection(e, true),
                         focussed: shortcuts.contains(i),
                         selected: selected,
                         highlighted: highlighted,
@@ -296,7 +299,7 @@ class _EditToolbarState extends State<EditToolbar> {
                 return ReorderableDelayedDragStartListener(
                   index: i,
                   key: ObjectKey(i),
-                  enabled: selected,
+                  enabled: selected || highlighted,
                   child: toolWidget,
                 );
               },
@@ -388,7 +391,10 @@ class _EditToolbarState extends State<EditToolbar> {
                   style: const MenuStyle(
                     alignment: Alignment.bottomRight,
                   ),
-                  builder: defaultMenuButton(PhosphorIconsLight.lockKey),
+                  builder: defaultMenuButton(
+                    icon: const PhosphorIcon(PhosphorIconsLight.lockKey),
+                    tooltip: AppLocalizations.of(context).lock,
+                  ),
                 );
               },
             ),

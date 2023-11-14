@@ -7,19 +7,25 @@ class AssetHandler extends Handler<AssetTool> {
   void onTapUp(TapUpDetails details, EventContext context) {
     final globalPos =
         context.getCameraTransform().localToGlobal(details.localPosition);
-    showImportAssetWizard(data.importType, context.buildContext, globalPos);
+    showImportAssetWizard(
+      data.importType,
+      context.buildContext,
+      context.getDocumentBloc(),
+      context.getImportService(),
+      position: globalPos,
+      advanced: data.advanced,
+    );
   }
 }
 
 Future<void> showImportAssetWizard(ImportType type, BuildContext context,
-    [Offset? position]) async {
-  void importAsset(AssetFileType type, Uint8List bytes) {
-    final bloc = context.read<DocumentBloc>();
+    DocumentBloc bloc, ImportService service,
+    {Offset? position, bool advanced = true}) async {
+  Future<void> importAsset(AssetFileType type, Uint8List bytes) async {
     final state = bloc.state;
     if (state is! DocumentLoaded) return;
-    context
-        .read<ImportService>()
-        .import(type, bytes, state.data, position: position);
+    await service.import(type, bytes, state.data,
+        position: position, advanced: advanced);
   }
 
   Future<void> importWithDialog(
@@ -39,7 +45,7 @@ Future<void> showImportAssetWizard(ImportType type, BuildContext context,
     if (!kIsWeb) {
       content = await File(e.path ?? '').readAsBytes();
     }
-    importAsset(assetType, content);
+    return importAsset(assetType, content);
   }
 
   if (!type.isAvailable()) return;
@@ -56,8 +62,7 @@ Future<void> showImportAssetWizard(ImportType type, BuildContext context,
         builder: (context) => const CameraDialog(),
       );
       if (content == null) return;
-      importAsset(AssetFileType.image, content);
-      break;
+      return importAsset(AssetFileType.image, content);
     case ImportType.svg:
       return importWithDialog(
         AssetFileType.svg,
@@ -73,8 +78,7 @@ Future<void> showImportAssetWizard(ImportType type, BuildContext context,
     case ImportType.document:
       final data = await openBfly();
       if (data == null) return;
-      importAsset(AssetFileType.note, data);
-      break;
+      return importAsset(AssetFileType.note, data);
     case ImportType.markdown:
       return importWithDialog(
         AssetFileType.markdown,

@@ -15,7 +15,7 @@ class WebDocumentFileSystem extends DocumentFileSystem {
   }
 
   @override
-  Future<AppDocumentEntity?> getAsset(String path) {
+  Stream<AppDocumentEntity?> fetchAsset(String path, [bool? listFiles = true]) {
     throw UnimplementedError();
   }
 
@@ -25,7 +25,7 @@ class WebDocumentFileSystem extends DocumentFileSystem {
   }
 
   @override
-  Future<AppDocumentFile> updateFile(String path, List<int> data) {
+  Future<bool> updateFile(String path, List<int> data) {
     throw UnimplementedError();
   }
 }

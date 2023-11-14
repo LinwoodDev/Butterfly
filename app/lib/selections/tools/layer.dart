@@ -120,6 +120,8 @@ class LayerToolSelection extends ToolSelection<LayerTool> {
                                 icon: PhosphorIcon(state.isLayerVisible('')
                                     ? PhosphorIconsLight.eye
                                     : PhosphorIconsLight.eyeSlash),
+                                tooltip:
+                                    AppLocalizations.of(context).visibility,
                                 onPressed: () {
                                   context
                                       .read<DocumentBloc>()
@@ -130,42 +132,48 @@ class LayerToolSelection extends ToolSelection<LayerTool> {
                                   AppLocalizations.of(context).defaultLayer)),
                           const Divider(),
                           ...List.generate(
-                              layers.length,
-                              (index) => Dismissible(
-                                    key: ObjectKey(layers[index]),
-                                    background: Container(color: Colors.red),
-                                    onDismissed: (direction) {
-                                      context
-                                          .read<DocumentBloc>()
-                                          .add(LayerRemoved(layers[index]));
+                            layers.length,
+                            (index) {
+                              final visible =
+                                  state.isLayerVisible(layers[index]);
+                              return Dismissible(
+                                key: ObjectKey(layers[index]),
+                                background: Container(color: Colors.red),
+                                onDismissed: (direction) {
+                                  context
+                                      .read<DocumentBloc>()
+                                      .add(LayerRemoved(layers[index]));
+                                },
+                                child: ListTile(
+                                    onTap: () {
+                                      context.read<DocumentBloc>().add(
+                                          CurrentLayerChanged(layers[index]));
                                     },
-                                    child: ListTile(
-                                        onTap: () {
-                                          context.read<DocumentBloc>().add(
-                                              CurrentLayerChanged(
-                                                  layers[index]));
-                                        },
-                                        selected:
-                                            layers[index] == state.currentLayer,
-                                        leading: IconButton(
-                                          icon: PhosphorIcon(state
-                                                  .isLayerVisible(layers[index])
-                                              ? PhosphorIconsLight.eye
-                                              : PhosphorIconsLight.eyeSlash),
-                                          onPressed: () {
-                                            context.read<DocumentBloc>().add(
-                                                LayerVisibilityChanged(
-                                                    layers[index]));
-                                          },
-                                        ),
-                                        trailing: IconTheme.merge(
-                                            data: Theme.of(context).iconTheme,
-                                            child: LayerDialog(
-                                              popupMenu: true,
-                                              layer: layers[index],
-                                            )),
-                                        title: Text(layers[index])),
-                                  ))
+                                    selected:
+                                        layers[index] == state.currentLayer,
+                                    leading: IconButton(
+                                      icon: PhosphorIcon(visible
+                                          ? PhosphorIconsLight.eye
+                                          : PhosphorIconsLight.eyeSlash),
+                                      tooltip: visible
+                                          ? AppLocalizations.of(context).hide
+                                          : AppLocalizations.of(context).show,
+                                      onPressed: () {
+                                        context.read<DocumentBloc>().add(
+                                            LayerVisibilityChanged(
+                                                layers[index]));
+                                      },
+                                    ),
+                                    trailing: IconTheme.merge(
+                                        data: Theme.of(context).iconTheme,
+                                        child: LayerDialog(
+                                          popupMenu: true,
+                                          layer: layers[index],
+                                        )),
+                                    title: Text(layers[index])),
+                              );
+                            },
+                          )
                         ]);
                       }),
                     ),

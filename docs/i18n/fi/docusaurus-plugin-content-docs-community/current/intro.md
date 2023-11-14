@@ -12,9 +12,9 @@ Tervetuloa yhteisön osioon.
 
 Erityinen kiitos kuuluu seuraaville:
 
-* <https://github.com/flutter/flutter> tämän hyödyllisen crossplatform ui -kehyksen tarjoamiseksi
-* <https://github.com/leanflutter/window_manager> kaikille tämän hyödyllisen työpöytäikkunan ominaisuuksille
-* <https://github.com/facebook/docusaurus> helppokäyttöisen staattisen reagoinnin dokumentointikehyksen luomiseksi
+* [Flutter](https://github.com/flutter/flutter) tämän käyttökelpoisen crossplatform ui -kehyksen tarjoamiseksi
+* [window_manager](https://github.com/leanflutter/window_manager) kaikille tämän hyödyllisen työpöytäikkunan ominaisuuksille
+* [Docusaurus](https://github.com/facebook/docusaurus) helppokäyttöiseen staattiseen reagointidokumentointikehykseen
 
 Kaikki muut lisenssit löytyvät asetuksista.
 
@@ -22,4 +22,4 @@ Kaikki muut lisenssit löytyvät asetuksista.
 
 * [GitHub](https://github.com/LinwoodDev/Butterfly)
 * [Discord](https://go.linwood.dev/discord)
-* [Matrix](https://go.linwood.dev/matrix)
+* [Matriisi](https://go.linwood.dev/matrix)

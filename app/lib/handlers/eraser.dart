@@ -17,7 +17,8 @@ class EraserHandler extends Handler<EraserTool> {
           [Area? currentArea]) =>
       [
         if (_currentPos != null)
-          EraserCursor(ToolCursorData(data, _currentPos!))
+          EraserCursor(
+              ToolCursorData(EraserInfo.fromEraser(data), _currentPos!))
       ];
 
   @override
@@ -52,14 +53,13 @@ class EraserHandler extends Handler<EraserTool> {
         List<List<PathPoint>> paths = [[]];
         for (final point in element.points) {
           if ((point.toOffset() - globalPos).distance > size) {
-            // If so, add to last path
             paths.last.add(point);
             continue;
           } else if (paths.last.isNotEmpty) {
             paths.add([]);
           }
         }
-        if (paths.length == 1) continue;
+        if (paths.length <= 1) continue;
         final index = page.content.indexOf(element);
         modified[index] = paths
             .where((element) => element.isNotEmpty)
@@ -77,8 +77,6 @@ class EraserHandler extends Handler<EraserTool> {
   @override
   void onPointerUp(PointerUpEvent event, EventContext context) {
     _changeElement(event.localPosition, context);
-    final content = context.getPage()?.content;
-    if (content == null) return;
   }
 
   @override

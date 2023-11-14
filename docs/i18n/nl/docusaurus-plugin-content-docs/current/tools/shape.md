@@ -7,6 +7,8 @@ sidebar_position: 3
 
 Gebruik dit gereedschap om vormen op het papier te tekenen. Je kunt rechthoeken, cirkels en andere vormen tekenen.
 
+Gebruik `ctrl` om dezelfde hoogte en breedte te hebben en `shift` om te tekenen van het midden.
+
 ## Configuratie
 
 |         Eigenschap | Standaard | Beschrijving                                                                                                                                                                                        |

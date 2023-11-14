@@ -19,7 +19,7 @@ Denne funktion er ikke tilgængelig på nettet.
 
 :::
 
-Programmet kan gemmes på en ekstern server. Dette er nyttigt, hvis du ønsker at dele data med andre mennesker, eller hvis du har flere computere. I øjeblikket er kun protokollen `WebDAV` understøttet.
+Programmet kan gemmes på en ekstern server. Dette er nyttigt, hvis du ønsker at dele data med andre mennesker, eller hvis du har flere computere. I øjeblikket understøttes kun `WebDAV` -protokollen.
 
 For at tilføje en fjernserver, gå til indstillingerne og klik på `Remotes`. Klik derefter på `Tilføj fjernbetjening`. Tilføj webadressen på den eksterne server og brugernavn og adgangskode. Derefter kan du angive mappen, hvor dataene er gemt.
 
@@ -29,7 +29,7 @@ For at få webdav url, besøg dokumentationen:
 
 ### Offline synkronisering {#offline}
 
-Denne funktion giver dig mulighed for at redigere dine filer på eksterne servere, mens du er offline. Åbn popup-menuen på en fil eller mappe og klik på `Synk`. Dette vil downloade filen eller mappen og gemme den lokalt. For at synkronisere hele rodmappen klik på afkrydsningsfeltet i dialogboksen Opretter eller klik på fjernbetjeningen i indstillingen og klik på afkrydsningsfeltet i afsnittet Håndtering.
+Denne funktion giver dig mulighed for at redigere dine filer på eksterne servere, mens du er offline. Åbn popup-menuen på en fil eller mappe og klik på `Sync`. Dette vil downloade filen eller mappen og gemme den lokalt. For at synkronisere hele rodmappen klik på afkrydsningsfeltet i dialogboksen Opretter eller klik på fjernbetjeningen i indstillingen og klik på afkrydsningsfeltet i afsnittet Håndtering.
 
 Der er et par begrænsninger:
 

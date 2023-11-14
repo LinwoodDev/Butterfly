@@ -13,8 +13,11 @@ Det finns några genvägar som du kan använda i editorn. Några av dem är skri
 * `Ctrl` + `N`: Ny fil
 * `Ctrl` + `Shift` + `N`: Ny fil från mall
 * `Ctrl` + `E`: Exportera fil
+* `Ctrl` + `P`: Skriv ut fil
 * `Ctrl` + `Shift` + `E`: Exportera filen som bild
 * `Ctrl` + `Alt` + `E`: Exportera filen som svg
+* `Ctrl` + `Alt` + `Shift` + `E`: Exportera filen som svg
+* `Ctrl` + `Alt` + `P`: Öppna paket
 * `Ctrl` + `Alt` + `S`: Öppna inställningar
 
 ### Projekt
@@ -28,6 +31,8 @@ Det finns några genvägar som du kan använda i editorn. Några av dem är skri
 * `Ctrl` + `S`: Spara
 * `Alt` + `S`: Ändra sökväg
 * `Ctrl` + (`1` - `0`): Växla till verktyget
+* `Ctrl` + `+`: Zooma in
+* `Ctrl` + `-`: Zooma ut
 
 ## Stylus
 

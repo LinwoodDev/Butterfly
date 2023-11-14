@@ -1,5 +1,5 @@
 {
-  "extends": "@tsconfig/docusaurus/tsconfig.json",
+  "extends": "@docusaurus/tsconfig",
   "compilerOptions": {
     "moduleResolution": "node",
     "baseUrl": ".",
@@ -8,5 +8,5 @@
       "@docusaurus/theme-common/internal": ["node_modules/@docusaurus/theme-common/src/internal.ts"]
     }
   },
-  "include": ["./src/**/*.ts","./src/**/*.tsx"]
+  "include": ["./src/**/*.ts","./src/**/*.tsx", "src/theme/MDXComponents.js"]
 }

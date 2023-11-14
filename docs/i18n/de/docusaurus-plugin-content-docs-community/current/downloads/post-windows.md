@@ -10,12 +10,12 @@ slug: "/downloads/post-windows"
 # Vielen Dank für das Herunterladen
 
 <div className="row margin-bottom--lg padding--sm flex-center">
-<a className="button button--outline button--warning button--lg margin--sm" href="/contributing">
-  Beitrag zum Projekt
-</a>
-<a className="button button--outline button--info button--lg margin--sm" href="https://linwood.dev/matrix">
-  Mitglied der Community
-</a>
+<Link className="button button--outline button--warning button--lg margin--sm" href="/contributing">
+  An dem Projekt
+</Link>
+<Link className="button button--outline button--info button--lg margin--sm" href="https://linwood.dev/matrix">
+  teilnehmen
+</Link>
 
 </div>
 

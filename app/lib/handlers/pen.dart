@@ -1,6 +1,6 @@
 part of 'handler.dart';
 
-class PenHandler extends Handler<PenTool> {
+class PenHandler extends Handler<PenTool> with ColoredHandler {
   final Map<int, PenElement> elements = {};
 
   final Map<int, Offset> lastPosition = {};
@@ -21,6 +21,7 @@ class PenHandler extends Handler<PenTool> {
 
   @override
   void resetInput(DocumentBloc bloc) {
+    submitElements(bloc, elements.keys.toList());
     elements.clear();
     lastPosition.clear();
   }
@@ -30,18 +31,22 @@ class PenHandler extends Handler<PenTool> {
     addPoint(context.buildContext, event.pointer, event.localPosition,
         _getPressure(event), event.kind,
         refresh: false);
-    submitElement(context.viewportSize, context.buildContext, event.pointer);
+    submitElements(context.getDocumentBloc(), [event.pointer]);
   }
 
-  Future<void> submitElement(
-      Size viewportSize, BuildContext context, int index) async {
-    final bloc = context.read<DocumentBloc>();
-    var element = elements.remove(index);
-    if (element == null) return;
-    lastPosition.remove(index);
-    bloc.add(ElementsCreated([element]));
-    bloc.refresh();
+  bool _currentlyBaking = false;
+
+  Future<void> submitElements(DocumentBloc bloc, List<int> indexes) async {
+    final elements =
+        indexes.map((e) => this.elements.remove(e)).whereNotNull().toList();
+    if (elements.isEmpty) return;
+    lastPosition.removeWhere((key, value) => indexes.contains(key));
+    bloc.add(ElementsCreated(elements));
+    if (_currentlyBaking) return;
+    _currentlyBaking = true;
     await bloc.bake();
+    _currentlyBaking = false;
+    bloc.refresh();
   }
 
   void addPoint(BuildContext context, int pointer, Offset localPosition,
@@ -111,19 +116,18 @@ class PenHandler extends Handler<PenTool> {
       event.kind);
 
   @override
-  PreferredSizeWidget getToolbar(DocumentBloc bloc) => ColorToolbarView(
-        color: data.property.color,
-        onChanged: (value) {
-          final state = bloc.state;
-          if (state is! DocumentLoadSuccess) return;
-          final index = state.info.tools.indexOf(data);
-          bloc.add(ToolsChanged({
-            index: data.copyWith(
-                property: data.property.copyWith(
-                    color: convertOldColor(value, data.property.color)))
-          }));
-        },
-      );
+  void onScaleStartAbort(ScaleStartDetails details, EventContext context) {
+    elements.clear();
+    context.refresh();
+  }
+
+  @override
+  int getColor() => data.property.color;
+
+  @override
+  PenTool setColor(int color) => data.copyWith(
+      property: data.property
+          .copyWith(color: convertOldColor(color, data.property.color)));
 
   @override
   MouseCursor get cursor => SystemMouseCursors.precise;

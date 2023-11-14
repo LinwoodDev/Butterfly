@@ -6,14 +6,14 @@ part of 'palette.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_ColorPalette _$$_ColorPaletteFromJson(Map json) => _$_ColorPalette(
+_$ColorPaletteImpl _$$ColorPaletteImplFromJson(Map json) => _$ColorPaletteImpl(
       name: json['name'] as String,
       colors:
           (json['colors'] as List<dynamic>?)?.map((e) => e as int).toList() ??
               const [],
     );
 
-Map<String, dynamic> _$$_ColorPaletteToJson(_$_ColorPalette instance) =>
+Map<String, dynamic> _$$ColorPaletteImplToJson(_$ColorPaletteImpl instance) =>
     <String, dynamic>{
       'name': instance.name,
       'colors': instance.colors,

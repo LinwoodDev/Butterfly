@@ -4,7 +4,7 @@
 
 | Version | Supported          |                                                                                                                                         |
 | ------- | ------------------ | --------------------------------------------------------------------------------------------------------------------------------------- |
-| 2.0-dev | :warning:          | [Docs](https://docs.butterfly.linwood.dev/docs/2.0/intro) [Release](https://github.com/LinwoodDev/butterfly/releases/tag/v2.0.0-beta.7) |
+| 2.0-dev | :warning:          | [Docs](https://docs.butterfly.linwood.dev/docs/2.0/intro) [Release](https://github.com/LinwoodDev/butterfly/releases/tag/v2.0.0-beta.14) |
 | 1.6.1   | :white_check_mark: | [Docs](https://docs.butterfly.linwood.dev/docs/1.6/intro) [Release](https://github.com/LinwoodDev/butterfly/releases/tag/v1.6.1)        |
 | 1.5.1   | :x:                | [Docs](https://docs.butterfly.linwood.dev/docs/1.5/intro) [Release](https://github.com/LinwoodDev/butterfly/releases/tag/v1.5.1)        |
 | 1.4.4   | :x:                | [Docs](https://docs.butterfly.linwood.dev/docs/1.4/intro) [Release](https://github.com/LinwoodDev/butterfly/releases/tag/v1.4.4)        |
@@ -17,7 +17,7 @@ Older versions can be found [here](https://docs.butterfly.linwood.dev/pre-1-0).
 
 ## Reporting a Vulnerability
 
-Please use [the bug tracker](https://github.com/LinwoodDev/butterfly/issues) or use <bug@linwood.dev> if there are a critical bug.
+Please use [the bug tracker](https://github.com/LinwoodDev/butterfly/issues) or use [bug@linwood.dev](mailto:bug@linwood.dev) if there is a critical bug.
 
 ## Branches
 

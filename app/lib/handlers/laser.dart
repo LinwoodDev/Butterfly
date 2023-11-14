@@ -1,6 +1,6 @@
 part of 'handler.dart';
 
-class LaserHandler extends Handler<LaserTool> {
+class LaserHandler extends Handler<LaserTool> with ColoredHandler {
   final Map<int, PenElement> elements = {};
   final List<PenElement> submittedElements = [];
   DateTime? _lastChanged;
@@ -67,20 +67,20 @@ class LaserHandler extends Handler<LaserTool> {
 
   @override
   List<Renderer> createForegrounds(CurrentIndexCubit currentIndexCubit,
-      NoteData document, DocumentPage page, DocumentInfo info,
-      [Area? currentArea]) {
-    return elements.values
-        .map((e) {
-          if (e.points.length > 1) return PenRenderer(e);
-          return null;
-        })
-        .whereType<Renderer>()
-        .toList()
-      ..addAll(submittedElements.map((e) => PenRenderer(e)));
-  }
+          NoteData document, DocumentPage page, DocumentInfo info,
+          [Area? currentArea]) =>
+      elements.values
+          .map((e) {
+            if (e.points.length > 1) return PenRenderer(e);
+            return null;
+          })
+          .whereType<Renderer>()
+          .toList()
+        ..addAll(submittedElements.map((e) => PenRenderer(e)));
 
   @override
   void resetInput(DocumentBloc bloc) {
+    _submit(bloc, elements.keys.toList());
     elements.clear();
     submittedElements.clear();
     _stopTimer();
@@ -88,18 +88,23 @@ class LaserHandler extends Handler<LaserTool> {
 
   bool _moving = false;
 
-  @override
-  void onPointerUp(PointerUpEvent event, EventContext context) {
+  void _submit(DocumentBloc bloc, List<int> indexes) {
     if (_moving) {
       _moving = false;
       return;
     }
+    var elements =
+        indexes.map((e) => this.elements.remove(e)).whereNotNull().toList();
+    if (elements.isEmpty) return;
+    submittedElements.addAll(elements);
+    bloc.refresh();
+  }
+
+  @override
+  void onPointerUp(PointerUpEvent event, EventContext context) {
     addPoint(context.buildContext, event.pointer, event.localPosition,
         event.pressure, event.kind);
-    var element = elements.remove(event.pointer);
-    if (element == null) return;
-    submittedElements.add(element);
-    context.refresh();
+    _submit(context.getDocumentBloc(), [event.pointer]);
   }
 
   void addPoint(BuildContext context, int pointer, Offset localPosition,
@@ -165,17 +170,10 @@ class LaserHandler extends Handler<LaserTool> {
   }
 
   @override
-  PreferredSizeWidget getToolbar(DocumentBloc bloc) => ColorToolbarView(
-        color: data.color,
-        onChanged: (value) {
-          final state = bloc.state;
-          if (state is! DocumentLoadSuccess) return;
-          final index = state.info.tools.indexOf(data);
-          bloc.add(ToolsChanged({
-            index: data.copyWith(color: convertOldColor(value, data.color)),
-          }));
-        },
-      );
+  int getColor() => data.color;
+
+  @override
+  LaserTool setColor(int color) => data.copyWith(color: color);
 
   @override
   MouseCursor get cursor => SystemMouseCursors.precise;

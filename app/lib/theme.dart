@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'main.dart';
 
 const kClassicFirstColor = Color(0xFFf2b138);
-const kClassicSecondColor = Color(0xFF00469E);
+const kClassicSecondColor = Color(0xFFbe5050);
 const kClassicThemePrimary =
     isNightly ? kClassicSecondColor : kClassicFirstColor;
 const kClassicThemeSecondary =
@@ -39,6 +39,9 @@ ThemeData getThemeData(String name, bool dark,
     );
   }
   return theme.copyWith(
+    tabBarTheme: const TabBarTheme(
+      tabAlignment: TabAlignment.center,
+    ),
     dropdownMenuTheme: DropdownMenuThemeData(
       inputDecorationTheme: defaultDropdownInputDecorationTheme(),
     ),

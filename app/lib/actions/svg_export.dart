@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../cubits/transform.dart';
-import '../dialogs/svg_export.dart';
+import '../dialogs/export/svg.dart';
 
 class SvgExportIntent extends Intent {
   final BuildContext context;

@@ -186,6 +186,9 @@ class PathHitCalculator extends HitCalculator {
     if (!elementRect.overlaps(rect)) {
       return false;
     }
+    if (points.length == 1) {
+      return rect.contains(points.first.toOffset());
+    }
     return _getInterpolatedPoints(points)
         .any((point) => rect.contains(point.toOffset()));
   }

@@ -200,11 +200,11 @@ class _$SurfaceTextureCopyWithImpl<$Res, $Val extends SurfaceTexture>
 }
 
 /// @nodoc
-abstract class _$$PatternTextureCopyWith<$Res>
+abstract class _$$PatternTextureImplCopyWith<$Res>
     implements $SurfaceTextureCopyWith<$Res> {
-  factory _$$PatternTextureCopyWith(
-          _$PatternTexture value, $Res Function(_$PatternTexture) then) =
-      __$$PatternTextureCopyWithImpl<$Res>;
+  factory _$$PatternTextureImplCopyWith(_$PatternTextureImpl value,
+          $Res Function(_$PatternTextureImpl) then) =
+      __$$PatternTextureImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -222,11 +222,11 @@ abstract class _$$PatternTextureCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$PatternTextureCopyWithImpl<$Res>
-    extends _$SurfaceTextureCopyWithImpl<$Res, _$PatternTexture>
-    implements _$$PatternTextureCopyWith<$Res> {
-  __$$PatternTextureCopyWithImpl(
-      _$PatternTexture _value, $Res Function(_$PatternTexture) _then)
+class __$$PatternTextureImplCopyWithImpl<$Res>
+    extends _$SurfaceTextureCopyWithImpl<$Res, _$PatternTextureImpl>
+    implements _$$PatternTextureImplCopyWith<$Res> {
+  __$$PatternTextureImplCopyWithImpl(
+      _$PatternTextureImpl _value, $Res Function(_$PatternTextureImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -244,7 +244,7 @@ class __$$PatternTextureCopyWithImpl<$Res>
     Object? boxXStroke = null,
     Object? boxYStroke = null,
   }) {
-    return _then(_$PatternTexture(
+    return _then(_$PatternTextureImpl(
       boxWidth: null == boxWidth
           ? _value.boxWidth
           : boxWidth // ignore: cast_nullable_to_non_nullable
@@ -295,8 +295,8 @@ class __$$PatternTextureCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$PatternTexture implements PatternTexture {
-  const _$PatternTexture(
+class _$PatternTextureImpl implements PatternTexture {
+  const _$PatternTextureImpl(
       {this.boxWidth = 0,
       this.boxHeight = 0,
       this.boxXCount = 1,
@@ -309,8 +309,8 @@ class _$PatternTexture implements PatternTexture {
       this.boxXStroke = 0.5,
       this.boxYStroke = 0.5});
 
-  factory _$PatternTexture.fromJson(Map<String, dynamic> json) =>
-      _$$PatternTextureFromJson(json);
+  factory _$PatternTextureImpl.fromJson(Map<String, dynamic> json) =>
+      _$$PatternTextureImplFromJson(json);
 
   @override
   @JsonKey()
@@ -355,7 +355,7 @@ class _$PatternTexture implements PatternTexture {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$PatternTexture &&
+            other is _$PatternTextureImpl &&
             (identical(other.boxWidth, boxWidth) ||
                 other.boxWidth == boxWidth) &&
             (identical(other.boxHeight, boxHeight) ||
@@ -399,8 +399,9 @@ class _$PatternTexture implements PatternTexture {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$PatternTextureCopyWith<_$PatternTexture> get copyWith =>
-      __$$PatternTextureCopyWithImpl<_$PatternTexture>(this, _$identity);
+  _$$PatternTextureImplCopyWith<_$PatternTextureImpl> get copyWith =>
+      __$$PatternTextureImplCopyWithImpl<_$PatternTextureImpl>(
+          this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -499,7 +500,7 @@ class _$PatternTexture implements PatternTexture {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$PatternTextureToJson(
+    return _$$PatternTextureImplToJson(
       this,
     );
   }
@@ -517,10 +518,10 @@ abstract class PatternTexture implements SurfaceTexture {
       final int boxYColor,
       final int boxColor,
       final double boxXStroke,
-      final double boxYStroke}) = _$PatternTexture;
+      final double boxYStroke}) = _$PatternTextureImpl;
 
   factory PatternTexture.fromJson(Map<String, dynamic> json) =
-      _$PatternTexture.fromJson;
+      _$PatternTextureImpl.fromJson;
 
   @override
   double get boxWidth;
@@ -546,6 +547,6 @@ abstract class PatternTexture implements SurfaceTexture {
   double get boxYStroke;
   @override
   @JsonKey(ignore: true)
-  _$$PatternTextureCopyWith<_$PatternTexture> get copyWith =>
+  _$$PatternTextureImplCopyWith<_$PatternTextureImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

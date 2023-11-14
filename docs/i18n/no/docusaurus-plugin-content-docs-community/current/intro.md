@@ -12,14 +12,14 @@ Velkommen til samfunnsseksjonen.
 
 En spesiell takk går til:
 
-* <https://github.com/flutter/flutter> for å gi dette nyttige crossplatform ui rammeverket
-* <https://github.com/leanflutter/window_manager> for alle disse nyttige vindusfunksjonene i skrivebordet
-* <https://github.com/facebook/docusaurus> for et enkelt å bruke statisk react dokumentasjon rammeverk
+* [Flutter](https://github.com/flutter/flutter) for å sikre dette nyttige crossplatform ui rammeverket
+* [window_manager](https://github.com/leanflutter/window_manager) for alle dette nyttige skrivebordsvinduets funksjoner
+* [Docusaurus](https://github.com/facebook/docusaurus) for et lett å bruke statisk reaksjons dokumentasjon
 
 Du finner alle andre lisenser i innstillingene.
 
 ## Nyttige lenker
 
 * [GitHub](https://github.com/LinwoodDev/Butterfly)
-* [Discord](https://go.linwood.dev/discord)
-* [Matrix](https://go.linwood.dev/matrix)
+* [Splid](https://go.linwood.dev/discord)
+* [Matrise](https://go.linwood.dev/matrix)

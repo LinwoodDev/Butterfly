@@ -7,6 +7,8 @@ sidebar_position: 3
 
 Použijte tento nástroj k nakreslení tvarů na papír. Můžeš nakreslit obdélníky, kruhy a další tvary.
 
+Použij `ctrl` pro stejnou výšku a šířku a `posun` pro vykreslení středu.
+
 ## Konfigurace
 
 |            Majetek | Výchozí  | L 343, 22.12.2009, s. 1).                                                                                                       |

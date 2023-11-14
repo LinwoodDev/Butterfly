@@ -54,6 +54,8 @@ Tool _$ToolFromJson(Map<String, dynamic> json) {
       return AssetTool.fromJson(json);
     case 'texture':
       return TextureTool.fromJson(json);
+    case 'eyeDropper':
+      return EyeDropperTool.fromJson(json);
 
     default:
       throw CheckedFromJsonException(
@@ -123,8 +125,8 @@ mixin _$Tool {
     required TResult Function(String name, String displayIcon, Axis2D axis)
         spacer,
     required TResult Function(String name, String displayIcon) fullSceen,
-    required TResult Function(
-            String name, String displayIcon, ImportType importType)
+    required TResult Function(String name, String displayIcon,
+            ImportType importType, bool advanced)
         asset,
     required TResult Function(
             String name,
@@ -135,6 +137,7 @@ mixin _$Tool {
             double constrainedAspectRatio,
             SurfaceTexture texture)
         texture,
+    required TResult Function(String name, String displayIcon) eyeDropper,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -190,7 +193,8 @@ mixin _$Tool {
     TResult? Function(String name, String displayIcon)? presentation,
     TResult? Function(String name, String displayIcon, Axis2D axis)? spacer,
     TResult? Function(String name, String displayIcon)? fullSceen,
-    TResult? Function(String name, String displayIcon, ImportType importType)?
+    TResult? Function(String name, String displayIcon, ImportType importType,
+            bool advanced)?
         asset,
     TResult? Function(
             String name,
@@ -201,6 +205,7 @@ mixin _$Tool {
             double constrainedAspectRatio,
             SurfaceTexture texture)?
         texture,
+    TResult? Function(String name, String displayIcon)? eyeDropper,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -256,7 +261,8 @@ mixin _$Tool {
     TResult Function(String name, String displayIcon)? presentation,
     TResult Function(String name, String displayIcon, Axis2D axis)? spacer,
     TResult Function(String name, String displayIcon)? fullSceen,
-    TResult Function(String name, String displayIcon, ImportType importType)?
+    TResult Function(String name, String displayIcon, ImportType importType,
+            bool advanced)?
         asset,
     TResult Function(
             String name,
@@ -267,6 +273,7 @@ mixin _$Tool {
             double constrainedAspectRatio,
             SurfaceTexture texture)?
         texture,
+    TResult Function(String name, String displayIcon)? eyeDropper,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -291,6 +298,7 @@ mixin _$Tool {
     required TResult Function(FullScreenTool value) fullSceen,
     required TResult Function(AssetTool value) asset,
     required TResult Function(TextureTool value) texture,
+    required TResult Function(EyeDropperTool value) eyeDropper,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -314,6 +322,7 @@ mixin _$Tool {
     TResult? Function(FullScreenTool value)? fullSceen,
     TResult? Function(AssetTool value)? asset,
     TResult? Function(TextureTool value)? texture,
+    TResult? Function(EyeDropperTool value)? eyeDropper,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -337,6 +346,7 @@ mixin _$Tool {
     TResult Function(FullScreenTool value)? fullSceen,
     TResult Function(AssetTool value)? asset,
     TResult Function(TextureTool value)? texture,
+    TResult Function(EyeDropperTool value)? eyeDropper,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -383,21 +393,21 @@ class _$ToolCopyWithImpl<$Res, $Val extends Tool>
 }
 
 /// @nodoc
-abstract class _$$SelectToolCopyWith<$Res> implements $ToolCopyWith<$Res> {
-  factory _$$SelectToolCopyWith(
-          _$SelectTool value, $Res Function(_$SelectTool) then) =
-      __$$SelectToolCopyWithImpl<$Res>;
+abstract class _$$SelectToolImplCopyWith<$Res> implements $ToolCopyWith<$Res> {
+  factory _$$SelectToolImplCopyWith(
+          _$SelectToolImpl value, $Res Function(_$SelectToolImpl) then) =
+      __$$SelectToolImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({String name, String displayIcon, SelectMode mode});
 }
 
 /// @nodoc
-class __$$SelectToolCopyWithImpl<$Res>
-    extends _$ToolCopyWithImpl<$Res, _$SelectTool>
-    implements _$$SelectToolCopyWith<$Res> {
-  __$$SelectToolCopyWithImpl(
-      _$SelectTool _value, $Res Function(_$SelectTool) _then)
+class __$$SelectToolImplCopyWithImpl<$Res>
+    extends _$ToolCopyWithImpl<$Res, _$SelectToolImpl>
+    implements _$$SelectToolImplCopyWith<$Res> {
+  __$$SelectToolImplCopyWithImpl(
+      _$SelectToolImpl _value, $Res Function(_$SelectToolImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -407,7 +417,7 @@ class __$$SelectToolCopyWithImpl<$Res>
     Object? displayIcon = null,
     Object? mode = null,
   }) {
-    return _then(_$SelectTool(
+    return _then(_$SelectToolImpl(
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -426,8 +436,8 @@ class __$$SelectToolCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$SelectTool extends SelectTool {
-  _$SelectTool(
+class _$SelectToolImpl extends SelectTool {
+  _$SelectToolImpl(
       {this.name = '',
       this.displayIcon = '',
       this.mode = SelectMode.rectangle,
@@ -435,8 +445,8 @@ class _$SelectTool extends SelectTool {
       : $type = $type ?? 'select',
         super._();
 
-  factory _$SelectTool.fromJson(Map<String, dynamic> json) =>
-      _$$SelectToolFromJson(json);
+  factory _$SelectToolImpl.fromJson(Map<String, dynamic> json) =>
+      _$$SelectToolImplFromJson(json);
 
   @override
   @JsonKey()
@@ -459,8 +469,8 @@ class _$SelectTool extends SelectTool {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$SelectToolCopyWith<_$SelectTool> get copyWith =>
-      __$$SelectToolCopyWithImpl<_$SelectTool>(this, _$identity);
+  _$$SelectToolImplCopyWith<_$SelectToolImpl> get copyWith =>
+      __$$SelectToolImplCopyWithImpl<_$SelectToolImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -521,8 +531,8 @@ class _$SelectTool extends SelectTool {
     required TResult Function(String name, String displayIcon, Axis2D axis)
         spacer,
     required TResult Function(String name, String displayIcon) fullSceen,
-    required TResult Function(
-            String name, String displayIcon, ImportType importType)
+    required TResult Function(String name, String displayIcon,
+            ImportType importType, bool advanced)
         asset,
     required TResult Function(
             String name,
@@ -533,6 +543,7 @@ class _$SelectTool extends SelectTool {
             double constrainedAspectRatio,
             SurfaceTexture texture)
         texture,
+    required TResult Function(String name, String displayIcon) eyeDropper,
   }) {
     return select(name, displayIcon, mode);
   }
@@ -591,7 +602,8 @@ class _$SelectTool extends SelectTool {
     TResult? Function(String name, String displayIcon)? presentation,
     TResult? Function(String name, String displayIcon, Axis2D axis)? spacer,
     TResult? Function(String name, String displayIcon)? fullSceen,
-    TResult? Function(String name, String displayIcon, ImportType importType)?
+    TResult? Function(String name, String displayIcon, ImportType importType,
+            bool advanced)?
         asset,
     TResult? Function(
             String name,
@@ -602,6 +614,7 @@ class _$SelectTool extends SelectTool {
             double constrainedAspectRatio,
             SurfaceTexture texture)?
         texture,
+    TResult? Function(String name, String displayIcon)? eyeDropper,
   }) {
     return select?.call(name, displayIcon, mode);
   }
@@ -660,7 +673,8 @@ class _$SelectTool extends SelectTool {
     TResult Function(String name, String displayIcon)? presentation,
     TResult Function(String name, String displayIcon, Axis2D axis)? spacer,
     TResult Function(String name, String displayIcon)? fullSceen,
-    TResult Function(String name, String displayIcon, ImportType importType)?
+    TResult Function(String name, String displayIcon, ImportType importType,
+            bool advanced)?
         asset,
     TResult Function(
             String name,
@@ -671,6 +685,7 @@ class _$SelectTool extends SelectTool {
             double constrainedAspectRatio,
             SurfaceTexture texture)?
         texture,
+    TResult Function(String name, String displayIcon)? eyeDropper,
     required TResult orElse(),
   }) {
     if (select != null) {
@@ -701,6 +716,7 @@ class _$SelectTool extends SelectTool {
     required TResult Function(FullScreenTool value) fullSceen,
     required TResult Function(AssetTool value) asset,
     required TResult Function(TextureTool value) texture,
+    required TResult Function(EyeDropperTool value) eyeDropper,
   }) {
     return select(this);
   }
@@ -727,6 +743,7 @@ class _$SelectTool extends SelectTool {
     TResult? Function(FullScreenTool value)? fullSceen,
     TResult? Function(AssetTool value)? asset,
     TResult? Function(TextureTool value)? texture,
+    TResult? Function(EyeDropperTool value)? eyeDropper,
   }) {
     return select?.call(this);
   }
@@ -753,6 +770,7 @@ class _$SelectTool extends SelectTool {
     TResult Function(FullScreenTool value)? fullSceen,
     TResult Function(AssetTool value)? asset,
     TResult Function(TextureTool value)? texture,
+    TResult Function(EyeDropperTool value)? eyeDropper,
     required TResult orElse(),
   }) {
     if (select != null) {
@@ -763,7 +781,7 @@ class _$SelectTool extends SelectTool {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$SelectToolToJson(
+    return _$$SelectToolImplToJson(
       this,
     );
   }
@@ -773,11 +791,11 @@ abstract class SelectTool extends Tool {
   factory SelectTool(
       {final String name,
       final String displayIcon,
-      final SelectMode mode}) = _$SelectTool;
+      final SelectMode mode}) = _$SelectToolImpl;
   SelectTool._() : super._();
 
   factory SelectTool.fromJson(Map<String, dynamic> json) =
-      _$SelectTool.fromJson;
+      _$SelectToolImpl.fromJson;
 
   @override
   String get name;
@@ -786,25 +804,26 @@ abstract class SelectTool extends Tool {
   SelectMode get mode;
   @override
   @JsonKey(ignore: true)
-  _$$SelectToolCopyWith<_$SelectTool> get copyWith =>
+  _$$SelectToolImplCopyWith<_$SelectToolImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$HandToolCopyWith<$Res> implements $ToolCopyWith<$Res> {
-  factory _$$HandToolCopyWith(
-          _$HandTool value, $Res Function(_$HandTool) then) =
-      __$$HandToolCopyWithImpl<$Res>;
+abstract class _$$HandToolImplCopyWith<$Res> implements $ToolCopyWith<$Res> {
+  factory _$$HandToolImplCopyWith(
+          _$HandToolImpl value, $Res Function(_$HandToolImpl) then) =
+      __$$HandToolImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({String name, String displayIcon});
 }
 
 /// @nodoc
-class __$$HandToolCopyWithImpl<$Res>
-    extends _$ToolCopyWithImpl<$Res, _$HandTool>
-    implements _$$HandToolCopyWith<$Res> {
-  __$$HandToolCopyWithImpl(_$HandTool _value, $Res Function(_$HandTool) _then)
+class __$$HandToolImplCopyWithImpl<$Res>
+    extends _$ToolCopyWithImpl<$Res, _$HandToolImpl>
+    implements _$$HandToolImplCopyWith<$Res> {
+  __$$HandToolImplCopyWithImpl(
+      _$HandToolImpl _value, $Res Function(_$HandToolImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -813,7 +832,7 @@ class __$$HandToolCopyWithImpl<$Res>
     Object? name = null,
     Object? displayIcon = null,
   }) {
-    return _then(_$HandTool(
+    return _then(_$HandToolImpl(
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -828,13 +847,13 @@ class __$$HandToolCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$HandTool extends HandTool {
-  _$HandTool({this.name = '', this.displayIcon = '', final String? $type})
+class _$HandToolImpl extends HandTool {
+  _$HandToolImpl({this.name = '', this.displayIcon = '', final String? $type})
       : $type = $type ?? 'hand',
         super._();
 
-  factory _$HandTool.fromJson(Map<String, dynamic> json) =>
-      _$$HandToolFromJson(json);
+  factory _$HandToolImpl.fromJson(Map<String, dynamic> json) =>
+      _$$HandToolImplFromJson(json);
 
   @override
   @JsonKey()
@@ -854,8 +873,8 @@ class _$HandTool extends HandTool {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$HandToolCopyWith<_$HandTool> get copyWith =>
-      __$$HandToolCopyWithImpl<_$HandTool>(this, _$identity);
+  _$$HandToolImplCopyWith<_$HandToolImpl> get copyWith =>
+      __$$HandToolImplCopyWithImpl<_$HandToolImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -916,8 +935,8 @@ class _$HandTool extends HandTool {
     required TResult Function(String name, String displayIcon, Axis2D axis)
         spacer,
     required TResult Function(String name, String displayIcon) fullSceen,
-    required TResult Function(
-            String name, String displayIcon, ImportType importType)
+    required TResult Function(String name, String displayIcon,
+            ImportType importType, bool advanced)
         asset,
     required TResult Function(
             String name,
@@ -928,6 +947,7 @@ class _$HandTool extends HandTool {
             double constrainedAspectRatio,
             SurfaceTexture texture)
         texture,
+    required TResult Function(String name, String displayIcon) eyeDropper,
   }) {
     return hand(name, displayIcon);
   }
@@ -986,7 +1006,8 @@ class _$HandTool extends HandTool {
     TResult? Function(String name, String displayIcon)? presentation,
     TResult? Function(String name, String displayIcon, Axis2D axis)? spacer,
     TResult? Function(String name, String displayIcon)? fullSceen,
-    TResult? Function(String name, String displayIcon, ImportType importType)?
+    TResult? Function(String name, String displayIcon, ImportType importType,
+            bool advanced)?
         asset,
     TResult? Function(
             String name,
@@ -997,6 +1018,7 @@ class _$HandTool extends HandTool {
             double constrainedAspectRatio,
             SurfaceTexture texture)?
         texture,
+    TResult? Function(String name, String displayIcon)? eyeDropper,
   }) {
     return hand?.call(name, displayIcon);
   }
@@ -1055,7 +1077,8 @@ class _$HandTool extends HandTool {
     TResult Function(String name, String displayIcon)? presentation,
     TResult Function(String name, String displayIcon, Axis2D axis)? spacer,
     TResult Function(String name, String displayIcon)? fullSceen,
-    TResult Function(String name, String displayIcon, ImportType importType)?
+    TResult Function(String name, String displayIcon, ImportType importType,
+            bool advanced)?
         asset,
     TResult Function(
             String name,
@@ -1066,6 +1089,7 @@ class _$HandTool extends HandTool {
             double constrainedAspectRatio,
             SurfaceTexture texture)?
         texture,
+    TResult Function(String name, String displayIcon)? eyeDropper,
     required TResult orElse(),
   }) {
     if (hand != null) {
@@ -1096,6 +1120,7 @@ class _$HandTool extends HandTool {
     required TResult Function(FullScreenTool value) fullSceen,
     required TResult Function(AssetTool value) asset,
     required TResult Function(TextureTool value) texture,
+    required TResult Function(EyeDropperTool value) eyeDropper,
   }) {
     return hand(this);
   }
@@ -1122,6 +1147,7 @@ class _$HandTool extends HandTool {
     TResult? Function(FullScreenTool value)? fullSceen,
     TResult? Function(AssetTool value)? asset,
     TResult? Function(TextureTool value)? texture,
+    TResult? Function(EyeDropperTool value)? eyeDropper,
   }) {
     return hand?.call(this);
   }
@@ -1148,6 +1174,7 @@ class _$HandTool extends HandTool {
     TResult Function(FullScreenTool value)? fullSceen,
     TResult Function(AssetTool value)? asset,
     TResult Function(TextureTool value)? texture,
+    TResult Function(EyeDropperTool value)? eyeDropper,
     required TResult orElse(),
   }) {
     if (hand != null) {
@@ -1158,17 +1185,19 @@ class _$HandTool extends HandTool {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$HandToolToJson(
+    return _$$HandToolImplToJson(
       this,
     );
   }
 }
 
 abstract class HandTool extends Tool {
-  factory HandTool({final String name, final String displayIcon}) = _$HandTool;
+  factory HandTool({final String name, final String displayIcon}) =
+      _$HandToolImpl;
   HandTool._() : super._();
 
-  factory HandTool.fromJson(Map<String, dynamic> json) = _$HandTool.fromJson;
+  factory HandTool.fromJson(Map<String, dynamic> json) =
+      _$HandToolImpl.fromJson;
 
   @override
   String get name;
@@ -1176,15 +1205,15 @@ abstract class HandTool extends Tool {
   String get displayIcon;
   @override
   @JsonKey(ignore: true)
-  _$$HandToolCopyWith<_$HandTool> get copyWith =>
+  _$$HandToolImplCopyWith<_$HandToolImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$ImportToolCopyWith<$Res> implements $ToolCopyWith<$Res> {
-  factory _$$ImportToolCopyWith(
-          _$ImportTool value, $Res Function(_$ImportTool) then) =
-      __$$ImportToolCopyWithImpl<$Res>;
+abstract class _$$ImportToolImplCopyWith<$Res> implements $ToolCopyWith<$Res> {
+  factory _$$ImportToolImplCopyWith(
+          _$ImportToolImpl value, $Res Function(_$ImportToolImpl) then) =
+      __$$ImportToolImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -1195,11 +1224,11 @@ abstract class _$$ImportToolCopyWith<$Res> implements $ToolCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$ImportToolCopyWithImpl<$Res>
-    extends _$ToolCopyWithImpl<$Res, _$ImportTool>
-    implements _$$ImportToolCopyWith<$Res> {
-  __$$ImportToolCopyWithImpl(
-      _$ImportTool _value, $Res Function(_$ImportTool) _then)
+class __$$ImportToolImplCopyWithImpl<$Res>
+    extends _$ToolCopyWithImpl<$Res, _$ImportToolImpl>
+    implements _$$ImportToolImplCopyWith<$Res> {
+  __$$ImportToolImplCopyWithImpl(
+      _$ImportToolImpl _value, $Res Function(_$ImportToolImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -1210,7 +1239,7 @@ class __$$ImportToolCopyWithImpl<$Res>
     Object? elements = null,
     Object? areas = null,
   }) {
-    return _then(_$ImportTool(
+    return _then(_$ImportToolImpl(
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -1233,8 +1262,8 @@ class __$$ImportToolCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$ImportTool extends ImportTool {
-  _$ImportTool(
+class _$ImportToolImpl extends ImportTool {
+  _$ImportToolImpl(
       {this.name = '',
       this.displayIcon = '',
       required final List<PadElement> elements,
@@ -1245,8 +1274,8 @@ class _$ImportTool extends ImportTool {
         $type = $type ?? 'import',
         super._();
 
-  factory _$ImportTool.fromJson(Map<String, dynamic> json) =>
-      _$$ImportToolFromJson(json);
+  factory _$ImportToolImpl.fromJson(Map<String, dynamic> json) =>
+      _$$ImportToolImplFromJson(json);
 
   @override
   @JsonKey()
@@ -1281,8 +1310,8 @@ class _$ImportTool extends ImportTool {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$ImportToolCopyWith<_$ImportTool> get copyWith =>
-      __$$ImportToolCopyWithImpl<_$ImportTool>(this, _$identity);
+  _$$ImportToolImplCopyWith<_$ImportToolImpl> get copyWith =>
+      __$$ImportToolImplCopyWithImpl<_$ImportToolImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -1343,8 +1372,8 @@ class _$ImportTool extends ImportTool {
     required TResult Function(String name, String displayIcon, Axis2D axis)
         spacer,
     required TResult Function(String name, String displayIcon) fullSceen,
-    required TResult Function(
-            String name, String displayIcon, ImportType importType)
+    required TResult Function(String name, String displayIcon,
+            ImportType importType, bool advanced)
         asset,
     required TResult Function(
             String name,
@@ -1355,6 +1384,7 @@ class _$ImportTool extends ImportTool {
             double constrainedAspectRatio,
             SurfaceTexture texture)
         texture,
+    required TResult Function(String name, String displayIcon) eyeDropper,
   }) {
     return import(name, displayIcon, elements, areas);
   }
@@ -1413,7 +1443,8 @@ class _$ImportTool extends ImportTool {
     TResult? Function(String name, String displayIcon)? presentation,
     TResult? Function(String name, String displayIcon, Axis2D axis)? spacer,
     TResult? Function(String name, String displayIcon)? fullSceen,
-    TResult? Function(String name, String displayIcon, ImportType importType)?
+    TResult? Function(String name, String displayIcon, ImportType importType,
+            bool advanced)?
         asset,
     TResult? Function(
             String name,
@@ -1424,6 +1455,7 @@ class _$ImportTool extends ImportTool {
             double constrainedAspectRatio,
             SurfaceTexture texture)?
         texture,
+    TResult? Function(String name, String displayIcon)? eyeDropper,
   }) {
     return import?.call(name, displayIcon, elements, areas);
   }
@@ -1482,7 +1514,8 @@ class _$ImportTool extends ImportTool {
     TResult Function(String name, String displayIcon)? presentation,
     TResult Function(String name, String displayIcon, Axis2D axis)? spacer,
     TResult Function(String name, String displayIcon)? fullSceen,
-    TResult Function(String name, String displayIcon, ImportType importType)?
+    TResult Function(String name, String displayIcon, ImportType importType,
+            bool advanced)?
         asset,
     TResult Function(
             String name,
@@ -1493,6 +1526,7 @@ class _$ImportTool extends ImportTool {
             double constrainedAspectRatio,
             SurfaceTexture texture)?
         texture,
+    TResult Function(String name, String displayIcon)? eyeDropper,
     required TResult orElse(),
   }) {
     if (import != null) {
@@ -1523,6 +1557,7 @@ class _$ImportTool extends ImportTool {
     required TResult Function(FullScreenTool value) fullSceen,
     required TResult Function(AssetTool value) asset,
     required TResult Function(TextureTool value) texture,
+    required TResult Function(EyeDropperTool value) eyeDropper,
   }) {
     return import(this);
   }
@@ -1549,6 +1584,7 @@ class _$ImportTool extends ImportTool {
     TResult? Function(FullScreenTool value)? fullSceen,
     TResult? Function(AssetTool value)? asset,
     TResult? Function(TextureTool value)? texture,
+    TResult? Function(EyeDropperTool value)? eyeDropper,
   }) {
     return import?.call(this);
   }
@@ -1575,6 +1611,7 @@ class _$ImportTool extends ImportTool {
     TResult Function(FullScreenTool value)? fullSceen,
     TResult Function(AssetTool value)? asset,
     TResult Function(TextureTool value)? texture,
+    TResult Function(EyeDropperTool value)? eyeDropper,
     required TResult orElse(),
   }) {
     if (import != null) {
@@ -1585,7 +1622,7 @@ class _$ImportTool extends ImportTool {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$ImportToolToJson(
+    return _$$ImportToolImplToJson(
       this,
     );
   }
@@ -1596,11 +1633,11 @@ abstract class ImportTool extends Tool {
       {final String name,
       final String displayIcon,
       required final List<PadElement> elements,
-      required final List<Area> areas}) = _$ImportTool;
+      required final List<Area> areas}) = _$ImportToolImpl;
   ImportTool._() : super._();
 
   factory ImportTool.fromJson(Map<String, dynamic> json) =
-      _$ImportTool.fromJson;
+      _$ImportToolImpl.fromJson;
 
   @override
   String get name;
@@ -1610,25 +1647,26 @@ abstract class ImportTool extends Tool {
   List<Area> get areas;
   @override
   @JsonKey(ignore: true)
-  _$$ImportToolCopyWith<_$ImportTool> get copyWith =>
+  _$$ImportToolImplCopyWith<_$ImportToolImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$UndoToolCopyWith<$Res> implements $ToolCopyWith<$Res> {
-  factory _$$UndoToolCopyWith(
-          _$UndoTool value, $Res Function(_$UndoTool) then) =
-      __$$UndoToolCopyWithImpl<$Res>;
+abstract class _$$UndoToolImplCopyWith<$Res> implements $ToolCopyWith<$Res> {
+  factory _$$UndoToolImplCopyWith(
+          _$UndoToolImpl value, $Res Function(_$UndoToolImpl) then) =
+      __$$UndoToolImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({String name, String displayIcon});
 }
 
 /// @nodoc
-class __$$UndoToolCopyWithImpl<$Res>
-    extends _$ToolCopyWithImpl<$Res, _$UndoTool>
-    implements _$$UndoToolCopyWith<$Res> {
-  __$$UndoToolCopyWithImpl(_$UndoTool _value, $Res Function(_$UndoTool) _then)
+class __$$UndoToolImplCopyWithImpl<$Res>
+    extends _$ToolCopyWithImpl<$Res, _$UndoToolImpl>
+    implements _$$UndoToolImplCopyWith<$Res> {
+  __$$UndoToolImplCopyWithImpl(
+      _$UndoToolImpl _value, $Res Function(_$UndoToolImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -1637,7 +1675,7 @@ class __$$UndoToolCopyWithImpl<$Res>
     Object? name = null,
     Object? displayIcon = null,
   }) {
-    return _then(_$UndoTool(
+    return _then(_$UndoToolImpl(
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -1652,13 +1690,13 @@ class __$$UndoToolCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$UndoTool extends UndoTool {
-  _$UndoTool({this.name = '', this.displayIcon = '', final String? $type})
+class _$UndoToolImpl extends UndoTool {
+  _$UndoToolImpl({this.name = '', this.displayIcon = '', final String? $type})
       : $type = $type ?? 'undo',
         super._();
 
-  factory _$UndoTool.fromJson(Map<String, dynamic> json) =>
-      _$$UndoToolFromJson(json);
+  factory _$UndoToolImpl.fromJson(Map<String, dynamic> json) =>
+      _$$UndoToolImplFromJson(json);
 
   @override
   @JsonKey()
@@ -1678,8 +1716,8 @@ class _$UndoTool extends UndoTool {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$UndoToolCopyWith<_$UndoTool> get copyWith =>
-      __$$UndoToolCopyWithImpl<_$UndoTool>(this, _$identity);
+  _$$UndoToolImplCopyWith<_$UndoToolImpl> get copyWith =>
+      __$$UndoToolImplCopyWithImpl<_$UndoToolImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -1740,8 +1778,8 @@ class _$UndoTool extends UndoTool {
     required TResult Function(String name, String displayIcon, Axis2D axis)
         spacer,
     required TResult Function(String name, String displayIcon) fullSceen,
-    required TResult Function(
-            String name, String displayIcon, ImportType importType)
+    required TResult Function(String name, String displayIcon,
+            ImportType importType, bool advanced)
         asset,
     required TResult Function(
             String name,
@@ -1752,6 +1790,7 @@ class _$UndoTool extends UndoTool {
             double constrainedAspectRatio,
             SurfaceTexture texture)
         texture,
+    required TResult Function(String name, String displayIcon) eyeDropper,
   }) {
     return undo(name, displayIcon);
   }
@@ -1810,7 +1849,8 @@ class _$UndoTool extends UndoTool {
     TResult? Function(String name, String displayIcon)? presentation,
     TResult? Function(String name, String displayIcon, Axis2D axis)? spacer,
     TResult? Function(String name, String displayIcon)? fullSceen,
-    TResult? Function(String name, String displayIcon, ImportType importType)?
+    TResult? Function(String name, String displayIcon, ImportType importType,
+            bool advanced)?
         asset,
     TResult? Function(
             String name,
@@ -1821,6 +1861,7 @@ class _$UndoTool extends UndoTool {
             double constrainedAspectRatio,
             SurfaceTexture texture)?
         texture,
+    TResult? Function(String name, String displayIcon)? eyeDropper,
   }) {
     return undo?.call(name, displayIcon);
   }
@@ -1879,7 +1920,8 @@ class _$UndoTool extends UndoTool {
     TResult Function(String name, String displayIcon)? presentation,
     TResult Function(String name, String displayIcon, Axis2D axis)? spacer,
     TResult Function(String name, String displayIcon)? fullSceen,
-    TResult Function(String name, String displayIcon, ImportType importType)?
+    TResult Function(String name, String displayIcon, ImportType importType,
+            bool advanced)?
         asset,
     TResult Function(
             String name,
@@ -1890,6 +1932,7 @@ class _$UndoTool extends UndoTool {
             double constrainedAspectRatio,
             SurfaceTexture texture)?
         texture,
+    TResult Function(String name, String displayIcon)? eyeDropper,
     required TResult orElse(),
   }) {
     if (undo != null) {
@@ -1920,6 +1963,7 @@ class _$UndoTool extends UndoTool {
     required TResult Function(FullScreenTool value) fullSceen,
     required TResult Function(AssetTool value) asset,
     required TResult Function(TextureTool value) texture,
+    required TResult Function(EyeDropperTool value) eyeDropper,
   }) {
     return undo(this);
   }
@@ -1946,6 +1990,7 @@ class _$UndoTool extends UndoTool {
     TResult? Function(FullScreenTool value)? fullSceen,
     TResult? Function(AssetTool value)? asset,
     TResult? Function(TextureTool value)? texture,
+    TResult? Function(EyeDropperTool value)? eyeDropper,
   }) {
     return undo?.call(this);
   }
@@ -1972,6 +2017,7 @@ class _$UndoTool extends UndoTool {
     TResult Function(FullScreenTool value)? fullSceen,
     TResult Function(AssetTool value)? asset,
     TResult Function(TextureTool value)? texture,
+    TResult Function(EyeDropperTool value)? eyeDropper,
     required TResult orElse(),
   }) {
     if (undo != null) {
@@ -1982,17 +2028,19 @@ class _$UndoTool extends UndoTool {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$UndoToolToJson(
+    return _$$UndoToolImplToJson(
       this,
     );
   }
 }
 
 abstract class UndoTool extends Tool {
-  factory UndoTool({final String name, final String displayIcon}) = _$UndoTool;
+  factory UndoTool({final String name, final String displayIcon}) =
+      _$UndoToolImpl;
   UndoTool._() : super._();
 
-  factory UndoTool.fromJson(Map<String, dynamic> json) = _$UndoTool.fromJson;
+  factory UndoTool.fromJson(Map<String, dynamic> json) =
+      _$UndoToolImpl.fromJson;
 
   @override
   String get name;
@@ -2000,25 +2048,26 @@ abstract class UndoTool extends Tool {
   String get displayIcon;
   @override
   @JsonKey(ignore: true)
-  _$$UndoToolCopyWith<_$UndoTool> get copyWith =>
+  _$$UndoToolImplCopyWith<_$UndoToolImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$RedoToolCopyWith<$Res> implements $ToolCopyWith<$Res> {
-  factory _$$RedoToolCopyWith(
-          _$RedoTool value, $Res Function(_$RedoTool) then) =
-      __$$RedoToolCopyWithImpl<$Res>;
+abstract class _$$RedoToolImplCopyWith<$Res> implements $ToolCopyWith<$Res> {
+  factory _$$RedoToolImplCopyWith(
+          _$RedoToolImpl value, $Res Function(_$RedoToolImpl) then) =
+      __$$RedoToolImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({String name, String displayIcon});
 }
 
 /// @nodoc
-class __$$RedoToolCopyWithImpl<$Res>
-    extends _$ToolCopyWithImpl<$Res, _$RedoTool>
-    implements _$$RedoToolCopyWith<$Res> {
-  __$$RedoToolCopyWithImpl(_$RedoTool _value, $Res Function(_$RedoTool) _then)
+class __$$RedoToolImplCopyWithImpl<$Res>
+    extends _$ToolCopyWithImpl<$Res, _$RedoToolImpl>
+    implements _$$RedoToolImplCopyWith<$Res> {
+  __$$RedoToolImplCopyWithImpl(
+      _$RedoToolImpl _value, $Res Function(_$RedoToolImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -2027,7 +2076,7 @@ class __$$RedoToolCopyWithImpl<$Res>
     Object? name = null,
     Object? displayIcon = null,
   }) {
-    return _then(_$RedoTool(
+    return _then(_$RedoToolImpl(
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -2042,13 +2091,13 @@ class __$$RedoToolCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$RedoTool extends RedoTool {
-  _$RedoTool({this.name = '', this.displayIcon = '', final String? $type})
+class _$RedoToolImpl extends RedoTool {
+  _$RedoToolImpl({this.name = '', this.displayIcon = '', final String? $type})
       : $type = $type ?? 'redo',
         super._();
 
-  factory _$RedoTool.fromJson(Map<String, dynamic> json) =>
-      _$$RedoToolFromJson(json);
+  factory _$RedoToolImpl.fromJson(Map<String, dynamic> json) =>
+      _$$RedoToolImplFromJson(json);
 
   @override
   @JsonKey()
@@ -2068,8 +2117,8 @@ class _$RedoTool extends RedoTool {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$RedoToolCopyWith<_$RedoTool> get copyWith =>
-      __$$RedoToolCopyWithImpl<_$RedoTool>(this, _$identity);
+  _$$RedoToolImplCopyWith<_$RedoToolImpl> get copyWith =>
+      __$$RedoToolImplCopyWithImpl<_$RedoToolImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -2130,8 +2179,8 @@ class _$RedoTool extends RedoTool {
     required TResult Function(String name, String displayIcon, Axis2D axis)
         spacer,
     required TResult Function(String name, String displayIcon) fullSceen,
-    required TResult Function(
-            String name, String displayIcon, ImportType importType)
+    required TResult Function(String name, String displayIcon,
+            ImportType importType, bool advanced)
         asset,
     required TResult Function(
             String name,
@@ -2142,6 +2191,7 @@ class _$RedoTool extends RedoTool {
             double constrainedAspectRatio,
             SurfaceTexture texture)
         texture,
+    required TResult Function(String name, String displayIcon) eyeDropper,
   }) {
     return redo(name, displayIcon);
   }
@@ -2200,7 +2250,8 @@ class _$RedoTool extends RedoTool {
     TResult? Function(String name, String displayIcon)? presentation,
     TResult? Function(String name, String displayIcon, Axis2D axis)? spacer,
     TResult? Function(String name, String displayIcon)? fullSceen,
-    TResult? Function(String name, String displayIcon, ImportType importType)?
+    TResult? Function(String name, String displayIcon, ImportType importType,
+            bool advanced)?
         asset,
     TResult? Function(
             String name,
@@ -2211,6 +2262,7 @@ class _$RedoTool extends RedoTool {
             double constrainedAspectRatio,
             SurfaceTexture texture)?
         texture,
+    TResult? Function(String name, String displayIcon)? eyeDropper,
   }) {
     return redo?.call(name, displayIcon);
   }
@@ -2269,7 +2321,8 @@ class _$RedoTool extends RedoTool {
     TResult Function(String name, String displayIcon)? presentation,
     TResult Function(String name, String displayIcon, Axis2D axis)? spacer,
     TResult Function(String name, String displayIcon)? fullSceen,
-    TResult Function(String name, String displayIcon, ImportType importType)?
+    TResult Function(String name, String displayIcon, ImportType importType,
+            bool advanced)?
         asset,
     TResult Function(
             String name,
@@ -2280,6 +2333,7 @@ class _$RedoTool extends RedoTool {
             double constrainedAspectRatio,
             SurfaceTexture texture)?
         texture,
+    TResult Function(String name, String displayIcon)? eyeDropper,
     required TResult orElse(),
   }) {
     if (redo != null) {
@@ -2310,6 +2364,7 @@ class _$RedoTool extends RedoTool {
     required TResult Function(FullScreenTool value) fullSceen,
     required TResult Function(AssetTool value) asset,
     required TResult Function(TextureTool value) texture,
+    required TResult Function(EyeDropperTool value) eyeDropper,
   }) {
     return redo(this);
   }
@@ -2336,6 +2391,7 @@ class _$RedoTool extends RedoTool {
     TResult? Function(FullScreenTool value)? fullSceen,
     TResult? Function(AssetTool value)? asset,
     TResult? Function(TextureTool value)? texture,
+    TResult? Function(EyeDropperTool value)? eyeDropper,
   }) {
     return redo?.call(this);
   }
@@ -2362,6 +2418,7 @@ class _$RedoTool extends RedoTool {
     TResult Function(FullScreenTool value)? fullSceen,
     TResult Function(AssetTool value)? asset,
     TResult Function(TextureTool value)? texture,
+    TResult Function(EyeDropperTool value)? eyeDropper,
     required TResult orElse(),
   }) {
     if (redo != null) {
@@ -2372,17 +2429,19 @@ class _$RedoTool extends RedoTool {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$RedoToolToJson(
+    return _$$RedoToolImplToJson(
       this,
     );
   }
 }
 
 abstract class RedoTool extends Tool {
-  factory RedoTool({final String name, final String displayIcon}) = _$RedoTool;
+  factory RedoTool({final String name, final String displayIcon}) =
+      _$RedoToolImpl;
   RedoTool._() : super._();
 
-  factory RedoTool.fromJson(Map<String, dynamic> json) = _$RedoTool.fromJson;
+  factory RedoTool.fromJson(Map<String, dynamic> json) =
+      _$RedoToolImpl.fromJson;
 
   @override
   String get name;
@@ -2390,15 +2449,15 @@ abstract class RedoTool extends Tool {
   String get displayIcon;
   @override
   @JsonKey(ignore: true)
-  _$$RedoToolCopyWith<_$RedoTool> get copyWith =>
+  _$$RedoToolImplCopyWith<_$RedoToolImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$LabelToolCopyWith<$Res> implements $ToolCopyWith<$Res> {
-  factory _$$LabelToolCopyWith(
-          _$LabelTool value, $Res Function(_$LabelTool) then) =
-      __$$LabelToolCopyWithImpl<$Res>;
+abstract class _$$LabelToolImplCopyWith<$Res> implements $ToolCopyWith<$Res> {
+  factory _$$LabelToolImplCopyWith(
+          _$LabelToolImpl value, $Res Function(_$LabelToolImpl) then) =
+      __$$LabelToolImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -2414,11 +2473,11 @@ abstract class _$$LabelToolCopyWith<$Res> implements $ToolCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$LabelToolCopyWithImpl<$Res>
-    extends _$ToolCopyWithImpl<$Res, _$LabelTool>
-    implements _$$LabelToolCopyWith<$Res> {
-  __$$LabelToolCopyWithImpl(
-      _$LabelTool _value, $Res Function(_$LabelTool) _then)
+class __$$LabelToolImplCopyWithImpl<$Res>
+    extends _$ToolCopyWithImpl<$Res, _$LabelToolImpl>
+    implements _$$LabelToolImplCopyWith<$Res> {
+  __$$LabelToolImplCopyWithImpl(
+      _$LabelToolImpl _value, $Res Function(_$LabelToolImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -2432,7 +2491,7 @@ class __$$LabelToolCopyWithImpl<$Res>
     Object? styleSheet = null,
     Object? scale = null,
   }) {
-    return _then(_$LabelTool(
+    return _then(_$LabelToolImpl(
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -2475,8 +2534,8 @@ class __$$LabelToolCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$LabelTool extends LabelTool {
-  _$LabelTool(
+class _$LabelToolImpl extends LabelTool {
+  _$LabelToolImpl(
       {this.name = '',
       this.displayIcon = '',
       this.mode = LabelMode.text,
@@ -2488,8 +2547,8 @@ class _$LabelTool extends LabelTool {
       : $type = $type ?? 'label',
         super._();
 
-  factory _$LabelTool.fromJson(Map<String, dynamic> json) =>
-      _$$LabelToolFromJson(json);
+  factory _$LabelToolImpl.fromJson(Map<String, dynamic> json) =>
+      _$$LabelToolImplFromJson(json);
 
   @override
   @JsonKey()
@@ -2524,8 +2583,8 @@ class _$LabelTool extends LabelTool {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$LabelToolCopyWith<_$LabelTool> get copyWith =>
-      __$$LabelToolCopyWithImpl<_$LabelTool>(this, _$identity);
+  _$$LabelToolImplCopyWith<_$LabelToolImpl> get copyWith =>
+      __$$LabelToolImplCopyWithImpl<_$LabelToolImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -2586,8 +2645,8 @@ class _$LabelTool extends LabelTool {
     required TResult Function(String name, String displayIcon, Axis2D axis)
         spacer,
     required TResult Function(String name, String displayIcon) fullSceen,
-    required TResult Function(
-            String name, String displayIcon, ImportType importType)
+    required TResult Function(String name, String displayIcon,
+            ImportType importType, bool advanced)
         asset,
     required TResult Function(
             String name,
@@ -2598,6 +2657,7 @@ class _$LabelTool extends LabelTool {
             double constrainedAspectRatio,
             SurfaceTexture texture)
         texture,
+    required TResult Function(String name, String displayIcon) eyeDropper,
   }) {
     return label(
         name, displayIcon, mode, zoomDependent, foreground, styleSheet, scale);
@@ -2657,7 +2717,8 @@ class _$LabelTool extends LabelTool {
     TResult? Function(String name, String displayIcon)? presentation,
     TResult? Function(String name, String displayIcon, Axis2D axis)? spacer,
     TResult? Function(String name, String displayIcon)? fullSceen,
-    TResult? Function(String name, String displayIcon, ImportType importType)?
+    TResult? Function(String name, String displayIcon, ImportType importType,
+            bool advanced)?
         asset,
     TResult? Function(
             String name,
@@ -2668,6 +2729,7 @@ class _$LabelTool extends LabelTool {
             double constrainedAspectRatio,
             SurfaceTexture texture)?
         texture,
+    TResult? Function(String name, String displayIcon)? eyeDropper,
   }) {
     return label?.call(
         name, displayIcon, mode, zoomDependent, foreground, styleSheet, scale);
@@ -2727,7 +2789,8 @@ class _$LabelTool extends LabelTool {
     TResult Function(String name, String displayIcon)? presentation,
     TResult Function(String name, String displayIcon, Axis2D axis)? spacer,
     TResult Function(String name, String displayIcon)? fullSceen,
-    TResult Function(String name, String displayIcon, ImportType importType)?
+    TResult Function(String name, String displayIcon, ImportType importType,
+            bool advanced)?
         asset,
     TResult Function(
             String name,
@@ -2738,6 +2801,7 @@ class _$LabelTool extends LabelTool {
             double constrainedAspectRatio,
             SurfaceTexture texture)?
         texture,
+    TResult Function(String name, String displayIcon)? eyeDropper,
     required TResult orElse(),
   }) {
     if (label != null) {
@@ -2769,6 +2833,7 @@ class _$LabelTool extends LabelTool {
     required TResult Function(FullScreenTool value) fullSceen,
     required TResult Function(AssetTool value) asset,
     required TResult Function(TextureTool value) texture,
+    required TResult Function(EyeDropperTool value) eyeDropper,
   }) {
     return label(this);
   }
@@ -2795,6 +2860,7 @@ class _$LabelTool extends LabelTool {
     TResult? Function(FullScreenTool value)? fullSceen,
     TResult? Function(AssetTool value)? asset,
     TResult? Function(TextureTool value)? texture,
+    TResult? Function(EyeDropperTool value)? eyeDropper,
   }) {
     return label?.call(this);
   }
@@ -2821,6 +2887,7 @@ class _$LabelTool extends LabelTool {
     TResult Function(FullScreenTool value)? fullSceen,
     TResult Function(AssetTool value)? asset,
     TResult Function(TextureTool value)? texture,
+    TResult Function(EyeDropperTool value)? eyeDropper,
     required TResult orElse(),
   }) {
     if (label != null) {
@@ -2831,7 +2898,7 @@ class _$LabelTool extends LabelTool {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$LabelToolToJson(
+    return _$$LabelToolImplToJson(
       this,
     );
   }
@@ -2845,10 +2912,11 @@ abstract class LabelTool extends Tool {
       final bool zoomDependent,
       final int foreground,
       final PackAssetLocation styleSheet,
-      final double scale}) = _$LabelTool;
+      final double scale}) = _$LabelToolImpl;
   LabelTool._() : super._();
 
-  factory LabelTool.fromJson(Map<String, dynamic> json) = _$LabelTool.fromJson;
+  factory LabelTool.fromJson(Map<String, dynamic> json) =
+      _$LabelToolImpl.fromJson;
 
   @override
   String get name;
@@ -2861,14 +2929,15 @@ abstract class LabelTool extends Tool {
   double get scale;
   @override
   @JsonKey(ignore: true)
-  _$$LabelToolCopyWith<_$LabelTool> get copyWith =>
+  _$$LabelToolImplCopyWith<_$LabelToolImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$PenToolCopyWith<$Res> implements $ToolCopyWith<$Res> {
-  factory _$$PenToolCopyWith(_$PenTool value, $Res Function(_$PenTool) then) =
-      __$$PenToolCopyWithImpl<$Res>;
+abstract class _$$PenToolImplCopyWith<$Res> implements $ToolCopyWith<$Res> {
+  factory _$$PenToolImplCopyWith(
+          _$PenToolImpl value, $Res Function(_$PenToolImpl) then) =
+      __$$PenToolImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -2879,9 +2948,11 @@ abstract class _$$PenToolCopyWith<$Res> implements $ToolCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$PenToolCopyWithImpl<$Res> extends _$ToolCopyWithImpl<$Res, _$PenTool>
-    implements _$$PenToolCopyWith<$Res> {
-  __$$PenToolCopyWithImpl(_$PenTool _value, $Res Function(_$PenTool) _then)
+class __$$PenToolImplCopyWithImpl<$Res>
+    extends _$ToolCopyWithImpl<$Res, _$PenToolImpl>
+    implements _$$PenToolImplCopyWith<$Res> {
+  __$$PenToolImplCopyWithImpl(
+      _$PenToolImpl _value, $Res Function(_$PenToolImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -2892,7 +2963,7 @@ class __$$PenToolCopyWithImpl<$Res> extends _$ToolCopyWithImpl<$Res, _$PenTool>
     Object? zoomDependent = null,
     Object? property = freezed,
   }) {
-    return _then(_$PenTool(
+    return _then(_$PenToolImpl(
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -2915,8 +2986,8 @@ class __$$PenToolCopyWithImpl<$Res> extends _$ToolCopyWithImpl<$Res, _$PenTool>
 
 /// @nodoc
 @JsonSerializable()
-class _$PenTool extends PenTool {
-  _$PenTool(
+class _$PenToolImpl extends PenTool {
+  _$PenToolImpl(
       {this.name = '',
       this.displayIcon = '',
       this.zoomDependent = true,
@@ -2925,8 +2996,8 @@ class _$PenTool extends PenTool {
       : $type = $type ?? 'pen',
         super._();
 
-  factory _$PenTool.fromJson(Map<String, dynamic> json) =>
-      _$$PenToolFromJson(json);
+  factory _$PenToolImpl.fromJson(Map<String, dynamic> json) =>
+      _$$PenToolImplFromJson(json);
 
   @override
   @JsonKey()
@@ -2952,8 +3023,8 @@ class _$PenTool extends PenTool {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$PenToolCopyWith<_$PenTool> get copyWith =>
-      __$$PenToolCopyWithImpl<_$PenTool>(this, _$identity);
+  _$$PenToolImplCopyWith<_$PenToolImpl> get copyWith =>
+      __$$PenToolImplCopyWithImpl<_$PenToolImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -3014,8 +3085,8 @@ class _$PenTool extends PenTool {
     required TResult Function(String name, String displayIcon, Axis2D axis)
         spacer,
     required TResult Function(String name, String displayIcon) fullSceen,
-    required TResult Function(
-            String name, String displayIcon, ImportType importType)
+    required TResult Function(String name, String displayIcon,
+            ImportType importType, bool advanced)
         asset,
     required TResult Function(
             String name,
@@ -3026,6 +3097,7 @@ class _$PenTool extends PenTool {
             double constrainedAspectRatio,
             SurfaceTexture texture)
         texture,
+    required TResult Function(String name, String displayIcon) eyeDropper,
   }) {
     return pen(name, displayIcon, zoomDependent, property);
   }
@@ -3084,7 +3156,8 @@ class _$PenTool extends PenTool {
     TResult? Function(String name, String displayIcon)? presentation,
     TResult? Function(String name, String displayIcon, Axis2D axis)? spacer,
     TResult? Function(String name, String displayIcon)? fullSceen,
-    TResult? Function(String name, String displayIcon, ImportType importType)?
+    TResult? Function(String name, String displayIcon, ImportType importType,
+            bool advanced)?
         asset,
     TResult? Function(
             String name,
@@ -3095,6 +3168,7 @@ class _$PenTool extends PenTool {
             double constrainedAspectRatio,
             SurfaceTexture texture)?
         texture,
+    TResult? Function(String name, String displayIcon)? eyeDropper,
   }) {
     return pen?.call(name, displayIcon, zoomDependent, property);
   }
@@ -3153,7 +3227,8 @@ class _$PenTool extends PenTool {
     TResult Function(String name, String displayIcon)? presentation,
     TResult Function(String name, String displayIcon, Axis2D axis)? spacer,
     TResult Function(String name, String displayIcon)? fullSceen,
-    TResult Function(String name, String displayIcon, ImportType importType)?
+    TResult Function(String name, String displayIcon, ImportType importType,
+            bool advanced)?
         asset,
     TResult Function(
             String name,
@@ -3164,6 +3239,7 @@ class _$PenTool extends PenTool {
             double constrainedAspectRatio,
             SurfaceTexture texture)?
         texture,
+    TResult Function(String name, String displayIcon)? eyeDropper,
     required TResult orElse(),
   }) {
     if (pen != null) {
@@ -3194,6 +3270,7 @@ class _$PenTool extends PenTool {
     required TResult Function(FullScreenTool value) fullSceen,
     required TResult Function(AssetTool value) asset,
     required TResult Function(TextureTool value) texture,
+    required TResult Function(EyeDropperTool value) eyeDropper,
   }) {
     return pen(this);
   }
@@ -3220,6 +3297,7 @@ class _$PenTool extends PenTool {
     TResult? Function(FullScreenTool value)? fullSceen,
     TResult? Function(AssetTool value)? asset,
     TResult? Function(TextureTool value)? texture,
+    TResult? Function(EyeDropperTool value)? eyeDropper,
   }) {
     return pen?.call(this);
   }
@@ -3246,6 +3324,7 @@ class _$PenTool extends PenTool {
     TResult Function(FullScreenTool value)? fullSceen,
     TResult Function(AssetTool value)? asset,
     TResult Function(TextureTool value)? texture,
+    TResult Function(EyeDropperTool value)? eyeDropper,
     required TResult orElse(),
   }) {
     if (pen != null) {
@@ -3256,7 +3335,7 @@ class _$PenTool extends PenTool {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$PenToolToJson(
+    return _$$PenToolImplToJson(
       this,
     );
   }
@@ -3267,10 +3346,10 @@ abstract class PenTool extends Tool {
       {final String name,
       final String displayIcon,
       final bool zoomDependent,
-      final PenProperty property}) = _$PenTool;
+      final PenProperty property}) = _$PenToolImpl;
   PenTool._() : super._();
 
-  factory PenTool.fromJson(Map<String, dynamic> json) = _$PenTool.fromJson;
+  factory PenTool.fromJson(Map<String, dynamic> json) = _$PenToolImpl.fromJson;
 
   @override
   String get name;
@@ -3280,26 +3359,26 @@ abstract class PenTool extends Tool {
   PenProperty get property;
   @override
   @JsonKey(ignore: true)
-  _$$PenToolCopyWith<_$PenTool> get copyWith =>
+  _$$PenToolImplCopyWith<_$PenToolImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$EraserToolCopyWith<$Res> implements $ToolCopyWith<$Res> {
-  factory _$$EraserToolCopyWith(
-          _$EraserTool value, $Res Function(_$EraserTool) then) =
-      __$$EraserToolCopyWithImpl<$Res>;
+abstract class _$$EraserToolImplCopyWith<$Res> implements $ToolCopyWith<$Res> {
+  factory _$$EraserToolImplCopyWith(
+          _$EraserToolImpl value, $Res Function(_$EraserToolImpl) then) =
+      __$$EraserToolImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({String name, String displayIcon, double strokeWidth});
 }
 
 /// @nodoc
-class __$$EraserToolCopyWithImpl<$Res>
-    extends _$ToolCopyWithImpl<$Res, _$EraserTool>
-    implements _$$EraserToolCopyWith<$Res> {
-  __$$EraserToolCopyWithImpl(
-      _$EraserTool _value, $Res Function(_$EraserTool) _then)
+class __$$EraserToolImplCopyWithImpl<$Res>
+    extends _$ToolCopyWithImpl<$Res, _$EraserToolImpl>
+    implements _$$EraserToolImplCopyWith<$Res> {
+  __$$EraserToolImplCopyWithImpl(
+      _$EraserToolImpl _value, $Res Function(_$EraserToolImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -3309,7 +3388,7 @@ class __$$EraserToolCopyWithImpl<$Res>
     Object? displayIcon = null,
     Object? strokeWidth = null,
   }) {
-    return _then(_$EraserTool(
+    return _then(_$EraserToolImpl(
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -3328,8 +3407,8 @@ class __$$EraserToolCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$EraserTool extends EraserTool {
-  _$EraserTool(
+class _$EraserToolImpl extends EraserTool {
+  _$EraserToolImpl(
       {this.name = '',
       this.displayIcon = '',
       this.strokeWidth = 5,
@@ -3337,8 +3416,8 @@ class _$EraserTool extends EraserTool {
       : $type = $type ?? 'eraser',
         super._();
 
-  factory _$EraserTool.fromJson(Map<String, dynamic> json) =>
-      _$$EraserToolFromJson(json);
+  factory _$EraserToolImpl.fromJson(Map<String, dynamic> json) =>
+      _$$EraserToolImplFromJson(json);
 
   @override
   @JsonKey()
@@ -3361,8 +3440,8 @@ class _$EraserTool extends EraserTool {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$EraserToolCopyWith<_$EraserTool> get copyWith =>
-      __$$EraserToolCopyWithImpl<_$EraserTool>(this, _$identity);
+  _$$EraserToolImplCopyWith<_$EraserToolImpl> get copyWith =>
+      __$$EraserToolImplCopyWithImpl<_$EraserToolImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -3423,8 +3502,8 @@ class _$EraserTool extends EraserTool {
     required TResult Function(String name, String displayIcon, Axis2D axis)
         spacer,
     required TResult Function(String name, String displayIcon) fullSceen,
-    required TResult Function(
-            String name, String displayIcon, ImportType importType)
+    required TResult Function(String name, String displayIcon,
+            ImportType importType, bool advanced)
         asset,
     required TResult Function(
             String name,
@@ -3435,6 +3514,7 @@ class _$EraserTool extends EraserTool {
             double constrainedAspectRatio,
             SurfaceTexture texture)
         texture,
+    required TResult Function(String name, String displayIcon) eyeDropper,
   }) {
     return eraser(name, displayIcon, strokeWidth);
   }
@@ -3493,7 +3573,8 @@ class _$EraserTool extends EraserTool {
     TResult? Function(String name, String displayIcon)? presentation,
     TResult? Function(String name, String displayIcon, Axis2D axis)? spacer,
     TResult? Function(String name, String displayIcon)? fullSceen,
-    TResult? Function(String name, String displayIcon, ImportType importType)?
+    TResult? Function(String name, String displayIcon, ImportType importType,
+            bool advanced)?
         asset,
     TResult? Function(
             String name,
@@ -3504,6 +3585,7 @@ class _$EraserTool extends EraserTool {
             double constrainedAspectRatio,
             SurfaceTexture texture)?
         texture,
+    TResult? Function(String name, String displayIcon)? eyeDropper,
   }) {
     return eraser?.call(name, displayIcon, strokeWidth);
   }
@@ -3562,7 +3644,8 @@ class _$EraserTool extends EraserTool {
     TResult Function(String name, String displayIcon)? presentation,
     TResult Function(String name, String displayIcon, Axis2D axis)? spacer,
     TResult Function(String name, String displayIcon)? fullSceen,
-    TResult Function(String name, String displayIcon, ImportType importType)?
+    TResult Function(String name, String displayIcon, ImportType importType,
+            bool advanced)?
         asset,
     TResult Function(
             String name,
@@ -3573,6 +3656,7 @@ class _$EraserTool extends EraserTool {
             double constrainedAspectRatio,
             SurfaceTexture texture)?
         texture,
+    TResult Function(String name, String displayIcon)? eyeDropper,
     required TResult orElse(),
   }) {
     if (eraser != null) {
@@ -3603,6 +3687,7 @@ class _$EraserTool extends EraserTool {
     required TResult Function(FullScreenTool value) fullSceen,
     required TResult Function(AssetTool value) asset,
     required TResult Function(TextureTool value) texture,
+    required TResult Function(EyeDropperTool value) eyeDropper,
   }) {
     return eraser(this);
   }
@@ -3629,6 +3714,7 @@ class _$EraserTool extends EraserTool {
     TResult? Function(FullScreenTool value)? fullSceen,
     TResult? Function(AssetTool value)? asset,
     TResult? Function(TextureTool value)? texture,
+    TResult? Function(EyeDropperTool value)? eyeDropper,
   }) {
     return eraser?.call(this);
   }
@@ -3655,6 +3741,7 @@ class _$EraserTool extends EraserTool {
     TResult Function(FullScreenTool value)? fullSceen,
     TResult Function(AssetTool value)? asset,
     TResult Function(TextureTool value)? texture,
+    TResult Function(EyeDropperTool value)? eyeDropper,
     required TResult orElse(),
   }) {
     if (eraser != null) {
@@ -3665,7 +3752,7 @@ class _$EraserTool extends EraserTool {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$EraserToolToJson(
+    return _$$EraserToolImplToJson(
       this,
     );
   }
@@ -3675,11 +3762,11 @@ abstract class EraserTool extends Tool {
   factory EraserTool(
       {final String name,
       final String displayIcon,
-      final double strokeWidth}) = _$EraserTool;
+      final double strokeWidth}) = _$EraserToolImpl;
   EraserTool._() : super._();
 
   factory EraserTool.fromJson(Map<String, dynamic> json) =
-      _$EraserTool.fromJson;
+      _$EraserToolImpl.fromJson;
 
   @override
   String get name;
@@ -3688,26 +3775,27 @@ abstract class EraserTool extends Tool {
   double get strokeWidth;
   @override
   @JsonKey(ignore: true)
-  _$$EraserToolCopyWith<_$EraserTool> get copyWith =>
+  _$$EraserToolImplCopyWith<_$EraserToolImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$PathEraserToolCopyWith<$Res> implements $ToolCopyWith<$Res> {
-  factory _$$PathEraserToolCopyWith(
-          _$PathEraserTool value, $Res Function(_$PathEraserTool) then) =
-      __$$PathEraserToolCopyWithImpl<$Res>;
+abstract class _$$PathEraserToolImplCopyWith<$Res>
+    implements $ToolCopyWith<$Res> {
+  factory _$$PathEraserToolImplCopyWith(_$PathEraserToolImpl value,
+          $Res Function(_$PathEraserToolImpl) then) =
+      __$$PathEraserToolImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({String name, String displayIcon, double strokeWidth});
 }
 
 /// @nodoc
-class __$$PathEraserToolCopyWithImpl<$Res>
-    extends _$ToolCopyWithImpl<$Res, _$PathEraserTool>
-    implements _$$PathEraserToolCopyWith<$Res> {
-  __$$PathEraserToolCopyWithImpl(
-      _$PathEraserTool _value, $Res Function(_$PathEraserTool) _then)
+class __$$PathEraserToolImplCopyWithImpl<$Res>
+    extends _$ToolCopyWithImpl<$Res, _$PathEraserToolImpl>
+    implements _$$PathEraserToolImplCopyWith<$Res> {
+  __$$PathEraserToolImplCopyWithImpl(
+      _$PathEraserToolImpl _value, $Res Function(_$PathEraserToolImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -3717,7 +3805,7 @@ class __$$PathEraserToolCopyWithImpl<$Res>
     Object? displayIcon = null,
     Object? strokeWidth = null,
   }) {
-    return _then(_$PathEraserTool(
+    return _then(_$PathEraserToolImpl(
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -3736,8 +3824,8 @@ class __$$PathEraserToolCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$PathEraserTool extends PathEraserTool {
-  _$PathEraserTool(
+class _$PathEraserToolImpl extends PathEraserTool {
+  _$PathEraserToolImpl(
       {this.name = '',
       this.displayIcon = '',
       this.strokeWidth = 5,
@@ -3745,8 +3833,8 @@ class _$PathEraserTool extends PathEraserTool {
       : $type = $type ?? 'pathEraser',
         super._();
 
-  factory _$PathEraserTool.fromJson(Map<String, dynamic> json) =>
-      _$$PathEraserToolFromJson(json);
+  factory _$PathEraserToolImpl.fromJson(Map<String, dynamic> json) =>
+      _$$PathEraserToolImplFromJson(json);
 
   @override
   @JsonKey()
@@ -3769,8 +3857,9 @@ class _$PathEraserTool extends PathEraserTool {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$PathEraserToolCopyWith<_$PathEraserTool> get copyWith =>
-      __$$PathEraserToolCopyWithImpl<_$PathEraserTool>(this, _$identity);
+  _$$PathEraserToolImplCopyWith<_$PathEraserToolImpl> get copyWith =>
+      __$$PathEraserToolImplCopyWithImpl<_$PathEraserToolImpl>(
+          this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -3831,8 +3920,8 @@ class _$PathEraserTool extends PathEraserTool {
     required TResult Function(String name, String displayIcon, Axis2D axis)
         spacer,
     required TResult Function(String name, String displayIcon) fullSceen,
-    required TResult Function(
-            String name, String displayIcon, ImportType importType)
+    required TResult Function(String name, String displayIcon,
+            ImportType importType, bool advanced)
         asset,
     required TResult Function(
             String name,
@@ -3843,6 +3932,7 @@ class _$PathEraserTool extends PathEraserTool {
             double constrainedAspectRatio,
             SurfaceTexture texture)
         texture,
+    required TResult Function(String name, String displayIcon) eyeDropper,
   }) {
     return pathEraser(name, displayIcon, strokeWidth);
   }
@@ -3901,7 +3991,8 @@ class _$PathEraserTool extends PathEraserTool {
     TResult? Function(String name, String displayIcon)? presentation,
     TResult? Function(String name, String displayIcon, Axis2D axis)? spacer,
     TResult? Function(String name, String displayIcon)? fullSceen,
-    TResult? Function(String name, String displayIcon, ImportType importType)?
+    TResult? Function(String name, String displayIcon, ImportType importType,
+            bool advanced)?
         asset,
     TResult? Function(
             String name,
@@ -3912,6 +4003,7 @@ class _$PathEraserTool extends PathEraserTool {
             double constrainedAspectRatio,
             SurfaceTexture texture)?
         texture,
+    TResult? Function(String name, String displayIcon)? eyeDropper,
   }) {
     return pathEraser?.call(name, displayIcon, strokeWidth);
   }
@@ -3970,7 +4062,8 @@ class _$PathEraserTool extends PathEraserTool {
     TResult Function(String name, String displayIcon)? presentation,
     TResult Function(String name, String displayIcon, Axis2D axis)? spacer,
     TResult Function(String name, String displayIcon)? fullSceen,
-    TResult Function(String name, String displayIcon, ImportType importType)?
+    TResult Function(String name, String displayIcon, ImportType importType,
+            bool advanced)?
         asset,
     TResult Function(
             String name,
@@ -3981,6 +4074,7 @@ class _$PathEraserTool extends PathEraserTool {
             double constrainedAspectRatio,
             SurfaceTexture texture)?
         texture,
+    TResult Function(String name, String displayIcon)? eyeDropper,
     required TResult orElse(),
   }) {
     if (pathEraser != null) {
@@ -4011,6 +4105,7 @@ class _$PathEraserTool extends PathEraserTool {
     required TResult Function(FullScreenTool value) fullSceen,
     required TResult Function(AssetTool value) asset,
     required TResult Function(TextureTool value) texture,
+    required TResult Function(EyeDropperTool value) eyeDropper,
   }) {
     return pathEraser(this);
   }
@@ -4037,6 +4132,7 @@ class _$PathEraserTool extends PathEraserTool {
     TResult? Function(FullScreenTool value)? fullSceen,
     TResult? Function(AssetTool value)? asset,
     TResult? Function(TextureTool value)? texture,
+    TResult? Function(EyeDropperTool value)? eyeDropper,
   }) {
     return pathEraser?.call(this);
   }
@@ -4063,6 +4159,7 @@ class _$PathEraserTool extends PathEraserTool {
     TResult Function(FullScreenTool value)? fullSceen,
     TResult Function(AssetTool value)? asset,
     TResult Function(TextureTool value)? texture,
+    TResult Function(EyeDropperTool value)? eyeDropper,
     required TResult orElse(),
   }) {
     if (pathEraser != null) {
@@ -4073,7 +4170,7 @@ class _$PathEraserTool extends PathEraserTool {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$PathEraserToolToJson(
+    return _$$PathEraserToolImplToJson(
       this,
     );
   }
@@ -4083,11 +4180,11 @@ abstract class PathEraserTool extends Tool {
   factory PathEraserTool(
       {final String name,
       final String displayIcon,
-      final double strokeWidth}) = _$PathEraserTool;
+      final double strokeWidth}) = _$PathEraserToolImpl;
   PathEraserTool._() : super._();
 
   factory PathEraserTool.fromJson(Map<String, dynamic> json) =
-      _$PathEraserTool.fromJson;
+      _$PathEraserToolImpl.fromJson;
 
   @override
   String get name;
@@ -4096,26 +4193,26 @@ abstract class PathEraserTool extends Tool {
   double get strokeWidth;
   @override
   @JsonKey(ignore: true)
-  _$$PathEraserToolCopyWith<_$PathEraserTool> get copyWith =>
+  _$$PathEraserToolImplCopyWith<_$PathEraserToolImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$LayerToolCopyWith<$Res> implements $ToolCopyWith<$Res> {
-  factory _$$LayerToolCopyWith(
-          _$LayerTool value, $Res Function(_$LayerTool) then) =
-      __$$LayerToolCopyWithImpl<$Res>;
+abstract class _$$LayerToolImplCopyWith<$Res> implements $ToolCopyWith<$Res> {
+  factory _$$LayerToolImplCopyWith(
+          _$LayerToolImpl value, $Res Function(_$LayerToolImpl) then) =
+      __$$LayerToolImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({String name, String displayIcon, double strokeWidth});
 }
 
 /// @nodoc
-class __$$LayerToolCopyWithImpl<$Res>
-    extends _$ToolCopyWithImpl<$Res, _$LayerTool>
-    implements _$$LayerToolCopyWith<$Res> {
-  __$$LayerToolCopyWithImpl(
-      _$LayerTool _value, $Res Function(_$LayerTool) _then)
+class __$$LayerToolImplCopyWithImpl<$Res>
+    extends _$ToolCopyWithImpl<$Res, _$LayerToolImpl>
+    implements _$$LayerToolImplCopyWith<$Res> {
+  __$$LayerToolImplCopyWithImpl(
+      _$LayerToolImpl _value, $Res Function(_$LayerToolImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -4125,7 +4222,7 @@ class __$$LayerToolCopyWithImpl<$Res>
     Object? displayIcon = null,
     Object? strokeWidth = null,
   }) {
-    return _then(_$LayerTool(
+    return _then(_$LayerToolImpl(
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -4144,8 +4241,8 @@ class __$$LayerToolCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$LayerTool extends LayerTool {
-  _$LayerTool(
+class _$LayerToolImpl extends LayerTool {
+  _$LayerToolImpl(
       {this.name = '',
       this.displayIcon = '',
       this.strokeWidth = 5,
@@ -4153,8 +4250,8 @@ class _$LayerTool extends LayerTool {
       : $type = $type ?? 'layer',
         super._();
 
-  factory _$LayerTool.fromJson(Map<String, dynamic> json) =>
-      _$$LayerToolFromJson(json);
+  factory _$LayerToolImpl.fromJson(Map<String, dynamic> json) =>
+      _$$LayerToolImplFromJson(json);
 
   @override
   @JsonKey()
@@ -4177,8 +4274,8 @@ class _$LayerTool extends LayerTool {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$LayerToolCopyWith<_$LayerTool> get copyWith =>
-      __$$LayerToolCopyWithImpl<_$LayerTool>(this, _$identity);
+  _$$LayerToolImplCopyWith<_$LayerToolImpl> get copyWith =>
+      __$$LayerToolImplCopyWithImpl<_$LayerToolImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -4239,8 +4336,8 @@ class _$LayerTool extends LayerTool {
     required TResult Function(String name, String displayIcon, Axis2D axis)
         spacer,
     required TResult Function(String name, String displayIcon) fullSceen,
-    required TResult Function(
-            String name, String displayIcon, ImportType importType)
+    required TResult Function(String name, String displayIcon,
+            ImportType importType, bool advanced)
         asset,
     required TResult Function(
             String name,
@@ -4251,6 +4348,7 @@ class _$LayerTool extends LayerTool {
             double constrainedAspectRatio,
             SurfaceTexture texture)
         texture,
+    required TResult Function(String name, String displayIcon) eyeDropper,
   }) {
     return layer(name, displayIcon, strokeWidth);
   }
@@ -4309,7 +4407,8 @@ class _$LayerTool extends LayerTool {
     TResult? Function(String name, String displayIcon)? presentation,
     TResult? Function(String name, String displayIcon, Axis2D axis)? spacer,
     TResult? Function(String name, String displayIcon)? fullSceen,
-    TResult? Function(String name, String displayIcon, ImportType importType)?
+    TResult? Function(String name, String displayIcon, ImportType importType,
+            bool advanced)?
         asset,
     TResult? Function(
             String name,
@@ -4320,6 +4419,7 @@ class _$LayerTool extends LayerTool {
             double constrainedAspectRatio,
             SurfaceTexture texture)?
         texture,
+    TResult? Function(String name, String displayIcon)? eyeDropper,
   }) {
     return layer?.call(name, displayIcon, strokeWidth);
   }
@@ -4378,7 +4478,8 @@ class _$LayerTool extends LayerTool {
     TResult Function(String name, String displayIcon)? presentation,
     TResult Function(String name, String displayIcon, Axis2D axis)? spacer,
     TResult Function(String name, String displayIcon)? fullSceen,
-    TResult Function(String name, String displayIcon, ImportType importType)?
+    TResult Function(String name, String displayIcon, ImportType importType,
+            bool advanced)?
         asset,
     TResult Function(
             String name,
@@ -4389,6 +4490,7 @@ class _$LayerTool extends LayerTool {
             double constrainedAspectRatio,
             SurfaceTexture texture)?
         texture,
+    TResult Function(String name, String displayIcon)? eyeDropper,
     required TResult orElse(),
   }) {
     if (layer != null) {
@@ -4419,6 +4521,7 @@ class _$LayerTool extends LayerTool {
     required TResult Function(FullScreenTool value) fullSceen,
     required TResult Function(AssetTool value) asset,
     required TResult Function(TextureTool value) texture,
+    required TResult Function(EyeDropperTool value) eyeDropper,
   }) {
     return layer(this);
   }
@@ -4445,6 +4548,7 @@ class _$LayerTool extends LayerTool {
     TResult? Function(FullScreenTool value)? fullSceen,
     TResult? Function(AssetTool value)? asset,
     TResult? Function(TextureTool value)? texture,
+    TResult? Function(EyeDropperTool value)? eyeDropper,
   }) {
     return layer?.call(this);
   }
@@ -4471,6 +4575,7 @@ class _$LayerTool extends LayerTool {
     TResult Function(FullScreenTool value)? fullSceen,
     TResult Function(AssetTool value)? asset,
     TResult Function(TextureTool value)? texture,
+    TResult Function(EyeDropperTool value)? eyeDropper,
     required TResult orElse(),
   }) {
     if (layer != null) {
@@ -4481,7 +4586,7 @@ class _$LayerTool extends LayerTool {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$LayerToolToJson(
+    return _$$LayerToolImplToJson(
       this,
     );
   }
@@ -4491,10 +4596,11 @@ abstract class LayerTool extends Tool {
   factory LayerTool(
       {final String name,
       final String displayIcon,
-      final double strokeWidth}) = _$LayerTool;
+      final double strokeWidth}) = _$LayerToolImpl;
   LayerTool._() : super._();
 
-  factory LayerTool.fromJson(Map<String, dynamic> json) = _$LayerTool.fromJson;
+  factory LayerTool.fromJson(Map<String, dynamic> json) =
+      _$LayerToolImpl.fromJson;
 
   @override
   String get name;
@@ -4503,15 +4609,15 @@ abstract class LayerTool extends Tool {
   double get strokeWidth;
   @override
   @JsonKey(ignore: true)
-  _$$LayerToolCopyWith<_$LayerTool> get copyWith =>
+  _$$LayerToolImplCopyWith<_$LayerToolImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$AreaToolCopyWith<$Res> implements $ToolCopyWith<$Res> {
-  factory _$$AreaToolCopyWith(
-          _$AreaTool value, $Res Function(_$AreaTool) then) =
-      __$$AreaToolCopyWithImpl<$Res>;
+abstract class _$$AreaToolImplCopyWith<$Res> implements $ToolCopyWith<$Res> {
+  factory _$$AreaToolImplCopyWith(
+          _$AreaToolImpl value, $Res Function(_$AreaToolImpl) then) =
+      __$$AreaToolImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -4524,10 +4630,11 @@ abstract class _$$AreaToolCopyWith<$Res> implements $ToolCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$AreaToolCopyWithImpl<$Res>
-    extends _$ToolCopyWithImpl<$Res, _$AreaTool>
-    implements _$$AreaToolCopyWith<$Res> {
-  __$$AreaToolCopyWithImpl(_$AreaTool _value, $Res Function(_$AreaTool) _then)
+class __$$AreaToolImplCopyWithImpl<$Res>
+    extends _$ToolCopyWithImpl<$Res, _$AreaToolImpl>
+    implements _$$AreaToolImplCopyWith<$Res> {
+  __$$AreaToolImplCopyWithImpl(
+      _$AreaToolImpl _value, $Res Function(_$AreaToolImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -4540,7 +4647,7 @@ class __$$AreaToolCopyWithImpl<$Res>
     Object? constrainedAspectRatio = null,
     Object? askForName = null,
   }) {
-    return _then(_$AreaTool(
+    return _then(_$AreaToolImpl(
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -4571,8 +4678,8 @@ class __$$AreaToolCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$AreaTool extends AreaTool {
-  _$AreaTool(
+class _$AreaToolImpl extends AreaTool {
+  _$AreaToolImpl(
       {this.name = '',
       this.displayIcon = '',
       this.constrainedWidth = 0,
@@ -4583,8 +4690,8 @@ class _$AreaTool extends AreaTool {
       : $type = $type ?? 'area',
         super._();
 
-  factory _$AreaTool.fromJson(Map<String, dynamic> json) =>
-      _$$AreaToolFromJson(json);
+  factory _$AreaToolImpl.fromJson(Map<String, dynamic> json) =>
+      _$$AreaToolImplFromJson(json);
 
   @override
   @JsonKey()
@@ -4616,8 +4723,8 @@ class _$AreaTool extends AreaTool {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$AreaToolCopyWith<_$AreaTool> get copyWith =>
-      __$$AreaToolCopyWithImpl<_$AreaTool>(this, _$identity);
+  _$$AreaToolImplCopyWith<_$AreaToolImpl> get copyWith =>
+      __$$AreaToolImplCopyWithImpl<_$AreaToolImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -4678,8 +4785,8 @@ class _$AreaTool extends AreaTool {
     required TResult Function(String name, String displayIcon, Axis2D axis)
         spacer,
     required TResult Function(String name, String displayIcon) fullSceen,
-    required TResult Function(
-            String name, String displayIcon, ImportType importType)
+    required TResult Function(String name, String displayIcon,
+            ImportType importType, bool advanced)
         asset,
     required TResult Function(
             String name,
@@ -4690,6 +4797,7 @@ class _$AreaTool extends AreaTool {
             double constrainedAspectRatio,
             SurfaceTexture texture)
         texture,
+    required TResult Function(String name, String displayIcon) eyeDropper,
   }) {
     return area(name, displayIcon, constrainedWidth, constrainedHeight,
         constrainedAspectRatio, askForName);
@@ -4749,7 +4857,8 @@ class _$AreaTool extends AreaTool {
     TResult? Function(String name, String displayIcon)? presentation,
     TResult? Function(String name, String displayIcon, Axis2D axis)? spacer,
     TResult? Function(String name, String displayIcon)? fullSceen,
-    TResult? Function(String name, String displayIcon, ImportType importType)?
+    TResult? Function(String name, String displayIcon, ImportType importType,
+            bool advanced)?
         asset,
     TResult? Function(
             String name,
@@ -4760,6 +4869,7 @@ class _$AreaTool extends AreaTool {
             double constrainedAspectRatio,
             SurfaceTexture texture)?
         texture,
+    TResult? Function(String name, String displayIcon)? eyeDropper,
   }) {
     return area?.call(name, displayIcon, constrainedWidth, constrainedHeight,
         constrainedAspectRatio, askForName);
@@ -4819,7 +4929,8 @@ class _$AreaTool extends AreaTool {
     TResult Function(String name, String displayIcon)? presentation,
     TResult Function(String name, String displayIcon, Axis2D axis)? spacer,
     TResult Function(String name, String displayIcon)? fullSceen,
-    TResult Function(String name, String displayIcon, ImportType importType)?
+    TResult Function(String name, String displayIcon, ImportType importType,
+            bool advanced)?
         asset,
     TResult Function(
             String name,
@@ -4830,6 +4941,7 @@ class _$AreaTool extends AreaTool {
             double constrainedAspectRatio,
             SurfaceTexture texture)?
         texture,
+    TResult Function(String name, String displayIcon)? eyeDropper,
     required TResult orElse(),
   }) {
     if (area != null) {
@@ -4861,6 +4973,7 @@ class _$AreaTool extends AreaTool {
     required TResult Function(FullScreenTool value) fullSceen,
     required TResult Function(AssetTool value) asset,
     required TResult Function(TextureTool value) texture,
+    required TResult Function(EyeDropperTool value) eyeDropper,
   }) {
     return area(this);
   }
@@ -4887,6 +5000,7 @@ class _$AreaTool extends AreaTool {
     TResult? Function(FullScreenTool value)? fullSceen,
     TResult? Function(AssetTool value)? asset,
     TResult? Function(TextureTool value)? texture,
+    TResult? Function(EyeDropperTool value)? eyeDropper,
   }) {
     return area?.call(this);
   }
@@ -4913,6 +5027,7 @@ class _$AreaTool extends AreaTool {
     TResult Function(FullScreenTool value)? fullSceen,
     TResult Function(AssetTool value)? asset,
     TResult Function(TextureTool value)? texture,
+    TResult Function(EyeDropperTool value)? eyeDropper,
     required TResult orElse(),
   }) {
     if (area != null) {
@@ -4923,7 +5038,7 @@ class _$AreaTool extends AreaTool {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$AreaToolToJson(
+    return _$$AreaToolImplToJson(
       this,
     );
   }
@@ -4936,10 +5051,11 @@ abstract class AreaTool extends Tool {
       final double constrainedWidth,
       final double constrainedHeight,
       final double constrainedAspectRatio,
-      final bool askForName}) = _$AreaTool;
+      final bool askForName}) = _$AreaToolImpl;
   AreaTool._() : super._();
 
-  factory AreaTool.fromJson(Map<String, dynamic> json) = _$AreaTool.fromJson;
+  factory AreaTool.fromJson(Map<String, dynamic> json) =
+      _$AreaToolImpl.fromJson;
 
   @override
   String get name;
@@ -4951,15 +5067,15 @@ abstract class AreaTool extends Tool {
   bool get askForName;
   @override
   @JsonKey(ignore: true)
-  _$$AreaToolCopyWith<_$AreaTool> get copyWith =>
+  _$$AreaToolImplCopyWith<_$AreaToolImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$LaserToolCopyWith<$Res> implements $ToolCopyWith<$Res> {
-  factory _$$LaserToolCopyWith(
-          _$LaserTool value, $Res Function(_$LaserTool) then) =
-      __$$LaserToolCopyWithImpl<$Res>;
+abstract class _$$LaserToolImplCopyWith<$Res> implements $ToolCopyWith<$Res> {
+  factory _$$LaserToolImplCopyWith(
+          _$LaserToolImpl value, $Res Function(_$LaserToolImpl) then) =
+      __$$LaserToolImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -4972,11 +5088,11 @@ abstract class _$$LaserToolCopyWith<$Res> implements $ToolCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$LaserToolCopyWithImpl<$Res>
-    extends _$ToolCopyWithImpl<$Res, _$LaserTool>
-    implements _$$LaserToolCopyWith<$Res> {
-  __$$LaserToolCopyWithImpl(
-      _$LaserTool _value, $Res Function(_$LaserTool) _then)
+class __$$LaserToolImplCopyWithImpl<$Res>
+    extends _$ToolCopyWithImpl<$Res, _$LaserToolImpl>
+    implements _$$LaserToolImplCopyWith<$Res> {
+  __$$LaserToolImplCopyWithImpl(
+      _$LaserToolImpl _value, $Res Function(_$LaserToolImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -4989,7 +5105,7 @@ class __$$LaserToolCopyWithImpl<$Res>
     Object? thinning = null,
     Object? color = null,
   }) {
-    return _then(_$LaserTool(
+    return _then(_$LaserToolImpl(
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -5020,8 +5136,8 @@ class __$$LaserToolCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$LaserTool extends LaserTool {
-  _$LaserTool(
+class _$LaserToolImpl extends LaserTool {
+  _$LaserToolImpl(
       {this.name = '',
       this.displayIcon = '',
       this.duration = 5,
@@ -5032,8 +5148,8 @@ class _$LaserTool extends LaserTool {
       : $type = $type ?? 'laser',
         super._();
 
-  factory _$LaserTool.fromJson(Map<String, dynamic> json) =>
-      _$$LaserToolFromJson(json);
+  factory _$LaserToolImpl.fromJson(Map<String, dynamic> json) =>
+      _$$LaserToolImplFromJson(json);
 
   @override
   @JsonKey()
@@ -5065,8 +5181,8 @@ class _$LaserTool extends LaserTool {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$LaserToolCopyWith<_$LaserTool> get copyWith =>
-      __$$LaserToolCopyWithImpl<_$LaserTool>(this, _$identity);
+  _$$LaserToolImplCopyWith<_$LaserToolImpl> get copyWith =>
+      __$$LaserToolImplCopyWithImpl<_$LaserToolImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -5127,8 +5243,8 @@ class _$LaserTool extends LaserTool {
     required TResult Function(String name, String displayIcon, Axis2D axis)
         spacer,
     required TResult Function(String name, String displayIcon) fullSceen,
-    required TResult Function(
-            String name, String displayIcon, ImportType importType)
+    required TResult Function(String name, String displayIcon,
+            ImportType importType, bool advanced)
         asset,
     required TResult Function(
             String name,
@@ -5139,6 +5255,7 @@ class _$LaserTool extends LaserTool {
             double constrainedAspectRatio,
             SurfaceTexture texture)
         texture,
+    required TResult Function(String name, String displayIcon) eyeDropper,
   }) {
     return laser(name, displayIcon, duration, strokeWidth, thinning, color);
   }
@@ -5197,7 +5314,8 @@ class _$LaserTool extends LaserTool {
     TResult? Function(String name, String displayIcon)? presentation,
     TResult? Function(String name, String displayIcon, Axis2D axis)? spacer,
     TResult? Function(String name, String displayIcon)? fullSceen,
-    TResult? Function(String name, String displayIcon, ImportType importType)?
+    TResult? Function(String name, String displayIcon, ImportType importType,
+            bool advanced)?
         asset,
     TResult? Function(
             String name,
@@ -5208,6 +5326,7 @@ class _$LaserTool extends LaserTool {
             double constrainedAspectRatio,
             SurfaceTexture texture)?
         texture,
+    TResult? Function(String name, String displayIcon)? eyeDropper,
   }) {
     return laser?.call(
         name, displayIcon, duration, strokeWidth, thinning, color);
@@ -5267,7 +5386,8 @@ class _$LaserTool extends LaserTool {
     TResult Function(String name, String displayIcon)? presentation,
     TResult Function(String name, String displayIcon, Axis2D axis)? spacer,
     TResult Function(String name, String displayIcon)? fullSceen,
-    TResult Function(String name, String displayIcon, ImportType importType)?
+    TResult Function(String name, String displayIcon, ImportType importType,
+            bool advanced)?
         asset,
     TResult Function(
             String name,
@@ -5278,6 +5398,7 @@ class _$LaserTool extends LaserTool {
             double constrainedAspectRatio,
             SurfaceTexture texture)?
         texture,
+    TResult Function(String name, String displayIcon)? eyeDropper,
     required TResult orElse(),
   }) {
     if (laser != null) {
@@ -5308,6 +5429,7 @@ class _$LaserTool extends LaserTool {
     required TResult Function(FullScreenTool value) fullSceen,
     required TResult Function(AssetTool value) asset,
     required TResult Function(TextureTool value) texture,
+    required TResult Function(EyeDropperTool value) eyeDropper,
   }) {
     return laser(this);
   }
@@ -5334,6 +5456,7 @@ class _$LaserTool extends LaserTool {
     TResult? Function(FullScreenTool value)? fullSceen,
     TResult? Function(AssetTool value)? asset,
     TResult? Function(TextureTool value)? texture,
+    TResult? Function(EyeDropperTool value)? eyeDropper,
   }) {
     return laser?.call(this);
   }
@@ -5360,6 +5483,7 @@ class _$LaserTool extends LaserTool {
     TResult Function(FullScreenTool value)? fullSceen,
     TResult Function(AssetTool value)? asset,
     TResult Function(TextureTool value)? texture,
+    TResult Function(EyeDropperTool value)? eyeDropper,
     required TResult orElse(),
   }) {
     if (laser != null) {
@@ -5370,7 +5494,7 @@ class _$LaserTool extends LaserTool {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$LaserToolToJson(
+    return _$$LaserToolImplToJson(
       this,
     );
   }
@@ -5383,10 +5507,11 @@ abstract class LaserTool extends Tool {
       final double duration,
       final double strokeWidth,
       final double thinning,
-      final int color}) = _$LaserTool;
+      final int color}) = _$LaserToolImpl;
   LaserTool._() : super._();
 
-  factory LaserTool.fromJson(Map<String, dynamic> json) = _$LaserTool.fromJson;
+  factory LaserTool.fromJson(Map<String, dynamic> json) =
+      _$LaserToolImpl.fromJson;
 
   @override
   String get name;
@@ -5398,15 +5523,15 @@ abstract class LaserTool extends Tool {
   int get color;
   @override
   @JsonKey(ignore: true)
-  _$$LaserToolCopyWith<_$LaserTool> get copyWith =>
+  _$$LaserToolImplCopyWith<_$LaserToolImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$ShapeToolCopyWith<$Res> implements $ToolCopyWith<$Res> {
-  factory _$$ShapeToolCopyWith(
-          _$ShapeTool value, $Res Function(_$ShapeTool) then) =
-      __$$ShapeToolCopyWithImpl<$Res>;
+abstract class _$$ShapeToolImplCopyWith<$Res> implements $ToolCopyWith<$Res> {
+  factory _$$ShapeToolImplCopyWith(
+          _$ShapeToolImpl value, $Res Function(_$ShapeToolImpl) then) =
+      __$$ShapeToolImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -5420,11 +5545,11 @@ abstract class _$$ShapeToolCopyWith<$Res> implements $ToolCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$ShapeToolCopyWithImpl<$Res>
-    extends _$ToolCopyWithImpl<$Res, _$ShapeTool>
-    implements _$$ShapeToolCopyWith<$Res> {
-  __$$ShapeToolCopyWithImpl(
-      _$ShapeTool _value, $Res Function(_$ShapeTool) _then)
+class __$$ShapeToolImplCopyWithImpl<$Res>
+    extends _$ToolCopyWithImpl<$Res, _$ShapeToolImpl>
+    implements _$$ShapeToolImplCopyWith<$Res> {
+  __$$ShapeToolImplCopyWithImpl(
+      _$ShapeToolImpl _value, $Res Function(_$ShapeToolImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -5438,7 +5563,7 @@ class __$$ShapeToolCopyWithImpl<$Res>
     Object? constrainedAspectRatio = null,
     Object? property = freezed,
   }) {
-    return _then(_$ShapeTool(
+    return _then(_$ShapeToolImpl(
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -5473,8 +5598,8 @@ class __$$ShapeToolCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$ShapeTool extends ShapeTool {
-  _$ShapeTool(
+class _$ShapeToolImpl extends ShapeTool {
+  _$ShapeToolImpl(
       {this.name = '',
       this.displayIcon = '',
       this.zoomDependent = true,
@@ -5486,8 +5611,8 @@ class _$ShapeTool extends ShapeTool {
       : $type = $type ?? 'shape',
         super._();
 
-  factory _$ShapeTool.fromJson(Map<String, dynamic> json) =>
-      _$$ShapeToolFromJson(json);
+  factory _$ShapeToolImpl.fromJson(Map<String, dynamic> json) =>
+      _$$ShapeToolImplFromJson(json);
 
   @override
   @JsonKey()
@@ -5522,8 +5647,8 @@ class _$ShapeTool extends ShapeTool {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$ShapeToolCopyWith<_$ShapeTool> get copyWith =>
-      __$$ShapeToolCopyWithImpl<_$ShapeTool>(this, _$identity);
+  _$$ShapeToolImplCopyWith<_$ShapeToolImpl> get copyWith =>
+      __$$ShapeToolImplCopyWithImpl<_$ShapeToolImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -5584,8 +5709,8 @@ class _$ShapeTool extends ShapeTool {
     required TResult Function(String name, String displayIcon, Axis2D axis)
         spacer,
     required TResult Function(String name, String displayIcon) fullSceen,
-    required TResult Function(
-            String name, String displayIcon, ImportType importType)
+    required TResult Function(String name, String displayIcon,
+            ImportType importType, bool advanced)
         asset,
     required TResult Function(
             String name,
@@ -5596,6 +5721,7 @@ class _$ShapeTool extends ShapeTool {
             double constrainedAspectRatio,
             SurfaceTexture texture)
         texture,
+    required TResult Function(String name, String displayIcon) eyeDropper,
   }) {
     return shape(name, displayIcon, zoomDependent, constrainedWidth,
         constrainedHeight, constrainedAspectRatio, property);
@@ -5655,7 +5781,8 @@ class _$ShapeTool extends ShapeTool {
     TResult? Function(String name, String displayIcon)? presentation,
     TResult? Function(String name, String displayIcon, Axis2D axis)? spacer,
     TResult? Function(String name, String displayIcon)? fullSceen,
-    TResult? Function(String name, String displayIcon, ImportType importType)?
+    TResult? Function(String name, String displayIcon, ImportType importType,
+            bool advanced)?
         asset,
     TResult? Function(
             String name,
@@ -5666,6 +5793,7 @@ class _$ShapeTool extends ShapeTool {
             double constrainedAspectRatio,
             SurfaceTexture texture)?
         texture,
+    TResult? Function(String name, String displayIcon)? eyeDropper,
   }) {
     return shape?.call(name, displayIcon, zoomDependent, constrainedWidth,
         constrainedHeight, constrainedAspectRatio, property);
@@ -5725,7 +5853,8 @@ class _$ShapeTool extends ShapeTool {
     TResult Function(String name, String displayIcon)? presentation,
     TResult Function(String name, String displayIcon, Axis2D axis)? spacer,
     TResult Function(String name, String displayIcon)? fullSceen,
-    TResult Function(String name, String displayIcon, ImportType importType)?
+    TResult Function(String name, String displayIcon, ImportType importType,
+            bool advanced)?
         asset,
     TResult Function(
             String name,
@@ -5736,6 +5865,7 @@ class _$ShapeTool extends ShapeTool {
             double constrainedAspectRatio,
             SurfaceTexture texture)?
         texture,
+    TResult Function(String name, String displayIcon)? eyeDropper,
     required TResult orElse(),
   }) {
     if (shape != null) {
@@ -5767,6 +5897,7 @@ class _$ShapeTool extends ShapeTool {
     required TResult Function(FullScreenTool value) fullSceen,
     required TResult Function(AssetTool value) asset,
     required TResult Function(TextureTool value) texture,
+    required TResult Function(EyeDropperTool value) eyeDropper,
   }) {
     return shape(this);
   }
@@ -5793,6 +5924,7 @@ class _$ShapeTool extends ShapeTool {
     TResult? Function(FullScreenTool value)? fullSceen,
     TResult? Function(AssetTool value)? asset,
     TResult? Function(TextureTool value)? texture,
+    TResult? Function(EyeDropperTool value)? eyeDropper,
   }) {
     return shape?.call(this);
   }
@@ -5819,6 +5951,7 @@ class _$ShapeTool extends ShapeTool {
     TResult Function(FullScreenTool value)? fullSceen,
     TResult Function(AssetTool value)? asset,
     TResult Function(TextureTool value)? texture,
+    TResult Function(EyeDropperTool value)? eyeDropper,
     required TResult orElse(),
   }) {
     if (shape != null) {
@@ -5829,7 +5962,7 @@ class _$ShapeTool extends ShapeTool {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$ShapeToolToJson(
+    return _$$ShapeToolImplToJson(
       this,
     );
   }
@@ -5843,10 +5976,11 @@ abstract class ShapeTool extends Tool {
       final double constrainedWidth,
       final double constrainedHeight,
       final double constrainedAspectRatio,
-      final ShapeProperty property}) = _$ShapeTool;
+      final ShapeProperty property}) = _$ShapeToolImpl;
   ShapeTool._() : super._();
 
-  factory ShapeTool.fromJson(Map<String, dynamic> json) = _$ShapeTool.fromJson;
+  factory ShapeTool.fromJson(Map<String, dynamic> json) =
+      _$ShapeToolImpl.fromJson;
 
   @override
   String get name;
@@ -5859,15 +5993,15 @@ abstract class ShapeTool extends Tool {
   ShapeProperty get property;
   @override
   @JsonKey(ignore: true)
-  _$$ShapeToolCopyWith<_$ShapeTool> get copyWith =>
+  _$$ShapeToolImplCopyWith<_$ShapeToolImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$StampToolCopyWith<$Res> implements $ToolCopyWith<$Res> {
-  factory _$$StampToolCopyWith(
-          _$StampTool value, $Res Function(_$StampTool) then) =
-      __$$StampToolCopyWithImpl<$Res>;
+abstract class _$$StampToolImplCopyWith<$Res> implements $ToolCopyWith<$Res> {
+  factory _$$StampToolImplCopyWith(
+          _$StampToolImpl value, $Res Function(_$StampToolImpl) then) =
+      __$$StampToolImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({String name, String displayIcon, PackAssetLocation component});
@@ -5876,11 +6010,11 @@ abstract class _$$StampToolCopyWith<$Res> implements $ToolCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$StampToolCopyWithImpl<$Res>
-    extends _$ToolCopyWithImpl<$Res, _$StampTool>
-    implements _$$StampToolCopyWith<$Res> {
-  __$$StampToolCopyWithImpl(
-      _$StampTool _value, $Res Function(_$StampTool) _then)
+class __$$StampToolImplCopyWithImpl<$Res>
+    extends _$ToolCopyWithImpl<$Res, _$StampToolImpl>
+    implements _$$StampToolImplCopyWith<$Res> {
+  __$$StampToolImplCopyWithImpl(
+      _$StampToolImpl _value, $Res Function(_$StampToolImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -5890,7 +6024,7 @@ class __$$StampToolCopyWithImpl<$Res>
     Object? displayIcon = null,
     Object? component = null,
   }) {
-    return _then(_$StampTool(
+    return _then(_$StampToolImpl(
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -5917,8 +6051,8 @@ class __$$StampToolCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$StampTool extends StampTool {
-  _$StampTool(
+class _$StampToolImpl extends StampTool {
+  _$StampToolImpl(
       {this.name = '',
       this.displayIcon = '',
       this.component = const PackAssetLocation(),
@@ -5926,8 +6060,8 @@ class _$StampTool extends StampTool {
       : $type = $type ?? 'stamp',
         super._();
 
-  factory _$StampTool.fromJson(Map<String, dynamic> json) =>
-      _$$StampToolFromJson(json);
+  factory _$StampToolImpl.fromJson(Map<String, dynamic> json) =>
+      _$$StampToolImplFromJson(json);
 
   @override
   @JsonKey()
@@ -5950,8 +6084,8 @@ class _$StampTool extends StampTool {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$StampToolCopyWith<_$StampTool> get copyWith =>
-      __$$StampToolCopyWithImpl<_$StampTool>(this, _$identity);
+  _$$StampToolImplCopyWith<_$StampToolImpl> get copyWith =>
+      __$$StampToolImplCopyWithImpl<_$StampToolImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -6012,8 +6146,8 @@ class _$StampTool extends StampTool {
     required TResult Function(String name, String displayIcon, Axis2D axis)
         spacer,
     required TResult Function(String name, String displayIcon) fullSceen,
-    required TResult Function(
-            String name, String displayIcon, ImportType importType)
+    required TResult Function(String name, String displayIcon,
+            ImportType importType, bool advanced)
         asset,
     required TResult Function(
             String name,
@@ -6024,6 +6158,7 @@ class _$StampTool extends StampTool {
             double constrainedAspectRatio,
             SurfaceTexture texture)
         texture,
+    required TResult Function(String name, String displayIcon) eyeDropper,
   }) {
     return stamp(name, displayIcon, component);
   }
@@ -6082,7 +6217,8 @@ class _$StampTool extends StampTool {
     TResult? Function(String name, String displayIcon)? presentation,
     TResult? Function(String name, String displayIcon, Axis2D axis)? spacer,
     TResult? Function(String name, String displayIcon)? fullSceen,
-    TResult? Function(String name, String displayIcon, ImportType importType)?
+    TResult? Function(String name, String displayIcon, ImportType importType,
+            bool advanced)?
         asset,
     TResult? Function(
             String name,
@@ -6093,6 +6229,7 @@ class _$StampTool extends StampTool {
             double constrainedAspectRatio,
             SurfaceTexture texture)?
         texture,
+    TResult? Function(String name, String displayIcon)? eyeDropper,
   }) {
     return stamp?.call(name, displayIcon, component);
   }
@@ -6151,7 +6288,8 @@ class _$StampTool extends StampTool {
     TResult Function(String name, String displayIcon)? presentation,
     TResult Function(String name, String displayIcon, Axis2D axis)? spacer,
     TResult Function(String name, String displayIcon)? fullSceen,
-    TResult Function(String name, String displayIcon, ImportType importType)?
+    TResult Function(String name, String displayIcon, ImportType importType,
+            bool advanced)?
         asset,
     TResult Function(
             String name,
@@ -6162,6 +6300,7 @@ class _$StampTool extends StampTool {
             double constrainedAspectRatio,
             SurfaceTexture texture)?
         texture,
+    TResult Function(String name, String displayIcon)? eyeDropper,
     required TResult orElse(),
   }) {
     if (stamp != null) {
@@ -6192,6 +6331,7 @@ class _$StampTool extends StampTool {
     required TResult Function(FullScreenTool value) fullSceen,
     required TResult Function(AssetTool value) asset,
     required TResult Function(TextureTool value) texture,
+    required TResult Function(EyeDropperTool value) eyeDropper,
   }) {
     return stamp(this);
   }
@@ -6218,6 +6358,7 @@ class _$StampTool extends StampTool {
     TResult? Function(FullScreenTool value)? fullSceen,
     TResult? Function(AssetTool value)? asset,
     TResult? Function(TextureTool value)? texture,
+    TResult? Function(EyeDropperTool value)? eyeDropper,
   }) {
     return stamp?.call(this);
   }
@@ -6244,6 +6385,7 @@ class _$StampTool extends StampTool {
     TResult Function(FullScreenTool value)? fullSceen,
     TResult Function(AssetTool value)? asset,
     TResult Function(TextureTool value)? texture,
+    TResult Function(EyeDropperTool value)? eyeDropper,
     required TResult orElse(),
   }) {
     if (stamp != null) {
@@ -6254,7 +6396,7 @@ class _$StampTool extends StampTool {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$StampToolToJson(
+    return _$$StampToolImplToJson(
       this,
     );
   }
@@ -6264,10 +6406,11 @@ abstract class StampTool extends Tool {
   factory StampTool(
       {final String name,
       final String displayIcon,
-      final PackAssetLocation component}) = _$StampTool;
+      final PackAssetLocation component}) = _$StampToolImpl;
   StampTool._() : super._();
 
-  factory StampTool.fromJson(Map<String, dynamic> json) = _$StampTool.fromJson;
+  factory StampTool.fromJson(Map<String, dynamic> json) =
+      _$StampToolImpl.fromJson;
 
   @override
   String get name;
@@ -6276,27 +6419,27 @@ abstract class StampTool extends Tool {
   PackAssetLocation get component;
   @override
   @JsonKey(ignore: true)
-  _$$StampToolCopyWith<_$StampTool> get copyWith =>
+  _$$StampToolImplCopyWith<_$StampToolImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$PresentationToolCopyWith<$Res>
+abstract class _$$PresentationToolImplCopyWith<$Res>
     implements $ToolCopyWith<$Res> {
-  factory _$$PresentationToolCopyWith(
-          _$PresentationTool value, $Res Function(_$PresentationTool) then) =
-      __$$PresentationToolCopyWithImpl<$Res>;
+  factory _$$PresentationToolImplCopyWith(_$PresentationToolImpl value,
+          $Res Function(_$PresentationToolImpl) then) =
+      __$$PresentationToolImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({String name, String displayIcon});
 }
 
 /// @nodoc
-class __$$PresentationToolCopyWithImpl<$Res>
-    extends _$ToolCopyWithImpl<$Res, _$PresentationTool>
-    implements _$$PresentationToolCopyWith<$Res> {
-  __$$PresentationToolCopyWithImpl(
-      _$PresentationTool _value, $Res Function(_$PresentationTool) _then)
+class __$$PresentationToolImplCopyWithImpl<$Res>
+    extends _$ToolCopyWithImpl<$Res, _$PresentationToolImpl>
+    implements _$$PresentationToolImplCopyWith<$Res> {
+  __$$PresentationToolImplCopyWithImpl(_$PresentationToolImpl _value,
+      $Res Function(_$PresentationToolImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -6305,7 +6448,7 @@ class __$$PresentationToolCopyWithImpl<$Res>
     Object? name = null,
     Object? displayIcon = null,
   }) {
-    return _then(_$PresentationTool(
+    return _then(_$PresentationToolImpl(
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -6320,14 +6463,14 @@ class __$$PresentationToolCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$PresentationTool extends PresentationTool {
-  _$PresentationTool(
+class _$PresentationToolImpl extends PresentationTool {
+  _$PresentationToolImpl(
       {this.name = '', this.displayIcon = '', final String? $type})
       : $type = $type ?? 'presentation',
         super._();
 
-  factory _$PresentationTool.fromJson(Map<String, dynamic> json) =>
-      _$$PresentationToolFromJson(json);
+  factory _$PresentationToolImpl.fromJson(Map<String, dynamic> json) =>
+      _$$PresentationToolImplFromJson(json);
 
   @override
   @JsonKey()
@@ -6347,8 +6490,9 @@ class _$PresentationTool extends PresentationTool {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$PresentationToolCopyWith<_$PresentationTool> get copyWith =>
-      __$$PresentationToolCopyWithImpl<_$PresentationTool>(this, _$identity);
+  _$$PresentationToolImplCopyWith<_$PresentationToolImpl> get copyWith =>
+      __$$PresentationToolImplCopyWithImpl<_$PresentationToolImpl>(
+          this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -6409,8 +6553,8 @@ class _$PresentationTool extends PresentationTool {
     required TResult Function(String name, String displayIcon, Axis2D axis)
         spacer,
     required TResult Function(String name, String displayIcon) fullSceen,
-    required TResult Function(
-            String name, String displayIcon, ImportType importType)
+    required TResult Function(String name, String displayIcon,
+            ImportType importType, bool advanced)
         asset,
     required TResult Function(
             String name,
@@ -6421,6 +6565,7 @@ class _$PresentationTool extends PresentationTool {
             double constrainedAspectRatio,
             SurfaceTexture texture)
         texture,
+    required TResult Function(String name, String displayIcon) eyeDropper,
   }) {
     return presentation(name, displayIcon);
   }
@@ -6479,7 +6624,8 @@ class _$PresentationTool extends PresentationTool {
     TResult? Function(String name, String displayIcon)? presentation,
     TResult? Function(String name, String displayIcon, Axis2D axis)? spacer,
     TResult? Function(String name, String displayIcon)? fullSceen,
-    TResult? Function(String name, String displayIcon, ImportType importType)?
+    TResult? Function(String name, String displayIcon, ImportType importType,
+            bool advanced)?
         asset,
     TResult? Function(
             String name,
@@ -6490,6 +6636,7 @@ class _$PresentationTool extends PresentationTool {
             double constrainedAspectRatio,
             SurfaceTexture texture)?
         texture,
+    TResult? Function(String name, String displayIcon)? eyeDropper,
   }) {
     return presentation?.call(name, displayIcon);
   }
@@ -6548,7 +6695,8 @@ class _$PresentationTool extends PresentationTool {
     TResult Function(String name, String displayIcon)? presentation,
     TResult Function(String name, String displayIcon, Axis2D axis)? spacer,
     TResult Function(String name, String displayIcon)? fullSceen,
-    TResult Function(String name, String displayIcon, ImportType importType)?
+    TResult Function(String name, String displayIcon, ImportType importType,
+            bool advanced)?
         asset,
     TResult Function(
             String name,
@@ -6559,6 +6707,7 @@ class _$PresentationTool extends PresentationTool {
             double constrainedAspectRatio,
             SurfaceTexture texture)?
         texture,
+    TResult Function(String name, String displayIcon)? eyeDropper,
     required TResult orElse(),
   }) {
     if (presentation != null) {
@@ -6589,6 +6738,7 @@ class _$PresentationTool extends PresentationTool {
     required TResult Function(FullScreenTool value) fullSceen,
     required TResult Function(AssetTool value) asset,
     required TResult Function(TextureTool value) texture,
+    required TResult Function(EyeDropperTool value) eyeDropper,
   }) {
     return presentation(this);
   }
@@ -6615,6 +6765,7 @@ class _$PresentationTool extends PresentationTool {
     TResult? Function(FullScreenTool value)? fullSceen,
     TResult? Function(AssetTool value)? asset,
     TResult? Function(TextureTool value)? texture,
+    TResult? Function(EyeDropperTool value)? eyeDropper,
   }) {
     return presentation?.call(this);
   }
@@ -6641,6 +6792,7 @@ class _$PresentationTool extends PresentationTool {
     TResult Function(FullScreenTool value)? fullSceen,
     TResult Function(AssetTool value)? asset,
     TResult Function(TextureTool value)? texture,
+    TResult Function(EyeDropperTool value)? eyeDropper,
     required TResult orElse(),
   }) {
     if (presentation != null) {
@@ -6651,7 +6803,7 @@ class _$PresentationTool extends PresentationTool {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$PresentationToolToJson(
+    return _$$PresentationToolImplToJson(
       this,
     );
   }
@@ -6659,11 +6811,11 @@ class _$PresentationTool extends PresentationTool {
 
 abstract class PresentationTool extends Tool {
   factory PresentationTool({final String name, final String displayIcon}) =
-      _$PresentationTool;
+      _$PresentationToolImpl;
   PresentationTool._() : super._();
 
   factory PresentationTool.fromJson(Map<String, dynamic> json) =
-      _$PresentationTool.fromJson;
+      _$PresentationToolImpl.fromJson;
 
   @override
   String get name;
@@ -6671,26 +6823,26 @@ abstract class PresentationTool extends Tool {
   String get displayIcon;
   @override
   @JsonKey(ignore: true)
-  _$$PresentationToolCopyWith<_$PresentationTool> get copyWith =>
+  _$$PresentationToolImplCopyWith<_$PresentationToolImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$SpacerToolCopyWith<$Res> implements $ToolCopyWith<$Res> {
-  factory _$$SpacerToolCopyWith(
-          _$SpacerTool value, $Res Function(_$SpacerTool) then) =
-      __$$SpacerToolCopyWithImpl<$Res>;
+abstract class _$$SpacerToolImplCopyWith<$Res> implements $ToolCopyWith<$Res> {
+  factory _$$SpacerToolImplCopyWith(
+          _$SpacerToolImpl value, $Res Function(_$SpacerToolImpl) then) =
+      __$$SpacerToolImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({String name, String displayIcon, Axis2D axis});
 }
 
 /// @nodoc
-class __$$SpacerToolCopyWithImpl<$Res>
-    extends _$ToolCopyWithImpl<$Res, _$SpacerTool>
-    implements _$$SpacerToolCopyWith<$Res> {
-  __$$SpacerToolCopyWithImpl(
-      _$SpacerTool _value, $Res Function(_$SpacerTool) _then)
+class __$$SpacerToolImplCopyWithImpl<$Res>
+    extends _$ToolCopyWithImpl<$Res, _$SpacerToolImpl>
+    implements _$$SpacerToolImplCopyWith<$Res> {
+  __$$SpacerToolImplCopyWithImpl(
+      _$SpacerToolImpl _value, $Res Function(_$SpacerToolImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -6700,7 +6852,7 @@ class __$$SpacerToolCopyWithImpl<$Res>
     Object? displayIcon = null,
     Object? axis = null,
   }) {
-    return _then(_$SpacerTool(
+    return _then(_$SpacerToolImpl(
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -6719,8 +6871,8 @@ class __$$SpacerToolCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$SpacerTool extends SpacerTool {
-  _$SpacerTool(
+class _$SpacerToolImpl extends SpacerTool {
+  _$SpacerToolImpl(
       {this.name = '',
       this.displayIcon = '',
       this.axis = Axis2D.horizontal,
@@ -6728,8 +6880,8 @@ class _$SpacerTool extends SpacerTool {
       : $type = $type ?? 'spacer',
         super._();
 
-  factory _$SpacerTool.fromJson(Map<String, dynamic> json) =>
-      _$$SpacerToolFromJson(json);
+  factory _$SpacerToolImpl.fromJson(Map<String, dynamic> json) =>
+      _$$SpacerToolImplFromJson(json);
 
   @override
   @JsonKey()
@@ -6752,8 +6904,8 @@ class _$SpacerTool extends SpacerTool {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$SpacerToolCopyWith<_$SpacerTool> get copyWith =>
-      __$$SpacerToolCopyWithImpl<_$SpacerTool>(this, _$identity);
+  _$$SpacerToolImplCopyWith<_$SpacerToolImpl> get copyWith =>
+      __$$SpacerToolImplCopyWithImpl<_$SpacerToolImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -6814,8 +6966,8 @@ class _$SpacerTool extends SpacerTool {
     required TResult Function(String name, String displayIcon, Axis2D axis)
         spacer,
     required TResult Function(String name, String displayIcon) fullSceen,
-    required TResult Function(
-            String name, String displayIcon, ImportType importType)
+    required TResult Function(String name, String displayIcon,
+            ImportType importType, bool advanced)
         asset,
     required TResult Function(
             String name,
@@ -6826,6 +6978,7 @@ class _$SpacerTool extends SpacerTool {
             double constrainedAspectRatio,
             SurfaceTexture texture)
         texture,
+    required TResult Function(String name, String displayIcon) eyeDropper,
   }) {
     return spacer(name, displayIcon, axis);
   }
@@ -6884,7 +7037,8 @@ class _$SpacerTool extends SpacerTool {
     TResult? Function(String name, String displayIcon)? presentation,
     TResult? Function(String name, String displayIcon, Axis2D axis)? spacer,
     TResult? Function(String name, String displayIcon)? fullSceen,
-    TResult? Function(String name, String displayIcon, ImportType importType)?
+    TResult? Function(String name, String displayIcon, ImportType importType,
+            bool advanced)?
         asset,
     TResult? Function(
             String name,
@@ -6895,6 +7049,7 @@ class _$SpacerTool extends SpacerTool {
             double constrainedAspectRatio,
             SurfaceTexture texture)?
         texture,
+    TResult? Function(String name, String displayIcon)? eyeDropper,
   }) {
     return spacer?.call(name, displayIcon, axis);
   }
@@ -6953,7 +7108,8 @@ class _$SpacerTool extends SpacerTool {
     TResult Function(String name, String displayIcon)? presentation,
     TResult Function(String name, String displayIcon, Axis2D axis)? spacer,
     TResult Function(String name, String displayIcon)? fullSceen,
-    TResult Function(String name, String displayIcon, ImportType importType)?
+    TResult Function(String name, String displayIcon, ImportType importType,
+            bool advanced)?
         asset,
     TResult Function(
             String name,
@@ -6964,6 +7120,7 @@ class _$SpacerTool extends SpacerTool {
             double constrainedAspectRatio,
             SurfaceTexture texture)?
         texture,
+    TResult Function(String name, String displayIcon)? eyeDropper,
     required TResult orElse(),
   }) {
     if (spacer != null) {
@@ -6994,6 +7151,7 @@ class _$SpacerTool extends SpacerTool {
     required TResult Function(FullScreenTool value) fullSceen,
     required TResult Function(AssetTool value) asset,
     required TResult Function(TextureTool value) texture,
+    required TResult Function(EyeDropperTool value) eyeDropper,
   }) {
     return spacer(this);
   }
@@ -7020,6 +7178,7 @@ class _$SpacerTool extends SpacerTool {
     TResult? Function(FullScreenTool value)? fullSceen,
     TResult? Function(AssetTool value)? asset,
     TResult? Function(TextureTool value)? texture,
+    TResult? Function(EyeDropperTool value)? eyeDropper,
   }) {
     return spacer?.call(this);
   }
@@ -7046,6 +7205,7 @@ class _$SpacerTool extends SpacerTool {
     TResult Function(FullScreenTool value)? fullSceen,
     TResult Function(AssetTool value)? asset,
     TResult Function(TextureTool value)? texture,
+    TResult Function(EyeDropperTool value)? eyeDropper,
     required TResult orElse(),
   }) {
     if (spacer != null) {
@@ -7056,7 +7216,7 @@ class _$SpacerTool extends SpacerTool {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$SpacerToolToJson(
+    return _$$SpacerToolImplToJson(
       this,
     );
   }
@@ -7066,11 +7226,11 @@ abstract class SpacerTool extends Tool {
   factory SpacerTool(
       {final String name,
       final String displayIcon,
-      final Axis2D axis}) = _$SpacerTool;
+      final Axis2D axis}) = _$SpacerToolImpl;
   SpacerTool._() : super._();
 
   factory SpacerTool.fromJson(Map<String, dynamic> json) =
-      _$SpacerTool.fromJson;
+      _$SpacerToolImpl.fromJson;
 
   @override
   String get name;
@@ -7079,26 +7239,27 @@ abstract class SpacerTool extends Tool {
   Axis2D get axis;
   @override
   @JsonKey(ignore: true)
-  _$$SpacerToolCopyWith<_$SpacerTool> get copyWith =>
+  _$$SpacerToolImplCopyWith<_$SpacerToolImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$FullScreenToolCopyWith<$Res> implements $ToolCopyWith<$Res> {
-  factory _$$FullScreenToolCopyWith(
-          _$FullScreenTool value, $Res Function(_$FullScreenTool) then) =
-      __$$FullScreenToolCopyWithImpl<$Res>;
+abstract class _$$FullScreenToolImplCopyWith<$Res>
+    implements $ToolCopyWith<$Res> {
+  factory _$$FullScreenToolImplCopyWith(_$FullScreenToolImpl value,
+          $Res Function(_$FullScreenToolImpl) then) =
+      __$$FullScreenToolImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({String name, String displayIcon});
 }
 
 /// @nodoc
-class __$$FullScreenToolCopyWithImpl<$Res>
-    extends _$ToolCopyWithImpl<$Res, _$FullScreenTool>
-    implements _$$FullScreenToolCopyWith<$Res> {
-  __$$FullScreenToolCopyWithImpl(
-      _$FullScreenTool _value, $Res Function(_$FullScreenTool) _then)
+class __$$FullScreenToolImplCopyWithImpl<$Res>
+    extends _$ToolCopyWithImpl<$Res, _$FullScreenToolImpl>
+    implements _$$FullScreenToolImplCopyWith<$Res> {
+  __$$FullScreenToolImplCopyWithImpl(
+      _$FullScreenToolImpl _value, $Res Function(_$FullScreenToolImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -7107,7 +7268,7 @@ class __$$FullScreenToolCopyWithImpl<$Res>
     Object? name = null,
     Object? displayIcon = null,
   }) {
-    return _then(_$FullScreenTool(
+    return _then(_$FullScreenToolImpl(
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -7122,13 +7283,14 @@ class __$$FullScreenToolCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$FullScreenTool extends FullScreenTool {
-  _$FullScreenTool({this.name = '', this.displayIcon = '', final String? $type})
+class _$FullScreenToolImpl extends FullScreenTool {
+  _$FullScreenToolImpl(
+      {this.name = '', this.displayIcon = '', final String? $type})
       : $type = $type ?? 'fullSceen',
         super._();
 
-  factory _$FullScreenTool.fromJson(Map<String, dynamic> json) =>
-      _$$FullScreenToolFromJson(json);
+  factory _$FullScreenToolImpl.fromJson(Map<String, dynamic> json) =>
+      _$$FullScreenToolImplFromJson(json);
 
   @override
   @JsonKey()
@@ -7148,8 +7310,9 @@ class _$FullScreenTool extends FullScreenTool {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$FullScreenToolCopyWith<_$FullScreenTool> get copyWith =>
-      __$$FullScreenToolCopyWithImpl<_$FullScreenTool>(this, _$identity);
+  _$$FullScreenToolImplCopyWith<_$FullScreenToolImpl> get copyWith =>
+      __$$FullScreenToolImplCopyWithImpl<_$FullScreenToolImpl>(
+          this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -7210,8 +7373,8 @@ class _$FullScreenTool extends FullScreenTool {
     required TResult Function(String name, String displayIcon, Axis2D axis)
         spacer,
     required TResult Function(String name, String displayIcon) fullSceen,
-    required TResult Function(
-            String name, String displayIcon, ImportType importType)
+    required TResult Function(String name, String displayIcon,
+            ImportType importType, bool advanced)
         asset,
     required TResult Function(
             String name,
@@ -7222,6 +7385,7 @@ class _$FullScreenTool extends FullScreenTool {
             double constrainedAspectRatio,
             SurfaceTexture texture)
         texture,
+    required TResult Function(String name, String displayIcon) eyeDropper,
   }) {
     return fullSceen(name, displayIcon);
   }
@@ -7280,7 +7444,8 @@ class _$FullScreenTool extends FullScreenTool {
     TResult? Function(String name, String displayIcon)? presentation,
     TResult? Function(String name, String displayIcon, Axis2D axis)? spacer,
     TResult? Function(String name, String displayIcon)? fullSceen,
-    TResult? Function(String name, String displayIcon, ImportType importType)?
+    TResult? Function(String name, String displayIcon, ImportType importType,
+            bool advanced)?
         asset,
     TResult? Function(
             String name,
@@ -7291,6 +7456,7 @@ class _$FullScreenTool extends FullScreenTool {
             double constrainedAspectRatio,
             SurfaceTexture texture)?
         texture,
+    TResult? Function(String name, String displayIcon)? eyeDropper,
   }) {
     return fullSceen?.call(name, displayIcon);
   }
@@ -7349,7 +7515,8 @@ class _$FullScreenTool extends FullScreenTool {
     TResult Function(String name, String displayIcon)? presentation,
     TResult Function(String name, String displayIcon, Axis2D axis)? spacer,
     TResult Function(String name, String displayIcon)? fullSceen,
-    TResult Function(String name, String displayIcon, ImportType importType)?
+    TResult Function(String name, String displayIcon, ImportType importType,
+            bool advanced)?
         asset,
     TResult Function(
             String name,
@@ -7360,6 +7527,7 @@ class _$FullScreenTool extends FullScreenTool {
             double constrainedAspectRatio,
             SurfaceTexture texture)?
         texture,
+    TResult Function(String name, String displayIcon)? eyeDropper,
     required TResult orElse(),
   }) {
     if (fullSceen != null) {
@@ -7390,6 +7558,7 @@ class _$FullScreenTool extends FullScreenTool {
     required TResult Function(FullScreenTool value) fullSceen,
     required TResult Function(AssetTool value) asset,
     required TResult Function(TextureTool value) texture,
+    required TResult Function(EyeDropperTool value) eyeDropper,
   }) {
     return fullSceen(this);
   }
@@ -7416,6 +7585,7 @@ class _$FullScreenTool extends FullScreenTool {
     TResult? Function(FullScreenTool value)? fullSceen,
     TResult? Function(AssetTool value)? asset,
     TResult? Function(TextureTool value)? texture,
+    TResult? Function(EyeDropperTool value)? eyeDropper,
   }) {
     return fullSceen?.call(this);
   }
@@ -7442,6 +7612,7 @@ class _$FullScreenTool extends FullScreenTool {
     TResult Function(FullScreenTool value)? fullSceen,
     TResult Function(AssetTool value)? asset,
     TResult Function(TextureTool value)? texture,
+    TResult Function(EyeDropperTool value)? eyeDropper,
     required TResult orElse(),
   }) {
     if (fullSceen != null) {
@@ -7452,7 +7623,7 @@ class _$FullScreenTool extends FullScreenTool {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$FullScreenToolToJson(
+    return _$$FullScreenToolImplToJson(
       this,
     );
   }
@@ -7460,11 +7631,11 @@ class _$FullScreenTool extends FullScreenTool {
 
 abstract class FullScreenTool extends Tool {
   factory FullScreenTool({final String name, final String displayIcon}) =
-      _$FullScreenTool;
+      _$FullScreenToolImpl;
   FullScreenTool._() : super._();
 
   factory FullScreenTool.fromJson(Map<String, dynamic> json) =
-      _$FullScreenTool.fromJson;
+      _$FullScreenToolImpl.fromJson;
 
   @override
   String get name;
@@ -7472,26 +7643,27 @@ abstract class FullScreenTool extends Tool {
   String get displayIcon;
   @override
   @JsonKey(ignore: true)
-  _$$FullScreenToolCopyWith<_$FullScreenTool> get copyWith =>
+  _$$FullScreenToolImplCopyWith<_$FullScreenToolImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$AssetToolCopyWith<$Res> implements $ToolCopyWith<$Res> {
-  factory _$$AssetToolCopyWith(
-          _$AssetTool value, $Res Function(_$AssetTool) then) =
-      __$$AssetToolCopyWithImpl<$Res>;
+abstract class _$$AssetToolImplCopyWith<$Res> implements $ToolCopyWith<$Res> {
+  factory _$$AssetToolImplCopyWith(
+          _$AssetToolImpl value, $Res Function(_$AssetToolImpl) then) =
+      __$$AssetToolImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String name, String displayIcon, ImportType importType});
+  $Res call(
+      {String name, String displayIcon, ImportType importType, bool advanced});
 }
 
 /// @nodoc
-class __$$AssetToolCopyWithImpl<$Res>
-    extends _$ToolCopyWithImpl<$Res, _$AssetTool>
-    implements _$$AssetToolCopyWith<$Res> {
-  __$$AssetToolCopyWithImpl(
-      _$AssetTool _value, $Res Function(_$AssetTool) _then)
+class __$$AssetToolImplCopyWithImpl<$Res>
+    extends _$ToolCopyWithImpl<$Res, _$AssetToolImpl>
+    implements _$$AssetToolImplCopyWith<$Res> {
+  __$$AssetToolImplCopyWithImpl(
+      _$AssetToolImpl _value, $Res Function(_$AssetToolImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -7500,8 +7672,9 @@ class __$$AssetToolCopyWithImpl<$Res>
     Object? name = null,
     Object? displayIcon = null,
     Object? importType = null,
+    Object? advanced = null,
   }) {
-    return _then(_$AssetTool(
+    return _then(_$AssetToolImpl(
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -7514,23 +7687,28 @@ class __$$AssetToolCopyWithImpl<$Res>
           ? _value.importType
           : importType // ignore: cast_nullable_to_non_nullable
               as ImportType,
+      advanced: null == advanced
+          ? _value.advanced
+          : advanced // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
 
 /// @nodoc
 @JsonSerializable()
-class _$AssetTool extends AssetTool {
-  _$AssetTool(
+class _$AssetToolImpl extends AssetTool {
+  _$AssetToolImpl(
       {this.name = '',
       this.displayIcon = '',
       this.importType = ImportType.document,
+      this.advanced = true,
       final String? $type})
       : $type = $type ?? 'asset',
         super._();
 
-  factory _$AssetTool.fromJson(Map<String, dynamic> json) =>
-      _$$AssetToolFromJson(json);
+  factory _$AssetToolImpl.fromJson(Map<String, dynamic> json) =>
+      _$$AssetToolImplFromJson(json);
 
   @override
   @JsonKey()
@@ -7541,20 +7719,23 @@ class _$AssetTool extends AssetTool {
   @override
   @JsonKey()
   final ImportType importType;
+  @override
+  @JsonKey()
+  final bool advanced;
 
   @JsonKey(name: 'type')
   final String $type;
 
   @override
   String toString() {
-    return 'Tool.asset(name: $name, displayIcon: $displayIcon, importType: $importType)';
+    return 'Tool.asset(name: $name, displayIcon: $displayIcon, importType: $importType, advanced: $advanced)';
   }
 
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$AssetToolCopyWith<_$AssetTool> get copyWith =>
-      __$$AssetToolCopyWithImpl<_$AssetTool>(this, _$identity);
+  _$$AssetToolImplCopyWith<_$AssetToolImpl> get copyWith =>
+      __$$AssetToolImplCopyWithImpl<_$AssetToolImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -7615,8 +7796,8 @@ class _$AssetTool extends AssetTool {
     required TResult Function(String name, String displayIcon, Axis2D axis)
         spacer,
     required TResult Function(String name, String displayIcon) fullSceen,
-    required TResult Function(
-            String name, String displayIcon, ImportType importType)
+    required TResult Function(String name, String displayIcon,
+            ImportType importType, bool advanced)
         asset,
     required TResult Function(
             String name,
@@ -7627,8 +7808,9 @@ class _$AssetTool extends AssetTool {
             double constrainedAspectRatio,
             SurfaceTexture texture)
         texture,
+    required TResult Function(String name, String displayIcon) eyeDropper,
   }) {
-    return asset(name, displayIcon, importType);
+    return asset(name, displayIcon, importType, advanced);
   }
 
   @override
@@ -7685,7 +7867,8 @@ class _$AssetTool extends AssetTool {
     TResult? Function(String name, String displayIcon)? presentation,
     TResult? Function(String name, String displayIcon, Axis2D axis)? spacer,
     TResult? Function(String name, String displayIcon)? fullSceen,
-    TResult? Function(String name, String displayIcon, ImportType importType)?
+    TResult? Function(String name, String displayIcon, ImportType importType,
+            bool advanced)?
         asset,
     TResult? Function(
             String name,
@@ -7696,8 +7879,9 @@ class _$AssetTool extends AssetTool {
             double constrainedAspectRatio,
             SurfaceTexture texture)?
         texture,
+    TResult? Function(String name, String displayIcon)? eyeDropper,
   }) {
-    return asset?.call(name, displayIcon, importType);
+    return asset?.call(name, displayIcon, importType, advanced);
   }
 
   @override
@@ -7754,7 +7938,8 @@ class _$AssetTool extends AssetTool {
     TResult Function(String name, String displayIcon)? presentation,
     TResult Function(String name, String displayIcon, Axis2D axis)? spacer,
     TResult Function(String name, String displayIcon)? fullSceen,
-    TResult Function(String name, String displayIcon, ImportType importType)?
+    TResult Function(String name, String displayIcon, ImportType importType,
+            bool advanced)?
         asset,
     TResult Function(
             String name,
@@ -7765,10 +7950,11 @@ class _$AssetTool extends AssetTool {
             double constrainedAspectRatio,
             SurfaceTexture texture)?
         texture,
+    TResult Function(String name, String displayIcon)? eyeDropper,
     required TResult orElse(),
   }) {
     if (asset != null) {
-      return asset(name, displayIcon, importType);
+      return asset(name, displayIcon, importType, advanced);
     }
     return orElse();
   }
@@ -7795,6 +7981,7 @@ class _$AssetTool extends AssetTool {
     required TResult Function(FullScreenTool value) fullSceen,
     required TResult Function(AssetTool value) asset,
     required TResult Function(TextureTool value) texture,
+    required TResult Function(EyeDropperTool value) eyeDropper,
   }) {
     return asset(this);
   }
@@ -7821,6 +8008,7 @@ class _$AssetTool extends AssetTool {
     TResult? Function(FullScreenTool value)? fullSceen,
     TResult? Function(AssetTool value)? asset,
     TResult? Function(TextureTool value)? texture,
+    TResult? Function(EyeDropperTool value)? eyeDropper,
   }) {
     return asset?.call(this);
   }
@@ -7847,6 +8035,7 @@ class _$AssetTool extends AssetTool {
     TResult Function(FullScreenTool value)? fullSceen,
     TResult Function(AssetTool value)? asset,
     TResult Function(TextureTool value)? texture,
+    TResult Function(EyeDropperTool value)? eyeDropper,
     required TResult orElse(),
   }) {
     if (asset != null) {
@@ -7857,7 +8046,7 @@ class _$AssetTool extends AssetTool {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$AssetToolToJson(
+    return _$$AssetToolImplToJson(
       this,
     );
   }
@@ -7867,27 +8056,30 @@ abstract class AssetTool extends Tool {
   factory AssetTool(
       {final String name,
       final String displayIcon,
-      final ImportType importType}) = _$AssetTool;
+      final ImportType importType,
+      final bool advanced}) = _$AssetToolImpl;
   AssetTool._() : super._();
 
-  factory AssetTool.fromJson(Map<String, dynamic> json) = _$AssetTool.fromJson;
+  factory AssetTool.fromJson(Map<String, dynamic> json) =
+      _$AssetToolImpl.fromJson;
 
   @override
   String get name;
   @override
   String get displayIcon;
   ImportType get importType;
+  bool get advanced;
   @override
   @JsonKey(ignore: true)
-  _$$AssetToolCopyWith<_$AssetTool> get copyWith =>
+  _$$AssetToolImplCopyWith<_$AssetToolImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$TextureToolCopyWith<$Res> implements $ToolCopyWith<$Res> {
-  factory _$$TextureToolCopyWith(
-          _$TextureTool value, $Res Function(_$TextureTool) then) =
-      __$$TextureToolCopyWithImpl<$Res>;
+abstract class _$$TextureToolImplCopyWith<$Res> implements $ToolCopyWith<$Res> {
+  factory _$$TextureToolImplCopyWith(
+          _$TextureToolImpl value, $Res Function(_$TextureToolImpl) then) =
+      __$$TextureToolImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -7903,11 +8095,11 @@ abstract class _$$TextureToolCopyWith<$Res> implements $ToolCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$TextureToolCopyWithImpl<$Res>
-    extends _$ToolCopyWithImpl<$Res, _$TextureTool>
-    implements _$$TextureToolCopyWith<$Res> {
-  __$$TextureToolCopyWithImpl(
-      _$TextureTool _value, $Res Function(_$TextureTool) _then)
+class __$$TextureToolImplCopyWithImpl<$Res>
+    extends _$ToolCopyWithImpl<$Res, _$TextureToolImpl>
+    implements _$$TextureToolImplCopyWith<$Res> {
+  __$$TextureToolImplCopyWithImpl(
+      _$TextureToolImpl _value, $Res Function(_$TextureToolImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -7921,7 +8113,7 @@ class __$$TextureToolCopyWithImpl<$Res>
     Object? constrainedAspectRatio = null,
     Object? texture = null,
   }) {
-    return _then(_$TextureTool(
+    return _then(_$TextureToolImpl(
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -7964,8 +8156,8 @@ class __$$TextureToolCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$TextureTool extends TextureTool {
-  _$TextureTool(
+class _$TextureToolImpl extends TextureTool {
+  _$TextureToolImpl(
       {this.name = '',
       this.displayIcon = '',
       this.zoomDependent = true,
@@ -7977,8 +8169,8 @@ class _$TextureTool extends TextureTool {
       : $type = $type ?? 'texture',
         super._();
 
-  factory _$TextureTool.fromJson(Map<String, dynamic> json) =>
-      _$$TextureToolFromJson(json);
+  factory _$TextureToolImpl.fromJson(Map<String, dynamic> json) =>
+      _$$TextureToolImplFromJson(json);
 
   @override
   @JsonKey()
@@ -8013,8 +8205,8 @@ class _$TextureTool extends TextureTool {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$TextureToolCopyWith<_$TextureTool> get copyWith =>
-      __$$TextureToolCopyWithImpl<_$TextureTool>(this, _$identity);
+  _$$TextureToolImplCopyWith<_$TextureToolImpl> get copyWith =>
+      __$$TextureToolImplCopyWithImpl<_$TextureToolImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -8075,8 +8267,8 @@ class _$TextureTool extends TextureTool {
     required TResult Function(String name, String displayIcon, Axis2D axis)
         spacer,
     required TResult Function(String name, String displayIcon) fullSceen,
-    required TResult Function(
-            String name, String displayIcon, ImportType importType)
+    required TResult Function(String name, String displayIcon,
+            ImportType importType, bool advanced)
         asset,
     required TResult Function(
             String name,
@@ -8087,6 +8279,7 @@ class _$TextureTool extends TextureTool {
             double constrainedAspectRatio,
             SurfaceTexture texture)
         texture,
+    required TResult Function(String name, String displayIcon) eyeDropper,
   }) {
     return texture(name, displayIcon, zoomDependent, constrainedWidth,
         constrainedHeight, constrainedAspectRatio, this.texture);
@@ -8146,7 +8339,8 @@ class _$TextureTool extends TextureTool {
     TResult? Function(String name, String displayIcon)? presentation,
     TResult? Function(String name, String displayIcon, Axis2D axis)? spacer,
     TResult? Function(String name, String displayIcon)? fullSceen,
-    TResult? Function(String name, String displayIcon, ImportType importType)?
+    TResult? Function(String name, String displayIcon, ImportType importType,
+            bool advanced)?
         asset,
     TResult? Function(
             String name,
@@ -8157,6 +8351,7 @@ class _$TextureTool extends TextureTool {
             double constrainedAspectRatio,
             SurfaceTexture texture)?
         texture,
+    TResult? Function(String name, String displayIcon)? eyeDropper,
   }) {
     return texture?.call(name, displayIcon, zoomDependent, constrainedWidth,
         constrainedHeight, constrainedAspectRatio, this.texture);
@@ -8216,7 +8411,8 @@ class _$TextureTool extends TextureTool {
     TResult Function(String name, String displayIcon)? presentation,
     TResult Function(String name, String displayIcon, Axis2D axis)? spacer,
     TResult Function(String name, String displayIcon)? fullSceen,
-    TResult Function(String name, String displayIcon, ImportType importType)?
+    TResult Function(String name, String displayIcon, ImportType importType,
+            bool advanced)?
         asset,
     TResult Function(
             String name,
@@ -8227,6 +8423,7 @@ class _$TextureTool extends TextureTool {
             double constrainedAspectRatio,
             SurfaceTexture texture)?
         texture,
+    TResult Function(String name, String displayIcon)? eyeDropper,
     required TResult orElse(),
   }) {
     if (texture != null) {
@@ -8258,6 +8455,7 @@ class _$TextureTool extends TextureTool {
     required TResult Function(FullScreenTool value) fullSceen,
     required TResult Function(AssetTool value) asset,
     required TResult Function(TextureTool value) texture,
+    required TResult Function(EyeDropperTool value) eyeDropper,
   }) {
     return texture(this);
   }
@@ -8284,6 +8482,7 @@ class _$TextureTool extends TextureTool {
     TResult? Function(FullScreenTool value)? fullSceen,
     TResult? Function(AssetTool value)? asset,
     TResult? Function(TextureTool value)? texture,
+    TResult? Function(EyeDropperTool value)? eyeDropper,
   }) {
     return texture?.call(this);
   }
@@ -8310,6 +8509,7 @@ class _$TextureTool extends TextureTool {
     TResult Function(FullScreenTool value)? fullSceen,
     TResult Function(AssetTool value)? asset,
     TResult Function(TextureTool value)? texture,
+    TResult Function(EyeDropperTool value)? eyeDropper,
     required TResult orElse(),
   }) {
     if (texture != null) {
@@ -8320,7 +8520,7 @@ class _$TextureTool extends TextureTool {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$TextureToolToJson(
+    return _$$TextureToolImplToJson(
       this,
     );
   }
@@ -8334,11 +8534,11 @@ abstract class TextureTool extends Tool {
       final double constrainedWidth,
       final double constrainedHeight,
       final double constrainedAspectRatio,
-      final SurfaceTexture texture}) = _$TextureTool;
+      final SurfaceTexture texture}) = _$TextureToolImpl;
   TextureTool._() : super._();
 
   factory TextureTool.fromJson(Map<String, dynamic> json) =
-      _$TextureTool.fromJson;
+      _$TextureToolImpl.fromJson;
 
   @override
   String get name;
@@ -8351,6 +8551,410 @@ abstract class TextureTool extends Tool {
   SurfaceTexture get texture;
   @override
   @JsonKey(ignore: true)
-  _$$TextureToolCopyWith<_$TextureTool> get copyWith =>
+  _$$TextureToolImplCopyWith<_$TextureToolImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$EyeDropperToolImplCopyWith<$Res>
+    implements $ToolCopyWith<$Res> {
+  factory _$$EyeDropperToolImplCopyWith(_$EyeDropperToolImpl value,
+          $Res Function(_$EyeDropperToolImpl) then) =
+      __$$EyeDropperToolImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({String name, String displayIcon});
+}
+
+/// @nodoc
+class __$$EyeDropperToolImplCopyWithImpl<$Res>
+    extends _$ToolCopyWithImpl<$Res, _$EyeDropperToolImpl>
+    implements _$$EyeDropperToolImplCopyWith<$Res> {
+  __$$EyeDropperToolImplCopyWithImpl(
+      _$EyeDropperToolImpl _value, $Res Function(_$EyeDropperToolImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? name = null,
+    Object? displayIcon = null,
+  }) {
+    return _then(_$EyeDropperToolImpl(
+      name: null == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      displayIcon: null == displayIcon
+          ? _value.displayIcon
+          : displayIcon // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$EyeDropperToolImpl extends EyeDropperTool {
+  _$EyeDropperToolImpl(
+      {this.name = '', this.displayIcon = '', final String? $type})
+      : $type = $type ?? 'eyeDropper',
+        super._();
+
+  factory _$EyeDropperToolImpl.fromJson(Map<String, dynamic> json) =>
+      _$$EyeDropperToolImplFromJson(json);
+
+  @override
+  @JsonKey()
+  final String name;
+  @override
+  @JsonKey()
+  final String displayIcon;
+
+  @JsonKey(name: 'type')
+  final String $type;
+
+  @override
+  String toString() {
+    return 'Tool.eyeDropper(name: $name, displayIcon: $displayIcon)';
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$EyeDropperToolImplCopyWith<_$EyeDropperToolImpl> get copyWith =>
+      __$$EyeDropperToolImplCopyWithImpl<_$EyeDropperToolImpl>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String name, String displayIcon, SelectMode mode)
+        select,
+    required TResult Function(String name, String displayIcon) hand,
+    required TResult Function(String name, String displayIcon,
+            List<PadElement> elements, List<Area> areas)
+        import,
+    required TResult Function(String name, String displayIcon) undo,
+    required TResult Function(String name, String displayIcon) redo,
+    required TResult Function(
+            String name,
+            String displayIcon,
+            LabelMode mode,
+            bool zoomDependent,
+            int foreground,
+            PackAssetLocation styleSheet,
+            double scale)
+        label,
+    required TResult Function(String name, String displayIcon,
+            bool zoomDependent, PenProperty property)
+        pen,
+    required TResult Function(
+            String name, String displayIcon, double strokeWidth)
+        eraser,
+    required TResult Function(
+            String name, String displayIcon, double strokeWidth)
+        pathEraser,
+    required TResult Function(
+            String name, String displayIcon, double strokeWidth)
+        layer,
+    required TResult Function(
+            String name,
+            String displayIcon,
+            double constrainedWidth,
+            double constrainedHeight,
+            double constrainedAspectRatio,
+            bool askForName)
+        area,
+    required TResult Function(String name, String displayIcon, double duration,
+            double strokeWidth, double thinning, int color)
+        laser,
+    required TResult Function(
+            String name,
+            String displayIcon,
+            bool zoomDependent,
+            double constrainedWidth,
+            double constrainedHeight,
+            double constrainedAspectRatio,
+            ShapeProperty property)
+        shape,
+    required TResult Function(
+            String name, String displayIcon, PackAssetLocation component)
+        stamp,
+    required TResult Function(String name, String displayIcon) presentation,
+    required TResult Function(String name, String displayIcon, Axis2D axis)
+        spacer,
+    required TResult Function(String name, String displayIcon) fullSceen,
+    required TResult Function(String name, String displayIcon,
+            ImportType importType, bool advanced)
+        asset,
+    required TResult Function(
+            String name,
+            String displayIcon,
+            bool zoomDependent,
+            double constrainedWidth,
+            double constrainedHeight,
+            double constrainedAspectRatio,
+            SurfaceTexture texture)
+        texture,
+    required TResult Function(String name, String displayIcon) eyeDropper,
+  }) {
+    return eyeDropper(name, displayIcon);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String name, String displayIcon, SelectMode mode)? select,
+    TResult? Function(String name, String displayIcon)? hand,
+    TResult? Function(String name, String displayIcon,
+            List<PadElement> elements, List<Area> areas)?
+        import,
+    TResult? Function(String name, String displayIcon)? undo,
+    TResult? Function(String name, String displayIcon)? redo,
+    TResult? Function(
+            String name,
+            String displayIcon,
+            LabelMode mode,
+            bool zoomDependent,
+            int foreground,
+            PackAssetLocation styleSheet,
+            double scale)?
+        label,
+    TResult? Function(String name, String displayIcon, bool zoomDependent,
+            PenProperty property)?
+        pen,
+    TResult? Function(String name, String displayIcon, double strokeWidth)?
+        eraser,
+    TResult? Function(String name, String displayIcon, double strokeWidth)?
+        pathEraser,
+    TResult? Function(String name, String displayIcon, double strokeWidth)?
+        layer,
+    TResult? Function(
+            String name,
+            String displayIcon,
+            double constrainedWidth,
+            double constrainedHeight,
+            double constrainedAspectRatio,
+            bool askForName)?
+        area,
+    TResult? Function(String name, String displayIcon, double duration,
+            double strokeWidth, double thinning, int color)?
+        laser,
+    TResult? Function(
+            String name,
+            String displayIcon,
+            bool zoomDependent,
+            double constrainedWidth,
+            double constrainedHeight,
+            double constrainedAspectRatio,
+            ShapeProperty property)?
+        shape,
+    TResult? Function(
+            String name, String displayIcon, PackAssetLocation component)?
+        stamp,
+    TResult? Function(String name, String displayIcon)? presentation,
+    TResult? Function(String name, String displayIcon, Axis2D axis)? spacer,
+    TResult? Function(String name, String displayIcon)? fullSceen,
+    TResult? Function(String name, String displayIcon, ImportType importType,
+            bool advanced)?
+        asset,
+    TResult? Function(
+            String name,
+            String displayIcon,
+            bool zoomDependent,
+            double constrainedWidth,
+            double constrainedHeight,
+            double constrainedAspectRatio,
+            SurfaceTexture texture)?
+        texture,
+    TResult? Function(String name, String displayIcon)? eyeDropper,
+  }) {
+    return eyeDropper?.call(name, displayIcon);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String name, String displayIcon, SelectMode mode)? select,
+    TResult Function(String name, String displayIcon)? hand,
+    TResult Function(String name, String displayIcon, List<PadElement> elements,
+            List<Area> areas)?
+        import,
+    TResult Function(String name, String displayIcon)? undo,
+    TResult Function(String name, String displayIcon)? redo,
+    TResult Function(
+            String name,
+            String displayIcon,
+            LabelMode mode,
+            bool zoomDependent,
+            int foreground,
+            PackAssetLocation styleSheet,
+            double scale)?
+        label,
+    TResult Function(String name, String displayIcon, bool zoomDependent,
+            PenProperty property)?
+        pen,
+    TResult Function(String name, String displayIcon, double strokeWidth)?
+        eraser,
+    TResult Function(String name, String displayIcon, double strokeWidth)?
+        pathEraser,
+    TResult Function(String name, String displayIcon, double strokeWidth)?
+        layer,
+    TResult Function(
+            String name,
+            String displayIcon,
+            double constrainedWidth,
+            double constrainedHeight,
+            double constrainedAspectRatio,
+            bool askForName)?
+        area,
+    TResult Function(String name, String displayIcon, double duration,
+            double strokeWidth, double thinning, int color)?
+        laser,
+    TResult Function(
+            String name,
+            String displayIcon,
+            bool zoomDependent,
+            double constrainedWidth,
+            double constrainedHeight,
+            double constrainedAspectRatio,
+            ShapeProperty property)?
+        shape,
+    TResult Function(
+            String name, String displayIcon, PackAssetLocation component)?
+        stamp,
+    TResult Function(String name, String displayIcon)? presentation,
+    TResult Function(String name, String displayIcon, Axis2D axis)? spacer,
+    TResult Function(String name, String displayIcon)? fullSceen,
+    TResult Function(String name, String displayIcon, ImportType importType,
+            bool advanced)?
+        asset,
+    TResult Function(
+            String name,
+            String displayIcon,
+            bool zoomDependent,
+            double constrainedWidth,
+            double constrainedHeight,
+            double constrainedAspectRatio,
+            SurfaceTexture texture)?
+        texture,
+    TResult Function(String name, String displayIcon)? eyeDropper,
+    required TResult orElse(),
+  }) {
+    if (eyeDropper != null) {
+      return eyeDropper(name, displayIcon);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(SelectTool value) select,
+    required TResult Function(HandTool value) hand,
+    required TResult Function(ImportTool value) import,
+    required TResult Function(UndoTool value) undo,
+    required TResult Function(RedoTool value) redo,
+    required TResult Function(LabelTool value) label,
+    required TResult Function(PenTool value) pen,
+    required TResult Function(EraserTool value) eraser,
+    required TResult Function(PathEraserTool value) pathEraser,
+    required TResult Function(LayerTool value) layer,
+    required TResult Function(AreaTool value) area,
+    required TResult Function(LaserTool value) laser,
+    required TResult Function(ShapeTool value) shape,
+    required TResult Function(StampTool value) stamp,
+    required TResult Function(PresentationTool value) presentation,
+    required TResult Function(SpacerTool value) spacer,
+    required TResult Function(FullScreenTool value) fullSceen,
+    required TResult Function(AssetTool value) asset,
+    required TResult Function(TextureTool value) texture,
+    required TResult Function(EyeDropperTool value) eyeDropper,
+  }) {
+    return eyeDropper(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(SelectTool value)? select,
+    TResult? Function(HandTool value)? hand,
+    TResult? Function(ImportTool value)? import,
+    TResult? Function(UndoTool value)? undo,
+    TResult? Function(RedoTool value)? redo,
+    TResult? Function(LabelTool value)? label,
+    TResult? Function(PenTool value)? pen,
+    TResult? Function(EraserTool value)? eraser,
+    TResult? Function(PathEraserTool value)? pathEraser,
+    TResult? Function(LayerTool value)? layer,
+    TResult? Function(AreaTool value)? area,
+    TResult? Function(LaserTool value)? laser,
+    TResult? Function(ShapeTool value)? shape,
+    TResult? Function(StampTool value)? stamp,
+    TResult? Function(PresentationTool value)? presentation,
+    TResult? Function(SpacerTool value)? spacer,
+    TResult? Function(FullScreenTool value)? fullSceen,
+    TResult? Function(AssetTool value)? asset,
+    TResult? Function(TextureTool value)? texture,
+    TResult? Function(EyeDropperTool value)? eyeDropper,
+  }) {
+    return eyeDropper?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(SelectTool value)? select,
+    TResult Function(HandTool value)? hand,
+    TResult Function(ImportTool value)? import,
+    TResult Function(UndoTool value)? undo,
+    TResult Function(RedoTool value)? redo,
+    TResult Function(LabelTool value)? label,
+    TResult Function(PenTool value)? pen,
+    TResult Function(EraserTool value)? eraser,
+    TResult Function(PathEraserTool value)? pathEraser,
+    TResult Function(LayerTool value)? layer,
+    TResult Function(AreaTool value)? area,
+    TResult Function(LaserTool value)? laser,
+    TResult Function(ShapeTool value)? shape,
+    TResult Function(StampTool value)? stamp,
+    TResult Function(PresentationTool value)? presentation,
+    TResult Function(SpacerTool value)? spacer,
+    TResult Function(FullScreenTool value)? fullSceen,
+    TResult Function(AssetTool value)? asset,
+    TResult Function(TextureTool value)? texture,
+    TResult Function(EyeDropperTool value)? eyeDropper,
+    required TResult orElse(),
+  }) {
+    if (eyeDropper != null) {
+      return eyeDropper(this);
+    }
+    return orElse();
+  }
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$EyeDropperToolImplToJson(
+      this,
+    );
+  }
+}
+
+abstract class EyeDropperTool extends Tool {
+  factory EyeDropperTool({final String name, final String displayIcon}) =
+      _$EyeDropperToolImpl;
+  EyeDropperTool._() : super._();
+
+  factory EyeDropperTool.fromJson(Map<String, dynamic> json) =
+      _$EyeDropperToolImpl.fromJson;
+
+  @override
+  String get name;
+  @override
+  String get displayIcon;
+  @override
+  @JsonKey(ignore: true)
+  _$$EyeDropperToolImplCopyWith<_$EyeDropperToolImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

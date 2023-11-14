@@ -4,10 +4,10 @@ sidebar_label: "Välj"
 ---
 
 
-Med det här verktyget kan du välja element och komma åt bakgrundsmenyn för att komma åt [infoga menyn](../insert).
+Med detta verktyg kan du välja element.
 
 ## Konfiguration
 
-| Egenskap |           Standard           | Beskrivning                                                                       |
-| --------:|:----------------------------:|:--------------------------------------------------------------------------------- |
-|     axel | (horisontell eller vertikal) | Riktning där utrymmet ska läggas till. Endast valbar när du lägger till verktyget |
+| Egenskap | Standard  | Beskrivning                                |
+| --------:|:---------:|:------------------------------------------ |
+|     läge | rektangel | Val av typ. Giltiga är rektangel och lasso |

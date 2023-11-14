@@ -1,2 +1,2 @@
 #!/bin/sh
-./butterfly --path ./Data
+./butterfly --path ./UserData

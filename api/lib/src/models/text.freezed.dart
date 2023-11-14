@@ -136,10 +136,10 @@ class _$SpanPropertyCopyWithImpl<$Res, $Val extends SpanProperty>
 }
 
 /// @nodoc
-abstract class _$$DefinedSpanPropertyCopyWith<$Res> {
-  factory _$$DefinedSpanPropertyCopyWith(_$DefinedSpanProperty value,
-          $Res Function(_$DefinedSpanProperty) then) =
-      __$$DefinedSpanPropertyCopyWithImpl<$Res>;
+abstract class _$$DefinedSpanPropertyImplCopyWith<$Res> {
+  factory _$$DefinedSpanPropertyImplCopyWith(_$DefinedSpanPropertyImpl value,
+          $Res Function(_$DefinedSpanPropertyImpl) then) =
+      __$$DefinedSpanPropertyImplCopyWithImpl<$Res>;
   @useResult
   $Res call(
       {double? size,
@@ -157,11 +157,11 @@ abstract class _$$DefinedSpanPropertyCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$DefinedSpanPropertyCopyWithImpl<$Res>
-    extends _$SpanPropertyCopyWithImpl<$Res, _$DefinedSpanProperty>
-    implements _$$DefinedSpanPropertyCopyWith<$Res> {
-  __$$DefinedSpanPropertyCopyWithImpl(
-      _$DefinedSpanProperty _value, $Res Function(_$DefinedSpanProperty) _then)
+class __$$DefinedSpanPropertyImplCopyWithImpl<$Res>
+    extends _$SpanPropertyCopyWithImpl<$Res, _$DefinedSpanPropertyImpl>
+    implements _$$DefinedSpanPropertyImplCopyWith<$Res> {
+  __$$DefinedSpanPropertyImplCopyWithImpl(_$DefinedSpanPropertyImpl _value,
+      $Res Function(_$DefinedSpanPropertyImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -180,7 +180,7 @@ class __$$DefinedSpanPropertyCopyWithImpl<$Res>
     Object? decorationThickness = freezed,
     Object? backgroundColor = freezed,
   }) {
-    return _then(_$DefinedSpanProperty(
+    return _then(_$DefinedSpanPropertyImpl(
       size: freezed == size
           ? _value.size
           : size // ignore: cast_nullable_to_non_nullable
@@ -235,8 +235,8 @@ class __$$DefinedSpanPropertyCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$DefinedSpanProperty implements DefinedSpanProperty {
-  const _$DefinedSpanProperty(
+class _$DefinedSpanPropertyImpl implements DefinedSpanProperty {
+  const _$DefinedSpanPropertyImpl(
       {this.size,
       this.color,
       this.fontWeight,
@@ -252,8 +252,8 @@ class _$DefinedSpanProperty implements DefinedSpanProperty {
       final String? $type})
       : $type = $type ?? 'defined';
 
-  factory _$DefinedSpanProperty.fromJson(Map<String, dynamic> json) =>
-      _$$DefinedSpanPropertyFromJson(json);
+  factory _$DefinedSpanPropertyImpl.fromJson(Map<String, dynamic> json) =>
+      _$$DefinedSpanPropertyImplFromJson(json);
 
   @override
   final double? size;
@@ -292,7 +292,7 @@ class _$DefinedSpanProperty implements DefinedSpanProperty {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$DefinedSpanProperty &&
+            other is _$DefinedSpanPropertyImpl &&
             (identical(other.size, size) || other.size == size) &&
             (identical(other.color, color) || other.color == color) &&
             (identical(other.fontWeight, fontWeight) ||
@@ -336,8 +336,8 @@ class _$DefinedSpanProperty implements DefinedSpanProperty {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$DefinedSpanPropertyCopyWith<_$DefinedSpanProperty> get copyWith =>
-      __$$DefinedSpanPropertyCopyWithImpl<_$DefinedSpanProperty>(
+  _$$DefinedSpanPropertyImplCopyWith<_$DefinedSpanPropertyImpl> get copyWith =>
+      __$$DefinedSpanPropertyImplCopyWithImpl<_$DefinedSpanPropertyImpl>(
           this, _$identity);
 
   @override
@@ -485,7 +485,7 @@ class _$DefinedSpanProperty implements DefinedSpanProperty {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$DefinedSpanPropertyToJson(
+    return _$$DefinedSpanPropertyImplToJson(
       this,
     );
   }
@@ -504,10 +504,10 @@ abstract class DefinedSpanProperty implements SpanProperty {
       final int? decorationColor,
       final TextDecorationStyle? decorationStyle,
       final double? decorationThickness,
-      final int? backgroundColor}) = _$DefinedSpanProperty;
+      final int? backgroundColor}) = _$DefinedSpanPropertyImpl;
 
   factory DefinedSpanProperty.fromJson(Map<String, dynamic> json) =
-      _$DefinedSpanProperty.fromJson;
+      _$DefinedSpanPropertyImpl.fromJson;
 
   double? get size;
   int? get color;
@@ -522,25 +522,25 @@ abstract class DefinedSpanProperty implements SpanProperty {
   double? get decorationThickness;
   int? get backgroundColor;
   @JsonKey(ignore: true)
-  _$$DefinedSpanPropertyCopyWith<_$DefinedSpanProperty> get copyWith =>
+  _$$DefinedSpanPropertyImplCopyWith<_$DefinedSpanPropertyImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$NamedSpanPropertyCopyWith<$Res> {
-  factory _$$NamedSpanPropertyCopyWith(
-          _$NamedSpanProperty value, $Res Function(_$NamedSpanProperty) then) =
-      __$$NamedSpanPropertyCopyWithImpl<$Res>;
+abstract class _$$NamedSpanPropertyImplCopyWith<$Res> {
+  factory _$$NamedSpanPropertyImplCopyWith(_$NamedSpanPropertyImpl value,
+          $Res Function(_$NamedSpanPropertyImpl) then) =
+      __$$NamedSpanPropertyImplCopyWithImpl<$Res>;
   @useResult
   $Res call({String name});
 }
 
 /// @nodoc
-class __$$NamedSpanPropertyCopyWithImpl<$Res>
-    extends _$SpanPropertyCopyWithImpl<$Res, _$NamedSpanProperty>
-    implements _$$NamedSpanPropertyCopyWith<$Res> {
-  __$$NamedSpanPropertyCopyWithImpl(
-      _$NamedSpanProperty _value, $Res Function(_$NamedSpanProperty) _then)
+class __$$NamedSpanPropertyImplCopyWithImpl<$Res>
+    extends _$SpanPropertyCopyWithImpl<$Res, _$NamedSpanPropertyImpl>
+    implements _$$NamedSpanPropertyImplCopyWith<$Res> {
+  __$$NamedSpanPropertyImplCopyWithImpl(_$NamedSpanPropertyImpl _value,
+      $Res Function(_$NamedSpanPropertyImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -548,7 +548,7 @@ class __$$NamedSpanPropertyCopyWithImpl<$Res>
   $Res call({
     Object? name = null,
   }) {
-    return _then(_$NamedSpanProperty(
+    return _then(_$NamedSpanPropertyImpl(
       null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -559,12 +559,12 @@ class __$$NamedSpanPropertyCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$NamedSpanProperty implements NamedSpanProperty {
-  const _$NamedSpanProperty(this.name, {final String? $type})
+class _$NamedSpanPropertyImpl implements NamedSpanProperty {
+  const _$NamedSpanPropertyImpl(this.name, {final String? $type})
       : $type = $type ?? 'named';
 
-  factory _$NamedSpanProperty.fromJson(Map<String, dynamic> json) =>
-      _$$NamedSpanPropertyFromJson(json);
+  factory _$NamedSpanPropertyImpl.fromJson(Map<String, dynamic> json) =>
+      _$$NamedSpanPropertyImplFromJson(json);
 
   @override
   final String name;
@@ -581,7 +581,7 @@ class _$NamedSpanProperty implements NamedSpanProperty {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$NamedSpanProperty &&
+            other is _$NamedSpanPropertyImpl &&
             (identical(other.name, name) || other.name == name));
   }
 
@@ -592,8 +592,9 @@ class _$NamedSpanProperty implements NamedSpanProperty {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$NamedSpanPropertyCopyWith<_$NamedSpanProperty> get copyWith =>
-      __$$NamedSpanPropertyCopyWithImpl<_$NamedSpanProperty>(this, _$identity);
+  _$$NamedSpanPropertyImplCopyWith<_$NamedSpanPropertyImpl> get copyWith =>
+      __$$NamedSpanPropertyImplCopyWithImpl<_$NamedSpanPropertyImpl>(
+          this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -704,48 +705,49 @@ class _$NamedSpanProperty implements NamedSpanProperty {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$NamedSpanPropertyToJson(
+    return _$$NamedSpanPropertyImplToJson(
       this,
     );
   }
 }
 
 abstract class NamedSpanProperty implements SpanProperty {
-  const factory NamedSpanProperty(final String name) = _$NamedSpanProperty;
+  const factory NamedSpanProperty(final String name) = _$NamedSpanPropertyImpl;
 
   factory NamedSpanProperty.fromJson(Map<String, dynamic> json) =
-      _$NamedSpanProperty.fromJson;
+      _$NamedSpanPropertyImpl.fromJson;
 
   String get name;
   @JsonKey(ignore: true)
-  _$$NamedSpanPropertyCopyWith<_$NamedSpanProperty> get copyWith =>
+  _$$NamedSpanPropertyImplCopyWith<_$NamedSpanPropertyImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$UndefinedSpanPropertyCopyWith<$Res> {
-  factory _$$UndefinedSpanPropertyCopyWith(_$UndefinedSpanProperty value,
-          $Res Function(_$UndefinedSpanProperty) then) =
-      __$$UndefinedSpanPropertyCopyWithImpl<$Res>;
+abstract class _$$UndefinedSpanPropertyImplCopyWith<$Res> {
+  factory _$$UndefinedSpanPropertyImplCopyWith(
+          _$UndefinedSpanPropertyImpl value,
+          $Res Function(_$UndefinedSpanPropertyImpl) then) =
+      __$$UndefinedSpanPropertyImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$UndefinedSpanPropertyCopyWithImpl<$Res>
-    extends _$SpanPropertyCopyWithImpl<$Res, _$UndefinedSpanProperty>
-    implements _$$UndefinedSpanPropertyCopyWith<$Res> {
-  __$$UndefinedSpanPropertyCopyWithImpl(_$UndefinedSpanProperty _value,
-      $Res Function(_$UndefinedSpanProperty) _then)
+class __$$UndefinedSpanPropertyImplCopyWithImpl<$Res>
+    extends _$SpanPropertyCopyWithImpl<$Res, _$UndefinedSpanPropertyImpl>
+    implements _$$UndefinedSpanPropertyImplCopyWith<$Res> {
+  __$$UndefinedSpanPropertyImplCopyWithImpl(_$UndefinedSpanPropertyImpl _value,
+      $Res Function(_$UndefinedSpanPropertyImpl) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 @JsonSerializable()
-class _$UndefinedSpanProperty implements UndefinedSpanProperty {
-  const _$UndefinedSpanProperty({final String? $type})
+class _$UndefinedSpanPropertyImpl implements UndefinedSpanProperty {
+  const _$UndefinedSpanPropertyImpl({final String? $type})
       : $type = $type ?? 'undefined';
 
-  factory _$UndefinedSpanProperty.fromJson(Map<String, dynamic> json) =>
-      _$$UndefinedSpanPropertyFromJson(json);
+  factory _$UndefinedSpanPropertyImpl.fromJson(Map<String, dynamic> json) =>
+      _$$UndefinedSpanPropertyImplFromJson(json);
 
   @JsonKey(name: 'type')
   final String $type;
@@ -758,7 +760,8 @@ class _$UndefinedSpanProperty implements UndefinedSpanProperty {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$UndefinedSpanProperty);
+        (other.runtimeType == runtimeType &&
+            other is _$UndefinedSpanPropertyImpl);
   }
 
   @JsonKey(ignore: true)
@@ -874,17 +877,17 @@ class _$UndefinedSpanProperty implements UndefinedSpanProperty {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$UndefinedSpanPropertyToJson(
+    return _$$UndefinedSpanPropertyImplToJson(
       this,
     );
   }
 }
 
 abstract class UndefinedSpanProperty implements SpanProperty {
-  const factory UndefinedSpanProperty() = _$UndefinedSpanProperty;
+  const factory UndefinedSpanProperty() = _$UndefinedSpanPropertyImpl;
 
   factory UndefinedSpanProperty.fromJson(Map<String, dynamic> json) =
-      _$UndefinedSpanProperty.fromJson;
+      _$UndefinedSpanPropertyImpl.fromJson;
 }
 
 ParagraphProperty _$ParagraphPropertyFromJson(Map<String, dynamic> json) {
@@ -974,20 +977,23 @@ class _$ParagraphPropertyCopyWithImpl<$Res, $Val extends ParagraphProperty>
 }
 
 /// @nodoc
-abstract class _$$DefinedParagraphPropertyCopyWith<$Res> {
-  factory _$$DefinedParagraphPropertyCopyWith(_$DefinedParagraphProperty value,
-          $Res Function(_$DefinedParagraphProperty) then) =
-      __$$DefinedParagraphPropertyCopyWithImpl<$Res>;
+abstract class _$$DefinedParagraphPropertyImplCopyWith<$Res> {
+  factory _$$DefinedParagraphPropertyImplCopyWith(
+          _$DefinedParagraphPropertyImpl value,
+          $Res Function(_$DefinedParagraphPropertyImpl) then) =
+      __$$DefinedParagraphPropertyImplCopyWithImpl<$Res>;
   @useResult
   $Res call({DefinedSpanProperty span, HorizontalAlignment alignment});
 }
 
 /// @nodoc
-class __$$DefinedParagraphPropertyCopyWithImpl<$Res>
-    extends _$ParagraphPropertyCopyWithImpl<$Res, _$DefinedParagraphProperty>
-    implements _$$DefinedParagraphPropertyCopyWith<$Res> {
-  __$$DefinedParagraphPropertyCopyWithImpl(_$DefinedParagraphProperty _value,
-      $Res Function(_$DefinedParagraphProperty) _then)
+class __$$DefinedParagraphPropertyImplCopyWithImpl<$Res>
+    extends _$ParagraphPropertyCopyWithImpl<$Res,
+        _$DefinedParagraphPropertyImpl>
+    implements _$$DefinedParagraphPropertyImplCopyWith<$Res> {
+  __$$DefinedParagraphPropertyImplCopyWithImpl(
+      _$DefinedParagraphPropertyImpl _value,
+      $Res Function(_$DefinedParagraphPropertyImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -996,7 +1002,7 @@ class __$$DefinedParagraphPropertyCopyWithImpl<$Res>
     Object? span = freezed,
     Object? alignment = null,
   }) {
-    return _then(_$DefinedParagraphProperty(
+    return _then(_$DefinedParagraphPropertyImpl(
       span: freezed == span
           ? _value.span
           : span // ignore: cast_nullable_to_non_nullable
@@ -1011,15 +1017,15 @@ class __$$DefinedParagraphPropertyCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$DefinedParagraphProperty implements DefinedParagraphProperty {
-  const _$DefinedParagraphProperty(
+class _$DefinedParagraphPropertyImpl implements DefinedParagraphProperty {
+  const _$DefinedParagraphPropertyImpl(
       {this.span = const DefinedSpanProperty(),
       this.alignment = HorizontalAlignment.left,
       final String? $type})
       : $type = $type ?? 'defined';
 
-  factory _$DefinedParagraphProperty.fromJson(Map<String, dynamic> json) =>
-      _$$DefinedParagraphPropertyFromJson(json);
+  factory _$DefinedParagraphPropertyImpl.fromJson(Map<String, dynamic> json) =>
+      _$$DefinedParagraphPropertyImplFromJson(json);
 
   @override
   @JsonKey()
@@ -1040,7 +1046,7 @@ class _$DefinedParagraphProperty implements DefinedParagraphProperty {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$DefinedParagraphProperty &&
+            other is _$DefinedParagraphPropertyImpl &&
             const DeepCollectionEquality().equals(other.span, span) &&
             (identical(other.alignment, alignment) ||
                 other.alignment == alignment));
@@ -1054,10 +1060,9 @@ class _$DefinedParagraphProperty implements DefinedParagraphProperty {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$DefinedParagraphPropertyCopyWith<_$DefinedParagraphProperty>
-      get copyWith =>
-          __$$DefinedParagraphPropertyCopyWithImpl<_$DefinedParagraphProperty>(
-              this, _$identity);
+  _$$DefinedParagraphPropertyImplCopyWith<_$DefinedParagraphPropertyImpl>
+      get copyWith => __$$DefinedParagraphPropertyImplCopyWithImpl<
+          _$DefinedParagraphPropertyImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -1133,7 +1138,7 @@ class _$DefinedParagraphProperty implements DefinedParagraphProperty {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$DefinedParagraphPropertyToJson(
+    return _$$DefinedParagraphPropertyImplToJson(
       this,
     );
   }
@@ -1142,33 +1147,35 @@ class _$DefinedParagraphProperty implements DefinedParagraphProperty {
 abstract class DefinedParagraphProperty implements ParagraphProperty {
   const factory DefinedParagraphProperty(
       {final DefinedSpanProperty span,
-      final HorizontalAlignment alignment}) = _$DefinedParagraphProperty;
+      final HorizontalAlignment alignment}) = _$DefinedParagraphPropertyImpl;
 
   factory DefinedParagraphProperty.fromJson(Map<String, dynamic> json) =
-      _$DefinedParagraphProperty.fromJson;
+      _$DefinedParagraphPropertyImpl.fromJson;
 
   DefinedSpanProperty get span;
   HorizontalAlignment get alignment;
   @JsonKey(ignore: true)
-  _$$DefinedParagraphPropertyCopyWith<_$DefinedParagraphProperty>
+  _$$DefinedParagraphPropertyImplCopyWith<_$DefinedParagraphPropertyImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$NamedParagraphPropertyCopyWith<$Res> {
-  factory _$$NamedParagraphPropertyCopyWith(_$NamedParagraphProperty value,
-          $Res Function(_$NamedParagraphProperty) then) =
-      __$$NamedParagraphPropertyCopyWithImpl<$Res>;
+abstract class _$$NamedParagraphPropertyImplCopyWith<$Res> {
+  factory _$$NamedParagraphPropertyImplCopyWith(
+          _$NamedParagraphPropertyImpl value,
+          $Res Function(_$NamedParagraphPropertyImpl) then) =
+      __$$NamedParagraphPropertyImplCopyWithImpl<$Res>;
   @useResult
   $Res call({String name});
 }
 
 /// @nodoc
-class __$$NamedParagraphPropertyCopyWithImpl<$Res>
-    extends _$ParagraphPropertyCopyWithImpl<$Res, _$NamedParagraphProperty>
-    implements _$$NamedParagraphPropertyCopyWith<$Res> {
-  __$$NamedParagraphPropertyCopyWithImpl(_$NamedParagraphProperty _value,
-      $Res Function(_$NamedParagraphProperty) _then)
+class __$$NamedParagraphPropertyImplCopyWithImpl<$Res>
+    extends _$ParagraphPropertyCopyWithImpl<$Res, _$NamedParagraphPropertyImpl>
+    implements _$$NamedParagraphPropertyImplCopyWith<$Res> {
+  __$$NamedParagraphPropertyImplCopyWithImpl(
+      _$NamedParagraphPropertyImpl _value,
+      $Res Function(_$NamedParagraphPropertyImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -1176,7 +1183,7 @@ class __$$NamedParagraphPropertyCopyWithImpl<$Res>
   $Res call({
     Object? name = null,
   }) {
-    return _then(_$NamedParagraphProperty(
+    return _then(_$NamedParagraphPropertyImpl(
       null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -1187,12 +1194,12 @@ class __$$NamedParagraphPropertyCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$NamedParagraphProperty implements NamedParagraphProperty {
-  const _$NamedParagraphProperty(this.name, {final String? $type})
+class _$NamedParagraphPropertyImpl implements NamedParagraphProperty {
+  const _$NamedParagraphPropertyImpl(this.name, {final String? $type})
       : $type = $type ?? 'named';
 
-  factory _$NamedParagraphProperty.fromJson(Map<String, dynamic> json) =>
-      _$$NamedParagraphPropertyFromJson(json);
+  factory _$NamedParagraphPropertyImpl.fromJson(Map<String, dynamic> json) =>
+      _$$NamedParagraphPropertyImplFromJson(json);
 
   @override
   final String name;
@@ -1209,7 +1216,7 @@ class _$NamedParagraphProperty implements NamedParagraphProperty {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$NamedParagraphProperty &&
+            other is _$NamedParagraphPropertyImpl &&
             (identical(other.name, name) || other.name == name));
   }
 
@@ -1220,9 +1227,9 @@ class _$NamedParagraphProperty implements NamedParagraphProperty {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$NamedParagraphPropertyCopyWith<_$NamedParagraphProperty> get copyWith =>
-      __$$NamedParagraphPropertyCopyWithImpl<_$NamedParagraphProperty>(
-          this, _$identity);
+  _$$NamedParagraphPropertyImplCopyWith<_$NamedParagraphPropertyImpl>
+      get copyWith => __$$NamedParagraphPropertyImplCopyWithImpl<
+          _$NamedParagraphPropertyImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -1298,7 +1305,7 @@ class _$NamedParagraphProperty implements NamedParagraphProperty {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$NamedParagraphPropertyToJson(
+    return _$$NamedParagraphPropertyImplToJson(
       this,
     );
   }
@@ -1306,43 +1313,45 @@ class _$NamedParagraphProperty implements NamedParagraphProperty {
 
 abstract class NamedParagraphProperty implements ParagraphProperty {
   const factory NamedParagraphProperty(final String name) =
-      _$NamedParagraphProperty;
+      _$NamedParagraphPropertyImpl;
 
   factory NamedParagraphProperty.fromJson(Map<String, dynamic> json) =
-      _$NamedParagraphProperty.fromJson;
+      _$NamedParagraphPropertyImpl.fromJson;
 
   String get name;
   @JsonKey(ignore: true)
-  _$$NamedParagraphPropertyCopyWith<_$NamedParagraphProperty> get copyWith =>
-      throw _privateConstructorUsedError;
+  _$$NamedParagraphPropertyImplCopyWith<_$NamedParagraphPropertyImpl>
+      get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$UndefinedParagraphPropertyCopyWith<$Res> {
-  factory _$$UndefinedParagraphPropertyCopyWith(
-          _$UndefinedParagraphProperty value,
-          $Res Function(_$UndefinedParagraphProperty) then) =
-      __$$UndefinedParagraphPropertyCopyWithImpl<$Res>;
+abstract class _$$UndefinedParagraphPropertyImplCopyWith<$Res> {
+  factory _$$UndefinedParagraphPropertyImplCopyWith(
+          _$UndefinedParagraphPropertyImpl value,
+          $Res Function(_$UndefinedParagraphPropertyImpl) then) =
+      __$$UndefinedParagraphPropertyImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$UndefinedParagraphPropertyCopyWithImpl<$Res>
-    extends _$ParagraphPropertyCopyWithImpl<$Res, _$UndefinedParagraphProperty>
-    implements _$$UndefinedParagraphPropertyCopyWith<$Res> {
-  __$$UndefinedParagraphPropertyCopyWithImpl(
-      _$UndefinedParagraphProperty _value,
-      $Res Function(_$UndefinedParagraphProperty) _then)
+class __$$UndefinedParagraphPropertyImplCopyWithImpl<$Res>
+    extends _$ParagraphPropertyCopyWithImpl<$Res,
+        _$UndefinedParagraphPropertyImpl>
+    implements _$$UndefinedParagraphPropertyImplCopyWith<$Res> {
+  __$$UndefinedParagraphPropertyImplCopyWithImpl(
+      _$UndefinedParagraphPropertyImpl _value,
+      $Res Function(_$UndefinedParagraphPropertyImpl) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 @JsonSerializable()
-class _$UndefinedParagraphProperty implements UndefinedParagraphProperty {
-  const _$UndefinedParagraphProperty({final String? $type})
+class _$UndefinedParagraphPropertyImpl implements UndefinedParagraphProperty {
+  const _$UndefinedParagraphPropertyImpl({final String? $type})
       : $type = $type ?? 'undefined';
 
-  factory _$UndefinedParagraphProperty.fromJson(Map<String, dynamic> json) =>
-      _$$UndefinedParagraphPropertyFromJson(json);
+  factory _$UndefinedParagraphPropertyImpl.fromJson(
+          Map<String, dynamic> json) =>
+      _$$UndefinedParagraphPropertyImplFromJson(json);
 
   @JsonKey(name: 'type')
   final String $type;
@@ -1356,7 +1365,7 @@ class _$UndefinedParagraphProperty implements UndefinedParagraphProperty {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$UndefinedParagraphProperty);
+            other is _$UndefinedParagraphPropertyImpl);
   }
 
   @JsonKey(ignore: true)
@@ -1437,17 +1446,17 @@ class _$UndefinedParagraphProperty implements UndefinedParagraphProperty {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$UndefinedParagraphPropertyToJson(
+    return _$$UndefinedParagraphPropertyImplToJson(
       this,
     );
   }
 }
 
 abstract class UndefinedParagraphProperty implements ParagraphProperty {
-  const factory UndefinedParagraphProperty() = _$UndefinedParagraphProperty;
+  const factory UndefinedParagraphProperty() = _$UndefinedParagraphPropertyImpl;
 
   factory UndefinedParagraphProperty.fromJson(Map<String, dynamic> json) =
-      _$UndefinedParagraphProperty.fromJson;
+      _$UndefinedParagraphPropertyImpl.fromJson;
 }
 
 AreaProperty _$AreaPropertyFromJson(Map<String, dynamic> json) {
@@ -1498,22 +1507,22 @@ class _$AreaPropertyCopyWithImpl<$Res, $Val extends AreaProperty>
 }
 
 /// @nodoc
-abstract class _$$_AreaPropertyCopyWith<$Res>
+abstract class _$$AreaPropertyImplCopyWith<$Res>
     implements $AreaPropertyCopyWith<$Res> {
-  factory _$$_AreaPropertyCopyWith(
-          _$_AreaProperty value, $Res Function(_$_AreaProperty) then) =
-      __$$_AreaPropertyCopyWithImpl<$Res>;
+  factory _$$AreaPropertyImplCopyWith(
+          _$AreaPropertyImpl value, $Res Function(_$AreaPropertyImpl) then) =
+      __$$AreaPropertyImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({VerticalAlignment alignment});
 }
 
 /// @nodoc
-class __$$_AreaPropertyCopyWithImpl<$Res>
-    extends _$AreaPropertyCopyWithImpl<$Res, _$_AreaProperty>
-    implements _$$_AreaPropertyCopyWith<$Res> {
-  __$$_AreaPropertyCopyWithImpl(
-      _$_AreaProperty _value, $Res Function(_$_AreaProperty) _then)
+class __$$AreaPropertyImplCopyWithImpl<$Res>
+    extends _$AreaPropertyCopyWithImpl<$Res, _$AreaPropertyImpl>
+    implements _$$AreaPropertyImplCopyWith<$Res> {
+  __$$AreaPropertyImplCopyWithImpl(
+      _$AreaPropertyImpl _value, $Res Function(_$AreaPropertyImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -1521,7 +1530,7 @@ class __$$_AreaPropertyCopyWithImpl<$Res>
   $Res call({
     Object? alignment = null,
   }) {
-    return _then(_$_AreaProperty(
+    return _then(_$AreaPropertyImpl(
       alignment: null == alignment
           ? _value.alignment
           : alignment // ignore: cast_nullable_to_non_nullable
@@ -1532,11 +1541,11 @@ class __$$_AreaPropertyCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_AreaProperty implements _AreaProperty {
-  const _$_AreaProperty({this.alignment = VerticalAlignment.top});
+class _$AreaPropertyImpl implements _AreaProperty {
+  const _$AreaPropertyImpl({this.alignment = VerticalAlignment.top});
 
-  factory _$_AreaProperty.fromJson(Map<String, dynamic> json) =>
-      _$$_AreaPropertyFromJson(json);
+  factory _$AreaPropertyImpl.fromJson(Map<String, dynamic> json) =>
+      _$$AreaPropertyImplFromJson(json);
 
   @override
   @JsonKey()
@@ -1551,7 +1560,7 @@ class _$_AreaProperty implements _AreaProperty {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_AreaProperty &&
+            other is _$AreaPropertyImpl &&
             (identical(other.alignment, alignment) ||
                 other.alignment == alignment));
   }
@@ -1563,12 +1572,12 @@ class _$_AreaProperty implements _AreaProperty {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_AreaPropertyCopyWith<_$_AreaProperty> get copyWith =>
-      __$$_AreaPropertyCopyWithImpl<_$_AreaProperty>(this, _$identity);
+  _$$AreaPropertyImplCopyWith<_$AreaPropertyImpl> get copyWith =>
+      __$$AreaPropertyImplCopyWithImpl<_$AreaPropertyImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_AreaPropertyToJson(
+    return _$$AreaPropertyImplToJson(
       this,
     );
   }
@@ -1576,16 +1585,16 @@ class _$_AreaProperty implements _AreaProperty {
 
 abstract class _AreaProperty implements AreaProperty {
   const factory _AreaProperty({final VerticalAlignment alignment}) =
-      _$_AreaProperty;
+      _$AreaPropertyImpl;
 
   factory _AreaProperty.fromJson(Map<String, dynamic> json) =
-      _$_AreaProperty.fromJson;
+      _$AreaPropertyImpl.fromJson;
 
   @override
   VerticalAlignment get alignment;
   @override
   @JsonKey(ignore: true)
-  _$$_AreaPropertyCopyWith<_$_AreaProperty> get copyWith =>
+  _$$AreaPropertyImplCopyWith<_$AreaPropertyImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -1683,10 +1692,11 @@ class _$TextSpanCopyWithImpl<$Res, $Val extends TextSpan>
 }
 
 /// @nodoc
-abstract class _$$_TextSpanCopyWith<$Res> implements $TextSpanCopyWith<$Res> {
-  factory _$$_TextSpanCopyWith(
-          _$_TextSpan value, $Res Function(_$_TextSpan) then) =
-      __$$_TextSpanCopyWithImpl<$Res>;
+abstract class _$$TextSpanImplCopyWith<$Res>
+    implements $TextSpanCopyWith<$Res> {
+  factory _$$TextSpanImplCopyWith(
+          _$TextSpanImpl value, $Res Function(_$TextSpanImpl) then) =
+      __$$TextSpanImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({String text, SpanProperty property});
@@ -1696,11 +1706,11 @@ abstract class _$$_TextSpanCopyWith<$Res> implements $TextSpanCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$_TextSpanCopyWithImpl<$Res>
-    extends _$TextSpanCopyWithImpl<$Res, _$_TextSpan>
-    implements _$$_TextSpanCopyWith<$Res> {
-  __$$_TextSpanCopyWithImpl(
-      _$_TextSpan _value, $Res Function(_$_TextSpan) _then)
+class __$$TextSpanImplCopyWithImpl<$Res>
+    extends _$TextSpanCopyWithImpl<$Res, _$TextSpanImpl>
+    implements _$$TextSpanImplCopyWith<$Res> {
+  __$$TextSpanImplCopyWithImpl(
+      _$TextSpanImpl _value, $Res Function(_$TextSpanImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -1709,7 +1719,7 @@ class __$$_TextSpanCopyWithImpl<$Res>
     Object? text = null,
     Object? property = null,
   }) {
-    return _then(_$_TextSpan(
+    return _then(_$TextSpanImpl(
       text: null == text
           ? _value.text
           : text // ignore: cast_nullable_to_non_nullable
@@ -1724,13 +1734,13 @@ class __$$_TextSpanCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_TextSpan extends _TextSpan {
-  const _$_TextSpan(
+class _$TextSpanImpl extends _TextSpan {
+  const _$TextSpanImpl(
       {this.text = '', this.property = const SpanProperty.undefined()})
       : super._();
 
-  factory _$_TextSpan.fromJson(Map<String, dynamic> json) =>
-      _$$_TextSpanFromJson(json);
+  factory _$TextSpanImpl.fromJson(Map<String, dynamic> json) =>
+      _$$TextSpanImplFromJson(json);
 
   @override
   @JsonKey()
@@ -1748,7 +1758,7 @@ class _$_TextSpan extends _TextSpan {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_TextSpan &&
+            other is _$TextSpanImpl &&
             (identical(other.text, text) || other.text == text) &&
             (identical(other.property, property) ||
                 other.property == property));
@@ -1761,8 +1771,8 @@ class _$_TextSpan extends _TextSpan {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_TextSpanCopyWith<_$_TextSpan> get copyWith =>
-      __$$_TextSpanCopyWithImpl<_$_TextSpan>(this, _$identity);
+  _$$TextSpanImplCopyWith<_$TextSpanImpl> get copyWith =>
+      __$$TextSpanImplCopyWithImpl<_$TextSpanImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -1822,7 +1832,7 @@ class _$_TextSpan extends _TextSpan {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_TextSpanToJson(
+    return _$$TextSpanImplToJson(
       this,
     );
   }
@@ -1830,10 +1840,11 @@ class _$_TextSpan extends _TextSpan {
 
 abstract class _TextSpan extends TextSpan {
   const factory _TextSpan({final String text, final SpanProperty property}) =
-      _$_TextSpan;
+      _$TextSpanImpl;
   const _TextSpan._() : super._();
 
-  factory _TextSpan.fromJson(Map<String, dynamic> json) = _$_TextSpan.fromJson;
+  factory _TextSpan.fromJson(Map<String, dynamic> json) =
+      _$TextSpanImpl.fromJson;
 
   @override
   String get text;
@@ -1841,7 +1852,7 @@ abstract class _TextSpan extends TextSpan {
   SpanProperty get property;
   @override
   @JsonKey(ignore: true)
-  _$$_TextSpanCopyWith<_$_TextSpan> get copyWith =>
+  _$$TextSpanImplCopyWith<_$TextSpanImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -1894,22 +1905,22 @@ class _$IndexedModelCopyWithImpl<T, $Res, $Val extends IndexedModel<T>>
 }
 
 /// @nodoc
-abstract class _$$_IndexedModelCopyWith<T, $Res>
+abstract class _$$IndexedModelImplCopyWith<T, $Res>
     implements $IndexedModelCopyWith<T, $Res> {
-  factory _$$_IndexedModelCopyWith(
-          _$_IndexedModel<T> value, $Res Function(_$_IndexedModel<T>) then) =
-      __$$_IndexedModelCopyWithImpl<T, $Res>;
+  factory _$$IndexedModelImplCopyWith(_$IndexedModelImpl<T> value,
+          $Res Function(_$IndexedModelImpl<T>) then) =
+      __$$IndexedModelImplCopyWithImpl<T, $Res>;
   @override
   @useResult
   $Res call({int index, T model});
 }
 
 /// @nodoc
-class __$$_IndexedModelCopyWithImpl<T, $Res>
-    extends _$IndexedModelCopyWithImpl<T, $Res, _$_IndexedModel<T>>
-    implements _$$_IndexedModelCopyWith<T, $Res> {
-  __$$_IndexedModelCopyWithImpl(
-      _$_IndexedModel<T> _value, $Res Function(_$_IndexedModel<T>) _then)
+class __$$IndexedModelImplCopyWithImpl<T, $Res>
+    extends _$IndexedModelCopyWithImpl<T, $Res, _$IndexedModelImpl<T>>
+    implements _$$IndexedModelImplCopyWith<T, $Res> {
+  __$$IndexedModelImplCopyWithImpl(
+      _$IndexedModelImpl<T> _value, $Res Function(_$IndexedModelImpl<T>) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -1918,7 +1929,7 @@ class __$$_IndexedModelCopyWithImpl<T, $Res>
     Object? index = null,
     Object? model = freezed,
   }) {
-    return _then(_$_IndexedModel<T>(
+    return _then(_$IndexedModelImpl<T>(
       null == index
           ? _value.index
           : index // ignore: cast_nullable_to_non_nullable
@@ -1933,8 +1944,8 @@ class __$$_IndexedModelCopyWithImpl<T, $Res>
 
 /// @nodoc
 
-class _$_IndexedModel<T> implements _IndexedModel<T> {
-  const _$_IndexedModel(this.index, this.model);
+class _$IndexedModelImpl<T> implements _IndexedModel<T> {
+  const _$IndexedModelImpl(this.index, this.model);
 
   @override
   final int index;
@@ -1950,7 +1961,7 @@ class _$_IndexedModel<T> implements _IndexedModel<T> {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_IndexedModel<T> &&
+            other is _$IndexedModelImpl<T> &&
             (identical(other.index, index) || other.index == index) &&
             const DeepCollectionEquality().equals(other.model, model));
   }
@@ -1962,13 +1973,14 @@ class _$_IndexedModel<T> implements _IndexedModel<T> {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_IndexedModelCopyWith<T, _$_IndexedModel<T>> get copyWith =>
-      __$$_IndexedModelCopyWithImpl<T, _$_IndexedModel<T>>(this, _$identity);
+  _$$IndexedModelImplCopyWith<T, _$IndexedModelImpl<T>> get copyWith =>
+      __$$IndexedModelImplCopyWithImpl<T, _$IndexedModelImpl<T>>(
+          this, _$identity);
 }
 
 abstract class _IndexedModel<T> implements IndexedModel<T> {
   const factory _IndexedModel(final int index, final T model) =
-      _$_IndexedModel<T>;
+      _$IndexedModelImpl<T>;
 
   @override
   int get index;
@@ -1976,7 +1988,7 @@ abstract class _IndexedModel<T> implements IndexedModel<T> {
   T get model;
   @override
   @JsonKey(ignore: true)
-  _$$_IndexedModelCopyWith<T, _$_IndexedModel<T>> get copyWith =>
+  _$$IndexedModelImplCopyWith<T, _$IndexedModelImpl<T>> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -2079,11 +2091,11 @@ class _$TextParagraphCopyWithImpl<$Res, $Val extends TextParagraph>
 }
 
 /// @nodoc
-abstract class _$$_ParagraphPropertyCopyWith<$Res>
+abstract class _$$ParagraphPropertyImplCopyWith<$Res>
     implements $TextParagraphCopyWith<$Res> {
-  factory _$$_ParagraphPropertyCopyWith(_$_ParagraphProperty value,
-          $Res Function(_$_ParagraphProperty) then) =
-      __$$_ParagraphPropertyCopyWithImpl<$Res>;
+  factory _$$ParagraphPropertyImplCopyWith(_$ParagraphPropertyImpl value,
+          $Res Function(_$ParagraphPropertyImpl) then) =
+      __$$ParagraphPropertyImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({ParagraphProperty property, List<TextSpan> textSpans});
@@ -2093,11 +2105,11 @@ abstract class _$$_ParagraphPropertyCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_ParagraphPropertyCopyWithImpl<$Res>
-    extends _$TextParagraphCopyWithImpl<$Res, _$_ParagraphProperty>
-    implements _$$_ParagraphPropertyCopyWith<$Res> {
-  __$$_ParagraphPropertyCopyWithImpl(
-      _$_ParagraphProperty _value, $Res Function(_$_ParagraphProperty) _then)
+class __$$ParagraphPropertyImplCopyWithImpl<$Res>
+    extends _$TextParagraphCopyWithImpl<$Res, _$ParagraphPropertyImpl>
+    implements _$$ParagraphPropertyImplCopyWith<$Res> {
+  __$$ParagraphPropertyImplCopyWithImpl(_$ParagraphPropertyImpl _value,
+      $Res Function(_$ParagraphPropertyImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -2106,7 +2118,7 @@ class __$$_ParagraphPropertyCopyWithImpl<$Res>
     Object? property = null,
     Object? textSpans = null,
   }) {
-    return _then(_$_ParagraphProperty(
+    return _then(_$ParagraphPropertyImpl(
       property: null == property
           ? _value.property
           : property // ignore: cast_nullable_to_non_nullable
@@ -2121,15 +2133,15 @@ class __$$_ParagraphPropertyCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_ParagraphProperty extends _ParagraphProperty {
-  const _$_ParagraphProperty(
+class _$ParagraphPropertyImpl extends _ParagraphProperty {
+  const _$ParagraphPropertyImpl(
       {this.property = const ParagraphProperty.undefined(),
       final List<TextSpan> textSpans = const []})
       : _textSpans = textSpans,
         super._();
 
-  factory _$_ParagraphProperty.fromJson(Map<String, dynamic> json) =>
-      _$$_ParagraphPropertyFromJson(json);
+  factory _$ParagraphPropertyImpl.fromJson(Map<String, dynamic> json) =>
+      _$$ParagraphPropertyImplFromJson(json);
 
   @override
   @JsonKey()
@@ -2152,7 +2164,7 @@ class _$_ParagraphProperty extends _ParagraphProperty {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_ParagraphProperty &&
+            other is _$ParagraphPropertyImpl &&
             (identical(other.property, property) ||
                 other.property == property) &&
             const DeepCollectionEquality()
@@ -2167,8 +2179,8 @@ class _$_ParagraphProperty extends _ParagraphProperty {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_ParagraphPropertyCopyWith<_$_ParagraphProperty> get copyWith =>
-      __$$_ParagraphPropertyCopyWithImpl<_$_ParagraphProperty>(
+  _$$ParagraphPropertyImplCopyWith<_$ParagraphPropertyImpl> get copyWith =>
+      __$$ParagraphPropertyImplCopyWithImpl<_$ParagraphPropertyImpl>(
           this, _$identity);
 
   @override
@@ -2233,7 +2245,7 @@ class _$_ParagraphProperty extends _ParagraphProperty {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_ParagraphPropertyToJson(
+    return _$$ParagraphPropertyImplToJson(
       this,
     );
   }
@@ -2242,11 +2254,11 @@ class _$_ParagraphProperty extends _ParagraphProperty {
 abstract class _ParagraphProperty extends TextParagraph {
   const factory _ParagraphProperty(
       {final ParagraphProperty property,
-      final List<TextSpan> textSpans}) = _$_ParagraphProperty;
+      final List<TextSpan> textSpans}) = _$ParagraphPropertyImpl;
   const _ParagraphProperty._() : super._();
 
   factory _ParagraphProperty.fromJson(Map<String, dynamic> json) =
-      _$_ParagraphProperty.fromJson;
+      _$ParagraphPropertyImpl.fromJson;
 
   @override
   ParagraphProperty get property;
@@ -2254,7 +2266,7 @@ abstract class _ParagraphProperty extends TextParagraph {
   List<TextSpan> get textSpans;
   @override
   @JsonKey(ignore: true)
-  _$$_ParagraphPropertyCopyWith<_$_ParagraphProperty> get copyWith =>
+  _$$ParagraphPropertyImplCopyWith<_$ParagraphPropertyImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -2330,10 +2342,11 @@ class _$TextAreaCopyWithImpl<$Res, $Val extends TextArea>
 }
 
 /// @nodoc
-abstract class _$$_TextAreaCopyWith<$Res> implements $TextAreaCopyWith<$Res> {
-  factory _$$_TextAreaCopyWith(
-          _$_TextArea value, $Res Function(_$_TextArea) then) =
-      __$$_TextAreaCopyWithImpl<$Res>;
+abstract class _$$TextAreaImplCopyWith<$Res>
+    implements $TextAreaCopyWith<$Res> {
+  factory _$$TextAreaImplCopyWith(
+          _$TextAreaImpl value, $Res Function(_$TextAreaImpl) then) =
+      __$$TextAreaImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({AreaProperty areaProperty, TextParagraph paragraph});
@@ -2345,11 +2358,11 @@ abstract class _$$_TextAreaCopyWith<$Res> implements $TextAreaCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$_TextAreaCopyWithImpl<$Res>
-    extends _$TextAreaCopyWithImpl<$Res, _$_TextArea>
-    implements _$$_TextAreaCopyWith<$Res> {
-  __$$_TextAreaCopyWithImpl(
-      _$_TextArea _value, $Res Function(_$_TextArea) _then)
+class __$$TextAreaImplCopyWithImpl<$Res>
+    extends _$TextAreaCopyWithImpl<$Res, _$TextAreaImpl>
+    implements _$$TextAreaImplCopyWith<$Res> {
+  __$$TextAreaImplCopyWithImpl(
+      _$TextAreaImpl _value, $Res Function(_$TextAreaImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -2358,7 +2371,7 @@ class __$$_TextAreaCopyWithImpl<$Res>
     Object? areaProperty = null,
     Object? paragraph = null,
   }) {
-    return _then(_$_TextArea(
+    return _then(_$TextAreaImpl(
       areaProperty: null == areaProperty
           ? _value.areaProperty
           : areaProperty // ignore: cast_nullable_to_non_nullable
@@ -2373,13 +2386,13 @@ class __$$_TextAreaCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_TextArea extends _TextArea {
-  const _$_TextArea(
+class _$TextAreaImpl extends _TextArea {
+  const _$TextAreaImpl(
       {this.areaProperty = const AreaProperty(), required this.paragraph})
       : super._();
 
-  factory _$_TextArea.fromJson(Map<String, dynamic> json) =>
-      _$$_TextAreaFromJson(json);
+  factory _$TextAreaImpl.fromJson(Map<String, dynamic> json) =>
+      _$$TextAreaImplFromJson(json);
 
   @override
   @JsonKey()
@@ -2396,7 +2409,7 @@ class _$_TextArea extends _TextArea {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_TextArea &&
+            other is _$TextAreaImpl &&
             (identical(other.areaProperty, areaProperty) ||
                 other.areaProperty == areaProperty) &&
             (identical(other.paragraph, paragraph) ||
@@ -2410,12 +2423,12 @@ class _$_TextArea extends _TextArea {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_TextAreaCopyWith<_$_TextArea> get copyWith =>
-      __$$_TextAreaCopyWithImpl<_$_TextArea>(this, _$identity);
+  _$$TextAreaImplCopyWith<_$TextAreaImpl> get copyWith =>
+      __$$TextAreaImplCopyWithImpl<_$TextAreaImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_TextAreaToJson(
+    return _$$TextAreaImplToJson(
       this,
     );
   }
@@ -2424,10 +2437,11 @@ class _$_TextArea extends _TextArea {
 abstract class _TextArea extends TextArea {
   const factory _TextArea(
       {final AreaProperty areaProperty,
-      required final TextParagraph paragraph}) = _$_TextArea;
+      required final TextParagraph paragraph}) = _$TextAreaImpl;
   const _TextArea._() : super._();
 
-  factory _TextArea.fromJson(Map<String, dynamic> json) = _$_TextArea.fromJson;
+  factory _TextArea.fromJson(Map<String, dynamic> json) =
+      _$TextAreaImpl.fromJson;
 
   @override
   AreaProperty get areaProperty;
@@ -2435,7 +2449,7 @@ abstract class _TextArea extends TextArea {
   TextParagraph get paragraph;
   @override
   @JsonKey(ignore: true)
-  _$$_TextAreaCopyWith<_$_TextArea> get copyWith =>
+  _$$TextAreaImplCopyWith<_$TextAreaImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -2504,11 +2518,11 @@ class _$TextStyleSheetCopyWithImpl<$Res, $Val extends TextStyleSheet>
 }
 
 /// @nodoc
-abstract class _$$_TextStyleSheetCopyWith<$Res>
+abstract class _$$TextStyleSheetImplCopyWith<$Res>
     implements $TextStyleSheetCopyWith<$Res> {
-  factory _$$_TextStyleSheetCopyWith(
-          _$_TextStyleSheet value, $Res Function(_$_TextStyleSheet) then) =
-      __$$_TextStyleSheetCopyWithImpl<$Res>;
+  factory _$$TextStyleSheetImplCopyWith(_$TextStyleSheetImpl value,
+          $Res Function(_$TextStyleSheetImpl) then) =
+      __$$TextStyleSheetImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -2518,11 +2532,11 @@ abstract class _$$_TextStyleSheetCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_TextStyleSheetCopyWithImpl<$Res>
-    extends _$TextStyleSheetCopyWithImpl<$Res, _$_TextStyleSheet>
-    implements _$$_TextStyleSheetCopyWith<$Res> {
-  __$$_TextStyleSheetCopyWithImpl(
-      _$_TextStyleSheet _value, $Res Function(_$_TextStyleSheet) _then)
+class __$$TextStyleSheetImplCopyWithImpl<$Res>
+    extends _$TextStyleSheetCopyWithImpl<$Res, _$TextStyleSheetImpl>
+    implements _$$TextStyleSheetImplCopyWith<$Res> {
+  __$$TextStyleSheetImplCopyWithImpl(
+      _$TextStyleSheetImpl _value, $Res Function(_$TextStyleSheetImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -2532,7 +2546,7 @@ class __$$_TextStyleSheetCopyWithImpl<$Res>
     Object? spanProperties = null,
     Object? paragraphProperties = null,
   }) {
-    return _then(_$_TextStyleSheet(
+    return _then(_$TextStyleSheetImpl(
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -2551,8 +2565,8 @@ class __$$_TextStyleSheetCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_TextStyleSheet extends _TextStyleSheet {
-  const _$_TextStyleSheet(
+class _$TextStyleSheetImpl extends _TextStyleSheet {
+  const _$TextStyleSheetImpl(
       {this.name = '',
       final Map<String, DefinedSpanProperty> spanProperties = const {},
       final Map<String, DefinedParagraphProperty> paragraphProperties =
@@ -2561,8 +2575,8 @@ class _$_TextStyleSheet extends _TextStyleSheet {
         _paragraphProperties = paragraphProperties,
         super._();
 
-  factory _$_TextStyleSheet.fromJson(Map<String, dynamic> json) =>
-      _$$_TextStyleSheetFromJson(json);
+  factory _$TextStyleSheetImpl.fromJson(Map<String, dynamic> json) =>
+      _$$TextStyleSheetImplFromJson(json);
 
   @override
   @JsonKey()
@@ -2595,7 +2609,7 @@ class _$_TextStyleSheet extends _TextStyleSheet {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_TextStyleSheet &&
+            other is _$TextStyleSheetImpl &&
             (identical(other.name, name) || other.name == name) &&
             const DeepCollectionEquality()
                 .equals(other._spanProperties, _spanProperties) &&
@@ -2614,12 +2628,13 @@ class _$_TextStyleSheet extends _TextStyleSheet {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_TextStyleSheetCopyWith<_$_TextStyleSheet> get copyWith =>
-      __$$_TextStyleSheetCopyWithImpl<_$_TextStyleSheet>(this, _$identity);
+  _$$TextStyleSheetImplCopyWith<_$TextStyleSheetImpl> get copyWith =>
+      __$$TextStyleSheetImplCopyWithImpl<_$TextStyleSheetImpl>(
+          this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_TextStyleSheetToJson(
+    return _$$TextStyleSheetImplToJson(
       this,
     );
   }
@@ -2630,11 +2645,11 @@ abstract class _TextStyleSheet extends TextStyleSheet {
           {final String name,
           final Map<String, DefinedSpanProperty> spanProperties,
           final Map<String, DefinedParagraphProperty> paragraphProperties}) =
-      _$_TextStyleSheet;
+      _$TextStyleSheetImpl;
   const _TextStyleSheet._() : super._();
 
   factory _TextStyleSheet.fromJson(Map<String, dynamic> json) =
-      _$_TextStyleSheet.fromJson;
+      _$TextStyleSheetImpl.fromJson;
 
   @override
   String get name;
@@ -2644,6 +2659,6 @@ abstract class _TextStyleSheet extends TextStyleSheet {
   Map<String, DefinedParagraphProperty> get paragraphProperties;
   @override
   @JsonKey(ignore: true)
-  _$$_TextStyleSheetCopyWith<_$_TextStyleSheet> get copyWith =>
+  _$$TextStyleSheetImplCopyWith<_$TextStyleSheetImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

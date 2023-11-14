@@ -12,9 +12,9 @@ Bine ați venit la secțiunea comunitate.
 
 Mulțumiri speciale se referă la:
 
-* <https://github.com/flutter/flutter> pentru că oferă acest cadru util pentru o platformă crossplatform ui
-* <https://github.com/leanflutter/window_manager> pentru toate aceste funcții utile ale ferestrei desktop
-* <https://github.com/facebook/docusaurus> pentru un cadru de documentație statică de reacție de tip reacție ușor de utilizat
+* [Flutter](https://github.com/flutter/flutter) pentru furnizarea acestui cadru util pentru platforma intersectare ui
+* [window_manager](https://github.com/leanflutter/window_manager) pentru toate aceste funcții utile pentru fereastra desktop
+* [Docusaurus](https://github.com/facebook/docusaurus) pentru un documentație de reacție statică ușor de utilizat
 
 Toate celelalte licențe pot fi găsite în setări.
 
@@ -22,4 +22,4 @@ Toate celelalte licențe pot fi găsite în setări.
 
 * [GitHub](https://github.com/LinwoodDev/Butterfly)
 * [Discord](https://go.linwood.dev/discord)
-* [Matrix](https://go.linwood.dev/matrix)
+* [Matricea](https://go.linwood.dev/matrix)

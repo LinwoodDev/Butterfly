@@ -1,3 +1,4 @@
+import 'package:butterfly/visualizer/text.dart';
 import 'package:butterfly_api/butterfly_text.dart' as text;
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -47,6 +48,7 @@ class _TextStyleViewState extends State<TextStyleView> {
                 ? null
                 : IconButton(
                     icon: const PhosphorIcon(PhosphorIconsLight.eraser),
+                    tooltip: AppLocalizations.of(context).remove,
                     onPressed: () =>
                         widget.onChanged(widget.value.copyWith(color: null))),
             defaultColor: null,
@@ -65,6 +67,7 @@ class _TextStyleViewState extends State<TextStyleView> {
                 ? null
                 : IconButton(
                     icon: const PhosphorIcon(PhosphorIconsLight.eraser),
+                    tooltip: AppLocalizations.of(context).remove,
                     onPressed: () => widget.onChanged(
                         widget.value.copyWith(backgroundColor: null))),
             defaultColor: null,
@@ -79,6 +82,7 @@ class _TextStyleViewState extends State<TextStyleView> {
                 ? null
                 : IconButton(
                     icon: const PhosphorIcon(PhosphorIconsLight.eraser),
+                    tooltip: AppLocalizations.of(context).remove,
                     onPressed: () =>
                         widget.onChanged(widget.value.copyWith(size: null)),
                   ),
@@ -97,6 +101,7 @@ class _TextStyleViewState extends State<TextStyleView> {
                 ? null
                 : IconButton(
                     icon: const PhosphorIcon(PhosphorIconsLight.eraser),
+                    tooltip: AppLocalizations.of(context).remove,
                     onPressed: () => widget
                         .onChanged(widget.value.copyWith(letterSpacing: null)),
                   ),
@@ -177,32 +182,11 @@ class _TextStyleViewState extends State<TextStyleView> {
                                 initialSelection: widget.value.decorationStyle,
                                 dropdownMenuEntries: [
                                   ...text.TextDecorationStyle.values
-                                      .map((style) {
-                                    String name;
-                                    switch (style) {
-                                      case text.TextDecorationStyle.solid:
-                                        name =
-                                            AppLocalizations.of(context).solid;
-                                        break;
-                                      case text.TextDecorationStyle.dashed:
-                                        name =
-                                            AppLocalizations.of(context).dashed;
-                                        break;
-                                      case text.TextDecorationStyle.dotted:
-                                        name =
-                                            AppLocalizations.of(context).dotted;
-                                        break;
-                                      case text.TextDecorationStyle.double:
-                                        name =
-                                            AppLocalizations.of(context).double;
-                                        break;
-                                      case text.TextDecorationStyle.wavy:
-                                        name =
-                                            AppLocalizations.of(context).wavy;
-                                    }
-                                    return DropdownMenuEntry(
-                                        value: style, label: name);
-                                  }).toList(),
+                                      .map((style) => DropdownMenuEntry(
+                                            value: style,
+                                            label:
+                                                style.getLocalizedName(context),
+                                          )),
                                   DropdownMenuEntry(
                                     value: null,
                                     label: AppLocalizations.of(context).notSet,
@@ -225,6 +209,8 @@ class _TextStyleViewState extends State<TextStyleView> {
                                 : IconButton(
                                     icon: const PhosphorIcon(
                                         PhosphorIconsLight.eraser),
+                                    tooltip:
+                                        AppLocalizations.of(context).remove,
                                     onPressed: () => widget.onChanged(widget
                                         .value
                                         .copyWith(decorationColor: null))),
@@ -246,6 +232,8 @@ class _TextStyleViewState extends State<TextStyleView> {
                                   : IconButton(
                                       icon: const PhosphorIcon(
                                           PhosphorIconsLight.eraser),
+                                      tooltip:
+                                          AppLocalizations.of(context).remove,
                                       onPressed: () => widget.onChanged(widget
                                           .value
                                           .copyWith(decorationThickness: null)),

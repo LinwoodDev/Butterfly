@@ -3,6 +3,12 @@ title: "Opslagruimte"
 sidebar_position: 2
 ---
 
+## Data map
+
+De gegevensmap is de map waar documenten, sjablonen en pakketten worden opgeslagen. Op het bureaublad vindt u het in `~/Documenten/Linwood/Butterfly`. Op mobiel is het in `getExternalFilesDir(null)/Linwood/Butterfly`. Je kunt het ook wijzigen in de instellingen onder `Gegevens`.
+
+In deze map vindt u een map `Documenten`, `Templates` en `Pakketten`.
+
 ## Internet
 
 De applicatiegegevens worden opgeslagen in uw browser. Het wordt opgeslagen in een lokale opslag. Open de ontwikkelaarshulpmiddelen in uw browser en u zult de gegevens zien.

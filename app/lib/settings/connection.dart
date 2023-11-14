@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 class ConnectionSettingsPage extends StatefulWidget {
@@ -17,13 +18,16 @@ class ConnectionSettingsPage extends StatefulWidget {
 class _ConnectionSettingsPageState extends State<ConnectionSettingsPage>
     with TickerProviderStateMixin {
   late TabController _tabController;
+  ExternalStorage? storage;
 
   @override
   void initState() {
     super.initState();
-
-    _tabController = TabController(length: 2, vsync: this);
+    storage = context.read<SettingsCubit>().getRemote(widget.remote);
+    _tabController = TabController(length: _isRemote ? 2 : 1, vsync: this);
   }
+
+  bool get _isRemote => storage is RemoteStorage;
 
   @override
   void dispose() {
@@ -41,46 +45,39 @@ class _ConnectionSettingsPageState extends State<ConnectionSettingsPage>
       ];
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<SettingsCubit, ButterflySettings>(
-      builder: (context, state) {
-        final storage = state.getRemote(widget.remote);
-        return Scaffold(
-          appBar: WindowTitleBar(
-            title: Text(widget.remote),
-            bottom: TabBar(
+    return Scaffold(
+      appBar: WindowTitleBar(
+        title: Text(widget.remote),
+        bottom: _isRemote
+            ? TabBar(
+                controller: _tabController,
+                onTap: (_) => setState(() {}),
+                tabs: [
+                  HorizontalTab(
+                    icon: const PhosphorIcon(PhosphorIconsLight.gear),
+                    label: Text(AppLocalizations.of(context).general),
+                  ),
+                  HorizontalTab(
+                    icon: const PhosphorIcon(PhosphorIconsLight.files),
+                    label: Text(AppLocalizations.of(context).caches),
+                  ),
+                ],
+                isScrollable: true,
+              )
+            : null,
+      ),
+      body: storage == null
+          ? Center(child: Text(AppLocalizations.of(context).noConnections))
+          : TabBarView(
               controller: _tabController,
-              onTap: (_) => setState(() {}),
-              tabs: [
-                Tab(
-                  child: Row(children: [
-                    const PhosphorIcon(PhosphorIconsLight.gear),
-                    const SizedBox(width: 8),
-                    Text(AppLocalizations.of(context).general),
-                  ]),
-                ),
-                Tab(
-                  child: Row(children: [
-                    const PhosphorIcon(PhosphorIconsLight.files),
-                    const SizedBox(width: 8),
-                    Text(AppLocalizations.of(context).caches),
-                  ]),
-                ),
+              children: [
+                _GeneralConnectionSettingsView(storage: storage!),
+                if (_isRemote)
+                  _CachesConnectionSettingsView(
+                      storage: storage as RemoteStorage),
               ],
-              isScrollable: true,
             ),
-          ),
-          body: storage == null
-              ? Center(child: Text(AppLocalizations.of(context).noConnections))
-              : TabBarView(
-                  controller: _tabController,
-                  children: [
-                    _GeneralConnectionSettingsView(storage: storage),
-                    _CachesConnectionSettingsView(storage: storage),
-                  ],
-                ),
-          floatingActionButton: _createFab()[_tabController.index],
-        );
-      },
+      floatingActionButton: _createFab()[_tabController.index],
     );
   }
 
@@ -121,7 +118,7 @@ class _ConnectionSettingsPageState extends State<ConnectionSettingsPage>
 }
 
 class _GeneralConnectionSettingsView extends StatelessWidget {
-  final RemoteStorage storage;
+  final ExternalStorage storage;
   const _GeneralConnectionSettingsView({required this.storage});
 
   @override
@@ -141,38 +138,41 @@ class _GeneralConnectionSettingsView extends StatelessWidget {
                     Text(AppLocalizations.of(context).manage,
                         style: Theme.of(context).textTheme.headlineSmall),
                     const SizedBox(height: 16),
-                    BlocBuilder<SettingsCubit, ButterflySettings>(
-                        builder: (context, state) {
-                      final storage = state.getRemote(this.storage.identifier);
-                      return CheckboxListTile(
-                        value: storage?.cachedDocuments.contains('/'),
-                        onChanged: (value) {
-                          if (storage == null) return;
-                          if (storage.cachedDocuments.contains('/')) {
-                            context.read<SettingsCubit>().removeCache(
-                                  storage.identifier,
-                                  '/',
-                                );
-                          } else {
-                            context.read<SettingsCubit>().addCache(
-                                  storage.identifier,
-                                  '/',
-                                );
-                          }
+                    if (storage is RemoteStorage) ...[
+                      BlocBuilder<SettingsCubit, ButterflySettings>(
+                          builder: (context, state) {
+                        final storage = state.getRemote(this.storage.identifier)
+                            as RemoteStorage?;
+                        return CheckboxListTile(
+                          value: storage?.cachedDocuments.contains('/'),
+                          onChanged: (value) {
+                            if (storage == null) return;
+                            if (storage.cachedDocuments.contains('/')) {
+                              context.read<SettingsCubit>().removeCache(
+                                    storage.identifier,
+                                    '/',
+                                  );
+                            } else {
+                              context.read<SettingsCubit>().addCache(
+                                    storage.identifier,
+                                    '/',
+                                  );
+                            }
+                          },
+                          title: Text(
+                              AppLocalizations.of(context).syncRootDirectory),
+                          secondary:
+                              const PhosphorIcon(PhosphorIconsLight.folder),
+                        );
+                      }),
+                      ListTile(
+                        title: Text(AppLocalizations.of(context).clearCaches),
+                        leading: const PhosphorIcon(PhosphorIconsLight.fileX),
+                        onTap: () {
+                          context.read<SettingsCubit>().clearCaches(storage);
                         },
-                        title: Text(
-                            AppLocalizations.of(context).syncRootDirectory),
-                        secondary:
-                            const PhosphorIcon(PhosphorIconsLight.folder),
-                      );
-                    }),
-                    ListTile(
-                      title: Text(AppLocalizations.of(context).clearCaches),
-                      leading: const PhosphorIcon(PhosphorIconsLight.fileX),
-                      onTap: () {
-                        context.read<SettingsCubit>().clearCaches(storage);
-                      },
-                    ),
+                      ),
+                    ],
                     ListTile(
                       title: Text(AppLocalizations.of(context).delete),
                       leading: const PhosphorIcon(PhosphorIconsLight.trash),
@@ -198,28 +198,31 @@ class _CachesConnectionSettingsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Align(
-      alignment: Alignment.center,
-      child: ConstrainedBox(
-        constraints: const BoxConstraints(maxWidth: 600),
-        child: ListView.builder(
-          itemCount: storage.cachedDocuments.length,
-          itemBuilder: (context, index) {
-            final current = storage.cachedDocuments[index];
-            return Dismissible(
-              key: Key(current),
-              onDismissed: (_) {
-                context
-                    .read<SettingsCubit>()
-                    .removeCache(storage.identifier, current);
-              },
-              child: ListTile(
-                title: Text(current),
-              ),
-            );
-          },
+    return BlocBuilder<SettingsCubit, ButterflySettings>(
+        builder: (context, state) {
+      return Align(
+        alignment: Alignment.center,
+        child: ConstrainedBox(
+          constraints: const BoxConstraints(maxWidth: 600),
+          child: ListView.builder(
+            itemCount: storage.cachedDocuments.length,
+            itemBuilder: (context, index) {
+              final current = storage.cachedDocuments[index];
+              return Dismissible(
+                key: Key(current),
+                onDismissed: (_) {
+                  context
+                      .read<SettingsCubit>()
+                      .removeCache(storage.identifier, current);
+                },
+                child: ListTile(
+                  title: Text(current),
+                ),
+              );
+            },
+          ),
         ),
-      ),
-    );
+      );
+    });
   }
 }

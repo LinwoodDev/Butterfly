@@ -28,10 +28,10 @@ class SyncService {
 
   RemoteSync? getSync(String remote) {
     if (kIsWeb) return null;
-    var sync = _syncs
+    var current = _syncs
         .firstWhereOrNull((sync) => sync.remoteStorage.identifier == remote);
-    sync ??= _createSync(remote);
-    return sync;
+    current ??= _createSync(remote);
+    return current;
   }
 
   RemoteSync? _createSync(String remote) {
@@ -40,11 +40,11 @@ class SyncService {
     if (storage == null) {
       return null;
     }
-    final sync = RemoteSync(context, settingsCubit, storage);
-    sync.statusStream.listen((status) => _refreshStatus());
-    _syncs.add(sync);
-    sync.autoSync();
-    return sync;
+    final current = RemoteSync(context, settingsCubit, storage);
+    current.statusStream.listen((status) => _refreshStatus());
+    _syncs.add(current);
+    current.autoSync();
+    return current;
   }
 
   Future<void> sync() async {
@@ -61,7 +61,7 @@ class SyncService {
 
   void _loadSettings(ButterflySettings settings) {
     if (kIsWeb) return;
-    for (final remote in settings.remotes) {
+    for (final remote in settings.connections) {
       if (!_hasSync(remote.identifier)) _createSync(remote.identifier);
     }
     _refreshStatus();
@@ -92,7 +92,7 @@ enum SyncStatus {
 
 class RemoteSync {
   final BuildContext context;
-  final RemoteStorage remoteStorage;
+  final ExternalStorage remoteStorage;
   final SettingsCubit settingsCubit;
   final BehaviorSubject<List<SyncFile>> _filesSubject =
       BehaviorSubject<List<SyncFile>>();
@@ -135,8 +135,8 @@ class RemoteSync {
       return;
     }
     _statusSubject.add(SyncStatus.syncing);
-    final fileSystem = DocumentFileSystem.fromPlatform(remote: remoteStorage)
-        as DocumentRemoteSystem;
+    final fileSystem = DocumentFileSystem.fromPlatform(remote: remoteStorage);
+    if (fileSystem is! DocumentRemoteSystem) return;
     var files = <SyncFile>[];
     _filesSubject.add([]);
     final currentFiles = await fileSystem.getAllSyncFiles();
@@ -232,7 +232,7 @@ class RemoteSync {
         return fileSystem.deleteCachedContent(path);
       case FileSyncStatus.conflict:
         await fileSystem.cache(path);
-        final remoteAsset = await fileSystem.getAsset(path, forceRemote: true);
+        final remoteAsset = await fileSystem.fetchAsset(path, true, true).last;
         await remoteAsset?.maybeMap(
           file: (file) async {
             if (remoteAsset is! AppDocumentFile) return;

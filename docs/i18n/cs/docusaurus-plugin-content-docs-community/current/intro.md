@@ -12,9 +12,9 @@ Vítejte v sekci komunity.
 
 Zvláštní poděkování patří na:
 
-* <https://github.com/flutter/flutter> pro poskytnutí tohoto užitečného crossplatform ui framework
-* <https://github.com/leanflutter/window_manager> pro všechny tyto užitečné funkce desktopového okna
-* <https://github.com/facebook/docusaurus> pro snadno použitelný rámec pro dokumentaci statické reakce
+* [Flutter](https://github.com/flutter/flutter) pro poskytování tohoto užitečného crossplatformního ui framework
+* [window_manager](https://github.com/leanflutter/window_manager) pro všechny tyto užitečné funkce desktopového okna
+* [Docusaurus](https://github.com/facebook/docusaurus) pro snadno použitelný rámec pro dokumentaci statické reakce
 
 Všechny ostatní licence naleznete v nastavení.
 
@@ -22,4 +22,4 @@ Všechny ostatní licence naleznete v nastavení.
 
 * [GitHub](https://github.com/LinwoodDev/Butterfly)
 * [Discord](https://go.linwood.dev/discord)
-* [Matrix](https://go.linwood.dev/matrix)
+* [Matice](https://go.linwood.dev/matrix)

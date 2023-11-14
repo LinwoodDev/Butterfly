@@ -13,8 +13,11 @@ Jest kilka skrótów, których możesz użyć w edytorze. Niektóre z nich są n
 * `Ctrl` + `N`: Nowy plik
 * `Ctrl` + `Shift` + `N`: Nowy plik z szablonu
 * `Ctrl` + `E`: Eksportuj plik
+* `Ctrl` + `P`: Wydrukuj plik
 * `Ctrl` + `Shift` + `E`: Eksportuj plik jako obraz
 * `Ctrl` + `Alt` + `E`: Eksportuj plik jako svg
+* `Ctrl` + `Alt` + `Shift` + `E`: Eksportuj plik jako svg
+* `Ctrl` + `Alt` + `P`: Otwórz pakiety
 * `Ctrl` + `Alt` + `S`: Otwórz ustawienia
 
 ### Projekt
@@ -28,6 +31,8 @@ Jest kilka skrótów, których możesz użyć w edytorze. Niektóre z nich są n
 * `Ctrl` + `S`: Zapisz
 * `Alt` + `S`: Zmień ścieżkę
 * `Ctrl` + (`1` - `0`): Przełącz na narzędzie
+* `Ctrl` + `+`: Przybliż
+* `Ctrl` + `-`: Pomniejsz
 
 ## Stylus
 

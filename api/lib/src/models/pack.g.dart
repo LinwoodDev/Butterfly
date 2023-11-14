@@ -6,8 +6,8 @@ part of 'pack.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_ButterflyComponent _$$_ButterflyComponentFromJson(Map json) =>
-    _$_ButterflyComponent(
+_$ButterflyComponentImpl _$$ButterflyComponentImplFromJson(Map json) =>
+    _$ButterflyComponentImpl(
       name: json['name'] as String,
       thumbnail: json['thumbnail'] as String?,
       elements: (json['elements'] as List<dynamic>?)
@@ -17,22 +17,23 @@ _$_ButterflyComponent _$$_ButterflyComponentFromJson(Map json) =>
           const <PadElement>[],
     );
 
-Map<String, dynamic> _$$_ButterflyComponentToJson(
-        _$_ButterflyComponent instance) =>
+Map<String, dynamic> _$$ButterflyComponentImplToJson(
+        _$ButterflyComponentImpl instance) =>
     <String, dynamic>{
       'name': instance.name,
       'thumbnail': instance.thumbnail,
       'elements': instance.elements.map((e) => e.toJson()).toList(),
     };
 
-_$TextParameter _$$TextParameterFromJson(Map json) => _$TextParameter(
+_$TextParameterImpl _$$TextParameterImplFromJson(Map json) =>
+    _$TextParameterImpl(
       child: json['child'] as int,
       name: json['name'] as String,
       value: json['value'] as String,
       $type: json['type'] as String?,
     );
 
-Map<String, dynamic> _$$TextParameterToJson(_$TextParameter instance) =>
+Map<String, dynamic> _$$TextParameterImplToJson(_$TextParameterImpl instance) =>
     <String, dynamic>{
       'child': instance.child,
       'name': instance.name,
@@ -40,14 +41,16 @@ Map<String, dynamic> _$$TextParameterToJson(_$TextParameter instance) =>
       'type': instance.$type,
     };
 
-_$ColorParameter _$$ColorParameterFromJson(Map json) => _$ColorParameter(
+_$ColorParameterImpl _$$ColorParameterImplFromJson(Map json) =>
+    _$ColorParameterImpl(
       child: json['child'] as int,
       name: json['name'] as String,
       value: json['value'] as int,
       $type: json['type'] as String?,
     );
 
-Map<String, dynamic> _$$ColorParameterToJson(_$ColorParameter instance) =>
+Map<String, dynamic> _$$ColorParameterImplToJson(
+        _$ColorParameterImpl instance) =>
     <String, dynamic>{
       'child': instance.child,
       'name': instance.name,
@@ -55,14 +58,15 @@ Map<String, dynamic> _$$ColorParameterToJson(_$ColorParameter instance) =>
       'type': instance.$type,
     };
 
-_$BoolParameter _$$BoolParameterFromJson(Map json) => _$BoolParameter(
+_$BoolParameterImpl _$$BoolParameterImplFromJson(Map json) =>
+    _$BoolParameterImpl(
       child: json['child'] as int,
       name: json['name'] as String,
       value: json['value'] as bool,
       $type: json['type'] as String?,
     );
 
-Map<String, dynamic> _$$BoolParameterToJson(_$BoolParameter instance) =>
+Map<String, dynamic> _$$BoolParameterImplToJson(_$BoolParameterImpl instance) =>
     <String, dynamic>{
       'child': instance.child,
       'name': instance.name,
@@ -70,14 +74,14 @@ Map<String, dynamic> _$$BoolParameterToJson(_$BoolParameter instance) =>
       'type': instance.$type,
     };
 
-_$IntParameter _$$IntParameterFromJson(Map json) => _$IntParameter(
+_$IntParameterImpl _$$IntParameterImplFromJson(Map json) => _$IntParameterImpl(
       child: json['child'] as int,
       name: json['name'] as String,
       value: json['value'] as int,
       $type: json['type'] as String?,
     );
 
-Map<String, dynamic> _$$IntParameterToJson(_$IntParameter instance) =>
+Map<String, dynamic> _$$IntParameterImplToJson(_$IntParameterImpl instance) =>
     <String, dynamic>{
       'child': instance.child,
       'name': instance.name,
@@ -85,14 +89,16 @@ Map<String, dynamic> _$$IntParameterToJson(_$IntParameter instance) =>
       'type': instance.$type,
     };
 
-_$DoubleParameter _$$DoubleParameterFromJson(Map json) => _$DoubleParameter(
+_$DoubleParameterImpl _$$DoubleParameterImplFromJson(Map json) =>
+    _$DoubleParameterImpl(
       child: json['child'] as int,
       name: json['name'] as String,
       value: (json['value'] as num).toDouble(),
       $type: json['type'] as String?,
     );
 
-Map<String, dynamic> _$$DoubleParameterToJson(_$DoubleParameter instance) =>
+Map<String, dynamic> _$$DoubleParameterImplToJson(
+        _$DoubleParameterImpl instance) =>
     <String, dynamic>{
       'child': instance.child,
       'name': instance.name,
@@ -100,14 +106,14 @@ Map<String, dynamic> _$$DoubleParameterToJson(_$DoubleParameter instance) =>
       'type': instance.$type,
     };
 
-_$_PackAssetLocation _$$_PackAssetLocationFromJson(Map json) =>
-    _$_PackAssetLocation(
+_$PackAssetLocationImpl _$$PackAssetLocationImplFromJson(Map json) =>
+    _$PackAssetLocationImpl(
       json['pack'] as String? ?? '',
       json['name'] as String? ?? '',
     );
 
-Map<String, dynamic> _$$_PackAssetLocationToJson(
-        _$_PackAssetLocation instance) =>
+Map<String, dynamic> _$$PackAssetLocationImplToJson(
+        _$PackAssetLocationImpl instance) =>
     <String, dynamic>{
       'pack': instance.pack,
       'name': instance.name,

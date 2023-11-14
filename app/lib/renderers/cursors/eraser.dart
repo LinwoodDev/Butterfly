@@ -5,7 +5,16 @@ import 'package:flutter/material.dart';
 import '../../models/cursor.dart';
 import '../renderer.dart';
 
-class EraserCursor extends Renderer<ToolCursorData<EraserTool>> {
+class EraserInfo {
+  final double strokeWidth;
+
+  EraserInfo(this.strokeWidth);
+  EraserInfo.fromEraser(EraserTool tool) : strokeWidth = tool.strokeWidth;
+  EraserInfo.fromPathEraser(PathEraserTool tool)
+      : strokeWidth = tool.strokeWidth;
+}
+
+class EraserCursor extends Renderer<ToolCursorData<EraserInfo>> {
   EraserCursor(super.element);
 
   @override

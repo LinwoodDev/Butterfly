@@ -14,18 +14,11 @@ class PersonalizationSettingsPage extends StatelessWidget {
   final bool inView;
   const PersonalizationSettingsPage({super.key, this.inView = false});
 
-  String _getThemeName(BuildContext context, ThemeMode mode) {
-    switch (mode) {
-      case ThemeMode.system:
-        return AppLocalizations.of(context).systemTheme;
-      case ThemeMode.light:
-        return AppLocalizations.of(context).lightTheme;
-      case ThemeMode.dark:
-        return AppLocalizations.of(context).darkTheme;
-      default:
-        return AppLocalizations.of(context).systemTheme;
-    }
-  }
+  String _getThemeName(BuildContext context, ThemeMode mode) => switch (mode) {
+        ThemeMode.system => AppLocalizations.of(context).systemTheme,
+        ThemeMode.light => AppLocalizations.of(context).lightTheme,
+        ThemeMode.dark => AppLocalizations.of(context).darkTheme,
+      };
 
   String _getPlatformThemeName(BuildContext context, PlatformTheme theme) =>
       switch (theme) {
@@ -234,6 +227,14 @@ class PersonalizationSettingsPage extends StatelessWidget {
                 theme: getThemeData('', false),
               ),
             ),
+            ListTile(
+              title: const Text('Classic'),
+              selected: design == 'classic',
+              onTap: () => changeDesign('classic'),
+              leading: ThemeBox(
+                theme: getThemeData('classic', false),
+              ),
+            ),
             ...getThemes().map(
               (e) {
                 final theme = getThemeData(e, false);
@@ -301,13 +302,10 @@ class PersonalizationSettingsPage extends StatelessWidget {
                 title: Text(AppLocalizations.of(context).defaultLocale),
                 selected: currentLocale.isEmpty,
                 onTap: () => changeLocale(null)),
-            ...locales
-                .map((e) => ListTile(
-                    title: Text(_getLocaleName(context, e.toLanguageTag())),
-                    selected: currentLocale == e.toLanguageTag(),
-                    onTap: () => changeLocale(e)))
-                .toList(),
-            const SizedBox(height: 32),
+            ...locales.map((e) => ListTile(
+                title: Text(_getLocaleName(context, e.toLanguageTag())),
+                selected: currentLocale == e.toLanguageTag(),
+                onTap: () => changeLocale(e))),
           ];
         });
   }
@@ -318,19 +316,15 @@ class PersonalizationSettingsPage extends StatelessWidget {
     showLeapBottomSheet(
         context: context,
         title: AppLocalizations.of(context).platformTheme,
-        childrenBuilder: (context) {
-          void changeTheme(PlatformTheme locale) {
-            cubit.changePlatformTheme(locale);
-            Navigator.of(context).pop();
-          }
-
-          return PlatformTheme.values
-              .map((e) => ListTile(
-                  title: Text(_getPlatformThemeName(context, e)),
-                  selected: currentTheme == e,
-                  onTap: () => changeTheme(e)))
-              .toList();
-        });
+        childrenBuilder: (context) => PlatformTheme.values
+            .map((e) => ListTile(
+                title: Text(_getPlatformThemeName(context, e)),
+                selected: currentTheme == e,
+                onTap: () {
+                  cubit.changePlatformTheme(e);
+                  Navigator.of(context).pop();
+                }))
+            .toList());
   }
 
   void _openToolbarPositionModal(BuildContext context) {
@@ -339,21 +333,14 @@ class PersonalizationSettingsPage extends StatelessWidget {
     showLeapBottomSheet(
         context: context,
         title: AppLocalizations.of(context).toolbarPosition,
-        childrenBuilder: (context) {
-          void changePos(ToolbarPosition pos) {
-            cubit.changeToolbarPosition(pos);
-            Navigator.of(context).pop();
-          }
-
-          return [
-            ...ToolbarPosition.values
-                .map((e) => ListTile(
-                    title: Text(e.getLocalizedName(context)),
-                    selected: currentPos == e,
-                    onTap: () => changePos(e)))
-                .toList(),
-            const SizedBox(height: 32),
-          ];
-        });
+        childrenBuilder: (context) => ToolbarPosition.values
+            .map((e) => ListTile(
+                title: Text(e.getLocalizedName(context)),
+                selected: currentPos == e,
+                onTap: () {
+                  cubit.changeToolbarPosition(e);
+                  Navigator.of(context).pop();
+                }))
+            .toList());
   }
 }

@@ -3,6 +3,12 @@ title: "Stockage"
 sidebar_position: 2
 ---
 
+## Répertoire des données
+
+Le répertoire des données est le répertoire où les documents, les modèles et les packs sont stockés. Sur le bureau, vous pouvez le trouver dans `~/Documents/Linwood/Butterfly`. Sur mobile, c'est en `getExternalFilesDir(null)/Linwood/Butterfly`. Vous pouvez également le modifier dans les paramètres sous `Données`.
+
+Dans ce répertoire, vous trouverez un dossier `Documents`, `Modèles` et `Packs`.
+
 ## Web
 
 Les données de l'application sont stockées dans votre navigateur. Il est stocké dans un stockage local. Ouvrez les outils de développement dans votre navigateur et vous verrez les données.

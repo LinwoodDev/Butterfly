@@ -11,11 +11,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:material_leap/material_leap.dart';
 import 'package:package_info_plus/package_info_plus.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:window_manager/window_manager.dart';
 
-import '../views/navigator.dart';
+import '../views/navigator/view.dart';
 
 part 'settings.freezed.dart';
 part 'settings.g.dart';
@@ -45,28 +47,22 @@ enum PlatformTheme {
   }
 }
 
-@freezed
-class RemoteStorage with _$RemoteStorage {
-  const factory RemoteStorage.dav({
-    required String username,
-    required String url,
-    required String path,
-    required String documentsPath,
-    required String templatesPath,
-    required String packsPath,
-    @Default([]) List<String> cachedDocuments,
-    @Default([]) List<String> starred,
-    @Uint8ListJsonConverter() required Uint8List icon,
-    DateTime? lastSynced,
-  }) = DavRemoteStorage;
-
-  factory RemoteStorage.fromJson(Map<String, dynamic> json) =>
-      _$RemoteStorageFromJson(json);
-
-  const RemoteStorage._();
+mixin RemoteStorage {
+  String get defaultTemplate;
+  String get username;
+  String get url;
+  String get path;
+  String get documentsPath;
+  String get templatesPath;
+  String get packsPath;
+  String get fullDocumentsPath;
+  String get fullTemplatesPath;
+  String get fullPacksPath;
+  DateTime? get lastSynced;
+  String get identifier;
+  List<String> get cachedDocuments;
 
   Uri get uri => Uri.parse(url);
-
   String get displayName => '$username@${uri.host}';
 
   Uri buildUri({
@@ -98,7 +94,7 @@ class RemoteStorage with _$RemoteStorage {
     Map<String, String> query = const {},
   }) {
     return buildUri(
-      path: [...documentsPath.split('/'), ...path],
+      path: [...fullDocumentsPath.split('/'), ...path],
       query: query,
     );
   }
@@ -108,7 +104,7 @@ class RemoteStorage with _$RemoteStorage {
     Map<String, String> query = const {},
   }) {
     return buildUri(
-      path: [...templatesPath.split('/'), ...path],
+      path: [...fullTemplatesPath.split('/'), ...path],
       query: query,
     );
   }
@@ -118,24 +114,87 @@ class RemoteStorage with _$RemoteStorage {
     Map<String, String> query = const {},
   }) {
     return buildUri(
-      path: [...packsPath.split('/'), ...path],
+      path: [...fullPacksPath.split('/'), ...path],
       query: query,
     );
   }
 
-  String get identifier => '$username@${uri.host}/$path';
+  bool hasDocumentCached(String name);
+}
 
-  DocumentFileSystem get documentFileSystem =>
-      DocumentFileSystem.fromPlatform(remote: this);
+enum ExternalStorageType {
+  dav,
+  local;
 
-  TemplateFileSystem get templateFileSystem =>
-      TemplateFileSystem.fromPlatform(remote: this);
+  IconGetter get icon => switch (this) {
+        ExternalStorageType.dav => PhosphorIcons.cloud,
+        ExternalStorageType.local => PhosphorIcons.folder,
+      };
+
+  String getLocalizedName(BuildContext context) => switch (this) {
+        ExternalStorageType.dav => AppLocalizations.of(context).dav,
+        ExternalStorageType.local => AppLocalizations.of(context).local,
+      };
+}
+
+@freezed
+class ExternalStorage with _$ExternalStorage {
+  @With<RemoteStorage>()
+  const factory ExternalStorage.dav({
+    @Default('') String defaultTemplate,
+    @Default('') String username,
+    @Default('') String url,
+    @Default('') String path,
+    @Default('') String documentsPath,
+    @Default('') String templatesPath,
+    @Default('') String packsPath,
+    @Default([]) List<String> cachedDocuments,
+    @Default([]) List<String> starred,
+    @Uint8ListJsonConverter() Uint8List? icon,
+    DateTime? lastSynced,
+  }) = DavRemoteStorage;
+
+  const factory ExternalStorage.local({
+    @Default('') String defaultTemplate,
+    @Default('') String path,
+    @Default('') String documentsPath,
+    @Default('') String templatesPath,
+    @Default('') String packsPath,
+    @Uint8ListJsonConverter() Uint8List? icon,
+    @Default([]) List<String> starred,
+  }) = LocalStorage;
+
+  factory ExternalStorage.fromJson(Map<String, dynamic> json) =>
+      _$ExternalStorageFromJson(json);
+
+  const ExternalStorage._();
+
+  String get fullDocumentsPath => documentsPath.isEmpty
+      ? path
+      : path.endsWith('/')
+          ? '$path$documentsPath'
+          : '$path/$documentsPath';
+
+  String get fullTemplatesPath => templatesPath.isEmpty
+      ? path
+      : path.endsWith('/')
+          ? '$path$templatesPath'
+          : '$path/$templatesPath';
+
+  String get fullPacksPath => packsPath.isEmpty
+      ? path
+      : path.endsWith('/')
+          ? '$path$packsPath'
+          : '$path/$packsPath';
 
   bool hasDocumentCached(String name) {
     if (!name.startsWith('/')) {
       name = '/$name';
     }
-    return cachedDocuments.any((doc) {
+    if (this is! RemoteStorage) {
+      return true;
+    }
+    return (this as RemoteStorage).cachedDocuments.any((doc) {
       if (doc == name) {
         return true;
       }
@@ -145,6 +204,27 @@ class RemoteStorage with _$RemoteStorage {
       return false;
     });
   }
+
+  String get identifier => map(
+        dav: (d) => 'dav:${d.username}@${d.url}',
+        local: (l) => 'local:${l.path}',
+      );
+
+  String get label => map(
+        dav: (d) => d.uri.host,
+        local: (l) => l.path.split('/').last,
+      );
+
+  ExternalStorageType get type => map(
+        dav: (d) => ExternalStorageType.dav,
+        local: (l) => ExternalStorageType.local,
+      );
+
+  DocumentFileSystem get documentFileSystem =>
+      DocumentFileSystem.fromPlatform(remote: this);
+
+  TemplateFileSystem get templateFileSystem =>
+      TemplateFileSystem.fromPlatform(remote: this);
 
   String encodeIdentifier() => base64Encode(utf8.encode(identifier));
 
@@ -253,7 +333,7 @@ class ButterflySettings with _$ButterflySettings {
     @Default(false) bool navigatorEnabled,
     @Default(true) bool zoomEnabled,
     String? lastVersion,
-    @Default([]) List<RemoteStorage> remotes,
+    @Default([]) List<ExternalStorage> connections,
     @Default('') String defaultRemote,
     @Default(false) bool nativeTitleBar,
     @Default(false) bool startInFullScreen,
@@ -271,18 +351,15 @@ class ButterflySettings with _$ButterflySettings {
     @Default(0.5) double imageScale,
     @Default(2) double pdfQuality,
     @Default(PlatformTheme.system) PlatformTheme platformTheme,
-    @Default(kDefaultIceServers) List<String> iceServers,
+    @Default([]) List<int> recentColors,
   }) = _ButterflySettings;
 
   factory ButterflySettings.fromPrefs(
       SharedPreferences prefs, bool fullScreen) {
-    final remotes = prefs.getStringList('remotes')?.map((e) {
-          final data = json.decode(e) as Map<String, dynamic>;
-          if (!data.containsKey('packsPath')) {
-            data['packsPath'] = data['path'] + '/Packs';
-          }
-          return RemoteStorage.fromJson(data);
-        }).toList() ??
+    final connections = prefs
+            .getStringList('connections')
+            ?.map((e) => ExternalStorage.fromJson(json.decode(e)))
+            .toList() ??
         const [];
     return ButterflySettings(
       fullScreen: fullScreen,
@@ -320,7 +397,7 @@ class ButterflySettings with _$ButterflySettings {
           [],
       zoomEnabled: prefs.getBool('zoom_enabled') ?? true,
       lastVersion: prefs.getString('last_version'),
-      remotes: remotes,
+      connections: connections,
       defaultRemote: prefs.getString('default_remote') ?? '',
       nativeTitleBar: prefs.getBool('native_title_bar') ?? false,
       startInFullScreen: prefs.getBool('start_in_full_screen') ?? false,
@@ -347,7 +424,8 @@ class ButterflySettings with _$ButterflySettings {
       platformTheme: prefs.containsKey('platform_theme')
           ? PlatformTheme.values.byName(prefs.getString('platform_theme')!)
           : PlatformTheme.system,
-      iceServers: prefs.getStringList('ice_servers') ?? kDefaultIceServers,
+      recentColors:
+          prefs.getStringList('recent_colors')?.map(int.parse).toList() ?? [],
     );
   }
 
@@ -383,8 +461,8 @@ class ButterflySettings with _$ButterflySettings {
     } else if (lastVersion != null) {
       await prefs.setString('last_version', lastVersion!);
     }
-    await prefs.setStringList(
-        'remotes', remotes.map((e) => json.encode(e.toJson())).toList());
+    await prefs.setStringList('connections',
+        connections.map((e) => json.encode(e.toJson())).toList());
     await prefs.setString('default_remote', defaultRemote);
     await prefs.setBool('native_title_bar', nativeTitleBar);
     await prefs.setBool('start_in_full_screen', startInFullScreen);
@@ -400,20 +478,26 @@ class ButterflySettings with _$ButterflySettings {
     await prefs.setString('sort_by', sortBy.name);
     await prefs.setString('sort_order', sortOrder.name);
     await prefs.setDouble('image_scale', imageScale);
-    await prefs.setStringList('ice_servers', iceServers);
+    await prefs.setDouble('pdf_quality', pdfQuality);
+    await prefs.setString('platform_theme', platformTheme.name);
+    await prefs.setStringList(
+        'recent_colors', recentColors.map((e) => e.toString()).toList());
   }
 
-  RemoteStorage? getRemote(String? identifier) {
-    return remotes
+  ExternalStorage? getRemote(String? identifier) {
+    if (identifier?.isEmpty ?? true) {
+      return getDefaultRemote();
+    }
+    return connections
         .firstWhereOrNull((e) => e.identifier == (identifier ?? defaultRemote));
   }
 
   bool hasRemote(String identifier) {
-    return remotes.any((e) => e.identifier == identifier);
+    return connections.any((e) => e.identifier == identifier);
   }
 
-  RemoteStorage? getDefaultRemote() {
-    return remotes.firstWhereOrNull((e) => e.identifier == defaultRemote);
+  ExternalStorage? getDefaultRemote() {
+    return connections.firstWhereOrNull((e) => e.identifier == defaultRemote);
   }
 
   DocumentFileSystem getDefaultDocumentFileSystem() =>
@@ -619,9 +703,9 @@ class SettingsCubit extends Cubit<ButterflySettings> {
 
   Future<void> save() => state.save();
 
-  Future<void> addRemote(RemoteStorage storage, {required String password}) {
+  Future<void> addRemote(ExternalStorage storage, {required String password}) {
     emit(state.copyWith(
-        remotes: List.from(state.remotes)
+        connections: List.from(state.connections)
           ..removeWhere((element) => element.identifier == storage.identifier)
           ..add(storage)));
     storage.writeRemotePassword(password);
@@ -630,9 +714,10 @@ class SettingsCubit extends Cubit<ButterflySettings> {
 
   Future<void> deleteRemote(String identifier) async {
     emit(state.copyWith(
-        remotes:
-            state.remotes.where((r) => r.identifier != identifier).toList()));
-    const FlutterSecureStorage().delete(key: 'remotes/$identifier');
+        connections: state.connections
+            .where((r) => r.identifier != identifier)
+            .toList()));
+    const FlutterSecureStorage().delete(key: 'connections/$identifier');
     return save();
   }
 
@@ -649,13 +734,14 @@ class SettingsCubit extends Cubit<ButterflySettings> {
       current = '/$current';
     }
     emit(state.copyWith(
-        remotes: List<RemoteStorage>.from(state.remotes).map((e) {
-      if (e.identifier == identifier) {
-        final documents = List<String>.from(e.cachedDocuments);
-        return e.copyWith(
+        connections: List<ExternalStorage>.from(state.connections).map((e) {
+      if (e.identifier == identifier && e is RemoteStorage) {
+        final documents =
+            List<String>.from((e as RemoteStorage).cachedDocuments);
+        return (e as dynamic).copyWith(
             cachedDocuments: documents
               ..removeWhere((element) => element == current)
-              ..add(current));
+              ..add(current)) as ExternalStorage;
       }
       return e;
     }).toList()));
@@ -664,11 +750,12 @@ class SettingsCubit extends Cubit<ButterflySettings> {
 
   Future<void> removeCache(String identifier, String current) {
     emit(state.copyWith(
-        remotes: List<RemoteStorage>.from(state.remotes).map((e) {
-      if (e.identifier == identifier) {
-        return e.copyWith(
-            cachedDocuments: List<String>.from(e.cachedDocuments)
-              ..remove(current));
+        connections: List<ExternalStorage>.from(state.connections).map((e) {
+      if (e.identifier == identifier && e is RemoteStorage) {
+        return (e as dynamic).copyWith(
+            cachedDocuments:
+                List<String>.from((e as RemoteStorage).cachedDocuments)
+                  ..remove(current)) as ExternalStorage;
       }
       return e;
     }).toList()));
@@ -677,20 +764,21 @@ class SettingsCubit extends Cubit<ButterflySettings> {
 
   Future<void> updateLastSynced(String identifier) {
     emit(state.copyWith(
-        remotes: List<RemoteStorage>.from(state.remotes).map((e) {
-      if (e.identifier == identifier) {
-        return e.copyWith(lastSynced: DateTime.now().toUtc());
+        connections: List<ExternalStorage>.from(state.connections).map((e) {
+      if (e.identifier == identifier && e is RemoteStorage) {
+        return (e as dynamic).copyWith(lastSynced: DateTime.now().toUtc())
+            as ExternalStorage;
       }
       return e;
     }).toList()));
     return save();
   }
 
-  Future<void> clearCaches(RemoteStorage storage) {
+  Future<void> clearCaches(ExternalStorage storage) {
     emit(state.copyWith(
-        remotes: List<RemoteStorage>.from(state.remotes).map((e) {
-      if (e.identifier == storage.identifier) {
-        return e.copyWith(cachedDocuments: []);
+        connections: List<ExternalStorage>.from(state.connections).map((e) {
+      if (e.identifier == storage.identifier && e is RemoteStorage) {
+        return (e as dynamic).copyWith(cachedDocuments: []) as ExternalStorage;
       }
       return e;
     }).toList()));
@@ -724,8 +812,8 @@ class SettingsCubit extends Cubit<ButterflySettings> {
     return save();
   }
 
-  RemoteStorage? getRemote([String? remote]) {
-    return state.remotes.firstWhereOrNull(
+  ExternalStorage? getRemote([String? remote]) {
+    return state.connections.firstWhereOrNull(
         (element) => element.identifier == (remote ?? state.defaultRemote));
   }
 
@@ -748,7 +836,7 @@ class SettingsCubit extends Cubit<ButterflySettings> {
           starred.add(location.path);
         }
         emit(state.copyWith(
-            remotes: List<RemoteStorage>.from(state.remotes).map((e) {
+            connections: List<ExternalStorage>.from(state.connections).map((e) {
           if (e.identifier == remote.identifier) {
             return e.copyWith(starred: starred);
           }
@@ -819,20 +907,26 @@ class SettingsCubit extends Cubit<ButterflySettings> {
   Future<void> resetPlatformTheme() =>
       changePlatformTheme(PlatformTheme.system);
 
-  Future<void> addIceServer(String server) {
-    emit(state.copyWith(iceServers: {...state.iceServers, server}.toList()));
+  Future<void> addRecentColors(int color) async {
+    final recentColors = state.recentColors.toList();
+    recentColors.remove(color);
+    recentColors.insert(0, color);
+    if (recentColors.length > 5) {
+      recentColors.removeLast();
+    }
+    emit(state.copyWith(recentColors: recentColors));
     return save();
   }
 
-  Future<void> removeIceServer(String server) {
-    emit(state.copyWith(
-        iceServers:
-            state.iceServers.where((element) => element != server).toList()));
+  Future<void> removeRecentColors(int color) async {
+    final recentColors = state.recentColors.toList();
+    recentColors.remove(color);
+    emit(state.copyWith(recentColors: recentColors));
     return save();
   }
 
-  Future<void> resetIceServers() {
-    emit(state.copyWith(iceServers: kDefaultIceServers));
+  Future<void> resetRecentColors() {
+    emit(state.copyWith(recentColors: []));
     return save();
   }
 }

@@ -13,8 +13,11 @@ Düzenleyicide kullanabileceğiniz birkaç kısayol vardır. Bazıları düğmel
 * `Ctrl` + `N`: Yeni dosya
 * `Ctrl` + `Shift` + `N`: Şablondan yeni dosya
 * `Ctrl` + `E`: Dosyayı dışa aktar
+* `Ctrl` + `P`: Print file
 * `Ctrl` + `Shift` + `E`: Resim olarak dışa aktar
 * `Ctrl` + `Alt` + `E`: SVG olarak dışa aktar
+* `Ctrl` + `Alt` + `Shift` + `E`: Export file as svg
+* `Ctrl` + `Alt` + `P`: Open packs
 * `Ctrl` + `Alt` + `S`: Ayarları aç
 
 ### Proje
@@ -28,6 +31,8 @@ Düzenleyicide kullanabileceğiniz birkaç kısayol vardır. Bazıları düğmel
 * `Ctrl` + `S`: Kaydet
 * `Alt` + `S`: Yolu değiştir
 * `Ctrl` + (`1` - `0`): Switch to tool
+* `Ctrl` + `+`: Zoom in
+* `Ctrl` + `-`: Zoom out
 
 ## Kalem
 

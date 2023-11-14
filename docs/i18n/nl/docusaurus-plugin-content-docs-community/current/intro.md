@@ -12,14 +12,14 @@ Welkom bij de community sectie.
 
 Een speciale dank aan:
 
-* <https://github.com/flutter/flutter> voor het leveren van dit nuttige crossplatform ui framework
-* <https://github.com/leanflutter/window_manager> voor al dit nuttige bureaublad venster functies
-* <https://github.com/facebook/docusaurus> voor een eenvoudig te gebruiken statische reactie documentatie framework
+* [Flutter](https://github.com/flutter/flutter) voor het leveren van dit handige crossplatform ui framework
+* [window_manager](https://github.com/leanflutter/window_manager) voor alle functies van dit bureaublad
+* [Docusaurus](https://github.com/facebook/docusaurus) voor een eenvoudig te gebruiken statische reactie documentatie framework
 
 Alle andere licenties vind je in de instellingen.
 
 ## Nuttige links
 
 * [GitHub](https://github.com/LinwoodDev/Butterfly)
-* [Discord](https://go.linwood.dev/discord)
+* [Onenigheid](https://go.linwood.dev/discord)
 * [Matrix](https://go.linwood.dev/matrix)

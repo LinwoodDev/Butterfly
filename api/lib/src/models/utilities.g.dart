@@ -6,7 +6,8 @@ part of 'utilities.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_UtilitiesState _$$_UtilitiesStateFromJson(Map json) => _$_UtilitiesState(
+_$UtilitiesStateImpl _$$UtilitiesStateImplFromJson(Map json) =>
+    _$UtilitiesStateImpl(
       lockZoom: json['lockZoom'] as bool? ?? false,
       lockHorizontal: json['lockHorizontal'] as bool? ?? false,
       lockVertical: json['lockVertical'] as bool? ?? false,
@@ -19,7 +20,8 @@ _$_UtilitiesState _$$_UtilitiesStateFromJson(Map json) => _$_UtilitiesState(
       rulerAngle: (json['rulerAngle'] as num?)?.toDouble() ?? 0,
     );
 
-Map<String, dynamic> _$$_UtilitiesStateToJson(_$_UtilitiesState instance) =>
+Map<String, dynamic> _$$UtilitiesStateImplToJson(
+        _$UtilitiesStateImpl instance) =>
     <String, dynamic>{
       'lockZoom': instance.lockZoom,
       'lockHorizontal': instance.lockHorizontal,

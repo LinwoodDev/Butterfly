@@ -9,21 +9,12 @@ class TextureBackgroundRenderer extends Renderer<TextureBackground> {
   void build(Canvas canvas, Size size, NoteData document, DocumentPage page,
           DocumentInfo info, CameraTransform transform,
           [ColorScheme? colorScheme, bool foreground = false]) =>
-      drawSurfaceTextureOnCanvas(
-        texture,
-        canvas,
-        transform.size,
-        transform.position,
-        size,
-      );
+      drawSurfaceTextureOnCanvas(texture, canvas, transform.size,
+          transform.position, size, Offset.zero, true);
 
   @override
   void buildSvg(XmlDocument xml, NoteData document, DocumentPage page,
           Rect viewportRect) =>
       drawSurfaceTextureOnSvg(
-        texture,
-        xml,
-        viewportRect.topLeft,
-        viewportRect.size,
-      );
+          texture, xml, viewportRect.topLeft, viewportRect.size);
 }

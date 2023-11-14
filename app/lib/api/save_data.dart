@@ -3,6 +3,8 @@ import 'package:butterfly/api/save_data_stub.dart'
     if (dart.library.js) 'package:butterfly/api/save_data_html.dart'
     as save_data;
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 Future<void> exportFile(
   BuildContext context,
@@ -26,3 +28,12 @@ Future<void> exportZip(BuildContext context, List<int> bytes) =>
 
 Future<void> saveData(BuildContext context, List<int> bytes) =>
     exportFile(context, bytes, 'bfly', 'application/zip');
+
+void saveToClipboard(BuildContext context, String text) {
+  Clipboard.setData(ClipboardData(text: text));
+  ScaffoldMessenger.of(context).showSnackBar(
+    SnackBar(
+      content: Text(AppLocalizations.of(context).copyTitle),
+    ),
+  );
+}

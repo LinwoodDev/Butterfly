@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:butterfly/api/save_data.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:package_info_plus/package_info_plus.dart';
@@ -52,24 +53,25 @@ class GeneralSettingsPage extends StatelessWidget {
         builder: (context, snapshot) {
           final currentVersion = snapshot.data?.version ?? '?';
           return ListView(children: [
-            if (!kIsWeb) ...[
-              Card(
-                margin: const EdgeInsets.all(8),
-                child: Padding(
-                  padding: const EdgeInsets.all(32),
-                  child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: [
-                        Text(
-                          AppLocalizations.of(context).update,
-                          style: Theme.of(context).textTheme.headlineSmall,
-                        ),
-                        const SizedBox(height: 16),
-                        ListTile(
-                          title:
-                              Text(AppLocalizations.of(context).currentVersion),
-                          subtitle: Text(currentVersion),
-                        ),
+            Card(
+              margin: const EdgeInsets.all(8),
+              child: Padding(
+                padding: const EdgeInsets.all(32),
+                child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      Text(
+                        AppLocalizations.of(context).update,
+                        style: Theme.of(context).textTheme.headlineSmall,
+                      ),
+                      const SizedBox(height: 16),
+                      ListTile(
+                        title:
+                            Text(AppLocalizations.of(context).currentVersion),
+                        subtitle: Text(currentVersion),
+                        onTap: () => saveToClipboard(context, currentVersion),
+                      ),
+                      if (!kIsWeb)
                         FutureBuilder<Meta>(
                             future: _fetchMeta(),
                             builder: (context, snapshot) {
@@ -103,11 +105,15 @@ class GeneralSettingsPage extends StatelessWidget {
                                   title:
                                       Text(AppLocalizations.of(context).stable),
                                   subtitle: Text(stableVersion),
+                                  onTap: () =>
+                                      saveToClipboard(context, stableVersion),
                                 ),
                                 ListTile(
                                   title: Text(
                                       AppLocalizations.of(context).nightly),
                                   subtitle: Text(nightlyVersion),
+                                  onTap: () =>
+                                      saveToClipboard(context, nightlyVersion),
                                 ),
                                 const Divider(),
                                 if (isStable) ...[
@@ -144,10 +150,9 @@ class GeneralSettingsPage extends StatelessWidget {
                                   ),
                               ]);
                             }),
-                      ]),
-                ),
+                    ]),
               ),
-            ],
+            ),
             Card(
               margin: const EdgeInsets.all(8),
               child: Padding(

@@ -12,14 +12,14 @@ Bienvenue dans la section de la communauté.
 
 Un remerciement spécial va à:
 
-* [https://github.com/flutter/flutter/flutter](https://github.com/flutter/flutter) pour fournir ce framework interplateforme utile Ui
-* <https://github.com/leanflutter/window_manager> pour toutes les fonctionnalités utiles de cette fenêtre de bureau
-* <https://github.com/facebook/docusaurus> pour un framework de documentation de réaction statique facile à utiliser
+* [Flutter](https://github.com/flutter/flutter) pour fournir ce framework interplateforme utile
+* [window_manager](https://github.com/leanflutter/window_manager) pour toutes ces fonctionnalités de bureau utiles
+* [Docusaurus](https://github.com/facebook/docusaurus) pour un framework de documentation statique de réaction facile à utiliser
 
 Toutes les autres licences peuvent être trouvées dans les paramètres.
 
 ## Liens utiles
 
 * [GitHub](https://github.com/LinwoodDev/Butterfly)
-* [Discord](https://go.linwood.dev/discord)
-* [Matrix](https://go.linwood.dev/matrix)
+* [Discord.](https://go.linwood.dev/discord)
+* [Matrice](https://go.linwood.dev/matrix)

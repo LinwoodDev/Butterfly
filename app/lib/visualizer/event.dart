@@ -7,28 +7,18 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 extension ArangementVisualizer on Arrangement {
   String getLocalizedName(BuildContext context) {
     final loc = AppLocalizations.of(context);
-    switch (this) {
-      case Arrangement.back:
-        return loc.sendToBack;
-      case Arrangement.front:
-        return loc.bringToFront;
-      case Arrangement.backward:
-        return loc.sendBackward;
-      case Arrangement.forward:
-        return loc.bringForward;
-    }
+    return switch (this) {
+      Arrangement.back => loc.sendToBack,
+      Arrangement.front => loc.bringToFront,
+      Arrangement.backward => loc.sendBackward,
+      Arrangement.forward => loc.bringForward,
+    };
   }
 
-  IconGetter get icon {
-    switch (this) {
-      case Arrangement.back:
-        return PhosphorIcons.arrowDown;
-      case Arrangement.front:
-        return PhosphorIcons.arrowUp;
-      case Arrangement.backward:
-        return PhosphorIcons.arrowDownLeft;
-      case Arrangement.forward:
-        return PhosphorIcons.arrowUpRight;
-    }
-  }
+  IconGetter get icon => switch (this) {
+        Arrangement.back => PhosphorIcons.arrowDown,
+        Arrangement.front => PhosphorIcons.arrowUp,
+        Arrangement.backward => PhosphorIcons.arrowDownLeft,
+        Arrangement.forward => PhosphorIcons.arrowUpRight,
+      };
 }

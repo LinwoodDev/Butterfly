@@ -13,8 +13,11 @@ On olemassa muutamia pikakuvakkeita, joita voit käyttää editorissa. Osa niist
 * `Ctrl` + `N`: Uusi tiedosto
 * `Ctrl` + `Vaihto` + `N`: Uusi tiedosto mallista
 * `Ctrl` + `E`: Vie tiedosto
+* `Ctrl` + `P`: Tulosta tiedosto
 * `Ctrl` + `Shift` + `E`: Vie kuva
 * `Ctrl` + `Alt` + `E`: Vie tiedosto svg
+* `Ctrl` + `Alt` + `Shift` + `E`: Vie tiedosto svg
+* `Ctrl` + `Alt` + `P`: Avaa paketit
 * `Ctrl` + `Alt` + `S`: Avaa asetukset
 
 ### Projekti
@@ -28,6 +31,8 @@ On olemassa muutamia pikakuvakkeita, joita voit käyttää editorissa. Osa niist
 * `Ctrl` + `S`: Tallenna
 * `Alt` + `S`: Muuta polkua
 * `Ctrl` + (`1` - `0`): Vaihda työkaluun
+* `Ctrl` + `+`: Lähennä
+* `Ctrl` + `-`: Lähennä
 
 ## Stylus
 

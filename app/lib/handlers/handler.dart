@@ -27,6 +27,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:image/image.dart' as img;
 import 'package:lw_sysinfo/lw_sysinfo.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:share_plus/share_plus.dart';
@@ -34,8 +35,9 @@ import 'package:share_plus/share_plus.dart';
 import '../actions/paste.dart';
 import '../actions/select.dart';
 import '../api/open.dart';
+import '../api/save_data.dart';
 import '../cubits/current_index.dart';
-import '../dialogs/camera.dart';
+import '../dialogs/import/camera.dart';
 import '../dialogs/name.dart';
 import '../helpers/num_helper.dart';
 import '../models/label.dart';
@@ -45,10 +47,10 @@ import '../renderers/cursors/label.dart';
 import '../renderers/renderer.dart';
 import '../services/asset.dart';
 import '../services/import.dart';
-import '../views/toolbars/color.dart';
-import '../views/toolbars/components.dart';
-import '../views/toolbars/label.dart';
-import '../views/toolbars/presentation/toolbar.dart';
+import '../views/toolbar/color.dart';
+import '../views/toolbar/components.dart';
+import '../views/toolbar/label.dart';
+import '../views/toolbar/presentation/toolbar.dart';
 import '../widgets/context_menu.dart';
 
 part 'area.dart';
@@ -62,6 +64,7 @@ part 'laser.dart';
 part 'layer.dart';
 part 'path_eraser.dart';
 part 'pen.dart';
+part 'eye_dropper.dart';
 part 'presentation.dart';
 part 'redo.dart';
 part 'select.dart';
@@ -110,7 +113,7 @@ class EventContext {
 
   CurrentIndex getCurrentIndex() => getCurrentIndexCubit().state;
 
-  void refresh() => getDocumentBloc().refresh();
+  Future<void> refresh() => getDocumentBloc().refresh();
 
   SettingsCubit getSettingsCubit() =>
       BlocProvider.of<SettingsCubit>(buildContext);
@@ -161,7 +164,8 @@ abstract class Handler<T> {
           [Area? currentArea]) =>
       [];
 
-  bool onRendererUpdated(DocumentPage page, Renderer old, Renderer updated) =>
+  bool onRendererUpdated(
+          DocumentPage page, Renderer old, List<Renderer> updated) =>
       false;
 
   bool onRenderersCreated(DocumentPage page, List<Renderer> renderers) => false;
@@ -186,7 +190,9 @@ abstract class Handler<T> {
 
   void onLongPressEnd(LongPressEndDetails details, EventContext context) {}
 
-  bool onScaleStart(ScaleStartDetails details, EventContext context) => false;
+  bool onScaleStart(ScaleStartDetails details, EventContext context) => true;
+
+  void onScaleStartAbort(ScaleStartDetails details, EventContext context) {}
 
   void onScaleUpdate(ScaleUpdateDetails details, EventContext context) {}
 
@@ -235,10 +241,13 @@ abstract class Handler<T> {
       fullSceen: (value) => FullScreenHandler(value),
       texture: (value) => TextureHandler(value),
       asset: (value) => AssetHandler(value),
+      eyeDropper: (value) => EyeDropperHandler(value),
     );
   }
 
   PreferredSizeWidget? getToolbar(DocumentBloc bloc) => null;
+
+  Map<Renderer, RendererState> get rendererStates => const {};
 
   void dispose(DocumentBloc bloc) {}
 
@@ -253,6 +262,27 @@ abstract class Handler<T> {
       };
 
   MouseCursor? get cursor => null;
+}
+
+mixin ColoredHandler<T extends Tool> on Handler<T> {
+  int getColor();
+  T setColor(int color);
+
+  @override
+  PreferredSizeWidget getToolbar(DocumentBloc bloc) => ColorToolbarView(
+        color: getColor(),
+        onChanged: (value) {
+          final state = bloc.state;
+          if (state is! DocumentLoadSuccess) return;
+          final index = state.info.tools.indexOf(data);
+          bloc.add(ToolsChanged({index: setColor(value)}));
+        },
+        onEyeDropper: () {
+          final state = bloc.state;
+          state.currentIndexCubit
+              ?.changeTemporaryHandler(bloc, EyeDropperTool());
+        },
+      );
 }
 
 mixin HandlerWithCursor<T> on Handler<T> {
@@ -403,7 +433,7 @@ abstract class PastingHandler<T> extends Handler<T> {
           [Area? currentArea]) =>
       [
         if (_firstPos != null && _secondPos != null)
-          ...getTransformed().map((e) => Renderer.fromInstance(e)).toList(),
+          ...getTransformed().map((e) => Renderer.fromInstance(e)),
       ];
 
   List<PadElement> transformElements(Rect rect, String layer);
@@ -473,6 +503,7 @@ abstract class PastingHandler<T> extends Handler<T> {
       [bool first = false]) {
     final transform = context.getCameraTransform();
     if (first) _firstPos = transform.localToGlobal(event.localPosition);
+    if (!first && _firstPos == null) return;
     _secondPos = transform.localToGlobal(event.localPosition);
     _aspectRatio = context.isCtrlPressed;
     _center = context.isShiftPressed;
@@ -498,6 +529,13 @@ abstract class PastingHandler<T> extends Handler<T> {
     final current = List<PadElement>.from(elements);
     bloc.add(ElementsCreated(current));
     bloc.bake();
+    _firstPos = null;
+    _secondPos = null;
+    context.refresh();
+  }
+
+  @override
+  void onScaleStartAbort(ScaleStartDetails details, EventContext context) {
     _firstPos = null;
     _secondPos = null;
     context.refresh();

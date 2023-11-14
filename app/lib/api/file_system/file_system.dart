@@ -5,6 +5,7 @@ import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
+import 'package:rxdart/rxdart.dart';
 
 import 'file_system_dav.dart';
 import 'file_system_io.dart';
@@ -19,7 +20,7 @@ abstract class GeneralFileSystem {
   RemoteStorage? get remote => null;
 
   String convertNameToFile(String name) {
-    return '${name.replaceAll(RegExp(r'[^a-zA-Z0-9]'), '_')}.bfly';
+    return name.replaceAll(RegExp(r'[\\/:\*\?"<>\|\n\0-\x1F\x7F-\xFF]'), '_');
   }
 
   Future<String> _findAvailableName(
@@ -88,7 +89,7 @@ Future<AppDocumentFile> getAppDocumentFile(
       readMetadata ? await compute(_getFileDisplay, data) : (null, null);
   return AppDocumentFile(
     location,
-    data,
+    data: data,
     metadata: metadata,
     thumbnail: thumbnail,
     cached: cached,
@@ -96,24 +97,79 @@ Future<AppDocumentFile> getAppDocumentFile(
 }
 
 abstract class DocumentFileSystem extends GeneralFileSystem {
-  Future<AppDocumentDirectory> getRootDirectory() {
-    return getAsset('').then((value) => value as AppDocumentDirectory);
+  Future<AppDocumentDirectory> getRootDirectory([bool recursive = false]) {
+    return getAsset('', recursive ? null : true)
+        .then((value) => value as AppDocumentDirectory);
   }
 
   @override
   FutureOr<String> getDirectory();
 
-  Future<AppDocumentEntity?> getAsset(String path);
+  /// If listFiles is null, it will fetch recursively
+  Stream<AppDocumentEntity?> fetchAsset(String path, [bool? listFiles = true]);
+
+  Stream<List<AppDocumentEntity>> fetchAssets(Stream<String> paths,
+      [bool? listFiles = true]) {
+    final files = <AppDocumentEntity>[];
+    final streams = paths.asyncExpand((e) async* {
+      int? index;
+      await for (final file in fetchAsset(e, listFiles).whereNotNull()) {
+        if (index == null) {
+          index = files.length;
+          files.add(file);
+        } else {
+          files[index] = file;
+        }
+        yield null;
+      }
+    });
+    return streams.map((event) => files);
+  }
+
+  Stream<List<AppDocumentEntity>> fetchAssetsSync(Iterable<String> paths,
+          [bool? listFiles = true]) =>
+      fetchAssets(Stream.fromIterable(paths), listFiles);
+
+  static Stream<List<AppDocumentEntity>> fetchAssetsGlobal(
+      Stream<AssetLocation> locations, ButterflySettings settings,
+      [bool? listFiles = true]) {
+    final files = <AppDocumentEntity>[];
+    final streams = locations.asyncExpand((e) async* {
+      final fileSystem =
+          DocumentFileSystem.fromPlatform(remote: settings.getRemote(e.remote));
+      int? index;
+      await for (final file
+          in fileSystem.fetchAsset(e.path, listFiles).whereNotNull()) {
+        if (index == null) {
+          index = files.length;
+          files.add(file);
+        } else {
+          files[index] = file;
+        }
+        yield null;
+      }
+    });
+    return streams.map((event) => files);
+  }
+
+  static Stream<List<AppDocumentEntity>> fetchAssetsGlobalSync(
+          Iterable<AssetLocation> locations, ButterflySettings settings,
+          [bool? listFiles = true]) =>
+      fetchAssetsGlobal(Stream.fromIterable(locations), settings, listFiles);
+
+  Future<AppDocumentEntity?> getAsset(String path, [bool? listFiles = true]) =>
+      fetchAsset(path, listFiles).last;
 
   Future<AppDocumentDirectory> createDirectory(String path);
 
-  Future<AppDocumentFile> updateFile(String path, List<int> data);
+  Future<void> updateFile(String path, List<int> data);
 
   Future<String> findAvailableName(String path) =>
       _findAvailableName(path, hasAsset);
 
-  Future<AppDocumentFile> createFile(String path, List<int> data) async =>
-      updateFile(await findAvailableName(path), data);
+  Future<AppDocumentFile?> createFile(String path, List<int> data) async =>
+      updateFile(await findAvailableName(path), data)
+          .then((_) => getAppDocumentFile(AssetLocation.local(path), data));
 
   Future<bool> hasAsset(String path);
 
@@ -156,11 +212,15 @@ abstract class DocumentFileSystem extends GeneralFileSystem {
     return asset;
   }
 
-  static DocumentFileSystem fromPlatform({final RemoteStorage? remote}) {
+  static DocumentFileSystem fromPlatform({final ExternalStorage? remote}) {
     if (kIsWeb) {
       return WebDocumentFileSystem();
     } else {
-      return remote?.map(dav: (e) => DavRemoteDocumentFileSystem(e)) ??
+      return remote?.map(
+            dav: (e) => DavRemoteDocumentFileSystem(e),
+            local: (e) =>
+                IODocumentFileSystem(e.fullDocumentsPath, remote.identifier),
+          ) ??
           IODocumentFileSystem();
     }
   }
@@ -172,15 +232,16 @@ abstract class DocumentFileSystem extends GeneralFileSystem {
 
   Future<void> saveAbsolute(String path, Uint8List bytes) => Future.value();
 
-  Future<AppDocumentFile> updateDocument(String path, NoteData document) =>
+  Future<void> updateDocument(String path, NoteData document) =>
       updateFile(path, document.save());
 
-  Future<AppDocumentFile> importDocument(NoteData document,
+  Future<AppDocumentFile?> importDocument(NoteData document,
       {String path = '/'}) {
     if (path.endsWith('/')) {
       path = path.substring(0, path.length - 1);
     }
-    return createFile('$path/${document.name}.bfly', document.save());
+    return createFile('$path/${convertNameToFile(document.name ?? '')}.bfly',
+        document.save());
   }
 }
 
@@ -188,6 +249,9 @@ abstract class TemplateFileSystem extends GeneralFileSystem {
   Future<bool> createDefault(BuildContext context, {bool force = false});
 
   Future<NoteData?> getTemplate(String name);
+  Future<NoteData?> getDefaultTemplate(String name) async =>
+      await getTemplate(name) ??
+      await getTemplates().then((value) => value.firstOrNull);
 
   Future<String> findAvailableName(String path) =>
       _findAvailableName(path, hasTemplate);
@@ -221,11 +285,14 @@ abstract class TemplateFileSystem extends GeneralFileSystem {
     return newTemplate;
   }
 
-  static TemplateFileSystem fromPlatform({RemoteStorage? remote}) {
+  static TemplateFileSystem fromPlatform({ExternalStorage? remote}) {
     if (kIsWeb) {
       return WebTemplateFileSystem();
     } else {
-      return remote?.map(dav: (e) => DavRemoteTemplateFileSystem(e)) ??
+      return remote?.map(
+            dav: (e) => DavRemoteTemplateFileSystem(e),
+            local: (e) => IOTemplateFileSystem(e.fullTemplatesPath),
+          ) ??
           IOTemplateFileSystem();
     }
   }
@@ -287,11 +354,14 @@ abstract class PackFileSystem extends GeneralFileSystem {
     return pack;
   }
 
-  static PackFileSystem fromPlatform({RemoteStorage? remote}) {
+  static PackFileSystem fromPlatform({ExternalStorage? remote}) {
     if (kIsWeb) {
       return WebPackFileSystem();
     } else {
-      return remote?.map(dav: (e) => DavRemotePackFileSystem(e)) ??
+      return remote?.map(
+            dav: (e) => DavRemotePackFileSystem(e),
+            local: (e) => IOPackFileSystem(e.fullPacksPath),
+          ) ??
           IOPackFileSystem();
     }
   }

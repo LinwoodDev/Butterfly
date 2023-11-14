@@ -2,7 +2,7 @@ part of 'texture.dart';
 
 void drawPatternTextureOnCanvas(PatternTexture texture, Canvas canvas,
     double scale, Offset offset, Size size,
-    [Offset translation = Offset.zero]) {
+    [Offset translation = Offset.zero, bool extraLines = false]) {
   canvas.drawRect(
       Rect.fromLTWH(translation.dx, translation.dy, size.width, size.height),
       Paint()
@@ -11,12 +11,10 @@ void drawPatternTextureOnCanvas(PatternTexture texture, Canvas canvas,
   if (texture.boxWidth > 0 && texture.boxXCount > 0) {
     var relativeWidth = texture.boxWidth * scale;
     var relativeSpace = texture.boxXSpace * scale;
-    int xCount =
-        (offset.dx / (texture.boxWidth * texture.boxXCount + texture.boxXSpace))
-            .floor();
-    double x =
-        -xCount * (texture.boxWidth * texture.boxXCount + texture.boxXSpace) +
-            offset.dx;
+    final part = texture.boxWidth * texture.boxXCount + texture.boxXSpace;
+    int xCount = (offset.dx / part).floor();
+    if (extraLines) xCount++;
+    double x = -xCount * part + offset.dx;
     x *= scale;
 
     int count = 0;
@@ -38,14 +36,11 @@ void drawPatternTextureOnCanvas(PatternTexture texture, Canvas canvas,
   if (texture.boxHeight > 0 && texture.boxYCount > 0) {
     var relativeHeight = texture.boxHeight * scale;
     var relativeSpace = texture.boxYSpace * scale;
-    int yCount = (offset.dy /
-            (texture.boxHeight * texture.boxYCount + texture.boxYSpace))
-        .floor();
-    double y =
-        -yCount * (texture.boxHeight * texture.boxYCount + texture.boxYSpace) +
-            offset.dy;
+    final part = texture.boxHeight * texture.boxYCount + texture.boxYSpace;
+    int yCount = (offset.dy / part).floor();
+    if (extraLines) yCount++;
+    double y = -yCount * part + offset.dy;
     y *= scale;
-
     int count = 0;
     while (y < size.height) {
       canvas.drawLine(
@@ -78,13 +73,9 @@ void drawPatternTextureOnSvg(
     'fill': texture.boxColor.toHexColor(),
   });
   if (texture.boxWidth > 0 && texture.boxXCount > 0) {
-    int xCount =
-        (offset.dx / (texture.boxWidth * texture.boxXCount + texture.boxXSpace))
-                .floor() +
-            1;
-    double x =
-        -xCount * (texture.boxWidth * texture.boxXCount + texture.boxXSpace) +
-            offset.dx;
+    final part = texture.boxWidth * texture.boxXCount + texture.boxXSpace;
+    int xCount = (offset.dx / part).floor();
+    double x = -xCount * part + offset.dx;
 
     int count = 0;
     while (x < size.width) {
@@ -105,13 +96,9 @@ void drawPatternTextureOnSvg(
     }
   }
   if (texture.boxHeight > 0 && texture.boxYCount > 0) {
-    int yCount = (offset.dy /
-                (texture.boxHeight * texture.boxYCount + texture.boxYSpace))
-            .floor() +
-        1;
-    double y =
-        -yCount * (texture.boxHeight * texture.boxYCount + texture.boxYSpace) +
-            offset.dy;
+    final part = texture.boxHeight * texture.boxYCount + texture.boxYSpace;
+    int yCount = (offset.dy / part).floor();
+    double y = -yCount * part + offset.dy;
 
     int count = 0;
     while (y < size.height) {

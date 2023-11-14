@@ -108,7 +108,9 @@ class DocumentDefaults {
   }
 
   static DocumentPage createPage() {
-    return const DocumentPage();
+    return DocumentPage(backgrounds: [
+      Background.texture(texture: PatternTemplate.plain.create())
+    ]);
   }
 
   static DocumentInfo createInfo([int? background]) {

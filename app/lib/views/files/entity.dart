@@ -1,24 +1,40 @@
-part of '../files.dart';
+import 'dart:typed_data';
 
-class _FileEntityItem extends StatefulWidget {
+import 'package:butterfly/api/file_system/file_system.dart';
+import 'package:butterfly/cubits/settings.dart';
+import 'package:butterfly/views/files/grid.dart';
+import 'package:butterfly/views/files/list.dart';
+import 'package:butterfly/visualizer/asset.dart';
+import 'package:butterfly_api/butterfly_api.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:intl/intl.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
+import 'package:popover/popover.dart';
+
+class FileEntityItem extends StatefulWidget {
   final AppDocumentEntity entity;
   final bool selected, collapsed, gridView;
   final VoidCallback onTap, onReload;
+  final bool isMobile;
 
-  const _FileEntityItem({
+  const FileEntityItem({
+    super.key,
     required this.entity,
     this.selected = false,
     this.collapsed = false,
     this.gridView = false,
+    required this.isMobile,
     required this.onTap,
     required this.onReload,
   });
 
   @override
-  State<_FileEntityItem> createState() => _FileEntityItemState();
+  State<FileEntityItem> createState() => _FileEntityItemState();
 }
 
-class _FileEntityItemState extends State<_FileEntityItem> {
+class _FileEntityItemState extends State<FileEntityItem> {
   final TextEditingController _nameController = TextEditingController();
   bool _editable = false;
 
@@ -52,21 +68,24 @@ class _FileEntityItemState extends State<_FileEntityItem> {
     void onEdit(bool value) => setState(() => _editable = value);
     void onDelete() {
       final colorScheme = Theme.of(context).colorScheme;
-
       showPopover(
-        backgroundColor: colorScheme.inverseSurface,
+        backgroundColor: colorScheme.surface,
         context: context,
+        direction:
+            widget.isMobile ? PopoverDirection.top : PopoverDirection.right,
+        radius: 16,
+        width: 180,
+        height: 130,
+        arrowHeight: 15,
+        arrowWidth: 20,
         bodyBuilder: (ctx) => Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
+          padding: const EdgeInsets.all(16.0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
                 AppLocalizations.of(context).areYouSure,
                 textAlign: TextAlign.center,
-                style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                      color: colorScheme.onInverseSurface,
-                    ),
               ),
               const SizedBox(height: 16),
               Row(
@@ -91,11 +110,6 @@ class _FileEntityItemState extends State<_FileEntityItem> {
             ],
           ),
         ),
-        direction: PopoverDirection.bottom,
-        width: 200,
-        height: 130,
-        arrowHeight: 15,
-        arrowWidth: 20,
       );
     }
 
@@ -115,7 +129,7 @@ class _FileEntityItemState extends State<_FileEntityItem> {
         ),
       ),
       child: widget.gridView
-          ? _FileEntityGridItem(
+          ? FileEntityGridItem(
               modifiedText: modifiedText,
               createdText: createdText,
               icon: icon,
@@ -130,7 +144,7 @@ class _FileEntityItemState extends State<_FileEntityItem> {
               selected: widget.selected,
               thumbnail: thumbnail,
             )
-          : _FileEntityListTile(
+          : FileEntityListTile(
               modifiedText: modifiedText,
               createdText: createdText,
               icon: icon,

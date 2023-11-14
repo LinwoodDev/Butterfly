@@ -10,12 +10,12 @@ slug: "/downloads/post-windows"
 # 感谢您下载
 
 <div className="row margin-bottom--lg padding--sm flex-center">
-<a className="button button--outline button--warning button--lg margin--sm" href="/contributing">
-  对项目贡献
-</a>
-<a className="button button--outline button--info button--lg margin--sm" href="https://linwood.dev/matrix">
+<Link className="button button--outline button--warning button--lg margin--sm" href="/contributing">
+  为项目
+</Link>
+<Link className="button button--outline button--info button--lg margin--sm" href="https://linwood.dev/matrix">
   加入社区
-</a>
+</Link>
 
 </div>
 

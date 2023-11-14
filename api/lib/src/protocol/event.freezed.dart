@@ -42,8 +42,6 @@ DocumentEvent _$DocumentEventFromJson(Map<String, dynamic> json) {
       return ElementsArranged.fromJson(json);
     case 'documentDescriptionChanged':
       return DocumentDescriptionChanged.fromJson(json);
-    case 'documentPathChanged':
-      return DocumentPathChanged.fromJson(json);
     case 'documentSaved':
       return DocumentSaved.fromJson(json);
     case 'toolCreated':
@@ -119,7 +117,7 @@ DocumentEvent _$DocumentEventFromJson(Map<String, dynamic> json) {
 mixin _$DocumentEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(DocumentPage page, int? index) pageAdded,
+    required TResult Function(int? index, DocumentPage? page) pageAdded,
     required TResult Function(String pageName) pageChanged,
     required TResult Function(String page, int? newIndex) pageReordered,
     required TResult Function(String oldName, String newName) pageRenamed,
@@ -136,7 +134,6 @@ mixin _$DocumentEvent {
         elementsArranged,
     required TResult Function(String? name, String? description)
         documentDescriptionChanged,
-    required TResult Function(String path) documentPathChanged,
     required TResult Function(AssetLocation? location) documentSaved,
     required TResult Function(Tool tool) toolCreated,
     required TResult Function(Map<int, Tool> tools) toolsChanged,
@@ -181,7 +178,7 @@ mixin _$DocumentEvent {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(DocumentPage page, int? index)? pageAdded,
+    TResult? Function(int? index, DocumentPage? page)? pageAdded,
     TResult? Function(String pageName)? pageChanged,
     TResult? Function(String page, int? newIndex)? pageReordered,
     TResult? Function(String oldName, String newName)? pageRenamed,
@@ -197,7 +194,6 @@ mixin _$DocumentEvent {
         elementsArranged,
     TResult? Function(String? name, String? description)?
         documentDescriptionChanged,
-    TResult? Function(String path)? documentPathChanged,
     TResult? Function(AssetLocation? location)? documentSaved,
     TResult? Function(Tool tool)? toolCreated,
     TResult? Function(Map<int, Tool> tools)? toolsChanged,
@@ -236,7 +232,7 @@ mixin _$DocumentEvent {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(DocumentPage page, int? index)? pageAdded,
+    TResult Function(int? index, DocumentPage? page)? pageAdded,
     TResult Function(String pageName)? pageChanged,
     TResult Function(String page, int? newIndex)? pageReordered,
     TResult Function(String oldName, String newName)? pageRenamed,
@@ -252,7 +248,6 @@ mixin _$DocumentEvent {
         elementsArranged,
     TResult Function(String? name, String? description)?
         documentDescriptionChanged,
-    TResult Function(String path)? documentPathChanged,
     TResult Function(AssetLocation? location)? documentSaved,
     TResult Function(Tool tool)? toolCreated,
     TResult Function(Map<int, Tool> tools)? toolsChanged,
@@ -306,7 +301,6 @@ mixin _$DocumentEvent {
     required TResult Function(ElementsArranged value) elementsArranged,
     required TResult Function(DocumentDescriptionChanged value)
         documentDescriptionChanged,
-    required TResult Function(DocumentPathChanged value) documentPathChanged,
     required TResult Function(DocumentSaved value) documentSaved,
     required TResult Function(ToolCreated value) toolCreated,
     required TResult Function(ToolsChanged value) toolsChanged,
@@ -361,7 +355,6 @@ mixin _$DocumentEvent {
     TResult? Function(ElementsArranged value)? elementsArranged,
     TResult? Function(DocumentDescriptionChanged value)?
         documentDescriptionChanged,
-    TResult? Function(DocumentPathChanged value)? documentPathChanged,
     TResult? Function(DocumentSaved value)? documentSaved,
     TResult? Function(ToolCreated value)? toolCreated,
     TResult? Function(ToolsChanged value)? toolsChanged,
@@ -413,7 +406,6 @@ mixin _$DocumentEvent {
     TResult Function(ElementsArranged value)? elementsArranged,
     TResult Function(DocumentDescriptionChanged value)?
         documentDescriptionChanged,
-    TResult Function(DocumentPathChanged value)? documentPathChanged,
     TResult Function(DocumentSaved value)? documentSaved,
     TResult Function(ToolCreated value)? toolCreated,
     TResult Function(ToolsChanged value)? toolsChanged,
@@ -472,46 +464,50 @@ class _$DocumentEventCopyWithImpl<$Res, $Val extends DocumentEvent>
 }
 
 /// @nodoc
-abstract class _$$PageAddedCopyWith<$Res> {
-  factory _$$PageAddedCopyWith(
-          _$PageAdded value, $Res Function(_$PageAdded) then) =
-      __$$PageAddedCopyWithImpl<$Res>;
+abstract class _$$PageAddedImplCopyWith<$Res> {
+  factory _$$PageAddedImplCopyWith(
+          _$PageAddedImpl value, $Res Function(_$PageAddedImpl) then) =
+      __$$PageAddedImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({DocumentPage page, int? index});
+  $Res call({int? index, DocumentPage? page});
 
-  $DocumentPageCopyWith<$Res> get page;
+  $DocumentPageCopyWith<$Res>? get page;
 }
 
 /// @nodoc
-class __$$PageAddedCopyWithImpl<$Res>
-    extends _$DocumentEventCopyWithImpl<$Res, _$PageAdded>
-    implements _$$PageAddedCopyWith<$Res> {
-  __$$PageAddedCopyWithImpl(
-      _$PageAdded _value, $Res Function(_$PageAdded) _then)
+class __$$PageAddedImplCopyWithImpl<$Res>
+    extends _$DocumentEventCopyWithImpl<$Res, _$PageAddedImpl>
+    implements _$$PageAddedImplCopyWith<$Res> {
+  __$$PageAddedImplCopyWithImpl(
+      _$PageAddedImpl _value, $Res Function(_$PageAddedImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? page = null,
     Object? index = freezed,
+    Object? page = freezed,
   }) {
-    return _then(_$PageAdded(
-      null == page
-          ? _value.page
-          : page // ignore: cast_nullable_to_non_nullable
-              as DocumentPage,
+    return _then(_$PageAddedImpl(
       freezed == index
           ? _value.index
           : index // ignore: cast_nullable_to_non_nullable
               as int?,
+      freezed == page
+          ? _value.page
+          : page // ignore: cast_nullable_to_non_nullable
+              as DocumentPage?,
     ));
   }
 
   @override
   @pragma('vm:prefer-inline')
-  $DocumentPageCopyWith<$Res> get page {
-    return $DocumentPageCopyWith<$Res>(_value.page, (value) {
+  $DocumentPageCopyWith<$Res>? get page {
+    if (_value.page == null) {
+      return null;
+    }
+
+    return $DocumentPageCopyWith<$Res>(_value.page!, (value) {
       return _then(_value.copyWith(page: value));
     });
   }
@@ -519,50 +515,50 @@ class __$$PageAddedCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$PageAdded extends PageAdded {
-  const _$PageAdded(this.page, [this.index, final String? $type])
+class _$PageAddedImpl extends PageAdded {
+  const _$PageAddedImpl([this.index, this.page, final String? $type])
       : $type = $type ?? 'pageAdded',
         super._();
 
-  factory _$PageAdded.fromJson(Map<String, dynamic> json) =>
-      _$$PageAddedFromJson(json);
+  factory _$PageAddedImpl.fromJson(Map<String, dynamic> json) =>
+      _$$PageAddedImplFromJson(json);
 
   @override
-  final DocumentPage page;
-  @override
   final int? index;
+  @override
+  final DocumentPage? page;
 
   @JsonKey(name: 'type')
   final String $type;
 
   @override
   String toString() {
-    return 'DocumentEvent.pageAdded(page: $page, index: $index)';
+    return 'DocumentEvent.pageAdded(index: $index, page: $page)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$PageAdded &&
-            (identical(other.page, page) || other.page == page) &&
-            (identical(other.index, index) || other.index == index));
+            other is _$PageAddedImpl &&
+            (identical(other.index, index) || other.index == index) &&
+            (identical(other.page, page) || other.page == page));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, page, index);
+  int get hashCode => Object.hash(runtimeType, index, page);
 
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$PageAddedCopyWith<_$PageAdded> get copyWith =>
-      __$$PageAddedCopyWithImpl<_$PageAdded>(this, _$identity);
+  _$$PageAddedImplCopyWith<_$PageAddedImpl> get copyWith =>
+      __$$PageAddedImplCopyWithImpl<_$PageAddedImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(DocumentPage page, int? index) pageAdded,
+    required TResult Function(int? index, DocumentPage? page) pageAdded,
     required TResult Function(String pageName) pageChanged,
     required TResult Function(String page, int? newIndex) pageReordered,
     required TResult Function(String oldName, String newName) pageRenamed,
@@ -579,7 +575,6 @@ class _$PageAdded extends PageAdded {
         elementsArranged,
     required TResult Function(String? name, String? description)
         documentDescriptionChanged,
-    required TResult Function(String path) documentPathChanged,
     required TResult Function(AssetLocation? location) documentSaved,
     required TResult Function(Tool tool) toolCreated,
     required TResult Function(Map<int, Tool> tools) toolsChanged,
@@ -621,13 +616,13 @@ class _$PageAdded extends PageAdded {
     required TResult Function() presentationModeExited,
     required TResult Function(int tick) presentationTick,
   }) {
-    return pageAdded(page, index);
+    return pageAdded(index, page);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(DocumentPage page, int? index)? pageAdded,
+    TResult? Function(int? index, DocumentPage? page)? pageAdded,
     TResult? Function(String pageName)? pageChanged,
     TResult? Function(String page, int? newIndex)? pageReordered,
     TResult? Function(String oldName, String newName)? pageRenamed,
@@ -643,7 +638,6 @@ class _$PageAdded extends PageAdded {
         elementsArranged,
     TResult? Function(String? name, String? description)?
         documentDescriptionChanged,
-    TResult? Function(String path)? documentPathChanged,
     TResult? Function(AssetLocation? location)? documentSaved,
     TResult? Function(Tool tool)? toolCreated,
     TResult? Function(Map<int, Tool> tools)? toolsChanged,
@@ -679,13 +673,13 @@ class _$PageAdded extends PageAdded {
     TResult? Function()? presentationModeExited,
     TResult? Function(int tick)? presentationTick,
   }) {
-    return pageAdded?.call(page, index);
+    return pageAdded?.call(index, page);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(DocumentPage page, int? index)? pageAdded,
+    TResult Function(int? index, DocumentPage? page)? pageAdded,
     TResult Function(String pageName)? pageChanged,
     TResult Function(String page, int? newIndex)? pageReordered,
     TResult Function(String oldName, String newName)? pageRenamed,
@@ -701,7 +695,6 @@ class _$PageAdded extends PageAdded {
         elementsArranged,
     TResult Function(String? name, String? description)?
         documentDescriptionChanged,
-    TResult Function(String path)? documentPathChanged,
     TResult Function(AssetLocation? location)? documentSaved,
     TResult Function(Tool tool)? toolCreated,
     TResult Function(Map<int, Tool> tools)? toolsChanged,
@@ -739,7 +732,7 @@ class _$PageAdded extends PageAdded {
     required TResult orElse(),
   }) {
     if (pageAdded != null) {
-      return pageAdded(page, index);
+      return pageAdded(index, page);
     }
     return orElse();
   }
@@ -761,7 +754,6 @@ class _$PageAdded extends PageAdded {
     required TResult Function(ElementsArranged value) elementsArranged,
     required TResult Function(DocumentDescriptionChanged value)
         documentDescriptionChanged,
-    required TResult Function(DocumentPathChanged value) documentPathChanged,
     required TResult Function(DocumentSaved value) documentSaved,
     required TResult Function(ToolCreated value) toolCreated,
     required TResult Function(ToolsChanged value) toolsChanged,
@@ -819,7 +811,6 @@ class _$PageAdded extends PageAdded {
     TResult? Function(ElementsArranged value)? elementsArranged,
     TResult? Function(DocumentDescriptionChanged value)?
         documentDescriptionChanged,
-    TResult? Function(DocumentPathChanged value)? documentPathChanged,
     TResult? Function(DocumentSaved value)? documentSaved,
     TResult? Function(ToolCreated value)? toolCreated,
     TResult? Function(ToolsChanged value)? toolsChanged,
@@ -874,7 +865,6 @@ class _$PageAdded extends PageAdded {
     TResult Function(ElementsArranged value)? elementsArranged,
     TResult Function(DocumentDescriptionChanged value)?
         documentDescriptionChanged,
-    TResult Function(DocumentPathChanged value)? documentPathChanged,
     TResult Function(DocumentSaved value)? documentSaved,
     TResult Function(ToolCreated value)? toolCreated,
     TResult Function(ToolsChanged value)? toolsChanged,
@@ -918,41 +908,42 @@ class _$PageAdded extends PageAdded {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$PageAddedToJson(
+    return _$$PageAddedImplToJson(
       this,
     );
   }
 }
 
 abstract class PageAdded extends DocumentEvent {
-  const factory PageAdded(final DocumentPage page, [final int? index]) =
-      _$PageAdded;
+  const factory PageAdded([final int? index, final DocumentPage? page]) =
+      _$PageAddedImpl;
   const PageAdded._() : super._();
 
-  factory PageAdded.fromJson(Map<String, dynamic> json) = _$PageAdded.fromJson;
+  factory PageAdded.fromJson(Map<String, dynamic> json) =
+      _$PageAddedImpl.fromJson;
 
-  DocumentPage get page;
   int? get index;
+  DocumentPage? get page;
   @JsonKey(ignore: true)
-  _$$PageAddedCopyWith<_$PageAdded> get copyWith =>
+  _$$PageAddedImplCopyWith<_$PageAddedImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$PageChangedCopyWith<$Res> {
-  factory _$$PageChangedCopyWith(
-          _$PageChanged value, $Res Function(_$PageChanged) then) =
-      __$$PageChangedCopyWithImpl<$Res>;
+abstract class _$$PageChangedImplCopyWith<$Res> {
+  factory _$$PageChangedImplCopyWith(
+          _$PageChangedImpl value, $Res Function(_$PageChangedImpl) then) =
+      __$$PageChangedImplCopyWithImpl<$Res>;
   @useResult
   $Res call({String pageName});
 }
 
 /// @nodoc
-class __$$PageChangedCopyWithImpl<$Res>
-    extends _$DocumentEventCopyWithImpl<$Res, _$PageChanged>
-    implements _$$PageChangedCopyWith<$Res> {
-  __$$PageChangedCopyWithImpl(
-      _$PageChanged _value, $Res Function(_$PageChanged) _then)
+class __$$PageChangedImplCopyWithImpl<$Res>
+    extends _$DocumentEventCopyWithImpl<$Res, _$PageChangedImpl>
+    implements _$$PageChangedImplCopyWith<$Res> {
+  __$$PageChangedImplCopyWithImpl(
+      _$PageChangedImpl _value, $Res Function(_$PageChangedImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -960,7 +951,7 @@ class __$$PageChangedCopyWithImpl<$Res>
   $Res call({
     Object? pageName = null,
   }) {
-    return _then(_$PageChanged(
+    return _then(_$PageChangedImpl(
       null == pageName
           ? _value.pageName
           : pageName // ignore: cast_nullable_to_non_nullable
@@ -971,13 +962,13 @@ class __$$PageChangedCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$PageChanged extends PageChanged {
-  const _$PageChanged(this.pageName, {final String? $type})
+class _$PageChangedImpl extends PageChanged {
+  const _$PageChangedImpl(this.pageName, {final String? $type})
       : $type = $type ?? 'pageChanged',
         super._();
 
-  factory _$PageChanged.fromJson(Map<String, dynamic> json) =>
-      _$$PageChangedFromJson(json);
+  factory _$PageChangedImpl.fromJson(Map<String, dynamic> json) =>
+      _$$PageChangedImplFromJson(json);
 
   @override
   final String pageName;
@@ -994,7 +985,7 @@ class _$PageChanged extends PageChanged {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$PageChanged &&
+            other is _$PageChangedImpl &&
             (identical(other.pageName, pageName) ||
                 other.pageName == pageName));
   }
@@ -1006,13 +997,13 @@ class _$PageChanged extends PageChanged {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$PageChangedCopyWith<_$PageChanged> get copyWith =>
-      __$$PageChangedCopyWithImpl<_$PageChanged>(this, _$identity);
+  _$$PageChangedImplCopyWith<_$PageChangedImpl> get copyWith =>
+      __$$PageChangedImplCopyWithImpl<_$PageChangedImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(DocumentPage page, int? index) pageAdded,
+    required TResult Function(int? index, DocumentPage? page) pageAdded,
     required TResult Function(String pageName) pageChanged,
     required TResult Function(String page, int? newIndex) pageReordered,
     required TResult Function(String oldName, String newName) pageRenamed,
@@ -1029,7 +1020,6 @@ class _$PageChanged extends PageChanged {
         elementsArranged,
     required TResult Function(String? name, String? description)
         documentDescriptionChanged,
-    required TResult Function(String path) documentPathChanged,
     required TResult Function(AssetLocation? location) documentSaved,
     required TResult Function(Tool tool) toolCreated,
     required TResult Function(Map<int, Tool> tools) toolsChanged,
@@ -1077,7 +1067,7 @@ class _$PageChanged extends PageChanged {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(DocumentPage page, int? index)? pageAdded,
+    TResult? Function(int? index, DocumentPage? page)? pageAdded,
     TResult? Function(String pageName)? pageChanged,
     TResult? Function(String page, int? newIndex)? pageReordered,
     TResult? Function(String oldName, String newName)? pageRenamed,
@@ -1093,7 +1083,6 @@ class _$PageChanged extends PageChanged {
         elementsArranged,
     TResult? Function(String? name, String? description)?
         documentDescriptionChanged,
-    TResult? Function(String path)? documentPathChanged,
     TResult? Function(AssetLocation? location)? documentSaved,
     TResult? Function(Tool tool)? toolCreated,
     TResult? Function(Map<int, Tool> tools)? toolsChanged,
@@ -1135,7 +1124,7 @@ class _$PageChanged extends PageChanged {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(DocumentPage page, int? index)? pageAdded,
+    TResult Function(int? index, DocumentPage? page)? pageAdded,
     TResult Function(String pageName)? pageChanged,
     TResult Function(String page, int? newIndex)? pageReordered,
     TResult Function(String oldName, String newName)? pageRenamed,
@@ -1151,7 +1140,6 @@ class _$PageChanged extends PageChanged {
         elementsArranged,
     TResult Function(String? name, String? description)?
         documentDescriptionChanged,
-    TResult Function(String path)? documentPathChanged,
     TResult Function(AssetLocation? location)? documentSaved,
     TResult Function(Tool tool)? toolCreated,
     TResult Function(Map<int, Tool> tools)? toolsChanged,
@@ -1211,7 +1199,6 @@ class _$PageChanged extends PageChanged {
     required TResult Function(ElementsArranged value) elementsArranged,
     required TResult Function(DocumentDescriptionChanged value)
         documentDescriptionChanged,
-    required TResult Function(DocumentPathChanged value) documentPathChanged,
     required TResult Function(DocumentSaved value) documentSaved,
     required TResult Function(ToolCreated value) toolCreated,
     required TResult Function(ToolsChanged value) toolsChanged,
@@ -1269,7 +1256,6 @@ class _$PageChanged extends PageChanged {
     TResult? Function(ElementsArranged value)? elementsArranged,
     TResult? Function(DocumentDescriptionChanged value)?
         documentDescriptionChanged,
-    TResult? Function(DocumentPathChanged value)? documentPathChanged,
     TResult? Function(DocumentSaved value)? documentSaved,
     TResult? Function(ToolCreated value)? toolCreated,
     TResult? Function(ToolsChanged value)? toolsChanged,
@@ -1324,7 +1310,6 @@ class _$PageChanged extends PageChanged {
     TResult Function(ElementsArranged value)? elementsArranged,
     TResult Function(DocumentDescriptionChanged value)?
         documentDescriptionChanged,
-    TResult Function(DocumentPathChanged value)? documentPathChanged,
     TResult Function(DocumentSaved value)? documentSaved,
     TResult Function(ToolCreated value)? toolCreated,
     TResult Function(ToolsChanged value)? toolsChanged,
@@ -1368,40 +1353,40 @@ class _$PageChanged extends PageChanged {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$PageChangedToJson(
+    return _$$PageChangedImplToJson(
       this,
     );
   }
 }
 
 abstract class PageChanged extends DocumentEvent {
-  const factory PageChanged(final String pageName) = _$PageChanged;
+  const factory PageChanged(final String pageName) = _$PageChangedImpl;
   const PageChanged._() : super._();
 
   factory PageChanged.fromJson(Map<String, dynamic> json) =
-      _$PageChanged.fromJson;
+      _$PageChangedImpl.fromJson;
 
   String get pageName;
   @JsonKey(ignore: true)
-  _$$PageChangedCopyWith<_$PageChanged> get copyWith =>
+  _$$PageChangedImplCopyWith<_$PageChangedImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$PageReorderedCopyWith<$Res> {
-  factory _$$PageReorderedCopyWith(
-          _$PageReordered value, $Res Function(_$PageReordered) then) =
-      __$$PageReorderedCopyWithImpl<$Res>;
+abstract class _$$PageReorderedImplCopyWith<$Res> {
+  factory _$$PageReorderedImplCopyWith(
+          _$PageReorderedImpl value, $Res Function(_$PageReorderedImpl) then) =
+      __$$PageReorderedImplCopyWithImpl<$Res>;
   @useResult
   $Res call({String page, int? newIndex});
 }
 
 /// @nodoc
-class __$$PageReorderedCopyWithImpl<$Res>
-    extends _$DocumentEventCopyWithImpl<$Res, _$PageReordered>
-    implements _$$PageReorderedCopyWith<$Res> {
-  __$$PageReorderedCopyWithImpl(
-      _$PageReordered _value, $Res Function(_$PageReordered) _then)
+class __$$PageReorderedImplCopyWithImpl<$Res>
+    extends _$DocumentEventCopyWithImpl<$Res, _$PageReorderedImpl>
+    implements _$$PageReorderedImplCopyWith<$Res> {
+  __$$PageReorderedImplCopyWithImpl(
+      _$PageReorderedImpl _value, $Res Function(_$PageReorderedImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -1410,7 +1395,7 @@ class __$$PageReorderedCopyWithImpl<$Res>
     Object? page = null,
     Object? newIndex = freezed,
   }) {
-    return _then(_$PageReordered(
+    return _then(_$PageReorderedImpl(
       null == page
           ? _value.page
           : page // ignore: cast_nullable_to_non_nullable
@@ -1425,13 +1410,13 @@ class __$$PageReorderedCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$PageReordered extends PageReordered {
-  const _$PageReordered(this.page, [this.newIndex, final String? $type])
+class _$PageReorderedImpl extends PageReordered {
+  const _$PageReorderedImpl(this.page, [this.newIndex, final String? $type])
       : $type = $type ?? 'pageReordered',
         super._();
 
-  factory _$PageReordered.fromJson(Map<String, dynamic> json) =>
-      _$$PageReorderedFromJson(json);
+  factory _$PageReorderedImpl.fromJson(Map<String, dynamic> json) =>
+      _$$PageReorderedImplFromJson(json);
 
   @override
   final String page;
@@ -1450,7 +1435,7 @@ class _$PageReordered extends PageReordered {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$PageReordered &&
+            other is _$PageReorderedImpl &&
             (identical(other.page, page) || other.page == page) &&
             (identical(other.newIndex, newIndex) ||
                 other.newIndex == newIndex));
@@ -1463,13 +1448,13 @@ class _$PageReordered extends PageReordered {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$PageReorderedCopyWith<_$PageReordered> get copyWith =>
-      __$$PageReorderedCopyWithImpl<_$PageReordered>(this, _$identity);
+  _$$PageReorderedImplCopyWith<_$PageReorderedImpl> get copyWith =>
+      __$$PageReorderedImplCopyWithImpl<_$PageReorderedImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(DocumentPage page, int? index) pageAdded,
+    required TResult Function(int? index, DocumentPage? page) pageAdded,
     required TResult Function(String pageName) pageChanged,
     required TResult Function(String page, int? newIndex) pageReordered,
     required TResult Function(String oldName, String newName) pageRenamed,
@@ -1486,7 +1471,6 @@ class _$PageReordered extends PageReordered {
         elementsArranged,
     required TResult Function(String? name, String? description)
         documentDescriptionChanged,
-    required TResult Function(String path) documentPathChanged,
     required TResult Function(AssetLocation? location) documentSaved,
     required TResult Function(Tool tool) toolCreated,
     required TResult Function(Map<int, Tool> tools) toolsChanged,
@@ -1534,7 +1518,7 @@ class _$PageReordered extends PageReordered {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(DocumentPage page, int? index)? pageAdded,
+    TResult? Function(int? index, DocumentPage? page)? pageAdded,
     TResult? Function(String pageName)? pageChanged,
     TResult? Function(String page, int? newIndex)? pageReordered,
     TResult? Function(String oldName, String newName)? pageRenamed,
@@ -1550,7 +1534,6 @@ class _$PageReordered extends PageReordered {
         elementsArranged,
     TResult? Function(String? name, String? description)?
         documentDescriptionChanged,
-    TResult? Function(String path)? documentPathChanged,
     TResult? Function(AssetLocation? location)? documentSaved,
     TResult? Function(Tool tool)? toolCreated,
     TResult? Function(Map<int, Tool> tools)? toolsChanged,
@@ -1592,7 +1575,7 @@ class _$PageReordered extends PageReordered {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(DocumentPage page, int? index)? pageAdded,
+    TResult Function(int? index, DocumentPage? page)? pageAdded,
     TResult Function(String pageName)? pageChanged,
     TResult Function(String page, int? newIndex)? pageReordered,
     TResult Function(String oldName, String newName)? pageRenamed,
@@ -1608,7 +1591,6 @@ class _$PageReordered extends PageReordered {
         elementsArranged,
     TResult Function(String? name, String? description)?
         documentDescriptionChanged,
-    TResult Function(String path)? documentPathChanged,
     TResult Function(AssetLocation? location)? documentSaved,
     TResult Function(Tool tool)? toolCreated,
     TResult Function(Map<int, Tool> tools)? toolsChanged,
@@ -1668,7 +1650,6 @@ class _$PageReordered extends PageReordered {
     required TResult Function(ElementsArranged value) elementsArranged,
     required TResult Function(DocumentDescriptionChanged value)
         documentDescriptionChanged,
-    required TResult Function(DocumentPathChanged value) documentPathChanged,
     required TResult Function(DocumentSaved value) documentSaved,
     required TResult Function(ToolCreated value) toolCreated,
     required TResult Function(ToolsChanged value) toolsChanged,
@@ -1726,7 +1707,6 @@ class _$PageReordered extends PageReordered {
     TResult? Function(ElementsArranged value)? elementsArranged,
     TResult? Function(DocumentDescriptionChanged value)?
         documentDescriptionChanged,
-    TResult? Function(DocumentPathChanged value)? documentPathChanged,
     TResult? Function(DocumentSaved value)? documentSaved,
     TResult? Function(ToolCreated value)? toolCreated,
     TResult? Function(ToolsChanged value)? toolsChanged,
@@ -1781,7 +1761,6 @@ class _$PageReordered extends PageReordered {
     TResult Function(ElementsArranged value)? elementsArranged,
     TResult Function(DocumentDescriptionChanged value)?
         documentDescriptionChanged,
-    TResult Function(DocumentPathChanged value)? documentPathChanged,
     TResult Function(DocumentSaved value)? documentSaved,
     TResult Function(ToolCreated value)? toolCreated,
     TResult Function(ToolsChanged value)? toolsChanged,
@@ -1825,7 +1804,7 @@ class _$PageReordered extends PageReordered {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$PageReorderedToJson(
+    return _$$PageReorderedImplToJson(
       this,
     );
   }
@@ -1833,34 +1812,34 @@ class _$PageReordered extends PageReordered {
 
 abstract class PageReordered extends DocumentEvent {
   const factory PageReordered(final String page, [final int? newIndex]) =
-      _$PageReordered;
+      _$PageReorderedImpl;
   const PageReordered._() : super._();
 
   factory PageReordered.fromJson(Map<String, dynamic> json) =
-      _$PageReordered.fromJson;
+      _$PageReorderedImpl.fromJson;
 
   String get page;
   int? get newIndex;
   @JsonKey(ignore: true)
-  _$$PageReorderedCopyWith<_$PageReordered> get copyWith =>
+  _$$PageReorderedImplCopyWith<_$PageReorderedImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$PageRenamedCopyWith<$Res> {
-  factory _$$PageRenamedCopyWith(
-          _$PageRenamed value, $Res Function(_$PageRenamed) then) =
-      __$$PageRenamedCopyWithImpl<$Res>;
+abstract class _$$PageRenamedImplCopyWith<$Res> {
+  factory _$$PageRenamedImplCopyWith(
+          _$PageRenamedImpl value, $Res Function(_$PageRenamedImpl) then) =
+      __$$PageRenamedImplCopyWithImpl<$Res>;
   @useResult
   $Res call({String oldName, String newName});
 }
 
 /// @nodoc
-class __$$PageRenamedCopyWithImpl<$Res>
-    extends _$DocumentEventCopyWithImpl<$Res, _$PageRenamed>
-    implements _$$PageRenamedCopyWith<$Res> {
-  __$$PageRenamedCopyWithImpl(
-      _$PageRenamed _value, $Res Function(_$PageRenamed) _then)
+class __$$PageRenamedImplCopyWithImpl<$Res>
+    extends _$DocumentEventCopyWithImpl<$Res, _$PageRenamedImpl>
+    implements _$$PageRenamedImplCopyWith<$Res> {
+  __$$PageRenamedImplCopyWithImpl(
+      _$PageRenamedImpl _value, $Res Function(_$PageRenamedImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -1869,7 +1848,7 @@ class __$$PageRenamedCopyWithImpl<$Res>
     Object? oldName = null,
     Object? newName = null,
   }) {
-    return _then(_$PageRenamed(
+    return _then(_$PageRenamedImpl(
       null == oldName
           ? _value.oldName
           : oldName // ignore: cast_nullable_to_non_nullable
@@ -1884,13 +1863,13 @@ class __$$PageRenamedCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$PageRenamed extends PageRenamed {
-  const _$PageRenamed(this.oldName, this.newName, {final String? $type})
+class _$PageRenamedImpl extends PageRenamed {
+  const _$PageRenamedImpl(this.oldName, this.newName, {final String? $type})
       : $type = $type ?? 'pageRenamed',
         super._();
 
-  factory _$PageRenamed.fromJson(Map<String, dynamic> json) =>
-      _$$PageRenamedFromJson(json);
+  factory _$PageRenamedImpl.fromJson(Map<String, dynamic> json) =>
+      _$$PageRenamedImplFromJson(json);
 
   @override
   final String oldName;
@@ -1909,7 +1888,7 @@ class _$PageRenamed extends PageRenamed {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$PageRenamed &&
+            other is _$PageRenamedImpl &&
             (identical(other.oldName, oldName) || other.oldName == oldName) &&
             (identical(other.newName, newName) || other.newName == newName));
   }
@@ -1921,13 +1900,13 @@ class _$PageRenamed extends PageRenamed {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$PageRenamedCopyWith<_$PageRenamed> get copyWith =>
-      __$$PageRenamedCopyWithImpl<_$PageRenamed>(this, _$identity);
+  _$$PageRenamedImplCopyWith<_$PageRenamedImpl> get copyWith =>
+      __$$PageRenamedImplCopyWithImpl<_$PageRenamedImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(DocumentPage page, int? index) pageAdded,
+    required TResult Function(int? index, DocumentPage? page) pageAdded,
     required TResult Function(String pageName) pageChanged,
     required TResult Function(String page, int? newIndex) pageReordered,
     required TResult Function(String oldName, String newName) pageRenamed,
@@ -1944,7 +1923,6 @@ class _$PageRenamed extends PageRenamed {
         elementsArranged,
     required TResult Function(String? name, String? description)
         documentDescriptionChanged,
-    required TResult Function(String path) documentPathChanged,
     required TResult Function(AssetLocation? location) documentSaved,
     required TResult Function(Tool tool) toolCreated,
     required TResult Function(Map<int, Tool> tools) toolsChanged,
@@ -1992,7 +1970,7 @@ class _$PageRenamed extends PageRenamed {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(DocumentPage page, int? index)? pageAdded,
+    TResult? Function(int? index, DocumentPage? page)? pageAdded,
     TResult? Function(String pageName)? pageChanged,
     TResult? Function(String page, int? newIndex)? pageReordered,
     TResult? Function(String oldName, String newName)? pageRenamed,
@@ -2008,7 +1986,6 @@ class _$PageRenamed extends PageRenamed {
         elementsArranged,
     TResult? Function(String? name, String? description)?
         documentDescriptionChanged,
-    TResult? Function(String path)? documentPathChanged,
     TResult? Function(AssetLocation? location)? documentSaved,
     TResult? Function(Tool tool)? toolCreated,
     TResult? Function(Map<int, Tool> tools)? toolsChanged,
@@ -2050,7 +2027,7 @@ class _$PageRenamed extends PageRenamed {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(DocumentPage page, int? index)? pageAdded,
+    TResult Function(int? index, DocumentPage? page)? pageAdded,
     TResult Function(String pageName)? pageChanged,
     TResult Function(String page, int? newIndex)? pageReordered,
     TResult Function(String oldName, String newName)? pageRenamed,
@@ -2066,7 +2043,6 @@ class _$PageRenamed extends PageRenamed {
         elementsArranged,
     TResult Function(String? name, String? description)?
         documentDescriptionChanged,
-    TResult Function(String path)? documentPathChanged,
     TResult Function(AssetLocation? location)? documentSaved,
     TResult Function(Tool tool)? toolCreated,
     TResult Function(Map<int, Tool> tools)? toolsChanged,
@@ -2126,7 +2102,6 @@ class _$PageRenamed extends PageRenamed {
     required TResult Function(ElementsArranged value) elementsArranged,
     required TResult Function(DocumentDescriptionChanged value)
         documentDescriptionChanged,
-    required TResult Function(DocumentPathChanged value) documentPathChanged,
     required TResult Function(DocumentSaved value) documentSaved,
     required TResult Function(ToolCreated value) toolCreated,
     required TResult Function(ToolsChanged value) toolsChanged,
@@ -2184,7 +2159,6 @@ class _$PageRenamed extends PageRenamed {
     TResult? Function(ElementsArranged value)? elementsArranged,
     TResult? Function(DocumentDescriptionChanged value)?
         documentDescriptionChanged,
-    TResult? Function(DocumentPathChanged value)? documentPathChanged,
     TResult? Function(DocumentSaved value)? documentSaved,
     TResult? Function(ToolCreated value)? toolCreated,
     TResult? Function(ToolsChanged value)? toolsChanged,
@@ -2239,7 +2213,6 @@ class _$PageRenamed extends PageRenamed {
     TResult Function(ElementsArranged value)? elementsArranged,
     TResult Function(DocumentDescriptionChanged value)?
         documentDescriptionChanged,
-    TResult Function(DocumentPathChanged value)? documentPathChanged,
     TResult Function(DocumentSaved value)? documentSaved,
     TResult Function(ToolCreated value)? toolCreated,
     TResult Function(ToolsChanged value)? toolsChanged,
@@ -2283,7 +2256,7 @@ class _$PageRenamed extends PageRenamed {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$PageRenamedToJson(
+    return _$$PageRenamedImplToJson(
       this,
     );
   }
@@ -2291,34 +2264,34 @@ class _$PageRenamed extends PageRenamed {
 
 abstract class PageRenamed extends DocumentEvent {
   const factory PageRenamed(final String oldName, final String newName) =
-      _$PageRenamed;
+      _$PageRenamedImpl;
   const PageRenamed._() : super._();
 
   factory PageRenamed.fromJson(Map<String, dynamic> json) =
-      _$PageRenamed.fromJson;
+      _$PageRenamedImpl.fromJson;
 
   String get oldName;
   String get newName;
   @JsonKey(ignore: true)
-  _$$PageRenamedCopyWith<_$PageRenamed> get copyWith =>
+  _$$PageRenamedImplCopyWith<_$PageRenamedImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$PageRemovedCopyWith<$Res> {
-  factory _$$PageRemovedCopyWith(
-          _$PageRemoved value, $Res Function(_$PageRemoved) then) =
-      __$$PageRemovedCopyWithImpl<$Res>;
+abstract class _$$PageRemovedImplCopyWith<$Res> {
+  factory _$$PageRemovedImplCopyWith(
+          _$PageRemovedImpl value, $Res Function(_$PageRemovedImpl) then) =
+      __$$PageRemovedImplCopyWithImpl<$Res>;
   @useResult
   $Res call({String page});
 }
 
 /// @nodoc
-class __$$PageRemovedCopyWithImpl<$Res>
-    extends _$DocumentEventCopyWithImpl<$Res, _$PageRemoved>
-    implements _$$PageRemovedCopyWith<$Res> {
-  __$$PageRemovedCopyWithImpl(
-      _$PageRemoved _value, $Res Function(_$PageRemoved) _then)
+class __$$PageRemovedImplCopyWithImpl<$Res>
+    extends _$DocumentEventCopyWithImpl<$Res, _$PageRemovedImpl>
+    implements _$$PageRemovedImplCopyWith<$Res> {
+  __$$PageRemovedImplCopyWithImpl(
+      _$PageRemovedImpl _value, $Res Function(_$PageRemovedImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -2326,7 +2299,7 @@ class __$$PageRemovedCopyWithImpl<$Res>
   $Res call({
     Object? page = null,
   }) {
-    return _then(_$PageRemoved(
+    return _then(_$PageRemovedImpl(
       null == page
           ? _value.page
           : page // ignore: cast_nullable_to_non_nullable
@@ -2337,13 +2310,13 @@ class __$$PageRemovedCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$PageRemoved extends PageRemoved {
-  const _$PageRemoved(this.page, {final String? $type})
+class _$PageRemovedImpl extends PageRemoved {
+  const _$PageRemovedImpl(this.page, {final String? $type})
       : $type = $type ?? 'pageRemoved',
         super._();
 
-  factory _$PageRemoved.fromJson(Map<String, dynamic> json) =>
-      _$$PageRemovedFromJson(json);
+  factory _$PageRemovedImpl.fromJson(Map<String, dynamic> json) =>
+      _$$PageRemovedImplFromJson(json);
 
   @override
   final String page;
@@ -2360,7 +2333,7 @@ class _$PageRemoved extends PageRemoved {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$PageRemoved &&
+            other is _$PageRemovedImpl &&
             (identical(other.page, page) || other.page == page));
   }
 
@@ -2371,13 +2344,13 @@ class _$PageRemoved extends PageRemoved {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$PageRemovedCopyWith<_$PageRemoved> get copyWith =>
-      __$$PageRemovedCopyWithImpl<_$PageRemoved>(this, _$identity);
+  _$$PageRemovedImplCopyWith<_$PageRemovedImpl> get copyWith =>
+      __$$PageRemovedImplCopyWithImpl<_$PageRemovedImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(DocumentPage page, int? index) pageAdded,
+    required TResult Function(int? index, DocumentPage? page) pageAdded,
     required TResult Function(String pageName) pageChanged,
     required TResult Function(String page, int? newIndex) pageReordered,
     required TResult Function(String oldName, String newName) pageRenamed,
@@ -2394,7 +2367,6 @@ class _$PageRemoved extends PageRemoved {
         elementsArranged,
     required TResult Function(String? name, String? description)
         documentDescriptionChanged,
-    required TResult Function(String path) documentPathChanged,
     required TResult Function(AssetLocation? location) documentSaved,
     required TResult Function(Tool tool) toolCreated,
     required TResult Function(Map<int, Tool> tools) toolsChanged,
@@ -2442,7 +2414,7 @@ class _$PageRemoved extends PageRemoved {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(DocumentPage page, int? index)? pageAdded,
+    TResult? Function(int? index, DocumentPage? page)? pageAdded,
     TResult? Function(String pageName)? pageChanged,
     TResult? Function(String page, int? newIndex)? pageReordered,
     TResult? Function(String oldName, String newName)? pageRenamed,
@@ -2458,7 +2430,6 @@ class _$PageRemoved extends PageRemoved {
         elementsArranged,
     TResult? Function(String? name, String? description)?
         documentDescriptionChanged,
-    TResult? Function(String path)? documentPathChanged,
     TResult? Function(AssetLocation? location)? documentSaved,
     TResult? Function(Tool tool)? toolCreated,
     TResult? Function(Map<int, Tool> tools)? toolsChanged,
@@ -2500,7 +2471,7 @@ class _$PageRemoved extends PageRemoved {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(DocumentPage page, int? index)? pageAdded,
+    TResult Function(int? index, DocumentPage? page)? pageAdded,
     TResult Function(String pageName)? pageChanged,
     TResult Function(String page, int? newIndex)? pageReordered,
     TResult Function(String oldName, String newName)? pageRenamed,
@@ -2516,7 +2487,6 @@ class _$PageRemoved extends PageRemoved {
         elementsArranged,
     TResult Function(String? name, String? description)?
         documentDescriptionChanged,
-    TResult Function(String path)? documentPathChanged,
     TResult Function(AssetLocation? location)? documentSaved,
     TResult Function(Tool tool)? toolCreated,
     TResult Function(Map<int, Tool> tools)? toolsChanged,
@@ -2576,7 +2546,6 @@ class _$PageRemoved extends PageRemoved {
     required TResult Function(ElementsArranged value) elementsArranged,
     required TResult Function(DocumentDescriptionChanged value)
         documentDescriptionChanged,
-    required TResult Function(DocumentPathChanged value) documentPathChanged,
     required TResult Function(DocumentSaved value) documentSaved,
     required TResult Function(ToolCreated value) toolCreated,
     required TResult Function(ToolsChanged value) toolsChanged,
@@ -2634,7 +2603,6 @@ class _$PageRemoved extends PageRemoved {
     TResult? Function(ElementsArranged value)? elementsArranged,
     TResult? Function(DocumentDescriptionChanged value)?
         documentDescriptionChanged,
-    TResult? Function(DocumentPathChanged value)? documentPathChanged,
     TResult? Function(DocumentSaved value)? documentSaved,
     TResult? Function(ToolCreated value)? toolCreated,
     TResult? Function(ToolsChanged value)? toolsChanged,
@@ -2689,7 +2657,6 @@ class _$PageRemoved extends PageRemoved {
     TResult Function(ElementsArranged value)? elementsArranged,
     TResult Function(DocumentDescriptionChanged value)?
         documentDescriptionChanged,
-    TResult Function(DocumentPathChanged value)? documentPathChanged,
     TResult Function(DocumentSaved value)? documentSaved,
     TResult Function(ToolCreated value)? toolCreated,
     TResult Function(ToolsChanged value)? toolsChanged,
@@ -2733,40 +2700,40 @@ class _$PageRemoved extends PageRemoved {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$PageRemovedToJson(
+    return _$$PageRemovedImplToJson(
       this,
     );
   }
 }
 
 abstract class PageRemoved extends DocumentEvent {
-  const factory PageRemoved(final String page) = _$PageRemoved;
+  const factory PageRemoved(final String page) = _$PageRemovedImpl;
   const PageRemoved._() : super._();
 
   factory PageRemoved.fromJson(Map<String, dynamic> json) =
-      _$PageRemoved.fromJson;
+      _$PageRemovedImpl.fromJson;
 
   String get page;
   @JsonKey(ignore: true)
-  _$$PageRemovedCopyWith<_$PageRemoved> get copyWith =>
+  _$$PageRemovedImplCopyWith<_$PageRemovedImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$ThumbnailCapturedCopyWith<$Res> {
-  factory _$$ThumbnailCapturedCopyWith(
-          _$ThumbnailCaptured value, $Res Function(_$ThumbnailCaptured) then) =
-      __$$ThumbnailCapturedCopyWithImpl<$Res>;
+abstract class _$$ThumbnailCapturedImplCopyWith<$Res> {
+  factory _$$ThumbnailCapturedImplCopyWith(_$ThumbnailCapturedImpl value,
+          $Res Function(_$ThumbnailCapturedImpl) then) =
+      __$$ThumbnailCapturedImplCopyWithImpl<$Res>;
   @useResult
   $Res call({@Uint8ListJsonConverter() Uint8List data});
 }
 
 /// @nodoc
-class __$$ThumbnailCapturedCopyWithImpl<$Res>
-    extends _$DocumentEventCopyWithImpl<$Res, _$ThumbnailCaptured>
-    implements _$$ThumbnailCapturedCopyWith<$Res> {
-  __$$ThumbnailCapturedCopyWithImpl(
-      _$ThumbnailCaptured _value, $Res Function(_$ThumbnailCaptured) _then)
+class __$$ThumbnailCapturedImplCopyWithImpl<$Res>
+    extends _$DocumentEventCopyWithImpl<$Res, _$ThumbnailCapturedImpl>
+    implements _$$ThumbnailCapturedImplCopyWith<$Res> {
+  __$$ThumbnailCapturedImplCopyWithImpl(_$ThumbnailCapturedImpl _value,
+      $Res Function(_$ThumbnailCapturedImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -2774,7 +2741,7 @@ class __$$ThumbnailCapturedCopyWithImpl<$Res>
   $Res call({
     Object? data = null,
   }) {
-    return _then(_$ThumbnailCaptured(
+    return _then(_$ThumbnailCapturedImpl(
       null == data
           ? _value.data
           : data // ignore: cast_nullable_to_non_nullable
@@ -2785,14 +2752,14 @@ class __$$ThumbnailCapturedCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$ThumbnailCaptured extends ThumbnailCaptured {
-  const _$ThumbnailCaptured(@Uint8ListJsonConverter() this.data,
+class _$ThumbnailCapturedImpl extends ThumbnailCaptured {
+  const _$ThumbnailCapturedImpl(@Uint8ListJsonConverter() this.data,
       {final String? $type})
       : $type = $type ?? 'thumbnailCaptured',
         super._();
 
-  factory _$ThumbnailCaptured.fromJson(Map<String, dynamic> json) =>
-      _$$ThumbnailCapturedFromJson(json);
+  factory _$ThumbnailCapturedImpl.fromJson(Map<String, dynamic> json) =>
+      _$$ThumbnailCapturedImplFromJson(json);
 
   @override
   @Uint8ListJsonConverter()
@@ -2810,7 +2777,7 @@ class _$ThumbnailCaptured extends ThumbnailCaptured {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$ThumbnailCaptured &&
+            other is _$ThumbnailCapturedImpl &&
             const DeepCollectionEquality().equals(other.data, data));
   }
 
@@ -2822,13 +2789,14 @@ class _$ThumbnailCaptured extends ThumbnailCaptured {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$ThumbnailCapturedCopyWith<_$ThumbnailCaptured> get copyWith =>
-      __$$ThumbnailCapturedCopyWithImpl<_$ThumbnailCaptured>(this, _$identity);
+  _$$ThumbnailCapturedImplCopyWith<_$ThumbnailCapturedImpl> get copyWith =>
+      __$$ThumbnailCapturedImplCopyWithImpl<_$ThumbnailCapturedImpl>(
+          this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(DocumentPage page, int? index) pageAdded,
+    required TResult Function(int? index, DocumentPage? page) pageAdded,
     required TResult Function(String pageName) pageChanged,
     required TResult Function(String page, int? newIndex) pageReordered,
     required TResult Function(String oldName, String newName) pageRenamed,
@@ -2845,7 +2813,6 @@ class _$ThumbnailCaptured extends ThumbnailCaptured {
         elementsArranged,
     required TResult Function(String? name, String? description)
         documentDescriptionChanged,
-    required TResult Function(String path) documentPathChanged,
     required TResult Function(AssetLocation? location) documentSaved,
     required TResult Function(Tool tool) toolCreated,
     required TResult Function(Map<int, Tool> tools) toolsChanged,
@@ -2893,7 +2860,7 @@ class _$ThumbnailCaptured extends ThumbnailCaptured {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(DocumentPage page, int? index)? pageAdded,
+    TResult? Function(int? index, DocumentPage? page)? pageAdded,
     TResult? Function(String pageName)? pageChanged,
     TResult? Function(String page, int? newIndex)? pageReordered,
     TResult? Function(String oldName, String newName)? pageRenamed,
@@ -2909,7 +2876,6 @@ class _$ThumbnailCaptured extends ThumbnailCaptured {
         elementsArranged,
     TResult? Function(String? name, String? description)?
         documentDescriptionChanged,
-    TResult? Function(String path)? documentPathChanged,
     TResult? Function(AssetLocation? location)? documentSaved,
     TResult? Function(Tool tool)? toolCreated,
     TResult? Function(Map<int, Tool> tools)? toolsChanged,
@@ -2951,7 +2917,7 @@ class _$ThumbnailCaptured extends ThumbnailCaptured {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(DocumentPage page, int? index)? pageAdded,
+    TResult Function(int? index, DocumentPage? page)? pageAdded,
     TResult Function(String pageName)? pageChanged,
     TResult Function(String page, int? newIndex)? pageReordered,
     TResult Function(String oldName, String newName)? pageRenamed,
@@ -2967,7 +2933,6 @@ class _$ThumbnailCaptured extends ThumbnailCaptured {
         elementsArranged,
     TResult Function(String? name, String? description)?
         documentDescriptionChanged,
-    TResult Function(String path)? documentPathChanged,
     TResult Function(AssetLocation? location)? documentSaved,
     TResult Function(Tool tool)? toolCreated,
     TResult Function(Map<int, Tool> tools)? toolsChanged,
@@ -3027,7 +2992,6 @@ class _$ThumbnailCaptured extends ThumbnailCaptured {
     required TResult Function(ElementsArranged value) elementsArranged,
     required TResult Function(DocumentDescriptionChanged value)
         documentDescriptionChanged,
-    required TResult Function(DocumentPathChanged value) documentPathChanged,
     required TResult Function(DocumentSaved value) documentSaved,
     required TResult Function(ToolCreated value) toolCreated,
     required TResult Function(ToolsChanged value) toolsChanged,
@@ -3085,7 +3049,6 @@ class _$ThumbnailCaptured extends ThumbnailCaptured {
     TResult? Function(ElementsArranged value)? elementsArranged,
     TResult? Function(DocumentDescriptionChanged value)?
         documentDescriptionChanged,
-    TResult? Function(DocumentPathChanged value)? documentPathChanged,
     TResult? Function(DocumentSaved value)? documentSaved,
     TResult? Function(ToolCreated value)? toolCreated,
     TResult? Function(ToolsChanged value)? toolsChanged,
@@ -3140,7 +3103,6 @@ class _$ThumbnailCaptured extends ThumbnailCaptured {
     TResult Function(ElementsArranged value)? elementsArranged,
     TResult Function(DocumentDescriptionChanged value)?
         documentDescriptionChanged,
-    TResult Function(DocumentPathChanged value)? documentPathChanged,
     TResult Function(DocumentSaved value)? documentSaved,
     TResult Function(ToolCreated value)? toolCreated,
     TResult Function(ToolsChanged value)? toolsChanged,
@@ -3184,7 +3146,7 @@ class _$ThumbnailCaptured extends ThumbnailCaptured {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$ThumbnailCapturedToJson(
+    return _$$ThumbnailCapturedImplToJson(
       this,
     );
   }
@@ -3192,24 +3154,24 @@ class _$ThumbnailCaptured extends ThumbnailCaptured {
 
 abstract class ThumbnailCaptured extends DocumentEvent {
   const factory ThumbnailCaptured(
-      @Uint8ListJsonConverter() final Uint8List data) = _$ThumbnailCaptured;
+      @Uint8ListJsonConverter() final Uint8List data) = _$ThumbnailCapturedImpl;
   const ThumbnailCaptured._() : super._();
 
   factory ThumbnailCaptured.fromJson(Map<String, dynamic> json) =
-      _$ThumbnailCaptured.fromJson;
+      _$ThumbnailCapturedImpl.fromJson;
 
   @Uint8ListJsonConverter()
   Uint8List get data;
   @JsonKey(ignore: true)
-  _$$ThumbnailCapturedCopyWith<_$ThumbnailCaptured> get copyWith =>
+  _$$ThumbnailCapturedImplCopyWith<_$ThumbnailCapturedImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$ViewChangedCopyWith<$Res> {
-  factory _$$ViewChangedCopyWith(
-          _$ViewChanged value, $Res Function(_$ViewChanged) then) =
-      __$$ViewChangedCopyWithImpl<$Res>;
+abstract class _$$ViewChangedImplCopyWith<$Res> {
+  factory _$$ViewChangedImplCopyWith(
+          _$ViewChangedImpl value, $Res Function(_$ViewChangedImpl) then) =
+      __$$ViewChangedImplCopyWithImpl<$Res>;
   @useResult
   $Res call({ViewOption view});
 
@@ -3217,11 +3179,11 @@ abstract class _$$ViewChangedCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$ViewChangedCopyWithImpl<$Res>
-    extends _$DocumentEventCopyWithImpl<$Res, _$ViewChanged>
-    implements _$$ViewChangedCopyWith<$Res> {
-  __$$ViewChangedCopyWithImpl(
-      _$ViewChanged _value, $Res Function(_$ViewChanged) _then)
+class __$$ViewChangedImplCopyWithImpl<$Res>
+    extends _$DocumentEventCopyWithImpl<$Res, _$ViewChangedImpl>
+    implements _$$ViewChangedImplCopyWith<$Res> {
+  __$$ViewChangedImplCopyWithImpl(
+      _$ViewChangedImpl _value, $Res Function(_$ViewChangedImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -3229,7 +3191,7 @@ class __$$ViewChangedCopyWithImpl<$Res>
   $Res call({
     Object? view = null,
   }) {
-    return _then(_$ViewChanged(
+    return _then(_$ViewChangedImpl(
       null == view
           ? _value.view
           : view // ignore: cast_nullable_to_non_nullable
@@ -3248,13 +3210,13 @@ class __$$ViewChangedCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$ViewChanged extends ViewChanged {
-  const _$ViewChanged(this.view, {final String? $type})
+class _$ViewChangedImpl extends ViewChanged {
+  const _$ViewChangedImpl(this.view, {final String? $type})
       : $type = $type ?? 'viewChanged',
         super._();
 
-  factory _$ViewChanged.fromJson(Map<String, dynamic> json) =>
-      _$$ViewChangedFromJson(json);
+  factory _$ViewChangedImpl.fromJson(Map<String, dynamic> json) =>
+      _$$ViewChangedImplFromJson(json);
 
   @override
   final ViewOption view;
@@ -3271,7 +3233,7 @@ class _$ViewChanged extends ViewChanged {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$ViewChanged &&
+            other is _$ViewChangedImpl &&
             (identical(other.view, view) || other.view == view));
   }
 
@@ -3282,13 +3244,13 @@ class _$ViewChanged extends ViewChanged {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$ViewChangedCopyWith<_$ViewChanged> get copyWith =>
-      __$$ViewChangedCopyWithImpl<_$ViewChanged>(this, _$identity);
+  _$$ViewChangedImplCopyWith<_$ViewChangedImpl> get copyWith =>
+      __$$ViewChangedImplCopyWithImpl<_$ViewChangedImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(DocumentPage page, int? index) pageAdded,
+    required TResult Function(int? index, DocumentPage? page) pageAdded,
     required TResult Function(String pageName) pageChanged,
     required TResult Function(String page, int? newIndex) pageReordered,
     required TResult Function(String oldName, String newName) pageRenamed,
@@ -3305,7 +3267,6 @@ class _$ViewChanged extends ViewChanged {
         elementsArranged,
     required TResult Function(String? name, String? description)
         documentDescriptionChanged,
-    required TResult Function(String path) documentPathChanged,
     required TResult Function(AssetLocation? location) documentSaved,
     required TResult Function(Tool tool) toolCreated,
     required TResult Function(Map<int, Tool> tools) toolsChanged,
@@ -3353,7 +3314,7 @@ class _$ViewChanged extends ViewChanged {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(DocumentPage page, int? index)? pageAdded,
+    TResult? Function(int? index, DocumentPage? page)? pageAdded,
     TResult? Function(String pageName)? pageChanged,
     TResult? Function(String page, int? newIndex)? pageReordered,
     TResult? Function(String oldName, String newName)? pageRenamed,
@@ -3369,7 +3330,6 @@ class _$ViewChanged extends ViewChanged {
         elementsArranged,
     TResult? Function(String? name, String? description)?
         documentDescriptionChanged,
-    TResult? Function(String path)? documentPathChanged,
     TResult? Function(AssetLocation? location)? documentSaved,
     TResult? Function(Tool tool)? toolCreated,
     TResult? Function(Map<int, Tool> tools)? toolsChanged,
@@ -3411,7 +3371,7 @@ class _$ViewChanged extends ViewChanged {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(DocumentPage page, int? index)? pageAdded,
+    TResult Function(int? index, DocumentPage? page)? pageAdded,
     TResult Function(String pageName)? pageChanged,
     TResult Function(String page, int? newIndex)? pageReordered,
     TResult Function(String oldName, String newName)? pageRenamed,
@@ -3427,7 +3387,6 @@ class _$ViewChanged extends ViewChanged {
         elementsArranged,
     TResult Function(String? name, String? description)?
         documentDescriptionChanged,
-    TResult Function(String path)? documentPathChanged,
     TResult Function(AssetLocation? location)? documentSaved,
     TResult Function(Tool tool)? toolCreated,
     TResult Function(Map<int, Tool> tools)? toolsChanged,
@@ -3487,7 +3446,6 @@ class _$ViewChanged extends ViewChanged {
     required TResult Function(ElementsArranged value) elementsArranged,
     required TResult Function(DocumentDescriptionChanged value)
         documentDescriptionChanged,
-    required TResult Function(DocumentPathChanged value) documentPathChanged,
     required TResult Function(DocumentSaved value) documentSaved,
     required TResult Function(ToolCreated value) toolCreated,
     required TResult Function(ToolsChanged value) toolsChanged,
@@ -3545,7 +3503,6 @@ class _$ViewChanged extends ViewChanged {
     TResult? Function(ElementsArranged value)? elementsArranged,
     TResult? Function(DocumentDescriptionChanged value)?
         documentDescriptionChanged,
-    TResult? Function(DocumentPathChanged value)? documentPathChanged,
     TResult? Function(DocumentSaved value)? documentSaved,
     TResult? Function(ToolCreated value)? toolCreated,
     TResult? Function(ToolsChanged value)? toolsChanged,
@@ -3600,7 +3557,6 @@ class _$ViewChanged extends ViewChanged {
     TResult Function(ElementsArranged value)? elementsArranged,
     TResult Function(DocumentDescriptionChanged value)?
         documentDescriptionChanged,
-    TResult Function(DocumentPathChanged value)? documentPathChanged,
     TResult Function(DocumentSaved value)? documentSaved,
     TResult Function(ToolCreated value)? toolCreated,
     TResult Function(ToolsChanged value)? toolsChanged,
@@ -3644,30 +3600,30 @@ class _$ViewChanged extends ViewChanged {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$ViewChangedToJson(
+    return _$$ViewChangedImplToJson(
       this,
     );
   }
 }
 
 abstract class ViewChanged extends DocumentEvent {
-  const factory ViewChanged(final ViewOption view) = _$ViewChanged;
+  const factory ViewChanged(final ViewOption view) = _$ViewChangedImpl;
   const ViewChanged._() : super._();
 
   factory ViewChanged.fromJson(Map<String, dynamic> json) =
-      _$ViewChanged.fromJson;
+      _$ViewChangedImpl.fromJson;
 
   ViewOption get view;
   @JsonKey(ignore: true)
-  _$$ViewChangedCopyWith<_$ViewChanged> get copyWith =>
+  _$$ViewChangedImplCopyWith<_$ViewChangedImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$UtilitiesChangedCopyWith<$Res> {
-  factory _$$UtilitiesChangedCopyWith(
-          _$UtilitiesChanged value, $Res Function(_$UtilitiesChanged) then) =
-      __$$UtilitiesChangedCopyWithImpl<$Res>;
+abstract class _$$UtilitiesChangedImplCopyWith<$Res> {
+  factory _$$UtilitiesChangedImplCopyWith(_$UtilitiesChangedImpl value,
+          $Res Function(_$UtilitiesChangedImpl) then) =
+      __$$UtilitiesChangedImplCopyWithImpl<$Res>;
   @useResult
   $Res call({UtilitiesState state});
 
@@ -3675,11 +3631,11 @@ abstract class _$$UtilitiesChangedCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$UtilitiesChangedCopyWithImpl<$Res>
-    extends _$DocumentEventCopyWithImpl<$Res, _$UtilitiesChanged>
-    implements _$$UtilitiesChangedCopyWith<$Res> {
-  __$$UtilitiesChangedCopyWithImpl(
-      _$UtilitiesChanged _value, $Res Function(_$UtilitiesChanged) _then)
+class __$$UtilitiesChangedImplCopyWithImpl<$Res>
+    extends _$DocumentEventCopyWithImpl<$Res, _$UtilitiesChangedImpl>
+    implements _$$UtilitiesChangedImplCopyWith<$Res> {
+  __$$UtilitiesChangedImplCopyWithImpl(_$UtilitiesChangedImpl _value,
+      $Res Function(_$UtilitiesChangedImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -3687,7 +3643,7 @@ class __$$UtilitiesChangedCopyWithImpl<$Res>
   $Res call({
     Object? state = null,
   }) {
-    return _then(_$UtilitiesChanged(
+    return _then(_$UtilitiesChangedImpl(
       null == state
           ? _value.state
           : state // ignore: cast_nullable_to_non_nullable
@@ -3706,13 +3662,13 @@ class __$$UtilitiesChangedCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$UtilitiesChanged extends UtilitiesChanged {
-  const _$UtilitiesChanged(this.state, {final String? $type})
+class _$UtilitiesChangedImpl extends UtilitiesChanged {
+  const _$UtilitiesChangedImpl(this.state, {final String? $type})
       : $type = $type ?? 'utilitiesChanged',
         super._();
 
-  factory _$UtilitiesChanged.fromJson(Map<String, dynamic> json) =>
-      _$$UtilitiesChangedFromJson(json);
+  factory _$UtilitiesChangedImpl.fromJson(Map<String, dynamic> json) =>
+      _$$UtilitiesChangedImplFromJson(json);
 
   @override
   final UtilitiesState state;
@@ -3729,7 +3685,7 @@ class _$UtilitiesChanged extends UtilitiesChanged {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$UtilitiesChanged &&
+            other is _$UtilitiesChangedImpl &&
             (identical(other.state, state) || other.state == state));
   }
 
@@ -3740,13 +3696,14 @@ class _$UtilitiesChanged extends UtilitiesChanged {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$UtilitiesChangedCopyWith<_$UtilitiesChanged> get copyWith =>
-      __$$UtilitiesChangedCopyWithImpl<_$UtilitiesChanged>(this, _$identity);
+  _$$UtilitiesChangedImplCopyWith<_$UtilitiesChangedImpl> get copyWith =>
+      __$$UtilitiesChangedImplCopyWithImpl<_$UtilitiesChangedImpl>(
+          this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(DocumentPage page, int? index) pageAdded,
+    required TResult Function(int? index, DocumentPage? page) pageAdded,
     required TResult Function(String pageName) pageChanged,
     required TResult Function(String page, int? newIndex) pageReordered,
     required TResult Function(String oldName, String newName) pageRenamed,
@@ -3763,7 +3720,6 @@ class _$UtilitiesChanged extends UtilitiesChanged {
         elementsArranged,
     required TResult Function(String? name, String? description)
         documentDescriptionChanged,
-    required TResult Function(String path) documentPathChanged,
     required TResult Function(AssetLocation? location) documentSaved,
     required TResult Function(Tool tool) toolCreated,
     required TResult Function(Map<int, Tool> tools) toolsChanged,
@@ -3811,7 +3767,7 @@ class _$UtilitiesChanged extends UtilitiesChanged {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(DocumentPage page, int? index)? pageAdded,
+    TResult? Function(int? index, DocumentPage? page)? pageAdded,
     TResult? Function(String pageName)? pageChanged,
     TResult? Function(String page, int? newIndex)? pageReordered,
     TResult? Function(String oldName, String newName)? pageRenamed,
@@ -3827,7 +3783,6 @@ class _$UtilitiesChanged extends UtilitiesChanged {
         elementsArranged,
     TResult? Function(String? name, String? description)?
         documentDescriptionChanged,
-    TResult? Function(String path)? documentPathChanged,
     TResult? Function(AssetLocation? location)? documentSaved,
     TResult? Function(Tool tool)? toolCreated,
     TResult? Function(Map<int, Tool> tools)? toolsChanged,
@@ -3869,7 +3824,7 @@ class _$UtilitiesChanged extends UtilitiesChanged {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(DocumentPage page, int? index)? pageAdded,
+    TResult Function(int? index, DocumentPage? page)? pageAdded,
     TResult Function(String pageName)? pageChanged,
     TResult Function(String page, int? newIndex)? pageReordered,
     TResult Function(String oldName, String newName)? pageRenamed,
@@ -3885,7 +3840,6 @@ class _$UtilitiesChanged extends UtilitiesChanged {
         elementsArranged,
     TResult Function(String? name, String? description)?
         documentDescriptionChanged,
-    TResult Function(String path)? documentPathChanged,
     TResult Function(AssetLocation? location)? documentSaved,
     TResult Function(Tool tool)? toolCreated,
     TResult Function(Map<int, Tool> tools)? toolsChanged,
@@ -3945,7 +3899,6 @@ class _$UtilitiesChanged extends UtilitiesChanged {
     required TResult Function(ElementsArranged value) elementsArranged,
     required TResult Function(DocumentDescriptionChanged value)
         documentDescriptionChanged,
-    required TResult Function(DocumentPathChanged value) documentPathChanged,
     required TResult Function(DocumentSaved value) documentSaved,
     required TResult Function(ToolCreated value) toolCreated,
     required TResult Function(ToolsChanged value) toolsChanged,
@@ -4003,7 +3956,6 @@ class _$UtilitiesChanged extends UtilitiesChanged {
     TResult? Function(ElementsArranged value)? elementsArranged,
     TResult? Function(DocumentDescriptionChanged value)?
         documentDescriptionChanged,
-    TResult? Function(DocumentPathChanged value)? documentPathChanged,
     TResult? Function(DocumentSaved value)? documentSaved,
     TResult? Function(ToolCreated value)? toolCreated,
     TResult? Function(ToolsChanged value)? toolsChanged,
@@ -4058,7 +4010,6 @@ class _$UtilitiesChanged extends UtilitiesChanged {
     TResult Function(ElementsArranged value)? elementsArranged,
     TResult Function(DocumentDescriptionChanged value)?
         documentDescriptionChanged,
-    TResult Function(DocumentPathChanged value)? documentPathChanged,
     TResult Function(DocumentSaved value)? documentSaved,
     TResult Function(ToolCreated value)? toolCreated,
     TResult Function(ToolsChanged value)? toolsChanged,
@@ -4102,7 +4053,7 @@ class _$UtilitiesChanged extends UtilitiesChanged {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$UtilitiesChangedToJson(
+    return _$$UtilitiesChangedImplToJson(
       this,
     );
   }
@@ -4110,33 +4061,33 @@ class _$UtilitiesChanged extends UtilitiesChanged {
 
 abstract class UtilitiesChanged extends DocumentEvent {
   const factory UtilitiesChanged(final UtilitiesState state) =
-      _$UtilitiesChanged;
+      _$UtilitiesChangedImpl;
   const UtilitiesChanged._() : super._();
 
   factory UtilitiesChanged.fromJson(Map<String, dynamic> json) =
-      _$UtilitiesChanged.fromJson;
+      _$UtilitiesChangedImpl.fromJson;
 
   UtilitiesState get state;
   @JsonKey(ignore: true)
-  _$$UtilitiesChangedCopyWith<_$UtilitiesChanged> get copyWith =>
+  _$$UtilitiesChangedImplCopyWith<_$UtilitiesChangedImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$ElementsCreatedCopyWith<$Res> {
-  factory _$$ElementsCreatedCopyWith(
-          _$ElementsCreated value, $Res Function(_$ElementsCreated) then) =
-      __$$ElementsCreatedCopyWithImpl<$Res>;
+abstract class _$$ElementsCreatedImplCopyWith<$Res> {
+  factory _$$ElementsCreatedImplCopyWith(_$ElementsCreatedImpl value,
+          $Res Function(_$ElementsCreatedImpl) then) =
+      __$$ElementsCreatedImplCopyWithImpl<$Res>;
   @useResult
   $Res call({List<PadElement> elements});
 }
 
 /// @nodoc
-class __$$ElementsCreatedCopyWithImpl<$Res>
-    extends _$DocumentEventCopyWithImpl<$Res, _$ElementsCreated>
-    implements _$$ElementsCreatedCopyWith<$Res> {
-  __$$ElementsCreatedCopyWithImpl(
-      _$ElementsCreated _value, $Res Function(_$ElementsCreated) _then)
+class __$$ElementsCreatedImplCopyWithImpl<$Res>
+    extends _$DocumentEventCopyWithImpl<$Res, _$ElementsCreatedImpl>
+    implements _$$ElementsCreatedImplCopyWith<$Res> {
+  __$$ElementsCreatedImplCopyWithImpl(
+      _$ElementsCreatedImpl _value, $Res Function(_$ElementsCreatedImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -4144,7 +4095,7 @@ class __$$ElementsCreatedCopyWithImpl<$Res>
   $Res call({
     Object? elements = null,
   }) {
-    return _then(_$ElementsCreated(
+    return _then(_$ElementsCreatedImpl(
       null == elements
           ? _value._elements
           : elements // ignore: cast_nullable_to_non_nullable
@@ -4155,15 +4106,15 @@ class __$$ElementsCreatedCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$ElementsCreated extends ElementsCreated {
-  const _$ElementsCreated(final List<PadElement> elements,
+class _$ElementsCreatedImpl extends ElementsCreated {
+  const _$ElementsCreatedImpl(final List<PadElement> elements,
       {final String? $type})
       : _elements = elements,
         $type = $type ?? 'elementsCreated',
         super._();
 
-  factory _$ElementsCreated.fromJson(Map<String, dynamic> json) =>
-      _$$ElementsCreatedFromJson(json);
+  factory _$ElementsCreatedImpl.fromJson(Map<String, dynamic> json) =>
+      _$$ElementsCreatedImplFromJson(json);
 
   final List<PadElement> _elements;
   @override
@@ -4185,7 +4136,7 @@ class _$ElementsCreated extends ElementsCreated {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$ElementsCreated &&
+            other is _$ElementsCreatedImpl &&
             const DeepCollectionEquality().equals(other._elements, _elements));
   }
 
@@ -4197,13 +4148,14 @@ class _$ElementsCreated extends ElementsCreated {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$ElementsCreatedCopyWith<_$ElementsCreated> get copyWith =>
-      __$$ElementsCreatedCopyWithImpl<_$ElementsCreated>(this, _$identity);
+  _$$ElementsCreatedImplCopyWith<_$ElementsCreatedImpl> get copyWith =>
+      __$$ElementsCreatedImplCopyWithImpl<_$ElementsCreatedImpl>(
+          this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(DocumentPage page, int? index) pageAdded,
+    required TResult Function(int? index, DocumentPage? page) pageAdded,
     required TResult Function(String pageName) pageChanged,
     required TResult Function(String page, int? newIndex) pageReordered,
     required TResult Function(String oldName, String newName) pageRenamed,
@@ -4220,7 +4172,6 @@ class _$ElementsCreated extends ElementsCreated {
         elementsArranged,
     required TResult Function(String? name, String? description)
         documentDescriptionChanged,
-    required TResult Function(String path) documentPathChanged,
     required TResult Function(AssetLocation? location) documentSaved,
     required TResult Function(Tool tool) toolCreated,
     required TResult Function(Map<int, Tool> tools) toolsChanged,
@@ -4268,7 +4219,7 @@ class _$ElementsCreated extends ElementsCreated {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(DocumentPage page, int? index)? pageAdded,
+    TResult? Function(int? index, DocumentPage? page)? pageAdded,
     TResult? Function(String pageName)? pageChanged,
     TResult? Function(String page, int? newIndex)? pageReordered,
     TResult? Function(String oldName, String newName)? pageRenamed,
@@ -4284,7 +4235,6 @@ class _$ElementsCreated extends ElementsCreated {
         elementsArranged,
     TResult? Function(String? name, String? description)?
         documentDescriptionChanged,
-    TResult? Function(String path)? documentPathChanged,
     TResult? Function(AssetLocation? location)? documentSaved,
     TResult? Function(Tool tool)? toolCreated,
     TResult? Function(Map<int, Tool> tools)? toolsChanged,
@@ -4326,7 +4276,7 @@ class _$ElementsCreated extends ElementsCreated {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(DocumentPage page, int? index)? pageAdded,
+    TResult Function(int? index, DocumentPage? page)? pageAdded,
     TResult Function(String pageName)? pageChanged,
     TResult Function(String page, int? newIndex)? pageReordered,
     TResult Function(String oldName, String newName)? pageRenamed,
@@ -4342,7 +4292,6 @@ class _$ElementsCreated extends ElementsCreated {
         elementsArranged,
     TResult Function(String? name, String? description)?
         documentDescriptionChanged,
-    TResult Function(String path)? documentPathChanged,
     TResult Function(AssetLocation? location)? documentSaved,
     TResult Function(Tool tool)? toolCreated,
     TResult Function(Map<int, Tool> tools)? toolsChanged,
@@ -4402,7 +4351,6 @@ class _$ElementsCreated extends ElementsCreated {
     required TResult Function(ElementsArranged value) elementsArranged,
     required TResult Function(DocumentDescriptionChanged value)
         documentDescriptionChanged,
-    required TResult Function(DocumentPathChanged value) documentPathChanged,
     required TResult Function(DocumentSaved value) documentSaved,
     required TResult Function(ToolCreated value) toolCreated,
     required TResult Function(ToolsChanged value) toolsChanged,
@@ -4460,7 +4408,6 @@ class _$ElementsCreated extends ElementsCreated {
     TResult? Function(ElementsArranged value)? elementsArranged,
     TResult? Function(DocumentDescriptionChanged value)?
         documentDescriptionChanged,
-    TResult? Function(DocumentPathChanged value)? documentPathChanged,
     TResult? Function(DocumentSaved value)? documentSaved,
     TResult? Function(ToolCreated value)? toolCreated,
     TResult? Function(ToolsChanged value)? toolsChanged,
@@ -4515,7 +4462,6 @@ class _$ElementsCreated extends ElementsCreated {
     TResult Function(ElementsArranged value)? elementsArranged,
     TResult Function(DocumentDescriptionChanged value)?
         documentDescriptionChanged,
-    TResult Function(DocumentPathChanged value)? documentPathChanged,
     TResult Function(DocumentSaved value)? documentSaved,
     TResult Function(ToolCreated value)? toolCreated,
     TResult Function(ToolsChanged value)? toolsChanged,
@@ -4559,7 +4505,7 @@ class _$ElementsCreated extends ElementsCreated {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$ElementsCreatedToJson(
+    return _$$ElementsCreatedImplToJson(
       this,
     );
   }
@@ -4567,33 +4513,33 @@ class _$ElementsCreated extends ElementsCreated {
 
 abstract class ElementsCreated extends DocumentEvent {
   const factory ElementsCreated(final List<PadElement> elements) =
-      _$ElementsCreated;
+      _$ElementsCreatedImpl;
   const ElementsCreated._() : super._();
 
   factory ElementsCreated.fromJson(Map<String, dynamic> json) =
-      _$ElementsCreated.fromJson;
+      _$ElementsCreatedImpl.fromJson;
 
   List<PadElement> get elements;
   @JsonKey(ignore: true)
-  _$$ElementsCreatedCopyWith<_$ElementsCreated> get copyWith =>
+  _$$ElementsCreatedImplCopyWith<_$ElementsCreatedImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$ElementsChangedCopyWith<$Res> {
-  factory _$$ElementsChangedCopyWith(
-          _$ElementsChanged value, $Res Function(_$ElementsChanged) then) =
-      __$$ElementsChangedCopyWithImpl<$Res>;
+abstract class _$$ElementsChangedImplCopyWith<$Res> {
+  factory _$$ElementsChangedImplCopyWith(_$ElementsChangedImpl value,
+          $Res Function(_$ElementsChangedImpl) then) =
+      __$$ElementsChangedImplCopyWithImpl<$Res>;
   @useResult
   $Res call({Map<int, List<PadElement>> elements});
 }
 
 /// @nodoc
-class __$$ElementsChangedCopyWithImpl<$Res>
-    extends _$DocumentEventCopyWithImpl<$Res, _$ElementsChanged>
-    implements _$$ElementsChangedCopyWith<$Res> {
-  __$$ElementsChangedCopyWithImpl(
-      _$ElementsChanged _value, $Res Function(_$ElementsChanged) _then)
+class __$$ElementsChangedImplCopyWithImpl<$Res>
+    extends _$DocumentEventCopyWithImpl<$Res, _$ElementsChangedImpl>
+    implements _$$ElementsChangedImplCopyWith<$Res> {
+  __$$ElementsChangedImplCopyWithImpl(
+      _$ElementsChangedImpl _value, $Res Function(_$ElementsChangedImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -4601,7 +4547,7 @@ class __$$ElementsChangedCopyWithImpl<$Res>
   $Res call({
     Object? elements = null,
   }) {
-    return _then(_$ElementsChanged(
+    return _then(_$ElementsChangedImpl(
       null == elements
           ? _value._elements
           : elements // ignore: cast_nullable_to_non_nullable
@@ -4612,15 +4558,15 @@ class __$$ElementsChangedCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$ElementsChanged extends ElementsChanged {
-  const _$ElementsChanged(final Map<int, List<PadElement>> elements,
+class _$ElementsChangedImpl extends ElementsChanged {
+  const _$ElementsChangedImpl(final Map<int, List<PadElement>> elements,
       {final String? $type})
       : _elements = elements,
         $type = $type ?? 'elementsChanged',
         super._();
 
-  factory _$ElementsChanged.fromJson(Map<String, dynamic> json) =>
-      _$$ElementsChangedFromJson(json);
+  factory _$ElementsChangedImpl.fromJson(Map<String, dynamic> json) =>
+      _$$ElementsChangedImplFromJson(json);
 
   final Map<int, List<PadElement>> _elements;
   @override
@@ -4642,7 +4588,7 @@ class _$ElementsChanged extends ElementsChanged {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$ElementsChanged &&
+            other is _$ElementsChangedImpl &&
             const DeepCollectionEquality().equals(other._elements, _elements));
   }
 
@@ -4654,13 +4600,14 @@ class _$ElementsChanged extends ElementsChanged {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$ElementsChangedCopyWith<_$ElementsChanged> get copyWith =>
-      __$$ElementsChangedCopyWithImpl<_$ElementsChanged>(this, _$identity);
+  _$$ElementsChangedImplCopyWith<_$ElementsChangedImpl> get copyWith =>
+      __$$ElementsChangedImplCopyWithImpl<_$ElementsChangedImpl>(
+          this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(DocumentPage page, int? index) pageAdded,
+    required TResult Function(int? index, DocumentPage? page) pageAdded,
     required TResult Function(String pageName) pageChanged,
     required TResult Function(String page, int? newIndex) pageReordered,
     required TResult Function(String oldName, String newName) pageRenamed,
@@ -4677,7 +4624,6 @@ class _$ElementsChanged extends ElementsChanged {
         elementsArranged,
     required TResult Function(String? name, String? description)
         documentDescriptionChanged,
-    required TResult Function(String path) documentPathChanged,
     required TResult Function(AssetLocation? location) documentSaved,
     required TResult Function(Tool tool) toolCreated,
     required TResult Function(Map<int, Tool> tools) toolsChanged,
@@ -4725,7 +4671,7 @@ class _$ElementsChanged extends ElementsChanged {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(DocumentPage page, int? index)? pageAdded,
+    TResult? Function(int? index, DocumentPage? page)? pageAdded,
     TResult? Function(String pageName)? pageChanged,
     TResult? Function(String page, int? newIndex)? pageReordered,
     TResult? Function(String oldName, String newName)? pageRenamed,
@@ -4741,7 +4687,6 @@ class _$ElementsChanged extends ElementsChanged {
         elementsArranged,
     TResult? Function(String? name, String? description)?
         documentDescriptionChanged,
-    TResult? Function(String path)? documentPathChanged,
     TResult? Function(AssetLocation? location)? documentSaved,
     TResult? Function(Tool tool)? toolCreated,
     TResult? Function(Map<int, Tool> tools)? toolsChanged,
@@ -4783,7 +4728,7 @@ class _$ElementsChanged extends ElementsChanged {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(DocumentPage page, int? index)? pageAdded,
+    TResult Function(int? index, DocumentPage? page)? pageAdded,
     TResult Function(String pageName)? pageChanged,
     TResult Function(String page, int? newIndex)? pageReordered,
     TResult Function(String oldName, String newName)? pageRenamed,
@@ -4799,7 +4744,6 @@ class _$ElementsChanged extends ElementsChanged {
         elementsArranged,
     TResult Function(String? name, String? description)?
         documentDescriptionChanged,
-    TResult Function(String path)? documentPathChanged,
     TResult Function(AssetLocation? location)? documentSaved,
     TResult Function(Tool tool)? toolCreated,
     TResult Function(Map<int, Tool> tools)? toolsChanged,
@@ -4859,7 +4803,6 @@ class _$ElementsChanged extends ElementsChanged {
     required TResult Function(ElementsArranged value) elementsArranged,
     required TResult Function(DocumentDescriptionChanged value)
         documentDescriptionChanged,
-    required TResult Function(DocumentPathChanged value) documentPathChanged,
     required TResult Function(DocumentSaved value) documentSaved,
     required TResult Function(ToolCreated value) toolCreated,
     required TResult Function(ToolsChanged value) toolsChanged,
@@ -4917,7 +4860,6 @@ class _$ElementsChanged extends ElementsChanged {
     TResult? Function(ElementsArranged value)? elementsArranged,
     TResult? Function(DocumentDescriptionChanged value)?
         documentDescriptionChanged,
-    TResult? Function(DocumentPathChanged value)? documentPathChanged,
     TResult? Function(DocumentSaved value)? documentSaved,
     TResult? Function(ToolCreated value)? toolCreated,
     TResult? Function(ToolsChanged value)? toolsChanged,
@@ -4972,7 +4914,6 @@ class _$ElementsChanged extends ElementsChanged {
     TResult Function(ElementsArranged value)? elementsArranged,
     TResult Function(DocumentDescriptionChanged value)?
         documentDescriptionChanged,
-    TResult Function(DocumentPathChanged value)? documentPathChanged,
     TResult Function(DocumentSaved value)? documentSaved,
     TResult Function(ToolCreated value)? toolCreated,
     TResult Function(ToolsChanged value)? toolsChanged,
@@ -5016,7 +4957,7 @@ class _$ElementsChanged extends ElementsChanged {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$ElementsChangedToJson(
+    return _$$ElementsChangedImplToJson(
       this,
     );
   }
@@ -5024,33 +4965,33 @@ class _$ElementsChanged extends ElementsChanged {
 
 abstract class ElementsChanged extends DocumentEvent {
   const factory ElementsChanged(final Map<int, List<PadElement>> elements) =
-      _$ElementsChanged;
+      _$ElementsChangedImpl;
   const ElementsChanged._() : super._();
 
   factory ElementsChanged.fromJson(Map<String, dynamic> json) =
-      _$ElementsChanged.fromJson;
+      _$ElementsChangedImpl.fromJson;
 
   Map<int, List<PadElement>> get elements;
   @JsonKey(ignore: true)
-  _$$ElementsChangedCopyWith<_$ElementsChanged> get copyWith =>
+  _$$ElementsChangedImplCopyWith<_$ElementsChangedImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$ElementsRemovedCopyWith<$Res> {
-  factory _$$ElementsRemovedCopyWith(
-          _$ElementsRemoved value, $Res Function(_$ElementsRemoved) then) =
-      __$$ElementsRemovedCopyWithImpl<$Res>;
+abstract class _$$ElementsRemovedImplCopyWith<$Res> {
+  factory _$$ElementsRemovedImplCopyWith(_$ElementsRemovedImpl value,
+          $Res Function(_$ElementsRemovedImpl) then) =
+      __$$ElementsRemovedImplCopyWithImpl<$Res>;
   @useResult
   $Res call({List<int> elements});
 }
 
 /// @nodoc
-class __$$ElementsRemovedCopyWithImpl<$Res>
-    extends _$DocumentEventCopyWithImpl<$Res, _$ElementsRemoved>
-    implements _$$ElementsRemovedCopyWith<$Res> {
-  __$$ElementsRemovedCopyWithImpl(
-      _$ElementsRemoved _value, $Res Function(_$ElementsRemoved) _then)
+class __$$ElementsRemovedImplCopyWithImpl<$Res>
+    extends _$DocumentEventCopyWithImpl<$Res, _$ElementsRemovedImpl>
+    implements _$$ElementsRemovedImplCopyWith<$Res> {
+  __$$ElementsRemovedImplCopyWithImpl(
+      _$ElementsRemovedImpl _value, $Res Function(_$ElementsRemovedImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -5058,7 +4999,7 @@ class __$$ElementsRemovedCopyWithImpl<$Res>
   $Res call({
     Object? elements = null,
   }) {
-    return _then(_$ElementsRemoved(
+    return _then(_$ElementsRemovedImpl(
       null == elements
           ? _value._elements
           : elements // ignore: cast_nullable_to_non_nullable
@@ -5069,14 +5010,14 @@ class __$$ElementsRemovedCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$ElementsRemoved extends ElementsRemoved {
-  const _$ElementsRemoved(final List<int> elements, {final String? $type})
+class _$ElementsRemovedImpl extends ElementsRemoved {
+  const _$ElementsRemovedImpl(final List<int> elements, {final String? $type})
       : _elements = elements,
         $type = $type ?? 'elementsRemoved',
         super._();
 
-  factory _$ElementsRemoved.fromJson(Map<String, dynamic> json) =>
-      _$$ElementsRemovedFromJson(json);
+  factory _$ElementsRemovedImpl.fromJson(Map<String, dynamic> json) =>
+      _$$ElementsRemovedImplFromJson(json);
 
   final List<int> _elements;
   @override
@@ -5098,7 +5039,7 @@ class _$ElementsRemoved extends ElementsRemoved {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$ElementsRemoved &&
+            other is _$ElementsRemovedImpl &&
             const DeepCollectionEquality().equals(other._elements, _elements));
   }
 
@@ -5110,13 +5051,14 @@ class _$ElementsRemoved extends ElementsRemoved {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$ElementsRemovedCopyWith<_$ElementsRemoved> get copyWith =>
-      __$$ElementsRemovedCopyWithImpl<_$ElementsRemoved>(this, _$identity);
+  _$$ElementsRemovedImplCopyWith<_$ElementsRemovedImpl> get copyWith =>
+      __$$ElementsRemovedImplCopyWithImpl<_$ElementsRemovedImpl>(
+          this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(DocumentPage page, int? index) pageAdded,
+    required TResult Function(int? index, DocumentPage? page) pageAdded,
     required TResult Function(String pageName) pageChanged,
     required TResult Function(String page, int? newIndex) pageReordered,
     required TResult Function(String oldName, String newName) pageRenamed,
@@ -5133,7 +5075,6 @@ class _$ElementsRemoved extends ElementsRemoved {
         elementsArranged,
     required TResult Function(String? name, String? description)
         documentDescriptionChanged,
-    required TResult Function(String path) documentPathChanged,
     required TResult Function(AssetLocation? location) documentSaved,
     required TResult Function(Tool tool) toolCreated,
     required TResult Function(Map<int, Tool> tools) toolsChanged,
@@ -5181,7 +5122,7 @@ class _$ElementsRemoved extends ElementsRemoved {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(DocumentPage page, int? index)? pageAdded,
+    TResult? Function(int? index, DocumentPage? page)? pageAdded,
     TResult? Function(String pageName)? pageChanged,
     TResult? Function(String page, int? newIndex)? pageReordered,
     TResult? Function(String oldName, String newName)? pageRenamed,
@@ -5197,7 +5138,6 @@ class _$ElementsRemoved extends ElementsRemoved {
         elementsArranged,
     TResult? Function(String? name, String? description)?
         documentDescriptionChanged,
-    TResult? Function(String path)? documentPathChanged,
     TResult? Function(AssetLocation? location)? documentSaved,
     TResult? Function(Tool tool)? toolCreated,
     TResult? Function(Map<int, Tool> tools)? toolsChanged,
@@ -5239,7 +5179,7 @@ class _$ElementsRemoved extends ElementsRemoved {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(DocumentPage page, int? index)? pageAdded,
+    TResult Function(int? index, DocumentPage? page)? pageAdded,
     TResult Function(String pageName)? pageChanged,
     TResult Function(String page, int? newIndex)? pageReordered,
     TResult Function(String oldName, String newName)? pageRenamed,
@@ -5255,7 +5195,6 @@ class _$ElementsRemoved extends ElementsRemoved {
         elementsArranged,
     TResult Function(String? name, String? description)?
         documentDescriptionChanged,
-    TResult Function(String path)? documentPathChanged,
     TResult Function(AssetLocation? location)? documentSaved,
     TResult Function(Tool tool)? toolCreated,
     TResult Function(Map<int, Tool> tools)? toolsChanged,
@@ -5315,7 +5254,6 @@ class _$ElementsRemoved extends ElementsRemoved {
     required TResult Function(ElementsArranged value) elementsArranged,
     required TResult Function(DocumentDescriptionChanged value)
         documentDescriptionChanged,
-    required TResult Function(DocumentPathChanged value) documentPathChanged,
     required TResult Function(DocumentSaved value) documentSaved,
     required TResult Function(ToolCreated value) toolCreated,
     required TResult Function(ToolsChanged value) toolsChanged,
@@ -5373,7 +5311,6 @@ class _$ElementsRemoved extends ElementsRemoved {
     TResult? Function(ElementsArranged value)? elementsArranged,
     TResult? Function(DocumentDescriptionChanged value)?
         documentDescriptionChanged,
-    TResult? Function(DocumentPathChanged value)? documentPathChanged,
     TResult? Function(DocumentSaved value)? documentSaved,
     TResult? Function(ToolCreated value)? toolCreated,
     TResult? Function(ToolsChanged value)? toolsChanged,
@@ -5428,7 +5365,6 @@ class _$ElementsRemoved extends ElementsRemoved {
     TResult Function(ElementsArranged value)? elementsArranged,
     TResult Function(DocumentDescriptionChanged value)?
         documentDescriptionChanged,
-    TResult Function(DocumentPathChanged value)? documentPathChanged,
     TResult Function(DocumentSaved value)? documentSaved,
     TResult Function(ToolCreated value)? toolCreated,
     TResult Function(ToolsChanged value)? toolsChanged,
@@ -5472,40 +5408,41 @@ class _$ElementsRemoved extends ElementsRemoved {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$ElementsRemovedToJson(
+    return _$$ElementsRemovedImplToJson(
       this,
     );
   }
 }
 
 abstract class ElementsRemoved extends DocumentEvent {
-  const factory ElementsRemoved(final List<int> elements) = _$ElementsRemoved;
+  const factory ElementsRemoved(final List<int> elements) =
+      _$ElementsRemovedImpl;
   const ElementsRemoved._() : super._();
 
   factory ElementsRemoved.fromJson(Map<String, dynamic> json) =
-      _$ElementsRemoved.fromJson;
+      _$ElementsRemovedImpl.fromJson;
 
   List<int> get elements;
   @JsonKey(ignore: true)
-  _$$ElementsRemovedCopyWith<_$ElementsRemoved> get copyWith =>
+  _$$ElementsRemovedImplCopyWith<_$ElementsRemovedImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$ElementsArrangedCopyWith<$Res> {
-  factory _$$ElementsArrangedCopyWith(
-          _$ElementsArranged value, $Res Function(_$ElementsArranged) then) =
-      __$$ElementsArrangedCopyWithImpl<$Res>;
+abstract class _$$ElementsArrangedImplCopyWith<$Res> {
+  factory _$$ElementsArrangedImplCopyWith(_$ElementsArrangedImpl value,
+          $Res Function(_$ElementsArrangedImpl) then) =
+      __$$ElementsArrangedImplCopyWithImpl<$Res>;
   @useResult
   $Res call({Arrangement arrangement, List<int> elements});
 }
 
 /// @nodoc
-class __$$ElementsArrangedCopyWithImpl<$Res>
-    extends _$DocumentEventCopyWithImpl<$Res, _$ElementsArranged>
-    implements _$$ElementsArrangedCopyWith<$Res> {
-  __$$ElementsArrangedCopyWithImpl(
-      _$ElementsArranged _value, $Res Function(_$ElementsArranged) _then)
+class __$$ElementsArrangedImplCopyWithImpl<$Res>
+    extends _$DocumentEventCopyWithImpl<$Res, _$ElementsArrangedImpl>
+    implements _$$ElementsArrangedImplCopyWith<$Res> {
+  __$$ElementsArrangedImplCopyWithImpl(_$ElementsArrangedImpl _value,
+      $Res Function(_$ElementsArrangedImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -5514,7 +5451,7 @@ class __$$ElementsArrangedCopyWithImpl<$Res>
     Object? arrangement = null,
     Object? elements = null,
   }) {
-    return _then(_$ElementsArranged(
+    return _then(_$ElementsArrangedImpl(
       null == arrangement
           ? _value.arrangement
           : arrangement // ignore: cast_nullable_to_non_nullable
@@ -5529,15 +5466,15 @@ class __$$ElementsArrangedCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$ElementsArranged extends ElementsArranged {
-  const _$ElementsArranged(this.arrangement, final List<int> elements,
+class _$ElementsArrangedImpl extends ElementsArranged {
+  const _$ElementsArrangedImpl(this.arrangement, final List<int> elements,
       {final String? $type})
       : _elements = elements,
         $type = $type ?? 'elementsArranged',
         super._();
 
-  factory _$ElementsArranged.fromJson(Map<String, dynamic> json) =>
-      _$$ElementsArrangedFromJson(json);
+  factory _$ElementsArrangedImpl.fromJson(Map<String, dynamic> json) =>
+      _$$ElementsArrangedImplFromJson(json);
 
   @override
   final Arrangement arrangement;
@@ -5561,7 +5498,7 @@ class _$ElementsArranged extends ElementsArranged {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$ElementsArranged &&
+            other is _$ElementsArrangedImpl &&
             (identical(other.arrangement, arrangement) ||
                 other.arrangement == arrangement) &&
             const DeepCollectionEquality().equals(other._elements, _elements));
@@ -5575,13 +5512,14 @@ class _$ElementsArranged extends ElementsArranged {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$ElementsArrangedCopyWith<_$ElementsArranged> get copyWith =>
-      __$$ElementsArrangedCopyWithImpl<_$ElementsArranged>(this, _$identity);
+  _$$ElementsArrangedImplCopyWith<_$ElementsArrangedImpl> get copyWith =>
+      __$$ElementsArrangedImplCopyWithImpl<_$ElementsArrangedImpl>(
+          this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(DocumentPage page, int? index) pageAdded,
+    required TResult Function(int? index, DocumentPage? page) pageAdded,
     required TResult Function(String pageName) pageChanged,
     required TResult Function(String page, int? newIndex) pageReordered,
     required TResult Function(String oldName, String newName) pageRenamed,
@@ -5598,7 +5536,6 @@ class _$ElementsArranged extends ElementsArranged {
         elementsArranged,
     required TResult Function(String? name, String? description)
         documentDescriptionChanged,
-    required TResult Function(String path) documentPathChanged,
     required TResult Function(AssetLocation? location) documentSaved,
     required TResult Function(Tool tool) toolCreated,
     required TResult Function(Map<int, Tool> tools) toolsChanged,
@@ -5646,7 +5583,7 @@ class _$ElementsArranged extends ElementsArranged {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(DocumentPage page, int? index)? pageAdded,
+    TResult? Function(int? index, DocumentPage? page)? pageAdded,
     TResult? Function(String pageName)? pageChanged,
     TResult? Function(String page, int? newIndex)? pageReordered,
     TResult? Function(String oldName, String newName)? pageRenamed,
@@ -5662,7 +5599,6 @@ class _$ElementsArranged extends ElementsArranged {
         elementsArranged,
     TResult? Function(String? name, String? description)?
         documentDescriptionChanged,
-    TResult? Function(String path)? documentPathChanged,
     TResult? Function(AssetLocation? location)? documentSaved,
     TResult? Function(Tool tool)? toolCreated,
     TResult? Function(Map<int, Tool> tools)? toolsChanged,
@@ -5704,7 +5640,7 @@ class _$ElementsArranged extends ElementsArranged {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(DocumentPage page, int? index)? pageAdded,
+    TResult Function(int? index, DocumentPage? page)? pageAdded,
     TResult Function(String pageName)? pageChanged,
     TResult Function(String page, int? newIndex)? pageReordered,
     TResult Function(String oldName, String newName)? pageRenamed,
@@ -5720,7 +5656,6 @@ class _$ElementsArranged extends ElementsArranged {
         elementsArranged,
     TResult Function(String? name, String? description)?
         documentDescriptionChanged,
-    TResult Function(String path)? documentPathChanged,
     TResult Function(AssetLocation? location)? documentSaved,
     TResult Function(Tool tool)? toolCreated,
     TResult Function(Map<int, Tool> tools)? toolsChanged,
@@ -5780,7 +5715,6 @@ class _$ElementsArranged extends ElementsArranged {
     required TResult Function(ElementsArranged value) elementsArranged,
     required TResult Function(DocumentDescriptionChanged value)
         documentDescriptionChanged,
-    required TResult Function(DocumentPathChanged value) documentPathChanged,
     required TResult Function(DocumentSaved value) documentSaved,
     required TResult Function(ToolCreated value) toolCreated,
     required TResult Function(ToolsChanged value) toolsChanged,
@@ -5838,7 +5772,6 @@ class _$ElementsArranged extends ElementsArranged {
     TResult? Function(ElementsArranged value)? elementsArranged,
     TResult? Function(DocumentDescriptionChanged value)?
         documentDescriptionChanged,
-    TResult? Function(DocumentPathChanged value)? documentPathChanged,
     TResult? Function(DocumentSaved value)? documentSaved,
     TResult? Function(ToolCreated value)? toolCreated,
     TResult? Function(ToolsChanged value)? toolsChanged,
@@ -5893,7 +5826,6 @@ class _$ElementsArranged extends ElementsArranged {
     TResult Function(ElementsArranged value)? elementsArranged,
     TResult Function(DocumentDescriptionChanged value)?
         documentDescriptionChanged,
-    TResult Function(DocumentPathChanged value)? documentPathChanged,
     TResult Function(DocumentSaved value)? documentSaved,
     TResult Function(ToolCreated value)? toolCreated,
     TResult Function(ToolsChanged value)? toolsChanged,
@@ -5937,7 +5869,7 @@ class _$ElementsArranged extends ElementsArranged {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$ElementsArrangedToJson(
+    return _$$ElementsArrangedImplToJson(
       this,
     );
   }
@@ -5946,36 +5878,36 @@ class _$ElementsArranged extends ElementsArranged {
 abstract class ElementsArranged extends DocumentEvent {
   const factory ElementsArranged(
           final Arrangement arrangement, final List<int> elements) =
-      _$ElementsArranged;
+      _$ElementsArrangedImpl;
   const ElementsArranged._() : super._();
 
   factory ElementsArranged.fromJson(Map<String, dynamic> json) =
-      _$ElementsArranged.fromJson;
+      _$ElementsArrangedImpl.fromJson;
 
   Arrangement get arrangement;
   List<int> get elements;
   @JsonKey(ignore: true)
-  _$$ElementsArrangedCopyWith<_$ElementsArranged> get copyWith =>
+  _$$ElementsArrangedImplCopyWith<_$ElementsArrangedImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$DocumentDescriptionChangedCopyWith<$Res> {
-  factory _$$DocumentDescriptionChangedCopyWith(
-          _$DocumentDescriptionChanged value,
-          $Res Function(_$DocumentDescriptionChanged) then) =
-      __$$DocumentDescriptionChangedCopyWithImpl<$Res>;
+abstract class _$$DocumentDescriptionChangedImplCopyWith<$Res> {
+  factory _$$DocumentDescriptionChangedImplCopyWith(
+          _$DocumentDescriptionChangedImpl value,
+          $Res Function(_$DocumentDescriptionChangedImpl) then) =
+      __$$DocumentDescriptionChangedImplCopyWithImpl<$Res>;
   @useResult
   $Res call({String? name, String? description});
 }
 
 /// @nodoc
-class __$$DocumentDescriptionChangedCopyWithImpl<$Res>
-    extends _$DocumentEventCopyWithImpl<$Res, _$DocumentDescriptionChanged>
-    implements _$$DocumentDescriptionChangedCopyWith<$Res> {
-  __$$DocumentDescriptionChangedCopyWithImpl(
-      _$DocumentDescriptionChanged _value,
-      $Res Function(_$DocumentDescriptionChanged) _then)
+class __$$DocumentDescriptionChangedImplCopyWithImpl<$Res>
+    extends _$DocumentEventCopyWithImpl<$Res, _$DocumentDescriptionChangedImpl>
+    implements _$$DocumentDescriptionChangedImplCopyWith<$Res> {
+  __$$DocumentDescriptionChangedImplCopyWithImpl(
+      _$DocumentDescriptionChangedImpl _value,
+      $Res Function(_$DocumentDescriptionChangedImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -5984,7 +5916,7 @@ class __$$DocumentDescriptionChangedCopyWithImpl<$Res>
     Object? name = freezed,
     Object? description = freezed,
   }) {
-    return _then(_$DocumentDescriptionChanged(
+    return _then(_$DocumentDescriptionChangedImpl(
       name: freezed == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -5999,14 +5931,15 @@ class __$$DocumentDescriptionChangedCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$DocumentDescriptionChanged extends DocumentDescriptionChanged {
-  const _$DocumentDescriptionChanged(
+class _$DocumentDescriptionChangedImpl extends DocumentDescriptionChanged {
+  const _$DocumentDescriptionChangedImpl(
       {this.name, this.description, final String? $type})
       : $type = $type ?? 'documentDescriptionChanged',
         super._();
 
-  factory _$DocumentDescriptionChanged.fromJson(Map<String, dynamic> json) =>
-      _$$DocumentDescriptionChangedFromJson(json);
+  factory _$DocumentDescriptionChangedImpl.fromJson(
+          Map<String, dynamic> json) =>
+      _$$DocumentDescriptionChangedImplFromJson(json);
 
   @override
   final String? name;
@@ -6025,7 +5958,7 @@ class _$DocumentDescriptionChanged extends DocumentDescriptionChanged {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$DocumentDescriptionChanged &&
+            other is _$DocumentDescriptionChangedImpl &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.description, description) ||
                 other.description == description));
@@ -6038,14 +5971,14 @@ class _$DocumentDescriptionChanged extends DocumentDescriptionChanged {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$DocumentDescriptionChangedCopyWith<_$DocumentDescriptionChanged>
-      get copyWith => __$$DocumentDescriptionChangedCopyWithImpl<
-          _$DocumentDescriptionChanged>(this, _$identity);
+  _$$DocumentDescriptionChangedImplCopyWith<_$DocumentDescriptionChangedImpl>
+      get copyWith => __$$DocumentDescriptionChangedImplCopyWithImpl<
+          _$DocumentDescriptionChangedImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(DocumentPage page, int? index) pageAdded,
+    required TResult Function(int? index, DocumentPage? page) pageAdded,
     required TResult Function(String pageName) pageChanged,
     required TResult Function(String page, int? newIndex) pageReordered,
     required TResult Function(String oldName, String newName) pageRenamed,
@@ -6062,7 +5995,6 @@ class _$DocumentDescriptionChanged extends DocumentDescriptionChanged {
         elementsArranged,
     required TResult Function(String? name, String? description)
         documentDescriptionChanged,
-    required TResult Function(String path) documentPathChanged,
     required TResult Function(AssetLocation? location) documentSaved,
     required TResult Function(Tool tool) toolCreated,
     required TResult Function(Map<int, Tool> tools) toolsChanged,
@@ -6110,7 +6042,7 @@ class _$DocumentDescriptionChanged extends DocumentDescriptionChanged {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(DocumentPage page, int? index)? pageAdded,
+    TResult? Function(int? index, DocumentPage? page)? pageAdded,
     TResult? Function(String pageName)? pageChanged,
     TResult? Function(String page, int? newIndex)? pageReordered,
     TResult? Function(String oldName, String newName)? pageRenamed,
@@ -6126,7 +6058,6 @@ class _$DocumentDescriptionChanged extends DocumentDescriptionChanged {
         elementsArranged,
     TResult? Function(String? name, String? description)?
         documentDescriptionChanged,
-    TResult? Function(String path)? documentPathChanged,
     TResult? Function(AssetLocation? location)? documentSaved,
     TResult? Function(Tool tool)? toolCreated,
     TResult? Function(Map<int, Tool> tools)? toolsChanged,
@@ -6168,7 +6099,7 @@ class _$DocumentDescriptionChanged extends DocumentDescriptionChanged {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(DocumentPage page, int? index)? pageAdded,
+    TResult Function(int? index, DocumentPage? page)? pageAdded,
     TResult Function(String pageName)? pageChanged,
     TResult Function(String page, int? newIndex)? pageReordered,
     TResult Function(String oldName, String newName)? pageRenamed,
@@ -6184,7 +6115,6 @@ class _$DocumentDescriptionChanged extends DocumentDescriptionChanged {
         elementsArranged,
     TResult Function(String? name, String? description)?
         documentDescriptionChanged,
-    TResult Function(String path)? documentPathChanged,
     TResult Function(AssetLocation? location)? documentSaved,
     TResult Function(Tool tool)? toolCreated,
     TResult Function(Map<int, Tool> tools)? toolsChanged,
@@ -6244,7 +6174,6 @@ class _$DocumentDescriptionChanged extends DocumentDescriptionChanged {
     required TResult Function(ElementsArranged value) elementsArranged,
     required TResult Function(DocumentDescriptionChanged value)
         documentDescriptionChanged,
-    required TResult Function(DocumentPathChanged value) documentPathChanged,
     required TResult Function(DocumentSaved value) documentSaved,
     required TResult Function(ToolCreated value) toolCreated,
     required TResult Function(ToolsChanged value) toolsChanged,
@@ -6302,7 +6231,6 @@ class _$DocumentDescriptionChanged extends DocumentDescriptionChanged {
     TResult? Function(ElementsArranged value)? elementsArranged,
     TResult? Function(DocumentDescriptionChanged value)?
         documentDescriptionChanged,
-    TResult? Function(DocumentPathChanged value)? documentPathChanged,
     TResult? Function(DocumentSaved value)? documentSaved,
     TResult? Function(ToolCreated value)? toolCreated,
     TResult? Function(ToolsChanged value)? toolsChanged,
@@ -6357,7 +6285,6 @@ class _$DocumentDescriptionChanged extends DocumentDescriptionChanged {
     TResult Function(ElementsArranged value)? elementsArranged,
     TResult Function(DocumentDescriptionChanged value)?
         documentDescriptionChanged,
-    TResult Function(DocumentPathChanged value)? documentPathChanged,
     TResult Function(DocumentSaved value)? documentSaved,
     TResult Function(ToolCreated value)? toolCreated,
     TResult Function(ToolsChanged value)? toolsChanged,
@@ -6401,7 +6328,7 @@ class _$DocumentDescriptionChanged extends DocumentDescriptionChanged {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$DocumentDescriptionChangedToJson(
+    return _$$DocumentDescriptionChangedImplToJson(
       this,
     );
   }
@@ -6410,473 +6337,24 @@ class _$DocumentDescriptionChanged extends DocumentDescriptionChanged {
 abstract class DocumentDescriptionChanged extends DocumentEvent {
   const factory DocumentDescriptionChanged(
       {final String? name,
-      final String? description}) = _$DocumentDescriptionChanged;
+      final String? description}) = _$DocumentDescriptionChangedImpl;
   const DocumentDescriptionChanged._() : super._();
 
   factory DocumentDescriptionChanged.fromJson(Map<String, dynamic> json) =
-      _$DocumentDescriptionChanged.fromJson;
+      _$DocumentDescriptionChangedImpl.fromJson;
 
   String? get name;
   String? get description;
   @JsonKey(ignore: true)
-  _$$DocumentDescriptionChangedCopyWith<_$DocumentDescriptionChanged>
+  _$$DocumentDescriptionChangedImplCopyWith<_$DocumentDescriptionChangedImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$DocumentPathChangedCopyWith<$Res> {
-  factory _$$DocumentPathChangedCopyWith(_$DocumentPathChanged value,
-          $Res Function(_$DocumentPathChanged) then) =
-      __$$DocumentPathChangedCopyWithImpl<$Res>;
-  @useResult
-  $Res call({String path});
-}
-
-/// @nodoc
-class __$$DocumentPathChangedCopyWithImpl<$Res>
-    extends _$DocumentEventCopyWithImpl<$Res, _$DocumentPathChanged>
-    implements _$$DocumentPathChangedCopyWith<$Res> {
-  __$$DocumentPathChangedCopyWithImpl(
-      _$DocumentPathChanged _value, $Res Function(_$DocumentPathChanged) _then)
-      : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? path = null,
-  }) {
-    return _then(_$DocumentPathChanged(
-      null == path
-          ? _value.path
-          : path // ignore: cast_nullable_to_non_nullable
-              as String,
-    ));
-  }
-}
-
-/// @nodoc
-@JsonSerializable()
-class _$DocumentPathChanged extends DocumentPathChanged {
-  const _$DocumentPathChanged(this.path, {final String? $type})
-      : $type = $type ?? 'documentPathChanged',
-        super._();
-
-  factory _$DocumentPathChanged.fromJson(Map<String, dynamic> json) =>
-      _$$DocumentPathChangedFromJson(json);
-
-  @override
-  final String path;
-
-  @JsonKey(name: 'type')
-  final String $type;
-
-  @override
-  String toString() {
-    return 'DocumentEvent.documentPathChanged(path: $path)';
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$DocumentPathChanged &&
-            (identical(other.path, path) || other.path == path));
-  }
-
-  @JsonKey(ignore: true)
-  @override
-  int get hashCode => Object.hash(runtimeType, path);
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$DocumentPathChangedCopyWith<_$DocumentPathChanged> get copyWith =>
-      __$$DocumentPathChangedCopyWithImpl<_$DocumentPathChanged>(
-          this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function(DocumentPage page, int? index) pageAdded,
-    required TResult Function(String pageName) pageChanged,
-    required TResult Function(String page, int? newIndex) pageReordered,
-    required TResult Function(String oldName, String newName) pageRenamed,
-    required TResult Function(String page) pageRemoved,
-    required TResult Function(@Uint8ListJsonConverter() Uint8List data)
-        thumbnailCaptured,
-    required TResult Function(ViewOption view) viewChanged,
-    required TResult Function(UtilitiesState state) utilitiesChanged,
-    required TResult Function(List<PadElement> elements) elementsCreated,
-    required TResult Function(Map<int, List<PadElement>> elements)
-        elementsChanged,
-    required TResult Function(List<int> elements) elementsRemoved,
-    required TResult Function(Arrangement arrangement, List<int> elements)
-        elementsArranged,
-    required TResult Function(String? name, String? description)
-        documentDescriptionChanged,
-    required TResult Function(String path) documentPathChanged,
-    required TResult Function(AssetLocation? location) documentSaved,
-    required TResult Function(Tool tool) toolCreated,
-    required TResult Function(Map<int, Tool> tools) toolsChanged,
-    required TResult Function(List<int> tools) toolsRemoved,
-    required TResult Function(int oldIndex, int newIndex) toolReordered,
-    required TResult Function(List<Background> backgrounds)
-        documentBackgroundsChanged,
-    required TResult Function(Waypoint waypoint) waypointCreated,
-    required TResult Function(int index, String name) waypointRenamed,
-    required TResult Function(int index) waypointRemoved,
-    required TResult Function(String oldName, String newName) layerRenamed,
-    required TResult Function(String name) layerRemoved,
-    required TResult Function(String name) layerElementsRemoved,
-    required TResult Function(String name) layerVisibilityChanged,
-    required TResult Function(String name) currentLayerChanged,
-    required TResult Function(String layer, List<int> elements)
-        elementsLayerChanged,
-    required TResult Function(
-            String directory, String? remote, bool deleteDocument)
-        templateCreated,
-    required TResult Function(List<Area> areas) areasCreated,
-    required TResult Function(List<String> areas) areasRemoved,
-    required TResult Function(String name, Area area) areaChanged,
-    required TResult Function(String name) currentAreaChanged,
-    required TResult Function(String name, List<AreaPreset> areas)
-        exportPresetCreated,
-    required TResult Function(String name, List<AreaPreset> areas)
-        exportPresetUpdated,
-    required TResult Function(String name) exportPresetRemoved,
-    required TResult Function(NoteData pack) packAdded,
-    required TResult Function(String name, NoteData pack) packUpdated,
-    required TResult Function(String name) packRemoved,
-    required TResult Function(AnimationTrack animation) animationAdded,
-    required TResult Function(String name, AnimationTrack animation)
-        animationUpdated,
-    required TResult Function(String name) animationRemoved,
-    required TResult Function(AnimationTrack track, bool fullScreen)
-        presentationModeEntered,
-    required TResult Function() presentationModeExited,
-    required TResult Function(int tick) presentationTick,
-  }) {
-    return documentPathChanged(path);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(DocumentPage page, int? index)? pageAdded,
-    TResult? Function(String pageName)? pageChanged,
-    TResult? Function(String page, int? newIndex)? pageReordered,
-    TResult? Function(String oldName, String newName)? pageRenamed,
-    TResult? Function(String page)? pageRemoved,
-    TResult? Function(@Uint8ListJsonConverter() Uint8List data)?
-        thumbnailCaptured,
-    TResult? Function(ViewOption view)? viewChanged,
-    TResult? Function(UtilitiesState state)? utilitiesChanged,
-    TResult? Function(List<PadElement> elements)? elementsCreated,
-    TResult? Function(Map<int, List<PadElement>> elements)? elementsChanged,
-    TResult? Function(List<int> elements)? elementsRemoved,
-    TResult? Function(Arrangement arrangement, List<int> elements)?
-        elementsArranged,
-    TResult? Function(String? name, String? description)?
-        documentDescriptionChanged,
-    TResult? Function(String path)? documentPathChanged,
-    TResult? Function(AssetLocation? location)? documentSaved,
-    TResult? Function(Tool tool)? toolCreated,
-    TResult? Function(Map<int, Tool> tools)? toolsChanged,
-    TResult? Function(List<int> tools)? toolsRemoved,
-    TResult? Function(int oldIndex, int newIndex)? toolReordered,
-    TResult? Function(List<Background> backgrounds)? documentBackgroundsChanged,
-    TResult? Function(Waypoint waypoint)? waypointCreated,
-    TResult? Function(int index, String name)? waypointRenamed,
-    TResult? Function(int index)? waypointRemoved,
-    TResult? Function(String oldName, String newName)? layerRenamed,
-    TResult? Function(String name)? layerRemoved,
-    TResult? Function(String name)? layerElementsRemoved,
-    TResult? Function(String name)? layerVisibilityChanged,
-    TResult? Function(String name)? currentLayerChanged,
-    TResult? Function(String layer, List<int> elements)? elementsLayerChanged,
-    TResult? Function(String directory, String? remote, bool deleteDocument)?
-        templateCreated,
-    TResult? Function(List<Area> areas)? areasCreated,
-    TResult? Function(List<String> areas)? areasRemoved,
-    TResult? Function(String name, Area area)? areaChanged,
-    TResult? Function(String name)? currentAreaChanged,
-    TResult? Function(String name, List<AreaPreset> areas)? exportPresetCreated,
-    TResult? Function(String name, List<AreaPreset> areas)? exportPresetUpdated,
-    TResult? Function(String name)? exportPresetRemoved,
-    TResult? Function(NoteData pack)? packAdded,
-    TResult? Function(String name, NoteData pack)? packUpdated,
-    TResult? Function(String name)? packRemoved,
-    TResult? Function(AnimationTrack animation)? animationAdded,
-    TResult? Function(String name, AnimationTrack animation)? animationUpdated,
-    TResult? Function(String name)? animationRemoved,
-    TResult? Function(AnimationTrack track, bool fullScreen)?
-        presentationModeEntered,
-    TResult? Function()? presentationModeExited,
-    TResult? Function(int tick)? presentationTick,
-  }) {
-    return documentPathChanged?.call(path);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function(DocumentPage page, int? index)? pageAdded,
-    TResult Function(String pageName)? pageChanged,
-    TResult Function(String page, int? newIndex)? pageReordered,
-    TResult Function(String oldName, String newName)? pageRenamed,
-    TResult Function(String page)? pageRemoved,
-    TResult Function(@Uint8ListJsonConverter() Uint8List data)?
-        thumbnailCaptured,
-    TResult Function(ViewOption view)? viewChanged,
-    TResult Function(UtilitiesState state)? utilitiesChanged,
-    TResult Function(List<PadElement> elements)? elementsCreated,
-    TResult Function(Map<int, List<PadElement>> elements)? elementsChanged,
-    TResult Function(List<int> elements)? elementsRemoved,
-    TResult Function(Arrangement arrangement, List<int> elements)?
-        elementsArranged,
-    TResult Function(String? name, String? description)?
-        documentDescriptionChanged,
-    TResult Function(String path)? documentPathChanged,
-    TResult Function(AssetLocation? location)? documentSaved,
-    TResult Function(Tool tool)? toolCreated,
-    TResult Function(Map<int, Tool> tools)? toolsChanged,
-    TResult Function(List<int> tools)? toolsRemoved,
-    TResult Function(int oldIndex, int newIndex)? toolReordered,
-    TResult Function(List<Background> backgrounds)? documentBackgroundsChanged,
-    TResult Function(Waypoint waypoint)? waypointCreated,
-    TResult Function(int index, String name)? waypointRenamed,
-    TResult Function(int index)? waypointRemoved,
-    TResult Function(String oldName, String newName)? layerRenamed,
-    TResult Function(String name)? layerRemoved,
-    TResult Function(String name)? layerElementsRemoved,
-    TResult Function(String name)? layerVisibilityChanged,
-    TResult Function(String name)? currentLayerChanged,
-    TResult Function(String layer, List<int> elements)? elementsLayerChanged,
-    TResult Function(String directory, String? remote, bool deleteDocument)?
-        templateCreated,
-    TResult Function(List<Area> areas)? areasCreated,
-    TResult Function(List<String> areas)? areasRemoved,
-    TResult Function(String name, Area area)? areaChanged,
-    TResult Function(String name)? currentAreaChanged,
-    TResult Function(String name, List<AreaPreset> areas)? exportPresetCreated,
-    TResult Function(String name, List<AreaPreset> areas)? exportPresetUpdated,
-    TResult Function(String name)? exportPresetRemoved,
-    TResult Function(NoteData pack)? packAdded,
-    TResult Function(String name, NoteData pack)? packUpdated,
-    TResult Function(String name)? packRemoved,
-    TResult Function(AnimationTrack animation)? animationAdded,
-    TResult Function(String name, AnimationTrack animation)? animationUpdated,
-    TResult Function(String name)? animationRemoved,
-    TResult Function(AnimationTrack track, bool fullScreen)?
-        presentationModeEntered,
-    TResult Function()? presentationModeExited,
-    TResult Function(int tick)? presentationTick,
-    required TResult orElse(),
-  }) {
-    if (documentPathChanged != null) {
-      return documentPathChanged(path);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(PageAdded value) pageAdded,
-    required TResult Function(PageChanged value) pageChanged,
-    required TResult Function(PageReordered value) pageReordered,
-    required TResult Function(PageRenamed value) pageRenamed,
-    required TResult Function(PageRemoved value) pageRemoved,
-    required TResult Function(ThumbnailCaptured value) thumbnailCaptured,
-    required TResult Function(ViewChanged value) viewChanged,
-    required TResult Function(UtilitiesChanged value) utilitiesChanged,
-    required TResult Function(ElementsCreated value) elementsCreated,
-    required TResult Function(ElementsChanged value) elementsChanged,
-    required TResult Function(ElementsRemoved value) elementsRemoved,
-    required TResult Function(ElementsArranged value) elementsArranged,
-    required TResult Function(DocumentDescriptionChanged value)
-        documentDescriptionChanged,
-    required TResult Function(DocumentPathChanged value) documentPathChanged,
-    required TResult Function(DocumentSaved value) documentSaved,
-    required TResult Function(ToolCreated value) toolCreated,
-    required TResult Function(ToolsChanged value) toolsChanged,
-    required TResult Function(ToolsRemoved value) toolsRemoved,
-    required TResult Function(ToolReordered value) toolReordered,
-    required TResult Function(DocumentBackgroundsChanged value)
-        documentBackgroundsChanged,
-    required TResult Function(WaypointCreated value) waypointCreated,
-    required TResult Function(WaypointRenamed value) waypointRenamed,
-    required TResult Function(WaypointRemoved value) waypointRemoved,
-    required TResult Function(LayerRenamed value) layerRenamed,
-    required TResult Function(LayerRemoved value) layerRemoved,
-    required TResult Function(LayerElementsRemoved value) layerElementsRemoved,
-    required TResult Function(LayerVisibilityChanged value)
-        layerVisibilityChanged,
-    required TResult Function(CurrentLayerChanged value) currentLayerChanged,
-    required TResult Function(ElementsLayerChanged value) elementsLayerChanged,
-    required TResult Function(TemplateCreated value) templateCreated,
-    required TResult Function(AreasCreated value) areasCreated,
-    required TResult Function(AreasRemoved value) areasRemoved,
-    required TResult Function(AreaChanged value) areaChanged,
-    required TResult Function(CurrentAreaChanged value) currentAreaChanged,
-    required TResult Function(ExportPresetCreated value) exportPresetCreated,
-    required TResult Function(ExportPresetUpdated value) exportPresetUpdated,
-    required TResult Function(ExportPresetRemoved value) exportPresetRemoved,
-    required TResult Function(PackAdded value) packAdded,
-    required TResult Function(PackUpdated value) packUpdated,
-    required TResult Function(PackRemoved value) packRemoved,
-    required TResult Function(AnimationAdded value) animationAdded,
-    required TResult Function(AnimationUpdated value) animationUpdated,
-    required TResult Function(AnimationRemoved value) animationRemoved,
-    required TResult Function(PresentationModeEntered value)
-        presentationModeEntered,
-    required TResult Function(PresentationModeExited value)
-        presentationModeExited,
-    required TResult Function(PresentationTick value) presentationTick,
-  }) {
-    return documentPathChanged(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(PageAdded value)? pageAdded,
-    TResult? Function(PageChanged value)? pageChanged,
-    TResult? Function(PageReordered value)? pageReordered,
-    TResult? Function(PageRenamed value)? pageRenamed,
-    TResult? Function(PageRemoved value)? pageRemoved,
-    TResult? Function(ThumbnailCaptured value)? thumbnailCaptured,
-    TResult? Function(ViewChanged value)? viewChanged,
-    TResult? Function(UtilitiesChanged value)? utilitiesChanged,
-    TResult? Function(ElementsCreated value)? elementsCreated,
-    TResult? Function(ElementsChanged value)? elementsChanged,
-    TResult? Function(ElementsRemoved value)? elementsRemoved,
-    TResult? Function(ElementsArranged value)? elementsArranged,
-    TResult? Function(DocumentDescriptionChanged value)?
-        documentDescriptionChanged,
-    TResult? Function(DocumentPathChanged value)? documentPathChanged,
-    TResult? Function(DocumentSaved value)? documentSaved,
-    TResult? Function(ToolCreated value)? toolCreated,
-    TResult? Function(ToolsChanged value)? toolsChanged,
-    TResult? Function(ToolsRemoved value)? toolsRemoved,
-    TResult? Function(ToolReordered value)? toolReordered,
-    TResult? Function(DocumentBackgroundsChanged value)?
-        documentBackgroundsChanged,
-    TResult? Function(WaypointCreated value)? waypointCreated,
-    TResult? Function(WaypointRenamed value)? waypointRenamed,
-    TResult? Function(WaypointRemoved value)? waypointRemoved,
-    TResult? Function(LayerRenamed value)? layerRenamed,
-    TResult? Function(LayerRemoved value)? layerRemoved,
-    TResult? Function(LayerElementsRemoved value)? layerElementsRemoved,
-    TResult? Function(LayerVisibilityChanged value)? layerVisibilityChanged,
-    TResult? Function(CurrentLayerChanged value)? currentLayerChanged,
-    TResult? Function(ElementsLayerChanged value)? elementsLayerChanged,
-    TResult? Function(TemplateCreated value)? templateCreated,
-    TResult? Function(AreasCreated value)? areasCreated,
-    TResult? Function(AreasRemoved value)? areasRemoved,
-    TResult? Function(AreaChanged value)? areaChanged,
-    TResult? Function(CurrentAreaChanged value)? currentAreaChanged,
-    TResult? Function(ExportPresetCreated value)? exportPresetCreated,
-    TResult? Function(ExportPresetUpdated value)? exportPresetUpdated,
-    TResult? Function(ExportPresetRemoved value)? exportPresetRemoved,
-    TResult? Function(PackAdded value)? packAdded,
-    TResult? Function(PackUpdated value)? packUpdated,
-    TResult? Function(PackRemoved value)? packRemoved,
-    TResult? Function(AnimationAdded value)? animationAdded,
-    TResult? Function(AnimationUpdated value)? animationUpdated,
-    TResult? Function(AnimationRemoved value)? animationRemoved,
-    TResult? Function(PresentationModeEntered value)? presentationModeEntered,
-    TResult? Function(PresentationModeExited value)? presentationModeExited,
-    TResult? Function(PresentationTick value)? presentationTick,
-  }) {
-    return documentPathChanged?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(PageAdded value)? pageAdded,
-    TResult Function(PageChanged value)? pageChanged,
-    TResult Function(PageReordered value)? pageReordered,
-    TResult Function(PageRenamed value)? pageRenamed,
-    TResult Function(PageRemoved value)? pageRemoved,
-    TResult Function(ThumbnailCaptured value)? thumbnailCaptured,
-    TResult Function(ViewChanged value)? viewChanged,
-    TResult Function(UtilitiesChanged value)? utilitiesChanged,
-    TResult Function(ElementsCreated value)? elementsCreated,
-    TResult Function(ElementsChanged value)? elementsChanged,
-    TResult Function(ElementsRemoved value)? elementsRemoved,
-    TResult Function(ElementsArranged value)? elementsArranged,
-    TResult Function(DocumentDescriptionChanged value)?
-        documentDescriptionChanged,
-    TResult Function(DocumentPathChanged value)? documentPathChanged,
-    TResult Function(DocumentSaved value)? documentSaved,
-    TResult Function(ToolCreated value)? toolCreated,
-    TResult Function(ToolsChanged value)? toolsChanged,
-    TResult Function(ToolsRemoved value)? toolsRemoved,
-    TResult Function(ToolReordered value)? toolReordered,
-    TResult Function(DocumentBackgroundsChanged value)?
-        documentBackgroundsChanged,
-    TResult Function(WaypointCreated value)? waypointCreated,
-    TResult Function(WaypointRenamed value)? waypointRenamed,
-    TResult Function(WaypointRemoved value)? waypointRemoved,
-    TResult Function(LayerRenamed value)? layerRenamed,
-    TResult Function(LayerRemoved value)? layerRemoved,
-    TResult Function(LayerElementsRemoved value)? layerElementsRemoved,
-    TResult Function(LayerVisibilityChanged value)? layerVisibilityChanged,
-    TResult Function(CurrentLayerChanged value)? currentLayerChanged,
-    TResult Function(ElementsLayerChanged value)? elementsLayerChanged,
-    TResult Function(TemplateCreated value)? templateCreated,
-    TResult Function(AreasCreated value)? areasCreated,
-    TResult Function(AreasRemoved value)? areasRemoved,
-    TResult Function(AreaChanged value)? areaChanged,
-    TResult Function(CurrentAreaChanged value)? currentAreaChanged,
-    TResult Function(ExportPresetCreated value)? exportPresetCreated,
-    TResult Function(ExportPresetUpdated value)? exportPresetUpdated,
-    TResult Function(ExportPresetRemoved value)? exportPresetRemoved,
-    TResult Function(PackAdded value)? packAdded,
-    TResult Function(PackUpdated value)? packUpdated,
-    TResult Function(PackRemoved value)? packRemoved,
-    TResult Function(AnimationAdded value)? animationAdded,
-    TResult Function(AnimationUpdated value)? animationUpdated,
-    TResult Function(AnimationRemoved value)? animationRemoved,
-    TResult Function(PresentationModeEntered value)? presentationModeEntered,
-    TResult Function(PresentationModeExited value)? presentationModeExited,
-    TResult Function(PresentationTick value)? presentationTick,
-    required TResult orElse(),
-  }) {
-    if (documentPathChanged != null) {
-      return documentPathChanged(this);
-    }
-    return orElse();
-  }
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$DocumentPathChangedToJson(
-      this,
-    );
-  }
-}
-
-abstract class DocumentPathChanged extends DocumentEvent {
-  const factory DocumentPathChanged(final String path) = _$DocumentPathChanged;
-  const DocumentPathChanged._() : super._();
-
-  factory DocumentPathChanged.fromJson(Map<String, dynamic> json) =
-      _$DocumentPathChanged.fromJson;
-
-  String get path;
-  @JsonKey(ignore: true)
-  _$$DocumentPathChangedCopyWith<_$DocumentPathChanged> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class _$$DocumentSavedCopyWith<$Res> {
-  factory _$$DocumentSavedCopyWith(
-          _$DocumentSaved value, $Res Function(_$DocumentSaved) then) =
-      __$$DocumentSavedCopyWithImpl<$Res>;
+abstract class _$$DocumentSavedImplCopyWith<$Res> {
+  factory _$$DocumentSavedImplCopyWith(
+          _$DocumentSavedImpl value, $Res Function(_$DocumentSavedImpl) then) =
+      __$$DocumentSavedImplCopyWithImpl<$Res>;
   @useResult
   $Res call({AssetLocation? location});
 
@@ -6884,11 +6362,11 @@ abstract class _$$DocumentSavedCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$DocumentSavedCopyWithImpl<$Res>
-    extends _$DocumentEventCopyWithImpl<$Res, _$DocumentSaved>
-    implements _$$DocumentSavedCopyWith<$Res> {
-  __$$DocumentSavedCopyWithImpl(
-      _$DocumentSaved _value, $Res Function(_$DocumentSaved) _then)
+class __$$DocumentSavedImplCopyWithImpl<$Res>
+    extends _$DocumentEventCopyWithImpl<$Res, _$DocumentSavedImpl>
+    implements _$$DocumentSavedImplCopyWith<$Res> {
+  __$$DocumentSavedImplCopyWithImpl(
+      _$DocumentSavedImpl _value, $Res Function(_$DocumentSavedImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -6896,7 +6374,7 @@ class __$$DocumentSavedCopyWithImpl<$Res>
   $Res call({
     Object? location = freezed,
   }) {
-    return _then(_$DocumentSaved(
+    return _then(_$DocumentSavedImpl(
       freezed == location
           ? _value.location
           : location // ignore: cast_nullable_to_non_nullable
@@ -6919,13 +6397,13 @@ class __$$DocumentSavedCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$DocumentSaved extends DocumentSaved {
-  const _$DocumentSaved([this.location, final String? $type])
+class _$DocumentSavedImpl extends DocumentSaved {
+  const _$DocumentSavedImpl([this.location, final String? $type])
       : $type = $type ?? 'documentSaved',
         super._();
 
-  factory _$DocumentSaved.fromJson(Map<String, dynamic> json) =>
-      _$$DocumentSavedFromJson(json);
+  factory _$DocumentSavedImpl.fromJson(Map<String, dynamic> json) =>
+      _$$DocumentSavedImplFromJson(json);
 
   @override
   final AssetLocation? location;
@@ -6942,7 +6420,7 @@ class _$DocumentSaved extends DocumentSaved {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$DocumentSaved &&
+            other is _$DocumentSavedImpl &&
             (identical(other.location, location) ||
                 other.location == location));
   }
@@ -6954,13 +6432,13 @@ class _$DocumentSaved extends DocumentSaved {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$DocumentSavedCopyWith<_$DocumentSaved> get copyWith =>
-      __$$DocumentSavedCopyWithImpl<_$DocumentSaved>(this, _$identity);
+  _$$DocumentSavedImplCopyWith<_$DocumentSavedImpl> get copyWith =>
+      __$$DocumentSavedImplCopyWithImpl<_$DocumentSavedImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(DocumentPage page, int? index) pageAdded,
+    required TResult Function(int? index, DocumentPage? page) pageAdded,
     required TResult Function(String pageName) pageChanged,
     required TResult Function(String page, int? newIndex) pageReordered,
     required TResult Function(String oldName, String newName) pageRenamed,
@@ -6977,7 +6455,6 @@ class _$DocumentSaved extends DocumentSaved {
         elementsArranged,
     required TResult Function(String? name, String? description)
         documentDescriptionChanged,
-    required TResult Function(String path) documentPathChanged,
     required TResult Function(AssetLocation? location) documentSaved,
     required TResult Function(Tool tool) toolCreated,
     required TResult Function(Map<int, Tool> tools) toolsChanged,
@@ -7025,7 +6502,7 @@ class _$DocumentSaved extends DocumentSaved {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(DocumentPage page, int? index)? pageAdded,
+    TResult? Function(int? index, DocumentPage? page)? pageAdded,
     TResult? Function(String pageName)? pageChanged,
     TResult? Function(String page, int? newIndex)? pageReordered,
     TResult? Function(String oldName, String newName)? pageRenamed,
@@ -7041,7 +6518,6 @@ class _$DocumentSaved extends DocumentSaved {
         elementsArranged,
     TResult? Function(String? name, String? description)?
         documentDescriptionChanged,
-    TResult? Function(String path)? documentPathChanged,
     TResult? Function(AssetLocation? location)? documentSaved,
     TResult? Function(Tool tool)? toolCreated,
     TResult? Function(Map<int, Tool> tools)? toolsChanged,
@@ -7083,7 +6559,7 @@ class _$DocumentSaved extends DocumentSaved {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(DocumentPage page, int? index)? pageAdded,
+    TResult Function(int? index, DocumentPage? page)? pageAdded,
     TResult Function(String pageName)? pageChanged,
     TResult Function(String page, int? newIndex)? pageReordered,
     TResult Function(String oldName, String newName)? pageRenamed,
@@ -7099,7 +6575,6 @@ class _$DocumentSaved extends DocumentSaved {
         elementsArranged,
     TResult Function(String? name, String? description)?
         documentDescriptionChanged,
-    TResult Function(String path)? documentPathChanged,
     TResult Function(AssetLocation? location)? documentSaved,
     TResult Function(Tool tool)? toolCreated,
     TResult Function(Map<int, Tool> tools)? toolsChanged,
@@ -7159,7 +6634,6 @@ class _$DocumentSaved extends DocumentSaved {
     required TResult Function(ElementsArranged value) elementsArranged,
     required TResult Function(DocumentDescriptionChanged value)
         documentDescriptionChanged,
-    required TResult Function(DocumentPathChanged value) documentPathChanged,
     required TResult Function(DocumentSaved value) documentSaved,
     required TResult Function(ToolCreated value) toolCreated,
     required TResult Function(ToolsChanged value) toolsChanged,
@@ -7217,7 +6691,6 @@ class _$DocumentSaved extends DocumentSaved {
     TResult? Function(ElementsArranged value)? elementsArranged,
     TResult? Function(DocumentDescriptionChanged value)?
         documentDescriptionChanged,
-    TResult? Function(DocumentPathChanged value)? documentPathChanged,
     TResult? Function(DocumentSaved value)? documentSaved,
     TResult? Function(ToolCreated value)? toolCreated,
     TResult? Function(ToolsChanged value)? toolsChanged,
@@ -7272,7 +6745,6 @@ class _$DocumentSaved extends DocumentSaved {
     TResult Function(ElementsArranged value)? elementsArranged,
     TResult Function(DocumentDescriptionChanged value)?
         documentDescriptionChanged,
-    TResult Function(DocumentPathChanged value)? documentPathChanged,
     TResult Function(DocumentSaved value)? documentSaved,
     TResult Function(ToolCreated value)? toolCreated,
     TResult Function(ToolsChanged value)? toolsChanged,
@@ -7316,7 +6788,7 @@ class _$DocumentSaved extends DocumentSaved {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$DocumentSavedToJson(
+    return _$$DocumentSavedImplToJson(
       this,
     );
   }
@@ -7324,23 +6796,23 @@ class _$DocumentSaved extends DocumentSaved {
 
 abstract class DocumentSaved extends DocumentEvent {
   const factory DocumentSaved([final AssetLocation? location]) =
-      _$DocumentSaved;
+      _$DocumentSavedImpl;
   const DocumentSaved._() : super._();
 
   factory DocumentSaved.fromJson(Map<String, dynamic> json) =
-      _$DocumentSaved.fromJson;
+      _$DocumentSavedImpl.fromJson;
 
   AssetLocation? get location;
   @JsonKey(ignore: true)
-  _$$DocumentSavedCopyWith<_$DocumentSaved> get copyWith =>
+  _$$DocumentSavedImplCopyWith<_$DocumentSavedImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$ToolCreatedCopyWith<$Res> {
-  factory _$$ToolCreatedCopyWith(
-          _$ToolCreated value, $Res Function(_$ToolCreated) then) =
-      __$$ToolCreatedCopyWithImpl<$Res>;
+abstract class _$$ToolCreatedImplCopyWith<$Res> {
+  factory _$$ToolCreatedImplCopyWith(
+          _$ToolCreatedImpl value, $Res Function(_$ToolCreatedImpl) then) =
+      __$$ToolCreatedImplCopyWithImpl<$Res>;
   @useResult
   $Res call({Tool tool});
 
@@ -7348,11 +6820,11 @@ abstract class _$$ToolCreatedCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$ToolCreatedCopyWithImpl<$Res>
-    extends _$DocumentEventCopyWithImpl<$Res, _$ToolCreated>
-    implements _$$ToolCreatedCopyWith<$Res> {
-  __$$ToolCreatedCopyWithImpl(
-      _$ToolCreated _value, $Res Function(_$ToolCreated) _then)
+class __$$ToolCreatedImplCopyWithImpl<$Res>
+    extends _$DocumentEventCopyWithImpl<$Res, _$ToolCreatedImpl>
+    implements _$$ToolCreatedImplCopyWith<$Res> {
+  __$$ToolCreatedImplCopyWithImpl(
+      _$ToolCreatedImpl _value, $Res Function(_$ToolCreatedImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -7360,7 +6832,7 @@ class __$$ToolCreatedCopyWithImpl<$Res>
   $Res call({
     Object? tool = null,
   }) {
-    return _then(_$ToolCreated(
+    return _then(_$ToolCreatedImpl(
       null == tool
           ? _value.tool
           : tool // ignore: cast_nullable_to_non_nullable
@@ -7379,13 +6851,13 @@ class __$$ToolCreatedCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$ToolCreated extends ToolCreated {
-  const _$ToolCreated(this.tool, {final String? $type})
+class _$ToolCreatedImpl extends ToolCreated {
+  const _$ToolCreatedImpl(this.tool, {final String? $type})
       : $type = $type ?? 'toolCreated',
         super._();
 
-  factory _$ToolCreated.fromJson(Map<String, dynamic> json) =>
-      _$$ToolCreatedFromJson(json);
+  factory _$ToolCreatedImpl.fromJson(Map<String, dynamic> json) =>
+      _$$ToolCreatedImplFromJson(json);
 
   @override
   final Tool tool;
@@ -7402,7 +6874,7 @@ class _$ToolCreated extends ToolCreated {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$ToolCreated &&
+            other is _$ToolCreatedImpl &&
             (identical(other.tool, tool) || other.tool == tool));
   }
 
@@ -7413,13 +6885,13 @@ class _$ToolCreated extends ToolCreated {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$ToolCreatedCopyWith<_$ToolCreated> get copyWith =>
-      __$$ToolCreatedCopyWithImpl<_$ToolCreated>(this, _$identity);
+  _$$ToolCreatedImplCopyWith<_$ToolCreatedImpl> get copyWith =>
+      __$$ToolCreatedImplCopyWithImpl<_$ToolCreatedImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(DocumentPage page, int? index) pageAdded,
+    required TResult Function(int? index, DocumentPage? page) pageAdded,
     required TResult Function(String pageName) pageChanged,
     required TResult Function(String page, int? newIndex) pageReordered,
     required TResult Function(String oldName, String newName) pageRenamed,
@@ -7436,7 +6908,6 @@ class _$ToolCreated extends ToolCreated {
         elementsArranged,
     required TResult Function(String? name, String? description)
         documentDescriptionChanged,
-    required TResult Function(String path) documentPathChanged,
     required TResult Function(AssetLocation? location) documentSaved,
     required TResult Function(Tool tool) toolCreated,
     required TResult Function(Map<int, Tool> tools) toolsChanged,
@@ -7484,7 +6955,7 @@ class _$ToolCreated extends ToolCreated {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(DocumentPage page, int? index)? pageAdded,
+    TResult? Function(int? index, DocumentPage? page)? pageAdded,
     TResult? Function(String pageName)? pageChanged,
     TResult? Function(String page, int? newIndex)? pageReordered,
     TResult? Function(String oldName, String newName)? pageRenamed,
@@ -7500,7 +6971,6 @@ class _$ToolCreated extends ToolCreated {
         elementsArranged,
     TResult? Function(String? name, String? description)?
         documentDescriptionChanged,
-    TResult? Function(String path)? documentPathChanged,
     TResult? Function(AssetLocation? location)? documentSaved,
     TResult? Function(Tool tool)? toolCreated,
     TResult? Function(Map<int, Tool> tools)? toolsChanged,
@@ -7542,7 +7012,7 @@ class _$ToolCreated extends ToolCreated {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(DocumentPage page, int? index)? pageAdded,
+    TResult Function(int? index, DocumentPage? page)? pageAdded,
     TResult Function(String pageName)? pageChanged,
     TResult Function(String page, int? newIndex)? pageReordered,
     TResult Function(String oldName, String newName)? pageRenamed,
@@ -7558,7 +7028,6 @@ class _$ToolCreated extends ToolCreated {
         elementsArranged,
     TResult Function(String? name, String? description)?
         documentDescriptionChanged,
-    TResult Function(String path)? documentPathChanged,
     TResult Function(AssetLocation? location)? documentSaved,
     TResult Function(Tool tool)? toolCreated,
     TResult Function(Map<int, Tool> tools)? toolsChanged,
@@ -7618,7 +7087,6 @@ class _$ToolCreated extends ToolCreated {
     required TResult Function(ElementsArranged value) elementsArranged,
     required TResult Function(DocumentDescriptionChanged value)
         documentDescriptionChanged,
-    required TResult Function(DocumentPathChanged value) documentPathChanged,
     required TResult Function(DocumentSaved value) documentSaved,
     required TResult Function(ToolCreated value) toolCreated,
     required TResult Function(ToolsChanged value) toolsChanged,
@@ -7676,7 +7144,6 @@ class _$ToolCreated extends ToolCreated {
     TResult? Function(ElementsArranged value)? elementsArranged,
     TResult? Function(DocumentDescriptionChanged value)?
         documentDescriptionChanged,
-    TResult? Function(DocumentPathChanged value)? documentPathChanged,
     TResult? Function(DocumentSaved value)? documentSaved,
     TResult? Function(ToolCreated value)? toolCreated,
     TResult? Function(ToolsChanged value)? toolsChanged,
@@ -7731,7 +7198,6 @@ class _$ToolCreated extends ToolCreated {
     TResult Function(ElementsArranged value)? elementsArranged,
     TResult Function(DocumentDescriptionChanged value)?
         documentDescriptionChanged,
-    TResult Function(DocumentPathChanged value)? documentPathChanged,
     TResult Function(DocumentSaved value)? documentSaved,
     TResult Function(ToolCreated value)? toolCreated,
     TResult Function(ToolsChanged value)? toolsChanged,
@@ -7775,40 +7241,40 @@ class _$ToolCreated extends ToolCreated {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$ToolCreatedToJson(
+    return _$$ToolCreatedImplToJson(
       this,
     );
   }
 }
 
 abstract class ToolCreated extends DocumentEvent {
-  const factory ToolCreated(final Tool tool) = _$ToolCreated;
+  const factory ToolCreated(final Tool tool) = _$ToolCreatedImpl;
   const ToolCreated._() : super._();
 
   factory ToolCreated.fromJson(Map<String, dynamic> json) =
-      _$ToolCreated.fromJson;
+      _$ToolCreatedImpl.fromJson;
 
   Tool get tool;
   @JsonKey(ignore: true)
-  _$$ToolCreatedCopyWith<_$ToolCreated> get copyWith =>
+  _$$ToolCreatedImplCopyWith<_$ToolCreatedImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$ToolsChangedCopyWith<$Res> {
-  factory _$$ToolsChangedCopyWith(
-          _$ToolsChanged value, $Res Function(_$ToolsChanged) then) =
-      __$$ToolsChangedCopyWithImpl<$Res>;
+abstract class _$$ToolsChangedImplCopyWith<$Res> {
+  factory _$$ToolsChangedImplCopyWith(
+          _$ToolsChangedImpl value, $Res Function(_$ToolsChangedImpl) then) =
+      __$$ToolsChangedImplCopyWithImpl<$Res>;
   @useResult
   $Res call({Map<int, Tool> tools});
 }
 
 /// @nodoc
-class __$$ToolsChangedCopyWithImpl<$Res>
-    extends _$DocumentEventCopyWithImpl<$Res, _$ToolsChanged>
-    implements _$$ToolsChangedCopyWith<$Res> {
-  __$$ToolsChangedCopyWithImpl(
-      _$ToolsChanged _value, $Res Function(_$ToolsChanged) _then)
+class __$$ToolsChangedImplCopyWithImpl<$Res>
+    extends _$DocumentEventCopyWithImpl<$Res, _$ToolsChangedImpl>
+    implements _$$ToolsChangedImplCopyWith<$Res> {
+  __$$ToolsChangedImplCopyWithImpl(
+      _$ToolsChangedImpl _value, $Res Function(_$ToolsChangedImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -7816,7 +7282,7 @@ class __$$ToolsChangedCopyWithImpl<$Res>
   $Res call({
     Object? tools = null,
   }) {
-    return _then(_$ToolsChanged(
+    return _then(_$ToolsChangedImpl(
       null == tools
           ? _value._tools
           : tools // ignore: cast_nullable_to_non_nullable
@@ -7827,14 +7293,14 @@ class __$$ToolsChangedCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$ToolsChanged extends ToolsChanged {
-  const _$ToolsChanged(final Map<int, Tool> tools, {final String? $type})
+class _$ToolsChangedImpl extends ToolsChanged {
+  const _$ToolsChangedImpl(final Map<int, Tool> tools, {final String? $type})
       : _tools = tools,
         $type = $type ?? 'toolsChanged',
         super._();
 
-  factory _$ToolsChanged.fromJson(Map<String, dynamic> json) =>
-      _$$ToolsChangedFromJson(json);
+  factory _$ToolsChangedImpl.fromJson(Map<String, dynamic> json) =>
+      _$$ToolsChangedImplFromJson(json);
 
   final Map<int, Tool> _tools;
   @override
@@ -7856,7 +7322,7 @@ class _$ToolsChanged extends ToolsChanged {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$ToolsChanged &&
+            other is _$ToolsChangedImpl &&
             const DeepCollectionEquality().equals(other._tools, _tools));
   }
 
@@ -7868,13 +7334,13 @@ class _$ToolsChanged extends ToolsChanged {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$ToolsChangedCopyWith<_$ToolsChanged> get copyWith =>
-      __$$ToolsChangedCopyWithImpl<_$ToolsChanged>(this, _$identity);
+  _$$ToolsChangedImplCopyWith<_$ToolsChangedImpl> get copyWith =>
+      __$$ToolsChangedImplCopyWithImpl<_$ToolsChangedImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(DocumentPage page, int? index) pageAdded,
+    required TResult Function(int? index, DocumentPage? page) pageAdded,
     required TResult Function(String pageName) pageChanged,
     required TResult Function(String page, int? newIndex) pageReordered,
     required TResult Function(String oldName, String newName) pageRenamed,
@@ -7891,7 +7357,6 @@ class _$ToolsChanged extends ToolsChanged {
         elementsArranged,
     required TResult Function(String? name, String? description)
         documentDescriptionChanged,
-    required TResult Function(String path) documentPathChanged,
     required TResult Function(AssetLocation? location) documentSaved,
     required TResult Function(Tool tool) toolCreated,
     required TResult Function(Map<int, Tool> tools) toolsChanged,
@@ -7939,7 +7404,7 @@ class _$ToolsChanged extends ToolsChanged {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(DocumentPage page, int? index)? pageAdded,
+    TResult? Function(int? index, DocumentPage? page)? pageAdded,
     TResult? Function(String pageName)? pageChanged,
     TResult? Function(String page, int? newIndex)? pageReordered,
     TResult? Function(String oldName, String newName)? pageRenamed,
@@ -7955,7 +7420,6 @@ class _$ToolsChanged extends ToolsChanged {
         elementsArranged,
     TResult? Function(String? name, String? description)?
         documentDescriptionChanged,
-    TResult? Function(String path)? documentPathChanged,
     TResult? Function(AssetLocation? location)? documentSaved,
     TResult? Function(Tool tool)? toolCreated,
     TResult? Function(Map<int, Tool> tools)? toolsChanged,
@@ -7997,7 +7461,7 @@ class _$ToolsChanged extends ToolsChanged {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(DocumentPage page, int? index)? pageAdded,
+    TResult Function(int? index, DocumentPage? page)? pageAdded,
     TResult Function(String pageName)? pageChanged,
     TResult Function(String page, int? newIndex)? pageReordered,
     TResult Function(String oldName, String newName)? pageRenamed,
@@ -8013,7 +7477,6 @@ class _$ToolsChanged extends ToolsChanged {
         elementsArranged,
     TResult Function(String? name, String? description)?
         documentDescriptionChanged,
-    TResult Function(String path)? documentPathChanged,
     TResult Function(AssetLocation? location)? documentSaved,
     TResult Function(Tool tool)? toolCreated,
     TResult Function(Map<int, Tool> tools)? toolsChanged,
@@ -8073,7 +7536,6 @@ class _$ToolsChanged extends ToolsChanged {
     required TResult Function(ElementsArranged value) elementsArranged,
     required TResult Function(DocumentDescriptionChanged value)
         documentDescriptionChanged,
-    required TResult Function(DocumentPathChanged value) documentPathChanged,
     required TResult Function(DocumentSaved value) documentSaved,
     required TResult Function(ToolCreated value) toolCreated,
     required TResult Function(ToolsChanged value) toolsChanged,
@@ -8131,7 +7593,6 @@ class _$ToolsChanged extends ToolsChanged {
     TResult? Function(ElementsArranged value)? elementsArranged,
     TResult? Function(DocumentDescriptionChanged value)?
         documentDescriptionChanged,
-    TResult? Function(DocumentPathChanged value)? documentPathChanged,
     TResult? Function(DocumentSaved value)? documentSaved,
     TResult? Function(ToolCreated value)? toolCreated,
     TResult? Function(ToolsChanged value)? toolsChanged,
@@ -8186,7 +7647,6 @@ class _$ToolsChanged extends ToolsChanged {
     TResult Function(ElementsArranged value)? elementsArranged,
     TResult Function(DocumentDescriptionChanged value)?
         documentDescriptionChanged,
-    TResult Function(DocumentPathChanged value)? documentPathChanged,
     TResult Function(DocumentSaved value)? documentSaved,
     TResult Function(ToolCreated value)? toolCreated,
     TResult Function(ToolsChanged value)? toolsChanged,
@@ -8230,40 +7690,40 @@ class _$ToolsChanged extends ToolsChanged {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$ToolsChangedToJson(
+    return _$$ToolsChangedImplToJson(
       this,
     );
   }
 }
 
 abstract class ToolsChanged extends DocumentEvent {
-  const factory ToolsChanged(final Map<int, Tool> tools) = _$ToolsChanged;
+  const factory ToolsChanged(final Map<int, Tool> tools) = _$ToolsChangedImpl;
   const ToolsChanged._() : super._();
 
   factory ToolsChanged.fromJson(Map<String, dynamic> json) =
-      _$ToolsChanged.fromJson;
+      _$ToolsChangedImpl.fromJson;
 
   Map<int, Tool> get tools;
   @JsonKey(ignore: true)
-  _$$ToolsChangedCopyWith<_$ToolsChanged> get copyWith =>
+  _$$ToolsChangedImplCopyWith<_$ToolsChangedImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$ToolsRemovedCopyWith<$Res> {
-  factory _$$ToolsRemovedCopyWith(
-          _$ToolsRemoved value, $Res Function(_$ToolsRemoved) then) =
-      __$$ToolsRemovedCopyWithImpl<$Res>;
+abstract class _$$ToolsRemovedImplCopyWith<$Res> {
+  factory _$$ToolsRemovedImplCopyWith(
+          _$ToolsRemovedImpl value, $Res Function(_$ToolsRemovedImpl) then) =
+      __$$ToolsRemovedImplCopyWithImpl<$Res>;
   @useResult
   $Res call({List<int> tools});
 }
 
 /// @nodoc
-class __$$ToolsRemovedCopyWithImpl<$Res>
-    extends _$DocumentEventCopyWithImpl<$Res, _$ToolsRemoved>
-    implements _$$ToolsRemovedCopyWith<$Res> {
-  __$$ToolsRemovedCopyWithImpl(
-      _$ToolsRemoved _value, $Res Function(_$ToolsRemoved) _then)
+class __$$ToolsRemovedImplCopyWithImpl<$Res>
+    extends _$DocumentEventCopyWithImpl<$Res, _$ToolsRemovedImpl>
+    implements _$$ToolsRemovedImplCopyWith<$Res> {
+  __$$ToolsRemovedImplCopyWithImpl(
+      _$ToolsRemovedImpl _value, $Res Function(_$ToolsRemovedImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -8271,7 +7731,7 @@ class __$$ToolsRemovedCopyWithImpl<$Res>
   $Res call({
     Object? tools = null,
   }) {
-    return _then(_$ToolsRemoved(
+    return _then(_$ToolsRemovedImpl(
       null == tools
           ? _value._tools
           : tools // ignore: cast_nullable_to_non_nullable
@@ -8282,14 +7742,14 @@ class __$$ToolsRemovedCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$ToolsRemoved extends ToolsRemoved {
-  const _$ToolsRemoved(final List<int> tools, {final String? $type})
+class _$ToolsRemovedImpl extends ToolsRemoved {
+  const _$ToolsRemovedImpl(final List<int> tools, {final String? $type})
       : _tools = tools,
         $type = $type ?? 'toolsRemoved',
         super._();
 
-  factory _$ToolsRemoved.fromJson(Map<String, dynamic> json) =>
-      _$$ToolsRemovedFromJson(json);
+  factory _$ToolsRemovedImpl.fromJson(Map<String, dynamic> json) =>
+      _$$ToolsRemovedImplFromJson(json);
 
   final List<int> _tools;
   @override
@@ -8311,7 +7771,7 @@ class _$ToolsRemoved extends ToolsRemoved {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$ToolsRemoved &&
+            other is _$ToolsRemovedImpl &&
             const DeepCollectionEquality().equals(other._tools, _tools));
   }
 
@@ -8323,13 +7783,13 @@ class _$ToolsRemoved extends ToolsRemoved {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$ToolsRemovedCopyWith<_$ToolsRemoved> get copyWith =>
-      __$$ToolsRemovedCopyWithImpl<_$ToolsRemoved>(this, _$identity);
+  _$$ToolsRemovedImplCopyWith<_$ToolsRemovedImpl> get copyWith =>
+      __$$ToolsRemovedImplCopyWithImpl<_$ToolsRemovedImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(DocumentPage page, int? index) pageAdded,
+    required TResult Function(int? index, DocumentPage? page) pageAdded,
     required TResult Function(String pageName) pageChanged,
     required TResult Function(String page, int? newIndex) pageReordered,
     required TResult Function(String oldName, String newName) pageRenamed,
@@ -8346,7 +7806,6 @@ class _$ToolsRemoved extends ToolsRemoved {
         elementsArranged,
     required TResult Function(String? name, String? description)
         documentDescriptionChanged,
-    required TResult Function(String path) documentPathChanged,
     required TResult Function(AssetLocation? location) documentSaved,
     required TResult Function(Tool tool) toolCreated,
     required TResult Function(Map<int, Tool> tools) toolsChanged,
@@ -8394,7 +7853,7 @@ class _$ToolsRemoved extends ToolsRemoved {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(DocumentPage page, int? index)? pageAdded,
+    TResult? Function(int? index, DocumentPage? page)? pageAdded,
     TResult? Function(String pageName)? pageChanged,
     TResult? Function(String page, int? newIndex)? pageReordered,
     TResult? Function(String oldName, String newName)? pageRenamed,
@@ -8410,7 +7869,6 @@ class _$ToolsRemoved extends ToolsRemoved {
         elementsArranged,
     TResult? Function(String? name, String? description)?
         documentDescriptionChanged,
-    TResult? Function(String path)? documentPathChanged,
     TResult? Function(AssetLocation? location)? documentSaved,
     TResult? Function(Tool tool)? toolCreated,
     TResult? Function(Map<int, Tool> tools)? toolsChanged,
@@ -8452,7 +7910,7 @@ class _$ToolsRemoved extends ToolsRemoved {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(DocumentPage page, int? index)? pageAdded,
+    TResult Function(int? index, DocumentPage? page)? pageAdded,
     TResult Function(String pageName)? pageChanged,
     TResult Function(String page, int? newIndex)? pageReordered,
     TResult Function(String oldName, String newName)? pageRenamed,
@@ -8468,7 +7926,6 @@ class _$ToolsRemoved extends ToolsRemoved {
         elementsArranged,
     TResult Function(String? name, String? description)?
         documentDescriptionChanged,
-    TResult Function(String path)? documentPathChanged,
     TResult Function(AssetLocation? location)? documentSaved,
     TResult Function(Tool tool)? toolCreated,
     TResult Function(Map<int, Tool> tools)? toolsChanged,
@@ -8528,7 +7985,6 @@ class _$ToolsRemoved extends ToolsRemoved {
     required TResult Function(ElementsArranged value) elementsArranged,
     required TResult Function(DocumentDescriptionChanged value)
         documentDescriptionChanged,
-    required TResult Function(DocumentPathChanged value) documentPathChanged,
     required TResult Function(DocumentSaved value) documentSaved,
     required TResult Function(ToolCreated value) toolCreated,
     required TResult Function(ToolsChanged value) toolsChanged,
@@ -8586,7 +8042,6 @@ class _$ToolsRemoved extends ToolsRemoved {
     TResult? Function(ElementsArranged value)? elementsArranged,
     TResult? Function(DocumentDescriptionChanged value)?
         documentDescriptionChanged,
-    TResult? Function(DocumentPathChanged value)? documentPathChanged,
     TResult? Function(DocumentSaved value)? documentSaved,
     TResult? Function(ToolCreated value)? toolCreated,
     TResult? Function(ToolsChanged value)? toolsChanged,
@@ -8641,7 +8096,6 @@ class _$ToolsRemoved extends ToolsRemoved {
     TResult Function(ElementsArranged value)? elementsArranged,
     TResult Function(DocumentDescriptionChanged value)?
         documentDescriptionChanged,
-    TResult Function(DocumentPathChanged value)? documentPathChanged,
     TResult Function(DocumentSaved value)? documentSaved,
     TResult Function(ToolCreated value)? toolCreated,
     TResult Function(ToolsChanged value)? toolsChanged,
@@ -8685,40 +8139,40 @@ class _$ToolsRemoved extends ToolsRemoved {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$ToolsRemovedToJson(
+    return _$$ToolsRemovedImplToJson(
       this,
     );
   }
 }
 
 abstract class ToolsRemoved extends DocumentEvent {
-  const factory ToolsRemoved(final List<int> tools) = _$ToolsRemoved;
+  const factory ToolsRemoved(final List<int> tools) = _$ToolsRemovedImpl;
   const ToolsRemoved._() : super._();
 
   factory ToolsRemoved.fromJson(Map<String, dynamic> json) =
-      _$ToolsRemoved.fromJson;
+      _$ToolsRemovedImpl.fromJson;
 
   List<int> get tools;
   @JsonKey(ignore: true)
-  _$$ToolsRemovedCopyWith<_$ToolsRemoved> get copyWith =>
+  _$$ToolsRemovedImplCopyWith<_$ToolsRemovedImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$ToolReorderedCopyWith<$Res> {
-  factory _$$ToolReorderedCopyWith(
-          _$ToolReordered value, $Res Function(_$ToolReordered) then) =
-      __$$ToolReorderedCopyWithImpl<$Res>;
+abstract class _$$ToolReorderedImplCopyWith<$Res> {
+  factory _$$ToolReorderedImplCopyWith(
+          _$ToolReorderedImpl value, $Res Function(_$ToolReorderedImpl) then) =
+      __$$ToolReorderedImplCopyWithImpl<$Res>;
   @useResult
   $Res call({int oldIndex, int newIndex});
 }
 
 /// @nodoc
-class __$$ToolReorderedCopyWithImpl<$Res>
-    extends _$DocumentEventCopyWithImpl<$Res, _$ToolReordered>
-    implements _$$ToolReorderedCopyWith<$Res> {
-  __$$ToolReorderedCopyWithImpl(
-      _$ToolReordered _value, $Res Function(_$ToolReordered) _then)
+class __$$ToolReorderedImplCopyWithImpl<$Res>
+    extends _$DocumentEventCopyWithImpl<$Res, _$ToolReorderedImpl>
+    implements _$$ToolReorderedImplCopyWith<$Res> {
+  __$$ToolReorderedImplCopyWithImpl(
+      _$ToolReorderedImpl _value, $Res Function(_$ToolReorderedImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -8727,7 +8181,7 @@ class __$$ToolReorderedCopyWithImpl<$Res>
     Object? oldIndex = null,
     Object? newIndex = null,
   }) {
-    return _then(_$ToolReordered(
+    return _then(_$ToolReorderedImpl(
       null == oldIndex
           ? _value.oldIndex
           : oldIndex // ignore: cast_nullable_to_non_nullable
@@ -8742,13 +8196,13 @@ class __$$ToolReorderedCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$ToolReordered extends ToolReordered {
-  const _$ToolReordered(this.oldIndex, this.newIndex, {final String? $type})
+class _$ToolReorderedImpl extends ToolReordered {
+  const _$ToolReorderedImpl(this.oldIndex, this.newIndex, {final String? $type})
       : $type = $type ?? 'toolReordered',
         super._();
 
-  factory _$ToolReordered.fromJson(Map<String, dynamic> json) =>
-      _$$ToolReorderedFromJson(json);
+  factory _$ToolReorderedImpl.fromJson(Map<String, dynamic> json) =>
+      _$$ToolReorderedImplFromJson(json);
 
   @override
   final int oldIndex;
@@ -8767,7 +8221,7 @@ class _$ToolReordered extends ToolReordered {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$ToolReordered &&
+            other is _$ToolReorderedImpl &&
             (identical(other.oldIndex, oldIndex) ||
                 other.oldIndex == oldIndex) &&
             (identical(other.newIndex, newIndex) ||
@@ -8781,13 +8235,13 @@ class _$ToolReordered extends ToolReordered {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$ToolReorderedCopyWith<_$ToolReordered> get copyWith =>
-      __$$ToolReorderedCopyWithImpl<_$ToolReordered>(this, _$identity);
+  _$$ToolReorderedImplCopyWith<_$ToolReorderedImpl> get copyWith =>
+      __$$ToolReorderedImplCopyWithImpl<_$ToolReorderedImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(DocumentPage page, int? index) pageAdded,
+    required TResult Function(int? index, DocumentPage? page) pageAdded,
     required TResult Function(String pageName) pageChanged,
     required TResult Function(String page, int? newIndex) pageReordered,
     required TResult Function(String oldName, String newName) pageRenamed,
@@ -8804,7 +8258,6 @@ class _$ToolReordered extends ToolReordered {
         elementsArranged,
     required TResult Function(String? name, String? description)
         documentDescriptionChanged,
-    required TResult Function(String path) documentPathChanged,
     required TResult Function(AssetLocation? location) documentSaved,
     required TResult Function(Tool tool) toolCreated,
     required TResult Function(Map<int, Tool> tools) toolsChanged,
@@ -8852,7 +8305,7 @@ class _$ToolReordered extends ToolReordered {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(DocumentPage page, int? index)? pageAdded,
+    TResult? Function(int? index, DocumentPage? page)? pageAdded,
     TResult? Function(String pageName)? pageChanged,
     TResult? Function(String page, int? newIndex)? pageReordered,
     TResult? Function(String oldName, String newName)? pageRenamed,
@@ -8868,7 +8321,6 @@ class _$ToolReordered extends ToolReordered {
         elementsArranged,
     TResult? Function(String? name, String? description)?
         documentDescriptionChanged,
-    TResult? Function(String path)? documentPathChanged,
     TResult? Function(AssetLocation? location)? documentSaved,
     TResult? Function(Tool tool)? toolCreated,
     TResult? Function(Map<int, Tool> tools)? toolsChanged,
@@ -8910,7 +8362,7 @@ class _$ToolReordered extends ToolReordered {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(DocumentPage page, int? index)? pageAdded,
+    TResult Function(int? index, DocumentPage? page)? pageAdded,
     TResult Function(String pageName)? pageChanged,
     TResult Function(String page, int? newIndex)? pageReordered,
     TResult Function(String oldName, String newName)? pageRenamed,
@@ -8926,7 +8378,6 @@ class _$ToolReordered extends ToolReordered {
         elementsArranged,
     TResult Function(String? name, String? description)?
         documentDescriptionChanged,
-    TResult Function(String path)? documentPathChanged,
     TResult Function(AssetLocation? location)? documentSaved,
     TResult Function(Tool tool)? toolCreated,
     TResult Function(Map<int, Tool> tools)? toolsChanged,
@@ -8986,7 +8437,6 @@ class _$ToolReordered extends ToolReordered {
     required TResult Function(ElementsArranged value) elementsArranged,
     required TResult Function(DocumentDescriptionChanged value)
         documentDescriptionChanged,
-    required TResult Function(DocumentPathChanged value) documentPathChanged,
     required TResult Function(DocumentSaved value) documentSaved,
     required TResult Function(ToolCreated value) toolCreated,
     required TResult Function(ToolsChanged value) toolsChanged,
@@ -9044,7 +8494,6 @@ class _$ToolReordered extends ToolReordered {
     TResult? Function(ElementsArranged value)? elementsArranged,
     TResult? Function(DocumentDescriptionChanged value)?
         documentDescriptionChanged,
-    TResult? Function(DocumentPathChanged value)? documentPathChanged,
     TResult? Function(DocumentSaved value)? documentSaved,
     TResult? Function(ToolCreated value)? toolCreated,
     TResult? Function(ToolsChanged value)? toolsChanged,
@@ -9099,7 +8548,6 @@ class _$ToolReordered extends ToolReordered {
     TResult Function(ElementsArranged value)? elementsArranged,
     TResult Function(DocumentDescriptionChanged value)?
         documentDescriptionChanged,
-    TResult Function(DocumentPathChanged value)? documentPathChanged,
     TResult Function(DocumentSaved value)? documentSaved,
     TResult Function(ToolCreated value)? toolCreated,
     TResult Function(ToolsChanged value)? toolsChanged,
@@ -9143,7 +8591,7 @@ class _$ToolReordered extends ToolReordered {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$ToolReorderedToJson(
+    return _$$ToolReorderedImplToJson(
       this,
     );
   }
@@ -9151,36 +8599,36 @@ class _$ToolReordered extends ToolReordered {
 
 abstract class ToolReordered extends DocumentEvent {
   const factory ToolReordered(final int oldIndex, final int newIndex) =
-      _$ToolReordered;
+      _$ToolReorderedImpl;
   const ToolReordered._() : super._();
 
   factory ToolReordered.fromJson(Map<String, dynamic> json) =
-      _$ToolReordered.fromJson;
+      _$ToolReorderedImpl.fromJson;
 
   int get oldIndex;
   int get newIndex;
   @JsonKey(ignore: true)
-  _$$ToolReorderedCopyWith<_$ToolReordered> get copyWith =>
+  _$$ToolReorderedImplCopyWith<_$ToolReorderedImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$DocumentBackgroundsChangedCopyWith<$Res> {
-  factory _$$DocumentBackgroundsChangedCopyWith(
-          _$DocumentBackgroundsChanged value,
-          $Res Function(_$DocumentBackgroundsChanged) then) =
-      __$$DocumentBackgroundsChangedCopyWithImpl<$Res>;
+abstract class _$$DocumentBackgroundsChangedImplCopyWith<$Res> {
+  factory _$$DocumentBackgroundsChangedImplCopyWith(
+          _$DocumentBackgroundsChangedImpl value,
+          $Res Function(_$DocumentBackgroundsChangedImpl) then) =
+      __$$DocumentBackgroundsChangedImplCopyWithImpl<$Res>;
   @useResult
   $Res call({List<Background> backgrounds});
 }
 
 /// @nodoc
-class __$$DocumentBackgroundsChangedCopyWithImpl<$Res>
-    extends _$DocumentEventCopyWithImpl<$Res, _$DocumentBackgroundsChanged>
-    implements _$$DocumentBackgroundsChangedCopyWith<$Res> {
-  __$$DocumentBackgroundsChangedCopyWithImpl(
-      _$DocumentBackgroundsChanged _value,
-      $Res Function(_$DocumentBackgroundsChanged) _then)
+class __$$DocumentBackgroundsChangedImplCopyWithImpl<$Res>
+    extends _$DocumentEventCopyWithImpl<$Res, _$DocumentBackgroundsChangedImpl>
+    implements _$$DocumentBackgroundsChangedImplCopyWith<$Res> {
+  __$$DocumentBackgroundsChangedImplCopyWithImpl(
+      _$DocumentBackgroundsChangedImpl _value,
+      $Res Function(_$DocumentBackgroundsChangedImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -9188,7 +8636,7 @@ class __$$DocumentBackgroundsChangedCopyWithImpl<$Res>
   $Res call({
     Object? backgrounds = null,
   }) {
-    return _then(_$DocumentBackgroundsChanged(
+    return _then(_$DocumentBackgroundsChangedImpl(
       null == backgrounds
           ? _value._backgrounds
           : backgrounds // ignore: cast_nullable_to_non_nullable
@@ -9199,15 +8647,16 @@ class __$$DocumentBackgroundsChangedCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$DocumentBackgroundsChanged extends DocumentBackgroundsChanged {
-  const _$DocumentBackgroundsChanged(final List<Background> backgrounds,
+class _$DocumentBackgroundsChangedImpl extends DocumentBackgroundsChanged {
+  const _$DocumentBackgroundsChangedImpl(final List<Background> backgrounds,
       {final String? $type})
       : _backgrounds = backgrounds,
         $type = $type ?? 'documentBackgroundsChanged',
         super._();
 
-  factory _$DocumentBackgroundsChanged.fromJson(Map<String, dynamic> json) =>
-      _$$DocumentBackgroundsChangedFromJson(json);
+  factory _$DocumentBackgroundsChangedImpl.fromJson(
+          Map<String, dynamic> json) =>
+      _$$DocumentBackgroundsChangedImplFromJson(json);
 
   final List<Background> _backgrounds;
   @override
@@ -9229,7 +8678,7 @@ class _$DocumentBackgroundsChanged extends DocumentBackgroundsChanged {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$DocumentBackgroundsChanged &&
+            other is _$DocumentBackgroundsChangedImpl &&
             const DeepCollectionEquality()
                 .equals(other._backgrounds, _backgrounds));
   }
@@ -9242,14 +8691,14 @@ class _$DocumentBackgroundsChanged extends DocumentBackgroundsChanged {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$DocumentBackgroundsChangedCopyWith<_$DocumentBackgroundsChanged>
-      get copyWith => __$$DocumentBackgroundsChangedCopyWithImpl<
-          _$DocumentBackgroundsChanged>(this, _$identity);
+  _$$DocumentBackgroundsChangedImplCopyWith<_$DocumentBackgroundsChangedImpl>
+      get copyWith => __$$DocumentBackgroundsChangedImplCopyWithImpl<
+          _$DocumentBackgroundsChangedImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(DocumentPage page, int? index) pageAdded,
+    required TResult Function(int? index, DocumentPage? page) pageAdded,
     required TResult Function(String pageName) pageChanged,
     required TResult Function(String page, int? newIndex) pageReordered,
     required TResult Function(String oldName, String newName) pageRenamed,
@@ -9266,7 +8715,6 @@ class _$DocumentBackgroundsChanged extends DocumentBackgroundsChanged {
         elementsArranged,
     required TResult Function(String? name, String? description)
         documentDescriptionChanged,
-    required TResult Function(String path) documentPathChanged,
     required TResult Function(AssetLocation? location) documentSaved,
     required TResult Function(Tool tool) toolCreated,
     required TResult Function(Map<int, Tool> tools) toolsChanged,
@@ -9314,7 +8762,7 @@ class _$DocumentBackgroundsChanged extends DocumentBackgroundsChanged {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(DocumentPage page, int? index)? pageAdded,
+    TResult? Function(int? index, DocumentPage? page)? pageAdded,
     TResult? Function(String pageName)? pageChanged,
     TResult? Function(String page, int? newIndex)? pageReordered,
     TResult? Function(String oldName, String newName)? pageRenamed,
@@ -9330,7 +8778,6 @@ class _$DocumentBackgroundsChanged extends DocumentBackgroundsChanged {
         elementsArranged,
     TResult? Function(String? name, String? description)?
         documentDescriptionChanged,
-    TResult? Function(String path)? documentPathChanged,
     TResult? Function(AssetLocation? location)? documentSaved,
     TResult? Function(Tool tool)? toolCreated,
     TResult? Function(Map<int, Tool> tools)? toolsChanged,
@@ -9372,7 +8819,7 @@ class _$DocumentBackgroundsChanged extends DocumentBackgroundsChanged {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(DocumentPage page, int? index)? pageAdded,
+    TResult Function(int? index, DocumentPage? page)? pageAdded,
     TResult Function(String pageName)? pageChanged,
     TResult Function(String page, int? newIndex)? pageReordered,
     TResult Function(String oldName, String newName)? pageRenamed,
@@ -9388,7 +8835,6 @@ class _$DocumentBackgroundsChanged extends DocumentBackgroundsChanged {
         elementsArranged,
     TResult Function(String? name, String? description)?
         documentDescriptionChanged,
-    TResult Function(String path)? documentPathChanged,
     TResult Function(AssetLocation? location)? documentSaved,
     TResult Function(Tool tool)? toolCreated,
     TResult Function(Map<int, Tool> tools)? toolsChanged,
@@ -9448,7 +8894,6 @@ class _$DocumentBackgroundsChanged extends DocumentBackgroundsChanged {
     required TResult Function(ElementsArranged value) elementsArranged,
     required TResult Function(DocumentDescriptionChanged value)
         documentDescriptionChanged,
-    required TResult Function(DocumentPathChanged value) documentPathChanged,
     required TResult Function(DocumentSaved value) documentSaved,
     required TResult Function(ToolCreated value) toolCreated,
     required TResult Function(ToolsChanged value) toolsChanged,
@@ -9506,7 +8951,6 @@ class _$DocumentBackgroundsChanged extends DocumentBackgroundsChanged {
     TResult? Function(ElementsArranged value)? elementsArranged,
     TResult? Function(DocumentDescriptionChanged value)?
         documentDescriptionChanged,
-    TResult? Function(DocumentPathChanged value)? documentPathChanged,
     TResult? Function(DocumentSaved value)? documentSaved,
     TResult? Function(ToolCreated value)? toolCreated,
     TResult? Function(ToolsChanged value)? toolsChanged,
@@ -9561,7 +9005,6 @@ class _$DocumentBackgroundsChanged extends DocumentBackgroundsChanged {
     TResult Function(ElementsArranged value)? elementsArranged,
     TResult Function(DocumentDescriptionChanged value)?
         documentDescriptionChanged,
-    TResult Function(DocumentPathChanged value)? documentPathChanged,
     TResult Function(DocumentSaved value)? documentSaved,
     TResult Function(ToolCreated value)? toolCreated,
     TResult Function(ToolsChanged value)? toolsChanged,
@@ -9605,7 +9048,7 @@ class _$DocumentBackgroundsChanged extends DocumentBackgroundsChanged {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$DocumentBackgroundsChangedToJson(
+    return _$$DocumentBackgroundsChangedImplToJson(
       this,
     );
   }
@@ -9613,23 +9056,23 @@ class _$DocumentBackgroundsChanged extends DocumentBackgroundsChanged {
 
 abstract class DocumentBackgroundsChanged extends DocumentEvent {
   const factory DocumentBackgroundsChanged(final List<Background> backgrounds) =
-      _$DocumentBackgroundsChanged;
+      _$DocumentBackgroundsChangedImpl;
   const DocumentBackgroundsChanged._() : super._();
 
   factory DocumentBackgroundsChanged.fromJson(Map<String, dynamic> json) =
-      _$DocumentBackgroundsChanged.fromJson;
+      _$DocumentBackgroundsChangedImpl.fromJson;
 
   List<Background> get backgrounds;
   @JsonKey(ignore: true)
-  _$$DocumentBackgroundsChangedCopyWith<_$DocumentBackgroundsChanged>
+  _$$DocumentBackgroundsChangedImplCopyWith<_$DocumentBackgroundsChangedImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$WaypointCreatedCopyWith<$Res> {
-  factory _$$WaypointCreatedCopyWith(
-          _$WaypointCreated value, $Res Function(_$WaypointCreated) then) =
-      __$$WaypointCreatedCopyWithImpl<$Res>;
+abstract class _$$WaypointCreatedImplCopyWith<$Res> {
+  factory _$$WaypointCreatedImplCopyWith(_$WaypointCreatedImpl value,
+          $Res Function(_$WaypointCreatedImpl) then) =
+      __$$WaypointCreatedImplCopyWithImpl<$Res>;
   @useResult
   $Res call({Waypoint waypoint});
 
@@ -9637,11 +9080,11 @@ abstract class _$$WaypointCreatedCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$WaypointCreatedCopyWithImpl<$Res>
-    extends _$DocumentEventCopyWithImpl<$Res, _$WaypointCreated>
-    implements _$$WaypointCreatedCopyWith<$Res> {
-  __$$WaypointCreatedCopyWithImpl(
-      _$WaypointCreated _value, $Res Function(_$WaypointCreated) _then)
+class __$$WaypointCreatedImplCopyWithImpl<$Res>
+    extends _$DocumentEventCopyWithImpl<$Res, _$WaypointCreatedImpl>
+    implements _$$WaypointCreatedImplCopyWith<$Res> {
+  __$$WaypointCreatedImplCopyWithImpl(
+      _$WaypointCreatedImpl _value, $Res Function(_$WaypointCreatedImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -9649,7 +9092,7 @@ class __$$WaypointCreatedCopyWithImpl<$Res>
   $Res call({
     Object? waypoint = null,
   }) {
-    return _then(_$WaypointCreated(
+    return _then(_$WaypointCreatedImpl(
       null == waypoint
           ? _value.waypoint
           : waypoint // ignore: cast_nullable_to_non_nullable
@@ -9668,13 +9111,13 @@ class __$$WaypointCreatedCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$WaypointCreated extends WaypointCreated {
-  const _$WaypointCreated(this.waypoint, {final String? $type})
+class _$WaypointCreatedImpl extends WaypointCreated {
+  const _$WaypointCreatedImpl(this.waypoint, {final String? $type})
       : $type = $type ?? 'waypointCreated',
         super._();
 
-  factory _$WaypointCreated.fromJson(Map<String, dynamic> json) =>
-      _$$WaypointCreatedFromJson(json);
+  factory _$WaypointCreatedImpl.fromJson(Map<String, dynamic> json) =>
+      _$$WaypointCreatedImplFromJson(json);
 
   @override
   final Waypoint waypoint;
@@ -9691,7 +9134,7 @@ class _$WaypointCreated extends WaypointCreated {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$WaypointCreated &&
+            other is _$WaypointCreatedImpl &&
             (identical(other.waypoint, waypoint) ||
                 other.waypoint == waypoint));
   }
@@ -9703,13 +9146,14 @@ class _$WaypointCreated extends WaypointCreated {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$WaypointCreatedCopyWith<_$WaypointCreated> get copyWith =>
-      __$$WaypointCreatedCopyWithImpl<_$WaypointCreated>(this, _$identity);
+  _$$WaypointCreatedImplCopyWith<_$WaypointCreatedImpl> get copyWith =>
+      __$$WaypointCreatedImplCopyWithImpl<_$WaypointCreatedImpl>(
+          this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(DocumentPage page, int? index) pageAdded,
+    required TResult Function(int? index, DocumentPage? page) pageAdded,
     required TResult Function(String pageName) pageChanged,
     required TResult Function(String page, int? newIndex) pageReordered,
     required TResult Function(String oldName, String newName) pageRenamed,
@@ -9726,7 +9170,6 @@ class _$WaypointCreated extends WaypointCreated {
         elementsArranged,
     required TResult Function(String? name, String? description)
         documentDescriptionChanged,
-    required TResult Function(String path) documentPathChanged,
     required TResult Function(AssetLocation? location) documentSaved,
     required TResult Function(Tool tool) toolCreated,
     required TResult Function(Map<int, Tool> tools) toolsChanged,
@@ -9774,7 +9217,7 @@ class _$WaypointCreated extends WaypointCreated {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(DocumentPage page, int? index)? pageAdded,
+    TResult? Function(int? index, DocumentPage? page)? pageAdded,
     TResult? Function(String pageName)? pageChanged,
     TResult? Function(String page, int? newIndex)? pageReordered,
     TResult? Function(String oldName, String newName)? pageRenamed,
@@ -9790,7 +9233,6 @@ class _$WaypointCreated extends WaypointCreated {
         elementsArranged,
     TResult? Function(String? name, String? description)?
         documentDescriptionChanged,
-    TResult? Function(String path)? documentPathChanged,
     TResult? Function(AssetLocation? location)? documentSaved,
     TResult? Function(Tool tool)? toolCreated,
     TResult? Function(Map<int, Tool> tools)? toolsChanged,
@@ -9832,7 +9274,7 @@ class _$WaypointCreated extends WaypointCreated {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(DocumentPage page, int? index)? pageAdded,
+    TResult Function(int? index, DocumentPage? page)? pageAdded,
     TResult Function(String pageName)? pageChanged,
     TResult Function(String page, int? newIndex)? pageReordered,
     TResult Function(String oldName, String newName)? pageRenamed,
@@ -9848,7 +9290,6 @@ class _$WaypointCreated extends WaypointCreated {
         elementsArranged,
     TResult Function(String? name, String? description)?
         documentDescriptionChanged,
-    TResult Function(String path)? documentPathChanged,
     TResult Function(AssetLocation? location)? documentSaved,
     TResult Function(Tool tool)? toolCreated,
     TResult Function(Map<int, Tool> tools)? toolsChanged,
@@ -9908,7 +9349,6 @@ class _$WaypointCreated extends WaypointCreated {
     required TResult Function(ElementsArranged value) elementsArranged,
     required TResult Function(DocumentDescriptionChanged value)
         documentDescriptionChanged,
-    required TResult Function(DocumentPathChanged value) documentPathChanged,
     required TResult Function(DocumentSaved value) documentSaved,
     required TResult Function(ToolCreated value) toolCreated,
     required TResult Function(ToolsChanged value) toolsChanged,
@@ -9966,7 +9406,6 @@ class _$WaypointCreated extends WaypointCreated {
     TResult? Function(ElementsArranged value)? elementsArranged,
     TResult? Function(DocumentDescriptionChanged value)?
         documentDescriptionChanged,
-    TResult? Function(DocumentPathChanged value)? documentPathChanged,
     TResult? Function(DocumentSaved value)? documentSaved,
     TResult? Function(ToolCreated value)? toolCreated,
     TResult? Function(ToolsChanged value)? toolsChanged,
@@ -10021,7 +9460,6 @@ class _$WaypointCreated extends WaypointCreated {
     TResult Function(ElementsArranged value)? elementsArranged,
     TResult Function(DocumentDescriptionChanged value)?
         documentDescriptionChanged,
-    TResult Function(DocumentPathChanged value)? documentPathChanged,
     TResult Function(DocumentSaved value)? documentSaved,
     TResult Function(ToolCreated value)? toolCreated,
     TResult Function(ToolsChanged value)? toolsChanged,
@@ -10065,40 +9503,41 @@ class _$WaypointCreated extends WaypointCreated {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$WaypointCreatedToJson(
+    return _$$WaypointCreatedImplToJson(
       this,
     );
   }
 }
 
 abstract class WaypointCreated extends DocumentEvent {
-  const factory WaypointCreated(final Waypoint waypoint) = _$WaypointCreated;
+  const factory WaypointCreated(final Waypoint waypoint) =
+      _$WaypointCreatedImpl;
   const WaypointCreated._() : super._();
 
   factory WaypointCreated.fromJson(Map<String, dynamic> json) =
-      _$WaypointCreated.fromJson;
+      _$WaypointCreatedImpl.fromJson;
 
   Waypoint get waypoint;
   @JsonKey(ignore: true)
-  _$$WaypointCreatedCopyWith<_$WaypointCreated> get copyWith =>
+  _$$WaypointCreatedImplCopyWith<_$WaypointCreatedImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$WaypointRenamedCopyWith<$Res> {
-  factory _$$WaypointRenamedCopyWith(
-          _$WaypointRenamed value, $Res Function(_$WaypointRenamed) then) =
-      __$$WaypointRenamedCopyWithImpl<$Res>;
+abstract class _$$WaypointRenamedImplCopyWith<$Res> {
+  factory _$$WaypointRenamedImplCopyWith(_$WaypointRenamedImpl value,
+          $Res Function(_$WaypointRenamedImpl) then) =
+      __$$WaypointRenamedImplCopyWithImpl<$Res>;
   @useResult
   $Res call({int index, String name});
 }
 
 /// @nodoc
-class __$$WaypointRenamedCopyWithImpl<$Res>
-    extends _$DocumentEventCopyWithImpl<$Res, _$WaypointRenamed>
-    implements _$$WaypointRenamedCopyWith<$Res> {
-  __$$WaypointRenamedCopyWithImpl(
-      _$WaypointRenamed _value, $Res Function(_$WaypointRenamed) _then)
+class __$$WaypointRenamedImplCopyWithImpl<$Res>
+    extends _$DocumentEventCopyWithImpl<$Res, _$WaypointRenamedImpl>
+    implements _$$WaypointRenamedImplCopyWith<$Res> {
+  __$$WaypointRenamedImplCopyWithImpl(
+      _$WaypointRenamedImpl _value, $Res Function(_$WaypointRenamedImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -10107,7 +9546,7 @@ class __$$WaypointRenamedCopyWithImpl<$Res>
     Object? index = null,
     Object? name = null,
   }) {
-    return _then(_$WaypointRenamed(
+    return _then(_$WaypointRenamedImpl(
       null == index
           ? _value.index
           : index // ignore: cast_nullable_to_non_nullable
@@ -10122,13 +9561,13 @@ class __$$WaypointRenamedCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$WaypointRenamed extends WaypointRenamed {
-  const _$WaypointRenamed(this.index, this.name, {final String? $type})
+class _$WaypointRenamedImpl extends WaypointRenamed {
+  const _$WaypointRenamedImpl(this.index, this.name, {final String? $type})
       : $type = $type ?? 'waypointRenamed',
         super._();
 
-  factory _$WaypointRenamed.fromJson(Map<String, dynamic> json) =>
-      _$$WaypointRenamedFromJson(json);
+  factory _$WaypointRenamedImpl.fromJson(Map<String, dynamic> json) =>
+      _$$WaypointRenamedImplFromJson(json);
 
   @override
   final int index;
@@ -10147,7 +9586,7 @@ class _$WaypointRenamed extends WaypointRenamed {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$WaypointRenamed &&
+            other is _$WaypointRenamedImpl &&
             (identical(other.index, index) || other.index == index) &&
             (identical(other.name, name) || other.name == name));
   }
@@ -10159,13 +9598,14 @@ class _$WaypointRenamed extends WaypointRenamed {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$WaypointRenamedCopyWith<_$WaypointRenamed> get copyWith =>
-      __$$WaypointRenamedCopyWithImpl<_$WaypointRenamed>(this, _$identity);
+  _$$WaypointRenamedImplCopyWith<_$WaypointRenamedImpl> get copyWith =>
+      __$$WaypointRenamedImplCopyWithImpl<_$WaypointRenamedImpl>(
+          this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(DocumentPage page, int? index) pageAdded,
+    required TResult Function(int? index, DocumentPage? page) pageAdded,
     required TResult Function(String pageName) pageChanged,
     required TResult Function(String page, int? newIndex) pageReordered,
     required TResult Function(String oldName, String newName) pageRenamed,
@@ -10182,7 +9622,6 @@ class _$WaypointRenamed extends WaypointRenamed {
         elementsArranged,
     required TResult Function(String? name, String? description)
         documentDescriptionChanged,
-    required TResult Function(String path) documentPathChanged,
     required TResult Function(AssetLocation? location) documentSaved,
     required TResult Function(Tool tool) toolCreated,
     required TResult Function(Map<int, Tool> tools) toolsChanged,
@@ -10230,7 +9669,7 @@ class _$WaypointRenamed extends WaypointRenamed {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(DocumentPage page, int? index)? pageAdded,
+    TResult? Function(int? index, DocumentPage? page)? pageAdded,
     TResult? Function(String pageName)? pageChanged,
     TResult? Function(String page, int? newIndex)? pageReordered,
     TResult? Function(String oldName, String newName)? pageRenamed,
@@ -10246,7 +9685,6 @@ class _$WaypointRenamed extends WaypointRenamed {
         elementsArranged,
     TResult? Function(String? name, String? description)?
         documentDescriptionChanged,
-    TResult? Function(String path)? documentPathChanged,
     TResult? Function(AssetLocation? location)? documentSaved,
     TResult? Function(Tool tool)? toolCreated,
     TResult? Function(Map<int, Tool> tools)? toolsChanged,
@@ -10288,7 +9726,7 @@ class _$WaypointRenamed extends WaypointRenamed {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(DocumentPage page, int? index)? pageAdded,
+    TResult Function(int? index, DocumentPage? page)? pageAdded,
     TResult Function(String pageName)? pageChanged,
     TResult Function(String page, int? newIndex)? pageReordered,
     TResult Function(String oldName, String newName)? pageRenamed,
@@ -10304,7 +9742,6 @@ class _$WaypointRenamed extends WaypointRenamed {
         elementsArranged,
     TResult Function(String? name, String? description)?
         documentDescriptionChanged,
-    TResult Function(String path)? documentPathChanged,
     TResult Function(AssetLocation? location)? documentSaved,
     TResult Function(Tool tool)? toolCreated,
     TResult Function(Map<int, Tool> tools)? toolsChanged,
@@ -10364,7 +9801,6 @@ class _$WaypointRenamed extends WaypointRenamed {
     required TResult Function(ElementsArranged value) elementsArranged,
     required TResult Function(DocumentDescriptionChanged value)
         documentDescriptionChanged,
-    required TResult Function(DocumentPathChanged value) documentPathChanged,
     required TResult Function(DocumentSaved value) documentSaved,
     required TResult Function(ToolCreated value) toolCreated,
     required TResult Function(ToolsChanged value) toolsChanged,
@@ -10422,7 +9858,6 @@ class _$WaypointRenamed extends WaypointRenamed {
     TResult? Function(ElementsArranged value)? elementsArranged,
     TResult? Function(DocumentDescriptionChanged value)?
         documentDescriptionChanged,
-    TResult? Function(DocumentPathChanged value)? documentPathChanged,
     TResult? Function(DocumentSaved value)? documentSaved,
     TResult? Function(ToolCreated value)? toolCreated,
     TResult? Function(ToolsChanged value)? toolsChanged,
@@ -10477,7 +9912,6 @@ class _$WaypointRenamed extends WaypointRenamed {
     TResult Function(ElementsArranged value)? elementsArranged,
     TResult Function(DocumentDescriptionChanged value)?
         documentDescriptionChanged,
-    TResult Function(DocumentPathChanged value)? documentPathChanged,
     TResult Function(DocumentSaved value)? documentSaved,
     TResult Function(ToolCreated value)? toolCreated,
     TResult Function(ToolsChanged value)? toolsChanged,
@@ -10521,7 +9955,7 @@ class _$WaypointRenamed extends WaypointRenamed {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$WaypointRenamedToJson(
+    return _$$WaypointRenamedImplToJson(
       this,
     );
   }
@@ -10529,34 +9963,34 @@ class _$WaypointRenamed extends WaypointRenamed {
 
 abstract class WaypointRenamed extends DocumentEvent {
   const factory WaypointRenamed(final int index, final String name) =
-      _$WaypointRenamed;
+      _$WaypointRenamedImpl;
   const WaypointRenamed._() : super._();
 
   factory WaypointRenamed.fromJson(Map<String, dynamic> json) =
-      _$WaypointRenamed.fromJson;
+      _$WaypointRenamedImpl.fromJson;
 
   int get index;
   String get name;
   @JsonKey(ignore: true)
-  _$$WaypointRenamedCopyWith<_$WaypointRenamed> get copyWith =>
+  _$$WaypointRenamedImplCopyWith<_$WaypointRenamedImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$WaypointRemovedCopyWith<$Res> {
-  factory _$$WaypointRemovedCopyWith(
-          _$WaypointRemoved value, $Res Function(_$WaypointRemoved) then) =
-      __$$WaypointRemovedCopyWithImpl<$Res>;
+abstract class _$$WaypointRemovedImplCopyWith<$Res> {
+  factory _$$WaypointRemovedImplCopyWith(_$WaypointRemovedImpl value,
+          $Res Function(_$WaypointRemovedImpl) then) =
+      __$$WaypointRemovedImplCopyWithImpl<$Res>;
   @useResult
   $Res call({int index});
 }
 
 /// @nodoc
-class __$$WaypointRemovedCopyWithImpl<$Res>
-    extends _$DocumentEventCopyWithImpl<$Res, _$WaypointRemoved>
-    implements _$$WaypointRemovedCopyWith<$Res> {
-  __$$WaypointRemovedCopyWithImpl(
-      _$WaypointRemoved _value, $Res Function(_$WaypointRemoved) _then)
+class __$$WaypointRemovedImplCopyWithImpl<$Res>
+    extends _$DocumentEventCopyWithImpl<$Res, _$WaypointRemovedImpl>
+    implements _$$WaypointRemovedImplCopyWith<$Res> {
+  __$$WaypointRemovedImplCopyWithImpl(
+      _$WaypointRemovedImpl _value, $Res Function(_$WaypointRemovedImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -10564,7 +9998,7 @@ class __$$WaypointRemovedCopyWithImpl<$Res>
   $Res call({
     Object? index = null,
   }) {
-    return _then(_$WaypointRemoved(
+    return _then(_$WaypointRemovedImpl(
       null == index
           ? _value.index
           : index // ignore: cast_nullable_to_non_nullable
@@ -10575,13 +10009,13 @@ class __$$WaypointRemovedCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$WaypointRemoved extends WaypointRemoved {
-  const _$WaypointRemoved(this.index, {final String? $type})
+class _$WaypointRemovedImpl extends WaypointRemoved {
+  const _$WaypointRemovedImpl(this.index, {final String? $type})
       : $type = $type ?? 'waypointRemoved',
         super._();
 
-  factory _$WaypointRemoved.fromJson(Map<String, dynamic> json) =>
-      _$$WaypointRemovedFromJson(json);
+  factory _$WaypointRemovedImpl.fromJson(Map<String, dynamic> json) =>
+      _$$WaypointRemovedImplFromJson(json);
 
   @override
   final int index;
@@ -10598,7 +10032,7 @@ class _$WaypointRemoved extends WaypointRemoved {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$WaypointRemoved &&
+            other is _$WaypointRemovedImpl &&
             (identical(other.index, index) || other.index == index));
   }
 
@@ -10609,13 +10043,14 @@ class _$WaypointRemoved extends WaypointRemoved {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$WaypointRemovedCopyWith<_$WaypointRemoved> get copyWith =>
-      __$$WaypointRemovedCopyWithImpl<_$WaypointRemoved>(this, _$identity);
+  _$$WaypointRemovedImplCopyWith<_$WaypointRemovedImpl> get copyWith =>
+      __$$WaypointRemovedImplCopyWithImpl<_$WaypointRemovedImpl>(
+          this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(DocumentPage page, int? index) pageAdded,
+    required TResult Function(int? index, DocumentPage? page) pageAdded,
     required TResult Function(String pageName) pageChanged,
     required TResult Function(String page, int? newIndex) pageReordered,
     required TResult Function(String oldName, String newName) pageRenamed,
@@ -10632,7 +10067,6 @@ class _$WaypointRemoved extends WaypointRemoved {
         elementsArranged,
     required TResult Function(String? name, String? description)
         documentDescriptionChanged,
-    required TResult Function(String path) documentPathChanged,
     required TResult Function(AssetLocation? location) documentSaved,
     required TResult Function(Tool tool) toolCreated,
     required TResult Function(Map<int, Tool> tools) toolsChanged,
@@ -10680,7 +10114,7 @@ class _$WaypointRemoved extends WaypointRemoved {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(DocumentPage page, int? index)? pageAdded,
+    TResult? Function(int? index, DocumentPage? page)? pageAdded,
     TResult? Function(String pageName)? pageChanged,
     TResult? Function(String page, int? newIndex)? pageReordered,
     TResult? Function(String oldName, String newName)? pageRenamed,
@@ -10696,7 +10130,6 @@ class _$WaypointRemoved extends WaypointRemoved {
         elementsArranged,
     TResult? Function(String? name, String? description)?
         documentDescriptionChanged,
-    TResult? Function(String path)? documentPathChanged,
     TResult? Function(AssetLocation? location)? documentSaved,
     TResult? Function(Tool tool)? toolCreated,
     TResult? Function(Map<int, Tool> tools)? toolsChanged,
@@ -10738,7 +10171,7 @@ class _$WaypointRemoved extends WaypointRemoved {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(DocumentPage page, int? index)? pageAdded,
+    TResult Function(int? index, DocumentPage? page)? pageAdded,
     TResult Function(String pageName)? pageChanged,
     TResult Function(String page, int? newIndex)? pageReordered,
     TResult Function(String oldName, String newName)? pageRenamed,
@@ -10754,7 +10187,6 @@ class _$WaypointRemoved extends WaypointRemoved {
         elementsArranged,
     TResult Function(String? name, String? description)?
         documentDescriptionChanged,
-    TResult Function(String path)? documentPathChanged,
     TResult Function(AssetLocation? location)? documentSaved,
     TResult Function(Tool tool)? toolCreated,
     TResult Function(Map<int, Tool> tools)? toolsChanged,
@@ -10814,7 +10246,6 @@ class _$WaypointRemoved extends WaypointRemoved {
     required TResult Function(ElementsArranged value) elementsArranged,
     required TResult Function(DocumentDescriptionChanged value)
         documentDescriptionChanged,
-    required TResult Function(DocumentPathChanged value) documentPathChanged,
     required TResult Function(DocumentSaved value) documentSaved,
     required TResult Function(ToolCreated value) toolCreated,
     required TResult Function(ToolsChanged value) toolsChanged,
@@ -10872,7 +10303,6 @@ class _$WaypointRemoved extends WaypointRemoved {
     TResult? Function(ElementsArranged value)? elementsArranged,
     TResult? Function(DocumentDescriptionChanged value)?
         documentDescriptionChanged,
-    TResult? Function(DocumentPathChanged value)? documentPathChanged,
     TResult? Function(DocumentSaved value)? documentSaved,
     TResult? Function(ToolCreated value)? toolCreated,
     TResult? Function(ToolsChanged value)? toolsChanged,
@@ -10927,7 +10357,6 @@ class _$WaypointRemoved extends WaypointRemoved {
     TResult Function(ElementsArranged value)? elementsArranged,
     TResult Function(DocumentDescriptionChanged value)?
         documentDescriptionChanged,
-    TResult Function(DocumentPathChanged value)? documentPathChanged,
     TResult Function(DocumentSaved value)? documentSaved,
     TResult Function(ToolCreated value)? toolCreated,
     TResult Function(ToolsChanged value)? toolsChanged,
@@ -10971,40 +10400,40 @@ class _$WaypointRemoved extends WaypointRemoved {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$WaypointRemovedToJson(
+    return _$$WaypointRemovedImplToJson(
       this,
     );
   }
 }
 
 abstract class WaypointRemoved extends DocumentEvent {
-  const factory WaypointRemoved(final int index) = _$WaypointRemoved;
+  const factory WaypointRemoved(final int index) = _$WaypointRemovedImpl;
   const WaypointRemoved._() : super._();
 
   factory WaypointRemoved.fromJson(Map<String, dynamic> json) =
-      _$WaypointRemoved.fromJson;
+      _$WaypointRemovedImpl.fromJson;
 
   int get index;
   @JsonKey(ignore: true)
-  _$$WaypointRemovedCopyWith<_$WaypointRemoved> get copyWith =>
+  _$$WaypointRemovedImplCopyWith<_$WaypointRemovedImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$LayerRenamedCopyWith<$Res> {
-  factory _$$LayerRenamedCopyWith(
-          _$LayerRenamed value, $Res Function(_$LayerRenamed) then) =
-      __$$LayerRenamedCopyWithImpl<$Res>;
+abstract class _$$LayerRenamedImplCopyWith<$Res> {
+  factory _$$LayerRenamedImplCopyWith(
+          _$LayerRenamedImpl value, $Res Function(_$LayerRenamedImpl) then) =
+      __$$LayerRenamedImplCopyWithImpl<$Res>;
   @useResult
   $Res call({String oldName, String newName});
 }
 
 /// @nodoc
-class __$$LayerRenamedCopyWithImpl<$Res>
-    extends _$DocumentEventCopyWithImpl<$Res, _$LayerRenamed>
-    implements _$$LayerRenamedCopyWith<$Res> {
-  __$$LayerRenamedCopyWithImpl(
-      _$LayerRenamed _value, $Res Function(_$LayerRenamed) _then)
+class __$$LayerRenamedImplCopyWithImpl<$Res>
+    extends _$DocumentEventCopyWithImpl<$Res, _$LayerRenamedImpl>
+    implements _$$LayerRenamedImplCopyWith<$Res> {
+  __$$LayerRenamedImplCopyWithImpl(
+      _$LayerRenamedImpl _value, $Res Function(_$LayerRenamedImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -11013,7 +10442,7 @@ class __$$LayerRenamedCopyWithImpl<$Res>
     Object? oldName = null,
     Object? newName = null,
   }) {
-    return _then(_$LayerRenamed(
+    return _then(_$LayerRenamedImpl(
       null == oldName
           ? _value.oldName
           : oldName // ignore: cast_nullable_to_non_nullable
@@ -11028,13 +10457,13 @@ class __$$LayerRenamedCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$LayerRenamed extends LayerRenamed {
-  const _$LayerRenamed(this.oldName, this.newName, {final String? $type})
+class _$LayerRenamedImpl extends LayerRenamed {
+  const _$LayerRenamedImpl(this.oldName, this.newName, {final String? $type})
       : $type = $type ?? 'layerRenamed',
         super._();
 
-  factory _$LayerRenamed.fromJson(Map<String, dynamic> json) =>
-      _$$LayerRenamedFromJson(json);
+  factory _$LayerRenamedImpl.fromJson(Map<String, dynamic> json) =>
+      _$$LayerRenamedImplFromJson(json);
 
   @override
   final String oldName;
@@ -11053,7 +10482,7 @@ class _$LayerRenamed extends LayerRenamed {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$LayerRenamed &&
+            other is _$LayerRenamedImpl &&
             (identical(other.oldName, oldName) || other.oldName == oldName) &&
             (identical(other.newName, newName) || other.newName == newName));
   }
@@ -11065,13 +10494,13 @@ class _$LayerRenamed extends LayerRenamed {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$LayerRenamedCopyWith<_$LayerRenamed> get copyWith =>
-      __$$LayerRenamedCopyWithImpl<_$LayerRenamed>(this, _$identity);
+  _$$LayerRenamedImplCopyWith<_$LayerRenamedImpl> get copyWith =>
+      __$$LayerRenamedImplCopyWithImpl<_$LayerRenamedImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(DocumentPage page, int? index) pageAdded,
+    required TResult Function(int? index, DocumentPage? page) pageAdded,
     required TResult Function(String pageName) pageChanged,
     required TResult Function(String page, int? newIndex) pageReordered,
     required TResult Function(String oldName, String newName) pageRenamed,
@@ -11088,7 +10517,6 @@ class _$LayerRenamed extends LayerRenamed {
         elementsArranged,
     required TResult Function(String? name, String? description)
         documentDescriptionChanged,
-    required TResult Function(String path) documentPathChanged,
     required TResult Function(AssetLocation? location) documentSaved,
     required TResult Function(Tool tool) toolCreated,
     required TResult Function(Map<int, Tool> tools) toolsChanged,
@@ -11136,7 +10564,7 @@ class _$LayerRenamed extends LayerRenamed {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(DocumentPage page, int? index)? pageAdded,
+    TResult? Function(int? index, DocumentPage? page)? pageAdded,
     TResult? Function(String pageName)? pageChanged,
     TResult? Function(String page, int? newIndex)? pageReordered,
     TResult? Function(String oldName, String newName)? pageRenamed,
@@ -11152,7 +10580,6 @@ class _$LayerRenamed extends LayerRenamed {
         elementsArranged,
     TResult? Function(String? name, String? description)?
         documentDescriptionChanged,
-    TResult? Function(String path)? documentPathChanged,
     TResult? Function(AssetLocation? location)? documentSaved,
     TResult? Function(Tool tool)? toolCreated,
     TResult? Function(Map<int, Tool> tools)? toolsChanged,
@@ -11194,7 +10621,7 @@ class _$LayerRenamed extends LayerRenamed {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(DocumentPage page, int? index)? pageAdded,
+    TResult Function(int? index, DocumentPage? page)? pageAdded,
     TResult Function(String pageName)? pageChanged,
     TResult Function(String page, int? newIndex)? pageReordered,
     TResult Function(String oldName, String newName)? pageRenamed,
@@ -11210,7 +10637,6 @@ class _$LayerRenamed extends LayerRenamed {
         elementsArranged,
     TResult Function(String? name, String? description)?
         documentDescriptionChanged,
-    TResult Function(String path)? documentPathChanged,
     TResult Function(AssetLocation? location)? documentSaved,
     TResult Function(Tool tool)? toolCreated,
     TResult Function(Map<int, Tool> tools)? toolsChanged,
@@ -11270,7 +10696,6 @@ class _$LayerRenamed extends LayerRenamed {
     required TResult Function(ElementsArranged value) elementsArranged,
     required TResult Function(DocumentDescriptionChanged value)
         documentDescriptionChanged,
-    required TResult Function(DocumentPathChanged value) documentPathChanged,
     required TResult Function(DocumentSaved value) documentSaved,
     required TResult Function(ToolCreated value) toolCreated,
     required TResult Function(ToolsChanged value) toolsChanged,
@@ -11328,7 +10753,6 @@ class _$LayerRenamed extends LayerRenamed {
     TResult? Function(ElementsArranged value)? elementsArranged,
     TResult? Function(DocumentDescriptionChanged value)?
         documentDescriptionChanged,
-    TResult? Function(DocumentPathChanged value)? documentPathChanged,
     TResult? Function(DocumentSaved value)? documentSaved,
     TResult? Function(ToolCreated value)? toolCreated,
     TResult? Function(ToolsChanged value)? toolsChanged,
@@ -11383,7 +10807,6 @@ class _$LayerRenamed extends LayerRenamed {
     TResult Function(ElementsArranged value)? elementsArranged,
     TResult Function(DocumentDescriptionChanged value)?
         documentDescriptionChanged,
-    TResult Function(DocumentPathChanged value)? documentPathChanged,
     TResult Function(DocumentSaved value)? documentSaved,
     TResult Function(ToolCreated value)? toolCreated,
     TResult Function(ToolsChanged value)? toolsChanged,
@@ -11427,7 +10850,7 @@ class _$LayerRenamed extends LayerRenamed {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$LayerRenamedToJson(
+    return _$$LayerRenamedImplToJson(
       this,
     );
   }
@@ -11435,34 +10858,34 @@ class _$LayerRenamed extends LayerRenamed {
 
 abstract class LayerRenamed extends DocumentEvent {
   const factory LayerRenamed(final String oldName, final String newName) =
-      _$LayerRenamed;
+      _$LayerRenamedImpl;
   const LayerRenamed._() : super._();
 
   factory LayerRenamed.fromJson(Map<String, dynamic> json) =
-      _$LayerRenamed.fromJson;
+      _$LayerRenamedImpl.fromJson;
 
   String get oldName;
   String get newName;
   @JsonKey(ignore: true)
-  _$$LayerRenamedCopyWith<_$LayerRenamed> get copyWith =>
+  _$$LayerRenamedImplCopyWith<_$LayerRenamedImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$LayerRemovedCopyWith<$Res> {
-  factory _$$LayerRemovedCopyWith(
-          _$LayerRemoved value, $Res Function(_$LayerRemoved) then) =
-      __$$LayerRemovedCopyWithImpl<$Res>;
+abstract class _$$LayerRemovedImplCopyWith<$Res> {
+  factory _$$LayerRemovedImplCopyWith(
+          _$LayerRemovedImpl value, $Res Function(_$LayerRemovedImpl) then) =
+      __$$LayerRemovedImplCopyWithImpl<$Res>;
   @useResult
   $Res call({String name});
 }
 
 /// @nodoc
-class __$$LayerRemovedCopyWithImpl<$Res>
-    extends _$DocumentEventCopyWithImpl<$Res, _$LayerRemoved>
-    implements _$$LayerRemovedCopyWith<$Res> {
-  __$$LayerRemovedCopyWithImpl(
-      _$LayerRemoved _value, $Res Function(_$LayerRemoved) _then)
+class __$$LayerRemovedImplCopyWithImpl<$Res>
+    extends _$DocumentEventCopyWithImpl<$Res, _$LayerRemovedImpl>
+    implements _$$LayerRemovedImplCopyWith<$Res> {
+  __$$LayerRemovedImplCopyWithImpl(
+      _$LayerRemovedImpl _value, $Res Function(_$LayerRemovedImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -11470,7 +10893,7 @@ class __$$LayerRemovedCopyWithImpl<$Res>
   $Res call({
     Object? name = null,
   }) {
-    return _then(_$LayerRemoved(
+    return _then(_$LayerRemovedImpl(
       null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -11481,13 +10904,13 @@ class __$$LayerRemovedCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$LayerRemoved extends LayerRemoved {
-  const _$LayerRemoved(this.name, {final String? $type})
+class _$LayerRemovedImpl extends LayerRemoved {
+  const _$LayerRemovedImpl(this.name, {final String? $type})
       : $type = $type ?? 'layerRemoved',
         super._();
 
-  factory _$LayerRemoved.fromJson(Map<String, dynamic> json) =>
-      _$$LayerRemovedFromJson(json);
+  factory _$LayerRemovedImpl.fromJson(Map<String, dynamic> json) =>
+      _$$LayerRemovedImplFromJson(json);
 
   @override
   final String name;
@@ -11504,7 +10927,7 @@ class _$LayerRemoved extends LayerRemoved {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$LayerRemoved &&
+            other is _$LayerRemovedImpl &&
             (identical(other.name, name) || other.name == name));
   }
 
@@ -11515,13 +10938,13 @@ class _$LayerRemoved extends LayerRemoved {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$LayerRemovedCopyWith<_$LayerRemoved> get copyWith =>
-      __$$LayerRemovedCopyWithImpl<_$LayerRemoved>(this, _$identity);
+  _$$LayerRemovedImplCopyWith<_$LayerRemovedImpl> get copyWith =>
+      __$$LayerRemovedImplCopyWithImpl<_$LayerRemovedImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(DocumentPage page, int? index) pageAdded,
+    required TResult Function(int? index, DocumentPage? page) pageAdded,
     required TResult Function(String pageName) pageChanged,
     required TResult Function(String page, int? newIndex) pageReordered,
     required TResult Function(String oldName, String newName) pageRenamed,
@@ -11538,7 +10961,6 @@ class _$LayerRemoved extends LayerRemoved {
         elementsArranged,
     required TResult Function(String? name, String? description)
         documentDescriptionChanged,
-    required TResult Function(String path) documentPathChanged,
     required TResult Function(AssetLocation? location) documentSaved,
     required TResult Function(Tool tool) toolCreated,
     required TResult Function(Map<int, Tool> tools) toolsChanged,
@@ -11586,7 +11008,7 @@ class _$LayerRemoved extends LayerRemoved {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(DocumentPage page, int? index)? pageAdded,
+    TResult? Function(int? index, DocumentPage? page)? pageAdded,
     TResult? Function(String pageName)? pageChanged,
     TResult? Function(String page, int? newIndex)? pageReordered,
     TResult? Function(String oldName, String newName)? pageRenamed,
@@ -11602,7 +11024,6 @@ class _$LayerRemoved extends LayerRemoved {
         elementsArranged,
     TResult? Function(String? name, String? description)?
         documentDescriptionChanged,
-    TResult? Function(String path)? documentPathChanged,
     TResult? Function(AssetLocation? location)? documentSaved,
     TResult? Function(Tool tool)? toolCreated,
     TResult? Function(Map<int, Tool> tools)? toolsChanged,
@@ -11644,7 +11065,7 @@ class _$LayerRemoved extends LayerRemoved {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(DocumentPage page, int? index)? pageAdded,
+    TResult Function(int? index, DocumentPage? page)? pageAdded,
     TResult Function(String pageName)? pageChanged,
     TResult Function(String page, int? newIndex)? pageReordered,
     TResult Function(String oldName, String newName)? pageRenamed,
@@ -11660,7 +11081,6 @@ class _$LayerRemoved extends LayerRemoved {
         elementsArranged,
     TResult Function(String? name, String? description)?
         documentDescriptionChanged,
-    TResult Function(String path)? documentPathChanged,
     TResult Function(AssetLocation? location)? documentSaved,
     TResult Function(Tool tool)? toolCreated,
     TResult Function(Map<int, Tool> tools)? toolsChanged,
@@ -11720,7 +11140,6 @@ class _$LayerRemoved extends LayerRemoved {
     required TResult Function(ElementsArranged value) elementsArranged,
     required TResult Function(DocumentDescriptionChanged value)
         documentDescriptionChanged,
-    required TResult Function(DocumentPathChanged value) documentPathChanged,
     required TResult Function(DocumentSaved value) documentSaved,
     required TResult Function(ToolCreated value) toolCreated,
     required TResult Function(ToolsChanged value) toolsChanged,
@@ -11778,7 +11197,6 @@ class _$LayerRemoved extends LayerRemoved {
     TResult? Function(ElementsArranged value)? elementsArranged,
     TResult? Function(DocumentDescriptionChanged value)?
         documentDescriptionChanged,
-    TResult? Function(DocumentPathChanged value)? documentPathChanged,
     TResult? Function(DocumentSaved value)? documentSaved,
     TResult? Function(ToolCreated value)? toolCreated,
     TResult? Function(ToolsChanged value)? toolsChanged,
@@ -11833,7 +11251,6 @@ class _$LayerRemoved extends LayerRemoved {
     TResult Function(ElementsArranged value)? elementsArranged,
     TResult Function(DocumentDescriptionChanged value)?
         documentDescriptionChanged,
-    TResult Function(DocumentPathChanged value)? documentPathChanged,
     TResult Function(DocumentSaved value)? documentSaved,
     TResult Function(ToolCreated value)? toolCreated,
     TResult Function(ToolsChanged value)? toolsChanged,
@@ -11877,40 +11294,40 @@ class _$LayerRemoved extends LayerRemoved {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$LayerRemovedToJson(
+    return _$$LayerRemovedImplToJson(
       this,
     );
   }
 }
 
 abstract class LayerRemoved extends DocumentEvent {
-  const factory LayerRemoved(final String name) = _$LayerRemoved;
+  const factory LayerRemoved(final String name) = _$LayerRemovedImpl;
   const LayerRemoved._() : super._();
 
   factory LayerRemoved.fromJson(Map<String, dynamic> json) =
-      _$LayerRemoved.fromJson;
+      _$LayerRemovedImpl.fromJson;
 
   String get name;
   @JsonKey(ignore: true)
-  _$$LayerRemovedCopyWith<_$LayerRemoved> get copyWith =>
+  _$$LayerRemovedImplCopyWith<_$LayerRemovedImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$LayerElementsRemovedCopyWith<$Res> {
-  factory _$$LayerElementsRemovedCopyWith(_$LayerElementsRemoved value,
-          $Res Function(_$LayerElementsRemoved) then) =
-      __$$LayerElementsRemovedCopyWithImpl<$Res>;
+abstract class _$$LayerElementsRemovedImplCopyWith<$Res> {
+  factory _$$LayerElementsRemovedImplCopyWith(_$LayerElementsRemovedImpl value,
+          $Res Function(_$LayerElementsRemovedImpl) then) =
+      __$$LayerElementsRemovedImplCopyWithImpl<$Res>;
   @useResult
   $Res call({String name});
 }
 
 /// @nodoc
-class __$$LayerElementsRemovedCopyWithImpl<$Res>
-    extends _$DocumentEventCopyWithImpl<$Res, _$LayerElementsRemoved>
-    implements _$$LayerElementsRemovedCopyWith<$Res> {
-  __$$LayerElementsRemovedCopyWithImpl(_$LayerElementsRemoved _value,
-      $Res Function(_$LayerElementsRemoved) _then)
+class __$$LayerElementsRemovedImplCopyWithImpl<$Res>
+    extends _$DocumentEventCopyWithImpl<$Res, _$LayerElementsRemovedImpl>
+    implements _$$LayerElementsRemovedImplCopyWith<$Res> {
+  __$$LayerElementsRemovedImplCopyWithImpl(_$LayerElementsRemovedImpl _value,
+      $Res Function(_$LayerElementsRemovedImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -11918,7 +11335,7 @@ class __$$LayerElementsRemovedCopyWithImpl<$Res>
   $Res call({
     Object? name = null,
   }) {
-    return _then(_$LayerElementsRemoved(
+    return _then(_$LayerElementsRemovedImpl(
       null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -11929,13 +11346,13 @@ class __$$LayerElementsRemovedCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$LayerElementsRemoved extends LayerElementsRemoved {
-  const _$LayerElementsRemoved(this.name, {final String? $type})
+class _$LayerElementsRemovedImpl extends LayerElementsRemoved {
+  const _$LayerElementsRemovedImpl(this.name, {final String? $type})
       : $type = $type ?? 'layerElementsRemoved',
         super._();
 
-  factory _$LayerElementsRemoved.fromJson(Map<String, dynamic> json) =>
-      _$$LayerElementsRemovedFromJson(json);
+  factory _$LayerElementsRemovedImpl.fromJson(Map<String, dynamic> json) =>
+      _$$LayerElementsRemovedImplFromJson(json);
 
   @override
   final String name;
@@ -11952,7 +11369,7 @@ class _$LayerElementsRemoved extends LayerElementsRemoved {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$LayerElementsRemoved &&
+            other is _$LayerElementsRemovedImpl &&
             (identical(other.name, name) || other.name == name));
   }
 
@@ -11963,14 +11380,15 @@ class _$LayerElementsRemoved extends LayerElementsRemoved {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$LayerElementsRemovedCopyWith<_$LayerElementsRemoved> get copyWith =>
-      __$$LayerElementsRemovedCopyWithImpl<_$LayerElementsRemoved>(
-          this, _$identity);
+  _$$LayerElementsRemovedImplCopyWith<_$LayerElementsRemovedImpl>
+      get copyWith =>
+          __$$LayerElementsRemovedImplCopyWithImpl<_$LayerElementsRemovedImpl>(
+              this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(DocumentPage page, int? index) pageAdded,
+    required TResult Function(int? index, DocumentPage? page) pageAdded,
     required TResult Function(String pageName) pageChanged,
     required TResult Function(String page, int? newIndex) pageReordered,
     required TResult Function(String oldName, String newName) pageRenamed,
@@ -11987,7 +11405,6 @@ class _$LayerElementsRemoved extends LayerElementsRemoved {
         elementsArranged,
     required TResult Function(String? name, String? description)
         documentDescriptionChanged,
-    required TResult Function(String path) documentPathChanged,
     required TResult Function(AssetLocation? location) documentSaved,
     required TResult Function(Tool tool) toolCreated,
     required TResult Function(Map<int, Tool> tools) toolsChanged,
@@ -12035,7 +11452,7 @@ class _$LayerElementsRemoved extends LayerElementsRemoved {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(DocumentPage page, int? index)? pageAdded,
+    TResult? Function(int? index, DocumentPage? page)? pageAdded,
     TResult? Function(String pageName)? pageChanged,
     TResult? Function(String page, int? newIndex)? pageReordered,
     TResult? Function(String oldName, String newName)? pageRenamed,
@@ -12051,7 +11468,6 @@ class _$LayerElementsRemoved extends LayerElementsRemoved {
         elementsArranged,
     TResult? Function(String? name, String? description)?
         documentDescriptionChanged,
-    TResult? Function(String path)? documentPathChanged,
     TResult? Function(AssetLocation? location)? documentSaved,
     TResult? Function(Tool tool)? toolCreated,
     TResult? Function(Map<int, Tool> tools)? toolsChanged,
@@ -12093,7 +11509,7 @@ class _$LayerElementsRemoved extends LayerElementsRemoved {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(DocumentPage page, int? index)? pageAdded,
+    TResult Function(int? index, DocumentPage? page)? pageAdded,
     TResult Function(String pageName)? pageChanged,
     TResult Function(String page, int? newIndex)? pageReordered,
     TResult Function(String oldName, String newName)? pageRenamed,
@@ -12109,7 +11525,6 @@ class _$LayerElementsRemoved extends LayerElementsRemoved {
         elementsArranged,
     TResult Function(String? name, String? description)?
         documentDescriptionChanged,
-    TResult Function(String path)? documentPathChanged,
     TResult Function(AssetLocation? location)? documentSaved,
     TResult Function(Tool tool)? toolCreated,
     TResult Function(Map<int, Tool> tools)? toolsChanged,
@@ -12169,7 +11584,6 @@ class _$LayerElementsRemoved extends LayerElementsRemoved {
     required TResult Function(ElementsArranged value) elementsArranged,
     required TResult Function(DocumentDescriptionChanged value)
         documentDescriptionChanged,
-    required TResult Function(DocumentPathChanged value) documentPathChanged,
     required TResult Function(DocumentSaved value) documentSaved,
     required TResult Function(ToolCreated value) toolCreated,
     required TResult Function(ToolsChanged value) toolsChanged,
@@ -12227,7 +11641,6 @@ class _$LayerElementsRemoved extends LayerElementsRemoved {
     TResult? Function(ElementsArranged value)? elementsArranged,
     TResult? Function(DocumentDescriptionChanged value)?
         documentDescriptionChanged,
-    TResult? Function(DocumentPathChanged value)? documentPathChanged,
     TResult? Function(DocumentSaved value)? documentSaved,
     TResult? Function(ToolCreated value)? toolCreated,
     TResult? Function(ToolsChanged value)? toolsChanged,
@@ -12282,7 +11695,6 @@ class _$LayerElementsRemoved extends LayerElementsRemoved {
     TResult Function(ElementsArranged value)? elementsArranged,
     TResult Function(DocumentDescriptionChanged value)?
         documentDescriptionChanged,
-    TResult Function(DocumentPathChanged value)? documentPathChanged,
     TResult Function(DocumentSaved value)? documentSaved,
     TResult Function(ToolCreated value)? toolCreated,
     TResult Function(ToolsChanged value)? toolsChanged,
@@ -12326,7 +11738,7 @@ class _$LayerElementsRemoved extends LayerElementsRemoved {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$LayerElementsRemovedToJson(
+    return _$$LayerElementsRemovedImplToJson(
       this,
     );
   }
@@ -12334,33 +11746,35 @@ class _$LayerElementsRemoved extends LayerElementsRemoved {
 
 abstract class LayerElementsRemoved extends DocumentEvent {
   const factory LayerElementsRemoved(final String name) =
-      _$LayerElementsRemoved;
+      _$LayerElementsRemovedImpl;
   const LayerElementsRemoved._() : super._();
 
   factory LayerElementsRemoved.fromJson(Map<String, dynamic> json) =
-      _$LayerElementsRemoved.fromJson;
+      _$LayerElementsRemovedImpl.fromJson;
 
   String get name;
   @JsonKey(ignore: true)
-  _$$LayerElementsRemovedCopyWith<_$LayerElementsRemoved> get copyWith =>
-      throw _privateConstructorUsedError;
+  _$$LayerElementsRemovedImplCopyWith<_$LayerElementsRemovedImpl>
+      get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$LayerVisibilityChangedCopyWith<$Res> {
-  factory _$$LayerVisibilityChangedCopyWith(_$LayerVisibilityChanged value,
-          $Res Function(_$LayerVisibilityChanged) then) =
-      __$$LayerVisibilityChangedCopyWithImpl<$Res>;
+abstract class _$$LayerVisibilityChangedImplCopyWith<$Res> {
+  factory _$$LayerVisibilityChangedImplCopyWith(
+          _$LayerVisibilityChangedImpl value,
+          $Res Function(_$LayerVisibilityChangedImpl) then) =
+      __$$LayerVisibilityChangedImplCopyWithImpl<$Res>;
   @useResult
   $Res call({String name});
 }
 
 /// @nodoc
-class __$$LayerVisibilityChangedCopyWithImpl<$Res>
-    extends _$DocumentEventCopyWithImpl<$Res, _$LayerVisibilityChanged>
-    implements _$$LayerVisibilityChangedCopyWith<$Res> {
-  __$$LayerVisibilityChangedCopyWithImpl(_$LayerVisibilityChanged _value,
-      $Res Function(_$LayerVisibilityChanged) _then)
+class __$$LayerVisibilityChangedImplCopyWithImpl<$Res>
+    extends _$DocumentEventCopyWithImpl<$Res, _$LayerVisibilityChangedImpl>
+    implements _$$LayerVisibilityChangedImplCopyWith<$Res> {
+  __$$LayerVisibilityChangedImplCopyWithImpl(
+      _$LayerVisibilityChangedImpl _value,
+      $Res Function(_$LayerVisibilityChangedImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -12368,7 +11782,7 @@ class __$$LayerVisibilityChangedCopyWithImpl<$Res>
   $Res call({
     Object? name = null,
   }) {
-    return _then(_$LayerVisibilityChanged(
+    return _then(_$LayerVisibilityChangedImpl(
       null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -12379,13 +11793,13 @@ class __$$LayerVisibilityChangedCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$LayerVisibilityChanged extends LayerVisibilityChanged {
-  const _$LayerVisibilityChanged(this.name, {final String? $type})
+class _$LayerVisibilityChangedImpl extends LayerVisibilityChanged {
+  const _$LayerVisibilityChangedImpl(this.name, {final String? $type})
       : $type = $type ?? 'layerVisibilityChanged',
         super._();
 
-  factory _$LayerVisibilityChanged.fromJson(Map<String, dynamic> json) =>
-      _$$LayerVisibilityChangedFromJson(json);
+  factory _$LayerVisibilityChangedImpl.fromJson(Map<String, dynamic> json) =>
+      _$$LayerVisibilityChangedImplFromJson(json);
 
   @override
   final String name;
@@ -12402,7 +11816,7 @@ class _$LayerVisibilityChanged extends LayerVisibilityChanged {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$LayerVisibilityChanged &&
+            other is _$LayerVisibilityChangedImpl &&
             (identical(other.name, name) || other.name == name));
   }
 
@@ -12413,14 +11827,14 @@ class _$LayerVisibilityChanged extends LayerVisibilityChanged {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$LayerVisibilityChangedCopyWith<_$LayerVisibilityChanged> get copyWith =>
-      __$$LayerVisibilityChangedCopyWithImpl<_$LayerVisibilityChanged>(
-          this, _$identity);
+  _$$LayerVisibilityChangedImplCopyWith<_$LayerVisibilityChangedImpl>
+      get copyWith => __$$LayerVisibilityChangedImplCopyWithImpl<
+          _$LayerVisibilityChangedImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(DocumentPage page, int? index) pageAdded,
+    required TResult Function(int? index, DocumentPage? page) pageAdded,
     required TResult Function(String pageName) pageChanged,
     required TResult Function(String page, int? newIndex) pageReordered,
     required TResult Function(String oldName, String newName) pageRenamed,
@@ -12437,7 +11851,6 @@ class _$LayerVisibilityChanged extends LayerVisibilityChanged {
         elementsArranged,
     required TResult Function(String? name, String? description)
         documentDescriptionChanged,
-    required TResult Function(String path) documentPathChanged,
     required TResult Function(AssetLocation? location) documentSaved,
     required TResult Function(Tool tool) toolCreated,
     required TResult Function(Map<int, Tool> tools) toolsChanged,
@@ -12485,7 +11898,7 @@ class _$LayerVisibilityChanged extends LayerVisibilityChanged {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(DocumentPage page, int? index)? pageAdded,
+    TResult? Function(int? index, DocumentPage? page)? pageAdded,
     TResult? Function(String pageName)? pageChanged,
     TResult? Function(String page, int? newIndex)? pageReordered,
     TResult? Function(String oldName, String newName)? pageRenamed,
@@ -12501,7 +11914,6 @@ class _$LayerVisibilityChanged extends LayerVisibilityChanged {
         elementsArranged,
     TResult? Function(String? name, String? description)?
         documentDescriptionChanged,
-    TResult? Function(String path)? documentPathChanged,
     TResult? Function(AssetLocation? location)? documentSaved,
     TResult? Function(Tool tool)? toolCreated,
     TResult? Function(Map<int, Tool> tools)? toolsChanged,
@@ -12543,7 +11955,7 @@ class _$LayerVisibilityChanged extends LayerVisibilityChanged {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(DocumentPage page, int? index)? pageAdded,
+    TResult Function(int? index, DocumentPage? page)? pageAdded,
     TResult Function(String pageName)? pageChanged,
     TResult Function(String page, int? newIndex)? pageReordered,
     TResult Function(String oldName, String newName)? pageRenamed,
@@ -12559,7 +11971,6 @@ class _$LayerVisibilityChanged extends LayerVisibilityChanged {
         elementsArranged,
     TResult Function(String? name, String? description)?
         documentDescriptionChanged,
-    TResult Function(String path)? documentPathChanged,
     TResult Function(AssetLocation? location)? documentSaved,
     TResult Function(Tool tool)? toolCreated,
     TResult Function(Map<int, Tool> tools)? toolsChanged,
@@ -12619,7 +12030,6 @@ class _$LayerVisibilityChanged extends LayerVisibilityChanged {
     required TResult Function(ElementsArranged value) elementsArranged,
     required TResult Function(DocumentDescriptionChanged value)
         documentDescriptionChanged,
-    required TResult Function(DocumentPathChanged value) documentPathChanged,
     required TResult Function(DocumentSaved value) documentSaved,
     required TResult Function(ToolCreated value) toolCreated,
     required TResult Function(ToolsChanged value) toolsChanged,
@@ -12677,7 +12087,6 @@ class _$LayerVisibilityChanged extends LayerVisibilityChanged {
     TResult? Function(ElementsArranged value)? elementsArranged,
     TResult? Function(DocumentDescriptionChanged value)?
         documentDescriptionChanged,
-    TResult? Function(DocumentPathChanged value)? documentPathChanged,
     TResult? Function(DocumentSaved value)? documentSaved,
     TResult? Function(ToolCreated value)? toolCreated,
     TResult? Function(ToolsChanged value)? toolsChanged,
@@ -12732,7 +12141,6 @@ class _$LayerVisibilityChanged extends LayerVisibilityChanged {
     TResult Function(ElementsArranged value)? elementsArranged,
     TResult Function(DocumentDescriptionChanged value)?
         documentDescriptionChanged,
-    TResult Function(DocumentPathChanged value)? documentPathChanged,
     TResult Function(DocumentSaved value)? documentSaved,
     TResult Function(ToolCreated value)? toolCreated,
     TResult Function(ToolsChanged value)? toolsChanged,
@@ -12776,7 +12184,7 @@ class _$LayerVisibilityChanged extends LayerVisibilityChanged {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$LayerVisibilityChangedToJson(
+    return _$$LayerVisibilityChangedImplToJson(
       this,
     );
   }
@@ -12784,33 +12192,33 @@ class _$LayerVisibilityChanged extends LayerVisibilityChanged {
 
 abstract class LayerVisibilityChanged extends DocumentEvent {
   const factory LayerVisibilityChanged(final String name) =
-      _$LayerVisibilityChanged;
+      _$LayerVisibilityChangedImpl;
   const LayerVisibilityChanged._() : super._();
 
   factory LayerVisibilityChanged.fromJson(Map<String, dynamic> json) =
-      _$LayerVisibilityChanged.fromJson;
+      _$LayerVisibilityChangedImpl.fromJson;
 
   String get name;
   @JsonKey(ignore: true)
-  _$$LayerVisibilityChangedCopyWith<_$LayerVisibilityChanged> get copyWith =>
-      throw _privateConstructorUsedError;
+  _$$LayerVisibilityChangedImplCopyWith<_$LayerVisibilityChangedImpl>
+      get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$CurrentLayerChangedCopyWith<$Res> {
-  factory _$$CurrentLayerChangedCopyWith(_$CurrentLayerChanged value,
-          $Res Function(_$CurrentLayerChanged) then) =
-      __$$CurrentLayerChangedCopyWithImpl<$Res>;
+abstract class _$$CurrentLayerChangedImplCopyWith<$Res> {
+  factory _$$CurrentLayerChangedImplCopyWith(_$CurrentLayerChangedImpl value,
+          $Res Function(_$CurrentLayerChangedImpl) then) =
+      __$$CurrentLayerChangedImplCopyWithImpl<$Res>;
   @useResult
   $Res call({String name});
 }
 
 /// @nodoc
-class __$$CurrentLayerChangedCopyWithImpl<$Res>
-    extends _$DocumentEventCopyWithImpl<$Res, _$CurrentLayerChanged>
-    implements _$$CurrentLayerChangedCopyWith<$Res> {
-  __$$CurrentLayerChangedCopyWithImpl(
-      _$CurrentLayerChanged _value, $Res Function(_$CurrentLayerChanged) _then)
+class __$$CurrentLayerChangedImplCopyWithImpl<$Res>
+    extends _$DocumentEventCopyWithImpl<$Res, _$CurrentLayerChangedImpl>
+    implements _$$CurrentLayerChangedImplCopyWith<$Res> {
+  __$$CurrentLayerChangedImplCopyWithImpl(_$CurrentLayerChangedImpl _value,
+      $Res Function(_$CurrentLayerChangedImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -12818,7 +12226,7 @@ class __$$CurrentLayerChangedCopyWithImpl<$Res>
   $Res call({
     Object? name = null,
   }) {
-    return _then(_$CurrentLayerChanged(
+    return _then(_$CurrentLayerChangedImpl(
       null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -12829,13 +12237,13 @@ class __$$CurrentLayerChangedCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$CurrentLayerChanged extends CurrentLayerChanged {
-  const _$CurrentLayerChanged(this.name, {final String? $type})
+class _$CurrentLayerChangedImpl extends CurrentLayerChanged {
+  const _$CurrentLayerChangedImpl(this.name, {final String? $type})
       : $type = $type ?? 'currentLayerChanged',
         super._();
 
-  factory _$CurrentLayerChanged.fromJson(Map<String, dynamic> json) =>
-      _$$CurrentLayerChangedFromJson(json);
+  factory _$CurrentLayerChangedImpl.fromJson(Map<String, dynamic> json) =>
+      _$$CurrentLayerChangedImplFromJson(json);
 
   @override
   final String name;
@@ -12852,7 +12260,7 @@ class _$CurrentLayerChanged extends CurrentLayerChanged {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$CurrentLayerChanged &&
+            other is _$CurrentLayerChangedImpl &&
             (identical(other.name, name) || other.name == name));
   }
 
@@ -12863,14 +12271,14 @@ class _$CurrentLayerChanged extends CurrentLayerChanged {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$CurrentLayerChangedCopyWith<_$CurrentLayerChanged> get copyWith =>
-      __$$CurrentLayerChangedCopyWithImpl<_$CurrentLayerChanged>(
+  _$$CurrentLayerChangedImplCopyWith<_$CurrentLayerChangedImpl> get copyWith =>
+      __$$CurrentLayerChangedImplCopyWithImpl<_$CurrentLayerChangedImpl>(
           this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(DocumentPage page, int? index) pageAdded,
+    required TResult Function(int? index, DocumentPage? page) pageAdded,
     required TResult Function(String pageName) pageChanged,
     required TResult Function(String page, int? newIndex) pageReordered,
     required TResult Function(String oldName, String newName) pageRenamed,
@@ -12887,7 +12295,6 @@ class _$CurrentLayerChanged extends CurrentLayerChanged {
         elementsArranged,
     required TResult Function(String? name, String? description)
         documentDescriptionChanged,
-    required TResult Function(String path) documentPathChanged,
     required TResult Function(AssetLocation? location) documentSaved,
     required TResult Function(Tool tool) toolCreated,
     required TResult Function(Map<int, Tool> tools) toolsChanged,
@@ -12935,7 +12342,7 @@ class _$CurrentLayerChanged extends CurrentLayerChanged {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(DocumentPage page, int? index)? pageAdded,
+    TResult? Function(int? index, DocumentPage? page)? pageAdded,
     TResult? Function(String pageName)? pageChanged,
     TResult? Function(String page, int? newIndex)? pageReordered,
     TResult? Function(String oldName, String newName)? pageRenamed,
@@ -12951,7 +12358,6 @@ class _$CurrentLayerChanged extends CurrentLayerChanged {
         elementsArranged,
     TResult? Function(String? name, String? description)?
         documentDescriptionChanged,
-    TResult? Function(String path)? documentPathChanged,
     TResult? Function(AssetLocation? location)? documentSaved,
     TResult? Function(Tool tool)? toolCreated,
     TResult? Function(Map<int, Tool> tools)? toolsChanged,
@@ -12993,7 +12399,7 @@ class _$CurrentLayerChanged extends CurrentLayerChanged {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(DocumentPage page, int? index)? pageAdded,
+    TResult Function(int? index, DocumentPage? page)? pageAdded,
     TResult Function(String pageName)? pageChanged,
     TResult Function(String page, int? newIndex)? pageReordered,
     TResult Function(String oldName, String newName)? pageRenamed,
@@ -13009,7 +12415,6 @@ class _$CurrentLayerChanged extends CurrentLayerChanged {
         elementsArranged,
     TResult Function(String? name, String? description)?
         documentDescriptionChanged,
-    TResult Function(String path)? documentPathChanged,
     TResult Function(AssetLocation? location)? documentSaved,
     TResult Function(Tool tool)? toolCreated,
     TResult Function(Map<int, Tool> tools)? toolsChanged,
@@ -13069,7 +12474,6 @@ class _$CurrentLayerChanged extends CurrentLayerChanged {
     required TResult Function(ElementsArranged value) elementsArranged,
     required TResult Function(DocumentDescriptionChanged value)
         documentDescriptionChanged,
-    required TResult Function(DocumentPathChanged value) documentPathChanged,
     required TResult Function(DocumentSaved value) documentSaved,
     required TResult Function(ToolCreated value) toolCreated,
     required TResult Function(ToolsChanged value) toolsChanged,
@@ -13127,7 +12531,6 @@ class _$CurrentLayerChanged extends CurrentLayerChanged {
     TResult? Function(ElementsArranged value)? elementsArranged,
     TResult? Function(DocumentDescriptionChanged value)?
         documentDescriptionChanged,
-    TResult? Function(DocumentPathChanged value)? documentPathChanged,
     TResult? Function(DocumentSaved value)? documentSaved,
     TResult? Function(ToolCreated value)? toolCreated,
     TResult? Function(ToolsChanged value)? toolsChanged,
@@ -13182,7 +12585,6 @@ class _$CurrentLayerChanged extends CurrentLayerChanged {
     TResult Function(ElementsArranged value)? elementsArranged,
     TResult Function(DocumentDescriptionChanged value)?
         documentDescriptionChanged,
-    TResult Function(DocumentPathChanged value)? documentPathChanged,
     TResult Function(DocumentSaved value)? documentSaved,
     TResult Function(ToolCreated value)? toolCreated,
     TResult Function(ToolsChanged value)? toolsChanged,
@@ -13226,40 +12628,41 @@ class _$CurrentLayerChanged extends CurrentLayerChanged {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$CurrentLayerChangedToJson(
+    return _$$CurrentLayerChangedImplToJson(
       this,
     );
   }
 }
 
 abstract class CurrentLayerChanged extends DocumentEvent {
-  const factory CurrentLayerChanged(final String name) = _$CurrentLayerChanged;
+  const factory CurrentLayerChanged(final String name) =
+      _$CurrentLayerChangedImpl;
   const CurrentLayerChanged._() : super._();
 
   factory CurrentLayerChanged.fromJson(Map<String, dynamic> json) =
-      _$CurrentLayerChanged.fromJson;
+      _$CurrentLayerChangedImpl.fromJson;
 
   String get name;
   @JsonKey(ignore: true)
-  _$$CurrentLayerChangedCopyWith<_$CurrentLayerChanged> get copyWith =>
+  _$$CurrentLayerChangedImplCopyWith<_$CurrentLayerChangedImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$ElementsLayerChangedCopyWith<$Res> {
-  factory _$$ElementsLayerChangedCopyWith(_$ElementsLayerChanged value,
-          $Res Function(_$ElementsLayerChanged) then) =
-      __$$ElementsLayerChangedCopyWithImpl<$Res>;
+abstract class _$$ElementsLayerChangedImplCopyWith<$Res> {
+  factory _$$ElementsLayerChangedImplCopyWith(_$ElementsLayerChangedImpl value,
+          $Res Function(_$ElementsLayerChangedImpl) then) =
+      __$$ElementsLayerChangedImplCopyWithImpl<$Res>;
   @useResult
   $Res call({String layer, List<int> elements});
 }
 
 /// @nodoc
-class __$$ElementsLayerChangedCopyWithImpl<$Res>
-    extends _$DocumentEventCopyWithImpl<$Res, _$ElementsLayerChanged>
-    implements _$$ElementsLayerChangedCopyWith<$Res> {
-  __$$ElementsLayerChangedCopyWithImpl(_$ElementsLayerChanged _value,
-      $Res Function(_$ElementsLayerChanged) _then)
+class __$$ElementsLayerChangedImplCopyWithImpl<$Res>
+    extends _$DocumentEventCopyWithImpl<$Res, _$ElementsLayerChangedImpl>
+    implements _$$ElementsLayerChangedImplCopyWith<$Res> {
+  __$$ElementsLayerChangedImplCopyWithImpl(_$ElementsLayerChangedImpl _value,
+      $Res Function(_$ElementsLayerChangedImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -13268,7 +12671,7 @@ class __$$ElementsLayerChangedCopyWithImpl<$Res>
     Object? layer = null,
     Object? elements = null,
   }) {
-    return _then(_$ElementsLayerChanged(
+    return _then(_$ElementsLayerChangedImpl(
       null == layer
           ? _value.layer
           : layer // ignore: cast_nullable_to_non_nullable
@@ -13283,15 +12686,15 @@ class __$$ElementsLayerChangedCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$ElementsLayerChanged extends ElementsLayerChanged {
-  const _$ElementsLayerChanged(this.layer, final List<int> elements,
+class _$ElementsLayerChangedImpl extends ElementsLayerChanged {
+  const _$ElementsLayerChangedImpl(this.layer, final List<int> elements,
       {final String? $type})
       : _elements = elements,
         $type = $type ?? 'elementsLayerChanged',
         super._();
 
-  factory _$ElementsLayerChanged.fromJson(Map<String, dynamic> json) =>
-      _$$ElementsLayerChangedFromJson(json);
+  factory _$ElementsLayerChangedImpl.fromJson(Map<String, dynamic> json) =>
+      _$$ElementsLayerChangedImplFromJson(json);
 
   @override
   final String layer;
@@ -13315,7 +12718,7 @@ class _$ElementsLayerChanged extends ElementsLayerChanged {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$ElementsLayerChanged &&
+            other is _$ElementsLayerChangedImpl &&
             (identical(other.layer, layer) || other.layer == layer) &&
             const DeepCollectionEquality().equals(other._elements, _elements));
   }
@@ -13328,14 +12731,15 @@ class _$ElementsLayerChanged extends ElementsLayerChanged {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$ElementsLayerChangedCopyWith<_$ElementsLayerChanged> get copyWith =>
-      __$$ElementsLayerChangedCopyWithImpl<_$ElementsLayerChanged>(
-          this, _$identity);
+  _$$ElementsLayerChangedImplCopyWith<_$ElementsLayerChangedImpl>
+      get copyWith =>
+          __$$ElementsLayerChangedImplCopyWithImpl<_$ElementsLayerChangedImpl>(
+              this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(DocumentPage page, int? index) pageAdded,
+    required TResult Function(int? index, DocumentPage? page) pageAdded,
     required TResult Function(String pageName) pageChanged,
     required TResult Function(String page, int? newIndex) pageReordered,
     required TResult Function(String oldName, String newName) pageRenamed,
@@ -13352,7 +12756,6 @@ class _$ElementsLayerChanged extends ElementsLayerChanged {
         elementsArranged,
     required TResult Function(String? name, String? description)
         documentDescriptionChanged,
-    required TResult Function(String path) documentPathChanged,
     required TResult Function(AssetLocation? location) documentSaved,
     required TResult Function(Tool tool) toolCreated,
     required TResult Function(Map<int, Tool> tools) toolsChanged,
@@ -13400,7 +12803,7 @@ class _$ElementsLayerChanged extends ElementsLayerChanged {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(DocumentPage page, int? index)? pageAdded,
+    TResult? Function(int? index, DocumentPage? page)? pageAdded,
     TResult? Function(String pageName)? pageChanged,
     TResult? Function(String page, int? newIndex)? pageReordered,
     TResult? Function(String oldName, String newName)? pageRenamed,
@@ -13416,7 +12819,6 @@ class _$ElementsLayerChanged extends ElementsLayerChanged {
         elementsArranged,
     TResult? Function(String? name, String? description)?
         documentDescriptionChanged,
-    TResult? Function(String path)? documentPathChanged,
     TResult? Function(AssetLocation? location)? documentSaved,
     TResult? Function(Tool tool)? toolCreated,
     TResult? Function(Map<int, Tool> tools)? toolsChanged,
@@ -13458,7 +12860,7 @@ class _$ElementsLayerChanged extends ElementsLayerChanged {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(DocumentPage page, int? index)? pageAdded,
+    TResult Function(int? index, DocumentPage? page)? pageAdded,
     TResult Function(String pageName)? pageChanged,
     TResult Function(String page, int? newIndex)? pageReordered,
     TResult Function(String oldName, String newName)? pageRenamed,
@@ -13474,7 +12876,6 @@ class _$ElementsLayerChanged extends ElementsLayerChanged {
         elementsArranged,
     TResult Function(String? name, String? description)?
         documentDescriptionChanged,
-    TResult Function(String path)? documentPathChanged,
     TResult Function(AssetLocation? location)? documentSaved,
     TResult Function(Tool tool)? toolCreated,
     TResult Function(Map<int, Tool> tools)? toolsChanged,
@@ -13534,7 +12935,6 @@ class _$ElementsLayerChanged extends ElementsLayerChanged {
     required TResult Function(ElementsArranged value) elementsArranged,
     required TResult Function(DocumentDescriptionChanged value)
         documentDescriptionChanged,
-    required TResult Function(DocumentPathChanged value) documentPathChanged,
     required TResult Function(DocumentSaved value) documentSaved,
     required TResult Function(ToolCreated value) toolCreated,
     required TResult Function(ToolsChanged value) toolsChanged,
@@ -13592,7 +12992,6 @@ class _$ElementsLayerChanged extends ElementsLayerChanged {
     TResult? Function(ElementsArranged value)? elementsArranged,
     TResult? Function(DocumentDescriptionChanged value)?
         documentDescriptionChanged,
-    TResult? Function(DocumentPathChanged value)? documentPathChanged,
     TResult? Function(DocumentSaved value)? documentSaved,
     TResult? Function(ToolCreated value)? toolCreated,
     TResult? Function(ToolsChanged value)? toolsChanged,
@@ -13647,7 +13046,6 @@ class _$ElementsLayerChanged extends ElementsLayerChanged {
     TResult Function(ElementsArranged value)? elementsArranged,
     TResult Function(DocumentDescriptionChanged value)?
         documentDescriptionChanged,
-    TResult Function(DocumentPathChanged value)? documentPathChanged,
     TResult Function(DocumentSaved value)? documentSaved,
     TResult Function(ToolCreated value)? toolCreated,
     TResult Function(ToolsChanged value)? toolsChanged,
@@ -13691,7 +13089,7 @@ class _$ElementsLayerChanged extends ElementsLayerChanged {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$ElementsLayerChangedToJson(
+    return _$$ElementsLayerChangedImplToJson(
       this,
     );
   }
@@ -13699,34 +13097,35 @@ class _$ElementsLayerChanged extends ElementsLayerChanged {
 
 abstract class ElementsLayerChanged extends DocumentEvent {
   const factory ElementsLayerChanged(
-      final String layer, final List<int> elements) = _$ElementsLayerChanged;
+          final String layer, final List<int> elements) =
+      _$ElementsLayerChangedImpl;
   const ElementsLayerChanged._() : super._();
 
   factory ElementsLayerChanged.fromJson(Map<String, dynamic> json) =
-      _$ElementsLayerChanged.fromJson;
+      _$ElementsLayerChangedImpl.fromJson;
 
   String get layer;
   List<int> get elements;
   @JsonKey(ignore: true)
-  _$$ElementsLayerChangedCopyWith<_$ElementsLayerChanged> get copyWith =>
-      throw _privateConstructorUsedError;
+  _$$ElementsLayerChangedImplCopyWith<_$ElementsLayerChangedImpl>
+      get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$TemplateCreatedCopyWith<$Res> {
-  factory _$$TemplateCreatedCopyWith(
-          _$TemplateCreated value, $Res Function(_$TemplateCreated) then) =
-      __$$TemplateCreatedCopyWithImpl<$Res>;
+abstract class _$$TemplateCreatedImplCopyWith<$Res> {
+  factory _$$TemplateCreatedImplCopyWith(_$TemplateCreatedImpl value,
+          $Res Function(_$TemplateCreatedImpl) then) =
+      __$$TemplateCreatedImplCopyWithImpl<$Res>;
   @useResult
   $Res call({String directory, String? remote, bool deleteDocument});
 }
 
 /// @nodoc
-class __$$TemplateCreatedCopyWithImpl<$Res>
-    extends _$DocumentEventCopyWithImpl<$Res, _$TemplateCreated>
-    implements _$$TemplateCreatedCopyWith<$Res> {
-  __$$TemplateCreatedCopyWithImpl(
-      _$TemplateCreated _value, $Res Function(_$TemplateCreated) _then)
+class __$$TemplateCreatedImplCopyWithImpl<$Res>
+    extends _$DocumentEventCopyWithImpl<$Res, _$TemplateCreatedImpl>
+    implements _$$TemplateCreatedImplCopyWith<$Res> {
+  __$$TemplateCreatedImplCopyWithImpl(
+      _$TemplateCreatedImpl _value, $Res Function(_$TemplateCreatedImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -13736,7 +13135,7 @@ class __$$TemplateCreatedCopyWithImpl<$Res>
     Object? remote = freezed,
     Object? deleteDocument = null,
   }) {
-    return _then(_$TemplateCreated(
+    return _then(_$TemplateCreatedImpl(
       null == directory
           ? _value.directory
           : directory // ignore: cast_nullable_to_non_nullable
@@ -13755,14 +13154,14 @@ class __$$TemplateCreatedCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$TemplateCreated extends TemplateCreated {
-  const _$TemplateCreated(this.directory,
+class _$TemplateCreatedImpl extends TemplateCreated {
+  const _$TemplateCreatedImpl(this.directory,
       [this.remote, this.deleteDocument = true, final String? $type])
       : $type = $type ?? 'templateCreated',
         super._();
 
-  factory _$TemplateCreated.fromJson(Map<String, dynamic> json) =>
-      _$$TemplateCreatedFromJson(json);
+  factory _$TemplateCreatedImpl.fromJson(Map<String, dynamic> json) =>
+      _$$TemplateCreatedImplFromJson(json);
 
   @override
   final String directory;
@@ -13784,7 +13183,7 @@ class _$TemplateCreated extends TemplateCreated {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$TemplateCreated &&
+            other is _$TemplateCreatedImpl &&
             (identical(other.directory, directory) ||
                 other.directory == directory) &&
             (identical(other.remote, remote) || other.remote == remote) &&
@@ -13800,13 +13199,14 @@ class _$TemplateCreated extends TemplateCreated {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$TemplateCreatedCopyWith<_$TemplateCreated> get copyWith =>
-      __$$TemplateCreatedCopyWithImpl<_$TemplateCreated>(this, _$identity);
+  _$$TemplateCreatedImplCopyWith<_$TemplateCreatedImpl> get copyWith =>
+      __$$TemplateCreatedImplCopyWithImpl<_$TemplateCreatedImpl>(
+          this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(DocumentPage page, int? index) pageAdded,
+    required TResult Function(int? index, DocumentPage? page) pageAdded,
     required TResult Function(String pageName) pageChanged,
     required TResult Function(String page, int? newIndex) pageReordered,
     required TResult Function(String oldName, String newName) pageRenamed,
@@ -13823,7 +13223,6 @@ class _$TemplateCreated extends TemplateCreated {
         elementsArranged,
     required TResult Function(String? name, String? description)
         documentDescriptionChanged,
-    required TResult Function(String path) documentPathChanged,
     required TResult Function(AssetLocation? location) documentSaved,
     required TResult Function(Tool tool) toolCreated,
     required TResult Function(Map<int, Tool> tools) toolsChanged,
@@ -13871,7 +13270,7 @@ class _$TemplateCreated extends TemplateCreated {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(DocumentPage page, int? index)? pageAdded,
+    TResult? Function(int? index, DocumentPage? page)? pageAdded,
     TResult? Function(String pageName)? pageChanged,
     TResult? Function(String page, int? newIndex)? pageReordered,
     TResult? Function(String oldName, String newName)? pageRenamed,
@@ -13887,7 +13286,6 @@ class _$TemplateCreated extends TemplateCreated {
         elementsArranged,
     TResult? Function(String? name, String? description)?
         documentDescriptionChanged,
-    TResult? Function(String path)? documentPathChanged,
     TResult? Function(AssetLocation? location)? documentSaved,
     TResult? Function(Tool tool)? toolCreated,
     TResult? Function(Map<int, Tool> tools)? toolsChanged,
@@ -13929,7 +13327,7 @@ class _$TemplateCreated extends TemplateCreated {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(DocumentPage page, int? index)? pageAdded,
+    TResult Function(int? index, DocumentPage? page)? pageAdded,
     TResult Function(String pageName)? pageChanged,
     TResult Function(String page, int? newIndex)? pageReordered,
     TResult Function(String oldName, String newName)? pageRenamed,
@@ -13945,7 +13343,6 @@ class _$TemplateCreated extends TemplateCreated {
         elementsArranged,
     TResult Function(String? name, String? description)?
         documentDescriptionChanged,
-    TResult Function(String path)? documentPathChanged,
     TResult Function(AssetLocation? location)? documentSaved,
     TResult Function(Tool tool)? toolCreated,
     TResult Function(Map<int, Tool> tools)? toolsChanged,
@@ -14005,7 +13402,6 @@ class _$TemplateCreated extends TemplateCreated {
     required TResult Function(ElementsArranged value) elementsArranged,
     required TResult Function(DocumentDescriptionChanged value)
         documentDescriptionChanged,
-    required TResult Function(DocumentPathChanged value) documentPathChanged,
     required TResult Function(DocumentSaved value) documentSaved,
     required TResult Function(ToolCreated value) toolCreated,
     required TResult Function(ToolsChanged value) toolsChanged,
@@ -14063,7 +13459,6 @@ class _$TemplateCreated extends TemplateCreated {
     TResult? Function(ElementsArranged value)? elementsArranged,
     TResult? Function(DocumentDescriptionChanged value)?
         documentDescriptionChanged,
-    TResult? Function(DocumentPathChanged value)? documentPathChanged,
     TResult? Function(DocumentSaved value)? documentSaved,
     TResult? Function(ToolCreated value)? toolCreated,
     TResult? Function(ToolsChanged value)? toolsChanged,
@@ -14118,7 +13513,6 @@ class _$TemplateCreated extends TemplateCreated {
     TResult Function(ElementsArranged value)? elementsArranged,
     TResult Function(DocumentDescriptionChanged value)?
         documentDescriptionChanged,
-    TResult Function(DocumentPathChanged value)? documentPathChanged,
     TResult Function(DocumentSaved value)? documentSaved,
     TResult Function(ToolCreated value)? toolCreated,
     TResult Function(ToolsChanged value)? toolsChanged,
@@ -14162,7 +13556,7 @@ class _$TemplateCreated extends TemplateCreated {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$TemplateCreatedToJson(
+    return _$$TemplateCreatedImplToJson(
       this,
     );
   }
@@ -14170,35 +13564,36 @@ class _$TemplateCreated extends TemplateCreated {
 
 abstract class TemplateCreated extends DocumentEvent {
   const factory TemplateCreated(final String directory,
-      [final String? remote, final bool deleteDocument]) = _$TemplateCreated;
+      [final String? remote,
+      final bool deleteDocument]) = _$TemplateCreatedImpl;
   const TemplateCreated._() : super._();
 
   factory TemplateCreated.fromJson(Map<String, dynamic> json) =
-      _$TemplateCreated.fromJson;
+      _$TemplateCreatedImpl.fromJson;
 
   String get directory;
   String? get remote;
   bool get deleteDocument;
   @JsonKey(ignore: true)
-  _$$TemplateCreatedCopyWith<_$TemplateCreated> get copyWith =>
+  _$$TemplateCreatedImplCopyWith<_$TemplateCreatedImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$AreasCreatedCopyWith<$Res> {
-  factory _$$AreasCreatedCopyWith(
-          _$AreasCreated value, $Res Function(_$AreasCreated) then) =
-      __$$AreasCreatedCopyWithImpl<$Res>;
+abstract class _$$AreasCreatedImplCopyWith<$Res> {
+  factory _$$AreasCreatedImplCopyWith(
+          _$AreasCreatedImpl value, $Res Function(_$AreasCreatedImpl) then) =
+      __$$AreasCreatedImplCopyWithImpl<$Res>;
   @useResult
   $Res call({List<Area> areas});
 }
 
 /// @nodoc
-class __$$AreasCreatedCopyWithImpl<$Res>
-    extends _$DocumentEventCopyWithImpl<$Res, _$AreasCreated>
-    implements _$$AreasCreatedCopyWith<$Res> {
-  __$$AreasCreatedCopyWithImpl(
-      _$AreasCreated _value, $Res Function(_$AreasCreated) _then)
+class __$$AreasCreatedImplCopyWithImpl<$Res>
+    extends _$DocumentEventCopyWithImpl<$Res, _$AreasCreatedImpl>
+    implements _$$AreasCreatedImplCopyWith<$Res> {
+  __$$AreasCreatedImplCopyWithImpl(
+      _$AreasCreatedImpl _value, $Res Function(_$AreasCreatedImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -14206,7 +13601,7 @@ class __$$AreasCreatedCopyWithImpl<$Res>
   $Res call({
     Object? areas = null,
   }) {
-    return _then(_$AreasCreated(
+    return _then(_$AreasCreatedImpl(
       null == areas
           ? _value._areas
           : areas // ignore: cast_nullable_to_non_nullable
@@ -14217,14 +13612,14 @@ class __$$AreasCreatedCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$AreasCreated extends AreasCreated {
-  const _$AreasCreated(final List<Area> areas, {final String? $type})
+class _$AreasCreatedImpl extends AreasCreated {
+  const _$AreasCreatedImpl(final List<Area> areas, {final String? $type})
       : _areas = areas,
         $type = $type ?? 'areasCreated',
         super._();
 
-  factory _$AreasCreated.fromJson(Map<String, dynamic> json) =>
-      _$$AreasCreatedFromJson(json);
+  factory _$AreasCreatedImpl.fromJson(Map<String, dynamic> json) =>
+      _$$AreasCreatedImplFromJson(json);
 
   final List<Area> _areas;
   @override
@@ -14246,7 +13641,7 @@ class _$AreasCreated extends AreasCreated {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$AreasCreated &&
+            other is _$AreasCreatedImpl &&
             const DeepCollectionEquality().equals(other._areas, _areas));
   }
 
@@ -14258,13 +13653,13 @@ class _$AreasCreated extends AreasCreated {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$AreasCreatedCopyWith<_$AreasCreated> get copyWith =>
-      __$$AreasCreatedCopyWithImpl<_$AreasCreated>(this, _$identity);
+  _$$AreasCreatedImplCopyWith<_$AreasCreatedImpl> get copyWith =>
+      __$$AreasCreatedImplCopyWithImpl<_$AreasCreatedImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(DocumentPage page, int? index) pageAdded,
+    required TResult Function(int? index, DocumentPage? page) pageAdded,
     required TResult Function(String pageName) pageChanged,
     required TResult Function(String page, int? newIndex) pageReordered,
     required TResult Function(String oldName, String newName) pageRenamed,
@@ -14281,7 +13676,6 @@ class _$AreasCreated extends AreasCreated {
         elementsArranged,
     required TResult Function(String? name, String? description)
         documentDescriptionChanged,
-    required TResult Function(String path) documentPathChanged,
     required TResult Function(AssetLocation? location) documentSaved,
     required TResult Function(Tool tool) toolCreated,
     required TResult Function(Map<int, Tool> tools) toolsChanged,
@@ -14329,7 +13723,7 @@ class _$AreasCreated extends AreasCreated {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(DocumentPage page, int? index)? pageAdded,
+    TResult? Function(int? index, DocumentPage? page)? pageAdded,
     TResult? Function(String pageName)? pageChanged,
     TResult? Function(String page, int? newIndex)? pageReordered,
     TResult? Function(String oldName, String newName)? pageRenamed,
@@ -14345,7 +13739,6 @@ class _$AreasCreated extends AreasCreated {
         elementsArranged,
     TResult? Function(String? name, String? description)?
         documentDescriptionChanged,
-    TResult? Function(String path)? documentPathChanged,
     TResult? Function(AssetLocation? location)? documentSaved,
     TResult? Function(Tool tool)? toolCreated,
     TResult? Function(Map<int, Tool> tools)? toolsChanged,
@@ -14387,7 +13780,7 @@ class _$AreasCreated extends AreasCreated {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(DocumentPage page, int? index)? pageAdded,
+    TResult Function(int? index, DocumentPage? page)? pageAdded,
     TResult Function(String pageName)? pageChanged,
     TResult Function(String page, int? newIndex)? pageReordered,
     TResult Function(String oldName, String newName)? pageRenamed,
@@ -14403,7 +13796,6 @@ class _$AreasCreated extends AreasCreated {
         elementsArranged,
     TResult Function(String? name, String? description)?
         documentDescriptionChanged,
-    TResult Function(String path)? documentPathChanged,
     TResult Function(AssetLocation? location)? documentSaved,
     TResult Function(Tool tool)? toolCreated,
     TResult Function(Map<int, Tool> tools)? toolsChanged,
@@ -14463,7 +13855,6 @@ class _$AreasCreated extends AreasCreated {
     required TResult Function(ElementsArranged value) elementsArranged,
     required TResult Function(DocumentDescriptionChanged value)
         documentDescriptionChanged,
-    required TResult Function(DocumentPathChanged value) documentPathChanged,
     required TResult Function(DocumentSaved value) documentSaved,
     required TResult Function(ToolCreated value) toolCreated,
     required TResult Function(ToolsChanged value) toolsChanged,
@@ -14521,7 +13912,6 @@ class _$AreasCreated extends AreasCreated {
     TResult? Function(ElementsArranged value)? elementsArranged,
     TResult? Function(DocumentDescriptionChanged value)?
         documentDescriptionChanged,
-    TResult? Function(DocumentPathChanged value)? documentPathChanged,
     TResult? Function(DocumentSaved value)? documentSaved,
     TResult? Function(ToolCreated value)? toolCreated,
     TResult? Function(ToolsChanged value)? toolsChanged,
@@ -14576,7 +13966,6 @@ class _$AreasCreated extends AreasCreated {
     TResult Function(ElementsArranged value)? elementsArranged,
     TResult Function(DocumentDescriptionChanged value)?
         documentDescriptionChanged,
-    TResult Function(DocumentPathChanged value)? documentPathChanged,
     TResult Function(DocumentSaved value)? documentSaved,
     TResult Function(ToolCreated value)? toolCreated,
     TResult Function(ToolsChanged value)? toolsChanged,
@@ -14620,40 +14009,40 @@ class _$AreasCreated extends AreasCreated {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$AreasCreatedToJson(
+    return _$$AreasCreatedImplToJson(
       this,
     );
   }
 }
 
 abstract class AreasCreated extends DocumentEvent {
-  const factory AreasCreated(final List<Area> areas) = _$AreasCreated;
+  const factory AreasCreated(final List<Area> areas) = _$AreasCreatedImpl;
   const AreasCreated._() : super._();
 
   factory AreasCreated.fromJson(Map<String, dynamic> json) =
-      _$AreasCreated.fromJson;
+      _$AreasCreatedImpl.fromJson;
 
   List<Area> get areas;
   @JsonKey(ignore: true)
-  _$$AreasCreatedCopyWith<_$AreasCreated> get copyWith =>
+  _$$AreasCreatedImplCopyWith<_$AreasCreatedImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$AreasRemovedCopyWith<$Res> {
-  factory _$$AreasRemovedCopyWith(
-          _$AreasRemoved value, $Res Function(_$AreasRemoved) then) =
-      __$$AreasRemovedCopyWithImpl<$Res>;
+abstract class _$$AreasRemovedImplCopyWith<$Res> {
+  factory _$$AreasRemovedImplCopyWith(
+          _$AreasRemovedImpl value, $Res Function(_$AreasRemovedImpl) then) =
+      __$$AreasRemovedImplCopyWithImpl<$Res>;
   @useResult
   $Res call({List<String> areas});
 }
 
 /// @nodoc
-class __$$AreasRemovedCopyWithImpl<$Res>
-    extends _$DocumentEventCopyWithImpl<$Res, _$AreasRemoved>
-    implements _$$AreasRemovedCopyWith<$Res> {
-  __$$AreasRemovedCopyWithImpl(
-      _$AreasRemoved _value, $Res Function(_$AreasRemoved) _then)
+class __$$AreasRemovedImplCopyWithImpl<$Res>
+    extends _$DocumentEventCopyWithImpl<$Res, _$AreasRemovedImpl>
+    implements _$$AreasRemovedImplCopyWith<$Res> {
+  __$$AreasRemovedImplCopyWithImpl(
+      _$AreasRemovedImpl _value, $Res Function(_$AreasRemovedImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -14661,7 +14050,7 @@ class __$$AreasRemovedCopyWithImpl<$Res>
   $Res call({
     Object? areas = null,
   }) {
-    return _then(_$AreasRemoved(
+    return _then(_$AreasRemovedImpl(
       null == areas
           ? _value._areas
           : areas // ignore: cast_nullable_to_non_nullable
@@ -14672,14 +14061,14 @@ class __$$AreasRemovedCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$AreasRemoved extends AreasRemoved {
-  const _$AreasRemoved(final List<String> areas, {final String? $type})
+class _$AreasRemovedImpl extends AreasRemoved {
+  const _$AreasRemovedImpl(final List<String> areas, {final String? $type})
       : _areas = areas,
         $type = $type ?? 'areasRemoved',
         super._();
 
-  factory _$AreasRemoved.fromJson(Map<String, dynamic> json) =>
-      _$$AreasRemovedFromJson(json);
+  factory _$AreasRemovedImpl.fromJson(Map<String, dynamic> json) =>
+      _$$AreasRemovedImplFromJson(json);
 
   final List<String> _areas;
   @override
@@ -14701,7 +14090,7 @@ class _$AreasRemoved extends AreasRemoved {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$AreasRemoved &&
+            other is _$AreasRemovedImpl &&
             const DeepCollectionEquality().equals(other._areas, _areas));
   }
 
@@ -14713,13 +14102,13 @@ class _$AreasRemoved extends AreasRemoved {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$AreasRemovedCopyWith<_$AreasRemoved> get copyWith =>
-      __$$AreasRemovedCopyWithImpl<_$AreasRemoved>(this, _$identity);
+  _$$AreasRemovedImplCopyWith<_$AreasRemovedImpl> get copyWith =>
+      __$$AreasRemovedImplCopyWithImpl<_$AreasRemovedImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(DocumentPage page, int? index) pageAdded,
+    required TResult Function(int? index, DocumentPage? page) pageAdded,
     required TResult Function(String pageName) pageChanged,
     required TResult Function(String page, int? newIndex) pageReordered,
     required TResult Function(String oldName, String newName) pageRenamed,
@@ -14736,7 +14125,6 @@ class _$AreasRemoved extends AreasRemoved {
         elementsArranged,
     required TResult Function(String? name, String? description)
         documentDescriptionChanged,
-    required TResult Function(String path) documentPathChanged,
     required TResult Function(AssetLocation? location) documentSaved,
     required TResult Function(Tool tool) toolCreated,
     required TResult Function(Map<int, Tool> tools) toolsChanged,
@@ -14784,7 +14172,7 @@ class _$AreasRemoved extends AreasRemoved {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(DocumentPage page, int? index)? pageAdded,
+    TResult? Function(int? index, DocumentPage? page)? pageAdded,
     TResult? Function(String pageName)? pageChanged,
     TResult? Function(String page, int? newIndex)? pageReordered,
     TResult? Function(String oldName, String newName)? pageRenamed,
@@ -14800,7 +14188,6 @@ class _$AreasRemoved extends AreasRemoved {
         elementsArranged,
     TResult? Function(String? name, String? description)?
         documentDescriptionChanged,
-    TResult? Function(String path)? documentPathChanged,
     TResult? Function(AssetLocation? location)? documentSaved,
     TResult? Function(Tool tool)? toolCreated,
     TResult? Function(Map<int, Tool> tools)? toolsChanged,
@@ -14842,7 +14229,7 @@ class _$AreasRemoved extends AreasRemoved {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(DocumentPage page, int? index)? pageAdded,
+    TResult Function(int? index, DocumentPage? page)? pageAdded,
     TResult Function(String pageName)? pageChanged,
     TResult Function(String page, int? newIndex)? pageReordered,
     TResult Function(String oldName, String newName)? pageRenamed,
@@ -14858,7 +14245,6 @@ class _$AreasRemoved extends AreasRemoved {
         elementsArranged,
     TResult Function(String? name, String? description)?
         documentDescriptionChanged,
-    TResult Function(String path)? documentPathChanged,
     TResult Function(AssetLocation? location)? documentSaved,
     TResult Function(Tool tool)? toolCreated,
     TResult Function(Map<int, Tool> tools)? toolsChanged,
@@ -14918,7 +14304,6 @@ class _$AreasRemoved extends AreasRemoved {
     required TResult Function(ElementsArranged value) elementsArranged,
     required TResult Function(DocumentDescriptionChanged value)
         documentDescriptionChanged,
-    required TResult Function(DocumentPathChanged value) documentPathChanged,
     required TResult Function(DocumentSaved value) documentSaved,
     required TResult Function(ToolCreated value) toolCreated,
     required TResult Function(ToolsChanged value) toolsChanged,
@@ -14976,7 +14361,6 @@ class _$AreasRemoved extends AreasRemoved {
     TResult? Function(ElementsArranged value)? elementsArranged,
     TResult? Function(DocumentDescriptionChanged value)?
         documentDescriptionChanged,
-    TResult? Function(DocumentPathChanged value)? documentPathChanged,
     TResult? Function(DocumentSaved value)? documentSaved,
     TResult? Function(ToolCreated value)? toolCreated,
     TResult? Function(ToolsChanged value)? toolsChanged,
@@ -15031,7 +14415,6 @@ class _$AreasRemoved extends AreasRemoved {
     TResult Function(ElementsArranged value)? elementsArranged,
     TResult Function(DocumentDescriptionChanged value)?
         documentDescriptionChanged,
-    TResult Function(DocumentPathChanged value)? documentPathChanged,
     TResult Function(DocumentSaved value)? documentSaved,
     TResult Function(ToolCreated value)? toolCreated,
     TResult Function(ToolsChanged value)? toolsChanged,
@@ -15075,30 +14458,30 @@ class _$AreasRemoved extends AreasRemoved {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$AreasRemovedToJson(
+    return _$$AreasRemovedImplToJson(
       this,
     );
   }
 }
 
 abstract class AreasRemoved extends DocumentEvent {
-  const factory AreasRemoved(final List<String> areas) = _$AreasRemoved;
+  const factory AreasRemoved(final List<String> areas) = _$AreasRemovedImpl;
   const AreasRemoved._() : super._();
 
   factory AreasRemoved.fromJson(Map<String, dynamic> json) =
-      _$AreasRemoved.fromJson;
+      _$AreasRemovedImpl.fromJson;
 
   List<String> get areas;
   @JsonKey(ignore: true)
-  _$$AreasRemovedCopyWith<_$AreasRemoved> get copyWith =>
+  _$$AreasRemovedImplCopyWith<_$AreasRemovedImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$AreaChangedCopyWith<$Res> {
-  factory _$$AreaChangedCopyWith(
-          _$AreaChanged value, $Res Function(_$AreaChanged) then) =
-      __$$AreaChangedCopyWithImpl<$Res>;
+abstract class _$$AreaChangedImplCopyWith<$Res> {
+  factory _$$AreaChangedImplCopyWith(
+          _$AreaChangedImpl value, $Res Function(_$AreaChangedImpl) then) =
+      __$$AreaChangedImplCopyWithImpl<$Res>;
   @useResult
   $Res call({String name, Area area});
 
@@ -15106,11 +14489,11 @@ abstract class _$$AreaChangedCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$AreaChangedCopyWithImpl<$Res>
-    extends _$DocumentEventCopyWithImpl<$Res, _$AreaChanged>
-    implements _$$AreaChangedCopyWith<$Res> {
-  __$$AreaChangedCopyWithImpl(
-      _$AreaChanged _value, $Res Function(_$AreaChanged) _then)
+class __$$AreaChangedImplCopyWithImpl<$Res>
+    extends _$DocumentEventCopyWithImpl<$Res, _$AreaChangedImpl>
+    implements _$$AreaChangedImplCopyWith<$Res> {
+  __$$AreaChangedImplCopyWithImpl(
+      _$AreaChangedImpl _value, $Res Function(_$AreaChangedImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -15119,7 +14502,7 @@ class __$$AreaChangedCopyWithImpl<$Res>
     Object? name = null,
     Object? area = null,
   }) {
-    return _then(_$AreaChanged(
+    return _then(_$AreaChangedImpl(
       null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -15142,13 +14525,13 @@ class __$$AreaChangedCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$AreaChanged extends AreaChanged {
-  const _$AreaChanged(this.name, this.area, {final String? $type})
+class _$AreaChangedImpl extends AreaChanged {
+  const _$AreaChangedImpl(this.name, this.area, {final String? $type})
       : $type = $type ?? 'areaChanged',
         super._();
 
-  factory _$AreaChanged.fromJson(Map<String, dynamic> json) =>
-      _$$AreaChangedFromJson(json);
+  factory _$AreaChangedImpl.fromJson(Map<String, dynamic> json) =>
+      _$$AreaChangedImplFromJson(json);
 
   @override
   final String name;
@@ -15167,7 +14550,7 @@ class _$AreaChanged extends AreaChanged {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$AreaChanged &&
+            other is _$AreaChangedImpl &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.area, area) || other.area == area));
   }
@@ -15179,13 +14562,13 @@ class _$AreaChanged extends AreaChanged {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$AreaChangedCopyWith<_$AreaChanged> get copyWith =>
-      __$$AreaChangedCopyWithImpl<_$AreaChanged>(this, _$identity);
+  _$$AreaChangedImplCopyWith<_$AreaChangedImpl> get copyWith =>
+      __$$AreaChangedImplCopyWithImpl<_$AreaChangedImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(DocumentPage page, int? index) pageAdded,
+    required TResult Function(int? index, DocumentPage? page) pageAdded,
     required TResult Function(String pageName) pageChanged,
     required TResult Function(String page, int? newIndex) pageReordered,
     required TResult Function(String oldName, String newName) pageRenamed,
@@ -15202,7 +14585,6 @@ class _$AreaChanged extends AreaChanged {
         elementsArranged,
     required TResult Function(String? name, String? description)
         documentDescriptionChanged,
-    required TResult Function(String path) documentPathChanged,
     required TResult Function(AssetLocation? location) documentSaved,
     required TResult Function(Tool tool) toolCreated,
     required TResult Function(Map<int, Tool> tools) toolsChanged,
@@ -15250,7 +14632,7 @@ class _$AreaChanged extends AreaChanged {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(DocumentPage page, int? index)? pageAdded,
+    TResult? Function(int? index, DocumentPage? page)? pageAdded,
     TResult? Function(String pageName)? pageChanged,
     TResult? Function(String page, int? newIndex)? pageReordered,
     TResult? Function(String oldName, String newName)? pageRenamed,
@@ -15266,7 +14648,6 @@ class _$AreaChanged extends AreaChanged {
         elementsArranged,
     TResult? Function(String? name, String? description)?
         documentDescriptionChanged,
-    TResult? Function(String path)? documentPathChanged,
     TResult? Function(AssetLocation? location)? documentSaved,
     TResult? Function(Tool tool)? toolCreated,
     TResult? Function(Map<int, Tool> tools)? toolsChanged,
@@ -15308,7 +14689,7 @@ class _$AreaChanged extends AreaChanged {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(DocumentPage page, int? index)? pageAdded,
+    TResult Function(int? index, DocumentPage? page)? pageAdded,
     TResult Function(String pageName)? pageChanged,
     TResult Function(String page, int? newIndex)? pageReordered,
     TResult Function(String oldName, String newName)? pageRenamed,
@@ -15324,7 +14705,6 @@ class _$AreaChanged extends AreaChanged {
         elementsArranged,
     TResult Function(String? name, String? description)?
         documentDescriptionChanged,
-    TResult Function(String path)? documentPathChanged,
     TResult Function(AssetLocation? location)? documentSaved,
     TResult Function(Tool tool)? toolCreated,
     TResult Function(Map<int, Tool> tools)? toolsChanged,
@@ -15384,7 +14764,6 @@ class _$AreaChanged extends AreaChanged {
     required TResult Function(ElementsArranged value) elementsArranged,
     required TResult Function(DocumentDescriptionChanged value)
         documentDescriptionChanged,
-    required TResult Function(DocumentPathChanged value) documentPathChanged,
     required TResult Function(DocumentSaved value) documentSaved,
     required TResult Function(ToolCreated value) toolCreated,
     required TResult Function(ToolsChanged value) toolsChanged,
@@ -15442,7 +14821,6 @@ class _$AreaChanged extends AreaChanged {
     TResult? Function(ElementsArranged value)? elementsArranged,
     TResult? Function(DocumentDescriptionChanged value)?
         documentDescriptionChanged,
-    TResult? Function(DocumentPathChanged value)? documentPathChanged,
     TResult? Function(DocumentSaved value)? documentSaved,
     TResult? Function(ToolCreated value)? toolCreated,
     TResult? Function(ToolsChanged value)? toolsChanged,
@@ -15497,7 +14875,6 @@ class _$AreaChanged extends AreaChanged {
     TResult Function(ElementsArranged value)? elementsArranged,
     TResult Function(DocumentDescriptionChanged value)?
         documentDescriptionChanged,
-    TResult Function(DocumentPathChanged value)? documentPathChanged,
     TResult Function(DocumentSaved value)? documentSaved,
     TResult Function(ToolCreated value)? toolCreated,
     TResult Function(ToolsChanged value)? toolsChanged,
@@ -15541,41 +14918,42 @@ class _$AreaChanged extends AreaChanged {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$AreaChangedToJson(
+    return _$$AreaChangedImplToJson(
       this,
     );
   }
 }
 
 abstract class AreaChanged extends DocumentEvent {
-  const factory AreaChanged(final String name, final Area area) = _$AreaChanged;
+  const factory AreaChanged(final String name, final Area area) =
+      _$AreaChangedImpl;
   const AreaChanged._() : super._();
 
   factory AreaChanged.fromJson(Map<String, dynamic> json) =
-      _$AreaChanged.fromJson;
+      _$AreaChangedImpl.fromJson;
 
   String get name;
   Area get area;
   @JsonKey(ignore: true)
-  _$$AreaChangedCopyWith<_$AreaChanged> get copyWith =>
+  _$$AreaChangedImplCopyWith<_$AreaChangedImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$CurrentAreaChangedCopyWith<$Res> {
-  factory _$$CurrentAreaChangedCopyWith(_$CurrentAreaChanged value,
-          $Res Function(_$CurrentAreaChanged) then) =
-      __$$CurrentAreaChangedCopyWithImpl<$Res>;
+abstract class _$$CurrentAreaChangedImplCopyWith<$Res> {
+  factory _$$CurrentAreaChangedImplCopyWith(_$CurrentAreaChangedImpl value,
+          $Res Function(_$CurrentAreaChangedImpl) then) =
+      __$$CurrentAreaChangedImplCopyWithImpl<$Res>;
   @useResult
   $Res call({String name});
 }
 
 /// @nodoc
-class __$$CurrentAreaChangedCopyWithImpl<$Res>
-    extends _$DocumentEventCopyWithImpl<$Res, _$CurrentAreaChanged>
-    implements _$$CurrentAreaChangedCopyWith<$Res> {
-  __$$CurrentAreaChangedCopyWithImpl(
-      _$CurrentAreaChanged _value, $Res Function(_$CurrentAreaChanged) _then)
+class __$$CurrentAreaChangedImplCopyWithImpl<$Res>
+    extends _$DocumentEventCopyWithImpl<$Res, _$CurrentAreaChangedImpl>
+    implements _$$CurrentAreaChangedImplCopyWith<$Res> {
+  __$$CurrentAreaChangedImplCopyWithImpl(_$CurrentAreaChangedImpl _value,
+      $Res Function(_$CurrentAreaChangedImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -15583,7 +14961,7 @@ class __$$CurrentAreaChangedCopyWithImpl<$Res>
   $Res call({
     Object? name = null,
   }) {
-    return _then(_$CurrentAreaChanged(
+    return _then(_$CurrentAreaChangedImpl(
       null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -15594,13 +14972,13 @@ class __$$CurrentAreaChangedCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$CurrentAreaChanged extends CurrentAreaChanged {
-  const _$CurrentAreaChanged(this.name, {final String? $type})
+class _$CurrentAreaChangedImpl extends CurrentAreaChanged {
+  const _$CurrentAreaChangedImpl(this.name, {final String? $type})
       : $type = $type ?? 'currentAreaChanged',
         super._();
 
-  factory _$CurrentAreaChanged.fromJson(Map<String, dynamic> json) =>
-      _$$CurrentAreaChangedFromJson(json);
+  factory _$CurrentAreaChangedImpl.fromJson(Map<String, dynamic> json) =>
+      _$$CurrentAreaChangedImplFromJson(json);
 
   @override
   final String name;
@@ -15617,7 +14995,7 @@ class _$CurrentAreaChanged extends CurrentAreaChanged {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$CurrentAreaChanged &&
+            other is _$CurrentAreaChangedImpl &&
             (identical(other.name, name) || other.name == name));
   }
 
@@ -15628,14 +15006,14 @@ class _$CurrentAreaChanged extends CurrentAreaChanged {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$CurrentAreaChangedCopyWith<_$CurrentAreaChanged> get copyWith =>
-      __$$CurrentAreaChangedCopyWithImpl<_$CurrentAreaChanged>(
+  _$$CurrentAreaChangedImplCopyWith<_$CurrentAreaChangedImpl> get copyWith =>
+      __$$CurrentAreaChangedImplCopyWithImpl<_$CurrentAreaChangedImpl>(
           this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(DocumentPage page, int? index) pageAdded,
+    required TResult Function(int? index, DocumentPage? page) pageAdded,
     required TResult Function(String pageName) pageChanged,
     required TResult Function(String page, int? newIndex) pageReordered,
     required TResult Function(String oldName, String newName) pageRenamed,
@@ -15652,7 +15030,6 @@ class _$CurrentAreaChanged extends CurrentAreaChanged {
         elementsArranged,
     required TResult Function(String? name, String? description)
         documentDescriptionChanged,
-    required TResult Function(String path) documentPathChanged,
     required TResult Function(AssetLocation? location) documentSaved,
     required TResult Function(Tool tool) toolCreated,
     required TResult Function(Map<int, Tool> tools) toolsChanged,
@@ -15700,7 +15077,7 @@ class _$CurrentAreaChanged extends CurrentAreaChanged {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(DocumentPage page, int? index)? pageAdded,
+    TResult? Function(int? index, DocumentPage? page)? pageAdded,
     TResult? Function(String pageName)? pageChanged,
     TResult? Function(String page, int? newIndex)? pageReordered,
     TResult? Function(String oldName, String newName)? pageRenamed,
@@ -15716,7 +15093,6 @@ class _$CurrentAreaChanged extends CurrentAreaChanged {
         elementsArranged,
     TResult? Function(String? name, String? description)?
         documentDescriptionChanged,
-    TResult? Function(String path)? documentPathChanged,
     TResult? Function(AssetLocation? location)? documentSaved,
     TResult? Function(Tool tool)? toolCreated,
     TResult? Function(Map<int, Tool> tools)? toolsChanged,
@@ -15758,7 +15134,7 @@ class _$CurrentAreaChanged extends CurrentAreaChanged {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(DocumentPage page, int? index)? pageAdded,
+    TResult Function(int? index, DocumentPage? page)? pageAdded,
     TResult Function(String pageName)? pageChanged,
     TResult Function(String page, int? newIndex)? pageReordered,
     TResult Function(String oldName, String newName)? pageRenamed,
@@ -15774,7 +15150,6 @@ class _$CurrentAreaChanged extends CurrentAreaChanged {
         elementsArranged,
     TResult Function(String? name, String? description)?
         documentDescriptionChanged,
-    TResult Function(String path)? documentPathChanged,
     TResult Function(AssetLocation? location)? documentSaved,
     TResult Function(Tool tool)? toolCreated,
     TResult Function(Map<int, Tool> tools)? toolsChanged,
@@ -15834,7 +15209,6 @@ class _$CurrentAreaChanged extends CurrentAreaChanged {
     required TResult Function(ElementsArranged value) elementsArranged,
     required TResult Function(DocumentDescriptionChanged value)
         documentDescriptionChanged,
-    required TResult Function(DocumentPathChanged value) documentPathChanged,
     required TResult Function(DocumentSaved value) documentSaved,
     required TResult Function(ToolCreated value) toolCreated,
     required TResult Function(ToolsChanged value) toolsChanged,
@@ -15892,7 +15266,6 @@ class _$CurrentAreaChanged extends CurrentAreaChanged {
     TResult? Function(ElementsArranged value)? elementsArranged,
     TResult? Function(DocumentDescriptionChanged value)?
         documentDescriptionChanged,
-    TResult? Function(DocumentPathChanged value)? documentPathChanged,
     TResult? Function(DocumentSaved value)? documentSaved,
     TResult? Function(ToolCreated value)? toolCreated,
     TResult? Function(ToolsChanged value)? toolsChanged,
@@ -15947,7 +15320,6 @@ class _$CurrentAreaChanged extends CurrentAreaChanged {
     TResult Function(ElementsArranged value)? elementsArranged,
     TResult Function(DocumentDescriptionChanged value)?
         documentDescriptionChanged,
-    TResult Function(DocumentPathChanged value)? documentPathChanged,
     TResult Function(DocumentSaved value)? documentSaved,
     TResult Function(ToolCreated value)? toolCreated,
     TResult Function(ToolsChanged value)? toolsChanged,
@@ -15991,40 +15363,41 @@ class _$CurrentAreaChanged extends CurrentAreaChanged {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$CurrentAreaChangedToJson(
+    return _$$CurrentAreaChangedImplToJson(
       this,
     );
   }
 }
 
 abstract class CurrentAreaChanged extends DocumentEvent {
-  const factory CurrentAreaChanged(final String name) = _$CurrentAreaChanged;
+  const factory CurrentAreaChanged(final String name) =
+      _$CurrentAreaChangedImpl;
   const CurrentAreaChanged._() : super._();
 
   factory CurrentAreaChanged.fromJson(Map<String, dynamic> json) =
-      _$CurrentAreaChanged.fromJson;
+      _$CurrentAreaChangedImpl.fromJson;
 
   String get name;
   @JsonKey(ignore: true)
-  _$$CurrentAreaChangedCopyWith<_$CurrentAreaChanged> get copyWith =>
+  _$$CurrentAreaChangedImplCopyWith<_$CurrentAreaChangedImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$ExportPresetCreatedCopyWith<$Res> {
-  factory _$$ExportPresetCreatedCopyWith(_$ExportPresetCreated value,
-          $Res Function(_$ExportPresetCreated) then) =
-      __$$ExportPresetCreatedCopyWithImpl<$Res>;
+abstract class _$$ExportPresetCreatedImplCopyWith<$Res> {
+  factory _$$ExportPresetCreatedImplCopyWith(_$ExportPresetCreatedImpl value,
+          $Res Function(_$ExportPresetCreatedImpl) then) =
+      __$$ExportPresetCreatedImplCopyWithImpl<$Res>;
   @useResult
   $Res call({String name, List<AreaPreset> areas});
 }
 
 /// @nodoc
-class __$$ExportPresetCreatedCopyWithImpl<$Res>
-    extends _$DocumentEventCopyWithImpl<$Res, _$ExportPresetCreated>
-    implements _$$ExportPresetCreatedCopyWith<$Res> {
-  __$$ExportPresetCreatedCopyWithImpl(
-      _$ExportPresetCreated _value, $Res Function(_$ExportPresetCreated) _then)
+class __$$ExportPresetCreatedImplCopyWithImpl<$Res>
+    extends _$DocumentEventCopyWithImpl<$Res, _$ExportPresetCreatedImpl>
+    implements _$$ExportPresetCreatedImplCopyWith<$Res> {
+  __$$ExportPresetCreatedImplCopyWithImpl(_$ExportPresetCreatedImpl _value,
+      $Res Function(_$ExportPresetCreatedImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -16033,7 +15406,7 @@ class __$$ExportPresetCreatedCopyWithImpl<$Res>
     Object? name = null,
     Object? areas = null,
   }) {
-    return _then(_$ExportPresetCreated(
+    return _then(_$ExportPresetCreatedImpl(
       null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -16048,15 +15421,15 @@ class __$$ExportPresetCreatedCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$ExportPresetCreated extends ExportPresetCreated {
-  const _$ExportPresetCreated(this.name,
+class _$ExportPresetCreatedImpl extends ExportPresetCreated {
+  const _$ExportPresetCreatedImpl(this.name,
       [final List<AreaPreset> areas = const [], final String? $type])
       : _areas = areas,
         $type = $type ?? 'exportPresetCreated',
         super._();
 
-  factory _$ExportPresetCreated.fromJson(Map<String, dynamic> json) =>
-      _$$ExportPresetCreatedFromJson(json);
+  factory _$ExportPresetCreatedImpl.fromJson(Map<String, dynamic> json) =>
+      _$$ExportPresetCreatedImplFromJson(json);
 
   @override
   final String name;
@@ -16081,7 +15454,7 @@ class _$ExportPresetCreated extends ExportPresetCreated {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$ExportPresetCreated &&
+            other is _$ExportPresetCreatedImpl &&
             (identical(other.name, name) || other.name == name) &&
             const DeepCollectionEquality().equals(other._areas, _areas));
   }
@@ -16094,14 +15467,14 @@ class _$ExportPresetCreated extends ExportPresetCreated {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$ExportPresetCreatedCopyWith<_$ExportPresetCreated> get copyWith =>
-      __$$ExportPresetCreatedCopyWithImpl<_$ExportPresetCreated>(
+  _$$ExportPresetCreatedImplCopyWith<_$ExportPresetCreatedImpl> get copyWith =>
+      __$$ExportPresetCreatedImplCopyWithImpl<_$ExportPresetCreatedImpl>(
           this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(DocumentPage page, int? index) pageAdded,
+    required TResult Function(int? index, DocumentPage? page) pageAdded,
     required TResult Function(String pageName) pageChanged,
     required TResult Function(String page, int? newIndex) pageReordered,
     required TResult Function(String oldName, String newName) pageRenamed,
@@ -16118,7 +15491,6 @@ class _$ExportPresetCreated extends ExportPresetCreated {
         elementsArranged,
     required TResult Function(String? name, String? description)
         documentDescriptionChanged,
-    required TResult Function(String path) documentPathChanged,
     required TResult Function(AssetLocation? location) documentSaved,
     required TResult Function(Tool tool) toolCreated,
     required TResult Function(Map<int, Tool> tools) toolsChanged,
@@ -16166,7 +15538,7 @@ class _$ExportPresetCreated extends ExportPresetCreated {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(DocumentPage page, int? index)? pageAdded,
+    TResult? Function(int? index, DocumentPage? page)? pageAdded,
     TResult? Function(String pageName)? pageChanged,
     TResult? Function(String page, int? newIndex)? pageReordered,
     TResult? Function(String oldName, String newName)? pageRenamed,
@@ -16182,7 +15554,6 @@ class _$ExportPresetCreated extends ExportPresetCreated {
         elementsArranged,
     TResult? Function(String? name, String? description)?
         documentDescriptionChanged,
-    TResult? Function(String path)? documentPathChanged,
     TResult? Function(AssetLocation? location)? documentSaved,
     TResult? Function(Tool tool)? toolCreated,
     TResult? Function(Map<int, Tool> tools)? toolsChanged,
@@ -16224,7 +15595,7 @@ class _$ExportPresetCreated extends ExportPresetCreated {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(DocumentPage page, int? index)? pageAdded,
+    TResult Function(int? index, DocumentPage? page)? pageAdded,
     TResult Function(String pageName)? pageChanged,
     TResult Function(String page, int? newIndex)? pageReordered,
     TResult Function(String oldName, String newName)? pageRenamed,
@@ -16240,7 +15611,6 @@ class _$ExportPresetCreated extends ExportPresetCreated {
         elementsArranged,
     TResult Function(String? name, String? description)?
         documentDescriptionChanged,
-    TResult Function(String path)? documentPathChanged,
     TResult Function(AssetLocation? location)? documentSaved,
     TResult Function(Tool tool)? toolCreated,
     TResult Function(Map<int, Tool> tools)? toolsChanged,
@@ -16300,7 +15670,6 @@ class _$ExportPresetCreated extends ExportPresetCreated {
     required TResult Function(ElementsArranged value) elementsArranged,
     required TResult Function(DocumentDescriptionChanged value)
         documentDescriptionChanged,
-    required TResult Function(DocumentPathChanged value) documentPathChanged,
     required TResult Function(DocumentSaved value) documentSaved,
     required TResult Function(ToolCreated value) toolCreated,
     required TResult Function(ToolsChanged value) toolsChanged,
@@ -16358,7 +15727,6 @@ class _$ExportPresetCreated extends ExportPresetCreated {
     TResult? Function(ElementsArranged value)? elementsArranged,
     TResult? Function(DocumentDescriptionChanged value)?
         documentDescriptionChanged,
-    TResult? Function(DocumentPathChanged value)? documentPathChanged,
     TResult? Function(DocumentSaved value)? documentSaved,
     TResult? Function(ToolCreated value)? toolCreated,
     TResult? Function(ToolsChanged value)? toolsChanged,
@@ -16413,7 +15781,6 @@ class _$ExportPresetCreated extends ExportPresetCreated {
     TResult Function(ElementsArranged value)? elementsArranged,
     TResult Function(DocumentDescriptionChanged value)?
         documentDescriptionChanged,
-    TResult Function(DocumentPathChanged value)? documentPathChanged,
     TResult Function(DocumentSaved value)? documentSaved,
     TResult Function(ToolCreated value)? toolCreated,
     TResult Function(ToolsChanged value)? toolsChanged,
@@ -16457,7 +15824,7 @@ class _$ExportPresetCreated extends ExportPresetCreated {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$ExportPresetCreatedToJson(
+    return _$$ExportPresetCreatedImplToJson(
       this,
     );
   }
@@ -16465,34 +15832,34 @@ class _$ExportPresetCreated extends ExportPresetCreated {
 
 abstract class ExportPresetCreated extends DocumentEvent {
   const factory ExportPresetCreated(final String name,
-      [final List<AreaPreset> areas]) = _$ExportPresetCreated;
+      [final List<AreaPreset> areas]) = _$ExportPresetCreatedImpl;
   const ExportPresetCreated._() : super._();
 
   factory ExportPresetCreated.fromJson(Map<String, dynamic> json) =
-      _$ExportPresetCreated.fromJson;
+      _$ExportPresetCreatedImpl.fromJson;
 
   String get name;
   List<AreaPreset> get areas;
   @JsonKey(ignore: true)
-  _$$ExportPresetCreatedCopyWith<_$ExportPresetCreated> get copyWith =>
+  _$$ExportPresetCreatedImplCopyWith<_$ExportPresetCreatedImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$ExportPresetUpdatedCopyWith<$Res> {
-  factory _$$ExportPresetUpdatedCopyWith(_$ExportPresetUpdated value,
-          $Res Function(_$ExportPresetUpdated) then) =
-      __$$ExportPresetUpdatedCopyWithImpl<$Res>;
+abstract class _$$ExportPresetUpdatedImplCopyWith<$Res> {
+  factory _$$ExportPresetUpdatedImplCopyWith(_$ExportPresetUpdatedImpl value,
+          $Res Function(_$ExportPresetUpdatedImpl) then) =
+      __$$ExportPresetUpdatedImplCopyWithImpl<$Res>;
   @useResult
   $Res call({String name, List<AreaPreset> areas});
 }
 
 /// @nodoc
-class __$$ExportPresetUpdatedCopyWithImpl<$Res>
-    extends _$DocumentEventCopyWithImpl<$Res, _$ExportPresetUpdated>
-    implements _$$ExportPresetUpdatedCopyWith<$Res> {
-  __$$ExportPresetUpdatedCopyWithImpl(
-      _$ExportPresetUpdated _value, $Res Function(_$ExportPresetUpdated) _then)
+class __$$ExportPresetUpdatedImplCopyWithImpl<$Res>
+    extends _$DocumentEventCopyWithImpl<$Res, _$ExportPresetUpdatedImpl>
+    implements _$$ExportPresetUpdatedImplCopyWith<$Res> {
+  __$$ExportPresetUpdatedImplCopyWithImpl(_$ExportPresetUpdatedImpl _value,
+      $Res Function(_$ExportPresetUpdatedImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -16501,7 +15868,7 @@ class __$$ExportPresetUpdatedCopyWithImpl<$Res>
     Object? name = null,
     Object? areas = null,
   }) {
-    return _then(_$ExportPresetUpdated(
+    return _then(_$ExportPresetUpdatedImpl(
       null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -16516,15 +15883,15 @@ class __$$ExportPresetUpdatedCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$ExportPresetUpdated extends ExportPresetUpdated {
-  const _$ExportPresetUpdated(this.name, final List<AreaPreset> areas,
+class _$ExportPresetUpdatedImpl extends ExportPresetUpdated {
+  const _$ExportPresetUpdatedImpl(this.name, final List<AreaPreset> areas,
       {final String? $type})
       : _areas = areas,
         $type = $type ?? 'exportPresetUpdated',
         super._();
 
-  factory _$ExportPresetUpdated.fromJson(Map<String, dynamic> json) =>
-      _$$ExportPresetUpdatedFromJson(json);
+  factory _$ExportPresetUpdatedImpl.fromJson(Map<String, dynamic> json) =>
+      _$$ExportPresetUpdatedImplFromJson(json);
 
   @override
   final String name;
@@ -16548,7 +15915,7 @@ class _$ExportPresetUpdated extends ExportPresetUpdated {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$ExportPresetUpdated &&
+            other is _$ExportPresetUpdatedImpl &&
             (identical(other.name, name) || other.name == name) &&
             const DeepCollectionEquality().equals(other._areas, _areas));
   }
@@ -16561,14 +15928,14 @@ class _$ExportPresetUpdated extends ExportPresetUpdated {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$ExportPresetUpdatedCopyWith<_$ExportPresetUpdated> get copyWith =>
-      __$$ExportPresetUpdatedCopyWithImpl<_$ExportPresetUpdated>(
+  _$$ExportPresetUpdatedImplCopyWith<_$ExportPresetUpdatedImpl> get copyWith =>
+      __$$ExportPresetUpdatedImplCopyWithImpl<_$ExportPresetUpdatedImpl>(
           this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(DocumentPage page, int? index) pageAdded,
+    required TResult Function(int? index, DocumentPage? page) pageAdded,
     required TResult Function(String pageName) pageChanged,
     required TResult Function(String page, int? newIndex) pageReordered,
     required TResult Function(String oldName, String newName) pageRenamed,
@@ -16585,7 +15952,6 @@ class _$ExportPresetUpdated extends ExportPresetUpdated {
         elementsArranged,
     required TResult Function(String? name, String? description)
         documentDescriptionChanged,
-    required TResult Function(String path) documentPathChanged,
     required TResult Function(AssetLocation? location) documentSaved,
     required TResult Function(Tool tool) toolCreated,
     required TResult Function(Map<int, Tool> tools) toolsChanged,
@@ -16633,7 +15999,7 @@ class _$ExportPresetUpdated extends ExportPresetUpdated {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(DocumentPage page, int? index)? pageAdded,
+    TResult? Function(int? index, DocumentPage? page)? pageAdded,
     TResult? Function(String pageName)? pageChanged,
     TResult? Function(String page, int? newIndex)? pageReordered,
     TResult? Function(String oldName, String newName)? pageRenamed,
@@ -16649,7 +16015,6 @@ class _$ExportPresetUpdated extends ExportPresetUpdated {
         elementsArranged,
     TResult? Function(String? name, String? description)?
         documentDescriptionChanged,
-    TResult? Function(String path)? documentPathChanged,
     TResult? Function(AssetLocation? location)? documentSaved,
     TResult? Function(Tool tool)? toolCreated,
     TResult? Function(Map<int, Tool> tools)? toolsChanged,
@@ -16691,7 +16056,7 @@ class _$ExportPresetUpdated extends ExportPresetUpdated {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(DocumentPage page, int? index)? pageAdded,
+    TResult Function(int? index, DocumentPage? page)? pageAdded,
     TResult Function(String pageName)? pageChanged,
     TResult Function(String page, int? newIndex)? pageReordered,
     TResult Function(String oldName, String newName)? pageRenamed,
@@ -16707,7 +16072,6 @@ class _$ExportPresetUpdated extends ExportPresetUpdated {
         elementsArranged,
     TResult Function(String? name, String? description)?
         documentDescriptionChanged,
-    TResult Function(String path)? documentPathChanged,
     TResult Function(AssetLocation? location)? documentSaved,
     TResult Function(Tool tool)? toolCreated,
     TResult Function(Map<int, Tool> tools)? toolsChanged,
@@ -16767,7 +16131,6 @@ class _$ExportPresetUpdated extends ExportPresetUpdated {
     required TResult Function(ElementsArranged value) elementsArranged,
     required TResult Function(DocumentDescriptionChanged value)
         documentDescriptionChanged,
-    required TResult Function(DocumentPathChanged value) documentPathChanged,
     required TResult Function(DocumentSaved value) documentSaved,
     required TResult Function(ToolCreated value) toolCreated,
     required TResult Function(ToolsChanged value) toolsChanged,
@@ -16825,7 +16188,6 @@ class _$ExportPresetUpdated extends ExportPresetUpdated {
     TResult? Function(ElementsArranged value)? elementsArranged,
     TResult? Function(DocumentDescriptionChanged value)?
         documentDescriptionChanged,
-    TResult? Function(DocumentPathChanged value)? documentPathChanged,
     TResult? Function(DocumentSaved value)? documentSaved,
     TResult? Function(ToolCreated value)? toolCreated,
     TResult? Function(ToolsChanged value)? toolsChanged,
@@ -16880,7 +16242,6 @@ class _$ExportPresetUpdated extends ExportPresetUpdated {
     TResult Function(ElementsArranged value)? elementsArranged,
     TResult Function(DocumentDescriptionChanged value)?
         documentDescriptionChanged,
-    TResult Function(DocumentPathChanged value)? documentPathChanged,
     TResult Function(DocumentSaved value)? documentSaved,
     TResult Function(ToolCreated value)? toolCreated,
     TResult Function(ToolsChanged value)? toolsChanged,
@@ -16924,7 +16285,7 @@ class _$ExportPresetUpdated extends ExportPresetUpdated {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$ExportPresetUpdatedToJson(
+    return _$$ExportPresetUpdatedImplToJson(
       this,
     );
   }
@@ -16932,34 +16293,35 @@ class _$ExportPresetUpdated extends ExportPresetUpdated {
 
 abstract class ExportPresetUpdated extends DocumentEvent {
   const factory ExportPresetUpdated(
-      final String name, final List<AreaPreset> areas) = _$ExportPresetUpdated;
+          final String name, final List<AreaPreset> areas) =
+      _$ExportPresetUpdatedImpl;
   const ExportPresetUpdated._() : super._();
 
   factory ExportPresetUpdated.fromJson(Map<String, dynamic> json) =
-      _$ExportPresetUpdated.fromJson;
+      _$ExportPresetUpdatedImpl.fromJson;
 
   String get name;
   List<AreaPreset> get areas;
   @JsonKey(ignore: true)
-  _$$ExportPresetUpdatedCopyWith<_$ExportPresetUpdated> get copyWith =>
+  _$$ExportPresetUpdatedImplCopyWith<_$ExportPresetUpdatedImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$ExportPresetRemovedCopyWith<$Res> {
-  factory _$$ExportPresetRemovedCopyWith(_$ExportPresetRemoved value,
-          $Res Function(_$ExportPresetRemoved) then) =
-      __$$ExportPresetRemovedCopyWithImpl<$Res>;
+abstract class _$$ExportPresetRemovedImplCopyWith<$Res> {
+  factory _$$ExportPresetRemovedImplCopyWith(_$ExportPresetRemovedImpl value,
+          $Res Function(_$ExportPresetRemovedImpl) then) =
+      __$$ExportPresetRemovedImplCopyWithImpl<$Res>;
   @useResult
   $Res call({String name});
 }
 
 /// @nodoc
-class __$$ExportPresetRemovedCopyWithImpl<$Res>
-    extends _$DocumentEventCopyWithImpl<$Res, _$ExportPresetRemoved>
-    implements _$$ExportPresetRemovedCopyWith<$Res> {
-  __$$ExportPresetRemovedCopyWithImpl(
-      _$ExportPresetRemoved _value, $Res Function(_$ExportPresetRemoved) _then)
+class __$$ExportPresetRemovedImplCopyWithImpl<$Res>
+    extends _$DocumentEventCopyWithImpl<$Res, _$ExportPresetRemovedImpl>
+    implements _$$ExportPresetRemovedImplCopyWith<$Res> {
+  __$$ExportPresetRemovedImplCopyWithImpl(_$ExportPresetRemovedImpl _value,
+      $Res Function(_$ExportPresetRemovedImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -16967,7 +16329,7 @@ class __$$ExportPresetRemovedCopyWithImpl<$Res>
   $Res call({
     Object? name = null,
   }) {
-    return _then(_$ExportPresetRemoved(
+    return _then(_$ExportPresetRemovedImpl(
       null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -16978,13 +16340,13 @@ class __$$ExportPresetRemovedCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$ExportPresetRemoved extends ExportPresetRemoved {
-  const _$ExportPresetRemoved(this.name, {final String? $type})
+class _$ExportPresetRemovedImpl extends ExportPresetRemoved {
+  const _$ExportPresetRemovedImpl(this.name, {final String? $type})
       : $type = $type ?? 'exportPresetRemoved',
         super._();
 
-  factory _$ExportPresetRemoved.fromJson(Map<String, dynamic> json) =>
-      _$$ExportPresetRemovedFromJson(json);
+  factory _$ExportPresetRemovedImpl.fromJson(Map<String, dynamic> json) =>
+      _$$ExportPresetRemovedImplFromJson(json);
 
   @override
   final String name;
@@ -17001,7 +16363,7 @@ class _$ExportPresetRemoved extends ExportPresetRemoved {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$ExportPresetRemoved &&
+            other is _$ExportPresetRemovedImpl &&
             (identical(other.name, name) || other.name == name));
   }
 
@@ -17012,14 +16374,14 @@ class _$ExportPresetRemoved extends ExportPresetRemoved {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$ExportPresetRemovedCopyWith<_$ExportPresetRemoved> get copyWith =>
-      __$$ExportPresetRemovedCopyWithImpl<_$ExportPresetRemoved>(
+  _$$ExportPresetRemovedImplCopyWith<_$ExportPresetRemovedImpl> get copyWith =>
+      __$$ExportPresetRemovedImplCopyWithImpl<_$ExportPresetRemovedImpl>(
           this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(DocumentPage page, int? index) pageAdded,
+    required TResult Function(int? index, DocumentPage? page) pageAdded,
     required TResult Function(String pageName) pageChanged,
     required TResult Function(String page, int? newIndex) pageReordered,
     required TResult Function(String oldName, String newName) pageRenamed,
@@ -17036,7 +16398,6 @@ class _$ExportPresetRemoved extends ExportPresetRemoved {
         elementsArranged,
     required TResult Function(String? name, String? description)
         documentDescriptionChanged,
-    required TResult Function(String path) documentPathChanged,
     required TResult Function(AssetLocation? location) documentSaved,
     required TResult Function(Tool tool) toolCreated,
     required TResult Function(Map<int, Tool> tools) toolsChanged,
@@ -17084,7 +16445,7 @@ class _$ExportPresetRemoved extends ExportPresetRemoved {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(DocumentPage page, int? index)? pageAdded,
+    TResult? Function(int? index, DocumentPage? page)? pageAdded,
     TResult? Function(String pageName)? pageChanged,
     TResult? Function(String page, int? newIndex)? pageReordered,
     TResult? Function(String oldName, String newName)? pageRenamed,
@@ -17100,7 +16461,6 @@ class _$ExportPresetRemoved extends ExportPresetRemoved {
         elementsArranged,
     TResult? Function(String? name, String? description)?
         documentDescriptionChanged,
-    TResult? Function(String path)? documentPathChanged,
     TResult? Function(AssetLocation? location)? documentSaved,
     TResult? Function(Tool tool)? toolCreated,
     TResult? Function(Map<int, Tool> tools)? toolsChanged,
@@ -17142,7 +16502,7 @@ class _$ExportPresetRemoved extends ExportPresetRemoved {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(DocumentPage page, int? index)? pageAdded,
+    TResult Function(int? index, DocumentPage? page)? pageAdded,
     TResult Function(String pageName)? pageChanged,
     TResult Function(String page, int? newIndex)? pageReordered,
     TResult Function(String oldName, String newName)? pageRenamed,
@@ -17158,7 +16518,6 @@ class _$ExportPresetRemoved extends ExportPresetRemoved {
         elementsArranged,
     TResult Function(String? name, String? description)?
         documentDescriptionChanged,
-    TResult Function(String path)? documentPathChanged,
     TResult Function(AssetLocation? location)? documentSaved,
     TResult Function(Tool tool)? toolCreated,
     TResult Function(Map<int, Tool> tools)? toolsChanged,
@@ -17218,7 +16577,6 @@ class _$ExportPresetRemoved extends ExportPresetRemoved {
     required TResult Function(ElementsArranged value) elementsArranged,
     required TResult Function(DocumentDescriptionChanged value)
         documentDescriptionChanged,
-    required TResult Function(DocumentPathChanged value) documentPathChanged,
     required TResult Function(DocumentSaved value) documentSaved,
     required TResult Function(ToolCreated value) toolCreated,
     required TResult Function(ToolsChanged value) toolsChanged,
@@ -17276,7 +16634,6 @@ class _$ExportPresetRemoved extends ExportPresetRemoved {
     TResult? Function(ElementsArranged value)? elementsArranged,
     TResult? Function(DocumentDescriptionChanged value)?
         documentDescriptionChanged,
-    TResult? Function(DocumentPathChanged value)? documentPathChanged,
     TResult? Function(DocumentSaved value)? documentSaved,
     TResult? Function(ToolCreated value)? toolCreated,
     TResult? Function(ToolsChanged value)? toolsChanged,
@@ -17331,7 +16688,6 @@ class _$ExportPresetRemoved extends ExportPresetRemoved {
     TResult Function(ElementsArranged value)? elementsArranged,
     TResult Function(DocumentDescriptionChanged value)?
         documentDescriptionChanged,
-    TResult Function(DocumentPathChanged value)? documentPathChanged,
     TResult Function(DocumentSaved value)? documentSaved,
     TResult Function(ToolCreated value)? toolCreated,
     TResult Function(ToolsChanged value)? toolsChanged,
@@ -17375,40 +16731,41 @@ class _$ExportPresetRemoved extends ExportPresetRemoved {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$ExportPresetRemovedToJson(
+    return _$$ExportPresetRemovedImplToJson(
       this,
     );
   }
 }
 
 abstract class ExportPresetRemoved extends DocumentEvent {
-  const factory ExportPresetRemoved(final String name) = _$ExportPresetRemoved;
+  const factory ExportPresetRemoved(final String name) =
+      _$ExportPresetRemovedImpl;
   const ExportPresetRemoved._() : super._();
 
   factory ExportPresetRemoved.fromJson(Map<String, dynamic> json) =
-      _$ExportPresetRemoved.fromJson;
+      _$ExportPresetRemovedImpl.fromJson;
 
   String get name;
   @JsonKey(ignore: true)
-  _$$ExportPresetRemovedCopyWith<_$ExportPresetRemoved> get copyWith =>
+  _$$ExportPresetRemovedImplCopyWith<_$ExportPresetRemovedImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$PackAddedCopyWith<$Res> {
-  factory _$$PackAddedCopyWith(
-          _$PackAdded value, $Res Function(_$PackAdded) then) =
-      __$$PackAddedCopyWithImpl<$Res>;
+abstract class _$$PackAddedImplCopyWith<$Res> {
+  factory _$$PackAddedImplCopyWith(
+          _$PackAddedImpl value, $Res Function(_$PackAddedImpl) then) =
+      __$$PackAddedImplCopyWithImpl<$Res>;
   @useResult
   $Res call({NoteData pack});
 }
 
 /// @nodoc
-class __$$PackAddedCopyWithImpl<$Res>
-    extends _$DocumentEventCopyWithImpl<$Res, _$PackAdded>
-    implements _$$PackAddedCopyWith<$Res> {
-  __$$PackAddedCopyWithImpl(
-      _$PackAdded _value, $Res Function(_$PackAdded) _then)
+class __$$PackAddedImplCopyWithImpl<$Res>
+    extends _$DocumentEventCopyWithImpl<$Res, _$PackAddedImpl>
+    implements _$$PackAddedImplCopyWith<$Res> {
+  __$$PackAddedImplCopyWithImpl(
+      _$PackAddedImpl _value, $Res Function(_$PackAddedImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -17416,7 +16773,7 @@ class __$$PackAddedCopyWithImpl<$Res>
   $Res call({
     Object? pack = null,
   }) {
-    return _then(_$PackAdded(
+    return _then(_$PackAddedImpl(
       null == pack
           ? _value.pack
           : pack // ignore: cast_nullable_to_non_nullable
@@ -17427,13 +16784,13 @@ class __$$PackAddedCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$PackAdded extends PackAdded {
-  const _$PackAdded(this.pack, {final String? $type})
+class _$PackAddedImpl extends PackAdded {
+  const _$PackAddedImpl(this.pack, {final String? $type})
       : $type = $type ?? 'packAdded',
         super._();
 
-  factory _$PackAdded.fromJson(Map<String, dynamic> json) =>
-      _$$PackAddedFromJson(json);
+  factory _$PackAddedImpl.fromJson(Map<String, dynamic> json) =>
+      _$$PackAddedImplFromJson(json);
 
   @override
   final NoteData pack;
@@ -17450,7 +16807,7 @@ class _$PackAdded extends PackAdded {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$PackAdded &&
+            other is _$PackAddedImpl &&
             (identical(other.pack, pack) || other.pack == pack));
   }
 
@@ -17461,13 +16818,13 @@ class _$PackAdded extends PackAdded {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$PackAddedCopyWith<_$PackAdded> get copyWith =>
-      __$$PackAddedCopyWithImpl<_$PackAdded>(this, _$identity);
+  _$$PackAddedImplCopyWith<_$PackAddedImpl> get copyWith =>
+      __$$PackAddedImplCopyWithImpl<_$PackAddedImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(DocumentPage page, int? index) pageAdded,
+    required TResult Function(int? index, DocumentPage? page) pageAdded,
     required TResult Function(String pageName) pageChanged,
     required TResult Function(String page, int? newIndex) pageReordered,
     required TResult Function(String oldName, String newName) pageRenamed,
@@ -17484,7 +16841,6 @@ class _$PackAdded extends PackAdded {
         elementsArranged,
     required TResult Function(String? name, String? description)
         documentDescriptionChanged,
-    required TResult Function(String path) documentPathChanged,
     required TResult Function(AssetLocation? location) documentSaved,
     required TResult Function(Tool tool) toolCreated,
     required TResult Function(Map<int, Tool> tools) toolsChanged,
@@ -17532,7 +16888,7 @@ class _$PackAdded extends PackAdded {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(DocumentPage page, int? index)? pageAdded,
+    TResult? Function(int? index, DocumentPage? page)? pageAdded,
     TResult? Function(String pageName)? pageChanged,
     TResult? Function(String page, int? newIndex)? pageReordered,
     TResult? Function(String oldName, String newName)? pageRenamed,
@@ -17548,7 +16904,6 @@ class _$PackAdded extends PackAdded {
         elementsArranged,
     TResult? Function(String? name, String? description)?
         documentDescriptionChanged,
-    TResult? Function(String path)? documentPathChanged,
     TResult? Function(AssetLocation? location)? documentSaved,
     TResult? Function(Tool tool)? toolCreated,
     TResult? Function(Map<int, Tool> tools)? toolsChanged,
@@ -17590,7 +16945,7 @@ class _$PackAdded extends PackAdded {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(DocumentPage page, int? index)? pageAdded,
+    TResult Function(int? index, DocumentPage? page)? pageAdded,
     TResult Function(String pageName)? pageChanged,
     TResult Function(String page, int? newIndex)? pageReordered,
     TResult Function(String oldName, String newName)? pageRenamed,
@@ -17606,7 +16961,6 @@ class _$PackAdded extends PackAdded {
         elementsArranged,
     TResult Function(String? name, String? description)?
         documentDescriptionChanged,
-    TResult Function(String path)? documentPathChanged,
     TResult Function(AssetLocation? location)? documentSaved,
     TResult Function(Tool tool)? toolCreated,
     TResult Function(Map<int, Tool> tools)? toolsChanged,
@@ -17666,7 +17020,6 @@ class _$PackAdded extends PackAdded {
     required TResult Function(ElementsArranged value) elementsArranged,
     required TResult Function(DocumentDescriptionChanged value)
         documentDescriptionChanged,
-    required TResult Function(DocumentPathChanged value) documentPathChanged,
     required TResult Function(DocumentSaved value) documentSaved,
     required TResult Function(ToolCreated value) toolCreated,
     required TResult Function(ToolsChanged value) toolsChanged,
@@ -17724,7 +17077,6 @@ class _$PackAdded extends PackAdded {
     TResult? Function(ElementsArranged value)? elementsArranged,
     TResult? Function(DocumentDescriptionChanged value)?
         documentDescriptionChanged,
-    TResult? Function(DocumentPathChanged value)? documentPathChanged,
     TResult? Function(DocumentSaved value)? documentSaved,
     TResult? Function(ToolCreated value)? toolCreated,
     TResult? Function(ToolsChanged value)? toolsChanged,
@@ -17779,7 +17131,6 @@ class _$PackAdded extends PackAdded {
     TResult Function(ElementsArranged value)? elementsArranged,
     TResult Function(DocumentDescriptionChanged value)?
         documentDescriptionChanged,
-    TResult Function(DocumentPathChanged value)? documentPathChanged,
     TResult Function(DocumentSaved value)? documentSaved,
     TResult Function(ToolCreated value)? toolCreated,
     TResult Function(ToolsChanged value)? toolsChanged,
@@ -17823,39 +17174,40 @@ class _$PackAdded extends PackAdded {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$PackAddedToJson(
+    return _$$PackAddedImplToJson(
       this,
     );
   }
 }
 
 abstract class PackAdded extends DocumentEvent {
-  const factory PackAdded(final NoteData pack) = _$PackAdded;
+  const factory PackAdded(final NoteData pack) = _$PackAddedImpl;
   const PackAdded._() : super._();
 
-  factory PackAdded.fromJson(Map<String, dynamic> json) = _$PackAdded.fromJson;
+  factory PackAdded.fromJson(Map<String, dynamic> json) =
+      _$PackAddedImpl.fromJson;
 
   NoteData get pack;
   @JsonKey(ignore: true)
-  _$$PackAddedCopyWith<_$PackAdded> get copyWith =>
+  _$$PackAddedImplCopyWith<_$PackAddedImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$PackUpdatedCopyWith<$Res> {
-  factory _$$PackUpdatedCopyWith(
-          _$PackUpdated value, $Res Function(_$PackUpdated) then) =
-      __$$PackUpdatedCopyWithImpl<$Res>;
+abstract class _$$PackUpdatedImplCopyWith<$Res> {
+  factory _$$PackUpdatedImplCopyWith(
+          _$PackUpdatedImpl value, $Res Function(_$PackUpdatedImpl) then) =
+      __$$PackUpdatedImplCopyWithImpl<$Res>;
   @useResult
   $Res call({String name, NoteData pack});
 }
 
 /// @nodoc
-class __$$PackUpdatedCopyWithImpl<$Res>
-    extends _$DocumentEventCopyWithImpl<$Res, _$PackUpdated>
-    implements _$$PackUpdatedCopyWith<$Res> {
-  __$$PackUpdatedCopyWithImpl(
-      _$PackUpdated _value, $Res Function(_$PackUpdated) _then)
+class __$$PackUpdatedImplCopyWithImpl<$Res>
+    extends _$DocumentEventCopyWithImpl<$Res, _$PackUpdatedImpl>
+    implements _$$PackUpdatedImplCopyWith<$Res> {
+  __$$PackUpdatedImplCopyWithImpl(
+      _$PackUpdatedImpl _value, $Res Function(_$PackUpdatedImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -17864,7 +17216,7 @@ class __$$PackUpdatedCopyWithImpl<$Res>
     Object? name = null,
     Object? pack = null,
   }) {
-    return _then(_$PackUpdated(
+    return _then(_$PackUpdatedImpl(
       null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -17879,13 +17231,13 @@ class __$$PackUpdatedCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$PackUpdated extends PackUpdated {
-  const _$PackUpdated(this.name, this.pack, {final String? $type})
+class _$PackUpdatedImpl extends PackUpdated {
+  const _$PackUpdatedImpl(this.name, this.pack, {final String? $type})
       : $type = $type ?? 'packUpdated',
         super._();
 
-  factory _$PackUpdated.fromJson(Map<String, dynamic> json) =>
-      _$$PackUpdatedFromJson(json);
+  factory _$PackUpdatedImpl.fromJson(Map<String, dynamic> json) =>
+      _$$PackUpdatedImplFromJson(json);
 
   @override
   final String name;
@@ -17904,7 +17256,7 @@ class _$PackUpdated extends PackUpdated {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$PackUpdated &&
+            other is _$PackUpdatedImpl &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.pack, pack) || other.pack == pack));
   }
@@ -17916,13 +17268,13 @@ class _$PackUpdated extends PackUpdated {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$PackUpdatedCopyWith<_$PackUpdated> get copyWith =>
-      __$$PackUpdatedCopyWithImpl<_$PackUpdated>(this, _$identity);
+  _$$PackUpdatedImplCopyWith<_$PackUpdatedImpl> get copyWith =>
+      __$$PackUpdatedImplCopyWithImpl<_$PackUpdatedImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(DocumentPage page, int? index) pageAdded,
+    required TResult Function(int? index, DocumentPage? page) pageAdded,
     required TResult Function(String pageName) pageChanged,
     required TResult Function(String page, int? newIndex) pageReordered,
     required TResult Function(String oldName, String newName) pageRenamed,
@@ -17939,7 +17291,6 @@ class _$PackUpdated extends PackUpdated {
         elementsArranged,
     required TResult Function(String? name, String? description)
         documentDescriptionChanged,
-    required TResult Function(String path) documentPathChanged,
     required TResult Function(AssetLocation? location) documentSaved,
     required TResult Function(Tool tool) toolCreated,
     required TResult Function(Map<int, Tool> tools) toolsChanged,
@@ -17987,7 +17338,7 @@ class _$PackUpdated extends PackUpdated {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(DocumentPage page, int? index)? pageAdded,
+    TResult? Function(int? index, DocumentPage? page)? pageAdded,
     TResult? Function(String pageName)? pageChanged,
     TResult? Function(String page, int? newIndex)? pageReordered,
     TResult? Function(String oldName, String newName)? pageRenamed,
@@ -18003,7 +17354,6 @@ class _$PackUpdated extends PackUpdated {
         elementsArranged,
     TResult? Function(String? name, String? description)?
         documentDescriptionChanged,
-    TResult? Function(String path)? documentPathChanged,
     TResult? Function(AssetLocation? location)? documentSaved,
     TResult? Function(Tool tool)? toolCreated,
     TResult? Function(Map<int, Tool> tools)? toolsChanged,
@@ -18045,7 +17395,7 @@ class _$PackUpdated extends PackUpdated {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(DocumentPage page, int? index)? pageAdded,
+    TResult Function(int? index, DocumentPage? page)? pageAdded,
     TResult Function(String pageName)? pageChanged,
     TResult Function(String page, int? newIndex)? pageReordered,
     TResult Function(String oldName, String newName)? pageRenamed,
@@ -18061,7 +17411,6 @@ class _$PackUpdated extends PackUpdated {
         elementsArranged,
     TResult Function(String? name, String? description)?
         documentDescriptionChanged,
-    TResult Function(String path)? documentPathChanged,
     TResult Function(AssetLocation? location)? documentSaved,
     TResult Function(Tool tool)? toolCreated,
     TResult Function(Map<int, Tool> tools)? toolsChanged,
@@ -18121,7 +17470,6 @@ class _$PackUpdated extends PackUpdated {
     required TResult Function(ElementsArranged value) elementsArranged,
     required TResult Function(DocumentDescriptionChanged value)
         documentDescriptionChanged,
-    required TResult Function(DocumentPathChanged value) documentPathChanged,
     required TResult Function(DocumentSaved value) documentSaved,
     required TResult Function(ToolCreated value) toolCreated,
     required TResult Function(ToolsChanged value) toolsChanged,
@@ -18179,7 +17527,6 @@ class _$PackUpdated extends PackUpdated {
     TResult? Function(ElementsArranged value)? elementsArranged,
     TResult? Function(DocumentDescriptionChanged value)?
         documentDescriptionChanged,
-    TResult? Function(DocumentPathChanged value)? documentPathChanged,
     TResult? Function(DocumentSaved value)? documentSaved,
     TResult? Function(ToolCreated value)? toolCreated,
     TResult? Function(ToolsChanged value)? toolsChanged,
@@ -18234,7 +17581,6 @@ class _$PackUpdated extends PackUpdated {
     TResult Function(ElementsArranged value)? elementsArranged,
     TResult Function(DocumentDescriptionChanged value)?
         documentDescriptionChanged,
-    TResult Function(DocumentPathChanged value)? documentPathChanged,
     TResult Function(DocumentSaved value)? documentSaved,
     TResult Function(ToolCreated value)? toolCreated,
     TResult Function(ToolsChanged value)? toolsChanged,
@@ -18278,7 +17624,7 @@ class _$PackUpdated extends PackUpdated {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$PackUpdatedToJson(
+    return _$$PackUpdatedImplToJson(
       this,
     );
   }
@@ -18286,34 +17632,34 @@ class _$PackUpdated extends PackUpdated {
 
 abstract class PackUpdated extends DocumentEvent {
   const factory PackUpdated(final String name, final NoteData pack) =
-      _$PackUpdated;
+      _$PackUpdatedImpl;
   const PackUpdated._() : super._();
 
   factory PackUpdated.fromJson(Map<String, dynamic> json) =
-      _$PackUpdated.fromJson;
+      _$PackUpdatedImpl.fromJson;
 
   String get name;
   NoteData get pack;
   @JsonKey(ignore: true)
-  _$$PackUpdatedCopyWith<_$PackUpdated> get copyWith =>
+  _$$PackUpdatedImplCopyWith<_$PackUpdatedImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$PackRemovedCopyWith<$Res> {
-  factory _$$PackRemovedCopyWith(
-          _$PackRemoved value, $Res Function(_$PackRemoved) then) =
-      __$$PackRemovedCopyWithImpl<$Res>;
+abstract class _$$PackRemovedImplCopyWith<$Res> {
+  factory _$$PackRemovedImplCopyWith(
+          _$PackRemovedImpl value, $Res Function(_$PackRemovedImpl) then) =
+      __$$PackRemovedImplCopyWithImpl<$Res>;
   @useResult
   $Res call({String name});
 }
 
 /// @nodoc
-class __$$PackRemovedCopyWithImpl<$Res>
-    extends _$DocumentEventCopyWithImpl<$Res, _$PackRemoved>
-    implements _$$PackRemovedCopyWith<$Res> {
-  __$$PackRemovedCopyWithImpl(
-      _$PackRemoved _value, $Res Function(_$PackRemoved) _then)
+class __$$PackRemovedImplCopyWithImpl<$Res>
+    extends _$DocumentEventCopyWithImpl<$Res, _$PackRemovedImpl>
+    implements _$$PackRemovedImplCopyWith<$Res> {
+  __$$PackRemovedImplCopyWithImpl(
+      _$PackRemovedImpl _value, $Res Function(_$PackRemovedImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -18321,7 +17667,7 @@ class __$$PackRemovedCopyWithImpl<$Res>
   $Res call({
     Object? name = null,
   }) {
-    return _then(_$PackRemoved(
+    return _then(_$PackRemovedImpl(
       null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -18332,13 +17678,13 @@ class __$$PackRemovedCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$PackRemoved extends PackRemoved {
-  const _$PackRemoved(this.name, {final String? $type})
+class _$PackRemovedImpl extends PackRemoved {
+  const _$PackRemovedImpl(this.name, {final String? $type})
       : $type = $type ?? 'packRemoved',
         super._();
 
-  factory _$PackRemoved.fromJson(Map<String, dynamic> json) =>
-      _$$PackRemovedFromJson(json);
+  factory _$PackRemovedImpl.fromJson(Map<String, dynamic> json) =>
+      _$$PackRemovedImplFromJson(json);
 
   @override
   final String name;
@@ -18355,7 +17701,7 @@ class _$PackRemoved extends PackRemoved {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$PackRemoved &&
+            other is _$PackRemovedImpl &&
             (identical(other.name, name) || other.name == name));
   }
 
@@ -18366,13 +17712,13 @@ class _$PackRemoved extends PackRemoved {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$PackRemovedCopyWith<_$PackRemoved> get copyWith =>
-      __$$PackRemovedCopyWithImpl<_$PackRemoved>(this, _$identity);
+  _$$PackRemovedImplCopyWith<_$PackRemovedImpl> get copyWith =>
+      __$$PackRemovedImplCopyWithImpl<_$PackRemovedImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(DocumentPage page, int? index) pageAdded,
+    required TResult Function(int? index, DocumentPage? page) pageAdded,
     required TResult Function(String pageName) pageChanged,
     required TResult Function(String page, int? newIndex) pageReordered,
     required TResult Function(String oldName, String newName) pageRenamed,
@@ -18389,7 +17735,6 @@ class _$PackRemoved extends PackRemoved {
         elementsArranged,
     required TResult Function(String? name, String? description)
         documentDescriptionChanged,
-    required TResult Function(String path) documentPathChanged,
     required TResult Function(AssetLocation? location) documentSaved,
     required TResult Function(Tool tool) toolCreated,
     required TResult Function(Map<int, Tool> tools) toolsChanged,
@@ -18437,7 +17782,7 @@ class _$PackRemoved extends PackRemoved {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(DocumentPage page, int? index)? pageAdded,
+    TResult? Function(int? index, DocumentPage? page)? pageAdded,
     TResult? Function(String pageName)? pageChanged,
     TResult? Function(String page, int? newIndex)? pageReordered,
     TResult? Function(String oldName, String newName)? pageRenamed,
@@ -18453,7 +17798,6 @@ class _$PackRemoved extends PackRemoved {
         elementsArranged,
     TResult? Function(String? name, String? description)?
         documentDescriptionChanged,
-    TResult? Function(String path)? documentPathChanged,
     TResult? Function(AssetLocation? location)? documentSaved,
     TResult? Function(Tool tool)? toolCreated,
     TResult? Function(Map<int, Tool> tools)? toolsChanged,
@@ -18495,7 +17839,7 @@ class _$PackRemoved extends PackRemoved {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(DocumentPage page, int? index)? pageAdded,
+    TResult Function(int? index, DocumentPage? page)? pageAdded,
     TResult Function(String pageName)? pageChanged,
     TResult Function(String page, int? newIndex)? pageReordered,
     TResult Function(String oldName, String newName)? pageRenamed,
@@ -18511,7 +17855,6 @@ class _$PackRemoved extends PackRemoved {
         elementsArranged,
     TResult Function(String? name, String? description)?
         documentDescriptionChanged,
-    TResult Function(String path)? documentPathChanged,
     TResult Function(AssetLocation? location)? documentSaved,
     TResult Function(Tool tool)? toolCreated,
     TResult Function(Map<int, Tool> tools)? toolsChanged,
@@ -18571,7 +17914,6 @@ class _$PackRemoved extends PackRemoved {
     required TResult Function(ElementsArranged value) elementsArranged,
     required TResult Function(DocumentDescriptionChanged value)
         documentDescriptionChanged,
-    required TResult Function(DocumentPathChanged value) documentPathChanged,
     required TResult Function(DocumentSaved value) documentSaved,
     required TResult Function(ToolCreated value) toolCreated,
     required TResult Function(ToolsChanged value) toolsChanged,
@@ -18629,7 +17971,6 @@ class _$PackRemoved extends PackRemoved {
     TResult? Function(ElementsArranged value)? elementsArranged,
     TResult? Function(DocumentDescriptionChanged value)?
         documentDescriptionChanged,
-    TResult? Function(DocumentPathChanged value)? documentPathChanged,
     TResult? Function(DocumentSaved value)? documentSaved,
     TResult? Function(ToolCreated value)? toolCreated,
     TResult? Function(ToolsChanged value)? toolsChanged,
@@ -18684,7 +18025,6 @@ class _$PackRemoved extends PackRemoved {
     TResult Function(ElementsArranged value)? elementsArranged,
     TResult Function(DocumentDescriptionChanged value)?
         documentDescriptionChanged,
-    TResult Function(DocumentPathChanged value)? documentPathChanged,
     TResult Function(DocumentSaved value)? documentSaved,
     TResult Function(ToolCreated value)? toolCreated,
     TResult Function(ToolsChanged value)? toolsChanged,
@@ -18728,30 +18068,30 @@ class _$PackRemoved extends PackRemoved {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$PackRemovedToJson(
+    return _$$PackRemovedImplToJson(
       this,
     );
   }
 }
 
 abstract class PackRemoved extends DocumentEvent {
-  const factory PackRemoved(final String name) = _$PackRemoved;
+  const factory PackRemoved(final String name) = _$PackRemovedImpl;
   const PackRemoved._() : super._();
 
   factory PackRemoved.fromJson(Map<String, dynamic> json) =
-      _$PackRemoved.fromJson;
+      _$PackRemovedImpl.fromJson;
 
   String get name;
   @JsonKey(ignore: true)
-  _$$PackRemovedCopyWith<_$PackRemoved> get copyWith =>
+  _$$PackRemovedImplCopyWith<_$PackRemovedImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$AnimationAddedCopyWith<$Res> {
-  factory _$$AnimationAddedCopyWith(
-          _$AnimationAdded value, $Res Function(_$AnimationAdded) then) =
-      __$$AnimationAddedCopyWithImpl<$Res>;
+abstract class _$$AnimationAddedImplCopyWith<$Res> {
+  factory _$$AnimationAddedImplCopyWith(_$AnimationAddedImpl value,
+          $Res Function(_$AnimationAddedImpl) then) =
+      __$$AnimationAddedImplCopyWithImpl<$Res>;
   @useResult
   $Res call({AnimationTrack animation});
 
@@ -18759,11 +18099,11 @@ abstract class _$$AnimationAddedCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$AnimationAddedCopyWithImpl<$Res>
-    extends _$DocumentEventCopyWithImpl<$Res, _$AnimationAdded>
-    implements _$$AnimationAddedCopyWith<$Res> {
-  __$$AnimationAddedCopyWithImpl(
-      _$AnimationAdded _value, $Res Function(_$AnimationAdded) _then)
+class __$$AnimationAddedImplCopyWithImpl<$Res>
+    extends _$DocumentEventCopyWithImpl<$Res, _$AnimationAddedImpl>
+    implements _$$AnimationAddedImplCopyWith<$Res> {
+  __$$AnimationAddedImplCopyWithImpl(
+      _$AnimationAddedImpl _value, $Res Function(_$AnimationAddedImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -18771,7 +18111,7 @@ class __$$AnimationAddedCopyWithImpl<$Res>
   $Res call({
     Object? animation = null,
   }) {
-    return _then(_$AnimationAdded(
+    return _then(_$AnimationAddedImpl(
       null == animation
           ? _value.animation
           : animation // ignore: cast_nullable_to_non_nullable
@@ -18790,13 +18130,13 @@ class __$$AnimationAddedCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$AnimationAdded extends AnimationAdded {
-  const _$AnimationAdded(this.animation, {final String? $type})
+class _$AnimationAddedImpl extends AnimationAdded {
+  const _$AnimationAddedImpl(this.animation, {final String? $type})
       : $type = $type ?? 'animationAdded',
         super._();
 
-  factory _$AnimationAdded.fromJson(Map<String, dynamic> json) =>
-      _$$AnimationAddedFromJson(json);
+  factory _$AnimationAddedImpl.fromJson(Map<String, dynamic> json) =>
+      _$$AnimationAddedImplFromJson(json);
 
   @override
   final AnimationTrack animation;
@@ -18813,7 +18153,7 @@ class _$AnimationAdded extends AnimationAdded {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$AnimationAdded &&
+            other is _$AnimationAddedImpl &&
             (identical(other.animation, animation) ||
                 other.animation == animation));
   }
@@ -18825,13 +18165,14 @@ class _$AnimationAdded extends AnimationAdded {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$AnimationAddedCopyWith<_$AnimationAdded> get copyWith =>
-      __$$AnimationAddedCopyWithImpl<_$AnimationAdded>(this, _$identity);
+  _$$AnimationAddedImplCopyWith<_$AnimationAddedImpl> get copyWith =>
+      __$$AnimationAddedImplCopyWithImpl<_$AnimationAddedImpl>(
+          this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(DocumentPage page, int? index) pageAdded,
+    required TResult Function(int? index, DocumentPage? page) pageAdded,
     required TResult Function(String pageName) pageChanged,
     required TResult Function(String page, int? newIndex) pageReordered,
     required TResult Function(String oldName, String newName) pageRenamed,
@@ -18848,7 +18189,6 @@ class _$AnimationAdded extends AnimationAdded {
         elementsArranged,
     required TResult Function(String? name, String? description)
         documentDescriptionChanged,
-    required TResult Function(String path) documentPathChanged,
     required TResult Function(AssetLocation? location) documentSaved,
     required TResult Function(Tool tool) toolCreated,
     required TResult Function(Map<int, Tool> tools) toolsChanged,
@@ -18896,7 +18236,7 @@ class _$AnimationAdded extends AnimationAdded {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(DocumentPage page, int? index)? pageAdded,
+    TResult? Function(int? index, DocumentPage? page)? pageAdded,
     TResult? Function(String pageName)? pageChanged,
     TResult? Function(String page, int? newIndex)? pageReordered,
     TResult? Function(String oldName, String newName)? pageRenamed,
@@ -18912,7 +18252,6 @@ class _$AnimationAdded extends AnimationAdded {
         elementsArranged,
     TResult? Function(String? name, String? description)?
         documentDescriptionChanged,
-    TResult? Function(String path)? documentPathChanged,
     TResult? Function(AssetLocation? location)? documentSaved,
     TResult? Function(Tool tool)? toolCreated,
     TResult? Function(Map<int, Tool> tools)? toolsChanged,
@@ -18954,7 +18293,7 @@ class _$AnimationAdded extends AnimationAdded {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(DocumentPage page, int? index)? pageAdded,
+    TResult Function(int? index, DocumentPage? page)? pageAdded,
     TResult Function(String pageName)? pageChanged,
     TResult Function(String page, int? newIndex)? pageReordered,
     TResult Function(String oldName, String newName)? pageRenamed,
@@ -18970,7 +18309,6 @@ class _$AnimationAdded extends AnimationAdded {
         elementsArranged,
     TResult Function(String? name, String? description)?
         documentDescriptionChanged,
-    TResult Function(String path)? documentPathChanged,
     TResult Function(AssetLocation? location)? documentSaved,
     TResult Function(Tool tool)? toolCreated,
     TResult Function(Map<int, Tool> tools)? toolsChanged,
@@ -19030,7 +18368,6 @@ class _$AnimationAdded extends AnimationAdded {
     required TResult Function(ElementsArranged value) elementsArranged,
     required TResult Function(DocumentDescriptionChanged value)
         documentDescriptionChanged,
-    required TResult Function(DocumentPathChanged value) documentPathChanged,
     required TResult Function(DocumentSaved value) documentSaved,
     required TResult Function(ToolCreated value) toolCreated,
     required TResult Function(ToolsChanged value) toolsChanged,
@@ -19088,7 +18425,6 @@ class _$AnimationAdded extends AnimationAdded {
     TResult? Function(ElementsArranged value)? elementsArranged,
     TResult? Function(DocumentDescriptionChanged value)?
         documentDescriptionChanged,
-    TResult? Function(DocumentPathChanged value)? documentPathChanged,
     TResult? Function(DocumentSaved value)? documentSaved,
     TResult? Function(ToolCreated value)? toolCreated,
     TResult? Function(ToolsChanged value)? toolsChanged,
@@ -19143,7 +18479,6 @@ class _$AnimationAdded extends AnimationAdded {
     TResult Function(ElementsArranged value)? elementsArranged,
     TResult Function(DocumentDescriptionChanged value)?
         documentDescriptionChanged,
-    TResult Function(DocumentPathChanged value)? documentPathChanged,
     TResult Function(DocumentSaved value)? documentSaved,
     TResult Function(ToolCreated value)? toolCreated,
     TResult Function(ToolsChanged value)? toolsChanged,
@@ -19187,7 +18522,7 @@ class _$AnimationAdded extends AnimationAdded {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$AnimationAddedToJson(
+    return _$$AnimationAddedImplToJson(
       this,
     );
   }
@@ -19195,23 +18530,23 @@ class _$AnimationAdded extends AnimationAdded {
 
 abstract class AnimationAdded extends DocumentEvent {
   const factory AnimationAdded(final AnimationTrack animation) =
-      _$AnimationAdded;
+      _$AnimationAddedImpl;
   const AnimationAdded._() : super._();
 
   factory AnimationAdded.fromJson(Map<String, dynamic> json) =
-      _$AnimationAdded.fromJson;
+      _$AnimationAddedImpl.fromJson;
 
   AnimationTrack get animation;
   @JsonKey(ignore: true)
-  _$$AnimationAddedCopyWith<_$AnimationAdded> get copyWith =>
+  _$$AnimationAddedImplCopyWith<_$AnimationAddedImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$AnimationUpdatedCopyWith<$Res> {
-  factory _$$AnimationUpdatedCopyWith(
-          _$AnimationUpdated value, $Res Function(_$AnimationUpdated) then) =
-      __$$AnimationUpdatedCopyWithImpl<$Res>;
+abstract class _$$AnimationUpdatedImplCopyWith<$Res> {
+  factory _$$AnimationUpdatedImplCopyWith(_$AnimationUpdatedImpl value,
+          $Res Function(_$AnimationUpdatedImpl) then) =
+      __$$AnimationUpdatedImplCopyWithImpl<$Res>;
   @useResult
   $Res call({String name, AnimationTrack animation});
 
@@ -19219,11 +18554,11 @@ abstract class _$$AnimationUpdatedCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$AnimationUpdatedCopyWithImpl<$Res>
-    extends _$DocumentEventCopyWithImpl<$Res, _$AnimationUpdated>
-    implements _$$AnimationUpdatedCopyWith<$Res> {
-  __$$AnimationUpdatedCopyWithImpl(
-      _$AnimationUpdated _value, $Res Function(_$AnimationUpdated) _then)
+class __$$AnimationUpdatedImplCopyWithImpl<$Res>
+    extends _$DocumentEventCopyWithImpl<$Res, _$AnimationUpdatedImpl>
+    implements _$$AnimationUpdatedImplCopyWith<$Res> {
+  __$$AnimationUpdatedImplCopyWithImpl(_$AnimationUpdatedImpl _value,
+      $Res Function(_$AnimationUpdatedImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -19232,7 +18567,7 @@ class __$$AnimationUpdatedCopyWithImpl<$Res>
     Object? name = null,
     Object? animation = null,
   }) {
-    return _then(_$AnimationUpdated(
+    return _then(_$AnimationUpdatedImpl(
       null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -19255,13 +18590,13 @@ class __$$AnimationUpdatedCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$AnimationUpdated extends AnimationUpdated {
-  const _$AnimationUpdated(this.name, this.animation, {final String? $type})
+class _$AnimationUpdatedImpl extends AnimationUpdated {
+  const _$AnimationUpdatedImpl(this.name, this.animation, {final String? $type})
       : $type = $type ?? 'animationUpdated',
         super._();
 
-  factory _$AnimationUpdated.fromJson(Map<String, dynamic> json) =>
-      _$$AnimationUpdatedFromJson(json);
+  factory _$AnimationUpdatedImpl.fromJson(Map<String, dynamic> json) =>
+      _$$AnimationUpdatedImplFromJson(json);
 
   @override
   final String name;
@@ -19280,7 +18615,7 @@ class _$AnimationUpdated extends AnimationUpdated {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$AnimationUpdated &&
+            other is _$AnimationUpdatedImpl &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.animation, animation) ||
                 other.animation == animation));
@@ -19293,13 +18628,14 @@ class _$AnimationUpdated extends AnimationUpdated {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$AnimationUpdatedCopyWith<_$AnimationUpdated> get copyWith =>
-      __$$AnimationUpdatedCopyWithImpl<_$AnimationUpdated>(this, _$identity);
+  _$$AnimationUpdatedImplCopyWith<_$AnimationUpdatedImpl> get copyWith =>
+      __$$AnimationUpdatedImplCopyWithImpl<_$AnimationUpdatedImpl>(
+          this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(DocumentPage page, int? index) pageAdded,
+    required TResult Function(int? index, DocumentPage? page) pageAdded,
     required TResult Function(String pageName) pageChanged,
     required TResult Function(String page, int? newIndex) pageReordered,
     required TResult Function(String oldName, String newName) pageRenamed,
@@ -19316,7 +18652,6 @@ class _$AnimationUpdated extends AnimationUpdated {
         elementsArranged,
     required TResult Function(String? name, String? description)
         documentDescriptionChanged,
-    required TResult Function(String path) documentPathChanged,
     required TResult Function(AssetLocation? location) documentSaved,
     required TResult Function(Tool tool) toolCreated,
     required TResult Function(Map<int, Tool> tools) toolsChanged,
@@ -19364,7 +18699,7 @@ class _$AnimationUpdated extends AnimationUpdated {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(DocumentPage page, int? index)? pageAdded,
+    TResult? Function(int? index, DocumentPage? page)? pageAdded,
     TResult? Function(String pageName)? pageChanged,
     TResult? Function(String page, int? newIndex)? pageReordered,
     TResult? Function(String oldName, String newName)? pageRenamed,
@@ -19380,7 +18715,6 @@ class _$AnimationUpdated extends AnimationUpdated {
         elementsArranged,
     TResult? Function(String? name, String? description)?
         documentDescriptionChanged,
-    TResult? Function(String path)? documentPathChanged,
     TResult? Function(AssetLocation? location)? documentSaved,
     TResult? Function(Tool tool)? toolCreated,
     TResult? Function(Map<int, Tool> tools)? toolsChanged,
@@ -19422,7 +18756,7 @@ class _$AnimationUpdated extends AnimationUpdated {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(DocumentPage page, int? index)? pageAdded,
+    TResult Function(int? index, DocumentPage? page)? pageAdded,
     TResult Function(String pageName)? pageChanged,
     TResult Function(String page, int? newIndex)? pageReordered,
     TResult Function(String oldName, String newName)? pageRenamed,
@@ -19438,7 +18772,6 @@ class _$AnimationUpdated extends AnimationUpdated {
         elementsArranged,
     TResult Function(String? name, String? description)?
         documentDescriptionChanged,
-    TResult Function(String path)? documentPathChanged,
     TResult Function(AssetLocation? location)? documentSaved,
     TResult Function(Tool tool)? toolCreated,
     TResult Function(Map<int, Tool> tools)? toolsChanged,
@@ -19498,7 +18831,6 @@ class _$AnimationUpdated extends AnimationUpdated {
     required TResult Function(ElementsArranged value) elementsArranged,
     required TResult Function(DocumentDescriptionChanged value)
         documentDescriptionChanged,
-    required TResult Function(DocumentPathChanged value) documentPathChanged,
     required TResult Function(DocumentSaved value) documentSaved,
     required TResult Function(ToolCreated value) toolCreated,
     required TResult Function(ToolsChanged value) toolsChanged,
@@ -19556,7 +18888,6 @@ class _$AnimationUpdated extends AnimationUpdated {
     TResult? Function(ElementsArranged value)? elementsArranged,
     TResult? Function(DocumentDescriptionChanged value)?
         documentDescriptionChanged,
-    TResult? Function(DocumentPathChanged value)? documentPathChanged,
     TResult? Function(DocumentSaved value)? documentSaved,
     TResult? Function(ToolCreated value)? toolCreated,
     TResult? Function(ToolsChanged value)? toolsChanged,
@@ -19611,7 +18942,6 @@ class _$AnimationUpdated extends AnimationUpdated {
     TResult Function(ElementsArranged value)? elementsArranged,
     TResult Function(DocumentDescriptionChanged value)?
         documentDescriptionChanged,
-    TResult Function(DocumentPathChanged value)? documentPathChanged,
     TResult Function(DocumentSaved value)? documentSaved,
     TResult Function(ToolCreated value)? toolCreated,
     TResult Function(ToolsChanged value)? toolsChanged,
@@ -19655,7 +18985,7 @@ class _$AnimationUpdated extends AnimationUpdated {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$AnimationUpdatedToJson(
+    return _$$AnimationUpdatedImplToJson(
       this,
     );
   }
@@ -19663,34 +18993,35 @@ class _$AnimationUpdated extends AnimationUpdated {
 
 abstract class AnimationUpdated extends DocumentEvent {
   const factory AnimationUpdated(
-      final String name, final AnimationTrack animation) = _$AnimationUpdated;
+          final String name, final AnimationTrack animation) =
+      _$AnimationUpdatedImpl;
   const AnimationUpdated._() : super._();
 
   factory AnimationUpdated.fromJson(Map<String, dynamic> json) =
-      _$AnimationUpdated.fromJson;
+      _$AnimationUpdatedImpl.fromJson;
 
   String get name;
   AnimationTrack get animation;
   @JsonKey(ignore: true)
-  _$$AnimationUpdatedCopyWith<_$AnimationUpdated> get copyWith =>
+  _$$AnimationUpdatedImplCopyWith<_$AnimationUpdatedImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$AnimationRemovedCopyWith<$Res> {
-  factory _$$AnimationRemovedCopyWith(
-          _$AnimationRemoved value, $Res Function(_$AnimationRemoved) then) =
-      __$$AnimationRemovedCopyWithImpl<$Res>;
+abstract class _$$AnimationRemovedImplCopyWith<$Res> {
+  factory _$$AnimationRemovedImplCopyWith(_$AnimationRemovedImpl value,
+          $Res Function(_$AnimationRemovedImpl) then) =
+      __$$AnimationRemovedImplCopyWithImpl<$Res>;
   @useResult
   $Res call({String name});
 }
 
 /// @nodoc
-class __$$AnimationRemovedCopyWithImpl<$Res>
-    extends _$DocumentEventCopyWithImpl<$Res, _$AnimationRemoved>
-    implements _$$AnimationRemovedCopyWith<$Res> {
-  __$$AnimationRemovedCopyWithImpl(
-      _$AnimationRemoved _value, $Res Function(_$AnimationRemoved) _then)
+class __$$AnimationRemovedImplCopyWithImpl<$Res>
+    extends _$DocumentEventCopyWithImpl<$Res, _$AnimationRemovedImpl>
+    implements _$$AnimationRemovedImplCopyWith<$Res> {
+  __$$AnimationRemovedImplCopyWithImpl(_$AnimationRemovedImpl _value,
+      $Res Function(_$AnimationRemovedImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -19698,7 +19029,7 @@ class __$$AnimationRemovedCopyWithImpl<$Res>
   $Res call({
     Object? name = null,
   }) {
-    return _then(_$AnimationRemoved(
+    return _then(_$AnimationRemovedImpl(
       null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -19709,13 +19040,13 @@ class __$$AnimationRemovedCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$AnimationRemoved extends AnimationRemoved {
-  const _$AnimationRemoved(this.name, {final String? $type})
+class _$AnimationRemovedImpl extends AnimationRemoved {
+  const _$AnimationRemovedImpl(this.name, {final String? $type})
       : $type = $type ?? 'animationRemoved',
         super._();
 
-  factory _$AnimationRemoved.fromJson(Map<String, dynamic> json) =>
-      _$$AnimationRemovedFromJson(json);
+  factory _$AnimationRemovedImpl.fromJson(Map<String, dynamic> json) =>
+      _$$AnimationRemovedImplFromJson(json);
 
   @override
   final String name;
@@ -19732,7 +19063,7 @@ class _$AnimationRemoved extends AnimationRemoved {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$AnimationRemoved &&
+            other is _$AnimationRemovedImpl &&
             (identical(other.name, name) || other.name == name));
   }
 
@@ -19743,13 +19074,14 @@ class _$AnimationRemoved extends AnimationRemoved {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$AnimationRemovedCopyWith<_$AnimationRemoved> get copyWith =>
-      __$$AnimationRemovedCopyWithImpl<_$AnimationRemoved>(this, _$identity);
+  _$$AnimationRemovedImplCopyWith<_$AnimationRemovedImpl> get copyWith =>
+      __$$AnimationRemovedImplCopyWithImpl<_$AnimationRemovedImpl>(
+          this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(DocumentPage page, int? index) pageAdded,
+    required TResult Function(int? index, DocumentPage? page) pageAdded,
     required TResult Function(String pageName) pageChanged,
     required TResult Function(String page, int? newIndex) pageReordered,
     required TResult Function(String oldName, String newName) pageRenamed,
@@ -19766,7 +19098,6 @@ class _$AnimationRemoved extends AnimationRemoved {
         elementsArranged,
     required TResult Function(String? name, String? description)
         documentDescriptionChanged,
-    required TResult Function(String path) documentPathChanged,
     required TResult Function(AssetLocation? location) documentSaved,
     required TResult Function(Tool tool) toolCreated,
     required TResult Function(Map<int, Tool> tools) toolsChanged,
@@ -19814,7 +19145,7 @@ class _$AnimationRemoved extends AnimationRemoved {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(DocumentPage page, int? index)? pageAdded,
+    TResult? Function(int? index, DocumentPage? page)? pageAdded,
     TResult? Function(String pageName)? pageChanged,
     TResult? Function(String page, int? newIndex)? pageReordered,
     TResult? Function(String oldName, String newName)? pageRenamed,
@@ -19830,7 +19161,6 @@ class _$AnimationRemoved extends AnimationRemoved {
         elementsArranged,
     TResult? Function(String? name, String? description)?
         documentDescriptionChanged,
-    TResult? Function(String path)? documentPathChanged,
     TResult? Function(AssetLocation? location)? documentSaved,
     TResult? Function(Tool tool)? toolCreated,
     TResult? Function(Map<int, Tool> tools)? toolsChanged,
@@ -19872,7 +19202,7 @@ class _$AnimationRemoved extends AnimationRemoved {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(DocumentPage page, int? index)? pageAdded,
+    TResult Function(int? index, DocumentPage? page)? pageAdded,
     TResult Function(String pageName)? pageChanged,
     TResult Function(String page, int? newIndex)? pageReordered,
     TResult Function(String oldName, String newName)? pageRenamed,
@@ -19888,7 +19218,6 @@ class _$AnimationRemoved extends AnimationRemoved {
         elementsArranged,
     TResult Function(String? name, String? description)?
         documentDescriptionChanged,
-    TResult Function(String path)? documentPathChanged,
     TResult Function(AssetLocation? location)? documentSaved,
     TResult Function(Tool tool)? toolCreated,
     TResult Function(Map<int, Tool> tools)? toolsChanged,
@@ -19948,7 +19277,6 @@ class _$AnimationRemoved extends AnimationRemoved {
     required TResult Function(ElementsArranged value) elementsArranged,
     required TResult Function(DocumentDescriptionChanged value)
         documentDescriptionChanged,
-    required TResult Function(DocumentPathChanged value) documentPathChanged,
     required TResult Function(DocumentSaved value) documentSaved,
     required TResult Function(ToolCreated value) toolCreated,
     required TResult Function(ToolsChanged value) toolsChanged,
@@ -20006,7 +19334,6 @@ class _$AnimationRemoved extends AnimationRemoved {
     TResult? Function(ElementsArranged value)? elementsArranged,
     TResult? Function(DocumentDescriptionChanged value)?
         documentDescriptionChanged,
-    TResult? Function(DocumentPathChanged value)? documentPathChanged,
     TResult? Function(DocumentSaved value)? documentSaved,
     TResult? Function(ToolCreated value)? toolCreated,
     TResult? Function(ToolsChanged value)? toolsChanged,
@@ -20061,7 +19388,6 @@ class _$AnimationRemoved extends AnimationRemoved {
     TResult Function(ElementsArranged value)? elementsArranged,
     TResult Function(DocumentDescriptionChanged value)?
         documentDescriptionChanged,
-    TResult Function(DocumentPathChanged value)? documentPathChanged,
     TResult Function(DocumentSaved value)? documentSaved,
     TResult Function(ToolCreated value)? toolCreated,
     TResult Function(ToolsChanged value)? toolsChanged,
@@ -20105,30 +19431,31 @@ class _$AnimationRemoved extends AnimationRemoved {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$AnimationRemovedToJson(
+    return _$$AnimationRemovedImplToJson(
       this,
     );
   }
 }
 
 abstract class AnimationRemoved extends DocumentEvent {
-  const factory AnimationRemoved(final String name) = _$AnimationRemoved;
+  const factory AnimationRemoved(final String name) = _$AnimationRemovedImpl;
   const AnimationRemoved._() : super._();
 
   factory AnimationRemoved.fromJson(Map<String, dynamic> json) =
-      _$AnimationRemoved.fromJson;
+      _$AnimationRemovedImpl.fromJson;
 
   String get name;
   @JsonKey(ignore: true)
-  _$$AnimationRemovedCopyWith<_$AnimationRemoved> get copyWith =>
+  _$$AnimationRemovedImplCopyWith<_$AnimationRemovedImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$PresentationModeEnteredCopyWith<$Res> {
-  factory _$$PresentationModeEnteredCopyWith(_$PresentationModeEntered value,
-          $Res Function(_$PresentationModeEntered) then) =
-      __$$PresentationModeEnteredCopyWithImpl<$Res>;
+abstract class _$$PresentationModeEnteredImplCopyWith<$Res> {
+  factory _$$PresentationModeEnteredImplCopyWith(
+          _$PresentationModeEnteredImpl value,
+          $Res Function(_$PresentationModeEnteredImpl) then) =
+      __$$PresentationModeEnteredImplCopyWithImpl<$Res>;
   @useResult
   $Res call({AnimationTrack track, bool fullScreen});
 
@@ -20136,11 +19463,12 @@ abstract class _$$PresentationModeEnteredCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$PresentationModeEnteredCopyWithImpl<$Res>
-    extends _$DocumentEventCopyWithImpl<$Res, _$PresentationModeEntered>
-    implements _$$PresentationModeEnteredCopyWith<$Res> {
-  __$$PresentationModeEnteredCopyWithImpl(_$PresentationModeEntered _value,
-      $Res Function(_$PresentationModeEntered) _then)
+class __$$PresentationModeEnteredImplCopyWithImpl<$Res>
+    extends _$DocumentEventCopyWithImpl<$Res, _$PresentationModeEnteredImpl>
+    implements _$$PresentationModeEnteredImplCopyWith<$Res> {
+  __$$PresentationModeEnteredImplCopyWithImpl(
+      _$PresentationModeEnteredImpl _value,
+      $Res Function(_$PresentationModeEnteredImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -20149,7 +19477,7 @@ class __$$PresentationModeEnteredCopyWithImpl<$Res>
     Object? track = null,
     Object? fullScreen = null,
   }) {
-    return _then(_$PresentationModeEntered(
+    return _then(_$PresentationModeEnteredImpl(
       null == track
           ? _value.track
           : track // ignore: cast_nullable_to_non_nullable
@@ -20172,14 +19500,14 @@ class __$$PresentationModeEnteredCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$PresentationModeEntered extends PresentationModeEntered {
-  const _$PresentationModeEntered(this.track, this.fullScreen,
+class _$PresentationModeEnteredImpl extends PresentationModeEntered {
+  const _$PresentationModeEnteredImpl(this.track, this.fullScreen,
       {final String? $type})
       : $type = $type ?? 'presentationModeEntered',
         super._();
 
-  factory _$PresentationModeEntered.fromJson(Map<String, dynamic> json) =>
-      _$$PresentationModeEnteredFromJson(json);
+  factory _$PresentationModeEnteredImpl.fromJson(Map<String, dynamic> json) =>
+      _$$PresentationModeEnteredImplFromJson(json);
 
   @override
   final AnimationTrack track;
@@ -20198,7 +19526,7 @@ class _$PresentationModeEntered extends PresentationModeEntered {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$PresentationModeEntered &&
+            other is _$PresentationModeEnteredImpl &&
             (identical(other.track, track) || other.track == track) &&
             (identical(other.fullScreen, fullScreen) ||
                 other.fullScreen == fullScreen));
@@ -20211,14 +19539,14 @@ class _$PresentationModeEntered extends PresentationModeEntered {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$PresentationModeEnteredCopyWith<_$PresentationModeEntered> get copyWith =>
-      __$$PresentationModeEnteredCopyWithImpl<_$PresentationModeEntered>(
-          this, _$identity);
+  _$$PresentationModeEnteredImplCopyWith<_$PresentationModeEnteredImpl>
+      get copyWith => __$$PresentationModeEnteredImplCopyWithImpl<
+          _$PresentationModeEnteredImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(DocumentPage page, int? index) pageAdded,
+    required TResult Function(int? index, DocumentPage? page) pageAdded,
     required TResult Function(String pageName) pageChanged,
     required TResult Function(String page, int? newIndex) pageReordered,
     required TResult Function(String oldName, String newName) pageRenamed,
@@ -20235,7 +19563,6 @@ class _$PresentationModeEntered extends PresentationModeEntered {
         elementsArranged,
     required TResult Function(String? name, String? description)
         documentDescriptionChanged,
-    required TResult Function(String path) documentPathChanged,
     required TResult Function(AssetLocation? location) documentSaved,
     required TResult Function(Tool tool) toolCreated,
     required TResult Function(Map<int, Tool> tools) toolsChanged,
@@ -20283,7 +19610,7 @@ class _$PresentationModeEntered extends PresentationModeEntered {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(DocumentPage page, int? index)? pageAdded,
+    TResult? Function(int? index, DocumentPage? page)? pageAdded,
     TResult? Function(String pageName)? pageChanged,
     TResult? Function(String page, int? newIndex)? pageReordered,
     TResult? Function(String oldName, String newName)? pageRenamed,
@@ -20299,7 +19626,6 @@ class _$PresentationModeEntered extends PresentationModeEntered {
         elementsArranged,
     TResult? Function(String? name, String? description)?
         documentDescriptionChanged,
-    TResult? Function(String path)? documentPathChanged,
     TResult? Function(AssetLocation? location)? documentSaved,
     TResult? Function(Tool tool)? toolCreated,
     TResult? Function(Map<int, Tool> tools)? toolsChanged,
@@ -20341,7 +19667,7 @@ class _$PresentationModeEntered extends PresentationModeEntered {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(DocumentPage page, int? index)? pageAdded,
+    TResult Function(int? index, DocumentPage? page)? pageAdded,
     TResult Function(String pageName)? pageChanged,
     TResult Function(String page, int? newIndex)? pageReordered,
     TResult Function(String oldName, String newName)? pageRenamed,
@@ -20357,7 +19683,6 @@ class _$PresentationModeEntered extends PresentationModeEntered {
         elementsArranged,
     TResult Function(String? name, String? description)?
         documentDescriptionChanged,
-    TResult Function(String path)? documentPathChanged,
     TResult Function(AssetLocation? location)? documentSaved,
     TResult Function(Tool tool)? toolCreated,
     TResult Function(Map<int, Tool> tools)? toolsChanged,
@@ -20417,7 +19742,6 @@ class _$PresentationModeEntered extends PresentationModeEntered {
     required TResult Function(ElementsArranged value) elementsArranged,
     required TResult Function(DocumentDescriptionChanged value)
         documentDescriptionChanged,
-    required TResult Function(DocumentPathChanged value) documentPathChanged,
     required TResult Function(DocumentSaved value) documentSaved,
     required TResult Function(ToolCreated value) toolCreated,
     required TResult Function(ToolsChanged value) toolsChanged,
@@ -20475,7 +19799,6 @@ class _$PresentationModeEntered extends PresentationModeEntered {
     TResult? Function(ElementsArranged value)? elementsArranged,
     TResult? Function(DocumentDescriptionChanged value)?
         documentDescriptionChanged,
-    TResult? Function(DocumentPathChanged value)? documentPathChanged,
     TResult? Function(DocumentSaved value)? documentSaved,
     TResult? Function(ToolCreated value)? toolCreated,
     TResult? Function(ToolsChanged value)? toolsChanged,
@@ -20530,7 +19853,6 @@ class _$PresentationModeEntered extends PresentationModeEntered {
     TResult Function(ElementsArranged value)? elementsArranged,
     TResult Function(DocumentDescriptionChanged value)?
         documentDescriptionChanged,
-    TResult Function(DocumentPathChanged value)? documentPathChanged,
     TResult Function(DocumentSaved value)? documentSaved,
     TResult Function(ToolCreated value)? toolCreated,
     TResult Function(ToolsChanged value)? toolsChanged,
@@ -20574,7 +19896,7 @@ class _$PresentationModeEntered extends PresentationModeEntered {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$PresentationModeEnteredToJson(
+    return _$$PresentationModeEnteredImplToJson(
       this,
     );
   }
@@ -20583,44 +19905,46 @@ class _$PresentationModeEntered extends PresentationModeEntered {
 abstract class PresentationModeEntered extends DocumentEvent {
   const factory PresentationModeEntered(
           final AnimationTrack track, final bool fullScreen) =
-      _$PresentationModeEntered;
+      _$PresentationModeEnteredImpl;
   const PresentationModeEntered._() : super._();
 
   factory PresentationModeEntered.fromJson(Map<String, dynamic> json) =
-      _$PresentationModeEntered.fromJson;
+      _$PresentationModeEnteredImpl.fromJson;
 
   AnimationTrack get track;
   bool get fullScreen;
   @JsonKey(ignore: true)
-  _$$PresentationModeEnteredCopyWith<_$PresentationModeEntered> get copyWith =>
-      throw _privateConstructorUsedError;
+  _$$PresentationModeEnteredImplCopyWith<_$PresentationModeEnteredImpl>
+      get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$PresentationModeExitedCopyWith<$Res> {
-  factory _$$PresentationModeExitedCopyWith(_$PresentationModeExited value,
-          $Res Function(_$PresentationModeExited) then) =
-      __$$PresentationModeExitedCopyWithImpl<$Res>;
+abstract class _$$PresentationModeExitedImplCopyWith<$Res> {
+  factory _$$PresentationModeExitedImplCopyWith(
+          _$PresentationModeExitedImpl value,
+          $Res Function(_$PresentationModeExitedImpl) then) =
+      __$$PresentationModeExitedImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$PresentationModeExitedCopyWithImpl<$Res>
-    extends _$DocumentEventCopyWithImpl<$Res, _$PresentationModeExited>
-    implements _$$PresentationModeExitedCopyWith<$Res> {
-  __$$PresentationModeExitedCopyWithImpl(_$PresentationModeExited _value,
-      $Res Function(_$PresentationModeExited) _then)
+class __$$PresentationModeExitedImplCopyWithImpl<$Res>
+    extends _$DocumentEventCopyWithImpl<$Res, _$PresentationModeExitedImpl>
+    implements _$$PresentationModeExitedImplCopyWith<$Res> {
+  __$$PresentationModeExitedImplCopyWithImpl(
+      _$PresentationModeExitedImpl _value,
+      $Res Function(_$PresentationModeExitedImpl) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 @JsonSerializable()
-class _$PresentationModeExited extends PresentationModeExited {
-  const _$PresentationModeExited({final String? $type})
+class _$PresentationModeExitedImpl extends PresentationModeExited {
+  const _$PresentationModeExitedImpl({final String? $type})
       : $type = $type ?? 'presentationModeExited',
         super._();
 
-  factory _$PresentationModeExited.fromJson(Map<String, dynamic> json) =>
-      _$$PresentationModeExitedFromJson(json);
+  factory _$PresentationModeExitedImpl.fromJson(Map<String, dynamic> json) =>
+      _$$PresentationModeExitedImplFromJson(json);
 
   @JsonKey(name: 'type')
   final String $type;
@@ -20633,7 +19957,8 @@ class _$PresentationModeExited extends PresentationModeExited {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$PresentationModeExited);
+        (other.runtimeType == runtimeType &&
+            other is _$PresentationModeExitedImpl);
   }
 
   @JsonKey(ignore: true)
@@ -20643,7 +19968,7 @@ class _$PresentationModeExited extends PresentationModeExited {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(DocumentPage page, int? index) pageAdded,
+    required TResult Function(int? index, DocumentPage? page) pageAdded,
     required TResult Function(String pageName) pageChanged,
     required TResult Function(String page, int? newIndex) pageReordered,
     required TResult Function(String oldName, String newName) pageRenamed,
@@ -20660,7 +19985,6 @@ class _$PresentationModeExited extends PresentationModeExited {
         elementsArranged,
     required TResult Function(String? name, String? description)
         documentDescriptionChanged,
-    required TResult Function(String path) documentPathChanged,
     required TResult Function(AssetLocation? location) documentSaved,
     required TResult Function(Tool tool) toolCreated,
     required TResult Function(Map<int, Tool> tools) toolsChanged,
@@ -20708,7 +20032,7 @@ class _$PresentationModeExited extends PresentationModeExited {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(DocumentPage page, int? index)? pageAdded,
+    TResult? Function(int? index, DocumentPage? page)? pageAdded,
     TResult? Function(String pageName)? pageChanged,
     TResult? Function(String page, int? newIndex)? pageReordered,
     TResult? Function(String oldName, String newName)? pageRenamed,
@@ -20724,7 +20048,6 @@ class _$PresentationModeExited extends PresentationModeExited {
         elementsArranged,
     TResult? Function(String? name, String? description)?
         documentDescriptionChanged,
-    TResult? Function(String path)? documentPathChanged,
     TResult? Function(AssetLocation? location)? documentSaved,
     TResult? Function(Tool tool)? toolCreated,
     TResult? Function(Map<int, Tool> tools)? toolsChanged,
@@ -20766,7 +20089,7 @@ class _$PresentationModeExited extends PresentationModeExited {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(DocumentPage page, int? index)? pageAdded,
+    TResult Function(int? index, DocumentPage? page)? pageAdded,
     TResult Function(String pageName)? pageChanged,
     TResult Function(String page, int? newIndex)? pageReordered,
     TResult Function(String oldName, String newName)? pageRenamed,
@@ -20782,7 +20105,6 @@ class _$PresentationModeExited extends PresentationModeExited {
         elementsArranged,
     TResult Function(String? name, String? description)?
         documentDescriptionChanged,
-    TResult Function(String path)? documentPathChanged,
     TResult Function(AssetLocation? location)? documentSaved,
     TResult Function(Tool tool)? toolCreated,
     TResult Function(Map<int, Tool> tools)? toolsChanged,
@@ -20842,7 +20164,6 @@ class _$PresentationModeExited extends PresentationModeExited {
     required TResult Function(ElementsArranged value) elementsArranged,
     required TResult Function(DocumentDescriptionChanged value)
         documentDescriptionChanged,
-    required TResult Function(DocumentPathChanged value) documentPathChanged,
     required TResult Function(DocumentSaved value) documentSaved,
     required TResult Function(ToolCreated value) toolCreated,
     required TResult Function(ToolsChanged value) toolsChanged,
@@ -20900,7 +20221,6 @@ class _$PresentationModeExited extends PresentationModeExited {
     TResult? Function(ElementsArranged value)? elementsArranged,
     TResult? Function(DocumentDescriptionChanged value)?
         documentDescriptionChanged,
-    TResult? Function(DocumentPathChanged value)? documentPathChanged,
     TResult? Function(DocumentSaved value)? documentSaved,
     TResult? Function(ToolCreated value)? toolCreated,
     TResult? Function(ToolsChanged value)? toolsChanged,
@@ -20955,7 +20275,6 @@ class _$PresentationModeExited extends PresentationModeExited {
     TResult Function(ElementsArranged value)? elementsArranged,
     TResult Function(DocumentDescriptionChanged value)?
         documentDescriptionChanged,
-    TResult Function(DocumentPathChanged value)? documentPathChanged,
     TResult Function(DocumentSaved value)? documentSaved,
     TResult Function(ToolCreated value)? toolCreated,
     TResult Function(ToolsChanged value)? toolsChanged,
@@ -20999,35 +20318,35 @@ class _$PresentationModeExited extends PresentationModeExited {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$PresentationModeExitedToJson(
+    return _$$PresentationModeExitedImplToJson(
       this,
     );
   }
 }
 
 abstract class PresentationModeExited extends DocumentEvent {
-  const factory PresentationModeExited() = _$PresentationModeExited;
+  const factory PresentationModeExited() = _$PresentationModeExitedImpl;
   const PresentationModeExited._() : super._();
 
   factory PresentationModeExited.fromJson(Map<String, dynamic> json) =
-      _$PresentationModeExited.fromJson;
+      _$PresentationModeExitedImpl.fromJson;
 }
 
 /// @nodoc
-abstract class _$$PresentationTickCopyWith<$Res> {
-  factory _$$PresentationTickCopyWith(
-          _$PresentationTick value, $Res Function(_$PresentationTick) then) =
-      __$$PresentationTickCopyWithImpl<$Res>;
+abstract class _$$PresentationTickImplCopyWith<$Res> {
+  factory _$$PresentationTickImplCopyWith(_$PresentationTickImpl value,
+          $Res Function(_$PresentationTickImpl) then) =
+      __$$PresentationTickImplCopyWithImpl<$Res>;
   @useResult
   $Res call({int tick});
 }
 
 /// @nodoc
-class __$$PresentationTickCopyWithImpl<$Res>
-    extends _$DocumentEventCopyWithImpl<$Res, _$PresentationTick>
-    implements _$$PresentationTickCopyWith<$Res> {
-  __$$PresentationTickCopyWithImpl(
-      _$PresentationTick _value, $Res Function(_$PresentationTick) _then)
+class __$$PresentationTickImplCopyWithImpl<$Res>
+    extends _$DocumentEventCopyWithImpl<$Res, _$PresentationTickImpl>
+    implements _$$PresentationTickImplCopyWith<$Res> {
+  __$$PresentationTickImplCopyWithImpl(_$PresentationTickImpl _value,
+      $Res Function(_$PresentationTickImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -21035,7 +20354,7 @@ class __$$PresentationTickCopyWithImpl<$Res>
   $Res call({
     Object? tick = null,
   }) {
-    return _then(_$PresentationTick(
+    return _then(_$PresentationTickImpl(
       null == tick
           ? _value.tick
           : tick // ignore: cast_nullable_to_non_nullable
@@ -21046,13 +20365,13 @@ class __$$PresentationTickCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$PresentationTick extends PresentationTick {
-  const _$PresentationTick(this.tick, {final String? $type})
+class _$PresentationTickImpl extends PresentationTick {
+  const _$PresentationTickImpl(this.tick, {final String? $type})
       : $type = $type ?? 'presentationTick',
         super._();
 
-  factory _$PresentationTick.fromJson(Map<String, dynamic> json) =>
-      _$$PresentationTickFromJson(json);
+  factory _$PresentationTickImpl.fromJson(Map<String, dynamic> json) =>
+      _$$PresentationTickImplFromJson(json);
 
   @override
   final int tick;
@@ -21069,7 +20388,7 @@ class _$PresentationTick extends PresentationTick {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$PresentationTick &&
+            other is _$PresentationTickImpl &&
             (identical(other.tick, tick) || other.tick == tick));
   }
 
@@ -21080,13 +20399,14 @@ class _$PresentationTick extends PresentationTick {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$PresentationTickCopyWith<_$PresentationTick> get copyWith =>
-      __$$PresentationTickCopyWithImpl<_$PresentationTick>(this, _$identity);
+  _$$PresentationTickImplCopyWith<_$PresentationTickImpl> get copyWith =>
+      __$$PresentationTickImplCopyWithImpl<_$PresentationTickImpl>(
+          this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(DocumentPage page, int? index) pageAdded,
+    required TResult Function(int? index, DocumentPage? page) pageAdded,
     required TResult Function(String pageName) pageChanged,
     required TResult Function(String page, int? newIndex) pageReordered,
     required TResult Function(String oldName, String newName) pageRenamed,
@@ -21103,7 +20423,6 @@ class _$PresentationTick extends PresentationTick {
         elementsArranged,
     required TResult Function(String? name, String? description)
         documentDescriptionChanged,
-    required TResult Function(String path) documentPathChanged,
     required TResult Function(AssetLocation? location) documentSaved,
     required TResult Function(Tool tool) toolCreated,
     required TResult Function(Map<int, Tool> tools) toolsChanged,
@@ -21151,7 +20470,7 @@ class _$PresentationTick extends PresentationTick {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(DocumentPage page, int? index)? pageAdded,
+    TResult? Function(int? index, DocumentPage? page)? pageAdded,
     TResult? Function(String pageName)? pageChanged,
     TResult? Function(String page, int? newIndex)? pageReordered,
     TResult? Function(String oldName, String newName)? pageRenamed,
@@ -21167,7 +20486,6 @@ class _$PresentationTick extends PresentationTick {
         elementsArranged,
     TResult? Function(String? name, String? description)?
         documentDescriptionChanged,
-    TResult? Function(String path)? documentPathChanged,
     TResult? Function(AssetLocation? location)? documentSaved,
     TResult? Function(Tool tool)? toolCreated,
     TResult? Function(Map<int, Tool> tools)? toolsChanged,
@@ -21209,7 +20527,7 @@ class _$PresentationTick extends PresentationTick {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(DocumentPage page, int? index)? pageAdded,
+    TResult Function(int? index, DocumentPage? page)? pageAdded,
     TResult Function(String pageName)? pageChanged,
     TResult Function(String page, int? newIndex)? pageReordered,
     TResult Function(String oldName, String newName)? pageRenamed,
@@ -21225,7 +20543,6 @@ class _$PresentationTick extends PresentationTick {
         elementsArranged,
     TResult Function(String? name, String? description)?
         documentDescriptionChanged,
-    TResult Function(String path)? documentPathChanged,
     TResult Function(AssetLocation? location)? documentSaved,
     TResult Function(Tool tool)? toolCreated,
     TResult Function(Map<int, Tool> tools)? toolsChanged,
@@ -21285,7 +20602,6 @@ class _$PresentationTick extends PresentationTick {
     required TResult Function(ElementsArranged value) elementsArranged,
     required TResult Function(DocumentDescriptionChanged value)
         documentDescriptionChanged,
-    required TResult Function(DocumentPathChanged value) documentPathChanged,
     required TResult Function(DocumentSaved value) documentSaved,
     required TResult Function(ToolCreated value) toolCreated,
     required TResult Function(ToolsChanged value) toolsChanged,
@@ -21343,7 +20659,6 @@ class _$PresentationTick extends PresentationTick {
     TResult? Function(ElementsArranged value)? elementsArranged,
     TResult? Function(DocumentDescriptionChanged value)?
         documentDescriptionChanged,
-    TResult? Function(DocumentPathChanged value)? documentPathChanged,
     TResult? Function(DocumentSaved value)? documentSaved,
     TResult? Function(ToolCreated value)? toolCreated,
     TResult? Function(ToolsChanged value)? toolsChanged,
@@ -21398,7 +20713,6 @@ class _$PresentationTick extends PresentationTick {
     TResult Function(ElementsArranged value)? elementsArranged,
     TResult Function(DocumentDescriptionChanged value)?
         documentDescriptionChanged,
-    TResult Function(DocumentPathChanged value)? documentPathChanged,
     TResult Function(DocumentSaved value)? documentSaved,
     TResult Function(ToolCreated value)? toolCreated,
     TResult Function(ToolsChanged value)? toolsChanged,
@@ -21442,21 +20756,21 @@ class _$PresentationTick extends PresentationTick {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$PresentationTickToJson(
+    return _$$PresentationTickImplToJson(
       this,
     );
   }
 }
 
 abstract class PresentationTick extends DocumentEvent {
-  const factory PresentationTick(final int tick) = _$PresentationTick;
+  const factory PresentationTick(final int tick) = _$PresentationTickImpl;
   const PresentationTick._() : super._();
 
   factory PresentationTick.fromJson(Map<String, dynamic> json) =
-      _$PresentationTick.fromJson;
+      _$PresentationTickImpl.fromJson;
 
   int get tick;
   @JsonKey(ignore: true)
-  _$$PresentationTickCopyWith<_$PresentationTick> get copyWith =>
+  _$$PresentationTickImplCopyWith<_$PresentationTickImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

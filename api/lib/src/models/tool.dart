@@ -164,6 +164,7 @@ sealed class Tool with _$Tool {
     @Default('') String name,
     @Default('') String displayIcon,
     @Default(ImportType.document) ImportType importType,
+    @Default(true) bool advanced,
   }) = AssetTool;
 
   factory Tool.texture({
@@ -175,6 +176,11 @@ sealed class Tool with _$Tool {
     @Default(0) double constrainedAspectRatio,
     @Default(SurfaceTexture.pattern()) SurfaceTexture texture,
   }) = TextureTool;
+
+  factory Tool.eyeDropper({
+    @Default('') String name,
+    @Default('') String displayIcon,
+  }) = EyeDropperTool;
 
   factory Tool.fromJson(Map<String, dynamic> json) => _$ToolFromJson(json);
 }

@@ -13,8 +13,11 @@ Hay algunos atajos que puedes usar en el editor. Algunos de ellos se escriben de
 * `Ctrl` + `N`: Nuevo archivo
 * `Ctrl` + `Shift` + `N`: Nuevo archivo de plantilla
 * `Ctrl` + `E`: Exportar archivo
+* `Ctrl` + `P`: Imprimir archivo
 * `Ctrl` + `Shift` + `E`: Exportar archivo como imagen
 * `Ctrl` + `Alt` + `E`: Exportar archivo como svg
+* `Ctrl` + `Alt` + `Mayús` + `E`: Exportar archivo como svg
+* `Ctrl` + `Alt` + `P`: Abrir packs
 * `Ctrl` + `Alt` + `S`: Abrir ajustes
 
 ### Projekt
@@ -28,6 +31,8 @@ Hay algunos atajos que puedes usar en el editor. Algunos de ellos se escriben de
 * `Ctrl` + `S`: Guardar
 * `Alt` + `S`: Cambiar ruta
 * `Ctrl` + (`1` - `0`): Cambiar a herramienta
+* `Ctrl` + `+`: Acercamiento en
+* `Ctrl` + `-`: Acercar el zoom
 
 ## Stylus
 

@@ -6,7 +6,7 @@ part of 'page.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_DocumentPage _$$_DocumentPageFromJson(Map json) => _$_DocumentPage(
+_$DocumentPageImpl _$$DocumentPageImplFromJson(Map json) => _$DocumentPageImpl(
       animations: (json['animations'] as List<dynamic>?)
               ?.map((e) =>
                   AnimationTrack.fromJson(Map<String, dynamic>.from(e as Map)))
@@ -33,7 +33,7 @@ _$_DocumentPage _$$_DocumentPageFromJson(Map json) => _$_DocumentPage(
           const [],
     );
 
-Map<String, dynamic> _$$_DocumentPageToJson(_$_DocumentPage instance) =>
+Map<String, dynamic> _$$DocumentPageImplToJson(_$DocumentPageImpl instance) =>
     <String, dynamic>{
       'animations': instance.animations.map((e) => e.toJson()).toList(),
       'content': instance.content.map((e) => e.toJson()).toList(),

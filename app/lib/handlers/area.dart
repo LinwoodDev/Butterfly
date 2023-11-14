@@ -37,7 +37,7 @@ class AreaHandler extends Handler<AreaTool> {
               width: rect.width,
               height: rect.height,
               position: rect.topLeft.toPoint())),
-        ...page.areas.map((e) => AreaForegroundRenderer(e)).toList()
+        ...page.areas.map((e) => AreaForegroundRenderer(e))
       ],
     ];
   }
@@ -54,7 +54,7 @@ class AreaHandler extends Handler<AreaTool> {
         context.getCameraTransform().localToGlobal(details.localFocalPoint);
 
     start = globalPosition;
-    return false;
+    return true;
   }
 
   @override

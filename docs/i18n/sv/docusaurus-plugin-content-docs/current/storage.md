@@ -3,6 +3,12 @@ title: "Lagring"
 sidebar_position: 2
 ---
 
+## Datakatalog
+
+Datakatalogen är den katalog där dokument, mallar och paket lagras. På skrivbordet hittar du den i `~/Documents/Linwood/Butterfly`. På mobilen finns den i `getExternalFilesDir(null)/Linwood/Butterfly`. Du kan också ändra det i inställningarna under `Data`.
+
+I den här katalogen hittar du en mapp `Dokument`, `Mallar` och `Paket`.
+
 ## Webb
 
 Applikationsdata lagras i din webbläsare. Den lagras i en lokal lagring. Öppna utvecklarverktygen i din webbläsare och du kommer att se uppgifterna.
@@ -19,7 +25,7 @@ Denna funktion är inte tillgänglig på webben.
 
 :::
 
-Applikationen kan sparas på en fjärrserver. Detta är användbart om du vill dela data med andra människor eller om du har flera datorer. För närvarande stöds endast `WebDAV` -protokollet.
+Applikationen kan sparas på en fjärrserver. Detta är användbart om du vill dela data med andra människor eller om du har flera datorer. För närvarande stöds endast `WebDAV` protokollet.
 
 För att lägga till en fjärrserver, gå till inställningarna och klicka på `Remotes`. Klicka sedan på `Add remote`. Lägg till URL till fjärrservern och användarnamn och lösenord. Därefter kan du ange den mapp där data lagras.
 

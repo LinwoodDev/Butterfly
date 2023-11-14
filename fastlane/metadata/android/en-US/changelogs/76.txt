@@ -1,0 +1,16 @@
+* Add local directory connection
+* Add zoom shortcuts ([#507](https://github.com/LinwoodDev/Butterfly/issues/507))
+* Add moving using trackpad ([#507](https://github.com/LinwoodDev/Butterfly/issues/507))
+* Add name to hand tool selection
+* Add default template file creation in home page
+* Change remote button dropdown to material 3
+* Allow more valid file names
+* Improve command line argument parsing
+* Fix home page header ([#510](https://github.com/LinwoodDev/Butterfly/issues/510))
+* Fix offset in scaling multiple elements ([#506](https://github.com/LinwoodDev/Butterfly/issues/506))
+* Fix opening animation in zoom view
+* Fix broken legacy file migrator
+* Fix default template on multiple connections
+* Fix expansion panel in add connection dialog
+
+View all changes in the blog: https://linwood.dev/butterfly/2.0.0-beta.12

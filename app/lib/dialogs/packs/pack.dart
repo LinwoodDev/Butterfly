@@ -2,6 +2,7 @@ import 'package:butterfly/models/defaults.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import 'components.dart';
@@ -70,15 +71,9 @@ class _PackDialogState extends State<PackDialog> {
                         AppLocalizations.of(context).palettes
                       )
                     ]
-                        .map((e) => Tab(
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  PhosphorIcon(e.$1),
-                                  const SizedBox(width: 8),
-                                  Text(e.$2),
-                                ],
-                              ),
+                        .map((e) => HorizontalTab(
+                              icon: PhosphorIcon(e.$1),
+                              label: Text(e.$2),
                             ))
                         .toList()),
               const SizedBox(height: 8),

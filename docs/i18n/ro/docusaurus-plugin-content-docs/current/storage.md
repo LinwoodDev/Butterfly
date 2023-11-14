@@ -3,6 +3,12 @@ title: "Depozitare"
 sidebar_position: 2
 ---
 
+## Director de date
+
+Dosarul cu date este directorul unde sunt stocate documentele, șabloanele și pachetele. Pe desktop îl poți găsi în `~/Documents/Linwood/Butterfly`. Pe mobil este în `getExternalFilesDir(null)/Linwood/Butterfly`. De asemenea, îl puteți modifica în setările de la `Data`.
+
+În acest director veţi găsi un folder `Documents`, `Templates` şi `Pachete`.
+
 ## Web
 
 Datele aplicației sunt stocate în browser-ul tău. Este stocat într-un spaţiu de stocare local. Deschideți instrumentele de dezvoltare din browser și veți vedea datele.
@@ -21,7 +27,7 @@ Această caracteristică nu este disponibilă pe web.
 
 Aplicația poate fi salvată pe un server de la distanță. Acest lucru este util dacă doriți să partajați datele cu alte persoane sau dacă aveți mai multe computere. În prezent, numai protocolul `WebDAV` este acceptat.
 
-Pentru a adăuga un server de la distanţă, accesaţi setările şi faceţi clic pe `Remotes`. Apoi faceţi clic pe `Adăugare la distanţă`. Adăugați adresa URL a serverului remote și numele de utilizator și parola. După aceasta, puteți specifica folderul în care sunt stocate datele.
+Pentru a adăuga un server de la distanţă, accesaţi setările şi faceţi clic pe `Remotes`. Apoi apasă pe `Adaugă la distanță`. Adăugați adresa URL a serverului remote și numele de utilizator și parola. După aceasta, puteți specifica folderul în care sunt stocate datele.
 
 Pentru a obține url-ul webdac, vă rugăm să vizitați documentația:
 

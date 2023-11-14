@@ -16,7 +16,7 @@ enum DocumentPermission { read, write, admin }
 class DocumentEvent extends ReplayEvent with _$DocumentEvent {
   const DocumentEvent._();
 
-  const factory DocumentEvent.pageAdded(DocumentPage page, [int? index]) =
+  const factory DocumentEvent.pageAdded([int? index, DocumentPage? page]) =
       PageAdded;
 
   const factory DocumentEvent.pageChanged(
@@ -61,9 +61,6 @@ class DocumentEvent extends ReplayEvent with _$DocumentEvent {
     String? name,
     String? description,
   }) = DocumentDescriptionChanged;
-
-  const factory DocumentEvent.documentPathChanged(String path) =
-      DocumentPathChanged;
 
   const factory DocumentEvent.documentSaved([AssetLocation? location]) =
       DocumentSaved;
@@ -202,7 +199,6 @@ class DocumentEvent extends ReplayEvent with _$DocumentEvent {
         currentLayerChanged: (_) => false,
         templateCreated: (_) => false,
         documentSaved: (_) => false,
-        documentPathChanged: (_) => false,
         currentAreaChanged: (_) => false,
         layerVisibilityChanged: (_) => false,
         utilitiesChanged: (_) => false,

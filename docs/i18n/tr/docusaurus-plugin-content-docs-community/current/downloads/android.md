@@ -3,10 +3,6 @@ title: "Android"
 sidebar_position: 4
 ---
 
-```mdx-code-block
-import DownloadButton from '@site/src/components/DownloadButton.tsx';
-```
-
 ![Kararlı sürüm](https://img.shields.io/badge/dynamic/yaml?color=c4840d&label=Stable&query=%24.version&url=https%3A%2F%2Fraw.githubusercontent.com%2FLinwoodDev%2Fbutterfly%2Fstable%2Fapp%2Fpubspec.yaml&style=for-the-badge) ![Nightly release version](https://img.shields.io/badge/dynamic/yaml?color=f7d28c&label=Nightly&query=%24.version&url=https%3A%2F%2Fraw.githubusercontent.com%2FLinwoodDev%2Fbutterfly%2Fnightly%2Fapp%2Fpubspec.yaml&style=for-the-badge)
 
 ## Minimum sistem gereksinimleri
@@ -29,12 +25,12 @@ Butterfly'ın nightly sürümü hakkında daha fazla bilgiyi [buradan](/nightly)
 ## Mağazalar
 
 <div className="row margin-bottom--lg padding--sm">
-<a className="button button--outline button--primary button--lg margin--sm" href="https://play.google.com/store/apps/details?id=dev.linwood.butterfly">
+<Link className="button button--outline button--primary button--lg margin--sm" href="https://play.google.com/store/apps/details?id=dev.linwood.butterfly">
   Play Store
-</a>
-<a className="button button--outline button--primary button--lg margin--sm" href="https://f-droid.org/de/packages/dev.linwood.butterfly">
+</Link>
+<Link className="button button--outline button--primary button--lg margin--sm" href="https://f-droid.org/de/packages/dev.linwood.butterfly">
   F-Droid
-</a>
+</Link>
 </div>
 
 ## Play Store'daki beta programı

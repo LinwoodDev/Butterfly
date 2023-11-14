@@ -24,11 +24,11 @@
     "description": "Navbar item with label More"
   },
   "item.label.Matrix": {
-    "message": "Matrix",
+    "message": "مصفوفة",
     "description": "Navbar item with label Matrix"
   },
   "item.label.Discord": {
-    "message": "Discord",
+    "message": "ديسكورد",
     "description": "Navbar item with label Discord"
   },
   "item.label.GitHub": {

@@ -120,28 +120,17 @@ extension HandTransformCornerExtension on HandTransformCorner {
     }
   }
 
-  Offset getFromRect(Rect rect) {
-    switch (this) {
-      case HandTransformCorner.topLeft:
-        return rect.topLeft;
-      case HandTransformCorner.topCenter:
-        return rect.topCenter;
-      case HandTransformCorner.topRight:
-        return rect.topRight;
-      case HandTransformCorner.centerLeft:
-        return rect.centerLeft;
-      case HandTransformCorner.centerRight:
-        return rect.centerRight;
-      case HandTransformCorner.bottomLeft:
-        return rect.bottomLeft;
-      case HandTransformCorner.bottomCenter:
-        return rect.bottomCenter;
-      case HandTransformCorner.bottomRight:
-        return rect.bottomRight;
-      case HandTransformCorner.center:
-        return rect.center;
-    }
-  }
+  Offset getFromRect(Rect rect) => switch (this) {
+        HandTransformCorner.topLeft => rect.topLeft,
+        HandTransformCorner.topCenter => rect.topCenter,
+        HandTransformCorner.topRight => rect.topRight,
+        HandTransformCorner.centerLeft => rect.centerLeft,
+        HandTransformCorner.centerRight => rect.centerRight,
+        HandTransformCorner.bottomLeft => rect.bottomLeft,
+        HandTransformCorner.bottomCenter => rect.bottomCenter,
+        HandTransformCorner.bottomRight => rect.bottomRight,
+        HandTransformCorner.center => rect.center,
+      };
 }
 
 class SelectHandler extends Handler<SelectTool> {
@@ -149,6 +138,7 @@ class SelectHandler extends Handler<SelectTool> {
   HandTransformCorner? _transformCorner;
   List<Renderer<PadElement>> _selected = [];
   List<Renderer<PadElement>> _transformed = [];
+  bool _duplicate = false;
   Offset? _transformStartOffset;
   Offset? _contextMenuOffset;
   Rect? _rectangleFreeSelection;
@@ -173,14 +163,13 @@ class SelectHandler extends Handler<SelectTool> {
     _selected = [];
     _transformCorner = corner;
     _transformStartOffset = _currentMousePosition;
-    if (!duplicate) {
-      final state = bloc.state;
-      if (state is! DocumentLoaded) return;
-      bloc.add(ElementsRemoved(
-          next.map((e) => state.page.content.indexOf(e.element)).toList()));
-    }
+    _duplicate = duplicate;
     bloc.refresh();
   }
+
+  @override
+  Map<Renderer, RendererState> get rendererStates => Map.fromEntries(
+      _transformed.map((e) => MapEntry(e, RendererState.hidden)));
 
   @override
   void resetInput(DocumentBloc bloc) {
@@ -212,21 +201,24 @@ class SelectHandler extends Handler<SelectTool> {
   }
 
   @override
-  bool onRendererUpdated(DocumentPage page, Renderer old, Renderer updated) {
+  bool onRendererUpdated(
+      DocumentPage page, Renderer old, List<Renderer> updated) {
+    bool changed = false;
     if (old is Renderer<PadElement> &&
         _selected.contains(old) &&
-        updated is Renderer<PadElement>) {
+        updated is List<Renderer<PadElement>>) {
       _selected.remove(old);
-      _selected.add(updated);
-    } else if (old is Renderer<PadElement> &&
-        _transformed.contains(old) &&
-        updated is Renderer<PadElement>) {
-      _transformed.remove(old);
-      _transformed.add(updated);
-    } else {
-      return false;
+      _selected.addAll(updated);
+      changed = true;
     }
-    return true;
+    if (old is Renderer<PadElement> &&
+        _transformed.contains(old) &&
+        updated is List<Renderer<PadElement>>) {
+      _transformed.remove(old);
+      _transformed.addAll(updated);
+      changed = true;
+    }
+    return changed;
   }
 
   Rect? getSelectionRect() {
@@ -316,7 +308,7 @@ class SelectHandler extends Handler<SelectTool> {
       var diff = oldPos - transformRect.topLeft;
       // Scale and calculate relative position based on transformRect
       var newPos =
-          -Offset(diff.dx * scaleX, diff.dy * scaleY) + position + diff;
+          Offset(diff.dx * (scaleX - 1), diff.dy * (scaleY - 1)) + position;
       // Rotate around center
       if (rotation != 0) {
         final center = e.expandedRect?.center ?? Offset.zero;
@@ -353,18 +345,20 @@ class SelectHandler extends Handler<SelectTool> {
     return foregrounds;
   }
 
-  Future<bool> _submitTransform(DocumentBloc bloc) async {
+  bool _submitTransform(DocumentBloc bloc) {
     if (_transformed.isEmpty) return false;
     final state = bloc.state;
     if (state is! DocumentLoadSuccess) return false;
     final current = _getTransformed();
-    _selected = current ?? _transformed;
+    _selected = _transformed;
     _transformCorner = null;
-    _transformed = [];
     _transformMode = HandTransformMode.scale;
-    await Future.sync(() =>
-        bloc.add(ElementsCreated(current!.map((e) => e.element).toList())));
-    bloc.refresh();
+    _transformed = [];
+    bloc.add(_duplicate
+        ? ElementsCreated(current!.map((e) => e.element).toList())
+        : ElementsChanged(Map.fromEntries(current!.mapIndexed((i, e) =>
+            MapEntry(state.page.content.indexOf(_selected[i].element),
+                [e.element])))));
     return true;
   }
 
@@ -535,7 +529,7 @@ class SelectHandler extends Handler<SelectTool> {
       return true;
     }
     context.refresh();
-    return false;
+    return true;
   }
 
   @override
@@ -616,7 +610,7 @@ class SelectHandler extends Handler<SelectTool> {
       _rulerRotation = null;
       return;
     }
-    if (await _submitTransform(context.getDocumentBloc())) return;
+    if (_submitTransform(context.getDocumentBloc())) return;
     _lassoFreeSelection = null;
     _rectangleFreeSelection = null;
     if (!context.isCtrlPressed) {

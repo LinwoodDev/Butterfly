@@ -13,8 +13,11 @@ sidebar_position: 2
 * `Ctrl` + `N`: 新文件
 * `Ctrl` + `Shift` + `N`: 来自模板的新文件
 * `Ctrl` + `E`: 导出文件
+* `Ctrl` + `P`: 打印文件
 * `Ctrl` + `Shift` + `E`: 导出文件为图像
 * `Ctrl` + `Alt` + `E`: 导出文件为 svg
+* `Ctrl` + `Alt` + `Shift` + `E`: 导出文件为 svg
+* `Ctrl` + `Alt` + `P`: 打开包
 * `Ctrl` + `Alt` + `S`: 打开设置
 
 ### 项目
@@ -28,6 +31,8 @@ sidebar_position: 2
 * `Ctrl` + `S`: 保存
 * `Alt` + `S`: 更改路径
 * `Ctrl` + (`1` - `0`): 切换到工具
+* `Ctrl` + `+`: 缩放
+* `Ctrl` + `-`: 缩放
 
 ## Stylus
 

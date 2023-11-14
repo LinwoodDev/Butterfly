@@ -25,13 +25,13 @@ const minSize = 500.0;
 class _PropertyViewState extends State<PropertyView>
     with SingleTickerProviderStateMixin {
   late final AnimationController _controller = AnimationController(
-    duration: const Duration(milliseconds: 300),
+    duration: const Duration(milliseconds: 200),
     vsync: this,
   );
   late final Animation<Offset> _offsetAnimation = Tween<Offset>(
     begin: Offset.zero,
     end: const Offset(1.5, 0.0),
-  ).animate(CurvedAnimation(parent: _controller, curve: Curves.bounceInOut));
+  ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeInOutCubic));
   final _scrollController = ScrollController();
 
   double _size = minSize;
@@ -132,6 +132,12 @@ class _PropertyViewState extends State<PropertyView>
                                               controller.close();
                                             }))
                                   .toList();
+                          final icon = PhosphorIcon(
+                            selection.icon(multi
+                                ? PhosphorIconsStyle.fill
+                                : PhosphorIconsStyle.light),
+                            color: Theme.of(context).iconTheme.color,
+                          );
                           return Column(
                             mainAxisSize: MainAxisSize.min,
                             crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -139,29 +145,24 @@ class _PropertyViewState extends State<PropertyView>
                               Header(
                                 title:
                                     Text(selection.getLocalizedName(context)),
-                                leading: MenuAnchor(
-                                  controller: controller,
-                                  builder: (context, controller, child) =>
-                                      IconButton(
-                                    icon: PhosphorIcon(
-                                      selection!.icon(multi
-                                          ? PhosphorIconsStyle.fill
-                                          : PhosphorIconsStyle.light),
-                                      color: Theme.of(context).iconTheme.color,
-                                    ),
-                                    onPressed: menuChildren.isEmpty
-                                        ? null
-                                        : () => controller.isOpen
-                                            ? controller.close()
-                                            : controller.open(),
-                                  ),
-                                  menuChildren: menuChildren,
-                                ),
+                                leading: menuChildren.length <= 1
+                                    ? icon
+                                    : MenuAnchor(
+                                        controller: controller,
+                                        builder: defaultMenuButton(
+                                          icon: icon,
+                                          tooltip:
+                                              AppLocalizations.of(context).icon,
+                                        ),
+                                        menuChildren: menuChildren,
+                                      ),
                                 actions: [
                                   if (selection.showDeleteButton)
                                     IconButton(
                                         icon: const PhosphorIcon(
                                             PhosphorIconsLight.trash),
+                                        tooltip:
+                                            AppLocalizations.of(context).delete,
                                         onPressed: () {
                                           selection?.onDelete(context);
                                           context

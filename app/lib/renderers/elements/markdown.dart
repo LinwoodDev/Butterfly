@@ -9,7 +9,8 @@ const kParagraphTags = {
   'h5',
   'h6',
   'blockquote',
-  'br'
+  'br',
+  'lio'
 };
 
 class MarkdownRenderer extends GenericTextRenderer<MarkdownElement> {
@@ -45,7 +46,7 @@ class MarkdownRenderer extends GenericTextRenderer<MarkdownElement> {
     return [
       ...(node.children
               ?.expand(
-                (e) => _convertToSpan(e, styleSheet, paragraph, style),
+                (e) => _convertToSpan(e, styleSheet, false, style),
               )
               .toList() ??
           []),
@@ -83,6 +84,7 @@ class MarkdownRenderer extends GenericTextRenderer<MarkdownElement> {
           element.copyWith(
             position: position.toPoint(),
             rotation: rotation,
+            scale: element.scale * max(scaleX, scaleY),
           ),
           context);
 

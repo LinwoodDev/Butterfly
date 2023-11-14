@@ -69,16 +69,17 @@ class _PacksDialogState extends State<PacksDialog>
                     ),
                     if (!widget.globalOnly)
                       TabBar(
+                        tabAlignment: TabAlignment.fill,
                         controller: _controller,
                         tabs: [
-                          Tab(
+                          HorizontalTab(
                             icon: const PhosphorIcon(PhosphorIconsLight.file),
-                            text: AppLocalizations.of(context).document,
+                            label: Text(AppLocalizations.of(context).document),
                           ),
-                          Tab(
+                          HorizontalTab(
                             icon: const PhosphorIcon(
                                 PhosphorIconsLight.appWindow),
-                            text: AppLocalizations.of(context).local,
+                            label: Text(AppLocalizations.of(context).local),
                           ),
                         ],
                       ),
@@ -137,7 +138,10 @@ class _PacksDialogState extends State<PacksDialog>
                                           PackUpdated(metadata.name, newPack));
                                     },
                                     trailing: MenuAnchor(
-                                      builder: defaultMenuButton(),
+                                      builder: defaultMenuButton(
+                                        tooltip: AppLocalizations.of(context)
+                                            .actions,
+                                      ),
                                       menuChildren: [
                                         MenuItemButton(
                                           leadingIcon: const PhosphorIcon(
@@ -256,7 +260,10 @@ class _PacksDialogState extends State<PacksDialog>
                                         setState(() {});
                                       },
                                       trailing: MenuAnchor(
-                                        builder: defaultMenuButton(),
+                                        builder: defaultMenuButton(
+                                          tooltip:
+                                              AppLocalizations.of(context).copy,
+                                        ),
                                         menuChildren: [
                                           if (!widget.globalOnly)
                                             MenuItemButton(

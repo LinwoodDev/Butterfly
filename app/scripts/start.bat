@@ -1,2 +1,2 @@
 @ECHO OFF
-START "" "%~dp0butterfly.exe" --path "%~dp0Data"
+START "" "%~dp0butterfly.exe" --path "%~dp0UserData"

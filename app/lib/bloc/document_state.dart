@@ -17,6 +17,7 @@ abstract class DocumentState extends Equatable {
   String? get pageName => null;
   FileMetadata? get metadata => null;
   AssetService? get assetService => null;
+  CurrentIndexCubit? get currentIndexCubit => null;
   SettingsCubit get settingsCubit;
 }
 
@@ -84,6 +85,7 @@ abstract class DocumentLoaded extends DocumentState {
   SaveState get saved =>
       location.absolute ? SaveState.unsaved : currentIndexCubit.state.saved;
 
+  @override
   CurrentIndexCubit get currentIndexCubit;
 
   Embedding? get embedding => currentIndexCubit.state.embedding;
@@ -198,34 +200,41 @@ class DocumentLoadSuccess extends DocumentLoaded {
                       ?.hasDocumentCached(location.path) ??
                   false)));
 
-  Future<AssetLocation> save() {
-    currentIndexCubit.setSaveState(saved: SaveState.saving);
-    final currentData = saveData();
+  Future<AssetLocation> save([AssetLocation? location]) async {
     final storage = getRemoteStorage();
-    if (embedding != null) return Future.value(AssetLocation.local(''));
+    final fileSystem = DocumentFileSystem.fromPlatform(remote: storage);
+    currentIndexCubit.setSaveState(saved: SaveState.saving, location: location);
+    location ??= this.location;
+    final currentData = saveData();
+    if (embedding != null) return AssetLocation.empty;
     if (!location.path.endsWith('.bfly') ||
         location.absolute ||
         location.fileType != AssetFileType.note) {
-      return DocumentFileSystem.fromPlatform(remote: storage)
-          .importDocument(currentData)
-          .then((value) => value.location)
-        ..then(settingsCubit.addRecentHistory)
-        ..then((value) => currentIndexCubit.setSaveState(
-            location: value, saved: SaveState.saved));
+      final document = await fileSystem.importDocument(currentData);
+      if (document == null) return AssetLocation.empty;
+      await settingsCubit.addRecentHistory(document.location);
+      currentIndexCubit.setSaveState(
+          location: document.location, saved: SaveState.saved);
+      return document.location;
     }
-    return DocumentFileSystem.fromPlatform(remote: storage)
-        .updateDocument(location.path, currentData)
-        .then((value) => value.location)
-      ..then(settingsCubit.addRecentHistory)
-      ..then((value) => currentIndexCubit.setSaveState(
-          location: value, saved: SaveState.saved));
+    await fileSystem.updateDocument(location.path, currentData);
+    settingsCubit.addRecentHistory(location);
+    currentIndexCubit.setSaveState(location: location, saved: SaveState.saved);
+    return location;
   }
 
-  RemoteStorage? getRemoteStorage() => location.remote.isEmpty
+  ExternalStorage? getRemoteStorage() => location.remote.isEmpty
       ? null
       : settingsCubit.state.getRemote(location.remote);
 
   Tool? get tool => currentIndexCubit.state.handler.data;
+
+  AreaPreset get areaPreset => AreaPreset(
+        name: pageName,
+        area: cameraViewport.toArea(),
+        page: pageName,
+        quality: settingsCubit.state.pdfQuality,
+      );
 }
 
 class DocumentPresentationState extends DocumentLoaded {

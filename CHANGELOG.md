@@ -2,6 +2,206 @@
 
 <!--ENTER CHANGELOG HERE-->
 
+## 2.0.0-beta.14 (2023-11-04)
+
+* Add cursor to path eraser
+* Add scrollbar to recent files
+* Add recent colors to color picker
+* Add version to web
+* Add eye dropper
+* Add copy on click for versions in settings dialog ([#519](https://github.com/LinwoodDev/Butterfly/issues/519))
+* Add scaling to markdown and text renderers ([#520](https://github.com/LinwoodDev/Butterfly/issues/520))
+* Show remote on hover in recent files
+* Improve action buttons in add dialog
+* Improve color picker dialog
+* Fix invalidation of selection when transforming ([#517](https://github.com/LinwoodDev/Butterfly/issues/517))
+* Fix folder creation ([#513](https://github.com/LinwoodDev/Butterfly/issues/513))
+* Fix locale spacing
+* Fix pack updating
+* Fix pdf operations on web
+* Fix exporting whole directory ([#523](https://github.com/LinwoodDev/Butterfly/issues/523))
+* Set full screen tool to action tool
+* Fix saving files in local external directory
+* Fixing missing saving of pdf quality and platform theme settings
+
+View all changes in the blog: https://linwood.dev/butterfly/2.0.0-beta.14
+
+## 2.0.0-beta.13 (2023-10-29)
+
+* Allow moving tools when selected
+* Readd recent files ([#512](https://github.com/LinwoodDev/Butterfly/issues/512))
+* Improve responsiveness in home page
+* Improve performance of saving files
+* Fix tool indicator alignment if toolbar is in column mode
+* Fix moving issues when painting
+* Fix painting issues when using gestures
+
+View all changes in the blog: https://linwood.dev/butterfly/2.0.0-beta.13
+
+## 2.0.0-beta.12 (2023-10-27)
+
+* Add local directory connection
+* Add zoom shortcuts ([#507](https://github.com/LinwoodDev/Butterfly/issues/507))
+* Add moving using trackpad ([#507](https://github.com/LinwoodDev/Butterfly/issues/507))
+* Add name to hand tool selection
+* Add default template file creation in home page
+* Change remote button dropdown to material 3
+* Allow more valid file names
+* Improve command line argument parsing
+* Fix home page header ([#510](https://github.com/LinwoodDev/Butterfly/issues/510))
+* Fix offset in scaling multiple elements ([#506](https://github.com/LinwoodDev/Butterfly/issues/506))
+* Fix opening animation in zoom view
+* Fix broken legacy file migrator
+* Fix default template on multiple connections
+* Fix expansion panel in add connection dialog
+
+View all changes in the blog: https://linwood.dev/butterfly/2.0.0-beta.12
+
+## 2.0.0-beta.11 (2023-10-20)
+
+* Add print as export option
+* Add selected animation to color toolbar
+* Use current view as default for pdf export option
+* Improve performance of file fetching
+* Improve home page header
+* Improve slide transition
+* Change user data directory for portable apps
+* Fix leading icon on exact slider on larger screens
+* Remove add connection button on web
+
+View all changes in the blog: https://linwood.dev/butterfly/2.0.0-beta.11
+
+## 2.0.0-beta.10 (2023-10-13)
+
+* Add tooltips to icon buttons
+* Improve delete popover in home page
+* Change file name when changing document name in the title bar
+* Change dropdown in text and paragraph style view to disable if no elements are to be added
+* Change the zoom slider to operate in realtime in style view
+* Change reload button icon in remote button
+* Change name of document when creating create file in files view
+* Rename document directory to data directory
+* Fix adding template instead of document when clicking create file in files view
+* Fix unnessesary baking of canvas on every change ([#503](https://github.com/LinwoodDev/Butterfly/issues/503))
+* Fix performance of pen tool
+* Fix tool reordering
+* Fix pattern background rendering
+* Fix baking transform problems if it was changed when baking
+* Improve default pattern templates values
+* Improve documentation
+* Improve file name validator to support -, (, ), comma and space
+* Improve open animation in property view
+* Switch back to flutter beta
+
+View all changes in the blog: https://linwood.dev/butterfly/2.0.0-beta.10
+
+## 2.0.0-beta.9 (2023-10-06)
+
+* Add classic theme to theme selection
+* Add indication for opened menu on top left corner menu
+* Change secondary color of classic theme to red
+* Use elements changed event for transformation
+* Use center tab alignment
+* Make spacer tool realtime
+* Fix markdown newlines ([#501](https://github.com/LinwoodDev/Butterfly/issues/501))
+* Fix home page header on low density
+* Update to flutter master (Fix windows issues)
+* Unify tabs
+* Remove content copy on page creation
+
+View all changes in the blog: https://linwood.dev/butterfly/2.0.0-beta.9
+
+## 2.0.0-beta.8 (2023-09-28)
+
+* Bump file version to 10
+  * Move box background properties to own Texture.pattern class
+  * Rename box background to pattern background
+  * Change page.background to page.backgrounds and allow a list of backgrounds
+  * Rename painters to tools
+  * Rename hand painter to select tool
+  * Rename move painter to hand tool
+  * Rename tool to utilities
+* Recode event system to include collaboration in the future
+* Redesign document properties
+* Redesign color operation bottom sheet
+* Add texture tool ([#406](https://github.com/LinwoodDev/Butterfly/issues/406))
+* Add search to add dialog
+* Add mobile context menu ([#410](https://github.com/LinwoodDev/Butterfly/issues/410))
+* Add setting to set default pdf quality
+* Add texture element ([#406](https://github.com/LinwoodDev/Butterfly/issues/406))
+* Add add to pack for selection
+* Add svg export for text elements ([#488](https://github.com/LinwoodDev/Butterfly/issues/488))
+* Add thumbnail to templates dialog
+* Add markdown importing
+* Add export functionality to markdown elements
+* Add animation to search dialog
+* Add scale property to label tool
+* Add alpha slider to shape element
+* Add delete buttons in pack dialog
+* Add size transition to property view
+* Add animation for tool change
+* Add selected state to utilities button
+* Add lasso selection mode to select tool ([#409](https://github.com/LinwoodDev/Butterfly/issues/409))
+* Add share to label context menu
+* Add animation when changing homepage header
+* Add hide ui ([#458](https://github.com/LinwoodDev/Butterfly/issues/458))
+* Add ability to teleport to area in search
+* Add setting to configure visual density
+* Add export to elements context menu
+* Add full screen f11 shortcut
+* Add play button to add dialog for action tools
+* Add tool status to add dialog
+* Fallback to first stylesheet if no stylesheet is selected
+* Move export button from selection view to context menu
+* Replace most dropdown buttons (material 2) with dropdown menus (material 3)
+* Improve performance on home page ([#459](https://github.com/LinwoodDev/Butterfly/issues/459))
+* Improve clipboard system to include image and svg source as data uri
+* Improve export system
+* Improve version info in setting if not connected to the internet
+* Improve spacing in background dialog
+* Improve icon buttons to match material 3
+* Improve export menu in area context menu
+* Prevent window of closing when there are unsaved changes ([#403](https://github.com/LinwoodDev/Butterfly/issues/403))
+* Change file search to not case sensitive
+* Change expansion panels in background dialog to tabs
+* Change selected icons to fill variant
+* Change image and svg export dialog position and size to row
+* Fix expansion panel list in corner radius shape, texture property, shapes and constraints view
+* Fix bfly mimetype
+* Fix property view playing open animation when opening navigator
+* Fix colors in svg export
+* Fix grid not updating when changing values
+* Fix pack dialog version text field
+* Fix changing styles of label in selection
+* Fix open with for bfly documents on android
+* Fix insert first and last tooltip in pages navigator view
+* Fix background not changed after page change
+* Fix missing localization for switch view
+* Fix transforming shape element
+* Fix duplication position issues
+* Fix template creation message text
+* Fix page ordering
+* Fix page index when renaming
+* Fix packs dialog closes after action
+* Fix layer remove button not working
+* Fix line shape transforming
+* Fix hit calculation on rotation in shape element
+* Fix importing of assets
+* Fix teleport position of text element in search
+* Disable gestures on mouse input
+* Remove view options from undo
+* Remove reload after clicking on star
+* Upgrade to agp 8
+* Upgrade to flutter 3.15
+
+* Add macos zip and dmg release builds
+* Add linux rpm release build
+
+Please make a backup of your documents before opening them with this version.
+This version is not compatible with older versions of Butterfly.
+
+View all changes in the blog: https://linwood.dev/butterfly/2.0.0-beta.8
+
 ## 2.0.0-beta.7 (2023-08-18)
 
 * Add pen painter icon customisation ([#467](https://github.com/LinwoodDev/Butterfly/issues/467))
@@ -343,7 +543,7 @@ Things that need to be improved:
 
 ## 1.6.0 (2022-12-24)
 
-Read the whole 1.6 changelog at <https://go.linwood.dev/butterfly/1-6>
+Read the whole 1.6 changelog [here](https://go.linwood.dev/butterfly/1-6).
 
 <details>
  <summary>1.6 Nightly Changelog</summary>

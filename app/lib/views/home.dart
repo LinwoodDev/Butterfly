@@ -1,3 +1,4 @@
+import 'package:butterfly/actions/new.dart';
 import 'package:butterfly/actions/settings.dart';
 import 'package:butterfly/api/file_system/file_system.dart';
 import 'package:butterfly/api/open.dart';
@@ -8,35 +9,27 @@ import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:go_router/go_router.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import '../api/open_release_notes.dart';
 import '../main.dart';
-import 'files.dart';
+import 'files/view.dart';
 
-PhosphorIconData _getIconOfBannerVisibility(BannerVisibility visibility) {
-  switch (visibility) {
-    case BannerVisibility.always:
-      return PhosphorIconsLight.caretDown;
-    case BannerVisibility.never:
-      return PhosphorIconsLight.caretUp;
-    case BannerVisibility.onlyOnUpdates:
-      return PhosphorIconsLight.caretRight;
-  }
-}
+PhosphorIconData _getIconOfBannerVisibility(BannerVisibility visibility) =>
+    switch (visibility) {
+      BannerVisibility.always => PhosphorIconsLight.caretDown,
+      BannerVisibility.never => PhosphorIconsLight.caretUp,
+      BannerVisibility.onlyOnUpdates => PhosphorIconsLight.caretRight,
+    };
 
 String _getLocalizedNameOfBannerVisibility(
-    BuildContext context, BannerVisibility visibility) {
-  switch (visibility) {
-    case BannerVisibility.always:
-      return AppLocalizations.of(context).always;
-    case BannerVisibility.never:
-      return AppLocalizations.of(context).never;
-    case BannerVisibility.onlyOnUpdates:
-      return AppLocalizations.of(context).onlyOnUpdates;
-  }
-}
+        BuildContext context, BannerVisibility visibility) =>
+    switch (visibility) {
+      BannerVisibility.always => AppLocalizations.of(context).always,
+      BannerVisibility.never => AppLocalizations.of(context).never,
+      BannerVisibility.onlyOnUpdates =>
+        AppLocalizations.of(context).onlyOnUpdates,
+    };
 
 Widget _getBannerVisibilityWidget(
     BuildContext context, ButterflySettings settings) {
@@ -73,7 +66,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  RemoteStorage? _remote;
+  ExternalStorage? _remote;
 
   @override
   void initState() {
@@ -120,6 +113,7 @@ class _HomePageState extends State<HomePage> {
                       _getBannerVisibilityWidget(context, settings),
                       IconButton(
                         icon: const PhosphorIcon(PhosphorIconsLight.gear),
+                        tooltip: AppLocalizations.of(context).settings,
                         onPressed: () => openSettings(context),
                       ),
                     ],
@@ -129,7 +123,7 @@ class _HomePageState extends State<HomePage> {
                   child: Align(
                     alignment: Alignment.topCenter,
                     child: Container(
-                      margin: const EdgeInsets.symmetric(horizontal: 32),
+                      margin: const EdgeInsets.symmetric(horizontal: 16),
                       constraints: const BoxConstraints(maxWidth: 1400),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -137,21 +131,10 @@ class _HomePageState extends State<HomePage> {
                           const SizedBox(height: 64),
                           LayoutBuilder(builder: (context, constraints) {
                             final isDesktop = constraints.maxWidth > 1000;
-                            final height = isDesktop ? 100.0 : 300.0;
-                            return AnimatedContainer(
-                              height: showBanner ? height : 0,
-                              duration: const Duration(milliseconds: 300),
-                              clipBehavior: Clip.antiAlias,
-                              decoration: const BoxDecoration(),
-                              child: OverflowBox(
-                                alignment: Alignment.topCenter,
-                                maxHeight: height,
-                                minHeight: height,
-                                child: _HeaderHomeView(
-                                  hasNewerVersion: hasNewerVersion,
-                                  isDesktop: isDesktop,
-                                ),
-                              ),
+                            return _HeaderHomeView(
+                              hasNewerVersion: hasNewerVersion,
+                              isDesktop: isDesktop,
+                              showBanner: showBanner,
                             );
                           }),
                           const SizedBox(height: 64),
@@ -165,12 +148,13 @@ class _HomePageState extends State<HomePage> {
                                         child: FilesView(
                                       selectedAsset: widget.selectedAsset,
                                       remote: _remote,
+                                      isMobile: false,
                                       onRemoteChanged: (value) =>
                                           setState(() => _remote = value),
                                     )),
-                                    const SizedBox(width: 32),
+                                    const SizedBox(width: 16),
                                     SizedBox(
-                                      width: 500,
+                                      width: 400,
                                       child: quickStart,
                                     ),
                                   ],
@@ -183,6 +167,7 @@ class _HomePageState extends State<HomePage> {
                                     FilesView(
                                       selectedAsset: widget.selectedAsset,
                                       remote: _remote,
+                                      isMobile: true,
                                       onRemoteChanged: (value) =>
                                           setState(() => _remote = value),
                                     ),
@@ -205,10 +190,55 @@ class _HomePageState extends State<HomePage> {
   }
 }
 
-class _HeaderHomeView extends StatelessWidget {
-  final bool hasNewerVersion, isDesktop;
-  const _HeaderHomeView(
-      {this.hasNewerVersion = false, required this.isDesktop});
+class _HeaderHomeView extends StatefulWidget {
+  final bool hasNewerVersion, isDesktop, showBanner;
+  const _HeaderHomeView({
+    this.hasNewerVersion = false,
+    required this.isDesktop,
+    required this.showBanner,
+  });
+
+  @override
+  State<_HeaderHomeView> createState() => _HeaderHomeViewState();
+}
+
+class _HeaderHomeViewState extends State<_HeaderHomeView>
+    with TickerProviderStateMixin {
+  late final AnimationController _expandController;
+  late final Animation<double> _animation;
+  late final SettingsCubit _settingsCubit;
+
+  @override
+  void initState() {
+    super.initState();
+    _settingsCubit = context.read<SettingsCubit>();
+    _expandController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 500),
+      value: widget.showBanner ? 1 : 0,
+    );
+    _animation = CurvedAnimation(
+      parent: _expandController,
+      curve: Curves.fastOutSlowIn,
+    );
+  }
+
+  @override
+  void didUpdateWidget(_HeaderHomeView oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (widget.showBanner) {
+      _expandController.forward(
+          from: oldWidget.isDesktop != widget.isDesktop ? 0 : null);
+    } else {
+      _expandController.reverse();
+    }
+  }
+
+  @override
+  void dispose() {
+    _expandController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -230,7 +260,6 @@ class _HeaderHomeView extends StatelessWidget {
             context, context.read<SettingsCubit>().state),
       ],
     );
-    final settingsCubit = context.read<SettingsCubit>();
     final style = FilledButton.styleFrom(
       padding: const EdgeInsets.symmetric(
         horizontal: 32,
@@ -240,13 +269,13 @@ class _HeaderHomeView extends StatelessWidget {
     );
     void openNew() {
       openReleaseNotes();
-      settingsCubit.updateLastVersion();
+      _settingsCubit.updateLastVersion();
     }
 
     final whatsNew = Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        hasNewerVersion
+        widget.hasNewerVersion
             ? FilledButton(
                 onPressed: openNew,
                 style: style,
@@ -257,7 +286,7 @@ class _HeaderHomeView extends StatelessWidget {
                 style: style,
                 child: Text(AppLocalizations.of(context).whatsNew),
               ),
-        if (hasNewerVersion)
+        if (widget.hasNewerVersion)
           const SizedBox(
             height: 0,
             child: Stack(
@@ -282,6 +311,7 @@ class _HeaderHomeView extends StatelessWidget {
         Expanded(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
                 AppLocalizations.of(context).welcome,
@@ -301,7 +331,7 @@ class _HeaderHomeView extends StatelessWidget {
         ),
       ],
     );
-    final innerCard = isDesktop
+    final innerCard = widget.isDesktop
         ? Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
@@ -339,30 +369,32 @@ class _HeaderHomeView extends StatelessWidget {
         child: innerCard,
       ),
     );
-    if (isDesktop) {
-      return Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Expanded(child: card),
-          const SizedBox(width: 32),
-          actions,
-        ],
-      );
-    } else {
-      return Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          card,
-          const SizedBox(height: 32),
-          actions,
-        ],
-      );
-    }
+    final child = widget.isDesktop
+        ? Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Expanded(child: card),
+              const SizedBox(width: 32),
+              actions,
+            ],
+          )
+        : Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              card,
+              const SizedBox(height: 32),
+              actions,
+            ],
+          );
+    return SizeTransition(
+      sizeFactor: _animation,
+      child: child,
+    );
   }
 }
 
 class _QuickstartHomeView extends StatefulWidget {
-  final RemoteStorage? remote;
+  final ExternalStorage? remote;
   final VoidCallback onReload;
 
   const _QuickstartHomeView({
@@ -404,7 +436,6 @@ class _QuickstartHomeViewState extends State<_QuickstartHomeView> {
 
   @override
   Widget build(BuildContext context) {
-    final colorScheme = Theme.of(context).colorScheme;
     return Card(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(24),
@@ -475,60 +506,14 @@ class _QuickstartHomeViewState extends State<_QuickstartHomeView> {
                     (e) {
                       final thumbnail = e.getThumbnail();
                       final metadata = e.getMetadata()!;
-                      return ConstrainedBox(
-                          constraints: const BoxConstraints(maxHeight: 200),
-                          child: AspectRatio(
-                            aspectRatio: 16 / 9,
-                            child: Card(
-                              elevation: 5,
-                              clipBehavior: Clip.hardEdge,
-                              child: InkWell(
-                                onTap: () async {
-                                  GoRouter.of(context).pushReplacementNamed(
-                                      'new',
-                                      queryParameters: {
-                                        'path': metadata.directory
-                                      },
-                                      extra: e.createDocument().save());
-                                },
-                                child: Stack(
-                                  children: [
-                                    if (thumbnail?.isNotEmpty ?? false)
-                                      Align(
-                                        child: Image.memory(
-                                          thumbnail!,
-                                          fit: BoxFit.cover,
-                                          width: 640,
-                                          alignment: Alignment.center,
-                                        ),
-                                      ),
-                                    Align(
-                                      alignment: Alignment.bottomLeft,
-                                      child: Container(
-                                        padding: const EdgeInsets.all(8),
-                                        margin: const EdgeInsets.all(8),
-                                        decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(8),
-                                          color: colorScheme.primaryContainer
-                                              .withAlpha(200),
-                                        ),
-                                        child: Text(
-                                          metadata.name,
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .bodyLarge
-                                              ?.copyWith(
-                                                color: colorScheme.onSurface,
-                                              ),
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ));
+                      return AssetCard(
+                        metadata: metadata,
+                        thumbnail: thumbnail,
+                        onTap: () async {
+                          openNewDocument(
+                              context, e, widget.remote?.identifier);
+                        },
+                      );
                     },
                   ).toList(),
                 );
