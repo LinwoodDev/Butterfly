@@ -1,6 +1,7 @@
 import 'package:butterfly/cubits/current_index.dart';
 import 'package:butterfly/handlers/handler.dart';
 import 'package:butterfly/helpers/color_helper.dart';
+import 'package:butterfly/services/import.dart';
 import 'package:butterfly/visualizer/element.dart';
 import 'package:butterfly/visualizer/tool.dart';
 import 'package:butterfly/visualizer/property.dart';
@@ -206,11 +207,13 @@ class AddDialog extends StatelessWidget {
                                         icon: PhosphorIcon(
                                             e.icon(PhosphorIconsStyle.light)),
                                         onTap: () async {
+                                          final bloc =
+                                              context.read<DocumentBloc>();
+                                          final importService =
+                                              context.read<ImportService>();
+                                          Navigator.of(context).pop();
                                           await showImportAssetWizard(
-                                              e, context);
-                                          if (context.mounted) {
-                                            Navigator.of(context).pop();
-                                          }
+                                              e, context, bloc, importService);
                                         },
                                       ),
                                     )

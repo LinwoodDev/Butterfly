@@ -8,6 +8,7 @@ import 'package:butterfly/api/file_system/file_system.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/dialogs/import/confirmation.dart';
 import 'package:butterfly/dialogs/import/note.dart';
+import 'package:butterfly/dialogs/load.dart';
 import 'package:butterfly/helpers/color_helper.dart';
 import 'package:butterfly/helpers/offset_helper.dart';
 import 'package:butterfly/models/defaults.dart';
@@ -384,11 +385,16 @@ class ImportService {
           pages = callback.pages;
           quality = callback.quality;
         }
+        final dialog = showLoadingDialog(context);
         final selectedElements = <ImageElement>[];
         final areas = <Area>[];
         var y = firstPos.dx;
-        await for (var page in Printing.raster(bytes,
+        var current = 0;
+        await for (final page in Printing.raster(bytes,
             pages: pages, dpi: PdfPageFormat.inch * quality)) {
+          await Future.delayed(const Duration(milliseconds: 100));
+          dialog?.setProgress(current / pages.length);
+          current++;
           final png = await page.toPng();
           final scale = 1 / quality;
           final height = page.height;
@@ -411,6 +417,7 @@ class ImportService {
           }
           y += height * scale;
         }
+        dialog?.close();
         return _submit(
           document,
           elements: selectedElements,

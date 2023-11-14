@@ -10,6 +10,8 @@ class AssetHandler extends Handler<AssetTool> {
     showImportAssetWizard(
       data.importType,
       context.buildContext,
+      context.getDocumentBloc(),
+      context.getImportService(),
       position: globalPos,
       advanced: data.advanced,
     );
@@ -17,12 +19,12 @@ class AssetHandler extends Handler<AssetTool> {
 }
 
 Future<void> showImportAssetWizard(ImportType type, BuildContext context,
+    DocumentBloc bloc, ImportService service,
     {Offset? position, bool advanced = true}) async {
   Future<void> importAsset(AssetFileType type, Uint8List bytes) async {
-    final bloc = context.read<DocumentBloc>();
     final state = bloc.state;
     if (state is! DocumentLoaded) return;
-    await context.read<ImportService>().import(type, bytes, state.data,
+    await service.import(type, bytes, state.data,
         position: position, advanced: advanced);
   }
 
