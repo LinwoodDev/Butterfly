@@ -25,24 +25,17 @@ class _StartCollaborationDialogState extends State<StartCollaborationDialog>
       length: 2,
       child: AlertDialog(
         title: Text(AppLocalizations.of(context).collaboration),
-        content: SizedBox(
-          width: 300,
-          height: 150,
-          child: kIsWeb
-              ? Text(AppLocalizations.of(context).webNotSupported)
-              : ListView(
-                  children: [
-                    TextFormField(
-                      decoration: InputDecoration(
-                        label: Text(AppLocalizations.of(context).port),
-                        filled: true,
-                      ),
-                      controller: _portController,
-                      keyboardType: TextInputType.number,
-                    ),
-                  ],
+        content: kIsWeb
+            ? Text(AppLocalizations.of(context).webNotSupported)
+            : TextFormField(
+                decoration: InputDecoration(
+                  labelText: AppLocalizations.of(context).port,
+                  hintText: kDefaultPort.toString(),
+                  filled: true,
                 ),
-        ),
+                controller: _portController,
+                keyboardType: TextInputType.number,
+              ),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context).pop(),

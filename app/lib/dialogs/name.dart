@@ -4,7 +4,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 class NameDialog extends StatelessWidget {
   final GlobalKey<FormState> _formKey = GlobalKey();
   final FormFieldValidator<String> Function(String?)? validator;
-  final String? value, title, hint;
+  final String? value, title, hint, button;
 
   NameDialog({
     super.key,
@@ -12,6 +12,7 @@ class NameDialog extends StatelessWidget {
     this.value,
     this.title,
     this.hint,
+    this.button,
   });
 
   @override
@@ -32,7 +33,7 @@ class NameDialog extends StatelessWidget {
               child: Text(AppLocalizations.of(context).cancel)),
           ElevatedButton(
               onPressed: submit,
-              child: Text(AppLocalizations.of(context).create)),
+              child: Text(button ?? AppLocalizations.of(context).create)),
         ],
         title: Text(title ?? AppLocalizations.of(context).enterName),
         content: TextFormField(

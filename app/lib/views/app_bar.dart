@@ -12,6 +12,7 @@ import 'package:butterfly/services/network.dart';
 import 'package:butterfly/views/edit.dart';
 import 'package:butterfly/visualizer/asset.dart';
 import 'package:butterfly_api/butterfly_api.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -118,7 +119,7 @@ class _AppBarTitle extends StatelessWidget {
                 Row(mainAxisAlignment: MainAxisAlignment.center, children: [
               ConstrainedBox(
                 constraints: BoxConstraints(
-                    maxWidth: min(275.0, constraints.maxWidth - 16)),
+                    maxWidth: min(300.0, constraints.maxWidth - 16)),
                 child: Row(
                   children: [
                     Flexible(
@@ -301,12 +302,12 @@ class _AppBarTitle extends StatelessWidget {
                               AppLocalizations.of(context).changeDocumentPath,
                         ),
                       ],
-                      if (settings.flags.contains('collaboration'))
+                      if (settings.flags.contains('collaboration') && !kIsWeb)
                         IconButton(
                           icon: const PhosphorIcon(
                               PhosphorIconsLight.shareNetwork),
                           onPressed: () => showCollaborationDialog(context),
-                          tooltip: AppLocalizations.of(context).share,
+                          tooltip: AppLocalizations.of(context).collaboration,
                           isSelected: state.networkingService.isActive,
                           selectedIcon: const PhosphorIcon(
                               PhosphorIconsFill.shareNetwork),
