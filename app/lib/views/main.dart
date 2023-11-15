@@ -11,6 +11,7 @@ import 'package:butterfly/models/defaults.dart';
 import 'package:butterfly/renderers/renderer.dart';
 import 'package:butterfly/services/export.dart';
 import 'package:butterfly/services/import.dart';
+import 'package:butterfly/services/network.dart';
 import 'package:butterfly/views/app_bar.dart';
 import 'package:butterfly/views/navigator/view.dart';
 import 'package:butterfly/views/toolbar/view.dart';
@@ -61,9 +62,16 @@ class ProjectPage extends StatefulWidget {
   final Embedding? embedding;
   final String type;
   final Object? data;
+  final String? uri;
 
-  const ProjectPage(
-      {super.key, this.location, this.embedding, this.type = '', this.data});
+  const ProjectPage({
+    super.key,
+    this.location,
+    this.embedding,
+    this.type = '',
+    this.data,
+    this.uri,
+  });
 
   @override
   _ProjectPageState createState() => _ProjectPageState();
@@ -150,6 +158,7 @@ class _ProjectPageState extends State<ProjectPage> {
       });
       return;
     }
+    final networkingService = NetworkingService();
     try {
       final globalImportService = ImportService(context);
       var location = widget.location;
@@ -161,10 +170,15 @@ class _ProjectPageState extends State<ProjectPage> {
       final fileType =
           AssetFileTypeHelper.fromFileExtension(location?.fileExtension)?.name;
       NoteData? document;
-      if (widget.data != null) {
+      var data = widget.data;
+      final uri = Uri.tryParse(widget.uri ?? '');
+      if (uri != null) {
+        data = await networkingService.createSocketClient(uri);
+      }
+      if (data != null) {
         document ??= await globalImportService.load(
             type: widget.type.isEmpty ? (fileType ?? widget.type) : widget.type,
-            data: widget.data);
+            data: data);
       }
       final name = (location?.absolute ?? false) ? location!.fileName : '';
       NoteData? defaultDocument;
@@ -236,8 +250,13 @@ class _ProjectPageState extends State<ProjectPage> {
       }
       setState(() {
         _transformCubit = TransformCubit();
-        _currentIndexCubit = CurrentIndexCubit(settingsCubit, _transformCubit!,
-            CameraViewport.unbaked(UtilitiesRenderer()), null);
+        _currentIndexCubit = CurrentIndexCubit(
+          settingsCubit,
+          _transformCubit!,
+          CameraViewport.unbaked(UtilitiesRenderer()),
+          null,
+          networkingService,
+        );
         _bloc = DocumentBloc.error(settingsCubit, e.toString(), stackTrace);
       });
     }

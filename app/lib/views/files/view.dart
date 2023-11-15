@@ -321,14 +321,24 @@ class _FilesViewState extends State<FilesView> {
                     ],
                   ),
                 ),
-                /*MenuItemButton(
+                MenuItemButton(
                   leadingIcon:
                       const PhosphorIcon(PhosphorIconsLight.shareNetwork),
                   child: Text(AppLocalizations.of(context).connect),
-                  onPressed: () {
-                    // TODO: Connect
+                  onPressed: () async {
+                    final url = await showDialog<String>(
+                      builder: (context) => NameDialog(
+                        title: AppLocalizations.of(context).enterUrl,
+                        hint: AppLocalizations.of(context).url,
+                      ),
+                      context: context,
+                    );
+                    if (url == null) return;
+                    GoRouter.of(context).pushNamed('connect', queryParameters: {
+                      'url': url,
+                    });
                   },
-                ),*/
+                ),
               ],
               builder: (context, controller, child) =>
                   FloatingActionButton.small(

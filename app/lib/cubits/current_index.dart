@@ -79,9 +79,10 @@ class CurrentIndex with _$CurrentIndex {
 
 class CurrentIndexCubit extends Cubit<CurrentIndex> {
   CurrentIndexCubit(SettingsCubit settingsCubit, TransformCubit transformCubit,
-      CameraViewport viewport, Embedding? embedding)
+      CameraViewport viewport,
+      [Embedding? embedding, NetworkingService? networkingService])
       : super(CurrentIndex(null, HandHandler(), viewport, settingsCubit,
-            transformCubit, NetworkingService(),
+            transformCubit, networkingService ?? NetworkingService(),
             embedding: embedding));
 
   void init(DocumentBloc bloc) {

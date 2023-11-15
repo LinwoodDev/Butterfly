@@ -239,6 +239,17 @@ class ButterflyApp extends StatelessWidget {
                   },
                 ),
                 GoRoute(
+                  name: 'connect',
+                  path: 'connect',
+                  builder: (context, state) {
+                    final url = state.uri.queryParameters['url'];
+                    return ProjectPage(
+                      data: state.extra,
+                      uri: url,
+                    );
+                  },
+                ),
+                GoRoute(
                   name: 'local',
                   path: 'local/:path(.*)',
                   builder: (context, state) {

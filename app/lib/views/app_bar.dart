@@ -286,16 +286,15 @@ class _AppBarTitle extends StatelessWidget {
                         tooltip:
                             AppLocalizations.of(context).changeDocumentPath,
                       ),
-                      IconButton(
-                        icon:
-                            const PhosphorIcon(PhosphorIconsLight.shareNetwork),
-                        onPressed: () => showCollaborationDialog(context),
-                        tooltip: AppLocalizations.of(context).share,
-                        isSelected: state.networkingService.isActive,
-                        selectedIcon:
-                            const PhosphorIcon(PhosphorIconsFill.shareNetwork),
-                      ),
                     ],
+                    IconButton(
+                      icon: const PhosphorIcon(PhosphorIconsLight.shareNetwork),
+                      onPressed: () => showCollaborationDialog(context),
+                      tooltip: AppLocalizations.of(context).share,
+                      isSelected: state.networkingService.isActive,
+                      selectedIcon:
+                          const PhosphorIcon(PhosphorIconsFill.shareNetwork),
+                    ),
                   ],
                 ],
               ),

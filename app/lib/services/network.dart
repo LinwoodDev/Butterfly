@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:convert';
 import 'dart:io';
 
 import 'package:butterfly/bloc/document_bloc.dart';
@@ -29,7 +28,20 @@ enum NetworkingType {
 }
 
 const kDefaultPort = 28005;
+const kTimeout = Duration(seconds: 5);
 typedef NetworkingState = (NetworkerBase, RpcPlugin);
+
+class NetworkingInitMessage {
+  final List<int>? data;
+
+  NetworkingInitMessage(this.data);
+  NetworkingInitMessage.fromJson(Map<String, dynamic> data)
+      : data = data['data'];
+
+  Map<String, dynamic> toJson() => {
+        'data': data,
+      };
+}
 
 class NetworkingService {
   DocumentBloc? _bloc;
@@ -61,11 +73,16 @@ class NetworkingService {
     final server = NetworkerSocketServer(httpServer);
     final rpc = RpcNetworkerServerPlugin();
     _setupRpc(rpc, server);
+    server.connect.listen((event) {
+      final state = _bloc?.state;
+      rpc.sendMessage(RpcRequest(
+          event, 'init', NetworkingInitMessage(state?.data?.save())));
+    });
     server.addPlugin(rpc);
     _subject.add((server, rpc));
   }
 
-  void createSocketClient(Uri uri) {
+  Future<Uint8List?> createSocketClient(Uri uri) async {
     closeNetworking();
     if (!uri.hasPort) {
       uri = uri.replace(port: kDefaultPort);
@@ -73,8 +90,17 @@ class NetworkingService {
     final client = NetworkerSocketClient(uri);
     final rpc = RpcNetworkerPlugin();
     _setupRpc(rpc, client);
+    final completer = Completer<Uint8List?>();
+    rpc.addFunction(
+        'init',
+        RpcFunction(RpcType.authority, (message) {
+          final init = NetworkingInitMessage.fromJson(message.message);
+          completer.complete(
+              init.data == null ? null : Uint8List.fromList(init.data!));
+        }));
     client.addPlugin(RawJsonNetworkerPlugin()..addPlugin(rpc));
     _subject.add((client, rpc));
+    return completer.future.timeout(kTimeout);
   }
 
   void closeNetworking() {
@@ -86,8 +112,7 @@ class NetworkingService {
     rpc.addFunction(
         'event',
         RpcFunction(RpcType.any, (message) {
-          final data = jsonDecode(utf8.decode(message.message));
-          final event = DocumentEvent.fromJson(data);
+          final event = DocumentEvent.fromJson(message.message);
           onMessage(event);
         }));
     rpc.addFunction(
@@ -98,8 +123,7 @@ class NetworkingService {
                 message.client, 'connections', networker.connectionIds));
           } else {
             if (message.client != kNetworkerConnectionIdAuthority) return;
-            final data = jsonDecode(utf8.decode(message.message));
-            final ids = Set<ConnectionId>.from(data);
+            final ids = Set<ConnectionId>.from(message.message);
             _connections.add(ids);
           }
         }));

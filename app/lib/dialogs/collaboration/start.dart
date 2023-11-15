@@ -12,31 +12,11 @@ class StartCollaborationDialog extends StatefulWidget {
 
 class _StartCollaborationDialogState extends State<StartCollaborationDialog>
     with TickerProviderStateMixin {
-  final TextEditingController _connectUrlController = TextEditingController(),
-      _createPortController = TextEditingController();
-  late final TabController _tabController;
-
-  @override
-  void initState() {
-    super.initState();
-    _tabController = TabController(length: 2, vsync: this, initialIndex: 1);
-  }
-
-  @override
-  void dispose() {
-    _connectUrlController.dispose();
-    _tabController.dispose();
-    super.dispose();
-  }
-
-  void _connect() {
-    var uri = Uri.parse(_connectUrlController.text);
-    widget.service.createSocketClient(uri);
-  }
+  final TextEditingController _portController = TextEditingController();
 
   void _start() {
     if (kIsWeb) return;
-    widget.service.createSocketServer(int.tryParse(_createPortController.text));
+    widget.service.createSocketServer(int.tryParse(_portController.text));
   }
 
   @override
@@ -48,51 +28,20 @@ class _StartCollaborationDialogState extends State<StartCollaborationDialog>
         content: SizedBox(
           width: 300,
           height: 150,
-          child: Column(children: [
-            TabBar(
-              controller: _tabController,
-              tabs: [
-                HorizontalTab(
-                    label: Text(AppLocalizations.of(context).client),
-                    icon: const PhosphorIcon(PhosphorIconsLight.plugs)),
-                HorizontalTab(
-                    label: Text(AppLocalizations.of(context).server),
-                    icon: const PhosphorIcon(PhosphorIconsLight.database)),
-              ],
-            ),
-            const SizedBox(height: 16),
-            TabBarView(
-              controller: _tabController,
-              children: [
-                ListView(
+          child: kIsWeb
+              ? Text(AppLocalizations.of(context).webNotSupported)
+              : ListView(
                   children: [
                     TextFormField(
                       decoration: InputDecoration(
-                        label: Text(AppLocalizations.of(context).url),
+                        label: Text(AppLocalizations.of(context).port),
                         filled: true,
                       ),
-                      controller: _connectUrlController,
-                      keyboardType: TextInputType.url,
+                      controller: _portController,
+                      keyboardType: TextInputType.number,
                     ),
                   ],
                 ),
-                kIsWeb
-                    ? Text(AppLocalizations.of(context).webNotSupported)
-                    : ListView(
-                        children: [
-                          TextFormField(
-                            decoration: InputDecoration(
-                              label: Text(AppLocalizations.of(context).port),
-                              filled: true,
-                            ),
-                            controller: _createPortController,
-                            keyboardType: TextInputType.number,
-                          ),
-                        ],
-                      ),
-              ],
-            ),
-          ]),
         ),
         actions: [
           TextButton(
@@ -100,14 +49,12 @@ class _StartCollaborationDialogState extends State<StartCollaborationDialog>
             child: Text(AppLocalizations.of(context).close),
           ),
           ElevatedButton(
-            onPressed: () {
-              Navigator.of(context).pop();
-              if (_tabController.index == 0) {
-                _connect();
-              } else {
-                _start();
-              }
-            },
+            onPressed: kIsWeb
+                ? null
+                : () {
+                    Navigator.of(context).pop();
+                    _start();
+                  },
             child: Text(AppLocalizations.of(context).start),
           ),
         ],
