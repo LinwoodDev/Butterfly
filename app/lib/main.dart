@@ -4,6 +4,7 @@ import 'package:args/args.dart';
 import 'package:butterfly/api/intent.dart';
 import 'package:butterfly/services/sync.dart';
 import 'package:butterfly/settings/behaviors/mouse.dart';
+import 'package:butterfly/settings/experiments.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/foundation.dart';
@@ -206,6 +207,11 @@ class ButterflyApp extends StatelessWidget {
                     GoRoute(
                       path: 'data',
                       builder: (context, state) => const DataSettingsPage(),
+                    ),
+                    GoRoute(
+                      path: 'experiments',
+                      builder: (context, state) =>
+                          const ExperimentsSettingsPage(),
                     ),
                     GoRoute(
                       path: 'connections',

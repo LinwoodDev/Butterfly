@@ -237,149 +237,156 @@ class _FilesViewState extends State<FilesView> {
           hintText: AppLocalizations.of(context).search,
           leading: const PhosphorIcon(PhosphorIconsLight.magnifyingGlass),
         );
-        final locationBar = Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            MenuAnchor(
-              menuChildren: [
-                MenuItemButton(
-                  leadingIcon: const PhosphorIcon(PhosphorIconsLight.folder),
-                  child: Text(AppLocalizations.of(context).newFolder),
-                  onPressed: () async {
-                    final name = await showDialog<String>(
-                      context: context,
-                      builder: (context) => NameDialog(
-                        validator: defaultFileNameValidator(context),
+        final locationBar = BlocBuilder<SettingsCubit, ButterflySettings>(
+          buildWhen: (previous, current) => previous.flags != current.flags,
+          builder: (context, settings) => Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              MenuAnchor(
+                menuChildren: [
+                  MenuItemButton(
+                    leadingIcon: const PhosphorIcon(PhosphorIconsLight.folder),
+                    child: Text(AppLocalizations.of(context).newFolder),
+                    onPressed: () async {
+                      final name = await showDialog<String>(
+                        context: context,
+                        builder: (context) => NameDialog(
+                          validator: defaultFileNameValidator(context),
+                        ),
+                      );
+                      if (name == null) return;
+                      final path = _locationController.text;
+                      final newPath = '$path/$name';
+                      await _fileSystem.createDirectory(newPath);
+                      _reloadFileSystem();
+                    },
+                  ),
+                  MenuItemButton(
+                    onPressed: () async => _createFile(
+                      await _templateSystem.getDefaultTemplate(
+                        _templateSystem.remote?.defaultTemplate ??
+                            _settingsCubit.state.defaultTemplate,
                       ),
-                    );
-                    if (name == null) return;
-                    final path = _locationController.text;
-                    final newPath = '$path/$name';
-                    await _fileSystem.createDirectory(newPath);
-                    _reloadFileSystem();
-                  },
-                ),
-                MenuItemButton(
-                  onPressed: () async => _createFile(
-                    await _templateSystem.getDefaultTemplate(
-                      _templateSystem.remote?.defaultTemplate ??
-                          _settingsCubit.state.defaultTemplate,
+                    ),
+                    leadingIcon:
+                        const PhosphorIcon(PhosphorIconsLight.filePlus),
+                    child: Text(AppLocalizations.of(context).newFile),
+                  ),
+                  FutureBuilder<List<NoteData>>(
+                    future: _templateSystem
+                        .createDefault(context)
+                        .then((_) => _templateSystem.getTemplates()),
+                    builder: (context, snapshot) => SubmenuButton(
+                      leadingIcon: const PhosphorIcon(PhosphorIconsLight.file),
+                      menuChildren: snapshot.data?.map((e) {
+                            final metadata = e.getMetadata();
+                            final thumbnail = e.getThumbnail();
+                            return MenuItemButton(
+                              leadingIcon: thumbnail == null
+                                  ? null
+                                  : Image.memory(
+                                      thumbnail,
+                                      width: 32,
+                                      height: 18,
+                                      cacheWidth: 32,
+                                      cacheHeight: 18,
+                                    ),
+                              child: Text(metadata?.name ?? ''),
+                              onPressed: () => _createFile(e),
+                            );
+                          }).toList() ??
+                          [],
+                      child: Text(AppLocalizations.of(context).templates),
                     ),
                   ),
-                  leadingIcon: const PhosphorIcon(PhosphorIconsLight.filePlus),
-                  child: Text(AppLocalizations.of(context).newFile),
-                ),
-                FutureBuilder<List<NoteData>>(
-                  future: _templateSystem
-                      .createDefault(context)
-                      .then((_) => _templateSystem.getTemplates()),
-                  builder: (context, snapshot) => SubmenuButton(
-                    leadingIcon: const PhosphorIcon(PhosphorIconsLight.file),
-                    menuChildren: snapshot.data?.map((e) {
-                          final metadata = e.getMetadata();
-                          final thumbnail = e.getThumbnail();
-                          return MenuItemButton(
-                            leadingIcon: thumbnail == null
-                                ? null
-                                : Image.memory(
-                                    thumbnail,
-                                    width: 32,
-                                    height: 18,
-                                    cacheWidth: 32,
-                                    cacheHeight: 18,
-                                  ),
-                            child: Text(metadata?.name ?? ''),
-                            onPressed: () => _createFile(e),
-                          );
-                        }).toList() ??
-                        [],
-                    child: Text(AppLocalizations.of(context).templates),
+                  MenuItemButton(
+                    leadingIcon:
+                        const PhosphorIcon(PhosphorIconsLight.arrowSquareIn),
+                    onPressed: () async {
+                      final router = GoRouter.of(context);
+                      final importService = context.read<ImportService>();
+                      final result = await openBfly();
+                      if (result == null) return;
+                      final model = await importService.importBfly(result,
+                          advanced: false);
+                      if (model == null) return;
+                      const route = '/native?name=document.bfly&type=note';
+                      router.go(route, extra: model.save());
+                      if (!widget.collapsed) {
+                        _reloadFileSystem();
+                      }
+                    },
+                    child: Column(
+                      children: [
+                        Text(AppLocalizations.of(context).import),
+                        Text('.bfly',
+                            style: Theme.of(context).textTheme.bodySmall),
+                      ],
+                    ),
                   ),
+                  if (settings.flags.contains('collaboration'))
+                    MenuItemButton(
+                      leadingIcon:
+                          const PhosphorIcon(PhosphorIconsLight.shareNetwork),
+                      child: Text(AppLocalizations.of(context).connect),
+                      onPressed: () async {
+                        final url = await showDialog<String>(
+                          builder: (context) => NameDialog(
+                            title: AppLocalizations.of(context).enterUrl,
+                            hint: AppLocalizations.of(context).url,
+                          ),
+                          context: context,
+                        );
+                        if (url == null) return;
+                        GoRouter.of(context)
+                            .pushNamed('connect', queryParameters: {
+                          'url': url,
+                        });
+                      },
+                    ),
+                ],
+                builder: (context, controller, child) =>
+                    FloatingActionButton.small(
+                  heroTag: null,
+                  onPressed: () => controller.isOpen
+                      ? controller.close()
+                      : controller.open(),
+                  tooltip: AppLocalizations.of(context).create,
+                  child: const PhosphorIcon(PhosphorIconsLight.plus),
                 ),
-                MenuItemButton(
-                  leadingIcon:
-                      const PhosphorIcon(PhosphorIconsLight.arrowSquareIn),
-                  onPressed: () async {
-                    final router = GoRouter.of(context);
-                    final importService = context.read<ImportService>();
-                    final result = await openBfly();
-                    if (result == null) return;
-                    final model =
-                        await importService.importBfly(result, advanced: false);
-                    if (model == null) return;
-                    const route = '/native?name=document.bfly&type=note';
-                    router.go(route, extra: model.save());
-                    if (!widget.collapsed) {
-                      _reloadFileSystem();
-                    }
-                  },
-                  child: Column(
-                    children: [
-                      Text(AppLocalizations.of(context).import),
-                      Text('.bfly',
-                          style: Theme.of(context).textTheme.bodySmall),
-                    ],
+              ),
+              DragTarget<String>(
+                builder: (context, candidateData, rejectedData) => IconButton(
+                  onPressed: _locationController.text.isEmpty
+                      ? null
+                      : () => setState(() {
+                            _locationController.text = parent;
+                            _setFilesStream();
+                          }),
+                  icon: const PhosphorIcon(PhosphorIconsLight.arrowUp),
+                  tooltip: AppLocalizations.of(context).goUp,
+                ),
+                onWillAccept: (data) => true,
+                onAccept: (data) async {
+                  await _fileSystem.moveAsset(
+                      data, '$parent/${data.split('/').last}');
+                  _reloadFileSystem();
+                },
+              ),
+              const SizedBox(width: 8),
+              Flexible(
+                child: TextFormField(
+                  decoration: InputDecoration(
+                    hintText: AppLocalizations.of(context).location,
+                    prefixIcon: const PhosphorIcon(PhosphorIconsLight.folder),
+                    filled: true,
                   ),
+                  controller: _locationController,
+                  onFieldSubmitted: (value) => _reloadFileSystem(),
                 ),
-                MenuItemButton(
-                  leadingIcon:
-                      const PhosphorIcon(PhosphorIconsLight.shareNetwork),
-                  child: Text(AppLocalizations.of(context).connect),
-                  onPressed: () async {
-                    final url = await showDialog<String>(
-                      builder: (context) => NameDialog(
-                        title: AppLocalizations.of(context).enterUrl,
-                        hint: AppLocalizations.of(context).url,
-                      ),
-                      context: context,
-                    );
-                    if (url == null) return;
-                    GoRouter.of(context).pushNamed('connect', queryParameters: {
-                      'url': url,
-                    });
-                  },
-                ),
-              ],
-              builder: (context, controller, child) =>
-                  FloatingActionButton.small(
-                heroTag: null,
-                onPressed: () =>
-                    controller.isOpen ? controller.close() : controller.open(),
-                tooltip: AppLocalizations.of(context).create,
-                child: const PhosphorIcon(PhosphorIconsLight.plus),
               ),
-            ),
-            DragTarget<String>(
-              builder: (context, candidateData, rejectedData) => IconButton(
-                onPressed: _locationController.text.isEmpty
-                    ? null
-                    : () => setState(() {
-                          _locationController.text = parent;
-                          _setFilesStream();
-                        }),
-                icon: const PhosphorIcon(PhosphorIconsLight.arrowUp),
-                tooltip: AppLocalizations.of(context).goUp,
-              ),
-              onWillAccept: (data) => true,
-              onAccept: (data) async {
-                await _fileSystem.moveAsset(
-                    data, '$parent/${data.split('/').last}');
-                _reloadFileSystem();
-              },
-            ),
-            const SizedBox(width: 8),
-            Flexible(
-              child: TextFormField(
-                decoration: InputDecoration(
-                  hintText: AppLocalizations.of(context).location,
-                  prefixIcon: const PhosphorIcon(PhosphorIconsLight.folder),
-                  filled: true,
-                ),
-                controller: _locationController,
-                onFieldSubmitted: (value) => _reloadFileSystem(),
-              ),
-            ),
-          ],
+            ],
+          ),
         );
         final isDesktop = constraints.maxWidth > 600;
         if (isDesktop) {

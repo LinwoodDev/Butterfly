@@ -10,6 +10,7 @@ import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import 'experiments.dart';
 import 'general.dart';
 import 'connections.dart';
 
@@ -18,7 +19,8 @@ enum SettingsView {
   data,
   behaviors,
   personalization,
-  connections;
+  connections,
+  experiments;
 
   String getLocalizedName(BuildContext context) => switch (this) {
         SettingsView.general => AppLocalizations.of(context).general,
@@ -27,6 +29,7 @@ enum SettingsView {
         SettingsView.personalization =>
           AppLocalizations.of(context).personalization,
         SettingsView.connections => AppLocalizations.of(context).connections,
+        SettingsView.experiments => AppLocalizations.of(context).experiments,
       };
 
   IconGetter get icon => switch (this) {
@@ -35,6 +38,7 @@ enum SettingsView {
         SettingsView.behaviors => PhosphorIcons.faders,
         SettingsView.personalization => PhosphorIcons.monitor,
         SettingsView.connections => PhosphorIcons.cloud,
+        SettingsView.experiments => PhosphorIcons.flask,
       };
   String get path => '/settings/$name';
 }
@@ -141,6 +145,8 @@ class _SettingsPageState extends State<SettingsPage> {
               const PersonalizationSettingsPage(inView: true),
             SettingsView.connections =>
               const ConnectionsSettingsPage(inView: true),
+            SettingsView.experiments =>
+              const ExperimentsSettingsPage(inView: true),
           };
           return Row(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
             SizedBox(width: 300, child: navigation),

@@ -352,6 +352,7 @@ class ButterflySettings with _$ButterflySettings {
     @Default(2) double pdfQuality,
     @Default(PlatformTheme.system) PlatformTheme platformTheme,
     @Default([]) List<int> recentColors,
+    @Default([]) List<String> flags,
   }) = _ButterflySettings;
 
   factory ButterflySettings.fromPrefs(
@@ -426,6 +427,7 @@ class ButterflySettings with _$ButterflySettings {
           : PlatformTheme.system,
       recentColors:
           prefs.getStringList('recent_colors')?.map(int.parse).toList() ?? [],
+      flags: prefs.getStringList('flags') ?? [],
     );
   }
 
@@ -482,6 +484,7 @@ class ButterflySettings with _$ButterflySettings {
     await prefs.setString('platform_theme', platformTheme.name);
     await prefs.setStringList(
         'recent_colors', recentColors.map((e) => e.toString()).toList());
+    await prefs.setStringList('flags', flags);
   }
 
   ExternalStorage? getRemote(String? identifier) {
@@ -927,6 +930,25 @@ class SettingsCubit extends Cubit<ButterflySettings> {
 
   Future<void> resetRecentColors() {
     emit(state.copyWith(recentColors: []));
+    return save();
+  }
+
+  Future<void> addFlag(String flag) async {
+    final flags = state.flags.toSet();
+    flags.add(flag);
+    emit(state.copyWith(flags: flags.toList()));
+    return save();
+  }
+
+  Future<void> removeFlag(String flag) async {
+    final flags = state.flags.toList();
+    flags.remove(flag);
+    emit(state.copyWith(flags: flags));
+    return save();
+  }
+
+  Future<void> resetFlags() {
+    emit(state.copyWith(flags: []));
     return save();
   }
 }
