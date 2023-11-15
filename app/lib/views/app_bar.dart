@@ -8,6 +8,7 @@ import 'package:butterfly/api/open.dart';
 import 'package:butterfly/cubits/current_index.dart';
 import 'package:butterfly/dialogs/collaboration/dialog.dart';
 import 'package:butterfly/services/import.dart';
+import 'package:butterfly/services/network.dart';
 import 'package:butterfly/views/edit.dart';
 import 'package:butterfly/visualizer/asset.dart';
 import 'package:butterfly_api/butterfly_api.dart';
@@ -16,6 +17,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:go_router/go_router.dart';
+import 'package:networker/networker.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import '../actions/export.dart';
@@ -118,71 +120,89 @@ class _AppBarTitle extends StatelessWidget {
               child: Row(
                 children: [
                   Flexible(
-                    child: StatefulBuilder(builder: (context, setState) {
-                      Future<void> submit(String? value) async {
-                        if (value == null) return;
-                        if (area == null || areaName == null) {
-                          final cubit = context.read<CurrentIndexCubit>();
-                          final settings = context.read<SettingsCubit>().state;
-                          final location = cubit.state.location;
-                          final fileSystem = DocumentFileSystem.fromPlatform(
-                              remote: settings.getRemote(location.remote));
+                    child: StreamBuilder<NetworkingState?>(
+                        stream: state.networkingService?.stream,
+                        builder: (context, snapshot) {
+                          return StatefulBuilder(builder: (context, setState) {
+                            Future<void> submit(String? value) async {
+                              if (value == null) return;
+                              if (area == null || areaName == null) {
+                                final cubit = context.read<CurrentIndexCubit>();
+                                final settings =
+                                    context.read<SettingsCubit>().state;
+                                final location = cubit.state.location;
+                                final fileSystem =
+                                    DocumentFileSystem.fromPlatform(
+                                        remote: settings
+                                            .getRemote(location.remote));
 
-                          await fileSystem.deleteAsset(location.path);
-                          if (state is DocumentLoadSuccess) {
-                            await state.save(location.copyWith(
-                              path:
-                                  '${location.parent}/${fileSystem.convertNameToFile(value)}.bfly',
-                            ));
-                          }
-                          bloc.add(DocumentDescriptionChanged(name: value));
-                        } else {
-                          bloc.add(AreaChanged(
-                            areaName,
-                            area.copyWith(name: value),
-                          ));
-                        }
-                      }
+                                await fileSystem.deleteAsset(location.path);
+                                if (state is DocumentLoadSuccess) {
+                                  await state.save(location.copyWith(
+                                    path:
+                                        '${location.parent}/${fileSystem.convertNameToFile(value)}.bfly',
+                                  ));
+                                }
+                                bloc.add(
+                                    DocumentDescriptionChanged(name: value));
+                              } else {
+                                bloc.add(AreaChanged(
+                                  areaName,
+                                  area.copyWith(name: value),
+                                ));
+                              }
+                            }
 
-                      Widget title = Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.stretch,
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Focus(
-                              child: TextFormField(
-                                controller: area == null
-                                    ? _nameController
-                                    : _areaController,
-                                onFieldSubmitted: submit,
-                                onSaved: submit,
-                                decoration: InputDecoration(
-                                  isDense: true,
-                                  filled: true,
-                                  hintText:
-                                      AppLocalizations.of(context).untitled,
-                                ),
-                              ),
-                            ),
-                            if (currentIndex.location.path != '' &&
-                                area == null)
-                              Tooltip(
-                                message: currentIndex.location.identifier,
-                                child: Text(
-                                  ((currentIndex.location.absolute &&
-                                              currentIndex
-                                                  .location.path.isEmpty)
-                                          ? currentIndex.location.fileType
-                                              ?.getLocalizedName(context)
-                                          : currentIndex.location
-                                              .pathWithoutLeadingSlash) ??
-                                      AppLocalizations.of(context).document,
-                                  style: Theme.of(context).textTheme.bodySmall,
-                                ),
-                              )
-                          ]);
-                      return title;
-                    }),
+                            Widget title = Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.stretch,
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Focus(
+                                    child: TextFormField(
+                                      controller: area == null
+                                          ? _nameController
+                                          : _areaController,
+                                      onFieldSubmitted: submit,
+                                      onSaved: submit,
+                                      decoration: InputDecoration(
+                                        isDense: true,
+                                        filled: true,
+                                        hintText: AppLocalizations.of(context)
+                                            .untitled,
+                                      ),
+                                    ),
+                                  ),
+                                  if (snapshot.data?.$1 is NetworkerClient) ...[
+                                    Text(
+                                      AppLocalizations.of(context)
+                                          .collaboration,
+                                      style:
+                                          Theme.of(context).textTheme.bodySmall,
+                                    ),
+                                  ] else if (currentIndex.location.path != '' &&
+                                      area == null)
+                                    Tooltip(
+                                      message: currentIndex.location.identifier,
+                                      child: Text(
+                                        ((currentIndex.location.absolute &&
+                                                    currentIndex
+                                                        .location.path.isEmpty)
+                                                ? currentIndex.location.fileType
+                                                    ?.getLocalizedName(context)
+                                                : currentIndex.location
+                                                    .pathWithoutLeadingSlash) ??
+                                            AppLocalizations.of(context)
+                                                .document,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodySmall,
+                                      ),
+                                    )
+                                ]);
+                            return title;
+                          });
+                        }),
                   ),
                   const SizedBox(width: 8),
                   if (state is DocumentLoadSuccess) ...[

@@ -203,7 +203,9 @@ class DocumentLoadSuccess extends DocumentLoaded {
                   false)));
 
   Future<AssetLocation> save([AssetLocation? location]) async {
-    if (networkingService.isActive) return AssetLocation.empty;
+    if (networkingService.state?.$1 is NetworkerClient) {
+      return AssetLocation.empty;
+    }
     final storage = getRemoteStorage();
     final fileSystem = DocumentFileSystem.fromPlatform(remote: storage);
     currentIndexCubit.setSaveState(saved: SaveState.saving, location: location);

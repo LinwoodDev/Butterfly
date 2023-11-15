@@ -86,6 +86,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
 
   void init(DocumentBloc bloc) {
     changeTool(bloc, state.index ?? 0, null, true, false);
+    state.networkingService.setup(bloc);
   }
 
   ThemeData getTheme(bool dark,

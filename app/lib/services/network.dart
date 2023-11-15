@@ -67,6 +67,9 @@ class NetworkingService {
 
   void createSocketClient(Uri uri) {
     closeNetworking();
+    if (!uri.hasPort) {
+      uri = uri.replace(port: kDefaultPort);
+    }
     final client = NetworkerSocketClient(uri);
     final rpc = RpcNetworkerPlugin();
     _setupRpc(rpc, client);
