@@ -109,10 +109,10 @@ packages:
     dependency: transitive
     description:
       name: build_daemon
-      sha256: "0343061a33da9c5810b2d6cee51945127d8f4c060b7fbdd9d54917f0a3feaaa1"
+      sha256: "5f02d73eb2ba16483e693f80bee4f088563a820e47d1027d4cdfe62b5bb43e65"
       url: "https://pub.dev"
     source: hosted
-    version: "4.0.1"
+    version: "4.0.0"
   build_resolvers:
     dependency: transitive
     description:
@@ -773,8 +773,8 @@ packages:
     dependency: "direct main"
     description:
       path: "packages/networker/networker"
-      ref: "0dfaaa6c991e9cce62298277c43884d75ccb0f84"
-      resolved-ref: "0dfaaa6c991e9cce62298277c43884d75ccb0f84"
+      ref: b49238abebcaa8b5238ce8f9ddf3cef53ab5430a
+      resolved-ref: b49238abebcaa8b5238ce8f9ddf3cef53ab5430a
       url: "https://github.com/LinwoodDev/dart_pkgs.git"
     source: git
     version: "1.0.0"
@@ -782,8 +782,8 @@ packages:
     dependency: "direct main"
     description:
       path: "packages/networker/networker_socket"
-      ref: "2902f6a4bd1c0f0652f598a118c586d9be2a7a4c"
-      resolved-ref: "2902f6a4bd1c0f0652f598a118c586d9be2a7a4c"
+      ref: "0ae9d7f184ec4df6ac98ba9d84b5df5ed0ec65fd"
+      resolved-ref: "0ae9d7f184ec4df6ac98ba9d84b5df5ed0ec65fd"
       url: "https://github.com/LinwoodDev/dart_pkgs.git"
     source: git
     version: "1.0.0"
@@ -985,10 +985,10 @@ packages:
     dependency: transitive
     description:
       name: provider
-      sha256: "9a96a0a19b594dbc5bf0f1f27d2bc67d5f95957359b461cd9feb44ed6ae75096"
+      sha256: cdbe7530b12ecd9eb455bdaa2fcb8d4dad22e80b8afb4798b41479d5ce26847f
       url: "https://pub.dev"
     source: hosted
-    version: "6.1.1"
+    version: "6.0.5"
   pub_semver:
     dependency: transitive
     description:

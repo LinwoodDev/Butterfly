@@ -172,7 +172,7 @@ class _ProjectPageState extends State<ProjectPage> {
       NoteData? document;
       var data = widget.data;
       final uri = Uri.tryParse(widget.uri ?? '');
-      if (uri != null) {
+      if (widget.uri != null && uri != null) {
         data = await networkingService.createSocketClient(uri);
       }
       if (data != null) {
@@ -237,10 +237,15 @@ class _ProjectPageState extends State<ProjectPage> {
           path: widget.location?.path ?? '', remote: _remote?.identifier ?? '');
       setState(() {
         _transformCubit = TransformCubit();
-        _currentIndexCubit = CurrentIndexCubit(settingsCubit, _transformCubit!,
-            CameraViewport.unbaked(UtilitiesRenderer(), backgrounds), null);
+        _currentIndexCubit = CurrentIndexCubit(
+            settingsCubit,
+            _transformCubit!,
+            CameraViewport.unbaked(UtilitiesRenderer(), backgrounds),
+            null,
+            networkingService);
         _bloc = DocumentBloc(_currentIndexCubit!, settingsCubit, document!,
             location!, renderers, assetService, page, pageName);
+        networkingService.setup(_bloc!);
         _importService = ImportService(context, _bloc);
         _exportService = ExportService(context, _bloc);
       });

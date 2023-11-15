@@ -36,7 +36,7 @@ class NetworkingInitMessage {
 
   NetworkingInitMessage(this.data);
   NetworkingInitMessage.fromJson(Map<String, dynamic> data)
-      : data = data['data'];
+      : data = List<int>.from(data['data']);
 
   Map<String, dynamic> toJson() => {
         'data': data,
@@ -126,17 +126,21 @@ class NetworkingService {
             final ids = Set<ConnectionId>.from(message.message);
             _connections.add(ids);
           }
-        }));
+        }, true));
   }
 
+  bool _externalEvent = false;
+
   void onEvent(DocumentEvent event) {
-    if (!event.shouldSync()) return;
+    if (!event.shouldSync() || _externalEvent) return;
     state?.$2.sendMessage(
         RpcRequest(kNetworkerConnectionIdAny, 'event', event.toJson()));
   }
 
   void onMessage(DocumentEvent event) {
     if (!event.shouldSync()) return;
+    _externalEvent = true;
     _bloc?.add(event);
+    _externalEvent = false;
   }
 }
