@@ -35,9 +35,14 @@ class NetworkingService {
   DocumentBloc? _bloc;
   final BehaviorSubject<NetworkingState?> _subject =
       BehaviorSubject.seeded(null);
+  final BehaviorSubject<Set<ConnectionId>> _connections =
+      BehaviorSubject.seeded({});
 
   Stream<NetworkingState?> get stream => _subject.stream;
   NetworkingState? get state => _subject.value;
+
+  Stream<Set<ConnectionId>> get connections => _connections.stream;
+  Set<ConnectionId> get connectionIds => _connections.value;
 
   NetworkingService();
 
@@ -55,7 +60,7 @@ class NetworkingService {
     );
     final server = NetworkerSocketServer(httpServer);
     final rpc = RpcNetworkerServerPlugin();
-    setupRpc(rpc);
+    _setupRpc(rpc, server);
     server.addPlugin(rpc);
     _subject.add((server, rpc));
   }
@@ -64,7 +69,7 @@ class NetworkingService {
     closeNetworking();
     final client = NetworkerSocketClient(uri);
     final rpc = RpcNetworkerPlugin();
-    setupRpc(rpc);
+    _setupRpc(rpc, client);
     client.addPlugin(RawJsonNetworkerPlugin()..addPlugin(rpc));
     _subject.add((client, rpc));
   }
@@ -74,13 +79,26 @@ class NetworkingService {
     _subject.add(null);
   }
 
-  void setupRpc(RpcPlugin rpc) {
+  void _setupRpc(RpcPlugin rpc, NetworkerBase networker) {
     rpc.addFunction(
         'event',
         RpcFunction(RpcType.any, (message) {
           final data = jsonDecode(utf8.decode(message.message));
           final event = DocumentEvent.fromJson(data);
           onMessage(event);
+        }));
+    rpc.addFunction(
+        'connections',
+        RpcFunction(RpcType.any, (message) {
+          if (networker is NetworkerServer) {
+            rpc.sendMessage(RpcRequest(
+                message.client, 'connections', networker.connectionIds));
+          } else {
+            if (message.client != kNetworkerConnectionIdAuthority) return;
+            final data = jsonDecode(utf8.decode(message.message));
+            final ids = Set<ConnectionId>.from(data);
+            _connections.add(ids);
+          }
         }));
   }
 

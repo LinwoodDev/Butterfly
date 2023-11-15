@@ -80,8 +80,8 @@ class CurrentIndex with _$CurrentIndex {
 class CurrentIndexCubit extends Cubit<CurrentIndex> {
   CurrentIndexCubit(SettingsCubit settingsCubit, TransformCubit transformCubit,
       CameraViewport viewport, Embedding? embedding)
-      : super(CurrentIndex(
-            null, HandHandler(), viewport, settingsCubit, transformCubit, NetworkingService(),
+      : super(CurrentIndex(null, HandHandler(), viewport, settingsCubit,
+            transformCubit, NetworkingService(),
             embedding: embedding));
 
   void init(DocumentBloc bloc) {
@@ -718,5 +718,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
   void enterTouchHideUI() => emit(state.copyWith(hideUi: HideState.touch));
   void exitHideUI() => emit(state.copyWith(hideUi: HideState.visible));
 
-  void dispose() {}
+  void dispose() {
+    state.networkingService.closeNetworking();
+  }
 }

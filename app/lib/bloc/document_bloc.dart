@@ -883,6 +883,13 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     }
   }
 
+  @override
+  void onEvent(DocumentEvent event) {
+    super.onEvent(event);
+
+    state.networkingService?.onEvent(event);
+  }
+
   void _repaint(Emitter<DocumentState> emit) {
     final current = state;
     if (current is! DocumentLoadSuccess) return;

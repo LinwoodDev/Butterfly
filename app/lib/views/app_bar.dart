@@ -6,7 +6,7 @@ import 'package:butterfly/actions/svg_export.dart';
 import 'package:butterfly/api/file_system/file_system.dart';
 import 'package:butterfly/api/open.dart';
 import 'package:butterfly/cubits/current_index.dart';
-import 'package:butterfly/dialogs/collaboration/view.dart';
+import 'package:butterfly/dialogs/collaboration/dialog.dart';
 import 'package:butterfly/services/import.dart';
 import 'package:butterfly/views/edit.dart';
 import 'package:butterfly/visualizer/asset.dart';

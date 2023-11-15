@@ -190,6 +190,7 @@ class DocumentLoadSuccess extends DocumentLoaded {
   bool isLayerVisible(String layer) => !invisibleLayers.contains(layer);
 
   bool hasAutosave() =>
+      networkingService.isActive ||
       !(embedding?.save ?? true) ||
       (!kIsWeb &&
           !location.absolute &&
@@ -202,6 +203,7 @@ class DocumentLoadSuccess extends DocumentLoaded {
                   false)));
 
   Future<AssetLocation> save([AssetLocation? location]) async {
+    if (networkingService.isActive) return AssetLocation.empty;
     final storage = getRemoteStorage();
     final fileSystem = DocumentFileSystem.fromPlatform(remote: storage);
     currentIndexCubit.setSaveState(saved: SaveState.saving, location: location);
