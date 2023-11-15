@@ -39,7 +39,6 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
           initial,
           page: page,
           assetService: assetService,
-          networkService: NetworkService(),
           currentIndexCubit: currentIndexCubit,
           location: location,
           settingsCubit: settingsCubit,
@@ -57,7 +56,6 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
   ) : super(DocumentLoadFailure(settingsCubit, ''));
 
   void _init() {
-    (state as DocumentLoaded).networkService.setup(this);
     on<PageAdded>((event, emit) async {
       final current = state;
       if (current is! DocumentLoadSuccess) return;
@@ -828,7 +826,6 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
         current,
         event.track,
         event.fullScreen,
-        networkService: current.networkService,
         assetService: current.assetService,
         pageName: current.pageName,
         page: current.page,
@@ -925,7 +922,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
   void dispose() {
     final current = state;
     if (current is! DocumentLoaded) return;
-    current.networkService.close();
+    current.currentIndexCubit.dispose();
     state.assetService?.dispose();
   }
 }

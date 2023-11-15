@@ -1,5 +1,4 @@
 import 'package:butterfly/cubits/settings.dart';
-import 'package:butterfly/dialogs/name.dart';
 import 'package:butterfly/visualizer/sync.dart';
 import 'package:butterfly/widgets/window.dart';
 import 'package:flutter/foundation.dart';
@@ -79,13 +78,6 @@ class BehaviorsSettingsPage extends StatelessWidget {
                                   state.syncMode.getLocalizedName(context)),
                               onTap: () => _openSyncModeModal(context),
                             ),
-                            ListTile(
-                              title:
-                                  Text(AppLocalizations.of(context).iceServers),
-                              leading: const PhosphorIcon(
-                                  PhosphorIconsLight.database),
-                              onTap: () => _openIceServersModal(context),
-                            ),
                           ]),
                     )),
               Card(
@@ -154,7 +146,7 @@ class BehaviorsSettingsPage extends StatelessWidget {
           const SizedBox(height: 32),
         ];
       });
-
+/* 
   Future<void> _openIceServersModal(BuildContext context) {
     final settingsCubit = context.read<SettingsCubit>();
     return showLeapBottomSheet(
@@ -208,5 +200,5 @@ class BehaviorsSettingsPage extends StatelessWidget {
             }),
           ];
         });
-  }
+  } */
 }

@@ -7,6 +7,7 @@ import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/cubits/transform.dart';
 import 'package:butterfly/helpers/xml_helper.dart';
 import 'package:butterfly/renderers/renderer.dart';
+import 'package:butterfly/services/network.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
@@ -40,7 +41,8 @@ class CurrentIndex with _$CurrentIndex {
     Handler handler,
     CameraViewport cameraViewport,
     SettingsCubit settingsCubit,
-    TransformCubit transformCubit, {
+    TransformCubit transformCubit,
+    NetworkingService networkingService, {
     Handler? temporaryHandler,
     @Default([]) List<Renderer> foregrounds,
     Selection? selection,
@@ -79,7 +81,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
   CurrentIndexCubit(SettingsCubit settingsCubit, TransformCubit transformCubit,
       CameraViewport viewport, Embedding? embedding)
       : super(CurrentIndex(
-            null, HandHandler(), viewport, settingsCubit, transformCubit,
+            null, HandHandler(), viewport, settingsCubit, transformCubit, NetworkingService(),
             embedding: embedding));
 
   void init(DocumentBloc bloc) {
@@ -715,4 +717,6 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
           : HideState.visible));
   void enterTouchHideUI() => emit(state.copyWith(hideUi: HideState.touch));
   void exitHideUI() => emit(state.copyWith(hideUi: HideState.visible));
+
+  void dispose() {}
 }

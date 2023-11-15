@@ -21,6 +21,7 @@ mixin _$CurrentIndex {
   CameraViewport get cameraViewport => throw _privateConstructorUsedError;
   SettingsCubit get settingsCubit => throw _privateConstructorUsedError;
   TransformCubit get transformCubit => throw _privateConstructorUsedError;
+  NetworkingService get networkingService => throw _privateConstructorUsedError;
   Handler<dynamic>? get temporaryHandler => throw _privateConstructorUsedError;
   List<Renderer> get foregrounds => throw _privateConstructorUsedError;
   Selection<dynamic>? get selection => throw _privateConstructorUsedError;
@@ -61,6 +62,7 @@ abstract class $CurrentIndexCopyWith<$Res> {
       CameraViewport cameraViewport,
       SettingsCubit settingsCubit,
       TransformCubit transformCubit,
+      NetworkingService networkingService,
       Handler<dynamic>? temporaryHandler,
       List<Renderer> foregrounds,
       Selection<dynamic>? selection,
@@ -102,6 +104,7 @@ class _$CurrentIndexCopyWithImpl<$Res, $Val extends CurrentIndex>
     Object? cameraViewport = null,
     Object? settingsCubit = null,
     Object? transformCubit = null,
+    Object? networkingService = null,
     Object? temporaryHandler = freezed,
     Object? foregrounds = null,
     Object? selection = freezed,
@@ -142,6 +145,10 @@ class _$CurrentIndexCopyWithImpl<$Res, $Val extends CurrentIndex>
           ? _value.transformCubit
           : transformCubit // ignore: cast_nullable_to_non_nullable
               as TransformCubit,
+      networkingService: null == networkingService
+          ? _value.networkingService
+          : networkingService // ignore: cast_nullable_to_non_nullable
+              as NetworkingService,
       temporaryHandler: freezed == temporaryHandler
           ? _value.temporaryHandler
           : temporaryHandler // ignore: cast_nullable_to_non_nullable
@@ -248,6 +255,7 @@ abstract class _$$CurrentIndexImplCopyWith<$Res>
       CameraViewport cameraViewport,
       SettingsCubit settingsCubit,
       TransformCubit transformCubit,
+      NetworkingService networkingService,
       Handler<dynamic>? temporaryHandler,
       List<Renderer> foregrounds,
       Selection<dynamic>? selection,
@@ -289,6 +297,7 @@ class __$$CurrentIndexImplCopyWithImpl<$Res>
     Object? cameraViewport = null,
     Object? settingsCubit = null,
     Object? transformCubit = null,
+    Object? networkingService = null,
     Object? temporaryHandler = freezed,
     Object? foregrounds = null,
     Object? selection = freezed,
@@ -329,6 +338,10 @@ class __$$CurrentIndexImplCopyWithImpl<$Res>
           ? _value.transformCubit
           : transformCubit // ignore: cast_nullable_to_non_nullable
               as TransformCubit,
+      null == networkingService
+          ? _value.networkingService
+          : networkingService // ignore: cast_nullable_to_non_nullable
+              as NetworkingService,
       temporaryHandler: freezed == temporaryHandler
           ? _value.temporaryHandler
           : temporaryHandler // ignore: cast_nullable_to_non_nullable
@@ -409,7 +422,7 @@ class __$$CurrentIndexImplCopyWithImpl<$Res>
 
 class _$CurrentIndexImpl extends _CurrentIndex {
   const _$CurrentIndexImpl(this.index, this.handler, this.cameraViewport,
-      this.settingsCubit, this.transformCubit,
+      this.settingsCubit, this.transformCubit, this.networkingService,
       {this.temporaryHandler,
       final List<Renderer> foregrounds = const [],
       this.selection,
@@ -446,6 +459,8 @@ class _$CurrentIndexImpl extends _CurrentIndex {
   final SettingsCubit settingsCubit;
   @override
   final TransformCubit transformCubit;
+  @override
+  final NetworkingService networkingService;
   @override
   final Handler<dynamic>? temporaryHandler;
   final List<Renderer> _foregrounds;
@@ -530,7 +545,7 @@ class _$CurrentIndexImpl extends _CurrentIndex {
 
   @override
   String toString() {
-    return 'CurrentIndex(index: $index, handler: $handler, cameraViewport: $cameraViewport, settingsCubit: $settingsCubit, transformCubit: $transformCubit, temporaryHandler: $temporaryHandler, foregrounds: $foregrounds, selection: $selection, pinned: $pinned, temporaryForegrounds: $temporaryForegrounds, cursor: $cursor, temporaryCursor: $temporaryCursor, pointers: $pointers, buttons: $buttons, location: $location, embedding: $embedding, saved: $saved, toolbar: $toolbar, temporaryToolbar: $temporaryToolbar, rendererStates: $rendererStates, temporaryRendererStates: $temporaryRendererStates, viewOption: $viewOption, hideUi: $hideUi)';
+    return 'CurrentIndex(index: $index, handler: $handler, cameraViewport: $cameraViewport, settingsCubit: $settingsCubit, transformCubit: $transformCubit, networkingService: $networkingService, temporaryHandler: $temporaryHandler, foregrounds: $foregrounds, selection: $selection, pinned: $pinned, temporaryForegrounds: $temporaryForegrounds, cursor: $cursor, temporaryCursor: $temporaryCursor, pointers: $pointers, buttons: $buttons, location: $location, embedding: $embedding, saved: $saved, toolbar: $toolbar, temporaryToolbar: $temporaryToolbar, rendererStates: $rendererStates, temporaryRendererStates: $temporaryRendererStates, viewOption: $viewOption, hideUi: $hideUi)';
   }
 
   @JsonKey(ignore: true)
@@ -547,6 +562,7 @@ abstract class _CurrentIndex extends CurrentIndex {
       final CameraViewport cameraViewport,
       final SettingsCubit settingsCubit,
       final TransformCubit transformCubit,
+      final NetworkingService networkingService,
       {final Handler<dynamic>? temporaryHandler,
       final List<Renderer> foregrounds,
       final Selection<dynamic>? selection,
@@ -577,6 +593,8 @@ abstract class _CurrentIndex extends CurrentIndex {
   SettingsCubit get settingsCubit;
   @override
   TransformCubit get transformCubit;
+  @override
+  NetworkingService get networkingService;
   @override
   Handler<dynamic>? get temporaryHandler;
   @override

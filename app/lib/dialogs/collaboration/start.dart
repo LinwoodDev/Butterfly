@@ -1,5 +1,4 @@
 import 'package:butterfly/bloc/document_bloc.dart';
-import 'package:butterfly/cubits/settings.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -43,35 +42,18 @@ class _StartCollaborationDialogState extends State<StartCollaborationDialog>
               controller: _tabController,
               tabs: [
                 Tab(
-                  icon: const PhosphorIcon(PhosphorIconsLight.graph),
-                  child: Text(AppLocalizations.of(context).webRtc),
+                  icon: const PhosphorIcon(PhosphorIconsLight.gear),
+                  child: Text(AppLocalizations.of(context).settings),
                 ),
                 Tab(
                   icon: const PhosphorIcon(PhosphorIconsLight.plugs),
-                  child: Text(AppLocalizations.of(context).webSocket),
+                  child: Text(AppLocalizations.of(context).users),
                 ),
               ],
             ),
             const SizedBox(height: 8),
             Flexible(
                 child: TabBarView(controller: _tabController, children: [
-              ListView(
-                children: [
-                  DropdownMenu(
-                    width: 300,
-                    label: Text(AppLocalizations.of(context).iceServer),
-                    dropdownMenuEntries: context
-                        .read<SettingsCubit>()
-                        .state
-                        .iceServers
-                        .map((e) => DropdownMenuEntry(
-                              value: e,
-                              label: e,
-                            ))
-                        .toList(),
-                  ),
-                ],
-              ),
               kIsWeb
                   ? Text(AppLocalizations.of(context).webNotSupported)
                   : ListView(
@@ -100,12 +82,7 @@ class _StartCollaborationDialogState extends State<StartCollaborationDialog>
             final state = bloc.state;
             if (state is! DocumentLoaded) return;
             Navigator.of(context).pop();
-            final service = state.networkService;
-            if (_tabController.index == 0) {
-              service.createRtcServer();
-            } else {
-              service.createSocketServer();
-            }
+            state.networkingService.createSocketServer();
           },
           child: Text(AppLocalizations.of(context).start),
         ),

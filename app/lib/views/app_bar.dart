@@ -98,7 +98,8 @@ class _AppBarTitle extends StatelessWidget {
         return previous.currentAreaName != current.currentAreaName ||
             previous.hasAutosave() != current.hasAutosave() ||
             previous.metadata != current.metadata ||
-            previous.networkService.isActive != current.networkService.isActive;
+            previous.networkingService.isActive !=
+                current.networkingService.isActive;
       }, builder: (context, state) {
         final area = state is DocumentLoadSuccess ? state.currentArea : null;
         final areaName =
@@ -270,7 +271,7 @@ class _AppBarTitle extends StatelessWidget {
                             const PhosphorIcon(PhosphorIconsLight.shareNetwork),
                         onPressed: () => showCollaborationDialog(context),
                         tooltip: AppLocalizations.of(context).share,
-                        isSelected: state.networkService.isActive,
+                        isSelected: state.networkingService.isActive,
                         selectedIcon:
                             const PhosphorIcon(PhosphorIconsFill.shareNetwork),
                       ),

@@ -1,7 +1,5 @@
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/dialogs/collaboration/start.dart';
-import 'package:butterfly/services/network.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -12,8 +10,6 @@ class ViewCollaborationDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const side = NetworkSide.client;
-    const type = kIsWeb ? NetworkType.webRtc : NetworkType.webSocket;
     return AlertDialog(
       title: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -25,7 +21,7 @@ class ViewCollaborationDialog extends StatelessWidget {
               final bloc = context.read<DocumentBloc>();
               final state = bloc.state;
               if (state is! DocumentLoaded) return;
-              state.networkService.close();
+              state.networkingService.closeNetworking();
               Navigator.of(context).pop();
             },
           ),
@@ -37,23 +33,6 @@ class ViewCollaborationDialog extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(switch (side) {
-                  NetworkSide.client => AppLocalizations.of(context).client,
-                  NetworkSide.server => AppLocalizations.of(context).server,
-                }),
-                const SizedBox(width: 8),
-                const PhosphorIcon(PhosphorIconsLight.circle, size: 8),
-                const SizedBox(width: 8),
-                Text(switch (type) {
-                  NetworkType.webRtc => AppLocalizations.of(context).webRtc,
-                  NetworkType.webSocket =>
-                    AppLocalizations.of(context).webSocket,
-                }),
-              ],
-            ),
             const SizedBox(height: 8),
             AspectRatio(
               aspectRatio: 1,
@@ -104,7 +83,7 @@ Future<void> showCollaborationDialog(BuildContext context) async {
   final bloc = context.read<DocumentBloc>();
   final state = bloc.state;
   if (state is! DocumentLoaded) return;
-  final network = state.networkService;
+  final network = state.networkingService;
   final dialog = network.isActive
       ? const ViewCollaborationDialog()
       : const StartCollaborationDialog();
