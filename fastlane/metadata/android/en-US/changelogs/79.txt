@@ -13,5 +13,6 @@
 * Fix animation duplicates on rename
 * Remove sync button on local storage
 * Remove sync button on files in local storage
+* Upgrade to flutter 3.16.0 stable
 
 View all changes in the blog: https://linwood.dev/butterfly/2.0.0-beta.15
