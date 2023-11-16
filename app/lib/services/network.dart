@@ -97,8 +97,8 @@ class NetworkingService {
 
     server.connect.listen((event) {
       final state = _bloc?.state;
-      rpc.sendMessage(RpcRequest(
-          event, 'init', NetworkingInitMessage(state?.data?.save())));
+      rpc.sendMessage(
+          RpcRequest(event, 'init', NetworkingInitMessage(state?.saveBytes())));
       sendConnections();
     });
     server.disconnect.listen((event) {

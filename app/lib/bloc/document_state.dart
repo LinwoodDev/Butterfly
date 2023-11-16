@@ -21,6 +21,8 @@ abstract class DocumentState extends Equatable {
   SettingsCubit get settingsCubit;
   NetworkingService? get networkingService =>
       currentIndexCubit?.state.networkingService;
+  NoteData? saveData([NoteData? current]) => data;
+  List<int>? saveBytes([NoteData? current]) => saveData()?.save();
 }
 
 class DocumentLoadInProgress extends DocumentState {
@@ -95,6 +97,7 @@ abstract class DocumentLoaded extends DocumentState {
 
   TransformCubit get transformCubit => currentIndexCubit.state.transformCubit;
 
+  @override
   NoteData saveData([NoteData? current]) {
     current ??= data;
     current = _updatePage(current);

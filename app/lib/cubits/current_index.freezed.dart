@@ -32,6 +32,7 @@ mixin _$CurrentIndex {
       throw _privateConstructorUsedError;
   MouseCursor get cursor => throw _privateConstructorUsedError;
   MouseCursor? get temporaryCursor => throw _privateConstructorUsedError;
+  ui.Offset? get lastPosition => throw _privateConstructorUsedError;
   List<int> get pointers => throw _privateConstructorUsedError;
   int? get buttons => throw _privateConstructorUsedError;
   AssetLocation get location => throw _privateConstructorUsedError;
@@ -73,6 +74,7 @@ abstract class $CurrentIndexCopyWith<$Res> {
       List<Renderer> networkingForegrounds,
       MouseCursor cursor,
       MouseCursor? temporaryCursor,
+      ui.Offset? lastPosition,
       List<int> pointers,
       int? buttons,
       AssetLocation location,
@@ -116,6 +118,7 @@ class _$CurrentIndexCopyWithImpl<$Res, $Val extends CurrentIndex>
     Object? networkingForegrounds = null,
     Object? cursor = null,
     Object? temporaryCursor = freezed,
+    Object? lastPosition = freezed,
     Object? pointers = null,
     Object? buttons = freezed,
     Object? location = null,
@@ -185,6 +188,10 @@ class _$CurrentIndexCopyWithImpl<$Res, $Val extends CurrentIndex>
           ? _value.temporaryCursor
           : temporaryCursor // ignore: cast_nullable_to_non_nullable
               as MouseCursor?,
+      lastPosition: freezed == lastPosition
+          ? _value.lastPosition
+          : lastPosition // ignore: cast_nullable_to_non_nullable
+              as ui.Offset?,
       pointers: null == pointers
           ? _value.pointers
           : pointers // ignore: cast_nullable_to_non_nullable
@@ -272,6 +279,7 @@ abstract class _$$CurrentIndexImplCopyWith<$Res>
       List<Renderer> networkingForegrounds,
       MouseCursor cursor,
       MouseCursor? temporaryCursor,
+      ui.Offset? lastPosition,
       List<int> pointers,
       int? buttons,
       AssetLocation location,
@@ -315,6 +323,7 @@ class __$$CurrentIndexImplCopyWithImpl<$Res>
     Object? networkingForegrounds = null,
     Object? cursor = null,
     Object? temporaryCursor = freezed,
+    Object? lastPosition = freezed,
     Object? pointers = null,
     Object? buttons = freezed,
     Object? location = null,
@@ -384,6 +393,10 @@ class __$$CurrentIndexImplCopyWithImpl<$Res>
           ? _value.temporaryCursor
           : temporaryCursor // ignore: cast_nullable_to_non_nullable
               as MouseCursor?,
+      lastPosition: freezed == lastPosition
+          ? _value.lastPosition
+          : lastPosition // ignore: cast_nullable_to_non_nullable
+              as ui.Offset?,
       pointers: null == pointers
           ? _value._pointers
           : pointers // ignore: cast_nullable_to_non_nullable
@@ -445,6 +458,7 @@ class _$CurrentIndexImpl extends _CurrentIndex {
       final List<Renderer> networkingForegrounds = const [],
       this.cursor = MouseCursor.defer,
       this.temporaryCursor,
+      this.lastPosition,
       final List<int> pointers = const [],
       this.buttons,
       this.location = const AssetLocation(path: ''),
@@ -519,6 +533,8 @@ class _$CurrentIndexImpl extends _CurrentIndex {
   final MouseCursor cursor;
   @override
   final MouseCursor? temporaryCursor;
+  @override
+  final ui.Offset? lastPosition;
   final List<int> _pointers;
   @override
   @JsonKey()
@@ -571,7 +587,7 @@ class _$CurrentIndexImpl extends _CurrentIndex {
 
   @override
   String toString() {
-    return 'CurrentIndex(index: $index, handler: $handler, cameraViewport: $cameraViewport, settingsCubit: $settingsCubit, transformCubit: $transformCubit, networkingService: $networkingService, temporaryHandler: $temporaryHandler, foregrounds: $foregrounds, selection: $selection, pinned: $pinned, temporaryForegrounds: $temporaryForegrounds, networkingForegrounds: $networkingForegrounds, cursor: $cursor, temporaryCursor: $temporaryCursor, pointers: $pointers, buttons: $buttons, location: $location, embedding: $embedding, saved: $saved, toolbar: $toolbar, temporaryToolbar: $temporaryToolbar, rendererStates: $rendererStates, temporaryRendererStates: $temporaryRendererStates, viewOption: $viewOption, hideUi: $hideUi)';
+    return 'CurrentIndex(index: $index, handler: $handler, cameraViewport: $cameraViewport, settingsCubit: $settingsCubit, transformCubit: $transformCubit, networkingService: $networkingService, temporaryHandler: $temporaryHandler, foregrounds: $foregrounds, selection: $selection, pinned: $pinned, temporaryForegrounds: $temporaryForegrounds, networkingForegrounds: $networkingForegrounds, cursor: $cursor, temporaryCursor: $temporaryCursor, lastPosition: $lastPosition, pointers: $pointers, buttons: $buttons, location: $location, embedding: $embedding, saved: $saved, toolbar: $toolbar, temporaryToolbar: $temporaryToolbar, rendererStates: $rendererStates, temporaryRendererStates: $temporaryRendererStates, viewOption: $viewOption, hideUi: $hideUi)';
   }
 
   @JsonKey(ignore: true)
@@ -597,6 +613,7 @@ abstract class _CurrentIndex extends CurrentIndex {
       final List<Renderer> networkingForegrounds,
       final MouseCursor cursor,
       final MouseCursor? temporaryCursor,
+      final ui.Offset? lastPosition,
       final List<int> pointers,
       final int? buttons,
       final AssetLocation location,
@@ -638,6 +655,8 @@ abstract class _CurrentIndex extends CurrentIndex {
   MouseCursor get cursor;
   @override
   MouseCursor? get temporaryCursor;
+  @override
+  ui.Offset? get lastPosition;
   @override
   List<int> get pointers;
   @override

@@ -316,6 +316,7 @@ class _MainViewViewportState extends State<MainViewViewport>
                             }
                           },
                           onPointerUp: (PointerUpEvent event) async {
+                            cubit.updateLastPosition(event.localPosition);
                             if (_isScalingDisabled ?? true) {
                               getHandler()
                                   .onPointerUp(event, getEventContext());
@@ -326,9 +327,13 @@ class _MainViewViewportState extends State<MainViewViewport>
                                 context.read<DocumentBloc>()));
                           },
                           behavior: HitTestBehavior.translucent,
-                          onPointerHover: (event) => getHandler()
-                              .onPointerHover(event, getEventContext()),
+                          onPointerHover: (event) {
+                            cubit.updateLastPosition(event.localPosition);
+                            getHandler()
+                                .onPointerHover(event, getEventContext());
+                          },
                           onPointerMove: (PointerMoveEvent event) async {
+                            cubit.updateLastPosition(event.localPosition);
                             if (cubit.state.moveEnabled &&
                                 event.kind != PointerDeviceKind.stylus) {
                               if (event.pointer == cubit.state.pointers.first) {
