@@ -15,6 +15,22 @@ class ViewCollaborationDialog extends StatelessWidget {
     return AlertDialog(
       title: Text(AppLocalizations.of(context).collaboration),
       scrollable: true,
+      content: StreamBuilder<Set<ConnectionId>>(
+          stream: service.connections,
+          builder: (context, snapshot) {
+            final connections = snapshot.data ?? {};
+            if (connections.isEmpty) {
+              return Text(AppLocalizations.of(context).noConnections);
+            }
+            return Column(
+              children: [
+                for (final connection in connections)
+                  ListTile(
+                    title: Text(connection.toString()),
+                  ),
+              ],
+            );
+          }),
       actions: [
         OutlinedButton(
           child: Text(AppLocalizations.of(context).stop),

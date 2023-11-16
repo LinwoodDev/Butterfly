@@ -28,7 +28,7 @@ enum NetworkingType {
 }
 
 const kDefaultPort = 28005;
-const kTimeout = Duration(seconds: 5);
+const kTimeout = Duration(seconds: 10);
 typedef NetworkingState = (NetworkerBase, RpcPlugin);
 
 class NetworkingInitMessage {
@@ -73,10 +73,19 @@ class NetworkingService {
     final server = NetworkerSocketServer(httpServer);
     final rpc = RpcNetworkerServerPlugin();
     _setupRpc(rpc, server);
+    void sendConnections() {
+      rpc.sendMessage(RpcRequest(
+          kNetworkerConnectionIdAny, 'connections', server.connectionIds));
+    }
+
     server.connect.listen((event) {
       final state = _bloc?.state;
       rpc.sendMessage(RpcRequest(
           event, 'init', NetworkingInitMessage(state?.data?.save())));
+      sendConnections();
+    });
+    server.disconnect.listen((event) {
+      sendConnections();
     });
     server.addPlugin(rpc);
     _subject.add((server, rpc));
@@ -117,15 +126,9 @@ class NetworkingService {
         }));
     rpc.addFunction(
         'connections',
-        RpcFunction(RpcType.any, (message) {
-          if (networker is NetworkerServer) {
-            rpc.sendMessage(RpcRequest(
-                message.client, 'connections', networker.connectionIds));
-          } else {
-            if (message.client != kNetworkerConnectionIdAuthority) return;
-            final ids = Set<ConnectionId>.from(message.message);
-            _connections.add(ids);
-          }
+        RpcFunction(RpcType.authority, (message) {
+          final ids = Set<ConnectionId>.from(message.message);
+          _connections.add(ids);
         }, true));
   }
 

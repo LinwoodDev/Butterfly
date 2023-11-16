@@ -334,6 +334,7 @@ class _FilesViewState extends State<FilesView> {
                           builder: (context) => NameDialog(
                             title: AppLocalizations.of(context).enterUrl,
                             hint: AppLocalizations.of(context).url,
+                            button: AppLocalizations.of(context).connect,
                           ),
                           context: context,
                         );
