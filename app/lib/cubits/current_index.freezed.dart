@@ -28,6 +28,8 @@ mixin _$CurrentIndex {
   bool get pinned => throw _privateConstructorUsedError;
   List<Renderer>? get temporaryForegrounds =>
       throw _privateConstructorUsedError;
+  List<Renderer> get networkingForegrounds =>
+      throw _privateConstructorUsedError;
   MouseCursor get cursor => throw _privateConstructorUsedError;
   MouseCursor? get temporaryCursor => throw _privateConstructorUsedError;
   List<int> get pointers => throw _privateConstructorUsedError;
@@ -68,6 +70,7 @@ abstract class $CurrentIndexCopyWith<$Res> {
       Selection<dynamic>? selection,
       bool pinned,
       List<Renderer>? temporaryForegrounds,
+      List<Renderer> networkingForegrounds,
       MouseCursor cursor,
       MouseCursor? temporaryCursor,
       List<int> pointers,
@@ -110,6 +113,7 @@ class _$CurrentIndexCopyWithImpl<$Res, $Val extends CurrentIndex>
     Object? selection = freezed,
     Object? pinned = null,
     Object? temporaryForegrounds = freezed,
+    Object? networkingForegrounds = null,
     Object? cursor = null,
     Object? temporaryCursor = freezed,
     Object? pointers = null,
@@ -169,6 +173,10 @@ class _$CurrentIndexCopyWithImpl<$Res, $Val extends CurrentIndex>
           ? _value.temporaryForegrounds
           : temporaryForegrounds // ignore: cast_nullable_to_non_nullable
               as List<Renderer>?,
+      networkingForegrounds: null == networkingForegrounds
+          ? _value.networkingForegrounds
+          : networkingForegrounds // ignore: cast_nullable_to_non_nullable
+              as List<Renderer>,
       cursor: null == cursor
           ? _value.cursor
           : cursor // ignore: cast_nullable_to_non_nullable
@@ -261,6 +269,7 @@ abstract class _$$CurrentIndexImplCopyWith<$Res>
       Selection<dynamic>? selection,
       bool pinned,
       List<Renderer>? temporaryForegrounds,
+      List<Renderer> networkingForegrounds,
       MouseCursor cursor,
       MouseCursor? temporaryCursor,
       List<int> pointers,
@@ -303,6 +312,7 @@ class __$$CurrentIndexImplCopyWithImpl<$Res>
     Object? selection = freezed,
     Object? pinned = null,
     Object? temporaryForegrounds = freezed,
+    Object? networkingForegrounds = null,
     Object? cursor = null,
     Object? temporaryCursor = freezed,
     Object? pointers = null,
@@ -362,6 +372,10 @@ class __$$CurrentIndexImplCopyWithImpl<$Res>
           ? _value._temporaryForegrounds
           : temporaryForegrounds // ignore: cast_nullable_to_non_nullable
               as List<Renderer>?,
+      networkingForegrounds: null == networkingForegrounds
+          ? _value._networkingForegrounds
+          : networkingForegrounds // ignore: cast_nullable_to_non_nullable
+              as List<Renderer>,
       cursor: null == cursor
           ? _value.cursor
           : cursor // ignore: cast_nullable_to_non_nullable
@@ -428,6 +442,7 @@ class _$CurrentIndexImpl extends _CurrentIndex {
       this.selection,
       this.pinned = false,
       final List<Renderer>? temporaryForegrounds,
+      final List<Renderer> networkingForegrounds = const [],
       this.cursor = MouseCursor.defer,
       this.temporaryCursor,
       final List<int> pointers = const [],
@@ -444,6 +459,7 @@ class _$CurrentIndexImpl extends _CurrentIndex {
       this.hideUi = HideState.visible})
       : _foregrounds = foregrounds,
         _temporaryForegrounds = temporaryForegrounds,
+        _networkingForegrounds = networkingForegrounds,
         _pointers = pointers,
         _rendererStates = rendererStates,
         _temporaryRendererStates = temporaryRendererStates,
@@ -486,6 +502,16 @@ class _$CurrentIndexImpl extends _CurrentIndex {
       return _temporaryForegrounds;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(value);
+  }
+
+  final List<Renderer> _networkingForegrounds;
+  @override
+  @JsonKey()
+  List<Renderer> get networkingForegrounds {
+    if (_networkingForegrounds is EqualUnmodifiableListView)
+      return _networkingForegrounds;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_networkingForegrounds);
   }
 
   @override
@@ -545,7 +571,7 @@ class _$CurrentIndexImpl extends _CurrentIndex {
 
   @override
   String toString() {
-    return 'CurrentIndex(index: $index, handler: $handler, cameraViewport: $cameraViewport, settingsCubit: $settingsCubit, transformCubit: $transformCubit, networkingService: $networkingService, temporaryHandler: $temporaryHandler, foregrounds: $foregrounds, selection: $selection, pinned: $pinned, temporaryForegrounds: $temporaryForegrounds, cursor: $cursor, temporaryCursor: $temporaryCursor, pointers: $pointers, buttons: $buttons, location: $location, embedding: $embedding, saved: $saved, toolbar: $toolbar, temporaryToolbar: $temporaryToolbar, rendererStates: $rendererStates, temporaryRendererStates: $temporaryRendererStates, viewOption: $viewOption, hideUi: $hideUi)';
+    return 'CurrentIndex(index: $index, handler: $handler, cameraViewport: $cameraViewport, settingsCubit: $settingsCubit, transformCubit: $transformCubit, networkingService: $networkingService, temporaryHandler: $temporaryHandler, foregrounds: $foregrounds, selection: $selection, pinned: $pinned, temporaryForegrounds: $temporaryForegrounds, networkingForegrounds: $networkingForegrounds, cursor: $cursor, temporaryCursor: $temporaryCursor, pointers: $pointers, buttons: $buttons, location: $location, embedding: $embedding, saved: $saved, toolbar: $toolbar, temporaryToolbar: $temporaryToolbar, rendererStates: $rendererStates, temporaryRendererStates: $temporaryRendererStates, viewOption: $viewOption, hideUi: $hideUi)';
   }
 
   @JsonKey(ignore: true)
@@ -568,6 +594,7 @@ abstract class _CurrentIndex extends CurrentIndex {
       final Selection<dynamic>? selection,
       final bool pinned,
       final List<Renderer>? temporaryForegrounds,
+      final List<Renderer> networkingForegrounds,
       final MouseCursor cursor,
       final MouseCursor? temporaryCursor,
       final List<int> pointers,
@@ -605,6 +632,8 @@ abstract class _CurrentIndex extends CurrentIndex {
   bool get pinned;
   @override
   List<Renderer>? get temporaryForegrounds;
+  @override
+  List<Renderer> get networkingForegrounds;
   @override
   MouseCursor get cursor;
   @override

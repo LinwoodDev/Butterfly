@@ -13,6 +13,7 @@ import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:networker/networker.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:xml/xml.dart';
@@ -48,6 +49,7 @@ class CurrentIndex with _$CurrentIndex {
     Selection? selection,
     @Default(false) bool pinned,
     List<Renderer>? temporaryForegrounds,
+    @Default([]) List<Renderer> networkingForegrounds,
     @Default(MouseCursor.defer) MouseCursor cursor,
     MouseCursor? temporaryCursor,
     @Default([]) List<int> pointers,
@@ -108,11 +110,11 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
         .getGridPosition(position, page, info, this);
   }
 
-  Handler? changeTool(DocumentBloc bloc,
+  Future<Handler?> changeTool(DocumentBloc bloc,
       [int? index,
       Handler? handler,
       bool justAdded = false,
-      bool runSelected = true]) {
+      bool runSelected = true]) async {
     resetInput(bloc);
     final blocState = bloc.state;
     if (blocState is! DocumentLoadSuccess) return null;
@@ -128,12 +130,15 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
       state.handler.dispose(bloc);
       state.temporaryHandler?.dispose(bloc);
       _disposeForegrounds();
+      final foregrounds = handler.createForegrounds(
+          this, document, blocState.page, info, blocState.currentArea);
+      await Future.wait(foregrounds.map((e) async =>
+          await e.setup(document, blocState.assetService, blocState.page)));
       emit(state.copyWith(
         index: index,
         handler: handler,
         cursor: handler.cursor ?? MouseCursor.defer,
-        foregrounds: handler.createForegrounds(
-            this, document, blocState.page, info, blocState.currentArea),
+        foregrounds: foregrounds,
         toolbar: handler.getToolbar(bloc),
         rendererStates: handler.rendererStates,
         temporaryForegrounds: null,
@@ -144,6 +149,52 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
       ));
     }
     return handler;
+  }
+
+  @override
+  void onChange(Change<CurrentIndex> change) {
+    super.onChange(change);
+    if (change.nextState.foregrounds != change.currentState.foregrounds ||
+        change.nextState.temporaryForegrounds !=
+            change.currentState.temporaryForegrounds) {
+      _sendNetworkingState();
+    }
+  }
+
+  void _sendNetworkingState({List<Renderer<dynamic>>? foregrounds}) {
+    state.networkingService.sendUser(NetworkingUser(
+      foreground: (foregrounds ?? getForegrounds(false))
+          .map((e) => e.element)
+          .whereType<PadElement>()
+          .toList(),
+    ));
+  }
+
+  Future<void> updateNetworkingState(DocumentBloc bloc,
+      [Map<ConnectionId, NetworkingUser>? current]) async {
+    final blocState = bloc.state;
+    if (blocState is! DocumentLoadSuccess) return;
+    final users = (current ?? state.networkingService.users).values.toList();
+
+    final foregrounds = state.networkingForegrounds.toList();
+    foregrounds.removeWhere((element) {
+      final shouldRemove = !users
+          .any((user) => user.foreground?.contains(element.element) ?? false);
+      if (shouldRemove) {
+        element.dispose();
+      }
+      return shouldRemove;
+    });
+    final elements = foregrounds.map((e) => e.element).toList();
+    final added = users
+        .expand((user) => user.foreground ?? [])
+        .where((e) => !elements.contains(e))
+        .map((e) => Renderer.fromInstance(e))
+        .toList();
+    await Future.wait(added.map((e) async =>
+        await e.setup(blocState.data, blocState.assetService, blocState.page)));
+    foregrounds.addAll(added);
+    emit(state.copyWith(networkingForegrounds: foregrounds));
   }
 
   void updateHandler(DocumentBloc bloc, Handler handler) => emit(state.copyWith(
@@ -167,7 +218,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     emit(state.copyWith(
       index: state.index,
       handler: handler,
-      foregrounds: foregrounds,
+      foregrounds: newForegrounds,
       toolbar: handler.getToolbar(bloc),
       rendererStates: handler.rendererStates,
       cursor: handler.cursor ?? MouseCursor.defer,
@@ -345,8 +396,10 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     return handler;
   }
 
-  List<Renderer> get foregrounds =>
-      state.temporaryForegrounds ?? state.foregrounds;
+  List<Renderer> getForegrounds([bool networking = true]) => [
+        ...(state.temporaryForegrounds ?? state.foregrounds),
+        if (networking) ...state.networkingForegrounds,
+      ];
 
   void resetTemporaryHandler(DocumentBloc bloc) {
     if (state.temporaryHandler == null) {

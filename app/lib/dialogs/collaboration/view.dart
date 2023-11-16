@@ -16,7 +16,7 @@ class ViewCollaborationDialog extends StatelessWidget {
       title: Text(AppLocalizations.of(context).collaboration),
       scrollable: true,
       content: StreamBuilder<Set<ConnectionId>>(
-          stream: service.connections,
+          stream: service.connectionsStream,
           builder: (context, snapshot) {
             final connections = snapshot.data ?? {};
             if (connections.isEmpty) {

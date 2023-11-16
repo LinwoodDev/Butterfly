@@ -185,6 +185,8 @@ class _MainViewViewportState extends State<MainViewViewport>
                 previous.temporaryHandler != current.temporaryHandler ||
                 previous.temporaryForegrounds != current.temporaryForegrounds ||
                 previous.rendererStates != current.rendererStates ||
+                previous.networkingForegrounds !=
+                    current.networkingForegrounds ||
                 previous.temporaryRendererStates !=
                     current.temporaryRendererStates,
             builder: (context, currentIndex) => Actions(
@@ -361,7 +363,7 @@ class _MainViewViewportState extends State<MainViewViewport>
                                     size: Size.infinite,
                                     foregroundPainter: ForegroundPainter(
                                       [
-                                        ...cubit.foregrounds,
+                                        ...cubit.getForegrounds(),
                                       ],
                                       state.data,
                                       state.page,

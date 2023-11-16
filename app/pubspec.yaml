@@ -80,12 +80,12 @@ dependencies:
   networker:
     git:
       url: https://github.com/LinwoodDev/dart_pkgs.git
-      ref: b49238abebcaa8b5238ce8f9ddf3cef53ab5430a
+      ref: 4ee65a65ebf83647f00af5a1cda3c933a0d793e2
       path: packages/networker/networker
   networker_socket:
     git:
       url: https://github.com/LinwoodDev/dart_pkgs.git
-      ref: 0ae9d7f184ec4df6ac98ba9d84b5df5ed0ec65fd
+      ref: 390031a40b4baeda9dc05b37af8445c85a0250dd
       path: packages/networker/networker_socket
   flutter_localized_locales: ^2.0.5
   dynamic_color: ^1.6.8
