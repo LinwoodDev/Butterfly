@@ -1,3 +1,4 @@
+import 'package:butterfly/main.dart';
 import 'package:butterfly/settings/behaviors/home.dart';
 import 'package:butterfly/settings/data.dart';
 import 'package:butterfly/settings/personalization.dart';
@@ -21,6 +22,8 @@ enum SettingsView {
   personalization,
   connections,
   experiments;
+
+  bool get isEnabled => isNightly || this != SettingsView.experiments;
 
   String getLocalizedName(BuildContext context) => switch (this) {
         SettingsView.general => AppLocalizations.of(context).general,
@@ -96,13 +99,15 @@ class _SettingsPageState extends State<SettingsPage> {
                     controller: _scrollController,
                     shrinkWrap: true,
                     children: [
-                      ...SettingsView.values.map((view) => ListTile(
-                            leading: PhosphorIcon(
-                                view.icon(PhosphorIconsStyle.light)),
-                            title: Text(view.getLocalizedName(context)),
-                            onTap: () => navigateTo(view),
-                            selected: _view == view && !isMobile,
-                          )),
+                      ...SettingsView.values
+                          .where((e) => e.isEnabled)
+                          .map((view) => ListTile(
+                                leading: PhosphorIcon(
+                                    view.icon(PhosphorIconsStyle.light)),
+                                title: Text(view.getLocalizedName(context)),
+                                onTap: () => navigateTo(view),
+                                selected: _view == view && !isMobile,
+                              )),
                       if (kIsWeb) ...[
                         const Divider(),
                         Padding(
