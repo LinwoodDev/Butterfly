@@ -367,9 +367,7 @@ class _MainViewViewportState extends State<MainViewViewport>
                                   CustomPaint(
                                     size: Size.infinite,
                                     foregroundPainter: ForegroundPainter(
-                                      [
-                                        ...cubit.getForegrounds(),
-                                      ],
+                                      cubit.getForegrounds(),
                                       state.data,
                                       state.page,
                                       state.info,

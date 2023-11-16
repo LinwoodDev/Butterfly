@@ -185,8 +185,9 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
 
     final foregrounds = state.networkingForegrounds.toList();
     foregrounds.removeWhere((element) {
-      final shouldRemove = !users
-          .any((user) => user.foreground?.contains(element.element) ?? false);
+      final shouldRemove = !users.any((user) =>
+          user.foreground?.contains(element.element) ??
+          false || user != element.element);
       if (shouldRemove) {
         element.dispose();
       }
@@ -198,6 +199,9 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
         .where((e) => !elements.contains(e))
         .map((e) => Renderer.fromInstance(e))
         .toList();
+    added.addAll(users
+        .where((element) => !elements.contains(element))
+        .map((e) => UserCursor(e)));
     await Future.wait(added.map((e) async =>
         await e.setup(blocState.data, blocState.assetService, blocState.page)));
     foregrounds.addAll(added);
@@ -408,10 +412,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
 
   List<Renderer> getForegrounds([bool networking = true]) => [
         ...(state.temporaryForegrounds ?? state.foregrounds),
-        if (networking) ...[
-          ...state.networkingForegrounds,
-          ...state.networkingService.users.values.map((e) => UserCursor(e))
-        ]
+        if (networking) ...state.networkingForegrounds,
       ];
 
   void resetTemporaryHandler(DocumentBloc bloc) {
