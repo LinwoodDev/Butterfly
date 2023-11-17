@@ -535,6 +535,16 @@
   "sureClose": "Er du sikker på, at du vil lukke dokumentet?",
   "thereAreUnsavedChanges": "Der er ikke-gemte ændringer",
   "page": "Side",
+  "iceServers": "ICE Servers",
+  "collaboration": "Collaboration",
+  "webRtc": "Web RTC",
+  "webSocket": "Web Socket",
+  "iceServer": "ICE Server",
+  "port": "Port",
+  "type": "Type",
+  "side": "Side",
+  "client": "Client",
+  "server": "Server",
   "switchView": "Skift Visning",
   "lasso": "Lasso",
   "hideUI": "Skjul Brugerflade",
@@ -553,5 +563,8 @@
   "refresh": "Opdater",
   "print": "Udskriv",
   "dav": "DAV",
-  "eyeDropper": "Øjendråber"
+  "eyeDropper": "Øjendråber",
+  "users": "Users",
+  "experiments": "Experiments",
+  "address": "Address"
 }
