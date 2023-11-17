@@ -303,15 +303,22 @@ class _AppBarTitle extends StatelessWidget {
                         ),
                       ],
                       if (settings.flags.contains('collaboration') && !kIsWeb)
-                        IconButton(
-                          icon: const PhosphorIcon(
-                              PhosphorIconsLight.shareNetwork),
-                          onPressed: () => showCollaborationDialog(context),
-                          tooltip: AppLocalizations.of(context).collaboration,
-                          isSelected: state.networkingService.isActive,
-                          selectedIcon: const PhosphorIcon(
-                              PhosphorIconsFill.shareNetwork),
-                        ),
+                        StreamBuilder<NetworkingState?>(
+                            stream: state.networkingService.stream,
+                            builder: (context, snapshot) => IconButton(
+                                  icon: const PhosphorIcon(
+                                      PhosphorIconsLight.shareNetwork),
+                                  onPressed: () =>
+                                      showCollaborationDialog(context),
+                                  tooltip: AppLocalizations.of(context)
+                                      .collaboration,
+                                  isSelected: snapshot.data != null,
+                                  selectedIcon: PhosphorIcon(
+                                    PhosphorIconsFill.shareNetwork,
+                                    color:
+                                        Theme.of(context).colorScheme.primary,
+                                  ),
+                                )),
                     ],
                   ],
                 ),

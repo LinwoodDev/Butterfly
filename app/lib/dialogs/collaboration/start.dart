@@ -41,6 +41,7 @@ class _StartCollaborationDialogState extends State<StartCollaborationDialog>
                     ),
                     controller: _addressController,
                   ),
+                  const SizedBox(height: 8),
                   TextFormField(
                     decoration: InputDecoration(
                       labelText: AppLocalizations.of(context).port,
