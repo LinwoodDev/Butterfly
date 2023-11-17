@@ -185,6 +185,8 @@ class _MainViewViewportState extends State<MainViewViewport>
                 previous.temporaryHandler != current.temporaryHandler ||
                 previous.temporaryForegrounds != current.temporaryForegrounds ||
                 previous.rendererStates != current.rendererStates ||
+                previous.networkingForegrounds !=
+                    current.networkingForegrounds ||
                 previous.temporaryRendererStates !=
                     current.temporaryRendererStates,
             builder: (context, currentIndex) => Actions(
@@ -314,6 +316,7 @@ class _MainViewViewportState extends State<MainViewViewport>
                             }
                           },
                           onPointerUp: (PointerUpEvent event) async {
+                            cubit.updateLastPosition(event.localPosition);
                             if (_isScalingDisabled ?? true) {
                               getHandler()
                                   .onPointerUp(event, getEventContext());
@@ -324,9 +327,13 @@ class _MainViewViewportState extends State<MainViewViewport>
                                 context.read<DocumentBloc>()));
                           },
                           behavior: HitTestBehavior.translucent,
-                          onPointerHover: (event) => getHandler()
-                              .onPointerHover(event, getEventContext()),
+                          onPointerHover: (event) {
+                            cubit.updateLastPosition(event.localPosition);
+                            getHandler()
+                                .onPointerHover(event, getEventContext());
+                          },
                           onPointerMove: (PointerMoveEvent event) async {
+                            cubit.updateLastPosition(event.localPosition);
                             if (cubit.state.moveEnabled &&
                                 event.kind != PointerDeviceKind.stylus) {
                               if (event.pointer == cubit.state.pointers.first) {
@@ -360,9 +367,7 @@ class _MainViewViewportState extends State<MainViewViewport>
                                   CustomPaint(
                                     size: Size.infinite,
                                     foregroundPainter: ForegroundPainter(
-                                      [
-                                        ...cubit.foregrounds,
-                                      ],
+                                      cubit.getForegrounds(),
                                       state.data,
                                       state.page,
                                       state.info,

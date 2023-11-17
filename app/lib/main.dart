@@ -4,6 +4,7 @@ import 'package:args/args.dart';
 import 'package:butterfly/api/intent.dart';
 import 'package:butterfly/services/sync.dart';
 import 'package:butterfly/settings/behaviors/mouse.dart';
+import 'package:butterfly/settings/experiments.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/foundation.dart';
@@ -208,6 +209,11 @@ class ButterflyApp extends StatelessWidget {
                       builder: (context, state) => const DataSettingsPage(),
                     ),
                     GoRoute(
+                      path: 'experiments',
+                      builder: (context, state) =>
+                          const ExperimentsSettingsPage(),
+                    ),
+                    GoRoute(
                       path: 'connections',
                       builder: (context, state) =>
                           const ConnectionsSettingsPage(),
@@ -235,6 +241,17 @@ class ButterflyApp extends StatelessWidget {
                             defaultRemote,
                         path: state.uri.queryParameters['path'] ?? '',
                       ),
+                    );
+                  },
+                ),
+                GoRoute(
+                  name: 'connect',
+                  path: 'connect',
+                  builder: (context, state) {
+                    final url = state.uri.queryParameters['url'];
+                    return ProjectPage(
+                      data: state.extra,
+                      uri: url,
                     );
                   },
                 ),

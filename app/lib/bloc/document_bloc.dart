@@ -9,6 +9,7 @@ import 'package:collection/collection.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:networker/networker.dart';
 import 'package:replay_bloc/replay_bloc.dart';
 
 import '../cubits/settings.dart';
@@ -39,7 +40,6 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
           initial,
           page: page,
           assetService: assetService,
-          networkService: NetworkService(),
           currentIndexCubit: currentIndexCubit,
           location: location,
           settingsCubit: settingsCubit,
@@ -57,7 +57,6 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
   ) : super(DocumentLoadFailure(settingsCubit, ''));
 
   void _init() {
-    (state as DocumentLoaded).networkService.setup(this);
     on<PageAdded>((event, emit) async {
       final current = state;
       if (current is! DocumentLoadSuccess) return;
@@ -828,7 +827,6 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
         current,
         event.track,
         event.fullScreen,
-        networkService: current.networkService,
         assetService: current.assetService,
         pageName: current.pageName,
         page: current.page,
@@ -886,6 +884,13 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     }
   }
 
+  @override
+  void onEvent(DocumentEvent event) {
+    super.onEvent(event);
+
+    state.networkingService?.onEvent(event);
+  }
+
   void _repaint(Emitter<DocumentState> emit) {
     final current = state;
     if (current is! DocumentLoadSuccess) return;
@@ -923,6 +928,9 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
   }
 
   void dispose() {
+    final current = state;
+    if (current is! DocumentLoaded) return;
+    current.currentIndexCubit.dispose();
     state.assetService?.dispose();
   }
 }

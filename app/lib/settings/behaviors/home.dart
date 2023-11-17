@@ -146,4 +146,59 @@ class BehaviorsSettingsPage extends StatelessWidget {
           const SizedBox(height: 32),
         ];
       });
+/* 
+  Future<void> _openIceServersModal(BuildContext context) {
+    final settingsCubit = context.read<SettingsCubit>();
+    return showLeapBottomSheet(
+        context: context,
+        title: AppLocalizations.of(context).iceServers,
+        actionsBuilder: (ctx) => [
+              IconButton.outlined(
+                onPressed: () async {
+                  Navigator.of(context).pop();
+                  await settingsCubit.resetIceServers();
+                  _openIceServersModal(context);
+                },
+                icon: const PhosphorIcon(
+                    PhosphorIconsLight.clockCounterClockwise),
+              ),
+              const SizedBox(width: 8),
+              IconButton.filledTonal(
+                onPressed: () async {
+                  Navigator.of(context).pop();
+                  final result = await showDialog<String>(
+                    context: context,
+                    builder: (_) => NameDialog(
+                      title: AppLocalizations.of(context).enterUrl,
+                      hint: AppLocalizations.of(context).url,
+                    ),
+                  );
+                  if (result == null) return;
+                  await settingsCubit.addIceServer(result);
+                  _openIceServersModal(context);
+                },
+                icon: const PhosphorIcon(PhosphorIconsLight.plus),
+              ),
+            ],
+        childrenBuilder: (ctx) {
+          final settings = settingsCubit.state;
+          final servers = List.of(settings.iceServers);
+
+          return [
+            ...servers.map((server) {
+              return Dismissible(
+                key: Key(server),
+                background: Container(color: Colors.red),
+                child: ListTile(
+                  title: Text(server),
+                ),
+                onDismissed: (direction) {
+                  settingsCubit.removeIceServer(server);
+                  servers.remove(server);
+                },
+              );
+            }),
+          ];
+        });
+  } */
 }

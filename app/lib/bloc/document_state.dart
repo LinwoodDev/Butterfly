@@ -19,6 +19,10 @@ abstract class DocumentState extends Equatable {
   AssetService? get assetService => null;
   CurrentIndexCubit? get currentIndexCubit => null;
   SettingsCubit get settingsCubit;
+  NetworkingService? get networkingService =>
+      currentIndexCubit?.state.networkingService;
+  NoteData? saveData([NoteData? current]) => data;
+  List<int>? saveBytes([NoteData? current]) => saveData()?.save();
 }
 
 class DocumentLoadInProgress extends DocumentState {
@@ -54,7 +58,6 @@ abstract class DocumentLoaded extends DocumentState {
   final FileMetadata metadata;
   @override
   final AssetService assetService;
-  final NetworkService networkService;
 
   NoteData _updatePage(NoteData current) => current.setPage(page, pageName);
   NoteData _updateMetadata(NoteData current) =>
@@ -68,7 +71,6 @@ abstract class DocumentLoaded extends DocumentState {
       {DocumentPage? page,
       required this.pageName,
       AssetService? assetService,
-      required this.networkService,
       FileMetadata? metadata,
       DocumentInfo? info})
       : page = page ?? data.getPage(pageName) ?? DocumentDefaults.createPage(),
@@ -87,11 +89,15 @@ abstract class DocumentLoaded extends DocumentState {
 
   @override
   CurrentIndexCubit get currentIndexCubit;
+  @override
+  NetworkingService get networkingService =>
+      currentIndexCubit.state.networkingService;
 
   Embedding? get embedding => currentIndexCubit.state.embedding;
 
   TransformCubit get transformCubit => currentIndexCubit.state.transformCubit;
 
+  @override
   NoteData saveData([NoteData? current]) {
     current ??= data;
     current = _updatePage(current);
@@ -121,7 +127,6 @@ class DocumentLoadSuccess extends DocumentLoaded {
       {super.page,
       super.assetService,
       required super.pageName,
-      required super.networkService,
       super.metadata,
       super.info,
       AssetLocation? location,
@@ -173,7 +178,6 @@ class DocumentLoadSuccess extends DocumentLoaded {
       DocumentLoadSuccess(
         data ?? this.data,
         assetService: assetService,
-        networkService: networkService,
         page: page ?? this.page,
         pageName: pageName ?? this.pageName,
         metadata: metadata ?? this.metadata,
@@ -189,6 +193,7 @@ class DocumentLoadSuccess extends DocumentLoaded {
   bool isLayerVisible(String layer) => !invisibleLayers.contains(layer);
 
   bool hasAutosave() =>
+      networkingService.isActive ||
       !(embedding?.save ?? true) ||
       (!kIsWeb &&
           !location.absolute &&
@@ -201,6 +206,9 @@ class DocumentLoadSuccess extends DocumentLoaded {
                   false)));
 
   Future<AssetLocation> save([AssetLocation? location]) async {
+    if (networkingService.state?.$1 is NetworkerClient) {
+      return AssetLocation.empty;
+    }
     final storage = getRemoteStorage();
     final fileSystem = DocumentFileSystem.fromPlatform(remote: storage);
     currentIndexCubit.setSaveState(saved: SaveState.saving, location: location);
@@ -249,7 +257,6 @@ class DocumentPresentationState extends DocumentLoaded {
       {this.frame = 0,
       super.metadata,
       super.page,
-      required super.networkService,
       required super.pageName,
       required super.assetService})
       : handler = PresentationStateHandler(track, bloc),
@@ -260,7 +267,6 @@ class DocumentPresentationState extends DocumentLoaded {
       {this.frame = 0,
       super.metadata,
       super.page,
-      required super.networkService,
       required super.pageName,
       required super.assetService})
       : super(oldState.data);
@@ -280,7 +286,6 @@ class DocumentPresentationState extends DocumentLoaded {
         track,
         fullScreen,
         assetService: assetService,
-        networkService: networkService,
         frame: frame ?? this.frame,
         metadata: metadata,
         page: page,
