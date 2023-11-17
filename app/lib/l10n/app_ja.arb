@@ -535,6 +535,16 @@
   "sureClose": "ドキュメントを閉じてもよろしいですか？",
   "thereAreUnsavedChanges": "保存されていない変更があります",
   "page": "ページ",
+  "iceServers": "ICE Servers",
+  "collaboration": "Collaboration",
+  "webRtc": "Web RTC",
+  "webSocket": "Web Socket",
+  "iceServer": "ICE Server",
+  "port": "Port",
+  "type": "タイプ",
+  "side": "Side",
+  "client": "Client",
+  "server": "サーバー",
   "switchView": "ビューの切り替え",
   "lasso": "Lasso",
   "hideUI": "UI を隠す",
@@ -553,5 +563,8 @@
   "refresh": "更新",
   "print": "印刷",
   "dav": "DAV",
-  "eyeDropper": "スポイト"
+  "eyeDropper": "スポイト",
+  "users": "Users",
+  "experiments": "Experiments",
+  "address": "Address"
 }
