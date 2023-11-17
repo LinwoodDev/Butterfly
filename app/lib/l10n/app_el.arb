@@ -535,6 +535,16 @@
   "sureClose": "Είστε βέβαιοι ότι θέλετε να κλείσετε το έγγραφο?",
   "thereAreUnsavedChanges": "Υπάρχουν αλλαγές που δεν έχουν αποθηκευτεί",
   "page": "Σελίδα",
+  "iceServers": "ICE Servers",
+  "collaboration": "Collaboration",
+  "webRtc": "Web RTC",
+  "webSocket": "Web Socket",
+  "iceServer": "ICE Server",
+  "port": "Port",
+  "type": "Τύπος",
+  "side": "Side",
+  "client": "Client",
+  "server": "Διακομιστής",
   "switchView": "Εναλλαγή Προβολής",
   "lasso": "Lasso",
   "hideUI": "Απόκρυψη UI",
@@ -553,5 +563,8 @@
   "refresh": "Ανανέωση",
   "print": "Εκτύπωση",
   "dav": "DAV",
-  "eyeDropper": "Σταγονόμετρο ματιών"
+  "eyeDropper": "Σταγονόμετρο ματιών",
+  "users": "Users",
+  "experiments": "Experiments",
+  "address": "Address"
 }
