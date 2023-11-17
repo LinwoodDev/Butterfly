@@ -535,6 +535,16 @@
   "sureClose": "Opravdu chcete dokument zavřít?",
   "thereAreUnsavedChanges": "Existují neuložené změny",
   "page": "Stránka",
+  "iceServers": "ICE Servers",
+  "collaboration": "Collaboration",
+  "webRtc": "Web RTC",
+  "webSocket": "Web Socket",
+  "iceServer": "ICE Server",
+  "port": "Port",
+  "type": "Typ",
+  "side": "Side",
+  "client": "Client",
+  "server": "Server",
   "switchView": "Přepnout zobrazení",
   "lasso": "Lasso",
   "hideUI": "Skrýt uživatelské rozhraní",
@@ -553,5 +563,8 @@
   "refresh": "Aktualizovat",
   "print": "Tisk",
   "dav": "DAV",
-  "eyeDropper": "Oční dropper"
+  "eyeDropper": "Oční dropper",
+  "users": "Users",
+  "experiments": "Experiments",
+  "address": "Address"
 }
