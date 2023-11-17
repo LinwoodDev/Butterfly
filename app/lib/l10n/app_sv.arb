@@ -535,6 +535,16 @@
   "sureClose": "Är du säker på att du vill stänga dokumentet?",
   "thereAreUnsavedChanges": "Det finns osparade ändringar",
   "page": "Sida",
+  "iceServers": "ICE Servers",
+  "collaboration": "Collaboration",
+  "webRtc": "Web RTC",
+  "webSocket": "Web Socket",
+  "iceServer": "ICE Server",
+  "port": "Port",
+  "type": "Typ",
+  "side": "Side",
+  "client": "Client",
+  "server": "Server",
   "switchView": "Växla vy",
   "lasso": "Lasso",
   "hideUI": "Dölj gränssnitt",
@@ -553,5 +563,8 @@
   "refresh": "Uppdatera",
   "print": "Skriv ut",
   "dav": "DAV",
-  "eyeDropper": "Ögondroppare"
+  "eyeDropper": "Ögondroppare",
+  "users": "Users",
+  "experiments": "Experiments",
+  "address": "Address"
 }
