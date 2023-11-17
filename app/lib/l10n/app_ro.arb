@@ -535,6 +535,16 @@
   "sureClose": "Ești sigur că vrei să închizi documentul?",
   "thereAreUnsavedChanges": "Există modificări nesalvate",
   "page": "Pagină",
+  "iceServers": "ICE Servers",
+  "collaboration": "Collaboration",
+  "webRtc": "Web RTC",
+  "webSocket": "Web Socket",
+  "iceServer": "ICE Server",
+  "port": "Port",
+  "type": "Tip",
+  "side": "Side",
+  "client": "Client",
+  "server": "Server",
   "switchView": "Comutare vizualizare",
   "lasso": "Lasso",
   "hideUI": "Ascunde UI",
@@ -553,5 +563,8 @@
   "refresh": "Împrospătează",
   "print": "Tipărește",
   "dav": "DAV",
-  "eyeDropper": "Picături oftalmice"
+  "eyeDropper": "Picături oftalmice",
+  "users": "Users",
+  "experiments": "Experiments",
+  "address": "Address"
 }
