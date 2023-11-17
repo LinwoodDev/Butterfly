@@ -34,9 +34,19 @@
                 <action android:name="android.intent.action.VIEW" />
                 <action android:name="android.intent.action.EDIT" />
                 <category android:name="android.intent.category.DEFAULT" />
-                <data android:pathPattern=".*\\.bfly" />
-                <data android:mimeType="*/*" />
-                <data android:host="*" />
+                <data
+                    android:mimeType="application/octet-stream"
+                    android:host="*"
+                    android:pathPattern=".*\\.bfly" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <action android:name="android.intent.action.EDIT" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data
+                    android:mimeType="application/zip"
+                    android:host="*"
+                    android:pathPattern=".*\\.bfly" />
             </intent-filter>
         </activity>
         <!-- Don't delete the meta-data below.
