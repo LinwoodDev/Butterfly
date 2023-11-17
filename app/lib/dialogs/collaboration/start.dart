@@ -18,7 +18,8 @@ class _StartCollaborationDialogState extends State<StartCollaborationDialog>
 
   void _start() {
     if (kIsWeb) return;
-    widget.service.createSocketServer(_addressController.text, int.tryParse(_portController.text));
+    widget.service.createSocketServer(
+        _addressController.text, int.tryParse(_portController.text));
   }
 
   @override
