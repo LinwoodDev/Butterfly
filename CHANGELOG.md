@@ -2,6 +2,28 @@
 
 <!--ENTER CHANGELOG HERE-->
 
+## 2.0.0-beta.15 (2023-11-17)
+
+* Add templates to data settings
+* Add advanced note importer ([#511](https://github.com/LinwoodDev/Butterfly/issues/511))
+* Add progress indicator for pdf import
+* Add create button on missing span or paragraph style
+* Add copy to clipboard to color edit dialog
+* Fix icon button if no display icon available
+* Fix pointer list on window exit ([#521](https://github.com/LinwoodDev/Butterfly/issues/521))
+* Fix saving when changing path
+* Fix document importer
+* Fix updating ui in presentation toolbar
+* Fix moving in presentation state
+* Fix toolbar in presentation state
+* Fix animation duplicates on rename
+* Fix string to color converting
+* Remove sync button on local storage
+* Remove sync button on files in local storage
+* Upgrade to flutter 3.16.0 stable
+
+View all changes in the blog: https://linwood.dev/butterfly/2.0.0-beta.15
+
 ## 2.0.0-beta.14 (2023-11-04)
 
 * Add cursor to path eraser
