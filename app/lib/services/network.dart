@@ -132,6 +132,8 @@ class NetworkingService {
   void closeNetworking() {
     state?.$1.close();
     _subject.add(null);
+    _connections.add({});
+    _users.add({});
   }
 
   void _setupRpc(RpcPlugin rpc, NetworkerBase networker) {
