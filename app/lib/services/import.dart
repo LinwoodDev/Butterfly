@@ -101,6 +101,7 @@ class ImportService {
         AssetFileType.pdf => importPdf(bytes, document,
             position: position, createAreas: true, advanced: advanced),
         AssetFileType.page => importPage(bytes, document, position: position),
+        AssetFileType.xopp => importXopp(bytes, document, position: position),
       };
 
   FutureOr<NoteData?> importBfly(Uint8List bytes,
@@ -263,6 +264,21 @@ class ImportService {
                 position: firstPos.toPoint())
           ],
           choosePosition: position == null);
+    } catch (e) {
+      showDialog(
+        context: context,
+        builder: (context) =>
+            UnknownImportConfirmationDialog(message: e.toString()),
+      );
+    }
+    return null;
+  }
+
+  Future<NoteData?> importXopp(Uint8List bytes, NoteData document,
+      {Offset? position}) async {
+    try {
+      final data = xoppMigrator(bytes);
+      return _importDocument(data, document);
     } catch (e) {
       showDialog(
         context: context,

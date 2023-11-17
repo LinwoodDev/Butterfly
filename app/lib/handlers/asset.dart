@@ -85,5 +85,11 @@ Future<void> showImportAssetWizard(ImportType type, BuildContext context,
         type: FileType.custom,
         allowedExtensions: ['md', 'markdown'],
       );
+    case ImportType.xopp:
+      return importWithDialog(
+        AssetFileType.xopp,
+        type: FileType.custom,
+        allowedExtensions: ['xopp'],
+      );
   }
 }

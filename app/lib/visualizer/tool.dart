@@ -119,6 +119,7 @@ extension ImportTypeVisualizer on ImportType {
         ImportType.svg => AppLocalizations.of(context).svg,
         ImportType.camera => AppLocalizations.of(context).camera,
         ImportType.markdown => AppLocalizations.of(context).markdown,
+        ImportType.xopp => 'Xournal++',
       };
 
   IconGetter get icon => switch (this) {
@@ -128,6 +129,7 @@ extension ImportTypeVisualizer on ImportType {
         ImportType.svg => PhosphorIcons.fileSvg,
         ImportType.camera => PhosphorIcons.camera,
         ImportType.markdown => PhosphorIcons.textbox,
+        ImportType.xopp => PhosphorIcons.notebook,
       };
 
   bool isAvailable() => switch (this) {
