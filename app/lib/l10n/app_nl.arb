@@ -535,6 +535,16 @@
   "sureClose": "Weet u zeker dat u het document wilt sluiten?",
   "thereAreUnsavedChanges": "Er zijn niet-opgeslagen wijzigingen",
   "page": "Pagina",
+  "iceServers": "ICE Servers",
+  "collaboration": "Collaboration",
+  "webRtc": "Web RTC",
+  "webSocket": "Web Socket",
+  "iceServer": "ICE Server",
+  "port": "Port",
+  "type": "Type",
+  "side": "Side",
+  "client": "Client",
+  "server": "Server",
   "switchView": "Wissel weergave",
   "lasso": "Lasso",
   "hideUI": "Verberg UI",
@@ -553,5 +563,8 @@
   "refresh": "Vernieuwen",
   "print": "Afdrukken",
   "dav": "DAV",
-  "eyeDropper": "Oog dropper"
+  "eyeDropper": "Oog dropper",
+  "users": "Users",
+  "experiments": "Experiments",
+  "address": "Address"
 }
