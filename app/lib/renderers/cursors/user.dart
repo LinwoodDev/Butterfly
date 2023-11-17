@@ -18,7 +18,7 @@ class UserCursor extends Renderer<NetworkingUser> {
     if (position == null) {
       return;
     }
-    const icon = PhosphorIconsLight.cursor;
+    const icon = PhosphorIconsFill.cursor;
     final iconSize = 16 / transform.size;
     const iconColor = Colors.black;
     final iconPainter = TextPainter(

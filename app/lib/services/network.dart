@@ -81,10 +81,12 @@ class NetworkingService {
     _bloc = bloc;
   }
 
-  Future<void> createSocketServer([int? port]) async {
+  Future<void> createSocketServer([String? address, int? port]) async {
     closeNetworking();
     final httpServer = await HttpServer.bind(
-      InternetAddress.anyIPv4,
+      address != null
+          ? InternetAddress(address, type: InternetAddressType.any)
+          : InternetAddress.anyIPv4,
       port ?? kDefaultPort,
     );
     final server = NetworkerSocketServer(httpServer);

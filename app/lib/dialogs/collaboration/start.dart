@@ -12,11 +12,13 @@ class StartCollaborationDialog extends StatefulWidget {
 
 class _StartCollaborationDialogState extends State<StartCollaborationDialog>
     with TickerProviderStateMixin {
-  final TextEditingController _portController = TextEditingController();
+  final TextEditingController _addressController =
+          TextEditingController(text: '0.0.0.0'),
+      _portController = TextEditingController();
 
   void _start() {
     if (kIsWeb) return;
-    widget.service.createSocketServer(int.tryParse(_portController.text));
+    widget.service.createSocketServer(_addressController.text, int.tryParse(_portController.text));
   }
 
   @override
@@ -25,16 +27,29 @@ class _StartCollaborationDialogState extends State<StartCollaborationDialog>
       length: 2,
       child: AlertDialog(
         title: Text(AppLocalizations.of(context).collaboration),
+        scrollable: true,
         content: kIsWeb
             ? Text(AppLocalizations.of(context).webNotSupported)
-            : TextFormField(
-                decoration: InputDecoration(
-                  labelText: AppLocalizations.of(context).port,
-                  hintText: kDefaultPort.toString(),
-                  filled: true,
-                ),
-                controller: _portController,
-                keyboardType: TextInputType.number,
+            : Column(
+                children: [
+                  TextFormField(
+                    decoration: InputDecoration(
+                      labelText: AppLocalizations.of(context).address,
+                      hintText: '0.0.0.0',
+                      filled: true,
+                    ),
+                    controller: _addressController,
+                  ),
+                  TextFormField(
+                    decoration: InputDecoration(
+                      labelText: AppLocalizations.of(context).port,
+                      hintText: kDefaultPort.toString(),
+                      filled: true,
+                    ),
+                    controller: _portController,
+                    keyboardType: TextInputType.number,
+                  ),
+                ],
               ),
         actions: [
           TextButton(
