@@ -337,7 +337,7 @@ class _PacksDialogState extends State<PacksDialog>
                                   PhosphorIconsLight.arrowSquareIn),
                               onTap: () async {
                                 Navigator.of(ctx).pop();
-                                final data = await openBfly();
+                                final (data, _) = await openSupported(['bfly']);
                                 if (data == null) return;
                                 final pack = NoteData.fromData(data);
                                 final metadata = pack.getMetadata();

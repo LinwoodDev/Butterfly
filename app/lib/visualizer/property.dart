@@ -5,13 +5,11 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 extension PathShapeVisualizer on PathShape {
-  IconGetter get icon {
-    return map(
-      circle: (_) => PhosphorIcons.circle,
-      rectangle: (_) => PhosphorIcons.square,
-      line: (_) => PhosphorIcons.lineSegment,
-    );
-  }
+  IconGetter get icon => map(
+        circle: (_) => PhosphorIcons.circle,
+        rectangle: (_) => PhosphorIcons.square,
+        line: (_) => PhosphorIcons.lineSegment,
+      );
 
   String getLocalizedName(BuildContext context) {
     final loc = AppLocalizations.of(context);

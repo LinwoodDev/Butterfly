@@ -1,21 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-mixin LoadingDialogHandler {
-  void setProgress(double progress) {}
-  void close() {}
+class LoadingDialogHandler {
+  final GlobalKey<_LoadingDialogState> _key;
+
+  const LoadingDialogHandler._(this._key);
+
+  void setProgress(double progress) => _key.currentState?.setProgress(progress);
+  void close() => _key.currentState?.close();
 }
 
-_LoadingDialogState? showLoadingDialog(BuildContext context) {
+LoadingDialogHandler? showLoadingDialog(BuildContext context) {
   final key = GlobalKey<_LoadingDialogState>();
   showDialog(
     context: context,
     barrierDismissible: false,
-    builder: (BuildContext context) {
-      return LoadingDialog(key: key);
-    },
+    builder: (_) => LoadingDialog(key: key),
   );
-  return key.currentState;
+  return LoadingDialogHandler._(key);
 }
 
 class LoadingDialog extends StatefulWidget {
@@ -25,19 +27,14 @@ class LoadingDialog extends StatefulWidget {
   State<LoadingDialog> createState() => _LoadingDialogState();
 }
 
-class _LoadingDialogState extends State<LoadingDialog>
-    with LoadingDialogHandler {
+class _LoadingDialogState extends State<LoadingDialog> {
   double _progress = 0.0;
 
-  @override
   void setProgress(double progress) => setState(() {
         _progress = progress;
       });
 
-  @override
-  void close() {
-    Navigator.of(context).pop();
-  }
+  void close() => Navigator.of(context).pop();
 
   @override
   Widget build(BuildContext context) {

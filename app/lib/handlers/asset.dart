@@ -76,9 +76,11 @@ Future<void> showImportAssetWizard(ImportType type, BuildContext context,
         allowedExtensions: ['pdf'],
       );
     case ImportType.document:
-      final data = await openBfly();
-      if (data == null) return;
-      return importAsset(AssetFileType.note, data);
+      return importWithDialog(
+        AssetFileType.note,
+        type: FileType.custom,
+        allowedExtensions: ['bfly'],
+      );
     case ImportType.markdown:
       return importWithDialog(
         AssetFileType.markdown,

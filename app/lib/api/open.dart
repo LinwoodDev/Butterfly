@@ -18,17 +18,21 @@ Future<bool> openHelp(List<String> pageLocation, [String? fragment]) {
       mode: LaunchMode.externalApplication);
 }
 
-Future<Uint8List?> openBfly() async {
+Future<(Uint8List?, String?)> openSupported(
+    [List<String>? fileExtension]) async {
   final isMobile = !kIsWeb && (Platform.isAndroid || Platform.isIOS);
   final files = await FilePicker.platform.pickFiles(
     type: isMobile ? FileType.any : FileType.custom,
-    allowedExtensions: isMobile ? null : ['bfly'],
+    allowedExtensions: isMobile
+        ? null
+        : (fileExtension ??
+            AssetFileType.values.expand((e) => e.getFileExtensions()).toList()),
     allowMultiple: false,
     withData: true,
   );
-  if (files?.files.isEmpty ?? true) return null;
+  if (files?.files.isEmpty ?? true) return (null, null);
   var e = files!.files.first;
-  return e.bytes;
+  return (e.bytes, e.extension);
 }
 
 void openFile(BuildContext context, AssetLocation location, [Object? data]) {

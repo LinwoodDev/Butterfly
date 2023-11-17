@@ -305,9 +305,13 @@ class _FilesViewState extends State<FilesView> {
                     onPressed: () async {
                       final router = GoRouter.of(context);
                       final importService = context.read<ImportService>();
-                      final result = await openBfly();
+                      final (result, extension) = await openSupported();
                       if (result == null) return;
-                      final model = await importService.importBfly(result,
+                      final model = await importService.import(
+                          AssetFileTypeHelper.fromFileExtension(extension) ??
+                              AssetFileType.note,
+                          result,
+                          DocumentDefaults.createDocument(),
                           advanced: false);
                       if (model == null) return;
                       const route = '/native?name=document.bfly&type=note';
@@ -316,13 +320,7 @@ class _FilesViewState extends State<FilesView> {
                         _reloadFileSystem();
                       }
                     },
-                    child: Column(
-                      children: [
-                        Text(AppLocalizations.of(context).import),
-                        Text('.bfly',
-                            style: Theme.of(context).textTheme.bodySmall),
-                      ],
-                    ),
+                    child: Text(AppLocalizations.of(context).import),
                   ),
                   if (settings.flags.contains('collaboration'))
                     MenuItemButton(

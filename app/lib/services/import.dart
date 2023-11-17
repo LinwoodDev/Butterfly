@@ -504,6 +504,7 @@ class ImportService {
         ?..add(ElementsCreated(elements))
         ..add(AreasCreated(areas));
     }
+    page = page.copyWith(content: [...page.content, ...elements]);
     document = document.setPage(page);
     return document;
   }

@@ -1,3 +1,7 @@
+* Add experiments settings in nightly version
+* Add collaboration support (experimental) using websockets
+* Remove restriction of bfly files on import in files view
 * Fix android mimetype
+* Fix global importing
 
-View all changes in the blog: https://linwood.dev/butterfly/2.0.0-beta.15
+View all changes in the blog: https://linwood.dev/butterfly/2.0.0-beta.16
