@@ -535,6 +535,16 @@
   "sureClose": "Oletko varma, että haluat sulkea asiakirjan?",
   "thereAreUnsavedChanges": "Muutoksia ei ole tallennettu",
   "page": "Sivu",
+  "iceServers": "ICE Servers",
+  "collaboration": "Collaboration",
+  "webRtc": "Web RTC",
+  "webSocket": "Web Socket",
+  "iceServer": "ICE Server",
+  "port": "Port",
+  "type": "Tyyppi",
+  "side": "Side",
+  "client": "Client",
+  "server": "Palvelin",
   "switchView": "Vaihda Näkymää",
   "lasso": "Lasso",
   "hideUI": "Piilota Käyttöliittymä",
@@ -553,5 +563,8 @@
   "refresh": "Päivitä",
   "print": "Tulosta",
   "dav": "DAV",
-  "eyeDropper": "Silmien pipetillä"
+  "eyeDropper": "Silmien pipetillä",
+  "users": "Users",
+  "experiments": "Experiments",
+  "address": "Address"
 }
