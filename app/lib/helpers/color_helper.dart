@@ -11,12 +11,6 @@ bool isDarkColor(Color color) {
   return luminance < threshold;
 }
 
-extension BackgroundColor on Background {
-  int get defaultColor => maybeMap(
-      texture: (texture) => texture.texture.boxColor,
-      orElse: () => kColorWhite);
-}
-
 Tool updateToolDefaultColor(Tool tool, int color) {
   final defaultColor = isDarkColor(Color(color)) ? kColorWhite : kColorBlack;
   return tool.maybeMap(

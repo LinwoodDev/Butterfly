@@ -351,6 +351,7 @@ const _$ImportTypeEnumMap = {
   ImportType.pdf: 'pdf',
   ImportType.document: 'document',
   ImportType.markdown: 'markdown',
+  ImportType.xopp: 'xopp',
 };
 
 _$TextureToolImpl _$$TextureToolImplFromJson(Map json) => _$TextureToolImpl(
