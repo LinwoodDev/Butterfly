@@ -11,6 +11,7 @@
 * Fix moving in presentation state
 * Fix toolbar in presentation state
 * Fix animation duplicates on rename
+* Fix string to color converting
 * Remove sync button on local storage
 * Remove sync button on files in local storage
 * Upgrade to flutter 3.16.0 stable
