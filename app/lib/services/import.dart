@@ -526,16 +526,18 @@ class ImportService {
     final state = _getState();
     DocumentPage page =
         state?.page ?? document.getPage() ?? DocumentDefaults.createPage();
-    if (choosePosition && state != null) {
+    if (choosePosition &&
+        state != null &&
+        (elements.isNotEmpty || areas.isNotEmpty)) {
       state.currentIndexCubit.changeTemporaryHandler(
           bloc!, ImportTool(elements: elements, areas: areas));
     } else {
       bloc
         ?..add(ElementsCreated(elements))
         ..add(AreasCreated(areas));
-      for (final page in pages) {
-        bloc?.add(PageAdded(null, page));
-      }
+    }
+    for (final page in pages) {
+      bloc?.add(PageAdded(null, page));
     }
     page = page.copyWith(content: [...page.content, ...elements]);
     document = document.setPage(page);

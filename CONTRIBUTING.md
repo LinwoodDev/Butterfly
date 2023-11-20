@@ -57,6 +57,8 @@ Please install the dependencies first:
 - libsecret-1-dev
 - libjsoncpp-dev
 
+On windows, please install visual studio build tools (or visual studio) and all flutter dependencies. Additionally install the atl library.
+
 To get started, run:
 
 ```bash

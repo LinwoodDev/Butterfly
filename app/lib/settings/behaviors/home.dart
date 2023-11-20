@@ -34,6 +34,17 @@ class BehaviorsSettingsPage extends StatelessWidget {
                   child: Column(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
+                        Text(AppLocalizations.of(context).import,
+                            style: Theme.of(context).textTheme.headlineSmall),
+                        const SizedBox(height: 16),
+                        SwitchListTile(
+                          value: state.spreadPages,
+                          title:
+                              Text(AppLocalizations.of(context).spreadToPages),
+                          onChanged: (value) => context
+                              .read<SettingsCubit>()
+                              .changeSpreadPages(value),
+                        ),
                         ExactSlider(
                           header: Text(AppLocalizations.of(context).imageScale),
                           value: state.imageScale * 100,

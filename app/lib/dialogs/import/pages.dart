@@ -34,7 +34,9 @@ class _PagesDialogState extends State<PagesDialog> {
   void initState() {
     super.initState();
     _selected = List.generate(widget.pages.length, (i) => i);
-    _defaultQuality = context.read<SettingsCubit>().state.pdfQuality;
+    final settings = context.read<SettingsCubit>().state;
+    _defaultQuality = settings.pdfQuality;
+    _spreadToPages = settings.spreadPages;
     _quality = _defaultQuality;
   }
 

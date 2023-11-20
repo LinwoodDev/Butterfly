@@ -353,6 +353,7 @@ class ButterflySettings with _$ButterflySettings {
     @Default(PlatformTheme.system) PlatformTheme platformTheme,
     @Default([]) List<int> recentColors,
     @Default([]) List<String> flags,
+    @Default(false) bool spreadPages,
   }) = _ButterflySettings;
 
   factory ButterflySettings.fromPrefs(
@@ -951,4 +952,11 @@ class SettingsCubit extends Cubit<ButterflySettings> {
     emit(state.copyWith(flags: []));
     return save();
   }
+
+  Future<void> changeSpreadPages(bool value) {
+    emit(state.copyWith(spreadPages: value));
+    return save();
+  }
+
+  Future<void> resetSpreadPages() => changeSpreadPages(true);
 }

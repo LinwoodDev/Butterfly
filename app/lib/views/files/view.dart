@@ -434,6 +434,11 @@ class _FilesViewState extends State<FilesView> {
                 return true;
               }).toList()
                 ..sort(_sortAssets);
+              if (assets.isEmpty) {
+                return Center(
+                  child: Text(AppLocalizations.of(context).noElements),
+                );
+              }
               if (_gridView) {
                 return Wrap(
                   spacing: 8,
