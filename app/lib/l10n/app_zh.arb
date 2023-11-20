@@ -566,5 +566,6 @@
   "eyeDropper": "眼睛投射器",
   "users": "Users",
   "experiments": "Experiments",
-  "address": "Address"
+  "address": "Address",
+  "spreadToPages": "Spread to pages"
 }
