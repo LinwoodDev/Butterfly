@@ -566,5 +566,6 @@
   "eyeDropper": "Ögondroppare",
   "users": "Users",
   "experiments": "Experiments",
-  "address": "Address"
+  "address": "Address",
+  "spreadToPages": "Spread to pages"
 }
