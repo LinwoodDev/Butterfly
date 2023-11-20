@@ -150,47 +150,50 @@ Uint8List xoppExporter(NoteData document) {
               _exportColor(page.backgrounds.firstOrNull?.defaultColor ?? 0),
           'style': 'plain',
         });
-        for (final element in page.content) {
-          switch (element) {
-            case PenElement e:
-              builder.element('stroke', attributes: {
-                'color': _exportColor(e.property.color),
-                'width': e.property.strokeWidth.toString(),
-              }, nest: () {
-                builder.text(e.points.map((e) => '${e.x} ${e.y}').join(' '));
-              });
-              break;
-            case LabelElement e:
-              final styleSheet = e.styleSheet.resolveStyle(document);
-              final style = e is TextElement
-                  ? styleSheet
-                      ?.resolveParagraphProperty(e.area.paragraph.property)
-                      ?.span
-                  : styleSheet?.getParagraphProperty('p')?.span;
-              builder.element('text', attributes: {
-                'color': _exportColor(style?.color ?? 0),
-                'size': (style?.size ?? 12).toString(),
-                'x': e.position.x.toString(),
-                'y': e.position.y.toString(),
-              }, nest: () {
-                builder.text(e.text);
-              });
-            case ImageElement e:
-              final imageData = document.getAsset(Uri.parse(e.source).path);
-              builder.element('image', attributes: {
-                'left': e.position.x.toString(),
-                'top': e.position.y.toString(),
-                'right': (e.position.x + e.width).toString(),
-                'bottom': (e.position.y + e.height).toString(),
-              }, nest: () {
-                builder.text(
-                    UriData.fromBytes(imageData ?? [], mimeType: 'image/png')
-                        .toString());
-              });
-            default:
-              break;
+        builder.element('layer', nest: () {
+          for (final element in page.content) {
+            switch (element) {
+              case PenElement e:
+                builder.element('stroke', attributes: {
+                  'color': _exportColor(e.property.color),
+                  'width': e.property.strokeWidth.toString(),
+                  'tool': 'pen',
+                }, nest: () {
+                  builder.text(e.points.map((e) => '${e.x} ${e.y}').join(' '));
+                });
+                break;
+              case LabelElement e:
+                final styleSheet = e.styleSheet.resolveStyle(document);
+                final style = e is TextElement
+                    ? styleSheet
+                        ?.resolveParagraphProperty(e.area.paragraph.property)
+                        ?.span
+                    : styleSheet?.getParagraphProperty('p')?.span;
+                builder.element('text', attributes: {
+                  'color': _exportColor(style?.color ?? 0),
+                  'size': (style?.size ?? 12).toString(),
+                  'x': e.position.x.toString(),
+                  'y': e.position.y.toString(),
+                }, nest: () {
+                  builder.text(e.text);
+                });
+              case ImageElement e:
+                final imageData = document.getAsset(Uri.parse(e.source).path);
+                builder.element('image', attributes: {
+                  'left': e.position.x.toString(),
+                  'top': e.position.y.toString(),
+                  'right': (e.position.x + e.width).toString(),
+                  'bottom': (e.position.y + e.height).toString(),
+                }, nest: () {
+                  builder.text(
+                      UriData.fromBytes(imageData ?? [], mimeType: 'image/png')
+                          .toString());
+                });
+              default:
+                break;
+            }
           }
-        }
+        });
       });
     }
   });
