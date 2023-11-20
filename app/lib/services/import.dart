@@ -397,6 +397,7 @@ class ImportService {
       if (context.mounted) {
         List<int> pages = List.generate(elements.length, (index) => index);
         double quality = context.read<SettingsCubit>().state.pdfQuality;
+        bool spreadToPages = false;
         if (advanced) {
           final callback = await showDialog<PageDialogCallback>(
               context: context,
@@ -404,10 +405,12 @@ class ImportService {
           if (callback == null) return document;
           pages = callback.pages;
           quality = callback.quality;
+          spreadToPages = callback.spreadToPages;
         }
         final dialog = showLoadingDialog(context);
         final selectedElements = <ImageElement>[];
         final areas = <Area>[];
+        final documentPages = <DocumentPage>[];
         var y = firstPos.dx;
         var current = 0;
         await for (final page in Printing.raster(bytes,
@@ -420,20 +423,29 @@ class ImportService {
           final height = page.height;
           final width = page.width;
           final dataPath = Uri.dataFromBytes(png).toString();
-          selectedElements.add(ImageElement(
+          final element = ImageElement(
               height: height.toDouble(),
               width: width.toDouble(),
               source: dataPath,
               constraints:
                   ElementConstraints.scaled(scaleX: scale, scaleY: scale),
-              position: Point(firstPos.dx, y)));
-          if (createAreas) {
-            areas.add(Area(
-              height: height * scale,
-              width: width * scale,
-              position: Point(firstPos.dx, y),
-              name: localizations.pageIndex(areas.length + 1),
+              position: Point(firstPos.dx, y));
+          final area = Area(
+            height: height * scale,
+            width: width * scale,
+            position: Point(firstPos.dx, y),
+            name: localizations.pageIndex(areas.length + 1),
+          );
+          if (spreadToPages) {
+            documentPages.add(DocumentPage(
+              content: [element],
+              areas: [if (createAreas) area],
             ));
+          } else {
+            selectedElements.add(element);
+            if (createAreas) {
+              areas.add(area);
+            }
           }
           y += height * scale;
         }
@@ -441,6 +453,7 @@ class ImportService {
         return _submit(
           document,
           elements: selectedElements,
+          pages: documentPages,
           areas: createAreas ? areas : [],
           choosePosition: position == null,
         );
@@ -506,6 +519,7 @@ class ImportService {
   NoteData? _submit(
     NoteData document, {
     required List<PadElement> elements,
+    List<DocumentPage> pages = const [],
     List<Area> areas = const [],
     bool choosePosition = false,
   }) {
@@ -519,9 +533,15 @@ class ImportService {
       bloc
         ?..add(ElementsCreated(elements))
         ..add(AreasCreated(areas));
+      for (final page in pages) {
+        bloc?.add(PageAdded(null, page));
+      }
     }
     page = page.copyWith(content: [...page.content, ...elements]);
     document = document.setPage(page);
+    for (final page in pages) {
+      (document, _) = document.addPage(page);
+    }
     return document;
   }
 }

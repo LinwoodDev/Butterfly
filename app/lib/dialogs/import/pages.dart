@@ -10,9 +10,10 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 @immutable
 class PageDialogCallback {
   final List<int> pages;
+  final bool spreadToPages;
   final double quality;
 
-  const PageDialogCallback(this.pages, this.quality);
+  const PageDialogCallback(this.pages, this.quality, this.spreadToPages);
 }
 
 class PagesDialog extends StatefulWidget {
@@ -27,6 +28,7 @@ class _PagesDialogState extends State<PagesDialog> {
   List<int> _selected = const [];
   double _quality = 2.0;
   double _defaultQuality = 2.0;
+  bool _spreadToPages = false;
 
   @override
   void initState() {
@@ -95,6 +97,11 @@ class _PagesDialogState extends State<PagesDialog> {
               ),
             ),
           )),
+          SwitchListTile(
+            value: _spreadToPages,
+            onChanged: (value) => setState(() => _spreadToPages = value),
+            title: Text(AppLocalizations.of(context).spreadToPages),
+          ),
           ExactSlider(
             onChanged: (value) => setState(() => _quality = value),
             defaultValue: _defaultQuality,
@@ -114,8 +121,8 @@ class _PagesDialogState extends State<PagesDialog> {
                 ),
                 ElevatedButton(
                   child: Text(AppLocalizations.of(context).ok),
-                  onPressed: () => Navigator.of(context)
-                      .pop(PageDialogCallback(_selected, _quality)),
+                  onPressed: () => Navigator.of(context).pop(
+                      PageDialogCallback(_selected, _quality, _spreadToPages)),
                 ),
               ],
             ),
