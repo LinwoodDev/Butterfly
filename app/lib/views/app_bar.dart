@@ -454,11 +454,11 @@ class _MainPopupMenu extends StatelessWidget {
                   },
                   child: Text(AppLocalizations.of(context).print),
                 ),
-                MenuItemButton(
+                /*MenuItemButton(
                   leadingIcon: const PhosphorIcon(PhosphorIconsLight.notebook),
                   onPressed: () => exportXopp(context),
                   child: const Text('Xournal++'),
-                ),
+                ),*/
               ],
               leadingIcon:
                   const PhosphorIcon(PhosphorIconsLight.paperPlaneRight),
