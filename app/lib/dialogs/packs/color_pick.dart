@@ -40,40 +40,38 @@ class _ColorPalettePickerDialogState extends State<ColorPalettePickerDialog> {
   void initState() {
     super.initState();
     _palette = widget.palette;
-    if (widget.bloc != null) {
-      final state = widget.bloc!.state;
-      if (state is DocumentLoaded) {
-        final packName = state.data.getPacks().firstOrNull;
-        final pack = packName == null ? null : state.data.getPack(packName);
-        final palette = pack?.getPalettes().firstOrNull;
-        if (palette != null) {
-          _selected = PackAssetLocation(packName!, palette);
-        }
-      }
+    if (widget.bloc != null && _palette == null) {
+      final state = widget.bloc?.state;
+      final packName = state?.data?.getPacks().firstOrNull;
+      final pack = packName == null ? null : state?.data?.getPack(packName);
+      final paletteName = pack?.getPalettes().firstOrNull;
+      if (paletteName == null) return;
+      _selected = PackAssetLocation(packName!, paletteName);
+      _palette = pack?.getPalette(paletteName);
     }
   }
 
-  ColorPalette? _getPalette() {
-    if (_palette != null) return _palette;
-    if (_selected == null) return null;
-    final state = widget.bloc?.state;
-    if (state is! DocumentLoaded) return null;
-    return state.data.getPack(_selected!.pack)?.getPalette(_selected!.name);
+  void _loadPalette() {
+    if (widget.bloc == null) return;
+    final state = widget.bloc!.state;
+    if (state is! DocumentLoaded) return;
+    _palette = _selected?.resolvePalette(state.data);
+    if (_palette != null) return;
   }
 
   void _changePalette(ColorPalette palette) {
     if (widget.onChanged != null) {
       widget.onChanged!(palette);
-      setState(() {
-        _palette = palette;
-      });
     } else {
       final state = widget.bloc?.state;
       if (state is! DocumentLoaded) return;
-      var pack = _selected == null ? null : state.data.getPack(_selected!.name);
+      var pack = _selected == null ? null : state.data.getPack(_selected!.pack);
       if (pack == null) return;
       pack = pack.setPalette(palette);
       widget.bloc?.add(PackUpdated(pack.name!, pack));
+      setState(() {
+        _palette = palette;
+      });
     }
   }
 
@@ -83,10 +81,9 @@ class _ColorPalettePickerDialogState extends State<ColorPalettePickerDialog> {
         constraints: const BoxConstraints(maxWidth: 640),
         showDragHandle: true,
         builder: (ctx) {
-          final palette = _getPalette();
-          if (palette == null) return Container();
-          if ((palette.colors.length) <= index) return Container();
-          final color = palette.colors[index];
+          if (_palette == null) return Container();
+          if ((_palette!.colors.length) <= index) return Container();
+          final color = _palette!.colors[index];
           final colorText = color.toHexColor(alpha: false);
           return Column(mainAxisSize: MainAxisSize.min, children: [
             Padding(
@@ -122,8 +119,8 @@ class _ColorPalettePickerDialogState extends State<ColorPalettePickerDialog> {
                       context: context,
                       builder: (context) => ColorPicker(value: Color(color)));
                   if (value != null) {
-                    _changePalette(palette.copyWith(
-                        colors: List.from(palette.colors)
+                    _changePalette(_palette!.copyWith(
+                        colors: List.from(_palette!.colors)
                           ..[index] = value.color));
                   }
                 }),
@@ -136,8 +133,8 @@ class _ColorPalettePickerDialogState extends State<ColorPalettePickerDialog> {
                 if (result != true) return;
                 if (context.mounted) {
                   Navigator.of(context).pop();
-                  _changePalette(palette.copyWith(
-                      colors: List.from(palette.colors)..removeAt(index)));
+                  _changePalette(_palette!.copyWith(
+                      colors: List.from(_palette!.colors)..removeAt(index)));
                 }
               },
             )
@@ -147,7 +144,6 @@ class _ColorPalettePickerDialogState extends State<ColorPalettePickerDialog> {
 
   @override
   Widget build(BuildContext context) {
-    final palette = _getPalette();
     return Dialog(
         backgroundColor: Colors.transparent,
         elevation: 0,
@@ -195,6 +191,7 @@ class _ColorPalettePickerDialogState extends State<ColorPalettePickerDialog> {
                                           if (result == null) return;
                                           setState(() {
                                             _selected = result;
+                                            _loadPalette();
                                           });
                                         },
                                         tooltip:
@@ -229,7 +226,7 @@ class _ColorPalettePickerDialogState extends State<ColorPalettePickerDialog> {
                       alignment: Alignment.center,
                       child: Wrap(alignment: WrapAlignment.start, children: [
                         ...List.generate(
-                            palette?.colors.length ?? 0,
+                            _palette?.colors.length ?? 0,
                             (index) => InkWell(
                                 borderRadius:
                                     const BorderRadius.all(Radius.circular(32)),
@@ -237,17 +234,17 @@ class _ColorPalettePickerDialogState extends State<ColorPalettePickerDialog> {
                                 onSecondaryTap: () =>
                                     _showColorOperation(index),
                                 onTap: () => Navigator.of(context)
-                                    .pop(palette.colors[index]),
+                                    .pop(_palette!.colors[index]),
                                 child: Container(
                                   width: 75,
                                   height: 75,
                                   margin: const EdgeInsets.all(5),
                                   decoration: BoxDecoration(
-                                      color: Color(palette!.colors[index]),
+                                      color: Color(_palette!.colors[index]),
                                       borderRadius: const BorderRadius.all(
                                           Radius.circular(32))),
                                 ))),
-                        if (palette != null)
+                        if (_palette != null)
                           Padding(
                             padding: const EdgeInsets.all(4.0),
                             child: Material(
@@ -272,16 +269,15 @@ class _ColorPalettePickerDialogState extends State<ColorPalettePickerDialog> {
                                           size: 42)),
                                 ),
                                 onTap: () async {
-                                  var value =
+                                  final value =
                                       await showDialog<ColorPickerResponse>(
                                           context: context,
                                           builder: (context) =>
                                               ColorPicker(value: widget.value));
-                                  if (value != null) {
-                                    _changePalette(palette.copyWith(
-                                        colors: List<int>.from(palette.colors)
-                                          ..add(value.color)));
-                                  }
+                                  if (value == null) return;
+                                  _changePalette(_palette!.copyWith(
+                                      colors: List<int>.from(_palette!.colors)
+                                        ..add(value.color)));
                                 },
                               ),
                             ),
