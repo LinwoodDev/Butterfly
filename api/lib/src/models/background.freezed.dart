@@ -151,9 +151,10 @@ class __$$TextureBackgroundImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$TextureBackgroundImpl implements TextureBackground {
+class _$TextureBackgroundImpl extends TextureBackground {
   _$TextureBackgroundImpl({required this.texture, final String? $type})
-      : $type = $type ?? 'texture';
+      : $type = $type ?? 'texture',
+        super._();
 
   factory _$TextureBackgroundImpl.fromJson(Map<String, dynamic> json) =>
       _$$TextureBackgroundImplFromJson(json);
@@ -264,9 +265,10 @@ class _$TextureBackgroundImpl implements TextureBackground {
   }
 }
 
-abstract class TextureBackground implements Background {
+abstract class TextureBackground extends Background {
   factory TextureBackground({required final SurfaceTexture texture}) =
       _$TextureBackgroundImpl;
+  TextureBackground._() : super._();
 
   factory TextureBackground.fromJson(Map<String, dynamic> json) =
       _$TextureBackgroundImpl.fromJson;
@@ -335,7 +337,7 @@ class __$$ImageBackgroundImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$ImageBackgroundImpl implements ImageBackground {
+class _$ImageBackgroundImpl extends ImageBackground {
   _$ImageBackgroundImpl(
       {required this.source,
       required this.width,
@@ -343,7 +345,8 @@ class _$ImageBackgroundImpl implements ImageBackground {
       this.scaleX = 1,
       this.scaleY = 1,
       final String? $type})
-      : $type = $type ?? 'image';
+      : $type = $type ?? 'image',
+        super._();
 
   factory _$ImageBackgroundImpl.fromJson(Map<String, dynamic> json) =>
       _$$ImageBackgroundImplFromJson(json);
@@ -464,13 +467,14 @@ class _$ImageBackgroundImpl implements ImageBackground {
   }
 }
 
-abstract class ImageBackground implements Background {
+abstract class ImageBackground extends Background {
   factory ImageBackground(
       {required final String source,
       required final double width,
       required final double height,
       final double scaleX,
       final double scaleY}) = _$ImageBackgroundImpl;
+  ImageBackground._() : super._();
 
   factory ImageBackground.fromJson(Map<String, dynamic> json) =
       _$ImageBackgroundImpl.fromJson;
@@ -543,7 +547,7 @@ class __$$SvgBackgroundImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$SvgBackgroundImpl implements SvgBackground {
+class _$SvgBackgroundImpl extends SvgBackground {
   _$SvgBackgroundImpl(
       {required this.source,
       required this.width,
@@ -551,7 +555,8 @@ class _$SvgBackgroundImpl implements SvgBackground {
       this.scaleX = 1,
       this.scaleY = 1,
       final String? $type})
-      : $type = $type ?? 'svg';
+      : $type = $type ?? 'svg',
+        super._();
 
   factory _$SvgBackgroundImpl.fromJson(Map<String, dynamic> json) =>
       _$$SvgBackgroundImplFromJson(json);
@@ -671,13 +676,14 @@ class _$SvgBackgroundImpl implements SvgBackground {
   }
 }
 
-abstract class SvgBackground implements Background {
+abstract class SvgBackground extends Background {
   factory SvgBackground(
       {required final String source,
       required final double width,
       required final double height,
       final double scaleX,
       final double scaleY}) = _$SvgBackgroundImpl;
+  SvgBackground._() : super._();
 
   factory SvgBackground.fromJson(Map<String, dynamic> json) =
       _$SvgBackgroundImpl.fromJson;

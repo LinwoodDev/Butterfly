@@ -17,6 +17,8 @@ extension AssetFileTypeHelper on AssetFileType {
         return ['md', 'markdown'];
       case AssetFileType.page:
         return [];
+      case AssetFileType.xopp:
+        return ['xopp'];
     }
   }
 
@@ -34,6 +36,8 @@ extension AssetFileTypeHelper on AssetFileType {
         return 'image/svg+xml';
       case AssetFileType.page:
         return 'application/json';
+      case AssetFileType.xopp:
+        return 'application/zip';
     }
   }
 
