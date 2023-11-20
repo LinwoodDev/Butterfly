@@ -566,5 +566,6 @@
   "eyeDropper": "Σταγονόμετρο ματιών",
   "users": "Users",
   "experiments": "Experiments",
-  "address": "Address"
+  "address": "Address",
+  "spreadToPages": "Spread to pages"
 }
