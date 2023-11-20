@@ -1,7 +1,5 @@
 import 'package:butterfly/cubits/settings.dart';
-import 'package:butterfly/visualizer/sync.dart';
 import 'package:butterfly/widgets/window.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -69,28 +67,6 @@ class BehaviorsSettingsPage extends StatelessWidget {
                       ]),
                 ),
               ),
-              if (!kIsWeb)
-                Card(
-                    margin: const EdgeInsets.all(8),
-                    child: Padding(
-                      padding: const EdgeInsets.all(32),
-                      child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.stretch,
-                          children: [
-                            Text(AppLocalizations.of(context).connection,
-                                style:
-                                    Theme.of(context).textTheme.headlineSmall),
-                            const SizedBox(height: 16),
-                            ListTile(
-                              title:
-                                  Text(AppLocalizations.of(context).syncMode),
-                              leading: PhosphorIcon(state.syncMode.getIcon()),
-                              subtitle: Text(
-                                  state.syncMode.getLocalizedName(context)),
-                              onTap: () => _openSyncModeModal(context),
-                            ),
-                          ]),
-                    )),
               Card(
                   margin: const EdgeInsets.all(8),
                   child: Padding(
@@ -134,82 +110,4 @@ class BehaviorsSettingsPage extends StatelessWidget {
           );
         }));
   }
-
-  Future<void> _openSyncModeModal(BuildContext context) => showLeapBottomSheet(
-      context: context,
-      title: AppLocalizations.of(context).syncMode,
-      childrenBuilder: (ctx) {
-        final settingsCubit = context.read<SettingsCubit>();
-        void changeSyncMode(SyncMode syncMode) {
-          settingsCubit.changeSyncMode(syncMode);
-          Navigator.of(context).pop();
-        }
-
-        return [
-          ...SyncMode.values.map((syncMode) {
-            return ListTile(
-              title: Text(syncMode.getLocalizedName(context)),
-              leading: PhosphorIcon(syncMode.getIcon()),
-              selected: syncMode == settingsCubit.state.syncMode,
-              onTap: () => changeSyncMode(syncMode),
-            );
-          }),
-          const SizedBox(height: 32),
-        ];
-      });
-/* 
-  Future<void> _openIceServersModal(BuildContext context) {
-    final settingsCubit = context.read<SettingsCubit>();
-    return showLeapBottomSheet(
-        context: context,
-        title: AppLocalizations.of(context).iceServers,
-        actionsBuilder: (ctx) => [
-              IconButton.outlined(
-                onPressed: () async {
-                  Navigator.of(context).pop();
-                  await settingsCubit.resetIceServers();
-                  _openIceServersModal(context);
-                },
-                icon: const PhosphorIcon(
-                    PhosphorIconsLight.clockCounterClockwise),
-              ),
-              const SizedBox(width: 8),
-              IconButton.filledTonal(
-                onPressed: () async {
-                  Navigator.of(context).pop();
-                  final result = await showDialog<String>(
-                    context: context,
-                    builder: (_) => NameDialog(
-                      title: AppLocalizations.of(context).enterUrl,
-                      hint: AppLocalizations.of(context).url,
-                    ),
-                  );
-                  if (result == null) return;
-                  await settingsCubit.addIceServer(result);
-                  _openIceServersModal(context);
-                },
-                icon: const PhosphorIcon(PhosphorIconsLight.plus),
-              ),
-            ],
-        childrenBuilder: (ctx) {
-          final settings = settingsCubit.state;
-          final servers = List.of(settings.iceServers);
-
-          return [
-            ...servers.map((server) {
-              return Dismissible(
-                key: Key(server),
-                background: Container(color: Colors.red),
-                child: ListTile(
-                  title: Text(server),
-                ),
-                onDismissed: (direction) {
-                  settingsCubit.removeIceServer(server);
-                  servers.remove(server);
-                },
-              );
-            }),
-          ];
-        });
-  } */
 }

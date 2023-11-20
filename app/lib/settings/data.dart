@@ -4,12 +4,14 @@ import 'package:butterfly/api/save_data.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/dialogs/template.dart';
+import 'package:butterfly/visualizer/sync.dart';
 import 'package:butterfly/widgets/window.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import '../api/file_system/file_system.dart';
@@ -44,7 +46,14 @@ class _DataSettingsPageState extends State<DataSettingsPage> {
                   child: Column(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
-                        if (!kIsWeb)
+                        if (!kIsWeb) ...[
+                          ListTile(
+                            title: Text(AppLocalizations.of(context).syncMode),
+                            leading: PhosphorIcon(state.syncMode.getIcon()),
+                            subtitle:
+                                Text(state.syncMode.getLocalizedName(context)),
+                            onTap: () => _openSyncModeModal(context),
+                          ),
                           ListTile(
                             title: Text(
                                 AppLocalizations.of(context).dataDirectory),
@@ -86,6 +95,7 @@ class _DataSettingsPageState extends State<DataSettingsPage> {
                                   )
                                 : null,
                           ),
+                        ],
                         ListTile(
                           title: Text(AppLocalizations.of(context).templates),
                           leading: const PhosphorIcon(PhosphorIconsLight.file),
@@ -147,4 +157,83 @@ class _DataSettingsPageState extends State<DataSettingsPage> {
     }
     settingsCubit.changeDocumentPath(newPath);
   }
+
+  Future<void> _openSyncModeModal(BuildContext context) => showLeapBottomSheet(
+      context: context,
+      title: AppLocalizations.of(context).syncMode,
+      childrenBuilder: (ctx) {
+        final settingsCubit = context.read<SettingsCubit>();
+        void changeSyncMode(SyncMode syncMode) {
+          settingsCubit.changeSyncMode(syncMode);
+          Navigator.of(context).pop();
+        }
+
+        return [
+          ...SyncMode.values.map((syncMode) {
+            return ListTile(
+              title: Text(syncMode.getLocalizedName(context)),
+              leading: PhosphorIcon(syncMode.getIcon()),
+              selected: syncMode == settingsCubit.state.syncMode,
+              onTap: () => changeSyncMode(syncMode),
+            );
+          }),
+          const SizedBox(height: 32),
+        ];
+      });
+
+/* 
+  Future<void> _openIceServersModal(BuildContext context) {
+    final settingsCubit = context.read<SettingsCubit>();
+    return showLeapBottomSheet(
+        context: context,
+        title: AppLocalizations.of(context).iceServers,
+        actionsBuilder: (ctx) => [
+              IconButton.outlined(
+                onPressed: () async {
+                  Navigator.of(context).pop();
+                  await settingsCubit.resetIceServers();
+                  _openIceServersModal(context);
+                },
+                icon: const PhosphorIcon(
+                    PhosphorIconsLight.clockCounterClockwise),
+              ),
+              const SizedBox(width: 8),
+              IconButton.filledTonal(
+                onPressed: () async {
+                  Navigator.of(context).pop();
+                  final result = await showDialog<String>(
+                    context: context,
+                    builder: (_) => NameDialog(
+                      title: AppLocalizations.of(context).enterUrl,
+                      hint: AppLocalizations.of(context).url,
+                    ),
+                  );
+                  if (result == null) return;
+                  await settingsCubit.addIceServer(result);
+                  _openIceServersModal(context);
+                },
+                icon: const PhosphorIcon(PhosphorIconsLight.plus),
+              ),
+            ],
+        childrenBuilder: (ctx) {
+          final settings = settingsCubit.state;
+          final servers = List.of(settings.iceServers);
+
+          return [
+            ...servers.map((server) {
+              return Dismissible(
+                key: Key(server),
+                background: Container(color: Colors.red),
+                child: ListTile(
+                  title: Text(server),
+                ),
+                onDismissed: (direction) {
+                  settingsCubit.removeIceServer(server);
+                  servers.remove(server);
+                },
+              );
+            }),
+          ];
+        });
+  } */
 }

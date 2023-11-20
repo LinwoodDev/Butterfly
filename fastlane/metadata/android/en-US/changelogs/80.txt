@@ -3,6 +3,7 @@
 * Add spread to pages in pdf importer
 * Add importer for xopp documents ([#314](https://github.com/LinwoodDev/Butterfly/issues/314))
 * Remove restriction of bfly files on import in files view
+* Restructure settings
 * Fix android mimetype
 * Fix global importing
 

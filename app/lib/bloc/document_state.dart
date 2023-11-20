@@ -21,6 +21,7 @@ abstract class DocumentState extends Equatable {
   SettingsCubit get settingsCubit;
   NetworkingService? get networkingService =>
       currentIndexCubit?.state.networkingService;
+  Embedding? get embedding => currentIndexCubit?.state.embedding;
   NoteData? saveData([NoteData? current]) => data;
   List<int>? saveBytes([NoteData? current]) => saveData()?.save();
 }
@@ -92,8 +93,6 @@ abstract class DocumentLoaded extends DocumentState {
   @override
   NetworkingService get networkingService =>
       currentIndexCubit.state.networkingService;
-
-  Embedding? get embedding => currentIndexCubit.state.embedding;
 
   TransformCubit get transformCubit => currentIndexCubit.state.transformCubit;
 
