@@ -150,6 +150,8 @@ class ImportService {
       if (callback == null) return document;
       pages = callback.pages;
       packs = callback.packs;
+    } else if (bloc == null) {
+      return data;
     }
     for (final page in pages.map((e) => data.getPage(e)).whereNotNull()) {
       if (advanced) {

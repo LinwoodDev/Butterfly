@@ -102,7 +102,7 @@ class FileEntityListTile extends StatelessWidget {
                               : leading,
                         ),
                         const SizedBox(width: 8),
-                        Expanded(
+                        Flexible(
                           child: editable
                               ? ConstrainedBox(
                                   constraints: BoxConstraints(
@@ -136,17 +136,6 @@ class FileEntityListTile extends StatelessWidget {
                                   },
                                 ),
                         ),
-                        if (collapsed)
-                          FilesActionMenu(
-                            remote: remote,
-                            syncService: syncService,
-                            entity: entity,
-                            settingsCubit: settingsCubit,
-                            editable: editable,
-                            onEdit: onEdit,
-                            nameController: nameController,
-                            onDelete: onDelete,
-                          )
                       ],
                     );
                     final edit = editable
@@ -277,6 +266,16 @@ class FileEntityListTile extends StatelessWidget {
                           ),
                       ],
                     );
+                    final actionMenu = FilesActionMenu(
+                      remote: remote,
+                      syncService: syncService,
+                      entity: entity,
+                      settingsCubit: settingsCubit,
+                      editable: editable,
+                      onEdit: onEdit,
+                      nameController: nameController,
+                      onDelete: onDelete,
+                    );
                     final isDesktop = constraints.maxWidth > 400;
                     final isTablet = constraints.maxWidth > 300;
                     if (isDesktop) {
@@ -299,7 +298,8 @@ class FileEntityListTile extends StatelessWidget {
                             info,
                             const SizedBox(width: 32),
                             actions,
-                          ],
+                          ] else if (collapsed)
+                            actionMenu,
                         ],
                       );
                     } else if (isTablet) {
@@ -307,18 +307,21 @@ class FileEntityListTile extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          Flexible(
-                            child: Wrap(
-                              spacing: 2,
-                              children: [
-                                fileName,
-                                if (!collapsed) info,
-                              ],
+                          Expanded(
+                              child: Row(children: [
+                            Flexible(
+                              child: Wrap(
+                                spacing: 2,
+                                children: [
+                                  fileName,
+                                  if (!collapsed) info,
+                                ],
+                              ),
                             ),
-                          ),
-                          const SizedBox(width: 8),
-                          edit,
-                          if (!collapsed) actions,
+                            const SizedBox(width: 8),
+                            edit,
+                          ])),
+                          if (!collapsed) actions else actionMenu,
                         ],
                       );
                     } else {
@@ -338,7 +341,7 @@ class FileEntityListTile extends StatelessWidget {
                                 edit,
                                 actions,
                               ],
-                            ),
+                            )
                         ],
                       );
                     }

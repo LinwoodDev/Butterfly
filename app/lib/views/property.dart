@@ -71,7 +71,7 @@ class _PropertyViewState extends State<PropertyView>
           }
           return LayoutBuilder(builder: (context, constraints) {
             final isMobile =
-                constraints.maxWidth < minSize || constraints.maxHeight < 500;
+                constraints.maxWidth < minSize || constraints.maxHeight < 400;
             return StatefulBuilder(builder: (context, setState) {
               return Container(
                 padding: const EdgeInsets.all(8),

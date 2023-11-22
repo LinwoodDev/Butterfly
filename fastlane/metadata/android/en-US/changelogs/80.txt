@@ -10,5 +10,6 @@
 * Fix android mimetype
 * Fix global importing
 * Fix plus button in palette dialog
+* Fix note importer
 
 View all changes in the blog: https://linwood.dev/butterfly/2.0.0-beta.16
