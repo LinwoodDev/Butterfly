@@ -204,35 +204,10 @@ class DocumentLoadSuccess extends DocumentLoaded {
                       ?.hasDocumentCached(location.path) ??
                   false)));
 
-  Future<AssetLocation> save([AssetLocation? location]) async {
-    if (networkingService.state?.$1 is NetworkerClient) {
-      return AssetLocation.empty;
-    }
-    final storage = getRemoteStorage();
-    final fileSystem = DocumentFileSystem.fromPlatform(remote: storage);
-    currentIndexCubit.setSaveState(saved: SaveState.saving, location: location);
-    location ??= this.location;
-    final currentData = saveData();
-    if (embedding != null) return AssetLocation.empty;
-    if (!location.path.endsWith('.bfly') ||
-        location.absolute ||
-        location.fileType != AssetFileType.note) {
-      final document = await fileSystem.importDocument(currentData);
-      if (document == null) return AssetLocation.empty;
-      await settingsCubit.addRecentHistory(document.location);
-      currentIndexCubit.setSaveState(
-          location: document.location, saved: SaveState.saved);
-      return document.location;
-    }
-    await fileSystem.updateDocument(location.path, currentData);
-    settingsCubit.addRecentHistory(location);
-    currentIndexCubit.setSaveState(location: location, saved: SaveState.saved);
-    return location;
-  }
+  Future<AssetLocation> save([AssetLocation? location]) =>
+      currentIndexCubit.save(this, location);
 
-  ExternalStorage? getRemoteStorage() => location.remote.isEmpty
-      ? null
-      : settingsCubit.state.getRemote(location.remote);
+  ExternalStorage? getRemoteStorage() => currentIndexCubit.getRemoteStorage();
 
   Tool? get tool => currentIndexCubit.state.handler.data;
 

@@ -38,6 +38,7 @@ mixin _$CurrentIndex {
   AssetLocation get location => throw _privateConstructorUsedError;
   Embedding? get embedding => throw _privateConstructorUsedError;
   SaveState get saved => throw _privateConstructorUsedError;
+  bool get unsavedOnSaving => throw _privateConstructorUsedError;
   PreferredSizeWidget? get toolbar => throw _privateConstructorUsedError;
   PreferredSizeWidget? get temporaryToolbar =>
       throw _privateConstructorUsedError;
@@ -80,6 +81,7 @@ abstract class $CurrentIndexCopyWith<$Res> {
       AssetLocation location,
       Embedding? embedding,
       SaveState saved,
+      bool unsavedOnSaving,
       PreferredSizeWidget? toolbar,
       PreferredSizeWidget? temporaryToolbar,
       Map<Renderer, RendererState> rendererStates,
@@ -124,6 +126,7 @@ class _$CurrentIndexCopyWithImpl<$Res, $Val extends CurrentIndex>
     Object? location = null,
     Object? embedding = freezed,
     Object? saved = null,
+    Object? unsavedOnSaving = null,
     Object? toolbar = freezed,
     Object? temporaryToolbar = freezed,
     Object? rendererStates = null,
@@ -212,6 +215,10 @@ class _$CurrentIndexCopyWithImpl<$Res, $Val extends CurrentIndex>
           ? _value.saved
           : saved // ignore: cast_nullable_to_non_nullable
               as SaveState,
+      unsavedOnSaving: null == unsavedOnSaving
+          ? _value.unsavedOnSaving
+          : unsavedOnSaving // ignore: cast_nullable_to_non_nullable
+              as bool,
       toolbar: freezed == toolbar
           ? _value.toolbar
           : toolbar // ignore: cast_nullable_to_non_nullable
@@ -285,6 +292,7 @@ abstract class _$$CurrentIndexImplCopyWith<$Res>
       AssetLocation location,
       Embedding? embedding,
       SaveState saved,
+      bool unsavedOnSaving,
       PreferredSizeWidget? toolbar,
       PreferredSizeWidget? temporaryToolbar,
       Map<Renderer, RendererState> rendererStates,
@@ -329,6 +337,7 @@ class __$$CurrentIndexImplCopyWithImpl<$Res>
     Object? location = null,
     Object? embedding = freezed,
     Object? saved = null,
+    Object? unsavedOnSaving = null,
     Object? toolbar = freezed,
     Object? temporaryToolbar = freezed,
     Object? rendererStates = null,
@@ -417,6 +426,10 @@ class __$$CurrentIndexImplCopyWithImpl<$Res>
           ? _value.saved
           : saved // ignore: cast_nullable_to_non_nullable
               as SaveState,
+      unsavedOnSaving: null == unsavedOnSaving
+          ? _value.unsavedOnSaving
+          : unsavedOnSaving // ignore: cast_nullable_to_non_nullable
+              as bool,
       toolbar: freezed == toolbar
           ? _value.toolbar
           : toolbar // ignore: cast_nullable_to_non_nullable
@@ -464,6 +477,7 @@ class _$CurrentIndexImpl extends _CurrentIndex {
       this.location = const AssetLocation(path: ''),
       this.embedding,
       this.saved = SaveState.unsaved,
+      this.unsavedOnSaving = false,
       this.toolbar,
       this.temporaryToolbar,
       final Map<Renderer, RendererState> rendererStates =
@@ -555,6 +569,9 @@ class _$CurrentIndexImpl extends _CurrentIndex {
   @JsonKey()
   final SaveState saved;
   @override
+  @JsonKey()
+  final bool unsavedOnSaving;
+  @override
   final PreferredSizeWidget? toolbar;
   @override
   final PreferredSizeWidget? temporaryToolbar;
@@ -587,7 +604,7 @@ class _$CurrentIndexImpl extends _CurrentIndex {
 
   @override
   String toString() {
-    return 'CurrentIndex(index: $index, handler: $handler, cameraViewport: $cameraViewport, settingsCubit: $settingsCubit, transformCubit: $transformCubit, networkingService: $networkingService, temporaryHandler: $temporaryHandler, foregrounds: $foregrounds, selection: $selection, pinned: $pinned, temporaryForegrounds: $temporaryForegrounds, networkingForegrounds: $networkingForegrounds, cursor: $cursor, temporaryCursor: $temporaryCursor, lastPosition: $lastPosition, pointers: $pointers, buttons: $buttons, location: $location, embedding: $embedding, saved: $saved, toolbar: $toolbar, temporaryToolbar: $temporaryToolbar, rendererStates: $rendererStates, temporaryRendererStates: $temporaryRendererStates, viewOption: $viewOption, hideUi: $hideUi)';
+    return 'CurrentIndex(index: $index, handler: $handler, cameraViewport: $cameraViewport, settingsCubit: $settingsCubit, transformCubit: $transformCubit, networkingService: $networkingService, temporaryHandler: $temporaryHandler, foregrounds: $foregrounds, selection: $selection, pinned: $pinned, temporaryForegrounds: $temporaryForegrounds, networkingForegrounds: $networkingForegrounds, cursor: $cursor, temporaryCursor: $temporaryCursor, lastPosition: $lastPosition, pointers: $pointers, buttons: $buttons, location: $location, embedding: $embedding, saved: $saved, unsavedOnSaving: $unsavedOnSaving, toolbar: $toolbar, temporaryToolbar: $temporaryToolbar, rendererStates: $rendererStates, temporaryRendererStates: $temporaryRendererStates, viewOption: $viewOption, hideUi: $hideUi)';
   }
 
   @JsonKey(ignore: true)
@@ -619,6 +636,7 @@ abstract class _CurrentIndex extends CurrentIndex {
       final AssetLocation location,
       final Embedding? embedding,
       final SaveState saved,
+      final bool unsavedOnSaving,
       final PreferredSizeWidget? toolbar,
       final PreferredSizeWidget? temporaryToolbar,
       final Map<Renderer, RendererState> rendererStates,
@@ -667,6 +685,8 @@ abstract class _CurrentIndex extends CurrentIndex {
   Embedding? get embedding;
   @override
   SaveState get saved;
+  @override
+  bool get unsavedOnSaving;
   @override
   PreferredSizeWidget? get toolbar;
   @override

@@ -5,6 +5,7 @@ import 'package:butterfly/helpers/rect_helper.dart';
 import 'package:butterfly/models/viewport.dart';
 import 'package:butterfly/renderers/renderer.dart';
 import 'package:butterfly_api/butterfly_api.dart';
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 
 import 'cubits/transform.dart';
@@ -135,7 +136,6 @@ class ViewPainter extends CustomPainter {
         e.build(canvas, size, document, page, info, transform, colorScheme);
       }
     }
-    canvas.saveLayer(Rect.fromLTWH(0, 0, size.width, size.height), Paint());
     if (cameraViewport.bakedElements.isNotEmpty && renderBaked) {
       var image = cameraViewport.image;
       var bakedSizeDiff =
@@ -178,16 +178,17 @@ class ViewPainter extends CustomPainter {
         }
       }
     }
-    canvas.restore();
   }
 
   @override
   bool shouldRepaint(ViewPainter oldDelegate) {
-    return page != oldDelegate.page ||
+    const mapEq = MapEquality();
+    final shouldRepaint = page != oldDelegate.page ||
         renderBackground != oldDelegate.renderBackground ||
         transform != oldDelegate.transform ||
         cameraViewport != oldDelegate.cameraViewport ||
         colorScheme != oldDelegate.colorScheme ||
-        states != oldDelegate.states;
+        !mapEq.equals(states, oldDelegate.states);
+    return shouldRepaint;
   }
 }

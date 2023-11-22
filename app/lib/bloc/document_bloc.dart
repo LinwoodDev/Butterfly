@@ -9,7 +9,6 @@ import 'package:collection/collection.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:networker/networker.dart';
 import 'package:replay_bloc/replay_bloc.dart';
 
 import '../cubits/settings.dart';

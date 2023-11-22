@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:typed_data';
 import 'dart:ui' as ui;
 
+import 'package:butterfly/api/file_system/file_system.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/cubits/transform.dart';
@@ -60,6 +61,7 @@ class CurrentIndex with _$CurrentIndex {
     @Default(AssetLocation(path: '')) AssetLocation location,
     Embedding? embedding,
     @Default(SaveState.unsaved) SaveState saved,
+    @Default(false) bool unsavedOnSaving,
     PreferredSizeWidget? toolbar,
     PreferredSizeWidget? temporaryToolbar,
     @Default(<Renderer, RendererState>{})
@@ -297,15 +299,19 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
           .map((e) async => await e.setup(document, assetService, page)));
       final rendererStates = state.handler.rendererStates;
       final temporaryRendererStates = state.temporaryHandler?.rendererStates;
-      final shouldBake = !mapEq.equals(state.rendererStates, rendererStates) ||
+      final statesChanged = !mapEq.equals(state.rendererStates, rendererStates);
+      final temporaryStatesChanged =
           !mapEq.equals(state.temporaryRendererStates, temporaryRendererStates);
+      final shouldBake = statesChanged || temporaryStatesChanged;
       emit(state.copyWith(
         temporaryForegrounds: temporaryForegrounds,
         foregrounds: foregrounds,
         cursor: state.handler.cursor ?? MouseCursor.defer,
         temporaryCursor: state.temporaryHandler?.cursor,
-        rendererStates: rendererStates,
-        temporaryRendererStates: temporaryRendererStates,
+        rendererStates: statesChanged ? rendererStates : state.rendererStates,
+        temporaryRendererStates: temporaryStatesChanged
+            ? temporaryRendererStates
+            : state.temporaryRendererStates,
       ));
       if (shouldBake) {
         return bake(document, page, info, reset: true);
@@ -786,6 +792,37 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
           : HideState.visible));
   void enterTouchHideUI() => emit(state.copyWith(hideUi: HideState.touch));
   void exitHideUI() => emit(state.copyWith(hideUi: HideState.visible));
+
+  ExternalStorage? getRemoteStorage() => state.location.remote.isEmpty
+      ? null
+      : state.settingsCubit.state.getRemote(state.location.remote);
+
+  Future<AssetLocation> save(DocumentState blocState,
+      [AssetLocation? location]) async {
+    if (state.networkingService.state?.$1 is NetworkerClient) {
+      return AssetLocation.empty;
+    }
+    final storage = getRemoteStorage();
+    final fileSystem = DocumentFileSystem.fromPlatform(remote: storage);
+    emit(state.copyWith(
+        saved: SaveState.saving, location: location ?? state.location));
+    location ??= state.location;
+    final currentData = blocState.saveData();
+    if (currentData == null) return AssetLocation.empty;
+    if (blocState.embedding != null) return AssetLocation.empty;
+    if (!location.path.endsWith('.bfly') ||
+        location.absolute ||
+        location.fileType != AssetFileType.note) {
+      final document = await fileSystem.importDocument(currentData);
+      if (document == null) return AssetLocation.empty;
+      location = document.location;
+    } else {
+      await fileSystem.updateDocument(location.path, currentData);
+    }
+    state.settingsCubit.addRecentHistory(location);
+    emit(state.copyWith(location: location, saved: SaveState.saved));
+    return location;
+  }
 
   void dispose() {
     state.networkingService.closeNetworking();

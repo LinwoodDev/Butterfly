@@ -2,6 +2,7 @@
 * Add collaboration support (experimental) using websockets ([#401](https://github.com/LinwoodDev/Butterfly/issues/401))
 * Add spread to pages in pdf importer
 * Add importer for xopp documents ([#314](https://github.com/LinwoodDev/Butterfly/issues/314))
+* Improve performance of canvas
 * Remove restriction of bfly files on import in files view
 * Restructure settings
 * Fix android mimetype
