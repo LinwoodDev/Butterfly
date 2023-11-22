@@ -1,6 +1,6 @@
 ---
 title: "Eraser tool"
-sidebar_label: "Eraser"
+sidebar_label: "Esborrador"
 sidebar_position: 4
 ---
 
