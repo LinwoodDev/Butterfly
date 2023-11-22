@@ -205,95 +205,15 @@ class FileEntityGridItem extends StatelessWidget {
                                   ),
                           ),
                         ),
-                        MenuAnchor(
-                          builder: defaultMenuButton(
-                            tooltip: AppLocalizations.of(context).actions,
-                          ),
-                          menuChildren: [
-                            if (remote is RemoteStorage)
-                              StreamBuilder<List<SyncFile>>(
-                                stream: syncService
-                                    .getSync(remote!.identifier)
-                                    ?.filesStream,
-                                builder: (context, snapshot) {
-                                  final currentStatus = snapshot.data
-                                      ?.lastWhereOrNull((element) => entity
-                                          .location.pathWithLeadingSlash
-                                          .startsWith(element
-                                              .location.pathWithLeadingSlash))
-                                      ?.status;
-                                  return MenuItemButton(
-                                    leadingIcon: PhosphorIcon(
-                                        currentStatus.getIcon(),
-                                        color: currentStatus.getColor(
-                                            Theme.of(context).colorScheme)),
-                                    child: Text(currentStatus
-                                        .getLocalizedName(context)),
-                                    onPressed: () {
-                                      syncService
-                                          .getSync(remote.identifier)
-                                          ?.sync();
-                                    },
-                                  );
-                                },
-                              ),
-                            BlocBuilder<SettingsCubit, ButterflySettings>(
-                                builder: (context, state) {
-                              final starred = state.isStarred(entity.location);
-                              return MenuItemButton(
-                                onPressed: () {
-                                  settingsCubit.toggleStarred(entity.location);
-                                },
-                                leadingIcon: starred
-                                    ? const PhosphorIcon(PhosphorIconsFill.star)
-                                    : const PhosphorIcon(
-                                        PhosphorIconsLight.star),
-                                child: Text(starred
-                                    ? AppLocalizations.of(context).unstar
-                                    : AppLocalizations.of(context).star),
-                              );
-                            }),
-                            if (!editable)
-                              MenuItemButton(
-                                onPressed: () {
-                                  onEdit(true);
-                                  nameController.text = entity.fileName;
-                                },
-                                leadingIcon: const PhosphorIcon(
-                                    PhosphorIconsLight.pencil),
-                                child:
-                                    Text(AppLocalizations.of(context).rename),
-                              ),
-                            if (entity is AppDocumentFile)
-                              MenuItemButton(
-                                onPressed: () {
-                                  try {
-                                    final data =
-                                        (entity as AppDocumentFile).data;
-                                    saveData(context, data);
-                                  } catch (e) {
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                      SnackBar(
-                                        content: Text(
-                                          AppLocalizations.of(context).error,
-                                        ),
-                                      ),
-                                    );
-                                  }
-                                },
-                                leadingIcon: const PhosphorIcon(
-                                    PhosphorIconsLight.paperPlaneRight),
-                                child:
-                                    Text(AppLocalizations.of(context).export),
-                              ),
-                            MenuItemButton(
-                              onPressed: onDelete,
-                              leadingIcon:
-                                  const PhosphorIcon(PhosphorIconsLight.trash),
-                              child: Text(AppLocalizations.of(context).delete),
-                            ),
-                          ],
-                        ),
+                        FilesActionMenu(
+                            remote: remote,
+                            syncService: syncService,
+                            entity: entity,
+                            settingsCubit: settingsCubit,
+                            editable: editable,
+                            onEdit: onEdit,
+                            nameController: nameController,
+                            onDelete: onDelete),
                       ],
                     ),
                   ],
@@ -303,6 +223,108 @@ class FileEntityGridItem extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+}
+
+class FilesActionMenu extends StatelessWidget {
+  const FilesActionMenu({
+    super.key,
+    required this.remote,
+    required this.syncService,
+    required this.entity,
+    required this.settingsCubit,
+    required this.editable,
+    required this.onEdit,
+    required this.nameController,
+    required this.onDelete,
+  });
+
+  final ExternalStorage? remote;
+  final SyncService syncService;
+  final AppDocumentEntity entity;
+  final SettingsCubit settingsCubit;
+  final bool editable;
+  final ValueChanged<bool> onEdit;
+  final TextEditingController nameController;
+  final VoidCallback onDelete;
+
+  @override
+  Widget build(BuildContext context) {
+    return MenuAnchor(
+      builder: defaultMenuButton(
+        tooltip: AppLocalizations.of(context).actions,
+      ),
+      menuChildren: [
+        if (remote is RemoteStorage)
+          StreamBuilder<List<SyncFile>>(
+            stream: syncService.getSync(remote!.identifier)?.filesStream,
+            builder: (context, snapshot) {
+              final currentStatus = snapshot.data
+                  ?.lastWhereOrNull((element) => entity
+                      .location.pathWithLeadingSlash
+                      .startsWith(element.location.pathWithLeadingSlash))
+                  ?.status;
+              return MenuItemButton(
+                leadingIcon: PhosphorIcon(currentStatus.getIcon(),
+                    color:
+                        currentStatus.getColor(Theme.of(context).colorScheme)),
+                child: Text(currentStatus.getLocalizedName(context)),
+                onPressed: () {
+                  syncService.getSync(remote!.identifier)?.sync();
+                },
+              );
+            },
+          ),
+        BlocBuilder<SettingsCubit, ButterflySettings>(
+            builder: (context, state) {
+          final starred = state.isStarred(entity.location);
+          return MenuItemButton(
+            onPressed: () {
+              settingsCubit.toggleStarred(entity.location);
+            },
+            leadingIcon: starred
+                ? const PhosphorIcon(PhosphorIconsFill.star)
+                : const PhosphorIcon(PhosphorIconsLight.star),
+            child: Text(starred
+                ? AppLocalizations.of(context).unstar
+                : AppLocalizations.of(context).star),
+          );
+        }),
+        if (!editable)
+          MenuItemButton(
+            onPressed: () {
+              onEdit(true);
+              nameController.text = entity.fileName;
+            },
+            leadingIcon: const PhosphorIcon(PhosphorIconsLight.pencil),
+            child: Text(AppLocalizations.of(context).rename),
+          ),
+        if (entity is AppDocumentFile)
+          MenuItemButton(
+            onPressed: () {
+              try {
+                final data = (entity as AppDocumentFile).data;
+                saveData(context, data);
+              } catch (e) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text(
+                      AppLocalizations.of(context).error,
+                    ),
+                  ),
+                );
+              }
+            },
+            leadingIcon: const PhosphorIcon(PhosphorIconsLight.paperPlaneRight),
+            child: Text(AppLocalizations.of(context).export),
+          ),
+        MenuItemButton(
+          onPressed: onDelete,
+          leadingIcon: const PhosphorIcon(PhosphorIconsLight.trash),
+          child: Text(AppLocalizations.of(context).delete),
+        ),
+      ],
     );
   }
 }

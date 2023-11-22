@@ -884,10 +884,12 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
   }
 
   @override
-  void onEvent(DocumentEvent event) {
+  void onEvent(ReplayEvent event) {
     super.onEvent(event);
 
-    state.networkingService?.onEvent(event);
+    if (event is DocumentEvent) {
+      state.networkingService?.onEvent(event);
+    }
   }
 
   void _repaint(Emitter<DocumentState> emit) {

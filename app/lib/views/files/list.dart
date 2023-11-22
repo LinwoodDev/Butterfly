@@ -6,6 +6,7 @@ import 'package:butterfly/api/save_data.dart';
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/dialogs/file_system/move.dart';
 import 'package:butterfly/services/sync.dart';
+import 'package:butterfly/views/files/grid.dart';
 import 'package:butterfly/visualizer/sync.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:collection/collection.dart';
@@ -101,7 +102,7 @@ class FileEntityListTile extends StatelessWidget {
                               : leading,
                         ),
                         const SizedBox(width: 8),
-                        Flexible(
+                        Expanded(
                           child: editable
                               ? ConstrainedBox(
                                   constraints: BoxConstraints(
@@ -135,6 +136,17 @@ class FileEntityListTile extends StatelessWidget {
                                   },
                                 ),
                         ),
+                        if (collapsed)
+                          FilesActionMenu(
+                            remote: remote,
+                            syncService: syncService,
+                            entity: entity,
+                            settingsCubit: settingsCubit,
+                            editable: editable,
+                            onEdit: onEdit,
+                            nameController: nameController,
+                            onDelete: onDelete,
+                          )
                       ],
                     );
                     final edit = editable
@@ -306,9 +318,7 @@ class FileEntityListTile extends StatelessWidget {
                           ),
                           const SizedBox(width: 8),
                           edit,
-                          if (!collapsed) ...[
-                            actions,
-                          ],
+                          if (!collapsed) actions,
                         ],
                       );
                     } else {
@@ -319,15 +329,16 @@ class FileEntityListTile extends StatelessWidget {
                           const SizedBox(height: 8),
                           info,
                           const SizedBox(height: 8),
-                          Wrap(
-                            spacing: 8,
-                            runSpacing: 8,
-                            crossAxisAlignment: WrapCrossAlignment.center,
-                            children: [
-                              edit,
-                              actions,
-                            ],
-                          ),
+                          if (!collapsed)
+                            Wrap(
+                              spacing: 8,
+                              runSpacing: 8,
+                              crossAxisAlignment: WrapCrossAlignment.center,
+                              children: [
+                                edit,
+                                actions,
+                              ],
+                            ),
                         ],
                       );
                     }

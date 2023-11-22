@@ -26,8 +26,14 @@ class DocumentDefaults {
     return bytes!.buffer.asUint8List();
   }
 
-  static List<Tool> createTools([int? background]) =>
-      [HandTool(), PenTool(), PathEraserTool(), UndoTool(), RedoTool()]
+  static List<Tool> createTools([int? background]) => [
+        SelectTool(mode: SelectMode.lasso),
+        PenTool(),
+        PathEraserTool(),
+        UndoTool(),
+        RedoTool(),
+        HandTool()
+      ]
           .map((e) =>
               background == null ? e : updateToolDefaultColor(e, background))
           .toList();
