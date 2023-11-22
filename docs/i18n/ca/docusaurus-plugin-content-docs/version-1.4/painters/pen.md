@@ -1,6 +1,6 @@
 ---
 title: "Pen painter"
-sidebar_label: "Pen"
+sidebar_label: "Bolígraf"
 sidebar_position: 2
 ---
 
