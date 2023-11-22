@@ -34,6 +34,13 @@ class ExperimentsSettingsPage extends StatelessWidget {
           title: Text(AppLocalizations.of(context).experiments),
           backgroundColor: inView ? Colors.transparent : null,
           inView: inView,
+          actions: [
+            IconButton(
+              icon:
+                  const PhosphorIcon(PhosphorIconsLight.clockCounterClockwise),
+              onPressed: () => context.read<SettingsCubit>().resetFlags(),
+            ),
+          ],
         ),
         body: BlocBuilder<SettingsCubit, ButterflySettings>(
             buildWhen: (previous, current) => previous.flags != current.flags,

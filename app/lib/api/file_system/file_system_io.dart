@@ -65,6 +65,9 @@ class IODocumentFileSystem extends DocumentFileSystem {
     final file = File(absolutePath);
     // Test if path is a directory
     final directory = Directory(absolutePath);
+    if (path == '/') {
+      await directory.create(recursive: true);
+    }
     if (await file.exists()) {
       var data = await file.readAsBytes();
       yield AppDocumentFile(location, data: data);
@@ -112,11 +115,7 @@ class IODocumentFileSystem extends DocumentFileSystem {
     // Convert \ to /
     path = path.replaceAll('\\', '/');
     path += '/Documents';
-    var directory = Directory(path);
-    if (!await directory.exists()) {
-      await directory.create(recursive: true);
-    }
-    return directory.path;
+    return path;
   }
 
   @override
@@ -235,11 +234,7 @@ class IOTemplateFileSystem extends TemplateFileSystem {
     // Convert \ to /
     path = path.replaceAll('\\', '/');
     path += '/Templates';
-    var directory = Directory(path);
-    if (!await directory.exists()) {
-      await directory.create(recursive: true);
-    }
-    return directory.path;
+    return path;
   }
 
   @override
@@ -314,11 +309,7 @@ class IOPackFileSystem extends PackFileSystem {
     // Convert \ to /
     path = path.replaceAll('\\', '/');
     path += '/Packs';
-    var directory = Directory(path);
-    if (!await directory.exists()) {
-      await directory.create(recursive: true);
-    }
-    return directory.path;
+    return path;
   }
 
   @override
