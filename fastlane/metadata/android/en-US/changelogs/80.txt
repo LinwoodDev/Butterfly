@@ -12,5 +12,6 @@
 * Fix plus button in palette dialog
 * Fix note importer
 * Fix creating defaults on native
+* Remove pointer on cancel
 
 View all changes in the blog: https://linwood.dev/butterfly/2.0.0-beta.16

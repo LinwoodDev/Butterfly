@@ -359,6 +359,10 @@ class _MainViewViewportState extends State<MainViewViewport>
                                     .onPointerMove(event, getEventContext());
                               }
                             },
+                            onPointerCancel: (event) {
+                              cubit.removePointer(event.pointer);
+                              cubit.removeButtons();
+                            },
                             child: BlocBuilder<TransformCubit, CameraTransform>(
                               builder: (context, transform) => MouseRegion(
                                 cursor: currentIndex.currentCursor,

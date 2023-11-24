@@ -42,8 +42,8 @@ class EraserHandler extends Handler<EraserTool> {
     final page = context.getPage();
     if (page == null) return;
     if (!_currentlyErasing && shouldErase) {
-      _lastErased = globalPos;
       _currentlyErasing = true;
+      _lastErased = globalPos;
       // Raycast
       final ray = await rayCast(globalPos, context.getDocumentBloc(),
           context.getCameraTransform(), size);
