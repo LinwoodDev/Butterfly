@@ -7,7 +7,7 @@ With this tool you can change the layer of multiple objects. Read more about lay
 
 ## Configuration
 
-|       Property | Default | Description                                                             |
+|       Property | Default | Mô tả                                                                   |
 | --------------:|:-------:|:----------------------------------------------------------------------- |
 |          Layer |         | Elements will change to this layer if clicking on them                  |
 | Include eraser |  false  | This setting controls if you can click on the eraser layer and edit it. |

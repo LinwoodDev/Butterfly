@@ -535,6 +535,16 @@
   "sureClose": "Er du sikker på at du vil lukke dokumentet?",
   "thereAreUnsavedChanges": "Det er ulagrede endringer",
   "page": "Side",
+  "iceServers": "ICE servere",
+  "collaboration": "Samarbeid",
+  "webRtc": "Web RTC",
+  "webSocket": "Web Socket",
+  "iceServer": "ICE server",
+  "port": "Port",
+  "type": "Type:",
+  "side": "Farge",
+  "client": "Klient",
+  "server": "Tjener",
   "switchView": "Bytt visning",
   "lasso": "Lasso",
   "hideUI": "Skjul brukergrensesnitt",
@@ -553,5 +563,9 @@
   "refresh": "Oppdater",
   "print": "Utskrift",
   "dav": "DAV",
-  "eyeDropper": "Øyedråper"
+  "eyeDropper": "Øyedråper",
+  "users": "Brukere",
+  "experiments": "Eksperimenter",
+  "address": "Adresse",
+  "spreadToPages": "Spre til sider"
 }

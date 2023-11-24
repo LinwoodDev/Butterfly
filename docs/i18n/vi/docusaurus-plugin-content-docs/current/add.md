@@ -1,5 +1,5 @@
 ---
-title: "Add"
+title: "Thêm"
 id: "add"
 slug: "/add"
 sidebar_position: 3

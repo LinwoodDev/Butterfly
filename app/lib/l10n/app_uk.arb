@@ -535,6 +535,16 @@
   "sureClose": "Ви впевнені, що хочете закрити документ?",
   "thereAreUnsavedChanges": "Є незбережені зміни",
   "page": "Сторінка",
+  "iceServers": "ICE сервери",
+  "collaboration": "Співпраця",
+  "webRtc": "Web RTC",
+  "webSocket": "Веб-сокет",
+  "iceServer": "Сервер ICE",
+  "port": "Порт",
+  "type": "Тип",
+  "side": "Сторона",
+  "client": "Клієнт",
+  "server": "Сервер",
   "switchView": "Перемкнути у вигляд",
   "lasso": "Lasso",
   "hideUI": "Приховати інтерфейс",
@@ -553,5 +563,9 @@
   "refresh": "Оновити",
   "print": "Друк",
   "dav": "ДАНІ",
-  "eyeDropper": "Піпетка"
+  "eyeDropper": "Піпетка",
+  "users": "Спільноти",
+  "experiments": "Експерименти",
+  "address": "Адреса",
+  "spreadToPages": "Поширення на сторінки"
 }

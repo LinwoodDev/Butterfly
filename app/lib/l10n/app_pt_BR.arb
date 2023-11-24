@@ -535,6 +535,16 @@
   "sureClose": "Tem certeza de que deseja fechar o documento?",
   "thereAreUnsavedChanges": "Há alterações não salvas",
   "page": "Página",
+  "iceServers": "Servidores ICE",
+  "collaboration": "Colaboração",
+  "webRtc": "Web RTC",
+  "webSocket": "Encaixe Web",
+  "iceServer": "Servidor ICE",
+  "port": "Porta",
+  "type": "tipo",
+  "side": "Lado",
+  "client": "Cliente",
+  "server": "Servidor",
   "switchView": "Mudar Visualização",
   "lasso": "Lasso",
   "hideUI": "Ocultar interface",
@@ -553,5 +563,9 @@
   "refresh": "atualizar",
   "print": "Impressão",
   "dav": "DAV",
-  "eyeDropper": "Gota de olho"
+  "eyeDropper": "Gota de olho",
+  "users": "Utilizadores",
+  "experiments": "Experimentos",
+  "address": "Endereço",
+  "spreadToPages": "Espalhar em páginas"
 }

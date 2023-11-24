@@ -535,6 +535,16 @@
   "sureClose": "Вы уверены, что хотите закрыть документ?",
   "thereAreUnsavedChanges": "Имеются несохраненные изменения",
   "page": "Страница",
+  "iceServers": "ICE серверы",
+  "collaboration": "Сотрудничество",
+  "webRtc": "Web RTC",
+  "webSocket": "Веб-сокет",
+  "iceServer": "ICE сервер",
+  "port": "Порт",
+  "type": "Тип",
+  "side": "Грань",
+  "client": "Клиент",
+  "server": "Сервер",
   "switchView": "Переключить вид",
   "lasso": "Lasso",
   "hideUI": "Скрыть UI",
@@ -553,5 +563,9 @@
   "refresh": "Обновить",
   "print": "Печать",
   "dav": "DAV",
-  "eyeDropper": "Крушитель глаз"
+  "eyeDropper": "Крушитель глаз",
+  "users": "Пользователи",
+  "experiments": "Эксперимент",
+  "address": "Адрес",
+  "spreadToPages": "Распространять на страницы"
 }

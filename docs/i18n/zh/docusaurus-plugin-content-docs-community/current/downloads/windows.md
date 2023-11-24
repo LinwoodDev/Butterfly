@@ -49,7 +49,7 @@ sidebar_position: 2
 ## 使用winget安装
 
 ```powershell
-winget install LinwoodCloud.Butterflight
+winget install LinwoodCloud.Butterfly
 ```
 
 要升级winget包，请运行：
@@ -79,5 +79,5 @@ winget upgrade LinwoodCloud.Butterfly.Nightly
 要卸载winget包，请运行：
 
 ```powershell
-winget 卸载LinwoodCloud.Butterfly.Nightly
+winget uninstall LinwoodCloud.Butterfly.Nightly
 ```

@@ -1,6 +1,6 @@
 ---
 title: "Pen tool"
-sidebar_label: "Pen"
+sidebar_label: "Bolígraf"
 sidebar_position: 2
 ---
 

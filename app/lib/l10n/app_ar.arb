@@ -535,6 +535,16 @@
   "sureClose": "هل أنت متأكد من أنك تريد إغلاق الوثيقة؟",
   "thereAreUnsavedChanges": "هناك تغييرات غير محفوظة",
   "page": "الصفحة",
+  "iceServers": "خوادم ICE",
+  "collaboration": "التعاون",
+  "webRtc": "Web RTC",
+  "webSocket": "مقبس الويب",
+  "iceServer": "خادم ICE",
+  "port": "المنفذ",
+  "type": "نوع",
+  "side": "جانب",
+  "client": "العميل",
+  "server": "خادم",
   "switchView": "تبديل طريقة العرض",
   "lasso": "Lasso",
   "hideUI": "إخفاء واجهة المستخدم",
@@ -553,5 +563,9 @@
   "refresh": "تحديث",
   "print": "طباعة",
   "dav": "داف",
-  "eyeDropper": "إسقاط العين"
+  "eyeDropper": "إسقاط العين",
+  "users": "المستخدمون",
+  "experiments": "التجارب",
+  "address": "العنوان",
+  "spreadToPages": "نشر إلى الصفحات"
 }

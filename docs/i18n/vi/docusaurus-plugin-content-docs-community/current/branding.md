@@ -22,9 +22,9 @@ These assets are licensed under the [CC-BY-4.0](https://github.com/LinwoodDev/Bu
 
 [SVG](/img/banner.svg) [PNG](/img/banner.png)
 
-## Documentation
+## Tài liệu
 
-![Documentation](/img/docs.svg)
+![Tài liệu](/img/docs.svg)
 
 [SVG](/img/docs.svg) [PNG](/img/docs.png)
 

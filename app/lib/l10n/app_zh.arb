@@ -535,6 +535,16 @@
   "sureClose": "您确定要关闭文档吗？",
   "thereAreUnsavedChanges": "有未保存的更改",
   "page": "页",
+  "iceServers": "ICE 服务器",
+  "collaboration": "合作",
+  "webRtc": "Web RTC",
+  "webSocket": "Web 套接字",
+  "iceServer": "ICE 服务器",
+  "port": "端口",
+  "type": "类型",
+  "side": "侧面",
+  "client": "客户端：",
+  "server": "服务器",
   "switchView": "切换视图",
   "lasso": "Lasso",
   "hideUI": "隐藏界面",
@@ -553,5 +563,9 @@
   "refresh": "刷新",
   "print": "打印",
   "dav": "DAV",
-  "eyeDropper": "眼睛投射器"
+  "eyeDropper": "眼睛投射器",
+  "users": "用户",
+  "experiments": "实验",
+  "address": "地址",
+  "spreadToPages": "扩展到页面"
 }

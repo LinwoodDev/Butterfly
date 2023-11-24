@@ -1,6 +1,6 @@
 ---
 title: "Undo tool"
-sidebar_label: "Undo"
+sidebar_label: "Hoàn tác"
 sidebar_position: 0
 ---
 
