@@ -2,6 +2,26 @@
 
 <!--ENTER CHANGELOG HERE-->
 
+## 2.0.0-beta.16 (2023-11-24)
+
+* Add experiments settings in nightly version
+* Add collaboration support (experimental) using websockets ([#401](https://github.com/LinwoodDev/Butterfly/issues/401))
+* Add spread to pages in pdf importer
+* Add importer for xopp documents ([#314](https://github.com/LinwoodDev/Butterfly/issues/314))
+* Add select tool to document defaults
+* Use menu in files navigator view
+* Improve performance of canvas
+* Remove restriction of bfly files on import in files view
+* Restructure settings
+* Fix android mimetype
+* Fix global importing
+* Fix plus button in palette dialog
+* Fix note importer
+* Fix creating defaults on native
+* Remove pointer on cancel
+
+View all changes in the blog: https://linwood.dev/butterfly/2.0.0-beta.16
+
 ## 2.0.0-beta.15 (2023-11-17)
 
 * Add templates to data settings
