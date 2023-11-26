@@ -2,7 +2,7 @@ import 'dart:typed_data';
 
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-import '../helpers/asset_helper.dart';
+import '../helpers/asset.dart';
 import 'data.dart';
 import 'meta.dart';
 

@@ -2,7 +2,7 @@ import 'dart:ui' as ui;
 
 import 'package:butterfly_api/butterfly_api.dart';
 
-import '../helpers/element_helper.dart';
+import '../helpers/element.dart';
 
 class AssetService {
   final NoteData document;

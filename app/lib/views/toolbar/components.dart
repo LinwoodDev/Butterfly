@@ -10,7 +10,7 @@ import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import '../../bloc/document_bloc.dart';
-import '../../helpers/element_helper.dart';
+import '../../helpers/element.dart';
 
 class ComponentsToolbarView extends StatefulWidget
     implements PreferredSizeWidget {

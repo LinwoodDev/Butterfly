@@ -1,6 +1,6 @@
 import 'dart:math';
 
-import 'package:butterfly/helpers/rect_helper.dart';
+import 'package:butterfly/helpers/rect.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:butterfly_api/butterfly_text.dart';
 import 'package:flutter/material.dart';

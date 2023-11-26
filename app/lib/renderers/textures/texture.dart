@@ -1,6 +1,6 @@
 import 'dart:ui';
 
-import 'package:butterfly/helpers/xml_helper.dart';
+import 'package:butterfly/helpers/xml.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:material_leap/material_leap.dart';
 import 'package:xml/xml.dart';

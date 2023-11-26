@@ -2,9 +2,9 @@ import 'dart:async';
 import 'dart:math';
 import 'dart:ui' as ui;
 
-import 'package:butterfly/helpers/element_helper.dart';
+import 'package:butterfly/helpers/element.dart';
 import 'package:butterfly/helpers/offset_helper.dart';
-import 'package:butterfly/helpers/rect_helper.dart';
+import 'package:butterfly/helpers/rect.dart';
 import 'package:butterfly/helpers/point_helper.dart';
 import 'package:butterfly/visualizer/element.dart';
 import 'package:butterfly/visualizer/text.dart';
@@ -20,7 +20,7 @@ import 'package:xml/xml.dart';
 
 import '../cubits/current_index.dart';
 import '../cubits/transform.dart';
-import '../helpers/xml_helper.dart';
+import '../helpers/xml.dart';
 import '../models/label.dart';
 import '../services/asset.dart';
 import 'textures/texture.dart';
