@@ -1,6 +1,6 @@
 import 'package:butterfly/cubits/current_index.dart';
 import 'package:butterfly/handlers/handler.dart';
-import 'package:butterfly/helpers/color_helper.dart';
+import 'package:butterfly/helpers/color.dart';
 import 'package:butterfly/services/import.dart';
 import 'package:butterfly/visualizer/element.dart';
 import 'package:butterfly/visualizer/tool.dart';

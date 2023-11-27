@@ -1,6 +1,6 @@
 import 'dart:math';
 
-import 'package:butterfly/helpers/point_helper.dart';
+import 'package:butterfly/helpers/point.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';

@@ -1,7 +1,7 @@
 import 'dart:math';
 
 import 'package:butterfly/cubits/current_index.dart';
-import 'package:butterfly/helpers/rect_helper.dart';
+import 'package:butterfly/helpers/rect.dart';
 import 'package:butterfly/models/viewport.dart';
 import 'package:butterfly/renderers/renderer.dart';
 import 'package:butterfly_api/butterfly_api.dart';

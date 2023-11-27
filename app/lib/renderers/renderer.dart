@@ -3,9 +3,8 @@ import 'dart:math';
 import 'dart:ui' as ui;
 
 import 'package:butterfly/helpers/element.dart';
-import 'package:butterfly/helpers/offset_helper.dart';
 import 'package:butterfly/helpers/rect.dart';
-import 'package:butterfly/helpers/point_helper.dart';
+import 'package:butterfly/helpers/point.dart';
 import 'package:butterfly/visualizer/element.dart';
 import 'package:butterfly/visualizer/text.dart';
 import 'package:butterfly_api/butterfly_api.dart';

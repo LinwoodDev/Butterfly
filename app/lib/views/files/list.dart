@@ -325,23 +325,31 @@ class FileEntityListTile extends StatelessWidget {
                         ],
                       );
                     } else {
-                      return Column(
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                      return Row(
                         children: [
-                          fileName,
-                          const SizedBox(height: 8),
-                          info,
-                          const SizedBox(height: 8),
-                          if (!collapsed)
-                            Wrap(
-                              spacing: 8,
-                              runSpacing: 8,
-                              crossAxisAlignment: WrapCrossAlignment.center,
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.stretch,
                               children: [
-                                edit,
-                                actions,
+                                fileName,
+                                const SizedBox(height: 8),
+                                info,
+                                const SizedBox(height: 8),
+                                if (!collapsed)
+                                  Wrap(
+                                    spacing: 8,
+                                    runSpacing: 8,
+                                    crossAxisAlignment:
+                                        WrapCrossAlignment.center,
+                                    children: [
+                                      edit,
+                                      actions,
+                                    ],
+                                  ),
                               ],
-                            )
+                            ),
+                          ),
+                          if (collapsed) actionMenu,
                         ],
                       );
                     }

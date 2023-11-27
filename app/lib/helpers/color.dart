@@ -1,15 +1,6 @@
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/material.dart';
-
-bool isDarkColor(Color color) {
-  // Berechne die Helligkeit der Farbe basierend auf dem relativen Luminanzwert.
-  double luminance = color.computeLuminance();
-  // Definiere einen Schwellenwert, der angibt, ab welchem Luminanzwert eine Farbe als "dunkel" gilt.
-  const double threshold = 0.5;
-  // Wenn die Helligkeit der Farbe unter dem Schwellenwert liegt, geben wir true zurück (die Farbe ist dunkel).
-  // Andernfalls geben wir false zurück (die Farbe ist hell).
-  return luminance < threshold;
-}
+import 'package:material_leap/material_leap.dart';
 
 Tool updateToolDefaultColor(Tool tool, int color) {
   final defaultColor = isDarkColor(Color(color)) ? kColorWhite : kColorBlack;

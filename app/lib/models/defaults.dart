@@ -2,7 +2,7 @@ import 'dart:typed_data';
 import 'dart:ui' as ui;
 
 import 'package:archive/archive.dart';
-import 'package:butterfly/helpers/color_helper.dart';
+import 'package:butterfly/helpers/color.dart';
 import 'package:flutter/material.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/services.dart' show rootBundle;
