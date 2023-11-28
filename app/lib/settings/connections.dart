@@ -136,7 +136,8 @@ class _AddRemoteDialog extends StatefulWidget {
 }
 
 class __AddRemoteDialogState extends State<_AddRemoteDialog> {
-  final TextEditingController _urlController = TextEditingController(),
+  final TextEditingController _nameController = TextEditingController(),
+      _urlController = TextEditingController(),
       _usernameController = TextEditingController(),
       _passwordController = TextEditingController(),
       _iconController = TextEditingController(text: '/favicon.ico'),
@@ -225,6 +226,7 @@ class __AddRemoteDialogState extends State<_AddRemoteDialog> {
     final icon = await _getIcon();
     final remoteStorage = switch (widget.type) {
       ExternalStorageType.dav => DavRemoteStorage(
+          name: _nameController.text,
           username: _usernameController.text,
           url: _urlController.text,
           path: _directoryController.text,
@@ -234,6 +236,7 @@ class __AddRemoteDialogState extends State<_AddRemoteDialog> {
           icon: icon,
           cachedDocuments: [if (_syncRootDirectory) '/']),
       ExternalStorageType.local => LocalStorage(
+          name: _nameController.text,
           path: _directoryController.text,
           documentsPath: _documentsDirectoryController.text,
           templatesPath: _templatesDirectoryController.text,
@@ -354,6 +357,14 @@ class __AddRemoteDialogState extends State<_AddRemoteDialog> {
                     title: Text(AppLocalizations.of(context).syncRootDirectory),
                   ),
                 ] else ...[
+                  TextField(
+                    controller: _nameController,
+                    decoration: InputDecoration(
+                      labelText: AppLocalizations.of(context).name,
+                      filled: true,
+                      icon: const PhosphorIcon(PhosphorIconsLight.textAa),
+                    ),
+                  ),
                   ListenableBuilder(
                     listenable: Listenable.merge([
                       _documentsDirectoryController,
@@ -443,7 +454,7 @@ class __AddRemoteDialogState extends State<_AddRemoteDialog> {
                                       .packsDirectory,
                                   icon: const PhosphorIcon(
                                       PhosphorIconsLight.package),
-                                  onPick: _packsDirectoryController.text.isEmpty
+                                  onPick: _directoryController.text.isEmpty
                                       ? () async {
                                           final result = await FilePicker
                                               .platform
@@ -478,10 +489,21 @@ class __AddRemoteDialogState extends State<_AddRemoteDialog> {
                   child: Text(AppLocalizations.of(context).cancel),
                 ),
                 if (_isConnected) ...[
-                  ElevatedButton(
-                    onPressed: _create,
-                    child: Text(AppLocalizations.of(context).create),
-                  ),
+                  ListenableBuilder(
+                      listenable: Listenable.merge([
+                        _nameController,
+                        _directoryController,
+                        _documentsDirectoryController,
+                        _templatesDirectoryController,
+                        _packsDirectoryController,
+                      ]),
+                      builder: (context, _) => ElevatedButton(
+                            onPressed: _nameController.text.isEmpty &&
+                                    _directoryController.text.isEmpty
+                                ? null
+                                : _create,
+                            child: Text(AppLocalizations.of(context).create),
+                          )),
                 ] else ...[
                   ElevatedButton(
                     onPressed: _connect,

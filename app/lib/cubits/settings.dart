@@ -147,6 +147,7 @@ enum ExternalStorageType {
 class ExternalStorage with _$ExternalStorage {
   @With<RemoteStorage>()
   const factory ExternalStorage.dav({
+    @Default('') String name,
     @Default('') String defaultTemplate,
     @Default('') String username,
     @Default('') String url,
@@ -161,6 +162,7 @@ class ExternalStorage with _$ExternalStorage {
   }) = DavRemoteStorage;
 
   const factory ExternalStorage.local({
+    @Default('') String name,
     @Default('') String defaultTemplate,
     @Default('') String path,
     @Default('') String documentsPath,
@@ -211,15 +213,19 @@ class ExternalStorage with _$ExternalStorage {
     });
   }
 
-  String get identifier => map(
-        dav: (d) => 'dav:${d.username}@${d.url}',
-        local: (l) => 'local:${l.path}',
-      );
+  String get identifier => name.isEmpty
+      ? map(
+          dav: (d) => 'dav:${d.username}@${d.url}',
+          local: (l) => 'local:${l.path}',
+        )
+      : name;
 
-  String get label => map(
-        dav: (d) => d.uri.host,
-        local: (l) => l.path.split('/').last,
-      );
+  String get label => name.isEmpty
+      ? map(
+          dav: (d) => d.uri.host,
+          local: (l) => l.path.split('/').last,
+        )
+      : name;
 
   ExternalStorageType get type => map(
         dav: (d) => ExternalStorageType.dav,
