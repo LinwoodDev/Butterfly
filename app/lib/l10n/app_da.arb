@@ -567,5 +567,7 @@
   "users": "Brugere",
   "experiments": "Eksperimenter",
   "address": "Adresse",
-  "spreadToPages": "Spred til sider"
+  "spreadToPages": "Spred til sider",
+  "rootDirectorySpecifiedDescription": "The root directory is specified. All advanced directory paths will be relative to this directory. Keep it empty to disable this directory type.",
+  "rootDirectoryNotSpecifiedDescription": "The root directory is not specified. A name is required. All advanced directory paths will be absolute. Keep it empty to disable this directory type."
 }
