@@ -31,36 +31,41 @@ Background _$BackgroundFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Background {
+  Map<String, dynamic> get extra => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(SurfaceTexture texture) texture,
+    required TResult Function(
+            SurfaceTexture texture, Map<String, dynamic> extra)
+        texture,
     required TResult Function(String source, double width, double height,
-            double scaleX, double scaleY)
+            double scaleX, double scaleY, Map<String, dynamic> extra)
         image,
     required TResult Function(String source, double width, double height,
-            double scaleX, double scaleY)
+            double scaleX, double scaleY, Map<String, dynamic> extra)
         svg,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(SurfaceTexture texture)? texture,
+    TResult? Function(SurfaceTexture texture, Map<String, dynamic> extra)?
+        texture,
     TResult? Function(String source, double width, double height, double scaleX,
-            double scaleY)?
+            double scaleY, Map<String, dynamic> extra)?
         image,
     TResult? Function(String source, double width, double height, double scaleX,
-            double scaleY)?
+            double scaleY, Map<String, dynamic> extra)?
         svg,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(SurfaceTexture texture)? texture,
+    TResult Function(SurfaceTexture texture, Map<String, dynamic> extra)?
+        texture,
     TResult Function(String source, double width, double height, double scaleX,
-            double scaleY)?
+            double scaleY, Map<String, dynamic> extra)?
         image,
     TResult Function(String source, double width, double height, double scaleX,
-            double scaleY)?
+            double scaleY, Map<String, dynamic> extra)?
         svg,
     required TResult orElse(),
   }) =>
@@ -88,6 +93,9 @@ mixin _$Background {
   }) =>
       throw _privateConstructorUsedError;
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $BackgroundCopyWith<Background> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -95,6 +103,8 @@ abstract class $BackgroundCopyWith<$Res> {
   factory $BackgroundCopyWith(
           Background value, $Res Function(Background) then) =
       _$BackgroundCopyWithImpl<$Res, Background>;
+  @useResult
+  $Res call({Map<String, dynamic> extra});
 }
 
 /// @nodoc
@@ -106,15 +116,30 @@ class _$BackgroundCopyWithImpl<$Res, $Val extends Background>
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? extra = null,
+  }) {
+    return _then(_value.copyWith(
+      extra: null == extra
+          ? _value.extra
+          : extra // ignore: cast_nullable_to_non_nullable
+              as Map<String, dynamic>,
+    ) as $Val);
+  }
 }
 
 /// @nodoc
-abstract class _$$TextureBackgroundImplCopyWith<$Res> {
+abstract class _$$TextureBackgroundImplCopyWith<$Res>
+    implements $BackgroundCopyWith<$Res> {
   factory _$$TextureBackgroundImplCopyWith(_$TextureBackgroundImpl value,
           $Res Function(_$TextureBackgroundImpl) then) =
       __$$TextureBackgroundImplCopyWithImpl<$Res>;
+  @override
   @useResult
-  $Res call({SurfaceTexture texture});
+  $Res call({SurfaceTexture texture, Map<String, dynamic> extra});
 
   $SurfaceTextureCopyWith<$Res> get texture;
 }
@@ -131,12 +156,17 @@ class __$$TextureBackgroundImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? texture = null,
+    Object? extra = null,
   }) {
     return _then(_$TextureBackgroundImpl(
       texture: null == texture
           ? _value.texture
           : texture // ignore: cast_nullable_to_non_nullable
               as SurfaceTexture,
+      extra: null == extra
+          ? _value._extra
+          : extra // ignore: cast_nullable_to_non_nullable
+              as Map<String, dynamic>,
     ));
   }
 
@@ -152,8 +182,12 @@ class __$$TextureBackgroundImplCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$TextureBackgroundImpl extends TextureBackground {
-  _$TextureBackgroundImpl({required this.texture, final String? $type})
-      : $type = $type ?? 'texture',
+  _$TextureBackgroundImpl(
+      {required this.texture,
+      final Map<String, dynamic> extra = const {},
+      final String? $type})
+      : _extra = extra,
+        $type = $type ?? 'texture',
         super._();
 
   factory _$TextureBackgroundImpl.fromJson(Map<String, dynamic> json) =>
@@ -161,13 +195,21 @@ class _$TextureBackgroundImpl extends TextureBackground {
 
   @override
   final SurfaceTexture texture;
+  final Map<String, dynamic> _extra;
+  @override
+  @JsonKey()
+  Map<String, dynamic> get extra {
+    if (_extra is EqualUnmodifiableMapView) return _extra;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableMapView(_extra);
+  }
 
   @JsonKey(name: 'type')
   final String $type;
 
   @override
   String toString() {
-    return 'Background.texture(texture: $texture)';
+    return 'Background.texture(texture: $texture, extra: $extra)';
   }
 
   @JsonKey(ignore: true)
@@ -180,45 +222,49 @@ class _$TextureBackgroundImpl extends TextureBackground {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(SurfaceTexture texture) texture,
+    required TResult Function(
+            SurfaceTexture texture, Map<String, dynamic> extra)
+        texture,
     required TResult Function(String source, double width, double height,
-            double scaleX, double scaleY)
+            double scaleX, double scaleY, Map<String, dynamic> extra)
         image,
     required TResult Function(String source, double width, double height,
-            double scaleX, double scaleY)
+            double scaleX, double scaleY, Map<String, dynamic> extra)
         svg,
   }) {
-    return texture(this.texture);
+    return texture(this.texture, extra);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(SurfaceTexture texture)? texture,
+    TResult? Function(SurfaceTexture texture, Map<String, dynamic> extra)?
+        texture,
     TResult? Function(String source, double width, double height, double scaleX,
-            double scaleY)?
+            double scaleY, Map<String, dynamic> extra)?
         image,
     TResult? Function(String source, double width, double height, double scaleX,
-            double scaleY)?
+            double scaleY, Map<String, dynamic> extra)?
         svg,
   }) {
-    return texture?.call(this.texture);
+    return texture?.call(this.texture, extra);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(SurfaceTexture texture)? texture,
+    TResult Function(SurfaceTexture texture, Map<String, dynamic> extra)?
+        texture,
     TResult Function(String source, double width, double height, double scaleX,
-            double scaleY)?
+            double scaleY, Map<String, dynamic> extra)?
         image,
     TResult Function(String source, double width, double height, double scaleX,
-            double scaleY)?
+            double scaleY, Map<String, dynamic> extra)?
         svg,
     required TResult orElse(),
   }) {
     if (texture != null) {
-      return texture(this.texture);
+      return texture(this.texture, extra);
     }
     return orElse();
   }
@@ -266,31 +312,38 @@ class _$TextureBackgroundImpl extends TextureBackground {
 }
 
 abstract class TextureBackground extends Background {
-  factory TextureBackground({required final SurfaceTexture texture}) =
-      _$TextureBackgroundImpl;
+  factory TextureBackground(
+      {required final SurfaceTexture texture,
+      final Map<String, dynamic> extra}) = _$TextureBackgroundImpl;
   TextureBackground._() : super._();
 
   factory TextureBackground.fromJson(Map<String, dynamic> json) =
       _$TextureBackgroundImpl.fromJson;
 
   SurfaceTexture get texture;
+  @override
+  Map<String, dynamic> get extra;
+  @override
   @JsonKey(ignore: true)
   _$$TextureBackgroundImplCopyWith<_$TextureBackgroundImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$ImageBackgroundImplCopyWith<$Res> {
+abstract class _$$ImageBackgroundImplCopyWith<$Res>
+    implements $BackgroundCopyWith<$Res> {
   factory _$$ImageBackgroundImplCopyWith(_$ImageBackgroundImpl value,
           $Res Function(_$ImageBackgroundImpl) then) =
       __$$ImageBackgroundImplCopyWithImpl<$Res>;
+  @override
   @useResult
   $Res call(
       {String source,
       double width,
       double height,
       double scaleX,
-      double scaleY});
+      double scaleY,
+      Map<String, dynamic> extra});
 }
 
 /// @nodoc
@@ -309,6 +362,7 @@ class __$$ImageBackgroundImplCopyWithImpl<$Res>
     Object? height = null,
     Object? scaleX = null,
     Object? scaleY = null,
+    Object? extra = null,
   }) {
     return _then(_$ImageBackgroundImpl(
       source: null == source
@@ -331,6 +385,10 @@ class __$$ImageBackgroundImplCopyWithImpl<$Res>
           ? _value.scaleY
           : scaleY // ignore: cast_nullable_to_non_nullable
               as double,
+      extra: null == extra
+          ? _value._extra
+          : extra // ignore: cast_nullable_to_non_nullable
+              as Map<String, dynamic>,
     ));
   }
 }
@@ -344,8 +402,10 @@ class _$ImageBackgroundImpl extends ImageBackground {
       required this.height,
       this.scaleX = 1,
       this.scaleY = 1,
+      final Map<String, dynamic> extra = const {},
       final String? $type})
-      : $type = $type ?? 'image',
+      : _extra = extra,
+        $type = $type ?? 'image',
         super._();
 
   factory _$ImageBackgroundImpl.fromJson(Map<String, dynamic> json) =>
@@ -363,13 +423,21 @@ class _$ImageBackgroundImpl extends ImageBackground {
   @override
   @JsonKey()
   final double scaleY;
+  final Map<String, dynamic> _extra;
+  @override
+  @JsonKey()
+  Map<String, dynamic> get extra {
+    if (_extra is EqualUnmodifiableMapView) return _extra;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableMapView(_extra);
+  }
 
   @JsonKey(name: 'type')
   final String $type;
 
   @override
   String toString() {
-    return 'Background.image(source: $source, width: $width, height: $height, scaleX: $scaleX, scaleY: $scaleY)';
+    return 'Background.image(source: $source, width: $width, height: $height, scaleX: $scaleX, scaleY: $scaleY, extra: $extra)';
   }
 
   @JsonKey(ignore: true)
@@ -382,45 +450,49 @@ class _$ImageBackgroundImpl extends ImageBackground {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(SurfaceTexture texture) texture,
+    required TResult Function(
+            SurfaceTexture texture, Map<String, dynamic> extra)
+        texture,
     required TResult Function(String source, double width, double height,
-            double scaleX, double scaleY)
+            double scaleX, double scaleY, Map<String, dynamic> extra)
         image,
     required TResult Function(String source, double width, double height,
-            double scaleX, double scaleY)
+            double scaleX, double scaleY, Map<String, dynamic> extra)
         svg,
   }) {
-    return image(source, width, height, scaleX, scaleY);
+    return image(source, width, height, scaleX, scaleY, extra);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(SurfaceTexture texture)? texture,
+    TResult? Function(SurfaceTexture texture, Map<String, dynamic> extra)?
+        texture,
     TResult? Function(String source, double width, double height, double scaleX,
-            double scaleY)?
+            double scaleY, Map<String, dynamic> extra)?
         image,
     TResult? Function(String source, double width, double height, double scaleX,
-            double scaleY)?
+            double scaleY, Map<String, dynamic> extra)?
         svg,
   }) {
-    return image?.call(source, width, height, scaleX, scaleY);
+    return image?.call(source, width, height, scaleX, scaleY, extra);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(SurfaceTexture texture)? texture,
+    TResult Function(SurfaceTexture texture, Map<String, dynamic> extra)?
+        texture,
     TResult Function(String source, double width, double height, double scaleX,
-            double scaleY)?
+            double scaleY, Map<String, dynamic> extra)?
         image,
     TResult Function(String source, double width, double height, double scaleX,
-            double scaleY)?
+            double scaleY, Map<String, dynamic> extra)?
         svg,
     required TResult orElse(),
   }) {
     if (image != null) {
-      return image(source, width, height, scaleX, scaleY);
+      return image(source, width, height, scaleX, scaleY, extra);
     }
     return orElse();
   }
@@ -473,7 +545,8 @@ abstract class ImageBackground extends Background {
       required final double width,
       required final double height,
       final double scaleX,
-      final double scaleY}) = _$ImageBackgroundImpl;
+      final double scaleY,
+      final Map<String, dynamic> extra}) = _$ImageBackgroundImpl;
   ImageBackground._() : super._();
 
   factory ImageBackground.fromJson(Map<String, dynamic> json) =
@@ -484,23 +557,29 @@ abstract class ImageBackground extends Background {
   double get height;
   double get scaleX;
   double get scaleY;
+  @override
+  Map<String, dynamic> get extra;
+  @override
   @JsonKey(ignore: true)
   _$$ImageBackgroundImplCopyWith<_$ImageBackgroundImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$SvgBackgroundImplCopyWith<$Res> {
+abstract class _$$SvgBackgroundImplCopyWith<$Res>
+    implements $BackgroundCopyWith<$Res> {
   factory _$$SvgBackgroundImplCopyWith(
           _$SvgBackgroundImpl value, $Res Function(_$SvgBackgroundImpl) then) =
       __$$SvgBackgroundImplCopyWithImpl<$Res>;
+  @override
   @useResult
   $Res call(
       {String source,
       double width,
       double height,
       double scaleX,
-      double scaleY});
+      double scaleY,
+      Map<String, dynamic> extra});
 }
 
 /// @nodoc
@@ -519,6 +598,7 @@ class __$$SvgBackgroundImplCopyWithImpl<$Res>
     Object? height = null,
     Object? scaleX = null,
     Object? scaleY = null,
+    Object? extra = null,
   }) {
     return _then(_$SvgBackgroundImpl(
       source: null == source
@@ -541,6 +621,10 @@ class __$$SvgBackgroundImplCopyWithImpl<$Res>
           ? _value.scaleY
           : scaleY // ignore: cast_nullable_to_non_nullable
               as double,
+      extra: null == extra
+          ? _value._extra
+          : extra // ignore: cast_nullable_to_non_nullable
+              as Map<String, dynamic>,
     ));
   }
 }
@@ -554,8 +638,10 @@ class _$SvgBackgroundImpl extends SvgBackground {
       required this.height,
       this.scaleX = 1,
       this.scaleY = 1,
+      final Map<String, dynamic> extra = const {},
       final String? $type})
-      : $type = $type ?? 'svg',
+      : _extra = extra,
+        $type = $type ?? 'svg',
         super._();
 
   factory _$SvgBackgroundImpl.fromJson(Map<String, dynamic> json) =>
@@ -573,13 +659,21 @@ class _$SvgBackgroundImpl extends SvgBackground {
   @override
   @JsonKey()
   final double scaleY;
+  final Map<String, dynamic> _extra;
+  @override
+  @JsonKey()
+  Map<String, dynamic> get extra {
+    if (_extra is EqualUnmodifiableMapView) return _extra;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableMapView(_extra);
+  }
 
   @JsonKey(name: 'type')
   final String $type;
 
   @override
   String toString() {
-    return 'Background.svg(source: $source, width: $width, height: $height, scaleX: $scaleX, scaleY: $scaleY)';
+    return 'Background.svg(source: $source, width: $width, height: $height, scaleX: $scaleX, scaleY: $scaleY, extra: $extra)';
   }
 
   @JsonKey(ignore: true)
@@ -591,45 +685,49 @@ class _$SvgBackgroundImpl extends SvgBackground {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(SurfaceTexture texture) texture,
+    required TResult Function(
+            SurfaceTexture texture, Map<String, dynamic> extra)
+        texture,
     required TResult Function(String source, double width, double height,
-            double scaleX, double scaleY)
+            double scaleX, double scaleY, Map<String, dynamic> extra)
         image,
     required TResult Function(String source, double width, double height,
-            double scaleX, double scaleY)
+            double scaleX, double scaleY, Map<String, dynamic> extra)
         svg,
   }) {
-    return svg(source, width, height, scaleX, scaleY);
+    return svg(source, width, height, scaleX, scaleY, extra);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(SurfaceTexture texture)? texture,
+    TResult? Function(SurfaceTexture texture, Map<String, dynamic> extra)?
+        texture,
     TResult? Function(String source, double width, double height, double scaleX,
-            double scaleY)?
+            double scaleY, Map<String, dynamic> extra)?
         image,
     TResult? Function(String source, double width, double height, double scaleX,
-            double scaleY)?
+            double scaleY, Map<String, dynamic> extra)?
         svg,
   }) {
-    return svg?.call(source, width, height, scaleX, scaleY);
+    return svg?.call(source, width, height, scaleX, scaleY, extra);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(SurfaceTexture texture)? texture,
+    TResult Function(SurfaceTexture texture, Map<String, dynamic> extra)?
+        texture,
     TResult Function(String source, double width, double height, double scaleX,
-            double scaleY)?
+            double scaleY, Map<String, dynamic> extra)?
         image,
     TResult Function(String source, double width, double height, double scaleX,
-            double scaleY)?
+            double scaleY, Map<String, dynamic> extra)?
         svg,
     required TResult orElse(),
   }) {
     if (svg != null) {
-      return svg(source, width, height, scaleX, scaleY);
+      return svg(source, width, height, scaleX, scaleY, extra);
     }
     return orElse();
   }
@@ -682,7 +780,8 @@ abstract class SvgBackground extends Background {
       required final double width,
       required final double height,
       final double scaleX,
-      final double scaleY}) = _$SvgBackgroundImpl;
+      final double scaleY,
+      final Map<String, dynamic> extra}) = _$SvgBackgroundImpl;
   SvgBackground._() : super._();
 
   factory SvgBackground.fromJson(Map<String, dynamic> json) =
@@ -693,6 +792,9 @@ abstract class SvgBackground extends Background {
   double get height;
   double get scaleX;
   double get scaleY;
+  @override
+  Map<String, dynamic> get extra;
+  @override
   @JsonKey(ignore: true)
   _$$SvgBackgroundImplCopyWith<_$SvgBackgroundImpl> get copyWith =>
       throw _privateConstructorUsedError;

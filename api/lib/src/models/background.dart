@@ -12,6 +12,7 @@ sealed class Background with _$Background {
 
   factory Background.texture({
     required SurfaceTexture texture,
+    @Default({}) Map<String, dynamic> extra,
   }) = TextureBackground;
 
   factory Background.image({
@@ -20,6 +21,7 @@ sealed class Background with _$Background {
     required double height,
     @Default(1) double scaleX,
     @Default(1) double scaleY,
+    @Default({}) Map<String, dynamic> extra,
   }) = ImageBackground;
 
   factory Background.svg({
@@ -28,6 +30,7 @@ sealed class Background with _$Background {
     required double height,
     @Default(1) double scaleX,
     @Default(1) double scaleY,
+    @Default({}) Map<String, dynamic> extra,
   }) = SvgBackground;
 
   factory Background.fromJson(Map<String, dynamic> json) =>

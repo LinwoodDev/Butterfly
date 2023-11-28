@@ -876,10 +876,16 @@ PadElement _$PadElementFromJson(Map<String, dynamic> json) {
 mixin _$PadElement {
   double get rotation => throw _privateConstructorUsedError;
   String get layer => throw _privateConstructorUsedError;
+  Map<String, dynamic> get extra => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(double rotation, String layer, double? zoom,
-            List<PathPoint> points, PenProperty property)
+    required TResult Function(
+            double rotation,
+            String layer,
+            double? zoom,
+            List<PathPoint> points,
+            PenProperty property,
+            Map<String, dynamic> extra)
         pen,
     required TResult Function(
             double rotation,
@@ -889,7 +895,8 @@ mixin _$PadElement {
             PackAssetLocation styleSheet,
             TextArea area,
             ElementConstraint constraint,
-            int foreground)
+            int foreground,
+            Map<String, dynamic> extra)
         text,
     required TResult Function(
             double rotation,
@@ -900,7 +907,8 @@ mixin _$PadElement {
             AreaProperty areaProperty,
             String text,
             ElementConstraint constraint,
-            int foreground)
+            int foreground,
+            Map<String, dynamic> extra)
         markdown,
     required TResult Function(
             double rotation,
@@ -909,7 +917,8 @@ mixin _$PadElement {
             ElementConstraints? constraints,
             String source,
             double width,
-            double height)
+            double height,
+            Map<String, dynamic> extra)
         image,
     required TResult Function(
             double rotation,
@@ -918,28 +927,36 @@ mixin _$PadElement {
             ElementConstraints? constraints,
             String source,
             double width,
-            double height)
+            double height,
+            Map<String, dynamic> extra)
         svg,
     required TResult Function(
             double rotation,
             String layer,
             @DoublePointJsonConverter() Point<double> firstPosition,
             @DoublePointJsonConverter() Point<double> secondPosition,
-            ShapeProperty property)
+            ShapeProperty property,
+            Map<String, dynamic> extra)
         shape,
     required TResult Function(
             double rotation,
             String layer,
             SurfaceTexture texture,
             @DoublePointJsonConverter() Point<double> firstPosition,
-            @DoublePointJsonConverter() Point<double> secondPosition)
+            @DoublePointJsonConverter() Point<double> secondPosition,
+            Map<String, dynamic> extra)
         texture,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(double rotation, String layer, double? zoom,
-            List<PathPoint> points, PenProperty property)?
+    TResult? Function(
+            double rotation,
+            String layer,
+            double? zoom,
+            List<PathPoint> points,
+            PenProperty property,
+            Map<String, dynamic> extra)?
         pen,
     TResult? Function(
             double rotation,
@@ -949,7 +966,8 @@ mixin _$PadElement {
             PackAssetLocation styleSheet,
             TextArea area,
             ElementConstraint constraint,
-            int foreground)?
+            int foreground,
+            Map<String, dynamic> extra)?
         text,
     TResult? Function(
             double rotation,
@@ -960,7 +978,8 @@ mixin _$PadElement {
             AreaProperty areaProperty,
             String text,
             ElementConstraint constraint,
-            int foreground)?
+            int foreground,
+            Map<String, dynamic> extra)?
         markdown,
     TResult? Function(
             double rotation,
@@ -969,7 +988,8 @@ mixin _$PadElement {
             ElementConstraints? constraints,
             String source,
             double width,
-            double height)?
+            double height,
+            Map<String, dynamic> extra)?
         image,
     TResult? Function(
             double rotation,
@@ -978,28 +998,36 @@ mixin _$PadElement {
             ElementConstraints? constraints,
             String source,
             double width,
-            double height)?
+            double height,
+            Map<String, dynamic> extra)?
         svg,
     TResult? Function(
             double rotation,
             String layer,
             @DoublePointJsonConverter() Point<double> firstPosition,
             @DoublePointJsonConverter() Point<double> secondPosition,
-            ShapeProperty property)?
+            ShapeProperty property,
+            Map<String, dynamic> extra)?
         shape,
     TResult? Function(
             double rotation,
             String layer,
             SurfaceTexture texture,
             @DoublePointJsonConverter() Point<double> firstPosition,
-            @DoublePointJsonConverter() Point<double> secondPosition)?
+            @DoublePointJsonConverter() Point<double> secondPosition,
+            Map<String, dynamic> extra)?
         texture,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(double rotation, String layer, double? zoom,
-            List<PathPoint> points, PenProperty property)?
+    TResult Function(
+            double rotation,
+            String layer,
+            double? zoom,
+            List<PathPoint> points,
+            PenProperty property,
+            Map<String, dynamic> extra)?
         pen,
     TResult Function(
             double rotation,
@@ -1009,7 +1037,8 @@ mixin _$PadElement {
             PackAssetLocation styleSheet,
             TextArea area,
             ElementConstraint constraint,
-            int foreground)?
+            int foreground,
+            Map<String, dynamic> extra)?
         text,
     TResult Function(
             double rotation,
@@ -1020,7 +1049,8 @@ mixin _$PadElement {
             AreaProperty areaProperty,
             String text,
             ElementConstraint constraint,
-            int foreground)?
+            int foreground,
+            Map<String, dynamic> extra)?
         markdown,
     TResult Function(
             double rotation,
@@ -1029,7 +1059,8 @@ mixin _$PadElement {
             ElementConstraints? constraints,
             String source,
             double width,
-            double height)?
+            double height,
+            Map<String, dynamic> extra)?
         image,
     TResult Function(
             double rotation,
@@ -1038,21 +1069,24 @@ mixin _$PadElement {
             ElementConstraints? constraints,
             String source,
             double width,
-            double height)?
+            double height,
+            Map<String, dynamic> extra)?
         svg,
     TResult Function(
             double rotation,
             String layer,
             @DoublePointJsonConverter() Point<double> firstPosition,
             @DoublePointJsonConverter() Point<double> secondPosition,
-            ShapeProperty property)?
+            ShapeProperty property,
+            Map<String, dynamic> extra)?
         shape,
     TResult Function(
             double rotation,
             String layer,
             SurfaceTexture texture,
             @DoublePointJsonConverter() Point<double> firstPosition,
-            @DoublePointJsonConverter() Point<double> secondPosition)?
+            @DoublePointJsonConverter() Point<double> secondPosition,
+            Map<String, dynamic> extra)?
         texture,
     required TResult orElse(),
   }) =>
@@ -1103,7 +1137,7 @@ abstract class $PadElementCopyWith<$Res> {
           PadElement value, $Res Function(PadElement) then) =
       _$PadElementCopyWithImpl<$Res, PadElement>;
   @useResult
-  $Res call({double rotation, String layer});
+  $Res call({double rotation, String layer, Map<String, dynamic> extra});
 }
 
 /// @nodoc
@@ -1121,6 +1155,7 @@ class _$PadElementCopyWithImpl<$Res, $Val extends PadElement>
   $Res call({
     Object? rotation = null,
     Object? layer = null,
+    Object? extra = null,
   }) {
     return _then(_value.copyWith(
       rotation: null == rotation
@@ -1131,6 +1166,10 @@ class _$PadElementCopyWithImpl<$Res, $Val extends PadElement>
           ? _value.layer
           : layer // ignore: cast_nullable_to_non_nullable
               as String,
+      extra: null == extra
+          ? _value.extra
+          : extra // ignore: cast_nullable_to_non_nullable
+              as Map<String, dynamic>,
     ) as $Val);
   }
 }
@@ -1148,7 +1187,8 @@ abstract class _$$PenElementImplCopyWith<$Res>
       String layer,
       double? zoom,
       List<PathPoint> points,
-      PenProperty property});
+      PenProperty property,
+      Map<String, dynamic> extra});
 }
 
 /// @nodoc
@@ -1167,6 +1207,7 @@ class __$$PenElementImplCopyWithImpl<$Res>
     Object? zoom = freezed,
     Object? points = null,
     Object? property = freezed,
+    Object? extra = null,
   }) {
     return _then(_$PenElementImpl(
       rotation: null == rotation
@@ -1189,6 +1230,10 @@ class __$$PenElementImplCopyWithImpl<$Res>
           ? _value.property
           : property // ignore: cast_nullable_to_non_nullable
               as PenProperty,
+      extra: null == extra
+          ? _value._extra
+          : extra // ignore: cast_nullable_to_non_nullable
+              as Map<String, dynamic>,
     ));
   }
 }
@@ -1202,8 +1247,10 @@ class _$PenElementImpl implements PenElement {
       this.zoom,
       final List<PathPoint> points = const [],
       this.property = const PenProperty(),
+      final Map<String, dynamic> extra = const {},
       final String? $type})
       : _points = points,
+        _extra = extra,
         $type = $type ?? 'pen';
 
   factory _$PenElementImpl.fromJson(Map<String, dynamic> json) =>
@@ -1229,13 +1276,21 @@ class _$PenElementImpl implements PenElement {
   @override
   @JsonKey()
   final PenProperty property;
+  final Map<String, dynamic> _extra;
+  @override
+  @JsonKey()
+  Map<String, dynamic> get extra {
+    if (_extra is EqualUnmodifiableMapView) return _extra;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableMapView(_extra);
+  }
 
   @JsonKey(name: 'type')
   final String $type;
 
   @override
   String toString() {
-    return 'PadElement.pen(rotation: $rotation, layer: $layer, zoom: $zoom, points: $points, property: $property)';
+    return 'PadElement.pen(rotation: $rotation, layer: $layer, zoom: $zoom, points: $points, property: $property, extra: $extra)';
   }
 
   @JsonKey(ignore: true)
@@ -1247,8 +1302,13 @@ class _$PenElementImpl implements PenElement {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(double rotation, String layer, double? zoom,
-            List<PathPoint> points, PenProperty property)
+    required TResult Function(
+            double rotation,
+            String layer,
+            double? zoom,
+            List<PathPoint> points,
+            PenProperty property,
+            Map<String, dynamic> extra)
         pen,
     required TResult Function(
             double rotation,
@@ -1258,7 +1318,8 @@ class _$PenElementImpl implements PenElement {
             PackAssetLocation styleSheet,
             TextArea area,
             ElementConstraint constraint,
-            int foreground)
+            int foreground,
+            Map<String, dynamic> extra)
         text,
     required TResult Function(
             double rotation,
@@ -1269,7 +1330,8 @@ class _$PenElementImpl implements PenElement {
             AreaProperty areaProperty,
             String text,
             ElementConstraint constraint,
-            int foreground)
+            int foreground,
+            Map<String, dynamic> extra)
         markdown,
     required TResult Function(
             double rotation,
@@ -1278,7 +1340,8 @@ class _$PenElementImpl implements PenElement {
             ElementConstraints? constraints,
             String source,
             double width,
-            double height)
+            double height,
+            Map<String, dynamic> extra)
         image,
     required TResult Function(
             double rotation,
@@ -1287,31 +1350,39 @@ class _$PenElementImpl implements PenElement {
             ElementConstraints? constraints,
             String source,
             double width,
-            double height)
+            double height,
+            Map<String, dynamic> extra)
         svg,
     required TResult Function(
             double rotation,
             String layer,
             @DoublePointJsonConverter() Point<double> firstPosition,
             @DoublePointJsonConverter() Point<double> secondPosition,
-            ShapeProperty property)
+            ShapeProperty property,
+            Map<String, dynamic> extra)
         shape,
     required TResult Function(
             double rotation,
             String layer,
             SurfaceTexture texture,
             @DoublePointJsonConverter() Point<double> firstPosition,
-            @DoublePointJsonConverter() Point<double> secondPosition)
+            @DoublePointJsonConverter() Point<double> secondPosition,
+            Map<String, dynamic> extra)
         texture,
   }) {
-    return pen(rotation, layer, zoom, points, property);
+    return pen(rotation, layer, zoom, points, property, extra);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(double rotation, String layer, double? zoom,
-            List<PathPoint> points, PenProperty property)?
+    TResult? Function(
+            double rotation,
+            String layer,
+            double? zoom,
+            List<PathPoint> points,
+            PenProperty property,
+            Map<String, dynamic> extra)?
         pen,
     TResult? Function(
             double rotation,
@@ -1321,7 +1392,8 @@ class _$PenElementImpl implements PenElement {
             PackAssetLocation styleSheet,
             TextArea area,
             ElementConstraint constraint,
-            int foreground)?
+            int foreground,
+            Map<String, dynamic> extra)?
         text,
     TResult? Function(
             double rotation,
@@ -1332,7 +1404,8 @@ class _$PenElementImpl implements PenElement {
             AreaProperty areaProperty,
             String text,
             ElementConstraint constraint,
-            int foreground)?
+            int foreground,
+            Map<String, dynamic> extra)?
         markdown,
     TResult? Function(
             double rotation,
@@ -1341,7 +1414,8 @@ class _$PenElementImpl implements PenElement {
             ElementConstraints? constraints,
             String source,
             double width,
-            double height)?
+            double height,
+            Map<String, dynamic> extra)?
         image,
     TResult? Function(
             double rotation,
@@ -1350,31 +1424,39 @@ class _$PenElementImpl implements PenElement {
             ElementConstraints? constraints,
             String source,
             double width,
-            double height)?
+            double height,
+            Map<String, dynamic> extra)?
         svg,
     TResult? Function(
             double rotation,
             String layer,
             @DoublePointJsonConverter() Point<double> firstPosition,
             @DoublePointJsonConverter() Point<double> secondPosition,
-            ShapeProperty property)?
+            ShapeProperty property,
+            Map<String, dynamic> extra)?
         shape,
     TResult? Function(
             double rotation,
             String layer,
             SurfaceTexture texture,
             @DoublePointJsonConverter() Point<double> firstPosition,
-            @DoublePointJsonConverter() Point<double> secondPosition)?
+            @DoublePointJsonConverter() Point<double> secondPosition,
+            Map<String, dynamic> extra)?
         texture,
   }) {
-    return pen?.call(rotation, layer, zoom, points, property);
+    return pen?.call(rotation, layer, zoom, points, property, extra);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(double rotation, String layer, double? zoom,
-            List<PathPoint> points, PenProperty property)?
+    TResult Function(
+            double rotation,
+            String layer,
+            double? zoom,
+            List<PathPoint> points,
+            PenProperty property,
+            Map<String, dynamic> extra)?
         pen,
     TResult Function(
             double rotation,
@@ -1384,7 +1466,8 @@ class _$PenElementImpl implements PenElement {
             PackAssetLocation styleSheet,
             TextArea area,
             ElementConstraint constraint,
-            int foreground)?
+            int foreground,
+            Map<String, dynamic> extra)?
         text,
     TResult Function(
             double rotation,
@@ -1395,7 +1478,8 @@ class _$PenElementImpl implements PenElement {
             AreaProperty areaProperty,
             String text,
             ElementConstraint constraint,
-            int foreground)?
+            int foreground,
+            Map<String, dynamic> extra)?
         markdown,
     TResult Function(
             double rotation,
@@ -1404,7 +1488,8 @@ class _$PenElementImpl implements PenElement {
             ElementConstraints? constraints,
             String source,
             double width,
-            double height)?
+            double height,
+            Map<String, dynamic> extra)?
         image,
     TResult Function(
             double rotation,
@@ -1413,26 +1498,29 @@ class _$PenElementImpl implements PenElement {
             ElementConstraints? constraints,
             String source,
             double width,
-            double height)?
+            double height,
+            Map<String, dynamic> extra)?
         svg,
     TResult Function(
             double rotation,
             String layer,
             @DoublePointJsonConverter() Point<double> firstPosition,
             @DoublePointJsonConverter() Point<double> secondPosition,
-            ShapeProperty property)?
+            ShapeProperty property,
+            Map<String, dynamic> extra)?
         shape,
     TResult Function(
             double rotation,
             String layer,
             SurfaceTexture texture,
             @DoublePointJsonConverter() Point<double> firstPosition,
-            @DoublePointJsonConverter() Point<double> secondPosition)?
+            @DoublePointJsonConverter() Point<double> secondPosition,
+            Map<String, dynamic> extra)?
         texture,
     required TResult orElse(),
   }) {
     if (pen != null) {
-      return pen(rotation, layer, zoom, points, property);
+      return pen(rotation, layer, zoom, points, property, extra);
     }
     return orElse();
   }
@@ -1497,7 +1585,8 @@ abstract class PenElement implements PadElement, PathElement {
       final String layer,
       final double? zoom,
       final List<PathPoint> points,
-      final PenProperty property}) = _$PenElementImpl;
+      final PenProperty property,
+      final Map<String, dynamic> extra}) = _$PenElementImpl;
 
   factory PenElement.fromJson(Map<String, dynamic> json) =
       _$PenElementImpl.fromJson;
@@ -1509,6 +1598,8 @@ abstract class PenElement implements PadElement, PathElement {
   double? get zoom;
   List<PathPoint> get points;
   PenProperty get property;
+  @override
+  Map<String, dynamic> get extra;
   @override
   @JsonKey(ignore: true)
   _$$PenElementImplCopyWith<_$PenElementImpl> get copyWith =>
@@ -1531,7 +1622,8 @@ abstract class _$$TextElementImplCopyWith<$Res>
       PackAssetLocation styleSheet,
       TextArea area,
       ElementConstraint constraint,
-      int foreground});
+      int foreground,
+      Map<String, dynamic> extra});
 
   $PackAssetLocationCopyWith<$Res> get styleSheet;
   $TextAreaCopyWith<$Res> get area;
@@ -1557,6 +1649,7 @@ class __$$TextElementImplCopyWithImpl<$Res>
     Object? area = null,
     Object? constraint = null,
     Object? foreground = null,
+    Object? extra = null,
   }) {
     return _then(_$TextElementImpl(
       rotation: null == rotation
@@ -1591,6 +1684,10 @@ class __$$TextElementImplCopyWithImpl<$Res>
           ? _value.foreground
           : foreground // ignore: cast_nullable_to_non_nullable
               as int,
+      extra: null == extra
+          ? _value._extra
+          : extra // ignore: cast_nullable_to_non_nullable
+              as Map<String, dynamic>,
     ));
   }
 
@@ -1631,8 +1728,10 @@ class _$TextElementImpl with LabelElement implements TextElement {
       required this.area,
       this.constraint = const ElementConstraint(size: 1000),
       this.foreground = kColorBlack,
+      final Map<String, dynamic> extra = const {},
       final String? $type})
-      : $type = $type ?? 'text';
+      : _extra = extra,
+        $type = $type ?? 'text';
 
   factory _$TextElementImpl.fromJson(Map<String, dynamic> json) =>
       _$$TextElementImplFromJson(json);
@@ -1661,13 +1760,21 @@ class _$TextElementImpl with LabelElement implements TextElement {
   @override
   @JsonKey()
   final int foreground;
+  final Map<String, dynamic> _extra;
+  @override
+  @JsonKey()
+  Map<String, dynamic> get extra {
+    if (_extra is EqualUnmodifiableMapView) return _extra;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableMapView(_extra);
+  }
 
   @JsonKey(name: 'type')
   final String $type;
 
   @override
   String toString() {
-    return 'PadElement.text(rotation: $rotation, layer: $layer, position: $position, scale: $scale, styleSheet: $styleSheet, area: $area, constraint: $constraint, foreground: $foreground)';
+    return 'PadElement.text(rotation: $rotation, layer: $layer, position: $position, scale: $scale, styleSheet: $styleSheet, area: $area, constraint: $constraint, foreground: $foreground, extra: $extra)';
   }
 
   @JsonKey(ignore: true)
@@ -1679,8 +1786,13 @@ class _$TextElementImpl with LabelElement implements TextElement {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(double rotation, String layer, double? zoom,
-            List<PathPoint> points, PenProperty property)
+    required TResult Function(
+            double rotation,
+            String layer,
+            double? zoom,
+            List<PathPoint> points,
+            PenProperty property,
+            Map<String, dynamic> extra)
         pen,
     required TResult Function(
             double rotation,
@@ -1690,7 +1802,8 @@ class _$TextElementImpl with LabelElement implements TextElement {
             PackAssetLocation styleSheet,
             TextArea area,
             ElementConstraint constraint,
-            int foreground)
+            int foreground,
+            Map<String, dynamic> extra)
         text,
     required TResult Function(
             double rotation,
@@ -1701,7 +1814,8 @@ class _$TextElementImpl with LabelElement implements TextElement {
             AreaProperty areaProperty,
             String text,
             ElementConstraint constraint,
-            int foreground)
+            int foreground,
+            Map<String, dynamic> extra)
         markdown,
     required TResult Function(
             double rotation,
@@ -1710,7 +1824,8 @@ class _$TextElementImpl with LabelElement implements TextElement {
             ElementConstraints? constraints,
             String source,
             double width,
-            double height)
+            double height,
+            Map<String, dynamic> extra)
         image,
     required TResult Function(
             double rotation,
@@ -1719,32 +1834,40 @@ class _$TextElementImpl with LabelElement implements TextElement {
             ElementConstraints? constraints,
             String source,
             double width,
-            double height)
+            double height,
+            Map<String, dynamic> extra)
         svg,
     required TResult Function(
             double rotation,
             String layer,
             @DoublePointJsonConverter() Point<double> firstPosition,
             @DoublePointJsonConverter() Point<double> secondPosition,
-            ShapeProperty property)
+            ShapeProperty property,
+            Map<String, dynamic> extra)
         shape,
     required TResult Function(
             double rotation,
             String layer,
             SurfaceTexture texture,
             @DoublePointJsonConverter() Point<double> firstPosition,
-            @DoublePointJsonConverter() Point<double> secondPosition)
+            @DoublePointJsonConverter() Point<double> secondPosition,
+            Map<String, dynamic> extra)
         texture,
   }) {
     return text(rotation, layer, position, scale, styleSheet, area, constraint,
-        foreground);
+        foreground, extra);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(double rotation, String layer, double? zoom,
-            List<PathPoint> points, PenProperty property)?
+    TResult? Function(
+            double rotation,
+            String layer,
+            double? zoom,
+            List<PathPoint> points,
+            PenProperty property,
+            Map<String, dynamic> extra)?
         pen,
     TResult? Function(
             double rotation,
@@ -1754,7 +1877,8 @@ class _$TextElementImpl with LabelElement implements TextElement {
             PackAssetLocation styleSheet,
             TextArea area,
             ElementConstraint constraint,
-            int foreground)?
+            int foreground,
+            Map<String, dynamic> extra)?
         text,
     TResult? Function(
             double rotation,
@@ -1765,7 +1889,8 @@ class _$TextElementImpl with LabelElement implements TextElement {
             AreaProperty areaProperty,
             String text,
             ElementConstraint constraint,
-            int foreground)?
+            int foreground,
+            Map<String, dynamic> extra)?
         markdown,
     TResult? Function(
             double rotation,
@@ -1774,7 +1899,8 @@ class _$TextElementImpl with LabelElement implements TextElement {
             ElementConstraints? constraints,
             String source,
             double width,
-            double height)?
+            double height,
+            Map<String, dynamic> extra)?
         image,
     TResult? Function(
             double rotation,
@@ -1783,32 +1909,40 @@ class _$TextElementImpl with LabelElement implements TextElement {
             ElementConstraints? constraints,
             String source,
             double width,
-            double height)?
+            double height,
+            Map<String, dynamic> extra)?
         svg,
     TResult? Function(
             double rotation,
             String layer,
             @DoublePointJsonConverter() Point<double> firstPosition,
             @DoublePointJsonConverter() Point<double> secondPosition,
-            ShapeProperty property)?
+            ShapeProperty property,
+            Map<String, dynamic> extra)?
         shape,
     TResult? Function(
             double rotation,
             String layer,
             SurfaceTexture texture,
             @DoublePointJsonConverter() Point<double> firstPosition,
-            @DoublePointJsonConverter() Point<double> secondPosition)?
+            @DoublePointJsonConverter() Point<double> secondPosition,
+            Map<String, dynamic> extra)?
         texture,
   }) {
     return text?.call(rotation, layer, position, scale, styleSheet, area,
-        constraint, foreground);
+        constraint, foreground, extra);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(double rotation, String layer, double? zoom,
-            List<PathPoint> points, PenProperty property)?
+    TResult Function(
+            double rotation,
+            String layer,
+            double? zoom,
+            List<PathPoint> points,
+            PenProperty property,
+            Map<String, dynamic> extra)?
         pen,
     TResult Function(
             double rotation,
@@ -1818,7 +1952,8 @@ class _$TextElementImpl with LabelElement implements TextElement {
             PackAssetLocation styleSheet,
             TextArea area,
             ElementConstraint constraint,
-            int foreground)?
+            int foreground,
+            Map<String, dynamic> extra)?
         text,
     TResult Function(
             double rotation,
@@ -1829,7 +1964,8 @@ class _$TextElementImpl with LabelElement implements TextElement {
             AreaProperty areaProperty,
             String text,
             ElementConstraint constraint,
-            int foreground)?
+            int foreground,
+            Map<String, dynamic> extra)?
         markdown,
     TResult Function(
             double rotation,
@@ -1838,7 +1974,8 @@ class _$TextElementImpl with LabelElement implements TextElement {
             ElementConstraints? constraints,
             String source,
             double width,
-            double height)?
+            double height,
+            Map<String, dynamic> extra)?
         image,
     TResult Function(
             double rotation,
@@ -1847,27 +1984,30 @@ class _$TextElementImpl with LabelElement implements TextElement {
             ElementConstraints? constraints,
             String source,
             double width,
-            double height)?
+            double height,
+            Map<String, dynamic> extra)?
         svg,
     TResult Function(
             double rotation,
             String layer,
             @DoublePointJsonConverter() Point<double> firstPosition,
             @DoublePointJsonConverter() Point<double> secondPosition,
-            ShapeProperty property)?
+            ShapeProperty property,
+            Map<String, dynamic> extra)?
         shape,
     TResult Function(
             double rotation,
             String layer,
             SurfaceTexture texture,
             @DoublePointJsonConverter() Point<double> firstPosition,
-            @DoublePointJsonConverter() Point<double> secondPosition)?
+            @DoublePointJsonConverter() Point<double> secondPosition,
+            Map<String, dynamic> extra)?
         texture,
     required TResult orElse(),
   }) {
     if (text != null) {
       return text(rotation, layer, position, scale, styleSheet, area,
-          constraint, foreground);
+          constraint, foreground, extra);
     }
     return orElse();
   }
@@ -1935,7 +2075,8 @@ abstract class TextElement implements PadElement, LabelElement {
       final PackAssetLocation styleSheet,
       required final TextArea area,
       final ElementConstraint constraint,
-      final int foreground}) = _$TextElementImpl;
+      final int foreground,
+      final Map<String, dynamic> extra}) = _$TextElementImpl;
 
   factory TextElement.fromJson(Map<String, dynamic> json) =
       _$TextElementImpl.fromJson;
@@ -1951,6 +2092,8 @@ abstract class TextElement implements PadElement, LabelElement {
   TextArea get area;
   ElementConstraint get constraint;
   int get foreground;
+  @override
+  Map<String, dynamic> get extra;
   @override
   @JsonKey(ignore: true)
   _$$TextElementImplCopyWith<_$TextElementImpl> get copyWith =>
@@ -1974,7 +2117,8 @@ abstract class _$$MarkdownElementImplCopyWith<$Res>
       AreaProperty areaProperty,
       String text,
       ElementConstraint constraint,
-      int foreground});
+      int foreground,
+      Map<String, dynamic> extra});
 
   $PackAssetLocationCopyWith<$Res> get styleSheet;
   $AreaPropertyCopyWith<$Res> get areaProperty;
@@ -2001,6 +2145,7 @@ class __$$MarkdownElementImplCopyWithImpl<$Res>
     Object? text = null,
     Object? constraint = null,
     Object? foreground = null,
+    Object? extra = null,
   }) {
     return _then(_$MarkdownElementImpl(
       rotation: null == rotation
@@ -2039,6 +2184,10 @@ class __$$MarkdownElementImplCopyWithImpl<$Res>
           ? _value.foreground
           : foreground // ignore: cast_nullable_to_non_nullable
               as int,
+      extra: null == extra
+          ? _value._extra
+          : extra // ignore: cast_nullable_to_non_nullable
+              as Map<String, dynamic>,
     ));
   }
 
@@ -2080,8 +2229,10 @@ class _$MarkdownElementImpl with LabelElement implements MarkdownElement {
       required this.text,
       this.constraint = const ElementConstraint(size: 1000),
       this.foreground = kColorBlack,
+      final Map<String, dynamic> extra = const {},
       final String? $type})
-      : $type = $type ?? 'markdown';
+      : _extra = extra,
+        $type = $type ?? 'markdown';
 
   factory _$MarkdownElementImpl.fromJson(Map<String, dynamic> json) =>
       _$$MarkdownElementImplFromJson(json);
@@ -2113,13 +2264,21 @@ class _$MarkdownElementImpl with LabelElement implements MarkdownElement {
   @override
   @JsonKey()
   final int foreground;
+  final Map<String, dynamic> _extra;
+  @override
+  @JsonKey()
+  Map<String, dynamic> get extra {
+    if (_extra is EqualUnmodifiableMapView) return _extra;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableMapView(_extra);
+  }
 
   @JsonKey(name: 'type')
   final String $type;
 
   @override
   String toString() {
-    return 'PadElement.markdown(rotation: $rotation, layer: $layer, position: $position, scale: $scale, styleSheet: $styleSheet, areaProperty: $areaProperty, text: $text, constraint: $constraint, foreground: $foreground)';
+    return 'PadElement.markdown(rotation: $rotation, layer: $layer, position: $position, scale: $scale, styleSheet: $styleSheet, areaProperty: $areaProperty, text: $text, constraint: $constraint, foreground: $foreground, extra: $extra)';
   }
 
   @JsonKey(ignore: true)
@@ -2132,8 +2291,13 @@ class _$MarkdownElementImpl with LabelElement implements MarkdownElement {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(double rotation, String layer, double? zoom,
-            List<PathPoint> points, PenProperty property)
+    required TResult Function(
+            double rotation,
+            String layer,
+            double? zoom,
+            List<PathPoint> points,
+            PenProperty property,
+            Map<String, dynamic> extra)
         pen,
     required TResult Function(
             double rotation,
@@ -2143,7 +2307,8 @@ class _$MarkdownElementImpl with LabelElement implements MarkdownElement {
             PackAssetLocation styleSheet,
             TextArea area,
             ElementConstraint constraint,
-            int foreground)
+            int foreground,
+            Map<String, dynamic> extra)
         text,
     required TResult Function(
             double rotation,
@@ -2154,7 +2319,8 @@ class _$MarkdownElementImpl with LabelElement implements MarkdownElement {
             AreaProperty areaProperty,
             String text,
             ElementConstraint constraint,
-            int foreground)
+            int foreground,
+            Map<String, dynamic> extra)
         markdown,
     required TResult Function(
             double rotation,
@@ -2163,7 +2329,8 @@ class _$MarkdownElementImpl with LabelElement implements MarkdownElement {
             ElementConstraints? constraints,
             String source,
             double width,
-            double height)
+            double height,
+            Map<String, dynamic> extra)
         image,
     required TResult Function(
             double rotation,
@@ -2172,32 +2339,40 @@ class _$MarkdownElementImpl with LabelElement implements MarkdownElement {
             ElementConstraints? constraints,
             String source,
             double width,
-            double height)
+            double height,
+            Map<String, dynamic> extra)
         svg,
     required TResult Function(
             double rotation,
             String layer,
             @DoublePointJsonConverter() Point<double> firstPosition,
             @DoublePointJsonConverter() Point<double> secondPosition,
-            ShapeProperty property)
+            ShapeProperty property,
+            Map<String, dynamic> extra)
         shape,
     required TResult Function(
             double rotation,
             String layer,
             SurfaceTexture texture,
             @DoublePointJsonConverter() Point<double> firstPosition,
-            @DoublePointJsonConverter() Point<double> secondPosition)
+            @DoublePointJsonConverter() Point<double> secondPosition,
+            Map<String, dynamic> extra)
         texture,
   }) {
     return markdown(rotation, layer, position, scale, styleSheet, areaProperty,
-        this.text, constraint, foreground);
+        this.text, constraint, foreground, extra);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(double rotation, String layer, double? zoom,
-            List<PathPoint> points, PenProperty property)?
+    TResult? Function(
+            double rotation,
+            String layer,
+            double? zoom,
+            List<PathPoint> points,
+            PenProperty property,
+            Map<String, dynamic> extra)?
         pen,
     TResult? Function(
             double rotation,
@@ -2207,7 +2382,8 @@ class _$MarkdownElementImpl with LabelElement implements MarkdownElement {
             PackAssetLocation styleSheet,
             TextArea area,
             ElementConstraint constraint,
-            int foreground)?
+            int foreground,
+            Map<String, dynamic> extra)?
         text,
     TResult? Function(
             double rotation,
@@ -2218,7 +2394,8 @@ class _$MarkdownElementImpl with LabelElement implements MarkdownElement {
             AreaProperty areaProperty,
             String text,
             ElementConstraint constraint,
-            int foreground)?
+            int foreground,
+            Map<String, dynamic> extra)?
         markdown,
     TResult? Function(
             double rotation,
@@ -2227,7 +2404,8 @@ class _$MarkdownElementImpl with LabelElement implements MarkdownElement {
             ElementConstraints? constraints,
             String source,
             double width,
-            double height)?
+            double height,
+            Map<String, dynamic> extra)?
         image,
     TResult? Function(
             double rotation,
@@ -2236,32 +2414,40 @@ class _$MarkdownElementImpl with LabelElement implements MarkdownElement {
             ElementConstraints? constraints,
             String source,
             double width,
-            double height)?
+            double height,
+            Map<String, dynamic> extra)?
         svg,
     TResult? Function(
             double rotation,
             String layer,
             @DoublePointJsonConverter() Point<double> firstPosition,
             @DoublePointJsonConverter() Point<double> secondPosition,
-            ShapeProperty property)?
+            ShapeProperty property,
+            Map<String, dynamic> extra)?
         shape,
     TResult? Function(
             double rotation,
             String layer,
             SurfaceTexture texture,
             @DoublePointJsonConverter() Point<double> firstPosition,
-            @DoublePointJsonConverter() Point<double> secondPosition)?
+            @DoublePointJsonConverter() Point<double> secondPosition,
+            Map<String, dynamic> extra)?
         texture,
   }) {
     return markdown?.call(rotation, layer, position, scale, styleSheet,
-        areaProperty, this.text, constraint, foreground);
+        areaProperty, this.text, constraint, foreground, extra);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(double rotation, String layer, double? zoom,
-            List<PathPoint> points, PenProperty property)?
+    TResult Function(
+            double rotation,
+            String layer,
+            double? zoom,
+            List<PathPoint> points,
+            PenProperty property,
+            Map<String, dynamic> extra)?
         pen,
     TResult Function(
             double rotation,
@@ -2271,7 +2457,8 @@ class _$MarkdownElementImpl with LabelElement implements MarkdownElement {
             PackAssetLocation styleSheet,
             TextArea area,
             ElementConstraint constraint,
-            int foreground)?
+            int foreground,
+            Map<String, dynamic> extra)?
         text,
     TResult Function(
             double rotation,
@@ -2282,7 +2469,8 @@ class _$MarkdownElementImpl with LabelElement implements MarkdownElement {
             AreaProperty areaProperty,
             String text,
             ElementConstraint constraint,
-            int foreground)?
+            int foreground,
+            Map<String, dynamic> extra)?
         markdown,
     TResult Function(
             double rotation,
@@ -2291,7 +2479,8 @@ class _$MarkdownElementImpl with LabelElement implements MarkdownElement {
             ElementConstraints? constraints,
             String source,
             double width,
-            double height)?
+            double height,
+            Map<String, dynamic> extra)?
         image,
     TResult Function(
             double rotation,
@@ -2300,27 +2489,30 @@ class _$MarkdownElementImpl with LabelElement implements MarkdownElement {
             ElementConstraints? constraints,
             String source,
             double width,
-            double height)?
+            double height,
+            Map<String, dynamic> extra)?
         svg,
     TResult Function(
             double rotation,
             String layer,
             @DoublePointJsonConverter() Point<double> firstPosition,
             @DoublePointJsonConverter() Point<double> secondPosition,
-            ShapeProperty property)?
+            ShapeProperty property,
+            Map<String, dynamic> extra)?
         shape,
     TResult Function(
             double rotation,
             String layer,
             SurfaceTexture texture,
             @DoublePointJsonConverter() Point<double> firstPosition,
-            @DoublePointJsonConverter() Point<double> secondPosition)?
+            @DoublePointJsonConverter() Point<double> secondPosition,
+            Map<String, dynamic> extra)?
         texture,
     required TResult orElse(),
   }) {
     if (markdown != null) {
       return markdown(rotation, layer, position, scale, styleSheet,
-          areaProperty, this.text, constraint, foreground);
+          areaProperty, this.text, constraint, foreground, extra);
     }
     return orElse();
   }
@@ -2389,7 +2581,8 @@ abstract class MarkdownElement implements PadElement, LabelElement {
       final AreaProperty areaProperty,
       required final String text,
       final ElementConstraint constraint,
-      final int foreground}) = _$MarkdownElementImpl;
+      final int foreground,
+      final Map<String, dynamic> extra}) = _$MarkdownElementImpl;
 
   factory MarkdownElement.fromJson(Map<String, dynamic> json) =
       _$MarkdownElementImpl.fromJson;
@@ -2406,6 +2599,8 @@ abstract class MarkdownElement implements PadElement, LabelElement {
   String get text;
   ElementConstraint get constraint;
   int get foreground;
+  @override
+  Map<String, dynamic> get extra;
   @override
   @JsonKey(ignore: true)
   _$$MarkdownElementImplCopyWith<_$MarkdownElementImpl> get copyWith =>
@@ -2427,7 +2622,8 @@ abstract class _$$ImageElementImplCopyWith<$Res>
       ElementConstraints? constraints,
       String source,
       double width,
-      double height});
+      double height,
+      Map<String, dynamic> extra});
 
   $ElementConstraintsCopyWith<$Res>? get constraints;
 }
@@ -2450,6 +2646,7 @@ class __$$ImageElementImplCopyWithImpl<$Res>
     Object? source = null,
     Object? width = null,
     Object? height = null,
+    Object? extra = null,
   }) {
     return _then(_$ImageElementImpl(
       rotation: null == rotation
@@ -2480,6 +2677,10 @@ class __$$ImageElementImplCopyWithImpl<$Res>
           ? _value.height
           : height // ignore: cast_nullable_to_non_nullable
               as double,
+      extra: null == extra
+          ? _value._extra
+          : extra // ignore: cast_nullable_to_non_nullable
+              as Map<String, dynamic>,
     ));
   }
 
@@ -2507,8 +2708,10 @@ class _$ImageElementImpl implements ImageElement {
       required this.source,
       required this.width,
       required this.height,
+      final Map<String, dynamic> extra = const {},
       final String? $type})
-      : $type = $type ?? 'image';
+      : _extra = extra,
+        $type = $type ?? 'image';
 
   factory _$ImageElementImpl.fromJson(Map<String, dynamic> json) =>
       _$$ImageElementImplFromJson(json);
@@ -2532,13 +2735,21 @@ class _$ImageElementImpl implements ImageElement {
   final double width;
   @override
   final double height;
+  final Map<String, dynamic> _extra;
+  @override
+  @JsonKey()
+  Map<String, dynamic> get extra {
+    if (_extra is EqualUnmodifiableMapView) return _extra;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableMapView(_extra);
+  }
 
   @JsonKey(name: 'type')
   final String $type;
 
   @override
   String toString() {
-    return 'PadElement.image(rotation: $rotation, layer: $layer, position: $position, constraints: $constraints, source: $source, width: $width, height: $height)';
+    return 'PadElement.image(rotation: $rotation, layer: $layer, position: $position, constraints: $constraints, source: $source, width: $width, height: $height, extra: $extra)';
   }
 
   @JsonKey(ignore: true)
@@ -2550,8 +2761,13 @@ class _$ImageElementImpl implements ImageElement {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(double rotation, String layer, double? zoom,
-            List<PathPoint> points, PenProperty property)
+    required TResult Function(
+            double rotation,
+            String layer,
+            double? zoom,
+            List<PathPoint> points,
+            PenProperty property,
+            Map<String, dynamic> extra)
         pen,
     required TResult Function(
             double rotation,
@@ -2561,7 +2777,8 @@ class _$ImageElementImpl implements ImageElement {
             PackAssetLocation styleSheet,
             TextArea area,
             ElementConstraint constraint,
-            int foreground)
+            int foreground,
+            Map<String, dynamic> extra)
         text,
     required TResult Function(
             double rotation,
@@ -2572,7 +2789,8 @@ class _$ImageElementImpl implements ImageElement {
             AreaProperty areaProperty,
             String text,
             ElementConstraint constraint,
-            int foreground)
+            int foreground,
+            Map<String, dynamic> extra)
         markdown,
     required TResult Function(
             double rotation,
@@ -2581,7 +2799,8 @@ class _$ImageElementImpl implements ImageElement {
             ElementConstraints? constraints,
             String source,
             double width,
-            double height)
+            double height,
+            Map<String, dynamic> extra)
         image,
     required TResult Function(
             double rotation,
@@ -2590,31 +2809,40 @@ class _$ImageElementImpl implements ImageElement {
             ElementConstraints? constraints,
             String source,
             double width,
-            double height)
+            double height,
+            Map<String, dynamic> extra)
         svg,
     required TResult Function(
             double rotation,
             String layer,
             @DoublePointJsonConverter() Point<double> firstPosition,
             @DoublePointJsonConverter() Point<double> secondPosition,
-            ShapeProperty property)
+            ShapeProperty property,
+            Map<String, dynamic> extra)
         shape,
     required TResult Function(
             double rotation,
             String layer,
             SurfaceTexture texture,
             @DoublePointJsonConverter() Point<double> firstPosition,
-            @DoublePointJsonConverter() Point<double> secondPosition)
+            @DoublePointJsonConverter() Point<double> secondPosition,
+            Map<String, dynamic> extra)
         texture,
   }) {
-    return image(rotation, layer, position, constraints, source, width, height);
+    return image(
+        rotation, layer, position, constraints, source, width, height, extra);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(double rotation, String layer, double? zoom,
-            List<PathPoint> points, PenProperty property)?
+    TResult? Function(
+            double rotation,
+            String layer,
+            double? zoom,
+            List<PathPoint> points,
+            PenProperty property,
+            Map<String, dynamic> extra)?
         pen,
     TResult? Function(
             double rotation,
@@ -2624,7 +2852,8 @@ class _$ImageElementImpl implements ImageElement {
             PackAssetLocation styleSheet,
             TextArea area,
             ElementConstraint constraint,
-            int foreground)?
+            int foreground,
+            Map<String, dynamic> extra)?
         text,
     TResult? Function(
             double rotation,
@@ -2635,7 +2864,8 @@ class _$ImageElementImpl implements ImageElement {
             AreaProperty areaProperty,
             String text,
             ElementConstraint constraint,
-            int foreground)?
+            int foreground,
+            Map<String, dynamic> extra)?
         markdown,
     TResult? Function(
             double rotation,
@@ -2644,7 +2874,8 @@ class _$ImageElementImpl implements ImageElement {
             ElementConstraints? constraints,
             String source,
             double width,
-            double height)?
+            double height,
+            Map<String, dynamic> extra)?
         image,
     TResult? Function(
             double rotation,
@@ -2653,32 +2884,40 @@ class _$ImageElementImpl implements ImageElement {
             ElementConstraints? constraints,
             String source,
             double width,
-            double height)?
+            double height,
+            Map<String, dynamic> extra)?
         svg,
     TResult? Function(
             double rotation,
             String layer,
             @DoublePointJsonConverter() Point<double> firstPosition,
             @DoublePointJsonConverter() Point<double> secondPosition,
-            ShapeProperty property)?
+            ShapeProperty property,
+            Map<String, dynamic> extra)?
         shape,
     TResult? Function(
             double rotation,
             String layer,
             SurfaceTexture texture,
             @DoublePointJsonConverter() Point<double> firstPosition,
-            @DoublePointJsonConverter() Point<double> secondPosition)?
+            @DoublePointJsonConverter() Point<double> secondPosition,
+            Map<String, dynamic> extra)?
         texture,
   }) {
     return image?.call(
-        rotation, layer, position, constraints, source, width, height);
+        rotation, layer, position, constraints, source, width, height, extra);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(double rotation, String layer, double? zoom,
-            List<PathPoint> points, PenProperty property)?
+    TResult Function(
+            double rotation,
+            String layer,
+            double? zoom,
+            List<PathPoint> points,
+            PenProperty property,
+            Map<String, dynamic> extra)?
         pen,
     TResult Function(
             double rotation,
@@ -2688,7 +2927,8 @@ class _$ImageElementImpl implements ImageElement {
             PackAssetLocation styleSheet,
             TextArea area,
             ElementConstraint constraint,
-            int foreground)?
+            int foreground,
+            Map<String, dynamic> extra)?
         text,
     TResult Function(
             double rotation,
@@ -2699,7 +2939,8 @@ class _$ImageElementImpl implements ImageElement {
             AreaProperty areaProperty,
             String text,
             ElementConstraint constraint,
-            int foreground)?
+            int foreground,
+            Map<String, dynamic> extra)?
         markdown,
     TResult Function(
             double rotation,
@@ -2708,7 +2949,8 @@ class _$ImageElementImpl implements ImageElement {
             ElementConstraints? constraints,
             String source,
             double width,
-            double height)?
+            double height,
+            Map<String, dynamic> extra)?
         image,
     TResult Function(
             double rotation,
@@ -2717,27 +2959,30 @@ class _$ImageElementImpl implements ImageElement {
             ElementConstraints? constraints,
             String source,
             double width,
-            double height)?
+            double height,
+            Map<String, dynamic> extra)?
         svg,
     TResult Function(
             double rotation,
             String layer,
             @DoublePointJsonConverter() Point<double> firstPosition,
             @DoublePointJsonConverter() Point<double> secondPosition,
-            ShapeProperty property)?
+            ShapeProperty property,
+            Map<String, dynamic> extra)?
         shape,
     TResult Function(
             double rotation,
             String layer,
             SurfaceTexture texture,
             @DoublePointJsonConverter() Point<double> firstPosition,
-            @DoublePointJsonConverter() Point<double> secondPosition)?
+            @DoublePointJsonConverter() Point<double> secondPosition,
+            Map<String, dynamic> extra)?
         texture,
     required TResult orElse(),
   }) {
     if (image != null) {
       return image(
-          rotation, layer, position, constraints, source, width, height);
+          rotation, layer, position, constraints, source, width, height, extra);
     }
     return orElse();
   }
@@ -2804,7 +3049,8 @@ abstract class ImageElement implements PadElement, SourcedElement {
       final ElementConstraints? constraints,
       required final String source,
       required final double width,
-      required final double height}) = _$ImageElementImpl;
+      required final double height,
+      final Map<String, dynamic> extra}) = _$ImageElementImpl;
 
   factory ImageElement.fromJson(Map<String, dynamic> json) =
       _$ImageElementImpl.fromJson;
@@ -2819,6 +3065,8 @@ abstract class ImageElement implements PadElement, SourcedElement {
   String get source;
   double get width;
   double get height;
+  @override
+  Map<String, dynamic> get extra;
   @override
   @JsonKey(ignore: true)
   _$$ImageElementImplCopyWith<_$ImageElementImpl> get copyWith =>
@@ -2840,7 +3088,8 @@ abstract class _$$SvgElementImplCopyWith<$Res>
       ElementConstraints? constraints,
       String source,
       double width,
-      double height});
+      double height,
+      Map<String, dynamic> extra});
 
   $ElementConstraintsCopyWith<$Res>? get constraints;
 }
@@ -2863,6 +3112,7 @@ class __$$SvgElementImplCopyWithImpl<$Res>
     Object? source = null,
     Object? width = null,
     Object? height = null,
+    Object? extra = null,
   }) {
     return _then(_$SvgElementImpl(
       rotation: null == rotation
@@ -2893,6 +3143,10 @@ class __$$SvgElementImplCopyWithImpl<$Res>
           ? _value.height
           : height // ignore: cast_nullable_to_non_nullable
               as double,
+      extra: null == extra
+          ? _value._extra
+          : extra // ignore: cast_nullable_to_non_nullable
+              as Map<String, dynamic>,
     ));
   }
 
@@ -2920,8 +3174,10 @@ class _$SvgElementImpl implements SvgElement {
       required this.source,
       required this.width,
       required this.height,
+      final Map<String, dynamic> extra = const {},
       final String? $type})
-      : $type = $type ?? 'svg';
+      : _extra = extra,
+        $type = $type ?? 'svg';
 
   factory _$SvgElementImpl.fromJson(Map<String, dynamic> json) =>
       _$$SvgElementImplFromJson(json);
@@ -2945,13 +3201,21 @@ class _$SvgElementImpl implements SvgElement {
   final double width;
   @override
   final double height;
+  final Map<String, dynamic> _extra;
+  @override
+  @JsonKey()
+  Map<String, dynamic> get extra {
+    if (_extra is EqualUnmodifiableMapView) return _extra;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableMapView(_extra);
+  }
 
   @JsonKey(name: 'type')
   final String $type;
 
   @override
   String toString() {
-    return 'PadElement.svg(rotation: $rotation, layer: $layer, position: $position, constraints: $constraints, source: $source, width: $width, height: $height)';
+    return 'PadElement.svg(rotation: $rotation, layer: $layer, position: $position, constraints: $constraints, source: $source, width: $width, height: $height, extra: $extra)';
   }
 
   @JsonKey(ignore: true)
@@ -2963,8 +3227,13 @@ class _$SvgElementImpl implements SvgElement {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(double rotation, String layer, double? zoom,
-            List<PathPoint> points, PenProperty property)
+    required TResult Function(
+            double rotation,
+            String layer,
+            double? zoom,
+            List<PathPoint> points,
+            PenProperty property,
+            Map<String, dynamic> extra)
         pen,
     required TResult Function(
             double rotation,
@@ -2974,7 +3243,8 @@ class _$SvgElementImpl implements SvgElement {
             PackAssetLocation styleSheet,
             TextArea area,
             ElementConstraint constraint,
-            int foreground)
+            int foreground,
+            Map<String, dynamic> extra)
         text,
     required TResult Function(
             double rotation,
@@ -2985,7 +3255,8 @@ class _$SvgElementImpl implements SvgElement {
             AreaProperty areaProperty,
             String text,
             ElementConstraint constraint,
-            int foreground)
+            int foreground,
+            Map<String, dynamic> extra)
         markdown,
     required TResult Function(
             double rotation,
@@ -2994,7 +3265,8 @@ class _$SvgElementImpl implements SvgElement {
             ElementConstraints? constraints,
             String source,
             double width,
-            double height)
+            double height,
+            Map<String, dynamic> extra)
         image,
     required TResult Function(
             double rotation,
@@ -3003,31 +3275,40 @@ class _$SvgElementImpl implements SvgElement {
             ElementConstraints? constraints,
             String source,
             double width,
-            double height)
+            double height,
+            Map<String, dynamic> extra)
         svg,
     required TResult Function(
             double rotation,
             String layer,
             @DoublePointJsonConverter() Point<double> firstPosition,
             @DoublePointJsonConverter() Point<double> secondPosition,
-            ShapeProperty property)
+            ShapeProperty property,
+            Map<String, dynamic> extra)
         shape,
     required TResult Function(
             double rotation,
             String layer,
             SurfaceTexture texture,
             @DoublePointJsonConverter() Point<double> firstPosition,
-            @DoublePointJsonConverter() Point<double> secondPosition)
+            @DoublePointJsonConverter() Point<double> secondPosition,
+            Map<String, dynamic> extra)
         texture,
   }) {
-    return svg(rotation, layer, position, constraints, source, width, height);
+    return svg(
+        rotation, layer, position, constraints, source, width, height, extra);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(double rotation, String layer, double? zoom,
-            List<PathPoint> points, PenProperty property)?
+    TResult? Function(
+            double rotation,
+            String layer,
+            double? zoom,
+            List<PathPoint> points,
+            PenProperty property,
+            Map<String, dynamic> extra)?
         pen,
     TResult? Function(
             double rotation,
@@ -3037,7 +3318,8 @@ class _$SvgElementImpl implements SvgElement {
             PackAssetLocation styleSheet,
             TextArea area,
             ElementConstraint constraint,
-            int foreground)?
+            int foreground,
+            Map<String, dynamic> extra)?
         text,
     TResult? Function(
             double rotation,
@@ -3048,7 +3330,8 @@ class _$SvgElementImpl implements SvgElement {
             AreaProperty areaProperty,
             String text,
             ElementConstraint constraint,
-            int foreground)?
+            int foreground,
+            Map<String, dynamic> extra)?
         markdown,
     TResult? Function(
             double rotation,
@@ -3057,7 +3340,8 @@ class _$SvgElementImpl implements SvgElement {
             ElementConstraints? constraints,
             String source,
             double width,
-            double height)?
+            double height,
+            Map<String, dynamic> extra)?
         image,
     TResult? Function(
             double rotation,
@@ -3066,32 +3350,40 @@ class _$SvgElementImpl implements SvgElement {
             ElementConstraints? constraints,
             String source,
             double width,
-            double height)?
+            double height,
+            Map<String, dynamic> extra)?
         svg,
     TResult? Function(
             double rotation,
             String layer,
             @DoublePointJsonConverter() Point<double> firstPosition,
             @DoublePointJsonConverter() Point<double> secondPosition,
-            ShapeProperty property)?
+            ShapeProperty property,
+            Map<String, dynamic> extra)?
         shape,
     TResult? Function(
             double rotation,
             String layer,
             SurfaceTexture texture,
             @DoublePointJsonConverter() Point<double> firstPosition,
-            @DoublePointJsonConverter() Point<double> secondPosition)?
+            @DoublePointJsonConverter() Point<double> secondPosition,
+            Map<String, dynamic> extra)?
         texture,
   }) {
     return svg?.call(
-        rotation, layer, position, constraints, source, width, height);
+        rotation, layer, position, constraints, source, width, height, extra);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(double rotation, String layer, double? zoom,
-            List<PathPoint> points, PenProperty property)?
+    TResult Function(
+            double rotation,
+            String layer,
+            double? zoom,
+            List<PathPoint> points,
+            PenProperty property,
+            Map<String, dynamic> extra)?
         pen,
     TResult Function(
             double rotation,
@@ -3101,7 +3393,8 @@ class _$SvgElementImpl implements SvgElement {
             PackAssetLocation styleSheet,
             TextArea area,
             ElementConstraint constraint,
-            int foreground)?
+            int foreground,
+            Map<String, dynamic> extra)?
         text,
     TResult Function(
             double rotation,
@@ -3112,7 +3405,8 @@ class _$SvgElementImpl implements SvgElement {
             AreaProperty areaProperty,
             String text,
             ElementConstraint constraint,
-            int foreground)?
+            int foreground,
+            Map<String, dynamic> extra)?
         markdown,
     TResult Function(
             double rotation,
@@ -3121,7 +3415,8 @@ class _$SvgElementImpl implements SvgElement {
             ElementConstraints? constraints,
             String source,
             double width,
-            double height)?
+            double height,
+            Map<String, dynamic> extra)?
         image,
     TResult Function(
             double rotation,
@@ -3130,26 +3425,30 @@ class _$SvgElementImpl implements SvgElement {
             ElementConstraints? constraints,
             String source,
             double width,
-            double height)?
+            double height,
+            Map<String, dynamic> extra)?
         svg,
     TResult Function(
             double rotation,
             String layer,
             @DoublePointJsonConverter() Point<double> firstPosition,
             @DoublePointJsonConverter() Point<double> secondPosition,
-            ShapeProperty property)?
+            ShapeProperty property,
+            Map<String, dynamic> extra)?
         shape,
     TResult Function(
             double rotation,
             String layer,
             SurfaceTexture texture,
             @DoublePointJsonConverter() Point<double> firstPosition,
-            @DoublePointJsonConverter() Point<double> secondPosition)?
+            @DoublePointJsonConverter() Point<double> secondPosition,
+            Map<String, dynamic> extra)?
         texture,
     required TResult orElse(),
   }) {
     if (svg != null) {
-      return svg(rotation, layer, position, constraints, source, width, height);
+      return svg(
+          rotation, layer, position, constraints, source, width, height, extra);
     }
     return orElse();
   }
@@ -3216,7 +3515,8 @@ abstract class SvgElement implements PadElement, SourcedElement {
       final ElementConstraints? constraints,
       required final String source,
       required final double width,
-      required final double height}) = _$SvgElementImpl;
+      required final double height,
+      final Map<String, dynamic> extra}) = _$SvgElementImpl;
 
   factory SvgElement.fromJson(Map<String, dynamic> json) =
       _$SvgElementImpl.fromJson;
@@ -3231,6 +3531,8 @@ abstract class SvgElement implements PadElement, SourcedElement {
   String get source;
   double get width;
   double get height;
+  @override
+  Map<String, dynamic> get extra;
   @override
   @JsonKey(ignore: true)
   _$$SvgElementImplCopyWith<_$SvgElementImpl> get copyWith =>
@@ -3250,7 +3552,8 @@ abstract class _$$ShapeElementImplCopyWith<$Res>
       String layer,
       @DoublePointJsonConverter() Point<double> firstPosition,
       @DoublePointJsonConverter() Point<double> secondPosition,
-      ShapeProperty property});
+      ShapeProperty property,
+      Map<String, dynamic> extra});
 }
 
 /// @nodoc
@@ -3269,6 +3572,7 @@ class __$$ShapeElementImplCopyWithImpl<$Res>
     Object? firstPosition = null,
     Object? secondPosition = null,
     Object? property = freezed,
+    Object? extra = null,
   }) {
     return _then(_$ShapeElementImpl(
       rotation: null == rotation
@@ -3291,6 +3595,10 @@ class __$$ShapeElementImplCopyWithImpl<$Res>
           ? _value.property
           : property // ignore: cast_nullable_to_non_nullable
               as ShapeProperty,
+      extra: null == extra
+          ? _value._extra
+          : extra // ignore: cast_nullable_to_non_nullable
+              as Map<String, dynamic>,
     ));
   }
 }
@@ -3304,8 +3612,10 @@ class _$ShapeElementImpl implements ShapeElement {
       @DoublePointJsonConverter() this.firstPosition = const Point(0.0, 0.0),
       @DoublePointJsonConverter() this.secondPosition = const Point(0.0, 0.0),
       this.property = const ShapeProperty(shape: RectangleShape()),
+      final Map<String, dynamic> extra = const {},
       final String? $type})
-      : $type = $type ?? 'shape';
+      : _extra = extra,
+        $type = $type ?? 'shape';
 
   factory _$ShapeElementImpl.fromJson(Map<String, dynamic> json) =>
       _$$ShapeElementImplFromJson(json);
@@ -3327,13 +3637,21 @@ class _$ShapeElementImpl implements ShapeElement {
   @override
   @JsonKey()
   final ShapeProperty property;
+  final Map<String, dynamic> _extra;
+  @override
+  @JsonKey()
+  Map<String, dynamic> get extra {
+    if (_extra is EqualUnmodifiableMapView) return _extra;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableMapView(_extra);
+  }
 
   @JsonKey(name: 'type')
   final String $type;
 
   @override
   String toString() {
-    return 'PadElement.shape(rotation: $rotation, layer: $layer, firstPosition: $firstPosition, secondPosition: $secondPosition, property: $property)';
+    return 'PadElement.shape(rotation: $rotation, layer: $layer, firstPosition: $firstPosition, secondPosition: $secondPosition, property: $property, extra: $extra)';
   }
 
   @JsonKey(ignore: true)
@@ -3345,8 +3663,13 @@ class _$ShapeElementImpl implements ShapeElement {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(double rotation, String layer, double? zoom,
-            List<PathPoint> points, PenProperty property)
+    required TResult Function(
+            double rotation,
+            String layer,
+            double? zoom,
+            List<PathPoint> points,
+            PenProperty property,
+            Map<String, dynamic> extra)
         pen,
     required TResult Function(
             double rotation,
@@ -3356,7 +3679,8 @@ class _$ShapeElementImpl implements ShapeElement {
             PackAssetLocation styleSheet,
             TextArea area,
             ElementConstraint constraint,
-            int foreground)
+            int foreground,
+            Map<String, dynamic> extra)
         text,
     required TResult Function(
             double rotation,
@@ -3367,7 +3691,8 @@ class _$ShapeElementImpl implements ShapeElement {
             AreaProperty areaProperty,
             String text,
             ElementConstraint constraint,
-            int foreground)
+            int foreground,
+            Map<String, dynamic> extra)
         markdown,
     required TResult Function(
             double rotation,
@@ -3376,7 +3701,8 @@ class _$ShapeElementImpl implements ShapeElement {
             ElementConstraints? constraints,
             String source,
             double width,
-            double height)
+            double height,
+            Map<String, dynamic> extra)
         image,
     required TResult Function(
             double rotation,
@@ -3385,31 +3711,40 @@ class _$ShapeElementImpl implements ShapeElement {
             ElementConstraints? constraints,
             String source,
             double width,
-            double height)
+            double height,
+            Map<String, dynamic> extra)
         svg,
     required TResult Function(
             double rotation,
             String layer,
             @DoublePointJsonConverter() Point<double> firstPosition,
             @DoublePointJsonConverter() Point<double> secondPosition,
-            ShapeProperty property)
+            ShapeProperty property,
+            Map<String, dynamic> extra)
         shape,
     required TResult Function(
             double rotation,
             String layer,
             SurfaceTexture texture,
             @DoublePointJsonConverter() Point<double> firstPosition,
-            @DoublePointJsonConverter() Point<double> secondPosition)
+            @DoublePointJsonConverter() Point<double> secondPosition,
+            Map<String, dynamic> extra)
         texture,
   }) {
-    return shape(rotation, layer, firstPosition, secondPosition, property);
+    return shape(
+        rotation, layer, firstPosition, secondPosition, property, extra);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(double rotation, String layer, double? zoom,
-            List<PathPoint> points, PenProperty property)?
+    TResult? Function(
+            double rotation,
+            String layer,
+            double? zoom,
+            List<PathPoint> points,
+            PenProperty property,
+            Map<String, dynamic> extra)?
         pen,
     TResult? Function(
             double rotation,
@@ -3419,7 +3754,8 @@ class _$ShapeElementImpl implements ShapeElement {
             PackAssetLocation styleSheet,
             TextArea area,
             ElementConstraint constraint,
-            int foreground)?
+            int foreground,
+            Map<String, dynamic> extra)?
         text,
     TResult? Function(
             double rotation,
@@ -3430,7 +3766,8 @@ class _$ShapeElementImpl implements ShapeElement {
             AreaProperty areaProperty,
             String text,
             ElementConstraint constraint,
-            int foreground)?
+            int foreground,
+            Map<String, dynamic> extra)?
         markdown,
     TResult? Function(
             double rotation,
@@ -3439,7 +3776,8 @@ class _$ShapeElementImpl implements ShapeElement {
             ElementConstraints? constraints,
             String source,
             double width,
-            double height)?
+            double height,
+            Map<String, dynamic> extra)?
         image,
     TResult? Function(
             double rotation,
@@ -3448,32 +3786,40 @@ class _$ShapeElementImpl implements ShapeElement {
             ElementConstraints? constraints,
             String source,
             double width,
-            double height)?
+            double height,
+            Map<String, dynamic> extra)?
         svg,
     TResult? Function(
             double rotation,
             String layer,
             @DoublePointJsonConverter() Point<double> firstPosition,
             @DoublePointJsonConverter() Point<double> secondPosition,
-            ShapeProperty property)?
+            ShapeProperty property,
+            Map<String, dynamic> extra)?
         shape,
     TResult? Function(
             double rotation,
             String layer,
             SurfaceTexture texture,
             @DoublePointJsonConverter() Point<double> firstPosition,
-            @DoublePointJsonConverter() Point<double> secondPosition)?
+            @DoublePointJsonConverter() Point<double> secondPosition,
+            Map<String, dynamic> extra)?
         texture,
   }) {
     return shape?.call(
-        rotation, layer, firstPosition, secondPosition, property);
+        rotation, layer, firstPosition, secondPosition, property, extra);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(double rotation, String layer, double? zoom,
-            List<PathPoint> points, PenProperty property)?
+    TResult Function(
+            double rotation,
+            String layer,
+            double? zoom,
+            List<PathPoint> points,
+            PenProperty property,
+            Map<String, dynamic> extra)?
         pen,
     TResult Function(
             double rotation,
@@ -3483,7 +3829,8 @@ class _$ShapeElementImpl implements ShapeElement {
             PackAssetLocation styleSheet,
             TextArea area,
             ElementConstraint constraint,
-            int foreground)?
+            int foreground,
+            Map<String, dynamic> extra)?
         text,
     TResult Function(
             double rotation,
@@ -3494,7 +3841,8 @@ class _$ShapeElementImpl implements ShapeElement {
             AreaProperty areaProperty,
             String text,
             ElementConstraint constraint,
-            int foreground)?
+            int foreground,
+            Map<String, dynamic> extra)?
         markdown,
     TResult Function(
             double rotation,
@@ -3503,7 +3851,8 @@ class _$ShapeElementImpl implements ShapeElement {
             ElementConstraints? constraints,
             String source,
             double width,
-            double height)?
+            double height,
+            Map<String, dynamic> extra)?
         image,
     TResult Function(
             double rotation,
@@ -3512,26 +3861,30 @@ class _$ShapeElementImpl implements ShapeElement {
             ElementConstraints? constraints,
             String source,
             double width,
-            double height)?
+            double height,
+            Map<String, dynamic> extra)?
         svg,
     TResult Function(
             double rotation,
             String layer,
             @DoublePointJsonConverter() Point<double> firstPosition,
             @DoublePointJsonConverter() Point<double> secondPosition,
-            ShapeProperty property)?
+            ShapeProperty property,
+            Map<String, dynamic> extra)?
         shape,
     TResult Function(
             double rotation,
             String layer,
             SurfaceTexture texture,
             @DoublePointJsonConverter() Point<double> firstPosition,
-            @DoublePointJsonConverter() Point<double> secondPosition)?
+            @DoublePointJsonConverter() Point<double> secondPosition,
+            Map<String, dynamic> extra)?
         texture,
     required TResult orElse(),
   }) {
     if (shape != null) {
-      return shape(rotation, layer, firstPosition, secondPosition, property);
+      return shape(
+          rotation, layer, firstPosition, secondPosition, property, extra);
     }
     return orElse();
   }
@@ -3596,7 +3949,8 @@ abstract class ShapeElement implements PadElement {
       final String layer,
       @DoublePointJsonConverter() final Point<double> firstPosition,
       @DoublePointJsonConverter() final Point<double> secondPosition,
-      final ShapeProperty property}) = _$ShapeElementImpl;
+      final ShapeProperty property,
+      final Map<String, dynamic> extra}) = _$ShapeElementImpl;
 
   factory ShapeElement.fromJson(Map<String, dynamic> json) =
       _$ShapeElementImpl.fromJson;
@@ -3610,6 +3964,8 @@ abstract class ShapeElement implements PadElement {
   @DoublePointJsonConverter()
   Point<double> get secondPosition;
   ShapeProperty get property;
+  @override
+  Map<String, dynamic> get extra;
   @override
   @JsonKey(ignore: true)
   _$$ShapeElementImplCopyWith<_$ShapeElementImpl> get copyWith =>
@@ -3629,7 +3985,8 @@ abstract class _$$TextureElementImplCopyWith<$Res>
       String layer,
       SurfaceTexture texture,
       @DoublePointJsonConverter() Point<double> firstPosition,
-      @DoublePointJsonConverter() Point<double> secondPosition});
+      @DoublePointJsonConverter() Point<double> secondPosition,
+      Map<String, dynamic> extra});
 
   $SurfaceTextureCopyWith<$Res> get texture;
 }
@@ -3650,6 +4007,7 @@ class __$$TextureElementImplCopyWithImpl<$Res>
     Object? texture = null,
     Object? firstPosition = null,
     Object? secondPosition = null,
+    Object? extra = null,
   }) {
     return _then(_$TextureElementImpl(
       rotation: null == rotation
@@ -3672,6 +4030,10 @@ class __$$TextureElementImplCopyWithImpl<$Res>
           ? _value.secondPosition
           : secondPosition // ignore: cast_nullable_to_non_nullable
               as Point<double>,
+      extra: null == extra
+          ? _value._extra
+          : extra // ignore: cast_nullable_to_non_nullable
+              as Map<String, dynamic>,
     ));
   }
 
@@ -3693,8 +4055,10 @@ class _$TextureElementImpl implements TextureElement {
       this.texture = const SurfaceTexture.pattern(),
       @DoublePointJsonConverter() this.firstPosition = const Point(0.0, 0.0),
       @DoublePointJsonConverter() this.secondPosition = const Point(0.0, 0.0),
+      final Map<String, dynamic> extra = const {},
       final String? $type})
-      : $type = $type ?? 'texture';
+      : _extra = extra,
+        $type = $type ?? 'texture';
 
   factory _$TextureElementImpl.fromJson(Map<String, dynamic> json) =>
       _$$TextureElementImplFromJson(json);
@@ -3716,13 +4080,21 @@ class _$TextureElementImpl implements TextureElement {
   @JsonKey()
   @DoublePointJsonConverter()
   final Point<double> secondPosition;
+  final Map<String, dynamic> _extra;
+  @override
+  @JsonKey()
+  Map<String, dynamic> get extra {
+    if (_extra is EqualUnmodifiableMapView) return _extra;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableMapView(_extra);
+  }
 
   @JsonKey(name: 'type')
   final String $type;
 
   @override
   String toString() {
-    return 'PadElement.texture(rotation: $rotation, layer: $layer, texture: $texture, firstPosition: $firstPosition, secondPosition: $secondPosition)';
+    return 'PadElement.texture(rotation: $rotation, layer: $layer, texture: $texture, firstPosition: $firstPosition, secondPosition: $secondPosition, extra: $extra)';
   }
 
   @JsonKey(ignore: true)
@@ -3735,8 +4107,13 @@ class _$TextureElementImpl implements TextureElement {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(double rotation, String layer, double? zoom,
-            List<PathPoint> points, PenProperty property)
+    required TResult Function(
+            double rotation,
+            String layer,
+            double? zoom,
+            List<PathPoint> points,
+            PenProperty property,
+            Map<String, dynamic> extra)
         pen,
     required TResult Function(
             double rotation,
@@ -3746,7 +4123,8 @@ class _$TextureElementImpl implements TextureElement {
             PackAssetLocation styleSheet,
             TextArea area,
             ElementConstraint constraint,
-            int foreground)
+            int foreground,
+            Map<String, dynamic> extra)
         text,
     required TResult Function(
             double rotation,
@@ -3757,7 +4135,8 @@ class _$TextureElementImpl implements TextureElement {
             AreaProperty areaProperty,
             String text,
             ElementConstraint constraint,
-            int foreground)
+            int foreground,
+            Map<String, dynamic> extra)
         markdown,
     required TResult Function(
             double rotation,
@@ -3766,7 +4145,8 @@ class _$TextureElementImpl implements TextureElement {
             ElementConstraints? constraints,
             String source,
             double width,
-            double height)
+            double height,
+            Map<String, dynamic> extra)
         image,
     required TResult Function(
             double rotation,
@@ -3775,32 +4155,40 @@ class _$TextureElementImpl implements TextureElement {
             ElementConstraints? constraints,
             String source,
             double width,
-            double height)
+            double height,
+            Map<String, dynamic> extra)
         svg,
     required TResult Function(
             double rotation,
             String layer,
             @DoublePointJsonConverter() Point<double> firstPosition,
             @DoublePointJsonConverter() Point<double> secondPosition,
-            ShapeProperty property)
+            ShapeProperty property,
+            Map<String, dynamic> extra)
         shape,
     required TResult Function(
             double rotation,
             String layer,
             SurfaceTexture texture,
             @DoublePointJsonConverter() Point<double> firstPosition,
-            @DoublePointJsonConverter() Point<double> secondPosition)
+            @DoublePointJsonConverter() Point<double> secondPosition,
+            Map<String, dynamic> extra)
         texture,
   }) {
     return texture(
-        rotation, layer, this.texture, firstPosition, secondPosition);
+        rotation, layer, this.texture, firstPosition, secondPosition, extra);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(double rotation, String layer, double? zoom,
-            List<PathPoint> points, PenProperty property)?
+    TResult? Function(
+            double rotation,
+            String layer,
+            double? zoom,
+            List<PathPoint> points,
+            PenProperty property,
+            Map<String, dynamic> extra)?
         pen,
     TResult? Function(
             double rotation,
@@ -3810,7 +4198,8 @@ class _$TextureElementImpl implements TextureElement {
             PackAssetLocation styleSheet,
             TextArea area,
             ElementConstraint constraint,
-            int foreground)?
+            int foreground,
+            Map<String, dynamic> extra)?
         text,
     TResult? Function(
             double rotation,
@@ -3821,7 +4210,8 @@ class _$TextureElementImpl implements TextureElement {
             AreaProperty areaProperty,
             String text,
             ElementConstraint constraint,
-            int foreground)?
+            int foreground,
+            Map<String, dynamic> extra)?
         markdown,
     TResult? Function(
             double rotation,
@@ -3830,7 +4220,8 @@ class _$TextureElementImpl implements TextureElement {
             ElementConstraints? constraints,
             String source,
             double width,
-            double height)?
+            double height,
+            Map<String, dynamic> extra)?
         image,
     TResult? Function(
             double rotation,
@@ -3839,32 +4230,40 @@ class _$TextureElementImpl implements TextureElement {
             ElementConstraints? constraints,
             String source,
             double width,
-            double height)?
+            double height,
+            Map<String, dynamic> extra)?
         svg,
     TResult? Function(
             double rotation,
             String layer,
             @DoublePointJsonConverter() Point<double> firstPosition,
             @DoublePointJsonConverter() Point<double> secondPosition,
-            ShapeProperty property)?
+            ShapeProperty property,
+            Map<String, dynamic> extra)?
         shape,
     TResult? Function(
             double rotation,
             String layer,
             SurfaceTexture texture,
             @DoublePointJsonConverter() Point<double> firstPosition,
-            @DoublePointJsonConverter() Point<double> secondPosition)?
+            @DoublePointJsonConverter() Point<double> secondPosition,
+            Map<String, dynamic> extra)?
         texture,
   }) {
     return texture?.call(
-        rotation, layer, this.texture, firstPosition, secondPosition);
+        rotation, layer, this.texture, firstPosition, secondPosition, extra);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(double rotation, String layer, double? zoom,
-            List<PathPoint> points, PenProperty property)?
+    TResult Function(
+            double rotation,
+            String layer,
+            double? zoom,
+            List<PathPoint> points,
+            PenProperty property,
+            Map<String, dynamic> extra)?
         pen,
     TResult Function(
             double rotation,
@@ -3874,7 +4273,8 @@ class _$TextureElementImpl implements TextureElement {
             PackAssetLocation styleSheet,
             TextArea area,
             ElementConstraint constraint,
-            int foreground)?
+            int foreground,
+            Map<String, dynamic> extra)?
         text,
     TResult Function(
             double rotation,
@@ -3885,7 +4285,8 @@ class _$TextureElementImpl implements TextureElement {
             AreaProperty areaProperty,
             String text,
             ElementConstraint constraint,
-            int foreground)?
+            int foreground,
+            Map<String, dynamic> extra)?
         markdown,
     TResult Function(
             double rotation,
@@ -3894,7 +4295,8 @@ class _$TextureElementImpl implements TextureElement {
             ElementConstraints? constraints,
             String source,
             double width,
-            double height)?
+            double height,
+            Map<String, dynamic> extra)?
         image,
     TResult Function(
             double rotation,
@@ -3903,27 +4305,30 @@ class _$TextureElementImpl implements TextureElement {
             ElementConstraints? constraints,
             String source,
             double width,
-            double height)?
+            double height,
+            Map<String, dynamic> extra)?
         svg,
     TResult Function(
             double rotation,
             String layer,
             @DoublePointJsonConverter() Point<double> firstPosition,
             @DoublePointJsonConverter() Point<double> secondPosition,
-            ShapeProperty property)?
+            ShapeProperty property,
+            Map<String, dynamic> extra)?
         shape,
     TResult Function(
             double rotation,
             String layer,
             SurfaceTexture texture,
             @DoublePointJsonConverter() Point<double> firstPosition,
-            @DoublePointJsonConverter() Point<double> secondPosition)?
+            @DoublePointJsonConverter() Point<double> secondPosition,
+            Map<String, dynamic> extra)?
         texture,
     required TResult orElse(),
   }) {
     if (texture != null) {
       return texture(
-          rotation, layer, this.texture, firstPosition, secondPosition);
+          rotation, layer, this.texture, firstPosition, secondPosition, extra);
     }
     return orElse();
   }
@@ -3984,12 +4389,12 @@ class _$TextureElementImpl implements TextureElement {
 
 abstract class TextureElement implements PadElement {
   factory TextureElement(
-          {final double rotation,
-          final String layer,
-          final SurfaceTexture texture,
-          @DoublePointJsonConverter() final Point<double> firstPosition,
-          @DoublePointJsonConverter() final Point<double> secondPosition}) =
-      _$TextureElementImpl;
+      {final double rotation,
+      final String layer,
+      final SurfaceTexture texture,
+      @DoublePointJsonConverter() final Point<double> firstPosition,
+      @DoublePointJsonConverter() final Point<double> secondPosition,
+      final Map<String, dynamic> extra}) = _$TextureElementImpl;
 
   factory TextureElement.fromJson(Map<String, dynamic> json) =
       _$TextureElementImpl.fromJson;
@@ -4003,6 +4408,8 @@ abstract class TextureElement implements PadElement {
   Point<double> get firstPosition;
   @DoublePointJsonConverter()
   Point<double> get secondPosition;
+  @override
+  Map<String, dynamic> get extra;
   @override
   @JsonKey(ignore: true)
   _$$TextureElementImplCopyWith<_$TextureElementImpl> get copyWith =>

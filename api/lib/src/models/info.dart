@@ -14,6 +14,7 @@ sealed class DocumentInfo with _$DocumentInfo {
     @Default([]) List<Tool> tools,
     @Default([]) List<ExportPreset> exportPresets,
     @Default(ViewOption()) ViewOption view,
+    @Default({}) Map<String, dynamic> extra,
   }) = _DocumentInfo;
 
   factory DocumentInfo.fromJson(Map<String, dynamic> json) =>

@@ -20,6 +20,7 @@ sealed class DocumentPage with _$DocumentPage {
     @Default([]) List<Background> backgrounds,
     @Default([]) List<Waypoint> waypoints,
     @Default([]) List<Area> areas,
+    @Default({}) Map<String, dynamic> extra,
   }) = _DocumentPage;
 
   factory DocumentPage.fromJson(Map<String, dynamic> json) =>

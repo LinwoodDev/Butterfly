@@ -31,6 +31,10 @@ _$DocumentPageImpl _$$DocumentPageImplFromJson(Map json) => _$DocumentPageImpl(
               ?.map((e) => Area.fromJson(Map<String, dynamic>.from(e as Map)))
               .toList() ??
           const [],
+      extra: (json['extra'] as Map?)?.map(
+            (k, e) => MapEntry(k as String, e),
+          ) ??
+          const {},
     );
 
 Map<String, dynamic> _$$DocumentPageImplToJson(_$DocumentPageImpl instance) =>
@@ -40,4 +44,5 @@ Map<String, dynamic> _$$DocumentPageImplToJson(_$DocumentPageImpl instance) =>
       'backgrounds': instance.backgrounds.map((e) => e.toJson()).toList(),
       'waypoints': instance.waypoints.map((e) => e.toJson()).toList(),
       'areas': instance.areas.map((e) => e.toJson()).toList(),
+      'extra': instance.extra,
     };

@@ -86,6 +86,10 @@ _$PenElementImpl _$$PenElementImplFromJson(Map json) => _$PenElementImpl(
           ? const PenProperty()
           : PenProperty.fromJson(
               Map<String, dynamic>.from(json['property'] as Map)),
+      extra: (json['extra'] as Map?)?.map(
+            (k, e) => MapEntry(k as String, e),
+          ) ??
+          const {},
       $type: json['type'] as String?,
     );
 
@@ -96,6 +100,7 @@ Map<String, dynamic> _$$PenElementImplToJson(_$PenElementImpl instance) =>
       'zoom': instance.zoom,
       'points': instance.points.map((e) => e.toJson()).toList(),
       'property': instance.property.toJson(),
+      'extra': instance.extra,
       'type': instance.$type,
     };
 
@@ -116,6 +121,10 @@ _$TextElementImpl _$$TextElementImplFromJson(Map json) => _$TextElementImpl(
           : ElementConstraint.fromJson(
               Map<String, dynamic>.from(json['constraint'] as Map)),
       foreground: json['foreground'] as int? ?? kColorBlack,
+      extra: (json['extra'] as Map?)?.map(
+            (k, e) => MapEntry(k as String, e),
+          ) ??
+          const {},
       $type: json['type'] as String?,
     );
 
@@ -129,6 +138,7 @@ Map<String, dynamic> _$$TextElementImplToJson(_$TextElementImpl instance) =>
       'area': instance.area.toJson(),
       'constraint': instance.constraint.toJson(),
       'foreground': instance.foreground,
+      'extra': instance.extra,
       'type': instance.$type,
     };
 
@@ -154,6 +164,10 @@ _$MarkdownElementImpl _$$MarkdownElementImplFromJson(Map json) =>
           : ElementConstraint.fromJson(
               Map<String, dynamic>.from(json['constraint'] as Map)),
       foreground: json['foreground'] as int? ?? kColorBlack,
+      extra: (json['extra'] as Map?)?.map(
+            (k, e) => MapEntry(k as String, e),
+          ) ??
+          const {},
       $type: json['type'] as String?,
     );
 
@@ -169,6 +183,7 @@ Map<String, dynamic> _$$MarkdownElementImplToJson(
       'text': instance.text,
       'constraint': instance.constraint.toJson(),
       'foreground': instance.foreground,
+      'extra': instance.extra,
       'type': instance.$type,
     };
 
@@ -185,6 +200,10 @@ _$ImageElementImpl _$$ImageElementImplFromJson(Map json) => _$ImageElementImpl(
       source: json['source'] as String,
       width: (json['width'] as num).toDouble(),
       height: (json['height'] as num).toDouble(),
+      extra: (json['extra'] as Map?)?.map(
+            (k, e) => MapEntry(k as String, e),
+          ) ??
+          const {},
       $type: json['type'] as String?,
     );
 
@@ -197,6 +216,7 @@ Map<String, dynamic> _$$ImageElementImplToJson(_$ImageElementImpl instance) =>
       'source': instance.source,
       'width': instance.width,
       'height': instance.height,
+      'extra': instance.extra,
       'type': instance.$type,
     };
 
@@ -213,6 +233,10 @@ _$SvgElementImpl _$$SvgElementImplFromJson(Map json) => _$SvgElementImpl(
       source: json['source'] as String,
       width: (json['width'] as num).toDouble(),
       height: (json['height'] as num).toDouble(),
+      extra: (json['extra'] as Map?)?.map(
+            (k, e) => MapEntry(k as String, e),
+          ) ??
+          const {},
       $type: json['type'] as String?,
     );
 
@@ -225,6 +249,7 @@ Map<String, dynamic> _$$SvgElementImplToJson(_$SvgElementImpl instance) =>
       'source': instance.source,
       'width': instance.width,
       'height': instance.height,
+      'extra': instance.extra,
       'type': instance.$type,
     };
 
@@ -243,6 +268,10 @@ _$ShapeElementImpl _$$ShapeElementImplFromJson(Map json) => _$ShapeElementImpl(
           ? const ShapeProperty(shape: RectangleShape())
           : ShapeProperty.fromJson(
               Map<String, dynamic>.from(json['property'] as Map)),
+      extra: (json['extra'] as Map?)?.map(
+            (k, e) => MapEntry(k as String, e),
+          ) ??
+          const {},
       $type: json['type'] as String?,
     );
 
@@ -255,6 +284,7 @@ Map<String, dynamic> _$$ShapeElementImplToJson(_$ShapeElementImpl instance) =>
       'secondPosition':
           const DoublePointJsonConverter().toJson(instance.secondPosition),
       'property': instance.property.toJson(),
+      'extra': instance.extra,
       'type': instance.$type,
     };
 
@@ -274,6 +304,10 @@ _$TextureElementImpl _$$TextureElementImplFromJson(Map json) =>
           ? const Point(0.0, 0.0)
           : const DoublePointJsonConverter()
               .fromJson(json['secondPosition'] as Map),
+      extra: (json['extra'] as Map?)?.map(
+            (k, e) => MapEntry(k as String, e),
+          ) ??
+          const {},
       $type: json['type'] as String?,
     );
 
@@ -287,5 +321,6 @@ Map<String, dynamic> _$$TextureElementImplToJson(
           const DoublePointJsonConverter().toJson(instance.firstPosition),
       'secondPosition':
           const DoublePointJsonConverter().toJson(instance.secondPosition),
+      'extra': instance.extra,
       'type': instance.$type,
     };

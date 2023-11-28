@@ -14,6 +14,7 @@ sealed class Area with _$Area {
     required double width,
     required double height,
     @DoublePointJsonConverter() required Point<double> position,
+    @Default({}) Map<String, dynamic> extra,
   }) = _Area;
 
   factory Area.fromJson(Map<String, dynamic> json) => _$AreaFromJson(json);

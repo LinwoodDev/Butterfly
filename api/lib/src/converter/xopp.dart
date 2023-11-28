@@ -38,8 +38,12 @@ String _exportColor(int value) {
         return PenElement(
           property: PenProperty(
             color: _importColor(element.getAttribute('color')!),
-            strokeWidth: double.parse(element.getAttribute('width')!),
+            strokeWidth:
+                double.parse(element.getAttribute('width')!.split(' ').first),
           ),
+          extra: {
+            'xopp:width': element.getAttribute('width')!,
+          },
           points: toPoints(element.innerText
               .split(' ')
               .map((e) => double.parse(e))
@@ -98,8 +102,10 @@ NoteData xoppMigrator(Uint8List data) {
   for (final entry in xournal.findElements('page').toList().asMap().entries) {
     final elements = <PadElement>[];
     final page = entry.value;
-    final layerName = 'Layer ${entry.key}';
-    for (final layer in page.findElements('layer')) {
+    final layers = {};
+    for (final (index, layer) in page.findElements('layer').indexed) {
+      final xoppLayerName = layer.getAttribute('name');
+      final layerName = xoppLayerName ?? 'Layer ${index + 1}';
       for (final element in layer.childElements) {
         PadElement? current;
         (note, current) = getElement(note, element, layerName);
@@ -107,6 +113,10 @@ NoteData xoppMigrator(Uint8List data) {
           elements.add(current);
         }
       }
+      layers[layerName] = {
+        'hasName': xoppLayerName != null,
+        'timestamp': layer.getAttribute('timestamp'),
+      };
     }
     final backgroundXml = page.getElement('background')!;
     final backgroundStyle = backgroundXml.getAttribute('style');
@@ -128,6 +138,9 @@ NoteData xoppMigrator(Uint8List data) {
       backgrounds: [
         if (background != null) background,
       ],
+      extra: {
+        'xopp:layers': layers,
+      },
     ));
   }
   return note;

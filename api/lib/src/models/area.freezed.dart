@@ -25,6 +25,7 @@ mixin _$Area {
   double get height => throw _privateConstructorUsedError;
   @DoublePointJsonConverter()
   Point<double> get position => throw _privateConstructorUsedError;
+  Map<String, dynamic> get extra => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -40,7 +41,8 @@ abstract class $AreaCopyWith<$Res> {
       {String name,
       double width,
       double height,
-      @DoublePointJsonConverter() Point<double> position});
+      @DoublePointJsonConverter() Point<double> position,
+      Map<String, dynamic> extra});
 }
 
 /// @nodoc
@@ -60,6 +62,7 @@ class _$AreaCopyWithImpl<$Res, $Val extends Area>
     Object? width = null,
     Object? height = null,
     Object? position = null,
+    Object? extra = null,
   }) {
     return _then(_value.copyWith(
       name: null == name
@@ -78,6 +81,10 @@ class _$AreaCopyWithImpl<$Res, $Val extends Area>
           ? _value.position
           : position // ignore: cast_nullable_to_non_nullable
               as Point<double>,
+      extra: null == extra
+          ? _value.extra
+          : extra // ignore: cast_nullable_to_non_nullable
+              as Map<String, dynamic>,
     ) as $Val);
   }
 }
@@ -93,7 +100,8 @@ abstract class _$$AreaImplCopyWith<$Res> implements $AreaCopyWith<$Res> {
       {String name,
       double width,
       double height,
-      @DoublePointJsonConverter() Point<double> position});
+      @DoublePointJsonConverter() Point<double> position,
+      Map<String, dynamic> extra});
 }
 
 /// @nodoc
@@ -110,6 +118,7 @@ class __$$AreaImplCopyWithImpl<$Res>
     Object? width = null,
     Object? height = null,
     Object? position = null,
+    Object? extra = null,
   }) {
     return _then(_$AreaImpl(
       name: null == name
@@ -128,6 +137,10 @@ class __$$AreaImplCopyWithImpl<$Res>
           ? _value.position
           : position // ignore: cast_nullable_to_non_nullable
               as Point<double>,
+      extra: null == extra
+          ? _value._extra
+          : extra // ignore: cast_nullable_to_non_nullable
+              as Map<String, dynamic>,
     ));
   }
 }
@@ -139,8 +152,10 @@ class _$AreaImpl extends _Area {
       {this.name = '',
       required this.width,
       required this.height,
-      @DoublePointJsonConverter() required this.position})
-      : super._();
+      @DoublePointJsonConverter() required this.position,
+      final Map<String, dynamic> extra = const {}})
+      : _extra = extra,
+        super._();
 
   factory _$AreaImpl.fromJson(Map<String, dynamic> json) =>
       _$$AreaImplFromJson(json);
@@ -155,10 +170,18 @@ class _$AreaImpl extends _Area {
   @override
   @DoublePointJsonConverter()
   final Point<double> position;
+  final Map<String, dynamic> _extra;
+  @override
+  @JsonKey()
+  Map<String, dynamic> get extra {
+    if (_extra is EqualUnmodifiableMapView) return _extra;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableMapView(_extra);
+  }
 
   @override
   String toString() {
-    return 'Area(name: $name, width: $width, height: $height, position: $position)';
+    return 'Area(name: $name, width: $width, height: $height, position: $position, extra: $extra)';
   }
 
   @override
@@ -170,12 +193,14 @@ class _$AreaImpl extends _Area {
             (identical(other.width, width) || other.width == width) &&
             (identical(other.height, height) || other.height == height) &&
             (identical(other.position, position) ||
-                other.position == position));
+                other.position == position) &&
+            const DeepCollectionEquality().equals(other._extra, _extra));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, name, width, height, position);
+  int get hashCode => Object.hash(runtimeType, name, width, height, position,
+      const DeepCollectionEquality().hash(_extra));
 
   @JsonKey(ignore: true)
   @override
@@ -193,11 +218,11 @@ class _$AreaImpl extends _Area {
 
 abstract class _Area extends Area {
   const factory _Area(
-          {final String name,
-          required final double width,
-          required final double height,
-          @DoublePointJsonConverter() required final Point<double> position}) =
-      _$AreaImpl;
+      {final String name,
+      required final double width,
+      required final double height,
+      @DoublePointJsonConverter() required final Point<double> position,
+      final Map<String, dynamic> extra}) = _$AreaImpl;
   const _Area._() : super._();
 
   factory _Area.fromJson(Map<String, dynamic> json) = _$AreaImpl.fromJson;
@@ -211,6 +236,8 @@ abstract class _Area extends Area {
   @override
   @DoublePointJsonConverter()
   Point<double> get position;
+  @override
+  Map<String, dynamic> get extra;
   @override
   @JsonKey(ignore: true)
   _$$AreaImplCopyWith<_$AreaImpl> get copyWith =>

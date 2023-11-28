@@ -23,6 +23,7 @@ mixin _$DocumentInfo {
   List<Tool> get tools => throw _privateConstructorUsedError;
   List<ExportPreset> get exportPresets => throw _privateConstructorUsedError;
   ViewOption get view => throw _privateConstructorUsedError;
+  Map<String, dynamic> get extra => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -37,7 +38,10 @@ abstract class $DocumentInfoCopyWith<$Res> {
       _$DocumentInfoCopyWithImpl<$Res, DocumentInfo>;
   @useResult
   $Res call(
-      {List<Tool> tools, List<ExportPreset> exportPresets, ViewOption view});
+      {List<Tool> tools,
+      List<ExportPreset> exportPresets,
+      ViewOption view,
+      Map<String, dynamic> extra});
 
   $ViewOptionCopyWith<$Res> get view;
 }
@@ -58,6 +62,7 @@ class _$DocumentInfoCopyWithImpl<$Res, $Val extends DocumentInfo>
     Object? tools = null,
     Object? exportPresets = null,
     Object? view = null,
+    Object? extra = null,
   }) {
     return _then(_value.copyWith(
       tools: null == tools
@@ -72,6 +77,10 @@ class _$DocumentInfoCopyWithImpl<$Res, $Val extends DocumentInfo>
           ? _value.view
           : view // ignore: cast_nullable_to_non_nullable
               as ViewOption,
+      extra: null == extra
+          ? _value.extra
+          : extra // ignore: cast_nullable_to_non_nullable
+              as Map<String, dynamic>,
     ) as $Val);
   }
 
@@ -93,7 +102,10 @@ abstract class _$$DocumentInfoImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {List<Tool> tools, List<ExportPreset> exportPresets, ViewOption view});
+      {List<Tool> tools,
+      List<ExportPreset> exportPresets,
+      ViewOption view,
+      Map<String, dynamic> extra});
 
   @override
   $ViewOptionCopyWith<$Res> get view;
@@ -113,6 +125,7 @@ class __$$DocumentInfoImplCopyWithImpl<$Res>
     Object? tools = null,
     Object? exportPresets = null,
     Object? view = null,
+    Object? extra = null,
   }) {
     return _then(_$DocumentInfoImpl(
       tools: null == tools
@@ -127,6 +140,10 @@ class __$$DocumentInfoImplCopyWithImpl<$Res>
           ? _value.view
           : view // ignore: cast_nullable_to_non_nullable
               as ViewOption,
+      extra: null == extra
+          ? _value._extra
+          : extra // ignore: cast_nullable_to_non_nullable
+              as Map<String, dynamic>,
     ));
   }
 }
@@ -137,9 +154,11 @@ class _$DocumentInfoImpl implements _DocumentInfo {
   const _$DocumentInfoImpl(
       {final List<Tool> tools = const [],
       final List<ExportPreset> exportPresets = const [],
-      this.view = const ViewOption()})
+      this.view = const ViewOption(),
+      final Map<String, dynamic> extra = const {}})
       : _tools = tools,
-        _exportPresets = exportPresets;
+        _exportPresets = exportPresets,
+        _extra = extra;
 
   factory _$DocumentInfoImpl.fromJson(Map<String, dynamic> json) =>
       _$$DocumentInfoImplFromJson(json);
@@ -165,10 +184,18 @@ class _$DocumentInfoImpl implements _DocumentInfo {
   @override
   @JsonKey()
   final ViewOption view;
+  final Map<String, dynamic> _extra;
+  @override
+  @JsonKey()
+  Map<String, dynamic> get extra {
+    if (_extra is EqualUnmodifiableMapView) return _extra;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableMapView(_extra);
+  }
 
   @override
   String toString() {
-    return 'DocumentInfo(tools: $tools, exportPresets: $exportPresets, view: $view)';
+    return 'DocumentInfo(tools: $tools, exportPresets: $exportPresets, view: $view, extra: $extra)';
   }
 
   @override
@@ -179,7 +206,8 @@ class _$DocumentInfoImpl implements _DocumentInfo {
             const DeepCollectionEquality().equals(other._tools, _tools) &&
             const DeepCollectionEquality()
                 .equals(other._exportPresets, _exportPresets) &&
-            (identical(other.view, view) || other.view == view));
+            (identical(other.view, view) || other.view == view) &&
+            const DeepCollectionEquality().equals(other._extra, _extra));
   }
 
   @JsonKey(ignore: true)
@@ -188,7 +216,8 @@ class _$DocumentInfoImpl implements _DocumentInfo {
       runtimeType,
       const DeepCollectionEquality().hash(_tools),
       const DeepCollectionEquality().hash(_exportPresets),
-      view);
+      view,
+      const DeepCollectionEquality().hash(_extra));
 
   @JsonKey(ignore: true)
   @override
@@ -208,7 +237,8 @@ abstract class _DocumentInfo implements DocumentInfo {
   const factory _DocumentInfo(
       {final List<Tool> tools,
       final List<ExportPreset> exportPresets,
-      final ViewOption view}) = _$DocumentInfoImpl;
+      final ViewOption view,
+      final Map<String, dynamic> extra}) = _$DocumentInfoImpl;
 
   factory _DocumentInfo.fromJson(Map<String, dynamic> json) =
       _$DocumentInfoImpl.fromJson;
@@ -219,6 +249,8 @@ abstract class _DocumentInfo implements DocumentInfo {
   List<ExportPreset> get exportPresets;
   @override
   ViewOption get view;
+  @override
+  Map<String, dynamic> get extra;
   @override
   @JsonKey(ignore: true)
   _$$DocumentInfoImplCopyWith<_$DocumentInfoImpl> get copyWith =>

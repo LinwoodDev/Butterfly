@@ -19,6 +19,10 @@ _$DocumentInfoImpl _$$DocumentInfoImplFromJson(Map json) => _$DocumentInfoImpl(
       view: json['view'] == null
           ? const ViewOption()
           : ViewOption.fromJson(Map<String, dynamic>.from(json['view'] as Map)),
+      extra: (json['extra'] as Map?)?.map(
+            (k, e) => MapEntry(k as String, e),
+          ) ??
+          const {},
     );
 
 Map<String, dynamic> _$$DocumentInfoImplToJson(_$DocumentInfoImpl instance) =>
@@ -26,4 +30,5 @@ Map<String, dynamic> _$$DocumentInfoImplToJson(_$DocumentInfoImpl instance) =>
       'tools': instance.tools.map((e) => e.toJson()).toList(),
       'exportPresets': instance.exportPresets.map((e) => e.toJson()).toList(),
       'view': instance.view.toJson(),
+      'extra': instance.extra,
     };

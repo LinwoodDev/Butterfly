@@ -89,6 +89,7 @@ sealed class PadElement with _$PadElement {
     double? zoom,
     @Default([]) List<PathPoint> points,
     @Default(PenProperty()) PenProperty property,
+    @Default({}) Map<String, dynamic> extra,
   }) = PenElement;
 
   @With<LabelElement>()
@@ -103,6 +104,7 @@ sealed class PadElement with _$PadElement {
     required TextArea area,
     @Default(ElementConstraint(size: 1000)) ElementConstraint constraint,
     @Default(kColorBlack) int foreground,
+    @Default({}) Map<String, dynamic> extra,
   }) = TextElement;
 
   @With<LabelElement>()
@@ -118,6 +120,7 @@ sealed class PadElement with _$PadElement {
     required String text,
     @Default(ElementConstraint(size: 1000)) ElementConstraint constraint,
     @Default(kColorBlack) int foreground,
+    @Default({}) Map<String, dynamic> extra,
   }) = MarkdownElement;
 
   @Implements<SourcedElement>()
@@ -132,6 +135,7 @@ sealed class PadElement with _$PadElement {
     required String source,
     required double width,
     required double height,
+    @Default({}) Map<String, dynamic> extra,
   }) = ImageElement;
 
   @Implements<SourcedElement>()
@@ -146,6 +150,7 @@ sealed class PadElement with _$PadElement {
     required String source,
     required double width,
     required double height,
+    @Default({}) Map<String, dynamic> extra,
   }) = SvgElement;
 
   factory PadElement.shape({
@@ -158,6 +163,7 @@ sealed class PadElement with _$PadElement {
     @Default(Point(0.0, 0.0))
     Point<double> secondPosition,
     @Default(ShapeProperty(shape: RectangleShape())) ShapeProperty property,
+    @Default({}) Map<String, dynamic> extra,
   }) = ShapeElement;
 
   factory PadElement.texture({
@@ -170,6 +176,7 @@ sealed class PadElement with _$PadElement {
     @DoublePointJsonConverter()
     @Default(Point(0.0, 0.0))
     Point<double> secondPosition,
+    @Default({}) Map<String, dynamic> extra,
   }) = TextureElement;
 
   factory PadElement.fromJson(Map<String, dynamic> json) =>
