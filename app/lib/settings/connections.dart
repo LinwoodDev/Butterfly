@@ -396,6 +396,37 @@ class __AddRemoteDialogState extends State<_AddRemoteDialog> {
                     },
                   ),
                   const SizedBox(height: 8),
+                  ListenableBuilder(
+                    listenable: _directoryController,
+                    builder: (context, _) => Card(
+                      child: Padding(
+                        padding: const EdgeInsets.all(4),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Row(children: [
+                              const PhosphorIcon(PhosphorIconsLight.info),
+                              const SizedBox(width: 8),
+                              Flexible(
+                                child: Text(
+                                  AppLocalizations.of(context).information,
+                                  style: Theme.of(context).textTheme.bodyMedium,
+                                ),
+                              ),
+                            ]),
+                            const SizedBox(height: 8),
+                            Text(
+                              _directoryController.text.isEmpty
+                                  ? AppLocalizations.of(context)
+                                      .rootDirectoryNotSpecifiedDescription
+                                  : AppLocalizations.of(context)
+                                      .rootDirectorySpecifiedDescription,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
                   ExpansionPanelList(
                     expansionCallback: (index, isExpanded) =>
                         setState(() => _advanced = isExpanded),
@@ -408,66 +439,64 @@ class __AddRemoteDialogState extends State<_AddRemoteDialog> {
                         isExpanded: _advanced,
                         body: ListenableBuilder(
                             listenable: _directoryController,
-                            builder: (context, _) {
-                              return Column(children: [
-                                _DirectoryField(
-                                  controller: _documentsDirectoryController,
-                                  label: AppLocalizations.of(context)
-                                      .documentsDirectory,
-                                  icon: const PhosphorIcon(
-                                      PhosphorIconsLight.file),
-                                  onPick: _directoryController.text.isEmpty
-                                      ? () async {
-                                          final result = await FilePicker
-                                              .platform
-                                              .getDirectoryPath();
-                                          if (result != null) {
-                                            _documentsDirectoryController.text =
-                                                result;
+                            builder: (context, _) => Column(children: [
+                                  _DirectoryField(
+                                    controller: _documentsDirectoryController,
+                                    label: AppLocalizations.of(context)
+                                        .documentsDirectory,
+                                    icon: const PhosphorIcon(
+                                        PhosphorIconsLight.file),
+                                    onPick: _directoryController.text.isEmpty
+                                        ? () async {
+                                            final result = await FilePicker
+                                                .platform
+                                                .getDirectoryPath();
+                                            if (result != null) {
+                                              _documentsDirectoryController
+                                                  .text = result;
+                                            }
                                           }
-                                        }
-                                      : null,
-                                ),
-                                const SizedBox(height: 8),
-                                _DirectoryField(
-                                  controller: _templatesDirectoryController,
-                                  label: AppLocalizations.of(context)
-                                      .templatesDirectory,
-                                  icon: const PhosphorIcon(
-                                      PhosphorIconsLight.fileDashed),
-                                  onPick: _directoryController.text.isEmpty
-                                      ? () async {
-                                          final result = await FilePicker
-                                              .platform
-                                              .getDirectoryPath();
-                                          if (result != null) {
-                                            _templatesDirectoryController.text =
-                                                result;
+                                        : null,
+                                  ),
+                                  const SizedBox(height: 8),
+                                  _DirectoryField(
+                                    controller: _templatesDirectoryController,
+                                    label: AppLocalizations.of(context)
+                                        .templatesDirectory,
+                                    icon: const PhosphorIcon(
+                                        PhosphorIconsLight.fileDashed),
+                                    onPick: _directoryController.text.isEmpty
+                                        ? () async {
+                                            final result = await FilePicker
+                                                .platform
+                                                .getDirectoryPath();
+                                            if (result != null) {
+                                              _templatesDirectoryController
+                                                  .text = result;
+                                            }
                                           }
-                                        }
-                                      : null,
-                                ),
-                                const SizedBox(height: 8),
-                                _DirectoryField(
-                                  controller: _packsDirectoryController,
-                                  label: AppLocalizations.of(context)
-                                      .packsDirectory,
-                                  icon: const PhosphorIcon(
-                                      PhosphorIconsLight.package),
-                                  onPick: _directoryController.text.isEmpty
-                                      ? () async {
-                                          final result = await FilePicker
-                                              .platform
-                                              .getDirectoryPath();
-                                          if (result != null) {
-                                            _documentsDirectoryController.text =
-                                                result;
+                                        : null,
+                                  ),
+                                  const SizedBox(height: 8),
+                                  _DirectoryField(
+                                    controller: _packsDirectoryController,
+                                    label: AppLocalizations.of(context)
+                                        .packsDirectory,
+                                    icon: const PhosphorIcon(
+                                        PhosphorIconsLight.package),
+                                    onPick: _directoryController.text.isEmpty
+                                        ? () async {
+                                            final result = await FilePicker
+                                                .platform
+                                                .getDirectoryPath();
+                                            if (result != null) {
+                                              _documentsDirectoryController
+                                                  .text = result;
+                                            }
                                           }
-                                        }
-                                      : null,
-                                ),
-                              ]);
-                            }),
+                                        : null,
+                                  ),
+                                ])),
                       ),
                     ],
                   ),
@@ -499,7 +528,12 @@ class __AddRemoteDialogState extends State<_AddRemoteDialog> {
                       ]),
                       builder: (context, _) => ElevatedButton(
                             onPressed: _nameController.text.isEmpty &&
-                                    _directoryController.text.isEmpty
+                                        _directoryController.text.isEmpty ||
+                                    _documentsDirectoryController
+                                            .text.isEmpty &&
+                                        _templatesDirectoryController
+                                            .text.isEmpty &&
+                                        _packsDirectoryController.text.isEmpty
                                 ? null
                                 : _create,
                             child: Text(AppLocalizations.of(context).create),
