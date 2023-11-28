@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 import 'dart:ui';
 
 import 'package:butterfly/api/open.dart';
@@ -353,20 +354,35 @@ class __AddRemoteDialogState extends State<_AddRemoteDialog> {
                     title: Text(AppLocalizations.of(context).syncRootDirectory),
                   ),
                 ] else ...[
-                  _DirectoryField(
-                    controller: _directoryController,
-                    label: AppLocalizations.of(context).directory,
-                    icon: const PhosphorIcon(PhosphorIconsLight.folder),
-                    readOnly: !_isRemote,
-                    onTap: _isRemote
-                        ? null
-                        : () async {
-                            final result =
-                                await FilePicker.platform.getDirectoryPath();
-                            if (result != null) {
-                              _directoryController.text = result;
-                            }
-                          },
+                  ListenableBuilder(
+                    listenable: Listenable.merge([
+                      _documentsDirectoryController,
+                      _templatesDirectoryController,
+                      _packsDirectoryController,
+                    ]),
+                    builder: (context, _) {
+                      final shouldShowPicker = !_isRemote &&
+                          (!Directory(_documentsDirectoryController.text)
+                                  .isAbsolute ||
+                              !Directory(_templatesDirectoryController.text)
+                                  .isAbsolute ||
+                              !Directory(_packsDirectoryController.text)
+                                  .isAbsolute);
+                      return _DirectoryField(
+                        controller: _directoryController,
+                        label: AppLocalizations.of(context).directory,
+                        icon: const PhosphorIcon(PhosphorIconsLight.folder),
+                        onPick: shouldShowPicker
+                            ? () async {
+                                final result = await FilePicker.platform
+                                    .getDirectoryPath();
+                                if (result != null) {
+                                  _directoryController.text = result;
+                                }
+                              }
+                            : null,
+                      );
+                    },
                   ),
                   const SizedBox(height: 8),
                   ExpansionPanelList(
@@ -379,29 +395,68 @@ class __AddRemoteDialogState extends State<_AddRemoteDialog> {
                         ),
                         canTapOnHeader: true,
                         isExpanded: _advanced,
-                        body: Column(children: [
-                          _DirectoryField(
-                            controller: _documentsDirectoryController,
-                            label:
-                                AppLocalizations.of(context).documentsDirectory,
-                            icon: const PhosphorIcon(PhosphorIconsLight.file),
-                          ),
-                          const SizedBox(height: 8),
-                          _DirectoryField(
-                            controller: _templatesDirectoryController,
-                            label:
-                                AppLocalizations.of(context).templatesDirectory,
-                            icon: const PhosphorIcon(
-                                PhosphorIconsLight.fileDashed),
-                          ),
-                          const SizedBox(height: 8),
-                          _DirectoryField(
-                            controller: _packsDirectoryController,
-                            label: AppLocalizations.of(context).packsDirectory,
-                            icon:
-                                const PhosphorIcon(PhosphorIconsLight.package),
-                          ),
-                        ]),
+                        body: ListenableBuilder(
+                            listenable: _directoryController,
+                            builder: (context, _) {
+                              return Column(children: [
+                                _DirectoryField(
+                                  controller: _documentsDirectoryController,
+                                  label: AppLocalizations.of(context)
+                                      .documentsDirectory,
+                                  icon: const PhosphorIcon(
+                                      PhosphorIconsLight.file),
+                                  onPick: _directoryController.text.isEmpty
+                                      ? () async {
+                                          final result = await FilePicker
+                                              .platform
+                                              .getDirectoryPath();
+                                          if (result != null) {
+                                            _documentsDirectoryController.text =
+                                                result;
+                                          }
+                                        }
+                                      : null,
+                                ),
+                                const SizedBox(height: 8),
+                                _DirectoryField(
+                                  controller: _templatesDirectoryController,
+                                  label: AppLocalizations.of(context)
+                                      .templatesDirectory,
+                                  icon: const PhosphorIcon(
+                                      PhosphorIconsLight.fileDashed),
+                                  onPick: _directoryController.text.isEmpty
+                                      ? () async {
+                                          final result = await FilePicker
+                                              .platform
+                                              .getDirectoryPath();
+                                          if (result != null) {
+                                            _templatesDirectoryController.text =
+                                                result;
+                                          }
+                                        }
+                                      : null,
+                                ),
+                                const SizedBox(height: 8),
+                                _DirectoryField(
+                                  controller: _packsDirectoryController,
+                                  label: AppLocalizations.of(context)
+                                      .packsDirectory,
+                                  icon: const PhosphorIcon(
+                                      PhosphorIconsLight.package),
+                                  onPick: _packsDirectoryController.text.isEmpty
+                                      ? () async {
+                                          final result = await FilePicker
+                                              .platform
+                                              .getDirectoryPath();
+                                          if (result != null) {
+                                            _documentsDirectoryController.text =
+                                                result;
+                                          }
+                                        }
+                                      : null,
+                                ),
+                              ]);
+                            }),
                       ),
                     ],
                   ),
@@ -446,14 +501,12 @@ class _DirectoryField extends StatelessWidget {
   final TextEditingController? controller;
   final String? label;
   final Widget? icon;
-  final VoidCallback? onTap;
-  final bool readOnly;
+  final VoidCallback? onPick;
 
   const _DirectoryField({
     this.controller,
     this.label,
-    this.onTap,
-    this.readOnly = false,
+    this.onPick,
     this.icon,
   });
 
@@ -461,16 +514,17 @@ class _DirectoryField extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextField(
       controller: controller,
-      readOnly: readOnly,
       decoration: InputDecoration(
         labelText: label,
         icon: icon,
         filled: true,
-        /*suffixIcon: IconButton(
-            icon: PhosphorIcon(PhosphorIconsLight.folder),
-            onPressed: () async {}),*/
+        suffixIcon: onPick == null
+            ? null
+            : IconButton(
+                icon: const PhosphorIcon(PhosphorIconsLight.folder),
+                onPressed: onPick,
+              ),
       ),
-      onTap: onTap,
     );
   }
 }

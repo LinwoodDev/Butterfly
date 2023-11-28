@@ -108,7 +108,7 @@ class IODocumentFileSystem extends DocumentFileSystem {
 
   @override
   FutureOr<String> getDirectory() async {
-    if (root != null) {
+    if (root?.isNotEmpty ?? false) {
       return root!;
     }
     var path = await getButterflyDirectory();

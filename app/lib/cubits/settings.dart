@@ -89,34 +89,40 @@ mixin RemoteStorage {
     );
   }
 
-  Uri buildDocumentsUri({
+  Uri? buildDocumentsUri({
     List<String> path = const [],
     Map<String, String> query = const {},
   }) {
-    return buildUri(
-      path: [...fullDocumentsPath.split('/'), ...path],
-      query: query,
-    );
+    return fullDocumentsPath.isEmpty
+        ? null
+        : buildUri(
+            path: [...fullDocumentsPath.split('/'), ...path],
+            query: query,
+          );
   }
 
-  Uri buildTemplatesUri({
+  Uri? buildTemplatesUri({
     List<String> path = const [],
     Map<String, String> query = const {},
   }) {
-    return buildUri(
-      path: [...fullTemplatesPath.split('/'), ...path],
-      query: query,
-    );
+    return fullTemplatesPath.isEmpty
+        ? null
+        : buildUri(
+            path: [...fullTemplatesPath.split('/'), ...path],
+            query: query,
+          );
   }
 
-  Uri buildPacksUri({
+  Uri? buildPacksUri({
     List<String> path = const [],
     Map<String, String> query = const {},
   }) {
-    return buildUri(
-      path: [...fullPacksPath.split('/'), ...path],
-      query: query,
-    );
+    return fullPacksPath.isEmpty
+        ? null
+        : buildUri(
+            path: [...fullPacksPath.split('/'), ...path],
+            query: query,
+          );
   }
 
   bool hasDocumentCached(String name);
@@ -170,20 +176,20 @@ class ExternalStorage with _$ExternalStorage {
   const ExternalStorage._();
 
   String get fullDocumentsPath => documentsPath.isEmpty
-      ? path
-      : path.endsWith('/')
+      ? ''
+      : path.endsWith('/') || path.isEmpty
           ? '$path$documentsPath'
           : '$path/$documentsPath';
 
   String get fullTemplatesPath => templatesPath.isEmpty
-      ? path
-      : path.endsWith('/')
+      ? ''
+      : path.endsWith('/') || path.isEmpty
           ? '$path$templatesPath'
           : '$path/$templatesPath';
 
   String get fullPacksPath => packsPath.isEmpty
-      ? path
-      : path.endsWith('/')
+      ? ''
+      : path.endsWith('/') || path.isEmpty
           ? '$path$packsPath'
           : '$path/$packsPath';
 

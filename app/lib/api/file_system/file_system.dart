@@ -54,9 +54,7 @@ abstract class GeneralFileSystem {
     return '$root/$relativePath';
   }
 
-  FutureOr<String> getDirectory() {
-    return '/';
-  }
+  FutureOr<String> getDirectory() => '/';
 }
 
 (FileMetadata?, Uint8List?) _getFileDisplay(List<int> data) {

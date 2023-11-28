@@ -1,3 +1,4 @@
 * Add files action to file navigator
+* Add function to disable certain directory in local storage
 
 View all changes in the blog: https://linwood.dev/butterfly/2.0.0-rc.0
