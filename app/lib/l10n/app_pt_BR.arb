@@ -568,6 +568,6 @@
   "experiments": "Experimentos",
   "address": "Endereço",
   "spreadToPages": "Espalhar em páginas",
-  "rootDirectorySpecifiedDescription": "The root directory is specified. All advanced directory paths will be relative to this directory. Keep it empty to disable this directory type.",
-  "rootDirectoryNotSpecifiedDescription": "The root directory is not specified. A name is required. All advanced directory paths will be absolute. Keep it empty to disable this directory type."
+  "rootDirectorySpecifiedDescription": "O diretório raiz é especificado. Todos os caminhos avançados do diretório serão relativos a este diretório. Mantenha-o vazio para desativar este tipo de diretório.",
+  "rootDirectoryNotSpecifiedDescription": "O diretório raiz não foi especificado. Um nome é necessário. Todos os caminhos de diretório avançados serão absolutos. Mantenha vazio para desativar este tipo de diretório."
 }
