@@ -568,6 +568,6 @@
   "experiments": "Experiment",
   "address": "Adress",
   "spreadToPages": "Sprid till sidor",
-  "rootDirectorySpecifiedDescription": "The root directory is specified. All advanced directory paths will be relative to this directory. Keep it empty to disable this directory type.",
-  "rootDirectoryNotSpecifiedDescription": "The root directory is not specified. A name is required. All advanced directory paths will be absolute. Keep it empty to disable this directory type."
+  "rootDirectorySpecifiedDescription": "Rotkatalogen är angiven. Alla avancerade katalogvägar kommer att vara relativa till denna katalog. Håll den tom för att inaktivera denna katalogtyp.",
+  "rootDirectoryNotSpecifiedDescription": "Rotkatalogen är inte angiven. Ett namn krävs. Alla avancerade katalogsökvägar kommer att vara absolut. Håll den tom för att inaktivera denna katalogtyp."
 }
