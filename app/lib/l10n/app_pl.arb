@@ -568,6 +568,6 @@
   "experiments": "Eksperymenty",
   "address": "Adres",
   "spreadToPages": "Rozpowszechnij na strony",
-  "rootDirectorySpecifiedDescription": "The root directory is specified. All advanced directory paths will be relative to this directory. Keep it empty to disable this directory type.",
-  "rootDirectoryNotSpecifiedDescription": "The root directory is not specified. A name is required. All advanced directory paths will be absolute. Keep it empty to disable this directory type."
+  "rootDirectorySpecifiedDescription": "Katalog główny jest określony. Wszystkie zaawansowane ścieżki katalogu będą relatywne do tego katalogu. Pozostaw puste, aby wyłączyć ten typ katalogu.",
+  "rootDirectoryNotSpecifiedDescription": "Katalog główny nie jest określony. Nazwa jest wymagana. Wszystkie zaawansowane ścieżki katalogu będą bezwzględne. Pozostaw puste, aby wyłączyć ten typ katalogu."
 }
