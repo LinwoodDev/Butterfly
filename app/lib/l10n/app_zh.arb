@@ -568,6 +568,6 @@
   "experiments": "实验",
   "address": "地址",
   "spreadToPages": "扩展到页面",
-  "rootDirectorySpecifiedDescription": "The root directory is specified. All advanced directory paths will be relative to this directory. Keep it empty to disable this directory type.",
-  "rootDirectoryNotSpecifiedDescription": "The root directory is not specified. A name is required. All advanced directory paths will be absolute. Keep it empty to disable this directory type."
+  "rootDirectorySpecifiedDescription": "已指定根目录。所有高级目录路径将与此目录相对。保持空白以禁用此目录类型。",
+  "rootDirectoryNotSpecifiedDescription": "未指定根目录。需要名称。所有高级目录路径将是绝对路径。保留空白以禁用此目录类型。"
 }
