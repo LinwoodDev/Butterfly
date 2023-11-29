@@ -568,6 +568,6 @@
   "experiments": "Experimenten",
   "address": "Adres:",
   "spreadToPages": "Verspreid naar pagina's",
-  "rootDirectorySpecifiedDescription": "The root directory is specified. All advanced directory paths will be relative to this directory. Keep it empty to disable this directory type.",
-  "rootDirectoryNotSpecifiedDescription": "The root directory is not specified. A name is required. All advanced directory paths will be absolute. Keep it empty to disable this directory type."
+  "rootDirectorySpecifiedDescription": "De hoofdmap is opgegeven. Alle geavanceerde mappen zullen relatief zijn ten opzichte van deze map. Laat het leeg om dit maptype uit te schakelen.",
+  "rootDirectoryNotSpecifiedDescription": "De hoofdmap is niet opgegeven. Een naam is vereist. Alle geavanceerde directory paden zullen absoluut zijn. Leeg houden om dit type map uit te schakelen."
 }
