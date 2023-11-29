@@ -30,6 +30,12 @@ class AddDialog extends StatelessWidget {
       final background =
           state.page.backgrounds.firstOrNull?.defaultColor ?? kColorWhite;
       final defaultTool = updateToolDefaultColor(tool, background);
+      currentIndexCubit.changeTool(
+        bloc,
+        state.info.tools.length,
+        Handler.fromTool(tool),
+        true,
+      );
       bloc.add(ToolCreated(defaultTool));
       Navigator.of(context).pop();
     }

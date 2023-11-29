@@ -2,5 +2,6 @@
 * Add function to disable certain directory in local storage
 * Add name to local storage
 * Add extra properties for models to implement further import/export features
+* Fix changing current tool when adding in collaboration mode
 
 View all changes in the blog: https://linwood.dev/butterfly/2.0.0-rc.0
