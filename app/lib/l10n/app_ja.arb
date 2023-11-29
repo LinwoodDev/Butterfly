@@ -568,6 +568,6 @@
   "experiments": "実験",
   "address": "住所",
   "spreadToPages": "ページにスプレッド",
-  "rootDirectorySpecifiedDescription": "The root directory is specified. All advanced directory paths will be relative to this directory. Keep it empty to disable this directory type.",
-  "rootDirectoryNotSpecifiedDescription": "The root directory is not specified. A name is required. All advanced directory paths will be absolute. Keep it empty to disable this directory type."
+  "rootDirectorySpecifiedDescription": "ルートディレクトリが指定されています。すべての高度なディレクトリパスはこのディレクトリからの相対パスになります。このディレクトリタイプを無効にするには空のままにしてください。",
+  "rootDirectoryNotSpecifiedDescription": "ルートディレクトリが指定されていません。名前は必須です。すべての高度なディレクトリパスは絶対的です。このディレクトリタイプを無効にするには空にしてください。"
 }
