@@ -568,6 +568,6 @@
   "experiments": "Эксперимент",
   "address": "Адрес",
   "spreadToPages": "Распространять на страницы",
-  "rootDirectorySpecifiedDescription": "The root directory is specified. All advanced directory paths will be relative to this directory. Keep it empty to disable this directory type.",
-  "rootDirectoryNotSpecifiedDescription": "The root directory is not specified. A name is required. All advanced directory paths will be absolute. Keep it empty to disable this directory type."
+  "rootDirectorySpecifiedDescription": "Указан корневой каталог. Все дополнительные пути будут относительно этой директории. Оставьте пустым, чтобы отключить этот тип каталога.",
+  "rootDirectoryNotSpecifiedDescription": "Корневой каталог не указан. Имя обязательно. Все расширенные пути будут абсолютными. Оставьте пустым, чтобы отключить этот тип директории."
 }
