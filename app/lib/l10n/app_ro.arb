@@ -568,6 +568,6 @@
   "experiments": "Experimente",
   "address": "Adresa",
   "spreadToPages": "Răspândește la pagini",
-  "rootDirectorySpecifiedDescription": "The root directory is specified. All advanced directory paths will be relative to this directory. Keep it empty to disable this directory type.",
-  "rootDirectoryNotSpecifiedDescription": "The root directory is not specified. A name is required. All advanced directory paths will be absolute. Keep it empty to disable this directory type."
+  "rootDirectorySpecifiedDescription": "Directorul rădăcină este specificat. Toate directoarele avansate vor fi relative la acest director. Păstrați-l gol pentru a dezactiva acest tip de directoriu.",
+  "rootDirectoryNotSpecifiedDescription": "Directorul rădăcină nu este specificat. Este necesar un nume. Toate directoarele avansate vor fi absolute. Păstrați gol pentru a dezactiva acest tip de director."
 }
