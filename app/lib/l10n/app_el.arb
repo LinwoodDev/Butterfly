@@ -568,6 +568,6 @@
   "experiments": "Πειράματα",
   "address": "Διεύθυνση",
   "spreadToPages": "Διαδώστε στις σελίδες",
-  "rootDirectorySpecifiedDescription": "The root directory is specified. All advanced directory paths will be relative to this directory. Keep it empty to disable this directory type.",
-  "rootDirectoryNotSpecifiedDescription": "The root directory is not specified. A name is required. All advanced directory paths will be absolute. Keep it empty to disable this directory type."
+  "rootDirectorySpecifiedDescription": "Ο ριζικός κατάλογος έχει καθοριστεί. Όλες οι προχωρημένες διαδρομές καταλόγου θα είναι σχετικές με αυτόν τον κατάλογο. Κρατήστε τον κενό για να απενεργοποιήσετε αυτόν τον τύπο καταλόγου.",
+  "rootDirectoryNotSpecifiedDescription": "Ο ριζικός κατάλογος δεν έχει καθοριστεί. Απαιτείται ένα όνομα. Όλες οι προχωρημένες διαδρομές καταλόγου θα είναι απόλυτες. Κρατήστε το κενό για να απενεργοποιήσετε αυτόν τον τύπο καταλόγου."
 }
