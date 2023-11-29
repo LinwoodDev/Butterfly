@@ -568,6 +568,6 @@
   "experiments": "Kokeet",
   "address": "Osoite",
   "spreadToPages": "Levitä sivuille",
-  "rootDirectorySpecifiedDescription": "The root directory is specified. All advanced directory paths will be relative to this directory. Keep it empty to disable this directory type.",
-  "rootDirectoryNotSpecifiedDescription": "The root directory is not specified. A name is required. All advanced directory paths will be absolute. Keep it empty to disable this directory type."
+  "rootDirectorySpecifiedDescription": "Juurihakemisto on määritetty. Kaikki kehittyneet hakemistopolut ovat suhteellisia tähän hakemistoon. Pidä se tyhjänä, jos haluat poistaa tämän hakemiston tyypin.",
+  "rootDirectoryNotSpecifiedDescription": "Juurihakemistoa ei ole määritelty. Nimi vaaditaan. Kaikki kehittyneet hakemistopolut ovat absoluuttisia. Pidä se tyhjänä, jos haluat poistaa tämän hakemistotyypin."
 }
