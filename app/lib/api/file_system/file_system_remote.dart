@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 import 'dart:io';
 import 'dart:typed_data';
 
@@ -57,10 +58,50 @@ class SyncFile {
 mixin RemoteSystem {
   RemoteStorage get remote;
 
+  final client = HttpClient();
+
+  Future<HttpClientResponse?> createRequest(List<String> path,
+      {String method = 'GET', String? body, List<int>? bodyBytes});
+
+  Future<HttpClientResponse?> createBaseRequest(Uri? url,
+      {String method = 'GET', List<int>? bodyBytes, String? body}) async {
+    client.badCertificateCallback =
+        (X509Certificate cert, String host, int port) =>
+            String.fromCharCodes(cert.sha1) == remote.certificateSha1;
+    if (url == null) return null;
+    final request = await client.openUrl(method, url);
+    request.headers.add('Authorization',
+        'Basic ${base64Encode(utf8.encode('${remote.username}:${await remote.getRemotePassword()}'))}');
+    if (body != null) {
+      final bytes = utf8.encode(body);
+      request.headers.add('Content-Length', bytes.length.toString());
+      request.add(bytes);
+    } else if (bodyBytes != null) {
+      request.headers.add('Content-Length', bodyBytes.length.toString());
+      request.add(bodyBytes);
+    }
+    return request.close();
+  }
+
+  Future<Uint8List> getBodyBytes(HttpClientResponse response) async {
+    return response.fold<Uint8List>(
+      Uint8List(0),
+      (Uint8List accumulator, List<int> chunk) =>
+          Uint8List.fromList(accumulator + chunk),
+    );
+  }
+
+  Future<String> getBodyString(HttpClientResponse response) async {
+    return utf8.decode(await getBodyBytes(response));
+  }
+
   Future<String> getRemoteCacheDirectory() async {
     var path = await getButterflyDirectory();
-    path = p.joinAll(
-        [...path.split('/'), 'Remotes', ...remote.identifier.split('/')]);
+    path = p.joinAll([
+      ...path.split('/'),
+      'Remotes',
+      ...remote.identifier.split(RegExp(r'(\/|:)'))
+    ]);
     return path;
   }
 
@@ -196,6 +237,12 @@ mixin RemoteSystem {
 
 abstract class DocumentRemoteSystem extends DocumentFileSystem
     with RemoteSystem {
+  @override
+  Future<HttpClientResponse?> createRequest(List<String> path,
+          {String method = 'GET', String? body, List<int>? bodyBytes}) =>
+      createBaseRequest(remote.buildDocumentsUri(path: path),
+          method: method, body: body, bodyBytes: bodyBytes);
+
   List<String> getCachedFilePaths() {
     final files = <String>[];
 
@@ -259,4 +306,21 @@ abstract class DocumentRemoteSystem extends DocumentFileSystem
       cacheContent(path, asset.data);
     }
   }
+}
+
+abstract class TemplateRemoteSystem extends TemplateFileSystem
+    with RemoteSystem {
+  @override
+  Future<HttpClientResponse?> createRequest(List<String> path,
+          {String method = 'GET', String? body, List<int>? bodyBytes}) =>
+      createBaseRequest(remote.buildTemplatesUri(path: path),
+          method: method, body: body, bodyBytes: bodyBytes);
+}
+
+abstract class PackRemoteSystem extends PackFileSystem with RemoteSystem {
+  @override
+  Future<HttpClientResponse?> createRequest(List<String> path,
+          {String method = 'GET', String? body, List<int>? bodyBytes}) =>
+      createBaseRequest(remote.buildPacksUri(path: path),
+          method: method, body: body, bodyBytes: bodyBytes);
 }

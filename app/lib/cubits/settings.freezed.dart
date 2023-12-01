@@ -44,6 +44,7 @@ mixin _$ExternalStorage {
             String name,
             String defaultTemplate,
             String username,
+            String? certificateSha1,
             String url,
             String path,
             String documentsPath,
@@ -72,6 +73,7 @@ mixin _$ExternalStorage {
             String name,
             String defaultTemplate,
             String username,
+            String? certificateSha1,
             String url,
             String path,
             String documentsPath,
@@ -100,6 +102,7 @@ mixin _$ExternalStorage {
             String name,
             String defaultTemplate,
             String username,
+            String? certificateSha1,
             String url,
             String path,
             String documentsPath,
@@ -236,6 +239,7 @@ abstract class _$$DavRemoteStorageImplCopyWith<$Res>
       {String name,
       String defaultTemplate,
       String username,
+      String? certificateSha1,
       String url,
       String path,
       String documentsPath,
@@ -261,6 +265,7 @@ class __$$DavRemoteStorageImplCopyWithImpl<$Res>
     Object? name = null,
     Object? defaultTemplate = null,
     Object? username = null,
+    Object? certificateSha1 = freezed,
     Object? url = null,
     Object? path = null,
     Object? documentsPath = null,
@@ -284,6 +289,10 @@ class __$$DavRemoteStorageImplCopyWithImpl<$Res>
           ? _value.username
           : username // ignore: cast_nullable_to_non_nullable
               as String,
+      certificateSha1: freezed == certificateSha1
+          ? _value.certificateSha1
+          : certificateSha1 // ignore: cast_nullable_to_non_nullable
+              as String?,
       url: null == url
           ? _value.url
           : url // ignore: cast_nullable_to_non_nullable
@@ -332,6 +341,7 @@ class _$DavRemoteStorageImpl extends DavRemoteStorage
       {this.name = '',
       this.defaultTemplate = '',
       this.username = '',
+      this.certificateSha1,
       this.url = '',
       this.path = '',
       this.documentsPath = '',
@@ -359,6 +369,8 @@ class _$DavRemoteStorageImpl extends DavRemoteStorage
   @override
   @JsonKey()
   final String username;
+  @override
+  final String? certificateSha1;
   @override
   @JsonKey()
   final String url;
@@ -403,7 +415,7 @@ class _$DavRemoteStorageImpl extends DavRemoteStorage
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'ExternalStorage.dav(name: $name, defaultTemplate: $defaultTemplate, username: $username, url: $url, path: $path, documentsPath: $documentsPath, templatesPath: $templatesPath, packsPath: $packsPath, cachedDocuments: $cachedDocuments, starred: $starred, icon: $icon, lastSynced: $lastSynced)';
+    return 'ExternalStorage.dav(name: $name, defaultTemplate: $defaultTemplate, username: $username, certificateSha1: $certificateSha1, url: $url, path: $path, documentsPath: $documentsPath, templatesPath: $templatesPath, packsPath: $packsPath, cachedDocuments: $cachedDocuments, starred: $starred, icon: $icon, lastSynced: $lastSynced)';
   }
 
   @override
@@ -414,6 +426,7 @@ class _$DavRemoteStorageImpl extends DavRemoteStorage
       ..add(DiagnosticsProperty('name', name))
       ..add(DiagnosticsProperty('defaultTemplate', defaultTemplate))
       ..add(DiagnosticsProperty('username', username))
+      ..add(DiagnosticsProperty('certificateSha1', certificateSha1))
       ..add(DiagnosticsProperty('url', url))
       ..add(DiagnosticsProperty('path', path))
       ..add(DiagnosticsProperty('documentsPath', documentsPath))
@@ -435,6 +448,8 @@ class _$DavRemoteStorageImpl extends DavRemoteStorage
                 other.defaultTemplate == defaultTemplate) &&
             (identical(other.username, username) ||
                 other.username == username) &&
+            (identical(other.certificateSha1, certificateSha1) ||
+                other.certificateSha1 == certificateSha1) &&
             (identical(other.url, url) || other.url == url) &&
             (identical(other.path, path) || other.path == path) &&
             (identical(other.documentsPath, documentsPath) ||
@@ -458,6 +473,7 @@ class _$DavRemoteStorageImpl extends DavRemoteStorage
       name,
       defaultTemplate,
       username,
+      certificateSha1,
       url,
       path,
       documentsPath,
@@ -482,6 +498,7 @@ class _$DavRemoteStorageImpl extends DavRemoteStorage
             String name,
             String defaultTemplate,
             String username,
+            String? certificateSha1,
             String url,
             String path,
             String documentsPath,
@@ -503,8 +520,20 @@ class _$DavRemoteStorageImpl extends DavRemoteStorage
             List<String> starred)
         local,
   }) {
-    return dav(name, defaultTemplate, username, url, path, documentsPath,
-        templatesPath, packsPath, cachedDocuments, starred, icon, lastSynced);
+    return dav(
+        name,
+        defaultTemplate,
+        username,
+        certificateSha1,
+        url,
+        path,
+        documentsPath,
+        templatesPath,
+        packsPath,
+        cachedDocuments,
+        starred,
+        icon,
+        lastSynced);
   }
 
   @override
@@ -514,6 +543,7 @@ class _$DavRemoteStorageImpl extends DavRemoteStorage
             String name,
             String defaultTemplate,
             String username,
+            String? certificateSha1,
             String url,
             String path,
             String documentsPath,
@@ -535,8 +565,20 @@ class _$DavRemoteStorageImpl extends DavRemoteStorage
             List<String> starred)?
         local,
   }) {
-    return dav?.call(name, defaultTemplate, username, url, path, documentsPath,
-        templatesPath, packsPath, cachedDocuments, starred, icon, lastSynced);
+    return dav?.call(
+        name,
+        defaultTemplate,
+        username,
+        certificateSha1,
+        url,
+        path,
+        documentsPath,
+        templatesPath,
+        packsPath,
+        cachedDocuments,
+        starred,
+        icon,
+        lastSynced);
   }
 
   @override
@@ -546,6 +588,7 @@ class _$DavRemoteStorageImpl extends DavRemoteStorage
             String name,
             String defaultTemplate,
             String username,
+            String? certificateSha1,
             String url,
             String path,
             String documentsPath,
@@ -569,8 +612,20 @@ class _$DavRemoteStorageImpl extends DavRemoteStorage
     required TResult orElse(),
   }) {
     if (dav != null) {
-      return dav(name, defaultTemplate, username, url, path, documentsPath,
-          templatesPath, packsPath, cachedDocuments, starred, icon, lastSynced);
+      return dav(
+          name,
+          defaultTemplate,
+          username,
+          certificateSha1,
+          url,
+          path,
+          documentsPath,
+          templatesPath,
+          packsPath,
+          cachedDocuments,
+          starred,
+          icon,
+          lastSynced);
     }
     return orElse();
   }
@@ -620,6 +675,7 @@ abstract class DavRemoteStorage extends ExternalStorage
       {final String name,
       final String defaultTemplate,
       final String username,
+      final String? certificateSha1,
       final String url,
       final String path,
       final String documentsPath,
@@ -639,6 +695,7 @@ abstract class DavRemoteStorage extends ExternalStorage
   @override
   String get defaultTemplate;
   String get username;
+  String? get certificateSha1;
   String get url;
   @override
   String get path;
@@ -855,6 +912,7 @@ class _$LocalStorageImpl extends LocalStorage with DiagnosticableTreeMixin {
             String name,
             String defaultTemplate,
             String username,
+            String? certificateSha1,
             String url,
             String path,
             String documentsPath,
@@ -887,6 +945,7 @@ class _$LocalStorageImpl extends LocalStorage with DiagnosticableTreeMixin {
             String name,
             String defaultTemplate,
             String username,
+            String? certificateSha1,
             String url,
             String path,
             String documentsPath,
@@ -919,6 +978,7 @@ class _$LocalStorageImpl extends LocalStorage with DiagnosticableTreeMixin {
             String name,
             String defaultTemplate,
             String username,
+            String? certificateSha1,
             String url,
             String path,
             String documentsPath,

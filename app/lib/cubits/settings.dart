@@ -50,6 +50,7 @@ enum PlatformTheme {
 mixin RemoteStorage {
   String get defaultTemplate;
   String get username;
+  String? get certificateSha1;
   String get url;
   String get path;
   String get documentsPath;
@@ -126,6 +127,8 @@ mixin RemoteStorage {
   }
 
   bool hasDocumentCached(String name);
+
+  Future<String?> getRemotePassword();
 }
 
 enum ExternalStorageType {
@@ -150,6 +153,7 @@ class ExternalStorage with _$ExternalStorage {
     @Default('') String name,
     @Default('') String defaultTemplate,
     @Default('') String username,
+    String? certificateSha1,
     @Default('') String url,
     @Default('') String path,
     @Default('') String documentsPath,

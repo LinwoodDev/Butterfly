@@ -149,7 +149,11 @@
         },
         onEntrypointLoaded: function(engineInitializer) {
           engineInitializer.initializeEngine().then(function(appRunner) {
-            appRunner.runApp();
+            return appRunner.runApp();
+          }).then(function (app) {
+            window.setTimeout(function () {
+              removeSplashFromWeb();
+            }, 200);
           });
         }
       });
