@@ -569,5 +569,16 @@
   "address": "Endereço",
   "spreadToPages": "Espalhar em páginas",
   "rootDirectorySpecifiedDescription": "O diretório raiz é especificado. Todos os caminhos avançados do diretório serão relativos a este diretório. Mantenha-o vazio para desativar este tipo de diretório.",
-  "rootDirectoryNotSpecifiedDescription": "O diretório raiz não foi especificado. Um nome é necessário. Todos os caminhos de diretório avançados serão absolutos. Mantenha vazio para desativar este tipo de diretório."
+  "rootDirectoryNotSpecifiedDescription": "O diretório raiz não foi especificado. Um nome é necessário. Todos os caminhos de diretório avançados serão absolutos. Mantenha vazio para desativar este tipo de diretório.",
+  "unsecureConnectionTitle": "Conexão insegura",
+  "unsecureConnectionMessage": "A conexão não é segura. Isto pode ser um risco à segurança. Por favor, só continue se confiar na conexão. A impressão digital sha1 é {fingerprint}.",
+  "@unsecureConnectionMessage": {
+    "placeholders": {
+      "fingerprint": {
+        "type": "String",
+        "example": "fingerprint"
+      }
+    }
+  },
+  "continueAnyway": "Continuar mesmo assim"
 }
