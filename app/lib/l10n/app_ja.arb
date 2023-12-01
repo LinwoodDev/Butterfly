@@ -569,5 +569,16 @@
   "address": "住所",
   "spreadToPages": "ページにスプレッド",
   "rootDirectorySpecifiedDescription": "ルートディレクトリが指定されています。すべての高度なディレクトリパスはこのディレクトリからの相対パスになります。このディレクトリタイプを無効にするには空のままにしてください。",
-  "rootDirectoryNotSpecifiedDescription": "ルートディレクトリが指定されていません。名前は必須です。すべての高度なディレクトリパスは絶対的です。このディレクトリタイプを無効にするには空にしてください。"
+  "rootDirectoryNotSpecifiedDescription": "ルートディレクトリが指定されていません。名前は必須です。すべての高度なディレクトリパスは絶対的です。このディレクトリタイプを無効にするには空にしてください。",
+  "unsecureConnectionTitle": "セキュアでない接続",
+  "unsecureConnectionMessage": "接続が安全ではありません。これはセキュリティ上のリスクがあります。接続を信頼している場合にのみ続けてください。sha1 指紋は {fingerprint} です。",
+  "@unsecureConnectionMessage": {
+    "placeholders": {
+      "fingerprint": {
+        "type": "String",
+        "example": "fingerprint"
+      }
+    }
+  },
+  "continueAnyway": "それでも続ける"
 }
