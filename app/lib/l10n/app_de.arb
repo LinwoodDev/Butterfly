@@ -569,5 +569,16 @@
   "address": "Adresse",
   "spreadToPages": "Auf Seiten verteilen",
   "rootDirectorySpecifiedDescription": "Das Wurzelverzeichnis ist spezifiziert. Alle erweiterten Verzeichnispfade sind relativ zu diesem Verzeichnis. Leer lassen um diesen Verzeichnistyp zu deaktivieren.",
-  "rootDirectoryNotSpecifiedDescription": "Das Wurzelverzeichnis ist nicht spezifiziert. Ein Name ist erforderlich. Alle erweiterten Verzeichnispfade sind absolut. Lassen Sie es leer, um diesen Verzeichnistyp zu deaktivieren."
+  "rootDirectoryNotSpecifiedDescription": "Das Wurzelverzeichnis ist nicht spezifiziert. Ein Name ist erforderlich. Alle erweiterten Verzeichnispfade sind absolut. Lassen Sie es leer, um diesen Verzeichnistyp zu deaktivieren.",
+  "unsecureConnectionTitle": "Unsichere Verbindung",
+  "unsecureConnectionMessage": "Die Verbindung ist nicht sicher. Dies kann ein Sicherheitsrisiko sein. Bitte fahren Sie nur fort, wenn Sie der Verbindung vertrauen. Der sha1-Fingerabdruck ist {fingerprint}.",
+  "@unsecureConnectionMessage": {
+    "placeholders": {
+      "fingerprint": {
+        "type": "String",
+        "example": "fingerprint"
+      }
+    }
+  },
+  "continueAnyway": "Trotzdem fortfahren"
 }
