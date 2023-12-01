@@ -569,5 +569,16 @@
   "address": "地址",
   "spreadToPages": "扩展到页面",
   "rootDirectorySpecifiedDescription": "已指定根目录。所有高级目录路径将与此目录相对。保持空白以禁用此目录类型。",
-  "rootDirectoryNotSpecifiedDescription": "未指定根目录。需要名称。所有高级目录路径将是绝对路径。保留空白以禁用此目录类型。"
+  "rootDirectoryNotSpecifiedDescription": "未指定根目录。需要名称。所有高级目录路径将是绝对路径。保留空白以禁用此目录类型。",
+  "unsecureConnectionTitle": "不安全的连接",
+  "unsecureConnectionMessage": "The connection is not secure. This can be a security risk. Please only continue if you trust the connection. The sha1 fingerprint is {fingerprint}.",
+  "@unsecureConnectionMessage": {
+    "placeholders": {
+      "fingerprint": {
+        "type": "String",
+        "example": "fingerprint"
+      }
+    }
+  },
+  "continueAnyway": "仍然继续"
 }
