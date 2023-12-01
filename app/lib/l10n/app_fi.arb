@@ -569,5 +569,16 @@
   "address": "Osoite",
   "spreadToPages": "Levitä sivuille",
   "rootDirectorySpecifiedDescription": "Juurihakemisto on määritetty. Kaikki kehittyneet hakemistopolut ovat suhteellisia tähän hakemistoon. Pidä se tyhjänä, jos haluat poistaa tämän hakemiston tyypin.",
-  "rootDirectoryNotSpecifiedDescription": "Juurihakemistoa ei ole määritelty. Nimi vaaditaan. Kaikki kehittyneet hakemistopolut ovat absoluuttisia. Pidä se tyhjänä, jos haluat poistaa tämän hakemistotyypin."
+  "rootDirectoryNotSpecifiedDescription": "Juurihakemistoa ei ole määritelty. Nimi vaaditaan. Kaikki kehittyneet hakemistopolut ovat absoluuttisia. Pidä se tyhjänä, jos haluat poistaa tämän hakemistotyypin.",
+  "unsecureConnectionTitle": "Epäturvallinen yhteys",
+  "unsecureConnectionMessage": "Yhteys ei ole suojattu. Tämä voi olla turvallisuusriski. Jatka vain, jos luotat yhteyteen. Sha1 sormenjälki on {fingerprint}.",
+  "@unsecureConnectionMessage": {
+    "placeholders": {
+      "fingerprint": {
+        "type": "String",
+        "example": "fingerprint"
+      }
+    }
+  },
+  "continueAnyway": "Jatka joka tapauksessa"
 }
