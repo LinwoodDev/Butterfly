@@ -2,6 +2,7 @@
 * Add function to disable certain directory in local storage
 * Add name to local storage
 * Add extra properties for models to implement further import/export features
+* Add option to connect to a self-signed server ([#531](https://github.com/LinwoodDev/Butterfly/issues/531))
 * Improve web loading experience
 * Fix changing current tool when adding in collaboration mode
 

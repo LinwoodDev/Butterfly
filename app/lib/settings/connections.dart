@@ -126,6 +126,21 @@ class ConnectionsSettingsPage extends StatelessWidget {
   }
 }
 
+String _formatSha1Uint8List(Uint8List sha1Bytes) {
+  // Convert Uint8List to List<int>
+  List<int> byteList = sha1Bytes.toList();
+
+  // Convert each byte to its hexadecimal representation
+  List<String> hexStrings = byteList
+      .map((byte) => byte.toRadixString(16).toUpperCase().padLeft(2, '0'))
+      .toList();
+
+  // Join the hexadecimal strings with colons
+  String formattedSha1 = hexStrings.join(':');
+
+  return formattedSha1;
+}
+
 class _AddRemoteDialog extends StatefulWidget {
   final ExternalStorageType type;
 
@@ -171,8 +186,8 @@ class __AddRemoteDialogState extends State<_AddRemoteDialog> {
         context: context,
         builder: (context) => AlertDialog(
           title: Text(AppLocalizations.of(context).unsecureConnectionTitle),
-          content: Text(
-              AppLocalizations.of(context).unsecureConnectionMessage(sha1)),
+          content: Text(AppLocalizations.of(context)
+              .unsecureConnectionMessage(_formatSha1Uint8List(cert.sha1))),
           actions: [
             TextButton(
               onPressed: () {
@@ -182,7 +197,7 @@ class __AddRemoteDialogState extends State<_AddRemoteDialog> {
               },
               child: Text(AppLocalizations.of(context).continueAnyway),
             ),
-            TextButton(
+            ElevatedButton(
               onPressed: () => Navigator.pop(context),
               child: Text(AppLocalizations.of(context).cancel),
             ),
