@@ -69,16 +69,24 @@ class DavRemoteDocumentFileSystem extends DocumentRemoteSystem {
     var response = await createRequest(path.split('/'), method: 'PROPFIND');
     final fileName = remote.buildDocumentsUri(path: path.split('/'))?.path;
     final rootDirectory = remote.buildDocumentsUri();
+    if (response == null) {
+      yield null;
+      return;
+    }
+    var content = await getBodyString(response);
+    if (response.statusCode == 404 && path.isEmpty) {
+      await createRequest([], method: 'MKCOL');
+      response = await createRequest(path.split('/'), method: 'PROPFIND');
+    }
     if (response?.statusCode != 207 ||
         fileName == null ||
         rootDirectory == null) {
       yield null;
       return;
     }
-    var content = await getBodyString(response!);
     final xml = XmlDocument.parse(content);
     final currentElement = xml.findAllElements('d:response').where((element) {
-      final current = element.getElement('d:href')?.value;
+      final current = element.getElement('d:href')?.innerText;
       return current == fileName || current == '$fileName/';
     }).first;
     final resourceType = currentElement
@@ -92,10 +100,10 @@ class DavRemoteDocumentFileSystem extends DocumentRemoteSystem {
       final assets = await Future.wait(xml
           .findAllElements('d:response')
           .where((element) =>
-              element.getElement('d:href')?.value?.startsWith(fileName) ??
+              element.getElement('d:href')?.innerText.startsWith(fileName) ??
               false)
           .where((element) {
-        final current = element.getElement('d:href')?.value;
+        final current = element.getElement('d:href')?.innerText;
         return current != fileName && current != '$fileName/';
       }).map((e) async {
         final currentResourceType = e
@@ -106,11 +114,10 @@ class DavRemoteDocumentFileSystem extends DocumentRemoteSystem {
             .findElements('d:resourcetype')
             .first;
         var path = e
-                .findElements('d:href')
-                .first
-                .value
-                ?.substring(rootDirectory.path.length) ??
-            '';
+            .findElements('d:href')
+            .first
+            .innerText
+            .substring(rootDirectory.path.length);
         if (path.endsWith('/')) {
           path = path.substring(0, path.length - 1);
         }
@@ -122,8 +129,14 @@ class DavRemoteDocumentFileSystem extends DocumentRemoteSystem {
           return AppDocumentEntity.directory(
               AssetLocation(remote: remote.identifier, path: path), const []);
         } else {
+          final dataResponse =
+              await createRequest(path.split('/'), method: 'GET');
+          var fileContent = dataResponse == null
+              ? const <int>[]
+              : await getBodyBytes(dataResponse);
           return getAppDocumentFile(
-              AssetLocation(remote: remote.identifier, path: path), const []);
+              AssetLocation(remote: remote.identifier, path: path),
+              fileContent);
         }
       }).toList());
       yield AppDocumentEntity.directory(
@@ -131,10 +144,14 @@ class DavRemoteDocumentFileSystem extends DocumentRemoteSystem {
       return;
     }
     response = await createRequest(path.split('/'), method: 'GET');
-    if (response?.statusCode != 200) {
-      throw Exception('Failed to get asset: ${response?.statusCode}');
+    if (response == null) {
+      yield null;
+      return;
     }
-    var fileContent = await getBodyBytes(response!);
+    var fileContent = await getBodyBytes(response);
+    if (response.statusCode != 200) {
+      throw Exception('Failed to get asset: ${response.statusCode}');
+    }
     yield await getAppDocumentFile(
         AssetLocation(remote: remote.identifier, path: path), fileContent);
   }
@@ -156,7 +173,7 @@ class DavRemoteDocumentFileSystem extends DocumentRemoteSystem {
         .firstOrNull
         ?.findElements('d:getlastmodified')
         .firstOrNull
-        ?.value;
+        ?.innerText;
     if (lastModified == null) {
       return null;
     }
@@ -177,8 +194,12 @@ class DavRemoteDocumentFileSystem extends DocumentRemoteSystem {
     if (!forceSync && remote.hasDocumentCached(path)) {
       cacheContent(path, data);
     }
+    var last = path.lastIndexOf('/');
+    if (last == -1) {
+      last = path.length;
+    }
     // Create directory if not exists
-    final directoryPath = path.substring(0, path.lastIndexOf('/'));
+    final directoryPath = path.substring(0, last);
     if (!await hasAsset(directoryPath)) {
       await createDirectory(directoryPath);
     }
@@ -289,9 +310,9 @@ class DavRemoteTemplateFileSystem extends TemplateRemoteSystem {
       clearCachedContent();
       return (await Future.wait(xml
               .findAllElements('d:href')
-              .where((element) => element.value?.endsWith('.bfly') ?? false)
+              .where((element) => element.innerText.endsWith('.bfly'))
               .map((e) {
-        var path = e.value!.substring(rootDirectory.path.length);
+        var path = e.innerText.substring(rootDirectory.path.length);
         path = Uri.decodeComponent(path);
         return getTemplate(path);
       })))
@@ -382,9 +403,9 @@ class DavRemotePackFileSystem extends PackRemoteSystem {
       clearCachedContent();
       return (await Future.wait(xml
               .findAllElements('d:href')
-              .where((element) => element.value?.endsWith('.bfly') ?? false)
+              .where((element) => element.innerText.endsWith('.bfly'))
               .map((e) {
-        var path = e.value!.substring(rootDirectory.path.length);
+        var path = e.innerText.substring(rootDirectory.path.length);
         path = Uri.decodeComponent(path);
         return getPack(path);
       })))

@@ -566,7 +566,10 @@ class __AddRemoteDialogState extends State<_AddRemoteDialog> {
                 TextButton(
                   onPressed: () {
                     if (_isConnected && _isRemote) {
-                      setState(() => _isConnected = false);
+                      setState(() {
+                        _isConnected = false;
+                        _certificateSha1 = null;
+                      });
                       return;
                     }
                     Navigator.of(context).pop();

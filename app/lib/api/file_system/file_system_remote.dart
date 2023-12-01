@@ -70,22 +70,25 @@ mixin RemoteSystem {
             String.fromCharCodes(cert.sha1) == remote.certificateSha1;
     if (url == null) return null;
     final request = await client.openUrl(method, url);
-    if (body != null) {
-      request.write(body);
-    } else if (bodyBytes != null) {
-      request.add(bodyBytes);
-    }
     request.headers.add('Authorization',
         'Basic ${base64Encode(utf8.encode('${remote.username}:${await remote.getRemotePassword()}'))}');
+    if (body != null) {
+      final bytes = utf8.encode(body);
+      request.headers.add('Content-Length', bytes.length.toString());
+      request.add(bytes);
+    } else if (bodyBytes != null) {
+      request.headers.add('Content-Length', bodyBytes.length.toString());
+      request.add(bodyBytes);
+    }
     return request.close();
   }
 
   Future<Uint8List> getBodyBytes(HttpClientResponse response) async {
-    final buffer = BytesBuilder();
-    await for (var data in response) {
-      buffer.add(data);
-    }
-    return buffer.toBytes();
+    return response.fold<Uint8List>(
+      Uint8List(0),
+      (Uint8List accumulator, List<int> chunk) =>
+          Uint8List.fromList(accumulator + chunk),
+    );
   }
 
   Future<String> getBodyString(HttpClientResponse response) async {
@@ -94,8 +97,11 @@ mixin RemoteSystem {
 
   Future<String> getRemoteCacheDirectory() async {
     var path = await getButterflyDirectory();
-    path = p.joinAll(
-        [...path.split('/'), 'Remotes', ...remote.identifier.split('/')]);
+    path = p.joinAll([
+      ...path.split('/'),
+      'Remotes',
+      ...remote.identifier.split(RegExp(r'(\/|:)'))
+    ]);
     return path;
   }
 
