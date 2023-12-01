@@ -569,5 +569,16 @@
   "address": "Address",
   "spreadToPages": "Spread to pages",
   "rootDirectorySpecifiedDescription": "The root directory is specified. All advanced directory paths will be relative to this directory. Keep it empty to disable this directory type.",
-  "rootDirectoryNotSpecifiedDescription": "The root directory is not specified. A name is required. All advanced directory paths will be absolute. Keep it empty to disable this directory type."
+  "rootDirectoryNotSpecifiedDescription": "The root directory is not specified. A name is required. All advanced directory paths will be absolute. Keep it empty to disable this directory type.",
+  "unsecureConnectionTitle": "Unsecure connection",
+  "unsecureConnectionMessage": "The connection is not secure. This can be a security risk. Please only continue if you trust the connection. The sha1 fingerprint is {fingerprint}.",
+  "@unsecureConnectionMessage": {
+    "placeholders": {
+      "fingerprint": {
+        "type": "String",
+        "example": "fingerprint"
+      }
+    }
+  },
+  "continueAnyway": "Continue anyway"
 }
