@@ -569,5 +569,16 @@
   "address": "Διεύθυνση",
   "spreadToPages": "Διαδώστε στις σελίδες",
   "rootDirectorySpecifiedDescription": "Ο ριζικός κατάλογος έχει καθοριστεί. Όλες οι προχωρημένες διαδρομές καταλόγου θα είναι σχετικές με αυτόν τον κατάλογο. Κρατήστε τον κενό για να απενεργοποιήσετε αυτόν τον τύπο καταλόγου.",
-  "rootDirectoryNotSpecifiedDescription": "Ο ριζικός κατάλογος δεν έχει καθοριστεί. Απαιτείται ένα όνομα. Όλες οι προχωρημένες διαδρομές καταλόγου θα είναι απόλυτες. Κρατήστε το κενό για να απενεργοποιήσετε αυτόν τον τύπο καταλόγου."
+  "rootDirectoryNotSpecifiedDescription": "Ο ριζικός κατάλογος δεν έχει καθοριστεί. Απαιτείται ένα όνομα. Όλες οι προχωρημένες διαδρομές καταλόγου θα είναι απόλυτες. Κρατήστε το κενό για να απενεργοποιήσετε αυτόν τον τύπο καταλόγου.",
+  "unsecureConnectionTitle": "Μη ασφαλής σύνδεση",
+  "unsecureConnectionMessage": "The connection is not secure. This can be a security risk. Please only continue if you trust the connection. The sha1 fingerprint is {fingerprint}.",
+  "@unsecureConnectionMessage": {
+    "placeholders": {
+      "fingerprint": {
+        "type": "String",
+        "example": "fingerprint"
+      }
+    }
+  },
+  "continueAnyway": "Συνεχίστε οπωσδήποτε"
 }
