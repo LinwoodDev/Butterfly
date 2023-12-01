@@ -569,5 +569,16 @@
   "address": "Dirección",
   "spreadToPages": "Difundir en páginas",
   "rootDirectorySpecifiedDescription": "Se ha especificado el directorio raíz. Todas las rutas de directorios avanzados serán relativas a este directorio. Manténgalo vacío para desactivar este tipo de directorio.",
-  "rootDirectoryNotSpecifiedDescription": "No se ha especificado el directorio raíz. Se requiere un nombre. Todas las rutas de directorio avanzadas serán absolutas. Manténgalo vacío para desactivar este tipo de directorio."
+  "rootDirectoryNotSpecifiedDescription": "No se ha especificado el directorio raíz. Se requiere un nombre. Todas las rutas de directorio avanzadas serán absolutas. Manténgalo vacío para desactivar este tipo de directorio.",
+  "unsecureConnectionTitle": "Conexión no segura",
+  "unsecureConnectionMessage": "La conexión no es segura. Esto puede ser un riesgo de seguridad. Por favor, continúa solo si confías en la conexión. La huella dactilar sha1 es {fingerprint}.",
+  "@unsecureConnectionMessage": {
+    "placeholders": {
+      "fingerprint": {
+        "type": "String",
+        "example": "fingerprint"
+      }
+    }
+  },
+  "continueAnyway": "Continuar de todos modos"
 }
