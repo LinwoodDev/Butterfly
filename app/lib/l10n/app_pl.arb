@@ -569,5 +569,16 @@
   "address": "Adres",
   "spreadToPages": "Rozpowszechnij na strony",
   "rootDirectorySpecifiedDescription": "Katalog główny jest określony. Wszystkie zaawansowane ścieżki katalogu będą relatywne do tego katalogu. Pozostaw puste, aby wyłączyć ten typ katalogu.",
-  "rootDirectoryNotSpecifiedDescription": "Katalog główny nie jest określony. Nazwa jest wymagana. Wszystkie zaawansowane ścieżki katalogu będą bezwzględne. Pozostaw puste, aby wyłączyć ten typ katalogu."
+  "rootDirectoryNotSpecifiedDescription": "Katalog główny nie jest określony. Nazwa jest wymagana. Wszystkie zaawansowane ścieżki katalogu będą bezwzględne. Pozostaw puste, aby wyłączyć ten typ katalogu.",
+  "unsecureConnectionTitle": "Niezabezpieczone połączenie",
+  "unsecureConnectionMessage": "Połączenie nie jest bezpieczne. To może być ryzyko bezpieczeństwa. Kontynuuj tylko, jeśli ufasz połączeniu. Odcisk palca sha1 to {fingerprint}.",
+  "@unsecureConnectionMessage": {
+    "placeholders": {
+      "fingerprint": {
+        "type": "String",
+        "example": "fingerprint"
+      }
+    }
+  },
+  "continueAnyway": "Kontynuuj mimo to"
 }
