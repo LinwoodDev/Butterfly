@@ -567,5 +567,18 @@
   "users": "Utilisateurs",
   "experiments": "Expériences",
   "address": "Adresse",
-  "spreadToPages": "Diffuser vers les pages"
+  "spreadToPages": "Diffuser vers les pages",
+  "rootDirectorySpecifiedDescription": "Le répertoire racine est spécifié. Tous les répertoires avancés seront relatifs à ce répertoire. Laissez vide pour désactiver ce type de répertoire.",
+  "rootDirectoryNotSpecifiedDescription": "Le répertoire racine n'est pas spécifié. Un nom est requis. Tous les répertoires avancés seront absolus. Gardez-le vide pour désactiver ce type de répertoire.",
+  "unsecureConnectionTitle": "Connexion non sécurisée",
+  "unsecureConnectionMessage": "La connexion n'est pas sécurisée. Cela peut être un risque de sécurité. Veuillez continuer uniquement si vous faites confiance à la connexion. L'empreinte sha1 est {fingerprint}.",
+  "@unsecureConnectionMessage": {
+    "placeholders": {
+      "fingerprint": {
+        "type": "String",
+        "example": "fingerprint"
+      }
+    }
+  },
+  "continueAnyway": "Continuer quand même"
 }

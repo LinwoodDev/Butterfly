@@ -567,5 +567,18 @@
   "users": "المستخدمون",
   "experiments": "التجارب",
   "address": "العنوان",
-  "spreadToPages": "نشر إلى الصفحات"
+  "spreadToPages": "نشر إلى الصفحات",
+  "rootDirectorySpecifiedDescription": "الدليل الجذر محدد. جميع مسارات الدليل المتقدمة ستكون مرتبطة بهذا الدليل. ابقه فارغاً لتعطيل هذا النوع من الدليل.",
+  "rootDirectoryNotSpecifiedDescription": "الدليل الجذر غير محدد. الاسم مطلوب. جميع مسارات الدليل المتقدمة ستكون مطلقة. ابقه فارغاً لتعطيل هذا النوع من الدليل.",
+  "unsecureConnectionTitle": "اتصال غير آمن",
+  "unsecureConnectionMessage": "الاتصال غير آمن. يمكن أن يكون هذا خطرًا أمنيًا، يرجى المتابعة فقط إذا كنت تثق في الاتصال. بصمة الهزلية 1 هي {fingerprint}.",
+  "@unsecureConnectionMessage": {
+    "placeholders": {
+      "fingerprint": {
+        "type": "String",
+        "example": "fingerprint"
+      }
+    }
+  },
+  "continueAnyway": "المتابعة على أي حال"
 }

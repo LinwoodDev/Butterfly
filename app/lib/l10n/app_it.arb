@@ -567,5 +567,18 @@
   "users": "Utenti",
   "experiments": "Esperimenti",
   "address": "Indirizzo",
-  "spreadToPages": "Diffusione alle pagine"
+  "spreadToPages": "Diffusione alle pagine",
+  "rootDirectorySpecifiedDescription": "La directory radice è specificata. Tutti i percorsi di directory avanzati saranno relativi a questa directory. Tienila vuota per disabilitare questo tipo di directory.",
+  "rootDirectoryNotSpecifiedDescription": "La directory radice non è specificata. È richiesto un nome. Tutti i percorsi di directory avanzati saranno assoluti. Mantieni vuoto per disabilitare questo tipo di directory.",
+  "unsecureConnectionTitle": "Connessione non sicura",
+  "unsecureConnectionMessage": "The connection is not secure. This can be a security risk. Please only continue if you trust the connection. The sha1 fingerprint is {fingerprint}.",
+  "@unsecureConnectionMessage": {
+    "placeholders": {
+      "fingerprint": {
+        "type": "String",
+        "example": "fingerprint"
+      }
+    }
+  },
+  "continueAnyway": "Continua comunque"
 }

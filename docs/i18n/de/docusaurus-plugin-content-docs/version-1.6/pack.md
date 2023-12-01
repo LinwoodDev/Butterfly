@@ -1,5 +1,5 @@
 ---
-title: "Packung"
+title: "Paket"
 sidebar_position: 2
 ---
 

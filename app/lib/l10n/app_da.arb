@@ -567,5 +567,18 @@
   "users": "Brugere",
   "experiments": "Eksperimenter",
   "address": "Adresse",
-  "spreadToPages": "Spred til sider"
+  "spreadToPages": "Spred til sider",
+  "rootDirectorySpecifiedDescription": "Rodmappen er angivet. Alle avancerede mappestier vil være relativt til denne mappe. Hold den tom for at deaktivere denne mappetype.",
+  "rootDirectoryNotSpecifiedDescription": "Rodmappen er ikke angivet. Et navn er påkrævet. Alle avancerede mappestier vil være absolute. Hold det tomt for at deaktivere denne mappetype.",
+  "unsecureConnectionTitle": "Usikker forbindelse",
+  "unsecureConnectionMessage": "Forbindelsen er ikke sikker. Dette kan være en sikkerhedsrisiko. Fortsæt kun, hvis du stoler på forbindelsen. sha1 fingeraftrykket er {fingerprint}.",
+  "@unsecureConnectionMessage": {
+    "placeholders": {
+      "fingerprint": {
+        "type": "String",
+        "example": "fingerprint"
+      }
+    }
+  },
+  "continueAnyway": "Fortsæt alligevel"
 }

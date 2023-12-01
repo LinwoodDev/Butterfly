@@ -567,5 +567,18 @@
   "users": "Utilizatori",
   "experiments": "Experimente",
   "address": "Adresa",
-  "spreadToPages": "Răspândește la pagini"
+  "spreadToPages": "Răspândește la pagini",
+  "rootDirectorySpecifiedDescription": "Directorul rădăcină este specificat. Toate directoarele avansate vor fi relative la acest director. Păstrați-l gol pentru a dezactiva acest tip de directoriu.",
+  "rootDirectoryNotSpecifiedDescription": "Directorul rădăcină nu este specificat. Este necesar un nume. Toate directoarele avansate vor fi absolute. Păstrați gol pentru a dezactiva acest tip de director.",
+  "unsecureConnectionTitle": "Conexiune nesigură",
+  "unsecureConnectionMessage": "Conexiunea nu este securizată. Aceasta poate fi un risc de securitate. Vă rugăm să continuați numai dacă aveți încredere în conexiune. Amprenta sha1 este {fingerprint}.",
+  "@unsecureConnectionMessage": {
+    "placeholders": {
+      "fingerprint": {
+        "type": "String",
+        "example": "fingerprint"
+      }
+    }
+  },
+  "continueAnyway": "Continuă oricum"
 }

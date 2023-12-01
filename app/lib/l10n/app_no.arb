@@ -567,5 +567,18 @@
   "users": "Brukere",
   "experiments": "Eksperimenter",
   "address": "Adresse",
-  "spreadToPages": "Spre til sider"
+  "spreadToPages": "Spre til sider",
+  "rootDirectorySpecifiedDescription": "Rotmappen er angitt. Alle avanserte katalogbaner vil være relative til denne mappen. Behold den tom for å deaktivere denne mappen.",
+  "rootDirectoryNotSpecifiedDescription": "Rotmappen er ikke angitt. Et navn kreves. Alle avanserte katalogbaner er absolutt. Behold den tom for å deaktivere denne mappetypen.",
+  "unsecureConnectionTitle": "Usikker tilkobling",
+  "unsecureConnectionMessage": "Tilkoblingen er ikke sikker. Dette kan være en sikkerhetsrisiko. Bare fortsett hvis du stoler på tilkoblingen. Da er sha1 fingeravtrykk er {fingerprint}.",
+  "@unsecureConnectionMessage": {
+    "placeholders": {
+      "fingerprint": {
+        "type": "String",
+        "example": "fingerprint"
+      }
+    }
+  },
+  "continueAnyway": "Fortsett likevel"
 }

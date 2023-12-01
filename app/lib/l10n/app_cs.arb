@@ -567,5 +567,18 @@
   "users": "Uživatelé",
   "experiments": "Experimenty",
   "address": "Adresa",
-  "spreadToPages": "Rozšiřte na stránky"
+  "spreadToPages": "Rozšiřte na stránky",
+  "rootDirectorySpecifiedDescription": "Kořenový adresář je zadán. Všechny pokročilé cesty adresáře budou relativní k tomuto adresáři. Ponechte prázdné pro vypnutí tohoto typu adresáře.",
+  "rootDirectoryNotSpecifiedDescription": "Kořenový adresář není zadán. Je vyžadován název všech pokročilých adresářů budou absolutní. Ponechte prázdné pro vypnutí tohoto typu adresáře.",
+  "unsecureConnectionTitle": "Nebezpečné připojení",
+  "unsecureConnectionMessage": "Připojení není zabezpečené. Toto může představovat bezpečnostní riziko. Pokračujte prosím pouze pokud věříte spojení. Sdílený otisk prstu je {fingerprint}.",
+  "@unsecureConnectionMessage": {
+    "placeholders": {
+      "fingerprint": {
+        "type": "String",
+        "example": "fingerprint"
+      }
+    }
+  },
+  "continueAnyway": "Přesto pokračovat"
 }

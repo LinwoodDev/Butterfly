@@ -10,5 +10,5 @@ Mit dem Stempelwerkzeug können Sie Komponenten Ihrer Leinwand hinzufügen. Benu
 
 |     Objekt | Standard | Beschreibung                                       |
 | ----------:|:--------:|:-------------------------------------------------- |
-|    Packung |  Keine   | Das Paket, in dem sich die Komponente befindet.    |
+|      Paket |  Keine   | Das Paket, in dem sich die Komponente befindet.    |
 | Komponente |  Keine   | Die Komponente, die der Leinwand hinzugefügt wird. |

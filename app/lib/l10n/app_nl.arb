@@ -567,5 +567,18 @@
   "users": "Gebruikers",
   "experiments": "Experimenten",
   "address": "Adres:",
-  "spreadToPages": "Verspreid naar pagina's"
+  "spreadToPages": "Verspreid naar pagina's",
+  "rootDirectorySpecifiedDescription": "De hoofdmap is opgegeven. Alle geavanceerde mappen zullen relatief zijn ten opzichte van deze map. Laat het leeg om dit maptype uit te schakelen.",
+  "rootDirectoryNotSpecifiedDescription": "De hoofdmap is niet opgegeven. Een naam is vereist. Alle geavanceerde directory paden zullen absoluut zijn. Leeg houden om dit type map uit te schakelen.",
+  "unsecureConnectionTitle": "Onveilige verbinding",
+  "unsecureConnectionMessage": "De verbinding is niet beveiligd. Dit kan een beveiligingsrisico zijn. Ga alleen verder als je de verbinding vertrouwt. De sha1 vingerafdruk is {fingerprint}.",
+  "@unsecureConnectionMessage": {
+    "placeholders": {
+      "fingerprint": {
+        "type": "String",
+        "example": "fingerprint"
+      }
+    }
+  },
+  "continueAnyway": "Toch doorgaan"
 }
