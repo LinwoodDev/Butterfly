@@ -151,11 +151,47 @@ class __AddRemoteDialogState extends State<_AddRemoteDialog> {
       _syncRootDirectory = false;
 
   bool get _isRemote => widget.type != ExternalStorageType.local;
+  final HttpClient _httpClient = HttpClient();
 
   @override
   void initState() {
     super.initState();
     _isConnected = !_isRemote;
+    _httpClient.badCertificateCallback = _onBadCertificate;
+  }
+
+  String? _certificateSha1;
+  bool _badCertificate = false;
+
+  bool _onBadCertificate(X509Certificate cert, String host, int port) {
+    final sha1 = String.fromCharCodes(cert.sha1);
+    if (_certificateSha1 == null) {
+      _badCertificate = true;
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: Text(AppLocalizations.of(context).unsecureConnectionTitle),
+          content: Text(
+              AppLocalizations.of(context).unsecureConnectionMessage(sha1)),
+          actions: [
+            TextButton(
+              onPressed: () {
+                _certificateSha1 = sha1;
+                Navigator.pop(context);
+                _connect();
+              },
+              child: Text(AppLocalizations.of(context).continueAnyway),
+            ),
+            TextButton(
+              onPressed: () => Navigator.pop(context),
+              child: Text(AppLocalizations.of(context).cancel),
+            ),
+          ],
+        ),
+      );
+      return false;
+    }
+    return _certificateSha1 == sha1;
   }
 
   void _connect() async {
@@ -166,17 +202,21 @@ class __AddRemoteDialogState extends State<_AddRemoteDialog> {
         _showCreatingError(loc.urlNotValid);
         return;
       }
-      var response = await http.get(url, headers: {
-        'Accept': 'application/json',
-        'Authorization':
-            'Basic ${base64Encode(utf8.encode('${_usernameController.text}:${_passwordController.text}'))}',
-      });
+      final request = await _httpClient.getUrl(url);
+      request.headers.add('Accept', 'application/json');
+      request.headers.add('Authorization',
+          'Basic ${base64Encode(utf8.encode('${_usernameController.text}:${_passwordController.text}'))}');
+      final response = await request.close();
       if (response.statusCode != 200) {
         _showCreatingError(loc.cannotConnect);
         return;
       }
       setState(() => _isConnected = true);
     } catch (e) {
+      if (_badCertificate) {
+        _badCertificate = false;
+        return;
+      }
       _showCreatingError(AppLocalizations.of(context).cannotConnect, e);
     }
   }
@@ -230,6 +270,7 @@ class __AddRemoteDialogState extends State<_AddRemoteDialog> {
           username: _usernameController.text,
           url: _urlController.text,
           path: _directoryController.text,
+          certificateSha1: _certificateSha1,
           documentsPath: _documentsDirectoryController.text,
           templatesPath: _templatesDirectoryController.text,
           packsPath: _packsDirectoryController.text,

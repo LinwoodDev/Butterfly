@@ -1,11 +1,9 @@
-import 'dart:convert';
 import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
 import 'package:path/path.dart' as p;
 import 'package:xml/xml.dart';
 
@@ -19,24 +17,6 @@ class DavRemoteDocumentFileSystem extends DocumentRemoteSystem {
   final DavRemoteStorage remote;
 
   DavRemoteDocumentFileSystem(this.remote);
-
-  final http.Client client = http.Client();
-  Future<http.StreamedResponse?> _createRequest(List<String> path,
-      {String method = 'GET', List<int>? body}) async {
-    path = List<String>.from(path);
-    if (path.firstOrNull?.isEmpty ?? false) {
-      path.removeAt(0);
-    }
-    final url = remote.buildDocumentsUri(path: path);
-    if (url == null) return null;
-    final request = http.Request(method, url);
-    if (body != null) {
-      request.bodyBytes = body;
-    }
-    request.headers['Authorization'] =
-        'Basic ${base64Encode(utf8.encode('${remote.username}:${await remote.getRemotePassword()}'))}';
-    return client.send(request);
-  }
 
   @override
   Future<String> getRemoteCacheDirectory() async =>
@@ -52,7 +32,7 @@ class DavRemoteDocumentFileSystem extends DocumentRemoteSystem {
     }
     final location = AssetLocation(
         remote: remote.identifier, path: path.substring(0, path.length - 1));
-    final response = await _createRequest(path.split('/'), method: 'MKCOL');
+    final response = await createRequest(path.split('/'), method: 'MKCOL');
     if (response == null) return AppDocumentDirectory(location);
     if (response.statusCode != 201) {
       throw Exception('Failed to create directory: ${response.statusCode}');
@@ -62,7 +42,7 @@ class DavRemoteDocumentFileSystem extends DocumentRemoteSystem {
 
   @override
   Future<void> deleteAsset(String path) async {
-    final response = await _createRequest(path.split('/'), method: 'DELETE');
+    final response = await createRequest(path.split('/'), method: 'DELETE');
     if (response == null) return;
     if (response.statusCode != 204) {
       throw Exception('Failed to delete asset: ${response.statusCode}');
@@ -86,7 +66,7 @@ class DavRemoteDocumentFileSystem extends DocumentRemoteSystem {
       return;
     }
 
-    var response = await _createRequest(path.split('/'), method: 'PROPFIND');
+    var response = await createRequest(path.split('/'), method: 'PROPFIND');
     final fileName = remote.buildDocumentsUri(path: path.split('/'))?.path;
     final rootDirectory = remote.buildDocumentsUri();
     if (response?.statusCode != 207 ||
@@ -95,7 +75,7 @@ class DavRemoteDocumentFileSystem extends DocumentRemoteSystem {
       yield null;
       return;
     }
-    var content = await response!.stream.bytesToString();
+    var content = await getBodyString(response!);
     final xml = XmlDocument.parse(content);
     final currentElement = xml.findAllElements('d:response').where((element) {
       final current = element.getElement('d:href')?.value;
@@ -150,22 +130,22 @@ class DavRemoteDocumentFileSystem extends DocumentRemoteSystem {
           AssetLocation(remote: remote.identifier, path: path), assets);
       return;
     }
-    response = await _createRequest(path.split('/'), method: 'GET');
+    response = await createRequest(path.split('/'), method: 'GET');
     if (response?.statusCode != 200) {
       throw Exception('Failed to get asset: ${response?.statusCode}');
     }
-    var fileContent = await response!.stream.toBytes();
+    var fileContent = await getBodyBytes(response!);
     yield await getAppDocumentFile(
         AssetLocation(remote: remote.identifier, path: path), fileContent);
   }
 
   @override
   Future<DateTime?> getRemoteFileModified(String path) async {
-    final response = await _createRequest(path.split('/'), method: 'PROPFIND');
+    final response = await createRequest(path.split('/'), method: 'PROPFIND');
     if (response?.statusCode != 207) {
       return null;
     }
-    final body = await response!.stream.bytesToString();
+    final body = await getBodyString(response!);
     final xml = XmlDocument.parse(body);
     final lastModified = xml
         .findAllElements('d:response')
@@ -187,7 +167,7 @@ class DavRemoteDocumentFileSystem extends DocumentRemoteSystem {
 
   @override
   Future<bool> hasAsset(String path) async {
-    final response = await _createRequest(path.split('/'));
+    final response = await createRequest(path.split('/'));
     return response?.statusCode == 200;
   }
 
@@ -203,7 +183,7 @@ class DavRemoteDocumentFileSystem extends DocumentRemoteSystem {
       await createDirectory(directoryPath);
     }
     final response =
-        await _createRequest(path.split('/'), method: 'PUT', body: data);
+        await createRequest(path.split('/'), method: 'PUT', bodyBytes: data);
     if (response?.statusCode != 201 && response?.statusCode != 204) {
       throw Exception(
           'Failed to update document: ${response?.statusCode} ${response?.reasonPhrase}');
@@ -233,39 +213,23 @@ class DavRemoteDocumentFileSystem extends DocumentRemoteSystem {
               AssetLocation(remote: remote.identifier, path: path), data));
 }
 
-class DavRemoteTemplateFileSystem extends TemplateFileSystem with RemoteSystem {
+class DavRemoteTemplateFileSystem extends TemplateRemoteSystem {
   @override
   final DavRemoteStorage remote;
 
   DavRemoteTemplateFileSystem(this.remote);
-
-  final http.Client client = http.Client();
-  Future<http.StreamedResponse?> _createRequest(String path,
-      {String method = 'GET', String? body, Uint8List? bodyBytes}) async {
-    final url = remote.buildTemplatesUri(path: path.split('/'));
-    if (url == null) return null;
-    final request = http.Request(method, url);
-    if (body != null) {
-      request.body = body;
-    } else if (bodyBytes != null) {
-      request.bodyBytes = bodyBytes;
-    }
-    request.headers['Authorization'] =
-        'Basic ${base64Encode(utf8.encode('${remote.username}:${await remote.getRemotePassword()}'))}';
-    return client.send(request);
-  }
 
   @override
   Future<bool> createDefault(BuildContext context, {bool force = false}) async {
     try {
       var defaults = await DocumentDefaults.getDefaults(context);
       // test if directory exists
-      final response = await _createRequest('', method: 'PROPFIND');
+      final response = await createRequest([], method: 'PROPFIND');
       if (response?.statusCode != 404 && !force) {
         return false;
       }
       // Create directory if it doesn't exist
-      await _createRequest('', method: 'MKCOL');
+      await createRequest([], method: 'MKCOL');
       await Future.wait(defaults.map((e) => updateTemplate(e)));
       return true;
     } on SocketException catch (_) {
@@ -275,7 +239,7 @@ class DavRemoteTemplateFileSystem extends TemplateFileSystem with RemoteSystem {
 
   @override
   Future<void> deleteTemplate(String name) async {
-    final response = await _createRequest(name, method: 'DELETE');
+    final response = await createRequest([name], method: 'DELETE');
     if (response?.statusCode != 204) {
       throw Exception('Failed to delete template: ${response?.statusCode}');
     }
@@ -287,11 +251,11 @@ class DavRemoteTemplateFileSystem extends TemplateFileSystem with RemoteSystem {
       name = name.substring(1);
     }
     try {
-      final response = await _createRequest(name);
+      final response = await createRequest([name]);
       if (response?.statusCode != 200) {
         return null;
       }
-      final content = await response!.stream.toBytes();
+      final content = await getBodyBytes(response!);
       cacheContent(name, content);
       return NoteData.fromData(content);
     } catch (e) {
@@ -310,7 +274,7 @@ class DavRemoteTemplateFileSystem extends TemplateFileSystem with RemoteSystem {
   @override
   Future<List<NoteData>> getTemplates() async {
     try {
-      final response = await _createRequest('', method: 'PROPFIND');
+      final response = await createRequest([], method: 'PROPFIND');
       if (response?.statusCode == 404) {
         return [];
       }
@@ -318,7 +282,7 @@ class DavRemoteTemplateFileSystem extends TemplateFileSystem with RemoteSystem {
         throw Exception(
             'Failed to get templates: ${response?.statusCode} ${response?.reasonPhrase}');
       }
-      final content = await response!.stream.bytesToString();
+      final content = await getBodyString(response!);
       final xml = XmlDocument.parse(content);
       final rootDirectory = remote.buildTemplatesUri();
       if (rootDirectory == null) return [];
@@ -340,12 +304,13 @@ class DavRemoteTemplateFileSystem extends TemplateFileSystem with RemoteSystem {
 
   @override
   Future<bool> hasTemplate(String name) {
-    return _createRequest(name).then((response) => response?.statusCode == 200);
+    return createRequest([name])
+        .then((response) => response?.statusCode == 200);
   }
 
   @override
   Future<void> updateTemplate(NoteData template) {
-    return _createRequest('${template.name}.bfly',
+    return createRequest(['${template.name}.bfly'],
         method: 'PUT', bodyBytes: Uint8List.fromList(template.save()));
   }
 
@@ -359,31 +324,15 @@ class DavRemoteTemplateFileSystem extends TemplateFileSystem with RemoteSystem {
       p.join(await super.getRemoteCacheDirectory(), 'Templates');
 }
 
-class DavRemotePackFileSystem extends PackFileSystem with RemoteSystem {
+class DavRemotePackFileSystem extends PackRemoteSystem {
   @override
   final DavRemoteStorage remote;
 
   DavRemotePackFileSystem(this.remote);
 
-  final http.Client client = http.Client();
-  Future<http.StreamedResponse?> _createRequest(String path,
-      {String method = 'GET', Uint8List? bodyBytes, String? body}) async {
-    final url = remote.buildPacksUri(path: path.split('/'));
-    if (url == null) return null;
-    final request = http.Request(method, url);
-    if (body != null) {
-      request.body = body;
-    } else if (bodyBytes != null) {
-      request.bodyBytes = bodyBytes;
-    }
-    request.headers['Authorization'] =
-        'Basic ${base64Encode(utf8.encode('${remote.username}:${await remote.getRemotePassword()}'))}';
-    return client.send(request);
-  }
-
   @override
   Future<void> deletePack(String name) async {
-    final response = await _createRequest(name, method: 'DELETE');
+    final response = await createRequest([name], method: 'DELETE');
     if (response?.statusCode != 204) {
       throw Exception('Failed to delete pack: ${response?.statusCode}');
     }
@@ -395,12 +344,11 @@ class DavRemotePackFileSystem extends PackFileSystem with RemoteSystem {
       name = name.substring(1);
     }
     try {
-      final response = await _createRequest(name);
+      final response = await createRequest([name]);
       if (response?.statusCode != 200) {
         return null;
       }
-      final content = await response?.stream.toBytes();
-      if (content == null) return null;
+      final content = await getBodyBytes(response!);
       cacheContent(name, content);
       return NoteData.fromData(content);
     } catch (e) {
@@ -419,7 +367,7 @@ class DavRemotePackFileSystem extends PackFileSystem with RemoteSystem {
   @override
   Future<List<NoteData>> getPacks() async {
     try {
-      final response = await _createRequest('', method: 'PROPFIND');
+      final response = await createRequest([], method: 'PROPFIND');
       if (response?.statusCode == 404) {
         return [];
       }
@@ -427,7 +375,7 @@ class DavRemotePackFileSystem extends PackFileSystem with RemoteSystem {
         throw Exception(
             'Failed to get packs: ${response?.statusCode} ${response?.reasonPhrase}');
       }
-      final content = await response!.stream.bytesToString();
+      final content = await getBodyString(response!);
       final xml = XmlDocument.parse(content);
       final rootDirectory = remote.buildPacksUri();
       if (rootDirectory == null) return [];
@@ -449,12 +397,13 @@ class DavRemotePackFileSystem extends PackFileSystem with RemoteSystem {
 
   @override
   Future<bool> hasPack(String name) {
-    return _createRequest(name).then((response) => response?.statusCode == 200);
+    return createRequest([name])
+        .then((response) => response?.statusCode == 200);
   }
 
   @override
   Future<void> updatePack(NoteData pack) {
-    return _createRequest('${pack.name}.bfly',
+    return createRequest(['${pack.name}.bfly'],
         method: 'PUT', bodyBytes: Uint8List.fromList(pack.save()));
   }
 
@@ -471,12 +420,12 @@ class DavRemotePackFileSystem extends PackFileSystem with RemoteSystem {
   Future<bool> createDefault(BuildContext context, {bool force = false}) async {
     try {
       // test if directory exists
-      final response = await _createRequest('', method: 'PROPFIND');
+      final response = await createRequest([], method: 'PROPFIND');
       if (response?.statusCode != 404 && !force) {
         return false;
       }
       // Create directory if it doesn't exist
-      await _createRequest('', method: 'MKCOL');
+      await createRequest([], method: 'MKCOL');
       await updatePack(await DocumentDefaults.getCorePack());
       return true;
     } on SocketException catch (_) {

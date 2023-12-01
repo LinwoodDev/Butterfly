@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 import 'dart:io';
 import 'dart:typed_data';
 
@@ -56,6 +57,40 @@ class SyncFile {
 
 mixin RemoteSystem {
   RemoteStorage get remote;
+
+  final client = HttpClient();
+
+  Future<HttpClientResponse?> createRequest(List<String> path,
+      {String method = 'GET', String? body, List<int>? bodyBytes});
+
+  Future<HttpClientResponse?> createBaseRequest(Uri? url,
+      {String method = 'GET', List<int>? bodyBytes, String? body}) async {
+    client.badCertificateCallback =
+        (X509Certificate cert, String host, int port) =>
+            String.fromCharCodes(cert.sha1) == remote.certificateSha1;
+    if (url == null) return null;
+    final request = await client.openUrl(method, url);
+    if (body != null) {
+      request.write(body);
+    } else if (bodyBytes != null) {
+      request.add(bodyBytes);
+    }
+    request.headers.add('Authorization',
+        'Basic ${base64Encode(utf8.encode('${remote.username}:${await remote.getRemotePassword()}'))}');
+    return request.close();
+  }
+
+  Future<Uint8List> getBodyBytes(HttpClientResponse response) async {
+    final buffer = BytesBuilder();
+    await for (var data in response) {
+      buffer.add(data);
+    }
+    return buffer.toBytes();
+  }
+
+  Future<String> getBodyString(HttpClientResponse response) async {
+    return utf8.decode(await getBodyBytes(response));
+  }
 
   Future<String> getRemoteCacheDirectory() async {
     var path = await getButterflyDirectory();
@@ -196,6 +231,12 @@ mixin RemoteSystem {
 
 abstract class DocumentRemoteSystem extends DocumentFileSystem
     with RemoteSystem {
+  @override
+  Future<HttpClientResponse?> createRequest(List<String> path,
+          {String method = 'GET', String? body, List<int>? bodyBytes}) =>
+      createBaseRequest(remote.buildDocumentsUri(path: path),
+          method: method, body: body, bodyBytes: bodyBytes);
+
   List<String> getCachedFilePaths() {
     final files = <String>[];
 
@@ -259,4 +300,21 @@ abstract class DocumentRemoteSystem extends DocumentFileSystem
       cacheContent(path, asset.data);
     }
   }
+}
+
+abstract class TemplateRemoteSystem extends TemplateFileSystem
+    with RemoteSystem {
+  @override
+  Future<HttpClientResponse?> createRequest(List<String> path,
+          {String method = 'GET', String? body, List<int>? bodyBytes}) =>
+      createBaseRequest(remote.buildTemplatesUri(path: path),
+          method: method, body: body, bodyBytes: bodyBytes);
+}
+
+abstract class PackRemoteSystem extends PackFileSystem with RemoteSystem {
+  @override
+  Future<HttpClientResponse?> createRequest(List<String> path,
+          {String method = 'GET', String? body, List<int>? bodyBytes}) =>
+      createBaseRequest(remote.buildPacksUri(path: path),
+          method: method, body: body, bodyBytes: bodyBytes);
 }

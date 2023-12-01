@@ -11,7 +11,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_web_plugins/url_strategy.dart';
 import 'package:go_router/go_router.dart';
 import 'package:lw_sysinfo/lw_sysinfo.dart';
@@ -45,8 +44,7 @@ const kMobileWidth = 600.0;
 const kLargeWidth = 1200.0;
 
 Future<void> main([List<String> args = const []]) async {
-  WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
-  FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
+  WidgetsFlutterBinding.ensureInitialized();
   usePathUrlStrategy();
 
   await setup();
@@ -321,9 +319,6 @@ class ButterflyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      FlutterNativeSplash.remove();
-    });
     return DynamicColorBuilder(
       builder: (lightDynamic, darkDynamic) => BlocProvider(
         create: (context) {
