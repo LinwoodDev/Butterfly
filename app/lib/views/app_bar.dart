@@ -359,6 +359,7 @@ class _MainPopupMenu extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final settingsCubit = context.read<SettingsCubit>();
     return BlocBuilder<SettingsCubit, ButterflySettings>(
         buildWhen: (previous, current) =>
             previous.navigationRail != current.navigationRail,
@@ -388,7 +389,7 @@ class _MainPopupMenu extends StatelessWidget {
                           PhosphorIcon(e.icon(PhosphorIconsStyle.light)),
                       child: Text(e.getLocalizedName(context)),
                       onPressed: () {
-                        context.read<SettingsCubit>().setNavigatorPage(e);
+                        settingsCubit.setNavigatorPage(e);
                         Scaffold.of(context).openDrawer();
                       },
                     ),
@@ -544,7 +545,7 @@ class _MainPopupMenu extends StatelessWidget {
                           shortcut:
                               const SingleActivator(LogicalKeyboardKey.f11),
                           onPressed: () async {
-                            context.read<SettingsCubit>().toggleFullScreen();
+                            settingsCubit.toggleFullScreen();
                           },
                           child: Text(AppLocalizations.of(context).fullScreen),
                         )),
