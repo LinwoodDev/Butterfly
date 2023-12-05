@@ -41,8 +41,8 @@ Ci sono alcune scorciatoie che puoi usare nell'editor. Alcuni di loro sono scrit
 
 ## Configura {#configure}
 
-Customize the controls by giving every control a tool index.
+Personalizza i controlli dando ad ogni controllo un indice degli strumenti.
 
-* Let it empty to disable the tool switch on this control.
-* Set it to `0` to enable moving with this control.
-* Set it to a positve number to switch to the tool with this index starting from the first on the left starting with `1`.
+* Lasciare vuoto per disabilitare lo strumento accendere questo controllo.
+* Impostalo su `0` per abilitare lo spostamento con questo controllo.
+* Impostarlo su un numero di posizione per passare allo strumento con questo indice a partire dal primo a sinistra che inizia con `1`.
