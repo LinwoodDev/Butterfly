@@ -29,7 +29,8 @@ extension AreaHelper on Area {
     return Rect.fromLTWH(topLeft.dx, topLeft.dy, width.abs(), height.abs());
   }
 
-  bool hit(Offset offset) => rect.contains(offset);
+  bool hit(Offset offset, [double radius = 0]) =>
+      rect.inflate(radius).contains(offset);
 }
 
 extension DocumentAreaHelper on DocumentPage {
@@ -45,8 +46,8 @@ extension DocumentAreaHelper on DocumentPage {
     return areas.where((e) => rect.overlaps(e.rect)).toList();
   }
 
-  List<Area> getAreas(Offset offset) {
-    return areas.where((e) => e.hit(offset)).toList();
+  List<Area> getAreas(Offset offset, [double radius = 0]) {
+    return areas.where((e) => e.hit(offset, radius)).toList();
   }
 }
 

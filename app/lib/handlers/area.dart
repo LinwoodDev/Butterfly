@@ -130,9 +130,11 @@ class AreaHandler extends Handler<AreaTool> {
   Future<void> _inspectArea(Offset localPosition, EventContext context) async {
     final state = context.getState();
     if (state == null) return;
+    final zoom = context.getCameraTransform().size;
+    final distance = context.getSettings().selectSensitivity / zoom;
     final globalPosition =
         context.getCameraTransform().localToGlobal(localPosition);
-    final areas = state.page.getAreas(globalPosition);
+    final areas = state.page.getAreas(globalPosition, distance);
     var area = areas.firstOrNull ?? state.currentArea;
     if (area == null) return;
     if (areas.length > 1) {
