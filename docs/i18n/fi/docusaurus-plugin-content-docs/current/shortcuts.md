@@ -41,4 +41,8 @@ On olemassa muutamia pikakuvakkeita, joita voit käyttää editorissa. Osa niist
 
 ## Määritä {#configure}
 
-Muokkaa ohjaimia antamalla jokaiselle ohjaimelle työkalun indeksin. Työkaluindeksi alkaa klo 1 ja tilataan vasemmalta oikealle. Tyhjä työkalun indeksi poistaa työkalun kytkimen käytöstä tällä ohjaimella. Lisää `0` ottaaksesi liikutuksen käyttöön tällä ohjaimella.
+Customize the controls by giving every control a tool index.
+
+* Let it empty to disable the tool switch on this control.
+* Set it to `0` to enable moving with this control.
+* Set it to a positve number to switch to the tool with this index starting from the first on the left starting with `1`.
