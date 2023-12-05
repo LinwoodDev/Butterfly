@@ -41,8 +41,8 @@ Jest kilka skrótów, których możesz użyć w edytorze. Niektóre z nich są n
 
 ## Skonfiguruj {#configure}
 
-Customize the controls by giving every control a tool index.
+Dostosuj ustawienia poprzez nadanie każdej kontroli indeksu narzędzi.
 
-* Let it empty to disable the tool switch on this control.
-* Set it to `0` to enable moving with this control.
-* Set it to a positve number to switch to the tool with this index starting from the first on the left starting with `1`.
+* Pozostaw puste, aby wyłączyć włączanie narzędzia na tym urządzeniu.
+* Ustaw na `0` , aby włączyć ruch z tą kontrolą.
+* Ustaw liczbę pozycyjną, aby przełączyć się na narzędzie z tym indeksem zaczynając od pierwszego po lewej stronie, począwszy od `1`.
