@@ -41,4 +41,8 @@ sidebar_position: 2
 
 ## 設定 {#configure}
 
-すべてのコントロールにツールインデックスを与えることで、コントロールをカスタマイズします。 ツールインデックスは1から始まり、左から右に順序付けされます。 空のツールインデックスはこのコントロールのツールスイッチを無効にします。 `0 0` を挿入すると、このコントロールでの移動が有効になります。
+Customize the controls by giving every control a tool index.
+
+* Let it empty to disable the tool switch on this control.
+* Set it to `0` to enable moving with this control.
+* Set it to a positve number to switch to the tool with this index starting from the first on the left starting with `1`.
