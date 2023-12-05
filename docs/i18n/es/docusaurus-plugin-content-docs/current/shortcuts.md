@@ -41,8 +41,8 @@ Hay algunos atajos que puedes usar en el editor. Algunos de ellos se escriben de
 
 ## Configurar {#configure}
 
-Customize the controls by giving every control a tool index.
+Personalice los controles dando a cada control un índice de herramienta.
 
-* Let it empty to disable the tool switch on this control.
-* Set it to `0` to enable moving with this control.
-* Set it to a positve number to switch to the tool with this index starting from the first on the left starting with `1`.
+* Dejarlo vacío para desactivar el interruptor de herramienta en este control.
+* Establece en `0` para activar el movimiento con este control.
+* Establezca un número positvo para cambiar a la herramienta con este índice comenzando desde el primero a la izquierda comenzando con `1`.
