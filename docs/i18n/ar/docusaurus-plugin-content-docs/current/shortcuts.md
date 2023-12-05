@@ -41,4 +41,8 @@ sidebar_position: 2
 
 ## تكوين {#configure}
 
-تخصيص الضوابط عن طريق إعطاء كل تحكم فهرس للأدوات. يبدأ فهرس الأداة في 1 ويتم طلبه من اليسار إلى اليمين. فهرس أداة فارغ سيعطل تشغيل الأداة على هذا التحكم. أدخل `0` لتمكين التحرك مع هذا التحكم.
+Customize the controls by giving every control a tool index.
+
+* Let it empty to disable the tool switch on this control.
+* Set it to `0` to enable moving with this control.
+* Set it to a positve number to switch to the tool with this index starting from the first on the left starting with `1`.
