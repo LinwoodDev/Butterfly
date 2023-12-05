@@ -41,4 +41,8 @@ Es gibt ein paar Verknüpfungen, die Sie im Editor verwenden können. Einige dav
 
 ## Konfigurieren {#configure}
 
-Passen Sie die Steuerelemente an, indem Sie jeder Steuerung einen Werkzeugindex geben. Der Werkzeugindex beginnt bei 1 und wird von links nach rechts sortiert. Ein leerer Werkzeugindex wird den Werkzeugschalter auf diesem Steuerelement deaktivieren. Fügen Sie `0` ein, um das Verschieben mit diesem Steuerelement zu aktivieren.
+Customize the controls by giving every control a tool index.
+
+* Let it empty to disable the tool switch on this control.
+* Set it to `0` to enable moving with this control.
+* Set it to a positve number to switch to the tool with this index starting from the first on the left starting with `1`.
