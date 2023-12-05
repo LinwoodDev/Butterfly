@@ -41,8 +41,8 @@ sidebar_position: 2
 
 ## 配置 {#configure}
 
-Customize the controls by giving every control a tool index.
+通过给每个控制工具索引自定义控件。
 
-* Let it empty to disable the tool switch on this control.
-* Set it to `0` to enable moving with this control.
-* Set it to a positve number to switch to the tool with this index starting from the first on the left starting with `1`.
+* 让它空以禁用此控制器上的工具开关。
+* 设置为 `0` 以启用带此控件的移动。
+* 将其设为一个后备数字，切换到此索引，从左边的第一个开始，以 `1` 开始。
