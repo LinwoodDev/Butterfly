@@ -140,7 +140,7 @@ class PersonalizationSettingsPage extends StatelessWidget {
                         SwitchListTile(
                           secondary: const PhosphorIcon(
                               PhosphorIconsLight.magnifyingGlass),
-                          title: Text(AppLocalizations.of(context).zoom),
+                          title: Text(AppLocalizations.of(context).zoomControl),
                           value: state.zoomEnabled,
                           onChanged: (value) => context
                               .read<SettingsCubit>()

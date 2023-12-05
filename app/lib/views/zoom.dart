@@ -148,6 +148,7 @@ class _ZoomViewState extends State<ZoomView> with TickerProviderStateMixin {
             } else {
               _controller.forward();
             }
+            if (_animation.value == 0) return const SizedBox();
             if (!widget.floating) return body;
             return AnimatedBuilder(
               animation: _animation,
