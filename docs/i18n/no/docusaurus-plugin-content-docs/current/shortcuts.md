@@ -41,8 +41,8 @@ Det er noen snarveier du kan benytte i editoren. Noen av dem er skrevet under kn
 
 ## Konfigurer {#configure}
 
-Customize the controls by giving every control a tool index.
+Tilpass kontrollene ved å gi hver kontroll en verktøyindeks.
 
-* Let it empty to disable the tool switch on this control.
-* Set it to `0` to enable moving with this control.
-* Set it to a positve number to switch to the tool with this index starting from the first on the left starting with `1`.
+* La den være tom for å deaktivere verktøybryteren på denne kontrollen.
+* Sett den til `0` for å aktivere flytting av denne kontrollen.
+* Sett den til et positve-tall for å bytte til verktøy med denne indeksen starter fra den første til venstre med `1`.
