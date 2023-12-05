@@ -41,8 +41,8 @@ Există câteva comenzi rapide pe care le poți folosi în editor. Unele dintre 
 
 ## Configurare {#configure}
 
-Customize the controls by giving every control a tool index.
+Personalizați controalele dând fiecărui control un indice de unelte.
 
-* Let it empty to disable the tool switch on this control.
-* Set it to `0` to enable moving with this control.
-* Set it to a positve number to switch to the tool with this index starting from the first on the left starting with `1`.
+* Lasă-l gol pentru a dezactiva comutatorul de instrumente pe acest control.
+* Setează-l la `0` pentru a activa mutarea cu acest control.
+* Setaţi-l la un număr positve pentru a trece la unealta cu acest index începând cu primul din stânga de la `1`.
