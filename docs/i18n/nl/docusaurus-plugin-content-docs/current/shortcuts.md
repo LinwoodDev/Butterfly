@@ -41,8 +41,8 @@ Er zijn een paar snelkoppelingen die je in de editor kunt gebruiken. Sommige erv
 
 ## Configureren {#configure}
 
-Customize the controls by giving every control a tool index.
+Pas de besturingselementen aan door elke bediening een toolindex te geven.
 
-* Let it empty to disable the tool switch on this control.
-* Set it to `0` to enable moving with this control.
-* Set it to a positve number to switch to the tool with this index starting from the first on the left starting with `1`.
+* Laat het leeg om de functie uit te schakelen voor dit besturingsapparaat.
+* Zet het op `0` om te bewegen met dit besturingsapparaat.
+* Stel het in op een positve nummer om over te schakelen naar de tool met deze index vanaf de eerste links beginnend met `1`.
