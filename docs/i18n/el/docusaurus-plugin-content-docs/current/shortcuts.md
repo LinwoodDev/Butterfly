@@ -41,8 +41,8 @@ sidebar_position: 2
 
 ## Ρύθμιση {#configure}
 
-Customize the controls by giving every control a tool index.
+Προσαρμόστε τα χειριστήρια δίνοντας σε κάθε έλεγχο ένα δείκτη εργαλείων.
 
-* Let it empty to disable the tool switch on this control.
-* Set it to `0` to enable moving with this control.
-* Set it to a positve number to switch to the tool with this index starting from the first on the left starting with `1`.
+* Αφήστε το κενό για να απενεργοποιήσετε το εργαλείο ανάψτε αυτό το έλεγχο.
+* Ρυθμίστε το σε `0` για να ενεργοποιήσετε τη μετακίνηση με αυτό το έλεγχο.
+* Ρυθμίστε τον σε έναν αριθμό positve για να μεταβείτε στο εργαλείο με αυτό το ευρετήριο ξεκινώντας από τον πρώτο στα αριστερά ξεκινώντας με `1`.
