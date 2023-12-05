@@ -41,8 +41,8 @@ sidebar_position: 2
 
 ## تكوين {#configure}
 
-Customize the controls by giving every control a tool index.
+تخصيص الضوابط عن طريق إعطاء كل تحكم فهرس للأدوات.
 
-* Let it empty to disable the tool switch on this control.
-* Set it to `0` to enable moving with this control.
-* Set it to a positve number to switch to the tool with this index starting from the first on the left starting with `1`.
+* اتركها فارغة لتعطيل تشغيل الأداة على هذا التحكم.
+* عيّنه إلى `0` لتفعيل التحرك مع هذا التحكم.
+* عيّنه إلى رقم البريد للتبديل إلى الأداة مع هذا الفهرس بدءاً من الأول على اليسار ابتداء من `1`.
