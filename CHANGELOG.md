@@ -2,6 +2,19 @@
 
 <!--ENTER CHANGELOG HERE-->
 
+## 2.0.0-rc.0 (2023-12-01)
+
+* Add files action to file navigator
+* Add function to disable certain directory in local storage
+* Add name to local storage
+* Add extra properties for models to implement further import/export features
+* Add option to connect to a self-signed server ([#531](https://github.com/LinwoodDev/Butterfly/issues/531))
+* Improve web loading experience
+* Fix changing current tool when adding in collaboration mode
+* Fix remote connection requests
+
+View all changes in the blog: https://linwood.dev/butterfly/2.0.0-rc.0
+
 ## 2.0.0-beta.16 (2023-11-24)
 
 * Add experiments settings in nightly version
