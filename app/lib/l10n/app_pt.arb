@@ -580,5 +580,6 @@
       }
     }
   },
-  "continueAnyway": "Continuar mesmo assim"
+  "continueAnyway": "Continuar mesmo assim",
+  "zoomControl": "Zoom control"
 }
