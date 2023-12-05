@@ -41,8 +41,8 @@ sidebar_position: 2
 
 ## Настроить {#configure}
 
-Customize the controls by giving every control a tool index.
+Настраивайте элементы управления, предоставляя каждому управляющему индексу инструментов.
 
-* Let it empty to disable the tool switch on this control.
-* Set it to `0` to enable moving with this control.
-* Set it to a positve number to switch to the tool with this index starting from the first on the left starting with `1`.
+* Пустое отключение переключателя инструментов на этом пульте.
+* Установите в `0` для включения перемещения с этим контролем.
+* Установите номер positve, чтобы переключиться на инструмент с этого индекса, начиная с первого слева, начиная с `1`.
