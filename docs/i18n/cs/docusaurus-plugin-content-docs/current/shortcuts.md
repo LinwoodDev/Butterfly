@@ -41,8 +41,8 @@ Existuje několik zkratek, které můžete použít v editoru. Některé z nich 
 
 ## Konfigurace {#configure}
 
-Customize the controls by giving every control a tool index.
+Přizpůsobte si ovládací prvky zadáním každého ovládání indexu nástrojů.
 
-* Let it empty to disable the tool switch on this control.
-* Set it to `0` to enable moving with this control.
-* Set it to a positve number to switch to the tool with this index starting from the first on the left starting with `1`.
+* Nechte prázdné pro vypnutí přepínače nástrojů na tomto ovládání.
+* Nastavte na `0` pro povolení pohybu s tímto ovládáním.
+* Nastavte na poziční číslo pro přepnutí na nástroj s tímto indexem, počínaje od prvního na levé straně začínající `1`.
