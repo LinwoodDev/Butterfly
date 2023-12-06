@@ -15,7 +15,7 @@ Sie können die Web-Version installieren, indem Sie auf den Installations-Button
 
 ### Schmetterling lädt nicht auf Brave
 
-Mutige Benutzer, die die 'Fingerabdruck blockieren'-Einstellung auf Aggressiv eingestellt haben, müssen diese in 'Standard' oder einfach nur 'Fingerabdruckblock' ändern. Klicken Sie auf das Schildsymbol in der Adressleiste, um die Einstellung zu ändern. Versuchen Sie, Ihren Browser auf die neueste Version zu aktualisieren.
+Brave Benutzer, die die 'Fingerabdruck blockieren'-Einstellung auf "Aggressiv" eingestellt haben, müssen diese in "Standard" oder einfach nur 'Fingerabdruckblock' ändern. Klicken Sie auf das Schildsymbol in der Adressleiste, um die Einstellung zu ändern. Versuchen Sie, Ihren Browser auf die neueste Version zu aktualisieren.
 
 ## Mobil
 
@@ -33,6 +33,6 @@ Behoben in den 2.0 Alphas.
 
 > [#238](https://github.com/LinwoodDev/Butterfly/issues/238)
 
-Ich benutze die Eingabe des Flutter-Frameworks. Es gibt bereits Probleme zu verfolgen: Windows: [flutter/flutter#65248](https://github.com/flutter/flutter/issues/65248) und [flutter/flutter#102836](https://github.com/flutter/flutter/issues/102836). Linux: [flutter/flutter#63209](https://github.com/flutter/flutter/issues/63209)
+Ich benutze die Eingabe des Flutter-Frameworks. Es gibt bereits Probleme, die verfolgt werden können: Windows: [Flutter#65248](https://github.com/flutter/flutter/issues/65248) und [Flutter/Flutter#102836](https://github.com/flutter/flutter/issues/102836). Linux: [flutter/flutter#63209](https://github.com/flutter/flutter/issues/63209)
 
-Diese Fragen sind etwas älter. Die Web-Version sollte im Moment gut funktionieren.
+Diese Probleme sind etwas älter. Die Web-Version sollte im Moment gut funktionieren.
