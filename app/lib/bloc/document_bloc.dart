@@ -672,14 +672,21 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       if (!(current.embedding?.editable ?? true)) return;
       final areas = List<Area>.from(current.page.areas)
         ..removeWhere((e) => event.areas.contains(e.name));
-      final currentDocument = current.page.copyWith(areas: areas);
+      final currentPage = current.page.copyWith(areas: areas);
+      var shouldRepaint = false;
       for (var element in current.renderers) {
         if (areas.contains(element.area) &&
-            await element.onAreaUpdate(current.data, currentDocument, null)) {
-          _repaint(emit);
+            await element.onAreaUpdate(current.data, currentPage, null)) {
+          shouldRepaint = true;
         }
       }
-      _saveState(emit, current.copyWith(page: currentDocument));
+      if (shouldRepaint) {
+        _repaint(emit);
+      }
+      _saveState(emit, current.copyWith(page: currentPage)).then((_) {
+        current.currentIndexCubit.refresh(
+            current.data, current.assetService, currentPage, current.info);
+      });
     });
     on<AreaChanged>((event, emit) async {
       final current = state;

@@ -99,6 +99,7 @@ class AreaHandler extends Handler<AreaTool> {
               ));
     }
     if (name == null) return;
+    currentRect = null;
     context.getDocumentBloc().add(AreasCreated([
           Area(
             width: rect.width,
