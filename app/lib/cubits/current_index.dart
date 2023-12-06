@@ -126,11 +126,10 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     final document = blocState.data;
     final info = blocState.info;
     index ??= state.index ?? 0;
-    if (index < 0 || index >= info.tools.length) {
+    if (handler == null && (index < 0 || index >= info.tools.length)) {
       return null;
     }
-    final tool = info.tools[index];
-    handler ??= Handler.fromTool(tool);
+    handler ??= Handler.fromTool(info.tools[index]);
     if (!runSelected || handler.onSelected(bloc, this, justAdded)) {
       state.handler.dispose(bloc);
       state.temporaryHandler?.dispose(bloc);

@@ -3,5 +3,6 @@
 * Fix zoom usable if hidden ([#538](https://github.com/LinwoodDev/Butterfly/issues/538))
 * Fix full screen menu item ([#535](https://github.com/LinwoodDev/Butterfly/issues/535))
 * Fix selecting small areas ([#543](https://github.com/LinwoodDev/Butterfly/issues/543))
+* Fix tool not selected when added
 
 View all changes in the blog: https://linwood.dev/butterfly/2.0.0-rc.1
