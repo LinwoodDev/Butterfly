@@ -25,9 +25,9 @@ class LabelToolSelection extends ToolSelection<LabelTool> {
       ExactSlider(
         header: Text(AppLocalizations.of(context).scale),
         min: 0.1,
-        max: 5,
+        max: 15,
         value: selected.first.scale,
-        defaultValue: 1,
+        defaultValue: 5,
         onChangeEnd: (value) => update(
             context, selected.map((e) => e.copyWith(scale: value)).toList()),
       ),
