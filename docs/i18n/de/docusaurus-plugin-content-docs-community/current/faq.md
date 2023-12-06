@@ -13,7 +13,7 @@ Hier sind einige häufig gestellte Fragen.
 
 Sie können die Web-Version installieren, indem Sie auf den Installations-Button in der Titelleiste klicken. Danach können Sie diese App offline nutzen.
 
-### Schmetterling lädt nicht auf Brave
+### Butterfly lädt nicht auf Brave
 
 Brave Benutzer, die die 'Fingerabdruck blockieren'-Einstellung auf "Aggressiv" eingestellt haben, müssen diese in "Standard" oder einfach nur 'Fingerabdruckblock' ändern. Klicken Sie auf das Schildsymbol in der Adressleiste, um die Einstellung zu ändern. Versuchen Sie, Ihren Browser auf die neueste Version zu aktualisieren.
 
