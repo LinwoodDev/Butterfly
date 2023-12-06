@@ -656,15 +656,21 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       if (current is! DocumentLoadSuccess) return;
       final currentDocument = current.page.copyWith(
           areas: List<Area>.from(current.page.areas)..addAll(event.areas));
-      _saveState(emit, current.copyWith(page: currentDocument));
+      var shouldRepaint = false;
       for (var element in current.renderers) {
         final needRepaint = await Future.wait(event.areas.map<Future<bool>>(
             (area) async => await element.onAreaUpdate(
                 current.data, currentDocument, area)));
         if (needRepaint.any((element) => element)) {
-          _repaint(emit);
+          shouldRepaint = true;
         }
       }
+      if (shouldRepaint) {
+        _repaint(emit);
+      }
+      _saveState(emit, current.copyWith(page: currentDocument)).then((_) =>
+          current.currentIndexCubit.refresh(current.data, current.assetService,
+              currentDocument, current.info));
     });
     on<AreasRemoved>((event, emit) async {
       final current = state;
@@ -683,10 +689,9 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       if (shouldRepaint) {
         _repaint(emit);
       }
-      _saveState(emit, current.copyWith(page: currentPage)).then((_) {
-        current.currentIndexCubit.refresh(
-            current.data, current.assetService, currentPage, current.info);
-      });
+      _saveState(emit, current.copyWith(page: currentPage)).then((_) =>
+          current.currentIndexCubit.refresh(
+              current.data, current.assetService, currentPage, current.info));
     });
     on<AreaChanged>((event, emit) async {
       final current = state;
