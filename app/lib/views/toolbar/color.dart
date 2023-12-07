@@ -137,52 +137,53 @@ class _ColorToolbarViewState extends State<ColorToolbarView> {
                   children: [
                     ...List.generate(palette.colors.length, (index) {
                       final value = palette!.colors[index];
+                      void changeColor() async {
+                        var palette = pack?.getPalette(colorPalette!.name);
+                        final settingsCubit = context.read<SettingsCubit>();
+                        final response = await showDialog<
+                            ColorPickerResponse<ColorPickerToolbarAction>>(
+                          context: context,
+                          builder: (context) =>
+                              ColorPicker<ColorPickerToolbarAction>(
+                            value: Color(value),
+                            suggested: settingsCubit.state.recentColors
+                                .map((e) => Color(e))
+                                .toList(),
+                            secondaryActions: (close) => [
+                              OutlinedButton(
+                                onPressed: () =>
+                                    close(ColorPickerToolbarAction.delete),
+                                child:
+                                    Text(AppLocalizations.of(context).delete),
+                              ),
+                            ],
+                          ),
+                        );
+                        if (response == null) return;
+                        if (response.action ==
+                            ColorPickerToolbarAction.delete) {
+                          palette = palette?.copyWith(
+                            colors: List<int>.from(palette.colors)
+                              ..removeAt(index),
+                          );
+                        } else {
+                          palette = palette?.copyWith(
+                            colors: List<int>.from(palette.colors)
+                              ..[index] = response.color,
+                          );
+                        }
+                        bloc.add(PackUpdated(
+                            colorPalette!.pack, pack!.setPalette(palette!)));
+                        widget.onChanged(response.color);
+                        setState(() {});
+                      }
+
                       return ColorButton(
                         color: Color(value),
                         selected: value == color,
-                        onTap: () {
-                          widget.onChanged(value);
-                        },
-                        onLongPress: () async {
-                          var palette = pack?.getPalette(colorPalette!.name);
-                          final settingsCubit = context.read<SettingsCubit>();
-                          final response = await showDialog<
-                              ColorPickerResponse<ColorPickerToolbarAction>>(
-                            context: context,
-                            builder: (context) =>
-                                ColorPicker<ColorPickerToolbarAction>(
-                              value: Color(value),
-                              suggested: settingsCubit.state.recentColors
-                                  .map((e) => Color(e))
-                                  .toList(),
-                              secondaryActions: (close) => [
-                                OutlinedButton(
-                                  onPressed: () =>
-                                      close(ColorPickerToolbarAction.delete),
-                                  child:
-                                      Text(AppLocalizations.of(context).delete),
-                                ),
-                              ],
-                            ),
-                          );
-                          if (response == null) return;
-                          if (response.action ==
-                              ColorPickerToolbarAction.delete) {
-                            palette = palette?.copyWith(
-                              colors: List<int>.from(palette.colors)
-                                ..removeAt(index),
-                            );
-                          } else {
-                            palette = palette?.copyWith(
-                              colors: List<int>.from(palette.colors)
-                                ..[index] = response.color,
-                            );
-                          }
-                          bloc.add(PackUpdated(
-                              colorPalette!.pack, pack!.setPalette(palette!)));
-                          widget.onChanged(response.color);
-                          setState(() {});
-                        },
+                        onTap: () => widget.onChanged(value),
+                        onSecondaryTap: changeColor,
+                        onLongPress: changeColor,
                       );
                     }),
                     Padding(

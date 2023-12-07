@@ -273,6 +273,9 @@ class _EditToolbarState extends State<EditToolbar> {
                             : () => context
                                 .read<CurrentIndexCubit>()
                                 .insertSelection(e, true),
+                        onSecondaryPressed: () => context
+                            .read<CurrentIndexCubit>()
+                            .changeSelection(e),
                         focussed: shortcuts.contains(i),
                         selected: selected,
                         highlighted: highlighted,

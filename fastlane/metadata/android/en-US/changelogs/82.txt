@@ -1,3 +1,4 @@
+* Add right click as alternative to long press
 * Change default scale of label to 5
 * Improve documentation of shortcuts ([#534](https://github.com/LinwoodDev/Butterfly/issues/534))
 * Fix closing of settings on click on mobile ([#537](https://github.com/LinwoodDev/Butterfly/issues/537))
