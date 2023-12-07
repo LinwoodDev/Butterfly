@@ -41,4 +41,8 @@ Existem alguns atalhos que você pode usar no editor. Alguns deles estão escrit
 
 ## Configurar {#configure}
 
-Personalize os controles dando a cada controle um índice de ferramentas. O índice das ferramentas começa em 1 e são ordenados da esquerda para a direita. Um índice de ferramentas vazio desativará o interruptor de ferramenta nesse controle. Insira `0` para ativar movimento com este controle.
+Personalize os controles dando a cada controle um índice de ferramentas.
+
+* Deixe em branco para desativar a opção de ferramenta neste controle.
+* Defina como `0` para ativar movimento com este controle.
+* Defina um número de estação para mudar para a ferramenta com esse índice a partir do primeiro à esquerda, começando com `1`.

@@ -41,4 +41,8 @@ Hay algunos atajos que puedes usar en el editor. Algunos de ellos se escriben de
 
 ## Configurar {#configure}
 
-Personalice los controles dando a cada control un índice de herramienta. El índice de herramienta comienza en 1 y se ordenan de izquierda a derecha. Un índice de herramienta vacío desactivará el interruptor de herramienta en este control. Inserta `0` para activar el movimiento con este control.
+Personalice los controles dando a cada control un índice de herramienta.
+
+* Dejarlo vacío para desactivar el interruptor de herramienta en este control.
+* Establece en `0` para activar el movimiento con este control.
+* Establezca un número positvo para cambiar a la herramienta con este índice comenzando desde el primero a la izquierda comenzando con `1`.

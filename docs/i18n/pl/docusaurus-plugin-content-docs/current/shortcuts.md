@@ -41,4 +41,8 @@ Jest kilka skrótów, których możesz użyć w edytorze. Niektóre z nich są n
 
 ## Skonfiguruj {#configure}
 
-Dostosuj ustawienia poprzez nadanie każdej kontroli indeksu narzędzi. Indeks narzędzia zaczyna się od 1 i jest uporządkowany od lewej do prawej. Pusty indeks narzędzia wyłączy przełącznik narzędzia na tym urządzeniu. Wstaw `0` , aby włączyć poruszanie się z tą kontrolą.
+Dostosuj ustawienia poprzez nadanie każdej kontroli indeksu narzędzi.
+
+* Pozostaw puste, aby wyłączyć włączanie narzędzia na tym urządzeniu.
+* Ustaw na `0` , aby włączyć ruch z tą kontrolą.
+* Ustaw liczbę pozycyjną, aby przełączyć się na narzędzie z tym indeksem zaczynając od pierwszego po lewej stronie, począwszy od `1`.

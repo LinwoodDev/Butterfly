@@ -580,5 +580,6 @@
       }
     }
   },
-  "continueAnyway": "仍然继续"
+  "continueAnyway": "仍然继续",
+  "zoomControl": "缩放控制"
 }

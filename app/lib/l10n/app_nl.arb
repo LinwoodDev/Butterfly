@@ -580,5 +580,6 @@
       }
     }
   },
-  "continueAnyway": "Toch doorgaan"
+  "continueAnyway": "Toch doorgaan",
+  "zoomControl": "Zoom beheer"
 }

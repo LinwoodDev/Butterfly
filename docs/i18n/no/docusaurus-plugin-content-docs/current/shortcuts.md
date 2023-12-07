@@ -41,4 +41,8 @@ Det er noen snarveier du kan benytte i editoren. Noen av dem er skrevet under kn
 
 ## Konfigurer {#configure}
 
-Tilpass kontrollene ved å gi hver kontroll en verktøyindeks. Verktøyindeksen starter på 1 og bestilles fra venstre til høyre. En tom verktøyindeks vil deaktivere verktøybryteren på denne kontrollen. Sett inn `0` for å aktivere flytting med denne kontrollen.
+Tilpass kontrollene ved å gi hver kontroll en verktøyindeks.
+
+* La den være tom for å deaktivere verktøybryteren på denne kontrollen.
+* Sett den til `0` for å aktivere flytting av denne kontrollen.
+* Sett den til et positve-tall for å bytte til verktøy med denne indeksen starter fra den første til venstre med `1`.

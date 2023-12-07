@@ -41,4 +41,8 @@ Det finns några genvägar som du kan använda i editorn. Några av dem är skri
 
 ## Konfigurera {#configure}
 
-Anpassa kontrollerna genom att ge varje kontroll ett verktygsindex. Verktygsindexet börjar vid 1 och beställs från vänster till höger. Ett tomt verktygsindex kommer att inaktivera verktygsbrytaren på denna kontroll. Infoga `0` för att aktivera flyttning med denna kontroll.
+Anpassa kontrollerna genom att ge varje kontroll ett verktygsindex.
+
+* Låt det vara tomt för att inaktivera verktygsbrytaren på denna kontroll.
+* Sätt den till `0` för att aktivera flyttning med denna kontroll.
+* Sätt det till ett positve nummer för att växla till verktyget med detta index från första till vänster med start med `1`.

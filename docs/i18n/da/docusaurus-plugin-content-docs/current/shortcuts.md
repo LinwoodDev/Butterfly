@@ -41,4 +41,8 @@ Der er et par genveje, som du kan bruge i editoren. Nogle af dem er skrevet unde
 
 ## Konfigurer {#configure}
 
-Tilpas kontrolelementerne ved at give hver kontrol et værktøjs indeks. Værktøjsindekset starter ved 1 og bestilles fra venstre mod højre. Et tomt værktøjs indeks vil deaktivere værktøjsknappen på denne kontrol. Indsæt `0` for at aktivere bevægelse med denne kontrol.
+Tilpas kontrolelementerne ved at give hver kontrol et værktøjs indeks.
+
+* Lad det være tomt for at deaktivere værktøjsknappen på denne kontrol.
+* Sæt den til `0` for at aktivere bevægelse med denne kontrol.
+* Set it to a positve number to switch to the tool with this index starting from the first on the left starting with `1`.

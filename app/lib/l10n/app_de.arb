@@ -514,7 +514,7 @@
   "rotate": "Drehen",
   "spacer": "Abstandhalter",
   "navigationRail": "Navigationsschiene",
-  "cut": "Schneide",
+  "cut": "Ausschneiden",
   "insertBefore": "Vorher einfügen",
   "insertAfter": "Einfügen nach",
   "insertFirst": "Zuerst einfügen",
@@ -580,5 +580,6 @@
       }
     }
   },
-  "continueAnyway": "Trotzdem fortfahren"
+  "continueAnyway": "Trotzdem fortfahren",
+  "zoomControl": "Zoom-Steuerung"
 }

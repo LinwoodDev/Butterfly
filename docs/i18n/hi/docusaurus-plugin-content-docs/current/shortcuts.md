@@ -41,4 +41,8 @@ There are a few shortcuts that you can use in the editor. Some of them are writt
 
 ## Configure {#configure}
 
-Customize the controls by giving every control a tool index. The tool index starts at 1 and are ordered from left to right. An empty tool index will disable the tool switch on this control. Insert `0` to enable moving with this control.
+Customize the controls by giving every control a tool index.
+
+* Let it empty to disable the tool switch on this control.
+* Set it to `0` to enable moving with this control.
+* Set it to a positve number to switch to the tool with this index starting from the first on the left starting with `1`.

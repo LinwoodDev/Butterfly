@@ -41,4 +41,8 @@ Il y a quelques raccourcis que vous pouvez utiliser dans l'éditeur. Certaines d
 
 ## Configurer {#configure}
 
-Personnalisez les contrôles en donnant à chaque contrôle un index d'outil. L'index de l'outil commence à 1 et est ordonné de gauche à droite. Un index d'outil vide désactivera le basculement de l'outil sur ce contrôle. Insérez `0` pour activer le déplacement avec ce contrôle.
+Personnalisez les contrôles en donnant à chaque contrôle un index d'outil.
+
+* Laissez vide pour désactiver le basculement de l'outil sur ce contrôle.
+* Configurez-le à `0` pour activer le déplacement avec ce contrôle.
+* Mettez-le à un numéro de positve pour basculer vers l'outil avec cet index à partir du premier à gauche commençant par `1`.

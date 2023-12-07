@@ -580,5 +580,6 @@
       }
     }
   },
-  "continueAnyway": "それでも続ける"
+  "continueAnyway": "それでも続ける",
+  "zoomControl": "ズームコントロール"
 }

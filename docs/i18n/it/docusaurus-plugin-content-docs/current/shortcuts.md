@@ -41,4 +41,8 @@ Ci sono alcune scorciatoie che puoi usare nell'editor. Alcuni di loro sono scrit
 
 ## Configura {#configure}
 
-Personalizza i controlli dando ad ogni controllo un indice degli strumenti. L'indice dello strumento inizia da 1 e viene ordinato da sinistra a destra. Un indice di strumento vuoto disabiliterà l'interruttore dello strumento su questo controllo. Inserisci `0` per abilitare lo spostamento con questo controllo.
+Personalizza i controlli dando ad ogni controllo un indice degli strumenti.
+
+* Lasciare vuoto per disabilitare lo strumento accendere questo controllo.
+* Impostalo su `0` per abilitare lo spostamento con questo controllo.
+* Impostarlo su un numero di posizione per passare allo strumento con questo indice a partire dal primo a sinistra che inizia con `1`.

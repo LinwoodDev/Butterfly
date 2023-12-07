@@ -580,5 +580,6 @@
       }
     }
   },
-  "continueAnyway": "Fortsæt alligevel"
+  "continueAnyway": "Fortsæt alligevel",
+  "zoomControl": "Zoom kontrol"
 }

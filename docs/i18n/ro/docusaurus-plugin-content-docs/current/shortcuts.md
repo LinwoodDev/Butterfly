@@ -41,4 +41,8 @@ Există câteva comenzi rapide pe care le poți folosi în editor. Unele dintre 
 
 ## Configurare {#configure}
 
-Personalizați controalele dând fiecărui control un indice de unelte. Indicele sculei începe la 1 și sunt ordonate de la stânga la dreapta. Un index gol de instrumente va dezactiva comutatorul de unelte pe acest control. Introduceți `0` pentru a activa mutarea cu acest control.
+Personalizați controalele dând fiecărui control un indice de unelte.
+
+* Lasă-l gol pentru a dezactiva comutatorul de instrumente pe acest control.
+* Setează-l la `0` pentru a activa mutarea cu acest control.
+* Setaţi-l la un număr positve pentru a trece la unealta cu acest index începând cu primul din stânga de la `1`.

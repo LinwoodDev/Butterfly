@@ -580,5 +580,6 @@
       }
     }
   },
-  "continueAnyway": "Přesto pokračovat"
+  "continueAnyway": "Přesto pokračovat",
+  "zoomControl": "Ovládání přiblížení"
 }

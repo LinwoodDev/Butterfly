@@ -580,5 +580,6 @@
       }
     }
   },
-  "continueAnyway": "Jatka joka tapauksessa"
+  "continueAnyway": "Jatka joka tapauksessa",
+  "zoomControl": "Zoomauksen hallinta"
 }
