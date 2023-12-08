@@ -2,6 +2,20 @@
 
 <!--ENTER CHANGELOG HERE-->
 
+## 2.0.0-rc.1 (2023-12-08)
+
+* Add right click as alternative to long press
+* Change default scale of label to 5
+* Improve documentation of shortcuts ([#534](https://github.com/LinwoodDev/Butterfly/issues/534))
+* Fix closing of settings on click on mobile ([#537](https://github.com/LinwoodDev/Butterfly/issues/537))
+* Fix zoom usable if hidden ([#538](https://github.com/LinwoodDev/Butterfly/issues/538))
+* Fix full screen menu item ([#535](https://github.com/LinwoodDev/Butterfly/issues/535))
+* Fix selecting small areas ([#543](https://github.com/LinwoodDev/Butterfly/issues/543))
+* Fix areas not refreshing after deleting ([#541](https://github.com/LinwoodDev/Butterfly/issues/541))
+* Fix tool not selected when added
+
+View all changes in the blog: https://linwood.dev/butterfly/2.0.0-rc.1
+
 ## 2.0.0-rc.0 (2023-12-01)
 
 * Add files action to file navigator
