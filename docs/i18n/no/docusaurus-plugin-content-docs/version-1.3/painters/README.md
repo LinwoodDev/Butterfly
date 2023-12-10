@@ -1,6 +1,6 @@
 ---
 title: "Malere"
-slug: /painters
+slug: /malere
 sidebar_label: "Introduksjon"
 sidebar_position: 1
 ---
@@ -17,8 +17,8 @@ Navnet på maleren vises som verktøytips på svev på maleren.
 ## Tilgjengelige malere
 
 ```mdx-code-block
-import DocCardList from '@theme/DocCardList';
-import {useCurrentSidebarCategory} from '@docusaurus/theme-common';
+Importer DocCardList fra '@theme/DocCardList';
+importerer {useCurrentSidebarCategory} fra '@docusaurus/theme-common';
 
 <DocCardList items={useCurrentSidebarCategory().items}/>
 ```
