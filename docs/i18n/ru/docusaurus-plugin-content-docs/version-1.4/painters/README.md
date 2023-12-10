@@ -1,6 +1,6 @@
 ---
 title: "Художники"
-slug: /painters
+slug: /художники
 sidebar_label: "Введение"
 sidebar_position: 1
 ---
@@ -17,8 +17,8 @@ sidebar_position: 1
 ## Доступные художники
 
 ```mdx-code-block
-import DocCardList from '@theme/DocCardList';
-import {useCurrentSidebarCategory} from '@docusaurus/theme-common';
+импортировать список DocCardList из '@theme/DocCardList';
+импортировать {useCurrentSidebarCategory} из '@docusaurus/theme-common';
 
 <DocCardList items={useCurrentSidebarCategory().items}/>
 ```
