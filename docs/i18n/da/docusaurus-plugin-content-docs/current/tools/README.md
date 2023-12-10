@@ -17,8 +17,8 @@ Navnet på værktøjet vil blive vist som værktøjstip på hover på værktøje
 ## Tilgængelige værktøjer
 
 ```mdx-code-block
-import DocCardList from '@theme/DocCardList';
-import {useCurrentSidebarCategory} from '@docusaurus/theme-common';
+importér DocCardList fra '@theme/DocCardList';
+importér {useCurrentSidebarCategory} fra '@docusaurus/theme-common';
 
 <DocCardList items={useCurrentSidebarCategory().items}/>
 ```
