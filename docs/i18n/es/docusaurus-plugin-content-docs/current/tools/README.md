@@ -17,8 +17,8 @@ El nombre de la herramienta se mostrará como descripción al pasar el ratón so
 ## Herramientas disponibles
 
 ```mdx-code-block
-import DocCardList from '@theme/DocCardList';
-import {useCurrentSidebarCategory} from '@docusaurus/theme-common';
+importar DocCardList de '@theme/DocCardList';
+importar {useCurrentSidebarCategory} de '@docusaurus/theme-common';
 
 <DocCardList items={useCurrentSidebarCategory().items}/>
 ```
