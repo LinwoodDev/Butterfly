@@ -17,8 +17,8 @@ Název nástroje se zobrazí jako nápověda na nástěnce.
 ## Dostupné nástroje
 
 ```mdx-code-block
-import DocCardList from '@theme/DocCardList';
-import {useCurrentSidebarCategory} from '@docusaurus/theme-common';
+importovat DocCardList z '@theme/DocCardList';
+import {useCurrentSidebarCategory} z '@docusaurus/theme-common';
 
 <DocCardList items={useCurrentSidebarCategory().items}/>
 ```
