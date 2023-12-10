@@ -17,8 +17,8 @@ Il nome dello strumento verrà visualizzato come suggerimento al passaggio sullo
 ## Strumenti disponibili
 
 ```mdx-code-block
-import DocCardList from '@theme/DocCardList';
-import {useCurrentSidebarCategory} from '@docusaurus/theme-common';
+importa Doc CardList da '@theme/DocCardList';
+importa {useCurrentSidebarCategory} da '@docusaurus/theme-common';
 
 <DocCardList items={useCurrentSidebarCategory().items}/>
 ```
