@@ -1,6 +1,6 @@
 ---
 title: "Maler"
-slug: /painters
+slug: /maler
 sidebar_label: "Einführung"
 sidebar_position: 1
 ---
@@ -17,8 +17,8 @@ Der Name des Malers wird als Tooltipp beim Schweben auf dem Maler angezeigt.
 ## Verfügbare Maler
 
 ```mdx-code-block
-import DocCardList from '@theme/DocCardList';
-import {useCurrentSidebarCategory} from '@docusaurus/theme-common';
+importiere DocCardList von '@theme/DocCardList';
+importiere {useCurrentSidebarCategory} von '@docusaurus/theme-common';
 
 <DocCardList items={useCurrentSidebarCategory().items}/>
 ```
