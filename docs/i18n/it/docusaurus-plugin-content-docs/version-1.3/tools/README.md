@@ -15,8 +15,8 @@ Se si fa clic su uno strumento selezionato è possibile configurarlo.
 ## Strumenti disponibili
 
 ```mdx-code-block
-import DocCardList from '@theme/DocCardList';
-import {useCurrentSidebarCategory} from '@docusaurus/theme-common';
+importa Doc CardList da '@theme/DocCardList';
+importa {useCurrentSidebarCategory} da '@docusaurus/theme-common';
 
 <DocCardList items={useCurrentSidebarCategory().items}/>
 ```
