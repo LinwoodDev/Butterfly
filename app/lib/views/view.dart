@@ -364,6 +364,9 @@ class _MainViewViewportState extends State<MainViewViewport>
                             onPointerCancel: (event) {
                               cubit.removePointer(event.pointer);
                               cubit.removeButtons();
+                              if (cubit.state.pointers.isEmpty) {
+                                _isScalingDisabled = null;
+                              }
                             },
                             child: BlocBuilder<TransformCubit, CameraTransform>(
                               builder: (context, transform) => MouseRegion(

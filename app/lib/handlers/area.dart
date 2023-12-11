@@ -49,14 +49,12 @@ class AreaHandler extends Handler<AreaTool> {
   @override
   bool onScaleStart(ScaleStartDetails details, EventContext context) {
     final currentIndex = context.getCurrentIndex();
-    print('onScaleStart: $details');
     if (details.pointerCount > 1 ||
         currentIndex.buttons == kSecondaryMouseButton) return true;
     final globalPosition =
         context.getCameraTransform().localToGlobal(details.localFocalPoint);
 
     start = globalPosition;
-    print('start: $start');
     return true;
   }
 
@@ -79,7 +77,6 @@ class AreaHandler extends Handler<AreaTool> {
   @override
   Future<void> onScaleEnd(ScaleEndDetails details, EventContext context) async {
     final currentIndex = context.getCurrentIndex();
-    print('onScaleEnd: $details');
     final rect = currentRect;
     if (details.pointerCount > 1 ||
         currentIndex.buttons == kSecondaryMouseButton ||

@@ -30,7 +30,7 @@ dependencies:
   intl: ^0.18.0
   path_provider: ^2.1.1
   shared_preferences: ^2.2.2
-  url_launcher: ^6.2.1
+  url_launcher: ^6.2.2
   file_picker: ^6.1.1
   phosphor_flutter:
     git:
