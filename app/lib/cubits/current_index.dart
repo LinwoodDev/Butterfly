@@ -61,7 +61,7 @@ class CurrentIndex with _$CurrentIndex {
     @Default(AssetLocation(path: '')) AssetLocation location,
     Embedding? embedding,
     @Default(SaveState.unsaved) SaveState saved,
-    @Default(false) bool unsavedOnSaving,
+    @Default(false) bool currentlySaving,
     PreferredSizeWidget? toolbar,
     PreferredSizeWidget? temporaryToolbar,
     @Default(<Renderer, RendererState>{})
@@ -801,25 +801,33 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     if (state.networkingService.state?.$1 is NetworkerClient) {
       return AssetLocation.empty;
     }
+    if (state.currentlySaving) {
+      return state.location;
+    }
+    emit(state.copyWith(currentlySaving: true));
     final storage = getRemoteStorage();
     final fileSystem = DocumentFileSystem.fromPlatform(remote: storage);
-    emit(state.copyWith(
-        saved: SaveState.saving, location: location ?? state.location));
-    location ??= state.location;
-    final currentData = blocState.saveData();
-    if (currentData == null) return AssetLocation.empty;
-    if (blocState.embedding != null) return AssetLocation.empty;
-    if (!location.path.endsWith('.bfly') ||
-        location.absolute ||
-        location.fileType != AssetFileType.note) {
-      final document = await fileSystem.importDocument(currentData);
-      if (document == null) return AssetLocation.empty;
-      location = document.location;
-    } else {
-      await fileSystem.updateDocument(location.path, currentData);
+    while (state.saved == SaveState.unsaved) {
+      emit(state.copyWith(
+          saved: SaveState.saving, location: location ?? state.location));
+      location ??= state.location;
+      final currentData = blocState.saveData();
+      if (currentData == null) return AssetLocation.empty;
+      if (blocState.embedding != null) return AssetLocation.empty;
+      if (!location.path.endsWith('.bfly') ||
+          location.absolute ||
+          location.fileType != AssetFileType.note) {
+        final document = await fileSystem.importDocument(currentData);
+        if (document == null) return AssetLocation.empty;
+        location = document.location;
+      } else {
+        await fileSystem.updateDocument(location.path, currentData);
+      }
+      state.settingsCubit.addRecentHistory(location);
     }
-    state.settingsCubit.addRecentHistory(location);
-    emit(state.copyWith(location: location, saved: SaveState.saved));
+    location ??= state.location;
+    emit(state.copyWith(
+        location: location, saved: SaveState.saved, currentlySaving: false));
     return location;
   }
 

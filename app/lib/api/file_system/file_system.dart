@@ -230,17 +230,20 @@ abstract class DocumentFileSystem extends GeneralFileSystem {
 
   Future<void> saveAbsolute(String path, Uint8List bytes) => Future.value();
 
-  Future<void> updateDocument(String path, NoteData document) =>
-      updateFile(path, document.save());
+  Future<void> updateDocument(String path, NoteData document) async =>
+      updateFile(path, await _exportDocument(document));
 
   Future<AppDocumentFile?> importDocument(NoteData document,
-      {String path = '/'}) {
+      {String path = '/'}) async {
     if (path.endsWith('/')) {
       path = path.substring(0, path.length - 1);
     }
     return createFile('$path/${convertNameToFile(document.name ?? '')}.bfly',
-        document.save());
+        await _exportDocument(document));
   }
+
+  Future<List<int>> _exportDocument(NoteData document) =>
+      compute((_) => document.save(), null);
 }
 
 abstract class TemplateFileSystem extends GeneralFileSystem {
