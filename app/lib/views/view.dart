@@ -240,7 +240,6 @@ class _MainViewViewportState extends State<MainViewViewport>
                           onScaleEnd: (details) {
                             getHandler().onScaleEnd(details, getEventContext());
                             if (!(_isScalingDisabled ?? true)) delayBake();
-                            _isScalingDisabled = null;
                           },
                           onScaleStart: (details) {
                             _isScalingDisabled ??= !cubit.state.moveEnabled;
@@ -326,6 +325,9 @@ class _MainViewViewportState extends State<MainViewViewport>
                               }
                               cubit.removePointer(event.pointer);
                               cubit.removeButtons();
+                              if (cubit.state.pointers.isEmpty) {
+                                _isScalingDisabled = null;
+                              }
                               Future.sync(() => cubit.resetTemporaryHandler(
                                   context.read<DocumentBloc>()));
                             },

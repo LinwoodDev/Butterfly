@@ -11,13 +11,8 @@ class AreaHandler extends Handler<AreaTool> {
   }
 
   set currentRect(Rect? value) {
-    if (value == null) {
-      start = null;
-      end = null;
-    } else {
-      start = value.topLeft;
-      end = value.bottomRight;
-    }
+    start = value?.topLeft;
+    end = value?.bottomRight;
   }
 
   @override
@@ -46,14 +41,22 @@ class AreaHandler extends Handler<AreaTool> {
   void resetInput(DocumentBloc bloc) => currentRect = null;
 
   @override
+  void onScaleStartAbort(ScaleStartDetails details, EventContext context) {
+    start = null;
+    context.refresh();
+  }
+
+  @override
   bool onScaleStart(ScaleStartDetails details, EventContext context) {
     final currentIndex = context.getCurrentIndex();
+    print('onScaleStart: $details');
     if (details.pointerCount > 1 ||
         currentIndex.buttons == kSecondaryMouseButton) return true;
     final globalPosition =
         context.getCameraTransform().localToGlobal(details.localFocalPoint);
 
     start = globalPosition;
+    print('start: $start');
     return true;
   }
 
@@ -76,14 +79,15 @@ class AreaHandler extends Handler<AreaTool> {
   @override
   Future<void> onScaleEnd(ScaleEndDetails details, EventContext context) async {
     final currentIndex = context.getCurrentIndex();
+    print('onScaleEnd: $details');
+    final rect = currentRect;
     if (details.pointerCount > 1 ||
-        currentIndex.buttons == kSecondaryMouseButton) {
+        currentIndex.buttons == kSecondaryMouseButton ||
+        (rect?.isEmpty ?? true)) {
       currentRect = null;
       context.refresh();
       return;
     }
-    final rect = currentRect;
-    if (rect == null) return;
     final state = context.getState();
     if (state == null) return;
     context.refresh();
@@ -102,7 +106,7 @@ class AreaHandler extends Handler<AreaTool> {
     currentRect = null;
     context.getDocumentBloc().add(AreasCreated([
           Area(
-            width: rect.width,
+            width: rect!.width,
             height: rect.height,
             position: rect.topLeft.toPoint(),
             name: name,

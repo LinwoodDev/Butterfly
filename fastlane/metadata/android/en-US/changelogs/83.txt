@@ -1,0 +1,3 @@
+* Fix calling onScale to tools on moving on touch devices ([#546](https://github.com/LinwoodDev/Butterfly/issues/546))
+
+View all changes in the blog: https://linwood.dev/butterfly/2.0.0-rc.2
