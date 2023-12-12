@@ -1,4 +1,5 @@
 * Improve performance when saving ([#547](https://github.com/LinwoodDev/Butterfly/issues/547))
 * Fix calling onScale to tools on moving on touch devices ([#546](https://github.com/LinwoodDev/Butterfly/issues/546))
+* Fix exporting documents as png or svg
 
 View all changes in the blog: https://linwood.dev/butterfly/2.0.0-rc.2

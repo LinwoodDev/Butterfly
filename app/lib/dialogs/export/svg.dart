@@ -105,7 +105,7 @@ class _SvgExportDialogState extends State<SvgExportDialog> {
     );
     if (!mounted) return;
 
-    exportSvg(
+    return exportSvg(
       context,
       data.toXmlString(),
     );
@@ -162,8 +162,8 @@ class _SvgExportDialogState extends State<SvgExportDialog> {
                           ElevatedButton(
                             child: Text(AppLocalizations.of(context).export),
                             onPressed: () async {
-                              Navigator.of(context).pop();
-                              _exportSvg();
+                              await _exportSvg();
+                              if (mounted) Navigator.of(context).pop();
                             },
                           ),
                         ],

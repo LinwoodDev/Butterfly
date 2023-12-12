@@ -145,7 +145,6 @@ class _ImageExportDialogState extends State<ImageExportDialog> {
                             child: Text(AppLocalizations.of(context).export),
                             onPressed: () async {
                               final state = context.read<DocumentBloc>().state;
-                              Navigator.of(context).pop();
                               if (state is! DocumentLoadSuccess) {
                                 return;
                               }
@@ -153,7 +152,9 @@ class _ImageExportDialogState extends State<ImageExportDialog> {
                               if (data == null) {
                                 return;
                               }
-                              exportImage(context, data.buffer.asUint8List());
+                              await exportImage(
+                                  context, data.buffer.asUint8List());
+                              if (mounted) Navigator.of(context).pop();
                             },
                           ),
                         ],
