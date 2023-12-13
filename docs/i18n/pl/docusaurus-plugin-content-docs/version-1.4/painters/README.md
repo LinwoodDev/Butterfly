@@ -1,6 +1,6 @@
 ---
 title: "Pasty do malowania"
-slug: /farby
+slug: /painters
 sidebar_label: "Wprowadzanie"
 sidebar_position: 1
 ---
@@ -17,8 +17,8 @@ Nazwa farby będzie wyświetlana jako podpowiedź po najechaniu na malarze.
 ## Dostępne malarstwa
 
 ```mdx-code-block
-importuj DocCardList z '@theme/DocCardList';
-importuj {useCurrentSidebarCategory} z '@docusaurus/theme-common';
+import DocCardList from '@theme/DocCardList';
+import {useCurrentSidebarCategory} from '@docusaurus/theme-common';
 
 <DocCardList items={useCurrentSidebarCategory().items}/>
 ```
