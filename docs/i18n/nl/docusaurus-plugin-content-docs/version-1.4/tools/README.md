@@ -15,8 +15,8 @@ Als u op een geselecteerd hulpmiddel klikt, kunt u het configureren.
 ## Beschikbare gereedschappen
 
 ```mdx-code-block
-importeer DocCardList van '@theme/DocCardList';
-importeer {useCurrentSidebarCategory} van '@docusaurus/theme-common';
+import DocCardList from '@theme/DocCardList';
+import {useCurrentSidebarCategory} from '@docusaurus/theme-common';
 
 <DocCardList items={useCurrentSidebarCategory().items}/>
 ```
