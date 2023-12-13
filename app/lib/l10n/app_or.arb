@@ -47,7 +47,7 @@
   "background": "Background",
   "box": "Box",
   "locale": "Locale",
-  "defaultLocale": "Default locale",
+  "systemLocale": "System locale",
   "information": "ସୂଚନା",
   "license": "License",
   "imprint": "Imprint",
