@@ -47,7 +47,7 @@
   "background": "Arkaplan",
   "box": "Kutu",
   "locale": "Dil",
-  "defaultLocale": "Varsayılan Dil",
+  "systemLocale": "System locale",
   "information": "Bilgilendirme",
   "license": "Lisans",
   "imprint": "Künye",
