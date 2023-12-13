@@ -1,6 +1,6 @@
 ---
 title: "绘画"
-slug: /patinters
+slug: /painters
 sidebar_label: "一. 导言"
 sidebar_position: 1
 ---
