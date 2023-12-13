@@ -1,6 +1,6 @@
 ---
 title: "Pași"
-slug: /pictori
+slug: /painters
 sidebar_label: "Introducere"
 sidebar_position: 1
 ---
@@ -18,7 +18,7 @@ Numele pictorului va fi afișat ca un pont de unealtă pe șoseta pictorului.
 
 ```mdx-code-block
 import DocCardList from '@theme/DocCardList';
-import {useCurrentSidebarCategory} din '@docusaurus/theme-common';
+import {useCurrentSidebarCategory} from '@docusaurus/theme-common';
 
 <DocCardList items={useCurrentSidebarCategory().items}/>
 ```
