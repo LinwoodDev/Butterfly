@@ -15,8 +15,8 @@ sidebar_position: 0
 ## Доступные инструменты
 
 ```mdx-code-block
-импортировать список DocCardList из '@theme/DocCardList';
-импортировать {useCurrentSidebarCategory} из '@docusaurus/theme-common';
+import DocCardList from '@theme/DocCardList';
+import {useCurrentSidebarCategory} from '@docusaurus/theme-common';
 
 <DocCardList items={useCurrentSidebarCategory().items}/>
 ```
