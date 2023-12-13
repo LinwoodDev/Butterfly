@@ -47,7 +47,7 @@
   "background": "Achtergrond",
   "box": "Vierkant",
   "locale": "Lokalisatie",
-  "defaultLocale": "Standaard lokalisatie",
+  "systemLocale": "Systeem lokalisatie",
   "information": "Informatie",
   "license": "Licentie",
   "imprint": "Impressum",
