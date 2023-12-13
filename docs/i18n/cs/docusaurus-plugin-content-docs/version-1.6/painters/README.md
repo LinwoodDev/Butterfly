@@ -1,6 +1,6 @@
 ---
 title: "Malířské tmely"
-slug: /malíře
+slug: /painters
 sidebar_label: "Úvod"
 sidebar_position: 1
 ---
@@ -17,8 +17,8 @@ Název malíře se zobrazí jako nápověda při najetí na malíři.
 ## Dostupné malby
 
 ```mdx-code-block
-importovat DocCardList z '@theme/DocCardList';
-import {useCurrentSidebarCategory} z '@docusaurus/theme-common';
+import DocCardList from '@theme/DocCardList';
+import {useCurrentSidebarCategory} from '@docusaurus/theme-common';
 
 <DocCardList items={useCurrentSidebarCategory().items}/>
 ```
