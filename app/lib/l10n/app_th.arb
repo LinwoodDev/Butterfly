@@ -47,7 +47,7 @@
   "background": "พื้นหลัง",
   "box": "กล่อง",
   "locale": "ภาษาท้องถิ่น",
-  "defaultLocale": "ภาษาเริ่มต้น",
+  "systemLocale": "System locale",
   "information": "ข้อมูล",
   "license": "ใบอนุญาต",
   "imprint": "Imprint",
