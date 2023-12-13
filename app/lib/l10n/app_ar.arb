@@ -47,7 +47,7 @@
   "background": "الخلفية",
   "box": "صندوق",
   "locale": "محلي",
-  "defaultLocale": "الإعدادات الافتراضية",
+  "systemLocale": "محلي النظام",
   "information": "معلومات",
   "license": "الترخيص",
   "imprint": "بصمة",
