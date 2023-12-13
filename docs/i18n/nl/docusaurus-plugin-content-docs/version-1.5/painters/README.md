@@ -1,6 +1,6 @@
 ---
 title: "Schilders"
-slug: /schilders
+slug: /painters
 sidebar_label: "Introductie"
 sidebar_position: 1
 ---
@@ -17,8 +17,8 @@ De naam van de schilder wordt weergegeven als tooltip bij zweven op de schilder.
 ## Beschikbare schilders
 
 ```mdx-code-block
-importeer DocCardList van '@theme/DocCardList';
-importeer {useCurrentSidebarCategory} van '@docusaurus/theme-common';
+import DocCardList from '@theme/DocCardList';
+import {useCurrentSidebarCategory} from '@docusaurus/theme-common';
 
 <DocCardList items={useCurrentSidebarCategory().items}/>
 ```
