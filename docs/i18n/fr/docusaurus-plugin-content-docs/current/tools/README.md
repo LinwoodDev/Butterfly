@@ -17,8 +17,8 @@ Le nom de l'outil sera affiché comme infobulle au survol de l'outil.
 ## Outils disponibles
 
 ```mdx-code-block
-importer DocCardList depuis '@theme/DocCardList';
-importer {useCurrentSidebarCategory} depuis '@docusaurus/theme-common';
+import DocCardList from '@theme/DocCardList';
+import {useCurrentSidebarCategory} from '@docusaurus/theme-common';
 
 <DocCardList items={useCurrentSidebarCategory().items}/>
 ```
