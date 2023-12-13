@@ -17,8 +17,8 @@ sidebar_position: 1
 ## الأدوات المتاحة
 
 ```mdx-code-block
-استيراد DocCardList من '@theme/DocCardList';
-استيراد {useCurrentSidebarCategory} من '@docusaurus/theme-common';
+import DocCardList from '@theme/DocCardList';
+import {useCurrentSidebarCategory} from '@docusaurus/theme-common';
 
 <DocCardList items={useCurrentSidebarCategory().items}/>
 ```
