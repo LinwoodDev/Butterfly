@@ -47,7 +47,7 @@
   "background": "Fundo",
   "box": "Cx",
   "locale": "Localidade",
-  "defaultLocale": "Idioma padrão",
+  "systemLocale": "Localização do sistema",
   "information": "Informacao",
   "license": "Tipo:",
   "imprint": "Imprimir",
