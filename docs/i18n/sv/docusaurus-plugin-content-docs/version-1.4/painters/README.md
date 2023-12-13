@@ -1,6 +1,6 @@
 ---
 title: "Målare"
-slug: /målare
+slug: /painters
 sidebar_label: "Introduktion"
 sidebar_position: 1
 ---
@@ -17,8 +17,8 @@ Namnet på målaren kommer att visas som verktygstips på muspekaren på målare
 ## Tillgängliga målare
 
 ```mdx-code-block
-importera DocCardList från '@theme/DocCardList';
-import {useCurrentSidebarCategory} från '@docusaurus/theme-common';
+import DocCardList from '@theme/DocCardList';
+import {useCurrentSidebarCategory} from '@docusaurus/theme-common';
 
 <DocCardList items={useCurrentSidebarCategory().items}/>
 ```
