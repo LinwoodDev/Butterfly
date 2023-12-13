@@ -47,7 +47,7 @@
   "background": "Фон",
   "box": "Блок",
   "locale": "Язык",
-  "defaultLocale": "Язык по умолчанию",
+  "systemLocale": "Системный язык",
   "information": "Информация",
   "license": "Лицензия",
   "imprint": "О компании",
