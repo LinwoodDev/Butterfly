@@ -17,8 +17,8 @@ Der Name des Werkzeugs wird als Tooltip beim Schweben des Werkzeugs angezeigt.
 ## Verfügbare Werkzeuge
 
 ```mdx-code-block
-importiere DocCardList von '@theme/DocCardList';
-importiere {useCurrentSidebarCategory} von '@docusaurus/theme-common';
+import DocCardList from '@theme/DocCardList';
+import {useCurrentSidebarCategory} from '@docusaurus/theme-common';
 
 <DocCardList items={useCurrentSidebarCategory().items}/>
 ```
