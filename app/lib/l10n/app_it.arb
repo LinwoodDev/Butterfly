@@ -47,7 +47,7 @@
   "background": "Sfondo",
   "box": "Riquadro",
   "locale": "Lingua",
-  "defaultLocale": "Lingua predefinita",
+  "systemLocale": "Localizzazione di sistema",
   "information": "Informazioni",
   "license": "Licenza",
   "imprint": "Contatti",
