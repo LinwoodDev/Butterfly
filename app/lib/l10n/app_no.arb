@@ -47,7 +47,7 @@
   "background": "Bakgrunn",
   "box": "Boks",
   "locale": "Språk",
-  "defaultLocale": "Standard nasjonal innstilling",
+  "systemLocale": "System nasjonale innstillinger",
   "information": "Informasjon",
   "license": "Lisens",
   "imprint": "Avtrykk",
