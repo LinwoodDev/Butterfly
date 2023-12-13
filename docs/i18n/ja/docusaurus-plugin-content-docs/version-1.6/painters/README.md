@@ -1,6 +1,6 @@
 ---
 title: "Painters"
-slug: /paiters
+slug: /painters
 sidebar_label: "はじめに"
 sidebar_position: 1
 ---
