@@ -1,6 +1,6 @@
 ---
 title: "Pintores"
-slug: /pintores
+slug: /painters
 sidebar_label: "Introducción"
 sidebar_position: 1
 ---
@@ -17,8 +17,8 @@ El nombre del pintor se mostrará como descripción al pasar el cursor sobre el 
 ## Pintores disponibles
 
 ```mdx-code-block
-importar DocCardList de '@theme/DocCardList';
-importar {useCurrentSidebarCategory} de '@docusaurus/theme-common';
+import DocCardList from '@theme/DocCardList';
+import {useCurrentSidebarCategory} from '@docusaurus/theme-common';
 
 <DocCardList items={useCurrentSidebarCategory().items}/>
 ```
