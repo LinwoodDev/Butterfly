@@ -100,13 +100,17 @@ class _SettingsPageState extends State<SettingsPage> {
                     children: [
                       ...SettingsView.values
                           .where((e) => e.isEnabled)
-                          .map((view) => ListTile(
-                                leading: PhosphorIcon(
-                                    view.icon(PhosphorIconsStyle.light)),
-                                title: Text(view.getLocalizedName(context)),
-                                onTap: () => navigateTo(view),
-                                selected: _view == view && !isMobile,
-                              )),
+                          .map((view) {
+                        final selected = _view == view && !isMobile;
+                        return ListTile(
+                          leading: PhosphorIcon(view.icon(selected
+                              ? PhosphorIconsStyle.fill
+                              : PhosphorIconsStyle.light)),
+                          title: Text(view.getLocalizedName(context)),
+                          onTap: () => navigateTo(view),
+                          selected: selected,
+                        );
+                      }),
                       if (kIsWeb) ...[
                         const Divider(),
                         Padding(

@@ -1,5 +1,6 @@
 * Improve performance when saving ([#547](https://github.com/LinwoodDev/Butterfly/issues/547))
 * Improve mobile add dialog
+* Improve selected icons in settings
 * Fix calling onScale to tools on moving on touch devices ([#546](https://github.com/LinwoodDev/Butterfly/issues/546))
 * Fix exporting documents as png or svg
 
