@@ -1,6 +1,6 @@
 ---
 title: "المؤمنون"
-slug: / رسام
+slug: /painters
 sidebar_label: "مقدمة"
 sidebar_position: 1
 ---
@@ -17,8 +17,8 @@ sidebar_position: 1
 ## الرسام المتوفر
 
 ```mdx-code-block
-استيراد DocCardList من '@theme/DocCardList';
-استيراد {useCurrentSidebarCategory} من '@docusaurus/theme-common';
+import DocCardList from '@theme/DocCardList';
+import {useCurrentSidebarCategory} from '@docusaurus/theme-common';
 
 <DocCardList items={useCurrentSidebarCategory().items}/>
 ```
