@@ -17,8 +17,8 @@ De naam van de tool wordt weergegeven als tooltip bij zweven op de tool.
 ## Beschikbare gereedschappen
 
 ```mdx-code-block
-importeer DocCardList van '@theme/DocCardList';
-importeer {useCurrentSidebarCategory} van '@docusaurus/theme-common';
+import DocCardList from '@theme/DocCardList';
+import {useCurrentSidebarCategory} from '@docusaurus/theme-common';
 
 <DocCardList items={useCurrentSidebarCategory().items}/>
 ```
