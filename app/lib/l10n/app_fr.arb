@@ -47,7 +47,7 @@
   "background": "Arrière-plan",
   "box": "Boîte",
   "locale": "Langue",
-  "defaultLocale": "Langue par défaut",
+  "systemLocale": "System locale",
   "information": "Information",
   "license": "Licence",
   "imprint": "Mentions légales",
