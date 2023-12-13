@@ -47,7 +47,7 @@
   "background": "Pozadí",
   "box": "Krabice",
   "locale": "Místní prostředí",
-  "defaultLocale": "Výchozí lokalizace",
+  "systemLocale": "Systémová lokalizace",
   "information": "Informace",
   "license": "Licence",
   "imprint": "Tisk",
