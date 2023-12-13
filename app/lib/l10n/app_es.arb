@@ -47,7 +47,7 @@
   "background": "Fondo",
   "box": "Caja",
   "locale": "Local",
-  "defaultLocale": "Idioma por defecto",
+  "systemLocale": "System locale",
   "information": "Información",
   "license": "Licencia",
   "imprint": "Aviso",
