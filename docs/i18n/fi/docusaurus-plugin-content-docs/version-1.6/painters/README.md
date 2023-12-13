@@ -1,6 +1,6 @@
 ---
 title: "Maalarit"
-slug: /maalarit
+slug: /painters
 sidebar_label: "Johdanto"
 sidebar_position: 1
 ---
