@@ -29,7 +29,7 @@ class PersonalizationSettingsPage extends StatelessWidget {
 
   String _getLocaleName(BuildContext context, String locale) =>
       LocaleNames.of(context)?.nameOf(locale) ??
-      AppLocalizations.of(context).defaultLocale;
+      AppLocalizations.of(context).systemLocale;
 
   @override
   Widget build(BuildContext context) {
@@ -299,7 +299,7 @@ class PersonalizationSettingsPage extends StatelessWidget {
 
           return [
             ListTile(
-                title: Text(AppLocalizations.of(context).defaultLocale),
+                title: Text(AppLocalizations.of(context).systemLocale),
                 selected: currentLocale.isEmpty,
                 onTap: () => changeLocale(null)),
             ...locales.map((e) => ListTile(
