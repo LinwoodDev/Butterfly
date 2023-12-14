@@ -47,7 +47,7 @@
   "background": "Plano de fundo",
   "box": "Caixa",
   "locale": "Localidade",
-  "defaultLocale": "Idioma padrão",
+  "systemLocale": "Localização do sistema",
   "information": "Informacao",
   "license": "Tipo:",
   "imprint": "Imprimir",

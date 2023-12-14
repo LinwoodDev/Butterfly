@@ -47,7 +47,7 @@
   "background": "Sfondo",
   "box": "Riquadro",
   "locale": "Lingua",
-  "defaultLocale": "Lingua predefinita",
+  "systemLocale": "Localizzazione di sistema",
   "information": "Informazioni",
   "license": "Licenza",
   "imprint": "Contatti",
@@ -571,7 +571,7 @@
   "rootDirectorySpecifiedDescription": "La directory radice è specificata. Tutti i percorsi di directory avanzati saranno relativi a questa directory. Tienila vuota per disabilitare questo tipo di directory.",
   "rootDirectoryNotSpecifiedDescription": "La directory radice non è specificata. È richiesto un nome. Tutti i percorsi di directory avanzati saranno assoluti. Mantieni vuoto per disabilitare questo tipo di directory.",
   "unsecureConnectionTitle": "Connessione non sicura",
-  "unsecureConnectionMessage": "The connection is not secure. This can be a security risk. Please only continue if you trust the connection. The sha1 fingerprint is {fingerprint}.",
+  "unsecureConnectionMessage": "La connessione non è sicura. Questo può essere un rischio per la sicurezza. Continua solo se ritieni attendibile la connessione. L'impronta digitale sha1 è {fingerprint}.",
   "@unsecureConnectionMessage": {
     "placeholders": {
       "fingerprint": {

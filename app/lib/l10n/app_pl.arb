@@ -47,7 +47,7 @@
   "background": "Kontekst",
   "box": "Pudełko",
   "locale": "Język",
-  "defaultLocale": "Domyślna wersja językowa",
+  "systemLocale": "Ustawienia regionalne systemu",
   "information": "Informacje",
   "license": "Licencja",
   "imprint": "Nadruk",

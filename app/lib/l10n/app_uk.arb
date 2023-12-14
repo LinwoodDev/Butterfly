@@ -47,7 +47,7 @@
   "background": "Фон",
   "box": "Ящик",
   "locale": "Локалізація",
-  "defaultLocale": "Типова локаль",
+  "systemLocale": "Мова локалізації системи",
   "information": "Інформація про нас",
   "license": "Ліцензія",
   "imprint": "Відомості",

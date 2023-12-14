@@ -47,7 +47,7 @@
   "background": "Baggrund",
   "box": "Boks",
   "locale": "Landestandard",
-  "defaultLocale": "Standard landestandard",
+  "systemLocale": "System landestandard",
   "information": "Information",
   "license": "Licens",
   "imprint": "Imprint",

@@ -47,7 +47,7 @@
   "background": "背景",
   "box": "盒子",
   "locale": "區域",
-  "defaultLocale": "預設區域",
+  "systemLocale": "System locale",
   "information": "資訊",
   "license": "授權",
   "imprint": "發行頁面",

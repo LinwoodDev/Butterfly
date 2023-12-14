@@ -47,7 +47,7 @@
   "background": "Hintergrund",
   "box": "Box",
   "locale": "Sprache",
-  "defaultLocale": "Standardsprache",
+  "systemLocale": "Systemsprache",
   "information": "Informationen",
   "license": "Lizenz",
   "imprint": "Impressum",

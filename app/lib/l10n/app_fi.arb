@@ -47,7 +47,7 @@
   "background": "Tausta",
   "box": "Laatikko",
   "locale": "Lokaatio",
-  "defaultLocale": "Oletus lokaatio",
+  "systemLocale": "Järjestelmän kieli",
   "information": "Tiedot",
   "license": "Lisenssi",
   "imprint": "Jälki",

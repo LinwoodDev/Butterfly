@@ -47,7 +47,7 @@
   "background": "二. 背景",
   "box": "框",
   "locale": "区域设置",
-  "defaultLocale": "默认区域设置",
+  "systemLocale": "系统区域设置",
   "information": "信息",
   "license": "许可协议",
   "imprint": "图形",

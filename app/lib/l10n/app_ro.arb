@@ -47,7 +47,7 @@
   "background": "Context",
   "box": "Cutie",
   "locale": "Localizare",
-  "defaultLocale": "Localizare implicită",
+  "systemLocale": "Localizare sistem",
   "information": "Informare",
   "license": "Licenta",
   "imprint": "Amprentă",

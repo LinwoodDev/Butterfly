@@ -47,7 +47,7 @@
   "background": "Φόντο",
   "box": "Κουτί",
   "locale": "Τοπική",
-  "defaultLocale": "Προεπιλεγμένη γλώσσα",
+  "systemLocale": "Τοπική ρύθμιση συστήματος",
   "information": "Πληροφορίες",
   "license": "Άδεια",
   "imprint": "Αποτύπωμα",

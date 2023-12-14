@@ -47,7 +47,7 @@
   "background": "Bakgrund",
   "box": "Låda",
   "locale": "Lokalt",
-  "defaultLocale": "Standardspråk",
+  "systemLocale": "Systemets språk",
   "information": "Information",
   "license": "Licens",
   "imprint": "Avtryck",

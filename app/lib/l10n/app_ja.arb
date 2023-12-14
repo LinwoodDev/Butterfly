@@ -47,7 +47,7 @@
   "background": "背景",
   "box": "Box",
   "locale": "ロケール",
-  "defaultLocale": "既定のロケール：",
+  "systemLocale": "システムロケール：",
   "information": "情報",
   "license": "ライセンス",
   "imprint": "インプリント",
