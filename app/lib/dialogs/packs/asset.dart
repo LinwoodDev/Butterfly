@@ -39,8 +39,7 @@ class AssetDialog extends StatelessWidget {
           children: [
             Row(
               children: [
-                SizedBox(
-                  width: 250,
+                Flexible(
                   child: DropdownMenu<String>(
                     label: Text(AppLocalizations.of(context).pack),
                     key: UniqueKey(),
@@ -56,7 +55,7 @@ class AssetDialog extends StatelessWidget {
                       pack = value;
                     },
                     initialSelection: pack,
-                    width: 250,
+                    expandedInsets: const EdgeInsets.all(0),
                   ),
                 ),
                 const SizedBox(width: 8),

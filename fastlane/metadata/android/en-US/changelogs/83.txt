@@ -4,6 +4,7 @@
 * Improve selected icons in settings
 * Improve consistency of close button ([#550](https://github.com/LinwoodDev/Butterfly/issues/550))
 * Rename default locale to system locale
+* Fix asset plus button ([#550](https://github.com/LinwoodDev/Butterfly/issues/550))
 * Fix calling onScale to tools on moving on touch devices ([#546](https://github.com/LinwoodDev/Butterfly/issues/546))
 * Fix exporting documents as png or svg
 
