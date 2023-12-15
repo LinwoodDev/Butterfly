@@ -2,6 +2,20 @@
 
 <!--ENTER CHANGELOG HERE-->
 
+## 2.0.0-rc.2 (2023-12-15)
+
+* Improve button of display icons ([#549](https://github.com/LinwoodDev/Butterfly/issues/549))
+* Improve performance when saving ([#547](https://github.com/LinwoodDev/Butterfly/issues/547))
+* Improve mobile add dialog
+* Improve selected icons in settings
+* Improve consistency of close button ([#550](https://github.com/LinwoodDev/Butterfly/issues/550))
+* Rename default locale to system locale
+* Fix asset plus button ([#550](https://github.com/LinwoodDev/Butterfly/issues/550))
+* Fix calling onScale to tools on moving on touch devices ([#546](https://github.com/LinwoodDev/Butterfly/issues/546))
+* Fix exporting documents as png or svg
+
+View all changes in the blog: https://linwood.dev/butterfly/2.0.0-rc.2
+
 ## 2.0.0-rc.1 (2023-12-08)
 
 * Add right click as alternative to long press
