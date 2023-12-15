@@ -101,7 +101,7 @@ dev_dependencies:
     sdk: flutter
   flutter_driver:
     sdk: flutter
-  freezed: ^2.4.5
+  freezed: ^2.4.6
   build_runner: ^2.4.7
   json_serializable: ^6.7.1
   espresso: ^0.3.0+6

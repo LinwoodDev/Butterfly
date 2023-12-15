@@ -1,3 +1,4 @@
+* Add tooltip to clarify display icon ([#549](https://github.com/LinwoodDev/Butterfly/issues/549))
 * Improve performance when saving ([#547](https://github.com/LinwoodDev/Butterfly/issues/547))
 * Improve mobile add dialog
 * Improve selected icons in settings

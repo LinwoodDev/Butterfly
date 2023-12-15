@@ -113,6 +113,8 @@ class _PropertyViewState extends State<PropertyView>
                                   .map((e) => IconButton(
                                       icon: PhosphorIcon(
                                           e.icon(PhosphorIconsStyle.light)),
+                                      tooltip:
+                                          AppLocalizations.of(context).icon,
                                       onPressed: selected is! Tool
                                           ? null
                                           : () {
