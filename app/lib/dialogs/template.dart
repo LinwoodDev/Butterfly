@@ -57,7 +57,7 @@ class _TemplateDialogState extends State<TemplateDialog> {
               children: [
                 Header(
                   title: Text(AppLocalizations.of(context).templates),
-                  leading: IconButton(
+                  leading: IconButton.outlined(
                     icon: const PhosphorIcon(PhosphorIconsLight.x),
                     onPressed: () => Navigator.of(context).pop(),
                     tooltip: AppLocalizations.of(context).close,

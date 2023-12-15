@@ -113,7 +113,7 @@ class _SearchDialogState extends State<SearchDialog> {
                           ),
                         ),
                         const SizedBox(width: 8),
-                        IconButton(
+                        IconButton.outlined(
                           icon: const PhosphorIcon(PhosphorIconsLight.x),
                           onPressed: () => Navigator.pop(context),
                           tooltip: AppLocalizations.of(context).close,

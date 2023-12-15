@@ -33,18 +33,18 @@ class _SyncDialogState extends State<SyncDialog> {
                 children: [
                   Header(
                     title: Text(status.getLocalizedName(context)),
-                    leading: IconButton(
-                      icon: PhosphorIcon(status.getIcon()),
-                      onPressed: () => service.sync(),
-                      tooltip: status.getLocalizedName(context),
-                    ),
                     actions: [
                       IconButton(
-                        icon: const PhosphorIcon(PhosphorIconsLight.x),
-                        onPressed: () => Navigator.pop(context),
-                        tooltip: AppLocalizations.of(context).close,
+                        icon: PhosphorIcon(status.getIcon()),
+                        onPressed: () => service.sync(),
+                        tooltip: status.getLocalizedName(context),
                       ),
                     ],
+                    leading: IconButton.outlined(
+                      icon: const PhosphorIcon(PhosphorIconsLight.x),
+                      onPressed: () => Navigator.pop(context),
+                      tooltip: AppLocalizations.of(context).close,
+                    ),
                   ),
                   const Divider(),
                   SingleChildScrollView(
