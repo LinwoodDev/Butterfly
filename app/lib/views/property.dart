@@ -113,8 +113,7 @@ class _PropertyViewState extends State<PropertyView>
                                   .map((e) => IconButton(
                                       icon: PhosphorIcon(
                                           e.icon(PhosphorIconsStyle.light)),
-                                      tooltip:
-                                          AppLocalizations.of(context).icon,
+                                      iconSize: 26,
                                       onPressed: selected is! Tool
                                           ? null
                                           : () {
@@ -151,10 +150,27 @@ class _PropertyViewState extends State<PropertyView>
                                     ? icon
                                     : MenuAnchor(
                                         controller: controller,
-                                        builder: defaultMenuButton(
-                                          icon: icon,
+                                        builder: (context, controller, child) =>
+                                            IconButton.filledTonal(
+                                          icon: Row(
+                                            children: [
+                                              icon,
+                                              const SizedBox(width: 8),
+                                              PhosphorIcon(
+                                                controller.isOpen
+                                                    ? PhosphorIconsLight.caretUp
+                                                    : PhosphorIconsLight
+                                                        .caretDown,
+                                                size: 12,
+                                              ),
+                                            ],
+                                          ),
                                           tooltip:
                                               AppLocalizations.of(context).icon,
+                                          onPressed: () => controller.isOpen
+                                              ? controller.close()
+                                              : controller.open(),
+                                          isSelected: controller.isOpen,
                                         ),
                                         menuChildren: menuChildren,
                                       ),
