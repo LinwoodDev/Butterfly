@@ -1,4 +1,5 @@
 * Change duplicate icon to have a difference to copy icon ([#552](https://github.com/LinwoodDev/Butterfly/issues/552))
 * Improve responsiveness of dialogs on mobile devices ([#550](https://github.com/LinwoodDev/Butterfly/issues/550))
+* Improve add dialog trailing icon ([#550](https://github.com/LinwoodDev/Butterfly/issues/550))
 
 View all changes in the blog: https://linwood.dev/butterfly/2.0.0-rc.3

@@ -54,31 +54,22 @@ class AddDialog extends StatelessWidget {
           tool.getLocalizedName(context),
           textAlign: TextAlign.center,
         ),
-        size: tool.isAction() ? 110 : 100,
         subtitle: caption.isEmpty ? null : Text(caption),
-        icon: Stack(
-          alignment: Alignment.topCenter,
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: PhosphorIcon(
-                tool.icon(PhosphorIconsStyle.light),
-                color: color,
-                size: tool.isAction() ? 38 : 32,
-              ),
-            ),
-            if (tool.isAction())
-              Align(
-                alignment: Alignment.bottomRight,
-                child: IconButton(
-                  onPressed: () =>
-                      handler.onSelected(bloc, currentIndexCubit, false),
-                  icon: const PhosphorIcon(PhosphorIconsLight.playCircle),
-                  tooltip: AppLocalizations.of(context).play,
-                ),
-              ),
-          ],
+        icon: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: PhosphorIcon(
+            tool.icon(PhosphorIconsStyle.light),
+            color: color,
+          ),
         ),
+        trailing: tool.isAction()
+            ? IconButton(
+                onPressed: () =>
+                    handler.onSelected(bloc, currentIndexCubit, false),
+                icon: const PhosphorIcon(PhosphorIconsLight.playCircle),
+                tooltip: AppLocalizations.of(context).play,
+              )
+            : null,
         onTap: () => addTool(tool),
       );
     }
@@ -87,8 +78,8 @@ class AddDialog extends StatelessWidget {
       builder: (context, constraints) => ResponsiveDialog(
         child: ConstrainedBox(
           constraints: const BoxConstraints(
-            maxWidth: 800,
-            maxHeight: 600,
+            maxWidth: 950,
+            maxHeight: 800,
           ),
           child: Column(children: [
             Padding(
@@ -205,29 +196,18 @@ class AddDialog extends StatelessWidget {
                                       children: imports
                                           .map(
                                             (e) => BoxTile(
-                                              size: 128,
-                                              title: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    e.getLocalizedName(context),
-                                                    textAlign: TextAlign.center,
-                                                  ),
-                                                  const SizedBox(width: 8),
-                                                  IconButton(
-                                                    onPressed: () => addTool(
-                                                        Tool.asset(
-                                                            importType: e)),
-                                                    tooltip:
-                                                        AppLocalizations.of(
-                                                                context)
-                                                            .pin,
-                                                    icon: const PhosphorIcon(
-                                                        PhosphorIconsLight
-                                                            .pushPin),
-                                                  ),
-                                                ],
+                                              title: Text(
+                                                e.getLocalizedName(context),
+                                                textAlign: TextAlign.center,
+                                              ),
+                                              trailing: IconButton(
+                                                onPressed: () => addTool(
+                                                    Tool.asset(importType: e)),
+                                                tooltip:
+                                                    AppLocalizations.of(context)
+                                                        .pin,
+                                                icon: const PhosphorIcon(
+                                                    PhosphorIconsLight.pushPin),
                                               ),
                                               icon: PhosphorIcon(e.icon(
                                                   PhosphorIconsStyle.light)),
@@ -333,7 +313,7 @@ class _ToolsListView extends StatelessWidget {
         const SizedBox(height: 16),
         if (isMobile)
           SizedBox(
-            height: 150,
+            height: 130,
             child: Scrollbar(
               controller: _scrollController,
               child: ListView(
@@ -344,9 +324,12 @@ class _ToolsListView extends StatelessWidget {
             ),
           )
         else
-          Wrap(
-            alignment: WrapAlignment.start,
-            children: children,
+          Padding(
+            padding: const EdgeInsets.all(8),
+            child: Wrap(
+              alignment: WrapAlignment.start,
+              children: children,
+            ),
           )
       ],
     );
