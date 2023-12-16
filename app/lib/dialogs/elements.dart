@@ -67,7 +67,7 @@ ContextMenuBuilder buildElementsContextMenu(
             label: AppLocalizations.of(context).copy,
           ),
           ContextMenuItem(
-            icon: const PhosphorIcon(PhosphorIconsLight.copy),
+            icon: const PhosphorIcon(PhosphorIconsLight.copySimple),
             onPressed: () async {
               Navigator.of(context).pop(true);
               final document = state.data;
