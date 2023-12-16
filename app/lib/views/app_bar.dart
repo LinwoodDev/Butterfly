@@ -509,7 +509,7 @@ class _MainPopupMenu extends StatelessWidget {
                   menuChildren: settings.history
                       .map((e) => MenuItemButton(
                             child: Text(e.identifier),
-                            onPressed: () => openFile(context, e),
+                            onPressed: () => openFile(context, true, e),
                           ))
                       .toList(),
                   leadingIcon: const PhosphorIcon(PhosphorIconsLight.clock),

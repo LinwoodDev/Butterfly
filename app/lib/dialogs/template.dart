@@ -163,6 +163,7 @@ class _TemplateDialogState extends State<TemplateDialog> {
                                         return _TemplateItem(
                                           template: template,
                                           fileSystem: _fileSystem,
+                                          replace: widget.bloc != null,
                                           onChanged: () {
                                             load();
                                             setState(() {});
@@ -227,10 +228,13 @@ class _TemplateItem extends StatelessWidget {
   final NoteData template;
   final TemplateFileSystem fileSystem;
   final VoidCallback onChanged;
+  final bool replace;
+
   const _TemplateItem({
     required this.template,
     required this.fileSystem,
     required this.onChanged,
+    required this.replace,
   });
 
   @override
@@ -294,8 +298,8 @@ class _TemplateItem extends StatelessWidget {
           },
         ),
       ],
-      onTap: () =>
-          openNewDocument(context, template, fileSystem.remote?.identifier),
+      onTap: () => openNewDocument(
+          context, replace, template, fileSystem.remote?.identifier),
     );
   }
 }

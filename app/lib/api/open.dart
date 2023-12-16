@@ -35,25 +35,40 @@ Future<(Uint8List?, String?)> openSupported(
   return (e.bytes, e.extension);
 }
 
-void openFile(BuildContext context, AssetLocation location, [Object? data]) {
+Future<void> openFile(
+    BuildContext context, bool replace, AssetLocation location,
+    [Object? data]) {
   if (location.isRemote) {
-    GoRouter.of(context).pushReplacementNamed('remote',
-        pathParameters: {
-          'remote': location.remote,
-          'path': location.pathWithoutLeadingSlash,
-        },
-        queryParameters: {
-          'type': location.fileType?.name,
-        },
-        extra: data);
-    return;
+    final pathParams = {
+      'remote': location.remote,
+      'path': location.pathWithoutLeadingSlash,
+    };
+    final queryParams = {
+      'type': location.fileType?.name,
+    };
+    if (replace) {
+      return GoRouter.of(context).pushReplacementNamed('remote',
+          pathParameters: pathParams,
+          queryParameters: queryParams,
+          extra: data);
+    } else {
+      return GoRouter.of(context).pushNamed('remote',
+          pathParameters: pathParams,
+          queryParameters: queryParams,
+          extra: data);
+    }
   }
-  GoRouter.of(context).pushReplacementNamed('local',
-      pathParameters: {
-        'path': location.pathWithoutLeadingSlash,
-      },
-      queryParameters: {
-        'type': location.fileType?.name,
-      },
-      extra: data);
+  final pathParams = {
+    'path': location.pathWithoutLeadingSlash,
+  };
+  final queryParams = {
+    'type': location.fileType?.name,
+  };
+  if (replace) {
+    return GoRouter.of(context).pushReplacementNamed('local',
+        pathParameters: pathParams, queryParameters: queryParams, extra: data);
+  } else {
+    return GoRouter.of(context).pushNamed('local',
+        pathParameters: pathParams, queryParameters: queryParams, extra: data);
+  }
 }

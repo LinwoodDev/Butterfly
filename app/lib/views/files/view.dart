@@ -34,10 +34,10 @@ class FilesView extends StatefulWidget {
   });
 
   @override
-  State<FilesView> createState() => _FilesViewState();
+  State<FilesView> createState() => FilesViewState();
 }
 
-class _FilesViewState extends State<FilesView> {
+class FilesViewState extends State<FilesView> {
   final TextEditingController _locationController = TextEditingController();
   late DocumentFileSystem _fileSystem;
   late TemplateFileSystem _templateSystem;
@@ -81,7 +81,7 @@ class _FilesViewState extends State<FilesView> {
     _filesStream = _fileSystem.fetchAsset(_locationController.text);
   }
 
-  void _reloadFileSystem() {
+  void reloadFileSystem() {
     setState(_setFilesStream);
   }
 
@@ -101,7 +101,7 @@ class _FilesViewState extends State<FilesView> {
         template.createDocument(
           name: name,
         ));
-    _reloadFileSystem();
+    reloadFileSystem();
   }
 
   void _setRemote(ExternalStorage? remote) {
@@ -229,7 +229,9 @@ class _FilesViewState extends State<FilesView> {
         );
       }),
       const SizedBox(height: 8),
-      const _RecentFilesView(),
+      _RecentFilesView(
+        replace: widget.collapsed,
+      ),
       const SizedBox(height: 16),
       LayoutBuilder(builder: (context, constraints) {
         final searchBar = SearchBar(
@@ -258,7 +260,7 @@ class _FilesViewState extends State<FilesView> {
                       final path = _locationController.text;
                       final newPath = '$path/$name';
                       await _fileSystem.createDirectory(newPath);
-                      _reloadFileSystem();
+                      reloadFileSystem();
                     },
                   ),
                   MenuItemButton(
@@ -317,7 +319,7 @@ class _FilesViewState extends State<FilesView> {
                       const route = '/native?name=document.bfly&type=note';
                       router.go(route, extra: model.save());
                       if (!widget.collapsed) {
-                        _reloadFileSystem();
+                        reloadFileSystem();
                       }
                     },
                     child: Text(AppLocalizations.of(context).import),
@@ -369,7 +371,7 @@ class _FilesViewState extends State<FilesView> {
                 onAccept: (data) async {
                   await _fileSystem.moveAsset(
                       data, '$parent/${data.split('/').last}');
-                  _reloadFileSystem();
+                  reloadFileSystem();
                 },
               ),
               const SizedBox(width: 8),
@@ -381,7 +383,7 @@ class _FilesViewState extends State<FilesView> {
                     filled: true,
                   ),
                   controller: _locationController,
-                  onFieldSubmitted: (value) => _reloadFileSystem(),
+                  onFieldSubmitted: (value) => reloadFileSystem(),
                 ),
               ),
             ],
@@ -453,7 +455,7 @@ class _FilesViewState extends State<FilesView> {
                         selected: selected,
                         collapsed: widget.collapsed,
                         onTap: () => _onFileTap(e),
-                        onReload: _reloadFileSystem,
+                        onReload: reloadFileSystem,
                         gridView: true,
                       );
                     },
@@ -473,7 +475,7 @@ class _FilesViewState extends State<FilesView> {
                     selected: selected,
                     collapsed: widget.collapsed,
                     onTap: () => _onFileTap(entity),
-                    onReload: _reloadFileSystem,
+                    onReload: reloadFileSystem,
                     gridView: false,
                     isMobile: widget.isMobile,
                   );
@@ -494,7 +496,10 @@ class _FilesViewState extends State<FilesView> {
     }
     final location = entity.location;
     final data = entity.data;
-    openFile(context, location, data);
+    await openFile(context, widget.collapsed, location, data);
+    if (!widget.collapsed) {
+      reloadFileSystem();
+    }
   }
 
   int _sortAssets(AppDocumentEntity a, AppDocumentEntity b) {
@@ -567,7 +572,10 @@ class _FilesViewState extends State<FilesView> {
 }
 
 class _RecentFilesView extends StatefulWidget {
-  const _RecentFilesView();
+  final bool replace;
+  const _RecentFilesView({
+    required this.replace,
+  });
 
   @override
   State<_RecentFilesView> createState() => _RecentFilesViewState();
@@ -627,7 +635,8 @@ class _RecentFilesViewState extends State<_RecentFilesView> {
                       metadata: metadata,
                       thumbnail: thumbnail,
                       name: entity.location.identifier,
-                      onTap: () => openFile(context, entity.location, data),
+                      onTap: () => openFile(
+                          context, widget.replace, entity.location, data),
                     );
                   },
                 ),

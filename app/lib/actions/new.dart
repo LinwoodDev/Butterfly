@@ -34,11 +34,11 @@ class NewAction extends Action<NewIntent> {
     final template = await templateSystem.getDefaultTemplate(
       templateSystem.remote?.defaultTemplate ?? settings.defaultTemplate,
     );
-    openNewDocument(context, template);
+    openNewDocument(context, true, template);
   }
 }
 
-void openNewDocument(BuildContext context,
+Future<void> openNewDocument(BuildContext context, bool replace,
     [NoteData? template, String? remote]) {
   NoteData? document;
   String? path;
@@ -49,6 +49,12 @@ void openNewDocument(BuildContext context,
       path = metadata.directory;
     }
   }
-  GoRouter.of(context).pushReplacementNamed('new',
-      queryParameters: {'path': path, 'remote': remote}, extra: document);
+  final queryParams = {'path': path, 'remote': remote};
+  if (replace) {
+    return GoRouter.of(context).pushReplacementNamed('new',
+        queryParameters: queryParams, extra: document);
+  } else {
+    return GoRouter.of(context)
+        .pushNamed('new', queryParameters: queryParams, extra: document);
+  }
 }

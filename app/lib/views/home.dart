@@ -66,6 +66,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  final GlobalKey<FilesViewState> _filesViewKey = GlobalKey();
   ExternalStorage? _remote;
 
   @override
@@ -102,7 +103,8 @@ class _HomePageState extends State<HomePage> {
                           hasNewerVersion);
               final quickStart = _QuickstartHomeView(
                 remote: _remote,
-                onReload: () => setState(() {}),
+                onReload: () => setState(
+                    () => _filesViewKey.currentState?.reloadFileSystem()),
               );
               return Scaffold(
                 appBar: WindowTitleBar(
@@ -168,6 +170,7 @@ class _HomePageState extends State<HomePage> {
                                       selectedAsset: widget.selectedAsset,
                                       remote: _remote,
                                       isMobile: true,
+                                      key: _filesViewKey,
                                       onRemoteChanged: (value) =>
                                           setState(() => _remote = value),
                                     ),
@@ -510,8 +513,9 @@ class _QuickstartHomeViewState extends State<_QuickstartHomeView> {
                         metadata: metadata,
                         thumbnail: thumbnail,
                         onTap: () async {
-                          openNewDocument(
-                              context, e, widget.remote?.identifier);
+                          await openNewDocument(
+                              context, false, e, widget.remote?.identifier);
+                          widget.onReload();
                         },
                       );
                     },
