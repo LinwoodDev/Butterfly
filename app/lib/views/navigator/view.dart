@@ -184,14 +184,14 @@ class _DocumentNavigatorState extends State<DocumentNavigator>
               child: Column(
                 children: [
                   Header(
-                    actions: [
-                      if (widget.asDrawer)
-                        IconButton(
-                          icon: const PhosphorIcon(PhosphorIconsLight.x),
-                          onPressed: () => Navigator.of(context).pop(),
-                          tooltip: AppLocalizations.of(context).close,
-                        ),
-                    ],
+                    leading: widget.asDrawer
+                        ? IconButton(
+                            icon:
+                                const PhosphorIcon(PhosphorIconsLight.xCircle),
+                            onPressed: () => Navigator.of(context).pop(),
+                            tooltip: AppLocalizations.of(context).close,
+                          )
+                        : null,
                     title: Text(page.getLocalizedName(context)),
                   ),
                   const SizedBox(height: 16),

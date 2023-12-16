@@ -1,6 +1,7 @@
 import 'package:butterfly/actions/new.dart';
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/widgets/remote_button.dart';
+import 'package:butterfly/widgets/responsive_dialog.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -50,7 +51,7 @@ class _TemplateDialogState extends State<TemplateDialog> {
   @override
   Widget build(BuildContext context) {
     load();
-    return Dialog(
+    return ResponsiveDialog(
         child: ConstrainedBox(
             constraints: const BoxConstraints(maxWidth: 600, maxHeight: 800),
             child: Column(

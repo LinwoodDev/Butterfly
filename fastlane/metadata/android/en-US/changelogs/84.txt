@@ -1,0 +1,3 @@
+* Improve responsiveness of dialogs on mobile devices ([#550](https://github.com/LinwoodDev/Butterfly/issues/550))
+
+View all changes in the blog: https://linwood.dev/butterfly/2.0.0-rc.3
