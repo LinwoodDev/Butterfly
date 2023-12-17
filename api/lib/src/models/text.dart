@@ -240,10 +240,14 @@ sealed class TextParagraph with _$TextParagraph {
     return copyWith(textSpans: subSpans);
   }
 
-  TextParagraph replaceText(String text, [int start = 0, int length = 0]) {
+  TextParagraph replaceText(String text,
+      [int start = 0, int length = 0, bool replaceWholeSpan = false]) {
+    final indexed = getIndexedSpan(start);
     return replace(
-        getSpan(start)?.copyWith(text: text) ?? TextSpan.text(text: text),
-        start,
+        indexed != null
+            ? indexed.model.copyWith(text: text)
+            : TextSpan.text(text: text),
+        (replaceWholeSpan ? indexed?.index : null) ?? start,
         length);
   }
 
