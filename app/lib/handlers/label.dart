@@ -175,6 +175,7 @@ class LabelHandler extends Handler<LabelTool>
         ),
       );
     }
+    _connection?.setEditingState(currentTextEditingValue);
     if (!(_connection?.attached ?? false)) {
       _connection = TextInput.attach(
           this,
