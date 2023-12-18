@@ -369,11 +369,17 @@ class LabelHandler extends Handler<LabelTool>
       },
       orElse: () => (0, text.length),
     );
+    final end = min(indexed + length, context.selection.end);
 
     return TextEditingValue(
       text: text,
-      selection: context.selection,
-      composing: TextRange(start: indexed, end: length),
+      selection: TextSelection(
+        baseOffset: context.selection.baseOffset.clamp(0, text.length),
+        extentOffset: context.selection.extentOffset.clamp(0, text.length),
+        affinity: context.selection.affinity,
+        isDirectional: context.selection.isDirectional,
+      ),
+      composing: TextRange(start: indexed, end: end),
     );
   }
 
@@ -410,9 +416,7 @@ class LabelHandler extends Handler<LabelTool>
     final lastValue = currentTextEditingValue;
     final start =
         replace ? lastValue.composing.start : lastValue.selection.start;
-    final length = replace
-        ? lastValue.composing.end - start
-        : lastValue.selection.end - start;
+    final length = replace ? null : lastValue.selection.end - start;
     newIndex += lastValue.selection.start;
     _context = _context?.map(text: (e) {
       final old = e.element;
@@ -461,7 +465,6 @@ class LabelHandler extends Handler<LabelTool>
         selection: TextSelection.collapsed(offset: newIndex),
       );
     });
-    _connection?.setEditingState(currentTextEditingValue);
     _bloc?.refresh();
     if (_bloc != null) _refreshToolbar(_bloc!);
   }
@@ -624,6 +627,7 @@ class LabelHandler extends Handler<LabelTool>
               extentOffset: newSelection,
             ),
           );
+          _connection?.setEditingState(currentTextEditingValue);
           return null;
         },
       ),
@@ -723,6 +727,7 @@ class LabelHandler extends Handler<LabelTool>
             ),
         orElse: () => _context);
     _bloc?.refresh();
+    _connection?.setEditingState(currentTextEditingValue);
     if (_bloc != null) _refreshToolbar(_bloc!);
   }
 

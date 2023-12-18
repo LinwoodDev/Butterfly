@@ -216,7 +216,8 @@ sealed class TextParagraph with _$TextParagraph {
     return copyWith(textSpans: spans);
   }
 
-  TextParagraph replace(TextSpan span, [int start = 0, int length = 0]) {
+  TextParagraph replace(TextSpan span, [int start = 0, int? length]) {
+    length ??= 0;
     var subSpans = <TextSpan>[];
     final end = start + length;
 
@@ -241,8 +242,9 @@ sealed class TextParagraph with _$TextParagraph {
   }
 
   TextParagraph replaceText(String text,
-      [int start = 0, int length = 0, bool replaceWholeSpan = false]) {
+      [int start = 0, int? length, bool replaceWholeSpan = false]) {
     final indexed = getIndexedSpan(start);
+    length ??= replaceWholeSpan ? indexed?.model.length : 0;
     return replace(
         indexed != null
             ? indexed.model.copyWith(text: text)
