@@ -2542,7 +2542,7 @@ class _$LabelToolImpl extends LabelTool {
       this.zoomDependent = true,
       this.foreground = kColorBlack,
       this.styleSheet = const PackAssetLocation(),
-      this.scale = 1.0,
+      this.scale = 2.0,
       final String? $type})
       : $type = $type ?? 'label',
         super._();
