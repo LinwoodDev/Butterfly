@@ -50,7 +50,7 @@ jobs:
           flutter build apk -v --release --flavor production
           cp build/app/outputs/flutter-apk/app-production-release.apk linwood-butterfly-android.apk
       - name: Archive
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: apk-build
           path: app/linwood-butterfly-android.apk
@@ -98,13 +98,13 @@ jobs:
         run: |
           cp scripts/start.bat build/windows/x64/runner/Release/
       - name: Archive
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: windows-build
           path: |
             app/build/windows/x64/runner/Release/**
       - name: Archive
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: windows-setup
           path: |
@@ -197,25 +197,25 @@ jobs:
           chmod +x scripts/start.sh
           cp scripts/start.sh build/linux/x64/release/bundle
       - name: Archive
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: linux-build
           path: |
             app/build/linux/x64/release/bundle/**
       - name: Archive .deb
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: linux-deb
           path: |
             app/linwood-butterfly-linux.deb
       - name: Archive .rpm
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: linux-rpm
           path: |
             app/build/linwood-butterfly-linux.rpm
       - name: Archive .AppImage
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: linux-appimage
           path: |
@@ -299,12 +299,12 @@ jobs:
       #        flatpak build-export export flatpak_app -v
       #        flatpak build-bundle export linwood-butterfly-linux.flatpak dev.linwood.butterfly -v
       #    - name: Upload .flatpak artifact to workflow
-      #      uses: actions/upload-artifact@v3
+      #      uses: actions/upload-artifact@v4
       #      with:
       #        name: linux-flatpak
       #        path: app/linwood-butterfly-linux.flatpak
       - name: Archive old portable
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: linux-alternative-portable
           path: app/build/linux/x64/release/bundle
@@ -350,13 +350,13 @@ jobs:
         run: |
           appdmg DmgSetup.json linwood-butterfly-macos.dmg
       - name: Archive
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: macos-build
           path: |
             app/build/macos/Build/Products/Release/linwood-butterfly-macos.zip
       - name: Archive
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: macos-dmg
           path: |
@@ -377,7 +377,7 @@ jobs:
   #       id: build
   #       with:
   #         architecture: ${{ matrix.architecture }}
-  #     - uses: actions/upload-artifact@v3
+  #     - uses: actions/upload-artifact@v4
   #       with:
   #         name: butterfly-snap
   #         path: ${{ steps.build.outputs.snap }}    
@@ -413,37 +413,37 @@ jobs:
           echo "BUTTERFLY_BUILD_NUMBER=${BUTTERFLY_BUILD_NUMBER}" >> $GITHUB_OUTPUT
           git config --global user.email "ci@linwood.dev"
           git config --global user.name "Linwood CI"
-      - uses: actions/download-artifact@v3
+      - uses: actions/download-artifact@v4
         with:
           name: apk-build
-      - uses: actions/download-artifact@v3
+      - uses: actions/download-artifact@v4
         with:
           name: windows-build
           path: windows-build/
-      - uses: actions/download-artifact@v3
+      - uses: actions/download-artifact@v4
         with:
           name: linux-build
           path: linux-build/
-      - uses: actions/download-artifact@v3
+      - uses: actions/download-artifact@v4
         with:
           name: linux-deb
-      - uses: actions/download-artifact@v3
+      - uses: actions/download-artifact@v4
         with:
           name: linux-rpm
-      - uses: actions/download-artifact@v3
+      - uses: actions/download-artifact@v4
         with:
           name: linux-appimage
-      - uses: actions/download-artifact@v3
+      - uses: actions/download-artifact@v4
         with:
           name: linux-alternative-portable
           path: linux-alternative-portable/
-      - uses: actions/download-artifact@v3
+      - uses: actions/download-artifact@v4
         with:
           name: windows-setup
-      - uses: actions/download-artifact@v3
+      - uses: actions/download-artifact@v4
         with:
           name: macos-build
-      - uses: actions/download-artifact@v3
+      - uses: actions/download-artifact@v4
         with:
           name: macos-dmg
       - name: 📦 Zip artifacts

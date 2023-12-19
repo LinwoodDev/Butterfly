@@ -98,7 +98,7 @@ _$LabelToolImpl _$$LabelToolImplFromJson(Map json) => _$LabelToolImpl(
           ? const PackAssetLocation()
           : PackAssetLocation.fromJson(
               Map<String, dynamic>.from(json['styleSheet'] as Map)),
-      scale: (json['scale'] as num?)?.toDouble() ?? 1.0,
+      scale: (json['scale'] as num?)?.toDouble() ?? 2.0,
       $type: json['type'] as String?,
     );
 
