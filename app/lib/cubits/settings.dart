@@ -316,10 +316,10 @@ enum ToolbarPosition {
 }
 
 enum ThemeDensity {
+  system,
   compact,
   comfortable,
-  standard,
-  system;
+  standard;
 
   VisualDensity toFlutter() => switch (this) {
         ThemeDensity.comfortable => VisualDensity.comfortable,

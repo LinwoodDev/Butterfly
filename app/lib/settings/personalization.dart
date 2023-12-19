@@ -31,6 +31,14 @@ class PersonalizationSettingsPage extends StatelessWidget {
       LocaleNames.of(context)?.nameOf(locale) ??
       AppLocalizations.of(context).systemLocale;
 
+  String _getDensityName(BuildContext context, ThemeDensity density) =>
+      switch (density) {
+        ThemeDensity.system => AppLocalizations.of(context).systemTheme,
+        ThemeDensity.comfortable => AppLocalizations.of(context).comfortable,
+        ThemeDensity.compact => AppLocalizations.of(context).compact,
+        ThemeDensity.standard => AppLocalizations.of(context).standard,
+      };
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -91,30 +99,9 @@ class PersonalizationSettingsPage extends StatelessWidget {
                           leading:
                               const PhosphorIcon(PhosphorIconsLight.gridNine),
                           title: Text(AppLocalizations.of(context).density),
-                          trailing: DropdownMenu<ThemeDensity>(
-                            width: 200,
-                            dropdownMenuEntries: ThemeDensity.values
-                                .map((e) => DropdownMenuEntry(
-                                      label: switch (e) {
-                                        ThemeDensity.system =>
-                                          AppLocalizations.of(context)
-                                              .systemTheme,
-                                        ThemeDensity.comfortable =>
-                                          AppLocalizations.of(context)
-                                              .comfortable,
-                                        ThemeDensity.compact =>
-                                          AppLocalizations.of(context).compact,
-                                        ThemeDensity.standard =>
-                                          AppLocalizations.of(context).standard,
-                                      },
-                                      value: e,
-                                    ))
-                                .toList(),
-                            initialSelection: state.density,
-                            onSelected: (value) => context
-                                .read<SettingsCubit>()
-                                .changeDensity(value ?? ThemeDensity.system),
-                          ),
+                          subtitle:
+                              Text(_getDensityName(context, state.density)),
+                          onTap: () => _openDensityModal(context),
                         ),
                       ]),
                 ),
@@ -203,6 +190,29 @@ class PersonalizationSettingsPage extends StatelessWidget {
             ]);
           },
         ));
+  }
+
+  void _openDensityModal(BuildContext context) {
+    final cubit = context.read<SettingsCubit>();
+    final density = cubit.state.density;
+
+    showLeapBottomSheet(
+        context: context,
+        title: AppLocalizations.of(context).density,
+        childrenBuilder: (context) {
+          void changeDensity(ThemeDensity density) {
+            cubit.changeDensity(density);
+            Navigator.of(context).pop();
+          }
+
+          return ThemeDensity.values
+              .map((e) => ListTile(
+                    title: Text(_getDensityName(context, e)),
+                    selected: e == density,
+                    onTap: () => changeDensity(e),
+                  ))
+              .toList();
+        });
   }
 
   void _openDesignModal(BuildContext context) {
