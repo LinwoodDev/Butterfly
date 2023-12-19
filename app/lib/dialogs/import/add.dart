@@ -36,7 +36,7 @@ class AddDialog extends StatelessWidget {
       currentIndexCubit.changeTool(
         bloc,
         state.info.tools.length,
-        Handler.fromTool(tool),
+        Handler.fromTool(defaultTool),
         true,
       );
       Navigator.of(context).pop();
