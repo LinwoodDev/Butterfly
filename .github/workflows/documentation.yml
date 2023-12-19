@@ -33,7 +33,7 @@ jobs:
         cd docs/build
         mkdir ${{ matrix.language }}
         mv * ${{ matrix.language }}
-    - uses: actions/upload-artifact@v3
+    - uses: actions/upload-artifact@v4
       with:
         path: docs/build
         name: build
