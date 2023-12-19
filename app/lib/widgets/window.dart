@@ -43,7 +43,9 @@ class WindowTitleBar extends StatelessWidget implements PreferredSizeWidget {
             previous.nativeTitleBar != current.nativeTitleBar,
         builder: (context, settings) {
           final isDesktop = isWindow && !kIsWeb;
-          if (onlyShowOnDesktop && !isDesktop) return const SizedBox.shrink();
+          if (onlyShowOnDesktop && (!isDesktop || settings.nativeTitleBar)) {
+            return const SizedBox.shrink();
+          }
           return AppBar(
             title: title,
             backgroundColor: backgroundColor,
