@@ -3,5 +3,6 @@
 * Improve responsiveness of dialogs on mobile devices ([#550](https://github.com/LinwoodDev/Butterfly/issues/550))
 * Improve add dialog trailing icon ([#550](https://github.com/LinwoodDev/Butterfly/issues/550))
 * Fix back button closes app on mobile ([#551](https://github.com/LinwoodDev/Butterfly/issues/551))
+* Fix elements selection will be cleared after unfocusing
 
 View all changes in the blog: https://linwood.dev/butterfly/2.0.0-rc.3

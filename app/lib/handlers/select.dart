@@ -175,7 +175,6 @@ class SelectHandler extends Handler<SelectTool> {
   void resetInput(DocumentBloc bloc) {
     _resetTransform();
     _submitTransform(bloc);
-    _selected.clear();
     _rectangleFreeSelection = null;
     _lassoFreeSelection = null;
     _currentMousePosition = null;
