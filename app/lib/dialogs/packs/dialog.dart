@@ -10,7 +10,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
-import '../../api/save_data.dart';
+import '../../api/save.dart';
 import '../../widgets/remote_button.dart';
 import 'pack.dart';
 
@@ -337,7 +337,8 @@ class _PacksDialogState extends State<PacksDialog>
                                   PhosphorIconsLight.arrowSquareIn),
                               onTap: () async {
                                 Navigator.of(ctx).pop();
-                                final (data, _) = await openSupported(['bfly']);
+                                final (data, _) = await importFile(
+                                    context, [AssetFileType.note]);
                                 if (data == null) return;
                                 final pack = NoteData.fromData(data);
                                 final metadata = pack.getMetadata();

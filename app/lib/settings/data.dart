@@ -1,12 +1,12 @@
 import 'package:archive/archive.dart';
 import 'package:butterfly/api/file_system/file_system_io.dart';
-import 'package:butterfly/api/save_data.dart';
+import 'package:butterfly/api/save.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/dialogs/template.dart';
 import 'package:butterfly/visualizer/sync.dart';
 import 'package:butterfly/widgets/window.dart';
-import 'package:file_picker/file_picker.dart';
+import 'package:file_selector/file_selector.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -78,8 +78,7 @@ class _DataSettingsPageState extends State<DataSettingsPage> {
                             onTap: () async {
                               final settingsCubit =
                                   context.read<SettingsCubit>();
-                              final selectedDir =
-                                  await FilePicker.platform.getDirectoryPath();
+                              final selectedDir = await getDirectoryPath();
                               if (selectedDir != null) {
                                 _changePath(settingsCubit, selectedDir);
                               }
