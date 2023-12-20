@@ -8,6 +8,15 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+Future<bool> openReleaseNotes() {
+  return launchUrl(
+      Uri(
+          scheme: 'https',
+          host: 'go.linwood.dev',
+          pathSegments: ['butterfly', '2.0']),
+      mode: LaunchMode.externalApplication);
+}
+
 Future<bool> openHelp(List<String> pageLocation, [String? fragment]) {
   return launchUrl(
       Uri(
@@ -22,6 +31,7 @@ Future<(Uint8List?, String?)> importFile(BuildContext context,
     [List<AssetFileType>? types]) async {
   final result = await fs.openFile(
     acceptedTypeGroups: (types ?? AssetFileType.values)
+        .where((e) => e.getFileExtensions().isNotEmpty)
         .map((e) => fs.XTypeGroup(
               label: e.getLocalizedName(context),
               extensions: e.getFileExtensions(),

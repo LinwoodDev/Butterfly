@@ -8,16 +8,22 @@ extension AssetFileTypeVisualizer on AssetFileType? {
   String getLocalizedName(BuildContext context) => switch (this) {
         AssetFileType.note => AppLocalizations.of(context).note,
         AssetFileType.image => AppLocalizations.of(context).image,
+        AssetFileType.markdown => AppLocalizations.of(context).markdown,
         AssetFileType.pdf => AppLocalizations.of(context).pdf,
         AssetFileType.svg => AppLocalizations.of(context).svg,
-        _ => ''
+        AssetFileType.xopp => 'Xopp',
+        AssetFileType.page => AppLocalizations.of(context).page,
+        null => AppLocalizations.of(context).unknownImportType,
       };
 
   IconGetter get icon => switch (this) {
         AssetFileType.note => PhosphorIcons.fileText,
         AssetFileType.image => PhosphorIcons.image,
+        AssetFileType.markdown => PhosphorIcons.textbox,
         AssetFileType.pdf => PhosphorIcons.filePdf,
         AssetFileType.svg => PhosphorIcons.fileSvg,
+        AssetFileType.xopp => PhosphorIcons.notebook,
+        AssetFileType.page => PhosphorIcons.book,
         _ => PhosphorIcons.file,
       };
 }
