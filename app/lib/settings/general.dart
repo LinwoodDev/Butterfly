@@ -1,6 +1,7 @@
 import 'dart:convert';
 
-import 'package:butterfly/api/save_data.dart';
+import 'package:butterfly/api/open.dart';
+import 'package:butterfly/api/save.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:package_info_plus/package_info_plus.dart';
@@ -9,7 +10,6 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:http/http.dart' as http;
 
-import '../api/open_release_notes.dart';
 import '../widgets/window.dart';
 
 @immutable

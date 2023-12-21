@@ -1,12 +1,21 @@
 import 'dart:async';
-import 'dart:io';
 
+import 'package:butterfly/visualizer/asset.dart';
 import 'package:butterfly_api/butterfly_api.dart';
-import 'package:file_picker/file_picker.dart';
+import 'package:file_selector/file_selector.dart' as fs;
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:url_launcher/url_launcher.dart';
+
+Future<bool> openReleaseNotes() {
+  return launchUrl(
+      Uri(
+          scheme: 'https',
+          host: 'go.linwood.dev',
+          pathSegments: ['butterfly', '2.0']),
+      mode: LaunchMode.externalApplication);
+}
 
 Future<bool> openHelp(List<String> pageLocation, [String? fragment]) {
   return launchUrl(
@@ -18,21 +27,20 @@ Future<bool> openHelp(List<String> pageLocation, [String? fragment]) {
       mode: LaunchMode.externalApplication);
 }
 
-Future<(Uint8List?, String?)> openSupported(
-    [List<String>? fileExtension]) async {
-  final isMobile = !kIsWeb && (Platform.isAndroid || Platform.isIOS);
-  final files = await FilePicker.platform.pickFiles(
-    type: isMobile ? FileType.any : FileType.custom,
-    allowedExtensions: isMobile
-        ? null
-        : (fileExtension ??
-            AssetFileType.values.expand((e) => e.getFileExtensions()).toList()),
-    allowMultiple: false,
-    withData: true,
+Future<(Uint8List?, String?)> importFile(BuildContext context,
+    [List<AssetFileType>? types]) async {
+  final result = await fs.openFile(
+    acceptedTypeGroups: (types ?? AssetFileType.values)
+        .where((e) => e.getFileExtensions().isNotEmpty)
+        .map((e) => fs.XTypeGroup(
+              label: e.getLocalizedName(context),
+              extensions: e.getFileExtensions(),
+              mimeTypes: [e.getMime()],
+            ))
+        .toList(),
   );
-  if (files?.files.isEmpty ?? true) return (null, null);
-  var e = files!.files.first;
-  return (e.bytes, e.extension);
+  final data = await result?.readAsBytes();
+  return (data, result?.name.split('.').lastOrNull);
 }
 
 Future<void> openFile(

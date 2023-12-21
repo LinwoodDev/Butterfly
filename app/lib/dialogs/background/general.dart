@@ -49,16 +49,13 @@ class _GeneralBackgroundPropertiesView extends StatelessWidget {
               onTap: () async {
                 final state = context.read<DocumentBloc>().state;
                 if (state is! DocumentLoaded) return;
-                final files = await FilePicker.platform.pickFiles(
-                    type: FileType.image, allowMultiple: false, withData: true);
-                if (files?.files.isEmpty ?? true) return;
-                final e = files!.files.first;
-                var content = e.bytes ?? Uint8List(0);
-                if (!kIsWeb) {
-                  content = await File(e.path ?? '').readAsBytes();
-                }
-                final dataPath = Uri.dataFromBytes(content).toString();
-                final codec = await ui.instantiateImageCodec(content);
+                final (result, _) = await importFile(
+                  context,
+                  [AssetFileType.image],
+                );
+                if (result == null) return;
+                final dataPath = Uri.dataFromBytes(result).toString();
+                final codec = await ui.instantiateImageCodec(result);
                 final frame = await codec.getNextFrame();
                 final image = frame.image;
                 final width = image.width.toDouble(),

@@ -28,34 +28,17 @@ Future<void> showImportAssetWizard(ImportType type, BuildContext context,
         position: position, advanced: advanced);
   }
 
-  Future<void> importWithDialog(
-    AssetFileType assetType, {
-    FileType type = FileType.any,
-    List<String>? allowedExtensions,
-  }) async {
-    final files = await FilePicker.platform.pickFiles(
-      type: type,
-      allowedExtensions: allowedExtensions,
-      allowMultiple: false,
-      withData: true,
-    );
-    if (files?.files.isEmpty ?? true) return;
-    final e = files!.files.first;
-    var content = e.bytes ?? Uint8List(0);
-    if (!kIsWeb) {
-      content = await File(e.path ?? '').readAsBytes();
-    }
-    return importAsset(assetType, content);
+  Future<void> importWithDialog(AssetFileType type) async {
+    final (result, _) = await importFile(context, [type]);
+    if (result == null) return;
+    return importAsset(type, result);
   }
 
   if (!type.isAvailable()) return;
 
   switch (type) {
     case ImportType.image:
-      return importWithDialog(
-        AssetFileType.image,
-        type: FileType.image,
-      );
+      return importWithDialog(AssetFileType.image);
     case ImportType.camera:
       final content = await showDialog<Uint8List>(
         context: context,
@@ -64,34 +47,14 @@ Future<void> showImportAssetWizard(ImportType type, BuildContext context,
       if (content == null) return;
       return importAsset(AssetFileType.image, content);
     case ImportType.svg:
-      return importWithDialog(
-        AssetFileType.svg,
-        type: FileType.custom,
-        allowedExtensions: ['svg'],
-      );
+      return importWithDialog(AssetFileType.svg);
     case ImportType.pdf:
-      return importWithDialog(
-        AssetFileType.pdf,
-        type: FileType.custom,
-        allowedExtensions: ['pdf'],
-      );
+      return importWithDialog(AssetFileType.pdf);
     case ImportType.document:
-      return importWithDialog(
-        AssetFileType.note,
-        type: FileType.custom,
-        allowedExtensions: ['bfly'],
-      );
+      return importWithDialog(AssetFileType.note);
     case ImportType.markdown:
-      return importWithDialog(
-        AssetFileType.markdown,
-        type: FileType.custom,
-        allowedExtensions: ['md', 'markdown'],
-      );
+      return importWithDialog(AssetFileType.markdown);
     case ImportType.xopp:
-      return importWithDialog(
-        AssetFileType.xopp,
-        type: FileType.custom,
-        allowedExtensions: ['xopp'],
-      );
+      return importWithDialog(AssetFileType.xopp);
   }
 }

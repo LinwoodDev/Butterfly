@@ -3,7 +3,7 @@ import 'dart:ui';
 
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/widgets/window.dart';
-import 'package:file_picker/file_picker.dart';
+import 'package:file_selector/file_selector.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -311,8 +311,7 @@ class __AddRemoteDialogState extends State<_AddRemoteDialog> {
                     onTap: _isRemote
                         ? null
                         : () async {
-                            final result =
-                                await FilePicker.platform.getDirectoryPath();
+                            final result = await getDirectoryPath();
                             if (result != null) {
                               _directoryController.text = result;
                             }

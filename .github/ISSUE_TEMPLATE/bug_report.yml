@@ -33,6 +33,7 @@ body:
       options:
         - Android
         - Windows
+        - MacOS
         - Linux
         - Web
     validations:

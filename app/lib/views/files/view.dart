@@ -307,7 +307,7 @@ class FilesViewState extends State<FilesView> {
                     onPressed: () async {
                       final router = GoRouter.of(context);
                       final importService = context.read<ImportService>();
-                      final (result, extension) = await openSupported();
+                      final (result, extension) = await importFile(context);
                       if (result == null) return;
                       final model = await importService.import(
                           AssetFileTypeHelper.fromFileExtension(extension) ??
