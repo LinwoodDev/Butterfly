@@ -2,6 +2,21 @@
 
 <!--ENTER CHANGELOG HERE-->
 
+## 2.0.0-rc.3 (2023-12-22)
+
+* Change duplicate icon to have a difference to copy icon ([#552](https://github.com/LinwoodDev/Butterfly/issues/552))
+* Change default scale of label tool to 2
+* Change dropdown to modal bottom sheet for density personalisation setting
+* Improve responsiveness of dialogs on mobile devices ([#550](https://github.com/LinwoodDev/Butterfly/issues/550))
+* Improve add dialog trailing icon ([#550](https://github.com/LinwoodDev/Butterfly/issues/550))
+* Replace file picker package
+* Fix back button closes app on mobile ([#551](https://github.com/LinwoodDev/Butterfly/issues/551))
+* Fix default color when adding tools
+* Fix elements selection will be cleared after unfocusing
+* Remove appbar on native title bar in home page
+
+View all changes in the blog: https://linwood.dev/butterfly/2.0.0-rc.3
+
 ## 2.0.0-rc.2 (2023-12-15)
 
 * Improve button of display icons ([#549](https://github.com/LinwoodDev/Butterfly/issues/549))
