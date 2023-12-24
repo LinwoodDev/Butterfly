@@ -28,6 +28,11 @@ Gebruik indien mogelijk de flatpak versie. Anders moet je `libsecret-1-dev` en `
       </DownloadButton>
     </li>
     <li>
+      <DownloadButton className="dropdown__link" href="https://github.com/LinwoodDev/butterfly/releases/download/stable/linwood-butterfly-linux.rpm">
+        RPM
+      </DownloadButton>
+    </li>
+    <li>
       <DownloadButton className="dropdown__link" href="https://github.com/LinwoodDev/butterfly/releases/download/stable/linwood-butterfly-linux.AppImage">
         AppImage
       </DownloadButton>
