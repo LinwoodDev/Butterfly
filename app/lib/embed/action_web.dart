@@ -1,7 +1,6 @@
 // ignore_for_file: avoid_web_libraries_in_flutter
 
 import 'dart:html';
-import 'dart:js_util';
 
 import 'package:js/js.dart';
 
@@ -17,19 +16,19 @@ void setup() {
 }
 
 void pushMessage(String type, [Object? message]) {
-  window.dispatchEvent(CustomEvent('receive',
-      detail: jsify({'type': type, 'message': message})));
+  window.dispatchEvent(
+      MessageEvent('receive', data: {'type': type, 'message': message}));
 }
 
 void sendEmbedMessage(String type, [Object? message]) {
   window.dispatchEvent(
-      CustomEvent('message', detail: {'type': type, 'message': message}));
+      MessageEvent('message', data: {'type': type, 'message': message}));
 }
 
 EventListener onEmbedMessage(String type, EmbedMessageHandler callback) {
   void listener(event) {
-    if (event is CustomEvent && event.detail?.type == type) {
-      callback(event.detail.message);
+    if (event is MessageEvent && event.data?.type == type) {
+      callback(event.data.message);
     }
   }
 

@@ -155,6 +155,8 @@ class _ProjectPageState extends State<ProjectPage> {
         );
         _bloc?.load();
         embedding.handler.register(context, _bloc!);
+        _importService = ImportService(context, _bloc);
+        _exportService = ExportService(context, _bloc);
       });
       return;
     }
