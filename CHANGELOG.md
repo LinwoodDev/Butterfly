@@ -2,6 +2,12 @@
 
 <!--ENTER CHANGELOG HERE-->
 
+## 2.0.0 (2023-12-24)
+
+Nothing changed from the nightly build to the stable release.
+
+See all changes since the last stable here: https://linwood.dev/butterfly/2.0.0-rc.3
+
 ## 2.0.0-rc.3 (2023-12-22)
 
 * Change duplicate icon to have a difference to copy icon ([#552](https://github.com/LinwoodDev/Butterfly/issues/552))
