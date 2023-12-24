@@ -28,6 +28,11 @@ Bitte verwenden Sie nach Möglichkeit die flatpak Version. Ansonsten müssen Sie
       </DownloadButton>
     </li>
     <li>
+      <DownloadButton className="dropdown__link" href="https://github.com/LinwoodDev/butterfly/releases/download/stable/linwood-butterfly-linux.rpm">
+        U/min
+      </DownloadButton>
+    </li>
+    <li>
       <DownloadButton className="dropdown__link" href="https://github.com/LinwoodDev/butterfly/releases/download/stable/linwood-butterfly-linux.AppImage">
         AppImage
       </DownloadButton>
