@@ -28,6 +28,11 @@ Vänligen använd flatpak versionen om möjligt. Annars behöver du installera `
       </DownloadButton>
     </li>
     <li>
+      <DownloadButton className="dropdown__link" href="https://github.com/LinwoodDev/butterfly/releases/download/stable/linwood-butterfly-linux.rpm">
+        Varvtal
+      </DownloadButton>
+    </li>
+    <li>
       <DownloadButton className="dropdown__link" href="https://github.com/LinwoodDev/butterfly/releases/download/stable/linwood-butterfly-linux.AppImage">
         AppImage
       </DownloadButton>
