@@ -28,6 +28,11 @@ sidebar_position: 3
       </DownloadButton>
     </li>
     <li>
+      <DownloadButton className="dropdown__link" href="https://github.com/LinwoodDev/butterfly/releases/download/stable/linwood-butterfly-linux.rpm">
+        遥控器
+      </DownloadButton>
+    </li>
+    <li>
       <DownloadButton className="dropdown__link" href="https://github.com/LinwoodDev/butterfly/releases/download/stable/linwood-butterfly-linux.AppImage">
         AppImage
       </DownloadButton>
