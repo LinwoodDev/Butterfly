@@ -9,7 +9,22 @@ sidebar_position: 5
 
 <div className="row margin-bottom--lg padding--sm">
 <div className="dropdown dropdown--hoverable margin--sm">
-  <button className="button button--outline button--info button--lg">ليلي</button>
+  <button className="button button--outline button--info button--lg">اسطبل</button>
+  <ul className="dropdown__menu">
+    <li>
+      <DownloadButton className="dropdown__link" href="https://github.com/LinwoodDev/butterfly/releases/download/stable/linwood-butterfly-macos.dmg">
+        DMG
+      </DownloadButton>
+    </li>
+    <li>
+      <DownloadButton className="dropdown__link" href="https://github.com/LinwoodDev/butterfly/releases/download/stable/linwood-butterfly-macos.zip">
+        محمول
+      </DownloadButton>
+    </li>
+  </ul>
+</div>
+<div className="dropdown dropdown--hoverable margin--sm">
+  <button className="button button--outline button--danger button--lg">ليلي</button>
   <ul className="dropdown__menu">
     <li>
       <DownloadButton className="dropdown__link" href="https://github.com/LinwoodDev/butterfly/releases/download/nightly/linwood-butterfly-macos.dmg">

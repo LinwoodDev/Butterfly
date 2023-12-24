@@ -9,11 +9,26 @@ sidebar_position: 5
 
 <div className="row margin-bottom--lg padding--sm">
 <div className="dropdown dropdown--hoverable margin--sm">
-  <button className="button button--outline button--info button--lg">Nocny</button>
+  <button className="button button--outline button--info button--lg">Stabilność</button>
+  <ul className="dropdown__menu">
+    <li>
+      <DownloadButton className="dropdown__link" href="https://github.com/LinwoodDev/butterfly/releases/download/stable/linwood-butterfly-macos.dmg">
+        DMG
+      </DownloadButton>
+    </li>
+    <li>
+      <DownloadButton className="dropdown__link" href="https://github.com/LinwoodDev/butterfly/releases/download/stable/linwood-butterfly-macos.zip">
+        Przenośne
+      </DownloadButton>
+    </li>
+  </ul>
+</div>
+<div className="dropdown dropdown--hoverable margin--sm">
+  <button className="button button--outline button--danger button--lg">Nocny</button>
   <ul className="dropdown__menu">
     <li>
       <DownloadButton className="dropdown__link" href="https://github.com/LinwoodDev/butterfly/releases/download/nightly/linwood-butterfly-macos.dmg">
-        W związku z powyższym Komisja stwierdza, że w momencie zawierania umów z Ryanairem spółka So.Ge.A.AL nie była w stanie pokryć strat poniesionych przez Ryanaira w związku z zawarciem umowy z Ryanairem z 1999 r.
+        DMG
       </DownloadButton>
     </li>
     <li>
