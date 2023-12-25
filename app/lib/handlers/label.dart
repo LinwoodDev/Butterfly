@@ -257,6 +257,7 @@ class LabelHandler extends Handler<LabelTool>
     }
     bloc.refresh();
     _refreshToolbar(bloc);
+    _connection?.setEditingState(currentTextEditingValue);
   }
 
   void _refreshToolbar(DocumentBloc bloc) {

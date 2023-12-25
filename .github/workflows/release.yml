@@ -208,7 +208,7 @@ jobs:
       - name: Get flutter version
         if: ${{ github.ref == 'refs/heads/develop' }}
         run: |
-          FLUTTER_VERSION=$(cat app/FLUTTER_VERSION)
+          FLUTTER_VERSION=$(cat FLUTTER_VERSION)
           echo "FLUTTER_VERSION=${FLUTTER_VERSION}" >> $GITHUB_ENV
       - name: Get flutter version
         if: ${{ github.ref == 'refs/heads/main' }}
