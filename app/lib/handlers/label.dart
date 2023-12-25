@@ -175,6 +175,7 @@ class LabelHandler extends Handler<LabelTool>
         ),
       );
     }
+    _connection?.setEditingState(currentTextEditingValue);
     if (!(_connection?.attached ?? false)) {
       _connection = TextInput.attach(
           this,
@@ -188,7 +189,7 @@ class LabelHandler extends Handler<LabelTool>
             enableSuggestions: false,
             enableInteractiveSelection: true,
           ))
-        ..setEditingState(currentTextEditingValue ?? const TextEditingValue())
+        ..setEditingState(currentTextEditingValue)
         ..setStyle(
           fontFamily: style.fontFamily,
           fontSize: style.fontSize! * pixelRatio,
@@ -354,20 +355,41 @@ class LabelHandler extends Handler<LabelTool>
   AutofillScope? get currentAutofillScope => null;
 
   @override
-  TextEditingValue? get currentTextEditingValue => _context?.element == null
-      ? null
-      : TextEditingValue(
-          text: _context!.text!,
-          selection: _context!.selection,
-          composing: TextRange(start: 0, end: _context!.text!.length),
-        );
+  TextEditingValue get currentTextEditingValue {
+    final context = _context;
+    if (context == null) return const TextEditingValue();
+    final element = context.element;
+    final text = context.text;
+    if (element == null || text == null) return const TextEditingValue();
+    var (indexed, length) = element.maybeMap(
+      text: (e) {
+        final indexed =
+            e.area.paragraph.getIndexedSpan(context.selection.start);
+        if (indexed == null) return (0, text.length);
+        return (indexed.index, indexed.model.length);
+      },
+      orElse: () => (0, text.length),
+    );
+    final end = min(indexed + length, context.selection.end);
+
+    return TextEditingValue(
+      text: text,
+      selection: TextSelection(
+        baseOffset: context.selection.baseOffset.clamp(0, text.length),
+        extentOffset: context.selection.extentOffset.clamp(0, text.length),
+        affinity: context.selection.affinity,
+        isDirectional: context.selection.isDirectional,
+      ),
+      composing: TextRange(start: indexed, end: end),
+    );
+  }
 
   @override
   void performAction(TextInputAction action) {
     switch (action) {
       case TextInputAction.newline:
       case TextInputAction.done:
-        _updateText('\n');
+        _updateText('\n', false);
         break;
       default:
     }
@@ -385,22 +407,25 @@ class LabelHandler extends Handler<LabelTool>
     _updateText(value.text);
   }
 
-  void _updateText(String value) {
+  void _updateText(String value, [bool replace = true]) {
     TextElement element;
     final state = _bloc?.state;
     if (state is! DocumentLoadSuccess || _context == null) return;
     final data = state.data;
 
     var newIndex = value.length;
-    final selection = _context!.selection;
-    final start = selection.start;
-    final length = selection.end - start;
-    newIndex += selection.start;
+    final lastValue = currentTextEditingValue;
+    final start =
+        replace ? lastValue.composing.start : lastValue.selection.start;
+    final length = replace ? null : lastValue.selection.end - start;
+    newIndex += lastValue.selection.start;
     _context = _context?.map(text: (e) {
       final old = e.element;
       if (old != null) {
+        final currentProperty = e.getSpanProperty(data);
         final newSpan =
-            e.getDefinedForcedSpanProperty(data) != e.getSpanProperty(data);
+            e.getDefinedForcedSpanProperty(data) != currentProperty &&
+                currentProperty != null;
         final paragraph = newSpan
             ? old.area.paragraph.replace(
                 text.TextSpan.text(
@@ -410,7 +435,7 @@ class LabelHandler extends Handler<LabelTool>
                 ),
                 start,
                 length)
-            : old.area.paragraph.replaceText(value, start, length);
+            : old.area.paragraph.replaceText(value, start, length, replace);
         final area = old.area.copyWith(
           paragraph: paragraph,
         );
@@ -432,8 +457,8 @@ class LabelHandler extends Handler<LabelTool>
       );
     }, markdown: (e) {
       var text = e.text ?? '';
-      text =
-          text.replaceRange(start, selection.end.clamp(0, text.length), value);
+      text = text.replaceRange(
+          start, lastValue.selection.end.clamp(0, text.length), value);
       return e.copyWith(
         element: e.element?.copyWith(
           text: text,
@@ -441,9 +466,6 @@ class LabelHandler extends Handler<LabelTool>
         selection: TextSelection.collapsed(offset: newIndex),
       );
     });
-    _connection?.setEditingState(const TextEditingValue(
-      text: '',
-    ));
     _bloc?.refresh();
     if (_bloc != null) _refreshToolbar(_bloc!);
   }
@@ -532,6 +554,7 @@ class LabelHandler extends Handler<LabelTool>
           });
           bloc.refresh();
           _refreshToolbar(bloc);
+          _connection?.setEditingState(currentTextEditingValue);
           return null;
         },
       ),
@@ -549,6 +572,7 @@ class LabelHandler extends Handler<LabelTool>
                   ),
           );
           bloc.refresh();
+          _connection?.setEditingState(currentTextEditingValue);
           return null;
         },
       ),
@@ -588,6 +612,7 @@ class LabelHandler extends Handler<LabelTool>
           );
           bloc.refresh();
           _refreshToolbar(bloc);
+          _connection?.setEditingState(currentTextEditingValue);
           return null;
         },
       ),
@@ -603,6 +628,7 @@ class LabelHandler extends Handler<LabelTool>
               extentOffset: newSelection,
             ),
           );
+          _connection?.setEditingState(currentTextEditingValue);
           return null;
         },
       ),
@@ -651,6 +677,7 @@ class LabelHandler extends Handler<LabelTool>
 
           bloc.refresh();
           _refreshToolbar(bloc);
+          _connection?.setEditingState(currentTextEditingValue);
           return null;
         },
       ),
@@ -701,6 +728,7 @@ class LabelHandler extends Handler<LabelTool>
             ),
         orElse: () => _context);
     _bloc?.refresh();
+    _connection?.setEditingState(currentTextEditingValue);
     if (_bloc != null) _refreshToolbar(_bloc!);
   }
 
