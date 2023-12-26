@@ -1,1 +1,2 @@
 * Add support for multi character input languages ([#539](https://github.com/LinwoodDev/Butterfly/issues/539))
+* Fix moving data directory ([#562](https://github.com/LinwoodDev/Butterfly/issues/562))

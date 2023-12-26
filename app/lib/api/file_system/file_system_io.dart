@@ -152,15 +152,16 @@ class IODocumentFileSystem extends DocumentFileSystem {
     if (await oldDirectory.exists()) {
       var files = await oldDirectory.list().toList();
       for (final file in files) {
+        final newEntityPath = '$newPath/${file.path.substring(oldPath.length)}';
         if (file is File) {
-          var newFile = File('$newPath/${file.path.split('/').last}');
+          var newFile = File(newEntityPath);
           final content = await file.readAsBytes();
+          await newFile.parent.create(recursive: true);
           await newFile.create(recursive: true);
           await newFile.writeAsBytes(content);
           await file.delete();
         } else if (file is Directory) {
-          await moveAbsolute(
-              file.path, '$newPath/${file.path.split('/').last}');
+          await moveAbsolute(file.path, newEntityPath);
         }
       }
     }
