@@ -160,6 +160,10 @@ extension TextContextHelper on TextContext {
             : const DefinedSpanProperty());
   }
 
+  bool shouldNewSpan(NoteData document) =>
+      getDefinedSpanProperty(document) !=
+      getDefinedForcedSpanProperty(document);
+
   bool paragraphModified() =>
       getProperty().maybeMap(orElse: () => true, named: (p) => false);
 

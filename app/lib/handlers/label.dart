@@ -175,7 +175,6 @@ class LabelHandler extends Handler<LabelTool>
         ),
       );
     }
-    _connection?.setEditingState(currentTextEditingValue);
     if (!(_connection?.attached ?? false)) {
       _connection = TextInput.attach(
           this,
@@ -197,9 +196,12 @@ class LabelHandler extends Handler<LabelTool>
           textDirection: TextDirection.ltr,
           textAlign: TextAlign.left,
         );
+    } else {
+      _updateEditingState();
     }
     _bloc = context.getDocumentBloc();
     _connection!.show();
+    _refreshToolbar(_bloc!);
     context.refresh();
   }
 
@@ -257,7 +259,7 @@ class LabelHandler extends Handler<LabelTool>
     }
     bloc.refresh();
     _refreshToolbar(bloc);
-    _connection?.setEditingState(currentTextEditingValue);
+    _updateEditingState();
   }
 
   void _refreshToolbar(DocumentBloc bloc) {
@@ -359,19 +361,26 @@ class LabelHandler extends Handler<LabelTool>
   TextEditingValue get currentTextEditingValue {
     final context = _context;
     if (context == null) return const TextEditingValue();
+    final state = _bloc?.state;
+    if (state is! DocumentLoaded) return const TextEditingValue();
     final element = context.element;
     final text = context.text;
     if (element == null || text == null) return const TextEditingValue();
     var (indexed, length) = element.maybeMap(
       text: (e) {
         final indexed =
-            e.area.paragraph.getIndexedSpan(context.selection.start);
+            e.area.paragraph.getIndexedSpan(context.selection.start, false);
         if (indexed == null) return (0, text.length);
         return (indexed.index, indexed.model.length);
       },
       orElse: () => (0, text.length),
     );
-    final end = min(indexed + length, context.selection.end);
+    if (context.maybeMap(
+        text: (e) => e.shouldNewSpan(state.data), orElse: () => false)) {
+      indexed = min(context.selection.start, text.length);
+      length = 0;
+    }
+    final end = min(indexed + length, text.length);
 
     return TextEditingValue(
       text: text,
@@ -384,6 +393,9 @@ class LabelHandler extends Handler<LabelTool>
       composing: TextRange(start: indexed, end: end),
     );
   }
+
+  void _updateEditingState() =>
+      _connection?.setEditingState(currentTextEditingValue);
 
   @override
   void performAction(TextInputAction action) {
@@ -414,29 +426,30 @@ class LabelHandler extends Handler<LabelTool>
     if (state is! DocumentLoadSuccess || _context == null) return;
     final data = state.data;
 
-    var newIndex = value.length;
     final lastValue = currentTextEditingValue;
     final start =
         replace ? lastValue.composing.start : lastValue.selection.start;
     final length = replace ? null : lastValue.selection.end - start;
-    newIndex += lastValue.selection.start;
+    final newIndex =
+        lastValue.selection.end - lastValue.text.length + value.length;
+    final currentText = value.substring(
+        start, value.length - lastValue.text.length + lastValue.composing.end);
+    print(
+        'Text: $currentText, currentText: $currentText, start: ${lastValue.composing.start}, end: ${lastValue.composing.end}, value: $value, lastValue: ${lastValue.text}}');
     _context = _context?.map(text: (e) {
       final old = e.element;
       if (old != null) {
-        final currentProperty = e.getSpanProperty(data);
-        final newSpan =
-            e.getDefinedForcedSpanProperty(data) != currentProperty &&
-                currentProperty != null;
+        final newSpan = e.shouldNewSpan(data);
         final paragraph = newSpan
             ? old.area.paragraph.replace(
                 text.TextSpan.text(
-                  text: value,
+                  text: currentText,
                   property: e.forcedSpanProperty ??
                       const text.SpanProperty.undefined(),
                 ),
                 start,
                 length)
-            : old.area.paragraph.replaceText(value, start, length, replace);
+            : old.area.paragraph.replaceText(currentText, start, length, true);
         final area = old.area.copyWith(
           paragraph: paragraph,
         );
@@ -555,7 +568,7 @@ class LabelHandler extends Handler<LabelTool>
           });
           bloc.refresh();
           _refreshToolbar(bloc);
-          _connection?.setEditingState(currentTextEditingValue);
+          _updateEditingState();
           return null;
         },
       ),
@@ -573,7 +586,7 @@ class LabelHandler extends Handler<LabelTool>
                   ),
           );
           bloc.refresh();
-          _connection?.setEditingState(currentTextEditingValue);
+          _updateEditingState();
           return null;
         },
       ),
@@ -613,7 +626,7 @@ class LabelHandler extends Handler<LabelTool>
           );
           bloc.refresh();
           _refreshToolbar(bloc);
-          _connection?.setEditingState(currentTextEditingValue);
+          _updateEditingState();
           return null;
         },
       ),
@@ -629,7 +642,7 @@ class LabelHandler extends Handler<LabelTool>
               extentOffset: newSelection,
             ),
           );
-          _connection?.setEditingState(currentTextEditingValue);
+          _updateEditingState();
           return null;
         },
       ),
@@ -678,7 +691,7 @@ class LabelHandler extends Handler<LabelTool>
 
           bloc.refresh();
           _refreshToolbar(bloc);
-          _connection?.setEditingState(currentTextEditingValue);
+          _updateEditingState();
           return null;
         },
       ),
@@ -729,7 +742,7 @@ class LabelHandler extends Handler<LabelTool>
             ),
         orElse: () => _context);
     _bloc?.refresh();
-    _connection?.setEditingState(currentTextEditingValue);
+    _updateEditingState();
     if (_bloc != null) _refreshToolbar(_bloc!);
   }
 

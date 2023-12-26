@@ -135,13 +135,15 @@ sealed class TextParagraph with _$TextParagraph {
   String get text => textSpans.map((e) => e.text).join();
   String substring(int start, [int? end]) => text.substring(start, end);
 
-  TextSpan? getSpan(int index) => getIndexedSpan(index)?.model;
+  TextSpan? getSpan(int index, [bool cut = true]) =>
+      getIndexedSpan(index, cut)?.model;
 
-  IndexedModel<TextSpan>? getIndexedSpan(int index) {
+  IndexedModel<TextSpan>? getIndexedSpan(int index, [bool cut = true]) {
     var currentLength = 0;
     for (var span in textSpans) {
       if (currentLength + span.length > index) {
-        return IndexedModel(currentLength, span.subSpan(index - currentLength));
+        return IndexedModel(
+            currentLength, cut ? span.subSpan(index - currentLength) : span);
       }
       currentLength += span.length;
     }
@@ -164,8 +166,9 @@ sealed class TextParagraph with _$TextParagraph {
           break;
         }
         firstIndex ??= currentLength;
-        spans
-            .add(cut ? span.subSpan(start - currentLength, end - start) : span);
+        spans.add(cut
+            ? span.subSpan(start - currentLength, end - start - currentLength)
+            : span);
       }
       currentLength += span.length;
     }
