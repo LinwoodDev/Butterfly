@@ -167,7 +167,7 @@ sealed class TextParagraph with _$TextParagraph {
         }
         firstIndex ??= currentLength;
         spans.add(cut
-            ? span.subSpan(start - currentLength, end - start - currentLength)
+            ? span.subSpan(start - currentLength, end - currentLength)
             : span);
       }
       currentLength += span.length;

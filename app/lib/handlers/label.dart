@@ -115,6 +115,7 @@ class LabelHandler extends Handler<LabelTool>
           extentOffset: position.offset,
         ),
       );
+      _refreshToolbar(context.getDocumentBloc());
       context.refresh();
     }
   }
@@ -262,12 +263,8 @@ class LabelHandler extends Handler<LabelTool>
     _updateEditingState();
   }
 
-  void _refreshToolbar(DocumentBloc bloc) {
-    final state = bloc.state;
-    if (state is DocumentLoaded) {
-      state.currentIndexCubit.refreshToolbar(bloc);
-    }
-  }
+  void _refreshToolbar(DocumentBloc bloc) =>
+      bloc.state.currentIndexCubit?.refreshToolbar(bloc);
 
   @override
   void dispose(DocumentBloc bloc) {
@@ -434,8 +431,6 @@ class LabelHandler extends Handler<LabelTool>
         lastValue.selection.end - lastValue.text.length + value.length;
     final currentText = value.substring(
         start, value.length - lastValue.text.length + lastValue.composing.end);
-    print(
-        'Text: $currentText, currentText: $currentText, start: ${lastValue.composing.start}, end: ${lastValue.composing.end}, value: $value, lastValue: ${lastValue.text}}');
     _context = _context?.map(text: (e) {
       final old = e.element;
       if (old != null) {
@@ -587,6 +582,7 @@ class LabelHandler extends Handler<LabelTool>
           );
           bloc.refresh();
           _updateEditingState();
+          _refreshToolbar(bloc);
           return null;
         },
       ),
@@ -643,6 +639,7 @@ class LabelHandler extends Handler<LabelTool>
             ),
           );
           _updateEditingState();
+          _refreshToolbar(bloc);
           return null;
         },
       ),
