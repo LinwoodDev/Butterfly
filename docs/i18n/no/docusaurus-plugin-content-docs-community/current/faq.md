@@ -1,5 +1,5 @@
 ---
-id: "faq"
+id: "q"
 slug: "/faq"
 title: "Ofte stilte spørsmål"
 sidebar_label: "OSS"
@@ -19,13 +19,17 @@ Modige brukere som har angitt innstillingen 'Block Fingerprint' til Aggressiva, 
 
 ## Mobil
 
-### Krasj i Z Fold 3 når du holder inne side-knappen på S penn
+### S-penn vil ikke gjenkjennes
 
-> [#289](https://github.com/LinwoodDev/Butterfly/issues/289)
+> [#270](https://github.com/LinwoodDev/Butterfly/issues/270)
 
-Fikset i 2.0 alfaene.
+Jeg bruker det innspillet som følger med flutter rammeverket. Dette er problemet som sporer den: [flutter/flutter#42846](https://github.com/flutter/flutter/issues/42846).
 
-~~This is a known issue with flutter and the Samsung Z Fold 3.~~ ~~Please upvote [this issue](https://github.com/flutter/flutter/issues/111068) to get this fixed!~~
+### iOS brukerstøtte
+
+> [#244](https://github.com/LinwoodDev/Butterfly/issues/244)
+
+Du trenger en apple utviklerkonto for å få apper på iPhone. For android trenger du ikke registrere deg og om du bare trenger å betale 15$ en gang. På eplet må du betale 99$ årlig. Jeg har ikke råd til dette. I europapene må ios i fremtiden kunne sideloadiske apps. Kanskje dette vil endre noe.
 
 ## Skrivebord
 
