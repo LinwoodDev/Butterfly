@@ -13,7 +13,7 @@ sidebar_position: 5
   <ul className="dropdown__menu">
     <li>
       <DownloadButton className="dropdown__link" href="https://github.com/LinwoodDev/butterfly/releases/download/stable/linwood-butterfly-macos.dmg">
-        DMG
+        Danos
       </DownloadButton>
     </li>
     <li>
@@ -28,7 +28,7 @@ sidebar_position: 5
   <ul className="dropdown__menu">
     <li>
       <DownloadButton className="dropdown__link" href="https://github.com/LinwoodDev/butterfly/releases/download/nightly/linwood-butterfly-macos.dmg">
-        DMG
+        Danos
       </DownloadButton>
     </li>
     <li>
