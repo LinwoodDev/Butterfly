@@ -1,5 +1,5 @@
 ---
-slug: "/downloads"
+slug: "/التنزيلات"
 sidebar_position: 0
 title: التنزيلات
 ---
@@ -45,3 +45,4 @@ title: التنزيلات
 - [الإصدارات القديمة](https://github.com/LinwoodDev/butterfly/releases)
 - [أحدث إصدار](https://github.com/LinwoodDev/butterfly/releases/latest)
 - [الدعم](https://discord.linwood.dev)
+- [أسئلة متكررة](/faq)
