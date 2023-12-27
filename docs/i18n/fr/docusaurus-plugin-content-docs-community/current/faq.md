@@ -19,13 +19,17 @@ Les utilisateurs courageux qui ont défini le paramètre de bouclier « Bloc Emp
 
 ## Téléphone mobile
 
-### Crashes sur Z Fold 3 en maintenant appuyé le bouton latéral du S Stylo
+### S-Pen won't be recognized
 
-> [#289](https://github.com/LinwoodDev/Butterfly/issues/289)
+> [#270](https://github.com/LinwoodDev/Butterfly/issues/270)
 
-Correction dans les alphas 2.0.
+J'utilise l'entrée fournie par le cadre flutter. This is the issue to track it: [flutter/flutter#42846](https://github.com/flutter/flutter/issues/42846).
 
-~~Ceci est un problème connu avec flutter et le Samsung Z Fold 3.~~ ~~~Veuillez voter pour [ce problème](https://github.com/flutter/flutter/issues/111068) pour résoudre ce problème !~~
+### iOS support
+
+> [#244](https://github.com/LinwoodDev/Butterfly/issues/244)
+
+You need an apple developer account to get apps on the iPhone. For android you don't need to register and if you want you only need to pay 15$ once. On apple you need to pay 99$ yearly. I can't afford this. In europe ios needs to be able to sideload apps in the future. Maybe this will change something.
 
 ## Bureau
 
