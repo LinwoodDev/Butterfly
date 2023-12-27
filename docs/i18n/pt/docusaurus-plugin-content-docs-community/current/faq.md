@@ -1,5 +1,5 @@
 ---
-id: "faq"
+id: "FAQ"
 slug: "/faq"
 title: "Perguntas Frequentes"
 sidebar_label: "Perguntas Frequentes"
@@ -19,13 +19,17 @@ Usuários corajosos que definiram a opção 'Bloquear impressão digital' para A
 
 ## Celular
 
-### Quebra em Z Fold 3 ao segurar o botão lateral da caneta S
+### O S-Pen não será reconhecido
 
-> [#289](https://github.com/LinwoodDev/Butterfly/issues/289)
+> [#270](https://github.com/LinwoodDev/Butterfly/issues/270)
 
-Corrigida em alfabeto 2.0.
+Eu estou usando os dados fornecidos pelo framework de agitação. Esse é o problema para rastreá-lo: [lutador/flutter#42846](https://github.com/flutter/flutter/issues/42846).
 
-~~This is a known problem with Fllutter and the Samsung Z Fold 3.~~ ~~~Please upvote [this issue](https://github.com/flutter/flutter/issues/111068) to get this fixed!~~
+### Suporte para iOS
+
+> [#244](https://github.com/LinwoodDev/Butterfly/issues/244)
+
+Você precisa de uma conta de desenvolvedor de maçã para obter aplicativos no iPhone. Para android você não precisa se registrar e se quiser você só precisa pagar 15$ uma vez. Na maçã você precisa pagar 99$ por ano. Não posso bancar isso. Os euroios precisam de ser capazes de deslizar os aplicativos no futuro. Talvez isso mude alguma coisa.
 
 ## Computadores
 
