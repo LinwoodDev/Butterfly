@@ -1,5 +1,5 @@
 ---
-id: "faq"
+id: "FAQ"
 slug: "/faq"
 title: "Veelgestelde vragen (FAQ's)"
 sidebar_label: "FAQ"
@@ -19,13 +19,17 @@ Moedige gebruikers die de Schild instelling 'Blok Vingerafdruk' hebben ingesteld
 
 ## Mobiel
 
-### Crashes op Z Fold 3 bij het vasthouden van zij-knop van S Pen
+### S-Pen wordt niet herkend
 
-> [#289](https://github.com/LinwoodDev/Butterfly/issues/289)
+> [#270](https://github.com/LinwoodDev/Butterfly/issues/270)
 
-Vaste in de 2.0 alfa's.
+Ik gebruik de input van het flutter framework. Dit is het probleem om het te volgen: [flutter/flutter#42846](https://github.com/flutter/flutter/issues/42846).
 
-~~Dit is een bekend probleem met flutter en de Samsung Z gevouwen 3.~~ ~~ Stem [dit probleem](https://github.com/flutter/flutter/issues/111068) op om dit te repareren!~~
+### iOS ondersteuning
+
+> [#244](https://github.com/LinwoodDev/Butterfly/issues/244)
+
+Je hebt een appel ontwikkelaarsaccount nodig om apps op de iPhone te krijgen. Voor android hoef je je niet te registreren en als je wilt dat je maar 15$ eenmaal hoeft te betalen. Met appel moet je 99$ per jaar betalen. Ik kan me dit niet veroorloven. In europie ios moet het mogelijk zijn om in de toekomst apps te sideloderen. Misschien zal dit iets veranderen.
 
 ## Startscherm
 
