@@ -19,13 +19,17 @@ Brave Benutzer, die die 'Fingerabdruck blockieren'-Einstellung auf "Aggressiv" e
 
 ## Mobil
 
-### Abstürze bei Z Fold 3, wenn die Seitentaste von S Pen gedrückt wird
+### S-Pen wird nicht erkannt
 
-> [#289](https://github.com/LinwoodDev/Butterfly/issues/289)
+> [#270](https://github.com/LinwoodDev/Butterfly/issues/270)
 
-Behoben in den 2.0 Alphas.
+Ich benutze die Eingabe des Flutter-Frameworks. Dies ist das Problem zu verfolgen: [flutter/flutter#42846](https://github.com/flutter/flutter/issues/42846).
 
-~~This is a known issue with flutter and the Samsung Z Fold 3.~~ ~~Please upvote [this issue](https://github.com/flutter/flutter/issues/111068) to get this fixed!~~
+### iOS-Unterstützung
+
+> [#244](https://github.com/LinwoodDev/Butterfly/issues/244)
+
+Du benötigst ein Apfel-Entwickler-Konto, um Apps auf dem iPhone zu erhalten. Für Android müssen Sie sich nicht registrieren und wenn Sie wollen, müssen Sie nur einmal 15$ bezahlen. Bei Apfel müssen Sie jährlich 99$ bezahlen. Ich kann mich das nicht leisten. In Europa müssen ios in der Lage sein, Apps in Zukunft zu verdrängen. Vielleicht wird sich das etwas ändern.
 
 ## Desktop
 
