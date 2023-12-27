@@ -19,17 +19,17 @@ Les utilisateurs courageux qui ont défini le paramètre de bouclier « Bloc Emp
 
 ## Téléphone mobile
 
-### S-Pen won't be recognized
+### S-Pen ne sera pas reconnu
 
 > [#270](https://github.com/LinwoodDev/Butterfly/issues/270)
 
-J'utilise l'entrée fournie par le cadre flutter. This is the issue to track it: [flutter/flutter#42846](https://github.com/flutter/flutter/issues/42846).
+J'utilise l'entrée fournie par le cadre flutter. Voici le problème à suivre : [flutter/flutter#42846](https://github.com/flutter/flutter/issues/42846).
 
-### iOS support
+### Support iOS
 
 > [#244](https://github.com/LinwoodDev/Butterfly/issues/244)
 
-You need an apple developer account to get apps on the iPhone. For android you don't need to register and if you want you only need to pay 15$ once. On apple you need to pay 99$ yearly. I can't afford this. In europe ios needs to be able to sideload apps in the future. Maybe this will change something.
+Vous avez besoin d'un compte développeur de pommes pour obtenir des applications sur l'iPhone. Pour android vous n'avez pas besoin de vous inscrire et si vous voulez vous devez payer seulement 15$ une fois. Sur la pomme, vous devez payer 99 $ par an. Je ne peux pas me le permettre. Dans europe ios a besoin d'être en mesure de mettre de côté les applications dans le futur. Peut-être cela changera-t-il quelque chose.
 
 ## Bureau
 
