@@ -45,3 +45,4 @@ title: Descărcări
 - [Partajări mai vechi](https://github.com/LinwoodDev/butterfly/releases)
 - [Ultima versiune](https://github.com/LinwoodDev/butterfly/releases/latest)
 - [Suport](https://discord.linwood.dev)
+- [Întrebări](/faq)
