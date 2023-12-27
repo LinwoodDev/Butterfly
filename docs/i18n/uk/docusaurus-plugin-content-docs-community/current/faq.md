@@ -1,5 +1,5 @@
 ---
-id: "faq"
+id: "чапи"
 slug: "/faq"
 title: "Найчастіші питання"
 sidebar_label: "ЧАП"
@@ -19,13 +19,17 @@ sidebar_label: "ЧАП"
 
 ## Мобільний
 
-### Кришки на Z Fold 3 при натисканні на кнопку на стороні S Pen
+### S-Pen не буде визнано
 
-> [#289](https://github.com/LinwoodDev/Butterfly/issues/289)
+> [#270](https://github.com/LinwoodDev/Butterfly/issues/270)
 
-Виправлено у альфах 2.0.
+Я використовую вхідний фреймворк, що світиться. Це проблема, яку потрібно відстежувати: [flutter/flutter#42846](https://github.com/flutter/flutter/issues/42846).
 
-~~This is a known issue with flutter and the Samsung Z Fold 3.~~ ~~Please upvote [this issue](https://github.com/flutter/flutter/issues/111068) to get this fixed!~~
+### Підтримка iOS
+
+> [#244](https://github.com/LinwoodDev/Butterfly/issues/244)
+
+Щоб отримувати додатки на iPhone, вам потрібен обліковий запис для Apple. Для android, вам не потрібно реєструватися і якщо ви хочете, щоб оплатити 15$ один раз. На яблуку тобі потрібно платити 99$ щорічно. Я не можу собі цього дозволити. В iOS в євро потрібно вміти оновлювати додатки в майбутньому. Можливо, це щось змінить.
 
 ## Стільниця
 
