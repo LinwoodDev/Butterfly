@@ -45,3 +45,4 @@ title: Завантажень
 - [Старі випуски](https://github.com/LinwoodDev/butterfly/releases)
 - [Останній реліз](https://github.com/LinwoodDev/butterfly/releases/latest)
 - [Підтримка](https://discord.linwood.dev)
+- [ЧАП](/faq)
