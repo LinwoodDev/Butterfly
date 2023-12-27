@@ -45,3 +45,4 @@ title: Λήψεις
 - [Παλαιότερες εκδόσεις](https://github.com/LinwoodDev/butterfly/releases)
 - [Τελευταία κυκλοφορία](https://github.com/LinwoodDev/butterfly/releases/latest)
 - [Υποστήριξη](https://discord.linwood.dev)
+- [Συχνές](/faq)
