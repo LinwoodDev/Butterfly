@@ -1,5 +1,5 @@
 ---
-id: "faq"
+id: "فاك"
 slug: "/faq"
 title: "الأسئلة المتكررة"
 sidebar_label: "أسئلة متكررة"
@@ -19,17 +19,17 @@ sidebar_label: "أسئلة متكررة"
 
 ## الجوال
 
-### S-Pen won't be recognized
+### لن يتم التعرف على SPen
 
 > [#270](https://github.com/LinwoodDev/Butterfly/issues/270)
 
-أنا أستخدم المدخل الذي يوفره إطار التردد. This is the issue to track it: [flutter/flutter#42846](https://github.com/flutter/flutter/issues/42846).
+أنا أستخدم المدخل الذي يوفره إطار التردد. هذه هي المشكلة لتعقبها: [flutter/flutter#42846](https://github.com/flutter/flutter/issues/42846).
 
-### iOS support
+### دعم iOS
 
 > [#244](https://github.com/LinwoodDev/Butterfly/issues/244)
 
-You need an apple developer account to get apps on the iPhone. For android you don't need to register and if you want you only need to pay 15$ once. On apple you need to pay 99$ yearly. I can't afford this. In europe ios needs to be able to sideload apps in the future. Maybe this will change something.
+تحتاج إلى حساب مطور التفاح للحصول على التطبيقات على iPhone. بالنسبة للأندرويد لا تحتاج إلى التسجيل وإذا كنت تريد فقط أن تدفع 15 دولار لمرة واحدة. على التفاحة يجب أن تدفع 99$ سنوياً. لا أستطيع تحمل ذلك. في اليورو يجب أن تكون القوانين قادرة على تحميل التطبيقات الجانبية في المستقبل. ربما هذا سيغير شيئا.
 
 ## سطح المكتب
 
