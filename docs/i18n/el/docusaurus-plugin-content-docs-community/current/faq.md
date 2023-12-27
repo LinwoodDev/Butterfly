@@ -19,13 +19,17 @@ sidebar_label: "Συχνές"
 
 ## Κινητό
 
-### Συντριβές στο Z Fold 3 όταν κρατάτε πατημένο το πλευρικό κουμπί της S Pen
+### Το S-Pen δεν θα αναγνωριστεί
 
-> [#289](https://github.com/LinwoodDev/Butterfly/issues/289)
+> [#270](https://github.com/LinwoodDev/Butterfly/issues/270)
 
-Καθορίζεται στη φάση 2. 0.
+Χρησιμοποιώ την είσοδο που παρέχεται από το πλαίσιο πτερυγίου. Αυτό είναι το ζήτημα που πρέπει να παρακολουθεί: [flutter/flutter#42846](https://github.com/flutter/flutter/issues/42846).
 
-~~This is a known issue with flutter and the Samsung Z Fold 3.~~ ~Please upvote [this issue](https://github.com/flutter/flutter/issues/111068) to get this fixed!~~
+### Υποστήριξη iOS
+
+> [#244](https://github.com/LinwoodDev/Butterfly/issues/244)
+
+Χρειάζεστε έναν λογαριασμό προγραμματιστή μήλου για να αποκτήσετε εφαρμογές στο iPhone. Για το Android δεν χρειάζεται να εγγραφείτε και αν θέλετε χρειάζεται μόνο να πληρώσετε 15 $ μία φορά. Σε μήλο θα πρέπει να πληρώσετε 99$ ετησίως. Δεν μπορώ να το αντέξω αυτό. Στην Ευρώπη το ios πρέπει να είναι σε θέση να παραγκωνίσει εφαρμογές στο μέλλον. Ίσως αυτό να αλλάξει κάτι.
 
 ## Επιφάνεια Εργασίας
 
