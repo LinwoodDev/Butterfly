@@ -19,13 +19,17 @@ Utilizatorii curajoși care au setat setarea Scutului "Blocare amprentată" ca A
 
 ## Mobil
 
-### Se loveşte Z Fold 3 când ţineţi apăsat butonul S stilou
+### S-Pen won't be recognized
 
-> [#289](https://github.com/LinwoodDev/Butterfly/issues/289)
+> [#270](https://github.com/LinwoodDev/Butterfly/issues/270)
 
-Rezolvat în cei 2,0 alfa.
+Folosesc datele furnizate de cadrul flutter. This is the issue to track it: [flutter/flutter#42846](https://github.com/flutter/flutter/issues/42846).
 
-~~Aceasta este o problemă cunoscută cu flutter și Samsung Z Fold 3.~~ ~Te rog upvote [această problemă](https://github.com/flutter/flutter/issues/111068) pentru a repara asta!~
+### iOS support
+
+> [#244](https://github.com/LinwoodDev/Butterfly/issues/244)
+
+You need an apple developer account to get apps on the iPhone. For android you don't need to register and if you want you only need to pay 15$ once. On apple you need to pay 99$ yearly. I can't afford this. In europe ios needs to be able to sideload apps in the future. Maybe this will change something.
 
 ## Birou
 
