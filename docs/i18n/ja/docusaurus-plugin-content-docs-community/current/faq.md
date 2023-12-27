@@ -19,13 +19,17 @@ sidebar_label: "FAQ"
 
 ## モバイル
 
-### Sペンのサイドボタンを押したままZでクラッシュ3する
+### S-ペンは認識されません
 
-> [#289](https://github.com/LinwoodDev/Butterfly/issues/289)
+> [#270](https://github.com/LinwoodDev/Butterfly/issues/270)
 
-2.0 英数字で修正。
+フラッターフレームワークで提供される入力を使っています。 [flutter/flutter#42846](https://github.com/flutter/flutter/issues/42846).
 
-~~This is a known issue with flutter and the Samsung Z Fold 3.~~ ~~Please upvote [this issue](https://github.com/flutter/flutter/issues/111068) to get this fixed!~~
+### iOS のサポート
+
+> [#244](https://github.com/LinwoodDev/Butterfly/issues/244)
+
+iPhoneでアプリを入手するには、Apple開発者アカウントが必要です。 Androidの場合は、登録する必要はありませんし、あなただけの15ドルを支払う必要がある場合。 アップルでは毎年99ドルを支払う必要があります。 これを買う余裕はありません。 ヨーロッパでは、将来的にアプリをサイドロードできるようにする必要があります。 たぶんこれは何かを変えるでしょう。
 
 ## デスクトップ
 
