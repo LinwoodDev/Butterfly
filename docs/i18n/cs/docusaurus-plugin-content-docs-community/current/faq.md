@@ -19,13 +19,17 @@ Hrobní uživatelé, kteří nastavili pole 'Blokovat otisk prstu' na Agresivní
 
 ## Mobil
 
-### Pád na Z Fold 3, když držíte boční tlačítko S Pen
+### S-Pen nebude rozpoznán
 
-> [#289](https://github.com/LinwoodDev/Butterfly/issues/289)
+> [#270](https://github.com/LinwoodDev/Butterfly/issues/270)
 
-Pevná ve fázi 2.0.
+Používám vstup poskytnutý rámcem blesku. Toto je úkol ke sledování jako: [flutter/flutter#42846](https://github.com/flutter/flutter/issues/42846).
 
-~~~Toto je známý problém s futterem a Samsung Z Fold 3.~~ ~~~Prosím hlasujte [tento problém](https://github.com/flutter/flutter/issues/111068) pro opravení!~~
+### Podpora iOS
+
+> [#244](https://github.com/LinwoodDev/Butterfly/issues/244)
+
+Potřebujete jablko vývojářský účet, abyste mohli získat aplikace na iPhone. Pro android se nemusíte registrovat a pokud chcete, stačí zaplatit pouze 15$ jednou. Na jablko musíte platit 99$ ročně. To si nemohu dovolit. V europe ios musí být v budoucnu schopen vytlačit aplikace na vedlejší kolej. Možná to něco změní.
 
 ## Stolní počítače
 
