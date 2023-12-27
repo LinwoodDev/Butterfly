@@ -394,7 +394,6 @@ html {
   color: var(--ifm-button-color);
   padding: 0.5rem 1rem;
   border-radius: 0.75rem;
-  aspect-ratio: 1 / 1;
   display: flex;
   flex-direction: column;
   align-items: center;
