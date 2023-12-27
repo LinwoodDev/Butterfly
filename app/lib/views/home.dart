@@ -9,6 +9,7 @@ import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import '../main.dart';
@@ -33,11 +34,9 @@ String _getLocalizedNameOfBannerVisibility(
 Widget _getBannerVisibilityWidget(
     BuildContext context, ButterflySettings settings) {
   return MenuAnchor(
-    builder: (context, controller, child) => IconButton(
+    builder: defaultMenuButton(
       tooltip: AppLocalizations.of(context).visibility,
       icon: PhosphorIcon(_getIconOfBannerVisibility(settings.bannerVisibility)),
-      onPressed: () =>
-          controller.isOpen ? controller.close() : controller.open(),
     ),
     menuChildren: BannerVisibility.values
         .map(

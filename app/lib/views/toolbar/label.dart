@@ -247,14 +247,11 @@ class _LabelToolbarViewState extends State<LabelToolbarView> {
                                                 value.tool.copyWith(mode: e)))),
                               )
                               .toList(),
-                          builder: (context, controller, child) => IconButton(
+                          builder: defaultMenuButton(
                             icon: PhosphorIcon(
                                 mode.icon(PhosphorIconsStyle.light)),
                             tooltip:
                                 AppLocalizations.of(context).chooseLabelMode,
-                            onPressed: () => controller.isOpen
-                                ? controller.close()
-                                : controller.open(),
                           ),
                         ),
                         if (value is TextContext) ...[

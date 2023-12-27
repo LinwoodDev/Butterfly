@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:window_manager/window_manager.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -180,6 +181,8 @@ class _WindowButtonsState extends State<WindowButtons> with WindowListener {
                               MenuAnchor(
                                 builder: (context, controller, child) =>
                                     GestureDetector(
+                                  onLongPress: controller.toggle,
+                                  onSecondaryTap: controller.toggle,
                                   child: IconButton(
                                     tooltip: maximized
                                         ? AppLocalizations.of(context).restore
@@ -194,20 +197,6 @@ class _WindowButtonsState extends State<WindowButtons> with WindowListener {
                                             ? windowManager.unmaximize()
                                             : windowManager.maximize(),
                                   ),
-                                  onLongPress: () async {
-                                    if (controller.isOpen) {
-                                      controller.close();
-                                    } else {
-                                      controller.open();
-                                    }
-                                  },
-                                  onSecondaryTap: () async {
-                                    if (controller.isOpen) {
-                                      controller.close();
-                                    } else {
-                                      controller.open();
-                                    }
-                                  },
                                 ),
                                 menuChildren: [
                                   MenuItemButton(

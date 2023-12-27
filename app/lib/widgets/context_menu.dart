@@ -5,6 +5,7 @@ import 'package:animations/animations.dart';
 import 'package:butterfly/cubits/settings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:material_leap/material_leap.dart';
 
 typedef ContextMenuBuilder = List<ContextMenuEntry> Function(
     BuildContext context);
@@ -132,11 +133,7 @@ class _ContextMenuState extends State<ContextMenu>
                       ? MenuAnchor(
                           menuChildren: item.children,
                           builder: (context, controller, child) =>
-                              buildItemWidget(
-                            () => controller.isOpen
-                                ? controller.close()
-                                : controller.open(),
-                          ),
+                              buildItemWidget(controller.toggle),
                         )
                       : SubmenuButton(
                           menuChildren: item.children,

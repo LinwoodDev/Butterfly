@@ -18,6 +18,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:go_router/go_router.dart';
+import 'package:material_leap/material_leap.dart';
 import 'package:networker/networker.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
@@ -584,13 +585,7 @@ class _MainPopupMenu extends StatelessWidget {
                   ),
                   tooltip: AppLocalizations.of(context).actions,
                   isSelected: controller.isOpen,
-                  onPressed: () {
-                    if (controller.isOpen) {
-                      controller.close();
-                    } else {
-                      controller.open();
-                    }
-                  },
+                  onPressed: controller.toggle,
                 ),
               ),
             ),

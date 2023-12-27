@@ -150,8 +150,7 @@ class _PropertyViewState extends State<PropertyView>
                                     ? icon
                                     : MenuAnchor(
                                         controller: controller,
-                                        builder: (context, controller, child) =>
-                                            IconButton.filledTonal(
+                                        builder: defaultFilledMenuButton(
                                           icon: Row(
                                             children: [
                                               icon,
@@ -167,9 +166,6 @@ class _PropertyViewState extends State<PropertyView>
                                           ),
                                           tooltip:
                                               AppLocalizations.of(context).icon,
-                                          onPressed: () => controller.isOpen
-                                              ? controller.close()
-                                              : controller.open(),
                                           isSelected: controller.isOpen,
                                         ),
                                         menuChildren: menuChildren,
