@@ -19,17 +19,17 @@ Utilizatorii curajoși care au setat setarea Scutului "Blocare amprentată" ca A
 
 ## Mobil
 
-### S-Pen won't be recognized
+### S-Pen nu va fi recunoscut
 
 > [#270](https://github.com/LinwoodDev/Butterfly/issues/270)
 
-Folosesc datele furnizate de cadrul flutter. This is the issue to track it: [flutter/flutter#42846](https://github.com/flutter/flutter/issues/42846).
+Folosesc datele furnizate de cadrul flutter. Aceasta este problema pentru a o urmări: [flutter/flutter#42846](https://github.com/flutter/flutter/issues/42846).
 
-### iOS support
+### Suport iOS
 
 > [#244](https://github.com/LinwoodDev/Butterfly/issues/244)
 
-You need an apple developer account to get apps on the iPhone. For android you don't need to register and if you want you only need to pay 15$ once. On apple you need to pay 99$ yearly. I can't afford this. In europe ios needs to be able to sideload apps in the future. Maybe this will change something.
+Aveți nevoie de un cont de dezvoltator de mere pentru a obține aplicații pe iPhone. Pentru android nu este nevoie să te înregistrezi, iar dacă vrei să plătești doar 15$ o singură dată. Pentru mere trebuie să plătești 99$ anual. Nu-mi pot permite asta. În Europa ios trebuie să fie în măsură să adune în viitor aplicații sideload. Poate că acest lucru va schimba ceva.
 
 ## Birou
 
