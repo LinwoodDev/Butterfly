@@ -45,3 +45,4 @@ title: Загрузки
 - [Старые релизы](https://github.com/LinwoodDev/butterfly/releases)
 - [Последний релиз](https://github.com/LinwoodDev/butterfly/releases/latest)
 - [Поддержка](https://discord.linwood.dev)
+- [ЧАВО](/faq)
