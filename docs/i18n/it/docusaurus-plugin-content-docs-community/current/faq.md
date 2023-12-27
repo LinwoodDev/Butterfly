@@ -19,13 +19,17 @@ Gli utenti coraggiosi che hanno impostato l'impostazione dello scudo 'Block Fing
 
 ## Cellulare
 
-### Crash su Z Fold 3 tenendo premuto il pulsante laterale della penna S
+### S-Pen non sarà riconosciuta
 
-> [#289](https://github.com/LinwoodDev/Butterfly/issues/289)
+> [#270](https://github.com/LinwoodDev/Butterfly/issues/270)
 
-Fisso nella fase 2.0.
+Sto usando l'input fornito dal framework flutter. Questo è il problema da tracciare: [flutter/flutter#42846](https://github.com/flutter/flutter/issues/42846).
 
-~~Questo è un problema noto con flutter e il Samsung Z Fold 3.~~ ~~Si prega di votare [questo problema](https://github.com/flutter/flutter/issues/111068) per risolvere questo problema!~~
+### Supporto iOS
+
+> [#244](https://github.com/LinwoodDev/Butterfly/issues/244)
+
+Hai bisogno di un account sviluppatore di mele per ottenere applicazioni su iPhone. Per android non è necessario registrarsi e se si desidera è solo bisogno di pagare 15$ una volta. Sulla mela è necessario pagare 99$ all'anno. Non posso permettermi questo. In Europa ios deve essere in grado di sideload applicazioni in futuro. Forse questo cambierà qualcosa.
 
 ## Desktop
 
