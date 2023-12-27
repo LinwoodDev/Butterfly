@@ -45,3 +45,4 @@ title: Downloads
 - [Ældre udgivelser](https://github.com/LinwoodDev/butterfly/releases)
 - [Seneste udgivelse](https://github.com/LinwoodDev/butterfly/releases/latest)
 - [Support](https://discord.linwood.dev)
+- [OSS](/faq)
