@@ -13,7 +13,7 @@ sidebar_position: 5
   <ul className="dropdown__menu">
     <li>
       <DownloadButton className="dropdown__link" href="https://github.com/LinwoodDev/butterfly/releases/download/stable/linwood-butterfly-macos.dmg">
-        DMG
+        W związku z powyższym Komisja stwierdza, że w momencie zawierania umów z Ryanairem spółka So.Ge.A.AL nie była w stanie pokryć strat poniesionych przez Ryanaira w związku z zawarciem umowy z Ryanairem z 1999 r.
       </DownloadButton>
     </li>
     <li>
@@ -28,7 +28,7 @@ sidebar_position: 5
   <ul className="dropdown__menu">
     <li>
       <DownloadButton className="dropdown__link" href="https://github.com/LinwoodDev/butterfly/releases/download/nightly/linwood-butterfly-macos.dmg">
-        DMG
+        W związku z powyższym Komisja stwierdza, że w momencie zawierania umów z Ryanairem spółka So.Ge.A.AL nie była w stanie pokryć strat poniesionych przez Ryanaira w związku z zawarciem umowy z Ryanairem z 1999 r.
       </DownloadButton>
     </li>
     <li>
