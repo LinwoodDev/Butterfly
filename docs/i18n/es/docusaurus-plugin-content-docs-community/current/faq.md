@@ -19,17 +19,17 @@ Los usuarios que han configurado el escudo 'Bloquear la huella dactilar' a Agres
 
 ## Móvil
 
-### S-Pen won't be recognized
+### S-Pen no será reconocido
 
 > [#270](https://github.com/LinwoodDev/Butterfly/issues/270)
 
-Estoy usando la entrada proporcionada por el framework de flujos. This is the issue to track it: [flutter/flutter#42846](https://github.com/flutter/flutter/issues/42846).
+Estoy usando la entrada proporcionada por el framework de flujos. Este es el problema para rastrearlo: [flutter/flutter#42846](https://github.com/flutter/flutter/issues/42846).
 
-### iOS support
+### soporte para iOS
 
 > [#244](https://github.com/LinwoodDev/Butterfly/issues/244)
 
-You need an apple developer account to get apps on the iPhone. For android you don't need to register and if you want you only need to pay 15$ once. On apple you need to pay 99$ yearly. I can't afford this. In europe ios needs to be able to sideload apps in the future. Maybe this will change something.
+Necesitas una cuenta de desarrollador de manzanas para obtener aplicaciones en el iPhone. Para android no necesitas registrarte y si quieres sólo tienes que pagar 15$ una vez. En manzana usted necesita pagar 99$ anualmente. No puedo permitirme esto. En europe los ios deben poder dejar de lado las aplicaciones en el futuro. Tal vez esto cambie algo.
 
 ## Escritorio
 
