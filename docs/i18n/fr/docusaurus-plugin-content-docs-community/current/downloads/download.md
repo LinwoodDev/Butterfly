@@ -45,3 +45,4 @@ title: Téléchargements
 - [Anciennes versions](https://github.com/LinwoodDev/butterfly/releases)
 - [Dernière version](https://github.com/LinwoodDev/butterfly/releases/latest)
 - [Soutien](https://discord.linwood.dev)
+- [Foire Aux Questions](/faq)
