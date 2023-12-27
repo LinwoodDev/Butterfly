@@ -1,5 +1,5 @@
 ---
-slug: "/downloads"
+slug: "/Downloads"
 sidebar_position: 0
 title: Downloads
 ---
@@ -45,3 +45,4 @@ title: Downloads
 - [Ältere Versionen](https://github.com/LinwoodDev/butterfly/releases)
 - [Neueste Version](https://github.com/LinwoodDev/butterfly/releases/latest)
 - [Unterstützung](https://discord.linwood.dev)
+- [FAQ](/faq)
