@@ -569,9 +569,7 @@ class _MainPopupMenu extends StatelessWidget {
                 ),
               ),
             ),
-            builder: (BuildContext context, MenuController controller,
-                    Widget? child) =>
-                Align(
+            builder: (context, controller, child) => Align(
               child: AspectRatio(
                 aspectRatio: 1,
                 child: IconButton(

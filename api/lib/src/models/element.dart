@@ -53,8 +53,7 @@ abstract class PathElement {
   PathProperty get property;
 }
 
-mixin LabelElement on PadElement {
-  @override
+mixin LabelElement {
   String get layer;
   Point<double> get position;
   double get scale;
@@ -63,7 +62,8 @@ mixin LabelElement on PadElement {
   int get foreground;
 
   AreaProperty get areaProperty {
-    return maybeMap(
+    final element = this as PadElement;
+    return element.maybeMap(
       markdown: (e) => e.areaProperty,
       text: (e) => e.area.areaProperty,
       orElse: () => throw UnimplementedError(),
@@ -71,7 +71,8 @@ mixin LabelElement on PadElement {
   }
 
   String get text {
-    return maybeMap(
+    final element = this as PadElement;
+    return element.maybeMap(
       markdown: (e) => e.text,
       text: (e) => e.area.paragraph.text,
       orElse: () => throw UnimplementedError(),

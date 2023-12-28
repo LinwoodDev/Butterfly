@@ -4,3 +4,4 @@
 * Add markdown element selection view
 * Fix moving data directory ([#562](https://github.com/LinwoodDev/Butterfly/issues/562))
 * Fix various issues with the label tool
+* Fix display icon

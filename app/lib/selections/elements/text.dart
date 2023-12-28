@@ -1,11 +1,11 @@
 part of '../selection.dart';
 
-class LabelElementSelection extends ElementSelection<LabelElement> {
+class LabelElementSelection extends ElementSelection<PadElement> {
   LabelElementSelection(super.selected);
 
   @override
   List<Widget> buildProperties(BuildContext context) {
-    final element = selected.first.element;
+    final element = selected.first.element as LabelElement;
     return [
       ...super.buildProperties(context),
       ExactSlider(
@@ -40,7 +40,8 @@ class LabelElementSelection extends ElementSelection<LabelElement> {
   @override
   Selection insert(element) {
     if (element is Renderer<LabelElement>) {
-      return LabelElementSelection([...selected, element]);
+      return LabelElementSelection(
+          [...selected, element as Renderer<PadElement>]);
     }
     return super.insert(element);
   }

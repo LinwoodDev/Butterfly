@@ -151,7 +151,9 @@ class _PropertyViewState extends State<PropertyView>
                                     : MenuAnchor(
                                         controller: controller,
                                         builder: defaultFilledMenuButton(
-                                          icon: Row(
+                                          iconBuilder:
+                                              (context, controller, child) =>
+                                                  Row(
                                             children: [
                                               icon,
                                               const SizedBox(width: 8),
