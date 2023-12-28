@@ -581,5 +581,6 @@
     }
   },
   "continueAnyway": "Toch doorgaan",
-  "zoomControl": "Zoom beheer"
+  "zoomControl": "Zoom beheer",
+  "highContrast": "High contrast"
 }
