@@ -581,5 +581,6 @@
     }
   },
   "continueAnyway": "Fortsett likevel",
-  "zoomControl": "Zoom kontroll"
+  "zoomControl": "Zoom kontroll",
+  "highContrast": "High contrast"
 }
