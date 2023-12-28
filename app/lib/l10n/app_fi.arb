@@ -581,5 +581,6 @@
     }
   },
   "continueAnyway": "Jatka joka tapauksessa",
-  "zoomControl": "Zoomauksen hallinta"
+  "zoomControl": "Zoomauksen hallinta",
+  "highContrast": "High contrast"
 }
