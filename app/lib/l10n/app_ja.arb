@@ -581,5 +581,6 @@
     }
   },
   "continueAnyway": "それでも続ける",
-  "zoomControl": "ズームコントロール"
+  "zoomControl": "ズームコントロール",
+  "highContrast": "High contrast"
 }
