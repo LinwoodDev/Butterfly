@@ -4,10 +4,46 @@
   display: flex;
   align-items: center;
   padding: 2rem 0;
-  width: 100%;
+}
+
+.features h2 {
+  font-size: 2rem;
+  text-align: center;
+  margin-bottom: 2rem;
+  margin-top: 5rem;
 }
 
 .featureSvg {
   height: 200px;
   width: 200px;
+}
+
+.showcase {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.showcaseImg {
+    width: 100%;
+    height: auto;
+    position: sticky;
+    padding: 1rem;
+    top: 50%;
+    margin-top: 50%;
+    transform: translateY(-50%);
+}
+
+.showcaseText {
+    text-align: center;
+    margin: 5rem 0;
+    list-style-type: none;
+    min-height: 50vh;
+    vertical-align: middle;
+}
+
+.showcaseButton {
+    text-align: center;
+    margin: 5rem 0;
+    list-style-type: none;
+    min-height: 100vh;
 }

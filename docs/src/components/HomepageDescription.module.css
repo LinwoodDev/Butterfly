@@ -1,0 +1,10 @@
+/* stylelint-disable docusaurus/copyright-header */
+
+.description {
+  max-width: 600px;
+  margin: 0 auto;
+  text-align: center;
+}
+.description span {
+    font-size: 1.5rem;
+}

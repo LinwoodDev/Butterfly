@@ -6,38 +6,38 @@
  */
 
 @font-face {
-  font-family: 'Comfortaa';
+  font-family: "Comfortaa";
   font-weight: 300;
   font-style: normal;
-  src: url('/fonts/Comfortaa-Light.ttf') format('truetype');
+  src: url("/fonts/Comfortaa-Light.ttf") format("truetype");
 }
 
 @font-face {
-  font-family: 'Comfortaa';
+  font-family: "Comfortaa";
   font-weight: 400;
   font-style: normal;
-  src: url('/fonts/Comfortaa-Regular.ttf') format('truetype');
+  src: url("/fonts/Comfortaa-Regular.ttf") format("truetype");
 }
 
 @font-face {
-  font-family: 'Comfortaa';
+  font-family: "Comfortaa";
   font-weight: 500;
   font-style: normal;
-  src: url('/fonts/Comfortaa-Medium.ttf') format('truetype');
+  src: url("/fonts/Comfortaa-Medium.ttf") format("truetype");
 }
 
 @font-face {
-  font-family: 'Comfortaa';
+  font-family: "Comfortaa";
   font-weight: 600;
   font-style: normal;
-  src: url('/fonts/Comfortaa-SemiBold.ttf') format('truetype');
+  src: url("/fonts/Comfortaa-SemiBold.ttf") format("truetype");
 }
 
 @font-face {
-  font-family: 'Comfortaa';
+  font-family: "Comfortaa";
   font-weight: 700;
   font-style: normal;
-  src: url('/fonts/Comfortaa-Bold.ttf') format('truetype');
+  src: url("/fonts/Comfortaa-Bold.ttf") format("truetype");
 }
 
 /* You can override the default Infima variables here. */
@@ -52,7 +52,7 @@
   --ifm-color-primary-lighter: #f5c162;
   --ifm-color-primary-lightest: #f7d28c;
   --ifm-code-font-size: 95%;
-  --ifm-font-family-base: 'Comfortaa', sans-serif;
+  --ifm-font-family-base: "Comfortaa", sans-serif;
   --ifm-menu-color-background-active: var(--ifm-color-primary-darkest);
   --ifm-menu-link-padding-vertical: 0.75rem;
   --ifm-menu-color-active: var(--ifm-color-gray-100);
@@ -78,12 +78,12 @@ img {
   --ifm-menu-color-active: var(--ifm-color-gray-100);
 }
 .footer {
-  --ifm-footer-background-color:var(--ifm-color-emphasis-900);
+  --ifm-footer-background-color: var(--ifm-color-emphasis-900);
   --ifm-footer-link-color: var(--ifm-color-emphasis-700);
 }
 .footer--dark {
   --ifm-footer-title-color: var(--ifm-color-primary-darkest);
-  --ifm-footer-background-color:var(--ifm-color-emphasis-100);
+  --ifm-footer-background-color: var(--ifm-color-emphasis-100);
   --ifm-footer-color: inherit;
 }
 .navbar__item {
@@ -123,7 +123,7 @@ img {
   padding: 0 var(--ifm-pre-padding);
 }
 
-html[data-theme='light'] .DocSearch {
+html[data-theme="light"] .DocSearch {
   /* --docsearch-primary-color: var(--ifm-color-primary); */
   /* --docsearch-text-color: var(--ifm-font-color-base); */
   --docsearch-muted-color: var(--ifm-color-secondary-darkest);
@@ -141,7 +141,7 @@ html[data-theme='light'] .DocSearch {
   --docsearch-footer-background: var(--ifm-color-white);
 }
 
-html[data-theme='dark'] .DocSearch {
+html[data-theme="dark"] .DocSearch {
   --docsearch-text-color: var(--ifm-font-color-base);
   --docsearch-muted-color: var(--ifm-color-secondary-darkest);
   --docsearch-container-background: rgba(47, 55, 69, 0.7);
@@ -197,7 +197,6 @@ html[data-theme='dark'] .DocSearch {
   background-color: var(--ifm-color-primary-dark);
   font-weight: bold;
   transition: background 0.2s ease-in-out;
-
 }
 .menu__link--active:not(.menu__link--sublist):hover {
   background-color: var(--ifm-color-primary-darkest);
@@ -326,26 +325,26 @@ html[data-theme='dark'] .DocSearch {
   --ifm-link-hover-color: var(--ifm-button-color);
   border-radius: 0.75rem;
 }
-.button:hover {
-  outline: var(--ifm-color-primary-darkest) solid 4px;
+.dropdown > .button:hover {
+  outline: var(--ifm-button-background-color) solid 2px;
 }
 
 :where(.button--windows) {
-  --ifm-button-background-color: #0078D6;
-  --ifm-button-border-color: #0078D6;
+  --ifm-button-background-color: #0078d6;
+  --ifm-button-border-color: #0078d6;
 }
 
 :where(.button--linux) {
-  --ifm-button-background-color: #FCC624;
-  --ifm-button-border-color: #FCC624;
+  --ifm-button-background-color: #fcc624;
+  --ifm-button-border-color: #fcc624;
 }
 :where(.button--android) {
-  --ifm-button-background-color: #3DDC84;
-  --ifm-button-border-color: #3DDC84;
+  --ifm-button-background-color: #3ddc84;
+  --ifm-button-border-color: #3ddc84;
 }
 :where(.button--pwa) {
-  --ifm-button-background-color: #5A0FC8;
-  --ifm-button-border-color: #5A0FC8;
+  --ifm-button-background-color: #5a0fc8;
+  --ifm-button-border-color: #5a0fc8;
 }
 :where(.button--macos) {
   --ifm-button-background-color: #000000;
@@ -379,7 +378,8 @@ html[data-theme='dark'] .DocSearch {
 }
 
 html {
-  scrollbar-color: var(--ifm-color-primary-darkest) var(--ifm-color-emphasis-200);
+  scrollbar-color: var(--ifm-color-primary-darkest)
+    var(--ifm-color-emphasis-200);
 }
 
 .grid {
@@ -426,7 +426,8 @@ html {
   width: 5em;
 }
 
-main .clean-btn,.navbar-sidebar__back {
+main .clean-btn,
+.navbar-sidebar__back {
   color: var(--ifm-color-gray-100);
 }
 
@@ -436,4 +437,20 @@ main .clean-btn,.navbar-sidebar__back {
 
 .table-of-contents__link:hover {
   color: var(--ifm-color-gray-500);
+}
+
+.vertical-center {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.text-large {
+    font-size: 2rem;
+}
+
+@media (max-width: 996px) {
+    .text-large {
+        font-size: 1.25rem;
+    }
 }
