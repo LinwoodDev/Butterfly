@@ -132,7 +132,7 @@ class _$NetworkingInitMessageImpl
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$NetworkingInitMessageImpl &&
@@ -311,7 +311,7 @@ class _$NetworkingUserImpl
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$NetworkingUserImpl &&

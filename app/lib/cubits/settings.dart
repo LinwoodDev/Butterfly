@@ -370,6 +370,7 @@ class ButterflySettings with _$ButterflySettings {
     @Default([]) List<int> recentColors,
     @Default([]) List<String> flags,
     @Default(false) bool spreadPages,
+    @Default(false) bool highContrast,
   }) = _ButterflySettings;
 
   factory ButterflySettings.fromPrefs(
@@ -445,6 +446,8 @@ class ButterflySettings with _$ButterflySettings {
       recentColors:
           prefs.getStringList('recent_colors')?.map(int.parse).toList() ?? [],
       flags: prefs.getStringList('flags') ?? [],
+      spreadPages: prefs.getBool('spread_pages') ?? false,
+      highContrast: prefs.getBool('high_contrast') ?? false,
     );
   }
 
@@ -502,6 +505,8 @@ class ButterflySettings with _$ButterflySettings {
     await prefs.setStringList(
         'recent_colors', recentColors.map((e) => e.toString()).toList());
     await prefs.setStringList('flags', flags);
+    await prefs.setBool('spread_pages', spreadPages);
+    await prefs.setBool('high_contrast', highContrast);
   }
 
   ExternalStorage? getRemote(String? identifier) {
@@ -975,4 +980,11 @@ class SettingsCubit extends Cubit<ButterflySettings> {
   }
 
   Future<void> resetSpreadPages() => changeSpreadPages(true);
+
+  Future<void> changeHighContrast(bool value) {
+    emit(state.copyWith(highContrast: value));
+    return save();
+  }
+
+  Future<void> resetHighContrast() => changeHighContrast(false);
 }

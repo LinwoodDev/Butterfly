@@ -327,7 +327,7 @@ class _$TextContextImpl extends TextContext {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$TextContextImpl &&
@@ -616,7 +616,7 @@ class _$MarkdownContextImpl extends MarkdownContext {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$MarkdownContextImpl &&

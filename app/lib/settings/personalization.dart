@@ -103,6 +103,16 @@ class PersonalizationSettingsPage extends StatelessWidget {
                               Text(_getDensityName(context, state.density)),
                           onTap: () => _openDensityModal(context),
                         ),
+                        SwitchListTile(
+                          secondary:
+                              const PhosphorIcon(PhosphorIconsLight.circleHalf),
+                          title:
+                              Text(AppLocalizations.of(context).highContrast),
+                          value: state.highContrast,
+                          onChanged: (value) => context
+                              .read<SettingsCubit>()
+                              .changeHighContrast(value),
+                        ),
                       ]),
                 ),
               ),

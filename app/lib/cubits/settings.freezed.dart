@@ -439,7 +439,7 @@ class _$DavRemoteStorageImpl extends DavRemoteStorage
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$DavRemoteStorageImpl &&
@@ -868,7 +868,7 @@ class _$LocalStorageImpl extends LocalStorage with DiagnosticableTreeMixin {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$LocalStorageImpl &&
@@ -1301,7 +1301,7 @@ class _$InputConfigurationImpl extends _InputConfiguration
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$InputConfigurationImpl &&
@@ -1413,6 +1413,7 @@ mixin _$ButterflySettings {
   List<int> get recentColors => throw _privateConstructorUsedError;
   List<String> get flags => throw _privateConstructorUsedError;
   bool get spreadPages => throw _privateConstructorUsedError;
+  bool get highContrast => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $ButterflySettingsCopyWith<ButterflySettings> get copyWith =>
@@ -1462,7 +1463,8 @@ abstract class $ButterflySettingsCopyWith<$Res> {
       PlatformTheme platformTheme,
       List<int> recentColors,
       List<String> flags,
-      bool spreadPages});
+      bool spreadPages,
+      bool highContrast});
 
   $InputConfigurationCopyWith<$Res> get inputConfiguration;
 }
@@ -1517,6 +1519,7 @@ class _$ButterflySettingsCopyWithImpl<$Res, $Val extends ButterflySettings>
     Object? recentColors = null,
     Object? flags = null,
     Object? spreadPages = null,
+    Object? highContrast = null,
   }) {
     return _then(_value.copyWith(
       theme: null == theme
@@ -1667,6 +1670,10 @@ class _$ButterflySettingsCopyWithImpl<$Res, $Val extends ButterflySettings>
           ? _value.spreadPages
           : spreadPages // ignore: cast_nullable_to_non_nullable
               as bool,
+      highContrast: null == highContrast
+          ? _value.highContrast
+          : highContrast // ignore: cast_nullable_to_non_nullable
+              as bool,
     ) as $Val);
   }
 
@@ -1725,7 +1732,8 @@ abstract class _$$ButterflySettingsImplCopyWith<$Res>
       PlatformTheme platformTheme,
       List<int> recentColors,
       List<String> flags,
-      bool spreadPages});
+      bool spreadPages,
+      bool highContrast});
 
   @override
   $InputConfigurationCopyWith<$Res> get inputConfiguration;
@@ -1779,6 +1787,7 @@ class __$$ButterflySettingsImplCopyWithImpl<$Res>
     Object? recentColors = null,
     Object? flags = null,
     Object? spreadPages = null,
+    Object? highContrast = null,
   }) {
     return _then(_$ButterflySettingsImpl(
       theme: null == theme
@@ -1929,6 +1938,10 @@ class __$$ButterflySettingsImplCopyWithImpl<$Res>
           ? _value.spreadPages
           : spreadPages // ignore: cast_nullable_to_non_nullable
               as bool,
+      highContrast: null == highContrast
+          ? _value.highContrast
+          : highContrast // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -1974,7 +1987,8 @@ class _$ButterflySettingsImpl extends _ButterflySettings
       this.platformTheme = PlatformTheme.system,
       final List<int> recentColors = const [],
       final List<String> flags = const [],
-      this.spreadPages = false})
+      this.spreadPages = false,
+      this.highContrast = false})
       : _history = history,
         _connections = connections,
         _starred = starred,
@@ -2121,10 +2135,13 @@ class _$ButterflySettingsImpl extends _ButterflySettings
   @override
   @JsonKey()
   final bool spreadPages;
+  @override
+  @JsonKey()
+  final bool highContrast;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'ButterflySettings(theme: $theme, density: $density, localeTag: $localeTag, documentPath: $documentPath, touchSensitivity: $touchSensitivity, mouseSensitivity: $mouseSensitivity, penSensitivity: $penSensitivity, selectSensitivity: $selectSensitivity, penOnlyInput: $penOnlyInput, inputGestures: $inputGestures, design: $design, bannerVisibility: $bannerVisibility, history: $history, navigatorEnabled: $navigatorEnabled, zoomEnabled: $zoomEnabled, lastVersion: $lastVersion, connections: $connections, defaultRemote: $defaultRemote, nativeTitleBar: $nativeTitleBar, startInFullScreen: $startInFullScreen, navigationRail: $navigationRail, fullScreen: $fullScreen, syncMode: $syncMode, inputConfiguration: $inputConfiguration, fallbackPack: $fallbackPack, starred: $starred, defaultTemplate: $defaultTemplate, navigatorPage: $navigatorPage, toolbarPosition: $toolbarPosition, sortBy: $sortBy, sortOrder: $sortOrder, imageScale: $imageScale, pdfQuality: $pdfQuality, platformTheme: $platformTheme, recentColors: $recentColors, flags: $flags, spreadPages: $spreadPages)';
+    return 'ButterflySettings(theme: $theme, density: $density, localeTag: $localeTag, documentPath: $documentPath, touchSensitivity: $touchSensitivity, mouseSensitivity: $mouseSensitivity, penSensitivity: $penSensitivity, selectSensitivity: $selectSensitivity, penOnlyInput: $penOnlyInput, inputGestures: $inputGestures, design: $design, bannerVisibility: $bannerVisibility, history: $history, navigatorEnabled: $navigatorEnabled, zoomEnabled: $zoomEnabled, lastVersion: $lastVersion, connections: $connections, defaultRemote: $defaultRemote, nativeTitleBar: $nativeTitleBar, startInFullScreen: $startInFullScreen, navigationRail: $navigationRail, fullScreen: $fullScreen, syncMode: $syncMode, inputConfiguration: $inputConfiguration, fallbackPack: $fallbackPack, starred: $starred, defaultTemplate: $defaultTemplate, navigatorPage: $navigatorPage, toolbarPosition: $toolbarPosition, sortBy: $sortBy, sortOrder: $sortOrder, imageScale: $imageScale, pdfQuality: $pdfQuality, platformTheme: $platformTheme, recentColors: $recentColors, flags: $flags, spreadPages: $spreadPages, highContrast: $highContrast)';
   }
 
   @override
@@ -2168,11 +2185,12 @@ class _$ButterflySettingsImpl extends _ButterflySettings
       ..add(DiagnosticsProperty('platformTheme', platformTheme))
       ..add(DiagnosticsProperty('recentColors', recentColors))
       ..add(DiagnosticsProperty('flags', flags))
-      ..add(DiagnosticsProperty('spreadPages', spreadPages));
+      ..add(DiagnosticsProperty('spreadPages', spreadPages))
+      ..add(DiagnosticsProperty('highContrast', highContrast));
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$ButterflySettingsImpl &&
@@ -2242,7 +2260,9 @@ class _$ButterflySettingsImpl extends _ButterflySettings
                 .equals(other._recentColors, _recentColors) &&
             const DeepCollectionEquality().equals(other._flags, _flags) &&
             (identical(other.spreadPages, spreadPages) ||
-                other.spreadPages == spreadPages));
+                other.spreadPages == spreadPages) &&
+            (identical(other.highContrast, highContrast) ||
+                other.highContrast == highContrast));
   }
 
   @override
@@ -2284,7 +2304,8 @@ class _$ButterflySettingsImpl extends _ButterflySettings
         platformTheme,
         const DeepCollectionEquality().hash(_recentColors),
         const DeepCollectionEquality().hash(_flags),
-        spreadPages
+        spreadPages,
+        highContrast
       ]);
 
   @JsonKey(ignore: true)
@@ -2333,7 +2354,8 @@ abstract class _ButterflySettings extends ButterflySettings {
       final PlatformTheme platformTheme,
       final List<int> recentColors,
       final List<String> flags,
-      final bool spreadPages}) = _$ButterflySettingsImpl;
+      final bool spreadPages,
+      final bool highContrast}) = _$ButterflySettingsImpl;
   const _ButterflySettings._() : super._();
 
   @override
@@ -2410,6 +2432,8 @@ abstract class _ButterflySettings extends ButterflySettings {
   List<String> get flags;
   @override
   bool get spreadPages;
+  @override
+  bool get highContrast;
   @override
   @JsonKey(ignore: true)
   _$$ButterflySettingsImplCopyWith<_$ButterflySettingsImpl> get copyWith =>
