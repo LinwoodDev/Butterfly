@@ -159,7 +159,7 @@ class LabelHandler extends Handler<LabelTool>
       } else {
         final page = context.getPage();
         if (page == null) return;
-        final index = page.content.indexOf(labelRenderer.element as PadElement);
+        final index = page.content.indexOf(labelRenderer.element);
         context.getDocumentBloc().add(ElementsRemoved([index]));
         _context = _createContext(document, element: labelRenderer.element);
       }

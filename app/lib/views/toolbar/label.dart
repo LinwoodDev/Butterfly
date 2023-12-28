@@ -35,7 +35,8 @@ class LabelToolbarView extends StatefulWidget implements PreferredSizeWidget {
 class _LabelToolbarViewState extends State<LabelToolbarView> {
   final ScrollController _scrollController = ScrollController();
 
-  final TextEditingController _sizeController = TextEditingController();
+  final TextEditingController _sizeController = TextEditingController(),
+      _scaleController = TextEditingController();
 
   final GlobalKey _paragraphKey = GlobalKey(), _spanKey = GlobalKey();
 
@@ -88,6 +89,8 @@ class _LabelToolbarViewState extends State<LabelToolbarView> {
         value.mapOrNull(text: (e) => e.getDefinedForcedSpanProperty(document));
     final styleSheet = value.styleSheet;
     final style = styleSheet.resolveStyle(document);
+    _scaleController.text =
+        (value.labelElement?.scale ?? value.tool.scale).toString();
     _sizeController.text = span?.getSize(paragraph).toString() ?? '';
     var paragraphSelection = paragraph.mapOrNull(named: (value) => value.name);
     final paragraphSelections = [
@@ -254,8 +257,46 @@ class _LabelToolbarViewState extends State<LabelToolbarView> {
                                 AppLocalizations.of(context).chooseLabelMode,
                           ),
                         ),
+                        const SizedBox(width: 16),
+                        SizedBox(
+                          width: 100,
+                          child: TextFormField(
+                            decoration: InputDecoration(
+                              labelText: AppLocalizations.of(context).scale,
+                              filled: true,
+                              floatingLabelAlignment:
+                                  FloatingLabelAlignment.center,
+                              alignLabelWithHint: true,
+                            ),
+                            textAlign: TextAlign.center,
+                            keyboardType: TextInputType.number,
+                            controller: _scaleController,
+                            onFieldSubmitted: (current) {
+                              final newScale = double.tryParse(current);
+                              if (newScale == null) return;
+                              final element = value.element;
+                              if (element == null) {
+                                widget.onChanged(value.copyWith(
+                                  tool: value.tool.copyWith(
+                                    scale: newScale,
+                                  ),
+                                ));
+                                return;
+                              }
+                              widget.onChanged(
+                                value.map(
+                                    text: (e) => e.copyWith(
+                                        element: e.element!
+                                            .copyWith(scale: newScale)),
+                                    markdown: (e) => e.copyWith(
+                                        element: e.element!
+                                            .copyWith(scale: newScale))),
+                              );
+                            },
+                          ),
+                        ),
                         if (value is TextContext) ...[
-                          const SizedBox(width: 16),
+                          const SizedBox(width: 8),
                           IconButton(
                             icon:
                                 const PhosphorIcon(PhosphorIconsLight.article),

@@ -1,25 +1,46 @@
 part of '../selection.dart';
 
-class TextElementSelection extends ElementSelection<TextElement> {
-  TextElementSelection(super.selected);
+class LabelElementSelection extends ElementSelection<LabelElement> {
+  LabelElementSelection(super.selected);
 
   @override
   List<Widget> buildProperties(BuildContext context) {
     final element = selected.first.element;
     return [
       ...super.buildProperties(context),
+      ExactSlider(
+        header: Text(AppLocalizations.of(context).scale),
+        min: 0.1,
+        max: 15,
+        value: element.scale,
+        defaultValue: 5,
+        onChangeEnd: (value) => updateElements(
+            context,
+            elements
+                .map((e) => e.maybeMap(
+                    text: (e) => e.copyWith(scale: value),
+                    markdown: (e) => e.copyWith(scale: value),
+                    orElse: () => e))
+                .toList()),
+      ),
       ConstraintView(
         initialConstraint: element.constraint,
-        onChanged: (constraint) => updateElements(context,
-            elements.map((e) => e.copyWith(constraint: constraint)).toList()),
+        onChanged: (constraint) => updateElements(
+            context,
+            elements
+                .map((e) => e.maybeMap(
+                    text: (e) => e.copyWith(constraint: constraint),
+                    markdown: (e) => e.copyWith(constraint: constraint),
+                    orElse: () => e))
+                .toList()),
       ),
     ];
   }
 
   @override
   Selection insert(element) {
-    if (element is Renderer<TextElement>) {
-      return TextElementSelection([...selected, element]);
+    if (element is Renderer<LabelElement>) {
+      return LabelElementSelection([...selected, element]);
     }
     return super.insert(element);
   }
