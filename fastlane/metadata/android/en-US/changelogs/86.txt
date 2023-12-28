@@ -7,3 +7,4 @@
 * Fix various issues with the label tool
 * Fix display icon
 * Fix spread pages settings not being saved
+* Fix app link on android
