@@ -581,5 +581,6 @@
     }
   },
   "continueAnyway": "Continuă oricum",
-  "zoomControl": "Comandă mărire"
+  "zoomControl": "Comandă mărire",
+  "highContrast": "High contrast"
 }
