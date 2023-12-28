@@ -581,5 +581,6 @@
     }
   },
   "continueAnyway": "Все одно продовжити",
-  "zoomControl": "Управління масштабуванням"
+  "zoomControl": "Управління масштабуванням",
+  "highContrast": "High contrast"
 }
