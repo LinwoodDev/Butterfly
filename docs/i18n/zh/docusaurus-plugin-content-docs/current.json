@@ -6,5 +6,9 @@
   "sidebar.sidebar.category.Painters": {
     "message": "绘画",
     "description": "The label for category Painters in sidebar sidebar"
+  },
+  "sidebar.sidebar.category.Tools": {
+    "message": "工具",
+    "description": "The label for category Tools in sidebar sidebar"
   }
 }
