@@ -468,5 +468,57 @@
   "theme.tags.tagsPageTitle": {
     "message": "标签",
     "description": "The title of the tag list page"
+  },
+  "Create and manage your notes with ease in a simple, beautiful and powerful application.": {
+    "message": "Create and manage your notes with ease in a simple, beautiful and powerful application.",
+    "description": "Features simple description"
+  },
+  "Use the infinite canvas to illustrate your ideas": {
+    "message": "Use the infinite canvas to illustrate your ideas",
+    "description": "Features infinite-canvas"
+  },
+  "Use your pen, markdown or rich text to let your ideas flow": {
+    "message": "Use your pen, markdown or rich text to let your ideas flow",
+    "description": "Features elements"
+  },
+  "Load PDF, SVG, PNG and more files into your notes or take pictures from the camera": {
+    "message": "Load PDF, SVG, PNG and more files into your notes or take pictures from the camera",
+    "description": "Features imports"
+  },
+  "Structure your notes by adding areas and waypoints or use multiple pages": {
+    "message": "Structure your notes by adding areas and waypoints or use multiple pages",
+    "description": "Features structure"
+  },
+  "Principals": {
+    "message": "Principals",
+    "description": "Principals title"
+  },
+  "Features": {
+    "message": "Features",
+    "description": "Showcase title"
+  },
+  "Download Butterfly today": {
+    "message": "Download Butterfly today",
+    "description": "Download title"
+  },
+  "theme.admonition.warning": {
+    "message": "warning",
+    "description": "The default label used for the Warning admonition (:::warning)"
+  },
+  "theme.DocSidebarItem.expandCategoryAriaLabel": {
+    "message": "Expand sidebar category '{label}'",
+    "description": "The ARIA label to expand the sidebar category"
+  },
+  "theme.DocSidebarItem.collapseCategoryAriaLabel": {
+    "message": "Collapse sidebar category '{label}'",
+    "description": "The ARIA label to collapse the sidebar category"
+  },
+  "theme.unlistedContent.title": {
+    "message": "Unlisted page",
+    "description": "The unlisted content banner title"
+  },
+  "theme.unlistedContent.message": {
+    "message": "This page is unlisted. Search engines will not index it, and only users having a direct link can access it.",
+    "description": "The unlisted content banner message"
   }
 }
