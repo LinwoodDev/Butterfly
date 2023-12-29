@@ -19,13 +19,13 @@ dependencies:
     version: 3.0.1(@swc/core@1.3.101)(react-dom@18.2.0)(react@18.2.0)(typescript@5.3.3)
   '@docusaurus/preset-classic':
     specifier: 3.0.1
-    version: 3.0.1(@algolia/client-search@4.22.0)(@swc/core@1.3.101)(@types/react@18.2.45)(react-dom@18.2.0)(react@18.2.0)(search-insights@2.13.0)(typescript@5.3.3)
+    version: 3.0.1(@algolia/client-search@4.22.0)(@swc/core@1.3.101)(@types/react@18.2.46)(react-dom@18.2.0)(react@18.2.0)(search-insights@2.13.0)(typescript@5.3.3)
   '@docusaurus/theme-common':
     specifier: 3.0.1
     version: 3.0.1(@docusaurus/types@3.0.1)(@swc/core@1.3.101)(react-dom@18.2.0)(react@18.2.0)(typescript@5.3.3)
   '@mdx-js/react':
     specifier: ^3.0.0
-    version: 3.0.0(@types/react@18.2.45)(react@18.2.0)
+    version: 3.0.0(@types/react@18.2.46)(react@18.2.0)
   '@swc/core':
     specifier: ^1.3.101
     version: 1.3.101
@@ -1441,7 +1441,7 @@ packages:
       babel-plugin-polyfill-corejs2: 0.4.7(@babel/core@7.23.6)
       babel-plugin-polyfill-corejs3: 0.8.7(@babel/core@7.23.6)
       babel-plugin-polyfill-regenerator: 0.5.4(@babel/core@7.23.6)
-      core-js-compat: 3.34.0
+      core-js-compat: 3.35.0
       semver: 6.3.1
     transitivePeerDependencies:
       - supports-color
@@ -1495,7 +1495,7 @@ packages:
     resolution: {integrity: sha512-Djs/ZTAnpyj0nyg7p1J6oiE/tZ9G2stqAFlLGZynrW+F3k2w2jGK2mLOBxzYIOcZYA89+c3d3wXKpYLcpwcU6w==}
     engines: {node: '>=6.9.0'}
     dependencies:
-      core-js-pure: 3.34.0
+      core-js-pure: 3.35.0
       regenerator-runtime: 0.14.1
     dev: false
 
@@ -1557,7 +1557,7 @@ packages:
     resolution: {integrity: sha512-SPiDHaWKQZpwR2siD0KQUwlStvIAnEyK6tAE2h2Wuoq8ue9skzhlyVQ1ddzOxX6khULnAALDiR/isSF3bnuciA==}
     dev: false
 
-  /@docsearch/react@3.5.2(@algolia/client-search@4.22.0)(@types/react@18.2.45)(react-dom@18.2.0)(react@18.2.0)(search-insights@2.13.0):
+  /@docsearch/react@3.5.2(@algolia/client-search@4.22.0)(@types/react@18.2.46)(react-dom@18.2.0)(react@18.2.0)(search-insights@2.13.0):
     resolution: {integrity: sha512-9Ahcrs5z2jq/DcAvYtvlqEBHImbm4YJI8M9y0x6Tqg598P40HTEkX7hsMcIuThI+hTFxRGZ9hll0Wygm2yEjng==}
     peerDependencies:
       '@types/react': '>= 16.8.0 < 19.0.0'
@@ -1577,7 +1577,7 @@ packages:
       '@algolia/autocomplete-core': 1.9.3(@algolia/client-search@4.22.0)(algoliasearch@4.22.0)(search-insights@2.13.0)
       '@algolia/autocomplete-preset-algolia': 1.9.3(@algolia/client-search@4.22.0)(algoliasearch@4.22.0)
       '@docsearch/css': 3.5.2
-      '@types/react': 18.2.45
+      '@types/react': 18.2.46
       algoliasearch: 4.22.0
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
@@ -1624,7 +1624,7 @@ packages:
       combine-promises: 1.2.0
       commander: 5.1.0
       copy-webpack-plugin: 11.0.0(webpack@5.89.0)
-      core-js: 3.34.0
+      core-js: 3.35.0
       css-loader: 6.8.1(webpack@5.89.0)
       css-minimizer-webpack-plugin: 4.2.2(clean-css@5.3.3)(webpack@5.89.0)
       cssnano: 5.1.15(postcss@8.4.32)
@@ -1656,7 +1656,7 @@ packages:
       semver: 7.5.4
       serve-handler: 6.1.5
       shelljs: 0.8.5
-      terser-webpack-plugin: 5.3.9(@swc/core@1.3.101)(webpack@5.89.0)
+      terser-webpack-plugin: 5.3.10(@swc/core@1.3.101)(webpack@5.89.0)
       tslib: 2.6.2
       update-notifier: 6.0.2
       url-loader: 4.1.1(file-loader@6.2.0)(webpack@5.89.0)
@@ -1756,7 +1756,7 @@ packages:
       '@docusaurus/react-loadable': 5.5.2(react@18.2.0)
       '@docusaurus/types': 3.0.1(@swc/core@1.3.101)(react-dom@18.2.0)(react@18.2.0)
       '@types/history': 4.7.11
-      '@types/react': 18.2.45
+      '@types/react': 18.2.46
       '@types/react-router-config': 5.0.11
       '@types/react-router-dom': 5.3.3
       react: 18.2.0
@@ -2079,10 +2079,10 @@ packages:
       '@docusaurus/utils-validation': 3.0.1(@docusaurus/types@3.0.1)(@swc/core@1.3.101)
       babel-loader: 9.1.3(@babel/core@7.23.6)(webpack@5.89.0)
       clsx: 2.0.0
-      core-js: 3.34.0
+      core-js: 3.35.0
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
-      terser-webpack-plugin: 5.3.9(@swc/core@1.3.101)(webpack@5.89.0)
+      terser-webpack-plugin: 5.3.10(@swc/core@1.3.101)(webpack@5.89.0)
       tslib: 2.6.2
       webpack: 5.89.0(@swc/core@1.3.101)
       webpack-merge: 5.10.0
@@ -2147,7 +2147,7 @@ packages:
       - webpack-cli
     dev: false
 
-  /@docusaurus/preset-classic@3.0.1(@algolia/client-search@4.22.0)(@swc/core@1.3.101)(@types/react@18.2.45)(react-dom@18.2.0)(react@18.2.0)(search-insights@2.13.0)(typescript@5.3.3):
+  /@docusaurus/preset-classic@3.0.1(@algolia/client-search@4.22.0)(@swc/core@1.3.101)(@types/react@18.2.46)(react-dom@18.2.0)(react@18.2.0)(search-insights@2.13.0)(typescript@5.3.3):
     resolution: {integrity: sha512-il9m9xZKKjoXn6h0cRcdnt6wce0Pv1y5t4xk2Wx7zBGhKG1idu4IFHtikHlD0QPuZ9fizpXspXcTzjL5FXc1Gw==}
     engines: {node: '>=18.0'}
     peerDependencies:
@@ -2163,9 +2163,9 @@ packages:
       '@docusaurus/plugin-google-gtag': 3.0.1(@swc/core@1.3.101)(react-dom@18.2.0)(react@18.2.0)(typescript@5.3.3)
       '@docusaurus/plugin-google-tag-manager': 3.0.1(@swc/core@1.3.101)(react-dom@18.2.0)(react@18.2.0)(typescript@5.3.3)
       '@docusaurus/plugin-sitemap': 3.0.1(@swc/core@1.3.101)(react-dom@18.2.0)(react@18.2.0)(typescript@5.3.3)
-      '@docusaurus/theme-classic': 3.0.1(@swc/core@1.3.101)(@types/react@18.2.45)(react-dom@18.2.0)(react@18.2.0)(typescript@5.3.3)
+      '@docusaurus/theme-classic': 3.0.1(@swc/core@1.3.101)(@types/react@18.2.46)(react-dom@18.2.0)(react@18.2.0)(typescript@5.3.3)
       '@docusaurus/theme-common': 3.0.1(@docusaurus/types@3.0.1)(@swc/core@1.3.101)(react-dom@18.2.0)(react@18.2.0)(typescript@5.3.3)
-      '@docusaurus/theme-search-algolia': 3.0.1(@algolia/client-search@4.22.0)(@docusaurus/types@3.0.1)(@swc/core@1.3.101)(@types/react@18.2.45)(react-dom@18.2.0)(react@18.2.0)(search-insights@2.13.0)(typescript@5.3.3)
+      '@docusaurus/theme-search-algolia': 3.0.1(@algolia/client-search@4.22.0)(@docusaurus/types@3.0.1)(@swc/core@1.3.101)(@types/react@18.2.46)(react-dom@18.2.0)(react@18.2.0)(search-insights@2.13.0)(typescript@5.3.3)
       '@docusaurus/types': 3.0.1(@swc/core@1.3.101)(react-dom@18.2.0)(react@18.2.0)
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
@@ -2196,11 +2196,11 @@ packages:
     peerDependencies:
       react: '*'
     dependencies:
-      '@types/react': 18.2.45
+      '@types/react': 18.2.46
       prop-types: 15.8.1
       react: 18.2.0
 
-  /@docusaurus/theme-classic@3.0.1(@swc/core@1.3.101)(@types/react@18.2.45)(react-dom@18.2.0)(react@18.2.0)(typescript@5.3.3):
+  /@docusaurus/theme-classic@3.0.1(@swc/core@1.3.101)(@types/react@18.2.46)(react-dom@18.2.0)(react@18.2.0)(typescript@5.3.3):
     resolution: {integrity: sha512-XD1FRXaJiDlmYaiHHdm27PNhhPboUah9rqIH0lMpBt5kYtsGjJzhqa27KuZvHLzOP2OEpqd2+GZ5b6YPq7Q05Q==}
     engines: {node: '>=18.0'}
     peerDependencies:
@@ -2219,7 +2219,7 @@ packages:
       '@docusaurus/utils': 3.0.1(@docusaurus/types@3.0.1)(@swc/core@1.3.101)
       '@docusaurus/utils-common': 3.0.1(@docusaurus/types@3.0.1)
       '@docusaurus/utils-validation': 3.0.1(@docusaurus/types@3.0.1)(@swc/core@1.3.101)
-      '@mdx-js/react': 3.0.0(@types/react@18.2.45)(react@18.2.0)
+      '@mdx-js/react': 3.0.0(@types/react@18.2.46)(react@18.2.0)
       clsx: 2.0.0
       copy-text-to-clipboard: 3.2.0
       infima: 0.2.0-alpha.43
@@ -2269,7 +2269,7 @@ packages:
       '@docusaurus/utils': 3.0.1(@docusaurus/types@3.0.1)(@swc/core@1.3.101)
       '@docusaurus/utils-common': 3.0.1(@docusaurus/types@3.0.1)
       '@types/history': 4.7.11
-      '@types/react': 18.2.45
+      '@types/react': 18.2.46
       '@types/react-router-config': 5.0.11
       clsx: 2.0.0
       parse-numeric-range: 1.3.0
@@ -2298,14 +2298,14 @@ packages:
       - webpack-cli
     dev: false
 
-  /@docusaurus/theme-search-algolia@3.0.1(@algolia/client-search@4.22.0)(@docusaurus/types@3.0.1)(@swc/core@1.3.101)(@types/react@18.2.45)(react-dom@18.2.0)(react@18.2.0)(search-insights@2.13.0)(typescript@5.3.3):
+  /@docusaurus/theme-search-algolia@3.0.1(@algolia/client-search@4.22.0)(@docusaurus/types@3.0.1)(@swc/core@1.3.101)(@types/react@18.2.46)(react-dom@18.2.0)(react@18.2.0)(search-insights@2.13.0)(typescript@5.3.3):
     resolution: {integrity: sha512-DDiPc0/xmKSEdwFkXNf1/vH1SzJPzuJBar8kMcBbDAZk/SAmo/4lf6GU2drou4Ae60lN2waix+jYWTWcJRahSA==}
     engines: {node: '>=18.0'}
     peerDependencies:
       react: ^18.0.0
       react-dom: ^18.0.0
     dependencies:
-      '@docsearch/react': 3.5.2(@algolia/client-search@4.22.0)(@types/react@18.2.45)(react-dom@18.2.0)(react@18.2.0)(search-insights@2.13.0)
+      '@docsearch/react': 3.5.2(@algolia/client-search@4.22.0)(@types/react@18.2.46)(react-dom@18.2.0)(react@18.2.0)(search-insights@2.13.0)
       '@docusaurus/core': 3.0.1(@docusaurus/types@3.0.1)(@swc/core@1.3.101)(react-dom@18.2.0)(react@18.2.0)(typescript@5.3.3)
       '@docusaurus/logger': 3.0.1
       '@docusaurus/plugin-content-docs': 3.0.1(@swc/core@1.3.101)(react-dom@18.2.0)(react@18.2.0)(typescript@5.3.3)
@@ -2365,7 +2365,7 @@ packages:
       react-dom: ^18.0.0
     dependencies:
       '@types/history': 4.7.11
-      '@types/react': 18.2.45
+      '@types/react': 18.2.46
       commander: 5.1.0
       joi: 17.11.0
       react: 18.2.0
@@ -2538,14 +2538,14 @@ packages:
       - supports-color
     dev: false
 
-  /@mdx-js/react@3.0.0(@types/react@18.2.45)(react@18.2.0):
+  /@mdx-js/react@3.0.0(@types/react@18.2.46)(react@18.2.0):
     resolution: {integrity: sha512-nDctevR9KyYFyV+m+/+S4cpzCWHqj+iHDHq3QrsWezcC+B17uZdIWgCguESUkwFhM3n/56KxWVE3V6EokrmONQ==}
     peerDependencies:
       '@types/react': '>=16'
       react: '>=16'
     dependencies:
       '@types/mdx': 2.0.10
-      '@types/react': 18.2.45
+      '@types/react': 18.2.46
       react: 18.2.0
     dev: false
 
@@ -3168,24 +3168,24 @@ packages:
     resolution: {integrity: sha512-WmSAg7WgqW7m4x8Mt4N6ZyKz0BubSj/2tVUMsAHp+Yd2AMwcSbeFq9WympT19p5heCFmF97R9eD5uUR/t4HEqw==}
     dependencies:
       '@types/history': 4.7.11
-      '@types/react': 18.2.45
+      '@types/react': 18.2.46
       '@types/react-router': 5.1.20
 
   /@types/react-router-dom@5.3.3:
     resolution: {integrity: sha512-kpqnYK4wcdm5UaWI3fLcELopqLrHgLqNsdpHauzlQktfkHL3npOSwtj1Uz9oKBAzs7lFtVkV8j83voAz2D8fhw==}
     dependencies:
       '@types/history': 4.7.11
-      '@types/react': 18.2.45
+      '@types/react': 18.2.46
       '@types/react-router': 5.1.20
 
   /@types/react-router@5.1.20:
     resolution: {integrity: sha512-jGjmu/ZqS7FjSH6owMcD5qpq19+1RS9DeVRqfl1FeBMxTDQAGwlMWOcs52NDoXaNKyG3d1cYQFMs9rCrb88o9Q==}
     dependencies:
       '@types/history': 4.7.11
-      '@types/react': 18.2.45
+      '@types/react': 18.2.46
 
-  /@types/react@18.2.45:
-    resolution: {integrity: sha512-TtAxCNrlrBp8GoeEp1npd5g+d/OejJHFxS3OWmrPBMFaVQMSN0OFySozJio5BHxTuTeug00AVXVAjfDSfk+lUg==}
+  /@types/react@18.2.46:
+    resolution: {integrity: sha512-nNCvVBcZlvX4NU1nRRNV/mFl1nNRuTuslAJglQsq+8ldXe5Xv0Wd2f7WTE3jOxhLH2BFfiZGC6GCp+kHQbgG+w==}
     dependencies:
       '@types/prop-types': 15.7.11
       '@types/scheduler': 0.16.8
@@ -3374,19 +3374,19 @@ packages:
       negotiator: 0.6.3
     dev: false
 
-  /acorn-import-assertions@1.9.0(acorn@8.11.2):
+  /acorn-import-assertions@1.9.0(acorn@8.11.3):
     resolution: {integrity: sha512-cmMwop9x+8KFhxvKrKfPYmN6/pKTYYHBqLa0DfvVZcKMJWNyWLnaqND7dx/qn66R7ewM1UX5XMaDVP5wlVTaVA==}
     peerDependencies:
       acorn: ^8
     dependencies:
-      acorn: 8.11.2
+      acorn: 8.11.3
 
-  /acorn-jsx@5.3.2(acorn@8.11.2):
+  /acorn-jsx@5.3.2(acorn@8.11.3):
     resolution: {integrity: sha512-rq9s+JNhf0IChjtDXxllJ7g41oZk5SlXtp0LHwyA5cejwn7vKmKp4pPri6YEePv2PU65sAsegbXtIinmDFDXgQ==}
     peerDependencies:
       acorn: ^6.0.0 || ^7.0.0 || ^8.0.0
     dependencies:
-      acorn: 8.11.2
+      acorn: 8.11.3
     dev: false
 
   /acorn-walk@8.3.1:
@@ -3394,8 +3394,8 @@ packages:
     engines: {node: '>=0.4.0'}
     dev: false
 
-  /acorn@8.11.2:
-    resolution: {integrity: sha512-nc0Axzp/0FILLEVsm4fNwLCwMttvhEI263QtVPQcbpfZZ3ts0hLsZGOpE6czNlid7CJ9MlyH8reXkpsf3YUY4w==}
+  /acorn@8.11.3:
+    resolution: {integrity: sha512-Y9rRfJG5jcKOE0CLisYbojUjIrIEE7AGMzA/Sm4BslANhbS+cDMpgBdcPT91oJ7OuJ9hYJBx59RjbhxVnrF8Xg==}
     engines: {node: '>=0.4.0'}
     hasBin: true
 
@@ -3657,7 +3657,7 @@ packages:
     dependencies:
       '@babel/core': 7.23.6
       '@babel/helper-define-polyfill-provider': 0.4.4(@babel/core@7.23.6)
-      core-js-compat: 3.34.0
+      core-js-compat: 3.35.0
     transitivePeerDependencies:
       - supports-color
     dev: false
@@ -4172,19 +4172,19 @@ packages:
       webpack: 5.89.0(@swc/core@1.3.101)
     dev: false
 
-  /core-js-compat@3.34.0:
-    resolution: {integrity: sha512-4ZIyeNbW/Cn1wkMMDy+mvrRUxrwFNjKwbhCfQpDd+eLgYipDqp8oGFGtLmhh18EDPKA0g3VUBYOxQGGwvWLVpA==}
+  /core-js-compat@3.35.0:
+    resolution: {integrity: sha512-5blwFAddknKeNgsjBzilkdQ0+YK8L1PfqPYq40NOYMYFSS38qj+hpTcLLWwpIwA2A5bje/x5jmVn2tzUMg9IVw==}
     dependencies:
       browserslist: 4.22.2
     dev: false
 
-  /core-js-pure@3.34.0:
-    resolution: {integrity: sha512-pmhivkYXkymswFfbXsANmBAewXx86UBfmagP+w0wkK06kLsLlTK5oQmsURPivzMkIBQiYq2cjamcZExIwlFQIg==}
+  /core-js-pure@3.35.0:
+    resolution: {integrity: sha512-f+eRYmkou59uh7BPcyJ8MC76DiGhspj1KMxVIcF24tzP8NA9HVa1uC7BTW2tgx7E1QVCzDzsgp7kArrzhlz8Ew==}
     requiresBuild: true
     dev: false
 
-  /core-js@3.34.0:
-    resolution: {integrity: sha512-aDdvlDder8QmY91H88GzNi9EtQi2TjvQhpCX6B1v/dAZHU1AuLgHvRh54RiOerpEhEW46Tkf+vgAViB/CWC0ag==}
+  /core-js@3.35.0:
+    resolution: {integrity: sha512-ntakECeqg81KqMueeGJ79Q5ZgQNR+6eaE8sxGCx62zMbAIj65q+uYvatToew3m6eAGdU4gNZwpZ34NMe4GYswg==}
     requiresBuild: true
     dev: false
 
@@ -6978,8 +6978,8 @@ packages:
   /micromark-extension-mdxjs@3.0.0:
     resolution: {integrity: sha512-A873fJfhnJ2siZyUrJ31l34Uqwy4xIFmvPY1oj+Ean5PHcPBYzEsvqvWGaWcfEIr11O5Dlw3p2y0tZWpKHDejQ==}
     dependencies:
-      acorn: 8.11.2
-      acorn-jsx: 5.3.2(acorn@8.11.2)
+      acorn: 8.11.3
+      acorn-jsx: 5.3.2(acorn@8.11.3)
       micromark-extension-mdx-expression: 3.0.0
       micromark-extension-mdx-jsx: 3.0.0
       micromark-extension-mdx-md: 2.0.0
@@ -7687,7 +7687,7 @@ packages:
       postcss: ^8.2.2
     dependencies:
       postcss: 8.4.32
-      postcss-selector-parser: 6.0.14
+      postcss-selector-parser: 6.0.15
       postcss-value-parser: 4.2.0
     dev: false
 
@@ -7758,7 +7758,7 @@ packages:
       postcss: ^8.2.15
     dependencies:
       postcss: 8.4.32
-      postcss-selector-parser: 6.0.14
+      postcss-selector-parser: 6.0.15
     dev: false
 
   /postcss-loader@7.3.4(postcss@8.4.32)(typescript@5.3.3)(webpack@5.89.0):
@@ -7809,7 +7809,7 @@ packages:
       caniuse-api: 3.0.0
       cssnano-utils: 3.1.0(postcss@8.4.32)
       postcss: 8.4.32
-      postcss-selector-parser: 6.0.14
+      postcss-selector-parser: 6.0.15
     dev: false
 
   /postcss-minify-font-values@5.1.0(postcss@8.4.32):
@@ -7853,7 +7853,7 @@ packages:
       postcss: ^8.2.15
     dependencies:
       postcss: 8.4.32
-      postcss-selector-parser: 6.0.14
+      postcss-selector-parser: 6.0.15
     dev: false
 
   /postcss-modules-extract-imports@3.0.0(postcss@8.4.32):
@@ -7873,7 +7873,7 @@ packages:
     dependencies:
       icss-utils: 5.1.0(postcss@8.4.32)
       postcss: 8.4.32
-      postcss-selector-parser: 6.0.14
+      postcss-selector-parser: 6.0.15
       postcss-value-parser: 4.2.0
     dev: false
 
@@ -7884,7 +7884,7 @@ packages:
       postcss: ^8.1.0
     dependencies:
       postcss: 8.4.32
-      postcss-selector-parser: 6.0.14
+      postcss-selector-parser: 6.0.15
     dev: false
 
   /postcss-modules-values@4.0.0(postcss@8.4.32):
@@ -8030,8 +8030,8 @@ packages:
       postcss-value-parser: 4.2.0
     dev: false
 
-  /postcss-selector-parser@6.0.14:
-    resolution: {integrity: sha512-65xXYsT40i9GyWzlHQ5ShZoK7JZdySeOozi/tz2EezDo6c04q6+ckYMeoY7idaie1qp2dT5KoYQ2yky6JuoHnA==}
+  /postcss-selector-parser@6.0.15:
+    resolution: {integrity: sha512-rEYkQOMUCEMhsKbK66tbEU9QVIxbhN18YiniAwA7XQYTVBqrBy+P2p5JcdqsHgKM2zWylp8d7J6eszocfds5Sw==}
     engines: {node: '>=4'}
     dependencies:
       cssesc: 3.0.0
@@ -8066,7 +8066,7 @@ packages:
       postcss: ^8.2.15
     dependencies:
       postcss: 8.4.32
-      postcss-selector-parser: 6.0.14
+      postcss-selector-parser: 6.0.15
     dev: false
 
   /postcss-value-parser@4.2.0:
@@ -9262,7 +9262,7 @@ packages:
     dependencies:
       browserslist: 4.22.2
       postcss: 8.4.32
-      postcss-selector-parser: 6.0.14
+      postcss-selector-parser: 6.0.15
     dev: false
 
   /supports-color@5.5.0:
@@ -9342,8 +9342,8 @@ packages:
       unique-string: 2.0.0
     dev: false
 
-  /terser-webpack-plugin@5.3.9(@swc/core@1.3.101)(webpack@5.89.0):
-    resolution: {integrity: sha512-ZuXsqE07EcggTWQjXUj+Aot/OMcD0bMKGgF63f7UxYcu5/AJF53aIpK1YoP5xR9l6s/Hy2b+t1AM0bLNPRuhwA==}
+  /terser-webpack-plugin@5.3.10(@swc/core@1.3.101)(webpack@5.89.0):
+    resolution: {integrity: sha512-BKFPWlPDndPs+NGGCr1U59t0XScL5317Y0UReNrHaw9/FwhPENlq6bfgs+4yPfyP51vqC1bQ4rp1EfXW5ZSH9w==}
     engines: {node: '>= 10.13.0'}
     peerDependencies:
       '@swc/core': '*'
@@ -9372,7 +9372,7 @@ packages:
     hasBin: true
     dependencies:
       '@jridgewell/source-map': 0.3.5
-      acorn: 8.11.2
+      acorn: 8.11.3
       commander: 2.20.3
       source-map-support: 0.5.21
 
@@ -9780,7 +9780,7 @@ packages:
     hasBin: true
     dependencies:
       '@discoveryjs/json-ext': 0.5.7
-      acorn: 8.11.2
+      acorn: 8.11.3
       acorn-walk: 8.3.1
       commander: 7.2.0
       debounce: 1.2.1
@@ -9889,8 +9889,8 @@ packages:
       '@webassemblyjs/ast': 1.11.6
       '@webassemblyjs/wasm-edit': 1.11.6
       '@webassemblyjs/wasm-parser': 1.11.6
-      acorn: 8.11.2
-      acorn-import-assertions: 1.9.0(acorn@8.11.2)
+      acorn: 8.11.3
+      acorn-import-assertions: 1.9.0(acorn@8.11.3)
       browserslist: 4.22.2
       chrome-trace-event: 1.0.3
       enhanced-resolve: 5.15.0
@@ -9905,7 +9905,7 @@ packages:
       neo-async: 2.6.2
       schema-utils: 3.3.0
       tapable: 2.2.1
-      terser-webpack-plugin: 5.3.9(@swc/core@1.3.101)(webpack@5.89.0)
+      terser-webpack-plugin: 5.3.10(@swc/core@1.3.101)(webpack@5.89.0)
       watchpack: 2.4.0
       webpack-sources: 3.2.3
     transitivePeerDependencies:
