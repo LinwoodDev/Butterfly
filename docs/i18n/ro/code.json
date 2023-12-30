@@ -470,23 +470,23 @@
     "description": "The title of the tag list page"
   },
   "Create and manage your notes with ease in a simple, beautiful and powerful application.": {
-    "message": "Create and manage your notes with ease in a simple, beautiful and powerful application.",
+    "message": "Creați și gestionați notele cu ușurință într-o aplicație simplă, frumoasă și puternică.",
     "description": "Features simple description"
   },
   "Use the infinite canvas to illustrate your ideas": {
-    "message": "Use the infinite canvas to illustrate your ideas",
+    "message": "Folosește pânza infinită pentru a ilustra ideile tale",
     "description": "Features infinite-canvas"
   },
   "Use your pen, markdown or rich text to let your ideas flow": {
-    "message": "Use your pen, markdown or rich text to let your ideas flow",
+    "message": "Folosește stilou, markdown sau rich text pentru a lăsa ideile tale să curgă",
     "description": "Features elements"
   },
   "Load PDF, SVG, PNG and more files into your notes or take pictures from the camera": {
-    "message": "Load PDF, SVG, PNG and more files into your notes or take pictures from the camera",
+    "message": "Încarcă PDF, SVG, PNG și mai multe fișiere în notele tale sau fotografiază camera foto",
     "description": "Features imports"
   },
   "Structure your notes by adding areas and waypoints or use multiple pages": {
-    "message": "Structure your notes by adding areas and waypoints or use multiple pages",
+    "message": "Structura notelor prin adăugarea zonelor şi punctelor de trecere sau utilizarea mai multor pagini",
     "description": "Features structure"
   },
   "Principals": {
@@ -494,31 +494,31 @@
     "description": "Principals title"
   },
   "Features": {
-    "message": "Features",
+    "message": "Caracteristici",
     "description": "Showcase title"
   },
   "Download Butterfly today": {
-    "message": "Download Butterfly today",
+    "message": "Descarcă Butterfly astăzi",
     "description": "Download title"
   },
   "theme.admonition.warning": {
-    "message": "warning",
+    "message": "avertizare",
     "description": "The default label used for the Warning admonition (:::warning)"
   },
   "theme.DocSidebarItem.expandCategoryAriaLabel": {
-    "message": "Expand sidebar category '{label}'",
+    "message": "Extinde categoria barei laterale '{label}'",
     "description": "The ARIA label to expand the sidebar category"
   },
   "theme.DocSidebarItem.collapseCategoryAriaLabel": {
-    "message": "Collapse sidebar category '{label}'",
+    "message": "Restrânge categoria barei laterale '{label}'",
     "description": "The ARIA label to collapse the sidebar category"
   },
   "theme.unlistedContent.title": {
-    "message": "Unlisted page",
+    "message": "Pagină nelistată",
     "description": "The unlisted content banner title"
   },
   "theme.unlistedContent.message": {
-    "message": "This page is unlisted. Search engines will not index it, and only users having a direct link can access it.",
+    "message": "Această pagină nu este listată. Motoarele de căutare nu o vor indexa, și numai utilizatorii care au un link direct îl pot accesa.",
     "description": "The unlisted content banner message"
   }
 }
