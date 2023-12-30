@@ -470,23 +470,23 @@
     "description": "The title of the tag list page"
   },
   "Create and manage your notes with ease in a simple, beautiful and powerful application.": {
-    "message": "Create and manage your notes with ease in a simple, beautiful and powerful application.",
+    "message": "Легко створюйте та керуйте нотатками, красивими та потужними додатками.",
     "description": "Features simple description"
   },
   "Use the infinite canvas to illustrate your ideas": {
-    "message": "Use the infinite canvas to illustrate your ideas",
+    "message": "Використовуйте нескінченне полотно, щоб ілюструвати свої ідеї",
     "description": "Features infinite-canvas"
   },
   "Use your pen, markdown or rich text to let your ideas flow": {
-    "message": "Use your pen, markdown or rich text to let your ideas flow",
+    "message": "Використовуйте pen, markdown чи багатий текст, щоб дозволити потокам ваших ідей",
     "description": "Features elements"
   },
   "Load PDF, SVG, PNG and more files into your notes or take pictures from the camera": {
-    "message": "Load PDF, SVG, PNG and more files into your notes or take pictures from the camera",
+    "message": "Завантажити PDF, SVG, PNG і більше файлів у свої нотатки, або зробити зображення з камери",
     "description": "Features imports"
   },
   "Structure your notes by adding areas and waypoints or use multiple pages": {
-    "message": "Structure your notes by adding areas and waypoints or use multiple pages",
+    "message": "Структуйте ваші нотатки, додавши області і точки або використовуйте кілька сторінок",
     "description": "Features structure"
   },
   "Principals": {
@@ -494,31 +494,31 @@
     "description": "Principals title"
   },
   "Features": {
-    "message": "Features",
+    "message": "Особливості",
     "description": "Showcase title"
   },
   "Download Butterfly today": {
-    "message": "Download Butterfly today",
+    "message": "Завантажити метелик сьогодні",
     "description": "Download title"
   },
   "theme.admonition.warning": {
-    "message": "warning",
+    "message": "попередження",
     "description": "The default label used for the Warning admonition (:::warning)"
   },
   "theme.DocSidebarItem.expandCategoryAriaLabel": {
-    "message": "Expand sidebar category '{label}'",
+    "message": "Розгорнути бічну панель категорії '{label}'",
     "description": "The ARIA label to expand the sidebar category"
   },
   "theme.DocSidebarItem.collapseCategoryAriaLabel": {
-    "message": "Collapse sidebar category '{label}'",
+    "message": "Згорнути бічну панель категорії '{label}'",
     "description": "The ARIA label to collapse the sidebar category"
   },
   "theme.unlistedContent.title": {
-    "message": "Unlisted page",
+    "message": "Поза списком",
     "description": "The unlisted content banner title"
   },
   "theme.unlistedContent.message": {
-    "message": "This page is unlisted. Search engines will not index it, and only users having a direct link can access it.",
+    "message": "Ця сторінка зникає. Пошук не буде індексувати її лише користувачі, які мають пряме посилання, можуть отримати доступ до цієї сторінки.",
     "description": "The unlisted content banner message"
   }
 }
