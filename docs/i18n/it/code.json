@@ -470,23 +470,23 @@
     "description": "The title of the tag list page"
   },
   "Create and manage your notes with ease in a simple, beautiful and powerful application.": {
-    "message": "Create and manage your notes with ease in a simple, beautiful and powerful application.",
+    "message": "Crea e gestisci le tue note con facilità in un'applicazione semplice, bella e potente.",
     "description": "Features simple description"
   },
   "Use the infinite canvas to illustrate your ideas": {
-    "message": "Use the infinite canvas to illustrate your ideas",
+    "message": "Usa la tela infinita per illustrare le tue idee",
     "description": "Features infinite-canvas"
   },
   "Use your pen, markdown or rich text to let your ideas flow": {
-    "message": "Use your pen, markdown or rich text to let your ideas flow",
+    "message": "Usa la penna, il contrassegno o il testo ricco per far fluire le tue idee",
     "description": "Features elements"
   },
   "Load PDF, SVG, PNG and more files into your notes or take pictures from the camera": {
-    "message": "Load PDF, SVG, PNG and more files into your notes or take pictures from the camera",
+    "message": "Carica PDF, SVG, PNG e più file nelle tue note o scattare foto dalla fotocamera",
     "description": "Features imports"
   },
   "Structure your notes by adding areas and waypoints or use multiple pages": {
-    "message": "Structure your notes by adding areas and waypoints or use multiple pages",
+    "message": "Strutturare le note aggiungendo aree e waypoint o utilizzare più pagine",
     "description": "Features structure"
   },
   "Principals": {
@@ -494,31 +494,31 @@
     "description": "Principals title"
   },
   "Features": {
-    "message": "Features",
+    "message": "Caratteristiche",
     "description": "Showcase title"
   },
   "Download Butterfly today": {
-    "message": "Download Butterfly today",
+    "message": "Scarica Butterfly oggi",
     "description": "Download title"
   },
   "theme.admonition.warning": {
-    "message": "warning",
+    "message": "avviso",
     "description": "The default label used for the Warning admonition (:::warning)"
   },
   "theme.DocSidebarItem.expandCategoryAriaLabel": {
-    "message": "Expand sidebar category '{label}'",
+    "message": "Espandi categoria barra laterale '{label}'",
     "description": "The ARIA label to expand the sidebar category"
   },
   "theme.DocSidebarItem.collapseCategoryAriaLabel": {
-    "message": "Collapse sidebar category '{label}'",
+    "message": "Comprimi categoria barra laterale '{label}'",
     "description": "The ARIA label to collapse the sidebar category"
   },
   "theme.unlistedContent.title": {
-    "message": "Unlisted page",
+    "message": "Pagina non elencata",
     "description": "The unlisted content banner title"
   },
   "theme.unlistedContent.message": {
-    "message": "This page is unlisted. Search engines will not index it, and only users having a direct link can access it.",
+    "message": "Questa pagina non è elencata. I motori di ricerca non la indicizzeranno, e solo gli utenti che hanno un collegamento diretto possono accedervi.",
     "description": "The unlisted content banner message"
   }
 }
