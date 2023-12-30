@@ -470,23 +470,23 @@
     "description": "The title of the tag list page"
   },
   "Create and manage your notes with ease in a simple, beautiful and powerful application.": {
-    "message": "Create and manage your notes with ease in a simple, beautiful and powerful application.",
+    "message": "シンプルで美しくパワフルなアプリケーションで簡単にノートを作成、管理できます。",
     "description": "Features simple description"
   },
   "Use the infinite canvas to illustrate your ideas": {
-    "message": "Use the infinite canvas to illustrate your ideas",
+    "message": "無限のキャンバスを使ってアイデアを説明しましょう",
     "description": "Features infinite-canvas"
   },
   "Use your pen, markdown or rich text to let your ideas flow": {
-    "message": "Use your pen, markdown or rich text to let your ideas flow",
+    "message": "ペン、マークダウン、リッチテキストを使用してアイデアが流れるようにします",
     "description": "Features elements"
   },
   "Load PDF, SVG, PNG and more files into your notes or take pictures from the camera": {
-    "message": "Load PDF, SVG, PNG and more files into your notes or take pictures from the camera",
+    "message": "PDF、SVG、PNGなどのファイルをノートに読み込んだり、カメラから写真を撮ったりできます",
     "description": "Features imports"
   },
   "Structure your notes by adding areas and waypoints or use multiple pages": {
-    "message": "Structure your notes by adding areas and waypoints or use multiple pages",
+    "message": "エリアやウェイポイントを追加するか、複数のページを使用してノートを構成します",
     "description": "Features structure"
   },
   "Principals": {
@@ -494,31 +494,31 @@
     "description": "Principals title"
   },
   "Features": {
-    "message": "Features",
+    "message": "特徴",
     "description": "Showcase title"
   },
   "Download Butterfly today": {
-    "message": "Download Butterfly today",
+    "message": "今すぐバタフライをダウンロード",
     "description": "Download title"
   },
   "theme.admonition.warning": {
-    "message": "warning",
+    "message": "警告",
     "description": "The default label used for the Warning admonition (:::warning)"
   },
   "theme.DocSidebarItem.expandCategoryAriaLabel": {
-    "message": "Expand sidebar category '{label}'",
+    "message": "サイドバーカテゴリ '{label} ' を展開",
     "description": "The ARIA label to expand the sidebar category"
   },
   "theme.DocSidebarItem.collapseCategoryAriaLabel": {
-    "message": "Collapse sidebar category '{label}'",
+    "message": "サイドバーカテゴリ「{label}」を閉じる",
     "description": "The ARIA label to collapse the sidebar category"
   },
   "theme.unlistedContent.title": {
-    "message": "Unlisted page",
+    "message": "リストされていないページ",
     "description": "The unlisted content banner title"
   },
   "theme.unlistedContent.message": {
-    "message": "This page is unlisted. Search engines will not index it, and only users having a direct link can access it.",
+    "message": "このページはリストされていません。検索エンジンはインデックスを作成せず、ダイレクトリンクを持つユーザーのみがアクセスできます。",
     "description": "The unlisted content banner message"
   }
 }
