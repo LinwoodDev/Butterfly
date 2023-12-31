@@ -1,5 +1,5 @@
 ---
-slug: "/下载"
+slug: "/downloads"
 sidebar_position: 0
 title: 下载
 ---
