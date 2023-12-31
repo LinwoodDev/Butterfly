@@ -1,5 +1,5 @@
 ---
-id: "фак"
+id: "faq"
 slug: "/faq"
 title: "Часто задаваемые вопросы"
 sidebar_label: "ЧАВО"
