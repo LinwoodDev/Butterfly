@@ -468,5 +468,57 @@
   "theme.tags.tagsPageTitle": {
     "message": "Etiquetas",
     "description": "The title of the tag list page"
+  },
+  "Create and manage your notes with ease in a simple, beautiful and powerful application.": {
+    "message": "Crea y gestiona tus notas con facilidad en una aplicación sencilla, hermosa y potente.",
+    "description": "Features simple description"
+  },
+  "Use the infinite canvas to illustrate your ideas": {
+    "message": "Usa el lienzo infinito para ilustrar tus ideas",
+    "description": "Features infinite-canvas"
+  },
+  "Use your pen, markdown or rich text to let your ideas flow": {
+    "message": "Usa tu pluma, markdown o texto rico para dejar que tus ideas fluyan",
+    "description": "Features elements"
+  },
+  "Load PDF, SVG, PNG and more files into your notes or take pictures from the camera": {
+    "message": "Carga archivos PDF, SVG, PNG y más en tus notas o toma fotos de la cámara",
+    "description": "Features imports"
+  },
+  "Structure your notes by adding areas and waypoints or use multiple pages": {
+    "message": "Estructurar tus notas añadiendo áreas y waypoints o usando varias páginas",
+    "description": "Features structure"
+  },
+  "Principals": {
+    "message": "Principals",
+    "description": "Principals title"
+  },
+  "Features": {
+    "message": "Características",
+    "description": "Showcase title"
+  },
+  "Download Butterfly today": {
+    "message": "Descargar Butterfly hoy",
+    "description": "Download title"
+  },
+  "theme.admonition.warning": {
+    "message": "advertencia",
+    "description": "The default label used for the Warning admonition (:::warning)"
+  },
+  "theme.DocSidebarItem.expandCategoryAriaLabel": {
+    "message": "Expandir la categoría de barra lateral '{label}'",
+    "description": "The ARIA label to expand the sidebar category"
+  },
+  "theme.DocSidebarItem.collapseCategoryAriaLabel": {
+    "message": "Colapsar la barra lateral categoría '{label}'",
+    "description": "The ARIA label to collapse the sidebar category"
+  },
+  "theme.unlistedContent.title": {
+    "message": "Página no enumerada",
+    "description": "The unlisted content banner title"
+  },
+  "theme.unlistedContent.message": {
+    "message": "Esta página no está en la lista. Los motores de búsqueda no lo indexarán, y sólo los usuarios que tengan un enlace directo pueden acceder a ella.",
+    "description": "The unlisted content banner message"
   }
 }

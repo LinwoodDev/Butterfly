@@ -45,3 +45,4 @@ title: Nedladdningar
 - [Äldre utgåvor](https://github.com/LinwoodDev/butterfly/releases)
 - [Senaste versionen](https://github.com/LinwoodDev/butterfly/releases/latest)
 - [Stöd](https://discord.linwood.dev)
+- [Vanliga frågor](/faq)

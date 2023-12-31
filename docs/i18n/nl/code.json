@@ -468,5 +468,57 @@
   "theme.tags.tagsPageTitle": {
     "message": "Labels",
     "description": "The title of the tag list page"
+  },
+  "Create and manage your notes with ease in a simple, beautiful and powerful application.": {
+    "message": "Creëer en beheer uw notities met gemak in een eenvoudige, mooie en krachtige toepassing.",
+    "description": "Features simple description"
+  },
+  "Use the infinite canvas to illustrate your ideas": {
+    "message": "Gebruik het oneindige canvas om je ideeën te illustreren",
+    "description": "Features infinite-canvas"
+  },
+  "Use your pen, markdown or rich text to let your ideas flow": {
+    "message": "Gebruik uw pen, markdown of rijke tekst om uw ideeën te laten stromen",
+    "description": "Features elements"
+  },
+  "Load PDF, SVG, PNG and more files into your notes or take pictures from the camera": {
+    "message": "Laad PDF, SVG, PNG en meer bestanden in uw notities of neem foto's van de camera",
+    "description": "Features imports"
+  },
+  "Structure your notes by adding areas and waypoints or use multiple pages": {
+    "message": "Bouw je notities door gebieden en waypoints toe te voegen of gebruik meerdere pagina's",
+    "description": "Features structure"
+  },
+  "Principals": {
+    "message": "Principals",
+    "description": "Principals title"
+  },
+  "Features": {
+    "message": "Eigenschappen",
+    "description": "Showcase title"
+  },
+  "Download Butterfly today": {
+    "message": "Download Vlinder vandaag",
+    "description": "Download title"
+  },
+  "theme.admonition.warning": {
+    "message": "waarschuwing",
+    "description": "The default label used for the Warning admonition (:::warning)"
+  },
+  "theme.DocSidebarItem.expandCategoryAriaLabel": {
+    "message": "Zijbalk categorie '{label} ' uitvouwen",
+    "description": "The ARIA label to expand the sidebar category"
+  },
+  "theme.DocSidebarItem.collapseCategoryAriaLabel": {
+    "message": "Zijbalk categorie{label} samenvouwen",
+    "description": "The ARIA label to collapse the sidebar category"
+  },
+  "theme.unlistedContent.title": {
+    "message": "Niet-genoteerde pagina",
+    "description": "The unlisted content banner title"
+  },
+  "theme.unlistedContent.message": {
+    "message": "Deze pagina is niet vermeld. Zoekmachines zullen het niet indexeren en alleen gebruikers met een directe link kunnen het bekijken.",
+    "description": "The unlisted content banner message"
   }
 }

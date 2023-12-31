@@ -45,3 +45,4 @@ title: Stahování
 - [Starší vydání](https://github.com/LinwoodDev/butterfly/releases)
 - [Poslední vydání](https://github.com/LinwoodDev/butterfly/releases/latest)
 - [Podpora](https://discord.linwood.dev)
+- [Nejčastější dotazy](/faq)

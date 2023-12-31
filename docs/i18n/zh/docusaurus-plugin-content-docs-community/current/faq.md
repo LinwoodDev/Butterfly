@@ -19,13 +19,17 @@ sidebar_label: "常见问题"
 
 ## 移动设备
 
-### 按住 S Pen 侧边按钮时在 Z 折叠文件夹3 中的故障
+### S-Pen 不会被识别
 
-> [#289](https://github.com/LinwoodDev/Butterfly/issues/289)
+> [#270](https://github.com/LinwoodDev/Butterfly/issues/270)
 
-修复于 2.0 alphas 中。
+我使用流体框架提供的输入。 这是跟踪它的问题： [平面/平面#42846](https://github.com/flutter/flutter/issues/42846)。
 
-~~This is a known issue with flutter and the Samsung Z Fold 3.~~ ~~Please upvote [this issue](https://github.com/flutter/flutter/issues/111068) to get this fixed!~~
+### iOS 支持
+
+> [#244](https://github.com/LinwoodDev/Butterfly/issues/244)
+
+您需要一个苹果开发者帐户才能在 iPhone 上获取应用。 安卓系统不需要注册，如果您想要您只需要支付15美元。 在苹果上，您需要每年支付99美元。 我负担不起。 在 europe ios 中，将来需要能够放置应用。 也许这会改变某些东西。
 
 ## 桌面
 

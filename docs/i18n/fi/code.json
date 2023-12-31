@@ -468,5 +468,57 @@
   "theme.tags.tagsPageTitle": {
     "message": "Tunnisteet",
     "description": "The title of the tag list page"
+  },
+  "Create and manage your notes with ease in a simple, beautiful and powerful application.": {
+    "message": "Luo ja hallitse muistiinpanoja helposti yksinkertaisessa, kauniissa ja tehokkaassa sovelluksessa.",
+    "description": "Features simple description"
+  },
+  "Use the infinite canvas to illustrate your ideas": {
+    "message": "Käytä ääretön kangas havainnollistaa ideoitasi",
+    "description": "Features infinite-canvas"
+  },
+  "Use your pen, markdown or rich text to let your ideas flow": {
+    "message": "Käytä kynääsi, merkintääsi tai rikasta tekstiä, jotta ideasi voivat virrata",
+    "description": "Features elements"
+  },
+  "Load PDF, SVG, PNG and more files into your notes or take pictures from the camera": {
+    "message": "Lataa PDF, SVG, PNG ja lisää tiedostoja muistiinpanoihisi tai ota kuvia kamerasta",
+    "description": "Features imports"
+  },
+  "Structure your notes by adding areas and waypoints or use multiple pages": {
+    "message": "Rakenna muistiinpanosi lisäämällä alueita ja reittipisteitä tai käytä useita sivuja",
+    "description": "Features structure"
+  },
+  "Principals": {
+    "message": "Principals",
+    "description": "Principals title"
+  },
+  "Features": {
+    "message": "Ominaisuudet",
+    "description": "Showcase title"
+  },
+  "Download Butterfly today": {
+    "message": "Lataa Butterfly tänään",
+    "description": "Download title"
+  },
+  "theme.admonition.warning": {
+    "message": "varoitus",
+    "description": "The default label used for the Warning admonition (:::warning)"
+  },
+  "theme.DocSidebarItem.expandCategoryAriaLabel": {
+    "message": "Laajenna sivupalkin luokka '{label}'",
+    "description": "The ARIA label to expand the sidebar category"
+  },
+  "theme.DocSidebarItem.collapseCategoryAriaLabel": {
+    "message": "Tiivistä sivupalkin kategoria '{label}'",
+    "description": "The ARIA label to collapse the sidebar category"
+  },
+  "theme.unlistedContent.title": {
+    "message": "Listaamaton sivu",
+    "description": "The unlisted content banner title"
+  },
+  "theme.unlistedContent.message": {
+    "message": "Tätä sivua ei ole listattu. Hakukoneet eivät indeksoi sitä, ja vain käyttäjät, joilla on suora linkki, voivat käyttää sitä.",
+    "description": "The unlisted content banner message"
   }
 }

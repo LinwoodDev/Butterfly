@@ -468,5 +468,57 @@
   "theme.tags.tagsPageTitle": {
     "message": "标签",
     "description": "The title of the tag list page"
+  },
+  "Create and manage your notes with ease in a simple, beautiful and powerful application.": {
+    "message": "在一个简单、美丽和强大的应用程序中轻松创建和管理您的笔记。",
+    "description": "Features simple description"
+  },
+  "Use the infinite canvas to illustrate your ideas": {
+    "message": "使用无限画布来说明您的意见",
+    "description": "Features infinite-canvas"
+  },
+  "Use your pen, markdown or rich text to let your ideas flow": {
+    "message": "使用你的笔记、打分或富文本来让你的想法流通。",
+    "description": "Features elements"
+  },
+  "Load PDF, SVG, PNG and more files into your notes or take pictures from the camera": {
+    "message": "将PDF、SVG、PNG和更多文件加载到您的记事中，或从相机拍摄照片",
+    "description": "Features imports"
+  },
+  "Structure your notes by adding areas and waypoints or use multiple pages": {
+    "message": "通过添加区域和航点或使用多个页面结构您的笔记",
+    "description": "Features structure"
+  },
+  "Principals": {
+    "message": "Principals",
+    "description": "Principals title"
+  },
+  "Features": {
+    "message": "功能",
+    "description": "Showcase title"
+  },
+  "Download Butterfly today": {
+    "message": "今天下载蝴蝶",
+    "description": "Download title"
+  },
+  "theme.admonition.warning": {
+    "message": "警告",
+    "description": "The default label used for the Warning admonition (:::warning)"
+  },
+  "theme.DocSidebarItem.expandCategoryAriaLabel": {
+    "message": "Expand sidebar category '{label}'",
+    "description": "The ARIA label to expand the sidebar category"
+  },
+  "theme.DocSidebarItem.collapseCategoryAriaLabel": {
+    "message": "Collapse sidebar category '{label}'",
+    "description": "The ARIA label to collapse the sidebar category"
+  },
+  "theme.unlistedContent.title": {
+    "message": "未列出页面",
+    "description": "The unlisted content banner title"
+  },
+  "theme.unlistedContent.message": {
+    "message": "此页面未列出。搜索引擎不会索引它，只有拥有直接链接的用户才能访问它。",
+    "description": "The unlisted content banner message"
   }
 }

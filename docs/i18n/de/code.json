@@ -468,5 +468,57 @@
   "theme.tags.tagsPageTitle": {
     "message": "Tags",
     "description": "The title of the tag list page"
+  },
+  "Create and manage your notes with ease in a simple, beautiful and powerful application.": {
+    "message": "Erstellen und verwalten Sie Ihre Notizen mit Leichtigkeit in einer einfachen, schönen und leistungsstarken Anwendung.",
+    "description": "Features simple description"
+  },
+  "Use the infinite canvas to illustrate your ideas": {
+    "message": "Verwende die unendliche Leinwand um deine Ideen zu illustrieren",
+    "description": "Features infinite-canvas"
+  },
+  "Use your pen, markdown or rich text to let your ideas flow": {
+    "message": "Verwenden Sie Ihren Stift, Markdown oder Rich-Text um Ihre Ideen fließen zu lassen",
+    "description": "Features elements"
+  },
+  "Load PDF, SVG, PNG and more files into your notes or take pictures from the camera": {
+    "message": "Laden Sie PDF, SVG, PNG und weitere Dateien in Ihre Notizen oder machen Sie Bilder von der Kamera",
+    "description": "Features imports"
+  },
+  "Structure your notes by adding areas and waypoints or use multiple pages": {
+    "message": "Strukturieren Sie Ihre Notizen durch Hinzufügen von Bereichen und Wegpunkten oder verwenden Sie mehrere Seiten",
+    "description": "Features structure"
+  },
+  "Principals": {
+    "message": "Principals",
+    "description": "Principals title"
+  },
+  "Features": {
+    "message": "Eigenschaften",
+    "description": "Showcase title"
+  },
+  "Download Butterfly today": {
+    "message": "Schmetterling noch heute herunterladen",
+    "description": "Download title"
+  },
+  "theme.admonition.warning": {
+    "message": "warnung",
+    "description": "The default label used for the Warning admonition (:::warning)"
+  },
+  "theme.DocSidebarItem.expandCategoryAriaLabel": {
+    "message": "Sidebar Kategorie '{label} ' erweitern",
+    "description": "The ARIA label to expand the sidebar category"
+  },
+  "theme.DocSidebarItem.collapseCategoryAriaLabel": {
+    "message": "Collapse sidebar category '{label}'",
+    "description": "The ARIA label to collapse the sidebar category"
+  },
+  "theme.unlistedContent.title": {
+    "message": "Nicht gelistete Seite",
+    "description": "The unlisted content banner title"
+  },
+  "theme.unlistedContent.message": {
+    "message": "Diese Seite ist nicht aufgelistet. Suchmaschinen indizieren sie nicht und nur Benutzer, die einen direkten Link haben, können darauf zugreifen.",
+    "description": "The unlisted content banner message"
   }
 }

@@ -581,5 +581,6 @@
     }
   },
   "continueAnyway": "Přesto pokračovat",
-  "zoomControl": "Ovládání přiblížení"
+  "zoomControl": "Ovládání přiblížení",
+  "highContrast": "Vysoký kontrast"
 }

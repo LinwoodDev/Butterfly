@@ -19,13 +19,17 @@ Modiga användare som har satt "Blockera fingeravtryck" sköld till Aggressiv, m
 
 ## Mobil
 
-### Krascher på Z Vik 3 när du håller sidoknappen på S Pen
+### S-Pen känns inte igen
 
-> [#289](https://github.com/LinwoodDev/Butterfly/issues/289)
+> [#270](https://github.com/LinwoodDev/Butterfly/issues/270)
 
-Fast i 2.0 alfas.
+Jag använder indata från fladdrande ramverk. Detta är numret för att spåra det: [fladdrande/fladdrande#42846](https://github.com/flutter/flutter/issues/42846).
 
-~~Detta är ett känt problem med fladder och Samsung Z Fold 3.~~ ~~Please upvote [detta problem](https://github.com/flutter/flutter/issues/111068) för att få detta fast!~~
+### Stöd för iOS
+
+> [#244](https://github.com/LinwoodDev/Butterfly/issues/244)
+
+Du behöver ett apple-utvecklarkonto för att få appar på iPhone. För Android behöver du inte registrera dig och om du vill behöver du bara betala 15$ en gång. På äpple måste du betala 99$ årligen. Jag har inte råd med det här. I europa ios måste kunna sideload appar i framtiden. Kanske kommer detta att förändra något.
 
 ## Skrivbord
 

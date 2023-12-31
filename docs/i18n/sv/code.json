@@ -468,5 +468,57 @@
   "theme.tags.tagsPageTitle": {
     "message": "Taggar",
     "description": "The title of the tag list page"
+  },
+  "Create and manage your notes with ease in a simple, beautiful and powerful application.": {
+    "message": "Skapa och hantera dina anteckningar med lätthet i en enkel, vacker och kraftfull applikation.",
+    "description": "Features simple description"
+  },
+  "Use the infinite canvas to illustrate your ideas": {
+    "message": "Använd den oändliga duken för att illustrera dina idéer",
+    "description": "Features infinite-canvas"
+  },
+  "Use your pen, markdown or rich text to let your ideas flow": {
+    "message": "Använd din penna, markdown eller rik text för att låta dina idéer flöda",
+    "description": "Features elements"
+  },
+  "Load PDF, SVG, PNG and more files into your notes or take pictures from the camera": {
+    "message": "Ladda PDF, SVG, PNG och fler filer i dina anteckningar eller ta bilder från kameran",
+    "description": "Features imports"
+  },
+  "Structure your notes by adding areas and waypoints or use multiple pages": {
+    "message": "Strukturera dina anteckningar genom att lägga till områden och waypoints eller använda flera sidor",
+    "description": "Features structure"
+  },
+  "Principals": {
+    "message": "Principals",
+    "description": "Principals title"
+  },
+  "Features": {
+    "message": "Funktioner",
+    "description": "Showcase title"
+  },
+  "Download Butterfly today": {
+    "message": "Ladda ner fjärilen idag",
+    "description": "Download title"
+  },
+  "theme.admonition.warning": {
+    "message": "varning",
+    "description": "The default label used for the Warning admonition (:::warning)"
+  },
+  "theme.DocSidebarItem.expandCategoryAriaLabel": {
+    "message": "Expandera sidokategorin '{label}'",
+    "description": "The ARIA label to expand the sidebar category"
+  },
+  "theme.DocSidebarItem.collapseCategoryAriaLabel": {
+    "message": "Kollapsa sidofältets kategori '{label}'",
+    "description": "The ARIA label to collapse the sidebar category"
+  },
+  "theme.unlistedContent.title": {
+    "message": "Olistad sida",
+    "description": "The unlisted content banner title"
+  },
+  "theme.unlistedContent.message": {
+    "message": "Denna sida är inte listad. Sökmotorer kommer inte att indexera den, och endast användare som har en direktlänk kan komma åt den.",
+    "description": "The unlisted content banner message"
   }
 }

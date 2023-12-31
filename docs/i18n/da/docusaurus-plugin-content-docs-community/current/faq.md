@@ -19,13 +19,17 @@ Modige brugere, der har indstillet indstillingen 'Blokér fingeraftryk' skjold t
 
 ## Mobil
 
-### Nedbrud på Z Fold 3, når sideknappen på S Pen holdes fast
+### S-Pen genkendes ikke
 
-> [#289](https://github.com/LinwoodDev/Butterfly/issues/289)
+> [#270](https://github.com/LinwoodDev/Butterfly/issues/270)
 
-Fast i 2.0 alfa.
+Jeg bruger input leveret af flutter rammer. Dette er problemet at spore det: [flutter/flutter#42846](https://github.com/flutter/flutter/issues/42846).
 
-~~Dette er et kendt problem med flutter og Samsung Z Fold 3.~~ ~~~Opvote [dette issue](https://github.com/flutter/flutter/issues/111068) for at få denne rettelse!~~
+### iOS understøttelse
+
+> [#244](https://github.com/LinwoodDev/Butterfly/issues/244)
+
+Du skal have en apple-udvikler konto for at få apps på iPhone. For android behøver du ikke at registrere, og hvis du vil have du kun behøver at betale 15$ én gang. På æble skal du betale 99$ årligt. Det har jeg ikke råd til. I europe ios skal være i stand til at sideindlæse apps i fremtiden. Måske vil dette ændre noget.
 
 ## Skrivebord
 

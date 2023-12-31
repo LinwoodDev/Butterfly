@@ -45,3 +45,4 @@ title: Lataukset
 - [Vanhemmat julkaisut](https://github.com/LinwoodDev/butterfly/releases)
 - [Uusin julkistus](https://github.com/LinwoodDev/butterfly/releases/latest)
 - [Tuki](https://discord.linwood.dev)
+- [UKK](/faq)

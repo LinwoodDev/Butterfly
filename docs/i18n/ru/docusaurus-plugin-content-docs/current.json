@@ -1,10 +1,14 @@
 {
   "version.label": {
-    "message": "Nightly",
+    "message": "Ночной",
     "description": "The label for version current"
   },
   "sidebar.sidebar.category.Painters": {
     "message": "Художники",
     "description": "The label for category Painters in sidebar sidebar"
+  },
+  "sidebar.sidebar.category.Tools": {
+    "message": "Инструменты",
+    "description": "The label for category Tools in sidebar sidebar"
   }
 }

@@ -581,5 +581,6 @@
     }
   },
   "continueAnyway": "Continua comunque",
-  "zoomControl": "Controllo zoom"
+  "zoomControl": "Controllo zoom",
+  "highContrast": "Alto contrasto"
 }

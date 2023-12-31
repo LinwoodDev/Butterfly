@@ -19,13 +19,17 @@ Los usuarios que han configurado el escudo 'Bloquear la huella dactilar' a Agres
 
 ## Móvil
 
-### Se bloquea en Z Fold 3 al mantener pulsado el botón lateral de S Pen
+### S-Pen no será reconocido
 
-> [#289](https://github.com/LinwoodDev/Butterfly/issues/289)
+> [#270](https://github.com/LinwoodDev/Butterfly/issues/270)
 
-Fijado en los alfas 2.0.
+Estoy usando la entrada proporcionada por el framework de flujos. Este es el problema para rastrearlo: [flutter/flutter#42846](https://github.com/flutter/flutter/issues/42846).
 
-~~~Este es un problema conocido con flutter y el Samsung Z Fold 3.~~ ~~Por favor, ¡vota [este problema](https://github.com/flutter/flutter/issues/111068) para arreglarlo!~~
+### soporte para iOS
+
+> [#244](https://github.com/LinwoodDev/Butterfly/issues/244)
+
+Necesitas una cuenta de desarrollador de manzanas para obtener aplicaciones en el iPhone. Para android no necesitas registrarte y si quieres sólo tienes que pagar 15$ una vez. En manzana usted necesita pagar 99$ anualmente. No puedo permitirme esto. En europe los ios deben poder dejar de lado las aplicaciones en el futuro. Tal vez esto cambie algo.
 
 ## Escritorio
 

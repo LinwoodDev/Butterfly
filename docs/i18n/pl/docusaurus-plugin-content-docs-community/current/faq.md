@@ -19,13 +19,17 @@ Odważni użytkownicy, którzy ustawili tarczę "Zablokuj odcisk palca" na Aggre
 
 ## Komórka
 
-### Uderzenia na Z Fold 3, przytrzymując boczny przycisk S Pen
+### Nie rozpoznano wstrzykiwacza S-Pen
 
-> [#289](https://github.com/LinwoodDev/Butterfly/issues/289)
+> [#270](https://github.com/LinwoodDev/Butterfly/issues/270)
 
-Naprawione w 2.0 alfanumerycznie.
+Używam danych wejściowych dostarczanych przez ramę wytrząsania. To jest problem do śledzenia: [trzepot/flutter#42846](https://github.com/flutter/flutter/issues/42846).
 
-~~Jest to znany problem z trzepotaniem i składaniem Samsung Z 3.~~ ~~Głosuj [ten problem](https://github.com/flutter/flutter/issues/111068) , aby go naprawić!~~
+### Wsparcie dla iOS
+
+> [#244](https://github.com/LinwoodDev/Butterfly/issues/244)
+
+Potrzebujesz konta programisty jabłek, aby uzyskać aplikacje na iPhone. Za android nie musisz rejestrować się, a jeśli chcesz, musisz zapłacić tylko 15$ raz. Za jabłko musisz zapłacić 99$ rocznie. Nie mogę sobie na to pozwolić. Ios europe musi być w stanie w przyszłości odładować aplikacje. Może to coś zmieni.
 
 ## Pulpit
 

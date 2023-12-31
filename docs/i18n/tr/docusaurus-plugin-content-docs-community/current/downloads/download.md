@@ -45,3 +45,4 @@ title: İndir
 - [Eski sürümler](https://github.com/LinwoodDev/butterfly/releases)
 - [En son sürüm](https://github.com/LinwoodDev/butterfly/releases/latest)
 - [Destek](https://discord.linwood.dev)
+- [S.S.S.](/faq)

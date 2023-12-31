@@ -468,5 +468,57 @@
   "theme.tags.tagsPageTitle": {
     "message": "الوسوم",
     "description": "The title of the tag list page"
+  },
+  "Create and manage your notes with ease in a simple, beautiful and powerful application.": {
+    "message": "قم بإنشاء وإدارة ملاحظاتك بسهولة في تطبيق بسيط وجميل وقوي.",
+    "description": "Features simple description"
+  },
+  "Use the infinite canvas to illustrate your ideas": {
+    "message": "استخدم قماش اللانهائي لتوضيح أفكارك",
+    "description": "Features infinite-canvas"
+  },
+  "Use your pen, markdown or rich text to let your ideas flow": {
+    "message": "استخدم قلمك أو علامة أسفل أو نص غني للسماح بتدفق أفكارك",
+    "description": "Features elements"
+  },
+  "Load PDF, SVG, PNG and more files into your notes or take pictures from the camera": {
+    "message": "تحميل PDF، SVG، PNG والمزيد من الملفات في الملاحظات الخاصة بك أو التقاط الصور من الكاميرا",
+    "description": "Features imports"
+  },
+  "Structure your notes by adding areas and waypoints or use multiple pages": {
+    "message": "هيكلة ملاحظاتك عن طريق إضافة مجالات وإحصاءات طريق أو استخدام صفحات متعددة",
+    "description": "Features structure"
+  },
+  "Principals": {
+    "message": "Principals",
+    "description": "Principals title"
+  },
+  "Features": {
+    "message": "الميزات",
+    "description": "Showcase title"
+  },
+  "Download Butterfly today": {
+    "message": "تحميل الفراشة اليوم",
+    "description": "Download title"
+  },
+  "theme.admonition.warning": {
+    "message": "تحذير",
+    "description": "The default label used for the Warning admonition (:::warning)"
+  },
+  "theme.DocSidebarItem.expandCategoryAriaLabel": {
+    "message": "توسيع فئة الشريط الجانبي '{label}'",
+    "description": "The ARIA label to expand the sidebar category"
+  },
+  "theme.DocSidebarItem.collapseCategoryAriaLabel": {
+    "message": "طي الشريط الجانبي الفئة '{label}'",
+    "description": "The ARIA label to collapse the sidebar category"
+  },
+  "theme.unlistedContent.title": {
+    "message": "صفحة غير مدرجة",
+    "description": "The unlisted content banner title"
+  },
+  "theme.unlistedContent.message": {
+    "message": "هذه الصفحة غير مدرجة في القائمة. محركات البحث لن تفهرسها، ولا يمكن الوصول إليها إلا للمستخدمين الذين لديهم رابط مباشر.",
+    "description": "The unlisted content banner message"
   }
 }

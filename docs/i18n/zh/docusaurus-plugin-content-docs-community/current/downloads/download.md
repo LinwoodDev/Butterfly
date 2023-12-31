@@ -45,3 +45,4 @@ title: 下载
 - [较早发布的版本](https://github.com/LinwoodDev/butterfly/releases)
 - [最新发布](https://github.com/LinwoodDev/butterfly/releases/latest)
 - [支持](https://discord.linwood.dev)
+- [常见问题](/faq)

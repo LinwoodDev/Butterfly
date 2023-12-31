@@ -468,5 +468,57 @@
   "theme.tags.tagsPageTitle": {
     "message": "Tagger",
     "description": "The title of the tag list page"
+  },
+  "Create and manage your notes with ease in a simple, beautiful and powerful application.": {
+    "message": "Opprett og administrer notatene dine enkelt i en enkel, vakker og kraftig app.",
+    "description": "Features simple description"
+  },
+  "Use the infinite canvas to illustrate your ideas": {
+    "message": "Bruk det uendelige lerret for å illustrere ideene dine",
+    "description": "Features infinite-canvas"
+  },
+  "Use your pen, markdown or rich text to let your ideas flow": {
+    "message": "Bruk pennen, markdown eller rik tekst for å la ideene strømme",
+    "description": "Features elements"
+  },
+  "Load PDF, SVG, PNG and more files into your notes or take pictures from the camera": {
+    "message": "Last inn PDF, SVG, PNG og flere filer i notatene dine eller ta bilder fra kameraet",
+    "description": "Features imports"
+  },
+  "Structure your notes by adding areas and waypoints or use multiple pages": {
+    "message": "Strukturer notatene dine ved å legge til områder og veipunkter eller bruk flere sider",
+    "description": "Features structure"
+  },
+  "Principals": {
+    "message": "Principals",
+    "description": "Principals title"
+  },
+  "Features": {
+    "message": "Funksjoner",
+    "description": "Showcase title"
+  },
+  "Download Butterfly today": {
+    "message": "Last ned Sommerfugl i dag",
+    "description": "Download title"
+  },
+  "theme.admonition.warning": {
+    "message": "advarsel",
+    "description": "The default label used for the Warning admonition (:::warning)"
+  },
+  "theme.DocSidebarItem.expandCategoryAriaLabel": {
+    "message": "Utvid sidepanelkategori '{label}'",
+    "description": "The ARIA label to expand the sidebar category"
+  },
+  "theme.DocSidebarItem.collapseCategoryAriaLabel": {
+    "message": "Skjul sidestolpe kategori '{label}'",
+    "description": "The ARIA label to collapse the sidebar category"
+  },
+  "theme.unlistedContent.title": {
+    "message": "Unotert side",
+    "description": "The unlisted content banner title"
+  },
+  "theme.unlistedContent.message": {
+    "message": "Denne siden er ikke listet opp. Søkemotorer vil ikke indeksere den, og bare brukere med en direktelink har tilgang til den.",
+    "description": "The unlisted content banner message"
   }
 }

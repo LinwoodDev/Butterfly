@@ -581,5 +581,6 @@
     }
   },
   "continueAnyway": "仍然继续",
-  "zoomControl": "缩放控制"
+  "zoomControl": "缩放控制",
+  "highContrast": "高对比度"
 }

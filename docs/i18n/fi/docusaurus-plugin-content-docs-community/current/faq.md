@@ -19,13 +19,17 @@ Rohkeiden käyttäjien, jotka ovat asettaneet sormenjälkikilven asetuksen Aggre
 
 ## Mobiili
 
-### Kaatumiset Z Fold 3 kun pidät puolella S Pen -painiketta
+### S-kynää ei tunnisteta
 
-> [#289](https://github.com/LinwoodDev/Butterfly/issues/289)
+> [#270](https://github.com/LinwoodDev/Butterfly/issues/270)
 
-Kiinteä 2.0-kirjaimisessa kirjaimessa.
+Käytän syötteitä, jotka on saatu lepyttävän kehyksen avulla. Tämä on ongelma seurata sitä: [flutter/flutter#42846](https://github.com/flutter/flutter/issues/42846).
 
-~~This is a known issue with flutter and the Samsung Z Fold 3.~~ ~~Please upvote [this issue](https://github.com/flutter/flutter/issues/111068) to get this fixeded!~~
+### iOS- tuki
+
+> [#244](https://github.com/LinwoodDev/Butterfly/issues/244)
+
+Tarvitset omenan kehittäjän tilin saadaksesi sovelluksia iPhoneen. Android sinun ei tarvitse rekisteröityä ja jos haluat sinun tarvitsee vain maksaa 15$ kerran. Omenalla sinun täytyy maksaa 99$ vuosittain. Minulla ei ole varaa tähän. Eurooppalaisissa sovelluksissa on tulevaisuudessa voitava käyttää sivullisia sovelluksia. Ehkä tämä muuttaa jotain.
 
 ## Työpöytä
 

@@ -45,3 +45,4 @@ title: Nedlastinger
 - [Eldre utgivelser](https://github.com/LinwoodDev/butterfly/releases)
 - [Siste utgivelse](https://github.com/LinwoodDev/butterfly/releases/latest)
 - [Brukerstøtte](https://discord.linwood.dev)
+- [OSS](/faq)
