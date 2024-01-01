@@ -250,10 +250,6 @@
     "message": "切换单词换行",
     "description": "The title attribute for toggle word wrapping button of code block lines"
   },
-  "theme.DocSidebarItem.toggleCollapsedCategoryAriaLabel": {
-    "message": "切换可折叠侧边栏类别{label}'",
-    "description": "The ARIA label to toggle the collapsible sidebar category"
-  },
   "theme.NavBar.navAriaLabel": {
     "message": "主要的",
     "description": "The ARIA label for the main navigation"
