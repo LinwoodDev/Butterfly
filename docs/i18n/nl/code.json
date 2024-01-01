@@ -250,10 +250,6 @@
     "message": "Schakelen tussen woordwrap",
     "description": "The title attribute for toggle word wrapping button of code block lines"
   },
-  "theme.DocSidebarItem.toggleCollapsedCategoryAriaLabel": {
-    "message": "De inklapbare sidebar categorie '{label}' in-/uitschakelen",
-    "description": "The ARIA label to toggle the collapsible sidebar category"
-  },
   "theme.NavBar.navAriaLabel": {
     "message": "Algemeen",
     "description": "The ARIA label for the main navigation"
