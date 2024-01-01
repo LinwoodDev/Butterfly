@@ -250,10 +250,6 @@
     "message": "Attiva/disattiva a capo automatico",
     "description": "The title attribute for toggle word wrapping button of code block lines"
   },
-  "theme.DocSidebarItem.toggleCollapsedCategoryAriaLabel": {
-    "message": "Attiva/disattiva la categoria della barra laterale pieghevole '{label}'",
-    "description": "The ARIA label to toggle the collapsible sidebar category"
-  },
   "theme.NavBar.navAriaLabel": {
     "message": "Principale",
     "description": "The ARIA label for the main navigation"
