@@ -250,10 +250,6 @@
     "message": "Přepnout zalamování slov",
     "description": "The title attribute for toggle word wrapping button of code block lines"
   },
-  "theme.DocSidebarItem.toggleCollapsedCategoryAriaLabel": {
-    "message": "Přepnout sbalitelnou kategorii postranního panelu '{label}'",
-    "description": "The ARIA label to toggle the collapsible sidebar category"
-  },
   "theme.NavBar.navAriaLabel": {
     "message": "Hlavní",
     "description": "The ARIA label for the main navigation"
