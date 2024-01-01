@@ -250,10 +250,6 @@
     "message": "Växla ordinmatning",
     "description": "The title attribute for toggle word wrapping button of code block lines"
   },
-  "theme.DocSidebarItem.toggleCollapsedCategoryAriaLabel": {
-    "message": "Växla den hopfällbara sidopanelkategorin '{label}'",
-    "description": "The ARIA label to toggle the collapsible sidebar category"
-  },
   "theme.NavBar.navAriaLabel": {
     "message": "Huvud",
     "description": "The ARIA label for the main navigation"
