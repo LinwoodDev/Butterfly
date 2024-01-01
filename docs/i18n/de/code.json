@@ -250,10 +250,6 @@
     "message": "Wortumbruch umschalten",
     "description": "The title attribute for toggle word wrapping button of code block lines"
   },
-  "theme.DocSidebarItem.toggleCollapsedCategoryAriaLabel": {
-    "message": "Umschalten der einklappbaren Seitenleistenkategorie '{label}'",
-    "description": "The ARIA label to toggle the collapsible sidebar category"
-  },
   "theme.NavBar.navAriaLabel": {
     "message": "Haupt",
     "description": "The ARIA label for the main navigation"
