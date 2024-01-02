@@ -14,3 +14,7 @@ slug: "/nightly"
 ## احصل على المباني
 
 اذهب إلى صفحات تحميل المنصة الخاصة بك. كل المباني الليلية يتم نشرها أيضا كسابق للإصدار على github.
+
+## التجارب
+
+Experiments are features that are not ready for production yet. Default they are disabled. You can enable them in the settings under `Experiments`. This tab is only visible in the nightly version.
