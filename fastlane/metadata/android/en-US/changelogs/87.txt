@@ -1,3 +1,4 @@
+* Add refresh button to quickstart
 * Fix markdown label editing
 * Fix not working new line
 * Fix asset card missing ripple effect
