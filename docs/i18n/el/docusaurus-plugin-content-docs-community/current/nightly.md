@@ -14,3 +14,7 @@ slug: "/nightly"
 ## Λήψη των κατασκευών
 
 Μεταβείτε στις σελίδες λήψης της πλατφόρμας σας. Όλες οι νυχτερινές εκδόσεις δημοσιεύονται επίσης ως προ-κυκλοφορία στο github.
+
+## Πειράματα
+
+Experiments are features that are not ready for production yet. Default they are disabled. You can enable them in the settings under `Experiments`. This tab is only visible in the nightly version.
