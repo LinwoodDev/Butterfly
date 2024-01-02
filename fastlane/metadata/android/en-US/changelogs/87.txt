@@ -2,3 +2,4 @@
 * Fix markdown label editing
 * Fix not working new line
 * Fix asset card missing ripple effect
+* Fix rename saved function will be triggered multiple times

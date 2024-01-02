@@ -76,7 +76,6 @@ class _EditableListTileState extends State<EditableListTile> {
                         onSaved: onSaved,
                         autofocus: true,
                         onFieldSubmitted: onSaved,
-                        onEditingComplete: onSaved,
                         onTapOutside: (_) => onSaved(),
                         style: DefaultTextStyle.of(context).style,
                         decoration: InputDecoration(
