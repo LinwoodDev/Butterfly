@@ -14,3 +14,7 @@ slug: "/nightly"
 ## 获取版本
 
 转到您平台的下载页面。 所有夜间构建也会在Github上发布预发布版本。
+
+## 实验
+
+Experiments are features that are not ready for production yet. Default they are disabled. You can enable them in the settings under `Experiments`. This tab is only visible in the nightly version.
