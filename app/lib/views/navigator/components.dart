@@ -63,7 +63,7 @@ class _ComponentsViewState extends State<ComponentsView> {
                 const SizedBox(height: 8),
                 Expanded(
                   child: Material(
-                    color: Colors.transparent,
+                    type: MaterialType.transparency,
                     child: Wrap(
                       children: pack
                               ?.getComponents()

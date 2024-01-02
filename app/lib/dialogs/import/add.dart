@@ -120,7 +120,7 @@ class AddDialog extends StatelessWidget {
             ),
             Expanded(
               child: Material(
-                color: Colors.transparent,
+                type: MaterialType.transparency,
                 child: ValueListenableBuilder(
                     valueListenable: _searchController,
                     builder: (context, value, _) {

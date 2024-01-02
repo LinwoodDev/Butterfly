@@ -85,7 +85,7 @@ class ConnectionsSettingsPage extends StatelessWidget {
               );
             }
             return Material(
-              color: Colors.transparent,
+              type: MaterialType.transparency,
               child: ListView.builder(
                   itemCount: state.connections.length,
                   itemBuilder: (context, index) {

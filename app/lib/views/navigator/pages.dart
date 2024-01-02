@@ -82,7 +82,7 @@ class PagesView extends StatelessWidget {
                     }).toSet();
                     final all = [...folders, ...files];
                     return Material(
-                      color: Colors.transparent,
+                      type: MaterialType.transparency,
                       child: ReorderableListView.builder(
                           itemCount: all.length,
                           onReorder: (oldIndex, newIndex) {

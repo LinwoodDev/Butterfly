@@ -672,43 +672,48 @@ class AssetCard extends StatelessWidget {
           child: Card(
             elevation: 5,
             clipBehavior: Clip.hardEdge,
-            child: InkWell(
-              onTap: onTap,
-              child: Stack(
-                children: [
-                  if (thumbnail?.isNotEmpty ?? false)
-                    Align(
-                      child: Image.memory(
-                        thumbnail!,
-                        fit: BoxFit.cover,
-                        width: 640,
-                        alignment: Alignment.center,
-                      ),
+            child: Stack(
+              children: [
+                if (thumbnail?.isNotEmpty ?? false)
+                  Align(
+                    child: Image.memory(
+                      thumbnail!,
+                      fit: BoxFit.cover,
+                      width: 640,
+                      alignment: Alignment.center,
                     ),
-                  if ((metadata?.name.isNotEmpty ?? false) ||
-                      (name?.isNotEmpty ?? false))
-                    Align(
-                      alignment: Alignment.bottomLeft,
-                      child: Tooltip(
-                        message: name ?? metadata!.name,
-                        child: Container(
-                          padding: const EdgeInsets.all(8),
-                          margin: const EdgeInsets.all(8),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(8),
-                            color: colorScheme.primaryContainer.withAlpha(200),
-                          ),
-                          child: Text(
-                            (metadata?.name.isNotEmpty ?? false)
-                                ? metadata!.name
-                                : name!,
-                            style: textStyle,
-                          ),
+                  ),
+                if ((metadata?.name.isNotEmpty ?? false) ||
+                    (name?.isNotEmpty ?? false))
+                  Align(
+                    alignment: Alignment.bottomLeft,
+                    child: Tooltip(
+                      message: name ?? metadata!.name,
+                      child: Container(
+                        padding: const EdgeInsets.all(8),
+                        margin: const EdgeInsets.all(8),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(8),
+                          color: colorScheme.primaryContainer.withAlpha(200),
+                        ),
+                        child: Text(
+                          (metadata?.name.isNotEmpty ?? false)
+                              ? metadata!.name
+                              : name!,
+                          style: textStyle,
                         ),
                       ),
                     ),
-                ],
-              ),
+                  ),
+                Positioned.fill(
+                  child: Material(
+                    type: MaterialType.transparency,
+                    child: InkWell(
+                      onTap: onTap,
+                    ),
+                  ),
+                ),
+              ],
             ),
           ),
         ));
