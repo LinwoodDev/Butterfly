@@ -14,3 +14,7 @@ Nightly builds on suunniteltu antamaan sinulle mahdollisuuden testata uusinta ve
 ## Hanki rakennukset
 
 Mene alustasi lataussivujen luo. Kaikki yölliset rakennukset julkaistaan myös githubin esijulkaisuna.
+
+## Kokeet
+
+Experiments are features that are not ready for production yet. Default they are disabled. You can enable them in the settings under `Experiments`. This tab is only visible in the nightly version.
