@@ -6,48 +6,48 @@ title: Spolupráce
 
 :::warning 🧪 Experiment
 
-This feature is behind an experiment flag. Read more [here](/nightly#experiments).
-Everything in this section is subject to change.
+Tato funkce stojí za příznakem experimentu. Přečtěte si více [here](/nightly#experiments).
+Všechno v této sekci se změní.
 
 :::
 
 ## Úvod
 
-Sinced the 2.0 beta version, Butterfly supports collaboration. This means that you can edit the same file with multiple people at the same time. This is useful if you want to work together on a document.
+Sinced 2.0 beta verze, Butterfly podporuje spolupráci. To znamená, že můžete upravit stejný soubor současně s více lidmi. To je užitečné, pokud chcete pracovat společně na dokumentu.
 
-## How it works
+## Jak to funguje
 
-Butterfly uses a websocket server that will be hosted on your computer. This server needs to be accessible from the internet or your local network. The client will connect to this server. The server sync all changes and events with all clients.
+Butterfly používá server se socketem, který bude hostován na vašem počítači. Tento server musí být přístupný z internetu nebo z místní sítě. Klient se připojí k tomuto serveru. Server synchronizuje všechny změny a události se všemi klienty.
 
-## Setup the server
+## Nastavit server
 
 :::note
 
-This server feature is not available on the web.
+Tato funkce serveru není dostupná na webu.
 
 :::
 
-Firstly, enable the collaboration experiment in the settings. After that open your document you want to share. Then click on the share button in the top left corner right to the title. This will open a dialog. Click on `Start server`.
+Zaprvé umožnit experiment pro spolupráci v nastavení. Poté otevřete Váš dokument chcete sdílet. Poté klikněte na tlačítko sdílení v levém horním rohu vpravo do názvu. Tím se otevře dialog. Klikněte na `Spustit server`.
 
-Default the server will be hosted on all interfaces on port `28005`. You can change this in the dialog. You need to make sure that this server is accessible to the client.
-In the local network this should work out of the box. If you want to access the server from the internet, you need to forward the port in your router. You can find more information about this [here](https://en.wikipedia.org/wiki/Port_forwarding/).
+Výchozí hodnota bude server hostován na všech rozhraních na portu `28005`. Můžete to změnit v dialogu. Musíte se ujistit, že je tento server přístupný klientovi.
+V místní síti by to mělo fungovat mimo krabici. Pokud chcete přistupovat k serveru z internetu, musíte přeposlat port ve vašem routeru. Více informací o tomto [here](https://en.wikipedia.org/wiki/Port_forwarding/).
 
-If you cannot forward the port, you can use a service like [ngrok](https://ngrok.com/). This will create a tunnel to your local server. This is useful if you want to share the document with other people.
+Pokud nemůžete přeposílat port, můžete použít službu jako [ngrok](https://ngrok.com/). Tímto vytvoříte tunel na váš místní server. Toto je užitečné, pokud chcete sdílet dokument s ostatními lidmi.
 
-For ngrok the command would look like this:
+Pro ngrok by příkaz vypadal takto:
 
 ```bash
 ngrok http 28005
 ```
 
-## Connect to the server
+## Připojit k serveru
 
-Now you need to connect to the server. To do this, go to the home page and click on the plus button like you would create a new document. There you will see a new menu item called `Connect`.
+Nyní se musíte připojit k serveru. Chcete-li to provést, přejděte na domovskou stránku a klikněte na tlačítko plus, chcete-li vytvořit nový dokument. Zde uvidíte novou položku menu nazvanou `Connect`.
 
-Click on this and you will see a dialog. Enter the connection url here.
-If you are in the same network, you can use the local ip address of the computer where the server is running.
-The url should look like this: `ws://{ip}:28005`. Replace `{ip}` with the ip address of the computer. You can find the ip address with the command `ipconfig` on windows or `ifconfig` on linux. On android you can find the ip address in the wifi settings.
+Klikněte na toto a uvidíte dialog. Zde zadejte adresu připojení.
+Pokud jste ve stejné síti, můžete použít místní IP adresu počítače, kde server běží.
+URL by měla vypadat takto: `w://{ip}:28005`. Nahradit `{ip}` IP adresou počítače. ip adresu s příkazem `ipconfig` naleznete v oknech nebo `ifconfig` na linuxu. Na androidu můžete najít IP adresu v nastavení wifi.
 
-If you are not in the same network, you need to use the public ip address of the computer. You can find this by searching for `what is my ip` in your favorite search browser. The url should look like the one above, but with the public ip address.
+Pokud nejste ve stejné síti, musíte použít veřejnou IP adresu počítače. Toto můžete najít vyhledáním `co je moje ip` ve Vašem oblíbeném vyhledávacím prohlížeči. Adresa url by měla vypadat jako výše uvedená, ale s veřejnou IP adresou.
 
-If you use ngrok, the setup is a bit different. Replace the `https` with `wss` and add the port `:28005` at the end. The url should look like this: `wss://{random}:28005`. Replace the random part with the part that ngrok gives you.
+Pokud používáte ngrok, nastavení je trochu jiné. Nahraďte `https://` `wss` a přidejte na konec port `:28005`. URL by měla vypadat takto: `wss://{random}:28005`. Nahraďte náhodnou část částí, kterou vám ngrok poskytne.
