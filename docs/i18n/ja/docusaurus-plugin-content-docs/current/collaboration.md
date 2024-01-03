@@ -4,50 +4,50 @@ sidebar_position: 4
 title: コラボレーション
 ---
 
-:::warning 🧪 Experiment
+:::warning 🧪 実験
 
-This feature is behind an experiment flag. Read more [here](/nightly#experiments).
-Everything in this section is subject to change.
+この機能は実験フラグの背後にあります。 Read more [here](/nightly#experiments).
+このセクションのすべてが変更されることがあります。
 
 :::
 
 ## はじめに
 
-Sinced the 2.0 beta version, Butterfly supports collaboration. This means that you can edit the same file with multiple people at the same time. This is useful if you want to work together on a document.
+2.0ベータ版以来、Butterflyはコラボレーションをサポートしています。 つまり、複数の人と同時に同じファイルを編集することができます。 これはドキュメントで一緒に作業する場合に便利です。
 
-## How it works
+## 仕組み
 
-Butterfly uses a websocket server that will be hosted on your computer. This server needs to be accessible from the internet or your local network. The client will connect to this server. The server sync all changes and events with all clients.
+Butterflyは、お使いのコンピュータでホストされるWebSocketサーバーを使用します。 このサーバーは、インターネットまたはローカルネットワークからアクセスできる必要があります。 クライアントはこのサーバーに接続します。 サーバーはすべてのクライアントとすべての変更とイベントを同期します。
 
-## Setup the server
+## サーバーのセットアップ
 
 :::note
 
-This server feature is not available on the web.
+このサーバー機能はウェブ上では利用できません。
 
 :::
 
-Firstly, enable the collaboration experiment in the settings. After that open your document you want to share. Then click on the share button in the top left corner right to the title. This will open a dialog. Click on `Start server`.
+まず、設定でコラボレーション実験を有効にします。 その後、ドキュメントを開き、共有します。 次に、タイトルの左上隅にある共有ボタンをクリックします。 これでダイアログが開きます。 `Start server` をクリックします。
 
-Default the server will be hosted on all interfaces on port `28005`. You can change this in the dialog. You need to make sure that this server is accessible to the client.
-In the local network this should work out of the box. If you want to access the server from the internet, you need to forward the port in your router. You can find more information about this [here](https://en.wikipedia.org/wiki/Port_forwarding/).
+デフォルトでは、サーバーはポート `28005` のすべてのインターフェイスでホストされます。 ダイアログでこれを変更できます。 このサーバーがクライアントからアクセス可能であることを確認する必要があります。
+ローカルネットワークでは、これはボックスから動作するはずです。 インターネットからサーバーにアクセスしたい場合は、ルーターにポートを転送する必要があります。 You can find more information about this [here](https://en.wikipedia.org/wiki/Port_forwarding/).
 
-If you cannot forward the port, you can use a service like [ngrok](https://ngrok.com/). This will create a tunnel to your local server. This is useful if you want to share the document with other people.
+ポートを転送できない場合は、 [ngrok](https://ngrok.com/) のようなサービスを使用できます。 これにより、ローカルサーバーへのトンネルが作成されます。 これは、ドキュメントを他の人と共有したい場合に便利です。
 
-For ngrok the command would look like this:
+ngrok の場合、コマンドは次のようになります:
 
 ```bash
 ngrok http 28005
 ```
 
-## Connect to the server
+## サーバーに接続
 
-Now you need to connect to the server. To do this, go to the home page and click on the plus button like you would create a new document. There you will see a new menu item called `Connect`.
+次に、サーバーに接続する必要があります。 これを行うには、ホームページに移動し、新しいドキュメントを作成するようにプラスボタンをクリックします。 そこには`Connect`という新しいメニューアイテムがあります。
 
-Click on this and you will see a dialog. Enter the connection url here.
-If you are in the same network, you can use the local ip address of the computer where the server is running.
-The url should look like this: `ws://{ip}:28005`. Replace `{ip}` with the ip address of the computer. You can find the ip address with the command `ipconfig` on windows or `ifconfig` on linux. On android you can find the ip address in the wifi settings.
+これをクリックするとダイアログが表示されます。 ここに接続URLを入力します。
+同じネットワークにいる場合は、サーバーが稼働しているコンピュータのローカルIPアドレスを使用できます。
+url は `ws://{ip}:28005` のようになります。 コンピュータのIPアドレスに「{ip}」を置き換えます。 windows で `ipconfig` を、linux で `ifconfig` を使ってIPアドレスを見つけることができます。 Androidでは、Wi-Fi設定でIPアドレスを見つけることができます。
 
-If you are not in the same network, you need to use the public ip address of the computer. You can find this by searching for `what is my ip` in your favorite search browser. The url should look like the one above, but with the public ip address.
+同じネットワークにいない場合は、コンピュータのパブリック IP アドレスを使用する必要があります。 お気に入りの検索ブラウザで、`What is my ip`を探してみましょう。 url は上記のもののように見えるべきですが、パブリック IP アドレスとします。
 
-If you use ngrok, the setup is a bit different. Replace the `https` with `wss` and add the port `:28005` at the end. The url should look like this: `wss://{random}:28005`. Replace the random part with the part that ngrok gives you.
+ngrok を使用している場合、セットアップは少し異なります。 `https`を`wss`に置き換え、最後に`:28005`を追加します。 url は `wss://{random}:28005` のようになります。 ランダムなパーツをngrokがあなたに与えるパーツと交換します。
