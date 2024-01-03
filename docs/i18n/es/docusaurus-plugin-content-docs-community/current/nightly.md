@@ -3,7 +3,7 @@ title: "Construcciones nocturnas"
 slug: "/nightly"
 ---
 
-:::advertencia
+:::warning
 
 No utilice la versión nocturna de Butterfly para la producción.
 
