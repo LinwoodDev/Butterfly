@@ -1,5 +1,5 @@
 ---
-title: "Nightly Builds"
+title: "Nachts Builds"
 slug: "/nightly"
 ---
 
@@ -17,4 +17,4 @@ Gehen Sie zu den Download-Seiten Ihrer Plattform. Alle Nightly Builds werden auc
 
 ## Experimente
 
-Experiments are features that are not ready for production yet. Default they are disabled. You can enable them in the settings under `Experiments`. This tab is only visible in the nightly version.
+Experimente sind Funktionen, die noch nicht für die Produktion bereit sind. Standardmäßig sind sie deaktiviert. Sie können sie in den Einstellungen unter `Experimente` aktivieren. Diese Registerkarte ist nur in der nächtlichen Version sichtbar.
