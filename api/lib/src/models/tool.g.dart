@@ -93,7 +93,7 @@ _$LabelToolImpl _$$LabelToolImplFromJson(Map json) => _$LabelToolImpl(
       mode: $enumDecodeNullable(_$LabelModeEnumMap, json['mode']) ??
           LabelMode.text,
       zoomDependent: json['zoomDependent'] as bool? ?? true,
-      foreground: json['foreground'] as int? ?? kColorBlack,
+      foreground: json['foreground'] as int? ?? BasicColors.black,
       styleSheet: json['styleSheet'] == null
           ? const PackAssetLocation()
           : PackAssetLocation.fromJson(
@@ -214,7 +214,7 @@ _$LaserToolImpl _$$LaserToolImplFromJson(Map json) => _$LaserToolImpl(
       duration: (json['duration'] as num?)?.toDouble() ?? 5,
       strokeWidth: (json['strokeWidth'] as num?)?.toDouble() ?? 5,
       thinning: (json['thinning'] as num?)?.toDouble() ?? 0.4,
-      color: json['color'] as int? ?? kColorRed,
+      color: json['color'] as int? ?? BasicColors.red,
       $type: json['type'] as String?,
     );
 

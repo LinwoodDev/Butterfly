@@ -30,7 +30,7 @@ class AddDialog extends StatelessWidget {
       final state = bloc.state;
       if (state is! DocumentLoaded) return;
       final background =
-          state.page.backgrounds.firstOrNull?.defaultColor ?? kColorWhite;
+          state.page.backgrounds.firstOrNull?.defaultColor ?? BasicColors.white;
       final defaultTool = updateToolDefaultColor(tool, background);
       bloc.add(ToolCreated(defaultTool));
       currentIndexCubit.changeTool(

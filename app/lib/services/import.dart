@@ -359,10 +359,11 @@ class ImportService {
       final contentString = String.fromCharCodes(bytes);
       final styleSheet = document.findStyle();
       final state = _getState();
-      final background =
-          state?.page.backgrounds.firstOrNull?.defaultColor ?? kColorWhite;
-      final foreground =
-          isDarkColor(Color(background)) ? kColorWhite : kColorBlack;
+      final background = state?.page.backgrounds.firstOrNull?.defaultColor ??
+          BasicColors.white;
+      final foreground = isDarkColor(Color(background))
+          ? BasicColors.white
+          : BasicColors.black;
       return _submit(document,
           elements: [
             MarkdownElement(

@@ -2540,7 +2540,7 @@ class _$LabelToolImpl extends LabelTool {
       this.displayIcon = '',
       this.mode = LabelMode.text,
       this.zoomDependent = true,
-      this.foreground = kColorBlack,
+      this.foreground = BasicColors.black,
       this.styleSheet = const PackAssetLocation(),
       this.scale = 2.0,
       final String? $type})
@@ -5143,7 +5143,7 @@ class _$LaserToolImpl extends LaserTool {
       this.duration = 5,
       this.strokeWidth = 5,
       this.thinning = 0.4,
-      this.color = kColorRed,
+      this.color = BasicColors.red,
       final String? $type})
       : $type = $type ?? 'laser',
         super._();

@@ -303,9 +303,9 @@ class _$PatternTextureImpl implements PatternTexture {
       this.boxYCount = 1,
       this.boxXSpace = 0,
       this.boxYSpace = 0,
-      this.boxXColor = kColorBlue,
-      this.boxYColor = kColorRed,
-      this.boxColor = kColorWhite,
+      this.boxXColor = BasicColors.blue,
+      this.boxYColor = BasicColors.red,
+      this.boxColor = BasicColors.white,
       this.boxXStroke = 0.5,
       this.boxYStroke = 0.5});
 

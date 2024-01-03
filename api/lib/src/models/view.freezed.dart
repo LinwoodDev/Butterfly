@@ -120,7 +120,9 @@ class __$$ViewOptionImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$ViewOptionImpl implements _ViewOption {
   const _$ViewOptionImpl(
-      {this.gridColor = kColorBlack, this.gridXSize = 20, this.gridYSize = 20});
+      {this.gridColor = BasicColors.black,
+      this.gridXSize = 20,
+      this.gridYSize = 20});
 
   factory _$ViewOptionImpl.fromJson(Map<String, dynamic> json) =>
       _$$ViewOptionImplFromJson(json);

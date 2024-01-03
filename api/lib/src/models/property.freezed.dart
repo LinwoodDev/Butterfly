@@ -189,7 +189,7 @@ class _$PenPropertyImpl implements PenProperty {
   const _$PenPropertyImpl(
       {this.strokeWidth = 5,
       this.thinning = 0.4,
-      this.color = kColorBlack,
+      this.color = BasicColors.black,
       this.fill = false,
       this.smoothing = 0.5,
       this.streamline = 0.3,
@@ -416,7 +416,7 @@ class _$ShapePropertyImpl implements ShapeProperty {
   const _$ShapePropertyImpl(
       {this.strokeWidth = 5,
       required this.shape,
-      this.color = kColorBlack,
+      this.color = BasicColors.black,
       final String? $type})
       : $type = $type ?? 'shape';
 
@@ -692,7 +692,7 @@ class __$$CircleShapeImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$CircleShapeImpl extends CircleShape {
   const _$CircleShapeImpl(
-      {this.fillColor = kColorTransparent, final String? $type})
+      {this.fillColor = BasicColors.transparent, final String? $type})
       : $type = $type ?? 'circle',
         super._();
 
@@ -897,7 +897,7 @@ class __$$RectangleShapeImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$RectangleShapeImpl extends RectangleShape {
   const _$RectangleShapeImpl(
-      {this.fillColor = kColorTransparent,
+      {this.fillColor = BasicColors.transparent,
       this.topLeftCornerRadius = 0,
       this.topRightCornerRadius = 0,
       this.bottomLeftCornerRadius = 0,

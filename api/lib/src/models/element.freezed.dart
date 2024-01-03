@@ -1727,7 +1727,7 @@ class _$TextElementImpl with LabelElement implements TextElement {
       this.styleSheet = const PackAssetLocation(),
       required this.area,
       this.constraint = const ElementConstraint(size: 1000),
-      this.foreground = kColorBlack,
+      this.foreground = BasicColors.black,
       final Map<String, dynamic> extra = const {},
       final String? $type})
       : _extra = extra,
@@ -2228,7 +2228,7 @@ class _$MarkdownElementImpl with LabelElement implements MarkdownElement {
       this.areaProperty = const AreaProperty(),
       required this.text,
       this.constraint = const ElementConstraint(size: 1000),
-      this.foreground = kColorBlack,
+      this.foreground = BasicColors.black,
       final Map<String, dynamic> extra = const {},
       final String? $type})
       : _extra = extra,

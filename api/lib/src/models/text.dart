@@ -39,17 +39,17 @@ sealed class SpanProperty with _$SpanProperty {
 
   static const kDefault = DefinedSpanProperty(
     size: 12,
-    color: kColorBlack,
+    color: BasicColors.black,
     fontWeight: kFontWeightNormal,
     lineThrough: false,
     underline: false,
     overline: false,
     italic: false,
     letterSpacing: 0,
-    decorationColor: kColorBlack,
+    decorationColor: BasicColors.black,
     decorationStyle: TextDecorationStyle.solid,
     decorationThickness: 1,
-    backgroundColor: kColorTransparent,
+    backgroundColor: BasicColors.transparent,
   );
 
   const factory SpanProperty.named(String name) = NamedSpanProperty;

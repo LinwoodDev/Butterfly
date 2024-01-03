@@ -8,7 +8,7 @@ part 'view.g.dart';
 @freezed
 sealed class ViewOption with _$ViewOption {
   const factory ViewOption({
-    @Default(kColorBlack) int gridColor,
+    @Default(BasicColors.black) int gridColor,
     @Default(20) double gridXSize,
     @Default(20) double gridYSize,
   }) = _ViewOption;

@@ -80,7 +80,7 @@ sealed class Tool with _$Tool {
     @Default('') String displayIcon,
     @Default(LabelMode.text) LabelMode mode,
     @Default(true) bool zoomDependent,
-    @Default(kColorBlack) int foreground,
+    @Default(BasicColors.black) int foreground,
     @Default(PackAssetLocation()) PackAssetLocation styleSheet,
     @Default(2.0) double scale,
   }) = LabelTool;
@@ -125,7 +125,7 @@ sealed class Tool with _$Tool {
     @Default(5) double duration,
     @Default(5) double strokeWidth,
     @Default(0.4) double thinning,
-    @Default(kColorRed) int color,
+    @Default(BasicColors.red) int color,
   }) = LaserTool;
 
   factory Tool.shape({
