@@ -4,50 +4,50 @@ sidebar_position: 4
 title: Сотрудничество
 ---
 
-:::warning 🧪 Experiment
+:::warning 🧪 Эксперимент
 
-This feature is behind an experiment flag. Read more [here](/nightly#experiments).
-Everything in this section is subject to change.
+Эта функция находится за флагом эксперимента. Read more [here](/nightly#experiments).
+Всё в этом разделе может быть изменено.
 
 :::
 
 ## Введение
 
-Sinced the 2.0 beta version, Butterfly supports collaboration. This means that you can edit the same file with multiple people at the same time. This is useful if you want to work together on a document.
+Sinced the 2.0 beta версия, Butterfly поддерживает сотрудничество. Это означает, что вы можете редактировать один и тот же файл с несколькими людьми одновременно. Это полезно, если вы хотите работать вместе над документом.
 
-## How it works
+## Как это работает
 
-Butterfly uses a websocket server that will be hosted on your computer. This server needs to be accessible from the internet or your local network. The client will connect to this server. The server sync all changes and events with all clients.
+Бабочка использует веб-сокет сервер, который будет размещен на вашем компьютере. Этот сервер должен быть доступен из Интернета или вашей локальной сети. Клиент будет подключаться к этому серверу. Сервер синхронизирует все изменения и события со всеми клиентами.
 
-## Setup the server
+## Настроить сервер
 
 :::note
 
-This server feature is not available on the web.
+Эта функция сервера недоступна в Интернете.
 
 :::
 
-Firstly, enable the collaboration experiment in the settings. After that open your document you want to share. Then click on the share button in the top left corner right to the title. This will open a dialog. Click on `Start server`.
+В первую очередь, включите эксперимент по сотрудничеству в настройках. После этого откройте документ вы хотите поделиться. Затем нажмите на кнопку "Поделиться" в верхнем левом углу справа от заголовка. Это откроет диалог. Нажмите на `Start server`.
 
-Default the server will be hosted on all interfaces on port `28005`. You can change this in the dialog. You need to make sure that this server is accessible to the client.
-In the local network this should work out of the box. If you want to access the server from the internet, you need to forward the port in your router. You can find more information about this [here](https://en.wikipedia.org/wiki/Port_forwarding/).
+По умолчанию сервер будет размещен на всех интерфейсах порта `28005`. Это можно изменить в диалоговом окне. Вы должны убедиться, что этот сервер доступен клиенту.
+В локальной сети это должно выходить из коробки. Если вы хотите получить доступ к серверу из интернета, вам нужно переслать порт в маршрутизатор. Вы можете найти дополнительную информацию об этом [here](https://en.wikipedia.org/wiki/Port_forwarding/).
 
-If you cannot forward the port, you can use a service like [ngrok](https://ngrok.com/). This will create a tunnel to your local server. This is useful if you want to share the document with other people.
+If you cannot forward the port, you can use a service like [ngrok](https://ngrok.com/). Это создаст туннель на вашем локальном сервере. Это полезно, если вы хотите поделиться документом с другими людьми.
 
-For ngrok the command would look like this:
+Для ngrok команда выглядит так:
 
 ```bash
 ngrok http 28005
 ```
 
-## Connect to the server
+## Подключиться к серверу
 
-Now you need to connect to the server. To do this, go to the home page and click on the plus button like you would create a new document. There you will see a new menu item called `Connect`.
+Теперь вам нужно подключиться к серверу. Для этого перейдите на главную страницу и нажмите на кнопку "+", чтобы создать новый документ. Там вы увидите новый пункт меню `Connect`.
 
-Click on this and you will see a dialog. Enter the connection url here.
-If you are in the same network, you can use the local ip address of the computer where the server is running.
-The url should look like this: `ws://{ip}:28005`. Replace `{ip}` with the ip address of the computer. You can find the ip address with the command `ipconfig` on windows or `ifconfig` on linux. On android you can find the ip address in the wifi settings.
+Нажмите на это и вы увидите диалоговое окно. Введите адрес подключения здесь.
+Если вы находитесь в той же сети, вы можете использовать локальный IP адрес компьютера, на котором работает сервер.
+URL должен выглядеть следующим образом: `ws://{ip}:28005`. Замените `{ip}` IP-адресом компьютера. Вы можете найти IP-адрес с командой `ipconfig` в windows или `ifconfig` в linux. На android вы можете найти ip адрес в настройках wifi.
 
-If you are not in the same network, you need to use the public ip address of the computer. You can find this by searching for `what is my ip` in your favorite search browser. The url should look like the one above, but with the public ip address.
+Если вы находитесь в одной сети, вам нужно использовать публичный IP-адрес компьютера. Вы можете найти это в поиске `what is my ip` в вашем любимом поисковом браузере. URL-адрес должен выглядеть как указано выше, но с публичным IP-адресом.
 
-If you use ngrok, the setup is a bit different. Replace the `https` with `wss` and add the port `:28005` at the end. The url should look like this: `wss://{random}:28005`. Replace the random part with the part that ngrok gives you.
+Если вы используете ngrok, установка немного отличается. Замените 'https' на 'wss' и добавьте порт `:28005` в конце. URL должен выглядеть следующим образом: `wss://{random}:28005`. Замените случайную часть частью, что ngrok дает вам.
