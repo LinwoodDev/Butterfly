@@ -4,50 +4,50 @@ sidebar_position: 4
 title: Collaborazione
 ---
 
-:::warning 🧪 Experiment
+:::warning 🧪 Esperimento
 
-This feature is behind an experiment flag. Read more [here](/nightly#experiments).
-Everything in this section is subject to change.
+Questa caratteristica è dietro una bandiera di esperimento. Leggi di più [here](/nightly#experiments).
+Tutto in questa sezione è soggetto a cambiamenti.
 
 :::
 
 ## Introduzione
 
-Sinced the 2.0 beta version, Butterfly supports collaboration. This means that you can edit the same file with multiple people at the same time. This is useful if you want to work together on a document.
+Con la versione beta 2.0, Butterfly supporta la collaborazione. Ciò significa che è possibile modificare lo stesso file con più persone allo stesso tempo. Questo è utile se si vuole lavorare insieme su un documento.
 
-## How it works
+## Come funziona
 
-Butterfly uses a websocket server that will be hosted on your computer. This server needs to be accessible from the internet or your local network. The client will connect to this server. The server sync all changes and events with all clients.
+Butterfly utilizza un server websocket che sarà ospitato sul tuo computer. Questo server deve essere accessibile da internet o dalla rete locale. Il client si connetterà a questo server. Il server sincronizza tutti i cambiamenti e gli eventi con tutti i client.
 
-## Setup the server
+## Imposta il server
 
 :::note
 
-This server feature is not available on the web.
+Questa funzione del server non è disponibile sul web.
 
 :::
 
-Firstly, enable the collaboration experiment in the settings. After that open your document you want to share. Then click on the share button in the top left corner right to the title. This will open a dialog. Click on `Start server`.
+In primo luogo, abilitare l'esperimento di collaborazione nelle impostazioni. Dopo aver aperto il documento che vuoi condividere. Quindi fare clic sul pulsante di condivisione nell'angolo in alto a sinistra a destra del titolo. Questo aprirà una finestra. Clicca su `Start server`.
 
-Default the server will be hosted on all interfaces on port `28005`. You can change this in the dialog. You need to make sure that this server is accessible to the client.
-In the local network this should work out of the box. If you want to access the server from the internet, you need to forward the port in your router. You can find more information about this [here](https://en.wikipedia.org/wiki/Port_forwarding/).
+Il server predefinito sarà ospitato su tutte le interfacce sulla porta `28005`. Puoi cambiarlo nella finestra di dialogo. È necessario assicurarsi che questo server sia accessibile al client.
+Nella rete locale questo dovrebbe funzionare fuori dalla scatola. Se si desidera accedere al server da Internet, è necessario inoltrare la porta nel router. Puoi trovare ulteriori informazioni su questa [here](https://en.wikipedia.org/wiki/Port_forwarding/).
 
-If you cannot forward the port, you can use a service like [ngrok](https://ngrok.com/). This will create a tunnel to your local server. This is useful if you want to share the document with other people.
+Se non puoi inoltrare la porta, puoi usare un servizio come [ngrok](https://ngrok.com/). Questo creerà un tunnel al tuo server locale. Questo è utile se vuoi condividere il documento con altre persone.
 
-For ngrok the command would look like this:
+Per ngrok il comando assomiglia a questo:
 
 ```bash
 ngrok http 28005
 ```
 
-## Connect to the server
+## Connetti al server
 
-Now you need to connect to the server. To do this, go to the home page and click on the plus button like you would create a new document. There you will see a new menu item called `Connect`.
+Ora è necessario connettersi al server. Per fare questo, vai alla home page e fai clic sul pulsante plus come crei un nuovo documento. Qui vedrai una nuova voce di menu chiamata `Connect`.
 
-Click on this and you will see a dialog. Enter the connection url here.
-If you are in the same network, you can use the local ip address of the computer where the server is running.
-The url should look like this: `ws://{ip}:28005`. Replace `{ip}` with the ip address of the computer. You can find the ip address with the command `ipconfig` on windows or `ifconfig` on linux. On android you can find the ip address in the wifi settings.
+Fare clic su questo e vedrai una finestra di dialogo. Inserisci qui l'url della connessione.
+Se si è nella stessa rete, è possibile utilizzare l'indirizzo IP locale del computer in cui il server è in esecuzione.
+L'url dovrebbe assomigliare a questo: `ws://{ip}:28005`. Sostituisci `{ip}` con l'indirizzo ip del computer. Puoi trovare l'indirizzo ip con il comando `ipconfig` su windows o `ifconfig` su linux. Su Android puoi trovare l'indirizzo ip nelle impostazioni wifi.
 
-If you are not in the same network, you need to use the public ip address of the computer. You can find this by searching for `what is my ip` in your favorite search browser. The url should look like the one above, but with the public ip address.
+Se non si è nella stessa rete, è necessario utilizzare l'indirizzo IP pubblico del computer. Puoi trovarlo cercando `qual è il mio ip` nel tuo browser di ricerca preferito. L'url dovrebbe assomigliare a quello sopra, ma con l'indirizzo IP pubblico.
 
-If you use ngrok, the setup is a bit different. Replace the `https` with `wss` and add the port `:28005` at the end. The url should look like this: `wss://{random}:28005`. Replace the random part with the part that ngrok gives you.
+Se usi ngrok, la configurazione è un po' diversa. Sostituisci il file `ж` con `wss` e aggiungi la porta `:28005` alla fine. L'url dovrebbe assomigliare a questo: `wss://{random}:28005`. Sostituisci la parte casuale con la parte che ngrok ti dà.
