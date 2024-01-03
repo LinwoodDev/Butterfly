@@ -1,5 +1,5 @@
 ---
-title: "Nightly Builds"
+title: "Yölliset Rakennukset"
 slug: "/nightly"
 ---
 
@@ -17,4 +17,4 @@ Mene alustasi lataussivujen luo. Kaikki yölliset rakennukset julkaistaan myös 
 
 ## Kokeet
 
-Experiments are features that are not ready for production yet. Default they are disabled. You can enable them in the settings under `Experiments`. This tab is only visible in the nightly version.
+Kokeet ovat ominaisuuksia, jotka eivät ole vielä valmiita tuotantoon. Oletus ne on poistettu käytöstä. Voit ottaa ne käyttöön asetuksissa `Kokeet`. Tämä välilehti näkyy vain yöllisessä versiossa.
