@@ -235,11 +235,21 @@ class FilesViewState extends State<FilesView> {
       ),
       const SizedBox(height: 16),
       LayoutBuilder(builder: (context, constraints) {
-        final searchBar = SearchBar(
-          onChanged: (value) => setState(() => _search = value),
-          hintText: AppLocalizations.of(context).search,
-          leading: const PhosphorIcon(PhosphorIconsLight.magnifyingGlass),
-        );
+        final searchBar = Row(children: [
+          IconButton(
+            onPressed: reloadFileSystem,
+            tooltip: AppLocalizations.of(context).refresh,
+            icon: const PhosphorIcon(PhosphorIconsLight.arrowClockwise),
+          ),
+          const SizedBox(width: 8),
+          Expanded(
+            child: SearchBar(
+              onChanged: (value) => setState(() => _search = value),
+              hintText: AppLocalizations.of(context).search,
+              leading: const PhosphorIcon(PhosphorIconsLight.magnifyingGlass),
+            ),
+          ),
+        ]);
         final locationBar = BlocBuilder<SettingsCubit, ButterflySettings>(
           buildWhen: (previous, current) => previous.flags != current.flags,
           builder: (context, settings) => Row(
@@ -393,9 +403,9 @@ class FilesViewState extends State<FilesView> {
           return Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Expanded(flex: 3, child: locationBar),
+              Expanded(child: locationBar),
               const SizedBox(width: 8),
-              SizedBox(width: 150, child: searchBar),
+              SizedBox(width: 250, child: searchBar),
             ],
           );
         } else {
