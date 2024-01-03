@@ -4,50 +4,50 @@ sidebar_position: 4
 title: Співпраця
 ---
 
-:::warning 🧪 Experiment
+:::warning 🧪 експеримент
 
-This feature is behind an experiment flag. Read more [here](/nightly#experiments).
-Everything in this section is subject to change.
+Ця функція стоїть за прапором експерименту. Read more [here](/nightly#experiments).
+Все в цьому розділі буде предметом змін.
 
 :::
 
 ## Вступ
 
-Sinced the 2.0 beta version, Butterfly supports collaboration. This means that you can edit the same file with multiple people at the same time. This is useful if you want to work together on a document.
+Як підтримав бета-версію 2.0, Butterfly підтримує співпрацю. Це означає, що ви можете редагувати один і той же файл з кількома людьми одночасно. Це корисно, якщо ви хочете працювати разом на документі.
 
-## How it works
+## Як це працює
 
-Butterfly uses a websocket server that will be hosted on your computer. This server needs to be accessible from the internet or your local network. The client will connect to this server. The server sync all changes and events with all clients.
+Метелик використовує сервер webсокету, який буде розміщений на вашому комп'ютері. Цей сервер повинен бути доступним з Інтернету або вашої локальної мережі. Клієнт буде підключений до цього сервера. Сервер синхронізує всі зміни і події з усіма клієнтами.
 
-## Setup the server
+## Налаштування сервера
 
 :::note
 
-This server feature is not available on the web.
+Ця функція сервера недоступна в інтернеті.
 
 :::
 
-Firstly, enable the collaboration experiment in the settings. After that open your document you want to share. Then click on the share button in the top left corner right to the title. This will open a dialog. Click on `Start server`.
+Спершу дозвольте спільний експеримент в налаштуваннях. Після цього відкрийте документ, яким ви хочете поділитися. Потім натисніть кнопку "Поділитися" у лівому верхньому куті праворуч від назви. Відкриється діалог. Натисніть на `початковий сервер`.
 
-Default the server will be hosted on all interfaces on port `28005`. You can change this in the dialog. You need to make sure that this server is accessible to the client.
-In the local network this should work out of the box. If you want to access the server from the internet, you need to forward the port in your router. You can find more information about this [here](https://en.wikipedia.org/wiki/Port_forwarding/).
+Сервер буде розміщений на всіх інтерфейсах на порту `28005`. Ви можете змінити це у діалоговому вікні. Вам потрібно переконатися, що цей сервер доступний клієнту.
+У локальній мережі це має працювати з коробкою. Якщо ви хочете отримати доступ до сервера з Інтернету, вам потрібно переслати порт у маршрутизаторі. Ви можете знайти більш детальну інформацію про це [here](https://en.wikipedia.org/wiki/Port_forwarding/).
 
-If you cannot forward the port, you can use a service like [ngrok](https://ngrok.com/). This will create a tunnel to your local server. This is useful if you want to share the document with other people.
+If you cannot forward the port, you can use a service like [ngrok](https://ngrok.com/). Це створить тунель на вашому локальному сервері. Це є корисно, якщо ви хочете поділитися документом з іншими людьми.
 
-For ngrok the command would look like this:
+Для ngrok команда виглядатиме так:
 
 ```bash
 ngrok http 28005
 ```
 
-## Connect to the server
+## З'єднатися з сервером
 
-Now you need to connect to the server. To do this, go to the home page and click on the plus button like you would create a new document. There you will see a new menu item called `Connect`.
+Тепер необхідно підключитися до сервера. Для цього перейдіть на домашню сторінку та натисніть на кнопку з плюсом, створивши новий документ. Там ви побачите новий пункт меню під назвою "Підключення".
 
-Click on this and you will see a dialog. Enter the connection url here.
-If you are in the same network, you can use the local ip address of the computer where the server is running.
-The url should look like this: `ws://{ip}:28005`. Replace `{ip}` with the ip address of the computer. You can find the ip address with the command `ipconfig` on windows or `ifconfig` on linux. On android you can find the ip address in the wifi settings.
+Натисніть на це і ви побачите діалог. Введіть URL-адресу підключення тут.
+Якщо ви перебуваєте в одній мережі, то можете використовувати локальну IP-адресу комп'ютера, в якому працює сервер.
+URL-адреса має виглядати так: `ws://{ip}:28005`. Замінити `{ip}` ip адресою комп'ютера. Ви можете знайти IP-адресу за допомогою команди `ipconfig` у вікні або `ifconfig` на linux. На Андроїд ви можете знайти IP-адресу в налаштуваннях Wi-Fi.
 
-If you are not in the same network, you need to use the public ip address of the computer. You can find this by searching for `what is my ip` in your favorite search browser. The url should look like the one above, but with the public ip address.
+Якщо ви не в тій же мережі, то вам потрібно використовувати IP-адресу комп'ютера. Ви можете знайти це, шукаючи `що таке мій ip` в улюбленому вікні пошуку. URL повинен виглядати як зверху, але з публічною IP-адресою.
 
-If you use ngrok, the setup is a bit different. Replace the `https` with `wss` and add the port `:28005` at the end. The url should look like this: `wss://{random}:28005`. Replace the random part with the part that ngrok gives you.
+Якщо ви використовуєте ngrok, налаштування трохи відрізняються. Замінити `https` `ws` і додати порт `:28005` в кінці. URL-адреса має виглядати так: `wss://{random}:28005`. Замініть випадкову частину тієї частини, яку дає ngrok.
