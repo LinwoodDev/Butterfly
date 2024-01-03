@@ -6,48 +6,48 @@ title: Colaborare
 
 :::warning 🧪 Experiment
 
-This feature is behind an experiment flag. Read more [here](/nightly#experiments).
-Everything in this section is subject to change.
+Această caracteristică se află în spatele unui steag pentru experimente. Citește mai mult [here](/nightly#experiments).
+Totul din această secţiune este supus schimbării.
 
 :::
 
 ## Introducere
 
-Sinced the 2.0 beta version, Butterfly supports collaboration. This means that you can edit the same file with multiple people at the same time. This is useful if you want to work together on a document.
+Sincer versiunea 2.0 beta, Butterfly suportă colaborarea. Asta înseamnă că poți edita același fișier cu mai multe persoane în același timp. Acest lucru este util dacă doriţi să lucraţi împreună la un document.
 
-## How it works
+## Cum funcţionează
 
-Butterfly uses a websocket server that will be hosted on your computer. This server needs to be accessible from the internet or your local network. The client will connect to this server. The server sync all changes and events with all clients.
+Butterfly folosește un server websocket care va fi găzduit pe calculatorul tău. Acest server trebuie să fie accesibil de pe internet sau rețeaua dvs. locală. Clientul se va conecta la acest server. Serverul sincronizează toate modificările și evenimentele cu toți clienții.
 
-## Setup the server
+## Configurați serverul
 
 :::note
 
-This server feature is not available on the web.
+Această caracteristică de server nu este disponibilă pe web.
 
 :::
 
-Firstly, enable the collaboration experiment in the settings. After that open your document you want to share. Then click on the share button in the top left corner right to the title. This will open a dialog. Click on `Start server`.
+În primul rând, să permită experimentul de colaborare în setări. După ce deschideți documentul dvs. doriți să partajați. Apoi dă click pe butonul de partajare din colțul din stânga sus spre titlu. Aceasta va deschide un dialog. Faceți clic pe `Start server`.
 
-Default the server will be hosted on all interfaces on port `28005`. You can change this in the dialog. You need to make sure that this server is accessible to the client.
-In the local network this should work out of the box. If you want to access the server from the internet, you need to forward the port in your router. You can find more information about this [here](https://en.wikipedia.org/wiki/Port_forwarding/).
+Serverul implicit va fi găzduit pe toate interfeţele de pe portul `28005`. Puteți schimba acest lucru în dialog. Trebuie să te asiguri că acest server este accesibil clientului.
+În rețeaua locală, acest lucru ar trebui să funcționeze din cutie. Dacă doriți să accesați serverul de pe internet, trebuie să redirecționați portul din router. Mai multe informații despre acest [here](https://en.wikipedia.org/wiki/Port_forwarding/).
 
-If you cannot forward the port, you can use a service like [ngrok](https://ngrok.com/). This will create a tunnel to your local server. This is useful if you want to share the document with other people.
+Dacă nu puteți redirecționa portul, puteți folosi un serviciu ca [ngrok](https://ngrok.com/). Acest lucru va crea un tunel pentru serverul dvs. local. Acest lucru este util dacă doriţi să partajaţi documentul cu alte persoane.
 
-For ngrok the command would look like this:
+Pentru ngrok, comanda ar arăta așa:
 
 ```bash
 ngrok http 28005
 ```
 
-## Connect to the server
+## Conectează-te la server
 
-Now you need to connect to the server. To do this, go to the home page and click on the plus button like you would create a new document. There you will see a new menu item called `Connect`.
+Acum trebuie să te conectezi la server. Pentru a face acest lucru, mergi la pagina principală şi apasă pe butonul plus ca ai crea un nou document. Acolo veți vedea un element de meniu nou, numit `Connect`.
 
-Click on this and you will see a dialog. Enter the connection url here.
-If you are in the same network, you can use the local ip address of the computer where the server is running.
-The url should look like this: `ws://{ip}:28005`. Replace `{ip}` with the ip address of the computer. You can find the ip address with the command `ipconfig` on windows or `ifconfig` on linux. On android you can find the ip address in the wifi settings.
+Faceți clic pe acest lucru și veți vedea un dialog. Introduceți URL-ul de conectare aici.
+Dacă vă aflați în aceeași rețea, puteți utiliza adresa ip locală a calculatorului pe care rulează serverul.
+Url-ul ar trebui să arate astfel: `ws://{ip}:28005`. Înlocuiți `{ip}` cu adresa ip a calculatorului. Puteți găsi adresa ip cu comanda `ipconfig` pe windows sau `ifconfig` pe linux. Pe android puteţi găsi adresa ip în setările Wi-Fi.
 
-If you are not in the same network, you need to use the public ip address of the computer. You can find this by searching for `what is my ip` in your favorite search browser. The url should look like the one above, but with the public ip address.
+Dacă nu sunteți în aceeași rețea, trebuie să utilizați adresa ip publică a calculatorului. Poți găsi acest lucru căutând `ceea ce este ip`-ul meu\` în browserul tău de căutare preferat. Url-ul ar trebui să arate ca cel de mai sus, dar cu adresa ip publică.
 
-If you use ngrok, the setup is a bit different. Replace the `https` with `wss` and add the port `:28005` at the end. The url should look like this: `wss://{random}:28005`. Replace the random part with the part that ngrok gives you.
+Dacă folosești ngrok, configurarea este puțin diferită. Înlocuiţi `http`` cu `wss`şi adăugaţi portul`:28005`la sfârşit. Url-ul ar trebui să arate astfel:`wss\://{random}:28005\`. Înlocuiește partea aleatoare cu partea pe care ți-o oferă ngrokul.
