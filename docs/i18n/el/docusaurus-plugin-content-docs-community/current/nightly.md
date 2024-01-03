@@ -1,5 +1,5 @@
 ---
-title: "Nightly Builds"
+title: "Νυχτερινά Κτίρια"
 slug: "/nightly"
 ---
 
@@ -17,4 +17,4 @@ slug: "/nightly"
 
 ## Πειράματα
 
-Experiments are features that are not ready for production yet. Default they are disabled. You can enable them in the settings under `Experiments`. This tab is only visible in the nightly version.
+Πειράματα είναι χαρακτηριστικά που δεν είναι ακόμα έτοιμα για παραγωγή. Προεπιλογή είναι απενεργοποιημένα. Μπορείτε να τις ενεργοποιήσετε στις ρυθμίσεις στην ενότητα `Experiments`. Αυτή η καρτέλα είναι ορατή μόνο στη νυχτερινή έκδοση.
