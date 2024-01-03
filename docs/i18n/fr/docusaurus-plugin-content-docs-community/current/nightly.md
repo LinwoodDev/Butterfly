@@ -1,9 +1,9 @@
 ---
-title: "Nightly Builds"
+title: "Compilations nocturnes"
 slug: "/nightly"
 ---
 
-:::warning
+:::avertissement
 
 Ne pas utiliser la version nocturne de Butterfly pour la production.
 
@@ -17,4 +17,4 @@ Allez sur les pages de téléchargement de votre plateforme. Toutes les versions
 
 ## Expériences
 
-Experiments are features that are not ready for production yet. Default they are disabled. You can enable them in the settings under `Experiments`. This tab is only visible in the nightly version.
+Les expériences sont des fonctionnalités qui ne sont pas encore prêtes pour la production. Par défaut, ils sont désactivés. Vous pouvez les activer dans les paramètres sous `Expériences`. Cet onglet n'est visible que dans la version nocturne.
