@@ -1,5 +1,5 @@
 ---
-title: "Nightly Builds"
+title: "المباني الليلية"
 slug: "/nightly"
 ---
 
@@ -17,4 +17,4 @@ slug: "/nightly"
 
 ## التجارب
 
-Experiments are features that are not ready for production yet. Default they are disabled. You can enable them in the settings under `Experiments`. This tab is only visible in the nightly version.
+التجارب هي ميزات غير جاهزة للإنتاج حتى الآن. فهي معطلة بشكل افتراضي. يمكنك تمكينهم في الإعدادات تحت `تجارب`. علامة التبويب هذه مرئية فقط في الإصدار الليلي.
