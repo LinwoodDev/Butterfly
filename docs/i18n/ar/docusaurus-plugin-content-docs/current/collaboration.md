@@ -4,50 +4,50 @@ sidebar_position: 4
 title: التعاون
 ---
 
-:::warning 🧪 Experiment
+:::warning 🧪 تجربة
 
-This feature is behind an experiment flag. Read more [here](/nightly#experiments).
-Everything in this section is subject to change.
+هذه الميزة وراء علم التجربة. اقرأ المزيد [here](/nightly#experiments).
+كل شيء في هذا القسم قابل للتغيير.
 
 :::
 
 ## مقدمة
 
-Sinced the 2.0 beta version, Butterfly supports collaboration. This means that you can edit the same file with multiple people at the same time. This is useful if you want to work together on a document.
+إصدارة بيتا 2.0 ، الفراشة تدعم التعاون. وهذا يعني أنه يمكنك تعديل نفس الملف مع أشخاص متعددين في نفس الوقت. وهذا أمر مفيد إذا أردت العمل معاً على وثيقة.
 
-## How it works
+## كيف يعمل
 
-Butterfly uses a websocket server that will be hosted on your computer. This server needs to be accessible from the internet or your local network. The client will connect to this server. The server sync all changes and events with all clients.
+الفراشة تستخدم خادم websocket الذي سيتم استضافته على جهاز الكمبيوتر. يجب أن يكون هذا الخادم متاحاً من الإنترنت أو من شبكتك المحلية. سيتصل العميل بهذا الخادم. مزامنة الخادم جميع التغييرات والأحداث مع جميع العملاء.
 
-## Setup the server
+## إعداد الخادم
 
 :::note
 
-This server feature is not available on the web.
+ميزة الخادم هذه غير متوفرة على الويب.
 
 :::
 
-Firstly, enable the collaboration experiment in the settings. After that open your document you want to share. Then click on the share button in the top left corner right to the title. This will open a dialog. Click on `Start server`.
+أولاً، تمكين تجربة التعاون في الإعدادات. بعد فتح المستند الخاص بك تريد مشاركته. ثم انقر فوق زر المشاركة في الزاوية اليسرى العلوية إلى اليمين إلى العنوان. هذا سيفتح مربع الحوار. انقر على `ابدأ الخادم`.
 
-Default the server will be hosted on all interfaces on port `28005`. You can change this in the dialog. You need to make sure that this server is accessible to the client.
-In the local network this should work out of the box. If you want to access the server from the internet, you need to forward the port in your router. You can find more information about this [here](https://en.wikipedia.org/wiki/Port_forwarding/).
+سيتم استضافة الخادم بشكل افتراضي على جميع واجهات المنفذ '28005\`. يمكنك تغيير هذا في مربع الحوار. تحتاج إلى التأكد من أن هذا الخادم متاح للعميل.
+وفي الشبكة المحلية ينبغي أن ينطلق هذا من الصندوق. إذا كنت ترغب في الوصول إلى الخادم من الإنترنت، تحتاج إلى إعادة توجيه المنفذ في جهاز التوجيه الخاص بك. ستجد المزيد من المعلومات حول هذا [here](https://en.wikipedia.org/wiki/Port_forwarding/).
 
-If you cannot forward the port, you can use a service like [ngrok](https://ngrok.com/). This will create a tunnel to your local server. This is useful if you want to share the document with other people.
+إذا لم تستطع إرسال المنفذ ، يمكنك استخدام خدمة مثل [ngrok](https://ngrok.com/). سيؤدي هذا إلى إنشاء نفق للخادم المحلي الخاص بك. هذا مفيد إذا أردت مشاركة الوثيقة مع أشخاص آخرين.
 
-For ngrok the command would look like this:
+بالنسبة للحرارة ، سيبدو الأمر هكذا:
 
 ```bash
 ngrok http 28005
 ```
 
-## Connect to the server
+## الاتصال بالخادم
 
-Now you need to connect to the server. To do this, go to the home page and click on the plus button like you would create a new document. There you will see a new menu item called `Connect`.
+الآن تحتاج إلى الاتصال بالخادم. للقيام بذلك، انتقل إلى الصفحة الرئيسية وانقر على الزر زائد كما يمكنك إنشاء مستند جديد. هناك سترى عنصر قائمة جديد يسمى 'اتصال'.
 
-Click on this and you will see a dialog. Enter the connection url here.
-If you are in the same network, you can use the local ip address of the computer where the server is running.
-The url should look like this: `ws://{ip}:28005`. Replace `{ip}` with the ip address of the computer. You can find the ip address with the command `ipconfig` on windows or `ifconfig` on linux. On android you can find the ip address in the wifi settings.
+انقر فوق هذا وسوف تشاهد مربع الحوار. أدخل رابط الاتصال هنا.
+إذا كنت في نفس الشبكة، يمكنك استخدام عنوان ip المحلي للكمبيوتر الذي يعمل فيه الخادم.
+يجب أن يبدو عنوان URL هكذا: `ws://{ip}:28005`. استبدل `{ip}` بالعنوان ip للكمبيوتر. يمكنك العثور على عنوان ip مع الأمر `ipconfig` على النوافذ أو `ifconfig` على linux. على الاندرويد يمكنك العثور على عنوان ip في إعدادات واي فاي.
 
-If you are not in the same network, you need to use the public ip address of the computer. You can find this by searching for `what is my ip` in your favorite search browser. The url should look like the one above, but with the public ip address.
+إذا لم تكن في نفس الشبكة، فأنت بحاجة إلى استخدام عنوان ip للجمهور في الكمبيوتر. يمكنك العثور على هذا من خلال البحث عن 'ما هو بي ip' في متصفح البحث المفضل لديك. يجب أن يبدو عنوان url مثل العنوان الوارد أعلاه، ولكن مع عنوان ip العام.
 
-If you use ngrok, the setup is a bit different. Replace the `https` with `wss` and add the port `:28005` at the end. The url should look like this: `wss://{random}:28005`. Replace the random part with the part that ngrok gives you.
+إذا كنت تستخدم ngrok، فإن الإعداد مختلف بعض الشيء. استبدل 'https` بـ 'wss' وأضف المنفذ ':28005` في النهاية. يجب أن يبدو عنوان URL مثل هذا: `wss://{random}:28005`. استبدل الجزء العشوائي بالجزء الذي يعطيه لك ngrok.
