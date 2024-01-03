@@ -1,5 +1,5 @@
 ---
-title: "Nightly Builds"
+title: "Ночные сборки"
 slug: "/nightly"
 ---
 
@@ -17,4 +17,4 @@ slug: "/nightly"
 
 ## Эксперимент
 
-Experiments are features that are not ready for production yet. Default they are disabled. You can enable them in the settings under `Experiments`. This tab is only visible in the nightly version.
+Эксперименты — это функции, которые еще не готовы к производству. По умолчанию они отключены. Вы можете включить их в настройках в разделе `эксперименты`. Эта вкладка видна только в ночной версии.
