@@ -1,5 +1,5 @@
 ---
-title: "Nightly Builds"
+title: "夜のビルド"
 slug: "/nightly"
 ---
 
@@ -17,4 +17,4 @@ Nightlyビルドは、最新バージョンをテストして最新の機能を�
 
 ## 実験
 
-Experiments are features that are not ready for production yet. Default they are disabled. You can enable them in the settings under `Experiments`. This tab is only visible in the nightly version.
+実験は、まだ制作の準備ができていない機能です。 デフォルトでは無効になっています `実験` の設定で有効にすることができます。 このタブは毎晩のバージョンでのみ表示されます。
