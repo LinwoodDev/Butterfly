@@ -1,5 +1,5 @@
 ---
-title: "Nightly Builds"
+title: "Kompilacje Nightly"
 slug: "/nightly"
 ---
 
@@ -17,4 +17,4 @@ Przejdź do stron pobierania platformy. Wszystkie wersje nocne są również pub
 
 ## Eksperymenty
 
-Experiments are features that are not ready for production yet. Default they are disabled. You can enable them in the settings under `Experiments`. This tab is only visible in the nightly version.
+Eksperymenty to funkcje, które nie są jeszcze gotowe do produkcji. Domyślnie są wyłączone. Możesz włączyć je w ustawieniach w sekcji `Eksperymenty`. Ta karta jest widoczna tylko w wersji nocnej.
