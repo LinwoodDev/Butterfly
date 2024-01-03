@@ -4,50 +4,50 @@ sidebar_position: 4
 title: Samarbejde
 ---
 
-:::warning 🧪 Experiment
+:::warning 🧪 Eksperiment
 
-This feature is behind an experiment flag. Read more [here](/nightly#experiments).
-Everything in this section is subject to change.
+Denne funktion er bag et eksperiment flag. Læs mere [here](/nighly#experiments).
+Alt i dette afsnit er genstand for forandring.
 
 :::
 
 ## Indledning
 
-Sinced the 2.0 beta version, Butterfly supports collaboration. This means that you can edit the same file with multiple people at the same time. This is useful if you want to work together on a document.
+På grund af 2.0 beta version, Butterfly understøtter samarbejde. Det betyder, at du kan redigere den samme fil med flere personer på samme tid. Dette er nyttigt, hvis du vil arbejde sammen om et dokument.
 
-## How it works
+## Sådan fungerer det
 
-Butterfly uses a websocket server that will be hosted on your computer. This server needs to be accessible from the internet or your local network. The client will connect to this server. The server sync all changes and events with all clients.
+Butterfly bruger en websocket server, der vil blive hostet på din computer. Denne server skal være tilgængelig fra internettet eller dit lokale netværk. Klienten vil forbinde til denne server. Serveren synkroniserer alle ændringer og begivenheder med alle klienter.
 
-## Setup the server
+## Indstil serveren
 
 :::note
 
-This server feature is not available on the web.
+Denne serverfunktion er ikke tilgængelig på nettet.
 
 :::
 
-Firstly, enable the collaboration experiment in the settings. After that open your document you want to share. Then click on the share button in the top left corner right to the title. This will open a dialog. Click on `Start server`.
+For det første muliggør samarbejdseksperimentet i indstillingerne. Efter at åbne dit dokument, du vil dele. Klik derefter på aktieknappen i øverste venstre hjørne til højre på titlen. Dette vil åbne en dialog. Klik på `Start server`.
 
-Default the server will be hosted on all interfaces on port `28005`. You can change this in the dialog. You need to make sure that this server is accessible to the client.
-In the local network this should work out of the box. If you want to access the server from the internet, you need to forward the port in your router. You can find more information about this [here](https://en.wikipedia.org/wiki/Port_forwarding/).
+Standard serveren vil blive hostet på alle grænseflader på port `28005`. Du kan ændre dette i dialogen. Du skal sørge for, at denne server er tilgængelig for klienten.
+I det lokale netværk bør dette arbejde ud af boksen. Hvis du ønsker at få adgang til serveren fra internettet, skal du videresende porten i din router. Du kan finde mere information om dette [here](https://en.wikipedia.org/wiki/Port_forwarding/).
 
-If you cannot forward the port, you can use a service like [ngrok](https://ngrok.com/). This will create a tunnel to your local server. This is useful if you want to share the document with other people.
+Hvis du ikke kan videresende porten, kan du bruge en tjeneste som [ngrok](https://ngrok.com/). Dette vil oprette en tunnel til din lokale server. Dette er nyttigt, hvis du vil dele dokumentet med andre mennesker.
 
-For ngrok the command would look like this:
+For ngrok kommandoen ville se sådan ud:
 
 ```bash
 ngrok http 28005
 ```
 
-## Connect to the server
+## Opret forbindelse til serveren
 
-Now you need to connect to the server. To do this, go to the home page and click on the plus button like you would create a new document. There you will see a new menu item called `Connect`.
+Nu skal du oprette forbindelse til serveren. For at gøre dette, gå til startsiden og klik på plus-knappen, som du vil oprette et nyt dokument. Der vil du se et nyt menupunkt kaldet `Connect`.
 
-Click on this and you will see a dialog. Enter the connection url here.
-If you are in the same network, you can use the local ip address of the computer where the server is running.
-The url should look like this: `ws://{ip}:28005`. Replace `{ip}` with the ip address of the computer. You can find the ip address with the command `ipconfig` on windows or `ifconfig` on linux. On android you can find the ip address in the wifi settings.
+Klik på dette og du vil se en dialog. Indtast forbindelses url her.
+Hvis du er i det samme netværk, kan du bruge den lokale IP-adresse på den computer, hvor serveren kører.
+Url skal se sådan ud: `ws://{ip}:28005`. Erstat `{ip}` med IP-adressen på computeren. Du kan finde IP-adressen med kommandoen `ipconfig` på vinduer eller `ifconfig` på linux. På android kan du finde IP-adressen i Wi-Fi-indstillinger.
 
-If you are not in the same network, you need to use the public ip address of the computer. You can find this by searching for `what is my ip` in your favorite search browser. The url should look like the one above, but with the public ip address.
+Hvis du ikke er i det samme netværk, skal du bruge computerens offentlige IP-adresse. Du kan finde dette ved at søge efter `hvad er min ip` i din foretrukne søgebrowser. Webadressen skal se ud som den ovenstående, men med den offentlige IP-adresse.
 
-If you use ngrok, the setup is a bit different. Replace the `https` with `wss` and add the port `:28005` at the end. The url should look like this: `wss://{random}:28005`. Replace the random part with the part that ngrok gives you.
+Hvis du bruger ngrok, opsætningen er en smule anderledes. Erstat `https` med `wss` og tilføj porten `:28005` i slutningen. URL'en skal se sådan ud: `wss://{random}:28005`. Erstat den tilfældige del med den del, ngrok giver dig.
