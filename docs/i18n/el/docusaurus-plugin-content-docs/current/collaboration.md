@@ -4,35 +4,35 @@ sidebar_position: 4
 title: Συνεργασία
 ---
 
-:::warning 🧪 Experiment
+:::warning 🧪 Πείραμα
 
-This feature is behind an experiment flag. Read more [here](/nightly#experiments).
-Everything in this section is subject to change.
+Αυτή η λειτουργία βρίσκεται πίσω από μια σημαία πειράματος. Διαβάστε περισσότερα [here](/nightly#experiments).
+Όλα σε αυτή την ενότητα υπόκεινται σε αλλαγή.
 
 :::
 
 ## Εισαγωγή
 
-Sinced the 2.0 beta version, Butterfly supports collaboration. This means that you can edit the same file with multiple people at the same time. This is useful if you want to work together on a document.
+Η έκδοση beta 2.0, Butterfly υποστηρίζει συνεργασία. Αυτό σημαίνει ότι μπορείτε να επεξεργαστείτε το ίδιο αρχείο με πολλά άτομα ταυτόχρονα. Αυτό είναι χρήσιμο αν θέλετε να εργαστείτε μαζί σε ένα έγγραφο.
 
-## How it works
+## Πώς λειτουργεί
 
-Butterfly uses a websocket server that will be hosted on your computer. This server needs to be accessible from the internet or your local network. The client will connect to this server. The server sync all changes and events with all clients.
+Το Butterfly χρησιμοποιεί έναν διακομιστή websocket που θα φιλοξενηθεί στον υπολογιστή σας. Αυτός ο διακομιστής πρέπει να είναι προσβάσιμος από το διαδίκτυο ή το τοπικό σας δίκτυο. Ο πελάτης θα συνδεθεί σε αυτόν τον διακομιστή. Ο διακομιστής συγχρονίζει όλες τις αλλαγές και τα γεγονότα με όλους τους πελάτες.
 
-## Setup the server
+## Ρύθμιση του διακομιστή
 
 :::note
 
-This server feature is not available on the web.
+Αυτή η λειτουργία του διακομιστή δεν είναι διαθέσιμη στο διαδίκτυο.
 
 :::
 
-Firstly, enable the collaboration experiment in the settings. After that open your document you want to share. Then click on the share button in the top left corner right to the title. This will open a dialog. Click on `Start server`.
+Πρώτον, ενεργοποιήστε το πείραμα συνεργασίας στις ρυθμίσεις. Μετά από αυτό ανοίξτε το έγγραφό σας που θέλετε να μοιραστείτε. Στη συνέχεια, κάντε κλικ στο κουμπί κοινοποίησης στην επάνω αριστερή γωνία δεξιά προς τον τίτλο. Αυτό θα ανοίξει ένα διάλογο. Κάντε κλικ στο `Start server`.
 
-Default the server will be hosted on all interfaces on port `28005`. You can change this in the dialog. You need to make sure that this server is accessible to the client.
-In the local network this should work out of the box. If you want to access the server from the internet, you need to forward the port in your router. You can find more information about this [here](https://en.wikipedia.org/wiki/Port_forwarding/).
+Προεπιλεγμένα ο διακομιστής θα φιλοξενείται σε όλες τις διεπαφές στη θύρα `28005`. Μπορείτε να το αλλάξετε στο διάλογο. Πρέπει να βεβαιωθείτε ότι αυτός ο διακομιστής είναι προσβάσιμος στον υπολογιστή-πελάτη.
+Στο τοπικό δίκτυο αυτό θα πρέπει να λειτουργήσει έξω από το κουτί. Αν θέλετε να αποκτήσετε πρόσβαση στο διακομιστή από το διαδίκτυο, θα πρέπει να προωθήσετε τη θύρα στον δρομολογητή σας. Μπορείτε να βρείτε περισσότερες πληροφορίες σχετικά με αυτό το [here](https://en.wikipedia.org/wiki/Port_forwarding/).
 
-If you cannot forward the port, you can use a service like [ngrok](https://ngrok.com/). This will create a tunnel to your local server. This is useful if you want to share the document with other people.
+Αν δεν μπορείτε να προωθήσετε την θύρα, μπορείτε να χρησιμοποιήσετε μια υπηρεσία όπως [ngrok](https://ngrok.com/). Αυτό θα δημιουργήσει μια διοχέτευση στον τοπικό σας διακομιστή. Αυτό είναι χρήσιμο αν θέλετε να μοιραστείτε το έγγραφο με άλλους ανθρώπους.
 
 For ngrok the command would look like this:
 
@@ -40,14 +40,14 @@ For ngrok the command would look like this:
 ngrok http 28005
 ```
 
-## Connect to the server
+## Σύνδεση στο διακομιστή
 
-Now you need to connect to the server. To do this, go to the home page and click on the plus button like you would create a new document. There you will see a new menu item called `Connect`.
+Τώρα πρέπει να συνδεθείτε στο διακομιστή. Για να το κάνετε αυτό, μεταβείτε στην αρχική σελίδα και κάντε κλικ στο κουμπί συν όπως θα δημιουργήσετε ένα νέο έγγραφο. Εκεί θα δείτε ένα νέο στοιχείο μενού που ονομάζεται `Connect`.
 
-Click on this and you will see a dialog. Enter the connection url here.
-If you are in the same network, you can use the local ip address of the computer where the server is running.
-The url should look like this: `ws://{ip}:28005`. Replace `{ip}` with the ip address of the computer. You can find the ip address with the command `ipconfig` on windows or `ifconfig` on linux. On android you can find the ip address in the wifi settings.
+Κάντε κλικ σε αυτό και θα δείτε ένα διάλογο. Εισάγετε εδώ το url σύνδεσης.
+Εάν βρίσκεστε στο ίδιο δίκτυο, μπορείτε να χρησιμοποιήσετε την τοπική διεύθυνση ip του υπολογιστή όπου εκτελείται ο διακομιστής.
+Το url θα πρέπει να μοιάζει κάπως έτσι: `w://{ip}:28005`. Αντικαταστήστε `{ip}` με τη διεύθυνση ip του υπολογιστή. Μπορείτε να βρείτε τη διεύθυνση ip με την εντολή `ipconfig` στα παράθυρα ή `ifconfig` στο linux. Στο Android μπορείτε να βρείτε τη διεύθυνση ip στις ρυθμίσεις wifi.
 
-If you are not in the same network, you need to use the public ip address of the computer. You can find this by searching for `what is my ip` in your favorite search browser. The url should look like the one above, but with the public ip address.
+Εάν δεν είστε στο ίδιο δίκτυο, πρέπει να χρησιμοποιήσετε τη δημόσια διεύθυνση ip του υπολογιστή. Μπορείτε να το βρείτε αναζητώντας το `τι είναι το δικό μου ip` στο αγαπημένο σας πρόγραμμα περιήγησης αναζήτησης. Το url θα πρέπει να μοιάζει με το παραπάνω αλλά με το δημόσιο ip διεύθυνση.
 
-If you use ngrok, the setup is a bit different. Replace the `https` with `wss` and add the port `:28005` at the end. The url should look like this: `wss://{random}:28005`. Replace the random part with the part that ngrok gives you.
+Αν χρησιμοποιείτε το ngrok, η ρύθμιση είναι λίγο διαφορετική. Αντικαταστήστε το `Ş` με το `wss` και προσθέστε τη θύρα `:28005` στο τέλος. Το url θα πρέπει να μοιάζει κάπως έτσι: `wss://{random}:28005`. Αντικαταστήστε το τυχαίο μέρος με το μέρος που σας δίνει.
