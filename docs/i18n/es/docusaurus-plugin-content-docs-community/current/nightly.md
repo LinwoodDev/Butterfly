@@ -1,9 +1,9 @@
 ---
-title: "Nightly Builds"
+title: "Construcciones nocturnas"
 slug: "/nightly"
 ---
 
-:::warning
+:::advertencia
 
 No utilice la versión nocturna de Butterfly para la producción.
 
@@ -17,4 +17,4 @@ Vaya a las páginas de descarga de su plataforma. Todas las compilaciones noctur
 
 ## Experimentos
 
-Experiments are features that are not ready for production yet. Default they are disabled. You can enable them in the settings under `Experiments`. This tab is only visible in the nightly version.
+Los expertos son características que aún no están listas para la producción. Por defecto están deshabilitados. Puedes activarlos en la configuración bajo `Experimentos`. Esta pestaña sólo es visible en la versión nocturna.
