@@ -1,5 +1,5 @@
 ---
-title: "Nightly Builds"
+title: "Nachtelijke builds"
 slug: "/nightly"
 ---
 
@@ -17,4 +17,4 @@ Ga naar de downloadpagina's van uw platform. Alle nightly builds worden ook gepu
 
 ## Experimenten
 
-Experiments are features that are not ready for production yet. Default they are disabled. You can enable them in the settings under `Experiments`. This tab is only visible in the nightly version.
+Experimenten zijn functies die nog niet klaar zijn voor productie. Standaard zijn ze uitgeschakeld. Je kunt ze inschakelen in de instellingen onder `Experimenten`. Dit tabblad is alleen zichtbaar in de nightly versie.
