@@ -1,5 +1,5 @@
 ---
-title: "Nightly Builds"
+title: "Noční sestavení"
 slug: "/nightly"
 ---
 
@@ -17,4 +17,4 @@ Přejděte na stránky pro stahování vaší platformy. Všechny noční sestav
 
 ## Experimenty
 
-Experiments are features that are not ready for production yet. Default they are disabled. You can enable them in the settings under `Experiments`. This tab is only visible in the nightly version.
+Experimenty jsou funkce, které ještě nejsou připraveny k výrobě. Ve výchozím nastavení jsou zakázány. Můžete je povolit v nastavení v `experimentech`. Tato karta je viditelná pouze v noční verzi.
