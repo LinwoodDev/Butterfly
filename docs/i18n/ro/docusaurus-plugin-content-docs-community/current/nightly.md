@@ -1,9 +1,9 @@
 ---
-title: "Nightly Builds"
+title: "Construire nocturnă"
 slug: "/nightly"
 ---
 
-:::warning
+:::Avertisment
 
 Nu utilizaţi versiunea nocturnă a Butterfly pentru producţie.
 
@@ -17,4 +17,4 @@ Mergeți la paginile de descărcare ale platformei dvs. Toate construcțiile noc
 
 ## Experimente
 
-Experiments are features that are not ready for production yet. Default they are disabled. You can enable them in the settings under `Experiments`. This tab is only visible in the nightly version.
+Experimentele sunt caracteristici care nu sunt încă gata pentru producție. În mod implicit acestea sunt dezactivate. Le puteți activa în setările de la punctul `Experiments`. Această filă este vizibilă doar în versiunea nocturnă.
