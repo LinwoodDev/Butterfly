@@ -1,5 +1,5 @@
 ---
-title: "Nightly Builds"
+title: "Costruzioni Notturne"
 slug: "/nightly"
 ---
 
@@ -17,4 +17,4 @@ Vai alla pagine di download della tua piattaforma. Tutte le costruzioni notturne
 
 ## Esperimenti
 
-Experiments are features that are not ready for production yet. Default they are disabled. You can enable them in the settings under `Experiments`. This tab is only visible in the nightly version.
+Gli esperimenti sono caratteristiche che non sono ancora pronte per la produzione. Predefinito sono disabilitati. Puoi abilitarli nelle impostazioni in `Experiments`. Questa scheda è visibile solo nella versione notturna.
