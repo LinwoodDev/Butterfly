@@ -6,48 +6,48 @@ title: 合作
 
 :::warning 🧪 Experiment
 
-This feature is behind an experiment flag. Read more [here](/nightly#experiments).
-Everything in this section is subject to change.
+此功能在实验旗帜后面。 阅读更多 [here](/夜间#experiments)。
+本节中的所有内容都会有变化。
 
 :::
 
 ## 一. 导言
 
-Sinced the 2.0 beta version, Butterfly supports collaboration. This means that you can edit the same file with multiple people at the same time. This is useful if you want to work together on a document.
+计入了 2.0 测试版，Butterfare 支持合作。 这意味着您可以同时与多人编辑相同的文件。 如果你想要在文档中一起工作，这将是有用的。
 
-## How it works
+## 它的工作方式
 
-Butterfly uses a websocket server that will be hosted on your computer. This server needs to be accessible from the internet or your local network. The client will connect to this server. The server sync all changes and events with all clients.
+Butterfirm使用一个将托管在您的计算机上的Websocket服务器。 此服务器需要能够从互联网或您的本地网络访问。 客户端将连接到此服务器。 服务器与所有客户端同步所有更改和事件。
 
-## Setup the server
+## 设置服务器
 
 :::note
 
-This server feature is not available on the web.
+此服务器功能在网络上不可用。
 
 :::
 
-Firstly, enable the collaboration experiment in the settings. After that open your document you want to share. Then click on the share button in the top left corner right to the title. This will open a dialog. Click on `Start server`.
+首先，在设置中启动协作实验。 打开文档后，您想要共享。 然后点击标题左上角的分享按钮。 这将打开一个对话框。 点击"启动服务器"。
 
-Default the server will be hosted on all interfaces on port `28005`. You can change this in the dialog. You need to make sure that this server is accessible to the client.
-In the local network this should work out of the box. If you want to access the server from the internet, you need to forward the port in your router. You can find more information about this [here](https://en.wikipedia.org/wiki/Port_forwarding/).
+默认服务器将在端口“28005”上的所有接口上被托管。 您可以在对话框中更改此项。 您需要确保客户端可以访问此服务器。
+在本地网络中，这应该能够用到箱子里面。 如果您想从互联网访问服务器，您需要在路由器中转发端口。 您可以找到更多关于 [here]的信息(https\://en.wikipedia.org/wiki/port_forwarding/)。
 
-If you cannot forward the port, you can use a service like [ngrok](https://ngrok.com/). This will create a tunnel to your local server. This is useful if you want to share the document with other people.
+如果您不能转发端口，您可以使用类似 [ngrok](https://ngrok.com/)。 这将为您的本地服务器创建一个隧道。 如果您想要与其他人分享文档，这是有用的。
 
-For ngrok the command would look like this:
+对于ngrok，命令看起来像这样：
 
 ```bash
 ngrok http 28005
 ```
 
-## Connect to the server
+## 连接到服务器
 
-Now you need to connect to the server. To do this, go to the home page and click on the plus button like you would create a new document. There you will see a new menu item called `Connect`.
+现在您需要连接到服务器。 要做到这一点，请前往主页并点击加号按钮创建新文档。 您将在这里看到一个名为“连接”的新菜单项。
 
-Click on this and you will see a dialog. Enter the connection url here.
-If you are in the same network, you can use the local ip address of the computer where the server is running.
-The url should look like this: `ws://{ip}:28005`. Replace `{ip}` with the ip address of the computer. You can find the ip address with the command `ipconfig` on windows or `ifconfig` on linux. On android you can find the ip address in the wifi settings.
+点击此项，您将看到一个对话框。 在此输入连接URL。
+如果您在同一网络中，您可以使用服务器运行的计算机的本地IP地址。
+The url should look like this: `ws://{ip}:28005`. Replace `{ip}` with the ip address of the computer. 您可以在窗口上找到命令`ipconfig`的IP地址或在linux上找到`ifconfig`。 在 android 上，您可以在 wifi 设置中找到IP地址。
 
-If you are not in the same network, you need to use the public ip address of the computer. You can find this by searching for `what is my ip` in your favorite search browser. The url should look like the one above, but with the public ip address.
+如果您不在同一网络中，您需要使用计算机的公共IP地址。 您可以通过在您最喜欢的搜索浏览器中搜索“我的ip”来找到这个问题。 这个网址应该像上面的网址，但是使用公共IP地址。
 
-If you use ngrok, the setup is a bit different. Replace the `https` with `wss` and add the port `:28005` at the end. The url should look like this: `wss://{random}:28005`. Replace the random part with the part that ngrok gives you.
+如果您使用ngrok，安装程序有些不同。 将`https://tns`替换为 `wss`，并在结尾处添加端口`:28005`。 The url should look like this: `wss://{random}:28005`. 将随机部件替换为ngrok给你的部件。
