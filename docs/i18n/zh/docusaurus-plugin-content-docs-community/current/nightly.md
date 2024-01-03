@@ -1,5 +1,5 @@
 ---
-title: "Nightly Builds"
+title: "每晚生成"
 slug: "/nightly"
 ---
 
@@ -17,4 +17,4 @@ slug: "/nightly"
 
 ## 实验
 
-Experiments are features that are not ready for production yet. Default they are disabled. You can enable them in the settings under `Experiments`. This tab is only visible in the nightly version.
+实验是尚未准备好生产的功能。 默认禁用。 You can enable them in the settings under `Experiments`. 此选项卡仅在夜间版本中可见。
