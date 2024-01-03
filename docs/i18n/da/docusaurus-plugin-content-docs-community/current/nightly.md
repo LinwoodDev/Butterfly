@@ -1,5 +1,5 @@
 ---
-title: "Nightly Builds"
+title: "Natlige Bygninger"
 slug: "/nightly"
 ---
 
@@ -17,4 +17,4 @@ Gå til download-siderne på din platform. Alle natlige bygger får også offent
 
 ## Eksperimenter
 
-Experiments are features that are not ready for production yet. Default they are disabled. You can enable them in the settings under `Experiments`. This tab is only visible in the nightly version.
+Eksperimenter er funktioner, der ikke er klar til produktion endnu. Standard de er deaktiveret. Du kan aktivere dem i indstillingerne under `Experiments`. Denne fane er kun synlig i natlig version.
