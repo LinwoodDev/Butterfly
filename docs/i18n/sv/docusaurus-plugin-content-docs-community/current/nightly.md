@@ -1,5 +1,5 @@
 ---
-title: "Nightly Builds"
+title: "Nattliga byggnader"
 slug: "/nightly"
 ---
 
@@ -17,4 +17,4 @@ Gå till nedladdningssidorna på din plattform. Alla nattliga byggen publiceras 
 
 ## Experiment
 
-Experiments are features that are not ready for production yet. Default they are disabled. You can enable them in the settings under `Experiments`. This tab is only visible in the nightly version.
+Experiment är funktioner som ännu inte är redo för produktion. Standard de är inaktiverade. Du kan aktivera dem i inställningarna under `Experiment`. Denna flik syns bara i den nattliga versionen.
