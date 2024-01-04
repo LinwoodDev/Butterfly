@@ -21,10 +21,10 @@ packages:
     dependency: "direct main"
     description:
       name: animations
-      sha256: "708e4b68c23228c264b038fe7003a2f5d01ce85fc64d8cae090e86b27fcea6c5"
+      sha256: d3d6dcfb218225bbe68e87ccf6378bbb2e32a94900722c5f81611dad089911cb
       url: "https://pub.dev"
     source: hosted
-    version: "2.0.10"
+    version: "2.0.11"
   ansicolor:
     dependency: transitive
     description:
@@ -172,10 +172,10 @@ packages:
     dependency: "direct main"
     description:
       name: camera
-      sha256: "7fa53bb1c2059e58bf86b7ab506e3b2a78e42f82d365b44b013239b975a166ef"
+      sha256: f3813a634fd1350a9d2a78ee70e5b247cebedc9c58a24560992620e57a8a5600
       url: "https://pub.dev"
     source: hosted
-    version: "0.10.5+7"
+    version: "0.10.5+8"
   camera_android:
     dependency: transitive
     description:
@@ -212,10 +212,10 @@ packages:
     dependency: "direct main"
     description:
       name: camera_windows
-      sha256: "128ed4d05ec4da10e1be977e8b37940db607a9d832250ca5fb52d9fa78c72037"
+      sha256: "4c30434a87f17b123c1db52e50fbcfb3a847c4bc8d1abc1087b0a8703e30d06d"
       url: "https://pub.dev"
     source: hosted
-    version: "0.2.1+8"
+    version: "0.2.1+9"
   characters:
     dependency: transitive
     description:
@@ -643,10 +643,10 @@ packages:
     dependency: "direct main"
     description:
       name: go_router
-      sha256: ca7e4a2249f96773152f1853fa25933ac752495cdd7fdf5dafb9691bd05830fd
+      sha256: "3b40e751eaaa855179b416974d59d29669e750d2e50fcdb2b37f1cb0ca8c803a"
       url: "https://pub.dev"
     source: hosted
-    version: "13.0.0"
+    version: "13.0.1"
   graphs:
     dependency: transitive
     description:
@@ -796,8 +796,8 @@ packages:
     dependency: "direct main"
     description:
       path: "packages/material_leap"
-      ref: "781b9db010dd8a6f43350e8ef70d25f863a6c2cf"
-      resolved-ref: "781b9db010dd8a6f43350e8ef70d25f863a6c2cf"
+      ref: f6161499b096f1d0bf55acbd0f6d8a58330a40e6
+      resolved-ref: f6161499b096f1d0bf55acbd0f6d8a58330a40e6
       url: "https://github.com/LinwoodDev/dart_pkgs.git"
     source: git
     version: "0.0.1"

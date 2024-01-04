@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:ui';
 
+import 'package:butterfly/api/open.dart';
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/widgets/window.dart';
 import 'package:file_selector/file_selector.dart';
@@ -25,6 +26,10 @@ class ExperimentsSettingsPage extends StatelessWidget {
           icon: PhosphorIcons.chatTeardrop,
         )
       ];
+
+  static const Map<String, String> _featureHelps = {
+    'collaboration': 'collaboration',
+  };
 
   @override
   Widget build(BuildContext context) {
@@ -55,8 +60,9 @@ class ExperimentsSettingsPage extends StatelessWidget {
                   itemCount: experiments.length,
                   itemBuilder: (context, index) {
                     final experiment = experiments[index];
+                    final currentHelp = _featureHelps[experiment.name];
                     final enabled = state.flags.contains(experiment.name);
-                    return SwitchListTile(
+                    return AdvancedSwitchListTile(
                       value: enabled,
                       onChanged: (value) {
                         final cubit = context.read<SettingsCubit>();
@@ -67,8 +73,11 @@ class ExperimentsSettingsPage extends StatelessWidget {
                         }
                       },
                       title: Text(experiment.description),
-                      secondary: PhosphorIcon(
+                      leading: PhosphorIcon(
                           experiment.icon(PhosphorIconsStyle.light)),
+                      onTap: currentHelp == null
+                          ? null
+                          : () => openHelp([currentHelp]),
                     );
                   });
             }));

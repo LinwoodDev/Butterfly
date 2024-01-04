@@ -40,12 +40,12 @@ dependencies:
   share_plus: ^7.2.1
   package_info_plus: ^5.0.1
   idb_shim: ^2.3.2
-  go_router: ^13.0.0
+  go_router: ^13.0.1
   xml: ^6.5.0
   collection: ^1.18.0
   bloc_concurrency: ^0.2.3
-  camera: ^0.10.5+7
-  camera_windows: ^0.2.1+8
+  camera: ^0.10.5+8
+  camera_windows: ^0.2.1+9
   window_manager: ^0.3.7
   flex_color_scheme: ^7.3.1
   freezed_annotation: ^2.4.1
@@ -59,7 +59,7 @@ dependencies:
   equatable: ^2.0.5
   rxdart: ^0.27.7
   archive: ^3.4.10
-  animations: ^2.0.10
+  animations: ^2.0.11
   connectivity_plus: ^5.0.2
   cross_file: ^0.3.3+8
   args: ^2.4.2
@@ -70,7 +70,7 @@ dependencies:
   material_leap:
     git:
       url: https://github.com/LinwoodDev/dart_pkgs.git
-      ref: 781b9db010dd8a6f43350e8ef70d25f863a6c2cf
+      ref: f6161499b096f1d0bf55acbd0f6d8a58330a40e6
       path: packages/material_leap
   lw_sysinfo:
     git:
