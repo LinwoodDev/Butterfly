@@ -58,7 +58,9 @@ extension ToolVisualizer on Tool {
         import: (_) => PhosphorIcons.arrowSquareIn,
         undo: (_) => PhosphorIcons.arrowCounterClockwise,
         redo: (_) => PhosphorIcons.arrowClockwise,
-        label: (_) => PhosphorIcons.textT,
+        label: (tool) => tool.mode == LabelMode.markdown
+            ? PhosphorIcons.textbox
+            : PhosphorIcons.textT,
         pen: (tool) => DisplayIcons.from(tool),
         eraser: (_) => PhosphorIcons.eraser,
         pathEraser: (_) => PhosphorIcons.path,

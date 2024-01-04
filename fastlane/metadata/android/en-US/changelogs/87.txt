@@ -1,8 +1,11 @@
 * Add refresh button to quickstart
 * Add refresh button to file view
 * Add link to experiment
+* Add extra icon for label markdown mode
+* Improve spacing in add dialog
 * Fix markdown label editing
 * Fix not working new line
 * Fix asset card missing ripple effect
 * Fix rename saved function will be triggered multiple times
 * Fix pen property view
+* Fix label editing when selecting different text input

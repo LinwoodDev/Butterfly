@@ -54,6 +54,7 @@ class AddDialog extends StatelessWidget {
           tool.getLocalizedName(context),
           textAlign: TextAlign.center,
         ),
+        size: 120,
         subtitle: caption.isEmpty ? null : Text(caption),
         icon: Padding(
           padding: const EdgeInsets.all(8.0),
@@ -118,6 +119,7 @@ class AddDialog extends StatelessWidget {
                 ],
               ),
             ),
+            const SizedBox(height: 8),
             Expanded(
               child: Material(
                 type: MaterialType.transparency,
@@ -227,7 +229,7 @@ class AddDialog extends StatelessWidget {
                                           )
                                           .toList(),
                                     ),
-                                    const SizedBox(height: 32),
+                                    const SizedBox(height: 16),
                                   ],
                                   if (tools.isNotEmpty) ...[
                                     _ToolsListView(
@@ -235,7 +237,7 @@ class AddDialog extends StatelessWidget {
                                       title: AppLocalizations.of(context).tools,
                                       children: tools.map(buildTool).toList(),
                                     ),
-                                    const SizedBox(height: 32),
+                                    const SizedBox(height: 16),
                                   ],
                                   if (shapes.isNotEmpty ||
                                       textures.isNotEmpty) ...[
@@ -267,7 +269,7 @@ class AddDialog extends StatelessWidget {
                                             )),
                                       ],
                                     ),
-                                    const SizedBox(height: 32),
+                                    const SizedBox(height: 16),
                                   ],
                                   if (actions.isNotEmpty) ...[
                                     _ToolsListView(
@@ -310,7 +312,6 @@ class _ToolsListView extends StatelessWidget {
           style: Theme.of(context).textTheme.bodyLarge,
           textAlign: TextAlign.center,
         ),
-        const SizedBox(height: 16),
         if (isMobile)
           SizedBox(
             height: 130,
@@ -325,7 +326,7 @@ class _ToolsListView extends StatelessWidget {
           )
         else
           Padding(
-            padding: const EdgeInsets.all(8),
+            padding: const EdgeInsets.all(4),
             child: Wrap(
               alignment: WrapAlignment.start,
               children: children,

@@ -391,8 +391,12 @@ class LabelHandler extends Handler<LabelTool>
     );
   }
 
-  void _updateEditingState() =>
-      _connection?.setEditingState(currentTextEditingValue);
+  void _updateEditingState() {
+    if (!(_connection?.attached ?? false)) {
+      _connection = null;
+    }
+    _connection?.setEditingState(currentTextEditingValue);
+  }
 
   @override
   void performAction(TextInputAction action) {
