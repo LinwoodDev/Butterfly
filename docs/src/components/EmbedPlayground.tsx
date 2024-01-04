@@ -10,7 +10,13 @@ export default function EmbedPlayground() {
     <div>
       <div className="input-group">
         <label htmlFor="language">Host</label>
-        <input className="input" type="text" value={host} id="language" onChange={(e) => setHost(e.target.value)} />
+        <input className="input" type="text" value={host} id="host" readOnly />
+        <div className="grid">
+            <button className="button button--outline button--secondary" onClick={() => setHost("https://butterfly.linwood.dev")}>Main</button>
+            <button className="button button--outline button--secondary" onClick={() => setHost("https://preview.butterfly.linwood.dev")}>Preview</button>
+            <button className="button button--outline button--secondary" onClick={() => setHost("https://v1.butterfly.linwood.dev")}>V1</button>
+            <button className="button button--outline button--secondary" onClick={() => setHost("https://v2.butterfly.linwood.dev")}>V2</button>
+        </div>
       </div>
       <label className="checkbox">Save
         <input type="checkbox" checked={save} id="save" onChange={() => setSave(!save)} />
