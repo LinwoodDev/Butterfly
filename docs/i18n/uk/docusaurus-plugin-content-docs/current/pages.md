@@ -3,7 +3,7 @@ title: Сторінки
 sidebar_position: 2
 ---
 
-Pages are a way to organize your notes.
-If you add a slash in the title of a page, you can create folders.
+Сторінки — це спосіб впорядковувати свої нотатки.
+Якщо додати слеш у заголовок сторінки, можна створити теки.
 
-Use the page navigator page to create and manage pages.
+Використовуйте сторінку для створення та управління сторінками.
