@@ -3,6 +3,6 @@ title: Pontos
 sidebar_position: 2
 ---
 
-With waypoints you can save important locations in your notes. You can use them to navigate through your notes.
+Com os waypoints você pode salvar locais importantes em suas notas. Você pode usá-los para navegar pelas suas anotações.
 
-Use the waypoint navigator page to create and manage waypoints.
+Use a página do navegador de waypoint para criar e gerenciar waypoints.
