@@ -3,7 +3,7 @@ title: Stránky
 sidebar_position: 2
 ---
 
-Pages are a way to organize your notes.
-If you add a slash in the title of a page, you can create folders.
+Stránky jsou způsob, jak uspořádat vaše poznámky.
+Pokud přidáte lomítko do názvu stránky, můžete vytvořit složky.
 
-Use the page navigator page to create and manage pages.
+Použijte stránku navigátoru pro vytváření a správu stránek.
