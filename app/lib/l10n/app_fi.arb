@@ -582,5 +582,6 @@
   },
   "continueAnyway": "Jatka joka tapauksessa",
   "zoomControl": "Zoomauksen hallinta",
-  "highContrast": "Korkea kontrasti"
+  "highContrast": "Korkea kontrasti",
+  "shouldANumber": "This value should be valid number"
 }
