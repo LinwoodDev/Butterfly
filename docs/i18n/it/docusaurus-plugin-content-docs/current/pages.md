@@ -3,7 +3,7 @@ title: Pagine
 sidebar_position: 2
 ---
 
-Pages are a way to organize your notes.
-If you add a slash in the title of a page, you can create folders.
+Le pagine sono un modo per organizzare le note.
+Se aggiungi una barra nel titolo di una pagina, puoi creare delle cartelle.
 
-Use the page navigator page to create and manage pages.
+Usa la pagina di navigazione per creare e gestire le pagine.
