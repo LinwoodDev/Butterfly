@@ -3,7 +3,7 @@ title: Sivut
 sidebar_position: 2
 ---
 
-Pages are a way to organize your notes.
-If you add a slash in the title of a page, you can create folders.
+Sivut ovat tapa järjestää muistiinpanoja.
+Jos lisäät kauttaviivan sivun otsikkoon, voit luoda kansioita. @ option: check
 
-Use the page navigator page to create and manage pages.
+Käytä sivujen navigaattori sivua luodaksesi ja hallitaksesi sivuja.
