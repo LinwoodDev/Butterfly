@@ -3,7 +3,7 @@ title: "包"
 sidebar_position: 2
 ---
 
-A pack is a collection of components that can be used in the stamp tool. 您可以创建您自己的包或导入现有包。 点击左上角，然后点击"包"。
+包是一个可以用于标记工具的组件集合。 您可以创建您自己的包或导入现有包。 点击左上角，然后点击"包"。
 
 ## 属性
 
@@ -15,6 +15,6 @@ A pack is a collection of components that can be used in the stamp tool. 您可�
 
 ### 组件
 
-Components are a way to save elements that you use often. You can create your own components or import an existing one using packs.
+组件是保存您经常使用的元素的一种方式。 您可以创建您自己的组件或使用包导入一个现有的组件。
 
-Use the components navigator page to paste components into your notes.
+使用组件导航页面将组件粘贴到您的笔记中。
