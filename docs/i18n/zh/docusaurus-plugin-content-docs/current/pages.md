@@ -3,7 +3,7 @@ title: 页 次
 sidebar_position: 2
 ---
 
-Pages are a way to organize your notes.
-If you add a slash in the title of a page, you can create folders.
+页面是组织您的笔记的一种方式。
+如果您在页面标题中添加斜杠，您可以创建文件夹。
 
-Use the page navigator page to create and manage pages.
+使用页面导航页面创建和管理页面。
