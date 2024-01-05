@@ -3,7 +3,7 @@ title: Pagini
 sidebar_position: 2
 ---
 
-Pages are a way to organize your notes.
-If you add a slash in the title of a page, you can create folders.
+Paginile sunt o modalitate de a vă organiza notiţele.
+Dacă adăugați un slash în titlul unei pagini, puteți crea foldere.
 
-Use the page navigator page to create and manage pages.
+Utilizați pagina de navigare a paginii pentru a crea și gestiona pagini.
