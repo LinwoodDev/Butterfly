@@ -3,7 +3,7 @@ title: "Paketti"
 sidebar_position: 2
 ---
 
-A pack is a collection of components that can be used in the stamp tool. You can create your own pack or import an existing one. For this click on the top left corner and click on "Packs".
+Pakkaus on kokoelma komponentteja, joita voidaan käyttää leima työkalu. Voit luoda oman pakettisi tai tuoda olemassa olevan paketin. Tätä varten klikkaa vasemmassa yläkulmassa ja klikkaa "Pakkaukset".
 
 ## Ominaisuudet
 
@@ -15,6 +15,6 @@ A pack is a collection of components that can be used in the stamp tool. You can
 
 ### Komponentit
 
-Components are a way to save elements that you use often. You can create your own components or import an existing one using packs.
+Komponentit ovat tapa tallentaa elementtejä, joita käytät usein. Voit luoda omia komponentteja tai tuoda olemassa olevia komponentteja käyttäen paketteja.
 
-Use the components navigator page to paste components into your notes.
+Käytä osien navigaattori sivua liittämään komponentit muistiinpanoihin.
