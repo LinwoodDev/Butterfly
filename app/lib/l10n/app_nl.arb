@@ -582,5 +582,6 @@
   },
   "continueAnyway": "Toch doorgaan",
   "zoomControl": "Zoom beheer",
-  "highContrast": "Hoog contrast"
+  "highContrast": "Hoog contrast",
+  "shouldANumber": "This value should be valid number"
 }
