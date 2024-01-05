@@ -3,7 +3,7 @@ title: ページ
 sidebar_position: 2
 ---
 
-Pages are a way to organize your notes.
-If you add a slash in the title of a page, you can create folders.
+ページはノートを整理する方法です。
+ページのタイトルにスラッシュを追加すると、フォルダを作成できます。
 
-Use the page navigator page to create and manage pages.
+ページ ナビゲーターページを使用して、ページを作成および管理します。
