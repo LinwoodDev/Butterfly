@@ -582,5 +582,6 @@
   },
   "continueAnyway": "Kontynuuj mimo to",
   "zoomControl": "Kontrola powiększenia",
-  "highContrast": "Wysoki kontrast"
+  "highContrast": "Wysoki kontrast",
+  "shouldANumber": "This value should be valid number"
 }
