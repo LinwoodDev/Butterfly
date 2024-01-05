@@ -3,6 +3,6 @@ title: Vägpunkter
 sidebar_position: 2
 ---
 
-With waypoints you can save important locations in your notes. You can use them to navigate through your notes.
+Med waypoints kan du spara viktiga platser i dina anteckningar. Du kan använda dem för att navigera genom dina anteckningar.
 
-Use the waypoint navigator page to create and manage waypoints.
+Använd navigeringssidan för waypoint för att skapa och hantera waypoints.
