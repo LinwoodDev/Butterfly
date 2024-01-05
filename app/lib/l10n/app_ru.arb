@@ -583,5 +583,5 @@
   "continueAnyway": "Все равно продолжить",
   "zoomControl": "Управление масштабом",
   "highContrast": "Высокий контраст",
-  "shouldANumber": "This value should be valid number"
+  "shouldANumber": "Это значение должно быть действительным числом"
 }
