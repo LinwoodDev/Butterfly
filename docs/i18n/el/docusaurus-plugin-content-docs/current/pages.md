@@ -3,7 +3,7 @@ title: Σελίδες
 sidebar_position: 2
 ---
 
-Pages are a way to organize your notes.
-If you add a slash in the title of a page, you can create folders.
+Οι σελίδες είναι ένας τρόπος οργάνωσης των σημειώσεων σας.
+Αν προσθέσετε μια κάθετο στον τίτλο μιας σελίδας, μπορείτε να δημιουργήσετε φακέλους.
 
-Use the page navigator page to create and manage pages.
+Χρησιμοποιήστε τη σελίδα πλοήγησης σελίδας για να δημιουργήσετε και να διαχειριστείτε σελίδες.
