@@ -3,7 +3,7 @@ title: Seiten
 sidebar_position: 2
 ---
 
-Pages are a way to organize your notes.
-If you add a slash in the title of a page, you can create folders.
+Seiten sind eine Möglichkeit, Ihre Notizen zu organisieren.
+Wenn Sie einen Schrägstrich im Titel einer Seite hinzufügen, können Sie Ordner erstellen.
 
-Use the page navigator page to create and manage pages.
+Benutzen Sie die Seite des Navigators um Seiten zu erstellen und zu verwalten.
