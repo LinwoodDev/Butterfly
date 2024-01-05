@@ -3,7 +3,7 @@ title: "Pakke"
 sidebar_position: 2
 ---
 
-En pakke er en samling komponenter som kan brukes i stempelmaleren. You can create your own pack or import an existing one. For this click on the top left corner and click on "Packs".
+En pakke er en samling komponenter som kan brukes i stempelmaleren. Du kan lage din egen pakke eller importere en eksisterende pakke. For dette klikk i øvre venstre hjørne og klikk på "Flakker".
 
 ## Egenskaper
 
