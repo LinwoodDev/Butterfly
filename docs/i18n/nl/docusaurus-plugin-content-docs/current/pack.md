@@ -3,7 +3,7 @@ title: "Pakket"
 sidebar_position: 2
 ---
 
-A pack is a collection of components that can be used in the stamp tool. U kunt uw eigen pakket maken of een bestaande importeren. Klik hiervoor op de linker bovenhoek en klik op "Pakketten".
+Een pakket is een verzameling van onderdelen die gebruikt kunnen worden in het postzegelgereedschap. U kunt uw eigen pakket maken of een bestaande importeren. Klik hiervoor op de linker bovenhoek en klik op "Pakketten".
 
 ## Eigenschappen
 
@@ -15,6 +15,6 @@ A pack is a collection of components that can be used in the stamp tool. U kunt 
 
 ### Onderdelen
 
-Components are a way to save elements that you use often. You can create your own components or import an existing one using packs.
+Componenten zijn een manier om elementen op te slaan die je vaak gebruikt. U kunt uw eigen componenten maken of een bestaande met behulp van pakketten importeren.
 
-Use the components navigator page to paste components into your notes.
+Gebruik de componenten navigator pagina om componenten in uw notities te plakken.
