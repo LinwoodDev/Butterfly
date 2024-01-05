@@ -1,3 +1,4 @@
+import 'package:butterfly/api/open.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/views/navigator/components.dart';
@@ -28,6 +29,14 @@ enum NavigatorPage {
         NavigatorPage.pages => AppLocalizations.of(context).pages,
         NavigatorPage.files => AppLocalizations.of(context).files,
         NavigatorPage.components => AppLocalizations.of(context).components,
+      };
+
+  (List<String>, String?) _getHelp() => switch (this) {
+        NavigatorPage.waypoints => (['waypoints'], null),
+        NavigatorPage.layers => (['layers'], null),
+        NavigatorPage.pages => (['pages'], null),
+        NavigatorPage.files => (['storage'], null),
+        NavigatorPage.components => (['pack'], 'components'),
       };
 
   IconGetter get icon => switch (this) {
@@ -193,6 +202,17 @@ class _DocumentNavigatorState extends State<DocumentNavigator>
                           )
                         : null,
                     title: Text(page.getLocalizedName(context)),
+                    actions: [
+                      IconButton(
+                        icon:
+                            const PhosphorIcon(PhosphorIconsLight.sealQuestion),
+                        onPressed: () {
+                          final help = page._getHelp();
+                          openHelp(help.$1, help.$2);
+                        },
+                        tooltip: AppLocalizations.of(context).help,
+                      ),
+                    ],
                   ),
                   const SizedBox(height: 16),
                   Expanded(child: body),

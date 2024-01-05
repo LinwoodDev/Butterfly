@@ -3,6 +3,7 @@
 * Add link to experiment
 * Add extra icon for label markdown mode
 * Add validation in collaboration start dialog
+* Add help pages for navigator pages
 * Remember grid view setting
 * Improve spacing in add dialog
 * Set default port as initial value in collaboration start dialog

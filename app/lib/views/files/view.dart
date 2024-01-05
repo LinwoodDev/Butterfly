@@ -451,7 +451,7 @@ class FilesViewState extends State<FilesView> {
                     child: Text(AppLocalizations.of(context).noElements),
                   );
                 }
-                if (state.gridView) {
+                if (state.gridView && !widget.collapsed) {
                   return Wrap(
                     spacing: 8,
                     runSpacing: 8,
