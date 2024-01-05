@@ -583,5 +583,5 @@
   "continueAnyway": "Fortsett likevel",
   "zoomControl": "Zoom kontroll",
   "highContrast": "Høy kontrast",
-  "shouldANumber": "This value should be valid number"
+  "shouldANumber": "Denne verdien må være et gyldig tall"
 }
