@@ -3,7 +3,7 @@ title: "Balení"
 sidebar_position: 2
 ---
 
-Balení je sbírka komponentů, které lze použít v barvě razítka. Můžete vytvořit vlastní balíček nebo importovat existující balíček. Pro tento klik v levém horním rohu klikněte na "Balíčky".
+Balení je sbírka komponentů, které lze použít v barvě razítka. You can create your own pack or import an existing one. For this click on the top left corner and click on "Packs".
 
 ## Vlastnosti
 
