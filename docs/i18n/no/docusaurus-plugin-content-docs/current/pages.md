@@ -3,7 +3,7 @@ title: Sider
 sidebar_position: 2
 ---
 
-Pages are a way to organize your notes.
-If you add a slash in the title of a page, you can create folders.
+Sider er en måte å organisere dine notater.
+Hvis du legger til en skråstrek i tittelen på en side, kan du opprette mapper.
 
-Use the page navigator page to create and manage pages.
+Bruk siden navigeringsside for å opprette og administrere sider.
