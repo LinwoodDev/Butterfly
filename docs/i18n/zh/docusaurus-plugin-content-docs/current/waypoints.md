@@ -3,6 +3,6 @@ title: 航点
 sidebar_position: 2
 ---
 
-With waypoints you can save important locations in your notes. You can use them to navigate through your notes.
+通过航点，您可以在笔记中保存重要的位置。 您可以使用它们来浏览您的笔记。
 
-Use the waypoint navigator page to create and manage waypoints.
+使用航点导航页面创建和管理航点。
