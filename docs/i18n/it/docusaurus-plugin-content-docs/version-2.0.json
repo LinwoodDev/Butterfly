@@ -1,0 +1,10 @@
+{
+  "version.label": {
+    "message": "2.0.0",
+    "description": "The label for version 2.0"
+  },
+  "sidebar.sidebar.category.Tools": {
+    "message": "Strumenti",
+    "description": "The label for category Tools in sidebar sidebar"
+  }
+}
