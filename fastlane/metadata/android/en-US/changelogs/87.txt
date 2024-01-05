@@ -2,7 +2,9 @@
 * Add refresh button to file view
 * Add link to experiment
 * Add extra icon for label markdown mode
+* Add validation in collaboration start dialog
 * Improve spacing in add dialog
+* Set default port as initial value in collaboration start dialog
 * Fix markdown label editing
 * Fix not working new line
 * Fix asset card missing ripple effect
