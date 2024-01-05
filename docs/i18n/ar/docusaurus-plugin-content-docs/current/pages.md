@@ -3,7 +3,7 @@ title: الصفحات
 sidebar_position: 2
 ---
 
-Pages are a way to organize your notes.
-If you add a slash in the title of a page, you can create folders.
+الصفحات هي طريقة لتنظيم ملاحظاتك.
+إذا قمت بإضافة خط فاصل في عنوان الصفحة، يمكنك إنشاء مجلدات.
 
-Use the page navigator page to create and manage pages.
+استخدم صفحة متنقل الصفحة لإنشاء وإدارة الصفحات.
