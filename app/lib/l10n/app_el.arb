@@ -582,5 +582,6 @@
   },
   "continueAnyway": "Συνεχίστε οπωσδήποτε",
   "zoomControl": "Έλεγχος εστίασης",
-  "highContrast": "Υψηλή αντίθεση"
+  "highContrast": "Υψηλή αντίθεση",
+  "shouldANumber": "This value should be valid number"
 }
