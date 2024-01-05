@@ -3,7 +3,7 @@ title: Strony
 sidebar_position: 2
 ---
 
-Pages are a way to organize your notes.
-If you add a slash in the title of a page, you can create folders.
+Strony są sposobem na zorganizowanie notatek.
+Jeśli dodasz ukośnik w tytule strony, możesz utworzyć foldery.
 
-Use the page navigator page to create and manage pages.
+Użyj strony nawigatora do tworzenia i zarządzania stronami.
