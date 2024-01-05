@@ -3,7 +3,7 @@ title: "Pack"
 sidebar_position: 2
 ---
 
-A pack is a collection of components that can be used in the stamp tool. Puede crear su propio paquete o importar uno existente. Para ello haga clic en la esquina superior izquierda y haga clic en "Paquetes".
+Un pack es una colección de componentes que se pueden utilizar en la herramienta de estampado. Puede crear su propio paquete o importar uno existente. Para ello haga clic en la esquina superior izquierda y haga clic en "Paquetes".
 
 ## Propiedades
 
@@ -15,6 +15,6 @@ A pack is a collection of components that can be used in the stamp tool. Puede c
 
 ### Componentes
 
-Components are a way to save elements that you use often. You can create your own components or import an existing one using packs.
+Los componentes son una forma de guardar los elementos que utilizas a menudo. Puede crear sus propios componentes o importar uno existente usando paquetes.
 
-Use the components navigator page to paste components into your notes.
+Utilice la página del navegador de componentes para pegar componentes en sus notas.
