@@ -583,5 +583,5 @@
   "continueAnyway": "Jatka joka tapauksessa",
   "zoomControl": "Zoomauksen hallinta",
   "highContrast": "Korkea kontrasti",
-  "shouldANumber": "This value should be valid number"
+  "shouldANumber": "Tämän arvon on oltava kelvollinen numero"
 }
