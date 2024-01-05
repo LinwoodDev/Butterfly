@@ -582,5 +582,6 @@
   },
   "continueAnyway": "Все одно продовжити",
   "zoomControl": "Управління масштабуванням",
-  "highContrast": "Високий контраст"
+  "highContrast": "Високий контраст",
+  "shouldANumber": "This value should be valid number"
 }
