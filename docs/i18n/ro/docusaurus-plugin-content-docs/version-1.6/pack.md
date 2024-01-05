@@ -3,7 +3,7 @@ title: "Pachet"
 sidebar_position: 2
 ---
 
-Un pachet este o colecție de componente care pot fi folosite în pictoriul ștampilei. You can create your own pack or import an existing one. For this click on the top left corner and click on "Packs".
+Un pachet este o colecție de componente care pot fi folosite în pictoriul ștampilei. Puteți crea propriul pachet sau să importați unul existent. Pentru acest clic în colțul din stânga sus și faceți clic pe "Pachete".
 
 ## Proprietăți
 
