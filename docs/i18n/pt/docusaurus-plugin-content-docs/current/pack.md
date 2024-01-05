@@ -3,7 +3,7 @@ title: "Pct"
 sidebar_position: 2
 ---
 
-A pack is a collection of components that can be used in the stamp tool. Você pode criar seu próprio pacote ou importar um existente. Para este clique no canto superior esquerdo e clique em "Pacotes".
+Um pacote é uma coleção de componentes que podem ser usados na ferramenta de selos. Você pode criar seu próprio pacote ou importar um existente. Para este clique no canto superior esquerdo e clique em "Pacotes".
 
 ## propriedades
 
@@ -15,6 +15,6 @@ A pack is a collection of components that can be used in the stamp tool. Você p
 
 ### Componentes
 
-Components are a way to save elements that you use often. You can create your own components or import an existing one using packs.
+Componentes são uma maneira de salvar elementos que você usa com frequência. Você pode criar seus próprios componentes ou importar um existente usando pacotes.
 
-Use the components navigator page to paste components into your notes.
+Use a página do navegador de componentes para colar componentes em suas anotações.
