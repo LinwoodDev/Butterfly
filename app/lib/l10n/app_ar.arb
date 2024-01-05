@@ -582,5 +582,6 @@
   },
   "continueAnyway": "المتابعة على أي حال",
   "zoomControl": "التحكم بالتكبير/التصغير",
-  "highContrast": "تباين عالي"
+  "highContrast": "تباين عالي",
+  "shouldANumber": "This value should be valid number"
 }
