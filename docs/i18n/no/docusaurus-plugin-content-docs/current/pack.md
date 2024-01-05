@@ -3,7 +3,7 @@ title: "Pakke"
 sidebar_position: 2
 ---
 
-A pack is a collection of components that can be used in the stamp tool. You can create your own pack or import an existing one. For this click on the top left corner and click on "Packs".
+En pakke er en samling komponenter som kan brukes i stempelverktøyet. Du kan lage din egen pakke eller importere en eksisterende pakke. For dette klikk i øvre venstre hjørne og klikk på "Flakker".
 
 ## Egenskaper
 
@@ -15,6 +15,6 @@ A pack is a collection of components that can be used in the stamp tool. You can
 
 ### Komponenter
 
-Components are a way to save elements that you use often. You can create your own components or import an existing one using packs.
+Komponenter er en måte å lagre elementer som du bruker ofte. Du kan lage dine egne komponenter eller importere en eksisterende ved hjelp av pakker.
 
-Use the components navigator page to paste components into your notes.
+Bruk navigasjonssiden til komponenter for å lime inn i notatene dine.
