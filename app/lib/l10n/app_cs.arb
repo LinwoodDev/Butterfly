@@ -582,5 +582,6 @@
   },
   "continueAnyway": "Přesto pokračovat",
   "zoomControl": "Ovládání přiblížení",
-  "highContrast": "Vysoký kontrast"
+  "highContrast": "Vysoký kontrast",
+  "shouldANumber": "This value should be valid number"
 }
