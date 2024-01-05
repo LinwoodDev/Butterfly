@@ -3,6 +3,6 @@ title: Punkty drogi
 sidebar_position: 2
 ---
 
-With waypoints you can save important locations in your notes. You can use them to navigate through your notes.
+Z punktami orientacyjnymi możesz zapisać ważne lokalizacje w notatkach. Możesz ich użyć do nawigacji za pomocą notatek.
 
-Use the waypoint navigator page to create and manage waypoints.
+Użyj strony nawigatora punktu nawigacyjnego do tworzenia i zarządzania punktami nawigacyjnymi.
