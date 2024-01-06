@@ -2,6 +2,19 @@
 
 <!--ENTER CHANGELOG HERE-->
 
+## 2.0.1-rc.0 (2024-01-01)
+
+* Add high contrast mode ([#564](https://github.com/LinwoodDev/Butterfly/issues/564))
+* Add support for multi character input languages ([#539](https://github.com/LinwoodDev/Butterfly/issues/539))
+* Add scale to label toolbar
+* Add scale to label selection view
+* Add markdown element selection view
+* Fix moving data directory ([#562](https://github.com/LinwoodDev/Butterfly/issues/562))
+* Fix various issues with the label tool
+* Fix display icon
+* Fix spread pages settings not being saved
+* Fix app link on android
+
 ## 2.0.0 (2023-12-24)
 
 Nothing changed from the nightly build to the stable release.

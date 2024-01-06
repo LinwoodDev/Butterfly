@@ -43,7 +43,6 @@ class FilesViewState extends State<FilesView> {
   late DocumentFileSystem _fileSystem;
   late TemplateFileSystem _templateSystem;
 
-  bool _gridView = false;
   SortBy _sortBy = SortBy.name;
   SortOrder _sortOrder = SortOrder.ascending;
   ExternalStorage? _remote;
@@ -115,374 +114,387 @@ class FilesViewState extends State<FilesView> {
   Widget build(BuildContext context) {
     final index = _locationController.text.lastIndexOf('/');
     final parent = _locationController.text.substring(0, index < 0 ? 0 : index);
-    return Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
-      LayoutBuilder(builder: (context, constraints) {
-        final isMobile = constraints.maxWidth <= kMobileWidth;
-        final text = Text(
-          AppLocalizations.of(context).files,
-          style: Theme.of(context).textTheme.headlineMedium,
-          textAlign: TextAlign.start,
-        );
-        final actions = OverflowBar(
-          spacing: 8,
-          overflowSpacing: 8,
-          overflowAlignment: OverflowBarAlignment.end,
-          alignment: MainAxisAlignment.end,
-          children: [
-            if (!widget.collapsed)
-              Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Text(AppLocalizations.of(context).switchView),
-                  const SizedBox(width: 8),
-                  IconButton.filledTonal(
-                    onPressed: () => setState(() => _gridView = !_gridView),
-                    icon: _gridView
-                        ? const PhosphorIcon(PhosphorIconsLight.list)
-                        : const PhosphorIcon(PhosphorIconsLight.gridFour),
-                  ),
-                ],
+    return BlocBuilder<SettingsCubit, ButterflySettings>(
+      buildWhen: (previous, current) => previous.gridView != current.gridView,
+      builder: (context, state) =>
+          Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
+        LayoutBuilder(builder: (context, constraints) {
+          final isMobile = constraints.maxWidth <= kMobileWidth;
+          final text = Text(
+            AppLocalizations.of(context).files,
+            style: Theme.of(context).textTheme.headlineMedium,
+            textAlign: TextAlign.start,
+          );
+          final actions = OverflowBar(
+            spacing: 8,
+            overflowSpacing: 8,
+            overflowAlignment: OverflowBarAlignment.end,
+            alignment: MainAxisAlignment.end,
+            children: [
+              if (!widget.collapsed)
+                Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(AppLocalizations.of(context).switchView),
+                    const SizedBox(width: 8),
+                    IconButton.filledTonal(
+                      onPressed: () =>
+                          context.read<SettingsCubit>().toggleGridView(),
+                      icon: state.gridView
+                          ? const PhosphorIcon(PhosphorIconsLight.list)
+                          : const PhosphorIcon(PhosphorIconsLight.gridFour),
+                    ),
+                  ],
+                ),
+              BlocBuilder<SettingsCubit, ButterflySettings>(
+                buildWhen: (previous, current) =>
+                    previous.connections != current.connections,
+                builder: (context, state) => Row(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    DropdownMenu<String?>(
+                      label: Text(AppLocalizations.of(context).source),
+                      width: 225,
+                      dropdownMenuEntries: [
+                        DropdownMenuEntry(
+                          value: null,
+                          label: AppLocalizations.of(context).local,
+                        ),
+                        ...state.connections.map((e) => DropdownMenuEntry(
+                              value: e.identifier,
+                              label: e.label,
+                            )),
+                      ],
+                      initialSelection: _remote?.identifier,
+                      onSelected: (value) => _setRemote(
+                          value == null ? null : state.getRemote(value)),
+                    ),
+                    state.connections.any((e) => e is RemoteStorage)
+                        ? const SyncButton()
+                        : const SizedBox.shrink(),
+                  ],
+                ),
               ),
-            Row(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                BlocBuilder<SettingsCubit, ButterflySettings>(
-                    builder: (context, state) {
-                  return DropdownMenu<String?>(
-                    label: Text(AppLocalizations.of(context).source),
-                    width: 225,
-                    dropdownMenuEntries: [
-                      DropdownMenuEntry(
-                        value: null,
-                        label: AppLocalizations.of(context).local,
-                      ),
-                      ...state.connections.map((e) => DropdownMenuEntry(
-                            value: e.identifier,
-                            label: e.label,
-                          )),
-                    ],
-                    initialSelection: _remote?.identifier,
-                    onSelected: (value) => _setRemote(
-                        value == null ? null : state.getRemote(value)),
-                  );
+              DropdownMenu<SortBy>(
+                leadingIcon: IconButton(
+                  icon: PhosphorIcon(_sortOrder == SortOrder.ascending
+                      ? PhosphorIconsLight.sortAscending
+                      : PhosphorIconsLight.sortDescending),
+                  tooltip: _sortOrder == SortOrder.ascending
+                      ? AppLocalizations.of(context).ascending
+                      : AppLocalizations.of(context).descending,
+                  onPressed: () => setState(() {
+                    _sortOrder = _sortOrder == SortOrder.ascending
+                        ? SortOrder.descending
+                        : SortOrder.ascending;
+                    _settingsCubit.changeSortOrder(_sortOrder);
+                  }),
+                ),
+                label: Text(AppLocalizations.of(context).sortBy),
+                width: 225,
+                dropdownMenuEntries: SortBy.values
+                    .map((e) => DropdownMenuEntry(
+                          value: e,
+                          label: getLocalizedNameOfSortBy(e),
+                        ))
+                    .toList(),
+                initialSelection: _sortBy,
+                onSelected: (value) => setState(() {
+                  _sortBy = value ?? _sortBy;
+                  _settingsCubit.changeSortBy(_sortBy);
                 }),
-                BlocBuilder<SettingsCubit, ButterflySettings>(
-                  buildWhen: (previous, current) =>
-                      previous.connections != current.connections,
-                  builder: (context, state) =>
-                      state.connections.any((e) => e is RemoteStorage)
-                          ? const SyncButton()
-                          : const SizedBox.shrink(),
+              ),
+            ],
+          );
+          if (widget.collapsed) {
+            return actions;
+          }
+          if (isMobile) {
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                text,
+                const SizedBox(height: 16),
+                actions,
+              ],
+            );
+          }
+          return Row(
+            children: [
+              text,
+              const SizedBox(width: 8),
+              Expanded(child: actions),
+            ],
+          );
+        }),
+        const SizedBox(height: 8),
+        _RecentFilesView(
+          replace: widget.collapsed,
+        ),
+        const SizedBox(height: 16),
+        LayoutBuilder(builder: (context, constraints) {
+          final searchBar = Row(children: [
+            IconButton(
+              onPressed: reloadFileSystem,
+              tooltip: AppLocalizations.of(context).refresh,
+              icon: const PhosphorIcon(PhosphorIconsLight.arrowClockwise),
+            ),
+            const SizedBox(width: 8),
+            Expanded(
+              child: SearchBar(
+                onChanged: (value) => setState(() => _search = value),
+                hintText: AppLocalizations.of(context).search,
+                leading: const PhosphorIcon(PhosphorIconsLight.magnifyingGlass),
+              ),
+            ),
+          ]);
+          final locationBar = BlocBuilder<SettingsCubit, ButterflySettings>(
+            buildWhen: (previous, current) => previous.flags != current.flags,
+            builder: (context, settings) => Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                MenuAnchor(
+                  menuChildren: [
+                    MenuItemButton(
+                      leadingIcon:
+                          const PhosphorIcon(PhosphorIconsLight.folder),
+                      child: Text(AppLocalizations.of(context).newFolder),
+                      onPressed: () async {
+                        final name = await showDialog<String>(
+                          context: context,
+                          builder: (context) => NameDialog(
+                            validator: defaultFileNameValidator(context),
+                          ),
+                        );
+                        if (name == null) return;
+                        final path = _locationController.text;
+                        final newPath = '$path/$name';
+                        await _fileSystem.createDirectory(newPath);
+                        reloadFileSystem();
+                      },
+                    ),
+                    MenuItemButton(
+                      onPressed: () async => _createFile(
+                        await _templateSystem.getDefaultTemplate(
+                          _templateSystem.remote?.defaultTemplate ??
+                              _settingsCubit.state.defaultTemplate,
+                        ),
+                      ),
+                      leadingIcon:
+                          const PhosphorIcon(PhosphorIconsLight.filePlus),
+                      child: Text(AppLocalizations.of(context).newFile),
+                    ),
+                    FutureBuilder<List<NoteData>>(
+                      future: _templateSystem
+                          .createDefault(context)
+                          .then((_) => _templateSystem.getTemplates()),
+                      builder: (context, snapshot) => SubmenuButton(
+                        leadingIcon:
+                            const PhosphorIcon(PhosphorIconsLight.file),
+                        menuChildren: snapshot.data?.map((e) {
+                              final metadata = e.getMetadata();
+                              final thumbnail = e.getThumbnail();
+                              return MenuItemButton(
+                                leadingIcon: thumbnail == null
+                                    ? null
+                                    : Image.memory(
+                                        thumbnail,
+                                        width: 32,
+                                        height: 18,
+                                        cacheWidth: 32,
+                                        cacheHeight: 18,
+                                      ),
+                                child: Text(metadata?.name ?? ''),
+                                onPressed: () => _createFile(e),
+                              );
+                            }).toList() ??
+                            [],
+                        child: Text(AppLocalizations.of(context).templates),
+                      ),
+                    ),
+                    MenuItemButton(
+                      leadingIcon:
+                          const PhosphorIcon(PhosphorIconsLight.arrowSquareIn),
+                      onPressed: () async {
+                        final router = GoRouter.of(context);
+                        final importService = context.read<ImportService>();
+                        final (result, extension) = await importFile(context);
+                        if (result == null) return;
+                        final model = await importService.import(
+                            AssetFileTypeHelper.fromFileExtension(extension) ??
+                                AssetFileType.note,
+                            result,
+                            DocumentDefaults.createDocument(),
+                            advanced: false);
+                        if (model == null) return;
+                        const route = '/native?name=document.bfly&type=note';
+                        router.go(route, extra: model.save());
+                        if (!widget.collapsed) {
+                          reloadFileSystem();
+                        }
+                      },
+                      child: Text(AppLocalizations.of(context).import),
+                    ),
+                    if (settings.flags.contains('collaboration'))
+                      MenuItemButton(
+                        leadingIcon:
+                            const PhosphorIcon(PhosphorIconsLight.shareNetwork),
+                        child: Text(AppLocalizations.of(context).connect),
+                        onPressed: () async {
+                          final url = await showDialog<String>(
+                            builder: (context) => NameDialog(
+                              title: AppLocalizations.of(context).enterUrl,
+                              hint: AppLocalizations.of(context).url,
+                              button: AppLocalizations.of(context).connect,
+                            ),
+                            context: context,
+                          );
+                          if (url == null) return;
+                          GoRouter.of(context)
+                              .pushNamed('connect', queryParameters: {
+                            'url': url,
+                          });
+                        },
+                      ),
+                  ],
+                  builder: (context, controller, child) =>
+                      FloatingActionButton.small(
+                    heroTag: null,
+                    onPressed: controller.toggle,
+                    tooltip: AppLocalizations.of(context).create,
+                    child: const PhosphorIcon(PhosphorIconsLight.plus),
+                  ),
+                ),
+                DragTarget<String>(
+                  builder: (context, candidateData, rejectedData) => IconButton(
+                    onPressed: _locationController.text.isEmpty
+                        ? null
+                        : () => setState(() {
+                              _locationController.text = parent;
+                              _setFilesStream();
+                            }),
+                    icon: const PhosphorIcon(PhosphorIconsLight.arrowUp),
+                    tooltip: AppLocalizations.of(context).goUp,
+                  ),
+                  onWillAccept: (data) => true,
+                  onAccept: (data) async {
+                    await _fileSystem.moveAsset(
+                        data, '$parent/${data.split('/').last}');
+                    reloadFileSystem();
+                  },
+                ),
+                const SizedBox(width: 8),
+                Flexible(
+                  child: TextFormField(
+                    decoration: InputDecoration(
+                      hintText: AppLocalizations.of(context).location,
+                      prefixIcon: const PhosphorIcon(PhosphorIconsLight.folder),
+                      filled: true,
+                    ),
+                    controller: _locationController,
+                    onFieldSubmitted: (value) => reloadFileSystem(),
+                  ),
                 ),
               ],
             ),
-            DropdownMenu<SortBy>(
-              leadingIcon: IconButton(
-                icon: PhosphorIcon(_sortOrder == SortOrder.ascending
-                    ? PhosphorIconsLight.sortAscending
-                    : PhosphorIconsLight.sortDescending),
-                tooltip: _sortOrder == SortOrder.ascending
-                    ? AppLocalizations.of(context).ascending
-                    : AppLocalizations.of(context).descending,
-                onPressed: () => setState(() {
-                  _sortOrder = _sortOrder == SortOrder.ascending
-                      ? SortOrder.descending
-                      : SortOrder.ascending;
-                  _settingsCubit.changeSortOrder(_sortOrder);
-                }),
-              ),
-              label: Text(AppLocalizations.of(context).sortBy),
-              width: 225,
-              dropdownMenuEntries: SortBy.values
-                  .map((e) => DropdownMenuEntry(
-                        value: e,
-                        label: getLocalizedNameOfSortBy(e),
-                      ))
-                  .toList(),
-              initialSelection: _sortBy,
-              onSelected: (value) => setState(() {
-                _sortBy = value ?? _sortBy;
-                _settingsCubit.changeSortBy(_sortBy);
-              }),
-            ),
-          ],
-        );
-        if (widget.collapsed) {
-          return actions;
-        }
-        if (isMobile) {
-          return Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              text,
-              const SizedBox(height: 16),
-              actions,
-            ],
           );
-        }
-        return Row(
-          children: [
-            text,
-            const SizedBox(width: 8),
-            Expanded(child: actions),
-          ],
-        );
-      }),
-      const SizedBox(height: 8),
-      _RecentFilesView(
-        replace: widget.collapsed,
-      ),
-      const SizedBox(height: 16),
-      LayoutBuilder(builder: (context, constraints) {
-        final searchBar = SearchBar(
-          onChanged: (value) => setState(() => _search = value),
-          hintText: AppLocalizations.of(context).search,
-          leading: const PhosphorIcon(PhosphorIconsLight.magnifyingGlass),
-        );
-        final locationBar = BlocBuilder<SettingsCubit, ButterflySettings>(
-          buildWhen: (previous, current) => previous.flags != current.flags,
-          builder: (context, settings) => Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              MenuAnchor(
-                menuChildren: [
-                  MenuItemButton(
-                    leadingIcon: const PhosphorIcon(PhosphorIconsLight.folder),
-                    child: Text(AppLocalizations.of(context).newFolder),
-                    onPressed: () async {
-                      final name = await showDialog<String>(
-                        context: context,
-                        builder: (context) => NameDialog(
-                          validator: defaultFileNameValidator(context),
-                        ),
-                      );
-                      if (name == null) return;
-                      final path = _locationController.text;
-                      final newPath = '$path/$name';
-                      await _fileSystem.createDirectory(newPath);
-                      reloadFileSystem();
-                    },
-                  ),
-                  MenuItemButton(
-                    onPressed: () async => _createFile(
-                      await _templateSystem.getDefaultTemplate(
-                        _templateSystem.remote?.defaultTemplate ??
-                            _settingsCubit.state.defaultTemplate,
-                      ),
-                    ),
-                    leadingIcon:
-                        const PhosphorIcon(PhosphorIconsLight.filePlus),
-                    child: Text(AppLocalizations.of(context).newFile),
-                  ),
-                  FutureBuilder<List<NoteData>>(
-                    future: _templateSystem
-                        .createDefault(context)
-                        .then((_) => _templateSystem.getTemplates()),
-                    builder: (context, snapshot) => SubmenuButton(
-                      leadingIcon: const PhosphorIcon(PhosphorIconsLight.file),
-                      menuChildren: snapshot.data?.map((e) {
-                            final metadata = e.getMetadata();
-                            final thumbnail = e.getThumbnail();
-                            return MenuItemButton(
-                              leadingIcon: thumbnail == null
-                                  ? null
-                                  : Image.memory(
-                                      thumbnail,
-                                      width: 32,
-                                      height: 18,
-                                      cacheWidth: 32,
-                                      cacheHeight: 18,
-                                    ),
-                              child: Text(metadata?.name ?? ''),
-                              onPressed: () => _createFile(e),
-                            );
-                          }).toList() ??
-                          [],
-                      child: Text(AppLocalizations.of(context).templates),
-                    ),
-                  ),
-                  MenuItemButton(
-                    leadingIcon:
-                        const PhosphorIcon(PhosphorIconsLight.arrowSquareIn),
-                    onPressed: () async {
-                      final router = GoRouter.of(context);
-                      final importService = context.read<ImportService>();
-                      final (result, extension) = await importFile(context);
-                      if (result == null) return;
-                      final model = await importService.import(
-                          AssetFileTypeHelper.fromFileExtension(extension) ??
-                              AssetFileType.note,
-                          result,
-                          DocumentDefaults.createDocument(),
-                          advanced: false);
-                      if (model == null) return;
-                      const route = '/native?name=document.bfly&type=note';
-                      router.go(route, extra: model.save());
-                      if (!widget.collapsed) {
-                        reloadFileSystem();
-                      }
-                    },
-                    child: Text(AppLocalizations.of(context).import),
-                  ),
-                  if (settings.flags.contains('collaboration'))
-                    MenuItemButton(
-                      leadingIcon:
-                          const PhosphorIcon(PhosphorIconsLight.shareNetwork),
-                      child: Text(AppLocalizations.of(context).connect),
-                      onPressed: () async {
-                        final url = await showDialog<String>(
-                          builder: (context) => NameDialog(
-                            title: AppLocalizations.of(context).enterUrl,
-                            hint: AppLocalizations.of(context).url,
-                            button: AppLocalizations.of(context).connect,
-                          ),
-                          context: context,
-                        );
-                        if (url == null) return;
-                        GoRouter.of(context)
-                            .pushNamed('connect', queryParameters: {
-                          'url': url,
-                        });
-                      },
-                    ),
-                ],
-                builder: (context, controller, child) =>
-                    FloatingActionButton.small(
-                  heroTag: null,
-                  onPressed: controller.toggle,
-                  tooltip: AppLocalizations.of(context).create,
-                  child: const PhosphorIcon(PhosphorIconsLight.plus),
-                ),
-              ),
-              DragTarget<String>(
-                builder: (context, candidateData, rejectedData) => IconButton(
-                  onPressed: _locationController.text.isEmpty
-                      ? null
-                      : () => setState(() {
-                            _locationController.text = parent;
-                            _setFilesStream();
-                          }),
-                  icon: const PhosphorIcon(PhosphorIconsLight.arrowUp),
-                  tooltip: AppLocalizations.of(context).goUp,
-                ),
-                onWillAccept: (data) => true,
-                onAccept: (data) async {
-                  await _fileSystem.moveAsset(
-                      data, '$parent/${data.split('/').last}');
-                  reloadFileSystem();
-                },
-              ),
-              const SizedBox(width: 8),
-              Flexible(
-                child: TextFormField(
-                  decoration: InputDecoration(
-                    hintText: AppLocalizations.of(context).location,
-                    prefixIcon: const PhosphorIcon(PhosphorIconsLight.folder),
-                    filled: true,
-                  ),
-                  controller: _locationController,
-                  onFieldSubmitted: (value) => reloadFileSystem(),
-                ),
-              ),
-            ],
-          ),
-        );
-        final isDesktop = constraints.maxWidth > 600;
-        if (isDesktop) {
-          return Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Expanded(flex: 3, child: locationBar),
-              const SizedBox(width: 8),
-              SizedBox(width: 150, child: searchBar),
-            ],
-          );
-        } else {
-          return Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              searchBar,
-              const SizedBox(height: 16),
-              locationBar,
-            ],
-          );
-        }
-      }),
-      const SizedBox(height: 16),
-      BlocBuilder<SettingsCubit, ButterflySettings>(
-        buildWhen: (previous, current) => previous.starred != current.starred,
-        builder: (context, settings) => StreamBuilder<AppDocumentEntity?>(
-            stream: _filesStream,
-            builder: (context, snapshot) {
-              if (snapshot.hasError) {
-                return Text(snapshot.error.toString());
-              }
-              if (snapshot.connectionState == ConnectionState.waiting ||
-                  !snapshot.hasData) {
-                return const Center(child: CircularProgressIndicator());
-              }
-              final entity = snapshot.data;
-              if (entity is! AppDocumentDirectory) {
-                return Container();
-              }
-              final assets = entity.assets.where((e) {
-                if (_search.isNotEmpty) {
-                  return e.fileName
-                      .toLowerCase()
-                      .contains(_search.toLowerCase());
+          final isDesktop = constraints.maxWidth > 600;
+          if (isDesktop) {
+            return Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Expanded(child: locationBar),
+                const SizedBox(width: 8),
+                SizedBox(width: 250, child: searchBar),
+              ],
+            );
+          } else {
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                searchBar,
+                const SizedBox(height: 16),
+                locationBar,
+              ],
+            );
+          }
+        }),
+        const SizedBox(height: 16),
+        BlocBuilder<SettingsCubit, ButterflySettings>(
+          buildWhen: (previous, current) => previous.starred != current.starred,
+          builder: (context, settings) => StreamBuilder<AppDocumentEntity?>(
+              stream: _filesStream,
+              builder: (context, snapshot) {
+                if (snapshot.hasError) {
+                  return Text(snapshot.error.toString());
                 }
-                return true;
-              }).toList()
-                ..sort(_sortAssets);
-              if (assets.isEmpty) {
-                return Center(
-                  child: Text(AppLocalizations.of(context).noElements),
-                );
-              }
-              if (_gridView) {
-                return Wrap(
-                  spacing: 8,
-                  runSpacing: 8,
-                  children: assets.map(
-                    (e) {
-                      final selected =
-                          widget.selectedAsset?.isSame(e.location) ?? false;
-                      return FileEntityItem(
-                        entity: e,
-                        isMobile: widget.isMobile,
-                        selected: selected,
-                        collapsed: widget.collapsed,
-                        onTap: () => _onFileTap(e),
-                        onReload: reloadFileSystem,
-                        gridView: true,
-                      );
-                    },
-                  ).toList(),
-                );
-              }
-              return ListView.builder(
-                shrinkWrap: true,
-                itemCount: assets.length,
-                physics: const NeverScrollableScrollPhysics(),
-                itemBuilder: (context, index) {
-                  final entity = assets[index];
-                  final selected =
-                      widget.selectedAsset?.isSame(entity.location) ?? false;
-                  return FileEntityItem(
-                    entity: entity,
-                    selected: selected,
-                    collapsed: widget.collapsed,
-                    onTap: () => _onFileTap(entity),
-                    onReload: reloadFileSystem,
-                    gridView: false,
-                    isMobile: widget.isMobile,
+                if (snapshot.connectionState == ConnectionState.waiting ||
+                    !snapshot.hasData) {
+                  return const Center(child: CircularProgressIndicator());
+                }
+                final entity = snapshot.data;
+                if (entity is! AppDocumentDirectory) {
+                  return Container();
+                }
+                final assets = entity.assets.where((e) {
+                  if (_search.isNotEmpty) {
+                    return e.fileName
+                        .toLowerCase()
+                        .contains(_search.toLowerCase());
+                  }
+                  return true;
+                }).toList()
+                  ..sort(_sortAssets);
+                if (assets.isEmpty) {
+                  return Center(
+                    child: Text(AppLocalizations.of(context).noElements),
                   );
-                },
-              );
-            }),
-      ),
-    ]);
+                }
+                if (state.gridView && !widget.collapsed) {
+                  return Wrap(
+                    spacing: 8,
+                    runSpacing: 8,
+                    children: assets.map(
+                      (e) {
+                        final selected =
+                            widget.selectedAsset?.isSame(e.location) ?? false;
+                        return FileEntityItem(
+                          entity: e,
+                          isMobile: widget.isMobile,
+                          selected: selected,
+                          collapsed: widget.collapsed,
+                          onTap: () => _onFileTap(e),
+                          onReload: reloadFileSystem,
+                          gridView: true,
+                        );
+                      },
+                    ).toList(),
+                  );
+                }
+                return ListView.builder(
+                  shrinkWrap: true,
+                  itemCount: assets.length,
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemBuilder: (context, index) {
+                    final entity = assets[index];
+                    final selected =
+                        widget.selectedAsset?.isSame(entity.location) ?? false;
+                    return FileEntityItem(
+                      entity: entity,
+                      selected: selected,
+                      collapsed: widget.collapsed,
+                      onTap: () => _onFileTap(entity),
+                      onReload: reloadFileSystem,
+                      gridView: false,
+                      isMobile: widget.isMobile,
+                    );
+                  },
+                );
+              }),
+        ),
+      ]),
+    );
   }
 
   Future<void> _onFileTap(AppDocumentEntity entity) async {
@@ -672,43 +684,48 @@ class AssetCard extends StatelessWidget {
           child: Card(
             elevation: 5,
             clipBehavior: Clip.hardEdge,
-            child: InkWell(
-              onTap: onTap,
-              child: Stack(
-                children: [
-                  if (thumbnail?.isNotEmpty ?? false)
-                    Align(
-                      child: Image.memory(
-                        thumbnail!,
-                        fit: BoxFit.cover,
-                        width: 640,
-                        alignment: Alignment.center,
-                      ),
+            child: Stack(
+              children: [
+                if (thumbnail?.isNotEmpty ?? false)
+                  Align(
+                    child: Image.memory(
+                      thumbnail!,
+                      fit: BoxFit.cover,
+                      width: 640,
+                      alignment: Alignment.center,
                     ),
-                  if ((metadata?.name.isNotEmpty ?? false) ||
-                      (name?.isNotEmpty ?? false))
-                    Align(
-                      alignment: Alignment.bottomLeft,
-                      child: Tooltip(
-                        message: name ?? metadata!.name,
-                        child: Container(
-                          padding: const EdgeInsets.all(8),
-                          margin: const EdgeInsets.all(8),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(8),
-                            color: colorScheme.primaryContainer.withAlpha(200),
-                          ),
-                          child: Text(
-                            (metadata?.name.isNotEmpty ?? false)
-                                ? metadata!.name
-                                : name!,
-                            style: textStyle,
-                          ),
+                  ),
+                if ((metadata?.name.isNotEmpty ?? false) ||
+                    (name?.isNotEmpty ?? false))
+                  Align(
+                    alignment: Alignment.bottomLeft,
+                    child: Tooltip(
+                      message: name ?? metadata!.name,
+                      child: Container(
+                        padding: const EdgeInsets.all(8),
+                        margin: const EdgeInsets.all(8),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(8),
+                          color: colorScheme.primaryContainer.withAlpha(200),
+                        ),
+                        child: Text(
+                          (metadata?.name.isNotEmpty ?? false)
+                              ? metadata!.name
+                              : name!,
+                          style: textStyle,
                         ),
                       ),
                     ),
-                ],
-              ),
+                  ),
+                Positioned.fill(
+                  child: Material(
+                    type: MaterialType.transparency,
+                    child: InkWell(
+                      onTap: onTap,
+                    ),
+                  ),
+                ),
+              ],
             ),
           ),
         ));

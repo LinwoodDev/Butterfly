@@ -168,7 +168,6 @@ class _PropertyViewState extends State<PropertyView>
                                           ),
                                           tooltip:
                                               AppLocalizations.of(context).icon,
-                                          isSelected: controller.isOpen,
                                         ),
                                         menuChildren: menuChildren,
                                       ),

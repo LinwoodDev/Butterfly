@@ -103,7 +103,7 @@ sealed class PadElement with _$PadElement {
     @Default(PackAssetLocation()) PackAssetLocation styleSheet,
     required TextArea area,
     @Default(ElementConstraint(size: 1000)) ElementConstraint constraint,
-    @Default(kColorBlack) int foreground,
+    @Default(BasicColors.black) int foreground,
     @Default({}) Map<String, dynamic> extra,
   }) = TextElement;
 
@@ -119,7 +119,7 @@ sealed class PadElement with _$PadElement {
     @Default(AreaProperty()) AreaProperty areaProperty,
     required String text,
     @Default(ElementConstraint(size: 1000)) ElementConstraint constraint,
-    @Default(kColorBlack) int foreground,
+    @Default(BasicColors.black) int foreground,
     @Default({}) Map<String, dynamic> extra,
   }) = MarkdownElement;
 

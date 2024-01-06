@@ -32,42 +32,42 @@ extension PatternTemplateExtension on PatternTemplate {
     switch (this) {
       case PatternTemplate.plain:
         return const PatternTexture(
-          boxColor: kColorLight,
+          boxColor: BasicColors.light,
         );
       case PatternTemplate.ruled:
         return const PatternTexture(
-          boxColor: kColorLight,
+          boxColor: BasicColors.light,
           boxHeight: 40,
         );
       case PatternTemplate.quad:
         return const PatternTexture(
-          boxColor: kColorLight,
+          boxColor: BasicColors.light,
           boxHeight: 40,
           boxWidth: 40,
         );
       case PatternTemplate.music:
         return const PatternTexture(
-            boxColor: kColorLight,
+            boxColor: BasicColors.light,
             boxHeight: 40,
-            boxYColor: kColorBlack,
+            boxYColor: BasicColors.black,
             boxYSpace: 80,
             boxYCount: 5);
       case PatternTemplate.plainDark:
         return const PatternTexture(
-          boxColor: kColorDark,
+          boxColor: BasicColors.dark,
         );
       case PatternTemplate.ruledDark:
-        return const PatternTexture(boxColor: kColorDark, boxHeight: 40);
+        return const PatternTexture(boxColor: BasicColors.dark, boxHeight: 40);
       case PatternTemplate.quadDark:
         return const PatternTexture(
-          boxColor: kColorDark,
+          boxColor: BasicColors.dark,
           boxWidth: 40,
           boxHeight: 40,
         );
       case PatternTemplate.musicDark:
         return const PatternTexture(
-            boxColor: kColorDark,
-            boxYColor: kColorWhite,
+            boxColor: BasicColors.dark,
+            boxYColor: BasicColors.white,
             boxHeight: 40,
             boxYSpace: 80,
             boxYCount: 5);
@@ -84,9 +84,9 @@ sealed class SurfaceTexture with _$SurfaceTexture {
       @Default(1) int boxYCount,
       @Default(0) double boxXSpace,
       @Default(0) double boxYSpace,
-      @Default(kColorBlue) int boxXColor,
-      @Default(kColorRed) int boxYColor,
-      @Default(kColorWhite) int boxColor,
+      @Default(BasicColors.blue) int boxXColor,
+      @Default(BasicColors.red) int boxYColor,
+      @Default(BasicColors.white) int boxColor,
       @Default(0.5) double boxXStroke,
       @Default(0.5) double boxYStroke}) = PatternTexture;
 

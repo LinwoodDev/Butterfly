@@ -22,7 +22,7 @@ sealed class Property with _$Property {
   const factory Property.pen({
     @Default(5) double strokeWidth,
     @Default(0.4) double thinning,
-    @Default(kColorBlack) int color,
+    @Default(BasicColors.black) int color,
     @Default(false) bool fill,
     @Default(0.5) double smoothing,
     @Default(0.3) double streamline,
@@ -31,7 +31,7 @@ sealed class Property with _$Property {
   const factory Property.shape({
     @Default(5) double strokeWidth,
     required PathShape shape,
-    @Default(kColorBlack) int color,
+    @Default(BasicColors.black) int color,
   }) = ShapeProperty;
 
   factory Property.fromJson(Map<String, dynamic> json) =>
@@ -41,10 +41,10 @@ sealed class Property with _$Property {
 @freezed
 sealed class PathShape with _$PathShape {
   const PathShape._();
-  const factory PathShape.circle({@Default(kColorTransparent) int fillColor}) =
-      CircleShape;
+  const factory PathShape.circle(
+      {@Default(BasicColors.transparent) int fillColor}) = CircleShape;
   const factory PathShape.rectangle(
-      {@Default(kColorTransparent) int fillColor,
+      {@Default(BasicColors.transparent) int fillColor,
       @Default(0) double topLeftCornerRadius,
       @Default(0) double topRightCornerRadius,
       @Default(0) double bottomLeftCornerRadius,

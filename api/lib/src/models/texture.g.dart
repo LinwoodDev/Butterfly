@@ -14,9 +14,9 @@ _$PatternTextureImpl _$$PatternTextureImplFromJson(Map json) =>
       boxYCount: json['boxYCount'] as int? ?? 1,
       boxXSpace: (json['boxXSpace'] as num?)?.toDouble() ?? 0,
       boxYSpace: (json['boxYSpace'] as num?)?.toDouble() ?? 0,
-      boxXColor: json['boxXColor'] as int? ?? kColorBlue,
-      boxYColor: json['boxYColor'] as int? ?? kColorRed,
-      boxColor: json['boxColor'] as int? ?? kColorWhite,
+      boxXColor: json['boxXColor'] as int? ?? BasicColors.blue,
+      boxYColor: json['boxYColor'] as int? ?? BasicColors.red,
+      boxColor: json['boxColor'] as int? ?? BasicColors.white,
       boxXStroke: (json['boxXStroke'] as num?)?.toDouble() ?? 0.5,
       boxYStroke: (json['boxYStroke'] as num?)?.toDouble() ?? 0.5,
     );

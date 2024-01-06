@@ -445,9 +445,21 @@ class _QuickstartHomeViewState extends State<_QuickstartHomeView> {
         padding: const EdgeInsets.all(32),
         child:
             Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
-          Text(
-            AppLocalizations.of(context).quickstart,
-            style: Theme.of(context).textTheme.headlineMedium,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                AppLocalizations.of(context).quickstart,
+                style: Theme.of(context).textTheme.headlineMedium,
+              ),
+              IconButton(
+                icon: const PhosphorIcon(PhosphorIconsLight.arrowClockwise),
+                tooltip: AppLocalizations.of(context).refresh,
+                onPressed: () => setState(() {
+                  _templatesFuture = _fetchTemplates();
+                }),
+              ),
+            ],
           ),
           const SizedBox(height: 16),
           FutureBuilder<List<NoteData>>(

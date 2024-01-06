@@ -69,7 +69,7 @@ class _SettingsPageState extends State<SettingsPage> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Material(
-        color: widget.isDialog ? Colors.transparent : null,
+        type: widget.isDialog ? MaterialType.transparency : MaterialType.canvas,
         child: LayoutBuilder(builder: (context, constraints) {
           final isMobile = constraints.maxWidth < 600;
 
@@ -93,7 +93,9 @@ class _SettingsPageState extends State<SettingsPage> {
             ),
             Flexible(
               child: Material(
-                color: widget.isDialog ? Colors.transparent : null,
+                type: widget.isDialog
+                    ? MaterialType.transparency
+                    : MaterialType.canvas,
                 child: ListView(
                     controller: _scrollController,
                     shrinkWrap: true,
@@ -123,7 +125,7 @@ class _SettingsPageState extends State<SettingsPage> {
                                     }),
                                     mode: LaunchMode.externalApplication),
                                 child: Material(
-                                  color: Colors.transparent,
+                                  type: MaterialType.transparency,
                                   child: SizedBox(
                                       height: 50,
                                       child: SvgPicture.asset(

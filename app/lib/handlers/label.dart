@@ -391,8 +391,12 @@ class LabelHandler extends Handler<LabelTool>
     );
   }
 
-  void _updateEditingState() =>
-      _connection?.setEditingState(currentTextEditingValue);
+  void _updateEditingState() {
+    if (!(_connection?.attached ?? false)) {
+      _connection = null;
+    }
+    _connection?.setEditingState(currentTextEditingValue);
+  }
 
   @override
   void performAction(TextInputAction action) {
@@ -427,10 +431,13 @@ class LabelHandler extends Handler<LabelTool>
     final start =
         replace ? lastValue.composing.start : lastValue.selection.start;
     final length = replace ? null : lastValue.selection.end - start;
-    final newIndex =
-        lastValue.selection.end - lastValue.text.length + value.length;
-    final currentText = value.substring(
-        start, value.length - lastValue.text.length + lastValue.composing.end);
+    final newIndex = replace
+        ? lastValue.selection.end - lastValue.text.length + value.length
+        : start + value.length;
+    final currentText = replace
+        ? value.substring(start,
+            value.length - lastValue.text.length + lastValue.composing.end)
+        : value;
     _context = _context?.map(text: (e) {
       final old = e.element;
       if (old != null) {
@@ -444,7 +451,8 @@ class LabelHandler extends Handler<LabelTool>
                 ),
                 start,
                 length)
-            : old.area.paragraph.replaceText(currentText, start, length, true);
+            : old.area.paragraph
+                .replaceText(currentText, start, length, replace);
         final area = old.area.copyWith(
           paragraph: paragraph,
         );
@@ -466,8 +474,10 @@ class LabelHandler extends Handler<LabelTool>
       );
     }, markdown: (e) {
       var text = e.text ?? '';
-      text = text.replaceRange(
-          start, lastValue.selection.end.clamp(0, text.length), value);
+      text = replace
+          ? value
+          : text.replaceRange(
+              start, lastValue.selection.end.clamp(0, text.length), value);
       return e.copyWith(
         element: e.element?.copyWith(
           text: text,
@@ -477,6 +487,7 @@ class LabelHandler extends Handler<LabelTool>
     });
     _bloc?.refresh();
     if (_bloc != null) _refreshToolbar(_bloc!);
+    if (!replace) _updateEditingState();
   }
 
   @override

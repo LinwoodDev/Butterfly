@@ -38,5 +38,5 @@ sealed class Background with _$Background {
 
   int get defaultColor => maybeMap(
       texture: (texture) => texture.texture.boxColor,
-      orElse: () => kColorWhite);
+      orElse: () => BasicColors.white);
 }

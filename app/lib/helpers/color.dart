@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:material_leap/material_leap.dart';
 
 Tool updateToolDefaultColor(Tool tool, int color) {
-  final defaultColor = isDarkColor(Color(color)) ? kColorWhite : kColorBlack;
+  final defaultColor =
+      isDarkColor(Color(color)) ? BasicColors.white : BasicColors.black;
   return tool.maybeMap(
     pen: (pen) =>
         pen.copyWith(property: pen.property.copyWith(color: defaultColor)),

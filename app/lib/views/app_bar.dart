@@ -582,7 +582,6 @@ class _MainPopupMenu extends StatelessWidget {
                         : null,
                   ),
                   tooltip: AppLocalizations.of(context).actions,
-                  isSelected: controller.isOpen,
                   onPressed: controller.toggle,
                 ),
               ),

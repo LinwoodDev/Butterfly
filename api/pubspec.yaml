@@ -1,12 +1,12 @@
 name: butterfly_api
 description: The Linwood Butterfly API
-version: 2.0.1-rc.0
+version: 2.0.1-rc.1
 
 environment:
   sdk: '>=3.0.0 <4.0.0'
 
 dependencies:
-  archive: ^3.4.9
+  archive: ^3.4.10
   collection: ^1.18.0
   freezed_annotation: ^2.2.0
   json_annotation: ^4.8.1
