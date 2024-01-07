@@ -563,7 +563,7 @@
   "refresh": "Aktualisieren",
   "print": "Drucken",
   "dav": "DAV",
-  "eyeDropper": "Augentropfen",
+  "eyeDropper": "Pipette",
   "users": "Benutzer",
   "experiments": "Experimente",
   "address": "Adresse",
@@ -582,5 +582,6 @@
   },
   "continueAnyway": "Trotzdem fortfahren",
   "zoomControl": "Zoom-Steuerung",
-  "highContrast": "Hoher Kontrast"
+  "highContrast": "Hoher Kontrast",
+  "shouldANumber": "Dieser Wert sollte eine gültige Zahl sein"
 }

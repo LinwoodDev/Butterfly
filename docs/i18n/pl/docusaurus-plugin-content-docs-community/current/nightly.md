@@ -1,5 +1,5 @@
 ---
-title: "Nightly Builds"
+title: "Kompilacje Nightly"
 slug: "/nightly"
 ---
 
@@ -14,3 +14,7 @@ Nocne kompilacje zostały zaprojektowane, aby dać Ci możliwość przetestowani
 ## Pobierz kompilacje
 
 Przejdź do stron pobierania platformy. Wszystkie wersje nocne są również publikowane jako wstępne wydanie na githubie.
+
+## Eksperymenty
+
+Eksperymenty to funkcje, które nie są jeszcze gotowe do produkcji. Domyślnie są wyłączone. Możesz włączyć je w ustawieniach w sekcji `Eksperymenty`. Ta karta jest widoczna tylko w wersji nocnej.

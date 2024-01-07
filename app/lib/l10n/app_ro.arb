@@ -582,5 +582,6 @@
   },
   "continueAnyway": "Continuă oricum",
   "zoomControl": "Comandă mărire",
-  "highContrast": "Contrast mare"
+  "highContrast": "Contrast mare",
+  "shouldANumber": "Această valoare trebuie să fie un număr valid"
 }

@@ -582,5 +582,6 @@
   },
   "continueAnyway": "それでも続ける",
   "zoomControl": "ズームコントロール",
-  "highContrast": "高コントラストformat@@0"
+  "highContrast": "高コントラストformat@@0",
+  "shouldANumber": "この値は有効な数字でなければなりません"
 }

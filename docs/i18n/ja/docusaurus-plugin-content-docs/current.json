@@ -3,10 +3,6 @@
     "message": "ナイトリー",
     "description": "The label for version current"
   },
-  "sidebar.sidebar.category.Painters": {
-    "message": "Painters",
-    "description": "The label for category Painters in sidebar sidebar"
-  },
   "sidebar.sidebar.category.Tools": {
     "message": "ツール",
     "description": "The label for category Tools in sidebar sidebar"

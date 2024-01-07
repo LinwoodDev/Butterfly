@@ -1,5 +1,5 @@
 ---
-title: "Nightly Builds"
+title: "Nachts Builds"
 slug: "/nightly"
 ---
 
@@ -14,3 +14,7 @@ Die nächtlichen Builds sind so konzipiert, dass sie dir die Möglichkeit geben,
 ## Erhalte die Builds
 
 Gehen Sie zu den Download-Seiten Ihrer Plattform. Alle Nightly Builds werden auch als Pre-Release auf github veröffentlicht.
+
+## Experimente
+
+Experimente sind Funktionen, die noch nicht für die Produktion bereit sind. Standardmäßig sind sie deaktiviert. Sie können sie in den Einstellungen unter `Experimente` aktivieren. Diese Registerkarte ist nur in der nächtlichen Version sichtbar.

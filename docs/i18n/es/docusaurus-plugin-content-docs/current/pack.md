@@ -12,3 +12,9 @@ Un pack es una colección de componentes que se pueden utilizar en la herramient
 |      Nombre | El nombre del paquete       |
 |       Autor | El autor del paquete        |
 | Descripción | Una descripción del paquete |
+
+### Componentes
+
+Los componentes son una forma de guardar los elementos que utilizas a menudo. Puede crear sus propios componentes o importar uno existente usando paquetes.
+
+Utilice la página del navegador de componentes para pegar componentes en sus notas.

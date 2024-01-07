@@ -250,10 +250,6 @@
     "message": "Εναλλαγή αναδίπλωσης λέξεων",
     "description": "The title attribute for toggle word wrapping button of code block lines"
   },
-  "theme.DocSidebarItem.toggleCollapsedCategoryAriaLabel": {
-    "message": "Εναλλαγή της πτυσσόμενης πλαϊνής μπάρας κατηγορίας '{label}'",
-    "description": "The ARIA label to toggle the collapsible sidebar category"
-  },
   "theme.NavBar.navAriaLabel": {
     "message": "Κύρια",
     "description": "The ARIA label for the main navigation"

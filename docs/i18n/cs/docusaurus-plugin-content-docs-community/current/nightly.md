@@ -1,5 +1,5 @@
 ---
-title: "Nightly Builds"
+title: "Noční sestavení"
 slug: "/nightly"
 ---
 
@@ -14,3 +14,7 @@ Noční sestavení jsou navržena tak, aby vám dala možnost otestovat nejnově
 ## Získat sestavení
 
 Přejděte na stránky pro stahování vaší platformy. Všechny noční sestavení jsou také publikovány jako předběžný vydání na githubu.
+
+## Experimenty
+
+Experimenty jsou funkce, které ještě nejsou připraveny k výrobě. Ve výchozím nastavení jsou zakázány. Můžete je povolit v nastavení v `experimentech`. Tato karta je viditelná pouze v noční verzi.

@@ -1,5 +1,5 @@
 ---
-title: "Nightly Builds"
+title: "Yölliset Rakennukset"
 slug: "/nightly"
 ---
 
@@ -14,3 +14,7 @@ Nightly builds on suunniteltu antamaan sinulle mahdollisuuden testata uusinta ve
 ## Hanki rakennukset
 
 Mene alustasi lataussivujen luo. Kaikki yölliset rakennukset julkaistaan myös githubin esijulkaisuna.
+
+## Kokeet
+
+Kokeet ovat ominaisuuksia, jotka eivät ole vielä valmiita tuotantoon. Oletus ne on poistettu käytöstä. Voit ottaa ne käyttöön asetuksissa `Kokeet`. Tämä välilehti näkyy vain yöllisessä versiossa.

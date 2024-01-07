@@ -582,5 +582,6 @@
   },
   "continueAnyway": "Fortsett likevel",
   "zoomControl": "Zoom kontroll",
-  "highContrast": "Høy kontrast"
+  "highContrast": "Høy kontrast",
+  "shouldANumber": "Denne verdien må være et gyldig tall"
 }

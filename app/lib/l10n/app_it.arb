@@ -582,5 +582,6 @@
   },
   "continueAnyway": "Continua comunque",
   "zoomControl": "Controllo zoom",
-  "highContrast": "Alto contrasto"
+  "highContrast": "Alto contrasto",
+  "shouldANumber": "Questo valore deve essere valido"
 }

@@ -12,3 +12,9 @@ Pakiet jest zbiorem elementów, które mogą być użyte w narzędziu stemplowym
 | Nazwisko | Nazwa opakowania |
 |    Autor | Autor pakietu    |
 |     Opis | Opis opakowania  |
+
+### Składniki
+
+Komponenty są sposobem na zapisywanie elementów, które często używasz. Możesz utworzyć własne komponenty lub zaimportować istniejące przy użyciu pakietów.
+
+Użyj strony nawigatora komponentów, aby wkleić komponenty do notatek.

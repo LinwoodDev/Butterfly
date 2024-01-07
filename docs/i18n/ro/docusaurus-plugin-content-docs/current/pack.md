@@ -12,3 +12,9 @@ Un pachet este o colecție de componente care pot fi folosite în unealta de șt
 |      Nume | Numele pachetului        |
 |     Autor | Autorul pachetului       |
 | Descriere | O descriere a pachetului |
+
+### Componente
+
+Componentele sunt un mod de a salva elementele pe care le utilizați frecvent. Puteți crea propriile componente sau să importați componentele existente folosind pachete.
+
+Folosește pagina de navigare a componentelor pentru a lipi componentele în notele tale.

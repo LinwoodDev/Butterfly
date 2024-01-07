@@ -250,10 +250,6 @@
     "message": "Przełącz zawijanie słów",
     "description": "The title attribute for toggle word wrapping button of code block lines"
   },
-  "theme.DocSidebarItem.toggleCollapsedCategoryAriaLabel": {
-    "message": "Przełącz zwijany pasek boczny kategorii '{label}'",
-    "description": "The ARIA label to toggle the collapsible sidebar category"
-  },
   "theme.NavBar.navAriaLabel": {
     "message": "Główny",
     "description": "The ARIA label for the main navigation"

@@ -1,5 +1,5 @@
 ---
-title: "Nightly Builds"
+title: "Construire nocturnă"
 slug: "/nightly"
 ---
 
@@ -14,3 +14,7 @@ Construcțiile nocturne sunt concepute pentru a vă oferi opțiunea de a testa c
 ## Obțineți versiunile
 
 Mergeți la paginile de descărcare ale platformei dvs. Toate construcțiile nocturne sunt publicate și ca versiune pre-lansată pe github.
+
+## Experimente
+
+Experimentele sunt caracteristici care nu sunt încă gata pentru producție. În mod implicit acestea sunt dezactivate. Le puteți activa în setările de la punctul `Experiments`. Această filă este vizibilă doar în versiunea nocturnă.
