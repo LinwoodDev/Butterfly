@@ -154,6 +154,7 @@ class PresentationHandler extends GeneralHandHandler<PresentationTool>
   @override
   AnimationTrack? getAnimation(DocumentBloc bloc) {
     final state = bloc.state;
+    _currentAnimation ??= state.page?.animations.firstOrNull?.name;
     if (state is! DocumentLoadSuccess || _currentAnimation == null) return null;
     final animation = state.page.getAnimation(_currentAnimation!);
     return animation;

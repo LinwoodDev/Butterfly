@@ -128,7 +128,9 @@ class FilesViewState extends State<FilesView> {
           final actions = OverflowBar(
             spacing: 8,
             overflowSpacing: 8,
-            overflowAlignment: OverflowBarAlignment.end,
+            overflowAlignment: widget.collapsed
+                ? OverflowBarAlignment.start
+                : OverflowBarAlignment.end,
             alignment: MainAxisAlignment.end,
             children: [
               if (!widget.collapsed)

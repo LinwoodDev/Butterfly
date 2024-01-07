@@ -60,109 +60,122 @@ class _ZoomViewState extends State<ZoomView> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     return ConstrainedBox(
       constraints: const BoxConstraints(minWidth: 400),
-      child: BlocBuilder<SettingsCubit, ButterflySettings>(
-        buildWhen: (previous, current) =>
-            previous.zoomEnabled != current.zoomEnabled ||
-            previous.fullScreen != current.fullScreen,
-        builder: (context, settings) =>
-            BlocBuilder<TransformCubit, CameraTransform>(
-          buildWhen: (previous, current) => previous.size != current.size,
-          builder: (context, transform) {
-            var scale = transform.size;
-            final currentIndexCubit = context.read<CurrentIndexCubit>();
-            final hideZoom = !settings.zoomEnabled ||
-                settings.fullScreen ||
-                currentIndexCubit.state.hideUi != HideState.visible;
-            void zoom(double value, [bool bake = true]) {
-              final state = context.read<DocumentBloc>().state;
-              final currentIndex = context.read<CurrentIndexCubit>().state;
-              if (state is! DocumentLoaded) {
-                return;
-              }
-              final viewport = currentIndex.cameraViewport;
-              final center = Offset(
-                (viewport.width ?? 0) / 2,
-                (viewport.height ?? 0) / 2,
-              );
-              currentIndex.transformCubit.size(value, center);
-              if (bake) {
-                currentIndexCubit.bake(state.data, state.page, state.info);
-              }
-              if ((!_focusNode.hasFocus && widget.isMobile) || hideZoom) {
-                _controller.reverse();
-              }
-            }
+      child: BlocBuilder<DocumentBloc, DocumentState>(
+          buildWhen: (previous, current) =>
+              previous.runtimeType != current.runtimeType,
+          builder: (context, state) =>
+              BlocBuilder<SettingsCubit, ButterflySettings>(
+                buildWhen: (previous, current) =>
+                    previous.zoomEnabled != current.zoomEnabled ||
+                    previous.fullScreen != current.fullScreen,
+                builder: (context, settings) =>
+                    BlocBuilder<TransformCubit, CameraTransform>(
+                  buildWhen: (previous, current) =>
+                      previous.size != current.size,
+                  builder: (context, transform) {
+                    var scale = transform.size;
+                    final currentIndexCubit = context.read<CurrentIndexCubit>();
+                    final hideZoom = !settings.zoomEnabled ||
+                        settings.fullScreen ||
+                        currentIndexCubit.state.hideUi != HideState.visible;
+                    void zoom(double value, [bool bake = true]) {
+                      final state = context.read<DocumentBloc>().state;
+                      final currentIndex =
+                          context.read<CurrentIndexCubit>().state;
+                      if (state is! DocumentLoaded) {
+                        return;
+                      }
+                      final viewport = currentIndex.cameraViewport;
+                      final center = Offset(
+                        (viewport.width ?? 0) / 2,
+                        (viewport.height ?? 0) / 2,
+                      );
+                      currentIndex.transformCubit.size(value, center);
+                      if (bake) {
+                        currentIndexCubit.bake(
+                            state.data, state.page, state.info);
+                      }
+                      if ((!_focusNode.hasFocus && widget.isMobile) ||
+                          hideZoom) {
+                        _controller.reverse();
+                      }
+                    }
 
-            final body = StatefulBuilder(
-              builder: (context, setState) {
-                final text = (scale * 100).toStringAsFixed(0);
-                if (text != _zoomController.text) {
-                  _zoomController.text = text;
-                }
-                return LayoutBuilder(
-                  builder: (context, constraints) {
-                    return Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          SizedBox(
-                            width: 75,
-                            child: TextFormField(
-                              textAlign: TextAlign.center,
-                              controller: _zoomController,
-                              keyboardType: TextInputType.number,
-                              focusNode: _focusNode,
-                              onChanged: (value) {
-                                setState(() => scale =
-                                    (double.tryParse(value) ?? (scale * 100)) /
-                                        100);
-                              },
-                              onEditingComplete: () => zoom(scale),
-                              onTapOutside: (event) {
-                                if (!_focusNode.hasFocus) return;
-                                zoom(scale);
-                                _focusNode.unfocus();
-                              },
-                              onFieldSubmitted: (value) => zoom(scale),
-                            ),
-                          ),
-                          if (!widget.isMobile) ...[
-                            if (constraints.maxWidth > 200)
-                              Flexible(
-                                child: Slider(
-                                  value: scale.clamp(kMinZoom, 10),
-                                  min: kMinZoom,
-                                  max: 10,
-                                  onChanged: (value) => zoom(value, false),
-                                  onChangeEnd: zoom,
-                                ),
-                              ),
-                          ],
-                        ]);
+                    final body = StatefulBuilder(
+                      builder: (context, setState) {
+                        final text = (scale * 100).toStringAsFixed(0);
+                        if (text != _zoomController.text) {
+                          _zoomController.text = text;
+                        }
+                        return LayoutBuilder(
+                          builder: (context, constraints) {
+                            return Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  SizedBox(
+                                    width: 75,
+                                    child: TextFormField(
+                                      textAlign: TextAlign.center,
+                                      controller: _zoomController,
+                                      keyboardType: TextInputType.number,
+                                      focusNode: _focusNode,
+                                      onChanged: (value) {
+                                        setState(() => scale =
+                                            (double.tryParse(value) ??
+                                                    (scale * 100)) /
+                                                100);
+                                      },
+                                      onEditingComplete: () => zoom(scale),
+                                      onTapOutside: (event) {
+                                        if (!_focusNode.hasFocus) return;
+                                        zoom(scale);
+                                        _focusNode.unfocus();
+                                      },
+                                      onFieldSubmitted: (value) => zoom(scale),
+                                    ),
+                                  ),
+                                  if (!widget.isMobile) ...[
+                                    if (constraints.maxWidth > 200)
+                                      Flexible(
+                                        child: Slider(
+                                          value: scale.clamp(kMinZoom, 10),
+                                          min: kMinZoom,
+                                          max: 10,
+                                          onChanged: (value) =>
+                                              zoom(value, false),
+                                          onChangeEnd: zoom,
+                                        ),
+                                      ),
+                                  ],
+                                ]);
+                          },
+                        );
+                      },
+                    );
+
+                    if ((!_focusNode.hasFocus && widget.isMobile) || hideZoom) {
+                      _controller.reverse();
+                    } else {
+                      _controller.forward();
+                    }
+                    if (_animation.value == 0 ||
+                        state is! DocumentLoadSuccess) {
+                      return const SizedBox();
+                    }
+                    if (!widget.floating) return body;
+                    return AnimatedBuilder(
+                      animation: _animation,
+                      builder: (context, child) => Opacity(
+                        opacity: _animation.value,
+                        child: Card(
+                          child: Padding(
+                              padding: const EdgeInsets.all(8.0), child: body),
+                        ),
+                      ),
+                    );
                   },
-                );
-              },
-            );
-
-            if ((!_focusNode.hasFocus && widget.isMobile) || hideZoom) {
-              _controller.reverse();
-            } else {
-              _controller.forward();
-            }
-            if (_animation.value == 0) return const SizedBox();
-            if (!widget.floating) return body;
-            return AnimatedBuilder(
-              animation: _animation,
-              builder: (context, child) => Opacity(
-                opacity: _animation.value,
-                child: Card(
-                  child:
-                      Padding(padding: const EdgeInsets.all(8.0), child: body),
                 ),
-              ),
-            );
-          },
-        ),
-      ),
+              )),
     );
   }
 }

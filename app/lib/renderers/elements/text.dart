@@ -111,10 +111,9 @@ abstract class GenericTextRenderer<T extends LabelElement> extends Renderer<T> {
     // Add spans as html elements
     for (final span in paragraph.textSpans) {
       final style = styles.resolveSpanProperty(span.property);
-      final spanElement = textElement.createElement('tspan')
+      textElement.createElement('tspan')
         ..setAttribute('style', style?.toCss())
         ..innerText = _convertTextToHtml(span.text);
-      textElement.children.add(spanElement);
     }
   }
 

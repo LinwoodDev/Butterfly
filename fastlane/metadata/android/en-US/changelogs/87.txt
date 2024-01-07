@@ -14,3 +14,5 @@
 * Fix pen property view
 * Fix label editing when selecting different text input
 * Fix subSpan editing in label editing
+* Fix svg exporting error
+* Fix presentation preview on initial selection
