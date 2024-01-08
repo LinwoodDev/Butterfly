@@ -16,3 +16,4 @@
 * Fix subSpan editing in label editing
 * Fix svg exporting error
 * Fix presentation preview on initial selection
+* Fix exporting on mobile devices
