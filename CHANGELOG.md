@@ -2,6 +2,28 @@
 
 <!--ENTER CHANGELOG HERE-->
 
+## 2.0.1-rc.1 (2024-01-08)
+
+* Add refresh button to quickstart
+* Add refresh button to file view
+* Add link to experiment
+* Add extra icon for label markdown mode
+* Add validation in collaboration start dialog
+* Add help pages for navigator pages
+* Remember grid view setting
+* Improve spacing in add dialog
+* Set default port as initial value in collaboration start dialog
+* Fix markdown label editing
+* Fix not working new line
+* Fix asset card missing ripple effect
+* Fix rename saved function will be triggered multiple times
+* Fix pen property view
+* Fix label editing when selecting different text input
+* Fix subSpan editing in label editing
+* Fix svg exporting error
+* Fix presentation preview on initial selection
+* Fix exporting on mobile devices
+
 ## 2.0.1-rc.0 (2024-01-01)
 
 * Add high contrast mode ([#564](https://github.com/LinwoodDev/Butterfly/issues/564))
