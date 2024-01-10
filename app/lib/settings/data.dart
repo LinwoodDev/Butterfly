@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:archive/archive.dart';
 import 'package:butterfly/api/file_system/file_system_io.dart';
 import 'package:butterfly/api/save.dart';
@@ -75,14 +77,17 @@ class _DataSettingsPageState extends State<DataSettingsPage> {
                                   )
                                 : Text(
                                     AppLocalizations.of(context).defaultPath),
-                            onTap: () async {
-                              final settingsCubit =
-                                  context.read<SettingsCubit>();
-                              final selectedDir = await getDirectoryPath();
-                              if (selectedDir != null) {
-                                _changePath(settingsCubit, selectedDir);
-                              }
-                            },
+                            onTap: Platform.isAndroid
+                                ? null
+                                : () async {
+                                    final settingsCubit =
+                                        context.read<SettingsCubit>();
+                                    final selectedDir =
+                                        await getDirectoryPath();
+                                    if (selectedDir != null) {
+                                      _changePath(settingsCubit, selectedDir);
+                                    }
+                                  },
                             trailing: state.documentPath.isNotEmpty
                                 ? IconButton(
                                     icon: const PhosphorIcon(

@@ -27,6 +27,9 @@ Future<String> getButterflyDirectory([bool root = false]) async {
     return path;
   }
   if (Platform.isAndroid) {
+    if (path != null) {
+      path = Uri.tryParse(path)?.toFilePath();
+    }
     path ??= (await getExternalStorageDirectory())?.path;
   }
   path ??= (await getApplicationDocumentsDirectory()).path;
