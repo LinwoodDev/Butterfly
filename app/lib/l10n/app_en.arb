@@ -583,5 +583,6 @@
   "continueAnyway": "Continue anyway",
   "zoomControl": "Zoom control",
   "highContrast": "High contrast",
-  "shouldANumber": "This value should be valid number"
+  "shouldANumber": "This value should be valid number",
+  "invertedPen": "Inverted pen"
 }

@@ -134,7 +134,10 @@ class _MainViewViewportState extends State<MainViewViewport>
               }
               break;
             case PointerDeviceKind.stylus:
-              nextPointerIndex = config.pen;
+            case PointerDeviceKind.invertedStylus:
+              nextPointerIndex = kind == PointerDeviceKind.stylus
+                  ? config.pen
+                  : config.invertedPen;
               if (buttons == kPrimaryStylusButton) {
                 nextPointerIndex = config.firstPenButton;
               } else if (buttons == kSecondaryStylusButton) {

@@ -1095,6 +1095,7 @@ mixin _$InputConfiguration {
   int? get middleMouse => throw _privateConstructorUsedError;
   int? get rightMouse => throw _privateConstructorUsedError;
   int? get pen => throw _privateConstructorUsedError;
+  int? get invertedPen => throw _privateConstructorUsedError;
   int? get firstPenButton => throw _privateConstructorUsedError;
   int? get secondPenButton => throw _privateConstructorUsedError;
   int? get touch => throw _privateConstructorUsedError;
@@ -1116,6 +1117,7 @@ abstract class $InputConfigurationCopyWith<$Res> {
       int? middleMouse,
       int? rightMouse,
       int? pen,
+      int? invertedPen,
       int? firstPenButton,
       int? secondPenButton,
       int? touch});
@@ -1138,6 +1140,7 @@ class _$InputConfigurationCopyWithImpl<$Res, $Val extends InputConfiguration>
     Object? middleMouse = freezed,
     Object? rightMouse = freezed,
     Object? pen = freezed,
+    Object? invertedPen = freezed,
     Object? firstPenButton = freezed,
     Object? secondPenButton = freezed,
     Object? touch = freezed,
@@ -1158,6 +1161,10 @@ class _$InputConfigurationCopyWithImpl<$Res, $Val extends InputConfiguration>
       pen: freezed == pen
           ? _value.pen
           : pen // ignore: cast_nullable_to_non_nullable
+              as int?,
+      invertedPen: freezed == invertedPen
+          ? _value.invertedPen
+          : invertedPen // ignore: cast_nullable_to_non_nullable
               as int?,
       firstPenButton: freezed == firstPenButton
           ? _value.firstPenButton
@@ -1188,6 +1195,7 @@ abstract class _$$InputConfigurationImplCopyWith<$Res>
       int? middleMouse,
       int? rightMouse,
       int? pen,
+      int? invertedPen,
       int? firstPenButton,
       int? secondPenButton,
       int? touch});
@@ -1208,6 +1216,7 @@ class __$$InputConfigurationImplCopyWithImpl<$Res>
     Object? middleMouse = freezed,
     Object? rightMouse = freezed,
     Object? pen = freezed,
+    Object? invertedPen = freezed,
     Object? firstPenButton = freezed,
     Object? secondPenButton = freezed,
     Object? touch = freezed,
@@ -1228,6 +1237,10 @@ class __$$InputConfigurationImplCopyWithImpl<$Res>
       pen: freezed == pen
           ? _value.pen
           : pen // ignore: cast_nullable_to_non_nullable
+              as int?,
+      invertedPen: freezed == invertedPen
+          ? _value.invertedPen
+          : invertedPen // ignore: cast_nullable_to_non_nullable
               as int?,
       firstPenButton: freezed == firstPenButton
           ? _value.firstPenButton
@@ -1254,8 +1267,9 @@ class _$InputConfigurationImpl extends _InputConfiguration
       this.middleMouse = -1,
       this.rightMouse = 1,
       this.pen,
+      this.invertedPen = 2,
       this.firstPenButton = 2,
-      this.secondPenButton = 1,
+      this.secondPenButton = 3,
       this.touch})
       : super._();
 
@@ -1274,6 +1288,9 @@ class _$InputConfigurationImpl extends _InputConfiguration
   final int? pen;
   @override
   @JsonKey()
+  final int? invertedPen;
+  @override
+  @JsonKey()
   final int? firstPenButton;
   @override
   @JsonKey()
@@ -1283,7 +1300,7 @@ class _$InputConfigurationImpl extends _InputConfiguration
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'InputConfiguration(leftMouse: $leftMouse, middleMouse: $middleMouse, rightMouse: $rightMouse, pen: $pen, firstPenButton: $firstPenButton, secondPenButton: $secondPenButton, touch: $touch)';
+    return 'InputConfiguration(leftMouse: $leftMouse, middleMouse: $middleMouse, rightMouse: $rightMouse, pen: $pen, invertedPen: $invertedPen, firstPenButton: $firstPenButton, secondPenButton: $secondPenButton, touch: $touch)';
   }
 
   @override
@@ -1295,6 +1312,7 @@ class _$InputConfigurationImpl extends _InputConfiguration
       ..add(DiagnosticsProperty('middleMouse', middleMouse))
       ..add(DiagnosticsProperty('rightMouse', rightMouse))
       ..add(DiagnosticsProperty('pen', pen))
+      ..add(DiagnosticsProperty('invertedPen', invertedPen))
       ..add(DiagnosticsProperty('firstPenButton', firstPenButton))
       ..add(DiagnosticsProperty('secondPenButton', secondPenButton))
       ..add(DiagnosticsProperty('touch', touch));
@@ -1312,6 +1330,8 @@ class _$InputConfigurationImpl extends _InputConfiguration
             (identical(other.rightMouse, rightMouse) ||
                 other.rightMouse == rightMouse) &&
             (identical(other.pen, pen) || other.pen == pen) &&
+            (identical(other.invertedPen, invertedPen) ||
+                other.invertedPen == invertedPen) &&
             (identical(other.firstPenButton, firstPenButton) ||
                 other.firstPenButton == firstPenButton) &&
             (identical(other.secondPenButton, secondPenButton) ||
@@ -1322,7 +1342,7 @@ class _$InputConfigurationImpl extends _InputConfiguration
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(runtimeType, leftMouse, middleMouse,
-      rightMouse, pen, firstPenButton, secondPenButton, touch);
+      rightMouse, pen, invertedPen, firstPenButton, secondPenButton, touch);
 
   @JsonKey(ignore: true)
   @override
@@ -1345,6 +1365,7 @@ abstract class _InputConfiguration extends InputConfiguration {
       final int? middleMouse,
       final int? rightMouse,
       final int? pen,
+      final int? invertedPen,
       final int? firstPenButton,
       final int? secondPenButton,
       final int? touch}) = _$InputConfigurationImpl;
@@ -1361,6 +1382,8 @@ abstract class _InputConfiguration extends InputConfiguration {
   int? get rightMouse;
   @override
   int? get pen;
+  @override
+  int? get invertedPen;
   @override
   int? get firstPenButton;
   @override

@@ -99,6 +99,19 @@ class PenBehaviorSettings extends StatelessWidget {
                           const SizedBox(height: 8),
                           AdvancedTextField(
                             initialValue:
+                                config.invertedPen?.add(1)?.toString() ?? '',
+                            label: AppLocalizations.of(context).invertedPen,
+                            icon: const PhosphorIcon(PhosphorIconsLight.eraser),
+                            onChanged: (value) {
+                              final cubit = context.read<SettingsCubit>();
+                              cubit.changeInputConfiguration(config.copyWith(
+                                  invertedPen:
+                                      int.tryParse(value)?.subtract(1)));
+                            },
+                          ),
+                          const SizedBox(height: 8),
+                          AdvancedTextField(
+                            initialValue:
                                 config.firstPenButton?.add(1)?.toString() ?? '',
                             label: AppLocalizations.of(context).first,
                             icon: const PhosphorIcon(
