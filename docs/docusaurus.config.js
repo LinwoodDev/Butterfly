@@ -208,7 +208,7 @@ module.exports = {
               path: "2.1",
             },
             "2.0": {
-              label: "2.0.0",
+              label: "2.0.1",
               path: "2.0",
             },
             1.6: {
