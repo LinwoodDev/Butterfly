@@ -2,6 +2,12 @@
 
 <!--ENTER CHANGELOG HERE-->
 
+## 2.0.1 (2024-01-15)
+
+Nothing changed from the nightly build to the stable release.
+
+See all changes since the last stable here: https://linwood.dev/butterfly/2.0.1
+
 ## 2.0.1-rc.1 (2024-01-08)
 
 * Add refresh button to quickstart
