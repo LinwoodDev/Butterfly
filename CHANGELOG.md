@@ -43,7 +43,10 @@ Nothing changed from the nightly build to the stable release.
 
 See all changes since the last stable here: https://linwood.dev/butterfly/2.0.0-rc.3
 
-## 2.0.0-rc.3 (2023-12-22)
+<details>
+ <summary>2.0 Nightly Changelog</summary>
+
+### 2.0.0-rc.3 (2023-12-22)
 
 * Change duplicate icon to have a difference to copy icon ([#552](https://github.com/LinwoodDev/Butterfly/issues/552))
 * Change default scale of label tool to 2
@@ -58,7 +61,7 @@ See all changes since the last stable here: https://linwood.dev/butterfly/2.0.0-
 
 View all changes in the blog: https://linwood.dev/butterfly/2.0.0-rc.3
 
-## 2.0.0-rc.2 (2023-12-15)
+### 2.0.0-rc.2 (2023-12-15)
 
 * Improve button of display icons ([#549](https://github.com/LinwoodDev/Butterfly/issues/549))
 * Improve performance when saving ([#547](https://github.com/LinwoodDev/Butterfly/issues/547))
@@ -72,7 +75,7 @@ View all changes in the blog: https://linwood.dev/butterfly/2.0.0-rc.3
 
 View all changes in the blog: https://linwood.dev/butterfly/2.0.0-rc.2
 
-## 2.0.0-rc.1 (2023-12-08)
+### 2.0.0-rc.1 (2023-12-08)
 
 * Add right click as alternative to long press
 * Change default scale of label to 5
@@ -86,7 +89,7 @@ View all changes in the blog: https://linwood.dev/butterfly/2.0.0-rc.2
 
 View all changes in the blog: https://linwood.dev/butterfly/2.0.0-rc.1
 
-## 2.0.0-rc.0 (2023-12-01)
+### 2.0.0-rc.0 (2023-12-01)
 
 * Add files action to file navigator
 * Add function to disable certain directory in local storage
@@ -99,7 +102,7 @@ View all changes in the blog: https://linwood.dev/butterfly/2.0.0-rc.1
 
 View all changes in the blog: https://linwood.dev/butterfly/2.0.0-rc.0
 
-## 2.0.0-beta.16 (2023-11-24)
+### 2.0.0-beta.16 (2023-11-24)
 
 * Add experiments settings in nightly version
 * Add collaboration support (experimental) using websockets ([#401](https://github.com/LinwoodDev/Butterfly/issues/401))
@@ -119,7 +122,7 @@ View all changes in the blog: https://linwood.dev/butterfly/2.0.0-rc.0
 
 View all changes in the blog: https://linwood.dev/butterfly/2.0.0-beta.16
 
-## 2.0.0-beta.15 (2023-11-17)
+### 2.0.0-beta.15 (2023-11-17)
 
 * Add templates to data settings
 * Add advanced note importer ([#511](https://github.com/LinwoodDev/Butterfly/issues/511))
@@ -141,7 +144,7 @@ View all changes in the blog: https://linwood.dev/butterfly/2.0.0-beta.16
 
 View all changes in the blog: https://linwood.dev/butterfly/2.0.0-beta.15
 
-## 2.0.0-beta.14 (2023-11-04)
+### 2.0.0-beta.14 (2023-11-04)
 
 * Add cursor to path eraser
 * Add scrollbar to recent files
@@ -165,7 +168,7 @@ View all changes in the blog: https://linwood.dev/butterfly/2.0.0-beta.15
 
 View all changes in the blog: https://linwood.dev/butterfly/2.0.0-beta.14
 
-## 2.0.0-beta.13 (2023-10-29)
+### 2.0.0-beta.13 (2023-10-29)
 
 * Allow moving tools when selected
 * Readd recent files ([#512](https://github.com/LinwoodDev/Butterfly/issues/512))
@@ -177,7 +180,7 @@ View all changes in the blog: https://linwood.dev/butterfly/2.0.0-beta.14
 
 View all changes in the blog: https://linwood.dev/butterfly/2.0.0-beta.13
 
-## 2.0.0-beta.12 (2023-10-27)
+### 2.0.0-beta.12 (2023-10-27)
 
 * Add local directory connection
 * Add zoom shortcuts ([#507](https://github.com/LinwoodDev/Butterfly/issues/507))
@@ -196,7 +199,7 @@ View all changes in the blog: https://linwood.dev/butterfly/2.0.0-beta.13
 
 View all changes in the blog: https://linwood.dev/butterfly/2.0.0-beta.12
 
-## 2.0.0-beta.11 (2023-10-20)
+### 2.0.0-beta.11 (2023-10-20)
 
 * Add print as export option
 * Add selected animation to color toolbar
@@ -210,7 +213,7 @@ View all changes in the blog: https://linwood.dev/butterfly/2.0.0-beta.12
 
 View all changes in the blog: https://linwood.dev/butterfly/2.0.0-beta.11
 
-## 2.0.0-beta.10 (2023-10-13)
+### 2.0.0-beta.10 (2023-10-13)
 
 * Add tooltips to icon buttons
 * Improve delete popover in home page
@@ -234,7 +237,7 @@ View all changes in the blog: https://linwood.dev/butterfly/2.0.0-beta.11
 
 View all changes in the blog: https://linwood.dev/butterfly/2.0.0-beta.10
 
-## 2.0.0-beta.9 (2023-10-06)
+### 2.0.0-beta.9 (2023-10-06)
 
 * Add classic theme to theme selection
 * Add indication for opened menu on top left corner menu
@@ -250,7 +253,7 @@ View all changes in the blog: https://linwood.dev/butterfly/2.0.0-beta.10
 
 View all changes in the blog: https://linwood.dev/butterfly/2.0.0-beta.9
 
-## 2.0.0-beta.8 (2023-09-28)
+### 2.0.0-beta.8 (2023-09-28)
 
 * Bump file version to 10
   * Move box background properties to own Texture.pattern class
@@ -341,7 +344,7 @@ This version is not compatible with older versions of Butterfly.
 
 View all changes in the blog: https://linwood.dev/butterfly/2.0.0-beta.8
 
-## 2.0.0-beta.7 (2023-08-18)
+### 2.0.0-beta.7 (2023-08-18)
 
 * Add pen painter icon customisation ([#467](https://github.com/LinwoodDev/Butterfly/issues/467))
 * Add locking for transformation ([#455](https://github.com/LinwoodDev/Butterfly/issues/455))
@@ -365,7 +368,7 @@ View all changes in the blog: https://linwood.dev/butterfly/2.0.0-beta.8
 
 View all changes in the blog: https://linwood.dev/butterfly/2.0.0-beta.7
 
-## 2.0.0-beta.6 (2023-08-04)
+### 2.0.0-beta.6 (2023-08-04)
 
 * Add sort order ([#469](https://github.com/LinwoodDev/Butterfly/issues/469))
 * Add move painter ([#473](https://github.com/LinwoodDev/Butterfly/issues/473))
@@ -393,7 +396,7 @@ View all changes in the blog: https://linwood.dev/butterfly/2.0.0-beta.7
 
 View all changes in the blog: https://linwood.dev/butterfly/2.0
 
-## 2.0.0-beta.5 (2023-07-21)
+### 2.0.0-beta.5 (2023-07-21)
 
 * Add navigation rail to large ui ([#444](https://github.com/LinwoodDev/Butterfly/issues/444))
 * Add specific navigator pages to menu in mobile ui ([#442](https://github.com/LinwoodDev/Butterfly/issues/442))
@@ -416,7 +419,7 @@ View all changes in the blog: https://linwood.dev/butterfly/2.0
 * Fix baking not working on presentation mode
 * Fix painters not updated in selection property view
 
-## 2.0.0-beta.4 (2023-07-14)
+### 2.0.0-beta.4 (2023-07-14)
 
 * Add custom mouse cursors for painters ([#426](https://github.com/LinwoodDev/Butterfly/issues/426))
 * Add spacer painter ([#424](https://github.com/LinwoodDev/Butterfly/issues/424))
@@ -435,7 +438,7 @@ View all changes in the blog: https://linwood.dev/butterfly/2.0
 * Fix home page not refreshing
 * Fix save indicator on web
 
-## 2.0.0-beta.3 (2023-07-07)
+### 2.0.0-beta.3 (2023-07-07)
 
 * Add image background ([#419](https://github.com/LinwoodDev/Butterfly/issues/419))
 * Add ability to customize position of the toolbar ([#408](https://github.com/LinwoodDev/Butterfly/issues/408))
@@ -453,7 +456,7 @@ View all changes in the blog: https://linwood.dev/butterfly/2.0
 * Reduce size of window buttons
 * Remove delete painter. Use the delete button in the properties instead or move the painter to the right of the add button
 
-## 2.0.0-beta.2 (2023-06-30)
+### 2.0.0-beta.2 (2023-06-30)
 
 * Add label context menu
 * Improve document load performance
@@ -470,7 +473,7 @@ View all changes in the blog: https://linwood.dev/butterfly/2.0
 * Fix wrong title in design bottom sheet
 * Fix loading non documents with open with ([#417](https://github.com/LinwoodDev/Butterfly/issues/417))
 
-## 2.0.0-beta.1 (2023-06-23)
+### 2.0.0-beta.1 (2023-06-23)
 
 * Add grid view
 * Add editing of label elements
@@ -492,7 +495,7 @@ View all changes in the blog: https://linwood.dev/butterfly/2.0
 * Fix showing selected settings page in mobile
 * Fix flashing navigation bar if not enabled
 
-## 2.0.0-beta.0 (2023-06-12)
+### 2.0.0-beta.0 (2023-06-12)
 
 * Rebuild area painter handler
   * Areas can now intersect
@@ -535,7 +538,7 @@ View all changes in the blog: https://linwood.dev/butterfly/2.0
 * Fix label created empty text elements
 * Fix backwards compatibility with stamp painter
 
-## 2.0.0-alpha.4 (2023-05-21)
+### 2.0.0-alpha.4 (2023-05-21)
 
 * Add markdown element
 * Add modes for label painter
@@ -549,7 +552,7 @@ View all changes in the blog: https://linwood.dev/butterfly/2.0
 * Show only window if title bar was set ([#385](https://github.com/LinwoodDev/Butterfly/issues/385))
 * Remove tab shortcut to reset the document
 
-## 2.0.0-alpha.3 (2023-05-15)
+### 2.0.0-alpha.3 (2023-05-15)
 
 * Add archive format
 * Add thumbnails on documents
@@ -565,7 +568,7 @@ View all changes in the blog: https://linwood.dev/butterfly/2.0
 * Remove save and load dialog (including load and saving from clipboard)
 * Upgrade to flutter 3.10
 
-## 2.0.0-alpha.2 (2023-05-05)
+### 2.0.0-alpha.2 (2023-05-05)
 
 * Add option to change visibility of banner ([#372](https://github.com/LinwoodDev/Butterfly/issues/372))
 * Add pt language
@@ -586,7 +589,7 @@ View all changes in the blog: https://linwood.dev/butterfly/2.0
 * Remove file extension on file move dialog
 * Remove settings button in main view
 
-## 2.0.0-alpha.1 (2023-04-14)
+### 2.0.0-alpha.1 (2023-04-14)
 
 * Add button to reset templates if quickstart is empty
 * Add option to change shape in add dialog
@@ -607,7 +610,7 @@ View all changes in the blog: https://linwood.dev/butterfly/2.0
 * Fix setting horizontal alignment of text
 * Fix problems with presentation painter if paused
 
-## 2.0.0-alpha.0 (2023-04-09)
+### 2.0.0-alpha.0 (2023-04-09)
 
 * Add rich text
 * Pack changes
@@ -673,6 +676,8 @@ Things that need to be improved:
 * Presentation tool
 * Packs in general
 * File format (there will be an automatic migration)
+
+</details>
 
 ## 1.6.1 (2023-01-27)
 
