@@ -40,12 +40,12 @@ jobs:
           if [[ -n "$KEY_JKS" ]] ; then echo "$KEY_JKS" | base64 --decode > key.jks  ; fi
       #- run: flutter test
       - name: 🏭 Build nightly
-        if: ${{ github.ref != 'refs/tags/stable' }}
+        if: ${{ github.ref != 'refs/tags/stable' && (github.event_name != 'release' || github.event.prerelease) }}
         run: |
           flutter build apk -v --release --flavor development --dart-define=flavor=development
           cp build/app/outputs/flutter-apk/app-development-release.apk linwood-butterfly-android.apk
       - name: 🏭 Build production
-        if: ${{ github.ref == 'refs/tags/stable' }}
+        if: ${{ github.ref == 'refs/tags/stable' || (github.event_name == 'release' && !github.event.prerelease) }}
         run: |
           flutter build apk -v --release --flavor production
           cp build/app/outputs/flutter-apk/app-production-release.apk linwood-butterfly-android.apk
@@ -79,12 +79,12 @@ jobs:
           flutter pub get
           flutter doctor -v
       - name: 🏭 Build nightly
-        if: ${{ github.ref != 'refs/tags/stable' }}
+        if: ${{ github.ref != 'refs/tags/stable' && (github.event_name != 'release' || github.event.prerelease) }}
         run: |
           flutter doctor -v
           flutter build windows -v --release --dart-define=flavor=development
       - name: 🏭 Build production
-        if: ${{ github.ref == 'refs/tags/stable' }}
+        if: ${{ github.ref == 'refs/tags/stable' || (github.event_name == 'release' && !github.event.prerelease) }}
         run: |
           flutter doctor -v
           flutter build windows -v --release --dart-define=flavor=production
@@ -157,12 +157,12 @@ jobs:
           flutter pub get
           flutter doctor -v
       - name: 🏭 Build nightly
-        if: ${{ github.ref != 'refs/tags/stable' }}
+        if: ${{ github.ref != 'refs/tags/stable' && (github.event_name != 'release' || github.event.prerelease) }}
         run: |
           flutter doctor -v
           flutter build linux -v --release --dart-define=flavor=development
       - name: 🏭 Build production
-        if: ${{ github.ref == 'refs/tags/stable' }}
+        if: ${{ github.ref == 'refs/tags/stable' || (github.event_name == 'release' && !github.event.prerelease) }}
         run: |
           flutter doctor -v
           flutter build linux -v --release --dart-define=flavor=production
@@ -268,12 +268,12 @@ jobs:
           flutter pub get
           flutter doctor -v
       - name: 🏭 Build nightly
-        if: ${{ github.ref != 'refs/tags/stable' }}
+        if: ${{ github.ref != 'refs/tags/stable' && (github.event_name != 'release' || github.event.prerelease) }}
         run: |
           flutter doctor -v
           flutter build linux -v --release --dart-define=flavor=development
       - name: 🏭 Build production
-        if: ${{ github.ref == 'refs/tags/stable' }}
+        if: ${{ github.ref == 'refs/tags/stable' || (github.event_name == 'release' && !github.event.prerelease) }}
         run: |
           flutter doctor -v
           flutter build linux -v --release --dart-define=flavor=production
@@ -459,7 +459,7 @@ jobs:
           git config --global user.name "Actions"
           git pull --tags
       - name: 🚀 Deploy stable
-        if: ${{ github.ref == 'refs/tags/stable' }}
+        if: ${{ github.ref == 'refs/tags/stable' || (github.event_name == 'release' && !github.event.prerelease) }}
         uses: softprops/action-gh-release@v1
         continue-on-error: true
         with:
@@ -585,7 +585,7 @@ jobs:
       - uses: actions/checkout@v4
         with:
           token: ${{ secrets.CI_PAT }}
-      - if: ${{ github.ref == 'refs/tags/stable' }}
+      - if: ${{ github.ref == 'refs/tags/stable' || (github.event_name == 'release' && !github.event.prerelease) }}
         uses: vedantmgoyal2009/winget-releaser@v2
         with:
           identifier: LinwoodCloud.Butterfly
