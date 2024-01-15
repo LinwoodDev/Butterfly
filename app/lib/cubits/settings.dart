@@ -262,9 +262,9 @@ class InputConfiguration with _$InputConfiguration {
     @Default(-1) int? middleMouse,
     @Default(1) int? rightMouse,
     int? pen,
-    @Default(2) int? invertedPen,
-    @Default(2) int? firstPenButton,
-    @Default(3) int? secondPenButton,
+    @Default(1) int? invertedPen,
+    @Default(1) int? firstPenButton,
+    @Default(2) int? secondPenButton,
     int? touch,
   }) = _InputConfiguration;
 

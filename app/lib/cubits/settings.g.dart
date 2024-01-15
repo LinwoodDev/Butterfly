@@ -101,9 +101,9 @@ _$InputConfigurationImpl _$$InputConfigurationImplFromJson(Map json) =>
       middleMouse: json['middleMouse'] as int? ?? -1,
       rightMouse: json['rightMouse'] as int? ?? 1,
       pen: json['pen'] as int?,
-      invertedPen: json['invertedPen'] as int? ?? 2,
-      firstPenButton: json['firstPenButton'] as int? ?? 2,
-      secondPenButton: json['secondPenButton'] as int? ?? 3,
+      invertedPen: json['invertedPen'] as int? ?? 1,
+      firstPenButton: json['firstPenButton'] as int? ?? 1,
+      secondPenButton: json['secondPenButton'] as int? ?? 2,
       touch: json['touch'] as int?,
     );
 

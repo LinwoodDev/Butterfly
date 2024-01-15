@@ -1267,9 +1267,9 @@ class _$InputConfigurationImpl extends _InputConfiguration
       this.middleMouse = -1,
       this.rightMouse = 1,
       this.pen,
-      this.invertedPen = 2,
-      this.firstPenButton = 2,
-      this.secondPenButton = 3,
+      this.invertedPen = 1,
+      this.firstPenButton = 1,
+      this.secondPenButton = 2,
       this.touch})
       : super._();
 
