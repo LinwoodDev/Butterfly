@@ -1,0 +1,1 @@
+* Fix template import opens blank document

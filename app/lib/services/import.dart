@@ -113,8 +113,7 @@ class ImportService {
         case NoteFileType.document:
           return _importDocument(data, document, advanced: advanced);
         case NoteFileType.template:
-          await _importTemplate(data);
-          break;
+          return _importTemplate(data);
         case NoteFileType.pack:
           await _importPack(data);
           break;
@@ -200,19 +199,18 @@ class ImportService {
         elements: content, areas: areas, choosePosition: position == null);
   }
 
-  Future<bool> _importTemplate(NoteData template) async {
+  Future<NoteData?> _importTemplate(NoteData template) async {
     final metadata = template.getMetadata();
-    if (metadata == null) return false;
+    if (metadata == null) return null;
     final result = await showDialog<bool>(
       context: context,
       builder: (context) =>
           TemplateImportConfirmationDialog(template: metadata),
     );
-    if (result != true) return false;
-    if (context.mounted) {
+    if (context.mounted && result == true) {
       getTemplateFileSystem().createTemplate(template);
     }
-    return true;
+    return template.createDocument();
   }
 
   Future<bool> _importPack(NoteData pack) async {
