@@ -25,7 +25,6 @@ There are a few shortcuts that you can use in the editor. Some of them are writt
 * `Ctrl` + `Z`: Undo
 * `Ctrl` + `Y`: Redo
 * `Ctrl` + `Shift` + `P`: Open waypoints dialog
-* `Ctrl` + `P`: Open color palette dialog
 * `Ctrl` + `B`: Open background dialog
 * `Ctrl` + `Shift` + `A`: Open areas dialog
 * `Ctrl` + `S`: Save
