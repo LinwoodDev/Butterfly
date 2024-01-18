@@ -25,7 +25,6 @@ sidebar_position: 2
 * `Ctrl` + `Z`: Скасувати
 * `Ctrl` + `Y`: Redo
 * `Ctrl` + `Shift` + `P`: Open waypoints dialog
-* `Ctrl` + `P`: Відкриття діалогового вікна кольорової палітри
 * `Ctrl` + `B`: Відкритий фоновий діалог
 * `Ctrl` + `Shift` + `A`: Відкритий діалог
 * `Ctrl` + `S`: зберегти
