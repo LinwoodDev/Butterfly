@@ -25,7 +25,6 @@ Există câteva comenzi rapide pe care le poți folosi în editor. Unele dintre 
 * `Ctrl` + `Z`: Anulare
 * `Ctrl` + `Y`: Redo
 * `Ctrl` + `Shift` + `P`: Open waypoints dialog
-* `Ctrl` + `P`: Deschide paleta de culori
 * `Ctrl` + `B`: Deschide dialogul de fundal
 * `Ctrl` + `Shift` + `A`: Dialog zone deschise
 * `Ctrl` + `S`: Salvare
