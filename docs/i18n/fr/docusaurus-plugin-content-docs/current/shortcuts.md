@@ -25,7 +25,6 @@ Il y a quelques raccourcis que vous pouvez utiliser dans l'éditeur. Certaines d
 * `Ctrl` + `Z`: Annuler
 * `Ctrl` + `Y`: Refaire
 * `Ctrl` + `Shift` + `P`: Open waypoints dialog
-* `Ctrl` + `P`: Ouvrir la fenêtre de la palette de couleurs
 * `Ctrl` + `B`: Ouvrir la boîte de dialogue d'arrière-plan
 * `Ctrl` + `Maj` + `A`: Ouvrir la boîte de dialogue des zones
 * `Ctrl` + `S`: Enregistrer
