@@ -101,11 +101,14 @@ class LabelSelectionCursor extends Renderer<LabelContext> {
     final rect = element.getRect();
     if (rect != null) {
       canvas.drawRect(
-        rect,
+        rect.inflate(4),
         Paint()
-          ..color = color.withOpacity(0.5)
+          ..color = color
           ..style = PaintingStyle.stroke
-          ..strokeWidth = 1 / transform.size,
+          ..strokeWidth = 3 / transform.size
+          ..strokeCap = StrokeCap.round
+          ..strokeJoin = StrokeJoin.round
+          ..isAntiAlias = true,
       );
     }
   }
