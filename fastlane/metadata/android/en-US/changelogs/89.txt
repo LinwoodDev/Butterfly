@@ -1,1 +1,2 @@
 * Fix template import opens blank document
+* Fix zoom view not appearing

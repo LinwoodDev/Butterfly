@@ -7,9 +7,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ZoomView extends StatefulWidget {
   final bool isMobile;
-  final bool floating;
 
-  const ZoomView({super.key, this.isMobile = false, this.floating = true});
+  const ZoomView({super.key, this.isMobile = false});
 
   @override
   State<ZoomView> createState() => _ZoomViewState();
@@ -158,20 +157,24 @@ class _ZoomViewState extends State<ZoomView> with TickerProviderStateMixin {
                     } else {
                       _controller.forward();
                     }
-                    if (_animation.value == 0 ||
-                        state is! DocumentLoadSuccess) {
-                      return const SizedBox();
-                    }
-                    if (!widget.floating) return body;
                     return AnimatedBuilder(
                       animation: _animation,
-                      builder: (context, child) => Opacity(
-                        opacity: _animation.value,
-                        child: Card(
-                          child: Padding(
-                              padding: const EdgeInsets.all(8.0), child: body),
-                        ),
-                      ),
+                      child: body,
+                      builder: (context, child) {
+                        if (_animation.value == 0 ||
+                            state is! DocumentLoadSuccess) {
+                          return const SizedBox();
+                        }
+                        return Opacity(
+                          opacity: _animation.value,
+                          child: Card(
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: child,
+                            ),
+                          ),
+                        );
+                      },
                     );
                   },
                 ),
