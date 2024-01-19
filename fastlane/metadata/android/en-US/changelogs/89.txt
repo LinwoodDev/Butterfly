@@ -2,3 +2,4 @@
 * Fix template import opens blank document
 * Fix zoom view not appearing
 * Fix markdown property view not opening
+* Fix creating component origin being page origin instead of selection origin

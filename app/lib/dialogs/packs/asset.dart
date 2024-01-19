@@ -1,4 +1,5 @@
 import 'package:butterfly/cubits/settings.dart';
+import 'package:butterfly/renderers/renderer.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -148,9 +149,22 @@ Future<void> addToPack(
     thumbnailUri =
         Uri.dataFromBytes(screenshot.buffer.asUint8List()).toString();
   }
+  final renderers = elements.map(Renderer.fromInstance).toList();
+  await Future.wait(renderers
+      .map((e) async => e.setup(state.data, state.assetService, state.page)));
+  final transformed = renderers
+      .map((e) =>
+          e
+              .transform(
+                position: -rect.center,
+                relative: true,
+              )
+              ?.element ??
+          e.element)
+      .toList();
   pack = pack.setComponent(ButterflyComponent(
     name: result.name,
-    elements: elements,
+    elements: transformed,
     thumbnail: thumbnailUri,
   ));
   bloc.add(PackUpdated(result.pack, pack));
