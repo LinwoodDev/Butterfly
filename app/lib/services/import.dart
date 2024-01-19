@@ -97,8 +97,8 @@ class ImportService {
         AssetFileType.svg => importSvg(bytes, document, position: position),
         AssetFileType.markdown =>
           importMarkdown(bytes, document, position: position),
-        AssetFileType.pdf => importPdf(bytes, document,
-            position: position, createAreas: true, advanced: advanced),
+        AssetFileType.pdf =>
+          importPdf(bytes, document, position: position, advanced: advanced),
         AssetFileType.page => importPage(bytes, document, position: position),
         AssetFileType.xopp => importXopp(bytes, document, position: position),
       };
@@ -383,9 +383,7 @@ class ImportService {
   }
 
   Future<NoteData?> importPdf(Uint8List bytes, NoteData document,
-      {Offset? position,
-      bool createAreas = false,
-      bool advanced = true}) async {
+      {Offset? position, bool advanced = true}) async {
     try {
       final firstPos = position ?? Offset.zero;
       final elements = <Uint8List>[];
@@ -397,7 +395,7 @@ class ImportService {
       if (context.mounted) {
         List<int> pages = List.generate(elements.length, (index) => index);
         double quality = context.read<SettingsCubit>().state.pdfQuality;
-        bool spreadToPages = false;
+        bool spreadToPages = false, createAreas = false;
         if (advanced) {
           final callback = await showDialog<PageDialogCallback>(
               context: context,
@@ -406,6 +404,7 @@ class ImportService {
           pages = callback.pages;
           quality = callback.quality;
           spreadToPages = callback.spreadToPages;
+          createAreas = callback.createAreas;
         }
         final dialog = showLoadingDialog(context);
         final selectedElements = <ImageElement>[];

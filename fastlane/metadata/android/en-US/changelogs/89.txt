@@ -3,3 +3,5 @@
 * Fix zoom view not appearing
 * Fix markdown property view not opening
 * Fix creating component origin being page origin instead of selection origin
+
+Read more here: https://linwood.dev/butterfly/2.0.2-rc.0
