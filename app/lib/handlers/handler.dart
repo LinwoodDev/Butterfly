@@ -337,6 +337,14 @@ class _RayCastParams {
       this.invisibleLayers, this.renderers, this.rect, this.size);
 }
 
+bool isInBounds(DocumentBloc bloc, Offset globalPosition) {
+  final state = bloc.state;
+  if (state is! DocumentLoadSuccess) return false;
+  final area = state.currentArea;
+  if (area == null) return true;
+  return area.rect.contains(globalPosition);
+}
+
 Future<Set<Renderer<PadElement>>> rayCast(
   Offset globalPosition,
   DocumentBloc bloc,
@@ -499,9 +507,11 @@ abstract class PastingHandler<T> extends Handler<T> {
   void _updateElement(PointerEvent event, EventContext context,
       [bool first = false]) {
     final transform = context.getCameraTransform();
+    final globalPos = transform.localToGlobal(event.localPosition);
+    if (!isInBounds(context.getDocumentBloc(), globalPos)) return;
     if (first) _firstPos = transform.localToGlobal(event.localPosition);
     if (!first && _firstPos == null) return;
-    _secondPos = transform.localToGlobal(event.localPosition);
+    _secondPos = globalPos;
     _aspectRatio = context.isCtrlPressed;
     _center = context.isShiftPressed;
     _currentLayer = context.getState()?.currentLayer ?? '';
