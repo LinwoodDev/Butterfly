@@ -293,7 +293,7 @@ class _UtilitiesViewState extends State<_UtilitiesView>
                       value: context.read<TransformCubit>().state.position,
                       round: 2,
                       onChanged: (value) =>
-                          context.read<TransformCubit>().setPosition(value),
+                          context.read<TransformCubit>().teleport(value),
                     ),
                     const SizedBox(height: 8),
                     ExactSlider(
