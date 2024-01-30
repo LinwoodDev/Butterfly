@@ -155,14 +155,16 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     return handler;
   }
 
+  static const _listEq = ListEquality();
+
   @override
   void onChange(Change<CurrentIndex> change) {
     super.onChange(change);
-    if (change.nextState.foregrounds != change.currentState.foregrounds ||
-        change.nextState.temporaryForegrounds !=
-            change.currentState.temporaryForegrounds ||
-        change.nextState.lastPosition != change.currentState.lastPosition) {
-      _sendNetworkingState();
+    if (!_listEq.equals(
+            change.nextState.foregrounds, change.currentState.foregrounds) ||
+        !_listEq.equals(change.nextState.temporaryForegrounds,
+            change.currentState.temporaryForegrounds)) {
+      //_sendNetworkingState();
     }
   }
 

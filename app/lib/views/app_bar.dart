@@ -303,7 +303,7 @@ class _AppBarTitle extends StatelessWidget {
                               AppLocalizations.of(context).changeDocumentPath,
                         ),
                       ],
-                      if (settings.flags.contains('collaboration') && !kIsWeb)
+                      if (settings.flags.contains('collaboration'))
                         StreamBuilder<NetworkingState?>(
                             stream: state.networkingService.stream,
                             builder: (context, snapshot) => IconButton(

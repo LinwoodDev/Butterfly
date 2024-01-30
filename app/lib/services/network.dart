@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 import 'dart:io';
 import 'dart:math';
 
@@ -7,7 +8,10 @@ import 'package:butterfly_api/butterfly_api.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/foundation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:lib5/util.dart';
+import 'package:lib5_crypto_implementation_dart/lib5_crypto_implementation_dart.dart';
 import 'package:networker/networker.dart';
+import 'package:networker_s5/networker_s5.dart';
 import 'package:networker_socket/client.dart';
 import 'package:networker_socket/server.dart';
 import 'package:rxdart/rxdart.dart';
@@ -22,13 +26,15 @@ enum NetworkingSide {
 
 enum NetworkingType {
   webSocket,
-  webRtc;
+  webRtc,
+  s5;
 
   Future<bool> isCompatible() async => switch (this) {
         NetworkingType.webRtc => kIsWeb ||
             !Platform.isAndroid ||
             (await DeviceInfoPlugin().androidInfo).version.sdkInt >= 28,
         NetworkingType.webSocket => !kIsWeb,
+        NetworkingType.s5 => true,
       };
 }
 
@@ -110,25 +116,60 @@ class NetworkingService {
     _subject.add((server, rpc));
   }
 
+  Future<Uint8List?> createClient(Uri uri) async {
+    return switch (uri.scheme) {
+      'ws' => createSocketClient(uri),
+      'wss' => createSocketClient(uri),
+      's5-stream' => createS5(uri),
+      _ => throw UnsupportedError('Unsupported scheme ${uri.scheme}'),
+    };
+  }
+
+  Future<Uint8List?> _setupClient(NetworkerClient client,
+      [bool initiator = false]) async {
+    await client.init();
+    client.read.listen((event) {
+      print('Got: ${String.fromCharCodes(event)}');
+    });
+    final rpc = RpcNetworkerPlugin();
+    _setupRpc(rpc, client);
+    final completer = Completer<Uint8List?>();
+    client.addPlugin(RawJsonNetworkerPlugin()..addPlugin(rpc));
+    _subject.add((client, rpc));
+    if (!initiator) {
+      rpc.addFunction(
+          'init',
+          RpcFunction(RpcType.authority, (message) {
+            final init = NetworkingInitMessage.fromJson(message.message);
+            completer.complete(
+                init.data == null ? null : Uint8List.fromList(init.data!));
+          }));
+      return completer.future.timeout(kTimeout);
+    }
+    rpc.sendMessage(RpcRequest(kNetworkerConnectionIdAny, 'init',
+        NetworkingInitMessage(_bloc?.state.saveBytes())));
+    return null;
+  }
+
   Future<Uint8List?> createSocketClient(Uri uri) async {
     closeNetworking();
     if (!uri.hasPort) {
       uri = uri.replace(port: kDefaultPort);
     }
     final client = NetworkerSocketClient(uri);
-    final rpc = RpcNetworkerPlugin();
-    _setupRpc(rpc, client);
-    final completer = Completer<Uint8List?>();
-    rpc.addFunction(
-        'init',
-        RpcFunction(RpcType.authority, (message) {
-          final init = NetworkingInitMessage.fromJson(message.message);
-          completer.complete(
-              init.data == null ? null : Uint8List.fromList(init.data!));
-        }));
-    client.addPlugin(RawJsonNetworkerPlugin()..addPlugin(rpc));
-    _subject.add((client, rpc));
-    return completer.future.timeout(kTimeout);
+    return _setupClient(client);
+  }
+
+  Future<Uint8List?> createS5([Uri? uri]) async {
+    final crypto = DartCryptoImplementation();
+    var initiator = uri == null;
+    uri ??= Uri(
+      scheme: 's5-stream',
+      host: 'encrypted',
+      userInfo: base64UrlNoPaddingEncode(crypto.generateRandomBytes(32)),
+    );
+    final s5 = NetworkerS5({}, uri);
+    return _setupClient(s5, initiator);
   }
 
   void closeNetworking() {
@@ -158,7 +199,7 @@ class NetworkingService {
         RpcFunction(RpcType.any, (message) {
           final user = NetworkingUser.fromJson(message.message);
           final users = Map<ConnectionId, NetworkingUser>.from(_users.value)
-            ..[message.client] = user;
+            ..[message.client ?? 0] = user;
           _users.add(users);
           _bloc?.state.currentIndexCubit?.updateNetworkingState(_bloc!, users);
         }));

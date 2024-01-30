@@ -175,7 +175,7 @@ class _ProjectPageState extends State<ProjectPage> {
       var data = widget.data;
       final uri = Uri.tryParse(widget.uri ?? '');
       if (widget.uri != null && uri != null) {
-        data = await networkingService.createSocketClient(uri);
+        data = await networkingService.createClient(uri);
       }
       if (data != null) {
         document ??= await globalImportService.load(

@@ -65,6 +65,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.2.6"
+  base_codecs:
+    dependency: transitive
+    description:
+      name: base_codecs
+      sha256: "41701a12ede9912663decd708279924ece5018566daa7d1f484d5f4f10894f91"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.1"
   bidi:
     dependency: transitive
     description:
@@ -188,10 +196,10 @@ packages:
     dependency: transitive
     description:
       name: camera_avfoundation
-      sha256: "6f89cacd6039d37c122c4b2365d23b2a7493395300767873b5d39359ddbc5d5f"
+      sha256: "608b56b0880722f703871329c4d7d4c2f379c8e2936940851df7fc041abc6f51"
       url: "https://pub.dev"
     source: hosted
-    version: "0.9.13+11"
+    version: "0.9.13+10"
   camera_platform_interface:
     dependency: transitive
     description:
@@ -296,6 +304,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.0.3"
+  cryptography:
+    dependency: transitive
+    description:
+      name: cryptography
+      sha256: d146b76d33d94548cf035233fbc2f4338c1242fa119013bead807d033fc4ae05
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.7.0"
   csslib:
     dependency: transitive
     description:
@@ -655,6 +671,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.3.1"
+  hive:
+    dependency: "direct main"
+    description:
+      name: hive
+      sha256: "8dcf6db979d7933da8217edcec84e9df1bdb4e4edc7fc77dbd5aa74356d6d941"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.2.3"
   html:
     dependency: transitive
     description:
@@ -743,6 +767,23 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "6.7.1"
+  lib5:
+    dependency: "direct main"
+    description:
+      path: "."
+      ref: HEAD
+      resolved-ref: "71806e692ef1047e76f2e8bf4ef586f94c20cdb3"
+      url: "https://github.com/s5-dev/lib5"
+    source: git
+    version: "0.2.0"
+  lib5_crypto_implementation_dart:
+    dependency: "direct main"
+    description:
+      name: lib5_crypto_implementation_dart
+      sha256: "578b728b4ff3855d6fe268d49a39a3907255bd9ccd0edfd16fa5d65b9de98795"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.1.0"
   lints:
     dependency: transitive
     description:
@@ -829,8 +870,17 @@ packages:
     dependency: "direct main"
     description:
       path: "packages/networker/networker"
-      ref: "51e8e6e0f3531c35f9d4f34f04ac1235e74fea9b"
-      resolved-ref: "51e8e6e0f3531c35f9d4f34f04ac1235e74fea9b"
+      ref: "6617b9bbfb481ef59b1a6921f1676bb90d73ecf9"
+      resolved-ref: "6617b9bbfb481ef59b1a6921f1676bb90d73ecf9"
+      url: "https://github.com/LinwoodDev/dart_pkgs.git"
+    source: git
+    version: "1.0.0"
+  networker_s5:
+    dependency: "direct main"
+    description:
+      path: "packages/networker/networker_s5"
+      ref: ffc27a9603bfada2a934286cd17093ff6bd1634f
+      resolved-ref: ffc27a9603bfada2a934286cd17093ff6bd1634f
       url: "https://github.com/LinwoodDev/dart_pkgs.git"
     source: git
     version: "1.0.0"
@@ -838,8 +888,8 @@ packages:
     dependency: "direct main"
     description:
       path: "packages/networker/networker_socket"
-      ref: "75b5ec0e51096ae169df3cd4f02c9f6affe22a81"
-      resolved-ref: "75b5ec0e51096ae169df3cd4f02c9f6affe22a81"
+      ref: ffc27a9603bfada2a934286cd17093ff6bd1634f
+      resolved-ref: ffc27a9603bfada2a934286cd17093ff6bd1634f
       url: "https://github.com/LinwoodDev/dart_pkgs.git"
     source: git
     version: "1.0.0"
@@ -1077,6 +1127,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.27.7"
+  s5_msgpack:
+    dependency: transitive
+    description:
+      name: s5_msgpack
+      sha256: "6308b2a59c760aff1c43dff1dc0c3c332378dd73c93f0cadfea37961aee5a46f"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.3.0"
   screen_retriever:
     dependency: transitive
     description:
@@ -1282,6 +1340,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.6.1"
+  thirds:
+    dependency: transitive
+    description:
+      name: thirds
+      sha256: c4b90a4e7f2deac52ebcf22dc7ebbc702578a063a739b3c31e4259a884abb951
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.2.0-alpha.1"
   timing:
     dependency: transitive
     description:
@@ -1290,6 +1356,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.1"
+  tint:
+    dependency: transitive
+    description:
+      name: tint
+      sha256: "9652d9a589f4536d5e392cf790263d120474f15da3cf1bee7f1fdb31b4de5f46"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.0.1"
   typed_data:
     dependency: transitive
     description:
@@ -1435,7 +1509,7 @@ packages:
     source: hosted
     version: "0.3.0"
   web_socket_channel:
-    dependency: transitive
+    dependency: "direct overridden"
     description:
       name: web_socket_channel
       sha256: d88238e5eac9a42bb43ca4e721edba3c08c6354d4a53063afaa568516217621b
@@ -1499,5 +1573,5 @@ packages:
     source: hosted
     version: "3.1.2"
 sdks:
-  dart: ">=3.2.3 <4.0.0"
-  flutter: ">=3.16.6"
+  dart: ">=3.2.0 <4.0.0"
+  flutter: ">=3.16.0"

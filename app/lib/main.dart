@@ -13,8 +13,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_web_plugins/url_strategy.dart';
 import 'package:go_router/go_router.dart';
+import 'package:hive/hive.dart';
 import 'package:lw_sysinfo/lw_sysinfo.dart';
 import 'package:material_leap/l10n/leap_localizations.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:window_manager/window_manager.dart';
 import 'package:flutter_localized_locales/flutter_localized_locales.dart';
@@ -46,7 +48,9 @@ const kLargeWidth = 1200.0;
 Future<void> main([List<String> args = const []]) async {
   WidgetsFlutterBinding.ensureInitialized();
   usePathUrlStrategy();
-
+  if (!kIsWeb) {
+    Hive.init('${(await getTemporaryDirectory()).path}/butterfly');
+  }
   await setup();
   var initialLocation = '/';
   final argParser = ArgParser();
