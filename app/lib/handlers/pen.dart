@@ -49,20 +49,22 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
     bloc.refresh();
   }
 
-  void addPoint(BuildContext context, int pointer, Offset localPosition,
+  void addPoint(BuildContext context, int pointer, Offset localPos,
       double pressure, PointerDeviceKind kind,
       {bool refresh = true, bool shouldCreate = false}) {
     final bloc = context.read<DocumentBloc>();
     final currentIndexCubit = context.read<CurrentIndexCubit>();
     final viewport = currentIndexCubit.state.cameraViewport;
     final transform = context.read<TransformCubit>().state;
+    final globalPos = transform.localToGlobal(localPos);
+    if (!isInBounds(bloc, globalPos)) return;
     final state = bloc.state as DocumentLoadSuccess;
     final settings = context.read<SettingsCubit>().state;
     final penOnlyInput = settings.penOnlyInput;
-    localPosition =
-        viewport.utilities.getPointerPosition(localPosition, currentIndexCubit);
-    if (lastPosition[pointer] == localPosition) return;
-    lastPosition[pointer] = localPosition;
+    localPos =
+        viewport.utilities.getPointerPosition(localPos, currentIndexCubit);
+    if (lastPosition[pointer] == localPos) return;
+    lastPosition[pointer] = localPos;
     if (penOnlyInput && kind != PointerDeviceKind.stylus) {
       return;
     }
@@ -82,8 +84,7 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
     elements[pointer] = element.copyWith(
         points: List<PathPoint>.from(element.points)
           ..add(PathPoint.fromPoint(
-              transform.localToGlobal(localPosition).toPoint(),
-              (createNew ? 0 : pressure) / zoom)));
+              globalPos.toPoint(), (createNew ? 0 : pressure) / zoom)));
     if (refresh) bloc.refresh();
   }
 

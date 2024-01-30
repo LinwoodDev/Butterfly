@@ -2,6 +2,23 @@
 
 <!--ENTER CHANGELOG HERE-->
 
+## 2.0.2 (2024-01-29)
+
+Nothing changed from the nightly build to the stable release.
+
+See all changes since the last stable here: https://linwood.dev/butterfly/2.0.2
+
+## 2.0.2-rc.0 (2024-01-22)
+
+* Use thicker lines for label selection rect
+* Restrict input to area bounds when inside area ([#573](https://github.com/LinwoodDev/Butterfly/issues/573))
+* Fix template import opens blank document
+* Fix zoom view not appearing
+* Fix markdown property view not opening
+* Fix creating component origin being page origin instead of selection origin
+
+Read more here: https://linwood.dev/butterfly/2.0.2-rc.0
+
 ## 2.0.1 (2024-01-15)
 
 Nothing changed from the nightly build to the stable release.

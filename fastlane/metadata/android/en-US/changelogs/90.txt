@@ -1,0 +1,3 @@
+Nothing changed from the nightly build to the stable release.
+
+See all changes since the last stable here: https://linwood.dev/butterfly/2.0.2
