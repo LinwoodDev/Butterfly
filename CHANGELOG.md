@@ -2,6 +2,12 @@
 
 <!--ENTER CHANGELOG HERE-->
 
+## 2.0.2 (2024-01-29)
+
+Nothing changed from the nightly build to the stable release.
+
+See all changes since the last stable here: https://linwood.dev/butterfly/2.0.2
+
 ## 2.0.2-rc.0 (2024-01-22)
 
 * Use thicker lines for label selection rect
