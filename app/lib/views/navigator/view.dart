@@ -177,7 +177,7 @@ class _DocumentNavigatorState extends State<DocumentNavigator>
             }
             final body = switch (page) {
               NavigatorPage.waypoints => const WaypointsView(),
-              NavigatorPage.areas => const AreasView(),
+              NavigatorPage.areas => AreasView(),
               NavigatorPage.layers => const LayersView(),
               NavigatorPage.pages => const PagesView(),
               NavigatorPage.files => SingleChildScrollView(

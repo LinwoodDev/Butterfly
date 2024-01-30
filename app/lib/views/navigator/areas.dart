@@ -12,7 +12,8 @@ import '../../dialogs/delete.dart';
 import '../../widgets/editable_list_tile.dart';
 
 class AreasView extends StatelessWidget {
-  const AreasView({super.key});
+  final TextEditingController _searchController = TextEditingController();
+  AreasView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -22,61 +23,109 @@ class AreasView extends StatelessWidget {
         builder: (context, currentIndex) {
           final viewport = currentIndex.cameraViewport;
           final viewportRect = viewport.toRect(true);
-          print(viewportRect.width);
           return BlocBuilder<DocumentBloc, DocumentState>(
               buildWhen: (previous, current) =>
-                  previous.page?.areas != current.page?.areas,
+                  previous.page?.areas != current.page?.areas ||
+                  previous.currentArea != current.currentArea,
               builder: (context, state) {
                 if (state is! DocumentLoadSuccess) {
                   return const SizedBox.shrink();
                 }
-                var areas = state.page.areas;
-                return Stack(
+                return Column(
                   children: [
-                    ListView.builder(
-                        itemCount: areas.length,
-                        itemBuilder: (BuildContext context, int index) {
-                          final area = areas[index];
-                          return EditableListTile(
-                            initialValue: area.name,
-                            onTap: () {
-                              final screen = context
-                                  .read<CurrentIndexCubit>()
-                                  .state
-                                  .cameraViewport
-                                  .toSize();
-                              context
-                                  .read<TransformCubit>()
-                                  .teleportToArea(area, screen);
-                              context.read<DocumentBloc>().bake();
-                            },
-                            onSaved: (value) => context
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: TextField(
+                        decoration: const InputDecoration(
+                          filled: true,
+                          prefixIcon:
+                              PhosphorIcon(PhosphorIconsLight.magnifyingGlass),
+                        ),
+                        textAlignVertical: TextAlignVertical.center,
+                        controller: _searchController,
+                        autofocus: true,
+                      ),
+                    ),
+                    if (state.currentArea != null) ...[
+                      ListTile(
+                          leading:
+                              const PhosphorIcon(PhosphorIconsLight.signOut),
+                          onTap: () {
+                            context
                                 .read<DocumentBloc>()
-                                .add(AreaChanged(
-                                    area.name, area.copyWith(name: value))),
-                            selected: area.rect.overlaps(viewportRect),
-                            actions: [
-                              MenuItemButton(
-                                leadingIcon: const PhosphorIcon(
-                                    PhosphorIconsLight.trash),
-                                onPressed: () async {
-                                  final result = await showDialog<bool>(
-                                      context: context,
-                                      builder: (context) =>
-                                          const DeleteDialog());
-                                  if (result != true) return;
-                                  if (context.mounted) {
-                                    context
+                                .add(const CurrentAreaChanged(''));
+                          },
+                          title: Text(AppLocalizations.of(context).exitArea)),
+                    ],
+                    const Divider(),
+                    Expanded(
+                      child: ListenableBuilder(
+                          listenable: _searchController,
+                          builder: (context, child) {
+                            final areas = state.page.areas
+                                .where((area) => area.name
+                                    .toLowerCase()
+                                    .contains(
+                                        _searchController.text.toLowerCase()))
+                                .toList();
+                            return ListView.builder(
+                                itemCount: areas.length,
+                                itemBuilder: (BuildContext context, int index) {
+                                  final area = areas[index];
+                                  return EditableListTile(
+                                    initialValue: area.name,
+                                    onTap: () {
+                                      final screen = context
+                                          .read<CurrentIndexCubit>()
+                                          .state
+                                          .cameraViewport
+                                          .toSize();
+                                      context
+                                          .read<TransformCubit>()
+                                          .teleportToArea(area, screen);
+                                      context.read<DocumentBloc>().bake();
+                                    },
+                                    onSaved: (value) => context
                                         .read<DocumentBloc>()
-                                        .add(AreasRemoved([area.name]));
-                                  }
-                                },
-                                child:
-                                    Text(AppLocalizations.of(context).delete),
-                              )
-                            ],
-                          );
-                        }),
+                                        .add(AreaChanged(area.name,
+                                            area.copyWith(name: value))),
+                                    selected: state.currentArea == null
+                                        ? area.rect.overlaps(viewportRect)
+                                        : state.currentArea?.name == area.name,
+                                    actions: [
+                                      MenuItemButton(
+                                        leadingIcon: const PhosphorIcon(
+                                            PhosphorIconsLight.signIn),
+                                        onPressed: () {
+                                          context.read<DocumentBloc>().add(
+                                              CurrentAreaChanged(area.name));
+                                        },
+                                        child: Text(AppLocalizations.of(context)
+                                            .enterArea),
+                                      ),
+                                      MenuItemButton(
+                                        leadingIcon: const PhosphorIcon(
+                                            PhosphorIconsLight.trash),
+                                        onPressed: () async {
+                                          final result = await showDialog<bool>(
+                                              context: context,
+                                              builder: (context) =>
+                                                  const DeleteDialog());
+                                          if (result != true) return;
+                                          if (context.mounted) {
+                                            context
+                                                .read<DocumentBloc>()
+                                                .add(AreasRemoved([area.name]));
+                                          }
+                                        },
+                                        child: Text(AppLocalizations.of(context)
+                                            .delete),
+                                      )
+                                    ],
+                                  );
+                                });
+                          }),
+                    ),
                   ],
                 );
               });

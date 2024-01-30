@@ -13,7 +13,8 @@ class PageDialogCallback {
   final bool spreadToPages, createAreas;
   final double quality;
 
-  const PageDialogCallback(this.pages, this.quality, this.spreadToPages, this.createAreas);
+  const PageDialogCallback(
+      this.pages, this.quality, this.spreadToPages, this.createAreas);
 }
 
 class PagesDialog extends StatefulWidget {
@@ -128,8 +129,8 @@ class _PagesDialogState extends State<PagesDialog> {
                 ),
                 ElevatedButton(
                   child: Text(AppLocalizations.of(context).ok),
-                  onPressed: () => Navigator.of(context).pop(
-                      PageDialogCallback(_selected, _quality, _spreadToPages, _createAreas)),
+                  onPressed: () => Navigator.of(context).pop(PageDialogCallback(
+                      _selected, _quality, _spreadToPages, _createAreas)),
                 ),
               ],
             ),
