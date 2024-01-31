@@ -1,3 +1,6 @@
+import 'dart:async';
+
+import 'package:butterfly/api/save.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
@@ -46,118 +49,127 @@ class _PdfExportDialogState extends State<PdfExportDialog> {
             return const Center(child: CircularProgressIndicator());
           }
           final currentIndex = state.currentIndexCubit;
-          return Column(mainAxisSize: MainAxisSize.min, children: [
-            Header(
-              title: Text(AppLocalizations.of(context).exportPdf),
-              actions: [
-                IconButton(
-                  icon: const PhosphorIcon(PhosphorIconsLight.list),
-                  tooltip: AppLocalizations.of(context).presets,
-                  onPressed: () async {
-                    final preset = await showDialog<ExportPreset>(
-                        context: context,
-                        builder: (ctx) => BlocProvider.value(
-                            value: context.read<DocumentBloc>(),
-                            child: ExportPresetsDialog(areas: areas)));
-                    if (preset != null) {
-                      setState(() {
-                        areas.clear();
-                        areas.addAll(preset.areas);
-                      });
-                    }
-                  },
-                ),
-                IconButton(
-                  onPressed: () async {
-                    final result = await showDialog<(String, String)>(
-                      context: context,
-                      builder: (context) =>
-                          _AreaSelectionDialog(document: state.data),
-                    );
-                    if (result != null) {
-                      final (page, area) = result;
-                      setState(() {
-                        areas.add(AreaPreset(name: area, page: page));
-                      });
-                    }
-                  },
-                  icon: const PhosphorIcon(PhosphorIconsLight.plus),
-                  tooltip: AppLocalizations.of(context).add,
-                )
-              ],
-            ),
-            Flexible(
-              child: Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
-                child: Column(mainAxisSize: MainAxisSize.min, children: [
-                  Flexible(
-                    child: SingleChildScrollView(
-                      child: Wrap(
-                        alignment: WrapAlignment.center,
-                        crossAxisAlignment: WrapCrossAlignment.center,
-                        children: areas.mapIndexed((i, e) {
-                          final area =
-                              e.area ?? state.page.getAreaByName(e.name);
-                          if (area == null) {
-                            return Container();
-                          }
-                          return FutureBuilder<ByteData?>(
-                            future: currentIndex.render(
-                                state.data, state.page, state.info,
-                                width: area.width,
-                                height: area.height,
-                                quality: e.quality,
-                                x: area.position.x,
-                                y: area.position.y),
-                            builder: (context, snapshot) => _AreaPreview(
-                              area: area,
-                              quality: e.quality,
-                              onRemove: () {
-                                setState(() {
-                                  areas.removeAt(i);
-                                });
-                              },
-                              onQualityChanged: (value) {
-                                setState(() {
-                                  areas[i] = e.copyWith(quality: value);
-                                });
-                              },
-                              image: snapshot.data?.buffer.asUint8List(),
-                            ),
-                          );
-                        }).toList(),
-                      ),
+          return Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Header(
+                  title: Text(AppLocalizations.of(context).exportPdf),
+                  actions: [
+                    IconButton(
+                      icon: const PhosphorIcon(PhosphorIconsLight.list),
+                      tooltip: AppLocalizations.of(context).presets,
+                      onPressed: () async {
+                        final preset = await showDialog<ExportPreset>(
+                            context: context,
+                            builder: (ctx) => BlocProvider.value(
+                                value: context.read<DocumentBloc>(),
+                                child: ExportPresetsDialog(areas: areas)));
+                        if (preset != null) {
+                          setState(() {
+                            areas.clear();
+                            areas.addAll(preset.areas);
+                          });
+                        }
+                      },
                     ),
+                    IconButton(
+                      onPressed: () async {
+                        final result = await showDialog<(String, String)>(
+                          context: context,
+                          builder: (context) =>
+                              _AreaSelectionDialog(document: state.data),
+                        );
+                        if (result != null) {
+                          final (page, area) = result;
+                          setState(() {
+                            areas.add(AreaPreset(name: area, page: page));
+                          });
+                        }
+                      },
+                      icon: const PhosphorIcon(PhosphorIconsLight.plus),
+                      tooltip: AppLocalizations.of(context).add,
+                    )
+                  ],
+                ),
+                Flexible(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 20, vertical: 15),
+                    child: Column(mainAxisSize: MainAxisSize.min, children: [
+                      Flexible(
+                        child: SingleChildScrollView(
+                          child: Wrap(
+                            alignment: WrapAlignment.center,
+                            crossAxisAlignment: WrapCrossAlignment.center,
+                            children: areas.mapIndexed((i, e) {
+                              final area =
+                                  e.area ?? state.page.getAreaByName(e.name);
+                              if (area == null) {
+                                return Container();
+                              }
+                              return FutureBuilder<ByteData?>(
+                                future: currentIndex.render(
+                                    state.data, state.page, state.info,
+                                    width: area.width,
+                                    height: area.height,
+                                    quality: e.quality,
+                                    x: area.position.x,
+                                    y: area.position.y),
+                                builder: (context, snapshot) => _AreaPreview(
+                                  area: area,
+                                  quality: e.quality,
+                                  onRemove: () {
+                                    setState(() {
+                                      areas.removeAt(i);
+                                    });
+                                  },
+                                  onQualityChanged: (value) {
+                                    setState(() {
+                                      areas[i] = e.copyWith(quality: value);
+                                    });
+                                  },
+                                  image: snapshot.data?.buffer.asUint8List(),
+                                ),
+                              );
+                            }).toList(),
+                          ),
+                        ),
+                      ),
+                      const Divider(),
+                      Row(
+                        children: [
+                          Expanded(child: Container()),
+                          TextButton(
+                            child: Text(AppLocalizations.of(context).cancel),
+                            onPressed: () => Navigator.of(context).pop(),
+                          ),
+                          ElevatedButton(
+                            child: Text(widget.print
+                                ? AppLocalizations.of(context).print
+                                : AppLocalizations.of(context).export),
+                            onPressed: () async {
+                              Future<Uint8List> getBytes() async =>
+                                  (await currentIndex.renderPDF(
+                                          state.data, state.info,
+                                          areas: areas))
+                                      .save();
+                              Navigator.of(context).pop();
+                              if (widget.print) {
+                                Printing.layoutPdf(
+                                  onLayout: (_) => getBytes(),
+                                );
+                                return;
+                              }
+                              exportPdf(context, await getBytes());
+                            },
+                          ),
+                        ],
+                      )
+                    ]),
                   ),
-                  const Divider(),
-                  Row(
-                    children: [
-                      Expanded(child: Container()),
-                      TextButton(
-                        child: Text(AppLocalizations.of(context).cancel),
-                        onPressed: () => Navigator.of(context).pop(),
-                      ),
-                      ElevatedButton(
-                        child: Text(widget.print
-                            ? AppLocalizations.of(context).print
-                            : AppLocalizations.of(context).export),
-                        onPressed: () async {
-                          Navigator.of(context).pop();
-                          Printing.layoutPdf(
-                            onLayout: (_) async => (await currentIndex
-                                    .renderPDF(state.data, state.info,
-                                        areas: areas))
-                                .save(),
-                          );
-                        },
-                      ),
-                    ],
-                  )
-                ]),
-              ),
-            ),
-          ]);
+                ),
+              ]);
         }),
       ),
     );

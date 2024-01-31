@@ -1,0 +1,2 @@
+* Fix export pdf print instead of export as file
+* Fix scroll in pdf export dialog
