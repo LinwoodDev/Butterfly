@@ -18,9 +18,9 @@ Future<void> updatePdfJs() async {
   final cdnBaseUrl =
       'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/$latestVersion';
   // From cdnjs
-  final fetchedPdf = await http.get(Uri.parse('$cdnBaseUrl/pdf.min.js'));
+  final fetchedPdf = await http.get(Uri.parse('$cdnBaseUrl/pdf.min.mjs'));
   final fetchedPdfWorker =
-      await http.get(Uri.parse('$cdnBaseUrl/pdf.worker.js'));
+      await http.get(Uri.parse('$cdnBaseUrl/pdf.worker.mjs'));
   // Write to files
   await pdfFile.writeAsString(fetchedPdf.body);
   await pdfWorkerFile.writeAsString(fetchedPdfWorker.body);

@@ -1,36 +1,17 @@
-import 'dart:io';
-
-import 'package:file_selector/file_selector.dart' as fs;
-import 'package:flutter/foundation.dart';
+import 'package:butterfly/api/save_stub.dart'
+    if (dart.library.io) 'package:butterfly/api/save_io.dart'
+    if (dart.library.js) 'package:butterfly/api/save_html.dart' as save;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:share_plus/share_plus.dart';
 
 Future<void> exportFile(
   BuildContext context,
   List<int> bytes,
   String fileExtension,
   String mimeType,
-) async {
-  final file = fs.XFile.fromData(Uint8List.fromList(bytes),
-      mimeType: mimeType, name: 'output.$fileExtension');
-  if (kIsWeb || Platform.isAndroid || Platform.isIOS) {
-    Share.shareXFiles([file]);
-    return;
-  }
-  final result = await fs.getSaveLocation(
-    acceptedTypeGroups: [
-      fs.XTypeGroup(
-        label: AppLocalizations.of(context).export,
-        extensions: [fileExtension],
-        mimeTypes: [mimeType],
-      ),
-    ],
-  );
-  if (result == null) return;
-  await file.saveTo(result.path);
-}
+) =>
+    save.exportFile(context, bytes, fileExtension, mimeType);
 
 Future<void> exportSvg(BuildContext context, String data) =>
     exportFile(context, data.codeUnits, 'svg', 'image/svg');
