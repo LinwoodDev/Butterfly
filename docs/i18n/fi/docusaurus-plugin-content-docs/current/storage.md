@@ -19,7 +19,7 @@ Oletuksena sovellus tallentaa asiakirjojesi kansiossa olevat tiedot "Linwood/But
 
 ## Etätallennus {#remote}
 
-:::note
+::note
 
 Tämä ominaisuus ei ole käytettävissä verkossa.
 
@@ -43,6 +43,6 @@ On olemassa muutamia rajoituksia:
 * Et voi poistaa tiedostoa tai kansiota offline-tilassa.
 * Et voi lisätä, muokata tai poistaa malleja ollessasi offline-tilassa.
 
-## Other storage methods
+## Muut varastointimenetelmät
 
-If you are on a native device you can also sync the application directory with your favorite platform. Google drive has [an official app](https://www.google.com/drive/download/) on windows and there are unofficial onces on the play store. On linux you can also use the native remote storage system and change your data directory to this or add a new external storage if you click on the add connection button.
+Jos olet kotoperäisellä laitteella, voit myös synkronoida sovelluksen hakemiston suosikki alustan. Google drive on [virallinen sovellus](https://www.google.com/drive/download/) ikkunoissa ja on epävirallinen kerrat Play-kaupassa. Linuxissa voit myös käyttää natiivia etätallennusjärjestelmää ja vaihtaa datahakemiston tähän tai lisätä uuden ulkoisen tallennustilan, jos klikkaat yhteys-painiketta.
