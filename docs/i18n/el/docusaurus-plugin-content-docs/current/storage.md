@@ -43,6 +43,6 @@ sidebar_position: 2
 * Δεν μπορείτε να διαγράψετε ένα αρχείο ή φάκελο όσο είστε εκτός σύνδεσης.
 * Δεν μπορείτε να προσθέσετε, να επεξεργαστείτε ή να διαγράψετε πρότυπα όσο είστε εκτός σύνδεσης.
 
-## Other storage methods
+## Άλλες μέθοδοι αποθήκευσης
 
-If you are on a native device you can also sync the application directory with your favorite platform. Google drive has [an official app](https://www.google.com/drive/download/) on windows and there are unofficial onces on the play store. On linux you can also use the native remote storage system and change your data directory to this or add a new external storage if you click on the add connection button.
+Εάν είστε σε μια εγγενή συσκευή, μπορείτε επίσης να συγχρονίσετε τον κατάλογο εφαρμογών με την αγαπημένη σας πλατφόρμα. Το Google drive έχει [μια επίσημη εφαρμογή](https://www.google.com/drive/download/) στα παράθυρα και υπάρχουν ανεπίσημες μονάδες στο play store. Στο linux μπορείτε επίσης να χρησιμοποιήσετε το εγγενές σύστημα απομακρυσμένης αποθήκευσης και να αλλάξετε τον κατάλογο δεδομένων σας σε αυτόν ή να προσθέσετε ένα νέο εξωτερικό χώρο αποθήκευσης αν κάνετε κλικ στο κουμπί προσθήκη.
