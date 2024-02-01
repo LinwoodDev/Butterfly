@@ -43,6 +43,6 @@ Es gibt ein paar Einschränkungen:
 * Sie können keine Datei oder einen Ordner löschen, wenn Sie offline sind.
 * Sie können Vorlagen nicht hinzufügen, bearbeiten oder löschen, solange Sie offline sind.
 
-## Other storage methods
+## Andere Speichermethoden
 
-If you are on a native device you can also sync the application directory with your favorite platform. Google drive has [an official app](https://www.google.com/drive/download/) on windows and there are unofficial onces on the play store. On linux you can also use the native remote storage system and change your data directory to this or add a new external storage if you click on the add connection button.
+Wenn Sie auf einem nativen Gerät sind, können Sie auch das Anwendungsverzeichnis mit Ihrer Lieblingsplattform synchronisieren. Google Drive hat [eine offizielle App](https://www.google.com/drive/download/) auf Fenstern und es gibt inoffizielle Einzige im Play Store. Auf Linux können Sie auch das native Remotespeicher System verwenden und Ihr Datenverzeichnis ändern oder einen neuen externen Speicher hinzufügen, wenn Sie auf die Schaltfläche Verbindung hinzufügen klicken.
