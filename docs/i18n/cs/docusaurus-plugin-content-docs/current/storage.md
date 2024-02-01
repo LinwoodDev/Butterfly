@@ -43,6 +43,6 @@ Existuje několik omezení:
 * Nelze odstranit soubor nebo složku, pokud jste v režimu offline.
 * Nemůžete přidávat, upravovat nebo odstraňovat šablony, když jste offline.
 
-## Other storage methods
+## Jiné metody skladování
 
-If you are on a native device you can also sync the application directory with your favorite platform. Google drive has [an official app](https://www.google.com/drive/download/) on windows and there are unofficial onces on the play store. On linux you can also use the native remote storage system and change your data directory to this or add a new external storage if you click on the add connection button.
+Pokud jste na nativním zařízení, můžete také synchronizovat adresář aplikace s vaší oblíbenou platformou. Google drive has [an official app](https://www.google.com/drive/download/) on windows and there are unofficial onces on the play store. Na linuxu můžete také použít nativní vzdálené úložiště a změnit v něm adresář dat nebo přidat nové externí úložiště, pokud klepnete na tlačítko Přidat připojení.
