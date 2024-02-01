@@ -43,6 +43,6 @@ Există câteva limitări:
 * Nu puteți șterge un fișier sau un dosar în timp ce sunteți offline.
 * Nu puteți adăuga, edita sau șterge șabloane în timp ce sunteți offline.
 
-## Other storage methods
+## Alte metode de depozitare
 
-If you are on a native device you can also sync the application directory with your favorite platform. Google drive has [an official app](https://www.google.com/drive/download/) on windows and there are unofficial onces on the play store. On linux you can also use the native remote storage system and change your data directory to this or add a new external storage if you click on the add connection button.
+Dacă ești pe un dispozitiv nativ, poți sincroniza și directorul aplicației cu platforma ta preferată. Google drive are [o aplicație oficială](https://www.google.com/drive/download/) pe ferestre și există lucruri neoficiale în magazinul de joacă. În linux puteţi folosi şi sistemul nativ de stocare la distanţă şi să schimbaţi folderul de date la acesta sau să adăugaţi o nouă stocare externă dacă faceţi clic pe butonul de adăugare conexiune.
