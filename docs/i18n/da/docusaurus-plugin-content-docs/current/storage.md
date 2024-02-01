@@ -42,3 +42,7 @@ Der er et par begrænsninger:
 * Du kan kun synkronisere det øverste niveau i en mappe. For eksempel hvis du har en mappe `a/b/test.bfly`, vil denne fil ikke blive synkroniseret.
 * Du kan ikke slette en fil eller mappe, mens du er offline.
 * Du kan ikke tilføje, redigere eller slette skabeloner, mens du er offline.
+
+## Other storage methods
+
+If you are on a native device you can also sync the application directory with your favorite platform. Google drive has [an official app](https://www.google.com/drive/download/) on windows and there are unofficial onces on the play store. On linux you can also use the native remote storage system and change your data directory to this or add a new external storage if you click on the add connection button.
