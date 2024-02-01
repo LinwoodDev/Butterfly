@@ -42,3 +42,7 @@ Existuje několik omezení:
 * Můžete synchronizovat pouze nejvyšší úroveň složky. Například pokud máte adresář `a/b/test.bfly`, tento soubor nebude synchronizován.
 * Nelze odstranit soubor nebo složku, pokud jste v režimu offline.
 * Nemůžete přidávat, upravovat nebo odstraňovat šablony, když jste offline.
+
+## Other storage methods
+
+If you are on a native device you can also sync the application directory with your favorite platform. Google drive has [an official app](https://www.google.com/drive/download/) on windows and there are unofficial onces on the play store. On linux you can also use the native remote storage system and change your data directory to this or add a new external storage if you click on the add connection button.
