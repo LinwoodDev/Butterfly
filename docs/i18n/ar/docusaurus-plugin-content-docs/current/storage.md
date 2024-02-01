@@ -19,7 +19,7 @@ sidebar_position: 2
 
 ## التخزين عن بعد {#remote}
 
-:::note
+::note
 
 هذه الميزة غير متوفرة على الويب.
 
@@ -43,6 +43,6 @@ sidebar_position: 2
 * لا يمكنك حذف ملف أو مجلد عندما تكون غير متصل.
 * لا يمكنك إضافة أو تحرير أو حذف قوالب عندما تكون غير متصل.
 
-## Other storage methods
+## طرق التخزين الأخرى
 
-If you are on a native device you can also sync the application directory with your favorite platform. Google drive has [an official app](https://www.google.com/drive/download/) on windows and there are unofficial onces on the play store. On linux you can also use the native remote storage system and change your data directory to this or add a new external storage if you click on the add connection button.
+إذا كنت على جهاز أصلي يمكنك أيضا مزامنة دليل التطبيق مع المنصة المفضلة لديك. لدى محرك الأقراص Google [تطبيق رسمي](https://www.google.com/drive/download/) على النوافذ وهناك تطبيقات غير رسمية على متجر التشغيل. على Linux يمكنك أيضًا استخدام نظام التخزين المحلي البعيد وتغيير دليل البيانات الخاص بك إلى هذا أو إضافة وحدة تخزين خارجية جديدة إذا قمت بالنقر على زر إضافة الاتصال.
