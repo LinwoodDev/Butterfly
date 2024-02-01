@@ -43,6 +43,6 @@ Il y a quelques limitations :
 * Vous ne pouvez pas supprimer un fichier ou un dossier lorsque vous êtes hors ligne.
 * Vous ne pouvez pas ajouter, modifier ou supprimer des modèles lorsque vous êtes hors ligne.
 
-## Other storage methods
+## Autres méthodes de stockage
 
-If you are on a native device you can also sync the application directory with your favorite platform. Google drive has [an official app](https://www.google.com/drive/download/) on windows and there are unofficial onces on the play store. On linux you can also use the native remote storage system and change your data directory to this or add a new external storage if you click on the add connection button.
+Si vous êtes sur un périphérique natif, vous pouvez également synchroniser le répertoire d'application avec votre plateforme préférée. Google drive a [une application officielle](https://www.google.com/drive/download/) sur les fenêtres et il y a des fois non officielles sur le Play Store. Sous Linux, vous pouvez également utiliser le système de stockage natif à distance et changer votre répertoire de données ou ajouter un nouveau stockage externe si vous cliquez sur le bouton d'ajout de connexion.
