@@ -42,3 +42,7 @@ sidebar_position: 2
 * Μπορείτε να συγχρονίσετε μόνο το ανώτερο επίπεδο ενός καταλόγου. Για παράδειγμα, αν έχετε έναν κατάλογο `a/b/test.bfly`, αυτό το αρχείο δεν θα συγχρονιστεί.
 * Δεν μπορείτε να διαγράψετε ένα αρχείο ή φάκελο όσο είστε εκτός σύνδεσης.
 * Δεν μπορείτε να προσθέσετε, να επεξεργαστείτε ή να διαγράψετε πρότυπα όσο είστε εκτός σύνδεσης.
+
+## Other storage methods
+
+If you are on a native device you can also sync the application directory with your favorite platform. Google drive has [an official app](https://www.google.com/drive/download/) on windows and there are unofficial onces on the play store. On linux you can also use the native remote storage system and change your data directory to this or add a new external storage if you click on the add connection button.
