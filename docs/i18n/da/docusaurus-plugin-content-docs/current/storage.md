@@ -19,7 +19,7 @@ Som standard gemmer programmet data i dine dokumenter mappe i en undermappe kald
 
 ## Ekstern lagerplads {#remote}
 
-:::note
+::note
 
 Denne funktion er ikke tilgængelig på nettet.
 
@@ -43,6 +43,6 @@ Der er et par begrænsninger:
 * Du kan ikke slette en fil eller mappe, mens du er offline.
 * Du kan ikke tilføje, redigere eller slette skabeloner, mens du er offline.
 
-## Other storage methods
+## Andre oplagringsmetoder
 
-If you are on a native device you can also sync the application directory with your favorite platform. Google drive has [an official app](https://www.google.com/drive/download/) on windows and there are unofficial onces on the play store. On linux you can also use the native remote storage system and change your data directory to this or add a new external storage if you click on the add connection button.
+Hvis du er på en indfødt enhed, kan du også synkronisere programmappen med din foretrukne platform. Google drev har [en officiel app](https://www.google.com/drive/download/) på vinduer, og der er uofficielle onces i spillebutikken. På linux kan du også bruge det indfødte fjernlagringssystem og ændre din datamappe til dette eller tilføje en ny ekstern lagring, hvis du klikker på knappen Tilføj forbindelse.
