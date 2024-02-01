@@ -43,6 +43,6 @@ Hay algunas limitaciones:
 * No puede eliminar un archivo o carpeta mientras esté desconectado.
 * No puede añadir, editar o eliminar plantillas mientras esté desconectado.
 
-## Other storage methods
+## Otros métodos de almacenamiento
 
-If you are on a native device you can also sync the application directory with your favorite platform. Google drive has [an official app](https://www.google.com/drive/download/) on windows and there are unofficial onces on the play store. On linux you can also use the native remote storage system and change your data directory to this or add a new external storage if you click on the add connection button.
+Si estás en un dispositivo nativo, también puedes sincronizar el directorio de aplicaciones con tu plataforma favorita. Google drive tiene [una aplicación oficial](https://www.google.com/drive/download/) en ventanas y hay una vez no oficial en la Play Store. En linux también puede utilizar el sistema de almacenamiento remoto nativo y cambiar el directorio de datos a éste o añadir un nuevo almacenamiento externo si hace clic en el botón añadir conexión.
