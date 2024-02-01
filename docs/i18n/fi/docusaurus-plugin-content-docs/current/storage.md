@@ -42,3 +42,7 @@ On olemassa muutamia rajoituksia:
 * Voit synkronoida vain hakemiston ylätason arvon. Jos sinulla on esimerkiksi kansio `a/b/test.bfly`, tätä tiedostoa ei synkronoida.
 * Et voi poistaa tiedostoa tai kansiota offline-tilassa.
 * Et voi lisätä, muokata tai poistaa malleja ollessasi offline-tilassa.
+
+## Other storage methods
+
+If you are on a native device you can also sync the application directory with your favorite platform. Google drive has [an official app](https://www.google.com/drive/download/) on windows and there are unofficial onces on the play store. On linux you can also use the native remote storage system and change your data directory to this or add a new external storage if you click on the add connection button.
