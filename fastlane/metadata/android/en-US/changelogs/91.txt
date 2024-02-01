@@ -2,3 +2,6 @@
 * Fix scroll in pdf export dialog
 * Fix pdf.js on web
 * Fix exporting on web
+* Fix notch area not being used in full screen ([#368](https://github.com/LinwoodDev/Butterfly/issues/368))
+
+Read more here: https://linwood.dev/butterfly/2.0.3-rc.0

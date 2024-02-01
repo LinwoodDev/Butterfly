@@ -8,8 +8,8 @@ Future<void> main(List<String> args) async {
 }
 
 Future<void> updatePdfJs() async {
-  final pdfFile = File('app/web/pdf.js/pdf.min.js');
-  final pdfWorkerFile = File('app/web/pdf.js/pdf.worker.min.js');
+  final pdfFile = File('app/web/pdf.js/pdf.min.mjs');
+  final pdfWorkerFile = File('app/web/pdf.js/pdf.worker.min.mjs');
   // Find latest version
   final fetchedRelease = json.decode((await http.get(Uri.parse(
           'https://api.github.com/repos/mozilla/pdf.js/releases/latest')))
