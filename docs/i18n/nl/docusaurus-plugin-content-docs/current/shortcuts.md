@@ -25,7 +25,6 @@ Er zijn een paar snelkoppelingen die je in de editor kunt gebruiken. Sommige erv
 * `Ctrl` + `Z`: Ongedaan maken
 * `Ctrl` + `Y`: Opnieuw
 * `Ctrl` + `Shift` + `P`: Open waypoints dialog
-* `Ctrl` + `P`: Open kleurenpalet venster
 * `Ctrl` + `B`: Open achtergronddialoog
 * `Ctrl` + `Shift` + `A`: Open gebieden dialoog
 * `Ctrl` + `S`: Opslaan

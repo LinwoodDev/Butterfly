@@ -25,7 +25,6 @@ sidebar_position: 2
 * `Ctrl` + `Z`: 撤销
 * `Ctrl` + `Y`: Redo
 * `Ctrl` + `Shift` + `P`: Open waypoints dialog
-* `Ctrl` + `P`: 打开色板对话框
 * `Ctrl` + `B`: 打开后台对话框
 * `Ctrl` + `Shift` + `A`: 打开区域对话框
 * `Ctrl` + `S`: 保存

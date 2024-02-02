@@ -42,3 +42,7 @@ Hay algunas limitaciones:
 * Solo puedes sincronizar el nivel superior de un directorio. Por ejemplo, si tienes un directorio `a/b/test.bfly`, este archivo no será sincronizado.
 * No puede eliminar un archivo o carpeta mientras esté desconectado.
 * No puede añadir, editar o eliminar plantillas mientras esté desconectado.
+
+## Otros métodos de almacenamiento
+
+Si estás en un dispositivo nativo, también puedes sincronizar el directorio de aplicaciones con tu plataforma favorita. Google drive tiene [una aplicación oficial](https://www.google.com/drive/download/) en ventanas y hay una vez no oficial en la Play Store. En linux también puede utilizar el sistema de almacenamiento remoto nativo y cambiar el directorio de datos a éste o añadir un nuevo almacenamiento externo si hace clic en el botón añadir conexión.
