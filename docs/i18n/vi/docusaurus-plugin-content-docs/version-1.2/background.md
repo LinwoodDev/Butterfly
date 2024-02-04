@@ -1,6 +1,6 @@
 ---
-title: "Background"
-sidebar_label: "Background"
+title: "Nền"
+sidebar_label: "Nền"
 ---
 
 You can customize the background of the paper. Click on the background icon in the view dialog to add it. There are 8 different background templates available.
