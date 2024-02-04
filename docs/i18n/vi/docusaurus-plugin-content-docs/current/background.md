@@ -1,7 +1,7 @@
 ---
-sidebar_label: "Background"
+sidebar_label: "Nền"
 sidebar_position: 2
-title: Background
+title: Nền
 ---
 
 There are two different types of backgrounds.
