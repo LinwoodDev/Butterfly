@@ -1,6 +1,6 @@
 ---
 title: "Full screen tool"
-sidebar_label: "Full screen"
+sidebar_label: "Toàn màn hình"
 sidebar_position: 0
 ---
 
