@@ -37,48 +37,48 @@ class EraserHandler extends Handler<EraserTool> {
 
 //method that handles the erasing logic. It determines whether an element should be erased based on its distance from the cursor and the stroke width of the eraser.
   Future<void> _changeElement(Offset position, EventContext context) async {
-    final globalPos = context.getCameraTransform().localToGlobal(position);
+    final transform = context.getCameraTransform();
+    final globalPos = transform.localToGlobal(position);
     final size = data.strokeWidth;
     final shouldErase =
         _lastErased == null || (globalPos - _lastErased!).distance > size;
     final page = context.getPage();
     if (page == null) return;
-    if (!_currentlyErasing && shouldErase) {
-      _currentlyErasing = true;
-      _lastErased = globalPos;
-      final ray = await rayCast(globalPos, context.getDocumentBloc(),
-          context.getCameraTransform(), size);
-      final elements = ray.map((e) => e.element).whereType<PenElement>();
-      final modified = <int, List<PadElement>>{};
-      for (final element in elements) {
-        List<List<PathPoint>> paths = [[]];
-        bool broken = false;
-        for (final point in element.points) {
-          if ((point.toOffset() - globalPos).distance >= (size * size)) {
-            paths.last.add(point);
-            continue;
-          } else {
-            if (paths.last.isNotEmpty) {
-              paths.add([]);
-              broken = true;
-            }
+    if (_currentlyErasing || !shouldErase) return;
+    _currentlyErasing = true;
+    _lastErased = globalPos;
+    final ray =
+        await rayCast(globalPos, context.getDocumentBloc(), transform, size);
+    final elements = ray.map((e) => e.element).whereType<PenElement>();
+    final modified = <int, List<PadElement>>{};
+    for (final element in elements) {
+      List<List<PathPoint>> paths = [[]];
+      bool broken = false;
+      for (final point in element.points) {
+        if ((point.toOffset() - globalPos).distance >= (size * size)) {
+          paths.last.add(point);
+          continue;
+        } else {
+          if (paths.last.isNotEmpty) {
+            paths.add([]);
+            broken = true;
           }
         }
-        final index = page.content.indexOf(element);
-        if (broken) {
-          modified[index] = [];
-        }
-        modified[index] = paths
-            .where((element) => element.isNotEmpty)
-            .map((e) => element.copyWith(points: e))
-            .toList();
       }
-      if (modified.isNotEmpty) {
-        context.getDocumentBloc().add(ElementsChanged(modified));
-        await context.getDocumentBloc().stream.first;
+      final index = page.content.indexOf(element);
+      if (broken) {
+        modified[index] = [];
       }
-      _currentlyErasing = false;
+      modified[index] = paths
+          .where((element) => element.isNotEmpty)
+          .map((e) => element.copyWith(points: e))
+          .toList();
     }
+    if (modified.isNotEmpty) {
+      context.getDocumentBloc().add(ElementsChanged(modified));
+      await context.getDocumentBloc().stream.first;
+    }
+    _currentlyErasing = false;
   }
 
 // Called when the user releases the pointer. It completes the erasing action.
