@@ -637,8 +637,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
       if (area == null || page == null) {
         continue;
       }
-      final pageFormat =
-          PdfPageFormat(area.width * quality, area.height * quality);
+
       final image = await render(document, page, info,
           width: area.width,
           height: area.height,
@@ -646,12 +645,38 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
           y: area.position.y,
           quality: quality,
           renderBackground: renderBackground);
-      if (image == null) continue;
-      pdf.addPage(pw.Page(
-          pageFormat: pageFormat,
-          build: (context) {
-            return pw.Image(pw.MemoryImage(image.buffer.asUint8List()));
-          }));
+      
+      // * * use this variable for set landscape
+      bool landscape = false;
+      if (landscape == true) {
+        if (image == null) continue;
+        pdf.addPage(pw.Page(
+            pageFormat: PdfPageFormat.a4.landscape,
+            orientation: pw.PageOrientation.landscape,
+            build: (pw.Context contex) {
+              return pw.FullPage(
+                ignoreMargins: true,
+                child: pw.Image(
+                  pw.MemoryImage(image.buffer.asUint8List()),
+                  fit: pw.BoxFit.fill,
+                ),
+              );
+            }));
+      } else {
+        if (image == null) continue;
+        pdf.addPage(pw.Page(
+            // pageFormat: PdfPageFormat.a4.landscape,orientation: pw.PageOrientation.landscape,
+            pageFormat: PdfPageFormat.a4,
+            build: (pw.Context contex) {
+              return pw.FullPage(
+                ignoreMargins: true,
+                child: pw.Image(
+                  pw.MemoryImage(image.buffer.asUint8List()),
+                  fit: pw.BoxFit.fill,
+                ),
+              );
+            }));
+      }
     }
     return pdf;
   }
