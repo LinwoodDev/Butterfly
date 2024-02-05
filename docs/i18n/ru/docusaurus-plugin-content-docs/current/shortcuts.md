@@ -25,7 +25,6 @@ sidebar_position: 2
 * `Ctrl` + `Z`: Отменить
 * `Ctrl` + `Y`: Повтор
 * `Ctrl` + `Shift` + `P`: Open waypoints dialog
-* `Ctrl` + `P`: Открыть диалог цветовой палитры
 * `Ctrl` + `B`: Открыть фон диалога
 * `Ctrl` + `Shift` + `A`: Открыть диалог областей
 * `Ctrl` + `S`: Сохранить

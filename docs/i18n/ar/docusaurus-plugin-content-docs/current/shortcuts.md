@@ -25,7 +25,6 @@ sidebar_position: 2
 * `Ctrl` + `Z`: التراجع
 * `Ctrl` + `Y`: إعادة
 * `Ctrl` + `Shift` + `P`: Open waypoints dialog
-* `Ctrl` + `P`: فتح لوحة حوار الألوان
 * `Ctrl` + `B`: فتح مربع حوار الخلفية
 * `Ctrl` + `Shift` + `A`: حوار المناطق المفتوحة
 * `Ctrl` + `S`: حفظ

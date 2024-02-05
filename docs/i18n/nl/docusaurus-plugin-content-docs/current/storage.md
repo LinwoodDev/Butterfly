@@ -19,7 +19,7 @@ De applicatie slaat de gegevens op in de map documenten in een submap met de naa
 
 ## Externe opslag {#remote}
 
-:::note
+::note
 
 Deze functie is niet beschikbaar op het web.
 
@@ -42,3 +42,7 @@ Er zijn enkele beperkingen:
 * Je kunt alleen het hoogste niveau van een map synchroniseren. Als je bijvoorbeeld een map `a/b/test.bfly`hebt, wordt dit bestand niet gesynchroniseerd.
 * U kunt geen bestand of map verwijderen terwijl u offline bent.
 * U kunt templates niet toevoegen, bewerken of verwijderen terwijl u offline bent.
+
+## Andere opslagmethoden
+
+Als je op een native apparaat bent, kun je ook de applicatiemap synchroniseren met je favoriete platform. Google drive heeft [een officiële app](https://www.google.com/drive/download/) op vensters en er zijn inofficiële ons aanwezig in de Play Store. Op linux kun je ook het native externe opslagsysteem gebruiken en je gegevensmap hierin wijzigen of een nieuwe externe opslag toevoegen als je op de verbindingsknop klikt.

@@ -42,3 +42,7 @@ Ci sono alcune limitazioni:
 * È possibile sincronizzare solo il livello superiore di una directory. Per esempio se si dispone di una directory `a/b/test.bfly`, questo file non verrà sincronizzato.
 * Non è possibile eliminare un file o una cartella mentre si è offline.
 * Non puoi aggiungere, modificare o eliminare i modelli mentre sei offline.
+
+## Altri metodi di stoccaggio
+
+Se sei su un dispositivo nativo puoi anche sincronizzare la directory dell'applicazione con la tua piattaforma preferita. Google drive ha [un'app ufficiale](https://www.google.com/drive/download/) su Windows e ci sono unofficial onces sul negozio di gioco. Su linux è anche possibile utilizzare il sistema di archiviazione remota nativo e modificare la directory dei dati in questo o aggiungere una nuova memoria esterna se si fa clic sul pulsante di connessione aggiunta.

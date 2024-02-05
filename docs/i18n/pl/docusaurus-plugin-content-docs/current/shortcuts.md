@@ -25,7 +25,6 @@ Jest kilka skrótów, których możesz użyć w edytorze. Niektóre z nich są n
 * `Ctrl` + `Z`: Cofnij
 * `Ctrl` + `Y`: Ponów
 * `Ctrl` + `Shift` + `P`: Open waypoints dialog
-* `Ctrl` + `P`: Otwórz okno dialogowe palety kolorów
 * `Ctrl` + `B`: Otwórz okno w tle
 * `Ctrl` + `Shift` + `A`: Otwarte okno dialogowe
 * `Ctrl` + `S`: Zapisz

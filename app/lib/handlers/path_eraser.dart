@@ -1,8 +1,8 @@
 part of 'handler.dart';
 
 class PathEraserHandler extends Handler<PathEraserTool> {
-  bool _removeRunning = false;
-  Offset? _currentPos;
+  bool _currentlyErasing = false;
+  Offset? _currentPos, _lastErased;
   PathEraserHandler(super.data);
 
   @override
@@ -22,23 +22,29 @@ class PathEraserHandler extends Handler<PathEraserTool> {
   }
 
   @override
+  void resetInput(DocumentBloc bloc) {
+    _currentPos = null;
+  }
+
+  @override
   Future<void> onPointerMove(
       PointerMoveEvent event, EventContext context) async {
     _currentPos = event.localPosition;
-    context.refresh();
-    if (_removeRunning) return;
     final transform = context.getCameraTransform();
-    _removeRunning = true;
-    final hits = await rayCast(
-      transform.localToGlobal(event.localPosition),
-      context.getDocumentBloc(),
-      context.getCameraTransform(),
-      data.strokeWidth / transform.size,
-    );
+    final globalPos = transform.localToGlobal(event.localPosition);
+    final size = data.strokeWidth;
+    final shouldErase =
+        _lastErased == null || (globalPos - _lastErased!).distance > size;
+    context.refresh();
+    if (_currentlyErasing || !shouldErase) return;
+    _currentlyErasing = true;
+    _lastErased = globalPos;
+    final ray =
+        await rayCast(globalPos, context.getDocumentBloc(), transform, size);
     final page = context.getPage();
     if (page == null) return;
-    final indexes = hits.map((e) => page.content.indexOf(e.element)).toList();
+    final indexes = ray.map((e) => page.content.indexOf(e.element)).toList();
     context.addDocumentEvent(ElementsRemoved(indexes));
-    _removeRunning = false;
+    _currentlyErasing = false;
   }
 }

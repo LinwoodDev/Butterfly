@@ -25,7 +25,6 @@ Der er et par genveje, som du kan bruge i editoren. Nogle af dem er skrevet unde
 * `Ctrl` + `Z`: Fortryd
 * `Ctrl` + `Y`: Fortryd
 * `Ctrl` + `Shift` + `P`: Open waypoints dialog
-* `Ctrl` + `P`: Åbn farvepalet dialog
 * `Ctrl` + `B`: Åbn baggrundsdialog
 * `Ctrl` + `Shift` + `A`: Åbne områder dialog
 * `Ctrl` + `S`: Gem

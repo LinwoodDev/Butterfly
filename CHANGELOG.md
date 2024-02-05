@@ -2,6 +2,35 @@
 
 <!--ENTER CHANGELOG HERE-->
 
+## 2.0.3-rc.0 (2024-02-05)
+
+* Fix export pdf print instead of export as file
+* Fix scroll in pdf export dialog
+* Fix pdf.js on web
+* Fix exporting on web
+* Fix notch area not being used in full screen ([#368](https://github.com/LinwoodDev/Butterfly/issues/368))
+* Fix performance of the eraser tool ([#461](https://github.com/LinwoodDev/Butterfly/issues/461))
+* Fix performance of the path eraser tool (partially [#528](https://github.com/LinwoodDev/Butterfly/issues/528))
+
+Read more here: https://linwood.dev/butterfly/2.0.3-rc.0
+
+## 2.0.2 (2024-01-29)
+
+Nothing changed from the nightly build to the stable release.
+
+See all changes since the last stable here: https://linwood.dev/butterfly/2.0.2
+
+## 2.0.2-rc.0 (2024-01-22)
+
+* Use thicker lines for label selection rect
+* Restrict input to area bounds when inside area ([#573](https://github.com/LinwoodDev/Butterfly/issues/573))
+* Fix template import opens blank document
+* Fix zoom view not appearing
+* Fix markdown property view not opening
+* Fix creating component origin being page origin instead of selection origin
+
+Read more here: https://linwood.dev/butterfly/2.0.2-rc.0
+
 ## 2.0.1 (2024-01-15)
 
 Nothing changed from the nightly build to the stable release.
