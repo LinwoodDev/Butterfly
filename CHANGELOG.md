@@ -2,6 +2,18 @@
 
 <!--ENTER CHANGELOG HERE-->
 
+## 2.0.3-rc.0 (2024-02-05)
+
+* Fix export pdf print instead of export as file
+* Fix scroll in pdf export dialog
+* Fix pdf.js on web
+* Fix exporting on web
+* Fix notch area not being used in full screen ([#368](https://github.com/LinwoodDev/Butterfly/issues/368))
+* Fix performance of the eraser tool ([#461](https://github.com/LinwoodDev/Butterfly/issues/461))
+* Fix performance of the path eraser tool (partially [#528](https://github.com/LinwoodDev/Butterfly/issues/528))
+
+Read more here: https://linwood.dev/butterfly/2.0.3-rc.0
+
 ## 2.0.2 (2024-01-29)
 
 Nothing changed from the nightly build to the stable release.
