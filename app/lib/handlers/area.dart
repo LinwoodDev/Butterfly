@@ -62,15 +62,32 @@ class AreaHandler extends Handler<AreaTool> {
   void onScaleUpdate(ScaleUpdateDetails details, EventContext context) {
     final currentIndex = context.getCurrentIndex();
     if (details.pointerCount > 1 ||
-        currentIndex.buttons == kSecondaryMouseButton) {
+        currentIndex.buttons == kSecondaryMouseButton ||
+        start == null) {
       currentRect = null;
       context.refresh();
       return;
     }
-    final globalPosition =
+    var end =
         context.getCameraTransform().localToGlobal(details.localFocalPoint);
-
-    end = globalPosition;
+    if (data.constrainedWidth != 0) {
+      end = Offset(data.constrainedWidth + start!.dx, end.dy);
+    }
+    if (data.constrainedHeight != 0) {
+      end = Offset(end.dx, data.constrainedHeight + start!.dy);
+    }
+    if (data.constrainedAspectRatio != 0) {
+      final aspectRatio = data.constrainedAspectRatio;
+      final width = end.dx - start!.dx;
+      final height = end.dy - start!.dy;
+      final currentAspectRatio = width / height;
+      if (currentAspectRatio < aspectRatio) {
+        end = Offset(start!.dx + height * aspectRatio, end.dy);
+      } else {
+        end = Offset(end.dx, start!.dy + width / aspectRatio);
+      }
+    }
+    currentRect = Rect.fromPoints(start!, end);
     context.refresh();
   }
 
