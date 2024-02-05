@@ -5,12 +5,13 @@ class AreaToolSelection extends ToolSelection<AreaTool> {
 
   @override
   List<Widget> buildProperties(BuildContext context) {
+    final dpi = MediaQuery.of(context).devicePixelRatio;
     final tool = selected.first;
     return [
       ...super.buildProperties(context),
       ExactSlider(
           header: Text(AppLocalizations.of(context).width),
-          value: tool.constrainedWidth,
+          value: tool.constrainedWidth * dpi,
           min: 0,
           max: 500,
           defaultValue: 0,
@@ -19,9 +20,10 @@ class AreaToolSelection extends ToolSelection<AreaTool> {
               selected
                   .map((e) => e.copyWith(constrainedWidth: value))
                   .toList())),
+      
       ExactSlider(
           header: Text(AppLocalizations.of(context).height),
-          value: tool.constrainedHeight,
+          value: tool.constrainedHeight * dpi,
           min: 0,
           max: 500,
           defaultValue: 0,
@@ -30,6 +32,8 @@ class AreaToolSelection extends ToolSelection<AreaTool> {
               selected
                   .map((e) => e.copyWith(constrainedHeight: value))
                   .toList())),
+
+      
       ExactSlider(
           header: Row(
             children: [
@@ -39,7 +43,7 @@ class AreaToolSelection extends ToolSelection<AreaTool> {
                   textAlign: TextAlign.center,
                 ),
               ),
-              PopupMenuButton<AspectRatioPreset>(
+              PopupMenuButton<AspectRatioPreset>(// *? You should use a popup to allow the user to select the landscape, setting landscape = true in current_index.dart
                 itemBuilder: (context) => AspectRatioPreset.values
                     .map((e) => PopupMenuItem(
                           value: e,
@@ -56,6 +60,7 @@ class AreaToolSelection extends ToolSelection<AreaTool> {
               )
             ],
           ),
+          // ! not use
           value: tool.constrainedAspectRatio,
           min: 0,
           max: 10,
