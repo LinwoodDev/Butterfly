@@ -42,7 +42,7 @@ title: Downloads
 ## Useful links
 
 - [Nhật ký thay đổi](changelog)
-- [Older releases](https://github.com/LinwoodDev/butterfly/releases)
-- [Latest release](https://github.com/LinwoodDev/butterfly/releases/latest)
-- [Support](https://discord.linwood.dev)
-- [FAQ](/faq)
+- [Bản phát hành cũ hơn](https://github.com/LinwoodDev/butterfly/releases)
+- [Bản phát hành mới nhất](https://github.com/LinwoodDev/butterfly/releases/latest)
+- [Hỗ trợ](https://discord.linwood.dev)
+- [Câu hỏi thường gặp](/faq)
