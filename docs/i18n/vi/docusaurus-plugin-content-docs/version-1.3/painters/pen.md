@@ -1,6 +1,6 @@
 ---
 title: "Pen painter"
-sidebar_label: "Pen"
+sidebar_label: "Bút vẽ"
 sidebar_position: 2
 ---
 
