@@ -4,6 +4,7 @@ import 'dart:typed_data';
 import 'package:file_selector/file_selector.dart' as fs;
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:share_plus/share_plus.dart';
 
 Future<void> exportFile(
@@ -12,12 +13,15 @@ Future<void> exportFile(
   String fileExtension,
   String mimeType,
 ) async {
-  final file = fs.XFile.fromData(Uint8List.fromList(bytes),
-      mimeType: mimeType, name: 'output.$fileExtension');
   if (Platform.isAndroid || Platform.isIOS) {
-    Share.shareXFiles([file]);
+    final file = File(
+        '${(await getTemporaryDirectory()).path}/butterfly.$fileExtension');
+    await file.writeAsBytes(bytes);
+    Share.shareXFiles([XFile(file.path)]);
     return;
   }
+  final file = fs.XFile.fromData(Uint8List.fromList(bytes),
+      mimeType: mimeType, name: 'output.$fileExtension');
   final result = await fs.getSaveLocation(
     acceptedTypeGroups: [
       fs.XTypeGroup(
