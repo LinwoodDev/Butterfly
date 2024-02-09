@@ -379,18 +379,25 @@ jobs:
         with:
           flutter-version: ${{ env.FLUTTER_VERSION }}
           channel: 'master'
-      - name: Build
+      - name: 📦 Get dependencies
         run: |
-          flutter build ios --release --no-codesign
+          flutter clean
+          flutter pub get
+          flutter doctor -v
+      - name: 🏭 Build
+        run: |
+          flutter build ios --release --no-codesign -v
+      - name: Packing IPA
+        run: |
           cd build/ios/iphoneos/
           mkdir Payload
           cp -R Runner.app Payload/
-          zip -vr runner.ipa Payload/
+          zip -vr linwood-butterfly-iOS.ipa Payload/
       - name: Archive
         uses: actions/upload-artifact@v4
         with:
           name: ipa-build
-          path: app/build/ios/iphoneos/runner.ipa
+          path: app/build/ios/iphoneos/linwood-butterfly-iOS.ipa
       
   # build-snap:
   #   name: Build Snap
