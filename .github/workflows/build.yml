@@ -390,8 +390,10 @@ jobs:
       - name: Packing IPA
         run: |
           cd build/ios/iphoneos/
+          rm -rf Payload
           mkdir Payload
           cp -R Runner.app Payload/
+          rm -f linwood-butterfly-iOS.ipa
           zip -vr linwood-butterfly-iOS.ipa Payload/
           ls -l linwood-butterfly-iOS.ipa
       - name: Archive
