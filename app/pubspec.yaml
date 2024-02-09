@@ -40,7 +40,7 @@ dependencies:
   share_plus: ^7.2.2
   package_info_plus: ^5.0.1
   idb_shim: ^2.3.2
-  go_router: ^13.1.0
+  go_router: ^13.2.0
   xml: ^6.5.0
   collection: ^1.18.0
   bloc_concurrency: ^0.2.3
@@ -89,7 +89,7 @@ dependencies:
       path: packages/networker/networker_socket
   flutter_localized_locales: ^2.0.5
   dynamic_color: ^1.6.9
-  popover: ^0.2.9
+  popover: ^0.3.0
   markdown: ^7.2.1
   device_info_plus: ^9.1.2
   image: ^4.1.6

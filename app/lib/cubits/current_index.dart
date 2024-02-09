@@ -451,7 +451,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
       return;
     }
     final transform = state.transformCubit.state;
-    final rect = Rect.fromLTWH(-transform.position.dx, -transform.position.dy,
+    final rect = Rect.fromLTWH(transform.position.dx, transform.position.dy,
         size.width / transform.size, size.height / transform.size);
     var renderers =
         List<Renderer<PadElement>>.from(cameraViewport.unbakedElements);
@@ -774,7 +774,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     if (delta.dx == 0 && delta.dy == 0) {
       return;
     }
-    state.transformCubit.move(delta);
+    state.transformCubit.move(-delta);
   }
 
   void zoom(double delta, [Offset cursor = Offset.zero, bool force = false]) {

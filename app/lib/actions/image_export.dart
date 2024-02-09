@@ -24,8 +24,8 @@ class ImageExportAction extends Action<ImageExportIntent> {
               child: ImageExportDialog(
                 width: size.width,
                 height: size.height,
-                x: -transform.position.dx,
-                y: -transform.position.dy,
+                x: transform.position.dx,
+                y: transform.position.dy,
                 scale: transform.size,
               ),
             ),

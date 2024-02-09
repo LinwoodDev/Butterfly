@@ -26,8 +26,8 @@ class SvgExportAction extends Action<SvgExportIntent> {
               child: SvgExportDialog(
                 width: (size.width / scale).round(),
                 height: (size.height / scale).round(),
-                x: -transform.position.dx,
-                y: -transform.position.dy,
+                x: transform.position.dx,
+                y: transform.position.dy,
               ),
             ),
         context: intent.context);

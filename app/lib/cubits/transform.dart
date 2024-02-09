@@ -26,16 +26,16 @@ class CameraTransform extends Equatable {
     // Set size and focus on cursor if provided
     final double newSize = size.clamp(kMinZoom, kMaxZoom);
     var mx = localToGlobal(cursor);
-    mx = (mx + position) * newSize;
+    mx = (mx - position) * newSize;
 
     return CameraTransform(
-      position + (cursor - mx) / newSize,
+      position + (mx - cursor) / newSize,
       newSize,
     );
   }
 
-  Offset localToGlobal(Offset local) => local / size - position;
-  Offset globalToLocal(Offset global) => (global + position) * size;
+  Offset localToGlobal(Offset local) => local / size + position;
+  Offset globalToLocal(Offset global) => (global - position) * size;
 
   @override
   List<Object?> get props => [position, size];
@@ -59,6 +59,6 @@ class TransformCubit extends Cubit<CameraTransform> {
       emit(state.withSize(size, cursor));
 
   void moveToWaypoint(Waypoint waypoint) => emit(state
-      .withPointPosition(-waypoint.position)
+      .withPointPosition(waypoint.position)
       .withSize(waypoint.scale ?? state.size));
 }

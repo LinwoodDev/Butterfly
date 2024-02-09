@@ -59,7 +59,7 @@ class CameraViewport extends Equatable {
 
   Area toArea() => Area(
         name: '',
-        position: -toPoint(),
+        position: toPoint(),
         width: (width?.toDouble() ?? 0) / scale,
         height: (height?.toDouble() ?? 0) / scale,
       );

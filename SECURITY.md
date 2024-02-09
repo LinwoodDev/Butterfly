@@ -20,6 +20,11 @@ Older versions can be found [here](https://docs.butterfly.linwood.dev/pre-1-0).
 
 Please use [the bug tracker](https://github.com/LinwoodDev/butterfly/issues) or use [bug@linwood.dev](mailto:bug@linwood.dev) if there is a critical bug.
 
+## Version scheme
+
+The version scheme is based on [Semantic Versioning](https://semver.org/spec/v2.0.0.html). All stable versions will be released in stable branch while all alpha, beta and release candidates will be released in the nightly branch.
+There will be alphas, betas and release candidates on every major release, betas and release candidates on every minor release and release candidates on every patch release.
+
 ## Branches
 
 | Name    | Support |                                                                                                  Description | Tag     |
