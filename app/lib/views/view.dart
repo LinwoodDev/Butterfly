@@ -226,7 +226,7 @@ class _MainViewViewportState extends State<MainViewViewport>
                                 .state
                                 .touchSensitivity;
                             if (details.scale == 1) {
-                              cubit.move(details.focalPointDelta /
+                              cubit.move(-details.focalPointDelta /
                                   sensitivity /
                                   cubit.state.transformCubit.state.size);
                             } else {
@@ -289,8 +289,8 @@ class _MainViewViewportState extends State<MainViewViewport>
                                 } else {
                                   cubit
                                     ..move((_mouseState == _MouseState.inverse
-                                            ? Offset(-dy, -dx)
-                                            : Offset(-dx, -dy)) /
+                                            ? Offset(dy, dx)
+                                            : Offset(dx, dy)) /
                                         transform.size)
                                     ..zoom(scale, pointerSignal.localPosition);
                                 }
@@ -347,7 +347,7 @@ class _MainViewViewportState extends State<MainViewViewport>
                                       context.read<TransformCubit>().state;
                                   final cubit =
                                       context.read<CurrentIndexCubit>();
-                                  cubit.move(event.delta / transform.size);
+                                  cubit.move(-event.delta / transform.size);
                                   delayBake();
                                 }
                                 if (_isScalingDisabled ?? true) {

@@ -162,7 +162,7 @@ class LaserHandler extends Handler<LaserTool> with ColoredHandler {
   void onPointerMove(PointerMoveEvent event, EventContext context) {
     if (kSecondaryMouseButton == event.buttons) {
       final transform = context.getCameraTransform();
-      context.getTransformCubit().move(event.localDelta / transform.size);
+      context.getCurrentIndexCubit().move(event.localDelta / transform.size);
       return;
     }
     addPoint(context.buildContext, event.pointer, event.localPosition,
