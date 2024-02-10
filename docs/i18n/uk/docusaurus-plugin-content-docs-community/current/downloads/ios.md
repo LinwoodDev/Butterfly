@@ -18,26 +18,26 @@ sidebar_position: 6
   </ul>
 </div>
 
-Read more about the nightly version of Butterfly [here](/nightly).
+Дізнайтеся більше про нічну версію Butterfly [here](/nightly).
 
-## Installing
+## Встановлення
 
-The IPA file we distribute is unsigned. This means you'll have to sign it yourself before being able to install it onto your iOS device. \
-Fortunately, there are projects like [AltStore](https://altstore.io) (open source) or [sideloadly](https://sideloadly.io) (closed source). \
+IPA-файл не підписаний. Це означає, що вам доведеться підписати його самостійно, перш ніж встановлювати його на ваш iOS пристрій. \
+На щастя, існують такі проекти, як [AltStore](https://altstore.io) (відкритий переклад) або [sideloadly](https://sideloadly.io) (закритий переклад). \
 \
-You do need an Apple ID for sideloading Butterfly. We recommend creating a new one especially for this purpose. Please log into [Apple Developer](https://developer.apple.com) at least once and accept their terms.
+You do need an Apple ID for sideloading Butterfly. Ми рекомендуємо створити нову особливо для цієї мети. Увійдіть в [Apple Developer](https://developer.apple.com) хоча б один раз і прийміть їхні умови.
 \
-If your device is running iOS 16.0 or newer, enable developer mode in Settings/Privacy/Developer Mode.
+якщо ваш пристрій працює на iOS 16.0 або новіше, увімкніть режим розробника в Налаштуваннях/Приватність/Режим розробника.
 
 ## Installing (AltStore)
 
-1. Set up AltStore using the instructions provided on the AltStore website.
-2. Get a copy of the IPA file onto your device. The best way is to download it using a web browser or sending a zip file containing the IPA to yourself. Do not use Airdrop. Also, do not send the file directly to yourself. You might not be able to open it.
-3. Open the IPA file, use the "share" menu and tap "AltStore". If your device is connected to your PC running AltServer (wired or wirelessly) it'll install automatically.
+1. Налаштувати AltStore використовуючи інструкції, надані на сайті AltStore.
+2. Отримайте копію файлу IPA на вашому пристрої. Найкращий спосіб - завантажити його за допомогою веб-браузера або надіслати zip-файл, що містить сам IPA. Не користуйтеся Airdrop. Також, не надсилайте файл напряму собі. Ви не зможете відкрити його.
+3. Відкрийте файл IPA, скористайтеся меню "share" та натисніть "AltStore". Якщо ваш пристрій підключено до AltServer (дротовий чи бездротовий, він встановиться автоматично.
 
-## Installing (Sideloadly)
+## Встановлення (Sideloadly)
 
-1. Set up Sideloadly using the guides provided on sideloadly.io.
-2. Open sideloadly on your PC.
-3. Add the IPA in the top right corner, select your device and Apple ID. Click Start. The app will be installed onto your device.
-   If you get a popup saying a developer isn't trusted go to Settings/General/VPN and Device Management and change that.
+1. Встановіть Sideloadly використовуючи інструкції, що надаються в sideloadly.io.
+2. Відкрий на ПК.
+3. Додайте IPA у правому верхньому куті, виберіть пристрій та Apple ID. Натисніть почати. Додаток буде встановлено на Вашому пристрої.
+   Якщо ви отримуєте спливаюче вікно, що розробник не довіряє, в Налаштуваннях/General/VPN та Керування пристроями та змінювати це.
