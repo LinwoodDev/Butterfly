@@ -386,7 +386,7 @@ jobs:
           flutter doctor -v
       - name: 🏭 Build
         run: |
-          flutter build ios --release --no-codesign
+          flutter build ios --release --no-codesign -v
       - name: Packing IPA
         run: |
           cd build/ios/iphoneos/
