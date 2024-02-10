@@ -6,6 +6,7 @@ import 'package:butterfly/visualizer/element.dart';
 import 'package:butterfly/visualizer/icon.dart';
 import 'package:butterfly/visualizer/property.dart';
 import 'package:butterfly_api/butterfly_api.dart';
+import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -134,9 +135,16 @@ extension ImportTypeVisualizer on ImportType {
         ImportType.xopp => PhosphorIcons.notebook,
       };
 
-  bool isAvailable() => switch (this) {
-        ImportType.camera =>
-          kIsWeb || Platform.isWindows || Platform.isAndroid || Platform.isIOS,
-        _ => true,
-      };
+  Future<bool> isAvailable() async {
+    final androidVersion = !kIsWeb && Platform.isAndroid
+        ? (await DeviceInfoPlugin().androidInfo).version.sdkInt
+        : 0;
+    return switch (this) {
+      ImportType.camera => kIsWeb ||
+          Platform.isWindows ||
+          (Platform.isAndroid && androidVersion >= 21) ||
+          Platform.isIOS,
+      _ => true,
+    };
+  }
 }

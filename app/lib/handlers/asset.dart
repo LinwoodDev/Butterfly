@@ -34,7 +34,7 @@ Future<void> showImportAssetWizard(ImportType type, BuildContext context,
     return importAsset(type, result);
   }
 
-  if (!type.isAvailable()) return;
+  if (!await type.isAvailable()) return;
 
   switch (type) {
     case ImportType.image:

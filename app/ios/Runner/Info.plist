@@ -45,6 +45,10 @@
 	<true/>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
+  <key>NSCameraUsageDescription</key>
+  <string>Importing images from camera</string>
+  <key>NSMicrophoneUsageDescription</key>
+  <string>Importing images from camera</string>  
   <key>UTExportedTypeDeclarations</key>
   <array>
       <dict>

@@ -3,5 +3,6 @@
 * Fix file sharing on android ([#585](https://github.com/LinwoodDev/Butterfly/issues/585))
 * Fix laser movement is not locked
 * Fix color of icon dropdown in property view
+* Disable camera on android sdk version < 21
 
 Read more here: https://linwood.dev/butterfly/2.0.3-rc.1
