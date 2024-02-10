@@ -18,26 +18,24 @@ sidebar_position: 6
   </ul>
 </div>
 
-Read more about the nightly version of Butterfly [here](/nightly).
+阅读更多关于每晚版本的 Butterfell [here](/夜间)。
 
-## Installing
+## 正在安装
 
-The IPA file we distribute is unsigned. This means you'll have to sign it yourself before being able to install it onto your iOS device. \
-Fortunately, there are projects like [AltStore](https://altstore.io) (open source) or [sideloadly](https://sideloadly.io) (closed source). \
+我们分发的IPA文件未签名。 这意味着您必须先登录才能将其安装到您的 iOS 设备上。 \
+幸运的是，有一些项目，例如 [AltStore](https://altstore.io) (open source) 或 [sideloadly](https://sideloadly.io) (closed source)。 \你确实需要一个 Apple ID 作为侧边装载Butterfly. 我们建议为此目的建立一个新的机构。 请至少登录到 [Apple Developer](https://developer.apple.com)一次并接受他们的条款。
 \
-You do need an Apple ID for sideloading Butterfly. We recommend creating a new one especially for this purpose. Please log into [Apple Developer](https://developer.apple.com) at least once and accept their terms.
-\
-If your device is running iOS 16.0 or newer, enable developer mode in Settings/Privacy/Developer Mode.
+如果您的设备运行iOS 16.0或更高版本，请在设置/隐私/开发者模式中启用开发者模式。
 
 ## Installing (AltStore)
 
-1. Set up AltStore using the instructions provided on the AltStore website.
-2. Get a copy of the IPA file onto your device. The best way is to download it using a web browser or sending a zip file containing the IPA to yourself. Do not use Airdrop. Also, do not send the file directly to yourself. You might not be able to open it.
-3. Open the IPA file, use the "share" menu and tap "AltStore". If your device is connected to your PC running AltServer (wired or wirelessly) it'll install automatically.
+1. 使用 AltStore 网站上的说明设置 AltStore 。
+2. 获取您设备上的 IPA 文件副本。 最好的方法是使用网页浏览器下载它，或者向自己发送包含IPA的压缩文件。 不使用 Airdrop 此外，不要将文件直接发送给您自己。 您可能无法打开它。
+3. 打开 IPA 文件，使用“共享”菜单，然后点击"AltStore"。 如果您的设备连接到您运行的 AltServer (有线或无线)的电脑，它会自动安装。
 
-## Installing (Sideloadly)
+## 正在安装 (Sideloady)
 
-1. Set up Sideloadly using the guides provided on sideloadly.io.
-2. Open sideloadly on your PC.
-3. Add the IPA in the top right corner, select your device and Apple ID. Click Start. The app will be installed onto your device.
-   If you get a popup saying a developer isn't trusted go to Settings/General/VPN and Device Management and change that.
+1. 使用sideloadly.io上提供的指南设置侧列。
+2. 在您的 PC 上当面打开.
+3. 在右上角添加IPA，选择您的设备和 Apple ID。 点击Start。 应用将安装到您的设备上。
+   如果你有一个弹出窗口，开发人员不会被信任去设置/通用/VPN 和设备管理并更改它。
