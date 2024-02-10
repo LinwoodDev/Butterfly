@@ -400,7 +400,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: ipa-build
-          path: app/build/ios/iphoneos/linwood-butterfly-iOS.ipa
+          path: app/build/ios/iphoneos/linwood-butterfly-ios.ipa
           compression-level: 0 #ipa is already compressed
       
   # build-snap:
