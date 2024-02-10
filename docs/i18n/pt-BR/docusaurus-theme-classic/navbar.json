@@ -20,7 +20,7 @@
     "description": "Navbar item with label Community"
   },
   "item.label.More": {
-    "message": "MAIS",
+    "message": "Mais",
     "description": "Navbar item with label More"
   },
   "item.label.Matrix": {
@@ -52,7 +52,7 @@
     "description": "Navbar item with label Mastodon"
   },
   "item.label.License": {
-    "message": "Tipo:",
+    "message": "Licença",
     "description": "Navbar item with label License"
   }
 }
