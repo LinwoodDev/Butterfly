@@ -18,7 +18,7 @@ Além disso, você pode customizar a cor do fundo.
 
 A contagem e a propriedade de espaçamento permitem que você crie papel de música. Para papel de música, defina a contagem para 5 e espaçamento para mais do que a largura.
 
-## Imagem:
+## Imagem
 
 O tipo de fundo da imagem permite que você use uma imagem como plano de fundo.
 
