@@ -221,7 +221,7 @@ jobs:
           path: |
             app/linwood-butterfly-linux.AppImage
   build-flatpak:
-    name: Build flatpak
+    name: build-flatpak
     runs-on: ubuntu-20.04
     defaults:
       run:
@@ -363,7 +363,7 @@ jobs:
             app/linwood-butterfly-macos.dmg
 
   build-ipa:
-    name: Build IPA (iOS)
+    name: build-ipa (iOS)
     runs-on: macos-latest
     defaults:
       run:
