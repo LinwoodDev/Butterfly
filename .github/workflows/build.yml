@@ -393,16 +393,16 @@ jobs:
           rm -rf Payload
           mkdir Payload
           cp -R Runner.app Payload/
-          rm -f linwood-butterfly-iOS.ipa
-          zip -vr linwood-butterfly-iOS.ipa Payload/
-          ls -l linwood-butterfly-iOS.ipa
+          rm -f linwood-butterfly-ios.ipa
+          zip -vr linwood-butterfly-ios.ipa Payload/
+#          ls -l linwood-butterfly-ios.ipa
       - name: Archive
         uses: actions/upload-artifact@v4
         with:
           name: ipa-build
           path: app/build/ios/iphoneos/linwood-butterfly-ios.ipa
           compression-level: 0 #ipa is already compressed
-      
+
   # build-snap:
   #   name: Build Snap
   #   runs-on: ubuntu-latest
