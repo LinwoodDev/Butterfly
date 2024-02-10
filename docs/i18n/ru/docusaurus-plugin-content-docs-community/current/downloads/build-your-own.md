@@ -7,11 +7,11 @@ sidebar_position: 1
 2. Клонировать репозиторий
 3. Перейдите в каталог приложения
 4. Используйте инструмент flutter для компиляции приложения
-   * `flutter build apk`
-   * `flutter build appbundle`
-   * `flutter build web`
-   * `flutter build linux`
-   * `flutter build windows`
+   * `apk сборки flutter`
+   * `пакет для сборки flutter`
+   * `веб-сборка flutter`
+   * `сборка flutter linux`
+   * `окна для флэттера`
    * `flutter build ios --release --no-codesign`\
-     after that, create a folder named "Payload", copy Runner.app into it and zip the payload folder. Then rename ".zip" to ".ipa".
+     после этого создайте папку с именем "Payload", скопируйте Runner.app в нее и заархивируйте папку payload. Затем переименуйте ".zip" в ".ipa".
 5. Скомпилированные файлы находятся в каталоге сборки
