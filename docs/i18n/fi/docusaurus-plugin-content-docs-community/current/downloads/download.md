@@ -1,5 +1,5 @@
 ---
-slug: "/downloads"
+slug: "/lataukset"
 sidebar_position: 0
 title: Lataukset
 ---
