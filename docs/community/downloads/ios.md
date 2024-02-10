@@ -16,7 +16,6 @@ sidebar_position: 6
     </li>
   </ul>
 </div>
-</div>
 
 Read more about the nightly version of Butterfly [here](/nightly).
 
