@@ -12,6 +12,7 @@ Future<void> exportFile(
   List<int> bytes,
   String fileExtension,
   String mimeType,
+  String uniformTypeIdentifier,
 ) async {
   if (Platform.isAndroid || Platform.isIOS) {
     final file = File(
@@ -26,6 +27,7 @@ Future<void> exportFile(
     acceptedTypeGroups: [
       fs.XTypeGroup(
         label: AppLocalizations.of(context).export,
+        uniformTypeIdentifiers: [uniformTypeIdentifier],
         extensions: [fileExtension],
         mimeTypes: [mimeType],
       ),

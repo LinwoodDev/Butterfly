@@ -10,23 +10,25 @@ Future<void> exportFile(
   List<int> bytes,
   String fileExtension,
   String mimeType,
+  String uniformTypeIdentifier,
 ) =>
-    save.exportFile(context, bytes, fileExtension, mimeType);
+    save.exportFile(
+        context, bytes, fileExtension, mimeType, uniformTypeIdentifier);
 
 Future<void> exportSvg(BuildContext context, String data) =>
-    exportFile(context, data.codeUnits, 'svg', 'image/svg');
+    exportFile(context, data.codeUnits, 'svg', 'image/svg', '');
 
 Future<void> exportImage(BuildContext context, List<int> bytes) =>
-    exportFile(context, bytes, 'png', 'image/png');
+    exportFile(context, bytes, 'png', 'image/png', '');
 
 Future<void> exportPdf(BuildContext context, List<int> bytes) =>
-    exportFile(context, bytes, 'pdf', 'application/pdf');
+    exportFile(context, bytes, 'pdf', 'application/pdf', '');
 
 Future<void> exportZip(BuildContext context, List<int> bytes) =>
-    exportFile(context, bytes, 'zip', 'application/zip');
+    exportFile(context, bytes, 'zip', 'application/zip', '');
 
 Future<void> saveData(BuildContext context, List<int> bytes) =>
-    exportFile(context, bytes, 'bfly', 'application/zip');
+    exportFile(context, bytes, 'bfly', 'application/zip', '');
 
 void saveToClipboard(BuildContext context, String text) {
   Clipboard.setData(ClipboardData(text: text));

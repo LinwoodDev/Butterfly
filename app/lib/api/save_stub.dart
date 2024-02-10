@@ -5,4 +5,5 @@ Future<void> exportFile(
   List<int> bytes,
   String fileExtension,
   String mimeType,
+  String uniformTypeIdentifier,
 ) async {}
