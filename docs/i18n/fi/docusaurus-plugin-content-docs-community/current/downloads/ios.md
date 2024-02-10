@@ -3,7 +3,7 @@ title: iOS
 sidebar_position: 6
 ---
 
-![Nightly release version](https://img.shields.io/badge/dynamic/yaml?color=f7d28c\&label=Nightly\&query=%24.version\&url=https%3A%2F%2Fraw.githubusercontent.com%2FLinwoodDev%2Fbutterfly%2Fnightly%2Fapp%2Fpubspec.yaml\&style=for-the-badge)
+![Nightly release version](https://img.shields.io/badge/dynamic/yaml?color=f7d28c\&label=Nightly\&query=%24.version\&url=https%3A%2F%2Fraw.githubusercontent.com%2FLinwoodDev%2Fperuke%2F%2Fsovellus%2Fpubspec.yaml\&style=for-the-badge)
 
 ## Linkit
 
@@ -20,24 +20,24 @@ sidebar_position: 6
 
 Read more about the nightly version of Butterfly [here](/nightly).
 
-## Installing
+## Asennetaan
 
-The IPA file we distribute is unsigned. This means you'll have to sign it yourself before being able to install it onto your iOS device. \
-Fortunately, there are projects like [AltStore](https://altstore.io) (open source) or [sideloadly](https://sideloadly.io) (closed source). \
+Jakamamme IPA-tiedosto on allekirjoittamaton. Tämä tarkoittaa, että sinun täytyy allekirjoittaa se itse ennen kuin voit asentaa sen iOS-laitteeseen. \
+Onneksi on projekteja kuten [AltStore](https://altstore.io) (open source) tai [sideloadly](https://sideloadly.io) (closed source). \
 \
-You do need an Apple ID for sideloading Butterfly. We recommend creating a new one especially for this purpose. Please log into [Apple Developer](https://developer.apple.com) at least once and accept their terms.
+Tarvitset Apple-tunnuksen Butterfly sivuttaisiin. Suosittelemme luomaan uuden erityisesti tätä tarkoitusta varten. Kirjaudu sisään [Apple Developer](https://developer.apple.com) vähintään kerran ja hyväksy niiden ehdot.
 \
-If your device is running iOS 16.0 or newer, enable developer mode in Settings/Privacy/Developer Mode.
+Jos laitteesi on käynnissä iOS 16.0 tai uudempi, ota kehittäjätila asetuksista/Privacy/Developer -tilassa.
 
 ## Installing (AltStore)
 
-1. Set up AltStore using the instructions provided on the AltStore website.
-2. Get a copy of the IPA file onto your device. The best way is to download it using a web browser or sending a zip file containing the IPA to yourself. Do not use Airdrop. Also, do not send the file directly to yourself. You might not be able to open it.
-3. Open the IPA file, use the "share" menu and tap "AltStore". If your device is connected to your PC running AltServer (wired or wirelessly) it'll install automatically.
+1. Määritä AltStore käyttäen AltStoren verkkosivustolla annettuja ohjeita.
+2. Hanki kopio IPA tiedostosta laitteellesi. Paras tapa on ladata se verkkoselaimella tai lähettää zip-tiedostoa, joka sisältää IPA itse. Älä käytä Airdropia. Älä myöskään lähetä tiedostoa suoraan itseesi. Et ehkä pysty avaamaan sitä.
+3. Avaa IPA-tiedosto, käytä "share" -valikkoa ja napauta "AltStore". Jos laitteesi on kytketty tietokoneeseen, jossa on AltServer (langallinen tai langaton) asennetaan automaattisesti.
 
-## Installing (Sideloadly)
+## Asennetaan (Sideloidaan)
 
-1. Set up Sideloadly using the guides provided on sideloadly.io.
-2. Open sideloadly on your PC.
-3. Add the IPA in the top right corner, select your device and Apple ID. Click Start. The app will be installed onto your device.
-   If you get a popup saying a developer isn't trusted go to Settings/General/VPN and Device Management and change that.
+1. Määritä Sideloadly käyttäen oppaita annetaan sideloadly.io.
+2. Avaa sideloadly PC.
+3. Lisää IPA oikeassa yläkulmassa, valitse laite ja Apple ID. Valitse Aloitus. Sovellus on asennettu laitteeseesi.
+   Jos saat ponnahdusikkunan, jossa sanotaan, että kehittäjä ei ole luotettu, mene Asetukset / Yleinen/VPN ja laitehallinta ja muuta sitä.
