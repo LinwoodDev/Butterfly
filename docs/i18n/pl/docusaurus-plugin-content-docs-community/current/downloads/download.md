@@ -1,5 +1,5 @@
 ---
-slug: "/downloads"
+slug: "/pobierane"
 sidebar_position: 0
 title: Pobrania
 ---
