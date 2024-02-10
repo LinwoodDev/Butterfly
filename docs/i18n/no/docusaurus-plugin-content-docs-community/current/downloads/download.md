@@ -1,5 +1,5 @@
 ---
-slug: "/downloads"
+slug: "/nedlastinger"
 sidebar_position: 0
 title: Nedlastinger
 ---
