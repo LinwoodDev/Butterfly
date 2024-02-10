@@ -435,6 +435,7 @@ jobs:
       - build-linux
       - build-flatpak
       - build-macos
+      - build-ipa
     steps:
       - name: ⬆️ Checkout
         uses: actions/checkout@v4
