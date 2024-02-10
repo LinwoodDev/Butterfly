@@ -8,10 +8,10 @@ sidebar_position: 1
 3. Navigeer naar de app directory
 4. Gebruik het flutter gereedschap om de applicatie te compileren
    * `flutter build apk`
-   * `flutter build appbundle`
+   * `flutter build appbundel`
    * `flutter build web`
    * `flutter build linux`
-   * `flutter build windows`
+   * `flutter build vensters`
    * `flutter build ios --release --no-codesign`\
-     after that, create a folder named "Payload", copy Runner.app into it and zip the payload folder. Then rename ".zip" to ".ipa".
+     daarna, maak een map met de naam "Payload", kopieer Runner.app erin en plaats de payload map. Wijzig de naam ".zip" naar ".ipa".
 5. De gecompileerde bestanden zijn in de build-map
