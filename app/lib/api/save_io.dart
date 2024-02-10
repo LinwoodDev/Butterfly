@@ -14,11 +14,15 @@ Future<void> exportFile(
   String mimeType,
   String uniformTypeIdentifier,
 ) async {
-  if (Platform.isAndroid) {
+  if (Platform.isAndroid || Platform.isIOS) {
     final file = File(
         '${(await getTemporaryDirectory()).path}/butterfly.$fileExtension');
     await file.writeAsBytes(bytes);
-    Share.shareXFiles([XFile(file.path)]);
+    final box = context.findRenderObject() as RenderBox?;
+    Share.shareXFiles(
+      [XFile(file.path, mimeType: mimeType)],
+      sharePositionOrigin: box!.localToGlobal(Offset.zero) & box.size,
+    );
     return;
   }
   final file = fs.XFile.fromData(Uint8List.fromList(bytes),
