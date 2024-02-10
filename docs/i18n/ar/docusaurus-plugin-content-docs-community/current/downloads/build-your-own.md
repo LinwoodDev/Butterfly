@@ -7,11 +7,11 @@ sidebar_position: 1
 2. استنساخ المستودع
 3. انتقل إلى دليل التطبيق
 4. استخدام أداة التردد لتجميع التطبيق
-   * `flutter build apk`
-   * `flutter build appbundle`
-   * `flutter build web`
-   * `flutter build linux`
-   * `flutter build windows`
-   * `flutter build ios --release --no-codesign`\
-     after that, create a folder named "Payload", copy Runner.app into it and zip the payload folder. Then rename ".zip" to ".ipa".
+   * `بناء قماش pk`
+   * `باقة بناء حزمة`
+   * `بناء إنترنت متقطع`
+   * `ترقية بناء لينوكس`
+   * `بناء نوافذ متقطعة`
+   * `flutter Building ios --releas--no-codesign`\
+     بعد ذلك، أنشئ مجلد يسمى "Payload", انسخ Runner.app إليه و zip مجلد الحمولة. ثم قم بإعادة تسمية ".zip" إلى ".ipa".
 5. الملفات المجمعة موجودة في دليل البناء
