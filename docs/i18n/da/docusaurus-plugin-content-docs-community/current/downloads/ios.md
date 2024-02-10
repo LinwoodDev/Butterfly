@@ -3,7 +3,7 @@ title: iOS
 sidebar_position: 6
 ---
 
-![Nightly release version](https://img.shields.io/badge/dynamic/yaml?color=f7d28c\&label=Nightly\&query=%24.version\&url=https%3A%2F%2Fraw.githubusercontent.com%2FLinwoodDev%2Fbutterfly%2Fnightly%2Fapp%2Fpubspec.yaml\&style=for-the-badge)
+![Nightly release version](https://img.shields.io/badge/dynamic/yaml?color=f7d28c\&label=Nat\&query=%24.version\&url=https%3A%2F%2Fraw.githubusercontent.com%2FLinwoodDev%2Fbutterfly%2Fnightly%2Fapp%2Fpubspec.yaml\&style=for-the-badge)
 
 ## Links
 
@@ -18,26 +18,26 @@ sidebar_position: 6
   </ul>
 </div>
 
-Read more about the nightly version of Butterfly [here](/nightly).
+Læs mere om natteversionen af Butterfly [here](/nighly).
 
-## Installing
+## Installerer
 
-The IPA file we distribute is unsigned. This means you'll have to sign it yourself before being able to install it onto your iOS device. \
-Fortunately, there are projects like [AltStore](https://altstore.io) (open source) or [sideloadly](https://sideloadly.io) (closed source). \
+IPA filen vi distribuerer, er ikke underskrevet. Det betyder, at du selv skal underskrive den, før du kan installere den på din iOS-enhed. \
+Heldigvis er der projekter som [AltStore](https://altstore.io) (open source) eller [sideloadly](https://sideloadly.io) (lukket kilde). \
 \
-You do need an Apple ID for sideloading Butterfly. We recommend creating a new one especially for this purpose. Please log into [Apple Developer](https://developer.apple.com) at least once and accept their terms.
+Du har brug for et Apple-id til sideloading af Butterfly. Vi anbefaler, at der oprettes en ny specielt til dette formål. Log venligst ind på [Apple Developer] (https\://developer.apple.com) mindst én gang og accepter deres vilkår.
 \
-If your device is running iOS 16.0 or newer, enable developer mode in Settings/Privacy/Developer Mode.
+Hvis din enhed kører iOS 16.0 eller nyere, skal du aktivere udviklertilstand i indstillinger/Privatliv/Udviklertilstand.
 
 ## Installing (AltStore)
 
-1. Set up AltStore using the instructions provided on the AltStore website.
-2. Get a copy of the IPA file onto your device. The best way is to download it using a web browser or sending a zip file containing the IPA to yourself. Do not use Airdrop. Also, do not send the file directly to yourself. You might not be able to open it.
-3. Open the IPA file, use the "share" menu and tap "AltStore". If your device is connected to your PC running AltServer (wired or wirelessly) it'll install automatically.
+1. Opsæt AltStore ved hjælp af instruktionerne på AltStore-hjemmesiden.
+2. Få en kopi af IPA-filen på din enhed. Den bedste måde er at downloade det ved hjælp af en webbrowser eller sende en zip-fil, der indeholder IPA til dig selv. Brug ikke Airdrop. Send heller ikke filen direkte til dig selv. Du er måske ikke i stand til at åbne den.
+3. Åbn IPA-filen, brug menuen "share" og tryk på "AltStore". Hvis din enhed er tilsluttet din pc, der kører AltServer (kabelforbundet eller trådløs), vil den installere automatisk.
 
-## Installing (Sideloadly)
+## Installerer (Sideloadly)
 
-1. Set up Sideloadly using the guides provided on sideloadly.io.
-2. Open sideloadly on your PC.
-3. Add the IPA in the top right corner, select your device and Apple ID. Click Start. The app will be installed onto your device.
-   If you get a popup saying a developer isn't trusted go to Settings/General/VPN and Device Management and change that.
+1. Konfigurer Sideloadly ved hjælp af guider leveret på sideloadly.io.
+2. Åbn sideloadly på din pc.
+3. Tilføj IPA i øverste højre hjørne, vælg din enhed og Apple-ID. Klik På Start. Appen vil blive installeret på din enhed.
+   Hvis du får en popup siger en udvikler er ikke betroet gå til Indstillinger / Generel / VPN og Enhedshåndtering og ændre det.
