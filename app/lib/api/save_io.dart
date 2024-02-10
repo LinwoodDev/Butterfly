@@ -14,7 +14,7 @@ Future<void> exportFile(
   String mimeType,
   String uniformTypeIdentifier,
 ) async {
-  if (Platform.isAndroid || Platform.isIOS) {
+  if (Platform.isAndroid) {
     final file = File(
         '${(await getTemporaryDirectory()).path}/butterfly.$fileExtension');
     await file.writeAsBytes(bytes);
