@@ -1,5 +1,5 @@
 ---
-title: páginas
+title: Páginas
 sidebar_position: 2
 ---
 
