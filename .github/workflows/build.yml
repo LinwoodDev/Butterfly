@@ -221,7 +221,7 @@ jobs:
           path: |
             app/linwood-butterfly-linux.AppImage
   build-flatpak:
-    name: Build flatpak
+    name: build-flatpak
     runs-on: ubuntu-20.04
     defaults:
       run:
@@ -361,6 +361,48 @@ jobs:
           name: macos-dmg
           path: |
             app/linwood-butterfly-macos.dmg
+
+  build-ipa:
+    name: build-ipa (iOS)
+    runs-on: macos-latest
+    defaults:
+      run:
+        working-directory: app
+    steps:
+      - name: ⬆️ Checkout
+        uses: actions/checkout@v4
+      - name: Get flutter version
+        run: |
+          FLUTTER_VERSION=$(cat ../FLUTTER_VERSION)
+          echo "FLUTTER_VERSION=${FLUTTER_VERSION}" >> $GITHUB_ENV
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+          channel: 'master'
+      - name: 📦 Get dependencies
+        run: |
+          flutter clean
+          flutter pub get
+          flutter doctor -v
+      - name: 🏭 Build
+        run: |
+          flutter build ios --release --no-codesign -v
+      - name: Packing IPA
+        run: |
+          cd build/ios/iphoneos/
+          rm -rf Payload
+          mkdir Payload
+          cp -R Runner.app Payload/
+          rm -f linwood-butterfly-ios.ipa
+          zip -vr linwood-butterfly-ios.ipa Payload/
+#          ls -l linwood-butterfly-ios.ipa
+      - name: Archive
+        uses: actions/upload-artifact@v4
+        with:
+          name: ipa-build
+          path: app/build/ios/iphoneos/linwood-butterfly-ios.ipa
+          compression-level: 0 #ipa is already compressed
+
   # build-snap:
   #   name: Build Snap
   #   runs-on: ubuntu-latest
@@ -393,6 +435,7 @@ jobs:
       - build-linux
       - build-flatpak
       - build-macos
+      - build-ipa
     steps:
       - name: ⬆️ Checkout
         uses: actions/checkout@v4
@@ -446,6 +489,9 @@ jobs:
       - uses: actions/download-artifact@v4
         with:
           name: macos-dmg
+      - uses: actions/download-artifact@v4
+        with:
+          name: ipa-build
       - name: 📦 Zip artifacts
         run: |
           zip -r linwood-butterfly-windows.zip windows-build/*
@@ -496,6 +542,7 @@ jobs:
             linwood-butterfly-linux.AppImage
             linwood-butterfly-macos.zip
             linwood-butterfly-macos.dmg
+            linwood-butterfly-ios.ipa
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Release
