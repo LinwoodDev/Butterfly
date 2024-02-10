@@ -3,12 +3,12 @@ title: iOS
 sidebar_position: 6
 ---
 
-![Nightly release version](https://img.shields.io/badge/dynamic/yaml?color=f7d28c\&label=Nightly\&query=%24.version\&url=https%3A%2F%2Fraw.githubusercontent.com%2FLinwoodDev%2Fbutterfly%2Fnightly%2Fapp%2Fpubspec.yaml\&style=for-the-badge)
+httNightly release version](https\://img.shields.io/badge/dynamic/yaml?color=f7d28c\&label=Nightly\&query=%24.version\&url=https%3A%2F%2Fraw\.githubusercontent.com%2FLinwoodDev%2Fbutterfly%2Fnightly%2Fapp%2Fpubspec.yaml\&style=for-badge)
 
 ## Lenker
 
 <div className="dropdown dropdown--hoverable margin--sm">
-  <button className="button button--outline button--danger button--lg">Nightly</button>
+  <button className="button button--outline button--danger button--lg">Nattlig</button>
   <ul className="dropdown__menu">
     <li>
       <DownloadButton className="dropdown__link" href="https://github.com/LinwoodDev/butterfly/releases/download/nightly/linwood-butterfly-ios.ipa">
@@ -18,26 +18,26 @@ sidebar_position: 6
   </ul>
 </div>
 
-Read more about the nightly version of Butterfly [here](/nightly).
+Les mer om den nattlige versjonen av Butterfly [here](/nightly).
 
-## Installing
+## Installerer
 
-The IPA file we distribute is unsigned. This means you'll have to sign it yourself before being able to install it onto your iOS device. \
-Fortunately, there are projects like [AltStore](https://altstore.io) (open source) or [sideloadly](https://sideloadly.io) (closed source). \
+IPA-filen vi distribuerer er ikke signert. Dette betyr at du må logge deg på før du kan installere det på iOS-enheten din. \
+Heldigvis finnes det prosjekter som [AltStore](https://altstore.io) (åpen kildekode) eller [sideloadly](https://sideloadly.io) (lukket kilde). \
 \
-You do need an Apple ID for sideloading Butterfly. We recommend creating a new one especially for this purpose. Please log into [Apple Developer](https://developer.apple.com) at least once and accept their terms.
+Du trenger en Apple ID for sideloading Butterfly. Vi anbefaler å lage en ny spesielt til dette formålet. Logg inn på [Apple Developer](https://developer.apple.com) minst én gang og godta sine vilkår.
 \
-If your device is running iOS 16.0 or newer, enable developer mode in Settings/Privacy/Developer Mode.
+Hvis enheten din kjører iOS 16.0 eller nyere, aktiver utviklermodus i Innstillinger/Personvern/Utviklermodus.
 
 ## Installing (AltStore)
 
-1. Set up AltStore using the instructions provided on the AltStore website.
-2. Get a copy of the IPA file onto your device. The best way is to download it using a web browser or sending a zip file containing the IPA to yourself. Do not use Airdrop. Also, do not send the file directly to yourself. You might not be able to open it.
-3. Open the IPA file, use the "share" menu and tap "AltStore". If your device is connected to your PC running AltServer (wired or wirelessly) it'll install automatically.
+1. Opprett AltStore ved hjelp av instruksene gitt på Altbug-nettsiden.
+2. Kopiér IPA-filen til enheten din. Den beste måten å laste ned ved hjelp av en nettleser eller å sende en zip-fil med IPA selv. Ikke bruk Airdrop. I tillegg sender du ikke filen direkte til deg selv. Du kan kanskje ikke åpne den.
+3. Åpne IPA-filen, bruk "share"-menyen og trykk på "AltStore". Dersom enheten er koblet til din PC som kjører AltServer (kablet eller trådløst) installeres automatisk.
 
-## Installing (Sideloadly)
+## Installering (Sideloadly)
 
-1. Set up Sideloadly using the guides provided on sideloadly.io.
-2. Open sideloadly on your PC.
-3. Add the IPA in the top right corner, select your device and Apple ID. Click Start. The app will be installed onto your device.
-   If you get a popup saying a developer isn't trusted go to Settings/General/VPN and Device Management and change that.
+1. Sett opp Sideloadly ved hjelp av veiledningene som er gitt på sideloadly.io.
+2. Åpne sideloadly på PC-en din.
+3. Legg til IPA øverst til høyre, velg din enhet og Apple ID. Klikk på starten. Appen vil bli installert på enheten din.
+   Hvis du får en popup som sier at en utvikler ikke er klarert, gå til Innstillinger/Generell/VPN og Enhetsstyring og endre det.
