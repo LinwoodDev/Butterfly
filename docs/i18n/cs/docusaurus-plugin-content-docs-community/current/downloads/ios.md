@@ -3,12 +3,12 @@ title: iOS
 sidebar_position: 6
 ---
 
-![Nightly release version](https://img.shields.io/badge/dynamic/yaml?color=f7d28c\&label=Nightly\&query=%24.version\&url=https%3A%2F%2Fraw.githubusercontent.com%2FLinwoodDev%2Fbutterfly%2Fnightly%2Fapp%2Fpubspec.yaml\&style=for-the-badge)
+![Nightly release version](https://img.shields.io/badge/dynamic/yaml?color=f7d28c\&label=Nightly\&query=%24.version\&url=https%3A%2F%2Fraw.githubusercontent.com%2FLinwoodDev%2FButterfly%2Fnightly%2Fapp%2Fpubspec.yaml\&style=for-the-badge)
 
 ## Odkazy
 
 <div className="dropdown dropdown--hoverable margin--sm">
-  <button className="button button--outline button--danger button--lg">Nightly</button>
+  <button className="button button--outline button--danger button--lg">Noční</button>
   <ul className="dropdown__menu">
     <li>
       <DownloadButton className="dropdown__link" href="https://github.com/LinwoodDev/butterfly/releases/download/nightly/linwood-butterfly-ios.ipa">
@@ -18,26 +18,26 @@ sidebar_position: 6
   </ul>
 </div>
 
-Read more about the nightly version of Butterfly [here](/nightly).
+Přečtěte si více o noční verzi Butterfly [here](/nightly).
 
-## Installing
+## Instalace
 
-The IPA file we distribute is unsigned. This means you'll have to sign it yourself before being able to install it onto your iOS device. \
-Fortunately, there are projects like [AltStore](https://altstore.io) (open source) or [sideloadly](https://sideloadly.io) (closed source). \
+Soubor IPA, který distribuujeme, není podepsán. To znamená, že se budete muset přihlásit před instalací na vaše iOS zařízení. \
+Naštěstí existují projekty jako [AltStore](https://altstore.io) (open source) nebo [sideloadly](https://sideloadly.io) (uzavřený zdroj). \
 \
-You do need an Apple ID for sideloading Butterfly. We recommend creating a new one especially for this purpose. Please log into [Apple Developer](https://developer.apple.com) at least once and accept their terms.
+Potřebuješ Apple ID pro postranní tažení Butterfly. Pro tento účel doporučujeme vytvořit nový. Přihlaste se alespoň jednou do [Apple Developer](https://developer.apple.com) a přijměte jejich podmínky.
 \
-If your device is running iOS 16.0 or newer, enable developer mode in Settings/Privacy/Developer Mode.
+Pokud vaše zařízení běží na iOS 16.0 nebo novější, povolte vývojářský režim v Nastavení/Soukromí/Vývojářský režim.
 
 ## Installing (AltStore)
 
-1. Set up AltStore using the instructions provided on the AltStore website.
-2. Get a copy of the IPA file onto your device. The best way is to download it using a web browser or sending a zip file containing the IPA to yourself. Do not use Airdrop. Also, do not send the file directly to yourself. You might not be able to open it.
-3. Open the IPA file, use the "share" menu and tap "AltStore". If your device is connected to your PC running AltServer (wired or wirelessly) it'll install automatically.
+1. Nastavte AltStore pomocí instrukcí uvedených na webu AltStore.
+2. Získejte kopii IPA souboru do vašeho zařízení. Nejlepším způsobem je stáhnout pomocí webového prohlížeče nebo poslat zip soubor obsahující IPA sami sobě. Nepoužívejte Airdrop. Také neposílejte soubor přímo sobě. Možná jej nebudete moci otevřít.
+3. Otevřete IPA soubor, použijte menu "Sdílet" a klepněte na "AltStore". Pokud je vaše zařízení připojeno k vašemu počítači se systémem AltServer (kabelový nebo bezdrátový), nainstaluje se automaticky.
 
-## Installing (Sideloadly)
+## Instalace (Sideloadly)
 
-1. Set up Sideloadly using the guides provided on sideloadly.io.
-2. Open sideloadly on your PC.
-3. Add the IPA in the top right corner, select your device and Apple ID. Click Start. The app will be installed onto your device.
-   If you get a popup saying a developer isn't trusted go to Settings/General/VPN and Device Management and change that.
+1. Nastavte Sideloadly pomocí návodů uvedených na sideloadly.io.
+2. Otevřete sideloadly na Vašem PC.
+3. Přidejte IPA v pravém horním rohu, vyberte zařízení a Apple ID. Klepněte na tlačítko Start. Aplikace bude nainstalována na vaše zařízení.
+   Pokud dostanete vyskakovací okno, že vývojář není důvěryhodný, přejděte do Nastavení/General/VPN a správy zařízení a změňte to.
