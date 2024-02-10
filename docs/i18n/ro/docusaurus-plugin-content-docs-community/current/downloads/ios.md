@@ -3,7 +3,7 @@ title: iOS
 sidebar_position: 6
 ---
 
-![Nightly release version](https://img.shields.io/badge/dynamic/yaml?color=f7d28c\&label=Nightly\&query=%24.version\&url=https%3A%2F%2Fraw.githubusercontent.com%2FLinwoodDev%2Fbutterfly%2Fnightly%2Fapp%2Fpubspec.yaml\&style=for-the-badge)
+![Versiune Nightly releassion](https://img.shields.io/badge/dynamic/yaml?color=f7d28c\&label=Nightly\&query=%24.version\&url=https%3A%2F%2Fraw.githubusercontent.com%2FLinwoodDev%2Fbutterfly%2Fnightly%2Fapp%2Fpubspec.yaml\&style=for-the-badge)
 
 ## Link-uri
 
@@ -18,26 +18,26 @@ sidebar_position: 6
   </ul>
 </div>
 
-Read more about the nightly version of Butterfly [here](/nightly).
+Citește mai multe despre versiunea nocturnă a Butterfly [here](/nightly).
 
-## Installing
+## Instalare
 
-The IPA file we distribute is unsigned. This means you'll have to sign it yourself before being able to install it onto your iOS device. \
-Fortunately, there are projects like [AltStore](https://altstore.io) (open source) or [sideloadly](https://sideloadly.io) (closed source). \
+Fișierul IPA pe care îl distribuim nu este semnat. Acest lucru înseamnă că va trebui să vă semnați înainte de a-l putea instala pe dispozitivul dvs. iOS. \
+Din fericire, există proiecte ca [AltStore](https://altstore.io) (open source) sau [sideloadly](https://sideloadly.io) (sursă închisă). \
 \
-You do need an Apple ID for sideloading Butterfly. We recommend creating a new one especially for this purpose. Please log into [Apple Developer](https://developer.apple.com) at least once and accept their terms.
+Aveți nevoie de un ID Apple pentru sideloading Butterfly. Recomandăm crearea unui nou scop, în special în acest scop. Vă rugăm să vă autentificați în [dezvoltatorul Apple](https://developer.apple.com) cel puțin o dată și să acceptați termenii lor.
 \
-If your device is running iOS 16.0 or newer, enable developer mode in Settings/Privacy/Developer Mode.
+Dacă dispozitivul dvs rulează iOS 16.0 sau mai nou, activați modul dezvoltator în modul Setări/Confidențialitate/Dezvoltator.
 
 ## Installing (AltStore)
 
-1. Set up AltStore using the instructions provided on the AltStore website.
-2. Get a copy of the IPA file onto your device. The best way is to download it using a web browser or sending a zip file containing the IPA to yourself. Do not use Airdrop. Also, do not send the file directly to yourself. You might not be able to open it.
-3. Open the IPA file, use the "share" menu and tap "AltStore". If your device is connected to your PC running AltServer (wired or wirelessly) it'll install automatically.
+1. Configurați AltStore folosind instrucțiunile furnizate pe site-ul internet AltStore.
+2. Obțineți o copie a fișierului IPA pe dispozitivul dvs. Cea mai bună metodă este să o descarci folosind un browser web sau să îți trimiți singur un fișier zip care conține IPA. Nu utilizaţi Airdrop. De asemenea, nu vă trimiteţi fişierul direct dvs. S-ar putea să nu îl puteți deschide.
+3. Deschide fișierul IPA, folosește meniul "share" și apasă "AltStore". Dacă dispozitivul este conectat la calculatorul care rulează AltServer (cablat sau wireless) se va instala automat.
 
-## Installing (Sideloadly)
+## Instalare (Sideloadly)
 
-1. Set up Sideloadly using the guides provided on sideloadly.io.
-2. Open sideloadly on your PC.
-3. Add the IPA in the top right corner, select your device and Apple ID. Click Start. The app will be installed onto your device.
-   If you get a popup saying a developer isn't trusted go to Settings/General/VPN and Device Management and change that.
+1. Configurați Sideload folosind ghidurile furnizate pe sideloadly.io.
+2. Deschideți sideload pe calculatorul dvs.
+3. Adăugați IPA în colțul din dreapta sus, selectați dispozitivul dvs. și ID-ul Apple. Click Start. Aplicația va fi instalată pe dispozitivul dvs.
+   Dacă primești un pop-up spunând că un dezvoltator nu are încredere să meargă la Setări/Generale/VPN și să schimbe asta.
