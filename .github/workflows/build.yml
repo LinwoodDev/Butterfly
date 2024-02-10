@@ -489,6 +489,9 @@ jobs:
       - uses: actions/download-artifact@v4
         with:
           name: macos-dmg
+      - uses: actions/download-artifact@v4
+        with:
+          name: ipa-build
       - name: 📦 Zip artifacts
         run: |
           zip -r linwood-butterfly-windows.zip windows-build/*
@@ -539,6 +542,7 @@ jobs:
             linwood-butterfly-linux.AppImage
             linwood-butterfly-macos.zip
             linwood-butterfly-macos.dmg
+            linwood-butterfly-ios.ipa
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Release
