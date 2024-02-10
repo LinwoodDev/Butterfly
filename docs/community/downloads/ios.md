@@ -1,6 +1,6 @@
 ---
 title: "iOS"
-sidebar_position: 5
+sidebar_position: 6
 ---
 
 ![Nightly release version](https://img.shields.io/badge/dynamic/yaml?color=f7d28c&label=Nightly&query=%24.version&url=https%3A%2F%2Fraw.githubusercontent.com%2FLinwoodDev%2Fbutterfly%2Fnightly%2Fapp%2Fpubspec.yaml&style=for-the-badge)
@@ -25,7 +25,7 @@ Read more about the nightly version of Butterfly [here](/nightly).
 The IPA file we distribute is unsigned. This means you'll have to sign it yourself before being able to install it onto your iOS device. \
 Fortunately, there are projects like <a href="https://altstore.io">AltStore</a> (open source) or <a href="https://sideloadly.io">sideloadly</a> (closed source). \
 \
-You do need an Apple ID for sideloading Butterfly. We recommend creating a new one especially for this purpose. Please log into <a href=https://developer.apple.com"> Apple Developer </a> at least once and accept their terms.
+You do need an Apple ID for sideloading Butterfly. We recommend creating a new one especially for this purpose. Please log into <a href="https://developer.apple.com"> Apple Developer </a> at least once and accept their terms.
 \
 If your device is running iOS 16.0 or newer, enable developer mode in Settings/Privacy/Developer Mode.
 
