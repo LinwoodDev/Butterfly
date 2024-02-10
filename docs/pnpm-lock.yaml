@@ -3764,7 +3764,7 @@ packages:
     hasBin: true
     dependencies:
       caniuse-lite: 1.0.30001585
-      electron-to-chromium: 1.4.664
+      electron-to-chromium: 1.4.665
       node-releases: 2.0.14
       update-browserslist-db: 1.0.13(browserslist@4.22.3)
 
@@ -4676,8 +4676,8 @@ packages:
       jake: 10.8.7
     dev: false
 
-  /electron-to-chromium@1.4.664:
-    resolution: {integrity: sha512-k9VKKSkOSNPvSckZgDDl/IQx45E1quMjX8QfLzUsAs/zve8AyFDK+ByRynSP/OfEfryiKHpQeMf00z0leLCc3A==}
+  /electron-to-chromium@1.4.665:
+    resolution: {integrity: sha512-UpyCWObBoD+nSZgOC2ToaIdZB0r9GhqT2WahPKiSki6ckkSuKhQNso8V2PrFcHBMleI/eqbKgVQgVC4Wni4ilw==}
 
   /emoji-regex@8.0.0:
     resolution: {integrity: sha512-MSjYzcWNOA0ewAHpz0MxpYFvwg6yjy1NG3xteoqz644VCo/RPgnr1/GGt+ic3iJTzQ8Eu3TdM14SawnVUmGE6A==}
@@ -5540,7 +5540,7 @@ packages:
       estree-util-is-identifier-name: 3.0.0
       hast-util-whitespace: 3.0.0
       mdast-util-mdx-expression: 2.0.0
-      mdast-util-mdx-jsx: 3.0.0
+      mdast-util-mdx-jsx: 3.1.0
       mdast-util-mdxjs-esm: 2.0.1
       property-information: 6.4.1
       space-separated-tokens: 2.0.2
@@ -5561,7 +5561,7 @@ packages:
       estree-util-is-identifier-name: 3.0.0
       hast-util-whitespace: 3.0.0
       mdast-util-mdx-expression: 2.0.0
-      mdast-util-mdx-jsx: 3.0.0
+      mdast-util-mdx-jsx: 3.1.0
       mdast-util-mdxjs-esm: 2.0.1
       property-information: 6.4.1
       space-separated-tokens: 2.0.2
@@ -6656,8 +6656,8 @@ packages:
     transitivePeerDependencies:
       - supports-color
 
-  /mdast-util-mdx-jsx@3.0.0:
-    resolution: {integrity: sha512-XZuPPzQNBPAlaqsTTgRrcJnyFbSOBovSadFgbFu8SnuNgm+6Bdx1K+IWoitsmj6Lq6MNtI+ytOqwN70n//NaBA==}
+  /mdast-util-mdx-jsx@3.1.0:
+    resolution: {integrity: sha512-A8AJHlR7/wPQ3+Jre1+1rq040fX9A4Q1jG8JxmSNp/PLPHg80A6475wxTp3KzHpApFH6yWxFotHrJQA3dXP6/w==}
     dependencies:
       '@types/estree-jsx': 1.0.4
       '@types/hast': 3.0.4
@@ -6680,7 +6680,7 @@ packages:
     dependencies:
       mdast-util-from-markdown: 2.0.0
       mdast-util-mdx-expression: 2.0.0
-      mdast-util-mdx-jsx: 3.0.0
+      mdast-util-mdx-jsx: 3.1.0
       mdast-util-mdxjs-esm: 2.0.1
       mdast-util-to-markdown: 2.1.0
     transitivePeerDependencies:

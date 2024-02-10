@@ -16,19 +16,19 @@ Future<void> exportFile(
         context, bytes, fileExtension, mimeType, uniformTypeIdentifier);
 
 Future<void> exportSvg(BuildContext context, String data) =>
-    exportFile(context, data.codeUnits, 'svg', 'image/svg', '');
+    exportFile(context, data.codeUnits, 'svg', 'image/svg', 'public.svg-image');
 
 Future<void> exportImage(BuildContext context, List<int> bytes) =>
-    exportFile(context, bytes, 'png', 'image/png', '');
+    exportFile(context, bytes, 'png', 'image/png', 'public.image');
 
 Future<void> exportPdf(BuildContext context, List<int> bytes) =>
-    exportFile(context, bytes, 'pdf', 'application/pdf', '');
+    exportFile(context, bytes, 'pdf', 'application/pdf', 'com.adobe.pdf');
 
 Future<void> exportZip(BuildContext context, List<int> bytes) =>
-    exportFile(context, bytes, 'zip', 'application/zip', '');
+    exportFile(context, bytes, 'zip', 'application/zip', 'public.zip-archive');
 
-Future<void> saveData(BuildContext context, List<int> bytes) =>
-    exportFile(context, bytes, 'bfly', 'application/zip', '');
+Future<void> saveData(BuildContext context, List<int> bytes) => exportFile(
+    context, bytes, 'bfly', 'application/zip', 'dev.linwood.butterfly.note');
 
 void saveToClipboard(BuildContext context, String text) {
   Clipboard.setData(ClipboardData(text: text));
