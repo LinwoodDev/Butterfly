@@ -1,11 +1,11 @@
 ---
-title: "área"
+title: "Área"
 sidebar_position: 2
 ---
 
 ## Introdução
 
-![área](area.png)
+![Área](area.png)
 
 As áreas são uma forma de restringir a dimensão da tela. Você pode criar áreas usando a ferramenta [área](tools/area.md). Se você clicar em segundo plano você pode abrir a lista de áreas usando o menu de contexto.
 
