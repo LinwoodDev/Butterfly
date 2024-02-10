@@ -10,7 +10,7 @@ sidebar_position: 6
   <button className="button button--outline button--danger button--lg">Nightly</button>
   <ul className="dropdown__menu">
     <li>
-      <DownloadButton className="dropdown__link" href="https://github.com/LinwoodDev/butterfly/releases/download/nightly/linwood-butterfly-ios.zip">
+      <DownloadButton className="dropdown__link" href="https://github.com/LinwoodDev/butterfly/releases/download/nightly/linwood-butterfly-ios.ipa">
         IPA
       </DownloadButton>
     </li>
