@@ -8,7 +8,7 @@ sidebar_position: 6
 ## الروابط
 
 <div className="dropdown dropdown--hoverable margin--sm">
-  <button className="button button--outline button--danger button--lg">Nightly</button>
+  <button className="button button--outline button--danger button--lg">مساء</button>
   <ul className="dropdown__menu">
     <li>
       <DownloadButton className="dropdown__link" href="https://github.com/LinwoodDev/butterfly/releases/download/nightly/linwood-butterfly-ios.ipa">
@@ -18,26 +18,26 @@ sidebar_position: 6
   </ul>
 </div>
 
-Read more about the nightly version of Butterfly [here](/nightly).
+اقرأ المزيد عن النسخة الليلية من الفراشة [here](/nightly).
 
-## Installing
+## تثبيت
 
-The IPA file we distribute is unsigned. This means you'll have to sign it yourself before being able to install it onto your iOS device. \
-Fortunately, there are projects like [AltStore](https://altstore.io) (open source) or [sideloadly](https://sideloadly.io) (closed source). \
+ملف IPA الذي نوزعه غير موقع. وهذا يعني أنه سيتعين عليك التوقيع عليه بنفسك قبل أن تكون قادراً على تثبيته على جهاز iOS الخاص بك. \
+لحسن الحظ، هناك مشاريع مثل [AltStore](https://altstore.io) (المصدر المفتوح) أو [sideloadly](https://sideloadly.io) (مصدر مغلق). \
 \
-You do need an Apple ID for sideloading Butterfly. We recommend creating a new one especially for this purpose. Please log into [Apple Developer](https://developer.apple.com) at least once and accept their terms.
+تحتاج إلى معرف أبل لتحميل الفراشة. ونوصي بإنشاء وظيفة جديدة لهذا الغرض على وجه الخصوص. الرجاء تسجيل الدخول إلى [Apple Developer](https://developer.apple.com) مرة واحدة على الأقل وقبول شروطهم.
 \
-If your device is running iOS 16.0 or newer, enable developer mode in Settings/Privacy/Developer Mode.
+إذا كان جهازك يقوم بتشغيل iOS 16.0 أو أحدث ، قم بتمكين وضع المطور في الإعدادات/rivacy/Developer.
 
 ## Installing (AltStore)
 
-1. Set up AltStore using the instructions provided on the AltStore website.
-2. Get a copy of the IPA file onto your device. The best way is to download it using a web browser or sending a zip file containing the IPA to yourself. Do not use Airdrop. Also, do not send the file directly to yourself. You might not be able to open it.
-3. Open the IPA file, use the "share" menu and tap "AltStore". If your device is connected to your PC running AltServer (wired or wirelessly) it'll install automatically.
+1. إعداد AltStore باستخدام التعليمات المقدمة على موقع AltStore على شبكة الإنترنت.
+2. احصل على نسخة من ملف IPA على جهازك. أفضل طريقة هي تنزيله باستخدام متصفح ويب أو إرسال ملف مضغوط يحتوي على وكالة ترويج الاستثمار إلى نفسك. لا تستخدم Airdrop. كذلك لا ترسل الملف مباشرة إلى نفسك. قد لا تتمكن من فتحه.
+3. افتح ملف IPA، استخدم قائمة "مشاركة" وانقر على "AltStore". إذا كان جهازك متصلاً بحاسوبك الشخصي الذي يقوم بتشغيل AltServer (سلكي أو لاسلكي) فسيتم تثبيته تلقائياً.
 
-## Installing (Sideloadly)
+## التثبيت (ثنائي)
 
-1. Set up Sideloadly using the guides provided on sideloadly.io.
-2. Open sideloadly on your PC.
-3. Add the IPA in the top right corner, select your device and Apple ID. Click Start. The app will be installed onto your device.
-   If you get a popup saying a developer isn't trusted go to Settings/General/VPN and Device Management and change that.
+1. إعداد Sideloadly باستخدام الأدلة المقدمة على sideloadly.io.
+2. فتح التحميل الجانبي على جهاز الكمبيوتر الخاص بك.
+3. أضف IPA في أعلى الزاوية اليمنى، حدد جهازك ومعرف Apple الخاص بك. انقر على البقاء. سيتم تثبيت التطبيق على جهازك.
+   إذا حصلت على نوافذ منبثقة تقول أن المطور غير موثوق به انتقل إلى الإعدادات/العامة/VPN وإدارة الجهاز وقم بتغيير ذلك.
