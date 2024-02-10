@@ -7,11 +7,11 @@ sidebar_position: 1
 2. Sklonuj repozytorium
 3. Przejdź do katalogu aplikacji
 4. Użyj narzędzia do kompilacji aplikacji
-   * `flutter build apk`
-   * `flutter build appbundle`
-   * `flutter build web`
-   * `flutter build linux`
-   * `flutter build windows`
+   * `apk kompilacji trzepotów`
+   * `paczka aplikacji do budowy trzepotów`
+   * `kompilacja trzepotów`
+   * `kompilacja flutter linuks`
+   * `okno budowy trzepotów`
    * `flutter build ios --release --no-codesign`\
-     after that, create a folder named "Payload", copy Runner.app into it and zip the payload folder. Then rename ".zip" to ".ipa".
+     następnie utwórz folder o nazwie "Payload", skopiuj do niego Runner.app i zip folder payload. Następnie zmień nazwę ".zip" na ".ipa".
 5. Skompilowane pliki są w katalogu kompilacji
