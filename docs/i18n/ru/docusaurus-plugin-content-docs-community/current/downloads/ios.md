@@ -3,12 +3,12 @@ title: iOS
 sidebar_position: 6
 ---
 
-![Nightly release version](https://img.shields.io/badge/dynamic/yaml?color=f7d28c\&label=Nightly\&query=%24.version\&url=https%3A%2F%2Fraw.githubusercontent.com%2FLinwoodDev%2Fbutterfly%2Fnightly%2Fapp%2Fpubspec.yaml\&style=for-the-badge)
+![Ночной релиз](https://img.shields.io/badge/dynamic/yaml?color=f7d28c\&label=Nightly\&query=%24.version\&url=https%3A%2F%2Fraw.githubusercontent.com%2FLinwoodDev%2Fbutterfly%2Fночное%2Fapp%2Fpubspec.yaml\&style=for-the-badge)
 
 ## Ссылки
 
 <div className="dropdown dropdown--hoverable margin--sm">
-  <button className="button button--outline button--danger button--lg">Nightly</button>
+  <button className="button button--outline button--danger button--lg">Ночь</button>
   <ul className="dropdown__menu">
     <li>
       <DownloadButton className="dropdown__link" href="https://github.com/LinwoodDev/butterfly/releases/download/nightly/linwood-butterfly-ios.ipa">
@@ -18,26 +18,26 @@ sidebar_position: 6
   </ul>
 </div>
 
-Read more about the nightly version of Butterfly [here](/nightly).
+Подробнее о ночной версии Butterfly [here](/nightly).
 
-## Installing
+## Установка
 
-The IPA file we distribute is unsigned. This means you'll have to sign it yourself before being able to install it onto your iOS device. \
+Файл IPA, который мы распространяем, не подписан. Это означает, что вы должны подписать его самостоятельно, прежде чем иметь возможность установить его на ваше iOS устройство. \
 Fortunately, there are projects like [AltStore](https://altstore.io) (open source) or [sideloadly](https://sideloadly.io) (closed source). \
 \
-You do need an Apple ID for sideloading Butterfly. We recommend creating a new one especially for this purpose. Please log into [Apple Developer](https://developer.apple.com) at least once and accept their terms.
+Вам нужен Apple ID для погрузки Бабочки. Мы рекомендуем создать новый специально для этой цели. Пожалуйста, войдите в [Apple Developer](https://developer.apple.com) хотя бы один раз и примите их условия.
 \
-If your device is running iOS 16.0 or newer, enable developer mode in Settings/Privacy/Developer Mode.
+Если на вашем устройстве запущен iOS 16.0 или новее, включите режим разработчика в Настройках/Режим конфиденциальности/разработчика.
 
 ## Installing (AltStore)
 
-1. Set up AltStore using the instructions provided on the AltStore website.
-2. Get a copy of the IPA file onto your device. The best way is to download it using a web browser or sending a zip file containing the IPA to yourself. Do not use Airdrop. Also, do not send the file directly to yourself. You might not be able to open it.
-3. Open the IPA file, use the "share" menu and tap "AltStore". If your device is connected to your PC running AltServer (wired or wirelessly) it'll install automatically.
+1. Настройте AltStore, используя инструкции, содержащиеся на сайте AltStore.
+2. Получить копию файла IPA на ваше устройство. Лучший способ это скачать его с помощью веб-браузера или посылать zip-файл, содержащий IPA самому себе. Не используйте Airdrop. Кроме того, не отправляйте файл непосредственно себе. Возможно, вы не сможете открыть его.
+3. Откройте файл IPA, используйте меню «Поделиться» и нажмите «AltStore». Если ваше устройство подключено к компьютеру под управлением AltServer (проводной или беспроводной), оно будет установлено автоматически.
 
-## Installing (Sideloadly)
+## Установка (Sideloadly)
 
-1. Set up Sideloadly using the guides provided on sideloadly.io.
-2. Open sideloadly on your PC.
-3. Add the IPA in the top right corner, select your device and Apple ID. Click Start. The app will be installed onto your device.
-   If you get a popup saying a developer isn't trusted go to Settings/General/VPN and Device Management and change that.
+1. Настройте Sideloadly используя руководства, предоставленные на sideloadly.io.
+2. Откройте поперечно на вашем ПК.
+3. Добавьте IPA в правом верхнем углу, выберите устройство и Apple ID. Нажмите Пуск. Приложение будет установлено на ваше устройство.
+   Если вы получили всплывающее сообщение, что разработчику не доверяют в Настройки/Общие/VPN и Управление устройствами и измените это.
