@@ -8,7 +8,7 @@ sidebar_position: 6
 ## Koppelingen
 
 <div className="dropdown dropdown--hoverable margin--sm">
-  <button className="button button--outline button--danger button--lg">Nightly</button>
+  <button className="button button--outline button--danger button--lg">Nachtelijk</button>
   <ul className="dropdown__menu">
     <li>
       <DownloadButton className="dropdown__link" href="https://github.com/LinwoodDev/butterfly/releases/download/nightly/linwood-butterfly-ios.ipa">
@@ -18,26 +18,26 @@ sidebar_position: 6
   </ul>
 </div>
 
-Read more about the nightly version of Butterfly [here](/nightly).
+Lees meer over de nachtversie van Butterfly [here](/nightly).
 
-## Installing
+## Installeren
 
-The IPA file we distribute is unsigned. This means you'll have to sign it yourself before being able to install it onto your iOS device. \
-Fortunately, there are projects like [AltStore](https://altstore.io) (open source) or [sideloadly](https://sideloadly.io) (closed source). \
+Het IPA-bestand dat we verspreiden is niet ondertekend. Dit betekent dat je jezelf moet aanmelden voordat je het kunt installeren op je iOS-apparaat. \
+Gelukkig zijn er projecten zoals [AltStore](https://altstore.io) (open source) of [sideloadly](https://sideloadly.io) (closed source). \
 \
-You do need an Apple ID for sideloading Butterfly. We recommend creating a new one especially for this purpose. Please log into [Apple Developer](https://developer.apple.com) at least once and accept their terms.
+Je hebt wel een Apple ID nodig voor sideloading Butterfly. Vooral voor dit doel bevelen wij aan om een nieuwe te creëren. Meld je ten minste eenmaal aan bij [Apple Developer](https://developer.apple.com) en accepteer hun voorwaarden.
 \
-If your device is running iOS 16.0 or newer, enable developer mode in Settings/Privacy/Developer Mode.
+Als je apparaat iOS 16.0 of hoger draagt, schakel dan ontwikkelaarsmodus in Instellingen/Privacy/Ontwikkelaar modus.
 
 ## Installing (AltStore)
 
-1. Set up AltStore using the instructions provided on the AltStore website.
-2. Get a copy of the IPA file onto your device. The best way is to download it using a web browser or sending a zip file containing the IPA to yourself. Do not use Airdrop. Also, do not send the file directly to yourself. You might not be able to open it.
-3. Open the IPA file, use the "share" menu and tap "AltStore". If your device is connected to your PC running AltServer (wired or wirelessly) it'll install automatically.
+1. Stel AltStore in met behulp van de instructies op de AltStore-website.
+2. Krijg een kopie van het IPA-bestand op uw apparaat. De beste manier is het downloaden via een webbrowser of het verzenden van een zip-bestand met de IPA naar uzelf. Gebruik geen Airdrop. Stuur het bestand ook niet rechtstreeks naar jezelf. Het is mogelijk dat je het niet kunt openen.
+3. Open het IPA-bestand, gebruik het menu "delen" en tik op "AltStore". Als uw apparaat verbonden is met de PC die AltServer draait (bekabeld of draadloos) zal het automatisch worden geïnstalleerd.
 
-## Installing (Sideloadly)
+## Installeren (Sideloadly)
 
-1. Set up Sideloadly using the guides provided on sideloadly.io.
-2. Open sideloadly on your PC.
-3. Add the IPA in the top right corner, select your device and Apple ID. Click Start. The app will be installed onto your device.
-   If you get a popup saying a developer isn't trusted go to Settings/General/VPN and Device Management and change that.
+1. Stel Sideloadly in met behulp van de handleidingen geboden op sideloadly.io.
+2. Open sideloadly op je PC.
+3. Voeg de IPA toe in de rechterbovenhoek, selecteer uw apparaat en Apple ID. Klik op starten. De app zal op uw apparaat worden geïnstalleerd.
+   Als u een popup krijgt die zegt dat een ontwikkelaar niet vertrouwd is, ga dan naar Instellingen/General/VPN en Device Management en verander dat.
