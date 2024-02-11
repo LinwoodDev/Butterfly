@@ -192,17 +192,18 @@ class DocumentLoadSuccess extends DocumentLoaded {
   bool isLayerVisible(String layer) => !invisibleLayers.contains(layer);
 
   bool hasAutosave() =>
-      networkingService.isActive ||
-      !(embedding?.save ?? true) ||
-      (!kIsWeb &&
-          !location.absolute &&
-          (location.fileType == AssetFileType.note ||
-              location.fileType == null) &&
-          (location.remote.isEmpty ||
-              (settingsCubit.state
-                      .getRemote(location.remote)
-                      ?.hasDocumentCached(location.path) ??
-                  false)));
+      settingsCubit.state.autosave &&
+      (networkingService.isActive ||
+          !(embedding?.save ?? true) ||
+          (!kIsWeb &&
+              !location.absolute &&
+              (location.fileType == AssetFileType.note ||
+                  location.fileType == null) &&
+              (location.remote.isEmpty ||
+                  (settingsCubit.state
+                          .getRemote(location.remote)
+                          ?.hasDocumentCached(location.path) ??
+                      false))));
 
   Future<AssetLocation> save([AssetLocation? location]) =>
       currentIndexCubit.save(this, location);

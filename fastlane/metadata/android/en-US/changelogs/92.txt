@@ -1,4 +1,5 @@
 * Add initial ios support (currently nightly only) ([#244](https://github.com/LinwoodDev/Butterfly/issues/244))
+* Add option to disable autosave ([#591](https://github.com/LinwoodDev/Butterfly/issues/591))
 * Invert current inverted position to be normal
 * Fix file sharing on android ([#585](https://github.com/LinwoodDev/Butterfly/issues/585))
 * Fix laser movement is not locked
