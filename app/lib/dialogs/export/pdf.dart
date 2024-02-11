@@ -162,14 +162,15 @@ class _PdfExportDialogState extends State<PdfExportDialog> {
                                               state.data, state.info,
                                               areas: areas, state: state))
                                           .save();
-                                  Navigator.of(context).pop();
                                   if (widget.print) {
-                                    Printing.layoutPdf(
+                                    await Printing.layoutPdf(
                                       onLayout: (_) => getBytes(),
                                     );
+                                    Navigator.of(context).pop();
                                     return;
                                   }
-                                  exportPdf(context, await getBytes());
+                                  await exportPdf(context, await getBytes());
+                                  Navigator.of(context).pop();
                                 },
                               ),
                             ],

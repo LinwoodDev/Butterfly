@@ -27,7 +27,7 @@ Future<void> exportPdf(BuildContext context, List<int> bytes) =>
 Future<void> exportZip(BuildContext context, List<int> bytes) =>
     exportFile(context, bytes, 'zip', 'application/zip', 'public.zip-archive');
 
-Future<void> saveData(BuildContext context, List<int> bytes) => exportFile(
+Future<void> exportData(BuildContext context, List<int> bytes) => exportFile(
     context, bytes, 'bfly', 'application/zip', 'dev.linwood.butterfly.note');
 
 void saveToClipboard(BuildContext context, String text) {
