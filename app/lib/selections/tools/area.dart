@@ -42,7 +42,6 @@ class AreaToolSelection extends ToolSelection<AreaTool> {
               MenuAnchor(
                 menuChildren: AspectRatioPreset.values
                     .map((preset) => MenuItemButton(
-                          child: Text(preset.getLocalizedName(context)),
                           leadingIcon: PhosphorIcon(
                               preset.icon(PhosphorIconsStyle.light)),
                           onPressed: () => update(
@@ -51,6 +50,7 @@ class AreaToolSelection extends ToolSelection<AreaTool> {
                                   .map((e) => e.copyWith(
                                       constrainedAspectRatio: preset.ratio))
                                   .toList()),
+                          child: Text(preset.getLocalizedName(context)),
                         ))
                     .toList(),
                 builder: defaultMenuButton(
