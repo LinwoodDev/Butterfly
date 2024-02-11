@@ -5,6 +5,13 @@ sidebar_position: 6
 
 httNightly release version](https\://img.shields.io/badge/dynamic/yaml?color=f7d28c\&label=Nightly\&query=%24.version\&url=https%3A%2F%2Fraw\.githubusercontent.com%2FLinwoodDev%2Fbutterfly%2Fnightly%2Fapp%2Fpubspec.yaml\&style=for-badge)
 
+:::warning
+
+iOS versjonen av Butterfly er i forhåndsvisning, og fungerer kanskje ikke som forventet.
+Klikk [here](https://github.com/LinwoodDev/Butterfly/issues/244) for å besøke problemet på GitHub for å finne gjeldende kjente feil og oppdateringer. Vennligst rapporter problemer der.
+
+:::
+
 ## Lenker
 
 <div className="dropdown dropdown--hoverable margin--sm">
