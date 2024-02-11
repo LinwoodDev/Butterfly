@@ -29,7 +29,7 @@ sidebar_label: "ЧАП"
 
 > [#244](https://github.com/LinwoodDev/Butterfly/issues/244)
 
-Щоб отримувати додатки на iPhone, вам потрібен обліковий запис для Apple. Для android, вам не потрібно реєструватися і якщо ви хочете, щоб оплатити 15$ один раз. На яблуку тобі потрібно платити 99$ щорічно. Я не можу собі цього дозволити. В iOS в євро потрібно вміти оновлювати додатки в майбутньому. Можливо, це щось змінить.
+Butterfly is available on iOS as preview. Click [here](https://docs.butterfly.linwood.dev/downloads/ios) to download it. See [here](https://github.com/LinwoodDev/Butterfly/issues/244#issuecomment-1935460878) why it's not available on the App Store.
 
 ## Стільниця
 
