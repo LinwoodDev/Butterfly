@@ -583,5 +583,6 @@
   "continueAnyway": "Trotzdem fortfahren",
   "zoomControl": "Zoom-Steuerung",
   "highContrast": "Hoher Kontrast",
-  "shouldANumber": "Dieser Wert sollte eine gültige Zahl sein"
+  "shouldANumber": "Dieser Wert sollte eine gültige Zahl sein",
+  "autosave": "Autosave"
 }
