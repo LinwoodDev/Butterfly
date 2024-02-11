@@ -29,7 +29,7 @@ Estoy usando la entrada proporcionada por el framework de flujos. Este es el pro
 
 > [#244](https://github.com/LinwoodDev/Butterfly/issues/244)
 
-Necesitas una cuenta de desarrollador de manzanas para obtener aplicaciones en el iPhone. Para android no necesitas registrarte y si quieres sólo tienes que pagar 15$ una vez. En manzana usted necesita pagar 99$ anualmente. No puedo permitirme esto. En europe los ios deben poder dejar de lado las aplicaciones en el futuro. Tal vez esto cambie algo.
+Butterfly is available on iOS as preview. Click [here](https://docs.butterfly.linwood.dev/downloads/ios) to download it. See [here](https://github.com/LinwoodDev/Butterfly/issues/244#issuecomment-1935460878) why it's not available on the App Store.
 
 ## Escritorio
 
