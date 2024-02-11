@@ -29,7 +29,7 @@ Jeg bruker det innspillet som følger med flutter rammeverket. Dette er probleme
 
 > [#244](https://github.com/LinwoodDev/Butterfly/issues/244)
 
-Du trenger en apple utviklerkonto for å få apper på iPhone. For android trenger du ikke registrere deg og om du bare trenger å betale 15$ en gang. På eplet må du betale 99$ årlig. Jeg har ikke råd til dette. I europapene må ios i fremtiden kunne sideloadiske apps. Kanskje dette vil endre noe.
+Butterfly is available on iOS as preview. Click [here](https://docs.butterfly.linwood.dev/downloads/ios) to download it. See [here](https://github.com/LinwoodDev/Butterfly/issues/244#issuecomment-1935460878) why it's not available on the App Store.
 
 ## Skrivebord
 
