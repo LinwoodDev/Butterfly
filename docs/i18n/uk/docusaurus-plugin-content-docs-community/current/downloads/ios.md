@@ -5,6 +5,13 @@ sidebar_position: 6
 
 ![Nightly release version](https://img.shields.io/badge/dynamic/yaml?color=f7d28c\&label=Nightly\&query=%24.version\&url=https%3A%2F%2Fraw.githubusercontent.com%2FLinwoodDev%2Fbutterfly%2Fnightly%2Fapp%2Fpubspec.yaml\&style=for-the-badge)
 
+:::warning
+
+Версія iOS метелика переглядається і може працювати не так, як очікується.
+Клацніть [here](https://github.com/LinwoodDev/Butterfly/issues/244) щоб відвідати проблему на GitHub, щоб знайти поточні відомі помилки та оновлення. Будь ласка, повідомте про будь-які проблеми.
+
+:::
+
 ## Посилання
 
 <div className="dropdown dropdown--hoverable margin--sm">
