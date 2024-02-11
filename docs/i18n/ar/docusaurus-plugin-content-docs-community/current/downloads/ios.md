@@ -5,6 +5,13 @@ sidebar_position: 6
 
 ![Nightly release version](https://img.shields.io/badge/dynamic/yaml?color=f7d28c\&label=Nightly\&query=%24.version\&url=https%3A%2F%2Fraw.githubusercontent.com%2FLinwoodDev%2Fbutterfly%2Fnightly%2Fapp%2Fpubspec.yaml\&style=for-the-badge)
 
+:::warning
+
+إصدار iOS من الفراشة هو في المعاينة وقد لا يعمل كما هو متوقع.
+انقر فوق [here](https://github.com/LinwoodDev/Butterfly/issues/244) لزيارة المشكلة على GitHub للعثور على الأخطاء والتحديثات المعروفة حاليا. يرجى الإبلاغ عن أي مشاكل هناك.
+
+:::
+
 ## الروابط
 
 <div className="dropdown dropdown--hoverable margin--sm">
