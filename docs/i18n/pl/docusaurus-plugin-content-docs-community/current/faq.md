@@ -29,7 +29,7 @@ Używam danych wejściowych dostarczanych przez ramę wytrząsania. To jest prob
 
 > [#244](https://github.com/LinwoodDev/Butterfly/issues/244)
 
-Potrzebujesz konta programisty jabłek, aby uzyskać aplikacje na iPhone. Za android nie musisz rejestrować się, a jeśli chcesz, musisz zapłacić tylko 15$ raz. Za jabłko musisz zapłacić 99$ rocznie. Nie mogę sobie na to pozwolić. Ios europe musi być w stanie w przyszłości odładować aplikacje. Może to coś zmieni.
+Butterfly is available on iOS as preview. Click [here](https://docs.butterfly.linwood.dev/downloads/ios) to download it. See [here](https://github.com/LinwoodDev/Butterfly/issues/244#issuecomment-1935460878) why it's not available on the App Store.
 
 ## Pulpit
 
