@@ -22,7 +22,7 @@ Future<void> exportFile(
     Share.shareXFiles(
       [XFile(file.path, mimeType: mimeType)],
       sharePositionOrigin: box!.localToGlobal(Offset.zero) & box.size,
-    );  
+    );
     return;
   }
   final file = fs.XFile.fromData(Uint8List.fromList(bytes),
