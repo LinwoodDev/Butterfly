@@ -5,6 +5,13 @@ sidebar_position: 6
 
 ![Nightly release version](https://img.shields.io/badge/dynamic/yaml?color=f7d28c\&label=Nightly\&query=%24.version\&url=https%3A%2F%2Fraw.githubusercontent.com%2FLinwoodDev%2Fbutterfly%2Fnightly%2Fapp%2Fpubspec.yaml\&style=for-the-badge)
 
+:::warning
+
+A versão iOS da Borboleta está na pré-visualização e pode não funcionar como esperado.
+Clique [here](https://github.com/LinwoodDev/Butterfly/issues/244) para visitar a issue no GitHub para encontrar bugs e atualizações conhecidos. Por favor, reporte quaisquer problemas lá.
+
+:::
+
 ## Links
 
 <div className="dropdown dropdown--hoverable margin--sm">
