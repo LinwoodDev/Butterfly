@@ -25,7 +25,7 @@ Fare clic su [here](https://github.com/LinwoodDev/Butterfly/issues/244) per visi
   </ul>
 </div>
 
-Per saperne di più sulla versione notturna di Butterfly [here](/notte).
+Per saperne di più sulla versione notturna di Butterfly [here](/nightly).
 
 ## Installazione
 
