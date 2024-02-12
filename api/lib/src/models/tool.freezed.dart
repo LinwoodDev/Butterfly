@@ -12,7 +12,7 @@ part of 'tool.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 Tool _$ToolFromJson(Map<String, dynamic> json) {
   switch (json['type']) {
@@ -82,12 +82,18 @@ mixin _$Tool {
             String displayIcon,
             LabelMode mode,
             bool zoomDependent,
+            bool straightLineEnabled,
             int foreground,
             PackAssetLocation styleSheet,
             double scale)
         label,
-    required TResult Function(String name, String displayIcon,
-            bool zoomDependent, PenProperty property)
+    required TResult Function(
+            String name,
+            String displayIcon,
+            bool zoomDependent,
+            double straightLineTime,
+            bool straightLineEnabled,
+            PenProperty property)
         pen,
     required TResult Function(
             String name, String displayIcon, double strokeWidth)
@@ -154,11 +160,17 @@ mixin _$Tool {
             String displayIcon,
             LabelMode mode,
             bool zoomDependent,
+            bool straightLineEnabled,
             int foreground,
             PackAssetLocation styleSheet,
             double scale)?
         label,
-    TResult? Function(String name, String displayIcon, bool zoomDependent,
+    TResult? Function(
+            String name,
+            String displayIcon,
+            bool zoomDependent,
+            double straightLineTime,
+            bool straightLineEnabled,
             PenProperty property)?
         pen,
     TResult? Function(String name, String displayIcon, double strokeWidth)?
@@ -222,11 +234,17 @@ mixin _$Tool {
             String displayIcon,
             LabelMode mode,
             bool zoomDependent,
+            bool straightLineEnabled,
             int foreground,
             PackAssetLocation styleSheet,
             double scale)?
         label,
-    TResult Function(String name, String displayIcon, bool zoomDependent,
+    TResult Function(
+            String name,
+            String displayIcon,
+            bool zoomDependent,
+            double straightLineTime,
+            bool straightLineEnabled,
             PenProperty property)?
         pen,
     TResult Function(String name, String displayIcon, double strokeWidth)?
@@ -488,12 +506,18 @@ class _$SelectToolImpl extends SelectTool {
             String displayIcon,
             LabelMode mode,
             bool zoomDependent,
+            bool straightLineEnabled,
             int foreground,
             PackAssetLocation styleSheet,
             double scale)
         label,
-    required TResult Function(String name, String displayIcon,
-            bool zoomDependent, PenProperty property)
+    required TResult Function(
+            String name,
+            String displayIcon,
+            bool zoomDependent,
+            double straightLineTime,
+            bool straightLineEnabled,
+            PenProperty property)
         pen,
     required TResult Function(
             String name, String displayIcon, double strokeWidth)
@@ -563,11 +587,17 @@ class _$SelectToolImpl extends SelectTool {
             String displayIcon,
             LabelMode mode,
             bool zoomDependent,
+            bool straightLineEnabled,
             int foreground,
             PackAssetLocation styleSheet,
             double scale)?
         label,
-    TResult? Function(String name, String displayIcon, bool zoomDependent,
+    TResult? Function(
+            String name,
+            String displayIcon,
+            bool zoomDependent,
+            double straightLineTime,
+            bool straightLineEnabled,
             PenProperty property)?
         pen,
     TResult? Function(String name, String displayIcon, double strokeWidth)?
@@ -634,11 +664,17 @@ class _$SelectToolImpl extends SelectTool {
             String displayIcon,
             LabelMode mode,
             bool zoomDependent,
+            bool straightLineEnabled,
             int foreground,
             PackAssetLocation styleSheet,
             double scale)?
         label,
-    TResult Function(String name, String displayIcon, bool zoomDependent,
+    TResult Function(
+            String name,
+            String displayIcon,
+            bool zoomDependent,
+            double straightLineTime,
+            bool straightLineEnabled,
             PenProperty property)?
         pen,
     TResult Function(String name, String displayIcon, double strokeWidth)?
@@ -892,12 +928,18 @@ class _$HandToolImpl extends HandTool {
             String displayIcon,
             LabelMode mode,
             bool zoomDependent,
+            bool straightLineEnabled,
             int foreground,
             PackAssetLocation styleSheet,
             double scale)
         label,
-    required TResult Function(String name, String displayIcon,
-            bool zoomDependent, PenProperty property)
+    required TResult Function(
+            String name,
+            String displayIcon,
+            bool zoomDependent,
+            double straightLineTime,
+            bool straightLineEnabled,
+            PenProperty property)
         pen,
     required TResult Function(
             String name, String displayIcon, double strokeWidth)
@@ -967,11 +1009,17 @@ class _$HandToolImpl extends HandTool {
             String displayIcon,
             LabelMode mode,
             bool zoomDependent,
+            bool straightLineEnabled,
             int foreground,
             PackAssetLocation styleSheet,
             double scale)?
         label,
-    TResult? Function(String name, String displayIcon, bool zoomDependent,
+    TResult? Function(
+            String name,
+            String displayIcon,
+            bool zoomDependent,
+            double straightLineTime,
+            bool straightLineEnabled,
             PenProperty property)?
         pen,
     TResult? Function(String name, String displayIcon, double strokeWidth)?
@@ -1038,11 +1086,17 @@ class _$HandToolImpl extends HandTool {
             String displayIcon,
             LabelMode mode,
             bool zoomDependent,
+            bool straightLineEnabled,
             int foreground,
             PackAssetLocation styleSheet,
             double scale)?
         label,
-    TResult Function(String name, String displayIcon, bool zoomDependent,
+    TResult Function(
+            String name,
+            String displayIcon,
+            bool zoomDependent,
+            double straightLineTime,
+            bool straightLineEnabled,
             PenProperty property)?
         pen,
     TResult Function(String name, String displayIcon, double strokeWidth)?
@@ -1329,12 +1383,18 @@ class _$ImportToolImpl extends ImportTool {
             String displayIcon,
             LabelMode mode,
             bool zoomDependent,
+            bool straightLineEnabled,
             int foreground,
             PackAssetLocation styleSheet,
             double scale)
         label,
-    required TResult Function(String name, String displayIcon,
-            bool zoomDependent, PenProperty property)
+    required TResult Function(
+            String name,
+            String displayIcon,
+            bool zoomDependent,
+            double straightLineTime,
+            bool straightLineEnabled,
+            PenProperty property)
         pen,
     required TResult Function(
             String name, String displayIcon, double strokeWidth)
@@ -1404,11 +1464,17 @@ class _$ImportToolImpl extends ImportTool {
             String displayIcon,
             LabelMode mode,
             bool zoomDependent,
+            bool straightLineEnabled,
             int foreground,
             PackAssetLocation styleSheet,
             double scale)?
         label,
-    TResult? Function(String name, String displayIcon, bool zoomDependent,
+    TResult? Function(
+            String name,
+            String displayIcon,
+            bool zoomDependent,
+            double straightLineTime,
+            bool straightLineEnabled,
             PenProperty property)?
         pen,
     TResult? Function(String name, String displayIcon, double strokeWidth)?
@@ -1475,11 +1541,17 @@ class _$ImportToolImpl extends ImportTool {
             String displayIcon,
             LabelMode mode,
             bool zoomDependent,
+            bool straightLineEnabled,
             int foreground,
             PackAssetLocation styleSheet,
             double scale)?
         label,
-    TResult Function(String name, String displayIcon, bool zoomDependent,
+    TResult Function(
+            String name,
+            String displayIcon,
+            bool zoomDependent,
+            double straightLineTime,
+            bool straightLineEnabled,
             PenProperty property)?
         pen,
     TResult Function(String name, String displayIcon, double strokeWidth)?
@@ -1735,12 +1807,18 @@ class _$UndoToolImpl extends UndoTool {
             String displayIcon,
             LabelMode mode,
             bool zoomDependent,
+            bool straightLineEnabled,
             int foreground,
             PackAssetLocation styleSheet,
             double scale)
         label,
-    required TResult Function(String name, String displayIcon,
-            bool zoomDependent, PenProperty property)
+    required TResult Function(
+            String name,
+            String displayIcon,
+            bool zoomDependent,
+            double straightLineTime,
+            bool straightLineEnabled,
+            PenProperty property)
         pen,
     required TResult Function(
             String name, String displayIcon, double strokeWidth)
@@ -1810,11 +1888,17 @@ class _$UndoToolImpl extends UndoTool {
             String displayIcon,
             LabelMode mode,
             bool zoomDependent,
+            bool straightLineEnabled,
             int foreground,
             PackAssetLocation styleSheet,
             double scale)?
         label,
-    TResult? Function(String name, String displayIcon, bool zoomDependent,
+    TResult? Function(
+            String name,
+            String displayIcon,
+            bool zoomDependent,
+            double straightLineTime,
+            bool straightLineEnabled,
             PenProperty property)?
         pen,
     TResult? Function(String name, String displayIcon, double strokeWidth)?
@@ -1881,11 +1965,17 @@ class _$UndoToolImpl extends UndoTool {
             String displayIcon,
             LabelMode mode,
             bool zoomDependent,
+            bool straightLineEnabled,
             int foreground,
             PackAssetLocation styleSheet,
             double scale)?
         label,
-    TResult Function(String name, String displayIcon, bool zoomDependent,
+    TResult Function(
+            String name,
+            String displayIcon,
+            bool zoomDependent,
+            double straightLineTime,
+            bool straightLineEnabled,
             PenProperty property)?
         pen,
     TResult Function(String name, String displayIcon, double strokeWidth)?
@@ -2136,12 +2226,18 @@ class _$RedoToolImpl extends RedoTool {
             String displayIcon,
             LabelMode mode,
             bool zoomDependent,
+            bool straightLineEnabled,
             int foreground,
             PackAssetLocation styleSheet,
             double scale)
         label,
-    required TResult Function(String name, String displayIcon,
-            bool zoomDependent, PenProperty property)
+    required TResult Function(
+            String name,
+            String displayIcon,
+            bool zoomDependent,
+            double straightLineTime,
+            bool straightLineEnabled,
+            PenProperty property)
         pen,
     required TResult Function(
             String name, String displayIcon, double strokeWidth)
@@ -2211,11 +2307,17 @@ class _$RedoToolImpl extends RedoTool {
             String displayIcon,
             LabelMode mode,
             bool zoomDependent,
+            bool straightLineEnabled,
             int foreground,
             PackAssetLocation styleSheet,
             double scale)?
         label,
-    TResult? Function(String name, String displayIcon, bool zoomDependent,
+    TResult? Function(
+            String name,
+            String displayIcon,
+            bool zoomDependent,
+            double straightLineTime,
+            bool straightLineEnabled,
             PenProperty property)?
         pen,
     TResult? Function(String name, String displayIcon, double strokeWidth)?
@@ -2282,11 +2384,17 @@ class _$RedoToolImpl extends RedoTool {
             String displayIcon,
             LabelMode mode,
             bool zoomDependent,
+            bool straightLineEnabled,
             int foreground,
             PackAssetLocation styleSheet,
             double scale)?
         label,
-    TResult Function(String name, String displayIcon, bool zoomDependent,
+    TResult Function(
+            String name,
+            String displayIcon,
+            bool zoomDependent,
+            double straightLineTime,
+            bool straightLineEnabled,
             PenProperty property)?
         pen,
     TResult Function(String name, String displayIcon, double strokeWidth)?
@@ -2465,6 +2573,7 @@ abstract class _$$LabelToolImplCopyWith<$Res> implements $ToolCopyWith<$Res> {
       String displayIcon,
       LabelMode mode,
       bool zoomDependent,
+      bool straightLineEnabled,
       int foreground,
       PackAssetLocation styleSheet,
       double scale});
@@ -2487,6 +2596,7 @@ class __$$LabelToolImplCopyWithImpl<$Res>
     Object? displayIcon = null,
     Object? mode = null,
     Object? zoomDependent = null,
+    Object? straightLineEnabled = null,
     Object? foreground = null,
     Object? styleSheet = null,
     Object? scale = null,
@@ -2507,6 +2617,10 @@ class __$$LabelToolImplCopyWithImpl<$Res>
       zoomDependent: null == zoomDependent
           ? _value.zoomDependent
           : zoomDependent // ignore: cast_nullable_to_non_nullable
+              as bool,
+      straightLineEnabled: null == straightLineEnabled
+          ? _value.straightLineEnabled
+          : straightLineEnabled // ignore: cast_nullable_to_non_nullable
               as bool,
       foreground: null == foreground
           ? _value.foreground
@@ -2540,6 +2654,7 @@ class _$LabelToolImpl extends LabelTool {
       this.displayIcon = '',
       this.mode = LabelMode.text,
       this.zoomDependent = true,
+      this.straightLineEnabled = true,
       this.foreground = BasicColors.black,
       this.styleSheet = const PackAssetLocation(),
       this.scale = 2.0,
@@ -2564,6 +2679,9 @@ class _$LabelToolImpl extends LabelTool {
   final bool zoomDependent;
   @override
   @JsonKey()
+  final bool straightLineEnabled;
+  @override
+  @JsonKey()
   final int foreground;
   @override
   @JsonKey()
@@ -2577,7 +2695,7 @@ class _$LabelToolImpl extends LabelTool {
 
   @override
   String toString() {
-    return 'Tool.label(name: $name, displayIcon: $displayIcon, mode: $mode, zoomDependent: $zoomDependent, foreground: $foreground, styleSheet: $styleSheet, scale: $scale)';
+    return 'Tool.label(name: $name, displayIcon: $displayIcon, mode: $mode, zoomDependent: $zoomDependent, straightLineEnabled: $straightLineEnabled, foreground: $foreground, styleSheet: $styleSheet, scale: $scale)';
   }
 
   @JsonKey(ignore: true)
@@ -2602,12 +2720,18 @@ class _$LabelToolImpl extends LabelTool {
             String displayIcon,
             LabelMode mode,
             bool zoomDependent,
+            bool straightLineEnabled,
             int foreground,
             PackAssetLocation styleSheet,
             double scale)
         label,
-    required TResult Function(String name, String displayIcon,
-            bool zoomDependent, PenProperty property)
+    required TResult Function(
+            String name,
+            String displayIcon,
+            bool zoomDependent,
+            double straightLineTime,
+            bool straightLineEnabled,
+            PenProperty property)
         pen,
     required TResult Function(
             String name, String displayIcon, double strokeWidth)
@@ -2659,8 +2783,8 @@ class _$LabelToolImpl extends LabelTool {
         texture,
     required TResult Function(String name, String displayIcon) eyeDropper,
   }) {
-    return label(
-        name, displayIcon, mode, zoomDependent, foreground, styleSheet, scale);
+    return label(name, displayIcon, mode, zoomDependent, straightLineEnabled,
+        foreground, styleSheet, scale);
   }
 
   @override
@@ -2678,11 +2802,17 @@ class _$LabelToolImpl extends LabelTool {
             String displayIcon,
             LabelMode mode,
             bool zoomDependent,
+            bool straightLineEnabled,
             int foreground,
             PackAssetLocation styleSheet,
             double scale)?
         label,
-    TResult? Function(String name, String displayIcon, bool zoomDependent,
+    TResult? Function(
+            String name,
+            String displayIcon,
+            bool zoomDependent,
+            double straightLineTime,
+            bool straightLineEnabled,
             PenProperty property)?
         pen,
     TResult? Function(String name, String displayIcon, double strokeWidth)?
@@ -2731,8 +2861,8 @@ class _$LabelToolImpl extends LabelTool {
         texture,
     TResult? Function(String name, String displayIcon)? eyeDropper,
   }) {
-    return label?.call(
-        name, displayIcon, mode, zoomDependent, foreground, styleSheet, scale);
+    return label?.call(name, displayIcon, mode, zoomDependent,
+        straightLineEnabled, foreground, styleSheet, scale);
   }
 
   @override
@@ -2750,11 +2880,17 @@ class _$LabelToolImpl extends LabelTool {
             String displayIcon,
             LabelMode mode,
             bool zoomDependent,
+            bool straightLineEnabled,
             int foreground,
             PackAssetLocation styleSheet,
             double scale)?
         label,
-    TResult Function(String name, String displayIcon, bool zoomDependent,
+    TResult Function(
+            String name,
+            String displayIcon,
+            bool zoomDependent,
+            double straightLineTime,
+            bool straightLineEnabled,
             PenProperty property)?
         pen,
     TResult Function(String name, String displayIcon, double strokeWidth)?
@@ -2805,8 +2941,8 @@ class _$LabelToolImpl extends LabelTool {
     required TResult orElse(),
   }) {
     if (label != null) {
-      return label(name, displayIcon, mode, zoomDependent, foreground,
-          styleSheet, scale);
+      return label(name, displayIcon, mode, zoomDependent, straightLineEnabled,
+          foreground, styleSheet, scale);
     }
     return orElse();
   }
@@ -2910,6 +3046,7 @@ abstract class LabelTool extends Tool {
       final String displayIcon,
       final LabelMode mode,
       final bool zoomDependent,
+      final bool straightLineEnabled,
       final int foreground,
       final PackAssetLocation styleSheet,
       final double scale}) = _$LabelToolImpl;
@@ -2924,6 +3061,7 @@ abstract class LabelTool extends Tool {
   String get displayIcon;
   LabelMode get mode;
   bool get zoomDependent;
+  bool get straightLineEnabled;
   int get foreground;
   PackAssetLocation get styleSheet;
   double get scale;
@@ -2944,6 +3082,8 @@ abstract class _$$PenToolImplCopyWith<$Res> implements $ToolCopyWith<$Res> {
       {String name,
       String displayIcon,
       bool zoomDependent,
+      double straightLineTime,
+      bool straightLineEnabled,
       PenProperty property});
 }
 
@@ -2961,6 +3101,8 @@ class __$$PenToolImplCopyWithImpl<$Res>
     Object? name = null,
     Object? displayIcon = null,
     Object? zoomDependent = null,
+    Object? straightLineTime = null,
+    Object? straightLineEnabled = null,
     Object? property = freezed,
   }) {
     return _then(_$PenToolImpl(
@@ -2975,6 +3117,14 @@ class __$$PenToolImplCopyWithImpl<$Res>
       zoomDependent: null == zoomDependent
           ? _value.zoomDependent
           : zoomDependent // ignore: cast_nullable_to_non_nullable
+              as bool,
+      straightLineTime: null == straightLineTime
+          ? _value.straightLineTime
+          : straightLineTime // ignore: cast_nullable_to_non_nullable
+              as double,
+      straightLineEnabled: null == straightLineEnabled
+          ? _value.straightLineEnabled
+          : straightLineEnabled // ignore: cast_nullable_to_non_nullable
               as bool,
       property: freezed == property
           ? _value.property
@@ -2991,6 +3141,8 @@ class _$PenToolImpl extends PenTool {
       {this.name = '',
       this.displayIcon = '',
       this.zoomDependent = true,
+      this.straightLineTime = 0.5,
+      this.straightLineEnabled = false,
       this.property = const PenProperty(),
       final String? $type})
       : $type = $type ?? 'pen',
@@ -3010,6 +3162,12 @@ class _$PenToolImpl extends PenTool {
   final bool zoomDependent;
   @override
   @JsonKey()
+  final double straightLineTime;
+  @override
+  @JsonKey()
+  final bool straightLineEnabled;
+  @override
+  @JsonKey()
   final PenProperty property;
 
   @JsonKey(name: 'type')
@@ -3017,7 +3175,7 @@ class _$PenToolImpl extends PenTool {
 
   @override
   String toString() {
-    return 'Tool.pen(name: $name, displayIcon: $displayIcon, zoomDependent: $zoomDependent, property: $property)';
+    return 'Tool.pen(name: $name, displayIcon: $displayIcon, zoomDependent: $zoomDependent, straightLineTime: $straightLineTime, straightLineEnabled: $straightLineEnabled, property: $property)';
   }
 
   @JsonKey(ignore: true)
@@ -3042,12 +3200,18 @@ class _$PenToolImpl extends PenTool {
             String displayIcon,
             LabelMode mode,
             bool zoomDependent,
+            bool straightLineEnabled,
             int foreground,
             PackAssetLocation styleSheet,
             double scale)
         label,
-    required TResult Function(String name, String displayIcon,
-            bool zoomDependent, PenProperty property)
+    required TResult Function(
+            String name,
+            String displayIcon,
+            bool zoomDependent,
+            double straightLineTime,
+            bool straightLineEnabled,
+            PenProperty property)
         pen,
     required TResult Function(
             String name, String displayIcon, double strokeWidth)
@@ -3099,7 +3263,8 @@ class _$PenToolImpl extends PenTool {
         texture,
     required TResult Function(String name, String displayIcon) eyeDropper,
   }) {
-    return pen(name, displayIcon, zoomDependent, property);
+    return pen(name, displayIcon, zoomDependent, straightLineTime,
+        straightLineEnabled, property);
   }
 
   @override
@@ -3117,11 +3282,17 @@ class _$PenToolImpl extends PenTool {
             String displayIcon,
             LabelMode mode,
             bool zoomDependent,
+            bool straightLineEnabled,
             int foreground,
             PackAssetLocation styleSheet,
             double scale)?
         label,
-    TResult? Function(String name, String displayIcon, bool zoomDependent,
+    TResult? Function(
+            String name,
+            String displayIcon,
+            bool zoomDependent,
+            double straightLineTime,
+            bool straightLineEnabled,
             PenProperty property)?
         pen,
     TResult? Function(String name, String displayIcon, double strokeWidth)?
@@ -3170,7 +3341,8 @@ class _$PenToolImpl extends PenTool {
         texture,
     TResult? Function(String name, String displayIcon)? eyeDropper,
   }) {
-    return pen?.call(name, displayIcon, zoomDependent, property);
+    return pen?.call(name, displayIcon, zoomDependent, straightLineTime,
+        straightLineEnabled, property);
   }
 
   @override
@@ -3188,11 +3360,17 @@ class _$PenToolImpl extends PenTool {
             String displayIcon,
             LabelMode mode,
             bool zoomDependent,
+            bool straightLineEnabled,
             int foreground,
             PackAssetLocation styleSheet,
             double scale)?
         label,
-    TResult Function(String name, String displayIcon, bool zoomDependent,
+    TResult Function(
+            String name,
+            String displayIcon,
+            bool zoomDependent,
+            double straightLineTime,
+            bool straightLineEnabled,
             PenProperty property)?
         pen,
     TResult Function(String name, String displayIcon, double strokeWidth)?
@@ -3243,7 +3421,8 @@ class _$PenToolImpl extends PenTool {
     required TResult orElse(),
   }) {
     if (pen != null) {
-      return pen(name, displayIcon, zoomDependent, property);
+      return pen(name, displayIcon, zoomDependent, straightLineTime,
+          straightLineEnabled, property);
     }
     return orElse();
   }
@@ -3346,6 +3525,8 @@ abstract class PenTool extends Tool {
       {final String name,
       final String displayIcon,
       final bool zoomDependent,
+      final double straightLineTime,
+      final bool straightLineEnabled,
       final PenProperty property}) = _$PenToolImpl;
   PenTool._() : super._();
 
@@ -3356,6 +3537,8 @@ abstract class PenTool extends Tool {
   @override
   String get displayIcon;
   bool get zoomDependent;
+  double get straightLineTime;
+  bool get straightLineEnabled;
   PenProperty get property;
   @override
   @JsonKey(ignore: true)
@@ -3459,12 +3642,18 @@ class _$EraserToolImpl extends EraserTool {
             String displayIcon,
             LabelMode mode,
             bool zoomDependent,
+            bool straightLineEnabled,
             int foreground,
             PackAssetLocation styleSheet,
             double scale)
         label,
-    required TResult Function(String name, String displayIcon,
-            bool zoomDependent, PenProperty property)
+    required TResult Function(
+            String name,
+            String displayIcon,
+            bool zoomDependent,
+            double straightLineTime,
+            bool straightLineEnabled,
+            PenProperty property)
         pen,
     required TResult Function(
             String name, String displayIcon, double strokeWidth)
@@ -3534,11 +3723,17 @@ class _$EraserToolImpl extends EraserTool {
             String displayIcon,
             LabelMode mode,
             bool zoomDependent,
+            bool straightLineEnabled,
             int foreground,
             PackAssetLocation styleSheet,
             double scale)?
         label,
-    TResult? Function(String name, String displayIcon, bool zoomDependent,
+    TResult? Function(
+            String name,
+            String displayIcon,
+            bool zoomDependent,
+            double straightLineTime,
+            bool straightLineEnabled,
             PenProperty property)?
         pen,
     TResult? Function(String name, String displayIcon, double strokeWidth)?
@@ -3605,11 +3800,17 @@ class _$EraserToolImpl extends EraserTool {
             String displayIcon,
             LabelMode mode,
             bool zoomDependent,
+            bool straightLineEnabled,
             int foreground,
             PackAssetLocation styleSheet,
             double scale)?
         label,
-    TResult Function(String name, String displayIcon, bool zoomDependent,
+    TResult Function(
+            String name,
+            String displayIcon,
+            bool zoomDependent,
+            double straightLineTime,
+            bool straightLineEnabled,
             PenProperty property)?
         pen,
     TResult Function(String name, String displayIcon, double strokeWidth)?
@@ -3877,12 +4078,18 @@ class _$PathEraserToolImpl extends PathEraserTool {
             String displayIcon,
             LabelMode mode,
             bool zoomDependent,
+            bool straightLineEnabled,
             int foreground,
             PackAssetLocation styleSheet,
             double scale)
         label,
-    required TResult Function(String name, String displayIcon,
-            bool zoomDependent, PenProperty property)
+    required TResult Function(
+            String name,
+            String displayIcon,
+            bool zoomDependent,
+            double straightLineTime,
+            bool straightLineEnabled,
+            PenProperty property)
         pen,
     required TResult Function(
             String name, String displayIcon, double strokeWidth)
@@ -3952,11 +4159,17 @@ class _$PathEraserToolImpl extends PathEraserTool {
             String displayIcon,
             LabelMode mode,
             bool zoomDependent,
+            bool straightLineEnabled,
             int foreground,
             PackAssetLocation styleSheet,
             double scale)?
         label,
-    TResult? Function(String name, String displayIcon, bool zoomDependent,
+    TResult? Function(
+            String name,
+            String displayIcon,
+            bool zoomDependent,
+            double straightLineTime,
+            bool straightLineEnabled,
             PenProperty property)?
         pen,
     TResult? Function(String name, String displayIcon, double strokeWidth)?
@@ -4023,11 +4236,17 @@ class _$PathEraserToolImpl extends PathEraserTool {
             String displayIcon,
             LabelMode mode,
             bool zoomDependent,
+            bool straightLineEnabled,
             int foreground,
             PackAssetLocation styleSheet,
             double scale)?
         label,
-    TResult Function(String name, String displayIcon, bool zoomDependent,
+    TResult Function(
+            String name,
+            String displayIcon,
+            bool zoomDependent,
+            double straightLineTime,
+            bool straightLineEnabled,
             PenProperty property)?
         pen,
     TResult Function(String name, String displayIcon, double strokeWidth)?
@@ -4293,12 +4512,18 @@ class _$LayerToolImpl extends LayerTool {
             String displayIcon,
             LabelMode mode,
             bool zoomDependent,
+            bool straightLineEnabled,
             int foreground,
             PackAssetLocation styleSheet,
             double scale)
         label,
-    required TResult Function(String name, String displayIcon,
-            bool zoomDependent, PenProperty property)
+    required TResult Function(
+            String name,
+            String displayIcon,
+            bool zoomDependent,
+            double straightLineTime,
+            bool straightLineEnabled,
+            PenProperty property)
         pen,
     required TResult Function(
             String name, String displayIcon, double strokeWidth)
@@ -4368,11 +4593,17 @@ class _$LayerToolImpl extends LayerTool {
             String displayIcon,
             LabelMode mode,
             bool zoomDependent,
+            bool straightLineEnabled,
             int foreground,
             PackAssetLocation styleSheet,
             double scale)?
         label,
-    TResult? Function(String name, String displayIcon, bool zoomDependent,
+    TResult? Function(
+            String name,
+            String displayIcon,
+            bool zoomDependent,
+            double straightLineTime,
+            bool straightLineEnabled,
             PenProperty property)?
         pen,
     TResult? Function(String name, String displayIcon, double strokeWidth)?
@@ -4439,11 +4670,17 @@ class _$LayerToolImpl extends LayerTool {
             String displayIcon,
             LabelMode mode,
             bool zoomDependent,
+            bool straightLineEnabled,
             int foreground,
             PackAssetLocation styleSheet,
             double scale)?
         label,
-    TResult Function(String name, String displayIcon, bool zoomDependent,
+    TResult Function(
+            String name,
+            String displayIcon,
+            bool zoomDependent,
+            double straightLineTime,
+            bool straightLineEnabled,
             PenProperty property)?
         pen,
     TResult Function(String name, String displayIcon, double strokeWidth)?
@@ -4742,12 +4979,18 @@ class _$AreaToolImpl extends AreaTool {
             String displayIcon,
             LabelMode mode,
             bool zoomDependent,
+            bool straightLineEnabled,
             int foreground,
             PackAssetLocation styleSheet,
             double scale)
         label,
-    required TResult Function(String name, String displayIcon,
-            bool zoomDependent, PenProperty property)
+    required TResult Function(
+            String name,
+            String displayIcon,
+            bool zoomDependent,
+            double straightLineTime,
+            bool straightLineEnabled,
+            PenProperty property)
         pen,
     required TResult Function(
             String name, String displayIcon, double strokeWidth)
@@ -4818,11 +5061,17 @@ class _$AreaToolImpl extends AreaTool {
             String displayIcon,
             LabelMode mode,
             bool zoomDependent,
+            bool straightLineEnabled,
             int foreground,
             PackAssetLocation styleSheet,
             double scale)?
         label,
-    TResult? Function(String name, String displayIcon, bool zoomDependent,
+    TResult? Function(
+            String name,
+            String displayIcon,
+            bool zoomDependent,
+            double straightLineTime,
+            bool straightLineEnabled,
             PenProperty property)?
         pen,
     TResult? Function(String name, String displayIcon, double strokeWidth)?
@@ -4890,11 +5139,17 @@ class _$AreaToolImpl extends AreaTool {
             String displayIcon,
             LabelMode mode,
             bool zoomDependent,
+            bool straightLineEnabled,
             int foreground,
             PackAssetLocation styleSheet,
             double scale)?
         label,
-    TResult Function(String name, String displayIcon, bool zoomDependent,
+    TResult Function(
+            String name,
+            String displayIcon,
+            bool zoomDependent,
+            double straightLineTime,
+            bool straightLineEnabled,
             PenProperty property)?
         pen,
     TResult Function(String name, String displayIcon, double strokeWidth)?
@@ -5200,12 +5455,18 @@ class _$LaserToolImpl extends LaserTool {
             String displayIcon,
             LabelMode mode,
             bool zoomDependent,
+            bool straightLineEnabled,
             int foreground,
             PackAssetLocation styleSheet,
             double scale)
         label,
-    required TResult Function(String name, String displayIcon,
-            bool zoomDependent, PenProperty property)
+    required TResult Function(
+            String name,
+            String displayIcon,
+            bool zoomDependent,
+            double straightLineTime,
+            bool straightLineEnabled,
+            PenProperty property)
         pen,
     required TResult Function(
             String name, String displayIcon, double strokeWidth)
@@ -5275,11 +5536,17 @@ class _$LaserToolImpl extends LaserTool {
             String displayIcon,
             LabelMode mode,
             bool zoomDependent,
+            bool straightLineEnabled,
             int foreground,
             PackAssetLocation styleSheet,
             double scale)?
         label,
-    TResult? Function(String name, String displayIcon, bool zoomDependent,
+    TResult? Function(
+            String name,
+            String displayIcon,
+            bool zoomDependent,
+            double straightLineTime,
+            bool straightLineEnabled,
             PenProperty property)?
         pen,
     TResult? Function(String name, String displayIcon, double strokeWidth)?
@@ -5347,11 +5614,17 @@ class _$LaserToolImpl extends LaserTool {
             String displayIcon,
             LabelMode mode,
             bool zoomDependent,
+            bool straightLineEnabled,
             int foreground,
             PackAssetLocation styleSheet,
             double scale)?
         label,
-    TResult Function(String name, String displayIcon, bool zoomDependent,
+    TResult Function(
+            String name,
+            String displayIcon,
+            bool zoomDependent,
+            double straightLineTime,
+            bool straightLineEnabled,
             PenProperty property)?
         pen,
     TResult Function(String name, String displayIcon, double strokeWidth)?
@@ -5666,12 +5939,18 @@ class _$ShapeToolImpl extends ShapeTool {
             String displayIcon,
             LabelMode mode,
             bool zoomDependent,
+            bool straightLineEnabled,
             int foreground,
             PackAssetLocation styleSheet,
             double scale)
         label,
-    required TResult Function(String name, String displayIcon,
-            bool zoomDependent, PenProperty property)
+    required TResult Function(
+            String name,
+            String displayIcon,
+            bool zoomDependent,
+            double straightLineTime,
+            bool straightLineEnabled,
+            PenProperty property)
         pen,
     required TResult Function(
             String name, String displayIcon, double strokeWidth)
@@ -5742,11 +6021,17 @@ class _$ShapeToolImpl extends ShapeTool {
             String displayIcon,
             LabelMode mode,
             bool zoomDependent,
+            bool straightLineEnabled,
             int foreground,
             PackAssetLocation styleSheet,
             double scale)?
         label,
-    TResult? Function(String name, String displayIcon, bool zoomDependent,
+    TResult? Function(
+            String name,
+            String displayIcon,
+            bool zoomDependent,
+            double straightLineTime,
+            bool straightLineEnabled,
             PenProperty property)?
         pen,
     TResult? Function(String name, String displayIcon, double strokeWidth)?
@@ -5814,11 +6099,17 @@ class _$ShapeToolImpl extends ShapeTool {
             String displayIcon,
             LabelMode mode,
             bool zoomDependent,
+            bool straightLineEnabled,
             int foreground,
             PackAssetLocation styleSheet,
             double scale)?
         label,
-    TResult Function(String name, String displayIcon, bool zoomDependent,
+    TResult Function(
+            String name,
+            String displayIcon,
+            bool zoomDependent,
+            double straightLineTime,
+            bool straightLineEnabled,
             PenProperty property)?
         pen,
     TResult Function(String name, String displayIcon, double strokeWidth)?
@@ -6103,12 +6394,18 @@ class _$StampToolImpl extends StampTool {
             String displayIcon,
             LabelMode mode,
             bool zoomDependent,
+            bool straightLineEnabled,
             int foreground,
             PackAssetLocation styleSheet,
             double scale)
         label,
-    required TResult Function(String name, String displayIcon,
-            bool zoomDependent, PenProperty property)
+    required TResult Function(
+            String name,
+            String displayIcon,
+            bool zoomDependent,
+            double straightLineTime,
+            bool straightLineEnabled,
+            PenProperty property)
         pen,
     required TResult Function(
             String name, String displayIcon, double strokeWidth)
@@ -6178,11 +6475,17 @@ class _$StampToolImpl extends StampTool {
             String displayIcon,
             LabelMode mode,
             bool zoomDependent,
+            bool straightLineEnabled,
             int foreground,
             PackAssetLocation styleSheet,
             double scale)?
         label,
-    TResult? Function(String name, String displayIcon, bool zoomDependent,
+    TResult? Function(
+            String name,
+            String displayIcon,
+            bool zoomDependent,
+            double straightLineTime,
+            bool straightLineEnabled,
             PenProperty property)?
         pen,
     TResult? Function(String name, String displayIcon, double strokeWidth)?
@@ -6249,11 +6552,17 @@ class _$StampToolImpl extends StampTool {
             String displayIcon,
             LabelMode mode,
             bool zoomDependent,
+            bool straightLineEnabled,
             int foreground,
             PackAssetLocation styleSheet,
             double scale)?
         label,
-    TResult Function(String name, String displayIcon, bool zoomDependent,
+    TResult Function(
+            String name,
+            String displayIcon,
+            bool zoomDependent,
+            double straightLineTime,
+            bool straightLineEnabled,
             PenProperty property)?
         pen,
     TResult Function(String name, String displayIcon, double strokeWidth)?
@@ -6510,12 +6819,18 @@ class _$PresentationToolImpl extends PresentationTool {
             String displayIcon,
             LabelMode mode,
             bool zoomDependent,
+            bool straightLineEnabled,
             int foreground,
             PackAssetLocation styleSheet,
             double scale)
         label,
-    required TResult Function(String name, String displayIcon,
-            bool zoomDependent, PenProperty property)
+    required TResult Function(
+            String name,
+            String displayIcon,
+            bool zoomDependent,
+            double straightLineTime,
+            bool straightLineEnabled,
+            PenProperty property)
         pen,
     required TResult Function(
             String name, String displayIcon, double strokeWidth)
@@ -6585,11 +6900,17 @@ class _$PresentationToolImpl extends PresentationTool {
             String displayIcon,
             LabelMode mode,
             bool zoomDependent,
+            bool straightLineEnabled,
             int foreground,
             PackAssetLocation styleSheet,
             double scale)?
         label,
-    TResult? Function(String name, String displayIcon, bool zoomDependent,
+    TResult? Function(
+            String name,
+            String displayIcon,
+            bool zoomDependent,
+            double straightLineTime,
+            bool straightLineEnabled,
             PenProperty property)?
         pen,
     TResult? Function(String name, String displayIcon, double strokeWidth)?
@@ -6656,11 +6977,17 @@ class _$PresentationToolImpl extends PresentationTool {
             String displayIcon,
             LabelMode mode,
             bool zoomDependent,
+            bool straightLineEnabled,
             int foreground,
             PackAssetLocation styleSheet,
             double scale)?
         label,
-    TResult Function(String name, String displayIcon, bool zoomDependent,
+    TResult Function(
+            String name,
+            String displayIcon,
+            bool zoomDependent,
+            double straightLineTime,
+            bool straightLineEnabled,
             PenProperty property)?
         pen,
     TResult Function(String name, String displayIcon, double strokeWidth)?
@@ -6923,12 +7250,18 @@ class _$SpacerToolImpl extends SpacerTool {
             String displayIcon,
             LabelMode mode,
             bool zoomDependent,
+            bool straightLineEnabled,
             int foreground,
             PackAssetLocation styleSheet,
             double scale)
         label,
-    required TResult Function(String name, String displayIcon,
-            bool zoomDependent, PenProperty property)
+    required TResult Function(
+            String name,
+            String displayIcon,
+            bool zoomDependent,
+            double straightLineTime,
+            bool straightLineEnabled,
+            PenProperty property)
         pen,
     required TResult Function(
             String name, String displayIcon, double strokeWidth)
@@ -6998,11 +7331,17 @@ class _$SpacerToolImpl extends SpacerTool {
             String displayIcon,
             LabelMode mode,
             bool zoomDependent,
+            bool straightLineEnabled,
             int foreground,
             PackAssetLocation styleSheet,
             double scale)?
         label,
-    TResult? Function(String name, String displayIcon, bool zoomDependent,
+    TResult? Function(
+            String name,
+            String displayIcon,
+            bool zoomDependent,
+            double straightLineTime,
+            bool straightLineEnabled,
             PenProperty property)?
         pen,
     TResult? Function(String name, String displayIcon, double strokeWidth)?
@@ -7069,11 +7408,17 @@ class _$SpacerToolImpl extends SpacerTool {
             String displayIcon,
             LabelMode mode,
             bool zoomDependent,
+            bool straightLineEnabled,
             int foreground,
             PackAssetLocation styleSheet,
             double scale)?
         label,
-    TResult Function(String name, String displayIcon, bool zoomDependent,
+    TResult Function(
+            String name,
+            String displayIcon,
+            bool zoomDependent,
+            double straightLineTime,
+            bool straightLineEnabled,
             PenProperty property)?
         pen,
     TResult Function(String name, String displayIcon, double strokeWidth)?
@@ -7330,12 +7675,18 @@ class _$FullScreenToolImpl extends FullScreenTool {
             String displayIcon,
             LabelMode mode,
             bool zoomDependent,
+            bool straightLineEnabled,
             int foreground,
             PackAssetLocation styleSheet,
             double scale)
         label,
-    required TResult Function(String name, String displayIcon,
-            bool zoomDependent, PenProperty property)
+    required TResult Function(
+            String name,
+            String displayIcon,
+            bool zoomDependent,
+            double straightLineTime,
+            bool straightLineEnabled,
+            PenProperty property)
         pen,
     required TResult Function(
             String name, String displayIcon, double strokeWidth)
@@ -7405,11 +7756,17 @@ class _$FullScreenToolImpl extends FullScreenTool {
             String displayIcon,
             LabelMode mode,
             bool zoomDependent,
+            bool straightLineEnabled,
             int foreground,
             PackAssetLocation styleSheet,
             double scale)?
         label,
-    TResult? Function(String name, String displayIcon, bool zoomDependent,
+    TResult? Function(
+            String name,
+            String displayIcon,
+            bool zoomDependent,
+            double straightLineTime,
+            bool straightLineEnabled,
             PenProperty property)?
         pen,
     TResult? Function(String name, String displayIcon, double strokeWidth)?
@@ -7476,11 +7833,17 @@ class _$FullScreenToolImpl extends FullScreenTool {
             String displayIcon,
             LabelMode mode,
             bool zoomDependent,
+            bool straightLineEnabled,
             int foreground,
             PackAssetLocation styleSheet,
             double scale)?
         label,
-    TResult Function(String name, String displayIcon, bool zoomDependent,
+    TResult Function(
+            String name,
+            String displayIcon,
+            bool zoomDependent,
+            double straightLineTime,
+            bool straightLineEnabled,
             PenProperty property)?
         pen,
     TResult Function(String name, String displayIcon, double strokeWidth)?
@@ -7753,12 +8116,18 @@ class _$AssetToolImpl extends AssetTool {
             String displayIcon,
             LabelMode mode,
             bool zoomDependent,
+            bool straightLineEnabled,
             int foreground,
             PackAssetLocation styleSheet,
             double scale)
         label,
-    required TResult Function(String name, String displayIcon,
-            bool zoomDependent, PenProperty property)
+    required TResult Function(
+            String name,
+            String displayIcon,
+            bool zoomDependent,
+            double straightLineTime,
+            bool straightLineEnabled,
+            PenProperty property)
         pen,
     required TResult Function(
             String name, String displayIcon, double strokeWidth)
@@ -7828,11 +8197,17 @@ class _$AssetToolImpl extends AssetTool {
             String displayIcon,
             LabelMode mode,
             bool zoomDependent,
+            bool straightLineEnabled,
             int foreground,
             PackAssetLocation styleSheet,
             double scale)?
         label,
-    TResult? Function(String name, String displayIcon, bool zoomDependent,
+    TResult? Function(
+            String name,
+            String displayIcon,
+            bool zoomDependent,
+            double straightLineTime,
+            bool straightLineEnabled,
             PenProperty property)?
         pen,
     TResult? Function(String name, String displayIcon, double strokeWidth)?
@@ -7899,11 +8274,17 @@ class _$AssetToolImpl extends AssetTool {
             String displayIcon,
             LabelMode mode,
             bool zoomDependent,
+            bool straightLineEnabled,
             int foreground,
             PackAssetLocation styleSheet,
             double scale)?
         label,
-    TResult Function(String name, String displayIcon, bool zoomDependent,
+    TResult Function(
+            String name,
+            String displayIcon,
+            bool zoomDependent,
+            double straightLineTime,
+            bool straightLineEnabled,
             PenProperty property)?
         pen,
     TResult Function(String name, String displayIcon, double strokeWidth)?
@@ -8224,12 +8605,18 @@ class _$TextureToolImpl extends TextureTool {
             String displayIcon,
             LabelMode mode,
             bool zoomDependent,
+            bool straightLineEnabled,
             int foreground,
             PackAssetLocation styleSheet,
             double scale)
         label,
-    required TResult Function(String name, String displayIcon,
-            bool zoomDependent, PenProperty property)
+    required TResult Function(
+            String name,
+            String displayIcon,
+            bool zoomDependent,
+            double straightLineTime,
+            bool straightLineEnabled,
+            PenProperty property)
         pen,
     required TResult Function(
             String name, String displayIcon, double strokeWidth)
@@ -8300,11 +8687,17 @@ class _$TextureToolImpl extends TextureTool {
             String displayIcon,
             LabelMode mode,
             bool zoomDependent,
+            bool straightLineEnabled,
             int foreground,
             PackAssetLocation styleSheet,
             double scale)?
         label,
-    TResult? Function(String name, String displayIcon, bool zoomDependent,
+    TResult? Function(
+            String name,
+            String displayIcon,
+            bool zoomDependent,
+            double straightLineTime,
+            bool straightLineEnabled,
             PenProperty property)?
         pen,
     TResult? Function(String name, String displayIcon, double strokeWidth)?
@@ -8372,11 +8765,17 @@ class _$TextureToolImpl extends TextureTool {
             String displayIcon,
             LabelMode mode,
             bool zoomDependent,
+            bool straightLineEnabled,
             int foreground,
             PackAssetLocation styleSheet,
             double scale)?
         label,
-    TResult Function(String name, String displayIcon, bool zoomDependent,
+    TResult Function(
+            String name,
+            String displayIcon,
+            bool zoomDependent,
+            double straightLineTime,
+            bool straightLineEnabled,
             PenProperty property)?
         pen,
     TResult Function(String name, String displayIcon, double strokeWidth)?
@@ -8642,12 +9041,18 @@ class _$EyeDropperToolImpl extends EyeDropperTool {
             String displayIcon,
             LabelMode mode,
             bool zoomDependent,
+            bool straightLineEnabled,
             int foreground,
             PackAssetLocation styleSheet,
             double scale)
         label,
-    required TResult Function(String name, String displayIcon,
-            bool zoomDependent, PenProperty property)
+    required TResult Function(
+            String name,
+            String displayIcon,
+            bool zoomDependent,
+            double straightLineTime,
+            bool straightLineEnabled,
+            PenProperty property)
         pen,
     required TResult Function(
             String name, String displayIcon, double strokeWidth)
@@ -8717,11 +9122,17 @@ class _$EyeDropperToolImpl extends EyeDropperTool {
             String displayIcon,
             LabelMode mode,
             bool zoomDependent,
+            bool straightLineEnabled,
             int foreground,
             PackAssetLocation styleSheet,
             double scale)?
         label,
-    TResult? Function(String name, String displayIcon, bool zoomDependent,
+    TResult? Function(
+            String name,
+            String displayIcon,
+            bool zoomDependent,
+            double straightLineTime,
+            bool straightLineEnabled,
             PenProperty property)?
         pen,
     TResult? Function(String name, String displayIcon, double strokeWidth)?
@@ -8788,11 +9199,17 @@ class _$EyeDropperToolImpl extends EyeDropperTool {
             String displayIcon,
             LabelMode mode,
             bool zoomDependent,
+            bool straightLineEnabled,
             int foreground,
             PackAssetLocation styleSheet,
             double scale)?
         label,
-    TResult Function(String name, String displayIcon, bool zoomDependent,
+    TResult Function(
+            String name,
+            String displayIcon,
+            bool zoomDependent,
+            double straightLineTime,
+            bool straightLineEnabled,
             PenProperty property)?
         pen,
     TResult Function(String name, String displayIcon, double strokeWidth)?

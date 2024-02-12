@@ -80,6 +80,7 @@ sealed class Tool with _$Tool {
     @Default('') String displayIcon,
     @Default(LabelMode.text) LabelMode mode,
     @Default(true) bool zoomDependent,
+    @Default(true) bool straightLineEnabled,
     @Default(BasicColors.black) int foreground,
     @Default(PackAssetLocation()) PackAssetLocation styleSheet,
     @Default(2.0) double scale,
@@ -89,6 +90,8 @@ sealed class Tool with _$Tool {
     @Default('') String name,
     @Default('') String displayIcon,
     @Default(true) bool zoomDependent,
+    @Default(0.5) double straightLineTime,
+    @Default(false) bool straightLineEnabled,
     @Default(PenProperty()) PenProperty property,
   }) = PenTool;
 

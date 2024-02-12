@@ -93,6 +93,7 @@ _$LabelToolImpl _$$LabelToolImplFromJson(Map json) => _$LabelToolImpl(
       mode: $enumDecodeNullable(_$LabelModeEnumMap, json['mode']) ??
           LabelMode.text,
       zoomDependent: json['zoomDependent'] as bool? ?? true,
+      straightLineEnabled: json['straightLineEnabled'] as bool? ?? true,
       foreground: json['foreground'] as int? ?? BasicColors.black,
       styleSheet: json['styleSheet'] == null
           ? const PackAssetLocation()
@@ -108,6 +109,7 @@ Map<String, dynamic> _$$LabelToolImplToJson(_$LabelToolImpl instance) =>
       'displayIcon': instance.displayIcon,
       'mode': _$LabelModeEnumMap[instance.mode]!,
       'zoomDependent': instance.zoomDependent,
+      'straightLineEnabled': instance.straightLineEnabled,
       'foreground': instance.foreground,
       'styleSheet': instance.styleSheet.toJson(),
       'scale': instance.scale,
@@ -123,6 +125,8 @@ _$PenToolImpl _$$PenToolImplFromJson(Map json) => _$PenToolImpl(
       name: json['name'] as String? ?? '',
       displayIcon: json['displayIcon'] as String? ?? '',
       zoomDependent: json['zoomDependent'] as bool? ?? true,
+      straightLineTime: (json['straightLineTime'] as num?)?.toDouble() ?? 0.5,
+      straightLineEnabled: json['straightLineEnabled'] as bool? ?? false,
       property: json['property'] == null
           ? const PenProperty()
           : PenProperty.fromJson(
@@ -135,6 +139,8 @@ Map<String, dynamic> _$$PenToolImplToJson(_$PenToolImpl instance) =>
       'name': instance.name,
       'displayIcon': instance.displayIcon,
       'zoomDependent': instance.zoomDependent,
+      'straightLineTime': instance.straightLineTime,
+      'straightLineEnabled': instance.straightLineEnabled,
       'property': instance.property.toJson(),
       'type': instance.$type,
     };

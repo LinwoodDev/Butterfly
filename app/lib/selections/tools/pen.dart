@@ -21,6 +21,29 @@ class PenToolSelection extends ToolSelection<PenTool> {
                       zoomDependent: value ?? selected.first.zoomDependent))
                   .toList())),
       const SizedBox(height: 16),
+      // ! new checkBox
+      CheckboxListTile(
+          value: selected.first.straightLineEnabled,
+          title: Text(AppLocalizations.of(context).straightLineEnabled),
+          onChanged: (value) => update(
+              context,
+              selected
+                  .map((e) => e.copyWith(
+                      straightLineEnabled: value ?? selected.first.straightLineEnabled))
+                  .toList())),
+      // ! new slider
+       ExactSlider(
+          header: Text(AppLocalizations.of(context).straightLineEnabled),
+          value: selected.first.straightLineTime,
+          min: 0,
+          max: 1,
+          defaultValue: selected.first.straightLineTime,
+          onChanged: (value) => update(
+              context,
+              selected
+                  .map((e) => e.copyWith(straightLineTime: value))
+                  .toList())),
+      const SizedBox(height: 16),
       ..._propertySelection.build(context, property, updateProperty),
     ];
   }
