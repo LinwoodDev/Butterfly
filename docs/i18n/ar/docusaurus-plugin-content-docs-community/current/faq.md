@@ -1,5 +1,5 @@
 ---
-id: "فاك"
+id: "faq"
 slug: "/faq"
 title: "الأسئلة المتكررة"
 sidebar_label: "أسئلة متكررة"
