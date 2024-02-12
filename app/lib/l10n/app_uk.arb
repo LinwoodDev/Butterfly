@@ -583,5 +583,6 @@
   "continueAnyway": "Все одно продовжити",
   "zoomControl": "Управління масштабуванням",
   "highContrast": "Високий контраст",
-  "shouldANumber": "Це значення має бути дійсним числом"
+  "shouldANumber": "Це значення має бути дійсним числом",
+  "autosave": "Autosave"
 }

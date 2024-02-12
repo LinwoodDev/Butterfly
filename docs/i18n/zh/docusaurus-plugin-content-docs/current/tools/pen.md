@@ -1,6 +1,6 @@
 ---
 title: "笔刀具"
-sidebar_label: "彭文"
+sidebar_label: "笔"
 sidebar_position: 2
 ---
 

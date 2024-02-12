@@ -546,7 +546,7 @@
   "client": "Client",
   "server": "Server",
   "switchView": "Cambia Vista",
-  "lasso": "Lasso",
+  "lasso": "Lazzo",
   "hideUI": "Nascondi UI",
   "density": "Densità",
   "compact": "Compatto",
@@ -563,7 +563,7 @@
   "refresh": "Aggiorna",
   "print": "Stampa",
   "dav": "DAV",
-  "eyeDropper": "Contagocce oculare",
+  "eyeDropper": "Selettore Colore",
   "users": "Utenti",
   "experiments": "Esperimenti",
   "address": "Indirizzo",
@@ -583,5 +583,6 @@
   "continueAnyway": "Continua comunque",
   "zoomControl": "Controllo zoom",
   "highContrast": "Alto contrasto",
-  "shouldANumber": "Questo valore deve essere valido"
+  "shouldANumber": "Questo valore deve essere valido",
+  "autosave": "Autosave"
 }

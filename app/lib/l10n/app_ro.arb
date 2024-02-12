@@ -583,5 +583,6 @@
   "continueAnyway": "Continuă oricum",
   "zoomControl": "Comandă mărire",
   "highContrast": "Contrast mare",
-  "shouldANumber": "Această valoare trebuie să fie un număr valid"
+  "shouldANumber": "Această valoare trebuie să fie un număr valid",
+  "autosave": "Autosave"
 }

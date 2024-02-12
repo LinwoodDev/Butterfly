@@ -29,7 +29,7 @@ sidebar_label: "Συχνές"
 
 > [#244](https://github.com/LinwoodDev/Butterfly/issues/244)
 
-Χρειάζεστε έναν λογαριασμό προγραμματιστή μήλου για να αποκτήσετε εφαρμογές στο iPhone. Για το Android δεν χρειάζεται να εγγραφείτε και αν θέλετε χρειάζεται μόνο να πληρώσετε 15 $ μία φορά. Σε μήλο θα πρέπει να πληρώσετε 99$ ετησίως. Δεν μπορώ να το αντέξω αυτό. Στην Ευρώπη το ios πρέπει να είναι σε θέση να παραγκωνίσει εφαρμογές στο μέλλον. Ίσως αυτό να αλλάξει κάτι.
+Butterfly is available on iOS as preview. Click [here](https://docs.butterfly.linwood.dev/downloads/ios) to download it. See [here](https://github.com/LinwoodDev/Butterfly/issues/244#issuecomment-1935460878) why it's not available on the App Store.
 
 ## Επιφάνεια Εργασίας
 

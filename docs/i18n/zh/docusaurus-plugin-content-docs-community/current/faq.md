@@ -29,7 +29,7 @@ sidebar_label: "常见问题"
 
 > [#244](https://github.com/LinwoodDev/Butterfly/issues/244)
 
-您需要一个苹果开发者帐户才能在 iPhone 上获取应用。 安卓系统不需要注册，如果您想要您只需要支付15美元。 在苹果上，您需要每年支付99美元。 我负担不起。 在 europe ios 中，将来需要能够放置应用。 也许这会改变某些东西。
+Butterfly is available on iOS as preview. Click [here](https://docs.butterfly.linwood.dev/downloads/ios) to download it. See [here](https://github.com/LinwoodDev/Butterfly/issues/244#issuecomment-1935460878) why it's not available on the App Store.
 
 ## 桌面
 

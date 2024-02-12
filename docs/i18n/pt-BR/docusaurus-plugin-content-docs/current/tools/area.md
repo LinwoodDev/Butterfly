@@ -1,5 +1,5 @@
 ---
-sidebar_label: "área"
+sidebar_label: "Área"
 title: "Ferramenta de área"
 ---
 
@@ -15,9 +15,9 @@ A ferramenta de área permite criar, editar e remover áreas.
 
 ## Configuração
 
-|         Propriedade | Padrão | Descrição:                                                                                                                                       |
+|         Propriedade | Padrão | Descrição                                                                                                                                        |
 | -------------------:|:------:|:------------------------------------------------------------------------------------------------------------------------------------------------ |
-|               Width |   0    | A largura fixa da área. Se definido como 0, a largura será calculada automaticamente.                                                            |
+|             Largura |   0    | A largura fixa da área. Se definido como 0, a largura será calculada automaticamente.                                                            |
 |              Altura |   0    | A altura fixa da área. Se definido como 0, a altura será calculada automaticamente.                                                              |
 | Proporção da imagem |   0    | O rácio de aspecto fixo da área. Se definido para 0, a proporção será calculada automaticamente. Uma proporção é definida como largura / altura. |
 

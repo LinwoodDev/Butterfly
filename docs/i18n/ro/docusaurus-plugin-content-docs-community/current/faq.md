@@ -29,7 +29,7 @@ Folosesc datele furnizate de cadrul flutter. Aceasta este problema pentru a o ur
 
 > [#244](https://github.com/LinwoodDev/Butterfly/issues/244)
 
-Aveți nevoie de un cont de dezvoltator de mere pentru a obține aplicații pe iPhone. Pentru android nu este nevoie să te înregistrezi, iar dacă vrei să plătești doar 15$ o singură dată. Pentru mere trebuie să plătești 99$ anual. Nu-mi pot permite asta. În Europa ios trebuie să fie în măsură să adune în viitor aplicații sideload. Poate că acest lucru va schimba ceva.
+Butterfly is available on iOS as preview. Click [here](https://docs.butterfly.linwood.dev/downloads/ios) to download it. See [here](https://github.com/LinwoodDev/Butterfly/issues/244#issuecomment-1935460878) why it's not available on the App Store.
 
 ## Birou
 

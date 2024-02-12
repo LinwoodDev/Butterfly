@@ -1,9 +1,9 @@
 ---
-title: Color picker
+title: Bảng chọn màu
 sidebar_position: 2
 ---
 
-![Color picker](color_picker.png)
+![Bảng chọn màu](color_picker.png)
 
 * Open, save the dialog to access it in other documents
 * Reset the palette for the default material palette

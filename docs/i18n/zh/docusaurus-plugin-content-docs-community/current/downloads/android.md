@@ -33,6 +33,6 @@ sidebar_position: 4
 </Link>
 </div>
 
-## 游戏商店上的 beta 程序
+## Play Store 上的 beta 程序
 
 点击 [此链接](https://play.google.com/apps/testing/dev.linwood.butterfly) 以每晚注册 [版本的应用程序](/nightly) 版本。 请注意，这个版本可能有漏洞。 当发布新的夜间版本时，播放商店版本将自动更新。

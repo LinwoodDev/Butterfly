@@ -583,5 +583,6 @@
   "continueAnyway": "Toch doorgaan",
   "zoomControl": "Zoom beheer",
   "highContrast": "Hoog contrast",
-  "shouldANumber": "Deze waarde moet een geldig nummer zijn"
+  "shouldANumber": "Deze waarde moet een geldig nummer zijn",
+  "autosave": "Autosave"
 }

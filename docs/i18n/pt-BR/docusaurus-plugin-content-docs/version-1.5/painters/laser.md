@@ -9,7 +9,7 @@ Com este pintor pode-se desenhar temporariamente neste papel. Depois de um tempo
 
 ## Configuração
 
-|            Propriedade | Padrão | Descrição:                                                                  |
+|            Propriedade | Padrão | Descrição                                                                   |
 | ----------------------:|:------:|:--------------------------------------------------------------------------- |
 |                    Cor | Preto  | A cor que será desenhada                                                    |
 |     Espessura do traço |   5    | A largura do traço                                                          |

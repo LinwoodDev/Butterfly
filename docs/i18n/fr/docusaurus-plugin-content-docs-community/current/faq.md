@@ -29,7 +29,7 @@ J'utilise l'entrée fournie par le cadre flutter. Voici le problème à suivre :
 
 > [#244](https://github.com/LinwoodDev/Butterfly/issues/244)
 
-Vous avez besoin d'un compte développeur de pommes pour obtenir des applications sur l'iPhone. Pour android vous n'avez pas besoin de vous inscrire et si vous voulez vous devez payer seulement 15$ une fois. Sur la pomme, vous devez payer 99 $ par an. Je ne peux pas me le permettre. Dans europe ios a besoin d'être en mesure de mettre de côté les applications dans le futur. Peut-être cela changera-t-il quelque chose.
+Butterfly is available on iOS as preview. Click [here](https://docs.butterfly.linwood.dev/downloads/ios) to download it. See [here](https://github.com/LinwoodDev/Butterfly/issues/244#issuecomment-1935460878) why it's not available on the App Store.
 
 ## Bureau
 

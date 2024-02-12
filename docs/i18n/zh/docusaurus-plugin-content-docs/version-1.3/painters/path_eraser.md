@@ -1,6 +1,6 @@
 ---
 title: "路径擦除绘制器"
-sidebar_label: "路径擦除器"
+sidebar_label: "整笔擦除"
 sidebar_position: 4
 ---
 

@@ -29,7 +29,7 @@ Ich benutze die Eingabe des Flutter-Frameworks. Dies ist das Problem zu verfolge
 
 > [#244](https://github.com/LinwoodDev/Butterfly/issues/244)
 
-Du benötigst ein Apfel-Entwickler-Konto, um Apps auf dem iPhone zu erhalten. Für Android müssen Sie sich nicht registrieren und wenn Sie wollen, müssen Sie nur einmal 15$ bezahlen. Bei Apfel müssen Sie jährlich 99$ bezahlen. Ich kann mich das nicht leisten. In Europa müssen ios in der Lage sein, Apps in Zukunft zu verdrängen. Vielleicht wird sich das etwas ändern.
+Butterfly is available on iOS as preview. Click [here](https://docs.butterfly.linwood.dev/downloads/ios) to download it. See [here](https://github.com/LinwoodDev/Butterfly/issues/244#issuecomment-1935460878) why it's not available on the App Store.
 
 ## Desktop
 
