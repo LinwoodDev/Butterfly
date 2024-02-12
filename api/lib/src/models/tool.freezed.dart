@@ -82,7 +82,6 @@ mixin _$Tool {
             String displayIcon,
             LabelMode mode,
             bool zoomDependent,
-            bool straightLineEnabled,
             int foreground,
             PackAssetLocation styleSheet,
             double scale)
@@ -160,7 +159,6 @@ mixin _$Tool {
             String displayIcon,
             LabelMode mode,
             bool zoomDependent,
-            bool straightLineEnabled,
             int foreground,
             PackAssetLocation styleSheet,
             double scale)?
@@ -234,7 +232,6 @@ mixin _$Tool {
             String displayIcon,
             LabelMode mode,
             bool zoomDependent,
-            bool straightLineEnabled,
             int foreground,
             PackAssetLocation styleSheet,
             double scale)?
@@ -506,7 +503,6 @@ class _$SelectToolImpl extends SelectTool {
             String displayIcon,
             LabelMode mode,
             bool zoomDependent,
-            bool straightLineEnabled,
             int foreground,
             PackAssetLocation styleSheet,
             double scale)
@@ -587,7 +583,6 @@ class _$SelectToolImpl extends SelectTool {
             String displayIcon,
             LabelMode mode,
             bool zoomDependent,
-            bool straightLineEnabled,
             int foreground,
             PackAssetLocation styleSheet,
             double scale)?
@@ -664,7 +659,6 @@ class _$SelectToolImpl extends SelectTool {
             String displayIcon,
             LabelMode mode,
             bool zoomDependent,
-            bool straightLineEnabled,
             int foreground,
             PackAssetLocation styleSheet,
             double scale)?
@@ -928,7 +922,6 @@ class _$HandToolImpl extends HandTool {
             String displayIcon,
             LabelMode mode,
             bool zoomDependent,
-            bool straightLineEnabled,
             int foreground,
             PackAssetLocation styleSheet,
             double scale)
@@ -1009,7 +1002,6 @@ class _$HandToolImpl extends HandTool {
             String displayIcon,
             LabelMode mode,
             bool zoomDependent,
-            bool straightLineEnabled,
             int foreground,
             PackAssetLocation styleSheet,
             double scale)?
@@ -1086,7 +1078,6 @@ class _$HandToolImpl extends HandTool {
             String displayIcon,
             LabelMode mode,
             bool zoomDependent,
-            bool straightLineEnabled,
             int foreground,
             PackAssetLocation styleSheet,
             double scale)?
@@ -1383,7 +1374,6 @@ class _$ImportToolImpl extends ImportTool {
             String displayIcon,
             LabelMode mode,
             bool zoomDependent,
-            bool straightLineEnabled,
             int foreground,
             PackAssetLocation styleSheet,
             double scale)
@@ -1464,7 +1454,6 @@ class _$ImportToolImpl extends ImportTool {
             String displayIcon,
             LabelMode mode,
             bool zoomDependent,
-            bool straightLineEnabled,
             int foreground,
             PackAssetLocation styleSheet,
             double scale)?
@@ -1541,7 +1530,6 @@ class _$ImportToolImpl extends ImportTool {
             String displayIcon,
             LabelMode mode,
             bool zoomDependent,
-            bool straightLineEnabled,
             int foreground,
             PackAssetLocation styleSheet,
             double scale)?
@@ -1807,7 +1795,6 @@ class _$UndoToolImpl extends UndoTool {
             String displayIcon,
             LabelMode mode,
             bool zoomDependent,
-            bool straightLineEnabled,
             int foreground,
             PackAssetLocation styleSheet,
             double scale)
@@ -1888,7 +1875,6 @@ class _$UndoToolImpl extends UndoTool {
             String displayIcon,
             LabelMode mode,
             bool zoomDependent,
-            bool straightLineEnabled,
             int foreground,
             PackAssetLocation styleSheet,
             double scale)?
@@ -1965,7 +1951,6 @@ class _$UndoToolImpl extends UndoTool {
             String displayIcon,
             LabelMode mode,
             bool zoomDependent,
-            bool straightLineEnabled,
             int foreground,
             PackAssetLocation styleSheet,
             double scale)?
@@ -2226,7 +2211,6 @@ class _$RedoToolImpl extends RedoTool {
             String displayIcon,
             LabelMode mode,
             bool zoomDependent,
-            bool straightLineEnabled,
             int foreground,
             PackAssetLocation styleSheet,
             double scale)
@@ -2307,7 +2291,6 @@ class _$RedoToolImpl extends RedoTool {
             String displayIcon,
             LabelMode mode,
             bool zoomDependent,
-            bool straightLineEnabled,
             int foreground,
             PackAssetLocation styleSheet,
             double scale)?
@@ -2384,7 +2367,6 @@ class _$RedoToolImpl extends RedoTool {
             String displayIcon,
             LabelMode mode,
             bool zoomDependent,
-            bool straightLineEnabled,
             int foreground,
             PackAssetLocation styleSheet,
             double scale)?
@@ -2573,7 +2555,6 @@ abstract class _$$LabelToolImplCopyWith<$Res> implements $ToolCopyWith<$Res> {
       String displayIcon,
       LabelMode mode,
       bool zoomDependent,
-      bool straightLineEnabled,
       int foreground,
       PackAssetLocation styleSheet,
       double scale});
@@ -2596,7 +2577,6 @@ class __$$LabelToolImplCopyWithImpl<$Res>
     Object? displayIcon = null,
     Object? mode = null,
     Object? zoomDependent = null,
-    Object? straightLineEnabled = null,
     Object? foreground = null,
     Object? styleSheet = null,
     Object? scale = null,
@@ -2617,10 +2597,6 @@ class __$$LabelToolImplCopyWithImpl<$Res>
       zoomDependent: null == zoomDependent
           ? _value.zoomDependent
           : zoomDependent // ignore: cast_nullable_to_non_nullable
-              as bool,
-      straightLineEnabled: null == straightLineEnabled
-          ? _value.straightLineEnabled
-          : straightLineEnabled // ignore: cast_nullable_to_non_nullable
               as bool,
       foreground: null == foreground
           ? _value.foreground
@@ -2654,7 +2630,6 @@ class _$LabelToolImpl extends LabelTool {
       this.displayIcon = '',
       this.mode = LabelMode.text,
       this.zoomDependent = true,
-      this.straightLineEnabled = true,
       this.foreground = BasicColors.black,
       this.styleSheet = const PackAssetLocation(),
       this.scale = 2.0,
@@ -2679,9 +2654,6 @@ class _$LabelToolImpl extends LabelTool {
   final bool zoomDependent;
   @override
   @JsonKey()
-  final bool straightLineEnabled;
-  @override
-  @JsonKey()
   final int foreground;
   @override
   @JsonKey()
@@ -2695,7 +2667,7 @@ class _$LabelToolImpl extends LabelTool {
 
   @override
   String toString() {
-    return 'Tool.label(name: $name, displayIcon: $displayIcon, mode: $mode, zoomDependent: $zoomDependent, straightLineEnabled: $straightLineEnabled, foreground: $foreground, styleSheet: $styleSheet, scale: $scale)';
+    return 'Tool.label(name: $name, displayIcon: $displayIcon, mode: $mode, zoomDependent: $zoomDependent, foreground: $foreground, styleSheet: $styleSheet, scale: $scale)';
   }
 
   @JsonKey(ignore: true)
@@ -2720,7 +2692,6 @@ class _$LabelToolImpl extends LabelTool {
             String displayIcon,
             LabelMode mode,
             bool zoomDependent,
-            bool straightLineEnabled,
             int foreground,
             PackAssetLocation styleSheet,
             double scale)
@@ -2783,8 +2754,8 @@ class _$LabelToolImpl extends LabelTool {
         texture,
     required TResult Function(String name, String displayIcon) eyeDropper,
   }) {
-    return label(name, displayIcon, mode, zoomDependent, straightLineEnabled,
-        foreground, styleSheet, scale);
+    return label(
+        name, displayIcon, mode, zoomDependent, foreground, styleSheet, scale);
   }
 
   @override
@@ -2802,7 +2773,6 @@ class _$LabelToolImpl extends LabelTool {
             String displayIcon,
             LabelMode mode,
             bool zoomDependent,
-            bool straightLineEnabled,
             int foreground,
             PackAssetLocation styleSheet,
             double scale)?
@@ -2861,8 +2831,8 @@ class _$LabelToolImpl extends LabelTool {
         texture,
     TResult? Function(String name, String displayIcon)? eyeDropper,
   }) {
-    return label?.call(name, displayIcon, mode, zoomDependent,
-        straightLineEnabled, foreground, styleSheet, scale);
+    return label?.call(
+        name, displayIcon, mode, zoomDependent, foreground, styleSheet, scale);
   }
 
   @override
@@ -2880,7 +2850,6 @@ class _$LabelToolImpl extends LabelTool {
             String displayIcon,
             LabelMode mode,
             bool zoomDependent,
-            bool straightLineEnabled,
             int foreground,
             PackAssetLocation styleSheet,
             double scale)?
@@ -2941,8 +2910,8 @@ class _$LabelToolImpl extends LabelTool {
     required TResult orElse(),
   }) {
     if (label != null) {
-      return label(name, displayIcon, mode, zoomDependent, straightLineEnabled,
-          foreground, styleSheet, scale);
+      return label(name, displayIcon, mode, zoomDependent, foreground,
+          styleSheet, scale);
     }
     return orElse();
   }
@@ -3046,7 +3015,6 @@ abstract class LabelTool extends Tool {
       final String displayIcon,
       final LabelMode mode,
       final bool zoomDependent,
-      final bool straightLineEnabled,
       final int foreground,
       final PackAssetLocation styleSheet,
       final double scale}) = _$LabelToolImpl;
@@ -3061,7 +3029,6 @@ abstract class LabelTool extends Tool {
   String get displayIcon;
   LabelMode get mode;
   bool get zoomDependent;
-  bool get straightLineEnabled;
   int get foreground;
   PackAssetLocation get styleSheet;
   double get scale;
@@ -3200,7 +3167,6 @@ class _$PenToolImpl extends PenTool {
             String displayIcon,
             LabelMode mode,
             bool zoomDependent,
-            bool straightLineEnabled,
             int foreground,
             PackAssetLocation styleSheet,
             double scale)
@@ -3282,7 +3248,6 @@ class _$PenToolImpl extends PenTool {
             String displayIcon,
             LabelMode mode,
             bool zoomDependent,
-            bool straightLineEnabled,
             int foreground,
             PackAssetLocation styleSheet,
             double scale)?
@@ -3360,7 +3325,6 @@ class _$PenToolImpl extends PenTool {
             String displayIcon,
             LabelMode mode,
             bool zoomDependent,
-            bool straightLineEnabled,
             int foreground,
             PackAssetLocation styleSheet,
             double scale)?
@@ -3642,7 +3606,6 @@ class _$EraserToolImpl extends EraserTool {
             String displayIcon,
             LabelMode mode,
             bool zoomDependent,
-            bool straightLineEnabled,
             int foreground,
             PackAssetLocation styleSheet,
             double scale)
@@ -3723,7 +3686,6 @@ class _$EraserToolImpl extends EraserTool {
             String displayIcon,
             LabelMode mode,
             bool zoomDependent,
-            bool straightLineEnabled,
             int foreground,
             PackAssetLocation styleSheet,
             double scale)?
@@ -3800,7 +3762,6 @@ class _$EraserToolImpl extends EraserTool {
             String displayIcon,
             LabelMode mode,
             bool zoomDependent,
-            bool straightLineEnabled,
             int foreground,
             PackAssetLocation styleSheet,
             double scale)?
@@ -4078,7 +4039,6 @@ class _$PathEraserToolImpl extends PathEraserTool {
             String displayIcon,
             LabelMode mode,
             bool zoomDependent,
-            bool straightLineEnabled,
             int foreground,
             PackAssetLocation styleSheet,
             double scale)
@@ -4159,7 +4119,6 @@ class _$PathEraserToolImpl extends PathEraserTool {
             String displayIcon,
             LabelMode mode,
             bool zoomDependent,
-            bool straightLineEnabled,
             int foreground,
             PackAssetLocation styleSheet,
             double scale)?
@@ -4236,7 +4195,6 @@ class _$PathEraserToolImpl extends PathEraserTool {
             String displayIcon,
             LabelMode mode,
             bool zoomDependent,
-            bool straightLineEnabled,
             int foreground,
             PackAssetLocation styleSheet,
             double scale)?
@@ -4512,7 +4470,6 @@ class _$LayerToolImpl extends LayerTool {
             String displayIcon,
             LabelMode mode,
             bool zoomDependent,
-            bool straightLineEnabled,
             int foreground,
             PackAssetLocation styleSheet,
             double scale)
@@ -4593,7 +4550,6 @@ class _$LayerToolImpl extends LayerTool {
             String displayIcon,
             LabelMode mode,
             bool zoomDependent,
-            bool straightLineEnabled,
             int foreground,
             PackAssetLocation styleSheet,
             double scale)?
@@ -4670,7 +4626,6 @@ class _$LayerToolImpl extends LayerTool {
             String displayIcon,
             LabelMode mode,
             bool zoomDependent,
-            bool straightLineEnabled,
             int foreground,
             PackAssetLocation styleSheet,
             double scale)?
@@ -4979,7 +4934,6 @@ class _$AreaToolImpl extends AreaTool {
             String displayIcon,
             LabelMode mode,
             bool zoomDependent,
-            bool straightLineEnabled,
             int foreground,
             PackAssetLocation styleSheet,
             double scale)
@@ -5061,7 +5015,6 @@ class _$AreaToolImpl extends AreaTool {
             String displayIcon,
             LabelMode mode,
             bool zoomDependent,
-            bool straightLineEnabled,
             int foreground,
             PackAssetLocation styleSheet,
             double scale)?
@@ -5139,7 +5092,6 @@ class _$AreaToolImpl extends AreaTool {
             String displayIcon,
             LabelMode mode,
             bool zoomDependent,
-            bool straightLineEnabled,
             int foreground,
             PackAssetLocation styleSheet,
             double scale)?
@@ -5455,7 +5407,6 @@ class _$LaserToolImpl extends LaserTool {
             String displayIcon,
             LabelMode mode,
             bool zoomDependent,
-            bool straightLineEnabled,
             int foreground,
             PackAssetLocation styleSheet,
             double scale)
@@ -5536,7 +5487,6 @@ class _$LaserToolImpl extends LaserTool {
             String displayIcon,
             LabelMode mode,
             bool zoomDependent,
-            bool straightLineEnabled,
             int foreground,
             PackAssetLocation styleSheet,
             double scale)?
@@ -5614,7 +5564,6 @@ class _$LaserToolImpl extends LaserTool {
             String displayIcon,
             LabelMode mode,
             bool zoomDependent,
-            bool straightLineEnabled,
             int foreground,
             PackAssetLocation styleSheet,
             double scale)?
@@ -5939,7 +5888,6 @@ class _$ShapeToolImpl extends ShapeTool {
             String displayIcon,
             LabelMode mode,
             bool zoomDependent,
-            bool straightLineEnabled,
             int foreground,
             PackAssetLocation styleSheet,
             double scale)
@@ -6021,7 +5969,6 @@ class _$ShapeToolImpl extends ShapeTool {
             String displayIcon,
             LabelMode mode,
             bool zoomDependent,
-            bool straightLineEnabled,
             int foreground,
             PackAssetLocation styleSheet,
             double scale)?
@@ -6099,7 +6046,6 @@ class _$ShapeToolImpl extends ShapeTool {
             String displayIcon,
             LabelMode mode,
             bool zoomDependent,
-            bool straightLineEnabled,
             int foreground,
             PackAssetLocation styleSheet,
             double scale)?
@@ -6394,7 +6340,6 @@ class _$StampToolImpl extends StampTool {
             String displayIcon,
             LabelMode mode,
             bool zoomDependent,
-            bool straightLineEnabled,
             int foreground,
             PackAssetLocation styleSheet,
             double scale)
@@ -6475,7 +6420,6 @@ class _$StampToolImpl extends StampTool {
             String displayIcon,
             LabelMode mode,
             bool zoomDependent,
-            bool straightLineEnabled,
             int foreground,
             PackAssetLocation styleSheet,
             double scale)?
@@ -6552,7 +6496,6 @@ class _$StampToolImpl extends StampTool {
             String displayIcon,
             LabelMode mode,
             bool zoomDependent,
-            bool straightLineEnabled,
             int foreground,
             PackAssetLocation styleSheet,
             double scale)?
@@ -6819,7 +6762,6 @@ class _$PresentationToolImpl extends PresentationTool {
             String displayIcon,
             LabelMode mode,
             bool zoomDependent,
-            bool straightLineEnabled,
             int foreground,
             PackAssetLocation styleSheet,
             double scale)
@@ -6900,7 +6842,6 @@ class _$PresentationToolImpl extends PresentationTool {
             String displayIcon,
             LabelMode mode,
             bool zoomDependent,
-            bool straightLineEnabled,
             int foreground,
             PackAssetLocation styleSheet,
             double scale)?
@@ -6977,7 +6918,6 @@ class _$PresentationToolImpl extends PresentationTool {
             String displayIcon,
             LabelMode mode,
             bool zoomDependent,
-            bool straightLineEnabled,
             int foreground,
             PackAssetLocation styleSheet,
             double scale)?
@@ -7250,7 +7190,6 @@ class _$SpacerToolImpl extends SpacerTool {
             String displayIcon,
             LabelMode mode,
             bool zoomDependent,
-            bool straightLineEnabled,
             int foreground,
             PackAssetLocation styleSheet,
             double scale)
@@ -7331,7 +7270,6 @@ class _$SpacerToolImpl extends SpacerTool {
             String displayIcon,
             LabelMode mode,
             bool zoomDependent,
-            bool straightLineEnabled,
             int foreground,
             PackAssetLocation styleSheet,
             double scale)?
@@ -7408,7 +7346,6 @@ class _$SpacerToolImpl extends SpacerTool {
             String displayIcon,
             LabelMode mode,
             bool zoomDependent,
-            bool straightLineEnabled,
             int foreground,
             PackAssetLocation styleSheet,
             double scale)?
@@ -7675,7 +7612,6 @@ class _$FullScreenToolImpl extends FullScreenTool {
             String displayIcon,
             LabelMode mode,
             bool zoomDependent,
-            bool straightLineEnabled,
             int foreground,
             PackAssetLocation styleSheet,
             double scale)
@@ -7756,7 +7692,6 @@ class _$FullScreenToolImpl extends FullScreenTool {
             String displayIcon,
             LabelMode mode,
             bool zoomDependent,
-            bool straightLineEnabled,
             int foreground,
             PackAssetLocation styleSheet,
             double scale)?
@@ -7833,7 +7768,6 @@ class _$FullScreenToolImpl extends FullScreenTool {
             String displayIcon,
             LabelMode mode,
             bool zoomDependent,
-            bool straightLineEnabled,
             int foreground,
             PackAssetLocation styleSheet,
             double scale)?
@@ -8116,7 +8050,6 @@ class _$AssetToolImpl extends AssetTool {
             String displayIcon,
             LabelMode mode,
             bool zoomDependent,
-            bool straightLineEnabled,
             int foreground,
             PackAssetLocation styleSheet,
             double scale)
@@ -8197,7 +8130,6 @@ class _$AssetToolImpl extends AssetTool {
             String displayIcon,
             LabelMode mode,
             bool zoomDependent,
-            bool straightLineEnabled,
             int foreground,
             PackAssetLocation styleSheet,
             double scale)?
@@ -8274,7 +8206,6 @@ class _$AssetToolImpl extends AssetTool {
             String displayIcon,
             LabelMode mode,
             bool zoomDependent,
-            bool straightLineEnabled,
             int foreground,
             PackAssetLocation styleSheet,
             double scale)?
@@ -8605,7 +8536,6 @@ class _$TextureToolImpl extends TextureTool {
             String displayIcon,
             LabelMode mode,
             bool zoomDependent,
-            bool straightLineEnabled,
             int foreground,
             PackAssetLocation styleSheet,
             double scale)
@@ -8687,7 +8617,6 @@ class _$TextureToolImpl extends TextureTool {
             String displayIcon,
             LabelMode mode,
             bool zoomDependent,
-            bool straightLineEnabled,
             int foreground,
             PackAssetLocation styleSheet,
             double scale)?
@@ -8765,7 +8694,6 @@ class _$TextureToolImpl extends TextureTool {
             String displayIcon,
             LabelMode mode,
             bool zoomDependent,
-            bool straightLineEnabled,
             int foreground,
             PackAssetLocation styleSheet,
             double scale)?
@@ -9041,7 +8969,6 @@ class _$EyeDropperToolImpl extends EyeDropperTool {
             String displayIcon,
             LabelMode mode,
             bool zoomDependent,
-            bool straightLineEnabled,
             int foreground,
             PackAssetLocation styleSheet,
             double scale)
@@ -9122,7 +9049,6 @@ class _$EyeDropperToolImpl extends EyeDropperTool {
             String displayIcon,
             LabelMode mode,
             bool zoomDependent,
-            bool straightLineEnabled,
             int foreground,
             PackAssetLocation styleSheet,
             double scale)?
@@ -9199,7 +9125,6 @@ class _$EyeDropperToolImpl extends EyeDropperTool {
             String displayIcon,
             LabelMode mode,
             bool zoomDependent,
-            bool straightLineEnabled,
             int foreground,
             PackAssetLocation styleSheet,
             double scale)?

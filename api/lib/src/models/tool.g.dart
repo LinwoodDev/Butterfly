@@ -93,7 +93,6 @@ _$LabelToolImpl _$$LabelToolImplFromJson(Map json) => _$LabelToolImpl(
       mode: $enumDecodeNullable(_$LabelModeEnumMap, json['mode']) ??
           LabelMode.text,
       zoomDependent: json['zoomDependent'] as bool? ?? true,
-      straightLineEnabled: json['straightLineEnabled'] as bool? ?? true,
       foreground: json['foreground'] as int? ?? BasicColors.black,
       styleSheet: json['styleSheet'] == null
           ? const PackAssetLocation()
@@ -109,7 +108,6 @@ Map<String, dynamic> _$$LabelToolImplToJson(_$LabelToolImpl instance) =>
       'displayIcon': instance.displayIcon,
       'mode': _$LabelModeEnumMap[instance.mode]!,
       'zoomDependent': instance.zoomDependent,
-      'straightLineEnabled': instance.straightLineEnabled,
       'foreground': instance.foreground,
       'styleSheet': instance.styleSheet.toJson(),
       'scale': instance.scale,

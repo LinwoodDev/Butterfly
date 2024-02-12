@@ -80,7 +80,6 @@ sealed class Tool with _$Tool {
     @Default('') String displayIcon,
     @Default(LabelMode.text) LabelMode mode,
     @Default(true) bool zoomDependent,
-    @Default(true) bool straightLineEnabled,
     @Default(BasicColors.black) int foreground,
     @Default(PackAssetLocation()) PackAssetLocation styleSheet,
     @Default(2.0) double scale,
