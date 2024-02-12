@@ -29,7 +29,7 @@ Sto usando l'input fornito dal framework flutter. Questo è il problema da tracc
 
 > [#244](https://github.com/LinwoodDev/Butterfly/issues/244)
 
-Butterfly is available on iOS as preview. Click [here](https://docs.butterfly.linwood.dev/downloads/ios) to download it. See [here](https://github.com/LinwoodDev/Butterfly/issues/244#issuecomment-1935460878) why it's not available on the App Store.
+Butterfly è disponibile su iOS come anteprima. Clicca [qui](https://docs.butterfly.linwood.dev/downloads/ios) per scaricarlo. Vedi [qui](https://github.com/LinwoodDev/Butterfly/issues/244#issuecomment-1935460878) perché non è disponibile sull'App Store.
 
 ## Desktop
 
