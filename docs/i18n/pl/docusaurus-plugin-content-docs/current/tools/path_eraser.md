@@ -1,6 +1,6 @@
 ---
 title: "Narzędzie do wymazywania ścieżki"
-sidebar_label: "Saser ścieżki"
+sidebar_label: "Wymaż linię"
 sidebar_position: 5
 ---
 
