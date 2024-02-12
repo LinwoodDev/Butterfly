@@ -1,5 +1,5 @@
 ---
-slug: "/nedladdningar"
+slug: "/downloads"
 sidebar_position: 0
 title: Nedladdningar
 ---

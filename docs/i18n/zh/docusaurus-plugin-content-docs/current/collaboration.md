@@ -6,7 +6,7 @@ title: 合作
 
 :::warning 🧪 Experiment
 
-此功能在实验旗帜后面。 阅读更多 [here](/夜间#experiments)。
+此功能在实验旗帜后面。 阅读更多 [here](/nightly#experiments)。
 本节中的所有内容都会有变化。
 
 :::

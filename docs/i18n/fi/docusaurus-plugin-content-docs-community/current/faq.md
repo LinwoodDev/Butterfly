@@ -29,7 +29,7 @@ Käytän syötteitä, jotka on saatu lepyttävän kehyksen avulla. Tämä on ong
 
 > [#244](https://github.com/LinwoodDev/Butterfly/issues/244)
 
-Butterfly is available on iOS as preview. Click [here](https://docs.butterfly.linwood.dev/downloads/ios) to download it. See [here](https://github.com/LinwoodDev/Butterfly/issues/244#issuecomment-1935460878) why it's not available on the App Store.
+Perhonen on saatavilla iOS:ssa esikatseluna. Napsauta [tästä](https://docs.butterfly.linwood.dev/downloads/ios) ladataksesi sen. See [here](https://github.com/LinwoodDev/Butterfly/issues/244#issuecomment-1935460878) why it's not available on the App Store.
 
 ## Työpöytä
 

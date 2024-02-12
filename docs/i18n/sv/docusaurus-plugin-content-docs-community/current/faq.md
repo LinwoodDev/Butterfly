@@ -29,7 +29,7 @@ Jag använder indata från fladdrande ramverk. Detta är numret för att spåra 
 
 > [#244](https://github.com/LinwoodDev/Butterfly/issues/244)
 
-Butterfly is available on iOS as preview. Click [here](https://docs.butterfly.linwood.dev/downloads/ios) to download it. See [here](https://github.com/LinwoodDev/Butterfly/issues/244#issuecomment-1935460878) why it's not available on the App Store.
+Fjäril finns på iOS som förhandsvisning. Klicka på [här](https://docs.butterfly.linwood.dev/downloads/ios) för att ladda ner den. Se [här](https://github.com/LinwoodDev/Butterfly/issues/244#issuecomment-1935460878) varför den inte finns på App Store.
 
 ## Skrivbord
 

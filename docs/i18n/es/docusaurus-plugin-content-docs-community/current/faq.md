@@ -29,7 +29,7 @@ Estoy usando la entrada proporcionada por el framework de flujos. Este es el pro
 
 > [#244](https://github.com/LinwoodDev/Butterfly/issues/244)
 
-Butterfly is available on iOS as preview. Click [here](https://docs.butterfly.linwood.dev/downloads/ios) to download it. See [here](https://github.com/LinwoodDev/Butterfly/issues/244#issuecomment-1935460878) why it's not available on the App Store.
+La mariposa está disponible en iOS como vista previa. Haz clic [aquí](https://docs.butterfly.linwood.dev/downloads/ios) para descargarlo. Ver [aquí](https://github.com/LinwoodDev/Butterfly/issues/244#issuecomment-1935460878) por qué no está disponible en la App Store.
 
 ## Escritorio
 
