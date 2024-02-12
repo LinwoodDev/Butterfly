@@ -151,8 +151,7 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
     // Updates the last known position of the pointer.
     lastPosition[event.pointer] = event.localPosition;
     // Starts a timer that fires after 500 milliseconds.
-    _timer =
-        Timer(Duration(seconds: data.straightLineTime.round()), () {
+    _timer = Timer(Duration(seconds: data.straightLineTime.round()), () {
       // Checks if the last known position of the pointer has not changed since the timer started.
       if (lastPosition[event.pointer] == event.localPosition) {
         // If the position has not changed, it gets the PenElement associated with the pointer.

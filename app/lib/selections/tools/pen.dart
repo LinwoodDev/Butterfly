@@ -7,7 +7,6 @@ class PenToolSelection extends ToolSelection<PenTool> {
 
   @override
   List<Widget> buildProperties(BuildContext context) {
-
     final property = selected.first.property;
     void updateProperty(PenProperty property) => update(
         context, selected.map((e) => e.copyWith(property: property)).toList());
@@ -27,12 +26,12 @@ class PenToolSelection extends ToolSelection<PenTool> {
           value: selected.first.straightLineEnabled,
           title: Text(AppLocalizations.of(context).straightLineEnabled),
           onChanged: (value) => update(
-                context,
-                selected
-                    .map((e) => e.copyWith(
-                        straightLineEnabled:
-                            value ?? selected.first.straightLineEnabled))
-                    .toList())),
+              context,
+              selected
+                  .map((e) => e.copyWith(
+                      straightLineEnabled:
+                          value ?? selected.first.straightLineEnabled))
+                  .toList())),
       const SizedBox(height: 16),
       Visibility(
         visible: selected.first.straightLineEnabled,
