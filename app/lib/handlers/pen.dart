@@ -9,7 +9,6 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
   // Map to store the last positions of each element.
   final Map<int, Offset> lastPosition = {};
   // Timer to track the time interval for updating the line.
-  Timer _timer = Timer(Duration.zero, () {});
   Offset? localPos;
   PenHandler(super.data);
 
@@ -151,21 +150,6 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
     // Updates the last known position of the pointer.
     lastPosition[event.pointer] = event.localPosition;
     // Starts a timer that fires after 500 milliseconds.
-    _timer = Timer(Duration(seconds: data.straightLineTime.round()), () {
-      // Checks if the last known position of the pointer has not changed since the timer started.
-      if (lastPosition[event.pointer] == event.localPosition) {
-        // If the position has not changed, it gets the PenElement associated with the pointer.
-        final element = elements[event.pointer];
-        // If the PenElement exists, it calls the updateLine function to update the line with the start and end position of the pointer.
-        if (element != null && data.straightLineEnabled == true) {
-          updateLine(event.pointer, context);
-          //Adds a little movement that allows the line to become straight
-          // !if this movement is too large it causes UI problems, it does not allow you to select objects
-          lastPosition[event.pointer] =
-              event.localPosition + const Offset(0.01, 0.01);
-        }
-      }
-    });
   }
 
   @override

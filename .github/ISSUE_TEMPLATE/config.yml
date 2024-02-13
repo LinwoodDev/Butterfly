@@ -1,5 +1,11 @@
 blank_issues_enabled: false
 contact_links:
+  - name: Report iOS issue
+    url: https://github.com/LinwoodDev/Butterfly/issues/244
+    about: iOS support is currently in preview. Please report any issues here.
+  - name: Ask a question
+    url: https://github.com/LinwoodDev/Butterfly/discussions
+    about: Here you can create threads to ask questions and discuss with other users. This is not synced with any chat platform.
   - name: Linwood Matrix
     url: https://go.linwood.dev/discord
     about: Please ask and answer questions here. Synced with discord.
