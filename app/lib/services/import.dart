@@ -476,7 +476,7 @@ class ImportService {
     final viewport = currentIndexCubit.state.cameraViewport;
     switch (fileType) {
       case AssetFileType.note:
-        saveData(context, Uint8List.fromList(state.saveData().save()));
+        exportData(context, Uint8List.fromList(state.saveData().save()));
         break;
       case AssetFileType.image:
         return showDialog<void>(

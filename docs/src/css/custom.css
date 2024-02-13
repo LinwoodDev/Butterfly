@@ -346,7 +346,7 @@ html[data-theme="dark"] .DocSearch {
   --ifm-button-background-color: #5a0fc8;
   --ifm-button-border-color: #5a0fc8;
 }
-:where(.button--macos) {
+:where(.button--apple) {
   --ifm-button-background-color: #000000;
   --ifm-button-border-color: #000000;
 }

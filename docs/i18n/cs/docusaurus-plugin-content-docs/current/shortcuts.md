@@ -25,7 +25,6 @@ Existuje několik zkratek, které můžete použít v editoru. Některé z nich 
 * `Ctrl` + `Z`: Vrátit zpět
 * `Ctrl` + `Y`: Znovu
 * `Ctrl` + `Shift` + `P`: Open waypoints dialog
-* `Ctrl` + `P`: Otevřít dialog barevné palety
 * `Ctrl` + `B`: Otevřít dialog na pozadí
 * `Ctrl` + `Shift` + `A`: dialogové okno
 * `Ctrl` + `S`: Uložit

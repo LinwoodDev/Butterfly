@@ -29,7 +29,7 @@ Jeg bruger input leveret af flutter rammer. Dette er problemet at spore det: [fl
 
 > [#244](https://github.com/LinwoodDev/Butterfly/issues/244)
 
-Du skal have en apple-udvikler konto for at få apps på iPhone. For android behøver du ikke at registrere, og hvis du vil have du kun behøver at betale 15$ én gang. På æble skal du betale 99$ årligt. Det har jeg ikke råd til. I europe ios skal være i stand til at sideindlæse apps i fremtiden. Måske vil dette ændre noget.
+Butterfly er tilgængelig på iOS som forhåndsvisning. Klik på [her](https://docs.butterfly.linwood.dev/downloads/ios) for at downloade den. Se [her](https://github.com/LinwoodDev/Butterfly/issues/244#issuecomment-1935460878) hvorfor det ikke er tilgængeligt i App Store.
 
 ## Skrivebord
 

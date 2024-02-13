@@ -11,7 +11,7 @@ Embutir é uma maneira simples de incluir o aplicativo em seu site. Adicione o s
 
 ## Opções
 
-| Alternativa | tipo                           | Padrão | Descrição:                                                                                                                                     |
+| Alternativa | tipo                           | Padrão | Descrição                                                                                                                                      |
 | ----------- | ------------------------------ | ------ | ---------------------------------------------------------------------------------------------------------------------------------------------- |
 | save        | Boolean (true, false)          | true   | Habilitar salvamento. Se desativado, somente um botão de saída será mostrado                                                                   |
 | editable    | Boolean (true, false)          | true   | Habilitar edição. Se desativado, o documento será somente leitura                                                                              |

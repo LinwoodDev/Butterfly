@@ -29,7 +29,7 @@ Brave Пользователи, которые установили параме
 
 > [#244](https://github.com/LinwoodDev/Butterfly/issues/244)
 
-Вам нужна учетная запись разработчика apple для загрузки приложений на iPhone. Для Android вам не нужно регистрироваться, и если вы хотите вам только нужно заплатить 15$ один раз. На яблоке вам нужно платить 99$ в год. Я не могу позволить себе это. В europe ios должен быть в состоянии перегружать приложения в будущем. Может быть, это что-то изменится.
+Butterfly доступен на iOS в качестве предварительного просмотра. Нажмите [здесь](https://docs.butterfly.linwood.dev/downloads/ios) для его загрузки. See [here](https://github.com/LinwoodDev/Butterfly/issues/244#issuecomment-1935460878) why it's not available on the App Store.
 
 ## Рабочий стол
 

@@ -3,43 +3,35 @@ import 'package:collection/collection.dart';
 import '../models/asset.dart';
 
 extension AssetFileTypeHelper on AssetFileType {
-  List<String> getFileExtensions() {
-    switch (this) {
-      case AssetFileType.note:
-        return ['bfly', 'json'];
-      case AssetFileType.image:
-        return ['png', 'jpg', 'jpeg', 'gif', 'bmp', 'ico'];
-      case AssetFileType.pdf:
-        return ['pdf'];
-      case AssetFileType.svg:
-        return ['svg'];
-      case AssetFileType.markdown:
-        return ['md', 'markdown'];
-      case AssetFileType.page:
-        return [];
-      case AssetFileType.xopp:
-        return ['xopp'];
-    }
-  }
+  List<String> getUniformTypeIdentifiers() => switch (this) {
+        AssetFileType.note => ['dev.linwood.butterfly.note'],
+        AssetFileType.image => ['public.image'],
+        AssetFileType.pdf => ['com.adobe.pdf'],
+        AssetFileType.svg => ['public.svg-image'],
+        AssetFileType.markdown => ['public.plain-text'],
+        AssetFileType.page => [],
+        AssetFileType.xopp => ['dev.linwood.butterfly.xopp'],
+      };
 
-  String getMime() {
-    switch (this) {
-      case AssetFileType.note:
-        return 'application/zip';
-      case AssetFileType.image:
-        return 'image/*';
-      case AssetFileType.markdown:
-        return 'text/markdown';
-      case AssetFileType.pdf:
-        return 'application/pdf';
-      case AssetFileType.svg:
-        return 'image/svg+xml';
-      case AssetFileType.page:
-        return 'application/json';
-      case AssetFileType.xopp:
-        return 'application/zip';
-    }
-  }
+  List<String> getFileExtensions() => switch (this) {
+        AssetFileType.note => ['bfly'],
+        AssetFileType.image => ['png', 'jpg', 'jpeg', 'gif', 'bmp', 'ico'],
+        AssetFileType.pdf => ['pdf'],
+        AssetFileType.svg => ['svg'],
+        AssetFileType.markdown => ['md', 'markdown'],
+        AssetFileType.page => [],
+        AssetFileType.xopp => ['xopp'],
+      };
+
+  String getMime() => switch (this) {
+        AssetFileType.note => 'application/zip',
+        AssetFileType.image => 'image/*',
+        AssetFileType.markdown => 'text/markdown',
+        AssetFileType.pdf => 'application/pdf',
+        AssetFileType.svg => 'image/svg+xml',
+        AssetFileType.page => 'application/json',
+        AssetFileType.xopp => 'application/zip',
+      };
 
   bool isMimeType(String mimeType) {
     final mime = getMime();

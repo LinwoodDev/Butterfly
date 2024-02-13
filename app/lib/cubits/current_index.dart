@@ -451,7 +451,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
       return;
     }
     final transform = state.transformCubit.state;
-    final rect = Rect.fromLTWH(-transform.position.dx, -transform.position.dy,
+    final rect = Rect.fromLTWH(transform.position.dx, transform.position.dy,
         size.width / transform.size, size.height / transform.size);
     var renderers =
         List<Renderer<PadElement>>.from(cameraViewport.unbakedElements);
@@ -625,6 +625,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
   Future<pw.Document> renderPDF(
     NoteData document,
     DocumentInfo info, {
+    DocumentState? state,
     required List<AreaPreset> areas,
     bool renderBackground = true,
   }) async {
@@ -632,7 +633,9 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     for (final preset in areas) {
       final areaName = preset.name;
       final quality = preset.quality;
-      final page = document.getPage(preset.page);
+      final page = state?.pageName == preset.page
+          ? state?.page
+          : document.getPage(preset.page);
       final area = preset.area ?? page?.getAreaByName(areaName);
       if (area == null || page == null) {
         continue;

@@ -8,7 +8,7 @@ sidebar_position: 2
 
 您可以在编辑器中使用一些快捷方式。 其中一些是在按钮下面写的。
 
-### A. 概况
+### 常规
 
 * `Ctrl` + `N`: 新文件
 * `Ctrl` + `Shift` + `N`: 来自模板的新文件
@@ -25,7 +25,6 @@ sidebar_position: 2
 * `Ctrl` + `Z`: 撤销
 * `Ctrl` + `Y`: Redo
 * `Ctrl` + `Shift` + `P`: Open waypoints dialog
-* `Ctrl` + `P`: 打开色板对话框
 * `Ctrl` + `B`: 打开后台对话框
 * `Ctrl` + `Shift` + `A`: 打开区域对话框
 * `Ctrl` + `S`: 保存

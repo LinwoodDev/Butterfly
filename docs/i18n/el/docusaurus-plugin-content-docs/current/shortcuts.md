@@ -25,7 +25,6 @@ sidebar_position: 2
 * `Ctrl` + `Z`: Αναίρεση
 * `Ctrl` + `Y`: Επανάληψη
 * `Ctrl` + `Shift` + `P`: Open waypoints dialog
-* `Ctrl` + `P`: Άνοιγμα διαλόγου παλέτας χρωμάτων
 * `Ctrl` + `B`: Άνοιγμα διαλόγου παρασκηνίου
 * `Ctrl` + `Shift` + `A`: Διάλογος ανοικτών περιοχών
 * `Ctrl` + `S`: Αποθήκευση

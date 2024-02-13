@@ -101,6 +101,7 @@ Future<void> main([List<String> args = const []]) async {
     const kWindowOptions = WindowOptions(
       minimumSize: Size(410, 300),
       title: applicationName,
+      backgroundColor: Colors.transparent,
     );
 
     // Use it only after calling `hiddenWindowAtLaunch`

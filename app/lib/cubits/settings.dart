@@ -372,6 +372,7 @@ class ButterflySettings with _$ButterflySettings {
     @Default(false) bool spreadPages,
     @Default(false) bool highContrast,
     @Default(false) bool gridView,
+    @Default(true) bool autosave,
   }) = _ButterflySettings;
 
   factory ButterflySettings.fromPrefs(
@@ -450,6 +451,7 @@ class ButterflySettings with _$ButterflySettings {
       spreadPages: prefs.getBool('spread_pages') ?? false,
       highContrast: prefs.getBool('high_contrast') ?? false,
       gridView: prefs.getBool('grid_view') ?? false,
+      autosave: prefs.getBool('autosave') ?? true,
     );
   }
 
@@ -510,6 +512,7 @@ class ButterflySettings with _$ButterflySettings {
     await prefs.setBool('spread_pages', spreadPages);
     await prefs.setBool('high_contrast', highContrast);
     await prefs.setBool('grid_view', gridView);
+    await prefs.setBool('autosave', autosave);
   }
 
   ExternalStorage? getRemote(String? identifier) {
@@ -999,4 +1002,11 @@ class SettingsCubit extends Cubit<ButterflySettings> {
   Future<void> resetGridView() => changeGridView(false);
 
   Future<void> toggleGridView() => changeGridView(!state.gridView);
+
+  Future<void> changeAutosave(bool value) {
+    emit(state.copyWith(autosave: value));
+    return save();
+  }
+
+  Future<void> resetAutosave() => changeAutosave(true);
 }

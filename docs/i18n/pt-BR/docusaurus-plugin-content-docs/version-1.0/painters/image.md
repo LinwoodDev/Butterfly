@@ -1,6 +1,6 @@
 ---
 title: "Pintor de imagem"
-sidebar_label: "Imagem:"
+sidebar_label: "Imagem"
 sidebar_position: 3
 ---
 

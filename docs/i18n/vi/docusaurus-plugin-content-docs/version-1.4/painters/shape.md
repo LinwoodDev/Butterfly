@@ -12,7 +12,7 @@ Use this painter to draw shapes on the paper. You can draw rectangles, circles, 
 |       Property |  Default  | Mô tả                                                                                                                                            |
 | --------------:|:---------:|:------------------------------------------------------------------------------------------------------------------------------------------------ |
 |        Màu sắc |   Black   | The color that will be drawn                                                                                                                     |
-|   Stroke width |     5     | The width of the stroke                                                                                                                          |
+|     Độ dày nét |     5     | The width of the stroke                                                                                                                          |
 | Zoom dependent |   false   | This will change the stroke width based on the zoom level.                                                                                       |
 |          Shape | rectangle | The shape that will be drawn                                                                                                                     |
 |     Chiều rộng |     0     | The fixed width of the area. If set to 0, the width will be calculated automatically.                                                            |

@@ -583,5 +583,6 @@
   "continueAnyway": "Fortsæt alligevel",
   "zoomControl": "Zoom kontrol",
   "highContrast": "Høj kontrast",
-  "shouldANumber": "Denne værdi skal være gyldigt nummer"
+  "shouldANumber": "Denne værdi skal være gyldigt nummer",
+  "autosave": "Autosave"
 }

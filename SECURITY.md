@@ -4,8 +4,8 @@
 
 | Version | Supported          |                                                                                                                                         |
 | ------- | ------------------ | --------------------------------------------------------------------------------------------------------------------------------------- |
-| 2.0.2-dev | :warning:          | [Docs](https://docs.butterfly.linwood.dev/docs/2.1/intro) [Release](https://github.com/LinwoodDev/butterfly/releases/tag/v2.0.2-rc.0) |
-| 2.0.1   | :white_check_mark: | [Docs](https://docs.butterfly.linwood.dev/docs/2.0/intro) [Release](https://github.com/LinwoodDev/butterfly/releases/tag/v2.0.1)        |
+| 2.0.3-dev | :warning:          | [Docs](https://docs.butterfly.linwood.dev/docs/2.1/intro) [Release](https://github.com/LinwoodDev/butterfly/releases/tag/v2.0.3-rc.1) |
+| 2.0.2   | :white_check_mark: | [Docs](https://docs.butterfly.linwood.dev/docs/2.0/intro) [Release](https://github.com/LinwoodDev/butterfly/releases/tag/v2.0.2)        |
 | 1.6.1   | :x: | [Docs](https://docs.butterfly.linwood.dev/docs/1.6/intro) [Release](https://github.com/LinwoodDev/butterfly/releases/tag/v1.6.1)        |
 | 1.5.1   | :x:                | [Docs](https://docs.butterfly.linwood.dev/docs/1.5/intro) [Release](https://github.com/LinwoodDev/butterfly/releases/tag/v1.5.1)        |
 | 1.4.4   | :x:                | [Docs](https://docs.butterfly.linwood.dev/docs/1.4/intro) [Release](https://github.com/LinwoodDev/butterfly/releases/tag/v1.4.4)        |
@@ -19,6 +19,11 @@ Older versions can be found [here](https://docs.butterfly.linwood.dev/pre-1-0).
 ## Reporting a Vulnerability
 
 Please use [the bug tracker](https://github.com/LinwoodDev/butterfly/issues) or use [bug@linwood.dev](mailto:bug@linwood.dev) if there is a critical bug.
+
+## Version scheme
+
+The version scheme is based on [Semantic Versioning](https://semver.org/spec/v2.0.0.html). All stable versions will be released in stable branch while all alpha, beta and release candidates will be released in the nightly branch.
+There will be alphas, betas and release candidates on every major release, betas and release candidates on every minor release and release candidates on every patch release.
 
 ## Branches
 

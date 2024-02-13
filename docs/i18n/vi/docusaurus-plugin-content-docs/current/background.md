@@ -1,7 +1,7 @@
 ---
-sidebar_label: "Background"
+sidebar_label: "Nền"
 sidebar_position: 2
-title: Background
+title: Nền
 ---
 
 There are two different types of backgrounds.
@@ -18,7 +18,7 @@ Additionally, you can customize the color of the background.
 
 The count and spacing property allows you to create music paper. For music paper, set count to 5 and spacing to more than the width.
 
-## Image
+## Hình ảnh
 
 The image background type allows you to use an image as background.
 

@@ -583,5 +583,6 @@
   "continueAnyway": "Přesto pokračovat",
   "zoomControl": "Ovládání přiblížení",
   "highContrast": "Vysoký kontrast",
-  "shouldANumber": "Tato hodnota by měla být platné číslo"
+  "shouldANumber": "Tato hodnota by měla být platné číslo",
+  "autosave": "Autosave"
 }

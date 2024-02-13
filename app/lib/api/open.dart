@@ -35,6 +35,7 @@ Future<(Uint8List?, String?)> importFile(BuildContext context,
         .map((e) => fs.XTypeGroup(
               label: e.getLocalizedName(context),
               extensions: e.getFileExtensions(),
+              uniformTypeIdentifiers: e.getUniformTypeIdentifiers(),
               mimeTypes: [e.getMime()],
             ))
         .toList(),

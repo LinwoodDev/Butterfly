@@ -29,7 +29,7 @@ Ik gebruik de input van het flutter framework. Dit is het probleem om het te vol
 
 > [#244](https://github.com/LinwoodDev/Butterfly/issues/244)
 
-Je hebt een appel ontwikkelaarsaccount nodig om apps op de iPhone te krijgen. Voor android hoef je je niet te registreren en als je wilt dat je maar 15$ eenmaal hoeft te betalen. Met appel moet je 99$ per jaar betalen. Ik kan me dit niet veroorloven. In europie ios moet het mogelijk zijn om in de toekomst apps te sideloderen. Misschien zal dit iets veranderen.
+Vlinder is beschikbaar op iOS als voorbeeld. Klik [hier](https://docs.butterfly.linwood.dev/downloads/ios) om het te downloaden. Zie [hier](https://github.com/LinwoodDev/Butterfly/issues/244#issuecomment-1935460878) waarom het niet beschikbaar is in de App Store.
 
 ## Startscherm
 

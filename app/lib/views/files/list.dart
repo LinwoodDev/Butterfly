@@ -370,7 +370,7 @@ class FileEntityListTile extends StatelessWidget {
                     onPressed: () {
                       try {
                         final data = (entity as AppDocumentFile).data;
-                        saveData(context, data);
+                        exportData(context, data);
                       } catch (e) {
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(

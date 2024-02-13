@@ -2,6 +2,31 @@
 
 <!--ENTER CHANGELOG HERE-->
 
+## 2.0.3-rc.1 (2024-02-12)
+
+* Add initial ios support (currently nightly only) ([#244](https://github.com/LinwoodDev/Butterfly/issues/244))
+* Add option to disable autosave ([#591](https://github.com/LinwoodDev/Butterfly/issues/591))
+* Convert aspect ratio menu to material 3
+* Invert current inverted position to be normal
+* Fix file sharing on android ([#585](https://github.com/LinwoodDev/Butterfly/issues/585))
+* Fix laser movement is not locked
+* Fix color of icon dropdown in property view
+* Disable camera on android sdk version < 21
+
+Read more here: https://linwood.dev/butterfly/2.0.3-rc.1
+
+## 2.0.3-rc.0 (2024-02-05)
+
+* Fix export pdf print instead of export as file
+* Fix scroll in pdf export dialog
+* Fix pdf.js on web
+* Fix exporting on web
+* Fix notch area not being used in full screen ([#368](https://github.com/LinwoodDev/Butterfly/issues/368))
+* Fix performance of the eraser tool ([#461](https://github.com/LinwoodDev/Butterfly/issues/461))
+* Fix performance of the path eraser tool (partially [#528](https://github.com/LinwoodDev/Butterfly/issues/528))
+
+Read more here: https://linwood.dev/butterfly/2.0.3-rc.0
+
 ## 2.0.2 (2024-01-29)
 
 Nothing changed from the nightly build to the stable release.

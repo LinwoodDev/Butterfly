@@ -8,8 +8,8 @@ Future<void> main(List<String> args) async {
 }
 
 Future<void> updatePdfJs() async {
-  final pdfFile = File('app/web/pdf.js/pdf.min.js');
-  final pdfWorkerFile = File('app/web/pdf.js/pdf.worker.min.js');
+  final pdfFile = File('app/web/pdf.js/pdf.min.mjs');
+  final pdfWorkerFile = File('app/web/pdf.js/pdf.worker.min.mjs');
   // Find latest version
   final fetchedRelease = json.decode((await http.get(Uri.parse(
           'https://api.github.com/repos/mozilla/pdf.js/releases/latest')))
@@ -18,9 +18,9 @@ Future<void> updatePdfJs() async {
   final cdnBaseUrl =
       'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/$latestVersion';
   // From cdnjs
-  final fetchedPdf = await http.get(Uri.parse('$cdnBaseUrl/pdf.min.js'));
+  final fetchedPdf = await http.get(Uri.parse('$cdnBaseUrl/pdf.min.mjs'));
   final fetchedPdfWorker =
-      await http.get(Uri.parse('$cdnBaseUrl/pdf.worker.js'));
+      await http.get(Uri.parse('$cdnBaseUrl/pdf.worker.mjs'));
   // Write to files
   await pdfFile.writeAsString(fetchedPdf.body);
   await pdfWorkerFile.writeAsString(fetchedPdfWorker.body);

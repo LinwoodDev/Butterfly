@@ -25,7 +25,6 @@ Existem alguns atalhos que você pode usar no editor. Alguns deles estão escrit
 * `Ctrl` + `Z`: Desfazer
 * `Ctrl` + `Y`: Refazer
 * `Ctrl` + `Shift` + `P`: Open waypoints dialog
-* `Ctrl` + `P`: Abrir caixa de diálogo da paleta de cores
 * `Ctrl` + `B`: Abrir diálogo em segundo plano
 * `Ctrl` + `Shift` + `A`: Abrir diálogo de áreas
 * `Ctrl` + `S`: Salvar

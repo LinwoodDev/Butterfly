@@ -12,7 +12,7 @@ part of 'settings.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 ExternalStorage _$ExternalStorageFromJson(Map<String, dynamic> json) {
   switch (json['type']) {
@@ -1415,6 +1415,7 @@ mixin _$ButterflySettings {
   bool get spreadPages => throw _privateConstructorUsedError;
   bool get highContrast => throw _privateConstructorUsedError;
   bool get gridView => throw _privateConstructorUsedError;
+  bool get autosave => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $ButterflySettingsCopyWith<ButterflySettings> get copyWith =>
@@ -1466,7 +1467,8 @@ abstract class $ButterflySettingsCopyWith<$Res> {
       List<String> flags,
       bool spreadPages,
       bool highContrast,
-      bool gridView});
+      bool gridView,
+      bool autosave});
 
   $InputConfigurationCopyWith<$Res> get inputConfiguration;
 }
@@ -1523,6 +1525,7 @@ class _$ButterflySettingsCopyWithImpl<$Res, $Val extends ButterflySettings>
     Object? spreadPages = null,
     Object? highContrast = null,
     Object? gridView = null,
+    Object? autosave = null,
   }) {
     return _then(_value.copyWith(
       theme: null == theme
@@ -1681,6 +1684,10 @@ class _$ButterflySettingsCopyWithImpl<$Res, $Val extends ButterflySettings>
           ? _value.gridView
           : gridView // ignore: cast_nullable_to_non_nullable
               as bool,
+      autosave: null == autosave
+          ? _value.autosave
+          : autosave // ignore: cast_nullable_to_non_nullable
+              as bool,
     ) as $Val);
   }
 
@@ -1741,7 +1748,8 @@ abstract class _$$ButterflySettingsImplCopyWith<$Res>
       List<String> flags,
       bool spreadPages,
       bool highContrast,
-      bool gridView});
+      bool gridView,
+      bool autosave});
 
   @override
   $InputConfigurationCopyWith<$Res> get inputConfiguration;
@@ -1797,6 +1805,7 @@ class __$$ButterflySettingsImplCopyWithImpl<$Res>
     Object? spreadPages = null,
     Object? highContrast = null,
     Object? gridView = null,
+    Object? autosave = null,
   }) {
     return _then(_$ButterflySettingsImpl(
       theme: null == theme
@@ -1955,6 +1964,10 @@ class __$$ButterflySettingsImplCopyWithImpl<$Res>
           ? _value.gridView
           : gridView // ignore: cast_nullable_to_non_nullable
               as bool,
+      autosave: null == autosave
+          ? _value.autosave
+          : autosave // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -2002,7 +2015,8 @@ class _$ButterflySettingsImpl extends _ButterflySettings
       final List<String> flags = const [],
       this.spreadPages = false,
       this.highContrast = false,
-      this.gridView = false})
+      this.gridView = false,
+      this.autosave = true})
       : _history = history,
         _connections = connections,
         _starred = starred,
@@ -2155,10 +2169,13 @@ class _$ButterflySettingsImpl extends _ButterflySettings
   @override
   @JsonKey()
   final bool gridView;
+  @override
+  @JsonKey()
+  final bool autosave;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'ButterflySettings(theme: $theme, density: $density, localeTag: $localeTag, documentPath: $documentPath, touchSensitivity: $touchSensitivity, mouseSensitivity: $mouseSensitivity, penSensitivity: $penSensitivity, selectSensitivity: $selectSensitivity, penOnlyInput: $penOnlyInput, inputGestures: $inputGestures, design: $design, bannerVisibility: $bannerVisibility, history: $history, navigatorEnabled: $navigatorEnabled, zoomEnabled: $zoomEnabled, lastVersion: $lastVersion, connections: $connections, defaultRemote: $defaultRemote, nativeTitleBar: $nativeTitleBar, startInFullScreen: $startInFullScreen, navigationRail: $navigationRail, fullScreen: $fullScreen, syncMode: $syncMode, inputConfiguration: $inputConfiguration, fallbackPack: $fallbackPack, starred: $starred, defaultTemplate: $defaultTemplate, navigatorPage: $navigatorPage, toolbarPosition: $toolbarPosition, sortBy: $sortBy, sortOrder: $sortOrder, imageScale: $imageScale, pdfQuality: $pdfQuality, platformTheme: $platformTheme, recentColors: $recentColors, flags: $flags, spreadPages: $spreadPages, highContrast: $highContrast, gridView: $gridView)';
+    return 'ButterflySettings(theme: $theme, density: $density, localeTag: $localeTag, documentPath: $documentPath, touchSensitivity: $touchSensitivity, mouseSensitivity: $mouseSensitivity, penSensitivity: $penSensitivity, selectSensitivity: $selectSensitivity, penOnlyInput: $penOnlyInput, inputGestures: $inputGestures, design: $design, bannerVisibility: $bannerVisibility, history: $history, navigatorEnabled: $navigatorEnabled, zoomEnabled: $zoomEnabled, lastVersion: $lastVersion, connections: $connections, defaultRemote: $defaultRemote, nativeTitleBar: $nativeTitleBar, startInFullScreen: $startInFullScreen, navigationRail: $navigationRail, fullScreen: $fullScreen, syncMode: $syncMode, inputConfiguration: $inputConfiguration, fallbackPack: $fallbackPack, starred: $starred, defaultTemplate: $defaultTemplate, navigatorPage: $navigatorPage, toolbarPosition: $toolbarPosition, sortBy: $sortBy, sortOrder: $sortOrder, imageScale: $imageScale, pdfQuality: $pdfQuality, platformTheme: $platformTheme, recentColors: $recentColors, flags: $flags, spreadPages: $spreadPages, highContrast: $highContrast, gridView: $gridView, autosave: $autosave)';
   }
 
   @override
@@ -2204,7 +2221,8 @@ class _$ButterflySettingsImpl extends _ButterflySettings
       ..add(DiagnosticsProperty('flags', flags))
       ..add(DiagnosticsProperty('spreadPages', spreadPages))
       ..add(DiagnosticsProperty('highContrast', highContrast))
-      ..add(DiagnosticsProperty('gridView', gridView));
+      ..add(DiagnosticsProperty('gridView', gridView))
+      ..add(DiagnosticsProperty('autosave', autosave));
   }
 
   @override
@@ -2282,7 +2300,9 @@ class _$ButterflySettingsImpl extends _ButterflySettings
             (identical(other.highContrast, highContrast) ||
                 other.highContrast == highContrast) &&
             (identical(other.gridView, gridView) ||
-                other.gridView == gridView));
+                other.gridView == gridView) &&
+            (identical(other.autosave, autosave) ||
+                other.autosave == autosave));
   }
 
   @override
@@ -2326,7 +2346,8 @@ class _$ButterflySettingsImpl extends _ButterflySettings
         const DeepCollectionEquality().hash(_flags),
         spreadPages,
         highContrast,
-        gridView
+        gridView,
+        autosave
       ]);
 
   @JsonKey(ignore: true)
@@ -2377,7 +2398,8 @@ abstract class _ButterflySettings extends ButterflySettings {
       final List<String> flags,
       final bool spreadPages,
       final bool highContrast,
-      final bool gridView}) = _$ButterflySettingsImpl;
+      final bool gridView,
+      final bool autosave}) = _$ButterflySettingsImpl;
   const _ButterflySettings._() : super._();
 
   @override
@@ -2458,6 +2480,8 @@ abstract class _ButterflySettings extends ButterflySettings {
   bool get highContrast;
   @override
   bool get gridView;
+  @override
+  bool get autosave;
   @override
   @JsonKey(ignore: true)
   _$$ButterflySettingsImplCopyWith<_$ButterflySettingsImpl> get copyWith =>

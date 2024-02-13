@@ -25,7 +25,6 @@ Hay algunos atajos que puedes usar en el editor. Algunos de ellos se escriben de
 * `Ctrl` + `Z`: Deshacer
 * `Ctrl` + `Y`: Rehacer
 * `Ctrl` + `Shift` + `P`: Open waypoints dialog
-* `Ctrl` + `P`: Abrir diálogo de paleta de colores
 * `Ctrl` + `B`: Abrir diálogo de fondo
 * `Ctrl` + `Shift` + `A`: Diálogo de áreas abiertas
 * `Ctrl` + `S`: Guardar

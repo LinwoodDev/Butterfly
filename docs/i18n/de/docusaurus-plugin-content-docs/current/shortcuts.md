@@ -25,7 +25,6 @@ Es gibt ein paar Verknüpfungen, die Sie im Editor verwenden können. Einige dav
 * `Strg` + `Z`: Rückgängig
 * `Strg` + `Y`: Erneut
 * `Ctrl` + `Shift` + `P`: Open waypoints dialog
-* `Strg` + `P`: Farbpalette öffnen
 * `Strg` + `B`: Hintergrunddialog öffnen
 * `Strg` + `Umschalt` + `A`: Öffne Bereiche Dialog
 * `Strg` + `S`: Speichern

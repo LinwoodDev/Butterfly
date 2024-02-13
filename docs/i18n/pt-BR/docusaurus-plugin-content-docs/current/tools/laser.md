@@ -9,7 +9,7 @@ Com esta ferramenta você pode extrair esse papel temporariamente. Depois de um 
 
 ## Configuração
 
-|            Propriedade | Padrão | Descrição:                                                                  |
+|            Propriedade | Padrão | Descrição                                                                   |
 | ----------------------:|:------:|:--------------------------------------------------------------------------- |
 |                    Cor | Preto  | A cor que será desenhada                                                    |
 |     Espessura do traço |   5    | A largura do traço                                                          |

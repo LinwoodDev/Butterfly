@@ -420,31 +420,29 @@ class _ProjectPageState extends State<ProjectPage> {
                                         ChangeToolIntent(context, k))),
                                   },
                                 },
-                                child: SafeArea(
-                                  child: ClipRect(
-                                    child: Focus(
-                                      autofocus: true,
-                                      skipTraversal: true,
-                                      onFocusChange: (_) => false,
-                                      child: Scaffold(
-                                          appBar:
-                                              state is DocumentPresentationState ||
-                                                      settings.fullScreen ||
-                                                      currentIndex.hideUi !=
-                                                          HideState.visible
-                                                  ? null
-                                                  : PadAppBar(
-                                                      viewportKey: _viewportKey,
-                                                    ),
-                                          drawer: state is DocumentLoadSuccess
-                                              ? const DocumentNavigator(
-                                                  asDrawer: true)
-                                              : null,
-                                          body: Actions(
-                                            actions: _actions,
-                                            child: const _MainBody(),
-                                          )),
-                                    ),
+                                child: ClipRect(
+                                  child: Focus(
+                                    autofocus: true,
+                                    skipTraversal: true,
+                                    onFocusChange: (_) => false,
+                                    child: Scaffold(
+                                        appBar:
+                                            state is DocumentPresentationState ||
+                                                    settings.fullScreen ||
+                                                    currentIndex.hideUi !=
+                                                        HideState.visible
+                                                ? null
+                                                : PadAppBar(
+                                                    viewportKey: _viewportKey,
+                                                  ),
+                                        drawer: state is DocumentLoadSuccess
+                                            ? const DocumentNavigator(
+                                                asDrawer: true)
+                                            : null,
+                                        body: Actions(
+                                          actions: _actions,
+                                          child: const _MainBody(),
+                                        )),
                                   ),
                                 ),
                               ),

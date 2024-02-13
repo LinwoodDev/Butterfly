@@ -1,6 +1,8 @@
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:material_leap/material_leap.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 extension PatternTemplateHelper on PatternTemplate {
   String getLocalizedName(BuildContext context) => switch (this) {
@@ -21,5 +23,11 @@ extension AspectRatioPresetVisualizer on AspectRatioPreset {
         AspectRatioPreset.portrait => AppLocalizations.of(context).pagePortrait,
         AspectRatioPreset.landscape =>
           AppLocalizations.of(context).pageLandscape,
+      };
+
+  IconGetter get icon => switch (this) {
+        AspectRatioPreset.square => PhosphorIcons.square,
+        AspectRatioPreset.portrait => PhosphorIcons.userFocus,
+        AspectRatioPreset.landscape => PhosphorIcons.image,
       };
 }

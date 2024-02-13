@@ -9,7 +9,7 @@ Com esta ferramenta pode-se usar esse papel.
 
 ## Configuração
 
-|            Propriedade | Padrão | Descrição:                                                                  |
+|            Propriedade | Padrão | Descrição                                                                   |
 | ----------------------:|:------:|:--------------------------------------------------------------------------- |
 |                    Cor | Preto  | A cor que será desenhada                                                    |
 |     Espessura do traço |   5    | A largura do traço                                                          |

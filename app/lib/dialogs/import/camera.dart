@@ -44,6 +44,7 @@ class _CameraDialogState extends State<CameraDialog>
     _controller = CameraController(
       description,
       ResolutionPreset.high,
+      enableAudio: false,
     );
 
     // If the controller is updated then update the UI.
@@ -92,9 +93,6 @@ class _CameraDialogState extends State<CameraDialog>
         ),
         tooltip: camera.name,
         onPressed: () async {
-          if (_controller != null) {
-            await _controller!.dispose();
-          }
           _controller?.dispose();
           _controller = CameraController(camera, ResolutionPreset.high);
           await _controller!.initialize();

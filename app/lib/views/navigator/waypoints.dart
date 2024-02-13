@@ -53,8 +53,8 @@ class WaypointsView extends StatelessWidget {
                           onSaved: (value) => context
                               .read<DocumentBloc>()
                               .add(WaypointRenamed(index, value)),
-                          selected: -transform.position.toPoint() ==
-                              waypoint.position,
+                          selected:
+                              transform.position.toPoint() == waypoint.position,
                           actions: [
                             MenuItemButton(
                               leadingIcon:
@@ -148,7 +148,7 @@ class _WaypointCreateDialogState extends State<WaypointCreateDialog> {
 
               bloc.add(WaypointCreated(Waypoint(
                   _nameController.text,
-                  -transform.position.toPoint(),
+                  transform.position.toPoint(),
                   _saveScale ? transform.size : null)));
               Navigator.of(context).pop();
             },

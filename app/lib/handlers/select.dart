@@ -595,7 +595,7 @@ class SelectHandler extends Handler<SelectTool> {
     }
     context
         .getCurrentIndexCubit()
-        .move(details.focalPointDelta / context.getCameraTransform().size);
+        .move(-details.focalPointDelta / context.getCameraTransform().size);
   }
 
   @override

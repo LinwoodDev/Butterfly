@@ -25,7 +25,6 @@ sidebar_position: 2
 * `Ctrl` + `Z`: 元に戻す
 * `Ctrl` + `Y`: 再実行
 * `Ctrl` + `Shift` + `P`: Open waypoints dialog
-* `Ctrl` + `P`: カラーパレットダイアログを開く
 * `Ctrl` + `B`: 背景ダイアログを開く
 * `Ctrl` + `Shift` + `A`: 領域ダイアログを開く
 * `Ctrl` + `S`: 保存

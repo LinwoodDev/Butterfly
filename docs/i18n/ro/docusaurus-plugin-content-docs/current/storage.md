@@ -42,3 +42,7 @@ Există câteva limitări:
 * Poți sincroniza doar nivelul de sus al unui director. De exemplu, dacă ai un director `a/b/test.bfly`, acest fișier nu va fi sincronizat.
 * Nu puteți șterge un fișier sau un dosar în timp ce sunteți offline.
 * Nu puteți adăuga, edita sau șterge șabloane în timp ce sunteți offline.
+
+## Alte metode de depozitare
+
+Dacă ești pe un dispozitiv nativ, poți sincroniza și directorul aplicației cu platforma ta preferată. Google drive are [o aplicație oficială](https://www.google.com/drive/download/) pe ferestre și există lucruri neoficiale în magazinul de joacă. În linux puteţi folosi şi sistemul nativ de stocare la distanţă şi să schimbaţi folderul de date la acesta sau să adăugaţi o nouă stocare externă dacă faceţi clic pe butonul de adăugare conexiune.

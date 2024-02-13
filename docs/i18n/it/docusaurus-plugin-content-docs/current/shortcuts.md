@@ -25,7 +25,6 @@ Ci sono alcune scorciatoie che puoi usare nell'editor. Alcuni di loro sono scrit
 * `Ctrl` + `Z`: Annulla
 * `Ctrl` + `Y`: Ripeti
 * `Ctrl` + `Shift` + `P`: Open waypoints dialog
-* `Ctrl` + `P`: Apri la finestra della tavolozza colori
 * `Ctrl` + `B`: Apri finestra di dialogo di sfondo
 * `Ctrl` + `Maiusc` + `A`: Apri aree finestra
 * `Ctrl` + `S`: Salva

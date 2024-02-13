@@ -29,7 +29,7 @@ Používám vstup poskytnutý rámcem blesku. Toto je úkol ke sledování jako:
 
 > [#244](https://github.com/LinwoodDev/Butterfly/issues/244)
 
-Potřebujete jablko vývojářský účet, abyste mohli získat aplikace na iPhone. Pro android se nemusíte registrovat a pokud chcete, stačí zaplatit pouze 15$ jednou. Na jablko musíte platit 99$ ročně. To si nemohu dovolit. V europe ios musí být v budoucnu schopen vytlačit aplikace na vedlejší kolej. Možná to něco změní.
+Butterfly je k dispozici na iOS jako náhled. Klikněte na [zde](https://docs.butterfly.linwood.dev/downloads/ios) pro jeho stažení. Podívejte se [zde](https://github.com/LinwoodDev/Butterfly/issues/244#issuecomment-1935460878) , proč není k dispozici v App Store.
 
 ## Stolní počítače
 

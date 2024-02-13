@@ -583,5 +583,6 @@
   "continueAnyway": "Jatka joka tapauksessa",
   "zoomControl": "Zoomauksen hallinta",
   "highContrast": "Korkea kontrasti",
-  "shouldANumber": "Tämän arvon on oltava kelvollinen numero"
+  "shouldANumber": "Tämän arvon on oltava kelvollinen numero",
+  "autosave": "Autosave"
 }

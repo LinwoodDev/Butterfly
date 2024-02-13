@@ -4,7 +4,7 @@ title: "Papel quadriculado"
 
 | Propriedade | Valor |
 | -----------:|:----- |
-|       Width | 15    |
+|     Largura | 15    |
 |      Altura | 15    |
 |  Contagem X | 1     |
 |  Contagem Y | 1     |

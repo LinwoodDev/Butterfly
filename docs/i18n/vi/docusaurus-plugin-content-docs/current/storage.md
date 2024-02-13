@@ -17,7 +17,7 @@ The application data is stored in your browser. It is stored in a local storage.
 
 As default the application saves the data in your documents folder in a subfolder called "Linwood/Butterfly". This folder is created when you save the first data. This folder can be changed in the settings.
 
-## Remote storage {#remote}
+## Lưu trữ từ xa {#remote}
 
 :::note
 
@@ -42,3 +42,7 @@ There are a few limitations:
 * You can only sync the top level of a directory. For example if you have a directory `a/b/test.bfly`, this file will not be synced.
 * You cannot delete a file or folder while you are offline.
 * You cannot add, edit or delete templates while you are offline.
+
+## Other storage methods
+
+If you are on a native device you can also sync the application directory with your favorite platform. Google drive has [an official app](https://www.google.com/drive/download/) on windows and there are unofficial onces on the play store. On linux you can also use the native remote storage system and change your data directory to this or add a new external storage if you click on the add connection button.

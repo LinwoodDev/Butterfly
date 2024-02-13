@@ -25,7 +25,6 @@ On olemassa muutamia pikakuvakkeita, joita voit käyttää editorissa. Osa niist
 * `Ctrl` + `Z`: Kumoa
 * `Ctrl` + `Y`: Redo
 * `Ctrl` + `Shift` + `P`: Open waypoints dialog
-* `Ctrl` + `P`: Avaa väripaletti valintaikkuna
 * `Ctrl` + `B`: Avaa taustaikkuna
 * `Ctrl` + `Vaihto` + `A`: Avaa alueet -valintaikkuna
 * `Ctrl` + `S`: Tallenna

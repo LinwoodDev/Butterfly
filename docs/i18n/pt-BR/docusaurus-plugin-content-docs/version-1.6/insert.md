@@ -1,5 +1,5 @@
 ---
-title: "Insert"
+title: "Inserir"
 id: "insert"
 slug: "/insert"
 sidebar_position: 3

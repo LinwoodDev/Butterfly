@@ -32,19 +32,43 @@ class BehaviorsSettingsPage extends StatelessWidget {
                   child: Column(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
+                        SwitchListTile(
+                          value: state.autosave,
+                          title: Text(AppLocalizations.of(context).autosave),
+                          secondary:
+                              const PhosphorIcon(PhosphorIconsLight.floppyDisk),
+                          onChanged: (value) => context
+                              .read<SettingsCubit>()
+                              .changeAutosave(value),
+                        ),
+                      ]),
+                ),
+              ),
+              Card(
+                margin: const EdgeInsets.all(8),
+                child: Padding(
+                  padding: const EdgeInsets.all(32),
+                  child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
                         Text(AppLocalizations.of(context).import,
                             style: Theme.of(context).textTheme.headlineSmall),
                         const SizedBox(height: 16),
                         SwitchListTile(
                           value: state.spreadPages,
+                          secondary: const PhosphorIcon(
+                              PhosphorIconsLight.arrowsOutSimple),
                           title:
                               Text(AppLocalizations.of(context).spreadToPages),
                           onChanged: (value) => context
                               .read<SettingsCubit>()
                               .changeSpreadPages(value),
                         ),
+                        const SizedBox(height: 8),
                         ExactSlider(
                           header: Text(AppLocalizations.of(context).imageScale),
+                          leading: const PhosphorIcon(
+                              PhosphorIconsLight.frameCorners),
                           value: state.imageScale * 100,
                           min: 0,
                           max: 100,
@@ -55,6 +79,8 @@ class BehaviorsSettingsPage extends StatelessWidget {
                               .changeImageScale(value / 100),
                         ),
                         ExactSlider(
+                          leading: const PhosphorIcon(
+                              PhosphorIconsLight.flowerLotus),
                           header: Text(AppLocalizations.of(context).pdfQuality),
                           value: state.pdfQuality,
                           min: 0.5,

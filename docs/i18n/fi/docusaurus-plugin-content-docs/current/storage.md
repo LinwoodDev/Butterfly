@@ -19,7 +19,7 @@ Oletuksena sovellus tallentaa asiakirjojesi kansiossa olevat tiedot "Linwood/But
 
 ## Etätallennus {#remote}
 
-:::note
+::note
 
 Tämä ominaisuus ei ole käytettävissä verkossa.
 
@@ -42,3 +42,7 @@ On olemassa muutamia rajoituksia:
 * Voit synkronoida vain hakemiston ylätason arvon. Jos sinulla on esimerkiksi kansio `a/b/test.bfly`, tätä tiedostoa ei synkronoida.
 * Et voi poistaa tiedostoa tai kansiota offline-tilassa.
 * Et voi lisätä, muokata tai poistaa malleja ollessasi offline-tilassa.
+
+## Muut varastointimenetelmät
+
+Jos olet kotoperäisellä laitteella, voit myös synkronoida sovelluksen hakemiston suosikki alustan. Google drive on [virallinen sovellus](https://www.google.com/drive/download/) ikkunoissa ja on epävirallinen kerrat Play-kaupassa. Linuxissa voit myös käyttää natiivia etätallennusjärjestelmää ja vaihtaa datahakemiston tähän tai lisätä uuden ulkoisen tallennustilan, jos klikkaat yhteys-painiketta.

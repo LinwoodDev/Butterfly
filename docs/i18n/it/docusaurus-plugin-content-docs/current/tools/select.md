@@ -10,4 +10,4 @@ Con questo strumento è possibile selezionare gli elementi.
 
 | Proprietà | Predefinito | Descrizione                                           |
 | ---------:|:-----------:|:----------------------------------------------------- |
-|  modalità | rettangolo  | Modalità di selezione. Valido sono rettangolo e lasso |
+|  modalità | rettangolo  | Modalità di selezione. Valido sono rettangolo e lazzo |
