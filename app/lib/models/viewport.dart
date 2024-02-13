@@ -48,8 +48,7 @@ class CameraViewport extends Equatable {
 
   get center => null;
 
-  ui.Offset toOffset([bool inverted = false]) =>
-      ui.Offset(x, y) * (inverted ? -1 : 1);
+  ui.Offset toOffset() => ui.Offset(x, y);
 
   Point<double> toPoint() => Point(x, y);
 
@@ -57,7 +56,7 @@ class CameraViewport extends Equatable {
       (width?.toDouble() ?? 0) / (scaled ? scale : 1),
       (height?.toDouble() ?? 0) / (scaled ? scale : 1));
 
-  ui.Rect toRect([bool inverted = false]) => toOffset(inverted) & toSize(true);
+  ui.Rect toRect() => toOffset() & toSize(true);
 
   Area toArea() => Area(
         name: '',

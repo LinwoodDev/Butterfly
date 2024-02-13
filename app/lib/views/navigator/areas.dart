@@ -22,7 +22,7 @@ class AreasView extends StatelessWidget {
             previous.cameraViewport != current.cameraViewport,
         builder: (context, currentIndex) {
           final viewport = currentIndex.cameraViewport;
-          final viewportRect = viewport.toRect(true);
+          final viewportRect = viewport.toRect();
           return BlocBuilder<DocumentBloc, DocumentState>(
               buildWhen: (previous, current) =>
                   previous.page?.areas != current.page?.areas ||
@@ -48,14 +48,15 @@ class AreasView extends StatelessWidget {
                     ),
                     if (state.currentArea != null) ...[
                       ListTile(
-                          leading:
-                              const PhosphorIcon(PhosphorIconsLight.signOut),
-                          onTap: () {
-                            context
-                                .read<DocumentBloc>()
-                                .add(const CurrentAreaChanged(''));
-                          },
-                          title: Text(AppLocalizations.of(context).exitArea)),
+                        leading: const PhosphorIcon(PhosphorIconsLight.signOut),
+                        onTap: () {
+                          context
+                              .read<DocumentBloc>()
+                              .add(const CurrentAreaChanged(''));
+                        },
+                        title: Text(AppLocalizations.of(context).exitArea),
+                        subtitle: Text(state.currentAreaName),
+                      ),
                     ],
                     const Divider(),
                     Expanded(
