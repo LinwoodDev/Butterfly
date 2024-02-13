@@ -32,7 +32,6 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
     submitElements(bloc, elements.keys.toList());
     elements.clear();
     lastPosition.clear();
-    _timer?.cancel();
   }
 
   // Handle the pointer release event.
@@ -42,7 +41,6 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
         _getPressure(event), event.kind,
         refresh: false);
     submitElements(context.getDocumentBloc(), [event.pointer]);
-    _timer?.cancel();
   }
 
 // Flag to check if elements are being submitted.
@@ -100,22 +98,27 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
   }
 
 // This function updates the current line with the pointer's start and end position.
-  void updateLine(
-    int pointer,
-    EventContext context,
-  ) {
-    final transform = context.getCameraTransform();
-    final element = elements[pointer];
-    if (element != null) {
-      // Calculate
-      // Aggiorna il PenElement con le coordinate trasformate
-      elements[pointer] = element.copyWith(points: [
-        PathPoint.fromPoint(
-            transform.localToGlobal(startPosition[pointer]!).toPoint(), 0),
-        PathPoint.fromPoint(
-            transform.localToGlobal(lastPosition[pointer]!).toPoint(), 1)
-      ]);
+  void _tickShapeDetection(
+      int pointer, EventContext context, Offset localPosition) {
+    // Check if the last known position of the pointer has not changed since the timer started.
+    if (lastPosition[pointer] == localPosition) {
+      // If the position has not changed, get the PenElement associated with the pointer.
+      final element = elements[pointer];
+      // If the PenElement exists, update the line with the start and end position of the pointer.
+      if (element != null && data.straightLineEnabled == true) {
+        final transform = context.getCameraTransform();
+        elements[pointer] = element.copyWith(points: [
+          PathPoint.fromPoint(
+              transform.localToGlobal(startPosition[pointer]!).toPoint(), 0),
+          PathPoint.fromPoint(
+              transform.localToGlobal(lastPosition[pointer]!).toPoint(), 1)
+        ]);
+        // Add a small movement that allows the line to become straight
+        lastPosition[pointer] = localPosition + const Offset(0.01, 0.01);
+      }
     }
+    _timer?.cancel();
+    _timer = null;
   }
 
 // This function is called when the pointer is pressed down.
@@ -145,30 +148,18 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
   // This function is called when the pointer moves.
   @override
   void onPointerMove(PointerMoveEvent event, EventContext context) {
-    // Calls the addPoint function to add a point to the current brush stroke.
-    // The parameters passed are the build context, the pointer ID, the local position of the pointer,
-    // the pressure of the pointer (calculated by the _getPressure function), and the kind of pointer device.
+    // Call the addPoint function to add a point to the current brush stroke.
     addPoint(context.buildContext, event.pointer, event.localPosition,
         _getPressure(event), event.kind);
-    // Updates the last known position of the pointer.
+
+    // Update the last known position of the pointer.
     lastPosition[event.pointer] = event.localPosition;
-    // Starts a timer that fires after 500 milliseconds.
-    _timer?.cancel();
-    _timer = Timer(Duration(seconds: data.straightLineTime.round()), () {
-      // Checks if the last known position of the pointer has not changed since the timer started.
-      if (lastPosition[event.pointer] == event.localPosition) {
-        // If the position has not changed, it gets the PenElement associated with the pointer.
-        final element = elements[event.pointer];
-        // If the PenElement exists, it calls the updateLine function to update the line with the start and end position of the pointer.
-        if (element != null && data.straightLineEnabled == true) {
-          updateLine(event.pointer, context);
-          //Adds a little movement that allows the line to become straight
-          // !if this movement is too large it causes UI problems, it does not allow you to select objects
-          lastPosition[event.pointer] =
-              event.localPosition + const Offset(0.01, 0.01);
-        }
-      }
-    });
+
+    // Start a timer that fires after 500 milliseconds.
+
+    _timer = Timer(
+        Duration(milliseconds: (data.straightLineTime * 1000).round()),
+        () => _tickShapeDetection(event.pointer, context, event.localPosition));
   }
 
   @override

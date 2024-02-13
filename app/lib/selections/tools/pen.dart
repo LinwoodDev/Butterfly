@@ -24,7 +24,7 @@ class PenToolSelection extends ToolSelection<PenTool> {
       const SizedBox(height: 16),
       CheckboxListTile(
           value: selected.first.straightLineEnabled,
-          title: Text(AppLocalizations.of(context).straightLineEnabled),
+          title: Text(AppLocalizations.of(context).straightLine),
           onChanged: (value) => update(
               context,
               selected
@@ -37,7 +37,7 @@ class PenToolSelection extends ToolSelection<PenTool> {
         visible: selected.first.straightLineEnabled,
         maintainState: true,
         child: ExactSlider(
-            header: Text(AppLocalizations.of(context).straightLineEnabled),
+            header: Text(AppLocalizations.of(context).straightLine),
             value: selected.first.straightLineTime,
             min: 0,
             max: 1,

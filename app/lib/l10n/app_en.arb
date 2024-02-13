@@ -151,7 +151,7 @@
   "copy": "Copy",
   "back": "Back",
   "zoomDependent": "Zoom dependent",
-  "straightLineEnabled": "Straight Line",
+  "straightLine": "Straight Line",
   "defaultLayer": "Default layer",
   "layer": "Layer",
   "layers": "Layers",
