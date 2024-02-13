@@ -29,7 +29,7 @@ sidebar_label: "ЧАП"
 
 > [#244](https://github.com/LinwoodDev/Butterfly/issues/244)
 
-Butterfly is available on iOS as preview. Click [here](https://docs.butterfly.linwood.dev/downloads/ios) to download it. See [here](https://github.com/LinwoodDev/Butterfly/issues/244#issuecomment-1935460878) why it's not available on the App Store.
+Метелик доступний для iOS у якості попереднього перегляду. Click [here](https://docs.butterfly.linwood.dev/downloads/ios) to download it. See [here](https://github.com/LinwoodDev/Butterfly/issues/244#issuecomment-1935460878) why it's not available on the App Store.
 
 ## Стільниця
 

@@ -25,7 +25,7 @@ iOS 版本的 Butterfare 正在预览，可能无法正常工作。
   </ul>
 </div>
 
-阅读更多关于每晚版本的 Butterfell [here](/夜间)。
+阅读更多关于每晚版本的 Butterfell [here](/nightly)。
 
 ## 正在安装
 
