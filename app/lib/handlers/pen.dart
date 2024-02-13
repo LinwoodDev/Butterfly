@@ -9,7 +9,7 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
   // Map to store the last positions of each element.
   final Map<int, Offset> lastPosition = {};
   // Timer to track the time interval for updating the line.
-  Timer _timer = Timer(Duration.zero, () {});
+  Timer? _timer = Timer(Duration.zero, () {});
   Offset? localPos;
   PenHandler(super.data);
 
@@ -32,6 +32,7 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
     submitElements(bloc, elements.keys.toList());
     elements.clear();
     lastPosition.clear();
+    _timer!.cancel();
   }
 
   // Handle the pointer release event.
@@ -41,6 +42,7 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
         _getPressure(event), event.kind,
         refresh: false);
     submitElements(context.getDocumentBloc(), [event.pointer]);
+    _timer!.cancel();
   }
 
 // Flag to check if elements are being submitted.
@@ -151,6 +153,7 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
     // Updates the last known position of the pointer.
     lastPosition[event.pointer] = event.localPosition;
     // Starts a timer that fires after 500 milliseconds.
+    _timer!.cancel();
     _timer = Timer(Duration(seconds: data.straightLineTime.round()), () {
       // Checks if the last known position of the pointer has not changed since the timer started.
       if (lastPosition[event.pointer] == event.localPosition) {
