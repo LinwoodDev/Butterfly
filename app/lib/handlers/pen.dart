@@ -9,7 +9,7 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
   // Map to store the last positions of each element.
   final Map<int, Offset> lastPosition = {};
   // Timer to track the time interval for updating the line.
-  Timer? _timer = Timer(Duration.zero, () {});
+  Timer? _timer;
   Offset? localPos;
   PenHandler(super.data);
 
