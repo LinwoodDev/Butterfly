@@ -33,15 +33,27 @@ Ci sono alcune scorciatoie che puoi usare nell'editor. Alcuni di loro sono scrit
 * `Ctrl` + `+`: Zoom avanti
 * `Ctrl` + `-`: Zoom indietro
 
-## Stylus
+## Penna
 
-* `Primary button`: Change to hand tool
-* `Pulsante secondario`: Cambia in secondo strumento
+By default, the the pen is configured to function as the following:
+* `Pen`: configured as pen.
+* `First` (Primary button, if supported): Change to hand tool while pressed.
+* `Second` (Secondary button, if supported): Change to second tool (see [configure](#configure) section below)  while pressed.
+
+
 
 ## Configura {#configure}
 
-Personalizza i controlli dando ad ogni controllo un indice degli strumenti.
+You can customize the controls by giving every control a tool index. The tool indexing starts from the left of the toolbar, with `1` being the first index. See example below
 
-* Lasciare vuoto per disabilitare lo strumento accendere questo controllo.
-* Impostalo su `0` per abilitare lo spostamento con questo controllo.
-* Impostarlo su un numero di posizione per passare allo strumento con questo indice a partire dal primo a sinistra che inizia con `1`.
+![toolbar numbered](toolbar_numbered.png)
+
+Here, 1 refers to the lasso tool, 2, to the pan tool etc.
+
+The configure options you have are the following:
+
+* Empty - the tool is unchaged.
+* 0 - the tool will function as moving (i.e., hand) in this mod.
+* Positive number - The tool will follow the indexing as explain above. 
+
+
