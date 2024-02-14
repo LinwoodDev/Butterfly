@@ -33,15 +33,27 @@ sidebar_position: 2
 * `Ctrl` + `+`: 缩放
 * `Ctrl` + `-`: 缩放
 
-## Stylus
+## 笔
 
-* `主按钮`: 更改为手工具
-* `次要按钮`: 更改为第二个工具
+By default, the the pen is configured to function as the following:
+* `Pen`: configured as pen.
+* `First` (Primary button, if supported): Change to hand tool while pressed.
+* `Second` (Secondary button, if supported): Change to second tool (see [configure](#configure) section below)  while pressed.
+
+
 
 ## 配置 {#configure}
 
-通过给每个控制工具索引自定义控件。
+You can customize the controls by giving every control a tool index. The tool indexing starts from the left of the toolbar, with `1` being the first index. See example below
 
-* 让它空以禁用此控制器上的工具开关。
-* 设置为 `0` 以启用带此控件的移动。
-* 将其设为一个后备数字，切换到此索引，从左边的第一个开始，以 `1` 开始。
+![toolbar numbered](toolbar_numbered.png)
+
+Here, 1 refers to the lasso tool, 2, to the pan tool etc.
+
+The configure options you have are the following:
+
+* Empty - the tool is unchaged.
+* 0 - the tool will function as moving (i.e., hand) in this mod.
+* Positive number - The tool will follow the indexing as explain above. 
+
+
