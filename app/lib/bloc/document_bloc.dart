@@ -223,18 +223,15 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
         }
       }
       current.currentIndexCubit.unbake(unbakedElements: renderers);
-      final content = List.of(page.content);
-      for (final updated in event.elements.entries) {
-        if (updated.key >= content.length || updated.key < 0) continue;
-        content.removeAt(updated.key);
-        content.insertAll(updated.key, updated.value);
-      }
+      final content = page.content
+          .expandIndexed((index, element) => event.elements.containsKey(index)
+              ? event.elements[index]!
+              : [element])
+          .toList();
       await _saveState(
               emit,
               current.copyWith(
-                page: page.copyWith(
-                  content: content,
-                ),
+                page: page.copyWith(content: content),
               ),
               null)
           .then((value) {

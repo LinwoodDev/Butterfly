@@ -14,8 +14,8 @@ class SelectHandler extends Handler<SelectTool> {
       [List<Renderer<PadElement>>? next, bool duplicate = false]) {
     _selected = next ?? _selected;
     _submitTransform(bloc);
-    _selectionManager.startTransformWithCorner(corner);
     _updateSelectionRect();
+    _selectionManager.startTransformWithCorner(corner);
     _duplicate = duplicate;
     bloc.refresh();
   }
@@ -138,7 +138,6 @@ class SelectHandler extends Handler<SelectTool> {
         : ElementsChanged(Map.fromEntries(current!.mapIndexed((i, e) =>
             MapEntry(state.page.content.indexOf(_selected[i].element),
                 [e.element])))));
-    bloc.refresh();
     return true;
   }
 
@@ -406,26 +405,7 @@ class SelectHandler extends Handler<SelectTool> {
   }
 
   @override
-  MouseCursor? get cursor {
-    final corner = _selectionManager.corner;
-    return switch (corner) {
-          SelectionTransformCorner.bottomCenter ||
-          SelectionTransformCorner.topCenter =>
-            SystemMouseCursors.resizeUpDown,
-          SelectionTransformCorner.centerLeft ||
-          SelectionTransformCorner.centerRight =>
-            SystemMouseCursors.resizeLeftRight,
-          SelectionTransformCorner.topLeft ||
-          SelectionTransformCorner.bottomRight =>
-            SystemMouseCursors.resizeUpLeftDownRight,
-          SelectionTransformCorner.topRight ||
-          SelectionTransformCorner.bottomLeft =>
-            SystemMouseCursors.resizeUpRightDownLeft,
-          SelectionTransformCorner.center => SystemMouseCursors.grab,
-          _ => null,
-        } ??
-        (_selectionManager.isTransforming ? SystemMouseCursors.move : null);
-  }
+  MouseCursor? get cursor => _selectionManager.cursor;
 
   Future<void> copySelection(
       DocumentBloc bloc, ClipboardManager clipboardManager,

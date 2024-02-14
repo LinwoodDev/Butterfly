@@ -54,6 +54,9 @@ class RectSelectionForegroundManager {
 
   SelectionTransformCorner? get corner => _corner;
 
+  bool get isInsideSelection =>
+      selection.contains(_currentPosition ?? Offset.zero);
+
   void updateCurrentPosition(Offset position) {
     _currentPosition = position;
   }
@@ -123,6 +126,24 @@ class RectSelectionForegroundManager {
   bool get isMoving => isTransforming && _corner == null;
   bool get isScaling => isTransforming && _corner != null;
   Offset get pivot => _selection.center;
+  MouseCursor? get cursor =>
+      switch (corner) {
+        SelectionTransformCorner.bottomCenter ||
+        SelectionTransformCorner.topCenter =>
+          SystemMouseCursors.resizeUpDown,
+        SelectionTransformCorner.centerLeft ||
+        SelectionTransformCorner.centerRight =>
+          SystemMouseCursors.resizeLeftRight,
+        SelectionTransformCorner.topLeft ||
+        SelectionTransformCorner.bottomRight =>
+          SystemMouseCursors.resizeUpLeftDownRight,
+        SelectionTransformCorner.topRight ||
+        SelectionTransformCorner.bottomLeft =>
+          SystemMouseCursors.resizeUpRightDownLeft,
+        SelectionTransformCorner.center => SystemMouseCursors.grab,
+        _ => null,
+      } ??
+      (isInsideSelection ? SystemMouseCursors.move : null);
 
   TransformResult? getTransform() {
     final position = _currentPosition;
@@ -185,9 +206,20 @@ class RectSelectionForegroundManager {
     _corner = corner;
   }
 
+  Rect getTransformedSelection() {
+    final transform = getTransform();
+    if (transform == null) return _selection;
+    return Rect.fromLTWH(
+      _selection.left + transform.position.dx,
+      _selection.top + transform.position.dy,
+      _selection.width * transform.scaleX,
+      _selection.height * transform.scaleY,
+    );
+  }
+
   RectSelectionForegroundRenderer get renderer =>
       RectSelectionForegroundRenderer(
-          _selection, _scaleMode, _corner, enableRotation);
+          getTransformedSelection(), _scaleMode, _corner, enableRotation);
 }
 
 class RectSelectionForegroundRenderer extends Renderer<Rect> {
