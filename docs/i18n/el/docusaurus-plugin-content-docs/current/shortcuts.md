@@ -33,15 +33,27 @@ sidebar_position: 2
 * `Ctrl` + `+`: Μεγέθυνση
 * `Ctrl` + `-`: Μεγέθυνση
 
-## Stylus
+## Πένα
 
-* `Πρωτεύον κουμπί`: Αλλαγή σε εργαλείο χειρός
-* `Δευτερεύον κουμπί`: Αλλαγή σε δεύτερο εργαλείο
+By default, the the pen is configured to function as the following:
+* `Pen`: configured as pen.
+* `First` (Primary button, if supported): Change to hand tool while pressed.
+* `Second` (Secondary button, if supported): Change to second tool (see [configure](#configure) section below)  while pressed.
+
+
 
 ## Ρύθμιση {#configure}
 
-Προσαρμόστε τα χειριστήρια δίνοντας σε κάθε έλεγχο ένα δείκτη εργαλείων.
+You can customize the controls by giving every control a tool index. The tool indexing starts from the left of the toolbar, with `1` being the first index. See example below
 
-* Αφήστε το κενό για να απενεργοποιήσετε το εργαλείο ανάψτε αυτό το έλεγχο.
-* Ρυθμίστε το σε `0` για να ενεργοποιήσετε τη μετακίνηση με αυτό το έλεγχο.
-* Ρυθμίστε τον σε έναν αριθμό positve για να μεταβείτε στο εργαλείο με αυτό το ευρετήριο ξεκινώντας από τον πρώτο στα αριστερά ξεκινώντας με `1`.
+![toolbar numbered](toolbar_numbered.png)
+
+Here, 1 refers to the lasso tool, 2, to the pan tool etc.
+
+The configure options you have are the following:
+
+* Empty - the tool is unchaged.
+* 0 - the tool will function as moving (i.e., hand) in this mod.
+* Positive number - The tool will follow the indexing as explain above. 
+
+
