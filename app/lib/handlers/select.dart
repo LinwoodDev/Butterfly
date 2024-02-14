@@ -1,141 +1,8 @@
 part of 'handler.dart';
 
-const cornerSize = 32.0;
-const visibleSize = cornerSize / 2;
-
-class LassoHandSelectionRenderer extends Renderer<List<Offset>> {
-  final ColorScheme scheme;
-  LassoHandSelectionRenderer(super.element, this.scheme);
-
-  @override
-  void build(Canvas canvas, Size size, NoteData document, DocumentPage page,
-      DocumentInfo info, CameraTransform transform,
-      [ColorScheme? colorScheme, bool foreground = false]) {
-    final paint = Paint()
-      ..color = scheme.primaryContainer
-      ..style = PaintingStyle.stroke
-      ..strokeWidth = 4 / transform.size
-      ..strokeCap = StrokeCap.round
-      ..strokeJoin = StrokeJoin.round
-      ..isAntiAlias = true;
-    final fillPaint = Paint()
-      ..color = scheme.primaryContainer.withOpacity(0.2)
-      ..style = PaintingStyle.fill;
-    final path = Path();
-    path.addPolygon(element, true);
-    canvas.drawPath(path, fillPaint);
-    canvas.drawPath(path, paint);
-  }
-}
-
-class HandSelectionRenderer extends Renderer<Rect> {
-  final ColorScheme scheme;
-  final HandTransformMode? transformMode;
-  final HandTransformCorner? transformCorner;
-  HandSelectionRenderer(super.element, this.scheme,
-      [this.transformMode, this.transformCorner]);
-
-  @override
-  void build(Canvas canvas, Size size, NoteData document, DocumentPage page,
-      DocumentInfo info, CameraTransform transform,
-      [ColorScheme? colorScheme, bool foreground = false]) {
-    final paint = Paint()
-      ..color = scheme.primaryContainer
-      ..style = PaintingStyle.stroke
-      ..strokeWidth = 4 / transform.size
-      ..strokeCap = StrokeCap.round
-      ..strokeJoin = StrokeJoin.round
-      ..isAntiAlias = true;
-    canvas.drawRect(element, paint);
-    if (transformMode == null) return;
-    final color =
-        transformMode == HandTransformMode.scaleProp ? Colors.red : Colors.blue;
-    final transformPaint = Paint()
-      ..color = color
-      ..style = PaintingStyle.stroke
-      ..strokeWidth = 2 / transform.size
-      ..strokeCap = StrokeCap.round
-      ..strokeJoin = StrokeJoin.round
-      ..isAntiAlias = true;
-    final realSize = visibleSize / transform.size;
-    if (element.width < 2 * realSize || element.height < 2 * realSize) return;
-    final showCenter =
-        element.width > 3 * realSize && element.height > 3 * realSize;
-    HandTransformCorner.values
-        .where((element) => !element.isCenter() || showCenter)
-        .forEach((corner) {
-      final position = corner.getFromRect(element);
-      if (corner == HandTransformCorner.center) {
-        canvas.drawCircle(
-          position,
-          realSize,
-          transformPaint
-            ..style = corner == transformCorner
-                ? PaintingStyle.fill
-                : PaintingStyle.stroke,
-        );
-      } else {
-        canvas.drawRect(
-          Rect.fromCenter(
-            center: position,
-            width: realSize,
-            height: realSize,
-          ),
-          transformPaint
-            ..style = corner == transformCorner
-                ? PaintingStyle.fill
-                : PaintingStyle.stroke,
-        );
-      }
-    });
-  }
-}
-
-enum HandTransformMode { scale, scaleProp }
-
-enum HandTransformCorner {
-  // For rotating
-  center,
-
-  topLeft,
-  topCenter,
-  topRight,
-  centerLeft,
-  centerRight,
-  bottomLeft,
-  bottomCenter,
-  bottomRight,
-}
-
-extension HandTransformCornerExtension on HandTransformCorner {
-  bool isCenter() {
-    switch (this) {
-      case HandTransformCorner.topCenter:
-      case HandTransformCorner.centerLeft:
-      case HandTransformCorner.centerRight:
-      case HandTransformCorner.bottomCenter:
-        return true;
-      default:
-        return false;
-    }
-  }
-
-  Offset getFromRect(Rect rect) => switch (this) {
-        HandTransformCorner.topLeft => rect.topLeft,
-        HandTransformCorner.topCenter => rect.topCenter,
-        HandTransformCorner.topRight => rect.topRight,
-        HandTransformCorner.centerLeft => rect.centerLeft,
-        HandTransformCorner.centerRight => rect.centerRight,
-        HandTransformCorner.bottomLeft => rect.bottomLeft,
-        HandTransformCorner.bottomCenter => rect.bottomCenter,
-        HandTransformCorner.bottomRight => rect.bottomRight,
-        HandTransformCorner.center => rect.center,
-      };
-}
-
 class SelectHandler extends Handler<SelectTool> {
-  HandTransformMode _transformMode = HandTransformMode.scale;
-  HandTransformCorner? _transformCorner;
+  SelectionScaleMode _transformMode = SelectionScaleMode.scale;
+  SelectionTransformCorner? _transformCorner;
   List<Renderer<PadElement>> _selected = [];
   List<Renderer<PadElement>> _transformed = [];
   bool _duplicate = false;
@@ -149,14 +16,14 @@ class SelectHandler extends Handler<SelectTool> {
   SelectHandler(super.data);
 
   void toggleScaleMode(DocumentBloc bloc) {
-    _transformMode = _transformMode == HandTransformMode.scaleProp
-        ? HandTransformMode.scale
-        : HandTransformMode.scaleProp;
+    _transformMode = _transformMode == SelectionScaleMode.scaleProp
+        ? SelectionScaleMode.scale
+        : SelectionScaleMode.scaleProp;
     bloc.refresh();
   }
 
   void transform(DocumentBloc bloc, List<Renderer<PadElement>> next,
-      HandTransformCorner? corner,
+      SelectionTransformCorner? corner,
       [bool duplicate = false]) {
     _submitTransform(bloc);
     _transformed = next;
@@ -256,46 +123,46 @@ class SelectHandler extends Handler<SelectTool> {
     var position = Offset.zero;
     var rotation = 0.0;
     switch (corner) {
-      case HandTransformCorner.topLeft:
+      case SelectionTransformCorner.topLeft:
         position = delta;
         scaleX += -delta.dx / transformRect.size.width;
         scaleY += -delta.dy / transformRect.size.height;
         break;
-      case HandTransformCorner.topCenter:
+      case SelectionTransformCorner.topCenter:
         scaleY += -delta.dy / transformRect.size.height;
         position = Offset(0, delta.dy);
         break;
-      case HandTransformCorner.topRight:
+      case SelectionTransformCorner.topRight:
         position = Offset(0, delta.dy);
         scaleX += delta.dx / transformRect.size.width;
         scaleY += -delta.dy / transformRect.size.height;
         break;
-      case HandTransformCorner.centerLeft:
+      case SelectionTransformCorner.centerLeft:
         position = Offset(delta.dx, 0);
         scaleX += -delta.dx / transformRect.size.width;
         break;
-      case HandTransformCorner.centerRight:
+      case SelectionTransformCorner.centerRight:
         scaleX += delta.dx / transformRect.size.width;
         break;
-      case HandTransformCorner.bottomLeft:
+      case SelectionTransformCorner.bottomLeft:
         position = Offset(delta.dx, 0);
         scaleX += -delta.dx / transformRect.size.width;
         scaleY += delta.dy / transformRect.size.height;
         break;
-      case HandTransformCorner.bottomCenter:
+      case SelectionTransformCorner.bottomCenter:
         scaleY += delta.dy / transformRect.size.height;
         break;
-      case HandTransformCorner.bottomRight:
+      case SelectionTransformCorner.bottomRight:
         scaleX += delta.dx / transformRect.size.width;
         scaleY += delta.dy / transformRect.size.height;
         break;
-      case HandTransformCorner.center:
+      case SelectionTransformCorner.center:
         rotation = offset.getRotation(transformRect.center) / pi * 180;
         break;
       default:
         position = delta;
     }
-    if (_transformMode == HandTransformMode.scaleProp) {
+    if (_transformMode == SelectionScaleMode.scaleProp) {
       final scale = max(scaleX, scaleY);
       scaleX = scale;
       scaleY = scale;
@@ -332,14 +199,16 @@ class SelectHandler extends Handler<SelectTool> {
     final selectionRect = getSelectionRect();
     final scheme = currentIndexCubit.getTheme(false).colorScheme;
     if (selectionRect != null) {
-      foregrounds.add(HandSelectionRenderer(
-          selectionRect, scheme, _transformMode, _transformCorner));
+      foregrounds.add(RectSelectionForegroundRenderer(
+          selectionRect, _transformMode, _transformCorner));
     }
     if (_rectangleFreeSelection != null) {
-      foregrounds.add(HandSelectionRenderer(_rectangleFreeSelection!, scheme));
+      foregrounds
+          .add(RectSelectionForegroundRenderer(_rectangleFreeSelection!));
     }
     if (_lassoFreeSelection != null) {
-      foregrounds.add(LassoHandSelectionRenderer(_lassoFreeSelection!, scheme));
+      foregrounds
+          .add(LassoSelectionForegroundRenderer(_lassoFreeSelection!, scheme));
     }
     return foregrounds;
   }
@@ -351,7 +220,7 @@ class SelectHandler extends Handler<SelectTool> {
     final current = _getTransformed();
     _selected = _transformed;
     _transformCorner = null;
-    _transformMode = HandTransformMode.scale;
+    _transformMode = SelectionScaleMode.scale;
     _transformed = [];
     bloc.add(_duplicate
         ? ElementsCreated(current!.map((e) => e.element).toList())
@@ -382,11 +251,11 @@ class SelectHandler extends Handler<SelectTool> {
     _onSelectionAdd(context, details.localPosition, true);
   }
 
-  HandTransformCorner? _getCornerHit(Offset position) {
+  SelectionTransformCorner? _getCornerHit(Offset position) {
     final selectionRect = getSelectionRect();
 
     if (selectionRect == null) return null;
-    final hits = HandTransformCorner.values.where((element) {
+    final hits = SelectionTransformCorner.values.where((element) {
       final corner = element.getFromRect(selectionRect);
       return Rect.fromCenter(
               center: corner,
@@ -394,7 +263,7 @@ class SelectHandler extends Handler<SelectTool> {
               height: cornerSize / _scale)
           .contains(position);
     }).toList();
-    if (hits.length == HandTransformCorner.values.length) return null;
+    if (hits.length == SelectionTransformCorner.values.length) return null;
     return hits.firstOrNull;
   }
 
@@ -440,7 +309,7 @@ class SelectHandler extends Handler<SelectTool> {
 
   void _resetTransform() {
     _transformCorner = null;
-    _transformMode = HandTransformMode.scale;
+    _transformMode = SelectionScaleMode.scale;
     _transformStartOffset = null;
   }
 
@@ -649,19 +518,19 @@ class SelectHandler extends Handler<SelectTool> {
     if (_currentMousePosition == null) return null;
     final corner = _getCornerHit(_currentMousePosition!);
     return switch (corner) {
-          HandTransformCorner.bottomCenter ||
-          HandTransformCorner.topCenter =>
+          SelectionTransformCorner.bottomCenter ||
+          SelectionTransformCorner.topCenter =>
             SystemMouseCursors.resizeUpDown,
-          HandTransformCorner.centerLeft ||
-          HandTransformCorner.centerRight =>
+          SelectionTransformCorner.centerLeft ||
+          SelectionTransformCorner.centerRight =>
             SystemMouseCursors.resizeLeftRight,
-          HandTransformCorner.topLeft ||
-          HandTransformCorner.bottomRight =>
+          SelectionTransformCorner.topLeft ||
+          SelectionTransformCorner.bottomRight =>
             SystemMouseCursors.resizeUpLeftDownRight,
-          HandTransformCorner.topRight ||
-          HandTransformCorner.bottomLeft =>
+          SelectionTransformCorner.topRight ||
+          SelectionTransformCorner.bottomLeft =>
             SystemMouseCursors.resizeUpRightDownLeft,
-          HandTransformCorner.center => SystemMouseCursors.grab,
+          SelectionTransformCorner.center => SystemMouseCursors.grab,
           _ => null,
         } ??
         (getSelectionRect()?.contains(_currentMousePosition!) ?? false
