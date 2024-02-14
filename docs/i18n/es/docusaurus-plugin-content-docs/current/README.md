@@ -16,6 +16,7 @@ sidebar_position: 1
 
 Visita [las descargas](/downloads) para descargar la aplicación para tu plataforma. Usa [versión web](https://butterfly.linwood.dev) si no encuentras tu plataforma.
 
+
 ## Vista principal
 
 ![Vista principal](main.png)
