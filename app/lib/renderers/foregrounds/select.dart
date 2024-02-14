@@ -81,7 +81,7 @@ class RectSelectionForegroundManager {
   void deselect() => select(null);
 
   SelectionTransformCorner? getCornerHit(Offset position, double scale) {
-    if (_selection.isEmpty) return null;
+    if (!isValid) return null;
     final hits = SelectionTransformCorner.values.where((element) {
       final corner = element.getFromRect(_selection);
       if (element == SelectionTransformCorner.center && !enableRotation) {
@@ -122,6 +122,7 @@ class RectSelectionForegroundManager {
     _currentPosition = _startPosition;
   }
 
+  bool get isValid => !_selection.isEmpty;
   bool get isTransforming => _startPosition != null;
   bool get isMoving => isTransforming && _corner == null;
   bool get isScaling => isTransforming && _corner != null;
@@ -263,6 +264,7 @@ class RectSelectionForegroundRenderer extends Renderer<Rect> {
         .forEach((corner) {
       final position = corner.getFromRect(element);
       if (corner == SelectionTransformCorner.center) {
+        if (!enableRotation) return;
         canvas.drawCircle(
           position,
           realSize,
