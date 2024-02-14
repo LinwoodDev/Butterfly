@@ -711,6 +711,19 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
         }
       }
     });
+    on<AreaReordered>((event, emit) {
+      final current = state;
+      if (current is! DocumentLoadSuccess) return;
+      if (!(current.embedding?.editable ?? true)) return;
+      final areas = List<Area>.from(current.page.areas);
+      final area =
+          areas.firstWhereOrNull((element) => element.name == event.name);
+      if (area == null) return;
+      areas.remove(area);
+      areas.insert(event.newIndex, area);
+      final currentDocument = current.page.copyWith(areas: areas);
+      _saveState(emit, current.copyWith(page: currentDocument));
+    });
     on<ExportPresetCreated>((event, emit) {
       final current = state;
       if (current is! DocumentLoadSuccess) return;

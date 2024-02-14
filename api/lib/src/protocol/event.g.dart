@@ -449,6 +449,20 @@ Map<String, dynamic> _$$AreaChangedImplToJson(_$AreaChangedImpl instance) =>
       'type': instance.$type,
     };
 
+_$AreaReorderedImpl _$$AreaReorderedImplFromJson(Map json) =>
+    _$AreaReorderedImpl(
+      json['name'] as String,
+      json['newIndex'] as int,
+      $type: json['type'] as String?,
+    );
+
+Map<String, dynamic> _$$AreaReorderedImplToJson(_$AreaReorderedImpl instance) =>
+    <String, dynamic>{
+      'name': instance.name,
+      'newIndex': instance.newIndex,
+      'type': instance.$type,
+    };
+
 _$CurrentAreaChangedImpl _$$CurrentAreaChangedImplFromJson(Map json) =>
     _$CurrentAreaChangedImpl(
       json['name'] as String,

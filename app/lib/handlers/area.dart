@@ -216,6 +216,13 @@ class AreaHandler extends Handler<AreaTool> {
         context.getCameraTransform().localToGlobal(localPosition);
     final areas = state.page.getAreas(globalPosition, distance);
     var area = areas.firstOrNull ?? state.currentArea;
+    if (_selectionManager.isValid) {
+      if (_selectionManager.selection.contains(globalPosition)) {
+        area = _currentArea;
+      }
+      _selectionManager.deselect();
+      _currentArea = null;
+    }
     if (area == null) return;
     if (areas.length > 1) {
       area = await showDialog<Area>(

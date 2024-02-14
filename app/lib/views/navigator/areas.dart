@@ -69,12 +69,17 @@ class AreasView extends StatelessWidget {
                                     .contains(
                                         _searchController.text.toLowerCase()))
                                 .toList();
-                            return ListView.builder(
+                            return ReorderableListView.builder(
                                 itemCount: areas.length,
+                                onReorder: (oldIndex, newIndex) => context
+                                    .read<DocumentBloc>()
+                                    .add(AreaReordered(
+                                        areas[oldIndex].name, newIndex)),
                                 itemBuilder: (BuildContext context, int index) {
                                   final area = areas[index];
                                   return EditableListTile(
                                     initialValue: area.name,
+                                    key: ValueKey(area.name),
                                     onTap: () {
                                       final screen = context
                                           .read<CurrentIndexCubit>()
