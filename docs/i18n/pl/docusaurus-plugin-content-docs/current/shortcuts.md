@@ -33,15 +33,27 @@ Jest kilka skrótów, których możesz użyć w edytorze. Niektóre z nich są n
 * `Ctrl` + `+`: Przybliż
 * `Ctrl` + `-`: Pomniejsz
 
-## Stylus
+## Długopis
 
-* `Główny przycisk`: Zmień na narzędzie ręczne
-* `Drugi przycisk`: Zmień na drugie narzędzie
+By default, the the pen is configured to function as the following:
+* `Pen`: configured as pen.
+* `First` (Primary button, if supported): Change to hand tool while pressed.
+* `Second` (Secondary button, if supported): Change to second tool (see [configure](#configure) section below)  while pressed.
+
+
 
 ## Skonfiguruj {#configure}
 
-Dostosuj ustawienia poprzez nadanie każdej kontroli indeksu narzędzi.
+You can customize the controls by giving every control a tool index. The tool indexing starts from the left of the toolbar, with `1` being the first index. See example below
 
-* Pozostaw puste, aby wyłączyć włączanie narzędzia na tym urządzeniu.
-* Ustaw na `0` , aby włączyć ruch z tą kontrolą.
-* Ustaw liczbę pozycyjną, aby przełączyć się na narzędzie z tym indeksem zaczynając od pierwszego po lewej stronie, począwszy od `1`.
+![toolbar numbered](toolbar_numbered.png)
+
+Here, 1 refers to the lasso tool, 2, to the pan tool etc.
+
+The configure options you have are the following:
+
+* Empty - the tool is unchaged.
+* 0 - the tool will function as moving (i.e., hand) in this mod.
+* Positive number - The tool will follow the indexing as explain above. 
+
+
