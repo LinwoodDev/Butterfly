@@ -44,23 +44,38 @@ typedef TransformResult = ({
 class RectSelectionForegroundManager {
   final bool enableRotation;
   Rect _selection = Rect.zero;
-  SelectionScaleMode _transformMode = SelectionScaleMode.scale;
-  SelectionTransformCorner? _transformCorner;
-  Offset? _startPosition;
+  SelectionScaleMode _scaleMode = SelectionScaleMode.scale;
+  SelectionTransformCorner? _corner;
+  Offset? _startPosition, _currentPosition;
 
   RectSelectionForegroundManager({this.enableRotation = true});
 
-  void resetTransform() {
-    _transformMode = SelectionScaleMode.scale;
-    _transformCorner = null;
+  Rect get selection => _selection;
+
+  SelectionTransformCorner? get corner => _corner;
+
+  void updateCurrentPosition(Offset position) {
+    _currentPosition = position;
   }
 
-  void select(Rect selection) {
-    _selection = selection;
+  void updateCursor(double scale) {
+    if (_currentPosition == null) return;
+    _corner = getCornerHit(_currentPosition!, scale);
+  }
+
+  void resetTransform() {
+    _scaleMode = SelectionScaleMode.scale;
+    _corner = null;
+    _startPosition = null;
+    _currentPosition = null;
+  }
+
+  void select(Rect? selection) {
+    _selection = selection ?? Rect.zero;
     resetTransform();
   }
 
-  void deselect() => select(Rect.zero);
+  void deselect() => select(null);
 
   SelectionTransformCorner? getCornerHit(Offset position, double scale) {
     if (_selection.isEmpty) return null;
@@ -80,23 +95,39 @@ class RectSelectionForegroundManager {
   }
 
   void toggleTransformMode() =>
-      _transformMode = (SelectionScaleMode.scale == _transformMode
+      _scaleMode = (SelectionScaleMode.scale == _scaleMode
           ? SelectionScaleMode.scaleProp
           : SelectionScaleMode.scale);
 
-  void startTransform(Offset position, double scale) {
-    _startPosition = position;
+  bool shouldTransform(Offset position, double scale) {
+    return _selection.contains(position) ||
+        getCornerHit(position, scale) != null;
+  }
+
+  bool startTransform(Offset position, double scale) {
     final hit = getCornerHit(position, scale);
-    _transformCorner = hit;
+    if (!_selection.contains(position) && hit == null) return false;
+    _startPosition = position;
+    _currentPosition = position;
+    _corner = hit;
+    return true;
+  }
+
+  void startTransformWithCorner(SelectionTransformCorner? corner) {
+    _corner = corner;
+    _startPosition = corner.getFromRect(_selection);
+    _currentPosition = _startPosition;
   }
 
   bool get isTransforming => _startPosition != null;
-  bool get isMoving => isTransforming && _transformCorner == null;
-  bool get isScaling => isTransforming && _transformCorner != null;
+  bool get isMoving => isTransforming && _corner == null;
+  bool get isScaling => isTransforming && _corner != null;
+  Offset get pivot => _selection.center;
 
-  TransformResult? getTransform(Offset position) {
-    final previous = _startPosition ?? position;
-    if (previous == position) {
+  TransformResult? getTransform() {
+    final position = _currentPosition;
+    final previous = _startPosition;
+    if (previous == position || position == null || previous == null) {
       return null;
     }
     final delta = position - previous;
@@ -104,7 +135,7 @@ class RectSelectionForegroundManager {
     var scaleY = 1.0;
     var moved = Offset.zero;
     var rotation = 0.0;
-    switch (_transformCorner) {
+    switch (_corner) {
       case SelectionTransformCorner.topLeft:
         moved = delta;
         scaleX += -delta.dx / _selection.size.width;
@@ -136,7 +167,7 @@ class RectSelectionForegroundManager {
       default:
         moved = delta;
     }
-    if (_transformMode == SelectionScaleMode.scaleProp) {
+    if (_scaleMode == SelectionScaleMode.scaleProp) {
       final scale = max(scaleX, scaleY);
       scaleX = scale;
       scaleY = scale;
@@ -150,13 +181,13 @@ class RectSelectionForegroundManager {
   }
 
   void transform(SelectionScaleMode mode, SelectionTransformCorner corner) {
-    _transformMode = mode;
-    _transformCorner = corner;
+    _scaleMode = mode;
+    _corner = corner;
   }
 
   RectSelectionForegroundRenderer get renderer =>
       RectSelectionForegroundRenderer(
-          _selection, _transformMode, _transformCorner, enableRotation);
+          _selection, _scaleMode, _corner, enableRotation);
 }
 
 class RectSelectionForegroundRenderer extends Renderer<Rect> {
@@ -241,7 +272,7 @@ enum SelectionTransformCorner {
   bottomRight,
 }
 
-extension SelectionTransformCornerExtension on SelectionTransformCorner {
+extension SelectionTransformCornerExtension on SelectionTransformCorner? {
   bool isCenter() => switch (this) {
         SelectionTransformCorner.topCenter ||
         SelectionTransformCorner.centerLeft ||
@@ -260,6 +291,6 @@ extension SelectionTransformCornerExtension on SelectionTransformCorner {
         SelectionTransformCorner.bottomLeft => rect.bottomLeft,
         SelectionTransformCorner.bottomCenter => rect.bottomCenter,
         SelectionTransformCorner.bottomRight => rect.bottomRight,
-        SelectionTransformCorner.center => rect.center,
+        _ => rect.center,
       };
 }
