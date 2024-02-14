@@ -21,6 +21,18 @@ class AreaHandler extends Handler<AreaTool> {
     _end = value?.bottomRight;
   }
 
+  void _updateArea() {
+    final area = _currentArea;
+    final transform = _selectionManager.getTransform();
+    final rect = _selectionManager.selection;
+    if (area == null || transform == null) return;
+    _currentArea = area.copyWith(
+      position: (rect.topLeft + transform.position).toPoint(),
+      width: rect.width * transform.scaleX,
+      height: rect.height * transform.scaleY,
+    );
+  }
+
   @override
   bool canChange(PointerDownEvent event, EventContext context) =>
       event.kind == PointerDeviceKind.mouse &&
@@ -38,7 +50,10 @@ class AreaHandler extends Handler<AreaTool> {
               width: rect.width,
               height: rect.height,
               position: rect.topLeft.toPoint())),
-        ...page.areas.map((e) => AreaForegroundRenderer(e))
+        ...[
+          _currentArea,
+          ...page.areas.where((element) => element.name != _currentArea?.name)
+        ].whereNotNull().map((e) => AreaForegroundRenderer(e))
       ],
       _selectionManager.renderer,
     ];
@@ -86,6 +101,7 @@ class AreaHandler extends Handler<AreaTool> {
     var globalPos = transform.localToGlobal(details.localFocalPoint);
     if (_selectionManager.isValid) {
       _selectionManager.updateCurrentPosition(globalPos);
+      _updateArea();
       context.refresh();
       return;
     }
@@ -122,16 +138,10 @@ class AreaHandler extends Handler<AreaTool> {
     final currentIndex = context.getCurrentIndex();
     final rect = currentRect;
     if (_selectionManager.isValid) {
-      final transform = _selectionManager.getTransform();
+      _updateArea();
       final area = _currentArea;
-      if (transform != null && area != null) {
-        final updatedArea = area.copyWith(
-          position: area.position + transform.position.toPoint(),
-          width: area.width * transform.scaleX,
-          height: area.height * transform.scaleY,
-        );
-        context.getDocumentBloc().add(AreaChanged(area.name, updatedArea));
-        _currentArea = updatedArea;
+      if (area != null) {
+        context.getDocumentBloc().add(AreaChanged(area.name, area));
       }
       _selectionManager.resetTransform();
       _updateSelectionRect();
