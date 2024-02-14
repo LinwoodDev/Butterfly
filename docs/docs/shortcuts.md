@@ -46,7 +46,9 @@ By default, the the pen is configured to function as the following:
 ## Configure {#configure}
 
 You can customize the controls by giving every control a tool index. The tool indexing starts from the left of the toolbar, with `1` being the first index. See example below
+
 ![toolbar numbered](toolbar_numbered.png)
+
 Here, 1 refers to the lasso tool, 2, to the pan tool etc.
 
 The configure options you have are the following:
