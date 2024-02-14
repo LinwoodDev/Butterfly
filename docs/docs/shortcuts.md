@@ -51,7 +51,7 @@ Here, 1 refers to the lasso tool, 2, to the pan tool etc.
 
 The configure options you have are the following:
 
-* Empty - the tool is disabled in this mode.
+* Empty - the tool is unchaged.
 * 0 - the tool will function as moving (i.e., hand) in this mod.
 * Positive number - The tool will follow the indexing as explain above. 
 
