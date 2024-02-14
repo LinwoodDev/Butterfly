@@ -77,18 +77,18 @@ packages:
     dependency: transitive
     description:
       name: bloc
-      sha256: "3820f15f502372d979121de1f6b97bfcf1630ebff8fe1d52fb2b0bfa49be5b49"
+      sha256: f53a110e3b48dcd78136c10daa5d51512443cea5e1348c9d80a320095fa2db9e
       url: "https://pub.dev"
     source: hosted
-    version: "8.1.2"
+    version: "8.1.3"
   bloc_concurrency:
     dependency: "direct main"
     description:
       name: bloc_concurrency
-      sha256: d945b33641a3c3f12fa12a1437e77f784444dd9a3a66a3a4f5aaa6e049154d36
+      sha256: "5857eb6653b4dd5e30e1ffab91037957fd64a9b9c5e53d26714ef25a46c04679"
       url: "https://pub.dev"
     source: hosted
-    version: "0.2.3"
+    version: "0.2.4"
   boolean_selector:
     dependency: transitive
     description:
@@ -490,10 +490,10 @@ packages:
     dependency: "direct main"
     description:
       name: flutter_bloc
-      sha256: e74efb89ee6945bcbce74a5b3a5a3376b088e5f21f55c263fc38cbdc6237faae
+      sha256: "87325da1ac757fcc4813e6b34ed5dd61169973871fdf181d6c2109dd6935ece1"
       url: "https://pub.dev"
     source: hosted
-    version: "8.1.3"
+    version: "8.1.4"
   flutter_driver:
     dependency: "direct dev"
     description: flutter
@@ -1065,10 +1065,10 @@ packages:
     dependency: "direct main"
     description:
       name: replay_bloc
-      sha256: "268a7b9adb9b91f00c673a782838305df3194f51588dc7a6ff0c35d08a45557c"
+      sha256: "799463f32aa9de4b8938ea2919797ed0d9b15496d4bc80734fde0771f4775e91"
       url: "https://pub.dev"
     source: hosted
-    version: "0.2.5"
+    version: "0.2.6"
   rxdart:
     dependency: "direct main"
     description:
@@ -1318,10 +1318,10 @@ packages:
     dependency: transitive
     description:
       name: url_launcher_android
-      sha256: "507dc655b1d9cb5ebc756032eb785f114e415f91557b73bf60b7e201dfedeb2f"
+      sha256: d4ed0711849dd8e33eb2dd69c25db0d0d3fdc37e0a62e629fe32f57a22db2745
       url: "https://pub.dev"
     source: hosted
-    version: "6.2.2"
+    version: "6.3.0"
   url_launcher_ios:
     dependency: transitive
     description:
