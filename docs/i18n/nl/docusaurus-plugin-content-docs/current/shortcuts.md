@@ -35,25 +35,25 @@ Er zijn een paar snelkoppelingen die je in de editor kunt gebruiken. Sommige erv
 
 ## pennen
 
-By default, the the pen is configured to function as the following:
-* `Pen`: configured as pen.
-* `First` (Primary button, if supported): Change to hand tool while pressed.
-* `Second` (Secondary button, if supported): Change to second tool (see [configure](#configure) section below)  while pressed.
+Standaard is de pen geconfigureerd om als volgt te functioneren:
+* `Pen`: geconfigureerd als pen.
+* `Eerste` (Primaire knop, indien ondersteund): Verander naar handgereedschap terwijl je wordt ingedrukt.
+* `Tweede` (Seconterende knop, indien ondersteund): verander naar tweede tool (Zie [configureer](#configure) sectie hieronder) wanneer ingedrukt.
 
 
 
 ## Configureren {#configure}
 
-You can customize the controls by giving every control a tool index. The tool indexing starts from the left of the toolbar, with `1` being the first index. See example below
+U kunt de besturingselementen aanpassen door elke bediening een tool index te geven. Het indexeren van de tool begint vanaf de linkerkant van de werkbalk, waarbij `1` de eerste index is. Zie voorbeeld hieronder
 
-![toolbar numbered](toolbar_numbered.png)
+![werkbalk genummerd](toolbar_numbered.png)
 
-Here, 1 refers to the lasso tool, 2, to the pan tool etc.
+Hier verwijst 1 naar de lasso tool, 2, naar de pan tool etc.
 
-The configure options you have are the following:
+De configuratie-opties die u heeft zijn de volgende:
 
-* Empty - the tool is unchaged.
-* 0 - the tool will function as moving (i.e., hand) in this mod.
-* Positive number - The tool will follow the indexing as explain above. 
+* Leeg - de tool is unchaged.
+* 0 - het gereedschap zal functioneren als bewegend (d.w.z. hand) in deze mod.
+* Positief nummer - De tool zal de indexering volgen zoals hierboven uitgelegd. 
 
 
