@@ -35,22 +35,22 @@ Noen av dem er skrevet under knappene.
 
 ## Penn
 
-By default, the the pen is configured to function as the following:
+Som standard konfigureres pennen til å fungere som følgende:
 
-- `Pen`: configured as pen.
-- `First` (Primary button, if supported): Change to hand tool while pressed.
-- `Second` (Secondary button, if supported): Change to second tool (see [configure](#configure) section below)  while pressed.
+- En penn: konfigurert som penn.
+- `Først` (Primærknapp, hvis støttet): Bytt til håndverktøy mens du trykker.
+- `Sekund` (sekundærknapp, hvis støttet): Endre til andre verktøy (se [configure](#configure) seksjonen nedenfor) mens du trykkes.
 
 ## Konfigurer {#configure}
 
-You can customize the controls by giving every control a tool index. The tool indexing starts from the left of the toolbar, with `1` being the first index. See example below
+Du kan tilpasse kontrollene ved å gi hver kontroll en verktøyindeks. Verktøyet som indekserer fra venstre av verktøylinjen, starter med at '1' er den første indeksen. Se eksempelet nedenfor
 
-![toolbar numbered](toolbar_numbered.png)
+\==verktøylinje nummerert](toolbar_numbered.png)
 
-Here, 1 refers to the lasso tool, 2, to the pan tool etc.
+Her viser 1 til lassoverktøyet 2, til panserverktøyet osv.
 
-The configure options you have are the following:
+Konfigurere innstillingene du har er følgende:
 
-- Empty - the tool is unchaged.
-- 0 - the tool will function as moving (i.e., hand) in this mod.
-- Positive number - The tool will follow the indexing as explain above.
+- Tom - verktøyet er ubelastet.
+- 0 - verktøyet fungerer som flytting (dvs. hånd) i denne moden.
+- Positivt nummer - Verktøyet vil følge indekseringen som forklarer ovenfor.
