@@ -35,22 +35,22 @@ Niektóre z nich są napisane pod przyciskami.
 
 ## Długopis
 
-By default, the the pen is configured to function as the following:
+Domyślnie wstrzykiwacz jest skonfigurowany do następujących funkcji:
 
-- `Pen`: configured as pen.
-- `First` (Primary button, if supported): Change to hand tool while pressed.
-- `Second` (Secondary button, if supported): Change to second tool (see [configure](#configure) section below)  while pressed.
+- `Pióro`: skonfigurowany jako długopis.
+- `First` (główny przycisk, jeśli jest obsługiwany): Zmień na narzędzie ręczne po naciśnięciu.
+- `Second` (Drugi przycisk, jeśli jest obsługiwany): Zmień na drugie narzędzie (patrz sekcja [configure](#configure) poniżej) po naciśnięciu.
 
 ## Konfiguruj {#configure}
 
-You can customize the controls by giving every control a tool index. The tool indexing starts from the left of the toolbar, with `1` being the first index. See example below
+Możesz dostosować ustawienia poprzez nadanie każdej kontroli indeksu narzędzi. Indeksowanie narzędzi zaczyna się od lewej strony paska narzędzi, przy czym `1` jest pierwszym indeksem Zobacz przykład poniżej
 
-![toolbar numbered](toolbar_numbered.png)
+![pasek narzędzi numerowany](toolbar_numbered.png)
 
-Here, 1 refers to the lasso tool, 2, to the pan tool etc.
+W tym miejscu 1 odnosi się do narzędzia laserowego, 2, narzędzia do panewki itp.
 
-The configure options you have are the following:
+Konfiguruj następujące opcje:
 
-- Empty - the tool is unchaged.
-- 0 - the tool will function as moving (i.e., hand) in this mod.
-- Positive number - The tool will follow the indexing as explain above.
+- Puste - narzędzie jest odcięte.
+- 0 - narzędzie będzie działać jako poruszające się (tj. ręcznie) w tym modze.
+- Liczba dodatnia - Narzędzie będzie podążać za indeksacją, jak wyjaśniono powyżej.
