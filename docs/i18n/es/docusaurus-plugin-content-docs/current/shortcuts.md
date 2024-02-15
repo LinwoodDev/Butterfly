@@ -35,25 +35,25 @@ Hay algunos atajos que puedes usar en el editor. Algunos de ellos se escriben de
 
 ## Pen
 
-By default, the the pen is configured to function as the following:
-* `Pen`: configured as pen.
-* `First` (Primary button, if supported): Change to hand tool while pressed.
-* `Second` (Secondary button, if supported): Change to second tool (see [configure](#configure) section below)  while pressed.
+Por defecto, el lápiz está configurado para funcionar de la siguiente manera:
+* `Pen`: configurado como pluma.
+* `Primero` (botón primario, si es compatible): Cambia a la herramienta manual mientras se pulsa.
+* `Segunda` (botón secundario, si es soportado): Cambie a segunda herramienta (vea [configurar](#configure) sección abajo) mientras se presiona.
 
 
 
 ## Configurar {#configure}
 
-You can customize the controls by giving every control a tool index. The tool indexing starts from the left of the toolbar, with `1` being the first index. See example below
+Puede personalizar los controles dando a cada control un índice de herramientas. La indexación de la herramienta comienza desde la izquierda de la barra de herramientas, siendo `1` el primer índice. Ver ejemplo a continuación
 
-![toolbar numbered](toolbar_numbered.png)
+![barra de herramientas numerada](toolbar_numbered.png)
 
-Here, 1 refers to the lasso tool, 2, to the pan tool etc.
+Aquí, 1 se refiere a la herramienta lasso 2, a la herramienta pan etc.
 
-The configure options you have are the following:
+Las opciones de configuración son las siguientes:
 
-* Empty - the tool is unchaged.
-* 0 - the tool will function as moving (i.e., hand) in this mod.
-* Positive number - The tool will follow the indexing as explain above. 
+* Vaciar - la herramienta no está encajada.
+* 0 - la herramienta funcionará como moviendo (es decir, mano) en este mod.
+* Número positivo - La herramienta seguirá la indexación como explicamos arriba. 
 
 
