@@ -35,25 +35,25 @@ sidebar_position: 2
 
 ## ペン
 
-By default, the the pen is configured to function as the following:
-* `Pen`: configured as pen.
-* `First` (Primary button, if supported): Change to hand tool while pressed.
+デフォルトでは、ペンは次のように機能するように設定されています。
+* `ペン`: ペンとして設定されています。
+* `First` (サポートされている場合はプライマリボタン): 押したまま手動ツールに変更します。
 * `Second` (Secondary button, if supported): Change to second tool (see [configure](#configure) section below)  while pressed.
 
 
 
 ## 設定 {#configure}
 
-You can customize the controls by giving every control a tool index. The tool indexing starts from the left of the toolbar, with `1` being the first index. See example below
+すべてのコントロールにツールインデックスを付与することで、コントロールをカスタマイズできます。 ツールバーの左から始まり、 `1` が最初のインデックスとなります。 以下の例を参照してください。
 
-![toolbar numbered](toolbar_numbered.png)
+![ツールバーの番号付け](toolbar_numbered.png)
 
-Here, 1 refers to the lasso tool, 2, to the pan tool etc.
+ここで、1は、レーザーツール、2、パンツールなどを指します。
 
-The configure options you have are the following:
+設定オプションは以下のとおりです:
 
-* Empty - the tool is unchaged.
-* 0 - the tool will function as moving (i.e., hand) in this mod.
-* Positive number - The tool will follow the indexing as explain above. 
+* Empty - ツールはチャージされていません。
+* 0 - ツールは、このMODで移動(すなわち、手)として機能します。
+* 正の数 - 上記のようにツールはインデックスに従います。 
 
 
