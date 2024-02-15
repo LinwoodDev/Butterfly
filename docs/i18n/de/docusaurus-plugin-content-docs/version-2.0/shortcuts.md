@@ -33,15 +33,24 @@ Einige davon sind unter den Buttons geschrieben.
 - `Strg` + `+`: Zoom in
 - `Strg` + `-`: Verkleinern
 
-## Stylus
+## Stift
 
-- 'Primärer Button': Zum Handwerkzeug wechseln
-- "Sekundäre Schaltfläche": Zum zweiten Werkzeug wechseln
+By default, the the pen is configured to function as the following:
+
+- `Pen`: configured as pen.
+- `First` (Primary button, if supported): Change to hand tool while pressed.
+- `Second` (Secondary button, if supported): Change to second tool (see [configure](#configure) section below)  while pressed.
 
 ## Konfiguriere {#configure}
 
-Passen Sie die Steuerelemente an, indem Sie jeder Steuerung einen Werkzeugindex geben.
+You can customize the controls by giving every control a tool index. The tool indexing starts from the left of the toolbar, with `1` being the first index. See example below
 
-- Lassen Sie es leer um den Werkzeugschalter auf diesem Steuerelement zu deaktivieren.
-- Setze es auf `0` um das Verschieben mit diesem Steuerelement zu aktivieren.
-- Setze es auf eine Einlagennummer, um zum Werkzeug zu wechseln, mit diesem Index, beginnend mit dem ersten links beginnend mit `1`.
+![toolbar numbered](toolbar_numbered.png)
+
+Here, 1 refers to the lasso tool, 2, to the pan tool etc.
+
+The configure options you have are the following:
+
+- Empty - the tool is unchaged.
+- 0 - the tool will function as moving (i.e., hand) in this mod.
+- Positive number - The tool will follow the indexing as explain above.
