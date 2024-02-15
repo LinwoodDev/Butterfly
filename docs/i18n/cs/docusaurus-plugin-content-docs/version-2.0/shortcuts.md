@@ -35,22 +35,22 @@ Některé z nich jsou zapsány pod tlačítky.
 
 ## Pec
 
-By default, the the pen is configured to function as the following:
+Ve výchozím nastavení je pero nastaveno tak, aby fungovalo:
 
-- `Pen`: configured as pen.
-- `First` (Primary button, if supported): Change to hand tool while pressed.
-- `Second` (Secondary button, if supported): Change to second tool (see [configure](#configure) section below)  while pressed.
+- `Pen`: nakonfigurován jako pen.
+- `First` (Primární tlačítko, pokud je podporováno): Přepnout na ruční nástroj při stisknutí.
+- `Second` (druhé tlačítko, pokud je podporováno): Po stisknutí přepněte na druhý nástroj (viz [configure](#configure).
 
 ## Konfigurovat {#configure}
 
-You can customize the controls by giving every control a tool index. The tool indexing starts from the left of the toolbar, with `1` being the first index. See example below
+Ovládací prvky můžete přizpůsobit zadáním všech ovládacích prvků indexu nástrojů. Nástroj indexování začíná vlevo od panelu nástrojů, přičemž prvním indexem je `1`. Viz příklad níže
 
 ![toolbar numbered](toolbar_numbered.png)
 
-Here, 1 refers to the lasso tool, 2, to the pan tool etc.
+Tady 1 odkazuje na nástroj lasso, 2, na nástroj pánve atd.
 
-The configure options you have are the following:
+Možnosti konfigurace, které máte, jsou následující:
 
-- Empty - the tool is unchaged.
-- 0 - the tool will function as moving (i.e., hand) in this mod.
-- Positive number - The tool will follow the indexing as explain above.
+- Prázdný - nástroj je rozbalen.
+- 0 - nástroj bude v tomto režimu fungovat jako pohyb (tj. ručně).
+- Pozitivní číslo - nástroj bude následovat indexace, jak je vysvětleno výše.
