@@ -35,25 +35,25 @@ On olemassa muutamia pikakuvakkeita, joita voit käyttää editorissa. Osa niist
 
 ## Kynä
 
-By default, the the pen is configured to function as the following:
-* `Pen`: configured as pen.
-* `First` (Primary button, if supported): Change to hand tool while pressed.
-* `Second` (Secondary button, if supported): Change to second tool (see [configure](#configure) section below)  while pressed.
+Kynä on oletusarvoisesti määritetty toimimaan seuraavasti:
+* `Pen`: määritetty kynäksi.
+* `Ensimmäinen` (painike, jos tuettu): Vaihda käsityökaluksi painettuna.
+* `Toinen` (toissijainen painike, jos tuettu): Vaihda toiseen työkaluun (katso [määritä](#configure) -osio alla) painettuna.
 
 
 
 ## Määritä {#configure}
 
-You can customize the controls by giving every control a tool index. The tool indexing starts from the left of the toolbar, with `1` being the first index. See example below
+Voit muokata ohjaimia antamalla jokaiselle ohjaukselle työkalun indeksin. Työkalun indeksointi alkaa työkalupalkin vasemmalta ja `1` on ensimmäinen indeksi. Katso esimerkki alla
 
-![toolbar numbered](toolbar_numbered.png)
+![työkalupalkin numerointi](toolbar_numbered.png)
 
-Here, 1 refers to the lasso tool, 2, to the pan tool etc.
+Täällä, 1 viittaa lasso työkalu, 2, pan työkalu jne.
 
-The configure options you have are the following:
+Määritä asetukset sinulla on ovat seuraavat:
 
-* Empty - the tool is unchaged.
-* 0 - the tool will function as moving (i.e., hand) in this mod.
-* Positive number - The tool will follow the indexing as explain above. 
+* Tyhjä - työkalu on chaged.
+* 0 - työkalu toimii liikkuvana (eli kädessä) tässä moodissa.
+* Positiivinen numero - Työkalu seuraa indeksointi kuten selitetään edellä. 
 
 
