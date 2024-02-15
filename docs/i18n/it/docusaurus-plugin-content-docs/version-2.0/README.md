@@ -1,6 +1,6 @@
 ---
 title: Introduzione
-id: intro
+id: introduzione
 slug: /intro
 sidebar_position: 1
 ---
@@ -14,8 +14,8 @@ sidebar_position: 1
 
 ## Per iniziare
 
-Visit [the downloads](/downloads) to download the app for your platform.
-Use [web version](https://butterfly.linwood.dev) if you cannot find your platform.
+Visita [i download](/downloads) per scaricare l'app per la tua piattaforma.
+Usa [versione web](https://butterfly.linwood.dev) se non riesci a trovare la tua piattaforma.
 
 ## Vista principale
 
@@ -26,4 +26,4 @@ Con il pulsante in alto a sinistra puoi tornare alla lista dei documenti. Il nom
 Qui sotto, puoi trovare la barra degli strumenti. A sinistra, puoi passare dalla modalità di visualizzazione a quella di modifica. A destra ad esso, ci sono le opzioni di zoom. Nell'angolo in alto a destra ci sono le opzioni dello strumento.
 
 - Le opzioni della barra di visualizzazione sono sfondo, esportazione e salvataggio.
-- Le opzioni della barra degli strumenti di modifica sono gli strumenti. You can find [here](background) more.
+- Le opzioni della barra degli strumenti di modifica sono gli strumenti. Puoi trovare [here](background) di più.
