@@ -35,25 +35,25 @@ Il y a quelques raccourcis que vous pouvez utiliser dans l'éditeur. Certaines d
 
 ## Stylo
 
-By default, the the pen is configured to function as the following:
-* `Pen`: configured as pen.
+Par défaut, le stylo est configuré pour fonctionner comme suit :
+* `Stylo`: configuré comme stylo.
 * `First` (Primary button, if supported): Change to hand tool while pressed.
-* `Second` (Secondary button, if supported): Change to second tool (see [configure](#configure) section below)  while pressed.
+* `Seconde` (bouton secondaire, si pris en charge) : Passer au second outil (voir [configurer](#configure) section ci-dessous) en appuyant dessus.
 
 
 
 ## Configurer {#configure}
 
-You can customize the controls by giving every control a tool index. The tool indexing starts from the left of the toolbar, with `1` being the first index. See example below
+Vous pouvez personnaliser les contrôles en donnant à chaque contrôle un index d'outil. L'indexation de l'outil commence à partir de la gauche de la barre d'outils, `1` étant le premier index. Voir l'exemple ci-dessous
 
-![toolbar numbered](toolbar_numbered.png)
+![barre d'outils numérotée](toolbar_numbered.png)
 
-Here, 1 refers to the lasso tool, 2, to the pan tool etc.
+Ici, 1 fait référence à l'outil lasso, 2, à l'outil de poêle etc.
 
-The configure options you have are the following:
+Les options de configuration que vous avez sont les suivantes :
 
-* Empty - the tool is unchaged.
-* 0 - the tool will function as moving (i.e., hand) in this mod.
-* Positive number - The tool will follow the indexing as explain above. 
+* Vide - l'outil n'est pas chagé.
+* 0 - l'outil fonctionnera comme se déplaçant (c.-à-d. la main) dans ce mod.
+* Numéro positif - L'outil suivra l'indexation comme expliqué ci-dessus. 
 
 
