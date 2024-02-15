@@ -1,0 +1,5 @@
+* Add area navigator page ([#574](https://github.com/LinwoodDev/Butterfly/issues/574))
+* Add resize and move controls to area tool ([#542](https://github.com/LinwoodDev/Butterfly/issues/542))
+* Upgrade to flutter 3.19.0
+
+Read more here: https://linwood.dev/butterfly/2.1.0-beta.0

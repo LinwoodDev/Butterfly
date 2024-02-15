@@ -42,21 +42,22 @@ class _EditToolbarState extends State<EditToolbar> {
   void initState() {
     super.initState();
 
-    RawKeyboard.instance.addListener(_handleKey);
+    HardwareKeyboard.instance.addHandler(_handleKey);
   }
 
   @override
   void dispose() {
-    RawKeyboard.instance.removeListener(_handleKey);
+    HardwareKeyboard.instance.removeHandler(_handleKey);
     super.dispose();
   }
 
-  void _handleKey(RawKeyEvent event) {
-    if (event.data.isControlPressed) {
+  bool _handleKey(KeyEvent event) {
+    if (HardwareKeyboard.instance.isControlPressed) {
       _mouseState = _MouseState.multi;
     } else {
       _mouseState = _MouseState.normal;
     }
+    return false;
   }
 
   @override

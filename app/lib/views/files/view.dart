@@ -379,10 +379,10 @@ class FilesViewState extends State<FilesView> {
                     icon: const PhosphorIcon(PhosphorIconsLight.arrowUp),
                     tooltip: AppLocalizations.of(context).goUp,
                   ),
-                  onWillAccept: (data) => true,
-                  onAccept: (data) async {
+                  onWillAcceptWithDetails: (data) => true,
+                  onAcceptWithDetails: (data) async {
                     await _fileSystem.moveAsset(
-                        data, '$parent/${data.split('/').last}');
+                        data.data, '$parent/${data.data.split('/').last}');
                     reloadFileSystem();
                   },
                 ),
