@@ -35,22 +35,22 @@ Nogle af dem er skrevet under knapperne.
 
 ## Pen
 
-By default, the the pen is configured to function as the following:
+Som standard er pennen konfigureret til at fungere som følgende:
 
-- `Pen`: configured as pen.
-- `First` (Primary button, if supported): Change to hand tool while pressed.
-- `Second` (Secondary button, if supported): Change to second tool (see [configure](#configure) section below)  while pressed.
+- `Pen`: konfigureret som pen.
+- `Først` (Primær knap, hvis understøttet): Skift til håndværktøj under tryk.
+- `Sekund` (sekundær knap, hvis understøttet): Skift til andet værktøj (se [configure](#configure) sektion nedenfor) under tryk.
 
 ## Konfigurer {#configure}
 
-You can customize the controls by giving every control a tool index. The tool indexing starts from the left of the toolbar, with `1` being the first index. See example below
+Du kan tilpasse kontrolelementerne ved at give hver control et værktøjs indeks. Værktøjet indeksering starter fra venstre side af værktøjslinjen, hvor `1` er det første indeks. Se eksempel nedenfor
 
-![toolbar numbered](toolbar_numbered.png)
+![værktøjslinje nummereret](toolbar_numbered.png)
 
-Here, 1 refers to the lasso tool, 2, to the pan tool etc.
+Her refererer 1 til lassoværktøjet, 2, til pandeværktøjet osv.
 
-The configure options you have are the following:
+Indstillingsmulighederne du har er følgende:
 
-- Empty - the tool is unchaged.
-- 0 - the tool will function as moving (i.e., hand) in this mod.
-- Positive number - The tool will follow the indexing as explain above.
+- Tom - værktøjet er unchaged.
+- 0 - værktøjet vil fungere som bevægende (dvs. hånd) i dette mod.
+- Positivt nummer - Værktøjet vil følge indekseringen som forklaret ovenfor.
