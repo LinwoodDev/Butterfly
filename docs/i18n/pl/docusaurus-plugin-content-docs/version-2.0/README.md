@@ -1,6 +1,6 @@
 ---
 title: Wprowadzanie
-id: intro
+id: wprowadzenie
 slug: /intro
 sidebar_position: 1
 ---
@@ -14,16 +14,16 @@ sidebar_position: 1
 
 ## Pierwsze kroki
 
-Visit [the downloads](/downloads) to download the app for your platform.
-Use [web version](https://butterfly.linwood.dev) if you cannot find your platform.
+Odwiedź [pobierania](/downloads), aby pobrać aplikację na swoją platformę.
+Użyj [wersji internetowej](https://butterfly.linwood.dev) jeśli nie możesz znaleźć swojej platformy.
 
 ## Widok główny
 
-![Main view](main.png)
+![Widok główny](main.png)
 
 Z lewym górnym przyciskiem możesz wrócić do listy dokumentów. Nazwa dokumentu będzie wyświetlana po prawej stronie. Cofnij, ponów i opcje plików znajdują się w prawym górnym rogu.
 
 Poniżej możesz znaleźć pasek narzędzi. Po lewej stronie, możesz przełączać się pomiędzy trybem widoku i edycji. Prawo do tego, tam znajdziesz opcje powiększenia. W prawym górnym rogu są opcje narzędzi.
 
 - Opcje podglądu paska narzędzi to tło, eksport i zapisz.
-- Opcje edycji paska narzędzi to narzędzia. You can find [here](background) more.
+- Opcje edycji paska narzędzi to narzędzia. Możesz znaleźć więcej [here](tła).
