@@ -1,7 +1,7 @@
 ---
 title: Введение
-id: intro
-slug: /intro
+id: интро
+slug: /интро
 sidebar_position: 1
 ---
 
@@ -14,12 +14,12 @@ sidebar_position: 1
 
 ## Приступая к работе
 
-Visit [the downloads](/downloads) to download the app for your platform.
-Use [web version](https://butterfly.linwood.dev) if you cannot find your platform.
+Посетите [загрузки](/downloads), чтобы загрузить приложение для вашей платформы.
+Используйте [веб-версию](https://butterfly.linwood.dev), если вы не можете найти свою платформу.
 
 ## Основной вид
 
-![Main view](main.png)
+![Основной вид](main.png)
 
 Верхняя левая кнопка позволяет вернуться к списку документов. Название документа будет отображаться справа. Отменить, redo и параметры файла находятся в правом верхнем углу.
 
