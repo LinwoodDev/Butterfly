@@ -1,6 +1,6 @@
 ---
 title: Einführung
-id: intro
+id: einleitung
 slug: /intro
 sidebar_position: 1
 ---
@@ -14,16 +14,16 @@ sidebar_position: 1
 
 ## Erste Schritte
 
-Visit [the downloads](/downloads) to download the app for your platform.
-Use [web version](https://butterfly.linwood.dev) if you cannot find your platform.
+Besuche [die Downloads](/downloads), um die App für deine Plattform herunterzuladen.
+Benutze [Web Version](https://butterfly.linwood.dev), wenn du deine Plattform nicht finden kannst.
 
 ## Hauptansicht
 
-![Main view](main.png)
+![Hauptansicht](main.png)
 
 Mit der linken oberen Maustaste können Sie zur Dokumentenliste zurückkehren. Der Dokumentname wird rechts dargestellt. Rückgänge, Wiedergabe- und Dateioptionen befinden sich oben rechts in der Ecke.
 
 Darunter finden Sie die Symbolleiste. Links können Sie zwischen Ansichts- und Bearbeitungsmodus wechseln. Rechts daneben finden Sie die Zoom-Optionen. In der oberen rechten Ecke finden Sie die Tool-Optionen.
 
 - Die Optionen in der Werkzeugleiste sind Hintergrund, Export und Speicher.
-- Die Optionen der Bearbeitungsleiste sind die Werkzeuge. You can find [here](background) more.
+- Die Optionen der Bearbeitungsleiste sind die Werkzeuge. Du kannst [here](Hintergrund) mehr finden.
