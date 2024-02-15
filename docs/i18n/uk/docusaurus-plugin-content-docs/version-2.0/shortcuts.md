@@ -33,15 +33,24 @@ sidebar_position: 2
 - `Ctrl` + `+`: Збільшувати масштаб
 - `Ctrl` + `-`: Збільшити
 
-## Stylus
+## Ручка
 
-- `Основна кнопка`: Змінити на інструмент керування
-- `Додаткова кнопка`: Змінити на другий інструмент
+By default, the the pen is configured to function as the following:
+
+- `Pen`: configured as pen.
+- `First` (Primary button, if supported): Change to hand tool while pressed.
+- `Second` (Secondary button, if supported): Change to second tool (see [configure](#configure) section below)  while pressed.
 
 ## Configure {#configure}
 
-Налаштуйте елементи керування, надавши кожному індексу інструменту керування.
+You can customize the controls by giving every control a tool index. The tool indexing starts from the left of the toolbar, with `1` being the first index. See example below
 
-- Дозвольте порожньо вимкнути перемикач інструмента на цьому керуванні.
-- Встановіть `0`, щоб увімкнути переміщення за допомогою цього пульта.
-- Встановіть його для перемикання на інструмент з цього індексу, починаючи з першого зліва від початку з `1`.
+![toolbar numbered](toolbar_numbered.png)
+
+Here, 1 refers to the lasso tool, 2, to the pan tool etc.
+
+The configure options you have are the following:
+
+- Empty - the tool is unchaged.
+- 0 - the tool will function as moving (i.e., hand) in this mod.
+- Positive number - The tool will follow the indexing as explain above.
