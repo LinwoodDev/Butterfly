@@ -14,16 +14,16 @@ sidebar_position: 1
 
 ## Komme i gang
 
-Visit [the downloads](/downloads) to download the app for your platform.
-Use [web version](https://butterfly.linwood.dev) if you cannot find your platform.
+Besøk [nedlastingen](/downloads) for å laste ned appen for din plattform.
+Bruk [web version](https://butterfly.linwood.dev) hvis du ikke kan finne plattformen din.
 
 ## Hoved visning
 
-![Main view](main.png)
+εHoved visning](main.png)
 
 Med knappen øverst til venstre, kan du gå tilbake til dokumentlisten. Dokumentnavnet vil vises til høyre for seg. Undo, opphev og filalternativer er øverst til høyre.
 
 Under finner du verktøylinjen nedenfor. Venstre, du kan bytte mellom visning og redigeringsmodus. For å oppnå dette, finner du zoom-alternativene. Hjørnet øverst til høyre finnes det verktøyalternativer.
 
 - Alternativene for visnings verktøylinje er bakgrunn, eksport og lagring.
-- Alternativet for å redigere verktøylinje er verktøyene. You can find [here](background) more.
+- Alternativet for å redigere verktøylinje er verktøyene. Du kan finne mer enn [here](bakgrunn).
