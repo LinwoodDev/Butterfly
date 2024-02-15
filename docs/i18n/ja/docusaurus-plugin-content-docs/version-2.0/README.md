@@ -14,16 +14,16 @@ sidebar_position: 1
 
 ## はじめに
 
-Visit [the downloads](/downloads) to download the app for your platform.
-Use [web version](https://butterfly.linwood.dev) if you cannot find your platform.
+format@@0(/downloads) にアクセスして、あなたのプラットフォーム用のアプリをダウンロードしてください。
+プラットフォームが見つからない場合は、format@@0(https\://butterfly.linwood.dev)を使用してください。
 
 ## メインビュー
 
-![Main view](main.png)
+format@@0(main.png)
 
 左上のボタンで、ドキュメントリストに戻ることができます。 ドキュメント名は右側に表示されます。 元に戻す、やり直しとファイルオプションは右上隅にあります。
 
 その下には、ツールバーがあります。 左に表示モードと編集モードを切り替えることができます。 右、そこにズームオプションがあります。 右上隅にツールオプションがあります。
 
 - 表示ツールバーのオプションは、背景、エクスポート、および保存です。
-- 編集ツールバーのオプションはツールです。 You can find [here](background) more.
+- 編集ツールバーのオプションはツールです。 もっと [here](背景) を見つけることができます。
