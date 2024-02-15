@@ -1,7 +1,7 @@
 ---
 title: Úvod
-id: intro
-slug: /intro
+id: úvod
+slug: /úvod
 sidebar_position: 1
 ---
 
@@ -14,16 +14,16 @@ sidebar_position: 1
 
 ## Jak začít
 
-Visit [the downloads](/downloads) to download the app for your platform.
-Use [web version](https://butterfly.linwood.dev) if you cannot find your platform.
+Navštivte [stažení](/downloads) a stáhněte si aplikaci pro vaši platformu.
+Pokud nemůžete najít platformu, použijte [webovou verzi](https://butterfly.linwood.dev).
 
 ## Hlavní pohled
 
-![Main view](main.png)
+![Hlavní pohled](main.png)
 
 Pomocí levého horního tlačítka se můžete vrátit do seznamu dokumentů. Název dokumentu se zobrazí vpravo. Vrátit, vrátit zpět a možnosti souborů jsou v pravém horním rohu.
 
 Pod ním můžete najít panel nástrojů. Zleva, můžete přepínat mezi režimem zobrazení a úprav. Zde naleznete možnosti přiblížení. V pravém horním rohu jsou možnosti nástroje.
 
 - Možnosti lišty zobrazení jsou na pozadí, export a uložení.
-- Možnosti editačního panelu nástrojů jsou nástroje. You can find [here](background) more.
+- Možnosti editačního panelu nástrojů jsou nástroje. Více najdeš [here](pozadí).
