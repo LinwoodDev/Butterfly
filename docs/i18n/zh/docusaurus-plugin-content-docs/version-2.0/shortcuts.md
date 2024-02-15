@@ -35,22 +35,22 @@ sidebar_position: 2
 
 ## 笔
 
-By default, the the pen is configured to function as the following:
+默认情况下，钢笔配置为如下功能：
 
-- `Pen`: configured as pen.
-- `First` (Primary button, if supported): Change to hand tool while pressed.
-- `Second` (Secondary button, if supported): Change to second tool (see [configure](#configure) section below)  while pressed.
+- “Pen\`：被配置为笔”。
+- `First` (主按钮，如果支持的话)：按住时更改为手工具。
+- `second` (次要按钮，如果支持的话)：按下时更改为第二个工具(见下面 [configure](#configure) 部分)。
 
 ## 配置 {#configure}
 
-You can customize the controls by giving every control a tool index. The tool indexing starts from the left of the toolbar, with `1` being the first index. See example below
+您可以通过给每个控制器一个工具索引来自定义控件。 工具索引从工具栏左侧开始，第一个索引是 `1` 。 查看下面的示例
 
-![toolbar numbered](toolbar_numbered.png)
+![工具栏编号](toolbar_numbered.png)
 
-Here, 1 refers to the lasso tool, 2, to the pan tool etc.
+这里有一个是指激光工具、2个是指pan工具等。
 
-The configure options you have are the following:
+您拥有的配置选项如下：
 
-- Empty - the tool is unchaged.
-- 0 - the tool will function as moving (i.e., hand) in this mod.
-- Positive number - The tool will follow the indexing as explain above.
+- 空-工具已解冻。
+- 0 - 工具将在这个模组中发挥移动作用(即手)。
+- 正数 - 该工具将遵循上面解释的索引。
