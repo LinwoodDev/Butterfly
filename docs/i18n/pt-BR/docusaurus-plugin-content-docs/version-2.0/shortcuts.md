@@ -33,15 +33,24 @@ Alguns deles estão escritos abaixo dos botões.
 - `Ctrl` + `+`: Zoom para
 - `Ctrl` + `-`: Zoom para fora
 
-## Stylus
+## Caneta
 
-- `Botão principal`: Alterar para ferramenta da mão
-- `Botão secundário`: Mudar para segunda ferramenta
+By default, the the pen is configured to function as the following:
+
+- `Pen`: configured as pen.
+- `First` (Primary button, if supported): Change to hand tool while pressed.
+- `Second` (Secondary button, if supported): Change to second tool (see [configure](#configure) section below)  while pressed.
 
 ## Configurar {#configure}
 
-Personalize os controles dando a cada controle um índice de ferramentas.
+You can customize the controls by giving every control a tool index. The tool indexing starts from the left of the toolbar, with `1` being the first index. See example below
 
-- Deixe em branco para desativar a opção de ferramenta neste controle.
-- Defina como `0` para permitir movimento com este controle.
-- Defina um número de positor para mudar para a ferramenta com esse índice a partir do primeiro à esquerda, começando com `1`.
+![toolbar numbered](toolbar_numbered.png)
+
+Here, 1 refers to the lasso tool, 2, to the pan tool etc.
+
+The configure options you have are the following:
+
+- Empty - the tool is unchaged.
+- 0 - the tool will function as moving (i.e., hand) in this mod.
+- Positive number - The tool will follow the indexing as explain above.
