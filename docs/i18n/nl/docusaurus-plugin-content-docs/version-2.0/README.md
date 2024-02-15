@@ -14,16 +14,16 @@ sidebar_position: 1
 
 ## Aan de slag
 
-Visit [the downloads](/downloads) to download the app for your platform.
-Use [web version](https://butterfly.linwood.dev) if you cannot find your platform.
+Bezoek [de downloads](/downloads) om de app voor jouw platform te downloaden.
+Gebruik [webversie](https://butterfly.linwood.dev) als je jouw platform niet kunt vinden.
 
 ## Hoofd weergave
 
-![Main view](main.png)
+![Hoofd weergave](main.png)
 
 Met de linker bovenzijde knop kunt u teruggaan naar de documentenlijst. De documentnaam wordt getoond aan de rechterkant. Ongedaan, opnieuw doen en bestandsopties staan in de rechterbovenhoek.
 
 Hieronder kunt u de werkbalk vinden. Links, u kunt schakelen tussen weergave en bewerken modus. Nou, daar vind je de zoomopties. In de rechterbovenhoek zijn de opties van de tool aanwezig.
 
 - De weergave werkbalk opties zijn achtergrond, exporteren en opslaan.
-- De opties voor de werkbalk voor bewerken zijn de hulpmiddelen. You can find [here](background) more.
+- De opties voor de werkbalk voor bewerken zijn de hulpmiddelen. Je kunt [here](achtergrond) meer vinden.
