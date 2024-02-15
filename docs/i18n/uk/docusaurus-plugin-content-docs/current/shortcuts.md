@@ -35,8 +35,8 @@ sidebar_position: 2
 
 ## Ручка
 
-By default, the the pen is configured to function as the following:
-* `Pen`: configured as pen.
+За замовчуванням, ручка налаштована для функції в такому випадку:
+* `Pen`: налаштована як ручка.
 * `First` (Primary button, if supported): Change to hand tool while pressed.
 * `Second` (Secondary button, if supported): Change to second tool (see [configure](#configure) section below)  while pressed.
 
@@ -44,16 +44,16 @@ By default, the the pen is configured to function as the following:
 
 ## Настроїти {#configure}
 
-You can customize the controls by giving every control a tool index. The tool indexing starts from the left of the toolbar, with `1` being the first index. See example below
+Ви можете налаштувати елементи керування надаючи кожному інструмент індексу. The tool indexing starts from the left of the toolbar, with `1` being the first index. Дивитися приклад нижче
 
-![toolbar numbered](toolbar_numbered.png)
+![пронумерація панелі інструментів](toolbar_numbered.png)
 
-Here, 1 refers to the lasso tool, 2, to the pan tool etc.
+При цьому 1 відноситься до інструменту лазу, 2 до інструменту сковорідки тощо.
 
-The configure options you have are the following:
+Параметри налаштування наведені таким чином:
 
-* Empty - the tool is unchaged.
-* 0 - the tool will function as moving (i.e., hand) in this mod.
-* Positive number - The tool will follow the indexing as explain above. 
+* Порожній - інструмент без черги.
+* 0 - інструмент функціонує як рух (тобто рука) в цьому моді.
+* Додатнє число - Інструмент буде слідувати індексації, як пояснює вище. 
 
 
