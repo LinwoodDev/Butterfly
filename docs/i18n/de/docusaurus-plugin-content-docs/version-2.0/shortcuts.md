@@ -35,22 +35,22 @@ Einige davon sind unter den Buttons geschrieben.
 
 ## Stift
 
-By default, the the pen is configured to function as the following:
+Standardmäßig ist der Stift so konfiguriert, dass er wie folgt funktioniert:
 
-- `Pen`: configured as pen.
-- `First` (Primary button, if supported): Change to hand tool while pressed.
-- `Second` (Secondary button, if supported): Change to second tool (see [configure](#configure) section below)  while pressed.
+- `Pen`: als Stift konfiguriert.
+- `First` (Primärer Knopf, falls unterstützt): Ändern Sie das Handwerkzeug während Sie gedrückt werden.
+- `Second` (sekundäre Schaltfläche, falls unterstützt): Wechseln Sie zum zweiten Werkzeug (siehe [configure](#configure) Abschnitt unten, während Sie gedrückt werden.
 
 ## Konfiguriere {#configure}
 
-You can customize the controls by giving every control a tool index. The tool indexing starts from the left of the toolbar, with `1` being the first index. See example below
+Sie können die Steuerelemente anpassen, indem Sie jeder Steuerung einen Werkzeugindex geben. Die Werkzeug-Indexierung beginnt links neben der Werkzeugleiste, wobei `1` der erste Index ist. Siehe Beispiel unten
 
-![toolbar numbered](toolbar_numbered.png)
+![Toolbar nummeriert](toolbar_numbered.png)
 
-Here, 1 refers to the lasso tool, 2, to the pan tool etc.
+Hier bezieht sich 1 auf das Lasso-Werkzeug, 2, das Pfangenwerkzeug usw.
 
-The configure options you have are the following:
+Die Konfigurationsoptionen, die Sie haben, sind folgende:
 
-- Empty - the tool is unchaged.
-- 0 - the tool will function as moving (i.e., hand) in this mod.
-- Positive number - The tool will follow the indexing as explain above.
+- Leer - das Werkzeug ist freigeschaltet.
+- 0 - das Werkzeug funktioniert als Bewegung (d.h. Hand) in diesem Mod.
+- Positive Nummer - Das Tool folgt der Indizierung wie oben beschrieben.
