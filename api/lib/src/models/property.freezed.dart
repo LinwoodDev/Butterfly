@@ -12,7 +12,7 @@ part of 'property.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 Property _$PropertyFromJson(Map<String, dynamic> json) {
   switch (json['type']) {
@@ -227,7 +227,7 @@ class _$PenPropertyImpl implements PenProperty {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$PenPropertyImpl &&
@@ -441,7 +441,7 @@ class _$ShapePropertyImpl implements ShapeProperty {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$ShapePropertyImpl &&
@@ -712,7 +712,7 @@ class _$CircleShapeImpl extends CircleShape {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$CircleShapeImpl &&
@@ -934,7 +934,7 @@ class _$RectangleShapeImpl extends RectangleShape {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$RectangleShapeImpl &&
@@ -1117,7 +1117,7 @@ class _$LineShapeImpl extends LineShape {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType && other is _$LineShapeImpl);
   }
