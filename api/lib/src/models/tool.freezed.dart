@@ -90,8 +90,8 @@ mixin _$Tool {
             String name,
             String displayIcon,
             bool zoomDependent,
-            double straightLineTime,
-            bool straightLineEnabled,
+            double shapeDetectionTime,
+            bool shapeDetectionEnabled,
             PenProperty property)
         pen,
     required TResult Function(
@@ -167,8 +167,8 @@ mixin _$Tool {
             String name,
             String displayIcon,
             bool zoomDependent,
-            double straightLineTime,
-            bool straightLineEnabled,
+            double shapeDetectionTime,
+            bool shapeDetectionEnabled,
             PenProperty property)?
         pen,
     TResult? Function(String name, String displayIcon, double strokeWidth)?
@@ -240,8 +240,8 @@ mixin _$Tool {
             String name,
             String displayIcon,
             bool zoomDependent,
-            double straightLineTime,
-            bool straightLineEnabled,
+            double shapeDetectionTime,
+            bool shapeDetectionEnabled,
             PenProperty property)?
         pen,
     TResult Function(String name, String displayIcon, double strokeWidth)?
@@ -511,8 +511,8 @@ class _$SelectToolImpl extends SelectTool {
             String name,
             String displayIcon,
             bool zoomDependent,
-            double straightLineTime,
-            bool straightLineEnabled,
+            double shapeDetectionTime,
+            bool shapeDetectionEnabled,
             PenProperty property)
         pen,
     required TResult Function(
@@ -591,8 +591,8 @@ class _$SelectToolImpl extends SelectTool {
             String name,
             String displayIcon,
             bool zoomDependent,
-            double straightLineTime,
-            bool straightLineEnabled,
+            double shapeDetectionTime,
+            bool shapeDetectionEnabled,
             PenProperty property)?
         pen,
     TResult? Function(String name, String displayIcon, double strokeWidth)?
@@ -667,8 +667,8 @@ class _$SelectToolImpl extends SelectTool {
             String name,
             String displayIcon,
             bool zoomDependent,
-            double straightLineTime,
-            bool straightLineEnabled,
+            double shapeDetectionTime,
+            bool shapeDetectionEnabled,
             PenProperty property)?
         pen,
     TResult Function(String name, String displayIcon, double strokeWidth)?
@@ -930,8 +930,8 @@ class _$HandToolImpl extends HandTool {
             String name,
             String displayIcon,
             bool zoomDependent,
-            double straightLineTime,
-            bool straightLineEnabled,
+            double shapeDetectionTime,
+            bool shapeDetectionEnabled,
             PenProperty property)
         pen,
     required TResult Function(
@@ -1010,8 +1010,8 @@ class _$HandToolImpl extends HandTool {
             String name,
             String displayIcon,
             bool zoomDependent,
-            double straightLineTime,
-            bool straightLineEnabled,
+            double shapeDetectionTime,
+            bool shapeDetectionEnabled,
             PenProperty property)?
         pen,
     TResult? Function(String name, String displayIcon, double strokeWidth)?
@@ -1086,8 +1086,8 @@ class _$HandToolImpl extends HandTool {
             String name,
             String displayIcon,
             bool zoomDependent,
-            double straightLineTime,
-            bool straightLineEnabled,
+            double shapeDetectionTime,
+            bool shapeDetectionEnabled,
             PenProperty property)?
         pen,
     TResult Function(String name, String displayIcon, double strokeWidth)?
@@ -1382,8 +1382,8 @@ class _$ImportToolImpl extends ImportTool {
             String name,
             String displayIcon,
             bool zoomDependent,
-            double straightLineTime,
-            bool straightLineEnabled,
+            double shapeDetectionTime,
+            bool shapeDetectionEnabled,
             PenProperty property)
         pen,
     required TResult Function(
@@ -1462,8 +1462,8 @@ class _$ImportToolImpl extends ImportTool {
             String name,
             String displayIcon,
             bool zoomDependent,
-            double straightLineTime,
-            bool straightLineEnabled,
+            double shapeDetectionTime,
+            bool shapeDetectionEnabled,
             PenProperty property)?
         pen,
     TResult? Function(String name, String displayIcon, double strokeWidth)?
@@ -1538,8 +1538,8 @@ class _$ImportToolImpl extends ImportTool {
             String name,
             String displayIcon,
             bool zoomDependent,
-            double straightLineTime,
-            bool straightLineEnabled,
+            double shapeDetectionTime,
+            bool shapeDetectionEnabled,
             PenProperty property)?
         pen,
     TResult Function(String name, String displayIcon, double strokeWidth)?
@@ -1803,8 +1803,8 @@ class _$UndoToolImpl extends UndoTool {
             String name,
             String displayIcon,
             bool zoomDependent,
-            double straightLineTime,
-            bool straightLineEnabled,
+            double shapeDetectionTime,
+            bool shapeDetectionEnabled,
             PenProperty property)
         pen,
     required TResult Function(
@@ -1883,8 +1883,8 @@ class _$UndoToolImpl extends UndoTool {
             String name,
             String displayIcon,
             bool zoomDependent,
-            double straightLineTime,
-            bool straightLineEnabled,
+            double shapeDetectionTime,
+            bool shapeDetectionEnabled,
             PenProperty property)?
         pen,
     TResult? Function(String name, String displayIcon, double strokeWidth)?
@@ -1959,8 +1959,8 @@ class _$UndoToolImpl extends UndoTool {
             String name,
             String displayIcon,
             bool zoomDependent,
-            double straightLineTime,
-            bool straightLineEnabled,
+            double shapeDetectionTime,
+            bool shapeDetectionEnabled,
             PenProperty property)?
         pen,
     TResult Function(String name, String displayIcon, double strokeWidth)?
@@ -2219,8 +2219,8 @@ class _$RedoToolImpl extends RedoTool {
             String name,
             String displayIcon,
             bool zoomDependent,
-            double straightLineTime,
-            bool straightLineEnabled,
+            double shapeDetectionTime,
+            bool shapeDetectionEnabled,
             PenProperty property)
         pen,
     required TResult Function(
@@ -2299,8 +2299,8 @@ class _$RedoToolImpl extends RedoTool {
             String name,
             String displayIcon,
             bool zoomDependent,
-            double straightLineTime,
-            bool straightLineEnabled,
+            double shapeDetectionTime,
+            bool shapeDetectionEnabled,
             PenProperty property)?
         pen,
     TResult? Function(String name, String displayIcon, double strokeWidth)?
@@ -2375,8 +2375,8 @@ class _$RedoToolImpl extends RedoTool {
             String name,
             String displayIcon,
             bool zoomDependent,
-            double straightLineTime,
-            bool straightLineEnabled,
+            double shapeDetectionTime,
+            bool shapeDetectionEnabled,
             PenProperty property)?
         pen,
     TResult Function(String name, String displayIcon, double strokeWidth)?
@@ -2700,8 +2700,8 @@ class _$LabelToolImpl extends LabelTool {
             String name,
             String displayIcon,
             bool zoomDependent,
-            double straightLineTime,
-            bool straightLineEnabled,
+            double shapeDetectionTime,
+            bool shapeDetectionEnabled,
             PenProperty property)
         pen,
     required TResult Function(
@@ -2781,8 +2781,8 @@ class _$LabelToolImpl extends LabelTool {
             String name,
             String displayIcon,
             bool zoomDependent,
-            double straightLineTime,
-            bool straightLineEnabled,
+            double shapeDetectionTime,
+            bool shapeDetectionEnabled,
             PenProperty property)?
         pen,
     TResult? Function(String name, String displayIcon, double strokeWidth)?
@@ -2858,8 +2858,8 @@ class _$LabelToolImpl extends LabelTool {
             String name,
             String displayIcon,
             bool zoomDependent,
-            double straightLineTime,
-            bool straightLineEnabled,
+            double shapeDetectionTime,
+            bool shapeDetectionEnabled,
             PenProperty property)?
         pen,
     TResult Function(String name, String displayIcon, double strokeWidth)?
@@ -3049,8 +3049,8 @@ abstract class _$$PenToolImplCopyWith<$Res> implements $ToolCopyWith<$Res> {
       {String name,
       String displayIcon,
       bool zoomDependent,
-      double straightLineTime,
-      bool straightLineEnabled,
+      double shapeDetectionTime,
+      bool shapeDetectionEnabled,
       PenProperty property});
 }
 
@@ -3068,8 +3068,8 @@ class __$$PenToolImplCopyWithImpl<$Res>
     Object? name = null,
     Object? displayIcon = null,
     Object? zoomDependent = null,
-    Object? straightLineTime = null,
-    Object? straightLineEnabled = null,
+    Object? shapeDetectionTime = null,
+    Object? shapeDetectionEnabled = null,
     Object? property = freezed,
   }) {
     return _then(_$PenToolImpl(
@@ -3085,13 +3085,13 @@ class __$$PenToolImplCopyWithImpl<$Res>
           ? _value.zoomDependent
           : zoomDependent // ignore: cast_nullable_to_non_nullable
               as bool,
-      straightLineTime: null == straightLineTime
-          ? _value.straightLineTime
-          : straightLineTime // ignore: cast_nullable_to_non_nullable
+      shapeDetectionTime: null == shapeDetectionTime
+          ? _value.shapeDetectionTime
+          : shapeDetectionTime // ignore: cast_nullable_to_non_nullable
               as double,
-      straightLineEnabled: null == straightLineEnabled
-          ? _value.straightLineEnabled
-          : straightLineEnabled // ignore: cast_nullable_to_non_nullable
+      shapeDetectionEnabled: null == shapeDetectionEnabled
+          ? _value.shapeDetectionEnabled
+          : shapeDetectionEnabled // ignore: cast_nullable_to_non_nullable
               as bool,
       property: freezed == property
           ? _value.property
@@ -3108,8 +3108,8 @@ class _$PenToolImpl extends PenTool {
       {this.name = '',
       this.displayIcon = '',
       this.zoomDependent = true,
-      this.straightLineTime = 0.5,
-      this.straightLineEnabled = false,
+      this.shapeDetectionTime = 0.5,
+      this.shapeDetectionEnabled = false,
       this.property = const PenProperty(),
       final String? $type})
       : $type = $type ?? 'pen',
@@ -3129,10 +3129,10 @@ class _$PenToolImpl extends PenTool {
   final bool zoomDependent;
   @override
   @JsonKey()
-  final double straightLineTime;
+  final double shapeDetectionTime;
   @override
   @JsonKey()
-  final bool straightLineEnabled;
+  final bool shapeDetectionEnabled;
   @override
   @JsonKey()
   final PenProperty property;
@@ -3142,7 +3142,7 @@ class _$PenToolImpl extends PenTool {
 
   @override
   String toString() {
-    return 'Tool.pen(name: $name, displayIcon: $displayIcon, zoomDependent: $zoomDependent, straightLineTime: $straightLineTime, straightLineEnabled: $straightLineEnabled, property: $property)';
+    return 'Tool.pen(name: $name, displayIcon: $displayIcon, zoomDependent: $zoomDependent, shapeDetectionTime: $shapeDetectionTime, shapeDetectionEnabled: $shapeDetectionEnabled, property: $property)';
   }
 
   @JsonKey(ignore: true)
@@ -3175,8 +3175,8 @@ class _$PenToolImpl extends PenTool {
             String name,
             String displayIcon,
             bool zoomDependent,
-            double straightLineTime,
-            bool straightLineEnabled,
+            double shapeDetectionTime,
+            bool shapeDetectionEnabled,
             PenProperty property)
         pen,
     required TResult Function(
@@ -3229,8 +3229,8 @@ class _$PenToolImpl extends PenTool {
         texture,
     required TResult Function(String name, String displayIcon) eyeDropper,
   }) {
-    return pen(name, displayIcon, zoomDependent, straightLineTime,
-        straightLineEnabled, property);
+    return pen(name, displayIcon, zoomDependent, shapeDetectionTime,
+        shapeDetectionEnabled, property);
   }
 
   @override
@@ -3256,8 +3256,8 @@ class _$PenToolImpl extends PenTool {
             String name,
             String displayIcon,
             bool zoomDependent,
-            double straightLineTime,
-            bool straightLineEnabled,
+            double shapeDetectionTime,
+            bool shapeDetectionEnabled,
             PenProperty property)?
         pen,
     TResult? Function(String name, String displayIcon, double strokeWidth)?
@@ -3306,8 +3306,8 @@ class _$PenToolImpl extends PenTool {
         texture,
     TResult? Function(String name, String displayIcon)? eyeDropper,
   }) {
-    return pen?.call(name, displayIcon, zoomDependent, straightLineTime,
-        straightLineEnabled, property);
+    return pen?.call(name, displayIcon, zoomDependent, shapeDetectionTime,
+        shapeDetectionEnabled, property);
   }
 
   @override
@@ -3333,8 +3333,8 @@ class _$PenToolImpl extends PenTool {
             String name,
             String displayIcon,
             bool zoomDependent,
-            double straightLineTime,
-            bool straightLineEnabled,
+            double shapeDetectionTime,
+            bool shapeDetectionEnabled,
             PenProperty property)?
         pen,
     TResult Function(String name, String displayIcon, double strokeWidth)?
@@ -3385,8 +3385,8 @@ class _$PenToolImpl extends PenTool {
     required TResult orElse(),
   }) {
     if (pen != null) {
-      return pen(name, displayIcon, zoomDependent, straightLineTime,
-          straightLineEnabled, property);
+      return pen(name, displayIcon, zoomDependent, shapeDetectionTime,
+          shapeDetectionEnabled, property);
     }
     return orElse();
   }
@@ -3489,8 +3489,8 @@ abstract class PenTool extends Tool {
       {final String name,
       final String displayIcon,
       final bool zoomDependent,
-      final double straightLineTime,
-      final bool straightLineEnabled,
+      final double shapeDetectionTime,
+      final bool shapeDetectionEnabled,
       final PenProperty property}) = _$PenToolImpl;
   PenTool._() : super._();
 
@@ -3501,8 +3501,8 @@ abstract class PenTool extends Tool {
   @override
   String get displayIcon;
   bool get zoomDependent;
-  double get straightLineTime;
-  bool get straightLineEnabled;
+  double get shapeDetectionTime;
+  bool get shapeDetectionEnabled;
   PenProperty get property;
   @override
   @JsonKey(ignore: true)
@@ -3614,8 +3614,8 @@ class _$EraserToolImpl extends EraserTool {
             String name,
             String displayIcon,
             bool zoomDependent,
-            double straightLineTime,
-            bool straightLineEnabled,
+            double shapeDetectionTime,
+            bool shapeDetectionEnabled,
             PenProperty property)
         pen,
     required TResult Function(
@@ -3694,8 +3694,8 @@ class _$EraserToolImpl extends EraserTool {
             String name,
             String displayIcon,
             bool zoomDependent,
-            double straightLineTime,
-            bool straightLineEnabled,
+            double shapeDetectionTime,
+            bool shapeDetectionEnabled,
             PenProperty property)?
         pen,
     TResult? Function(String name, String displayIcon, double strokeWidth)?
@@ -3770,8 +3770,8 @@ class _$EraserToolImpl extends EraserTool {
             String name,
             String displayIcon,
             bool zoomDependent,
-            double straightLineTime,
-            bool straightLineEnabled,
+            double shapeDetectionTime,
+            bool shapeDetectionEnabled,
             PenProperty property)?
         pen,
     TResult Function(String name, String displayIcon, double strokeWidth)?
@@ -4047,8 +4047,8 @@ class _$PathEraserToolImpl extends PathEraserTool {
             String name,
             String displayIcon,
             bool zoomDependent,
-            double straightLineTime,
-            bool straightLineEnabled,
+            double shapeDetectionTime,
+            bool shapeDetectionEnabled,
             PenProperty property)
         pen,
     required TResult Function(
@@ -4127,8 +4127,8 @@ class _$PathEraserToolImpl extends PathEraserTool {
             String name,
             String displayIcon,
             bool zoomDependent,
-            double straightLineTime,
-            bool straightLineEnabled,
+            double shapeDetectionTime,
+            bool shapeDetectionEnabled,
             PenProperty property)?
         pen,
     TResult? Function(String name, String displayIcon, double strokeWidth)?
@@ -4203,8 +4203,8 @@ class _$PathEraserToolImpl extends PathEraserTool {
             String name,
             String displayIcon,
             bool zoomDependent,
-            double straightLineTime,
-            bool straightLineEnabled,
+            double shapeDetectionTime,
+            bool shapeDetectionEnabled,
             PenProperty property)?
         pen,
     TResult Function(String name, String displayIcon, double strokeWidth)?
@@ -4478,8 +4478,8 @@ class _$LayerToolImpl extends LayerTool {
             String name,
             String displayIcon,
             bool zoomDependent,
-            double straightLineTime,
-            bool straightLineEnabled,
+            double shapeDetectionTime,
+            bool shapeDetectionEnabled,
             PenProperty property)
         pen,
     required TResult Function(
@@ -4558,8 +4558,8 @@ class _$LayerToolImpl extends LayerTool {
             String name,
             String displayIcon,
             bool zoomDependent,
-            double straightLineTime,
-            bool straightLineEnabled,
+            double shapeDetectionTime,
+            bool shapeDetectionEnabled,
             PenProperty property)?
         pen,
     TResult? Function(String name, String displayIcon, double strokeWidth)?
@@ -4634,8 +4634,8 @@ class _$LayerToolImpl extends LayerTool {
             String name,
             String displayIcon,
             bool zoomDependent,
-            double straightLineTime,
-            bool straightLineEnabled,
+            double shapeDetectionTime,
+            bool shapeDetectionEnabled,
             PenProperty property)?
         pen,
     TResult Function(String name, String displayIcon, double strokeWidth)?
@@ -4942,8 +4942,8 @@ class _$AreaToolImpl extends AreaTool {
             String name,
             String displayIcon,
             bool zoomDependent,
-            double straightLineTime,
-            bool straightLineEnabled,
+            double shapeDetectionTime,
+            bool shapeDetectionEnabled,
             PenProperty property)
         pen,
     required TResult Function(
@@ -5023,8 +5023,8 @@ class _$AreaToolImpl extends AreaTool {
             String name,
             String displayIcon,
             bool zoomDependent,
-            double straightLineTime,
-            bool straightLineEnabled,
+            double shapeDetectionTime,
+            bool shapeDetectionEnabled,
             PenProperty property)?
         pen,
     TResult? Function(String name, String displayIcon, double strokeWidth)?
@@ -5100,8 +5100,8 @@ class _$AreaToolImpl extends AreaTool {
             String name,
             String displayIcon,
             bool zoomDependent,
-            double straightLineTime,
-            bool straightLineEnabled,
+            double shapeDetectionTime,
+            bool shapeDetectionEnabled,
             PenProperty property)?
         pen,
     TResult Function(String name, String displayIcon, double strokeWidth)?
@@ -5415,8 +5415,8 @@ class _$LaserToolImpl extends LaserTool {
             String name,
             String displayIcon,
             bool zoomDependent,
-            double straightLineTime,
-            bool straightLineEnabled,
+            double shapeDetectionTime,
+            bool shapeDetectionEnabled,
             PenProperty property)
         pen,
     required TResult Function(
@@ -5495,8 +5495,8 @@ class _$LaserToolImpl extends LaserTool {
             String name,
             String displayIcon,
             bool zoomDependent,
-            double straightLineTime,
-            bool straightLineEnabled,
+            double shapeDetectionTime,
+            bool shapeDetectionEnabled,
             PenProperty property)?
         pen,
     TResult? Function(String name, String displayIcon, double strokeWidth)?
@@ -5572,8 +5572,8 @@ class _$LaserToolImpl extends LaserTool {
             String name,
             String displayIcon,
             bool zoomDependent,
-            double straightLineTime,
-            bool straightLineEnabled,
+            double shapeDetectionTime,
+            bool shapeDetectionEnabled,
             PenProperty property)?
         pen,
     TResult Function(String name, String displayIcon, double strokeWidth)?
@@ -5896,8 +5896,8 @@ class _$ShapeToolImpl extends ShapeTool {
             String name,
             String displayIcon,
             bool zoomDependent,
-            double straightLineTime,
-            bool straightLineEnabled,
+            double shapeDetectionTime,
+            bool shapeDetectionEnabled,
             PenProperty property)
         pen,
     required TResult Function(
@@ -5977,8 +5977,8 @@ class _$ShapeToolImpl extends ShapeTool {
             String name,
             String displayIcon,
             bool zoomDependent,
-            double straightLineTime,
-            bool straightLineEnabled,
+            double shapeDetectionTime,
+            bool shapeDetectionEnabled,
             PenProperty property)?
         pen,
     TResult? Function(String name, String displayIcon, double strokeWidth)?
@@ -6054,8 +6054,8 @@ class _$ShapeToolImpl extends ShapeTool {
             String name,
             String displayIcon,
             bool zoomDependent,
-            double straightLineTime,
-            bool straightLineEnabled,
+            double shapeDetectionTime,
+            bool shapeDetectionEnabled,
             PenProperty property)?
         pen,
     TResult Function(String name, String displayIcon, double strokeWidth)?
@@ -6348,8 +6348,8 @@ class _$StampToolImpl extends StampTool {
             String name,
             String displayIcon,
             bool zoomDependent,
-            double straightLineTime,
-            bool straightLineEnabled,
+            double shapeDetectionTime,
+            bool shapeDetectionEnabled,
             PenProperty property)
         pen,
     required TResult Function(
@@ -6428,8 +6428,8 @@ class _$StampToolImpl extends StampTool {
             String name,
             String displayIcon,
             bool zoomDependent,
-            double straightLineTime,
-            bool straightLineEnabled,
+            double shapeDetectionTime,
+            bool shapeDetectionEnabled,
             PenProperty property)?
         pen,
     TResult? Function(String name, String displayIcon, double strokeWidth)?
@@ -6504,8 +6504,8 @@ class _$StampToolImpl extends StampTool {
             String name,
             String displayIcon,
             bool zoomDependent,
-            double straightLineTime,
-            bool straightLineEnabled,
+            double shapeDetectionTime,
+            bool shapeDetectionEnabled,
             PenProperty property)?
         pen,
     TResult Function(String name, String displayIcon, double strokeWidth)?
@@ -6770,8 +6770,8 @@ class _$PresentationToolImpl extends PresentationTool {
             String name,
             String displayIcon,
             bool zoomDependent,
-            double straightLineTime,
-            bool straightLineEnabled,
+            double shapeDetectionTime,
+            bool shapeDetectionEnabled,
             PenProperty property)
         pen,
     required TResult Function(
@@ -6850,8 +6850,8 @@ class _$PresentationToolImpl extends PresentationTool {
             String name,
             String displayIcon,
             bool zoomDependent,
-            double straightLineTime,
-            bool straightLineEnabled,
+            double shapeDetectionTime,
+            bool shapeDetectionEnabled,
             PenProperty property)?
         pen,
     TResult? Function(String name, String displayIcon, double strokeWidth)?
@@ -6926,8 +6926,8 @@ class _$PresentationToolImpl extends PresentationTool {
             String name,
             String displayIcon,
             bool zoomDependent,
-            double straightLineTime,
-            bool straightLineEnabled,
+            double shapeDetectionTime,
+            bool shapeDetectionEnabled,
             PenProperty property)?
         pen,
     TResult Function(String name, String displayIcon, double strokeWidth)?
@@ -7198,8 +7198,8 @@ class _$SpacerToolImpl extends SpacerTool {
             String name,
             String displayIcon,
             bool zoomDependent,
-            double straightLineTime,
-            bool straightLineEnabled,
+            double shapeDetectionTime,
+            bool shapeDetectionEnabled,
             PenProperty property)
         pen,
     required TResult Function(
@@ -7278,8 +7278,8 @@ class _$SpacerToolImpl extends SpacerTool {
             String name,
             String displayIcon,
             bool zoomDependent,
-            double straightLineTime,
-            bool straightLineEnabled,
+            double shapeDetectionTime,
+            bool shapeDetectionEnabled,
             PenProperty property)?
         pen,
     TResult? Function(String name, String displayIcon, double strokeWidth)?
@@ -7354,8 +7354,8 @@ class _$SpacerToolImpl extends SpacerTool {
             String name,
             String displayIcon,
             bool zoomDependent,
-            double straightLineTime,
-            bool straightLineEnabled,
+            double shapeDetectionTime,
+            bool shapeDetectionEnabled,
             PenProperty property)?
         pen,
     TResult Function(String name, String displayIcon, double strokeWidth)?
@@ -7620,8 +7620,8 @@ class _$FullScreenToolImpl extends FullScreenTool {
             String name,
             String displayIcon,
             bool zoomDependent,
-            double straightLineTime,
-            bool straightLineEnabled,
+            double shapeDetectionTime,
+            bool shapeDetectionEnabled,
             PenProperty property)
         pen,
     required TResult Function(
@@ -7700,8 +7700,8 @@ class _$FullScreenToolImpl extends FullScreenTool {
             String name,
             String displayIcon,
             bool zoomDependent,
-            double straightLineTime,
-            bool straightLineEnabled,
+            double shapeDetectionTime,
+            bool shapeDetectionEnabled,
             PenProperty property)?
         pen,
     TResult? Function(String name, String displayIcon, double strokeWidth)?
@@ -7776,8 +7776,8 @@ class _$FullScreenToolImpl extends FullScreenTool {
             String name,
             String displayIcon,
             bool zoomDependent,
-            double straightLineTime,
-            bool straightLineEnabled,
+            double shapeDetectionTime,
+            bool shapeDetectionEnabled,
             PenProperty property)?
         pen,
     TResult Function(String name, String displayIcon, double strokeWidth)?
@@ -8058,8 +8058,8 @@ class _$AssetToolImpl extends AssetTool {
             String name,
             String displayIcon,
             bool zoomDependent,
-            double straightLineTime,
-            bool straightLineEnabled,
+            double shapeDetectionTime,
+            bool shapeDetectionEnabled,
             PenProperty property)
         pen,
     required TResult Function(
@@ -8138,8 +8138,8 @@ class _$AssetToolImpl extends AssetTool {
             String name,
             String displayIcon,
             bool zoomDependent,
-            double straightLineTime,
-            bool straightLineEnabled,
+            double shapeDetectionTime,
+            bool shapeDetectionEnabled,
             PenProperty property)?
         pen,
     TResult? Function(String name, String displayIcon, double strokeWidth)?
@@ -8214,8 +8214,8 @@ class _$AssetToolImpl extends AssetTool {
             String name,
             String displayIcon,
             bool zoomDependent,
-            double straightLineTime,
-            bool straightLineEnabled,
+            double shapeDetectionTime,
+            bool shapeDetectionEnabled,
             PenProperty property)?
         pen,
     TResult Function(String name, String displayIcon, double strokeWidth)?
@@ -8544,8 +8544,8 @@ class _$TextureToolImpl extends TextureTool {
             String name,
             String displayIcon,
             bool zoomDependent,
-            double straightLineTime,
-            bool straightLineEnabled,
+            double shapeDetectionTime,
+            bool shapeDetectionEnabled,
             PenProperty property)
         pen,
     required TResult Function(
@@ -8625,8 +8625,8 @@ class _$TextureToolImpl extends TextureTool {
             String name,
             String displayIcon,
             bool zoomDependent,
-            double straightLineTime,
-            bool straightLineEnabled,
+            double shapeDetectionTime,
+            bool shapeDetectionEnabled,
             PenProperty property)?
         pen,
     TResult? Function(String name, String displayIcon, double strokeWidth)?
@@ -8702,8 +8702,8 @@ class _$TextureToolImpl extends TextureTool {
             String name,
             String displayIcon,
             bool zoomDependent,
-            double straightLineTime,
-            bool straightLineEnabled,
+            double shapeDetectionTime,
+            bool shapeDetectionEnabled,
             PenProperty property)?
         pen,
     TResult Function(String name, String displayIcon, double strokeWidth)?
@@ -8977,8 +8977,8 @@ class _$EyeDropperToolImpl extends EyeDropperTool {
             String name,
             String displayIcon,
             bool zoomDependent,
-            double straightLineTime,
-            bool straightLineEnabled,
+            double shapeDetectionTime,
+            bool shapeDetectionEnabled,
             PenProperty property)
         pen,
     required TResult Function(
@@ -9057,8 +9057,8 @@ class _$EyeDropperToolImpl extends EyeDropperTool {
             String name,
             String displayIcon,
             bool zoomDependent,
-            double straightLineTime,
-            bool straightLineEnabled,
+            double shapeDetectionTime,
+            bool shapeDetectionEnabled,
             PenProperty property)?
         pen,
     TResult? Function(String name, String displayIcon, double strokeWidth)?
@@ -9133,8 +9133,8 @@ class _$EyeDropperToolImpl extends EyeDropperTool {
             String name,
             String displayIcon,
             bool zoomDependent,
-            double straightLineTime,
-            bool straightLineEnabled,
+            double shapeDetectionTime,
+            bool shapeDetectionEnabled,
             PenProperty property)?
         pen,
     TResult Function(String name, String displayIcon, double strokeWidth)?

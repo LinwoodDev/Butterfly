@@ -151,7 +151,7 @@
   "copy": "Copy",
   "back": "Back",
   "zoomDependent": "Zoom dependent",
-  "straightLine": "Straight Line",
+  "shapeDetection": "shape Detection",
   "defaultLayer": "Default layer",
   "layer": "Layer",
   "layers": "Layers",

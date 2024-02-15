@@ -89,8 +89,8 @@ sealed class Tool with _$Tool {
     @Default('') String name,
     @Default('') String displayIcon,
     @Default(true) bool zoomDependent,
-    @Default(0.5) double straightLineTime,
-    @Default(false) bool straightLineEnabled,
+    @Default(0.5) double shapeDetectionTime,
+    @Default(false) bool shapeDetectionEnabled,
     @Default(PenProperty()) PenProperty property,
   }) = PenTool;
 

@@ -123,8 +123,9 @@ _$PenToolImpl _$$PenToolImplFromJson(Map json) => _$PenToolImpl(
       name: json['name'] as String? ?? '',
       displayIcon: json['displayIcon'] as String? ?? '',
       zoomDependent: json['zoomDependent'] as bool? ?? true,
-      straightLineTime: (json['straightLineTime'] as num?)?.toDouble() ?? 0.5,
-      straightLineEnabled: json['straightLineEnabled'] as bool? ?? false,
+      shapeDetectionTime:
+          (json['shapeDetectionTime'] as num?)?.toDouble() ?? 0.5,
+      shapeDetectionEnabled: json['shapeDetectionEnabled'] as bool? ?? false,
       property: json['property'] == null
           ? const PenProperty()
           : PenProperty.fromJson(
@@ -137,8 +138,8 @@ Map<String, dynamic> _$$PenToolImplToJson(_$PenToolImpl instance) =>
       'name': instance.name,
       'displayIcon': instance.displayIcon,
       'zoomDependent': instance.zoomDependent,
-      'straightLineTime': instance.straightLineTime,
-      'straightLineEnabled': instance.straightLineEnabled,
+      'shapeDetectionTime': instance.shapeDetectionTime,
+      'shapeDetectionEnabled': instance.shapeDetectionEnabled,
       'property': instance.property.toJson(),
       'type': instance.$type,
     };

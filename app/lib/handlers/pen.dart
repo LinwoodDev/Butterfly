@@ -105,7 +105,7 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
       // If the position has not changed, get the PenElement associated with the pointer.
       final element = elements[pointer];
       // If the PenElement exists, update the line with the start and end position of the pointer.
-      if (element != null && data.straightLineEnabled == true) {
+      if (element != null && data.shapeDetectionEnabled == true) {
         final transform = context.getCameraTransform();
         elements[pointer] = element.copyWith(points: [
           PathPoint.fromPoint(
@@ -158,7 +158,7 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
     // Start a timer that fires after 500 milliseconds.
 
     _timer = Timer(
-        Duration(milliseconds: (data.straightLineTime * 1000).round()),
+        Duration(milliseconds: (data.shapeDetectionTime * 1000).round()),
         () => _tickShapeDetection(event.pointer, context, event.localPosition));
   }
 

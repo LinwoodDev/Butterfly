@@ -23,29 +23,29 @@ class PenToolSelection extends ToolSelection<PenTool> {
                   .toList())),
       const SizedBox(height: 16),
       CheckboxListTile(
-          value: selected.first.straightLineEnabled,
-          title: Text(AppLocalizations.of(context).straightLine),
+          value: selected.first.shapeDetectionEnabled,
+          title: Text(AppLocalizations.of(context).shapeDetection),
           onChanged: (value) => update(
               context,
               selected
                   .map((e) => e.copyWith(
-                      straightLineEnabled:
-                          value ?? selected.first.straightLineEnabled))
+                      shapeDetectionEnabled:
+                          value ?? selected.first.shapeDetectionEnabled))
                   .toList())),
       const SizedBox(height: 16),
       Visibility(
-        visible: selected.first.straightLineEnabled,
+        visible: selected.first.shapeDetectionEnabled,
         maintainState: true,
         child: ExactSlider(
-            header: Text(AppLocalizations.of(context).straightLine),
-            value: selected.first.straightLineTime,
+            header: Text(AppLocalizations.of(context).shapeDetection),
+            value: selected.first.shapeDetectionTime,
             min: 0,
             max: 1,
-            defaultValue: selected.first.straightLineTime,
+            defaultValue: selected.first.shapeDetectionTime,
             onChanged: (value) => update(
                 context,
                 selected
-                    .map((e) => e.copyWith(straightLineTime: value))
+                    .map((e) => e.copyWith(shapeDetectionTime: value))
                     .toList())),
       ),
       const SizedBox(height: 16),
