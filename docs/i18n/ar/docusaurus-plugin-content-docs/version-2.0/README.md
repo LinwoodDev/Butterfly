@@ -1,7 +1,7 @@
 ---
 title: مقدمة
-id: intro
-slug: /intro
+id: مقدمة
+slug: / مقدمة
 sidebar_position: 1
 ---
 
@@ -14,16 +14,16 @@ sidebar_position: 1
 
 ## بدء التشغيل
 
-Visit [the downloads](/downloads) to download the app for your platform.
-Use [web version](https://butterfly.linwood.dev) if you cannot find your platform.
+قم بزيارة [التنزيلات](/downloads) لتحميل التطبيق الخاص بالمنصة الخاصة بك.
+استخدم [webversion](https://butterfly.linwood.dev) إذا لم تتمكن من العثور على منصتك.
 
 ## العرض الرئيسي
 
-![Main view](main.png)
+![العرض الرئيسي](main.png)
 
 مع زر أعلى اليسار يمكنك العودة إلى قائمة المستندات. سيتم عرض اسم المستند على يمينه. التراجع عن خيارات إعادة التشغيل والملفات في الزاوية اليمنى العليا.
 
 أسفله، يمكنك العثور على شريط الأدوات. اليسار، يمكنك التبديل بين طريقة العرض ووضع التحرير. في ذلك , هناك خيارات التكبير . في الزاوية اليمنى العليا هناك خيارات الأدوات.
 
 - خيارات شريط الأدوات هي الخلفية، التصدير والحفظ.
-- خيارات شريط الأدوات هي الأدوات. You can find [here](background) more.
+- خيارات شريط الأدوات هي الأدوات. يمكنك العثور على [here](الخلفية) أكثر.
