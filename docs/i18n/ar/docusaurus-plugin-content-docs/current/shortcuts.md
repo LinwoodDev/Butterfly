@@ -35,25 +35,25 @@ sidebar_position: 2
 
 ## القلم
 
-By default, the the pen is configured to function as the following:
-* `Pen`: configured as pen.
-* `First` (Primary button, if supported): Change to hand tool while pressed.
-* `Second` (Secondary button, if supported): Change to second tool (see [configure](#configure) section below)  while pressed.
+بشكل افتراضي، يتم تكوين القلم ليعمل كالتالي:
+* `Pen`: تم تكوينه كقلم.
+* `الأول` (الزر الأساسي، إذا كان مدعوماً): قم بتغيير الأداة اليدوية أثناء الضغط عليها.
+* `II` (الزر الثانوي، إذا كان مدعوماً): قم بتغيير إلى الأداة الثانية (أنظر [التكوين](#configure) القسم أدناه) أثناء النقض.
 
 
 
 ## تكوين {#configure}
 
-You can customize the controls by giving every control a tool index. The tool indexing starts from the left of the toolbar, with `1` being the first index. See example below
+يمكنك تخصيص الضوابط من خلال إعطاء كل تحكم فهرس للأدوات. تبدأ فهرسة الأدوات من يسار شريط الأدوات، حيث يكون الفهرس `1` هو أول فهرس. انظر المثال أدناه
 
-![toolbar numbered](toolbar_numbered.png)
+![شريط الأدوات مرقم](toolbar_numbered.png)
 
-Here, 1 refers to the lasso tool, 2, to the pan tool etc.
+وهنا، يشير 1 إلى أداة الليزر، 2، إلى أداة الحشيش، وما إلى ذلك.
 
-The configure options you have are the following:
+خيارات التكوين التي لديك هي التالية:
 
-* Empty - the tool is unchaged.
-* 0 - the tool will function as moving (i.e., hand) in this mod.
-* Positive number - The tool will follow the indexing as explain above. 
+* فارغة - تم فك ضغط الأداة.
+* 0 - ستعمل الأداة كحركة (أي يد) في هذا التعديل.
+* الرقم الإيجابي - ستتبع الأداة الفهرسة كما هو موضح أعلاه. 
 
 
