@@ -35,25 +35,25 @@ Existem alguns atalhos que você pode usar no editor. Alguns deles estão escrit
 
 ## Caneta
 
-By default, the the pen is configured to function as the following:
-* `Pen`: configured as pen.
-* `First` (Primary button, if supported): Change to hand tool while pressed.
-* `Second` (Secondary button, if supported): Change to second tool (see [configure](#configure) section below)  while pressed.
+Por padrão, a caneta está configurada para funcionar como o seguinte:
+* `Pen`: configurado como caneta.
+* `Primeiro` (botão principal, se suportado): Altere para ferramenta de mão enquanto pressionado.
+* `Segundo` (botão secundário, se suportado): Altere para a segunda ferramenta (veja [configurar](#configure) seção abaixo enquanto pressionado.
 
 
 
 ## Configurar {#configure}
 
-You can customize the controls by giving every control a tool index. The tool indexing starts from the left of the toolbar, with `1` being the first index. See example below
+Você pode personalizar os controles dando a cada controle uma ferramenta índice. A indexação das ferramentas começa à esquerda da barra de ferramentas, sendo `1` o primeiro índice. Ver exemplo abaixo
 
-![toolbar numbered](toolbar_numbered.png)
+![barra de ferramentas numerada](toolbar_numbered.png)
 
-Here, 1 refers to the lasso tool, 2, to the pan tool etc.
+Aqui, 1 se refere à ferramenta laço, 2, à ferramenta panaceia, etc.
 
-The configure options you have are the following:
+As opções de configuração que você tem são as seguintes:
 
-* Empty - the tool is unchaged.
-* 0 - the tool will function as moving (i.e., hand) in this mod.
-* Positive number - The tool will follow the indexing as explain above. 
+* Vazio - a ferramenta está desencurralada.
+* 0 - a ferramenta irá funcionar como movimento (ou seja, mão) neste mod.
+* Número positivo - A ferramenta seguirá a indexação conforme explicação acima. 
 
 
