@@ -35,22 +35,22 @@ Unele dintre ele sunt scrise sub butoane.
 
 ## Stiloul
 
-By default, the the pen is configured to function as the following:
+În mod implicit, stiloul este configurat pentru a funcţiona astfel:
 
-- `Pen`: configured as pen.
-- `First` (Primary button, if supported): Change to hand tool while pressed.
-- `Second` (Secondary button, if supported): Change to second tool (see [configure](#configure) section below)  while pressed.
+- `Stilu`: configurat ca stilou injector (pen).
+- `First` (buton principal, dacă este suportat): Schimbă cu unealta de mână în timp ce este apăsată.
+- `Secundă` (buton secundar, dacă este suportat): Schimbă la al doilea instrument (a se vedea secţiunea [configure](#configure) de mai jos) în timp ce este apăsată.
 
 ## Configurare {#configure}
 
-You can customize the controls by giving every control a tool index. The tool indexing starts from the left of the toolbar, with `1` being the first index. See example below
+Poți personaliza controalele dând fiecărui control un indice de unelte. Indexarea sculei începe din stânga barei de instrumente, `1` fiind primul index. Vezi exemplul de mai jos
 
-![toolbar numbered](toolbar_numbered.png)
+![toolbar numerotat](toolbar_numbered.png)
 
-Here, 1 refers to the lasso tool, 2, to the pan tool etc.
+Aici, 1 se referă la unealta cu lasso, 2, la unealta cu panou etc.
 
-The configure options you have are the following:
+Opțiunile de configurare pe care le aveți sunt următoarele:
 
-- Empty - the tool is unchaged.
-- 0 - the tool will function as moving (i.e., hand) in this mod.
-- Positive number - The tool will follow the indexing as explain above.
+- Gol - instrumentul este neclar.
+- 0 - unealta va funcționa ca în mișcare (și anume, mâna) în acest mod.
+- Număr pozitiv - Instrumentul va urmări indexarea conform explicațiilor de mai sus.
