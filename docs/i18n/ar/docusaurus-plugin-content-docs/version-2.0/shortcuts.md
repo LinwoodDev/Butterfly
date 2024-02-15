@@ -33,15 +33,24 @@ sidebar_position: 2
 - `Ctrl` + `+`: تكبير في
 - `Ctrl` + `-`: تكبير خارجي
 
-## Stylus
+## القلم
 
-- `الزر الأساسي`: تغيير إلى أداة يدوية
-- `الزر الثانوي`: تغيير إلى الأداة الثانية
+By default, the the pen is configured to function as the following:
+
+- `Pen`: configured as pen.
+- `First` (Primary button, if supported): Change to hand tool while pressed.
+- `Second` (Secondary button, if supported): Change to second tool (see [configure](#configure) section below)  while pressed.
 
 ## تكوين {#configure}
 
-تخصيص الضوابط عن طريق إعطاء كل تحكم فهرس للأدوات.
+You can customize the controls by giving every control a tool index. The tool indexing starts from the left of the toolbar, with `1` being the first index. See example below
 
-- اتركها فارغة لتعطيل تشغيل الأداة على هذا التحكم.
-- عيّنه إلى `0` لتفعيل التحرك مع هذا التحكم.
-- عيّنه إلى رقم وضع للتبديل إلى الأداة مع هذا الفهرس بدءاً من أول على الجانب الأيسر ابتداءً من `1`.
+![toolbar numbered](toolbar_numbered.png)
+
+Here, 1 refers to the lasso tool, 2, to the pan tool etc.
+
+The configure options you have are the following:
+
+- Empty - the tool is unchaged.
+- 0 - the tool will function as moving (i.e., hand) in this mod.
+- Positive number - The tool will follow the indexing as explain above.
