@@ -33,15 +33,24 @@ sidebar_position: 2
 - `Ctrl` + `+`: 拡大
 - `Ctrl` + `-`: 縮小
 
-## Stylus
+## ペン
 
-- `Primary button`: ハンドツールに変更
-- `Secondary button`: 2 番目のツールに変更
+By default, the the pen is configured to function as the following:
+
+- `Pen`: configured as pen.
+- `First` (Primary button, if supported): Change to hand tool while pressed.
+- `Second` (Secondary button, if supported): Change to second tool (see [configure](#configure) section below)  while pressed.
 
 ## {#configure} を設定
 
-すべてのコントロールにツールインデックスを与えることで、コントロールをカスタマイズします。
+You can customize the controls by giving every control a tool index. The tool indexing starts from the left of the toolbar, with `1` being the first index. See example below
 
-- このコントロールのツールスイッチを無効にするには空にしてください。
-- このコントロールを使って移動を有効にするには、`0` を設定します。
-- `1`で始まる最初のインデックスから始まるこのインデックスでツールに切り替えるには、正の数字に設定します。
+![toolbar numbered](toolbar_numbered.png)
+
+Here, 1 refers to the lasso tool, 2, to the pan tool etc.
+
+The configure options you have are the following:
+
+- Empty - the tool is unchaged.
+- 0 - the tool will function as moving (i.e., hand) in this mod.
+- Positive number - The tool will follow the indexing as explain above.
