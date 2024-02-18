@@ -1,6 +1,6 @@
 ---
 title: Вступ
-id: інтро
+id: intro
 slug: /вступ
 sidebar_position: 1
 ---
