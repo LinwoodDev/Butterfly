@@ -1,6 +1,6 @@
 ---
 title: Introducere
-id: Introducere
+id: intro
 slug: /ro_RO/ro
 sidebar_position: 1
 ---
