@@ -542,7 +542,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
         renderBackground: renderBackground,
         cameraViewport: state.cameraViewport.unbake(unbakedElements: renderers),
         transform:
-            CameraTransform(-Offset(x.toDouble(), y.toDouble()), realZoom));
+            CameraTransform(Offset(x.toDouble(), y.toDouble()), realZoom));
     painter.paint(canvas, Size(realWidth.toDouble(), realHeight.toDouble()));
     final picture = recorder.endRecording();
     final image = await picture.toImage(realWidth, realHeight);

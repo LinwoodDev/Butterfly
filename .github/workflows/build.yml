@@ -561,6 +561,7 @@ jobs:
             linwood-butterfly-linux.AppImage
             linwood-butterfly-macos.zip
             linwood-butterfly-macos.dmg
+            linwood-butterfly-ios.ipa
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   deploy-to-play-store:
