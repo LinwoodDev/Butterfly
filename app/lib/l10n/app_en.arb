@@ -152,6 +152,7 @@
   "back": "Back",
   "zoomDependent": "Zoom dependent",
   "shapeDetection": "shape Detection",
+  "delay": "Delay",
   "defaultLayer": "Default layer",
   "layer": "Layer",
   "layers": "Layers",
