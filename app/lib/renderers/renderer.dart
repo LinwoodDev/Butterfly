@@ -91,24 +91,24 @@ abstract class Renderer<T> {
   factory Renderer.fromInstance(T element) {
     // Elements
     if (element is PadElement) {
-      return element.map(
-        pen: (value) => PenRenderer(value),
-        text: (value) => TextRenderer(value),
-        image: (value) => ImageRenderer(value),
-        svg: (value) => SvgRenderer(value),
-        shape: (value) => ShapeRenderer(value),
-        markdown: (value) => MarkdownRenderer(value),
-        texture: (value) => TextureRenderer(value),
-      ) as Renderer<T>;
+      return switch (element) {
+        PenElement() => PenRenderer(element),
+        TextElement() => TextRenderer(element),
+        ImageElement() => ImageRenderer(element),
+        SvgElement() => SvgRenderer(element),
+        ShapeElement() => ShapeRenderer(element),
+        MarkdownElement() => MarkdownRenderer(element),
+        TextureElement() => TextureRenderer(element),
+      } as Renderer<T>;
     }
 
     // Backgrounds
     if (element is Background) {
-      return element.map(
-        texture: (value) => TextureBackgroundRenderer(value),
-        image: (value) => ImageBackgroundRenderer(value),
-        svg: (value) => EmptyBackgroundRenderer(value),
-      ) as Renderer<T>;
+      return switch (element) {
+        TextureBackground() => TextureBackgroundRenderer(element),
+        ImageBackground() => ImageBackgroundRenderer(element),
+        SvgBackground() => EmptyBackgroundRenderer(element),
+      } as Renderer<T>;
     }
 
     if (element is UtilitiesState) {
