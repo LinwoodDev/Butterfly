@@ -26,4 +26,4 @@ Med den övre vänstra knappen kan du gå tillbaka till dokumentlistan. Dokument
 Under den kan du hitta verktygsfältet. Vänster kan du växla mellan vyn och redigeringsläget. Rätt till det, där hittar du zoom alternativ. I övre högra hörnet finns verktygsalternativ.
 
 - Alternativen för visningsverktygsfältet är bakgrund, export och spara.
-- Alternativen för redigeringsverktygsfältet är verktygen. Du kan hitta [here](bakgrund) mer.
+- Alternativen för redigeringsverktygsfältet är verktygen. Du kan hitta [here](background) mer.
