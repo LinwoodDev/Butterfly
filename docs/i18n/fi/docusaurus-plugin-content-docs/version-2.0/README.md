@@ -26,4 +26,4 @@ Vasemmalla ylhäällä olevan painikkeen avulla voit palata takaisin asiakirjalu
 Sen alapuolella on työkalurivi. Vasen, voit vaihtaa katsella ja muokata tilaa. Oikeus siihen, siellä löydät zoomaus vaihtoehtoja. Oikeassa yläkulmassa on olemassa työkalun vaihtoehtoja.
 
 - Näyttötyökalupalkin asetukset ovat tausta, vienti ja tallentaminen.
-- Työkalupalkin valinnat ovat työkaluja. Voit löytää [here](tausta) enemmän.
+- Työkalupalkin valinnat ovat työkaluja. Voit löytää [here](background) enemmän.
