@@ -26,4 +26,4 @@ Avec le bouton en haut à gauche, vous pouvez retourner à la liste des document
 En dessous, vous pouvez trouver la barre d'outils. À gauche, vous pouvez basculer entre la vue et le mode d'édition. Juste vers lui, vous y trouverez les options de zoom. En haut à droite, il y a les options d'outils.
 
 - Les options de la barre d'outils de vue sont en arrière-plan, export et enregistrement.
-- Les options d'édition de la barre d'outils sont les outils. Vous pouvez trouver [here](arrière-plan) plus.
+- Les options d'édition de la barre d'outils sont les outils. Vous pouvez trouver [here](background) plus.
