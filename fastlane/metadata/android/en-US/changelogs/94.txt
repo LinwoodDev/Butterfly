@@ -1,5 +1,8 @@
 * Add area navigator page ([#574](https://github.com/LinwoodDev/Butterfly/issues/574))
 * Add resize and move controls to area tool ([#542](https://github.com/LinwoodDev/Butterfly/issues/542))
+* Add reorder controls to area tool
+* Make selection system of select tool modular
 * Upgrade to flutter 3.19.0
+* Rename release assets ([#568](https://github.com/LinwoodDev/Butterfly/discussions/568))
 
 Read more here: https://linwood.dev/butterfly/2.1.0-beta.0
