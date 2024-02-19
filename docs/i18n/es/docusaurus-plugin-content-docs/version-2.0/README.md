@@ -26,4 +26,4 @@ Con el botón superior izquierdo puede volver a la lista de documentos. El nombr
 Debajo de ella, puedes encontrar la barra de herramientas. Izquierda, puede cambiar entre la vista y el modo de edición. Justo en él, encontrarás las opciones de zoom. En la esquina superior derecha hay las opciones de herramienta.
 
 - Las opciones de la barra de herramientas de vista son el fondo, exportar y guardar.
-- Las opciones de editar la barra de herramientas son las herramientas. Puedes encontrar [here](fondo) más.
+- Las opciones de editar la barra de herramientas son las herramientas. Puedes encontrar [here](background) más.
