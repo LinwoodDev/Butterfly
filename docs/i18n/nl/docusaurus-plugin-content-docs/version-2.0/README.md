@@ -26,4 +26,4 @@ Met de linker bovenzijde knop kunt u teruggaan naar de documentenlijst. De docum
 Hieronder kunt u de werkbalk vinden. Links, u kunt schakelen tussen weergave en bewerken modus. Nou, daar vind je de zoomopties. In de rechterbovenhoek zijn de opties van de tool aanwezig.
 
 - De weergave werkbalk opties zijn achtergrond, exporteren en opslaan.
-- De opties voor de werkbalk voor bewerken zijn de hulpmiddelen. Je kunt [here](achtergrond) meer vinden.
+- De opties voor de werkbalk voor bewerken zijn de hulpmiddelen. Je kunt [here](background) meer vinden.
