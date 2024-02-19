@@ -26,4 +26,4 @@ Com o botão superior esquerdo você pode voltar para a lista de documentos. O n
 Abaixo dele, você pode encontrar a barra de ferramentas. À esquerda, pode alternar entre a visualização e o modo de edição. Bem para isso, lá você encontra as opções de zoom. No canto superior direito há as opções de ferramentas.
 
 - As opções da barra de ferramentas estão em segundo plano, exporte e salve.
-- As opções de edição na barra de ferramentas são ferramentas. Você pode encontrar mais [here](plano de fundo)
+- As opções de edição na barra de ferramentas são ferramentas. Você pode encontrar mais [here](background).
