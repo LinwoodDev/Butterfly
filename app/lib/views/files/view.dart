@@ -82,7 +82,9 @@ class FilesViewState extends State<FilesView> {
   }
 
   void reloadFileSystem() {
-    setState(_setFilesStream);
+    if (mounted) {
+      setState(_setFilesStream);
+    }
   }
 
   Future<void> _createFile(NoteData? template) async {

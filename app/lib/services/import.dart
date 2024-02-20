@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'dart:math';
 import 'dart:typed_data';
 import 'dart:ui' as ui;
-
+import 'package:image/image.dart' as img;
 import 'package:butterfly/api/file_system/file_system.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/dialogs/import/confirmation.dart';
@@ -196,7 +196,10 @@ class ImportService {
             e)
         .toList();
     return _submit(document,
-        elements: content, areas: areas, choosePosition: position == null);
+        elements: content,
+        areas: areas,
+        choosePosition: position == null,
+        batchesOfElements: []);
   }
 
   Future<NoteData?> _importTemplate(NoteData template) async {
@@ -252,7 +255,7 @@ class ImportService {
             currentIndexCubit!.state.cameraViewport.scale;
         constraints = ElementConstraints.scaled(scaleX: scale, scaleY: scale);
       }
-      return _submit(document,
+      return _submitNoBatch(document,
           elements: [
             ImageElement(
                 height: height,
@@ -321,7 +324,7 @@ class ImportService {
               currentIndexCubit!.state.cameraViewport.scale;
           constraints = ElementConstraints.scaled(scaleX: scale, scaleY: scale);
         }
-        return _submit(document,
+        return _submitNoBatch(document,
             elements: [
               SvgElement(
                 width: width,
@@ -362,7 +365,7 @@ class ImportService {
       final foreground = isDarkColor(Color(background))
           ? BasicColors.white
           : BasicColors.black;
-      return _submit(document,
+      return _submitNoBatch(document,
           elements: [
             MarkdownElement(
               position: firstPos.toPoint(),
@@ -382,17 +385,53 @@ class ImportService {
     return null;
   }
 
+// ! start
   Future<NoteData?> importPdf(Uint8List bytes, NoteData document,
       {Offset? position,
       bool createAreas = false,
       bool advanced = true}) async {
     try {
+      final dialog = showLoadingDialog(context);
       final firstPos = position ?? Offset.zero;
       final elements = <Uint8List>[];
       final localizations = AppLocalizations.of(context);
+      // Define the compression value
+      int level = 9;
+      // Define the lot size
+      const batchSize = 100;
+      List<Uint8List> batch = [];
+      // Create a counter for decoded images
+      int decodedImagesCount = 0;
+      // Get the total number of pages
+      int totalPages = await Printing.raster(bytes).length;
+      // Calculate file size in MB
+      double fileSizeInMB = bytes.lengthInBytes / (1024 * 1024);
+
       await for (var page in Printing.raster(bytes)) {
-        final png = await page.toPng();
-        elements.add(png);
+        try {
+          final png = await page.toPng();
+          //decode image
+          img.Image? image = img.decodePng(png);
+          //compress image
+          List<int> compressedPng = img.encodePng(image!, level: level);
+          // Add the compressed image to the current batch
+          batch.add(Uint8List.fromList(compressedPng));
+          // elements.add(Uint8List.fromList(compressedPng));
+          // If the lot has reached the lot size, process the lot and empty the lot
+          if (batch.length == batchSize) {
+            elements.addAll(batch);
+            batch = [];
+          }
+          decodedImagesCount++;
+          await Future.delayed(const Duration(milliseconds: 200));
+          dialog?.setProgress(decodedImagesCount / totalPages);
+        } catch (e) {
+          print('Error decoding or compressing image: $e');
+        }
+      }
+      // Process any image left in the batch
+      if (batch.isNotEmpty) {
+        elements.addAll(batch);
       }
       if (context.mounted) {
         List<int> pages = List.generate(elements.length, (index) => index);
@@ -413,50 +452,71 @@ class ImportService {
         final documentPages = <DocumentPage>[];
         var y = firstPos.dx;
         var current = 0;
+
         await for (final page in Printing.raster(bytes,
             pages: pages, dpi: PdfPageFormat.inch * quality)) {
-          await Future.delayed(const Duration(milliseconds: 100));
-          dialog?.setProgress(current / pages.length);
-          current++;
-          final png = await page.toPng();
-          final scale = 1 / quality;
-          final height = page.height;
-          final width = page.width;
-          final dataPath = Uri.dataFromBytes(png).toString();
-          final element = ImageElement(
-              height: height.toDouble(),
-              width: width.toDouble(),
-              source: dataPath,
-              constraints:
-                  ElementConstraints.scaled(scaleX: scale, scaleY: scale),
-              position: Point(firstPos.dx, y));
-          final area = Area(
-            height: height * scale,
-            width: width * scale,
-            position: Point(firstPos.dx, y),
-            name: localizations.pageIndex(areas.length + 1),
-          );
-          if (spreadToPages) {
-            documentPages.add(DocumentPage(
-              content: [element],
-              areas: [if (createAreas) area],
-            ));
-          } else {
-            selectedElements.add(element);
-            if (createAreas) {
-              areas.add(area);
+          try {
+            await Future.delayed(const Duration(milliseconds: 100));
+            dialog?.setProgress(current / pages.length);
+            current++;
+            final png = await page.toPng();
+            final scale = 1 / quality;
+            final height = page.height;
+            final width = page.width;
+            final dataPath = Uri.dataFromBytes(png).toString();
+            final element = ImageElement(
+                height: height.toDouble(),
+                width: width.toDouble(),
+                source: dataPath,
+                constraints:
+                    ElementConstraints.scaled(scaleX: scale, scaleY: scale),
+                position: Point(firstPos.dx, y));
+            final area = Area(
+              height: height * scale,
+              width: width * scale,
+              position: Point(firstPos.dx, y),
+              name: localizations.pageIndex(areas.length + 1),
+            );
+            if (spreadToPages) {
+              documentPages.add(DocumentPage(
+                content: [element],
+                areas: [if (createAreas) area],
+              ));
+            } else {
+              selectedElements.add(element);
+              if (createAreas) {
+                areas.add(area);
+              }
             }
+            y += height * scale;
+          } catch (e) {
+            print('Error creating image element: $e');
           }
-          y += height * scale;
         }
+
         dialog?.close();
-        return _submit(
-          document,
-          elements: selectedElements,
-          pages: documentPages,
-          areas: createAreas ? areas : [],
-          choosePosition: position == null,
-        );
+
+        // if count image are > 50 choosePosition: position != null,
+        if (elements.length > 50) {
+          return _submit(
+            batchesOfElements: [selectedElements],
+            document,
+            elements: selectedElements,
+            pages: documentPages,
+            areas: createAreas ? areas : [],
+            // ! if pdf is large
+            choosePosition: position != null,
+          );
+        } else {
+          return _submit(
+            batchesOfElements: [selectedElements],
+            document,
+            elements: selectedElements,
+            pages: documentPages,
+            areas: createAreas ? areas : [],
+            choosePosition: position == null,
+          );
+        }
       }
     } catch (e) {
       showDialog(
@@ -516,7 +576,83 @@ class ImportService {
     }
   }
 
+  // NoteData? _submit(
+  //   NoteData document, {
+  //   required List<List<PadElement>> batchesOfElements,
+  //   List<DocumentPage> pages = const [],
+  //   List<Area> areas = const [],
+  //   bool choosePosition = false,
+  //   required List<PadElement> elements,
+  // }) {
+  //   final state = _getState();
+  //   DocumentPage page =
+  //       state?.page ?? document.getPage() ?? DocumentDefaults.createPage();
+  //   //cicle
+  //   for (var batch in batchesOfElements) {
+  //     if (choosePosition &&
+  //         state != null &&
+  //         (batch.isNotEmpty || areas.isNotEmpty)) {
+  //       state.currentIndexCubit.changeTemporaryHandler(
+  //           bloc!, ImportTool(elements: batch, areas: areas));
+  //     } else {
+  //       bloc
+  //         ?..add(ElementsCreated(batch))
+  //         ..add(AreasCreated(areas));
+  //     }
+  //     page = page.copyWith(content: [...page.content, ...batch]);
+  //     document = document.setPage(page);
+  //   }
+
+  //   for (final page in pages) {
+  //     bloc?.add(PageAdded(null, page));
+  //     (document, _) = document.addPage(page);
+  //   }
+
+  //   return document;
+  // }
+
   NoteData? _submit(
+    NoteData document, {
+    required List<List<PadElement>> batchesOfElements,
+    List<DocumentPage> pages = const [],
+    List<Area> areas = const [],
+    bool choosePosition = false,
+    required List<PadElement> elements,
+  }) {
+    final state = _getState();
+    DocumentPage page =
+        state?.page ?? document.getPage() ?? DocumentDefaults.createPage();
+    //cicle
+
+    if (choosePosition && state != null) {
+      for (var batch in batchesOfElements) {
+        if (batch.isNotEmpty || areas.isNotEmpty) {
+          state.currentIndexCubit.changeTemporaryHandler(
+              bloc!, ImportTool(elements: batch, areas: areas));
+        }
+        var newContent = List<PadElement>.from(page.content)..addAll(batch);
+        page = page.copyWith(content: newContent);
+      }
+    } else {
+      for (var batch in batchesOfElements) {
+        bloc
+          ?..add(ElementsCreated(batch))
+          ..add(AreasCreated(areas));
+        var newContent = List<PadElement>.from(page.content)..addAll(batch);
+        page = page.copyWith(content: newContent);
+      }
+    }
+    document = document.setPage(page);
+
+    for (final page in pages) {
+      bloc?.add(PageAdded(null, page));
+      (document, _) = document.addPage(page);
+    }
+
+    return document;
+  }
+
+  NoteData? _submitNoBatch(
     NoteData document, {
     required List<PadElement> elements,
     List<DocumentPage> pages = const [],
