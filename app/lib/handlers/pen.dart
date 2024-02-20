@@ -97,11 +97,21 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
     if (refresh) bloc.refresh();
   }
 
+// Aggiungi una mappa per tracciare l'ultimo timestamp per ogni puntatore.
+  Map<int, DateTime> moveTimestamps = {};
 // This function updates the current line with the pointer's start and end position.
   void _tickShapeDetection(
       int pointer, EventContext context, Offset localPosition) {
     // Check if the last known position of the pointer has not changed since the timer started.
     if (lastPosition[pointer] == localPosition) {
+       // Get the current time.
+    DateTime now = DateTime.now();
+    // Get the move timestamp for this pointer.
+    DateTime? moveTimestamp = moveTimestamps[pointer];
+    // If less than 500 milliseconds have passed since the pointer started moving, do not execute the code.
+    if (moveTimestamp != null && now.difference(moveTimestamp).inMilliseconds < 200) {
+      return;
+    }
       // If the position has not changed, get the PenElement associated with the pointer.
       final element = elements[pointer];
       // If the PenElement exists, update the line with the start and end position of the pointer.
@@ -151,7 +161,8 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
     // Call the addPoint function to add a point to the current brush stroke.
     addPoint(context.buildContext, event.pointer, event.localPosition,
         _getPressure(event), event.kind);
-
+    // Update the move timestamp for this pointer.
+    moveTimestamps[event.pointer] = DateTime.now();
     // Update the last known position of the pointer.
     lastPosition[event.pointer] = event.localPosition;
 
