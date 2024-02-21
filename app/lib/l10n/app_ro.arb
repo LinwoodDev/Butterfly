@@ -151,6 +151,8 @@
   "copy": "Copiază",
   "back": "Înapoi",
   "zoomDependent": "Depinde de zoom",
+  "shapeDetection": "Shape Detection",
+  "delay": "Delay",
   "defaultLayer": "Stratul implicit",
   "layer": "Stratul",
   "layers": "Straturi",
