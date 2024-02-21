@@ -151,6 +151,8 @@
   "copy": "Copiar",
   "back": "Anterior",
   "zoomDependent": "Dependendo do zoom",
+  "shapeDetection": "Detecção de forma",
+  "delay": "Atraso",
   "defaultLayer": "Camada padrão",
   "layer": "Camada",
   "layers": "Camadas",
