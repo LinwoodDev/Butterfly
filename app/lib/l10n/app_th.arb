@@ -151,6 +151,8 @@
   "copy": "คัดลอก",
   "back": "ย้อนกลับ",
   "zoomDependent": "Zoom dependent",
+  "shapeDetection": "Shape Detection",
+  "delay": "Delay",
   "defaultLayer": "Default layer",
   "layer": "ชั้น",
   "layers": "เลเยอร์",
