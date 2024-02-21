@@ -151,6 +151,8 @@
   "copy": "Kopiér",
   "back": "Tilbage",
   "zoomDependent": "Zoom afhængig",
+  "shapeDetection": "Shape Detection",
+  "delay": "Delay",
   "defaultLayer": "Standard lag",
   "layer": "Lag",
   "layers": "Lag",
