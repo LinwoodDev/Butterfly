@@ -1,7 +1,7 @@
 ---
 title: Введение
 id: intro
-slug: /интро
+slug: /intro
 sidebar_position: 1
 ---
 
