@@ -1,7 +1,7 @@
 ---
 title: مقدمة
 id: intro
-slug: / مقدمة
+slug: /intro
 sidebar_position: 1
 ---
 
