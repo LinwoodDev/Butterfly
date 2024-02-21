@@ -151,6 +151,8 @@
   "copy": "Kopiëren",
   "back": "Achterzijde",
   "zoomDependent": "Afhankelijk zoomen",
+  "shapeDetection": "Vorm Detectie",
+  "delay": "Vertraging",
   "defaultLayer": "Standaard laag",
   "layer": "Laag",
   "layers": "Lagen",
