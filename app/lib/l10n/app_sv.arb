@@ -151,6 +151,8 @@
   "copy": "Kopiera",
   "back": "Tillbaka",
   "zoomDependent": "Zooma beroende",
+  "shapeDetection": "Form detektion",
+  "delay": "Fördröjning",
   "defaultLayer": "Förvalt lager",
   "layer": "Lager",
   "layers": "Lager",
