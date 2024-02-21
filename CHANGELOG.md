@@ -2,6 +2,12 @@
 
 <!--ENTER CHANGELOG HERE-->
 
+## 2.0.3 (2024-02-19)
+
+* Fix png export
+
+See all changes since the last stable here: https://linwood.dev/butterfly/2.0.3
+
 ## 2.0.3-rc.1 (2024-02-12)
 
 * Add initial ios support (currently nightly only) ([#244](https://github.com/LinwoodDev/Butterfly/issues/244))

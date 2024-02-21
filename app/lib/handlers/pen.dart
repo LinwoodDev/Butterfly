@@ -8,6 +8,8 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
   final Map<int, Offset> startPosition = {};
   // Map to store the last positions of each element.
   final Map<int, Offset> lastPosition = {};
+  // Dictionary to plot the total distance traveled by each pointer
+  Map<int, double> totalDistance = {};
   // Timer to track the time interval for updating the line.
   Timer? _timer;
   Offset? localPos;
@@ -100,25 +102,27 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
 // This function updates the current line with the pointer's start and end position.
   void _tickShapeDetection(
       int pointer, EventContext context, Offset localPosition) {
-    // Check if the last known position of the pointer has not changed since the timer started.
-    if (lastPosition[pointer] == localPosition) {
-      // If the position has not changed, get the PenElement associated with the pointer.
-      final element = elements[pointer];
-      // If the PenElement exists, update the line with the start and end position of the pointer.
-      if (element != null && data.shapeDetectionEnabled == true) {
-        final transform = context.getCameraTransform();
-        elements[pointer] = element.copyWith(points: [
-          PathPoint.fromPoint(
-              transform.localToGlobal(startPosition[pointer]!).toPoint(), 0),
-          PathPoint.fromPoint(
-              transform.localToGlobal(lastPosition[pointer]!).toPoint(), 1)
-        ]);
-        // Add a small movement that allows the line to become straight
-        lastPosition[pointer] = localPosition + const Offset(0.01, 0.01);
+    if (totalDistance[pointer] != null && totalDistance[pointer]! < 1000) {
+      // Check if the last known position of the pointer has not changed since the timer started.
+      if (lastPosition[pointer] == localPosition) {
+        // If the position has not changed, get the PenElement associated with the pointer.
+        final element = elements[pointer];
+        // If the PenElement exists, update the line with the start and end position of the pointer.
+        if (element != null && data.shapeDetectionEnabled == true) {
+          final transform = context.getCameraTransform();
+          elements[pointer] = element.copyWith(points: [
+            PathPoint.fromPoint(
+                transform.localToGlobal(startPosition[pointer]!).toPoint(), 0),
+            PathPoint.fromPoint(
+                transform.localToGlobal(lastPosition[pointer]!).toPoint(), 1)
+          ]);
+          // Add a small movement that allows the line to become straight
+          lastPosition[pointer] = localPosition + const Offset(0.01, 0.01);
+        }
       }
+      _timer?.cancel();
+      _timer = null;
     }
-    _timer?.cancel();
-    _timer = null;
   }
 
 // This function is called when the pointer is pressed down.
@@ -148,15 +152,19 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
   // This function is called when the pointer moves.
   @override
   void onPointerMove(PointerMoveEvent event, EventContext context) {
+    // Calculates the distance the pointer travels
+    double distance =
+        (lastPosition[event.pointer]! - event.localPosition).distance;
+    // Updates the total distance traveled by the pointer
+    totalDistance[event.pointer] =
+        (totalDistance[event.pointer] ?? 0) + distance;
     // Call the addPoint function to add a point to the current brush stroke.
     addPoint(context.buildContext, event.pointer, event.localPosition,
         _getPressure(event), event.kind);
-
     // Update the last known position of the pointer.
     lastPosition[event.pointer] = event.localPosition;
 
     // Start a timer that fires after 500 milliseconds.
-
     _timer = Timer(
         Duration(milliseconds: (data.shapeDetectionTime * 1000).round()),
         () => _tickShapeDetection(event.pointer, context, event.localPosition));

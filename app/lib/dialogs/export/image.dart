@@ -41,7 +41,7 @@ class _ImageExportDialogState extends State<ImageExportDialog> {
       TextEditingController(text: '1000');
 
   bool _renderBackground = true;
-  double _x = 0, y = 0;
+  double _x = 0, _y = 0;
   double width = 1000.0, height = 1000.0;
   double scale = 1, quality = 1;
 
@@ -51,13 +51,13 @@ class _ImageExportDialogState extends State<ImageExportDialog> {
   @override
   void initState() {
     _x = widget.x;
-    y = widget.y;
+    _y = widget.y;
     width = widget.width;
     height = widget.height;
     scale = widget.scale;
     quality = widget.quality;
     _xController.text = _x.toString();
-    _yController.text = y.toString();
+    _yController.text = _y.toString();
     _widthController.text = width.toString();
     _heightController.text = height.toString();
     _regeneratePreviewImage();
@@ -87,7 +87,7 @@ class _ImageExportDialogState extends State<ImageExportDialog> {
       height: height,
       renderBackground: _renderBackground,
       x: _x,
-      y: y,
+      y: _y,
       scale: scale,
       quality: quality,
     );
@@ -218,7 +218,7 @@ class _ImageExportDialogState extends State<ImageExportDialog> {
               child: TextField(
                 controller: _yController,
                 decoration: const InputDecoration(labelText: 'Y', filled: true),
-                onChanged: (value) => y = double.tryParse(value) ?? y,
+                onChanged: (value) => _y = double.tryParse(value) ?? _y,
                 onSubmitted: (value) => _regeneratePreviewImage(),
               ),
             ),
