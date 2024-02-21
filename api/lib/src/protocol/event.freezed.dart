@@ -12,7 +12,7 @@ part of 'event.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 DocumentEvent _$DocumentEventFromJson(Map<String, dynamic> json) {
   switch (json['type']) {
@@ -537,7 +537,7 @@ class _$PageAddedImpl extends PageAdded {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$PageAddedImpl &&
@@ -982,7 +982,7 @@ class _$PageChangedImpl extends PageChanged {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$PageChangedImpl &&
@@ -1432,7 +1432,7 @@ class _$PageReorderedImpl extends PageReordered {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$PageReorderedImpl &&
@@ -1885,7 +1885,7 @@ class _$PageRenamedImpl extends PageRenamed {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$PageRenamedImpl &&
@@ -2330,7 +2330,7 @@ class _$PageRemovedImpl extends PageRemoved {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$PageRemovedImpl &&
@@ -2774,7 +2774,7 @@ class _$ThumbnailCapturedImpl extends ThumbnailCaptured {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$ThumbnailCapturedImpl &&
@@ -3230,7 +3230,7 @@ class _$ViewChangedImpl extends ViewChanged {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$ViewChangedImpl &&
@@ -3682,7 +3682,7 @@ class _$UtilitiesChangedImpl extends UtilitiesChanged {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$UtilitiesChangedImpl &&
@@ -4133,7 +4133,7 @@ class _$ElementsCreatedImpl extends ElementsCreated {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$ElementsCreatedImpl &&
@@ -4585,7 +4585,7 @@ class _$ElementsChangedImpl extends ElementsChanged {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$ElementsChangedImpl &&
@@ -5036,7 +5036,7 @@ class _$ElementsRemovedImpl extends ElementsRemoved {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$ElementsRemovedImpl &&
@@ -5495,7 +5495,7 @@ class _$ElementsArrangedImpl extends ElementsArranged {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$ElementsArrangedImpl &&
@@ -5955,7 +5955,7 @@ class _$DocumentDescriptionChangedImpl extends DocumentDescriptionChanged {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$DocumentDescriptionChangedImpl &&
@@ -6417,7 +6417,7 @@ class _$DocumentSavedImpl extends DocumentSaved {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$DocumentSavedImpl &&
@@ -6871,7 +6871,7 @@ class _$ToolCreatedImpl extends ToolCreated {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$ToolCreatedImpl &&
@@ -7319,7 +7319,7 @@ class _$ToolsChangedImpl extends ToolsChanged {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$ToolsChangedImpl &&
@@ -7768,7 +7768,7 @@ class _$ToolsRemovedImpl extends ToolsRemoved {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$ToolsRemovedImpl &&
@@ -8218,7 +8218,7 @@ class _$ToolReorderedImpl extends ToolReordered {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$ToolReorderedImpl &&
@@ -8675,7 +8675,7 @@ class _$DocumentBackgroundsChangedImpl extends DocumentBackgroundsChanged {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$DocumentBackgroundsChangedImpl &&
@@ -9131,7 +9131,7 @@ class _$WaypointCreatedImpl extends WaypointCreated {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$WaypointCreatedImpl &&
@@ -9583,7 +9583,7 @@ class _$WaypointRenamedImpl extends WaypointRenamed {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$WaypointRenamedImpl &&
@@ -10029,7 +10029,7 @@ class _$WaypointRemovedImpl extends WaypointRemoved {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$WaypointRemovedImpl &&
@@ -10479,7 +10479,7 @@ class _$LayerRenamedImpl extends LayerRenamed {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$LayerRenamedImpl &&
@@ -10924,7 +10924,7 @@ class _$LayerRemovedImpl extends LayerRemoved {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$LayerRemovedImpl &&
@@ -11366,7 +11366,7 @@ class _$LayerElementsRemovedImpl extends LayerElementsRemoved {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$LayerElementsRemovedImpl &&
@@ -11813,7 +11813,7 @@ class _$LayerVisibilityChangedImpl extends LayerVisibilityChanged {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$LayerVisibilityChangedImpl &&
@@ -12257,7 +12257,7 @@ class _$CurrentLayerChangedImpl extends CurrentLayerChanged {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$CurrentLayerChangedImpl &&
@@ -12715,7 +12715,7 @@ class _$ElementsLayerChangedImpl extends ElementsLayerChanged {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$ElementsLayerChangedImpl &&
@@ -13180,7 +13180,7 @@ class _$TemplateCreatedImpl extends TemplateCreated {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$TemplateCreatedImpl &&
@@ -13638,7 +13638,7 @@ class _$AreasCreatedImpl extends AreasCreated {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$AreasCreatedImpl &&
@@ -14087,7 +14087,7 @@ class _$AreasRemovedImpl extends AreasRemoved {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$AreasRemovedImpl &&
@@ -14547,7 +14547,7 @@ class _$AreaChangedImpl extends AreaChanged {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$AreaChangedImpl &&
@@ -14992,7 +14992,7 @@ class _$CurrentAreaChangedImpl extends CurrentAreaChanged {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$CurrentAreaChangedImpl &&
@@ -15451,7 +15451,7 @@ class _$ExportPresetCreatedImpl extends ExportPresetCreated {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$ExportPresetCreatedImpl &&
@@ -15912,7 +15912,7 @@ class _$ExportPresetUpdatedImpl extends ExportPresetUpdated {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$ExportPresetUpdatedImpl &&
@@ -16360,7 +16360,7 @@ class _$ExportPresetRemovedImpl extends ExportPresetRemoved {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$ExportPresetRemovedImpl &&
@@ -16804,7 +16804,7 @@ class _$PackAddedImpl extends PackAdded {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$PackAddedImpl &&
@@ -17253,7 +17253,7 @@ class _$PackUpdatedImpl extends PackUpdated {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$PackUpdatedImpl &&
@@ -17698,7 +17698,7 @@ class _$PackRemovedImpl extends PackRemoved {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$PackRemovedImpl &&
@@ -18150,7 +18150,7 @@ class _$AnimationAddedImpl extends AnimationAdded {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$AnimationAddedImpl &&
@@ -18612,7 +18612,7 @@ class _$AnimationUpdatedImpl extends AnimationUpdated {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$AnimationUpdatedImpl &&
@@ -19060,7 +19060,7 @@ class _$AnimationRemovedImpl extends AnimationRemoved {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$AnimationRemovedImpl &&
@@ -19523,7 +19523,7 @@ class _$PresentationModeEnteredImpl extends PresentationModeEntered {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$PresentationModeEnteredImpl &&
@@ -19955,7 +19955,7 @@ class _$PresentationModeExitedImpl extends PresentationModeExited {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$PresentationModeExitedImpl);
@@ -20385,7 +20385,7 @@ class _$PresentationTickImpl extends PresentationTick {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$PresentationTickImpl &&
