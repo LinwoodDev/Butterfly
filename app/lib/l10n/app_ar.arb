@@ -151,6 +151,8 @@
   "copy": "نسخ",
   "back": "الرجوع",
   "zoomDependent": "تكبير الاعتماد",
+  "shapeDetection": "Shape Detection",
+  "delay": "Delay",
   "defaultLayer": "الطبقة الافتراضية",
   "layer": "الطبقة",
   "layers": "الطبقات",
