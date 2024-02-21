@@ -129,7 +129,7 @@ class AreaHandler extends Handler<AreaTool> {
         globalPos = Offset(globalPos.dx, _start!.dy + width / aspectRatio);
       }
     }
-    currentRect = Rect.fromPoints(_start!, globalPos);
+    _end = globalPos;
     context.refresh();
   }
 

@@ -97,7 +97,7 @@ jobs:
       - name: Copy portable start script
         run: |
           cp scripts/start.bat build/windows/x64/runner/Release/
-          cp app/build/windows/x64/runner/Release/linwood-butterfly-windows-setup.exe linwood-butterfly-windows-setup-x86_64.exe
+          cp build/windows/x64/runner/Release/linwood-butterfly-windows-setup.exe linwood-butterfly-windows-setup-x86_64.exe
       - name: Archive
         uses: actions/upload-artifact@v4
         with:
