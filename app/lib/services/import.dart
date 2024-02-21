@@ -407,6 +407,9 @@ class ImportService {
 
       await for (var page in Printing.raster(bytes)) {
         try {
+          decodedImagesCount++;
+          await Future.delayed(const Duration(milliseconds: 100));
+          dialog?.setProgress(decodedImagesCount / totalPages);
           final png = await page.toPng();
           //decode image
           img.Image? image = img.decodePng(png);
@@ -420,9 +423,6 @@ class ImportService {
             elements.addAll(batch);
             batch = [];
           }
-          decodedImagesCount++;
-          await Future.delayed(const Duration(milliseconds: 200));
-          dialog?.setProgress(decodedImagesCount / totalPages);
         } catch (e) {
           showDialog(
             context: context,
@@ -431,6 +431,7 @@ class ImportService {
           );
         }
       }
+      dialog?.close();
       // Process any image left in the batch
       if (batch.isNotEmpty) {
         elements.addAll(batch);
@@ -499,7 +500,6 @@ class ImportService {
             );
           }
         }
-
         dialog?.close();
 
         // if count image are > 50 choosePosition: position != null,
@@ -520,7 +520,7 @@ class ImportService {
             elements: selectedElements,
             pages: documentPages,
             areas: createAreas ? areas : [],
-            choosePosition: position == null,
+            choosePosition: false,
           );
         }
       }
