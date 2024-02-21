@@ -151,6 +151,8 @@
   "copy": "复制",
   "back": "后退",
   "zoomDependent": "依靠缩放",
+  "shapeDetection": "形状检测",
+  "delay": "延迟",
   "defaultLayer": "默认图层",
   "layer": "图层",
   "layers": "图层",
