@@ -151,6 +151,8 @@
   "copy": "Kopieren",
   "back": "Zurück",
   "zoomDependent": "Zoomabhängig",
+  "shapeDetection": "Shape Detection",
+  "delay": "Delay",
   "defaultLayer": "Standard Ebene",
   "layer": "Ebene",
   "layers": "Ebenen",
