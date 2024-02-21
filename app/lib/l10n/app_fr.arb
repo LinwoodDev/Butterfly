@@ -151,6 +151,8 @@
   "copy": "Copie",
   "back": "Précédent",
   "zoomDependent": "Dépendant du zoom",
+  "shapeDetection": "Shape Detection",
+  "delay": "Delay",
   "defaultLayer": "Couche par défaut",
   "layer": "Couche",
   "layers": "Couches",
