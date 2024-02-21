@@ -151,6 +151,8 @@
   "copy": "コピー",
   "back": "戻る",
   "zoomDependent": "ズームに依存する",
+  "shapeDetection": "シェイプ検出",
+  "delay": "遅延",
   "defaultLayer": "既定のレイヤー",
   "layer": "レイヤー",
   "layers": "レイヤー",
