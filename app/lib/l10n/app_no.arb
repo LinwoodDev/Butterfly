@@ -151,6 +151,8 @@
   "copy": "Kopier",
   "back": "Tilbake",
   "zoomDependent": "Zoom avhengig",
+  "shapeDetection": "Finn form",
+  "delay": "Forsinkelse",
   "defaultLayer": "Standard lag",
   "layer": "Lag",
   "layers": "Lag",
