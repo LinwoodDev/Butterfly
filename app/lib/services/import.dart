@@ -404,8 +404,6 @@ class ImportService {
       int decodedImagesCount = 0;
       // Get the total number of pages
       int totalPages = await Printing.raster(bytes).length;
-      // Calculate file size in MB
-      double fileSizeInMB = bytes.lengthInBytes / (1024 * 1024);
 
       await for (var page in Printing.raster(bytes)) {
         try {
@@ -426,7 +424,11 @@ class ImportService {
           await Future.delayed(const Duration(milliseconds: 200));
           dialog?.setProgress(decodedImagesCount / totalPages);
         } catch (e) {
-          print('Error decoding or compressing image: $e');
+          showDialog(
+            context: context,
+            builder: (context) =>
+                UnknownImportConfirmationDialog(message: e.toString()),
+          );
         }
       }
       // Process any image left in the batch
@@ -490,7 +492,11 @@ class ImportService {
             }
             y += height * scale;
           } catch (e) {
-            print('Error creating image element: $e');
+            showDialog(
+              context: context,
+              builder: (context) =>
+                  UnknownImportConfirmationDialog(message: e.toString()),
+            );
           }
         }
 
@@ -575,41 +581,6 @@ class ImportService {
         return;
     }
   }
-
-  // NoteData? _submit(
-  //   NoteData document, {
-  //   required List<List<PadElement>> batchesOfElements,
-  //   List<DocumentPage> pages = const [],
-  //   List<Area> areas = const [],
-  //   bool choosePosition = false,
-  //   required List<PadElement> elements,
-  // }) {
-  //   final state = _getState();
-  //   DocumentPage page =
-  //       state?.page ?? document.getPage() ?? DocumentDefaults.createPage();
-  //   //cicle
-  //   for (var batch in batchesOfElements) {
-  //     if (choosePosition &&
-  //         state != null &&
-  //         (batch.isNotEmpty || areas.isNotEmpty)) {
-  //       state.currentIndexCubit.changeTemporaryHandler(
-  //           bloc!, ImportTool(elements: batch, areas: areas));
-  //     } else {
-  //       bloc
-  //         ?..add(ElementsCreated(batch))
-  //         ..add(AreasCreated(areas));
-  //     }
-  //     page = page.copyWith(content: [...page.content, ...batch]);
-  //     document = document.setPage(page);
-  //   }
-
-  //   for (final page in pages) {
-  //     bloc?.add(PageAdded(null, page));
-  //     (document, _) = document.addPage(page);
-  //   }
-
-  //   return document;
-  // }
 
   NoteData? _submit(
     NoteData document, {
