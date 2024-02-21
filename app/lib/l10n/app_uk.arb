@@ -151,6 +151,8 @@
   "copy": "Копія",
   "back": "Відмінити",
   "zoomDependent": "Залежність масштабу",
+  "shapeDetection": "Визначення форми",
+  "delay": "Затримка",
   "defaultLayer": "Типовий шар",
   "layer": "Шар",
   "layers": "Шари",
