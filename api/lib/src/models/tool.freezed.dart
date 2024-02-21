@@ -86,8 +86,13 @@ mixin _$Tool {
             PackAssetLocation styleSheet,
             double scale)
         label,
-    required TResult Function(String name, String displayIcon,
-            bool zoomDependent, PenProperty property)
+    required TResult Function(
+            String name,
+            String displayIcon,
+            bool zoomDependent,
+            double shapeDetectionTime,
+            bool shapeDetectionEnabled,
+            PenProperty property)
         pen,
     required TResult Function(
             String name, String displayIcon, double strokeWidth)
@@ -158,7 +163,12 @@ mixin _$Tool {
             PackAssetLocation styleSheet,
             double scale)?
         label,
-    TResult? Function(String name, String displayIcon, bool zoomDependent,
+    TResult? Function(
+            String name,
+            String displayIcon,
+            bool zoomDependent,
+            double shapeDetectionTime,
+            bool shapeDetectionEnabled,
             PenProperty property)?
         pen,
     TResult? Function(String name, String displayIcon, double strokeWidth)?
@@ -226,7 +236,12 @@ mixin _$Tool {
             PackAssetLocation styleSheet,
             double scale)?
         label,
-    TResult Function(String name, String displayIcon, bool zoomDependent,
+    TResult Function(
+            String name,
+            String displayIcon,
+            bool zoomDependent,
+            double shapeDetectionTime,
+            bool shapeDetectionEnabled,
             PenProperty property)?
         pen,
     TResult Function(String name, String displayIcon, double strokeWidth)?
@@ -492,8 +507,13 @@ class _$SelectToolImpl extends SelectTool {
             PackAssetLocation styleSheet,
             double scale)
         label,
-    required TResult Function(String name, String displayIcon,
-            bool zoomDependent, PenProperty property)
+    required TResult Function(
+            String name,
+            String displayIcon,
+            bool zoomDependent,
+            double shapeDetectionTime,
+            bool shapeDetectionEnabled,
+            PenProperty property)
         pen,
     required TResult Function(
             String name, String displayIcon, double strokeWidth)
@@ -567,7 +587,12 @@ class _$SelectToolImpl extends SelectTool {
             PackAssetLocation styleSheet,
             double scale)?
         label,
-    TResult? Function(String name, String displayIcon, bool zoomDependent,
+    TResult? Function(
+            String name,
+            String displayIcon,
+            bool zoomDependent,
+            double shapeDetectionTime,
+            bool shapeDetectionEnabled,
             PenProperty property)?
         pen,
     TResult? Function(String name, String displayIcon, double strokeWidth)?
@@ -638,7 +663,12 @@ class _$SelectToolImpl extends SelectTool {
             PackAssetLocation styleSheet,
             double scale)?
         label,
-    TResult Function(String name, String displayIcon, bool zoomDependent,
+    TResult Function(
+            String name,
+            String displayIcon,
+            bool zoomDependent,
+            double shapeDetectionTime,
+            bool shapeDetectionEnabled,
             PenProperty property)?
         pen,
     TResult Function(String name, String displayIcon, double strokeWidth)?
@@ -896,8 +926,13 @@ class _$HandToolImpl extends HandTool {
             PackAssetLocation styleSheet,
             double scale)
         label,
-    required TResult Function(String name, String displayIcon,
-            bool zoomDependent, PenProperty property)
+    required TResult Function(
+            String name,
+            String displayIcon,
+            bool zoomDependent,
+            double shapeDetectionTime,
+            bool shapeDetectionEnabled,
+            PenProperty property)
         pen,
     required TResult Function(
             String name, String displayIcon, double strokeWidth)
@@ -971,7 +1006,12 @@ class _$HandToolImpl extends HandTool {
             PackAssetLocation styleSheet,
             double scale)?
         label,
-    TResult? Function(String name, String displayIcon, bool zoomDependent,
+    TResult? Function(
+            String name,
+            String displayIcon,
+            bool zoomDependent,
+            double shapeDetectionTime,
+            bool shapeDetectionEnabled,
             PenProperty property)?
         pen,
     TResult? Function(String name, String displayIcon, double strokeWidth)?
@@ -1042,7 +1082,12 @@ class _$HandToolImpl extends HandTool {
             PackAssetLocation styleSheet,
             double scale)?
         label,
-    TResult Function(String name, String displayIcon, bool zoomDependent,
+    TResult Function(
+            String name,
+            String displayIcon,
+            bool zoomDependent,
+            double shapeDetectionTime,
+            bool shapeDetectionEnabled,
             PenProperty property)?
         pen,
     TResult Function(String name, String displayIcon, double strokeWidth)?
@@ -1333,8 +1378,13 @@ class _$ImportToolImpl extends ImportTool {
             PackAssetLocation styleSheet,
             double scale)
         label,
-    required TResult Function(String name, String displayIcon,
-            bool zoomDependent, PenProperty property)
+    required TResult Function(
+            String name,
+            String displayIcon,
+            bool zoomDependent,
+            double shapeDetectionTime,
+            bool shapeDetectionEnabled,
+            PenProperty property)
         pen,
     required TResult Function(
             String name, String displayIcon, double strokeWidth)
@@ -1408,7 +1458,12 @@ class _$ImportToolImpl extends ImportTool {
             PackAssetLocation styleSheet,
             double scale)?
         label,
-    TResult? Function(String name, String displayIcon, bool zoomDependent,
+    TResult? Function(
+            String name,
+            String displayIcon,
+            bool zoomDependent,
+            double shapeDetectionTime,
+            bool shapeDetectionEnabled,
             PenProperty property)?
         pen,
     TResult? Function(String name, String displayIcon, double strokeWidth)?
@@ -1479,7 +1534,12 @@ class _$ImportToolImpl extends ImportTool {
             PackAssetLocation styleSheet,
             double scale)?
         label,
-    TResult Function(String name, String displayIcon, bool zoomDependent,
+    TResult Function(
+            String name,
+            String displayIcon,
+            bool zoomDependent,
+            double shapeDetectionTime,
+            bool shapeDetectionEnabled,
             PenProperty property)?
         pen,
     TResult Function(String name, String displayIcon, double strokeWidth)?
@@ -1739,8 +1799,13 @@ class _$UndoToolImpl extends UndoTool {
             PackAssetLocation styleSheet,
             double scale)
         label,
-    required TResult Function(String name, String displayIcon,
-            bool zoomDependent, PenProperty property)
+    required TResult Function(
+            String name,
+            String displayIcon,
+            bool zoomDependent,
+            double shapeDetectionTime,
+            bool shapeDetectionEnabled,
+            PenProperty property)
         pen,
     required TResult Function(
             String name, String displayIcon, double strokeWidth)
@@ -1814,7 +1879,12 @@ class _$UndoToolImpl extends UndoTool {
             PackAssetLocation styleSheet,
             double scale)?
         label,
-    TResult? Function(String name, String displayIcon, bool zoomDependent,
+    TResult? Function(
+            String name,
+            String displayIcon,
+            bool zoomDependent,
+            double shapeDetectionTime,
+            bool shapeDetectionEnabled,
             PenProperty property)?
         pen,
     TResult? Function(String name, String displayIcon, double strokeWidth)?
@@ -1885,7 +1955,12 @@ class _$UndoToolImpl extends UndoTool {
             PackAssetLocation styleSheet,
             double scale)?
         label,
-    TResult Function(String name, String displayIcon, bool zoomDependent,
+    TResult Function(
+            String name,
+            String displayIcon,
+            bool zoomDependent,
+            double shapeDetectionTime,
+            bool shapeDetectionEnabled,
             PenProperty property)?
         pen,
     TResult Function(String name, String displayIcon, double strokeWidth)?
@@ -2140,8 +2215,13 @@ class _$RedoToolImpl extends RedoTool {
             PackAssetLocation styleSheet,
             double scale)
         label,
-    required TResult Function(String name, String displayIcon,
-            bool zoomDependent, PenProperty property)
+    required TResult Function(
+            String name,
+            String displayIcon,
+            bool zoomDependent,
+            double shapeDetectionTime,
+            bool shapeDetectionEnabled,
+            PenProperty property)
         pen,
     required TResult Function(
             String name, String displayIcon, double strokeWidth)
@@ -2215,7 +2295,12 @@ class _$RedoToolImpl extends RedoTool {
             PackAssetLocation styleSheet,
             double scale)?
         label,
-    TResult? Function(String name, String displayIcon, bool zoomDependent,
+    TResult? Function(
+            String name,
+            String displayIcon,
+            bool zoomDependent,
+            double shapeDetectionTime,
+            bool shapeDetectionEnabled,
             PenProperty property)?
         pen,
     TResult? Function(String name, String displayIcon, double strokeWidth)?
@@ -2286,7 +2371,12 @@ class _$RedoToolImpl extends RedoTool {
             PackAssetLocation styleSheet,
             double scale)?
         label,
-    TResult Function(String name, String displayIcon, bool zoomDependent,
+    TResult Function(
+            String name,
+            String displayIcon,
+            bool zoomDependent,
+            double shapeDetectionTime,
+            bool shapeDetectionEnabled,
             PenProperty property)?
         pen,
     TResult Function(String name, String displayIcon, double strokeWidth)?
@@ -2606,8 +2696,13 @@ class _$LabelToolImpl extends LabelTool {
             PackAssetLocation styleSheet,
             double scale)
         label,
-    required TResult Function(String name, String displayIcon,
-            bool zoomDependent, PenProperty property)
+    required TResult Function(
+            String name,
+            String displayIcon,
+            bool zoomDependent,
+            double shapeDetectionTime,
+            bool shapeDetectionEnabled,
+            PenProperty property)
         pen,
     required TResult Function(
             String name, String displayIcon, double strokeWidth)
@@ -2682,7 +2777,12 @@ class _$LabelToolImpl extends LabelTool {
             PackAssetLocation styleSheet,
             double scale)?
         label,
-    TResult? Function(String name, String displayIcon, bool zoomDependent,
+    TResult? Function(
+            String name,
+            String displayIcon,
+            bool zoomDependent,
+            double shapeDetectionTime,
+            bool shapeDetectionEnabled,
             PenProperty property)?
         pen,
     TResult? Function(String name, String displayIcon, double strokeWidth)?
@@ -2754,7 +2854,12 @@ class _$LabelToolImpl extends LabelTool {
             PackAssetLocation styleSheet,
             double scale)?
         label,
-    TResult Function(String name, String displayIcon, bool zoomDependent,
+    TResult Function(
+            String name,
+            String displayIcon,
+            bool zoomDependent,
+            double shapeDetectionTime,
+            bool shapeDetectionEnabled,
             PenProperty property)?
         pen,
     TResult Function(String name, String displayIcon, double strokeWidth)?
@@ -2944,6 +3049,8 @@ abstract class _$$PenToolImplCopyWith<$Res> implements $ToolCopyWith<$Res> {
       {String name,
       String displayIcon,
       bool zoomDependent,
+      double shapeDetectionTime,
+      bool shapeDetectionEnabled,
       PenProperty property});
 }
 
@@ -2961,6 +3068,8 @@ class __$$PenToolImplCopyWithImpl<$Res>
     Object? name = null,
     Object? displayIcon = null,
     Object? zoomDependent = null,
+    Object? shapeDetectionTime = null,
+    Object? shapeDetectionEnabled = null,
     Object? property = freezed,
   }) {
     return _then(_$PenToolImpl(
@@ -2975,6 +3084,14 @@ class __$$PenToolImplCopyWithImpl<$Res>
       zoomDependent: null == zoomDependent
           ? _value.zoomDependent
           : zoomDependent // ignore: cast_nullable_to_non_nullable
+              as bool,
+      shapeDetectionTime: null == shapeDetectionTime
+          ? _value.shapeDetectionTime
+          : shapeDetectionTime // ignore: cast_nullable_to_non_nullable
+              as double,
+      shapeDetectionEnabled: null == shapeDetectionEnabled
+          ? _value.shapeDetectionEnabled
+          : shapeDetectionEnabled // ignore: cast_nullable_to_non_nullable
               as bool,
       property: freezed == property
           ? _value.property
@@ -2991,6 +3108,8 @@ class _$PenToolImpl extends PenTool {
       {this.name = '',
       this.displayIcon = '',
       this.zoomDependent = true,
+      this.shapeDetectionTime = 0.5,
+      this.shapeDetectionEnabled = false,
       this.property = const PenProperty(),
       final String? $type})
       : $type = $type ?? 'pen',
@@ -3010,6 +3129,12 @@ class _$PenToolImpl extends PenTool {
   final bool zoomDependent;
   @override
   @JsonKey()
+  final double shapeDetectionTime;
+  @override
+  @JsonKey()
+  final bool shapeDetectionEnabled;
+  @override
+  @JsonKey()
   final PenProperty property;
 
   @JsonKey(name: 'type')
@@ -3017,7 +3142,7 @@ class _$PenToolImpl extends PenTool {
 
   @override
   String toString() {
-    return 'Tool.pen(name: $name, displayIcon: $displayIcon, zoomDependent: $zoomDependent, property: $property)';
+    return 'Tool.pen(name: $name, displayIcon: $displayIcon, zoomDependent: $zoomDependent, shapeDetectionTime: $shapeDetectionTime, shapeDetectionEnabled: $shapeDetectionEnabled, property: $property)';
   }
 
   @JsonKey(ignore: true)
@@ -3046,8 +3171,13 @@ class _$PenToolImpl extends PenTool {
             PackAssetLocation styleSheet,
             double scale)
         label,
-    required TResult Function(String name, String displayIcon,
-            bool zoomDependent, PenProperty property)
+    required TResult Function(
+            String name,
+            String displayIcon,
+            bool zoomDependent,
+            double shapeDetectionTime,
+            bool shapeDetectionEnabled,
+            PenProperty property)
         pen,
     required TResult Function(
             String name, String displayIcon, double strokeWidth)
@@ -3099,7 +3229,8 @@ class _$PenToolImpl extends PenTool {
         texture,
     required TResult Function(String name, String displayIcon) eyeDropper,
   }) {
-    return pen(name, displayIcon, zoomDependent, property);
+    return pen(name, displayIcon, zoomDependent, shapeDetectionTime,
+        shapeDetectionEnabled, property);
   }
 
   @override
@@ -3121,7 +3252,12 @@ class _$PenToolImpl extends PenTool {
             PackAssetLocation styleSheet,
             double scale)?
         label,
-    TResult? Function(String name, String displayIcon, bool zoomDependent,
+    TResult? Function(
+            String name,
+            String displayIcon,
+            bool zoomDependent,
+            double shapeDetectionTime,
+            bool shapeDetectionEnabled,
             PenProperty property)?
         pen,
     TResult? Function(String name, String displayIcon, double strokeWidth)?
@@ -3170,7 +3306,8 @@ class _$PenToolImpl extends PenTool {
         texture,
     TResult? Function(String name, String displayIcon)? eyeDropper,
   }) {
-    return pen?.call(name, displayIcon, zoomDependent, property);
+    return pen?.call(name, displayIcon, zoomDependent, shapeDetectionTime,
+        shapeDetectionEnabled, property);
   }
 
   @override
@@ -3192,7 +3329,12 @@ class _$PenToolImpl extends PenTool {
             PackAssetLocation styleSheet,
             double scale)?
         label,
-    TResult Function(String name, String displayIcon, bool zoomDependent,
+    TResult Function(
+            String name,
+            String displayIcon,
+            bool zoomDependent,
+            double shapeDetectionTime,
+            bool shapeDetectionEnabled,
             PenProperty property)?
         pen,
     TResult Function(String name, String displayIcon, double strokeWidth)?
@@ -3243,7 +3385,8 @@ class _$PenToolImpl extends PenTool {
     required TResult orElse(),
   }) {
     if (pen != null) {
-      return pen(name, displayIcon, zoomDependent, property);
+      return pen(name, displayIcon, zoomDependent, shapeDetectionTime,
+          shapeDetectionEnabled, property);
     }
     return orElse();
   }
@@ -3346,6 +3489,8 @@ abstract class PenTool extends Tool {
       {final String name,
       final String displayIcon,
       final bool zoomDependent,
+      final double shapeDetectionTime,
+      final bool shapeDetectionEnabled,
       final PenProperty property}) = _$PenToolImpl;
   PenTool._() : super._();
 
@@ -3356,6 +3501,8 @@ abstract class PenTool extends Tool {
   @override
   String get displayIcon;
   bool get zoomDependent;
+  double get shapeDetectionTime;
+  bool get shapeDetectionEnabled;
   PenProperty get property;
   @override
   @JsonKey(ignore: true)
@@ -3463,8 +3610,13 @@ class _$EraserToolImpl extends EraserTool {
             PackAssetLocation styleSheet,
             double scale)
         label,
-    required TResult Function(String name, String displayIcon,
-            bool zoomDependent, PenProperty property)
+    required TResult Function(
+            String name,
+            String displayIcon,
+            bool zoomDependent,
+            double shapeDetectionTime,
+            bool shapeDetectionEnabled,
+            PenProperty property)
         pen,
     required TResult Function(
             String name, String displayIcon, double strokeWidth)
@@ -3538,7 +3690,12 @@ class _$EraserToolImpl extends EraserTool {
             PackAssetLocation styleSheet,
             double scale)?
         label,
-    TResult? Function(String name, String displayIcon, bool zoomDependent,
+    TResult? Function(
+            String name,
+            String displayIcon,
+            bool zoomDependent,
+            double shapeDetectionTime,
+            bool shapeDetectionEnabled,
             PenProperty property)?
         pen,
     TResult? Function(String name, String displayIcon, double strokeWidth)?
@@ -3609,7 +3766,12 @@ class _$EraserToolImpl extends EraserTool {
             PackAssetLocation styleSheet,
             double scale)?
         label,
-    TResult Function(String name, String displayIcon, bool zoomDependent,
+    TResult Function(
+            String name,
+            String displayIcon,
+            bool zoomDependent,
+            double shapeDetectionTime,
+            bool shapeDetectionEnabled,
             PenProperty property)?
         pen,
     TResult Function(String name, String displayIcon, double strokeWidth)?
@@ -3881,8 +4043,13 @@ class _$PathEraserToolImpl extends PathEraserTool {
             PackAssetLocation styleSheet,
             double scale)
         label,
-    required TResult Function(String name, String displayIcon,
-            bool zoomDependent, PenProperty property)
+    required TResult Function(
+            String name,
+            String displayIcon,
+            bool zoomDependent,
+            double shapeDetectionTime,
+            bool shapeDetectionEnabled,
+            PenProperty property)
         pen,
     required TResult Function(
             String name, String displayIcon, double strokeWidth)
@@ -3956,7 +4123,12 @@ class _$PathEraserToolImpl extends PathEraserTool {
             PackAssetLocation styleSheet,
             double scale)?
         label,
-    TResult? Function(String name, String displayIcon, bool zoomDependent,
+    TResult? Function(
+            String name,
+            String displayIcon,
+            bool zoomDependent,
+            double shapeDetectionTime,
+            bool shapeDetectionEnabled,
             PenProperty property)?
         pen,
     TResult? Function(String name, String displayIcon, double strokeWidth)?
@@ -4027,7 +4199,12 @@ class _$PathEraserToolImpl extends PathEraserTool {
             PackAssetLocation styleSheet,
             double scale)?
         label,
-    TResult Function(String name, String displayIcon, bool zoomDependent,
+    TResult Function(
+            String name,
+            String displayIcon,
+            bool zoomDependent,
+            double shapeDetectionTime,
+            bool shapeDetectionEnabled,
             PenProperty property)?
         pen,
     TResult Function(String name, String displayIcon, double strokeWidth)?
@@ -4297,8 +4474,13 @@ class _$LayerToolImpl extends LayerTool {
             PackAssetLocation styleSheet,
             double scale)
         label,
-    required TResult Function(String name, String displayIcon,
-            bool zoomDependent, PenProperty property)
+    required TResult Function(
+            String name,
+            String displayIcon,
+            bool zoomDependent,
+            double shapeDetectionTime,
+            bool shapeDetectionEnabled,
+            PenProperty property)
         pen,
     required TResult Function(
             String name, String displayIcon, double strokeWidth)
@@ -4372,7 +4554,12 @@ class _$LayerToolImpl extends LayerTool {
             PackAssetLocation styleSheet,
             double scale)?
         label,
-    TResult? Function(String name, String displayIcon, bool zoomDependent,
+    TResult? Function(
+            String name,
+            String displayIcon,
+            bool zoomDependent,
+            double shapeDetectionTime,
+            bool shapeDetectionEnabled,
             PenProperty property)?
         pen,
     TResult? Function(String name, String displayIcon, double strokeWidth)?
@@ -4443,7 +4630,12 @@ class _$LayerToolImpl extends LayerTool {
             PackAssetLocation styleSheet,
             double scale)?
         label,
-    TResult Function(String name, String displayIcon, bool zoomDependent,
+    TResult Function(
+            String name,
+            String displayIcon,
+            bool zoomDependent,
+            double shapeDetectionTime,
+            bool shapeDetectionEnabled,
             PenProperty property)?
         pen,
     TResult Function(String name, String displayIcon, double strokeWidth)?
@@ -4746,8 +4938,13 @@ class _$AreaToolImpl extends AreaTool {
             PackAssetLocation styleSheet,
             double scale)
         label,
-    required TResult Function(String name, String displayIcon,
-            bool zoomDependent, PenProperty property)
+    required TResult Function(
+            String name,
+            String displayIcon,
+            bool zoomDependent,
+            double shapeDetectionTime,
+            bool shapeDetectionEnabled,
+            PenProperty property)
         pen,
     required TResult Function(
             String name, String displayIcon, double strokeWidth)
@@ -4822,7 +5019,12 @@ class _$AreaToolImpl extends AreaTool {
             PackAssetLocation styleSheet,
             double scale)?
         label,
-    TResult? Function(String name, String displayIcon, bool zoomDependent,
+    TResult? Function(
+            String name,
+            String displayIcon,
+            bool zoomDependent,
+            double shapeDetectionTime,
+            bool shapeDetectionEnabled,
             PenProperty property)?
         pen,
     TResult? Function(String name, String displayIcon, double strokeWidth)?
@@ -4894,7 +5096,12 @@ class _$AreaToolImpl extends AreaTool {
             PackAssetLocation styleSheet,
             double scale)?
         label,
-    TResult Function(String name, String displayIcon, bool zoomDependent,
+    TResult Function(
+            String name,
+            String displayIcon,
+            bool zoomDependent,
+            double shapeDetectionTime,
+            bool shapeDetectionEnabled,
             PenProperty property)?
         pen,
     TResult Function(String name, String displayIcon, double strokeWidth)?
@@ -5204,8 +5411,13 @@ class _$LaserToolImpl extends LaserTool {
             PackAssetLocation styleSheet,
             double scale)
         label,
-    required TResult Function(String name, String displayIcon,
-            bool zoomDependent, PenProperty property)
+    required TResult Function(
+            String name,
+            String displayIcon,
+            bool zoomDependent,
+            double shapeDetectionTime,
+            bool shapeDetectionEnabled,
+            PenProperty property)
         pen,
     required TResult Function(
             String name, String displayIcon, double strokeWidth)
@@ -5279,7 +5491,12 @@ class _$LaserToolImpl extends LaserTool {
             PackAssetLocation styleSheet,
             double scale)?
         label,
-    TResult? Function(String name, String displayIcon, bool zoomDependent,
+    TResult? Function(
+            String name,
+            String displayIcon,
+            bool zoomDependent,
+            double shapeDetectionTime,
+            bool shapeDetectionEnabled,
             PenProperty property)?
         pen,
     TResult? Function(String name, String displayIcon, double strokeWidth)?
@@ -5351,7 +5568,12 @@ class _$LaserToolImpl extends LaserTool {
             PackAssetLocation styleSheet,
             double scale)?
         label,
-    TResult Function(String name, String displayIcon, bool zoomDependent,
+    TResult Function(
+            String name,
+            String displayIcon,
+            bool zoomDependent,
+            double shapeDetectionTime,
+            bool shapeDetectionEnabled,
             PenProperty property)?
         pen,
     TResult Function(String name, String displayIcon, double strokeWidth)?
@@ -5670,8 +5892,13 @@ class _$ShapeToolImpl extends ShapeTool {
             PackAssetLocation styleSheet,
             double scale)
         label,
-    required TResult Function(String name, String displayIcon,
-            bool zoomDependent, PenProperty property)
+    required TResult Function(
+            String name,
+            String displayIcon,
+            bool zoomDependent,
+            double shapeDetectionTime,
+            bool shapeDetectionEnabled,
+            PenProperty property)
         pen,
     required TResult Function(
             String name, String displayIcon, double strokeWidth)
@@ -5746,7 +5973,12 @@ class _$ShapeToolImpl extends ShapeTool {
             PackAssetLocation styleSheet,
             double scale)?
         label,
-    TResult? Function(String name, String displayIcon, bool zoomDependent,
+    TResult? Function(
+            String name,
+            String displayIcon,
+            bool zoomDependent,
+            double shapeDetectionTime,
+            bool shapeDetectionEnabled,
             PenProperty property)?
         pen,
     TResult? Function(String name, String displayIcon, double strokeWidth)?
@@ -5818,7 +6050,12 @@ class _$ShapeToolImpl extends ShapeTool {
             PackAssetLocation styleSheet,
             double scale)?
         label,
-    TResult Function(String name, String displayIcon, bool zoomDependent,
+    TResult Function(
+            String name,
+            String displayIcon,
+            bool zoomDependent,
+            double shapeDetectionTime,
+            bool shapeDetectionEnabled,
             PenProperty property)?
         pen,
     TResult Function(String name, String displayIcon, double strokeWidth)?
@@ -6107,8 +6344,13 @@ class _$StampToolImpl extends StampTool {
             PackAssetLocation styleSheet,
             double scale)
         label,
-    required TResult Function(String name, String displayIcon,
-            bool zoomDependent, PenProperty property)
+    required TResult Function(
+            String name,
+            String displayIcon,
+            bool zoomDependent,
+            double shapeDetectionTime,
+            bool shapeDetectionEnabled,
+            PenProperty property)
         pen,
     required TResult Function(
             String name, String displayIcon, double strokeWidth)
@@ -6182,7 +6424,12 @@ class _$StampToolImpl extends StampTool {
             PackAssetLocation styleSheet,
             double scale)?
         label,
-    TResult? Function(String name, String displayIcon, bool zoomDependent,
+    TResult? Function(
+            String name,
+            String displayIcon,
+            bool zoomDependent,
+            double shapeDetectionTime,
+            bool shapeDetectionEnabled,
             PenProperty property)?
         pen,
     TResult? Function(String name, String displayIcon, double strokeWidth)?
@@ -6253,7 +6500,12 @@ class _$StampToolImpl extends StampTool {
             PackAssetLocation styleSheet,
             double scale)?
         label,
-    TResult Function(String name, String displayIcon, bool zoomDependent,
+    TResult Function(
+            String name,
+            String displayIcon,
+            bool zoomDependent,
+            double shapeDetectionTime,
+            bool shapeDetectionEnabled,
             PenProperty property)?
         pen,
     TResult Function(String name, String displayIcon, double strokeWidth)?
@@ -6514,8 +6766,13 @@ class _$PresentationToolImpl extends PresentationTool {
             PackAssetLocation styleSheet,
             double scale)
         label,
-    required TResult Function(String name, String displayIcon,
-            bool zoomDependent, PenProperty property)
+    required TResult Function(
+            String name,
+            String displayIcon,
+            bool zoomDependent,
+            double shapeDetectionTime,
+            bool shapeDetectionEnabled,
+            PenProperty property)
         pen,
     required TResult Function(
             String name, String displayIcon, double strokeWidth)
@@ -6589,7 +6846,12 @@ class _$PresentationToolImpl extends PresentationTool {
             PackAssetLocation styleSheet,
             double scale)?
         label,
-    TResult? Function(String name, String displayIcon, bool zoomDependent,
+    TResult? Function(
+            String name,
+            String displayIcon,
+            bool zoomDependent,
+            double shapeDetectionTime,
+            bool shapeDetectionEnabled,
             PenProperty property)?
         pen,
     TResult? Function(String name, String displayIcon, double strokeWidth)?
@@ -6660,7 +6922,12 @@ class _$PresentationToolImpl extends PresentationTool {
             PackAssetLocation styleSheet,
             double scale)?
         label,
-    TResult Function(String name, String displayIcon, bool zoomDependent,
+    TResult Function(
+            String name,
+            String displayIcon,
+            bool zoomDependent,
+            double shapeDetectionTime,
+            bool shapeDetectionEnabled,
             PenProperty property)?
         pen,
     TResult Function(String name, String displayIcon, double strokeWidth)?
@@ -6927,8 +7194,13 @@ class _$SpacerToolImpl extends SpacerTool {
             PackAssetLocation styleSheet,
             double scale)
         label,
-    required TResult Function(String name, String displayIcon,
-            bool zoomDependent, PenProperty property)
+    required TResult Function(
+            String name,
+            String displayIcon,
+            bool zoomDependent,
+            double shapeDetectionTime,
+            bool shapeDetectionEnabled,
+            PenProperty property)
         pen,
     required TResult Function(
             String name, String displayIcon, double strokeWidth)
@@ -7002,7 +7274,12 @@ class _$SpacerToolImpl extends SpacerTool {
             PackAssetLocation styleSheet,
             double scale)?
         label,
-    TResult? Function(String name, String displayIcon, bool zoomDependent,
+    TResult? Function(
+            String name,
+            String displayIcon,
+            bool zoomDependent,
+            double shapeDetectionTime,
+            bool shapeDetectionEnabled,
             PenProperty property)?
         pen,
     TResult? Function(String name, String displayIcon, double strokeWidth)?
@@ -7073,7 +7350,12 @@ class _$SpacerToolImpl extends SpacerTool {
             PackAssetLocation styleSheet,
             double scale)?
         label,
-    TResult Function(String name, String displayIcon, bool zoomDependent,
+    TResult Function(
+            String name,
+            String displayIcon,
+            bool zoomDependent,
+            double shapeDetectionTime,
+            bool shapeDetectionEnabled,
             PenProperty property)?
         pen,
     TResult Function(String name, String displayIcon, double strokeWidth)?
@@ -7334,8 +7616,13 @@ class _$FullScreenToolImpl extends FullScreenTool {
             PackAssetLocation styleSheet,
             double scale)
         label,
-    required TResult Function(String name, String displayIcon,
-            bool zoomDependent, PenProperty property)
+    required TResult Function(
+            String name,
+            String displayIcon,
+            bool zoomDependent,
+            double shapeDetectionTime,
+            bool shapeDetectionEnabled,
+            PenProperty property)
         pen,
     required TResult Function(
             String name, String displayIcon, double strokeWidth)
@@ -7409,7 +7696,12 @@ class _$FullScreenToolImpl extends FullScreenTool {
             PackAssetLocation styleSheet,
             double scale)?
         label,
-    TResult? Function(String name, String displayIcon, bool zoomDependent,
+    TResult? Function(
+            String name,
+            String displayIcon,
+            bool zoomDependent,
+            double shapeDetectionTime,
+            bool shapeDetectionEnabled,
             PenProperty property)?
         pen,
     TResult? Function(String name, String displayIcon, double strokeWidth)?
@@ -7480,7 +7772,12 @@ class _$FullScreenToolImpl extends FullScreenTool {
             PackAssetLocation styleSheet,
             double scale)?
         label,
-    TResult Function(String name, String displayIcon, bool zoomDependent,
+    TResult Function(
+            String name,
+            String displayIcon,
+            bool zoomDependent,
+            double shapeDetectionTime,
+            bool shapeDetectionEnabled,
             PenProperty property)?
         pen,
     TResult Function(String name, String displayIcon, double strokeWidth)?
@@ -7757,8 +8054,13 @@ class _$AssetToolImpl extends AssetTool {
             PackAssetLocation styleSheet,
             double scale)
         label,
-    required TResult Function(String name, String displayIcon,
-            bool zoomDependent, PenProperty property)
+    required TResult Function(
+            String name,
+            String displayIcon,
+            bool zoomDependent,
+            double shapeDetectionTime,
+            bool shapeDetectionEnabled,
+            PenProperty property)
         pen,
     required TResult Function(
             String name, String displayIcon, double strokeWidth)
@@ -7832,7 +8134,12 @@ class _$AssetToolImpl extends AssetTool {
             PackAssetLocation styleSheet,
             double scale)?
         label,
-    TResult? Function(String name, String displayIcon, bool zoomDependent,
+    TResult? Function(
+            String name,
+            String displayIcon,
+            bool zoomDependent,
+            double shapeDetectionTime,
+            bool shapeDetectionEnabled,
             PenProperty property)?
         pen,
     TResult? Function(String name, String displayIcon, double strokeWidth)?
@@ -7903,7 +8210,12 @@ class _$AssetToolImpl extends AssetTool {
             PackAssetLocation styleSheet,
             double scale)?
         label,
-    TResult Function(String name, String displayIcon, bool zoomDependent,
+    TResult Function(
+            String name,
+            String displayIcon,
+            bool zoomDependent,
+            double shapeDetectionTime,
+            bool shapeDetectionEnabled,
             PenProperty property)?
         pen,
     TResult Function(String name, String displayIcon, double strokeWidth)?
@@ -8228,8 +8540,13 @@ class _$TextureToolImpl extends TextureTool {
             PackAssetLocation styleSheet,
             double scale)
         label,
-    required TResult Function(String name, String displayIcon,
-            bool zoomDependent, PenProperty property)
+    required TResult Function(
+            String name,
+            String displayIcon,
+            bool zoomDependent,
+            double shapeDetectionTime,
+            bool shapeDetectionEnabled,
+            PenProperty property)
         pen,
     required TResult Function(
             String name, String displayIcon, double strokeWidth)
@@ -8304,7 +8621,12 @@ class _$TextureToolImpl extends TextureTool {
             PackAssetLocation styleSheet,
             double scale)?
         label,
-    TResult? Function(String name, String displayIcon, bool zoomDependent,
+    TResult? Function(
+            String name,
+            String displayIcon,
+            bool zoomDependent,
+            double shapeDetectionTime,
+            bool shapeDetectionEnabled,
             PenProperty property)?
         pen,
     TResult? Function(String name, String displayIcon, double strokeWidth)?
@@ -8376,7 +8698,12 @@ class _$TextureToolImpl extends TextureTool {
             PackAssetLocation styleSheet,
             double scale)?
         label,
-    TResult Function(String name, String displayIcon, bool zoomDependent,
+    TResult Function(
+            String name,
+            String displayIcon,
+            bool zoomDependent,
+            double shapeDetectionTime,
+            bool shapeDetectionEnabled,
             PenProperty property)?
         pen,
     TResult Function(String name, String displayIcon, double strokeWidth)?
@@ -8646,8 +8973,13 @@ class _$EyeDropperToolImpl extends EyeDropperTool {
             PackAssetLocation styleSheet,
             double scale)
         label,
-    required TResult Function(String name, String displayIcon,
-            bool zoomDependent, PenProperty property)
+    required TResult Function(
+            String name,
+            String displayIcon,
+            bool zoomDependent,
+            double shapeDetectionTime,
+            bool shapeDetectionEnabled,
+            PenProperty property)
         pen,
     required TResult Function(
             String name, String displayIcon, double strokeWidth)
@@ -8721,7 +9053,12 @@ class _$EyeDropperToolImpl extends EyeDropperTool {
             PackAssetLocation styleSheet,
             double scale)?
         label,
-    TResult? Function(String name, String displayIcon, bool zoomDependent,
+    TResult? Function(
+            String name,
+            String displayIcon,
+            bool zoomDependent,
+            double shapeDetectionTime,
+            bool shapeDetectionEnabled,
             PenProperty property)?
         pen,
     TResult? Function(String name, String displayIcon, double strokeWidth)?
@@ -8792,7 +9129,12 @@ class _$EyeDropperToolImpl extends EyeDropperTool {
             PackAssetLocation styleSheet,
             double scale)?
         label,
-    TResult Function(String name, String displayIcon, bool zoomDependent,
+    TResult Function(
+            String name,
+            String displayIcon,
+            bool zoomDependent,
+            double shapeDetectionTime,
+            bool shapeDetectionEnabled,
             PenProperty property)?
         pen,
     TResult Function(String name, String displayIcon, double strokeWidth)?
