@@ -151,6 +151,8 @@
   "copy": "Sao chép",
   "back": "Back",
   "zoomDependent": "Zoom dependent",
+  "shapeDetection": "Shape Detection",
+  "delay": "Delay",
   "defaultLayer": "Default layer",
   "layer": "Layer",
   "layers": "Layers",
