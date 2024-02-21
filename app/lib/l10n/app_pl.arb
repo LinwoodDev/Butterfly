@@ -151,6 +151,8 @@
   "copy": "Kopiuj",
   "back": "Powrót",
   "zoomDependent": "Zależny od powiększenia",
+  "shapeDetection": "Wykrywanie kształtu",
+  "delay": "Opóźnienie",
   "defaultLayer": "Warstwa domyślna",
   "layer": "Warstwa",
   "layers": "Warstwa",
