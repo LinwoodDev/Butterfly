@@ -195,11 +195,12 @@ class ImportService {
                 ?.element ??
             e)
         .toList();
-    return _submit(document,
-        elements: content,
-        areas: areas,
-        choosePosition: position == null,
-        batchesOfElements: []);
+    return _submit(
+      document,
+      elements: content,
+      areas: areas,
+      choosePosition: position == null,
+    );
   }
 
   Future<NoteData?> _importTemplate(NoteData template) async {
@@ -385,7 +386,6 @@ class ImportService {
     return null;
   }
 
-// ! start
   Future<NoteData?> importPdf(Uint8List bytes, NoteData document,
       {Offset? position,
       bool createAreas = false,
@@ -502,7 +502,6 @@ class ImportService {
         }
         dialog?.close();
         return _submit(
-          batchesOfElements: [selectedElements],
           document,
           elements: selectedElements,
           pages: documentPages,
@@ -574,7 +573,6 @@ class ImportService {
     List<DocumentPage> pages = const [],
     List<Area> areas = const [],
     bool choosePosition = false,
-    List<List<PadElement>> batchesOfElements = const [], // parametro opzionale
   }) {
     final state = _getState();
     DocumentPage page =
@@ -597,30 +595,6 @@ class ImportService {
     for (final page in pages) {
       (document, _) = document.addPage(page);
     }
-
-    // se batchesOfElements non è nullo o vuoto, esegui lo stesso ciclo del metodo _submit
-    if (batchesOfElements.isNotEmpty) {
-      if (choosePosition && state != null) {
-        for (var batch in batchesOfElements) {
-          if (batch.isNotEmpty || areas.isNotEmpty) {
-            state.currentIndexCubit.changeTemporaryHandler(
-                bloc!, ImportTool(elements: batch, areas: areas));
-          }
-          var newContent = List<PadElement>.from(page.content)..addAll(batch);
-          page = page.copyWith(content: newContent);
-        }
-      } else {
-        for (var batch in batchesOfElements) {
-          bloc
-            ?..add(ElementsCreated(batch))
-            ..add(AreasCreated(areas));
-          var newContent = List<PadElement>.from(page.content)..addAll(batch);
-          page = page.copyWith(content: newContent);
-        }
-      }
-      document = document.setPage(page);
-    }
-
     return document;
   }
 }
