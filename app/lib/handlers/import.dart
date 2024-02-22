@@ -75,7 +75,8 @@ class ImportHandler extends Handler<ImportTool> {
           NoteData document, DocumentPage page, DocumentInfo info,
           [Area? currentArea]) =>
       _renderers
-          ?.map((e) => e.transform(position: _offset, relative: true) ?? e)
+          ?.take(2)
+          .map((e) => e.transform(position: _offset, relative: true) ?? e)
           .toList() ??
       [];
 

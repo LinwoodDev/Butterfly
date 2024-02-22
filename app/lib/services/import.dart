@@ -255,7 +255,7 @@ class ImportService {
             currentIndexCubit!.state.cameraViewport.scale;
         constraints = ElementConstraints.scaled(scaleX: scale, scaleY: scale);
       }
-      return _submitNoBatch(document,
+      return _submit(document,
           elements: [
             ImageElement(
                 height: height,
@@ -324,7 +324,7 @@ class ImportService {
               currentIndexCubit!.state.cameraViewport.scale;
           constraints = ElementConstraints.scaled(scaleX: scale, scaleY: scale);
         }
-        return _submitNoBatch(document,
+        return _submit(document,
             elements: [
               SvgElement(
                 width: width,
@@ -365,7 +365,7 @@ class ImportService {
       final foreground = isDarkColor(Color(background))
           ? BasicColors.white
           : BasicColors.black;
-      return _submitNoBatch(document,
+      return _submit(document,
           elements: [
             MarkdownElement(
               position: firstPos.toPoint(),
@@ -501,28 +501,14 @@ class ImportService {
           }
         }
         dialog?.close();
-
-        // if count image are > 50 choosePosition: position != null,
-        if (elements.length > 50) {
-          return _submit(
-            batchesOfElements: [selectedElements],
-            document,
-            elements: selectedElements,
-            pages: documentPages,
-            areas: createAreas ? areas : [],
-            // ! if pdf is large
-            choosePosition: position != null,
-          );
-        } else {
-          return _submit(
-            batchesOfElements: [selectedElements],
-            document,
-            elements: selectedElements,
-            pages: documentPages,
-            areas: createAreas ? areas : [],
-            choosePosition: false,
-          );
-        }
+        return _submit(
+          batchesOfElements: [selectedElements],
+          document,
+          elements: selectedElements,
+          pages: documentPages,
+          areas: createAreas ? areas : [],
+          choosePosition: position == null,
+        );
       }
     } catch (e) {
       showDialog(
@@ -584,51 +570,11 @@ class ImportService {
 
   NoteData? _submit(
     NoteData document, {
-    required List<List<PadElement>> batchesOfElements,
-    List<DocumentPage> pages = const [],
-    List<Area> areas = const [],
-    bool choosePosition = false,
-    required List<PadElement> elements,
-  }) {
-    final state = _getState();
-    DocumentPage page =
-        state?.page ?? document.getPage() ?? DocumentDefaults.createPage();
-    //cicle
-
-    if (choosePosition && state != null) {
-      for (var batch in batchesOfElements) {
-        if (batch.isNotEmpty || areas.isNotEmpty) {
-          state.currentIndexCubit.changeTemporaryHandler(
-              bloc!, ImportTool(elements: batch, areas: areas));
-        }
-        var newContent = List<PadElement>.from(page.content)..addAll(batch);
-        page = page.copyWith(content: newContent);
-      }
-    } else {
-      for (var batch in batchesOfElements) {
-        bloc
-          ?..add(ElementsCreated(batch))
-          ..add(AreasCreated(areas));
-        var newContent = List<PadElement>.from(page.content)..addAll(batch);
-        page = page.copyWith(content: newContent);
-      }
-    }
-    document = document.setPage(page);
-
-    for (final page in pages) {
-      bloc?.add(PageAdded(null, page));
-      (document, _) = document.addPage(page);
-    }
-
-    return document;
-  }
-
-  NoteData? _submitNoBatch(
-    NoteData document, {
     required List<PadElement> elements,
     List<DocumentPage> pages = const [],
     List<Area> areas = const [],
     bool choosePosition = false,
+    List<List<PadElement>> batchesOfElements = const [], // parametro opzionale
   }) {
     final state = _getState();
     DocumentPage page =
@@ -651,6 +597,30 @@ class ImportService {
     for (final page in pages) {
       (document, _) = document.addPage(page);
     }
+
+    // se batchesOfElements non è nullo o vuoto, esegui lo stesso ciclo del metodo _submit
+    if (batchesOfElements.isNotEmpty) {
+      if (choosePosition && state != null) {
+        for (var batch in batchesOfElements) {
+          if (batch.isNotEmpty || areas.isNotEmpty) {
+            state.currentIndexCubit.changeTemporaryHandler(
+                bloc!, ImportTool(elements: batch, areas: areas));
+          }
+          var newContent = List<PadElement>.from(page.content)..addAll(batch);
+          page = page.copyWith(content: newContent);
+        }
+      } else {
+        for (var batch in batchesOfElements) {
+          bloc
+            ?..add(ElementsCreated(batch))
+            ..add(AreasCreated(areas));
+          var newContent = List<PadElement>.from(page.content)..addAll(batch);
+          page = page.copyWith(content: newContent);
+        }
+      }
+      document = document.setPage(page);
+    }
+
     return document;
   }
 }
