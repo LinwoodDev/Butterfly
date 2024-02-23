@@ -26,7 +26,6 @@ Det er noen snarveier du kan benytte i editoren. Noen av dem er skrevet under kn
 * `Ctrl` + `Y`: Gjør om igjen
 * `Ctrl` + `Shift` + `P`: Open waypoints dialog
 * `Ctrl` + `B`: Åpne bakgrunnsdialog
-* `Ctrl` + `Shift` + `A`: Åpne områder dialog
 * `Ctrl` + `S`: Lagre
 * `Alt` + `S`: Endre bane
 * `Ctrl` + (`1` - `0`): Bytt til verktøy
