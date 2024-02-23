@@ -26,7 +26,6 @@ Det finns några genvägar som du kan använda i editorn. Några av dem är skri
 * `Ctrl` + `Y`: Gör om
 * `Ctrl` + `Shift` + `P`: Open waypoints dialog
 * `Ctrl` + `B`: Öppna bakgrundsdialogrutan
-* `Ctrl` + `Shift` + `A`: dialogrutan Öppna områden
 * `Ctrl` + `S`: Spara
 * `Alt` + `S`: Ändra sökväg
 * `Ctrl` + (`1` - `0`): Växla till verktyget
