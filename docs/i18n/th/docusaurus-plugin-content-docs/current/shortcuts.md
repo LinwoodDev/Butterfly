@@ -26,7 +26,6 @@ There are a few shortcuts that you can use in the editor. Some of them are writt
 * `Ctrl` + `Y`: Redo
 * `Ctrl` + `Shift` + `P`: Open waypoints dialog
 * `Ctrl` + `B`: Open background dialog
-* `Ctrl` + `Shift` + `A`: Open areas dialog
 * `Ctrl` + `S`: Save
 * `Alt` + `S`: Change path
 * `Ctrl` + (`1` - `0`): Switch to tool
