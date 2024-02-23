@@ -26,7 +26,6 @@ Hay algunos atajos que puedes usar en el editor. Algunos de ellos se escriben de
 * `Ctrl` + `Y`: Rehacer
 * `Ctrl` + `Shift` + `P`: Open waypoints dialog
 * `Ctrl` + `B`: Abrir diálogo de fondo
-* `Ctrl` + `Shift` + `A`: Diálogo de áreas abiertas
 * `Ctrl` + `S`: Guardar
 * `Alt` + `S`: Cambiar ruta
 * `Ctrl` + (`1` - `0`): Cambiar a herramienta
