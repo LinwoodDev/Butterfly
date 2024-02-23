@@ -26,7 +26,6 @@ Düzenleyicide kullanabileceğiniz birkaç kısayol vardır. Bazıları düğmel
 * `Ctrl` + `Y`: Yinele
 * `Ctrl` + `Shift` + `P`: Yer imleri iletişim kutusunu aç
 * `Ctrl` + `B`: Arkaplan iletişim kutusunu aç
-* `Ctrl` + `Shift` + `A`: Alanlar iletişim kutusunu aç
 * `Ctrl` + `S`: Kaydet
 * `Alt` + `S`: Yolu değiştir
 * `Ctrl` + (`1` - `0`): Switch to tool
