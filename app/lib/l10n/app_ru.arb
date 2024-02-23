@@ -586,5 +586,6 @@
   "zoomControl": "Управление масштабом",
   "highContrast": "Высокий контраст",
   "shouldANumber": "Это значение должно быть действительным числом",
+  "createAreas": "Create areas",
   "autosave": "Autosave"
 }
