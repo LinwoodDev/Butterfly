@@ -16,7 +16,19 @@ class ImportHandler extends Handler<ImportTool> {
     await Future.wait(
         renderers.map((e) async => e.setup(document, assetService, page)));
     _renderers = renderers;
+
     return renderers;
+  }
+
+  Future<List<Renderer<PadElement>>> _loadProductive(
+      NoteData document, AssetService assetService, DocumentPage page) async {
+    if (_renderers != null) return _renderers!;
+    final renderers = data.elements
+        .map((e) => Renderer.fromInstance(e))
+        .whereType<Renderer<PadElement>>()
+        .toList();
+    _renderers = renderers;
+    return renderers.take(2).toList();
   }
 
   @override
@@ -39,7 +51,7 @@ class ImportHandler extends Handler<ImportTool> {
     _offset = transform.localToGlobal(localPosition);
     final state = context.getState();
     if (state == null) return;
-    await _load(state.data, state.assetService, state.page);
+    await _loadProductive(state.data, state.assetService, state.page);
     context.refresh();
   }
 
@@ -50,6 +62,7 @@ class ImportHandler extends Handler<ImportTool> {
   Future<void> onPointerUp(PointerUpEvent event, EventContext context) async {
     final state = context.getState();
     if (state == null) return;
+    await _loadProductive(state.data, state.assetService, state.page);
     context.addDocumentEvent(ElementsCreated((await _load(
       state.data,
       state.assetService,
