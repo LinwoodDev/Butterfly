@@ -128,9 +128,11 @@ class _GeneralExportDialogState extends State<GeneralExportDialog> {
                 actions: [
                   IconButton(
                     icon: const Icon(PhosphorIconsLight.mapPin),
+                    tooltip: AppLocalizations.of(context).pin,
                     onPressed: () {
                       final tool = ExportTool(options: _options);
                       context.read<DocumentBloc>().add(ToolCreated(tool));
+                      Navigator.of(context).pop();
                     },
                   ),
                 ],

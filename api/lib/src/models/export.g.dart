@@ -13,7 +13,7 @@ _$ImageExportOptionsImpl _$$ImageExportOptionsImplFromJson(Map json) =>
       x: (json['x'] as num?)?.toDouble() ?? 0,
       y: (json['y'] as num?)?.toDouble() ?? 0,
       scale: (json['scale'] as num?)?.toDouble() ?? 0,
-      quality: (json['quality'] as num?)?.toDouble() ?? 0,
+      quality: (json['quality'] as num?)?.toDouble() ?? 1,
       renderBackground: json['renderBackground'] as bool? ?? true,
       $type: json['type'] as String?,
     );
