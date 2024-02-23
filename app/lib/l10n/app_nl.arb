@@ -586,5 +586,6 @@
   "zoomControl": "Zoom beheer",
   "highContrast": "Hoog contrast",
   "shouldANumber": "Deze waarde moet een geldig nummer zijn",
+  "createAreas": "Create areas",
   "autosave": "Autosave"
 }
