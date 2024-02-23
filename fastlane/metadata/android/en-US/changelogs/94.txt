@@ -2,6 +2,7 @@
 * Add area navigator page ([#574](https://github.com/LinwoodDev/Butterfly/issues/574))
 * Add resize and move controls to area tool ([#542](https://github.com/LinwoodDev/Butterfly/issues/542))
 * Add reorder controls to area tool
+* Move rotation controls to the top ([#607](https://github.com/LinwoodDev/Butterfly/issues/607))
 * Improve area tool creation rect selection
 * Make selection system of select tool modular
 * Upgrade to flutter 3.19

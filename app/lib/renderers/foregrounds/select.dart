@@ -185,7 +185,7 @@ class RectSelectionForegroundManager {
         scaleX += delta.dx / _selection.size.width;
         scaleY += delta.dy / _selection.size.height;
       case SelectionTransformCorner.center when enableRotation:
-        rotation = position.getRotation(_selection.center) / pi * 180;
+        rotation = (position.getRotation(_selection.center) + 90) / pi * 180;
       default:
         moved = delta;
     }
@@ -244,6 +244,10 @@ class RectSelectionForegroundRenderer extends Renderer<Rect> {
       ..strokeJoin = StrokeJoin.round
       ..isAntiAlias = true;
     canvas.drawRect(element, paint);
+    if (enableRotation) {
+      canvas.drawLine(element.topCenter,
+          SelectionTransformCorner.center.getFromRect(element), paint);
+    }
     if (transformMode == null) return;
     final color = transformMode == SelectionScaleMode.scaleProp
         ? Colors.red
@@ -267,7 +271,7 @@ class RectSelectionForegroundRenderer extends Renderer<Rect> {
         if (!enableRotation) return;
         canvas.drawCircle(
           position,
-          realSize,
+          realSize / 1.5,
           transformPaint
             ..style = corner == transformCorner
                 ? PaintingStyle.fill
@@ -325,6 +329,6 @@ extension SelectionTransformCornerExtension on SelectionTransformCorner? {
         SelectionTransformCorner.bottomLeft => rect.bottomLeft,
         SelectionTransformCorner.bottomCenter => rect.bottomCenter,
         SelectionTransformCorner.bottomRight => rect.bottomRight,
-        _ => rect.center,
+        _ => rect.topCenter + const Offset(0, -100),
       };
 }
