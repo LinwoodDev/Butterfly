@@ -26,7 +26,6 @@ sidebar_position: 2
 * `Ctrl` + `Y`: Redo
 * `Ctrl` + `Shift` + `P`: Open waypoints dialog
 * `Ctrl` + `B`: Відкритий фоновий діалог
-* `Ctrl` + `Shift` + `A`: Відкритий діалог
 * `Ctrl` + `S`: зберегти
 * `Alt` + `S`: Змінити шлях
 * `Ctrl` + (`1` - `0`): Switch to tool
