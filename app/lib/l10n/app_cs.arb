@@ -586,5 +586,6 @@
   "zoomControl": "Ovládání přiblížení",
   "highContrast": "Vysoký kontrast",
   "shouldANumber": "Tato hodnota by měla být platné číslo",
+  "createAreas": "Create areas",
   "autosave": "Autosave"
 }
