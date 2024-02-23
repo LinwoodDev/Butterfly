@@ -26,7 +26,6 @@ sidebar_position: 2
 * `Ctrl` + `Y`: 再実行
 * `Ctrl` + `Shift` + `P`: Open waypoints dialog
 * `Ctrl` + `B`: 背景ダイアログを開く
-* `Ctrl` + `Shift` + `A`: 領域ダイアログを開く
 * `Ctrl` + `S`: 保存
 * `Alt` + `S`: パスを変更
 * `Ctrl` + (`1` - `0`): ツールに切り替える
