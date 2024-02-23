@@ -586,5 +586,6 @@
   "zoomControl": "Έλεγχος εστίασης",
   "highContrast": "Υψηλή αντίθεση",
   "shouldANumber": "Αυτή η τιμή πρέπει να είναι έγκυρος αριθμός",
+  "createAreas": "Create areas",
   "autosave": "Autosave"
 }
