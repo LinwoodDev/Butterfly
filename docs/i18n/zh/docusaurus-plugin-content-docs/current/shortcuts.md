@@ -26,7 +26,6 @@ sidebar_position: 2
 * `Ctrl` + `Y`: Redo
 * `Ctrl` + `Shift` + `P`: Open waypoints dialog
 * `Ctrl` + `B`: 打开后台对话框
-* `Ctrl` + `Shift` + `A`: 打开区域对话框
 * `Ctrl` + `S`: 保存
 * `Alt` + `S`: 更改路径
 * `Ctrl` + (`1` - `0`): 切换到工具
