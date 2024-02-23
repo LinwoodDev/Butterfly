@@ -586,5 +586,6 @@
   "zoomControl": "Comandă mărire",
   "highContrast": "Contrast mare",
   "shouldANumber": "Această valoare trebuie să fie un număr valid",
+  "createAreas": "Create areas",
   "autosave": "Autosave"
 }
