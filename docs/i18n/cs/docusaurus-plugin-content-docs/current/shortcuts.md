@@ -26,7 +26,6 @@ Existuje několik zkratek, které můžete použít v editoru. Některé z nich 
 * `Ctrl` + `Y`: Znovu
 * `Ctrl` + `Shift` + `P`: Open waypoints dialog
 * `Ctrl` + `B`: Otevřít dialog na pozadí
-* `Ctrl` + `Shift` + `A`: dialogové okno
 * `Ctrl` + `S`: Uložit
 * `Alt` + `S`: Změna cesty
 * `Ctrl` + (`1` - `0`): Přepnout na nástroj
