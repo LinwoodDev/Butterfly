@@ -26,7 +26,6 @@ sidebar_position: 2
 * `Ctrl` + `Y`: إعادة
 * `Ctrl` + `Shift` + `P`: Open waypoints dialog
 * `Ctrl` + `B`: فتح مربع حوار الخلفية
-* `Ctrl` + `Shift` + `A`: حوار المناطق المفتوحة
 * `Ctrl` + `S`: حفظ
 * `Alt` + `S`: تغيير المسار
 * `Ctrl` + (`1` - `0`: التبديل إلى أداة
