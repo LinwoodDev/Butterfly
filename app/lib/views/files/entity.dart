@@ -165,12 +165,12 @@ class _FileEntityItemState extends State<FileEntityItem> {
         builder: (context, candidateData, rejectedData) {
           return draggable;
         },
-        onWillAccept: (data) {
-          return data != widget.entity.location.path;
+        onWillAcceptWithDetails: (data) {
+          return data.data != widget.entity.location.path;
         },
-        onAccept: (data) async {
-          await fileSystem.moveAsset(
-              data, '${widget.entity.location.path}/${data.split('/').last}');
+        onAcceptWithDetails: (data) async {
+          await fileSystem.moveAsset(data.data,
+              '${widget.entity.location.path}/${data.data.split('/').last}');
           widget.onReload();
         },
       );
