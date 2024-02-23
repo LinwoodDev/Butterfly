@@ -16,7 +16,7 @@ enum ColorPickerToolbarAction { delete, pin, eyeDropper }
 class ColorToolbarView extends StatefulWidget implements PreferredSizeWidget {
   final int color;
   final ValueChanged<int> onChanged;
-  final VoidCallback? onEyeDropper;
+  final void Function(BuildContext)? onEyeDropper;
 
   const ColorToolbarView({
     super.key,
@@ -95,7 +95,7 @@ class _ColorToolbarViewState extends State<ColorToolbarView> {
       if (response == null) return;
       widget.onChanged(response.color);
       if (response.action == ColorPickerToolbarAction.eyeDropper) {
-        widget.onEyeDropper?.call();
+        widget.onEyeDropper?.call(context);
         return;
       }
       if (response.action != ColorPickerToolbarAction.pin) {

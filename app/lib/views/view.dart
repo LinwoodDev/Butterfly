@@ -118,7 +118,6 @@ class _MainViewViewportState extends State<MainViewViewport>
         Future<void> changeTemporaryTool(
             PointerDeviceKind kind, int buttons) async {
           int? nextPointerIndex;
-          final bloc = context.read<DocumentBloc>();
           final config = context.read<SettingsCubit>().state.inputConfiguration;
           switch (kind) {
             case PointerDeviceKind.touch:
@@ -151,7 +150,7 @@ class _MainViewViewportState extends State<MainViewViewport>
           if (nextPointerIndex <= 0) {
             cubit.changeTemporaryHandlerMove();
           } else {
-            await cubit.changeTemporaryHandlerIndex(bloc, nextPointerIndex);
+            await cubit.changeTemporaryHandlerIndex(context, nextPointerIndex);
           }
         }
 

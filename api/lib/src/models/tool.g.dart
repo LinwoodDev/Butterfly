@@ -359,6 +359,22 @@ const _$ImportTypeEnumMap = {
   ImportType.xopp: 'xopp',
 };
 
+_$ExportToolImpl _$$ExportToolImplFromJson(Map json) => _$ExportToolImpl(
+      name: json['name'] as String? ?? '',
+      displayIcon: json['displayIcon'] as String? ?? '',
+      options: ExportOptions.fromJson(
+          Map<String, dynamic>.from(json['options'] as Map)),
+      $type: json['type'] as String?,
+    );
+
+Map<String, dynamic> _$$ExportToolImplToJson(_$ExportToolImpl instance) =>
+    <String, dynamic>{
+      'name': instance.name,
+      'displayIcon': instance.displayIcon,
+      'options': instance.options.toJson(),
+      'type': instance.$type,
+    };
+
 _$TextureToolImpl _$$TextureToolImplFromJson(Map json) => _$TextureToolImpl(
       name: json['name'] as String? ?? '',
       displayIcon: json['displayIcon'] as String? ?? '',

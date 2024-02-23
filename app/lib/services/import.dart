@@ -194,7 +194,7 @@ class ImportService {
                 ?.element ??
             e)
         .toList();
-    return _submit(document,
+    return _submit(context, document,
         elements: content, areas: areas, choosePosition: position == null);
   }
 
@@ -251,7 +251,7 @@ class ImportService {
             currentIndexCubit!.state.cameraViewport.scale;
         constraints = ElementConstraints.scaled(scaleX: scale, scaleY: scale);
       }
-      return _submit(document,
+      return _submit(context, document,
           elements: [
             ImageElement(
                 height: height,
@@ -320,7 +320,7 @@ class ImportService {
               currentIndexCubit!.state.cameraViewport.scale;
           constraints = ElementConstraints.scaled(scaleX: scale, scaleY: scale);
         }
-        return _submit(document,
+        return _submit(context, document,
             elements: [
               SvgElement(
                 width: width,
@@ -361,7 +361,7 @@ class ImportService {
       final foreground = isDarkColor(Color(background))
           ? BasicColors.white
           : BasicColors.black;
-      return _submit(document,
+      return _submit(context, document,
           elements: [
             MarkdownElement(
               position: firstPos.toPoint(),
@@ -449,6 +449,7 @@ class ImportService {
         }
         dialog?.close();
         return _submit(
+          context,
           document,
           elements: selectedElements,
           pages: documentPages,
@@ -518,6 +519,7 @@ class ImportService {
   }
 
   NoteData? _submit(
+    BuildContext context,
     NoteData document, {
     required List<PadElement> elements,
     List<DocumentPage> pages = const [],
@@ -531,7 +533,7 @@ class ImportService {
         state != null &&
         (elements.isNotEmpty || areas.isNotEmpty)) {
       state.currentIndexCubit.changeTemporaryHandler(
-          bloc!, ImportTool(elements: elements, areas: areas));
+          context, ImportTool(elements: elements, areas: areas));
     } else {
       bloc
         ?..add(ElementsCreated(elements))

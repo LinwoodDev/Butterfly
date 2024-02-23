@@ -14,6 +14,19 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
+ExportOptions _$ExportOptionsFromJson(Map<String, dynamic> json) {
+  switch (json['type']) {
+    case 'image':
+      return ImageExportOptions.fromJson(json);
+    case 'svg':
+      return SVGExportOptions.fromJson(json);
+
+    default:
+      throw CheckedFromJsonException(json, 'type', 'ExportOptions',
+          'Invalid union type "${json['type']}"!');
+  }
+}
+
 /// @nodoc
 mixin _$ExportOptions {
   double get width => throw _privateConstructorUsedError;
@@ -71,7 +84,7 @@ mixin _$ExportOptions {
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
-
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   $ExportOptionsCopyWith<ExportOptions> get copyWith =>
       throw _privateConstructorUsedError;
@@ -202,8 +215,8 @@ class __$$ImageExportOptionsImplCopyWithImpl<$Res>
 }
 
 /// @nodoc
-
-class _$ImageExportOptionsImpl implements ImageExportOptions {
+@JsonSerializable()
+class _$ImageExportOptionsImpl extends ImageExportOptions {
   const _$ImageExportOptionsImpl(
       {required this.width,
       required this.height,
@@ -211,7 +224,13 @@ class _$ImageExportOptionsImpl implements ImageExportOptions {
       this.y = 0,
       this.scale = 0,
       this.quality = 0,
-      this.renderBackground = true});
+      this.renderBackground = true,
+      final String? $type})
+      : $type = $type ?? 'image',
+        super._();
+
+  factory _$ImageExportOptionsImpl.fromJson(Map<String, dynamic> json) =>
+      _$$ImageExportOptionsImplFromJson(json);
 
   @override
   final double width;
@@ -233,6 +252,9 @@ class _$ImageExportOptionsImpl implements ImageExportOptions {
   @JsonKey()
   final bool renderBackground;
 
+  @JsonKey(name: 'type')
+  final String $type;
+
   @override
   String toString() {
     return 'ExportOptions.image(width: $width, height: $height, x: $x, y: $y, scale: $scale, quality: $quality, renderBackground: $renderBackground)';
@@ -253,6 +275,7 @@ class _$ImageExportOptionsImpl implements ImageExportOptions {
                 other.renderBackground == renderBackground));
   }
 
+  @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
       runtimeType, width, height, x, y, scale, quality, renderBackground);
@@ -337,9 +360,16 @@ class _$ImageExportOptionsImpl implements ImageExportOptions {
     }
     return orElse();
   }
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$ImageExportOptionsImplToJson(
+      this,
+    );
+  }
 }
 
-abstract class ImageExportOptions implements ExportOptions {
+abstract class ImageExportOptions extends ExportOptions {
   const factory ImageExportOptions(
       {required final double width,
       required final double height,
@@ -348,6 +378,10 @@ abstract class ImageExportOptions implements ExportOptions {
       final double scale,
       final double quality,
       final bool renderBackground}) = _$ImageExportOptionsImpl;
+  const ImageExportOptions._() : super._();
+
+  factory ImageExportOptions.fromJson(Map<String, dynamic> json) =
+      _$ImageExportOptionsImpl.fromJson;
 
   @override
   double get width;
@@ -422,14 +456,20 @@ class __$$SVGExportOptionsImplCopyWithImpl<$Res>
 }
 
 /// @nodoc
-
-class _$SVGExportOptionsImpl implements SVGExportOptions {
+@JsonSerializable()
+class _$SVGExportOptionsImpl extends SVGExportOptions {
   const _$SVGExportOptionsImpl(
       {required this.width,
       required this.height,
       this.x = 0,
       this.y = 0,
-      this.renderBackground = true});
+      this.renderBackground = true,
+      final String? $type})
+      : $type = $type ?? 'svg',
+        super._();
+
+  factory _$SVGExportOptionsImpl.fromJson(Map<String, dynamic> json) =>
+      _$$SVGExportOptionsImplFromJson(json);
 
   @override
   final double width;
@@ -444,6 +484,9 @@ class _$SVGExportOptionsImpl implements SVGExportOptions {
   @override
   @JsonKey()
   final bool renderBackground;
+
+  @JsonKey(name: 'type')
+  final String $type;
 
   @override
   String toString() {
@@ -463,6 +506,7 @@ class _$SVGExportOptionsImpl implements SVGExportOptions {
                 other.renderBackground == renderBackground));
   }
 
+  @JsonKey(ignore: true)
   @override
   int get hashCode =>
       Object.hash(runtimeType, width, height, x, y, renderBackground);
@@ -547,15 +591,26 @@ class _$SVGExportOptionsImpl implements SVGExportOptions {
     }
     return orElse();
   }
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$SVGExportOptionsImplToJson(
+      this,
+    );
+  }
 }
 
-abstract class SVGExportOptions implements ExportOptions {
+abstract class SVGExportOptions extends ExportOptions {
   const factory SVGExportOptions(
       {required final double width,
       required final double height,
       final double x,
       final double y,
       final bool renderBackground}) = _$SVGExportOptionsImpl;
+  const SVGExportOptions._() : super._();
+
+  factory SVGExportOptions.fromJson(Map<String, dynamic> json) =
+      _$SVGExportOptionsImpl.fromJson;
 
   @override
   double get width;

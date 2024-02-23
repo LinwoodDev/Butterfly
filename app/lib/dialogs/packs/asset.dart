@@ -137,12 +137,14 @@ Future<void> addToPack(
     state.data,
     state.page,
     state.info,
-    width: rect.width,
-    height: rect.height,
-    renderBackground: true,
-    x: rect.left,
-    y: rect.top,
-    quality: kThumbnailWidth / rect.width,
+    ImageExportOptions(
+      width: rect.width,
+      height: rect.height,
+      renderBackground: true,
+      x: rect.left,
+      y: rect.top,
+      quality: kThumbnailWidth / rect.width,
+    ),
   );
   String? thumbnailUri;
   if (screenshot != null) {

@@ -7,6 +7,8 @@ part 'export.g.dart';
 
 @freezed
 sealed class ExportOptions with _$ExportOptions {
+  const ExportOptions._();
+
   const factory ExportOptions.image({
     required double width,
     required double height,
@@ -24,6 +26,20 @@ sealed class ExportOptions with _$ExportOptions {
     @Default(0) double y,
     @Default(true) bool renderBackground,
   }) = SVGExportOptions;
+
+  factory ExportOptions.fromJson(Map<String, dynamic> json) =>
+      _$ExportOptionsFromJson(json);
+
+  ImageExportOptions toImageOptions() => map(
+        image: (e) => e,
+        svg: (e) => ImageExportOptions(
+          width: e.width,
+          height: e.height,
+          x: e.x,
+          y: e.y,
+          renderBackground: e.renderBackground,
+        ),
+      );
 }
 
 @freezed

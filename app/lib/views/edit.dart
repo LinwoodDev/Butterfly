@@ -291,8 +291,8 @@ class _EditToolbarState extends State<EditToolbar> {
                             context.read<CurrentIndexCubit>().resetSelection();
                             context.read<CurrentIndexCubit>().changeTool(
                                   context.read<DocumentBloc>(),
-                                  i,
-                                  handler,
+                                  index: i,
+                                  handler: handler,
                                 );
                           } else {
                             context

@@ -65,9 +65,7 @@ class _GeneralExportDialogState extends State<GeneralExportDialog> {
   ExportTransformPreset? _preset;
 
   bool _renderBackground = true;
-  double _x = 0, _y = 0;
-  double _width = 1000.0, _height = 1000.0;
-  double _scale = 1, _quality = 1;
+  late ExportOptions _options;
 
   ByteData? _previewImage;
   Future<ByteData?>? _regeneratingFuture;
@@ -82,16 +80,11 @@ class _GeneralExportDialogState extends State<GeneralExportDialog> {
   }
 
   void _applyOptions(ExportOptions options) {
-    _x = options.x;
-    _y = options.y;
-    _width = options.width;
-    _height = options.height;
-    _scale = options.maybeMap(image: (e) => e.scale, orElse: () => 1);
-    _quality = options.maybeMap(image: (e) => e.quality, orElse: () => 1);
-    _xController.text = _x.toString();
-    _yController.text = _y.toString();
-    _widthController.text = _width.toString();
-    _heightController.text = _height.toString();
+    _options = options;
+    _xController.text = _options.x.toString();
+    _yController.text = _options.y.toString();
+    _widthController.text = _options.width.toString();
+    _heightController.text = _options.height.toString();
   }
 
   Future<void> _regeneratePreviewImage() async {
@@ -108,34 +101,16 @@ class _GeneralExportDialogState extends State<GeneralExportDialog> {
     final bloc = context.read<DocumentBloc>();
     final state = bloc.state;
     if (state is! DocumentLoaded) return null;
-    return state.currentIndexCubit.render(
-      state.data,
-      state.page,
-      state.info,
-      width: _width,
-      height: _height,
-      renderBackground: _renderBackground,
-      x: _x,
-      y: _y,
-      scale: widget.options is SVGExportOptions ? 1 : _scale,
-      quality: _quality,
-    );
+    return state.currentIndexCubit
+        .render(state.data, state.page, state.info, _options.toImageOptions());
   }
 
-  Future<String?> generateSVG() async {
+  Future<String?> generateSVG(SVGExportOptions options) async {
     final bloc = context.read<DocumentBloc>();
     final state = bloc.state;
     if (state is! DocumentLoaded) return null;
     return state.currentIndexCubit
-        .renderSVG(
-          state.data,
-          state.page,
-          width: _width.round(),
-          height: _height.round(),
-          renderBackground: _renderBackground,
-          x: _x,
-          y: _y,
-        )
+        .renderSVG(state.data, state.page, options)
         .toXmlString();
   }
 
@@ -153,7 +128,10 @@ class _GeneralExportDialogState extends State<GeneralExportDialog> {
                 actions: [
                   IconButton(
                     icon: const Icon(PhosphorIconsLight.mapPin),
-                    onPressed: () {},
+                    onPressed: () {
+                      final tool = ExportTool(options: _options);
+                      context.read<DocumentBloc>().add(ToolCreated(tool));
+                    },
                   ),
                 ],
               ),
@@ -206,7 +184,7 @@ class _GeneralExportDialogState extends State<GeneralExportDialog> {
                               if (state is! DocumentLoadSuccess) {
                                 return;
                               }
-                              switch (widget.options) {
+                              switch (_options) {
                                 case ImageExportOptions():
                                   final data = await generateImage();
                                   if (data == null) {
@@ -214,8 +192,8 @@ class _GeneralExportDialogState extends State<GeneralExportDialog> {
                                   }
                                   await exportImage(
                                       context, data.buffer.asUint8List());
-                                case SVGExportOptions():
-                                  final data = await generateSVG();
+                                case final SVGExportOptions options:
+                                  final data = await generateSVG(options);
                                   if (data == null) {
                                     return;
                                   }
@@ -253,7 +231,7 @@ class _GeneralExportDialogState extends State<GeneralExportDialog> {
                         ?.state
                         .transformCubit
                         .state;
-                    _applyOptions(widget.options.map(
+                    _applyOptions(_options.map(
                       image: (e) => getDefaultImageExportOptions(context,
                           transform: transform),
                       svg: (e) => getDefaultSVGExportOptions(context,
@@ -273,7 +251,7 @@ class _GeneralExportDialogState extends State<GeneralExportDialog> {
                         context.read<DocumentBloc>().state.currentIndexCubit;
                     if (cubit == null) return;
                     final rect = cubit.getPageRect();
-                    _applyOptions(widget.options.map(
+                    _applyOptions(_options.map(
                       image: (e) => e.copyWith(
                         width: rect.width,
                         height: rect.height,
@@ -340,7 +318,8 @@ class _GeneralExportDialogState extends State<GeneralExportDialog> {
                 controller: _xController,
                 decoration: const InputDecoration(labelText: 'X', filled: true),
                 onChanged: (value) {
-                  _x = double.tryParse(value) ?? _x;
+                  _options = _options.copyWith(
+                      x: double.tryParse(value) ?? _options.x);
                   setState(() => _preset = null);
                 },
                 onSubmitted: (value) => _regeneratePreviewImage(),
@@ -352,7 +331,8 @@ class _GeneralExportDialogState extends State<GeneralExportDialog> {
                 controller: _yController,
                 decoration: const InputDecoration(labelText: 'Y', filled: true),
                 onChanged: (value) {
-                  _y = double.tryParse(value) ?? _y;
+                  _options = _options.copyWith(
+                      y: double.tryParse(value) ?? _options.y);
                   setState(() => _preset = null);
                 },
                 onSubmitted: (value) => _regeneratePreviewImage(),
@@ -374,7 +354,8 @@ class _GeneralExportDialogState extends State<GeneralExportDialog> {
                     labelText: AppLocalizations.of(context).width,
                     filled: true),
                 onChanged: (value) {
-                  _width = double.tryParse(value) ?? _width;
+                  _options = _options.copyWith(
+                      width: double.tryParse(value) ?? _options.width);
                   setState(() => _preset = null);
                 },
                 onSubmitted: (value) => _regeneratePreviewImage(),
@@ -388,7 +369,8 @@ class _GeneralExportDialogState extends State<GeneralExportDialog> {
                     labelText: AppLocalizations.of(context).height,
                     filled: true),
                 onChanged: (value) {
-                  _height = double.tryParse(value) ?? _height;
+                  _options = _options.copyWith(
+                      height: double.tryParse(value) ?? _options.height);
                   setState(() => _preset = null);
                 },
                 onSubmitted: (value) => _regeneratePreviewImage(),
@@ -396,32 +378,8 @@ class _GeneralExportDialogState extends State<GeneralExportDialog> {
             ),
           ],
         ),
-        if (widget.options is ImageExportOptions) ...[
-          const SizedBox(height: 8),
-          ExactSlider(
-              header: Text(AppLocalizations.of(context).scale),
-              min: 0.1,
-              max: 10,
-              value: _scale,
-              defaultValue: 1,
-              onChangeEnd: (value) {
-                _scale = value;
-                setState(() => _preset = null);
-                _regeneratePreviewImage();
-              }),
-          const SizedBox(height: 8),
-          ExactSlider(
-              header: Text(AppLocalizations.of(context).quality),
-              min: 0.1,
-              max: 10,
-              value: _quality,
-              defaultValue: 1,
-              onChangeEnd: (value) {
-                _quality = value;
-                setState(() => _preset = null);
-                _regeneratePreviewImage();
-              }),
-        ],
+        if (_options is ImageExportOptions)
+          ..._getImageOptions(_options as ImageExportOptions),
         const SizedBox(height: 8),
         CheckboxListTile(
             value: _renderBackground,
@@ -431,4 +389,33 @@ class _GeneralExportDialogState extends State<GeneralExportDialog> {
               _regeneratePreviewImage();
             })
       ]);
+
+  List<Widget> _getImageOptions(ImageExportOptions options) {
+    return [
+      const SizedBox(height: 8),
+      ExactSlider(
+          header: Text(AppLocalizations.of(context).scale),
+          min: 0.1,
+          max: 10,
+          value: options.scale,
+          defaultValue: 1,
+          onChangeEnd: (value) {
+            _options = options.copyWith(scale: value);
+            setState(() => _preset = null);
+            _regeneratePreviewImage();
+          }),
+      const SizedBox(height: 8),
+      ExactSlider(
+          header: Text(AppLocalizations.of(context).quality),
+          min: 0.1,
+          max: 10,
+          value: options.quality,
+          defaultValue: 1,
+          onChangeEnd: (value) {
+            _options = options.copyWith(quality: value);
+            setState(() => _preset = null);
+            _regeneratePreviewImage();
+          }),
+    ];
+  }
 }

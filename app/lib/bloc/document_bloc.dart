@@ -631,9 +631,12 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       if (current is! DocumentLoadSuccess) return;
       final data = current.saveData();
       final render = await current.currentIndexCubit.render(
-          current.data, current.page, current.info,
-          width: kThumbnailWidth.toDouble(),
-          height: kThumbnailHeight.toDouble());
+          current.data,
+          current.page,
+          current.info,
+          ImageExportOptions(
+              width: kThumbnailWidth.toDouble(),
+              height: kThumbnailHeight.toDouble()));
       final thumbnail = render?.buffer.asUint8List();
       final settings = current.settingsCubit.state;
       final remote = settings.getRemote(event.remote);
