@@ -26,7 +26,6 @@ Existem alguns atalhos que você pode usar no editor. Alguns deles estão escrit
 * `Ctrl` + `Y`: Refazer
 * `Ctrl` + `Shift` + `P`: Open waypoints dialog
 * `Ctrl` + `B`: Abrir diálogo em segundo plano
-* `Ctrl` + `Shift` + `A`: Abrir diálogo de áreas
 * `Ctrl` + `S`: Salvar
 * `Alt` + `S`: Mudar caminho
 * `Ctrl` + (`1` - `0`): Mudar para ferramenta
