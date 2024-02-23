@@ -27,7 +27,6 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../actions/areas.dart';
 import '../actions/background.dart';
 import '../actions/change_tool.dart';
 import '../actions/change_path.dart';
@@ -96,7 +95,6 @@ class _ProjectPageState extends State<ProjectPage> {
     PdfExportIntent: PdfExportAction(),
     ExportIntent: ExportAction(),
     SettingsIntent: SettingsAction(),
-    AreasIntent: AreasAction(),
     ColorPaletteIntent: ColorPaletteAction(),
     BackgroundIntent: BackgroundAction(),
     ChangePathIntent: ChangePathAction(),
@@ -347,11 +345,6 @@ class _ProjectPageState extends State<ProjectPage> {
                                   LogicalKeySet(LogicalKeyboardKey.control,
                                           LogicalKeyboardKey.keyB):
                                       BackgroundIntent(context),
-                                  LogicalKeySet(
-                                          LogicalKeyboardKey.control,
-                                          LogicalKeyboardKey.shift,
-                                          LogicalKeyboardKey.keyA):
-                                      AreasIntent(context),
                                   LogicalKeySet(LogicalKeyboardKey.escape):
                                       ExitIntent(context),
                                   LogicalKeySet(LogicalKeyboardKey.f11):

@@ -115,12 +115,16 @@ class _PdfExportDialogState extends State<PdfExportDialog> {
                                   }
                                   return FutureBuilder<ByteData?>(
                                     future: currentIndex.render(
-                                        state.data, state.page, state.info,
-                                        width: area.width,
-                                        height: area.height,
-                                        quality: e.quality,
-                                        x: area.position.x,
-                                        y: area.position.y),
+                                      state.data,
+                                      state.page,
+                                      state.info,
+                                      ImageExportOptions(
+                                          width: area.width,
+                                          height: area.height,
+                                          quality: e.quality,
+                                          x: area.position.x,
+                                          y: area.position.y),
+                                    ),
                                     builder: (context, snapshot) =>
                                         _AreaPreview(
                                       area: area,

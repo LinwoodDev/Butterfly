@@ -46,7 +46,8 @@ class TransformCubit extends Cubit<CameraTransform> {
 
   void move(Offset delta) => emit(state.withPosition(state.position + delta));
 
-  void setPosition(Offset position) => emit(state.withPosition(position));
+  void teleport(Offset position, [double? scale]) =>
+      emit(state.withPosition(position).withSize(scale ?? state.size));
 
   void zoom(double delta, [Offset cursor = Offset.zero]) =>
       emit(state.withSize(state.size * delta, cursor));
@@ -58,7 +59,19 @@ class TransformCubit extends Cubit<CameraTransform> {
   void size(double size, [Offset cursor = Offset.zero]) =>
       emit(state.withSize(size, cursor));
 
-  void moveToWaypoint(Waypoint waypoint) => emit(state
-      .withPointPosition(waypoint.position)
-      .withSize(waypoint.scale ?? state.size));
+  void teleportToWaypoint(Waypoint waypoint) =>
+      teleport(waypoint.position.toOffset(), waypoint.scale ?? state.size);
+
+  void teleportToArea(Area area, [Size? screen]) {
+    double? size;
+    var position = area.position.toOffset();
+    if (screen != null) {
+      final width = screen.width / area.width;
+      final height = screen.height / area.height;
+      size = min(width, height).clamp(kMinZoom, kMaxZoom);
+      position += Offset((area.width - screen.width / size) / 2,
+          (area.height - screen.height / size) / 2);
+    }
+    teleport(position, size);
+  }
 }

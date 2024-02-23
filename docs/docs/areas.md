@@ -1,5 +1,5 @@
 ---
-title: "Area"
+title: "Areas"
 sidebar_position: 2
 ---
 

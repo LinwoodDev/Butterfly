@@ -153,8 +153,8 @@ class _SearchDialogState extends State<SearchDialog> {
                                     final state =
                                         context.read<DocumentBloc>().state;
                                     if (state is DocumentLoaded) {
-                                      state.transformCubit.setPosition(
-                                          result.location.toOffset());
+                                      state.transformCubit
+                                          .teleport(result.location.toOffset());
                                       state.currentIndexCubit.bake(
                                           state.data, state.page, state.info);
                                       Navigator.pop(context);
