@@ -25,12 +25,12 @@ dependencies:
     sdk: flutter
   butterfly_api:
     path: ../api
-  flutter_svg: ^2.0.9
+  flutter_svg: ^2.0.10+1
   flutter_bloc: ^8.1.4
   intl: ^0.18.0
   path_provider: ^2.1.2
   shared_preferences: ^2.2.2
-  url_launcher: ^6.2.4
+  url_launcher: ^6.2.5
   file_selector: ^1.0.3
   phosphor_flutter:
     git:
@@ -51,9 +51,9 @@ dependencies:
   freezed_annotation: ^2.4.1
   json_annotation: ^4.8.1
   path: ^1.8.3
-  printing: ^5.11.1
+  printing: ^5.12.0
   js: ^0.6.7
-  pdf: ^3.10.7
+  pdf: ^3.10.8
   http: ^1.2.0
   flutter_secure_storage: ^9.0.0
   equatable: ^2.0.5
