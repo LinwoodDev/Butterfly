@@ -26,7 +26,6 @@ On olemassa muutamia pikakuvakkeita, joita voit käyttää editorissa. Osa niist
 * `Ctrl` + `Y`: Redo
 * `Ctrl` + `Shift` + `P`: Open waypoints dialog
 * `Ctrl` + `B`: Avaa taustaikkuna
-* `Ctrl` + `Vaihto` + `A`: Avaa alueet -valintaikkuna
 * `Ctrl` + `S`: Tallenna
 * `Alt` + `S`: Muuta polkua
 * `Ctrl` + (`1` - `0`): Vaihda työkaluun
