@@ -26,7 +26,6 @@ Es gibt ein paar Verknüpfungen, die Sie im Editor verwenden können. Einige dav
 * `Strg` + `Y`: Erneut
 * `Ctrl` + `Shift` + `P`: Open waypoints dialog
 * `Strg` + `B`: Hintergrunddialog öffnen
-* `Strg` + `Umschalt` + `A`: Öffne Bereiche Dialog
 * `Strg` + `S`: Speichern
 * `Alt` + `S`: Pfad ändern
 * `Strg` + (`1` - `0`): Wechseln Sie zum Werkzeug
