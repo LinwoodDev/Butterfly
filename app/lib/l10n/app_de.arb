@@ -586,5 +586,6 @@
   "zoomControl": "Zoom-Steuerung",
   "highContrast": "Hoher Kontrast",
   "shouldANumber": "Dieser Wert sollte eine gültige Zahl sein",
+  "createAreas": "Create areas",
   "autosave": "Autosave"
 }
