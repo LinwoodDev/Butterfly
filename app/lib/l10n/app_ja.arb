@@ -586,5 +586,6 @@
   "zoomControl": "ズームコントロール",
   "highContrast": "高コントラストformat@@0",
   "shouldANumber": "この値は有効な数字でなければなりません",
+  "createAreas": "Create areas",
   "autosave": "Autosave"
 }
