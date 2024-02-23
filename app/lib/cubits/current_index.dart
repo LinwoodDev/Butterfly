@@ -837,4 +837,13 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
   void dispose() {
     state.networkingService.closeNetworking();
   }
+
+  Rect getPageRect() {
+    var rect = Rect.zero;
+    for (final renderer in renderers) {
+      final rendererRect = renderer.rect;
+      if (rendererRect != null) rect = rect.expandToInclude(rendererRect);
+    }
+    return rect;
+  }
 }

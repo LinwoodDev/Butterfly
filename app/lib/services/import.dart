@@ -25,10 +25,9 @@ import '../api/save.dart';
 import '../cubits/current_index.dart';
 import '../cubits/settings.dart';
 import '../dialogs/error.dart';
-import '../dialogs/export/image.dart';
+import '../dialogs/export/general.dart';
 import '../dialogs/import/pages.dart';
 import '../dialogs/export/pdf.dart';
-import '../dialogs/export/svg.dart';
 
 class ImportService {
   final DocumentBloc? bloc;
@@ -483,12 +482,14 @@ class ImportService {
             context: context,
             builder: (context) => BlocProvider.value(
                 value: bloc!,
-                child: ImageExportDialog(
-                  height: viewport.height?.toDouble() ?? 1000.0,
-                  width: viewport.width?.toDouble() ?? 1000.0,
-                  scale: viewport.scale,
-                  x: viewport.x,
-                  y: viewport.y,
+                child: GeneralExportDialog(
+                  options: ImageExportOptions(
+                    height: viewport.height?.toDouble() ?? 1000.0,
+                    width: viewport.width?.toDouble() ?? 1000.0,
+                    scale: viewport.scale,
+                    x: viewport.x,
+                    y: viewport.y,
+                  ),
                 )));
       case AssetFileType.pdf:
         return showDialog<void>(
@@ -504,12 +505,13 @@ class ImportService {
             context: context,
             builder: (context) => BlocProvider.value(
                 value: bloc!,
-                child: SvgExportDialog(
-                    width: ((viewport.width ?? 1000) / viewport.scale).round(),
-                    height:
-                        ((viewport.height ?? 1000) / viewport.scale).round(),
-                    x: viewport.x,
-                    y: viewport.y)));
+                child: GeneralExportDialog(
+                    options: SVGExportOptions(
+                  width: (viewport.width ?? 1000) / viewport.scale,
+                  height: (viewport.height ?? 1000) / viewport.scale,
+                  x: viewport.x,
+                  y: viewport.y,
+                ))));
       default:
         return;
     }
