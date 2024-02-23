@@ -26,7 +26,6 @@ sidebar_position: 2
 * `Ctrl` + `Y`: Повтор
 * `Ctrl` + `Shift` + `P`: Open waypoints dialog
 * `Ctrl` + `B`: Открыть фон диалога
-* `Ctrl` + `Shift` + `A`: Открыть диалог областей
 * `Ctrl` + `S`: Сохранить
 * `Alt` + `S`: Изменить путь
 * `Ctrl` + (`1` - `0`): Переключение на инструмент
