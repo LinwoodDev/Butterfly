@@ -26,7 +26,6 @@ Există câteva comenzi rapide pe care le poți folosi în editor. Unele dintre 
 * `Ctrl` + `Y`: Redo
 * `Ctrl` + `Shift` + `P`: Open waypoints dialog
 * `Ctrl` + `B`: Deschide dialogul de fundal
-* `Ctrl` + `Shift` + `A`: Dialog zone deschise
 * `Ctrl` + `S`: Salvare
 * `Alt` + `S`: Schimbare cale
 * `Ctrl` + (`1` - `0`): Comutați la unealtă
