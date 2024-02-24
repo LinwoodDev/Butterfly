@@ -14,12 +14,13 @@ enum DisplayIcons {
   const DisplayIcons(this.icon);
 
   static IconGetter from(Object tool) {
-    try {
-      final displayIcon = tool is Tool ? tool.displayIcon : null;
-      return DisplayIcons.values.byName(displayIcon ?? '').icon;
-    } catch (_) {
-      return recommended(tool).firstOrNull?.icon ?? PhosphorIcons.question;
+    if (tool is Tool && tool.displayIcon.isNotEmpty) {
+      try {
+        final displayIcon = tool.displayIcon;
+        return DisplayIcons.values.byName(displayIcon).icon;
+      } catch (_) {}
     }
+    return recommended(tool).firstOrNull?.icon ?? PhosphorIcons.question;
   }
 
   static List<DisplayIcons> recommended(Object tool) {

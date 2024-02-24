@@ -53,12 +53,14 @@ class EmbedHandler {
           state.data,
           state.page,
           state.info,
-          width: width,
-          height: height,
-          x: x,
-          y: y,
-          scale: scale,
-          renderBackground: renderBackground,
+          ImageExportOptions(
+            width: width,
+            height: height,
+            x: x,
+            y: y,
+            scale: scale,
+            renderBackground: renderBackground,
+          ),
         );
         sendEmbedMessage(
             'render', base64.encode(data?.buffer.asUint8List() ?? []));
@@ -68,7 +70,7 @@ class EmbedHandler {
       final state = bloc.state;
       if (state is DocumentLoadSuccess) {
         double x = 0, y = 0;
-        int width = 100, height = 100;
+        double width = 100, height = 100;
         bool renderBackground = true;
         if (message is Map) {
           x = message['x'] ?? 0;
@@ -90,11 +92,13 @@ class EmbedHandler {
               .renderSVG(
                 state.data,
                 state.page,
-                width: width,
-                height: height,
-                x: x,
-                y: y,
-                renderBackground: renderBackground,
+                SVGExportOptions(
+                  width: width,
+                  height: height,
+                  x: x,
+                  y: y,
+                  renderBackground: renderBackground,
+                ),
               )
               .toXmlString(),
         );

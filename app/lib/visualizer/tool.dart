@@ -37,6 +37,7 @@ extension ToolVisualizer on Tool {
       fullSceen: (_) => loc.fullScreen,
       asset: (tool) => tool.importType.getLocalizedName(context),
       eyeDropper: (_) => loc.eyeDropper,
+      export: (_) => loc.export,
     );
   }
 
@@ -47,6 +48,8 @@ extension ToolVisualizer on Tool {
           value.axis == Axis2D.horizontal ? loc.horizontal : loc.vertical,
       select: (value) =>
           value.mode == SelectMode.lasso ? loc.lasso : loc.rectangle,
+      export: (value) =>
+          value.options.map(image: (_) => loc.image, svg: (_) => loc.svg),
       orElse: () => '',
     );
   }
@@ -78,6 +81,7 @@ extension ToolVisualizer on Tool {
         fullSceen: (_) => PhosphorIcons.arrowsOut,
         asset: (tool) => tool.importType.icon,
         eyeDropper: (_) => PhosphorIcons.eyedropper,
+        export: (_) => PhosphorIcons.export,
       );
 
   List<String> get help {

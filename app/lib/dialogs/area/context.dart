@@ -1,7 +1,6 @@
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/dialogs/name.dart';
-import 'package:butterfly/dialogs/export/svg.dart';
 import 'package:butterfly/helpers/point.dart';
 import 'package:butterfly/helpers/rect.dart';
 import 'package:butterfly/widgets/context_menu.dart';
@@ -12,7 +11,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
-import '../export/image.dart';
+import '../export/general.dart';
 import '../packs/asset.dart';
 import '../export/pdf.dart';
 
@@ -91,11 +90,13 @@ ContextMenuBuilder buildGeneralAreaContextMenu(DocumentBloc bloc, Area area,
                   showDialog<void>(
                       builder: (context) => BlocProvider.value(
                           value: bloc,
-                          child: SvgExportDialog(
-                            width: area.width.round(),
-                            height: area.height.round(),
-                            x: area.position.x,
-                            y: area.position.y,
+                          child: GeneralExportDialog(
+                            options: SVGExportOptions(
+                              width: area.width,
+                              height: area.height,
+                              x: area.position.x,
+                              y: area.position.y,
+                            ),
                           )),
                       context: context);
                 },
@@ -108,12 +109,14 @@ ContextMenuBuilder buildGeneralAreaContextMenu(DocumentBloc bloc, Area area,
                   showDialog<void>(
                       builder: (context) => BlocProvider.value(
                             value: bloc,
-                            child: ImageExportDialog(
-                              width: area.width,
-                              height: area.height,
-                              x: area.position.x,
-                              y: area.position.y,
-                              scale: 1,
+                            child: GeneralExportDialog(
+                              options: ImageExportOptions(
+                                width: area.width,
+                                height: area.height,
+                                x: area.position.x,
+                                y: area.position.y,
+                                scale: 1,
+                              ),
                             ),
                           ),
                       context: context);

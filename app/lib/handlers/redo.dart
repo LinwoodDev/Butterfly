@@ -4,9 +4,8 @@ class RedoHandler extends Handler<RedoTool> {
   RedoHandler(super.data);
 
   @override
-  bool onSelected(
-      DocumentBloc bloc, CurrentIndexCubit currentIndexCubit, bool justAdded) {
-    if (justAdded) return false;
+  bool onSelected(BuildContext context) {
+    final bloc = context.read<DocumentBloc>();
     bloc.redo();
     bloc.load().then((value) => bloc.bake());
     return false;
