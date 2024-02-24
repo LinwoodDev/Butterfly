@@ -112,9 +112,9 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
           final transform = context.getCameraTransform();
           elements[pointer] = element.copyWith(points: [
             PathPoint.fromPoint(
-                transform.localToGlobal(startPosition[pointer]!).toPoint(), 0),
+                transform.localToGlobal(startPosition[pointer]!).toPoint(), data.property.strokeWidth),
             PathPoint.fromPoint(
-                transform.localToGlobal(lastPosition[pointer]!).toPoint(), 1)
+                transform.localToGlobal(lastPosition[pointer]!).toPoint(), data.property.strokeWidth)
           ]);
           // Add a small movement that allows the line to become straight
           lastPosition[pointer] = localPosition + const Offset(0.01, 0.01);
