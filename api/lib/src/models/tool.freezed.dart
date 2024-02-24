@@ -52,6 +52,8 @@ Tool _$ToolFromJson(Map<String, dynamic> json) {
       return FullScreenTool.fromJson(json);
     case 'asset':
       return AssetTool.fromJson(json);
+    case 'export':
+      return ExportTool.fromJson(json);
     case 'texture':
       return TextureTool.fromJson(json);
     case 'eyeDropper':
@@ -134,6 +136,9 @@ mixin _$Tool {
             ImportType importType, bool advanced)
         asset,
     required TResult Function(
+            String name, String displayIcon, ExportOptions options)
+        export,
+    required TResult Function(
             String name,
             String displayIcon,
             bool zoomDependent,
@@ -206,6 +211,8 @@ mixin _$Tool {
     TResult? Function(String name, String displayIcon, ImportType importType,
             bool advanced)?
         asset,
+    TResult? Function(String name, String displayIcon, ExportOptions options)?
+        export,
     TResult? Function(
             String name,
             String displayIcon,
@@ -279,6 +286,8 @@ mixin _$Tool {
     TResult Function(String name, String displayIcon, ImportType importType,
             bool advanced)?
         asset,
+    TResult Function(String name, String displayIcon, ExportOptions options)?
+        export,
     TResult Function(
             String name,
             String displayIcon,
@@ -312,6 +321,7 @@ mixin _$Tool {
     required TResult Function(SpacerTool value) spacer,
     required TResult Function(FullScreenTool value) fullSceen,
     required TResult Function(AssetTool value) asset,
+    required TResult Function(ExportTool value) export,
     required TResult Function(TextureTool value) texture,
     required TResult Function(EyeDropperTool value) eyeDropper,
   }) =>
@@ -336,6 +346,7 @@ mixin _$Tool {
     TResult? Function(SpacerTool value)? spacer,
     TResult? Function(FullScreenTool value)? fullSceen,
     TResult? Function(AssetTool value)? asset,
+    TResult? Function(ExportTool value)? export,
     TResult? Function(TextureTool value)? texture,
     TResult? Function(EyeDropperTool value)? eyeDropper,
   }) =>
@@ -360,6 +371,7 @@ mixin _$Tool {
     TResult Function(SpacerTool value)? spacer,
     TResult Function(FullScreenTool value)? fullSceen,
     TResult Function(AssetTool value)? asset,
+    TResult Function(ExportTool value)? export,
     TResult Function(TextureTool value)? texture,
     TResult Function(EyeDropperTool value)? eyeDropper,
     required TResult orElse(),
@@ -555,6 +567,9 @@ class _$SelectToolImpl extends SelectTool {
             ImportType importType, bool advanced)
         asset,
     required TResult Function(
+            String name, String displayIcon, ExportOptions options)
+        export,
+    required TResult Function(
             String name,
             String displayIcon,
             bool zoomDependent,
@@ -630,6 +645,8 @@ class _$SelectToolImpl extends SelectTool {
     TResult? Function(String name, String displayIcon, ImportType importType,
             bool advanced)?
         asset,
+    TResult? Function(String name, String displayIcon, ExportOptions options)?
+        export,
     TResult? Function(
             String name,
             String displayIcon,
@@ -706,6 +723,8 @@ class _$SelectToolImpl extends SelectTool {
     TResult Function(String name, String displayIcon, ImportType importType,
             bool advanced)?
         asset,
+    TResult Function(String name, String displayIcon, ExportOptions options)?
+        export,
     TResult Function(
             String name,
             String displayIcon,
@@ -745,6 +764,7 @@ class _$SelectToolImpl extends SelectTool {
     required TResult Function(SpacerTool value) spacer,
     required TResult Function(FullScreenTool value) fullSceen,
     required TResult Function(AssetTool value) asset,
+    required TResult Function(ExportTool value) export,
     required TResult Function(TextureTool value) texture,
     required TResult Function(EyeDropperTool value) eyeDropper,
   }) {
@@ -772,6 +792,7 @@ class _$SelectToolImpl extends SelectTool {
     TResult? Function(SpacerTool value)? spacer,
     TResult? Function(FullScreenTool value)? fullSceen,
     TResult? Function(AssetTool value)? asset,
+    TResult? Function(ExportTool value)? export,
     TResult? Function(TextureTool value)? texture,
     TResult? Function(EyeDropperTool value)? eyeDropper,
   }) {
@@ -799,6 +820,7 @@ class _$SelectToolImpl extends SelectTool {
     TResult Function(SpacerTool value)? spacer,
     TResult Function(FullScreenTool value)? fullSceen,
     TResult Function(AssetTool value)? asset,
+    TResult Function(ExportTool value)? export,
     TResult Function(TextureTool value)? texture,
     TResult Function(EyeDropperTool value)? eyeDropper,
     required TResult orElse(),
@@ -974,6 +996,9 @@ class _$HandToolImpl extends HandTool {
             ImportType importType, bool advanced)
         asset,
     required TResult Function(
+            String name, String displayIcon, ExportOptions options)
+        export,
+    required TResult Function(
             String name,
             String displayIcon,
             bool zoomDependent,
@@ -1049,6 +1074,8 @@ class _$HandToolImpl extends HandTool {
     TResult? Function(String name, String displayIcon, ImportType importType,
             bool advanced)?
         asset,
+    TResult? Function(String name, String displayIcon, ExportOptions options)?
+        export,
     TResult? Function(
             String name,
             String displayIcon,
@@ -1125,6 +1152,8 @@ class _$HandToolImpl extends HandTool {
     TResult Function(String name, String displayIcon, ImportType importType,
             bool advanced)?
         asset,
+    TResult Function(String name, String displayIcon, ExportOptions options)?
+        export,
     TResult Function(
             String name,
             String displayIcon,
@@ -1164,6 +1193,7 @@ class _$HandToolImpl extends HandTool {
     required TResult Function(SpacerTool value) spacer,
     required TResult Function(FullScreenTool value) fullSceen,
     required TResult Function(AssetTool value) asset,
+    required TResult Function(ExportTool value) export,
     required TResult Function(TextureTool value) texture,
     required TResult Function(EyeDropperTool value) eyeDropper,
   }) {
@@ -1191,6 +1221,7 @@ class _$HandToolImpl extends HandTool {
     TResult? Function(SpacerTool value)? spacer,
     TResult? Function(FullScreenTool value)? fullSceen,
     TResult? Function(AssetTool value)? asset,
+    TResult? Function(ExportTool value)? export,
     TResult? Function(TextureTool value)? texture,
     TResult? Function(EyeDropperTool value)? eyeDropper,
   }) {
@@ -1218,6 +1249,7 @@ class _$HandToolImpl extends HandTool {
     TResult Function(SpacerTool value)? spacer,
     TResult Function(FullScreenTool value)? fullSceen,
     TResult Function(AssetTool value)? asset,
+    TResult Function(ExportTool value)? export,
     TResult Function(TextureTool value)? texture,
     TResult Function(EyeDropperTool value)? eyeDropper,
     required TResult orElse(),
@@ -1426,6 +1458,9 @@ class _$ImportToolImpl extends ImportTool {
             ImportType importType, bool advanced)
         asset,
     required TResult Function(
+            String name, String displayIcon, ExportOptions options)
+        export,
+    required TResult Function(
             String name,
             String displayIcon,
             bool zoomDependent,
@@ -1501,6 +1536,8 @@ class _$ImportToolImpl extends ImportTool {
     TResult? Function(String name, String displayIcon, ImportType importType,
             bool advanced)?
         asset,
+    TResult? Function(String name, String displayIcon, ExportOptions options)?
+        export,
     TResult? Function(
             String name,
             String displayIcon,
@@ -1577,6 +1614,8 @@ class _$ImportToolImpl extends ImportTool {
     TResult Function(String name, String displayIcon, ImportType importType,
             bool advanced)?
         asset,
+    TResult Function(String name, String displayIcon, ExportOptions options)?
+        export,
     TResult Function(
             String name,
             String displayIcon,
@@ -1616,6 +1655,7 @@ class _$ImportToolImpl extends ImportTool {
     required TResult Function(SpacerTool value) spacer,
     required TResult Function(FullScreenTool value) fullSceen,
     required TResult Function(AssetTool value) asset,
+    required TResult Function(ExportTool value) export,
     required TResult Function(TextureTool value) texture,
     required TResult Function(EyeDropperTool value) eyeDropper,
   }) {
@@ -1643,6 +1683,7 @@ class _$ImportToolImpl extends ImportTool {
     TResult? Function(SpacerTool value)? spacer,
     TResult? Function(FullScreenTool value)? fullSceen,
     TResult? Function(AssetTool value)? asset,
+    TResult? Function(ExportTool value)? export,
     TResult? Function(TextureTool value)? texture,
     TResult? Function(EyeDropperTool value)? eyeDropper,
   }) {
@@ -1670,6 +1711,7 @@ class _$ImportToolImpl extends ImportTool {
     TResult Function(SpacerTool value)? spacer,
     TResult Function(FullScreenTool value)? fullSceen,
     TResult Function(AssetTool value)? asset,
+    TResult Function(ExportTool value)? export,
     TResult Function(TextureTool value)? texture,
     TResult Function(EyeDropperTool value)? eyeDropper,
     required TResult orElse(),
@@ -1847,6 +1889,9 @@ class _$UndoToolImpl extends UndoTool {
             ImportType importType, bool advanced)
         asset,
     required TResult Function(
+            String name, String displayIcon, ExportOptions options)
+        export,
+    required TResult Function(
             String name,
             String displayIcon,
             bool zoomDependent,
@@ -1922,6 +1967,8 @@ class _$UndoToolImpl extends UndoTool {
     TResult? Function(String name, String displayIcon, ImportType importType,
             bool advanced)?
         asset,
+    TResult? Function(String name, String displayIcon, ExportOptions options)?
+        export,
     TResult? Function(
             String name,
             String displayIcon,
@@ -1998,6 +2045,8 @@ class _$UndoToolImpl extends UndoTool {
     TResult Function(String name, String displayIcon, ImportType importType,
             bool advanced)?
         asset,
+    TResult Function(String name, String displayIcon, ExportOptions options)?
+        export,
     TResult Function(
             String name,
             String displayIcon,
@@ -2037,6 +2086,7 @@ class _$UndoToolImpl extends UndoTool {
     required TResult Function(SpacerTool value) spacer,
     required TResult Function(FullScreenTool value) fullSceen,
     required TResult Function(AssetTool value) asset,
+    required TResult Function(ExportTool value) export,
     required TResult Function(TextureTool value) texture,
     required TResult Function(EyeDropperTool value) eyeDropper,
   }) {
@@ -2064,6 +2114,7 @@ class _$UndoToolImpl extends UndoTool {
     TResult? Function(SpacerTool value)? spacer,
     TResult? Function(FullScreenTool value)? fullSceen,
     TResult? Function(AssetTool value)? asset,
+    TResult? Function(ExportTool value)? export,
     TResult? Function(TextureTool value)? texture,
     TResult? Function(EyeDropperTool value)? eyeDropper,
   }) {
@@ -2091,6 +2142,7 @@ class _$UndoToolImpl extends UndoTool {
     TResult Function(SpacerTool value)? spacer,
     TResult Function(FullScreenTool value)? fullSceen,
     TResult Function(AssetTool value)? asset,
+    TResult Function(ExportTool value)? export,
     TResult Function(TextureTool value)? texture,
     TResult Function(EyeDropperTool value)? eyeDropper,
     required TResult orElse(),
@@ -2263,6 +2315,9 @@ class _$RedoToolImpl extends RedoTool {
             ImportType importType, bool advanced)
         asset,
     required TResult Function(
+            String name, String displayIcon, ExportOptions options)
+        export,
+    required TResult Function(
             String name,
             String displayIcon,
             bool zoomDependent,
@@ -2338,6 +2393,8 @@ class _$RedoToolImpl extends RedoTool {
     TResult? Function(String name, String displayIcon, ImportType importType,
             bool advanced)?
         asset,
+    TResult? Function(String name, String displayIcon, ExportOptions options)?
+        export,
     TResult? Function(
             String name,
             String displayIcon,
@@ -2414,6 +2471,8 @@ class _$RedoToolImpl extends RedoTool {
     TResult Function(String name, String displayIcon, ImportType importType,
             bool advanced)?
         asset,
+    TResult Function(String name, String displayIcon, ExportOptions options)?
+        export,
     TResult Function(
             String name,
             String displayIcon,
@@ -2453,6 +2512,7 @@ class _$RedoToolImpl extends RedoTool {
     required TResult Function(SpacerTool value) spacer,
     required TResult Function(FullScreenTool value) fullSceen,
     required TResult Function(AssetTool value) asset,
+    required TResult Function(ExportTool value) export,
     required TResult Function(TextureTool value) texture,
     required TResult Function(EyeDropperTool value) eyeDropper,
   }) {
@@ -2480,6 +2540,7 @@ class _$RedoToolImpl extends RedoTool {
     TResult? Function(SpacerTool value)? spacer,
     TResult? Function(FullScreenTool value)? fullSceen,
     TResult? Function(AssetTool value)? asset,
+    TResult? Function(ExportTool value)? export,
     TResult? Function(TextureTool value)? texture,
     TResult? Function(EyeDropperTool value)? eyeDropper,
   }) {
@@ -2507,6 +2568,7 @@ class _$RedoToolImpl extends RedoTool {
     TResult Function(SpacerTool value)? spacer,
     TResult Function(FullScreenTool value)? fullSceen,
     TResult Function(AssetTool value)? asset,
+    TResult Function(ExportTool value)? export,
     TResult Function(TextureTool value)? texture,
     TResult Function(EyeDropperTool value)? eyeDropper,
     required TResult orElse(),
@@ -2744,6 +2806,9 @@ class _$LabelToolImpl extends LabelTool {
             ImportType importType, bool advanced)
         asset,
     required TResult Function(
+            String name, String displayIcon, ExportOptions options)
+        export,
+    required TResult Function(
             String name,
             String displayIcon,
             bool zoomDependent,
@@ -2820,6 +2885,8 @@ class _$LabelToolImpl extends LabelTool {
     TResult? Function(String name, String displayIcon, ImportType importType,
             bool advanced)?
         asset,
+    TResult? Function(String name, String displayIcon, ExportOptions options)?
+        export,
     TResult? Function(
             String name,
             String displayIcon,
@@ -2897,6 +2964,8 @@ class _$LabelToolImpl extends LabelTool {
     TResult Function(String name, String displayIcon, ImportType importType,
             bool advanced)?
         asset,
+    TResult Function(String name, String displayIcon, ExportOptions options)?
+        export,
     TResult Function(
             String name,
             String displayIcon,
@@ -2937,6 +3006,7 @@ class _$LabelToolImpl extends LabelTool {
     required TResult Function(SpacerTool value) spacer,
     required TResult Function(FullScreenTool value) fullSceen,
     required TResult Function(AssetTool value) asset,
+    required TResult Function(ExportTool value) export,
     required TResult Function(TextureTool value) texture,
     required TResult Function(EyeDropperTool value) eyeDropper,
   }) {
@@ -2964,6 +3034,7 @@ class _$LabelToolImpl extends LabelTool {
     TResult? Function(SpacerTool value)? spacer,
     TResult? Function(FullScreenTool value)? fullSceen,
     TResult? Function(AssetTool value)? asset,
+    TResult? Function(ExportTool value)? export,
     TResult? Function(TextureTool value)? texture,
     TResult? Function(EyeDropperTool value)? eyeDropper,
   }) {
@@ -2991,6 +3062,7 @@ class _$LabelToolImpl extends LabelTool {
     TResult Function(SpacerTool value)? spacer,
     TResult Function(FullScreenTool value)? fullSceen,
     TResult Function(AssetTool value)? asset,
+    TResult Function(ExportTool value)? export,
     TResult Function(TextureTool value)? texture,
     TResult Function(EyeDropperTool value)? eyeDropper,
     required TResult orElse(),
@@ -3219,6 +3291,9 @@ class _$PenToolImpl extends PenTool {
             ImportType importType, bool advanced)
         asset,
     required TResult Function(
+            String name, String displayIcon, ExportOptions options)
+        export,
+    required TResult Function(
             String name,
             String displayIcon,
             bool zoomDependent,
@@ -3295,6 +3370,8 @@ class _$PenToolImpl extends PenTool {
     TResult? Function(String name, String displayIcon, ImportType importType,
             bool advanced)?
         asset,
+    TResult? Function(String name, String displayIcon, ExportOptions options)?
+        export,
     TResult? Function(
             String name,
             String displayIcon,
@@ -3372,6 +3449,8 @@ class _$PenToolImpl extends PenTool {
     TResult Function(String name, String displayIcon, ImportType importType,
             bool advanced)?
         asset,
+    TResult Function(String name, String displayIcon, ExportOptions options)?
+        export,
     TResult Function(
             String name,
             String displayIcon,
@@ -3412,6 +3491,7 @@ class _$PenToolImpl extends PenTool {
     required TResult Function(SpacerTool value) spacer,
     required TResult Function(FullScreenTool value) fullSceen,
     required TResult Function(AssetTool value) asset,
+    required TResult Function(ExportTool value) export,
     required TResult Function(TextureTool value) texture,
     required TResult Function(EyeDropperTool value) eyeDropper,
   }) {
@@ -3439,6 +3519,7 @@ class _$PenToolImpl extends PenTool {
     TResult? Function(SpacerTool value)? spacer,
     TResult? Function(FullScreenTool value)? fullSceen,
     TResult? Function(AssetTool value)? asset,
+    TResult? Function(ExportTool value)? export,
     TResult? Function(TextureTool value)? texture,
     TResult? Function(EyeDropperTool value)? eyeDropper,
   }) {
@@ -3466,6 +3547,7 @@ class _$PenToolImpl extends PenTool {
     TResult Function(SpacerTool value)? spacer,
     TResult Function(FullScreenTool value)? fullSceen,
     TResult Function(AssetTool value)? asset,
+    TResult Function(ExportTool value)? export,
     TResult Function(TextureTool value)? texture,
     TResult Function(EyeDropperTool value)? eyeDropper,
     required TResult orElse(),
@@ -3658,6 +3740,9 @@ class _$EraserToolImpl extends EraserTool {
             ImportType importType, bool advanced)
         asset,
     required TResult Function(
+            String name, String displayIcon, ExportOptions options)
+        export,
+    required TResult Function(
             String name,
             String displayIcon,
             bool zoomDependent,
@@ -3733,6 +3818,8 @@ class _$EraserToolImpl extends EraserTool {
     TResult? Function(String name, String displayIcon, ImportType importType,
             bool advanced)?
         asset,
+    TResult? Function(String name, String displayIcon, ExportOptions options)?
+        export,
     TResult? Function(
             String name,
             String displayIcon,
@@ -3809,6 +3896,8 @@ class _$EraserToolImpl extends EraserTool {
     TResult Function(String name, String displayIcon, ImportType importType,
             bool advanced)?
         asset,
+    TResult Function(String name, String displayIcon, ExportOptions options)?
+        export,
     TResult Function(
             String name,
             String displayIcon,
@@ -3848,6 +3937,7 @@ class _$EraserToolImpl extends EraserTool {
     required TResult Function(SpacerTool value) spacer,
     required TResult Function(FullScreenTool value) fullSceen,
     required TResult Function(AssetTool value) asset,
+    required TResult Function(ExportTool value) export,
     required TResult Function(TextureTool value) texture,
     required TResult Function(EyeDropperTool value) eyeDropper,
   }) {
@@ -3875,6 +3965,7 @@ class _$EraserToolImpl extends EraserTool {
     TResult? Function(SpacerTool value)? spacer,
     TResult? Function(FullScreenTool value)? fullSceen,
     TResult? Function(AssetTool value)? asset,
+    TResult? Function(ExportTool value)? export,
     TResult? Function(TextureTool value)? texture,
     TResult? Function(EyeDropperTool value)? eyeDropper,
   }) {
@@ -3902,6 +3993,7 @@ class _$EraserToolImpl extends EraserTool {
     TResult Function(SpacerTool value)? spacer,
     TResult Function(FullScreenTool value)? fullSceen,
     TResult Function(AssetTool value)? asset,
+    TResult Function(ExportTool value)? export,
     TResult Function(TextureTool value)? texture,
     TResult Function(EyeDropperTool value)? eyeDropper,
     required TResult orElse(),
@@ -4091,6 +4183,9 @@ class _$PathEraserToolImpl extends PathEraserTool {
             ImportType importType, bool advanced)
         asset,
     required TResult Function(
+            String name, String displayIcon, ExportOptions options)
+        export,
+    required TResult Function(
             String name,
             String displayIcon,
             bool zoomDependent,
@@ -4166,6 +4261,8 @@ class _$PathEraserToolImpl extends PathEraserTool {
     TResult? Function(String name, String displayIcon, ImportType importType,
             bool advanced)?
         asset,
+    TResult? Function(String name, String displayIcon, ExportOptions options)?
+        export,
     TResult? Function(
             String name,
             String displayIcon,
@@ -4242,6 +4339,8 @@ class _$PathEraserToolImpl extends PathEraserTool {
     TResult Function(String name, String displayIcon, ImportType importType,
             bool advanced)?
         asset,
+    TResult Function(String name, String displayIcon, ExportOptions options)?
+        export,
     TResult Function(
             String name,
             String displayIcon,
@@ -4281,6 +4380,7 @@ class _$PathEraserToolImpl extends PathEraserTool {
     required TResult Function(SpacerTool value) spacer,
     required TResult Function(FullScreenTool value) fullSceen,
     required TResult Function(AssetTool value) asset,
+    required TResult Function(ExportTool value) export,
     required TResult Function(TextureTool value) texture,
     required TResult Function(EyeDropperTool value) eyeDropper,
   }) {
@@ -4308,6 +4408,7 @@ class _$PathEraserToolImpl extends PathEraserTool {
     TResult? Function(SpacerTool value)? spacer,
     TResult? Function(FullScreenTool value)? fullSceen,
     TResult? Function(AssetTool value)? asset,
+    TResult? Function(ExportTool value)? export,
     TResult? Function(TextureTool value)? texture,
     TResult? Function(EyeDropperTool value)? eyeDropper,
   }) {
@@ -4335,6 +4436,7 @@ class _$PathEraserToolImpl extends PathEraserTool {
     TResult Function(SpacerTool value)? spacer,
     TResult Function(FullScreenTool value)? fullSceen,
     TResult Function(AssetTool value)? asset,
+    TResult Function(ExportTool value)? export,
     TResult Function(TextureTool value)? texture,
     TResult Function(EyeDropperTool value)? eyeDropper,
     required TResult orElse(),
@@ -4522,6 +4624,9 @@ class _$LayerToolImpl extends LayerTool {
             ImportType importType, bool advanced)
         asset,
     required TResult Function(
+            String name, String displayIcon, ExportOptions options)
+        export,
+    required TResult Function(
             String name,
             String displayIcon,
             bool zoomDependent,
@@ -4597,6 +4702,8 @@ class _$LayerToolImpl extends LayerTool {
     TResult? Function(String name, String displayIcon, ImportType importType,
             bool advanced)?
         asset,
+    TResult? Function(String name, String displayIcon, ExportOptions options)?
+        export,
     TResult? Function(
             String name,
             String displayIcon,
@@ -4673,6 +4780,8 @@ class _$LayerToolImpl extends LayerTool {
     TResult Function(String name, String displayIcon, ImportType importType,
             bool advanced)?
         asset,
+    TResult Function(String name, String displayIcon, ExportOptions options)?
+        export,
     TResult Function(
             String name,
             String displayIcon,
@@ -4712,6 +4821,7 @@ class _$LayerToolImpl extends LayerTool {
     required TResult Function(SpacerTool value) spacer,
     required TResult Function(FullScreenTool value) fullSceen,
     required TResult Function(AssetTool value) asset,
+    required TResult Function(ExportTool value) export,
     required TResult Function(TextureTool value) texture,
     required TResult Function(EyeDropperTool value) eyeDropper,
   }) {
@@ -4739,6 +4849,7 @@ class _$LayerToolImpl extends LayerTool {
     TResult? Function(SpacerTool value)? spacer,
     TResult? Function(FullScreenTool value)? fullSceen,
     TResult? Function(AssetTool value)? asset,
+    TResult? Function(ExportTool value)? export,
     TResult? Function(TextureTool value)? texture,
     TResult? Function(EyeDropperTool value)? eyeDropper,
   }) {
@@ -4766,6 +4877,7 @@ class _$LayerToolImpl extends LayerTool {
     TResult Function(SpacerTool value)? spacer,
     TResult Function(FullScreenTool value)? fullSceen,
     TResult Function(AssetTool value)? asset,
+    TResult Function(ExportTool value)? export,
     TResult Function(TextureTool value)? texture,
     TResult Function(EyeDropperTool value)? eyeDropper,
     required TResult orElse(),
@@ -4986,6 +5098,9 @@ class _$AreaToolImpl extends AreaTool {
             ImportType importType, bool advanced)
         asset,
     required TResult Function(
+            String name, String displayIcon, ExportOptions options)
+        export,
+    required TResult Function(
             String name,
             String displayIcon,
             bool zoomDependent,
@@ -5062,6 +5177,8 @@ class _$AreaToolImpl extends AreaTool {
     TResult? Function(String name, String displayIcon, ImportType importType,
             bool advanced)?
         asset,
+    TResult? Function(String name, String displayIcon, ExportOptions options)?
+        export,
     TResult? Function(
             String name,
             String displayIcon,
@@ -5139,6 +5256,8 @@ class _$AreaToolImpl extends AreaTool {
     TResult Function(String name, String displayIcon, ImportType importType,
             bool advanced)?
         asset,
+    TResult Function(String name, String displayIcon, ExportOptions options)?
+        export,
     TResult Function(
             String name,
             String displayIcon,
@@ -5179,6 +5298,7 @@ class _$AreaToolImpl extends AreaTool {
     required TResult Function(SpacerTool value) spacer,
     required TResult Function(FullScreenTool value) fullSceen,
     required TResult Function(AssetTool value) asset,
+    required TResult Function(ExportTool value) export,
     required TResult Function(TextureTool value) texture,
     required TResult Function(EyeDropperTool value) eyeDropper,
   }) {
@@ -5206,6 +5326,7 @@ class _$AreaToolImpl extends AreaTool {
     TResult? Function(SpacerTool value)? spacer,
     TResult? Function(FullScreenTool value)? fullSceen,
     TResult? Function(AssetTool value)? asset,
+    TResult? Function(ExportTool value)? export,
     TResult? Function(TextureTool value)? texture,
     TResult? Function(EyeDropperTool value)? eyeDropper,
   }) {
@@ -5233,6 +5354,7 @@ class _$AreaToolImpl extends AreaTool {
     TResult Function(SpacerTool value)? spacer,
     TResult Function(FullScreenTool value)? fullSceen,
     TResult Function(AssetTool value)? asset,
+    TResult Function(ExportTool value)? export,
     TResult Function(TextureTool value)? texture,
     TResult Function(EyeDropperTool value)? eyeDropper,
     required TResult orElse(),
@@ -5459,6 +5581,9 @@ class _$LaserToolImpl extends LaserTool {
             ImportType importType, bool advanced)
         asset,
     required TResult Function(
+            String name, String displayIcon, ExportOptions options)
+        export,
+    required TResult Function(
             String name,
             String displayIcon,
             bool zoomDependent,
@@ -5534,6 +5659,8 @@ class _$LaserToolImpl extends LaserTool {
     TResult? Function(String name, String displayIcon, ImportType importType,
             bool advanced)?
         asset,
+    TResult? Function(String name, String displayIcon, ExportOptions options)?
+        export,
     TResult? Function(
             String name,
             String displayIcon,
@@ -5611,6 +5738,8 @@ class _$LaserToolImpl extends LaserTool {
     TResult Function(String name, String displayIcon, ImportType importType,
             bool advanced)?
         asset,
+    TResult Function(String name, String displayIcon, ExportOptions options)?
+        export,
     TResult Function(
             String name,
             String displayIcon,
@@ -5650,6 +5779,7 @@ class _$LaserToolImpl extends LaserTool {
     required TResult Function(SpacerTool value) spacer,
     required TResult Function(FullScreenTool value) fullSceen,
     required TResult Function(AssetTool value) asset,
+    required TResult Function(ExportTool value) export,
     required TResult Function(TextureTool value) texture,
     required TResult Function(EyeDropperTool value) eyeDropper,
   }) {
@@ -5677,6 +5807,7 @@ class _$LaserToolImpl extends LaserTool {
     TResult? Function(SpacerTool value)? spacer,
     TResult? Function(FullScreenTool value)? fullSceen,
     TResult? Function(AssetTool value)? asset,
+    TResult? Function(ExportTool value)? export,
     TResult? Function(TextureTool value)? texture,
     TResult? Function(EyeDropperTool value)? eyeDropper,
   }) {
@@ -5704,6 +5835,7 @@ class _$LaserToolImpl extends LaserTool {
     TResult Function(SpacerTool value)? spacer,
     TResult Function(FullScreenTool value)? fullSceen,
     TResult Function(AssetTool value)? asset,
+    TResult Function(ExportTool value)? export,
     TResult Function(TextureTool value)? texture,
     TResult Function(EyeDropperTool value)? eyeDropper,
     required TResult orElse(),
@@ -5940,6 +6072,9 @@ class _$ShapeToolImpl extends ShapeTool {
             ImportType importType, bool advanced)
         asset,
     required TResult Function(
+            String name, String displayIcon, ExportOptions options)
+        export,
+    required TResult Function(
             String name,
             String displayIcon,
             bool zoomDependent,
@@ -6016,6 +6151,8 @@ class _$ShapeToolImpl extends ShapeTool {
     TResult? Function(String name, String displayIcon, ImportType importType,
             bool advanced)?
         asset,
+    TResult? Function(String name, String displayIcon, ExportOptions options)?
+        export,
     TResult? Function(
             String name,
             String displayIcon,
@@ -6093,6 +6230,8 @@ class _$ShapeToolImpl extends ShapeTool {
     TResult Function(String name, String displayIcon, ImportType importType,
             bool advanced)?
         asset,
+    TResult Function(String name, String displayIcon, ExportOptions options)?
+        export,
     TResult Function(
             String name,
             String displayIcon,
@@ -6133,6 +6272,7 @@ class _$ShapeToolImpl extends ShapeTool {
     required TResult Function(SpacerTool value) spacer,
     required TResult Function(FullScreenTool value) fullSceen,
     required TResult Function(AssetTool value) asset,
+    required TResult Function(ExportTool value) export,
     required TResult Function(TextureTool value) texture,
     required TResult Function(EyeDropperTool value) eyeDropper,
   }) {
@@ -6160,6 +6300,7 @@ class _$ShapeToolImpl extends ShapeTool {
     TResult? Function(SpacerTool value)? spacer,
     TResult? Function(FullScreenTool value)? fullSceen,
     TResult? Function(AssetTool value)? asset,
+    TResult? Function(ExportTool value)? export,
     TResult? Function(TextureTool value)? texture,
     TResult? Function(EyeDropperTool value)? eyeDropper,
   }) {
@@ -6187,6 +6328,7 @@ class _$ShapeToolImpl extends ShapeTool {
     TResult Function(SpacerTool value)? spacer,
     TResult Function(FullScreenTool value)? fullSceen,
     TResult Function(AssetTool value)? asset,
+    TResult Function(ExportTool value)? export,
     TResult Function(TextureTool value)? texture,
     TResult Function(EyeDropperTool value)? eyeDropper,
     required TResult orElse(),
@@ -6392,6 +6534,9 @@ class _$StampToolImpl extends StampTool {
             ImportType importType, bool advanced)
         asset,
     required TResult Function(
+            String name, String displayIcon, ExportOptions options)
+        export,
+    required TResult Function(
             String name,
             String displayIcon,
             bool zoomDependent,
@@ -6467,6 +6612,8 @@ class _$StampToolImpl extends StampTool {
     TResult? Function(String name, String displayIcon, ImportType importType,
             bool advanced)?
         asset,
+    TResult? Function(String name, String displayIcon, ExportOptions options)?
+        export,
     TResult? Function(
             String name,
             String displayIcon,
@@ -6543,6 +6690,8 @@ class _$StampToolImpl extends StampTool {
     TResult Function(String name, String displayIcon, ImportType importType,
             bool advanced)?
         asset,
+    TResult Function(String name, String displayIcon, ExportOptions options)?
+        export,
     TResult Function(
             String name,
             String displayIcon,
@@ -6582,6 +6731,7 @@ class _$StampToolImpl extends StampTool {
     required TResult Function(SpacerTool value) spacer,
     required TResult Function(FullScreenTool value) fullSceen,
     required TResult Function(AssetTool value) asset,
+    required TResult Function(ExportTool value) export,
     required TResult Function(TextureTool value) texture,
     required TResult Function(EyeDropperTool value) eyeDropper,
   }) {
@@ -6609,6 +6759,7 @@ class _$StampToolImpl extends StampTool {
     TResult? Function(SpacerTool value)? spacer,
     TResult? Function(FullScreenTool value)? fullSceen,
     TResult? Function(AssetTool value)? asset,
+    TResult? Function(ExportTool value)? export,
     TResult? Function(TextureTool value)? texture,
     TResult? Function(EyeDropperTool value)? eyeDropper,
   }) {
@@ -6636,6 +6787,7 @@ class _$StampToolImpl extends StampTool {
     TResult Function(SpacerTool value)? spacer,
     TResult Function(FullScreenTool value)? fullSceen,
     TResult Function(AssetTool value)? asset,
+    TResult Function(ExportTool value)? export,
     TResult Function(TextureTool value)? texture,
     TResult Function(EyeDropperTool value)? eyeDropper,
     required TResult orElse(),
@@ -6814,6 +6966,9 @@ class _$PresentationToolImpl extends PresentationTool {
             ImportType importType, bool advanced)
         asset,
     required TResult Function(
+            String name, String displayIcon, ExportOptions options)
+        export,
+    required TResult Function(
             String name,
             String displayIcon,
             bool zoomDependent,
@@ -6889,6 +7044,8 @@ class _$PresentationToolImpl extends PresentationTool {
     TResult? Function(String name, String displayIcon, ImportType importType,
             bool advanced)?
         asset,
+    TResult? Function(String name, String displayIcon, ExportOptions options)?
+        export,
     TResult? Function(
             String name,
             String displayIcon,
@@ -6965,6 +7122,8 @@ class _$PresentationToolImpl extends PresentationTool {
     TResult Function(String name, String displayIcon, ImportType importType,
             bool advanced)?
         asset,
+    TResult Function(String name, String displayIcon, ExportOptions options)?
+        export,
     TResult Function(
             String name,
             String displayIcon,
@@ -7004,6 +7163,7 @@ class _$PresentationToolImpl extends PresentationTool {
     required TResult Function(SpacerTool value) spacer,
     required TResult Function(FullScreenTool value) fullSceen,
     required TResult Function(AssetTool value) asset,
+    required TResult Function(ExportTool value) export,
     required TResult Function(TextureTool value) texture,
     required TResult Function(EyeDropperTool value) eyeDropper,
   }) {
@@ -7031,6 +7191,7 @@ class _$PresentationToolImpl extends PresentationTool {
     TResult? Function(SpacerTool value)? spacer,
     TResult? Function(FullScreenTool value)? fullSceen,
     TResult? Function(AssetTool value)? asset,
+    TResult? Function(ExportTool value)? export,
     TResult? Function(TextureTool value)? texture,
     TResult? Function(EyeDropperTool value)? eyeDropper,
   }) {
@@ -7058,6 +7219,7 @@ class _$PresentationToolImpl extends PresentationTool {
     TResult Function(SpacerTool value)? spacer,
     TResult Function(FullScreenTool value)? fullSceen,
     TResult Function(AssetTool value)? asset,
+    TResult Function(ExportTool value)? export,
     TResult Function(TextureTool value)? texture,
     TResult Function(EyeDropperTool value)? eyeDropper,
     required TResult orElse(),
@@ -7242,6 +7404,9 @@ class _$SpacerToolImpl extends SpacerTool {
             ImportType importType, bool advanced)
         asset,
     required TResult Function(
+            String name, String displayIcon, ExportOptions options)
+        export,
+    required TResult Function(
             String name,
             String displayIcon,
             bool zoomDependent,
@@ -7317,6 +7482,8 @@ class _$SpacerToolImpl extends SpacerTool {
     TResult? Function(String name, String displayIcon, ImportType importType,
             bool advanced)?
         asset,
+    TResult? Function(String name, String displayIcon, ExportOptions options)?
+        export,
     TResult? Function(
             String name,
             String displayIcon,
@@ -7393,6 +7560,8 @@ class _$SpacerToolImpl extends SpacerTool {
     TResult Function(String name, String displayIcon, ImportType importType,
             bool advanced)?
         asset,
+    TResult Function(String name, String displayIcon, ExportOptions options)?
+        export,
     TResult Function(
             String name,
             String displayIcon,
@@ -7432,6 +7601,7 @@ class _$SpacerToolImpl extends SpacerTool {
     required TResult Function(SpacerTool value) spacer,
     required TResult Function(FullScreenTool value) fullSceen,
     required TResult Function(AssetTool value) asset,
+    required TResult Function(ExportTool value) export,
     required TResult Function(TextureTool value) texture,
     required TResult Function(EyeDropperTool value) eyeDropper,
   }) {
@@ -7459,6 +7629,7 @@ class _$SpacerToolImpl extends SpacerTool {
     TResult? Function(SpacerTool value)? spacer,
     TResult? Function(FullScreenTool value)? fullSceen,
     TResult? Function(AssetTool value)? asset,
+    TResult? Function(ExportTool value)? export,
     TResult? Function(TextureTool value)? texture,
     TResult? Function(EyeDropperTool value)? eyeDropper,
   }) {
@@ -7486,6 +7657,7 @@ class _$SpacerToolImpl extends SpacerTool {
     TResult Function(SpacerTool value)? spacer,
     TResult Function(FullScreenTool value)? fullSceen,
     TResult Function(AssetTool value)? asset,
+    TResult Function(ExportTool value)? export,
     TResult Function(TextureTool value)? texture,
     TResult Function(EyeDropperTool value)? eyeDropper,
     required TResult orElse(),
@@ -7664,6 +7836,9 @@ class _$FullScreenToolImpl extends FullScreenTool {
             ImportType importType, bool advanced)
         asset,
     required TResult Function(
+            String name, String displayIcon, ExportOptions options)
+        export,
+    required TResult Function(
             String name,
             String displayIcon,
             bool zoomDependent,
@@ -7739,6 +7914,8 @@ class _$FullScreenToolImpl extends FullScreenTool {
     TResult? Function(String name, String displayIcon, ImportType importType,
             bool advanced)?
         asset,
+    TResult? Function(String name, String displayIcon, ExportOptions options)?
+        export,
     TResult? Function(
             String name,
             String displayIcon,
@@ -7815,6 +7992,8 @@ class _$FullScreenToolImpl extends FullScreenTool {
     TResult Function(String name, String displayIcon, ImportType importType,
             bool advanced)?
         asset,
+    TResult Function(String name, String displayIcon, ExportOptions options)?
+        export,
     TResult Function(
             String name,
             String displayIcon,
@@ -7854,6 +8033,7 @@ class _$FullScreenToolImpl extends FullScreenTool {
     required TResult Function(SpacerTool value) spacer,
     required TResult Function(FullScreenTool value) fullSceen,
     required TResult Function(AssetTool value) asset,
+    required TResult Function(ExportTool value) export,
     required TResult Function(TextureTool value) texture,
     required TResult Function(EyeDropperTool value) eyeDropper,
   }) {
@@ -7881,6 +8061,7 @@ class _$FullScreenToolImpl extends FullScreenTool {
     TResult? Function(SpacerTool value)? spacer,
     TResult? Function(FullScreenTool value)? fullSceen,
     TResult? Function(AssetTool value)? asset,
+    TResult? Function(ExportTool value)? export,
     TResult? Function(TextureTool value)? texture,
     TResult? Function(EyeDropperTool value)? eyeDropper,
   }) {
@@ -7908,6 +8089,7 @@ class _$FullScreenToolImpl extends FullScreenTool {
     TResult Function(SpacerTool value)? spacer,
     TResult Function(FullScreenTool value)? fullSceen,
     TResult Function(AssetTool value)? asset,
+    TResult Function(ExportTool value)? export,
     TResult Function(TextureTool value)? texture,
     TResult Function(EyeDropperTool value)? eyeDropper,
     required TResult orElse(),
@@ -8102,6 +8284,9 @@ class _$AssetToolImpl extends AssetTool {
             ImportType importType, bool advanced)
         asset,
     required TResult Function(
+            String name, String displayIcon, ExportOptions options)
+        export,
+    required TResult Function(
             String name,
             String displayIcon,
             bool zoomDependent,
@@ -8177,6 +8362,8 @@ class _$AssetToolImpl extends AssetTool {
     TResult? Function(String name, String displayIcon, ImportType importType,
             bool advanced)?
         asset,
+    TResult? Function(String name, String displayIcon, ExportOptions options)?
+        export,
     TResult? Function(
             String name,
             String displayIcon,
@@ -8253,6 +8440,8 @@ class _$AssetToolImpl extends AssetTool {
     TResult Function(String name, String displayIcon, ImportType importType,
             bool advanced)?
         asset,
+    TResult Function(String name, String displayIcon, ExportOptions options)?
+        export,
     TResult Function(
             String name,
             String displayIcon,
@@ -8292,6 +8481,7 @@ class _$AssetToolImpl extends AssetTool {
     required TResult Function(SpacerTool value) spacer,
     required TResult Function(FullScreenTool value) fullSceen,
     required TResult Function(AssetTool value) asset,
+    required TResult Function(ExportTool value) export,
     required TResult Function(TextureTool value) texture,
     required TResult Function(EyeDropperTool value) eyeDropper,
   }) {
@@ -8319,6 +8509,7 @@ class _$AssetToolImpl extends AssetTool {
     TResult? Function(SpacerTool value)? spacer,
     TResult? Function(FullScreenTool value)? fullSceen,
     TResult? Function(AssetTool value)? asset,
+    TResult? Function(ExportTool value)? export,
     TResult? Function(TextureTool value)? texture,
     TResult? Function(EyeDropperTool value)? eyeDropper,
   }) {
@@ -8346,6 +8537,7 @@ class _$AssetToolImpl extends AssetTool {
     TResult Function(SpacerTool value)? spacer,
     TResult Function(FullScreenTool value)? fullSceen,
     TResult Function(AssetTool value)? asset,
+    TResult Function(ExportTool value)? export,
     TResult Function(TextureTool value)? texture,
     TResult Function(EyeDropperTool value)? eyeDropper,
     required TResult orElse(),
@@ -8384,6 +8576,456 @@ abstract class AssetTool extends Tool {
   @override
   @JsonKey(ignore: true)
   _$$AssetToolImplCopyWith<_$AssetToolImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$ExportToolImplCopyWith<$Res> implements $ToolCopyWith<$Res> {
+  factory _$$ExportToolImplCopyWith(
+          _$ExportToolImpl value, $Res Function(_$ExportToolImpl) then) =
+      __$$ExportToolImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({String name, String displayIcon, ExportOptions options});
+
+  $ExportOptionsCopyWith<$Res> get options;
+}
+
+/// @nodoc
+class __$$ExportToolImplCopyWithImpl<$Res>
+    extends _$ToolCopyWithImpl<$Res, _$ExportToolImpl>
+    implements _$$ExportToolImplCopyWith<$Res> {
+  __$$ExportToolImplCopyWithImpl(
+      _$ExportToolImpl _value, $Res Function(_$ExportToolImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? name = null,
+    Object? displayIcon = null,
+    Object? options = null,
+  }) {
+    return _then(_$ExportToolImpl(
+      name: null == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      displayIcon: null == displayIcon
+          ? _value.displayIcon
+          : displayIcon // ignore: cast_nullable_to_non_nullable
+              as String,
+      options: null == options
+          ? _value.options
+          : options // ignore: cast_nullable_to_non_nullable
+              as ExportOptions,
+    ));
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $ExportOptionsCopyWith<$Res> get options {
+    return $ExportOptionsCopyWith<$Res>(_value.options, (value) {
+      return _then(_value.copyWith(options: value));
+    });
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$ExportToolImpl extends ExportTool {
+  _$ExportToolImpl(
+      {this.name = '',
+      this.displayIcon = '',
+      required this.options,
+      final String? $type})
+      : $type = $type ?? 'export',
+        super._();
+
+  factory _$ExportToolImpl.fromJson(Map<String, dynamic> json) =>
+      _$$ExportToolImplFromJson(json);
+
+  @override
+  @JsonKey()
+  final String name;
+  @override
+  @JsonKey()
+  final String displayIcon;
+  @override
+  final ExportOptions options;
+
+  @JsonKey(name: 'type')
+  final String $type;
+
+  @override
+  String toString() {
+    return 'Tool.export(name: $name, displayIcon: $displayIcon, options: $options)';
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$ExportToolImplCopyWith<_$ExportToolImpl> get copyWith =>
+      __$$ExportToolImplCopyWithImpl<_$ExportToolImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String name, String displayIcon, SelectMode mode)
+        select,
+    required TResult Function(String name, String displayIcon) hand,
+    required TResult Function(String name, String displayIcon,
+            List<PadElement> elements, List<Area> areas)
+        import,
+    required TResult Function(String name, String displayIcon) undo,
+    required TResult Function(String name, String displayIcon) redo,
+    required TResult Function(
+            String name,
+            String displayIcon,
+            LabelMode mode,
+            bool zoomDependent,
+            int foreground,
+            PackAssetLocation styleSheet,
+            double scale)
+        label,
+    required TResult Function(
+            String name,
+            String displayIcon,
+            bool zoomDependent,
+            double shapeDetectionTime,
+            bool shapeDetectionEnabled,
+            PenProperty property)
+        pen,
+    required TResult Function(
+            String name, String displayIcon, double strokeWidth)
+        eraser,
+    required TResult Function(
+            String name, String displayIcon, double strokeWidth)
+        pathEraser,
+    required TResult Function(
+            String name, String displayIcon, double strokeWidth)
+        layer,
+    required TResult Function(
+            String name,
+            String displayIcon,
+            double constrainedWidth,
+            double constrainedHeight,
+            double constrainedAspectRatio,
+            bool askForName)
+        area,
+    required TResult Function(String name, String displayIcon, double duration,
+            double strokeWidth, double thinning, int color)
+        laser,
+    required TResult Function(
+            String name,
+            String displayIcon,
+            bool zoomDependent,
+            double constrainedWidth,
+            double constrainedHeight,
+            double constrainedAspectRatio,
+            ShapeProperty property)
+        shape,
+    required TResult Function(
+            String name, String displayIcon, PackAssetLocation component)
+        stamp,
+    required TResult Function(String name, String displayIcon) presentation,
+    required TResult Function(String name, String displayIcon, Axis2D axis)
+        spacer,
+    required TResult Function(String name, String displayIcon) fullSceen,
+    required TResult Function(String name, String displayIcon,
+            ImportType importType, bool advanced)
+        asset,
+    required TResult Function(
+            String name, String displayIcon, ExportOptions options)
+        export,
+    required TResult Function(
+            String name,
+            String displayIcon,
+            bool zoomDependent,
+            double constrainedWidth,
+            double constrainedHeight,
+            double constrainedAspectRatio,
+            SurfaceTexture texture)
+        texture,
+    required TResult Function(String name, String displayIcon) eyeDropper,
+  }) {
+    return export(name, displayIcon, options);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String name, String displayIcon, SelectMode mode)? select,
+    TResult? Function(String name, String displayIcon)? hand,
+    TResult? Function(String name, String displayIcon,
+            List<PadElement> elements, List<Area> areas)?
+        import,
+    TResult? Function(String name, String displayIcon)? undo,
+    TResult? Function(String name, String displayIcon)? redo,
+    TResult? Function(
+            String name,
+            String displayIcon,
+            LabelMode mode,
+            bool zoomDependent,
+            int foreground,
+            PackAssetLocation styleSheet,
+            double scale)?
+        label,
+    TResult? Function(
+            String name,
+            String displayIcon,
+            bool zoomDependent,
+            double shapeDetectionTime,
+            bool shapeDetectionEnabled,
+            PenProperty property)?
+        pen,
+    TResult? Function(String name, String displayIcon, double strokeWidth)?
+        eraser,
+    TResult? Function(String name, String displayIcon, double strokeWidth)?
+        pathEraser,
+    TResult? Function(String name, String displayIcon, double strokeWidth)?
+        layer,
+    TResult? Function(
+            String name,
+            String displayIcon,
+            double constrainedWidth,
+            double constrainedHeight,
+            double constrainedAspectRatio,
+            bool askForName)?
+        area,
+    TResult? Function(String name, String displayIcon, double duration,
+            double strokeWidth, double thinning, int color)?
+        laser,
+    TResult? Function(
+            String name,
+            String displayIcon,
+            bool zoomDependent,
+            double constrainedWidth,
+            double constrainedHeight,
+            double constrainedAspectRatio,
+            ShapeProperty property)?
+        shape,
+    TResult? Function(
+            String name, String displayIcon, PackAssetLocation component)?
+        stamp,
+    TResult? Function(String name, String displayIcon)? presentation,
+    TResult? Function(String name, String displayIcon, Axis2D axis)? spacer,
+    TResult? Function(String name, String displayIcon)? fullSceen,
+    TResult? Function(String name, String displayIcon, ImportType importType,
+            bool advanced)?
+        asset,
+    TResult? Function(String name, String displayIcon, ExportOptions options)?
+        export,
+    TResult? Function(
+            String name,
+            String displayIcon,
+            bool zoomDependent,
+            double constrainedWidth,
+            double constrainedHeight,
+            double constrainedAspectRatio,
+            SurfaceTexture texture)?
+        texture,
+    TResult? Function(String name, String displayIcon)? eyeDropper,
+  }) {
+    return export?.call(name, displayIcon, options);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String name, String displayIcon, SelectMode mode)? select,
+    TResult Function(String name, String displayIcon)? hand,
+    TResult Function(String name, String displayIcon, List<PadElement> elements,
+            List<Area> areas)?
+        import,
+    TResult Function(String name, String displayIcon)? undo,
+    TResult Function(String name, String displayIcon)? redo,
+    TResult Function(
+            String name,
+            String displayIcon,
+            LabelMode mode,
+            bool zoomDependent,
+            int foreground,
+            PackAssetLocation styleSheet,
+            double scale)?
+        label,
+    TResult Function(
+            String name,
+            String displayIcon,
+            bool zoomDependent,
+            double shapeDetectionTime,
+            bool shapeDetectionEnabled,
+            PenProperty property)?
+        pen,
+    TResult Function(String name, String displayIcon, double strokeWidth)?
+        eraser,
+    TResult Function(String name, String displayIcon, double strokeWidth)?
+        pathEraser,
+    TResult Function(String name, String displayIcon, double strokeWidth)?
+        layer,
+    TResult Function(
+            String name,
+            String displayIcon,
+            double constrainedWidth,
+            double constrainedHeight,
+            double constrainedAspectRatio,
+            bool askForName)?
+        area,
+    TResult Function(String name, String displayIcon, double duration,
+            double strokeWidth, double thinning, int color)?
+        laser,
+    TResult Function(
+            String name,
+            String displayIcon,
+            bool zoomDependent,
+            double constrainedWidth,
+            double constrainedHeight,
+            double constrainedAspectRatio,
+            ShapeProperty property)?
+        shape,
+    TResult Function(
+            String name, String displayIcon, PackAssetLocation component)?
+        stamp,
+    TResult Function(String name, String displayIcon)? presentation,
+    TResult Function(String name, String displayIcon, Axis2D axis)? spacer,
+    TResult Function(String name, String displayIcon)? fullSceen,
+    TResult Function(String name, String displayIcon, ImportType importType,
+            bool advanced)?
+        asset,
+    TResult Function(String name, String displayIcon, ExportOptions options)?
+        export,
+    TResult Function(
+            String name,
+            String displayIcon,
+            bool zoomDependent,
+            double constrainedWidth,
+            double constrainedHeight,
+            double constrainedAspectRatio,
+            SurfaceTexture texture)?
+        texture,
+    TResult Function(String name, String displayIcon)? eyeDropper,
+    required TResult orElse(),
+  }) {
+    if (export != null) {
+      return export(name, displayIcon, options);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(SelectTool value) select,
+    required TResult Function(HandTool value) hand,
+    required TResult Function(ImportTool value) import,
+    required TResult Function(UndoTool value) undo,
+    required TResult Function(RedoTool value) redo,
+    required TResult Function(LabelTool value) label,
+    required TResult Function(PenTool value) pen,
+    required TResult Function(EraserTool value) eraser,
+    required TResult Function(PathEraserTool value) pathEraser,
+    required TResult Function(LayerTool value) layer,
+    required TResult Function(AreaTool value) area,
+    required TResult Function(LaserTool value) laser,
+    required TResult Function(ShapeTool value) shape,
+    required TResult Function(StampTool value) stamp,
+    required TResult Function(PresentationTool value) presentation,
+    required TResult Function(SpacerTool value) spacer,
+    required TResult Function(FullScreenTool value) fullSceen,
+    required TResult Function(AssetTool value) asset,
+    required TResult Function(ExportTool value) export,
+    required TResult Function(TextureTool value) texture,
+    required TResult Function(EyeDropperTool value) eyeDropper,
+  }) {
+    return export(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(SelectTool value)? select,
+    TResult? Function(HandTool value)? hand,
+    TResult? Function(ImportTool value)? import,
+    TResult? Function(UndoTool value)? undo,
+    TResult? Function(RedoTool value)? redo,
+    TResult? Function(LabelTool value)? label,
+    TResult? Function(PenTool value)? pen,
+    TResult? Function(EraserTool value)? eraser,
+    TResult? Function(PathEraserTool value)? pathEraser,
+    TResult? Function(LayerTool value)? layer,
+    TResult? Function(AreaTool value)? area,
+    TResult? Function(LaserTool value)? laser,
+    TResult? Function(ShapeTool value)? shape,
+    TResult? Function(StampTool value)? stamp,
+    TResult? Function(PresentationTool value)? presentation,
+    TResult? Function(SpacerTool value)? spacer,
+    TResult? Function(FullScreenTool value)? fullSceen,
+    TResult? Function(AssetTool value)? asset,
+    TResult? Function(ExportTool value)? export,
+    TResult? Function(TextureTool value)? texture,
+    TResult? Function(EyeDropperTool value)? eyeDropper,
+  }) {
+    return export?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(SelectTool value)? select,
+    TResult Function(HandTool value)? hand,
+    TResult Function(ImportTool value)? import,
+    TResult Function(UndoTool value)? undo,
+    TResult Function(RedoTool value)? redo,
+    TResult Function(LabelTool value)? label,
+    TResult Function(PenTool value)? pen,
+    TResult Function(EraserTool value)? eraser,
+    TResult Function(PathEraserTool value)? pathEraser,
+    TResult Function(LayerTool value)? layer,
+    TResult Function(AreaTool value)? area,
+    TResult Function(LaserTool value)? laser,
+    TResult Function(ShapeTool value)? shape,
+    TResult Function(StampTool value)? stamp,
+    TResult Function(PresentationTool value)? presentation,
+    TResult Function(SpacerTool value)? spacer,
+    TResult Function(FullScreenTool value)? fullSceen,
+    TResult Function(AssetTool value)? asset,
+    TResult Function(ExportTool value)? export,
+    TResult Function(TextureTool value)? texture,
+    TResult Function(EyeDropperTool value)? eyeDropper,
+    required TResult orElse(),
+  }) {
+    if (export != null) {
+      return export(this);
+    }
+    return orElse();
+  }
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$ExportToolImplToJson(
+      this,
+    );
+  }
+}
+
+abstract class ExportTool extends Tool {
+  factory ExportTool(
+      {final String name,
+      final String displayIcon,
+      required final ExportOptions options}) = _$ExportToolImpl;
+  ExportTool._() : super._();
+
+  factory ExportTool.fromJson(Map<String, dynamic> json) =
+      _$ExportToolImpl.fromJson;
+
+  @override
+  String get name;
+  @override
+  String get displayIcon;
+  ExportOptions get options;
+  @override
+  @JsonKey(ignore: true)
+  _$$ExportToolImplCopyWith<_$ExportToolImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -8588,6 +9230,9 @@ class _$TextureToolImpl extends TextureTool {
             ImportType importType, bool advanced)
         asset,
     required TResult Function(
+            String name, String displayIcon, ExportOptions options)
+        export,
+    required TResult Function(
             String name,
             String displayIcon,
             bool zoomDependent,
@@ -8664,6 +9309,8 @@ class _$TextureToolImpl extends TextureTool {
     TResult? Function(String name, String displayIcon, ImportType importType,
             bool advanced)?
         asset,
+    TResult? Function(String name, String displayIcon, ExportOptions options)?
+        export,
     TResult? Function(
             String name,
             String displayIcon,
@@ -8741,6 +9388,8 @@ class _$TextureToolImpl extends TextureTool {
     TResult Function(String name, String displayIcon, ImportType importType,
             bool advanced)?
         asset,
+    TResult Function(String name, String displayIcon, ExportOptions options)?
+        export,
     TResult Function(
             String name,
             String displayIcon,
@@ -8781,6 +9430,7 @@ class _$TextureToolImpl extends TextureTool {
     required TResult Function(SpacerTool value) spacer,
     required TResult Function(FullScreenTool value) fullSceen,
     required TResult Function(AssetTool value) asset,
+    required TResult Function(ExportTool value) export,
     required TResult Function(TextureTool value) texture,
     required TResult Function(EyeDropperTool value) eyeDropper,
   }) {
@@ -8808,6 +9458,7 @@ class _$TextureToolImpl extends TextureTool {
     TResult? Function(SpacerTool value)? spacer,
     TResult? Function(FullScreenTool value)? fullSceen,
     TResult? Function(AssetTool value)? asset,
+    TResult? Function(ExportTool value)? export,
     TResult? Function(TextureTool value)? texture,
     TResult? Function(EyeDropperTool value)? eyeDropper,
   }) {
@@ -8835,6 +9486,7 @@ class _$TextureToolImpl extends TextureTool {
     TResult Function(SpacerTool value)? spacer,
     TResult Function(FullScreenTool value)? fullSceen,
     TResult Function(AssetTool value)? asset,
+    TResult Function(ExportTool value)? export,
     TResult Function(TextureTool value)? texture,
     TResult Function(EyeDropperTool value)? eyeDropper,
     required TResult orElse(),
@@ -9021,6 +9673,9 @@ class _$EyeDropperToolImpl extends EyeDropperTool {
             ImportType importType, bool advanced)
         asset,
     required TResult Function(
+            String name, String displayIcon, ExportOptions options)
+        export,
+    required TResult Function(
             String name,
             String displayIcon,
             bool zoomDependent,
@@ -9096,6 +9751,8 @@ class _$EyeDropperToolImpl extends EyeDropperTool {
     TResult? Function(String name, String displayIcon, ImportType importType,
             bool advanced)?
         asset,
+    TResult? Function(String name, String displayIcon, ExportOptions options)?
+        export,
     TResult? Function(
             String name,
             String displayIcon,
@@ -9172,6 +9829,8 @@ class _$EyeDropperToolImpl extends EyeDropperTool {
     TResult Function(String name, String displayIcon, ImportType importType,
             bool advanced)?
         asset,
+    TResult Function(String name, String displayIcon, ExportOptions options)?
+        export,
     TResult Function(
             String name,
             String displayIcon,
@@ -9211,6 +9870,7 @@ class _$EyeDropperToolImpl extends EyeDropperTool {
     required TResult Function(SpacerTool value) spacer,
     required TResult Function(FullScreenTool value) fullSceen,
     required TResult Function(AssetTool value) asset,
+    required TResult Function(ExportTool value) export,
     required TResult Function(TextureTool value) texture,
     required TResult Function(EyeDropperTool value) eyeDropper,
   }) {
@@ -9238,6 +9898,7 @@ class _$EyeDropperToolImpl extends EyeDropperTool {
     TResult? Function(SpacerTool value)? spacer,
     TResult? Function(FullScreenTool value)? fullSceen,
     TResult? Function(AssetTool value)? asset,
+    TResult? Function(ExportTool value)? export,
     TResult? Function(TextureTool value)? texture,
     TResult? Function(EyeDropperTool value)? eyeDropper,
   }) {
@@ -9265,6 +9926,7 @@ class _$EyeDropperToolImpl extends EyeDropperTool {
     TResult Function(SpacerTool value)? spacer,
     TResult Function(FullScreenTool value)? fullSceen,
     TResult Function(AssetTool value)? asset,
+    TResult Function(ExportTool value)? export,
     TResult Function(TextureTool value)? texture,
     TResult Function(EyeDropperTool value)? eyeDropper,
     required TResult orElse(),

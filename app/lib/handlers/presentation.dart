@@ -93,7 +93,7 @@ mixin GeneralPresentationHandler {
     final position = animation.interpolateCameraPosition(currentFrame);
     final zoom = animation.interpolateCameraZoom(currentFrame);
     if (position == null && zoom == null) return;
-    if (position != null) transformCubit.setPosition(position.toOffset());
+    if (position != null) transformCubit.teleport(position.toOffset());
     if (zoom != null) transformCubit.size(zoom);
     bloc.bake();
   }

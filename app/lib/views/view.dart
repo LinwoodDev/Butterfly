@@ -38,14 +38,14 @@ class _MainViewViewportState extends State<MainViewViewport>
   @override
   void initState() {
     super.initState();
-    RawKeyboard.instance.addListener(_handleKey);
+    HardwareKeyboard.instance.addHandler(_handleKey);
     WidgetsBinding.instance.addObserver(this);
   }
 
   @override
   void dispose() {
     WidgetsBinding.instance.removeObserver(this);
-    RawKeyboard.instance.removeListener(_handleKey);
+    HardwareKeyboard.instance.removeHandler(_handleKey);
     super.dispose();
   }
 
@@ -74,18 +74,18 @@ class _MainViewViewportState extends State<MainViewViewport>
     }
   }
 
-  void _handleKey(RawKeyEvent event) {
-    if (event.data.isShiftPressed) {
+  bool _handleKey(KeyEvent event) {
+    _isShiftPressed = HardwareKeyboard.instance.isShiftPressed;
+    _isAltPressed = HardwareKeyboard.instance.isAltPressed;
+    _isCtrlPressed = HardwareKeyboard.instance.isControlPressed;
+    if (_isShiftPressed) {
       _mouseState = _MouseState.inverse;
-    } else if (event.data.isControlPressed) {
+    } else if (_isCtrlPressed) {
       _mouseState = _MouseState.scale;
     } else {
       _mouseState = _MouseState.normal;
     }
-
-    _isShiftPressed = event.data.isShiftPressed;
-    _isAltPressed = event.data.isAltPressed;
-    _isCtrlPressed = event.data.isControlPressed;
+    return false;
   }
 
   @override
@@ -118,7 +118,6 @@ class _MainViewViewportState extends State<MainViewViewport>
         Future<void> changeTemporaryTool(
             PointerDeviceKind kind, int buttons) async {
           int? nextPointerIndex;
-          final bloc = context.read<DocumentBloc>();
           final config = context.read<SettingsCubit>().state.inputConfiguration;
           switch (kind) {
             case PointerDeviceKind.touch:
@@ -151,7 +150,7 @@ class _MainViewViewportState extends State<MainViewViewport>
           if (nextPointerIndex <= 0) {
             cubit.changeTemporaryHandlerMove();
           } else {
-            await cubit.changeTemporaryHandlerIndex(bloc, nextPointerIndex);
+            await cubit.changeTemporaryHandlerIndex(context, nextPointerIndex);
           }
         }
 

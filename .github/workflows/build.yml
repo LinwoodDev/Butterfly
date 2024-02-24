@@ -97,6 +97,7 @@ jobs:
       - name: Copy portable start script
         run: |
           cp scripts/start.bat build/windows/x64/runner/Release/
+          cp build/windows/x64/linwood-butterfly-windows-setup.exe linwood-butterfly-windows-setup-x86_64.exe
       - name: Archive
         uses: actions/upload-artifact@v4
         with:
@@ -108,7 +109,7 @@ jobs:
         with:
           name: windows-setup
           path: |
-            app/build/windows/linwood-butterfly-windows-setup.exe
+            app/linwood-butterfly-windows-setup-x86_64.exe
   build-linux:
     runs-on: ubuntu-22.04
     defaults:
@@ -173,7 +174,7 @@ jobs:
         run: |
           cp -fr build/linux/x64/release/bundle linux/debian/usr/bin
           dpkg-deb --build --root-owner-group linux/debian
-          cp linux/*.deb linwood-butterfly-linux.deb
+          cp linux/*.deb linwood-butterfly-linux-x86_64.deb
       - name: Build .rpm executable
         run: |
           bash scripts/build-rpm.sh
@@ -191,7 +192,7 @@ jobs:
       - name: Rename AppImage
         run: |
           ls
-          mv ./*.AppImage linwood-butterfly-linux.AppImage
+          mv ./*.AppImage linwood-butterfly-linux-x86_64.AppImage
       - name: Copy portable start script
         run: |
           chmod +x scripts/start.sh
@@ -207,19 +208,19 @@ jobs:
         with:
           name: linux-deb
           path: |
-            app/linwood-butterfly-linux.deb
+            app/linwood-butterfly-linux-x86_64.deb
       - name: Archive .rpm
         uses: actions/upload-artifact@v4
         with:
           name: linux-rpm
           path: |
-            app/build/linwood-butterfly-linux.rpm
+            app/build/linwood-butterfly-linux-x86_64.rpm
       - name: Archive .AppImage
         uses: actions/upload-artifact@v4
         with:
           name: linux-appimage
           path: |
-            app/linwood-butterfly-linux.AppImage
+            app/linwood-butterfly-linux-x86_64.AppImage
   build-flatpak:
     name: build-flatpak
     runs-on: ubuntu-20.04
@@ -283,7 +284,7 @@ jobs:
           mkdir -p build/linux/x64/release/bundle/usr/share
           cp -r linux/debian/usr/share build/linux/x64/release/bundle/usr
       - name: Compress Flutter build
-        run: tar -C build/linux/x64/release/bundle -czf linwood-butterfly-linux-portable.tar.gz .
+        run: tar -C build/linux/x64/release/bundle -czf linwood-butterfly-linux-portable-x86_64.tar.gz .
       #    - name: Install flatpak
       #      run: |
       #        sudo apt-get update
@@ -494,9 +495,9 @@ jobs:
           name: ipa-build
       - name: 📦 Zip artifacts
         run: |
-          zip -r linwood-butterfly-windows.zip windows-build/*
-          tar -C linux-build -czf linwood-butterfly-linux.tar.gz .
-          tar -C linux-alternative-portable -czf linwood-butterfly-linux-alternative.tar.gz .
+          zip -r linwood-butterfly-windows-x86_64.zip windows-build/*
+          tar -C linux-build -czf linwood-butterfly-linux-x86_64.tar.gz .
+          tar -C linux-alternative-portable -czf linwood-butterfly-linux-alternative-x86_64.tar.gz .
       - name: Configure git
         if: ${{ github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/main' }}
         run: |
@@ -512,16 +513,17 @@ jobs:
           prerelease: true
           tag_name: stable
           files: |
-            linwood-butterfly-windows-setup.exe
-            linwood-butterfly-windows.zip
-            linwood-butterfly-android.apk
-            linwood-butterfly-linux.tar.gz
-            linwood-butterfly-linux-alternative.tar.gz
-            linwood-butterfly-linux.deb
-            linwood-butterfly-linux.rpm
-            linwood-butterfly-linux.AppImage
+            linwood-butterfly-windows-setup-x86_64.exe
+            linwood-butterfly-windows-x86_64.zip
+            linwood-butterfly-linux-x86_64.tar.gz
+            linwood-butterfly-linux-alternative-x86_64.tar.gz
+            linwood-butterfly-linux-x86_64.deb
+            linwood-butterfly-linux-x86_64.rpm
+            linwood-butterfly-linux-x86_64.AppImage
             linwood-butterfly-macos.zip
             linwood-butterfly-macos.dmg
+            linwood-butterfly-android.apk
+            linwood-butterfly-ios.ipa
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: 🚀 Deploy nightly
@@ -532,16 +534,16 @@ jobs:
           prerelease: true
           tag_name: nightly
           files: |
-            linwood-butterfly-windows-setup.exe
-            linwood-butterfly-windows.zip
-            linwood-butterfly-android.apk
-            linwood-butterfly-linux.tar.gz
-            linwood-butterfly-linux-alternative.tar.gz
-            linwood-butterfly-linux.deb
-            linwood-butterfly-linux.rpm
-            linwood-butterfly-linux.AppImage
+            linwood-butterfly-windows-setup-x86_64.exe
+            linwood-butterfly-windows-x86_64.zip
+            linwood-butterfly-linux-x86_64.tar.gz
+            linwood-butterfly-linux-alternative-x86_64.tar.gz
+            linwood-butterfly-linux-x86_64.deb
+            linwood-butterfly-linux-x86_64.rpm
+            linwood-butterfly-linux-x86_64.AppImage
             linwood-butterfly-macos.zip
             linwood-butterfly-macos.dmg
+            linwood-butterfly-android.apk
             linwood-butterfly-ios.ipa
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -551,16 +553,17 @@ jobs:
         if: startsWith(github.ref, 'refs/tags/v')
         with:
           files: |
-            linwood-butterfly-windows-setup.exe
-            linwood-butterfly-windows.zip
-            linwood-butterfly-android.apk
-            linwood-butterfly-linux.tar.gz
-            linwood-butterfly-linux-alternative.tar.gz
-            linwood-butterfly-linux.deb
-            linwood-butterfly-linux.rpm
-            linwood-butterfly-linux.AppImage
+            linwood-butterfly-windows-setup-x86_64.exe
+            linwood-butterfly-windows-x86_64.zip
+            linwood-butterfly-linux-x86_64.tar.gz
+            linwood-butterfly-linux-alternative-x86_64.tar.gz
+            linwood-butterfly-linux-x86_64.deb
+            linwood-butterfly-linux-x86_64.rpm
+            linwood-butterfly-linux-x86_64.AppImage
             linwood-butterfly-macos.zip
             linwood-butterfly-macos.dmg
+            linwood-butterfly-android.apk
+            linwood-butterfly-ios.ipa
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   deploy-to-play-store:

@@ -223,18 +223,15 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
         }
       }
       current.currentIndexCubit.unbake(unbakedElements: renderers);
-      final content = List.of(page.content);
-      for (final updated in event.elements.entries) {
-        if (updated.key >= content.length || updated.key < 0) continue;
-        content.removeAt(updated.key);
-        content.insertAll(updated.key, updated.value);
-      }
+      final content = page.content
+          .expandIndexed((index, element) => event.elements.containsKey(index)
+              ? event.elements[index]!
+              : [element])
+          .toList();
       await _saveState(
               emit,
               current.copyWith(
-                page: page.copyWith(
-                  content: content,
-                ),
+                page: page.copyWith(content: content),
               ),
               null)
           .then((value) {
@@ -634,9 +631,12 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       if (current is! DocumentLoadSuccess) return;
       final data = current.saveData();
       final render = await current.currentIndexCubit.render(
-          current.data, current.page, current.info,
-          width: kThumbnailWidth.toDouble(),
-          height: kThumbnailHeight.toDouble());
+          current.data,
+          current.page,
+          current.info,
+          ImageExportOptions(
+              width: kThumbnailWidth.toDouble(),
+              height: kThumbnailHeight.toDouble()));
       final thumbnail = render?.buffer.asUint8List();
       final settings = current.settingsCubit.state;
       final remote = settings.getRemote(event.remote);
@@ -713,6 +713,19 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
           }
         }
       }
+    });
+    on<AreaReordered>((event, emit) {
+      final current = state;
+      if (current is! DocumentLoadSuccess) return;
+      if (!(current.embedding?.editable ?? true)) return;
+      final areas = List<Area>.from(current.page.areas);
+      final area =
+          areas.firstWhereOrNull((element) => element.name == event.name);
+      if (area == null) return;
+      areas.remove(area);
+      areas.insert(event.newIndex, area);
+      final currentDocument = current.page.copyWith(areas: areas);
+      _saveState(emit, current.copyWith(page: currentDocument));
     });
     on<ExportPresetCreated>((event, emit) {
       final current = state;
