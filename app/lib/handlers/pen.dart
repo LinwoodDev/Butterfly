@@ -107,11 +107,14 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
       if (lastPosition[pointer] == localPosition) {
         // If the position has not changed, get the PenElement associated with the pointer.
         final element = elements[pointer];
-        // If the PenElement exists, update the line with the start and end position of the pointer.
-        if (element != null && data.shapeDetectionEnabled == true) {
-          final transform = context.getCameraTransform();
+        // index point
+        int midIndex = (element!.points.length / 2).floor();
+
+        // Update the line with the start,middle,and position of the pointer.
+        if (data.shapeDetectionEnabled == true) {
           elements[pointer] = element.copyWith(points: [
             element.points.first,
+            element.points[midIndex],
             element.points.last
           ]);
           // Add a small movement that allows the line to become straight
