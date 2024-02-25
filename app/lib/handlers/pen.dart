@@ -99,7 +99,6 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
     if (refresh) bloc.refresh();
   }
 
-// This function updates the current line with the pointer's start and end position.
   // This function updates the current line with the pointer's start and end position.
   void _tickShapeDetection(
       int pointer, EventContext context, Offset localPosition) {
@@ -112,7 +111,7 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
         int midIndex = (element!.points.length / 2).floor();
 
         // Update the line with the start,middle,and position of the pointer.
-        if (data.shapeDetectionEnabled == true ) {
+        if (data.shapeDetectionEnabled == true) {
           elements[pointer] = element.copyWith(points: [
             element.points.first,
             element.points[midIndex],
