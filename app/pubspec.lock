@@ -196,10 +196,10 @@ packages:
     dependency: transitive
     description:
       name: camera_platform_interface
-      sha256: fceb2c36038b6392317b1d5790c6ba9e6ca9f1da3031181b8bea03882bf9387a
+      sha256: a250314a48ea337b35909a4c9d5416a208d736dcb01d0b02c6af122be66660b0
       url: "https://pub.dev"
     source: hosted
-    version: "2.7.3"
+    version: "2.7.4"
   camera_web:
     dependency: transitive
     description:
