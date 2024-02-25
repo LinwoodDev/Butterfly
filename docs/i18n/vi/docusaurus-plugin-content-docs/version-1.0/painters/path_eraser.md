@@ -1,6 +1,6 @@
 ---
 title: "Path eraser painter"
-sidebar_label: "Path eraser"
+sidebar_label: "Bút xóa đường"
 sidebar_position: 4
 ---
 
