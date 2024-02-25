@@ -100,26 +100,30 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
   }
 
 // This function updates the current line with the pointer's start and end position.
+  // This function updates the current line with the pointer's start and end position.
   void _tickShapeDetection(
       int pointer, EventContext context, Offset localPosition) {
     if (totalDistance[pointer] != null && totalDistance[pointer]! < 1000) {
-      // If the position has not changed, get the PenElement associated with the pointer.
-      final element = elements[pointer];
-      // If the PenElement exists, update the line with the start and end position of the pointer.
-      if (element != null && data.shapeDetectionEnabled) {
-        final transform = context.getCameraTransform();
-        elements[pointer] = element.copyWith(points: [
-          elements[pointer]!.points.first,
-          elements[pointer]!.points.last,
-          PathPoint.fromPoint(
-              transform.localToGlobal(localPosition).toPoint(), 0.5)
-        ]);
-        context.refresh();
-        // Add a small movement that allows the line to become straight
-        lastPosition[pointer] = localPosition + const Offset(0.01, 0.01);
+      // Check if the last known position of the pointer has not changed since the timer started.
+      if (lastPosition[pointer] == localPosition) {
+        // If the position has not changed, get the PenElement associated with the pointer.
+        final element = elements[pointer];
+        // index point
+        int midIndex = (element!.points.length / 2).floor();
+
+        // Update the line with the start,middle,and position of the pointer.
+        if (data.shapeDetectionEnabled == true ) {
+          elements[pointer] = element.copyWith(points: [
+            element.points.first,
+            element.points[midIndex],
+            element.points.last
+          ]);
+          // Add a small movement that allows the line to become straight
+          lastPosition[pointer] = localPosition + const Offset(0.01, 0.01);
+        }
+        _timer?.cancel();
+        _timer = null;
       }
-      _timer?.cancel();
-      _timer = null;
     }
   }
 
