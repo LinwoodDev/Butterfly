@@ -447,13 +447,13 @@ class ImportService {
         final selectedElements = <ImageElement>[];
         final areas = <Area>[];
         final documentPages = <DocumentPage>[];
-        var y = firstPos.dx;
+        var y = firstPos.dy;
         var current = 0;
 
         await for (final page in Printing.raster(bytes,
             pages: pages, dpi: PdfPageFormat.inch * quality)) {
           try {
-            await Future.delayed(const Duration(milliseconds: 100));
+            await Future.delayed(const Duration(milliseconds: 1));
             dialog?.setProgress(current / pages.length);
             current++;
             final png = await page.toPng();
@@ -481,9 +481,7 @@ class ImportService {
               ));
             } else {
               selectedElements.add(element);
-              if (createAreas) {
-                areas.add(area);
-              }
+              areas.add(area);
             }
             y += height * scale;
           } catch (e) {
@@ -500,7 +498,7 @@ class ImportService {
           document,
           elements: selectedElements,
           pages: documentPages,
-          areas: createAreas ? areas : [],
+          areas: spreadToPages ? [] : areas,
           choosePosition: position == null,
         );
       }
@@ -583,8 +581,8 @@ class ImportService {
           context, ImportTool(elements: elements, areas: areas), bloc!);
     } else {
       bloc
-        ?..add(ElementsCreated(elements))
-        ..add(AreasCreated(areas));
+        ?..add(AreasCreated(areas))
+        ..add(ElementsCreated(elements));
     }
     for (final page in pages) {
       bloc?.add(PageAdded(null, page));

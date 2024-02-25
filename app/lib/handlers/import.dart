@@ -48,6 +48,11 @@ class ImportHandler extends Handler<ImportTool> {
   Future<void> onPointerUp(PointerUpEvent event, EventContext context) async {
     final state = context.getState();
     if (state == null) return;
+    context.addDocumentEvent(AreasCreated(data.areas
+        .map((e) => e.copyWith(
+              position: e.position + _offset.toPoint(),
+            ))
+        .toList()));
     context.addDocumentEvent(ElementsCreated((await _load(
       state.data,
       state.assetService,
@@ -55,11 +60,6 @@ class ImportHandler extends Handler<ImportTool> {
     ))
         .map((e) => e.transform(position: _offset, relative: true)?.element)
         .whereNotNull()
-        .toList()));
-    context.addDocumentEvent(AreasCreated(data.areas
-        .map((e) => e.copyWith(
-              position: e.position + _offset.toPoint(),
-            ))
         .toList()));
     context
         .getCurrentIndexCubit()
