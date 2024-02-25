@@ -7,7 +7,7 @@ sidebar_position: 3
 
 Here you can add things to your notes.
 
-## Import
+## Nhập
 
 Here you can import existing files inside your documents. Supported are butterfly documents, markdown, png, svg and pdf.
 
