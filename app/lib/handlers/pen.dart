@@ -99,27 +99,30 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
     if (refresh) bloc.refresh();
   }
 
-// This function updates the current line with the pointer's start and end position.
+  // This function updates the current line with the pointer's start and end position.
   void _tickShapeDetection(
       int pointer, EventContext context, Offset localPosition) {
     if (totalDistance[pointer] != null && totalDistance[pointer]! < 1000) {
-      // If the position has not changed, get the PenElement associated with the pointer.
-      final element = elements[pointer];
-      // If the PenElement exists, update the line with the start and end position of the pointer.
-      if (element != null && data.shapeDetectionEnabled) {
-        final transform = context.getCameraTransform();
-        elements[pointer] = element.copyWith(points: [
-          elements[pointer]!.points.first,
-          elements[pointer]!.points.last,
-          PathPoint.fromPoint(
-              transform.localToGlobal(localPosition).toPoint(), 0.5)
-        ]);
-        context.refresh();
-        // Add a small movement that allows the line to become straight
-        lastPosition[pointer] = localPosition + const Offset(0.01, 0.01);
+      // Check if the last known position of the pointer has not changed since the timer started.
+      if (lastPosition[pointer] == localPosition) {
+        // If the position has not changed, get the PenElement associated with the pointer.
+        final element = elements[pointer];
+        if (element != null) {
+          // index point
+          int midIndex = (element.points.length / 2).floor();
+
+          // Update the line with the start,middle,and position of the pointer.
+          if (data.shapeDetectionEnabled) {
+            elements[pointer] = element.copyWith(points: [
+              element.points.first,
+              element.points[midIndex],
+              element.points.last
+            ]);
+          }
+          _timer?.cancel();
+          _timer = null;
+        }
       }
-      _timer?.cancel();
-      _timer = null;
     }
   }
 
@@ -147,7 +150,6 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
               (event.pressureMax - event.pressureMin)
           : 0.5;
 
-  // This function is called when the pointer moves.
   @override
   void onPointerMove(PointerMoveEvent event, EventContext context) {
     // Calculates the distance the pointer travels
@@ -160,7 +162,9 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
     // Call the addPoint function to add a point to the current brush stroke.
     addPoint(context.buildContext, event.pointer, event.localPosition,
         _getPressure(event), event.kind);
-    // Start a timer that fires after 500 milliseconds.
+    // Update the last position with the current position
+    lastPosition[event.pointer] = event.localPosition;
+    // Start a timer that fires after 500 milliseconds
     _timer?.cancel();
     _timer = Timer(
         Duration(milliseconds: (data.shapeDetectionTime * 1000).round()),
