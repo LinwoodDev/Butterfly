@@ -1,5 +1,5 @@
 ---
-title: "Layers"
+title: "Lớp"
 sidebar_position: 2
 ---
 
