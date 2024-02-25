@@ -111,7 +111,7 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
         int midIndex = (element!.points.length / 2).floor();
 
         // Update the line with the start,middle,and position of the pointer.
-        if (data.shapeDetectionEnabled == true) {
+        if (data.shapeDetectionEnabled) {
           elements[pointer] = element.copyWith(points: [
             element.points.first,
             element.points[midIndex],
