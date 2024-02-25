@@ -380,22 +380,22 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     emit(state.copyWith(pointers: state.pointers.toList()..remove(pointer)));
   }
 
-  Future<Handler?> changeTemporaryHandlerIndex(
-      BuildContext context, int index) async {
-    final bloc = context.read<DocumentBloc>();
+  Future<Handler?> changeTemporaryHandlerIndex(BuildContext context, int index,
+      [DocumentBloc? bloc]) async {
+    bloc ??= context.read<DocumentBloc>();
     final blocState = bloc.state;
     if (blocState is! DocumentLoadSuccess) return null;
     if (index < 0 || index >= blocState.info.tools.length) {
       return null;
     }
     final tool = blocState.info.tools[index];
-    return changeTemporaryHandler(context, tool);
+    return changeTemporaryHandler(context, tool, bloc);
   }
 
-  Future<Handler?> changeTemporaryHandler(
-      BuildContext context, Tool tool) async {
+  Future<Handler?> changeTemporaryHandler(BuildContext context, Tool tool,
+      [DocumentBloc? bloc]) async {
+    bloc ??= context.read<DocumentBloc>();
     final handler = Handler.fromTool(tool);
-    final bloc = context.read<DocumentBloc>();
     final blocState = bloc.state;
     if (blocState is! DocumentLoadSuccess) return null;
     final document = blocState.data;
@@ -836,11 +836,12 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
   }
 
   Rect getPageRect() {
-    var rect = Rect.zero;
+    Rect? rect;
     for (final renderer in renderers) {
       final rendererRect = renderer.rect;
-      if (rendererRect != null) rect = rect.expandToInclude(rendererRect);
+      if (rendererRect == null) continue;
+      rect = rect?.expandToInclude(rendererRect) ?? rendererRect;
     }
-    return rect;
+    return rect ?? Rect.zero;
   }
 }
