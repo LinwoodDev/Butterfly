@@ -13,8 +13,6 @@ class ImportHandler extends Handler<ImportTool> {
         .map((e) => Renderer.fromInstance(e))
         .whereType<Renderer<PadElement>>()
         .toList();
-    await Future.wait(
-        renderers.map((e) async => e.setup(document, assetService, page)));
     _renderers = renderers;
     return renderers;
   }
@@ -75,7 +73,8 @@ class ImportHandler extends Handler<ImportTool> {
           NoteData document, DocumentPage page, DocumentInfo info,
           [Area? currentArea]) =>
       _renderers
-          ?.map((e) => e.transform(position: _offset, relative: true) ?? e)
+          ?.take(3)
+          .map((e) => e.transform(position: _offset, relative: true) ?? e)
           .toList() ??
       [];
 
