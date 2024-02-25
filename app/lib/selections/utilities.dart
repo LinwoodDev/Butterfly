@@ -148,18 +148,20 @@ class _UtilitiesViewState extends State<_UtilitiesView>
                             kThumbnailHeight.toDouble();
                         final height =
                             width * kThumbnailHeight / kThumbnailWidth;
-                        final heightOffset = (realHeight - height) / 2;
+                        final heightOffset = (height - realHeight) / 2;
                         final quality = kThumbnailWidth / width;
                         final thumbnail = await state.currentIndexCubit.render(
                           state.data,
                           state.page,
                           state.info,
-                          width: width,
-                          height: height,
-                          quality: quality,
-                          scale: viewport.scale,
-                          x: -viewport.x,
-                          y: -viewport.y + heightOffset,
+                          ImageExportOptions(
+                            width: width,
+                            height: height,
+                            quality: quality,
+                            scale: viewport.scale,
+                            x: viewport.x,
+                            y: viewport.y + heightOffset,
+                          ),
                         );
                         if (thumbnail == null) return;
                         final bytes = thumbnail.buffer.asUint8List();
@@ -293,7 +295,7 @@ class _UtilitiesViewState extends State<_UtilitiesView>
                       value: context.read<TransformCubit>().state.position,
                       round: 2,
                       onChanged: (value) =>
-                          context.read<TransformCubit>().setPosition(value),
+                          context.read<TransformCubit>().teleport(value),
                     ),
                     const SizedBox(height: 8),
                     ExactSlider(

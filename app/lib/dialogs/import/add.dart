@@ -35,9 +35,8 @@ class AddDialog extends StatelessWidget {
       bloc.add(ToolCreated(defaultTool));
       currentIndexCubit.changeTool(
         bloc,
-        state.info.tools.length,
-        Handler.fromTool(defaultTool),
-        true,
+        index: state.info.tools.length,
+        handler: Handler.fromTool(defaultTool),
       );
       Navigator.of(context).pop();
     }
@@ -65,8 +64,7 @@ class AddDialog extends StatelessWidget {
         ),
         trailing: tool.isAction()
             ? IconButton(
-                onPressed: () =>
-                    handler.onSelected(bloc, currentIndexCubit, false),
+                onPressed: () => handler.onSelected(context),
                 icon: const PhosphorIcon(PhosphorIconsLight.playCircle),
                 tooltip: AppLocalizations.of(context).play,
               )

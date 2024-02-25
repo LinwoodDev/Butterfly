@@ -29,7 +29,7 @@ Używam danych wejściowych dostarczanych przez ramę wytrząsania. To jest prob
 
 > [#244](https://github.com/LinwoodDev/Butterfly/issues/244)
 
-Butterfly is available on iOS as preview. Click [here](https://docs.butterfly.linwood.dev/downloads/ios) to download it. See [here](https://github.com/LinwoodDev/Butterfly/issues/244#issuecomment-1935460878) why it's not available on the App Store.
+Motylka jest dostępna w iOS jako podgląd. Kliknij [tutaj](https://docs.butterfly.linwood.dev/downloads/ios) , aby go pobrać. Zobacz [tutaj](https://github.com/LinwoodDev/Butterfly/issues/244#issuecomment-1935460878) dlaczego nie jest on dostępny w App Store.
 
 ## Pulpit
 

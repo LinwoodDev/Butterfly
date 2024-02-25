@@ -29,7 +29,7 @@ sidebar_label: "FAQ"
 
 > [#244](https://github.com/LinwoodDev/Butterfly/issues/244)
 
-Butterfly is available on iOS as preview. Click [here](https://docs.butterfly.linwood.dev/downloads/ios) to download it. See [here](https://github.com/LinwoodDev/Butterfly/issues/244#issuecomment-1935460878) why it's not available on the App Store.
+ButterflyはプレビューとしてiOSで利用できます。 Click [here](https://docs.butterfly.linwood.dev/downloads/ios) to download it. See [here](https://github.com/LinwoodDev/Butterfly/issues/244#issuecomment-1935460878) why it's not available on the App Store.
 
 ## デスクトップ
 

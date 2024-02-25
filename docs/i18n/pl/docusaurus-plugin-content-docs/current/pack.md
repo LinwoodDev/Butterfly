@@ -7,11 +7,11 @@ Pakiet jest zbiorem elementów, które mogą być użyte w narzędziu stemplowym
 
 ## Właściwości
 
-| Nazwisko | Opis             |
-| --------:|:---------------- |
-| Nazwisko | Nazwa opakowania |
-|    Autor | Autor pakietu    |
-|     Opis | Opis opakowania  |
+| Nazwa | Opis             |
+| -----:|:---------------- |
+| Nazwa | Nazwa opakowania |
+| Autor | Autor pakietu    |
+|  Opis | Opis opakowania  |
 
 ### Składniki
 

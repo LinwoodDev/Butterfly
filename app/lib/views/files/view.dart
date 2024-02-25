@@ -81,8 +81,11 @@ class FilesViewState extends State<FilesView> {
     _filesStream = _fileSystem.fetchAsset(_locationController.text);
   }
 
+  // ! modifi with for error setState() called after dispose(), during big file import, check if the widget is still mounted before calling setState()
   void reloadFileSystem() {
-    setState(_setFilesStream);
+    if (mounted) {
+      setState(_setFilesStream);
+    }
   }
 
   Future<void> _createFile(NoteData? template) async {
@@ -379,10 +382,10 @@ class FilesViewState extends State<FilesView> {
                     icon: const PhosphorIcon(PhosphorIconsLight.arrowUp),
                     tooltip: AppLocalizations.of(context).goUp,
                   ),
-                  onWillAccept: (data) => true,
-                  onAccept: (data) async {
+                  onWillAcceptWithDetails: (data) => true,
+                  onAcceptWithDetails: (data) async {
                     await _fileSystem.moveAsset(
-                        data, '$parent/${data.split('/').last}');
+                        data.data, '$parent/${data.data.split('/').last}');
                     reloadFileSystem();
                   },
                 ),

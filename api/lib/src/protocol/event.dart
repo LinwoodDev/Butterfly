@@ -141,6 +141,11 @@ class DocumentEvent extends ReplayEvent with _$DocumentEvent {
     Area area,
   ) = AreaChanged;
 
+  const factory DocumentEvent.areaReordered(
+    String name,
+    int newIndex,
+  ) = AreaReordered;
+
   const factory DocumentEvent.currentAreaChanged(
     String name,
   ) = CurrentAreaChanged;

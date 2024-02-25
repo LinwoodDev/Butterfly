@@ -12,7 +12,7 @@ part of 'text.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 SpanProperty _$SpanPropertyFromJson(Map<String, dynamic> json) {
   switch (json['type']) {
@@ -289,7 +289,7 @@ class _$DefinedSpanPropertyImpl implements DefinedSpanProperty {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$DefinedSpanPropertyImpl &&
@@ -578,7 +578,7 @@ class _$NamedSpanPropertyImpl implements NamedSpanProperty {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$NamedSpanPropertyImpl &&
@@ -758,7 +758,7 @@ class _$UndefinedSpanPropertyImpl implements UndefinedSpanProperty {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$UndefinedSpanPropertyImpl);
@@ -1043,7 +1043,7 @@ class _$DefinedParagraphPropertyImpl implements DefinedParagraphProperty {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$DefinedParagraphPropertyImpl &&
@@ -1213,7 +1213,7 @@ class _$NamedParagraphPropertyImpl implements NamedParagraphProperty {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$NamedParagraphPropertyImpl &&
@@ -1362,7 +1362,7 @@ class _$UndefinedParagraphPropertyImpl implements UndefinedParagraphProperty {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$UndefinedParagraphPropertyImpl);
@@ -1557,7 +1557,7 @@ class _$AreaPropertyImpl implements _AreaProperty {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$AreaPropertyImpl &&
@@ -1755,7 +1755,7 @@ class _$TextSpanImpl extends _TextSpan {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$TextSpanImpl &&
@@ -1958,7 +1958,7 @@ class _$IndexedModelImpl<T> implements _IndexedModel<T> {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$IndexedModelImpl<T> &&
@@ -2161,7 +2161,7 @@ class _$ParagraphPropertyImpl extends _ParagraphProperty {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$ParagraphPropertyImpl &&
@@ -2406,7 +2406,7 @@ class _$TextAreaImpl extends _TextArea {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$TextAreaImpl &&
@@ -2606,7 +2606,7 @@ class _$TextStyleSheetImpl extends _TextStyleSheet {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$TextStyleSheetImpl &&

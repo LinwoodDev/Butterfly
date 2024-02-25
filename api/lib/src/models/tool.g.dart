@@ -123,6 +123,9 @@ _$PenToolImpl _$$PenToolImplFromJson(Map json) => _$PenToolImpl(
       name: json['name'] as String? ?? '',
       displayIcon: json['displayIcon'] as String? ?? '',
       zoomDependent: json['zoomDependent'] as bool? ?? true,
+      shapeDetectionTime:
+          (json['shapeDetectionTime'] as num?)?.toDouble() ?? 0.5,
+      shapeDetectionEnabled: json['shapeDetectionEnabled'] as bool? ?? false,
       property: json['property'] == null
           ? const PenProperty()
           : PenProperty.fromJson(
@@ -135,6 +138,8 @@ Map<String, dynamic> _$$PenToolImplToJson(_$PenToolImpl instance) =>
       'name': instance.name,
       'displayIcon': instance.displayIcon,
       'zoomDependent': instance.zoomDependent,
+      'shapeDetectionTime': instance.shapeDetectionTime,
+      'shapeDetectionEnabled': instance.shapeDetectionEnabled,
       'property': instance.property.toJson(),
       'type': instance.$type,
     };
@@ -353,6 +358,22 @@ const _$ImportTypeEnumMap = {
   ImportType.markdown: 'markdown',
   ImportType.xopp: 'xopp',
 };
+
+_$ExportToolImpl _$$ExportToolImplFromJson(Map json) => _$ExportToolImpl(
+      name: json['name'] as String? ?? '',
+      displayIcon: json['displayIcon'] as String? ?? '',
+      options: ExportOptions.fromJson(
+          Map<String, dynamic>.from(json['options'] as Map)),
+      $type: json['type'] as String?,
+    );
+
+Map<String, dynamic> _$$ExportToolImplToJson(_$ExportToolImpl instance) =>
+    <String, dynamic>{
+      'name': instance.name,
+      'displayIcon': instance.displayIcon,
+      'options': instance.options.toJson(),
+      'type': instance.$type,
+    };
 
 _$TextureToolImpl _$$TextureToolImplFromJson(Map json) => _$TextureToolImpl(
       name: json['name'] as String? ?? '',

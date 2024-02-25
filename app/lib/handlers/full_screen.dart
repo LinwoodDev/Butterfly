@@ -4,9 +4,8 @@ class FullScreenHandler extends Handler<FullScreenTool> {
   FullScreenHandler(super.data);
 
   @override
-  bool onSelected(
-      DocumentBloc bloc, CurrentIndexCubit currentIndexCubit, bool justAdded) {
-    if (justAdded) return false;
+  bool onSelected(BuildContext context) {
+    final bloc = context.read<DocumentBloc>();
     bloc.state.settingsCubit.toggleFullScreen();
     return false;
   }

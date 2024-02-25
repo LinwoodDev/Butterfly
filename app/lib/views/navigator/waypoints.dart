@@ -31,7 +31,7 @@ class WaypointsView extends StatelessWidget {
                     title: Text(AppLocalizations.of(context).origin),
                     selected: transform.position.toPoint() == origin.position,
                     onTap: () {
-                      context.read<TransformCubit>().moveToWaypoint(origin);
+                      context.read<TransformCubit>().teleportToWaypoint(origin);
                       context.read<DocumentBloc>().bake();
                     },
                   ),
@@ -47,7 +47,7 @@ class WaypointsView extends StatelessWidget {
                           onTap: () {
                             context
                                 .read<TransformCubit>()
-                                .moveToWaypoint(waypoint);
+                                .teleportToWaypoint(waypoint);
                             context.read<DocumentBloc>().bake();
                           },
                           onSaved: (value) => context

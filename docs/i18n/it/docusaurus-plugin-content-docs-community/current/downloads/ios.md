@@ -3,7 +3,7 @@ title: iOS
 sidebar_position: 6
 ---
 
-![Versione di rilascio notturno](https://img.shields.io/badge/dynamic/yaml?color=f7d28c\&label=Nightly\&query=%24.version\&url=https%3A%2F%2Fraw.githubusercontent.com%2FLinwoodDev%2Fbutterfly%2Fnotte%2Fapp%2Fpubspec.yaml\&style=for-the-badge)
+![Nightly release version](https://img.shields.io/badge/dynamic/yaml?color=f7d28c\&label=Nightly\&query=%24.version\&url=https%3A%2F%2Fraw.githubusercontent.com%2FLinwoodDev%2Fbutterfly%2Fnightly%2Fapp%2Fpubspec.yaml\&style=for-the-badge)
 
 :::warning
 
@@ -25,7 +25,7 @@ Fare clic su [here](https://github.com/LinwoodDev/Butterfly/issues/244) per visi
   </ul>
 </div>
 
-Per saperne di più sulla versione notturna di Butterfly [here](/notte).
+Per saperne di più sulla versione notturna di Butterfly [here](/nightly).
 
 ## Installazione
 

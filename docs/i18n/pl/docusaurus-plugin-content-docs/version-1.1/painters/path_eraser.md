@@ -1,6 +1,6 @@
 ---
 title: "Farba ze skórką ścieżki"
-sidebar_label: "Saser ścieżki"
+sidebar_label: "Wymaż linię"
 sidebar_position: 4
 ---
 
