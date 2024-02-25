@@ -164,7 +164,7 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
         _getPressure(event), event.kind);
     // Update the last position with the current position
     lastPosition[event.pointer] = event.localPosition;
-    // Start a timer that fires after 500 milliseconds.
+    // Start a timer that fires after 500 milliseconds
     _timer?.cancel();
     _timer = Timer(
         Duration(milliseconds: (data.shapeDetectionTime * 1000).round()),
