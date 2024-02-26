@@ -8,9 +8,10 @@
 * Improve area tool creation rect selection
 * Make selection system of select tool modular
 * Upgrade to flutter 3.19
-* Fix thumbnail shoot position
 * Improve pdf import ([#612](https://github.com/LinwoodDev/Butterfly/issues/612))
 * Rename release assets ([#568](https://github.com/LinwoodDev/Butterfly/discussions/568))
 * Generalize svg and png dialog
+* Fix thumbnail shoot position
+* Fix png export
 
 Read more here: https://linwood.dev/butterfly/2.1.0-beta.0
