@@ -654,13 +654,19 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     on<AreasCreated>((event, emit) async {
       final current = state;
       if (current is! DocumentLoadSuccess) return;
-      final currentDocument = current.page.copyWith(
-          areas: List<Area>.from(current.page.areas)..addAll(event.areas));
+      final areas = event.areas.map((e) {
+        var name = e.name;
+        var count = 1;
+        while (current.page.areas.any((element) => element.name == name)) {
+          name = '${e.name} (${count++})';
+        }
+        return e.copyWith(name: name);
+      }).toList();
       var shouldRepaint = false;
       for (var element in current.renderers) {
-        final needRepaint = await Future.wait(event.areas.map<Future<bool>>(
-            (area) async => await element.onAreaUpdate(
-                current.data, currentDocument, area)));
+        final needRepaint = await Future.wait(areas.map<Future<bool>>(
+            (area) async =>
+                await element.onAreaUpdate(current.data, current.page, area)));
         if (needRepaint.any((element) => element)) {
           shouldRepaint = true;
         }
@@ -668,9 +674,13 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       if (shouldRepaint) {
         _repaint(emit);
       }
-      _saveState(emit, current.copyWith(page: currentDocument)).then((_) =>
-          current.currentIndexCubit.refresh(current.data, current.assetService,
-              currentDocument, current.info));
+      final nextCurrent = state;
+      if (nextCurrent is! DocumentLoadSuccess) return;
+      final currentDocument =
+          current.page.copyWith(areas: [...nextCurrent.page.areas, ...areas]);
+      return _saveState(emit, nextCurrent.copyWith(page: currentDocument)).then(
+          (_) => current.currentIndexCubit.refresh(nextCurrent.data,
+              nextCurrent.assetService, currentDocument, nextCurrent.info));
     });
     on<AreasRemoved>((event, emit) async {
       final current = state;

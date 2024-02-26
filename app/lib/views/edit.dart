@@ -293,6 +293,7 @@ class _EditToolbarState extends State<EditToolbar> {
                                   context.read<DocumentBloc>(),
                                   index: i,
                                   handler: handler,
+                                  context: context,
                                 );
                           } else {
                             context

@@ -80,6 +80,7 @@ class __ShapeDetectionViewState extends State<_ShapeDetectionView> {
 
 class PenToolSelection extends ToolSelection<PenTool> {
   final _propertySelection = PenPropertySelection();
+
   PenToolSelection(super.selected);
 
   @override

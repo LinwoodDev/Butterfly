@@ -162,6 +162,8 @@ abstract class Handler<T> {
           [Area? currentArea]) =>
       [];
 
+  bool get setupForegrounds => true;
+
   bool onRendererUpdated(
           DocumentPage page, Renderer old, List<Renderer> updated) =>
       false;
@@ -279,7 +281,7 @@ mixin ColoredHandler<T extends Tool> on Handler<T> {
         onEyeDropper: (context) {
           final state = bloc.state;
           state.currentIndexCubit
-              ?.changeTemporaryHandler(context, EyeDropperTool());
+              ?.changeTemporaryHandler(context, EyeDropperTool(), bloc);
         },
       );
 }
