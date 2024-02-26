@@ -2,6 +2,26 @@
 
 <!--ENTER CHANGELOG HERE-->
 
+## 2.1.0-beta.0 (2024-02-26)
+
+* Add shape detection for lines ([#578](https://github.com/LinwoodDev/Butterfly/issues/578))
+* Add area navigator page ([#574](https://github.com/LinwoodDev/Butterfly/issues/574))
+* Add resize and move controls to area tool ([#542](https://github.com/LinwoodDev/Butterfly/issues/542))
+* Add reorder controls to area tool
+* Add option to export whole page ([#594](https://github.com/LinwoodDev/Butterfly/issues/594))
+* Add export tool ([#590](https://github.com/LinwoodDev/Butterfly/issues/590))
+* Move rotation controls to the top ([#607](https://github.com/LinwoodDev/Butterfly/issues/607))
+* Improve area tool creation rect selection
+* Make selection system of select tool modular
+* Upgrade to flutter 3.19
+* Improve pdf import ([#612](https://github.com/LinwoodDev/Butterfly/issues/612))
+* Rename release assets ([#568](https://github.com/LinwoodDev/Butterfly/discussions/568))
+* Generalize svg and png dialog
+* Fix thumbnail shoot position
+* Fix png export
+
+Read more here: https://linwood.dev/butterfly/2.1.0-beta.0
+
 ## 2.0.3 (2024-02-19)
 
 * Fix png export
