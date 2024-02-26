@@ -9,7 +9,7 @@ Do not use the nightly version of Butterfly for production.
 
 :::
 
-Nightly builds are designed to give you the option to test the latest version and get the newest features and give feedback.
+Bản nightly được thiết kế để cho bạn lựa chọn được thử phiên bản mới nhất, trải nghiệm những tính năng mới nhất và để lại phản hồi.
 
 ## Get the builds
 

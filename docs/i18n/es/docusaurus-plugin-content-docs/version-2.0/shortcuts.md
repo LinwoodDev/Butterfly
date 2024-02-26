@@ -33,15 +33,24 @@ Algunos de ellos se escriben debajo de los botones.
 - `Ctrl` + `+`: Acercar en
 - `Ctrl` + `-`: Alejar el zoom
 
-## Stylus
+## Pen
 
-- `Botón primario`: Cambia a la herramienta de mano
-- `Botón secundario`: Cambia a segunda herramienta
+Por defecto, el lápiz está configurado para funcionar de la siguiente manera:
+
+- `Pen`: configurado como pluma.
+- `Primero` (botón primario, si es soportado): Cambia a la herramienta de mano mientras se presiona.
+- `Segundo` (botón secundario, si es soportado): Cambia a la segunda herramienta (ver la sección [configure](#configurado) abajo) mientras se pulsa.
 
 ## Configurar {#configure}
 
-Personalice los controles dando a cada control un índice de herramienta.
+Puede personalizar los controles dando a cada control un índice de herramientas. La indexación de la herramienta comienza desde la izquierda de la barra de herramientas, siendo `1` el primer índice. Ver ejemplo a continuación
 
-- Dejarlo vacío para desactivar el interruptor de herramienta en este control.
-- Establécelo en `0` para activar el movimiento con este control.
-- Establécelo en un número positvo para cambiar a la herramienta con este índice comenzando desde el primero a la izquierda comenzando con `1`.
+![barra de herramientas numerada](toolbar_numbered.png)
+
+Aquí, 1 se refiere a la herramienta lasso 2, a la herramienta pan etc.
+
+Las opciones de configuración son las siguientes:
+
+- Vaciar - la herramienta no está encajada.
+- 0 - la herramienta funcionará como moviendo (es decir, mano) en este mod.
+- Número positivo - La herramienta seguirá la indexación como explicamos arriba.

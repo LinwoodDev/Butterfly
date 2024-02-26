@@ -33,15 +33,24 @@ Některé z nich jsou zapsány pod tlačítky.
 - `Ctrl` + `+`: Přiblížení
 - `Ctrl` + `-`: Oddálit
 
-## Stylus
+## Pec
 
-- "Primární tlačítko": Přepnout na ruční nástroj
-- "Sekundární tlačítko": Změnit na druhý nástroj
+Ve výchozím nastavení je pero nastaveno tak, aby fungovalo:
+
+- `Pen`: nakonfigurován jako pen.
+- `First` (Primární tlačítko, pokud je podporováno): Přepnout na ruční nástroj při stisknutí.
+- `Second` (druhé tlačítko, pokud je podporováno): Po stisknutí přepněte na druhý nástroj (viz [configure](#configure).
 
 ## Konfigurovat {#configure}
 
-Přizpůsobte si ovládací prvky zadáním každého ovládání indexu nástrojů.
+Ovládací prvky můžete přizpůsobit zadáním všech ovládacích prvků indexu nástrojů. Nástroj indexování začíná vlevo od panelu nástrojů, přičemž prvním indexem je `1`. Viz příklad níže
 
-- Nechte prázdné pro vypnutí přepínače nástrojů na tomto ovládání.
-- Nastavte na `0` pro umožnění pohybu s tímto ovládáním.
-- Nastavte číslo pozice pro přepnutí na nástroj s tímto indexem, počínaje prvním na levé straně začínající `1`.
+![toolbar numbered](toolbar_numbered.png)
+
+Tady 1 odkazuje na nástroj lasso, 2, na nástroj pánve atd.
+
+Možnosti konfigurace, které máte, jsou následující:
+
+- Prázdný - nástroj je rozbalen.
+- 0 - nástroj bude v tomto režimu fungovat jako pohyb (tj. ručně).
+- Pozitivní číslo - nástroj bude následovat indexace, jak je vysvětleno výše.

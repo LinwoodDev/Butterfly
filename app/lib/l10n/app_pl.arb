@@ -151,6 +151,8 @@
   "copy": "Kopiuj",
   "back": "Powrót",
   "zoomDependent": "Zależny od powiększenia",
+  "shapeDetection": "Wykrywanie kształtu",
+  "delay": "Opóźnienie",
   "defaultLayer": "Warstwa domyślna",
   "layer": "Warstwa",
   "layers": "Warstwa",
@@ -584,5 +586,6 @@
   "zoomControl": "Kontrola powiększenia",
   "highContrast": "Wysoki kontrast",
   "shouldANumber": "Ta wartość powinna być poprawnym numerem",
+  "createAreas": "Create areas",
   "autosave": "Autosave"
 }

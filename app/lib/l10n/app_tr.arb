@@ -151,6 +151,8 @@
   "copy": "Kopyala",
   "back": "Geri",
   "zoomDependent": "Bağımlı yakınlaştırma",
+  "shapeDetection": "Shape Detection",
+  "delay": "Delay",
   "defaultLayer": "Varsayılan Katman",
   "layer": "Katman",
   "layers": "Katmanlar",
@@ -584,5 +586,6 @@
   "zoomControl": "Zoom control",
   "highContrast": "High contrast",
   "shouldANumber": "This value should be valid number",
+  "createAreas": "Create areas",
   "autosave": "Autosave"
 }

@@ -151,6 +151,8 @@
   "copy": "Αντιγραφή",
   "back": "Πίσω",
   "zoomDependent": "Εξαρτώμενο από ζουμ",
+  "shapeDetection": "Ανίχνευση Σχήματος",
+  "delay": "Καθυστέρηση",
   "defaultLayer": "Προεπιλεγμένο επίπεδο",
   "layer": "Στρώμα",
   "layers": "Επίπεδα",
@@ -584,5 +586,6 @@
   "zoomControl": "Έλεγχος εστίασης",
   "highContrast": "Υψηλή αντίθεση",
   "shouldANumber": "Αυτή η τιμή πρέπει να είναι έγκυρος αριθμός",
+  "createAreas": "Create areas",
   "autosave": "Autosave"
 }

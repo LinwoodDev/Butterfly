@@ -33,15 +33,24 @@ Sommige ervan worden onder de knoppen geschreven.
 - `Ctrl` + `+`: Zoom in
 - `Ctrl` + `-`: Zoom uit
 
-## Stylus
+## pennen
 
-- `Primaire knop`: Verander naar handgereedschap
-- `Secundaire knop`: Verander naar tweede tool
+Standaard is de pen geconfigureerd om als volgt te functioneren:
+
+- `Pen`: geconfigureerd als pen.
+- `Eer` (Primaire knop, indien ondersteund): Verander naar handgereedschap terwijl je wordt ingedrukt.
+- `Tweede` (Seconterende knop, indien ondersteund): verander naar tweede tool (zie [configure](#geconfigureerd) sectie hieronder, wanneer ingedrukt.
 
 ## {#configure} configureren
 
-Pas de besturingselementen aan door elke bediening een toolindex te geven.
+U kunt de besturingselementen aanpassen door elke bediening een tool index te geven. Het indexeren van de tool begint vanaf de linkerkant van de werkbalk, waarbij '1' de eerste index is. Zie voorbeeld hieronder
 
-- Laat het leeg om de functie uit te schakelen voor dit besturingsapparaat.
-- Zet het op `0` om te bewegen met dit besturingsapparaat.
-- Stel het in op een positve nummer om over te schakelen naar de tool met deze index vanaf de eerste links beginnend met `1`.
+![werkbalk nummerd](toolbar_numbered.png)
+
+Hier verwijst 1 naar de lasso tool, 2, naar de pan tool etc.
+
+De configuratie-opties die u heeft zijn de volgende:
+
+- Leeg - de tool is unchaged.
+- 0 - het gereedschap zal functioneren als bewegend (d.w\.z. hand) in deze mod.
+- Positief nummer - De tool zal de indexering volgen zoals hierboven uitgelegd.

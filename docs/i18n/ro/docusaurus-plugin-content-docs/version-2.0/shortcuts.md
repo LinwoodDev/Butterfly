@@ -33,15 +33,24 @@ Unele dintre ele sunt scrise sub butoane.
 - `Ctrl` + `+`: Zoom in
 - `Ctrl` + `-`: Zoom out
 
-## Stylus
+## Stiloul
 
-- `Butonul principal`: Schimbă cu unealta de mână
-- `Buton secundar`: Schimbă la al doilea instrument
+În mod implicit, stiloul este configurat pentru a funcţiona astfel:
+
+- `Stilu`: configurat ca stilou injector (pen).
+- `First` (buton principal, dacă este suportat): Schimbă cu unealta de mână în timp ce este apăsată.
+- `Secundă` (buton secundar, dacă este suportat): Schimbă la al doilea instrument (a se vedea secţiunea [configure](#configure) de mai jos) în timp ce este apăsată.
 
 ## Configurare {#configure}
 
-Personalizați controalele dând fiecărui control un indice de unelte.
+Poți personaliza controalele dând fiecărui control un indice de unelte. Indexarea sculei începe din stânga barei de instrumente, `1` fiind primul index. Vezi exemplul de mai jos
 
-- Lasă-l gol pentru a dezactiva comutatorul de instrumente pe acest control.
-- Setaţi-l la `0` pentru a activa mişcarea cu acest control. (Automatic Translation)
-- Setaţi-l la un număr positve pentru a trece la unealtă cu acest index începând de la primul din stânga începând cu `1`.
+![toolbar numerotat](toolbar_numbered.png)
+
+Aici, 1 se referă la unealta cu lasso, 2, la unealta cu panou etc.
+
+Opțiunile de configurare pe care le aveți sunt următoarele:
+
+- Gol - instrumentul este neclar.
+- 0 - unealta va funcționa ca în mișcare (și anume, mâna) în acest mod.
+- Număr pozitiv - Instrumentul va urmări indexarea conform explicațiilor de mai sus.

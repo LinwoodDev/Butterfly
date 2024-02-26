@@ -26,22 +26,33 @@ There are a few shortcuts that you can use in the editor. Some of them are writt
 * `Ctrl` + `Y`: Redo
 * `Ctrl` + `Shift` + `P`: Open waypoints dialog
 * `Ctrl` + `B`: Open background dialog
-* `Ctrl` + `Shift` + `A`: Open areas dialog
 * `Ctrl` + `S`: Save
 * `Alt` + `S`: Change path
 * `Ctrl` + (`1` - `0`): Switch to tool
 * `Ctrl` + `+`: Zoom in
 * `Ctrl` + `-`: Zoom out
 
-## Stylus
+## କଲମ
 
-* `Primary button`: Change to hand tool
-* `Secondary button`: Change to second tool
+By default, the the pen is configured to function as the following:
+* `Pen`: configured as pen.
+* `First` (Primary button, if supported): Change to hand tool while pressed.
+* `Second` (Secondary button, if supported): Change to second tool (see [configure](#configure) section below)  while pressed.
+
+
 
 ## Configure {#configure}
 
-Customize the controls by giving every control a tool index.
+You can customize the controls by giving every control a tool index. The tool indexing starts from the left of the toolbar, with `1` being the first index. See example below
 
-* Let it empty to disable the tool switch on this control.
-* Set it to `0` to enable moving with this control.
-* Set it to a positve number to switch to the tool with this index starting from the first on the left starting with `1`.
+![toolbar numbered](toolbar_numbered.png)
+
+Here, 1 refers to the lasso tool, 2, to the pan tool etc.
+
+The configure options you have are the following:
+
+* Empty - the tool is unchaged.
+* 0 - the tool will function as moving (i.e., hand) in this mod.
+* Positive number - The tool will follow the indexing as explain above. 
+
+

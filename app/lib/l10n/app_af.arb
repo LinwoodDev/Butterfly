@@ -151,6 +151,8 @@
   "copy": "Copy",
   "back": "Back",
   "zoomDependent": "Zoom dependent",
+  "shapeDetection": "Shape Detection",
+  "delay": "Delay",
   "defaultLayer": "Default layer",
   "layer": "Layer",
   "layers": "Layers",
@@ -584,5 +586,6 @@
   "zoomControl": "Zoom control",
   "highContrast": "High contrast",
   "shouldANumber": "This value should be valid number",
+  "createAreas": "Create areas",
   "autosave": "Autosave"
 }

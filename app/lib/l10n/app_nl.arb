@@ -151,6 +151,8 @@
   "copy": "Kopiëren",
   "back": "Achterzijde",
   "zoomDependent": "Afhankelijk zoomen",
+  "shapeDetection": "Vorm Detectie",
+  "delay": "Vertraging",
   "defaultLayer": "Standaard laag",
   "layer": "Laag",
   "layers": "Lagen",
@@ -584,5 +586,6 @@
   "zoomControl": "Zoom beheer",
   "highContrast": "Hoog contrast",
   "shouldANumber": "Deze waarde moet een geldig nummer zijn",
+  "createAreas": "Create areas",
   "autosave": "Autosave"
 }
