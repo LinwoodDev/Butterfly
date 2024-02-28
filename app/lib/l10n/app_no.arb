@@ -587,5 +587,6 @@
   "highContrast": "Høy kontrast",
   "shouldANumber": "Denne verdien må være et gyldig tall",
   "createAreas": "Create areas",
-  "autosave": "Autosave"
+  "autosave": "Autosave",
+  "invert": "Invert"
 }
