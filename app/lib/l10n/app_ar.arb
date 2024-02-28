@@ -587,5 +587,6 @@
   "highContrast": "تباين عالي",
   "shouldANumber": "يجب أن تكون هذه القيمة رقم صحيح",
   "createAreas": "Create areas",
-  "autosave": "Autosave"
+  "autosave": "Autosave",
+  "invert": "Invert"
 }
