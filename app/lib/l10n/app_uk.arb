@@ -587,5 +587,6 @@
   "highContrast": "Високий контраст",
   "shouldANumber": "Це значення має бути дійсним числом",
   "createAreas": "Create areas",
-  "autosave": "Autosave"
+  "autosave": "Autosave",
+  "invert": "Invert"
 }
