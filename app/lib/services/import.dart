@@ -432,7 +432,10 @@ class ImportService {
       if (context.mounted) {
         List<int> pages = List.generate(elements.length, (index) => index);
         double quality = context.read<SettingsCubit>().state.pdfQuality;
-        bool spreadToPages = false, createAreas = false;
+        bool spreadToPages = false,
+            createAreas = false,
+            background = true,
+            invert = false;
         if (advanced) {
           final callback = await showDialog<PageDialogCallback>(
               context: context,
@@ -442,6 +445,8 @@ class ImportService {
           quality = callback.quality;
           spreadToPages = callback.spreadToPages;
           createAreas = callback.createAreas;
+          background = callback.background;
+          invert = callback.invert;
         }
         final dialog = showLoadingDialog(context);
         final selectedElements = <ImageElement>[];
@@ -456,7 +461,21 @@ class ImportService {
             await Future.delayed(const Duration(milliseconds: 1));
             dialog?.setProgress(current / pages.length);
             current++;
-            final png = await page.toPng();
+            var image = page.asImage();
+            // Add white background to the image if channels is 4
+            final cmd = img.Command()
+              ..image(image)
+              ..filter((image) {
+                if (image.numChannels != 4 || !background) return image;
+                final imageBg =
+                    img.Image(width: image.width, height: image.height);
+                img.fill(image, color: img.ColorRgb8(255, 255, 255));
+                return img.compositeImage(imageBg, image);
+              })
+              ..encodePng();
+            if (invert) cmd.invert();
+            final png = await cmd.getBytes();
+            if (png == null) continue;
             final scale = 1 / quality;
             final height = page.height;
             final width = page.width;
