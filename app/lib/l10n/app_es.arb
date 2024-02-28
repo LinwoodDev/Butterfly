@@ -587,5 +587,6 @@
   "highContrast": "Alto contraste",
   "shouldANumber": "Este valor debe ser un número válido",
   "createAreas": "Create areas",
-  "autosave": "Autosave"
+  "autosave": "Autosave",
+  "invert": "Invert"
 }
