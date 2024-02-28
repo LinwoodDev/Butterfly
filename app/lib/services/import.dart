@@ -469,11 +469,11 @@ class ImportService {
                 if (image.numChannels != 4 || !background) return image;
                 final imageBg =
                     img.Image(width: image.width, height: image.height);
-                img.fill(image, color: img.ColorRgb8(255, 255, 255));
+                img.fill(imageBg, color: img.ColorRgb8(255, 255, 255));
                 return img.compositeImage(imageBg, image);
-              })
-              ..encodePng();
+              });
             if (invert) cmd.invert();
+            cmd.encodePng();
             final png = await cmd.getBytes();
             if (png == null) continue;
             final scale = 1 / quality;
