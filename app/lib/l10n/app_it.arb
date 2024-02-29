@@ -588,5 +588,6 @@
   "shouldANumber": "Questo valore deve essere valido",
   "createAreas": "Crea Area",
   "autosave": "Autosave",
-  "invert": "Invert"
+  "invert": "Invert",
+  "operations": "Operations"
 }
