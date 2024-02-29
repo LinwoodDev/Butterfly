@@ -588,5 +588,6 @@
   "shouldANumber": "この値は有効な数字でなければなりません",
   "createAreas": "Create areas",
   "autosave": "Autosave",
-  "invert": "Invert"
+  "invert": "Invert",
+  "operations": "Operations"
 }
