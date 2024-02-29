@@ -588,5 +588,6 @@
   "shouldANumber": "此值应该是有效的数字",
   "createAreas": "Create areas",
   "autosave": "Autosave",
-  "invert": "Invert"
+  "invert": "Invert",
+  "operations": "Operations"
 }
