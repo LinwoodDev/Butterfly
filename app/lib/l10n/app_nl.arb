@@ -588,5 +588,6 @@
   "shouldANumber": "Deze waarde moet een geldig nummer zijn",
   "createAreas": "Create areas",
   "autosave": "Autosave",
-  "invert": "Invert"
+  "invert": "Invert",
+  "operations": "Operations"
 }
