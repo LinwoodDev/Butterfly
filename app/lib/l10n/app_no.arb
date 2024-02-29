@@ -588,5 +588,6 @@
   "shouldANumber": "Denne verdien må være et gyldig tall",
   "createAreas": "Create areas",
   "autosave": "Autosave",
-  "invert": "Invert"
+  "invert": "Invert",
+  "operations": "Operations"
 }
