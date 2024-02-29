@@ -588,5 +588,6 @@
   "shouldANumber": "Tato hodnota by měla být platné číslo",
   "createAreas": "Create areas",
   "autosave": "Autosave",
-  "invert": "Invert"
+  "invert": "Invert",
+  "operations": "Operations"
 }
