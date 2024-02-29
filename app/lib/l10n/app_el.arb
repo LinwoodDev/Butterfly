@@ -588,5 +588,6 @@
   "shouldANumber": "Αυτή η τιμή πρέπει να είναι έγκυρος αριθμός",
   "createAreas": "Create areas",
   "autosave": "Autosave",
-  "invert": "Invert"
+  "invert": "Invert",
+  "operations": "Operations"
 }
