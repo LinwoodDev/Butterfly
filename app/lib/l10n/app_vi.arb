@@ -588,5 +588,6 @@
   "shouldANumber": "This value should be valid number",
   "createAreas": "Create areas",
   "autosave": "Tự động lưu",
-  "invert": "Invert"
+  "invert": "Invert",
+  "operations": "Operations"
 }
