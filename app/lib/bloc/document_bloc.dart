@@ -141,14 +141,14 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
         final uri = Uri.tryParse(source);
         final uriData = uri?.data;
         if (uriData == null) {
-          if (uri?.isScheme('file') ?? false) {
+          if ((uri?.isScheme('file') ?? false) || !(uri?.hasScheme ?? true)) {
             data = data.undoDelete(uri!.path);
           }
           return source;
         }
         final result = data.addImage(uriData.contentAsBytes(), fileExtension);
         data = result.$1;
-        return result.$2;
+        return Uri.file(result.$2, windows: false).toString();
       }
 
       final elements = event.elements
@@ -879,6 +879,22 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       final current = state;
       if (current is! DocumentPresentationState) return;
       emit(current.copyWith(frame: event.tick));
+    });
+    on<AssetUpdated>((event, emit) async {
+      final current = state;
+      if (current is! DocumentLoadSuccess) return;
+      var data = current.data;
+      if (!validAssetPaths.any((e) => event.path.startsWith('$e/'))) return;
+      data = data.setAsset(event.path, event.data);
+      current.assetService.invalidateImage(event.path);
+      final shouldRepaint = (await Future.wait(current.renderers.map(
+              (e) async => e.onAssetUpdate(current.data, current.assetService,
+                  current.page, event.path))))
+          .any((e) => e);
+      if (shouldRepaint) {
+        _repaint(emit);
+      }
+      _saveState(emit, current.copyWith(data: data));
     });
   }
 

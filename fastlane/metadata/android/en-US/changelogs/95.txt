@@ -1,4 +1,7 @@
 * Add setting for adding background to pdf import ([#606])
 * Add setting for inverting to pdf import ([#606])
+* Add image operations
+  * Invert
+  * Background
 
 Read more here: https://linwood.dev/butterfly/2.1.0-beta.1

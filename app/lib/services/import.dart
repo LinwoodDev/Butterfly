@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'dart:math';
 import 'dart:typed_data';
 import 'dart:ui' as ui;
+import 'package:butterfly/api/image.dart';
 import 'package:image/image.dart' as img;
 import 'package:butterfly/api/file_system/file_system.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
@@ -463,15 +464,8 @@ class ImportService {
             current++;
             var image = page.asImage();
             // Add white background to the image if channels is 4
-            final cmd = img.Command()
-              ..image(image)
-              ..filter((image) {
-                if (image.numChannels != 4 || !background) return image;
-                final imageBg =
-                    img.Image(width: image.width, height: image.height);
-                img.fill(imageBg, color: img.ColorRgb8(255, 255, 255));
-                return img.compositeImage(imageBg, image);
-              });
+            final cmd = img.Command()..image(image);
+            if (background) cmd.filter(updateImageBackground());
             if (invert) cmd.invert();
             cmd.encodePng();
             final png = await cmd.getBytes();

@@ -197,6 +197,9 @@ class DocumentEvent extends ReplayEvent with _$DocumentEvent {
 
   const factory DocumentEvent.presentationTick(int tick) = PresentationTick;
 
+  const factory DocumentEvent.assetUpdated(String path, List<int> data) =
+      AssetUpdated;
+
   factory DocumentEvent.fromJson(Map<String, dynamic> json) =>
       _$DocumentEventFromJson(json);
 

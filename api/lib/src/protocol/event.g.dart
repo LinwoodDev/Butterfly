@@ -642,3 +642,16 @@ Map<String, dynamic> _$$PresentationTickImplToJson(
       'tick': instance.tick,
       'type': instance.$type,
     };
+
+_$AssetUpdatedImpl _$$AssetUpdatedImplFromJson(Map json) => _$AssetUpdatedImpl(
+      json['path'] as String,
+      (json['data'] as List<dynamic>).map((e) => e as int).toList(),
+      $type: json['type'] as String?,
+    );
+
+Map<String, dynamic> _$$AssetUpdatedImplToJson(_$AssetUpdatedImpl instance) =>
+    <String, dynamic>{
+      'path': instance.path,
+      'data': instance.data,
+      'type': instance.$type,
+    };
