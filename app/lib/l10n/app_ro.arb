@@ -151,6 +151,8 @@
   "copy": "Copiază",
   "back": "Înapoi",
   "zoomDependent": "Depinde de zoom",
+  "shapeDetection": "Detectare Formă",
+  "delay": "Întârziere",
   "defaultLayer": "Stratul implicit",
   "layer": "Stratul",
   "layers": "Straturi",
@@ -584,5 +586,6 @@
   "zoomControl": "Comandă mărire",
   "highContrast": "Contrast mare",
   "shouldANumber": "Această valoare trebuie să fie un număr valid",
+  "createAreas": "Create areas",
   "autosave": "Autosave"
 }

@@ -25,7 +25,14 @@ class AssetService {
   }
 
   void dispose() {
-    _images.forEach((key, value) => value.dispose());
+    _images.keys.toList().forEach(invalidateImage);
     _images.clear();
+  }
+
+  void invalidateImage(String path) {
+    try {
+      _images[path]?.dispose();
+    } catch (_) {}
+    _images.remove(path);
   }
 }

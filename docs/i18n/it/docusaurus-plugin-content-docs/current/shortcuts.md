@@ -26,22 +26,33 @@ Ci sono alcune scorciatoie che puoi usare nell'editor. Alcuni di loro sono scrit
 * `Ctrl` + `Y`: Ripeti
 * `Ctrl` + `Shift` + `P`: Open waypoints dialog
 * `Ctrl` + `B`: Apri finestra di dialogo di sfondo
-* `Ctrl` + `Maiusc` + `A`: Apri aree finestra
 * `Ctrl` + `S`: Salva
 * `Alt` + `S`: Cambia percorso
 * `Ctrl` + (`1` - `0`): Passa allo strumento
 * `Ctrl` + `+`: Zoom avanti
 * `Ctrl` + `-`: Zoom indietro
 
-## Stylus
+## Penna
 
-* `Primary button`: Change to hand tool
-* `Pulsante secondario`: Cambia in secondo strumento
+Per impostazione predefinita, la penna è configurata per funzionare come segue:
+* `Pen`: configurato come penna.
+* `First` (Primary button, if supported): Cambia in hand tool while pressed.
+* `Secondo` (Pulsante secondario, se supportato): Cambia al secondo strumento (vedi la sezione [configure](#configure) qui sotto) mentre premi.
+
+
 
 ## Configura {#configure}
 
-Personalizza i controlli dando ad ogni controllo un indice degli strumenti.
+È possibile personalizzare i controlli dando ad ogni controllo un indice degli strumenti. L'indicizzazione dello strumento inizia dalla sinistra della barra degli strumenti, con `1` che è il primo indice. Vedi esempio qui sotto
 
-* Lasciare vuoto per disabilitare lo strumento accendere questo controllo.
-* Impostalo su `0` per abilitare lo spostamento con questo controllo.
-* Impostarlo su un numero di posizione per passare allo strumento con questo indice a partire dal primo a sinistra che inizia con `1`.
+![barra degli strumenti numerata](toolbar_numbered.png)
+
+Qui, 1 si riferisce allo strumento del lao, 2, allo strumento della padella ecc.
+
+Le opzioni di configurazione che hai sono le seguenti:
+
+* Vuoto - lo strumento è incatenato.
+* 0 - lo strumento funzionerà come muoversi (cioè mano) in questa mod.
+* Numero positivo - Lo strumento seguirà l'indicizzazione come spiegato sopra. 
+
+

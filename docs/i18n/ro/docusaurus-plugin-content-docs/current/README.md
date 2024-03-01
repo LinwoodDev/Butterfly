@@ -16,6 +16,7 @@ sidebar_position: 1
 
 Vizitați [descărcările](/downloads) pentru a descărca aplicația pentru platforma dvs. Utilizați versiunea web [](https://butterfly.linwood.dev) dacă nu vă găsiți platforma.
 
+
 ## Vizualizare principală
 
 ![Vizualizare principală](main.png)

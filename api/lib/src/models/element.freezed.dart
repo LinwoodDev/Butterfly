@@ -12,7 +12,7 @@ part of 'element.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 ElementConstraint _$ElementConstraintFromJson(Map<String, dynamic> json) {
   return _ElementConstraint.fromJson(json);
@@ -141,7 +141,7 @@ class _$ElementConstraintImpl implements _ElementConstraint {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$ElementConstraintImpl &&
@@ -344,7 +344,7 @@ class _$ScaledElementConstraintsImpl implements ScaledElementConstraints {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$ScaledElementConstraintsImpl &&
@@ -523,7 +523,7 @@ class _$FixedElementConstraintsImpl implements FixedElementConstraints {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$FixedElementConstraintsImpl &&
@@ -724,7 +724,7 @@ class _$DynamicElementConstraintsImpl implements DynamicElementConstraints {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$DynamicElementConstraintsImpl &&

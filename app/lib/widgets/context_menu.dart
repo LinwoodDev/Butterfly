@@ -6,6 +6,7 @@ import 'package:butterfly/cubits/settings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:material_leap/material_leap.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 typedef ContextMenuBuilder = List<ContextMenuEntry> Function(
     BuildContext context);
@@ -138,6 +139,8 @@ class _ContextMenuState extends State<ContextMenu>
                       : SubmenuButton(
                           menuChildren: item.children,
                           leadingIcon: item.icon,
+                          trailingIcon:
+                              const PhosphorIcon(PhosphorIconsLight.caretRight),
                           menuStyle: const MenuStyle(
                             alignment: Alignment.bottomRight,
                           ),

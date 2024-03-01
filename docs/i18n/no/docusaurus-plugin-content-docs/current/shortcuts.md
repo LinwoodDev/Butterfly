@@ -26,22 +26,33 @@ Det er noen snarveier du kan benytte i editoren. Noen av dem er skrevet under kn
 * `Ctrl` + `Y`: Gjør om igjen
 * `Ctrl` + `Shift` + `P`: Open waypoints dialog
 * `Ctrl` + `B`: Åpne bakgrunnsdialog
-* `Ctrl` + `Shift` + `A`: Åpne områder dialog
 * `Ctrl` + `S`: Lagre
 * `Alt` + `S`: Endre bane
 * `Ctrl` + (`1` - `0`): Bytt til verktøy
 * `Ctrl` + `+`: Zoom inn
 * `Ctrl` + `-`: Zoom ut
 
-## Stylus
+## Penn
 
-* `Primærknapp`: Bytt til håndverktøy
-* `Sekundær knapp`: Endre til andre verktøy
+Som standard konfigureres pennen til å fungere som følgende:
+* `penn`: konfigurert som penn.
+* `Først` (Primærknapp, hvis støttet): Bytt til håndverktøy når det trykkes.
+* `Second` (Secondary button, if supported): Change to second tool (see [configure](#configure) section below)  while pressed.
+
+
 
 ## Konfigurer {#configure}
 
-Tilpass kontrollene ved å gi hver kontroll en verktøyindeks.
+Du kan tilpasse kontrollene ved å gi hver kontroll en verktøyindeks. Verktøyet som indekserer fra venstre for verktøylinjen, med `1` er den første indeksen. Se eksempelet nedenfor
 
-* La den være tom for å deaktivere verktøybryteren på denne kontrollen.
-* Sett den til `0` for å aktivere flytting av denne kontrollen.
-* Sett den til et positve-tall for å bytte til verktøy med denne indeksen starter fra den første til venstre med `1`.
+![verktøylinje nummerert](toolbar_numbered.png)
+
+Her viser 1 til lassoverktøyet 2, til panserverktøyet osv.
+
+Konfigurere innstillingene du har er følgende:
+
+* Tom - verktøyet er ubelastet.
+* 0 - verktøyet fungerer som flytting (dvs. hånd) i denne moden.
+* Positivt nummer - Verktøyet vil følge indekseringen som forklarer ovenfor. 
+
+

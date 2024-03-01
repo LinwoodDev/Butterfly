@@ -23,9 +23,8 @@
     "@docusaurus/plugin-pwa": "3.1.1",
     "@docusaurus/preset-classic": "3.1.1",
     "@docusaurus/theme-common": "3.1.1",
-    "@mdx-js/react": "^3.0.0",
-    "@phosphor-icons/react": "^2.0.15",
-    "@swc/core": "^1.4.0",
+    "@mdx-js/react": "^3.0.1",
+    "@swc/core": "^1.4.2",
     "animate.css": "^4.1.1",
     "clsx": "^2.1.0",
     "node-fetch": "^3.3.2",
@@ -48,12 +47,12 @@
       "last 1 safari version"
     ]
   },
-  "packageManager": "pnpm@8.15.0",
+  "packageManager": "pnpm@8.15.4",
   "devDependencies": {
     "@docusaurus/module-type-aliases": "3.1.1",
     "@docusaurus/tsconfig": "3.1.1",
     "markdownlint-cli2": "^0.12.1",
     "typescript": "^5.3.3",
-    "webpack": "^5.90.1"
+    "webpack": "^5.90.3"
   }
 }

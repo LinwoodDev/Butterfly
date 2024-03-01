@@ -1,21 +1,19 @@
 ---
-title: "Area"
+title: "Areas"
 sidebar_position: 2
 ---
 
 ## Introduction
 
-![Area](area.png)
+![พื้นที่](area.png)
 
 Areas are a way to restrict the size of the canvas. You can create areas by using the [area tool](tools/area.md). If you click on the background you can open the area list dialog using the context menu.
 
 ## Creating and deleting areas
 
-Use the [area tool](tools/area.md) to create an area.
-Areas cannot overlap. After you created an area you need to name it.
+Use the [area tool](tools/area.md) to create an area. Areas cannot overlap. After you created an area you need to name it.
 
-Click on the area if you want to modify it.
-You can also use the area dialog.
+Click on the area if you want to modify it. You can also use the area dialog.
 
 You have a few options in this menu:
 

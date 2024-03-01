@@ -27,6 +27,7 @@ To start working on the app you have two options:
 >Once you open the app, continue reading. 
 
 
+
 ## Main view
 
 ![Main view](main.png)

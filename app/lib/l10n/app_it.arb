@@ -151,6 +151,8 @@
   "copy": "Copia",
   "back": "Indietro",
   "zoomDependent": "Dipendente dallo zoom",
+  "shapeDetection": "Rilevamento Forme",
+  "delay": "Ritardo",
   "defaultLayer": "Layer predefinito",
   "layer": "Layer",
   "layers": "Layers",
@@ -567,7 +569,7 @@
   "users": "Utenti",
   "experiments": "Esperimenti",
   "address": "Indirizzo",
-  "spreadToPages": "Diffusione alle pagine",
+  "spreadToPages": "Dividi in pagine",
   "rootDirectorySpecifiedDescription": "La directory radice è specificata. Tutti i percorsi di directory avanzati saranno relativi a questa directory. Tienila vuota per disabilitare questo tipo di directory.",
   "rootDirectoryNotSpecifiedDescription": "La directory radice non è specificata. È richiesto un nome. Tutti i percorsi di directory avanzati saranno assoluti. Mantieni vuoto per disabilitare questo tipo di directory.",
   "unsecureConnectionTitle": "Connessione non sicura",
@@ -584,5 +586,6 @@
   "zoomControl": "Controllo zoom",
   "highContrast": "Alto contrasto",
   "shouldANumber": "Questo valore deve essere valido",
+  "createAreas": "Crea Area",
   "autosave": "Autosave"
 }

@@ -449,6 +449,20 @@ Map<String, dynamic> _$$AreaChangedImplToJson(_$AreaChangedImpl instance) =>
       'type': instance.$type,
     };
 
+_$AreaReorderedImpl _$$AreaReorderedImplFromJson(Map json) =>
+    _$AreaReorderedImpl(
+      json['name'] as String,
+      json['newIndex'] as int,
+      $type: json['type'] as String?,
+    );
+
+Map<String, dynamic> _$$AreaReorderedImplToJson(_$AreaReorderedImpl instance) =>
+    <String, dynamic>{
+      'name': instance.name,
+      'newIndex': instance.newIndex,
+      'type': instance.$type,
+    };
+
 _$CurrentAreaChangedImpl _$$CurrentAreaChangedImplFromJson(Map json) =>
     _$CurrentAreaChangedImpl(
       json['name'] as String,
@@ -626,5 +640,18 @@ Map<String, dynamic> _$$PresentationTickImplToJson(
         _$PresentationTickImpl instance) =>
     <String, dynamic>{
       'tick': instance.tick,
+      'type': instance.$type,
+    };
+
+_$AssetUpdatedImpl _$$AssetUpdatedImplFromJson(Map json) => _$AssetUpdatedImpl(
+      json['path'] as String,
+      (json['data'] as List<dynamic>).map((e) => e as int).toList(),
+      $type: json['type'] as String?,
+    );
+
+Map<String, dynamic> _$$AssetUpdatedImplToJson(_$AssetUpdatedImpl instance) =>
+    <String, dynamic>{
+      'path': instance.path,
+      'data': instance.data,
       'type': instance.$type,
     };

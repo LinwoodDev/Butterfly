@@ -93,7 +93,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
             embedding: embedding));
 
   void init(DocumentBloc bloc) {
-    changeTool(bloc, state.index ?? 0, null, true, false);
+    changeTool(bloc, index: state.index ?? 0);
     state.networkingService.setup(bloc);
   }
 
@@ -115,11 +115,12 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
         .getGridPosition(position, page, info, this);
   }
 
-  Future<Handler?> changeTool(DocumentBloc bloc,
-      [int? index,
-      Handler? handler,
-      bool justAdded = false,
-      bool runSelected = true]) async {
+  Future<Handler?> changeTool(
+    DocumentBloc bloc, {
+    int? index,
+    BuildContext? context,
+    Handler? handler,
+  }) async {
     resetInput(bloc);
     final blocState = bloc.state;
     if (blocState is! DocumentLoadSuccess) return null;
@@ -130,14 +131,16 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
       return null;
     }
     handler ??= Handler.fromTool(info.tools[index]);
-    if (!runSelected || handler.onSelected(bloc, this, justAdded)) {
+    if (context == null || handler.onSelected(context)) {
       state.handler.dispose(bloc);
       state.temporaryHandler?.dispose(bloc);
       _disposeForegrounds();
       final foregrounds = handler.createForegrounds(
           this, document, blocState.page, info, blocState.currentArea);
-      await Future.wait(foregrounds.map((e) async =>
-          await e.setup(document, blocState.assetService, blocState.page)));
+      if (handler.setupForegrounds) {
+        await Future.wait(foregrounds.map((e) async =>
+            await e.setup(document, blocState.assetService, blocState.page)));
+      }
       emit(state.copyWith(
         index: index,
         handler: handler,
@@ -225,15 +228,16 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     final handler = Handler.fromTool(tool);
     state.handler.dispose(bloc);
     _disposeForegrounds(false);
-    final newForegrounds = handler.createForegrounds(this, docState.data,
+    final foregrounds = handler.createForegrounds(this, docState.data,
         docState.page, docState.info, docState.currentArea);
-    for (final r in newForegrounds) {
-      await r.setup(docState.data, docState.assetService, docState.page);
+    if (handler.setupForegrounds) {
+      await Future.wait(foregrounds.map((e) async =>
+          await e.setup(docState.data, docState.assetService, docState.page)));
     }
     emit(state.copyWith(
       index: state.index,
       handler: handler,
-      foregrounds: newForegrounds,
+      foregrounds: foregrounds,
       toolbar: handler.getToolbar(bloc),
       rendererStates: handler.rendererStates,
       cursor: handler.cursor ?? MouseCursor.defer,
@@ -246,13 +250,15 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     state.temporaryHandler?.dispose(bloc);
     final handler = Handler.fromTool(tool);
     _disposeTemporaryForegrounds();
-    final temporaryForegrounds = handler.createForegrounds(this, docState.data,
+    final foregrounds = handler.createForegrounds(this, docState.data,
         docState.page, docState.info, docState.currentArea);
-    await Future.wait(temporaryForegrounds.map((r) async =>
-        await r.setup(docState.data, docState.assetService, docState.page)));
+    if (handler.setupForegrounds) {
+      await Future.wait(foregrounds.map((e) async =>
+          await e.setup(docState.data, docState.assetService, docState.page)));
+    }
     emit(state.copyWith(
       temporaryHandler: handler,
-      temporaryForegrounds: temporaryForegrounds,
+      temporaryForegrounds: foregrounds,
       temporaryToolbar: handler.getToolbar(bloc),
       temporaryRendererStates: handler.rendererStates,
       temporaryCursor: handler.cursor,
@@ -288,14 +294,17 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
       _disposeForegrounds();
       final temporaryForegrounds = state.temporaryHandler
           ?.createForegrounds(this, document, page, info, currentArea);
-      if (temporaryForegrounds != null) {
+      if (temporaryForegrounds != null &&
+          state.temporaryHandler?.setupForegrounds == true) {
         await Future.wait(temporaryForegrounds
             .map((e) async => await e.setup(document, assetService, page)));
       }
       final foregrounds = state.handler
           .createForegrounds(this, document, page, info, currentArea);
-      await Future.wait(foregrounds
-          .map((e) async => await e.setup(document, assetService, page)));
+      if (state.handler.setupForegrounds) {
+        await Future.wait(foregrounds
+            .map((e) async => await e.setup(document, assetService, page)));
+      }
       final rendererStates = state.handler.rendererStates;
       final temporaryRendererStates = state.temporaryHandler?.rendererStates;
       final statesChanged = !mapEq.equals(state.rendererStates, rendererStates);
@@ -379,18 +388,21 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     emit(state.copyWith(pointers: state.pointers.toList()..remove(pointer)));
   }
 
-  Future<Handler?> changeTemporaryHandlerIndex(
-      DocumentBloc bloc, int index) async {
+  Future<Handler?> changeTemporaryHandlerIndex(BuildContext context, int index,
+      [DocumentBloc? bloc]) async {
+    bloc ??= context.read<DocumentBloc>();
     final blocState = bloc.state;
     if (blocState is! DocumentLoadSuccess) return null;
     if (index < 0 || index >= blocState.info.tools.length) {
       return null;
     }
     final tool = blocState.info.tools[index];
-    return changeTemporaryHandler(bloc, tool);
+    return changeTemporaryHandler(context, tool, bloc);
   }
 
-  Future<Handler?> changeTemporaryHandler(DocumentBloc bloc, Tool tool) async {
+  Future<Handler?> changeTemporaryHandler(BuildContext context, Tool tool,
+      [DocumentBloc? bloc]) async {
+    bloc ??= context.read<DocumentBloc>();
     final handler = Handler.fromTool(tool);
     final blocState = bloc.state;
     if (blocState is! DocumentLoadSuccess) return null;
@@ -398,12 +410,14 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     final page = blocState.page;
     final currentArea = blocState.currentArea;
     state.temporaryHandler?.dispose(bloc);
-    if (handler.onSelected(bloc, this, false)) {
+    if (handler.onSelected(context)) {
       _disposeTemporaryForegrounds();
       final temporaryForegrounds = handler.createForegrounds(
           this, document, page, blocState.info, currentArea);
-      await Future.wait(temporaryForegrounds.map(
-          (e) async => await e.setup(document, blocState.assetService, page)));
+      if (handler.setupForegrounds) {
+        await Future.wait(temporaryForegrounds.map((e) async =>
+            await e.setup(document, blocState.assetService, page)));
+      }
       emit(state.copyWith(
         temporaryHandler: handler,
         temporaryForegrounds: temporaryForegrounds,
@@ -524,49 +538,38 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
             visibleElements: visibleElements)));
   }
 
-  Future<ByteData?> render(
-      NoteData document, DocumentPage page, DocumentInfo info,
-      {required double width,
-      required double height,
-      double x = 0,
-      double y = 0,
-      double scale = 1,
-      double quality = 1,
-      bool renderBackground = true}) async {
-    final realWidth = (width * quality).ceil();
-    final realHeight = (height * quality).ceil();
-    final realZoom = scale * quality;
+  Future<ByteData?> render(NoteData document, DocumentPage page,
+      DocumentInfo info, ImageExportOptions options) async {
+    final realWidth = (options.width * options.quality).ceil();
+    final realHeight = (options.height * options.quality).ceil();
+    final realZoom = options.scale * options.quality;
     final recorder = ui.PictureRecorder();
     final canvas = Canvas(recorder);
     final painter = ViewPainter(document, page, info,
-        renderBackground: renderBackground,
+        renderBackground: options.renderBackground,
         cameraViewport: state.cameraViewport.unbake(unbakedElements: renderers),
-        transform:
-            CameraTransform(-Offset(x.toDouble(), y.toDouble()), realZoom));
+        transform: CameraTransform(Offset(options.x, options.y), realZoom));
     painter.paint(canvas, Size(realWidth.toDouble(), realHeight.toDouble()));
     final picture = recorder.endRecording();
     final image = await picture.toImage(realWidth, realHeight);
     return await image.toByteData(format: ui.ImageByteFormat.png);
   }
 
-  XmlDocument renderSVG(NoteData document, DocumentPage page,
-      {required int width,
-      required int height,
-      double x = 0,
-      double y = 0,
-      bool renderBackground = true}) {
+  XmlDocument renderSVG(
+      NoteData document, DocumentPage page, SVGExportOptions options) {
     final xml = XmlDocument();
     xml.createElement('svg', attributes: {
       'xmlns': 'http://www.w3.org/2000/svg',
       'xmlns:xlink': 'http://www.w3.org/1999/xlink',
       'version': '1.1',
-      'width': '${width}px',
-      'height': '${height}px',
-      'viewBox': '$x $y $width $height',
+      'width': '${options.width}px',
+      'height': '${options.height}px',
+      'viewBox': '${options.x} ${options.y} ${options.width} ${options.height}',
     });
 
-    final rect = Rect.fromLTWH(x, y, width.toDouble(), height.toDouble());
-    if (renderBackground) {
+    final rect = Rect.fromLTWH(options.x, options.y, options.width.toDouble(),
+        options.height.toDouble());
+    if (options.renderBackground) {
       for (final e in state.cameraViewport.backgrounds) {
         e.buildSvg(xml, document, page, rect);
       }
@@ -642,13 +645,17 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
       }
       final pageFormat =
           PdfPageFormat(area.width * quality, area.height * quality);
-      final image = await render(document, page, info,
-          width: area.width,
-          height: area.height,
-          x: area.position.x,
-          y: area.position.y,
-          quality: quality,
-          renderBackground: renderBackground);
+      final image = await render(
+          document,
+          page,
+          info,
+          ImageExportOptions(
+              width: area.width,
+              height: area.height,
+              x: area.position.x,
+              y: area.position.y,
+              quality: quality,
+              renderBackground: renderBackground));
       if (image == null) continue;
       pdf.addPage(pw.Page(
           pageFormat: pageFormat,
@@ -665,7 +672,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     final info = docState.info;
     final index = info.tools.indexOf(state.handler.data);
     if (index < 0) {
-      changeTool(bloc, state.index ?? 0, null, true, false);
+      changeTool(bloc, index: state.index ?? 0);
     }
     if (index == state.index) {
       return;
@@ -836,5 +843,15 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
 
   void dispose() {
     state.networkingService.closeNetworking();
+  }
+
+  Rect getPageRect() {
+    Rect? rect;
+    for (final renderer in renderers) {
+      final rendererRect = renderer.rect;
+      if (rendererRect == null) continue;
+      rect = rect?.expandToInclude(rendererRect) ?? rendererRect;
+    }
+    return rect ?? Rect.zero;
   }
 }

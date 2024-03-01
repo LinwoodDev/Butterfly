@@ -16,6 +16,7 @@ sidebar_position: 1
 
 Besøk [nedlastingene](/downloads) for å laste ned appen for plattformen din. Bruk [web versjon](https://butterfly.linwood.dev) hvis du ikke finner din plattform.
 
+
 ## Hoved visning
 
 ![Hoved visning](main.png)

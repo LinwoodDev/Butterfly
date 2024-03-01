@@ -6,6 +6,16 @@ class ImageRenderer extends Renderer<ImageElement> {
   ImageRenderer(super.element, [this.image]);
 
   @override
+  Future<bool> onAssetUpdate(NoteData document, AssetService assetService,
+      DocumentPage page, String path) async {
+    final uri = Uri.parse(element.source);
+    if (uri.hasScheme && !uri.isScheme('file')) return false;
+    final shouldUpdate = uri.path == path;
+    if (shouldUpdate) await setup(document, assetService, page, true);
+    return shouldUpdate;
+  }
+
+  @override
   void build(Canvas canvas, Size size, NoteData document, DocumentPage page,
       DocumentInfo info, CameraTransform transform,
       [ColorScheme? colorScheme, bool foreground = false]) {
@@ -45,9 +55,10 @@ class ImageRenderer extends Renderer<ImageElement> {
 
   @override
   FutureOr<void> setup(
-      NoteData document, AssetService assetService, DocumentPage page) async {
+      NoteData document, AssetService assetService, DocumentPage page,
+      [bool force = false]) async {
     super.setup(document, assetService, page);
-    if (image != null) return;
+    if (image != null && !force) return;
     try {
       image = await assetService.getImage(element.source, document);
     } catch (_) {}
@@ -116,5 +127,37 @@ class ImageRenderer extends Renderer<ImageElement> {
   void dispose() {
     image?.dispose();
     image = null;
+  }
+
+  @override
+  Map<RendererOperation, RendererOperationCallback> getOperations() {
+    Future<void> updateImage(
+        DocumentBloc bloc, void Function(img.Command) update) async {
+      final asset = Uri.parse(element.source);
+      if ((!asset.isScheme('file') && asset.scheme.isNotEmpty) ||
+          image == null) {
+        return;
+      }
+      final bytes = await image!.toByteData();
+      final imgImage = img.Image.fromBytes(
+        width: image!.width,
+        height: image!.height,
+        bytes: bytes!.buffer,
+        numChannels: 4,
+      );
+      var cmd = img.Command()..image(imgImage);
+      update(cmd);
+      cmd.encodePng();
+      final converted = await cmd.getBytes();
+      if (converted == null) return;
+      bloc.add(AssetUpdated(asset.path, converted));
+    }
+
+    return {
+      RendererOperation.invert: (bloc, context) =>
+          updateImage(bloc, (cmd) => cmd.invert()),
+      RendererOperation.background: (bloc, context) =>
+          updateImage(bloc, (cmd) => cmd.filter(updateImageBackground())),
+    };
   }
 }

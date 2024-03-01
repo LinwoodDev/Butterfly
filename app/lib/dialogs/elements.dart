@@ -26,6 +26,11 @@ ContextMenuBuilder buildElementsContextMenu(
     List<Renderer<PadElement>> renderers,
     Rect? rect) {
   final cubit = state.currentIndexCubit;
+  final operations = Map<Renderer<PadElement>,
+          Map<RendererOperation, RendererOperationCallback>>.fromIterable(
+      renderers,
+      value: (e) => e.getOperations());
+  final operationKeys = operations.values.expand((e) => e.keys).toList();
   return (context) => [
         if (rect == null) ...[
           ContextMenuItem(
@@ -81,7 +86,7 @@ ContextMenuBuilder buildElementsContextMenu(
               }
               cubit
                   .fetchHandler<SelectHandler>()
-                  ?.transform(bloc, transforms, null, true);
+                  ?.transform(bloc, null, transforms, true);
             },
             label: AppLocalizations.of(context).duplicate,
           ),
@@ -118,6 +123,24 @@ ContextMenuBuilder buildElementsContextMenu(
                 .toList(),
             label: AppLocalizations.of(context).arrange,
           ),
+          if (operationKeys.isNotEmpty)
+            ContextMenuGroup(
+              label: AppLocalizations.of(context).operations,
+              icon: const PhosphorIcon(PhosphorIconsLight.wrench),
+              children: operationKeys
+                  .map((e) => MenuItemButton(
+                        leadingIcon:
+                            PhosphorIcon(e.icon(PhosphorIconsStyle.light)),
+                        child: Text(e.getLocalizedName(context)),
+                        onPressed: () {
+                          operations.values
+                              .expand((e) => e.values)
+                              .forEach((e) => e(bloc, context));
+                          if (context.mounted) Navigator.of(context).pop(true);
+                        },
+                      ))
+                  .toList(),
+            ),
           if (renderers.length == 1 &&
               exportService.isExportable(renderers.first.element))
             ContextMenuItem(

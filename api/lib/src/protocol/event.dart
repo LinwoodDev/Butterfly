@@ -141,6 +141,11 @@ class DocumentEvent extends ReplayEvent with _$DocumentEvent {
     Area area,
   ) = AreaChanged;
 
+  const factory DocumentEvent.areaReordered(
+    String name,
+    int newIndex,
+  ) = AreaReordered;
+
   const factory DocumentEvent.currentAreaChanged(
     String name,
   ) = CurrentAreaChanged;
@@ -191,6 +196,9 @@ class DocumentEvent extends ReplayEvent with _$DocumentEvent {
   const factory DocumentEvent.presentationModeExited() = PresentationModeExited;
 
   const factory DocumentEvent.presentationTick(int tick) = PresentationTick;
+
+  const factory DocumentEvent.assetUpdated(String path, List<int> data) =
+      AssetUpdated;
 
   factory DocumentEvent.fromJson(Map<String, dynamic> json) =>
       _$DocumentEventFromJson(json);

@@ -151,6 +151,8 @@
   "copy": "نسخ",
   "back": "الرجوع",
   "zoomDependent": "تكبير الاعتماد",
+  "shapeDetection": "كشف الشكل",
+  "delay": "التأخير",
   "defaultLayer": "الطبقة الافتراضية",
   "layer": "الطبقة",
   "layers": "الطبقات",
@@ -584,5 +586,6 @@
   "zoomControl": "التحكم بالتكبير/التصغير",
   "highContrast": "تباين عالي",
   "shouldANumber": "يجب أن تكون هذه القيمة رقم صحيح",
+  "createAreas": "Create areas",
   "autosave": "Autosave"
 }

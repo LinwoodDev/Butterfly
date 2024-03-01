@@ -16,6 +16,7 @@ sidebar_position: 1
 
 Vieraile [latauksia](/downloads) ladataksesi sovelluksen alustallesi. Käytä [web-versiota](https://butterfly.linwood.dev) , jos et löydä alustaasi.
 
+
 ## Päänäkymä
 
 ![Päänäkymä](main.png)

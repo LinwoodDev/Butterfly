@@ -151,6 +151,8 @@
   "copy": "复制",
   "back": "后退",
   "zoomDependent": "依靠缩放",
+  "shapeDetection": "形状检测",
+  "delay": "延迟",
   "defaultLayer": "默认图层",
   "layer": "图层",
   "layers": "图层",
@@ -584,5 +586,6 @@
   "zoomControl": "缩放控制",
   "highContrast": "高对比度",
   "shouldANumber": "此值应该是有效的数字",
+  "createAreas": "Create areas",
   "autosave": "Autosave"
 }

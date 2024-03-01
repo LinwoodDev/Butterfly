@@ -16,6 +16,7 @@ sidebar_position: 1
 
 Platformunuz için uygulamayı indirmek için [indir](/downloads)i ziyaret edin. Platformunuzu bulamıyorsanız [web sürümü](https://butterfly.linwood.dev)nü kullanın.
 
+
 ## Ana Görünüm
 
 ![Ana Görünüm](main.png)

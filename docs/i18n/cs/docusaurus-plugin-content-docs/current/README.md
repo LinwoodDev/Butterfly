@@ -16,6 +16,7 @@ sidebar_position: 1
 
 Navštivte [stahování](/downloads) a stáhněte si aplikaci pro vaši platformu. Pokud nemůžete najít platformu, použijte [webovou verzi](https://butterfly.linwood.dev).
 
+
 ## Hlavní pohled
 
 ![Hlavní pohled](main.png)

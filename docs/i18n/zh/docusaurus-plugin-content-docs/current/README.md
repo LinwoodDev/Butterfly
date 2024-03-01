@@ -16,6 +16,7 @@ sidebar_position: 1
 
 访问 [下载](/downloads) 以下载应用到您的平台。 如果您找不到您的平台，请使用 [web 版本](https://butterfly.linwood.dev)。
 
+
 ## 主视图
 
 ![主视图](main.png)

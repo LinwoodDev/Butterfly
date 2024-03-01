@@ -5,6 +5,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'area.dart';
 import 'colors.dart';
 import 'element.dart';
+import 'export.dart';
 import 'pack.dart';
 import 'property.dart';
 import 'texture.dart';
@@ -89,6 +90,8 @@ sealed class Tool with _$Tool {
     @Default('') String name,
     @Default('') String displayIcon,
     @Default(true) bool zoomDependent,
+    @Default(0.5) double shapeDetectionTime,
+    @Default(false) bool shapeDetectionEnabled,
     @Default(PenProperty()) PenProperty property,
   }) = PenTool;
 
@@ -166,6 +169,12 @@ sealed class Tool with _$Tool {
     @Default(ImportType.document) ImportType importType,
     @Default(true) bool advanced,
   }) = AssetTool;
+
+  factory Tool.export({
+    @Default('') String name,
+    @Default('') String displayIcon,
+    required ExportOptions options,
+  }) = ExportTool;
 
   factory Tool.texture({
     @Default('') String name,

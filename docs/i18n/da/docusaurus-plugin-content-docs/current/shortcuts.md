@@ -26,22 +26,33 @@ Der er et par genveje, som du kan bruge i editoren. Nogle af dem er skrevet unde
 * `Ctrl` + `Y`: Fortryd
 * `Ctrl` + `Shift` + `P`: Open waypoints dialog
 * `Ctrl` + `B`: Åbn baggrundsdialog
-* `Ctrl` + `Shift` + `A`: Åbne områder dialog
 * `Ctrl` + `S`: Gem
 * `Alt` + `S`: Skift sti
 * `Ctrl` + (`1` - `0`): Skift til værktøj
 * `Ctrl` + `+`: Zoom ind
 * `Ctrl` + `-`: Zoom ud
 
-## Stylus
+## Pen
 
-* `Primær knap`: Skift til håndværktøj
-* `Sekundær knap`: Skift til andet værktøj
+Som standard er pennen konfigureret til at fungere som følgende:
+* `Pen`: konfigureret som pen.
+* `First` (Primær knap, hvis understøttet): Skift til håndværktøj under tryk.
+* `Second` (sekundær knap, hvis understøttet): Skift til andet værktøj (se [konfigurere](#configure) sektionen nedenfor) under tryk.
+
+
 
 ## Konfigurer {#configure}
 
-Tilpas kontrolelementerne ved at give hver kontrol et værktøjs indeks.
+Du kan tilpasse kontrolelementerne ved at give hver control et værktøjs indeks. Værktøjet indeksering starter fra venstre side af værktøjslinjen, hvor `1` er det første indeks. Se eksempel nedenfor
 
-* Lad det være tomt for at deaktivere værktøjsknappen på denne kontrol.
-* Sæt den til `0` for at aktivere bevægelse med denne kontrol.
-* Set it to a positve number to switch to the tool with this index starting from the first on the left starting with `1`.
+![værktøjslinje nummereret](toolbar_numbered.png)
+
+Her refererer 1 til lassoværktøjet, 2, til pandeværktøjet osv.
+
+Indstillingsmulighederne du har er følgende:
+
+* Tom - værktøjet er unchaged.
+* 0 - værktøjet vil fungere som bevægende (dvs. hånd) i dette mod.
+* Positivt nummer - Værktøjet vil følge indekseringen som forklaret ovenfor. 
+
+

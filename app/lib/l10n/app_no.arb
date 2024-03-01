@@ -151,6 +151,8 @@
   "copy": "Kopier",
   "back": "Tilbake",
   "zoomDependent": "Zoom avhengig",
+  "shapeDetection": "Finn form",
+  "delay": "Forsinkelse",
   "defaultLayer": "Standard lag",
   "layer": "Lag",
   "layers": "Lag",
@@ -584,5 +586,6 @@
   "zoomControl": "Zoom kontroll",
   "highContrast": "Høy kontrast",
   "shouldANumber": "Denne verdien må være et gyldig tall",
+  "createAreas": "Create areas",
   "autosave": "Autosave"
 }
