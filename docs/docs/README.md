@@ -68,7 +68,8 @@ The main view is composed of several elements
 		- Search for files
 	</TabItem>
 </Tabs>
-	
+
+Once opening a document by selecting a template or an existing file, you will get to the **main document view**
 
 ## The main document view. 
 With the top left button you can go back to the document list. The document name will be displayed on the right of it. Undo, redo and file options are in the top right corner.
