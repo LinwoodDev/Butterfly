@@ -26,7 +26,7 @@ To start working on the app you have two options:
 1. [Downloads](/downloads) the app version that is appropriate for your platform (Butterfly can run on most mobile, desktop, and web platfroms). 
 2. Use [web version](https://butterfly.linwood.dev) if you cannot find your platform or if you don't want to install it on it. See [here](storage#web) about file storage on the web version.
 
->Once you open the app, continue reading. 
+> Once you open the app, continue reading. 
 
 
 
