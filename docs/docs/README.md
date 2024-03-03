@@ -18,7 +18,9 @@ import { Gear, Plus } from "@phosphor-icons/react";
 Butterfly is a note taking up that is aiming for unified experience across devices. Butterfly's approach is for minimalistic view of the drawing canvas while maximizing the user's control over the app.
 
 ## Getting started
-> You can use the sidebar to navigate quicly through the wiki.
+
+> You can use the sidebar to navigate quickly through the wiki.
+
 
 To start working on the app you have two options:
 1. [Downloads](/downloads) the app version that is appropriate for your platform (Butterfly can run on most mobile, desktop, and web platfroms). 
