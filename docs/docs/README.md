@@ -6,8 +6,18 @@ sidebar_position: 1
 ---
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
-import { Gear, Plus } from "@phosphor-icons/react";
-
+import { Gear, 
+	Plus, 
+	FloppyDisk, 
+	MagnifyingGlass,
+	ScribbleLoop,
+	Pen,
+	Path,
+	ArrowCounterClockwise,
+	ArrowClockwise,
+	Hand,
+	Wrench,
+	Lock} from "@phosphor-icons/react";
 
 ![Banner](/img/banner.png)
 
@@ -72,9 +82,45 @@ The main view is composed of several elements
 Once opening a document by selecting a template or an existing file, you will get to the **main document view**
 
 ## The main document view. 
-With the top left button you can go back to the document list. The document name will be displayed on the right of it. Undo, redo and file options are in the top right corner.
 
-Below it, you can find the toolbar. Left, you can switch between view and edit mode. Right to it, there you find the zoom options. In the top right corner there are the tool options.
+You can return from the document view to the document list with the back action of your device. As with the main view, the document display changes based on your device. 
 
-- The view toolbar options are background, export and save.
-- The edit toolbar options are the tools. You can find [here](background) more.
+<Tabs
+    defaultValue = "desktop"
+	    values={[
+	    {label:"Desktop", value:'desktop'},
+	    {label:"Mobile", value:'mobile'},
+	    ]}>
+    <TabItem value="desktop">
+		In the Desktop view, you'll have at the top left the file bar\
+	    ![file_bar](/img/document_view_file_bar.png)\
+		This holds, from left to right, the 
+		[<img alt="logo" src="/img/logo.png" width="16"/>](/img/logo.png)
+		butterfly button to open the menu. Next to it there is the name field that displays the name of the note. You can rename the note by typing a new name into that field and saving it using the <FloppyDisk/> save button. Finally you can <MagnifyingGlass/> search for elements within the note.
+		\
+		At the top right of the screen you have the toolbar\
+		![toolbar](/img/document_view_toolbar.png)\
+		By default this bar has the <ScribbleLoop/> lasso tool; the <Pen/> pen tool; the <Path/> path erase tool; the <ArrowCounterClockwise/> undo and <ArrowClockwise/> redo butons, and the <Hand/> hand tool. Then you have the <Plus/> button to add elements to the tool bar, the <Wrench/> button to configure the webpage, and finally the <Lock/> tool to look the zoom and/or the position of the screen. 
+		### Important notes
+		1. If some of the element on the toolbar are not visible to you, click and drag (or swipe) left and right to reveal further tools. 
+		2. After selecting a tool, a small menu will appear. Long clicking the tool again will allow you to drag it to a new position
+		3. You can add more tools to the toolbar by clicking the <Plus/> plus sign. 
+	</TabItem>
+	<TabItem value="mobile">
+		In the mobile view, you'll have at the top the file bar\
+	    ![file_bar](/img/document_view_file_bar.png)\
+		This holds, from left to right, the 
+		[<img alt="logo" src="/img/logo.png" width="16"/>](/img/logo.png)
+		butterfly button to open the menu. Next to it there is the name field that displays the name of the note. You can rename the note by typing a new name into that field and saving it using the <FloppyDisk/> save button. Finally you can <MagnifyingGlass/> search for elements within the note.
+		\
+		At the bottom of the screen you have the toolbar\
+		![toolbar](/img/document_view_toolbar.png)\
+		By default this bar has the <ScribbleLoop/> lasso tool; the <Pen/> pen tool; the <Path/> path erase tool; the <ArrowCounterClockwise/> undo and <ArrowClockwise/> redo butons, and the <Hand/> hand tool. Then you have the <Plus/> button to add elements to the tool bar, the <Wrench/> button to configure the webpage, and finally the <Lock/> tool to look the zoom and/or the position of the screen. 
+		### Important notes
+		1. If some of the element on the toolbar are not visible to you, or swipe left and right to reveal further elements. 
+		2. After selecting a tool, a small menu will appear. Long clicking the tool again will allow you to drag it to a new position
+		3. You can add more tools to the toolbar by clicking the <Plus/> plus sign. 
+	</TabItem>
+</Tabs>
+	
+
