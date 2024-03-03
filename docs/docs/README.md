@@ -25,16 +25,18 @@ import { Gear,
 
 > Welcome to Butterfly, the opensource note app.
 
-Butterfly is a note taking up that is aiming for unified experience across devices. Butterfly's approach is for minimalistic view of the drawing canvas while maximizing the user's control over the app.
+Butterfly is a note taking app that is aiming for unified experience across all platforms. It provides simple UI with powerful customization.
 
 ## Getting started
-> You can use the sidebar to navigate quicly through the wiki.
+
+> You can use the sidebar to navigate quickly through the wiki.
+
 
 To start working on the app you have two options:
 1. [Downloads](/downloads) the app version that is appropriate for your platform (Butterfly can run on most mobile, desktop, and web platfroms). 
 2. Use [web version](https://butterfly.linwood.dev) if you cannot find your platform or if you don't want to install it on it. See [here](storage#web) about file storage on the web version.
 
->Once you open the app, continue reading. 
+> Once you open the app, continue reading. 
 
 
 
