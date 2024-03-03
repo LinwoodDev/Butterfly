@@ -15,7 +15,7 @@ import { Gear, Plus } from "@phosphor-icons/react";
 
 > Welcome to Butterfly, the opensource note app.
 
-Butterfly is a note taking up that is aiming for unified experience across devices. Butterfly's approach is for minimalistic view of the drawing canvas while maximizing the user's control over the app.
+Butterfly is a note taking app that is aiming for unified experience across all platforms. It provides simple UI with powerful customization.
 
 ## Getting started
 
