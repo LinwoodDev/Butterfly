@@ -17,7 +17,8 @@ class SelectHandler extends Handler<SelectTool> {
     _selected = next ?? _selected;
     _submitTransform(bloc);
     _updateSelectionRect();
-    _selectionManager.startTransformWithCorner(corner, position);
+    _selectionManager.startTransformWithCorner(
+        corner, position ?? _selectionManager.selection.center);
     _duplicate = duplicate;
     bloc.refresh();
   }

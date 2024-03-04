@@ -6,5 +6,6 @@
 * Add ability to reorder waypoints
 * Change waypoint identifier to the name instead of index
 * Fix transformation pushed to reference handle ([#615](https://github.com/LinwoodDev/Butterfly/issues/615))
+* Disable showing transform controls while transforming
 
 Read more here: https://linwood.dev/butterfly/2.1.0-beta.1
