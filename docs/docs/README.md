@@ -47,6 +47,7 @@ To start working on the app you have two options:
 The main view is composed of several elements
 <Tabs
     defaultValue = "desktop"
+	groupID="platfrom"
 	    values={[
 	    {label:"Desktop", value:'desktop'},
 	    {label:"Mobile", value:'mobile'},
@@ -89,6 +90,7 @@ You can return from the document view to the document list with the back action 
 
 <Tabs
     defaultValue = "desktop"
+	groupID="platfrom"
 	    values={[
 	    {label:"Desktop", value:'desktop'},
 	    {label:"Mobile", value:'mobile'},
