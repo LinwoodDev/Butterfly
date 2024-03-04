@@ -289,31 +289,46 @@ Map<String, dynamic> _$$WaypointCreatedImplToJson(
       'type': instance.$type,
     };
 
-_$WaypointRenamedImpl _$$WaypointRenamedImplFromJson(Map json) =>
-    _$WaypointRenamedImpl(
-      json['index'] as int,
+_$WaypointChangedImpl _$$WaypointChangedImplFromJson(Map json) =>
+    _$WaypointChangedImpl(
       json['name'] as String,
+      Waypoint.fromJson(Map<String, dynamic>.from(json['waypoint'] as Map)),
       $type: json['type'] as String?,
     );
 
-Map<String, dynamic> _$$WaypointRenamedImplToJson(
-        _$WaypointRenamedImpl instance) =>
+Map<String, dynamic> _$$WaypointChangedImplToJson(
+        _$WaypointChangedImpl instance) =>
     <String, dynamic>{
-      'index': instance.index,
       'name': instance.name,
+      'waypoint': instance.waypoint.toJson(),
       'type': instance.$type,
     };
 
 _$WaypointRemovedImpl _$$WaypointRemovedImplFromJson(Map json) =>
     _$WaypointRemovedImpl(
-      json['index'] as int,
+      json['name'] as String,
       $type: json['type'] as String?,
     );
 
 Map<String, dynamic> _$$WaypointRemovedImplToJson(
         _$WaypointRemovedImpl instance) =>
     <String, dynamic>{
-      'index': instance.index,
+      'name': instance.name,
+      'type': instance.$type,
+    };
+
+_$WaypointReorderedImpl _$$WaypointReorderedImplFromJson(Map json) =>
+    _$WaypointReorderedImpl(
+      json['name'] as String,
+      json['newIndex'] as int,
+      $type: json['type'] as String?,
+    );
+
+Map<String, dynamic> _$$WaypointReorderedImplToJson(
+        _$WaypointReorderedImpl instance) =>
+    <String, dynamic>{
+      'name': instance.name,
+      'newIndex': instance.newIndex,
       'type': instance.$type,
     };
 

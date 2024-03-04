@@ -3,5 +3,7 @@
 * Add image operations
   * Invert
   * Background
+* Add ability to reorder waypoints
+* Change waypoint identifier to the name instead of index
 
 Read more here: https://linwood.dev/butterfly/2.1.0-beta.1

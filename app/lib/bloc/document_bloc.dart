@@ -485,7 +485,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
                   waypoints: List<Waypoint>.from(current.page.waypoints)
                     ..add(event.waypoint))));
     });
-    on<WaypointRenamed>((event, emit) async {
+    on<WaypointChanged>((event, emit) async {
       final current = state;
       if (current is! DocumentLoadSuccess) return;
       if (!(current.embedding?.editable ?? true)) return;
@@ -493,9 +493,12 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
           emit,
           current.copyWith(
               page: current.page.copyWith(
-                  waypoints: List<Waypoint>.from(current.page.waypoints)
-                    ..[event.index] = current.page.waypoints[event.index]
-                        .copyWith(name: event.name))));
+                  waypoints: current.page.waypoints.map((e) {
+            if (e.name == event.name) {
+              return event.waypoint;
+            }
+            return e;
+          }).toList())));
     });
     on<WaypointRemoved>((event, emit) async {
       final current = state;
@@ -506,7 +509,20 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
           current.copyWith(
               page: current.page.copyWith(
                   waypoints: List<Waypoint>.from(current.page.waypoints)
-                    ..removeAt(event.index))));
+                    ..removeWhere((element) => element.name == event.name))));
+    });
+    on<WaypointReordered>((event, emit) {
+      final current = state;
+      if (current is! DocumentLoadSuccess) return;
+      if (!(current.embedding?.editable ?? true)) return;
+      final waypoints = List<Waypoint>.from(current.page.waypoints);
+      final waypoint =
+          waypoints.firstWhereOrNull((element) => element.name == event.name);
+      if (waypoint == null) return;
+      waypoints.remove(waypoint);
+      waypoints.insert(event.newIndex, waypoint);
+      final currentDocument = current.page.copyWith(waypoints: waypoints);
+      _saveState(emit, current.copyWith(page: currentDocument));
     });
 
     on<LayerRenamed>((event, emit) async {
