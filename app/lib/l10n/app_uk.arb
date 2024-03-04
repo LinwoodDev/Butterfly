@@ -586,6 +586,8 @@
   "zoomControl": "Управління масштабуванням",
   "highContrast": "Високий контраст",
   "shouldANumber": "Це значення має бути дійсним числом",
-  "createAreas": "Create areas",
-  "autosave": "Autosave"
+  "createAreas": "Створення області",
+  "autosave": "Autosave",
+  "invert": "Invert",
+  "operations": "Операції"
 }

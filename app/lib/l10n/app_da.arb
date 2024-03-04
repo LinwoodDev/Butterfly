@@ -586,6 +586,8 @@
   "zoomControl": "Zoom kontrol",
   "highContrast": "Høj kontrast",
   "shouldANumber": "Denne værdi skal være gyldigt nummer",
-  "createAreas": "Create areas",
-  "autosave": "Autosave"
+  "createAreas": "Opret områder",
+  "autosave": "Autosave",
+  "invert": "Invert",
+  "operations": "Operationer"
 }

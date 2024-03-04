@@ -586,6 +586,8 @@
   "zoomControl": "التحكم بالتكبير/التصغير",
   "highContrast": "تباين عالي",
   "shouldANumber": "يجب أن تكون هذه القيمة رقم صحيح",
-  "createAreas": "Create areas",
-  "autosave": "Autosave"
+  "createAreas": "إنشاء مناطق",
+  "autosave": "Autosave",
+  "invert": "Invert",
+  "operations": "العمليات"
 }

@@ -586,6 +586,8 @@
   "zoomControl": "Control de zoom",
   "highContrast": "Alto contraste",
   "shouldANumber": "Este valor debe ser un número válido",
-  "createAreas": "Create areas",
-  "autosave": "Autosave"
+  "createAreas": "Crear áreas",
+  "autosave": "Autosave",
+  "invert": "Invert",
+  "operations": "Operaciones"
 }
