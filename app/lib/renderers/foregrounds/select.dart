@@ -116,9 +116,10 @@ class RectSelectionForegroundManager {
     return true;
   }
 
-  void startTransformWithCorner(SelectionTransformCorner? corner) {
+  void startTransformWithCorner(SelectionTransformCorner? corner,
+      [Offset? position]) {
     _corner = corner;
-    _startPosition = corner.getFromRect(_selection);
+    _startPosition = position ?? corner.getFromRect(_selection);
     _currentPosition = _startPosition;
   }
 

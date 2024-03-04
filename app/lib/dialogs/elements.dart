@@ -86,7 +86,7 @@ ContextMenuBuilder buildElementsContextMenu(
               }
               cubit
                   .fetchHandler<SelectHandler>()
-                  ?.transform(bloc, null, transforms, true);
+                  ?.transform(bloc, null, next: transforms, duplicate: true);
             },
             label: AppLocalizations.of(context).duplicate,
           ),
