@@ -166,11 +166,12 @@ abstract class PathRenderer<T extends PadElement> extends Renderer<T> {
     }
 
     final first = outlinePoints.first;
-    path += 'M ${first.x} ${first.y}';
+    path += 'M ${first.roundedX()} ${first.roundedY()}';
     for (int i = 1; i < outlinePoints.length - 1; ++i) {
       final p0 = outlinePoints[i];
       final p1 = outlinePoints[i + 1];
-      path += ' Q ${p0.x} ${p0.y} ${(p0.x + p1.x) / 2} ${(p0.y + p1.y) / 2}';
+      path +=
+          ' Q ${p0.roundedX()} ${p0.roundedY()} ${p0.roundedBetweenX(p1)} ${p0.roundedBetweenY(p1)}';
     }
 
     xml.getElement('svg')?.createElement('path')
