@@ -1,0 +1,2 @@
+* Improve svg path export ([#620](https://github.com/LinwoodDev/Butterfly/issues/620))
+* Fix svg export shows nothing

@@ -222,7 +222,7 @@ class _$ImageExportOptionsImpl extends ImageExportOptions {
       required this.height,
       this.x = 0,
       this.y = 0,
-      this.scale = 0,
+      this.scale = 1,
       this.quality = 1,
       this.renderBackground = true,
       final String? $type})

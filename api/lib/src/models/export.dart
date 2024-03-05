@@ -14,7 +14,7 @@ sealed class ExportOptions with _$ExportOptions {
     required double height,
     @Default(0) double x,
     @Default(0) double y,
-    @Default(0) double scale,
+    @Default(1) double scale,
     @Default(1) double quality,
     @Default(true) bool renderBackground,
   }) = ImageExportOptions;
