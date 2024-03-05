@@ -1,2 +1,5 @@
 * Improve svg path export ([#620](https://github.com/LinwoodDev/Butterfly/issues/620))
-* Fix svg export shows nothing
+* Fix svg export preview shows nothing
+* Fix exporting on web
+
+Read more here: https://linwood.dev/butterfly/2.1.0-beta.2
