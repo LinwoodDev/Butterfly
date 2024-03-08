@@ -122,7 +122,7 @@ You can return from the document view to the document list with the back action 
 		By default this bar has the <ScribbleLoop/> lasso tool; the <Pen/> pen tool; the <Path/> path erase tool; the <ArrowCounterClockwise/> undo and <ArrowClockwise/> redo butons, and the <Hand/> hand tool. Then you have the <Plus/> button to add elements to the tool bar, the <Wrench/> button to configure the document, and finally the <Lock/> tool to look the zoom and/or the position of the screen. 
 		### Important notes
 		1. If some of the element on the toolbar are not visible to you, or swipe left and right to reveal further elements. 
-		2. After selecting a tool, a small menu will appear. Long clicking the tool again will allow you to drag it to a new position
+		2. After selecting a tool, a small menu will appear to configure the it. Long clicking the tool again will allow you to drag it to a new position
 		3. You can add more tools to the toolbar by clicking the <Plus/> plus sign. 
 	</TabItem>
 </Tabs>
