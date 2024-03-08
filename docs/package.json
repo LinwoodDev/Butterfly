@@ -24,6 +24,7 @@
     "@docusaurus/preset-classic": "3.1.1",
     "@docusaurus/theme-common": "3.1.1",
     "@mdx-js/react": "^3.0.1",
+    "@phosphor-icons/react": "^2.0.15",
     "@swc/core": "^1.4.2",
     "animate.css": "^4.1.1",
     "clsx": "^2.1.0",
