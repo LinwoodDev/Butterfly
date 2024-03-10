@@ -55,29 +55,29 @@ winget install LinwoodCloud.Butterfly
 For at opgradere winget-pakken, køre:
 
 ```powershell
-winget upgrade LinwoodCloud.Butterfly
+winget opgradering LinwoodCloud.Butterfly
 ```
 
 For at afinstallere winget-pakken, kør
 
 ```powershell
-winget uninstall LinwoodCloud.Butterfly
+winget afinstallere LinwoodCloud.Butterfly
 ```
 
 ### Nightly version
 
 ```powershell
-winget install LinwoodCloud.Butterfly.Nightly
+winget installer LinwoodCloud.Butterfly.Natlige
 ```
 
 For at opgradere winget-pakken, køre:
 
 ```powershell
-winget upgrade LinwoodCloud.Butterfly.Nightly
+winget opgradere LinwoodCloud.Butterfly.Natlige
 ```
 
 For at afinstallere winget-pakken, kør
 
 ```powershell
-winget uninstall LinwoodCloud.Butterfly.Nightly
+winget afinstallere LinwoodCloud.Butterfly.Natlige
 ```
