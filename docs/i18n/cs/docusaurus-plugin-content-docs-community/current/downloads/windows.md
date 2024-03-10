@@ -49,7 +49,7 @@ Přečtěte si více o noční verzi Butterfly [zde](/nightly).
 ## Instalovat pomocí winget
 
 ```powershell
-winget install LinwoodCloud.Butterfly
+winget nainstalovat LinwoodCloud.Butterfly
 ```
 
 Chcete-li aktualizovat balíček winget, spusťte:
@@ -61,23 +61,23 @@ winget upgrade LinwoodCloud.Butterfly
 Chcete-li balíček winget odinstalovat, spusťte:
 
 ```powershell
-winget uninstall LinwoodCloud.Butterfly
+winget odinstalovat LinwoodCloud.Butterfly
 ```
 
 ### Noční verze
 
 ```powershell
-winget install LinwoodCloud.Butterfly.Nightly
+winget nainstalujte LinwoodCloud.Butterfly.Nightly
 ```
 
 Chcete-li aktualizovat balíček winget, spusťte:
 
 ```powershell
-winget upgrade LinwoodCloud.Butterfly.Nightly
+winget aktualizovat LinwoodCloud.Butterfly.Nightly
 ```
 
 Chcete-li balíček winget odinstalovat, spusťte:
 
 ```powershell
-winget uninstall LinwoodCloud.Butterfly.Nightly
+winget odinstalovat LinwoodCloud.Butterfly.Nightly
 ```
