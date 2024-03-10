@@ -15,18 +15,18 @@ import { Gear, Plus, FloppyDisk, MagnifyingGlass, ScribbleLoop, Pen, Path, Arrow
 
 > Добро пожаловать в приложение заметок от Баттерфли.
 
-Butterfly is a note taking app that is aiming for unified experience across all platforms. It provides simple UI with powerful customization.
+Бабочка - это заметка, делающая приложение, которое стремится к единому опыту на всех платформах. Он предоставляет простой интерфейс с мощной настройкой.
 
 ## Приступая к работе
 
-> You can use the sidebar to navigate quickly through the wiki.
+> Вы можете использовать боковую панель для быстрого перехода по вики.
 
 
-To start working on the app you have two options:
-1. [Downloads](/downloads) the app version that is appropriate for your platform (Butterfly can run on most mobile, desktop, and web platfroms).
-2. Use [web version](https://butterfly.linwood.dev) if you cannot find your platform or if you don't want to install it on it. See [here](storage#web) about file storage on the web version.
+Чтобы начать работу над приложением, у вас есть два варианта:
+1. [Downloads](/downloads) версия приложения, подходящая для вашей платформы (Butterfly может работать на большинстве мобильных, настольных и веб-платформах).
+2. Используйте [веб-версию](https://butterfly.linwood.dev) , если вы не можете найти свою платформу или не хотите ее устанавливать. See [here](storage#web) about file storage on the web version.
 
-> Once you open the app, continue reading.
+> Как только вы откроете приложение, продолжайте чтение.
 
 
 
@@ -34,7 +34,7 @@ To start working on the app you have two options:
 
 ![Основной вид](main.png)
 
-The main view is composed of several elements
+Основной взгляд состоит из нескольких элементов
 <Tabs
     defaultValue = "desktop"
     groupId="platfrom"
@@ -43,40 +43,40 @@ The main view is composed of several elements
  {label:"Mobile", value:'mobile'},
  ]}>
     <TabItem value="desktop">
-        ![Welcome screen](/img/welcome_screen_desktop.png)
-        The top of the screen holds the banner for updates, the link to this documentations, and the <Gear/> config icon. Finally, to the right of the <Gear/> config symbol you have a drop down menu for controlling when this banner will appear (always/never/on updates).
-        The "Files" section in the major area of the left. There, you can do the typical operations:
-            - Select the display type (grid or list)
-            - Select the [source storage](storage) of the files
-            - Sort the display order of the files
-            - Add a folder, file, template, or import files by clicking the <Plus/> plus sign
-            - Type the direct path to a desired location (the Location field),
-            - Search for files
-        Finally, to the right, you have the quick start display with the templates available in the current location. For a fresh install this includes the light and dark template
+        ![Экран приветствия](/img/welcome_screen_desktop.png)
+        В верхней части экрана отображается баннер для обновлений, ссылка на эту документацию и значок конфигурации <Gear/>. Наконец, справа от символа конфигурации <Gear/> у вас есть выпадающее меню для управления когда этот баннер появится (всегда/никогда/не обновляется).
+        Раздел "Файлы" в основной области слева. Там, вы можете выполнить типичные операции:
+            - Выберите тип дисплея (сетка или список)
+            - выберите [исходное хранилище](storage) файлов
+            - Сортировку отображения файлов
+            - Добавить папку, файл, шаблон, или импортируйте файлы, нажав на знак <Plus/> плюс
+            - введите прямой путь к нужному месту (поле Местоположения),
+            - Поиск файлов
+        Наконец, справа у вас есть быстрый стартовый экран с шаблонами, доступными в текущем месте. Для новой установки включает легкий и темный шаблон
     </TabItem>
     <TabItem value="mobile">
-        When opening Butterfly on a mobile device you will be presented with a screen as this
-        ![Welcome screen first part](/img/welcome_screen_mobile_1.png)   
-        The top of the screen holds the banner for updates, and below it you can find the documnentation link, and next to it the <Gear/> config icon. Finally, to the right of the <Gear/> config symbol you have a drop down menu for controlling when this banner will appear (always/never/on updates).
-        Below those, you can find the quick start section holding the templates avialable to you. By defaule, the templates are the light and dark templates. 
-        Scrolling down, you will see the file interface:
+        При открытии Butterfly на мобильном устройстве вам будет представлен экран как это
+        ! Первая часть экрана приветствия](/img/welcome_screen_mobile_1. ng)   
+        В верхней части экрана отображается баннер для обновлений, и ниже вы можете найти ссылку на documnentation и рядом с ней значок конфигурации <Gear/>. Наконец, справа от символа конфигурации <Gear/> у вас есть выпадающее меню для управления когда этот баннер появится (всегда/никогда/не обновляется).
+        Ниже вы можете найти раздел быстрого старта, содержащий шаблоны, доступные для вас. С помощью десерта шаблоны являются светлыми и темными шаблонами. 
+        Прокрутка вниз, вы увидите файловый интерфейс:
         \
-        ![Welcome screen second part](/img/welcome_screen_mobile_2.png)  
-        The "Files" section in the major area of the left. There, you can do the typical operations:
-        - Select the display type (grid or list)
-        - Select the [source storage](storage) of the files
-        - Sort the display order of the files
-        - Add a folder, file, template, or import files by clicking the <Plus/> plus sign
-        - Type the direct path to a desired location (the Location field),
-        - Search for files
+        ! Вторая часть экрана приветствия](/img/welcome_screen_mobile_2. ng)  
+        Раздел "Файлы" в основной области слева. Там, вы можете выполнить типичные операции:
+        - Выберите тип дисплея (сетка или список)
+        - выберите [исходное хранилище](storage) файлов
+        - Сортировку отображения файлов
+        - Добавить папку, файл, шаблон, или импортируйте файлы, нажав на знак <Plus/> плюс
+        - введите прямой путь к нужному месту (поле Местоположения),
+        - Поиск файлов
     </TabItem>
 </Tabs>
 
 Once opening a document by selecting a template or an existing file, you will get to the **Document View**
 
-## The Document View
+## Документ Просмотр
 
-You can return from the document view to the document list with the back action of your device. As with the main view, the document display changes based on your device. 
+Вы можете вернуться из документа в список документов с обратным действием вашего устройства. Как и в случае с основным представлением, документ отображает изменения на основе вашего устройства. 
 
 <Tabs
     defaultValue = "desktop"
@@ -86,34 +86,34 @@ You can return from the document view to the document list with the back action 
  {label:"Mobile", value:'mobile'},
  ]}>
     <TabItem value="desktop">
-        In the Desktop view, you'll have at the top left the file bar\
-        ![file_bar](/img/document_view_file_bar.png)\
-        This holds, from left to right, the 
-        [<img alt="logo" src="/img/logo.png" width="16"/>](/img/logo.png)
-        butterfly button to open the menu. Next to it there is the name field that displays the name of the note. You can rename the note by typing a new name into that field and saving it using the <FloppyDisk/> save button. Finally you can <MagnifyingGlass/> search for elements within the note.
+        В режиме рабочего стола вы увидите верхнюю часть строки файла\
+        ![file_bar](/img/document_view_file_bar. ng)\
+        Эта зацепка слева направо, the 
+        [<img alt="logo" src="/img/logo.png" width="16"/>](/img/logo. ng)
+        кнопка "бабочка" для открытия меню. Рядом с ним есть поле имя, которое отображает имя заметки. Вы можете переименовать записку, введя новое имя в это поле и сохранив ее с помощью кнопки 'Сохранить' <FloppyDisk/>. Finally you can <MagnifyingGlass/> search for elements within the note.
         \
-        At the top right of the screen you have the toolbar\
-        ![toolbar](/img/document_view_toolbar.png)\
-        By default this bar has the <ScribbleLoop/> lasso tool; the <Pen/> pen tool; the <Path/> path erase tool; the <ArrowCounterClockwise/> undo and <ArrowClockwise/> redo butons, and the <Hand/> hand tool. Then you have the <Plus/> button to add elements to the tool bar, the <Wrench/> button to configure the document, and finally the <Lock/> tool to look the zoom and/or the position of the screen. 
-        ### Important notes
-        1. If some of the element on the toolbar are not visible to you, click and drag (or swipe) left and right to reveal further tools. 
-        2. After selecting a tool, a small menu will appear. Long clicking the tool again will allow you to drag it to a new position
-        3. You can add more tools to the toolbar by clicking the <Plus/> plus sign. 
+        В правом верхнем углу экрана у вас есть панель инструментов\
+        ![toolbar](/img/document_view_toolbar. ng)\
+        по умолчанию эта панель содержит инструмент лассо <ScribbleLoop/> ; <Pen/> pen tool; инструмент стирания контуров <Path/> ; отмена <ArrowCounterClockwise/> и <ArrowClockwise/> повторных бутонов и инструмент руки <Hand/>. Затем у вас есть кнопка <Plus/> для добавления элементов на панель инструментов, кнопка <Wrench/> для настройки документа, и, наконец, инструмент <Lock/> для просмотра масштаба и/или положения экрана. 
+        ### Важные заметки
+        1. Если некоторые элементы на панели инструментов не видны, нажмите и перетащите их влево и вправо, чтобы открыть дополнительные инструменты. 
+        2. После выбора инструмента появится небольшое меню. Долгое нажатие на инструменте снова позволит вам перетащить его на новую позицию
+        3. Вы можете добавить инструменты на панель инструментов, нажав на знак <Plus/> плюс. 
     </TabItem>
     <TabItem value="mobile">
-        In the mobile view, you'll have at the top the file bar\
-        ![file_bar](/img/document_view_file_bar.png)\
-        This holds, from left to right, the 
-        [<img alt="logo" src="/img/logo.png" width="16"/>](/img/logo.png)
-        butterfly button to open the menu. Next to it there is the name field that displays the name of the note. You can rename the note by typing a new name into that field and saving it using the <FloppyDisk/> save button. Finally you can <MagnifyingGlass/> search for elements within the note.
+        В мобильном виде вы будете иметь верхнюю панель файлов\
+        ![file_bar](/img/document_view_file_bar. ng)\
+        Эта зацепка слева направо, the 
+        [<img alt="logo" src="/img/logo.png" width="16"/>](/img/logo. ng)
+        кнопка "бабочка" для открытия меню. Рядом с ним есть поле имя, которое отображает имя заметки. Вы можете переименовать записку, введя новое имя в это поле и сохранив ее с помощью кнопки 'Сохранить' <FloppyDisk/>. Finally you can <MagnifyingGlass/> search for elements within the note.
         \
-        At the bottom of the screen you have the toolbar\
-        ![toolbar](/img/document_view_toolbar.png)\
-        By default this bar has the <ScribbleLoop/> lasso tool; the <Pen/> pen tool; the <Path/> path erase tool; the <ArrowCounterClockwise/> undo and <ArrowClockwise/> redo butons, and the <Hand/> hand tool. Then you have the <Plus/> button to add elements to the tool bar, the <Wrench/> button to configure the document, and finally the <Lock/> tool to look the zoom and/or the position of the screen. 
-        ### Important notes
-        1. If some of the element on the toolbar are not visible to you, or swipe left and right to reveal further elements. 
-        2. After selecting a tool, a small menu will appear to configure the it. Long clicking the tool again will allow you to drag it to a new position
-        3. You can add more tools to the toolbar by clicking the <Plus/> plus sign. 
+        В нижней части экрана у вас есть панель инструментов\
+        ![toolbar](/img/document_view_toolbar. ng)\
+        по умолчанию эта панель содержит инструмент лассо <ScribbleLoop/> ; <Pen/> pen tool; инструмент стирания контуров <Path/> ; отмена <ArrowCounterClockwise/> и <ArrowClockwise/> повторных бутонов и инструмент руки <Hand/>. Затем у вас есть кнопка <Plus/> для добавления элементов на панель инструментов, кнопка <Wrench/> для настройки документа, и, наконец, инструмент <Lock/> для просмотра масштаба и/или положения экрана. 
+        ### Важные заметки
+        1. Если некоторые элементы на панели инструментов не видны, или проведите пальцем влево и вправо, чтобы выявить дополнительные элементы. 
+        2. После выбора инструмента появится небольшое меню для его настройки. Долгое нажатие на инструменте снова позволит вам перетащить его на новую позицию
+        3. Вы можете добавить инструменты на панель инструментов, нажав на знак <Plus/> плюс. 
     </TabItem>
 </Tabs>
 	
