@@ -49,35 +49,35 @@ Dowiedz się więcej o nocnej wersji Motylka [tutaj](/nightly).
 ## Zainstaluj używając winget
 
 ```powershell
-winget install LinwoodCloud.Butterfly
+winget zainstalował LinwoodCloud.Butterfly
 ```
 
 Aby ulepszyć pakiet skrzydeł, uruchom:
 
 ```powershell
-winget upgrade LinwoodCloud.Butterfly
+ulepszenie skrzydeł LinwoodCloud.Butterfly
 ```
 
 Aby odinstalować pakiet skrzydeł, uruchom w:
 
 ```powershell
-winget uninstall LinwoodCloud.Butterfly
+odinstalowanie winget LinwoodCloud.Butterfly
 ```
 
 ### Wersja nocna
 
 ```powershell
-winget install LinwoodCloud.Butterfly.Nightly
+winget zainstalował LinwoodCloud.Butterfly.Nightly
 ```
 
 Aby ulepszyć pakiet skrzydeł, uruchom:
 
 ```powershell
-winget upgrade LinwoodCloud.Butterfly.Nightly
+ulepszenie skrzydeł LinwoodCloud.Butterfly.Nightly
 ```
 
 Aby odinstalować pakiet skrzydeł, uruchom w:
 
 ```powershell
-winget uninstall LinwoodCloud.Butterfly.Nightly
+odinstaluj LinwoodCloud.Butterfly.Nightly
 ```
