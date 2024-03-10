@@ -76,7 +76,7 @@ Eenmaal een document openen door een sjabloon of een bestaand bestand te selecte
 
 ## De Document Weergave
 
-U kunt terugkeren van de documentweergave naar de documentenlijst met de back-actie van uw apparaat. Net als bij de hoofdweergave, wordt het document gewijzigd op basis van uw apparaat. 
+U kunt terugkeren van de documentweergave naar de documentenlijst met de back-actie van uw apparaat. Net als bij de hoofdweergave, wordt het document gewijzigd op basis van uw apparaat.
 
 <Tabs
     defaultValue = "desktop"
