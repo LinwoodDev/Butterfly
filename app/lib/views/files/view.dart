@@ -81,7 +81,6 @@ class FilesViewState extends State<FilesView> {
     _filesStream = _fileSystem.fetchAsset(_locationController.text);
   }
 
-  // ! modifi with for error setState() called after dispose(), during big file import, check if the widget is still mounted before calling setState()
   void reloadFileSystem() {
     if (mounted) {
       setState(_setFilesStream);
