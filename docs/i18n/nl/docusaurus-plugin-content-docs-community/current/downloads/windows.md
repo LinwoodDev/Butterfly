@@ -49,35 +49,35 @@ Lees meer over de nachtelijke versie van Butterfly [hier](/nightly).
 ## Installeren met winget
 
 ```powershell
-Installeer Linwinget Cloud.Vlinder
+winget install LinwoodCloud.Butterfly
 ```
 
 Om het vleugelpakket te upgraden, run:
 
 ```powershell
-Winget upgrade LinwoodCloud.Vlinder
+winget upgrade LinwoodCloud.Butterfly
 ```
 
 Om het vleugelpakket te deïnstalleren, uitvoeren:
 
 ```powershell
-Winget deïnstalleer LinwoodCloud.Butterfly
+winget uninstall LinwoodCloud.Butterfly
 ```
 
 ### Nachtelijke versie
 
 ```powershell
-installeren van LinwoodCloud.Butterfly.Nightly
+winget install LinwoodCloud.Butterfly.Nightly
 ```
 
 Om het vleugelpakket te upgraden, run:
 
 ```powershell
-upgrade Linwinget Cloud.Butterfly.Nachtnacht
+winget upgrade LinwoodCloud.Butterfly.Nightly
 ```
 
 Om het vleugelpakket te deïnstalleren, uitvoeren:
 
 ```powershell
-Winget verwijderen LinwoodCloud.Butterfly.Nightly
+winget uninstall LinwoodCloud.Butterfly.Nightly
 ```
