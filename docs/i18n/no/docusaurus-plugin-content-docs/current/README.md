@@ -15,18 +15,18 @@ import { Gear, Plus, FloppyDisk, MagnifyingGlass, ScribbleLoop, Pen, Path, Arrow
 
 > Velkommen til Butterfly, the opensource note app.
 
-Butterfly is a note taking app that is aiming for unified experience across all platforms. It provides simple UI with powerful customization.
+Sommerfugl arbeider et notat som tar app som sikter mot en enhetlig opplevelse på tvers av alle plattformer. Den har et enkelt brukergrensesnitt med kraftfull tilpasning.
 
 ## Komme i gang
 
-> You can use the sidebar to navigate quickly through the wiki.
+> Du kan bruke sidepanelet til å raskt navigere gjennom wikien.
 
 
-To start working on the app you have two options:
-1. [Downloads](/downloads) the app version that is appropriate for your platform (Butterfly can run on most mobile, desktop, and web platfroms).
-2. Use [web version](https://butterfly.linwood.dev) if you cannot find your platform or if you don't want to install it on it. See [here](storage#web) about file storage on the web version.
+For å begynne å jobbe med appen har du to alternativer:
+1. [Downloads](/downloads) appversjonen som passer for plattformen (Butterfly kan kjøre på mest mobil, skrivebord og nettplater).
+2. Bruk [web versjon](https://butterfly.linwood.dev) hvis du ikke finner plattformen din, eller hvis du ikke vil installere den i den. Se [her](storage#web) om fillagring på nettversjonen.
 
-> Once you open the app, continue reading.
+> Fortsett å lese når du åpner appen.
 
 
 
@@ -34,7 +34,7 @@ To start working on the app you have two options:
 
 ![Hoved visning](main.png)
 
-The main view is composed of several elements
+Hovedvisningen er satt sammen av flere elementer
 <Tabs
     defaultValue = "desktop"
     groupId="platfrom"
@@ -43,26 +43,26 @@ The main view is composed of several elements
  {label:"Mobile", value:'mobile'},
  ]}>
     <TabItem value="desktop">
-        ![Welcome screen](/img/welcome_screen_desktop.png)
-        The top of the screen holds the banner for updates, the link to this documentations, and the <Gear/> config icon. Finally, to the right of the <Gear/> config symbol you have a drop down menu for controlling when this banner will appear (always/never/on updates).
-        The "Files" section in the major area of the left. There, you can do the typical operations:
+        λ Welcome-skjerm](/img/welcome_screen_desktop.png)
+        Øverst på skjermen holder banneret for oppdateringer, lenken til dette dokumentasjonen, og <Gear/> konfigurasjonsikonet. Til slutt til høyre for <Gear/> config-symbolet har du en rullegardinmeny for å kontrollere når dette banneret vises (alltid/aldri/on updates).
+        «Filer»-seksjonen i det største området til venstre. There, you can do the typical operations:
             - Select the display type (grid or list)
             - Select the [source storage](storage) of the files
             - Sort the display order of the files
             - Add a folder, file, template, or import files by clicking the <Plus/> plus sign
             - Type the direct path to a desired location (the Location field),
             - Search for files
-        Finally, to the right, you have the quick start display with the templates available in the current location. For a fresh install this includes the light and dark template
+        Finally, to the right, you have the quick start display with the templates available in the current location. På frisk installasjon inneholder dette lys og mørk mal
     </TabItem>
     <TabItem value="mobile">
-        When opening Butterfly on a mobile device you will be presented with a screen as this
-        ![Welcome screen first part](/img/welcome_screen_mobile_1.png)   
-        The top of the screen holds the banner for updates, and below it you can find the documnentation link, and next to it the <Gear/> config icon. Finally, to the right of the <Gear/> config symbol you have a drop down menu for controlling when this banner will appear (always/never/on updates).
-        Below those, you can find the quick start section holding the templates avialable to you. By defaule, the templates are the light and dark templates. 
-        Scrolling down, you will see the file interface:
+        Når du åpner Sommerfugl på en mobil enhet vil du bli vist med en skjerm som denne
+        ! Velkommen skjerm første part](/img/welcome_screen_mobile_1. ng)   
+        toppen av skjermen holder banner for oppdateringer, og under er det mulig å finne documnentation link, og ved siden av <Gear/> konfigurasjonsikonkonet. Til slutt til høyre for <Gear/> config-symbolet har du en rullegardinmeny for å kontrollere når dette banneret vises (alltid/aldri/on updates).
+        Under dem, kan du finne hurtigseksjonen som holder disse malene utenfor deg. By defaule, the templates are the light and dark templates. 
+        Rulling ned. du vil se filgrensesnittet:
         \
-        ![Welcome screen second part](/img/welcome_screen_mobile_2.png)  
-        The "Files" section in the major area of the left. There, you can do the typical operations:
+        ! Velkommen neste del ](/img/welcome_screen_mobile_2. ng)  
+        seksjonen «Filer» i det største området til venstre. There, you can do the typical operations:
         - Select the display type (grid or list)
         - Select the [source storage](storage) of the files
         - Sort the display order of the files
@@ -72,11 +72,11 @@ The main view is composed of several elements
     </TabItem>
 </Tabs>
 
-Once opening a document by selecting a template or an existing file, you will get to the **Document View**
+Når du åpner et dokument ved å velge en mal eller en eksisterende fil, vil du gå til **Dokumentvisning**
 
-## The Document View
+## Dokumentvisning (Automatic Translation)
 
-You can return from the document view to the document list with the back action of your device. As with the main view, the document display changes based on your device. 
+Fra dokumentvisningen kan du returnere til dokumentlisten med den bakenforliggende handlingen for enheten. Som for hovedvisningen vises dokumentet basert på enheten din. 
 
 <Tabs
     defaultValue = "desktop"
@@ -86,34 +86,34 @@ You can return from the document view to the document list with the back action 
  {label:"Mobile", value:'mobile'},
  ]}>
     <TabItem value="desktop">
-        In the Desktop view, you'll have at the top left the file bar\
-        ![file_bar](/img/document_view_file_bar.png)\
-        This holds, from left to right, the 
-        [<img alt="logo" src="/img/logo.png" width="16"/>](/img/logo.png)
-        butterfly button to open the menu. Next to it there is the name field that displays the name of the note. You can rename the note by typing a new name into that field and saving it using the <FloppyDisk/> save button. Finally you can <MagnifyingGlass/> search for elements within the note.
+        I Desktop view, så er du øverst til venstre i fillinjen\
+        ![file_bar](/img/document_view_file_bar. ng)\
+        Dette holder, fra venstre til høyre, 
+        [<img alt="logo" src="/img/logo.png" width="16"/>](/img/logo. ng)
+        sommerfuglknapp for å åpne menyen. Ved siden av det er det navnefeltet som viser navnet på merknaden. Du kan endre navn på notatet ved å skrive et nytt navn i det feltet og lagre det ved hjelp av <FloppyDisk/> Lagre-knappen. Til slutt kan du <MagnifyingGlass/> søke etter elementer i notatet.
         \
-        At the top right of the screen you have the toolbar\
-        ![toolbar](/img/document_view_toolbar.png)\
-        By default this bar has the <ScribbleLoop/> lasso tool; the <Pen/> pen tool; the <Path/> path erase tool; the <ArrowCounterClockwise/> undo and <ArrowClockwise/> redo butons, and the <Hand/> hand tool. Then you have the <Plus/> button to add elements to the tool bar, the <Wrench/> button to configure the document, and finally the <Lock/> tool to look the zoom and/or the position of the screen. 
-        ### Important notes
-        1. If some of the element on the toolbar are not visible to you, click and drag (or swipe) left and right to reveal further tools. 
-        2. After selecting a tool, a small menu will appear. Long clicking the tool again will allow you to drag it to a new position
-        3. You can add more tools to the toolbar by clicking the <Plus/> plus sign. 
+        øverst til høyre på skjermen har du verktøylinjen\
+        ![toolbar](/img/document_view_toolbar. ng)\
+        Som standard har denne linjen verktøyet <ScribbleLoop/> lasso; verktøyet for <Pen/> penn; verktøyet <Path/> bane-feltet; <ArrowCounterClockwise/> undo og <ArrowClockwise/> redo-butonene og verktøyet <Hand/> Deretter har du knappen <Plus/> for å legge til elementer til verktøylinjen, <Wrench/> for å konfigurere dokumentet, og til slutt verktøyet <Lock/> for å se zoomen og/eller posisjonen til skjermen. 
+        ### Viktige merknader
+        1. Hvis noe av elementet på verktøylinjen ikke er synlig for deg, klikk og dra (eller sveiper) til venstre og høyre for å vise flere verktøy. 
+        2. Etter å ha valgt et verktøy vil en liten meny vises. Langt klikk på verktøyet igjen lar deg dra den til en ny posisjon
+        3. Du kan legge til flere verktøy til verktøylinjen ved å klikke på <Plus/> pluss skilt. 
     </TabItem>
     <TabItem value="mobile">
-        In the mobile view, you'll have at the top the file bar\
-        ![file_bar](/img/document_view_file_bar.png)\
-        This holds, from left to right, the 
-        [<img alt="logo" src="/img/logo.png" width="16"/>](/img/logo.png)
-        butterfly button to open the menu. Next to it there is the name field that displays the name of the note. You can rename the note by typing a new name into that field and saving it using the <FloppyDisk/> save button. Finally you can <MagnifyingGlass/> search for elements within the note.
+        I den mobile visningen, så har du øverst fillinjen\
+        ![file_bar](/img/document_view_file_bar. ng)\
+        Dette holder, fra venstre til høyre, 
+        [<img alt="logo" src="/img/logo.png" width="16"/>](/img/logo. ng)
+        sommerfuglknapp for å åpne menyen. Ved siden av det er det navnefeltet som viser navnet på merknaden. Du kan endre navn på notatet ved å skrive et nytt navn i det feltet og lagre det ved hjelp av <FloppyDisk/> Lagre-knappen. Til slutt kan du <MagnifyingGlass/> søke etter elementer i notatet.
         \
-        At the bottom of the screen you have the toolbar\
-        ![toolbar](/img/document_view_toolbar.png)\
-        By default this bar has the <ScribbleLoop/> lasso tool; the <Pen/> pen tool; the <Path/> path erase tool; the <ArrowCounterClockwise/> undo and <ArrowClockwise/> redo butons, and the <Hand/> hand tool. Then you have the <Plus/> button to add elements to the tool bar, the <Wrench/> button to configure the document, and finally the <Lock/> tool to look the zoom and/or the position of the screen. 
-        ### Important notes
-        1. If some of the element on the toolbar are not visible to you, or swipe left and right to reveal further elements. 
-        2. After selecting a tool, a small menu will appear to configure the it. Long clicking the tool again will allow you to drag it to a new position
-        3. You can add more tools to the toolbar by clicking the <Plus/> plus sign. 
+        på bunnen av skjermen har du verktøylinjen\
+        ![toolbar](/img/document_view_toolbar. ng)\
+        Som standard har denne linjen verktøyet <ScribbleLoop/> lasso; verktøyet for <Pen/> penn; verktøyet <Path/> bane-feltet; <ArrowCounterClockwise/> undo og <ArrowClockwise/> redo-butonene og verktøyet <Hand/> Deretter har du knappen <Plus/> for å legge til elementer til verktøylinjen, <Wrench/> for å konfigurere dokumentet, og til slutt verktøyet <Lock/> for å se zoomen og/eller posisjonen til skjermen. 
+        ### Viktige merknader
+        1. Hvis noe av elementet på verktøylinjen ikke er synlig for deg, eller du sveiper mot venstre og høyre for å vise flere elementer. 
+        2. Etter å ha valgt et verktøy vil det vises en liten meny for å konfigurere den. Langt klikk på verktøyet igjen lar deg dra den til en ny posisjon
+        3. Du kan legge til flere verktøy til verktøylinjen ved å klikke på <Plus/> pluss skilt. 
     </TabItem>
 </Tabs>
 	
