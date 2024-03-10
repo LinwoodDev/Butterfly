@@ -6,8 +6,7 @@ sidebar_position: 1
 ---
 
 import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
-import { Gear, Plus, FloppyDisk, MagnifyingGlass, ScribbleLoop, Pen, Path, ArrowCounterClockwise, ArrowClockwise, Hand, Wrench, Lock} from "@phosphor-icons/react";
+import TabItem din '@theme/TabItem'; import { Gear, Plus, FloppyDisk, MagnifyingGlass, ScribbleLoop, Pen, Cale, ArrowCounterClockwise, ArrowClockwise, Wrench, Lock} de la "@fosfor-icons/react";
 
 ![Banner](/img/banner.png)
 
@@ -15,18 +14,18 @@ import { Gear, Plus, FloppyDisk, MagnifyingGlass, ScribbleLoop, Pen, Path, Arrow
 
 > Bine ați venit la Butterfly, aplicația opensource note.
 
-Butterfly is a note taking app that is aiming for unified experience across all platforms. It provides simple UI with powerful customization.
+Butterfly este o notă care ia aplicația ce vizează o experiență unificată pe toate platformele. Oferă interfață simplă cu o personalizare puternică.
 
 ## Noțiuni de bază
 
-> You can use the sidebar to navigate quickly through the wiki.
+> Poți folosi bara laterală pentru a naviga rapid prin wiki.
 
 
-To start working on the app you have two options:
-1. [Downloads](/downloads) the app version that is appropriate for your platform (Butterfly can run on most mobile, desktop, and web platfroms).
-2. Use [web version](https://butterfly.linwood.dev) if you cannot find your platform or if you don't want to install it on it. See [here](storage#web) about file storage on the web version.
+Pentru a începe să lucrați la aplicație aveți două opțiuni:
+1. [Descarca](/downloads) versiunea aplicatiei care este potrivit pentru platforma ta (Butterfly poate rula pe cele mai multe mobile, desktop si web platfromuri).
+2. Utilizaţi [versiunea web](https://butterfly.linwood.dev) dacă nu găsiţi platforma sau dacă nu doriţi să o instalaţi pe ea. Vezi [aici](storage#web) despre stocarea fișierelor pe versiunea web.
 
-> Once you open the app, continue reading.
+> Odată ce deschideți aplicația, continuați citirea.
 
 
 
@@ -34,7 +33,7 @@ To start working on the app you have two options:
 
 ![Vizualizare principală](main.png)
 
-The main view is composed of several elements
+Opinia principală este compusă din mai multe elemente
 <Tabs
     defaultValue = "desktop"
     groupId="platfrom"
@@ -43,40 +42,40 @@ The main view is composed of several elements
  {label:"Mobile", value:'mobile'},
  ]}>
     <TabItem value="desktop">
-        ![Welcome screen](/img/welcome_screen_desktop.png)
-        The top of the screen holds the banner for updates, the link to this documentations, and the <Gear/> config icon. Finally, to the right of the <Gear/> config symbol you have a drop down menu for controlling when this banner will appear (always/never/on updates).
-        The "Files" section in the major area of the left. There, you can do the typical operations:
-            - Select the display type (grid or list)
-            - Select the [source storage](storage) of the files
-            - Sort the display order of the files
-            - Add a folder, file, template, or import files by clicking the <Plus/> plus sign
-            - Type the direct path to a desired location (the Location field),
-            - Search for files
-        Finally, to the right, you have the quick start display with the templates available in the current location. For a fresh install this includes the light and dark template
+        ![Ecran de întâmpinare](/img/welcome_screen_desktop.png)
+        Partea de sus a ecranului ține banner-ul pentru actualizări, link-ul către aceste documente și pictograma de configurare <Gear/>. În final, în dreapta simbolului de configurare <Gear/> aveţi un meniu dropdown pentru control atunci când acest banner va apărea (întotdeauna/niciodată/pe actualizări).
+        Secţiunea "File" din zona principală a stângii. Acolo, puteți face operațiunile tipice:
+            - Selectați tipul de afișare (grilă sau listă)
+            - Selectați [spațiul de stocare sursă](stocage) al fișierelor
+            - Sortați ordinea de afișare a fișierelor
+            - Adăugați un folder, fișier, șablon, sau de a importa fişiere făcând clic pe semnul <Plus/> plus
+            - Tastaţi calea directă către o locaţie dorită (câmpul locaţie),
+            - Caută fişiere
+        În final, la dreapta, aveți afișarea unui start rapid cu șabloanele disponibile în locația curentă. Pentru o instalare nouă, aceasta include șablonul deschis și întunecat
     </TabItem>
     <TabItem value="mobile">
-        When opening Butterfly on a mobile device you will be presented with a screen as this
-        ![Welcome screen first part](/img/welcome_screen_mobile_1.png)   
-        The top of the screen holds the banner for updates, and below it you can find the documnentation link, and next to it the <Gear/> config icon. Finally, to the right of the <Gear/> config symbol you have a drop down menu for controlling when this banner will appear (always/never/on updates).
-        Below those, you can find the quick start section holding the templates avialable to you. By defaule, the templates are the light and dark templates. 
-        Scrolling down, you will see the file interface:
+        La deschiderea Butterfly pe un dispozitiv mobil vi se va afișa un ecran ca acestă
+        Ecranul de întâmpinare întâi](/img/welcome_screen_mobile_1. ng)   
+        În partea de sus a ecranului se ține banner-ul pentru actualizări, și dedesubt poți găsi linkul de nentație și lângă el icoana de configurare <Gear/>. În final, în dreapta simbolului de configurare <Gear/> aveţi un meniu dropdown pentru control atunci când acest banner va apărea (întotdeauna/niciodată/pe actualizări).
+        Sub acestea, puteţi găsi secţiunea de pornire rapidă ţinând şabloanele care vă sunt accesibile. În mod implicit, șabloanele sunt șabloanele deschise și întunecate. 
+        Derulare în jos, vei vedea interfața fișierului:
         \
-        ![Welcome screen second part](/img/welcome_screen_mobile_2.png)  
-        The "Files" section in the major area of the left. There, you can do the typical operations:
-        - Select the display type (grid or list)
-        - Select the [source storage](storage) of the files
-        - Sort the display order of the files
-        - Add a folder, file, template, or import files by clicking the <Plus/> plus sign
-        - Type the direct path to a desired location (the Location field),
-        - Search for files
+        ! Ecran de întâmpinare secundar](/img/welcome_screen_mobile_2. ng)  
+        Secţiunea „Files” în zona principală a stângii. Acolo, puteți face operațiunile tipice:
+        - Selectați tipul de afișare (grilă sau listă)
+        - Selectați [spațiul de stocare sursă](stocage) al fișierelor
+        - Sortați ordinea de afișare a fișierelor
+        - Adăugați un folder, fișier, șablon, sau de a importa fişiere făcând clic pe semnul <Plus/> plus
+        - Tastaţi calea directă către o locaţie dorită (câmpul locaţie),
+        - Cauta fisiere
     </TabItem>
 </Tabs>
 
-Once opening a document by selecting a template or an existing file, you will get to the **Document View**
+După deschiderea unui document selectând un şablon sau un fişier existent, veţi ajunge la **Document View**
 
-## The Document View
+## Vizualizare document
 
-You can return from the document view to the document list with the back action of your device. As with the main view, the document display changes based on your device. 
+Puteți reveni din vizualizarea documentului la lista de documente cu acțiunea din spate a dispozitivului dvs. Ca și în cazul vizualizării principale, documentul afișează modificări bazate pe dispozitivul dvs. 
 
 <Tabs
     defaultValue = "desktop"
@@ -86,34 +85,34 @@ You can return from the document view to the document list with the back action 
  {label:"Mobile", value:'mobile'},
  ]}>
     <TabItem value="desktop">
-        In the Desktop view, you'll have at the top left the file bar\
-        ![file_bar](/img/document_view_file_bar.png)\
-        This holds, from left to right, the 
-        [<img alt="logo" src="/img/logo.png" width="16"/>](/img/logo.png)
-        butterfly button to open the menu. Next to it there is the name field that displays the name of the note. You can rename the note by typing a new name into that field and saving it using the <FloppyDisk/> save button. Finally you can <MagnifyingGlass/> search for elements within the note.
+        În desktop vei avea în stânga sus bara de fișier
+        ![file_bar](/img/document_view_file_bar. ng)\
+        Aceasta ține, de la stânga la dreapta, 
+        [<img alt="logo" src="/img/logo.png" width="16"/>](/img/logo. ng) Butonul
+        flutură pentru a deschide meniul. Lângă el este câmpul pentru nume care afișează numele notei. Puteți redenumi nota introducând un nou nume în acel câmp și salvându-l folosind butonul <FloppyDisk/> de salvare. În cele din urmă, puteţi căuta <MagnifyingGlass/> elemente în notă.
         \
-        At the top right of the screen you have the toolbar\
-        ![toolbar](/img/document_view_toolbar.png)\
-        By default this bar has the <ScribbleLoop/> lasso tool; the <Pen/> pen tool; the <Path/> path erase tool; the <ArrowCounterClockwise/> undo and <ArrowClockwise/> redo butons, and the <Hand/> hand tool. Then you have the <Plus/> button to add elements to the tool bar, the <Wrench/> button to configure the document, and finally the <Lock/> tool to look the zoom and/or the position of the screen. 
-        ### Important notes
-        1. If some of the element on the toolbar are not visible to you, click and drag (or swipe) left and right to reveal further tools. 
-        2. After selecting a tool, a small menu will appear. Long clicking the tool again will allow you to drag it to a new position
-        3. You can add more tools to the toolbar by clicking the <Plus/> plus sign. 
+        În dreapta sus a ecranului aveți bara de unelte\
+        ![toolbar](/img/document_view_toolbar. ng)\
+        Implicit această bară are instrumentul <ScribbleLoop/> lasso, unealta pentru Stiloul <Pen/> ; unealta de ștergere a traiectoriei <Path/> , butoanele de repetare <ArrowCounterClockwise/> undo și <ArrowClockwise/> , și unealta manuală <Hand/>. Apoi aveți butonul <Plus/> pentru a adăuga elemente în bara de unelte, butonul <Wrench/> pentru a configura documentul, și, în cele din urmă, instrumentul <Lock/> pentru a arăta zoom și/sau poziția ecranului. 
+        ### Note importante
+        1. Dacă unele elemente din bara de instrumente nu sunt vizibile pentru tine, apasă și trage (sau glisează) la stânga și la dreapta pentru a dezvălui alte unelte. 
+        2. După selectarea unei unelte, va apărea un mic meniu. Dând click din nou pe unealtă vei putea să o tragi într-o poziție nouă
+        3. Poți adăuga mai multe unelte în bara de instrumente făcând clic pe semnul <Plus/> plus. 
     </TabItem>
     <TabItem value="mobile">
-        In the mobile view, you'll have at the top the file bar\
-        ![file_bar](/img/document_view_file_bar.png)\
-        This holds, from left to right, the 
-        [<img alt="logo" src="/img/logo.png" width="16"/>](/img/logo.png)
-        butterfly button to open the menu. Next to it there is the name field that displays the name of the note. You can rename the note by typing a new name into that field and saving it using the <FloppyDisk/> save button. Finally you can <MagnifyingGlass/> search for elements within the note.
+        În vizualizarea mobilă, vei avea în partea de sus bara de fișiere
+        ![file_bar](/img/document_view_file_bar. ng)\
+        Aceasta ține, de la stânga la dreapta, 
+        [<img alt="logo" src="/img/logo.png" width="16"/>](/img/logo. ng) Butonul
+        flutură pentru a deschide meniul. Lângă el este câmpul pentru nume care afișează numele notei. Puteți redenumi nota introducând un nou nume în acel câmp și salvându-l folosind butonul <FloppyDisk/> de salvare. În cele din urmă, puteţi căuta <MagnifyingGlass/> elemente în notă.
         \
-        At the bottom of the screen you have the toolbar\
-        ![toolbar](/img/document_view_toolbar.png)\
-        By default this bar has the <ScribbleLoop/> lasso tool; the <Pen/> pen tool; the <Path/> path erase tool; the <ArrowCounterClockwise/> undo and <ArrowClockwise/> redo butons, and the <Hand/> hand tool. Then you have the <Plus/> button to add elements to the tool bar, the <Wrench/> button to configure the document, and finally the <Lock/> tool to look the zoom and/or the position of the screen. 
-        ### Important notes
-        1. If some of the element on the toolbar are not visible to you, or swipe left and right to reveal further elements. 
-        2. After selecting a tool, a small menu will appear to configure the it. Long clicking the tool again will allow you to drag it to a new position
-        3. You can add more tools to the toolbar by clicking the <Plus/> plus sign. 
+        În partea de jos a ecranului aveți bara de unelte\
+        ![toolbar](/img/document_view_toolbar. ng)\
+        Implicit această bară are instrumentul <ScribbleLoop/> lasso, unealta pentru Stiloul <Pen/> ; unealta de ștergere a traiectoriei <Path/> , butoanele de repetare <ArrowCounterClockwise/> undo și <ArrowClockwise/> , și unealta manuală <Hand/>. Apoi aveți butonul <Plus/> pentru a adăuga elemente în bara de unelte, butonul <Wrench/> pentru a configura documentul, și, în cele din urmă, instrumentul <Lock/> pentru a arăta zoom și/sau poziția ecranului. 
+        ### Note importante
+        1. Dacă unele elemente din bara de instrumente nu sunt vizibile pentru tine, sau glisează la stânga și la dreapta pentru a dezvălui alte elemente. 
+        2. Dupa selectarea unei unelte, un mic meniu va aparea sa configureze. Dând click din nou pe unealtă vei putea să o tragi într-o poziție nouă
+        3. Poți adăuga mai multe unelte în bara de instrumente făcând clic pe semnul <Plus/> plus. 
     </TabItem>
 </Tabs>
 	
