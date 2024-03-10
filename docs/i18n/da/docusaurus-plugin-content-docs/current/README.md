@@ -5,7 +5,9 @@ slug: /intro
 sidebar_position: 1
 ---
 
-Importér faneblade fra '@theme/Tabs'; importér Tabelement fra '@theme/TabItem'; import { Gear, Plus, FloppyDisk, MagnifyingGlas, ScribbleLoop, Pen, Path, ProwCounterClockwise, ProwClockwise, Hand, Wrench, Lock} fra "@phosphor-icons/react";
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+import { Gear, Plus, FloppyDisk, MagnifyingGlass, ScribbleLoop, Pen, Path, ArrowCounterClockwise, ArrowClockwise, Hand, Wrench, Lock} from "@phosphor-icons/react";
 
 ![Banner](/img/banner.png)
 
@@ -74,7 +76,7 @@ Når du åbner et dokument ved at vælge en skabelon eller en eksisterende fil, 
 
 ## Dokumentvisningen
 
-Du kan vende tilbage fra dokumentvisningen til dokumentlisten med baghandlingen på din enhed. Som med hovedvisningen, vises dokumentet ændringer baseret på din enhed. 
+Du kan vende tilbage fra dokumentvisningen til dokumentlisten med baghandlingen på din enhed. Som med hovedvisningen, vises dokumentet ændringer baseret på din enhed.
 
 <Tabs
     defaultValue = "desktop"
