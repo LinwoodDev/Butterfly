@@ -55,7 +55,7 @@ winget install LinwoodCloud.Butterfly
 Winget パッケージをアップグレードするには、以下を実行してください:
 
 ```powershell
-winget upgrade LinwoodCloud.Butterfly
+Wingetのアップグレード LinwoodCloud.Butterfly
 ```
 
 Winget パッケージをアンインストールするには、以下を実行してください:
@@ -73,7 +73,7 @@ winget install LinwoodCloud.Butterfly.Nightly
 Winget パッケージをアップグレードするには、以下を実行してください:
 
 ```powershell
-winget upgrade LinwoodCloud.Butterfly.Nightly
+Wingetのアップグレード LinwoodCloud.Butterfly.Nightly
 ```
 
 Winget パッケージをアンインストールするには、以下を実行してください:
