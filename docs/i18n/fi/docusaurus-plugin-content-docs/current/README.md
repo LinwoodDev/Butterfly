@@ -5,7 +5,9 @@ slug: /intro
 sidebar_position: 1
 ---
 
-tuo välilehdet paikasta '@theme/Tabs'; tuo TabItem paikasta '@theme/TabItem'; import { Gear, Plus, FloppyDisk, Suurennuslasit, ScribbleLoop, Kynä, Polku, ArrowCounterClockwise, ArrowClockwise, Hand, Ranskalainen, Lock} "@phosphor-icons/react";
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+import { Gear, Plus, FloppyDisk, MagnifyingGlass, ScribbleLoop, Pen, Path, ArrowCounterClockwise, ArrowClockwise, Hand, Wrench, Lock} from "@phosphor-icons/react";
 
 ![Mainospalkki](/img/banner.png)
 
@@ -74,7 +76,7 @@ Kun asiakirja on avattu valitsemalla malli tai olemassa oleva tiedosto, pääset
 
 ## Asiakirjan Näkymä
 
-Voit palata asiakirjan näkymästä asiakirjan luetteloon, jossa on laitteen takatoiminto (back action of your device). Kuten päänäkymässä, dokumentin näytön muutokset perustuvat laitteeseesi. 
+Voit palata asiakirjan näkymästä asiakirjan luetteloon, jossa on laitteen takatoiminto (back action of your device). Kuten päänäkymässä, dokumentin näytön muutokset perustuvat laitteeseesi.
 
 <Tabs
     defaultValue = "desktop"
