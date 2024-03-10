@@ -64,7 +64,7 @@ Die Hauptansicht besteht aus mehreren Elementen
         ! Begrüßungsbildschirm zweiter Teil](/img/welcome_screen_mobile_2. ng)  
         Der Abschnitt "Dateien" im Hauptbereich der linken Seite. Dort, du kannst die typischen Vorgänge durchführen:
         - Wählen Sie den Anzeigetyp (Gitter oder Liste)
-        - Wählen Sie den [Quellspeicher](Storage) der Dateien
+        - Wählen Sie den [Quellspeicher](storage) der Dateien
         - Sortieren Sie die Anzeigereihenfolge der Dateien
         - Fügen Sie einen Ordner hinzu, Datei, Vorlage, oder importieren Sie Dateien durch Klicken auf <Plus/> plus Zeichen
         - Geben Sie den direkten Pfad zu einem gewünschten Ort ein (Ortsfeld),
