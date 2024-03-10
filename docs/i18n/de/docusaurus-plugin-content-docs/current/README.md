@@ -5,7 +5,9 @@ slug: /intro
 sidebar_position: 1
 ---
 
-importiere Tabs von '@theme/Tabs'; importiere TabItem von '@theme/TabItem'; Import { Getriebe, Plus, FloppyDisk, MagnifyingGlass, ScribbleLoop, Pen, Pfad, Pfeil gegen Uhrzeigersinn Pfeil Uhr, Hand, Winzel, Sperren} von "@phosphor-icons/react";
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+import { Gear, Plus, FloppyDisk, MagnifyingGlass, ScribbleLoop, Pen, Path, ArrowCounterClockwise, ArrowClockwise, Hand, Wrench, Lock} from "@phosphor-icons/react";
 
 ![Banner](/img/banner.png)
 
@@ -74,7 +76,7 @@ Sobald Sie ein Dokument durch Auswahl einer Vorlage oder einer existierenden Dat
 
 ## Die Dokumentansicht
 
-Sie können von der Dokumentenansicht mit der Rücken-Aktion Ihres Geräts in die Dokumentenliste zurückkehren. Wie bei der Hauptansicht zeigt das Dokument Änderungen basierend auf Ihrem Gerät an. 
+Sie können von der Dokumentenansicht mit der Rücken-Aktion Ihres Geräts in die Dokumentenliste zurückkehren. Wie bei der Hauptansicht zeigt das Dokument Änderungen basierend auf Ihrem Gerät an.
 
 <Tabs
     defaultValue = "desktop"
