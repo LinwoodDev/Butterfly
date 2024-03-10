@@ -165,9 +165,11 @@ abstract class DocumentFileSystem extends GeneralFileSystem {
   Future<String> findAvailableName(String path) =>
       _findAvailableName(path, hasAsset);
 
-  Future<AppDocumentFile?> createFile(String path, List<int> data) async =>
-      updateFile(await findAvailableName(path), data)
-          .then((_) => getAppDocumentFile(AssetLocation.local(path), data));
+  Future<AppDocumentFile?> createFile(String path, List<int> data) async {
+    final uniquePath = await findAvailableName(path);
+    return updateFile(uniquePath, data)
+        .then((_) => getAppDocumentFile(AssetLocation.local(uniquePath), data));
+  }
 
   Future<bool> hasAsset(String path);
 

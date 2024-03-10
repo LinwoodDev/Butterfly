@@ -8,6 +8,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 const kMinZoom = 0.1;
 const kMaxZoom = 10.0;
+const kRoundPrecision = 3;
 
 @immutable
 class CameraTransform extends Equatable {
