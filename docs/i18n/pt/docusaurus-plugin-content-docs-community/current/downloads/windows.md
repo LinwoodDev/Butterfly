@@ -67,17 +67,17 @@ winget uninstall LinwoodCloud.Butterfly
 ### Versão noturna
 
 ```powershell
-winget install LinwoodCloud.Butterfly.Nightly
+asas instalam LinwoodCloud.Butterfly.Nightly
 ```
 
 Para atualizar o pacote da parede, execute:
 
 ```powershell
-winget upgrade LinwoodCloud.Butterfly.Nightly
+asas atualizam LinwoodCloud.Butterfly.Nightly
 ```
 
 Para desinstalar o pacote da winget, execute:
 
 ```powershell
-winget uninstall LinwoodCloud.Butterfly.Nightly
+asas desinstalam LinwoodCloud.Butterfly.Noite
 ```
