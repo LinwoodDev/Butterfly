@@ -5,9 +5,7 @@ slug: /intro
 sidebar_position: 1
 ---
 
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
-import { Gear, Plus, FloppyDisk, MagnifyingGlass, ScribbleLoop, Pen, Path, ArrowCounterClockwise, ArrowClockwise, Hand, Wrench, Lock} from "@phosphor-icons/react";
+استيراد علامات التبويب من '@theme/Tabs'; استيراد البند التبويب من '@theme/TabItem'; استيراد { Gear, Plus, FloppyDisk, MagnifyingGlass, ScribbleLoop, Pen, Path, ArrowCounterClockwise, ArrowClockwise, Hand, Wrench, Lock} من "@phosphor-icons/react";
 
 ![لافتة](/img/banner.png)
 
@@ -15,18 +13,18 @@ import { Gear, Plus, FloppyDisk, MagnifyingGlass, ScribbleLoop, Pen, Path, Arrow
 
 > مرحبا بكم في باترفلي، تطبيق الملاحظات المفتوحة المصدر.
 
-Butterfly is a note taking app that is aiming for unified experience across all platforms. It provides simple UI with powerful customization.
+الفراشة هي تطبيق يأخذ ملاحظة يهدف إلى تجربة موحدة عبر جميع المنصات. يوفر واجهة المستخدم البسيطة مع التخصيص القوي.
 
 ## بدء التشغيل
 
-> You can use the sidebar to navigate quickly through the wiki.
+> يمكنك استخدام الشريط الجانبي للتنقل بسرعة عبر ويكي.
 
 
-To start working on the app you have two options:
-1. [Downloads](/downloads) the app version that is appropriate for your platform (Butterfly can run on most mobile, desktop, and web platfroms).
-2. Use [web version](https://butterfly.linwood.dev) if you cannot find your platform or if you don't want to install it on it. See [here](storage#web) about file storage on the web version.
+لبدء العمل على التطبيق لديك خياران:
+1. [يقوم بتنزيل](/downloads) إصدار التطبيق المناسب للمنصة الخاصة بك (يمكن للفراشة أن تعمل على معظم أجهزة الهاتف المحمول، وسطح المكتب، ومنصات الويب).
+2. استخدم [إصدار ويب](https://butterfly.linwood.dev) إذا لم تتمكن من العثور على المنصة الخاصة بك أو إذا كنت لا تريد تثبيتها عليها. See [here](storage#web) about file storage on the web version.
 
-> Once you open the app, continue reading.
+> بمجرد فتح التطبيق، استمر في القراءة.
 
 
 
@@ -34,7 +32,7 @@ To start working on the app you have two options:
 
 ![العرض الرئيسي](main.png)
 
-The main view is composed of several elements
+ويتألف الرأي الرئيسي من عدة عناصر
 <Tabs
     defaultValue = "desktop"
     groupId="platfrom"
@@ -43,40 +41,40 @@ The main view is composed of several elements
  {label:"Mobile", value:'mobile'},
  ]}>
     <TabItem value="desktop">
-        ![Welcome screen](/img/welcome_screen_desktop.png)
-        The top of the screen holds the banner for updates, the link to this documentations, and the <Gear/> config icon. Finally, to the right of the <Gear/> config symbol you have a drop down menu for controlling when this banner will appear (always/never/on updates).
-        The "Files" section in the major area of the left. There, you can do the typical operations:
-            - Select the display type (grid or list)
-            - Select the [source storage](storage) of the files
-            - Sort the display order of the files
-            - Add a folder, file, template, or import files by clicking the <Plus/> plus sign
-            - Type the direct path to a desired location (the Location field),
-            - Search for files
-        Finally, to the right, you have the quick start display with the templates available in the current location. For a fresh install this includes the light and dark template
+        ![شاشة الترحيب] (/img/welcome_screen_desktop.png)
+        الجزء العلوي من الشاشة يحمل لافتة التحديثات، الرابط إلى هذه الوثائق، وأيقونة التكوين <Gear/>. أخيراً، على يمين رمز التكوين <Gear/> لديك قائمة منسدلة للتحكم عند ظهور هذا الشعار (دائمًا/لا / على التحديثات).
+        قسم "الملفات" في المنطقة الرئيسية من اليسار. هناك، يمكنك القيام بالعمليات النموذجية:
+            - حدد نوع العرض (شبكة أو قائمة)
+            - حدد [مصدر التخزين] (تخزين) الملفات
+            - ترتيب عرض الملفات
+            - إضافة مجلد، الملف، القالب، أو استيراد الملفات عن طريق النقر فوق <Plus/> + توقيع
+            - اكتب المسار المباشر إلى الموقع المطلوب (حقل الموقع)،
+            - البحث عن الملفات
+        وأخيراً إلى اليمين، لديك عرض البداية السريعة مع القوالب المتاحة في الموقع الحالي. للحصول على تثبيت جديد، يتضمن هذا القالب الضوء والقالب المظلم
     </TabItem>
     <TabItem value="mobile">
         When opening Butterfly on a mobile device you will be presented with a screen as this
         ![Welcome screen first part](/img/welcome_screen_mobile_1.png)   
-        The top of the screen holds the banner for updates, and below it you can find the documnentation link, and next to it the <Gear/> config icon. Finally, to the right of the <Gear/> config symbol you have a drop down menu for controlling when this banner will appear (always/never/on updates).
-        Below those, you can find the quick start section holding the templates avialable to you. By defaule, the templates are the light and dark templates. 
+        The top of the screen holds the banner for updates, and below it you can find the documnentation link, and next to it the <Gear/> config icon. أخيراً، على يمين رمز التكوين <Gear/> لديك قائمة منسدلة للتحكم عند ظهور هذا الشعار (دائمًا/لا / على التحديثات).
+        أسفلها، يمكنك العثور على قسم البداية السريعة الذي يحتوي على القوالب القابلة للطيران لك. حسب الدفاع، القوالب هي قوالب الضوء و الظلام. 
         Scrolling down, you will see the file interface:
         \
         ![Welcome screen second part](/img/welcome_screen_mobile_2.png)  
-        The "Files" section in the major area of the left. There, you can do the typical operations:
-        - Select the display type (grid or list)
-        - Select the [source storage](storage) of the files
-        - Sort the display order of the files
-        - Add a folder, file, template, or import files by clicking the <Plus/> plus sign
-        - Type the direct path to a desired location (the Location field),
-        - Search for files
+        The "Files" section in the major area of the left. هناك، يمكنك القيام بالعمليات النموذجية:
+        - حدد نوع العرض (شبكة أو قائمة)
+        - حدد [مصدر التخزين] (تخزين) الملفات
+        - ترتيب عرض الملفات
+        - إضافة مجلد، الملف، القالب، أو استيراد الملفات عن طريق النقر فوق <Plus/> + توقيع
+        - اكتب المسار المباشر إلى الموقع المطلوب (حقل الموقع)،
+        - البحث عن الملفات
     </TabItem>
 </Tabs>
 
-Once opening a document by selecting a template or an existing file, you will get to the **Document View**
+بمجرد فتح مستند عن طريق تحديد قالب أو ملف موجود ، ستحصل على **عرض المستند**
 
-## The Document View
+## عرض المستند
 
-You can return from the document view to the document list with the back action of your device. As with the main view, the document display changes based on your device. 
+يمكنك العودة من عرض المستند إلى قائمة المستندات مع الإجراء الخلفي لجهازك. كما هو الحال مع العرض الرئيسي، يتغير عرض المستند استناداً إلى جهازك. 
 
 <Tabs
     defaultValue = "desktop"
@@ -86,34 +84,34 @@ You can return from the document view to the document list with the back action 
  {label:"Mobile", value:'mobile'},
  ]}>
     <TabItem value="desktop">
-        In the Desktop view, you'll have at the top left the file bar\
-        ![file_bar](/img/document_view_file_bar.png)\
-        This holds, from left to right, the 
-        [<img alt="logo" src="/img/logo.png" width="16"/>](/img/logo.png)
-        butterfly button to open the menu. Next to it there is the name field that displays the name of the note. You can rename the note by typing a new name into that field and saving it using the <FloppyDisk/> save button. Finally you can <MagnifyingGlass/> search for elements within the note.
+        في عرض سطح المكتب، سيكون لديك في الأعلى اليسار شريط الملفات/
+[file_bar](/img/document_view_file_bar). ng)\
+        يستمر هذا من اليسار إلى اليمين 
+        [<img alt="logo" src="/img/logo.png" width="16"/>](/img/logo. ng)
+        زر الفراشة لفتح القائمة. ثم هناك حقل الاسم الذي يعرض اسم الملاحظة. يمكنك إعادة تسمية الملاحظة عن طريق كتابة اسم جديد في هذا الحقل وحفظه باستخدام زر <FloppyDisk/> لحفظ الصفحة. أخيرا يمكنك <MagnifyingGlass/> البحث عن العناصر داخل الملاحظة.
         \
-        At the top right of the screen you have the toolbar\
-        ![toolbar](/img/document_view_toolbar.png)\
-        By default this bar has the <ScribbleLoop/> lasso tool; the <Pen/> pen tool; the <Path/> path erase tool; the <ArrowCounterClockwise/> undo and <ArrowClockwise/> redo butons, and the <Hand/> hand tool. Then you have the <Plus/> button to add elements to the tool bar, the <Wrench/> button to configure the document, and finally the <Lock/> tool to look the zoom and/or the position of the screen. 
-        ### Important notes
-        1. If some of the element on the toolbar are not visible to you, click and drag (or swipe) left and right to reveal further tools. 
-        2. After selecting a tool, a small menu will appear. Long clicking the tool again will allow you to drag it to a new position
-        3. You can add more tools to the toolbar by clicking the <Plus/> plus sign. 
+        في الجزء العلوي الأيمن من الشاشة لديك شريط الأدوات\
+        ![toolbar](/img/document_view_toolbar). ng)\
+        بشكل افتراضي هذا الشريط يحتوي على أداة <ScribbleLoop/> lasso أداة القلم <Pen/> أداة مسح المسار <Path/> ؛ <ArrowCounterClockwise/> التراجع و <ArrowClockwise/> يعيد البوتونات ، و <Hand/> أداة يدوية. ثم لديك زر <Plus/> لإضافة عناصر إلى شريط الأدوات، الزر <Wrench/> لتكوين المستند، وأخيراً أداة <Lock/> للنظر إلى التكبير و/أو موضع الشاشة. 
+        ### ملاحظات مهمة
+        1. إذا كانت بعض العناصر على شريط الأدوات غير مرئية لك، انقر فوق وسحبها (أو سحبها) لليسار واليمين للكشف عن المزيد من الأدوات. 
+        2. بعد تحديد أداة، ستظهر قائمة صغيرة. النقر مطولا على الأداة مرة أخرى سيسمح لك بسحبها إلى موضع جديد
+        3. يمكنك إضافة المزيد من الأدوات إلى شريط الأدوات بالنقر فوق علامة <Plus/> زائدا. 
     </TabItem>
     <TabItem value="mobile">
-        In the mobile view, you'll have at the top the file bar\
-        ![file_bar](/img/document_view_file_bar.png)\
-        This holds, from left to right, the 
-        [<img alt="logo" src="/img/logo.png" width="16"/>](/img/logo.png)
-        butterfly button to open the menu. Next to it there is the name field that displays the name of the note. You can rename the note by typing a new name into that field and saving it using the <FloppyDisk/> save button. Finally you can <MagnifyingGlass/> search for elements within the note.
+        في طريقة عرض الجوال ، سيكون لديك في أعلى شريط الملفات/
+        ![file_bar](/img/document_view_file_bar. ng)\
+        يستمر هذا من اليسار إلى اليمين 
+        [<img alt="logo" src="/img/logo.png" width="16"/>](/img/logo. ng)
+        زر الفراشة لفتح القائمة. ثم هناك حقل الاسم الذي يعرض اسم الملاحظة. يمكنك إعادة تسمية الملاحظة عن طريق كتابة اسم جديد في هذا الحقل وحفظه باستخدام زر <FloppyDisk/> لحفظ الصفحة. أخيرا يمكنك <MagnifyingGlass/> البحث عن العناصر داخل الملاحظة.
         \
-        At the bottom of the screen you have the toolbar\
-        ![toolbar](/img/document_view_toolbar.png)\
-        By default this bar has the <ScribbleLoop/> lasso tool; the <Pen/> pen tool; the <Path/> path erase tool; the <ArrowCounterClockwise/> undo and <ArrowClockwise/> redo butons, and the <Hand/> hand tool. Then you have the <Plus/> button to add elements to the tool bar, the <Wrench/> button to configure the document, and finally the <Lock/> tool to look the zoom and/or the position of the screen. 
-        ### Important notes
-        1. If some of the element on the toolbar are not visible to you, or swipe left and right to reveal further elements. 
-        2. After selecting a tool, a small menu will appear to configure the it. Long clicking the tool again will allow you to drag it to a new position
-        3. You can add more tools to the toolbar by clicking the <Plus/> plus sign. 
+        في الجزء السفلي من الشاشة لديك شريط الأدوات/
+        ![toolbar](/img/document_view_toolbar). ng)\
+        بشكل افتراضي هذا الشريط يحتوي على أداة <ScribbleLoop/> lasso أداة القلم <Pen/> أداة مسح المسار <Path/> ؛ <ArrowCounterClockwise/> التراجع و <ArrowClockwise/> يعيد البوتونات ، و <Hand/> أداة يدوية. ثم لديك زر <Plus/> لإضافة عناصر إلى شريط الأدوات، الزر <Wrench/> لتكوين المستند، وأخيراً أداة <Lock/> للنظر إلى التكبير و/أو موضع الشاشة. 
+        ### ملاحظات مهمة
+        1. إذا كانت بعض العناصر على شريط الأدوات غير مرئية لك، أو اسحب لليسار واليمين للكشف عن المزيد من العناصر. 
+        2. بعد تحديد أداة، ستظهر قائمة صغيرة لتكوينها. النقر مطولا على الأداة مرة أخرى سيسمح لك بسحبها إلى موضع جديد
+        3. يمكنك إضافة المزيد من الأدوات إلى شريط الأدوات بالنقر فوق علامة <Plus/> زائدا. 
     </TabItem>
 </Tabs>
 	
