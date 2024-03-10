@@ -76,7 +76,7 @@ Una vez que abra un documento seleccionando una plantilla o un archivo existente
 
 ## Vista del documento
 
-Puede volver desde la vista de documento a la lista de documentos con la acción de atrás de su dispositivo. Al igual que con la vista principal, el documento muestra cambios basados en su dispositivo. 
+Puede volver desde la vista de documento a la lista de documentos con la acción de atrás de su dispositivo. Al igual que con la vista principal, el documento muestra cambios basados en su dispositivo.
 
 <Tabs
     defaultValue = "desktop"
