@@ -76,7 +76,7 @@ När du har öppnat ett dokument genom att välja en mall eller en befintlig fil
 
 ## Dokumentvyn
 
-Du kan återvända från dokumentvyn till dokumentlistan med den bakre åtgärden av din enhet. Precis som med huvudvyn ändras dokumentet baserat på din enhet. 
+Du kan återvända från dokumentvyn till dokumentlistan med den bakre åtgärden av din enhet. Precis som med huvudvyn ändras dokumentet baserat på din enhet.
 
 <Tabs
     defaultValue = "desktop"
