@@ -5,9 +5,7 @@ slug: /intro
 sidebar_position: 1
 ---
 
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
-import { Gear, Plus, FloppyDisk, MagnifyingGlass, ScribbleLoop, Pen, Path, ArrowCounterClockwise, ArrowClockwise, Hand, Wrench, Lock} from "@phosphor-icons/react";
+importovat záložky z '@theme/Tabs'; importovat položku záložky z '@theme/TabItem'; importovat { Gear, Plus, FloppyDisk, MagnifyingGlass, ScribbleLoop, Pen, Cesta, Šipka CounterClockise, Šipkový kurz, Ruce, Wrench, Lock} z "@fosfor-icons/react";
 
 ![Banner](/img/banner.png)
 
@@ -15,18 +13,18 @@ import { Gear, Plus, FloppyDisk, MagnifyingGlass, ScribbleLoop, Pen, Path, Arrow
 
 > Vítejte v aplikaci Butterfly, opensource poznámky.
 
-Butterfly is a note taking app that is aiming for unified experience across all platforms. It provides simple UI with powerful customization.
+Butterfly je aplikace pro přijímání poznámek, která se zaměřuje na jednotné zkušenosti na všech platformách. Poskytuje jednoduché uživatelské rozhraní s účinným přizpůsobením.
 
 ## Jak začít
 
-> You can use the sidebar to navigate quickly through the wiki.
+> K rychlému procházení wiki můžete použít postranní panel.
 
 
-To start working on the app you have two options:
-1. [Downloads](/downloads) the app version that is appropriate for your platform (Butterfly can run on most mobile, desktop, and web platfroms).
-2. Use [web version](https://butterfly.linwood.dev) if you cannot find your platform or if you don't want to install it on it. See [here](storage#web) about file storage on the web version.
+Chcete-li začít pracovat na aplikaci, máte dvě možnosti:
+1. [Stahování](/downloads) verze aplikace, která je vhodná pro vaši platformu (Butterfly může běžet na většině mobilních, stolních a webových platforem).
+2. Použijte [webovou verzi](https://butterfly.linwood.dev) , pokud nemůžete najít platformu nebo na ni nechcete nainstalovat. Podívejte se na [](storage#web) o úložišti souborů ve webové verzi.
 
-> Once you open the app, continue reading.
+> Jakmile otevřete aplikaci, pokračujte ve čtení.
 
 
 
@@ -34,7 +32,7 @@ To start working on the app you have two options:
 
 ![Hlavní pohled](main.png)
 
-The main view is composed of several elements
+Hlavní pohled se skládá z několika prvků.
 <Tabs
     defaultValue = "desktop"
     groupId="platfrom"
@@ -44,39 +42,39 @@ The main view is composed of several elements
  ]}>
     <TabItem value="desktop">
         ![Welcome screen](/img/welcome_screen_desktop.png)
-        The top of the screen holds the banner for updates, the link to this documentations, and the <Gear/> config icon. Finally, to the right of the <Gear/> config symbol you have a drop down menu for controlling when this banner will appear (always/never/on updates).
-        The "Files" section in the major area of the left. There, you can do the typical operations:
-            - Select the display type (grid or list)
-            - Select the [source storage](storage) of the files
-            - Sort the display order of the files
-            - Add a folder, file, template, or import files by clicking the <Plus/> plus sign
-            - Type the direct path to a desired location (the Location field),
-            - Search for files
-        Finally, to the right, you have the quick start display with the templates available in the current location. For a fresh install this includes the light and dark template
+        Horní část obrazovky drží banner pro aktualizace, odkaz na tuto dokumentaci a ikonu <Gear/>. Konečně vpravo od <Gear/> konfiguračního symbolu máte rozbalovací menu pro ovládání, kdy se zobrazí tento banner (vždy/nikdy/nikdy).
+        Sekce "Soubory" v hlavní části levé části. Tam můžete provést typické operace:
+            - Vyberte typ zobrazení (mřížka nebo seznam)
+            - Vyberte [zdrojové úložiště](úložiště) souborů
+            - Seřadit pořadí zobrazení souborů
+            - Přidat složku, soubor, šablona, nebo importovat soubory kliknutím na <Plus/> plus znak
+            - zadejte přímou cestu do požadovaného umístění (pole Místo,
+            - Hledat soubory
+        Nakonec vpravo máte na aktuálním místě dostupné šablony pro rychlý start. Pro novou instalaci zahrnuje světlou a tmavou šablonu
     </TabItem>
     <TabItem value="mobile">
-        When opening Butterfly on a mobile device you will be presented with a screen as this
-        ![Welcome screen first part](/img/welcome_screen_mobile_1.png)   
-        The top of the screen holds the banner for updates, and below it you can find the documnentation link, and next to it the <Gear/> config icon. Finally, to the right of the <Gear/> config symbol you have a drop down menu for controlling when this banner will appear (always/never/on updates).
-        Below those, you can find the quick start section holding the templates avialable to you. By defaule, the templates are the light and dark templates. 
-        Scrolling down, you will see the file interface:
+        Při otevírání Butterfly na mobilním zařízení budete prezentováni s obrazovkou jako je ta
+        ! První část úvodní obrazovky](/img/welcome_screen_mobile_1. ng)   
+        Horní část obrazovky drží banner pro aktualizace, a níže můžete najít odkaz na poznámku a vedle něj ikonu <Gear/>. Konečně vpravo od <Gear/> konfiguračního symbolu máte rozbalovací menu pro ovládání, kdy se zobrazí tento banner (vždy/nikdy/nikdy).
+        Níže najdete sekci rychlého startu a držíte šablony pro vás nedostupné. Pomocí defaule jsou šablony světlé a tmavé šablony. 
+        rolování dolů, uvidíte rozhraní souboru:
         \
-        ![Welcome screen second part](/img/welcome_screen_mobile_2.png)  
-        The "Files" section in the major area of the left. There, you can do the typical operations:
-        - Select the display type (grid or list)
-        - Select the [source storage](storage) of the files
-        - Sort the display order of the files
-        - Add a folder, file, template, or import files by clicking the <Plus/> plus sign
-        - Type the direct path to a desired location (the Location field),
-        - Search for files
+        ! Vítejte obrazovku druhé části](/img/welcome_screen_mobile_2. ng)  
+        Sekce "Soubory" v hlavní části levé části. Tam můžete provést typické operace:
+        - Vyberte typ zobrazení (mřížka nebo seznam)
+        - Vyberte [zdrojové úložiště](úložiště) souborů
+        - Seřadit pořadí zobrazení souborů
+        - Přidat složku, soubor, šablona, nebo importovat soubory kliknutím na <Plus/> plus znak
+        - zadejte přímou cestu do požadovaného umístění (pole Místo,
+        - Hledat soubory
     </TabItem>
 </Tabs>
 
-Once opening a document by selecting a template or an existing file, you will get to the **Document View**
+Po otevření dokumentu výběrem šablony nebo existujícího souboru se dostanete do **Zobrazení dokumentu**
 
-## The Document View
+## Zobrazení dokumentu
 
-You can return from the document view to the document list with the back action of your device. As with the main view, the document display changes based on your device. 
+Můžete se vrátit z zobrazení dokumentu do seznamu dokumentů pomocí zadní akce vašeho zařízení. Stejně jako v případě hlavního zobrazení, změny zobrazení dokumentu na základě vašeho zařízení. 
 
 <Tabs
     defaultValue = "desktop"
@@ -86,34 +84,34 @@ You can return from the document view to the document list with the back action 
  {label:"Mobile", value:'mobile'},
  ]}>
     <TabItem value="desktop">
-        In the Desktop view, you'll have at the top left the file bar\
-        ![file_bar](/img/document_view_file_bar.png)\
-        This holds, from left to right, the 
-        [<img alt="logo" src="/img/logo.png" width="16"/>](/img/logo.png)
-        butterfly button to open the menu. Next to it there is the name field that displays the name of the note. You can rename the note by typing a new name into that field and saving it using the <FloppyDisk/> save button. Finally you can <MagnifyingGlass/> search for elements within the note.
+        V zobrazení plochy budete mít v levém horním rohu souboru\
+        ![file_bar](/img/document_view_file_bar. ng)\
+        To podrží, zleva doprava. 
+        [<img alt="logo" src="/img/logo.png" width="16"/>](/img/logo. ng)
+        tlačítko "motýle" pro otevření menu. Vedle toho je pole, které zobrazuje název poznámky. Poznámka můžete přejmenovat zadáním nového jména do tohoto pole a jeho uložením pomocí tlačítka <FloppyDisk/> uložit. Konečně můžete <MagnifyingGlass/> hledat prvky v poznámce.
         \
-        At the top right of the screen you have the toolbar\
-        ![toolbar](/img/document_view_toolbar.png)\
-        By default this bar has the <ScribbleLoop/> lasso tool; the <Pen/> pen tool; the <Path/> path erase tool; the <ArrowCounterClockwise/> undo and <ArrowClockwise/> redo butons, and the <Hand/> hand tool. Then you have the <Plus/> button to add elements to the tool bar, the <Wrench/> button to configure the document, and finally the <Lock/> tool to look the zoom and/or the position of the screen. 
-        ### Important notes
-        1. If some of the element on the toolbar are not visible to you, click and drag (or swipe) left and right to reveal further tools. 
-        2. After selecting a tool, a small menu will appear. Long clicking the tool again will allow you to drag it to a new position
-        3. You can add more tools to the toolbar by clicking the <Plus/> plus sign. 
+        V pravém horním rohu obrazovky máte panel nástrojů\
+        ![toolbar](/img/document_view_toolbar. ng)\
+        Tento panel má ve výchozím nastavení nástroj <ScribbleLoop/> , nástroje pera <Pen/> , cesta <Path/> vymaže nástroj; <ArrowCounterClockwise/> vrátit zpět a <ArrowClockwise/> vrátit butony a ruční nástroj <Hand/>. Pak máte tlačítko <Plus/> pro přidání prvků na nástrojovou lištu, tlačítko <Wrench/> pro konfiguraci dokumentu, a nakonec nástroj <Lock/> pro zobrazení přiblížení a/nebo polohy obrazovky. 
+        ### Důležité poznámky
+        1. Pokud nejsou některé prvky na panelu nástrojů viditelné pro vás, klikněte a přetáhněte (či potáhněte) vlevo a vpravo, abyste odhalili další nástroje. 
+        2. Po výběru nástroje se objeví malé menu. Dlouhým kliknutím na tento nástroj můžete přetáhnout na novou pozici
+        3. Další nástroje můžete přidat kliknutím na <Plus/> plus na znaménko. 
     </TabItem>
     <TabItem value="mobile">
-        In the mobile view, you'll have at the top the file bar\
-        ![file_bar](/img/document_view_file_bar.png)\
-        This holds, from left to right, the 
-        [<img alt="logo" src="/img/logo.png" width="16"/>](/img/logo.png)
-        butterfly button to open the menu. Next to it there is the name field that displays the name of the note. You can rename the note by typing a new name into that field and saving it using the <FloppyDisk/> save button. Finally you can <MagnifyingGlass/> search for elements within the note.
+        V mobilním zobrazení budete mít v horní části panelu souborů\
+        ![file_bar](/img/document_view_file_bar. ng)\
+        To podrží, zleva doprava. 
+        [<img alt="logo" src="/img/logo.png" width="16"/>](/img/logo. ng)
+        tlačítko "motýle" pro otevření menu. Vedle toho je pole, které zobrazuje název poznámky. Poznámka můžete přejmenovat zadáním nového jména do tohoto pole a jeho uložením pomocí tlačítka <FloppyDisk/> uložit. Konečně můžete <MagnifyingGlass/> hledat prvky v poznámce.
         \
-        At the bottom of the screen you have the toolbar\
-        ![toolbar](/img/document_view_toolbar.png)\
-        By default this bar has the <ScribbleLoop/> lasso tool; the <Pen/> pen tool; the <Path/> path erase tool; the <ArrowCounterClockwise/> undo and <ArrowClockwise/> redo butons, and the <Hand/> hand tool. Then you have the <Plus/> button to add elements to the tool bar, the <Wrench/> button to configure the document, and finally the <Lock/> tool to look the zoom and/or the position of the screen. 
-        ### Important notes
-        1. If some of the element on the toolbar are not visible to you, or swipe left and right to reveal further elements. 
-        2. After selecting a tool, a small menu will appear to configure the it. Long clicking the tool again will allow you to drag it to a new position
-        3. You can add more tools to the toolbar by clicking the <Plus/> plus sign. 
+        V dolní části obrazovky máte panel nástrojů\
+        ![toolbar](/img/document_view_toolbar. ng)\
+        Tento panel má ve výchozím nastavení nástroj <ScribbleLoop/> , nástroje pera <Pen/> , cesta <Path/> vymaže nástroj; <ArrowCounterClockwise/> vrátit zpět a <ArrowClockwise/> vrátit butony a ruční nástroj <Hand/>. Pak máte tlačítko <Plus/> pro přidání prvků na nástrojovou lištu, tlačítko <Wrench/> pro konfiguraci dokumentu, a nakonec nástroj <Lock/> pro zobrazení přiblížení a/nebo polohy obrazovky. 
+        ### Důležité poznámky
+        1. Pokud některé prvky na panelu nástrojů nejsou viditelné nebo přejetím vlevo a vpravo zobrazíte další prvky. 
+        2. Po výběru nástroje se objeví malá nabídka. Dlouhým kliknutím na tento nástroj můžete přetáhnout na novou pozici
+        3. Další nástroje můžete přidat kliknutím na <Plus/> plus na znaménko. 
     </TabItem>
 </Tabs>
 	
