@@ -76,7 +76,7 @@ Once opening a document by selecting a template or an existing file, you will ge
 
 ## 文档视图
 
-您可以通过设备的后退操作从文档视图返回文档列表。 和主视图一样，文档显示基于您设备的更改。 
+您可以通过设备的后退操作从文档视图返回文档列表。 和主视图一样，文档显示基于您设备的更改。
 
 <Tabs
     defaultValue = "desktop"
