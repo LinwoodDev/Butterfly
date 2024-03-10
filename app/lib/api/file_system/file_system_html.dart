@@ -99,10 +99,7 @@ Future<Database> _getDatabase() async {
 class WebDocumentFileSystem extends DocumentFileSystem {
   @override
   Future<void> deleteAsset(String path) async {
-    // Add leading slash
-    if (!path.startsWith('/')) {
-      path = '/$path';
-    }
+    path = normalizePath(path);
     var db = await _getDatabase();
     var txn = db.transactionList(['documents', 'documents-data'], 'readwrite');
     var store = txn.objectStore('documents');
@@ -125,13 +122,7 @@ class WebDocumentFileSystem extends DocumentFileSystem {
   @override
   Stream<AppDocumentEntity?> fetchAsset(String path,
       [bool? listFiles = true]) async* {
-    // Add leading slash
-    if (!path.startsWith('/')) {
-      path = '/$path';
-    }
-    if (path == '//') {
-      path = '/';
-    }
+    path = normalizePath(path);
     var db = await _getDatabase();
     final location = AssetLocation.local(path);
     var txn = db.transaction(['documents', 'documents-data'], 'readonly');
@@ -185,24 +176,18 @@ class WebDocumentFileSystem extends DocumentFileSystem {
 
   @override
   Future<bool> hasAsset(String path) async {
-    var db = await _getDatabase();
-    var txn = db.transaction('documents', 'readonly');
-    var store = txn.objectStore('documents');
-    var doc = await store.getObject(path);
+    path = normalizePath(path);
+    final db = await _getDatabase();
+    final txn = db.transaction('documents', 'readonly');
+    final store = txn.objectStore('documents');
+    final doc = await store.getObject(path);
     await txn.completed;
     return doc != null;
   }
 
   @override
   Future<bool> updateFile(String path, List<int> data) async {
-    // Remove trailing slash
-    if (path.endsWith('/')) {
-      path = path.substring(0, path.length - 1);
-    }
-    // Add leading slash
-    if (!path.startsWith('/')) {
-      path = '/$path';
-    }
+    path = normalizePath(path);
     final pathWithoutSlash = path.substring(1);
     // Create directory if it doesn't exist
     if (pathWithoutSlash.contains('/')) {
@@ -224,13 +209,7 @@ class WebDocumentFileSystem extends DocumentFileSystem {
 
   @override
   Future<AppDocumentDirectory> createDirectory(String path) async {
-    // Remove leading slash
-    if (!path.startsWith('/')) {
-      path = '/$path';
-    }
-    if (path.endsWith('/')) {
-      path = path.substring(0, path.length - 1);
-    }
+    path = normalizePath(path);
     var db = await _getDatabase();
     var txn = db.transaction('documents', 'readwrite');
     var store = txn.objectStore('documents');

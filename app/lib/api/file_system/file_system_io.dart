@@ -58,10 +58,7 @@ class IODocumentFileSystem extends DocumentFileSystem {
   @override
   Stream<AppDocumentEntity?> fetchAsset(String path,
       [bool? listFiles = true]) async* {
-    // Add leading slash
-    if (!path.startsWith('/')) {
-      path = '/$path';
-    }
+    path = normalizePath(path);
     final location = AssetLocation(path: path, remote: remoteName);
     final absolutePath = await getAbsolutePath(path);
     // Test if path is a file
