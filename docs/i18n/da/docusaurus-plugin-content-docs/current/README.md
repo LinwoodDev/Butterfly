@@ -5,9 +5,7 @@ slug: /intro
 sidebar_position: 1
 ---
 
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
-import { Gear, Plus, FloppyDisk, MagnifyingGlass, ScribbleLoop, Pen, Path, ArrowCounterClockwise, ArrowClockwise, Hand, Wrench, Lock} from "@phosphor-icons/react";
+Importér faneblade fra '@theme/Tabs'; importér Tabelement fra '@theme/TabItem'; import { Gear, Plus, FloppyDisk, MagnifyingGlas, ScribbleLoop, Pen, Path, ProwCounterClockwise, ProwClockwise, Hand, Wrench, Lock} fra "@phosphor-icons/react";
 
 ![Banner](/img/banner.png)
 
@@ -15,18 +13,18 @@ import { Gear, Plus, FloppyDisk, MagnifyingGlass, ScribbleLoop, Pen, Path, Arrow
 
 > Velkommen til Butterfly, opensource note app.
 
-Butterfly is a note taking app that is aiming for unified experience across all platforms. It provides simple UI with powerful customization.
+Butterfly er en note tager app, der sigter efter samlet oplevelse på tværs af alle platforme. Det giver enkel brugerflade med kraftig tilpasning.
 
 ## Før injektion
 
-> You can use the sidebar to navigate quickly through the wiki.
+> Du kan bruge sidebjælken til at navigere hurtigt gennem wikien.
 
 
-To start working on the app you have two options:
-1. [Downloads](/downloads) the app version that is appropriate for your platform (Butterfly can run on most mobile, desktop, and web platfroms).
-2. Use [web version](https://butterfly.linwood.dev) if you cannot find your platform or if you don't want to install it on it. See [here](storage#web) about file storage on the web version.
+For at begynde at arbejde på appen, har du to muligheder:
+1. [Downloads](/downloads) den app-version, der passer til din platform (Butterfly kan køre på de fleste mobil, skrivebord og webplatfra).
+2. Brug [webversion](https://butterfly.linwood.dev) , hvis du ikke kan finde din platform, eller hvis du ikke ønsker at installere den på den. Se [her](storage#web) om fillagring i webversionen.
 
-> Once you open the app, continue reading.
+> Når du åbner appen, fortsæt med at læse.
 
 
 
@@ -34,7 +32,7 @@ To start working on the app you have two options:
 
 ![Hoved visning](main.png)
 
-The main view is composed of several elements
+Hovedvisningen er sammensat af flere elementer
 <Tabs
     defaultValue = "desktop"
     groupId="platfrom"
@@ -43,40 +41,40 @@ The main view is composed of several elements
  {label:"Mobile", value:'mobile'},
  ]}>
     <TabItem value="desktop">
-        ![Welcome screen](/img/welcome_screen_desktop.png)
-        The top of the screen holds the banner for updates, the link to this documentations, and the <Gear/> config icon. Finally, to the right of the <Gear/> config symbol you have a drop down menu for controlling when this banner will appear (always/never/on updates).
-        The "Files" section in the major area of the left. There, you can do the typical operations:
-            - Select the display type (grid or list)
-            - Select the [source storage](storage) of the files
-            - Sort the display order of the files
-            - Add a folder, file, template, or import files by clicking the <Plus/> plus sign
-            - Type the direct path to a desired location (the Location field),
-            - Search for files
-        Finally, to the right, you have the quick start display with the templates available in the current location. For a fresh install this includes the light and dark template
+        ![Velkomstskærm](/img/welcome_screen_desktop.png)
+        Toppen af skærmen indeholder banneret for opdateringer, linket til disse dokumenter og <Gear/> config ikonet. Endelig, til højre for <Gear/> config symbolet har du en rullemenu til at styre, hvornår dette banner vises (altid/aldrig/på opdateringer).
+        Afsnittet "Filer" i det store område af venstre. Der, du kan gøre de typiske handlinger:
+            - Vælg visningstypen (gitter eller liste)
+            - Vælg [kilde lagerplads] af filerne
+            - Sorter visningsrækkefølgen af filerne
+            - Tilføj en mappe, fil, skabelon eller import filer ved at klikke på <Plus/> plus sign
+            - Skriv den direkte sti til et ønsket sted (Placeringsfeltet),
+            - Søg efter filer
+        Endelig til højre, du har den hurtige start display med skabeloner til rådighed i den aktuelle placering. For en frisk installere dette omfatter lys og mørk skabelon
     </TabItem>
     <TabItem value="mobile">
-        When opening Butterfly on a mobile device you will be presented with a screen as this
-        ![Welcome screen first part](/img/welcome_screen_mobile_1.png)   
-        The top of the screen holds the banner for updates, and below it you can find the documnentation link, and next to it the <Gear/> config icon. Finally, to the right of the <Gear/> config symbol you have a drop down menu for controlling when this banner will appear (always/never/on updates).
-        Below those, you can find the quick start section holding the templates avialable to you. By defaule, the templates are the light and dark templates. 
-        Scrolling down, you will see the file interface:
+        Når du åbner Butterfly på en mobil enhed, vil du blive præsenteret for en skærm som denne
+        ! Velkomstskærm første del](/img/welcome_screen_mobile_1. ng)   
+        Toppen af skærmen indeholder banneret for opdateringer, og under den kan du finde documnentation linket, og ved siden af <Gear/> config ikonet. Endelig, til højre for <Gear/> config symbolet har du en rullemenu til at styre, hvornår dette banner vises (altid/aldrig/på opdateringer).
+        Nedenfor dem, kan du finde den hurtige start sektion, der holder skabeloner avialable til dig. Ved defaule er skabelonerne de lyse og mørke skabeloner. 
+        Ruller ned, vil du se filgrænsefladen:
         \
-        ![Welcome screen second part](/img/welcome_screen_mobile_2.png)  
-        The "Files" section in the major area of the left. There, you can do the typical operations:
-        - Select the display type (grid or list)
-        - Select the [source storage](storage) of the files
-        - Sort the display order of the files
-        - Add a folder, file, template, or import files by clicking the <Plus/> plus sign
-        - Type the direct path to a desired location (the Location field),
-        - Search for files
+        ! Welcome screen second part](/img/welcome_screen_mobile_2. ng)  
+        sektionen "Filer" i det store område af venstre. Der, du kan gøre de typiske handlinger:
+        - Vælg visningstypen (gitter eller liste)
+        - Vælg [kilde lagerplads] af filerne
+        - Sorter visningsrækkefølgen af filerne
+        - Tilføj en mappe, fil, skabelon eller import filer ved at klikke på <Plus/> plus sign
+        - Skriv den direkte sti til et ønsket sted (Placeringsfeltet),
+        - Søg efter filer
     </TabItem>
 </Tabs>
 
-Once opening a document by selecting a template or an existing file, you will get to the **Document View**
+Når du åbner et dokument ved at vælge en skabelon eller en eksisterende fil, vil du komme til **Document View**
 
-## The Document View
+## Dokumentvisningen
 
-You can return from the document view to the document list with the back action of your device. As with the main view, the document display changes based on your device. 
+Du kan vende tilbage fra dokumentvisningen til dokumentlisten med baghandlingen på din enhed. Som med hovedvisningen, vises dokumentet ændringer baseret på din enhed. 
 
 <Tabs
     defaultValue = "desktop"
@@ -86,34 +84,34 @@ You can return from the document view to the document list with the back action 
  {label:"Mobile", value:'mobile'},
  ]}>
     <TabItem value="desktop">
-        In the Desktop view, you'll have at the top left the file bar\
-        ![file_bar](/img/document_view_file_bar.png)\
-        This holds, from left to right, the 
-        [<img alt="logo" src="/img/logo.png" width="16"/>](/img/logo.png)
-        butterfly button to open the menu. Next to it there is the name field that displays the name of the note. You can rename the note by typing a new name into that field and saving it using the <FloppyDisk/> save button. Finally you can <MagnifyingGlass/> search for elements within the note.
+        I skrivebordsvisningen har du øverst til venstre for filbjælken\
+        ![file_bar](/img/document_view_file_bar. ng)\
+        Dette holder, fra venstre mod højre, 
+        [<img alt="logo" src="/img/logo.png" width="16"/>](/img/logo. ng)
+        butterfly knap til at åbne menuen. Ved siden af det er der navnet felt, der viser navnet på noten. Du kan omdøbe noten ved at skrive et nyt navn i feltet og gemme det ved hjælp af <FloppyDisk/> gem knappen. Endelig kan du <MagnifyingGlass/> søge efter elementer i noten.
         \
-        At the top right of the screen you have the toolbar\
-        ![toolbar](/img/document_view_toolbar.png)\
-        By default this bar has the <ScribbleLoop/> lasso tool; the <Pen/> pen tool; the <Path/> path erase tool; the <ArrowCounterClockwise/> undo and <ArrowClockwise/> redo butons, and the <Hand/> hand tool. Then you have the <Plus/> button to add elements to the tool bar, the <Wrench/> button to configure the document, and finally the <Lock/> tool to look the zoom and/or the position of the screen. 
-        ### Important notes
-        1. If some of the element on the toolbar are not visible to you, click and drag (or swipe) left and right to reveal further tools. 
-        2. After selecting a tool, a small menu will appear. Long clicking the tool again will allow you to drag it to a new position
-        3. You can add more tools to the toolbar by clicking the <Plus/> plus sign. 
+        Øverst til højre på skærmen har du værktøjslinjen\
+        ![toolbar](/img/document_view_toolbar. ng)\
+        Som standard har denne linje <ScribbleLoop/> lassoværktøjet. værktøjet <Pen/> <Path/> sti slette værktøj; <ArrowCounterClockwise/> fortryd og <ArrowClockwise/> redo butons, og <Hand/> håndværktøj. Derefter har du knappen <Plus/> for at tilføje elementer til værktøjslinjen, <Wrench/> -knappen for at konfigurere dokumentet, og endelig <Lock/> værktøj til at se zoom og/eller placeringen af skærmen. 
+        ### Vigtige noter
+        1. Hvis noget af elementet på værktøjslinjen ikke er synligt for dig, klik og træk (eller stryge) til venstre og højre for at afsløre yderligere værktøjer. 
+        2. Når du har valgt et værktøj, vises en lille menu. Langt at klikke på værktøjet igen vil give dig mulighed for at trække det til en ny position
+        3. Du kan tilføje flere værktøjer til værktøjslinjen ved at klikke på <Plus/> plus tegn. 
     </TabItem>
     <TabItem value="mobile">
-        In the mobile view, you'll have at the top the file bar\
-        ![file_bar](/img/document_view_file_bar.png)\
-        This holds, from left to right, the 
-        [<img alt="logo" src="/img/logo.png" width="16"/>](/img/logo.png)
-        butterfly button to open the menu. Next to it there is the name field that displays the name of the note. You can rename the note by typing a new name into that field and saving it using the <FloppyDisk/> save button. Finally you can <MagnifyingGlass/> search for elements within the note.
+        I den mobile visning har du øverst filbjælken\
+        ![file_bar](/img/document_view_file_bar. ng)\
+        Dette holder, fra venstre mod højre, 
+        [<img alt="logo" src="/img/logo.png" width="16"/>](/img/logo. ng)
+        butterfly knap til at åbne menuen. Ved siden af det er der navnet felt, der viser navnet på noten. Du kan omdøbe noten ved at skrive et nyt navn i feltet og gemme det ved hjælp af <FloppyDisk/> gem knappen. Endelig kan du <MagnifyingGlass/> søge efter elementer i noten.
         \
-        At the bottom of the screen you have the toolbar\
-        ![toolbar](/img/document_view_toolbar.png)\
-        By default this bar has the <ScribbleLoop/> lasso tool; the <Pen/> pen tool; the <Path/> path erase tool; the <ArrowCounterClockwise/> undo and <ArrowClockwise/> redo butons, and the <Hand/> hand tool. Then you have the <Plus/> button to add elements to the tool bar, the <Wrench/> button to configure the document, and finally the <Lock/> tool to look the zoom and/or the position of the screen. 
-        ### Important notes
-        1. If some of the element on the toolbar are not visible to you, or swipe left and right to reveal further elements. 
-        2. After selecting a tool, a small menu will appear to configure the it. Long clicking the tool again will allow you to drag it to a new position
-        3. You can add more tools to the toolbar by clicking the <Plus/> plus sign. 
+        I bunden af skærmen har du værktøjslinjen\
+        ![toolbar](/img/document_view_toolbar. ng)\
+        Som standard har denne linje <ScribbleLoop/> lassoværktøjet. værktøjet <Pen/> <Path/> sti slette værktøj; <ArrowCounterClockwise/> fortryd og <ArrowClockwise/> redo butons, og <Hand/> håndværktøj. Derefter har du knappen <Plus/> for at tilføje elementer til værktøjslinjen, <Wrench/> -knappen for at konfigurere dokumentet, og endelig <Lock/> værktøj til at se zoom og/eller placeringen af skærmen. 
+        ### Vigtige noter
+        1. Hvis noget af elementet på værktøjslinjen ikke er synligt for dig, eller stryg til venstre og højre for at afsløre yderligere elementer. 
+        2. Når du har valgt et værktøj, vil en lille menu se ud til at indstille det. Langt at klikke på værktøjet igen vil give dig mulighed for at trække det til en ny position
+        3. Du kan tilføje flere værktøjer til værktøjslinjen ved at klikke på <Plus/> plus tegn. 
     </TabItem>
 </Tabs>
 	
