@@ -5,7 +5,9 @@ slug: /intro
 sidebar_position: 1
 ---
 
-import Schede da '@theme/Tabs'; import TabItem da '@theme/TabItem'; import { Gear, Plus, FloppyDisk, MagnifyingGlass, ScribbleLoop, Pen, Percorso, ArrowCounterClockwise, ArrowClockwise, Hand, Chiave, Lock} da "@phosphor-icons/react";
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+import { Gear, Plus, FloppyDisk, MagnifyingGlass, ScribbleLoop, Pen, Path, ArrowCounterClockwise, ArrowClockwise, Hand, Wrench, Lock} from "@phosphor-icons/react";
 
 ![Banner](/img/banner.png)
 
@@ -74,7 +76,7 @@ Una volta aperto un documento selezionando un modello o un file esistente, si ar
 
 ## La Vista Documento
 
-È possibile tornare dalla vista documenti alla lista dei documenti con l'azione posteriore del dispositivo. Come per la vista principale, il display del documento cambia in base al dispositivo. 
+È possibile tornare dalla vista documenti alla lista dei documenti con l'azione posteriore del dispositivo. Come per la vista principale, il display del documento cambia in base al dispositivo.
 
 <Tabs
     defaultValue = "desktop"
