@@ -5,7 +5,9 @@ slug: /intro
 sidebar_position: 1
 ---
 
-importovat záložky z '@theme/Tabs'; importovat položku záložky z '@theme/TabItem'; importovat { Gear, Plus, FloppyDisk, MagnifyingGlass, ScribbleLoop, Pen, Cesta, Šipka CounterClockise, Šipkový kurz, Ruce, Wrench, Lock} z "@fosfor-icons/react";
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+import { Gear, Plus, FloppyDisk, MagnifyingGlass, ScribbleLoop, Pen, Path, ArrowCounterClockwise, ArrowClockwise, Hand, Wrench, Lock} from "@phosphor-icons/react";
 
 ![Banner](/img/banner.png)
 
@@ -74,7 +76,7 @@ Po otevření dokumentu výběrem šablony nebo existujícího souboru se dostan
 
 ## Zobrazení dokumentu
 
-Můžete se vrátit z zobrazení dokumentu do seznamu dokumentů pomocí zadní akce vašeho zařízení. Stejně jako v případě hlavního zobrazení, změny zobrazení dokumentu na základě vašeho zařízení. 
+Můžete se vrátit z zobrazení dokumentu do seznamu dokumentů pomocí zadní akce vašeho zařízení. Stejně jako v případě hlavního zobrazení, změny zobrazení dokumentu na základě vašeho zařízení.
 
 <Tabs
     defaultValue = "desktop"
