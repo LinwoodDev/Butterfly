@@ -76,7 +76,7 @@ Ao abrir um documento, selecionando um modelo ou um arquivo existente, você che
 
 ## A visualização de documentos
 
-Você pode retornar da visualização de documentos para a lista de documentos com a ação traseira do seu dispositivo. Como na visualização principal, as alterações do documento são exibidas com base no seu dispositivo. 
+Você pode retornar da visualização de documentos para a lista de documentos com a ação traseira do seu dispositivo. Como na visualização principal, as alterações do documento são exibidas com base no seu dispositivo.
 
 <Tabs
     defaultValue = "desktop"
