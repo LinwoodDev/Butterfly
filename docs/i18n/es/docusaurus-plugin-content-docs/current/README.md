@@ -15,18 +15,18 @@ import { Gear, Plus, FloppyDisk, MagnifyingGlass, ScribbleLoop, Pen, Path, Arrow
 
 > Bienvenido a Butterfly, la aplicación de notas de código abierto.
 
-Butterfly is a note taking app that is aiming for unified experience across all platforms. It provides simple UI with powerful customization.
+Butterfly es una aplicación de toma de notas que apunta a una experiencia unificada en todas las plataformas. Proporciona una interfaz de usuario sencilla con una potente personalización.
 
 ## Comenzando
 
-> You can use the sidebar to navigate quickly through the wiki.
+> Puedes usar la barra lateral para navegar rápidamente a través de la wiki.
 
 
-To start working on the app you have two options:
-1. [Downloads](/downloads) the app version that is appropriate for your platform (Butterfly can run on most mobile, desktop, and web platfroms).
-2. Use [web version](https://butterfly.linwood.dev) if you cannot find your platform or if you don't want to install it on it. See [here](storage#web) about file storage on the web version.
+Para empezar a trabajar en la aplicación, tienes dos opciones:
+1. [Descargue](/downloads) la versión de la aplicación que es apropiada para su plataforma (Butterfly puede ejecutarse en la mayoría de plataformas móviles, de escritorio y web).
+2. Usa [versión web](https://butterfly.linwood.dev) si no encuentras tu plataforma o si no quieres instalarla en ella. Vea [aquí](storage#web) sobre el almacenamiento de archivos en la versión web.
 
-> Once you open the app, continue reading.
+> Una vez que abras la aplicación, sigue leyendo.
 
 
 
@@ -34,7 +34,7 @@ To start working on the app you have two options:
 
 ![Vista principal](main.png)
 
-The main view is composed of several elements
+La vista principal se compone de varios elementos
 <Tabs
     defaultValue = "desktop"
     groupId="platfrom"
@@ -43,40 +43,40 @@ The main view is composed of several elements
  {label:"Mobile", value:'mobile'},
  ]}>
     <TabItem value="desktop">
-        ![Welcome screen](/img/welcome_screen_desktop.png)
-        The top of the screen holds the banner for updates, the link to this documentations, and the <Gear/> config icon. Finally, to the right of the <Gear/> config symbol you have a drop down menu for controlling when this banner will appear (always/never/on updates).
-        The "Files" section in the major area of the left. There, you can do the typical operations:
-            - Select the display type (grid or list)
-            - Select the [source storage](storage) of the files
-            - Sort the display order of the files
-            - Add a folder, file, template, or import files by clicking the <Plus/> plus sign
-            - Type the direct path to a desired location (the Location field),
-            - Search for files
-        Finally, to the right, you have the quick start display with the templates available in the current location. For a fresh install this includes the light and dark template
+        ![Pantalla de Bienvenida](/img/welcome_screen_desktop.png)
+        La parte superior de la pantalla contiene el banner para actualizaciones, el enlace a esta documentación y el icono de configuración <Gear/>. Finalmente, a la derecha del símbolo de configuración <Gear/> tienes un menú desplegable para controlar cuándo aparecerá este banner (siempre/nunca/en actualizaciones).
+        La sección "Archivos" en el área principal de la izquierda. Eso, puedes hacer las operaciones típicas:
+            - Selecciona el tipo de visualización (cuadrícula o lista)
+            - Selecciona el [almacenamiento original](storage) de los archivos
+            - Ordena el orden de visualización de los archivos
+            - Añade una carpeta, archivo, plantilla, o importar archivos haciendo clic en <Plus/> más signo
+            - Escriba la ruta directa a la ubicación deseada (el campo Ubicación),
+            - Buscar archivos
+        Finalmente, a la derecha, tiene la pantalla de inicio rápido con las plantillas disponibles en la ubicación actual. Para una instalación fresca esto incluye la plantilla clara y oscura
     </TabItem>
     <TabItem value="mobile">
-        When opening Butterfly on a mobile device you will be presented with a screen as this
-        ![Welcome screen first part](/img/welcome_screen_mobile_1.png)   
-        The top of the screen holds the banner for updates, and below it you can find the documnentation link, and next to it the <Gear/> config icon. Finally, to the right of the <Gear/> config symbol you have a drop down menu for controlling when this banner will appear (always/never/on updates).
-        Below those, you can find the quick start section holding the templates avialable to you. By defaule, the templates are the light and dark templates. 
-        Scrolling down, you will see the file interface:
+        ¡Al abrir la mariposa en un dispositivo móvil, se te presentará una pantalla como esta
+        ! Pantalla de bienvenida primero](/img/welcome_screen_mobile_1. ng)   
+        La parte superior de la pantalla mantiene el banner para actualizaciones, y debajo de él puedes encontrar el enlace de nentación, y al lado del icono de configuración <Gear/>. Finalmente, a la derecha del símbolo de configuración <Gear/> tienes un menú desplegable para controlar cuándo aparecerá este banner (siempre/nunca/en actualizaciones).
+        Debajo de ellas, puede encontrar la sección de inicio rápido sosteniendo las plantillas avialables para usted. Por defecto, las plantillas son las plantillas claras y oscuras. 
+        Desplazándose hacia abajo, verás la interfaz de archivos:
         \
-        ![Welcome screen second part](/img/welcome_screen_mobile_2.png)  
-        The "Files" section in the major area of the left. There, you can do the typical operations:
-        - Select the display type (grid or list)
-        - Select the [source storage](storage) of the files
-        - Sort the display order of the files
-        - Add a folder, file, template, or import files by clicking the <Plus/> plus sign
-        - Type the direct path to a desired location (the Location field),
-        - Search for files
+        ! Segunda parte de la pantalla de bienvenida](/img/welcome_screen_mobile_2. ng)  
+        La sección "Archivos" en el área principal de la izquierda. Eso, puedes hacer las operaciones típicas:
+        - Selecciona el tipo de visualización (cuadrícula o lista)
+        - Selecciona el [almacenamiento original](storage) de los archivos
+        - Ordena el orden de visualización de los archivos
+        - Añade una carpeta, archivo, plantilla, o importar archivos haciendo clic en <Plus/> más signo
+        - Escriba la ruta directa a la ubicación deseada (el campo Ubicación),
+        - Buscar archivos
     </TabItem>
 </Tabs>
 
-Once opening a document by selecting a template or an existing file, you will get to the **Document View**
+Una vez que abra un documento seleccionando una plantilla o un archivo existente, obtendrá a la **Vista de documento**
 
-## The Document View
+## Vista del documento
 
-You can return from the document view to the document list with the back action of your device. As with the main view, the document display changes based on your device. 
+Puede volver desde la vista de documento a la lista de documentos con la acción de atrás de su dispositivo. Al igual que con la vista principal, el documento muestra cambios basados en su dispositivo. 
 
 <Tabs
     defaultValue = "desktop"
@@ -90,30 +90,30 @@ You can return from the document view to the document list with the back action 
         ![file_bar](/img/document_view_file_bar.png)\
         This holds, from left to right, the 
         [<img alt="logo" src="/img/logo.png" width="16"/>](/img/logo.png)
-        butterfly button to open the menu. Next to it there is the name field that displays the name of the note. You can rename the note by typing a new name into that field and saving it using the <FloppyDisk/> save button. Finally you can <MagnifyingGlass/> search for elements within the note.
+        butterfly button to open the menu. Junto a él está el campo nombre que muestra el nombre de la nota. Puede cambiar el nombre de la nota escribiendo un nuevo nombre en ese campo y guardándolo usando el botón <FloppyDisk/> guardar. Finally you can <MagnifyingGlass/> search for elements within the note.
         \
-        At the top right of the screen you have the toolbar\
-        ![toolbar](/img/document_view_toolbar.png)\
-        By default this bar has the <ScribbleLoop/> lasso tool; the <Pen/> pen tool; the <Path/> path erase tool; the <ArrowCounterClockwise/> undo and <ArrowClockwise/> redo butons, and the <Hand/> hand tool. Then you have the <Plus/> button to add elements to the tool bar, the <Wrench/> button to configure the document, and finally the <Lock/> tool to look the zoom and/or the position of the screen. 
-        ### Important notes
-        1. If some of the element on the toolbar are not visible to you, click and drag (or swipe) left and right to reveal further tools. 
-        2. After selecting a tool, a small menu will appear. Long clicking the tool again will allow you to drag it to a new position
-        3. You can add more tools to the toolbar by clicking the <Plus/> plus sign. 
+        ¡En la parte superior derecha de la pantalla tienes la barra de herramientas/
+        ![toolbar](/img/document_view_toolbar. ng)\
+        Por defecto esta barra tiene la herramienta <ScribbleLoop/> lasso; la herramienta de pluma <Pen/> la herramienta de borrar ruta <Path/> ; las butonas <ArrowCounterClockwise/> deshacer y <ArrowClockwise/> rehacer, y la herramienta <Hand/>. Luego tienes el botón <Plus/> para añadir elementos a la barra de herramientas, el botón <Wrench/> para configurar el documento, y, finalmente, la herramienta <Lock/> para ver el zoom y/o la posición de la pantalla. 
+        ### Notas importantes
+        1. Si algunos de los elementos de la barra de herramientas no son visibles para usted, haga clic y arrastre (o deslize) a la izquierda y a la derecha para revelar más herramientas. 
+        2. Después de seleccionar una herramienta, aparecerá un pequeño menú. Hacer clic largo en la herramienta de nuevo te permitirá arrastrarlo a una nueva posición
+        3. Puede añadir más herramientas a la barra de herramientas haciendo clic en el signo <Plus/>. 
     </TabItem>
     <TabItem value="mobile">
         In the mobile view, you'll have at the top the file bar\
         ![file_bar](/img/document_view_file_bar.png)\
         This holds, from left to right, the 
         [<img alt="logo" src="/img/logo.png" width="16"/>](/img/logo.png)
-        butterfly button to open the menu. Next to it there is the name field that displays the name of the note. You can rename the note by typing a new name into that field and saving it using the <FloppyDisk/> save button. Finally you can <MagnifyingGlass/> search for elements within the note.
+        butterfly button to open the menu. Junto a él está el campo nombre que muestra el nombre de la nota. Puede cambiar el nombre de la nota escribiendo un nuevo nombre en ese campo y guardándolo usando el botón <FloppyDisk/> guardar. Finally you can <MagnifyingGlass/> search for elements within the note.
         \
-        At the bottom of the screen you have the toolbar\
-        ![toolbar](/img/document_view_toolbar.png)\
-        By default this bar has the <ScribbleLoop/> lasso tool; the <Pen/> pen tool; the <Path/> path erase tool; the <ArrowCounterClockwise/> undo and <ArrowClockwise/> redo butons, and the <Hand/> hand tool. Then you have the <Plus/> button to add elements to the tool bar, the <Wrench/> button to configure the document, and finally the <Lock/> tool to look the zoom and/or the position of the screen. 
-        ### Important notes
-        1. If some of the element on the toolbar are not visible to you, or swipe left and right to reveal further elements. 
-        2. After selecting a tool, a small menu will appear to configure the it. Long clicking the tool again will allow you to drag it to a new position
-        3. You can add more tools to the toolbar by clicking the <Plus/> plus sign. 
+        ¡En la parte inferior de la pantalla tienes la barra de herramientas/
+        ![toolbar](/img/document_view_toolbar. ng)\
+        Por defecto esta barra tiene la herramienta <ScribbleLoop/> lasso; la herramienta de pluma <Pen/> la herramienta de borrar ruta <Path/> ; las butonas <ArrowCounterClockwise/> deshacer y <ArrowClockwise/> rehacer, y la herramienta <Hand/>. Luego tienes el botón <Plus/> para añadir elementos a la barra de herramientas, el botón <Wrench/> para configurar el documento, y, finalmente, la herramienta <Lock/> para ver el zoom y/o la posición de la pantalla. 
+        ### Notas importantes
+        1. Si algunos de los elementos de la barra de herramientas no son visibles para ti, o desliza hacia la izquierda y la derecha para revelar elementos adicionales. 
+        2. Después de seleccionar una herramienta, aparecerá un pequeño menú para configurarla. Hacer clic largo en la herramienta de nuevo te permitirá arrastrarlo a una nueva posición
+        3. Puede añadir más herramientas a la barra de herramientas haciendo clic en el signo <Plus/>. 
     </TabItem>
 </Tabs>
 	
