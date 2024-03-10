@@ -49,35 +49,35 @@ sidebar_position: 2
 ## Εγκατάσταση με χρήση winget
 
 ```powershell
-winget install LinwoodCloud.Butterfly
+εγκατάσταση φτερών LinwoodCloud.Butterfly
 ```
 
 Για να αναβαθμίσετε το πακέτο winget, εκτελέστε:
 
 ```powershell
-winget upgrade LinwoodCloud.Butterfly
+Αναβάθμιση φτερών LinwoodCloud.πεταλούδα
 ```
 
 Για να απεγκαταστήσετε το πακέτο winget, εκτελέστε:
 
 ```powershell
-winget uninstall LinwoodCloud.Butterfly
+κατάργηση εγκατάστασης του LinwoodCloud.Butterfly
 ```
 
 ### Νυχτερινή έκδοση
 
 ```powershell
-winget install LinwoodCloud.Butterfly.Nightly
+εγκατάσταση του LinwoodCloud.Butterfly.Nightly
 ```
 
 Για να αναβαθμίσετε το πακέτο winget, εκτελέστε:
 
 ```powershell
-winget upgrade LinwoodCloud.Butterfly.Nightly
+Αναβάθμιση winget LinwoodCloud.Butterfly.Nightly
 ```
 
 Για να απεγκαταστήσετε το πακέτο winget, εκτελέστε:
 
 ```powershell
-winget uninstall LinwoodCloud.Butterfly.Nightly
+winget απεγκατάσταση LinwoodCloud.Butterfly.Nightly
 ```
