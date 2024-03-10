@@ -6,7 +6,8 @@ sidebar_position: 1
 ---
 
 import Tabs from '@theme/Tabs';
-import TabItem din '@theme/TabItem'; import { Gear, Plus, FloppyDisk, MagnifyingGlass, ScribbleLoop, Pen, Cale, ArrowCounterClockwise, ArrowClockwise, Wrench, Lock} de la "@fosfor-icons/react";
+import TabItem from '@theme/TabItem';
+import { Gear, Plus, FloppyDisk, MagnifyingGlass, ScribbleLoop, Pen, Path, ArrowCounterClockwise, ArrowClockwise, Hand, Wrench, Lock} from "@phosphor-icons/react";
 
 ![Banner](/img/banner.png)
 
@@ -75,7 +76,7 @@ După deschiderea unui document selectând un şablon sau un fişier existent, v
 
 ## Vizualizare document
 
-Puteți reveni din vizualizarea documentului la lista de documente cu acțiunea din spate a dispozitivului dvs. Ca și în cazul vizualizării principale, documentul afișează modificări bazate pe dispozitivul dvs. 
+Puteți reveni din vizualizarea documentului la lista de documente cu acțiunea din spate a dispozitivului dvs. Ca și în cazul vizualizării principale, documentul afișează modificări bazate pe dispozitivul dvs.
 
 <Tabs
     defaultValue = "desktop"
