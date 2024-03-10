@@ -76,7 +76,7 @@ Når du åpner et dokument ved å velge en mal eller en eksisterende fil, vil du
 
 ## Dokumentvisning (Automatic Translation)
 
-Fra dokumentvisningen kan du returnere til dokumentlisten med den bakenforliggende handlingen for enheten. Som for hovedvisningen vises dokumentet basert på enheten din. 
+Fra dokumentvisningen kan du returnere til dokumentlisten med den bakenforliggende handlingen for enheten. Som for hovedvisningen vises dokumentet basert på enheten din.
 
 <Tabs
     defaultValue = "desktop"
