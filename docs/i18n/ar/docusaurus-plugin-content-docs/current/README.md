@@ -5,7 +5,9 @@ slug: /intro
 sidebar_position: 1
 ---
 
-استيراد علامات التبويب من '@theme/Tabs'; استيراد البند التبويب من '@theme/TabItem'; استيراد { Gear, Plus, FloppyDisk, MagnifyingGlass, ScribbleLoop, Pen, Path, ArrowCounterClockwise, ArrowClockwise, Hand, Wrench, Lock} من "@phosphor-icons/react";
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+import { Gear, Plus, FloppyDisk, MagnifyingGlass, ScribbleLoop, Pen, Path, ArrowCounterClockwise, ArrowClockwise, Hand, Wrench, Lock} from "@phosphor-icons/react";
 
 ![لافتة](/img/banner.png)
 
@@ -74,7 +76,7 @@ sidebar_position: 1
 
 ## عرض المستند
 
-يمكنك العودة من عرض المستند إلى قائمة المستندات مع الإجراء الخلفي لجهازك. كما هو الحال مع العرض الرئيسي، يتغير عرض المستند استناداً إلى جهازك. 
+يمكنك العودة من عرض المستند إلى قائمة المستندات مع الإجراء الخلفي لجهازك. كما هو الحال مع العرض الرئيسي، يتغير عرض المستند استناداً إلى جهازك.
 
 <Tabs
     defaultValue = "desktop"
