@@ -49,35 +49,35 @@ sidebar_position: 2
 ## تثبيت باستخدام الجناح
 
 ```powershell
-winget install LinwoodCloud.Butterfly
+تثبيت الجناح LinwoodCloud.Butterfly
 ```
 
 لترقية حزمة الأجنحة، قم بتشغيل:
 
 ```powershell
-winget upgrade LinwoodCloud.Butterfly
+ترقية أجنحة LinwoodCloud.Butterfly
 ```
 
 لإلغاء تثبيت حزمة الأجنحة، قم بتشغيل:
 
 ```powershell
-winget uninstall LinwoodCloud.Butterfly
+إلغاء تثبيت الجناح LinwoodCloud.Butterfly
 ```
 
 ### الإصدار الليلي
 
 ```powershell
-winget install LinwoodCloud.Butterfly.Nightly
+تثبيت الجناح LinwoodCloud.Butterfly.الليلي
 ```
 
 لترقية حزمة الأجنحة، قم بتشغيل:
 
 ```powershell
-winget upgrade LinwoodCloud.Butterfly.Nightly
+ترقية أجنحة LinwoodCloud.Butterfly.الليلي
 ```
 
 لإلغاء تثبيت حزمة الأجنحة، قم بتشغيل:
 
 ```powershell
-winget uninstall LinwoodCloud.Butterfly.Nightly
+إلغاء تثبيت الجناح LinwoodCloud.Butterfly.مساء
 ```
