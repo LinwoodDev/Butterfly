@@ -7,7 +7,7 @@ sidebar_position: 1
 
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
-εισαγωγή {Gear, Plus, FloppyDisk, MagnifyingGlass, ScribbleLoop, Pen, Path, ArrowCounterClockwise, ArrowClockwise, Hand, Κλειδί, Lock} από "@phosphor-icons/react".
+import { Gear, Plus, FloppyDisk, MagnifyingGlass, ScribbleLoop, Pen, Path, ArrowCounterClockwise, ArrowClockwise, Hand, Wrench, Lock} from "@phosphor-icons/react";
 
 ![Λάβαρο](/img/banner.png)
 
@@ -76,7 +76,7 @@ Once opening a document by selecting a template or an existing file, you will ge
 
 ## Η Προβολή Εγγράφου
 
-Μπορείτε να επιστρέψετε από την προβολή εγγράφου στη λίστα εγγράφων με την πίσω ενέργεια της συσκευής σας. Όπως και με την κύρια προβολή, το έγγραφο εμφανίζει αλλαγές με βάση τη συσκευή σας. 
+Μπορείτε να επιστρέψετε από την προβολή εγγράφου στη λίστα εγγράφων με την πίσω ενέργεια της συσκευής σας. Όπως και με την κύρια προβολή, το έγγραφο εμφανίζει αλλαγές με βάση τη συσκευή σας.
 
 <Tabs
     defaultValue = "desktop"
