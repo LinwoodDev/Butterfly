@@ -507,7 +507,7 @@ jobs:
           git pull --tags
       - name: 🚀 Deploy stable
         if: ${{ github.ref == 'refs/tags/stable' || (github.event_name == 'release' && !github.event.prerelease) }}
-        uses: softprops/action-gh-release@v1
+        uses: softprops/action-gh-release@v2
         continue-on-error: true
         with:
           prerelease: true
@@ -528,7 +528,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: 🚀 Deploy nightly
         if: ${{ github.ref == 'refs/tags/nightly' }}
-        uses: softprops/action-gh-release@v1
+        uses: softprops/action-gh-release@v2
         continue-on-error: true
         with:
           prerelease: true
@@ -548,7 +548,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Release
-        uses: softprops/action-gh-release@v1
+        uses: softprops/action-gh-release@v2
         continue-on-error: true
         if: startsWith(github.ref, 'refs/tags/v')
         with:
