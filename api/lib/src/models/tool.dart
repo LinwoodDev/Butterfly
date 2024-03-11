@@ -24,16 +24,11 @@ enum AspectRatioPreset {
 }
 
 extension RatioPresetExtension on AspectRatioPreset {
-  double get ratio {
-    switch (this) {
-      case AspectRatioPreset.square:
-        return _kSquareRatio;
-      case AspectRatioPreset.portrait:
-        return _kAPortraitRatio;
-      case AspectRatioPreset.landscape:
-        return _kLandscapeRatio;
-    }
-  }
+  double get ratio => switch (this) {
+        AspectRatioPreset.square => _kSquareRatio,
+        AspectRatioPreset.portrait => _kAPortraitRatio,
+        AspectRatioPreset.landscape => _kLandscapeRatio,
+      };
 }
 
 enum LabelMode { markdown, text }
