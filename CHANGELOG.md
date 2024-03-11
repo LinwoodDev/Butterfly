@@ -2,6 +2,17 @@
 
 <!--ENTER CHANGELOG HERE-->
 
+## 2.1.0-beta.2 (2024-03-11)
+
+* Add icons to sort dropdown items
+* Improve window buttons on custom title bar
+* Improve svg path export ([#620](https://github.com/LinwoodDev/Butterfly/issues/620))
+* Fix svg export preview shows nothing
+* Fix exporting on web
+* Fix file creation if the file path already exists
+
+Read more here: https://linwood.dev/butterfly/2.1.0-beta.2
+
 ## 2.1.0-beta.1 (2024-03-04)
 
 * Add setting for adding background to pdf import ([#606](https://github.com/LinwoodDev/Butterfly/issues/606))
