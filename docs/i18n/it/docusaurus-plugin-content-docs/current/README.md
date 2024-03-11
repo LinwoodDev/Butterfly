@@ -47,7 +47,7 @@ La vista principale è composta da diversi elementi
         La parte superiore dello schermo contiene il banner per gli aggiornamenti, il link a questa documentazione e l'icona di configurazione <Gear/>. Infine, a destra del simbolo di configurazione <Gear/> hai un menu a discesa per controllare quando apparirà questo banner (sempre/mai/sugli aggiornamenti).
         La sezione "File" nella zona principale della sinistra. Lì, è possibile eseguire le operazioni tipiche:
             - Selezionare il tipo di visualizzazione (griglia o lista)
-            - Selezionare il [archivio sorgente](archiviazione) dei file
+            - Selezionare il [archivio sorgente](storage) dei file
             - Ordinare l'ordine di visualizzazione dei file
             - Aggiungere una cartella, file, modello, o importare i file facendo clic sul segno <Plus/> plus
             - Digitare il percorso diretto a una posizione desiderata (il campo Posizione),
@@ -64,7 +64,7 @@ La vista principale è composta da diversi elementi
         ! Seconda parte dello schermo di benvenuto](/img/welcome_screen_mobile_2. ng)  
         La sezione "File" nella zona principale della sinistra. Lì, è possibile eseguire le operazioni tipiche:
         - Selezionare il tipo di visualizzazione (griglia o lista)
-        - Selezionare il [archivio sorgente](archiviazione) dei file
+        - Selezionare il [archivio sorgente](storage) dei file
         - Ordinare l'ordine di visualizzazione dei file
         - Aggiungere una cartella, file, modello, o importare i file facendo clic sul segno <Plus/> plus
         - Digitare il percorso diretto a una posizione desiderata (il campo Posizione),

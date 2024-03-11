@@ -47,7 +47,7 @@ La vue principale est composée de plusieurs éléments
         Le haut de l'écran contient la bannière pour les mises à jour, le lien vers ces documentations, et l'icone de configuration <Gear/>. Enfin, à droite du symbole de configuration <Gear/> vous avez un menu déroulant pour contrôler quand cette bannière apparaîtra (toujours/jamais/sur les mises à jour).
         La section "Fichiers" dans la zone principale de gauche. Là, vous pouvez faire les opérations typiques :
             - Sélectionnez le type d'affichage (grille ou liste)
-            - Sélectionnez le [stockage source](stockage) des fichiers
+            - Sélectionnez le [stockage source](storage) des fichiers
             - Trier l'ordre d'affichage des fichiers
             - Ajouter un dossier, fichier, modèle, ou importez des fichiers en cliquant sur le signe <Plus/> plus
             - Tapez le chemin d'accès direct à l'emplacement souhaité (le champ Emplacement),
@@ -64,7 +64,7 @@ La vue principale est composée de plusieurs éléments
         ! Écran d'accueil deuxième partie](/img/welcome_screen_mobile_2. ng)  
         La section "Fichiers" dans la zone principale de la gauche. Là, vous pouvez faire les opérations typiques :
         - Sélectionnez le type d'affichage (grille ou liste)
-        - Sélectionnez le [stockage source](stockage) des fichiers
+        - Sélectionnez le [stockage source](storage) des fichiers
         - Trier l'ordre d'affichage des fichiers
         - Ajouter un dossier, fichier, modèle, ou importez des fichiers en cliquant sur le signe <Plus/> plus
         - Tapez le chemin d'accès direct à l'emplacement souhaité (le champ Emplacement),

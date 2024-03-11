@@ -47,7 +47,7 @@ A visão principal é composta de vários elementos
         O topo da tela mantém o banner para atualizações, o link para esta documentação e o ícone de configuração <Gear/>. Finalmente, à direita do símbolo <Gear/> config você tem um menu suspenso para controlar quando este banner aparecerá (sempre/nunca/atualizações).
         A seção "Arquivos" na maior área da esquerda. Aí está, você pode fazer as operações típicas:
             - Selecione o tipo de exibição (grid ou lista)
-            - Selecione o [armazenamento de origem](armazenamento) dos arquivos
+            - Selecione o [armazenamento de origem](storage) dos arquivos
             - Ordenar a ordem de exibição dos arquivos
             - Adicionar uma pasta, arquivo, modelo, ou importar arquivos clicando no sinal <Plus/> mais
             - Digite o caminho direto para o local desejado (o campo Local),
@@ -64,7 +64,7 @@ A visão principal é composta de vários elementos
         ! Tela de boas-vindas segunda parte](/img/welcome_screen_mobile_2. ng)  
         A seção "Arquivos" na maior área da esquerda. Aí está, você pode fazer as operações típicas:
         - Selecione o tipo de exibição (grid ou lista)
-        - Selecione o [armazenamento de origem](armazenamento) dos arquivos
+        - Selecione o [armazenamento de origem](storage) dos arquivos
         - Ordenar a ordem de exibição dos arquivos
         - Adicionar uma pasta, arquivo, modelo, ou importar arquivos clicando no sinal <Plus/> mais
         - Digite o caminho direto para o local desejado (o campo Local),
