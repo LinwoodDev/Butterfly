@@ -76,7 +76,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       final current = state;
       if (current is! DocumentLoadSuccess) return;
       final data = current.data.setPage(current.page, current.pageName);
-      final page = current.data.getPage(event.pageName);
+      final page = data.getPage(event.pageName);
       if (page == null) return;
       return _saveState(
         emit,
@@ -108,7 +108,12 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       final newData = current.data.renamePage(event.oldName, event.newName);
       return _saveState(
         emit,
-        current.copyWith(data: newData),
+        current.copyWith(
+          data: newData,
+          pageName: current.pageName == event.oldName
+              ? event.newName
+              : current.pageName,
+        ),
         null,
       );
     });

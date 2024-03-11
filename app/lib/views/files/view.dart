@@ -441,9 +441,11 @@ class FilesViewState extends State<FilesView> {
                 if (snapshot.hasError) {
                   return Text(snapshot.error.toString());
                 }
-                if (snapshot.connectionState == ConnectionState.waiting ||
-                    !snapshot.hasData) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
                   return const Center(child: CircularProgressIndicator());
+                }
+                if (!snapshot.hasData) {
+                  return Text(AppLocalizations.of(context).noElements);
                 }
                 final entity = snapshot.data;
                 if (entity is! AppDocumentDirectory) {
