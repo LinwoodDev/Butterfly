@@ -2,24 +2,24 @@
 title: "Areas"
 sidebar_position: 2
 ---
+import {Monitor} from "@phosphor-icons/react";
 
-## Introduction
 
 ![Area](area.png)
 
-Areas are a way to restrict the size of the canvas. You can create areas by using the [area tool](tools/area.md). If you click on the background you can open the area list dialog using the context menu.
+While you can directlz edit the content on the canvas, it is common that you would like to restrict the region in which you can modify the content, or that you would like ot be able to be able to quickly access a part of the document. For that, you have the <Monitor/> Area tool. As explained in the [introduction section](README.md), you might need to add the <Monitor/> area button to your toolbar. Using the [area tool](tools/area.md), you can draw rectangle anywhre on the canvas to then define the area.
 
-## Creating and deleting areas
+## More control 
+You can further define area tool by clicking again on the <Monitor/> area button. There, you can define the areas's fixed width, height, or aspect ratio. 
 
-Use the [area tool](tools/area.md) to create an area.
-Areas cannot overlap. After you created an area you need to name it.
+## The area context menu 
+ After drawing an area, you can click or long tap on touch display the area to open a context menu with the following options:
+* `Name` - Give the area a name that is convinient for you to use. This is useful, for example when... 
+* `Enter the area` - Allowing you to edit content only borded by this area. 
+* `Delete` - Delete the area. This *does not* delete the content within this area. 
+* `Export` - Export the content of the selected area. 
+* `Add to pack` - Add the area to a [pack](pack)
 
-Click on the area if you want to modify it.
-You can also use the area dialog.
+## Another option 
+Another option for you to use the area navigator on the left menu, or on the butterfly menu if you are using a mobile platform. 
 
-You have a few options in this menu:
-
-* `Enter area`: Enter the area. You cannot paint outside of the area. Exit the area by clicking on the background with the area tool.
-* `Name`: Change the name of the current area
-* `Export`: Export this part of the canvas as an image
-* `Delete`: Delete this area
