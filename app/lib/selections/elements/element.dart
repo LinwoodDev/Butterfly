@@ -75,15 +75,12 @@ class ElementSelection<T extends PadElement> extends Selection<Renderer<T>> {
     final bloc = context.read<DocumentBloc>();
     final state = bloc.state;
     if (state is! DocumentLoaded) return;
-    final content = state.page.content;
-    final updatedElements = <int, List<PadElement>>{};
+    final updatedElements = <String, List<PadElement>>{};
     for (var i = 0; i < selected.length; i++) {
       final element = selected[i];
       final oldElement = this.selected[i];
       if (element.element != oldElement.element) {
-        updatedElements[content.indexOf(oldElement.element)] = [
-          element.element
-        ];
+        updatedElements[oldElement.element.id] = [element.element];
       }
     }
     bloc.add(ElementsChanged(updatedElements));
@@ -132,9 +129,8 @@ class ElementSelection<T extends PadElement> extends Selection<Renderer<T>> {
     final bloc = context.read<DocumentBloc>();
     final state = bloc.state;
     if (state is! DocumentLoadSuccess) return;
-    final content = state.page.content;
-    final indexes = selected.map((e) => content.indexOf(e.element)).toList();
-    context.read<DocumentBloc>().add(ElementsRemoved(indexes));
+    final ids = selected.map((r) => r.element.id).toList();
+    context.read<DocumentBloc>().add(ElementsRemoved(ids));
   }
 
   @override

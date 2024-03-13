@@ -133,10 +133,10 @@ mixin _$DocumentEvent {
     required TResult Function(ViewOption view) viewChanged,
     required TResult Function(UtilitiesState state) utilitiesChanged,
     required TResult Function(List<PadElement> elements) elementsCreated,
-    required TResult Function(Map<int, List<PadElement>> elements)
+    required TResult Function(Map<String, List<PadElement>> elements)
         elementsChanged,
-    required TResult Function(List<int> elements) elementsRemoved,
-    required TResult Function(Arrangement arrangement, List<int> elements)
+    required TResult Function(List<String> elements) elementsRemoved,
+    required TResult Function(Arrangement arrangement, List<String> elements)
         elementsArranged,
     required TResult Function(String? name, String? description)
         documentDescriptionChanged,
@@ -197,9 +197,9 @@ mixin _$DocumentEvent {
     TResult? Function(ViewOption view)? viewChanged,
     TResult? Function(UtilitiesState state)? utilitiesChanged,
     TResult? Function(List<PadElement> elements)? elementsCreated,
-    TResult? Function(Map<int, List<PadElement>> elements)? elementsChanged,
-    TResult? Function(List<int> elements)? elementsRemoved,
-    TResult? Function(Arrangement arrangement, List<int> elements)?
+    TResult? Function(Map<String, List<PadElement>> elements)? elementsChanged,
+    TResult? Function(List<String> elements)? elementsRemoved,
+    TResult? Function(Arrangement arrangement, List<String> elements)?
         elementsArranged,
     TResult? Function(String? name, String? description)?
         documentDescriptionChanged,
@@ -254,9 +254,9 @@ mixin _$DocumentEvent {
     TResult Function(ViewOption view)? viewChanged,
     TResult Function(UtilitiesState state)? utilitiesChanged,
     TResult Function(List<PadElement> elements)? elementsCreated,
-    TResult Function(Map<int, List<PadElement>> elements)? elementsChanged,
-    TResult Function(List<int> elements)? elementsRemoved,
-    TResult Function(Arrangement arrangement, List<int> elements)?
+    TResult Function(Map<String, List<PadElement>> elements)? elementsChanged,
+    TResult Function(List<String> elements)? elementsRemoved,
+    TResult Function(Arrangement arrangement, List<String> elements)?
         elementsArranged,
     TResult Function(String? name, String? description)?
         documentDescriptionChanged,
@@ -592,10 +592,10 @@ class _$PageAddedImpl extends PageAdded {
     required TResult Function(ViewOption view) viewChanged,
     required TResult Function(UtilitiesState state) utilitiesChanged,
     required TResult Function(List<PadElement> elements) elementsCreated,
-    required TResult Function(Map<int, List<PadElement>> elements)
+    required TResult Function(Map<String, List<PadElement>> elements)
         elementsChanged,
-    required TResult Function(List<int> elements) elementsRemoved,
-    required TResult Function(Arrangement arrangement, List<int> elements)
+    required TResult Function(List<String> elements) elementsRemoved,
+    required TResult Function(Arrangement arrangement, List<String> elements)
         elementsArranged,
     required TResult Function(String? name, String? description)
         documentDescriptionChanged,
@@ -659,9 +659,9 @@ class _$PageAddedImpl extends PageAdded {
     TResult? Function(ViewOption view)? viewChanged,
     TResult? Function(UtilitiesState state)? utilitiesChanged,
     TResult? Function(List<PadElement> elements)? elementsCreated,
-    TResult? Function(Map<int, List<PadElement>> elements)? elementsChanged,
-    TResult? Function(List<int> elements)? elementsRemoved,
-    TResult? Function(Arrangement arrangement, List<int> elements)?
+    TResult? Function(Map<String, List<PadElement>> elements)? elementsChanged,
+    TResult? Function(List<String> elements)? elementsRemoved,
+    TResult? Function(Arrangement arrangement, List<String> elements)?
         elementsArranged,
     TResult? Function(String? name, String? description)?
         documentDescriptionChanged,
@@ -719,9 +719,9 @@ class _$PageAddedImpl extends PageAdded {
     TResult Function(ViewOption view)? viewChanged,
     TResult Function(UtilitiesState state)? utilitiesChanged,
     TResult Function(List<PadElement> elements)? elementsCreated,
-    TResult Function(Map<int, List<PadElement>> elements)? elementsChanged,
-    TResult Function(List<int> elements)? elementsRemoved,
-    TResult Function(Arrangement arrangement, List<int> elements)?
+    TResult Function(Map<String, List<PadElement>> elements)? elementsChanged,
+    TResult Function(List<String> elements)? elementsRemoved,
+    TResult Function(Arrangement arrangement, List<String> elements)?
         elementsArranged,
     TResult Function(String? name, String? description)?
         documentDescriptionChanged,
@@ -1055,10 +1055,10 @@ class _$PageChangedImpl extends PageChanged {
     required TResult Function(ViewOption view) viewChanged,
     required TResult Function(UtilitiesState state) utilitiesChanged,
     required TResult Function(List<PadElement> elements) elementsCreated,
-    required TResult Function(Map<int, List<PadElement>> elements)
+    required TResult Function(Map<String, List<PadElement>> elements)
         elementsChanged,
-    required TResult Function(List<int> elements) elementsRemoved,
-    required TResult Function(Arrangement arrangement, List<int> elements)
+    required TResult Function(List<String> elements) elementsRemoved,
+    required TResult Function(Arrangement arrangement, List<String> elements)
         elementsArranged,
     required TResult Function(String? name, String? description)
         documentDescriptionChanged,
@@ -1122,9 +1122,9 @@ class _$PageChangedImpl extends PageChanged {
     TResult? Function(ViewOption view)? viewChanged,
     TResult? Function(UtilitiesState state)? utilitiesChanged,
     TResult? Function(List<PadElement> elements)? elementsCreated,
-    TResult? Function(Map<int, List<PadElement>> elements)? elementsChanged,
-    TResult? Function(List<int> elements)? elementsRemoved,
-    TResult? Function(Arrangement arrangement, List<int> elements)?
+    TResult? Function(Map<String, List<PadElement>> elements)? elementsChanged,
+    TResult? Function(List<String> elements)? elementsRemoved,
+    TResult? Function(Arrangement arrangement, List<String> elements)?
         elementsArranged,
     TResult? Function(String? name, String? description)?
         documentDescriptionChanged,
@@ -1182,9 +1182,9 @@ class _$PageChangedImpl extends PageChanged {
     TResult Function(ViewOption view)? viewChanged,
     TResult Function(UtilitiesState state)? utilitiesChanged,
     TResult Function(List<PadElement> elements)? elementsCreated,
-    TResult Function(Map<int, List<PadElement>> elements)? elementsChanged,
-    TResult Function(List<int> elements)? elementsRemoved,
-    TResult Function(Arrangement arrangement, List<int> elements)?
+    TResult Function(Map<String, List<PadElement>> elements)? elementsChanged,
+    TResult Function(List<String> elements)? elementsRemoved,
+    TResult Function(Arrangement arrangement, List<String> elements)?
         elementsArranged,
     TResult Function(String? name, String? description)?
         documentDescriptionChanged,
@@ -1524,10 +1524,10 @@ class _$PageReorderedImpl extends PageReordered {
     required TResult Function(ViewOption view) viewChanged,
     required TResult Function(UtilitiesState state) utilitiesChanged,
     required TResult Function(List<PadElement> elements) elementsCreated,
-    required TResult Function(Map<int, List<PadElement>> elements)
+    required TResult Function(Map<String, List<PadElement>> elements)
         elementsChanged,
-    required TResult Function(List<int> elements) elementsRemoved,
-    required TResult Function(Arrangement arrangement, List<int> elements)
+    required TResult Function(List<String> elements) elementsRemoved,
+    required TResult Function(Arrangement arrangement, List<String> elements)
         elementsArranged,
     required TResult Function(String? name, String? description)
         documentDescriptionChanged,
@@ -1591,9 +1591,9 @@ class _$PageReorderedImpl extends PageReordered {
     TResult? Function(ViewOption view)? viewChanged,
     TResult? Function(UtilitiesState state)? utilitiesChanged,
     TResult? Function(List<PadElement> elements)? elementsCreated,
-    TResult? Function(Map<int, List<PadElement>> elements)? elementsChanged,
-    TResult? Function(List<int> elements)? elementsRemoved,
-    TResult? Function(Arrangement arrangement, List<int> elements)?
+    TResult? Function(Map<String, List<PadElement>> elements)? elementsChanged,
+    TResult? Function(List<String> elements)? elementsRemoved,
+    TResult? Function(Arrangement arrangement, List<String> elements)?
         elementsArranged,
     TResult? Function(String? name, String? description)?
         documentDescriptionChanged,
@@ -1651,9 +1651,9 @@ class _$PageReorderedImpl extends PageReordered {
     TResult Function(ViewOption view)? viewChanged,
     TResult Function(UtilitiesState state)? utilitiesChanged,
     TResult Function(List<PadElement> elements)? elementsCreated,
-    TResult Function(Map<int, List<PadElement>> elements)? elementsChanged,
-    TResult Function(List<int> elements)? elementsRemoved,
-    TResult Function(Arrangement arrangement, List<int> elements)?
+    TResult Function(Map<String, List<PadElement>> elements)? elementsChanged,
+    TResult Function(List<String> elements)? elementsRemoved,
+    TResult Function(Arrangement arrangement, List<String> elements)?
         elementsArranged,
     TResult Function(String? name, String? description)?
         documentDescriptionChanged,
@@ -1994,10 +1994,10 @@ class _$PageRenamedImpl extends PageRenamed {
     required TResult Function(ViewOption view) viewChanged,
     required TResult Function(UtilitiesState state) utilitiesChanged,
     required TResult Function(List<PadElement> elements) elementsCreated,
-    required TResult Function(Map<int, List<PadElement>> elements)
+    required TResult Function(Map<String, List<PadElement>> elements)
         elementsChanged,
-    required TResult Function(List<int> elements) elementsRemoved,
-    required TResult Function(Arrangement arrangement, List<int> elements)
+    required TResult Function(List<String> elements) elementsRemoved,
+    required TResult Function(Arrangement arrangement, List<String> elements)
         elementsArranged,
     required TResult Function(String? name, String? description)
         documentDescriptionChanged,
@@ -2061,9 +2061,9 @@ class _$PageRenamedImpl extends PageRenamed {
     TResult? Function(ViewOption view)? viewChanged,
     TResult? Function(UtilitiesState state)? utilitiesChanged,
     TResult? Function(List<PadElement> elements)? elementsCreated,
-    TResult? Function(Map<int, List<PadElement>> elements)? elementsChanged,
-    TResult? Function(List<int> elements)? elementsRemoved,
-    TResult? Function(Arrangement arrangement, List<int> elements)?
+    TResult? Function(Map<String, List<PadElement>> elements)? elementsChanged,
+    TResult? Function(List<String> elements)? elementsRemoved,
+    TResult? Function(Arrangement arrangement, List<String> elements)?
         elementsArranged,
     TResult? Function(String? name, String? description)?
         documentDescriptionChanged,
@@ -2121,9 +2121,9 @@ class _$PageRenamedImpl extends PageRenamed {
     TResult Function(ViewOption view)? viewChanged,
     TResult Function(UtilitiesState state)? utilitiesChanged,
     TResult Function(List<PadElement> elements)? elementsCreated,
-    TResult Function(Map<int, List<PadElement>> elements)? elementsChanged,
-    TResult Function(List<int> elements)? elementsRemoved,
-    TResult Function(Arrangement arrangement, List<int> elements)?
+    TResult Function(Map<String, List<PadElement>> elements)? elementsChanged,
+    TResult Function(List<String> elements)? elementsRemoved,
+    TResult Function(Arrangement arrangement, List<String> elements)?
         elementsArranged,
     TResult Function(String? name, String? description)?
         documentDescriptionChanged,
@@ -2456,10 +2456,10 @@ class _$PageRemovedImpl extends PageRemoved {
     required TResult Function(ViewOption view) viewChanged,
     required TResult Function(UtilitiesState state) utilitiesChanged,
     required TResult Function(List<PadElement> elements) elementsCreated,
-    required TResult Function(Map<int, List<PadElement>> elements)
+    required TResult Function(Map<String, List<PadElement>> elements)
         elementsChanged,
-    required TResult Function(List<int> elements) elementsRemoved,
-    required TResult Function(Arrangement arrangement, List<int> elements)
+    required TResult Function(List<String> elements) elementsRemoved,
+    required TResult Function(Arrangement arrangement, List<String> elements)
         elementsArranged,
     required TResult Function(String? name, String? description)
         documentDescriptionChanged,
@@ -2523,9 +2523,9 @@ class _$PageRemovedImpl extends PageRemoved {
     TResult? Function(ViewOption view)? viewChanged,
     TResult? Function(UtilitiesState state)? utilitiesChanged,
     TResult? Function(List<PadElement> elements)? elementsCreated,
-    TResult? Function(Map<int, List<PadElement>> elements)? elementsChanged,
-    TResult? Function(List<int> elements)? elementsRemoved,
-    TResult? Function(Arrangement arrangement, List<int> elements)?
+    TResult? Function(Map<String, List<PadElement>> elements)? elementsChanged,
+    TResult? Function(List<String> elements)? elementsRemoved,
+    TResult? Function(Arrangement arrangement, List<String> elements)?
         elementsArranged,
     TResult? Function(String? name, String? description)?
         documentDescriptionChanged,
@@ -2583,9 +2583,9 @@ class _$PageRemovedImpl extends PageRemoved {
     TResult Function(ViewOption view)? viewChanged,
     TResult Function(UtilitiesState state)? utilitiesChanged,
     TResult Function(List<PadElement> elements)? elementsCreated,
-    TResult Function(Map<int, List<PadElement>> elements)? elementsChanged,
-    TResult Function(List<int> elements)? elementsRemoved,
-    TResult Function(Arrangement arrangement, List<int> elements)?
+    TResult Function(Map<String, List<PadElement>> elements)? elementsChanged,
+    TResult Function(List<String> elements)? elementsRemoved,
+    TResult Function(Arrangement arrangement, List<String> elements)?
         elementsArranged,
     TResult Function(String? name, String? description)?
         documentDescriptionChanged,
@@ -2920,10 +2920,10 @@ class _$ThumbnailCapturedImpl extends ThumbnailCaptured {
     required TResult Function(ViewOption view) viewChanged,
     required TResult Function(UtilitiesState state) utilitiesChanged,
     required TResult Function(List<PadElement> elements) elementsCreated,
-    required TResult Function(Map<int, List<PadElement>> elements)
+    required TResult Function(Map<String, List<PadElement>> elements)
         elementsChanged,
-    required TResult Function(List<int> elements) elementsRemoved,
-    required TResult Function(Arrangement arrangement, List<int> elements)
+    required TResult Function(List<String> elements) elementsRemoved,
+    required TResult Function(Arrangement arrangement, List<String> elements)
         elementsArranged,
     required TResult Function(String? name, String? description)
         documentDescriptionChanged,
@@ -2987,9 +2987,9 @@ class _$ThumbnailCapturedImpl extends ThumbnailCaptured {
     TResult? Function(ViewOption view)? viewChanged,
     TResult? Function(UtilitiesState state)? utilitiesChanged,
     TResult? Function(List<PadElement> elements)? elementsCreated,
-    TResult? Function(Map<int, List<PadElement>> elements)? elementsChanged,
-    TResult? Function(List<int> elements)? elementsRemoved,
-    TResult? Function(Arrangement arrangement, List<int> elements)?
+    TResult? Function(Map<String, List<PadElement>> elements)? elementsChanged,
+    TResult? Function(List<String> elements)? elementsRemoved,
+    TResult? Function(Arrangement arrangement, List<String> elements)?
         elementsArranged,
     TResult? Function(String? name, String? description)?
         documentDescriptionChanged,
@@ -3047,9 +3047,9 @@ class _$ThumbnailCapturedImpl extends ThumbnailCaptured {
     TResult Function(ViewOption view)? viewChanged,
     TResult Function(UtilitiesState state)? utilitiesChanged,
     TResult Function(List<PadElement> elements)? elementsCreated,
-    TResult Function(Map<int, List<PadElement>> elements)? elementsChanged,
-    TResult Function(List<int> elements)? elementsRemoved,
-    TResult Function(Arrangement arrangement, List<int> elements)?
+    TResult Function(Map<String, List<PadElement>> elements)? elementsChanged,
+    TResult Function(List<String> elements)? elementsRemoved,
+    TResult Function(Arrangement arrangement, List<String> elements)?
         elementsArranged,
     TResult Function(String? name, String? description)?
         documentDescriptionChanged,
@@ -3392,10 +3392,10 @@ class _$ViewChangedImpl extends ViewChanged {
     required TResult Function(ViewOption view) viewChanged,
     required TResult Function(UtilitiesState state) utilitiesChanged,
     required TResult Function(List<PadElement> elements) elementsCreated,
-    required TResult Function(Map<int, List<PadElement>> elements)
+    required TResult Function(Map<String, List<PadElement>> elements)
         elementsChanged,
-    required TResult Function(List<int> elements) elementsRemoved,
-    required TResult Function(Arrangement arrangement, List<int> elements)
+    required TResult Function(List<String> elements) elementsRemoved,
+    required TResult Function(Arrangement arrangement, List<String> elements)
         elementsArranged,
     required TResult Function(String? name, String? description)
         documentDescriptionChanged,
@@ -3459,9 +3459,9 @@ class _$ViewChangedImpl extends ViewChanged {
     TResult? Function(ViewOption view)? viewChanged,
     TResult? Function(UtilitiesState state)? utilitiesChanged,
     TResult? Function(List<PadElement> elements)? elementsCreated,
-    TResult? Function(Map<int, List<PadElement>> elements)? elementsChanged,
-    TResult? Function(List<int> elements)? elementsRemoved,
-    TResult? Function(Arrangement arrangement, List<int> elements)?
+    TResult? Function(Map<String, List<PadElement>> elements)? elementsChanged,
+    TResult? Function(List<String> elements)? elementsRemoved,
+    TResult? Function(Arrangement arrangement, List<String> elements)?
         elementsArranged,
     TResult? Function(String? name, String? description)?
         documentDescriptionChanged,
@@ -3519,9 +3519,9 @@ class _$ViewChangedImpl extends ViewChanged {
     TResult Function(ViewOption view)? viewChanged,
     TResult Function(UtilitiesState state)? utilitiesChanged,
     TResult Function(List<PadElement> elements)? elementsCreated,
-    TResult Function(Map<int, List<PadElement>> elements)? elementsChanged,
-    TResult Function(List<int> elements)? elementsRemoved,
-    TResult Function(Arrangement arrangement, List<int> elements)?
+    TResult Function(Map<String, List<PadElement>> elements)? elementsChanged,
+    TResult Function(List<String> elements)? elementsRemoved,
+    TResult Function(Arrangement arrangement, List<String> elements)?
         elementsArranged,
     TResult Function(String? name, String? description)?
         documentDescriptionChanged,
@@ -3863,10 +3863,10 @@ class _$UtilitiesChangedImpl extends UtilitiesChanged {
     required TResult Function(ViewOption view) viewChanged,
     required TResult Function(UtilitiesState state) utilitiesChanged,
     required TResult Function(List<PadElement> elements) elementsCreated,
-    required TResult Function(Map<int, List<PadElement>> elements)
+    required TResult Function(Map<String, List<PadElement>> elements)
         elementsChanged,
-    required TResult Function(List<int> elements) elementsRemoved,
-    required TResult Function(Arrangement arrangement, List<int> elements)
+    required TResult Function(List<String> elements) elementsRemoved,
+    required TResult Function(Arrangement arrangement, List<String> elements)
         elementsArranged,
     required TResult Function(String? name, String? description)
         documentDescriptionChanged,
@@ -3930,9 +3930,9 @@ class _$UtilitiesChangedImpl extends UtilitiesChanged {
     TResult? Function(ViewOption view)? viewChanged,
     TResult? Function(UtilitiesState state)? utilitiesChanged,
     TResult? Function(List<PadElement> elements)? elementsCreated,
-    TResult? Function(Map<int, List<PadElement>> elements)? elementsChanged,
-    TResult? Function(List<int> elements)? elementsRemoved,
-    TResult? Function(Arrangement arrangement, List<int> elements)?
+    TResult? Function(Map<String, List<PadElement>> elements)? elementsChanged,
+    TResult? Function(List<String> elements)? elementsRemoved,
+    TResult? Function(Arrangement arrangement, List<String> elements)?
         elementsArranged,
     TResult? Function(String? name, String? description)?
         documentDescriptionChanged,
@@ -3990,9 +3990,9 @@ class _$UtilitiesChangedImpl extends UtilitiesChanged {
     TResult Function(ViewOption view)? viewChanged,
     TResult Function(UtilitiesState state)? utilitiesChanged,
     TResult Function(List<PadElement> elements)? elementsCreated,
-    TResult Function(Map<int, List<PadElement>> elements)? elementsChanged,
-    TResult Function(List<int> elements)? elementsRemoved,
-    TResult Function(Arrangement arrangement, List<int> elements)?
+    TResult Function(Map<String, List<PadElement>> elements)? elementsChanged,
+    TResult Function(List<String> elements)? elementsRemoved,
+    TResult Function(Arrangement arrangement, List<String> elements)?
         elementsArranged,
     TResult Function(String? name, String? description)?
         documentDescriptionChanged,
@@ -4333,10 +4333,10 @@ class _$ElementsCreatedImpl extends ElementsCreated {
     required TResult Function(ViewOption view) viewChanged,
     required TResult Function(UtilitiesState state) utilitiesChanged,
     required TResult Function(List<PadElement> elements) elementsCreated,
-    required TResult Function(Map<int, List<PadElement>> elements)
+    required TResult Function(Map<String, List<PadElement>> elements)
         elementsChanged,
-    required TResult Function(List<int> elements) elementsRemoved,
-    required TResult Function(Arrangement arrangement, List<int> elements)
+    required TResult Function(List<String> elements) elementsRemoved,
+    required TResult Function(Arrangement arrangement, List<String> elements)
         elementsArranged,
     required TResult Function(String? name, String? description)
         documentDescriptionChanged,
@@ -4400,9 +4400,9 @@ class _$ElementsCreatedImpl extends ElementsCreated {
     TResult? Function(ViewOption view)? viewChanged,
     TResult? Function(UtilitiesState state)? utilitiesChanged,
     TResult? Function(List<PadElement> elements)? elementsCreated,
-    TResult? Function(Map<int, List<PadElement>> elements)? elementsChanged,
-    TResult? Function(List<int> elements)? elementsRemoved,
-    TResult? Function(Arrangement arrangement, List<int> elements)?
+    TResult? Function(Map<String, List<PadElement>> elements)? elementsChanged,
+    TResult? Function(List<String> elements)? elementsRemoved,
+    TResult? Function(Arrangement arrangement, List<String> elements)?
         elementsArranged,
     TResult? Function(String? name, String? description)?
         documentDescriptionChanged,
@@ -4460,9 +4460,9 @@ class _$ElementsCreatedImpl extends ElementsCreated {
     TResult Function(ViewOption view)? viewChanged,
     TResult Function(UtilitiesState state)? utilitiesChanged,
     TResult Function(List<PadElement> elements)? elementsCreated,
-    TResult Function(Map<int, List<PadElement>> elements)? elementsChanged,
-    TResult Function(List<int> elements)? elementsRemoved,
-    TResult Function(Arrangement arrangement, List<int> elements)?
+    TResult Function(Map<String, List<PadElement>> elements)? elementsChanged,
+    TResult Function(List<String> elements)? elementsRemoved,
+    TResult Function(Arrangement arrangement, List<String> elements)?
         elementsArranged,
     TResult Function(String? name, String? description)?
         documentDescriptionChanged,
@@ -4717,7 +4717,7 @@ abstract class _$$ElementsChangedImplCopyWith<$Res> {
           $Res Function(_$ElementsChangedImpl) then) =
       __$$ElementsChangedImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({Map<int, List<PadElement>> elements});
+  $Res call({Map<String, List<PadElement>> elements});
 }
 
 /// @nodoc
@@ -4737,7 +4737,7 @@ class __$$ElementsChangedImplCopyWithImpl<$Res>
       null == elements
           ? _value._elements
           : elements // ignore: cast_nullable_to_non_nullable
-              as Map<int, List<PadElement>>,
+              as Map<String, List<PadElement>>,
     ));
   }
 }
@@ -4745,7 +4745,7 @@ class __$$ElementsChangedImplCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$ElementsChangedImpl extends ElementsChanged {
-  const _$ElementsChangedImpl(final Map<int, List<PadElement>> elements,
+  const _$ElementsChangedImpl(final Map<String, List<PadElement>> elements,
       {final String? $type})
       : _elements = elements,
         $type = $type ?? 'elementsChanged',
@@ -4754,9 +4754,9 @@ class _$ElementsChangedImpl extends ElementsChanged {
   factory _$ElementsChangedImpl.fromJson(Map<String, dynamic> json) =>
       _$$ElementsChangedImplFromJson(json);
 
-  final Map<int, List<PadElement>> _elements;
+  final Map<String, List<PadElement>> _elements;
   @override
-  Map<int, List<PadElement>> get elements {
+  Map<String, List<PadElement>> get elements {
     if (_elements is EqualUnmodifiableMapView) return _elements;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableMapView(_elements);
@@ -4803,10 +4803,10 @@ class _$ElementsChangedImpl extends ElementsChanged {
     required TResult Function(ViewOption view) viewChanged,
     required TResult Function(UtilitiesState state) utilitiesChanged,
     required TResult Function(List<PadElement> elements) elementsCreated,
-    required TResult Function(Map<int, List<PadElement>> elements)
+    required TResult Function(Map<String, List<PadElement>> elements)
         elementsChanged,
-    required TResult Function(List<int> elements) elementsRemoved,
-    required TResult Function(Arrangement arrangement, List<int> elements)
+    required TResult Function(List<String> elements) elementsRemoved,
+    required TResult Function(Arrangement arrangement, List<String> elements)
         elementsArranged,
     required TResult Function(String? name, String? description)
         documentDescriptionChanged,
@@ -4870,9 +4870,9 @@ class _$ElementsChangedImpl extends ElementsChanged {
     TResult? Function(ViewOption view)? viewChanged,
     TResult? Function(UtilitiesState state)? utilitiesChanged,
     TResult? Function(List<PadElement> elements)? elementsCreated,
-    TResult? Function(Map<int, List<PadElement>> elements)? elementsChanged,
-    TResult? Function(List<int> elements)? elementsRemoved,
-    TResult? Function(Arrangement arrangement, List<int> elements)?
+    TResult? Function(Map<String, List<PadElement>> elements)? elementsChanged,
+    TResult? Function(List<String> elements)? elementsRemoved,
+    TResult? Function(Arrangement arrangement, List<String> elements)?
         elementsArranged,
     TResult? Function(String? name, String? description)?
         documentDescriptionChanged,
@@ -4930,9 +4930,9 @@ class _$ElementsChangedImpl extends ElementsChanged {
     TResult Function(ViewOption view)? viewChanged,
     TResult Function(UtilitiesState state)? utilitiesChanged,
     TResult Function(List<PadElement> elements)? elementsCreated,
-    TResult Function(Map<int, List<PadElement>> elements)? elementsChanged,
-    TResult Function(List<int> elements)? elementsRemoved,
-    TResult Function(Arrangement arrangement, List<int> elements)?
+    TResult Function(Map<String, List<PadElement>> elements)? elementsChanged,
+    TResult Function(List<String> elements)? elementsRemoved,
+    TResult Function(Arrangement arrangement, List<String> elements)?
         elementsArranged,
     TResult Function(String? name, String? description)?
         documentDescriptionChanged,
@@ -5168,14 +5168,14 @@ class _$ElementsChangedImpl extends ElementsChanged {
 }
 
 abstract class ElementsChanged extends DocumentEvent {
-  const factory ElementsChanged(final Map<int, List<PadElement>> elements) =
+  const factory ElementsChanged(final Map<String, List<PadElement>> elements) =
       _$ElementsChangedImpl;
   const ElementsChanged._() : super._();
 
   factory ElementsChanged.fromJson(Map<String, dynamic> json) =
       _$ElementsChangedImpl.fromJson;
 
-  Map<int, List<PadElement>> get elements;
+  Map<String, List<PadElement>> get elements;
   @JsonKey(ignore: true)
   _$$ElementsChangedImplCopyWith<_$ElementsChangedImpl> get copyWith =>
       throw _privateConstructorUsedError;
@@ -5187,7 +5187,7 @@ abstract class _$$ElementsRemovedImplCopyWith<$Res> {
           $Res Function(_$ElementsRemovedImpl) then) =
       __$$ElementsRemovedImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({List<int> elements});
+  $Res call({List<String> elements});
 }
 
 /// @nodoc
@@ -5207,7 +5207,7 @@ class __$$ElementsRemovedImplCopyWithImpl<$Res>
       null == elements
           ? _value._elements
           : elements // ignore: cast_nullable_to_non_nullable
-              as List<int>,
+              as List<String>,
     ));
   }
 }
@@ -5215,7 +5215,8 @@ class __$$ElementsRemovedImplCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$ElementsRemovedImpl extends ElementsRemoved {
-  const _$ElementsRemovedImpl(final List<int> elements, {final String? $type})
+  const _$ElementsRemovedImpl(final List<String> elements,
+      {final String? $type})
       : _elements = elements,
         $type = $type ?? 'elementsRemoved',
         super._();
@@ -5223,9 +5224,9 @@ class _$ElementsRemovedImpl extends ElementsRemoved {
   factory _$ElementsRemovedImpl.fromJson(Map<String, dynamic> json) =>
       _$$ElementsRemovedImplFromJson(json);
 
-  final List<int> _elements;
+  final List<String> _elements;
   @override
-  List<int> get elements {
+  List<String> get elements {
     if (_elements is EqualUnmodifiableListView) return _elements;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_elements);
@@ -5272,10 +5273,10 @@ class _$ElementsRemovedImpl extends ElementsRemoved {
     required TResult Function(ViewOption view) viewChanged,
     required TResult Function(UtilitiesState state) utilitiesChanged,
     required TResult Function(List<PadElement> elements) elementsCreated,
-    required TResult Function(Map<int, List<PadElement>> elements)
+    required TResult Function(Map<String, List<PadElement>> elements)
         elementsChanged,
-    required TResult Function(List<int> elements) elementsRemoved,
-    required TResult Function(Arrangement arrangement, List<int> elements)
+    required TResult Function(List<String> elements) elementsRemoved,
+    required TResult Function(Arrangement arrangement, List<String> elements)
         elementsArranged,
     required TResult Function(String? name, String? description)
         documentDescriptionChanged,
@@ -5339,9 +5340,9 @@ class _$ElementsRemovedImpl extends ElementsRemoved {
     TResult? Function(ViewOption view)? viewChanged,
     TResult? Function(UtilitiesState state)? utilitiesChanged,
     TResult? Function(List<PadElement> elements)? elementsCreated,
-    TResult? Function(Map<int, List<PadElement>> elements)? elementsChanged,
-    TResult? Function(List<int> elements)? elementsRemoved,
-    TResult? Function(Arrangement arrangement, List<int> elements)?
+    TResult? Function(Map<String, List<PadElement>> elements)? elementsChanged,
+    TResult? Function(List<String> elements)? elementsRemoved,
+    TResult? Function(Arrangement arrangement, List<String> elements)?
         elementsArranged,
     TResult? Function(String? name, String? description)?
         documentDescriptionChanged,
@@ -5399,9 +5400,9 @@ class _$ElementsRemovedImpl extends ElementsRemoved {
     TResult Function(ViewOption view)? viewChanged,
     TResult Function(UtilitiesState state)? utilitiesChanged,
     TResult Function(List<PadElement> elements)? elementsCreated,
-    TResult Function(Map<int, List<PadElement>> elements)? elementsChanged,
-    TResult Function(List<int> elements)? elementsRemoved,
-    TResult Function(Arrangement arrangement, List<int> elements)?
+    TResult Function(Map<String, List<PadElement>> elements)? elementsChanged,
+    TResult Function(List<String> elements)? elementsRemoved,
+    TResult Function(Arrangement arrangement, List<String> elements)?
         elementsArranged,
     TResult Function(String? name, String? description)?
         documentDescriptionChanged,
@@ -5637,14 +5638,14 @@ class _$ElementsRemovedImpl extends ElementsRemoved {
 }
 
 abstract class ElementsRemoved extends DocumentEvent {
-  const factory ElementsRemoved(final List<int> elements) =
+  const factory ElementsRemoved(final List<String> elements) =
       _$ElementsRemovedImpl;
   const ElementsRemoved._() : super._();
 
   factory ElementsRemoved.fromJson(Map<String, dynamic> json) =
       _$ElementsRemovedImpl.fromJson;
 
-  List<int> get elements;
+  List<String> get elements;
   @JsonKey(ignore: true)
   _$$ElementsRemovedImplCopyWith<_$ElementsRemovedImpl> get copyWith =>
       throw _privateConstructorUsedError;
@@ -5656,7 +5657,7 @@ abstract class _$$ElementsArrangedImplCopyWith<$Res> {
           $Res Function(_$ElementsArrangedImpl) then) =
       __$$ElementsArrangedImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({Arrangement arrangement, List<int> elements});
+  $Res call({Arrangement arrangement, List<String> elements});
 }
 
 /// @nodoc
@@ -5681,7 +5682,7 @@ class __$$ElementsArrangedImplCopyWithImpl<$Res>
       null == elements
           ? _value._elements
           : elements // ignore: cast_nullable_to_non_nullable
-              as List<int>,
+              as List<String>,
     ));
   }
 }
@@ -5689,7 +5690,7 @@ class __$$ElementsArrangedImplCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$ElementsArrangedImpl extends ElementsArranged {
-  const _$ElementsArrangedImpl(this.arrangement, final List<int> elements,
+  const _$ElementsArrangedImpl(this.arrangement, final List<String> elements,
       {final String? $type})
       : _elements = elements,
         $type = $type ?? 'elementsArranged',
@@ -5700,9 +5701,9 @@ class _$ElementsArrangedImpl extends ElementsArranged {
 
   @override
   final Arrangement arrangement;
-  final List<int> _elements;
+  final List<String> _elements;
   @override
-  List<int> get elements {
+  List<String> get elements {
     if (_elements is EqualUnmodifiableListView) return _elements;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_elements);
@@ -5751,10 +5752,10 @@ class _$ElementsArrangedImpl extends ElementsArranged {
     required TResult Function(ViewOption view) viewChanged,
     required TResult Function(UtilitiesState state) utilitiesChanged,
     required TResult Function(List<PadElement> elements) elementsCreated,
-    required TResult Function(Map<int, List<PadElement>> elements)
+    required TResult Function(Map<String, List<PadElement>> elements)
         elementsChanged,
-    required TResult Function(List<int> elements) elementsRemoved,
-    required TResult Function(Arrangement arrangement, List<int> elements)
+    required TResult Function(List<String> elements) elementsRemoved,
+    required TResult Function(Arrangement arrangement, List<String> elements)
         elementsArranged,
     required TResult Function(String? name, String? description)
         documentDescriptionChanged,
@@ -5818,9 +5819,9 @@ class _$ElementsArrangedImpl extends ElementsArranged {
     TResult? Function(ViewOption view)? viewChanged,
     TResult? Function(UtilitiesState state)? utilitiesChanged,
     TResult? Function(List<PadElement> elements)? elementsCreated,
-    TResult? Function(Map<int, List<PadElement>> elements)? elementsChanged,
-    TResult? Function(List<int> elements)? elementsRemoved,
-    TResult? Function(Arrangement arrangement, List<int> elements)?
+    TResult? Function(Map<String, List<PadElement>> elements)? elementsChanged,
+    TResult? Function(List<String> elements)? elementsRemoved,
+    TResult? Function(Arrangement arrangement, List<String> elements)?
         elementsArranged,
     TResult? Function(String? name, String? description)?
         documentDescriptionChanged,
@@ -5878,9 +5879,9 @@ class _$ElementsArrangedImpl extends ElementsArranged {
     TResult Function(ViewOption view)? viewChanged,
     TResult Function(UtilitiesState state)? utilitiesChanged,
     TResult Function(List<PadElement> elements)? elementsCreated,
-    TResult Function(Map<int, List<PadElement>> elements)? elementsChanged,
-    TResult Function(List<int> elements)? elementsRemoved,
-    TResult Function(Arrangement arrangement, List<int> elements)?
+    TResult Function(Map<String, List<PadElement>> elements)? elementsChanged,
+    TResult Function(List<String> elements)? elementsRemoved,
+    TResult Function(Arrangement arrangement, List<String> elements)?
         elementsArranged,
     TResult Function(String? name, String? description)?
         documentDescriptionChanged,
@@ -6117,7 +6118,7 @@ class _$ElementsArrangedImpl extends ElementsArranged {
 
 abstract class ElementsArranged extends DocumentEvent {
   const factory ElementsArranged(
-          final Arrangement arrangement, final List<int> elements) =
+          final Arrangement arrangement, final List<String> elements) =
       _$ElementsArrangedImpl;
   const ElementsArranged._() : super._();
 
@@ -6125,7 +6126,7 @@ abstract class ElementsArranged extends DocumentEvent {
       _$ElementsArrangedImpl.fromJson;
 
   Arrangement get arrangement;
-  List<int> get elements;
+  List<String> get elements;
   @JsonKey(ignore: true)
   _$$ElementsArrangedImplCopyWith<_$ElementsArrangedImpl> get copyWith =>
       throw _privateConstructorUsedError;
@@ -6228,10 +6229,10 @@ class _$DocumentDescriptionChangedImpl extends DocumentDescriptionChanged {
     required TResult Function(ViewOption view) viewChanged,
     required TResult Function(UtilitiesState state) utilitiesChanged,
     required TResult Function(List<PadElement> elements) elementsCreated,
-    required TResult Function(Map<int, List<PadElement>> elements)
+    required TResult Function(Map<String, List<PadElement>> elements)
         elementsChanged,
-    required TResult Function(List<int> elements) elementsRemoved,
-    required TResult Function(Arrangement arrangement, List<int> elements)
+    required TResult Function(List<String> elements) elementsRemoved,
+    required TResult Function(Arrangement arrangement, List<String> elements)
         elementsArranged,
     required TResult Function(String? name, String? description)
         documentDescriptionChanged,
@@ -6295,9 +6296,9 @@ class _$DocumentDescriptionChangedImpl extends DocumentDescriptionChanged {
     TResult? Function(ViewOption view)? viewChanged,
     TResult? Function(UtilitiesState state)? utilitiesChanged,
     TResult? Function(List<PadElement> elements)? elementsCreated,
-    TResult? Function(Map<int, List<PadElement>> elements)? elementsChanged,
-    TResult? Function(List<int> elements)? elementsRemoved,
-    TResult? Function(Arrangement arrangement, List<int> elements)?
+    TResult? Function(Map<String, List<PadElement>> elements)? elementsChanged,
+    TResult? Function(List<String> elements)? elementsRemoved,
+    TResult? Function(Arrangement arrangement, List<String> elements)?
         elementsArranged,
     TResult? Function(String? name, String? description)?
         documentDescriptionChanged,
@@ -6355,9 +6356,9 @@ class _$DocumentDescriptionChangedImpl extends DocumentDescriptionChanged {
     TResult Function(ViewOption view)? viewChanged,
     TResult Function(UtilitiesState state)? utilitiesChanged,
     TResult Function(List<PadElement> elements)? elementsCreated,
-    TResult Function(Map<int, List<PadElement>> elements)? elementsChanged,
-    TResult Function(List<int> elements)? elementsRemoved,
-    TResult Function(Arrangement arrangement, List<int> elements)?
+    TResult Function(Map<String, List<PadElement>> elements)? elementsChanged,
+    TResult Function(List<String> elements)? elementsRemoved,
+    TResult Function(Arrangement arrangement, List<String> elements)?
         elementsArranged,
     TResult Function(String? name, String? description)?
         documentDescriptionChanged,
@@ -6706,10 +6707,10 @@ class _$DocumentSavedImpl extends DocumentSaved {
     required TResult Function(ViewOption view) viewChanged,
     required TResult Function(UtilitiesState state) utilitiesChanged,
     required TResult Function(List<PadElement> elements) elementsCreated,
-    required TResult Function(Map<int, List<PadElement>> elements)
+    required TResult Function(Map<String, List<PadElement>> elements)
         elementsChanged,
-    required TResult Function(List<int> elements) elementsRemoved,
-    required TResult Function(Arrangement arrangement, List<int> elements)
+    required TResult Function(List<String> elements) elementsRemoved,
+    required TResult Function(Arrangement arrangement, List<String> elements)
         elementsArranged,
     required TResult Function(String? name, String? description)
         documentDescriptionChanged,
@@ -6773,9 +6774,9 @@ class _$DocumentSavedImpl extends DocumentSaved {
     TResult? Function(ViewOption view)? viewChanged,
     TResult? Function(UtilitiesState state)? utilitiesChanged,
     TResult? Function(List<PadElement> elements)? elementsCreated,
-    TResult? Function(Map<int, List<PadElement>> elements)? elementsChanged,
-    TResult? Function(List<int> elements)? elementsRemoved,
-    TResult? Function(Arrangement arrangement, List<int> elements)?
+    TResult? Function(Map<String, List<PadElement>> elements)? elementsChanged,
+    TResult? Function(List<String> elements)? elementsRemoved,
+    TResult? Function(Arrangement arrangement, List<String> elements)?
         elementsArranged,
     TResult? Function(String? name, String? description)?
         documentDescriptionChanged,
@@ -6833,9 +6834,9 @@ class _$DocumentSavedImpl extends DocumentSaved {
     TResult Function(ViewOption view)? viewChanged,
     TResult Function(UtilitiesState state)? utilitiesChanged,
     TResult Function(List<PadElement> elements)? elementsCreated,
-    TResult Function(Map<int, List<PadElement>> elements)? elementsChanged,
-    TResult Function(List<int> elements)? elementsRemoved,
-    TResult Function(Arrangement arrangement, List<int> elements)?
+    TResult Function(Map<String, List<PadElement>> elements)? elementsChanged,
+    TResult Function(List<String> elements)? elementsRemoved,
+    TResult Function(Arrangement arrangement, List<String> elements)?
         elementsArranged,
     TResult Function(String? name, String? description)?
         documentDescriptionChanged,
@@ -7177,10 +7178,10 @@ class _$ToolCreatedImpl extends ToolCreated {
     required TResult Function(ViewOption view) viewChanged,
     required TResult Function(UtilitiesState state) utilitiesChanged,
     required TResult Function(List<PadElement> elements) elementsCreated,
-    required TResult Function(Map<int, List<PadElement>> elements)
+    required TResult Function(Map<String, List<PadElement>> elements)
         elementsChanged,
-    required TResult Function(List<int> elements) elementsRemoved,
-    required TResult Function(Arrangement arrangement, List<int> elements)
+    required TResult Function(List<String> elements) elementsRemoved,
+    required TResult Function(Arrangement arrangement, List<String> elements)
         elementsArranged,
     required TResult Function(String? name, String? description)
         documentDescriptionChanged,
@@ -7244,9 +7245,9 @@ class _$ToolCreatedImpl extends ToolCreated {
     TResult? Function(ViewOption view)? viewChanged,
     TResult? Function(UtilitiesState state)? utilitiesChanged,
     TResult? Function(List<PadElement> elements)? elementsCreated,
-    TResult? Function(Map<int, List<PadElement>> elements)? elementsChanged,
-    TResult? Function(List<int> elements)? elementsRemoved,
-    TResult? Function(Arrangement arrangement, List<int> elements)?
+    TResult? Function(Map<String, List<PadElement>> elements)? elementsChanged,
+    TResult? Function(List<String> elements)? elementsRemoved,
+    TResult? Function(Arrangement arrangement, List<String> elements)?
         elementsArranged,
     TResult? Function(String? name, String? description)?
         documentDescriptionChanged,
@@ -7304,9 +7305,9 @@ class _$ToolCreatedImpl extends ToolCreated {
     TResult Function(ViewOption view)? viewChanged,
     TResult Function(UtilitiesState state)? utilitiesChanged,
     TResult Function(List<PadElement> elements)? elementsCreated,
-    TResult Function(Map<int, List<PadElement>> elements)? elementsChanged,
-    TResult Function(List<int> elements)? elementsRemoved,
-    TResult Function(Arrangement arrangement, List<int> elements)?
+    TResult Function(Map<String, List<PadElement>> elements)? elementsChanged,
+    TResult Function(List<String> elements)? elementsRemoved,
+    TResult Function(Arrangement arrangement, List<String> elements)?
         elementsArranged,
     TResult Function(String? name, String? description)?
         documentDescriptionChanged,
@@ -7644,10 +7645,10 @@ class _$ToolsChangedImpl extends ToolsChanged {
     required TResult Function(ViewOption view) viewChanged,
     required TResult Function(UtilitiesState state) utilitiesChanged,
     required TResult Function(List<PadElement> elements) elementsCreated,
-    required TResult Function(Map<int, List<PadElement>> elements)
+    required TResult Function(Map<String, List<PadElement>> elements)
         elementsChanged,
-    required TResult Function(List<int> elements) elementsRemoved,
-    required TResult Function(Arrangement arrangement, List<int> elements)
+    required TResult Function(List<String> elements) elementsRemoved,
+    required TResult Function(Arrangement arrangement, List<String> elements)
         elementsArranged,
     required TResult Function(String? name, String? description)
         documentDescriptionChanged,
@@ -7711,9 +7712,9 @@ class _$ToolsChangedImpl extends ToolsChanged {
     TResult? Function(ViewOption view)? viewChanged,
     TResult? Function(UtilitiesState state)? utilitiesChanged,
     TResult? Function(List<PadElement> elements)? elementsCreated,
-    TResult? Function(Map<int, List<PadElement>> elements)? elementsChanged,
-    TResult? Function(List<int> elements)? elementsRemoved,
-    TResult? Function(Arrangement arrangement, List<int> elements)?
+    TResult? Function(Map<String, List<PadElement>> elements)? elementsChanged,
+    TResult? Function(List<String> elements)? elementsRemoved,
+    TResult? Function(Arrangement arrangement, List<String> elements)?
         elementsArranged,
     TResult? Function(String? name, String? description)?
         documentDescriptionChanged,
@@ -7771,9 +7772,9 @@ class _$ToolsChangedImpl extends ToolsChanged {
     TResult Function(ViewOption view)? viewChanged,
     TResult Function(UtilitiesState state)? utilitiesChanged,
     TResult Function(List<PadElement> elements)? elementsCreated,
-    TResult Function(Map<int, List<PadElement>> elements)? elementsChanged,
-    TResult Function(List<int> elements)? elementsRemoved,
-    TResult Function(Arrangement arrangement, List<int> elements)?
+    TResult Function(Map<String, List<PadElement>> elements)? elementsChanged,
+    TResult Function(List<String> elements)? elementsRemoved,
+    TResult Function(Arrangement arrangement, List<String> elements)?
         elementsArranged,
     TResult Function(String? name, String? description)?
         documentDescriptionChanged,
@@ -8111,10 +8112,10 @@ class _$ToolsRemovedImpl extends ToolsRemoved {
     required TResult Function(ViewOption view) viewChanged,
     required TResult Function(UtilitiesState state) utilitiesChanged,
     required TResult Function(List<PadElement> elements) elementsCreated,
-    required TResult Function(Map<int, List<PadElement>> elements)
+    required TResult Function(Map<String, List<PadElement>> elements)
         elementsChanged,
-    required TResult Function(List<int> elements) elementsRemoved,
-    required TResult Function(Arrangement arrangement, List<int> elements)
+    required TResult Function(List<String> elements) elementsRemoved,
+    required TResult Function(Arrangement arrangement, List<String> elements)
         elementsArranged,
     required TResult Function(String? name, String? description)
         documentDescriptionChanged,
@@ -8178,9 +8179,9 @@ class _$ToolsRemovedImpl extends ToolsRemoved {
     TResult? Function(ViewOption view)? viewChanged,
     TResult? Function(UtilitiesState state)? utilitiesChanged,
     TResult? Function(List<PadElement> elements)? elementsCreated,
-    TResult? Function(Map<int, List<PadElement>> elements)? elementsChanged,
-    TResult? Function(List<int> elements)? elementsRemoved,
-    TResult? Function(Arrangement arrangement, List<int> elements)?
+    TResult? Function(Map<String, List<PadElement>> elements)? elementsChanged,
+    TResult? Function(List<String> elements)? elementsRemoved,
+    TResult? Function(Arrangement arrangement, List<String> elements)?
         elementsArranged,
     TResult? Function(String? name, String? description)?
         documentDescriptionChanged,
@@ -8238,9 +8239,9 @@ class _$ToolsRemovedImpl extends ToolsRemoved {
     TResult Function(ViewOption view)? viewChanged,
     TResult Function(UtilitiesState state)? utilitiesChanged,
     TResult Function(List<PadElement> elements)? elementsCreated,
-    TResult Function(Map<int, List<PadElement>> elements)? elementsChanged,
-    TResult Function(List<int> elements)? elementsRemoved,
-    TResult Function(Arrangement arrangement, List<int> elements)?
+    TResult Function(Map<String, List<PadElement>> elements)? elementsChanged,
+    TResult Function(List<String> elements)? elementsRemoved,
+    TResult Function(Arrangement arrangement, List<String> elements)?
         elementsArranged,
     TResult Function(String? name, String? description)?
         documentDescriptionChanged,
@@ -8581,10 +8582,10 @@ class _$ToolReorderedImpl extends ToolReordered {
     required TResult Function(ViewOption view) viewChanged,
     required TResult Function(UtilitiesState state) utilitiesChanged,
     required TResult Function(List<PadElement> elements) elementsCreated,
-    required TResult Function(Map<int, List<PadElement>> elements)
+    required TResult Function(Map<String, List<PadElement>> elements)
         elementsChanged,
-    required TResult Function(List<int> elements) elementsRemoved,
-    required TResult Function(Arrangement arrangement, List<int> elements)
+    required TResult Function(List<String> elements) elementsRemoved,
+    required TResult Function(Arrangement arrangement, List<String> elements)
         elementsArranged,
     required TResult Function(String? name, String? description)
         documentDescriptionChanged,
@@ -8648,9 +8649,9 @@ class _$ToolReorderedImpl extends ToolReordered {
     TResult? Function(ViewOption view)? viewChanged,
     TResult? Function(UtilitiesState state)? utilitiesChanged,
     TResult? Function(List<PadElement> elements)? elementsCreated,
-    TResult? Function(Map<int, List<PadElement>> elements)? elementsChanged,
-    TResult? Function(List<int> elements)? elementsRemoved,
-    TResult? Function(Arrangement arrangement, List<int> elements)?
+    TResult? Function(Map<String, List<PadElement>> elements)? elementsChanged,
+    TResult? Function(List<String> elements)? elementsRemoved,
+    TResult? Function(Arrangement arrangement, List<String> elements)?
         elementsArranged,
     TResult? Function(String? name, String? description)?
         documentDescriptionChanged,
@@ -8708,9 +8709,9 @@ class _$ToolReorderedImpl extends ToolReordered {
     TResult Function(ViewOption view)? viewChanged,
     TResult Function(UtilitiesState state)? utilitiesChanged,
     TResult Function(List<PadElement> elements)? elementsCreated,
-    TResult Function(Map<int, List<PadElement>> elements)? elementsChanged,
-    TResult Function(List<int> elements)? elementsRemoved,
-    TResult Function(Arrangement arrangement, List<int> elements)?
+    TResult Function(Map<String, List<PadElement>> elements)? elementsChanged,
+    TResult Function(List<String> elements)? elementsRemoved,
+    TResult Function(Arrangement arrangement, List<String> elements)?
         elementsArranged,
     TResult Function(String? name, String? description)?
         documentDescriptionChanged,
@@ -9056,10 +9057,10 @@ class _$DocumentBackgroundsChangedImpl extends DocumentBackgroundsChanged {
     required TResult Function(ViewOption view) viewChanged,
     required TResult Function(UtilitiesState state) utilitiesChanged,
     required TResult Function(List<PadElement> elements) elementsCreated,
-    required TResult Function(Map<int, List<PadElement>> elements)
+    required TResult Function(Map<String, List<PadElement>> elements)
         elementsChanged,
-    required TResult Function(List<int> elements) elementsRemoved,
-    required TResult Function(Arrangement arrangement, List<int> elements)
+    required TResult Function(List<String> elements) elementsRemoved,
+    required TResult Function(Arrangement arrangement, List<String> elements)
         elementsArranged,
     required TResult Function(String? name, String? description)
         documentDescriptionChanged,
@@ -9123,9 +9124,9 @@ class _$DocumentBackgroundsChangedImpl extends DocumentBackgroundsChanged {
     TResult? Function(ViewOption view)? viewChanged,
     TResult? Function(UtilitiesState state)? utilitiesChanged,
     TResult? Function(List<PadElement> elements)? elementsCreated,
-    TResult? Function(Map<int, List<PadElement>> elements)? elementsChanged,
-    TResult? Function(List<int> elements)? elementsRemoved,
-    TResult? Function(Arrangement arrangement, List<int> elements)?
+    TResult? Function(Map<String, List<PadElement>> elements)? elementsChanged,
+    TResult? Function(List<String> elements)? elementsRemoved,
+    TResult? Function(Arrangement arrangement, List<String> elements)?
         elementsArranged,
     TResult? Function(String? name, String? description)?
         documentDescriptionChanged,
@@ -9183,9 +9184,9 @@ class _$DocumentBackgroundsChangedImpl extends DocumentBackgroundsChanged {
     TResult Function(ViewOption view)? viewChanged,
     TResult Function(UtilitiesState state)? utilitiesChanged,
     TResult Function(List<PadElement> elements)? elementsCreated,
-    TResult Function(Map<int, List<PadElement>> elements)? elementsChanged,
-    TResult Function(List<int> elements)? elementsRemoved,
-    TResult Function(Arrangement arrangement, List<int> elements)?
+    TResult Function(Map<String, List<PadElement>> elements)? elementsChanged,
+    TResult Function(List<String> elements)? elementsRemoved,
+    TResult Function(Arrangement arrangement, List<String> elements)?
         elementsArranged,
     TResult Function(String? name, String? description)?
         documentDescriptionChanged,
@@ -9529,10 +9530,10 @@ class _$WaypointCreatedImpl extends WaypointCreated {
     required TResult Function(ViewOption view) viewChanged,
     required TResult Function(UtilitiesState state) utilitiesChanged,
     required TResult Function(List<PadElement> elements) elementsCreated,
-    required TResult Function(Map<int, List<PadElement>> elements)
+    required TResult Function(Map<String, List<PadElement>> elements)
         elementsChanged,
-    required TResult Function(List<int> elements) elementsRemoved,
-    required TResult Function(Arrangement arrangement, List<int> elements)
+    required TResult Function(List<String> elements) elementsRemoved,
+    required TResult Function(Arrangement arrangement, List<String> elements)
         elementsArranged,
     required TResult Function(String? name, String? description)
         documentDescriptionChanged,
@@ -9596,9 +9597,9 @@ class _$WaypointCreatedImpl extends WaypointCreated {
     TResult? Function(ViewOption view)? viewChanged,
     TResult? Function(UtilitiesState state)? utilitiesChanged,
     TResult? Function(List<PadElement> elements)? elementsCreated,
-    TResult? Function(Map<int, List<PadElement>> elements)? elementsChanged,
-    TResult? Function(List<int> elements)? elementsRemoved,
-    TResult? Function(Arrangement arrangement, List<int> elements)?
+    TResult? Function(Map<String, List<PadElement>> elements)? elementsChanged,
+    TResult? Function(List<String> elements)? elementsRemoved,
+    TResult? Function(Arrangement arrangement, List<String> elements)?
         elementsArranged,
     TResult? Function(String? name, String? description)?
         documentDescriptionChanged,
@@ -9656,9 +9657,9 @@ class _$WaypointCreatedImpl extends WaypointCreated {
     TResult Function(ViewOption view)? viewChanged,
     TResult Function(UtilitiesState state)? utilitiesChanged,
     TResult Function(List<PadElement> elements)? elementsCreated,
-    TResult Function(Map<int, List<PadElement>> elements)? elementsChanged,
-    TResult Function(List<int> elements)? elementsRemoved,
-    TResult Function(Arrangement arrangement, List<int> elements)?
+    TResult Function(Map<String, List<PadElement>> elements)? elementsChanged,
+    TResult Function(List<String> elements)? elementsRemoved,
+    TResult Function(Arrangement arrangement, List<String> elements)?
         elementsArranged,
     TResult Function(String? name, String? description)?
         documentDescriptionChanged,
@@ -10010,10 +10011,10 @@ class _$WaypointChangedImpl extends WaypointChanged {
     required TResult Function(ViewOption view) viewChanged,
     required TResult Function(UtilitiesState state) utilitiesChanged,
     required TResult Function(List<PadElement> elements) elementsCreated,
-    required TResult Function(Map<int, List<PadElement>> elements)
+    required TResult Function(Map<String, List<PadElement>> elements)
         elementsChanged,
-    required TResult Function(List<int> elements) elementsRemoved,
-    required TResult Function(Arrangement arrangement, List<int> elements)
+    required TResult Function(List<String> elements) elementsRemoved,
+    required TResult Function(Arrangement arrangement, List<String> elements)
         elementsArranged,
     required TResult Function(String? name, String? description)
         documentDescriptionChanged,
@@ -10077,9 +10078,9 @@ class _$WaypointChangedImpl extends WaypointChanged {
     TResult? Function(ViewOption view)? viewChanged,
     TResult? Function(UtilitiesState state)? utilitiesChanged,
     TResult? Function(List<PadElement> elements)? elementsCreated,
-    TResult? Function(Map<int, List<PadElement>> elements)? elementsChanged,
-    TResult? Function(List<int> elements)? elementsRemoved,
-    TResult? Function(Arrangement arrangement, List<int> elements)?
+    TResult? Function(Map<String, List<PadElement>> elements)? elementsChanged,
+    TResult? Function(List<String> elements)? elementsRemoved,
+    TResult? Function(Arrangement arrangement, List<String> elements)?
         elementsArranged,
     TResult? Function(String? name, String? description)?
         documentDescriptionChanged,
@@ -10137,9 +10138,9 @@ class _$WaypointChangedImpl extends WaypointChanged {
     TResult Function(ViewOption view)? viewChanged,
     TResult Function(UtilitiesState state)? utilitiesChanged,
     TResult Function(List<PadElement> elements)? elementsCreated,
-    TResult Function(Map<int, List<PadElement>> elements)? elementsChanged,
-    TResult Function(List<int> elements)? elementsRemoved,
-    TResult Function(Arrangement arrangement, List<int> elements)?
+    TResult Function(Map<String, List<PadElement>> elements)? elementsChanged,
+    TResult Function(List<String> elements)? elementsRemoved,
+    TResult Function(Arrangement arrangement, List<String> elements)?
         elementsArranged,
     TResult Function(String? name, String? description)?
         documentDescriptionChanged,
@@ -10473,10 +10474,10 @@ class _$WaypointRemovedImpl extends WaypointRemoved {
     required TResult Function(ViewOption view) viewChanged,
     required TResult Function(UtilitiesState state) utilitiesChanged,
     required TResult Function(List<PadElement> elements) elementsCreated,
-    required TResult Function(Map<int, List<PadElement>> elements)
+    required TResult Function(Map<String, List<PadElement>> elements)
         elementsChanged,
-    required TResult Function(List<int> elements) elementsRemoved,
-    required TResult Function(Arrangement arrangement, List<int> elements)
+    required TResult Function(List<String> elements) elementsRemoved,
+    required TResult Function(Arrangement arrangement, List<String> elements)
         elementsArranged,
     required TResult Function(String? name, String? description)
         documentDescriptionChanged,
@@ -10540,9 +10541,9 @@ class _$WaypointRemovedImpl extends WaypointRemoved {
     TResult? Function(ViewOption view)? viewChanged,
     TResult? Function(UtilitiesState state)? utilitiesChanged,
     TResult? Function(List<PadElement> elements)? elementsCreated,
-    TResult? Function(Map<int, List<PadElement>> elements)? elementsChanged,
-    TResult? Function(List<int> elements)? elementsRemoved,
-    TResult? Function(Arrangement arrangement, List<int> elements)?
+    TResult? Function(Map<String, List<PadElement>> elements)? elementsChanged,
+    TResult? Function(List<String> elements)? elementsRemoved,
+    TResult? Function(Arrangement arrangement, List<String> elements)?
         elementsArranged,
     TResult? Function(String? name, String? description)?
         documentDescriptionChanged,
@@ -10600,9 +10601,9 @@ class _$WaypointRemovedImpl extends WaypointRemoved {
     TResult Function(ViewOption view)? viewChanged,
     TResult Function(UtilitiesState state)? utilitiesChanged,
     TResult Function(List<PadElement> elements)? elementsCreated,
-    TResult Function(Map<int, List<PadElement>> elements)? elementsChanged,
-    TResult Function(List<int> elements)? elementsRemoved,
-    TResult Function(Arrangement arrangement, List<int> elements)?
+    TResult Function(Map<String, List<PadElement>> elements)? elementsChanged,
+    TResult Function(List<String> elements)? elementsRemoved,
+    TResult Function(Arrangement arrangement, List<String> elements)?
         elementsArranged,
     TResult Function(String? name, String? description)?
         documentDescriptionChanged,
@@ -10943,10 +10944,10 @@ class _$WaypointReorderedImpl extends WaypointReordered {
     required TResult Function(ViewOption view) viewChanged,
     required TResult Function(UtilitiesState state) utilitiesChanged,
     required TResult Function(List<PadElement> elements) elementsCreated,
-    required TResult Function(Map<int, List<PadElement>> elements)
+    required TResult Function(Map<String, List<PadElement>> elements)
         elementsChanged,
-    required TResult Function(List<int> elements) elementsRemoved,
-    required TResult Function(Arrangement arrangement, List<int> elements)
+    required TResult Function(List<String> elements) elementsRemoved,
+    required TResult Function(Arrangement arrangement, List<String> elements)
         elementsArranged,
     required TResult Function(String? name, String? description)
         documentDescriptionChanged,
@@ -11010,9 +11011,9 @@ class _$WaypointReorderedImpl extends WaypointReordered {
     TResult? Function(ViewOption view)? viewChanged,
     TResult? Function(UtilitiesState state)? utilitiesChanged,
     TResult? Function(List<PadElement> elements)? elementsCreated,
-    TResult? Function(Map<int, List<PadElement>> elements)? elementsChanged,
-    TResult? Function(List<int> elements)? elementsRemoved,
-    TResult? Function(Arrangement arrangement, List<int> elements)?
+    TResult? Function(Map<String, List<PadElement>> elements)? elementsChanged,
+    TResult? Function(List<String> elements)? elementsRemoved,
+    TResult? Function(Arrangement arrangement, List<String> elements)?
         elementsArranged,
     TResult? Function(String? name, String? description)?
         documentDescriptionChanged,
@@ -11070,9 +11071,9 @@ class _$WaypointReorderedImpl extends WaypointReordered {
     TResult Function(ViewOption view)? viewChanged,
     TResult Function(UtilitiesState state)? utilitiesChanged,
     TResult Function(List<PadElement> elements)? elementsCreated,
-    TResult Function(Map<int, List<PadElement>> elements)? elementsChanged,
-    TResult Function(List<int> elements)? elementsRemoved,
-    TResult Function(Arrangement arrangement, List<int> elements)?
+    TResult Function(Map<String, List<PadElement>> elements)? elementsChanged,
+    TResult Function(List<String> elements)? elementsRemoved,
+    TResult Function(Arrangement arrangement, List<String> elements)?
         elementsArranged,
     TResult Function(String? name, String? description)?
         documentDescriptionChanged,
@@ -11413,10 +11414,10 @@ class _$LayerRenamedImpl extends LayerRenamed {
     required TResult Function(ViewOption view) viewChanged,
     required TResult Function(UtilitiesState state) utilitiesChanged,
     required TResult Function(List<PadElement> elements) elementsCreated,
-    required TResult Function(Map<int, List<PadElement>> elements)
+    required TResult Function(Map<String, List<PadElement>> elements)
         elementsChanged,
-    required TResult Function(List<int> elements) elementsRemoved,
-    required TResult Function(Arrangement arrangement, List<int> elements)
+    required TResult Function(List<String> elements) elementsRemoved,
+    required TResult Function(Arrangement arrangement, List<String> elements)
         elementsArranged,
     required TResult Function(String? name, String? description)
         documentDescriptionChanged,
@@ -11480,9 +11481,9 @@ class _$LayerRenamedImpl extends LayerRenamed {
     TResult? Function(ViewOption view)? viewChanged,
     TResult? Function(UtilitiesState state)? utilitiesChanged,
     TResult? Function(List<PadElement> elements)? elementsCreated,
-    TResult? Function(Map<int, List<PadElement>> elements)? elementsChanged,
-    TResult? Function(List<int> elements)? elementsRemoved,
-    TResult? Function(Arrangement arrangement, List<int> elements)?
+    TResult? Function(Map<String, List<PadElement>> elements)? elementsChanged,
+    TResult? Function(List<String> elements)? elementsRemoved,
+    TResult? Function(Arrangement arrangement, List<String> elements)?
         elementsArranged,
     TResult? Function(String? name, String? description)?
         documentDescriptionChanged,
@@ -11540,9 +11541,9 @@ class _$LayerRenamedImpl extends LayerRenamed {
     TResult Function(ViewOption view)? viewChanged,
     TResult Function(UtilitiesState state)? utilitiesChanged,
     TResult Function(List<PadElement> elements)? elementsCreated,
-    TResult Function(Map<int, List<PadElement>> elements)? elementsChanged,
-    TResult Function(List<int> elements)? elementsRemoved,
-    TResult Function(Arrangement arrangement, List<int> elements)?
+    TResult Function(Map<String, List<PadElement>> elements)? elementsChanged,
+    TResult Function(List<String> elements)? elementsRemoved,
+    TResult Function(Arrangement arrangement, List<String> elements)?
         elementsArranged,
     TResult Function(String? name, String? description)?
         documentDescriptionChanged,
@@ -11875,10 +11876,10 @@ class _$LayerRemovedImpl extends LayerRemoved {
     required TResult Function(ViewOption view) viewChanged,
     required TResult Function(UtilitiesState state) utilitiesChanged,
     required TResult Function(List<PadElement> elements) elementsCreated,
-    required TResult Function(Map<int, List<PadElement>> elements)
+    required TResult Function(Map<String, List<PadElement>> elements)
         elementsChanged,
-    required TResult Function(List<int> elements) elementsRemoved,
-    required TResult Function(Arrangement arrangement, List<int> elements)
+    required TResult Function(List<String> elements) elementsRemoved,
+    required TResult Function(Arrangement arrangement, List<String> elements)
         elementsArranged,
     required TResult Function(String? name, String? description)
         documentDescriptionChanged,
@@ -11942,9 +11943,9 @@ class _$LayerRemovedImpl extends LayerRemoved {
     TResult? Function(ViewOption view)? viewChanged,
     TResult? Function(UtilitiesState state)? utilitiesChanged,
     TResult? Function(List<PadElement> elements)? elementsCreated,
-    TResult? Function(Map<int, List<PadElement>> elements)? elementsChanged,
-    TResult? Function(List<int> elements)? elementsRemoved,
-    TResult? Function(Arrangement arrangement, List<int> elements)?
+    TResult? Function(Map<String, List<PadElement>> elements)? elementsChanged,
+    TResult? Function(List<String> elements)? elementsRemoved,
+    TResult? Function(Arrangement arrangement, List<String> elements)?
         elementsArranged,
     TResult? Function(String? name, String? description)?
         documentDescriptionChanged,
@@ -12002,9 +12003,9 @@ class _$LayerRemovedImpl extends LayerRemoved {
     TResult Function(ViewOption view)? viewChanged,
     TResult Function(UtilitiesState state)? utilitiesChanged,
     TResult Function(List<PadElement> elements)? elementsCreated,
-    TResult Function(Map<int, List<PadElement>> elements)? elementsChanged,
-    TResult Function(List<int> elements)? elementsRemoved,
-    TResult Function(Arrangement arrangement, List<int> elements)?
+    TResult Function(Map<String, List<PadElement>> elements)? elementsChanged,
+    TResult Function(List<String> elements)? elementsRemoved,
+    TResult Function(Arrangement arrangement, List<String> elements)?
         elementsArranged,
     TResult Function(String? name, String? description)?
         documentDescriptionChanged,
@@ -12337,10 +12338,10 @@ class _$LayerElementsRemovedImpl extends LayerElementsRemoved {
     required TResult Function(ViewOption view) viewChanged,
     required TResult Function(UtilitiesState state) utilitiesChanged,
     required TResult Function(List<PadElement> elements) elementsCreated,
-    required TResult Function(Map<int, List<PadElement>> elements)
+    required TResult Function(Map<String, List<PadElement>> elements)
         elementsChanged,
-    required TResult Function(List<int> elements) elementsRemoved,
-    required TResult Function(Arrangement arrangement, List<int> elements)
+    required TResult Function(List<String> elements) elementsRemoved,
+    required TResult Function(Arrangement arrangement, List<String> elements)
         elementsArranged,
     required TResult Function(String? name, String? description)
         documentDescriptionChanged,
@@ -12404,9 +12405,9 @@ class _$LayerElementsRemovedImpl extends LayerElementsRemoved {
     TResult? Function(ViewOption view)? viewChanged,
     TResult? Function(UtilitiesState state)? utilitiesChanged,
     TResult? Function(List<PadElement> elements)? elementsCreated,
-    TResult? Function(Map<int, List<PadElement>> elements)? elementsChanged,
-    TResult? Function(List<int> elements)? elementsRemoved,
-    TResult? Function(Arrangement arrangement, List<int> elements)?
+    TResult? Function(Map<String, List<PadElement>> elements)? elementsChanged,
+    TResult? Function(List<String> elements)? elementsRemoved,
+    TResult? Function(Arrangement arrangement, List<String> elements)?
         elementsArranged,
     TResult? Function(String? name, String? description)?
         documentDescriptionChanged,
@@ -12464,9 +12465,9 @@ class _$LayerElementsRemovedImpl extends LayerElementsRemoved {
     TResult Function(ViewOption view)? viewChanged,
     TResult Function(UtilitiesState state)? utilitiesChanged,
     TResult Function(List<PadElement> elements)? elementsCreated,
-    TResult Function(Map<int, List<PadElement>> elements)? elementsChanged,
-    TResult Function(List<int> elements)? elementsRemoved,
-    TResult Function(Arrangement arrangement, List<int> elements)?
+    TResult Function(Map<String, List<PadElement>> elements)? elementsChanged,
+    TResult Function(List<String> elements)? elementsRemoved,
+    TResult Function(Arrangement arrangement, List<String> elements)?
         elementsArranged,
     TResult Function(String? name, String? description)?
         documentDescriptionChanged,
@@ -12801,10 +12802,10 @@ class _$LayerVisibilityChangedImpl extends LayerVisibilityChanged {
     required TResult Function(ViewOption view) viewChanged,
     required TResult Function(UtilitiesState state) utilitiesChanged,
     required TResult Function(List<PadElement> elements) elementsCreated,
-    required TResult Function(Map<int, List<PadElement>> elements)
+    required TResult Function(Map<String, List<PadElement>> elements)
         elementsChanged,
-    required TResult Function(List<int> elements) elementsRemoved,
-    required TResult Function(Arrangement arrangement, List<int> elements)
+    required TResult Function(List<String> elements) elementsRemoved,
+    required TResult Function(Arrangement arrangement, List<String> elements)
         elementsArranged,
     required TResult Function(String? name, String? description)
         documentDescriptionChanged,
@@ -12868,9 +12869,9 @@ class _$LayerVisibilityChangedImpl extends LayerVisibilityChanged {
     TResult? Function(ViewOption view)? viewChanged,
     TResult? Function(UtilitiesState state)? utilitiesChanged,
     TResult? Function(List<PadElement> elements)? elementsCreated,
-    TResult? Function(Map<int, List<PadElement>> elements)? elementsChanged,
-    TResult? Function(List<int> elements)? elementsRemoved,
-    TResult? Function(Arrangement arrangement, List<int> elements)?
+    TResult? Function(Map<String, List<PadElement>> elements)? elementsChanged,
+    TResult? Function(List<String> elements)? elementsRemoved,
+    TResult? Function(Arrangement arrangement, List<String> elements)?
         elementsArranged,
     TResult? Function(String? name, String? description)?
         documentDescriptionChanged,
@@ -12928,9 +12929,9 @@ class _$LayerVisibilityChangedImpl extends LayerVisibilityChanged {
     TResult Function(ViewOption view)? viewChanged,
     TResult Function(UtilitiesState state)? utilitiesChanged,
     TResult Function(List<PadElement> elements)? elementsCreated,
-    TResult Function(Map<int, List<PadElement>> elements)? elementsChanged,
-    TResult Function(List<int> elements)? elementsRemoved,
-    TResult Function(Arrangement arrangement, List<int> elements)?
+    TResult Function(Map<String, List<PadElement>> elements)? elementsChanged,
+    TResult Function(List<String> elements)? elementsRemoved,
+    TResult Function(Arrangement arrangement, List<String> elements)?
         elementsArranged,
     TResult Function(String? name, String? description)?
         documentDescriptionChanged,
@@ -13263,10 +13264,10 @@ class _$CurrentLayerChangedImpl extends CurrentLayerChanged {
     required TResult Function(ViewOption view) viewChanged,
     required TResult Function(UtilitiesState state) utilitiesChanged,
     required TResult Function(List<PadElement> elements) elementsCreated,
-    required TResult Function(Map<int, List<PadElement>> elements)
+    required TResult Function(Map<String, List<PadElement>> elements)
         elementsChanged,
-    required TResult Function(List<int> elements) elementsRemoved,
-    required TResult Function(Arrangement arrangement, List<int> elements)
+    required TResult Function(List<String> elements) elementsRemoved,
+    required TResult Function(Arrangement arrangement, List<String> elements)
         elementsArranged,
     required TResult Function(String? name, String? description)
         documentDescriptionChanged,
@@ -13330,9 +13331,9 @@ class _$CurrentLayerChangedImpl extends CurrentLayerChanged {
     TResult? Function(ViewOption view)? viewChanged,
     TResult? Function(UtilitiesState state)? utilitiesChanged,
     TResult? Function(List<PadElement> elements)? elementsCreated,
-    TResult? Function(Map<int, List<PadElement>> elements)? elementsChanged,
-    TResult? Function(List<int> elements)? elementsRemoved,
-    TResult? Function(Arrangement arrangement, List<int> elements)?
+    TResult? Function(Map<String, List<PadElement>> elements)? elementsChanged,
+    TResult? Function(List<String> elements)? elementsRemoved,
+    TResult? Function(Arrangement arrangement, List<String> elements)?
         elementsArranged,
     TResult? Function(String? name, String? description)?
         documentDescriptionChanged,
@@ -13390,9 +13391,9 @@ class _$CurrentLayerChangedImpl extends CurrentLayerChanged {
     TResult Function(ViewOption view)? viewChanged,
     TResult Function(UtilitiesState state)? utilitiesChanged,
     TResult Function(List<PadElement> elements)? elementsCreated,
-    TResult Function(Map<int, List<PadElement>> elements)? elementsChanged,
-    TResult Function(List<int> elements)? elementsRemoved,
-    TResult Function(Arrangement arrangement, List<int> elements)?
+    TResult Function(Map<String, List<PadElement>> elements)? elementsChanged,
+    TResult Function(List<String> elements)? elementsRemoved,
+    TResult Function(Arrangement arrangement, List<String> elements)?
         elementsArranged,
     TResult Function(String? name, String? description)?
         documentDescriptionChanged,
@@ -13742,10 +13743,10 @@ class _$ElementsLayerChangedImpl extends ElementsLayerChanged {
     required TResult Function(ViewOption view) viewChanged,
     required TResult Function(UtilitiesState state) utilitiesChanged,
     required TResult Function(List<PadElement> elements) elementsCreated,
-    required TResult Function(Map<int, List<PadElement>> elements)
+    required TResult Function(Map<String, List<PadElement>> elements)
         elementsChanged,
-    required TResult Function(List<int> elements) elementsRemoved,
-    required TResult Function(Arrangement arrangement, List<int> elements)
+    required TResult Function(List<String> elements) elementsRemoved,
+    required TResult Function(Arrangement arrangement, List<String> elements)
         elementsArranged,
     required TResult Function(String? name, String? description)
         documentDescriptionChanged,
@@ -13809,9 +13810,9 @@ class _$ElementsLayerChangedImpl extends ElementsLayerChanged {
     TResult? Function(ViewOption view)? viewChanged,
     TResult? Function(UtilitiesState state)? utilitiesChanged,
     TResult? Function(List<PadElement> elements)? elementsCreated,
-    TResult? Function(Map<int, List<PadElement>> elements)? elementsChanged,
-    TResult? Function(List<int> elements)? elementsRemoved,
-    TResult? Function(Arrangement arrangement, List<int> elements)?
+    TResult? Function(Map<String, List<PadElement>> elements)? elementsChanged,
+    TResult? Function(List<String> elements)? elementsRemoved,
+    TResult? Function(Arrangement arrangement, List<String> elements)?
         elementsArranged,
     TResult? Function(String? name, String? description)?
         documentDescriptionChanged,
@@ -13869,9 +13870,9 @@ class _$ElementsLayerChangedImpl extends ElementsLayerChanged {
     TResult Function(ViewOption view)? viewChanged,
     TResult Function(UtilitiesState state)? utilitiesChanged,
     TResult Function(List<PadElement> elements)? elementsCreated,
-    TResult Function(Map<int, List<PadElement>> elements)? elementsChanged,
-    TResult Function(List<int> elements)? elementsRemoved,
-    TResult Function(Arrangement arrangement, List<int> elements)?
+    TResult Function(Map<String, List<PadElement>> elements)? elementsChanged,
+    TResult Function(List<String> elements)? elementsRemoved,
+    TResult Function(Arrangement arrangement, List<String> elements)?
         elementsArranged,
     TResult Function(String? name, String? description)?
         documentDescriptionChanged,
@@ -14227,10 +14228,10 @@ class _$TemplateCreatedImpl extends TemplateCreated {
     required TResult Function(ViewOption view) viewChanged,
     required TResult Function(UtilitiesState state) utilitiesChanged,
     required TResult Function(List<PadElement> elements) elementsCreated,
-    required TResult Function(Map<int, List<PadElement>> elements)
+    required TResult Function(Map<String, List<PadElement>> elements)
         elementsChanged,
-    required TResult Function(List<int> elements) elementsRemoved,
-    required TResult Function(Arrangement arrangement, List<int> elements)
+    required TResult Function(List<String> elements) elementsRemoved,
+    required TResult Function(Arrangement arrangement, List<String> elements)
         elementsArranged,
     required TResult Function(String? name, String? description)
         documentDescriptionChanged,
@@ -14294,9 +14295,9 @@ class _$TemplateCreatedImpl extends TemplateCreated {
     TResult? Function(ViewOption view)? viewChanged,
     TResult? Function(UtilitiesState state)? utilitiesChanged,
     TResult? Function(List<PadElement> elements)? elementsCreated,
-    TResult? Function(Map<int, List<PadElement>> elements)? elementsChanged,
-    TResult? Function(List<int> elements)? elementsRemoved,
-    TResult? Function(Arrangement arrangement, List<int> elements)?
+    TResult? Function(Map<String, List<PadElement>> elements)? elementsChanged,
+    TResult? Function(List<String> elements)? elementsRemoved,
+    TResult? Function(Arrangement arrangement, List<String> elements)?
         elementsArranged,
     TResult? Function(String? name, String? description)?
         documentDescriptionChanged,
@@ -14354,9 +14355,9 @@ class _$TemplateCreatedImpl extends TemplateCreated {
     TResult Function(ViewOption view)? viewChanged,
     TResult Function(UtilitiesState state)? utilitiesChanged,
     TResult Function(List<PadElement> elements)? elementsCreated,
-    TResult Function(Map<int, List<PadElement>> elements)? elementsChanged,
-    TResult Function(List<int> elements)? elementsRemoved,
-    TResult Function(Arrangement arrangement, List<int> elements)?
+    TResult Function(Map<String, List<PadElement>> elements)? elementsChanged,
+    TResult Function(List<String> elements)? elementsRemoved,
+    TResult Function(Arrangement arrangement, List<String> elements)?
         elementsArranged,
     TResult Function(String? name, String? description)?
         documentDescriptionChanged,
@@ -14698,10 +14699,10 @@ class _$AreasCreatedImpl extends AreasCreated {
     required TResult Function(ViewOption view) viewChanged,
     required TResult Function(UtilitiesState state) utilitiesChanged,
     required TResult Function(List<PadElement> elements) elementsCreated,
-    required TResult Function(Map<int, List<PadElement>> elements)
+    required TResult Function(Map<String, List<PadElement>> elements)
         elementsChanged,
-    required TResult Function(List<int> elements) elementsRemoved,
-    required TResult Function(Arrangement arrangement, List<int> elements)
+    required TResult Function(List<String> elements) elementsRemoved,
+    required TResult Function(Arrangement arrangement, List<String> elements)
         elementsArranged,
     required TResult Function(String? name, String? description)
         documentDescriptionChanged,
@@ -14765,9 +14766,9 @@ class _$AreasCreatedImpl extends AreasCreated {
     TResult? Function(ViewOption view)? viewChanged,
     TResult? Function(UtilitiesState state)? utilitiesChanged,
     TResult? Function(List<PadElement> elements)? elementsCreated,
-    TResult? Function(Map<int, List<PadElement>> elements)? elementsChanged,
-    TResult? Function(List<int> elements)? elementsRemoved,
-    TResult? Function(Arrangement arrangement, List<int> elements)?
+    TResult? Function(Map<String, List<PadElement>> elements)? elementsChanged,
+    TResult? Function(List<String> elements)? elementsRemoved,
+    TResult? Function(Arrangement arrangement, List<String> elements)?
         elementsArranged,
     TResult? Function(String? name, String? description)?
         documentDescriptionChanged,
@@ -14825,9 +14826,9 @@ class _$AreasCreatedImpl extends AreasCreated {
     TResult Function(ViewOption view)? viewChanged,
     TResult Function(UtilitiesState state)? utilitiesChanged,
     TResult Function(List<PadElement> elements)? elementsCreated,
-    TResult Function(Map<int, List<PadElement>> elements)? elementsChanged,
-    TResult Function(List<int> elements)? elementsRemoved,
-    TResult Function(Arrangement arrangement, List<int> elements)?
+    TResult Function(Map<String, List<PadElement>> elements)? elementsChanged,
+    TResult Function(List<String> elements)? elementsRemoved,
+    TResult Function(Arrangement arrangement, List<String> elements)?
         elementsArranged,
     TResult Function(String? name, String? description)?
         documentDescriptionChanged,
@@ -15165,10 +15166,10 @@ class _$AreasRemovedImpl extends AreasRemoved {
     required TResult Function(ViewOption view) viewChanged,
     required TResult Function(UtilitiesState state) utilitiesChanged,
     required TResult Function(List<PadElement> elements) elementsCreated,
-    required TResult Function(Map<int, List<PadElement>> elements)
+    required TResult Function(Map<String, List<PadElement>> elements)
         elementsChanged,
-    required TResult Function(List<int> elements) elementsRemoved,
-    required TResult Function(Arrangement arrangement, List<int> elements)
+    required TResult Function(List<String> elements) elementsRemoved,
+    required TResult Function(Arrangement arrangement, List<String> elements)
         elementsArranged,
     required TResult Function(String? name, String? description)
         documentDescriptionChanged,
@@ -15232,9 +15233,9 @@ class _$AreasRemovedImpl extends AreasRemoved {
     TResult? Function(ViewOption view)? viewChanged,
     TResult? Function(UtilitiesState state)? utilitiesChanged,
     TResult? Function(List<PadElement> elements)? elementsCreated,
-    TResult? Function(Map<int, List<PadElement>> elements)? elementsChanged,
-    TResult? Function(List<int> elements)? elementsRemoved,
-    TResult? Function(Arrangement arrangement, List<int> elements)?
+    TResult? Function(Map<String, List<PadElement>> elements)? elementsChanged,
+    TResult? Function(List<String> elements)? elementsRemoved,
+    TResult? Function(Arrangement arrangement, List<String> elements)?
         elementsArranged,
     TResult? Function(String? name, String? description)?
         documentDescriptionChanged,
@@ -15292,9 +15293,9 @@ class _$AreasRemovedImpl extends AreasRemoved {
     TResult Function(ViewOption view)? viewChanged,
     TResult Function(UtilitiesState state)? utilitiesChanged,
     TResult Function(List<PadElement> elements)? elementsCreated,
-    TResult Function(Map<int, List<PadElement>> elements)? elementsChanged,
-    TResult Function(List<int> elements)? elementsRemoved,
-    TResult Function(Arrangement arrangement, List<int> elements)?
+    TResult Function(Map<String, List<PadElement>> elements)? elementsChanged,
+    TResult Function(List<String> elements)? elementsRemoved,
+    TResult Function(Arrangement arrangement, List<String> elements)?
         elementsArranged,
     TResult Function(String? name, String? description)?
         documentDescriptionChanged,
@@ -15643,10 +15644,10 @@ class _$AreaChangedImpl extends AreaChanged {
     required TResult Function(ViewOption view) viewChanged,
     required TResult Function(UtilitiesState state) utilitiesChanged,
     required TResult Function(List<PadElement> elements) elementsCreated,
-    required TResult Function(Map<int, List<PadElement>> elements)
+    required TResult Function(Map<String, List<PadElement>> elements)
         elementsChanged,
-    required TResult Function(List<int> elements) elementsRemoved,
-    required TResult Function(Arrangement arrangement, List<int> elements)
+    required TResult Function(List<String> elements) elementsRemoved,
+    required TResult Function(Arrangement arrangement, List<String> elements)
         elementsArranged,
     required TResult Function(String? name, String? description)
         documentDescriptionChanged,
@@ -15710,9 +15711,9 @@ class _$AreaChangedImpl extends AreaChanged {
     TResult? Function(ViewOption view)? viewChanged,
     TResult? Function(UtilitiesState state)? utilitiesChanged,
     TResult? Function(List<PadElement> elements)? elementsCreated,
-    TResult? Function(Map<int, List<PadElement>> elements)? elementsChanged,
-    TResult? Function(List<int> elements)? elementsRemoved,
-    TResult? Function(Arrangement arrangement, List<int> elements)?
+    TResult? Function(Map<String, List<PadElement>> elements)? elementsChanged,
+    TResult? Function(List<String> elements)? elementsRemoved,
+    TResult? Function(Arrangement arrangement, List<String> elements)?
         elementsArranged,
     TResult? Function(String? name, String? description)?
         documentDescriptionChanged,
@@ -15770,9 +15771,9 @@ class _$AreaChangedImpl extends AreaChanged {
     TResult Function(ViewOption view)? viewChanged,
     TResult Function(UtilitiesState state)? utilitiesChanged,
     TResult Function(List<PadElement> elements)? elementsCreated,
-    TResult Function(Map<int, List<PadElement>> elements)? elementsChanged,
-    TResult Function(List<int> elements)? elementsRemoved,
-    TResult Function(Arrangement arrangement, List<int> elements)?
+    TResult Function(Map<String, List<PadElement>> elements)? elementsChanged,
+    TResult Function(List<String> elements)? elementsRemoved,
+    TResult Function(Arrangement arrangement, List<String> elements)?
         elementsArranged,
     TResult Function(String? name, String? description)?
         documentDescriptionChanged,
@@ -16114,10 +16115,10 @@ class _$AreaReorderedImpl extends AreaReordered {
     required TResult Function(ViewOption view) viewChanged,
     required TResult Function(UtilitiesState state) utilitiesChanged,
     required TResult Function(List<PadElement> elements) elementsCreated,
-    required TResult Function(Map<int, List<PadElement>> elements)
+    required TResult Function(Map<String, List<PadElement>> elements)
         elementsChanged,
-    required TResult Function(List<int> elements) elementsRemoved,
-    required TResult Function(Arrangement arrangement, List<int> elements)
+    required TResult Function(List<String> elements) elementsRemoved,
+    required TResult Function(Arrangement arrangement, List<String> elements)
         elementsArranged,
     required TResult Function(String? name, String? description)
         documentDescriptionChanged,
@@ -16181,9 +16182,9 @@ class _$AreaReorderedImpl extends AreaReordered {
     TResult? Function(ViewOption view)? viewChanged,
     TResult? Function(UtilitiesState state)? utilitiesChanged,
     TResult? Function(List<PadElement> elements)? elementsCreated,
-    TResult? Function(Map<int, List<PadElement>> elements)? elementsChanged,
-    TResult? Function(List<int> elements)? elementsRemoved,
-    TResult? Function(Arrangement arrangement, List<int> elements)?
+    TResult? Function(Map<String, List<PadElement>> elements)? elementsChanged,
+    TResult? Function(List<String> elements)? elementsRemoved,
+    TResult? Function(Arrangement arrangement, List<String> elements)?
         elementsArranged,
     TResult? Function(String? name, String? description)?
         documentDescriptionChanged,
@@ -16241,9 +16242,9 @@ class _$AreaReorderedImpl extends AreaReordered {
     TResult Function(ViewOption view)? viewChanged,
     TResult Function(UtilitiesState state)? utilitiesChanged,
     TResult Function(List<PadElement> elements)? elementsCreated,
-    TResult Function(Map<int, List<PadElement>> elements)? elementsChanged,
-    TResult Function(List<int> elements)? elementsRemoved,
-    TResult Function(Arrangement arrangement, List<int> elements)?
+    TResult Function(Map<String, List<PadElement>> elements)? elementsChanged,
+    TResult Function(List<String> elements)? elementsRemoved,
+    TResult Function(Arrangement arrangement, List<String> elements)?
         elementsArranged,
     TResult Function(String? name, String? description)?
         documentDescriptionChanged,
@@ -16577,10 +16578,10 @@ class _$CurrentAreaChangedImpl extends CurrentAreaChanged {
     required TResult Function(ViewOption view) viewChanged,
     required TResult Function(UtilitiesState state) utilitiesChanged,
     required TResult Function(List<PadElement> elements) elementsCreated,
-    required TResult Function(Map<int, List<PadElement>> elements)
+    required TResult Function(Map<String, List<PadElement>> elements)
         elementsChanged,
-    required TResult Function(List<int> elements) elementsRemoved,
-    required TResult Function(Arrangement arrangement, List<int> elements)
+    required TResult Function(List<String> elements) elementsRemoved,
+    required TResult Function(Arrangement arrangement, List<String> elements)
         elementsArranged,
     required TResult Function(String? name, String? description)
         documentDescriptionChanged,
@@ -16644,9 +16645,9 @@ class _$CurrentAreaChangedImpl extends CurrentAreaChanged {
     TResult? Function(ViewOption view)? viewChanged,
     TResult? Function(UtilitiesState state)? utilitiesChanged,
     TResult? Function(List<PadElement> elements)? elementsCreated,
-    TResult? Function(Map<int, List<PadElement>> elements)? elementsChanged,
-    TResult? Function(List<int> elements)? elementsRemoved,
-    TResult? Function(Arrangement arrangement, List<int> elements)?
+    TResult? Function(Map<String, List<PadElement>> elements)? elementsChanged,
+    TResult? Function(List<String> elements)? elementsRemoved,
+    TResult? Function(Arrangement arrangement, List<String> elements)?
         elementsArranged,
     TResult? Function(String? name, String? description)?
         documentDescriptionChanged,
@@ -16704,9 +16705,9 @@ class _$CurrentAreaChangedImpl extends CurrentAreaChanged {
     TResult Function(ViewOption view)? viewChanged,
     TResult Function(UtilitiesState state)? utilitiesChanged,
     TResult Function(List<PadElement> elements)? elementsCreated,
-    TResult Function(Map<int, List<PadElement>> elements)? elementsChanged,
-    TResult Function(List<int> elements)? elementsRemoved,
-    TResult Function(Arrangement arrangement, List<int> elements)?
+    TResult Function(Map<String, List<PadElement>> elements)? elementsChanged,
+    TResult Function(List<String> elements)? elementsRemoved,
+    TResult Function(Arrangement arrangement, List<String> elements)?
         elementsArranged,
     TResult Function(String? name, String? description)?
         documentDescriptionChanged,
@@ -17056,10 +17057,10 @@ class _$ExportPresetCreatedImpl extends ExportPresetCreated {
     required TResult Function(ViewOption view) viewChanged,
     required TResult Function(UtilitiesState state) utilitiesChanged,
     required TResult Function(List<PadElement> elements) elementsCreated,
-    required TResult Function(Map<int, List<PadElement>> elements)
+    required TResult Function(Map<String, List<PadElement>> elements)
         elementsChanged,
-    required TResult Function(List<int> elements) elementsRemoved,
-    required TResult Function(Arrangement arrangement, List<int> elements)
+    required TResult Function(List<String> elements) elementsRemoved,
+    required TResult Function(Arrangement arrangement, List<String> elements)
         elementsArranged,
     required TResult Function(String? name, String? description)
         documentDescriptionChanged,
@@ -17123,9 +17124,9 @@ class _$ExportPresetCreatedImpl extends ExportPresetCreated {
     TResult? Function(ViewOption view)? viewChanged,
     TResult? Function(UtilitiesState state)? utilitiesChanged,
     TResult? Function(List<PadElement> elements)? elementsCreated,
-    TResult? Function(Map<int, List<PadElement>> elements)? elementsChanged,
-    TResult? Function(List<int> elements)? elementsRemoved,
-    TResult? Function(Arrangement arrangement, List<int> elements)?
+    TResult? Function(Map<String, List<PadElement>> elements)? elementsChanged,
+    TResult? Function(List<String> elements)? elementsRemoved,
+    TResult? Function(Arrangement arrangement, List<String> elements)?
         elementsArranged,
     TResult? Function(String? name, String? description)?
         documentDescriptionChanged,
@@ -17183,9 +17184,9 @@ class _$ExportPresetCreatedImpl extends ExportPresetCreated {
     TResult Function(ViewOption view)? viewChanged,
     TResult Function(UtilitiesState state)? utilitiesChanged,
     TResult Function(List<PadElement> elements)? elementsCreated,
-    TResult Function(Map<int, List<PadElement>> elements)? elementsChanged,
-    TResult Function(List<int> elements)? elementsRemoved,
-    TResult Function(Arrangement arrangement, List<int> elements)?
+    TResult Function(Map<String, List<PadElement>> elements)? elementsChanged,
+    TResult Function(List<String> elements)? elementsRemoved,
+    TResult Function(Arrangement arrangement, List<String> elements)?
         elementsArranged,
     TResult Function(String? name, String? description)?
         documentDescriptionChanged,
@@ -17535,10 +17536,10 @@ class _$ExportPresetUpdatedImpl extends ExportPresetUpdated {
     required TResult Function(ViewOption view) viewChanged,
     required TResult Function(UtilitiesState state) utilitiesChanged,
     required TResult Function(List<PadElement> elements) elementsCreated,
-    required TResult Function(Map<int, List<PadElement>> elements)
+    required TResult Function(Map<String, List<PadElement>> elements)
         elementsChanged,
-    required TResult Function(List<int> elements) elementsRemoved,
-    required TResult Function(Arrangement arrangement, List<int> elements)
+    required TResult Function(List<String> elements) elementsRemoved,
+    required TResult Function(Arrangement arrangement, List<String> elements)
         elementsArranged,
     required TResult Function(String? name, String? description)
         documentDescriptionChanged,
@@ -17602,9 +17603,9 @@ class _$ExportPresetUpdatedImpl extends ExportPresetUpdated {
     TResult? Function(ViewOption view)? viewChanged,
     TResult? Function(UtilitiesState state)? utilitiesChanged,
     TResult? Function(List<PadElement> elements)? elementsCreated,
-    TResult? Function(Map<int, List<PadElement>> elements)? elementsChanged,
-    TResult? Function(List<int> elements)? elementsRemoved,
-    TResult? Function(Arrangement arrangement, List<int> elements)?
+    TResult? Function(Map<String, List<PadElement>> elements)? elementsChanged,
+    TResult? Function(List<String> elements)? elementsRemoved,
+    TResult? Function(Arrangement arrangement, List<String> elements)?
         elementsArranged,
     TResult? Function(String? name, String? description)?
         documentDescriptionChanged,
@@ -17662,9 +17663,9 @@ class _$ExportPresetUpdatedImpl extends ExportPresetUpdated {
     TResult Function(ViewOption view)? viewChanged,
     TResult Function(UtilitiesState state)? utilitiesChanged,
     TResult Function(List<PadElement> elements)? elementsCreated,
-    TResult Function(Map<int, List<PadElement>> elements)? elementsChanged,
-    TResult Function(List<int> elements)? elementsRemoved,
-    TResult Function(Arrangement arrangement, List<int> elements)?
+    TResult Function(Map<String, List<PadElement>> elements)? elementsChanged,
+    TResult Function(List<String> elements)? elementsRemoved,
+    TResult Function(Arrangement arrangement, List<String> elements)?
         elementsArranged,
     TResult Function(String? name, String? description)?
         documentDescriptionChanged,
@@ -17999,10 +18000,10 @@ class _$ExportPresetRemovedImpl extends ExportPresetRemoved {
     required TResult Function(ViewOption view) viewChanged,
     required TResult Function(UtilitiesState state) utilitiesChanged,
     required TResult Function(List<PadElement> elements) elementsCreated,
-    required TResult Function(Map<int, List<PadElement>> elements)
+    required TResult Function(Map<String, List<PadElement>> elements)
         elementsChanged,
-    required TResult Function(List<int> elements) elementsRemoved,
-    required TResult Function(Arrangement arrangement, List<int> elements)
+    required TResult Function(List<String> elements) elementsRemoved,
+    required TResult Function(Arrangement arrangement, List<String> elements)
         elementsArranged,
     required TResult Function(String? name, String? description)
         documentDescriptionChanged,
@@ -18066,9 +18067,9 @@ class _$ExportPresetRemovedImpl extends ExportPresetRemoved {
     TResult? Function(ViewOption view)? viewChanged,
     TResult? Function(UtilitiesState state)? utilitiesChanged,
     TResult? Function(List<PadElement> elements)? elementsCreated,
-    TResult? Function(Map<int, List<PadElement>> elements)? elementsChanged,
-    TResult? Function(List<int> elements)? elementsRemoved,
-    TResult? Function(Arrangement arrangement, List<int> elements)?
+    TResult? Function(Map<String, List<PadElement>> elements)? elementsChanged,
+    TResult? Function(List<String> elements)? elementsRemoved,
+    TResult? Function(Arrangement arrangement, List<String> elements)?
         elementsArranged,
     TResult? Function(String? name, String? description)?
         documentDescriptionChanged,
@@ -18126,9 +18127,9 @@ class _$ExportPresetRemovedImpl extends ExportPresetRemoved {
     TResult Function(ViewOption view)? viewChanged,
     TResult Function(UtilitiesState state)? utilitiesChanged,
     TResult Function(List<PadElement> elements)? elementsCreated,
-    TResult Function(Map<int, List<PadElement>> elements)? elementsChanged,
-    TResult Function(List<int> elements)? elementsRemoved,
-    TResult Function(Arrangement arrangement, List<int> elements)?
+    TResult Function(Map<String, List<PadElement>> elements)? elementsChanged,
+    TResult Function(List<String> elements)? elementsRemoved,
+    TResult Function(Arrangement arrangement, List<String> elements)?
         elementsArranged,
     TResult Function(String? name, String? description)?
         documentDescriptionChanged,
@@ -18460,10 +18461,10 @@ class _$PackAddedImpl extends PackAdded {
     required TResult Function(ViewOption view) viewChanged,
     required TResult Function(UtilitiesState state) utilitiesChanged,
     required TResult Function(List<PadElement> elements) elementsCreated,
-    required TResult Function(Map<int, List<PadElement>> elements)
+    required TResult Function(Map<String, List<PadElement>> elements)
         elementsChanged,
-    required TResult Function(List<int> elements) elementsRemoved,
-    required TResult Function(Arrangement arrangement, List<int> elements)
+    required TResult Function(List<String> elements) elementsRemoved,
+    required TResult Function(Arrangement arrangement, List<String> elements)
         elementsArranged,
     required TResult Function(String? name, String? description)
         documentDescriptionChanged,
@@ -18527,9 +18528,9 @@ class _$PackAddedImpl extends PackAdded {
     TResult? Function(ViewOption view)? viewChanged,
     TResult? Function(UtilitiesState state)? utilitiesChanged,
     TResult? Function(List<PadElement> elements)? elementsCreated,
-    TResult? Function(Map<int, List<PadElement>> elements)? elementsChanged,
-    TResult? Function(List<int> elements)? elementsRemoved,
-    TResult? Function(Arrangement arrangement, List<int> elements)?
+    TResult? Function(Map<String, List<PadElement>> elements)? elementsChanged,
+    TResult? Function(List<String> elements)? elementsRemoved,
+    TResult? Function(Arrangement arrangement, List<String> elements)?
         elementsArranged,
     TResult? Function(String? name, String? description)?
         documentDescriptionChanged,
@@ -18587,9 +18588,9 @@ class _$PackAddedImpl extends PackAdded {
     TResult Function(ViewOption view)? viewChanged,
     TResult Function(UtilitiesState state)? utilitiesChanged,
     TResult Function(List<PadElement> elements)? elementsCreated,
-    TResult Function(Map<int, List<PadElement>> elements)? elementsChanged,
-    TResult Function(List<int> elements)? elementsRemoved,
-    TResult Function(Arrangement arrangement, List<int> elements)?
+    TResult Function(Map<String, List<PadElement>> elements)? elementsChanged,
+    TResult Function(List<String> elements)? elementsRemoved,
+    TResult Function(Arrangement arrangement, List<String> elements)?
         elementsArranged,
     TResult Function(String? name, String? description)?
         documentDescriptionChanged,
@@ -18928,10 +18929,10 @@ class _$PackUpdatedImpl extends PackUpdated {
     required TResult Function(ViewOption view) viewChanged,
     required TResult Function(UtilitiesState state) utilitiesChanged,
     required TResult Function(List<PadElement> elements) elementsCreated,
-    required TResult Function(Map<int, List<PadElement>> elements)
+    required TResult Function(Map<String, List<PadElement>> elements)
         elementsChanged,
-    required TResult Function(List<int> elements) elementsRemoved,
-    required TResult Function(Arrangement arrangement, List<int> elements)
+    required TResult Function(List<String> elements) elementsRemoved,
+    required TResult Function(Arrangement arrangement, List<String> elements)
         elementsArranged,
     required TResult Function(String? name, String? description)
         documentDescriptionChanged,
@@ -18995,9 +18996,9 @@ class _$PackUpdatedImpl extends PackUpdated {
     TResult? Function(ViewOption view)? viewChanged,
     TResult? Function(UtilitiesState state)? utilitiesChanged,
     TResult? Function(List<PadElement> elements)? elementsCreated,
-    TResult? Function(Map<int, List<PadElement>> elements)? elementsChanged,
-    TResult? Function(List<int> elements)? elementsRemoved,
-    TResult? Function(Arrangement arrangement, List<int> elements)?
+    TResult? Function(Map<String, List<PadElement>> elements)? elementsChanged,
+    TResult? Function(List<String> elements)? elementsRemoved,
+    TResult? Function(Arrangement arrangement, List<String> elements)?
         elementsArranged,
     TResult? Function(String? name, String? description)?
         documentDescriptionChanged,
@@ -19055,9 +19056,9 @@ class _$PackUpdatedImpl extends PackUpdated {
     TResult Function(ViewOption view)? viewChanged,
     TResult Function(UtilitiesState state)? utilitiesChanged,
     TResult Function(List<PadElement> elements)? elementsCreated,
-    TResult Function(Map<int, List<PadElement>> elements)? elementsChanged,
-    TResult Function(List<int> elements)? elementsRemoved,
-    TResult Function(Arrangement arrangement, List<int> elements)?
+    TResult Function(Map<String, List<PadElement>> elements)? elementsChanged,
+    TResult Function(List<String> elements)? elementsRemoved,
+    TResult Function(Arrangement arrangement, List<String> elements)?
         elementsArranged,
     TResult Function(String? name, String? description)?
         documentDescriptionChanged,
@@ -19390,10 +19391,10 @@ class _$PackRemovedImpl extends PackRemoved {
     required TResult Function(ViewOption view) viewChanged,
     required TResult Function(UtilitiesState state) utilitiesChanged,
     required TResult Function(List<PadElement> elements) elementsCreated,
-    required TResult Function(Map<int, List<PadElement>> elements)
+    required TResult Function(Map<String, List<PadElement>> elements)
         elementsChanged,
-    required TResult Function(List<int> elements) elementsRemoved,
-    required TResult Function(Arrangement arrangement, List<int> elements)
+    required TResult Function(List<String> elements) elementsRemoved,
+    required TResult Function(Arrangement arrangement, List<String> elements)
         elementsArranged,
     required TResult Function(String? name, String? description)
         documentDescriptionChanged,
@@ -19457,9 +19458,9 @@ class _$PackRemovedImpl extends PackRemoved {
     TResult? Function(ViewOption view)? viewChanged,
     TResult? Function(UtilitiesState state)? utilitiesChanged,
     TResult? Function(List<PadElement> elements)? elementsCreated,
-    TResult? Function(Map<int, List<PadElement>> elements)? elementsChanged,
-    TResult? Function(List<int> elements)? elementsRemoved,
-    TResult? Function(Arrangement arrangement, List<int> elements)?
+    TResult? Function(Map<String, List<PadElement>> elements)? elementsChanged,
+    TResult? Function(List<String> elements)? elementsRemoved,
+    TResult? Function(Arrangement arrangement, List<String> elements)?
         elementsArranged,
     TResult? Function(String? name, String? description)?
         documentDescriptionChanged,
@@ -19517,9 +19518,9 @@ class _$PackRemovedImpl extends PackRemoved {
     TResult Function(ViewOption view)? viewChanged,
     TResult Function(UtilitiesState state)? utilitiesChanged,
     TResult Function(List<PadElement> elements)? elementsCreated,
-    TResult Function(Map<int, List<PadElement>> elements)? elementsChanged,
-    TResult Function(List<int> elements)? elementsRemoved,
-    TResult Function(Arrangement arrangement, List<int> elements)?
+    TResult Function(Map<String, List<PadElement>> elements)? elementsChanged,
+    TResult Function(List<String> elements)? elementsRemoved,
+    TResult Function(Arrangement arrangement, List<String> elements)?
         elementsArranged,
     TResult Function(String? name, String? description)?
         documentDescriptionChanged,
@@ -19862,10 +19863,10 @@ class _$AnimationAddedImpl extends AnimationAdded {
     required TResult Function(ViewOption view) viewChanged,
     required TResult Function(UtilitiesState state) utilitiesChanged,
     required TResult Function(List<PadElement> elements) elementsCreated,
-    required TResult Function(Map<int, List<PadElement>> elements)
+    required TResult Function(Map<String, List<PadElement>> elements)
         elementsChanged,
-    required TResult Function(List<int> elements) elementsRemoved,
-    required TResult Function(Arrangement arrangement, List<int> elements)
+    required TResult Function(List<String> elements) elementsRemoved,
+    required TResult Function(Arrangement arrangement, List<String> elements)
         elementsArranged,
     required TResult Function(String? name, String? description)
         documentDescriptionChanged,
@@ -19929,9 +19930,9 @@ class _$AnimationAddedImpl extends AnimationAdded {
     TResult? Function(ViewOption view)? viewChanged,
     TResult? Function(UtilitiesState state)? utilitiesChanged,
     TResult? Function(List<PadElement> elements)? elementsCreated,
-    TResult? Function(Map<int, List<PadElement>> elements)? elementsChanged,
-    TResult? Function(List<int> elements)? elementsRemoved,
-    TResult? Function(Arrangement arrangement, List<int> elements)?
+    TResult? Function(Map<String, List<PadElement>> elements)? elementsChanged,
+    TResult? Function(List<String> elements)? elementsRemoved,
+    TResult? Function(Arrangement arrangement, List<String> elements)?
         elementsArranged,
     TResult? Function(String? name, String? description)?
         documentDescriptionChanged,
@@ -19989,9 +19990,9 @@ class _$AnimationAddedImpl extends AnimationAdded {
     TResult Function(ViewOption view)? viewChanged,
     TResult Function(UtilitiesState state)? utilitiesChanged,
     TResult Function(List<PadElement> elements)? elementsCreated,
-    TResult Function(Map<int, List<PadElement>> elements)? elementsChanged,
-    TResult Function(List<int> elements)? elementsRemoved,
-    TResult Function(Arrangement arrangement, List<int> elements)?
+    TResult Function(Map<String, List<PadElement>> elements)? elementsChanged,
+    TResult Function(List<String> elements)? elementsRemoved,
+    TResult Function(Arrangement arrangement, List<String> elements)?
         elementsArranged,
     TResult Function(String? name, String? description)?
         documentDescriptionChanged,
@@ -20343,10 +20344,10 @@ class _$AnimationUpdatedImpl extends AnimationUpdated {
     required TResult Function(ViewOption view) viewChanged,
     required TResult Function(UtilitiesState state) utilitiesChanged,
     required TResult Function(List<PadElement> elements) elementsCreated,
-    required TResult Function(Map<int, List<PadElement>> elements)
+    required TResult Function(Map<String, List<PadElement>> elements)
         elementsChanged,
-    required TResult Function(List<int> elements) elementsRemoved,
-    required TResult Function(Arrangement arrangement, List<int> elements)
+    required TResult Function(List<String> elements) elementsRemoved,
+    required TResult Function(Arrangement arrangement, List<String> elements)
         elementsArranged,
     required TResult Function(String? name, String? description)
         documentDescriptionChanged,
@@ -20410,9 +20411,9 @@ class _$AnimationUpdatedImpl extends AnimationUpdated {
     TResult? Function(ViewOption view)? viewChanged,
     TResult? Function(UtilitiesState state)? utilitiesChanged,
     TResult? Function(List<PadElement> elements)? elementsCreated,
-    TResult? Function(Map<int, List<PadElement>> elements)? elementsChanged,
-    TResult? Function(List<int> elements)? elementsRemoved,
-    TResult? Function(Arrangement arrangement, List<int> elements)?
+    TResult? Function(Map<String, List<PadElement>> elements)? elementsChanged,
+    TResult? Function(List<String> elements)? elementsRemoved,
+    TResult? Function(Arrangement arrangement, List<String> elements)?
         elementsArranged,
     TResult? Function(String? name, String? description)?
         documentDescriptionChanged,
@@ -20470,9 +20471,9 @@ class _$AnimationUpdatedImpl extends AnimationUpdated {
     TResult Function(ViewOption view)? viewChanged,
     TResult Function(UtilitiesState state)? utilitiesChanged,
     TResult Function(List<PadElement> elements)? elementsCreated,
-    TResult Function(Map<int, List<PadElement>> elements)? elementsChanged,
-    TResult Function(List<int> elements)? elementsRemoved,
-    TResult Function(Arrangement arrangement, List<int> elements)?
+    TResult Function(Map<String, List<PadElement>> elements)? elementsChanged,
+    TResult Function(List<String> elements)? elementsRemoved,
+    TResult Function(Arrangement arrangement, List<String> elements)?
         elementsArranged,
     TResult Function(String? name, String? description)?
         documentDescriptionChanged,
@@ -20807,10 +20808,10 @@ class _$AnimationRemovedImpl extends AnimationRemoved {
     required TResult Function(ViewOption view) viewChanged,
     required TResult Function(UtilitiesState state) utilitiesChanged,
     required TResult Function(List<PadElement> elements) elementsCreated,
-    required TResult Function(Map<int, List<PadElement>> elements)
+    required TResult Function(Map<String, List<PadElement>> elements)
         elementsChanged,
-    required TResult Function(List<int> elements) elementsRemoved,
-    required TResult Function(Arrangement arrangement, List<int> elements)
+    required TResult Function(List<String> elements) elementsRemoved,
+    required TResult Function(Arrangement arrangement, List<String> elements)
         elementsArranged,
     required TResult Function(String? name, String? description)
         documentDescriptionChanged,
@@ -20874,9 +20875,9 @@ class _$AnimationRemovedImpl extends AnimationRemoved {
     TResult? Function(ViewOption view)? viewChanged,
     TResult? Function(UtilitiesState state)? utilitiesChanged,
     TResult? Function(List<PadElement> elements)? elementsCreated,
-    TResult? Function(Map<int, List<PadElement>> elements)? elementsChanged,
-    TResult? Function(List<int> elements)? elementsRemoved,
-    TResult? Function(Arrangement arrangement, List<int> elements)?
+    TResult? Function(Map<String, List<PadElement>> elements)? elementsChanged,
+    TResult? Function(List<String> elements)? elementsRemoved,
+    TResult? Function(Arrangement arrangement, List<String> elements)?
         elementsArranged,
     TResult? Function(String? name, String? description)?
         documentDescriptionChanged,
@@ -20934,9 +20935,9 @@ class _$AnimationRemovedImpl extends AnimationRemoved {
     TResult Function(ViewOption view)? viewChanged,
     TResult Function(UtilitiesState state)? utilitiesChanged,
     TResult Function(List<PadElement> elements)? elementsCreated,
-    TResult Function(Map<int, List<PadElement>> elements)? elementsChanged,
-    TResult Function(List<int> elements)? elementsRemoved,
-    TResult Function(Arrangement arrangement, List<int> elements)?
+    TResult Function(Map<String, List<PadElement>> elements)? elementsChanged,
+    TResult Function(List<String> elements)? elementsRemoved,
+    TResult Function(Arrangement arrangement, List<String> elements)?
         elementsArranged,
     TResult Function(String? name, String? description)?
         documentDescriptionChanged,
@@ -21290,10 +21291,10 @@ class _$PresentationModeEnteredImpl extends PresentationModeEntered {
     required TResult Function(ViewOption view) viewChanged,
     required TResult Function(UtilitiesState state) utilitiesChanged,
     required TResult Function(List<PadElement> elements) elementsCreated,
-    required TResult Function(Map<int, List<PadElement>> elements)
+    required TResult Function(Map<String, List<PadElement>> elements)
         elementsChanged,
-    required TResult Function(List<int> elements) elementsRemoved,
-    required TResult Function(Arrangement arrangement, List<int> elements)
+    required TResult Function(List<String> elements) elementsRemoved,
+    required TResult Function(Arrangement arrangement, List<String> elements)
         elementsArranged,
     required TResult Function(String? name, String? description)
         documentDescriptionChanged,
@@ -21357,9 +21358,9 @@ class _$PresentationModeEnteredImpl extends PresentationModeEntered {
     TResult? Function(ViewOption view)? viewChanged,
     TResult? Function(UtilitiesState state)? utilitiesChanged,
     TResult? Function(List<PadElement> elements)? elementsCreated,
-    TResult? Function(Map<int, List<PadElement>> elements)? elementsChanged,
-    TResult? Function(List<int> elements)? elementsRemoved,
-    TResult? Function(Arrangement arrangement, List<int> elements)?
+    TResult? Function(Map<String, List<PadElement>> elements)? elementsChanged,
+    TResult? Function(List<String> elements)? elementsRemoved,
+    TResult? Function(Arrangement arrangement, List<String> elements)?
         elementsArranged,
     TResult? Function(String? name, String? description)?
         documentDescriptionChanged,
@@ -21417,9 +21418,9 @@ class _$PresentationModeEnteredImpl extends PresentationModeEntered {
     TResult Function(ViewOption view)? viewChanged,
     TResult Function(UtilitiesState state)? utilitiesChanged,
     TResult Function(List<PadElement> elements)? elementsCreated,
-    TResult Function(Map<int, List<PadElement>> elements)? elementsChanged,
-    TResult Function(List<int> elements)? elementsRemoved,
-    TResult Function(Arrangement arrangement, List<int> elements)?
+    TResult Function(Map<String, List<PadElement>> elements)? elementsChanged,
+    TResult Function(List<String> elements)? elementsRemoved,
+    TResult Function(Arrangement arrangement, List<String> elements)?
         elementsArranged,
     TResult Function(String? name, String? description)?
         documentDescriptionChanged,
@@ -21730,10 +21731,10 @@ class _$PresentationModeExitedImpl extends PresentationModeExited {
     required TResult Function(ViewOption view) viewChanged,
     required TResult Function(UtilitiesState state) utilitiesChanged,
     required TResult Function(List<PadElement> elements) elementsCreated,
-    required TResult Function(Map<int, List<PadElement>> elements)
+    required TResult Function(Map<String, List<PadElement>> elements)
         elementsChanged,
-    required TResult Function(List<int> elements) elementsRemoved,
-    required TResult Function(Arrangement arrangement, List<int> elements)
+    required TResult Function(List<String> elements) elementsRemoved,
+    required TResult Function(Arrangement arrangement, List<String> elements)
         elementsArranged,
     required TResult Function(String? name, String? description)
         documentDescriptionChanged,
@@ -21797,9 +21798,9 @@ class _$PresentationModeExitedImpl extends PresentationModeExited {
     TResult? Function(ViewOption view)? viewChanged,
     TResult? Function(UtilitiesState state)? utilitiesChanged,
     TResult? Function(List<PadElement> elements)? elementsCreated,
-    TResult? Function(Map<int, List<PadElement>> elements)? elementsChanged,
-    TResult? Function(List<int> elements)? elementsRemoved,
-    TResult? Function(Arrangement arrangement, List<int> elements)?
+    TResult? Function(Map<String, List<PadElement>> elements)? elementsChanged,
+    TResult? Function(List<String> elements)? elementsRemoved,
+    TResult? Function(Arrangement arrangement, List<String> elements)?
         elementsArranged,
     TResult? Function(String? name, String? description)?
         documentDescriptionChanged,
@@ -21857,9 +21858,9 @@ class _$PresentationModeExitedImpl extends PresentationModeExited {
     TResult Function(ViewOption view)? viewChanged,
     TResult Function(UtilitiesState state)? utilitiesChanged,
     TResult Function(List<PadElement> elements)? elementsCreated,
-    TResult Function(Map<int, List<PadElement>> elements)? elementsChanged,
-    TResult Function(List<int> elements)? elementsRemoved,
-    TResult Function(Arrangement arrangement, List<int> elements)?
+    TResult Function(Map<String, List<PadElement>> elements)? elementsChanged,
+    TResult Function(List<String> elements)? elementsRemoved,
+    TResult Function(Arrangement arrangement, List<String> elements)?
         elementsArranged,
     TResult Function(String? name, String? description)?
         documentDescriptionChanged,
@@ -22186,10 +22187,10 @@ class _$PresentationTickImpl extends PresentationTick {
     required TResult Function(ViewOption view) viewChanged,
     required TResult Function(UtilitiesState state) utilitiesChanged,
     required TResult Function(List<PadElement> elements) elementsCreated,
-    required TResult Function(Map<int, List<PadElement>> elements)
+    required TResult Function(Map<String, List<PadElement>> elements)
         elementsChanged,
-    required TResult Function(List<int> elements) elementsRemoved,
-    required TResult Function(Arrangement arrangement, List<int> elements)
+    required TResult Function(List<String> elements) elementsRemoved,
+    required TResult Function(Arrangement arrangement, List<String> elements)
         elementsArranged,
     required TResult Function(String? name, String? description)
         documentDescriptionChanged,
@@ -22253,9 +22254,9 @@ class _$PresentationTickImpl extends PresentationTick {
     TResult? Function(ViewOption view)? viewChanged,
     TResult? Function(UtilitiesState state)? utilitiesChanged,
     TResult? Function(List<PadElement> elements)? elementsCreated,
-    TResult? Function(Map<int, List<PadElement>> elements)? elementsChanged,
-    TResult? Function(List<int> elements)? elementsRemoved,
-    TResult? Function(Arrangement arrangement, List<int> elements)?
+    TResult? Function(Map<String, List<PadElement>> elements)? elementsChanged,
+    TResult? Function(List<String> elements)? elementsRemoved,
+    TResult? Function(Arrangement arrangement, List<String> elements)?
         elementsArranged,
     TResult? Function(String? name, String? description)?
         documentDescriptionChanged,
@@ -22313,9 +22314,9 @@ class _$PresentationTickImpl extends PresentationTick {
     TResult Function(ViewOption view)? viewChanged,
     TResult Function(UtilitiesState state)? utilitiesChanged,
     TResult Function(List<PadElement> elements)? elementsCreated,
-    TResult Function(Map<int, List<PadElement>> elements)? elementsChanged,
-    TResult Function(List<int> elements)? elementsRemoved,
-    TResult Function(Arrangement arrangement, List<int> elements)?
+    TResult Function(Map<String, List<PadElement>> elements)? elementsChanged,
+    TResult Function(List<String> elements)? elementsRemoved,
+    TResult Function(Arrangement arrangement, List<String> elements)?
         elementsArranged,
     TResult Function(String? name, String? description)?
         documentDescriptionChanged,
@@ -22662,10 +22663,10 @@ class _$AssetUpdatedImpl extends AssetUpdated {
     required TResult Function(ViewOption view) viewChanged,
     required TResult Function(UtilitiesState state) utilitiesChanged,
     required TResult Function(List<PadElement> elements) elementsCreated,
-    required TResult Function(Map<int, List<PadElement>> elements)
+    required TResult Function(Map<String, List<PadElement>> elements)
         elementsChanged,
-    required TResult Function(List<int> elements) elementsRemoved,
-    required TResult Function(Arrangement arrangement, List<int> elements)
+    required TResult Function(List<String> elements) elementsRemoved,
+    required TResult Function(Arrangement arrangement, List<String> elements)
         elementsArranged,
     required TResult Function(String? name, String? description)
         documentDescriptionChanged,
@@ -22729,9 +22730,9 @@ class _$AssetUpdatedImpl extends AssetUpdated {
     TResult? Function(ViewOption view)? viewChanged,
     TResult? Function(UtilitiesState state)? utilitiesChanged,
     TResult? Function(List<PadElement> elements)? elementsCreated,
-    TResult? Function(Map<int, List<PadElement>> elements)? elementsChanged,
-    TResult? Function(List<int> elements)? elementsRemoved,
-    TResult? Function(Arrangement arrangement, List<int> elements)?
+    TResult? Function(Map<String, List<PadElement>> elements)? elementsChanged,
+    TResult? Function(List<String> elements)? elementsRemoved,
+    TResult? Function(Arrangement arrangement, List<String> elements)?
         elementsArranged,
     TResult? Function(String? name, String? description)?
         documentDescriptionChanged,
@@ -22789,9 +22790,9 @@ class _$AssetUpdatedImpl extends AssetUpdated {
     TResult Function(ViewOption view)? viewChanged,
     TResult Function(UtilitiesState state)? utilitiesChanged,
     TResult Function(List<PadElement> elements)? elementsCreated,
-    TResult Function(Map<int, List<PadElement>> elements)? elementsChanged,
-    TResult Function(List<int> elements)? elementsRemoved,
-    TResult Function(Arrangement arrangement, List<int> elements)?
+    TResult Function(Map<String, List<PadElement>> elements)? elementsChanged,
+    TResult Function(List<String> elements)? elementsRemoved,
+    TResult Function(Arrangement arrangement, List<String> elements)?
         elementsArranged,
     TResult Function(String? name, String? description)?
         documentDescriptionChanged,

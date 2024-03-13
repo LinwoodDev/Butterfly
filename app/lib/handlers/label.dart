@@ -159,8 +159,8 @@ class LabelHandler extends Handler<LabelTool>
       } else {
         final page = context.getPage();
         if (page == null) return;
-        final index = page.content.indexOf(labelRenderer.element as PadElement);
-        context.getDocumentBloc().add(ElementsRemoved([index]));
+        final id = (labelRenderer.element as PadElement).id;
+        context.getDocumentBloc().add(ElementsRemoved([id]));
         _context = _createContext(document, element: labelRenderer.element);
       }
     }
@@ -242,7 +242,6 @@ class LabelHandler extends Handler<LabelTool>
   void _change(DocumentBloc bloc, LabelContext value) {
     final state = bloc.state;
     if (state is! DocumentLoaded) return;
-    final content = state.page.content;
     final tools = state.info.tools;
     final context = _context;
     _context = value;
@@ -251,7 +250,7 @@ class LabelHandler extends Handler<LabelTool>
     if (context.element != null && value.element != null) {
       if (!value.isCreating) {
         bloc.add(ElementsChanged({
-          content.indexOf(context.element!): [value.element!],
+          context.element!.id: [value.element!],
         }));
       }
     }
@@ -276,7 +275,6 @@ class LabelHandler extends Handler<LabelTool>
   void _submit(DocumentBloc bloc) {
     final state = bloc.state;
     if (state is! DocumentLoaded) return;
-    final content = state.page.content;
     final context = _context;
     if (context == null) return;
     final element = context.element;
@@ -285,7 +283,7 @@ class LabelHandler extends Handler<LabelTool>
       if (context.isCreating && !isEmpty) {
         bloc.add(ElementsCreated([element]));
       } else if (!context.isCreating && isEmpty) {
-        bloc.add(ElementsRemoved([content.indexOf(element)]));
+        bloc.add(ElementsRemoved([element.id]));
       }
     }
   }
