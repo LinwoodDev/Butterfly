@@ -156,7 +156,7 @@ mixin _$DocumentEvent {
     required TResult Function(String name) layerElementsRemoved,
     required TResult Function(String name) layerVisibilityChanged,
     required TResult Function(String name) currentLayerChanged,
-    required TResult Function(String layer, List<int> elements)
+    required TResult Function(String layer, List<String> elements)
         elementsLayerChanged,
     required TResult Function(
             String directory, String? remote, bool deleteDocument)
@@ -218,7 +218,8 @@ mixin _$DocumentEvent {
     TResult? Function(String name)? layerElementsRemoved,
     TResult? Function(String name)? layerVisibilityChanged,
     TResult? Function(String name)? currentLayerChanged,
-    TResult? Function(String layer, List<int> elements)? elementsLayerChanged,
+    TResult? Function(String layer, List<String> elements)?
+        elementsLayerChanged,
     TResult? Function(String directory, String? remote, bool deleteDocument)?
         templateCreated,
     TResult? Function(List<Area> areas)? areasCreated,
@@ -275,7 +276,7 @@ mixin _$DocumentEvent {
     TResult Function(String name)? layerElementsRemoved,
     TResult Function(String name)? layerVisibilityChanged,
     TResult Function(String name)? currentLayerChanged,
-    TResult Function(String layer, List<int> elements)? elementsLayerChanged,
+    TResult Function(String layer, List<String> elements)? elementsLayerChanged,
     TResult Function(String directory, String? remote, bool deleteDocument)?
         templateCreated,
     TResult Function(List<Area> areas)? areasCreated,
@@ -615,7 +616,7 @@ class _$PageAddedImpl extends PageAdded {
     required TResult Function(String name) layerElementsRemoved,
     required TResult Function(String name) layerVisibilityChanged,
     required TResult Function(String name) currentLayerChanged,
-    required TResult Function(String layer, List<int> elements)
+    required TResult Function(String layer, List<String> elements)
         elementsLayerChanged,
     required TResult Function(
             String directory, String? remote, bool deleteDocument)
@@ -680,7 +681,8 @@ class _$PageAddedImpl extends PageAdded {
     TResult? Function(String name)? layerElementsRemoved,
     TResult? Function(String name)? layerVisibilityChanged,
     TResult? Function(String name)? currentLayerChanged,
-    TResult? Function(String layer, List<int> elements)? elementsLayerChanged,
+    TResult? Function(String layer, List<String> elements)?
+        elementsLayerChanged,
     TResult? Function(String directory, String? remote, bool deleteDocument)?
         templateCreated,
     TResult? Function(List<Area> areas)? areasCreated,
@@ -740,7 +742,7 @@ class _$PageAddedImpl extends PageAdded {
     TResult Function(String name)? layerElementsRemoved,
     TResult Function(String name)? layerVisibilityChanged,
     TResult Function(String name)? currentLayerChanged,
-    TResult Function(String layer, List<int> elements)? elementsLayerChanged,
+    TResult Function(String layer, List<String> elements)? elementsLayerChanged,
     TResult Function(String directory, String? remote, bool deleteDocument)?
         templateCreated,
     TResult Function(List<Area> areas)? areasCreated,
@@ -1078,7 +1080,7 @@ class _$PageChangedImpl extends PageChanged {
     required TResult Function(String name) layerElementsRemoved,
     required TResult Function(String name) layerVisibilityChanged,
     required TResult Function(String name) currentLayerChanged,
-    required TResult Function(String layer, List<int> elements)
+    required TResult Function(String layer, List<String> elements)
         elementsLayerChanged,
     required TResult Function(
             String directory, String? remote, bool deleteDocument)
@@ -1143,7 +1145,8 @@ class _$PageChangedImpl extends PageChanged {
     TResult? Function(String name)? layerElementsRemoved,
     TResult? Function(String name)? layerVisibilityChanged,
     TResult? Function(String name)? currentLayerChanged,
-    TResult? Function(String layer, List<int> elements)? elementsLayerChanged,
+    TResult? Function(String layer, List<String> elements)?
+        elementsLayerChanged,
     TResult? Function(String directory, String? remote, bool deleteDocument)?
         templateCreated,
     TResult? Function(List<Area> areas)? areasCreated,
@@ -1203,7 +1206,7 @@ class _$PageChangedImpl extends PageChanged {
     TResult Function(String name)? layerElementsRemoved,
     TResult Function(String name)? layerVisibilityChanged,
     TResult Function(String name)? currentLayerChanged,
-    TResult Function(String layer, List<int> elements)? elementsLayerChanged,
+    TResult Function(String layer, List<String> elements)? elementsLayerChanged,
     TResult Function(String directory, String? remote, bool deleteDocument)?
         templateCreated,
     TResult Function(List<Area> areas)? areasCreated,
@@ -1547,7 +1550,7 @@ class _$PageReorderedImpl extends PageReordered {
     required TResult Function(String name) layerElementsRemoved,
     required TResult Function(String name) layerVisibilityChanged,
     required TResult Function(String name) currentLayerChanged,
-    required TResult Function(String layer, List<int> elements)
+    required TResult Function(String layer, List<String> elements)
         elementsLayerChanged,
     required TResult Function(
             String directory, String? remote, bool deleteDocument)
@@ -1612,7 +1615,8 @@ class _$PageReorderedImpl extends PageReordered {
     TResult? Function(String name)? layerElementsRemoved,
     TResult? Function(String name)? layerVisibilityChanged,
     TResult? Function(String name)? currentLayerChanged,
-    TResult? Function(String layer, List<int> elements)? elementsLayerChanged,
+    TResult? Function(String layer, List<String> elements)?
+        elementsLayerChanged,
     TResult? Function(String directory, String? remote, bool deleteDocument)?
         templateCreated,
     TResult? Function(List<Area> areas)? areasCreated,
@@ -1672,7 +1676,7 @@ class _$PageReorderedImpl extends PageReordered {
     TResult Function(String name)? layerElementsRemoved,
     TResult Function(String name)? layerVisibilityChanged,
     TResult Function(String name)? currentLayerChanged,
-    TResult Function(String layer, List<int> elements)? elementsLayerChanged,
+    TResult Function(String layer, List<String> elements)? elementsLayerChanged,
     TResult Function(String directory, String? remote, bool deleteDocument)?
         templateCreated,
     TResult Function(List<Area> areas)? areasCreated,
@@ -2017,7 +2021,7 @@ class _$PageRenamedImpl extends PageRenamed {
     required TResult Function(String name) layerElementsRemoved,
     required TResult Function(String name) layerVisibilityChanged,
     required TResult Function(String name) currentLayerChanged,
-    required TResult Function(String layer, List<int> elements)
+    required TResult Function(String layer, List<String> elements)
         elementsLayerChanged,
     required TResult Function(
             String directory, String? remote, bool deleteDocument)
@@ -2082,7 +2086,8 @@ class _$PageRenamedImpl extends PageRenamed {
     TResult? Function(String name)? layerElementsRemoved,
     TResult? Function(String name)? layerVisibilityChanged,
     TResult? Function(String name)? currentLayerChanged,
-    TResult? Function(String layer, List<int> elements)? elementsLayerChanged,
+    TResult? Function(String layer, List<String> elements)?
+        elementsLayerChanged,
     TResult? Function(String directory, String? remote, bool deleteDocument)?
         templateCreated,
     TResult? Function(List<Area> areas)? areasCreated,
@@ -2142,7 +2147,7 @@ class _$PageRenamedImpl extends PageRenamed {
     TResult Function(String name)? layerElementsRemoved,
     TResult Function(String name)? layerVisibilityChanged,
     TResult Function(String name)? currentLayerChanged,
-    TResult Function(String layer, List<int> elements)? elementsLayerChanged,
+    TResult Function(String layer, List<String> elements)? elementsLayerChanged,
     TResult Function(String directory, String? remote, bool deleteDocument)?
         templateCreated,
     TResult Function(List<Area> areas)? areasCreated,
@@ -2479,7 +2484,7 @@ class _$PageRemovedImpl extends PageRemoved {
     required TResult Function(String name) layerElementsRemoved,
     required TResult Function(String name) layerVisibilityChanged,
     required TResult Function(String name) currentLayerChanged,
-    required TResult Function(String layer, List<int> elements)
+    required TResult Function(String layer, List<String> elements)
         elementsLayerChanged,
     required TResult Function(
             String directory, String? remote, bool deleteDocument)
@@ -2544,7 +2549,8 @@ class _$PageRemovedImpl extends PageRemoved {
     TResult? Function(String name)? layerElementsRemoved,
     TResult? Function(String name)? layerVisibilityChanged,
     TResult? Function(String name)? currentLayerChanged,
-    TResult? Function(String layer, List<int> elements)? elementsLayerChanged,
+    TResult? Function(String layer, List<String> elements)?
+        elementsLayerChanged,
     TResult? Function(String directory, String? remote, bool deleteDocument)?
         templateCreated,
     TResult? Function(List<Area> areas)? areasCreated,
@@ -2604,7 +2610,7 @@ class _$PageRemovedImpl extends PageRemoved {
     TResult Function(String name)? layerElementsRemoved,
     TResult Function(String name)? layerVisibilityChanged,
     TResult Function(String name)? currentLayerChanged,
-    TResult Function(String layer, List<int> elements)? elementsLayerChanged,
+    TResult Function(String layer, List<String> elements)? elementsLayerChanged,
     TResult Function(String directory, String? remote, bool deleteDocument)?
         templateCreated,
     TResult Function(List<Area> areas)? areasCreated,
@@ -2943,7 +2949,7 @@ class _$ThumbnailCapturedImpl extends ThumbnailCaptured {
     required TResult Function(String name) layerElementsRemoved,
     required TResult Function(String name) layerVisibilityChanged,
     required TResult Function(String name) currentLayerChanged,
-    required TResult Function(String layer, List<int> elements)
+    required TResult Function(String layer, List<String> elements)
         elementsLayerChanged,
     required TResult Function(
             String directory, String? remote, bool deleteDocument)
@@ -3008,7 +3014,8 @@ class _$ThumbnailCapturedImpl extends ThumbnailCaptured {
     TResult? Function(String name)? layerElementsRemoved,
     TResult? Function(String name)? layerVisibilityChanged,
     TResult? Function(String name)? currentLayerChanged,
-    TResult? Function(String layer, List<int> elements)? elementsLayerChanged,
+    TResult? Function(String layer, List<String> elements)?
+        elementsLayerChanged,
     TResult? Function(String directory, String? remote, bool deleteDocument)?
         templateCreated,
     TResult? Function(List<Area> areas)? areasCreated,
@@ -3068,7 +3075,7 @@ class _$ThumbnailCapturedImpl extends ThumbnailCaptured {
     TResult Function(String name)? layerElementsRemoved,
     TResult Function(String name)? layerVisibilityChanged,
     TResult Function(String name)? currentLayerChanged,
-    TResult Function(String layer, List<int> elements)? elementsLayerChanged,
+    TResult Function(String layer, List<String> elements)? elementsLayerChanged,
     TResult Function(String directory, String? remote, bool deleteDocument)?
         templateCreated,
     TResult Function(List<Area> areas)? areasCreated,
@@ -3415,7 +3422,7 @@ class _$ViewChangedImpl extends ViewChanged {
     required TResult Function(String name) layerElementsRemoved,
     required TResult Function(String name) layerVisibilityChanged,
     required TResult Function(String name) currentLayerChanged,
-    required TResult Function(String layer, List<int> elements)
+    required TResult Function(String layer, List<String> elements)
         elementsLayerChanged,
     required TResult Function(
             String directory, String? remote, bool deleteDocument)
@@ -3480,7 +3487,8 @@ class _$ViewChangedImpl extends ViewChanged {
     TResult? Function(String name)? layerElementsRemoved,
     TResult? Function(String name)? layerVisibilityChanged,
     TResult? Function(String name)? currentLayerChanged,
-    TResult? Function(String layer, List<int> elements)? elementsLayerChanged,
+    TResult? Function(String layer, List<String> elements)?
+        elementsLayerChanged,
     TResult? Function(String directory, String? remote, bool deleteDocument)?
         templateCreated,
     TResult? Function(List<Area> areas)? areasCreated,
@@ -3540,7 +3548,7 @@ class _$ViewChangedImpl extends ViewChanged {
     TResult Function(String name)? layerElementsRemoved,
     TResult Function(String name)? layerVisibilityChanged,
     TResult Function(String name)? currentLayerChanged,
-    TResult Function(String layer, List<int> elements)? elementsLayerChanged,
+    TResult Function(String layer, List<String> elements)? elementsLayerChanged,
     TResult Function(String directory, String? remote, bool deleteDocument)?
         templateCreated,
     TResult Function(List<Area> areas)? areasCreated,
@@ -3886,7 +3894,7 @@ class _$UtilitiesChangedImpl extends UtilitiesChanged {
     required TResult Function(String name) layerElementsRemoved,
     required TResult Function(String name) layerVisibilityChanged,
     required TResult Function(String name) currentLayerChanged,
-    required TResult Function(String layer, List<int> elements)
+    required TResult Function(String layer, List<String> elements)
         elementsLayerChanged,
     required TResult Function(
             String directory, String? remote, bool deleteDocument)
@@ -3951,7 +3959,8 @@ class _$UtilitiesChangedImpl extends UtilitiesChanged {
     TResult? Function(String name)? layerElementsRemoved,
     TResult? Function(String name)? layerVisibilityChanged,
     TResult? Function(String name)? currentLayerChanged,
-    TResult? Function(String layer, List<int> elements)? elementsLayerChanged,
+    TResult? Function(String layer, List<String> elements)?
+        elementsLayerChanged,
     TResult? Function(String directory, String? remote, bool deleteDocument)?
         templateCreated,
     TResult? Function(List<Area> areas)? areasCreated,
@@ -4011,7 +4020,7 @@ class _$UtilitiesChangedImpl extends UtilitiesChanged {
     TResult Function(String name)? layerElementsRemoved,
     TResult Function(String name)? layerVisibilityChanged,
     TResult Function(String name)? currentLayerChanged,
-    TResult Function(String layer, List<int> elements)? elementsLayerChanged,
+    TResult Function(String layer, List<String> elements)? elementsLayerChanged,
     TResult Function(String directory, String? remote, bool deleteDocument)?
         templateCreated,
     TResult Function(List<Area> areas)? areasCreated,
@@ -4356,7 +4365,7 @@ class _$ElementsCreatedImpl extends ElementsCreated {
     required TResult Function(String name) layerElementsRemoved,
     required TResult Function(String name) layerVisibilityChanged,
     required TResult Function(String name) currentLayerChanged,
-    required TResult Function(String layer, List<int> elements)
+    required TResult Function(String layer, List<String> elements)
         elementsLayerChanged,
     required TResult Function(
             String directory, String? remote, bool deleteDocument)
@@ -4421,7 +4430,8 @@ class _$ElementsCreatedImpl extends ElementsCreated {
     TResult? Function(String name)? layerElementsRemoved,
     TResult? Function(String name)? layerVisibilityChanged,
     TResult? Function(String name)? currentLayerChanged,
-    TResult? Function(String layer, List<int> elements)? elementsLayerChanged,
+    TResult? Function(String layer, List<String> elements)?
+        elementsLayerChanged,
     TResult? Function(String directory, String? remote, bool deleteDocument)?
         templateCreated,
     TResult? Function(List<Area> areas)? areasCreated,
@@ -4481,7 +4491,7 @@ class _$ElementsCreatedImpl extends ElementsCreated {
     TResult Function(String name)? layerElementsRemoved,
     TResult Function(String name)? layerVisibilityChanged,
     TResult Function(String name)? currentLayerChanged,
-    TResult Function(String layer, List<int> elements)? elementsLayerChanged,
+    TResult Function(String layer, List<String> elements)? elementsLayerChanged,
     TResult Function(String directory, String? remote, bool deleteDocument)?
         templateCreated,
     TResult Function(List<Area> areas)? areasCreated,
@@ -4826,7 +4836,7 @@ class _$ElementsChangedImpl extends ElementsChanged {
     required TResult Function(String name) layerElementsRemoved,
     required TResult Function(String name) layerVisibilityChanged,
     required TResult Function(String name) currentLayerChanged,
-    required TResult Function(String layer, List<int> elements)
+    required TResult Function(String layer, List<String> elements)
         elementsLayerChanged,
     required TResult Function(
             String directory, String? remote, bool deleteDocument)
@@ -4891,7 +4901,8 @@ class _$ElementsChangedImpl extends ElementsChanged {
     TResult? Function(String name)? layerElementsRemoved,
     TResult? Function(String name)? layerVisibilityChanged,
     TResult? Function(String name)? currentLayerChanged,
-    TResult? Function(String layer, List<int> elements)? elementsLayerChanged,
+    TResult? Function(String layer, List<String> elements)?
+        elementsLayerChanged,
     TResult? Function(String directory, String? remote, bool deleteDocument)?
         templateCreated,
     TResult? Function(List<Area> areas)? areasCreated,
@@ -4951,7 +4962,7 @@ class _$ElementsChangedImpl extends ElementsChanged {
     TResult Function(String name)? layerElementsRemoved,
     TResult Function(String name)? layerVisibilityChanged,
     TResult Function(String name)? currentLayerChanged,
-    TResult Function(String layer, List<int> elements)? elementsLayerChanged,
+    TResult Function(String layer, List<String> elements)? elementsLayerChanged,
     TResult Function(String directory, String? remote, bool deleteDocument)?
         templateCreated,
     TResult Function(List<Area> areas)? areasCreated,
@@ -5296,7 +5307,7 @@ class _$ElementsRemovedImpl extends ElementsRemoved {
     required TResult Function(String name) layerElementsRemoved,
     required TResult Function(String name) layerVisibilityChanged,
     required TResult Function(String name) currentLayerChanged,
-    required TResult Function(String layer, List<int> elements)
+    required TResult Function(String layer, List<String> elements)
         elementsLayerChanged,
     required TResult Function(
             String directory, String? remote, bool deleteDocument)
@@ -5361,7 +5372,8 @@ class _$ElementsRemovedImpl extends ElementsRemoved {
     TResult? Function(String name)? layerElementsRemoved,
     TResult? Function(String name)? layerVisibilityChanged,
     TResult? Function(String name)? currentLayerChanged,
-    TResult? Function(String layer, List<int> elements)? elementsLayerChanged,
+    TResult? Function(String layer, List<String> elements)?
+        elementsLayerChanged,
     TResult? Function(String directory, String? remote, bool deleteDocument)?
         templateCreated,
     TResult? Function(List<Area> areas)? areasCreated,
@@ -5421,7 +5433,7 @@ class _$ElementsRemovedImpl extends ElementsRemoved {
     TResult Function(String name)? layerElementsRemoved,
     TResult Function(String name)? layerVisibilityChanged,
     TResult Function(String name)? currentLayerChanged,
-    TResult Function(String layer, List<int> elements)? elementsLayerChanged,
+    TResult Function(String layer, List<String> elements)? elementsLayerChanged,
     TResult Function(String directory, String? remote, bool deleteDocument)?
         templateCreated,
     TResult Function(List<Area> areas)? areasCreated,
@@ -5775,7 +5787,7 @@ class _$ElementsArrangedImpl extends ElementsArranged {
     required TResult Function(String name) layerElementsRemoved,
     required TResult Function(String name) layerVisibilityChanged,
     required TResult Function(String name) currentLayerChanged,
-    required TResult Function(String layer, List<int> elements)
+    required TResult Function(String layer, List<String> elements)
         elementsLayerChanged,
     required TResult Function(
             String directory, String? remote, bool deleteDocument)
@@ -5840,7 +5852,8 @@ class _$ElementsArrangedImpl extends ElementsArranged {
     TResult? Function(String name)? layerElementsRemoved,
     TResult? Function(String name)? layerVisibilityChanged,
     TResult? Function(String name)? currentLayerChanged,
-    TResult? Function(String layer, List<int> elements)? elementsLayerChanged,
+    TResult? Function(String layer, List<String> elements)?
+        elementsLayerChanged,
     TResult? Function(String directory, String? remote, bool deleteDocument)?
         templateCreated,
     TResult? Function(List<Area> areas)? areasCreated,
@@ -5900,7 +5913,7 @@ class _$ElementsArrangedImpl extends ElementsArranged {
     TResult Function(String name)? layerElementsRemoved,
     TResult Function(String name)? layerVisibilityChanged,
     TResult Function(String name)? currentLayerChanged,
-    TResult Function(String layer, List<int> elements)? elementsLayerChanged,
+    TResult Function(String layer, List<String> elements)? elementsLayerChanged,
     TResult Function(String directory, String? remote, bool deleteDocument)?
         templateCreated,
     TResult Function(List<Area> areas)? areasCreated,
@@ -6252,7 +6265,7 @@ class _$DocumentDescriptionChangedImpl extends DocumentDescriptionChanged {
     required TResult Function(String name) layerElementsRemoved,
     required TResult Function(String name) layerVisibilityChanged,
     required TResult Function(String name) currentLayerChanged,
-    required TResult Function(String layer, List<int> elements)
+    required TResult Function(String layer, List<String> elements)
         elementsLayerChanged,
     required TResult Function(
             String directory, String? remote, bool deleteDocument)
@@ -6317,7 +6330,8 @@ class _$DocumentDescriptionChangedImpl extends DocumentDescriptionChanged {
     TResult? Function(String name)? layerElementsRemoved,
     TResult? Function(String name)? layerVisibilityChanged,
     TResult? Function(String name)? currentLayerChanged,
-    TResult? Function(String layer, List<int> elements)? elementsLayerChanged,
+    TResult? Function(String layer, List<String> elements)?
+        elementsLayerChanged,
     TResult? Function(String directory, String? remote, bool deleteDocument)?
         templateCreated,
     TResult? Function(List<Area> areas)? areasCreated,
@@ -6377,7 +6391,7 @@ class _$DocumentDescriptionChangedImpl extends DocumentDescriptionChanged {
     TResult Function(String name)? layerElementsRemoved,
     TResult Function(String name)? layerVisibilityChanged,
     TResult Function(String name)? currentLayerChanged,
-    TResult Function(String layer, List<int> elements)? elementsLayerChanged,
+    TResult Function(String layer, List<String> elements)? elementsLayerChanged,
     TResult Function(String directory, String? remote, bool deleteDocument)?
         templateCreated,
     TResult Function(List<Area> areas)? areasCreated,
@@ -6730,7 +6744,7 @@ class _$DocumentSavedImpl extends DocumentSaved {
     required TResult Function(String name) layerElementsRemoved,
     required TResult Function(String name) layerVisibilityChanged,
     required TResult Function(String name) currentLayerChanged,
-    required TResult Function(String layer, List<int> elements)
+    required TResult Function(String layer, List<String> elements)
         elementsLayerChanged,
     required TResult Function(
             String directory, String? remote, bool deleteDocument)
@@ -6795,7 +6809,8 @@ class _$DocumentSavedImpl extends DocumentSaved {
     TResult? Function(String name)? layerElementsRemoved,
     TResult? Function(String name)? layerVisibilityChanged,
     TResult? Function(String name)? currentLayerChanged,
-    TResult? Function(String layer, List<int> elements)? elementsLayerChanged,
+    TResult? Function(String layer, List<String> elements)?
+        elementsLayerChanged,
     TResult? Function(String directory, String? remote, bool deleteDocument)?
         templateCreated,
     TResult? Function(List<Area> areas)? areasCreated,
@@ -6855,7 +6870,7 @@ class _$DocumentSavedImpl extends DocumentSaved {
     TResult Function(String name)? layerElementsRemoved,
     TResult Function(String name)? layerVisibilityChanged,
     TResult Function(String name)? currentLayerChanged,
-    TResult Function(String layer, List<int> elements)? elementsLayerChanged,
+    TResult Function(String layer, List<String> elements)? elementsLayerChanged,
     TResult Function(String directory, String? remote, bool deleteDocument)?
         templateCreated,
     TResult Function(List<Area> areas)? areasCreated,
@@ -7201,7 +7216,7 @@ class _$ToolCreatedImpl extends ToolCreated {
     required TResult Function(String name) layerElementsRemoved,
     required TResult Function(String name) layerVisibilityChanged,
     required TResult Function(String name) currentLayerChanged,
-    required TResult Function(String layer, List<int> elements)
+    required TResult Function(String layer, List<String> elements)
         elementsLayerChanged,
     required TResult Function(
             String directory, String? remote, bool deleteDocument)
@@ -7266,7 +7281,8 @@ class _$ToolCreatedImpl extends ToolCreated {
     TResult? Function(String name)? layerElementsRemoved,
     TResult? Function(String name)? layerVisibilityChanged,
     TResult? Function(String name)? currentLayerChanged,
-    TResult? Function(String layer, List<int> elements)? elementsLayerChanged,
+    TResult? Function(String layer, List<String> elements)?
+        elementsLayerChanged,
     TResult? Function(String directory, String? remote, bool deleteDocument)?
         templateCreated,
     TResult? Function(List<Area> areas)? areasCreated,
@@ -7326,7 +7342,7 @@ class _$ToolCreatedImpl extends ToolCreated {
     TResult Function(String name)? layerElementsRemoved,
     TResult Function(String name)? layerVisibilityChanged,
     TResult Function(String name)? currentLayerChanged,
-    TResult Function(String layer, List<int> elements)? elementsLayerChanged,
+    TResult Function(String layer, List<String> elements)? elementsLayerChanged,
     TResult Function(String directory, String? remote, bool deleteDocument)?
         templateCreated,
     TResult Function(List<Area> areas)? areasCreated,
@@ -7668,7 +7684,7 @@ class _$ToolsChangedImpl extends ToolsChanged {
     required TResult Function(String name) layerElementsRemoved,
     required TResult Function(String name) layerVisibilityChanged,
     required TResult Function(String name) currentLayerChanged,
-    required TResult Function(String layer, List<int> elements)
+    required TResult Function(String layer, List<String> elements)
         elementsLayerChanged,
     required TResult Function(
             String directory, String? remote, bool deleteDocument)
@@ -7733,7 +7749,8 @@ class _$ToolsChangedImpl extends ToolsChanged {
     TResult? Function(String name)? layerElementsRemoved,
     TResult? Function(String name)? layerVisibilityChanged,
     TResult? Function(String name)? currentLayerChanged,
-    TResult? Function(String layer, List<int> elements)? elementsLayerChanged,
+    TResult? Function(String layer, List<String> elements)?
+        elementsLayerChanged,
     TResult? Function(String directory, String? remote, bool deleteDocument)?
         templateCreated,
     TResult? Function(List<Area> areas)? areasCreated,
@@ -7793,7 +7810,7 @@ class _$ToolsChangedImpl extends ToolsChanged {
     TResult Function(String name)? layerElementsRemoved,
     TResult Function(String name)? layerVisibilityChanged,
     TResult Function(String name)? currentLayerChanged,
-    TResult Function(String layer, List<int> elements)? elementsLayerChanged,
+    TResult Function(String layer, List<String> elements)? elementsLayerChanged,
     TResult Function(String directory, String? remote, bool deleteDocument)?
         templateCreated,
     TResult Function(List<Area> areas)? areasCreated,
@@ -8135,7 +8152,7 @@ class _$ToolsRemovedImpl extends ToolsRemoved {
     required TResult Function(String name) layerElementsRemoved,
     required TResult Function(String name) layerVisibilityChanged,
     required TResult Function(String name) currentLayerChanged,
-    required TResult Function(String layer, List<int> elements)
+    required TResult Function(String layer, List<String> elements)
         elementsLayerChanged,
     required TResult Function(
             String directory, String? remote, bool deleteDocument)
@@ -8200,7 +8217,8 @@ class _$ToolsRemovedImpl extends ToolsRemoved {
     TResult? Function(String name)? layerElementsRemoved,
     TResult? Function(String name)? layerVisibilityChanged,
     TResult? Function(String name)? currentLayerChanged,
-    TResult? Function(String layer, List<int> elements)? elementsLayerChanged,
+    TResult? Function(String layer, List<String> elements)?
+        elementsLayerChanged,
     TResult? Function(String directory, String? remote, bool deleteDocument)?
         templateCreated,
     TResult? Function(List<Area> areas)? areasCreated,
@@ -8260,7 +8278,7 @@ class _$ToolsRemovedImpl extends ToolsRemoved {
     TResult Function(String name)? layerElementsRemoved,
     TResult Function(String name)? layerVisibilityChanged,
     TResult Function(String name)? currentLayerChanged,
-    TResult Function(String layer, List<int> elements)? elementsLayerChanged,
+    TResult Function(String layer, List<String> elements)? elementsLayerChanged,
     TResult Function(String directory, String? remote, bool deleteDocument)?
         templateCreated,
     TResult Function(List<Area> areas)? areasCreated,
@@ -8605,7 +8623,7 @@ class _$ToolReorderedImpl extends ToolReordered {
     required TResult Function(String name) layerElementsRemoved,
     required TResult Function(String name) layerVisibilityChanged,
     required TResult Function(String name) currentLayerChanged,
-    required TResult Function(String layer, List<int> elements)
+    required TResult Function(String layer, List<String> elements)
         elementsLayerChanged,
     required TResult Function(
             String directory, String? remote, bool deleteDocument)
@@ -8670,7 +8688,8 @@ class _$ToolReorderedImpl extends ToolReordered {
     TResult? Function(String name)? layerElementsRemoved,
     TResult? Function(String name)? layerVisibilityChanged,
     TResult? Function(String name)? currentLayerChanged,
-    TResult? Function(String layer, List<int> elements)? elementsLayerChanged,
+    TResult? Function(String layer, List<String> elements)?
+        elementsLayerChanged,
     TResult? Function(String directory, String? remote, bool deleteDocument)?
         templateCreated,
     TResult? Function(List<Area> areas)? areasCreated,
@@ -8730,7 +8749,7 @@ class _$ToolReorderedImpl extends ToolReordered {
     TResult Function(String name)? layerElementsRemoved,
     TResult Function(String name)? layerVisibilityChanged,
     TResult Function(String name)? currentLayerChanged,
-    TResult Function(String layer, List<int> elements)? elementsLayerChanged,
+    TResult Function(String layer, List<String> elements)? elementsLayerChanged,
     TResult Function(String directory, String? remote, bool deleteDocument)?
         templateCreated,
     TResult Function(List<Area> areas)? areasCreated,
@@ -9080,7 +9099,7 @@ class _$DocumentBackgroundsChangedImpl extends DocumentBackgroundsChanged {
     required TResult Function(String name) layerElementsRemoved,
     required TResult Function(String name) layerVisibilityChanged,
     required TResult Function(String name) currentLayerChanged,
-    required TResult Function(String layer, List<int> elements)
+    required TResult Function(String layer, List<String> elements)
         elementsLayerChanged,
     required TResult Function(
             String directory, String? remote, bool deleteDocument)
@@ -9145,7 +9164,8 @@ class _$DocumentBackgroundsChangedImpl extends DocumentBackgroundsChanged {
     TResult? Function(String name)? layerElementsRemoved,
     TResult? Function(String name)? layerVisibilityChanged,
     TResult? Function(String name)? currentLayerChanged,
-    TResult? Function(String layer, List<int> elements)? elementsLayerChanged,
+    TResult? Function(String layer, List<String> elements)?
+        elementsLayerChanged,
     TResult? Function(String directory, String? remote, bool deleteDocument)?
         templateCreated,
     TResult? Function(List<Area> areas)? areasCreated,
@@ -9205,7 +9225,7 @@ class _$DocumentBackgroundsChangedImpl extends DocumentBackgroundsChanged {
     TResult Function(String name)? layerElementsRemoved,
     TResult Function(String name)? layerVisibilityChanged,
     TResult Function(String name)? currentLayerChanged,
-    TResult Function(String layer, List<int> elements)? elementsLayerChanged,
+    TResult Function(String layer, List<String> elements)? elementsLayerChanged,
     TResult Function(String directory, String? remote, bool deleteDocument)?
         templateCreated,
     TResult Function(List<Area> areas)? areasCreated,
@@ -9553,7 +9573,7 @@ class _$WaypointCreatedImpl extends WaypointCreated {
     required TResult Function(String name) layerElementsRemoved,
     required TResult Function(String name) layerVisibilityChanged,
     required TResult Function(String name) currentLayerChanged,
-    required TResult Function(String layer, List<int> elements)
+    required TResult Function(String layer, List<String> elements)
         elementsLayerChanged,
     required TResult Function(
             String directory, String? remote, bool deleteDocument)
@@ -9618,7 +9638,8 @@ class _$WaypointCreatedImpl extends WaypointCreated {
     TResult? Function(String name)? layerElementsRemoved,
     TResult? Function(String name)? layerVisibilityChanged,
     TResult? Function(String name)? currentLayerChanged,
-    TResult? Function(String layer, List<int> elements)? elementsLayerChanged,
+    TResult? Function(String layer, List<String> elements)?
+        elementsLayerChanged,
     TResult? Function(String directory, String? remote, bool deleteDocument)?
         templateCreated,
     TResult? Function(List<Area> areas)? areasCreated,
@@ -9678,7 +9699,7 @@ class _$WaypointCreatedImpl extends WaypointCreated {
     TResult Function(String name)? layerElementsRemoved,
     TResult Function(String name)? layerVisibilityChanged,
     TResult Function(String name)? currentLayerChanged,
-    TResult Function(String layer, List<int> elements)? elementsLayerChanged,
+    TResult Function(String layer, List<String> elements)? elementsLayerChanged,
     TResult Function(String directory, String? remote, bool deleteDocument)?
         templateCreated,
     TResult Function(List<Area> areas)? areasCreated,
@@ -10034,7 +10055,7 @@ class _$WaypointChangedImpl extends WaypointChanged {
     required TResult Function(String name) layerElementsRemoved,
     required TResult Function(String name) layerVisibilityChanged,
     required TResult Function(String name) currentLayerChanged,
-    required TResult Function(String layer, List<int> elements)
+    required TResult Function(String layer, List<String> elements)
         elementsLayerChanged,
     required TResult Function(
             String directory, String? remote, bool deleteDocument)
@@ -10099,7 +10120,8 @@ class _$WaypointChangedImpl extends WaypointChanged {
     TResult? Function(String name)? layerElementsRemoved,
     TResult? Function(String name)? layerVisibilityChanged,
     TResult? Function(String name)? currentLayerChanged,
-    TResult? Function(String layer, List<int> elements)? elementsLayerChanged,
+    TResult? Function(String layer, List<String> elements)?
+        elementsLayerChanged,
     TResult? Function(String directory, String? remote, bool deleteDocument)?
         templateCreated,
     TResult? Function(List<Area> areas)? areasCreated,
@@ -10159,7 +10181,7 @@ class _$WaypointChangedImpl extends WaypointChanged {
     TResult Function(String name)? layerElementsRemoved,
     TResult Function(String name)? layerVisibilityChanged,
     TResult Function(String name)? currentLayerChanged,
-    TResult Function(String layer, List<int> elements)? elementsLayerChanged,
+    TResult Function(String layer, List<String> elements)? elementsLayerChanged,
     TResult Function(String directory, String? remote, bool deleteDocument)?
         templateCreated,
     TResult Function(List<Area> areas)? areasCreated,
@@ -10497,7 +10519,7 @@ class _$WaypointRemovedImpl extends WaypointRemoved {
     required TResult Function(String name) layerElementsRemoved,
     required TResult Function(String name) layerVisibilityChanged,
     required TResult Function(String name) currentLayerChanged,
-    required TResult Function(String layer, List<int> elements)
+    required TResult Function(String layer, List<String> elements)
         elementsLayerChanged,
     required TResult Function(
             String directory, String? remote, bool deleteDocument)
@@ -10562,7 +10584,8 @@ class _$WaypointRemovedImpl extends WaypointRemoved {
     TResult? Function(String name)? layerElementsRemoved,
     TResult? Function(String name)? layerVisibilityChanged,
     TResult? Function(String name)? currentLayerChanged,
-    TResult? Function(String layer, List<int> elements)? elementsLayerChanged,
+    TResult? Function(String layer, List<String> elements)?
+        elementsLayerChanged,
     TResult? Function(String directory, String? remote, bool deleteDocument)?
         templateCreated,
     TResult? Function(List<Area> areas)? areasCreated,
@@ -10622,7 +10645,7 @@ class _$WaypointRemovedImpl extends WaypointRemoved {
     TResult Function(String name)? layerElementsRemoved,
     TResult Function(String name)? layerVisibilityChanged,
     TResult Function(String name)? currentLayerChanged,
-    TResult Function(String layer, List<int> elements)? elementsLayerChanged,
+    TResult Function(String layer, List<String> elements)? elementsLayerChanged,
     TResult Function(String directory, String? remote, bool deleteDocument)?
         templateCreated,
     TResult Function(List<Area> areas)? areasCreated,
@@ -10967,7 +10990,7 @@ class _$WaypointReorderedImpl extends WaypointReordered {
     required TResult Function(String name) layerElementsRemoved,
     required TResult Function(String name) layerVisibilityChanged,
     required TResult Function(String name) currentLayerChanged,
-    required TResult Function(String layer, List<int> elements)
+    required TResult Function(String layer, List<String> elements)
         elementsLayerChanged,
     required TResult Function(
             String directory, String? remote, bool deleteDocument)
@@ -11032,7 +11055,8 @@ class _$WaypointReorderedImpl extends WaypointReordered {
     TResult? Function(String name)? layerElementsRemoved,
     TResult? Function(String name)? layerVisibilityChanged,
     TResult? Function(String name)? currentLayerChanged,
-    TResult? Function(String layer, List<int> elements)? elementsLayerChanged,
+    TResult? Function(String layer, List<String> elements)?
+        elementsLayerChanged,
     TResult? Function(String directory, String? remote, bool deleteDocument)?
         templateCreated,
     TResult? Function(List<Area> areas)? areasCreated,
@@ -11092,7 +11116,7 @@ class _$WaypointReorderedImpl extends WaypointReordered {
     TResult Function(String name)? layerElementsRemoved,
     TResult Function(String name)? layerVisibilityChanged,
     TResult Function(String name)? currentLayerChanged,
-    TResult Function(String layer, List<int> elements)? elementsLayerChanged,
+    TResult Function(String layer, List<String> elements)? elementsLayerChanged,
     TResult Function(String directory, String? remote, bool deleteDocument)?
         templateCreated,
     TResult Function(List<Area> areas)? areasCreated,
@@ -11437,7 +11461,7 @@ class _$LayerRenamedImpl extends LayerRenamed {
     required TResult Function(String name) layerElementsRemoved,
     required TResult Function(String name) layerVisibilityChanged,
     required TResult Function(String name) currentLayerChanged,
-    required TResult Function(String layer, List<int> elements)
+    required TResult Function(String layer, List<String> elements)
         elementsLayerChanged,
     required TResult Function(
             String directory, String? remote, bool deleteDocument)
@@ -11502,7 +11526,8 @@ class _$LayerRenamedImpl extends LayerRenamed {
     TResult? Function(String name)? layerElementsRemoved,
     TResult? Function(String name)? layerVisibilityChanged,
     TResult? Function(String name)? currentLayerChanged,
-    TResult? Function(String layer, List<int> elements)? elementsLayerChanged,
+    TResult? Function(String layer, List<String> elements)?
+        elementsLayerChanged,
     TResult? Function(String directory, String? remote, bool deleteDocument)?
         templateCreated,
     TResult? Function(List<Area> areas)? areasCreated,
@@ -11562,7 +11587,7 @@ class _$LayerRenamedImpl extends LayerRenamed {
     TResult Function(String name)? layerElementsRemoved,
     TResult Function(String name)? layerVisibilityChanged,
     TResult Function(String name)? currentLayerChanged,
-    TResult Function(String layer, List<int> elements)? elementsLayerChanged,
+    TResult Function(String layer, List<String> elements)? elementsLayerChanged,
     TResult Function(String directory, String? remote, bool deleteDocument)?
         templateCreated,
     TResult Function(List<Area> areas)? areasCreated,
@@ -11899,7 +11924,7 @@ class _$LayerRemovedImpl extends LayerRemoved {
     required TResult Function(String name) layerElementsRemoved,
     required TResult Function(String name) layerVisibilityChanged,
     required TResult Function(String name) currentLayerChanged,
-    required TResult Function(String layer, List<int> elements)
+    required TResult Function(String layer, List<String> elements)
         elementsLayerChanged,
     required TResult Function(
             String directory, String? remote, bool deleteDocument)
@@ -11964,7 +11989,8 @@ class _$LayerRemovedImpl extends LayerRemoved {
     TResult? Function(String name)? layerElementsRemoved,
     TResult? Function(String name)? layerVisibilityChanged,
     TResult? Function(String name)? currentLayerChanged,
-    TResult? Function(String layer, List<int> elements)? elementsLayerChanged,
+    TResult? Function(String layer, List<String> elements)?
+        elementsLayerChanged,
     TResult? Function(String directory, String? remote, bool deleteDocument)?
         templateCreated,
     TResult? Function(List<Area> areas)? areasCreated,
@@ -12024,7 +12050,7 @@ class _$LayerRemovedImpl extends LayerRemoved {
     TResult Function(String name)? layerElementsRemoved,
     TResult Function(String name)? layerVisibilityChanged,
     TResult Function(String name)? currentLayerChanged,
-    TResult Function(String layer, List<int> elements)? elementsLayerChanged,
+    TResult Function(String layer, List<String> elements)? elementsLayerChanged,
     TResult Function(String directory, String? remote, bool deleteDocument)?
         templateCreated,
     TResult Function(List<Area> areas)? areasCreated,
@@ -12361,7 +12387,7 @@ class _$LayerElementsRemovedImpl extends LayerElementsRemoved {
     required TResult Function(String name) layerElementsRemoved,
     required TResult Function(String name) layerVisibilityChanged,
     required TResult Function(String name) currentLayerChanged,
-    required TResult Function(String layer, List<int> elements)
+    required TResult Function(String layer, List<String> elements)
         elementsLayerChanged,
     required TResult Function(
             String directory, String? remote, bool deleteDocument)
@@ -12426,7 +12452,8 @@ class _$LayerElementsRemovedImpl extends LayerElementsRemoved {
     TResult? Function(String name)? layerElementsRemoved,
     TResult? Function(String name)? layerVisibilityChanged,
     TResult? Function(String name)? currentLayerChanged,
-    TResult? Function(String layer, List<int> elements)? elementsLayerChanged,
+    TResult? Function(String layer, List<String> elements)?
+        elementsLayerChanged,
     TResult? Function(String directory, String? remote, bool deleteDocument)?
         templateCreated,
     TResult? Function(List<Area> areas)? areasCreated,
@@ -12486,7 +12513,7 @@ class _$LayerElementsRemovedImpl extends LayerElementsRemoved {
     TResult Function(String name)? layerElementsRemoved,
     TResult Function(String name)? layerVisibilityChanged,
     TResult Function(String name)? currentLayerChanged,
-    TResult Function(String layer, List<int> elements)? elementsLayerChanged,
+    TResult Function(String layer, List<String> elements)? elementsLayerChanged,
     TResult Function(String directory, String? remote, bool deleteDocument)?
         templateCreated,
     TResult Function(List<Area> areas)? areasCreated,
@@ -12825,7 +12852,7 @@ class _$LayerVisibilityChangedImpl extends LayerVisibilityChanged {
     required TResult Function(String name) layerElementsRemoved,
     required TResult Function(String name) layerVisibilityChanged,
     required TResult Function(String name) currentLayerChanged,
-    required TResult Function(String layer, List<int> elements)
+    required TResult Function(String layer, List<String> elements)
         elementsLayerChanged,
     required TResult Function(
             String directory, String? remote, bool deleteDocument)
@@ -12890,7 +12917,8 @@ class _$LayerVisibilityChangedImpl extends LayerVisibilityChanged {
     TResult? Function(String name)? layerElementsRemoved,
     TResult? Function(String name)? layerVisibilityChanged,
     TResult? Function(String name)? currentLayerChanged,
-    TResult? Function(String layer, List<int> elements)? elementsLayerChanged,
+    TResult? Function(String layer, List<String> elements)?
+        elementsLayerChanged,
     TResult? Function(String directory, String? remote, bool deleteDocument)?
         templateCreated,
     TResult? Function(List<Area> areas)? areasCreated,
@@ -12950,7 +12978,7 @@ class _$LayerVisibilityChangedImpl extends LayerVisibilityChanged {
     TResult Function(String name)? layerElementsRemoved,
     TResult Function(String name)? layerVisibilityChanged,
     TResult Function(String name)? currentLayerChanged,
-    TResult Function(String layer, List<int> elements)? elementsLayerChanged,
+    TResult Function(String layer, List<String> elements)? elementsLayerChanged,
     TResult Function(String directory, String? remote, bool deleteDocument)?
         templateCreated,
     TResult Function(List<Area> areas)? areasCreated,
@@ -13287,7 +13315,7 @@ class _$CurrentLayerChangedImpl extends CurrentLayerChanged {
     required TResult Function(String name) layerElementsRemoved,
     required TResult Function(String name) layerVisibilityChanged,
     required TResult Function(String name) currentLayerChanged,
-    required TResult Function(String layer, List<int> elements)
+    required TResult Function(String layer, List<String> elements)
         elementsLayerChanged,
     required TResult Function(
             String directory, String? remote, bool deleteDocument)
@@ -13352,7 +13380,8 @@ class _$CurrentLayerChangedImpl extends CurrentLayerChanged {
     TResult? Function(String name)? layerElementsRemoved,
     TResult? Function(String name)? layerVisibilityChanged,
     TResult? Function(String name)? currentLayerChanged,
-    TResult? Function(String layer, List<int> elements)? elementsLayerChanged,
+    TResult? Function(String layer, List<String> elements)?
+        elementsLayerChanged,
     TResult? Function(String directory, String? remote, bool deleteDocument)?
         templateCreated,
     TResult? Function(List<Area> areas)? areasCreated,
@@ -13412,7 +13441,7 @@ class _$CurrentLayerChangedImpl extends CurrentLayerChanged {
     TResult Function(String name)? layerElementsRemoved,
     TResult Function(String name)? layerVisibilityChanged,
     TResult Function(String name)? currentLayerChanged,
-    TResult Function(String layer, List<int> elements)? elementsLayerChanged,
+    TResult Function(String layer, List<String> elements)? elementsLayerChanged,
     TResult Function(String directory, String? remote, bool deleteDocument)?
         templateCreated,
     TResult Function(List<Area> areas)? areasCreated,
@@ -13648,7 +13677,7 @@ abstract class _$$ElementsLayerChangedImplCopyWith<$Res> {
           $Res Function(_$ElementsLayerChangedImpl) then) =
       __$$ElementsLayerChangedImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({String layer, List<int> elements});
+  $Res call({String layer, List<String> elements});
 }
 
 /// @nodoc
@@ -13673,7 +13702,7 @@ class __$$ElementsLayerChangedImplCopyWithImpl<$Res>
       null == elements
           ? _value._elements
           : elements // ignore: cast_nullable_to_non_nullable
-              as List<int>,
+              as List<String>,
     ));
   }
 }
@@ -13681,7 +13710,7 @@ class __$$ElementsLayerChangedImplCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$ElementsLayerChangedImpl extends ElementsLayerChanged {
-  const _$ElementsLayerChangedImpl(this.layer, final List<int> elements,
+  const _$ElementsLayerChangedImpl(this.layer, final List<String> elements,
       {final String? $type})
       : _elements = elements,
         $type = $type ?? 'elementsLayerChanged',
@@ -13692,9 +13721,9 @@ class _$ElementsLayerChangedImpl extends ElementsLayerChanged {
 
   @override
   final String layer;
-  final List<int> _elements;
+  final List<String> _elements;
   @override
-  List<int> get elements {
+  List<String> get elements {
     if (_elements is EqualUnmodifiableListView) return _elements;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_elements);
@@ -13766,7 +13795,7 @@ class _$ElementsLayerChangedImpl extends ElementsLayerChanged {
     required TResult Function(String name) layerElementsRemoved,
     required TResult Function(String name) layerVisibilityChanged,
     required TResult Function(String name) currentLayerChanged,
-    required TResult Function(String layer, List<int> elements)
+    required TResult Function(String layer, List<String> elements)
         elementsLayerChanged,
     required TResult Function(
             String directory, String? remote, bool deleteDocument)
@@ -13831,7 +13860,8 @@ class _$ElementsLayerChangedImpl extends ElementsLayerChanged {
     TResult? Function(String name)? layerElementsRemoved,
     TResult? Function(String name)? layerVisibilityChanged,
     TResult? Function(String name)? currentLayerChanged,
-    TResult? Function(String layer, List<int> elements)? elementsLayerChanged,
+    TResult? Function(String layer, List<String> elements)?
+        elementsLayerChanged,
     TResult? Function(String directory, String? remote, bool deleteDocument)?
         templateCreated,
     TResult? Function(List<Area> areas)? areasCreated,
@@ -13891,7 +13921,7 @@ class _$ElementsLayerChangedImpl extends ElementsLayerChanged {
     TResult Function(String name)? layerElementsRemoved,
     TResult Function(String name)? layerVisibilityChanged,
     TResult Function(String name)? currentLayerChanged,
-    TResult Function(String layer, List<int> elements)? elementsLayerChanged,
+    TResult Function(String layer, List<String> elements)? elementsLayerChanged,
     TResult Function(String directory, String? remote, bool deleteDocument)?
         templateCreated,
     TResult Function(List<Area> areas)? areasCreated,
@@ -14109,7 +14139,7 @@ class _$ElementsLayerChangedImpl extends ElementsLayerChanged {
 
 abstract class ElementsLayerChanged extends DocumentEvent {
   const factory ElementsLayerChanged(
-          final String layer, final List<int> elements) =
+          final String layer, final List<String> elements) =
       _$ElementsLayerChangedImpl;
   const ElementsLayerChanged._() : super._();
 
@@ -14117,7 +14147,7 @@ abstract class ElementsLayerChanged extends DocumentEvent {
       _$ElementsLayerChangedImpl.fromJson;
 
   String get layer;
-  List<int> get elements;
+  List<String> get elements;
   @JsonKey(ignore: true)
   _$$ElementsLayerChangedImplCopyWith<_$ElementsLayerChangedImpl>
       get copyWith => throw _privateConstructorUsedError;
@@ -14251,7 +14281,7 @@ class _$TemplateCreatedImpl extends TemplateCreated {
     required TResult Function(String name) layerElementsRemoved,
     required TResult Function(String name) layerVisibilityChanged,
     required TResult Function(String name) currentLayerChanged,
-    required TResult Function(String layer, List<int> elements)
+    required TResult Function(String layer, List<String> elements)
         elementsLayerChanged,
     required TResult Function(
             String directory, String? remote, bool deleteDocument)
@@ -14316,7 +14346,8 @@ class _$TemplateCreatedImpl extends TemplateCreated {
     TResult? Function(String name)? layerElementsRemoved,
     TResult? Function(String name)? layerVisibilityChanged,
     TResult? Function(String name)? currentLayerChanged,
-    TResult? Function(String layer, List<int> elements)? elementsLayerChanged,
+    TResult? Function(String layer, List<String> elements)?
+        elementsLayerChanged,
     TResult? Function(String directory, String? remote, bool deleteDocument)?
         templateCreated,
     TResult? Function(List<Area> areas)? areasCreated,
@@ -14376,7 +14407,7 @@ class _$TemplateCreatedImpl extends TemplateCreated {
     TResult Function(String name)? layerElementsRemoved,
     TResult Function(String name)? layerVisibilityChanged,
     TResult Function(String name)? currentLayerChanged,
-    TResult Function(String layer, List<int> elements)? elementsLayerChanged,
+    TResult Function(String layer, List<String> elements)? elementsLayerChanged,
     TResult Function(String directory, String? remote, bool deleteDocument)?
         templateCreated,
     TResult Function(List<Area> areas)? areasCreated,
@@ -14722,7 +14753,7 @@ class _$AreasCreatedImpl extends AreasCreated {
     required TResult Function(String name) layerElementsRemoved,
     required TResult Function(String name) layerVisibilityChanged,
     required TResult Function(String name) currentLayerChanged,
-    required TResult Function(String layer, List<int> elements)
+    required TResult Function(String layer, List<String> elements)
         elementsLayerChanged,
     required TResult Function(
             String directory, String? remote, bool deleteDocument)
@@ -14787,7 +14818,8 @@ class _$AreasCreatedImpl extends AreasCreated {
     TResult? Function(String name)? layerElementsRemoved,
     TResult? Function(String name)? layerVisibilityChanged,
     TResult? Function(String name)? currentLayerChanged,
-    TResult? Function(String layer, List<int> elements)? elementsLayerChanged,
+    TResult? Function(String layer, List<String> elements)?
+        elementsLayerChanged,
     TResult? Function(String directory, String? remote, bool deleteDocument)?
         templateCreated,
     TResult? Function(List<Area> areas)? areasCreated,
@@ -14847,7 +14879,7 @@ class _$AreasCreatedImpl extends AreasCreated {
     TResult Function(String name)? layerElementsRemoved,
     TResult Function(String name)? layerVisibilityChanged,
     TResult Function(String name)? currentLayerChanged,
-    TResult Function(String layer, List<int> elements)? elementsLayerChanged,
+    TResult Function(String layer, List<String> elements)? elementsLayerChanged,
     TResult Function(String directory, String? remote, bool deleteDocument)?
         templateCreated,
     TResult Function(List<Area> areas)? areasCreated,
@@ -15189,7 +15221,7 @@ class _$AreasRemovedImpl extends AreasRemoved {
     required TResult Function(String name) layerElementsRemoved,
     required TResult Function(String name) layerVisibilityChanged,
     required TResult Function(String name) currentLayerChanged,
-    required TResult Function(String layer, List<int> elements)
+    required TResult Function(String layer, List<String> elements)
         elementsLayerChanged,
     required TResult Function(
             String directory, String? remote, bool deleteDocument)
@@ -15254,7 +15286,8 @@ class _$AreasRemovedImpl extends AreasRemoved {
     TResult? Function(String name)? layerElementsRemoved,
     TResult? Function(String name)? layerVisibilityChanged,
     TResult? Function(String name)? currentLayerChanged,
-    TResult? Function(String layer, List<int> elements)? elementsLayerChanged,
+    TResult? Function(String layer, List<String> elements)?
+        elementsLayerChanged,
     TResult? Function(String directory, String? remote, bool deleteDocument)?
         templateCreated,
     TResult? Function(List<Area> areas)? areasCreated,
@@ -15314,7 +15347,7 @@ class _$AreasRemovedImpl extends AreasRemoved {
     TResult Function(String name)? layerElementsRemoved,
     TResult Function(String name)? layerVisibilityChanged,
     TResult Function(String name)? currentLayerChanged,
-    TResult Function(String layer, List<int> elements)? elementsLayerChanged,
+    TResult Function(String layer, List<String> elements)? elementsLayerChanged,
     TResult Function(String directory, String? remote, bool deleteDocument)?
         templateCreated,
     TResult Function(List<Area> areas)? areasCreated,
@@ -15667,7 +15700,7 @@ class _$AreaChangedImpl extends AreaChanged {
     required TResult Function(String name) layerElementsRemoved,
     required TResult Function(String name) layerVisibilityChanged,
     required TResult Function(String name) currentLayerChanged,
-    required TResult Function(String layer, List<int> elements)
+    required TResult Function(String layer, List<String> elements)
         elementsLayerChanged,
     required TResult Function(
             String directory, String? remote, bool deleteDocument)
@@ -15732,7 +15765,8 @@ class _$AreaChangedImpl extends AreaChanged {
     TResult? Function(String name)? layerElementsRemoved,
     TResult? Function(String name)? layerVisibilityChanged,
     TResult? Function(String name)? currentLayerChanged,
-    TResult? Function(String layer, List<int> elements)? elementsLayerChanged,
+    TResult? Function(String layer, List<String> elements)?
+        elementsLayerChanged,
     TResult? Function(String directory, String? remote, bool deleteDocument)?
         templateCreated,
     TResult? Function(List<Area> areas)? areasCreated,
@@ -15792,7 +15826,7 @@ class _$AreaChangedImpl extends AreaChanged {
     TResult Function(String name)? layerElementsRemoved,
     TResult Function(String name)? layerVisibilityChanged,
     TResult Function(String name)? currentLayerChanged,
-    TResult Function(String layer, List<int> elements)? elementsLayerChanged,
+    TResult Function(String layer, List<String> elements)? elementsLayerChanged,
     TResult Function(String directory, String? remote, bool deleteDocument)?
         templateCreated,
     TResult Function(List<Area> areas)? areasCreated,
@@ -16138,7 +16172,7 @@ class _$AreaReorderedImpl extends AreaReordered {
     required TResult Function(String name) layerElementsRemoved,
     required TResult Function(String name) layerVisibilityChanged,
     required TResult Function(String name) currentLayerChanged,
-    required TResult Function(String layer, List<int> elements)
+    required TResult Function(String layer, List<String> elements)
         elementsLayerChanged,
     required TResult Function(
             String directory, String? remote, bool deleteDocument)
@@ -16203,7 +16237,8 @@ class _$AreaReorderedImpl extends AreaReordered {
     TResult? Function(String name)? layerElementsRemoved,
     TResult? Function(String name)? layerVisibilityChanged,
     TResult? Function(String name)? currentLayerChanged,
-    TResult? Function(String layer, List<int> elements)? elementsLayerChanged,
+    TResult? Function(String layer, List<String> elements)?
+        elementsLayerChanged,
     TResult? Function(String directory, String? remote, bool deleteDocument)?
         templateCreated,
     TResult? Function(List<Area> areas)? areasCreated,
@@ -16263,7 +16298,7 @@ class _$AreaReorderedImpl extends AreaReordered {
     TResult Function(String name)? layerElementsRemoved,
     TResult Function(String name)? layerVisibilityChanged,
     TResult Function(String name)? currentLayerChanged,
-    TResult Function(String layer, List<int> elements)? elementsLayerChanged,
+    TResult Function(String layer, List<String> elements)? elementsLayerChanged,
     TResult Function(String directory, String? remote, bool deleteDocument)?
         templateCreated,
     TResult Function(List<Area> areas)? areasCreated,
@@ -16601,7 +16636,7 @@ class _$CurrentAreaChangedImpl extends CurrentAreaChanged {
     required TResult Function(String name) layerElementsRemoved,
     required TResult Function(String name) layerVisibilityChanged,
     required TResult Function(String name) currentLayerChanged,
-    required TResult Function(String layer, List<int> elements)
+    required TResult Function(String layer, List<String> elements)
         elementsLayerChanged,
     required TResult Function(
             String directory, String? remote, bool deleteDocument)
@@ -16666,7 +16701,8 @@ class _$CurrentAreaChangedImpl extends CurrentAreaChanged {
     TResult? Function(String name)? layerElementsRemoved,
     TResult? Function(String name)? layerVisibilityChanged,
     TResult? Function(String name)? currentLayerChanged,
-    TResult? Function(String layer, List<int> elements)? elementsLayerChanged,
+    TResult? Function(String layer, List<String> elements)?
+        elementsLayerChanged,
     TResult? Function(String directory, String? remote, bool deleteDocument)?
         templateCreated,
     TResult? Function(List<Area> areas)? areasCreated,
@@ -16726,7 +16762,7 @@ class _$CurrentAreaChangedImpl extends CurrentAreaChanged {
     TResult Function(String name)? layerElementsRemoved,
     TResult Function(String name)? layerVisibilityChanged,
     TResult Function(String name)? currentLayerChanged,
-    TResult Function(String layer, List<int> elements)? elementsLayerChanged,
+    TResult Function(String layer, List<String> elements)? elementsLayerChanged,
     TResult Function(String directory, String? remote, bool deleteDocument)?
         templateCreated,
     TResult Function(List<Area> areas)? areasCreated,
@@ -17080,7 +17116,7 @@ class _$ExportPresetCreatedImpl extends ExportPresetCreated {
     required TResult Function(String name) layerElementsRemoved,
     required TResult Function(String name) layerVisibilityChanged,
     required TResult Function(String name) currentLayerChanged,
-    required TResult Function(String layer, List<int> elements)
+    required TResult Function(String layer, List<String> elements)
         elementsLayerChanged,
     required TResult Function(
             String directory, String? remote, bool deleteDocument)
@@ -17145,7 +17181,8 @@ class _$ExportPresetCreatedImpl extends ExportPresetCreated {
     TResult? Function(String name)? layerElementsRemoved,
     TResult? Function(String name)? layerVisibilityChanged,
     TResult? Function(String name)? currentLayerChanged,
-    TResult? Function(String layer, List<int> elements)? elementsLayerChanged,
+    TResult? Function(String layer, List<String> elements)?
+        elementsLayerChanged,
     TResult? Function(String directory, String? remote, bool deleteDocument)?
         templateCreated,
     TResult? Function(List<Area> areas)? areasCreated,
@@ -17205,7 +17242,7 @@ class _$ExportPresetCreatedImpl extends ExportPresetCreated {
     TResult Function(String name)? layerElementsRemoved,
     TResult Function(String name)? layerVisibilityChanged,
     TResult Function(String name)? currentLayerChanged,
-    TResult Function(String layer, List<int> elements)? elementsLayerChanged,
+    TResult Function(String layer, List<String> elements)? elementsLayerChanged,
     TResult Function(String directory, String? remote, bool deleteDocument)?
         templateCreated,
     TResult Function(List<Area> areas)? areasCreated,
@@ -17559,7 +17596,7 @@ class _$ExportPresetUpdatedImpl extends ExportPresetUpdated {
     required TResult Function(String name) layerElementsRemoved,
     required TResult Function(String name) layerVisibilityChanged,
     required TResult Function(String name) currentLayerChanged,
-    required TResult Function(String layer, List<int> elements)
+    required TResult Function(String layer, List<String> elements)
         elementsLayerChanged,
     required TResult Function(
             String directory, String? remote, bool deleteDocument)
@@ -17624,7 +17661,8 @@ class _$ExportPresetUpdatedImpl extends ExportPresetUpdated {
     TResult? Function(String name)? layerElementsRemoved,
     TResult? Function(String name)? layerVisibilityChanged,
     TResult? Function(String name)? currentLayerChanged,
-    TResult? Function(String layer, List<int> elements)? elementsLayerChanged,
+    TResult? Function(String layer, List<String> elements)?
+        elementsLayerChanged,
     TResult? Function(String directory, String? remote, bool deleteDocument)?
         templateCreated,
     TResult? Function(List<Area> areas)? areasCreated,
@@ -17684,7 +17722,7 @@ class _$ExportPresetUpdatedImpl extends ExportPresetUpdated {
     TResult Function(String name)? layerElementsRemoved,
     TResult Function(String name)? layerVisibilityChanged,
     TResult Function(String name)? currentLayerChanged,
-    TResult Function(String layer, List<int> elements)? elementsLayerChanged,
+    TResult Function(String layer, List<String> elements)? elementsLayerChanged,
     TResult Function(String directory, String? remote, bool deleteDocument)?
         templateCreated,
     TResult Function(List<Area> areas)? areasCreated,
@@ -18023,7 +18061,7 @@ class _$ExportPresetRemovedImpl extends ExportPresetRemoved {
     required TResult Function(String name) layerElementsRemoved,
     required TResult Function(String name) layerVisibilityChanged,
     required TResult Function(String name) currentLayerChanged,
-    required TResult Function(String layer, List<int> elements)
+    required TResult Function(String layer, List<String> elements)
         elementsLayerChanged,
     required TResult Function(
             String directory, String? remote, bool deleteDocument)
@@ -18088,7 +18126,8 @@ class _$ExportPresetRemovedImpl extends ExportPresetRemoved {
     TResult? Function(String name)? layerElementsRemoved,
     TResult? Function(String name)? layerVisibilityChanged,
     TResult? Function(String name)? currentLayerChanged,
-    TResult? Function(String layer, List<int> elements)? elementsLayerChanged,
+    TResult? Function(String layer, List<String> elements)?
+        elementsLayerChanged,
     TResult? Function(String directory, String? remote, bool deleteDocument)?
         templateCreated,
     TResult? Function(List<Area> areas)? areasCreated,
@@ -18148,7 +18187,7 @@ class _$ExportPresetRemovedImpl extends ExportPresetRemoved {
     TResult Function(String name)? layerElementsRemoved,
     TResult Function(String name)? layerVisibilityChanged,
     TResult Function(String name)? currentLayerChanged,
-    TResult Function(String layer, List<int> elements)? elementsLayerChanged,
+    TResult Function(String layer, List<String> elements)? elementsLayerChanged,
     TResult Function(String directory, String? remote, bool deleteDocument)?
         templateCreated,
     TResult Function(List<Area> areas)? areasCreated,
@@ -18484,7 +18523,7 @@ class _$PackAddedImpl extends PackAdded {
     required TResult Function(String name) layerElementsRemoved,
     required TResult Function(String name) layerVisibilityChanged,
     required TResult Function(String name) currentLayerChanged,
-    required TResult Function(String layer, List<int> elements)
+    required TResult Function(String layer, List<String> elements)
         elementsLayerChanged,
     required TResult Function(
             String directory, String? remote, bool deleteDocument)
@@ -18549,7 +18588,8 @@ class _$PackAddedImpl extends PackAdded {
     TResult? Function(String name)? layerElementsRemoved,
     TResult? Function(String name)? layerVisibilityChanged,
     TResult? Function(String name)? currentLayerChanged,
-    TResult? Function(String layer, List<int> elements)? elementsLayerChanged,
+    TResult? Function(String layer, List<String> elements)?
+        elementsLayerChanged,
     TResult? Function(String directory, String? remote, bool deleteDocument)?
         templateCreated,
     TResult? Function(List<Area> areas)? areasCreated,
@@ -18609,7 +18649,7 @@ class _$PackAddedImpl extends PackAdded {
     TResult Function(String name)? layerElementsRemoved,
     TResult Function(String name)? layerVisibilityChanged,
     TResult Function(String name)? currentLayerChanged,
-    TResult Function(String layer, List<int> elements)? elementsLayerChanged,
+    TResult Function(String layer, List<String> elements)? elementsLayerChanged,
     TResult Function(String directory, String? remote, bool deleteDocument)?
         templateCreated,
     TResult Function(List<Area> areas)? areasCreated,
@@ -18952,7 +18992,7 @@ class _$PackUpdatedImpl extends PackUpdated {
     required TResult Function(String name) layerElementsRemoved,
     required TResult Function(String name) layerVisibilityChanged,
     required TResult Function(String name) currentLayerChanged,
-    required TResult Function(String layer, List<int> elements)
+    required TResult Function(String layer, List<String> elements)
         elementsLayerChanged,
     required TResult Function(
             String directory, String? remote, bool deleteDocument)
@@ -19017,7 +19057,8 @@ class _$PackUpdatedImpl extends PackUpdated {
     TResult? Function(String name)? layerElementsRemoved,
     TResult? Function(String name)? layerVisibilityChanged,
     TResult? Function(String name)? currentLayerChanged,
-    TResult? Function(String layer, List<int> elements)? elementsLayerChanged,
+    TResult? Function(String layer, List<String> elements)?
+        elementsLayerChanged,
     TResult? Function(String directory, String? remote, bool deleteDocument)?
         templateCreated,
     TResult? Function(List<Area> areas)? areasCreated,
@@ -19077,7 +19118,7 @@ class _$PackUpdatedImpl extends PackUpdated {
     TResult Function(String name)? layerElementsRemoved,
     TResult Function(String name)? layerVisibilityChanged,
     TResult Function(String name)? currentLayerChanged,
-    TResult Function(String layer, List<int> elements)? elementsLayerChanged,
+    TResult Function(String layer, List<String> elements)? elementsLayerChanged,
     TResult Function(String directory, String? remote, bool deleteDocument)?
         templateCreated,
     TResult Function(List<Area> areas)? areasCreated,
@@ -19414,7 +19455,7 @@ class _$PackRemovedImpl extends PackRemoved {
     required TResult Function(String name) layerElementsRemoved,
     required TResult Function(String name) layerVisibilityChanged,
     required TResult Function(String name) currentLayerChanged,
-    required TResult Function(String layer, List<int> elements)
+    required TResult Function(String layer, List<String> elements)
         elementsLayerChanged,
     required TResult Function(
             String directory, String? remote, bool deleteDocument)
@@ -19479,7 +19520,8 @@ class _$PackRemovedImpl extends PackRemoved {
     TResult? Function(String name)? layerElementsRemoved,
     TResult? Function(String name)? layerVisibilityChanged,
     TResult? Function(String name)? currentLayerChanged,
-    TResult? Function(String layer, List<int> elements)? elementsLayerChanged,
+    TResult? Function(String layer, List<String> elements)?
+        elementsLayerChanged,
     TResult? Function(String directory, String? remote, bool deleteDocument)?
         templateCreated,
     TResult? Function(List<Area> areas)? areasCreated,
@@ -19539,7 +19581,7 @@ class _$PackRemovedImpl extends PackRemoved {
     TResult Function(String name)? layerElementsRemoved,
     TResult Function(String name)? layerVisibilityChanged,
     TResult Function(String name)? currentLayerChanged,
-    TResult Function(String layer, List<int> elements)? elementsLayerChanged,
+    TResult Function(String layer, List<String> elements)? elementsLayerChanged,
     TResult Function(String directory, String? remote, bool deleteDocument)?
         templateCreated,
     TResult Function(List<Area> areas)? areasCreated,
@@ -19886,7 +19928,7 @@ class _$AnimationAddedImpl extends AnimationAdded {
     required TResult Function(String name) layerElementsRemoved,
     required TResult Function(String name) layerVisibilityChanged,
     required TResult Function(String name) currentLayerChanged,
-    required TResult Function(String layer, List<int> elements)
+    required TResult Function(String layer, List<String> elements)
         elementsLayerChanged,
     required TResult Function(
             String directory, String? remote, bool deleteDocument)
@@ -19951,7 +19993,8 @@ class _$AnimationAddedImpl extends AnimationAdded {
     TResult? Function(String name)? layerElementsRemoved,
     TResult? Function(String name)? layerVisibilityChanged,
     TResult? Function(String name)? currentLayerChanged,
-    TResult? Function(String layer, List<int> elements)? elementsLayerChanged,
+    TResult? Function(String layer, List<String> elements)?
+        elementsLayerChanged,
     TResult? Function(String directory, String? remote, bool deleteDocument)?
         templateCreated,
     TResult? Function(List<Area> areas)? areasCreated,
@@ -20011,7 +20054,7 @@ class _$AnimationAddedImpl extends AnimationAdded {
     TResult Function(String name)? layerElementsRemoved,
     TResult Function(String name)? layerVisibilityChanged,
     TResult Function(String name)? currentLayerChanged,
-    TResult Function(String layer, List<int> elements)? elementsLayerChanged,
+    TResult Function(String layer, List<String> elements)? elementsLayerChanged,
     TResult Function(String directory, String? remote, bool deleteDocument)?
         templateCreated,
     TResult Function(List<Area> areas)? areasCreated,
@@ -20367,7 +20410,7 @@ class _$AnimationUpdatedImpl extends AnimationUpdated {
     required TResult Function(String name) layerElementsRemoved,
     required TResult Function(String name) layerVisibilityChanged,
     required TResult Function(String name) currentLayerChanged,
-    required TResult Function(String layer, List<int> elements)
+    required TResult Function(String layer, List<String> elements)
         elementsLayerChanged,
     required TResult Function(
             String directory, String? remote, bool deleteDocument)
@@ -20432,7 +20475,8 @@ class _$AnimationUpdatedImpl extends AnimationUpdated {
     TResult? Function(String name)? layerElementsRemoved,
     TResult? Function(String name)? layerVisibilityChanged,
     TResult? Function(String name)? currentLayerChanged,
-    TResult? Function(String layer, List<int> elements)? elementsLayerChanged,
+    TResult? Function(String layer, List<String> elements)?
+        elementsLayerChanged,
     TResult? Function(String directory, String? remote, bool deleteDocument)?
         templateCreated,
     TResult? Function(List<Area> areas)? areasCreated,
@@ -20492,7 +20536,7 @@ class _$AnimationUpdatedImpl extends AnimationUpdated {
     TResult Function(String name)? layerElementsRemoved,
     TResult Function(String name)? layerVisibilityChanged,
     TResult Function(String name)? currentLayerChanged,
-    TResult Function(String layer, List<int> elements)? elementsLayerChanged,
+    TResult Function(String layer, List<String> elements)? elementsLayerChanged,
     TResult Function(String directory, String? remote, bool deleteDocument)?
         templateCreated,
     TResult Function(List<Area> areas)? areasCreated,
@@ -20831,7 +20875,7 @@ class _$AnimationRemovedImpl extends AnimationRemoved {
     required TResult Function(String name) layerElementsRemoved,
     required TResult Function(String name) layerVisibilityChanged,
     required TResult Function(String name) currentLayerChanged,
-    required TResult Function(String layer, List<int> elements)
+    required TResult Function(String layer, List<String> elements)
         elementsLayerChanged,
     required TResult Function(
             String directory, String? remote, bool deleteDocument)
@@ -20896,7 +20940,8 @@ class _$AnimationRemovedImpl extends AnimationRemoved {
     TResult? Function(String name)? layerElementsRemoved,
     TResult? Function(String name)? layerVisibilityChanged,
     TResult? Function(String name)? currentLayerChanged,
-    TResult? Function(String layer, List<int> elements)? elementsLayerChanged,
+    TResult? Function(String layer, List<String> elements)?
+        elementsLayerChanged,
     TResult? Function(String directory, String? remote, bool deleteDocument)?
         templateCreated,
     TResult? Function(List<Area> areas)? areasCreated,
@@ -20956,7 +21001,7 @@ class _$AnimationRemovedImpl extends AnimationRemoved {
     TResult Function(String name)? layerElementsRemoved,
     TResult Function(String name)? layerVisibilityChanged,
     TResult Function(String name)? currentLayerChanged,
-    TResult Function(String layer, List<int> elements)? elementsLayerChanged,
+    TResult Function(String layer, List<String> elements)? elementsLayerChanged,
     TResult Function(String directory, String? remote, bool deleteDocument)?
         templateCreated,
     TResult Function(List<Area> areas)? areasCreated,
@@ -21314,7 +21359,7 @@ class _$PresentationModeEnteredImpl extends PresentationModeEntered {
     required TResult Function(String name) layerElementsRemoved,
     required TResult Function(String name) layerVisibilityChanged,
     required TResult Function(String name) currentLayerChanged,
-    required TResult Function(String layer, List<int> elements)
+    required TResult Function(String layer, List<String> elements)
         elementsLayerChanged,
     required TResult Function(
             String directory, String? remote, bool deleteDocument)
@@ -21379,7 +21424,8 @@ class _$PresentationModeEnteredImpl extends PresentationModeEntered {
     TResult? Function(String name)? layerElementsRemoved,
     TResult? Function(String name)? layerVisibilityChanged,
     TResult? Function(String name)? currentLayerChanged,
-    TResult? Function(String layer, List<int> elements)? elementsLayerChanged,
+    TResult? Function(String layer, List<String> elements)?
+        elementsLayerChanged,
     TResult? Function(String directory, String? remote, bool deleteDocument)?
         templateCreated,
     TResult? Function(List<Area> areas)? areasCreated,
@@ -21439,7 +21485,7 @@ class _$PresentationModeEnteredImpl extends PresentationModeEntered {
     TResult Function(String name)? layerElementsRemoved,
     TResult Function(String name)? layerVisibilityChanged,
     TResult Function(String name)? currentLayerChanged,
-    TResult Function(String layer, List<int> elements)? elementsLayerChanged,
+    TResult Function(String layer, List<String> elements)? elementsLayerChanged,
     TResult Function(String directory, String? remote, bool deleteDocument)?
         templateCreated,
     TResult Function(List<Area> areas)? areasCreated,
@@ -21754,7 +21800,7 @@ class _$PresentationModeExitedImpl extends PresentationModeExited {
     required TResult Function(String name) layerElementsRemoved,
     required TResult Function(String name) layerVisibilityChanged,
     required TResult Function(String name) currentLayerChanged,
-    required TResult Function(String layer, List<int> elements)
+    required TResult Function(String layer, List<String> elements)
         elementsLayerChanged,
     required TResult Function(
             String directory, String? remote, bool deleteDocument)
@@ -21819,7 +21865,8 @@ class _$PresentationModeExitedImpl extends PresentationModeExited {
     TResult? Function(String name)? layerElementsRemoved,
     TResult? Function(String name)? layerVisibilityChanged,
     TResult? Function(String name)? currentLayerChanged,
-    TResult? Function(String layer, List<int> elements)? elementsLayerChanged,
+    TResult? Function(String layer, List<String> elements)?
+        elementsLayerChanged,
     TResult? Function(String directory, String? remote, bool deleteDocument)?
         templateCreated,
     TResult? Function(List<Area> areas)? areasCreated,
@@ -21879,7 +21926,7 @@ class _$PresentationModeExitedImpl extends PresentationModeExited {
     TResult Function(String name)? layerElementsRemoved,
     TResult Function(String name)? layerVisibilityChanged,
     TResult Function(String name)? currentLayerChanged,
-    TResult Function(String layer, List<int> elements)? elementsLayerChanged,
+    TResult Function(String layer, List<String> elements)? elementsLayerChanged,
     TResult Function(String directory, String? remote, bool deleteDocument)?
         templateCreated,
     TResult Function(List<Area> areas)? areasCreated,
@@ -22210,7 +22257,7 @@ class _$PresentationTickImpl extends PresentationTick {
     required TResult Function(String name) layerElementsRemoved,
     required TResult Function(String name) layerVisibilityChanged,
     required TResult Function(String name) currentLayerChanged,
-    required TResult Function(String layer, List<int> elements)
+    required TResult Function(String layer, List<String> elements)
         elementsLayerChanged,
     required TResult Function(
             String directory, String? remote, bool deleteDocument)
@@ -22275,7 +22322,8 @@ class _$PresentationTickImpl extends PresentationTick {
     TResult? Function(String name)? layerElementsRemoved,
     TResult? Function(String name)? layerVisibilityChanged,
     TResult? Function(String name)? currentLayerChanged,
-    TResult? Function(String layer, List<int> elements)? elementsLayerChanged,
+    TResult? Function(String layer, List<String> elements)?
+        elementsLayerChanged,
     TResult? Function(String directory, String? remote, bool deleteDocument)?
         templateCreated,
     TResult? Function(List<Area> areas)? areasCreated,
@@ -22335,7 +22383,7 @@ class _$PresentationTickImpl extends PresentationTick {
     TResult Function(String name)? layerElementsRemoved,
     TResult Function(String name)? layerVisibilityChanged,
     TResult Function(String name)? currentLayerChanged,
-    TResult Function(String layer, List<int> elements)? elementsLayerChanged,
+    TResult Function(String layer, List<String> elements)? elementsLayerChanged,
     TResult Function(String directory, String? remote, bool deleteDocument)?
         templateCreated,
     TResult Function(List<Area> areas)? areasCreated,
@@ -22686,7 +22734,7 @@ class _$AssetUpdatedImpl extends AssetUpdated {
     required TResult Function(String name) layerElementsRemoved,
     required TResult Function(String name) layerVisibilityChanged,
     required TResult Function(String name) currentLayerChanged,
-    required TResult Function(String layer, List<int> elements)
+    required TResult Function(String layer, List<String> elements)
         elementsLayerChanged,
     required TResult Function(
             String directory, String? remote, bool deleteDocument)
@@ -22751,7 +22799,8 @@ class _$AssetUpdatedImpl extends AssetUpdated {
     TResult? Function(String name)? layerElementsRemoved,
     TResult? Function(String name)? layerVisibilityChanged,
     TResult? Function(String name)? currentLayerChanged,
-    TResult? Function(String layer, List<int> elements)? elementsLayerChanged,
+    TResult? Function(String layer, List<String> elements)?
+        elementsLayerChanged,
     TResult? Function(String directory, String? remote, bool deleteDocument)?
         templateCreated,
     TResult? Function(List<Area> areas)? areasCreated,
@@ -22811,7 +22860,7 @@ class _$AssetUpdatedImpl extends AssetUpdated {
     TResult Function(String name)? layerElementsRemoved,
     TResult Function(String name)? layerVisibilityChanged,
     TResult Function(String name)? currentLayerChanged,
-    TResult Function(String layer, List<int> elements)? elementsLayerChanged,
+    TResult Function(String layer, List<String> elements)? elementsLayerChanged,
     TResult Function(String directory, String? remote, bool deleteDocument)?
         templateCreated,
     TResult Function(List<Area> areas)? areasCreated,

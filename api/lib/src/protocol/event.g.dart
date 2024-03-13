@@ -398,7 +398,7 @@ Map<String, dynamic> _$$CurrentLayerChangedImplToJson(
 _$ElementsLayerChangedImpl _$$ElementsLayerChangedImplFromJson(Map json) =>
     _$ElementsLayerChangedImpl(
       json['layer'] as String,
-      (json['elements'] as List<dynamic>).map((e) => e as int).toList(),
+      (json['elements'] as List<dynamic>).map((e) => e as String).toList(),
       $type: json['type'] as String?,
     );
 

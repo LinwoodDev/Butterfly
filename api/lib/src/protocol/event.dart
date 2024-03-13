@@ -127,7 +127,7 @@ class DocumentEvent extends ReplayEvent with _$DocumentEvent {
 
   const factory DocumentEvent.elementsLayerChanged(
     String layer,
-    List<int> elements,
+    List<String> elements,
   ) = ElementsLayerChanged;
 
   const factory DocumentEvent.templateCreated(String directory,

@@ -632,7 +632,8 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       if (!(current.embedding?.editable ?? true)) return;
       var content = List<PadElement>.from(current.page.content);
       for (var element in event.elements) {
-        content[element] = content[element].copyWith(layer: event.layer);
+        final index = content.indexWhere((e) => e.id == element);
+        content[index] = content[index].copyWith(layer: event.layer);
       }
       final renderer = content.map((e) => Renderer.fromInstance(e)).toList();
       await Future.wait(renderer.map((e) async =>

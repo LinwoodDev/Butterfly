@@ -278,13 +278,12 @@ class LabelHandler extends Handler<LabelTool>
     final context = _context;
     if (context == null) return;
     final element = context.element;
-    final isEmpty = context.isEmpty ?? true;
-    if (element != null) {
-      if (context.isCreating && !isEmpty) {
-        bloc.add(ElementsCreated([element]));
-      } else if (!context.isCreating && isEmpty) {
-        bloc.add(ElementsRemoved([element.id]));
-      }
+    if (element == null) return;
+    final isEmpty = context.isEmpty;
+    if (context.isCreating && !isEmpty) {
+      bloc.add(ElementsCreated([element]));
+    } else if (!context.isCreating && isEmpty) {
+      bloc.add(ElementsRemoved([element.id]));
     }
   }
 
