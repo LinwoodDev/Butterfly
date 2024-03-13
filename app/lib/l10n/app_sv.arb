@@ -586,6 +586,8 @@
   "zoomControl": "Zooma kontroll",
   "highContrast": "Hög kontrast",
   "shouldANumber": "Detta värde bör vara giltigt nummer",
-  "createAreas": "Create areas",
-  "autosave": "Autosave"
+  "createAreas": "Skapa områden",
+  "autosave": "Autosave",
+  "invert": "Invert",
+  "operations": "Åtgärder"
 }

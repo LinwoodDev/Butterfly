@@ -586,6 +586,8 @@
   "zoomControl": "Zoomauksen hallinta",
   "highContrast": "Korkea kontrasti",
   "shouldANumber": "Tämän arvon on oltava kelvollinen numero",
-  "createAreas": "Create areas",
-  "autosave": "Autosave"
+  "createAreas": "Luo alueita",
+  "autosave": "Autosave",
+  "invert": "Invert",
+  "operations": "Toiminnot"
 }

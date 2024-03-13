@@ -2,6 +2,31 @@
 
 <!--ENTER CHANGELOG HERE-->
 
+## 2.1.0-beta.2 (2024-03-11)
+
+* Add icons to sort dropdown items
+* Improve window buttons on custom title bar
+* Improve svg path export ([#620](https://github.com/LinwoodDev/Butterfly/issues/620))
+* Fix svg export preview shows nothing
+* Fix exporting on web
+* Fix file creation if the file path already exists
+
+Read more here: https://linwood.dev/butterfly/2.1.0-beta.2
+
+## 2.1.0-beta.1 (2024-03-04)
+
+* Add setting for adding background to pdf import ([#606](https://github.com/LinwoodDev/Butterfly/issues/606))
+* Add setting for inverting to pdf import ([#606](https://github.com/LinwoodDev/Butterfly/issues/606))
+* Add image operations
+  * Invert
+  * Background
+* Add ability to reorder waypoints
+* Change waypoint identifier to the name instead of index
+* Fix transformation pushed to reference handle ([#615](https://github.com/LinwoodDev/Butterfly/issues/615))
+* Disable showing transform controls while transforming
+
+Read more here: https://linwood.dev/butterfly/2.1.0-beta.1
+
 ## 2.1.0-beta.0 (2024-02-26)
 
 * Add shape detection for lines ([#578](https://github.com/LinwoodDev/Butterfly/issues/578))

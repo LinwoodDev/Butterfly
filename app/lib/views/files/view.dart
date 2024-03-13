@@ -75,13 +75,18 @@ class FilesViewState extends State<FilesView> {
         SortBy.modified => AppLocalizations.of(context).modified,
       };
 
+  IconGetter getIconOfSortBy(SortBy sortBy) => switch (sortBy) {
+        SortBy.name => PhosphorIcons.file,
+        SortBy.created => PhosphorIcons.calendar,
+        SortBy.modified => PhosphorIcons.clock,
+      };
+
   void _setFilesStream() {
     _templateSystem = TemplateFileSystem.fromPlatform(remote: _remote);
     _fileSystem = DocumentFileSystem.fromPlatform(remote: _remote);
     _filesStream = _fileSystem.fetchAsset(_locationController.text);
   }
 
-  // ! modifi with for error setState() called after dispose(), during big file import, check if the widget is still mounted before calling setState()
   void reloadFileSystem() {
     if (mounted) {
       setState(_setFilesStream);
@@ -202,6 +207,8 @@ class FilesViewState extends State<FilesView> {
                     .map((e) => DropdownMenuEntry(
                           value: e,
                           label: getLocalizedNameOfSortBy(e),
+                          leadingIcon: PhosphorIcon(
+                              getIconOfSortBy(e)(PhosphorIconsStyle.light)),
                         ))
                     .toList(),
                 initialSelection: _sortBy,

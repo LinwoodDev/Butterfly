@@ -13,7 +13,7 @@ publish_to: none
 # In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
 # Read more about iOS versioning at
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
-version: 2.1.0-beta.1+95
+version: 2.1.0-beta.3+97
 
 environment:
   sdk: ">=3.0.0 <4.0.0"
@@ -88,9 +88,9 @@ dependencies:
       ref: 75b5ec0e51096ae169df3cd4f02c9f6affe22a81
       path: packages/networker/networker_socket
   flutter_localized_locales: ^2.0.5
-  dynamic_color: ^1.6.9
+  dynamic_color: ^1.7.0
   popover: ^0.3.0
-  markdown: ^7.2.1
+  markdown: ^7.2.2
   device_info_plus: ^9.1.2
   image: ^4.1.7
 dev_dependencies:

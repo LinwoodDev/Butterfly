@@ -90,14 +90,19 @@ class DocumentEvent extends ReplayEvent with _$DocumentEvent {
     Waypoint waypoint,
   ) = WaypointCreated;
 
-  const factory DocumentEvent.waypointRenamed(
-    int index,
+  const factory DocumentEvent.waypointChanged(
     String name,
-  ) = WaypointRenamed;
+    Waypoint waypoint,
+  ) = WaypointChanged;
 
   const factory DocumentEvent.waypointRemoved(
-    int index,
+    String name,
   ) = WaypointRemoved;
+
+  const factory DocumentEvent.waypointReordered(
+    String name,
+    int newIndex,
+  ) = WaypointReordered;
 
   const factory DocumentEvent.layerRenamed(
     String oldName,

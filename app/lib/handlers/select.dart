@@ -11,11 +11,14 @@ class SelectHandler extends Handler<SelectTool> {
   SelectHandler(super.data);
 
   void transform(DocumentBloc bloc, SelectionTransformCorner? corner,
-      [List<Renderer<PadElement>>? next, bool duplicate = false]) {
+      {List<Renderer<PadElement>>? next,
+      bool duplicate = false,
+      Offset? position}) {
     _selected = next ?? _selected;
     _submitTransform(bloc);
     _updateSelectionRect();
-    _selectionManager.startTransformWithCorner(corner);
+    _selectionManager.startTransformWithCorner(
+        corner, position ?? _selectionManager.selection.center);
     _duplicate = duplicate;
     bloc.refresh();
   }
@@ -282,7 +285,8 @@ class SelectHandler extends Handler<SelectTool> {
         _selectionManager.shouldTransform(globalPos, cameraTransform.size);
     if (shouldTransform) {
       transform(context.getDocumentBloc(),
-          _selectionManager.getCornerHit(globalPos, cameraTransform.size));
+          _selectionManager.getCornerHit(globalPos, cameraTransform.size),
+          position: globalPos);
       return true;
     }
     context.refresh();

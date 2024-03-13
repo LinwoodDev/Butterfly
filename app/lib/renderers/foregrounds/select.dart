@@ -116,9 +116,10 @@ class RectSelectionForegroundManager {
     return true;
   }
 
-  void startTransformWithCorner(SelectionTransformCorner? corner) {
+  void startTransformWithCorner(SelectionTransformCorner? corner,
+      [Offset? position]) {
     _corner = corner;
-    _startPosition = corner.getFromRect(_selection);
+    _startPosition = position ?? corner.getFromRect(_selection);
     _currentPosition = _startPosition;
   }
 
@@ -219,23 +220,26 @@ class RectSelectionForegroundManager {
   }
 
   RectSelectionForegroundRenderer get renderer =>
-      RectSelectionForegroundRenderer(
-          getTransformedSelection(), _scaleMode, _corner, enableRotation);
+      RectSelectionForegroundRenderer(getTransformedSelection(), _scaleMode,
+          _corner, enableRotation, isTransforming);
 }
 
 class RectSelectionForegroundRenderer extends Renderer<Rect> {
   final SelectionScaleMode? transformMode;
   final SelectionTransformCorner? transformCorner;
-  final bool enableRotation;
+  final bool enableRotation, isTransforming;
 
   RectSelectionForegroundRenderer(super.element,
-      [this.transformMode, this.transformCorner, this.enableRotation = true]);
+      [this.transformMode,
+      this.transformCorner,
+      this.enableRotation = true,
+      this.isTransforming = false]);
 
   @override
   void build(Canvas canvas, Size size, NoteData document, DocumentPage page,
       DocumentInfo info, CameraTransform transform,
       [ColorScheme? colorScheme, bool foreground = false]) {
-    if (element.isEmpty) return;
+    if (element.isEmpty || isTransforming) return;
     final paint = Paint()
       ..color = colorScheme?.primaryContainer ?? Colors.blueAccent
       ..style = PaintingStyle.stroke

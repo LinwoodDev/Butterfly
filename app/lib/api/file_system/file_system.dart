@@ -19,6 +19,18 @@ abstract class GeneralFileSystem {
 
   RemoteStorage? get remote => null;
 
+  String normalizePath(String path) {
+    // Add leading slash
+    if (!path.startsWith('/')) {
+      path = '/$path';
+    }
+    // Remove trailing slash
+    if (path.endsWith('/')) {
+      path = path.substring(0, path.length - 1);
+    }
+    return path;
+  }
+
   String convertNameToFile(String name) {
     return name.replaceAll(RegExp(r'[\\/:\*\?"<>\|\n\0-\x1F\x7F-\xFF]'), '_');
   }
@@ -165,19 +177,19 @@ abstract class DocumentFileSystem extends GeneralFileSystem {
   Future<String> findAvailableName(String path) =>
       _findAvailableName(path, hasAsset);
 
-  Future<AppDocumentFile?> createFile(String path, List<int> data) async =>
-      updateFile(await findAvailableName(path), data)
-          .then((_) => getAppDocumentFile(AssetLocation.local(path), data));
+  Future<AppDocumentFile?> createFile(String path, List<int> data) async {
+    path = normalizePath(path);
+    final uniquePath = await findAvailableName(path);
+    return updateFile(uniquePath, data)
+        .then((_) => getAppDocumentFile(AssetLocation.local(uniquePath), data));
+  }
 
   Future<bool> hasAsset(String path);
 
   Future<void> deleteAsset(String path);
 
   Future<AppDocumentEntity?> renameAsset(String path, String newName) async {
-    // Remove leading slash
-    if (path.startsWith('/')) {
-      path = path.substring(1);
-    }
+    path = normalizePath(path);
     if (newName.startsWith('/')) {
       newName = newName.substring(1);
     }
@@ -188,6 +200,7 @@ abstract class DocumentFileSystem extends GeneralFileSystem {
   }
 
   Future<AppDocumentEntity?> duplicateAsset(String path, String newPath) async {
+    path = normalizePath(path);
     var asset = await getAsset(path);
     if (asset == null) return null;
     if (asset is AppDocumentFile) {
@@ -234,13 +247,9 @@ abstract class DocumentFileSystem extends GeneralFileSystem {
       updateFile(path, await _exportDocument(document));
 
   Future<AppDocumentFile?> importDocument(NoteData document,
-      {String path = '/'}) async {
-    if (path.endsWith('/')) {
-      path = path.substring(0, path.length - 1);
-    }
-    return createFile('$path/${convertNameToFile(document.name ?? '')}.bfly',
-        await _exportDocument(document));
-  }
+          {String path = '/'}) async =>
+      createFile('$path/${convertNameToFile(document.name ?? '')}.bfly',
+          await _exportDocument(document));
 
   Future<List<int>> _exportDocument(NoteData document) =>
       compute((_) => document.save(), null);
@@ -272,10 +281,7 @@ abstract class TemplateFileSystem extends GeneralFileSystem {
   Future<List<NoteData>> getTemplates();
 
   Future<NoteData?> renameTemplate(String path, String newName) async {
-    // Remove leading slash
-    if (path.startsWith('/')) {
-      path = path.substring(1);
-    }
+    path = normalizePath(path);
     var template = await getTemplate(path);
     if (template == null) return null;
     final metadata = template.getMetadata()?.copyWith(name: newName);
@@ -342,10 +348,7 @@ abstract class PackFileSystem extends GeneralFileSystem {
   Future<List<NoteData>> getPacks();
 
   Future<NoteData?> renamePack(String path, String newName) async {
-    // Remove leading slash
-    if (path.startsWith('/')) {
-      path = path.substring(1);
-    }
+    path = normalizePath(path);
     var pack = await getPack(path);
     final metadata = pack?.getMetadata();
     if (pack == null || metadata == null) return null;

@@ -587,5 +587,7 @@
   "highContrast": "Alto contrasto",
   "shouldANumber": "Questo valore deve essere valido",
   "createAreas": "Crea Area",
-  "autosave": "Autosave"
+  "autosave": "Autosave",
+  "invert": "Invert",
+  "operations": "Operazioni"
 }
