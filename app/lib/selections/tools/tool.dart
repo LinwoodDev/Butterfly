@@ -36,20 +36,20 @@ class ToolSelection<T extends Tool> extends Selection<T> {
 
   @override
   void update(BuildContext context, List<T> selected) {
-    final updatedPainters = <int, Tool>{};
+    final updatedTools = <int, Tool>{};
     final bloc = context.read<DocumentBloc>();
     final state = bloc.state;
     if (state is! DocumentLoadSuccess) return;
-    final oldPainters = state.info.tools;
+    final oldTools = state.info.tools;
     for (var i = 0; i < selected.length; i++) {
-      final painter = selected[i];
-      final oldPainter = this.selected[i];
-      final painterIndex = oldPainters.indexOf(oldPainter);
-      if (painter != oldPainter && painterIndex >= 0) {
-        updatedPainters[painterIndex] = painter;
+      final tool = selected[i];
+      final oldTool = this.selected[i];
+      final toolIndex = oldTools.indexOf(oldTool);
+      if (tool != oldTool && toolIndex >= 0) {
+        updatedTools[toolIndex] = tool;
       }
     }
-    bloc.add(ToolsChanged(updatedPainters));
+    bloc.add(ToolsChanged(updatedTools));
     super.update(context, selected);
   }
 

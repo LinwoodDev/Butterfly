@@ -12,7 +12,9 @@ dependencies:
   json_annotation: ^4.8.1
   replay_bloc: ^0.2.5
   rxdart: ^0.27.7
+  uuid: ^4.3.3
   xml: ^6.5.0
+
 dev_dependencies:
   test: ^1.25.0
   json_serializable: ^6.7.1

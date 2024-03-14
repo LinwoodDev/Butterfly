@@ -45,16 +45,16 @@ class DocumentEvent extends ReplayEvent with _$DocumentEvent {
   ) = ElementsCreated;
 
   const factory DocumentEvent.elementsChanged(
-    Map<int, List<PadElement>> elements,
+    Map<String, List<PadElement>> elements,
   ) = ElementsChanged;
 
   const factory DocumentEvent.elementsRemoved(
-    List<int> elements,
+    List<String> elements,
   ) = ElementsRemoved;
 
   const factory DocumentEvent.elementsArranged(
     Arrangement arrangement,
-    List<int> elements,
+    List<String> elements,
   ) = ElementsArranged;
 
   const factory DocumentEvent.documentDescriptionChanged({
@@ -127,7 +127,7 @@ class DocumentEvent extends ReplayEvent with _$DocumentEvent {
 
   const factory DocumentEvent.elementsLayerChanged(
     String layer,
-    List<int> elements,
+    List<String> elements,
   ) = ElementsLayerChanged;
 
   const factory DocumentEvent.templateCreated(String directory,
