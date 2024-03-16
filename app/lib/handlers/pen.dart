@@ -158,8 +158,8 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
     final recognized = recognizeUnistroke(points);
     final element = elements[pointer];
     if (recognized != null) {
-      switch (recognized.name.toString()) {
-        case 'DefaultUnistrokeNames.line':
+      switch (recognized.name) {
+        case DefaultUnistrokeNames.line:
           if (element != null && points.length < 500) {
             double startX = points.first.dx;
             double startY = points.first.dy;
@@ -175,7 +175,7 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
             Offset secondPositionInView =
                 transform.localToGlobal(secondPosition.toOffset());
 
-            // Crea un nuovo ShapeElement
+            // Create new shape element
             PadElement shapeElement = PadElement.shape(
               firstPosition: firstPositionInView.toPoint(),
               secondPosition: secondPositionInView.toPoint(),
@@ -208,7 +208,7 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
           }
           break;
 
-        case 'DefaultUnistrokeNames.circle':
+        case DefaultUnistrokeNames.circle:
           if (element != null && points.length < 700) {
             // Calculate the center of the circle as the average of the points
             double centerX =
@@ -267,7 +267,7 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
           }
           break;
 
-        case 'DefaultUnistrokeNames.rectangle':
+        case DefaultUnistrokeNames.rectangle:
           if (element != null && points.length < 700) {
             double minX = points.map((p) => p.dx).reduce(min);
             double maxX = points.map((p) => p.dx).reduce(max);
@@ -317,7 +317,7 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
           }
           break;
 
-        case 'DefaultUnistrokeNames.triangle':
+        case DefaultUnistrokeNames.triangle:
           if (element != null && points.length < 700) {
             double minX = points.map((p) => p.dx).reduce(min);
             double maxX = points.map((p) => p.dx).reduce(max);
