@@ -33,15 +33,24 @@ Niektóre z nich są napisane pod przyciskami.
 - `Ctrl` + `+`: Powiększ
 - `Ctrl` + `-`: Pomniejsz
 
-## Stylus
+## Długopis
 
-- `Przycisk podstawowy`: Zmień na narzędzie ręczne
-- `Przycisk drugorzędny`: Zmień na drugie narzędzie
+Domyślnie wstrzykiwacz jest skonfigurowany do następujących funkcji:
+
+- `Pióro`: skonfigurowany jako długopis.
+- `First` (główny przycisk, jeśli jest obsługiwany): Zmień na narzędzie ręczne po naciśnięciu.
+- `Second` (Drugi przycisk, jeśli jest obsługiwany): Zmień na drugie narzędzie (patrz sekcja [configure](#configure) poniżej) po naciśnięciu.
 
 ## Konfiguruj {#configure}
 
-Dostosuj ustawienia poprzez nadanie każdej kontroli indeksu narzędzi.
+Możesz dostosować ustawienia poprzez nadanie każdej kontroli indeksu narzędzi. Indeksowanie narzędzi zaczyna się od lewej strony paska narzędzi, przy czym `1` jest pierwszym indeksem Zobacz przykład poniżej
 
-- Pozostaw puste, aby wyłączyć włączanie narzędzia na tym urządzeniu.
-- Ustaw na `0` aby włączyć poruszanie się z tą kontrolą.
-- Ustaw na numer pozycyjny, aby przełączyć się na narzędzie z tym indeksem zaczynając od pierwszego po lewej stronie, począwszy od `1`.
+![pasek narzędzi numerowany](toolbar_numbered.png)
+
+W tym miejscu 1 odnosi się do narzędzia laserowego, 2, narzędzia do panewki itp.
+
+Konfiguruj następujące opcje:
+
+- Puste - narzędzie jest odcięte.
+- 0 - narzędzie będzie działać jako poruszające się (tj. ręcznie) w tym modze.
+- Liczba dodatnia - Narzędzie będzie podążać za indeksacją, jak wyjaśniono powyżej.

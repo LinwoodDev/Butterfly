@@ -36,13 +36,18 @@ class WaypointsView extends StatelessWidget {
                     },
                   ),
                   const Divider(),
-                  ListView.builder(
+                  ReorderableListView.builder(
                       physics: const NeverScrollableScrollPhysics(),
                       shrinkWrap: true,
                       itemCount: waypoints.length,
+                      onReorder: (oldIndex, newIndex) => context
+                          .read<DocumentBloc>()
+                          .add(WaypointReordered(
+                              waypoints[oldIndex].name, newIndex)),
                       itemBuilder: (BuildContext context, int index) {
                         final waypoint = waypoints[index];
                         return EditableListTile(
+                          key: ValueKey(waypoint.name),
                           initialValue: waypoint.name,
                           onTap: () {
                             context
@@ -50,9 +55,9 @@ class WaypointsView extends StatelessWidget {
                                 .teleportToWaypoint(waypoint);
                             context.read<DocumentBloc>().bake();
                           },
-                          onSaved: (value) => context
-                              .read<DocumentBloc>()
-                              .add(WaypointRenamed(index, value)),
+                          onSaved: (value) => context.read<DocumentBloc>().add(
+                              WaypointChanged(waypoint.name,
+                                  waypoint.copyWith(name: value))),
                           selected:
                               transform.position.toPoint() == waypoint.position,
                           actions: [
@@ -67,7 +72,7 @@ class WaypointsView extends StatelessWidget {
                                 if (context.mounted) {
                                   context
                                       .read<DocumentBloc>()
-                                      .add(WaypointRemoved(index));
+                                      .add(WaypointRemoved(waypoint.name));
                                 }
                               },
                               child: Text(AppLocalizations.of(context).delete),

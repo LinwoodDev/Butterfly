@@ -50,7 +50,7 @@ class EraserHandler extends Handler<EraserTool> {
     final ray =
         await rayCast(globalPos, context.getDocumentBloc(), transform, size);
     final elements = ray.map((e) => e.element).whereType<PenElement>();
-    final modified = <int, List<PadElement>>{};
+    final modified = <String, List<PadElement>>{};
     for (final element in elements) {
       List<List<PathPoint>> paths = [[]];
       bool broken = false;
@@ -65,11 +65,10 @@ class EraserHandler extends Handler<EraserTool> {
           }
         }
       }
-      final index = page.content.indexOf(element);
       if (broken) {
-        modified[index] = [];
+        modified[element.id] = [];
       }
-      modified[index] = paths
+      modified[element.id] = paths
           .where((element) => element.isNotEmpty)
           .map((e) => element.copyWith(points: e))
           .toList();

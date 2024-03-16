@@ -627,33 +627,26 @@ class _LabelToolbarViewState extends State<LabelToolbarView> {
                               const PhosphorIcon(
                                   PhosphorIconsLight.textUnderline),
                             ],
-                            onPressed: (current) {
-                              switch (current) {
-                                case 0:
-                                  updateSpan(
-                                    (value) => value.copyWith(
-                                      fontWeight: span.fontWeight ==
-                                              text.kFontWeightNormal
-                                          ? text.kFontWeightBold
-                                          : text.kFontWeightNormal,
-                                    ),
-                                  );
-                                  break;
-                                case 1:
-                                  updateSpan(
-                                    (value) => value.copyWith(
-                                      italic: !span.getItalic(paragraph),
-                                    ),
-                                  );
-                                  break;
-                                case 2:
-                                  updateSpan(
-                                    (value) => value.copyWith(
-                                      underline: !span.getUnderline(paragraph),
-                                    ),
-                                  );
-                                  break;
-                              }
+                            onPressed: (current) => switch (current) {
+                              0 => updateSpan(
+                                  (value) => value.copyWith(
+                                    fontWeight: span.fontWeight ==
+                                            text.kFontWeightNormal
+                                        ? text.kFontWeightBold
+                                        : text.kFontWeightNormal,
+                                  ),
+                                ),
+                              1 => updateSpan(
+                                  (value) => value.copyWith(
+                                    italic: !span.getItalic(paragraph),
+                                  ),
+                                ),
+                              2 => updateSpan(
+                                  (value) => value.copyWith(
+                                    underline: !span.getUnderline(paragraph),
+                                  ),
+                                ),
+                              _ => null,
                             },
                           ),
                         ],

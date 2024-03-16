@@ -151,6 +151,8 @@
   "copy": "Kopioi",
   "back": "Takaisin",
   "zoomDependent": "Lähennys riippuvainen",
+  "shapeDetection": "Muodon Tunnistaminen",
+  "delay": "Viive",
   "defaultLayer": "Oletus taso",
   "layer": "Taso",
   "layers": "Kerrokset",
@@ -584,5 +586,8 @@
   "zoomControl": "Zoomauksen hallinta",
   "highContrast": "Korkea kontrasti",
   "shouldANumber": "Tämän arvon on oltava kelvollinen numero",
-  "autosave": "Autosave"
+  "createAreas": "Luo alueita",
+  "autosave": "Autosave",
+  "invert": "Invert",
+  "operations": "Toiminnot"
 }

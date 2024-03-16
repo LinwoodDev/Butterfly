@@ -137,8 +137,10 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
       _disposeForegrounds();
       final foregrounds = handler.createForegrounds(
           this, document, blocState.page, info, blocState.currentArea);
-      await Future.wait(foregrounds.map((e) async =>
-          await e.setup(document, blocState.assetService, blocState.page)));
+      if (handler.setupForegrounds) {
+        await Future.wait(foregrounds.map((e) async =>
+            await e.setup(document, blocState.assetService, blocState.page)));
+      }
       emit(state.copyWith(
         index: index,
         handler: handler,
@@ -226,15 +228,16 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     final handler = Handler.fromTool(tool);
     state.handler.dispose(bloc);
     _disposeForegrounds(false);
-    final newForegrounds = handler.createForegrounds(this, docState.data,
+    final foregrounds = handler.createForegrounds(this, docState.data,
         docState.page, docState.info, docState.currentArea);
-    for (final r in newForegrounds) {
-      await r.setup(docState.data, docState.assetService, docState.page);
+    if (handler.setupForegrounds) {
+      await Future.wait(foregrounds.map((e) async =>
+          await e.setup(docState.data, docState.assetService, docState.page)));
     }
     emit(state.copyWith(
       index: state.index,
       handler: handler,
-      foregrounds: newForegrounds,
+      foregrounds: foregrounds,
       toolbar: handler.getToolbar(bloc),
       rendererStates: handler.rendererStates,
       cursor: handler.cursor ?? MouseCursor.defer,
@@ -247,13 +250,15 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     state.temporaryHandler?.dispose(bloc);
     final handler = Handler.fromTool(tool);
     _disposeTemporaryForegrounds();
-    final temporaryForegrounds = handler.createForegrounds(this, docState.data,
+    final foregrounds = handler.createForegrounds(this, docState.data,
         docState.page, docState.info, docState.currentArea);
-    await Future.wait(temporaryForegrounds.map((r) async =>
-        await r.setup(docState.data, docState.assetService, docState.page)));
+    if (handler.setupForegrounds) {
+      await Future.wait(foregrounds.map((e) async =>
+          await e.setup(docState.data, docState.assetService, docState.page)));
+    }
     emit(state.copyWith(
       temporaryHandler: handler,
-      temporaryForegrounds: temporaryForegrounds,
+      temporaryForegrounds: foregrounds,
       temporaryToolbar: handler.getToolbar(bloc),
       temporaryRendererStates: handler.rendererStates,
       temporaryCursor: handler.cursor,
@@ -289,14 +294,17 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
       _disposeForegrounds();
       final temporaryForegrounds = state.temporaryHandler
           ?.createForegrounds(this, document, page, info, currentArea);
-      if (temporaryForegrounds != null) {
+      if (temporaryForegrounds != null &&
+          state.temporaryHandler?.setupForegrounds == true) {
         await Future.wait(temporaryForegrounds
             .map((e) async => await e.setup(document, assetService, page)));
       }
       final foregrounds = state.handler
           .createForegrounds(this, document, page, info, currentArea);
-      await Future.wait(foregrounds
-          .map((e) async => await e.setup(document, assetService, page)));
+      if (state.handler.setupForegrounds) {
+        await Future.wait(foregrounds
+            .map((e) async => await e.setup(document, assetService, page)));
+      }
       final rendererStates = state.handler.rendererStates;
       final temporaryRendererStates = state.temporaryHandler?.rendererStates;
       final statesChanged = !mapEq.equals(state.rendererStates, rendererStates);
@@ -406,8 +414,10 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
       _disposeTemporaryForegrounds();
       final temporaryForegrounds = handler.createForegrounds(
           this, document, page, blocState.info, currentArea);
-      await Future.wait(temporaryForegrounds.map(
-          (e) async => await e.setup(document, blocState.assetService, page)));
+      if (handler.setupForegrounds) {
+        await Future.wait(temporaryForegrounds.map((e) async =>
+            await e.setup(document, blocState.assetService, page)));
+      }
       emit(state.copyWith(
         temporaryHandler: handler,
         temporaryForegrounds: temporaryForegrounds,

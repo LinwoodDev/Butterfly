@@ -34,7 +34,6 @@ Archive convertLegacyDataToArchive(Map<String, dynamic> data) {
             '$kComponentsArchiveDirectory/${component.name}.json',
             utf8.encode((component)));
       }
-      break;
     case NoteFileType.template:
     case NoteFileType.document:
       reader = reader.setAsset(

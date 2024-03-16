@@ -33,15 +33,24 @@ Osa niistä on kirjoitettu painikkeiden alle.
 - `Ctrl` + `+`: Lähennä
 - `Ctrl` + `-`: Lähennä
 
-## Stylus
+## Kynä
 
-- `Ensisijainen painike`: Vaihda käsityökaluksi
-- `Toissijainen painike`: Vaihda toiseen työkaluun
+Kynä on oletusarvoisesti määritetty toimimaan seuraavasti:
+
+- `Pen`: määritetty kynäksi.
+- `First` (Valinnainen painike, jos tuettu): Vaihda käsityökalua painettuna.
+- `Second` (Toissijainen painike, jos sitä tuetaan): Vaihda toiseen työkaluun (katso [configure](#konfiguraatio) painettuna
 
 ## Määritä {#configure}
 
-Muokkaa ohjaimia antamalla jokaiselle ohjaimelle työkalun indeksin.
+Voit muokata ohjaimia antamalla jokaiselle ohjaukselle työkalun indeksin. Työkalun indeksointi alkaa työkalupalkin vasemmalta ja `1` on ensimmäinen indeksi. Katso esimerkki alla
 
-- Anna tyhjä, jos haluat poistaa työkalun kytkimen käytöstä tällä ohjaimella.
-- Aseta se `0` ottaaksesi liikkumisen käyttöön tällä ohjaimella.
-- Aseta se positve numeroon vaihtaaksesi työkaluun, jossa tämä indeksi alkaa ensin vasemmalla alkaa `1`.
+![toolbar numbered](toolbar_numbered.png)
+
+Täällä, 1 viittaa lasso työkalu, 2, pan työkalu jne.
+
+Määritä asetukset sinulla on ovat seuraavat:
+
+- Tyhjä - työkalu on chaged.
+- 0 - työkalu toimii liikkuvana (eli kädessä) tässä moodissa.
+- Positiivinen numero - Työkalu seuraa indeksointi kuten selitetään edellä.

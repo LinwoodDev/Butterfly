@@ -151,6 +151,8 @@
   "copy": "Copiar",
   "back": "Atrás",
   "zoomDependent": "Dependiente de zoom",
+  "shapeDetection": "Detección de forma",
+  "delay": "Retraso",
   "defaultLayer": "Capa por defecto",
   "layer": "Capa",
   "layers": "Capas",
@@ -584,5 +586,8 @@
   "zoomControl": "Control de zoom",
   "highContrast": "Alto contraste",
   "shouldANumber": "Este valor debe ser un número válido",
-  "autosave": "Autosave"
+  "createAreas": "Crear áreas",
+  "autosave": "Autosave",
+  "invert": "Invert",
+  "operations": "Operaciones"
 }

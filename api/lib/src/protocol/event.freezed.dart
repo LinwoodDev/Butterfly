@@ -56,10 +56,12 @@ DocumentEvent _$DocumentEventFromJson(Map<String, dynamic> json) {
       return DocumentBackgroundsChanged.fromJson(json);
     case 'waypointCreated':
       return WaypointCreated.fromJson(json);
-    case 'waypointRenamed':
-      return WaypointRenamed.fromJson(json);
+    case 'waypointChanged':
+      return WaypointChanged.fromJson(json);
     case 'waypointRemoved':
       return WaypointRemoved.fromJson(json);
+    case 'waypointReordered':
+      return WaypointReordered.fromJson(json);
     case 'layerRenamed':
       return LayerRenamed.fromJson(json);
     case 'layerRemoved':
@@ -108,6 +110,8 @@ DocumentEvent _$DocumentEventFromJson(Map<String, dynamic> json) {
       return PresentationModeExited.fromJson(json);
     case 'presentationTick':
       return PresentationTick.fromJson(json);
+    case 'assetUpdated':
+      return AssetUpdated.fromJson(json);
 
     default:
       throw CheckedFromJsonException(json, 'type', 'DocumentEvent',
@@ -129,10 +133,10 @@ mixin _$DocumentEvent {
     required TResult Function(ViewOption view) viewChanged,
     required TResult Function(UtilitiesState state) utilitiesChanged,
     required TResult Function(List<PadElement> elements) elementsCreated,
-    required TResult Function(Map<int, List<PadElement>> elements)
+    required TResult Function(Map<String, List<PadElement>> elements)
         elementsChanged,
-    required TResult Function(List<int> elements) elementsRemoved,
-    required TResult Function(Arrangement arrangement, List<int> elements)
+    required TResult Function(List<String> elements) elementsRemoved,
+    required TResult Function(Arrangement arrangement, List<String> elements)
         elementsArranged,
     required TResult Function(String? name, String? description)
         documentDescriptionChanged,
@@ -144,14 +148,15 @@ mixin _$DocumentEvent {
     required TResult Function(List<Background> backgrounds)
         documentBackgroundsChanged,
     required TResult Function(Waypoint waypoint) waypointCreated,
-    required TResult Function(int index, String name) waypointRenamed,
-    required TResult Function(int index) waypointRemoved,
+    required TResult Function(String name, Waypoint waypoint) waypointChanged,
+    required TResult Function(String name) waypointRemoved,
+    required TResult Function(String name, int newIndex) waypointReordered,
     required TResult Function(String oldName, String newName) layerRenamed,
     required TResult Function(String name) layerRemoved,
     required TResult Function(String name) layerElementsRemoved,
     required TResult Function(String name) layerVisibilityChanged,
     required TResult Function(String name) currentLayerChanged,
-    required TResult Function(String layer, List<int> elements)
+    required TResult Function(String layer, List<String> elements)
         elementsLayerChanged,
     required TResult Function(
             String directory, String? remote, bool deleteDocument)
@@ -177,6 +182,7 @@ mixin _$DocumentEvent {
         presentationModeEntered,
     required TResult Function() presentationModeExited,
     required TResult Function(int tick) presentationTick,
+    required TResult Function(String path, List<int> data) assetUpdated,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -191,9 +197,9 @@ mixin _$DocumentEvent {
     TResult? Function(ViewOption view)? viewChanged,
     TResult? Function(UtilitiesState state)? utilitiesChanged,
     TResult? Function(List<PadElement> elements)? elementsCreated,
-    TResult? Function(Map<int, List<PadElement>> elements)? elementsChanged,
-    TResult? Function(List<int> elements)? elementsRemoved,
-    TResult? Function(Arrangement arrangement, List<int> elements)?
+    TResult? Function(Map<String, List<PadElement>> elements)? elementsChanged,
+    TResult? Function(List<String> elements)? elementsRemoved,
+    TResult? Function(Arrangement arrangement, List<String> elements)?
         elementsArranged,
     TResult? Function(String? name, String? description)?
         documentDescriptionChanged,
@@ -204,14 +210,16 @@ mixin _$DocumentEvent {
     TResult? Function(int oldIndex, int newIndex)? toolReordered,
     TResult? Function(List<Background> backgrounds)? documentBackgroundsChanged,
     TResult? Function(Waypoint waypoint)? waypointCreated,
-    TResult? Function(int index, String name)? waypointRenamed,
-    TResult? Function(int index)? waypointRemoved,
+    TResult? Function(String name, Waypoint waypoint)? waypointChanged,
+    TResult? Function(String name)? waypointRemoved,
+    TResult? Function(String name, int newIndex)? waypointReordered,
     TResult? Function(String oldName, String newName)? layerRenamed,
     TResult? Function(String name)? layerRemoved,
     TResult? Function(String name)? layerElementsRemoved,
     TResult? Function(String name)? layerVisibilityChanged,
     TResult? Function(String name)? currentLayerChanged,
-    TResult? Function(String layer, List<int> elements)? elementsLayerChanged,
+    TResult? Function(String layer, List<String> elements)?
+        elementsLayerChanged,
     TResult? Function(String directory, String? remote, bool deleteDocument)?
         templateCreated,
     TResult? Function(List<Area> areas)? areasCreated,
@@ -232,6 +240,7 @@ mixin _$DocumentEvent {
         presentationModeEntered,
     TResult? Function()? presentationModeExited,
     TResult? Function(int tick)? presentationTick,
+    TResult? Function(String path, List<int> data)? assetUpdated,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -246,9 +255,9 @@ mixin _$DocumentEvent {
     TResult Function(ViewOption view)? viewChanged,
     TResult Function(UtilitiesState state)? utilitiesChanged,
     TResult Function(List<PadElement> elements)? elementsCreated,
-    TResult Function(Map<int, List<PadElement>> elements)? elementsChanged,
-    TResult Function(List<int> elements)? elementsRemoved,
-    TResult Function(Arrangement arrangement, List<int> elements)?
+    TResult Function(Map<String, List<PadElement>> elements)? elementsChanged,
+    TResult Function(List<String> elements)? elementsRemoved,
+    TResult Function(Arrangement arrangement, List<String> elements)?
         elementsArranged,
     TResult Function(String? name, String? description)?
         documentDescriptionChanged,
@@ -259,14 +268,15 @@ mixin _$DocumentEvent {
     TResult Function(int oldIndex, int newIndex)? toolReordered,
     TResult Function(List<Background> backgrounds)? documentBackgroundsChanged,
     TResult Function(Waypoint waypoint)? waypointCreated,
-    TResult Function(int index, String name)? waypointRenamed,
-    TResult Function(int index)? waypointRemoved,
+    TResult Function(String name, Waypoint waypoint)? waypointChanged,
+    TResult Function(String name)? waypointRemoved,
+    TResult Function(String name, int newIndex)? waypointReordered,
     TResult Function(String oldName, String newName)? layerRenamed,
     TResult Function(String name)? layerRemoved,
     TResult Function(String name)? layerElementsRemoved,
     TResult Function(String name)? layerVisibilityChanged,
     TResult Function(String name)? currentLayerChanged,
-    TResult Function(String layer, List<int> elements)? elementsLayerChanged,
+    TResult Function(String layer, List<String> elements)? elementsLayerChanged,
     TResult Function(String directory, String? remote, bool deleteDocument)?
         templateCreated,
     TResult Function(List<Area> areas)? areasCreated,
@@ -287,6 +297,7 @@ mixin _$DocumentEvent {
         presentationModeEntered,
     TResult Function()? presentationModeExited,
     TResult Function(int tick)? presentationTick,
+    TResult Function(String path, List<int> data)? assetUpdated,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -314,8 +325,9 @@ mixin _$DocumentEvent {
     required TResult Function(DocumentBackgroundsChanged value)
         documentBackgroundsChanged,
     required TResult Function(WaypointCreated value) waypointCreated,
-    required TResult Function(WaypointRenamed value) waypointRenamed,
+    required TResult Function(WaypointChanged value) waypointChanged,
     required TResult Function(WaypointRemoved value) waypointRemoved,
+    required TResult Function(WaypointReordered value) waypointReordered,
     required TResult Function(LayerRenamed value) layerRenamed,
     required TResult Function(LayerRemoved value) layerRemoved,
     required TResult Function(LayerElementsRemoved value) layerElementsRemoved,
@@ -343,6 +355,7 @@ mixin _$DocumentEvent {
     required TResult Function(PresentationModeExited value)
         presentationModeExited,
     required TResult Function(PresentationTick value) presentationTick,
+    required TResult Function(AssetUpdated value) assetUpdated,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -369,8 +382,9 @@ mixin _$DocumentEvent {
     TResult? Function(DocumentBackgroundsChanged value)?
         documentBackgroundsChanged,
     TResult? Function(WaypointCreated value)? waypointCreated,
-    TResult? Function(WaypointRenamed value)? waypointRenamed,
+    TResult? Function(WaypointChanged value)? waypointChanged,
     TResult? Function(WaypointRemoved value)? waypointRemoved,
+    TResult? Function(WaypointReordered value)? waypointReordered,
     TResult? Function(LayerRenamed value)? layerRenamed,
     TResult? Function(LayerRemoved value)? layerRemoved,
     TResult? Function(LayerElementsRemoved value)? layerElementsRemoved,
@@ -395,6 +409,7 @@ mixin _$DocumentEvent {
     TResult? Function(PresentationModeEntered value)? presentationModeEntered,
     TResult? Function(PresentationModeExited value)? presentationModeExited,
     TResult? Function(PresentationTick value)? presentationTick,
+    TResult? Function(AssetUpdated value)? assetUpdated,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -421,8 +436,9 @@ mixin _$DocumentEvent {
     TResult Function(DocumentBackgroundsChanged value)?
         documentBackgroundsChanged,
     TResult Function(WaypointCreated value)? waypointCreated,
-    TResult Function(WaypointRenamed value)? waypointRenamed,
+    TResult Function(WaypointChanged value)? waypointChanged,
     TResult Function(WaypointRemoved value)? waypointRemoved,
+    TResult Function(WaypointReordered value)? waypointReordered,
     TResult Function(LayerRenamed value)? layerRenamed,
     TResult Function(LayerRemoved value)? layerRemoved,
     TResult Function(LayerElementsRemoved value)? layerElementsRemoved,
@@ -447,6 +463,7 @@ mixin _$DocumentEvent {
     TResult Function(PresentationModeEntered value)? presentationModeEntered,
     TResult Function(PresentationModeExited value)? presentationModeExited,
     TResult Function(PresentationTick value)? presentationTick,
+    TResult Function(AssetUpdated value)? assetUpdated,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -576,10 +593,10 @@ class _$PageAddedImpl extends PageAdded {
     required TResult Function(ViewOption view) viewChanged,
     required TResult Function(UtilitiesState state) utilitiesChanged,
     required TResult Function(List<PadElement> elements) elementsCreated,
-    required TResult Function(Map<int, List<PadElement>> elements)
+    required TResult Function(Map<String, List<PadElement>> elements)
         elementsChanged,
-    required TResult Function(List<int> elements) elementsRemoved,
-    required TResult Function(Arrangement arrangement, List<int> elements)
+    required TResult Function(List<String> elements) elementsRemoved,
+    required TResult Function(Arrangement arrangement, List<String> elements)
         elementsArranged,
     required TResult Function(String? name, String? description)
         documentDescriptionChanged,
@@ -591,14 +608,15 @@ class _$PageAddedImpl extends PageAdded {
     required TResult Function(List<Background> backgrounds)
         documentBackgroundsChanged,
     required TResult Function(Waypoint waypoint) waypointCreated,
-    required TResult Function(int index, String name) waypointRenamed,
-    required TResult Function(int index) waypointRemoved,
+    required TResult Function(String name, Waypoint waypoint) waypointChanged,
+    required TResult Function(String name) waypointRemoved,
+    required TResult Function(String name, int newIndex) waypointReordered,
     required TResult Function(String oldName, String newName) layerRenamed,
     required TResult Function(String name) layerRemoved,
     required TResult Function(String name) layerElementsRemoved,
     required TResult Function(String name) layerVisibilityChanged,
     required TResult Function(String name) currentLayerChanged,
-    required TResult Function(String layer, List<int> elements)
+    required TResult Function(String layer, List<String> elements)
         elementsLayerChanged,
     required TResult Function(
             String directory, String? remote, bool deleteDocument)
@@ -624,6 +642,7 @@ class _$PageAddedImpl extends PageAdded {
         presentationModeEntered,
     required TResult Function() presentationModeExited,
     required TResult Function(int tick) presentationTick,
+    required TResult Function(String path, List<int> data) assetUpdated,
   }) {
     return pageAdded(index, page);
   }
@@ -641,9 +660,9 @@ class _$PageAddedImpl extends PageAdded {
     TResult? Function(ViewOption view)? viewChanged,
     TResult? Function(UtilitiesState state)? utilitiesChanged,
     TResult? Function(List<PadElement> elements)? elementsCreated,
-    TResult? Function(Map<int, List<PadElement>> elements)? elementsChanged,
-    TResult? Function(List<int> elements)? elementsRemoved,
-    TResult? Function(Arrangement arrangement, List<int> elements)?
+    TResult? Function(Map<String, List<PadElement>> elements)? elementsChanged,
+    TResult? Function(List<String> elements)? elementsRemoved,
+    TResult? Function(Arrangement arrangement, List<String> elements)?
         elementsArranged,
     TResult? Function(String? name, String? description)?
         documentDescriptionChanged,
@@ -654,14 +673,16 @@ class _$PageAddedImpl extends PageAdded {
     TResult? Function(int oldIndex, int newIndex)? toolReordered,
     TResult? Function(List<Background> backgrounds)? documentBackgroundsChanged,
     TResult? Function(Waypoint waypoint)? waypointCreated,
-    TResult? Function(int index, String name)? waypointRenamed,
-    TResult? Function(int index)? waypointRemoved,
+    TResult? Function(String name, Waypoint waypoint)? waypointChanged,
+    TResult? Function(String name)? waypointRemoved,
+    TResult? Function(String name, int newIndex)? waypointReordered,
     TResult? Function(String oldName, String newName)? layerRenamed,
     TResult? Function(String name)? layerRemoved,
     TResult? Function(String name)? layerElementsRemoved,
     TResult? Function(String name)? layerVisibilityChanged,
     TResult? Function(String name)? currentLayerChanged,
-    TResult? Function(String layer, List<int> elements)? elementsLayerChanged,
+    TResult? Function(String layer, List<String> elements)?
+        elementsLayerChanged,
     TResult? Function(String directory, String? remote, bool deleteDocument)?
         templateCreated,
     TResult? Function(List<Area> areas)? areasCreated,
@@ -682,6 +703,7 @@ class _$PageAddedImpl extends PageAdded {
         presentationModeEntered,
     TResult? Function()? presentationModeExited,
     TResult? Function(int tick)? presentationTick,
+    TResult? Function(String path, List<int> data)? assetUpdated,
   }) {
     return pageAdded?.call(index, page);
   }
@@ -699,9 +721,9 @@ class _$PageAddedImpl extends PageAdded {
     TResult Function(ViewOption view)? viewChanged,
     TResult Function(UtilitiesState state)? utilitiesChanged,
     TResult Function(List<PadElement> elements)? elementsCreated,
-    TResult Function(Map<int, List<PadElement>> elements)? elementsChanged,
-    TResult Function(List<int> elements)? elementsRemoved,
-    TResult Function(Arrangement arrangement, List<int> elements)?
+    TResult Function(Map<String, List<PadElement>> elements)? elementsChanged,
+    TResult Function(List<String> elements)? elementsRemoved,
+    TResult Function(Arrangement arrangement, List<String> elements)?
         elementsArranged,
     TResult Function(String? name, String? description)?
         documentDescriptionChanged,
@@ -712,14 +734,15 @@ class _$PageAddedImpl extends PageAdded {
     TResult Function(int oldIndex, int newIndex)? toolReordered,
     TResult Function(List<Background> backgrounds)? documentBackgroundsChanged,
     TResult Function(Waypoint waypoint)? waypointCreated,
-    TResult Function(int index, String name)? waypointRenamed,
-    TResult Function(int index)? waypointRemoved,
+    TResult Function(String name, Waypoint waypoint)? waypointChanged,
+    TResult Function(String name)? waypointRemoved,
+    TResult Function(String name, int newIndex)? waypointReordered,
     TResult Function(String oldName, String newName)? layerRenamed,
     TResult Function(String name)? layerRemoved,
     TResult Function(String name)? layerElementsRemoved,
     TResult Function(String name)? layerVisibilityChanged,
     TResult Function(String name)? currentLayerChanged,
-    TResult Function(String layer, List<int> elements)? elementsLayerChanged,
+    TResult Function(String layer, List<String> elements)? elementsLayerChanged,
     TResult Function(String directory, String? remote, bool deleteDocument)?
         templateCreated,
     TResult Function(List<Area> areas)? areasCreated,
@@ -740,6 +763,7 @@ class _$PageAddedImpl extends PageAdded {
         presentationModeEntered,
     TResult Function()? presentationModeExited,
     TResult Function(int tick)? presentationTick,
+    TResult Function(String path, List<int> data)? assetUpdated,
     required TResult orElse(),
   }) {
     if (pageAdded != null) {
@@ -773,8 +797,9 @@ class _$PageAddedImpl extends PageAdded {
     required TResult Function(DocumentBackgroundsChanged value)
         documentBackgroundsChanged,
     required TResult Function(WaypointCreated value) waypointCreated,
-    required TResult Function(WaypointRenamed value) waypointRenamed,
+    required TResult Function(WaypointChanged value) waypointChanged,
     required TResult Function(WaypointRemoved value) waypointRemoved,
+    required TResult Function(WaypointReordered value) waypointReordered,
     required TResult Function(LayerRenamed value) layerRenamed,
     required TResult Function(LayerRemoved value) layerRemoved,
     required TResult Function(LayerElementsRemoved value) layerElementsRemoved,
@@ -802,6 +827,7 @@ class _$PageAddedImpl extends PageAdded {
     required TResult Function(PresentationModeExited value)
         presentationModeExited,
     required TResult Function(PresentationTick value) presentationTick,
+    required TResult Function(AssetUpdated value) assetUpdated,
   }) {
     return pageAdded(this);
   }
@@ -831,8 +857,9 @@ class _$PageAddedImpl extends PageAdded {
     TResult? Function(DocumentBackgroundsChanged value)?
         documentBackgroundsChanged,
     TResult? Function(WaypointCreated value)? waypointCreated,
-    TResult? Function(WaypointRenamed value)? waypointRenamed,
+    TResult? Function(WaypointChanged value)? waypointChanged,
     TResult? Function(WaypointRemoved value)? waypointRemoved,
+    TResult? Function(WaypointReordered value)? waypointReordered,
     TResult? Function(LayerRenamed value)? layerRenamed,
     TResult? Function(LayerRemoved value)? layerRemoved,
     TResult? Function(LayerElementsRemoved value)? layerElementsRemoved,
@@ -857,6 +884,7 @@ class _$PageAddedImpl extends PageAdded {
     TResult? Function(PresentationModeEntered value)? presentationModeEntered,
     TResult? Function(PresentationModeExited value)? presentationModeExited,
     TResult? Function(PresentationTick value)? presentationTick,
+    TResult? Function(AssetUpdated value)? assetUpdated,
   }) {
     return pageAdded?.call(this);
   }
@@ -886,8 +914,9 @@ class _$PageAddedImpl extends PageAdded {
     TResult Function(DocumentBackgroundsChanged value)?
         documentBackgroundsChanged,
     TResult Function(WaypointCreated value)? waypointCreated,
-    TResult Function(WaypointRenamed value)? waypointRenamed,
+    TResult Function(WaypointChanged value)? waypointChanged,
     TResult Function(WaypointRemoved value)? waypointRemoved,
+    TResult Function(WaypointReordered value)? waypointReordered,
     TResult Function(LayerRenamed value)? layerRenamed,
     TResult Function(LayerRemoved value)? layerRemoved,
     TResult Function(LayerElementsRemoved value)? layerElementsRemoved,
@@ -912,6 +941,7 @@ class _$PageAddedImpl extends PageAdded {
     TResult Function(PresentationModeEntered value)? presentationModeEntered,
     TResult Function(PresentationModeExited value)? presentationModeExited,
     TResult Function(PresentationTick value)? presentationTick,
+    TResult Function(AssetUpdated value)? assetUpdated,
     required TResult orElse(),
   }) {
     if (pageAdded != null) {
@@ -1027,10 +1057,10 @@ class _$PageChangedImpl extends PageChanged {
     required TResult Function(ViewOption view) viewChanged,
     required TResult Function(UtilitiesState state) utilitiesChanged,
     required TResult Function(List<PadElement> elements) elementsCreated,
-    required TResult Function(Map<int, List<PadElement>> elements)
+    required TResult Function(Map<String, List<PadElement>> elements)
         elementsChanged,
-    required TResult Function(List<int> elements) elementsRemoved,
-    required TResult Function(Arrangement arrangement, List<int> elements)
+    required TResult Function(List<String> elements) elementsRemoved,
+    required TResult Function(Arrangement arrangement, List<String> elements)
         elementsArranged,
     required TResult Function(String? name, String? description)
         documentDescriptionChanged,
@@ -1042,14 +1072,15 @@ class _$PageChangedImpl extends PageChanged {
     required TResult Function(List<Background> backgrounds)
         documentBackgroundsChanged,
     required TResult Function(Waypoint waypoint) waypointCreated,
-    required TResult Function(int index, String name) waypointRenamed,
-    required TResult Function(int index) waypointRemoved,
+    required TResult Function(String name, Waypoint waypoint) waypointChanged,
+    required TResult Function(String name) waypointRemoved,
+    required TResult Function(String name, int newIndex) waypointReordered,
     required TResult Function(String oldName, String newName) layerRenamed,
     required TResult Function(String name) layerRemoved,
     required TResult Function(String name) layerElementsRemoved,
     required TResult Function(String name) layerVisibilityChanged,
     required TResult Function(String name) currentLayerChanged,
-    required TResult Function(String layer, List<int> elements)
+    required TResult Function(String layer, List<String> elements)
         elementsLayerChanged,
     required TResult Function(
             String directory, String? remote, bool deleteDocument)
@@ -1075,6 +1106,7 @@ class _$PageChangedImpl extends PageChanged {
         presentationModeEntered,
     required TResult Function() presentationModeExited,
     required TResult Function(int tick) presentationTick,
+    required TResult Function(String path, List<int> data) assetUpdated,
   }) {
     return pageChanged(pageName);
   }
@@ -1092,9 +1124,9 @@ class _$PageChangedImpl extends PageChanged {
     TResult? Function(ViewOption view)? viewChanged,
     TResult? Function(UtilitiesState state)? utilitiesChanged,
     TResult? Function(List<PadElement> elements)? elementsCreated,
-    TResult? Function(Map<int, List<PadElement>> elements)? elementsChanged,
-    TResult? Function(List<int> elements)? elementsRemoved,
-    TResult? Function(Arrangement arrangement, List<int> elements)?
+    TResult? Function(Map<String, List<PadElement>> elements)? elementsChanged,
+    TResult? Function(List<String> elements)? elementsRemoved,
+    TResult? Function(Arrangement arrangement, List<String> elements)?
         elementsArranged,
     TResult? Function(String? name, String? description)?
         documentDescriptionChanged,
@@ -1105,14 +1137,16 @@ class _$PageChangedImpl extends PageChanged {
     TResult? Function(int oldIndex, int newIndex)? toolReordered,
     TResult? Function(List<Background> backgrounds)? documentBackgroundsChanged,
     TResult? Function(Waypoint waypoint)? waypointCreated,
-    TResult? Function(int index, String name)? waypointRenamed,
-    TResult? Function(int index)? waypointRemoved,
+    TResult? Function(String name, Waypoint waypoint)? waypointChanged,
+    TResult? Function(String name)? waypointRemoved,
+    TResult? Function(String name, int newIndex)? waypointReordered,
     TResult? Function(String oldName, String newName)? layerRenamed,
     TResult? Function(String name)? layerRemoved,
     TResult? Function(String name)? layerElementsRemoved,
     TResult? Function(String name)? layerVisibilityChanged,
     TResult? Function(String name)? currentLayerChanged,
-    TResult? Function(String layer, List<int> elements)? elementsLayerChanged,
+    TResult? Function(String layer, List<String> elements)?
+        elementsLayerChanged,
     TResult? Function(String directory, String? remote, bool deleteDocument)?
         templateCreated,
     TResult? Function(List<Area> areas)? areasCreated,
@@ -1133,6 +1167,7 @@ class _$PageChangedImpl extends PageChanged {
         presentationModeEntered,
     TResult? Function()? presentationModeExited,
     TResult? Function(int tick)? presentationTick,
+    TResult? Function(String path, List<int> data)? assetUpdated,
   }) {
     return pageChanged?.call(pageName);
   }
@@ -1150,9 +1185,9 @@ class _$PageChangedImpl extends PageChanged {
     TResult Function(ViewOption view)? viewChanged,
     TResult Function(UtilitiesState state)? utilitiesChanged,
     TResult Function(List<PadElement> elements)? elementsCreated,
-    TResult Function(Map<int, List<PadElement>> elements)? elementsChanged,
-    TResult Function(List<int> elements)? elementsRemoved,
-    TResult Function(Arrangement arrangement, List<int> elements)?
+    TResult Function(Map<String, List<PadElement>> elements)? elementsChanged,
+    TResult Function(List<String> elements)? elementsRemoved,
+    TResult Function(Arrangement arrangement, List<String> elements)?
         elementsArranged,
     TResult Function(String? name, String? description)?
         documentDescriptionChanged,
@@ -1163,14 +1198,15 @@ class _$PageChangedImpl extends PageChanged {
     TResult Function(int oldIndex, int newIndex)? toolReordered,
     TResult Function(List<Background> backgrounds)? documentBackgroundsChanged,
     TResult Function(Waypoint waypoint)? waypointCreated,
-    TResult Function(int index, String name)? waypointRenamed,
-    TResult Function(int index)? waypointRemoved,
+    TResult Function(String name, Waypoint waypoint)? waypointChanged,
+    TResult Function(String name)? waypointRemoved,
+    TResult Function(String name, int newIndex)? waypointReordered,
     TResult Function(String oldName, String newName)? layerRenamed,
     TResult Function(String name)? layerRemoved,
     TResult Function(String name)? layerElementsRemoved,
     TResult Function(String name)? layerVisibilityChanged,
     TResult Function(String name)? currentLayerChanged,
-    TResult Function(String layer, List<int> elements)? elementsLayerChanged,
+    TResult Function(String layer, List<String> elements)? elementsLayerChanged,
     TResult Function(String directory, String? remote, bool deleteDocument)?
         templateCreated,
     TResult Function(List<Area> areas)? areasCreated,
@@ -1191,6 +1227,7 @@ class _$PageChangedImpl extends PageChanged {
         presentationModeEntered,
     TResult Function()? presentationModeExited,
     TResult Function(int tick)? presentationTick,
+    TResult Function(String path, List<int> data)? assetUpdated,
     required TResult orElse(),
   }) {
     if (pageChanged != null) {
@@ -1224,8 +1261,9 @@ class _$PageChangedImpl extends PageChanged {
     required TResult Function(DocumentBackgroundsChanged value)
         documentBackgroundsChanged,
     required TResult Function(WaypointCreated value) waypointCreated,
-    required TResult Function(WaypointRenamed value) waypointRenamed,
+    required TResult Function(WaypointChanged value) waypointChanged,
     required TResult Function(WaypointRemoved value) waypointRemoved,
+    required TResult Function(WaypointReordered value) waypointReordered,
     required TResult Function(LayerRenamed value) layerRenamed,
     required TResult Function(LayerRemoved value) layerRemoved,
     required TResult Function(LayerElementsRemoved value) layerElementsRemoved,
@@ -1253,6 +1291,7 @@ class _$PageChangedImpl extends PageChanged {
     required TResult Function(PresentationModeExited value)
         presentationModeExited,
     required TResult Function(PresentationTick value) presentationTick,
+    required TResult Function(AssetUpdated value) assetUpdated,
   }) {
     return pageChanged(this);
   }
@@ -1282,8 +1321,9 @@ class _$PageChangedImpl extends PageChanged {
     TResult? Function(DocumentBackgroundsChanged value)?
         documentBackgroundsChanged,
     TResult? Function(WaypointCreated value)? waypointCreated,
-    TResult? Function(WaypointRenamed value)? waypointRenamed,
+    TResult? Function(WaypointChanged value)? waypointChanged,
     TResult? Function(WaypointRemoved value)? waypointRemoved,
+    TResult? Function(WaypointReordered value)? waypointReordered,
     TResult? Function(LayerRenamed value)? layerRenamed,
     TResult? Function(LayerRemoved value)? layerRemoved,
     TResult? Function(LayerElementsRemoved value)? layerElementsRemoved,
@@ -1308,6 +1348,7 @@ class _$PageChangedImpl extends PageChanged {
     TResult? Function(PresentationModeEntered value)? presentationModeEntered,
     TResult? Function(PresentationModeExited value)? presentationModeExited,
     TResult? Function(PresentationTick value)? presentationTick,
+    TResult? Function(AssetUpdated value)? assetUpdated,
   }) {
     return pageChanged?.call(this);
   }
@@ -1337,8 +1378,9 @@ class _$PageChangedImpl extends PageChanged {
     TResult Function(DocumentBackgroundsChanged value)?
         documentBackgroundsChanged,
     TResult Function(WaypointCreated value)? waypointCreated,
-    TResult Function(WaypointRenamed value)? waypointRenamed,
+    TResult Function(WaypointChanged value)? waypointChanged,
     TResult Function(WaypointRemoved value)? waypointRemoved,
+    TResult Function(WaypointReordered value)? waypointReordered,
     TResult Function(LayerRenamed value)? layerRenamed,
     TResult Function(LayerRemoved value)? layerRemoved,
     TResult Function(LayerElementsRemoved value)? layerElementsRemoved,
@@ -1363,6 +1405,7 @@ class _$PageChangedImpl extends PageChanged {
     TResult Function(PresentationModeEntered value)? presentationModeEntered,
     TResult Function(PresentationModeExited value)? presentationModeExited,
     TResult Function(PresentationTick value)? presentationTick,
+    TResult Function(AssetUpdated value)? assetUpdated,
     required TResult orElse(),
   }) {
     if (pageChanged != null) {
@@ -1484,10 +1527,10 @@ class _$PageReorderedImpl extends PageReordered {
     required TResult Function(ViewOption view) viewChanged,
     required TResult Function(UtilitiesState state) utilitiesChanged,
     required TResult Function(List<PadElement> elements) elementsCreated,
-    required TResult Function(Map<int, List<PadElement>> elements)
+    required TResult Function(Map<String, List<PadElement>> elements)
         elementsChanged,
-    required TResult Function(List<int> elements) elementsRemoved,
-    required TResult Function(Arrangement arrangement, List<int> elements)
+    required TResult Function(List<String> elements) elementsRemoved,
+    required TResult Function(Arrangement arrangement, List<String> elements)
         elementsArranged,
     required TResult Function(String? name, String? description)
         documentDescriptionChanged,
@@ -1499,14 +1542,15 @@ class _$PageReorderedImpl extends PageReordered {
     required TResult Function(List<Background> backgrounds)
         documentBackgroundsChanged,
     required TResult Function(Waypoint waypoint) waypointCreated,
-    required TResult Function(int index, String name) waypointRenamed,
-    required TResult Function(int index) waypointRemoved,
+    required TResult Function(String name, Waypoint waypoint) waypointChanged,
+    required TResult Function(String name) waypointRemoved,
+    required TResult Function(String name, int newIndex) waypointReordered,
     required TResult Function(String oldName, String newName) layerRenamed,
     required TResult Function(String name) layerRemoved,
     required TResult Function(String name) layerElementsRemoved,
     required TResult Function(String name) layerVisibilityChanged,
     required TResult Function(String name) currentLayerChanged,
-    required TResult Function(String layer, List<int> elements)
+    required TResult Function(String layer, List<String> elements)
         elementsLayerChanged,
     required TResult Function(
             String directory, String? remote, bool deleteDocument)
@@ -1532,6 +1576,7 @@ class _$PageReorderedImpl extends PageReordered {
         presentationModeEntered,
     required TResult Function() presentationModeExited,
     required TResult Function(int tick) presentationTick,
+    required TResult Function(String path, List<int> data) assetUpdated,
   }) {
     return pageReordered(page, newIndex);
   }
@@ -1549,9 +1594,9 @@ class _$PageReorderedImpl extends PageReordered {
     TResult? Function(ViewOption view)? viewChanged,
     TResult? Function(UtilitiesState state)? utilitiesChanged,
     TResult? Function(List<PadElement> elements)? elementsCreated,
-    TResult? Function(Map<int, List<PadElement>> elements)? elementsChanged,
-    TResult? Function(List<int> elements)? elementsRemoved,
-    TResult? Function(Arrangement arrangement, List<int> elements)?
+    TResult? Function(Map<String, List<PadElement>> elements)? elementsChanged,
+    TResult? Function(List<String> elements)? elementsRemoved,
+    TResult? Function(Arrangement arrangement, List<String> elements)?
         elementsArranged,
     TResult? Function(String? name, String? description)?
         documentDescriptionChanged,
@@ -1562,14 +1607,16 @@ class _$PageReorderedImpl extends PageReordered {
     TResult? Function(int oldIndex, int newIndex)? toolReordered,
     TResult? Function(List<Background> backgrounds)? documentBackgroundsChanged,
     TResult? Function(Waypoint waypoint)? waypointCreated,
-    TResult? Function(int index, String name)? waypointRenamed,
-    TResult? Function(int index)? waypointRemoved,
+    TResult? Function(String name, Waypoint waypoint)? waypointChanged,
+    TResult? Function(String name)? waypointRemoved,
+    TResult? Function(String name, int newIndex)? waypointReordered,
     TResult? Function(String oldName, String newName)? layerRenamed,
     TResult? Function(String name)? layerRemoved,
     TResult? Function(String name)? layerElementsRemoved,
     TResult? Function(String name)? layerVisibilityChanged,
     TResult? Function(String name)? currentLayerChanged,
-    TResult? Function(String layer, List<int> elements)? elementsLayerChanged,
+    TResult? Function(String layer, List<String> elements)?
+        elementsLayerChanged,
     TResult? Function(String directory, String? remote, bool deleteDocument)?
         templateCreated,
     TResult? Function(List<Area> areas)? areasCreated,
@@ -1590,6 +1637,7 @@ class _$PageReorderedImpl extends PageReordered {
         presentationModeEntered,
     TResult? Function()? presentationModeExited,
     TResult? Function(int tick)? presentationTick,
+    TResult? Function(String path, List<int> data)? assetUpdated,
   }) {
     return pageReordered?.call(page, newIndex);
   }
@@ -1607,9 +1655,9 @@ class _$PageReorderedImpl extends PageReordered {
     TResult Function(ViewOption view)? viewChanged,
     TResult Function(UtilitiesState state)? utilitiesChanged,
     TResult Function(List<PadElement> elements)? elementsCreated,
-    TResult Function(Map<int, List<PadElement>> elements)? elementsChanged,
-    TResult Function(List<int> elements)? elementsRemoved,
-    TResult Function(Arrangement arrangement, List<int> elements)?
+    TResult Function(Map<String, List<PadElement>> elements)? elementsChanged,
+    TResult Function(List<String> elements)? elementsRemoved,
+    TResult Function(Arrangement arrangement, List<String> elements)?
         elementsArranged,
     TResult Function(String? name, String? description)?
         documentDescriptionChanged,
@@ -1620,14 +1668,15 @@ class _$PageReorderedImpl extends PageReordered {
     TResult Function(int oldIndex, int newIndex)? toolReordered,
     TResult Function(List<Background> backgrounds)? documentBackgroundsChanged,
     TResult Function(Waypoint waypoint)? waypointCreated,
-    TResult Function(int index, String name)? waypointRenamed,
-    TResult Function(int index)? waypointRemoved,
+    TResult Function(String name, Waypoint waypoint)? waypointChanged,
+    TResult Function(String name)? waypointRemoved,
+    TResult Function(String name, int newIndex)? waypointReordered,
     TResult Function(String oldName, String newName)? layerRenamed,
     TResult Function(String name)? layerRemoved,
     TResult Function(String name)? layerElementsRemoved,
     TResult Function(String name)? layerVisibilityChanged,
     TResult Function(String name)? currentLayerChanged,
-    TResult Function(String layer, List<int> elements)? elementsLayerChanged,
+    TResult Function(String layer, List<String> elements)? elementsLayerChanged,
     TResult Function(String directory, String? remote, bool deleteDocument)?
         templateCreated,
     TResult Function(List<Area> areas)? areasCreated,
@@ -1648,6 +1697,7 @@ class _$PageReorderedImpl extends PageReordered {
         presentationModeEntered,
     TResult Function()? presentationModeExited,
     TResult Function(int tick)? presentationTick,
+    TResult Function(String path, List<int> data)? assetUpdated,
     required TResult orElse(),
   }) {
     if (pageReordered != null) {
@@ -1681,8 +1731,9 @@ class _$PageReorderedImpl extends PageReordered {
     required TResult Function(DocumentBackgroundsChanged value)
         documentBackgroundsChanged,
     required TResult Function(WaypointCreated value) waypointCreated,
-    required TResult Function(WaypointRenamed value) waypointRenamed,
+    required TResult Function(WaypointChanged value) waypointChanged,
     required TResult Function(WaypointRemoved value) waypointRemoved,
+    required TResult Function(WaypointReordered value) waypointReordered,
     required TResult Function(LayerRenamed value) layerRenamed,
     required TResult Function(LayerRemoved value) layerRemoved,
     required TResult Function(LayerElementsRemoved value) layerElementsRemoved,
@@ -1710,6 +1761,7 @@ class _$PageReorderedImpl extends PageReordered {
     required TResult Function(PresentationModeExited value)
         presentationModeExited,
     required TResult Function(PresentationTick value) presentationTick,
+    required TResult Function(AssetUpdated value) assetUpdated,
   }) {
     return pageReordered(this);
   }
@@ -1739,8 +1791,9 @@ class _$PageReorderedImpl extends PageReordered {
     TResult? Function(DocumentBackgroundsChanged value)?
         documentBackgroundsChanged,
     TResult? Function(WaypointCreated value)? waypointCreated,
-    TResult? Function(WaypointRenamed value)? waypointRenamed,
+    TResult? Function(WaypointChanged value)? waypointChanged,
     TResult? Function(WaypointRemoved value)? waypointRemoved,
+    TResult? Function(WaypointReordered value)? waypointReordered,
     TResult? Function(LayerRenamed value)? layerRenamed,
     TResult? Function(LayerRemoved value)? layerRemoved,
     TResult? Function(LayerElementsRemoved value)? layerElementsRemoved,
@@ -1765,6 +1818,7 @@ class _$PageReorderedImpl extends PageReordered {
     TResult? Function(PresentationModeEntered value)? presentationModeEntered,
     TResult? Function(PresentationModeExited value)? presentationModeExited,
     TResult? Function(PresentationTick value)? presentationTick,
+    TResult? Function(AssetUpdated value)? assetUpdated,
   }) {
     return pageReordered?.call(this);
   }
@@ -1794,8 +1848,9 @@ class _$PageReorderedImpl extends PageReordered {
     TResult Function(DocumentBackgroundsChanged value)?
         documentBackgroundsChanged,
     TResult Function(WaypointCreated value)? waypointCreated,
-    TResult Function(WaypointRenamed value)? waypointRenamed,
+    TResult Function(WaypointChanged value)? waypointChanged,
     TResult Function(WaypointRemoved value)? waypointRemoved,
+    TResult Function(WaypointReordered value)? waypointReordered,
     TResult Function(LayerRenamed value)? layerRenamed,
     TResult Function(LayerRemoved value)? layerRemoved,
     TResult Function(LayerElementsRemoved value)? layerElementsRemoved,
@@ -1820,6 +1875,7 @@ class _$PageReorderedImpl extends PageReordered {
     TResult Function(PresentationModeEntered value)? presentationModeEntered,
     TResult Function(PresentationModeExited value)? presentationModeExited,
     TResult Function(PresentationTick value)? presentationTick,
+    TResult Function(AssetUpdated value)? assetUpdated,
     required TResult orElse(),
   }) {
     if (pageReordered != null) {
@@ -1942,10 +1998,10 @@ class _$PageRenamedImpl extends PageRenamed {
     required TResult Function(ViewOption view) viewChanged,
     required TResult Function(UtilitiesState state) utilitiesChanged,
     required TResult Function(List<PadElement> elements) elementsCreated,
-    required TResult Function(Map<int, List<PadElement>> elements)
+    required TResult Function(Map<String, List<PadElement>> elements)
         elementsChanged,
-    required TResult Function(List<int> elements) elementsRemoved,
-    required TResult Function(Arrangement arrangement, List<int> elements)
+    required TResult Function(List<String> elements) elementsRemoved,
+    required TResult Function(Arrangement arrangement, List<String> elements)
         elementsArranged,
     required TResult Function(String? name, String? description)
         documentDescriptionChanged,
@@ -1957,14 +2013,15 @@ class _$PageRenamedImpl extends PageRenamed {
     required TResult Function(List<Background> backgrounds)
         documentBackgroundsChanged,
     required TResult Function(Waypoint waypoint) waypointCreated,
-    required TResult Function(int index, String name) waypointRenamed,
-    required TResult Function(int index) waypointRemoved,
+    required TResult Function(String name, Waypoint waypoint) waypointChanged,
+    required TResult Function(String name) waypointRemoved,
+    required TResult Function(String name, int newIndex) waypointReordered,
     required TResult Function(String oldName, String newName) layerRenamed,
     required TResult Function(String name) layerRemoved,
     required TResult Function(String name) layerElementsRemoved,
     required TResult Function(String name) layerVisibilityChanged,
     required TResult Function(String name) currentLayerChanged,
-    required TResult Function(String layer, List<int> elements)
+    required TResult Function(String layer, List<String> elements)
         elementsLayerChanged,
     required TResult Function(
             String directory, String? remote, bool deleteDocument)
@@ -1990,6 +2047,7 @@ class _$PageRenamedImpl extends PageRenamed {
         presentationModeEntered,
     required TResult Function() presentationModeExited,
     required TResult Function(int tick) presentationTick,
+    required TResult Function(String path, List<int> data) assetUpdated,
   }) {
     return pageRenamed(oldName, newName);
   }
@@ -2007,9 +2065,9 @@ class _$PageRenamedImpl extends PageRenamed {
     TResult? Function(ViewOption view)? viewChanged,
     TResult? Function(UtilitiesState state)? utilitiesChanged,
     TResult? Function(List<PadElement> elements)? elementsCreated,
-    TResult? Function(Map<int, List<PadElement>> elements)? elementsChanged,
-    TResult? Function(List<int> elements)? elementsRemoved,
-    TResult? Function(Arrangement arrangement, List<int> elements)?
+    TResult? Function(Map<String, List<PadElement>> elements)? elementsChanged,
+    TResult? Function(List<String> elements)? elementsRemoved,
+    TResult? Function(Arrangement arrangement, List<String> elements)?
         elementsArranged,
     TResult? Function(String? name, String? description)?
         documentDescriptionChanged,
@@ -2020,14 +2078,16 @@ class _$PageRenamedImpl extends PageRenamed {
     TResult? Function(int oldIndex, int newIndex)? toolReordered,
     TResult? Function(List<Background> backgrounds)? documentBackgroundsChanged,
     TResult? Function(Waypoint waypoint)? waypointCreated,
-    TResult? Function(int index, String name)? waypointRenamed,
-    TResult? Function(int index)? waypointRemoved,
+    TResult? Function(String name, Waypoint waypoint)? waypointChanged,
+    TResult? Function(String name)? waypointRemoved,
+    TResult? Function(String name, int newIndex)? waypointReordered,
     TResult? Function(String oldName, String newName)? layerRenamed,
     TResult? Function(String name)? layerRemoved,
     TResult? Function(String name)? layerElementsRemoved,
     TResult? Function(String name)? layerVisibilityChanged,
     TResult? Function(String name)? currentLayerChanged,
-    TResult? Function(String layer, List<int> elements)? elementsLayerChanged,
+    TResult? Function(String layer, List<String> elements)?
+        elementsLayerChanged,
     TResult? Function(String directory, String? remote, bool deleteDocument)?
         templateCreated,
     TResult? Function(List<Area> areas)? areasCreated,
@@ -2048,6 +2108,7 @@ class _$PageRenamedImpl extends PageRenamed {
         presentationModeEntered,
     TResult? Function()? presentationModeExited,
     TResult? Function(int tick)? presentationTick,
+    TResult? Function(String path, List<int> data)? assetUpdated,
   }) {
     return pageRenamed?.call(oldName, newName);
   }
@@ -2065,9 +2126,9 @@ class _$PageRenamedImpl extends PageRenamed {
     TResult Function(ViewOption view)? viewChanged,
     TResult Function(UtilitiesState state)? utilitiesChanged,
     TResult Function(List<PadElement> elements)? elementsCreated,
-    TResult Function(Map<int, List<PadElement>> elements)? elementsChanged,
-    TResult Function(List<int> elements)? elementsRemoved,
-    TResult Function(Arrangement arrangement, List<int> elements)?
+    TResult Function(Map<String, List<PadElement>> elements)? elementsChanged,
+    TResult Function(List<String> elements)? elementsRemoved,
+    TResult Function(Arrangement arrangement, List<String> elements)?
         elementsArranged,
     TResult Function(String? name, String? description)?
         documentDescriptionChanged,
@@ -2078,14 +2139,15 @@ class _$PageRenamedImpl extends PageRenamed {
     TResult Function(int oldIndex, int newIndex)? toolReordered,
     TResult Function(List<Background> backgrounds)? documentBackgroundsChanged,
     TResult Function(Waypoint waypoint)? waypointCreated,
-    TResult Function(int index, String name)? waypointRenamed,
-    TResult Function(int index)? waypointRemoved,
+    TResult Function(String name, Waypoint waypoint)? waypointChanged,
+    TResult Function(String name)? waypointRemoved,
+    TResult Function(String name, int newIndex)? waypointReordered,
     TResult Function(String oldName, String newName)? layerRenamed,
     TResult Function(String name)? layerRemoved,
     TResult Function(String name)? layerElementsRemoved,
     TResult Function(String name)? layerVisibilityChanged,
     TResult Function(String name)? currentLayerChanged,
-    TResult Function(String layer, List<int> elements)? elementsLayerChanged,
+    TResult Function(String layer, List<String> elements)? elementsLayerChanged,
     TResult Function(String directory, String? remote, bool deleteDocument)?
         templateCreated,
     TResult Function(List<Area> areas)? areasCreated,
@@ -2106,6 +2168,7 @@ class _$PageRenamedImpl extends PageRenamed {
         presentationModeEntered,
     TResult Function()? presentationModeExited,
     TResult Function(int tick)? presentationTick,
+    TResult Function(String path, List<int> data)? assetUpdated,
     required TResult orElse(),
   }) {
     if (pageRenamed != null) {
@@ -2139,8 +2202,9 @@ class _$PageRenamedImpl extends PageRenamed {
     required TResult Function(DocumentBackgroundsChanged value)
         documentBackgroundsChanged,
     required TResult Function(WaypointCreated value) waypointCreated,
-    required TResult Function(WaypointRenamed value) waypointRenamed,
+    required TResult Function(WaypointChanged value) waypointChanged,
     required TResult Function(WaypointRemoved value) waypointRemoved,
+    required TResult Function(WaypointReordered value) waypointReordered,
     required TResult Function(LayerRenamed value) layerRenamed,
     required TResult Function(LayerRemoved value) layerRemoved,
     required TResult Function(LayerElementsRemoved value) layerElementsRemoved,
@@ -2168,6 +2232,7 @@ class _$PageRenamedImpl extends PageRenamed {
     required TResult Function(PresentationModeExited value)
         presentationModeExited,
     required TResult Function(PresentationTick value) presentationTick,
+    required TResult Function(AssetUpdated value) assetUpdated,
   }) {
     return pageRenamed(this);
   }
@@ -2197,8 +2262,9 @@ class _$PageRenamedImpl extends PageRenamed {
     TResult? Function(DocumentBackgroundsChanged value)?
         documentBackgroundsChanged,
     TResult? Function(WaypointCreated value)? waypointCreated,
-    TResult? Function(WaypointRenamed value)? waypointRenamed,
+    TResult? Function(WaypointChanged value)? waypointChanged,
     TResult? Function(WaypointRemoved value)? waypointRemoved,
+    TResult? Function(WaypointReordered value)? waypointReordered,
     TResult? Function(LayerRenamed value)? layerRenamed,
     TResult? Function(LayerRemoved value)? layerRemoved,
     TResult? Function(LayerElementsRemoved value)? layerElementsRemoved,
@@ -2223,6 +2289,7 @@ class _$PageRenamedImpl extends PageRenamed {
     TResult? Function(PresentationModeEntered value)? presentationModeEntered,
     TResult? Function(PresentationModeExited value)? presentationModeExited,
     TResult? Function(PresentationTick value)? presentationTick,
+    TResult? Function(AssetUpdated value)? assetUpdated,
   }) {
     return pageRenamed?.call(this);
   }
@@ -2252,8 +2319,9 @@ class _$PageRenamedImpl extends PageRenamed {
     TResult Function(DocumentBackgroundsChanged value)?
         documentBackgroundsChanged,
     TResult Function(WaypointCreated value)? waypointCreated,
-    TResult Function(WaypointRenamed value)? waypointRenamed,
+    TResult Function(WaypointChanged value)? waypointChanged,
     TResult Function(WaypointRemoved value)? waypointRemoved,
+    TResult Function(WaypointReordered value)? waypointReordered,
     TResult Function(LayerRenamed value)? layerRenamed,
     TResult Function(LayerRemoved value)? layerRemoved,
     TResult Function(LayerElementsRemoved value)? layerElementsRemoved,
@@ -2278,6 +2346,7 @@ class _$PageRenamedImpl extends PageRenamed {
     TResult Function(PresentationModeEntered value)? presentationModeEntered,
     TResult Function(PresentationModeExited value)? presentationModeExited,
     TResult Function(PresentationTick value)? presentationTick,
+    TResult Function(AssetUpdated value)? assetUpdated,
     required TResult orElse(),
   }) {
     if (pageRenamed != null) {
@@ -2392,10 +2461,10 @@ class _$PageRemovedImpl extends PageRemoved {
     required TResult Function(ViewOption view) viewChanged,
     required TResult Function(UtilitiesState state) utilitiesChanged,
     required TResult Function(List<PadElement> elements) elementsCreated,
-    required TResult Function(Map<int, List<PadElement>> elements)
+    required TResult Function(Map<String, List<PadElement>> elements)
         elementsChanged,
-    required TResult Function(List<int> elements) elementsRemoved,
-    required TResult Function(Arrangement arrangement, List<int> elements)
+    required TResult Function(List<String> elements) elementsRemoved,
+    required TResult Function(Arrangement arrangement, List<String> elements)
         elementsArranged,
     required TResult Function(String? name, String? description)
         documentDescriptionChanged,
@@ -2407,14 +2476,15 @@ class _$PageRemovedImpl extends PageRemoved {
     required TResult Function(List<Background> backgrounds)
         documentBackgroundsChanged,
     required TResult Function(Waypoint waypoint) waypointCreated,
-    required TResult Function(int index, String name) waypointRenamed,
-    required TResult Function(int index) waypointRemoved,
+    required TResult Function(String name, Waypoint waypoint) waypointChanged,
+    required TResult Function(String name) waypointRemoved,
+    required TResult Function(String name, int newIndex) waypointReordered,
     required TResult Function(String oldName, String newName) layerRenamed,
     required TResult Function(String name) layerRemoved,
     required TResult Function(String name) layerElementsRemoved,
     required TResult Function(String name) layerVisibilityChanged,
     required TResult Function(String name) currentLayerChanged,
-    required TResult Function(String layer, List<int> elements)
+    required TResult Function(String layer, List<String> elements)
         elementsLayerChanged,
     required TResult Function(
             String directory, String? remote, bool deleteDocument)
@@ -2440,6 +2510,7 @@ class _$PageRemovedImpl extends PageRemoved {
         presentationModeEntered,
     required TResult Function() presentationModeExited,
     required TResult Function(int tick) presentationTick,
+    required TResult Function(String path, List<int> data) assetUpdated,
   }) {
     return pageRemoved(page);
   }
@@ -2457,9 +2528,9 @@ class _$PageRemovedImpl extends PageRemoved {
     TResult? Function(ViewOption view)? viewChanged,
     TResult? Function(UtilitiesState state)? utilitiesChanged,
     TResult? Function(List<PadElement> elements)? elementsCreated,
-    TResult? Function(Map<int, List<PadElement>> elements)? elementsChanged,
-    TResult? Function(List<int> elements)? elementsRemoved,
-    TResult? Function(Arrangement arrangement, List<int> elements)?
+    TResult? Function(Map<String, List<PadElement>> elements)? elementsChanged,
+    TResult? Function(List<String> elements)? elementsRemoved,
+    TResult? Function(Arrangement arrangement, List<String> elements)?
         elementsArranged,
     TResult? Function(String? name, String? description)?
         documentDescriptionChanged,
@@ -2470,14 +2541,16 @@ class _$PageRemovedImpl extends PageRemoved {
     TResult? Function(int oldIndex, int newIndex)? toolReordered,
     TResult? Function(List<Background> backgrounds)? documentBackgroundsChanged,
     TResult? Function(Waypoint waypoint)? waypointCreated,
-    TResult? Function(int index, String name)? waypointRenamed,
-    TResult? Function(int index)? waypointRemoved,
+    TResult? Function(String name, Waypoint waypoint)? waypointChanged,
+    TResult? Function(String name)? waypointRemoved,
+    TResult? Function(String name, int newIndex)? waypointReordered,
     TResult? Function(String oldName, String newName)? layerRenamed,
     TResult? Function(String name)? layerRemoved,
     TResult? Function(String name)? layerElementsRemoved,
     TResult? Function(String name)? layerVisibilityChanged,
     TResult? Function(String name)? currentLayerChanged,
-    TResult? Function(String layer, List<int> elements)? elementsLayerChanged,
+    TResult? Function(String layer, List<String> elements)?
+        elementsLayerChanged,
     TResult? Function(String directory, String? remote, bool deleteDocument)?
         templateCreated,
     TResult? Function(List<Area> areas)? areasCreated,
@@ -2498,6 +2571,7 @@ class _$PageRemovedImpl extends PageRemoved {
         presentationModeEntered,
     TResult? Function()? presentationModeExited,
     TResult? Function(int tick)? presentationTick,
+    TResult? Function(String path, List<int> data)? assetUpdated,
   }) {
     return pageRemoved?.call(page);
   }
@@ -2515,9 +2589,9 @@ class _$PageRemovedImpl extends PageRemoved {
     TResult Function(ViewOption view)? viewChanged,
     TResult Function(UtilitiesState state)? utilitiesChanged,
     TResult Function(List<PadElement> elements)? elementsCreated,
-    TResult Function(Map<int, List<PadElement>> elements)? elementsChanged,
-    TResult Function(List<int> elements)? elementsRemoved,
-    TResult Function(Arrangement arrangement, List<int> elements)?
+    TResult Function(Map<String, List<PadElement>> elements)? elementsChanged,
+    TResult Function(List<String> elements)? elementsRemoved,
+    TResult Function(Arrangement arrangement, List<String> elements)?
         elementsArranged,
     TResult Function(String? name, String? description)?
         documentDescriptionChanged,
@@ -2528,14 +2602,15 @@ class _$PageRemovedImpl extends PageRemoved {
     TResult Function(int oldIndex, int newIndex)? toolReordered,
     TResult Function(List<Background> backgrounds)? documentBackgroundsChanged,
     TResult Function(Waypoint waypoint)? waypointCreated,
-    TResult Function(int index, String name)? waypointRenamed,
-    TResult Function(int index)? waypointRemoved,
+    TResult Function(String name, Waypoint waypoint)? waypointChanged,
+    TResult Function(String name)? waypointRemoved,
+    TResult Function(String name, int newIndex)? waypointReordered,
     TResult Function(String oldName, String newName)? layerRenamed,
     TResult Function(String name)? layerRemoved,
     TResult Function(String name)? layerElementsRemoved,
     TResult Function(String name)? layerVisibilityChanged,
     TResult Function(String name)? currentLayerChanged,
-    TResult Function(String layer, List<int> elements)? elementsLayerChanged,
+    TResult Function(String layer, List<String> elements)? elementsLayerChanged,
     TResult Function(String directory, String? remote, bool deleteDocument)?
         templateCreated,
     TResult Function(List<Area> areas)? areasCreated,
@@ -2556,6 +2631,7 @@ class _$PageRemovedImpl extends PageRemoved {
         presentationModeEntered,
     TResult Function()? presentationModeExited,
     TResult Function(int tick)? presentationTick,
+    TResult Function(String path, List<int> data)? assetUpdated,
     required TResult orElse(),
   }) {
     if (pageRemoved != null) {
@@ -2589,8 +2665,9 @@ class _$PageRemovedImpl extends PageRemoved {
     required TResult Function(DocumentBackgroundsChanged value)
         documentBackgroundsChanged,
     required TResult Function(WaypointCreated value) waypointCreated,
-    required TResult Function(WaypointRenamed value) waypointRenamed,
+    required TResult Function(WaypointChanged value) waypointChanged,
     required TResult Function(WaypointRemoved value) waypointRemoved,
+    required TResult Function(WaypointReordered value) waypointReordered,
     required TResult Function(LayerRenamed value) layerRenamed,
     required TResult Function(LayerRemoved value) layerRemoved,
     required TResult Function(LayerElementsRemoved value) layerElementsRemoved,
@@ -2618,6 +2695,7 @@ class _$PageRemovedImpl extends PageRemoved {
     required TResult Function(PresentationModeExited value)
         presentationModeExited,
     required TResult Function(PresentationTick value) presentationTick,
+    required TResult Function(AssetUpdated value) assetUpdated,
   }) {
     return pageRemoved(this);
   }
@@ -2647,8 +2725,9 @@ class _$PageRemovedImpl extends PageRemoved {
     TResult? Function(DocumentBackgroundsChanged value)?
         documentBackgroundsChanged,
     TResult? Function(WaypointCreated value)? waypointCreated,
-    TResult? Function(WaypointRenamed value)? waypointRenamed,
+    TResult? Function(WaypointChanged value)? waypointChanged,
     TResult? Function(WaypointRemoved value)? waypointRemoved,
+    TResult? Function(WaypointReordered value)? waypointReordered,
     TResult? Function(LayerRenamed value)? layerRenamed,
     TResult? Function(LayerRemoved value)? layerRemoved,
     TResult? Function(LayerElementsRemoved value)? layerElementsRemoved,
@@ -2673,6 +2752,7 @@ class _$PageRemovedImpl extends PageRemoved {
     TResult? Function(PresentationModeEntered value)? presentationModeEntered,
     TResult? Function(PresentationModeExited value)? presentationModeExited,
     TResult? Function(PresentationTick value)? presentationTick,
+    TResult? Function(AssetUpdated value)? assetUpdated,
   }) {
     return pageRemoved?.call(this);
   }
@@ -2702,8 +2782,9 @@ class _$PageRemovedImpl extends PageRemoved {
     TResult Function(DocumentBackgroundsChanged value)?
         documentBackgroundsChanged,
     TResult Function(WaypointCreated value)? waypointCreated,
-    TResult Function(WaypointRenamed value)? waypointRenamed,
+    TResult Function(WaypointChanged value)? waypointChanged,
     TResult Function(WaypointRemoved value)? waypointRemoved,
+    TResult Function(WaypointReordered value)? waypointReordered,
     TResult Function(LayerRenamed value)? layerRenamed,
     TResult Function(LayerRemoved value)? layerRemoved,
     TResult Function(LayerElementsRemoved value)? layerElementsRemoved,
@@ -2728,6 +2809,7 @@ class _$PageRemovedImpl extends PageRemoved {
     TResult Function(PresentationModeEntered value)? presentationModeEntered,
     TResult Function(PresentationModeExited value)? presentationModeExited,
     TResult Function(PresentationTick value)? presentationTick,
+    TResult Function(AssetUpdated value)? assetUpdated,
     required TResult orElse(),
   }) {
     if (pageRemoved != null) {
@@ -2844,10 +2926,10 @@ class _$ThumbnailCapturedImpl extends ThumbnailCaptured {
     required TResult Function(ViewOption view) viewChanged,
     required TResult Function(UtilitiesState state) utilitiesChanged,
     required TResult Function(List<PadElement> elements) elementsCreated,
-    required TResult Function(Map<int, List<PadElement>> elements)
+    required TResult Function(Map<String, List<PadElement>> elements)
         elementsChanged,
-    required TResult Function(List<int> elements) elementsRemoved,
-    required TResult Function(Arrangement arrangement, List<int> elements)
+    required TResult Function(List<String> elements) elementsRemoved,
+    required TResult Function(Arrangement arrangement, List<String> elements)
         elementsArranged,
     required TResult Function(String? name, String? description)
         documentDescriptionChanged,
@@ -2859,14 +2941,15 @@ class _$ThumbnailCapturedImpl extends ThumbnailCaptured {
     required TResult Function(List<Background> backgrounds)
         documentBackgroundsChanged,
     required TResult Function(Waypoint waypoint) waypointCreated,
-    required TResult Function(int index, String name) waypointRenamed,
-    required TResult Function(int index) waypointRemoved,
+    required TResult Function(String name, Waypoint waypoint) waypointChanged,
+    required TResult Function(String name) waypointRemoved,
+    required TResult Function(String name, int newIndex) waypointReordered,
     required TResult Function(String oldName, String newName) layerRenamed,
     required TResult Function(String name) layerRemoved,
     required TResult Function(String name) layerElementsRemoved,
     required TResult Function(String name) layerVisibilityChanged,
     required TResult Function(String name) currentLayerChanged,
-    required TResult Function(String layer, List<int> elements)
+    required TResult Function(String layer, List<String> elements)
         elementsLayerChanged,
     required TResult Function(
             String directory, String? remote, bool deleteDocument)
@@ -2892,6 +2975,7 @@ class _$ThumbnailCapturedImpl extends ThumbnailCaptured {
         presentationModeEntered,
     required TResult Function() presentationModeExited,
     required TResult Function(int tick) presentationTick,
+    required TResult Function(String path, List<int> data) assetUpdated,
   }) {
     return thumbnailCaptured(data);
   }
@@ -2909,9 +2993,9 @@ class _$ThumbnailCapturedImpl extends ThumbnailCaptured {
     TResult? Function(ViewOption view)? viewChanged,
     TResult? Function(UtilitiesState state)? utilitiesChanged,
     TResult? Function(List<PadElement> elements)? elementsCreated,
-    TResult? Function(Map<int, List<PadElement>> elements)? elementsChanged,
-    TResult? Function(List<int> elements)? elementsRemoved,
-    TResult? Function(Arrangement arrangement, List<int> elements)?
+    TResult? Function(Map<String, List<PadElement>> elements)? elementsChanged,
+    TResult? Function(List<String> elements)? elementsRemoved,
+    TResult? Function(Arrangement arrangement, List<String> elements)?
         elementsArranged,
     TResult? Function(String? name, String? description)?
         documentDescriptionChanged,
@@ -2922,14 +3006,16 @@ class _$ThumbnailCapturedImpl extends ThumbnailCaptured {
     TResult? Function(int oldIndex, int newIndex)? toolReordered,
     TResult? Function(List<Background> backgrounds)? documentBackgroundsChanged,
     TResult? Function(Waypoint waypoint)? waypointCreated,
-    TResult? Function(int index, String name)? waypointRenamed,
-    TResult? Function(int index)? waypointRemoved,
+    TResult? Function(String name, Waypoint waypoint)? waypointChanged,
+    TResult? Function(String name)? waypointRemoved,
+    TResult? Function(String name, int newIndex)? waypointReordered,
     TResult? Function(String oldName, String newName)? layerRenamed,
     TResult? Function(String name)? layerRemoved,
     TResult? Function(String name)? layerElementsRemoved,
     TResult? Function(String name)? layerVisibilityChanged,
     TResult? Function(String name)? currentLayerChanged,
-    TResult? Function(String layer, List<int> elements)? elementsLayerChanged,
+    TResult? Function(String layer, List<String> elements)?
+        elementsLayerChanged,
     TResult? Function(String directory, String? remote, bool deleteDocument)?
         templateCreated,
     TResult? Function(List<Area> areas)? areasCreated,
@@ -2950,6 +3036,7 @@ class _$ThumbnailCapturedImpl extends ThumbnailCaptured {
         presentationModeEntered,
     TResult? Function()? presentationModeExited,
     TResult? Function(int tick)? presentationTick,
+    TResult? Function(String path, List<int> data)? assetUpdated,
   }) {
     return thumbnailCaptured?.call(data);
   }
@@ -2967,9 +3054,9 @@ class _$ThumbnailCapturedImpl extends ThumbnailCaptured {
     TResult Function(ViewOption view)? viewChanged,
     TResult Function(UtilitiesState state)? utilitiesChanged,
     TResult Function(List<PadElement> elements)? elementsCreated,
-    TResult Function(Map<int, List<PadElement>> elements)? elementsChanged,
-    TResult Function(List<int> elements)? elementsRemoved,
-    TResult Function(Arrangement arrangement, List<int> elements)?
+    TResult Function(Map<String, List<PadElement>> elements)? elementsChanged,
+    TResult Function(List<String> elements)? elementsRemoved,
+    TResult Function(Arrangement arrangement, List<String> elements)?
         elementsArranged,
     TResult Function(String? name, String? description)?
         documentDescriptionChanged,
@@ -2980,14 +3067,15 @@ class _$ThumbnailCapturedImpl extends ThumbnailCaptured {
     TResult Function(int oldIndex, int newIndex)? toolReordered,
     TResult Function(List<Background> backgrounds)? documentBackgroundsChanged,
     TResult Function(Waypoint waypoint)? waypointCreated,
-    TResult Function(int index, String name)? waypointRenamed,
-    TResult Function(int index)? waypointRemoved,
+    TResult Function(String name, Waypoint waypoint)? waypointChanged,
+    TResult Function(String name)? waypointRemoved,
+    TResult Function(String name, int newIndex)? waypointReordered,
     TResult Function(String oldName, String newName)? layerRenamed,
     TResult Function(String name)? layerRemoved,
     TResult Function(String name)? layerElementsRemoved,
     TResult Function(String name)? layerVisibilityChanged,
     TResult Function(String name)? currentLayerChanged,
-    TResult Function(String layer, List<int> elements)? elementsLayerChanged,
+    TResult Function(String layer, List<String> elements)? elementsLayerChanged,
     TResult Function(String directory, String? remote, bool deleteDocument)?
         templateCreated,
     TResult Function(List<Area> areas)? areasCreated,
@@ -3008,6 +3096,7 @@ class _$ThumbnailCapturedImpl extends ThumbnailCaptured {
         presentationModeEntered,
     TResult Function()? presentationModeExited,
     TResult Function(int tick)? presentationTick,
+    TResult Function(String path, List<int> data)? assetUpdated,
     required TResult orElse(),
   }) {
     if (thumbnailCaptured != null) {
@@ -3041,8 +3130,9 @@ class _$ThumbnailCapturedImpl extends ThumbnailCaptured {
     required TResult Function(DocumentBackgroundsChanged value)
         documentBackgroundsChanged,
     required TResult Function(WaypointCreated value) waypointCreated,
-    required TResult Function(WaypointRenamed value) waypointRenamed,
+    required TResult Function(WaypointChanged value) waypointChanged,
     required TResult Function(WaypointRemoved value) waypointRemoved,
+    required TResult Function(WaypointReordered value) waypointReordered,
     required TResult Function(LayerRenamed value) layerRenamed,
     required TResult Function(LayerRemoved value) layerRemoved,
     required TResult Function(LayerElementsRemoved value) layerElementsRemoved,
@@ -3070,6 +3160,7 @@ class _$ThumbnailCapturedImpl extends ThumbnailCaptured {
     required TResult Function(PresentationModeExited value)
         presentationModeExited,
     required TResult Function(PresentationTick value) presentationTick,
+    required TResult Function(AssetUpdated value) assetUpdated,
   }) {
     return thumbnailCaptured(this);
   }
@@ -3099,8 +3190,9 @@ class _$ThumbnailCapturedImpl extends ThumbnailCaptured {
     TResult? Function(DocumentBackgroundsChanged value)?
         documentBackgroundsChanged,
     TResult? Function(WaypointCreated value)? waypointCreated,
-    TResult? Function(WaypointRenamed value)? waypointRenamed,
+    TResult? Function(WaypointChanged value)? waypointChanged,
     TResult? Function(WaypointRemoved value)? waypointRemoved,
+    TResult? Function(WaypointReordered value)? waypointReordered,
     TResult? Function(LayerRenamed value)? layerRenamed,
     TResult? Function(LayerRemoved value)? layerRemoved,
     TResult? Function(LayerElementsRemoved value)? layerElementsRemoved,
@@ -3125,6 +3217,7 @@ class _$ThumbnailCapturedImpl extends ThumbnailCaptured {
     TResult? Function(PresentationModeEntered value)? presentationModeEntered,
     TResult? Function(PresentationModeExited value)? presentationModeExited,
     TResult? Function(PresentationTick value)? presentationTick,
+    TResult? Function(AssetUpdated value)? assetUpdated,
   }) {
     return thumbnailCaptured?.call(this);
   }
@@ -3154,8 +3247,9 @@ class _$ThumbnailCapturedImpl extends ThumbnailCaptured {
     TResult Function(DocumentBackgroundsChanged value)?
         documentBackgroundsChanged,
     TResult Function(WaypointCreated value)? waypointCreated,
-    TResult Function(WaypointRenamed value)? waypointRenamed,
+    TResult Function(WaypointChanged value)? waypointChanged,
     TResult Function(WaypointRemoved value)? waypointRemoved,
+    TResult Function(WaypointReordered value)? waypointReordered,
     TResult Function(LayerRenamed value)? layerRenamed,
     TResult Function(LayerRemoved value)? layerRemoved,
     TResult Function(LayerElementsRemoved value)? layerElementsRemoved,
@@ -3180,6 +3274,7 @@ class _$ThumbnailCapturedImpl extends ThumbnailCaptured {
     TResult Function(PresentationModeEntered value)? presentationModeEntered,
     TResult Function(PresentationModeExited value)? presentationModeExited,
     TResult Function(PresentationTick value)? presentationTick,
+    TResult Function(AssetUpdated value)? assetUpdated,
     required TResult orElse(),
   }) {
     if (thumbnailCaptured != null) {
@@ -3304,10 +3399,10 @@ class _$ViewChangedImpl extends ViewChanged {
     required TResult Function(ViewOption view) viewChanged,
     required TResult Function(UtilitiesState state) utilitiesChanged,
     required TResult Function(List<PadElement> elements) elementsCreated,
-    required TResult Function(Map<int, List<PadElement>> elements)
+    required TResult Function(Map<String, List<PadElement>> elements)
         elementsChanged,
-    required TResult Function(List<int> elements) elementsRemoved,
-    required TResult Function(Arrangement arrangement, List<int> elements)
+    required TResult Function(List<String> elements) elementsRemoved,
+    required TResult Function(Arrangement arrangement, List<String> elements)
         elementsArranged,
     required TResult Function(String? name, String? description)
         documentDescriptionChanged,
@@ -3319,14 +3414,15 @@ class _$ViewChangedImpl extends ViewChanged {
     required TResult Function(List<Background> backgrounds)
         documentBackgroundsChanged,
     required TResult Function(Waypoint waypoint) waypointCreated,
-    required TResult Function(int index, String name) waypointRenamed,
-    required TResult Function(int index) waypointRemoved,
+    required TResult Function(String name, Waypoint waypoint) waypointChanged,
+    required TResult Function(String name) waypointRemoved,
+    required TResult Function(String name, int newIndex) waypointReordered,
     required TResult Function(String oldName, String newName) layerRenamed,
     required TResult Function(String name) layerRemoved,
     required TResult Function(String name) layerElementsRemoved,
     required TResult Function(String name) layerVisibilityChanged,
     required TResult Function(String name) currentLayerChanged,
-    required TResult Function(String layer, List<int> elements)
+    required TResult Function(String layer, List<String> elements)
         elementsLayerChanged,
     required TResult Function(
             String directory, String? remote, bool deleteDocument)
@@ -3352,6 +3448,7 @@ class _$ViewChangedImpl extends ViewChanged {
         presentationModeEntered,
     required TResult Function() presentationModeExited,
     required TResult Function(int tick) presentationTick,
+    required TResult Function(String path, List<int> data) assetUpdated,
   }) {
     return viewChanged(view);
   }
@@ -3369,9 +3466,9 @@ class _$ViewChangedImpl extends ViewChanged {
     TResult? Function(ViewOption view)? viewChanged,
     TResult? Function(UtilitiesState state)? utilitiesChanged,
     TResult? Function(List<PadElement> elements)? elementsCreated,
-    TResult? Function(Map<int, List<PadElement>> elements)? elementsChanged,
-    TResult? Function(List<int> elements)? elementsRemoved,
-    TResult? Function(Arrangement arrangement, List<int> elements)?
+    TResult? Function(Map<String, List<PadElement>> elements)? elementsChanged,
+    TResult? Function(List<String> elements)? elementsRemoved,
+    TResult? Function(Arrangement arrangement, List<String> elements)?
         elementsArranged,
     TResult? Function(String? name, String? description)?
         documentDescriptionChanged,
@@ -3382,14 +3479,16 @@ class _$ViewChangedImpl extends ViewChanged {
     TResult? Function(int oldIndex, int newIndex)? toolReordered,
     TResult? Function(List<Background> backgrounds)? documentBackgroundsChanged,
     TResult? Function(Waypoint waypoint)? waypointCreated,
-    TResult? Function(int index, String name)? waypointRenamed,
-    TResult? Function(int index)? waypointRemoved,
+    TResult? Function(String name, Waypoint waypoint)? waypointChanged,
+    TResult? Function(String name)? waypointRemoved,
+    TResult? Function(String name, int newIndex)? waypointReordered,
     TResult? Function(String oldName, String newName)? layerRenamed,
     TResult? Function(String name)? layerRemoved,
     TResult? Function(String name)? layerElementsRemoved,
     TResult? Function(String name)? layerVisibilityChanged,
     TResult? Function(String name)? currentLayerChanged,
-    TResult? Function(String layer, List<int> elements)? elementsLayerChanged,
+    TResult? Function(String layer, List<String> elements)?
+        elementsLayerChanged,
     TResult? Function(String directory, String? remote, bool deleteDocument)?
         templateCreated,
     TResult? Function(List<Area> areas)? areasCreated,
@@ -3410,6 +3509,7 @@ class _$ViewChangedImpl extends ViewChanged {
         presentationModeEntered,
     TResult? Function()? presentationModeExited,
     TResult? Function(int tick)? presentationTick,
+    TResult? Function(String path, List<int> data)? assetUpdated,
   }) {
     return viewChanged?.call(view);
   }
@@ -3427,9 +3527,9 @@ class _$ViewChangedImpl extends ViewChanged {
     TResult Function(ViewOption view)? viewChanged,
     TResult Function(UtilitiesState state)? utilitiesChanged,
     TResult Function(List<PadElement> elements)? elementsCreated,
-    TResult Function(Map<int, List<PadElement>> elements)? elementsChanged,
-    TResult Function(List<int> elements)? elementsRemoved,
-    TResult Function(Arrangement arrangement, List<int> elements)?
+    TResult Function(Map<String, List<PadElement>> elements)? elementsChanged,
+    TResult Function(List<String> elements)? elementsRemoved,
+    TResult Function(Arrangement arrangement, List<String> elements)?
         elementsArranged,
     TResult Function(String? name, String? description)?
         documentDescriptionChanged,
@@ -3440,14 +3540,15 @@ class _$ViewChangedImpl extends ViewChanged {
     TResult Function(int oldIndex, int newIndex)? toolReordered,
     TResult Function(List<Background> backgrounds)? documentBackgroundsChanged,
     TResult Function(Waypoint waypoint)? waypointCreated,
-    TResult Function(int index, String name)? waypointRenamed,
-    TResult Function(int index)? waypointRemoved,
+    TResult Function(String name, Waypoint waypoint)? waypointChanged,
+    TResult Function(String name)? waypointRemoved,
+    TResult Function(String name, int newIndex)? waypointReordered,
     TResult Function(String oldName, String newName)? layerRenamed,
     TResult Function(String name)? layerRemoved,
     TResult Function(String name)? layerElementsRemoved,
     TResult Function(String name)? layerVisibilityChanged,
     TResult Function(String name)? currentLayerChanged,
-    TResult Function(String layer, List<int> elements)? elementsLayerChanged,
+    TResult Function(String layer, List<String> elements)? elementsLayerChanged,
     TResult Function(String directory, String? remote, bool deleteDocument)?
         templateCreated,
     TResult Function(List<Area> areas)? areasCreated,
@@ -3468,6 +3569,7 @@ class _$ViewChangedImpl extends ViewChanged {
         presentationModeEntered,
     TResult Function()? presentationModeExited,
     TResult Function(int tick)? presentationTick,
+    TResult Function(String path, List<int> data)? assetUpdated,
     required TResult orElse(),
   }) {
     if (viewChanged != null) {
@@ -3501,8 +3603,9 @@ class _$ViewChangedImpl extends ViewChanged {
     required TResult Function(DocumentBackgroundsChanged value)
         documentBackgroundsChanged,
     required TResult Function(WaypointCreated value) waypointCreated,
-    required TResult Function(WaypointRenamed value) waypointRenamed,
+    required TResult Function(WaypointChanged value) waypointChanged,
     required TResult Function(WaypointRemoved value) waypointRemoved,
+    required TResult Function(WaypointReordered value) waypointReordered,
     required TResult Function(LayerRenamed value) layerRenamed,
     required TResult Function(LayerRemoved value) layerRemoved,
     required TResult Function(LayerElementsRemoved value) layerElementsRemoved,
@@ -3530,6 +3633,7 @@ class _$ViewChangedImpl extends ViewChanged {
     required TResult Function(PresentationModeExited value)
         presentationModeExited,
     required TResult Function(PresentationTick value) presentationTick,
+    required TResult Function(AssetUpdated value) assetUpdated,
   }) {
     return viewChanged(this);
   }
@@ -3559,8 +3663,9 @@ class _$ViewChangedImpl extends ViewChanged {
     TResult? Function(DocumentBackgroundsChanged value)?
         documentBackgroundsChanged,
     TResult? Function(WaypointCreated value)? waypointCreated,
-    TResult? Function(WaypointRenamed value)? waypointRenamed,
+    TResult? Function(WaypointChanged value)? waypointChanged,
     TResult? Function(WaypointRemoved value)? waypointRemoved,
+    TResult? Function(WaypointReordered value)? waypointReordered,
     TResult? Function(LayerRenamed value)? layerRenamed,
     TResult? Function(LayerRemoved value)? layerRemoved,
     TResult? Function(LayerElementsRemoved value)? layerElementsRemoved,
@@ -3585,6 +3690,7 @@ class _$ViewChangedImpl extends ViewChanged {
     TResult? Function(PresentationModeEntered value)? presentationModeEntered,
     TResult? Function(PresentationModeExited value)? presentationModeExited,
     TResult? Function(PresentationTick value)? presentationTick,
+    TResult? Function(AssetUpdated value)? assetUpdated,
   }) {
     return viewChanged?.call(this);
   }
@@ -3614,8 +3720,9 @@ class _$ViewChangedImpl extends ViewChanged {
     TResult Function(DocumentBackgroundsChanged value)?
         documentBackgroundsChanged,
     TResult Function(WaypointCreated value)? waypointCreated,
-    TResult Function(WaypointRenamed value)? waypointRenamed,
+    TResult Function(WaypointChanged value)? waypointChanged,
     TResult Function(WaypointRemoved value)? waypointRemoved,
+    TResult Function(WaypointReordered value)? waypointReordered,
     TResult Function(LayerRenamed value)? layerRenamed,
     TResult Function(LayerRemoved value)? layerRemoved,
     TResult Function(LayerElementsRemoved value)? layerElementsRemoved,
@@ -3640,6 +3747,7 @@ class _$ViewChangedImpl extends ViewChanged {
     TResult Function(PresentationModeEntered value)? presentationModeEntered,
     TResult Function(PresentationModeExited value)? presentationModeExited,
     TResult Function(PresentationTick value)? presentationTick,
+    TResult Function(AssetUpdated value)? assetUpdated,
     required TResult orElse(),
   }) {
     if (viewChanged != null) {
@@ -3763,10 +3871,10 @@ class _$UtilitiesChangedImpl extends UtilitiesChanged {
     required TResult Function(ViewOption view) viewChanged,
     required TResult Function(UtilitiesState state) utilitiesChanged,
     required TResult Function(List<PadElement> elements) elementsCreated,
-    required TResult Function(Map<int, List<PadElement>> elements)
+    required TResult Function(Map<String, List<PadElement>> elements)
         elementsChanged,
-    required TResult Function(List<int> elements) elementsRemoved,
-    required TResult Function(Arrangement arrangement, List<int> elements)
+    required TResult Function(List<String> elements) elementsRemoved,
+    required TResult Function(Arrangement arrangement, List<String> elements)
         elementsArranged,
     required TResult Function(String? name, String? description)
         documentDescriptionChanged,
@@ -3778,14 +3886,15 @@ class _$UtilitiesChangedImpl extends UtilitiesChanged {
     required TResult Function(List<Background> backgrounds)
         documentBackgroundsChanged,
     required TResult Function(Waypoint waypoint) waypointCreated,
-    required TResult Function(int index, String name) waypointRenamed,
-    required TResult Function(int index) waypointRemoved,
+    required TResult Function(String name, Waypoint waypoint) waypointChanged,
+    required TResult Function(String name) waypointRemoved,
+    required TResult Function(String name, int newIndex) waypointReordered,
     required TResult Function(String oldName, String newName) layerRenamed,
     required TResult Function(String name) layerRemoved,
     required TResult Function(String name) layerElementsRemoved,
     required TResult Function(String name) layerVisibilityChanged,
     required TResult Function(String name) currentLayerChanged,
-    required TResult Function(String layer, List<int> elements)
+    required TResult Function(String layer, List<String> elements)
         elementsLayerChanged,
     required TResult Function(
             String directory, String? remote, bool deleteDocument)
@@ -3811,6 +3920,7 @@ class _$UtilitiesChangedImpl extends UtilitiesChanged {
         presentationModeEntered,
     required TResult Function() presentationModeExited,
     required TResult Function(int tick) presentationTick,
+    required TResult Function(String path, List<int> data) assetUpdated,
   }) {
     return utilitiesChanged(state);
   }
@@ -3828,9 +3938,9 @@ class _$UtilitiesChangedImpl extends UtilitiesChanged {
     TResult? Function(ViewOption view)? viewChanged,
     TResult? Function(UtilitiesState state)? utilitiesChanged,
     TResult? Function(List<PadElement> elements)? elementsCreated,
-    TResult? Function(Map<int, List<PadElement>> elements)? elementsChanged,
-    TResult? Function(List<int> elements)? elementsRemoved,
-    TResult? Function(Arrangement arrangement, List<int> elements)?
+    TResult? Function(Map<String, List<PadElement>> elements)? elementsChanged,
+    TResult? Function(List<String> elements)? elementsRemoved,
+    TResult? Function(Arrangement arrangement, List<String> elements)?
         elementsArranged,
     TResult? Function(String? name, String? description)?
         documentDescriptionChanged,
@@ -3841,14 +3951,16 @@ class _$UtilitiesChangedImpl extends UtilitiesChanged {
     TResult? Function(int oldIndex, int newIndex)? toolReordered,
     TResult? Function(List<Background> backgrounds)? documentBackgroundsChanged,
     TResult? Function(Waypoint waypoint)? waypointCreated,
-    TResult? Function(int index, String name)? waypointRenamed,
-    TResult? Function(int index)? waypointRemoved,
+    TResult? Function(String name, Waypoint waypoint)? waypointChanged,
+    TResult? Function(String name)? waypointRemoved,
+    TResult? Function(String name, int newIndex)? waypointReordered,
     TResult? Function(String oldName, String newName)? layerRenamed,
     TResult? Function(String name)? layerRemoved,
     TResult? Function(String name)? layerElementsRemoved,
     TResult? Function(String name)? layerVisibilityChanged,
     TResult? Function(String name)? currentLayerChanged,
-    TResult? Function(String layer, List<int> elements)? elementsLayerChanged,
+    TResult? Function(String layer, List<String> elements)?
+        elementsLayerChanged,
     TResult? Function(String directory, String? remote, bool deleteDocument)?
         templateCreated,
     TResult? Function(List<Area> areas)? areasCreated,
@@ -3869,6 +3981,7 @@ class _$UtilitiesChangedImpl extends UtilitiesChanged {
         presentationModeEntered,
     TResult? Function()? presentationModeExited,
     TResult? Function(int tick)? presentationTick,
+    TResult? Function(String path, List<int> data)? assetUpdated,
   }) {
     return utilitiesChanged?.call(state);
   }
@@ -3886,9 +3999,9 @@ class _$UtilitiesChangedImpl extends UtilitiesChanged {
     TResult Function(ViewOption view)? viewChanged,
     TResult Function(UtilitiesState state)? utilitiesChanged,
     TResult Function(List<PadElement> elements)? elementsCreated,
-    TResult Function(Map<int, List<PadElement>> elements)? elementsChanged,
-    TResult Function(List<int> elements)? elementsRemoved,
-    TResult Function(Arrangement arrangement, List<int> elements)?
+    TResult Function(Map<String, List<PadElement>> elements)? elementsChanged,
+    TResult Function(List<String> elements)? elementsRemoved,
+    TResult Function(Arrangement arrangement, List<String> elements)?
         elementsArranged,
     TResult Function(String? name, String? description)?
         documentDescriptionChanged,
@@ -3899,14 +4012,15 @@ class _$UtilitiesChangedImpl extends UtilitiesChanged {
     TResult Function(int oldIndex, int newIndex)? toolReordered,
     TResult Function(List<Background> backgrounds)? documentBackgroundsChanged,
     TResult Function(Waypoint waypoint)? waypointCreated,
-    TResult Function(int index, String name)? waypointRenamed,
-    TResult Function(int index)? waypointRemoved,
+    TResult Function(String name, Waypoint waypoint)? waypointChanged,
+    TResult Function(String name)? waypointRemoved,
+    TResult Function(String name, int newIndex)? waypointReordered,
     TResult Function(String oldName, String newName)? layerRenamed,
     TResult Function(String name)? layerRemoved,
     TResult Function(String name)? layerElementsRemoved,
     TResult Function(String name)? layerVisibilityChanged,
     TResult Function(String name)? currentLayerChanged,
-    TResult Function(String layer, List<int> elements)? elementsLayerChanged,
+    TResult Function(String layer, List<String> elements)? elementsLayerChanged,
     TResult Function(String directory, String? remote, bool deleteDocument)?
         templateCreated,
     TResult Function(List<Area> areas)? areasCreated,
@@ -3927,6 +4041,7 @@ class _$UtilitiesChangedImpl extends UtilitiesChanged {
         presentationModeEntered,
     TResult Function()? presentationModeExited,
     TResult Function(int tick)? presentationTick,
+    TResult Function(String path, List<int> data)? assetUpdated,
     required TResult orElse(),
   }) {
     if (utilitiesChanged != null) {
@@ -3960,8 +4075,9 @@ class _$UtilitiesChangedImpl extends UtilitiesChanged {
     required TResult Function(DocumentBackgroundsChanged value)
         documentBackgroundsChanged,
     required TResult Function(WaypointCreated value) waypointCreated,
-    required TResult Function(WaypointRenamed value) waypointRenamed,
+    required TResult Function(WaypointChanged value) waypointChanged,
     required TResult Function(WaypointRemoved value) waypointRemoved,
+    required TResult Function(WaypointReordered value) waypointReordered,
     required TResult Function(LayerRenamed value) layerRenamed,
     required TResult Function(LayerRemoved value) layerRemoved,
     required TResult Function(LayerElementsRemoved value) layerElementsRemoved,
@@ -3989,6 +4105,7 @@ class _$UtilitiesChangedImpl extends UtilitiesChanged {
     required TResult Function(PresentationModeExited value)
         presentationModeExited,
     required TResult Function(PresentationTick value) presentationTick,
+    required TResult Function(AssetUpdated value) assetUpdated,
   }) {
     return utilitiesChanged(this);
   }
@@ -4018,8 +4135,9 @@ class _$UtilitiesChangedImpl extends UtilitiesChanged {
     TResult? Function(DocumentBackgroundsChanged value)?
         documentBackgroundsChanged,
     TResult? Function(WaypointCreated value)? waypointCreated,
-    TResult? Function(WaypointRenamed value)? waypointRenamed,
+    TResult? Function(WaypointChanged value)? waypointChanged,
     TResult? Function(WaypointRemoved value)? waypointRemoved,
+    TResult? Function(WaypointReordered value)? waypointReordered,
     TResult? Function(LayerRenamed value)? layerRenamed,
     TResult? Function(LayerRemoved value)? layerRemoved,
     TResult? Function(LayerElementsRemoved value)? layerElementsRemoved,
@@ -4044,6 +4162,7 @@ class _$UtilitiesChangedImpl extends UtilitiesChanged {
     TResult? Function(PresentationModeEntered value)? presentationModeEntered,
     TResult? Function(PresentationModeExited value)? presentationModeExited,
     TResult? Function(PresentationTick value)? presentationTick,
+    TResult? Function(AssetUpdated value)? assetUpdated,
   }) {
     return utilitiesChanged?.call(this);
   }
@@ -4073,8 +4192,9 @@ class _$UtilitiesChangedImpl extends UtilitiesChanged {
     TResult Function(DocumentBackgroundsChanged value)?
         documentBackgroundsChanged,
     TResult Function(WaypointCreated value)? waypointCreated,
-    TResult Function(WaypointRenamed value)? waypointRenamed,
+    TResult Function(WaypointChanged value)? waypointChanged,
     TResult Function(WaypointRemoved value)? waypointRemoved,
+    TResult Function(WaypointReordered value)? waypointReordered,
     TResult Function(LayerRenamed value)? layerRenamed,
     TResult Function(LayerRemoved value)? layerRemoved,
     TResult Function(LayerElementsRemoved value)? layerElementsRemoved,
@@ -4099,6 +4219,7 @@ class _$UtilitiesChangedImpl extends UtilitiesChanged {
     TResult Function(PresentationModeEntered value)? presentationModeEntered,
     TResult Function(PresentationModeExited value)? presentationModeExited,
     TResult Function(PresentationTick value)? presentationTick,
+    TResult Function(AssetUpdated value)? assetUpdated,
     required TResult orElse(),
   }) {
     if (utilitiesChanged != null) {
@@ -4221,10 +4342,10 @@ class _$ElementsCreatedImpl extends ElementsCreated {
     required TResult Function(ViewOption view) viewChanged,
     required TResult Function(UtilitiesState state) utilitiesChanged,
     required TResult Function(List<PadElement> elements) elementsCreated,
-    required TResult Function(Map<int, List<PadElement>> elements)
+    required TResult Function(Map<String, List<PadElement>> elements)
         elementsChanged,
-    required TResult Function(List<int> elements) elementsRemoved,
-    required TResult Function(Arrangement arrangement, List<int> elements)
+    required TResult Function(List<String> elements) elementsRemoved,
+    required TResult Function(Arrangement arrangement, List<String> elements)
         elementsArranged,
     required TResult Function(String? name, String? description)
         documentDescriptionChanged,
@@ -4236,14 +4357,15 @@ class _$ElementsCreatedImpl extends ElementsCreated {
     required TResult Function(List<Background> backgrounds)
         documentBackgroundsChanged,
     required TResult Function(Waypoint waypoint) waypointCreated,
-    required TResult Function(int index, String name) waypointRenamed,
-    required TResult Function(int index) waypointRemoved,
+    required TResult Function(String name, Waypoint waypoint) waypointChanged,
+    required TResult Function(String name) waypointRemoved,
+    required TResult Function(String name, int newIndex) waypointReordered,
     required TResult Function(String oldName, String newName) layerRenamed,
     required TResult Function(String name) layerRemoved,
     required TResult Function(String name) layerElementsRemoved,
     required TResult Function(String name) layerVisibilityChanged,
     required TResult Function(String name) currentLayerChanged,
-    required TResult Function(String layer, List<int> elements)
+    required TResult Function(String layer, List<String> elements)
         elementsLayerChanged,
     required TResult Function(
             String directory, String? remote, bool deleteDocument)
@@ -4269,6 +4391,7 @@ class _$ElementsCreatedImpl extends ElementsCreated {
         presentationModeEntered,
     required TResult Function() presentationModeExited,
     required TResult Function(int tick) presentationTick,
+    required TResult Function(String path, List<int> data) assetUpdated,
   }) {
     return elementsCreated(elements);
   }
@@ -4286,9 +4409,9 @@ class _$ElementsCreatedImpl extends ElementsCreated {
     TResult? Function(ViewOption view)? viewChanged,
     TResult? Function(UtilitiesState state)? utilitiesChanged,
     TResult? Function(List<PadElement> elements)? elementsCreated,
-    TResult? Function(Map<int, List<PadElement>> elements)? elementsChanged,
-    TResult? Function(List<int> elements)? elementsRemoved,
-    TResult? Function(Arrangement arrangement, List<int> elements)?
+    TResult? Function(Map<String, List<PadElement>> elements)? elementsChanged,
+    TResult? Function(List<String> elements)? elementsRemoved,
+    TResult? Function(Arrangement arrangement, List<String> elements)?
         elementsArranged,
     TResult? Function(String? name, String? description)?
         documentDescriptionChanged,
@@ -4299,14 +4422,16 @@ class _$ElementsCreatedImpl extends ElementsCreated {
     TResult? Function(int oldIndex, int newIndex)? toolReordered,
     TResult? Function(List<Background> backgrounds)? documentBackgroundsChanged,
     TResult? Function(Waypoint waypoint)? waypointCreated,
-    TResult? Function(int index, String name)? waypointRenamed,
-    TResult? Function(int index)? waypointRemoved,
+    TResult? Function(String name, Waypoint waypoint)? waypointChanged,
+    TResult? Function(String name)? waypointRemoved,
+    TResult? Function(String name, int newIndex)? waypointReordered,
     TResult? Function(String oldName, String newName)? layerRenamed,
     TResult? Function(String name)? layerRemoved,
     TResult? Function(String name)? layerElementsRemoved,
     TResult? Function(String name)? layerVisibilityChanged,
     TResult? Function(String name)? currentLayerChanged,
-    TResult? Function(String layer, List<int> elements)? elementsLayerChanged,
+    TResult? Function(String layer, List<String> elements)?
+        elementsLayerChanged,
     TResult? Function(String directory, String? remote, bool deleteDocument)?
         templateCreated,
     TResult? Function(List<Area> areas)? areasCreated,
@@ -4327,6 +4452,7 @@ class _$ElementsCreatedImpl extends ElementsCreated {
         presentationModeEntered,
     TResult? Function()? presentationModeExited,
     TResult? Function(int tick)? presentationTick,
+    TResult? Function(String path, List<int> data)? assetUpdated,
   }) {
     return elementsCreated?.call(elements);
   }
@@ -4344,9 +4470,9 @@ class _$ElementsCreatedImpl extends ElementsCreated {
     TResult Function(ViewOption view)? viewChanged,
     TResult Function(UtilitiesState state)? utilitiesChanged,
     TResult Function(List<PadElement> elements)? elementsCreated,
-    TResult Function(Map<int, List<PadElement>> elements)? elementsChanged,
-    TResult Function(List<int> elements)? elementsRemoved,
-    TResult Function(Arrangement arrangement, List<int> elements)?
+    TResult Function(Map<String, List<PadElement>> elements)? elementsChanged,
+    TResult Function(List<String> elements)? elementsRemoved,
+    TResult Function(Arrangement arrangement, List<String> elements)?
         elementsArranged,
     TResult Function(String? name, String? description)?
         documentDescriptionChanged,
@@ -4357,14 +4483,15 @@ class _$ElementsCreatedImpl extends ElementsCreated {
     TResult Function(int oldIndex, int newIndex)? toolReordered,
     TResult Function(List<Background> backgrounds)? documentBackgroundsChanged,
     TResult Function(Waypoint waypoint)? waypointCreated,
-    TResult Function(int index, String name)? waypointRenamed,
-    TResult Function(int index)? waypointRemoved,
+    TResult Function(String name, Waypoint waypoint)? waypointChanged,
+    TResult Function(String name)? waypointRemoved,
+    TResult Function(String name, int newIndex)? waypointReordered,
     TResult Function(String oldName, String newName)? layerRenamed,
     TResult Function(String name)? layerRemoved,
     TResult Function(String name)? layerElementsRemoved,
     TResult Function(String name)? layerVisibilityChanged,
     TResult Function(String name)? currentLayerChanged,
-    TResult Function(String layer, List<int> elements)? elementsLayerChanged,
+    TResult Function(String layer, List<String> elements)? elementsLayerChanged,
     TResult Function(String directory, String? remote, bool deleteDocument)?
         templateCreated,
     TResult Function(List<Area> areas)? areasCreated,
@@ -4385,6 +4512,7 @@ class _$ElementsCreatedImpl extends ElementsCreated {
         presentationModeEntered,
     TResult Function()? presentationModeExited,
     TResult Function(int tick)? presentationTick,
+    TResult Function(String path, List<int> data)? assetUpdated,
     required TResult orElse(),
   }) {
     if (elementsCreated != null) {
@@ -4418,8 +4546,9 @@ class _$ElementsCreatedImpl extends ElementsCreated {
     required TResult Function(DocumentBackgroundsChanged value)
         documentBackgroundsChanged,
     required TResult Function(WaypointCreated value) waypointCreated,
-    required TResult Function(WaypointRenamed value) waypointRenamed,
+    required TResult Function(WaypointChanged value) waypointChanged,
     required TResult Function(WaypointRemoved value) waypointRemoved,
+    required TResult Function(WaypointReordered value) waypointReordered,
     required TResult Function(LayerRenamed value) layerRenamed,
     required TResult Function(LayerRemoved value) layerRemoved,
     required TResult Function(LayerElementsRemoved value) layerElementsRemoved,
@@ -4447,6 +4576,7 @@ class _$ElementsCreatedImpl extends ElementsCreated {
     required TResult Function(PresentationModeExited value)
         presentationModeExited,
     required TResult Function(PresentationTick value) presentationTick,
+    required TResult Function(AssetUpdated value) assetUpdated,
   }) {
     return elementsCreated(this);
   }
@@ -4476,8 +4606,9 @@ class _$ElementsCreatedImpl extends ElementsCreated {
     TResult? Function(DocumentBackgroundsChanged value)?
         documentBackgroundsChanged,
     TResult? Function(WaypointCreated value)? waypointCreated,
-    TResult? Function(WaypointRenamed value)? waypointRenamed,
+    TResult? Function(WaypointChanged value)? waypointChanged,
     TResult? Function(WaypointRemoved value)? waypointRemoved,
+    TResult? Function(WaypointReordered value)? waypointReordered,
     TResult? Function(LayerRenamed value)? layerRenamed,
     TResult? Function(LayerRemoved value)? layerRemoved,
     TResult? Function(LayerElementsRemoved value)? layerElementsRemoved,
@@ -4502,6 +4633,7 @@ class _$ElementsCreatedImpl extends ElementsCreated {
     TResult? Function(PresentationModeEntered value)? presentationModeEntered,
     TResult? Function(PresentationModeExited value)? presentationModeExited,
     TResult? Function(PresentationTick value)? presentationTick,
+    TResult? Function(AssetUpdated value)? assetUpdated,
   }) {
     return elementsCreated?.call(this);
   }
@@ -4531,8 +4663,9 @@ class _$ElementsCreatedImpl extends ElementsCreated {
     TResult Function(DocumentBackgroundsChanged value)?
         documentBackgroundsChanged,
     TResult Function(WaypointCreated value)? waypointCreated,
-    TResult Function(WaypointRenamed value)? waypointRenamed,
+    TResult Function(WaypointChanged value)? waypointChanged,
     TResult Function(WaypointRemoved value)? waypointRemoved,
+    TResult Function(WaypointReordered value)? waypointReordered,
     TResult Function(LayerRenamed value)? layerRenamed,
     TResult Function(LayerRemoved value)? layerRemoved,
     TResult Function(LayerElementsRemoved value)? layerElementsRemoved,
@@ -4557,6 +4690,7 @@ class _$ElementsCreatedImpl extends ElementsCreated {
     TResult Function(PresentationModeEntered value)? presentationModeEntered,
     TResult Function(PresentationModeExited value)? presentationModeExited,
     TResult Function(PresentationTick value)? presentationTick,
+    TResult Function(AssetUpdated value)? assetUpdated,
     required TResult orElse(),
   }) {
     if (elementsCreated != null) {
@@ -4593,7 +4727,7 @@ abstract class _$$ElementsChangedImplCopyWith<$Res> {
           $Res Function(_$ElementsChangedImpl) then) =
       __$$ElementsChangedImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({Map<int, List<PadElement>> elements});
+  $Res call({Map<String, List<PadElement>> elements});
 }
 
 /// @nodoc
@@ -4613,7 +4747,7 @@ class __$$ElementsChangedImplCopyWithImpl<$Res>
       null == elements
           ? _value._elements
           : elements // ignore: cast_nullable_to_non_nullable
-              as Map<int, List<PadElement>>,
+              as Map<String, List<PadElement>>,
     ));
   }
 }
@@ -4621,7 +4755,7 @@ class __$$ElementsChangedImplCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$ElementsChangedImpl extends ElementsChanged {
-  const _$ElementsChangedImpl(final Map<int, List<PadElement>> elements,
+  const _$ElementsChangedImpl(final Map<String, List<PadElement>> elements,
       {final String? $type})
       : _elements = elements,
         $type = $type ?? 'elementsChanged',
@@ -4630,9 +4764,9 @@ class _$ElementsChangedImpl extends ElementsChanged {
   factory _$ElementsChangedImpl.fromJson(Map<String, dynamic> json) =>
       _$$ElementsChangedImplFromJson(json);
 
-  final Map<int, List<PadElement>> _elements;
+  final Map<String, List<PadElement>> _elements;
   @override
-  Map<int, List<PadElement>> get elements {
+  Map<String, List<PadElement>> get elements {
     if (_elements is EqualUnmodifiableMapView) return _elements;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableMapView(_elements);
@@ -4679,10 +4813,10 @@ class _$ElementsChangedImpl extends ElementsChanged {
     required TResult Function(ViewOption view) viewChanged,
     required TResult Function(UtilitiesState state) utilitiesChanged,
     required TResult Function(List<PadElement> elements) elementsCreated,
-    required TResult Function(Map<int, List<PadElement>> elements)
+    required TResult Function(Map<String, List<PadElement>> elements)
         elementsChanged,
-    required TResult Function(List<int> elements) elementsRemoved,
-    required TResult Function(Arrangement arrangement, List<int> elements)
+    required TResult Function(List<String> elements) elementsRemoved,
+    required TResult Function(Arrangement arrangement, List<String> elements)
         elementsArranged,
     required TResult Function(String? name, String? description)
         documentDescriptionChanged,
@@ -4694,14 +4828,15 @@ class _$ElementsChangedImpl extends ElementsChanged {
     required TResult Function(List<Background> backgrounds)
         documentBackgroundsChanged,
     required TResult Function(Waypoint waypoint) waypointCreated,
-    required TResult Function(int index, String name) waypointRenamed,
-    required TResult Function(int index) waypointRemoved,
+    required TResult Function(String name, Waypoint waypoint) waypointChanged,
+    required TResult Function(String name) waypointRemoved,
+    required TResult Function(String name, int newIndex) waypointReordered,
     required TResult Function(String oldName, String newName) layerRenamed,
     required TResult Function(String name) layerRemoved,
     required TResult Function(String name) layerElementsRemoved,
     required TResult Function(String name) layerVisibilityChanged,
     required TResult Function(String name) currentLayerChanged,
-    required TResult Function(String layer, List<int> elements)
+    required TResult Function(String layer, List<String> elements)
         elementsLayerChanged,
     required TResult Function(
             String directory, String? remote, bool deleteDocument)
@@ -4727,6 +4862,7 @@ class _$ElementsChangedImpl extends ElementsChanged {
         presentationModeEntered,
     required TResult Function() presentationModeExited,
     required TResult Function(int tick) presentationTick,
+    required TResult Function(String path, List<int> data) assetUpdated,
   }) {
     return elementsChanged(elements);
   }
@@ -4744,9 +4880,9 @@ class _$ElementsChangedImpl extends ElementsChanged {
     TResult? Function(ViewOption view)? viewChanged,
     TResult? Function(UtilitiesState state)? utilitiesChanged,
     TResult? Function(List<PadElement> elements)? elementsCreated,
-    TResult? Function(Map<int, List<PadElement>> elements)? elementsChanged,
-    TResult? Function(List<int> elements)? elementsRemoved,
-    TResult? Function(Arrangement arrangement, List<int> elements)?
+    TResult? Function(Map<String, List<PadElement>> elements)? elementsChanged,
+    TResult? Function(List<String> elements)? elementsRemoved,
+    TResult? Function(Arrangement arrangement, List<String> elements)?
         elementsArranged,
     TResult? Function(String? name, String? description)?
         documentDescriptionChanged,
@@ -4757,14 +4893,16 @@ class _$ElementsChangedImpl extends ElementsChanged {
     TResult? Function(int oldIndex, int newIndex)? toolReordered,
     TResult? Function(List<Background> backgrounds)? documentBackgroundsChanged,
     TResult? Function(Waypoint waypoint)? waypointCreated,
-    TResult? Function(int index, String name)? waypointRenamed,
-    TResult? Function(int index)? waypointRemoved,
+    TResult? Function(String name, Waypoint waypoint)? waypointChanged,
+    TResult? Function(String name)? waypointRemoved,
+    TResult? Function(String name, int newIndex)? waypointReordered,
     TResult? Function(String oldName, String newName)? layerRenamed,
     TResult? Function(String name)? layerRemoved,
     TResult? Function(String name)? layerElementsRemoved,
     TResult? Function(String name)? layerVisibilityChanged,
     TResult? Function(String name)? currentLayerChanged,
-    TResult? Function(String layer, List<int> elements)? elementsLayerChanged,
+    TResult? Function(String layer, List<String> elements)?
+        elementsLayerChanged,
     TResult? Function(String directory, String? remote, bool deleteDocument)?
         templateCreated,
     TResult? Function(List<Area> areas)? areasCreated,
@@ -4785,6 +4923,7 @@ class _$ElementsChangedImpl extends ElementsChanged {
         presentationModeEntered,
     TResult? Function()? presentationModeExited,
     TResult? Function(int tick)? presentationTick,
+    TResult? Function(String path, List<int> data)? assetUpdated,
   }) {
     return elementsChanged?.call(elements);
   }
@@ -4802,9 +4941,9 @@ class _$ElementsChangedImpl extends ElementsChanged {
     TResult Function(ViewOption view)? viewChanged,
     TResult Function(UtilitiesState state)? utilitiesChanged,
     TResult Function(List<PadElement> elements)? elementsCreated,
-    TResult Function(Map<int, List<PadElement>> elements)? elementsChanged,
-    TResult Function(List<int> elements)? elementsRemoved,
-    TResult Function(Arrangement arrangement, List<int> elements)?
+    TResult Function(Map<String, List<PadElement>> elements)? elementsChanged,
+    TResult Function(List<String> elements)? elementsRemoved,
+    TResult Function(Arrangement arrangement, List<String> elements)?
         elementsArranged,
     TResult Function(String? name, String? description)?
         documentDescriptionChanged,
@@ -4815,14 +4954,15 @@ class _$ElementsChangedImpl extends ElementsChanged {
     TResult Function(int oldIndex, int newIndex)? toolReordered,
     TResult Function(List<Background> backgrounds)? documentBackgroundsChanged,
     TResult Function(Waypoint waypoint)? waypointCreated,
-    TResult Function(int index, String name)? waypointRenamed,
-    TResult Function(int index)? waypointRemoved,
+    TResult Function(String name, Waypoint waypoint)? waypointChanged,
+    TResult Function(String name)? waypointRemoved,
+    TResult Function(String name, int newIndex)? waypointReordered,
     TResult Function(String oldName, String newName)? layerRenamed,
     TResult Function(String name)? layerRemoved,
     TResult Function(String name)? layerElementsRemoved,
     TResult Function(String name)? layerVisibilityChanged,
     TResult Function(String name)? currentLayerChanged,
-    TResult Function(String layer, List<int> elements)? elementsLayerChanged,
+    TResult Function(String layer, List<String> elements)? elementsLayerChanged,
     TResult Function(String directory, String? remote, bool deleteDocument)?
         templateCreated,
     TResult Function(List<Area> areas)? areasCreated,
@@ -4843,6 +4983,7 @@ class _$ElementsChangedImpl extends ElementsChanged {
         presentationModeEntered,
     TResult Function()? presentationModeExited,
     TResult Function(int tick)? presentationTick,
+    TResult Function(String path, List<int> data)? assetUpdated,
     required TResult orElse(),
   }) {
     if (elementsChanged != null) {
@@ -4876,8 +5017,9 @@ class _$ElementsChangedImpl extends ElementsChanged {
     required TResult Function(DocumentBackgroundsChanged value)
         documentBackgroundsChanged,
     required TResult Function(WaypointCreated value) waypointCreated,
-    required TResult Function(WaypointRenamed value) waypointRenamed,
+    required TResult Function(WaypointChanged value) waypointChanged,
     required TResult Function(WaypointRemoved value) waypointRemoved,
+    required TResult Function(WaypointReordered value) waypointReordered,
     required TResult Function(LayerRenamed value) layerRenamed,
     required TResult Function(LayerRemoved value) layerRemoved,
     required TResult Function(LayerElementsRemoved value) layerElementsRemoved,
@@ -4905,6 +5047,7 @@ class _$ElementsChangedImpl extends ElementsChanged {
     required TResult Function(PresentationModeExited value)
         presentationModeExited,
     required TResult Function(PresentationTick value) presentationTick,
+    required TResult Function(AssetUpdated value) assetUpdated,
   }) {
     return elementsChanged(this);
   }
@@ -4934,8 +5077,9 @@ class _$ElementsChangedImpl extends ElementsChanged {
     TResult? Function(DocumentBackgroundsChanged value)?
         documentBackgroundsChanged,
     TResult? Function(WaypointCreated value)? waypointCreated,
-    TResult? Function(WaypointRenamed value)? waypointRenamed,
+    TResult? Function(WaypointChanged value)? waypointChanged,
     TResult? Function(WaypointRemoved value)? waypointRemoved,
+    TResult? Function(WaypointReordered value)? waypointReordered,
     TResult? Function(LayerRenamed value)? layerRenamed,
     TResult? Function(LayerRemoved value)? layerRemoved,
     TResult? Function(LayerElementsRemoved value)? layerElementsRemoved,
@@ -4960,6 +5104,7 @@ class _$ElementsChangedImpl extends ElementsChanged {
     TResult? Function(PresentationModeEntered value)? presentationModeEntered,
     TResult? Function(PresentationModeExited value)? presentationModeExited,
     TResult? Function(PresentationTick value)? presentationTick,
+    TResult? Function(AssetUpdated value)? assetUpdated,
   }) {
     return elementsChanged?.call(this);
   }
@@ -4989,8 +5134,9 @@ class _$ElementsChangedImpl extends ElementsChanged {
     TResult Function(DocumentBackgroundsChanged value)?
         documentBackgroundsChanged,
     TResult Function(WaypointCreated value)? waypointCreated,
-    TResult Function(WaypointRenamed value)? waypointRenamed,
+    TResult Function(WaypointChanged value)? waypointChanged,
     TResult Function(WaypointRemoved value)? waypointRemoved,
+    TResult Function(WaypointReordered value)? waypointReordered,
     TResult Function(LayerRenamed value)? layerRenamed,
     TResult Function(LayerRemoved value)? layerRemoved,
     TResult Function(LayerElementsRemoved value)? layerElementsRemoved,
@@ -5015,6 +5161,7 @@ class _$ElementsChangedImpl extends ElementsChanged {
     TResult Function(PresentationModeEntered value)? presentationModeEntered,
     TResult Function(PresentationModeExited value)? presentationModeExited,
     TResult Function(PresentationTick value)? presentationTick,
+    TResult Function(AssetUpdated value)? assetUpdated,
     required TResult orElse(),
   }) {
     if (elementsChanged != null) {
@@ -5032,14 +5179,14 @@ class _$ElementsChangedImpl extends ElementsChanged {
 }
 
 abstract class ElementsChanged extends DocumentEvent {
-  const factory ElementsChanged(final Map<int, List<PadElement>> elements) =
+  const factory ElementsChanged(final Map<String, List<PadElement>> elements) =
       _$ElementsChangedImpl;
   const ElementsChanged._() : super._();
 
   factory ElementsChanged.fromJson(Map<String, dynamic> json) =
       _$ElementsChangedImpl.fromJson;
 
-  Map<int, List<PadElement>> get elements;
+  Map<String, List<PadElement>> get elements;
   @JsonKey(ignore: true)
   _$$ElementsChangedImplCopyWith<_$ElementsChangedImpl> get copyWith =>
       throw _privateConstructorUsedError;
@@ -5051,7 +5198,7 @@ abstract class _$$ElementsRemovedImplCopyWith<$Res> {
           $Res Function(_$ElementsRemovedImpl) then) =
       __$$ElementsRemovedImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({List<int> elements});
+  $Res call({List<String> elements});
 }
 
 /// @nodoc
@@ -5071,7 +5218,7 @@ class __$$ElementsRemovedImplCopyWithImpl<$Res>
       null == elements
           ? _value._elements
           : elements // ignore: cast_nullable_to_non_nullable
-              as List<int>,
+              as List<String>,
     ));
   }
 }
@@ -5079,7 +5226,8 @@ class __$$ElementsRemovedImplCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$ElementsRemovedImpl extends ElementsRemoved {
-  const _$ElementsRemovedImpl(final List<int> elements, {final String? $type})
+  const _$ElementsRemovedImpl(final List<String> elements,
+      {final String? $type})
       : _elements = elements,
         $type = $type ?? 'elementsRemoved',
         super._();
@@ -5087,9 +5235,9 @@ class _$ElementsRemovedImpl extends ElementsRemoved {
   factory _$ElementsRemovedImpl.fromJson(Map<String, dynamic> json) =>
       _$$ElementsRemovedImplFromJson(json);
 
-  final List<int> _elements;
+  final List<String> _elements;
   @override
-  List<int> get elements {
+  List<String> get elements {
     if (_elements is EqualUnmodifiableListView) return _elements;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_elements);
@@ -5136,10 +5284,10 @@ class _$ElementsRemovedImpl extends ElementsRemoved {
     required TResult Function(ViewOption view) viewChanged,
     required TResult Function(UtilitiesState state) utilitiesChanged,
     required TResult Function(List<PadElement> elements) elementsCreated,
-    required TResult Function(Map<int, List<PadElement>> elements)
+    required TResult Function(Map<String, List<PadElement>> elements)
         elementsChanged,
-    required TResult Function(List<int> elements) elementsRemoved,
-    required TResult Function(Arrangement arrangement, List<int> elements)
+    required TResult Function(List<String> elements) elementsRemoved,
+    required TResult Function(Arrangement arrangement, List<String> elements)
         elementsArranged,
     required TResult Function(String? name, String? description)
         documentDescriptionChanged,
@@ -5151,14 +5299,15 @@ class _$ElementsRemovedImpl extends ElementsRemoved {
     required TResult Function(List<Background> backgrounds)
         documentBackgroundsChanged,
     required TResult Function(Waypoint waypoint) waypointCreated,
-    required TResult Function(int index, String name) waypointRenamed,
-    required TResult Function(int index) waypointRemoved,
+    required TResult Function(String name, Waypoint waypoint) waypointChanged,
+    required TResult Function(String name) waypointRemoved,
+    required TResult Function(String name, int newIndex) waypointReordered,
     required TResult Function(String oldName, String newName) layerRenamed,
     required TResult Function(String name) layerRemoved,
     required TResult Function(String name) layerElementsRemoved,
     required TResult Function(String name) layerVisibilityChanged,
     required TResult Function(String name) currentLayerChanged,
-    required TResult Function(String layer, List<int> elements)
+    required TResult Function(String layer, List<String> elements)
         elementsLayerChanged,
     required TResult Function(
             String directory, String? remote, bool deleteDocument)
@@ -5184,6 +5333,7 @@ class _$ElementsRemovedImpl extends ElementsRemoved {
         presentationModeEntered,
     required TResult Function() presentationModeExited,
     required TResult Function(int tick) presentationTick,
+    required TResult Function(String path, List<int> data) assetUpdated,
   }) {
     return elementsRemoved(elements);
   }
@@ -5201,9 +5351,9 @@ class _$ElementsRemovedImpl extends ElementsRemoved {
     TResult? Function(ViewOption view)? viewChanged,
     TResult? Function(UtilitiesState state)? utilitiesChanged,
     TResult? Function(List<PadElement> elements)? elementsCreated,
-    TResult? Function(Map<int, List<PadElement>> elements)? elementsChanged,
-    TResult? Function(List<int> elements)? elementsRemoved,
-    TResult? Function(Arrangement arrangement, List<int> elements)?
+    TResult? Function(Map<String, List<PadElement>> elements)? elementsChanged,
+    TResult? Function(List<String> elements)? elementsRemoved,
+    TResult? Function(Arrangement arrangement, List<String> elements)?
         elementsArranged,
     TResult? Function(String? name, String? description)?
         documentDescriptionChanged,
@@ -5214,14 +5364,16 @@ class _$ElementsRemovedImpl extends ElementsRemoved {
     TResult? Function(int oldIndex, int newIndex)? toolReordered,
     TResult? Function(List<Background> backgrounds)? documentBackgroundsChanged,
     TResult? Function(Waypoint waypoint)? waypointCreated,
-    TResult? Function(int index, String name)? waypointRenamed,
-    TResult? Function(int index)? waypointRemoved,
+    TResult? Function(String name, Waypoint waypoint)? waypointChanged,
+    TResult? Function(String name)? waypointRemoved,
+    TResult? Function(String name, int newIndex)? waypointReordered,
     TResult? Function(String oldName, String newName)? layerRenamed,
     TResult? Function(String name)? layerRemoved,
     TResult? Function(String name)? layerElementsRemoved,
     TResult? Function(String name)? layerVisibilityChanged,
     TResult? Function(String name)? currentLayerChanged,
-    TResult? Function(String layer, List<int> elements)? elementsLayerChanged,
+    TResult? Function(String layer, List<String> elements)?
+        elementsLayerChanged,
     TResult? Function(String directory, String? remote, bool deleteDocument)?
         templateCreated,
     TResult? Function(List<Area> areas)? areasCreated,
@@ -5242,6 +5394,7 @@ class _$ElementsRemovedImpl extends ElementsRemoved {
         presentationModeEntered,
     TResult? Function()? presentationModeExited,
     TResult? Function(int tick)? presentationTick,
+    TResult? Function(String path, List<int> data)? assetUpdated,
   }) {
     return elementsRemoved?.call(elements);
   }
@@ -5259,9 +5412,9 @@ class _$ElementsRemovedImpl extends ElementsRemoved {
     TResult Function(ViewOption view)? viewChanged,
     TResult Function(UtilitiesState state)? utilitiesChanged,
     TResult Function(List<PadElement> elements)? elementsCreated,
-    TResult Function(Map<int, List<PadElement>> elements)? elementsChanged,
-    TResult Function(List<int> elements)? elementsRemoved,
-    TResult Function(Arrangement arrangement, List<int> elements)?
+    TResult Function(Map<String, List<PadElement>> elements)? elementsChanged,
+    TResult Function(List<String> elements)? elementsRemoved,
+    TResult Function(Arrangement arrangement, List<String> elements)?
         elementsArranged,
     TResult Function(String? name, String? description)?
         documentDescriptionChanged,
@@ -5272,14 +5425,15 @@ class _$ElementsRemovedImpl extends ElementsRemoved {
     TResult Function(int oldIndex, int newIndex)? toolReordered,
     TResult Function(List<Background> backgrounds)? documentBackgroundsChanged,
     TResult Function(Waypoint waypoint)? waypointCreated,
-    TResult Function(int index, String name)? waypointRenamed,
-    TResult Function(int index)? waypointRemoved,
+    TResult Function(String name, Waypoint waypoint)? waypointChanged,
+    TResult Function(String name)? waypointRemoved,
+    TResult Function(String name, int newIndex)? waypointReordered,
     TResult Function(String oldName, String newName)? layerRenamed,
     TResult Function(String name)? layerRemoved,
     TResult Function(String name)? layerElementsRemoved,
     TResult Function(String name)? layerVisibilityChanged,
     TResult Function(String name)? currentLayerChanged,
-    TResult Function(String layer, List<int> elements)? elementsLayerChanged,
+    TResult Function(String layer, List<String> elements)? elementsLayerChanged,
     TResult Function(String directory, String? remote, bool deleteDocument)?
         templateCreated,
     TResult Function(List<Area> areas)? areasCreated,
@@ -5300,6 +5454,7 @@ class _$ElementsRemovedImpl extends ElementsRemoved {
         presentationModeEntered,
     TResult Function()? presentationModeExited,
     TResult Function(int tick)? presentationTick,
+    TResult Function(String path, List<int> data)? assetUpdated,
     required TResult orElse(),
   }) {
     if (elementsRemoved != null) {
@@ -5333,8 +5488,9 @@ class _$ElementsRemovedImpl extends ElementsRemoved {
     required TResult Function(DocumentBackgroundsChanged value)
         documentBackgroundsChanged,
     required TResult Function(WaypointCreated value) waypointCreated,
-    required TResult Function(WaypointRenamed value) waypointRenamed,
+    required TResult Function(WaypointChanged value) waypointChanged,
     required TResult Function(WaypointRemoved value) waypointRemoved,
+    required TResult Function(WaypointReordered value) waypointReordered,
     required TResult Function(LayerRenamed value) layerRenamed,
     required TResult Function(LayerRemoved value) layerRemoved,
     required TResult Function(LayerElementsRemoved value) layerElementsRemoved,
@@ -5362,6 +5518,7 @@ class _$ElementsRemovedImpl extends ElementsRemoved {
     required TResult Function(PresentationModeExited value)
         presentationModeExited,
     required TResult Function(PresentationTick value) presentationTick,
+    required TResult Function(AssetUpdated value) assetUpdated,
   }) {
     return elementsRemoved(this);
   }
@@ -5391,8 +5548,9 @@ class _$ElementsRemovedImpl extends ElementsRemoved {
     TResult? Function(DocumentBackgroundsChanged value)?
         documentBackgroundsChanged,
     TResult? Function(WaypointCreated value)? waypointCreated,
-    TResult? Function(WaypointRenamed value)? waypointRenamed,
+    TResult? Function(WaypointChanged value)? waypointChanged,
     TResult? Function(WaypointRemoved value)? waypointRemoved,
+    TResult? Function(WaypointReordered value)? waypointReordered,
     TResult? Function(LayerRenamed value)? layerRenamed,
     TResult? Function(LayerRemoved value)? layerRemoved,
     TResult? Function(LayerElementsRemoved value)? layerElementsRemoved,
@@ -5417,6 +5575,7 @@ class _$ElementsRemovedImpl extends ElementsRemoved {
     TResult? Function(PresentationModeEntered value)? presentationModeEntered,
     TResult? Function(PresentationModeExited value)? presentationModeExited,
     TResult? Function(PresentationTick value)? presentationTick,
+    TResult? Function(AssetUpdated value)? assetUpdated,
   }) {
     return elementsRemoved?.call(this);
   }
@@ -5446,8 +5605,9 @@ class _$ElementsRemovedImpl extends ElementsRemoved {
     TResult Function(DocumentBackgroundsChanged value)?
         documentBackgroundsChanged,
     TResult Function(WaypointCreated value)? waypointCreated,
-    TResult Function(WaypointRenamed value)? waypointRenamed,
+    TResult Function(WaypointChanged value)? waypointChanged,
     TResult Function(WaypointRemoved value)? waypointRemoved,
+    TResult Function(WaypointReordered value)? waypointReordered,
     TResult Function(LayerRenamed value)? layerRenamed,
     TResult Function(LayerRemoved value)? layerRemoved,
     TResult Function(LayerElementsRemoved value)? layerElementsRemoved,
@@ -5472,6 +5632,7 @@ class _$ElementsRemovedImpl extends ElementsRemoved {
     TResult Function(PresentationModeEntered value)? presentationModeEntered,
     TResult Function(PresentationModeExited value)? presentationModeExited,
     TResult Function(PresentationTick value)? presentationTick,
+    TResult Function(AssetUpdated value)? assetUpdated,
     required TResult orElse(),
   }) {
     if (elementsRemoved != null) {
@@ -5489,14 +5650,14 @@ class _$ElementsRemovedImpl extends ElementsRemoved {
 }
 
 abstract class ElementsRemoved extends DocumentEvent {
-  const factory ElementsRemoved(final List<int> elements) =
+  const factory ElementsRemoved(final List<String> elements) =
       _$ElementsRemovedImpl;
   const ElementsRemoved._() : super._();
 
   factory ElementsRemoved.fromJson(Map<String, dynamic> json) =
       _$ElementsRemovedImpl.fromJson;
 
-  List<int> get elements;
+  List<String> get elements;
   @JsonKey(ignore: true)
   _$$ElementsRemovedImplCopyWith<_$ElementsRemovedImpl> get copyWith =>
       throw _privateConstructorUsedError;
@@ -5508,7 +5669,7 @@ abstract class _$$ElementsArrangedImplCopyWith<$Res> {
           $Res Function(_$ElementsArrangedImpl) then) =
       __$$ElementsArrangedImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({Arrangement arrangement, List<int> elements});
+  $Res call({Arrangement arrangement, List<String> elements});
 }
 
 /// @nodoc
@@ -5533,7 +5694,7 @@ class __$$ElementsArrangedImplCopyWithImpl<$Res>
       null == elements
           ? _value._elements
           : elements // ignore: cast_nullable_to_non_nullable
-              as List<int>,
+              as List<String>,
     ));
   }
 }
@@ -5541,7 +5702,7 @@ class __$$ElementsArrangedImplCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$ElementsArrangedImpl extends ElementsArranged {
-  const _$ElementsArrangedImpl(this.arrangement, final List<int> elements,
+  const _$ElementsArrangedImpl(this.arrangement, final List<String> elements,
       {final String? $type})
       : _elements = elements,
         $type = $type ?? 'elementsArranged',
@@ -5552,9 +5713,9 @@ class _$ElementsArrangedImpl extends ElementsArranged {
 
   @override
   final Arrangement arrangement;
-  final List<int> _elements;
+  final List<String> _elements;
   @override
-  List<int> get elements {
+  List<String> get elements {
     if (_elements is EqualUnmodifiableListView) return _elements;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_elements);
@@ -5603,10 +5764,10 @@ class _$ElementsArrangedImpl extends ElementsArranged {
     required TResult Function(ViewOption view) viewChanged,
     required TResult Function(UtilitiesState state) utilitiesChanged,
     required TResult Function(List<PadElement> elements) elementsCreated,
-    required TResult Function(Map<int, List<PadElement>> elements)
+    required TResult Function(Map<String, List<PadElement>> elements)
         elementsChanged,
-    required TResult Function(List<int> elements) elementsRemoved,
-    required TResult Function(Arrangement arrangement, List<int> elements)
+    required TResult Function(List<String> elements) elementsRemoved,
+    required TResult Function(Arrangement arrangement, List<String> elements)
         elementsArranged,
     required TResult Function(String? name, String? description)
         documentDescriptionChanged,
@@ -5618,14 +5779,15 @@ class _$ElementsArrangedImpl extends ElementsArranged {
     required TResult Function(List<Background> backgrounds)
         documentBackgroundsChanged,
     required TResult Function(Waypoint waypoint) waypointCreated,
-    required TResult Function(int index, String name) waypointRenamed,
-    required TResult Function(int index) waypointRemoved,
+    required TResult Function(String name, Waypoint waypoint) waypointChanged,
+    required TResult Function(String name) waypointRemoved,
+    required TResult Function(String name, int newIndex) waypointReordered,
     required TResult Function(String oldName, String newName) layerRenamed,
     required TResult Function(String name) layerRemoved,
     required TResult Function(String name) layerElementsRemoved,
     required TResult Function(String name) layerVisibilityChanged,
     required TResult Function(String name) currentLayerChanged,
-    required TResult Function(String layer, List<int> elements)
+    required TResult Function(String layer, List<String> elements)
         elementsLayerChanged,
     required TResult Function(
             String directory, String? remote, bool deleteDocument)
@@ -5651,6 +5813,7 @@ class _$ElementsArrangedImpl extends ElementsArranged {
         presentationModeEntered,
     required TResult Function() presentationModeExited,
     required TResult Function(int tick) presentationTick,
+    required TResult Function(String path, List<int> data) assetUpdated,
   }) {
     return elementsArranged(arrangement, elements);
   }
@@ -5668,9 +5831,9 @@ class _$ElementsArrangedImpl extends ElementsArranged {
     TResult? Function(ViewOption view)? viewChanged,
     TResult? Function(UtilitiesState state)? utilitiesChanged,
     TResult? Function(List<PadElement> elements)? elementsCreated,
-    TResult? Function(Map<int, List<PadElement>> elements)? elementsChanged,
-    TResult? Function(List<int> elements)? elementsRemoved,
-    TResult? Function(Arrangement arrangement, List<int> elements)?
+    TResult? Function(Map<String, List<PadElement>> elements)? elementsChanged,
+    TResult? Function(List<String> elements)? elementsRemoved,
+    TResult? Function(Arrangement arrangement, List<String> elements)?
         elementsArranged,
     TResult? Function(String? name, String? description)?
         documentDescriptionChanged,
@@ -5681,14 +5844,16 @@ class _$ElementsArrangedImpl extends ElementsArranged {
     TResult? Function(int oldIndex, int newIndex)? toolReordered,
     TResult? Function(List<Background> backgrounds)? documentBackgroundsChanged,
     TResult? Function(Waypoint waypoint)? waypointCreated,
-    TResult? Function(int index, String name)? waypointRenamed,
-    TResult? Function(int index)? waypointRemoved,
+    TResult? Function(String name, Waypoint waypoint)? waypointChanged,
+    TResult? Function(String name)? waypointRemoved,
+    TResult? Function(String name, int newIndex)? waypointReordered,
     TResult? Function(String oldName, String newName)? layerRenamed,
     TResult? Function(String name)? layerRemoved,
     TResult? Function(String name)? layerElementsRemoved,
     TResult? Function(String name)? layerVisibilityChanged,
     TResult? Function(String name)? currentLayerChanged,
-    TResult? Function(String layer, List<int> elements)? elementsLayerChanged,
+    TResult? Function(String layer, List<String> elements)?
+        elementsLayerChanged,
     TResult? Function(String directory, String? remote, bool deleteDocument)?
         templateCreated,
     TResult? Function(List<Area> areas)? areasCreated,
@@ -5709,6 +5874,7 @@ class _$ElementsArrangedImpl extends ElementsArranged {
         presentationModeEntered,
     TResult? Function()? presentationModeExited,
     TResult? Function(int tick)? presentationTick,
+    TResult? Function(String path, List<int> data)? assetUpdated,
   }) {
     return elementsArranged?.call(arrangement, elements);
   }
@@ -5726,9 +5892,9 @@ class _$ElementsArrangedImpl extends ElementsArranged {
     TResult Function(ViewOption view)? viewChanged,
     TResult Function(UtilitiesState state)? utilitiesChanged,
     TResult Function(List<PadElement> elements)? elementsCreated,
-    TResult Function(Map<int, List<PadElement>> elements)? elementsChanged,
-    TResult Function(List<int> elements)? elementsRemoved,
-    TResult Function(Arrangement arrangement, List<int> elements)?
+    TResult Function(Map<String, List<PadElement>> elements)? elementsChanged,
+    TResult Function(List<String> elements)? elementsRemoved,
+    TResult Function(Arrangement arrangement, List<String> elements)?
         elementsArranged,
     TResult Function(String? name, String? description)?
         documentDescriptionChanged,
@@ -5739,14 +5905,15 @@ class _$ElementsArrangedImpl extends ElementsArranged {
     TResult Function(int oldIndex, int newIndex)? toolReordered,
     TResult Function(List<Background> backgrounds)? documentBackgroundsChanged,
     TResult Function(Waypoint waypoint)? waypointCreated,
-    TResult Function(int index, String name)? waypointRenamed,
-    TResult Function(int index)? waypointRemoved,
+    TResult Function(String name, Waypoint waypoint)? waypointChanged,
+    TResult Function(String name)? waypointRemoved,
+    TResult Function(String name, int newIndex)? waypointReordered,
     TResult Function(String oldName, String newName)? layerRenamed,
     TResult Function(String name)? layerRemoved,
     TResult Function(String name)? layerElementsRemoved,
     TResult Function(String name)? layerVisibilityChanged,
     TResult Function(String name)? currentLayerChanged,
-    TResult Function(String layer, List<int> elements)? elementsLayerChanged,
+    TResult Function(String layer, List<String> elements)? elementsLayerChanged,
     TResult Function(String directory, String? remote, bool deleteDocument)?
         templateCreated,
     TResult Function(List<Area> areas)? areasCreated,
@@ -5767,6 +5934,7 @@ class _$ElementsArrangedImpl extends ElementsArranged {
         presentationModeEntered,
     TResult Function()? presentationModeExited,
     TResult Function(int tick)? presentationTick,
+    TResult Function(String path, List<int> data)? assetUpdated,
     required TResult orElse(),
   }) {
     if (elementsArranged != null) {
@@ -5800,8 +5968,9 @@ class _$ElementsArrangedImpl extends ElementsArranged {
     required TResult Function(DocumentBackgroundsChanged value)
         documentBackgroundsChanged,
     required TResult Function(WaypointCreated value) waypointCreated,
-    required TResult Function(WaypointRenamed value) waypointRenamed,
+    required TResult Function(WaypointChanged value) waypointChanged,
     required TResult Function(WaypointRemoved value) waypointRemoved,
+    required TResult Function(WaypointReordered value) waypointReordered,
     required TResult Function(LayerRenamed value) layerRenamed,
     required TResult Function(LayerRemoved value) layerRemoved,
     required TResult Function(LayerElementsRemoved value) layerElementsRemoved,
@@ -5829,6 +5998,7 @@ class _$ElementsArrangedImpl extends ElementsArranged {
     required TResult Function(PresentationModeExited value)
         presentationModeExited,
     required TResult Function(PresentationTick value) presentationTick,
+    required TResult Function(AssetUpdated value) assetUpdated,
   }) {
     return elementsArranged(this);
   }
@@ -5858,8 +6028,9 @@ class _$ElementsArrangedImpl extends ElementsArranged {
     TResult? Function(DocumentBackgroundsChanged value)?
         documentBackgroundsChanged,
     TResult? Function(WaypointCreated value)? waypointCreated,
-    TResult? Function(WaypointRenamed value)? waypointRenamed,
+    TResult? Function(WaypointChanged value)? waypointChanged,
     TResult? Function(WaypointRemoved value)? waypointRemoved,
+    TResult? Function(WaypointReordered value)? waypointReordered,
     TResult? Function(LayerRenamed value)? layerRenamed,
     TResult? Function(LayerRemoved value)? layerRemoved,
     TResult? Function(LayerElementsRemoved value)? layerElementsRemoved,
@@ -5884,6 +6055,7 @@ class _$ElementsArrangedImpl extends ElementsArranged {
     TResult? Function(PresentationModeEntered value)? presentationModeEntered,
     TResult? Function(PresentationModeExited value)? presentationModeExited,
     TResult? Function(PresentationTick value)? presentationTick,
+    TResult? Function(AssetUpdated value)? assetUpdated,
   }) {
     return elementsArranged?.call(this);
   }
@@ -5913,8 +6085,9 @@ class _$ElementsArrangedImpl extends ElementsArranged {
     TResult Function(DocumentBackgroundsChanged value)?
         documentBackgroundsChanged,
     TResult Function(WaypointCreated value)? waypointCreated,
-    TResult Function(WaypointRenamed value)? waypointRenamed,
+    TResult Function(WaypointChanged value)? waypointChanged,
     TResult Function(WaypointRemoved value)? waypointRemoved,
+    TResult Function(WaypointReordered value)? waypointReordered,
     TResult Function(LayerRenamed value)? layerRenamed,
     TResult Function(LayerRemoved value)? layerRemoved,
     TResult Function(LayerElementsRemoved value)? layerElementsRemoved,
@@ -5939,6 +6112,7 @@ class _$ElementsArrangedImpl extends ElementsArranged {
     TResult Function(PresentationModeEntered value)? presentationModeEntered,
     TResult Function(PresentationModeExited value)? presentationModeExited,
     TResult Function(PresentationTick value)? presentationTick,
+    TResult Function(AssetUpdated value)? assetUpdated,
     required TResult orElse(),
   }) {
     if (elementsArranged != null) {
@@ -5957,7 +6131,7 @@ class _$ElementsArrangedImpl extends ElementsArranged {
 
 abstract class ElementsArranged extends DocumentEvent {
   const factory ElementsArranged(
-          final Arrangement arrangement, final List<int> elements) =
+          final Arrangement arrangement, final List<String> elements) =
       _$ElementsArrangedImpl;
   const ElementsArranged._() : super._();
 
@@ -5965,7 +6139,7 @@ abstract class ElementsArranged extends DocumentEvent {
       _$ElementsArrangedImpl.fromJson;
 
   Arrangement get arrangement;
-  List<int> get elements;
+  List<String> get elements;
   @JsonKey(ignore: true)
   _$$ElementsArrangedImplCopyWith<_$ElementsArrangedImpl> get copyWith =>
       throw _privateConstructorUsedError;
@@ -6068,10 +6242,10 @@ class _$DocumentDescriptionChangedImpl extends DocumentDescriptionChanged {
     required TResult Function(ViewOption view) viewChanged,
     required TResult Function(UtilitiesState state) utilitiesChanged,
     required TResult Function(List<PadElement> elements) elementsCreated,
-    required TResult Function(Map<int, List<PadElement>> elements)
+    required TResult Function(Map<String, List<PadElement>> elements)
         elementsChanged,
-    required TResult Function(List<int> elements) elementsRemoved,
-    required TResult Function(Arrangement arrangement, List<int> elements)
+    required TResult Function(List<String> elements) elementsRemoved,
+    required TResult Function(Arrangement arrangement, List<String> elements)
         elementsArranged,
     required TResult Function(String? name, String? description)
         documentDescriptionChanged,
@@ -6083,14 +6257,15 @@ class _$DocumentDescriptionChangedImpl extends DocumentDescriptionChanged {
     required TResult Function(List<Background> backgrounds)
         documentBackgroundsChanged,
     required TResult Function(Waypoint waypoint) waypointCreated,
-    required TResult Function(int index, String name) waypointRenamed,
-    required TResult Function(int index) waypointRemoved,
+    required TResult Function(String name, Waypoint waypoint) waypointChanged,
+    required TResult Function(String name) waypointRemoved,
+    required TResult Function(String name, int newIndex) waypointReordered,
     required TResult Function(String oldName, String newName) layerRenamed,
     required TResult Function(String name) layerRemoved,
     required TResult Function(String name) layerElementsRemoved,
     required TResult Function(String name) layerVisibilityChanged,
     required TResult Function(String name) currentLayerChanged,
-    required TResult Function(String layer, List<int> elements)
+    required TResult Function(String layer, List<String> elements)
         elementsLayerChanged,
     required TResult Function(
             String directory, String? remote, bool deleteDocument)
@@ -6116,6 +6291,7 @@ class _$DocumentDescriptionChangedImpl extends DocumentDescriptionChanged {
         presentationModeEntered,
     required TResult Function() presentationModeExited,
     required TResult Function(int tick) presentationTick,
+    required TResult Function(String path, List<int> data) assetUpdated,
   }) {
     return documentDescriptionChanged(name, description);
   }
@@ -6133,9 +6309,9 @@ class _$DocumentDescriptionChangedImpl extends DocumentDescriptionChanged {
     TResult? Function(ViewOption view)? viewChanged,
     TResult? Function(UtilitiesState state)? utilitiesChanged,
     TResult? Function(List<PadElement> elements)? elementsCreated,
-    TResult? Function(Map<int, List<PadElement>> elements)? elementsChanged,
-    TResult? Function(List<int> elements)? elementsRemoved,
-    TResult? Function(Arrangement arrangement, List<int> elements)?
+    TResult? Function(Map<String, List<PadElement>> elements)? elementsChanged,
+    TResult? Function(List<String> elements)? elementsRemoved,
+    TResult? Function(Arrangement arrangement, List<String> elements)?
         elementsArranged,
     TResult? Function(String? name, String? description)?
         documentDescriptionChanged,
@@ -6146,14 +6322,16 @@ class _$DocumentDescriptionChangedImpl extends DocumentDescriptionChanged {
     TResult? Function(int oldIndex, int newIndex)? toolReordered,
     TResult? Function(List<Background> backgrounds)? documentBackgroundsChanged,
     TResult? Function(Waypoint waypoint)? waypointCreated,
-    TResult? Function(int index, String name)? waypointRenamed,
-    TResult? Function(int index)? waypointRemoved,
+    TResult? Function(String name, Waypoint waypoint)? waypointChanged,
+    TResult? Function(String name)? waypointRemoved,
+    TResult? Function(String name, int newIndex)? waypointReordered,
     TResult? Function(String oldName, String newName)? layerRenamed,
     TResult? Function(String name)? layerRemoved,
     TResult? Function(String name)? layerElementsRemoved,
     TResult? Function(String name)? layerVisibilityChanged,
     TResult? Function(String name)? currentLayerChanged,
-    TResult? Function(String layer, List<int> elements)? elementsLayerChanged,
+    TResult? Function(String layer, List<String> elements)?
+        elementsLayerChanged,
     TResult? Function(String directory, String? remote, bool deleteDocument)?
         templateCreated,
     TResult? Function(List<Area> areas)? areasCreated,
@@ -6174,6 +6352,7 @@ class _$DocumentDescriptionChangedImpl extends DocumentDescriptionChanged {
         presentationModeEntered,
     TResult? Function()? presentationModeExited,
     TResult? Function(int tick)? presentationTick,
+    TResult? Function(String path, List<int> data)? assetUpdated,
   }) {
     return documentDescriptionChanged?.call(name, description);
   }
@@ -6191,9 +6370,9 @@ class _$DocumentDescriptionChangedImpl extends DocumentDescriptionChanged {
     TResult Function(ViewOption view)? viewChanged,
     TResult Function(UtilitiesState state)? utilitiesChanged,
     TResult Function(List<PadElement> elements)? elementsCreated,
-    TResult Function(Map<int, List<PadElement>> elements)? elementsChanged,
-    TResult Function(List<int> elements)? elementsRemoved,
-    TResult Function(Arrangement arrangement, List<int> elements)?
+    TResult Function(Map<String, List<PadElement>> elements)? elementsChanged,
+    TResult Function(List<String> elements)? elementsRemoved,
+    TResult Function(Arrangement arrangement, List<String> elements)?
         elementsArranged,
     TResult Function(String? name, String? description)?
         documentDescriptionChanged,
@@ -6204,14 +6383,15 @@ class _$DocumentDescriptionChangedImpl extends DocumentDescriptionChanged {
     TResult Function(int oldIndex, int newIndex)? toolReordered,
     TResult Function(List<Background> backgrounds)? documentBackgroundsChanged,
     TResult Function(Waypoint waypoint)? waypointCreated,
-    TResult Function(int index, String name)? waypointRenamed,
-    TResult Function(int index)? waypointRemoved,
+    TResult Function(String name, Waypoint waypoint)? waypointChanged,
+    TResult Function(String name)? waypointRemoved,
+    TResult Function(String name, int newIndex)? waypointReordered,
     TResult Function(String oldName, String newName)? layerRenamed,
     TResult Function(String name)? layerRemoved,
     TResult Function(String name)? layerElementsRemoved,
     TResult Function(String name)? layerVisibilityChanged,
     TResult Function(String name)? currentLayerChanged,
-    TResult Function(String layer, List<int> elements)? elementsLayerChanged,
+    TResult Function(String layer, List<String> elements)? elementsLayerChanged,
     TResult Function(String directory, String? remote, bool deleteDocument)?
         templateCreated,
     TResult Function(List<Area> areas)? areasCreated,
@@ -6232,6 +6412,7 @@ class _$DocumentDescriptionChangedImpl extends DocumentDescriptionChanged {
         presentationModeEntered,
     TResult Function()? presentationModeExited,
     TResult Function(int tick)? presentationTick,
+    TResult Function(String path, List<int> data)? assetUpdated,
     required TResult orElse(),
   }) {
     if (documentDescriptionChanged != null) {
@@ -6265,8 +6446,9 @@ class _$DocumentDescriptionChangedImpl extends DocumentDescriptionChanged {
     required TResult Function(DocumentBackgroundsChanged value)
         documentBackgroundsChanged,
     required TResult Function(WaypointCreated value) waypointCreated,
-    required TResult Function(WaypointRenamed value) waypointRenamed,
+    required TResult Function(WaypointChanged value) waypointChanged,
     required TResult Function(WaypointRemoved value) waypointRemoved,
+    required TResult Function(WaypointReordered value) waypointReordered,
     required TResult Function(LayerRenamed value) layerRenamed,
     required TResult Function(LayerRemoved value) layerRemoved,
     required TResult Function(LayerElementsRemoved value) layerElementsRemoved,
@@ -6294,6 +6476,7 @@ class _$DocumentDescriptionChangedImpl extends DocumentDescriptionChanged {
     required TResult Function(PresentationModeExited value)
         presentationModeExited,
     required TResult Function(PresentationTick value) presentationTick,
+    required TResult Function(AssetUpdated value) assetUpdated,
   }) {
     return documentDescriptionChanged(this);
   }
@@ -6323,8 +6506,9 @@ class _$DocumentDescriptionChangedImpl extends DocumentDescriptionChanged {
     TResult? Function(DocumentBackgroundsChanged value)?
         documentBackgroundsChanged,
     TResult? Function(WaypointCreated value)? waypointCreated,
-    TResult? Function(WaypointRenamed value)? waypointRenamed,
+    TResult? Function(WaypointChanged value)? waypointChanged,
     TResult? Function(WaypointRemoved value)? waypointRemoved,
+    TResult? Function(WaypointReordered value)? waypointReordered,
     TResult? Function(LayerRenamed value)? layerRenamed,
     TResult? Function(LayerRemoved value)? layerRemoved,
     TResult? Function(LayerElementsRemoved value)? layerElementsRemoved,
@@ -6349,6 +6533,7 @@ class _$DocumentDescriptionChangedImpl extends DocumentDescriptionChanged {
     TResult? Function(PresentationModeEntered value)? presentationModeEntered,
     TResult? Function(PresentationModeExited value)? presentationModeExited,
     TResult? Function(PresentationTick value)? presentationTick,
+    TResult? Function(AssetUpdated value)? assetUpdated,
   }) {
     return documentDescriptionChanged?.call(this);
   }
@@ -6378,8 +6563,9 @@ class _$DocumentDescriptionChangedImpl extends DocumentDescriptionChanged {
     TResult Function(DocumentBackgroundsChanged value)?
         documentBackgroundsChanged,
     TResult Function(WaypointCreated value)? waypointCreated,
-    TResult Function(WaypointRenamed value)? waypointRenamed,
+    TResult Function(WaypointChanged value)? waypointChanged,
     TResult Function(WaypointRemoved value)? waypointRemoved,
+    TResult Function(WaypointReordered value)? waypointReordered,
     TResult Function(LayerRenamed value)? layerRenamed,
     TResult Function(LayerRemoved value)? layerRemoved,
     TResult Function(LayerElementsRemoved value)? layerElementsRemoved,
@@ -6404,6 +6590,7 @@ class _$DocumentDescriptionChangedImpl extends DocumentDescriptionChanged {
     TResult Function(PresentationModeEntered value)? presentationModeEntered,
     TResult Function(PresentationModeExited value)? presentationModeExited,
     TResult Function(PresentationTick value)? presentationTick,
+    TResult Function(AssetUpdated value)? assetUpdated,
     required TResult orElse(),
   }) {
     if (documentDescriptionChanged != null) {
@@ -6534,10 +6721,10 @@ class _$DocumentSavedImpl extends DocumentSaved {
     required TResult Function(ViewOption view) viewChanged,
     required TResult Function(UtilitiesState state) utilitiesChanged,
     required TResult Function(List<PadElement> elements) elementsCreated,
-    required TResult Function(Map<int, List<PadElement>> elements)
+    required TResult Function(Map<String, List<PadElement>> elements)
         elementsChanged,
-    required TResult Function(List<int> elements) elementsRemoved,
-    required TResult Function(Arrangement arrangement, List<int> elements)
+    required TResult Function(List<String> elements) elementsRemoved,
+    required TResult Function(Arrangement arrangement, List<String> elements)
         elementsArranged,
     required TResult Function(String? name, String? description)
         documentDescriptionChanged,
@@ -6549,14 +6736,15 @@ class _$DocumentSavedImpl extends DocumentSaved {
     required TResult Function(List<Background> backgrounds)
         documentBackgroundsChanged,
     required TResult Function(Waypoint waypoint) waypointCreated,
-    required TResult Function(int index, String name) waypointRenamed,
-    required TResult Function(int index) waypointRemoved,
+    required TResult Function(String name, Waypoint waypoint) waypointChanged,
+    required TResult Function(String name) waypointRemoved,
+    required TResult Function(String name, int newIndex) waypointReordered,
     required TResult Function(String oldName, String newName) layerRenamed,
     required TResult Function(String name) layerRemoved,
     required TResult Function(String name) layerElementsRemoved,
     required TResult Function(String name) layerVisibilityChanged,
     required TResult Function(String name) currentLayerChanged,
-    required TResult Function(String layer, List<int> elements)
+    required TResult Function(String layer, List<String> elements)
         elementsLayerChanged,
     required TResult Function(
             String directory, String? remote, bool deleteDocument)
@@ -6582,6 +6770,7 @@ class _$DocumentSavedImpl extends DocumentSaved {
         presentationModeEntered,
     required TResult Function() presentationModeExited,
     required TResult Function(int tick) presentationTick,
+    required TResult Function(String path, List<int> data) assetUpdated,
   }) {
     return documentSaved(location);
   }
@@ -6599,9 +6788,9 @@ class _$DocumentSavedImpl extends DocumentSaved {
     TResult? Function(ViewOption view)? viewChanged,
     TResult? Function(UtilitiesState state)? utilitiesChanged,
     TResult? Function(List<PadElement> elements)? elementsCreated,
-    TResult? Function(Map<int, List<PadElement>> elements)? elementsChanged,
-    TResult? Function(List<int> elements)? elementsRemoved,
-    TResult? Function(Arrangement arrangement, List<int> elements)?
+    TResult? Function(Map<String, List<PadElement>> elements)? elementsChanged,
+    TResult? Function(List<String> elements)? elementsRemoved,
+    TResult? Function(Arrangement arrangement, List<String> elements)?
         elementsArranged,
     TResult? Function(String? name, String? description)?
         documentDescriptionChanged,
@@ -6612,14 +6801,16 @@ class _$DocumentSavedImpl extends DocumentSaved {
     TResult? Function(int oldIndex, int newIndex)? toolReordered,
     TResult? Function(List<Background> backgrounds)? documentBackgroundsChanged,
     TResult? Function(Waypoint waypoint)? waypointCreated,
-    TResult? Function(int index, String name)? waypointRenamed,
-    TResult? Function(int index)? waypointRemoved,
+    TResult? Function(String name, Waypoint waypoint)? waypointChanged,
+    TResult? Function(String name)? waypointRemoved,
+    TResult? Function(String name, int newIndex)? waypointReordered,
     TResult? Function(String oldName, String newName)? layerRenamed,
     TResult? Function(String name)? layerRemoved,
     TResult? Function(String name)? layerElementsRemoved,
     TResult? Function(String name)? layerVisibilityChanged,
     TResult? Function(String name)? currentLayerChanged,
-    TResult? Function(String layer, List<int> elements)? elementsLayerChanged,
+    TResult? Function(String layer, List<String> elements)?
+        elementsLayerChanged,
     TResult? Function(String directory, String? remote, bool deleteDocument)?
         templateCreated,
     TResult? Function(List<Area> areas)? areasCreated,
@@ -6640,6 +6831,7 @@ class _$DocumentSavedImpl extends DocumentSaved {
         presentationModeEntered,
     TResult? Function()? presentationModeExited,
     TResult? Function(int tick)? presentationTick,
+    TResult? Function(String path, List<int> data)? assetUpdated,
   }) {
     return documentSaved?.call(location);
   }
@@ -6657,9 +6849,9 @@ class _$DocumentSavedImpl extends DocumentSaved {
     TResult Function(ViewOption view)? viewChanged,
     TResult Function(UtilitiesState state)? utilitiesChanged,
     TResult Function(List<PadElement> elements)? elementsCreated,
-    TResult Function(Map<int, List<PadElement>> elements)? elementsChanged,
-    TResult Function(List<int> elements)? elementsRemoved,
-    TResult Function(Arrangement arrangement, List<int> elements)?
+    TResult Function(Map<String, List<PadElement>> elements)? elementsChanged,
+    TResult Function(List<String> elements)? elementsRemoved,
+    TResult Function(Arrangement arrangement, List<String> elements)?
         elementsArranged,
     TResult Function(String? name, String? description)?
         documentDescriptionChanged,
@@ -6670,14 +6862,15 @@ class _$DocumentSavedImpl extends DocumentSaved {
     TResult Function(int oldIndex, int newIndex)? toolReordered,
     TResult Function(List<Background> backgrounds)? documentBackgroundsChanged,
     TResult Function(Waypoint waypoint)? waypointCreated,
-    TResult Function(int index, String name)? waypointRenamed,
-    TResult Function(int index)? waypointRemoved,
+    TResult Function(String name, Waypoint waypoint)? waypointChanged,
+    TResult Function(String name)? waypointRemoved,
+    TResult Function(String name, int newIndex)? waypointReordered,
     TResult Function(String oldName, String newName)? layerRenamed,
     TResult Function(String name)? layerRemoved,
     TResult Function(String name)? layerElementsRemoved,
     TResult Function(String name)? layerVisibilityChanged,
     TResult Function(String name)? currentLayerChanged,
-    TResult Function(String layer, List<int> elements)? elementsLayerChanged,
+    TResult Function(String layer, List<String> elements)? elementsLayerChanged,
     TResult Function(String directory, String? remote, bool deleteDocument)?
         templateCreated,
     TResult Function(List<Area> areas)? areasCreated,
@@ -6698,6 +6891,7 @@ class _$DocumentSavedImpl extends DocumentSaved {
         presentationModeEntered,
     TResult Function()? presentationModeExited,
     TResult Function(int tick)? presentationTick,
+    TResult Function(String path, List<int> data)? assetUpdated,
     required TResult orElse(),
   }) {
     if (documentSaved != null) {
@@ -6731,8 +6925,9 @@ class _$DocumentSavedImpl extends DocumentSaved {
     required TResult Function(DocumentBackgroundsChanged value)
         documentBackgroundsChanged,
     required TResult Function(WaypointCreated value) waypointCreated,
-    required TResult Function(WaypointRenamed value) waypointRenamed,
+    required TResult Function(WaypointChanged value) waypointChanged,
     required TResult Function(WaypointRemoved value) waypointRemoved,
+    required TResult Function(WaypointReordered value) waypointReordered,
     required TResult Function(LayerRenamed value) layerRenamed,
     required TResult Function(LayerRemoved value) layerRemoved,
     required TResult Function(LayerElementsRemoved value) layerElementsRemoved,
@@ -6760,6 +6955,7 @@ class _$DocumentSavedImpl extends DocumentSaved {
     required TResult Function(PresentationModeExited value)
         presentationModeExited,
     required TResult Function(PresentationTick value) presentationTick,
+    required TResult Function(AssetUpdated value) assetUpdated,
   }) {
     return documentSaved(this);
   }
@@ -6789,8 +6985,9 @@ class _$DocumentSavedImpl extends DocumentSaved {
     TResult? Function(DocumentBackgroundsChanged value)?
         documentBackgroundsChanged,
     TResult? Function(WaypointCreated value)? waypointCreated,
-    TResult? Function(WaypointRenamed value)? waypointRenamed,
+    TResult? Function(WaypointChanged value)? waypointChanged,
     TResult? Function(WaypointRemoved value)? waypointRemoved,
+    TResult? Function(WaypointReordered value)? waypointReordered,
     TResult? Function(LayerRenamed value)? layerRenamed,
     TResult? Function(LayerRemoved value)? layerRemoved,
     TResult? Function(LayerElementsRemoved value)? layerElementsRemoved,
@@ -6815,6 +7012,7 @@ class _$DocumentSavedImpl extends DocumentSaved {
     TResult? Function(PresentationModeEntered value)? presentationModeEntered,
     TResult? Function(PresentationModeExited value)? presentationModeExited,
     TResult? Function(PresentationTick value)? presentationTick,
+    TResult? Function(AssetUpdated value)? assetUpdated,
   }) {
     return documentSaved?.call(this);
   }
@@ -6844,8 +7042,9 @@ class _$DocumentSavedImpl extends DocumentSaved {
     TResult Function(DocumentBackgroundsChanged value)?
         documentBackgroundsChanged,
     TResult Function(WaypointCreated value)? waypointCreated,
-    TResult Function(WaypointRenamed value)? waypointRenamed,
+    TResult Function(WaypointChanged value)? waypointChanged,
     TResult Function(WaypointRemoved value)? waypointRemoved,
+    TResult Function(WaypointReordered value)? waypointReordered,
     TResult Function(LayerRenamed value)? layerRenamed,
     TResult Function(LayerRemoved value)? layerRemoved,
     TResult Function(LayerElementsRemoved value)? layerElementsRemoved,
@@ -6870,6 +7069,7 @@ class _$DocumentSavedImpl extends DocumentSaved {
     TResult Function(PresentationModeEntered value)? presentationModeEntered,
     TResult Function(PresentationModeExited value)? presentationModeExited,
     TResult Function(PresentationTick value)? presentationTick,
+    TResult Function(AssetUpdated value)? assetUpdated,
     required TResult orElse(),
   }) {
     if (documentSaved != null) {
@@ -6993,10 +7193,10 @@ class _$ToolCreatedImpl extends ToolCreated {
     required TResult Function(ViewOption view) viewChanged,
     required TResult Function(UtilitiesState state) utilitiesChanged,
     required TResult Function(List<PadElement> elements) elementsCreated,
-    required TResult Function(Map<int, List<PadElement>> elements)
+    required TResult Function(Map<String, List<PadElement>> elements)
         elementsChanged,
-    required TResult Function(List<int> elements) elementsRemoved,
-    required TResult Function(Arrangement arrangement, List<int> elements)
+    required TResult Function(List<String> elements) elementsRemoved,
+    required TResult Function(Arrangement arrangement, List<String> elements)
         elementsArranged,
     required TResult Function(String? name, String? description)
         documentDescriptionChanged,
@@ -7008,14 +7208,15 @@ class _$ToolCreatedImpl extends ToolCreated {
     required TResult Function(List<Background> backgrounds)
         documentBackgroundsChanged,
     required TResult Function(Waypoint waypoint) waypointCreated,
-    required TResult Function(int index, String name) waypointRenamed,
-    required TResult Function(int index) waypointRemoved,
+    required TResult Function(String name, Waypoint waypoint) waypointChanged,
+    required TResult Function(String name) waypointRemoved,
+    required TResult Function(String name, int newIndex) waypointReordered,
     required TResult Function(String oldName, String newName) layerRenamed,
     required TResult Function(String name) layerRemoved,
     required TResult Function(String name) layerElementsRemoved,
     required TResult Function(String name) layerVisibilityChanged,
     required TResult Function(String name) currentLayerChanged,
-    required TResult Function(String layer, List<int> elements)
+    required TResult Function(String layer, List<String> elements)
         elementsLayerChanged,
     required TResult Function(
             String directory, String? remote, bool deleteDocument)
@@ -7041,6 +7242,7 @@ class _$ToolCreatedImpl extends ToolCreated {
         presentationModeEntered,
     required TResult Function() presentationModeExited,
     required TResult Function(int tick) presentationTick,
+    required TResult Function(String path, List<int> data) assetUpdated,
   }) {
     return toolCreated(tool);
   }
@@ -7058,9 +7260,9 @@ class _$ToolCreatedImpl extends ToolCreated {
     TResult? Function(ViewOption view)? viewChanged,
     TResult? Function(UtilitiesState state)? utilitiesChanged,
     TResult? Function(List<PadElement> elements)? elementsCreated,
-    TResult? Function(Map<int, List<PadElement>> elements)? elementsChanged,
-    TResult? Function(List<int> elements)? elementsRemoved,
-    TResult? Function(Arrangement arrangement, List<int> elements)?
+    TResult? Function(Map<String, List<PadElement>> elements)? elementsChanged,
+    TResult? Function(List<String> elements)? elementsRemoved,
+    TResult? Function(Arrangement arrangement, List<String> elements)?
         elementsArranged,
     TResult? Function(String? name, String? description)?
         documentDescriptionChanged,
@@ -7071,14 +7273,16 @@ class _$ToolCreatedImpl extends ToolCreated {
     TResult? Function(int oldIndex, int newIndex)? toolReordered,
     TResult? Function(List<Background> backgrounds)? documentBackgroundsChanged,
     TResult? Function(Waypoint waypoint)? waypointCreated,
-    TResult? Function(int index, String name)? waypointRenamed,
-    TResult? Function(int index)? waypointRemoved,
+    TResult? Function(String name, Waypoint waypoint)? waypointChanged,
+    TResult? Function(String name)? waypointRemoved,
+    TResult? Function(String name, int newIndex)? waypointReordered,
     TResult? Function(String oldName, String newName)? layerRenamed,
     TResult? Function(String name)? layerRemoved,
     TResult? Function(String name)? layerElementsRemoved,
     TResult? Function(String name)? layerVisibilityChanged,
     TResult? Function(String name)? currentLayerChanged,
-    TResult? Function(String layer, List<int> elements)? elementsLayerChanged,
+    TResult? Function(String layer, List<String> elements)?
+        elementsLayerChanged,
     TResult? Function(String directory, String? remote, bool deleteDocument)?
         templateCreated,
     TResult? Function(List<Area> areas)? areasCreated,
@@ -7099,6 +7303,7 @@ class _$ToolCreatedImpl extends ToolCreated {
         presentationModeEntered,
     TResult? Function()? presentationModeExited,
     TResult? Function(int tick)? presentationTick,
+    TResult? Function(String path, List<int> data)? assetUpdated,
   }) {
     return toolCreated?.call(tool);
   }
@@ -7116,9 +7321,9 @@ class _$ToolCreatedImpl extends ToolCreated {
     TResult Function(ViewOption view)? viewChanged,
     TResult Function(UtilitiesState state)? utilitiesChanged,
     TResult Function(List<PadElement> elements)? elementsCreated,
-    TResult Function(Map<int, List<PadElement>> elements)? elementsChanged,
-    TResult Function(List<int> elements)? elementsRemoved,
-    TResult Function(Arrangement arrangement, List<int> elements)?
+    TResult Function(Map<String, List<PadElement>> elements)? elementsChanged,
+    TResult Function(List<String> elements)? elementsRemoved,
+    TResult Function(Arrangement arrangement, List<String> elements)?
         elementsArranged,
     TResult Function(String? name, String? description)?
         documentDescriptionChanged,
@@ -7129,14 +7334,15 @@ class _$ToolCreatedImpl extends ToolCreated {
     TResult Function(int oldIndex, int newIndex)? toolReordered,
     TResult Function(List<Background> backgrounds)? documentBackgroundsChanged,
     TResult Function(Waypoint waypoint)? waypointCreated,
-    TResult Function(int index, String name)? waypointRenamed,
-    TResult Function(int index)? waypointRemoved,
+    TResult Function(String name, Waypoint waypoint)? waypointChanged,
+    TResult Function(String name)? waypointRemoved,
+    TResult Function(String name, int newIndex)? waypointReordered,
     TResult Function(String oldName, String newName)? layerRenamed,
     TResult Function(String name)? layerRemoved,
     TResult Function(String name)? layerElementsRemoved,
     TResult Function(String name)? layerVisibilityChanged,
     TResult Function(String name)? currentLayerChanged,
-    TResult Function(String layer, List<int> elements)? elementsLayerChanged,
+    TResult Function(String layer, List<String> elements)? elementsLayerChanged,
     TResult Function(String directory, String? remote, bool deleteDocument)?
         templateCreated,
     TResult Function(List<Area> areas)? areasCreated,
@@ -7157,6 +7363,7 @@ class _$ToolCreatedImpl extends ToolCreated {
         presentationModeEntered,
     TResult Function()? presentationModeExited,
     TResult Function(int tick)? presentationTick,
+    TResult Function(String path, List<int> data)? assetUpdated,
     required TResult orElse(),
   }) {
     if (toolCreated != null) {
@@ -7190,8 +7397,9 @@ class _$ToolCreatedImpl extends ToolCreated {
     required TResult Function(DocumentBackgroundsChanged value)
         documentBackgroundsChanged,
     required TResult Function(WaypointCreated value) waypointCreated,
-    required TResult Function(WaypointRenamed value) waypointRenamed,
+    required TResult Function(WaypointChanged value) waypointChanged,
     required TResult Function(WaypointRemoved value) waypointRemoved,
+    required TResult Function(WaypointReordered value) waypointReordered,
     required TResult Function(LayerRenamed value) layerRenamed,
     required TResult Function(LayerRemoved value) layerRemoved,
     required TResult Function(LayerElementsRemoved value) layerElementsRemoved,
@@ -7219,6 +7427,7 @@ class _$ToolCreatedImpl extends ToolCreated {
     required TResult Function(PresentationModeExited value)
         presentationModeExited,
     required TResult Function(PresentationTick value) presentationTick,
+    required TResult Function(AssetUpdated value) assetUpdated,
   }) {
     return toolCreated(this);
   }
@@ -7248,8 +7457,9 @@ class _$ToolCreatedImpl extends ToolCreated {
     TResult? Function(DocumentBackgroundsChanged value)?
         documentBackgroundsChanged,
     TResult? Function(WaypointCreated value)? waypointCreated,
-    TResult? Function(WaypointRenamed value)? waypointRenamed,
+    TResult? Function(WaypointChanged value)? waypointChanged,
     TResult? Function(WaypointRemoved value)? waypointRemoved,
+    TResult? Function(WaypointReordered value)? waypointReordered,
     TResult? Function(LayerRenamed value)? layerRenamed,
     TResult? Function(LayerRemoved value)? layerRemoved,
     TResult? Function(LayerElementsRemoved value)? layerElementsRemoved,
@@ -7274,6 +7484,7 @@ class _$ToolCreatedImpl extends ToolCreated {
     TResult? Function(PresentationModeEntered value)? presentationModeEntered,
     TResult? Function(PresentationModeExited value)? presentationModeExited,
     TResult? Function(PresentationTick value)? presentationTick,
+    TResult? Function(AssetUpdated value)? assetUpdated,
   }) {
     return toolCreated?.call(this);
   }
@@ -7303,8 +7514,9 @@ class _$ToolCreatedImpl extends ToolCreated {
     TResult Function(DocumentBackgroundsChanged value)?
         documentBackgroundsChanged,
     TResult Function(WaypointCreated value)? waypointCreated,
-    TResult Function(WaypointRenamed value)? waypointRenamed,
+    TResult Function(WaypointChanged value)? waypointChanged,
     TResult Function(WaypointRemoved value)? waypointRemoved,
+    TResult Function(WaypointReordered value)? waypointReordered,
     TResult Function(LayerRenamed value)? layerRenamed,
     TResult Function(LayerRemoved value)? layerRemoved,
     TResult Function(LayerElementsRemoved value)? layerElementsRemoved,
@@ -7329,6 +7541,7 @@ class _$ToolCreatedImpl extends ToolCreated {
     TResult Function(PresentationModeEntered value)? presentationModeEntered,
     TResult Function(PresentationModeExited value)? presentationModeExited,
     TResult Function(PresentationTick value)? presentationTick,
+    TResult Function(AssetUpdated value)? assetUpdated,
     required TResult orElse(),
   }) {
     if (toolCreated != null) {
@@ -7448,10 +7661,10 @@ class _$ToolsChangedImpl extends ToolsChanged {
     required TResult Function(ViewOption view) viewChanged,
     required TResult Function(UtilitiesState state) utilitiesChanged,
     required TResult Function(List<PadElement> elements) elementsCreated,
-    required TResult Function(Map<int, List<PadElement>> elements)
+    required TResult Function(Map<String, List<PadElement>> elements)
         elementsChanged,
-    required TResult Function(List<int> elements) elementsRemoved,
-    required TResult Function(Arrangement arrangement, List<int> elements)
+    required TResult Function(List<String> elements) elementsRemoved,
+    required TResult Function(Arrangement arrangement, List<String> elements)
         elementsArranged,
     required TResult Function(String? name, String? description)
         documentDescriptionChanged,
@@ -7463,14 +7676,15 @@ class _$ToolsChangedImpl extends ToolsChanged {
     required TResult Function(List<Background> backgrounds)
         documentBackgroundsChanged,
     required TResult Function(Waypoint waypoint) waypointCreated,
-    required TResult Function(int index, String name) waypointRenamed,
-    required TResult Function(int index) waypointRemoved,
+    required TResult Function(String name, Waypoint waypoint) waypointChanged,
+    required TResult Function(String name) waypointRemoved,
+    required TResult Function(String name, int newIndex) waypointReordered,
     required TResult Function(String oldName, String newName) layerRenamed,
     required TResult Function(String name) layerRemoved,
     required TResult Function(String name) layerElementsRemoved,
     required TResult Function(String name) layerVisibilityChanged,
     required TResult Function(String name) currentLayerChanged,
-    required TResult Function(String layer, List<int> elements)
+    required TResult Function(String layer, List<String> elements)
         elementsLayerChanged,
     required TResult Function(
             String directory, String? remote, bool deleteDocument)
@@ -7496,6 +7710,7 @@ class _$ToolsChangedImpl extends ToolsChanged {
         presentationModeEntered,
     required TResult Function() presentationModeExited,
     required TResult Function(int tick) presentationTick,
+    required TResult Function(String path, List<int> data) assetUpdated,
   }) {
     return toolsChanged(tools);
   }
@@ -7513,9 +7728,9 @@ class _$ToolsChangedImpl extends ToolsChanged {
     TResult? Function(ViewOption view)? viewChanged,
     TResult? Function(UtilitiesState state)? utilitiesChanged,
     TResult? Function(List<PadElement> elements)? elementsCreated,
-    TResult? Function(Map<int, List<PadElement>> elements)? elementsChanged,
-    TResult? Function(List<int> elements)? elementsRemoved,
-    TResult? Function(Arrangement arrangement, List<int> elements)?
+    TResult? Function(Map<String, List<PadElement>> elements)? elementsChanged,
+    TResult? Function(List<String> elements)? elementsRemoved,
+    TResult? Function(Arrangement arrangement, List<String> elements)?
         elementsArranged,
     TResult? Function(String? name, String? description)?
         documentDescriptionChanged,
@@ -7526,14 +7741,16 @@ class _$ToolsChangedImpl extends ToolsChanged {
     TResult? Function(int oldIndex, int newIndex)? toolReordered,
     TResult? Function(List<Background> backgrounds)? documentBackgroundsChanged,
     TResult? Function(Waypoint waypoint)? waypointCreated,
-    TResult? Function(int index, String name)? waypointRenamed,
-    TResult? Function(int index)? waypointRemoved,
+    TResult? Function(String name, Waypoint waypoint)? waypointChanged,
+    TResult? Function(String name)? waypointRemoved,
+    TResult? Function(String name, int newIndex)? waypointReordered,
     TResult? Function(String oldName, String newName)? layerRenamed,
     TResult? Function(String name)? layerRemoved,
     TResult? Function(String name)? layerElementsRemoved,
     TResult? Function(String name)? layerVisibilityChanged,
     TResult? Function(String name)? currentLayerChanged,
-    TResult? Function(String layer, List<int> elements)? elementsLayerChanged,
+    TResult? Function(String layer, List<String> elements)?
+        elementsLayerChanged,
     TResult? Function(String directory, String? remote, bool deleteDocument)?
         templateCreated,
     TResult? Function(List<Area> areas)? areasCreated,
@@ -7554,6 +7771,7 @@ class _$ToolsChangedImpl extends ToolsChanged {
         presentationModeEntered,
     TResult? Function()? presentationModeExited,
     TResult? Function(int tick)? presentationTick,
+    TResult? Function(String path, List<int> data)? assetUpdated,
   }) {
     return toolsChanged?.call(tools);
   }
@@ -7571,9 +7789,9 @@ class _$ToolsChangedImpl extends ToolsChanged {
     TResult Function(ViewOption view)? viewChanged,
     TResult Function(UtilitiesState state)? utilitiesChanged,
     TResult Function(List<PadElement> elements)? elementsCreated,
-    TResult Function(Map<int, List<PadElement>> elements)? elementsChanged,
-    TResult Function(List<int> elements)? elementsRemoved,
-    TResult Function(Arrangement arrangement, List<int> elements)?
+    TResult Function(Map<String, List<PadElement>> elements)? elementsChanged,
+    TResult Function(List<String> elements)? elementsRemoved,
+    TResult Function(Arrangement arrangement, List<String> elements)?
         elementsArranged,
     TResult Function(String? name, String? description)?
         documentDescriptionChanged,
@@ -7584,14 +7802,15 @@ class _$ToolsChangedImpl extends ToolsChanged {
     TResult Function(int oldIndex, int newIndex)? toolReordered,
     TResult Function(List<Background> backgrounds)? documentBackgroundsChanged,
     TResult Function(Waypoint waypoint)? waypointCreated,
-    TResult Function(int index, String name)? waypointRenamed,
-    TResult Function(int index)? waypointRemoved,
+    TResult Function(String name, Waypoint waypoint)? waypointChanged,
+    TResult Function(String name)? waypointRemoved,
+    TResult Function(String name, int newIndex)? waypointReordered,
     TResult Function(String oldName, String newName)? layerRenamed,
     TResult Function(String name)? layerRemoved,
     TResult Function(String name)? layerElementsRemoved,
     TResult Function(String name)? layerVisibilityChanged,
     TResult Function(String name)? currentLayerChanged,
-    TResult Function(String layer, List<int> elements)? elementsLayerChanged,
+    TResult Function(String layer, List<String> elements)? elementsLayerChanged,
     TResult Function(String directory, String? remote, bool deleteDocument)?
         templateCreated,
     TResult Function(List<Area> areas)? areasCreated,
@@ -7612,6 +7831,7 @@ class _$ToolsChangedImpl extends ToolsChanged {
         presentationModeEntered,
     TResult Function()? presentationModeExited,
     TResult Function(int tick)? presentationTick,
+    TResult Function(String path, List<int> data)? assetUpdated,
     required TResult orElse(),
   }) {
     if (toolsChanged != null) {
@@ -7645,8 +7865,9 @@ class _$ToolsChangedImpl extends ToolsChanged {
     required TResult Function(DocumentBackgroundsChanged value)
         documentBackgroundsChanged,
     required TResult Function(WaypointCreated value) waypointCreated,
-    required TResult Function(WaypointRenamed value) waypointRenamed,
+    required TResult Function(WaypointChanged value) waypointChanged,
     required TResult Function(WaypointRemoved value) waypointRemoved,
+    required TResult Function(WaypointReordered value) waypointReordered,
     required TResult Function(LayerRenamed value) layerRenamed,
     required TResult Function(LayerRemoved value) layerRemoved,
     required TResult Function(LayerElementsRemoved value) layerElementsRemoved,
@@ -7674,6 +7895,7 @@ class _$ToolsChangedImpl extends ToolsChanged {
     required TResult Function(PresentationModeExited value)
         presentationModeExited,
     required TResult Function(PresentationTick value) presentationTick,
+    required TResult Function(AssetUpdated value) assetUpdated,
   }) {
     return toolsChanged(this);
   }
@@ -7703,8 +7925,9 @@ class _$ToolsChangedImpl extends ToolsChanged {
     TResult? Function(DocumentBackgroundsChanged value)?
         documentBackgroundsChanged,
     TResult? Function(WaypointCreated value)? waypointCreated,
-    TResult? Function(WaypointRenamed value)? waypointRenamed,
+    TResult? Function(WaypointChanged value)? waypointChanged,
     TResult? Function(WaypointRemoved value)? waypointRemoved,
+    TResult? Function(WaypointReordered value)? waypointReordered,
     TResult? Function(LayerRenamed value)? layerRenamed,
     TResult? Function(LayerRemoved value)? layerRemoved,
     TResult? Function(LayerElementsRemoved value)? layerElementsRemoved,
@@ -7729,6 +7952,7 @@ class _$ToolsChangedImpl extends ToolsChanged {
     TResult? Function(PresentationModeEntered value)? presentationModeEntered,
     TResult? Function(PresentationModeExited value)? presentationModeExited,
     TResult? Function(PresentationTick value)? presentationTick,
+    TResult? Function(AssetUpdated value)? assetUpdated,
   }) {
     return toolsChanged?.call(this);
   }
@@ -7758,8 +7982,9 @@ class _$ToolsChangedImpl extends ToolsChanged {
     TResult Function(DocumentBackgroundsChanged value)?
         documentBackgroundsChanged,
     TResult Function(WaypointCreated value)? waypointCreated,
-    TResult Function(WaypointRenamed value)? waypointRenamed,
+    TResult Function(WaypointChanged value)? waypointChanged,
     TResult Function(WaypointRemoved value)? waypointRemoved,
+    TResult Function(WaypointReordered value)? waypointReordered,
     TResult Function(LayerRenamed value)? layerRenamed,
     TResult Function(LayerRemoved value)? layerRemoved,
     TResult Function(LayerElementsRemoved value)? layerElementsRemoved,
@@ -7784,6 +8009,7 @@ class _$ToolsChangedImpl extends ToolsChanged {
     TResult Function(PresentationModeEntered value)? presentationModeEntered,
     TResult Function(PresentationModeExited value)? presentationModeExited,
     TResult Function(PresentationTick value)? presentationTick,
+    TResult Function(AssetUpdated value)? assetUpdated,
     required TResult orElse(),
   }) {
     if (toolsChanged != null) {
@@ -7903,10 +8129,10 @@ class _$ToolsRemovedImpl extends ToolsRemoved {
     required TResult Function(ViewOption view) viewChanged,
     required TResult Function(UtilitiesState state) utilitiesChanged,
     required TResult Function(List<PadElement> elements) elementsCreated,
-    required TResult Function(Map<int, List<PadElement>> elements)
+    required TResult Function(Map<String, List<PadElement>> elements)
         elementsChanged,
-    required TResult Function(List<int> elements) elementsRemoved,
-    required TResult Function(Arrangement arrangement, List<int> elements)
+    required TResult Function(List<String> elements) elementsRemoved,
+    required TResult Function(Arrangement arrangement, List<String> elements)
         elementsArranged,
     required TResult Function(String? name, String? description)
         documentDescriptionChanged,
@@ -7918,14 +8144,15 @@ class _$ToolsRemovedImpl extends ToolsRemoved {
     required TResult Function(List<Background> backgrounds)
         documentBackgroundsChanged,
     required TResult Function(Waypoint waypoint) waypointCreated,
-    required TResult Function(int index, String name) waypointRenamed,
-    required TResult Function(int index) waypointRemoved,
+    required TResult Function(String name, Waypoint waypoint) waypointChanged,
+    required TResult Function(String name) waypointRemoved,
+    required TResult Function(String name, int newIndex) waypointReordered,
     required TResult Function(String oldName, String newName) layerRenamed,
     required TResult Function(String name) layerRemoved,
     required TResult Function(String name) layerElementsRemoved,
     required TResult Function(String name) layerVisibilityChanged,
     required TResult Function(String name) currentLayerChanged,
-    required TResult Function(String layer, List<int> elements)
+    required TResult Function(String layer, List<String> elements)
         elementsLayerChanged,
     required TResult Function(
             String directory, String? remote, bool deleteDocument)
@@ -7951,6 +8178,7 @@ class _$ToolsRemovedImpl extends ToolsRemoved {
         presentationModeEntered,
     required TResult Function() presentationModeExited,
     required TResult Function(int tick) presentationTick,
+    required TResult Function(String path, List<int> data) assetUpdated,
   }) {
     return toolsRemoved(tools);
   }
@@ -7968,9 +8196,9 @@ class _$ToolsRemovedImpl extends ToolsRemoved {
     TResult? Function(ViewOption view)? viewChanged,
     TResult? Function(UtilitiesState state)? utilitiesChanged,
     TResult? Function(List<PadElement> elements)? elementsCreated,
-    TResult? Function(Map<int, List<PadElement>> elements)? elementsChanged,
-    TResult? Function(List<int> elements)? elementsRemoved,
-    TResult? Function(Arrangement arrangement, List<int> elements)?
+    TResult? Function(Map<String, List<PadElement>> elements)? elementsChanged,
+    TResult? Function(List<String> elements)? elementsRemoved,
+    TResult? Function(Arrangement arrangement, List<String> elements)?
         elementsArranged,
     TResult? Function(String? name, String? description)?
         documentDescriptionChanged,
@@ -7981,14 +8209,16 @@ class _$ToolsRemovedImpl extends ToolsRemoved {
     TResult? Function(int oldIndex, int newIndex)? toolReordered,
     TResult? Function(List<Background> backgrounds)? documentBackgroundsChanged,
     TResult? Function(Waypoint waypoint)? waypointCreated,
-    TResult? Function(int index, String name)? waypointRenamed,
-    TResult? Function(int index)? waypointRemoved,
+    TResult? Function(String name, Waypoint waypoint)? waypointChanged,
+    TResult? Function(String name)? waypointRemoved,
+    TResult? Function(String name, int newIndex)? waypointReordered,
     TResult? Function(String oldName, String newName)? layerRenamed,
     TResult? Function(String name)? layerRemoved,
     TResult? Function(String name)? layerElementsRemoved,
     TResult? Function(String name)? layerVisibilityChanged,
     TResult? Function(String name)? currentLayerChanged,
-    TResult? Function(String layer, List<int> elements)? elementsLayerChanged,
+    TResult? Function(String layer, List<String> elements)?
+        elementsLayerChanged,
     TResult? Function(String directory, String? remote, bool deleteDocument)?
         templateCreated,
     TResult? Function(List<Area> areas)? areasCreated,
@@ -8009,6 +8239,7 @@ class _$ToolsRemovedImpl extends ToolsRemoved {
         presentationModeEntered,
     TResult? Function()? presentationModeExited,
     TResult? Function(int tick)? presentationTick,
+    TResult? Function(String path, List<int> data)? assetUpdated,
   }) {
     return toolsRemoved?.call(tools);
   }
@@ -8026,9 +8257,9 @@ class _$ToolsRemovedImpl extends ToolsRemoved {
     TResult Function(ViewOption view)? viewChanged,
     TResult Function(UtilitiesState state)? utilitiesChanged,
     TResult Function(List<PadElement> elements)? elementsCreated,
-    TResult Function(Map<int, List<PadElement>> elements)? elementsChanged,
-    TResult Function(List<int> elements)? elementsRemoved,
-    TResult Function(Arrangement arrangement, List<int> elements)?
+    TResult Function(Map<String, List<PadElement>> elements)? elementsChanged,
+    TResult Function(List<String> elements)? elementsRemoved,
+    TResult Function(Arrangement arrangement, List<String> elements)?
         elementsArranged,
     TResult Function(String? name, String? description)?
         documentDescriptionChanged,
@@ -8039,14 +8270,15 @@ class _$ToolsRemovedImpl extends ToolsRemoved {
     TResult Function(int oldIndex, int newIndex)? toolReordered,
     TResult Function(List<Background> backgrounds)? documentBackgroundsChanged,
     TResult Function(Waypoint waypoint)? waypointCreated,
-    TResult Function(int index, String name)? waypointRenamed,
-    TResult Function(int index)? waypointRemoved,
+    TResult Function(String name, Waypoint waypoint)? waypointChanged,
+    TResult Function(String name)? waypointRemoved,
+    TResult Function(String name, int newIndex)? waypointReordered,
     TResult Function(String oldName, String newName)? layerRenamed,
     TResult Function(String name)? layerRemoved,
     TResult Function(String name)? layerElementsRemoved,
     TResult Function(String name)? layerVisibilityChanged,
     TResult Function(String name)? currentLayerChanged,
-    TResult Function(String layer, List<int> elements)? elementsLayerChanged,
+    TResult Function(String layer, List<String> elements)? elementsLayerChanged,
     TResult Function(String directory, String? remote, bool deleteDocument)?
         templateCreated,
     TResult Function(List<Area> areas)? areasCreated,
@@ -8067,6 +8299,7 @@ class _$ToolsRemovedImpl extends ToolsRemoved {
         presentationModeEntered,
     TResult Function()? presentationModeExited,
     TResult Function(int tick)? presentationTick,
+    TResult Function(String path, List<int> data)? assetUpdated,
     required TResult orElse(),
   }) {
     if (toolsRemoved != null) {
@@ -8100,8 +8333,9 @@ class _$ToolsRemovedImpl extends ToolsRemoved {
     required TResult Function(DocumentBackgroundsChanged value)
         documentBackgroundsChanged,
     required TResult Function(WaypointCreated value) waypointCreated,
-    required TResult Function(WaypointRenamed value) waypointRenamed,
+    required TResult Function(WaypointChanged value) waypointChanged,
     required TResult Function(WaypointRemoved value) waypointRemoved,
+    required TResult Function(WaypointReordered value) waypointReordered,
     required TResult Function(LayerRenamed value) layerRenamed,
     required TResult Function(LayerRemoved value) layerRemoved,
     required TResult Function(LayerElementsRemoved value) layerElementsRemoved,
@@ -8129,6 +8363,7 @@ class _$ToolsRemovedImpl extends ToolsRemoved {
     required TResult Function(PresentationModeExited value)
         presentationModeExited,
     required TResult Function(PresentationTick value) presentationTick,
+    required TResult Function(AssetUpdated value) assetUpdated,
   }) {
     return toolsRemoved(this);
   }
@@ -8158,8 +8393,9 @@ class _$ToolsRemovedImpl extends ToolsRemoved {
     TResult? Function(DocumentBackgroundsChanged value)?
         documentBackgroundsChanged,
     TResult? Function(WaypointCreated value)? waypointCreated,
-    TResult? Function(WaypointRenamed value)? waypointRenamed,
+    TResult? Function(WaypointChanged value)? waypointChanged,
     TResult? Function(WaypointRemoved value)? waypointRemoved,
+    TResult? Function(WaypointReordered value)? waypointReordered,
     TResult? Function(LayerRenamed value)? layerRenamed,
     TResult? Function(LayerRemoved value)? layerRemoved,
     TResult? Function(LayerElementsRemoved value)? layerElementsRemoved,
@@ -8184,6 +8420,7 @@ class _$ToolsRemovedImpl extends ToolsRemoved {
     TResult? Function(PresentationModeEntered value)? presentationModeEntered,
     TResult? Function(PresentationModeExited value)? presentationModeExited,
     TResult? Function(PresentationTick value)? presentationTick,
+    TResult? Function(AssetUpdated value)? assetUpdated,
   }) {
     return toolsRemoved?.call(this);
   }
@@ -8213,8 +8450,9 @@ class _$ToolsRemovedImpl extends ToolsRemoved {
     TResult Function(DocumentBackgroundsChanged value)?
         documentBackgroundsChanged,
     TResult Function(WaypointCreated value)? waypointCreated,
-    TResult Function(WaypointRenamed value)? waypointRenamed,
+    TResult Function(WaypointChanged value)? waypointChanged,
     TResult Function(WaypointRemoved value)? waypointRemoved,
+    TResult Function(WaypointReordered value)? waypointReordered,
     TResult Function(LayerRenamed value)? layerRenamed,
     TResult Function(LayerRemoved value)? layerRemoved,
     TResult Function(LayerElementsRemoved value)? layerElementsRemoved,
@@ -8239,6 +8477,7 @@ class _$ToolsRemovedImpl extends ToolsRemoved {
     TResult Function(PresentationModeEntered value)? presentationModeEntered,
     TResult Function(PresentationModeExited value)? presentationModeExited,
     TResult Function(PresentationTick value)? presentationTick,
+    TResult Function(AssetUpdated value)? assetUpdated,
     required TResult orElse(),
   }) {
     if (toolsRemoved != null) {
@@ -8361,10 +8600,10 @@ class _$ToolReorderedImpl extends ToolReordered {
     required TResult Function(ViewOption view) viewChanged,
     required TResult Function(UtilitiesState state) utilitiesChanged,
     required TResult Function(List<PadElement> elements) elementsCreated,
-    required TResult Function(Map<int, List<PadElement>> elements)
+    required TResult Function(Map<String, List<PadElement>> elements)
         elementsChanged,
-    required TResult Function(List<int> elements) elementsRemoved,
-    required TResult Function(Arrangement arrangement, List<int> elements)
+    required TResult Function(List<String> elements) elementsRemoved,
+    required TResult Function(Arrangement arrangement, List<String> elements)
         elementsArranged,
     required TResult Function(String? name, String? description)
         documentDescriptionChanged,
@@ -8376,14 +8615,15 @@ class _$ToolReorderedImpl extends ToolReordered {
     required TResult Function(List<Background> backgrounds)
         documentBackgroundsChanged,
     required TResult Function(Waypoint waypoint) waypointCreated,
-    required TResult Function(int index, String name) waypointRenamed,
-    required TResult Function(int index) waypointRemoved,
+    required TResult Function(String name, Waypoint waypoint) waypointChanged,
+    required TResult Function(String name) waypointRemoved,
+    required TResult Function(String name, int newIndex) waypointReordered,
     required TResult Function(String oldName, String newName) layerRenamed,
     required TResult Function(String name) layerRemoved,
     required TResult Function(String name) layerElementsRemoved,
     required TResult Function(String name) layerVisibilityChanged,
     required TResult Function(String name) currentLayerChanged,
-    required TResult Function(String layer, List<int> elements)
+    required TResult Function(String layer, List<String> elements)
         elementsLayerChanged,
     required TResult Function(
             String directory, String? remote, bool deleteDocument)
@@ -8409,6 +8649,7 @@ class _$ToolReorderedImpl extends ToolReordered {
         presentationModeEntered,
     required TResult Function() presentationModeExited,
     required TResult Function(int tick) presentationTick,
+    required TResult Function(String path, List<int> data) assetUpdated,
   }) {
     return toolReordered(oldIndex, newIndex);
   }
@@ -8426,9 +8667,9 @@ class _$ToolReorderedImpl extends ToolReordered {
     TResult? Function(ViewOption view)? viewChanged,
     TResult? Function(UtilitiesState state)? utilitiesChanged,
     TResult? Function(List<PadElement> elements)? elementsCreated,
-    TResult? Function(Map<int, List<PadElement>> elements)? elementsChanged,
-    TResult? Function(List<int> elements)? elementsRemoved,
-    TResult? Function(Arrangement arrangement, List<int> elements)?
+    TResult? Function(Map<String, List<PadElement>> elements)? elementsChanged,
+    TResult? Function(List<String> elements)? elementsRemoved,
+    TResult? Function(Arrangement arrangement, List<String> elements)?
         elementsArranged,
     TResult? Function(String? name, String? description)?
         documentDescriptionChanged,
@@ -8439,14 +8680,16 @@ class _$ToolReorderedImpl extends ToolReordered {
     TResult? Function(int oldIndex, int newIndex)? toolReordered,
     TResult? Function(List<Background> backgrounds)? documentBackgroundsChanged,
     TResult? Function(Waypoint waypoint)? waypointCreated,
-    TResult? Function(int index, String name)? waypointRenamed,
-    TResult? Function(int index)? waypointRemoved,
+    TResult? Function(String name, Waypoint waypoint)? waypointChanged,
+    TResult? Function(String name)? waypointRemoved,
+    TResult? Function(String name, int newIndex)? waypointReordered,
     TResult? Function(String oldName, String newName)? layerRenamed,
     TResult? Function(String name)? layerRemoved,
     TResult? Function(String name)? layerElementsRemoved,
     TResult? Function(String name)? layerVisibilityChanged,
     TResult? Function(String name)? currentLayerChanged,
-    TResult? Function(String layer, List<int> elements)? elementsLayerChanged,
+    TResult? Function(String layer, List<String> elements)?
+        elementsLayerChanged,
     TResult? Function(String directory, String? remote, bool deleteDocument)?
         templateCreated,
     TResult? Function(List<Area> areas)? areasCreated,
@@ -8467,6 +8710,7 @@ class _$ToolReorderedImpl extends ToolReordered {
         presentationModeEntered,
     TResult? Function()? presentationModeExited,
     TResult? Function(int tick)? presentationTick,
+    TResult? Function(String path, List<int> data)? assetUpdated,
   }) {
     return toolReordered?.call(oldIndex, newIndex);
   }
@@ -8484,9 +8728,9 @@ class _$ToolReorderedImpl extends ToolReordered {
     TResult Function(ViewOption view)? viewChanged,
     TResult Function(UtilitiesState state)? utilitiesChanged,
     TResult Function(List<PadElement> elements)? elementsCreated,
-    TResult Function(Map<int, List<PadElement>> elements)? elementsChanged,
-    TResult Function(List<int> elements)? elementsRemoved,
-    TResult Function(Arrangement arrangement, List<int> elements)?
+    TResult Function(Map<String, List<PadElement>> elements)? elementsChanged,
+    TResult Function(List<String> elements)? elementsRemoved,
+    TResult Function(Arrangement arrangement, List<String> elements)?
         elementsArranged,
     TResult Function(String? name, String? description)?
         documentDescriptionChanged,
@@ -8497,14 +8741,15 @@ class _$ToolReorderedImpl extends ToolReordered {
     TResult Function(int oldIndex, int newIndex)? toolReordered,
     TResult Function(List<Background> backgrounds)? documentBackgroundsChanged,
     TResult Function(Waypoint waypoint)? waypointCreated,
-    TResult Function(int index, String name)? waypointRenamed,
-    TResult Function(int index)? waypointRemoved,
+    TResult Function(String name, Waypoint waypoint)? waypointChanged,
+    TResult Function(String name)? waypointRemoved,
+    TResult Function(String name, int newIndex)? waypointReordered,
     TResult Function(String oldName, String newName)? layerRenamed,
     TResult Function(String name)? layerRemoved,
     TResult Function(String name)? layerElementsRemoved,
     TResult Function(String name)? layerVisibilityChanged,
     TResult Function(String name)? currentLayerChanged,
-    TResult Function(String layer, List<int> elements)? elementsLayerChanged,
+    TResult Function(String layer, List<String> elements)? elementsLayerChanged,
     TResult Function(String directory, String? remote, bool deleteDocument)?
         templateCreated,
     TResult Function(List<Area> areas)? areasCreated,
@@ -8525,6 +8770,7 @@ class _$ToolReorderedImpl extends ToolReordered {
         presentationModeEntered,
     TResult Function()? presentationModeExited,
     TResult Function(int tick)? presentationTick,
+    TResult Function(String path, List<int> data)? assetUpdated,
     required TResult orElse(),
   }) {
     if (toolReordered != null) {
@@ -8558,8 +8804,9 @@ class _$ToolReorderedImpl extends ToolReordered {
     required TResult Function(DocumentBackgroundsChanged value)
         documentBackgroundsChanged,
     required TResult Function(WaypointCreated value) waypointCreated,
-    required TResult Function(WaypointRenamed value) waypointRenamed,
+    required TResult Function(WaypointChanged value) waypointChanged,
     required TResult Function(WaypointRemoved value) waypointRemoved,
+    required TResult Function(WaypointReordered value) waypointReordered,
     required TResult Function(LayerRenamed value) layerRenamed,
     required TResult Function(LayerRemoved value) layerRemoved,
     required TResult Function(LayerElementsRemoved value) layerElementsRemoved,
@@ -8587,6 +8834,7 @@ class _$ToolReorderedImpl extends ToolReordered {
     required TResult Function(PresentationModeExited value)
         presentationModeExited,
     required TResult Function(PresentationTick value) presentationTick,
+    required TResult Function(AssetUpdated value) assetUpdated,
   }) {
     return toolReordered(this);
   }
@@ -8616,8 +8864,9 @@ class _$ToolReorderedImpl extends ToolReordered {
     TResult? Function(DocumentBackgroundsChanged value)?
         documentBackgroundsChanged,
     TResult? Function(WaypointCreated value)? waypointCreated,
-    TResult? Function(WaypointRenamed value)? waypointRenamed,
+    TResult? Function(WaypointChanged value)? waypointChanged,
     TResult? Function(WaypointRemoved value)? waypointRemoved,
+    TResult? Function(WaypointReordered value)? waypointReordered,
     TResult? Function(LayerRenamed value)? layerRenamed,
     TResult? Function(LayerRemoved value)? layerRemoved,
     TResult? Function(LayerElementsRemoved value)? layerElementsRemoved,
@@ -8642,6 +8891,7 @@ class _$ToolReorderedImpl extends ToolReordered {
     TResult? Function(PresentationModeEntered value)? presentationModeEntered,
     TResult? Function(PresentationModeExited value)? presentationModeExited,
     TResult? Function(PresentationTick value)? presentationTick,
+    TResult? Function(AssetUpdated value)? assetUpdated,
   }) {
     return toolReordered?.call(this);
   }
@@ -8671,8 +8921,9 @@ class _$ToolReorderedImpl extends ToolReordered {
     TResult Function(DocumentBackgroundsChanged value)?
         documentBackgroundsChanged,
     TResult Function(WaypointCreated value)? waypointCreated,
-    TResult Function(WaypointRenamed value)? waypointRenamed,
+    TResult Function(WaypointChanged value)? waypointChanged,
     TResult Function(WaypointRemoved value)? waypointRemoved,
+    TResult Function(WaypointReordered value)? waypointReordered,
     TResult Function(LayerRenamed value)? layerRenamed,
     TResult Function(LayerRemoved value)? layerRemoved,
     TResult Function(LayerElementsRemoved value)? layerElementsRemoved,
@@ -8697,6 +8948,7 @@ class _$ToolReorderedImpl extends ToolReordered {
     TResult Function(PresentationModeEntered value)? presentationModeEntered,
     TResult Function(PresentationModeExited value)? presentationModeExited,
     TResult Function(PresentationTick value)? presentationTick,
+    TResult Function(AssetUpdated value)? assetUpdated,
     required TResult orElse(),
   }) {
     if (toolReordered != null) {
@@ -8824,10 +9076,10 @@ class _$DocumentBackgroundsChangedImpl extends DocumentBackgroundsChanged {
     required TResult Function(ViewOption view) viewChanged,
     required TResult Function(UtilitiesState state) utilitiesChanged,
     required TResult Function(List<PadElement> elements) elementsCreated,
-    required TResult Function(Map<int, List<PadElement>> elements)
+    required TResult Function(Map<String, List<PadElement>> elements)
         elementsChanged,
-    required TResult Function(List<int> elements) elementsRemoved,
-    required TResult Function(Arrangement arrangement, List<int> elements)
+    required TResult Function(List<String> elements) elementsRemoved,
+    required TResult Function(Arrangement arrangement, List<String> elements)
         elementsArranged,
     required TResult Function(String? name, String? description)
         documentDescriptionChanged,
@@ -8839,14 +9091,15 @@ class _$DocumentBackgroundsChangedImpl extends DocumentBackgroundsChanged {
     required TResult Function(List<Background> backgrounds)
         documentBackgroundsChanged,
     required TResult Function(Waypoint waypoint) waypointCreated,
-    required TResult Function(int index, String name) waypointRenamed,
-    required TResult Function(int index) waypointRemoved,
+    required TResult Function(String name, Waypoint waypoint) waypointChanged,
+    required TResult Function(String name) waypointRemoved,
+    required TResult Function(String name, int newIndex) waypointReordered,
     required TResult Function(String oldName, String newName) layerRenamed,
     required TResult Function(String name) layerRemoved,
     required TResult Function(String name) layerElementsRemoved,
     required TResult Function(String name) layerVisibilityChanged,
     required TResult Function(String name) currentLayerChanged,
-    required TResult Function(String layer, List<int> elements)
+    required TResult Function(String layer, List<String> elements)
         elementsLayerChanged,
     required TResult Function(
             String directory, String? remote, bool deleteDocument)
@@ -8872,6 +9125,7 @@ class _$DocumentBackgroundsChangedImpl extends DocumentBackgroundsChanged {
         presentationModeEntered,
     required TResult Function() presentationModeExited,
     required TResult Function(int tick) presentationTick,
+    required TResult Function(String path, List<int> data) assetUpdated,
   }) {
     return documentBackgroundsChanged(backgrounds);
   }
@@ -8889,9 +9143,9 @@ class _$DocumentBackgroundsChangedImpl extends DocumentBackgroundsChanged {
     TResult? Function(ViewOption view)? viewChanged,
     TResult? Function(UtilitiesState state)? utilitiesChanged,
     TResult? Function(List<PadElement> elements)? elementsCreated,
-    TResult? Function(Map<int, List<PadElement>> elements)? elementsChanged,
-    TResult? Function(List<int> elements)? elementsRemoved,
-    TResult? Function(Arrangement arrangement, List<int> elements)?
+    TResult? Function(Map<String, List<PadElement>> elements)? elementsChanged,
+    TResult? Function(List<String> elements)? elementsRemoved,
+    TResult? Function(Arrangement arrangement, List<String> elements)?
         elementsArranged,
     TResult? Function(String? name, String? description)?
         documentDescriptionChanged,
@@ -8902,14 +9156,16 @@ class _$DocumentBackgroundsChangedImpl extends DocumentBackgroundsChanged {
     TResult? Function(int oldIndex, int newIndex)? toolReordered,
     TResult? Function(List<Background> backgrounds)? documentBackgroundsChanged,
     TResult? Function(Waypoint waypoint)? waypointCreated,
-    TResult? Function(int index, String name)? waypointRenamed,
-    TResult? Function(int index)? waypointRemoved,
+    TResult? Function(String name, Waypoint waypoint)? waypointChanged,
+    TResult? Function(String name)? waypointRemoved,
+    TResult? Function(String name, int newIndex)? waypointReordered,
     TResult? Function(String oldName, String newName)? layerRenamed,
     TResult? Function(String name)? layerRemoved,
     TResult? Function(String name)? layerElementsRemoved,
     TResult? Function(String name)? layerVisibilityChanged,
     TResult? Function(String name)? currentLayerChanged,
-    TResult? Function(String layer, List<int> elements)? elementsLayerChanged,
+    TResult? Function(String layer, List<String> elements)?
+        elementsLayerChanged,
     TResult? Function(String directory, String? remote, bool deleteDocument)?
         templateCreated,
     TResult? Function(List<Area> areas)? areasCreated,
@@ -8930,6 +9186,7 @@ class _$DocumentBackgroundsChangedImpl extends DocumentBackgroundsChanged {
         presentationModeEntered,
     TResult? Function()? presentationModeExited,
     TResult? Function(int tick)? presentationTick,
+    TResult? Function(String path, List<int> data)? assetUpdated,
   }) {
     return documentBackgroundsChanged?.call(backgrounds);
   }
@@ -8947,9 +9204,9 @@ class _$DocumentBackgroundsChangedImpl extends DocumentBackgroundsChanged {
     TResult Function(ViewOption view)? viewChanged,
     TResult Function(UtilitiesState state)? utilitiesChanged,
     TResult Function(List<PadElement> elements)? elementsCreated,
-    TResult Function(Map<int, List<PadElement>> elements)? elementsChanged,
-    TResult Function(List<int> elements)? elementsRemoved,
-    TResult Function(Arrangement arrangement, List<int> elements)?
+    TResult Function(Map<String, List<PadElement>> elements)? elementsChanged,
+    TResult Function(List<String> elements)? elementsRemoved,
+    TResult Function(Arrangement arrangement, List<String> elements)?
         elementsArranged,
     TResult Function(String? name, String? description)?
         documentDescriptionChanged,
@@ -8960,14 +9217,15 @@ class _$DocumentBackgroundsChangedImpl extends DocumentBackgroundsChanged {
     TResult Function(int oldIndex, int newIndex)? toolReordered,
     TResult Function(List<Background> backgrounds)? documentBackgroundsChanged,
     TResult Function(Waypoint waypoint)? waypointCreated,
-    TResult Function(int index, String name)? waypointRenamed,
-    TResult Function(int index)? waypointRemoved,
+    TResult Function(String name, Waypoint waypoint)? waypointChanged,
+    TResult Function(String name)? waypointRemoved,
+    TResult Function(String name, int newIndex)? waypointReordered,
     TResult Function(String oldName, String newName)? layerRenamed,
     TResult Function(String name)? layerRemoved,
     TResult Function(String name)? layerElementsRemoved,
     TResult Function(String name)? layerVisibilityChanged,
     TResult Function(String name)? currentLayerChanged,
-    TResult Function(String layer, List<int> elements)? elementsLayerChanged,
+    TResult Function(String layer, List<String> elements)? elementsLayerChanged,
     TResult Function(String directory, String? remote, bool deleteDocument)?
         templateCreated,
     TResult Function(List<Area> areas)? areasCreated,
@@ -8988,6 +9246,7 @@ class _$DocumentBackgroundsChangedImpl extends DocumentBackgroundsChanged {
         presentationModeEntered,
     TResult Function()? presentationModeExited,
     TResult Function(int tick)? presentationTick,
+    TResult Function(String path, List<int> data)? assetUpdated,
     required TResult orElse(),
   }) {
     if (documentBackgroundsChanged != null) {
@@ -9021,8 +9280,9 @@ class _$DocumentBackgroundsChangedImpl extends DocumentBackgroundsChanged {
     required TResult Function(DocumentBackgroundsChanged value)
         documentBackgroundsChanged,
     required TResult Function(WaypointCreated value) waypointCreated,
-    required TResult Function(WaypointRenamed value) waypointRenamed,
+    required TResult Function(WaypointChanged value) waypointChanged,
     required TResult Function(WaypointRemoved value) waypointRemoved,
+    required TResult Function(WaypointReordered value) waypointReordered,
     required TResult Function(LayerRenamed value) layerRenamed,
     required TResult Function(LayerRemoved value) layerRemoved,
     required TResult Function(LayerElementsRemoved value) layerElementsRemoved,
@@ -9050,6 +9310,7 @@ class _$DocumentBackgroundsChangedImpl extends DocumentBackgroundsChanged {
     required TResult Function(PresentationModeExited value)
         presentationModeExited,
     required TResult Function(PresentationTick value) presentationTick,
+    required TResult Function(AssetUpdated value) assetUpdated,
   }) {
     return documentBackgroundsChanged(this);
   }
@@ -9079,8 +9340,9 @@ class _$DocumentBackgroundsChangedImpl extends DocumentBackgroundsChanged {
     TResult? Function(DocumentBackgroundsChanged value)?
         documentBackgroundsChanged,
     TResult? Function(WaypointCreated value)? waypointCreated,
-    TResult? Function(WaypointRenamed value)? waypointRenamed,
+    TResult? Function(WaypointChanged value)? waypointChanged,
     TResult? Function(WaypointRemoved value)? waypointRemoved,
+    TResult? Function(WaypointReordered value)? waypointReordered,
     TResult? Function(LayerRenamed value)? layerRenamed,
     TResult? Function(LayerRemoved value)? layerRemoved,
     TResult? Function(LayerElementsRemoved value)? layerElementsRemoved,
@@ -9105,6 +9367,7 @@ class _$DocumentBackgroundsChangedImpl extends DocumentBackgroundsChanged {
     TResult? Function(PresentationModeEntered value)? presentationModeEntered,
     TResult? Function(PresentationModeExited value)? presentationModeExited,
     TResult? Function(PresentationTick value)? presentationTick,
+    TResult? Function(AssetUpdated value)? assetUpdated,
   }) {
     return documentBackgroundsChanged?.call(this);
   }
@@ -9134,8 +9397,9 @@ class _$DocumentBackgroundsChangedImpl extends DocumentBackgroundsChanged {
     TResult Function(DocumentBackgroundsChanged value)?
         documentBackgroundsChanged,
     TResult Function(WaypointCreated value)? waypointCreated,
-    TResult Function(WaypointRenamed value)? waypointRenamed,
+    TResult Function(WaypointChanged value)? waypointChanged,
     TResult Function(WaypointRemoved value)? waypointRemoved,
+    TResult Function(WaypointReordered value)? waypointReordered,
     TResult Function(LayerRenamed value)? layerRenamed,
     TResult Function(LayerRemoved value)? layerRemoved,
     TResult Function(LayerElementsRemoved value)? layerElementsRemoved,
@@ -9160,6 +9424,7 @@ class _$DocumentBackgroundsChangedImpl extends DocumentBackgroundsChanged {
     TResult Function(PresentationModeEntered value)? presentationModeEntered,
     TResult Function(PresentationModeExited value)? presentationModeExited,
     TResult Function(PresentationTick value)? presentationTick,
+    TResult Function(AssetUpdated value)? assetUpdated,
     required TResult orElse(),
   }) {
     if (documentBackgroundsChanged != null) {
@@ -9285,10 +9550,10 @@ class _$WaypointCreatedImpl extends WaypointCreated {
     required TResult Function(ViewOption view) viewChanged,
     required TResult Function(UtilitiesState state) utilitiesChanged,
     required TResult Function(List<PadElement> elements) elementsCreated,
-    required TResult Function(Map<int, List<PadElement>> elements)
+    required TResult Function(Map<String, List<PadElement>> elements)
         elementsChanged,
-    required TResult Function(List<int> elements) elementsRemoved,
-    required TResult Function(Arrangement arrangement, List<int> elements)
+    required TResult Function(List<String> elements) elementsRemoved,
+    required TResult Function(Arrangement arrangement, List<String> elements)
         elementsArranged,
     required TResult Function(String? name, String? description)
         documentDescriptionChanged,
@@ -9300,14 +9565,15 @@ class _$WaypointCreatedImpl extends WaypointCreated {
     required TResult Function(List<Background> backgrounds)
         documentBackgroundsChanged,
     required TResult Function(Waypoint waypoint) waypointCreated,
-    required TResult Function(int index, String name) waypointRenamed,
-    required TResult Function(int index) waypointRemoved,
+    required TResult Function(String name, Waypoint waypoint) waypointChanged,
+    required TResult Function(String name) waypointRemoved,
+    required TResult Function(String name, int newIndex) waypointReordered,
     required TResult Function(String oldName, String newName) layerRenamed,
     required TResult Function(String name) layerRemoved,
     required TResult Function(String name) layerElementsRemoved,
     required TResult Function(String name) layerVisibilityChanged,
     required TResult Function(String name) currentLayerChanged,
-    required TResult Function(String layer, List<int> elements)
+    required TResult Function(String layer, List<String> elements)
         elementsLayerChanged,
     required TResult Function(
             String directory, String? remote, bool deleteDocument)
@@ -9333,6 +9599,7 @@ class _$WaypointCreatedImpl extends WaypointCreated {
         presentationModeEntered,
     required TResult Function() presentationModeExited,
     required TResult Function(int tick) presentationTick,
+    required TResult Function(String path, List<int> data) assetUpdated,
   }) {
     return waypointCreated(waypoint);
   }
@@ -9350,9 +9617,9 @@ class _$WaypointCreatedImpl extends WaypointCreated {
     TResult? Function(ViewOption view)? viewChanged,
     TResult? Function(UtilitiesState state)? utilitiesChanged,
     TResult? Function(List<PadElement> elements)? elementsCreated,
-    TResult? Function(Map<int, List<PadElement>> elements)? elementsChanged,
-    TResult? Function(List<int> elements)? elementsRemoved,
-    TResult? Function(Arrangement arrangement, List<int> elements)?
+    TResult? Function(Map<String, List<PadElement>> elements)? elementsChanged,
+    TResult? Function(List<String> elements)? elementsRemoved,
+    TResult? Function(Arrangement arrangement, List<String> elements)?
         elementsArranged,
     TResult? Function(String? name, String? description)?
         documentDescriptionChanged,
@@ -9363,14 +9630,16 @@ class _$WaypointCreatedImpl extends WaypointCreated {
     TResult? Function(int oldIndex, int newIndex)? toolReordered,
     TResult? Function(List<Background> backgrounds)? documentBackgroundsChanged,
     TResult? Function(Waypoint waypoint)? waypointCreated,
-    TResult? Function(int index, String name)? waypointRenamed,
-    TResult? Function(int index)? waypointRemoved,
+    TResult? Function(String name, Waypoint waypoint)? waypointChanged,
+    TResult? Function(String name)? waypointRemoved,
+    TResult? Function(String name, int newIndex)? waypointReordered,
     TResult? Function(String oldName, String newName)? layerRenamed,
     TResult? Function(String name)? layerRemoved,
     TResult? Function(String name)? layerElementsRemoved,
     TResult? Function(String name)? layerVisibilityChanged,
     TResult? Function(String name)? currentLayerChanged,
-    TResult? Function(String layer, List<int> elements)? elementsLayerChanged,
+    TResult? Function(String layer, List<String> elements)?
+        elementsLayerChanged,
     TResult? Function(String directory, String? remote, bool deleteDocument)?
         templateCreated,
     TResult? Function(List<Area> areas)? areasCreated,
@@ -9391,6 +9660,7 @@ class _$WaypointCreatedImpl extends WaypointCreated {
         presentationModeEntered,
     TResult? Function()? presentationModeExited,
     TResult? Function(int tick)? presentationTick,
+    TResult? Function(String path, List<int> data)? assetUpdated,
   }) {
     return waypointCreated?.call(waypoint);
   }
@@ -9408,9 +9678,9 @@ class _$WaypointCreatedImpl extends WaypointCreated {
     TResult Function(ViewOption view)? viewChanged,
     TResult Function(UtilitiesState state)? utilitiesChanged,
     TResult Function(List<PadElement> elements)? elementsCreated,
-    TResult Function(Map<int, List<PadElement>> elements)? elementsChanged,
-    TResult Function(List<int> elements)? elementsRemoved,
-    TResult Function(Arrangement arrangement, List<int> elements)?
+    TResult Function(Map<String, List<PadElement>> elements)? elementsChanged,
+    TResult Function(List<String> elements)? elementsRemoved,
+    TResult Function(Arrangement arrangement, List<String> elements)?
         elementsArranged,
     TResult Function(String? name, String? description)?
         documentDescriptionChanged,
@@ -9421,14 +9691,15 @@ class _$WaypointCreatedImpl extends WaypointCreated {
     TResult Function(int oldIndex, int newIndex)? toolReordered,
     TResult Function(List<Background> backgrounds)? documentBackgroundsChanged,
     TResult Function(Waypoint waypoint)? waypointCreated,
-    TResult Function(int index, String name)? waypointRenamed,
-    TResult Function(int index)? waypointRemoved,
+    TResult Function(String name, Waypoint waypoint)? waypointChanged,
+    TResult Function(String name)? waypointRemoved,
+    TResult Function(String name, int newIndex)? waypointReordered,
     TResult Function(String oldName, String newName)? layerRenamed,
     TResult Function(String name)? layerRemoved,
     TResult Function(String name)? layerElementsRemoved,
     TResult Function(String name)? layerVisibilityChanged,
     TResult Function(String name)? currentLayerChanged,
-    TResult Function(String layer, List<int> elements)? elementsLayerChanged,
+    TResult Function(String layer, List<String> elements)? elementsLayerChanged,
     TResult Function(String directory, String? remote, bool deleteDocument)?
         templateCreated,
     TResult Function(List<Area> areas)? areasCreated,
@@ -9449,6 +9720,7 @@ class _$WaypointCreatedImpl extends WaypointCreated {
         presentationModeEntered,
     TResult Function()? presentationModeExited,
     TResult Function(int tick)? presentationTick,
+    TResult Function(String path, List<int> data)? assetUpdated,
     required TResult orElse(),
   }) {
     if (waypointCreated != null) {
@@ -9482,8 +9754,9 @@ class _$WaypointCreatedImpl extends WaypointCreated {
     required TResult Function(DocumentBackgroundsChanged value)
         documentBackgroundsChanged,
     required TResult Function(WaypointCreated value) waypointCreated,
-    required TResult Function(WaypointRenamed value) waypointRenamed,
+    required TResult Function(WaypointChanged value) waypointChanged,
     required TResult Function(WaypointRemoved value) waypointRemoved,
+    required TResult Function(WaypointReordered value) waypointReordered,
     required TResult Function(LayerRenamed value) layerRenamed,
     required TResult Function(LayerRemoved value) layerRemoved,
     required TResult Function(LayerElementsRemoved value) layerElementsRemoved,
@@ -9511,6 +9784,7 @@ class _$WaypointCreatedImpl extends WaypointCreated {
     required TResult Function(PresentationModeExited value)
         presentationModeExited,
     required TResult Function(PresentationTick value) presentationTick,
+    required TResult Function(AssetUpdated value) assetUpdated,
   }) {
     return waypointCreated(this);
   }
@@ -9540,8 +9814,9 @@ class _$WaypointCreatedImpl extends WaypointCreated {
     TResult? Function(DocumentBackgroundsChanged value)?
         documentBackgroundsChanged,
     TResult? Function(WaypointCreated value)? waypointCreated,
-    TResult? Function(WaypointRenamed value)? waypointRenamed,
+    TResult? Function(WaypointChanged value)? waypointChanged,
     TResult? Function(WaypointRemoved value)? waypointRemoved,
+    TResult? Function(WaypointReordered value)? waypointReordered,
     TResult? Function(LayerRenamed value)? layerRenamed,
     TResult? Function(LayerRemoved value)? layerRemoved,
     TResult? Function(LayerElementsRemoved value)? layerElementsRemoved,
@@ -9566,6 +9841,7 @@ class _$WaypointCreatedImpl extends WaypointCreated {
     TResult? Function(PresentationModeEntered value)? presentationModeEntered,
     TResult? Function(PresentationModeExited value)? presentationModeExited,
     TResult? Function(PresentationTick value)? presentationTick,
+    TResult? Function(AssetUpdated value)? assetUpdated,
   }) {
     return waypointCreated?.call(this);
   }
@@ -9595,8 +9871,9 @@ class _$WaypointCreatedImpl extends WaypointCreated {
     TResult Function(DocumentBackgroundsChanged value)?
         documentBackgroundsChanged,
     TResult Function(WaypointCreated value)? waypointCreated,
-    TResult Function(WaypointRenamed value)? waypointRenamed,
+    TResult Function(WaypointChanged value)? waypointChanged,
     TResult Function(WaypointRemoved value)? waypointRemoved,
+    TResult Function(WaypointReordered value)? waypointReordered,
     TResult Function(LayerRenamed value)? layerRenamed,
     TResult Function(LayerRemoved value)? layerRemoved,
     TResult Function(LayerElementsRemoved value)? layerElementsRemoved,
@@ -9621,6 +9898,7 @@ class _$WaypointCreatedImpl extends WaypointCreated {
     TResult Function(PresentationModeEntered value)? presentationModeEntered,
     TResult Function(PresentationModeExited value)? presentationModeExited,
     TResult Function(PresentationTick value)? presentationTick,
+    TResult Function(AssetUpdated value)? assetUpdated,
     required TResult orElse(),
   }) {
     if (waypointCreated != null) {
@@ -9652,82 +9930,93 @@ abstract class WaypointCreated extends DocumentEvent {
 }
 
 /// @nodoc
-abstract class _$$WaypointRenamedImplCopyWith<$Res> {
-  factory _$$WaypointRenamedImplCopyWith(_$WaypointRenamedImpl value,
-          $Res Function(_$WaypointRenamedImpl) then) =
-      __$$WaypointRenamedImplCopyWithImpl<$Res>;
+abstract class _$$WaypointChangedImplCopyWith<$Res> {
+  factory _$$WaypointChangedImplCopyWith(_$WaypointChangedImpl value,
+          $Res Function(_$WaypointChangedImpl) then) =
+      __$$WaypointChangedImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({int index, String name});
+  $Res call({String name, Waypoint waypoint});
+
+  $WaypointCopyWith<$Res> get waypoint;
 }
 
 /// @nodoc
-class __$$WaypointRenamedImplCopyWithImpl<$Res>
-    extends _$DocumentEventCopyWithImpl<$Res, _$WaypointRenamedImpl>
-    implements _$$WaypointRenamedImplCopyWith<$Res> {
-  __$$WaypointRenamedImplCopyWithImpl(
-      _$WaypointRenamedImpl _value, $Res Function(_$WaypointRenamedImpl) _then)
+class __$$WaypointChangedImplCopyWithImpl<$Res>
+    extends _$DocumentEventCopyWithImpl<$Res, _$WaypointChangedImpl>
+    implements _$$WaypointChangedImplCopyWith<$Res> {
+  __$$WaypointChangedImplCopyWithImpl(
+      _$WaypointChangedImpl _value, $Res Function(_$WaypointChangedImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? index = null,
     Object? name = null,
+    Object? waypoint = null,
   }) {
-    return _then(_$WaypointRenamedImpl(
-      null == index
-          ? _value.index
-          : index // ignore: cast_nullable_to_non_nullable
-              as int,
+    return _then(_$WaypointChangedImpl(
       null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
+      null == waypoint
+          ? _value.waypoint
+          : waypoint // ignore: cast_nullable_to_non_nullable
+              as Waypoint,
     ));
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $WaypointCopyWith<$Res> get waypoint {
+    return $WaypointCopyWith<$Res>(_value.waypoint, (value) {
+      return _then(_value.copyWith(waypoint: value));
+    });
   }
 }
 
 /// @nodoc
 @JsonSerializable()
-class _$WaypointRenamedImpl extends WaypointRenamed {
-  const _$WaypointRenamedImpl(this.index, this.name, {final String? $type})
-      : $type = $type ?? 'waypointRenamed',
+class _$WaypointChangedImpl extends WaypointChanged {
+  const _$WaypointChangedImpl(this.name, this.waypoint, {final String? $type})
+      : $type = $type ?? 'waypointChanged',
         super._();
 
-  factory _$WaypointRenamedImpl.fromJson(Map<String, dynamic> json) =>
-      _$$WaypointRenamedImplFromJson(json);
+  factory _$WaypointChangedImpl.fromJson(Map<String, dynamic> json) =>
+      _$$WaypointChangedImplFromJson(json);
 
   @override
-  final int index;
-  @override
   final String name;
+  @override
+  final Waypoint waypoint;
 
   @JsonKey(name: 'type')
   final String $type;
 
   @override
   String toString() {
-    return 'DocumentEvent.waypointRenamed(index: $index, name: $name)';
+    return 'DocumentEvent.waypointChanged(name: $name, waypoint: $waypoint)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$WaypointRenamedImpl &&
-            (identical(other.index, index) || other.index == index) &&
-            (identical(other.name, name) || other.name == name));
+            other is _$WaypointChangedImpl &&
+            (identical(other.name, name) || other.name == name) &&
+            (identical(other.waypoint, waypoint) ||
+                other.waypoint == waypoint));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, index, name);
+  int get hashCode => Object.hash(runtimeType, name, waypoint);
 
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$WaypointRenamedImplCopyWith<_$WaypointRenamedImpl> get copyWith =>
-      __$$WaypointRenamedImplCopyWithImpl<_$WaypointRenamedImpl>(
+  _$$WaypointChangedImplCopyWith<_$WaypointChangedImpl> get copyWith =>
+      __$$WaypointChangedImplCopyWithImpl<_$WaypointChangedImpl>(
           this, _$identity);
 
   @override
@@ -9743,10 +10032,10 @@ class _$WaypointRenamedImpl extends WaypointRenamed {
     required TResult Function(ViewOption view) viewChanged,
     required TResult Function(UtilitiesState state) utilitiesChanged,
     required TResult Function(List<PadElement> elements) elementsCreated,
-    required TResult Function(Map<int, List<PadElement>> elements)
+    required TResult Function(Map<String, List<PadElement>> elements)
         elementsChanged,
-    required TResult Function(List<int> elements) elementsRemoved,
-    required TResult Function(Arrangement arrangement, List<int> elements)
+    required TResult Function(List<String> elements) elementsRemoved,
+    required TResult Function(Arrangement arrangement, List<String> elements)
         elementsArranged,
     required TResult Function(String? name, String? description)
         documentDescriptionChanged,
@@ -9758,14 +10047,15 @@ class _$WaypointRenamedImpl extends WaypointRenamed {
     required TResult Function(List<Background> backgrounds)
         documentBackgroundsChanged,
     required TResult Function(Waypoint waypoint) waypointCreated,
-    required TResult Function(int index, String name) waypointRenamed,
-    required TResult Function(int index) waypointRemoved,
+    required TResult Function(String name, Waypoint waypoint) waypointChanged,
+    required TResult Function(String name) waypointRemoved,
+    required TResult Function(String name, int newIndex) waypointReordered,
     required TResult Function(String oldName, String newName) layerRenamed,
     required TResult Function(String name) layerRemoved,
     required TResult Function(String name) layerElementsRemoved,
     required TResult Function(String name) layerVisibilityChanged,
     required TResult Function(String name) currentLayerChanged,
-    required TResult Function(String layer, List<int> elements)
+    required TResult Function(String layer, List<String> elements)
         elementsLayerChanged,
     required TResult Function(
             String directory, String? remote, bool deleteDocument)
@@ -9791,8 +10081,9 @@ class _$WaypointRenamedImpl extends WaypointRenamed {
         presentationModeEntered,
     required TResult Function() presentationModeExited,
     required TResult Function(int tick) presentationTick,
+    required TResult Function(String path, List<int> data) assetUpdated,
   }) {
-    return waypointRenamed(index, name);
+    return waypointChanged(name, waypoint);
   }
 
   @override
@@ -9808,9 +10099,9 @@ class _$WaypointRenamedImpl extends WaypointRenamed {
     TResult? Function(ViewOption view)? viewChanged,
     TResult? Function(UtilitiesState state)? utilitiesChanged,
     TResult? Function(List<PadElement> elements)? elementsCreated,
-    TResult? Function(Map<int, List<PadElement>> elements)? elementsChanged,
-    TResult? Function(List<int> elements)? elementsRemoved,
-    TResult? Function(Arrangement arrangement, List<int> elements)?
+    TResult? Function(Map<String, List<PadElement>> elements)? elementsChanged,
+    TResult? Function(List<String> elements)? elementsRemoved,
+    TResult? Function(Arrangement arrangement, List<String> elements)?
         elementsArranged,
     TResult? Function(String? name, String? description)?
         documentDescriptionChanged,
@@ -9821,14 +10112,16 @@ class _$WaypointRenamedImpl extends WaypointRenamed {
     TResult? Function(int oldIndex, int newIndex)? toolReordered,
     TResult? Function(List<Background> backgrounds)? documentBackgroundsChanged,
     TResult? Function(Waypoint waypoint)? waypointCreated,
-    TResult? Function(int index, String name)? waypointRenamed,
-    TResult? Function(int index)? waypointRemoved,
+    TResult? Function(String name, Waypoint waypoint)? waypointChanged,
+    TResult? Function(String name)? waypointRemoved,
+    TResult? Function(String name, int newIndex)? waypointReordered,
     TResult? Function(String oldName, String newName)? layerRenamed,
     TResult? Function(String name)? layerRemoved,
     TResult? Function(String name)? layerElementsRemoved,
     TResult? Function(String name)? layerVisibilityChanged,
     TResult? Function(String name)? currentLayerChanged,
-    TResult? Function(String layer, List<int> elements)? elementsLayerChanged,
+    TResult? Function(String layer, List<String> elements)?
+        elementsLayerChanged,
     TResult? Function(String directory, String? remote, bool deleteDocument)?
         templateCreated,
     TResult? Function(List<Area> areas)? areasCreated,
@@ -9849,8 +10142,9 @@ class _$WaypointRenamedImpl extends WaypointRenamed {
         presentationModeEntered,
     TResult? Function()? presentationModeExited,
     TResult? Function(int tick)? presentationTick,
+    TResult? Function(String path, List<int> data)? assetUpdated,
   }) {
-    return waypointRenamed?.call(index, name);
+    return waypointChanged?.call(name, waypoint);
   }
 
   @override
@@ -9866,9 +10160,9 @@ class _$WaypointRenamedImpl extends WaypointRenamed {
     TResult Function(ViewOption view)? viewChanged,
     TResult Function(UtilitiesState state)? utilitiesChanged,
     TResult Function(List<PadElement> elements)? elementsCreated,
-    TResult Function(Map<int, List<PadElement>> elements)? elementsChanged,
-    TResult Function(List<int> elements)? elementsRemoved,
-    TResult Function(Arrangement arrangement, List<int> elements)?
+    TResult Function(Map<String, List<PadElement>> elements)? elementsChanged,
+    TResult Function(List<String> elements)? elementsRemoved,
+    TResult Function(Arrangement arrangement, List<String> elements)?
         elementsArranged,
     TResult Function(String? name, String? description)?
         documentDescriptionChanged,
@@ -9879,14 +10173,15 @@ class _$WaypointRenamedImpl extends WaypointRenamed {
     TResult Function(int oldIndex, int newIndex)? toolReordered,
     TResult Function(List<Background> backgrounds)? documentBackgroundsChanged,
     TResult Function(Waypoint waypoint)? waypointCreated,
-    TResult Function(int index, String name)? waypointRenamed,
-    TResult Function(int index)? waypointRemoved,
+    TResult Function(String name, Waypoint waypoint)? waypointChanged,
+    TResult Function(String name)? waypointRemoved,
+    TResult Function(String name, int newIndex)? waypointReordered,
     TResult Function(String oldName, String newName)? layerRenamed,
     TResult Function(String name)? layerRemoved,
     TResult Function(String name)? layerElementsRemoved,
     TResult Function(String name)? layerVisibilityChanged,
     TResult Function(String name)? currentLayerChanged,
-    TResult Function(String layer, List<int> elements)? elementsLayerChanged,
+    TResult Function(String layer, List<String> elements)? elementsLayerChanged,
     TResult Function(String directory, String? remote, bool deleteDocument)?
         templateCreated,
     TResult Function(List<Area> areas)? areasCreated,
@@ -9907,10 +10202,11 @@ class _$WaypointRenamedImpl extends WaypointRenamed {
         presentationModeEntered,
     TResult Function()? presentationModeExited,
     TResult Function(int tick)? presentationTick,
+    TResult Function(String path, List<int> data)? assetUpdated,
     required TResult orElse(),
   }) {
-    if (waypointRenamed != null) {
-      return waypointRenamed(index, name);
+    if (waypointChanged != null) {
+      return waypointChanged(name, waypoint);
     }
     return orElse();
   }
@@ -9940,8 +10236,9 @@ class _$WaypointRenamedImpl extends WaypointRenamed {
     required TResult Function(DocumentBackgroundsChanged value)
         documentBackgroundsChanged,
     required TResult Function(WaypointCreated value) waypointCreated,
-    required TResult Function(WaypointRenamed value) waypointRenamed,
+    required TResult Function(WaypointChanged value) waypointChanged,
     required TResult Function(WaypointRemoved value) waypointRemoved,
+    required TResult Function(WaypointReordered value) waypointReordered,
     required TResult Function(LayerRenamed value) layerRenamed,
     required TResult Function(LayerRemoved value) layerRemoved,
     required TResult Function(LayerElementsRemoved value) layerElementsRemoved,
@@ -9969,8 +10266,9 @@ class _$WaypointRenamedImpl extends WaypointRenamed {
     required TResult Function(PresentationModeExited value)
         presentationModeExited,
     required TResult Function(PresentationTick value) presentationTick,
+    required TResult Function(AssetUpdated value) assetUpdated,
   }) {
-    return waypointRenamed(this);
+    return waypointChanged(this);
   }
 
   @override
@@ -9998,8 +10296,9 @@ class _$WaypointRenamedImpl extends WaypointRenamed {
     TResult? Function(DocumentBackgroundsChanged value)?
         documentBackgroundsChanged,
     TResult? Function(WaypointCreated value)? waypointCreated,
-    TResult? Function(WaypointRenamed value)? waypointRenamed,
+    TResult? Function(WaypointChanged value)? waypointChanged,
     TResult? Function(WaypointRemoved value)? waypointRemoved,
+    TResult? Function(WaypointReordered value)? waypointReordered,
     TResult? Function(LayerRenamed value)? layerRenamed,
     TResult? Function(LayerRemoved value)? layerRemoved,
     TResult? Function(LayerElementsRemoved value)? layerElementsRemoved,
@@ -10024,8 +10323,9 @@ class _$WaypointRenamedImpl extends WaypointRenamed {
     TResult? Function(PresentationModeEntered value)? presentationModeEntered,
     TResult? Function(PresentationModeExited value)? presentationModeExited,
     TResult? Function(PresentationTick value)? presentationTick,
+    TResult? Function(AssetUpdated value)? assetUpdated,
   }) {
-    return waypointRenamed?.call(this);
+    return waypointChanged?.call(this);
   }
 
   @override
@@ -10053,8 +10353,9 @@ class _$WaypointRenamedImpl extends WaypointRenamed {
     TResult Function(DocumentBackgroundsChanged value)?
         documentBackgroundsChanged,
     TResult Function(WaypointCreated value)? waypointCreated,
-    TResult Function(WaypointRenamed value)? waypointRenamed,
+    TResult Function(WaypointChanged value)? waypointChanged,
     TResult Function(WaypointRemoved value)? waypointRemoved,
+    TResult Function(WaypointReordered value)? waypointReordered,
     TResult Function(LayerRenamed value)? layerRenamed,
     TResult Function(LayerRemoved value)? layerRemoved,
     TResult Function(LayerElementsRemoved value)? layerElementsRemoved,
@@ -10079,34 +10380,35 @@ class _$WaypointRenamedImpl extends WaypointRenamed {
     TResult Function(PresentationModeEntered value)? presentationModeEntered,
     TResult Function(PresentationModeExited value)? presentationModeExited,
     TResult Function(PresentationTick value)? presentationTick,
+    TResult Function(AssetUpdated value)? assetUpdated,
     required TResult orElse(),
   }) {
-    if (waypointRenamed != null) {
-      return waypointRenamed(this);
+    if (waypointChanged != null) {
+      return waypointChanged(this);
     }
     return orElse();
   }
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$WaypointRenamedImplToJson(
+    return _$$WaypointChangedImplToJson(
       this,
     );
   }
 }
 
-abstract class WaypointRenamed extends DocumentEvent {
-  const factory WaypointRenamed(final int index, final String name) =
-      _$WaypointRenamedImpl;
-  const WaypointRenamed._() : super._();
+abstract class WaypointChanged extends DocumentEvent {
+  const factory WaypointChanged(final String name, final Waypoint waypoint) =
+      _$WaypointChangedImpl;
+  const WaypointChanged._() : super._();
 
-  factory WaypointRenamed.fromJson(Map<String, dynamic> json) =
-      _$WaypointRenamedImpl.fromJson;
+  factory WaypointChanged.fromJson(Map<String, dynamic> json) =
+      _$WaypointChangedImpl.fromJson;
 
-  int get index;
   String get name;
+  Waypoint get waypoint;
   @JsonKey(ignore: true)
-  _$$WaypointRenamedImplCopyWith<_$WaypointRenamedImpl> get copyWith =>
+  _$$WaypointChangedImplCopyWith<_$WaypointChangedImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -10116,7 +10418,7 @@ abstract class _$$WaypointRemovedImplCopyWith<$Res> {
           $Res Function(_$WaypointRemovedImpl) then) =
       __$$WaypointRemovedImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({int index});
+  $Res call({String name});
 }
 
 /// @nodoc
@@ -10130,13 +10432,13 @@ class __$$WaypointRemovedImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? index = null,
+    Object? name = null,
   }) {
     return _then(_$WaypointRemovedImpl(
-      null == index
-          ? _value.index
-          : index // ignore: cast_nullable_to_non_nullable
-              as int,
+      null == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -10144,7 +10446,7 @@ class __$$WaypointRemovedImplCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$WaypointRemovedImpl extends WaypointRemoved {
-  const _$WaypointRemovedImpl(this.index, {final String? $type})
+  const _$WaypointRemovedImpl(this.name, {final String? $type})
       : $type = $type ?? 'waypointRemoved',
         super._();
 
@@ -10152,14 +10454,14 @@ class _$WaypointRemovedImpl extends WaypointRemoved {
       _$$WaypointRemovedImplFromJson(json);
 
   @override
-  final int index;
+  final String name;
 
   @JsonKey(name: 'type')
   final String $type;
 
   @override
   String toString() {
-    return 'DocumentEvent.waypointRemoved(index: $index)';
+    return 'DocumentEvent.waypointRemoved(name: $name)';
   }
 
   @override
@@ -10167,12 +10469,12 @@ class _$WaypointRemovedImpl extends WaypointRemoved {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$WaypointRemovedImpl &&
-            (identical(other.index, index) || other.index == index));
+            (identical(other.name, name) || other.name == name));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, index);
+  int get hashCode => Object.hash(runtimeType, name);
 
   @JsonKey(ignore: true)
   @override
@@ -10194,10 +10496,10 @@ class _$WaypointRemovedImpl extends WaypointRemoved {
     required TResult Function(ViewOption view) viewChanged,
     required TResult Function(UtilitiesState state) utilitiesChanged,
     required TResult Function(List<PadElement> elements) elementsCreated,
-    required TResult Function(Map<int, List<PadElement>> elements)
+    required TResult Function(Map<String, List<PadElement>> elements)
         elementsChanged,
-    required TResult Function(List<int> elements) elementsRemoved,
-    required TResult Function(Arrangement arrangement, List<int> elements)
+    required TResult Function(List<String> elements) elementsRemoved,
+    required TResult Function(Arrangement arrangement, List<String> elements)
         elementsArranged,
     required TResult Function(String? name, String? description)
         documentDescriptionChanged,
@@ -10209,14 +10511,15 @@ class _$WaypointRemovedImpl extends WaypointRemoved {
     required TResult Function(List<Background> backgrounds)
         documentBackgroundsChanged,
     required TResult Function(Waypoint waypoint) waypointCreated,
-    required TResult Function(int index, String name) waypointRenamed,
-    required TResult Function(int index) waypointRemoved,
+    required TResult Function(String name, Waypoint waypoint) waypointChanged,
+    required TResult Function(String name) waypointRemoved,
+    required TResult Function(String name, int newIndex) waypointReordered,
     required TResult Function(String oldName, String newName) layerRenamed,
     required TResult Function(String name) layerRemoved,
     required TResult Function(String name) layerElementsRemoved,
     required TResult Function(String name) layerVisibilityChanged,
     required TResult Function(String name) currentLayerChanged,
-    required TResult Function(String layer, List<int> elements)
+    required TResult Function(String layer, List<String> elements)
         elementsLayerChanged,
     required TResult Function(
             String directory, String? remote, bool deleteDocument)
@@ -10242,8 +10545,9 @@ class _$WaypointRemovedImpl extends WaypointRemoved {
         presentationModeEntered,
     required TResult Function() presentationModeExited,
     required TResult Function(int tick) presentationTick,
+    required TResult Function(String path, List<int> data) assetUpdated,
   }) {
-    return waypointRemoved(index);
+    return waypointRemoved(name);
   }
 
   @override
@@ -10259,9 +10563,9 @@ class _$WaypointRemovedImpl extends WaypointRemoved {
     TResult? Function(ViewOption view)? viewChanged,
     TResult? Function(UtilitiesState state)? utilitiesChanged,
     TResult? Function(List<PadElement> elements)? elementsCreated,
-    TResult? Function(Map<int, List<PadElement>> elements)? elementsChanged,
-    TResult? Function(List<int> elements)? elementsRemoved,
-    TResult? Function(Arrangement arrangement, List<int> elements)?
+    TResult? Function(Map<String, List<PadElement>> elements)? elementsChanged,
+    TResult? Function(List<String> elements)? elementsRemoved,
+    TResult? Function(Arrangement arrangement, List<String> elements)?
         elementsArranged,
     TResult? Function(String? name, String? description)?
         documentDescriptionChanged,
@@ -10272,14 +10576,16 @@ class _$WaypointRemovedImpl extends WaypointRemoved {
     TResult? Function(int oldIndex, int newIndex)? toolReordered,
     TResult? Function(List<Background> backgrounds)? documentBackgroundsChanged,
     TResult? Function(Waypoint waypoint)? waypointCreated,
-    TResult? Function(int index, String name)? waypointRenamed,
-    TResult? Function(int index)? waypointRemoved,
+    TResult? Function(String name, Waypoint waypoint)? waypointChanged,
+    TResult? Function(String name)? waypointRemoved,
+    TResult? Function(String name, int newIndex)? waypointReordered,
     TResult? Function(String oldName, String newName)? layerRenamed,
     TResult? Function(String name)? layerRemoved,
     TResult? Function(String name)? layerElementsRemoved,
     TResult? Function(String name)? layerVisibilityChanged,
     TResult? Function(String name)? currentLayerChanged,
-    TResult? Function(String layer, List<int> elements)? elementsLayerChanged,
+    TResult? Function(String layer, List<String> elements)?
+        elementsLayerChanged,
     TResult? Function(String directory, String? remote, bool deleteDocument)?
         templateCreated,
     TResult? Function(List<Area> areas)? areasCreated,
@@ -10300,8 +10606,9 @@ class _$WaypointRemovedImpl extends WaypointRemoved {
         presentationModeEntered,
     TResult? Function()? presentationModeExited,
     TResult? Function(int tick)? presentationTick,
+    TResult? Function(String path, List<int> data)? assetUpdated,
   }) {
-    return waypointRemoved?.call(index);
+    return waypointRemoved?.call(name);
   }
 
   @override
@@ -10317,9 +10624,9 @@ class _$WaypointRemovedImpl extends WaypointRemoved {
     TResult Function(ViewOption view)? viewChanged,
     TResult Function(UtilitiesState state)? utilitiesChanged,
     TResult Function(List<PadElement> elements)? elementsCreated,
-    TResult Function(Map<int, List<PadElement>> elements)? elementsChanged,
-    TResult Function(List<int> elements)? elementsRemoved,
-    TResult Function(Arrangement arrangement, List<int> elements)?
+    TResult Function(Map<String, List<PadElement>> elements)? elementsChanged,
+    TResult Function(List<String> elements)? elementsRemoved,
+    TResult Function(Arrangement arrangement, List<String> elements)?
         elementsArranged,
     TResult Function(String? name, String? description)?
         documentDescriptionChanged,
@@ -10330,14 +10637,15 @@ class _$WaypointRemovedImpl extends WaypointRemoved {
     TResult Function(int oldIndex, int newIndex)? toolReordered,
     TResult Function(List<Background> backgrounds)? documentBackgroundsChanged,
     TResult Function(Waypoint waypoint)? waypointCreated,
-    TResult Function(int index, String name)? waypointRenamed,
-    TResult Function(int index)? waypointRemoved,
+    TResult Function(String name, Waypoint waypoint)? waypointChanged,
+    TResult Function(String name)? waypointRemoved,
+    TResult Function(String name, int newIndex)? waypointReordered,
     TResult Function(String oldName, String newName)? layerRenamed,
     TResult Function(String name)? layerRemoved,
     TResult Function(String name)? layerElementsRemoved,
     TResult Function(String name)? layerVisibilityChanged,
     TResult Function(String name)? currentLayerChanged,
-    TResult Function(String layer, List<int> elements)? elementsLayerChanged,
+    TResult Function(String layer, List<String> elements)? elementsLayerChanged,
     TResult Function(String directory, String? remote, bool deleteDocument)?
         templateCreated,
     TResult Function(List<Area> areas)? areasCreated,
@@ -10358,10 +10666,11 @@ class _$WaypointRemovedImpl extends WaypointRemoved {
         presentationModeEntered,
     TResult Function()? presentationModeExited,
     TResult Function(int tick)? presentationTick,
+    TResult Function(String path, List<int> data)? assetUpdated,
     required TResult orElse(),
   }) {
     if (waypointRemoved != null) {
-      return waypointRemoved(index);
+      return waypointRemoved(name);
     }
     return orElse();
   }
@@ -10391,8 +10700,9 @@ class _$WaypointRemovedImpl extends WaypointRemoved {
     required TResult Function(DocumentBackgroundsChanged value)
         documentBackgroundsChanged,
     required TResult Function(WaypointCreated value) waypointCreated,
-    required TResult Function(WaypointRenamed value) waypointRenamed,
+    required TResult Function(WaypointChanged value) waypointChanged,
     required TResult Function(WaypointRemoved value) waypointRemoved,
+    required TResult Function(WaypointReordered value) waypointReordered,
     required TResult Function(LayerRenamed value) layerRenamed,
     required TResult Function(LayerRemoved value) layerRemoved,
     required TResult Function(LayerElementsRemoved value) layerElementsRemoved,
@@ -10420,6 +10730,7 @@ class _$WaypointRemovedImpl extends WaypointRemoved {
     required TResult Function(PresentationModeExited value)
         presentationModeExited,
     required TResult Function(PresentationTick value) presentationTick,
+    required TResult Function(AssetUpdated value) assetUpdated,
   }) {
     return waypointRemoved(this);
   }
@@ -10449,8 +10760,9 @@ class _$WaypointRemovedImpl extends WaypointRemoved {
     TResult? Function(DocumentBackgroundsChanged value)?
         documentBackgroundsChanged,
     TResult? Function(WaypointCreated value)? waypointCreated,
-    TResult? Function(WaypointRenamed value)? waypointRenamed,
+    TResult? Function(WaypointChanged value)? waypointChanged,
     TResult? Function(WaypointRemoved value)? waypointRemoved,
+    TResult? Function(WaypointReordered value)? waypointReordered,
     TResult? Function(LayerRenamed value)? layerRenamed,
     TResult? Function(LayerRemoved value)? layerRemoved,
     TResult? Function(LayerElementsRemoved value)? layerElementsRemoved,
@@ -10475,6 +10787,7 @@ class _$WaypointRemovedImpl extends WaypointRemoved {
     TResult? Function(PresentationModeEntered value)? presentationModeEntered,
     TResult? Function(PresentationModeExited value)? presentationModeExited,
     TResult? Function(PresentationTick value)? presentationTick,
+    TResult? Function(AssetUpdated value)? assetUpdated,
   }) {
     return waypointRemoved?.call(this);
   }
@@ -10504,8 +10817,9 @@ class _$WaypointRemovedImpl extends WaypointRemoved {
     TResult Function(DocumentBackgroundsChanged value)?
         documentBackgroundsChanged,
     TResult Function(WaypointCreated value)? waypointCreated,
-    TResult Function(WaypointRenamed value)? waypointRenamed,
+    TResult Function(WaypointChanged value)? waypointChanged,
     TResult Function(WaypointRemoved value)? waypointRemoved,
+    TResult Function(WaypointReordered value)? waypointReordered,
     TResult Function(LayerRenamed value)? layerRenamed,
     TResult Function(LayerRemoved value)? layerRemoved,
     TResult Function(LayerElementsRemoved value)? layerElementsRemoved,
@@ -10530,6 +10844,7 @@ class _$WaypointRemovedImpl extends WaypointRemoved {
     TResult Function(PresentationModeEntered value)? presentationModeEntered,
     TResult Function(PresentationModeExited value)? presentationModeExited,
     TResult Function(PresentationTick value)? presentationTick,
+    TResult Function(AssetUpdated value)? assetUpdated,
     required TResult orElse(),
   }) {
     if (waypointRemoved != null) {
@@ -10547,15 +10862,488 @@ class _$WaypointRemovedImpl extends WaypointRemoved {
 }
 
 abstract class WaypointRemoved extends DocumentEvent {
-  const factory WaypointRemoved(final int index) = _$WaypointRemovedImpl;
+  const factory WaypointRemoved(final String name) = _$WaypointRemovedImpl;
   const WaypointRemoved._() : super._();
 
   factory WaypointRemoved.fromJson(Map<String, dynamic> json) =
       _$WaypointRemovedImpl.fromJson;
 
-  int get index;
+  String get name;
   @JsonKey(ignore: true)
   _$$WaypointRemovedImplCopyWith<_$WaypointRemovedImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$WaypointReorderedImplCopyWith<$Res> {
+  factory _$$WaypointReorderedImplCopyWith(_$WaypointReorderedImpl value,
+          $Res Function(_$WaypointReorderedImpl) then) =
+      __$$WaypointReorderedImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String name, int newIndex});
+}
+
+/// @nodoc
+class __$$WaypointReorderedImplCopyWithImpl<$Res>
+    extends _$DocumentEventCopyWithImpl<$Res, _$WaypointReorderedImpl>
+    implements _$$WaypointReorderedImplCopyWith<$Res> {
+  __$$WaypointReorderedImplCopyWithImpl(_$WaypointReorderedImpl _value,
+      $Res Function(_$WaypointReorderedImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? name = null,
+    Object? newIndex = null,
+  }) {
+    return _then(_$WaypointReorderedImpl(
+      null == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      null == newIndex
+          ? _value.newIndex
+          : newIndex // ignore: cast_nullable_to_non_nullable
+              as int,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$WaypointReorderedImpl extends WaypointReordered {
+  const _$WaypointReorderedImpl(this.name, this.newIndex, {final String? $type})
+      : $type = $type ?? 'waypointReordered',
+        super._();
+
+  factory _$WaypointReorderedImpl.fromJson(Map<String, dynamic> json) =>
+      _$$WaypointReorderedImplFromJson(json);
+
+  @override
+  final String name;
+  @override
+  final int newIndex;
+
+  @JsonKey(name: 'type')
+  final String $type;
+
+  @override
+  String toString() {
+    return 'DocumentEvent.waypointReordered(name: $name, newIndex: $newIndex)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$WaypointReorderedImpl &&
+            (identical(other.name, name) || other.name == name) &&
+            (identical(other.newIndex, newIndex) ||
+                other.newIndex == newIndex));
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  int get hashCode => Object.hash(runtimeType, name, newIndex);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$WaypointReorderedImplCopyWith<_$WaypointReorderedImpl> get copyWith =>
+      __$$WaypointReorderedImplCopyWithImpl<_$WaypointReorderedImpl>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(int? index, DocumentPage? page) pageAdded,
+    required TResult Function(String pageName) pageChanged,
+    required TResult Function(String page, int? newIndex) pageReordered,
+    required TResult Function(String oldName, String newName) pageRenamed,
+    required TResult Function(String page) pageRemoved,
+    required TResult Function(@Uint8ListJsonConverter() Uint8List data)
+        thumbnailCaptured,
+    required TResult Function(ViewOption view) viewChanged,
+    required TResult Function(UtilitiesState state) utilitiesChanged,
+    required TResult Function(List<PadElement> elements) elementsCreated,
+    required TResult Function(Map<String, List<PadElement>> elements)
+        elementsChanged,
+    required TResult Function(List<String> elements) elementsRemoved,
+    required TResult Function(Arrangement arrangement, List<String> elements)
+        elementsArranged,
+    required TResult Function(String? name, String? description)
+        documentDescriptionChanged,
+    required TResult Function(AssetLocation? location) documentSaved,
+    required TResult Function(Tool tool) toolCreated,
+    required TResult Function(Map<int, Tool> tools) toolsChanged,
+    required TResult Function(List<int> tools) toolsRemoved,
+    required TResult Function(int oldIndex, int newIndex) toolReordered,
+    required TResult Function(List<Background> backgrounds)
+        documentBackgroundsChanged,
+    required TResult Function(Waypoint waypoint) waypointCreated,
+    required TResult Function(String name, Waypoint waypoint) waypointChanged,
+    required TResult Function(String name) waypointRemoved,
+    required TResult Function(String name, int newIndex) waypointReordered,
+    required TResult Function(String oldName, String newName) layerRenamed,
+    required TResult Function(String name) layerRemoved,
+    required TResult Function(String name) layerElementsRemoved,
+    required TResult Function(String name) layerVisibilityChanged,
+    required TResult Function(String name) currentLayerChanged,
+    required TResult Function(String layer, List<String> elements)
+        elementsLayerChanged,
+    required TResult Function(
+            String directory, String? remote, bool deleteDocument)
+        templateCreated,
+    required TResult Function(List<Area> areas) areasCreated,
+    required TResult Function(List<String> areas) areasRemoved,
+    required TResult Function(String name, Area area) areaChanged,
+    required TResult Function(String name, int newIndex) areaReordered,
+    required TResult Function(String name) currentAreaChanged,
+    required TResult Function(String name, List<AreaPreset> areas)
+        exportPresetCreated,
+    required TResult Function(String name, List<AreaPreset> areas)
+        exportPresetUpdated,
+    required TResult Function(String name) exportPresetRemoved,
+    required TResult Function(NoteData pack) packAdded,
+    required TResult Function(String name, NoteData pack) packUpdated,
+    required TResult Function(String name) packRemoved,
+    required TResult Function(AnimationTrack animation) animationAdded,
+    required TResult Function(String name, AnimationTrack animation)
+        animationUpdated,
+    required TResult Function(String name) animationRemoved,
+    required TResult Function(AnimationTrack track, bool fullScreen)
+        presentationModeEntered,
+    required TResult Function() presentationModeExited,
+    required TResult Function(int tick) presentationTick,
+    required TResult Function(String path, List<int> data) assetUpdated,
+  }) {
+    return waypointReordered(name, newIndex);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(int? index, DocumentPage? page)? pageAdded,
+    TResult? Function(String pageName)? pageChanged,
+    TResult? Function(String page, int? newIndex)? pageReordered,
+    TResult? Function(String oldName, String newName)? pageRenamed,
+    TResult? Function(String page)? pageRemoved,
+    TResult? Function(@Uint8ListJsonConverter() Uint8List data)?
+        thumbnailCaptured,
+    TResult? Function(ViewOption view)? viewChanged,
+    TResult? Function(UtilitiesState state)? utilitiesChanged,
+    TResult? Function(List<PadElement> elements)? elementsCreated,
+    TResult? Function(Map<String, List<PadElement>> elements)? elementsChanged,
+    TResult? Function(List<String> elements)? elementsRemoved,
+    TResult? Function(Arrangement arrangement, List<String> elements)?
+        elementsArranged,
+    TResult? Function(String? name, String? description)?
+        documentDescriptionChanged,
+    TResult? Function(AssetLocation? location)? documentSaved,
+    TResult? Function(Tool tool)? toolCreated,
+    TResult? Function(Map<int, Tool> tools)? toolsChanged,
+    TResult? Function(List<int> tools)? toolsRemoved,
+    TResult? Function(int oldIndex, int newIndex)? toolReordered,
+    TResult? Function(List<Background> backgrounds)? documentBackgroundsChanged,
+    TResult? Function(Waypoint waypoint)? waypointCreated,
+    TResult? Function(String name, Waypoint waypoint)? waypointChanged,
+    TResult? Function(String name)? waypointRemoved,
+    TResult? Function(String name, int newIndex)? waypointReordered,
+    TResult? Function(String oldName, String newName)? layerRenamed,
+    TResult? Function(String name)? layerRemoved,
+    TResult? Function(String name)? layerElementsRemoved,
+    TResult? Function(String name)? layerVisibilityChanged,
+    TResult? Function(String name)? currentLayerChanged,
+    TResult? Function(String layer, List<String> elements)?
+        elementsLayerChanged,
+    TResult? Function(String directory, String? remote, bool deleteDocument)?
+        templateCreated,
+    TResult? Function(List<Area> areas)? areasCreated,
+    TResult? Function(List<String> areas)? areasRemoved,
+    TResult? Function(String name, Area area)? areaChanged,
+    TResult? Function(String name, int newIndex)? areaReordered,
+    TResult? Function(String name)? currentAreaChanged,
+    TResult? Function(String name, List<AreaPreset> areas)? exportPresetCreated,
+    TResult? Function(String name, List<AreaPreset> areas)? exportPresetUpdated,
+    TResult? Function(String name)? exportPresetRemoved,
+    TResult? Function(NoteData pack)? packAdded,
+    TResult? Function(String name, NoteData pack)? packUpdated,
+    TResult? Function(String name)? packRemoved,
+    TResult? Function(AnimationTrack animation)? animationAdded,
+    TResult? Function(String name, AnimationTrack animation)? animationUpdated,
+    TResult? Function(String name)? animationRemoved,
+    TResult? Function(AnimationTrack track, bool fullScreen)?
+        presentationModeEntered,
+    TResult? Function()? presentationModeExited,
+    TResult? Function(int tick)? presentationTick,
+    TResult? Function(String path, List<int> data)? assetUpdated,
+  }) {
+    return waypointReordered?.call(name, newIndex);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(int? index, DocumentPage? page)? pageAdded,
+    TResult Function(String pageName)? pageChanged,
+    TResult Function(String page, int? newIndex)? pageReordered,
+    TResult Function(String oldName, String newName)? pageRenamed,
+    TResult Function(String page)? pageRemoved,
+    TResult Function(@Uint8ListJsonConverter() Uint8List data)?
+        thumbnailCaptured,
+    TResult Function(ViewOption view)? viewChanged,
+    TResult Function(UtilitiesState state)? utilitiesChanged,
+    TResult Function(List<PadElement> elements)? elementsCreated,
+    TResult Function(Map<String, List<PadElement>> elements)? elementsChanged,
+    TResult Function(List<String> elements)? elementsRemoved,
+    TResult Function(Arrangement arrangement, List<String> elements)?
+        elementsArranged,
+    TResult Function(String? name, String? description)?
+        documentDescriptionChanged,
+    TResult Function(AssetLocation? location)? documentSaved,
+    TResult Function(Tool tool)? toolCreated,
+    TResult Function(Map<int, Tool> tools)? toolsChanged,
+    TResult Function(List<int> tools)? toolsRemoved,
+    TResult Function(int oldIndex, int newIndex)? toolReordered,
+    TResult Function(List<Background> backgrounds)? documentBackgroundsChanged,
+    TResult Function(Waypoint waypoint)? waypointCreated,
+    TResult Function(String name, Waypoint waypoint)? waypointChanged,
+    TResult Function(String name)? waypointRemoved,
+    TResult Function(String name, int newIndex)? waypointReordered,
+    TResult Function(String oldName, String newName)? layerRenamed,
+    TResult Function(String name)? layerRemoved,
+    TResult Function(String name)? layerElementsRemoved,
+    TResult Function(String name)? layerVisibilityChanged,
+    TResult Function(String name)? currentLayerChanged,
+    TResult Function(String layer, List<String> elements)? elementsLayerChanged,
+    TResult Function(String directory, String? remote, bool deleteDocument)?
+        templateCreated,
+    TResult Function(List<Area> areas)? areasCreated,
+    TResult Function(List<String> areas)? areasRemoved,
+    TResult Function(String name, Area area)? areaChanged,
+    TResult Function(String name, int newIndex)? areaReordered,
+    TResult Function(String name)? currentAreaChanged,
+    TResult Function(String name, List<AreaPreset> areas)? exportPresetCreated,
+    TResult Function(String name, List<AreaPreset> areas)? exportPresetUpdated,
+    TResult Function(String name)? exportPresetRemoved,
+    TResult Function(NoteData pack)? packAdded,
+    TResult Function(String name, NoteData pack)? packUpdated,
+    TResult Function(String name)? packRemoved,
+    TResult Function(AnimationTrack animation)? animationAdded,
+    TResult Function(String name, AnimationTrack animation)? animationUpdated,
+    TResult Function(String name)? animationRemoved,
+    TResult Function(AnimationTrack track, bool fullScreen)?
+        presentationModeEntered,
+    TResult Function()? presentationModeExited,
+    TResult Function(int tick)? presentationTick,
+    TResult Function(String path, List<int> data)? assetUpdated,
+    required TResult orElse(),
+  }) {
+    if (waypointReordered != null) {
+      return waypointReordered(name, newIndex);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(PageAdded value) pageAdded,
+    required TResult Function(PageChanged value) pageChanged,
+    required TResult Function(PageReordered value) pageReordered,
+    required TResult Function(PageRenamed value) pageRenamed,
+    required TResult Function(PageRemoved value) pageRemoved,
+    required TResult Function(ThumbnailCaptured value) thumbnailCaptured,
+    required TResult Function(ViewChanged value) viewChanged,
+    required TResult Function(UtilitiesChanged value) utilitiesChanged,
+    required TResult Function(ElementsCreated value) elementsCreated,
+    required TResult Function(ElementsChanged value) elementsChanged,
+    required TResult Function(ElementsRemoved value) elementsRemoved,
+    required TResult Function(ElementsArranged value) elementsArranged,
+    required TResult Function(DocumentDescriptionChanged value)
+        documentDescriptionChanged,
+    required TResult Function(DocumentSaved value) documentSaved,
+    required TResult Function(ToolCreated value) toolCreated,
+    required TResult Function(ToolsChanged value) toolsChanged,
+    required TResult Function(ToolsRemoved value) toolsRemoved,
+    required TResult Function(ToolReordered value) toolReordered,
+    required TResult Function(DocumentBackgroundsChanged value)
+        documentBackgroundsChanged,
+    required TResult Function(WaypointCreated value) waypointCreated,
+    required TResult Function(WaypointChanged value) waypointChanged,
+    required TResult Function(WaypointRemoved value) waypointRemoved,
+    required TResult Function(WaypointReordered value) waypointReordered,
+    required TResult Function(LayerRenamed value) layerRenamed,
+    required TResult Function(LayerRemoved value) layerRemoved,
+    required TResult Function(LayerElementsRemoved value) layerElementsRemoved,
+    required TResult Function(LayerVisibilityChanged value)
+        layerVisibilityChanged,
+    required TResult Function(CurrentLayerChanged value) currentLayerChanged,
+    required TResult Function(ElementsLayerChanged value) elementsLayerChanged,
+    required TResult Function(TemplateCreated value) templateCreated,
+    required TResult Function(AreasCreated value) areasCreated,
+    required TResult Function(AreasRemoved value) areasRemoved,
+    required TResult Function(AreaChanged value) areaChanged,
+    required TResult Function(AreaReordered value) areaReordered,
+    required TResult Function(CurrentAreaChanged value) currentAreaChanged,
+    required TResult Function(ExportPresetCreated value) exportPresetCreated,
+    required TResult Function(ExportPresetUpdated value) exportPresetUpdated,
+    required TResult Function(ExportPresetRemoved value) exportPresetRemoved,
+    required TResult Function(PackAdded value) packAdded,
+    required TResult Function(PackUpdated value) packUpdated,
+    required TResult Function(PackRemoved value) packRemoved,
+    required TResult Function(AnimationAdded value) animationAdded,
+    required TResult Function(AnimationUpdated value) animationUpdated,
+    required TResult Function(AnimationRemoved value) animationRemoved,
+    required TResult Function(PresentationModeEntered value)
+        presentationModeEntered,
+    required TResult Function(PresentationModeExited value)
+        presentationModeExited,
+    required TResult Function(PresentationTick value) presentationTick,
+    required TResult Function(AssetUpdated value) assetUpdated,
+  }) {
+    return waypointReordered(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(PageAdded value)? pageAdded,
+    TResult? Function(PageChanged value)? pageChanged,
+    TResult? Function(PageReordered value)? pageReordered,
+    TResult? Function(PageRenamed value)? pageRenamed,
+    TResult? Function(PageRemoved value)? pageRemoved,
+    TResult? Function(ThumbnailCaptured value)? thumbnailCaptured,
+    TResult? Function(ViewChanged value)? viewChanged,
+    TResult? Function(UtilitiesChanged value)? utilitiesChanged,
+    TResult? Function(ElementsCreated value)? elementsCreated,
+    TResult? Function(ElementsChanged value)? elementsChanged,
+    TResult? Function(ElementsRemoved value)? elementsRemoved,
+    TResult? Function(ElementsArranged value)? elementsArranged,
+    TResult? Function(DocumentDescriptionChanged value)?
+        documentDescriptionChanged,
+    TResult? Function(DocumentSaved value)? documentSaved,
+    TResult? Function(ToolCreated value)? toolCreated,
+    TResult? Function(ToolsChanged value)? toolsChanged,
+    TResult? Function(ToolsRemoved value)? toolsRemoved,
+    TResult? Function(ToolReordered value)? toolReordered,
+    TResult? Function(DocumentBackgroundsChanged value)?
+        documentBackgroundsChanged,
+    TResult? Function(WaypointCreated value)? waypointCreated,
+    TResult? Function(WaypointChanged value)? waypointChanged,
+    TResult? Function(WaypointRemoved value)? waypointRemoved,
+    TResult? Function(WaypointReordered value)? waypointReordered,
+    TResult? Function(LayerRenamed value)? layerRenamed,
+    TResult? Function(LayerRemoved value)? layerRemoved,
+    TResult? Function(LayerElementsRemoved value)? layerElementsRemoved,
+    TResult? Function(LayerVisibilityChanged value)? layerVisibilityChanged,
+    TResult? Function(CurrentLayerChanged value)? currentLayerChanged,
+    TResult? Function(ElementsLayerChanged value)? elementsLayerChanged,
+    TResult? Function(TemplateCreated value)? templateCreated,
+    TResult? Function(AreasCreated value)? areasCreated,
+    TResult? Function(AreasRemoved value)? areasRemoved,
+    TResult? Function(AreaChanged value)? areaChanged,
+    TResult? Function(AreaReordered value)? areaReordered,
+    TResult? Function(CurrentAreaChanged value)? currentAreaChanged,
+    TResult? Function(ExportPresetCreated value)? exportPresetCreated,
+    TResult? Function(ExportPresetUpdated value)? exportPresetUpdated,
+    TResult? Function(ExportPresetRemoved value)? exportPresetRemoved,
+    TResult? Function(PackAdded value)? packAdded,
+    TResult? Function(PackUpdated value)? packUpdated,
+    TResult? Function(PackRemoved value)? packRemoved,
+    TResult? Function(AnimationAdded value)? animationAdded,
+    TResult? Function(AnimationUpdated value)? animationUpdated,
+    TResult? Function(AnimationRemoved value)? animationRemoved,
+    TResult? Function(PresentationModeEntered value)? presentationModeEntered,
+    TResult? Function(PresentationModeExited value)? presentationModeExited,
+    TResult? Function(PresentationTick value)? presentationTick,
+    TResult? Function(AssetUpdated value)? assetUpdated,
+  }) {
+    return waypointReordered?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(PageAdded value)? pageAdded,
+    TResult Function(PageChanged value)? pageChanged,
+    TResult Function(PageReordered value)? pageReordered,
+    TResult Function(PageRenamed value)? pageRenamed,
+    TResult Function(PageRemoved value)? pageRemoved,
+    TResult Function(ThumbnailCaptured value)? thumbnailCaptured,
+    TResult Function(ViewChanged value)? viewChanged,
+    TResult Function(UtilitiesChanged value)? utilitiesChanged,
+    TResult Function(ElementsCreated value)? elementsCreated,
+    TResult Function(ElementsChanged value)? elementsChanged,
+    TResult Function(ElementsRemoved value)? elementsRemoved,
+    TResult Function(ElementsArranged value)? elementsArranged,
+    TResult Function(DocumentDescriptionChanged value)?
+        documentDescriptionChanged,
+    TResult Function(DocumentSaved value)? documentSaved,
+    TResult Function(ToolCreated value)? toolCreated,
+    TResult Function(ToolsChanged value)? toolsChanged,
+    TResult Function(ToolsRemoved value)? toolsRemoved,
+    TResult Function(ToolReordered value)? toolReordered,
+    TResult Function(DocumentBackgroundsChanged value)?
+        documentBackgroundsChanged,
+    TResult Function(WaypointCreated value)? waypointCreated,
+    TResult Function(WaypointChanged value)? waypointChanged,
+    TResult Function(WaypointRemoved value)? waypointRemoved,
+    TResult Function(WaypointReordered value)? waypointReordered,
+    TResult Function(LayerRenamed value)? layerRenamed,
+    TResult Function(LayerRemoved value)? layerRemoved,
+    TResult Function(LayerElementsRemoved value)? layerElementsRemoved,
+    TResult Function(LayerVisibilityChanged value)? layerVisibilityChanged,
+    TResult Function(CurrentLayerChanged value)? currentLayerChanged,
+    TResult Function(ElementsLayerChanged value)? elementsLayerChanged,
+    TResult Function(TemplateCreated value)? templateCreated,
+    TResult Function(AreasCreated value)? areasCreated,
+    TResult Function(AreasRemoved value)? areasRemoved,
+    TResult Function(AreaChanged value)? areaChanged,
+    TResult Function(AreaReordered value)? areaReordered,
+    TResult Function(CurrentAreaChanged value)? currentAreaChanged,
+    TResult Function(ExportPresetCreated value)? exportPresetCreated,
+    TResult Function(ExportPresetUpdated value)? exportPresetUpdated,
+    TResult Function(ExportPresetRemoved value)? exportPresetRemoved,
+    TResult Function(PackAdded value)? packAdded,
+    TResult Function(PackUpdated value)? packUpdated,
+    TResult Function(PackRemoved value)? packRemoved,
+    TResult Function(AnimationAdded value)? animationAdded,
+    TResult Function(AnimationUpdated value)? animationUpdated,
+    TResult Function(AnimationRemoved value)? animationRemoved,
+    TResult Function(PresentationModeEntered value)? presentationModeEntered,
+    TResult Function(PresentationModeExited value)? presentationModeExited,
+    TResult Function(PresentationTick value)? presentationTick,
+    TResult Function(AssetUpdated value)? assetUpdated,
+    required TResult orElse(),
+  }) {
+    if (waypointReordered != null) {
+      return waypointReordered(this);
+    }
+    return orElse();
+  }
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$WaypointReorderedImplToJson(
+      this,
+    );
+  }
+}
+
+abstract class WaypointReordered extends DocumentEvent {
+  const factory WaypointReordered(final String name, final int newIndex) =
+      _$WaypointReorderedImpl;
+  const WaypointReordered._() : super._();
+
+  factory WaypointReordered.fromJson(Map<String, dynamic> json) =
+      _$WaypointReorderedImpl.fromJson;
+
+  String get name;
+  int get newIndex;
+  @JsonKey(ignore: true)
+  _$$WaypointReorderedImplCopyWith<_$WaypointReorderedImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -10650,10 +11438,10 @@ class _$LayerRenamedImpl extends LayerRenamed {
     required TResult Function(ViewOption view) viewChanged,
     required TResult Function(UtilitiesState state) utilitiesChanged,
     required TResult Function(List<PadElement> elements) elementsCreated,
-    required TResult Function(Map<int, List<PadElement>> elements)
+    required TResult Function(Map<String, List<PadElement>> elements)
         elementsChanged,
-    required TResult Function(List<int> elements) elementsRemoved,
-    required TResult Function(Arrangement arrangement, List<int> elements)
+    required TResult Function(List<String> elements) elementsRemoved,
+    required TResult Function(Arrangement arrangement, List<String> elements)
         elementsArranged,
     required TResult Function(String? name, String? description)
         documentDescriptionChanged,
@@ -10665,14 +11453,15 @@ class _$LayerRenamedImpl extends LayerRenamed {
     required TResult Function(List<Background> backgrounds)
         documentBackgroundsChanged,
     required TResult Function(Waypoint waypoint) waypointCreated,
-    required TResult Function(int index, String name) waypointRenamed,
-    required TResult Function(int index) waypointRemoved,
+    required TResult Function(String name, Waypoint waypoint) waypointChanged,
+    required TResult Function(String name) waypointRemoved,
+    required TResult Function(String name, int newIndex) waypointReordered,
     required TResult Function(String oldName, String newName) layerRenamed,
     required TResult Function(String name) layerRemoved,
     required TResult Function(String name) layerElementsRemoved,
     required TResult Function(String name) layerVisibilityChanged,
     required TResult Function(String name) currentLayerChanged,
-    required TResult Function(String layer, List<int> elements)
+    required TResult Function(String layer, List<String> elements)
         elementsLayerChanged,
     required TResult Function(
             String directory, String? remote, bool deleteDocument)
@@ -10698,6 +11487,7 @@ class _$LayerRenamedImpl extends LayerRenamed {
         presentationModeEntered,
     required TResult Function() presentationModeExited,
     required TResult Function(int tick) presentationTick,
+    required TResult Function(String path, List<int> data) assetUpdated,
   }) {
     return layerRenamed(oldName, newName);
   }
@@ -10715,9 +11505,9 @@ class _$LayerRenamedImpl extends LayerRenamed {
     TResult? Function(ViewOption view)? viewChanged,
     TResult? Function(UtilitiesState state)? utilitiesChanged,
     TResult? Function(List<PadElement> elements)? elementsCreated,
-    TResult? Function(Map<int, List<PadElement>> elements)? elementsChanged,
-    TResult? Function(List<int> elements)? elementsRemoved,
-    TResult? Function(Arrangement arrangement, List<int> elements)?
+    TResult? Function(Map<String, List<PadElement>> elements)? elementsChanged,
+    TResult? Function(List<String> elements)? elementsRemoved,
+    TResult? Function(Arrangement arrangement, List<String> elements)?
         elementsArranged,
     TResult? Function(String? name, String? description)?
         documentDescriptionChanged,
@@ -10728,14 +11518,16 @@ class _$LayerRenamedImpl extends LayerRenamed {
     TResult? Function(int oldIndex, int newIndex)? toolReordered,
     TResult? Function(List<Background> backgrounds)? documentBackgroundsChanged,
     TResult? Function(Waypoint waypoint)? waypointCreated,
-    TResult? Function(int index, String name)? waypointRenamed,
-    TResult? Function(int index)? waypointRemoved,
+    TResult? Function(String name, Waypoint waypoint)? waypointChanged,
+    TResult? Function(String name)? waypointRemoved,
+    TResult? Function(String name, int newIndex)? waypointReordered,
     TResult? Function(String oldName, String newName)? layerRenamed,
     TResult? Function(String name)? layerRemoved,
     TResult? Function(String name)? layerElementsRemoved,
     TResult? Function(String name)? layerVisibilityChanged,
     TResult? Function(String name)? currentLayerChanged,
-    TResult? Function(String layer, List<int> elements)? elementsLayerChanged,
+    TResult? Function(String layer, List<String> elements)?
+        elementsLayerChanged,
     TResult? Function(String directory, String? remote, bool deleteDocument)?
         templateCreated,
     TResult? Function(List<Area> areas)? areasCreated,
@@ -10756,6 +11548,7 @@ class _$LayerRenamedImpl extends LayerRenamed {
         presentationModeEntered,
     TResult? Function()? presentationModeExited,
     TResult? Function(int tick)? presentationTick,
+    TResult? Function(String path, List<int> data)? assetUpdated,
   }) {
     return layerRenamed?.call(oldName, newName);
   }
@@ -10773,9 +11566,9 @@ class _$LayerRenamedImpl extends LayerRenamed {
     TResult Function(ViewOption view)? viewChanged,
     TResult Function(UtilitiesState state)? utilitiesChanged,
     TResult Function(List<PadElement> elements)? elementsCreated,
-    TResult Function(Map<int, List<PadElement>> elements)? elementsChanged,
-    TResult Function(List<int> elements)? elementsRemoved,
-    TResult Function(Arrangement arrangement, List<int> elements)?
+    TResult Function(Map<String, List<PadElement>> elements)? elementsChanged,
+    TResult Function(List<String> elements)? elementsRemoved,
+    TResult Function(Arrangement arrangement, List<String> elements)?
         elementsArranged,
     TResult Function(String? name, String? description)?
         documentDescriptionChanged,
@@ -10786,14 +11579,15 @@ class _$LayerRenamedImpl extends LayerRenamed {
     TResult Function(int oldIndex, int newIndex)? toolReordered,
     TResult Function(List<Background> backgrounds)? documentBackgroundsChanged,
     TResult Function(Waypoint waypoint)? waypointCreated,
-    TResult Function(int index, String name)? waypointRenamed,
-    TResult Function(int index)? waypointRemoved,
+    TResult Function(String name, Waypoint waypoint)? waypointChanged,
+    TResult Function(String name)? waypointRemoved,
+    TResult Function(String name, int newIndex)? waypointReordered,
     TResult Function(String oldName, String newName)? layerRenamed,
     TResult Function(String name)? layerRemoved,
     TResult Function(String name)? layerElementsRemoved,
     TResult Function(String name)? layerVisibilityChanged,
     TResult Function(String name)? currentLayerChanged,
-    TResult Function(String layer, List<int> elements)? elementsLayerChanged,
+    TResult Function(String layer, List<String> elements)? elementsLayerChanged,
     TResult Function(String directory, String? remote, bool deleteDocument)?
         templateCreated,
     TResult Function(List<Area> areas)? areasCreated,
@@ -10814,6 +11608,7 @@ class _$LayerRenamedImpl extends LayerRenamed {
         presentationModeEntered,
     TResult Function()? presentationModeExited,
     TResult Function(int tick)? presentationTick,
+    TResult Function(String path, List<int> data)? assetUpdated,
     required TResult orElse(),
   }) {
     if (layerRenamed != null) {
@@ -10847,8 +11642,9 @@ class _$LayerRenamedImpl extends LayerRenamed {
     required TResult Function(DocumentBackgroundsChanged value)
         documentBackgroundsChanged,
     required TResult Function(WaypointCreated value) waypointCreated,
-    required TResult Function(WaypointRenamed value) waypointRenamed,
+    required TResult Function(WaypointChanged value) waypointChanged,
     required TResult Function(WaypointRemoved value) waypointRemoved,
+    required TResult Function(WaypointReordered value) waypointReordered,
     required TResult Function(LayerRenamed value) layerRenamed,
     required TResult Function(LayerRemoved value) layerRemoved,
     required TResult Function(LayerElementsRemoved value) layerElementsRemoved,
@@ -10876,6 +11672,7 @@ class _$LayerRenamedImpl extends LayerRenamed {
     required TResult Function(PresentationModeExited value)
         presentationModeExited,
     required TResult Function(PresentationTick value) presentationTick,
+    required TResult Function(AssetUpdated value) assetUpdated,
   }) {
     return layerRenamed(this);
   }
@@ -10905,8 +11702,9 @@ class _$LayerRenamedImpl extends LayerRenamed {
     TResult? Function(DocumentBackgroundsChanged value)?
         documentBackgroundsChanged,
     TResult? Function(WaypointCreated value)? waypointCreated,
-    TResult? Function(WaypointRenamed value)? waypointRenamed,
+    TResult? Function(WaypointChanged value)? waypointChanged,
     TResult? Function(WaypointRemoved value)? waypointRemoved,
+    TResult? Function(WaypointReordered value)? waypointReordered,
     TResult? Function(LayerRenamed value)? layerRenamed,
     TResult? Function(LayerRemoved value)? layerRemoved,
     TResult? Function(LayerElementsRemoved value)? layerElementsRemoved,
@@ -10931,6 +11729,7 @@ class _$LayerRenamedImpl extends LayerRenamed {
     TResult? Function(PresentationModeEntered value)? presentationModeEntered,
     TResult? Function(PresentationModeExited value)? presentationModeExited,
     TResult? Function(PresentationTick value)? presentationTick,
+    TResult? Function(AssetUpdated value)? assetUpdated,
   }) {
     return layerRenamed?.call(this);
   }
@@ -10960,8 +11759,9 @@ class _$LayerRenamedImpl extends LayerRenamed {
     TResult Function(DocumentBackgroundsChanged value)?
         documentBackgroundsChanged,
     TResult Function(WaypointCreated value)? waypointCreated,
-    TResult Function(WaypointRenamed value)? waypointRenamed,
+    TResult Function(WaypointChanged value)? waypointChanged,
     TResult Function(WaypointRemoved value)? waypointRemoved,
+    TResult Function(WaypointReordered value)? waypointReordered,
     TResult Function(LayerRenamed value)? layerRenamed,
     TResult Function(LayerRemoved value)? layerRemoved,
     TResult Function(LayerElementsRemoved value)? layerElementsRemoved,
@@ -10986,6 +11786,7 @@ class _$LayerRenamedImpl extends LayerRenamed {
     TResult Function(PresentationModeEntered value)? presentationModeEntered,
     TResult Function(PresentationModeExited value)? presentationModeExited,
     TResult Function(PresentationTick value)? presentationTick,
+    TResult Function(AssetUpdated value)? assetUpdated,
     required TResult orElse(),
   }) {
     if (layerRenamed != null) {
@@ -11100,10 +11901,10 @@ class _$LayerRemovedImpl extends LayerRemoved {
     required TResult Function(ViewOption view) viewChanged,
     required TResult Function(UtilitiesState state) utilitiesChanged,
     required TResult Function(List<PadElement> elements) elementsCreated,
-    required TResult Function(Map<int, List<PadElement>> elements)
+    required TResult Function(Map<String, List<PadElement>> elements)
         elementsChanged,
-    required TResult Function(List<int> elements) elementsRemoved,
-    required TResult Function(Arrangement arrangement, List<int> elements)
+    required TResult Function(List<String> elements) elementsRemoved,
+    required TResult Function(Arrangement arrangement, List<String> elements)
         elementsArranged,
     required TResult Function(String? name, String? description)
         documentDescriptionChanged,
@@ -11115,14 +11916,15 @@ class _$LayerRemovedImpl extends LayerRemoved {
     required TResult Function(List<Background> backgrounds)
         documentBackgroundsChanged,
     required TResult Function(Waypoint waypoint) waypointCreated,
-    required TResult Function(int index, String name) waypointRenamed,
-    required TResult Function(int index) waypointRemoved,
+    required TResult Function(String name, Waypoint waypoint) waypointChanged,
+    required TResult Function(String name) waypointRemoved,
+    required TResult Function(String name, int newIndex) waypointReordered,
     required TResult Function(String oldName, String newName) layerRenamed,
     required TResult Function(String name) layerRemoved,
     required TResult Function(String name) layerElementsRemoved,
     required TResult Function(String name) layerVisibilityChanged,
     required TResult Function(String name) currentLayerChanged,
-    required TResult Function(String layer, List<int> elements)
+    required TResult Function(String layer, List<String> elements)
         elementsLayerChanged,
     required TResult Function(
             String directory, String? remote, bool deleteDocument)
@@ -11148,6 +11950,7 @@ class _$LayerRemovedImpl extends LayerRemoved {
         presentationModeEntered,
     required TResult Function() presentationModeExited,
     required TResult Function(int tick) presentationTick,
+    required TResult Function(String path, List<int> data) assetUpdated,
   }) {
     return layerRemoved(name);
   }
@@ -11165,9 +11968,9 @@ class _$LayerRemovedImpl extends LayerRemoved {
     TResult? Function(ViewOption view)? viewChanged,
     TResult? Function(UtilitiesState state)? utilitiesChanged,
     TResult? Function(List<PadElement> elements)? elementsCreated,
-    TResult? Function(Map<int, List<PadElement>> elements)? elementsChanged,
-    TResult? Function(List<int> elements)? elementsRemoved,
-    TResult? Function(Arrangement arrangement, List<int> elements)?
+    TResult? Function(Map<String, List<PadElement>> elements)? elementsChanged,
+    TResult? Function(List<String> elements)? elementsRemoved,
+    TResult? Function(Arrangement arrangement, List<String> elements)?
         elementsArranged,
     TResult? Function(String? name, String? description)?
         documentDescriptionChanged,
@@ -11178,14 +11981,16 @@ class _$LayerRemovedImpl extends LayerRemoved {
     TResult? Function(int oldIndex, int newIndex)? toolReordered,
     TResult? Function(List<Background> backgrounds)? documentBackgroundsChanged,
     TResult? Function(Waypoint waypoint)? waypointCreated,
-    TResult? Function(int index, String name)? waypointRenamed,
-    TResult? Function(int index)? waypointRemoved,
+    TResult? Function(String name, Waypoint waypoint)? waypointChanged,
+    TResult? Function(String name)? waypointRemoved,
+    TResult? Function(String name, int newIndex)? waypointReordered,
     TResult? Function(String oldName, String newName)? layerRenamed,
     TResult? Function(String name)? layerRemoved,
     TResult? Function(String name)? layerElementsRemoved,
     TResult? Function(String name)? layerVisibilityChanged,
     TResult? Function(String name)? currentLayerChanged,
-    TResult? Function(String layer, List<int> elements)? elementsLayerChanged,
+    TResult? Function(String layer, List<String> elements)?
+        elementsLayerChanged,
     TResult? Function(String directory, String? remote, bool deleteDocument)?
         templateCreated,
     TResult? Function(List<Area> areas)? areasCreated,
@@ -11206,6 +12011,7 @@ class _$LayerRemovedImpl extends LayerRemoved {
         presentationModeEntered,
     TResult? Function()? presentationModeExited,
     TResult? Function(int tick)? presentationTick,
+    TResult? Function(String path, List<int> data)? assetUpdated,
   }) {
     return layerRemoved?.call(name);
   }
@@ -11223,9 +12029,9 @@ class _$LayerRemovedImpl extends LayerRemoved {
     TResult Function(ViewOption view)? viewChanged,
     TResult Function(UtilitiesState state)? utilitiesChanged,
     TResult Function(List<PadElement> elements)? elementsCreated,
-    TResult Function(Map<int, List<PadElement>> elements)? elementsChanged,
-    TResult Function(List<int> elements)? elementsRemoved,
-    TResult Function(Arrangement arrangement, List<int> elements)?
+    TResult Function(Map<String, List<PadElement>> elements)? elementsChanged,
+    TResult Function(List<String> elements)? elementsRemoved,
+    TResult Function(Arrangement arrangement, List<String> elements)?
         elementsArranged,
     TResult Function(String? name, String? description)?
         documentDescriptionChanged,
@@ -11236,14 +12042,15 @@ class _$LayerRemovedImpl extends LayerRemoved {
     TResult Function(int oldIndex, int newIndex)? toolReordered,
     TResult Function(List<Background> backgrounds)? documentBackgroundsChanged,
     TResult Function(Waypoint waypoint)? waypointCreated,
-    TResult Function(int index, String name)? waypointRenamed,
-    TResult Function(int index)? waypointRemoved,
+    TResult Function(String name, Waypoint waypoint)? waypointChanged,
+    TResult Function(String name)? waypointRemoved,
+    TResult Function(String name, int newIndex)? waypointReordered,
     TResult Function(String oldName, String newName)? layerRenamed,
     TResult Function(String name)? layerRemoved,
     TResult Function(String name)? layerElementsRemoved,
     TResult Function(String name)? layerVisibilityChanged,
     TResult Function(String name)? currentLayerChanged,
-    TResult Function(String layer, List<int> elements)? elementsLayerChanged,
+    TResult Function(String layer, List<String> elements)? elementsLayerChanged,
     TResult Function(String directory, String? remote, bool deleteDocument)?
         templateCreated,
     TResult Function(List<Area> areas)? areasCreated,
@@ -11264,6 +12071,7 @@ class _$LayerRemovedImpl extends LayerRemoved {
         presentationModeEntered,
     TResult Function()? presentationModeExited,
     TResult Function(int tick)? presentationTick,
+    TResult Function(String path, List<int> data)? assetUpdated,
     required TResult orElse(),
   }) {
     if (layerRemoved != null) {
@@ -11297,8 +12105,9 @@ class _$LayerRemovedImpl extends LayerRemoved {
     required TResult Function(DocumentBackgroundsChanged value)
         documentBackgroundsChanged,
     required TResult Function(WaypointCreated value) waypointCreated,
-    required TResult Function(WaypointRenamed value) waypointRenamed,
+    required TResult Function(WaypointChanged value) waypointChanged,
     required TResult Function(WaypointRemoved value) waypointRemoved,
+    required TResult Function(WaypointReordered value) waypointReordered,
     required TResult Function(LayerRenamed value) layerRenamed,
     required TResult Function(LayerRemoved value) layerRemoved,
     required TResult Function(LayerElementsRemoved value) layerElementsRemoved,
@@ -11326,6 +12135,7 @@ class _$LayerRemovedImpl extends LayerRemoved {
     required TResult Function(PresentationModeExited value)
         presentationModeExited,
     required TResult Function(PresentationTick value) presentationTick,
+    required TResult Function(AssetUpdated value) assetUpdated,
   }) {
     return layerRemoved(this);
   }
@@ -11355,8 +12165,9 @@ class _$LayerRemovedImpl extends LayerRemoved {
     TResult? Function(DocumentBackgroundsChanged value)?
         documentBackgroundsChanged,
     TResult? Function(WaypointCreated value)? waypointCreated,
-    TResult? Function(WaypointRenamed value)? waypointRenamed,
+    TResult? Function(WaypointChanged value)? waypointChanged,
     TResult? Function(WaypointRemoved value)? waypointRemoved,
+    TResult? Function(WaypointReordered value)? waypointReordered,
     TResult? Function(LayerRenamed value)? layerRenamed,
     TResult? Function(LayerRemoved value)? layerRemoved,
     TResult? Function(LayerElementsRemoved value)? layerElementsRemoved,
@@ -11381,6 +12192,7 @@ class _$LayerRemovedImpl extends LayerRemoved {
     TResult? Function(PresentationModeEntered value)? presentationModeEntered,
     TResult? Function(PresentationModeExited value)? presentationModeExited,
     TResult? Function(PresentationTick value)? presentationTick,
+    TResult? Function(AssetUpdated value)? assetUpdated,
   }) {
     return layerRemoved?.call(this);
   }
@@ -11410,8 +12222,9 @@ class _$LayerRemovedImpl extends LayerRemoved {
     TResult Function(DocumentBackgroundsChanged value)?
         documentBackgroundsChanged,
     TResult Function(WaypointCreated value)? waypointCreated,
-    TResult Function(WaypointRenamed value)? waypointRenamed,
+    TResult Function(WaypointChanged value)? waypointChanged,
     TResult Function(WaypointRemoved value)? waypointRemoved,
+    TResult Function(WaypointReordered value)? waypointReordered,
     TResult Function(LayerRenamed value)? layerRenamed,
     TResult Function(LayerRemoved value)? layerRemoved,
     TResult Function(LayerElementsRemoved value)? layerElementsRemoved,
@@ -11436,6 +12249,7 @@ class _$LayerRemovedImpl extends LayerRemoved {
     TResult Function(PresentationModeEntered value)? presentationModeEntered,
     TResult Function(PresentationModeExited value)? presentationModeExited,
     TResult Function(PresentationTick value)? presentationTick,
+    TResult Function(AssetUpdated value)? assetUpdated,
     required TResult orElse(),
   }) {
     if (layerRemoved != null) {
@@ -11550,10 +12364,10 @@ class _$LayerElementsRemovedImpl extends LayerElementsRemoved {
     required TResult Function(ViewOption view) viewChanged,
     required TResult Function(UtilitiesState state) utilitiesChanged,
     required TResult Function(List<PadElement> elements) elementsCreated,
-    required TResult Function(Map<int, List<PadElement>> elements)
+    required TResult Function(Map<String, List<PadElement>> elements)
         elementsChanged,
-    required TResult Function(List<int> elements) elementsRemoved,
-    required TResult Function(Arrangement arrangement, List<int> elements)
+    required TResult Function(List<String> elements) elementsRemoved,
+    required TResult Function(Arrangement arrangement, List<String> elements)
         elementsArranged,
     required TResult Function(String? name, String? description)
         documentDescriptionChanged,
@@ -11565,14 +12379,15 @@ class _$LayerElementsRemovedImpl extends LayerElementsRemoved {
     required TResult Function(List<Background> backgrounds)
         documentBackgroundsChanged,
     required TResult Function(Waypoint waypoint) waypointCreated,
-    required TResult Function(int index, String name) waypointRenamed,
-    required TResult Function(int index) waypointRemoved,
+    required TResult Function(String name, Waypoint waypoint) waypointChanged,
+    required TResult Function(String name) waypointRemoved,
+    required TResult Function(String name, int newIndex) waypointReordered,
     required TResult Function(String oldName, String newName) layerRenamed,
     required TResult Function(String name) layerRemoved,
     required TResult Function(String name) layerElementsRemoved,
     required TResult Function(String name) layerVisibilityChanged,
     required TResult Function(String name) currentLayerChanged,
-    required TResult Function(String layer, List<int> elements)
+    required TResult Function(String layer, List<String> elements)
         elementsLayerChanged,
     required TResult Function(
             String directory, String? remote, bool deleteDocument)
@@ -11598,6 +12413,7 @@ class _$LayerElementsRemovedImpl extends LayerElementsRemoved {
         presentationModeEntered,
     required TResult Function() presentationModeExited,
     required TResult Function(int tick) presentationTick,
+    required TResult Function(String path, List<int> data) assetUpdated,
   }) {
     return layerElementsRemoved(name);
   }
@@ -11615,9 +12431,9 @@ class _$LayerElementsRemovedImpl extends LayerElementsRemoved {
     TResult? Function(ViewOption view)? viewChanged,
     TResult? Function(UtilitiesState state)? utilitiesChanged,
     TResult? Function(List<PadElement> elements)? elementsCreated,
-    TResult? Function(Map<int, List<PadElement>> elements)? elementsChanged,
-    TResult? Function(List<int> elements)? elementsRemoved,
-    TResult? Function(Arrangement arrangement, List<int> elements)?
+    TResult? Function(Map<String, List<PadElement>> elements)? elementsChanged,
+    TResult? Function(List<String> elements)? elementsRemoved,
+    TResult? Function(Arrangement arrangement, List<String> elements)?
         elementsArranged,
     TResult? Function(String? name, String? description)?
         documentDescriptionChanged,
@@ -11628,14 +12444,16 @@ class _$LayerElementsRemovedImpl extends LayerElementsRemoved {
     TResult? Function(int oldIndex, int newIndex)? toolReordered,
     TResult? Function(List<Background> backgrounds)? documentBackgroundsChanged,
     TResult? Function(Waypoint waypoint)? waypointCreated,
-    TResult? Function(int index, String name)? waypointRenamed,
-    TResult? Function(int index)? waypointRemoved,
+    TResult? Function(String name, Waypoint waypoint)? waypointChanged,
+    TResult? Function(String name)? waypointRemoved,
+    TResult? Function(String name, int newIndex)? waypointReordered,
     TResult? Function(String oldName, String newName)? layerRenamed,
     TResult? Function(String name)? layerRemoved,
     TResult? Function(String name)? layerElementsRemoved,
     TResult? Function(String name)? layerVisibilityChanged,
     TResult? Function(String name)? currentLayerChanged,
-    TResult? Function(String layer, List<int> elements)? elementsLayerChanged,
+    TResult? Function(String layer, List<String> elements)?
+        elementsLayerChanged,
     TResult? Function(String directory, String? remote, bool deleteDocument)?
         templateCreated,
     TResult? Function(List<Area> areas)? areasCreated,
@@ -11656,6 +12474,7 @@ class _$LayerElementsRemovedImpl extends LayerElementsRemoved {
         presentationModeEntered,
     TResult? Function()? presentationModeExited,
     TResult? Function(int tick)? presentationTick,
+    TResult? Function(String path, List<int> data)? assetUpdated,
   }) {
     return layerElementsRemoved?.call(name);
   }
@@ -11673,9 +12492,9 @@ class _$LayerElementsRemovedImpl extends LayerElementsRemoved {
     TResult Function(ViewOption view)? viewChanged,
     TResult Function(UtilitiesState state)? utilitiesChanged,
     TResult Function(List<PadElement> elements)? elementsCreated,
-    TResult Function(Map<int, List<PadElement>> elements)? elementsChanged,
-    TResult Function(List<int> elements)? elementsRemoved,
-    TResult Function(Arrangement arrangement, List<int> elements)?
+    TResult Function(Map<String, List<PadElement>> elements)? elementsChanged,
+    TResult Function(List<String> elements)? elementsRemoved,
+    TResult Function(Arrangement arrangement, List<String> elements)?
         elementsArranged,
     TResult Function(String? name, String? description)?
         documentDescriptionChanged,
@@ -11686,14 +12505,15 @@ class _$LayerElementsRemovedImpl extends LayerElementsRemoved {
     TResult Function(int oldIndex, int newIndex)? toolReordered,
     TResult Function(List<Background> backgrounds)? documentBackgroundsChanged,
     TResult Function(Waypoint waypoint)? waypointCreated,
-    TResult Function(int index, String name)? waypointRenamed,
-    TResult Function(int index)? waypointRemoved,
+    TResult Function(String name, Waypoint waypoint)? waypointChanged,
+    TResult Function(String name)? waypointRemoved,
+    TResult Function(String name, int newIndex)? waypointReordered,
     TResult Function(String oldName, String newName)? layerRenamed,
     TResult Function(String name)? layerRemoved,
     TResult Function(String name)? layerElementsRemoved,
     TResult Function(String name)? layerVisibilityChanged,
     TResult Function(String name)? currentLayerChanged,
-    TResult Function(String layer, List<int> elements)? elementsLayerChanged,
+    TResult Function(String layer, List<String> elements)? elementsLayerChanged,
     TResult Function(String directory, String? remote, bool deleteDocument)?
         templateCreated,
     TResult Function(List<Area> areas)? areasCreated,
@@ -11714,6 +12534,7 @@ class _$LayerElementsRemovedImpl extends LayerElementsRemoved {
         presentationModeEntered,
     TResult Function()? presentationModeExited,
     TResult Function(int tick)? presentationTick,
+    TResult Function(String path, List<int> data)? assetUpdated,
     required TResult orElse(),
   }) {
     if (layerElementsRemoved != null) {
@@ -11747,8 +12568,9 @@ class _$LayerElementsRemovedImpl extends LayerElementsRemoved {
     required TResult Function(DocumentBackgroundsChanged value)
         documentBackgroundsChanged,
     required TResult Function(WaypointCreated value) waypointCreated,
-    required TResult Function(WaypointRenamed value) waypointRenamed,
+    required TResult Function(WaypointChanged value) waypointChanged,
     required TResult Function(WaypointRemoved value) waypointRemoved,
+    required TResult Function(WaypointReordered value) waypointReordered,
     required TResult Function(LayerRenamed value) layerRenamed,
     required TResult Function(LayerRemoved value) layerRemoved,
     required TResult Function(LayerElementsRemoved value) layerElementsRemoved,
@@ -11776,6 +12598,7 @@ class _$LayerElementsRemovedImpl extends LayerElementsRemoved {
     required TResult Function(PresentationModeExited value)
         presentationModeExited,
     required TResult Function(PresentationTick value) presentationTick,
+    required TResult Function(AssetUpdated value) assetUpdated,
   }) {
     return layerElementsRemoved(this);
   }
@@ -11805,8 +12628,9 @@ class _$LayerElementsRemovedImpl extends LayerElementsRemoved {
     TResult? Function(DocumentBackgroundsChanged value)?
         documentBackgroundsChanged,
     TResult? Function(WaypointCreated value)? waypointCreated,
-    TResult? Function(WaypointRenamed value)? waypointRenamed,
+    TResult? Function(WaypointChanged value)? waypointChanged,
     TResult? Function(WaypointRemoved value)? waypointRemoved,
+    TResult? Function(WaypointReordered value)? waypointReordered,
     TResult? Function(LayerRenamed value)? layerRenamed,
     TResult? Function(LayerRemoved value)? layerRemoved,
     TResult? Function(LayerElementsRemoved value)? layerElementsRemoved,
@@ -11831,6 +12655,7 @@ class _$LayerElementsRemovedImpl extends LayerElementsRemoved {
     TResult? Function(PresentationModeEntered value)? presentationModeEntered,
     TResult? Function(PresentationModeExited value)? presentationModeExited,
     TResult? Function(PresentationTick value)? presentationTick,
+    TResult? Function(AssetUpdated value)? assetUpdated,
   }) {
     return layerElementsRemoved?.call(this);
   }
@@ -11860,8 +12685,9 @@ class _$LayerElementsRemovedImpl extends LayerElementsRemoved {
     TResult Function(DocumentBackgroundsChanged value)?
         documentBackgroundsChanged,
     TResult Function(WaypointCreated value)? waypointCreated,
-    TResult Function(WaypointRenamed value)? waypointRenamed,
+    TResult Function(WaypointChanged value)? waypointChanged,
     TResult Function(WaypointRemoved value)? waypointRemoved,
+    TResult Function(WaypointReordered value)? waypointReordered,
     TResult Function(LayerRenamed value)? layerRenamed,
     TResult Function(LayerRemoved value)? layerRemoved,
     TResult Function(LayerElementsRemoved value)? layerElementsRemoved,
@@ -11886,6 +12712,7 @@ class _$LayerElementsRemovedImpl extends LayerElementsRemoved {
     TResult Function(PresentationModeEntered value)? presentationModeEntered,
     TResult Function(PresentationModeExited value)? presentationModeExited,
     TResult Function(PresentationTick value)? presentationTick,
+    TResult Function(AssetUpdated value)? assetUpdated,
     required TResult orElse(),
   }) {
     if (layerElementsRemoved != null) {
@@ -12002,10 +12829,10 @@ class _$LayerVisibilityChangedImpl extends LayerVisibilityChanged {
     required TResult Function(ViewOption view) viewChanged,
     required TResult Function(UtilitiesState state) utilitiesChanged,
     required TResult Function(List<PadElement> elements) elementsCreated,
-    required TResult Function(Map<int, List<PadElement>> elements)
+    required TResult Function(Map<String, List<PadElement>> elements)
         elementsChanged,
-    required TResult Function(List<int> elements) elementsRemoved,
-    required TResult Function(Arrangement arrangement, List<int> elements)
+    required TResult Function(List<String> elements) elementsRemoved,
+    required TResult Function(Arrangement arrangement, List<String> elements)
         elementsArranged,
     required TResult Function(String? name, String? description)
         documentDescriptionChanged,
@@ -12017,14 +12844,15 @@ class _$LayerVisibilityChangedImpl extends LayerVisibilityChanged {
     required TResult Function(List<Background> backgrounds)
         documentBackgroundsChanged,
     required TResult Function(Waypoint waypoint) waypointCreated,
-    required TResult Function(int index, String name) waypointRenamed,
-    required TResult Function(int index) waypointRemoved,
+    required TResult Function(String name, Waypoint waypoint) waypointChanged,
+    required TResult Function(String name) waypointRemoved,
+    required TResult Function(String name, int newIndex) waypointReordered,
     required TResult Function(String oldName, String newName) layerRenamed,
     required TResult Function(String name) layerRemoved,
     required TResult Function(String name) layerElementsRemoved,
     required TResult Function(String name) layerVisibilityChanged,
     required TResult Function(String name) currentLayerChanged,
-    required TResult Function(String layer, List<int> elements)
+    required TResult Function(String layer, List<String> elements)
         elementsLayerChanged,
     required TResult Function(
             String directory, String? remote, bool deleteDocument)
@@ -12050,6 +12878,7 @@ class _$LayerVisibilityChangedImpl extends LayerVisibilityChanged {
         presentationModeEntered,
     required TResult Function() presentationModeExited,
     required TResult Function(int tick) presentationTick,
+    required TResult Function(String path, List<int> data) assetUpdated,
   }) {
     return layerVisibilityChanged(name);
   }
@@ -12067,9 +12896,9 @@ class _$LayerVisibilityChangedImpl extends LayerVisibilityChanged {
     TResult? Function(ViewOption view)? viewChanged,
     TResult? Function(UtilitiesState state)? utilitiesChanged,
     TResult? Function(List<PadElement> elements)? elementsCreated,
-    TResult? Function(Map<int, List<PadElement>> elements)? elementsChanged,
-    TResult? Function(List<int> elements)? elementsRemoved,
-    TResult? Function(Arrangement arrangement, List<int> elements)?
+    TResult? Function(Map<String, List<PadElement>> elements)? elementsChanged,
+    TResult? Function(List<String> elements)? elementsRemoved,
+    TResult? Function(Arrangement arrangement, List<String> elements)?
         elementsArranged,
     TResult? Function(String? name, String? description)?
         documentDescriptionChanged,
@@ -12080,14 +12909,16 @@ class _$LayerVisibilityChangedImpl extends LayerVisibilityChanged {
     TResult? Function(int oldIndex, int newIndex)? toolReordered,
     TResult? Function(List<Background> backgrounds)? documentBackgroundsChanged,
     TResult? Function(Waypoint waypoint)? waypointCreated,
-    TResult? Function(int index, String name)? waypointRenamed,
-    TResult? Function(int index)? waypointRemoved,
+    TResult? Function(String name, Waypoint waypoint)? waypointChanged,
+    TResult? Function(String name)? waypointRemoved,
+    TResult? Function(String name, int newIndex)? waypointReordered,
     TResult? Function(String oldName, String newName)? layerRenamed,
     TResult? Function(String name)? layerRemoved,
     TResult? Function(String name)? layerElementsRemoved,
     TResult? Function(String name)? layerVisibilityChanged,
     TResult? Function(String name)? currentLayerChanged,
-    TResult? Function(String layer, List<int> elements)? elementsLayerChanged,
+    TResult? Function(String layer, List<String> elements)?
+        elementsLayerChanged,
     TResult? Function(String directory, String? remote, bool deleteDocument)?
         templateCreated,
     TResult? Function(List<Area> areas)? areasCreated,
@@ -12108,6 +12939,7 @@ class _$LayerVisibilityChangedImpl extends LayerVisibilityChanged {
         presentationModeEntered,
     TResult? Function()? presentationModeExited,
     TResult? Function(int tick)? presentationTick,
+    TResult? Function(String path, List<int> data)? assetUpdated,
   }) {
     return layerVisibilityChanged?.call(name);
   }
@@ -12125,9 +12957,9 @@ class _$LayerVisibilityChangedImpl extends LayerVisibilityChanged {
     TResult Function(ViewOption view)? viewChanged,
     TResult Function(UtilitiesState state)? utilitiesChanged,
     TResult Function(List<PadElement> elements)? elementsCreated,
-    TResult Function(Map<int, List<PadElement>> elements)? elementsChanged,
-    TResult Function(List<int> elements)? elementsRemoved,
-    TResult Function(Arrangement arrangement, List<int> elements)?
+    TResult Function(Map<String, List<PadElement>> elements)? elementsChanged,
+    TResult Function(List<String> elements)? elementsRemoved,
+    TResult Function(Arrangement arrangement, List<String> elements)?
         elementsArranged,
     TResult Function(String? name, String? description)?
         documentDescriptionChanged,
@@ -12138,14 +12970,15 @@ class _$LayerVisibilityChangedImpl extends LayerVisibilityChanged {
     TResult Function(int oldIndex, int newIndex)? toolReordered,
     TResult Function(List<Background> backgrounds)? documentBackgroundsChanged,
     TResult Function(Waypoint waypoint)? waypointCreated,
-    TResult Function(int index, String name)? waypointRenamed,
-    TResult Function(int index)? waypointRemoved,
+    TResult Function(String name, Waypoint waypoint)? waypointChanged,
+    TResult Function(String name)? waypointRemoved,
+    TResult Function(String name, int newIndex)? waypointReordered,
     TResult Function(String oldName, String newName)? layerRenamed,
     TResult Function(String name)? layerRemoved,
     TResult Function(String name)? layerElementsRemoved,
     TResult Function(String name)? layerVisibilityChanged,
     TResult Function(String name)? currentLayerChanged,
-    TResult Function(String layer, List<int> elements)? elementsLayerChanged,
+    TResult Function(String layer, List<String> elements)? elementsLayerChanged,
     TResult Function(String directory, String? remote, bool deleteDocument)?
         templateCreated,
     TResult Function(List<Area> areas)? areasCreated,
@@ -12166,6 +12999,7 @@ class _$LayerVisibilityChangedImpl extends LayerVisibilityChanged {
         presentationModeEntered,
     TResult Function()? presentationModeExited,
     TResult Function(int tick)? presentationTick,
+    TResult Function(String path, List<int> data)? assetUpdated,
     required TResult orElse(),
   }) {
     if (layerVisibilityChanged != null) {
@@ -12199,8 +13033,9 @@ class _$LayerVisibilityChangedImpl extends LayerVisibilityChanged {
     required TResult Function(DocumentBackgroundsChanged value)
         documentBackgroundsChanged,
     required TResult Function(WaypointCreated value) waypointCreated,
-    required TResult Function(WaypointRenamed value) waypointRenamed,
+    required TResult Function(WaypointChanged value) waypointChanged,
     required TResult Function(WaypointRemoved value) waypointRemoved,
+    required TResult Function(WaypointReordered value) waypointReordered,
     required TResult Function(LayerRenamed value) layerRenamed,
     required TResult Function(LayerRemoved value) layerRemoved,
     required TResult Function(LayerElementsRemoved value) layerElementsRemoved,
@@ -12228,6 +13063,7 @@ class _$LayerVisibilityChangedImpl extends LayerVisibilityChanged {
     required TResult Function(PresentationModeExited value)
         presentationModeExited,
     required TResult Function(PresentationTick value) presentationTick,
+    required TResult Function(AssetUpdated value) assetUpdated,
   }) {
     return layerVisibilityChanged(this);
   }
@@ -12257,8 +13093,9 @@ class _$LayerVisibilityChangedImpl extends LayerVisibilityChanged {
     TResult? Function(DocumentBackgroundsChanged value)?
         documentBackgroundsChanged,
     TResult? Function(WaypointCreated value)? waypointCreated,
-    TResult? Function(WaypointRenamed value)? waypointRenamed,
+    TResult? Function(WaypointChanged value)? waypointChanged,
     TResult? Function(WaypointRemoved value)? waypointRemoved,
+    TResult? Function(WaypointReordered value)? waypointReordered,
     TResult? Function(LayerRenamed value)? layerRenamed,
     TResult? Function(LayerRemoved value)? layerRemoved,
     TResult? Function(LayerElementsRemoved value)? layerElementsRemoved,
@@ -12283,6 +13120,7 @@ class _$LayerVisibilityChangedImpl extends LayerVisibilityChanged {
     TResult? Function(PresentationModeEntered value)? presentationModeEntered,
     TResult? Function(PresentationModeExited value)? presentationModeExited,
     TResult? Function(PresentationTick value)? presentationTick,
+    TResult? Function(AssetUpdated value)? assetUpdated,
   }) {
     return layerVisibilityChanged?.call(this);
   }
@@ -12312,8 +13150,9 @@ class _$LayerVisibilityChangedImpl extends LayerVisibilityChanged {
     TResult Function(DocumentBackgroundsChanged value)?
         documentBackgroundsChanged,
     TResult Function(WaypointCreated value)? waypointCreated,
-    TResult Function(WaypointRenamed value)? waypointRenamed,
+    TResult Function(WaypointChanged value)? waypointChanged,
     TResult Function(WaypointRemoved value)? waypointRemoved,
+    TResult Function(WaypointReordered value)? waypointReordered,
     TResult Function(LayerRenamed value)? layerRenamed,
     TResult Function(LayerRemoved value)? layerRemoved,
     TResult Function(LayerElementsRemoved value)? layerElementsRemoved,
@@ -12338,6 +13177,7 @@ class _$LayerVisibilityChangedImpl extends LayerVisibilityChanged {
     TResult Function(PresentationModeEntered value)? presentationModeEntered,
     TResult Function(PresentationModeExited value)? presentationModeExited,
     TResult Function(PresentationTick value)? presentationTick,
+    TResult Function(AssetUpdated value)? assetUpdated,
     required TResult orElse(),
   }) {
     if (layerVisibilityChanged != null) {
@@ -12452,10 +13292,10 @@ class _$CurrentLayerChangedImpl extends CurrentLayerChanged {
     required TResult Function(ViewOption view) viewChanged,
     required TResult Function(UtilitiesState state) utilitiesChanged,
     required TResult Function(List<PadElement> elements) elementsCreated,
-    required TResult Function(Map<int, List<PadElement>> elements)
+    required TResult Function(Map<String, List<PadElement>> elements)
         elementsChanged,
-    required TResult Function(List<int> elements) elementsRemoved,
-    required TResult Function(Arrangement arrangement, List<int> elements)
+    required TResult Function(List<String> elements) elementsRemoved,
+    required TResult Function(Arrangement arrangement, List<String> elements)
         elementsArranged,
     required TResult Function(String? name, String? description)
         documentDescriptionChanged,
@@ -12467,14 +13307,15 @@ class _$CurrentLayerChangedImpl extends CurrentLayerChanged {
     required TResult Function(List<Background> backgrounds)
         documentBackgroundsChanged,
     required TResult Function(Waypoint waypoint) waypointCreated,
-    required TResult Function(int index, String name) waypointRenamed,
-    required TResult Function(int index) waypointRemoved,
+    required TResult Function(String name, Waypoint waypoint) waypointChanged,
+    required TResult Function(String name) waypointRemoved,
+    required TResult Function(String name, int newIndex) waypointReordered,
     required TResult Function(String oldName, String newName) layerRenamed,
     required TResult Function(String name) layerRemoved,
     required TResult Function(String name) layerElementsRemoved,
     required TResult Function(String name) layerVisibilityChanged,
     required TResult Function(String name) currentLayerChanged,
-    required TResult Function(String layer, List<int> elements)
+    required TResult Function(String layer, List<String> elements)
         elementsLayerChanged,
     required TResult Function(
             String directory, String? remote, bool deleteDocument)
@@ -12500,6 +13341,7 @@ class _$CurrentLayerChangedImpl extends CurrentLayerChanged {
         presentationModeEntered,
     required TResult Function() presentationModeExited,
     required TResult Function(int tick) presentationTick,
+    required TResult Function(String path, List<int> data) assetUpdated,
   }) {
     return currentLayerChanged(name);
   }
@@ -12517,9 +13359,9 @@ class _$CurrentLayerChangedImpl extends CurrentLayerChanged {
     TResult? Function(ViewOption view)? viewChanged,
     TResult? Function(UtilitiesState state)? utilitiesChanged,
     TResult? Function(List<PadElement> elements)? elementsCreated,
-    TResult? Function(Map<int, List<PadElement>> elements)? elementsChanged,
-    TResult? Function(List<int> elements)? elementsRemoved,
-    TResult? Function(Arrangement arrangement, List<int> elements)?
+    TResult? Function(Map<String, List<PadElement>> elements)? elementsChanged,
+    TResult? Function(List<String> elements)? elementsRemoved,
+    TResult? Function(Arrangement arrangement, List<String> elements)?
         elementsArranged,
     TResult? Function(String? name, String? description)?
         documentDescriptionChanged,
@@ -12530,14 +13372,16 @@ class _$CurrentLayerChangedImpl extends CurrentLayerChanged {
     TResult? Function(int oldIndex, int newIndex)? toolReordered,
     TResult? Function(List<Background> backgrounds)? documentBackgroundsChanged,
     TResult? Function(Waypoint waypoint)? waypointCreated,
-    TResult? Function(int index, String name)? waypointRenamed,
-    TResult? Function(int index)? waypointRemoved,
+    TResult? Function(String name, Waypoint waypoint)? waypointChanged,
+    TResult? Function(String name)? waypointRemoved,
+    TResult? Function(String name, int newIndex)? waypointReordered,
     TResult? Function(String oldName, String newName)? layerRenamed,
     TResult? Function(String name)? layerRemoved,
     TResult? Function(String name)? layerElementsRemoved,
     TResult? Function(String name)? layerVisibilityChanged,
     TResult? Function(String name)? currentLayerChanged,
-    TResult? Function(String layer, List<int> elements)? elementsLayerChanged,
+    TResult? Function(String layer, List<String> elements)?
+        elementsLayerChanged,
     TResult? Function(String directory, String? remote, bool deleteDocument)?
         templateCreated,
     TResult? Function(List<Area> areas)? areasCreated,
@@ -12558,6 +13402,7 @@ class _$CurrentLayerChangedImpl extends CurrentLayerChanged {
         presentationModeEntered,
     TResult? Function()? presentationModeExited,
     TResult? Function(int tick)? presentationTick,
+    TResult? Function(String path, List<int> data)? assetUpdated,
   }) {
     return currentLayerChanged?.call(name);
   }
@@ -12575,9 +13420,9 @@ class _$CurrentLayerChangedImpl extends CurrentLayerChanged {
     TResult Function(ViewOption view)? viewChanged,
     TResult Function(UtilitiesState state)? utilitiesChanged,
     TResult Function(List<PadElement> elements)? elementsCreated,
-    TResult Function(Map<int, List<PadElement>> elements)? elementsChanged,
-    TResult Function(List<int> elements)? elementsRemoved,
-    TResult Function(Arrangement arrangement, List<int> elements)?
+    TResult Function(Map<String, List<PadElement>> elements)? elementsChanged,
+    TResult Function(List<String> elements)? elementsRemoved,
+    TResult Function(Arrangement arrangement, List<String> elements)?
         elementsArranged,
     TResult Function(String? name, String? description)?
         documentDescriptionChanged,
@@ -12588,14 +13433,15 @@ class _$CurrentLayerChangedImpl extends CurrentLayerChanged {
     TResult Function(int oldIndex, int newIndex)? toolReordered,
     TResult Function(List<Background> backgrounds)? documentBackgroundsChanged,
     TResult Function(Waypoint waypoint)? waypointCreated,
-    TResult Function(int index, String name)? waypointRenamed,
-    TResult Function(int index)? waypointRemoved,
+    TResult Function(String name, Waypoint waypoint)? waypointChanged,
+    TResult Function(String name)? waypointRemoved,
+    TResult Function(String name, int newIndex)? waypointReordered,
     TResult Function(String oldName, String newName)? layerRenamed,
     TResult Function(String name)? layerRemoved,
     TResult Function(String name)? layerElementsRemoved,
     TResult Function(String name)? layerVisibilityChanged,
     TResult Function(String name)? currentLayerChanged,
-    TResult Function(String layer, List<int> elements)? elementsLayerChanged,
+    TResult Function(String layer, List<String> elements)? elementsLayerChanged,
     TResult Function(String directory, String? remote, bool deleteDocument)?
         templateCreated,
     TResult Function(List<Area> areas)? areasCreated,
@@ -12616,6 +13462,7 @@ class _$CurrentLayerChangedImpl extends CurrentLayerChanged {
         presentationModeEntered,
     TResult Function()? presentationModeExited,
     TResult Function(int tick)? presentationTick,
+    TResult Function(String path, List<int> data)? assetUpdated,
     required TResult orElse(),
   }) {
     if (currentLayerChanged != null) {
@@ -12649,8 +13496,9 @@ class _$CurrentLayerChangedImpl extends CurrentLayerChanged {
     required TResult Function(DocumentBackgroundsChanged value)
         documentBackgroundsChanged,
     required TResult Function(WaypointCreated value) waypointCreated,
-    required TResult Function(WaypointRenamed value) waypointRenamed,
+    required TResult Function(WaypointChanged value) waypointChanged,
     required TResult Function(WaypointRemoved value) waypointRemoved,
+    required TResult Function(WaypointReordered value) waypointReordered,
     required TResult Function(LayerRenamed value) layerRenamed,
     required TResult Function(LayerRemoved value) layerRemoved,
     required TResult Function(LayerElementsRemoved value) layerElementsRemoved,
@@ -12678,6 +13526,7 @@ class _$CurrentLayerChangedImpl extends CurrentLayerChanged {
     required TResult Function(PresentationModeExited value)
         presentationModeExited,
     required TResult Function(PresentationTick value) presentationTick,
+    required TResult Function(AssetUpdated value) assetUpdated,
   }) {
     return currentLayerChanged(this);
   }
@@ -12707,8 +13556,9 @@ class _$CurrentLayerChangedImpl extends CurrentLayerChanged {
     TResult? Function(DocumentBackgroundsChanged value)?
         documentBackgroundsChanged,
     TResult? Function(WaypointCreated value)? waypointCreated,
-    TResult? Function(WaypointRenamed value)? waypointRenamed,
+    TResult? Function(WaypointChanged value)? waypointChanged,
     TResult? Function(WaypointRemoved value)? waypointRemoved,
+    TResult? Function(WaypointReordered value)? waypointReordered,
     TResult? Function(LayerRenamed value)? layerRenamed,
     TResult? Function(LayerRemoved value)? layerRemoved,
     TResult? Function(LayerElementsRemoved value)? layerElementsRemoved,
@@ -12733,6 +13583,7 @@ class _$CurrentLayerChangedImpl extends CurrentLayerChanged {
     TResult? Function(PresentationModeEntered value)? presentationModeEntered,
     TResult? Function(PresentationModeExited value)? presentationModeExited,
     TResult? Function(PresentationTick value)? presentationTick,
+    TResult? Function(AssetUpdated value)? assetUpdated,
   }) {
     return currentLayerChanged?.call(this);
   }
@@ -12762,8 +13613,9 @@ class _$CurrentLayerChangedImpl extends CurrentLayerChanged {
     TResult Function(DocumentBackgroundsChanged value)?
         documentBackgroundsChanged,
     TResult Function(WaypointCreated value)? waypointCreated,
-    TResult Function(WaypointRenamed value)? waypointRenamed,
+    TResult Function(WaypointChanged value)? waypointChanged,
     TResult Function(WaypointRemoved value)? waypointRemoved,
+    TResult Function(WaypointReordered value)? waypointReordered,
     TResult Function(LayerRenamed value)? layerRenamed,
     TResult Function(LayerRemoved value)? layerRemoved,
     TResult Function(LayerElementsRemoved value)? layerElementsRemoved,
@@ -12788,6 +13640,7 @@ class _$CurrentLayerChangedImpl extends CurrentLayerChanged {
     TResult Function(PresentationModeEntered value)? presentationModeEntered,
     TResult Function(PresentationModeExited value)? presentationModeExited,
     TResult Function(PresentationTick value)? presentationTick,
+    TResult Function(AssetUpdated value)? assetUpdated,
     required TResult orElse(),
   }) {
     if (currentLayerChanged != null) {
@@ -12824,7 +13677,7 @@ abstract class _$$ElementsLayerChangedImplCopyWith<$Res> {
           $Res Function(_$ElementsLayerChangedImpl) then) =
       __$$ElementsLayerChangedImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({String layer, List<int> elements});
+  $Res call({String layer, List<String> elements});
 }
 
 /// @nodoc
@@ -12849,7 +13702,7 @@ class __$$ElementsLayerChangedImplCopyWithImpl<$Res>
       null == elements
           ? _value._elements
           : elements // ignore: cast_nullable_to_non_nullable
-              as List<int>,
+              as List<String>,
     ));
   }
 }
@@ -12857,7 +13710,7 @@ class __$$ElementsLayerChangedImplCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$ElementsLayerChangedImpl extends ElementsLayerChanged {
-  const _$ElementsLayerChangedImpl(this.layer, final List<int> elements,
+  const _$ElementsLayerChangedImpl(this.layer, final List<String> elements,
       {final String? $type})
       : _elements = elements,
         $type = $type ?? 'elementsLayerChanged',
@@ -12868,9 +13721,9 @@ class _$ElementsLayerChangedImpl extends ElementsLayerChanged {
 
   @override
   final String layer;
-  final List<int> _elements;
+  final List<String> _elements;
   @override
-  List<int> get elements {
+  List<String> get elements {
     if (_elements is EqualUnmodifiableListView) return _elements;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_elements);
@@ -12919,10 +13772,10 @@ class _$ElementsLayerChangedImpl extends ElementsLayerChanged {
     required TResult Function(ViewOption view) viewChanged,
     required TResult Function(UtilitiesState state) utilitiesChanged,
     required TResult Function(List<PadElement> elements) elementsCreated,
-    required TResult Function(Map<int, List<PadElement>> elements)
+    required TResult Function(Map<String, List<PadElement>> elements)
         elementsChanged,
-    required TResult Function(List<int> elements) elementsRemoved,
-    required TResult Function(Arrangement arrangement, List<int> elements)
+    required TResult Function(List<String> elements) elementsRemoved,
+    required TResult Function(Arrangement arrangement, List<String> elements)
         elementsArranged,
     required TResult Function(String? name, String? description)
         documentDescriptionChanged,
@@ -12934,14 +13787,15 @@ class _$ElementsLayerChangedImpl extends ElementsLayerChanged {
     required TResult Function(List<Background> backgrounds)
         documentBackgroundsChanged,
     required TResult Function(Waypoint waypoint) waypointCreated,
-    required TResult Function(int index, String name) waypointRenamed,
-    required TResult Function(int index) waypointRemoved,
+    required TResult Function(String name, Waypoint waypoint) waypointChanged,
+    required TResult Function(String name) waypointRemoved,
+    required TResult Function(String name, int newIndex) waypointReordered,
     required TResult Function(String oldName, String newName) layerRenamed,
     required TResult Function(String name) layerRemoved,
     required TResult Function(String name) layerElementsRemoved,
     required TResult Function(String name) layerVisibilityChanged,
     required TResult Function(String name) currentLayerChanged,
-    required TResult Function(String layer, List<int> elements)
+    required TResult Function(String layer, List<String> elements)
         elementsLayerChanged,
     required TResult Function(
             String directory, String? remote, bool deleteDocument)
@@ -12967,6 +13821,7 @@ class _$ElementsLayerChangedImpl extends ElementsLayerChanged {
         presentationModeEntered,
     required TResult Function() presentationModeExited,
     required TResult Function(int tick) presentationTick,
+    required TResult Function(String path, List<int> data) assetUpdated,
   }) {
     return elementsLayerChanged(layer, elements);
   }
@@ -12984,9 +13839,9 @@ class _$ElementsLayerChangedImpl extends ElementsLayerChanged {
     TResult? Function(ViewOption view)? viewChanged,
     TResult? Function(UtilitiesState state)? utilitiesChanged,
     TResult? Function(List<PadElement> elements)? elementsCreated,
-    TResult? Function(Map<int, List<PadElement>> elements)? elementsChanged,
-    TResult? Function(List<int> elements)? elementsRemoved,
-    TResult? Function(Arrangement arrangement, List<int> elements)?
+    TResult? Function(Map<String, List<PadElement>> elements)? elementsChanged,
+    TResult? Function(List<String> elements)? elementsRemoved,
+    TResult? Function(Arrangement arrangement, List<String> elements)?
         elementsArranged,
     TResult? Function(String? name, String? description)?
         documentDescriptionChanged,
@@ -12997,14 +13852,16 @@ class _$ElementsLayerChangedImpl extends ElementsLayerChanged {
     TResult? Function(int oldIndex, int newIndex)? toolReordered,
     TResult? Function(List<Background> backgrounds)? documentBackgroundsChanged,
     TResult? Function(Waypoint waypoint)? waypointCreated,
-    TResult? Function(int index, String name)? waypointRenamed,
-    TResult? Function(int index)? waypointRemoved,
+    TResult? Function(String name, Waypoint waypoint)? waypointChanged,
+    TResult? Function(String name)? waypointRemoved,
+    TResult? Function(String name, int newIndex)? waypointReordered,
     TResult? Function(String oldName, String newName)? layerRenamed,
     TResult? Function(String name)? layerRemoved,
     TResult? Function(String name)? layerElementsRemoved,
     TResult? Function(String name)? layerVisibilityChanged,
     TResult? Function(String name)? currentLayerChanged,
-    TResult? Function(String layer, List<int> elements)? elementsLayerChanged,
+    TResult? Function(String layer, List<String> elements)?
+        elementsLayerChanged,
     TResult? Function(String directory, String? remote, bool deleteDocument)?
         templateCreated,
     TResult? Function(List<Area> areas)? areasCreated,
@@ -13025,6 +13882,7 @@ class _$ElementsLayerChangedImpl extends ElementsLayerChanged {
         presentationModeEntered,
     TResult? Function()? presentationModeExited,
     TResult? Function(int tick)? presentationTick,
+    TResult? Function(String path, List<int> data)? assetUpdated,
   }) {
     return elementsLayerChanged?.call(layer, elements);
   }
@@ -13042,9 +13900,9 @@ class _$ElementsLayerChangedImpl extends ElementsLayerChanged {
     TResult Function(ViewOption view)? viewChanged,
     TResult Function(UtilitiesState state)? utilitiesChanged,
     TResult Function(List<PadElement> elements)? elementsCreated,
-    TResult Function(Map<int, List<PadElement>> elements)? elementsChanged,
-    TResult Function(List<int> elements)? elementsRemoved,
-    TResult Function(Arrangement arrangement, List<int> elements)?
+    TResult Function(Map<String, List<PadElement>> elements)? elementsChanged,
+    TResult Function(List<String> elements)? elementsRemoved,
+    TResult Function(Arrangement arrangement, List<String> elements)?
         elementsArranged,
     TResult Function(String? name, String? description)?
         documentDescriptionChanged,
@@ -13055,14 +13913,15 @@ class _$ElementsLayerChangedImpl extends ElementsLayerChanged {
     TResult Function(int oldIndex, int newIndex)? toolReordered,
     TResult Function(List<Background> backgrounds)? documentBackgroundsChanged,
     TResult Function(Waypoint waypoint)? waypointCreated,
-    TResult Function(int index, String name)? waypointRenamed,
-    TResult Function(int index)? waypointRemoved,
+    TResult Function(String name, Waypoint waypoint)? waypointChanged,
+    TResult Function(String name)? waypointRemoved,
+    TResult Function(String name, int newIndex)? waypointReordered,
     TResult Function(String oldName, String newName)? layerRenamed,
     TResult Function(String name)? layerRemoved,
     TResult Function(String name)? layerElementsRemoved,
     TResult Function(String name)? layerVisibilityChanged,
     TResult Function(String name)? currentLayerChanged,
-    TResult Function(String layer, List<int> elements)? elementsLayerChanged,
+    TResult Function(String layer, List<String> elements)? elementsLayerChanged,
     TResult Function(String directory, String? remote, bool deleteDocument)?
         templateCreated,
     TResult Function(List<Area> areas)? areasCreated,
@@ -13083,6 +13942,7 @@ class _$ElementsLayerChangedImpl extends ElementsLayerChanged {
         presentationModeEntered,
     TResult Function()? presentationModeExited,
     TResult Function(int tick)? presentationTick,
+    TResult Function(String path, List<int> data)? assetUpdated,
     required TResult orElse(),
   }) {
     if (elementsLayerChanged != null) {
@@ -13116,8 +13976,9 @@ class _$ElementsLayerChangedImpl extends ElementsLayerChanged {
     required TResult Function(DocumentBackgroundsChanged value)
         documentBackgroundsChanged,
     required TResult Function(WaypointCreated value) waypointCreated,
-    required TResult Function(WaypointRenamed value) waypointRenamed,
+    required TResult Function(WaypointChanged value) waypointChanged,
     required TResult Function(WaypointRemoved value) waypointRemoved,
+    required TResult Function(WaypointReordered value) waypointReordered,
     required TResult Function(LayerRenamed value) layerRenamed,
     required TResult Function(LayerRemoved value) layerRemoved,
     required TResult Function(LayerElementsRemoved value) layerElementsRemoved,
@@ -13145,6 +14006,7 @@ class _$ElementsLayerChangedImpl extends ElementsLayerChanged {
     required TResult Function(PresentationModeExited value)
         presentationModeExited,
     required TResult Function(PresentationTick value) presentationTick,
+    required TResult Function(AssetUpdated value) assetUpdated,
   }) {
     return elementsLayerChanged(this);
   }
@@ -13174,8 +14036,9 @@ class _$ElementsLayerChangedImpl extends ElementsLayerChanged {
     TResult? Function(DocumentBackgroundsChanged value)?
         documentBackgroundsChanged,
     TResult? Function(WaypointCreated value)? waypointCreated,
-    TResult? Function(WaypointRenamed value)? waypointRenamed,
+    TResult? Function(WaypointChanged value)? waypointChanged,
     TResult? Function(WaypointRemoved value)? waypointRemoved,
+    TResult? Function(WaypointReordered value)? waypointReordered,
     TResult? Function(LayerRenamed value)? layerRenamed,
     TResult? Function(LayerRemoved value)? layerRemoved,
     TResult? Function(LayerElementsRemoved value)? layerElementsRemoved,
@@ -13200,6 +14063,7 @@ class _$ElementsLayerChangedImpl extends ElementsLayerChanged {
     TResult? Function(PresentationModeEntered value)? presentationModeEntered,
     TResult? Function(PresentationModeExited value)? presentationModeExited,
     TResult? Function(PresentationTick value)? presentationTick,
+    TResult? Function(AssetUpdated value)? assetUpdated,
   }) {
     return elementsLayerChanged?.call(this);
   }
@@ -13229,8 +14093,9 @@ class _$ElementsLayerChangedImpl extends ElementsLayerChanged {
     TResult Function(DocumentBackgroundsChanged value)?
         documentBackgroundsChanged,
     TResult Function(WaypointCreated value)? waypointCreated,
-    TResult Function(WaypointRenamed value)? waypointRenamed,
+    TResult Function(WaypointChanged value)? waypointChanged,
     TResult Function(WaypointRemoved value)? waypointRemoved,
+    TResult Function(WaypointReordered value)? waypointReordered,
     TResult Function(LayerRenamed value)? layerRenamed,
     TResult Function(LayerRemoved value)? layerRemoved,
     TResult Function(LayerElementsRemoved value)? layerElementsRemoved,
@@ -13255,6 +14120,7 @@ class _$ElementsLayerChangedImpl extends ElementsLayerChanged {
     TResult Function(PresentationModeEntered value)? presentationModeEntered,
     TResult Function(PresentationModeExited value)? presentationModeExited,
     TResult Function(PresentationTick value)? presentationTick,
+    TResult Function(AssetUpdated value)? assetUpdated,
     required TResult orElse(),
   }) {
     if (elementsLayerChanged != null) {
@@ -13273,7 +14139,7 @@ class _$ElementsLayerChangedImpl extends ElementsLayerChanged {
 
 abstract class ElementsLayerChanged extends DocumentEvent {
   const factory ElementsLayerChanged(
-          final String layer, final List<int> elements) =
+          final String layer, final List<String> elements) =
       _$ElementsLayerChangedImpl;
   const ElementsLayerChanged._() : super._();
 
@@ -13281,7 +14147,7 @@ abstract class ElementsLayerChanged extends DocumentEvent {
       _$ElementsLayerChangedImpl.fromJson;
 
   String get layer;
-  List<int> get elements;
+  List<String> get elements;
   @JsonKey(ignore: true)
   _$$ElementsLayerChangedImplCopyWith<_$ElementsLayerChangedImpl>
       get copyWith => throw _privateConstructorUsedError;
@@ -13392,10 +14258,10 @@ class _$TemplateCreatedImpl extends TemplateCreated {
     required TResult Function(ViewOption view) viewChanged,
     required TResult Function(UtilitiesState state) utilitiesChanged,
     required TResult Function(List<PadElement> elements) elementsCreated,
-    required TResult Function(Map<int, List<PadElement>> elements)
+    required TResult Function(Map<String, List<PadElement>> elements)
         elementsChanged,
-    required TResult Function(List<int> elements) elementsRemoved,
-    required TResult Function(Arrangement arrangement, List<int> elements)
+    required TResult Function(List<String> elements) elementsRemoved,
+    required TResult Function(Arrangement arrangement, List<String> elements)
         elementsArranged,
     required TResult Function(String? name, String? description)
         documentDescriptionChanged,
@@ -13407,14 +14273,15 @@ class _$TemplateCreatedImpl extends TemplateCreated {
     required TResult Function(List<Background> backgrounds)
         documentBackgroundsChanged,
     required TResult Function(Waypoint waypoint) waypointCreated,
-    required TResult Function(int index, String name) waypointRenamed,
-    required TResult Function(int index) waypointRemoved,
+    required TResult Function(String name, Waypoint waypoint) waypointChanged,
+    required TResult Function(String name) waypointRemoved,
+    required TResult Function(String name, int newIndex) waypointReordered,
     required TResult Function(String oldName, String newName) layerRenamed,
     required TResult Function(String name) layerRemoved,
     required TResult Function(String name) layerElementsRemoved,
     required TResult Function(String name) layerVisibilityChanged,
     required TResult Function(String name) currentLayerChanged,
-    required TResult Function(String layer, List<int> elements)
+    required TResult Function(String layer, List<String> elements)
         elementsLayerChanged,
     required TResult Function(
             String directory, String? remote, bool deleteDocument)
@@ -13440,6 +14307,7 @@ class _$TemplateCreatedImpl extends TemplateCreated {
         presentationModeEntered,
     required TResult Function() presentationModeExited,
     required TResult Function(int tick) presentationTick,
+    required TResult Function(String path, List<int> data) assetUpdated,
   }) {
     return templateCreated(directory, remote, deleteDocument);
   }
@@ -13457,9 +14325,9 @@ class _$TemplateCreatedImpl extends TemplateCreated {
     TResult? Function(ViewOption view)? viewChanged,
     TResult? Function(UtilitiesState state)? utilitiesChanged,
     TResult? Function(List<PadElement> elements)? elementsCreated,
-    TResult? Function(Map<int, List<PadElement>> elements)? elementsChanged,
-    TResult? Function(List<int> elements)? elementsRemoved,
-    TResult? Function(Arrangement arrangement, List<int> elements)?
+    TResult? Function(Map<String, List<PadElement>> elements)? elementsChanged,
+    TResult? Function(List<String> elements)? elementsRemoved,
+    TResult? Function(Arrangement arrangement, List<String> elements)?
         elementsArranged,
     TResult? Function(String? name, String? description)?
         documentDescriptionChanged,
@@ -13470,14 +14338,16 @@ class _$TemplateCreatedImpl extends TemplateCreated {
     TResult? Function(int oldIndex, int newIndex)? toolReordered,
     TResult? Function(List<Background> backgrounds)? documentBackgroundsChanged,
     TResult? Function(Waypoint waypoint)? waypointCreated,
-    TResult? Function(int index, String name)? waypointRenamed,
-    TResult? Function(int index)? waypointRemoved,
+    TResult? Function(String name, Waypoint waypoint)? waypointChanged,
+    TResult? Function(String name)? waypointRemoved,
+    TResult? Function(String name, int newIndex)? waypointReordered,
     TResult? Function(String oldName, String newName)? layerRenamed,
     TResult? Function(String name)? layerRemoved,
     TResult? Function(String name)? layerElementsRemoved,
     TResult? Function(String name)? layerVisibilityChanged,
     TResult? Function(String name)? currentLayerChanged,
-    TResult? Function(String layer, List<int> elements)? elementsLayerChanged,
+    TResult? Function(String layer, List<String> elements)?
+        elementsLayerChanged,
     TResult? Function(String directory, String? remote, bool deleteDocument)?
         templateCreated,
     TResult? Function(List<Area> areas)? areasCreated,
@@ -13498,6 +14368,7 @@ class _$TemplateCreatedImpl extends TemplateCreated {
         presentationModeEntered,
     TResult? Function()? presentationModeExited,
     TResult? Function(int tick)? presentationTick,
+    TResult? Function(String path, List<int> data)? assetUpdated,
   }) {
     return templateCreated?.call(directory, remote, deleteDocument);
   }
@@ -13515,9 +14386,9 @@ class _$TemplateCreatedImpl extends TemplateCreated {
     TResult Function(ViewOption view)? viewChanged,
     TResult Function(UtilitiesState state)? utilitiesChanged,
     TResult Function(List<PadElement> elements)? elementsCreated,
-    TResult Function(Map<int, List<PadElement>> elements)? elementsChanged,
-    TResult Function(List<int> elements)? elementsRemoved,
-    TResult Function(Arrangement arrangement, List<int> elements)?
+    TResult Function(Map<String, List<PadElement>> elements)? elementsChanged,
+    TResult Function(List<String> elements)? elementsRemoved,
+    TResult Function(Arrangement arrangement, List<String> elements)?
         elementsArranged,
     TResult Function(String? name, String? description)?
         documentDescriptionChanged,
@@ -13528,14 +14399,15 @@ class _$TemplateCreatedImpl extends TemplateCreated {
     TResult Function(int oldIndex, int newIndex)? toolReordered,
     TResult Function(List<Background> backgrounds)? documentBackgroundsChanged,
     TResult Function(Waypoint waypoint)? waypointCreated,
-    TResult Function(int index, String name)? waypointRenamed,
-    TResult Function(int index)? waypointRemoved,
+    TResult Function(String name, Waypoint waypoint)? waypointChanged,
+    TResult Function(String name)? waypointRemoved,
+    TResult Function(String name, int newIndex)? waypointReordered,
     TResult Function(String oldName, String newName)? layerRenamed,
     TResult Function(String name)? layerRemoved,
     TResult Function(String name)? layerElementsRemoved,
     TResult Function(String name)? layerVisibilityChanged,
     TResult Function(String name)? currentLayerChanged,
-    TResult Function(String layer, List<int> elements)? elementsLayerChanged,
+    TResult Function(String layer, List<String> elements)? elementsLayerChanged,
     TResult Function(String directory, String? remote, bool deleteDocument)?
         templateCreated,
     TResult Function(List<Area> areas)? areasCreated,
@@ -13556,6 +14428,7 @@ class _$TemplateCreatedImpl extends TemplateCreated {
         presentationModeEntered,
     TResult Function()? presentationModeExited,
     TResult Function(int tick)? presentationTick,
+    TResult Function(String path, List<int> data)? assetUpdated,
     required TResult orElse(),
   }) {
     if (templateCreated != null) {
@@ -13589,8 +14462,9 @@ class _$TemplateCreatedImpl extends TemplateCreated {
     required TResult Function(DocumentBackgroundsChanged value)
         documentBackgroundsChanged,
     required TResult Function(WaypointCreated value) waypointCreated,
-    required TResult Function(WaypointRenamed value) waypointRenamed,
+    required TResult Function(WaypointChanged value) waypointChanged,
     required TResult Function(WaypointRemoved value) waypointRemoved,
+    required TResult Function(WaypointReordered value) waypointReordered,
     required TResult Function(LayerRenamed value) layerRenamed,
     required TResult Function(LayerRemoved value) layerRemoved,
     required TResult Function(LayerElementsRemoved value) layerElementsRemoved,
@@ -13618,6 +14492,7 @@ class _$TemplateCreatedImpl extends TemplateCreated {
     required TResult Function(PresentationModeExited value)
         presentationModeExited,
     required TResult Function(PresentationTick value) presentationTick,
+    required TResult Function(AssetUpdated value) assetUpdated,
   }) {
     return templateCreated(this);
   }
@@ -13647,8 +14522,9 @@ class _$TemplateCreatedImpl extends TemplateCreated {
     TResult? Function(DocumentBackgroundsChanged value)?
         documentBackgroundsChanged,
     TResult? Function(WaypointCreated value)? waypointCreated,
-    TResult? Function(WaypointRenamed value)? waypointRenamed,
+    TResult? Function(WaypointChanged value)? waypointChanged,
     TResult? Function(WaypointRemoved value)? waypointRemoved,
+    TResult? Function(WaypointReordered value)? waypointReordered,
     TResult? Function(LayerRenamed value)? layerRenamed,
     TResult? Function(LayerRemoved value)? layerRemoved,
     TResult? Function(LayerElementsRemoved value)? layerElementsRemoved,
@@ -13673,6 +14549,7 @@ class _$TemplateCreatedImpl extends TemplateCreated {
     TResult? Function(PresentationModeEntered value)? presentationModeEntered,
     TResult? Function(PresentationModeExited value)? presentationModeExited,
     TResult? Function(PresentationTick value)? presentationTick,
+    TResult? Function(AssetUpdated value)? assetUpdated,
   }) {
     return templateCreated?.call(this);
   }
@@ -13702,8 +14579,9 @@ class _$TemplateCreatedImpl extends TemplateCreated {
     TResult Function(DocumentBackgroundsChanged value)?
         documentBackgroundsChanged,
     TResult Function(WaypointCreated value)? waypointCreated,
-    TResult Function(WaypointRenamed value)? waypointRenamed,
+    TResult Function(WaypointChanged value)? waypointChanged,
     TResult Function(WaypointRemoved value)? waypointRemoved,
+    TResult Function(WaypointReordered value)? waypointReordered,
     TResult Function(LayerRenamed value)? layerRenamed,
     TResult Function(LayerRemoved value)? layerRemoved,
     TResult Function(LayerElementsRemoved value)? layerElementsRemoved,
@@ -13728,6 +14606,7 @@ class _$TemplateCreatedImpl extends TemplateCreated {
     TResult Function(PresentationModeEntered value)? presentationModeEntered,
     TResult Function(PresentationModeExited value)? presentationModeExited,
     TResult Function(PresentationTick value)? presentationTick,
+    TResult Function(AssetUpdated value)? assetUpdated,
     required TResult orElse(),
   }) {
     if (templateCreated != null) {
@@ -13851,10 +14730,10 @@ class _$AreasCreatedImpl extends AreasCreated {
     required TResult Function(ViewOption view) viewChanged,
     required TResult Function(UtilitiesState state) utilitiesChanged,
     required TResult Function(List<PadElement> elements) elementsCreated,
-    required TResult Function(Map<int, List<PadElement>> elements)
+    required TResult Function(Map<String, List<PadElement>> elements)
         elementsChanged,
-    required TResult Function(List<int> elements) elementsRemoved,
-    required TResult Function(Arrangement arrangement, List<int> elements)
+    required TResult Function(List<String> elements) elementsRemoved,
+    required TResult Function(Arrangement arrangement, List<String> elements)
         elementsArranged,
     required TResult Function(String? name, String? description)
         documentDescriptionChanged,
@@ -13866,14 +14745,15 @@ class _$AreasCreatedImpl extends AreasCreated {
     required TResult Function(List<Background> backgrounds)
         documentBackgroundsChanged,
     required TResult Function(Waypoint waypoint) waypointCreated,
-    required TResult Function(int index, String name) waypointRenamed,
-    required TResult Function(int index) waypointRemoved,
+    required TResult Function(String name, Waypoint waypoint) waypointChanged,
+    required TResult Function(String name) waypointRemoved,
+    required TResult Function(String name, int newIndex) waypointReordered,
     required TResult Function(String oldName, String newName) layerRenamed,
     required TResult Function(String name) layerRemoved,
     required TResult Function(String name) layerElementsRemoved,
     required TResult Function(String name) layerVisibilityChanged,
     required TResult Function(String name) currentLayerChanged,
-    required TResult Function(String layer, List<int> elements)
+    required TResult Function(String layer, List<String> elements)
         elementsLayerChanged,
     required TResult Function(
             String directory, String? remote, bool deleteDocument)
@@ -13899,6 +14779,7 @@ class _$AreasCreatedImpl extends AreasCreated {
         presentationModeEntered,
     required TResult Function() presentationModeExited,
     required TResult Function(int tick) presentationTick,
+    required TResult Function(String path, List<int> data) assetUpdated,
   }) {
     return areasCreated(areas);
   }
@@ -13916,9 +14797,9 @@ class _$AreasCreatedImpl extends AreasCreated {
     TResult? Function(ViewOption view)? viewChanged,
     TResult? Function(UtilitiesState state)? utilitiesChanged,
     TResult? Function(List<PadElement> elements)? elementsCreated,
-    TResult? Function(Map<int, List<PadElement>> elements)? elementsChanged,
-    TResult? Function(List<int> elements)? elementsRemoved,
-    TResult? Function(Arrangement arrangement, List<int> elements)?
+    TResult? Function(Map<String, List<PadElement>> elements)? elementsChanged,
+    TResult? Function(List<String> elements)? elementsRemoved,
+    TResult? Function(Arrangement arrangement, List<String> elements)?
         elementsArranged,
     TResult? Function(String? name, String? description)?
         documentDescriptionChanged,
@@ -13929,14 +14810,16 @@ class _$AreasCreatedImpl extends AreasCreated {
     TResult? Function(int oldIndex, int newIndex)? toolReordered,
     TResult? Function(List<Background> backgrounds)? documentBackgroundsChanged,
     TResult? Function(Waypoint waypoint)? waypointCreated,
-    TResult? Function(int index, String name)? waypointRenamed,
-    TResult? Function(int index)? waypointRemoved,
+    TResult? Function(String name, Waypoint waypoint)? waypointChanged,
+    TResult? Function(String name)? waypointRemoved,
+    TResult? Function(String name, int newIndex)? waypointReordered,
     TResult? Function(String oldName, String newName)? layerRenamed,
     TResult? Function(String name)? layerRemoved,
     TResult? Function(String name)? layerElementsRemoved,
     TResult? Function(String name)? layerVisibilityChanged,
     TResult? Function(String name)? currentLayerChanged,
-    TResult? Function(String layer, List<int> elements)? elementsLayerChanged,
+    TResult? Function(String layer, List<String> elements)?
+        elementsLayerChanged,
     TResult? Function(String directory, String? remote, bool deleteDocument)?
         templateCreated,
     TResult? Function(List<Area> areas)? areasCreated,
@@ -13957,6 +14840,7 @@ class _$AreasCreatedImpl extends AreasCreated {
         presentationModeEntered,
     TResult? Function()? presentationModeExited,
     TResult? Function(int tick)? presentationTick,
+    TResult? Function(String path, List<int> data)? assetUpdated,
   }) {
     return areasCreated?.call(areas);
   }
@@ -13974,9 +14858,9 @@ class _$AreasCreatedImpl extends AreasCreated {
     TResult Function(ViewOption view)? viewChanged,
     TResult Function(UtilitiesState state)? utilitiesChanged,
     TResult Function(List<PadElement> elements)? elementsCreated,
-    TResult Function(Map<int, List<PadElement>> elements)? elementsChanged,
-    TResult Function(List<int> elements)? elementsRemoved,
-    TResult Function(Arrangement arrangement, List<int> elements)?
+    TResult Function(Map<String, List<PadElement>> elements)? elementsChanged,
+    TResult Function(List<String> elements)? elementsRemoved,
+    TResult Function(Arrangement arrangement, List<String> elements)?
         elementsArranged,
     TResult Function(String? name, String? description)?
         documentDescriptionChanged,
@@ -13987,14 +14871,15 @@ class _$AreasCreatedImpl extends AreasCreated {
     TResult Function(int oldIndex, int newIndex)? toolReordered,
     TResult Function(List<Background> backgrounds)? documentBackgroundsChanged,
     TResult Function(Waypoint waypoint)? waypointCreated,
-    TResult Function(int index, String name)? waypointRenamed,
-    TResult Function(int index)? waypointRemoved,
+    TResult Function(String name, Waypoint waypoint)? waypointChanged,
+    TResult Function(String name)? waypointRemoved,
+    TResult Function(String name, int newIndex)? waypointReordered,
     TResult Function(String oldName, String newName)? layerRenamed,
     TResult Function(String name)? layerRemoved,
     TResult Function(String name)? layerElementsRemoved,
     TResult Function(String name)? layerVisibilityChanged,
     TResult Function(String name)? currentLayerChanged,
-    TResult Function(String layer, List<int> elements)? elementsLayerChanged,
+    TResult Function(String layer, List<String> elements)? elementsLayerChanged,
     TResult Function(String directory, String? remote, bool deleteDocument)?
         templateCreated,
     TResult Function(List<Area> areas)? areasCreated,
@@ -14015,6 +14900,7 @@ class _$AreasCreatedImpl extends AreasCreated {
         presentationModeEntered,
     TResult Function()? presentationModeExited,
     TResult Function(int tick)? presentationTick,
+    TResult Function(String path, List<int> data)? assetUpdated,
     required TResult orElse(),
   }) {
     if (areasCreated != null) {
@@ -14048,8 +14934,9 @@ class _$AreasCreatedImpl extends AreasCreated {
     required TResult Function(DocumentBackgroundsChanged value)
         documentBackgroundsChanged,
     required TResult Function(WaypointCreated value) waypointCreated,
-    required TResult Function(WaypointRenamed value) waypointRenamed,
+    required TResult Function(WaypointChanged value) waypointChanged,
     required TResult Function(WaypointRemoved value) waypointRemoved,
+    required TResult Function(WaypointReordered value) waypointReordered,
     required TResult Function(LayerRenamed value) layerRenamed,
     required TResult Function(LayerRemoved value) layerRemoved,
     required TResult Function(LayerElementsRemoved value) layerElementsRemoved,
@@ -14077,6 +14964,7 @@ class _$AreasCreatedImpl extends AreasCreated {
     required TResult Function(PresentationModeExited value)
         presentationModeExited,
     required TResult Function(PresentationTick value) presentationTick,
+    required TResult Function(AssetUpdated value) assetUpdated,
   }) {
     return areasCreated(this);
   }
@@ -14106,8 +14994,9 @@ class _$AreasCreatedImpl extends AreasCreated {
     TResult? Function(DocumentBackgroundsChanged value)?
         documentBackgroundsChanged,
     TResult? Function(WaypointCreated value)? waypointCreated,
-    TResult? Function(WaypointRenamed value)? waypointRenamed,
+    TResult? Function(WaypointChanged value)? waypointChanged,
     TResult? Function(WaypointRemoved value)? waypointRemoved,
+    TResult? Function(WaypointReordered value)? waypointReordered,
     TResult? Function(LayerRenamed value)? layerRenamed,
     TResult? Function(LayerRemoved value)? layerRemoved,
     TResult? Function(LayerElementsRemoved value)? layerElementsRemoved,
@@ -14132,6 +15021,7 @@ class _$AreasCreatedImpl extends AreasCreated {
     TResult? Function(PresentationModeEntered value)? presentationModeEntered,
     TResult? Function(PresentationModeExited value)? presentationModeExited,
     TResult? Function(PresentationTick value)? presentationTick,
+    TResult? Function(AssetUpdated value)? assetUpdated,
   }) {
     return areasCreated?.call(this);
   }
@@ -14161,8 +15051,9 @@ class _$AreasCreatedImpl extends AreasCreated {
     TResult Function(DocumentBackgroundsChanged value)?
         documentBackgroundsChanged,
     TResult Function(WaypointCreated value)? waypointCreated,
-    TResult Function(WaypointRenamed value)? waypointRenamed,
+    TResult Function(WaypointChanged value)? waypointChanged,
     TResult Function(WaypointRemoved value)? waypointRemoved,
+    TResult Function(WaypointReordered value)? waypointReordered,
     TResult Function(LayerRenamed value)? layerRenamed,
     TResult Function(LayerRemoved value)? layerRemoved,
     TResult Function(LayerElementsRemoved value)? layerElementsRemoved,
@@ -14187,6 +15078,7 @@ class _$AreasCreatedImpl extends AreasCreated {
     TResult Function(PresentationModeEntered value)? presentationModeEntered,
     TResult Function(PresentationModeExited value)? presentationModeExited,
     TResult Function(PresentationTick value)? presentationTick,
+    TResult Function(AssetUpdated value)? assetUpdated,
     required TResult orElse(),
   }) {
     if (areasCreated != null) {
@@ -14306,10 +15198,10 @@ class _$AreasRemovedImpl extends AreasRemoved {
     required TResult Function(ViewOption view) viewChanged,
     required TResult Function(UtilitiesState state) utilitiesChanged,
     required TResult Function(List<PadElement> elements) elementsCreated,
-    required TResult Function(Map<int, List<PadElement>> elements)
+    required TResult Function(Map<String, List<PadElement>> elements)
         elementsChanged,
-    required TResult Function(List<int> elements) elementsRemoved,
-    required TResult Function(Arrangement arrangement, List<int> elements)
+    required TResult Function(List<String> elements) elementsRemoved,
+    required TResult Function(Arrangement arrangement, List<String> elements)
         elementsArranged,
     required TResult Function(String? name, String? description)
         documentDescriptionChanged,
@@ -14321,14 +15213,15 @@ class _$AreasRemovedImpl extends AreasRemoved {
     required TResult Function(List<Background> backgrounds)
         documentBackgroundsChanged,
     required TResult Function(Waypoint waypoint) waypointCreated,
-    required TResult Function(int index, String name) waypointRenamed,
-    required TResult Function(int index) waypointRemoved,
+    required TResult Function(String name, Waypoint waypoint) waypointChanged,
+    required TResult Function(String name) waypointRemoved,
+    required TResult Function(String name, int newIndex) waypointReordered,
     required TResult Function(String oldName, String newName) layerRenamed,
     required TResult Function(String name) layerRemoved,
     required TResult Function(String name) layerElementsRemoved,
     required TResult Function(String name) layerVisibilityChanged,
     required TResult Function(String name) currentLayerChanged,
-    required TResult Function(String layer, List<int> elements)
+    required TResult Function(String layer, List<String> elements)
         elementsLayerChanged,
     required TResult Function(
             String directory, String? remote, bool deleteDocument)
@@ -14354,6 +15247,7 @@ class _$AreasRemovedImpl extends AreasRemoved {
         presentationModeEntered,
     required TResult Function() presentationModeExited,
     required TResult Function(int tick) presentationTick,
+    required TResult Function(String path, List<int> data) assetUpdated,
   }) {
     return areasRemoved(areas);
   }
@@ -14371,9 +15265,9 @@ class _$AreasRemovedImpl extends AreasRemoved {
     TResult? Function(ViewOption view)? viewChanged,
     TResult? Function(UtilitiesState state)? utilitiesChanged,
     TResult? Function(List<PadElement> elements)? elementsCreated,
-    TResult? Function(Map<int, List<PadElement>> elements)? elementsChanged,
-    TResult? Function(List<int> elements)? elementsRemoved,
-    TResult? Function(Arrangement arrangement, List<int> elements)?
+    TResult? Function(Map<String, List<PadElement>> elements)? elementsChanged,
+    TResult? Function(List<String> elements)? elementsRemoved,
+    TResult? Function(Arrangement arrangement, List<String> elements)?
         elementsArranged,
     TResult? Function(String? name, String? description)?
         documentDescriptionChanged,
@@ -14384,14 +15278,16 @@ class _$AreasRemovedImpl extends AreasRemoved {
     TResult? Function(int oldIndex, int newIndex)? toolReordered,
     TResult? Function(List<Background> backgrounds)? documentBackgroundsChanged,
     TResult? Function(Waypoint waypoint)? waypointCreated,
-    TResult? Function(int index, String name)? waypointRenamed,
-    TResult? Function(int index)? waypointRemoved,
+    TResult? Function(String name, Waypoint waypoint)? waypointChanged,
+    TResult? Function(String name)? waypointRemoved,
+    TResult? Function(String name, int newIndex)? waypointReordered,
     TResult? Function(String oldName, String newName)? layerRenamed,
     TResult? Function(String name)? layerRemoved,
     TResult? Function(String name)? layerElementsRemoved,
     TResult? Function(String name)? layerVisibilityChanged,
     TResult? Function(String name)? currentLayerChanged,
-    TResult? Function(String layer, List<int> elements)? elementsLayerChanged,
+    TResult? Function(String layer, List<String> elements)?
+        elementsLayerChanged,
     TResult? Function(String directory, String? remote, bool deleteDocument)?
         templateCreated,
     TResult? Function(List<Area> areas)? areasCreated,
@@ -14412,6 +15308,7 @@ class _$AreasRemovedImpl extends AreasRemoved {
         presentationModeEntered,
     TResult? Function()? presentationModeExited,
     TResult? Function(int tick)? presentationTick,
+    TResult? Function(String path, List<int> data)? assetUpdated,
   }) {
     return areasRemoved?.call(areas);
   }
@@ -14429,9 +15326,9 @@ class _$AreasRemovedImpl extends AreasRemoved {
     TResult Function(ViewOption view)? viewChanged,
     TResult Function(UtilitiesState state)? utilitiesChanged,
     TResult Function(List<PadElement> elements)? elementsCreated,
-    TResult Function(Map<int, List<PadElement>> elements)? elementsChanged,
-    TResult Function(List<int> elements)? elementsRemoved,
-    TResult Function(Arrangement arrangement, List<int> elements)?
+    TResult Function(Map<String, List<PadElement>> elements)? elementsChanged,
+    TResult Function(List<String> elements)? elementsRemoved,
+    TResult Function(Arrangement arrangement, List<String> elements)?
         elementsArranged,
     TResult Function(String? name, String? description)?
         documentDescriptionChanged,
@@ -14442,14 +15339,15 @@ class _$AreasRemovedImpl extends AreasRemoved {
     TResult Function(int oldIndex, int newIndex)? toolReordered,
     TResult Function(List<Background> backgrounds)? documentBackgroundsChanged,
     TResult Function(Waypoint waypoint)? waypointCreated,
-    TResult Function(int index, String name)? waypointRenamed,
-    TResult Function(int index)? waypointRemoved,
+    TResult Function(String name, Waypoint waypoint)? waypointChanged,
+    TResult Function(String name)? waypointRemoved,
+    TResult Function(String name, int newIndex)? waypointReordered,
     TResult Function(String oldName, String newName)? layerRenamed,
     TResult Function(String name)? layerRemoved,
     TResult Function(String name)? layerElementsRemoved,
     TResult Function(String name)? layerVisibilityChanged,
     TResult Function(String name)? currentLayerChanged,
-    TResult Function(String layer, List<int> elements)? elementsLayerChanged,
+    TResult Function(String layer, List<String> elements)? elementsLayerChanged,
     TResult Function(String directory, String? remote, bool deleteDocument)?
         templateCreated,
     TResult Function(List<Area> areas)? areasCreated,
@@ -14470,6 +15368,7 @@ class _$AreasRemovedImpl extends AreasRemoved {
         presentationModeEntered,
     TResult Function()? presentationModeExited,
     TResult Function(int tick)? presentationTick,
+    TResult Function(String path, List<int> data)? assetUpdated,
     required TResult orElse(),
   }) {
     if (areasRemoved != null) {
@@ -14503,8 +15402,9 @@ class _$AreasRemovedImpl extends AreasRemoved {
     required TResult Function(DocumentBackgroundsChanged value)
         documentBackgroundsChanged,
     required TResult Function(WaypointCreated value) waypointCreated,
-    required TResult Function(WaypointRenamed value) waypointRenamed,
+    required TResult Function(WaypointChanged value) waypointChanged,
     required TResult Function(WaypointRemoved value) waypointRemoved,
+    required TResult Function(WaypointReordered value) waypointReordered,
     required TResult Function(LayerRenamed value) layerRenamed,
     required TResult Function(LayerRemoved value) layerRemoved,
     required TResult Function(LayerElementsRemoved value) layerElementsRemoved,
@@ -14532,6 +15432,7 @@ class _$AreasRemovedImpl extends AreasRemoved {
     required TResult Function(PresentationModeExited value)
         presentationModeExited,
     required TResult Function(PresentationTick value) presentationTick,
+    required TResult Function(AssetUpdated value) assetUpdated,
   }) {
     return areasRemoved(this);
   }
@@ -14561,8 +15462,9 @@ class _$AreasRemovedImpl extends AreasRemoved {
     TResult? Function(DocumentBackgroundsChanged value)?
         documentBackgroundsChanged,
     TResult? Function(WaypointCreated value)? waypointCreated,
-    TResult? Function(WaypointRenamed value)? waypointRenamed,
+    TResult? Function(WaypointChanged value)? waypointChanged,
     TResult? Function(WaypointRemoved value)? waypointRemoved,
+    TResult? Function(WaypointReordered value)? waypointReordered,
     TResult? Function(LayerRenamed value)? layerRenamed,
     TResult? Function(LayerRemoved value)? layerRemoved,
     TResult? Function(LayerElementsRemoved value)? layerElementsRemoved,
@@ -14587,6 +15489,7 @@ class _$AreasRemovedImpl extends AreasRemoved {
     TResult? Function(PresentationModeEntered value)? presentationModeEntered,
     TResult? Function(PresentationModeExited value)? presentationModeExited,
     TResult? Function(PresentationTick value)? presentationTick,
+    TResult? Function(AssetUpdated value)? assetUpdated,
   }) {
     return areasRemoved?.call(this);
   }
@@ -14616,8 +15519,9 @@ class _$AreasRemovedImpl extends AreasRemoved {
     TResult Function(DocumentBackgroundsChanged value)?
         documentBackgroundsChanged,
     TResult Function(WaypointCreated value)? waypointCreated,
-    TResult Function(WaypointRenamed value)? waypointRenamed,
+    TResult Function(WaypointChanged value)? waypointChanged,
     TResult Function(WaypointRemoved value)? waypointRemoved,
+    TResult Function(WaypointReordered value)? waypointReordered,
     TResult Function(LayerRenamed value)? layerRenamed,
     TResult Function(LayerRemoved value)? layerRemoved,
     TResult Function(LayerElementsRemoved value)? layerElementsRemoved,
@@ -14642,6 +15546,7 @@ class _$AreasRemovedImpl extends AreasRemoved {
     TResult Function(PresentationModeEntered value)? presentationModeEntered,
     TResult Function(PresentationModeExited value)? presentationModeExited,
     TResult Function(PresentationTick value)? presentationTick,
+    TResult Function(AssetUpdated value)? assetUpdated,
     required TResult orElse(),
   }) {
     if (areasRemoved != null) {
@@ -14772,10 +15677,10 @@ class _$AreaChangedImpl extends AreaChanged {
     required TResult Function(ViewOption view) viewChanged,
     required TResult Function(UtilitiesState state) utilitiesChanged,
     required TResult Function(List<PadElement> elements) elementsCreated,
-    required TResult Function(Map<int, List<PadElement>> elements)
+    required TResult Function(Map<String, List<PadElement>> elements)
         elementsChanged,
-    required TResult Function(List<int> elements) elementsRemoved,
-    required TResult Function(Arrangement arrangement, List<int> elements)
+    required TResult Function(List<String> elements) elementsRemoved,
+    required TResult Function(Arrangement arrangement, List<String> elements)
         elementsArranged,
     required TResult Function(String? name, String? description)
         documentDescriptionChanged,
@@ -14787,14 +15692,15 @@ class _$AreaChangedImpl extends AreaChanged {
     required TResult Function(List<Background> backgrounds)
         documentBackgroundsChanged,
     required TResult Function(Waypoint waypoint) waypointCreated,
-    required TResult Function(int index, String name) waypointRenamed,
-    required TResult Function(int index) waypointRemoved,
+    required TResult Function(String name, Waypoint waypoint) waypointChanged,
+    required TResult Function(String name) waypointRemoved,
+    required TResult Function(String name, int newIndex) waypointReordered,
     required TResult Function(String oldName, String newName) layerRenamed,
     required TResult Function(String name) layerRemoved,
     required TResult Function(String name) layerElementsRemoved,
     required TResult Function(String name) layerVisibilityChanged,
     required TResult Function(String name) currentLayerChanged,
-    required TResult Function(String layer, List<int> elements)
+    required TResult Function(String layer, List<String> elements)
         elementsLayerChanged,
     required TResult Function(
             String directory, String? remote, bool deleteDocument)
@@ -14820,6 +15726,7 @@ class _$AreaChangedImpl extends AreaChanged {
         presentationModeEntered,
     required TResult Function() presentationModeExited,
     required TResult Function(int tick) presentationTick,
+    required TResult Function(String path, List<int> data) assetUpdated,
   }) {
     return areaChanged(name, area);
   }
@@ -14837,9 +15744,9 @@ class _$AreaChangedImpl extends AreaChanged {
     TResult? Function(ViewOption view)? viewChanged,
     TResult? Function(UtilitiesState state)? utilitiesChanged,
     TResult? Function(List<PadElement> elements)? elementsCreated,
-    TResult? Function(Map<int, List<PadElement>> elements)? elementsChanged,
-    TResult? Function(List<int> elements)? elementsRemoved,
-    TResult? Function(Arrangement arrangement, List<int> elements)?
+    TResult? Function(Map<String, List<PadElement>> elements)? elementsChanged,
+    TResult? Function(List<String> elements)? elementsRemoved,
+    TResult? Function(Arrangement arrangement, List<String> elements)?
         elementsArranged,
     TResult? Function(String? name, String? description)?
         documentDescriptionChanged,
@@ -14850,14 +15757,16 @@ class _$AreaChangedImpl extends AreaChanged {
     TResult? Function(int oldIndex, int newIndex)? toolReordered,
     TResult? Function(List<Background> backgrounds)? documentBackgroundsChanged,
     TResult? Function(Waypoint waypoint)? waypointCreated,
-    TResult? Function(int index, String name)? waypointRenamed,
-    TResult? Function(int index)? waypointRemoved,
+    TResult? Function(String name, Waypoint waypoint)? waypointChanged,
+    TResult? Function(String name)? waypointRemoved,
+    TResult? Function(String name, int newIndex)? waypointReordered,
     TResult? Function(String oldName, String newName)? layerRenamed,
     TResult? Function(String name)? layerRemoved,
     TResult? Function(String name)? layerElementsRemoved,
     TResult? Function(String name)? layerVisibilityChanged,
     TResult? Function(String name)? currentLayerChanged,
-    TResult? Function(String layer, List<int> elements)? elementsLayerChanged,
+    TResult? Function(String layer, List<String> elements)?
+        elementsLayerChanged,
     TResult? Function(String directory, String? remote, bool deleteDocument)?
         templateCreated,
     TResult? Function(List<Area> areas)? areasCreated,
@@ -14878,6 +15787,7 @@ class _$AreaChangedImpl extends AreaChanged {
         presentationModeEntered,
     TResult? Function()? presentationModeExited,
     TResult? Function(int tick)? presentationTick,
+    TResult? Function(String path, List<int> data)? assetUpdated,
   }) {
     return areaChanged?.call(name, area);
   }
@@ -14895,9 +15805,9 @@ class _$AreaChangedImpl extends AreaChanged {
     TResult Function(ViewOption view)? viewChanged,
     TResult Function(UtilitiesState state)? utilitiesChanged,
     TResult Function(List<PadElement> elements)? elementsCreated,
-    TResult Function(Map<int, List<PadElement>> elements)? elementsChanged,
-    TResult Function(List<int> elements)? elementsRemoved,
-    TResult Function(Arrangement arrangement, List<int> elements)?
+    TResult Function(Map<String, List<PadElement>> elements)? elementsChanged,
+    TResult Function(List<String> elements)? elementsRemoved,
+    TResult Function(Arrangement arrangement, List<String> elements)?
         elementsArranged,
     TResult Function(String? name, String? description)?
         documentDescriptionChanged,
@@ -14908,14 +15818,15 @@ class _$AreaChangedImpl extends AreaChanged {
     TResult Function(int oldIndex, int newIndex)? toolReordered,
     TResult Function(List<Background> backgrounds)? documentBackgroundsChanged,
     TResult Function(Waypoint waypoint)? waypointCreated,
-    TResult Function(int index, String name)? waypointRenamed,
-    TResult Function(int index)? waypointRemoved,
+    TResult Function(String name, Waypoint waypoint)? waypointChanged,
+    TResult Function(String name)? waypointRemoved,
+    TResult Function(String name, int newIndex)? waypointReordered,
     TResult Function(String oldName, String newName)? layerRenamed,
     TResult Function(String name)? layerRemoved,
     TResult Function(String name)? layerElementsRemoved,
     TResult Function(String name)? layerVisibilityChanged,
     TResult Function(String name)? currentLayerChanged,
-    TResult Function(String layer, List<int> elements)? elementsLayerChanged,
+    TResult Function(String layer, List<String> elements)? elementsLayerChanged,
     TResult Function(String directory, String? remote, bool deleteDocument)?
         templateCreated,
     TResult Function(List<Area> areas)? areasCreated,
@@ -14936,6 +15847,7 @@ class _$AreaChangedImpl extends AreaChanged {
         presentationModeEntered,
     TResult Function()? presentationModeExited,
     TResult Function(int tick)? presentationTick,
+    TResult Function(String path, List<int> data)? assetUpdated,
     required TResult orElse(),
   }) {
     if (areaChanged != null) {
@@ -14969,8 +15881,9 @@ class _$AreaChangedImpl extends AreaChanged {
     required TResult Function(DocumentBackgroundsChanged value)
         documentBackgroundsChanged,
     required TResult Function(WaypointCreated value) waypointCreated,
-    required TResult Function(WaypointRenamed value) waypointRenamed,
+    required TResult Function(WaypointChanged value) waypointChanged,
     required TResult Function(WaypointRemoved value) waypointRemoved,
+    required TResult Function(WaypointReordered value) waypointReordered,
     required TResult Function(LayerRenamed value) layerRenamed,
     required TResult Function(LayerRemoved value) layerRemoved,
     required TResult Function(LayerElementsRemoved value) layerElementsRemoved,
@@ -14998,6 +15911,7 @@ class _$AreaChangedImpl extends AreaChanged {
     required TResult Function(PresentationModeExited value)
         presentationModeExited,
     required TResult Function(PresentationTick value) presentationTick,
+    required TResult Function(AssetUpdated value) assetUpdated,
   }) {
     return areaChanged(this);
   }
@@ -15027,8 +15941,9 @@ class _$AreaChangedImpl extends AreaChanged {
     TResult? Function(DocumentBackgroundsChanged value)?
         documentBackgroundsChanged,
     TResult? Function(WaypointCreated value)? waypointCreated,
-    TResult? Function(WaypointRenamed value)? waypointRenamed,
+    TResult? Function(WaypointChanged value)? waypointChanged,
     TResult? Function(WaypointRemoved value)? waypointRemoved,
+    TResult? Function(WaypointReordered value)? waypointReordered,
     TResult? Function(LayerRenamed value)? layerRenamed,
     TResult? Function(LayerRemoved value)? layerRemoved,
     TResult? Function(LayerElementsRemoved value)? layerElementsRemoved,
@@ -15053,6 +15968,7 @@ class _$AreaChangedImpl extends AreaChanged {
     TResult? Function(PresentationModeEntered value)? presentationModeEntered,
     TResult? Function(PresentationModeExited value)? presentationModeExited,
     TResult? Function(PresentationTick value)? presentationTick,
+    TResult? Function(AssetUpdated value)? assetUpdated,
   }) {
     return areaChanged?.call(this);
   }
@@ -15082,8 +15998,9 @@ class _$AreaChangedImpl extends AreaChanged {
     TResult Function(DocumentBackgroundsChanged value)?
         documentBackgroundsChanged,
     TResult Function(WaypointCreated value)? waypointCreated,
-    TResult Function(WaypointRenamed value)? waypointRenamed,
+    TResult Function(WaypointChanged value)? waypointChanged,
     TResult Function(WaypointRemoved value)? waypointRemoved,
+    TResult Function(WaypointReordered value)? waypointReordered,
     TResult Function(LayerRenamed value)? layerRenamed,
     TResult Function(LayerRemoved value)? layerRemoved,
     TResult Function(LayerElementsRemoved value)? layerElementsRemoved,
@@ -15108,6 +16025,7 @@ class _$AreaChangedImpl extends AreaChanged {
     TResult Function(PresentationModeEntered value)? presentationModeEntered,
     TResult Function(PresentationModeExited value)? presentationModeExited,
     TResult Function(PresentationTick value)? presentationTick,
+    TResult Function(AssetUpdated value)? assetUpdated,
     required TResult orElse(),
   }) {
     if (areaChanged != null) {
@@ -15231,10 +16149,10 @@ class _$AreaReorderedImpl extends AreaReordered {
     required TResult Function(ViewOption view) viewChanged,
     required TResult Function(UtilitiesState state) utilitiesChanged,
     required TResult Function(List<PadElement> elements) elementsCreated,
-    required TResult Function(Map<int, List<PadElement>> elements)
+    required TResult Function(Map<String, List<PadElement>> elements)
         elementsChanged,
-    required TResult Function(List<int> elements) elementsRemoved,
-    required TResult Function(Arrangement arrangement, List<int> elements)
+    required TResult Function(List<String> elements) elementsRemoved,
+    required TResult Function(Arrangement arrangement, List<String> elements)
         elementsArranged,
     required TResult Function(String? name, String? description)
         documentDescriptionChanged,
@@ -15246,14 +16164,15 @@ class _$AreaReorderedImpl extends AreaReordered {
     required TResult Function(List<Background> backgrounds)
         documentBackgroundsChanged,
     required TResult Function(Waypoint waypoint) waypointCreated,
-    required TResult Function(int index, String name) waypointRenamed,
-    required TResult Function(int index) waypointRemoved,
+    required TResult Function(String name, Waypoint waypoint) waypointChanged,
+    required TResult Function(String name) waypointRemoved,
+    required TResult Function(String name, int newIndex) waypointReordered,
     required TResult Function(String oldName, String newName) layerRenamed,
     required TResult Function(String name) layerRemoved,
     required TResult Function(String name) layerElementsRemoved,
     required TResult Function(String name) layerVisibilityChanged,
     required TResult Function(String name) currentLayerChanged,
-    required TResult Function(String layer, List<int> elements)
+    required TResult Function(String layer, List<String> elements)
         elementsLayerChanged,
     required TResult Function(
             String directory, String? remote, bool deleteDocument)
@@ -15279,6 +16198,7 @@ class _$AreaReorderedImpl extends AreaReordered {
         presentationModeEntered,
     required TResult Function() presentationModeExited,
     required TResult Function(int tick) presentationTick,
+    required TResult Function(String path, List<int> data) assetUpdated,
   }) {
     return areaReordered(name, newIndex);
   }
@@ -15296,9 +16216,9 @@ class _$AreaReorderedImpl extends AreaReordered {
     TResult? Function(ViewOption view)? viewChanged,
     TResult? Function(UtilitiesState state)? utilitiesChanged,
     TResult? Function(List<PadElement> elements)? elementsCreated,
-    TResult? Function(Map<int, List<PadElement>> elements)? elementsChanged,
-    TResult? Function(List<int> elements)? elementsRemoved,
-    TResult? Function(Arrangement arrangement, List<int> elements)?
+    TResult? Function(Map<String, List<PadElement>> elements)? elementsChanged,
+    TResult? Function(List<String> elements)? elementsRemoved,
+    TResult? Function(Arrangement arrangement, List<String> elements)?
         elementsArranged,
     TResult? Function(String? name, String? description)?
         documentDescriptionChanged,
@@ -15309,14 +16229,16 @@ class _$AreaReorderedImpl extends AreaReordered {
     TResult? Function(int oldIndex, int newIndex)? toolReordered,
     TResult? Function(List<Background> backgrounds)? documentBackgroundsChanged,
     TResult? Function(Waypoint waypoint)? waypointCreated,
-    TResult? Function(int index, String name)? waypointRenamed,
-    TResult? Function(int index)? waypointRemoved,
+    TResult? Function(String name, Waypoint waypoint)? waypointChanged,
+    TResult? Function(String name)? waypointRemoved,
+    TResult? Function(String name, int newIndex)? waypointReordered,
     TResult? Function(String oldName, String newName)? layerRenamed,
     TResult? Function(String name)? layerRemoved,
     TResult? Function(String name)? layerElementsRemoved,
     TResult? Function(String name)? layerVisibilityChanged,
     TResult? Function(String name)? currentLayerChanged,
-    TResult? Function(String layer, List<int> elements)? elementsLayerChanged,
+    TResult? Function(String layer, List<String> elements)?
+        elementsLayerChanged,
     TResult? Function(String directory, String? remote, bool deleteDocument)?
         templateCreated,
     TResult? Function(List<Area> areas)? areasCreated,
@@ -15337,6 +16259,7 @@ class _$AreaReorderedImpl extends AreaReordered {
         presentationModeEntered,
     TResult? Function()? presentationModeExited,
     TResult? Function(int tick)? presentationTick,
+    TResult? Function(String path, List<int> data)? assetUpdated,
   }) {
     return areaReordered?.call(name, newIndex);
   }
@@ -15354,9 +16277,9 @@ class _$AreaReorderedImpl extends AreaReordered {
     TResult Function(ViewOption view)? viewChanged,
     TResult Function(UtilitiesState state)? utilitiesChanged,
     TResult Function(List<PadElement> elements)? elementsCreated,
-    TResult Function(Map<int, List<PadElement>> elements)? elementsChanged,
-    TResult Function(List<int> elements)? elementsRemoved,
-    TResult Function(Arrangement arrangement, List<int> elements)?
+    TResult Function(Map<String, List<PadElement>> elements)? elementsChanged,
+    TResult Function(List<String> elements)? elementsRemoved,
+    TResult Function(Arrangement arrangement, List<String> elements)?
         elementsArranged,
     TResult Function(String? name, String? description)?
         documentDescriptionChanged,
@@ -15367,14 +16290,15 @@ class _$AreaReorderedImpl extends AreaReordered {
     TResult Function(int oldIndex, int newIndex)? toolReordered,
     TResult Function(List<Background> backgrounds)? documentBackgroundsChanged,
     TResult Function(Waypoint waypoint)? waypointCreated,
-    TResult Function(int index, String name)? waypointRenamed,
-    TResult Function(int index)? waypointRemoved,
+    TResult Function(String name, Waypoint waypoint)? waypointChanged,
+    TResult Function(String name)? waypointRemoved,
+    TResult Function(String name, int newIndex)? waypointReordered,
     TResult Function(String oldName, String newName)? layerRenamed,
     TResult Function(String name)? layerRemoved,
     TResult Function(String name)? layerElementsRemoved,
     TResult Function(String name)? layerVisibilityChanged,
     TResult Function(String name)? currentLayerChanged,
-    TResult Function(String layer, List<int> elements)? elementsLayerChanged,
+    TResult Function(String layer, List<String> elements)? elementsLayerChanged,
     TResult Function(String directory, String? remote, bool deleteDocument)?
         templateCreated,
     TResult Function(List<Area> areas)? areasCreated,
@@ -15395,6 +16319,7 @@ class _$AreaReorderedImpl extends AreaReordered {
         presentationModeEntered,
     TResult Function()? presentationModeExited,
     TResult Function(int tick)? presentationTick,
+    TResult Function(String path, List<int> data)? assetUpdated,
     required TResult orElse(),
   }) {
     if (areaReordered != null) {
@@ -15428,8 +16353,9 @@ class _$AreaReorderedImpl extends AreaReordered {
     required TResult Function(DocumentBackgroundsChanged value)
         documentBackgroundsChanged,
     required TResult Function(WaypointCreated value) waypointCreated,
-    required TResult Function(WaypointRenamed value) waypointRenamed,
+    required TResult Function(WaypointChanged value) waypointChanged,
     required TResult Function(WaypointRemoved value) waypointRemoved,
+    required TResult Function(WaypointReordered value) waypointReordered,
     required TResult Function(LayerRenamed value) layerRenamed,
     required TResult Function(LayerRemoved value) layerRemoved,
     required TResult Function(LayerElementsRemoved value) layerElementsRemoved,
@@ -15457,6 +16383,7 @@ class _$AreaReorderedImpl extends AreaReordered {
     required TResult Function(PresentationModeExited value)
         presentationModeExited,
     required TResult Function(PresentationTick value) presentationTick,
+    required TResult Function(AssetUpdated value) assetUpdated,
   }) {
     return areaReordered(this);
   }
@@ -15486,8 +16413,9 @@ class _$AreaReorderedImpl extends AreaReordered {
     TResult? Function(DocumentBackgroundsChanged value)?
         documentBackgroundsChanged,
     TResult? Function(WaypointCreated value)? waypointCreated,
-    TResult? Function(WaypointRenamed value)? waypointRenamed,
+    TResult? Function(WaypointChanged value)? waypointChanged,
     TResult? Function(WaypointRemoved value)? waypointRemoved,
+    TResult? Function(WaypointReordered value)? waypointReordered,
     TResult? Function(LayerRenamed value)? layerRenamed,
     TResult? Function(LayerRemoved value)? layerRemoved,
     TResult? Function(LayerElementsRemoved value)? layerElementsRemoved,
@@ -15512,6 +16440,7 @@ class _$AreaReorderedImpl extends AreaReordered {
     TResult? Function(PresentationModeEntered value)? presentationModeEntered,
     TResult? Function(PresentationModeExited value)? presentationModeExited,
     TResult? Function(PresentationTick value)? presentationTick,
+    TResult? Function(AssetUpdated value)? assetUpdated,
   }) {
     return areaReordered?.call(this);
   }
@@ -15541,8 +16470,9 @@ class _$AreaReorderedImpl extends AreaReordered {
     TResult Function(DocumentBackgroundsChanged value)?
         documentBackgroundsChanged,
     TResult Function(WaypointCreated value)? waypointCreated,
-    TResult Function(WaypointRenamed value)? waypointRenamed,
+    TResult Function(WaypointChanged value)? waypointChanged,
     TResult Function(WaypointRemoved value)? waypointRemoved,
+    TResult Function(WaypointReordered value)? waypointReordered,
     TResult Function(LayerRenamed value)? layerRenamed,
     TResult Function(LayerRemoved value)? layerRemoved,
     TResult Function(LayerElementsRemoved value)? layerElementsRemoved,
@@ -15567,6 +16497,7 @@ class _$AreaReorderedImpl extends AreaReordered {
     TResult Function(PresentationModeEntered value)? presentationModeEntered,
     TResult Function(PresentationModeExited value)? presentationModeExited,
     TResult Function(PresentationTick value)? presentationTick,
+    TResult Function(AssetUpdated value)? assetUpdated,
     required TResult orElse(),
   }) {
     if (areaReordered != null) {
@@ -15682,10 +16613,10 @@ class _$CurrentAreaChangedImpl extends CurrentAreaChanged {
     required TResult Function(ViewOption view) viewChanged,
     required TResult Function(UtilitiesState state) utilitiesChanged,
     required TResult Function(List<PadElement> elements) elementsCreated,
-    required TResult Function(Map<int, List<PadElement>> elements)
+    required TResult Function(Map<String, List<PadElement>> elements)
         elementsChanged,
-    required TResult Function(List<int> elements) elementsRemoved,
-    required TResult Function(Arrangement arrangement, List<int> elements)
+    required TResult Function(List<String> elements) elementsRemoved,
+    required TResult Function(Arrangement arrangement, List<String> elements)
         elementsArranged,
     required TResult Function(String? name, String? description)
         documentDescriptionChanged,
@@ -15697,14 +16628,15 @@ class _$CurrentAreaChangedImpl extends CurrentAreaChanged {
     required TResult Function(List<Background> backgrounds)
         documentBackgroundsChanged,
     required TResult Function(Waypoint waypoint) waypointCreated,
-    required TResult Function(int index, String name) waypointRenamed,
-    required TResult Function(int index) waypointRemoved,
+    required TResult Function(String name, Waypoint waypoint) waypointChanged,
+    required TResult Function(String name) waypointRemoved,
+    required TResult Function(String name, int newIndex) waypointReordered,
     required TResult Function(String oldName, String newName) layerRenamed,
     required TResult Function(String name) layerRemoved,
     required TResult Function(String name) layerElementsRemoved,
     required TResult Function(String name) layerVisibilityChanged,
     required TResult Function(String name) currentLayerChanged,
-    required TResult Function(String layer, List<int> elements)
+    required TResult Function(String layer, List<String> elements)
         elementsLayerChanged,
     required TResult Function(
             String directory, String? remote, bool deleteDocument)
@@ -15730,6 +16662,7 @@ class _$CurrentAreaChangedImpl extends CurrentAreaChanged {
         presentationModeEntered,
     required TResult Function() presentationModeExited,
     required TResult Function(int tick) presentationTick,
+    required TResult Function(String path, List<int> data) assetUpdated,
   }) {
     return currentAreaChanged(name);
   }
@@ -15747,9 +16680,9 @@ class _$CurrentAreaChangedImpl extends CurrentAreaChanged {
     TResult? Function(ViewOption view)? viewChanged,
     TResult? Function(UtilitiesState state)? utilitiesChanged,
     TResult? Function(List<PadElement> elements)? elementsCreated,
-    TResult? Function(Map<int, List<PadElement>> elements)? elementsChanged,
-    TResult? Function(List<int> elements)? elementsRemoved,
-    TResult? Function(Arrangement arrangement, List<int> elements)?
+    TResult? Function(Map<String, List<PadElement>> elements)? elementsChanged,
+    TResult? Function(List<String> elements)? elementsRemoved,
+    TResult? Function(Arrangement arrangement, List<String> elements)?
         elementsArranged,
     TResult? Function(String? name, String? description)?
         documentDescriptionChanged,
@@ -15760,14 +16693,16 @@ class _$CurrentAreaChangedImpl extends CurrentAreaChanged {
     TResult? Function(int oldIndex, int newIndex)? toolReordered,
     TResult? Function(List<Background> backgrounds)? documentBackgroundsChanged,
     TResult? Function(Waypoint waypoint)? waypointCreated,
-    TResult? Function(int index, String name)? waypointRenamed,
-    TResult? Function(int index)? waypointRemoved,
+    TResult? Function(String name, Waypoint waypoint)? waypointChanged,
+    TResult? Function(String name)? waypointRemoved,
+    TResult? Function(String name, int newIndex)? waypointReordered,
     TResult? Function(String oldName, String newName)? layerRenamed,
     TResult? Function(String name)? layerRemoved,
     TResult? Function(String name)? layerElementsRemoved,
     TResult? Function(String name)? layerVisibilityChanged,
     TResult? Function(String name)? currentLayerChanged,
-    TResult? Function(String layer, List<int> elements)? elementsLayerChanged,
+    TResult? Function(String layer, List<String> elements)?
+        elementsLayerChanged,
     TResult? Function(String directory, String? remote, bool deleteDocument)?
         templateCreated,
     TResult? Function(List<Area> areas)? areasCreated,
@@ -15788,6 +16723,7 @@ class _$CurrentAreaChangedImpl extends CurrentAreaChanged {
         presentationModeEntered,
     TResult? Function()? presentationModeExited,
     TResult? Function(int tick)? presentationTick,
+    TResult? Function(String path, List<int> data)? assetUpdated,
   }) {
     return currentAreaChanged?.call(name);
   }
@@ -15805,9 +16741,9 @@ class _$CurrentAreaChangedImpl extends CurrentAreaChanged {
     TResult Function(ViewOption view)? viewChanged,
     TResult Function(UtilitiesState state)? utilitiesChanged,
     TResult Function(List<PadElement> elements)? elementsCreated,
-    TResult Function(Map<int, List<PadElement>> elements)? elementsChanged,
-    TResult Function(List<int> elements)? elementsRemoved,
-    TResult Function(Arrangement arrangement, List<int> elements)?
+    TResult Function(Map<String, List<PadElement>> elements)? elementsChanged,
+    TResult Function(List<String> elements)? elementsRemoved,
+    TResult Function(Arrangement arrangement, List<String> elements)?
         elementsArranged,
     TResult Function(String? name, String? description)?
         documentDescriptionChanged,
@@ -15818,14 +16754,15 @@ class _$CurrentAreaChangedImpl extends CurrentAreaChanged {
     TResult Function(int oldIndex, int newIndex)? toolReordered,
     TResult Function(List<Background> backgrounds)? documentBackgroundsChanged,
     TResult Function(Waypoint waypoint)? waypointCreated,
-    TResult Function(int index, String name)? waypointRenamed,
-    TResult Function(int index)? waypointRemoved,
+    TResult Function(String name, Waypoint waypoint)? waypointChanged,
+    TResult Function(String name)? waypointRemoved,
+    TResult Function(String name, int newIndex)? waypointReordered,
     TResult Function(String oldName, String newName)? layerRenamed,
     TResult Function(String name)? layerRemoved,
     TResult Function(String name)? layerElementsRemoved,
     TResult Function(String name)? layerVisibilityChanged,
     TResult Function(String name)? currentLayerChanged,
-    TResult Function(String layer, List<int> elements)? elementsLayerChanged,
+    TResult Function(String layer, List<String> elements)? elementsLayerChanged,
     TResult Function(String directory, String? remote, bool deleteDocument)?
         templateCreated,
     TResult Function(List<Area> areas)? areasCreated,
@@ -15846,6 +16783,7 @@ class _$CurrentAreaChangedImpl extends CurrentAreaChanged {
         presentationModeEntered,
     TResult Function()? presentationModeExited,
     TResult Function(int tick)? presentationTick,
+    TResult Function(String path, List<int> data)? assetUpdated,
     required TResult orElse(),
   }) {
     if (currentAreaChanged != null) {
@@ -15879,8 +16817,9 @@ class _$CurrentAreaChangedImpl extends CurrentAreaChanged {
     required TResult Function(DocumentBackgroundsChanged value)
         documentBackgroundsChanged,
     required TResult Function(WaypointCreated value) waypointCreated,
-    required TResult Function(WaypointRenamed value) waypointRenamed,
+    required TResult Function(WaypointChanged value) waypointChanged,
     required TResult Function(WaypointRemoved value) waypointRemoved,
+    required TResult Function(WaypointReordered value) waypointReordered,
     required TResult Function(LayerRenamed value) layerRenamed,
     required TResult Function(LayerRemoved value) layerRemoved,
     required TResult Function(LayerElementsRemoved value) layerElementsRemoved,
@@ -15908,6 +16847,7 @@ class _$CurrentAreaChangedImpl extends CurrentAreaChanged {
     required TResult Function(PresentationModeExited value)
         presentationModeExited,
     required TResult Function(PresentationTick value) presentationTick,
+    required TResult Function(AssetUpdated value) assetUpdated,
   }) {
     return currentAreaChanged(this);
   }
@@ -15937,8 +16877,9 @@ class _$CurrentAreaChangedImpl extends CurrentAreaChanged {
     TResult? Function(DocumentBackgroundsChanged value)?
         documentBackgroundsChanged,
     TResult? Function(WaypointCreated value)? waypointCreated,
-    TResult? Function(WaypointRenamed value)? waypointRenamed,
+    TResult? Function(WaypointChanged value)? waypointChanged,
     TResult? Function(WaypointRemoved value)? waypointRemoved,
+    TResult? Function(WaypointReordered value)? waypointReordered,
     TResult? Function(LayerRenamed value)? layerRenamed,
     TResult? Function(LayerRemoved value)? layerRemoved,
     TResult? Function(LayerElementsRemoved value)? layerElementsRemoved,
@@ -15963,6 +16904,7 @@ class _$CurrentAreaChangedImpl extends CurrentAreaChanged {
     TResult? Function(PresentationModeEntered value)? presentationModeEntered,
     TResult? Function(PresentationModeExited value)? presentationModeExited,
     TResult? Function(PresentationTick value)? presentationTick,
+    TResult? Function(AssetUpdated value)? assetUpdated,
   }) {
     return currentAreaChanged?.call(this);
   }
@@ -15992,8 +16934,9 @@ class _$CurrentAreaChangedImpl extends CurrentAreaChanged {
     TResult Function(DocumentBackgroundsChanged value)?
         documentBackgroundsChanged,
     TResult Function(WaypointCreated value)? waypointCreated,
-    TResult Function(WaypointRenamed value)? waypointRenamed,
+    TResult Function(WaypointChanged value)? waypointChanged,
     TResult Function(WaypointRemoved value)? waypointRemoved,
+    TResult Function(WaypointReordered value)? waypointReordered,
     TResult Function(LayerRenamed value)? layerRenamed,
     TResult Function(LayerRemoved value)? layerRemoved,
     TResult Function(LayerElementsRemoved value)? layerElementsRemoved,
@@ -16018,6 +16961,7 @@ class _$CurrentAreaChangedImpl extends CurrentAreaChanged {
     TResult Function(PresentationModeEntered value)? presentationModeEntered,
     TResult Function(PresentationModeExited value)? presentationModeExited,
     TResult Function(PresentationTick value)? presentationTick,
+    TResult Function(AssetUpdated value)? assetUpdated,
     required TResult orElse(),
   }) {
     if (currentAreaChanged != null) {
@@ -16149,10 +17093,10 @@ class _$ExportPresetCreatedImpl extends ExportPresetCreated {
     required TResult Function(ViewOption view) viewChanged,
     required TResult Function(UtilitiesState state) utilitiesChanged,
     required TResult Function(List<PadElement> elements) elementsCreated,
-    required TResult Function(Map<int, List<PadElement>> elements)
+    required TResult Function(Map<String, List<PadElement>> elements)
         elementsChanged,
-    required TResult Function(List<int> elements) elementsRemoved,
-    required TResult Function(Arrangement arrangement, List<int> elements)
+    required TResult Function(List<String> elements) elementsRemoved,
+    required TResult Function(Arrangement arrangement, List<String> elements)
         elementsArranged,
     required TResult Function(String? name, String? description)
         documentDescriptionChanged,
@@ -16164,14 +17108,15 @@ class _$ExportPresetCreatedImpl extends ExportPresetCreated {
     required TResult Function(List<Background> backgrounds)
         documentBackgroundsChanged,
     required TResult Function(Waypoint waypoint) waypointCreated,
-    required TResult Function(int index, String name) waypointRenamed,
-    required TResult Function(int index) waypointRemoved,
+    required TResult Function(String name, Waypoint waypoint) waypointChanged,
+    required TResult Function(String name) waypointRemoved,
+    required TResult Function(String name, int newIndex) waypointReordered,
     required TResult Function(String oldName, String newName) layerRenamed,
     required TResult Function(String name) layerRemoved,
     required TResult Function(String name) layerElementsRemoved,
     required TResult Function(String name) layerVisibilityChanged,
     required TResult Function(String name) currentLayerChanged,
-    required TResult Function(String layer, List<int> elements)
+    required TResult Function(String layer, List<String> elements)
         elementsLayerChanged,
     required TResult Function(
             String directory, String? remote, bool deleteDocument)
@@ -16197,6 +17142,7 @@ class _$ExportPresetCreatedImpl extends ExportPresetCreated {
         presentationModeEntered,
     required TResult Function() presentationModeExited,
     required TResult Function(int tick) presentationTick,
+    required TResult Function(String path, List<int> data) assetUpdated,
   }) {
     return exportPresetCreated(name, areas);
   }
@@ -16214,9 +17160,9 @@ class _$ExportPresetCreatedImpl extends ExportPresetCreated {
     TResult? Function(ViewOption view)? viewChanged,
     TResult? Function(UtilitiesState state)? utilitiesChanged,
     TResult? Function(List<PadElement> elements)? elementsCreated,
-    TResult? Function(Map<int, List<PadElement>> elements)? elementsChanged,
-    TResult? Function(List<int> elements)? elementsRemoved,
-    TResult? Function(Arrangement arrangement, List<int> elements)?
+    TResult? Function(Map<String, List<PadElement>> elements)? elementsChanged,
+    TResult? Function(List<String> elements)? elementsRemoved,
+    TResult? Function(Arrangement arrangement, List<String> elements)?
         elementsArranged,
     TResult? Function(String? name, String? description)?
         documentDescriptionChanged,
@@ -16227,14 +17173,16 @@ class _$ExportPresetCreatedImpl extends ExportPresetCreated {
     TResult? Function(int oldIndex, int newIndex)? toolReordered,
     TResult? Function(List<Background> backgrounds)? documentBackgroundsChanged,
     TResult? Function(Waypoint waypoint)? waypointCreated,
-    TResult? Function(int index, String name)? waypointRenamed,
-    TResult? Function(int index)? waypointRemoved,
+    TResult? Function(String name, Waypoint waypoint)? waypointChanged,
+    TResult? Function(String name)? waypointRemoved,
+    TResult? Function(String name, int newIndex)? waypointReordered,
     TResult? Function(String oldName, String newName)? layerRenamed,
     TResult? Function(String name)? layerRemoved,
     TResult? Function(String name)? layerElementsRemoved,
     TResult? Function(String name)? layerVisibilityChanged,
     TResult? Function(String name)? currentLayerChanged,
-    TResult? Function(String layer, List<int> elements)? elementsLayerChanged,
+    TResult? Function(String layer, List<String> elements)?
+        elementsLayerChanged,
     TResult? Function(String directory, String? remote, bool deleteDocument)?
         templateCreated,
     TResult? Function(List<Area> areas)? areasCreated,
@@ -16255,6 +17203,7 @@ class _$ExportPresetCreatedImpl extends ExportPresetCreated {
         presentationModeEntered,
     TResult? Function()? presentationModeExited,
     TResult? Function(int tick)? presentationTick,
+    TResult? Function(String path, List<int> data)? assetUpdated,
   }) {
     return exportPresetCreated?.call(name, areas);
   }
@@ -16272,9 +17221,9 @@ class _$ExportPresetCreatedImpl extends ExportPresetCreated {
     TResult Function(ViewOption view)? viewChanged,
     TResult Function(UtilitiesState state)? utilitiesChanged,
     TResult Function(List<PadElement> elements)? elementsCreated,
-    TResult Function(Map<int, List<PadElement>> elements)? elementsChanged,
-    TResult Function(List<int> elements)? elementsRemoved,
-    TResult Function(Arrangement arrangement, List<int> elements)?
+    TResult Function(Map<String, List<PadElement>> elements)? elementsChanged,
+    TResult Function(List<String> elements)? elementsRemoved,
+    TResult Function(Arrangement arrangement, List<String> elements)?
         elementsArranged,
     TResult Function(String? name, String? description)?
         documentDescriptionChanged,
@@ -16285,14 +17234,15 @@ class _$ExportPresetCreatedImpl extends ExportPresetCreated {
     TResult Function(int oldIndex, int newIndex)? toolReordered,
     TResult Function(List<Background> backgrounds)? documentBackgroundsChanged,
     TResult Function(Waypoint waypoint)? waypointCreated,
-    TResult Function(int index, String name)? waypointRenamed,
-    TResult Function(int index)? waypointRemoved,
+    TResult Function(String name, Waypoint waypoint)? waypointChanged,
+    TResult Function(String name)? waypointRemoved,
+    TResult Function(String name, int newIndex)? waypointReordered,
     TResult Function(String oldName, String newName)? layerRenamed,
     TResult Function(String name)? layerRemoved,
     TResult Function(String name)? layerElementsRemoved,
     TResult Function(String name)? layerVisibilityChanged,
     TResult Function(String name)? currentLayerChanged,
-    TResult Function(String layer, List<int> elements)? elementsLayerChanged,
+    TResult Function(String layer, List<String> elements)? elementsLayerChanged,
     TResult Function(String directory, String? remote, bool deleteDocument)?
         templateCreated,
     TResult Function(List<Area> areas)? areasCreated,
@@ -16313,6 +17263,7 @@ class _$ExportPresetCreatedImpl extends ExportPresetCreated {
         presentationModeEntered,
     TResult Function()? presentationModeExited,
     TResult Function(int tick)? presentationTick,
+    TResult Function(String path, List<int> data)? assetUpdated,
     required TResult orElse(),
   }) {
     if (exportPresetCreated != null) {
@@ -16346,8 +17297,9 @@ class _$ExportPresetCreatedImpl extends ExportPresetCreated {
     required TResult Function(DocumentBackgroundsChanged value)
         documentBackgroundsChanged,
     required TResult Function(WaypointCreated value) waypointCreated,
-    required TResult Function(WaypointRenamed value) waypointRenamed,
+    required TResult Function(WaypointChanged value) waypointChanged,
     required TResult Function(WaypointRemoved value) waypointRemoved,
+    required TResult Function(WaypointReordered value) waypointReordered,
     required TResult Function(LayerRenamed value) layerRenamed,
     required TResult Function(LayerRemoved value) layerRemoved,
     required TResult Function(LayerElementsRemoved value) layerElementsRemoved,
@@ -16375,6 +17327,7 @@ class _$ExportPresetCreatedImpl extends ExportPresetCreated {
     required TResult Function(PresentationModeExited value)
         presentationModeExited,
     required TResult Function(PresentationTick value) presentationTick,
+    required TResult Function(AssetUpdated value) assetUpdated,
   }) {
     return exportPresetCreated(this);
   }
@@ -16404,8 +17357,9 @@ class _$ExportPresetCreatedImpl extends ExportPresetCreated {
     TResult? Function(DocumentBackgroundsChanged value)?
         documentBackgroundsChanged,
     TResult? Function(WaypointCreated value)? waypointCreated,
-    TResult? Function(WaypointRenamed value)? waypointRenamed,
+    TResult? Function(WaypointChanged value)? waypointChanged,
     TResult? Function(WaypointRemoved value)? waypointRemoved,
+    TResult? Function(WaypointReordered value)? waypointReordered,
     TResult? Function(LayerRenamed value)? layerRenamed,
     TResult? Function(LayerRemoved value)? layerRemoved,
     TResult? Function(LayerElementsRemoved value)? layerElementsRemoved,
@@ -16430,6 +17384,7 @@ class _$ExportPresetCreatedImpl extends ExportPresetCreated {
     TResult? Function(PresentationModeEntered value)? presentationModeEntered,
     TResult? Function(PresentationModeExited value)? presentationModeExited,
     TResult? Function(PresentationTick value)? presentationTick,
+    TResult? Function(AssetUpdated value)? assetUpdated,
   }) {
     return exportPresetCreated?.call(this);
   }
@@ -16459,8 +17414,9 @@ class _$ExportPresetCreatedImpl extends ExportPresetCreated {
     TResult Function(DocumentBackgroundsChanged value)?
         documentBackgroundsChanged,
     TResult Function(WaypointCreated value)? waypointCreated,
-    TResult Function(WaypointRenamed value)? waypointRenamed,
+    TResult Function(WaypointChanged value)? waypointChanged,
     TResult Function(WaypointRemoved value)? waypointRemoved,
+    TResult Function(WaypointReordered value)? waypointReordered,
     TResult Function(LayerRenamed value)? layerRenamed,
     TResult Function(LayerRemoved value)? layerRemoved,
     TResult Function(LayerElementsRemoved value)? layerElementsRemoved,
@@ -16485,6 +17441,7 @@ class _$ExportPresetCreatedImpl extends ExportPresetCreated {
     TResult Function(PresentationModeEntered value)? presentationModeEntered,
     TResult Function(PresentationModeExited value)? presentationModeExited,
     TResult Function(PresentationTick value)? presentationTick,
+    TResult Function(AssetUpdated value)? assetUpdated,
     required TResult orElse(),
   }) {
     if (exportPresetCreated != null) {
@@ -16616,10 +17573,10 @@ class _$ExportPresetUpdatedImpl extends ExportPresetUpdated {
     required TResult Function(ViewOption view) viewChanged,
     required TResult Function(UtilitiesState state) utilitiesChanged,
     required TResult Function(List<PadElement> elements) elementsCreated,
-    required TResult Function(Map<int, List<PadElement>> elements)
+    required TResult Function(Map<String, List<PadElement>> elements)
         elementsChanged,
-    required TResult Function(List<int> elements) elementsRemoved,
-    required TResult Function(Arrangement arrangement, List<int> elements)
+    required TResult Function(List<String> elements) elementsRemoved,
+    required TResult Function(Arrangement arrangement, List<String> elements)
         elementsArranged,
     required TResult Function(String? name, String? description)
         documentDescriptionChanged,
@@ -16631,14 +17588,15 @@ class _$ExportPresetUpdatedImpl extends ExportPresetUpdated {
     required TResult Function(List<Background> backgrounds)
         documentBackgroundsChanged,
     required TResult Function(Waypoint waypoint) waypointCreated,
-    required TResult Function(int index, String name) waypointRenamed,
-    required TResult Function(int index) waypointRemoved,
+    required TResult Function(String name, Waypoint waypoint) waypointChanged,
+    required TResult Function(String name) waypointRemoved,
+    required TResult Function(String name, int newIndex) waypointReordered,
     required TResult Function(String oldName, String newName) layerRenamed,
     required TResult Function(String name) layerRemoved,
     required TResult Function(String name) layerElementsRemoved,
     required TResult Function(String name) layerVisibilityChanged,
     required TResult Function(String name) currentLayerChanged,
-    required TResult Function(String layer, List<int> elements)
+    required TResult Function(String layer, List<String> elements)
         elementsLayerChanged,
     required TResult Function(
             String directory, String? remote, bool deleteDocument)
@@ -16664,6 +17622,7 @@ class _$ExportPresetUpdatedImpl extends ExportPresetUpdated {
         presentationModeEntered,
     required TResult Function() presentationModeExited,
     required TResult Function(int tick) presentationTick,
+    required TResult Function(String path, List<int> data) assetUpdated,
   }) {
     return exportPresetUpdated(name, areas);
   }
@@ -16681,9 +17640,9 @@ class _$ExportPresetUpdatedImpl extends ExportPresetUpdated {
     TResult? Function(ViewOption view)? viewChanged,
     TResult? Function(UtilitiesState state)? utilitiesChanged,
     TResult? Function(List<PadElement> elements)? elementsCreated,
-    TResult? Function(Map<int, List<PadElement>> elements)? elementsChanged,
-    TResult? Function(List<int> elements)? elementsRemoved,
-    TResult? Function(Arrangement arrangement, List<int> elements)?
+    TResult? Function(Map<String, List<PadElement>> elements)? elementsChanged,
+    TResult? Function(List<String> elements)? elementsRemoved,
+    TResult? Function(Arrangement arrangement, List<String> elements)?
         elementsArranged,
     TResult? Function(String? name, String? description)?
         documentDescriptionChanged,
@@ -16694,14 +17653,16 @@ class _$ExportPresetUpdatedImpl extends ExportPresetUpdated {
     TResult? Function(int oldIndex, int newIndex)? toolReordered,
     TResult? Function(List<Background> backgrounds)? documentBackgroundsChanged,
     TResult? Function(Waypoint waypoint)? waypointCreated,
-    TResult? Function(int index, String name)? waypointRenamed,
-    TResult? Function(int index)? waypointRemoved,
+    TResult? Function(String name, Waypoint waypoint)? waypointChanged,
+    TResult? Function(String name)? waypointRemoved,
+    TResult? Function(String name, int newIndex)? waypointReordered,
     TResult? Function(String oldName, String newName)? layerRenamed,
     TResult? Function(String name)? layerRemoved,
     TResult? Function(String name)? layerElementsRemoved,
     TResult? Function(String name)? layerVisibilityChanged,
     TResult? Function(String name)? currentLayerChanged,
-    TResult? Function(String layer, List<int> elements)? elementsLayerChanged,
+    TResult? Function(String layer, List<String> elements)?
+        elementsLayerChanged,
     TResult? Function(String directory, String? remote, bool deleteDocument)?
         templateCreated,
     TResult? Function(List<Area> areas)? areasCreated,
@@ -16722,6 +17683,7 @@ class _$ExportPresetUpdatedImpl extends ExportPresetUpdated {
         presentationModeEntered,
     TResult? Function()? presentationModeExited,
     TResult? Function(int tick)? presentationTick,
+    TResult? Function(String path, List<int> data)? assetUpdated,
   }) {
     return exportPresetUpdated?.call(name, areas);
   }
@@ -16739,9 +17701,9 @@ class _$ExportPresetUpdatedImpl extends ExportPresetUpdated {
     TResult Function(ViewOption view)? viewChanged,
     TResult Function(UtilitiesState state)? utilitiesChanged,
     TResult Function(List<PadElement> elements)? elementsCreated,
-    TResult Function(Map<int, List<PadElement>> elements)? elementsChanged,
-    TResult Function(List<int> elements)? elementsRemoved,
-    TResult Function(Arrangement arrangement, List<int> elements)?
+    TResult Function(Map<String, List<PadElement>> elements)? elementsChanged,
+    TResult Function(List<String> elements)? elementsRemoved,
+    TResult Function(Arrangement arrangement, List<String> elements)?
         elementsArranged,
     TResult Function(String? name, String? description)?
         documentDescriptionChanged,
@@ -16752,14 +17714,15 @@ class _$ExportPresetUpdatedImpl extends ExportPresetUpdated {
     TResult Function(int oldIndex, int newIndex)? toolReordered,
     TResult Function(List<Background> backgrounds)? documentBackgroundsChanged,
     TResult Function(Waypoint waypoint)? waypointCreated,
-    TResult Function(int index, String name)? waypointRenamed,
-    TResult Function(int index)? waypointRemoved,
+    TResult Function(String name, Waypoint waypoint)? waypointChanged,
+    TResult Function(String name)? waypointRemoved,
+    TResult Function(String name, int newIndex)? waypointReordered,
     TResult Function(String oldName, String newName)? layerRenamed,
     TResult Function(String name)? layerRemoved,
     TResult Function(String name)? layerElementsRemoved,
     TResult Function(String name)? layerVisibilityChanged,
     TResult Function(String name)? currentLayerChanged,
-    TResult Function(String layer, List<int> elements)? elementsLayerChanged,
+    TResult Function(String layer, List<String> elements)? elementsLayerChanged,
     TResult Function(String directory, String? remote, bool deleteDocument)?
         templateCreated,
     TResult Function(List<Area> areas)? areasCreated,
@@ -16780,6 +17743,7 @@ class _$ExportPresetUpdatedImpl extends ExportPresetUpdated {
         presentationModeEntered,
     TResult Function()? presentationModeExited,
     TResult Function(int tick)? presentationTick,
+    TResult Function(String path, List<int> data)? assetUpdated,
     required TResult orElse(),
   }) {
     if (exportPresetUpdated != null) {
@@ -16813,8 +17777,9 @@ class _$ExportPresetUpdatedImpl extends ExportPresetUpdated {
     required TResult Function(DocumentBackgroundsChanged value)
         documentBackgroundsChanged,
     required TResult Function(WaypointCreated value) waypointCreated,
-    required TResult Function(WaypointRenamed value) waypointRenamed,
+    required TResult Function(WaypointChanged value) waypointChanged,
     required TResult Function(WaypointRemoved value) waypointRemoved,
+    required TResult Function(WaypointReordered value) waypointReordered,
     required TResult Function(LayerRenamed value) layerRenamed,
     required TResult Function(LayerRemoved value) layerRemoved,
     required TResult Function(LayerElementsRemoved value) layerElementsRemoved,
@@ -16842,6 +17807,7 @@ class _$ExportPresetUpdatedImpl extends ExportPresetUpdated {
     required TResult Function(PresentationModeExited value)
         presentationModeExited,
     required TResult Function(PresentationTick value) presentationTick,
+    required TResult Function(AssetUpdated value) assetUpdated,
   }) {
     return exportPresetUpdated(this);
   }
@@ -16871,8 +17837,9 @@ class _$ExportPresetUpdatedImpl extends ExportPresetUpdated {
     TResult? Function(DocumentBackgroundsChanged value)?
         documentBackgroundsChanged,
     TResult? Function(WaypointCreated value)? waypointCreated,
-    TResult? Function(WaypointRenamed value)? waypointRenamed,
+    TResult? Function(WaypointChanged value)? waypointChanged,
     TResult? Function(WaypointRemoved value)? waypointRemoved,
+    TResult? Function(WaypointReordered value)? waypointReordered,
     TResult? Function(LayerRenamed value)? layerRenamed,
     TResult? Function(LayerRemoved value)? layerRemoved,
     TResult? Function(LayerElementsRemoved value)? layerElementsRemoved,
@@ -16897,6 +17864,7 @@ class _$ExportPresetUpdatedImpl extends ExportPresetUpdated {
     TResult? Function(PresentationModeEntered value)? presentationModeEntered,
     TResult? Function(PresentationModeExited value)? presentationModeExited,
     TResult? Function(PresentationTick value)? presentationTick,
+    TResult? Function(AssetUpdated value)? assetUpdated,
   }) {
     return exportPresetUpdated?.call(this);
   }
@@ -16926,8 +17894,9 @@ class _$ExportPresetUpdatedImpl extends ExportPresetUpdated {
     TResult Function(DocumentBackgroundsChanged value)?
         documentBackgroundsChanged,
     TResult Function(WaypointCreated value)? waypointCreated,
-    TResult Function(WaypointRenamed value)? waypointRenamed,
+    TResult Function(WaypointChanged value)? waypointChanged,
     TResult Function(WaypointRemoved value)? waypointRemoved,
+    TResult Function(WaypointReordered value)? waypointReordered,
     TResult Function(LayerRenamed value)? layerRenamed,
     TResult Function(LayerRemoved value)? layerRemoved,
     TResult Function(LayerElementsRemoved value)? layerElementsRemoved,
@@ -16952,6 +17921,7 @@ class _$ExportPresetUpdatedImpl extends ExportPresetUpdated {
     TResult Function(PresentationModeEntered value)? presentationModeEntered,
     TResult Function(PresentationModeExited value)? presentationModeExited,
     TResult Function(PresentationTick value)? presentationTick,
+    TResult Function(AssetUpdated value)? assetUpdated,
     required TResult orElse(),
   }) {
     if (exportPresetUpdated != null) {
@@ -17068,10 +18038,10 @@ class _$ExportPresetRemovedImpl extends ExportPresetRemoved {
     required TResult Function(ViewOption view) viewChanged,
     required TResult Function(UtilitiesState state) utilitiesChanged,
     required TResult Function(List<PadElement> elements) elementsCreated,
-    required TResult Function(Map<int, List<PadElement>> elements)
+    required TResult Function(Map<String, List<PadElement>> elements)
         elementsChanged,
-    required TResult Function(List<int> elements) elementsRemoved,
-    required TResult Function(Arrangement arrangement, List<int> elements)
+    required TResult Function(List<String> elements) elementsRemoved,
+    required TResult Function(Arrangement arrangement, List<String> elements)
         elementsArranged,
     required TResult Function(String? name, String? description)
         documentDescriptionChanged,
@@ -17083,14 +18053,15 @@ class _$ExportPresetRemovedImpl extends ExportPresetRemoved {
     required TResult Function(List<Background> backgrounds)
         documentBackgroundsChanged,
     required TResult Function(Waypoint waypoint) waypointCreated,
-    required TResult Function(int index, String name) waypointRenamed,
-    required TResult Function(int index) waypointRemoved,
+    required TResult Function(String name, Waypoint waypoint) waypointChanged,
+    required TResult Function(String name) waypointRemoved,
+    required TResult Function(String name, int newIndex) waypointReordered,
     required TResult Function(String oldName, String newName) layerRenamed,
     required TResult Function(String name) layerRemoved,
     required TResult Function(String name) layerElementsRemoved,
     required TResult Function(String name) layerVisibilityChanged,
     required TResult Function(String name) currentLayerChanged,
-    required TResult Function(String layer, List<int> elements)
+    required TResult Function(String layer, List<String> elements)
         elementsLayerChanged,
     required TResult Function(
             String directory, String? remote, bool deleteDocument)
@@ -17116,6 +18087,7 @@ class _$ExportPresetRemovedImpl extends ExportPresetRemoved {
         presentationModeEntered,
     required TResult Function() presentationModeExited,
     required TResult Function(int tick) presentationTick,
+    required TResult Function(String path, List<int> data) assetUpdated,
   }) {
     return exportPresetRemoved(name);
   }
@@ -17133,9 +18105,9 @@ class _$ExportPresetRemovedImpl extends ExportPresetRemoved {
     TResult? Function(ViewOption view)? viewChanged,
     TResult? Function(UtilitiesState state)? utilitiesChanged,
     TResult? Function(List<PadElement> elements)? elementsCreated,
-    TResult? Function(Map<int, List<PadElement>> elements)? elementsChanged,
-    TResult? Function(List<int> elements)? elementsRemoved,
-    TResult? Function(Arrangement arrangement, List<int> elements)?
+    TResult? Function(Map<String, List<PadElement>> elements)? elementsChanged,
+    TResult? Function(List<String> elements)? elementsRemoved,
+    TResult? Function(Arrangement arrangement, List<String> elements)?
         elementsArranged,
     TResult? Function(String? name, String? description)?
         documentDescriptionChanged,
@@ -17146,14 +18118,16 @@ class _$ExportPresetRemovedImpl extends ExportPresetRemoved {
     TResult? Function(int oldIndex, int newIndex)? toolReordered,
     TResult? Function(List<Background> backgrounds)? documentBackgroundsChanged,
     TResult? Function(Waypoint waypoint)? waypointCreated,
-    TResult? Function(int index, String name)? waypointRenamed,
-    TResult? Function(int index)? waypointRemoved,
+    TResult? Function(String name, Waypoint waypoint)? waypointChanged,
+    TResult? Function(String name)? waypointRemoved,
+    TResult? Function(String name, int newIndex)? waypointReordered,
     TResult? Function(String oldName, String newName)? layerRenamed,
     TResult? Function(String name)? layerRemoved,
     TResult? Function(String name)? layerElementsRemoved,
     TResult? Function(String name)? layerVisibilityChanged,
     TResult? Function(String name)? currentLayerChanged,
-    TResult? Function(String layer, List<int> elements)? elementsLayerChanged,
+    TResult? Function(String layer, List<String> elements)?
+        elementsLayerChanged,
     TResult? Function(String directory, String? remote, bool deleteDocument)?
         templateCreated,
     TResult? Function(List<Area> areas)? areasCreated,
@@ -17174,6 +18148,7 @@ class _$ExportPresetRemovedImpl extends ExportPresetRemoved {
         presentationModeEntered,
     TResult? Function()? presentationModeExited,
     TResult? Function(int tick)? presentationTick,
+    TResult? Function(String path, List<int> data)? assetUpdated,
   }) {
     return exportPresetRemoved?.call(name);
   }
@@ -17191,9 +18166,9 @@ class _$ExportPresetRemovedImpl extends ExportPresetRemoved {
     TResult Function(ViewOption view)? viewChanged,
     TResult Function(UtilitiesState state)? utilitiesChanged,
     TResult Function(List<PadElement> elements)? elementsCreated,
-    TResult Function(Map<int, List<PadElement>> elements)? elementsChanged,
-    TResult Function(List<int> elements)? elementsRemoved,
-    TResult Function(Arrangement arrangement, List<int> elements)?
+    TResult Function(Map<String, List<PadElement>> elements)? elementsChanged,
+    TResult Function(List<String> elements)? elementsRemoved,
+    TResult Function(Arrangement arrangement, List<String> elements)?
         elementsArranged,
     TResult Function(String? name, String? description)?
         documentDescriptionChanged,
@@ -17204,14 +18179,15 @@ class _$ExportPresetRemovedImpl extends ExportPresetRemoved {
     TResult Function(int oldIndex, int newIndex)? toolReordered,
     TResult Function(List<Background> backgrounds)? documentBackgroundsChanged,
     TResult Function(Waypoint waypoint)? waypointCreated,
-    TResult Function(int index, String name)? waypointRenamed,
-    TResult Function(int index)? waypointRemoved,
+    TResult Function(String name, Waypoint waypoint)? waypointChanged,
+    TResult Function(String name)? waypointRemoved,
+    TResult Function(String name, int newIndex)? waypointReordered,
     TResult Function(String oldName, String newName)? layerRenamed,
     TResult Function(String name)? layerRemoved,
     TResult Function(String name)? layerElementsRemoved,
     TResult Function(String name)? layerVisibilityChanged,
     TResult Function(String name)? currentLayerChanged,
-    TResult Function(String layer, List<int> elements)? elementsLayerChanged,
+    TResult Function(String layer, List<String> elements)? elementsLayerChanged,
     TResult Function(String directory, String? remote, bool deleteDocument)?
         templateCreated,
     TResult Function(List<Area> areas)? areasCreated,
@@ -17232,6 +18208,7 @@ class _$ExportPresetRemovedImpl extends ExportPresetRemoved {
         presentationModeEntered,
     TResult Function()? presentationModeExited,
     TResult Function(int tick)? presentationTick,
+    TResult Function(String path, List<int> data)? assetUpdated,
     required TResult orElse(),
   }) {
     if (exportPresetRemoved != null) {
@@ -17265,8 +18242,9 @@ class _$ExportPresetRemovedImpl extends ExportPresetRemoved {
     required TResult Function(DocumentBackgroundsChanged value)
         documentBackgroundsChanged,
     required TResult Function(WaypointCreated value) waypointCreated,
-    required TResult Function(WaypointRenamed value) waypointRenamed,
+    required TResult Function(WaypointChanged value) waypointChanged,
     required TResult Function(WaypointRemoved value) waypointRemoved,
+    required TResult Function(WaypointReordered value) waypointReordered,
     required TResult Function(LayerRenamed value) layerRenamed,
     required TResult Function(LayerRemoved value) layerRemoved,
     required TResult Function(LayerElementsRemoved value) layerElementsRemoved,
@@ -17294,6 +18272,7 @@ class _$ExportPresetRemovedImpl extends ExportPresetRemoved {
     required TResult Function(PresentationModeExited value)
         presentationModeExited,
     required TResult Function(PresentationTick value) presentationTick,
+    required TResult Function(AssetUpdated value) assetUpdated,
   }) {
     return exportPresetRemoved(this);
   }
@@ -17323,8 +18302,9 @@ class _$ExportPresetRemovedImpl extends ExportPresetRemoved {
     TResult? Function(DocumentBackgroundsChanged value)?
         documentBackgroundsChanged,
     TResult? Function(WaypointCreated value)? waypointCreated,
-    TResult? Function(WaypointRenamed value)? waypointRenamed,
+    TResult? Function(WaypointChanged value)? waypointChanged,
     TResult? Function(WaypointRemoved value)? waypointRemoved,
+    TResult? Function(WaypointReordered value)? waypointReordered,
     TResult? Function(LayerRenamed value)? layerRenamed,
     TResult? Function(LayerRemoved value)? layerRemoved,
     TResult? Function(LayerElementsRemoved value)? layerElementsRemoved,
@@ -17349,6 +18329,7 @@ class _$ExportPresetRemovedImpl extends ExportPresetRemoved {
     TResult? Function(PresentationModeEntered value)? presentationModeEntered,
     TResult? Function(PresentationModeExited value)? presentationModeExited,
     TResult? Function(PresentationTick value)? presentationTick,
+    TResult? Function(AssetUpdated value)? assetUpdated,
   }) {
     return exportPresetRemoved?.call(this);
   }
@@ -17378,8 +18359,9 @@ class _$ExportPresetRemovedImpl extends ExportPresetRemoved {
     TResult Function(DocumentBackgroundsChanged value)?
         documentBackgroundsChanged,
     TResult Function(WaypointCreated value)? waypointCreated,
-    TResult Function(WaypointRenamed value)? waypointRenamed,
+    TResult Function(WaypointChanged value)? waypointChanged,
     TResult Function(WaypointRemoved value)? waypointRemoved,
+    TResult Function(WaypointReordered value)? waypointReordered,
     TResult Function(LayerRenamed value)? layerRenamed,
     TResult Function(LayerRemoved value)? layerRemoved,
     TResult Function(LayerElementsRemoved value)? layerElementsRemoved,
@@ -17404,6 +18386,7 @@ class _$ExportPresetRemovedImpl extends ExportPresetRemoved {
     TResult Function(PresentationModeEntered value)? presentationModeEntered,
     TResult Function(PresentationModeExited value)? presentationModeExited,
     TResult Function(PresentationTick value)? presentationTick,
+    TResult Function(AssetUpdated value)? assetUpdated,
     required TResult orElse(),
   }) {
     if (exportPresetRemoved != null) {
@@ -17517,10 +18500,10 @@ class _$PackAddedImpl extends PackAdded {
     required TResult Function(ViewOption view) viewChanged,
     required TResult Function(UtilitiesState state) utilitiesChanged,
     required TResult Function(List<PadElement> elements) elementsCreated,
-    required TResult Function(Map<int, List<PadElement>> elements)
+    required TResult Function(Map<String, List<PadElement>> elements)
         elementsChanged,
-    required TResult Function(List<int> elements) elementsRemoved,
-    required TResult Function(Arrangement arrangement, List<int> elements)
+    required TResult Function(List<String> elements) elementsRemoved,
+    required TResult Function(Arrangement arrangement, List<String> elements)
         elementsArranged,
     required TResult Function(String? name, String? description)
         documentDescriptionChanged,
@@ -17532,14 +18515,15 @@ class _$PackAddedImpl extends PackAdded {
     required TResult Function(List<Background> backgrounds)
         documentBackgroundsChanged,
     required TResult Function(Waypoint waypoint) waypointCreated,
-    required TResult Function(int index, String name) waypointRenamed,
-    required TResult Function(int index) waypointRemoved,
+    required TResult Function(String name, Waypoint waypoint) waypointChanged,
+    required TResult Function(String name) waypointRemoved,
+    required TResult Function(String name, int newIndex) waypointReordered,
     required TResult Function(String oldName, String newName) layerRenamed,
     required TResult Function(String name) layerRemoved,
     required TResult Function(String name) layerElementsRemoved,
     required TResult Function(String name) layerVisibilityChanged,
     required TResult Function(String name) currentLayerChanged,
-    required TResult Function(String layer, List<int> elements)
+    required TResult Function(String layer, List<String> elements)
         elementsLayerChanged,
     required TResult Function(
             String directory, String? remote, bool deleteDocument)
@@ -17565,6 +18549,7 @@ class _$PackAddedImpl extends PackAdded {
         presentationModeEntered,
     required TResult Function() presentationModeExited,
     required TResult Function(int tick) presentationTick,
+    required TResult Function(String path, List<int> data) assetUpdated,
   }) {
     return packAdded(pack);
   }
@@ -17582,9 +18567,9 @@ class _$PackAddedImpl extends PackAdded {
     TResult? Function(ViewOption view)? viewChanged,
     TResult? Function(UtilitiesState state)? utilitiesChanged,
     TResult? Function(List<PadElement> elements)? elementsCreated,
-    TResult? Function(Map<int, List<PadElement>> elements)? elementsChanged,
-    TResult? Function(List<int> elements)? elementsRemoved,
-    TResult? Function(Arrangement arrangement, List<int> elements)?
+    TResult? Function(Map<String, List<PadElement>> elements)? elementsChanged,
+    TResult? Function(List<String> elements)? elementsRemoved,
+    TResult? Function(Arrangement arrangement, List<String> elements)?
         elementsArranged,
     TResult? Function(String? name, String? description)?
         documentDescriptionChanged,
@@ -17595,14 +18580,16 @@ class _$PackAddedImpl extends PackAdded {
     TResult? Function(int oldIndex, int newIndex)? toolReordered,
     TResult? Function(List<Background> backgrounds)? documentBackgroundsChanged,
     TResult? Function(Waypoint waypoint)? waypointCreated,
-    TResult? Function(int index, String name)? waypointRenamed,
-    TResult? Function(int index)? waypointRemoved,
+    TResult? Function(String name, Waypoint waypoint)? waypointChanged,
+    TResult? Function(String name)? waypointRemoved,
+    TResult? Function(String name, int newIndex)? waypointReordered,
     TResult? Function(String oldName, String newName)? layerRenamed,
     TResult? Function(String name)? layerRemoved,
     TResult? Function(String name)? layerElementsRemoved,
     TResult? Function(String name)? layerVisibilityChanged,
     TResult? Function(String name)? currentLayerChanged,
-    TResult? Function(String layer, List<int> elements)? elementsLayerChanged,
+    TResult? Function(String layer, List<String> elements)?
+        elementsLayerChanged,
     TResult? Function(String directory, String? remote, bool deleteDocument)?
         templateCreated,
     TResult? Function(List<Area> areas)? areasCreated,
@@ -17623,6 +18610,7 @@ class _$PackAddedImpl extends PackAdded {
         presentationModeEntered,
     TResult? Function()? presentationModeExited,
     TResult? Function(int tick)? presentationTick,
+    TResult? Function(String path, List<int> data)? assetUpdated,
   }) {
     return packAdded?.call(pack);
   }
@@ -17640,9 +18628,9 @@ class _$PackAddedImpl extends PackAdded {
     TResult Function(ViewOption view)? viewChanged,
     TResult Function(UtilitiesState state)? utilitiesChanged,
     TResult Function(List<PadElement> elements)? elementsCreated,
-    TResult Function(Map<int, List<PadElement>> elements)? elementsChanged,
-    TResult Function(List<int> elements)? elementsRemoved,
-    TResult Function(Arrangement arrangement, List<int> elements)?
+    TResult Function(Map<String, List<PadElement>> elements)? elementsChanged,
+    TResult Function(List<String> elements)? elementsRemoved,
+    TResult Function(Arrangement arrangement, List<String> elements)?
         elementsArranged,
     TResult Function(String? name, String? description)?
         documentDescriptionChanged,
@@ -17653,14 +18641,15 @@ class _$PackAddedImpl extends PackAdded {
     TResult Function(int oldIndex, int newIndex)? toolReordered,
     TResult Function(List<Background> backgrounds)? documentBackgroundsChanged,
     TResult Function(Waypoint waypoint)? waypointCreated,
-    TResult Function(int index, String name)? waypointRenamed,
-    TResult Function(int index)? waypointRemoved,
+    TResult Function(String name, Waypoint waypoint)? waypointChanged,
+    TResult Function(String name)? waypointRemoved,
+    TResult Function(String name, int newIndex)? waypointReordered,
     TResult Function(String oldName, String newName)? layerRenamed,
     TResult Function(String name)? layerRemoved,
     TResult Function(String name)? layerElementsRemoved,
     TResult Function(String name)? layerVisibilityChanged,
     TResult Function(String name)? currentLayerChanged,
-    TResult Function(String layer, List<int> elements)? elementsLayerChanged,
+    TResult Function(String layer, List<String> elements)? elementsLayerChanged,
     TResult Function(String directory, String? remote, bool deleteDocument)?
         templateCreated,
     TResult Function(List<Area> areas)? areasCreated,
@@ -17681,6 +18670,7 @@ class _$PackAddedImpl extends PackAdded {
         presentationModeEntered,
     TResult Function()? presentationModeExited,
     TResult Function(int tick)? presentationTick,
+    TResult Function(String path, List<int> data)? assetUpdated,
     required TResult orElse(),
   }) {
     if (packAdded != null) {
@@ -17714,8 +18704,9 @@ class _$PackAddedImpl extends PackAdded {
     required TResult Function(DocumentBackgroundsChanged value)
         documentBackgroundsChanged,
     required TResult Function(WaypointCreated value) waypointCreated,
-    required TResult Function(WaypointRenamed value) waypointRenamed,
+    required TResult Function(WaypointChanged value) waypointChanged,
     required TResult Function(WaypointRemoved value) waypointRemoved,
+    required TResult Function(WaypointReordered value) waypointReordered,
     required TResult Function(LayerRenamed value) layerRenamed,
     required TResult Function(LayerRemoved value) layerRemoved,
     required TResult Function(LayerElementsRemoved value) layerElementsRemoved,
@@ -17743,6 +18734,7 @@ class _$PackAddedImpl extends PackAdded {
     required TResult Function(PresentationModeExited value)
         presentationModeExited,
     required TResult Function(PresentationTick value) presentationTick,
+    required TResult Function(AssetUpdated value) assetUpdated,
   }) {
     return packAdded(this);
   }
@@ -17772,8 +18764,9 @@ class _$PackAddedImpl extends PackAdded {
     TResult? Function(DocumentBackgroundsChanged value)?
         documentBackgroundsChanged,
     TResult? Function(WaypointCreated value)? waypointCreated,
-    TResult? Function(WaypointRenamed value)? waypointRenamed,
+    TResult? Function(WaypointChanged value)? waypointChanged,
     TResult? Function(WaypointRemoved value)? waypointRemoved,
+    TResult? Function(WaypointReordered value)? waypointReordered,
     TResult? Function(LayerRenamed value)? layerRenamed,
     TResult? Function(LayerRemoved value)? layerRemoved,
     TResult? Function(LayerElementsRemoved value)? layerElementsRemoved,
@@ -17798,6 +18791,7 @@ class _$PackAddedImpl extends PackAdded {
     TResult? Function(PresentationModeEntered value)? presentationModeEntered,
     TResult? Function(PresentationModeExited value)? presentationModeExited,
     TResult? Function(PresentationTick value)? presentationTick,
+    TResult? Function(AssetUpdated value)? assetUpdated,
   }) {
     return packAdded?.call(this);
   }
@@ -17827,8 +18821,9 @@ class _$PackAddedImpl extends PackAdded {
     TResult Function(DocumentBackgroundsChanged value)?
         documentBackgroundsChanged,
     TResult Function(WaypointCreated value)? waypointCreated,
-    TResult Function(WaypointRenamed value)? waypointRenamed,
+    TResult Function(WaypointChanged value)? waypointChanged,
     TResult Function(WaypointRemoved value)? waypointRemoved,
+    TResult Function(WaypointReordered value)? waypointReordered,
     TResult Function(LayerRenamed value)? layerRenamed,
     TResult Function(LayerRemoved value)? layerRemoved,
     TResult Function(LayerElementsRemoved value)? layerElementsRemoved,
@@ -17853,6 +18848,7 @@ class _$PackAddedImpl extends PackAdded {
     TResult Function(PresentationModeEntered value)? presentationModeEntered,
     TResult Function(PresentationModeExited value)? presentationModeExited,
     TResult Function(PresentationTick value)? presentationTick,
+    TResult Function(AssetUpdated value)? assetUpdated,
     required TResult orElse(),
   }) {
     if (packAdded != null) {
@@ -17973,10 +18969,10 @@ class _$PackUpdatedImpl extends PackUpdated {
     required TResult Function(ViewOption view) viewChanged,
     required TResult Function(UtilitiesState state) utilitiesChanged,
     required TResult Function(List<PadElement> elements) elementsCreated,
-    required TResult Function(Map<int, List<PadElement>> elements)
+    required TResult Function(Map<String, List<PadElement>> elements)
         elementsChanged,
-    required TResult Function(List<int> elements) elementsRemoved,
-    required TResult Function(Arrangement arrangement, List<int> elements)
+    required TResult Function(List<String> elements) elementsRemoved,
+    required TResult Function(Arrangement arrangement, List<String> elements)
         elementsArranged,
     required TResult Function(String? name, String? description)
         documentDescriptionChanged,
@@ -17988,14 +18984,15 @@ class _$PackUpdatedImpl extends PackUpdated {
     required TResult Function(List<Background> backgrounds)
         documentBackgroundsChanged,
     required TResult Function(Waypoint waypoint) waypointCreated,
-    required TResult Function(int index, String name) waypointRenamed,
-    required TResult Function(int index) waypointRemoved,
+    required TResult Function(String name, Waypoint waypoint) waypointChanged,
+    required TResult Function(String name) waypointRemoved,
+    required TResult Function(String name, int newIndex) waypointReordered,
     required TResult Function(String oldName, String newName) layerRenamed,
     required TResult Function(String name) layerRemoved,
     required TResult Function(String name) layerElementsRemoved,
     required TResult Function(String name) layerVisibilityChanged,
     required TResult Function(String name) currentLayerChanged,
-    required TResult Function(String layer, List<int> elements)
+    required TResult Function(String layer, List<String> elements)
         elementsLayerChanged,
     required TResult Function(
             String directory, String? remote, bool deleteDocument)
@@ -18021,6 +19018,7 @@ class _$PackUpdatedImpl extends PackUpdated {
         presentationModeEntered,
     required TResult Function() presentationModeExited,
     required TResult Function(int tick) presentationTick,
+    required TResult Function(String path, List<int> data) assetUpdated,
   }) {
     return packUpdated(name, pack);
   }
@@ -18038,9 +19036,9 @@ class _$PackUpdatedImpl extends PackUpdated {
     TResult? Function(ViewOption view)? viewChanged,
     TResult? Function(UtilitiesState state)? utilitiesChanged,
     TResult? Function(List<PadElement> elements)? elementsCreated,
-    TResult? Function(Map<int, List<PadElement>> elements)? elementsChanged,
-    TResult? Function(List<int> elements)? elementsRemoved,
-    TResult? Function(Arrangement arrangement, List<int> elements)?
+    TResult? Function(Map<String, List<PadElement>> elements)? elementsChanged,
+    TResult? Function(List<String> elements)? elementsRemoved,
+    TResult? Function(Arrangement arrangement, List<String> elements)?
         elementsArranged,
     TResult? Function(String? name, String? description)?
         documentDescriptionChanged,
@@ -18051,14 +19049,16 @@ class _$PackUpdatedImpl extends PackUpdated {
     TResult? Function(int oldIndex, int newIndex)? toolReordered,
     TResult? Function(List<Background> backgrounds)? documentBackgroundsChanged,
     TResult? Function(Waypoint waypoint)? waypointCreated,
-    TResult? Function(int index, String name)? waypointRenamed,
-    TResult? Function(int index)? waypointRemoved,
+    TResult? Function(String name, Waypoint waypoint)? waypointChanged,
+    TResult? Function(String name)? waypointRemoved,
+    TResult? Function(String name, int newIndex)? waypointReordered,
     TResult? Function(String oldName, String newName)? layerRenamed,
     TResult? Function(String name)? layerRemoved,
     TResult? Function(String name)? layerElementsRemoved,
     TResult? Function(String name)? layerVisibilityChanged,
     TResult? Function(String name)? currentLayerChanged,
-    TResult? Function(String layer, List<int> elements)? elementsLayerChanged,
+    TResult? Function(String layer, List<String> elements)?
+        elementsLayerChanged,
     TResult? Function(String directory, String? remote, bool deleteDocument)?
         templateCreated,
     TResult? Function(List<Area> areas)? areasCreated,
@@ -18079,6 +19079,7 @@ class _$PackUpdatedImpl extends PackUpdated {
         presentationModeEntered,
     TResult? Function()? presentationModeExited,
     TResult? Function(int tick)? presentationTick,
+    TResult? Function(String path, List<int> data)? assetUpdated,
   }) {
     return packUpdated?.call(name, pack);
   }
@@ -18096,9 +19097,9 @@ class _$PackUpdatedImpl extends PackUpdated {
     TResult Function(ViewOption view)? viewChanged,
     TResult Function(UtilitiesState state)? utilitiesChanged,
     TResult Function(List<PadElement> elements)? elementsCreated,
-    TResult Function(Map<int, List<PadElement>> elements)? elementsChanged,
-    TResult Function(List<int> elements)? elementsRemoved,
-    TResult Function(Arrangement arrangement, List<int> elements)?
+    TResult Function(Map<String, List<PadElement>> elements)? elementsChanged,
+    TResult Function(List<String> elements)? elementsRemoved,
+    TResult Function(Arrangement arrangement, List<String> elements)?
         elementsArranged,
     TResult Function(String? name, String? description)?
         documentDescriptionChanged,
@@ -18109,14 +19110,15 @@ class _$PackUpdatedImpl extends PackUpdated {
     TResult Function(int oldIndex, int newIndex)? toolReordered,
     TResult Function(List<Background> backgrounds)? documentBackgroundsChanged,
     TResult Function(Waypoint waypoint)? waypointCreated,
-    TResult Function(int index, String name)? waypointRenamed,
-    TResult Function(int index)? waypointRemoved,
+    TResult Function(String name, Waypoint waypoint)? waypointChanged,
+    TResult Function(String name)? waypointRemoved,
+    TResult Function(String name, int newIndex)? waypointReordered,
     TResult Function(String oldName, String newName)? layerRenamed,
     TResult Function(String name)? layerRemoved,
     TResult Function(String name)? layerElementsRemoved,
     TResult Function(String name)? layerVisibilityChanged,
     TResult Function(String name)? currentLayerChanged,
-    TResult Function(String layer, List<int> elements)? elementsLayerChanged,
+    TResult Function(String layer, List<String> elements)? elementsLayerChanged,
     TResult Function(String directory, String? remote, bool deleteDocument)?
         templateCreated,
     TResult Function(List<Area> areas)? areasCreated,
@@ -18137,6 +19139,7 @@ class _$PackUpdatedImpl extends PackUpdated {
         presentationModeEntered,
     TResult Function()? presentationModeExited,
     TResult Function(int tick)? presentationTick,
+    TResult Function(String path, List<int> data)? assetUpdated,
     required TResult orElse(),
   }) {
     if (packUpdated != null) {
@@ -18170,8 +19173,9 @@ class _$PackUpdatedImpl extends PackUpdated {
     required TResult Function(DocumentBackgroundsChanged value)
         documentBackgroundsChanged,
     required TResult Function(WaypointCreated value) waypointCreated,
-    required TResult Function(WaypointRenamed value) waypointRenamed,
+    required TResult Function(WaypointChanged value) waypointChanged,
     required TResult Function(WaypointRemoved value) waypointRemoved,
+    required TResult Function(WaypointReordered value) waypointReordered,
     required TResult Function(LayerRenamed value) layerRenamed,
     required TResult Function(LayerRemoved value) layerRemoved,
     required TResult Function(LayerElementsRemoved value) layerElementsRemoved,
@@ -18199,6 +19203,7 @@ class _$PackUpdatedImpl extends PackUpdated {
     required TResult Function(PresentationModeExited value)
         presentationModeExited,
     required TResult Function(PresentationTick value) presentationTick,
+    required TResult Function(AssetUpdated value) assetUpdated,
   }) {
     return packUpdated(this);
   }
@@ -18228,8 +19233,9 @@ class _$PackUpdatedImpl extends PackUpdated {
     TResult? Function(DocumentBackgroundsChanged value)?
         documentBackgroundsChanged,
     TResult? Function(WaypointCreated value)? waypointCreated,
-    TResult? Function(WaypointRenamed value)? waypointRenamed,
+    TResult? Function(WaypointChanged value)? waypointChanged,
     TResult? Function(WaypointRemoved value)? waypointRemoved,
+    TResult? Function(WaypointReordered value)? waypointReordered,
     TResult? Function(LayerRenamed value)? layerRenamed,
     TResult? Function(LayerRemoved value)? layerRemoved,
     TResult? Function(LayerElementsRemoved value)? layerElementsRemoved,
@@ -18254,6 +19260,7 @@ class _$PackUpdatedImpl extends PackUpdated {
     TResult? Function(PresentationModeEntered value)? presentationModeEntered,
     TResult? Function(PresentationModeExited value)? presentationModeExited,
     TResult? Function(PresentationTick value)? presentationTick,
+    TResult? Function(AssetUpdated value)? assetUpdated,
   }) {
     return packUpdated?.call(this);
   }
@@ -18283,8 +19290,9 @@ class _$PackUpdatedImpl extends PackUpdated {
     TResult Function(DocumentBackgroundsChanged value)?
         documentBackgroundsChanged,
     TResult Function(WaypointCreated value)? waypointCreated,
-    TResult Function(WaypointRenamed value)? waypointRenamed,
+    TResult Function(WaypointChanged value)? waypointChanged,
     TResult Function(WaypointRemoved value)? waypointRemoved,
+    TResult Function(WaypointReordered value)? waypointReordered,
     TResult Function(LayerRenamed value)? layerRenamed,
     TResult Function(LayerRemoved value)? layerRemoved,
     TResult Function(LayerElementsRemoved value)? layerElementsRemoved,
@@ -18309,6 +19317,7 @@ class _$PackUpdatedImpl extends PackUpdated {
     TResult Function(PresentationModeEntered value)? presentationModeEntered,
     TResult Function(PresentationModeExited value)? presentationModeExited,
     TResult Function(PresentationTick value)? presentationTick,
+    TResult Function(AssetUpdated value)? assetUpdated,
     required TResult orElse(),
   }) {
     if (packUpdated != null) {
@@ -18423,10 +19432,10 @@ class _$PackRemovedImpl extends PackRemoved {
     required TResult Function(ViewOption view) viewChanged,
     required TResult Function(UtilitiesState state) utilitiesChanged,
     required TResult Function(List<PadElement> elements) elementsCreated,
-    required TResult Function(Map<int, List<PadElement>> elements)
+    required TResult Function(Map<String, List<PadElement>> elements)
         elementsChanged,
-    required TResult Function(List<int> elements) elementsRemoved,
-    required TResult Function(Arrangement arrangement, List<int> elements)
+    required TResult Function(List<String> elements) elementsRemoved,
+    required TResult Function(Arrangement arrangement, List<String> elements)
         elementsArranged,
     required TResult Function(String? name, String? description)
         documentDescriptionChanged,
@@ -18438,14 +19447,15 @@ class _$PackRemovedImpl extends PackRemoved {
     required TResult Function(List<Background> backgrounds)
         documentBackgroundsChanged,
     required TResult Function(Waypoint waypoint) waypointCreated,
-    required TResult Function(int index, String name) waypointRenamed,
-    required TResult Function(int index) waypointRemoved,
+    required TResult Function(String name, Waypoint waypoint) waypointChanged,
+    required TResult Function(String name) waypointRemoved,
+    required TResult Function(String name, int newIndex) waypointReordered,
     required TResult Function(String oldName, String newName) layerRenamed,
     required TResult Function(String name) layerRemoved,
     required TResult Function(String name) layerElementsRemoved,
     required TResult Function(String name) layerVisibilityChanged,
     required TResult Function(String name) currentLayerChanged,
-    required TResult Function(String layer, List<int> elements)
+    required TResult Function(String layer, List<String> elements)
         elementsLayerChanged,
     required TResult Function(
             String directory, String? remote, bool deleteDocument)
@@ -18471,6 +19481,7 @@ class _$PackRemovedImpl extends PackRemoved {
         presentationModeEntered,
     required TResult Function() presentationModeExited,
     required TResult Function(int tick) presentationTick,
+    required TResult Function(String path, List<int> data) assetUpdated,
   }) {
     return packRemoved(name);
   }
@@ -18488,9 +19499,9 @@ class _$PackRemovedImpl extends PackRemoved {
     TResult? Function(ViewOption view)? viewChanged,
     TResult? Function(UtilitiesState state)? utilitiesChanged,
     TResult? Function(List<PadElement> elements)? elementsCreated,
-    TResult? Function(Map<int, List<PadElement>> elements)? elementsChanged,
-    TResult? Function(List<int> elements)? elementsRemoved,
-    TResult? Function(Arrangement arrangement, List<int> elements)?
+    TResult? Function(Map<String, List<PadElement>> elements)? elementsChanged,
+    TResult? Function(List<String> elements)? elementsRemoved,
+    TResult? Function(Arrangement arrangement, List<String> elements)?
         elementsArranged,
     TResult? Function(String? name, String? description)?
         documentDescriptionChanged,
@@ -18501,14 +19512,16 @@ class _$PackRemovedImpl extends PackRemoved {
     TResult? Function(int oldIndex, int newIndex)? toolReordered,
     TResult? Function(List<Background> backgrounds)? documentBackgroundsChanged,
     TResult? Function(Waypoint waypoint)? waypointCreated,
-    TResult? Function(int index, String name)? waypointRenamed,
-    TResult? Function(int index)? waypointRemoved,
+    TResult? Function(String name, Waypoint waypoint)? waypointChanged,
+    TResult? Function(String name)? waypointRemoved,
+    TResult? Function(String name, int newIndex)? waypointReordered,
     TResult? Function(String oldName, String newName)? layerRenamed,
     TResult? Function(String name)? layerRemoved,
     TResult? Function(String name)? layerElementsRemoved,
     TResult? Function(String name)? layerVisibilityChanged,
     TResult? Function(String name)? currentLayerChanged,
-    TResult? Function(String layer, List<int> elements)? elementsLayerChanged,
+    TResult? Function(String layer, List<String> elements)?
+        elementsLayerChanged,
     TResult? Function(String directory, String? remote, bool deleteDocument)?
         templateCreated,
     TResult? Function(List<Area> areas)? areasCreated,
@@ -18529,6 +19542,7 @@ class _$PackRemovedImpl extends PackRemoved {
         presentationModeEntered,
     TResult? Function()? presentationModeExited,
     TResult? Function(int tick)? presentationTick,
+    TResult? Function(String path, List<int> data)? assetUpdated,
   }) {
     return packRemoved?.call(name);
   }
@@ -18546,9 +19560,9 @@ class _$PackRemovedImpl extends PackRemoved {
     TResult Function(ViewOption view)? viewChanged,
     TResult Function(UtilitiesState state)? utilitiesChanged,
     TResult Function(List<PadElement> elements)? elementsCreated,
-    TResult Function(Map<int, List<PadElement>> elements)? elementsChanged,
-    TResult Function(List<int> elements)? elementsRemoved,
-    TResult Function(Arrangement arrangement, List<int> elements)?
+    TResult Function(Map<String, List<PadElement>> elements)? elementsChanged,
+    TResult Function(List<String> elements)? elementsRemoved,
+    TResult Function(Arrangement arrangement, List<String> elements)?
         elementsArranged,
     TResult Function(String? name, String? description)?
         documentDescriptionChanged,
@@ -18559,14 +19573,15 @@ class _$PackRemovedImpl extends PackRemoved {
     TResult Function(int oldIndex, int newIndex)? toolReordered,
     TResult Function(List<Background> backgrounds)? documentBackgroundsChanged,
     TResult Function(Waypoint waypoint)? waypointCreated,
-    TResult Function(int index, String name)? waypointRenamed,
-    TResult Function(int index)? waypointRemoved,
+    TResult Function(String name, Waypoint waypoint)? waypointChanged,
+    TResult Function(String name)? waypointRemoved,
+    TResult Function(String name, int newIndex)? waypointReordered,
     TResult Function(String oldName, String newName)? layerRenamed,
     TResult Function(String name)? layerRemoved,
     TResult Function(String name)? layerElementsRemoved,
     TResult Function(String name)? layerVisibilityChanged,
     TResult Function(String name)? currentLayerChanged,
-    TResult Function(String layer, List<int> elements)? elementsLayerChanged,
+    TResult Function(String layer, List<String> elements)? elementsLayerChanged,
     TResult Function(String directory, String? remote, bool deleteDocument)?
         templateCreated,
     TResult Function(List<Area> areas)? areasCreated,
@@ -18587,6 +19602,7 @@ class _$PackRemovedImpl extends PackRemoved {
         presentationModeEntered,
     TResult Function()? presentationModeExited,
     TResult Function(int tick)? presentationTick,
+    TResult Function(String path, List<int> data)? assetUpdated,
     required TResult orElse(),
   }) {
     if (packRemoved != null) {
@@ -18620,8 +19636,9 @@ class _$PackRemovedImpl extends PackRemoved {
     required TResult Function(DocumentBackgroundsChanged value)
         documentBackgroundsChanged,
     required TResult Function(WaypointCreated value) waypointCreated,
-    required TResult Function(WaypointRenamed value) waypointRenamed,
+    required TResult Function(WaypointChanged value) waypointChanged,
     required TResult Function(WaypointRemoved value) waypointRemoved,
+    required TResult Function(WaypointReordered value) waypointReordered,
     required TResult Function(LayerRenamed value) layerRenamed,
     required TResult Function(LayerRemoved value) layerRemoved,
     required TResult Function(LayerElementsRemoved value) layerElementsRemoved,
@@ -18649,6 +19666,7 @@ class _$PackRemovedImpl extends PackRemoved {
     required TResult Function(PresentationModeExited value)
         presentationModeExited,
     required TResult Function(PresentationTick value) presentationTick,
+    required TResult Function(AssetUpdated value) assetUpdated,
   }) {
     return packRemoved(this);
   }
@@ -18678,8 +19696,9 @@ class _$PackRemovedImpl extends PackRemoved {
     TResult? Function(DocumentBackgroundsChanged value)?
         documentBackgroundsChanged,
     TResult? Function(WaypointCreated value)? waypointCreated,
-    TResult? Function(WaypointRenamed value)? waypointRenamed,
+    TResult? Function(WaypointChanged value)? waypointChanged,
     TResult? Function(WaypointRemoved value)? waypointRemoved,
+    TResult? Function(WaypointReordered value)? waypointReordered,
     TResult? Function(LayerRenamed value)? layerRenamed,
     TResult? Function(LayerRemoved value)? layerRemoved,
     TResult? Function(LayerElementsRemoved value)? layerElementsRemoved,
@@ -18704,6 +19723,7 @@ class _$PackRemovedImpl extends PackRemoved {
     TResult? Function(PresentationModeEntered value)? presentationModeEntered,
     TResult? Function(PresentationModeExited value)? presentationModeExited,
     TResult? Function(PresentationTick value)? presentationTick,
+    TResult? Function(AssetUpdated value)? assetUpdated,
   }) {
     return packRemoved?.call(this);
   }
@@ -18733,8 +19753,9 @@ class _$PackRemovedImpl extends PackRemoved {
     TResult Function(DocumentBackgroundsChanged value)?
         documentBackgroundsChanged,
     TResult Function(WaypointCreated value)? waypointCreated,
-    TResult Function(WaypointRenamed value)? waypointRenamed,
+    TResult Function(WaypointChanged value)? waypointChanged,
     TResult Function(WaypointRemoved value)? waypointRemoved,
+    TResult Function(WaypointReordered value)? waypointReordered,
     TResult Function(LayerRenamed value)? layerRenamed,
     TResult Function(LayerRemoved value)? layerRemoved,
     TResult Function(LayerElementsRemoved value)? layerElementsRemoved,
@@ -18759,6 +19780,7 @@ class _$PackRemovedImpl extends PackRemoved {
     TResult Function(PresentationModeEntered value)? presentationModeEntered,
     TResult Function(PresentationModeExited value)? presentationModeExited,
     TResult Function(PresentationTick value)? presentationTick,
+    TResult Function(AssetUpdated value)? assetUpdated,
     required TResult orElse(),
   }) {
     if (packRemoved != null) {
@@ -18883,10 +19905,10 @@ class _$AnimationAddedImpl extends AnimationAdded {
     required TResult Function(ViewOption view) viewChanged,
     required TResult Function(UtilitiesState state) utilitiesChanged,
     required TResult Function(List<PadElement> elements) elementsCreated,
-    required TResult Function(Map<int, List<PadElement>> elements)
+    required TResult Function(Map<String, List<PadElement>> elements)
         elementsChanged,
-    required TResult Function(List<int> elements) elementsRemoved,
-    required TResult Function(Arrangement arrangement, List<int> elements)
+    required TResult Function(List<String> elements) elementsRemoved,
+    required TResult Function(Arrangement arrangement, List<String> elements)
         elementsArranged,
     required TResult Function(String? name, String? description)
         documentDescriptionChanged,
@@ -18898,14 +19920,15 @@ class _$AnimationAddedImpl extends AnimationAdded {
     required TResult Function(List<Background> backgrounds)
         documentBackgroundsChanged,
     required TResult Function(Waypoint waypoint) waypointCreated,
-    required TResult Function(int index, String name) waypointRenamed,
-    required TResult Function(int index) waypointRemoved,
+    required TResult Function(String name, Waypoint waypoint) waypointChanged,
+    required TResult Function(String name) waypointRemoved,
+    required TResult Function(String name, int newIndex) waypointReordered,
     required TResult Function(String oldName, String newName) layerRenamed,
     required TResult Function(String name) layerRemoved,
     required TResult Function(String name) layerElementsRemoved,
     required TResult Function(String name) layerVisibilityChanged,
     required TResult Function(String name) currentLayerChanged,
-    required TResult Function(String layer, List<int> elements)
+    required TResult Function(String layer, List<String> elements)
         elementsLayerChanged,
     required TResult Function(
             String directory, String? remote, bool deleteDocument)
@@ -18931,6 +19954,7 @@ class _$AnimationAddedImpl extends AnimationAdded {
         presentationModeEntered,
     required TResult Function() presentationModeExited,
     required TResult Function(int tick) presentationTick,
+    required TResult Function(String path, List<int> data) assetUpdated,
   }) {
     return animationAdded(animation);
   }
@@ -18948,9 +19972,9 @@ class _$AnimationAddedImpl extends AnimationAdded {
     TResult? Function(ViewOption view)? viewChanged,
     TResult? Function(UtilitiesState state)? utilitiesChanged,
     TResult? Function(List<PadElement> elements)? elementsCreated,
-    TResult? Function(Map<int, List<PadElement>> elements)? elementsChanged,
-    TResult? Function(List<int> elements)? elementsRemoved,
-    TResult? Function(Arrangement arrangement, List<int> elements)?
+    TResult? Function(Map<String, List<PadElement>> elements)? elementsChanged,
+    TResult? Function(List<String> elements)? elementsRemoved,
+    TResult? Function(Arrangement arrangement, List<String> elements)?
         elementsArranged,
     TResult? Function(String? name, String? description)?
         documentDescriptionChanged,
@@ -18961,14 +19985,16 @@ class _$AnimationAddedImpl extends AnimationAdded {
     TResult? Function(int oldIndex, int newIndex)? toolReordered,
     TResult? Function(List<Background> backgrounds)? documentBackgroundsChanged,
     TResult? Function(Waypoint waypoint)? waypointCreated,
-    TResult? Function(int index, String name)? waypointRenamed,
-    TResult? Function(int index)? waypointRemoved,
+    TResult? Function(String name, Waypoint waypoint)? waypointChanged,
+    TResult? Function(String name)? waypointRemoved,
+    TResult? Function(String name, int newIndex)? waypointReordered,
     TResult? Function(String oldName, String newName)? layerRenamed,
     TResult? Function(String name)? layerRemoved,
     TResult? Function(String name)? layerElementsRemoved,
     TResult? Function(String name)? layerVisibilityChanged,
     TResult? Function(String name)? currentLayerChanged,
-    TResult? Function(String layer, List<int> elements)? elementsLayerChanged,
+    TResult? Function(String layer, List<String> elements)?
+        elementsLayerChanged,
     TResult? Function(String directory, String? remote, bool deleteDocument)?
         templateCreated,
     TResult? Function(List<Area> areas)? areasCreated,
@@ -18989,6 +20015,7 @@ class _$AnimationAddedImpl extends AnimationAdded {
         presentationModeEntered,
     TResult? Function()? presentationModeExited,
     TResult? Function(int tick)? presentationTick,
+    TResult? Function(String path, List<int> data)? assetUpdated,
   }) {
     return animationAdded?.call(animation);
   }
@@ -19006,9 +20033,9 @@ class _$AnimationAddedImpl extends AnimationAdded {
     TResult Function(ViewOption view)? viewChanged,
     TResult Function(UtilitiesState state)? utilitiesChanged,
     TResult Function(List<PadElement> elements)? elementsCreated,
-    TResult Function(Map<int, List<PadElement>> elements)? elementsChanged,
-    TResult Function(List<int> elements)? elementsRemoved,
-    TResult Function(Arrangement arrangement, List<int> elements)?
+    TResult Function(Map<String, List<PadElement>> elements)? elementsChanged,
+    TResult Function(List<String> elements)? elementsRemoved,
+    TResult Function(Arrangement arrangement, List<String> elements)?
         elementsArranged,
     TResult Function(String? name, String? description)?
         documentDescriptionChanged,
@@ -19019,14 +20046,15 @@ class _$AnimationAddedImpl extends AnimationAdded {
     TResult Function(int oldIndex, int newIndex)? toolReordered,
     TResult Function(List<Background> backgrounds)? documentBackgroundsChanged,
     TResult Function(Waypoint waypoint)? waypointCreated,
-    TResult Function(int index, String name)? waypointRenamed,
-    TResult Function(int index)? waypointRemoved,
+    TResult Function(String name, Waypoint waypoint)? waypointChanged,
+    TResult Function(String name)? waypointRemoved,
+    TResult Function(String name, int newIndex)? waypointReordered,
     TResult Function(String oldName, String newName)? layerRenamed,
     TResult Function(String name)? layerRemoved,
     TResult Function(String name)? layerElementsRemoved,
     TResult Function(String name)? layerVisibilityChanged,
     TResult Function(String name)? currentLayerChanged,
-    TResult Function(String layer, List<int> elements)? elementsLayerChanged,
+    TResult Function(String layer, List<String> elements)? elementsLayerChanged,
     TResult Function(String directory, String? remote, bool deleteDocument)?
         templateCreated,
     TResult Function(List<Area> areas)? areasCreated,
@@ -19047,6 +20075,7 @@ class _$AnimationAddedImpl extends AnimationAdded {
         presentationModeEntered,
     TResult Function()? presentationModeExited,
     TResult Function(int tick)? presentationTick,
+    TResult Function(String path, List<int> data)? assetUpdated,
     required TResult orElse(),
   }) {
     if (animationAdded != null) {
@@ -19080,8 +20109,9 @@ class _$AnimationAddedImpl extends AnimationAdded {
     required TResult Function(DocumentBackgroundsChanged value)
         documentBackgroundsChanged,
     required TResult Function(WaypointCreated value) waypointCreated,
-    required TResult Function(WaypointRenamed value) waypointRenamed,
+    required TResult Function(WaypointChanged value) waypointChanged,
     required TResult Function(WaypointRemoved value) waypointRemoved,
+    required TResult Function(WaypointReordered value) waypointReordered,
     required TResult Function(LayerRenamed value) layerRenamed,
     required TResult Function(LayerRemoved value) layerRemoved,
     required TResult Function(LayerElementsRemoved value) layerElementsRemoved,
@@ -19109,6 +20139,7 @@ class _$AnimationAddedImpl extends AnimationAdded {
     required TResult Function(PresentationModeExited value)
         presentationModeExited,
     required TResult Function(PresentationTick value) presentationTick,
+    required TResult Function(AssetUpdated value) assetUpdated,
   }) {
     return animationAdded(this);
   }
@@ -19138,8 +20169,9 @@ class _$AnimationAddedImpl extends AnimationAdded {
     TResult? Function(DocumentBackgroundsChanged value)?
         documentBackgroundsChanged,
     TResult? Function(WaypointCreated value)? waypointCreated,
-    TResult? Function(WaypointRenamed value)? waypointRenamed,
+    TResult? Function(WaypointChanged value)? waypointChanged,
     TResult? Function(WaypointRemoved value)? waypointRemoved,
+    TResult? Function(WaypointReordered value)? waypointReordered,
     TResult? Function(LayerRenamed value)? layerRenamed,
     TResult? Function(LayerRemoved value)? layerRemoved,
     TResult? Function(LayerElementsRemoved value)? layerElementsRemoved,
@@ -19164,6 +20196,7 @@ class _$AnimationAddedImpl extends AnimationAdded {
     TResult? Function(PresentationModeEntered value)? presentationModeEntered,
     TResult? Function(PresentationModeExited value)? presentationModeExited,
     TResult? Function(PresentationTick value)? presentationTick,
+    TResult? Function(AssetUpdated value)? assetUpdated,
   }) {
     return animationAdded?.call(this);
   }
@@ -19193,8 +20226,9 @@ class _$AnimationAddedImpl extends AnimationAdded {
     TResult Function(DocumentBackgroundsChanged value)?
         documentBackgroundsChanged,
     TResult Function(WaypointCreated value)? waypointCreated,
-    TResult Function(WaypointRenamed value)? waypointRenamed,
+    TResult Function(WaypointChanged value)? waypointChanged,
     TResult Function(WaypointRemoved value)? waypointRemoved,
+    TResult Function(WaypointReordered value)? waypointReordered,
     TResult Function(LayerRenamed value)? layerRenamed,
     TResult Function(LayerRemoved value)? layerRemoved,
     TResult Function(LayerElementsRemoved value)? layerElementsRemoved,
@@ -19219,6 +20253,7 @@ class _$AnimationAddedImpl extends AnimationAdded {
     TResult Function(PresentationModeEntered value)? presentationModeEntered,
     TResult Function(PresentationModeExited value)? presentationModeExited,
     TResult Function(PresentationTick value)? presentationTick,
+    TResult Function(AssetUpdated value)? assetUpdated,
     required TResult orElse(),
   }) {
     if (animationAdded != null) {
@@ -19352,10 +20387,10 @@ class _$AnimationUpdatedImpl extends AnimationUpdated {
     required TResult Function(ViewOption view) viewChanged,
     required TResult Function(UtilitiesState state) utilitiesChanged,
     required TResult Function(List<PadElement> elements) elementsCreated,
-    required TResult Function(Map<int, List<PadElement>> elements)
+    required TResult Function(Map<String, List<PadElement>> elements)
         elementsChanged,
-    required TResult Function(List<int> elements) elementsRemoved,
-    required TResult Function(Arrangement arrangement, List<int> elements)
+    required TResult Function(List<String> elements) elementsRemoved,
+    required TResult Function(Arrangement arrangement, List<String> elements)
         elementsArranged,
     required TResult Function(String? name, String? description)
         documentDescriptionChanged,
@@ -19367,14 +20402,15 @@ class _$AnimationUpdatedImpl extends AnimationUpdated {
     required TResult Function(List<Background> backgrounds)
         documentBackgroundsChanged,
     required TResult Function(Waypoint waypoint) waypointCreated,
-    required TResult Function(int index, String name) waypointRenamed,
-    required TResult Function(int index) waypointRemoved,
+    required TResult Function(String name, Waypoint waypoint) waypointChanged,
+    required TResult Function(String name) waypointRemoved,
+    required TResult Function(String name, int newIndex) waypointReordered,
     required TResult Function(String oldName, String newName) layerRenamed,
     required TResult Function(String name) layerRemoved,
     required TResult Function(String name) layerElementsRemoved,
     required TResult Function(String name) layerVisibilityChanged,
     required TResult Function(String name) currentLayerChanged,
-    required TResult Function(String layer, List<int> elements)
+    required TResult Function(String layer, List<String> elements)
         elementsLayerChanged,
     required TResult Function(
             String directory, String? remote, bool deleteDocument)
@@ -19400,6 +20436,7 @@ class _$AnimationUpdatedImpl extends AnimationUpdated {
         presentationModeEntered,
     required TResult Function() presentationModeExited,
     required TResult Function(int tick) presentationTick,
+    required TResult Function(String path, List<int> data) assetUpdated,
   }) {
     return animationUpdated(name, animation);
   }
@@ -19417,9 +20454,9 @@ class _$AnimationUpdatedImpl extends AnimationUpdated {
     TResult? Function(ViewOption view)? viewChanged,
     TResult? Function(UtilitiesState state)? utilitiesChanged,
     TResult? Function(List<PadElement> elements)? elementsCreated,
-    TResult? Function(Map<int, List<PadElement>> elements)? elementsChanged,
-    TResult? Function(List<int> elements)? elementsRemoved,
-    TResult? Function(Arrangement arrangement, List<int> elements)?
+    TResult? Function(Map<String, List<PadElement>> elements)? elementsChanged,
+    TResult? Function(List<String> elements)? elementsRemoved,
+    TResult? Function(Arrangement arrangement, List<String> elements)?
         elementsArranged,
     TResult? Function(String? name, String? description)?
         documentDescriptionChanged,
@@ -19430,14 +20467,16 @@ class _$AnimationUpdatedImpl extends AnimationUpdated {
     TResult? Function(int oldIndex, int newIndex)? toolReordered,
     TResult? Function(List<Background> backgrounds)? documentBackgroundsChanged,
     TResult? Function(Waypoint waypoint)? waypointCreated,
-    TResult? Function(int index, String name)? waypointRenamed,
-    TResult? Function(int index)? waypointRemoved,
+    TResult? Function(String name, Waypoint waypoint)? waypointChanged,
+    TResult? Function(String name)? waypointRemoved,
+    TResult? Function(String name, int newIndex)? waypointReordered,
     TResult? Function(String oldName, String newName)? layerRenamed,
     TResult? Function(String name)? layerRemoved,
     TResult? Function(String name)? layerElementsRemoved,
     TResult? Function(String name)? layerVisibilityChanged,
     TResult? Function(String name)? currentLayerChanged,
-    TResult? Function(String layer, List<int> elements)? elementsLayerChanged,
+    TResult? Function(String layer, List<String> elements)?
+        elementsLayerChanged,
     TResult? Function(String directory, String? remote, bool deleteDocument)?
         templateCreated,
     TResult? Function(List<Area> areas)? areasCreated,
@@ -19458,6 +20497,7 @@ class _$AnimationUpdatedImpl extends AnimationUpdated {
         presentationModeEntered,
     TResult? Function()? presentationModeExited,
     TResult? Function(int tick)? presentationTick,
+    TResult? Function(String path, List<int> data)? assetUpdated,
   }) {
     return animationUpdated?.call(name, animation);
   }
@@ -19475,9 +20515,9 @@ class _$AnimationUpdatedImpl extends AnimationUpdated {
     TResult Function(ViewOption view)? viewChanged,
     TResult Function(UtilitiesState state)? utilitiesChanged,
     TResult Function(List<PadElement> elements)? elementsCreated,
-    TResult Function(Map<int, List<PadElement>> elements)? elementsChanged,
-    TResult Function(List<int> elements)? elementsRemoved,
-    TResult Function(Arrangement arrangement, List<int> elements)?
+    TResult Function(Map<String, List<PadElement>> elements)? elementsChanged,
+    TResult Function(List<String> elements)? elementsRemoved,
+    TResult Function(Arrangement arrangement, List<String> elements)?
         elementsArranged,
     TResult Function(String? name, String? description)?
         documentDescriptionChanged,
@@ -19488,14 +20528,15 @@ class _$AnimationUpdatedImpl extends AnimationUpdated {
     TResult Function(int oldIndex, int newIndex)? toolReordered,
     TResult Function(List<Background> backgrounds)? documentBackgroundsChanged,
     TResult Function(Waypoint waypoint)? waypointCreated,
-    TResult Function(int index, String name)? waypointRenamed,
-    TResult Function(int index)? waypointRemoved,
+    TResult Function(String name, Waypoint waypoint)? waypointChanged,
+    TResult Function(String name)? waypointRemoved,
+    TResult Function(String name, int newIndex)? waypointReordered,
     TResult Function(String oldName, String newName)? layerRenamed,
     TResult Function(String name)? layerRemoved,
     TResult Function(String name)? layerElementsRemoved,
     TResult Function(String name)? layerVisibilityChanged,
     TResult Function(String name)? currentLayerChanged,
-    TResult Function(String layer, List<int> elements)? elementsLayerChanged,
+    TResult Function(String layer, List<String> elements)? elementsLayerChanged,
     TResult Function(String directory, String? remote, bool deleteDocument)?
         templateCreated,
     TResult Function(List<Area> areas)? areasCreated,
@@ -19516,6 +20557,7 @@ class _$AnimationUpdatedImpl extends AnimationUpdated {
         presentationModeEntered,
     TResult Function()? presentationModeExited,
     TResult Function(int tick)? presentationTick,
+    TResult Function(String path, List<int> data)? assetUpdated,
     required TResult orElse(),
   }) {
     if (animationUpdated != null) {
@@ -19549,8 +20591,9 @@ class _$AnimationUpdatedImpl extends AnimationUpdated {
     required TResult Function(DocumentBackgroundsChanged value)
         documentBackgroundsChanged,
     required TResult Function(WaypointCreated value) waypointCreated,
-    required TResult Function(WaypointRenamed value) waypointRenamed,
+    required TResult Function(WaypointChanged value) waypointChanged,
     required TResult Function(WaypointRemoved value) waypointRemoved,
+    required TResult Function(WaypointReordered value) waypointReordered,
     required TResult Function(LayerRenamed value) layerRenamed,
     required TResult Function(LayerRemoved value) layerRemoved,
     required TResult Function(LayerElementsRemoved value) layerElementsRemoved,
@@ -19578,6 +20621,7 @@ class _$AnimationUpdatedImpl extends AnimationUpdated {
     required TResult Function(PresentationModeExited value)
         presentationModeExited,
     required TResult Function(PresentationTick value) presentationTick,
+    required TResult Function(AssetUpdated value) assetUpdated,
   }) {
     return animationUpdated(this);
   }
@@ -19607,8 +20651,9 @@ class _$AnimationUpdatedImpl extends AnimationUpdated {
     TResult? Function(DocumentBackgroundsChanged value)?
         documentBackgroundsChanged,
     TResult? Function(WaypointCreated value)? waypointCreated,
-    TResult? Function(WaypointRenamed value)? waypointRenamed,
+    TResult? Function(WaypointChanged value)? waypointChanged,
     TResult? Function(WaypointRemoved value)? waypointRemoved,
+    TResult? Function(WaypointReordered value)? waypointReordered,
     TResult? Function(LayerRenamed value)? layerRenamed,
     TResult? Function(LayerRemoved value)? layerRemoved,
     TResult? Function(LayerElementsRemoved value)? layerElementsRemoved,
@@ -19633,6 +20678,7 @@ class _$AnimationUpdatedImpl extends AnimationUpdated {
     TResult? Function(PresentationModeEntered value)? presentationModeEntered,
     TResult? Function(PresentationModeExited value)? presentationModeExited,
     TResult? Function(PresentationTick value)? presentationTick,
+    TResult? Function(AssetUpdated value)? assetUpdated,
   }) {
     return animationUpdated?.call(this);
   }
@@ -19662,8 +20708,9 @@ class _$AnimationUpdatedImpl extends AnimationUpdated {
     TResult Function(DocumentBackgroundsChanged value)?
         documentBackgroundsChanged,
     TResult Function(WaypointCreated value)? waypointCreated,
-    TResult Function(WaypointRenamed value)? waypointRenamed,
+    TResult Function(WaypointChanged value)? waypointChanged,
     TResult Function(WaypointRemoved value)? waypointRemoved,
+    TResult Function(WaypointReordered value)? waypointReordered,
     TResult Function(LayerRenamed value)? layerRenamed,
     TResult Function(LayerRemoved value)? layerRemoved,
     TResult Function(LayerElementsRemoved value)? layerElementsRemoved,
@@ -19688,6 +20735,7 @@ class _$AnimationUpdatedImpl extends AnimationUpdated {
     TResult Function(PresentationModeEntered value)? presentationModeEntered,
     TResult Function(PresentationModeExited value)? presentationModeExited,
     TResult Function(PresentationTick value)? presentationTick,
+    TResult Function(AssetUpdated value)? assetUpdated,
     required TResult orElse(),
   }) {
     if (animationUpdated != null) {
@@ -19804,10 +20852,10 @@ class _$AnimationRemovedImpl extends AnimationRemoved {
     required TResult Function(ViewOption view) viewChanged,
     required TResult Function(UtilitiesState state) utilitiesChanged,
     required TResult Function(List<PadElement> elements) elementsCreated,
-    required TResult Function(Map<int, List<PadElement>> elements)
+    required TResult Function(Map<String, List<PadElement>> elements)
         elementsChanged,
-    required TResult Function(List<int> elements) elementsRemoved,
-    required TResult Function(Arrangement arrangement, List<int> elements)
+    required TResult Function(List<String> elements) elementsRemoved,
+    required TResult Function(Arrangement arrangement, List<String> elements)
         elementsArranged,
     required TResult Function(String? name, String? description)
         documentDescriptionChanged,
@@ -19819,14 +20867,15 @@ class _$AnimationRemovedImpl extends AnimationRemoved {
     required TResult Function(List<Background> backgrounds)
         documentBackgroundsChanged,
     required TResult Function(Waypoint waypoint) waypointCreated,
-    required TResult Function(int index, String name) waypointRenamed,
-    required TResult Function(int index) waypointRemoved,
+    required TResult Function(String name, Waypoint waypoint) waypointChanged,
+    required TResult Function(String name) waypointRemoved,
+    required TResult Function(String name, int newIndex) waypointReordered,
     required TResult Function(String oldName, String newName) layerRenamed,
     required TResult Function(String name) layerRemoved,
     required TResult Function(String name) layerElementsRemoved,
     required TResult Function(String name) layerVisibilityChanged,
     required TResult Function(String name) currentLayerChanged,
-    required TResult Function(String layer, List<int> elements)
+    required TResult Function(String layer, List<String> elements)
         elementsLayerChanged,
     required TResult Function(
             String directory, String? remote, bool deleteDocument)
@@ -19852,6 +20901,7 @@ class _$AnimationRemovedImpl extends AnimationRemoved {
         presentationModeEntered,
     required TResult Function() presentationModeExited,
     required TResult Function(int tick) presentationTick,
+    required TResult Function(String path, List<int> data) assetUpdated,
   }) {
     return animationRemoved(name);
   }
@@ -19869,9 +20919,9 @@ class _$AnimationRemovedImpl extends AnimationRemoved {
     TResult? Function(ViewOption view)? viewChanged,
     TResult? Function(UtilitiesState state)? utilitiesChanged,
     TResult? Function(List<PadElement> elements)? elementsCreated,
-    TResult? Function(Map<int, List<PadElement>> elements)? elementsChanged,
-    TResult? Function(List<int> elements)? elementsRemoved,
-    TResult? Function(Arrangement arrangement, List<int> elements)?
+    TResult? Function(Map<String, List<PadElement>> elements)? elementsChanged,
+    TResult? Function(List<String> elements)? elementsRemoved,
+    TResult? Function(Arrangement arrangement, List<String> elements)?
         elementsArranged,
     TResult? Function(String? name, String? description)?
         documentDescriptionChanged,
@@ -19882,14 +20932,16 @@ class _$AnimationRemovedImpl extends AnimationRemoved {
     TResult? Function(int oldIndex, int newIndex)? toolReordered,
     TResult? Function(List<Background> backgrounds)? documentBackgroundsChanged,
     TResult? Function(Waypoint waypoint)? waypointCreated,
-    TResult? Function(int index, String name)? waypointRenamed,
-    TResult? Function(int index)? waypointRemoved,
+    TResult? Function(String name, Waypoint waypoint)? waypointChanged,
+    TResult? Function(String name)? waypointRemoved,
+    TResult? Function(String name, int newIndex)? waypointReordered,
     TResult? Function(String oldName, String newName)? layerRenamed,
     TResult? Function(String name)? layerRemoved,
     TResult? Function(String name)? layerElementsRemoved,
     TResult? Function(String name)? layerVisibilityChanged,
     TResult? Function(String name)? currentLayerChanged,
-    TResult? Function(String layer, List<int> elements)? elementsLayerChanged,
+    TResult? Function(String layer, List<String> elements)?
+        elementsLayerChanged,
     TResult? Function(String directory, String? remote, bool deleteDocument)?
         templateCreated,
     TResult? Function(List<Area> areas)? areasCreated,
@@ -19910,6 +20962,7 @@ class _$AnimationRemovedImpl extends AnimationRemoved {
         presentationModeEntered,
     TResult? Function()? presentationModeExited,
     TResult? Function(int tick)? presentationTick,
+    TResult? Function(String path, List<int> data)? assetUpdated,
   }) {
     return animationRemoved?.call(name);
   }
@@ -19927,9 +20980,9 @@ class _$AnimationRemovedImpl extends AnimationRemoved {
     TResult Function(ViewOption view)? viewChanged,
     TResult Function(UtilitiesState state)? utilitiesChanged,
     TResult Function(List<PadElement> elements)? elementsCreated,
-    TResult Function(Map<int, List<PadElement>> elements)? elementsChanged,
-    TResult Function(List<int> elements)? elementsRemoved,
-    TResult Function(Arrangement arrangement, List<int> elements)?
+    TResult Function(Map<String, List<PadElement>> elements)? elementsChanged,
+    TResult Function(List<String> elements)? elementsRemoved,
+    TResult Function(Arrangement arrangement, List<String> elements)?
         elementsArranged,
     TResult Function(String? name, String? description)?
         documentDescriptionChanged,
@@ -19940,14 +20993,15 @@ class _$AnimationRemovedImpl extends AnimationRemoved {
     TResult Function(int oldIndex, int newIndex)? toolReordered,
     TResult Function(List<Background> backgrounds)? documentBackgroundsChanged,
     TResult Function(Waypoint waypoint)? waypointCreated,
-    TResult Function(int index, String name)? waypointRenamed,
-    TResult Function(int index)? waypointRemoved,
+    TResult Function(String name, Waypoint waypoint)? waypointChanged,
+    TResult Function(String name)? waypointRemoved,
+    TResult Function(String name, int newIndex)? waypointReordered,
     TResult Function(String oldName, String newName)? layerRenamed,
     TResult Function(String name)? layerRemoved,
     TResult Function(String name)? layerElementsRemoved,
     TResult Function(String name)? layerVisibilityChanged,
     TResult Function(String name)? currentLayerChanged,
-    TResult Function(String layer, List<int> elements)? elementsLayerChanged,
+    TResult Function(String layer, List<String> elements)? elementsLayerChanged,
     TResult Function(String directory, String? remote, bool deleteDocument)?
         templateCreated,
     TResult Function(List<Area> areas)? areasCreated,
@@ -19968,6 +21022,7 @@ class _$AnimationRemovedImpl extends AnimationRemoved {
         presentationModeEntered,
     TResult Function()? presentationModeExited,
     TResult Function(int tick)? presentationTick,
+    TResult Function(String path, List<int> data)? assetUpdated,
     required TResult orElse(),
   }) {
     if (animationRemoved != null) {
@@ -20001,8 +21056,9 @@ class _$AnimationRemovedImpl extends AnimationRemoved {
     required TResult Function(DocumentBackgroundsChanged value)
         documentBackgroundsChanged,
     required TResult Function(WaypointCreated value) waypointCreated,
-    required TResult Function(WaypointRenamed value) waypointRenamed,
+    required TResult Function(WaypointChanged value) waypointChanged,
     required TResult Function(WaypointRemoved value) waypointRemoved,
+    required TResult Function(WaypointReordered value) waypointReordered,
     required TResult Function(LayerRenamed value) layerRenamed,
     required TResult Function(LayerRemoved value) layerRemoved,
     required TResult Function(LayerElementsRemoved value) layerElementsRemoved,
@@ -20030,6 +21086,7 @@ class _$AnimationRemovedImpl extends AnimationRemoved {
     required TResult Function(PresentationModeExited value)
         presentationModeExited,
     required TResult Function(PresentationTick value) presentationTick,
+    required TResult Function(AssetUpdated value) assetUpdated,
   }) {
     return animationRemoved(this);
   }
@@ -20059,8 +21116,9 @@ class _$AnimationRemovedImpl extends AnimationRemoved {
     TResult? Function(DocumentBackgroundsChanged value)?
         documentBackgroundsChanged,
     TResult? Function(WaypointCreated value)? waypointCreated,
-    TResult? Function(WaypointRenamed value)? waypointRenamed,
+    TResult? Function(WaypointChanged value)? waypointChanged,
     TResult? Function(WaypointRemoved value)? waypointRemoved,
+    TResult? Function(WaypointReordered value)? waypointReordered,
     TResult? Function(LayerRenamed value)? layerRenamed,
     TResult? Function(LayerRemoved value)? layerRemoved,
     TResult? Function(LayerElementsRemoved value)? layerElementsRemoved,
@@ -20085,6 +21143,7 @@ class _$AnimationRemovedImpl extends AnimationRemoved {
     TResult? Function(PresentationModeEntered value)? presentationModeEntered,
     TResult? Function(PresentationModeExited value)? presentationModeExited,
     TResult? Function(PresentationTick value)? presentationTick,
+    TResult? Function(AssetUpdated value)? assetUpdated,
   }) {
     return animationRemoved?.call(this);
   }
@@ -20114,8 +21173,9 @@ class _$AnimationRemovedImpl extends AnimationRemoved {
     TResult Function(DocumentBackgroundsChanged value)?
         documentBackgroundsChanged,
     TResult Function(WaypointCreated value)? waypointCreated,
-    TResult Function(WaypointRenamed value)? waypointRenamed,
+    TResult Function(WaypointChanged value)? waypointChanged,
     TResult Function(WaypointRemoved value)? waypointRemoved,
+    TResult Function(WaypointReordered value)? waypointReordered,
     TResult Function(LayerRenamed value)? layerRenamed,
     TResult Function(LayerRemoved value)? layerRemoved,
     TResult Function(LayerElementsRemoved value)? layerElementsRemoved,
@@ -20140,6 +21200,7 @@ class _$AnimationRemovedImpl extends AnimationRemoved {
     TResult Function(PresentationModeEntered value)? presentationModeEntered,
     TResult Function(PresentationModeExited value)? presentationModeExited,
     TResult Function(PresentationTick value)? presentationTick,
+    TResult Function(AssetUpdated value)? assetUpdated,
     required TResult orElse(),
   }) {
     if (animationRemoved != null) {
@@ -20275,10 +21336,10 @@ class _$PresentationModeEnteredImpl extends PresentationModeEntered {
     required TResult Function(ViewOption view) viewChanged,
     required TResult Function(UtilitiesState state) utilitiesChanged,
     required TResult Function(List<PadElement> elements) elementsCreated,
-    required TResult Function(Map<int, List<PadElement>> elements)
+    required TResult Function(Map<String, List<PadElement>> elements)
         elementsChanged,
-    required TResult Function(List<int> elements) elementsRemoved,
-    required TResult Function(Arrangement arrangement, List<int> elements)
+    required TResult Function(List<String> elements) elementsRemoved,
+    required TResult Function(Arrangement arrangement, List<String> elements)
         elementsArranged,
     required TResult Function(String? name, String? description)
         documentDescriptionChanged,
@@ -20290,14 +21351,15 @@ class _$PresentationModeEnteredImpl extends PresentationModeEntered {
     required TResult Function(List<Background> backgrounds)
         documentBackgroundsChanged,
     required TResult Function(Waypoint waypoint) waypointCreated,
-    required TResult Function(int index, String name) waypointRenamed,
-    required TResult Function(int index) waypointRemoved,
+    required TResult Function(String name, Waypoint waypoint) waypointChanged,
+    required TResult Function(String name) waypointRemoved,
+    required TResult Function(String name, int newIndex) waypointReordered,
     required TResult Function(String oldName, String newName) layerRenamed,
     required TResult Function(String name) layerRemoved,
     required TResult Function(String name) layerElementsRemoved,
     required TResult Function(String name) layerVisibilityChanged,
     required TResult Function(String name) currentLayerChanged,
-    required TResult Function(String layer, List<int> elements)
+    required TResult Function(String layer, List<String> elements)
         elementsLayerChanged,
     required TResult Function(
             String directory, String? remote, bool deleteDocument)
@@ -20323,6 +21385,7 @@ class _$PresentationModeEnteredImpl extends PresentationModeEntered {
         presentationModeEntered,
     required TResult Function() presentationModeExited,
     required TResult Function(int tick) presentationTick,
+    required TResult Function(String path, List<int> data) assetUpdated,
   }) {
     return presentationModeEntered(track, fullScreen);
   }
@@ -20340,9 +21403,9 @@ class _$PresentationModeEnteredImpl extends PresentationModeEntered {
     TResult? Function(ViewOption view)? viewChanged,
     TResult? Function(UtilitiesState state)? utilitiesChanged,
     TResult? Function(List<PadElement> elements)? elementsCreated,
-    TResult? Function(Map<int, List<PadElement>> elements)? elementsChanged,
-    TResult? Function(List<int> elements)? elementsRemoved,
-    TResult? Function(Arrangement arrangement, List<int> elements)?
+    TResult? Function(Map<String, List<PadElement>> elements)? elementsChanged,
+    TResult? Function(List<String> elements)? elementsRemoved,
+    TResult? Function(Arrangement arrangement, List<String> elements)?
         elementsArranged,
     TResult? Function(String? name, String? description)?
         documentDescriptionChanged,
@@ -20353,14 +21416,16 @@ class _$PresentationModeEnteredImpl extends PresentationModeEntered {
     TResult? Function(int oldIndex, int newIndex)? toolReordered,
     TResult? Function(List<Background> backgrounds)? documentBackgroundsChanged,
     TResult? Function(Waypoint waypoint)? waypointCreated,
-    TResult? Function(int index, String name)? waypointRenamed,
-    TResult? Function(int index)? waypointRemoved,
+    TResult? Function(String name, Waypoint waypoint)? waypointChanged,
+    TResult? Function(String name)? waypointRemoved,
+    TResult? Function(String name, int newIndex)? waypointReordered,
     TResult? Function(String oldName, String newName)? layerRenamed,
     TResult? Function(String name)? layerRemoved,
     TResult? Function(String name)? layerElementsRemoved,
     TResult? Function(String name)? layerVisibilityChanged,
     TResult? Function(String name)? currentLayerChanged,
-    TResult? Function(String layer, List<int> elements)? elementsLayerChanged,
+    TResult? Function(String layer, List<String> elements)?
+        elementsLayerChanged,
     TResult? Function(String directory, String? remote, bool deleteDocument)?
         templateCreated,
     TResult? Function(List<Area> areas)? areasCreated,
@@ -20381,6 +21446,7 @@ class _$PresentationModeEnteredImpl extends PresentationModeEntered {
         presentationModeEntered,
     TResult? Function()? presentationModeExited,
     TResult? Function(int tick)? presentationTick,
+    TResult? Function(String path, List<int> data)? assetUpdated,
   }) {
     return presentationModeEntered?.call(track, fullScreen);
   }
@@ -20398,9 +21464,9 @@ class _$PresentationModeEnteredImpl extends PresentationModeEntered {
     TResult Function(ViewOption view)? viewChanged,
     TResult Function(UtilitiesState state)? utilitiesChanged,
     TResult Function(List<PadElement> elements)? elementsCreated,
-    TResult Function(Map<int, List<PadElement>> elements)? elementsChanged,
-    TResult Function(List<int> elements)? elementsRemoved,
-    TResult Function(Arrangement arrangement, List<int> elements)?
+    TResult Function(Map<String, List<PadElement>> elements)? elementsChanged,
+    TResult Function(List<String> elements)? elementsRemoved,
+    TResult Function(Arrangement arrangement, List<String> elements)?
         elementsArranged,
     TResult Function(String? name, String? description)?
         documentDescriptionChanged,
@@ -20411,14 +21477,15 @@ class _$PresentationModeEnteredImpl extends PresentationModeEntered {
     TResult Function(int oldIndex, int newIndex)? toolReordered,
     TResult Function(List<Background> backgrounds)? documentBackgroundsChanged,
     TResult Function(Waypoint waypoint)? waypointCreated,
-    TResult Function(int index, String name)? waypointRenamed,
-    TResult Function(int index)? waypointRemoved,
+    TResult Function(String name, Waypoint waypoint)? waypointChanged,
+    TResult Function(String name)? waypointRemoved,
+    TResult Function(String name, int newIndex)? waypointReordered,
     TResult Function(String oldName, String newName)? layerRenamed,
     TResult Function(String name)? layerRemoved,
     TResult Function(String name)? layerElementsRemoved,
     TResult Function(String name)? layerVisibilityChanged,
     TResult Function(String name)? currentLayerChanged,
-    TResult Function(String layer, List<int> elements)? elementsLayerChanged,
+    TResult Function(String layer, List<String> elements)? elementsLayerChanged,
     TResult Function(String directory, String? remote, bool deleteDocument)?
         templateCreated,
     TResult Function(List<Area> areas)? areasCreated,
@@ -20439,6 +21506,7 @@ class _$PresentationModeEnteredImpl extends PresentationModeEntered {
         presentationModeEntered,
     TResult Function()? presentationModeExited,
     TResult Function(int tick)? presentationTick,
+    TResult Function(String path, List<int> data)? assetUpdated,
     required TResult orElse(),
   }) {
     if (presentationModeEntered != null) {
@@ -20472,8 +21540,9 @@ class _$PresentationModeEnteredImpl extends PresentationModeEntered {
     required TResult Function(DocumentBackgroundsChanged value)
         documentBackgroundsChanged,
     required TResult Function(WaypointCreated value) waypointCreated,
-    required TResult Function(WaypointRenamed value) waypointRenamed,
+    required TResult Function(WaypointChanged value) waypointChanged,
     required TResult Function(WaypointRemoved value) waypointRemoved,
+    required TResult Function(WaypointReordered value) waypointReordered,
     required TResult Function(LayerRenamed value) layerRenamed,
     required TResult Function(LayerRemoved value) layerRemoved,
     required TResult Function(LayerElementsRemoved value) layerElementsRemoved,
@@ -20501,6 +21570,7 @@ class _$PresentationModeEnteredImpl extends PresentationModeEntered {
     required TResult Function(PresentationModeExited value)
         presentationModeExited,
     required TResult Function(PresentationTick value) presentationTick,
+    required TResult Function(AssetUpdated value) assetUpdated,
   }) {
     return presentationModeEntered(this);
   }
@@ -20530,8 +21600,9 @@ class _$PresentationModeEnteredImpl extends PresentationModeEntered {
     TResult? Function(DocumentBackgroundsChanged value)?
         documentBackgroundsChanged,
     TResult? Function(WaypointCreated value)? waypointCreated,
-    TResult? Function(WaypointRenamed value)? waypointRenamed,
+    TResult? Function(WaypointChanged value)? waypointChanged,
     TResult? Function(WaypointRemoved value)? waypointRemoved,
+    TResult? Function(WaypointReordered value)? waypointReordered,
     TResult? Function(LayerRenamed value)? layerRenamed,
     TResult? Function(LayerRemoved value)? layerRemoved,
     TResult? Function(LayerElementsRemoved value)? layerElementsRemoved,
@@ -20556,6 +21627,7 @@ class _$PresentationModeEnteredImpl extends PresentationModeEntered {
     TResult? Function(PresentationModeEntered value)? presentationModeEntered,
     TResult? Function(PresentationModeExited value)? presentationModeExited,
     TResult? Function(PresentationTick value)? presentationTick,
+    TResult? Function(AssetUpdated value)? assetUpdated,
   }) {
     return presentationModeEntered?.call(this);
   }
@@ -20585,8 +21657,9 @@ class _$PresentationModeEnteredImpl extends PresentationModeEntered {
     TResult Function(DocumentBackgroundsChanged value)?
         documentBackgroundsChanged,
     TResult Function(WaypointCreated value)? waypointCreated,
-    TResult Function(WaypointRenamed value)? waypointRenamed,
+    TResult Function(WaypointChanged value)? waypointChanged,
     TResult Function(WaypointRemoved value)? waypointRemoved,
+    TResult Function(WaypointReordered value)? waypointReordered,
     TResult Function(LayerRenamed value)? layerRenamed,
     TResult Function(LayerRemoved value)? layerRemoved,
     TResult Function(LayerElementsRemoved value)? layerElementsRemoved,
@@ -20611,6 +21684,7 @@ class _$PresentationModeEnteredImpl extends PresentationModeEntered {
     TResult Function(PresentationModeEntered value)? presentationModeEntered,
     TResult Function(PresentationModeExited value)? presentationModeExited,
     TResult Function(PresentationTick value)? presentationTick,
+    TResult Function(AssetUpdated value)? assetUpdated,
     required TResult orElse(),
   }) {
     if (presentationModeEntered != null) {
@@ -20703,10 +21777,10 @@ class _$PresentationModeExitedImpl extends PresentationModeExited {
     required TResult Function(ViewOption view) viewChanged,
     required TResult Function(UtilitiesState state) utilitiesChanged,
     required TResult Function(List<PadElement> elements) elementsCreated,
-    required TResult Function(Map<int, List<PadElement>> elements)
+    required TResult Function(Map<String, List<PadElement>> elements)
         elementsChanged,
-    required TResult Function(List<int> elements) elementsRemoved,
-    required TResult Function(Arrangement arrangement, List<int> elements)
+    required TResult Function(List<String> elements) elementsRemoved,
+    required TResult Function(Arrangement arrangement, List<String> elements)
         elementsArranged,
     required TResult Function(String? name, String? description)
         documentDescriptionChanged,
@@ -20718,14 +21792,15 @@ class _$PresentationModeExitedImpl extends PresentationModeExited {
     required TResult Function(List<Background> backgrounds)
         documentBackgroundsChanged,
     required TResult Function(Waypoint waypoint) waypointCreated,
-    required TResult Function(int index, String name) waypointRenamed,
-    required TResult Function(int index) waypointRemoved,
+    required TResult Function(String name, Waypoint waypoint) waypointChanged,
+    required TResult Function(String name) waypointRemoved,
+    required TResult Function(String name, int newIndex) waypointReordered,
     required TResult Function(String oldName, String newName) layerRenamed,
     required TResult Function(String name) layerRemoved,
     required TResult Function(String name) layerElementsRemoved,
     required TResult Function(String name) layerVisibilityChanged,
     required TResult Function(String name) currentLayerChanged,
-    required TResult Function(String layer, List<int> elements)
+    required TResult Function(String layer, List<String> elements)
         elementsLayerChanged,
     required TResult Function(
             String directory, String? remote, bool deleteDocument)
@@ -20751,6 +21826,7 @@ class _$PresentationModeExitedImpl extends PresentationModeExited {
         presentationModeEntered,
     required TResult Function() presentationModeExited,
     required TResult Function(int tick) presentationTick,
+    required TResult Function(String path, List<int> data) assetUpdated,
   }) {
     return presentationModeExited();
   }
@@ -20768,9 +21844,9 @@ class _$PresentationModeExitedImpl extends PresentationModeExited {
     TResult? Function(ViewOption view)? viewChanged,
     TResult? Function(UtilitiesState state)? utilitiesChanged,
     TResult? Function(List<PadElement> elements)? elementsCreated,
-    TResult? Function(Map<int, List<PadElement>> elements)? elementsChanged,
-    TResult? Function(List<int> elements)? elementsRemoved,
-    TResult? Function(Arrangement arrangement, List<int> elements)?
+    TResult? Function(Map<String, List<PadElement>> elements)? elementsChanged,
+    TResult? Function(List<String> elements)? elementsRemoved,
+    TResult? Function(Arrangement arrangement, List<String> elements)?
         elementsArranged,
     TResult? Function(String? name, String? description)?
         documentDescriptionChanged,
@@ -20781,14 +21857,16 @@ class _$PresentationModeExitedImpl extends PresentationModeExited {
     TResult? Function(int oldIndex, int newIndex)? toolReordered,
     TResult? Function(List<Background> backgrounds)? documentBackgroundsChanged,
     TResult? Function(Waypoint waypoint)? waypointCreated,
-    TResult? Function(int index, String name)? waypointRenamed,
-    TResult? Function(int index)? waypointRemoved,
+    TResult? Function(String name, Waypoint waypoint)? waypointChanged,
+    TResult? Function(String name)? waypointRemoved,
+    TResult? Function(String name, int newIndex)? waypointReordered,
     TResult? Function(String oldName, String newName)? layerRenamed,
     TResult? Function(String name)? layerRemoved,
     TResult? Function(String name)? layerElementsRemoved,
     TResult? Function(String name)? layerVisibilityChanged,
     TResult? Function(String name)? currentLayerChanged,
-    TResult? Function(String layer, List<int> elements)? elementsLayerChanged,
+    TResult? Function(String layer, List<String> elements)?
+        elementsLayerChanged,
     TResult? Function(String directory, String? remote, bool deleteDocument)?
         templateCreated,
     TResult? Function(List<Area> areas)? areasCreated,
@@ -20809,6 +21887,7 @@ class _$PresentationModeExitedImpl extends PresentationModeExited {
         presentationModeEntered,
     TResult? Function()? presentationModeExited,
     TResult? Function(int tick)? presentationTick,
+    TResult? Function(String path, List<int> data)? assetUpdated,
   }) {
     return presentationModeExited?.call();
   }
@@ -20826,9 +21905,9 @@ class _$PresentationModeExitedImpl extends PresentationModeExited {
     TResult Function(ViewOption view)? viewChanged,
     TResult Function(UtilitiesState state)? utilitiesChanged,
     TResult Function(List<PadElement> elements)? elementsCreated,
-    TResult Function(Map<int, List<PadElement>> elements)? elementsChanged,
-    TResult Function(List<int> elements)? elementsRemoved,
-    TResult Function(Arrangement arrangement, List<int> elements)?
+    TResult Function(Map<String, List<PadElement>> elements)? elementsChanged,
+    TResult Function(List<String> elements)? elementsRemoved,
+    TResult Function(Arrangement arrangement, List<String> elements)?
         elementsArranged,
     TResult Function(String? name, String? description)?
         documentDescriptionChanged,
@@ -20839,14 +21918,15 @@ class _$PresentationModeExitedImpl extends PresentationModeExited {
     TResult Function(int oldIndex, int newIndex)? toolReordered,
     TResult Function(List<Background> backgrounds)? documentBackgroundsChanged,
     TResult Function(Waypoint waypoint)? waypointCreated,
-    TResult Function(int index, String name)? waypointRenamed,
-    TResult Function(int index)? waypointRemoved,
+    TResult Function(String name, Waypoint waypoint)? waypointChanged,
+    TResult Function(String name)? waypointRemoved,
+    TResult Function(String name, int newIndex)? waypointReordered,
     TResult Function(String oldName, String newName)? layerRenamed,
     TResult Function(String name)? layerRemoved,
     TResult Function(String name)? layerElementsRemoved,
     TResult Function(String name)? layerVisibilityChanged,
     TResult Function(String name)? currentLayerChanged,
-    TResult Function(String layer, List<int> elements)? elementsLayerChanged,
+    TResult Function(String layer, List<String> elements)? elementsLayerChanged,
     TResult Function(String directory, String? remote, bool deleteDocument)?
         templateCreated,
     TResult Function(List<Area> areas)? areasCreated,
@@ -20867,6 +21947,7 @@ class _$PresentationModeExitedImpl extends PresentationModeExited {
         presentationModeEntered,
     TResult Function()? presentationModeExited,
     TResult Function(int tick)? presentationTick,
+    TResult Function(String path, List<int> data)? assetUpdated,
     required TResult orElse(),
   }) {
     if (presentationModeExited != null) {
@@ -20900,8 +21981,9 @@ class _$PresentationModeExitedImpl extends PresentationModeExited {
     required TResult Function(DocumentBackgroundsChanged value)
         documentBackgroundsChanged,
     required TResult Function(WaypointCreated value) waypointCreated,
-    required TResult Function(WaypointRenamed value) waypointRenamed,
+    required TResult Function(WaypointChanged value) waypointChanged,
     required TResult Function(WaypointRemoved value) waypointRemoved,
+    required TResult Function(WaypointReordered value) waypointReordered,
     required TResult Function(LayerRenamed value) layerRenamed,
     required TResult Function(LayerRemoved value) layerRemoved,
     required TResult Function(LayerElementsRemoved value) layerElementsRemoved,
@@ -20929,6 +22011,7 @@ class _$PresentationModeExitedImpl extends PresentationModeExited {
     required TResult Function(PresentationModeExited value)
         presentationModeExited,
     required TResult Function(PresentationTick value) presentationTick,
+    required TResult Function(AssetUpdated value) assetUpdated,
   }) {
     return presentationModeExited(this);
   }
@@ -20958,8 +22041,9 @@ class _$PresentationModeExitedImpl extends PresentationModeExited {
     TResult? Function(DocumentBackgroundsChanged value)?
         documentBackgroundsChanged,
     TResult? Function(WaypointCreated value)? waypointCreated,
-    TResult? Function(WaypointRenamed value)? waypointRenamed,
+    TResult? Function(WaypointChanged value)? waypointChanged,
     TResult? Function(WaypointRemoved value)? waypointRemoved,
+    TResult? Function(WaypointReordered value)? waypointReordered,
     TResult? Function(LayerRenamed value)? layerRenamed,
     TResult? Function(LayerRemoved value)? layerRemoved,
     TResult? Function(LayerElementsRemoved value)? layerElementsRemoved,
@@ -20984,6 +22068,7 @@ class _$PresentationModeExitedImpl extends PresentationModeExited {
     TResult? Function(PresentationModeEntered value)? presentationModeEntered,
     TResult? Function(PresentationModeExited value)? presentationModeExited,
     TResult? Function(PresentationTick value)? presentationTick,
+    TResult? Function(AssetUpdated value)? assetUpdated,
   }) {
     return presentationModeExited?.call(this);
   }
@@ -21013,8 +22098,9 @@ class _$PresentationModeExitedImpl extends PresentationModeExited {
     TResult Function(DocumentBackgroundsChanged value)?
         documentBackgroundsChanged,
     TResult Function(WaypointCreated value)? waypointCreated,
-    TResult Function(WaypointRenamed value)? waypointRenamed,
+    TResult Function(WaypointChanged value)? waypointChanged,
     TResult Function(WaypointRemoved value)? waypointRemoved,
+    TResult Function(WaypointReordered value)? waypointReordered,
     TResult Function(LayerRenamed value)? layerRenamed,
     TResult Function(LayerRemoved value)? layerRemoved,
     TResult Function(LayerElementsRemoved value)? layerElementsRemoved,
@@ -21039,6 +22125,7 @@ class _$PresentationModeExitedImpl extends PresentationModeExited {
     TResult Function(PresentationModeEntered value)? presentationModeEntered,
     TResult Function(PresentationModeExited value)? presentationModeExited,
     TResult Function(PresentationTick value)? presentationTick,
+    TResult Function(AssetUpdated value)? assetUpdated,
     required TResult orElse(),
   }) {
     if (presentationModeExited != null) {
@@ -21147,10 +22234,10 @@ class _$PresentationTickImpl extends PresentationTick {
     required TResult Function(ViewOption view) viewChanged,
     required TResult Function(UtilitiesState state) utilitiesChanged,
     required TResult Function(List<PadElement> elements) elementsCreated,
-    required TResult Function(Map<int, List<PadElement>> elements)
+    required TResult Function(Map<String, List<PadElement>> elements)
         elementsChanged,
-    required TResult Function(List<int> elements) elementsRemoved,
-    required TResult Function(Arrangement arrangement, List<int> elements)
+    required TResult Function(List<String> elements) elementsRemoved,
+    required TResult Function(Arrangement arrangement, List<String> elements)
         elementsArranged,
     required TResult Function(String? name, String? description)
         documentDescriptionChanged,
@@ -21162,14 +22249,15 @@ class _$PresentationTickImpl extends PresentationTick {
     required TResult Function(List<Background> backgrounds)
         documentBackgroundsChanged,
     required TResult Function(Waypoint waypoint) waypointCreated,
-    required TResult Function(int index, String name) waypointRenamed,
-    required TResult Function(int index) waypointRemoved,
+    required TResult Function(String name, Waypoint waypoint) waypointChanged,
+    required TResult Function(String name) waypointRemoved,
+    required TResult Function(String name, int newIndex) waypointReordered,
     required TResult Function(String oldName, String newName) layerRenamed,
     required TResult Function(String name) layerRemoved,
     required TResult Function(String name) layerElementsRemoved,
     required TResult Function(String name) layerVisibilityChanged,
     required TResult Function(String name) currentLayerChanged,
-    required TResult Function(String layer, List<int> elements)
+    required TResult Function(String layer, List<String> elements)
         elementsLayerChanged,
     required TResult Function(
             String directory, String? remote, bool deleteDocument)
@@ -21195,6 +22283,7 @@ class _$PresentationTickImpl extends PresentationTick {
         presentationModeEntered,
     required TResult Function() presentationModeExited,
     required TResult Function(int tick) presentationTick,
+    required TResult Function(String path, List<int> data) assetUpdated,
   }) {
     return presentationTick(tick);
   }
@@ -21212,9 +22301,9 @@ class _$PresentationTickImpl extends PresentationTick {
     TResult? Function(ViewOption view)? viewChanged,
     TResult? Function(UtilitiesState state)? utilitiesChanged,
     TResult? Function(List<PadElement> elements)? elementsCreated,
-    TResult? Function(Map<int, List<PadElement>> elements)? elementsChanged,
-    TResult? Function(List<int> elements)? elementsRemoved,
-    TResult? Function(Arrangement arrangement, List<int> elements)?
+    TResult? Function(Map<String, List<PadElement>> elements)? elementsChanged,
+    TResult? Function(List<String> elements)? elementsRemoved,
+    TResult? Function(Arrangement arrangement, List<String> elements)?
         elementsArranged,
     TResult? Function(String? name, String? description)?
         documentDescriptionChanged,
@@ -21225,14 +22314,16 @@ class _$PresentationTickImpl extends PresentationTick {
     TResult? Function(int oldIndex, int newIndex)? toolReordered,
     TResult? Function(List<Background> backgrounds)? documentBackgroundsChanged,
     TResult? Function(Waypoint waypoint)? waypointCreated,
-    TResult? Function(int index, String name)? waypointRenamed,
-    TResult? Function(int index)? waypointRemoved,
+    TResult? Function(String name, Waypoint waypoint)? waypointChanged,
+    TResult? Function(String name)? waypointRemoved,
+    TResult? Function(String name, int newIndex)? waypointReordered,
     TResult? Function(String oldName, String newName)? layerRenamed,
     TResult? Function(String name)? layerRemoved,
     TResult? Function(String name)? layerElementsRemoved,
     TResult? Function(String name)? layerVisibilityChanged,
     TResult? Function(String name)? currentLayerChanged,
-    TResult? Function(String layer, List<int> elements)? elementsLayerChanged,
+    TResult? Function(String layer, List<String> elements)?
+        elementsLayerChanged,
     TResult? Function(String directory, String? remote, bool deleteDocument)?
         templateCreated,
     TResult? Function(List<Area> areas)? areasCreated,
@@ -21253,6 +22344,7 @@ class _$PresentationTickImpl extends PresentationTick {
         presentationModeEntered,
     TResult? Function()? presentationModeExited,
     TResult? Function(int tick)? presentationTick,
+    TResult? Function(String path, List<int> data)? assetUpdated,
   }) {
     return presentationTick?.call(tick);
   }
@@ -21270,9 +22362,9 @@ class _$PresentationTickImpl extends PresentationTick {
     TResult Function(ViewOption view)? viewChanged,
     TResult Function(UtilitiesState state)? utilitiesChanged,
     TResult Function(List<PadElement> elements)? elementsCreated,
-    TResult Function(Map<int, List<PadElement>> elements)? elementsChanged,
-    TResult Function(List<int> elements)? elementsRemoved,
-    TResult Function(Arrangement arrangement, List<int> elements)?
+    TResult Function(Map<String, List<PadElement>> elements)? elementsChanged,
+    TResult Function(List<String> elements)? elementsRemoved,
+    TResult Function(Arrangement arrangement, List<String> elements)?
         elementsArranged,
     TResult Function(String? name, String? description)?
         documentDescriptionChanged,
@@ -21283,14 +22375,15 @@ class _$PresentationTickImpl extends PresentationTick {
     TResult Function(int oldIndex, int newIndex)? toolReordered,
     TResult Function(List<Background> backgrounds)? documentBackgroundsChanged,
     TResult Function(Waypoint waypoint)? waypointCreated,
-    TResult Function(int index, String name)? waypointRenamed,
-    TResult Function(int index)? waypointRemoved,
+    TResult Function(String name, Waypoint waypoint)? waypointChanged,
+    TResult Function(String name)? waypointRemoved,
+    TResult Function(String name, int newIndex)? waypointReordered,
     TResult Function(String oldName, String newName)? layerRenamed,
     TResult Function(String name)? layerRemoved,
     TResult Function(String name)? layerElementsRemoved,
     TResult Function(String name)? layerVisibilityChanged,
     TResult Function(String name)? currentLayerChanged,
-    TResult Function(String layer, List<int> elements)? elementsLayerChanged,
+    TResult Function(String layer, List<String> elements)? elementsLayerChanged,
     TResult Function(String directory, String? remote, bool deleteDocument)?
         templateCreated,
     TResult Function(List<Area> areas)? areasCreated,
@@ -21311,6 +22404,7 @@ class _$PresentationTickImpl extends PresentationTick {
         presentationModeEntered,
     TResult Function()? presentationModeExited,
     TResult Function(int tick)? presentationTick,
+    TResult Function(String path, List<int> data)? assetUpdated,
     required TResult orElse(),
   }) {
     if (presentationTick != null) {
@@ -21344,8 +22438,9 @@ class _$PresentationTickImpl extends PresentationTick {
     required TResult Function(DocumentBackgroundsChanged value)
         documentBackgroundsChanged,
     required TResult Function(WaypointCreated value) waypointCreated,
-    required TResult Function(WaypointRenamed value) waypointRenamed,
+    required TResult Function(WaypointChanged value) waypointChanged,
     required TResult Function(WaypointRemoved value) waypointRemoved,
+    required TResult Function(WaypointReordered value) waypointReordered,
     required TResult Function(LayerRenamed value) layerRenamed,
     required TResult Function(LayerRemoved value) layerRemoved,
     required TResult Function(LayerElementsRemoved value) layerElementsRemoved,
@@ -21373,6 +22468,7 @@ class _$PresentationTickImpl extends PresentationTick {
     required TResult Function(PresentationModeExited value)
         presentationModeExited,
     required TResult Function(PresentationTick value) presentationTick,
+    required TResult Function(AssetUpdated value) assetUpdated,
   }) {
     return presentationTick(this);
   }
@@ -21402,8 +22498,9 @@ class _$PresentationTickImpl extends PresentationTick {
     TResult? Function(DocumentBackgroundsChanged value)?
         documentBackgroundsChanged,
     TResult? Function(WaypointCreated value)? waypointCreated,
-    TResult? Function(WaypointRenamed value)? waypointRenamed,
+    TResult? Function(WaypointChanged value)? waypointChanged,
     TResult? Function(WaypointRemoved value)? waypointRemoved,
+    TResult? Function(WaypointReordered value)? waypointReordered,
     TResult? Function(LayerRenamed value)? layerRenamed,
     TResult? Function(LayerRemoved value)? layerRemoved,
     TResult? Function(LayerElementsRemoved value)? layerElementsRemoved,
@@ -21428,6 +22525,7 @@ class _$PresentationTickImpl extends PresentationTick {
     TResult? Function(PresentationModeEntered value)? presentationModeEntered,
     TResult? Function(PresentationModeExited value)? presentationModeExited,
     TResult? Function(PresentationTick value)? presentationTick,
+    TResult? Function(AssetUpdated value)? assetUpdated,
   }) {
     return presentationTick?.call(this);
   }
@@ -21457,8 +22555,9 @@ class _$PresentationTickImpl extends PresentationTick {
     TResult Function(DocumentBackgroundsChanged value)?
         documentBackgroundsChanged,
     TResult Function(WaypointCreated value)? waypointCreated,
-    TResult Function(WaypointRenamed value)? waypointRenamed,
+    TResult Function(WaypointChanged value)? waypointChanged,
     TResult Function(WaypointRemoved value)? waypointRemoved,
+    TResult Function(WaypointReordered value)? waypointReordered,
     TResult Function(LayerRenamed value)? layerRenamed,
     TResult Function(LayerRemoved value)? layerRemoved,
     TResult Function(LayerElementsRemoved value)? layerElementsRemoved,
@@ -21483,6 +22582,7 @@ class _$PresentationTickImpl extends PresentationTick {
     TResult Function(PresentationModeEntered value)? presentationModeEntered,
     TResult Function(PresentationModeExited value)? presentationModeExited,
     TResult Function(PresentationTick value)? presentationTick,
+    TResult Function(AssetUpdated value)? assetUpdated,
     required TResult orElse(),
   }) {
     if (presentationTick != null) {
@@ -21509,5 +22609,484 @@ abstract class PresentationTick extends DocumentEvent {
   int get tick;
   @JsonKey(ignore: true)
   _$$PresentationTickImplCopyWith<_$PresentationTickImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$AssetUpdatedImplCopyWith<$Res> {
+  factory _$$AssetUpdatedImplCopyWith(
+          _$AssetUpdatedImpl value, $Res Function(_$AssetUpdatedImpl) then) =
+      __$$AssetUpdatedImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String path, List<int> data});
+}
+
+/// @nodoc
+class __$$AssetUpdatedImplCopyWithImpl<$Res>
+    extends _$DocumentEventCopyWithImpl<$Res, _$AssetUpdatedImpl>
+    implements _$$AssetUpdatedImplCopyWith<$Res> {
+  __$$AssetUpdatedImplCopyWithImpl(
+      _$AssetUpdatedImpl _value, $Res Function(_$AssetUpdatedImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? path = null,
+    Object? data = null,
+  }) {
+    return _then(_$AssetUpdatedImpl(
+      null == path
+          ? _value.path
+          : path // ignore: cast_nullable_to_non_nullable
+              as String,
+      null == data
+          ? _value._data
+          : data // ignore: cast_nullable_to_non_nullable
+              as List<int>,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$AssetUpdatedImpl extends AssetUpdated {
+  const _$AssetUpdatedImpl(this.path, final List<int> data,
+      {final String? $type})
+      : _data = data,
+        $type = $type ?? 'assetUpdated',
+        super._();
+
+  factory _$AssetUpdatedImpl.fromJson(Map<String, dynamic> json) =>
+      _$$AssetUpdatedImplFromJson(json);
+
+  @override
+  final String path;
+  final List<int> _data;
+  @override
+  List<int> get data {
+    if (_data is EqualUnmodifiableListView) return _data;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_data);
+  }
+
+  @JsonKey(name: 'type')
+  final String $type;
+
+  @override
+  String toString() {
+    return 'DocumentEvent.assetUpdated(path: $path, data: $data)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$AssetUpdatedImpl &&
+            (identical(other.path, path) || other.path == path) &&
+            const DeepCollectionEquality().equals(other._data, _data));
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  int get hashCode => Object.hash(
+      runtimeType, path, const DeepCollectionEquality().hash(_data));
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$AssetUpdatedImplCopyWith<_$AssetUpdatedImpl> get copyWith =>
+      __$$AssetUpdatedImplCopyWithImpl<_$AssetUpdatedImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(int? index, DocumentPage? page) pageAdded,
+    required TResult Function(String pageName) pageChanged,
+    required TResult Function(String page, int? newIndex) pageReordered,
+    required TResult Function(String oldName, String newName) pageRenamed,
+    required TResult Function(String page) pageRemoved,
+    required TResult Function(@Uint8ListJsonConverter() Uint8List data)
+        thumbnailCaptured,
+    required TResult Function(ViewOption view) viewChanged,
+    required TResult Function(UtilitiesState state) utilitiesChanged,
+    required TResult Function(List<PadElement> elements) elementsCreated,
+    required TResult Function(Map<String, List<PadElement>> elements)
+        elementsChanged,
+    required TResult Function(List<String> elements) elementsRemoved,
+    required TResult Function(Arrangement arrangement, List<String> elements)
+        elementsArranged,
+    required TResult Function(String? name, String? description)
+        documentDescriptionChanged,
+    required TResult Function(AssetLocation? location) documentSaved,
+    required TResult Function(Tool tool) toolCreated,
+    required TResult Function(Map<int, Tool> tools) toolsChanged,
+    required TResult Function(List<int> tools) toolsRemoved,
+    required TResult Function(int oldIndex, int newIndex) toolReordered,
+    required TResult Function(List<Background> backgrounds)
+        documentBackgroundsChanged,
+    required TResult Function(Waypoint waypoint) waypointCreated,
+    required TResult Function(String name, Waypoint waypoint) waypointChanged,
+    required TResult Function(String name) waypointRemoved,
+    required TResult Function(String name, int newIndex) waypointReordered,
+    required TResult Function(String oldName, String newName) layerRenamed,
+    required TResult Function(String name) layerRemoved,
+    required TResult Function(String name) layerElementsRemoved,
+    required TResult Function(String name) layerVisibilityChanged,
+    required TResult Function(String name) currentLayerChanged,
+    required TResult Function(String layer, List<String> elements)
+        elementsLayerChanged,
+    required TResult Function(
+            String directory, String? remote, bool deleteDocument)
+        templateCreated,
+    required TResult Function(List<Area> areas) areasCreated,
+    required TResult Function(List<String> areas) areasRemoved,
+    required TResult Function(String name, Area area) areaChanged,
+    required TResult Function(String name, int newIndex) areaReordered,
+    required TResult Function(String name) currentAreaChanged,
+    required TResult Function(String name, List<AreaPreset> areas)
+        exportPresetCreated,
+    required TResult Function(String name, List<AreaPreset> areas)
+        exportPresetUpdated,
+    required TResult Function(String name) exportPresetRemoved,
+    required TResult Function(NoteData pack) packAdded,
+    required TResult Function(String name, NoteData pack) packUpdated,
+    required TResult Function(String name) packRemoved,
+    required TResult Function(AnimationTrack animation) animationAdded,
+    required TResult Function(String name, AnimationTrack animation)
+        animationUpdated,
+    required TResult Function(String name) animationRemoved,
+    required TResult Function(AnimationTrack track, bool fullScreen)
+        presentationModeEntered,
+    required TResult Function() presentationModeExited,
+    required TResult Function(int tick) presentationTick,
+    required TResult Function(String path, List<int> data) assetUpdated,
+  }) {
+    return assetUpdated(path, data);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(int? index, DocumentPage? page)? pageAdded,
+    TResult? Function(String pageName)? pageChanged,
+    TResult? Function(String page, int? newIndex)? pageReordered,
+    TResult? Function(String oldName, String newName)? pageRenamed,
+    TResult? Function(String page)? pageRemoved,
+    TResult? Function(@Uint8ListJsonConverter() Uint8List data)?
+        thumbnailCaptured,
+    TResult? Function(ViewOption view)? viewChanged,
+    TResult? Function(UtilitiesState state)? utilitiesChanged,
+    TResult? Function(List<PadElement> elements)? elementsCreated,
+    TResult? Function(Map<String, List<PadElement>> elements)? elementsChanged,
+    TResult? Function(List<String> elements)? elementsRemoved,
+    TResult? Function(Arrangement arrangement, List<String> elements)?
+        elementsArranged,
+    TResult? Function(String? name, String? description)?
+        documentDescriptionChanged,
+    TResult? Function(AssetLocation? location)? documentSaved,
+    TResult? Function(Tool tool)? toolCreated,
+    TResult? Function(Map<int, Tool> tools)? toolsChanged,
+    TResult? Function(List<int> tools)? toolsRemoved,
+    TResult? Function(int oldIndex, int newIndex)? toolReordered,
+    TResult? Function(List<Background> backgrounds)? documentBackgroundsChanged,
+    TResult? Function(Waypoint waypoint)? waypointCreated,
+    TResult? Function(String name, Waypoint waypoint)? waypointChanged,
+    TResult? Function(String name)? waypointRemoved,
+    TResult? Function(String name, int newIndex)? waypointReordered,
+    TResult? Function(String oldName, String newName)? layerRenamed,
+    TResult? Function(String name)? layerRemoved,
+    TResult? Function(String name)? layerElementsRemoved,
+    TResult? Function(String name)? layerVisibilityChanged,
+    TResult? Function(String name)? currentLayerChanged,
+    TResult? Function(String layer, List<String> elements)?
+        elementsLayerChanged,
+    TResult? Function(String directory, String? remote, bool deleteDocument)?
+        templateCreated,
+    TResult? Function(List<Area> areas)? areasCreated,
+    TResult? Function(List<String> areas)? areasRemoved,
+    TResult? Function(String name, Area area)? areaChanged,
+    TResult? Function(String name, int newIndex)? areaReordered,
+    TResult? Function(String name)? currentAreaChanged,
+    TResult? Function(String name, List<AreaPreset> areas)? exportPresetCreated,
+    TResult? Function(String name, List<AreaPreset> areas)? exportPresetUpdated,
+    TResult? Function(String name)? exportPresetRemoved,
+    TResult? Function(NoteData pack)? packAdded,
+    TResult? Function(String name, NoteData pack)? packUpdated,
+    TResult? Function(String name)? packRemoved,
+    TResult? Function(AnimationTrack animation)? animationAdded,
+    TResult? Function(String name, AnimationTrack animation)? animationUpdated,
+    TResult? Function(String name)? animationRemoved,
+    TResult? Function(AnimationTrack track, bool fullScreen)?
+        presentationModeEntered,
+    TResult? Function()? presentationModeExited,
+    TResult? Function(int tick)? presentationTick,
+    TResult? Function(String path, List<int> data)? assetUpdated,
+  }) {
+    return assetUpdated?.call(path, data);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(int? index, DocumentPage? page)? pageAdded,
+    TResult Function(String pageName)? pageChanged,
+    TResult Function(String page, int? newIndex)? pageReordered,
+    TResult Function(String oldName, String newName)? pageRenamed,
+    TResult Function(String page)? pageRemoved,
+    TResult Function(@Uint8ListJsonConverter() Uint8List data)?
+        thumbnailCaptured,
+    TResult Function(ViewOption view)? viewChanged,
+    TResult Function(UtilitiesState state)? utilitiesChanged,
+    TResult Function(List<PadElement> elements)? elementsCreated,
+    TResult Function(Map<String, List<PadElement>> elements)? elementsChanged,
+    TResult Function(List<String> elements)? elementsRemoved,
+    TResult Function(Arrangement arrangement, List<String> elements)?
+        elementsArranged,
+    TResult Function(String? name, String? description)?
+        documentDescriptionChanged,
+    TResult Function(AssetLocation? location)? documentSaved,
+    TResult Function(Tool tool)? toolCreated,
+    TResult Function(Map<int, Tool> tools)? toolsChanged,
+    TResult Function(List<int> tools)? toolsRemoved,
+    TResult Function(int oldIndex, int newIndex)? toolReordered,
+    TResult Function(List<Background> backgrounds)? documentBackgroundsChanged,
+    TResult Function(Waypoint waypoint)? waypointCreated,
+    TResult Function(String name, Waypoint waypoint)? waypointChanged,
+    TResult Function(String name)? waypointRemoved,
+    TResult Function(String name, int newIndex)? waypointReordered,
+    TResult Function(String oldName, String newName)? layerRenamed,
+    TResult Function(String name)? layerRemoved,
+    TResult Function(String name)? layerElementsRemoved,
+    TResult Function(String name)? layerVisibilityChanged,
+    TResult Function(String name)? currentLayerChanged,
+    TResult Function(String layer, List<String> elements)? elementsLayerChanged,
+    TResult Function(String directory, String? remote, bool deleteDocument)?
+        templateCreated,
+    TResult Function(List<Area> areas)? areasCreated,
+    TResult Function(List<String> areas)? areasRemoved,
+    TResult Function(String name, Area area)? areaChanged,
+    TResult Function(String name, int newIndex)? areaReordered,
+    TResult Function(String name)? currentAreaChanged,
+    TResult Function(String name, List<AreaPreset> areas)? exportPresetCreated,
+    TResult Function(String name, List<AreaPreset> areas)? exportPresetUpdated,
+    TResult Function(String name)? exportPresetRemoved,
+    TResult Function(NoteData pack)? packAdded,
+    TResult Function(String name, NoteData pack)? packUpdated,
+    TResult Function(String name)? packRemoved,
+    TResult Function(AnimationTrack animation)? animationAdded,
+    TResult Function(String name, AnimationTrack animation)? animationUpdated,
+    TResult Function(String name)? animationRemoved,
+    TResult Function(AnimationTrack track, bool fullScreen)?
+        presentationModeEntered,
+    TResult Function()? presentationModeExited,
+    TResult Function(int tick)? presentationTick,
+    TResult Function(String path, List<int> data)? assetUpdated,
+    required TResult orElse(),
+  }) {
+    if (assetUpdated != null) {
+      return assetUpdated(path, data);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(PageAdded value) pageAdded,
+    required TResult Function(PageChanged value) pageChanged,
+    required TResult Function(PageReordered value) pageReordered,
+    required TResult Function(PageRenamed value) pageRenamed,
+    required TResult Function(PageRemoved value) pageRemoved,
+    required TResult Function(ThumbnailCaptured value) thumbnailCaptured,
+    required TResult Function(ViewChanged value) viewChanged,
+    required TResult Function(UtilitiesChanged value) utilitiesChanged,
+    required TResult Function(ElementsCreated value) elementsCreated,
+    required TResult Function(ElementsChanged value) elementsChanged,
+    required TResult Function(ElementsRemoved value) elementsRemoved,
+    required TResult Function(ElementsArranged value) elementsArranged,
+    required TResult Function(DocumentDescriptionChanged value)
+        documentDescriptionChanged,
+    required TResult Function(DocumentSaved value) documentSaved,
+    required TResult Function(ToolCreated value) toolCreated,
+    required TResult Function(ToolsChanged value) toolsChanged,
+    required TResult Function(ToolsRemoved value) toolsRemoved,
+    required TResult Function(ToolReordered value) toolReordered,
+    required TResult Function(DocumentBackgroundsChanged value)
+        documentBackgroundsChanged,
+    required TResult Function(WaypointCreated value) waypointCreated,
+    required TResult Function(WaypointChanged value) waypointChanged,
+    required TResult Function(WaypointRemoved value) waypointRemoved,
+    required TResult Function(WaypointReordered value) waypointReordered,
+    required TResult Function(LayerRenamed value) layerRenamed,
+    required TResult Function(LayerRemoved value) layerRemoved,
+    required TResult Function(LayerElementsRemoved value) layerElementsRemoved,
+    required TResult Function(LayerVisibilityChanged value)
+        layerVisibilityChanged,
+    required TResult Function(CurrentLayerChanged value) currentLayerChanged,
+    required TResult Function(ElementsLayerChanged value) elementsLayerChanged,
+    required TResult Function(TemplateCreated value) templateCreated,
+    required TResult Function(AreasCreated value) areasCreated,
+    required TResult Function(AreasRemoved value) areasRemoved,
+    required TResult Function(AreaChanged value) areaChanged,
+    required TResult Function(AreaReordered value) areaReordered,
+    required TResult Function(CurrentAreaChanged value) currentAreaChanged,
+    required TResult Function(ExportPresetCreated value) exportPresetCreated,
+    required TResult Function(ExportPresetUpdated value) exportPresetUpdated,
+    required TResult Function(ExportPresetRemoved value) exportPresetRemoved,
+    required TResult Function(PackAdded value) packAdded,
+    required TResult Function(PackUpdated value) packUpdated,
+    required TResult Function(PackRemoved value) packRemoved,
+    required TResult Function(AnimationAdded value) animationAdded,
+    required TResult Function(AnimationUpdated value) animationUpdated,
+    required TResult Function(AnimationRemoved value) animationRemoved,
+    required TResult Function(PresentationModeEntered value)
+        presentationModeEntered,
+    required TResult Function(PresentationModeExited value)
+        presentationModeExited,
+    required TResult Function(PresentationTick value) presentationTick,
+    required TResult Function(AssetUpdated value) assetUpdated,
+  }) {
+    return assetUpdated(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(PageAdded value)? pageAdded,
+    TResult? Function(PageChanged value)? pageChanged,
+    TResult? Function(PageReordered value)? pageReordered,
+    TResult? Function(PageRenamed value)? pageRenamed,
+    TResult? Function(PageRemoved value)? pageRemoved,
+    TResult? Function(ThumbnailCaptured value)? thumbnailCaptured,
+    TResult? Function(ViewChanged value)? viewChanged,
+    TResult? Function(UtilitiesChanged value)? utilitiesChanged,
+    TResult? Function(ElementsCreated value)? elementsCreated,
+    TResult? Function(ElementsChanged value)? elementsChanged,
+    TResult? Function(ElementsRemoved value)? elementsRemoved,
+    TResult? Function(ElementsArranged value)? elementsArranged,
+    TResult? Function(DocumentDescriptionChanged value)?
+        documentDescriptionChanged,
+    TResult? Function(DocumentSaved value)? documentSaved,
+    TResult? Function(ToolCreated value)? toolCreated,
+    TResult? Function(ToolsChanged value)? toolsChanged,
+    TResult? Function(ToolsRemoved value)? toolsRemoved,
+    TResult? Function(ToolReordered value)? toolReordered,
+    TResult? Function(DocumentBackgroundsChanged value)?
+        documentBackgroundsChanged,
+    TResult? Function(WaypointCreated value)? waypointCreated,
+    TResult? Function(WaypointChanged value)? waypointChanged,
+    TResult? Function(WaypointRemoved value)? waypointRemoved,
+    TResult? Function(WaypointReordered value)? waypointReordered,
+    TResult? Function(LayerRenamed value)? layerRenamed,
+    TResult? Function(LayerRemoved value)? layerRemoved,
+    TResult? Function(LayerElementsRemoved value)? layerElementsRemoved,
+    TResult? Function(LayerVisibilityChanged value)? layerVisibilityChanged,
+    TResult? Function(CurrentLayerChanged value)? currentLayerChanged,
+    TResult? Function(ElementsLayerChanged value)? elementsLayerChanged,
+    TResult? Function(TemplateCreated value)? templateCreated,
+    TResult? Function(AreasCreated value)? areasCreated,
+    TResult? Function(AreasRemoved value)? areasRemoved,
+    TResult? Function(AreaChanged value)? areaChanged,
+    TResult? Function(AreaReordered value)? areaReordered,
+    TResult? Function(CurrentAreaChanged value)? currentAreaChanged,
+    TResult? Function(ExportPresetCreated value)? exportPresetCreated,
+    TResult? Function(ExportPresetUpdated value)? exportPresetUpdated,
+    TResult? Function(ExportPresetRemoved value)? exportPresetRemoved,
+    TResult? Function(PackAdded value)? packAdded,
+    TResult? Function(PackUpdated value)? packUpdated,
+    TResult? Function(PackRemoved value)? packRemoved,
+    TResult? Function(AnimationAdded value)? animationAdded,
+    TResult? Function(AnimationUpdated value)? animationUpdated,
+    TResult? Function(AnimationRemoved value)? animationRemoved,
+    TResult? Function(PresentationModeEntered value)? presentationModeEntered,
+    TResult? Function(PresentationModeExited value)? presentationModeExited,
+    TResult? Function(PresentationTick value)? presentationTick,
+    TResult? Function(AssetUpdated value)? assetUpdated,
+  }) {
+    return assetUpdated?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(PageAdded value)? pageAdded,
+    TResult Function(PageChanged value)? pageChanged,
+    TResult Function(PageReordered value)? pageReordered,
+    TResult Function(PageRenamed value)? pageRenamed,
+    TResult Function(PageRemoved value)? pageRemoved,
+    TResult Function(ThumbnailCaptured value)? thumbnailCaptured,
+    TResult Function(ViewChanged value)? viewChanged,
+    TResult Function(UtilitiesChanged value)? utilitiesChanged,
+    TResult Function(ElementsCreated value)? elementsCreated,
+    TResult Function(ElementsChanged value)? elementsChanged,
+    TResult Function(ElementsRemoved value)? elementsRemoved,
+    TResult Function(ElementsArranged value)? elementsArranged,
+    TResult Function(DocumentDescriptionChanged value)?
+        documentDescriptionChanged,
+    TResult Function(DocumentSaved value)? documentSaved,
+    TResult Function(ToolCreated value)? toolCreated,
+    TResult Function(ToolsChanged value)? toolsChanged,
+    TResult Function(ToolsRemoved value)? toolsRemoved,
+    TResult Function(ToolReordered value)? toolReordered,
+    TResult Function(DocumentBackgroundsChanged value)?
+        documentBackgroundsChanged,
+    TResult Function(WaypointCreated value)? waypointCreated,
+    TResult Function(WaypointChanged value)? waypointChanged,
+    TResult Function(WaypointRemoved value)? waypointRemoved,
+    TResult Function(WaypointReordered value)? waypointReordered,
+    TResult Function(LayerRenamed value)? layerRenamed,
+    TResult Function(LayerRemoved value)? layerRemoved,
+    TResult Function(LayerElementsRemoved value)? layerElementsRemoved,
+    TResult Function(LayerVisibilityChanged value)? layerVisibilityChanged,
+    TResult Function(CurrentLayerChanged value)? currentLayerChanged,
+    TResult Function(ElementsLayerChanged value)? elementsLayerChanged,
+    TResult Function(TemplateCreated value)? templateCreated,
+    TResult Function(AreasCreated value)? areasCreated,
+    TResult Function(AreasRemoved value)? areasRemoved,
+    TResult Function(AreaChanged value)? areaChanged,
+    TResult Function(AreaReordered value)? areaReordered,
+    TResult Function(CurrentAreaChanged value)? currentAreaChanged,
+    TResult Function(ExportPresetCreated value)? exportPresetCreated,
+    TResult Function(ExportPresetUpdated value)? exportPresetUpdated,
+    TResult Function(ExportPresetRemoved value)? exportPresetRemoved,
+    TResult Function(PackAdded value)? packAdded,
+    TResult Function(PackUpdated value)? packUpdated,
+    TResult Function(PackRemoved value)? packRemoved,
+    TResult Function(AnimationAdded value)? animationAdded,
+    TResult Function(AnimationUpdated value)? animationUpdated,
+    TResult Function(AnimationRemoved value)? animationRemoved,
+    TResult Function(PresentationModeEntered value)? presentationModeEntered,
+    TResult Function(PresentationModeExited value)? presentationModeExited,
+    TResult Function(PresentationTick value)? presentationTick,
+    TResult Function(AssetUpdated value)? assetUpdated,
+    required TResult orElse(),
+  }) {
+    if (assetUpdated != null) {
+      return assetUpdated(this);
+    }
+    return orElse();
+  }
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$AssetUpdatedImplToJson(
+      this,
+    );
+  }
+}
+
+abstract class AssetUpdated extends DocumentEvent {
+  const factory AssetUpdated(final String path, final List<int> data) =
+      _$AssetUpdatedImpl;
+  const AssetUpdated._() : super._();
+
+  factory AssetUpdated.fromJson(Map<String, dynamic> json) =
+      _$AssetUpdatedImpl.fromJson;
+
+  String get path;
+  List<int> get data;
+  @JsonKey(ignore: true)
+  _$$AssetUpdatedImplCopyWith<_$AssetUpdatedImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

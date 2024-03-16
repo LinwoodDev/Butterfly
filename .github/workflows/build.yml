@@ -20,7 +20,7 @@ jobs:
         run: |
           FLUTTER_VERSION=$(cat ../FLUTTER_VERSION)
           echo "FLUTTER_VERSION=${FLUTTER_VERSION}" >> $GITHUB_ENV
-      - uses: subosito/flutter-action@v2
+      - uses: subosito/flutter-action@v2.12.0
         with:
           flutter-version: ${{ env.FLUTTER_VERSION }}
           channel: 'master'
@@ -67,7 +67,7 @@ jobs:
         run: |
           FLUTTER_VERSION=$(cat ../FLUTTER_VERSION)
           echo "FLUTTER_VERSION=${FLUTTER_VERSION}" >> $GITHUB_ENV
-      - uses: subosito/flutter-action@v2
+      - uses: subosito/flutter-action@v2.12.0
         with:
           flutter-version: ${{ env.FLUTTER_VERSION }}
           channel: 'master'
@@ -146,7 +146,7 @@ jobs:
         run: |
           FLUTTER_VERSION=$(cat ../FLUTTER_VERSION)
           echo "FLUTTER_VERSION=${FLUTTER_VERSION}" >> $GITHUB_ENV
-      - uses: subosito/flutter-action@v2
+      - uses: subosito/flutter-action@v2.12.0
         with:
           flutter-version: ${{ env.FLUTTER_VERSION }}
           channel: 'master'
@@ -257,7 +257,7 @@ jobs:
         run: |
           FLUTTER_VERSION=$(cat ../FLUTTER_VERSION)
           echo "FLUTTER_VERSION=${FLUTTER_VERSION}" >> $GITHUB_ENV
-      - uses: subosito/flutter-action@v2
+      - uses: subosito/flutter-action@v2.12.0
         with:
           flutter-version: ${{ env.FLUTTER_VERSION }}
           channel: 'master'
@@ -321,7 +321,7 @@ jobs:
         run: |
           FLUTTER_VERSION=$(cat ../FLUTTER_VERSION)
           echo "FLUTTER_VERSION=${FLUTTER_VERSION}" >> $GITHUB_ENV
-      - uses: subosito/flutter-action@v2
+      - uses: subosito/flutter-action@v2.12.0
         with:
           flutter-version: ${{ env.FLUTTER_VERSION }}
           channel: 'master'
@@ -376,7 +376,7 @@ jobs:
         run: |
           FLUTTER_VERSION=$(cat ../FLUTTER_VERSION)
           echo "FLUTTER_VERSION=${FLUTTER_VERSION}" >> $GITHUB_ENV
-      - uses: subosito/flutter-action@v2
+      - uses: subosito/flutter-action@v2.12.0
         with:
           flutter-version: ${{ env.FLUTTER_VERSION }}
           channel: 'master'
@@ -507,7 +507,7 @@ jobs:
           git pull --tags
       - name: 🚀 Deploy stable
         if: ${{ github.ref == 'refs/tags/stable' || (github.event_name == 'release' && !github.event.prerelease) }}
-        uses: softprops/action-gh-release@v1
+        uses: softprops/action-gh-release@v2
         continue-on-error: true
         with:
           prerelease: true
@@ -528,7 +528,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: 🚀 Deploy nightly
         if: ${{ github.ref == 'refs/tags/nightly' }}
-        uses: softprops/action-gh-release@v1
+        uses: softprops/action-gh-release@v2
         continue-on-error: true
         with:
           prerelease: true
@@ -548,7 +548,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Release
-        uses: softprops/action-gh-release@v1
+        uses: softprops/action-gh-release@v2
         continue-on-error: true
         if: startsWith(github.ref, 'refs/tags/v')
         with:
@@ -603,7 +603,7 @@ jobs:
         run: |
           FLUTTER_VERSION=$(cat ../FLUTTER_VERSION)
           echo "FLUTTER_VERSION=${FLUTTER_VERSION}" >> $GITHUB_ENV
-      - uses: subosito/flutter-action@v2
+      - uses: subosito/flutter-action@v2.12.0
         with:
           flutter-version: ${{ env.FLUTTER_VERSION }}
           channel: 'master'

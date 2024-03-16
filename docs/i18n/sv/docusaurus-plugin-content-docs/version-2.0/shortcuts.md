@@ -33,15 +33,24 @@ Några av dem är skrivna under knapparna.
 - `Ctrl` + `+`: Zooma in
 - `Ctrl` + `-`: Zooma ut
 
-## Stylus
+## Penna
 
-- `Primär knapp`: Ändra till handverktyg
-- `Sekundär knapp`: Ändra till andra verktyget
+Som standard är pennan konfigurerad att fungera som följande:
+
+- `Pen`: konfigurerad som penna.
+- `First` (Primär knapp, om det stöds): Ändra till handverktyg medan du trycker.
+- `Second` (Sekundär knapp, om det stöds): Ändra till andra verktyget (se avsnittet [configure](#configure) nedan) medan du tryckte på.
 
 ## Konfigurera {#configure}
 
-Anpassa kontrollerna genom att ge varje kontroll ett verktygsindex.
+Du kan anpassa kontrollerna genom att ge varje kontroll ett verktygsindex. Verktygsindexeringen börjar från vänster i verktygsfältet, med `1` som första index. Se exempel nedan
 
-- Låt det vara tomt för att inaktivera verktygsbrytaren på denna kontroll.
-- Sätt den till `0` för att aktivera flyttning med denna kontroll.
-- Set it to a positve number to switch to the tool with this index start from the first on the left starting with `1`. (Automatic Copy)
+![toolbar numrerad](toolbar_numbered.png)
+
+Här, 1 hänvisar till lasso verktyg, 2, till pan verktyg etc.
+
+Konfigurera alternativ du har är följande:
+
+- Tom - verktyget är unchaged.
+- 0 - verktyget kommer att fungera som rörligt (dvs hand) i detta mod.
+- Positivt tal - Verktyget kommer att följa indexeringen som förklarar ovan.

@@ -1,0 +1,6 @@
+* Add support for renaming the current page
+* Add advance button in quickstart
+* Fix folder fetching in web
+* Fix problems when changing to the same page
+
+Read more here: https://linwood.dev/butterfly/2.1.0-beta.3

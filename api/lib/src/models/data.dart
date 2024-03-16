@@ -30,6 +30,8 @@ class NoteDataState with _$NoteDataState {
   factory NoteDataState.fromJson(dynamic json) => _$NoteDataStateFromJson(json);
 }
 
+final Set<String> validAssetPaths = {kImagesArchiveDirectory};
+
 @immutable
 class NoteData {
   final Archive archive;

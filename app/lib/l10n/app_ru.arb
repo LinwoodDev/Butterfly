@@ -151,6 +151,8 @@
   "copy": "Копировать",
   "back": "Назад",
   "zoomDependent": "Зависимость от масштаба",
+  "shapeDetection": "Обнаружение фигур",
+  "delay": "Задержка",
   "defaultLayer": "Слой по умолчанию",
   "layer": "Слой",
   "layers": "Слои",
@@ -584,5 +586,8 @@
   "zoomControl": "Управление масштабом",
   "highContrast": "Высокий контраст",
   "shouldANumber": "Это значение должно быть действительным числом",
-  "autosave": "Autosave"
+  "createAreas": "Создать области",
+  "autosave": "Autosave",
+  "invert": "Invert",
+  "operations": "Операции"
 }

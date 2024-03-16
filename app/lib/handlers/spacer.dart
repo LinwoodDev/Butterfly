@@ -69,11 +69,10 @@ class SpacerHandler extends Handler<SpacerTool> {
   Future<void> onScaleEnd(ScaleEndDetails details, EventContext context) async {
     await _refreshRenderers(_startPosition!, context);
 
-    final content = context.getPage()?.content;
-    final elements = Map<int, List<PadElement>>.fromEntries(_renderers
+    final elements = Map<String, List<PadElement>>.fromEntries(_renderers
             ?.map(
               (e) => MapEntry(
-                content?.indexOf(e.element) ?? -1,
+                e.element.id,
                 [
                   e
                           .transform(
@@ -85,7 +84,6 @@ class SpacerHandler extends Handler<SpacerTool> {
                 ],
               ),
             )
-            .where((e) => e.key >= 0)
             .toList() ??
         []);
     _startPosition = null;

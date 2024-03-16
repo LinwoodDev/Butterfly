@@ -151,6 +151,8 @@
   "copy": "Копія",
   "back": "Відмінити",
   "zoomDependent": "Залежність масштабу",
+  "shapeDetection": "Визначення форми",
+  "delay": "Затримка",
   "defaultLayer": "Типовий шар",
   "layer": "Шар",
   "layers": "Шари",
@@ -584,5 +586,8 @@
   "zoomControl": "Управління масштабуванням",
   "highContrast": "Високий контраст",
   "shouldANumber": "Це значення має бути дійсним числом",
-  "autosave": "Autosave"
+  "createAreas": "Створення області",
+  "autosave": "Autosave",
+  "invert": "Invert",
+  "operations": "Операції"
 }

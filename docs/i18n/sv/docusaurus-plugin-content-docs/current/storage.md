@@ -19,7 +19,7 @@ Som standard sparar programmet data i din dokumentmapp i en undermapp som heter 
 
 ## Fjärrlagring {#remote}
 
-::::note
+:::note
 
 Denna funktion är inte tillgänglig på webben.
 
