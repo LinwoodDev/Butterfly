@@ -158,9 +158,15 @@ class _WindowButtonsState extends State<WindowButtons> with WindowListener {
         builder: (context, settings) {
           if (!kIsWeb && isWindow && !settings.nativeTitleBar) {
             return LayoutBuilder(
-              builder: (context, constraints) => Card(
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 4.0),
+              builder: (context, constraints) => Align(
+                alignment: Alignment.topRight,
+                child: Card(
+                  margin: EdgeInsets.zero,
+                  shape: const RoundedRectangleBorder(
+                    borderRadius: BorderRadius.only(
+                      bottomLeft: Radius.circular(8),
+                    ),
+                  ),
                   child: ConstrainedBox(
                     constraints: const BoxConstraints(maxHeight: 42),
                     child: Row(
@@ -248,9 +254,11 @@ class _WindowButtonsState extends State<WindowButtons> with WindowListener {
                                   tooltip: AppLocalizations.of(context).close,
                                   color: Colors.red,
                                   splashRadius: 20,
-                                  onPressed: () => windowManager.close(),
+                                  onPressed: () async {
+                                    windowManager.close();
+                                  },
                                 ),
-                              )
+                              ),
                             ]
                           ]
                               .map((e) => e is SizedBox

@@ -73,10 +73,12 @@ class ImportHandler extends Handler<ImportTool> {
           NoteData document, DocumentPage page, DocumentInfo info,
           [Area? currentArea]) =>
       _renderers
-          ?.take(3)
-          .map((e) => e.transform(position: _offset, relative: true) ?? e)
+          ?.map((e) => e.transform(position: _offset, relative: true) ?? e)
           .toList() ??
       [];
+
+  @override
+  bool get setupForegrounds => data.elements.length <= 8;
 
   @override
   MouseCursor get cursor => SystemMouseCursors.grabbing;

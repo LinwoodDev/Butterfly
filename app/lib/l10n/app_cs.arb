@@ -151,6 +151,8 @@
   "copy": "Kopírovat",
   "back": "Zpět",
   "zoomDependent": "Přiblížení závislé",
+  "shapeDetection": "Detekce tvarů",
+  "delay": "Zpoždění",
   "defaultLayer": "Výchozí vrstva",
   "layer": "Vrstva",
   "layers": "Vrstvy",
@@ -584,5 +586,8 @@
   "zoomControl": "Ovládání přiblížení",
   "highContrast": "Vysoký kontrast",
   "shouldANumber": "Tato hodnota by měla být platné číslo",
-  "autosave": "Autosave"
+  "createAreas": "Vytvořit oblasti",
+  "autosave": "Autosave",
+  "invert": "Invert",
+  "operations": "Operace"
 }

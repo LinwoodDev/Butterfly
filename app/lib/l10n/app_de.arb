@@ -151,6 +151,8 @@
   "copy": "Kopieren",
   "back": "Zurück",
   "zoomDependent": "Zoomabhängig",
+  "shapeDetection": "Formerkennung",
+  "delay": "Verzögerung",
   "defaultLayer": "Standard Ebene",
   "layer": "Ebene",
   "layers": "Ebenen",
@@ -584,5 +586,8 @@
   "zoomControl": "Zoom-Steuerung",
   "highContrast": "Hoher Kontrast",
   "shouldANumber": "Dieser Wert sollte eine gültige Zahl sein",
-  "autosave": "Autosave"
+  "createAreas": "Bereiche erstellen",
+  "autosave": "Autosave",
+  "invert": "Invert",
+  "operations": "Operationen"
 }

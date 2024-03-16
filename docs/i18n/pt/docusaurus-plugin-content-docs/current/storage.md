@@ -19,7 +19,7 @@ Como padrão, a aplicação salva os dados na pasta de documentos em uma subpast
 
 ## Armazenamento remoto {#remote}
 
-:::nota
+:::note
 
 Este recurso não está disponível na web.
 

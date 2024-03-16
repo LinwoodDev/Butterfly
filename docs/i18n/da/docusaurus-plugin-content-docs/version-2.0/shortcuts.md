@@ -33,15 +33,24 @@ Nogle af dem er skrevet under knapperne.
 - `Ctrl` + `+`: Zoom ind
 - `Ctrl` + `-`: Zoom ud
 
-## Stylus
+## Pen
 
-- `Primær knap`: Skift til håndværktøj
-- `Sekundær knap`: Skift til andet værktøj
+Som standard er pennen konfigureret til at fungere som følgende:
+
+- `Pen`: konfigureret som pen.
+- `Først` (Primær knap, hvis understøttet): Skift til håndværktøj under tryk.
+- `Sekund` (sekundær knap, hvis understøttet): Skift til andet værktøj (se [configure](#configure) sektion nedenfor) under tryk.
 
 ## Konfigurer {#configure}
 
-Tilpas kontrolelementerne ved at give hver kontrol et værktøjs indeks.
+Du kan tilpasse kontrolelementerne ved at give hver control et værktøjs indeks. Værktøjet indeksering starter fra venstre side af værktøjslinjen, hvor `1` er det første indeks. Se eksempel nedenfor
 
-- Lad det være tomt for at deaktivere værktøjsknappen på denne kontrol.
-- Sæt den til `0` for at aktivere bevægelse med denne kontrol.
-- Sæt det til et positvenummer for at skifte til værktøjet med dette indeks fra den første til venstre startende med `1`.
+![værktøjslinje nummereret](toolbar_numbered.png)
+
+Her refererer 1 til lassoværktøjet, 2, til pandeværktøjet osv.
+
+Indstillingsmulighederne du har er følgende:
+
+- Tom - værktøjet er unchaged.
+- 0 - værktøjet vil fungere som bevægende (dvs. hånd) i dette mod.
+- Positivt nummer - Værktøjet vil følge indekseringen som forklaret ovenfor.

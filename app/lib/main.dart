@@ -107,6 +107,7 @@ Future<void> main([List<String> args = const []]) async {
     // Use it only after calling `hiddenWindowAtLaunch`
     await windowManager.waitUntilReadyToShow(kWindowOptions).then((_) async {
       await windowManager.setResizable(true);
+      await windowManager.setPreventClose(false);
     });
   }
   final clipboardManager = await SysInfo.getClipboardManager();
@@ -388,3 +389,4 @@ const isNightly =
     flavor == 'nightly' || flavor == 'dev' || flavor == 'development';
 const shortApplicationName = isNightly ? 'Butterfly Nightly' : 'Butterfly';
 const applicationName = 'Linwood $shortApplicationName';
+const applicationMinorVersion = '2.1';

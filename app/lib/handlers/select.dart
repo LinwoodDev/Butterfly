@@ -11,11 +11,14 @@ class SelectHandler extends Handler<SelectTool> {
   SelectHandler(super.data);
 
   void transform(DocumentBloc bloc, SelectionTransformCorner? corner,
-      [List<Renderer<PadElement>>? next, bool duplicate = false]) {
+      {List<Renderer<PadElement>>? next,
+      bool duplicate = false,
+      Offset? position}) {
     _selected = next ?? _selected;
     _submitTransform(bloc);
     _updateSelectionRect();
-    _selectionManager.startTransformWithCorner(corner);
+    _selectionManager.startTransformWithCorner(
+        corner, position ?? _selectionManager.selection.center);
     _duplicate = duplicate;
     bloc.refresh();
   }
@@ -135,9 +138,8 @@ class SelectHandler extends Handler<SelectTool> {
     _selectionManager.deselect();
     bloc.add(_duplicate
         ? ElementsCreated(current!.map((e) => e.element).toList())
-        : ElementsChanged(Map.fromEntries(current!.mapIndexed((i, e) =>
-            MapEntry(state.page.content.indexOf(_selected[i].element),
-                [e.element])))));
+        : ElementsChanged(Map.fromEntries(current!.mapIndexed(
+            (i, e) => MapEntry(_selected[i].element.id, [e.element])))));
     return true;
   }
 
@@ -282,7 +284,8 @@ class SelectHandler extends Handler<SelectTool> {
         _selectionManager.shouldTransform(globalPos, cameraTransform.size);
     if (shouldTransform) {
       transform(context.getDocumentBloc(),
-          _selectionManager.getCornerHit(globalPos, cameraTransform.size));
+          _selectionManager.getCornerHit(globalPos, cameraTransform.size),
+          position: globalPos);
       return true;
     }
     context.refresh();
@@ -413,9 +416,7 @@ class SelectHandler extends Handler<SelectTool> {
     final state = bloc.state;
     if (state is! DocumentLoadSuccess) return;
     if (cut) {
-      bloc.add(ElementsRemoved(_selected
-          .map((r) => state.page.content.indexOf(r.element))
-          .toList()));
+      bloc.add(ElementsRemoved(_selected.map((r) => r.element.id).toList()));
     }
     final point = getSelectionRect()?.topLeft;
     if (point == null) return;
@@ -462,9 +463,9 @@ class SelectHandler extends Handler<SelectTool> {
           CallbackAction<DeleteCharacterIntent>(onInvoke: (intent) {
         final state = bloc.state;
         if (state is! DocumentLoadSuccess) return null;
-        context.read<DocumentBloc>().add(ElementsRemoved(_selected
-            .map((r) => state.page.content.indexOf(r.element))
-            .toList()));
+        context
+            .read<DocumentBloc>()
+            .add(ElementsRemoved(_selected.map((r) => r.element.id).toList()));
         _selected.clear();
         bloc.refresh();
         return null;

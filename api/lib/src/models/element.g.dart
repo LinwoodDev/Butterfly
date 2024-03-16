@@ -76,6 +76,9 @@ Map<String, dynamic> _$$DynamicElementConstraintsImplToJson(
 _$PenElementImpl _$$PenElementImplFromJson(Map json) => _$PenElementImpl(
       rotation: (json['rotation'] as num?)?.toDouble() ?? 0,
       layer: json['layer'] as String? ?? '',
+      id: json['id'] == null
+          ? ''
+          : const IdJsonConverter().fromJson(json['id'] as String?),
       zoom: (json['zoom'] as num?)?.toDouble(),
       points: (json['points'] as List<dynamic>?)
               ?.map((e) =>
@@ -97,6 +100,7 @@ Map<String, dynamic> _$$PenElementImplToJson(_$PenElementImpl instance) =>
     <String, dynamic>{
       'rotation': instance.rotation,
       'layer': instance.layer,
+      'id': const IdJsonConverter().toJson(instance.id),
       'zoom': instance.zoom,
       'points': instance.points.map((e) => e.toJson()).toList(),
       'property': instance.property.toJson(),
@@ -107,6 +111,9 @@ Map<String, dynamic> _$$PenElementImplToJson(_$PenElementImpl instance) =>
 _$TextElementImpl _$$TextElementImplFromJson(Map json) => _$TextElementImpl(
       rotation: (json['rotation'] as num?)?.toDouble() ?? 0,
       layer: json['layer'] as String? ?? '',
+      id: json['id'] == null
+          ? ''
+          : const IdJsonConverter().fromJson(json['id'] as String?),
       position: json['position'] == null
           ? const Point(0.0, 0.0)
           : const DoublePointJsonConverter().fromJson(json['position'] as Map),
@@ -132,6 +139,7 @@ Map<String, dynamic> _$$TextElementImplToJson(_$TextElementImpl instance) =>
     <String, dynamic>{
       'rotation': instance.rotation,
       'layer': instance.layer,
+      'id': const IdJsonConverter().toJson(instance.id),
       'position': const DoublePointJsonConverter().toJson(instance.position),
       'scale': instance.scale,
       'styleSheet': instance.styleSheet.toJson(),
@@ -146,6 +154,9 @@ _$MarkdownElementImpl _$$MarkdownElementImplFromJson(Map json) =>
     _$MarkdownElementImpl(
       rotation: (json['rotation'] as num?)?.toDouble() ?? 0,
       layer: json['layer'] as String? ?? '',
+      id: json['id'] == null
+          ? ''
+          : const IdJsonConverter().fromJson(json['id'] as String?),
       position: json['position'] == null
           ? const Point(0.0, 0.0)
           : const DoublePointJsonConverter().fromJson(json['position'] as Map),
@@ -176,6 +187,7 @@ Map<String, dynamic> _$$MarkdownElementImplToJson(
     <String, dynamic>{
       'rotation': instance.rotation,
       'layer': instance.layer,
+      'id': const IdJsonConverter().toJson(instance.id),
       'position': const DoublePointJsonConverter().toJson(instance.position),
       'scale': instance.scale,
       'styleSheet': instance.styleSheet.toJson(),
@@ -190,6 +202,9 @@ Map<String, dynamic> _$$MarkdownElementImplToJson(
 _$ImageElementImpl _$$ImageElementImplFromJson(Map json) => _$ImageElementImpl(
       rotation: (json['rotation'] as num?)?.toDouble() ?? 0,
       layer: json['layer'] as String? ?? '',
+      id: json['id'] == null
+          ? ''
+          : const IdJsonConverter().fromJson(json['id'] as String?),
       position: json['position'] == null
           ? const Point(0.0, 0.0)
           : const DoublePointJsonConverter().fromJson(json['position'] as Map),
@@ -211,6 +226,7 @@ Map<String, dynamic> _$$ImageElementImplToJson(_$ImageElementImpl instance) =>
     <String, dynamic>{
       'rotation': instance.rotation,
       'layer': instance.layer,
+      'id': const IdJsonConverter().toJson(instance.id),
       'position': const DoublePointJsonConverter().toJson(instance.position),
       'constraints': instance.constraints?.toJson(),
       'source': instance.source,
@@ -223,6 +239,9 @@ Map<String, dynamic> _$$ImageElementImplToJson(_$ImageElementImpl instance) =>
 _$SvgElementImpl _$$SvgElementImplFromJson(Map json) => _$SvgElementImpl(
       rotation: (json['rotation'] as num?)?.toDouble() ?? 0,
       layer: json['layer'] as String? ?? '',
+      id: json['id'] == null
+          ? ''
+          : const IdJsonConverter().fromJson(json['id'] as String?),
       position: json['position'] == null
           ? const Point(0.0, 0.0)
           : const DoublePointJsonConverter().fromJson(json['position'] as Map),
@@ -244,6 +263,7 @@ Map<String, dynamic> _$$SvgElementImplToJson(_$SvgElementImpl instance) =>
     <String, dynamic>{
       'rotation': instance.rotation,
       'layer': instance.layer,
+      'id': const IdJsonConverter().toJson(instance.id),
       'position': const DoublePointJsonConverter().toJson(instance.position),
       'constraints': instance.constraints?.toJson(),
       'source': instance.source,
@@ -256,6 +276,9 @@ Map<String, dynamic> _$$SvgElementImplToJson(_$SvgElementImpl instance) =>
 _$ShapeElementImpl _$$ShapeElementImplFromJson(Map json) => _$ShapeElementImpl(
       rotation: (json['rotation'] as num?)?.toDouble() ?? 0,
       layer: json['layer'] as String? ?? '',
+      id: json['id'] == null
+          ? ''
+          : const IdJsonConverter().fromJson(json['id'] as String?),
       firstPosition: json['firstPosition'] == null
           ? const Point(0.0, 0.0)
           : const DoublePointJsonConverter()
@@ -264,10 +287,6 @@ _$ShapeElementImpl _$$ShapeElementImplFromJson(Map json) => _$ShapeElementImpl(
           ? const Point(0.0, 0.0)
           : const DoublePointJsonConverter()
               .fromJson(json['secondPosition'] as Map),
-      thirdPosition: json['thirdPosition'] == null
-          ? const Point(0.0, 0.0)
-          : const DoublePointJsonConverter()
-              .fromJson(json['thirdPosition'] as Map),
       property: json['property'] == null
           ? const ShapeProperty(shape: RectangleShape())
           : ShapeProperty.fromJson(
@@ -283,12 +302,11 @@ Map<String, dynamic> _$$ShapeElementImplToJson(_$ShapeElementImpl instance) =>
     <String, dynamic>{
       'rotation': instance.rotation,
       'layer': instance.layer,
+      'id': const IdJsonConverter().toJson(instance.id),
       'firstPosition':
           const DoublePointJsonConverter().toJson(instance.firstPosition),
       'secondPosition':
           const DoublePointJsonConverter().toJson(instance.secondPosition),
-      'thirdPosition':
-          const DoublePointJsonConverter().toJson(instance.thirdPosition),
       'property': instance.property.toJson(),
       'extra': instance.extra,
       'type': instance.$type,
@@ -298,6 +316,9 @@ _$TextureElementImpl _$$TextureElementImplFromJson(Map json) =>
     _$TextureElementImpl(
       rotation: (json['rotation'] as num?)?.toDouble() ?? 0,
       layer: json['layer'] as String? ?? '',
+      id: json['id'] == null
+          ? ''
+          : const IdJsonConverter().fromJson(json['id'] as String?),
       texture: json['texture'] == null
           ? const SurfaceTexture.pattern()
           : SurfaceTexture.fromJson(
@@ -310,10 +331,6 @@ _$TextureElementImpl _$$TextureElementImplFromJson(Map json) =>
           ? const Point(0.0, 0.0)
           : const DoublePointJsonConverter()
               .fromJson(json['secondPosition'] as Map),
-      thirdPosition: json['thirdPosition'] == null
-          ? const Point(0.0, 0.0)
-          : const DoublePointJsonConverter()
-              .fromJson(json['thirdPosition'] as Map),
       extra: (json['extra'] as Map?)?.map(
             (k, e) => MapEntry(k as String, e),
           ) ??
@@ -326,13 +343,12 @@ Map<String, dynamic> _$$TextureElementImplToJson(
     <String, dynamic>{
       'rotation': instance.rotation,
       'layer': instance.layer,
+      'id': const IdJsonConverter().toJson(instance.id),
       'texture': instance.texture.toJson(),
       'firstPosition':
           const DoublePointJsonConverter().toJson(instance.firstPosition),
       'secondPosition':
           const DoublePointJsonConverter().toJson(instance.secondPosition),
-      'thirdPosition':
-          const DoublePointJsonConverter().toJson(instance.thirdPosition),
       'extra': instance.extra,
       'type': instance.$type,
     };

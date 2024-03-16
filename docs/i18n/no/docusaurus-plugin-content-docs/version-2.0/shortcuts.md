@@ -33,15 +33,24 @@ Noen av dem er skrevet under knappene.
 - `Ctrl` + `+`: Zoom inn
 - `Ctrl` + `-`: Zoom ut
 
-## Stylus
+## Penn
 
-- `Primær knapp`: bytt til håndverktøy
-- `Sekundær knapp`: Bytt til andre verktøy
+Som standard konfigureres pennen til å fungere som følgende:
+
+- En penn: konfigurert som penn.
+- `Først` (Primærknapp, hvis støttet): Bytt til håndverktøy mens du trykker.
+- `Sekund` (sekundærknapp, hvis støttet): Endre til andre verktøy (se [configure](#configure) seksjonen nedenfor) mens du trykkes.
 
 ## Konfigurer {#configure}
 
-Tilpass kontrollene ved å gi hver kontroll en verktøyindeks.
+Du kan tilpasse kontrollene ved å gi hver kontroll en verktøyindeks. Verktøyet som indekserer fra venstre av verktøylinjen, starter med at '1' er den første indeksen. Se eksempelet nedenfor
 
-- La den være tom for å deaktivere verktøybryteren på denne kontrollen.
-- Velg '0' for å aktivere flytting med denne kontrollen.
-- Sett den til et positve-tall for å bytte til verktøyet med denne indeksen starter fra den første til venstre med `1`.
+\==verktøylinje nummerert](toolbar_numbered.png)
+
+Her viser 1 til lassoverktøyet 2, til panserverktøyet osv.
+
+Konfigurere innstillingene du har er følgende:
+
+- Tom - verktøyet er ubelastet.
+- 0 - verktøyet fungerer som flytting (dvs. hånd) i denne moden.
+- Positivt nummer - Verktøyet vil følge indekseringen som forklarer ovenfor.

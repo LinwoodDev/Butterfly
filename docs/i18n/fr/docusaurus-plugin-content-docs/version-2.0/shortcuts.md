@@ -33,15 +33,24 @@ Certaines d'entre elles sont écrites sous les boutons.
 - `Ctrl` + `+`: Zoom avant
 - `Ctrl` + `-`: Zoom arrière
 
-## Stylus
+## Stylo
 
-- `Bouton principal`: Passer à l'outil main
-- `Bouton secondaire` : Passer au second outil
+Par défaut, le stylo est configuré pour fonctionner comme suit :
+
+- `Stylo`: configuré comme stylo.
+- `Premier` (Bouton primaire, si supporté) : Changer pour l'outil main pendant qu'il est pressé.
+- `Second` (bouton secondaire, si supporté) : Changer en deuxième outil (voir [configure](#configure) section ci-dessous) pendant qu'il est pressé.
 
 ## Configurer {#configure}
 
-Personnalisez les contrôles en donnant à chaque contrôle un index d'outil.
+Vous pouvez personnaliser les contrôles en donnant à chaque contrôle un index d'outil. L'indexation de l'outil commence à partir de la gauche de la barre d'outils, `1` étant le premier index. Voir l'exemple ci-dessous
 
-- Laissez vide pour désactiver le basculement de l'outil sur ce contrôle.
-- Définissez-le à `0` pour activer le déplacement avec ce contrôle.
-- Définissez le à un numéro de positve pour passer à l'outil avec cet index à partir du premier à gauche commençant par `1`.
+![toolbar numbered](toolbar_numbered.png)
+
+Ici, 1 fait référence à l'outil lasso, 2, à l'outil de poêle etc.
+
+Les options de configuration que vous avez sont les suivantes :
+
+- Vide - l'outil n'est pas chagé.
+- 0 - l'outil fonctionnera comme se déplaçant (c.-à-d. la main) dans ce mod.
+- Numéro positif - L'outil suivra l'indexation comme expliqué ci-dessus.

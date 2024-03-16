@@ -588,13 +588,7 @@ mixin _$PathShape {
             double bottomRightCornerRadius)
         rectangle,
     required TResult Function() line,
-    required TResult Function(
-            int fillColor,
-            double topLeftCornerRadius,
-            double topRightCornerRadius,
-            double bottomLeftCornerRadius,
-            double bottomRightCornerRadius)
-        triangle,
+    required TResult Function(int fillColor) triangle,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -608,13 +602,7 @@ mixin _$PathShape {
             double bottomRightCornerRadius)?
         rectangle,
     TResult? Function()? line,
-    TResult? Function(
-            int fillColor,
-            double topLeftCornerRadius,
-            double topRightCornerRadius,
-            double bottomLeftCornerRadius,
-            double bottomRightCornerRadius)?
-        triangle,
+    TResult? Function(int fillColor)? triangle,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -628,13 +616,7 @@ mixin _$PathShape {
             double bottomRightCornerRadius)?
         rectangle,
     TResult Function()? line,
-    TResult Function(
-            int fillColor,
-            double topLeftCornerRadius,
-            double topRightCornerRadius,
-            double bottomLeftCornerRadius,
-            double bottomRightCornerRadius)?
-        triangle,
+    TResult Function(int fillColor)? triangle,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -768,13 +750,7 @@ class _$CircleShapeImpl extends CircleShape {
             double bottomRightCornerRadius)
         rectangle,
     required TResult Function() line,
-    required TResult Function(
-            int fillColor,
-            double topLeftCornerRadius,
-            double topRightCornerRadius,
-            double bottomLeftCornerRadius,
-            double bottomRightCornerRadius)
-        triangle,
+    required TResult Function(int fillColor) triangle,
   }) {
     return circle(fillColor);
   }
@@ -791,13 +767,7 @@ class _$CircleShapeImpl extends CircleShape {
             double bottomRightCornerRadius)?
         rectangle,
     TResult? Function()? line,
-    TResult? Function(
-            int fillColor,
-            double topLeftCornerRadius,
-            double topRightCornerRadius,
-            double bottomLeftCornerRadius,
-            double bottomRightCornerRadius)?
-        triangle,
+    TResult? Function(int fillColor)? triangle,
   }) {
     return circle?.call(fillColor);
   }
@@ -814,13 +784,7 @@ class _$CircleShapeImpl extends CircleShape {
             double bottomRightCornerRadius)?
         rectangle,
     TResult Function()? line,
-    TResult Function(
-            int fillColor,
-            double topLeftCornerRadius,
-            double topRightCornerRadius,
-            double bottomLeftCornerRadius,
-            double bottomRightCornerRadius)?
-        triangle,
+    TResult Function(int fillColor)? triangle,
     required TResult orElse(),
   }) {
     if (circle != null) {
@@ -1025,13 +989,7 @@ class _$RectangleShapeImpl extends RectangleShape {
             double bottomRightCornerRadius)
         rectangle,
     required TResult Function() line,
-    required TResult Function(
-            int fillColor,
-            double topLeftCornerRadius,
-            double topRightCornerRadius,
-            double bottomLeftCornerRadius,
-            double bottomRightCornerRadius)
-        triangle,
+    required TResult Function(int fillColor) triangle,
   }) {
     return rectangle(fillColor, topLeftCornerRadius, topRightCornerRadius,
         bottomLeftCornerRadius, bottomRightCornerRadius);
@@ -1049,13 +1007,7 @@ class _$RectangleShapeImpl extends RectangleShape {
             double bottomRightCornerRadius)?
         rectangle,
     TResult? Function()? line,
-    TResult? Function(
-            int fillColor,
-            double topLeftCornerRadius,
-            double topRightCornerRadius,
-            double bottomLeftCornerRadius,
-            double bottomRightCornerRadius)?
-        triangle,
+    TResult? Function(int fillColor)? triangle,
   }) {
     return rectangle?.call(fillColor, topLeftCornerRadius, topRightCornerRadius,
         bottomLeftCornerRadius, bottomRightCornerRadius);
@@ -1073,13 +1025,7 @@ class _$RectangleShapeImpl extends RectangleShape {
             double bottomRightCornerRadius)?
         rectangle,
     TResult Function()? line,
-    TResult Function(
-            int fillColor,
-            double topLeftCornerRadius,
-            double topRightCornerRadius,
-            double bottomLeftCornerRadius,
-            double bottomRightCornerRadius)?
-        triangle,
+    TResult Function(int fillColor)? triangle,
     required TResult orElse(),
   }) {
     if (rectangle != null) {
@@ -1212,13 +1158,7 @@ class _$LineShapeImpl extends LineShape {
             double bottomRightCornerRadius)
         rectangle,
     required TResult Function() line,
-    required TResult Function(
-            int fillColor,
-            double topLeftCornerRadius,
-            double topRightCornerRadius,
-            double bottomLeftCornerRadius,
-            double bottomRightCornerRadius)
-        triangle,
+    required TResult Function(int fillColor) triangle,
   }) {
     return line();
   }
@@ -1235,13 +1175,7 @@ class _$LineShapeImpl extends LineShape {
             double bottomRightCornerRadius)?
         rectangle,
     TResult? Function()? line,
-    TResult? Function(
-            int fillColor,
-            double topLeftCornerRadius,
-            double topRightCornerRadius,
-            double bottomLeftCornerRadius,
-            double bottomRightCornerRadius)?
-        triangle,
+    TResult? Function(int fillColor)? triangle,
   }) {
     return line?.call();
   }
@@ -1258,13 +1192,7 @@ class _$LineShapeImpl extends LineShape {
             double bottomRightCornerRadius)?
         rectangle,
     TResult Function()? line,
-    TResult Function(
-            int fillColor,
-            double topLeftCornerRadius,
-            double topRightCornerRadius,
-            double bottomLeftCornerRadius,
-            double bottomRightCornerRadius)?
-        triangle,
+    TResult Function(int fillColor)? triangle,
     required TResult orElse(),
   }) {
     if (line != null) {
@@ -1332,12 +1260,7 @@ abstract class _$$TriangleShapeImplCopyWith<$Res> {
           _$TriangleShapeImpl value, $Res Function(_$TriangleShapeImpl) then) =
       __$$TriangleShapeImplCopyWithImpl<$Res>;
   @useResult
-  $Res call(
-      {int fillColor,
-      double topLeftCornerRadius,
-      double topRightCornerRadius,
-      double bottomLeftCornerRadius,
-      double bottomRightCornerRadius});
+  $Res call({int fillColor});
 }
 
 /// @nodoc
@@ -1352,32 +1275,12 @@ class __$$TriangleShapeImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? fillColor = null,
-    Object? topLeftCornerRadius = null,
-    Object? topRightCornerRadius = null,
-    Object? bottomLeftCornerRadius = null,
-    Object? bottomRightCornerRadius = null,
   }) {
     return _then(_$TriangleShapeImpl(
       fillColor: null == fillColor
           ? _value.fillColor
           : fillColor // ignore: cast_nullable_to_non_nullable
               as int,
-      topLeftCornerRadius: null == topLeftCornerRadius
-          ? _value.topLeftCornerRadius
-          : topLeftCornerRadius // ignore: cast_nullable_to_non_nullable
-              as double,
-      topRightCornerRadius: null == topRightCornerRadius
-          ? _value.topRightCornerRadius
-          : topRightCornerRadius // ignore: cast_nullable_to_non_nullable
-              as double,
-      bottomLeftCornerRadius: null == bottomLeftCornerRadius
-          ? _value.bottomLeftCornerRadius
-          : bottomLeftCornerRadius // ignore: cast_nullable_to_non_nullable
-              as double,
-      bottomRightCornerRadius: null == bottomRightCornerRadius
-          ? _value.bottomRightCornerRadius
-          : bottomRightCornerRadius // ignore: cast_nullable_to_non_nullable
-              as double,
     ));
   }
 }
@@ -1386,12 +1289,7 @@ class __$$TriangleShapeImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$TriangleShapeImpl extends TriangleShape {
   const _$TriangleShapeImpl(
-      {this.fillColor = BasicColors.transparent,
-      this.topLeftCornerRadius = 0,
-      this.topRightCornerRadius = 0,
-      this.bottomLeftCornerRadius = 0,
-      this.bottomRightCornerRadius = 0,
-      final String? $type})
+      {this.fillColor = BasicColors.transparent, final String? $type})
       : $type = $type ?? 'triangle',
         super._();
 
@@ -1401,25 +1299,13 @@ class _$TriangleShapeImpl extends TriangleShape {
   @override
   @JsonKey()
   final int fillColor;
-  @override
-  @JsonKey()
-  final double topLeftCornerRadius;
-  @override
-  @JsonKey()
-  final double topRightCornerRadius;
-  @override
-  @JsonKey()
-  final double bottomLeftCornerRadius;
-  @override
-  @JsonKey()
-  final double bottomRightCornerRadius;
 
   @JsonKey(name: 'type')
   final String $type;
 
   @override
   String toString() {
-    return 'PathShape.triangle(fillColor: $fillColor, topLeftCornerRadius: $topLeftCornerRadius, topRightCornerRadius: $topRightCornerRadius, bottomLeftCornerRadius: $bottomLeftCornerRadius, bottomRightCornerRadius: $bottomRightCornerRadius)';
+    return 'PathShape.triangle(fillColor: $fillColor)';
   }
 
   @override
@@ -1428,22 +1314,12 @@ class _$TriangleShapeImpl extends TriangleShape {
         (other.runtimeType == runtimeType &&
             other is _$TriangleShapeImpl &&
             (identical(other.fillColor, fillColor) ||
-                other.fillColor == fillColor) &&
-            (identical(other.topLeftCornerRadius, topLeftCornerRadius) ||
-                other.topLeftCornerRadius == topLeftCornerRadius) &&
-            (identical(other.topRightCornerRadius, topRightCornerRadius) ||
-                other.topRightCornerRadius == topRightCornerRadius) &&
-            (identical(other.bottomLeftCornerRadius, bottomLeftCornerRadius) ||
-                other.bottomLeftCornerRadius == bottomLeftCornerRadius) &&
-            (identical(
-                    other.bottomRightCornerRadius, bottomRightCornerRadius) ||
-                other.bottomRightCornerRadius == bottomRightCornerRadius));
+                other.fillColor == fillColor));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, fillColor, topLeftCornerRadius,
-      topRightCornerRadius, bottomLeftCornerRadius, bottomRightCornerRadius);
+  int get hashCode => Object.hash(runtimeType, fillColor);
 
   @JsonKey(ignore: true)
   @override
@@ -1463,16 +1339,9 @@ class _$TriangleShapeImpl extends TriangleShape {
             double bottomRightCornerRadius)
         rectangle,
     required TResult Function() line,
-    required TResult Function(
-            int fillColor,
-            double topLeftCornerRadius,
-            double topRightCornerRadius,
-            double bottomLeftCornerRadius,
-            double bottomRightCornerRadius)
-        triangle,
+    required TResult Function(int fillColor) triangle,
   }) {
-    return triangle(fillColor, topLeftCornerRadius, topRightCornerRadius,
-        bottomLeftCornerRadius, bottomRightCornerRadius);
+    return triangle(fillColor);
   }
 
   @override
@@ -1487,16 +1356,9 @@ class _$TriangleShapeImpl extends TriangleShape {
             double bottomRightCornerRadius)?
         rectangle,
     TResult? Function()? line,
-    TResult? Function(
-            int fillColor,
-            double topLeftCornerRadius,
-            double topRightCornerRadius,
-            double bottomLeftCornerRadius,
-            double bottomRightCornerRadius)?
-        triangle,
+    TResult? Function(int fillColor)? triangle,
   }) {
-    return triangle?.call(fillColor, topLeftCornerRadius, topRightCornerRadius,
-        bottomLeftCornerRadius, bottomRightCornerRadius);
+    return triangle?.call(fillColor);
   }
 
   @override
@@ -1511,18 +1373,11 @@ class _$TriangleShapeImpl extends TriangleShape {
             double bottomRightCornerRadius)?
         rectangle,
     TResult Function()? line,
-    TResult Function(
-            int fillColor,
-            double topLeftCornerRadius,
-            double topRightCornerRadius,
-            double bottomLeftCornerRadius,
-            double bottomRightCornerRadius)?
-        triangle,
+    TResult Function(int fillColor)? triangle,
     required TResult orElse(),
   }) {
     if (triangle != null) {
-      return triangle(fillColor, topLeftCornerRadius, topRightCornerRadius,
-          bottomLeftCornerRadius, bottomRightCornerRadius);
+      return triangle(fillColor);
     }
     return orElse();
   }
@@ -1573,22 +1428,13 @@ class _$TriangleShapeImpl extends TriangleShape {
 }
 
 abstract class TriangleShape extends PathShape {
-  const factory TriangleShape(
-      {final int fillColor,
-      final double topLeftCornerRadius,
-      final double topRightCornerRadius,
-      final double bottomLeftCornerRadius,
-      final double bottomRightCornerRadius}) = _$TriangleShapeImpl;
+  const factory TriangleShape({final int fillColor}) = _$TriangleShapeImpl;
   const TriangleShape._() : super._();
 
   factory TriangleShape.fromJson(Map<String, dynamic> json) =
       _$TriangleShapeImpl.fromJson;
 
   int get fillColor;
-  double get topLeftCornerRadius;
-  double get topRightCornerRadius;
-  double get bottomLeftCornerRadius;
-  double get bottomRightCornerRadius;
   @JsonKey(ignore: true)
   _$$TriangleShapeImplCopyWith<_$TriangleShapeImpl> get copyWith =>
       throw _privateConstructorUsedError;

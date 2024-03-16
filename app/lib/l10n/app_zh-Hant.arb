@@ -151,6 +151,8 @@
   "copy": "複製",
   "back": "返回",
   "zoomDependent": "隨應縮放",
+  "shapeDetection": "Shape Detection",
+  "delay": "Delay",
   "defaultLayer": "預設圖層",
   "layer": "圖層",
   "layers": "圖層",
@@ -584,5 +586,8 @@
   "zoomControl": "Zoom control",
   "highContrast": "High contrast",
   "shouldANumber": "This value should be valid number",
-  "autosave": "Autosave"
+  "createAreas": "Create areas",
+  "autosave": "Autosave",
+  "invert": "Invert",
+  "operations": "Operations"
 }

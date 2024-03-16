@@ -151,6 +151,8 @@
   "copy": "Kopiera",
   "back": "Tillbaka",
   "zoomDependent": "Zooma beroende",
+  "shapeDetection": "Form detektion",
+  "delay": "Fördröjning",
   "defaultLayer": "Förvalt lager",
   "layer": "Lager",
   "layers": "Lager",
@@ -584,5 +586,8 @@
   "zoomControl": "Zooma kontroll",
   "highContrast": "Hög kontrast",
   "shouldANumber": "Detta värde bör vara giltigt nummer",
-  "autosave": "Autosave"
+  "createAreas": "Skapa områden",
+  "autosave": "Autosave",
+  "invert": "Invert",
+  "operations": "Åtgärder"
 }

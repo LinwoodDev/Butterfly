@@ -10,11 +10,11 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 @immutable
 class PageDialogCallback {
   final List<int> pages;
-  final bool spreadToPages, createAreas;
   final double quality;
+  final bool spreadToPages, createAreas, background, invert;
 
-  const PageDialogCallback(
-      this.pages, this.quality, this.spreadToPages, this.createAreas);
+  const PageDialogCallback(this.pages, this.quality, this.spreadToPages,
+      this.createAreas, this.background, this.invert);
 }
 
 class PagesDialog extends StatefulWidget {
@@ -29,7 +29,10 @@ class _PagesDialogState extends State<PagesDialog> {
   List<int> _selected = const [];
   double _quality = 2.0;
   double _defaultQuality = 2.0;
-  bool _spreadToPages = false, _createAreas = true;
+  bool _spreadToPages = false,
+      _createAreas = true,
+      _background = true,
+      _invert = false;
 
   @override
   void initState() {
@@ -110,6 +113,16 @@ class _PagesDialogState extends State<PagesDialog> {
             onChanged: (value) => setState(() => _spreadToPages = value),
             title: Text(AppLocalizations.of(context).spreadToPages),
           ),
+          SwitchListTile(
+            value: _background,
+            onChanged: (value) => setState(() => _background = value),
+            title: Text(AppLocalizations.of(context).background),
+          ),
+          SwitchListTile(
+            value: _invert,
+            onChanged: (value) => setState(() => _invert = value),
+            title: Text(AppLocalizations.of(context).invert),
+          ),
           ExactSlider(
             onChanged: (value) => setState(() => _quality = value),
             defaultValue: _defaultQuality,
@@ -130,7 +143,12 @@ class _PagesDialogState extends State<PagesDialog> {
                 ElevatedButton(
                   child: Text(AppLocalizations.of(context).ok),
                   onPressed: () => Navigator.of(context).pop(PageDialogCallback(
-                      _selected, _quality, _spreadToPages, _createAreas)),
+                      _selected,
+                      _quality,
+                      _spreadToPages,
+                      _createAreas,
+                      _background,
+                      _invert)),
                 ),
               ],
             ),

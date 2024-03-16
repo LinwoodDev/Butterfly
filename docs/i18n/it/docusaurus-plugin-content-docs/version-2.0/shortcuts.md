@@ -33,15 +33,24 @@ Alcuni di loro sono scritti sotto i pulsanti.
 - `Ctrl` + `+`: Zoom avanti
 - `Ctrl` + `-`: Zoom indietro
 
-## Stylus
+## Penna
 
-- `Pulsante primario`: Cambia strumento a mano
-- `Pulsante secondario`: Passa al secondo strumento
+Per impostazione predefinita, la penna è configurata per funzionare come segue:
+
+- `Penna`: configurato come penna.
+- `First` (pulsante primario, se supportato): Cambia a mano mentre premuto lo strumento.
+- `Second` (Pulsante secondario, se supportato): Passa al secondo strumento (vedi sezione [configure](#configure) qui sotto) mentre premi.
 
 ## Configura {#configure}
 
-Personalizza i controlli dando ad ogni controllo un indice degli strumenti.
+È possibile personalizzare i controlli dando ad ogni controllo un indice degli strumenti. L'indicizzazione dello strumento inizia dalla sinistra della barra degli strumenti, con `1` che è il primo indice. Vedi esempio qui sotto
 
-- Lasciare vuoto per disabilitare lo strumento accendere questo controllo.
-- Impostalo su `0` per abilitare lo spostamento con questo controllo.
-- Impostalo su un numero di positve per passare allo strumento con questo indice a partire dal primo a sinistra che inizia con `1`.
+![toolbar numbered](toolbar_numbered.png)
+
+Qui, 1 si riferisce allo strumento del lao, 2, allo strumento della padella ecc.
+
+Le opzioni di configurazione che hai sono le seguenti:
+
+- Vuoto - lo strumento è incatenato.
+- 0 - lo strumento funzionerà come muoversi (cioè mano) in questa mod.
+- Numero positivo - Lo strumento seguirà l'indicizzazione come spiegato sopra.

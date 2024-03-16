@@ -164,6 +164,8 @@ abstract class Handler<T> {
           [Area? currentArea]) =>
       [];
 
+  bool get setupForegrounds => true;
+
   bool onRendererUpdated(
           DocumentPage page, Renderer old, List<Renderer> updated) =>
       false;

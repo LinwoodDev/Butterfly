@@ -5,24 +5,25 @@ slug: /intro
 sidebar_position: 1
 ---
 
+![Banner](/img/banner.png)
 
-![Başlık resmi](/img/banner.png)
+***
 
----
-
-> Butterfly, açık kaynaklı not uygulaması'na hoş geldiniz. Wiki'de gezinmek için kenar çubuğunu kullanın.
+> Butterfly, açık kaynaklı not uygulaması'na hoş geldiniz.
+> Wiki'de gezinmek için kenar çubuğunu kullanın.
 
 ## Başlarken
 
-Platformunuz için uygulamayı indirmek için [indir](/downloads)i ziyaret edin. Platformunuzu bulamıyorsanız [web sürümü](https://butterfly.linwood.dev)nü kullanın.
+Visit [the downloads](/downloads) to download the app for your platform.
+Use [web version](https://butterfly.linwood.dev) if you cannot find your platform.
 
 ## Ana Görünüm
 
-![Ana Görünüm](main.png)
+![Main view](main.png)
 
 Sol üst düğme ile belge listesine geri dönebilirsiniz. Belgenin adı sağında görüntülenecektir. Geri al, yinele ve dosya seçenekleri sağ üst köşededir.
 
 Bunun altında araç çubuğunu bulabilirsiniz. Solda, görüntüleme ve düzenleme modu arasında geçiş yapabilirsiniz. Tam da burada yakınlaştırma seçeneklerini bulacaksınız. Sağ üst köşede araç seçenekleri vardır.
 
 - Görünüm araç çubuğu seçenekleri; arka plan, dışa aktarma ve kaydetmedir.
-- The edit toolbar options are the tools. [Buradan](background) daha fazlasını bulabilirsiniz.
+- The edit toolbar options are the tools. You can find [here](background) more.

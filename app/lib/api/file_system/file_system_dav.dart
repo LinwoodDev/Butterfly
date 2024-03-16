@@ -219,19 +219,18 @@ class DavRemoteDocumentFileSystem extends DocumentRemoteSystem {
   @override
   Future<AppDocumentFile> importDocument(NoteData document,
       {String path = '', bool forceSync = false}) {
-    if (path.endsWith('/')) {
-      path = path.substring(0, path.length - 1);
-    }
+    path = normalizePath(path);
     return createFile('$path/${document.name}.bfly', document.save(),
         forceSync: forceSync);
   }
 
   @override
   Future<AppDocumentFile> createFile(String path, List<int> data,
-          {bool forceSync = false}) async =>
-      updateFile(await findAvailableName(path), data).then((_) =>
-          getAppDocumentFile(
-              AssetLocation(remote: remote.identifier, path: path), data));
+      {bool forceSync = false}) async {
+    final uniquePath = await findAvailableName(path);
+    return updateFile(uniquePath, data).then((_) => getAppDocumentFile(
+        AssetLocation(remote: remote.identifier, path: uniquePath), data));
+  }
 }
 
 class DavRemoteTemplateFileSystem extends TemplateRemoteSystem {

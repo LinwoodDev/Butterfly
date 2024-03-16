@@ -14,8 +14,7 @@ class LayerHandler extends Handler<LayerTool> {
         context.getDocumentBloc(),
         context.getCameraTransform(),
         data.strokeWidth / transform.size);
-    final content = state.page.content;
-    context.addDocumentEvent(ElementsLayerChanged(state.currentLayer,
-        hits.map((e) => content.indexOf(e.element)).toList()));
+    context.addDocumentEvent(ElementsLayerChanged(
+        state.currentLayer, hits.map((r) => r.element.id).toList()));
   }
 }

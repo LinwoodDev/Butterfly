@@ -9,7 +9,7 @@ Future<Uint8List?> getDataFromSource(NoteData document, String source) async {
     return null;
   }
   final uri = Uri.parse(source);
-  if (uri.scheme.isEmpty) {
+  if (!uri.hasScheme || uri.isScheme('file')) {
     final data = document.getAsset(uri.path);
     if (data == null) {
       return null;
