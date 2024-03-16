@@ -93,6 +93,7 @@ dependencies:
   markdown: ^7.2.1
   device_info_plus: ^9.1.2
   image: ^4.1.7
+  one_dollar_unistroke_recognizer: ^1.0.0
 dev_dependencies:
   flutter_native_splash: ^2.3.10
   #flutter_launcher_icons: ^0.11.0

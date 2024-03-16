@@ -935,6 +935,7 @@ mixin _$PadElement {
             String layer,
             @DoublePointJsonConverter() Point<double> firstPosition,
             @DoublePointJsonConverter() Point<double> secondPosition,
+            @DoublePointJsonConverter() Point<double> thirdPosition,
             ShapeProperty property,
             Map<String, dynamic> extra)
         shape,
@@ -944,6 +945,7 @@ mixin _$PadElement {
             SurfaceTexture texture,
             @DoublePointJsonConverter() Point<double> firstPosition,
             @DoublePointJsonConverter() Point<double> secondPosition,
+            @DoublePointJsonConverter() Point<double> thirdPosition,
             Map<String, dynamic> extra)
         texture,
   }) =>
@@ -1006,6 +1008,7 @@ mixin _$PadElement {
             String layer,
             @DoublePointJsonConverter() Point<double> firstPosition,
             @DoublePointJsonConverter() Point<double> secondPosition,
+            @DoublePointJsonConverter() Point<double> thirdPosition,
             ShapeProperty property,
             Map<String, dynamic> extra)?
         shape,
@@ -1015,6 +1018,7 @@ mixin _$PadElement {
             SurfaceTexture texture,
             @DoublePointJsonConverter() Point<double> firstPosition,
             @DoublePointJsonConverter() Point<double> secondPosition,
+            @DoublePointJsonConverter() Point<double> thirdPosition,
             Map<String, dynamic> extra)?
         texture,
   }) =>
@@ -1077,6 +1081,7 @@ mixin _$PadElement {
             String layer,
             @DoublePointJsonConverter() Point<double> firstPosition,
             @DoublePointJsonConverter() Point<double> secondPosition,
+            @DoublePointJsonConverter() Point<double> thirdPosition,
             ShapeProperty property,
             Map<String, dynamic> extra)?
         shape,
@@ -1086,6 +1091,7 @@ mixin _$PadElement {
             SurfaceTexture texture,
             @DoublePointJsonConverter() Point<double> firstPosition,
             @DoublePointJsonConverter() Point<double> secondPosition,
+            @DoublePointJsonConverter() Point<double> thirdPosition,
             Map<String, dynamic> extra)?
         texture,
     required TResult orElse(),
@@ -1358,6 +1364,7 @@ class _$PenElementImpl implements PenElement {
             String layer,
             @DoublePointJsonConverter() Point<double> firstPosition,
             @DoublePointJsonConverter() Point<double> secondPosition,
+            @DoublePointJsonConverter() Point<double> thirdPosition,
             ShapeProperty property,
             Map<String, dynamic> extra)
         shape,
@@ -1367,6 +1374,7 @@ class _$PenElementImpl implements PenElement {
             SurfaceTexture texture,
             @DoublePointJsonConverter() Point<double> firstPosition,
             @DoublePointJsonConverter() Point<double> secondPosition,
+            @DoublePointJsonConverter() Point<double> thirdPosition,
             Map<String, dynamic> extra)
         texture,
   }) {
@@ -1432,6 +1440,7 @@ class _$PenElementImpl implements PenElement {
             String layer,
             @DoublePointJsonConverter() Point<double> firstPosition,
             @DoublePointJsonConverter() Point<double> secondPosition,
+            @DoublePointJsonConverter() Point<double> thirdPosition,
             ShapeProperty property,
             Map<String, dynamic> extra)?
         shape,
@@ -1441,6 +1450,7 @@ class _$PenElementImpl implements PenElement {
             SurfaceTexture texture,
             @DoublePointJsonConverter() Point<double> firstPosition,
             @DoublePointJsonConverter() Point<double> secondPosition,
+            @DoublePointJsonConverter() Point<double> thirdPosition,
             Map<String, dynamic> extra)?
         texture,
   }) {
@@ -1506,6 +1516,7 @@ class _$PenElementImpl implements PenElement {
             String layer,
             @DoublePointJsonConverter() Point<double> firstPosition,
             @DoublePointJsonConverter() Point<double> secondPosition,
+            @DoublePointJsonConverter() Point<double> thirdPosition,
             ShapeProperty property,
             Map<String, dynamic> extra)?
         shape,
@@ -1515,6 +1526,7 @@ class _$PenElementImpl implements PenElement {
             SurfaceTexture texture,
             @DoublePointJsonConverter() Point<double> firstPosition,
             @DoublePointJsonConverter() Point<double> secondPosition,
+            @DoublePointJsonConverter() Point<double> thirdPosition,
             Map<String, dynamic> extra)?
         texture,
     required TResult orElse(),
@@ -1842,6 +1854,7 @@ class _$TextElementImpl with LabelElement implements TextElement {
             String layer,
             @DoublePointJsonConverter() Point<double> firstPosition,
             @DoublePointJsonConverter() Point<double> secondPosition,
+            @DoublePointJsonConverter() Point<double> thirdPosition,
             ShapeProperty property,
             Map<String, dynamic> extra)
         shape,
@@ -1851,6 +1864,7 @@ class _$TextElementImpl with LabelElement implements TextElement {
             SurfaceTexture texture,
             @DoublePointJsonConverter() Point<double> firstPosition,
             @DoublePointJsonConverter() Point<double> secondPosition,
+            @DoublePointJsonConverter() Point<double> thirdPosition,
             Map<String, dynamic> extra)
         texture,
   }) {
@@ -1917,6 +1931,7 @@ class _$TextElementImpl with LabelElement implements TextElement {
             String layer,
             @DoublePointJsonConverter() Point<double> firstPosition,
             @DoublePointJsonConverter() Point<double> secondPosition,
+            @DoublePointJsonConverter() Point<double> thirdPosition,
             ShapeProperty property,
             Map<String, dynamic> extra)?
         shape,
@@ -1926,6 +1941,7 @@ class _$TextElementImpl with LabelElement implements TextElement {
             SurfaceTexture texture,
             @DoublePointJsonConverter() Point<double> firstPosition,
             @DoublePointJsonConverter() Point<double> secondPosition,
+            @DoublePointJsonConverter() Point<double> thirdPosition,
             Map<String, dynamic> extra)?
         texture,
   }) {
@@ -1992,6 +2008,7 @@ class _$TextElementImpl with LabelElement implements TextElement {
             String layer,
             @DoublePointJsonConverter() Point<double> firstPosition,
             @DoublePointJsonConverter() Point<double> secondPosition,
+            @DoublePointJsonConverter() Point<double> thirdPosition,
             ShapeProperty property,
             Map<String, dynamic> extra)?
         shape,
@@ -2001,6 +2018,7 @@ class _$TextElementImpl with LabelElement implements TextElement {
             SurfaceTexture texture,
             @DoublePointJsonConverter() Point<double> firstPosition,
             @DoublePointJsonConverter() Point<double> secondPosition,
+            @DoublePointJsonConverter() Point<double> thirdPosition,
             Map<String, dynamic> extra)?
         texture,
     required TResult orElse(),
@@ -2347,6 +2365,7 @@ class _$MarkdownElementImpl with LabelElement implements MarkdownElement {
             String layer,
             @DoublePointJsonConverter() Point<double> firstPosition,
             @DoublePointJsonConverter() Point<double> secondPosition,
+            @DoublePointJsonConverter() Point<double> thirdPosition,
             ShapeProperty property,
             Map<String, dynamic> extra)
         shape,
@@ -2356,6 +2375,7 @@ class _$MarkdownElementImpl with LabelElement implements MarkdownElement {
             SurfaceTexture texture,
             @DoublePointJsonConverter() Point<double> firstPosition,
             @DoublePointJsonConverter() Point<double> secondPosition,
+            @DoublePointJsonConverter() Point<double> thirdPosition,
             Map<String, dynamic> extra)
         texture,
   }) {
@@ -2422,6 +2442,7 @@ class _$MarkdownElementImpl with LabelElement implements MarkdownElement {
             String layer,
             @DoublePointJsonConverter() Point<double> firstPosition,
             @DoublePointJsonConverter() Point<double> secondPosition,
+            @DoublePointJsonConverter() Point<double> thirdPosition,
             ShapeProperty property,
             Map<String, dynamic> extra)?
         shape,
@@ -2431,6 +2452,7 @@ class _$MarkdownElementImpl with LabelElement implements MarkdownElement {
             SurfaceTexture texture,
             @DoublePointJsonConverter() Point<double> firstPosition,
             @DoublePointJsonConverter() Point<double> secondPosition,
+            @DoublePointJsonConverter() Point<double> thirdPosition,
             Map<String, dynamic> extra)?
         texture,
   }) {
@@ -2497,6 +2519,7 @@ class _$MarkdownElementImpl with LabelElement implements MarkdownElement {
             String layer,
             @DoublePointJsonConverter() Point<double> firstPosition,
             @DoublePointJsonConverter() Point<double> secondPosition,
+            @DoublePointJsonConverter() Point<double> thirdPosition,
             ShapeProperty property,
             Map<String, dynamic> extra)?
         shape,
@@ -2506,6 +2529,7 @@ class _$MarkdownElementImpl with LabelElement implements MarkdownElement {
             SurfaceTexture texture,
             @DoublePointJsonConverter() Point<double> firstPosition,
             @DoublePointJsonConverter() Point<double> secondPosition,
+            @DoublePointJsonConverter() Point<double> thirdPosition,
             Map<String, dynamic> extra)?
         texture,
     required TResult orElse(),
@@ -2817,6 +2841,7 @@ class _$ImageElementImpl implements ImageElement {
             String layer,
             @DoublePointJsonConverter() Point<double> firstPosition,
             @DoublePointJsonConverter() Point<double> secondPosition,
+            @DoublePointJsonConverter() Point<double> thirdPosition,
             ShapeProperty property,
             Map<String, dynamic> extra)
         shape,
@@ -2826,6 +2851,7 @@ class _$ImageElementImpl implements ImageElement {
             SurfaceTexture texture,
             @DoublePointJsonConverter() Point<double> firstPosition,
             @DoublePointJsonConverter() Point<double> secondPosition,
+            @DoublePointJsonConverter() Point<double> thirdPosition,
             Map<String, dynamic> extra)
         texture,
   }) {
@@ -2892,6 +2918,7 @@ class _$ImageElementImpl implements ImageElement {
             String layer,
             @DoublePointJsonConverter() Point<double> firstPosition,
             @DoublePointJsonConverter() Point<double> secondPosition,
+            @DoublePointJsonConverter() Point<double> thirdPosition,
             ShapeProperty property,
             Map<String, dynamic> extra)?
         shape,
@@ -2901,6 +2928,7 @@ class _$ImageElementImpl implements ImageElement {
             SurfaceTexture texture,
             @DoublePointJsonConverter() Point<double> firstPosition,
             @DoublePointJsonConverter() Point<double> secondPosition,
+            @DoublePointJsonConverter() Point<double> thirdPosition,
             Map<String, dynamic> extra)?
         texture,
   }) {
@@ -2967,6 +2995,7 @@ class _$ImageElementImpl implements ImageElement {
             String layer,
             @DoublePointJsonConverter() Point<double> firstPosition,
             @DoublePointJsonConverter() Point<double> secondPosition,
+            @DoublePointJsonConverter() Point<double> thirdPosition,
             ShapeProperty property,
             Map<String, dynamic> extra)?
         shape,
@@ -2976,6 +3005,7 @@ class _$ImageElementImpl implements ImageElement {
             SurfaceTexture texture,
             @DoublePointJsonConverter() Point<double> firstPosition,
             @DoublePointJsonConverter() Point<double> secondPosition,
+            @DoublePointJsonConverter() Point<double> thirdPosition,
             Map<String, dynamic> extra)?
         texture,
     required TResult orElse(),
@@ -3283,6 +3313,7 @@ class _$SvgElementImpl implements SvgElement {
             String layer,
             @DoublePointJsonConverter() Point<double> firstPosition,
             @DoublePointJsonConverter() Point<double> secondPosition,
+            @DoublePointJsonConverter() Point<double> thirdPosition,
             ShapeProperty property,
             Map<String, dynamic> extra)
         shape,
@@ -3292,6 +3323,7 @@ class _$SvgElementImpl implements SvgElement {
             SurfaceTexture texture,
             @DoublePointJsonConverter() Point<double> firstPosition,
             @DoublePointJsonConverter() Point<double> secondPosition,
+            @DoublePointJsonConverter() Point<double> thirdPosition,
             Map<String, dynamic> extra)
         texture,
   }) {
@@ -3358,6 +3390,7 @@ class _$SvgElementImpl implements SvgElement {
             String layer,
             @DoublePointJsonConverter() Point<double> firstPosition,
             @DoublePointJsonConverter() Point<double> secondPosition,
+            @DoublePointJsonConverter() Point<double> thirdPosition,
             ShapeProperty property,
             Map<String, dynamic> extra)?
         shape,
@@ -3367,6 +3400,7 @@ class _$SvgElementImpl implements SvgElement {
             SurfaceTexture texture,
             @DoublePointJsonConverter() Point<double> firstPosition,
             @DoublePointJsonConverter() Point<double> secondPosition,
+            @DoublePointJsonConverter() Point<double> thirdPosition,
             Map<String, dynamic> extra)?
         texture,
   }) {
@@ -3433,6 +3467,7 @@ class _$SvgElementImpl implements SvgElement {
             String layer,
             @DoublePointJsonConverter() Point<double> firstPosition,
             @DoublePointJsonConverter() Point<double> secondPosition,
+            @DoublePointJsonConverter() Point<double> thirdPosition,
             ShapeProperty property,
             Map<String, dynamic> extra)?
         shape,
@@ -3442,6 +3477,7 @@ class _$SvgElementImpl implements SvgElement {
             SurfaceTexture texture,
             @DoublePointJsonConverter() Point<double> firstPosition,
             @DoublePointJsonConverter() Point<double> secondPosition,
+            @DoublePointJsonConverter() Point<double> thirdPosition,
             Map<String, dynamic> extra)?
         texture,
     required TResult orElse(),
@@ -3552,6 +3588,7 @@ abstract class _$$ShapeElementImplCopyWith<$Res>
       String layer,
       @DoublePointJsonConverter() Point<double> firstPosition,
       @DoublePointJsonConverter() Point<double> secondPosition,
+      @DoublePointJsonConverter() Point<double> thirdPosition,
       ShapeProperty property,
       Map<String, dynamic> extra});
 }
@@ -3571,6 +3608,7 @@ class __$$ShapeElementImplCopyWithImpl<$Res>
     Object? layer = null,
     Object? firstPosition = null,
     Object? secondPosition = null,
+    Object? thirdPosition = null,
     Object? property = freezed,
     Object? extra = null,
   }) {
@@ -3590,6 +3628,10 @@ class __$$ShapeElementImplCopyWithImpl<$Res>
       secondPosition: null == secondPosition
           ? _value.secondPosition
           : secondPosition // ignore: cast_nullable_to_non_nullable
+              as Point<double>,
+      thirdPosition: null == thirdPosition
+          ? _value.thirdPosition
+          : thirdPosition // ignore: cast_nullable_to_non_nullable
               as Point<double>,
       property: freezed == property
           ? _value.property
@@ -3611,6 +3653,7 @@ class _$ShapeElementImpl implements ShapeElement {
       this.layer = '',
       @DoublePointJsonConverter() this.firstPosition = const Point(0.0, 0.0),
       @DoublePointJsonConverter() this.secondPosition = const Point(0.0, 0.0),
+      @DoublePointJsonConverter() this.thirdPosition = const Point(0.0, 0.0),
       this.property = const ShapeProperty(shape: RectangleShape()),
       final Map<String, dynamic> extra = const {},
       final String? $type})
@@ -3636,6 +3679,10 @@ class _$ShapeElementImpl implements ShapeElement {
   final Point<double> secondPosition;
   @override
   @JsonKey()
+  @DoublePointJsonConverter()
+  final Point<double> thirdPosition;
+  @override
+  @JsonKey()
   final ShapeProperty property;
   final Map<String, dynamic> _extra;
   @override
@@ -3651,7 +3698,7 @@ class _$ShapeElementImpl implements ShapeElement {
 
   @override
   String toString() {
-    return 'PadElement.shape(rotation: $rotation, layer: $layer, firstPosition: $firstPosition, secondPosition: $secondPosition, property: $property, extra: $extra)';
+    return 'PadElement.shape(rotation: $rotation, layer: $layer, firstPosition: $firstPosition, secondPosition: $secondPosition, thirdPosition: $thirdPosition, property: $property, extra: $extra)';
   }
 
   @JsonKey(ignore: true)
@@ -3719,6 +3766,7 @@ class _$ShapeElementImpl implements ShapeElement {
             String layer,
             @DoublePointJsonConverter() Point<double> firstPosition,
             @DoublePointJsonConverter() Point<double> secondPosition,
+            @DoublePointJsonConverter() Point<double> thirdPosition,
             ShapeProperty property,
             Map<String, dynamic> extra)
         shape,
@@ -3728,11 +3776,12 @@ class _$ShapeElementImpl implements ShapeElement {
             SurfaceTexture texture,
             @DoublePointJsonConverter() Point<double> firstPosition,
             @DoublePointJsonConverter() Point<double> secondPosition,
+            @DoublePointJsonConverter() Point<double> thirdPosition,
             Map<String, dynamic> extra)
         texture,
   }) {
-    return shape(
-        rotation, layer, firstPosition, secondPosition, property, extra);
+    return shape(rotation, layer, firstPosition, secondPosition, thirdPosition,
+        property, extra);
   }
 
   @override
@@ -3794,6 +3843,7 @@ class _$ShapeElementImpl implements ShapeElement {
             String layer,
             @DoublePointJsonConverter() Point<double> firstPosition,
             @DoublePointJsonConverter() Point<double> secondPosition,
+            @DoublePointJsonConverter() Point<double> thirdPosition,
             ShapeProperty property,
             Map<String, dynamic> extra)?
         shape,
@@ -3803,11 +3853,12 @@ class _$ShapeElementImpl implements ShapeElement {
             SurfaceTexture texture,
             @DoublePointJsonConverter() Point<double> firstPosition,
             @DoublePointJsonConverter() Point<double> secondPosition,
+            @DoublePointJsonConverter() Point<double> thirdPosition,
             Map<String, dynamic> extra)?
         texture,
   }) {
-    return shape?.call(
-        rotation, layer, firstPosition, secondPosition, property, extra);
+    return shape?.call(rotation, layer, firstPosition, secondPosition,
+        thirdPosition, property, extra);
   }
 
   @override
@@ -3869,6 +3920,7 @@ class _$ShapeElementImpl implements ShapeElement {
             String layer,
             @DoublePointJsonConverter() Point<double> firstPosition,
             @DoublePointJsonConverter() Point<double> secondPosition,
+            @DoublePointJsonConverter() Point<double> thirdPosition,
             ShapeProperty property,
             Map<String, dynamic> extra)?
         shape,
@@ -3878,13 +3930,14 @@ class _$ShapeElementImpl implements ShapeElement {
             SurfaceTexture texture,
             @DoublePointJsonConverter() Point<double> firstPosition,
             @DoublePointJsonConverter() Point<double> secondPosition,
+            @DoublePointJsonConverter() Point<double> thirdPosition,
             Map<String, dynamic> extra)?
         texture,
     required TResult orElse(),
   }) {
     if (shape != null) {
-      return shape(
-          rotation, layer, firstPosition, secondPosition, property, extra);
+      return shape(rotation, layer, firstPosition, secondPosition,
+          thirdPosition, property, extra);
     }
     return orElse();
   }
@@ -3949,6 +4002,7 @@ abstract class ShapeElement implements PadElement {
       final String layer,
       @DoublePointJsonConverter() final Point<double> firstPosition,
       @DoublePointJsonConverter() final Point<double> secondPosition,
+      @DoublePointJsonConverter() final Point<double> thirdPosition,
       final ShapeProperty property,
       final Map<String, dynamic> extra}) = _$ShapeElementImpl;
 
@@ -3963,6 +4017,8 @@ abstract class ShapeElement implements PadElement {
   Point<double> get firstPosition;
   @DoublePointJsonConverter()
   Point<double> get secondPosition;
+  @DoublePointJsonConverter()
+  Point<double> get thirdPosition;
   ShapeProperty get property;
   @override
   Map<String, dynamic> get extra;
@@ -3986,6 +4042,7 @@ abstract class _$$TextureElementImplCopyWith<$Res>
       SurfaceTexture texture,
       @DoublePointJsonConverter() Point<double> firstPosition,
       @DoublePointJsonConverter() Point<double> secondPosition,
+      @DoublePointJsonConverter() Point<double> thirdPosition,
       Map<String, dynamic> extra});
 
   $SurfaceTextureCopyWith<$Res> get texture;
@@ -4007,6 +4064,7 @@ class __$$TextureElementImplCopyWithImpl<$Res>
     Object? texture = null,
     Object? firstPosition = null,
     Object? secondPosition = null,
+    Object? thirdPosition = null,
     Object? extra = null,
   }) {
     return _then(_$TextureElementImpl(
@@ -4029,6 +4087,10 @@ class __$$TextureElementImplCopyWithImpl<$Res>
       secondPosition: null == secondPosition
           ? _value.secondPosition
           : secondPosition // ignore: cast_nullable_to_non_nullable
+              as Point<double>,
+      thirdPosition: null == thirdPosition
+          ? _value.thirdPosition
+          : thirdPosition // ignore: cast_nullable_to_non_nullable
               as Point<double>,
       extra: null == extra
           ? _value._extra
@@ -4055,6 +4117,7 @@ class _$TextureElementImpl implements TextureElement {
       this.texture = const SurfaceTexture.pattern(),
       @DoublePointJsonConverter() this.firstPosition = const Point(0.0, 0.0),
       @DoublePointJsonConverter() this.secondPosition = const Point(0.0, 0.0),
+      @DoublePointJsonConverter() this.thirdPosition = const Point(0.0, 0.0),
       final Map<String, dynamic> extra = const {},
       final String? $type})
       : _extra = extra,
@@ -4080,6 +4143,10 @@ class _$TextureElementImpl implements TextureElement {
   @JsonKey()
   @DoublePointJsonConverter()
   final Point<double> secondPosition;
+  @override
+  @JsonKey()
+  @DoublePointJsonConverter()
+  final Point<double> thirdPosition;
   final Map<String, dynamic> _extra;
   @override
   @JsonKey()
@@ -4094,7 +4161,7 @@ class _$TextureElementImpl implements TextureElement {
 
   @override
   String toString() {
-    return 'PadElement.texture(rotation: $rotation, layer: $layer, texture: $texture, firstPosition: $firstPosition, secondPosition: $secondPosition, extra: $extra)';
+    return 'PadElement.texture(rotation: $rotation, layer: $layer, texture: $texture, firstPosition: $firstPosition, secondPosition: $secondPosition, thirdPosition: $thirdPosition, extra: $extra)';
   }
 
   @JsonKey(ignore: true)
@@ -4163,6 +4230,7 @@ class _$TextureElementImpl implements TextureElement {
             String layer,
             @DoublePointJsonConverter() Point<double> firstPosition,
             @DoublePointJsonConverter() Point<double> secondPosition,
+            @DoublePointJsonConverter() Point<double> thirdPosition,
             ShapeProperty property,
             Map<String, dynamic> extra)
         shape,
@@ -4172,11 +4240,12 @@ class _$TextureElementImpl implements TextureElement {
             SurfaceTexture texture,
             @DoublePointJsonConverter() Point<double> firstPosition,
             @DoublePointJsonConverter() Point<double> secondPosition,
+            @DoublePointJsonConverter() Point<double> thirdPosition,
             Map<String, dynamic> extra)
         texture,
   }) {
-    return texture(
-        rotation, layer, this.texture, firstPosition, secondPosition, extra);
+    return texture(rotation, layer, this.texture, firstPosition, secondPosition,
+        thirdPosition, extra);
   }
 
   @override
@@ -4238,6 +4307,7 @@ class _$TextureElementImpl implements TextureElement {
             String layer,
             @DoublePointJsonConverter() Point<double> firstPosition,
             @DoublePointJsonConverter() Point<double> secondPosition,
+            @DoublePointJsonConverter() Point<double> thirdPosition,
             ShapeProperty property,
             Map<String, dynamic> extra)?
         shape,
@@ -4247,11 +4317,12 @@ class _$TextureElementImpl implements TextureElement {
             SurfaceTexture texture,
             @DoublePointJsonConverter() Point<double> firstPosition,
             @DoublePointJsonConverter() Point<double> secondPosition,
+            @DoublePointJsonConverter() Point<double> thirdPosition,
             Map<String, dynamic> extra)?
         texture,
   }) {
-    return texture?.call(
-        rotation, layer, this.texture, firstPosition, secondPosition, extra);
+    return texture?.call(rotation, layer, this.texture, firstPosition,
+        secondPosition, thirdPosition, extra);
   }
 
   @override
@@ -4313,6 +4384,7 @@ class _$TextureElementImpl implements TextureElement {
             String layer,
             @DoublePointJsonConverter() Point<double> firstPosition,
             @DoublePointJsonConverter() Point<double> secondPosition,
+            @DoublePointJsonConverter() Point<double> thirdPosition,
             ShapeProperty property,
             Map<String, dynamic> extra)?
         shape,
@@ -4322,13 +4394,14 @@ class _$TextureElementImpl implements TextureElement {
             SurfaceTexture texture,
             @DoublePointJsonConverter() Point<double> firstPosition,
             @DoublePointJsonConverter() Point<double> secondPosition,
+            @DoublePointJsonConverter() Point<double> thirdPosition,
             Map<String, dynamic> extra)?
         texture,
     required TResult orElse(),
   }) {
     if (texture != null) {
-      return texture(
-          rotation, layer, this.texture, firstPosition, secondPosition, extra);
+      return texture(rotation, layer, this.texture, firstPosition,
+          secondPosition, thirdPosition, extra);
     }
     return orElse();
   }
@@ -4394,6 +4467,7 @@ abstract class TextureElement implements PadElement {
       final SurfaceTexture texture,
       @DoublePointJsonConverter() final Point<double> firstPosition,
       @DoublePointJsonConverter() final Point<double> secondPosition,
+      @DoublePointJsonConverter() final Point<double> thirdPosition,
       final Map<String, dynamic> extra}) = _$TextureElementImpl;
 
   factory TextureElement.fromJson(Map<String, dynamic> json) =
@@ -4408,6 +4482,8 @@ abstract class TextureElement implements PadElement {
   Point<double> get firstPosition;
   @DoublePointJsonConverter()
   Point<double> get secondPosition;
+  @DoublePointJsonConverter()
+  Point<double> get thirdPosition;
   @override
   Map<String, dynamic> get extra;
   @override

@@ -264,6 +264,10 @@ _$ShapeElementImpl _$$ShapeElementImplFromJson(Map json) => _$ShapeElementImpl(
           ? const Point(0.0, 0.0)
           : const DoublePointJsonConverter()
               .fromJson(json['secondPosition'] as Map),
+      thirdPosition: json['thirdPosition'] == null
+          ? const Point(0.0, 0.0)
+          : const DoublePointJsonConverter()
+              .fromJson(json['thirdPosition'] as Map),
       property: json['property'] == null
           ? const ShapeProperty(shape: RectangleShape())
           : ShapeProperty.fromJson(
@@ -283,6 +287,8 @@ Map<String, dynamic> _$$ShapeElementImplToJson(_$ShapeElementImpl instance) =>
           const DoublePointJsonConverter().toJson(instance.firstPosition),
       'secondPosition':
           const DoublePointJsonConverter().toJson(instance.secondPosition),
+      'thirdPosition':
+          const DoublePointJsonConverter().toJson(instance.thirdPosition),
       'property': instance.property.toJson(),
       'extra': instance.extra,
       'type': instance.$type,
@@ -304,6 +310,10 @@ _$TextureElementImpl _$$TextureElementImplFromJson(Map json) =>
           ? const Point(0.0, 0.0)
           : const DoublePointJsonConverter()
               .fromJson(json['secondPosition'] as Map),
+      thirdPosition: json['thirdPosition'] == null
+          ? const Point(0.0, 0.0)
+          : const DoublePointJsonConverter()
+              .fromJson(json['thirdPosition'] as Map),
       extra: (json['extra'] as Map?)?.map(
             (k, e) => MapEntry(k as String, e),
           ) ??
@@ -321,6 +331,8 @@ Map<String, dynamic> _$$TextureElementImplToJson(
           const DoublePointJsonConverter().toJson(instance.firstPosition),
       'secondPosition':
           const DoublePointJsonConverter().toJson(instance.secondPosition),
+      'thirdPosition':
+          const DoublePointJsonConverter().toJson(instance.thirdPosition),
       'extra': instance.extra,
       'type': instance.$type,
     };

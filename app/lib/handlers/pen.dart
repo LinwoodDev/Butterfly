@@ -10,6 +10,8 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
   final Map<int, Offset> lastPosition = {};
   // Dictionary to plot the total distance traveled by each pointer
   Map<int, double> totalDistance = {};
+  // List for shapeDetection
+  final points = <Offset>[];
   // Timer to track the time interval for updating the line.
   Timer? _timer;
   Offset? localPos;
@@ -43,6 +45,8 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
         _getPressure(event), event.kind,
         refresh: false);
     submitElements(context.getDocumentBloc(), [event.pointer]);
+    points.clear();
+    // _timer?.cancel();
   }
 
 // Flag to check if elements are being submitted.
@@ -99,33 +103,6 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
     if (refresh) bloc.refresh();
   }
 
-  // This function updates the current line with the pointer's start and end position.
-  void _tickShapeDetection(
-      int pointer, EventContext context, Offset localPosition) {
-    if (totalDistance[pointer] != null && totalDistance[pointer]! < 1000) {
-      // Check if the last known position of the pointer has not changed since the timer started.
-      if (lastPosition[pointer] == localPosition) {
-        // If the position has not changed, get the PenElement associated with the pointer.
-        final element = elements[pointer];
-        if (element != null) {
-          // index point
-          int midIndex = (element.points.length / 2).floor();
-
-          // Update the line with the start,middle,and position of the pointer.
-          if (data.shapeDetectionEnabled) {
-            elements[pointer] = element.copyWith(points: [
-              element.points.first,
-              element.points[midIndex],
-              element.points.last
-            ]);
-          }
-          _timer?.cancel();
-          _timer = null;
-        }
-      }
-    }
-  }
-
 // This function is called when the pointer is pressed down.
   @override
   void onPointerDown(PointerDownEvent event, EventContext context) {
@@ -141,6 +118,7 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
     addPoint(context.buildContext, event.pointer, event.localPosition,
         _getPressure(event), event.kind,
         shouldCreate: true);
+    _timer?.cancel();
   }
 
 // This function calculates the pressure of the pointer.
@@ -162,13 +140,240 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
     // Call the addPoint function to add a point to the current brush stroke.
     addPoint(context.buildContext, event.pointer, event.localPosition,
         _getPressure(event), event.kind);
-    // Update the last position with the current position
-    lastPosition[event.pointer] = event.localPosition;
+    points.add(event.localPosition);
     // Start a timer that fires after 500 milliseconds
     _timer?.cancel();
     _timer = Timer(
-        Duration(milliseconds: (data.shapeDetectionTime * 1000).round()),
-        () => _tickShapeDetection(event.pointer, context, event.localPosition));
+        Duration(milliseconds: (data.shapeDetectionTime * 1000).round()), () {
+      _tickShapeDetection(event.pointer, context, event.localPosition);
+    });
+  }
+
+  // Detects shapes and draws them
+  void _tickShapeDetection(
+      int pointer, EventContext context, Offset localPosition) {
+    _timer?.cancel();
+    final transform = context.getCameraTransform();
+    // Create recognizeUnistroke
+    final recognized = recognizeUnistroke(points);
+    final element = elements[pointer];
+    if (recognized != null) {
+      switch (recognized.name.toString()) {
+        case 'DefaultUnistrokeNames.line':
+          if (element != null && points.length < 500) {
+            double startX = points.first.dx;
+            double startY = points.first.dy;
+            double endX = points.last.dx;
+            double endY = points.last.dy;
+
+            Point<double> firstPosition = Point(startX, startY);
+            Point<double> secondPosition = Point(endX, endY);
+
+            // Convert coordinates from the document coordinate system to the view coordinate system
+            Offset firstPositionInView =
+                transform.localToGlobal(firstPosition.toOffset());
+            Offset secondPositionInView =
+                transform.localToGlobal(secondPosition.toOffset());
+
+            // Crea un nuovo ShapeElement
+            PadElement shapeElement = PadElement.shape(
+              firstPosition: firstPositionInView.toPoint(),
+              secondPosition: secondPositionInView.toPoint(),
+              property: ShapeProperty(
+                  shape: const LineShape(),
+                  color: data.property.color,
+                  strokeWidth: data.property.strokeWidth),
+            );
+
+            // show SnackBar with recognized shape
+            ScaffoldMessenger.of(context.buildContext).showSnackBar(
+              SnackBar(
+                width: MediaQuery.of(context.buildContext).size.width * 0.1,
+                behavior: SnackBarBehavior.floating,
+                content: Text(
+                  textAlign: TextAlign.center,
+                  AppLocalizations.of(context.buildContext).line,
+                ),
+                duration: const Duration(milliseconds: 300),
+              ),
+            );
+            // Add element on document
+            context.getDocumentBloc().add(ElementsCreated([shapeElement]));
+
+            _timer?.cancel();
+            elements.clear();
+            context.refresh();
+          } else if (points.length > 500) {
+            return;
+          }
+          break;
+
+        case 'DefaultUnistrokeNames.circle':
+          if (element != null && points.length < 700) {
+            // Calculate the center of the circle as the average of the points
+            double centerX =
+                points.map((p) => p.dx).reduce((a, b) => a + b) / points.length;
+            double centerY =
+                points.map((p) => p.dy).reduce((a, b) => a + b) / points.length;
+            Offset center = Offset(centerX, centerY);
+
+            // Calculate the radius as the average of the distances of the points from the center
+            double radius = points
+                    .map((p) => (p - center).distance)
+                    .reduce((a, b) => a + b) /
+                points.length;
+
+            Point<double> firstPosition =
+                Point<double>(center.dx - radius, center.dy - radius);
+            Point<double> secondPosition =
+                Point<double>(center.dx + radius, center.dy + radius);
+
+            // Convert coordinates from the document coordinate system to the view coordinate system
+            Offset firstPositionInView =
+                transform.localToGlobal(firstPosition.toOffset());
+            Offset secondPositionInView =
+                transform.localToGlobal(secondPosition.toOffset());
+
+            // Create new ShapeElement
+            PadElement shapeElement = PadElement.shape(
+              firstPosition: firstPositionInView.toPoint(),
+              secondPosition: secondPositionInView.toPoint(),
+              property: ShapeProperty(
+                  shape: const CircleShape(),
+                  color: data.property.color,
+                  strokeWidth: data.property.strokeWidth),
+            );
+
+            // show SnackBar with recognized shape
+            ScaffoldMessenger.of(context.buildContext).showSnackBar(
+              SnackBar(
+                width: MediaQuery.of(context.buildContext).size.width * 0.1,
+                behavior: SnackBarBehavior.floating,
+                content: Text(
+                  textAlign: TextAlign.center,
+                  AppLocalizations.of(context.buildContext).circle,
+                ),
+                duration: const Duration(milliseconds: 300),
+              ),
+            );
+            // Add element on document
+            context.getDocumentBloc().add(ElementsCreated([shapeElement]));
+
+            _timer?.cancel();
+            elements.clear();
+            context.refresh();
+          } else if (points.length > 700) {
+            return;
+          }
+          break;
+
+        case 'DefaultUnistrokeNames.rectangle':
+          if (element != null && points.length < 700) {
+            double minX = points.map((p) => p.dx).reduce(min);
+            double maxX = points.map((p) => p.dx).reduce(max);
+            double minY = points.map((p) => p.dy).reduce(min);
+            double maxY = points.map((p) => p.dy).reduce(max);
+
+            Point<double> firstPosition = Point(minX, minY);
+            Point<double> secondPosition = Point(maxX, maxY);
+
+            // Convert coordinates from the document coordinate system to the view coordinate system
+            Offset firstPositionInView =
+                transform.localToGlobal(firstPosition.toOffset());
+            Offset secondPositionInView =
+                transform.localToGlobal(secondPosition.toOffset());
+
+            // Create new ShapeElement
+            PadElement shapeElement = PadElement.shape(
+              firstPosition: firstPositionInView.toPoint(),
+              secondPosition: secondPositionInView.toPoint(),
+              property: ShapeProperty(
+                  shape: const RectangleShape(),
+                  color: data.property.color,
+                  strokeWidth: data.property.strokeWidth),
+            );
+
+            // show SnackBar with recognized shape
+            ScaffoldMessenger.of(context.buildContext).showSnackBar(
+              SnackBar(
+                width: MediaQuery.of(context.buildContext).size.width * 0.1,
+                behavior: SnackBarBehavior.floating,
+                content: Text(
+                  textAlign: TextAlign.center,
+                  AppLocalizations.of(context.buildContext).rectangle,
+                ),
+                duration: const Duration(milliseconds: 300),
+              ),
+            );
+
+            // Add element on document
+            context.getDocumentBloc().add(ElementsCreated([shapeElement]));
+
+            _timer?.cancel();
+            elements.clear();
+            context.refresh();
+          } else if (points.length > 700) {
+            return;
+          }
+          break;
+
+        case 'DefaultUnistrokeNames.triangle':
+          if (element != null && points.length < 700) {
+            double minX = points.map((p) => p.dx).reduce(min);
+            double maxX = points.map((p) => p.dx).reduce(max);
+            double minY = points.map((p) => p.dy).reduce(min);
+            double maxY = points.map((p) => p.dy).reduce(max);
+
+            Point<double> firstPosition = Point(minX, minY);
+            Point<double> secondPosition = Point(maxX, maxY);
+
+            // Convert coordinates from the document coordinate system to the view coordinate system
+            Offset firstPositionInView =
+                transform.localToGlobal(firstPosition.toOffset());
+            Offset secondPositionInView =
+                transform.localToGlobal(secondPosition.toOffset());
+
+            // Create new ShapeElement
+            PadElement shapeElement = PadElement.shape(
+              firstPosition: firstPositionInView.toPoint(),
+              secondPosition: secondPositionInView.toPoint(),
+              property: ShapeProperty(
+                  shape: const TriangleShape(),
+                  color: data.property.color,
+                  strokeWidth: data.property.strokeWidth),
+            );
+
+            // show SnackBar with recognized shape
+            ScaffoldMessenger.of(context.buildContext).showSnackBar(
+              SnackBar(
+                width: MediaQuery.of(context.buildContext).size.width * 0.1,
+                behavior: SnackBarBehavior.floating,
+                content: Text(
+                  textAlign: TextAlign.center,
+                  AppLocalizations.of(context.buildContext).triangle,
+                ),
+                duration: const Duration(milliseconds: 300),
+              ),
+            );
+
+            // Add element on document
+            context.getDocumentBloc().add(ElementsCreated([shapeElement]));
+
+            _timer?.cancel();
+            elements.clear();
+            context.refresh();
+          } else if (points.length > 700) {
+            return;
+          }
+          break;
+        default:
+          // Manage custom shapes here
+          break;
+      }
+    }
+    // Reset the points list for the next shape detection
+    _timer?.cancel();
+    points.clear();
   }
 
   @override
