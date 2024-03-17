@@ -12,9 +12,14 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
   Map<int, double> totalDistance = {};
   // List for shapeDetection
   final points = <Offset>[];
-  // Timer to track the time interval for updating the line.
-  Timer? _timer;
+  // For control if the pointer has not moved
+  bool isDrawing = false;
+  // Timer to initiate shape detection after a period of inactivity
+  Timer? _positionCheckTimer;
+  // Variable to store the current position of the pointer
+  Offset? lastPosit;
   Offset? localPos;
+
   PenHandler(super.data);
 
   // Create foregrounds for rendering the PenRendere
@@ -41,12 +46,15 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
   // Handle the pointer release event.
   @override
   void onPointerUp(PointerUpEvent event, EventContext context) {
+    isDrawing = false;
+    // Cancel the timer when the pointer is lifted, preventing shape detection
+    _positionCheckTimer?.cancel();
+    _positionCheckTimer = null;
     addPoint(context.buildContext, event.pointer, event.localPosition,
         _getPressure(event), event.kind,
         refresh: false);
     submitElements(context.getDocumentBloc(), [event.pointer]);
     points.clear();
-    // _timer?.cancel();
   }
 
 // Flag to check if elements are being submitted.
@@ -106,6 +114,7 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
 // This function is called when the pointer is pressed down.
   @override
   void onPointerDown(PointerDownEvent event, EventContext context) {
+    isDrawing = true;
     final currentIndex = context.getCurrentIndex();
     // Save initial position
     startPosition[event.pointer] = event.localPosition;
@@ -118,7 +127,6 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
     addPoint(context.buildContext, event.pointer, event.localPosition,
         _getPressure(event), event.kind,
         shouldCreate: true);
-    _timer?.cancel();
   }
 
 // This function calculates the pressure of the pointer.
@@ -130,29 +138,27 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
 
   @override
   void onPointerMove(PointerMoveEvent event, EventContext context) {
-    // Calculates the distance the pointer travels
-    double distance = ((lastPosition[event.pointer] ?? event.localPosition) -
-            event.localPosition)
-        .distance;
-    // Updates the total distance traveled by the pointer
-    totalDistance[event.pointer] =
-        (totalDistance[event.pointer] ?? 0) + distance;
+    if (!isDrawing) return;
+    // Check if the pointer has not moved
+    if (lastPosit == event.localPosition) return;
+    // Update the current position with the new position of the pointer
+    lastPosit = event.localPosition;
+    // Cancel any existing timer
+    _positionCheckTimer?.cancel();
+    // Start a new timer that will call the shape detection after a delay by data.shapeDetectionTime
+    _positionCheckTimer = Timer(
+        Duration(milliseconds: (data.shapeDetectionTime * 1000).round()), () {
+      _tickShapeDetection(event.pointer, context, event.localPosition);
+    });
     // Call the addPoint function to add a point to the current brush stroke.
     addPoint(context.buildContext, event.pointer, event.localPosition,
         _getPressure(event), event.kind);
     points.add(event.localPosition);
-    // Start a timer that fires after 500 milliseconds
-    _timer?.cancel();
-    _timer = Timer(
-        Duration(milliseconds: (data.shapeDetectionTime * 1000).round()), () {
-      _tickShapeDetection(event.pointer, context, event.localPosition);
-    });
   }
 
   // Detects shapes and draws them
   void _tickShapeDetection(
       int pointer, EventContext context, Offset localPosition) {
-    _timer?.cancel();
     final transform = context.getCameraTransform();
     // Create recognizeUnistroke
     final recognized = recognizeUnistroke(points);
@@ -200,13 +206,11 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
             // Add element on document
             context.getDocumentBloc().add(ElementsCreated([shapeElement]));
 
-            _timer?.cancel();
             elements.clear();
             context.refresh();
           } else if (points.length > 500) {
             return;
           }
-          break;
 
         case DefaultUnistrokeNames.circle:
           if (element != null && points.length < 700) {
@@ -259,13 +263,11 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
             // Add element on document
             context.getDocumentBloc().add(ElementsCreated([shapeElement]));
 
-            _timer?.cancel();
             elements.clear();
             context.refresh();
           } else if (points.length > 700) {
             return;
           }
-          break;
 
         case DefaultUnistrokeNames.rectangle:
           if (element != null && points.length < 700) {
@@ -309,13 +311,11 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
             // Add element on document
             context.getDocumentBloc().add(ElementsCreated([shapeElement]));
 
-            _timer?.cancel();
             elements.clear();
             context.refresh();
           } else if (points.length > 700) {
             return;
           }
-          break;
 
         case DefaultUnistrokeNames.triangle:
           if (element != null && points.length < 700) {
@@ -359,20 +359,17 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
             // Add element on document
             context.getDocumentBloc().add(ElementsCreated([shapeElement]));
 
-            _timer?.cancel();
             elements.clear();
             context.refresh();
           } else if (points.length > 700) {
             return;
           }
-          break;
+
         default:
-          // Manage custom shapes here
-          break;
+        // Manage custom shapes here
       }
     }
     // Reset the points list for the next shape detection
-    _timer?.cancel();
     points.clear();
   }
 
