@@ -268,34 +268,38 @@ class _AreaSelectionDialogState extends State<_AreaSelectionDialog> {
             ),
           ),
           Flexible(
-            child: BlocBuilder<DocumentBloc, DocumentState>(
-                buildWhen: (previous, current) =>
-                    previous.page != current.page ||
-                    previous.pageName != current.pageName,
-                builder: (context, state) => Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: widget.document
-                          .getPages()
-                          .expand(
-                            (page) =>
-                                (page == state.pageName
-                                        ? state.page
-                                        : widget.document.getPage(page))
-                                    ?.areas
-                                    .where((element) =>
-                                        element.name.contains(_searchQuery))
-                                    .map((e) {
-                                  return ListTile(
-                                    title: Text(e.name),
-                                    subtitle: Text(page),
-                                    onTap: () =>
-                                        Navigator.of(context).pop((page, e)),
-                                  );
-                                }).toList() ??
-                                <Widget>[],
-                          )
-                          .toList(),
-                    )),
+            child: Material(
+              type: MaterialType.transparency,
+              child: BlocBuilder<DocumentBloc, DocumentState>(
+                  buildWhen: (previous, current) =>
+                      previous.page != current.page ||
+                      previous.pageName != current.pageName,
+                  builder: (context, state) => ListView(
+                        shrinkWrap: true,
+                        children: widget.document
+                            .getPages()
+                            .expand(
+                              (page) =>
+                                  (page == state.pageName
+                                          ? state.page
+                                          : widget.document.getPage(page))
+                                      ?.areas
+                                      .where((element) =>
+                                          element.name.contains(_searchQuery))
+                                      .map((e) {
+                                    return ListTile(
+                                      title: Text(e.name),
+                                      subtitle: Text(page),
+                                      key: ObjectKey(e.name),
+                                      onTap: () =>
+                                          Navigator.of(context).pop((page, e)),
+                                    );
+                                  }).toList() ??
+                                  <Widget>[],
+                            )
+                            .toList(),
+                      )),
+            ),
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),
@@ -367,7 +371,7 @@ class _ExportPresetsDialogState extends State<ExportPresetsDialog> {
             child: BlocBuilder<DocumentBloc, DocumentState>(
                 builder: (context, state) {
               if (state is! DocumentLoadSuccess) return Container();
-              return Column(mainAxisSize: MainAxisSize.min, children: [
+              return ListView(shrinkWrap: true, children: [
                 ...state.info.exportPresets
                     .where((element) => element.name.contains(_searchQuery))
                     .map((e) => Dismissible(
