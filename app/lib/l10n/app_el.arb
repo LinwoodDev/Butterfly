@@ -589,5 +589,8 @@
   "createAreas": "Δημιουργία περιοχών",
   "autosave": "Autosave",
   "invert": "Invert",
-  "operations": "Λειτουργίες"
+  "operations": "Λειτουργίες",
+  "medium": "Medium",
+  "large": "Large",
+  "toolbarSize": "Toolbar size"
 }
