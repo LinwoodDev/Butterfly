@@ -589,5 +589,8 @@
   "createAreas": "Створення області",
   "autosave": "Autosave",
   "invert": "Invert",
-  "operations": "Операції"
+  "operations": "Операції",
+  "medium": "Medium",
+  "large": "Large",
+  "toolbarSize": "Toolbar size"
 }
