@@ -94,7 +94,7 @@ dependencies:
   image: ^4.1.7
   freezed_annotation: ^2.4.1
 dev_dependencies:
-  flutter_native_splash: ^2.3.10
+  flutter_native_splash: ^2.4.0
   #flutter_launcher_icons: ^0.11.0
   flutter_lints: ^3.0.1
   flutter_test:

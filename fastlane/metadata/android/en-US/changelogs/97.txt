@@ -3,5 +3,6 @@
 * Add setting for toolbar size ([#589](https://github.com/LinwoodDev/Butterfly/issues/589))
 * Fix folder fetching in web
 * Fix problems when changing to the same page
+* Fix missing scrolling in export pdf select dialogs ([#633](https://github.com/LinwoodDev/Butterfly/issues/633))
 
 Read more here: https://linwood.dev/butterfly/2.1.0-beta.3
