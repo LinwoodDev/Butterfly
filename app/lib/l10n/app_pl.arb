@@ -589,5 +589,8 @@
   "createAreas": "Utwórz obszary",
   "autosave": "Autosave",
   "invert": "Invert",
-  "operations": "Operacje"
+  "operations": "Operacje",
+  "medium": "Medium",
+  "large": "Large",
+  "toolbarSize": "Toolbar size"
 }
