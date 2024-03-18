@@ -589,5 +589,8 @@
   "createAreas": "Skapa områden",
   "autosave": "Autosave",
   "invert": "Invert",
-  "operations": "Åtgärder"
+  "operations": "Åtgärder",
+  "medium": "Medium",
+  "large": "Large",
+  "toolbarSize": "Toolbar size"
 }
