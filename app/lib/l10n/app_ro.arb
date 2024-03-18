@@ -589,5 +589,8 @@
   "createAreas": "Creează zone",
   "autosave": "Autosave",
   "invert": "Invert",
-  "operations": "Operațiuni"
+  "operations": "Operațiuni",
+  "medium": "Medium",
+  "large": "Large",
+  "toolbarSize": "Toolbar size"
 }
