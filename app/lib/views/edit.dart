@@ -63,67 +63,73 @@ class _EditToolbarState extends State<EditToolbar> {
   @override
   Widget build(BuildContext context) {
     return Scrollbar(
-        controller: _scrollController,
-        child: SizedBox(
-          height: widget.direction == Axis.horizontal ? 60 : null,
-          width: widget.direction == Axis.horizontal ? null : 80,
-          child: BlocBuilder<SettingsCubit, ButterflySettings>(
-              buildWhen: (previous, current) =>
-                  previous.inputConfiguration != current.inputConfiguration ||
-                  previous.fullScreen != current.fullScreen,
-              builder: (context, settings) {
-                final shortcuts = settings.inputConfiguration.getShortcuts();
-                return BlocBuilder<DocumentBloc, DocumentState>(
-                  buildWhen: (previous, current) =>
-                      previous is! DocumentLoadSuccess ||
-                      current is! DocumentLoadSuccess ||
-                      previous.tool != current.tool ||
-                      previous.info.tools != current.info.tools,
-                  builder: (context, state) {
-                    if (state is! DocumentLoadSuccess) return Container();
-                    final tools = state.info.tools;
+      controller: _scrollController,
+      child: BlocBuilder<SettingsCubit, ButterflySettings>(
+          buildWhen: (previous, current) =>
+              previous.inputConfiguration != current.inputConfiguration ||
+              previous.fullScreen != current.fullScreen ||
+              previous.toolbarSize != current.toolbarSize,
+          builder: (context, settings) {
+            final shortcuts = settings.inputConfiguration.getShortcuts();
+            final size = settings.toolbarSize.size;
+            return SizedBox(
+                height: widget.direction == Axis.horizontal ? size : null,
+                width: widget.direction == Axis.horizontal ? null : (size + 20),
+                child: BlocBuilder<DocumentBloc, DocumentState>(
+                    buildWhen: (previous, current) =>
+                        previous is! DocumentLoadSuccess ||
+                        current is! DocumentLoadSuccess ||
+                        previous.tool != current.tool ||
+                        previous.info.tools != current.info.tools,
+                    builder: (context, state) {
+                      if (state is! DocumentLoadSuccess) return Container();
+                      final tools = state.info.tools;
 
-                    return BlocBuilder<CurrentIndexCubit, CurrentIndex>(
-                      buildWhen: (previous, current) =>
-                          previous.index != current.index ||
-                          previous.handler != current.handler ||
-                          previous.temporaryHandler !=
-                              current.temporaryHandler ||
-                          previous.selection != current.selection,
-                      builder: (context, currentIndex) {
-                        return Card(
-                          elevation: 10,
-                          child: _buildBody(
-                            state,
-                            currentIndex,
-                            settings,
-                            tools,
-                            shortcuts,
-                          ),
-                        );
-                      },
-                    );
-                  },
-                );
-              }),
-        ));
+                      return BlocBuilder<CurrentIndexCubit, CurrentIndex>(
+                        buildWhen: (previous, current) =>
+                            previous.index != current.index ||
+                            previous.handler != current.handler ||
+                            previous.temporaryHandler !=
+                                current.temporaryHandler ||
+                            previous.selection != current.selection,
+                        builder: (context, currentIndex) {
+                          return Card(
+                            elevation: 10,
+                            child: _buildBody(
+                              state,
+                              currentIndex,
+                              settings,
+                              tools,
+                              shortcuts,
+                              size,
+                            ),
+                          );
+                        },
+                      );
+                    }));
+          }),
+    );
   }
 
-  Widget _buildIcon(PhosphorIconData data, bool action, [Color? color]) => Row(
+  Widget _buildIcon(PhosphorIconData data, bool action, double size,
+          [Color? color]) =>
+      Row(
         mainAxisSize: MainAxisSize.min,
+        mainAxisAlignment: MainAxisAlignment.end,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const SizedBox(width: 8),
+          const SizedBox(width: 4),
           PhosphorIcon(
             data,
+            size: size * (5 / 12),
             color: color,
           ),
           SizedBox(
-            width: 8,
+            width: 4,
             child: action
                 ? PhosphorIcon(
                     PhosphorIconsLight.playCircle,
-                    size: 16,
+                    size: size * (1 / 6),
                     color: color,
                   )
                 : null,
@@ -136,6 +142,7 @@ class _EditToolbarState extends State<EditToolbar> {
     ButterflySettings settings,
     List<Tool> tools,
     Set<int> shortcuts,
+    double size,
   ) {
     final temp = currentIndex.temporaryHandler;
     final tempData = temp?.data;
@@ -218,7 +225,10 @@ class _EditToolbarState extends State<EditToolbar> {
                             ),
                           );
                         },
-                        child: const PhosphorIcon(PhosphorIconsLight.plus),
+                        child: PhosphorIcon(
+                          PhosphorIconsLight.plus,
+                          size: size / 3,
+                        ),
                       ),
                     ),
                   );
@@ -280,8 +290,9 @@ class _EditToolbarState extends State<EditToolbar> {
                         focussed: shortcuts.contains(i),
                         selected: selected,
                         highlighted: highlighted,
-                        selectedIcon: _buildIcon(icon, e.isAction(), color),
-                        icon: _buildIcon(icon, e.isAction(), color),
+                        selectedIcon:
+                            _buildIcon(icon, e.isAction(), size, color),
+                        icon: _buildIcon(icon, e.isAction(), size, color),
                         onPressed: () {
                           if (_mouseState == _MouseState.multi) {
                             context

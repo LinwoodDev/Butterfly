@@ -322,7 +322,8 @@ class _ProjectPageState extends State<ProjectPage> {
                   builder: (context, currentIndex) =>
                       BlocBuilder<SettingsCubit, ButterflySettings>(
                           buildWhen: (previous, current) =>
-                              previous.fullScreen != current.fullScreen,
+                              previous.fullScreen != current.fullScreen ||
+                              previous.toolbarSize != current.toolbarSize,
                           builder: (context, settings) {
                             return Actions(
                               actions: _actions,
@@ -434,6 +435,7 @@ class _ProjectPageState extends State<ProjectPage> {
                                                 ? null
                                                 : PadAppBar(
                                                     viewportKey: _viewportKey,
+                                                    size: settings.toolbarSize,
                                                   ),
                                         drawer: state is DocumentLoadSuccess
                                             ? const DocumentNavigator(
