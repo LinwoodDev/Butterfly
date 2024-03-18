@@ -589,5 +589,8 @@
   "createAreas": "Luo alueita",
   "autosave": "Autosave",
   "invert": "Invert",
-  "operations": "Toiminnot"
+  "operations": "Toiminnot",
+  "medium": "Medium",
+  "large": "Large",
+  "toolbarSize": "Toolbar size"
 }
