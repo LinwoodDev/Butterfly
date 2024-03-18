@@ -589,5 +589,8 @@
   "createAreas": "Vytvořit oblasti",
   "autosave": "Autosave",
   "invert": "Invert",
-  "operations": "Operace"
+  "operations": "Operace",
+  "medium": "Medium",
+  "large": "Large",
+  "toolbarSize": "Toolbar size"
 }
