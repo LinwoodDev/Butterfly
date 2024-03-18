@@ -589,5 +589,8 @@
   "createAreas": "エリアを作成",
   "autosave": "Autosave",
   "invert": "Invert",
-  "operations": "操作"
+  "operations": "操作",
+  "medium": "Medium",
+  "large": "Large",
+  "toolbarSize": "Toolbar size"
 }
