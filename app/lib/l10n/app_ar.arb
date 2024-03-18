@@ -589,5 +589,8 @@
   "createAreas": "إنشاء مناطق",
   "autosave": "Autosave",
   "invert": "Invert",
-  "operations": "العمليات"
+  "operations": "العمليات",
+  "medium": "Medium",
+  "large": "Large",
+  "toolbarSize": "Toolbar size"
 }
