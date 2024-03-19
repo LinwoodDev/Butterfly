@@ -178,10 +178,11 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
     // Create recognizeUnistroke
     final recognized = recognizeUnistroke(points);
     final element = elements[pointer];
-    if (recognized != null) {
+
+    if (recognized != null && points.length < 600) {
       switch (recognized.name) {
         case DefaultUnistrokeNames.line:
-          if (element != null && points.length < 500) {
+          if (element != null) {
             double startX = points.first.dx;
             double startY = points.first.dy;
             double endX = points.last.dx;
@@ -215,12 +216,10 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
 
             elements.clear();
             context.refresh();
-          } else if (points.length > 500) {
-            return;
           }
 
         case DefaultUnistrokeNames.circle:
-          if (element != null && points.length < 700) {
+          if (element != null) {
             // Calculate the center of the circle as the average of the points
             double centerX =
                 points.map((p) => p.dx).reduce((a, b) => a + b) / points.length;
@@ -264,12 +263,9 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
 
             elements.clear();
             context.refresh();
-          } else if (points.length > 700) {
-            return;
           }
-
         case DefaultUnistrokeNames.rectangle:
-          if (element != null && points.length < 700) {
+          if (element != null) {
             double minX = points.map((p) => p.dx).reduce(min);
             double maxX = points.map((p) => p.dx).reduce(max);
             double minY = points.map((p) => p.dy).reduce(min);
@@ -303,12 +299,10 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
 
             elements.clear();
             context.refresh();
-          } else if (points.length > 700) {
-            return;
           }
 
         case DefaultUnistrokeNames.triangle:
-          if (element != null && points.length < 700) {
+          if (element != null) {
             double minX = points.map((p) => p.dx).reduce(min);
             double maxX = points.map((p) => p.dx).reduce(max);
             double minY = points.map((p) => p.dy).reduce(min);
@@ -342,13 +336,13 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
 
             elements.clear();
             context.refresh();
-          } else if (points.length > 700) {
-            return;
           }
 
         default:
         // Manage custom shapes here
       }
+    } else if (points.length > 500) {
+      return;
     }
     // Reset the points list for the next shape detection
     points.clear();
