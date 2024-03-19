@@ -256,7 +256,8 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
             );
 
             // Show dialog
-            showMessage(context, AppLocalizations.of(context.buildContext).circle);
+            showMessage(
+                context, AppLocalizations.of(context.buildContext).circle);
 
             // Add element on document
             context.getDocumentBloc().add(ElementsCreated([shapeElement]));
@@ -294,7 +295,8 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
             );
 
             // Show dialog
-            showMessage(context, AppLocalizations.of(context.buildContext).rectangle);
+            showMessage(
+                context, AppLocalizations.of(context.buildContext).rectangle);
 
             // Add element on document
             context.getDocumentBloc().add(ElementsCreated([shapeElement]));
@@ -332,7 +334,8 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
             );
 
             // Show dialog
-            showMessage(context, AppLocalizations.of(context.buildContext).triangle);
+            showMessage(
+                context, AppLocalizations.of(context.buildContext).triangle);
 
             // Add element on document
             context.getDocumentBloc().add(ElementsCreated([shapeElement]));
