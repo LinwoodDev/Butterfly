@@ -592,5 +592,7 @@
   "operations": "业务活动",
   "medium": "Medium",
   "large": "Large",
-  "toolbarSize": "Toolbar size"
+  "toolbarSize": "Toolbar size",
+  "addAll": "Add all",
+  "onlyCurrentPage": "Only current page"
 }
