@@ -611,7 +611,7 @@ packages:
     source: hosted
     version: "2.4.7"
   freezed_annotation:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: freezed_annotation
       sha256: c3fd9336eb55a38cc1bbd79ab17573113a8deccd0ecbbf926cca3c62803b5c2d
@@ -879,10 +879,10 @@ packages:
     dependency: "direct main"
     description:
       name: one_dollar_unistroke_recognizer
-      sha256: f01bbf95f029f4d8d30571cf851715a12e0bacb26ff9ccbdde2eafa99baeded3
+      sha256: c35bb3c054e792836c9b36d0dd680ec02a447e6bc29a77b9f32c98ffcc11c716
       url: "https://pub.dev"
     source: hosted
-    version: "1.0.0"
+    version: "1.1.2"
   package_config:
     dependency: transitive
     description:
