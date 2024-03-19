@@ -25,5 +25,5 @@ You can further define area tool by clicking again on the <Monitor/> area button
 
 ## Another option 
 
-Another option for you to use the area navigator on the left menu, or on the butterfly menu if you are using a mobile platform. 
+Another option for you to use the area navigator is on the left menu, or on the butterfly menu if you are using a mobile platform. 
 
