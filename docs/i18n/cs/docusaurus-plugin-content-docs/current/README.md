@@ -74,6 +74,7 @@ Hlavní pohled se skládá z několika prvků.
 
 Po otevření dokumentu výběrem šablony nebo existujícího souboru se dostanete do **Zobrazení dokumentu**
 
+
 ## Zobrazení dokumentu
 
 Můžete se vrátit z zobrazení dokumentu do seznamu dokumentů pomocí zadní akce vašeho zařízení. Stejně jako v případě hlavního zobrazení, změny zobrazení dokumentu na základě vašeho zařízení.
