@@ -127,7 +127,7 @@ _$ElementsChangedImpl _$$ElementsChangedImplFromJson(Map json) =>
     _$ElementsChangedImpl(
       (json['elements'] as Map).map(
         (k, e) => MapEntry(
-            int.parse(k as String),
+            k as String,
             (e as List<dynamic>)
                 .map((e) =>
                     PadElement.fromJson(Map<String, dynamic>.from(e as Map)))
@@ -139,14 +139,14 @@ _$ElementsChangedImpl _$$ElementsChangedImplFromJson(Map json) =>
 Map<String, dynamic> _$$ElementsChangedImplToJson(
         _$ElementsChangedImpl instance) =>
     <String, dynamic>{
-      'elements': instance.elements.map(
-          (k, e) => MapEntry(k.toString(), e.map((e) => e.toJson()).toList())),
+      'elements': instance.elements
+          .map((k, e) => MapEntry(k, e.map((e) => e.toJson()).toList())),
       'type': instance.$type,
     };
 
 _$ElementsRemovedImpl _$$ElementsRemovedImplFromJson(Map json) =>
     _$ElementsRemovedImpl(
-      (json['elements'] as List<dynamic>).map((e) => e as int).toList(),
+      (json['elements'] as List<dynamic>).map((e) => e as String).toList(),
       $type: json['type'] as String?,
     );
 
@@ -160,7 +160,7 @@ Map<String, dynamic> _$$ElementsRemovedImplToJson(
 _$ElementsArrangedImpl _$$ElementsArrangedImplFromJson(Map json) =>
     _$ElementsArrangedImpl(
       $enumDecode(_$ArrangementEnumMap, json['arrangement']),
-      (json['elements'] as List<dynamic>).map((e) => e as int).toList(),
+      (json['elements'] as List<dynamic>).map((e) => e as String).toList(),
       $type: json['type'] as String?,
     );
 
@@ -398,7 +398,7 @@ Map<String, dynamic> _$$CurrentLayerChangedImplToJson(
 _$ElementsLayerChangedImpl _$$ElementsLayerChangedImplFromJson(Map json) =>
     _$ElementsLayerChangedImpl(
       json['layer'] as String,
-      (json['elements'] as List<dynamic>).map((e) => e as int).toList(),
+      (json['elements'] as List<dynamic>).map((e) => e as String).toList(),
       $type: json['type'] as String?,
     );
 

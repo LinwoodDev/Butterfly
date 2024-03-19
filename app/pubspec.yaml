@@ -40,7 +40,7 @@ dependencies:
   share_plus: ^7.2.2
   package_info_plus: ^5.0.1
   idb_shim: ^2.3.2
-  go_router: ^13.2.0
+  go_router: ^13.2.1
   xml: ^6.5.0
   collection: ^1.18.0
   bloc_concurrency: ^0.2.4
@@ -48,7 +48,6 @@ dependencies:
   camera_windows: ^0.2.1+9
   window_manager: ^0.3.8
   flex_color_scheme: ^7.3.1
-  freezed_annotation: ^2.4.1
   json_annotation: ^4.8.1
   path: ^1.8.3
   printing: ^5.12.0
@@ -93,18 +92,19 @@ dependencies:
   markdown: ^7.2.2
   device_info_plus: ^9.1.2
   image: ^4.1.7
+  freezed_annotation: ^2.4.1
 dev_dependencies:
-  flutter_native_splash: ^2.3.10
+  flutter_native_splash: ^2.4.0
   #flutter_launcher_icons: ^0.11.0
   flutter_lints: ^3.0.1
   flutter_test:
     sdk: flutter
   flutter_driver:
     sdk: flutter
-  freezed: ^2.4.7
   build_runner: ^2.4.8
   json_serializable: ^6.7.1
   espresso: ^0.3.0+7
+  freezed: ^2.4.7
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

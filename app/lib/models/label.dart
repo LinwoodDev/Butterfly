@@ -53,7 +53,7 @@ class LabelContext with _$LabelContext {
     return selection.start <= 0 && selection.end >= length;
   }
 
-  bool? get isEmpty => length == 0;
+  bool get isEmpty => length == 0;
 
   Rect? getRect() {
     final current = labelElement;

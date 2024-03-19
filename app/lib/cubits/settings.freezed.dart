@@ -1405,6 +1405,7 @@ mixin _$ButterflySettings {
   String get defaultTemplate => throw _privateConstructorUsedError;
   NavigatorPage get navigatorPage => throw _privateConstructorUsedError;
   ToolbarPosition get toolbarPosition => throw _privateConstructorUsedError;
+  ToolbarSize get toolbarSize => throw _privateConstructorUsedError;
   SortBy get sortBy => throw _privateConstructorUsedError;
   SortOrder get sortOrder => throw _privateConstructorUsedError;
   double get imageScale => throw _privateConstructorUsedError;
@@ -1458,6 +1459,7 @@ abstract class $ButterflySettingsCopyWith<$Res> {
       String defaultTemplate,
       NavigatorPage navigatorPage,
       ToolbarPosition toolbarPosition,
+      ToolbarSize toolbarSize,
       SortBy sortBy,
       SortOrder sortOrder,
       double imageScale,
@@ -1515,6 +1517,7 @@ class _$ButterflySettingsCopyWithImpl<$Res, $Val extends ButterflySettings>
     Object? defaultTemplate = null,
     Object? navigatorPage = null,
     Object? toolbarPosition = null,
+    Object? toolbarSize = null,
     Object? sortBy = null,
     Object? sortOrder = null,
     Object? imageScale = null,
@@ -1644,6 +1647,10 @@ class _$ButterflySettingsCopyWithImpl<$Res, $Val extends ButterflySettings>
           ? _value.toolbarPosition
           : toolbarPosition // ignore: cast_nullable_to_non_nullable
               as ToolbarPosition,
+      toolbarSize: null == toolbarSize
+          ? _value.toolbarSize
+          : toolbarSize // ignore: cast_nullable_to_non_nullable
+              as ToolbarSize,
       sortBy: null == sortBy
           ? _value.sortBy
           : sortBy // ignore: cast_nullable_to_non_nullable
@@ -1739,6 +1746,7 @@ abstract class _$$ButterflySettingsImplCopyWith<$Res>
       String defaultTemplate,
       NavigatorPage navigatorPage,
       ToolbarPosition toolbarPosition,
+      ToolbarSize toolbarSize,
       SortBy sortBy,
       SortOrder sortOrder,
       double imageScale,
@@ -1795,6 +1803,7 @@ class __$$ButterflySettingsImplCopyWithImpl<$Res>
     Object? defaultTemplate = null,
     Object? navigatorPage = null,
     Object? toolbarPosition = null,
+    Object? toolbarSize = null,
     Object? sortBy = null,
     Object? sortOrder = null,
     Object? imageScale = null,
@@ -1924,6 +1933,10 @@ class __$$ButterflySettingsImplCopyWithImpl<$Res>
           ? _value.toolbarPosition
           : toolbarPosition // ignore: cast_nullable_to_non_nullable
               as ToolbarPosition,
+      toolbarSize: null == toolbarSize
+          ? _value.toolbarSize
+          : toolbarSize // ignore: cast_nullable_to_non_nullable
+              as ToolbarSize,
       sortBy: null == sortBy
           ? _value.sortBy
           : sortBy // ignore: cast_nullable_to_non_nullable
@@ -2006,6 +2019,7 @@ class _$ButterflySettingsImpl extends _ButterflySettings
       this.defaultTemplate = '',
       this.navigatorPage = NavigatorPage.waypoints,
       this.toolbarPosition = ToolbarPosition.top,
+      this.toolbarSize = ToolbarSize.normal,
       this.sortBy = SortBy.name,
       this.sortOrder = SortOrder.ascending,
       this.imageScale = 0.5,
@@ -2129,6 +2143,9 @@ class _$ButterflySettingsImpl extends _ButterflySettings
   final ToolbarPosition toolbarPosition;
   @override
   @JsonKey()
+  final ToolbarSize toolbarSize;
+  @override
+  @JsonKey()
   final SortBy sortBy;
   @override
   @JsonKey()
@@ -2175,7 +2192,7 @@ class _$ButterflySettingsImpl extends _ButterflySettings
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'ButterflySettings(theme: $theme, density: $density, localeTag: $localeTag, documentPath: $documentPath, touchSensitivity: $touchSensitivity, mouseSensitivity: $mouseSensitivity, penSensitivity: $penSensitivity, selectSensitivity: $selectSensitivity, penOnlyInput: $penOnlyInput, inputGestures: $inputGestures, design: $design, bannerVisibility: $bannerVisibility, history: $history, navigatorEnabled: $navigatorEnabled, zoomEnabled: $zoomEnabled, lastVersion: $lastVersion, connections: $connections, defaultRemote: $defaultRemote, nativeTitleBar: $nativeTitleBar, startInFullScreen: $startInFullScreen, navigationRail: $navigationRail, fullScreen: $fullScreen, syncMode: $syncMode, inputConfiguration: $inputConfiguration, fallbackPack: $fallbackPack, starred: $starred, defaultTemplate: $defaultTemplate, navigatorPage: $navigatorPage, toolbarPosition: $toolbarPosition, sortBy: $sortBy, sortOrder: $sortOrder, imageScale: $imageScale, pdfQuality: $pdfQuality, platformTheme: $platformTheme, recentColors: $recentColors, flags: $flags, spreadPages: $spreadPages, highContrast: $highContrast, gridView: $gridView, autosave: $autosave)';
+    return 'ButterflySettings(theme: $theme, density: $density, localeTag: $localeTag, documentPath: $documentPath, touchSensitivity: $touchSensitivity, mouseSensitivity: $mouseSensitivity, penSensitivity: $penSensitivity, selectSensitivity: $selectSensitivity, penOnlyInput: $penOnlyInput, inputGestures: $inputGestures, design: $design, bannerVisibility: $bannerVisibility, history: $history, navigatorEnabled: $navigatorEnabled, zoomEnabled: $zoomEnabled, lastVersion: $lastVersion, connections: $connections, defaultRemote: $defaultRemote, nativeTitleBar: $nativeTitleBar, startInFullScreen: $startInFullScreen, navigationRail: $navigationRail, fullScreen: $fullScreen, syncMode: $syncMode, inputConfiguration: $inputConfiguration, fallbackPack: $fallbackPack, starred: $starred, defaultTemplate: $defaultTemplate, navigatorPage: $navigatorPage, toolbarPosition: $toolbarPosition, toolbarSize: $toolbarSize, sortBy: $sortBy, sortOrder: $sortOrder, imageScale: $imageScale, pdfQuality: $pdfQuality, platformTheme: $platformTheme, recentColors: $recentColors, flags: $flags, spreadPages: $spreadPages, highContrast: $highContrast, gridView: $gridView, autosave: $autosave)';
   }
 
   @override
@@ -2212,6 +2229,7 @@ class _$ButterflySettingsImpl extends _ButterflySettings
       ..add(DiagnosticsProperty('defaultTemplate', defaultTemplate))
       ..add(DiagnosticsProperty('navigatorPage', navigatorPage))
       ..add(DiagnosticsProperty('toolbarPosition', toolbarPosition))
+      ..add(DiagnosticsProperty('toolbarSize', toolbarSize))
       ..add(DiagnosticsProperty('sortBy', sortBy))
       ..add(DiagnosticsProperty('sortOrder', sortOrder))
       ..add(DiagnosticsProperty('imageScale', imageScale))
@@ -2283,6 +2301,8 @@ class _$ButterflySettingsImpl extends _ButterflySettings
                 other.navigatorPage == navigatorPage) &&
             (identical(other.toolbarPosition, toolbarPosition) ||
                 other.toolbarPosition == toolbarPosition) &&
+            (identical(other.toolbarSize, toolbarSize) ||
+                other.toolbarSize == toolbarSize) &&
             (identical(other.sortBy, sortBy) || other.sortBy == sortBy) &&
             (identical(other.sortOrder, sortOrder) ||
                 other.sortOrder == sortOrder) &&
@@ -2337,6 +2357,7 @@ class _$ButterflySettingsImpl extends _ButterflySettings
         defaultTemplate,
         navigatorPage,
         toolbarPosition,
+        toolbarSize,
         sortBy,
         sortOrder,
         imageScale,
@@ -2389,6 +2410,7 @@ abstract class _ButterflySettings extends ButterflySettings {
       final String defaultTemplate,
       final NavigatorPage navigatorPage,
       final ToolbarPosition toolbarPosition,
+      final ToolbarSize toolbarSize,
       final SortBy sortBy,
       final SortOrder sortOrder,
       final double imageScale,
@@ -2460,6 +2482,8 @@ abstract class _ButterflySettings extends ButterflySettings {
   NavigatorPage get navigatorPage;
   @override
   ToolbarPosition get toolbarPosition;
+  @override
+  ToolbarSize get toolbarSize;
   @override
   SortBy get sortBy;
   @override

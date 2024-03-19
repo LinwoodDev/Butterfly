@@ -95,9 +95,8 @@ ContextMenuBuilder buildElementsContextMenu(
               Navigator.of(context).pop(true);
               final state = bloc.state;
               if (state is! DocumentLoadSuccess) return;
-              final content = state.page.content;
-              bloc.add(ElementsRemoved(
-                  renderers.map((r) => content.indexOf(r.element)).toList()));
+              bloc.add(
+                  ElementsRemoved(renderers.map((r) => r.element.id).toList()));
             },
             icon: const PhosphorIcon(PhosphorIconsLight.trash),
             label: AppLocalizations.of(context).delete,
@@ -112,12 +111,8 @@ ContextMenuBuilder buildElementsContextMenu(
                         Navigator.of(context).pop(true);
                         final state = bloc.state;
                         if (state is! DocumentLoadSuccess) return;
-                        final content = state.page.content;
                         bloc.add(ElementsArranged(
-                            e,
-                            renderers
-                                .map((r) => content.indexOf(r.element))
-                                .toList()));
+                            e, renderers.map((r) => r.element.id).toList()));
                       },
                     ))
                 .toList(),
