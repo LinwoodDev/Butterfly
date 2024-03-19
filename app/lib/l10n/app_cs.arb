@@ -592,5 +592,7 @@
   "operations": "Operace",
   "medium": "Medium",
   "large": "Large",
-  "toolbarSize": "Toolbar size"
+  "toolbarSize": "Toolbar size",
+  "addAll": "Add all",
+  "onlyCurrentPage": "Only current page"
 }
