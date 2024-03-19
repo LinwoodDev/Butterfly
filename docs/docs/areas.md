@@ -5,7 +5,13 @@ sidebar_position: 2
 import {Monitor} from "@phosphor-icons/react";
 
 
+## Introduction
+
 ![Area](area.png)
+
+Areas are a way to restrict the size of the canvas. You can create areas by using the [area tool](tools/area.md). If you click on the background you can open the area list dialog using the context menu.
+
+## Creating and deleting areas
 
 While you can directly edit the content on the canvas, it is common that you would like to restrict the region in which you can modify the content, or that you would like ot be able to be able to quickly access a part of the document. For that, you have the <Monitor/> Area tool. As explained in the [introduction section](README.md), you might need to add the <Monitor/> area button to your toolbar. Using the [area tool](tools/area.md), you can draw rectangle anywhere on the canvas to then define the area.
 
