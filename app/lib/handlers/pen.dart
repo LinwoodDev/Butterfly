@@ -156,6 +156,22 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
     points.add(event.localPosition);
   }
 
+  void showMessage(EventContext context, String recognizedshape) {
+    String name = recognizedshape;
+    // show SnackBar with recognized shape
+    ScaffoldMessenger.of(context.buildContext).showSnackBar(
+      SnackBar(
+        width: MediaQuery.of(context.buildContext).size.width * 0.1,
+        behavior: SnackBarBehavior.floating,
+        content: Text(
+          textAlign: TextAlign.center,
+          name,
+        ),
+        duration: const Duration(milliseconds: 300),
+      ),
+    );
+  }
+
   // Detects shapes and draws them
   void _tickShapeDetection(
       int pointer, EventContext context, Offset localPosition) {
@@ -191,18 +207,9 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
                   strokeWidth: data.property.strokeWidth),
             );
 
-            // show SnackBar with recognized shape
-            ScaffoldMessenger.of(context.buildContext).showSnackBar(
-              SnackBar(
-                width: MediaQuery.of(context.buildContext).size.width * 0.1,
-                behavior: SnackBarBehavior.floating,
-                content: Text(
-                  textAlign: TextAlign.center,
-                  AppLocalizations.of(context.buildContext).line,
-                ),
-                duration: const Duration(milliseconds: 300),
-              ),
-            );
+            // Show dialog
+            showMessage(context, DefaultUnistrokeNames.line.name);
+
             // Add element on document
             context.getDocumentBloc().add(ElementsCreated([shapeElement]));
 
@@ -248,18 +255,9 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
                   strokeWidth: data.property.strokeWidth),
             );
 
-            // show SnackBar with recognized shape
-            ScaffoldMessenger.of(context.buildContext).showSnackBar(
-              SnackBar(
-                width: MediaQuery.of(context.buildContext).size.width * 0.1,
-                behavior: SnackBarBehavior.floating,
-                content: Text(
-                  textAlign: TextAlign.center,
-                  AppLocalizations.of(context.buildContext).circle,
-                ),
-                duration: const Duration(milliseconds: 300),
-              ),
-            );
+            // Show dialog
+            showMessage(context, DefaultUnistrokeNames.circle.name);
+
             // Add element on document
             context.getDocumentBloc().add(ElementsCreated([shapeElement]));
 
@@ -295,18 +293,8 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
                   strokeWidth: data.property.strokeWidth),
             );
 
-            // show SnackBar with recognized shape
-            ScaffoldMessenger.of(context.buildContext).showSnackBar(
-              SnackBar(
-                width: MediaQuery.of(context.buildContext).size.width * 0.1,
-                behavior: SnackBarBehavior.floating,
-                content: Text(
-                  textAlign: TextAlign.center,
-                  AppLocalizations.of(context.buildContext).rectangle,
-                ),
-                duration: const Duration(milliseconds: 300),
-              ),
-            );
+            // Show dialog
+            showMessage(context, DefaultUnistrokeNames.rectangle.name);
 
             // Add element on document
             context.getDocumentBloc().add(ElementsCreated([shapeElement]));
@@ -343,18 +331,8 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
                   strokeWidth: data.property.strokeWidth),
             );
 
-            // show SnackBar with recognized shape
-            ScaffoldMessenger.of(context.buildContext).showSnackBar(
-              SnackBar(
-                width: MediaQuery.of(context.buildContext).size.width * 0.1,
-                behavior: SnackBarBehavior.floating,
-                content: Text(
-                  textAlign: TextAlign.center,
-                  AppLocalizations.of(context.buildContext).triangle,
-                ),
-                duration: const Duration(milliseconds: 300),
-              ),
-            );
+            // Show dialog
+            showMessage(context, DefaultUnistrokeNames.triangle.name);
 
             // Add element on document
             context.getDocumentBloc().add(ElementsCreated([shapeElement]));
