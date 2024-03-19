@@ -74,6 +74,7 @@ Tärkein näkemys koostuu useista tekijöistä
 
 Kun asiakirja on avattu valitsemalla malli tai olemassa oleva tiedosto, pääset **Document View**
 
+
 ## Asiakirjan Näkymä
 
 Voit palata asiakirjan näkymästä asiakirjan luetteloon, jossa on laitteen takatoiminto (back action of your device). Kuten päänäkymässä, dokumentin näytön muutokset perustuvat laitteeseesi.
