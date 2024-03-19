@@ -592,5 +592,7 @@
   "operations": "Operazioni",
   "medium": "Medio",
   "large": "Largo",
-  "toolbarSize": "Dimensione barra strumenti"
+  "toolbarSize": "Dimensione barra strumenti",
+  "addAll": "Add all",
+  "onlyCurrentPage": "Only current page"
 }
