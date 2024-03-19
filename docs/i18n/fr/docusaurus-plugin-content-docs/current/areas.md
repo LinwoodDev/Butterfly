@@ -3,6 +3,9 @@ title: "Zones"
 sidebar_position: 2
 ---
 
+import {Monitor} from "@phosphor-icons/react";
+
+
 ## Introduction
 
 ![Zone de stockage](area.png)
@@ -11,13 +14,23 @@ Les zones sont un moyen de limiter la taille de la toile. Vous pouvez créer des
 
 ## Création et suppression des zones
 
-Utilisez l'outil [zone](tools/area.md) pour créer une zone. Les zones ne peuvent pas se chevaucher. Une fois que vous avez créé une zone, vous devez la nommer.
+While you can directly edit the content on the canvas, it is common that you would like to restrict the region in which you can modify the content, or that you would like ot be able to be able to quickly access a part of the document. For that, you have the <Monitor/> Area tool. As explained in the [introduction section](README.md), you might need to add the <Monitor/> area button to your toolbar. Using the [area tool](tools/area.md), you can draw rectangle anywhere on the canvas to then define the area.
 
-Cliquez sur la zone si vous souhaitez la modifier. Vous pouvez également utiliser la boîte de dialogue de la zone.
+## More control
 
-Vous avez quelques options dans ce menu :
+You can further define area tool by clicking again on the <Monitor/> area button. There, you can define the areas's fixed width, height, or aspect ratio.
 
-* `Entrez la zone`: Entrez la zone. Vous ne pouvez pas peindre en dehors de la zone. Quittez la zone en cliquant sur l'arrière-plan avec l'outil de zone.
-* `Nom`: Changer le nom de la zone actuelle
-* `Exporter`: Exporter cette partie de la toile en tant qu'image
-* `Supprimer`: Supprimer cette zone
+## The area context menu
+
+ After drawing an area, you can click or long tap on touch display the area to open a context menu with the following options:
+
+* `Name` - Give the area a name that is convinient for you to use. This is useful, for example when...
+* `Enter the area` - Allowing you to edit content only borded by this area.
+* `Delete` - Delete the area. This *does not* delete the content within this area.
+* `Export` - Export the content of the selected area.
+* `Add to pack` - Add the area to a [pack](pack)
+
+## Another option
+
+Another option for you to use the area navigator is on the left menu, or on the butterfly menu if you are using a mobile platform. 
+
