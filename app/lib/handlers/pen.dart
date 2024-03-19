@@ -157,7 +157,6 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
   }
 
   void showMessage(EventContext context, String recognizedshape) {
-    String name = recognizedshape;
     // show SnackBar with recognized shape
     ScaffoldMessenger.of(context.buildContext).showSnackBar(
       SnackBar(
@@ -165,7 +164,7 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
         behavior: SnackBarBehavior.floating,
         content: Text(
           textAlign: TextAlign.center,
-          name,
+          recognizedshape,
         ),
         duration: const Duration(milliseconds: 300),
       ),
@@ -208,7 +207,8 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
             );
 
             // Show dialog
-            showMessage(context, DefaultUnistrokeNames.line.name);
+            showMessage(
+                context, AppLocalizations.of(context.buildContext).line);
 
             // Add element on document
             context.getDocumentBloc().add(ElementsCreated([shapeElement]));
@@ -256,7 +256,7 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
             );
 
             // Show dialog
-            showMessage(context, DefaultUnistrokeNames.circle.name);
+            showMessage(context, AppLocalizations.of(context.buildContext).circle);
 
             // Add element on document
             context.getDocumentBloc().add(ElementsCreated([shapeElement]));
@@ -294,7 +294,7 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
             );
 
             // Show dialog
-            showMessage(context, DefaultUnistrokeNames.rectangle.name);
+            showMessage(context, AppLocalizations.of(context.buildContext).rectangle);
 
             // Add element on document
             context.getDocumentBloc().add(ElementsCreated([shapeElement]));
@@ -332,7 +332,7 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
             );
 
             // Show dialog
-            showMessage(context, DefaultUnistrokeNames.triangle.name);
+            showMessage(context, AppLocalizations.of(context.buildContext).triangle);
 
             // Add element on document
             context.getDocumentBloc().add(ElementsCreated([shapeElement]));
