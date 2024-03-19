@@ -94,7 +94,7 @@ dependencies:
   image: ^4.1.7
   one_dollar_unistroke_recognizer: ^1.0.0
 dev_dependencies:
-  flutter_native_splash: ^2.3.10
+  flutter_native_splash: ^2.4.0
   #flutter_launcher_icons: ^0.11.0
   flutter_lints: ^3.0.1
   flutter_test:
@@ -104,6 +104,7 @@ dev_dependencies:
   build_runner: ^2.4.8
   json_serializable: ^6.7.1
   espresso: ^0.3.0+7
+  freezed: ^2.4.7
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
