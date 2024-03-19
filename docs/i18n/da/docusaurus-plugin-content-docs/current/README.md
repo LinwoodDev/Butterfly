@@ -74,6 +74,7 @@ Hovedvisningen er sammensat af flere elementer
 
 Når du åbner et dokument ved at vælge en skabelon eller en eksisterende fil, vil du komme til **Document View**
 
+
 ## Dokumentvisningen
 
 Du kan vende tilbage fra dokumentvisningen til dokumentlisten med baghandlingen på din enhed. Som med hovedvisningen, vises dokumentet ændringer baseret på din enhed.
