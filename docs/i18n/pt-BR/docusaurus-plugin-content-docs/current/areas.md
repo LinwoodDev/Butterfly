@@ -3,7 +3,7 @@ title: "Áreas"
 sidebar_position: 2
 ---
 
-import {Monitor} from "@phosphor-icons/react";
+importar {Monitor} de "@phosphor-icons/react";
 
 
 ## Introdução
@@ -14,23 +14,23 @@ As áreas são uma forma de restringir a dimensão da tela. Você pode criar ár
 
 ## Criar e excluir áreas
 
-While you can directly edit the content on the canvas, it is common that you would like to restrict the region in which you can modify the content, or that you would like ot be able to be able to quickly access a part of the document. For that, you have the <Monitor/> Area tool. As explained in the [introduction section](README.md), you might need to add the <Monitor/> area button to your toolbar. Using the [area tool](tools/area.md), you can draw rectangle anywhere on the canvas to then define the area.
+Enquanto você pode editar diretamente o conteúdo na tela, é comum que você gostaria de restringir a região em que você pode modificar o conteúdo, ou que você gostaria de ter acesso rápido a uma parte do documento. Para isso, você tem a ferramenta <Monitor/> de área. Como explicado na [seção de introdução](README.md), talvez você precise adicionar o botão <Monitor/> área na sua barra de ferramentas. Usando a ferramenta [área](tools/area.md), você pode desenhar retângulo em qualquer lugar da tela para então definir a área.
 
-## More control
+## Mais controle
 
-You can further define area tool by clicking again on the <Monitor/> area button. There, you can define the areas's fixed width, height, or aspect ratio.
+Você pode definir a ferramenta de área clicando novamente no botão <Monitor/> área. Lá, você pode definir a largura, altura ou proporção de aspecto fixa.
 
-## The area context menu
+## Menu de contexto da área
 
- After drawing an area, you can click or long tap on touch display the area to open a context menu with the following options:
+ Depois de desenhar uma área, você pode clicar ou tocar e segurar na tela de toque para abrir um menu de contexto com as seguintes opções:
 
-* `Name` - Give the area a name that is convinient for you to use. This is useful, for example when...
+* `Nome` - Dê à área um nome que seja conveniente para você usar. Isto é útil, por exemplo, quando...
 * `Enter the area` - Allowing you to edit content only borded by this area.
-* `Delete` - Delete the area. This *does not* delete the content within this area.
-* `Export` - Export the content of the selected area.
-* `Add to pack` - Add the area to a [pack](pack)
+* `Delete` - Delete the area. Este *não* exclui o conteúdo desta área.
+* `Exportar` - Exportar o conteúdo da área selecionada.
+* `Adicionar ao pacote` - Adicione a área a um [pacote](pack)
 
-## Another option
+## Outra opção
 
-Another option for you to use the area navigator is on the left menu, or on the butterfly menu if you are using a mobile platform. 
+Outra opção para você utilizar o navegador de área está no menu à esquerda, ou no menu de borboleta se você estiver usando uma plataforma móvel. 
 
