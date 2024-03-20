@@ -3,7 +3,7 @@ title: "Aree"
 sidebar_position: 2
 ---
 
-import {Monitor} from "@phosphor-icons/react";
+importa {Monitor} da "@phosphor-icons/react";
 
 
 ## Introduzione
@@ -14,23 +14,23 @@ Le aree sono un modo per limitare le dimensioni della tela. È possibile creare 
 
 ## Creazione ed eliminazione di aree
 
-While you can directly edit the content on the canvas, it is common that you would like to restrict the region in which you can modify the content, or that you would like ot be able to be able to quickly access a part of the document. For that, you have the <Monitor/> Area tool. As explained in the [introduction section](README.md), you might need to add the <Monitor/> area button to your toolbar. Using the [area tool](tools/area.md), you can draw rectangle anywhere on the canvas to then define the area.
+Mentre è possibile modificare direttamente il contenuto sulla tela, è comune che si desidera limitare la regione in cui è possibile modificare il contenuto, o che si desidera che ot sia in grado di accedere rapidamente a una parte del documento. Per questo, hai lo strumento <Monitor/> Area. Come spiegato nella sezione [introduttiva](README.md), potrebbe essere necessario aggiungere il pulsante <Monitor/> area alla barra degli strumenti. Utilizzando lo strumento [area](tools/area.md), è possibile disegnare un rettangolo in qualsiasi punto della superficie per poi definire l'area.
 
-## More control
+## Più controllo
 
-You can further define area tool by clicking again on the <Monitor/> area button. There, you can define the areas's fixed width, height, or aspect ratio.
+È possibile definire ulteriormente lo strumento di area facendo clic di nuovo sul pulsante <Monitor/>. Lì è possibile definire la larghezza, l'altezza o il rapporto di aspetto delle aree.
 
-## The area context menu
+## Il menu contestuale dell'area
 
- After drawing an area, you can click or long tap on touch display the area to open a context menu with the following options:
+ Dopo aver disegnato un'area, è possibile fare clic o toccare a lungo sul tocco visualizzare l'area per aprire un menu contestuale con le seguenti opzioni:
 
-* `Name` - Give the area a name that is convinient for you to use. This is useful, for example when...
-* `Enter the area` - Allowing you to edit content only borded by this area.
-* `Delete` - Delete the area. This *does not* delete the content within this area.
-* `Export` - Export the content of the selected area.
-* `Add to pack` - Add the area to a [pack](pack)
+* `Nome` - Dare all'area un nome che è convincente per voi da usare. Questo è utile, per esempio...
+* `Inserisci l'area` - Consente di modificare il contenuto solo annoiato da quest'area.
+* `Elimina` - Elimina l'area. Questa *non* elimina il contenuto all'interno di quest'area.
+* `Esporta` - Esporta il contenuto dell'area selezionata.
+* `Aggiungi al pacchetto` - Aggiungi l'area a un pacchetto [](pack)
 
-## Another option
+## Un'altra opzione
 
-Another option for you to use the area navigator is on the left menu, or on the butterfly menu if you are using a mobile platform. 
+Un'altra opzione per utilizzare il navigatore di area è sul menu a sinistra, o sul menu delle farfalle se si utilizza una piattaforma mobile. 
 
