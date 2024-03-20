@@ -590,9 +590,9 @@
   "autosave": "Autosave",
   "invert": "Invert",
   "operations": "Operaciones",
-  "medium": "Medium",
-  "large": "Large",
-  "toolbarSize": "Toolbar size",
-  "addAll": "Add all",
-  "onlyCurrentPage": "Only current page"
+  "medium": "Medio",
+  "large": "Grande",
+  "toolbarSize": "Tamaño de barra de herramientas",
+  "addAll": "Añadir todo",
+  "onlyCurrentPage": "Sólo página actual"
 }
