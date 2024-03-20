@@ -3,7 +3,7 @@ title: "المناطق"
 sidebar_position: 2
 ---
 
-import {Monitor} from "@phosphor-icons/react";
+استيراد {Monitor} من "@phosphor-icons/react";
 
 
 ## مقدمة
@@ -14,23 +14,31 @@ import {Monitor} from "@phosphor-icons/react";
 
 ## إنشاء المناطق وحذفها
 
-While you can directly edit the content on the canvas, it is common that you would like to restrict the region in which you can modify the content, or that you would like ot be able to be able to quickly access a part of the document. For that, you have the <Monitor/> Area tool. As explained in the [introduction section](README.md), you might need to add the <Monitor/> area button to your toolbar. Using the [area tool](tools/area.md), you can draw rectangle anywhere on the canvas to then define the area.
+في الوقت الذي يمكنك فيه تعديل المحتوى مباشرة على الكانفاس، من الشائع أنك ترغب في تقييد المنطقة التي يمكنك فيها تعديل المحتوى، أو أن ترغب في أن تكون قادراً على الوصول بسرعة إلى جزء من المستند. لذلك ، لديك أداة المنطقة <Monitor/> كما هو موضح في الجزء
 
-## More control
+[](README.md)، قد تحتاج إلى إضافة زر المنطقة <Monitor/> إلى شريط الأدوات الخاص بك. باستخدام أداة المنطقة [](tools/area.md)، يمكنك رسم مستطيل في أي مكان على الكانفاس ثم تحديد المنطقة.</p> 
 
-You can further define area tool by clicking again on the <Monitor/> area button. There, you can define the areas's fixed width, height, or aspect ratio.
 
-## The area context menu
 
- After drawing an area, you can click or long tap on touch display the area to open a context menu with the following options:
+## المزيد من التحكم
 
-* `Name` - Give the area a name that is convinient for you to use. This is useful, for example when...
-* `Enter the area` - Allowing you to edit content only borded by this area.
-* `Delete` - Delete the area. This *does not* delete the content within this area.
-* `Export` - Export the content of the selected area.
-* `Add to pack` - Add the area to a [pack](pack)
+يمكنك أيضا تحديد أداة المنطقة من خلال النقر مرة أخرى على زر المنطقة <Monitor/> هناك، يمكنك تحديد المساحات الثابتة العرض أو الطول أو النسبة. 
 
-## Another option
 
-Another option for you to use the area navigator is on the left menu, or on the butterfly menu if you are using a mobile platform. 
+
+## قائمة سياق المنطقة
+
+بعد رسم منطقة، يمكنك النقر أو الضغط مطولاً على عرض المنطقة لفتح قائمة السياق مع الخيارات التالية:
+
+* `الاسم` - اعطي المنطقة اسما مقنعا لك للاستخدام. هذا مفيد، على سبيل المثال عندما...
+* `أدخل المنطقة` - يسمح لك بتحرير المحتوى عبر هذه المنطقة فقط.
+* `حذف` - حذف المنطقة. هذا *لا* يحذف المحتوى داخل هذه المنطقة.
+* `تصدير` - تصدير محتوى المنطقة المحددة.
+* `إضافة إلى الحزمة` - إضافة المنطقة إلى الحزمة [](pack)
+
+
+
+## خيار آخر
+
+خيار آخر لك لاستخدام متنقل المنطقة هو في القائمة اليسرى، أو على قائمة الفراشة إذا كنت تستخدم منصة محمولة. 
 
