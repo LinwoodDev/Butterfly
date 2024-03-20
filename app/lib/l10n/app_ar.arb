@@ -590,9 +590,9 @@
   "autosave": "Autosave",
   "invert": "Invert",
   "operations": "العمليات",
-  "medium": "Medium",
-  "large": "Large",
-  "toolbarSize": "Toolbar size",
-  "addAll": "Add all",
-  "onlyCurrentPage": "Only current page"
+  "medium": "متوسط",
+  "large": "كبير",
+  "toolbarSize": "حجم شريط الأدوات",
+  "addAll": "إضافة الكل",
+  "onlyCurrentPage": "الصفحة الحالية فقط"
 }
