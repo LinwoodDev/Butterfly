@@ -590,9 +590,9 @@
   "autosave": "Autosave",
   "invert": "Invert",
   "operations": "操作",
-  "medium": "Medium",
-  "large": "Large",
-  "toolbarSize": "Toolbar size",
-  "addAll": "Add all",
-  "onlyCurrentPage": "Only current page"
+  "medium": "ミディアム",
+  "large": "大",
+  "toolbarSize": "ツールバーのサイズ",
+  "addAll": "すべて追加",
+  "onlyCurrentPage": "現在のページのみ"
 }
