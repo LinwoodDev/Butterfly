@@ -3,7 +3,7 @@ title: "Domenii"
 sidebar_position: 2
 ---
 
-import {Monitor} from "@phosphor-icons/react";
+importă {Monitor} din "@fosfor-icons/react";
 
 
 ## Introducere
@@ -14,23 +14,23 @@ Zonele reprezintă o modalitate de a limita dimensiunea pânzilor. Poți crea zo
 
 ## Crearea şi ştergerea zonelor
 
-While you can directly edit the content on the canvas, it is common that you would like to restrict the region in which you can modify the content, or that you would like ot be able to be able to quickly access a part of the document. For that, you have the <Monitor/> Area tool. As explained in the [introduction section](README.md), you might need to add the <Monitor/> area button to your toolbar. Using the [area tool](tools/area.md), you can draw rectangle anywhere on the canvas to then define the area.
+În timp ce puteţi edita direct conţinutul de pe pânză, este un lucru obişnuit să limitaţi regiunea în care puteţi modifica conţinutul, sau că aţi dori să puteţi accesa rapid o parte a documentului. Pentru asta, ai o unealtă de zonă <Monitor/>. Așa cum se explică în secțiunea [de introducere](README.md), s-ar putea să fie nevoie să adăugați butonul <Monitor/> pentru zona în bara de instrumente. Folosind unealta [zona](tools/area.md), poți desena dreptunghi oriunde pe planșă pentru a defini apoi zona.
 
-## More control
+## Mai mult control
 
-You can further define area tool by clicking again on the <Monitor/> area button. There, you can define the areas's fixed width, height, or aspect ratio.
+Poți defini mai în detaliu unealta făcând clic din nou pe butonul <Monitor/> al ariei. Aici puteţi defini lăţimea fixă a suprafeţelor, înălţimea sau raportul aspectului.
 
-## The area context menu
+## Meniul zonei contextual
 
- After drawing an area, you can click or long tap on touch display the area to open a context menu with the following options:
+ După ce desenați o zonă, puteți face clic sau apăsați lung pe ecranul zonei pentru a deschide un meniu contextual cu următoarele opțiuni:
 
-* `Name` - Give the area a name that is convinient for you to use. This is useful, for example when...
-* `Enter the area` - Allowing you to edit content only borded by this area.
-* `Delete` - Delete the area. This *does not* delete the content within this area.
-* `Export` - Export the content of the selected area.
-* `Add to pack` - Add the area to a [pack](pack)
+* `Numele` - Dă o denumire convenţională pe care o vei folosi. Acest lucru este util, de exemplu, atunci când...
+* `Introduceți zona` - Vă permite să editați conținutul legat doar de această zonă.
+* `Șterge` - Șterge zona. This *does not* delete the content within this area.
+* `Export` - Exportă conținutul zonei selectate.
+* `Adăugaţi la pachetul` - Adăugaţi zona la un pachet [](pack)
 
-## Another option
+## O altă opțiune
 
-Another option for you to use the area navigator is on the left menu, or on the butterfly menu if you are using a mobile platform. 
+O altă opţiune pentru a utiliza navigatorul în zonă este în meniul din stânga, sau în meniul fluture dacă utilizați o platformă mobilă. 
 
