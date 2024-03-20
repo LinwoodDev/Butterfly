@@ -5,9 +5,7 @@ slug: /intro
 sidebar_position: 1
 ---
 
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
-import { Gear, Plus, FloppyDisk, MagnifyingGlass, ScribbleLoop, Pen, Path, ArrowCounterClockwise, ArrowClockwise, Hand, Wrench, Lock} from "@phosphor-icons/react";
+importer des onglets depuis '@theme/Tabs'; importer un tabItem depuis '@theme/TabItem'; importer { Gear, Plus, Disquette MagnifyingGlass, ScribbleLoop, Pen, Path, Flèche dans le sens horloger, dans le sens horaire Clé à clef, Lock} de "@phosphor-icons/react";
 
 ![Bannière](/img/banner.png)
 
