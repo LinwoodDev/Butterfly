@@ -590,9 +590,9 @@
   "autosave": "Autosave",
   "invert": "Invert",
   "operations": "Åtgärder",
-  "medium": "Medium",
-  "large": "Large",
-  "toolbarSize": "Toolbar size",
-  "addAll": "Add all",
-  "onlyCurrentPage": "Only current page"
+  "medium": "Medel",
+  "large": "Stor",
+  "toolbarSize": "Storlek på verktygsfält",
+  "addAll": "Lägg till alla",
+  "onlyCurrentPage": "Endast aktuell sida"
 }
