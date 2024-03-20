@@ -11,6 +11,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter/foundation.dart' as foundation;
 
 import '../api/intent.dart';
 import '../services/import.dart';
@@ -337,6 +338,12 @@ class _MainViewViewportState extends State<MainViewViewport>
                                   .onPointerHover(event, getEventContext());
                             },
                             onPointerMove: (PointerMoveEvent event) async {
+                              RenderObject? box = context.findRenderObject();
+                              //!
+                              if (!box!.paintBounds 
+                                  .contains(event.localPosition ) && foundation.kIsWeb) {
+                                return;
+                              }
                               cubit.updateLastPosition(event.localPosition);
                               if (cubit.state.moveEnabled &&
                                   event.kind != PointerDeviceKind.stylus) {
@@ -371,8 +378,8 @@ class _MainViewViewportState extends State<MainViewViewport>
                               builder: (context, transform) => MouseRegion(
                                 cursor: currentIndex.currentCursor,
                                 onExit: kIsWeb
-                                    ? (event) => cubit.resetInput(
-                                        context.read<DocumentBloc>())
+                                    ? (event) =>
+                                        cubit.updateLastPosition(event.position)
                                     : null,
                                 child: Stack(children: [
                                   Container(color: Colors.white),
