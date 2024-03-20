@@ -590,9 +590,9 @@
   "autosave": "Autosave",
   "invert": "Invert",
   "operations": "Bewerkingen",
-  "medium": "Medium",
-  "large": "Large",
-  "toolbarSize": "Toolbar size",
-  "addAll": "Add all",
-  "onlyCurrentPage": "Only current page"
+  "medium": "Middelgroot",
+  "large": "groot",
+  "toolbarSize": "Werkbalk grootte",
+  "addAll": "Alles toevoegen",
+  "onlyCurrentPage": "Alleen huidige pagina"
 }
