@@ -3,7 +3,7 @@ title: "Розділи"
 sidebar_position: 2
 ---
 
-import {Monitor} from "@phosphor-icons/react";
+імпортувати {Monitor} з "@phosphor-icons/react";
 
 
 ## Вступ
@@ -14,23 +14,23 @@ import {Monitor} from "@phosphor-icons/react";
 
 ## Створення та видалення областей
 
-While you can directly edit the content on the canvas, it is common that you would like to restrict the region in which you can modify the content, or that you would like ot be able to be able to quickly access a part of the document. For that, you have the <Monitor/> Area tool. As explained in the [introduction section](README.md), you might need to add the <Monitor/> area button to your toolbar. Using the [area tool](tools/area.md), you can draw rectangle anywhere on the canvas to then define the area.
+Поки ви можете безпосередньо редагувати контент на полотні, є типовим, що ви хотіли б обмежити регіон, яким ви можете змінити вміст, або що ви хотіли б корабель у змозі швидко отримати доступ до частини документа. Для цього ви маєте інструмент <Monitor/> області. As explained in the [introduction section](README.md), you might need to add the <Monitor/> area button to your toolbar. Використання інструменту [області](tools/area.md), ви можете намалювати прямокутник в будь-якому місці на полотні, щоб визначити площу.
 
-## More control
+## Розширені налаштування
 
-You can further define area tool by clicking again on the <Monitor/> area button. There, you can define the areas's fixed width, height, or aspect ratio.
+Далі ви можете визначити інструмент області натисканням ще раз на кнопку <Monitor/>. Там ви можете визначити фіксовану ширину районів, висоту або співвідношення сторін.
 
-## The area context menu
+## Контекстне меню області
 
- After drawing an area, you can click or long tap on touch display the area to open a context menu with the following options:
+ Намалюючи область, можна натиснути або довге натискання на дотик відображатиметься область, щоб відкрити контекстне меню з наступними опціями:
 
-* `Name` - Give the area a name that is convinient for you to use. This is useful, for example when...
-* `Enter the area` - Allowing you to edit content only borded by this area.
-* `Delete` - Delete the area. This *does not* delete the content within this area.
+* `Name` - Give the area a name that is convinient for you to use. Це корисно, наприклад, коли...
+* `Введіть в область` - Дозволяється редагувати вміст, вибираний лише цією областю.
+* `Видалити` - Видалити область. This *does not* delete the content within this area.
 * `Export` - Export the content of the selected area.
-* `Add to pack` - Add the area to a [pack](pack)
+* `Додати до набору` - додати область до пакету [](pack)
 
-## Another option
+## Інший варіант
 
-Another option for you to use the area navigator is on the left menu, or on the butterfly menu if you are using a mobile platform. 
+Інший параметр для використання area навігатор є в лівому меню, або на меню метелика, якщо ви використовуєте мобільну платформу. 
 
