@@ -3,7 +3,7 @@ title: "Zones"
 sidebar_position: 2
 ---
 
-import {Monitor} from "@phosphor-icons/react";
+importer {Monitor} depuis "@phosphor-icons/react";
 
 
 ## Introduction
@@ -14,23 +14,23 @@ Les zones sont un moyen de limiter la taille de la toile. Vous pouvez créer des
 
 ## Création et suppression des zones
 
-While you can directly edit the content on the canvas, it is common that you would like to restrict the region in which you can modify the content, or that you would like ot be able to be able to quickly access a part of the document. For that, you have the <Monitor/> Area tool. As explained in the [introduction section](README.md), you might need to add the <Monitor/> area button to your toolbar. Using the [area tool](tools/area.md), you can draw rectangle anywhere on the canvas to then define the area.
+Alors que vous pouvez directement modifier le contenu sur la toile, il est courant que vous vouliez restreindre la région dans laquelle vous pouvez modifier le contenu, ou que vous aimeriez pouvoir accéder rapidement à une partie du document. Pour cela, vous avez l'outil <Monitor/> Area . Comme expliqué dans la section [introduction](README.md), vous devrez peut-être ajouter le bouton <Monitor/> à votre barre d'outils. En utilisant l'outil [de zone](tools/area.md), vous pouvez dessiner un rectangle n'importe où sur la toile pour ensuite définir la zone.
 
-## More control
+## Plus de contrôle
 
-You can further define area tool by clicking again on the <Monitor/> area button. There, you can define the areas's fixed width, height, or aspect ratio.
+Vous pouvez définir davantage l'outil zone en cliquant à nouveau sur le bouton <Monitor/>. Là, vous pouvez définir la largeur fixe, la hauteur ou le rapport d'aspect.
 
-## The area context menu
+## Le menu contextuel de la zone
 
- After drawing an area, you can click or long tap on touch display the area to open a context menu with the following options:
+ Après avoir dessiné une zone, vous pouvez cliquer ou appuyer longuement sur la touche afficher la zone pour ouvrir un menu contextuel avec les options suivantes :
 
-* `Name` - Give the area a name that is convinient for you to use. This is useful, for example when...
-* `Enter the area` - Allowing you to edit content only borded by this area.
-* `Delete` - Delete the area. This *does not* delete the content within this area.
-* `Export` - Export the content of the selected area.
-* `Add to pack` - Add the area to a [pack](pack)
+* `Name` - Donnez à la zone un nom qui vous convaincra d'utiliser. Ceci est utile, par exemple quand...
+* `Entrez la zone` - Vous permettant de modifier du contenu uniquement emprunté par cette zone.
+* `Supprimer` - Supprimer la zone. This *does not* delete the content within this area.
+* `Exporter` - Exporter le contenu de la zone sélectionnée.
+* `Ajouter au pack` - Ajouter la zone à un pack [](pack)
 
-## Another option
+## Une autre option
 
-Another option for you to use the area navigator is on the left menu, or on the butterfly menu if you are using a mobile platform. 
+Une autre option pour vous d'utiliser le navigateur de zone est dans le menu de gauche, ou sur le menu papillon si vous utilisez une plateforme mobile. 
 
