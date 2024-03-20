@@ -3,7 +3,7 @@ title: "Oblasti"
 sidebar_position: 2
 ---
 
-import {Monitor} from "@phosphor-icons/react";
+importovat {Monitor} z "@fosfor-icons/react";
 
 
 ## Úvod
@@ -14,23 +14,23 @@ Plochy jsou způsobem, jak omezit velikost plátna. Oblasti můžete vytvořit p
 
 ## Vytváření a odstraňování oblastí
 
-While you can directly edit the content on the canvas, it is common that you would like to restrict the region in which you can modify the content, or that you would like ot be able to be able to quickly access a part of the document. For that, you have the <Monitor/> Area tool. As explained in the [introduction section](README.md), you might need to add the <Monitor/> area button to your toolbar. Using the [area tool](tools/area.md), you can draw rectangle anywhere on the canvas to then define the area.
+Zatímco můžete přímo upravit obsah plátna, je běžné, že chcete omezit region, ve kterém můžete upravit obsah, nebo že chcete mít možnost rychle získat přístup k části dokumentu. K tomu máte nástroj <Monitor/> pro oblast. Jak je vysvětleno v části [úvodního oddílu](README.md), možná budete muset přidat do panelu nástrojů tlačítko <Monitor/>. Pomocí [area tool](tools/area.md)můžete nakreslit obdélník kdekoli na plátno a pak definovat oblast.
 
-## More control
+## Více ovládání
 
-You can further define area tool by clicking again on the <Monitor/> area button. There, you can define the areas's fixed width, height, or aspect ratio.
+Nástroj oblasti můžete dále definovat kliknutím znovu na tlačítko <Monitor/>. Zde můžete definovat pevnou šířku, výšku nebo poměr stran.
 
-## The area context menu
+## Kontextové menu oblasti
 
- After drawing an area, you can click or long tap on touch display the area to open a context menu with the following options:
+ Po vykreslení oblasti můžete kliknout nebo dlouze klepnout na zobrazenou oblast pro otevření kontextové nabídky s následujícími možnostmi:
 
-* `Name` - Give the area a name that is convinient for you to use. This is useful, for example when...
-* `Enter the area` - Allowing you to edit content only borded by this area.
-* `Delete` - Delete the area. This *does not* delete the content within this area.
-* `Export` - Export the content of the selected area.
-* `Add to pack` - Add the area to a [pack](pack)
+* `Name` - Dejte oblasti jméno, které je vhodné k použití. To je užitečné, například kdy...
+* `Zadejte oblast` - Umožňuje upravit obsah pouze ohraničený touto oblastí.
+* `Odstranit` - Odstranit oblast. This *does not* delete the content within this area.
+* `Export` - Export obsahu vybrané oblasti.
+* `Přidat do balíčku` - přidat oblast do [balíčku](pack)
 
-## Another option
+## Jiná možnost
 
-Another option for you to use the area navigator is on the left menu, or on the butterfly menu if you are using a mobile platform. 
+Další možností, jak použít plochý navigátor je v levém menu. nebo na menu, pokud používáte mobilní platformu. 
 
