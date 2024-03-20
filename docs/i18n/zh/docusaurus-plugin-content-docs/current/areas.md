@@ -14,23 +14,23 @@ import {Monitor} from "@phosphor-icons/react";
 
 ## 创建和删除区域
 
-While you can directly edit the content on the canvas, it is common that you would like to restrict the region in which you can modify the content, or that you would like ot be able to be able to quickly access a part of the document. For that, you have the <Monitor/> Area tool. As explained in the [introduction section](README.md), you might need to add the <Monitor/> area button to your toolbar. Using the [area tool](tools/area.md), you can draw rectangle anywhere on the canvas to then define the area.
+当您可以直接编辑画布上的内容时， 常见的情况是，您想限制您可以修改内容的区域。 或者您想要的是能够快速访问部分文档。 为此，您有 <Monitor/> 区域工具。 如 [导言部分](README.md)所述，您可能需要将 <Monitor/> 区域按钮添加到您的工具栏。 使用 [区域工具](tools/area.md)，您可以在画布的任何地方绘制矩形，然后定义区域。
 
-## More control
+## 更多控制
 
-You can further define area tool by clicking again on the <Monitor/> area button. There, you can define the areas's fixed width, height, or aspect ratio.
+您可以通过再次点击 <Monitor/> 区域按钮来进一步定义区域工具。 在这里，您可以定义区域的固定宽度、高度或宽度。
 
-## The area context menu
+## 区域上下文菜单
 
- After drawing an area, you can click or long tap on touch display the area to open a context menu with the following options:
+ 绘制区域后，您可以点击或长按触摸显示区域来打开上下文菜单，选择以下选项：
 
-* `Name` - Give the area a name that is convinient for you to use. This is useful, for example when...
-* `Enter the area` - Allowing you to edit content only borded by this area.
-* `Delete` - Delete the area. This *does not* delete the content within this area.
-* `Export` - Export the content of the selected area.
-* `Add to pack` - Add the area to a [pack](pack)
+* `命名` - 给该区域一个令人信服的名称供您使用。 这是有用的，例如当...
+* `输入区域` - 允许您只编辑此区域的内容。
+* `删除` - 删除区域。 This *does not* delete the content within this area.
+* `导出` - 所选区域的内容。
+* `添加到包` - 将区域添加到一个 [包](pack)
 
-## Another option
+## 另一个选项
 
-Another option for you to use the area navigator is on the left menu, or on the butterfly menu if you are using a mobile platform. 
+您使用区域导航器的另一个选项在左菜单上。 如果您正在使用一个移动平台，或者在蝴蝶 菜单上。 
 
