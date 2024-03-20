@@ -3,7 +3,7 @@ title: "Områder"
 sidebar_position: 2
 ---
 
-import {Monitor} from "@phosphor-icons/react";
+importer {Monitor} fra "@fosfor-icons/react";
 
 
 ## Introduksjon
@@ -14,23 +14,23 @@ Områder er en måte å begrense størrelsen på lerretet. Du kan opprette områ
 
 ## Opprette og slette områder
 
-While you can directly edit the content on the canvas, it is common that you would like to restrict the region in which you can modify the content, or that you would like ot be able to be able to quickly access a part of the document. For that, you have the <Monitor/> Area tool. As explained in the [introduction section](README.md), you might need to add the <Monitor/> area button to your toolbar. Using the [area tool](tools/area.md), you can draw rectangle anywhere on the canvas to then define the area.
+Mens du kan redigere innholdet på lerretet, kan du direkte det er vanlig at du vil begrense regionen du kan endre innholdet, eller at du vil at ot skal være i stand til å raskt få tilgang til en del av dokumentet. Dette har du <Monitor/> område verktøyet. As explained in the [introduction section](README.md), you might need to add the <Monitor/> area button to your toolbar. Ved å bruke [området](tools/area.md)kan du tegne rektangel hvor som helst på lerretet for å deretter definere området.
 
-## More control
+## Mer kontroll
 
-You can further define area tool by clicking again on the <Monitor/> area button. There, you can define the areas's fixed width, height, or aspect ratio.
+Du kan definere nærmere områdeverktøy ved å klikke igjen på <Monitor/> område-knappen. Der kan du definere områdets faste bredde, høyde eller størrelsesforhold.
 
-## The area context menu
+## Landets kontekstmeny
 
- After drawing an area, you can click or long tap on touch display the area to open a context menu with the following options:
+ Etter å ha tegnet et område, kan du klikke lenge på berøring av området for å åpne en kontekstmeny med følgende alternativer:
 
-* `Name` - Give the area a name that is convinient for you to use. This is useful, for example when...
-* `Enter the area` - Allowing you to edit content only borded by this area.
-* `Delete` - Delete the area. This *does not* delete the content within this area.
-* `Export` - Export the content of the selected area.
-* `Add to pack` - Add the area to a [pack](pack)
+* `Name` – Gi området et navn som er overbevist for deg å bruke. Dette er nyttig, for eksempel når...
+* `Skriv inn området` - lar deg redigere innhold som bare er ordnet av dette området.
+* `Slett` – Slett området. This *does not* delete the content within this area.
+* `eksporter` - eksporter innholdet i det valgte området.
+* `Legg til i pakke` - Legg til området til [-pakke](pack)
 
-## Another option
+## Et annet alternativ
 
-Another option for you to use the area navigator is on the left menu, or on the butterfly menu if you are using a mobile platform. 
+Et annet alternativ til deg for å bruke områdetavigereren er på venstre meny, eller på sommerfuge-menyen hvis du bruker en mobil plattform. 
 
