@@ -341,7 +341,7 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
         default:
         // Manage custom shapes here
       }
-    } else if (points.length > 500) {
+    } else {
       return;
     }
     // Reset the points list for the next shape detection
