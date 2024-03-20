@@ -590,9 +590,9 @@
   "autosave": "Autosave",
   "invert": "Invert",
   "operations": "Toiminnot",
-  "medium": "Medium",
-  "large": "Large",
-  "toolbarSize": "Toolbar size",
-  "addAll": "Add all",
-  "onlyCurrentPage": "Only current page"
+  "medium": "Keskitaso",
+  "large": "Suuri",
+  "toolbarSize": "Työkalupalkin koko",
+  "addAll": "Lisää kaikki",
+  "onlyCurrentPage": "Vain nykyinen sivu"
 }
