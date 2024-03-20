@@ -6,7 +6,8 @@ sidebar_position: 1
 ---
 
 import Tabs from '@theme/Tabs';
-import TabItem din '@theme/TabItem'; import { Gear, Plus, FloppyDisk, MagnifyingGlass, ScribbleLoop, Pen, Cale, ArrowCounterClockwise, ArrowClockwise, Wrench, Lock} de la "@fosfor-icons/react";
+import TabItem from '@theme/TabItem';
+import { Gear, Plus, FloppyDisk, MagnifyingGlass, ScribbleLoop, Pen, Path, ArrowCounterClockwise, ArrowClockwise, Hand, Wrench, Lock} from "@phosphor-icons/react";
 
 ![Banner](/img/banner.png)
 
