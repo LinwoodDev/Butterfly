@@ -590,9 +590,9 @@
   "autosave": "Autosave",
   "invert": "Invert",
   "operations": "Operace",
-  "medium": "Medium",
-  "large": "Large",
-  "toolbarSize": "Toolbar size",
-  "addAll": "Add all",
-  "onlyCurrentPage": "Only current page"
+  "medium": "Střední",
+  "large": "Velký",
+  "toolbarSize": "Velikost panelu nástrojů",
+  "addAll": "Přidat vše",
+  "onlyCurrentPage": "Pouze aktuální stránka"
 }
