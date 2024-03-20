@@ -590,9 +590,9 @@
   "autosave": "Autosave",
   "invert": "Invert",
   "operations": "Λειτουργίες",
-  "medium": "Medium",
-  "large": "Large",
-  "toolbarSize": "Toolbar size",
-  "addAll": "Add all",
-  "onlyCurrentPage": "Only current page"
+  "medium": "Μεσαίο",
+  "large": "Μεγάλο",
+  "toolbarSize": "Μέγεθος γραμμής εργαλείων",
+  "addAll": "Προσθήκη όλων",
+  "onlyCurrentPage": "Μόνο η τρέχουσα σελίδα"
 }
