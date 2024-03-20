@@ -3,7 +3,7 @@ title: "Gebieden"
 sidebar_position: 2
 ---
 
-import {Monitor} from "@phosphor-icons/react";
+importeer {Monitor} van "@fosfor-icons/reactie";
 
 
 ## Introductie
@@ -14,23 +14,23 @@ Gebieden zijn een manier om de grootte van het doek te beperken. Je kunt gebiede
 
 ## Gebieden maken en verwijderen
 
-While you can directly edit the content on the canvas, it is common that you would like to restrict the region in which you can modify the content, or that you would like ot be able to be able to quickly access a part of the document. For that, you have the <Monitor/> Area tool. As explained in the [introduction section](README.md), you might need to add the <Monitor/> area button to your toolbar. Using the [area tool](tools/area.md), you can draw rectangle anywhere on the canvas to then define the area.
+Terwijl je de inhoud van het canvas direct kunt bewerken, Het is gebruikelijk dat u de regio waarin u de inhoud kunt wijzigen wilt beperken of u wilt dat u snel toegang krijgt tot een deel van het document. Hiervoor heb je de tool <Monitor/> Gebied tool. Zoals uitgelegd in de [introductie sectie](README.md), moet je mogelijk de knop <Monitor/> toevoegen aan je werkbalk. Met behulp van de tool [oppervlakte](tools/area.md)kun je overal op het canvas rechthoek tekenen om vervolgens het gebied te definiëren.
 
-## More control
+## Meer controle
 
-You can further define area tool by clicking again on the <Monitor/> area button. There, you can define the areas's fixed width, height, or aspect ratio.
+U kunt ruimtetool verder definiëren door opnieuw te klikken op de knop <Monitor/> van het gebied. Daar kun je de vaste breedte, hoogte of hoogteverhouding van de gebieden definiëren.
 
-## The area context menu
+## Het gebied contextmenu
 
- After drawing an area, you can click or long tap on touch display the area to open a context menu with the following options:
+ Na het tekenen van een gebied, kunt u klikken op een aanraakgebied om het gebied te openen met de volgende opties:
 
-* `Name` - Give the area a name that is convinient for you to use. This is useful, for example when...
-* `Enter the area` - Allowing you to edit content only borded by this area.
-* `Delete` - Delete the area. This *does not* delete the content within this area.
-* `Export` - Export the content of the selected area.
-* `Add to pack` - Add the area to a [pack](pack)
+* `naam` - Geef het gebied een naam die hangende is voor jou om te gebruiken. Dat is bijvoorbeeld nuttig wanneer...
+* `Enter the area` - Toestaan dat u de inhoud alleen aanpast aan dit gebied.
+* `Delete` - Verwijder het gebied. This *does not* delete the content within this area.
+* `Export` - Exporteer de inhoud van het geselecteerde gebied.
+* `Voeg toe aan pack` - Voeg het gebied toe aan een [pakket](pack)
 
-## Another option
+## Andere optie
 
-Another option for you to use the area navigator is on the left menu, or on the butterfly menu if you are using a mobile platform. 
+Een andere optie voor u om de gebiednavigator te gebruiken is in het linkermenu, of in het vlindermenu als u een mobiel platform gebruikt. 
 
