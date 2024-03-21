@@ -3,7 +3,7 @@ title: "Zones"
 sidebar_position: 2
 ---
 
-importer {Monitor} depuis "@phosphor-icons/react";
+import {Monitor} from "@phosphor-icons/react";
 
 
 ## Introduction
