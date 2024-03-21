@@ -310,6 +310,7 @@
   "shape": "Vorm",
   "circle": "Cirkel",
   "rectangle": "Rechthoek",
+  "triangle": "Triangle",
   "line": "Lijn",
   "cornerRadius": "Corner radius",
   "topLeft": "Boven links",
