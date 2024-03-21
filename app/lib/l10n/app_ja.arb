@@ -589,5 +589,10 @@
   "createAreas": "エリアを作成",
   "autosave": "Autosave",
   "invert": "Invert",
-  "operations": "操作"
+  "operations": "操作",
+  "medium": "ミディアム",
+  "large": "大",
+  "toolbarSize": "ツールバーのサイズ",
+  "addAll": "すべて追加",
+  "onlyCurrentPage": "現在のページのみ"
 }

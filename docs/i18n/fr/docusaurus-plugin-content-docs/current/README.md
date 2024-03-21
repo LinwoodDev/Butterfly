@@ -74,6 +74,7 @@ La vue principale est composée de plusieurs éléments
 
 Une fois un document ouvert en sélectionnant un modèle ou un fichier existant, vous accéderez à la **Vue Document**
 
+
 ## La vue du document
 
 Vous pouvez retourner de la vue du document à la liste des documents avec l'action de retour de votre appareil. Comme pour la vue principale, l'affichage du document est basé sur votre appareil.

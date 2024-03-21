@@ -589,5 +589,10 @@
   "createAreas": "Создать области",
   "autosave": "Autosave",
   "invert": "Invert",
-  "operations": "Операции"
+  "operations": "Операции",
+  "medium": "Средний",
+  "large": "Большой",
+  "toolbarSize": "Размер панели инструментов",
+  "addAll": "Добавить все",
+  "onlyCurrentPage": "Только текущая страница"
 }
