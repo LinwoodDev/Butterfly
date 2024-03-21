@@ -179,171 +179,160 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
     final recognized = recognizeUnistroke(points);
     final element = elements[pointer];
 
-    if (recognized != null && points.length < 600) {
-      switch (recognized.name) {
-        case DefaultUnistrokeNames.line:
-          if (element != null) {
-            double startX = points.first.dx;
-            double startY = points.first.dy;
-            double endX = points.last.dx;
-            double endY = points.last.dy;
-
-            Point<double> firstPosition = Point(startX, startY);
-            Point<double> secondPosition = Point(endX, endY);
-
-            // Convert coordinates from the document coordinate system to the view coordinate system
-            Offset firstPositionInView =
-                transform.localToGlobal(firstPosition.toOffset());
-            Offset secondPositionInView =
-                transform.localToGlobal(secondPosition.toOffset());
-
-            // Create new shape element
-            PadElement shapeElement = PadElement.shape(
-              firstPosition: firstPositionInView.toPoint(),
-              secondPosition: secondPositionInView.toPoint(),
-              property: ShapeProperty(
-                  shape: const LineShape(),
-                  color: data.property.color,
-                  strokeWidth: data.property.strokeWidth),
-            );
-
-            // Show dialog
-            showMessage(
-                context, AppLocalizations.of(context.buildContext).line);
-
-            // Add element on document
-            context.getDocumentBloc().add(ElementsCreated([shapeElement]));
-
-            elements.clear();
-            context.refresh();
-          }
-
-        case DefaultUnistrokeNames.circle:
-          if (element != null) {
-            // Calculate the center of the circle as the average of the points
-            double centerX =
-                points.map((p) => p.dx).reduce((a, b) => a + b) / points.length;
-            double centerY =
-                points.map((p) => p.dy).reduce((a, b) => a + b) / points.length;
-            Offset center = Offset(centerX, centerY);
-
-            // Calculate the radius as the average of the distances of the points from the center
-            double radius = points
-                    .map((p) => (p - center).distance)
-                    .reduce((a, b) => a + b) /
-                points.length;
-
-            Point<double> firstPosition =
-                Point<double>(center.dx - radius, center.dy - radius);
-            Point<double> secondPosition =
-                Point<double>(center.dx + radius, center.dy + radius);
-
-            // Convert coordinates from the document coordinate system to the view coordinate system
-            Offset firstPositionInView =
-                transform.localToGlobal(firstPosition.toOffset());
-            Offset secondPositionInView =
-                transform.localToGlobal(secondPosition.toOffset());
-
-            // Create new ShapeElement
-            PadElement shapeElement = PadElement.shape(
-              firstPosition: firstPositionInView.toPoint(),
-              secondPosition: secondPositionInView.toPoint(),
-              property: ShapeProperty(
-                  shape: const CircleShape(),
-                  color: data.property.color,
-                  strokeWidth: data.property.strokeWidth),
-            );
-
-            // Show dialog
-            showMessage(
-                context, AppLocalizations.of(context.buildContext).circle);
-
-            // Add element on document
-            context.getDocumentBloc().add(ElementsCreated([shapeElement]));
-
-            elements.clear();
-            context.refresh();
-          }
-        case DefaultUnistrokeNames.rectangle:
-          if (element != null) {
-            double minX = points.map((p) => p.dx).reduce(min);
-            double maxX = points.map((p) => p.dx).reduce(max);
-            double minY = points.map((p) => p.dy).reduce(min);
-            double maxY = points.map((p) => p.dy).reduce(max);
-
-            Point<double> firstPosition = Point(minX, minY);
-            Point<double> secondPosition = Point(maxX, maxY);
-
-            // Convert coordinates from the document coordinate system to the view coordinate system
-            Offset firstPositionInView =
-                transform.localToGlobal(firstPosition.toOffset());
-            Offset secondPositionInView =
-                transform.localToGlobal(secondPosition.toOffset());
-
-            // Create new ShapeElement
-            PadElement shapeElement = PadElement.shape(
-              firstPosition: firstPositionInView.toPoint(),
-              secondPosition: secondPositionInView.toPoint(),
-              property: ShapeProperty(
-                  shape: const RectangleShape(),
-                  color: data.property.color,
-                  strokeWidth: data.property.strokeWidth),
-            );
-
-            // Show dialog
-            showMessage(
-                context, AppLocalizations.of(context.buildContext).rectangle);
-
-            // Add element on document
-            context.getDocumentBloc().add(ElementsCreated([shapeElement]));
-
-            elements.clear();
-            context.refresh();
-          }
-
-        case DefaultUnistrokeNames.triangle:
-          if (element != null) {
-            double minX = points.map((p) => p.dx).reduce(min);
-            double maxX = points.map((p) => p.dx).reduce(max);
-            double minY = points.map((p) => p.dy).reduce(min);
-            double maxY = points.map((p) => p.dy).reduce(max);
-
-            Point<double> firstPosition = Point(minX, minY);
-            Point<double> secondPosition = Point(maxX, maxY);
-
-            // Convert coordinates from the document coordinate system to the view coordinate system
-            Offset firstPositionInView =
-                transform.localToGlobal(firstPosition.toOffset());
-            Offset secondPositionInView =
-                transform.localToGlobal(secondPosition.toOffset());
-
-            // Create new ShapeElement
-            PadElement shapeElement = PadElement.shape(
-              firstPosition: firstPositionInView.toPoint(),
-              secondPosition: secondPositionInView.toPoint(),
-              property: ShapeProperty(
-                  shape: const TriangleShape(),
-                  color: data.property.color,
-                  strokeWidth: data.property.strokeWidth),
-            );
-
-            // Show dialog
-            showMessage(
-                context, AppLocalizations.of(context.buildContext).triangle);
-
-            // Add element on document
-            context.getDocumentBloc().add(ElementsCreated([shapeElement]));
-
-            elements.clear();
-            context.refresh();
-          }
-
-        default:
-        // Manage custom shapes here
-      }
-    } else {
+    if (recognized == null || points.length > 600 || element == null) {
       return;
     }
+      switch (recognized.name) {
+        case DefaultUnistrokeNames.line:
+          double startX = points.first.dx;
+          double startY = points.first.dy;
+          double endX = points.last.dx;
+          double endY = points.last.dy;
+
+          Point<double> firstPosition = Point(startX, startY);
+          Point<double> secondPosition = Point(endX, endY);
+
+          // Convert coordinates from the document coordinate system to the view coordinate system
+          Offset firstPositionInView =
+              transform.localToGlobal(firstPosition.toOffset());
+          Offset secondPositionInView =
+              transform.localToGlobal(secondPosition.toOffset());
+
+          // Create new shape element
+          PadElement shapeElement = PadElement.shape(
+            firstPosition: firstPositionInView.toPoint(),
+            secondPosition: secondPositionInView.toPoint(),
+            property: ShapeProperty(
+                shape: const LineShape(),
+                color: data.property.color,
+                strokeWidth: data.property.strokeWidth),
+          );
+
+          // Show dialog
+          showMessage(context, AppLocalizations.of(context.buildContext).line);
+
+          // Add element on document
+          context.getDocumentBloc().add(ElementsCreated([shapeElement]));
+
+          elements.clear();
+          context.refresh();
+
+        case DefaultUnistrokeNames.circle:
+          // Calculate the center of the circle as the average of the points
+          double centerX =
+              points.map((p) => p.dx).reduce((a, b) => a + b) / points.length;
+          double centerY =
+              points.map((p) => p.dy).reduce((a, b) => a + b) / points.length;
+          Offset center = Offset(centerX, centerY);
+
+          // Calculate the radius as the average of the distances of the points from the center
+          double radius =
+              points.map((p) => (p - center).distance).reduce((a, b) => a + b) /
+                  points.length;
+
+          Point<double> firstPosition =
+              Point<double>(center.dx - radius, center.dy - radius);
+          Point<double> secondPosition =
+              Point<double>(center.dx + radius, center.dy + radius);
+
+          // Convert coordinates from the document coordinate system to the view coordinate system
+          Offset firstPositionInView =
+              transform.localToGlobal(firstPosition.toOffset());
+          Offset secondPositionInView =
+              transform.localToGlobal(secondPosition.toOffset());
+
+          // Create new ShapeElement
+          PadElement shapeElement = PadElement.shape(
+            firstPosition: firstPositionInView.toPoint(),
+            secondPosition: secondPositionInView.toPoint(),
+            property: ShapeProperty(
+                shape: const CircleShape(),
+                color: data.property.color,
+                strokeWidth: data.property.strokeWidth),
+          );
+
+          // Show dialog
+          showMessage(
+              context, AppLocalizations.of(context.buildContext).circle);
+
+          // Add element on document
+          context.getDocumentBloc().add(ElementsCreated([shapeElement]));
+
+          elements.clear();
+          context.refresh();
+
+        case DefaultUnistrokeNames.rectangle:
+          double minX = points.map((p) => p.dx).reduce(min);
+          double maxX = points.map((p) => p.dx).reduce(max);
+          double minY = points.map((p) => p.dy).reduce(min);
+          double maxY = points.map((p) => p.dy).reduce(max);
+
+          Point<double> firstPosition = Point(minX, minY);
+          Point<double> secondPosition = Point(maxX, maxY);
+
+          // Convert coordinates from the document coordinate system to the view coordinate system
+          Offset firstPositionInView =
+              transform.localToGlobal(firstPosition.toOffset());
+          Offset secondPositionInView =
+              transform.localToGlobal(secondPosition.toOffset());
+
+          // Create new ShapeElement
+          PadElement shapeElement = PadElement.shape(
+            firstPosition: firstPositionInView.toPoint(),
+            secondPosition: secondPositionInView.toPoint(),
+            property: ShapeProperty(
+                shape: const RectangleShape(),
+                color: data.property.color,
+                strokeWidth: data.property.strokeWidth),
+          );
+
+          // Show dialog
+          showMessage(
+              context, AppLocalizations.of(context.buildContext).rectangle);
+
+          // Add element on document
+          context.getDocumentBloc().add(ElementsCreated([shapeElement]));
+
+          elements.clear();
+          context.refresh();
+
+        case DefaultUnistrokeNames.triangle:
+          double minX = points.map((p) => p.dx).reduce(min);
+          double maxX = points.map((p) => p.dx).reduce(max);
+          double minY = points.map((p) => p.dy).reduce(min);
+          double maxY = points.map((p) => p.dy).reduce(max);
+
+          Point<double> firstPosition = Point(minX, minY);
+          Point<double> secondPosition = Point(maxX, maxY);
+
+          // Convert coordinates from the document coordinate system to the view coordinate system
+          Offset firstPositionInView =
+              transform.localToGlobal(firstPosition.toOffset());
+          Offset secondPositionInView =
+              transform.localToGlobal(secondPosition.toOffset());
+
+          // Create new ShapeElement
+          PadElement shapeElement = PadElement.shape(
+            firstPosition: firstPositionInView.toPoint(),
+            secondPosition: secondPositionInView.toPoint(),
+            property: ShapeProperty(
+                shape: const TriangleShape(),
+                color: data.property.color,
+                strokeWidth: data.property.strokeWidth),
+          );
+
+          // Show dialog
+          showMessage(
+              context, AppLocalizations.of(context.buildContext).triangle);
+
+          // Add element on document
+          context.getDocumentBloc().add(ElementsCreated([shapeElement]));
+
+          elements.clear();
+          context.refresh();
+
+        default: // Manage custom shapes here
+      }    
     // Reset the points list for the next shape detection
     points.clear();
   }
