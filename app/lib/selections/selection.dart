@@ -19,6 +19,7 @@ import '../actions/background.dart';
 import '../actions/packs.dart';
 import '../cubits/transform.dart';
 import '../dialogs/layer.dart';
+import '../models/label.dart';
 import '../renderers/renderer.dart';
 import '../widgets/color_field.dart';
 
