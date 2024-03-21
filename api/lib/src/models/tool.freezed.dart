@@ -86,7 +86,8 @@ mixin _$Tool {
             bool zoomDependent,
             int foreground,
             PackAssetLocation styleSheet,
-            double scale)
+            double scale,
+            bool liveMode)
         label,
     required TResult Function(
             String name,
@@ -166,7 +167,8 @@ mixin _$Tool {
             bool zoomDependent,
             int foreground,
             PackAssetLocation styleSheet,
-            double scale)?
+            double scale,
+            bool liveMode)?
         label,
     TResult? Function(
             String name,
@@ -241,7 +243,8 @@ mixin _$Tool {
             bool zoomDependent,
             int foreground,
             PackAssetLocation styleSheet,
-            double scale)?
+            double scale,
+            bool liveMode)?
         label,
     TResult Function(
             String name,
@@ -517,7 +520,8 @@ class _$SelectToolImpl extends SelectTool {
             bool zoomDependent,
             int foreground,
             PackAssetLocation styleSheet,
-            double scale)
+            double scale,
+            bool liveMode)
         label,
     required TResult Function(
             String name,
@@ -600,7 +604,8 @@ class _$SelectToolImpl extends SelectTool {
             bool zoomDependent,
             int foreground,
             PackAssetLocation styleSheet,
-            double scale)?
+            double scale,
+            bool liveMode)?
         label,
     TResult? Function(
             String name,
@@ -678,7 +683,8 @@ class _$SelectToolImpl extends SelectTool {
             bool zoomDependent,
             int foreground,
             PackAssetLocation styleSheet,
-            double scale)?
+            double scale,
+            bool liveMode)?
         label,
     TResult Function(
             String name,
@@ -946,7 +952,8 @@ class _$HandToolImpl extends HandTool {
             bool zoomDependent,
             int foreground,
             PackAssetLocation styleSheet,
-            double scale)
+            double scale,
+            bool liveMode)
         label,
     required TResult Function(
             String name,
@@ -1029,7 +1036,8 @@ class _$HandToolImpl extends HandTool {
             bool zoomDependent,
             int foreground,
             PackAssetLocation styleSheet,
-            double scale)?
+            double scale,
+            bool liveMode)?
         label,
     TResult? Function(
             String name,
@@ -1107,7 +1115,8 @@ class _$HandToolImpl extends HandTool {
             bool zoomDependent,
             int foreground,
             PackAssetLocation styleSheet,
-            double scale)?
+            double scale,
+            bool liveMode)?
         label,
     TResult Function(
             String name,
@@ -1408,7 +1417,8 @@ class _$ImportToolImpl extends ImportTool {
             bool zoomDependent,
             int foreground,
             PackAssetLocation styleSheet,
-            double scale)
+            double scale,
+            bool liveMode)
         label,
     required TResult Function(
             String name,
@@ -1491,7 +1501,8 @@ class _$ImportToolImpl extends ImportTool {
             bool zoomDependent,
             int foreground,
             PackAssetLocation styleSheet,
-            double scale)?
+            double scale,
+            bool liveMode)?
         label,
     TResult? Function(
             String name,
@@ -1569,7 +1580,8 @@ class _$ImportToolImpl extends ImportTool {
             bool zoomDependent,
             int foreground,
             PackAssetLocation styleSheet,
-            double scale)?
+            double scale,
+            bool liveMode)?
         label,
     TResult Function(
             String name,
@@ -1839,7 +1851,8 @@ class _$UndoToolImpl extends UndoTool {
             bool zoomDependent,
             int foreground,
             PackAssetLocation styleSheet,
-            double scale)
+            double scale,
+            bool liveMode)
         label,
     required TResult Function(
             String name,
@@ -1922,7 +1935,8 @@ class _$UndoToolImpl extends UndoTool {
             bool zoomDependent,
             int foreground,
             PackAssetLocation styleSheet,
-            double scale)?
+            double scale,
+            bool liveMode)?
         label,
     TResult? Function(
             String name,
@@ -2000,7 +2014,8 @@ class _$UndoToolImpl extends UndoTool {
             bool zoomDependent,
             int foreground,
             PackAssetLocation styleSheet,
-            double scale)?
+            double scale,
+            bool liveMode)?
         label,
     TResult Function(
             String name,
@@ -2265,7 +2280,8 @@ class _$RedoToolImpl extends RedoTool {
             bool zoomDependent,
             int foreground,
             PackAssetLocation styleSheet,
-            double scale)
+            double scale,
+            bool liveMode)
         label,
     required TResult Function(
             String name,
@@ -2348,7 +2364,8 @@ class _$RedoToolImpl extends RedoTool {
             bool zoomDependent,
             int foreground,
             PackAssetLocation styleSheet,
-            double scale)?
+            double scale,
+            bool liveMode)?
         label,
     TResult? Function(
             String name,
@@ -2426,7 +2443,8 @@ class _$RedoToolImpl extends RedoTool {
             bool zoomDependent,
             int foreground,
             PackAssetLocation styleSheet,
-            double scale)?
+            double scale,
+            bool liveMode)?
         label,
     TResult Function(
             String name,
@@ -2619,7 +2637,8 @@ abstract class _$$LabelToolImplCopyWith<$Res> implements $ToolCopyWith<$Res> {
       bool zoomDependent,
       int foreground,
       PackAssetLocation styleSheet,
-      double scale});
+      double scale,
+      bool liveMode});
 
   $PackAssetLocationCopyWith<$Res> get styleSheet;
 }
@@ -2642,6 +2661,7 @@ class __$$LabelToolImplCopyWithImpl<$Res>
     Object? foreground = null,
     Object? styleSheet = null,
     Object? scale = null,
+    Object? liveMode = null,
   }) {
     return _then(_$LabelToolImpl(
       name: null == name
@@ -2672,6 +2692,10 @@ class __$$LabelToolImplCopyWithImpl<$Res>
           ? _value.scale
           : scale // ignore: cast_nullable_to_non_nullable
               as double,
+      liveMode: null == liveMode
+          ? _value.liveMode
+          : liveMode // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 
@@ -2695,6 +2719,7 @@ class _$LabelToolImpl extends LabelTool {
       this.foreground = BasicColors.black,
       this.styleSheet = const PackAssetLocation(),
       this.scale = 2.0,
+      this.liveMode = false,
       final String? $type})
       : $type = $type ?? 'label',
         super._();
@@ -2723,13 +2748,16 @@ class _$LabelToolImpl extends LabelTool {
   @override
   @JsonKey()
   final double scale;
+  @override
+  @JsonKey()
+  final bool liveMode;
 
   @JsonKey(name: 'type')
   final String $type;
 
   @override
   String toString() {
-    return 'Tool.label(name: $name, displayIcon: $displayIcon, mode: $mode, zoomDependent: $zoomDependent, foreground: $foreground, styleSheet: $styleSheet, scale: $scale)';
+    return 'Tool.label(name: $name, displayIcon: $displayIcon, mode: $mode, zoomDependent: $zoomDependent, foreground: $foreground, styleSheet: $styleSheet, scale: $scale, liveMode: $liveMode)';
   }
 
   @JsonKey(ignore: true)
@@ -2756,7 +2784,8 @@ class _$LabelToolImpl extends LabelTool {
             bool zoomDependent,
             int foreground,
             PackAssetLocation styleSheet,
-            double scale)
+            double scale,
+            bool liveMode)
         label,
     required TResult Function(
             String name,
@@ -2819,8 +2848,8 @@ class _$LabelToolImpl extends LabelTool {
         texture,
     required TResult Function(String name, String displayIcon) eyeDropper,
   }) {
-    return label(
-        name, displayIcon, mode, zoomDependent, foreground, styleSheet, scale);
+    return label(name, displayIcon, mode, zoomDependent, foreground, styleSheet,
+        scale, liveMode);
   }
 
   @override
@@ -2840,7 +2869,8 @@ class _$LabelToolImpl extends LabelTool {
             bool zoomDependent,
             int foreground,
             PackAssetLocation styleSheet,
-            double scale)?
+            double scale,
+            bool liveMode)?
         label,
     TResult? Function(
             String name,
@@ -2898,8 +2928,8 @@ class _$LabelToolImpl extends LabelTool {
         texture,
     TResult? Function(String name, String displayIcon)? eyeDropper,
   }) {
-    return label?.call(
-        name, displayIcon, mode, zoomDependent, foreground, styleSheet, scale);
+    return label?.call(name, displayIcon, mode, zoomDependent, foreground,
+        styleSheet, scale, liveMode);
   }
 
   @override
@@ -2919,7 +2949,8 @@ class _$LabelToolImpl extends LabelTool {
             bool zoomDependent,
             int foreground,
             PackAssetLocation styleSheet,
-            double scale)?
+            double scale,
+            bool liveMode)?
         label,
     TResult Function(
             String name,
@@ -2980,7 +3011,7 @@ class _$LabelToolImpl extends LabelTool {
   }) {
     if (label != null) {
       return label(name, displayIcon, mode, zoomDependent, foreground,
-          styleSheet, scale);
+          styleSheet, scale, liveMode);
     }
     return orElse();
   }
@@ -3089,7 +3120,8 @@ abstract class LabelTool extends Tool {
       final bool zoomDependent,
       final int foreground,
       final PackAssetLocation styleSheet,
-      final double scale}) = _$LabelToolImpl;
+      final double scale,
+      final bool liveMode}) = _$LabelToolImpl;
   LabelTool._() : super._();
 
   factory LabelTool.fromJson(Map<String, dynamic> json) =
@@ -3104,6 +3136,7 @@ abstract class LabelTool extends Tool {
   int get foreground;
   PackAssetLocation get styleSheet;
   double get scale;
+  bool get liveMode;
   @override
   @JsonKey(ignore: true)
   _$$LabelToolImplCopyWith<_$LabelToolImpl> get copyWith =>
@@ -3241,7 +3274,8 @@ class _$PenToolImpl extends PenTool {
             bool zoomDependent,
             int foreground,
             PackAssetLocation styleSheet,
-            double scale)
+            double scale,
+            bool liveMode)
         label,
     required TResult Function(
             String name,
@@ -3325,7 +3359,8 @@ class _$PenToolImpl extends PenTool {
             bool zoomDependent,
             int foreground,
             PackAssetLocation styleSheet,
-            double scale)?
+            double scale,
+            bool liveMode)?
         label,
     TResult? Function(
             String name,
@@ -3404,7 +3439,8 @@ class _$PenToolImpl extends PenTool {
             bool zoomDependent,
             int foreground,
             PackAssetLocation styleSheet,
-            double scale)?
+            double scale,
+            bool liveMode)?
         label,
     TResult Function(
             String name,
@@ -3690,7 +3726,8 @@ class _$EraserToolImpl extends EraserTool {
             bool zoomDependent,
             int foreground,
             PackAssetLocation styleSheet,
-            double scale)
+            double scale,
+            bool liveMode)
         label,
     required TResult Function(
             String name,
@@ -3773,7 +3810,8 @@ class _$EraserToolImpl extends EraserTool {
             bool zoomDependent,
             int foreground,
             PackAssetLocation styleSheet,
-            double scale)?
+            double scale,
+            bool liveMode)?
         label,
     TResult? Function(
             String name,
@@ -3851,7 +3889,8 @@ class _$EraserToolImpl extends EraserTool {
             bool zoomDependent,
             int foreground,
             PackAssetLocation styleSheet,
-            double scale)?
+            double scale,
+            bool liveMode)?
         label,
     TResult Function(
             String name,
@@ -4133,7 +4172,8 @@ class _$PathEraserToolImpl extends PathEraserTool {
             bool zoomDependent,
             int foreground,
             PackAssetLocation styleSheet,
-            double scale)
+            double scale,
+            bool liveMode)
         label,
     required TResult Function(
             String name,
@@ -4216,7 +4256,8 @@ class _$PathEraserToolImpl extends PathEraserTool {
             bool zoomDependent,
             int foreground,
             PackAssetLocation styleSheet,
-            double scale)?
+            double scale,
+            bool liveMode)?
         label,
     TResult? Function(
             String name,
@@ -4294,7 +4335,8 @@ class _$PathEraserToolImpl extends PathEraserTool {
             bool zoomDependent,
             int foreground,
             PackAssetLocation styleSheet,
-            double scale)?
+            double scale,
+            bool liveMode)?
         label,
     TResult Function(
             String name,
@@ -4574,7 +4616,8 @@ class _$LayerToolImpl extends LayerTool {
             bool zoomDependent,
             int foreground,
             PackAssetLocation styleSheet,
-            double scale)
+            double scale,
+            bool liveMode)
         label,
     required TResult Function(
             String name,
@@ -4657,7 +4700,8 @@ class _$LayerToolImpl extends LayerTool {
             bool zoomDependent,
             int foreground,
             PackAssetLocation styleSheet,
-            double scale)?
+            double scale,
+            bool liveMode)?
         label,
     TResult? Function(
             String name,
@@ -4735,7 +4779,8 @@ class _$LayerToolImpl extends LayerTool {
             bool zoomDependent,
             int foreground,
             PackAssetLocation styleSheet,
-            double scale)?
+            double scale,
+            bool liveMode)?
         label,
     TResult Function(
             String name,
@@ -5048,7 +5093,8 @@ class _$AreaToolImpl extends AreaTool {
             bool zoomDependent,
             int foreground,
             PackAssetLocation styleSheet,
-            double scale)
+            double scale,
+            bool liveMode)
         label,
     required TResult Function(
             String name,
@@ -5132,7 +5178,8 @@ class _$AreaToolImpl extends AreaTool {
             bool zoomDependent,
             int foreground,
             PackAssetLocation styleSheet,
-            double scale)?
+            double scale,
+            bool liveMode)?
         label,
     TResult? Function(
             String name,
@@ -5211,7 +5258,8 @@ class _$AreaToolImpl extends AreaTool {
             bool zoomDependent,
             int foreground,
             PackAssetLocation styleSheet,
-            double scale)?
+            double scale,
+            bool liveMode)?
         label,
     TResult Function(
             String name,
@@ -5531,7 +5579,8 @@ class _$LaserToolImpl extends LaserTool {
             bool zoomDependent,
             int foreground,
             PackAssetLocation styleSheet,
-            double scale)
+            double scale,
+            bool liveMode)
         label,
     required TResult Function(
             String name,
@@ -5614,7 +5663,8 @@ class _$LaserToolImpl extends LaserTool {
             bool zoomDependent,
             int foreground,
             PackAssetLocation styleSheet,
-            double scale)?
+            double scale,
+            bool liveMode)?
         label,
     TResult? Function(
             String name,
@@ -5693,7 +5743,8 @@ class _$LaserToolImpl extends LaserTool {
             bool zoomDependent,
             int foreground,
             PackAssetLocation styleSheet,
-            double scale)?
+            double scale,
+            bool liveMode)?
         label,
     TResult Function(
             String name,
@@ -6022,7 +6073,8 @@ class _$ShapeToolImpl extends ShapeTool {
             bool zoomDependent,
             int foreground,
             PackAssetLocation styleSheet,
-            double scale)
+            double scale,
+            bool liveMode)
         label,
     required TResult Function(
             String name,
@@ -6106,7 +6158,8 @@ class _$ShapeToolImpl extends ShapeTool {
             bool zoomDependent,
             int foreground,
             PackAssetLocation styleSheet,
-            double scale)?
+            double scale,
+            bool liveMode)?
         label,
     TResult? Function(
             String name,
@@ -6185,7 +6238,8 @@ class _$ShapeToolImpl extends ShapeTool {
             bool zoomDependent,
             int foreground,
             PackAssetLocation styleSheet,
-            double scale)?
+            double scale,
+            bool liveMode)?
         label,
     TResult Function(
             String name,
@@ -6484,7 +6538,8 @@ class _$StampToolImpl extends StampTool {
             bool zoomDependent,
             int foreground,
             PackAssetLocation styleSheet,
-            double scale)
+            double scale,
+            bool liveMode)
         label,
     required TResult Function(
             String name,
@@ -6567,7 +6622,8 @@ class _$StampToolImpl extends StampTool {
             bool zoomDependent,
             int foreground,
             PackAssetLocation styleSheet,
-            double scale)?
+            double scale,
+            bool liveMode)?
         label,
     TResult? Function(
             String name,
@@ -6645,7 +6701,8 @@ class _$StampToolImpl extends StampTool {
             bool zoomDependent,
             int foreground,
             PackAssetLocation styleSheet,
-            double scale)?
+            double scale,
+            bool liveMode)?
         label,
     TResult Function(
             String name,
@@ -6916,7 +6973,8 @@ class _$PresentationToolImpl extends PresentationTool {
             bool zoomDependent,
             int foreground,
             PackAssetLocation styleSheet,
-            double scale)
+            double scale,
+            bool liveMode)
         label,
     required TResult Function(
             String name,
@@ -6999,7 +7057,8 @@ class _$PresentationToolImpl extends PresentationTool {
             bool zoomDependent,
             int foreground,
             PackAssetLocation styleSheet,
-            double scale)?
+            double scale,
+            bool liveMode)?
         label,
     TResult? Function(
             String name,
@@ -7077,7 +7136,8 @@ class _$PresentationToolImpl extends PresentationTool {
             bool zoomDependent,
             int foreground,
             PackAssetLocation styleSheet,
-            double scale)?
+            double scale,
+            bool liveMode)?
         label,
     TResult Function(
             String name,
@@ -7354,7 +7414,8 @@ class _$SpacerToolImpl extends SpacerTool {
             bool zoomDependent,
             int foreground,
             PackAssetLocation styleSheet,
-            double scale)
+            double scale,
+            bool liveMode)
         label,
     required TResult Function(
             String name,
@@ -7437,7 +7498,8 @@ class _$SpacerToolImpl extends SpacerTool {
             bool zoomDependent,
             int foreground,
             PackAssetLocation styleSheet,
-            double scale)?
+            double scale,
+            bool liveMode)?
         label,
     TResult? Function(
             String name,
@@ -7515,7 +7577,8 @@ class _$SpacerToolImpl extends SpacerTool {
             bool zoomDependent,
             int foreground,
             PackAssetLocation styleSheet,
-            double scale)?
+            double scale,
+            bool liveMode)?
         label,
     TResult Function(
             String name,
@@ -7786,7 +7849,8 @@ class _$FullScreenToolImpl extends FullScreenTool {
             bool zoomDependent,
             int foreground,
             PackAssetLocation styleSheet,
-            double scale)
+            double scale,
+            bool liveMode)
         label,
     required TResult Function(
             String name,
@@ -7869,7 +7933,8 @@ class _$FullScreenToolImpl extends FullScreenTool {
             bool zoomDependent,
             int foreground,
             PackAssetLocation styleSheet,
-            double scale)?
+            double scale,
+            bool liveMode)?
         label,
     TResult? Function(
             String name,
@@ -7947,7 +8012,8 @@ class _$FullScreenToolImpl extends FullScreenTool {
             bool zoomDependent,
             int foreground,
             PackAssetLocation styleSheet,
-            double scale)?
+            double scale,
+            bool liveMode)?
         label,
     TResult Function(
             String name,
@@ -8234,7 +8300,8 @@ class _$AssetToolImpl extends AssetTool {
             bool zoomDependent,
             int foreground,
             PackAssetLocation styleSheet,
-            double scale)
+            double scale,
+            bool liveMode)
         label,
     required TResult Function(
             String name,
@@ -8317,7 +8384,8 @@ class _$AssetToolImpl extends AssetTool {
             bool zoomDependent,
             int foreground,
             PackAssetLocation styleSheet,
-            double scale)?
+            double scale,
+            bool liveMode)?
         label,
     TResult? Function(
             String name,
@@ -8395,7 +8463,8 @@ class _$AssetToolImpl extends AssetTool {
             bool zoomDependent,
             int foreground,
             PackAssetLocation styleSheet,
-            double scale)?
+            double scale,
+            bool liveMode)?
         label,
     TResult Function(
             String name,
@@ -8686,7 +8755,8 @@ class _$ExportToolImpl extends ExportTool {
             bool zoomDependent,
             int foreground,
             PackAssetLocation styleSheet,
-            double scale)
+            double scale,
+            bool liveMode)
         label,
     required TResult Function(
             String name,
@@ -8769,7 +8839,8 @@ class _$ExportToolImpl extends ExportTool {
             bool zoomDependent,
             int foreground,
             PackAssetLocation styleSheet,
-            double scale)?
+            double scale,
+            bool liveMode)?
         label,
     TResult? Function(
             String name,
@@ -8847,7 +8918,8 @@ class _$ExportToolImpl extends ExportTool {
             bool zoomDependent,
             int foreground,
             PackAssetLocation styleSheet,
-            double scale)?
+            double scale,
+            bool liveMode)?
         label,
     TResult Function(
             String name,
@@ -9180,7 +9252,8 @@ class _$TextureToolImpl extends TextureTool {
             bool zoomDependent,
             int foreground,
             PackAssetLocation styleSheet,
-            double scale)
+            double scale,
+            bool liveMode)
         label,
     required TResult Function(
             String name,
@@ -9264,7 +9337,8 @@ class _$TextureToolImpl extends TextureTool {
             bool zoomDependent,
             int foreground,
             PackAssetLocation styleSheet,
-            double scale)?
+            double scale,
+            bool liveMode)?
         label,
     TResult? Function(
             String name,
@@ -9343,7 +9417,8 @@ class _$TextureToolImpl extends TextureTool {
             bool zoomDependent,
             int foreground,
             PackAssetLocation styleSheet,
-            double scale)?
+            double scale,
+            bool liveMode)?
         label,
     TResult Function(
             String name,
@@ -9623,7 +9698,8 @@ class _$EyeDropperToolImpl extends EyeDropperTool {
             bool zoomDependent,
             int foreground,
             PackAssetLocation styleSheet,
-            double scale)
+            double scale,
+            bool liveMode)
         label,
     required TResult Function(
             String name,
@@ -9706,7 +9782,8 @@ class _$EyeDropperToolImpl extends EyeDropperTool {
             bool zoomDependent,
             int foreground,
             PackAssetLocation styleSheet,
-            double scale)?
+            double scale,
+            bool liveMode)?
         label,
     TResult? Function(
             String name,
@@ -9784,7 +9861,8 @@ class _$EyeDropperToolImpl extends EyeDropperTool {
             bool zoomDependent,
             int foreground,
             PackAssetLocation styleSheet,
-            double scale)?
+            double scale,
+            bool liveMode)?
         label,
     TResult Function(
             String name,

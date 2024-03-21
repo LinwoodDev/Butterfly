@@ -79,7 +79,7 @@ sealed class Tool with _$Tool {
     @Default(BasicColors.black) int foreground,
     @Default(PackAssetLocation()) PackAssetLocation styleSheet,
     @Default(2.0) double scale,
-    @Default(false) bool liveMode,
+    @Default(false) bool liveMode
   }) = LabelTool;
     
 

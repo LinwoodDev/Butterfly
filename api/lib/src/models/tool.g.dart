@@ -99,6 +99,7 @@ _$LabelToolImpl _$$LabelToolImplFromJson(Map json) => _$LabelToolImpl(
           : PackAssetLocation.fromJson(
               Map<String, dynamic>.from(json['styleSheet'] as Map)),
       scale: (json['scale'] as num?)?.toDouble() ?? 2.0,
+      liveMode: json['liveMode'] as bool? ?? false,
       $type: json['type'] as String?,
     );
 
@@ -111,6 +112,7 @@ Map<String, dynamic> _$$LabelToolImplToJson(_$LabelToolImpl instance) =>
       'foreground': instance.foreground,
       'styleSheet': instance.styleSheet.toJson(),
       'scale': instance.scale,
+      'liveMode': instance.liveMode,
       'type': instance.$type,
     };
 
