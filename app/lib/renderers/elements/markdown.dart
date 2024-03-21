@@ -1,6 +1,5 @@
 part of '../renderer.dart';
 
-bool value = false;
 const kParagraphTags = {
   'p',
   'h1',
@@ -19,7 +18,6 @@ class MarkdownRenderer extends GenericTextRenderer<MarkdownElement> {
   final MarkdownContext? context;
 
   MarkdownRenderer(super.element, [this.context]);
-  
 
   List<md.Node> _parse() => md.Document(
         extensionSet: md.ExtensionSet.gitHubWeb,
@@ -56,7 +54,6 @@ class MarkdownRenderer extends GenericTextRenderer<MarkdownElement> {
     ];
   }
 
-  // ! new
   text.TextParagraph _convertToParagraphLive(
       Iterable<md.Node> node, text.TextStyleSheet? styleSheet) {
     final style = styleSheet?.getParagraphProperty('p');
@@ -108,8 +105,10 @@ class MarkdownRenderer extends GenericTextRenderer<MarkdownElement> {
   text.TextParagraph getParagraph(NoteData document) {
     final parsed = _parse();
     final styleSheet = element.styleSheet.resolveStyle(document);
-    if (value == true) {
+    if (context?.tool.liveMode == true) {
       return _convertToParagraphLive(parsed, styleSheet);
-    }else{return _convertToParagraph(parsed, styleSheet);}
+    } else {
+      return _convertToParagraph(parsed, styleSheet);
+    }
   }
 }

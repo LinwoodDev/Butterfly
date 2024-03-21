@@ -2,7 +2,6 @@ part of '../selection.dart';
 
 class LabelToolSelection extends ToolSelection<LabelTool> {
   LabelToolSelection(super.selected);
-  
 
   @override
   List<Widget> buildProperties(BuildContext context) {
@@ -18,9 +17,15 @@ class LabelToolSelection extends ToolSelection<LabelTool> {
         title: Text(AppLocalizations.of(context).foreground),
       ),
       CheckboxListTile(
-          title: Text(AppLocalizations.of(context).dynamicContent),
-          value: null,
-          onChanged: null),
+        title: Text(AppLocalizations.of(context).dynamicContent),
+        value: selected.first.liveMode,
+        onChanged: (bool? newValue) {
+          update(
+            context,
+            selected.map((e) => e.copyWith(liveMode: newValue!)).toList(),
+          );
+        },
+      ),
       ExactSlider(
         header: Text(AppLocalizations.of(context).alpha),
         value: Color(selected.first.foreground).alpha.toDouble(),
