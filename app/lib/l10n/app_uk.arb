@@ -310,6 +310,7 @@
   "shape": "Форма",
   "circle": "Коло",
   "rectangle": "Прямокутник",
+  "triangle": "Triangle",
   "line": "Лінія",
   "cornerRadius": "Corner radius",
   "topLeft": "Зверху зліва",
