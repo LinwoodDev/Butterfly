@@ -3,7 +3,7 @@ title: "Aree"
 sidebar_position: 2
 ---
 
-importa {Monitor} da "@phosphor-icons/react";
+import {Monitor} from "@phosphor-icons/react";
 
 
 ## Introduzione
