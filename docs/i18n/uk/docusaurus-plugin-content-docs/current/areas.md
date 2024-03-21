@@ -3,7 +3,7 @@ title: "Розділи"
 sidebar_position: 2
 ---
 
-імпортувати {Monitor} з "@phosphor-icons/react";
+import {Monitor} from "@phosphor-icons/react";
 
 
 ## Вступ
