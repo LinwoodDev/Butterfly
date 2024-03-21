@@ -3,7 +3,7 @@ title: "Domenii"
 sidebar_position: 2
 ---
 
-importă {Monitor} din "@fosfor-icons/react";
+import {Monitor} from "@phosphor-icons/react";
 
 
 ## Introducere
