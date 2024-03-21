@@ -310,6 +310,7 @@
   "shape": "Forma",
   "circle": "Círculo",
   "rectangle": "Rectángulo",
+  "triangle": "Triangle",
   "line": "Línea",
   "cornerRadius": "Radio de esquina",
   "topLeft": "Arriba izquierda",
