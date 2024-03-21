@@ -3,7 +3,7 @@ title: "Flächen"
 sidebar_position: 2
 ---
 
-importiere {Monitor} von "@phosphor-icons/react";
+import {Monitor} from "@phosphor-icons/react";
 
 
 ## Einführung
