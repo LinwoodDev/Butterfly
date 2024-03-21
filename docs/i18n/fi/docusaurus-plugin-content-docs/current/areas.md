@@ -3,7 +3,7 @@ title: "Alueet"
 sidebar_position: 2
 ---
 
-tuo {Monitor} "@phosphor-icons/react";
+import {Monitor} from "@phosphor-icons/react";
 
 
 ## Johdanto
