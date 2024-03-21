@@ -13,7 +13,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_web_plugins/url_strategy.dart';
 import 'package:go_router/go_router.dart';
-import 'package:lw_sysinfo/lw_sysinfo.dart';
+import 'package:lw_sysapi/lw_sysapi.dart';
 import 'package:material_leap/l10n/leap_localizations.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:window_manager/window_manager.dart';
@@ -110,7 +110,7 @@ Future<void> main([List<String> args = const []]) async {
       await windowManager.setPreventClose(false);
     });
   }
-  final clipboardManager = await SysInfo.getClipboardManager();
+  final clipboardManager = await SysAPI.getClipboardManager();
   GeneralFileSystem.dataPath = result['path'];
   final isFullscreen = await isFullScreen();
   runApp(
