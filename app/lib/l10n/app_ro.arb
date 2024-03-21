@@ -310,6 +310,7 @@
   "shape": "Formă",
   "circle": "Cerc",
   "rectangle": "Dreptunghi",
+  "triangle": "Triangle",
   "line": "Linie",
   "cornerRadius": "Corner radius",
   "topLeft": "Sus stânga",
