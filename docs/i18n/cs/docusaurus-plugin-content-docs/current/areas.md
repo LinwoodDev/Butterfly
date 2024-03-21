@@ -3,7 +3,7 @@ title: "Oblasti"
 sidebar_position: 2
 ---
 
-importovat {Monitor} z "@fosfor-icons/react";
+import {Monitor} from "@phosphor-icons/react";
 
 
 ## Úvod
