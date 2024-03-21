@@ -133,12 +133,9 @@ class _PropertyViewState extends State<PropertyView>
                                               controller.close();
                                             }))
                                   .toList();
-                          final icon = PhosphorIcon(
-                            selection.icon(multi
-                                ? PhosphorIconsStyle.fill
-                                : PhosphorIconsStyle.light),
-                            color: Theme.of(context).iconTheme.color,
-                          );
+                          final icon = selection.icon(multi
+                              ? PhosphorIconsStyle.fill
+                              : PhosphorIconsStyle.light);
                           return Column(
                             mainAxisSize: MainAxisSize.min,
                             crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -147,7 +144,11 @@ class _PropertyViewState extends State<PropertyView>
                                 title:
                                     Text(selection.getLocalizedName(context)),
                                 leading: menuChildren.length <= 1
-                                    ? icon
+                                    ? PhosphorIcon(
+                                        icon,
+                                        color:
+                                            Theme.of(context).iconTheme.color,
+                                      )
                                     : MenuAnchor(
                                         controller: controller,
                                         builder: defaultFilledMenuButton(
@@ -155,13 +156,21 @@ class _PropertyViewState extends State<PropertyView>
                                               (context, controller, child) =>
                                                   Row(
                                             children: [
-                                              icon,
+                                              PhosphorIcon(
+                                                icon,
+                                                color: Theme.of(context)
+                                                    .colorScheme
+                                                    .onPrimary,
+                                              ),
                                               const SizedBox(width: 8),
                                               PhosphorIcon(
                                                 controller.isOpen
                                                     ? PhosphorIconsLight.caretUp
                                                     : PhosphorIconsLight
                                                         .caretDown,
+                                                color: Theme.of(context)
+                                                    .colorScheme
+                                                    .onPrimary,
                                                 size: 12,
                                               ),
                                             ],

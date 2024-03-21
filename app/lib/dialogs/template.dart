@@ -26,12 +26,14 @@ class _TemplateDialogState extends State<TemplateDialog> {
   late TemplateFileSystem _fileSystem;
   late Future<List<NoteData>>? _templatesFuture;
   final TextEditingController _searchController = TextEditingController();
+  final List<String> _selectedTemplates = [];
 
   @override
   void initState() {
     super.initState();
     _fileSystem =
         context.read<SettingsCubit>().state.getDefaultTemplateFileSystem();
+    load();
   }
 
   void load() {
@@ -50,7 +52,6 @@ class _TemplateDialogState extends State<TemplateDialog> {
 
   @override
   Widget build(BuildContext context) {
-    load();
     return ResponsiveDialog(
         child: ConstrainedBox(
             constraints: const BoxConstraints(maxWidth: 600, maxHeight: 800),
@@ -151,7 +152,44 @@ class _TemplateDialogState extends State<TemplateDialog> {
                               setState(() {});
                             },
                           ),
-                          const SizedBox(height: 16),
+                          const SizedBox(height: 8),
+                          SizedBox(
+                            height: 64,
+                            child: _selectedTemplates.isEmpty
+                                ? null
+                                : Card(
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(8),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          IconButton(
+                                            icon: const PhosphorIcon(
+                                                PhosphorIconsLight.trash),
+                                            onPressed: () async {
+                                              final result =
+                                                  await showDialog<bool>(
+                                                      context: context,
+                                                      builder: (ctx) =>
+                                                          const DeleteDialog());
+                                              if (result != true) return;
+                                              for (final template
+                                                  in _selectedTemplates) {
+                                                await _fileSystem
+                                                    .deleteTemplate(template);
+                                              }
+                                              _selectedTemplates.clear();
+                                              load();
+                                              setState(() {});
+                                            },
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                          ),
+                          const SizedBox(height: 8),
                           Expanded(
                               child: Padding(
                                   padding: const EdgeInsets.symmetric(
@@ -164,6 +202,20 @@ class _TemplateDialogState extends State<TemplateDialog> {
                                           template: template,
                                           fileSystem: _fileSystem,
                                           replace: widget.bloc != null,
+                                          selected: _selectedTemplates
+                                              .contains(template.name),
+                                          onSelected: () {
+                                            setState(() {
+                                              _selectedTemplates
+                                                  .add(template.name!);
+                                            });
+                                          },
+                                          onUnselected: () {
+                                            setState(() {
+                                              _selectedTemplates
+                                                  .remove(template.name);
+                                            });
+                                          },
                                           onChanged: () {
                                             load();
                                             setState(() {});
@@ -227,14 +279,17 @@ class _TemplateDialogState extends State<TemplateDialog> {
 class _TemplateItem extends StatelessWidget {
   final NoteData template;
   final TemplateFileSystem fileSystem;
-  final VoidCallback onChanged;
-  final bool replace;
+  final VoidCallback onChanged, onSelected, onUnselected;
+  final bool replace, selected;
 
   const _TemplateItem({
     required this.template,
     required this.fileSystem,
     required this.onChanged,
     required this.replace,
+    required this.selected,
+    required this.onSelected,
+    required this.onUnselected,
   });
 
   @override
@@ -256,16 +311,33 @@ class _TemplateItem extends StatelessWidget {
       subtitle: Text(metadata.description),
       leading: SizedBox(
         height: 64,
-        width: 64,
-        child: thumbnail != null
-            ? Image.memory(
-                thumbnail,
-                fit: BoxFit.contain,
-                cacheWidth: 64,
-                cacheHeight: 64,
-                errorBuilder: (context, error, stackTrace) => leading,
-              )
-            : leading,
+        width: 96,
+        child: Row(
+          children: [
+            Checkbox(
+              value: selected,
+              onChanged: (value) {
+                if (value == true) {
+                  onSelected();
+                } else {
+                  onUnselected();
+                }
+              },
+            ),
+            const SizedBox(width: 8),
+            Expanded(
+              child: thumbnail != null
+                  ? Image.memory(
+                      thumbnail,
+                      fit: BoxFit.contain,
+                      cacheWidth: 64,
+                      cacheHeight: 64,
+                      errorBuilder: (context, error, stackTrace) => leading,
+                    )
+                  : leading,
+            ),
+          ],
+        ),
       ),
       onSaved: (value) async {
         if (value == metadata.name) return;

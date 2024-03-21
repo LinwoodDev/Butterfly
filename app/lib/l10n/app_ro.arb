@@ -151,6 +151,8 @@
   "copy": "Copiază",
   "back": "Înapoi",
   "zoomDependent": "Depinde de zoom",
+  "shapeDetection": "Detectare Formă",
+  "delay": "Întârziere",
   "defaultLayer": "Stratul implicit",
   "layer": "Stratul",
   "layers": "Straturi",
@@ -583,5 +585,14 @@
   "continueAnyway": "Continuă oricum",
   "zoomControl": "Comandă mărire",
   "highContrast": "Contrast mare",
-  "shouldANumber": "Această valoare trebuie să fie un număr valid"
+  "shouldANumber": "Această valoare trebuie să fie un număr valid",
+  "createAreas": "Creează zone",
+  "autosave": "Autosave",
+  "invert": "Invert",
+  "operations": "Operațiuni",
+  "medium": "Medie",
+  "large": "Mare",
+  "toolbarSize": "Dimensiunea barei de instrumente",
+  "addAll": "Adaugă toate",
+  "onlyCurrentPage": "Doar pagina curentă"
 }

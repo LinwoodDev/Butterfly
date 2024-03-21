@@ -42,3 +42,7 @@ Existem algumas limitações:
 * Você só pode sincronizar o nível superior de um diretório. Por exemplo, se você tiver o diretório `a/b/test.bfly`, este arquivo não será sincronizado.
 * Não é possível excluir um arquivo ou pasta enquanto você está offline.
 * Você não pode adicionar, editar ou excluir modelos enquanto estiver offline.
+
+## Outros métodos de armazenamento
+
+Se você está em um dispositivo nativo, também pode sincronizar o diretório do aplicativo com a sua plataforma favorita. O Google Drive possui [um aplicativo oficial](https://www.google.com/drive/download/) nas janelas e há ondas não oficiais na Play Store. No Linux, você também pode usar o sistema de armazenamento remoto nativo e alterar o diretório de dados para isto ou adicionar um novo armazenamento externo se você clicar no botão adicionar conexão.

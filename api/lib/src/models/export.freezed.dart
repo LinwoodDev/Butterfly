@@ -12,7 +12,621 @@ part of 'export.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
+
+ExportOptions _$ExportOptionsFromJson(Map<String, dynamic> json) {
+  switch (json['type']) {
+    case 'image':
+      return ImageExportOptions.fromJson(json);
+    case 'svg':
+      return SVGExportOptions.fromJson(json);
+
+    default:
+      throw CheckedFromJsonException(json, 'type', 'ExportOptions',
+          'Invalid union type "${json['type']}"!');
+  }
+}
+
+/// @nodoc
+mixin _$ExportOptions {
+  double get width => throw _privateConstructorUsedError;
+  double get height => throw _privateConstructorUsedError;
+  double get x => throw _privateConstructorUsedError;
+  double get y => throw _privateConstructorUsedError;
+  bool get renderBackground => throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(double width, double height, double x, double y,
+            double scale, double quality, bool renderBackground)
+        image,
+    required TResult Function(double width, double height, double x, double y,
+            bool renderBackground)
+        svg,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(double width, double height, double x, double y,
+            double scale, double quality, bool renderBackground)?
+        image,
+    TResult? Function(double width, double height, double x, double y,
+            bool renderBackground)?
+        svg,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(double width, double height, double x, double y,
+            double scale, double quality, bool renderBackground)?
+        image,
+    TResult Function(double width, double height, double x, double y,
+            bool renderBackground)?
+        svg,
+    required TResult orElse(),
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(ImageExportOptions value) image,
+    required TResult Function(SVGExportOptions value) svg,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(ImageExportOptions value)? image,
+    TResult? Function(SVGExportOptions value)? svg,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(ImageExportOptions value)? image,
+    TResult Function(SVGExportOptions value)? svg,
+    required TResult orElse(),
+  }) =>
+      throw _privateConstructorUsedError;
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $ExportOptionsCopyWith<ExportOptions> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $ExportOptionsCopyWith<$Res> {
+  factory $ExportOptionsCopyWith(
+          ExportOptions value, $Res Function(ExportOptions) then) =
+      _$ExportOptionsCopyWithImpl<$Res, ExportOptions>;
+  @useResult
+  $Res call(
+      {double width, double height, double x, double y, bool renderBackground});
+}
+
+/// @nodoc
+class _$ExportOptionsCopyWithImpl<$Res, $Val extends ExportOptions>
+    implements $ExportOptionsCopyWith<$Res> {
+  _$ExportOptionsCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? width = null,
+    Object? height = null,
+    Object? x = null,
+    Object? y = null,
+    Object? renderBackground = null,
+  }) {
+    return _then(_value.copyWith(
+      width: null == width
+          ? _value.width
+          : width // ignore: cast_nullable_to_non_nullable
+              as double,
+      height: null == height
+          ? _value.height
+          : height // ignore: cast_nullable_to_non_nullable
+              as double,
+      x: null == x
+          ? _value.x
+          : x // ignore: cast_nullable_to_non_nullable
+              as double,
+      y: null == y
+          ? _value.y
+          : y // ignore: cast_nullable_to_non_nullable
+              as double,
+      renderBackground: null == renderBackground
+          ? _value.renderBackground
+          : renderBackground // ignore: cast_nullable_to_non_nullable
+              as bool,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$ImageExportOptionsImplCopyWith<$Res>
+    implements $ExportOptionsCopyWith<$Res> {
+  factory _$$ImageExportOptionsImplCopyWith(_$ImageExportOptionsImpl value,
+          $Res Function(_$ImageExportOptionsImpl) then) =
+      __$$ImageExportOptionsImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call(
+      {double width,
+      double height,
+      double x,
+      double y,
+      double scale,
+      double quality,
+      bool renderBackground});
+}
+
+/// @nodoc
+class __$$ImageExportOptionsImplCopyWithImpl<$Res>
+    extends _$ExportOptionsCopyWithImpl<$Res, _$ImageExportOptionsImpl>
+    implements _$$ImageExportOptionsImplCopyWith<$Res> {
+  __$$ImageExportOptionsImplCopyWithImpl(_$ImageExportOptionsImpl _value,
+      $Res Function(_$ImageExportOptionsImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? width = null,
+    Object? height = null,
+    Object? x = null,
+    Object? y = null,
+    Object? scale = null,
+    Object? quality = null,
+    Object? renderBackground = null,
+  }) {
+    return _then(_$ImageExportOptionsImpl(
+      width: null == width
+          ? _value.width
+          : width // ignore: cast_nullable_to_non_nullable
+              as double,
+      height: null == height
+          ? _value.height
+          : height // ignore: cast_nullable_to_non_nullable
+              as double,
+      x: null == x
+          ? _value.x
+          : x // ignore: cast_nullable_to_non_nullable
+              as double,
+      y: null == y
+          ? _value.y
+          : y // ignore: cast_nullable_to_non_nullable
+              as double,
+      scale: null == scale
+          ? _value.scale
+          : scale // ignore: cast_nullable_to_non_nullable
+              as double,
+      quality: null == quality
+          ? _value.quality
+          : quality // ignore: cast_nullable_to_non_nullable
+              as double,
+      renderBackground: null == renderBackground
+          ? _value.renderBackground
+          : renderBackground // ignore: cast_nullable_to_non_nullable
+              as bool,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$ImageExportOptionsImpl extends ImageExportOptions {
+  const _$ImageExportOptionsImpl(
+      {required this.width,
+      required this.height,
+      this.x = 0,
+      this.y = 0,
+      this.scale = 1,
+      this.quality = 1,
+      this.renderBackground = true,
+      final String? $type})
+      : $type = $type ?? 'image',
+        super._();
+
+  factory _$ImageExportOptionsImpl.fromJson(Map<String, dynamic> json) =>
+      _$$ImageExportOptionsImplFromJson(json);
+
+  @override
+  final double width;
+  @override
+  final double height;
+  @override
+  @JsonKey()
+  final double x;
+  @override
+  @JsonKey()
+  final double y;
+  @override
+  @JsonKey()
+  final double scale;
+  @override
+  @JsonKey()
+  final double quality;
+  @override
+  @JsonKey()
+  final bool renderBackground;
+
+  @JsonKey(name: 'type')
+  final String $type;
+
+  @override
+  String toString() {
+    return 'ExportOptions.image(width: $width, height: $height, x: $x, y: $y, scale: $scale, quality: $quality, renderBackground: $renderBackground)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$ImageExportOptionsImpl &&
+            (identical(other.width, width) || other.width == width) &&
+            (identical(other.height, height) || other.height == height) &&
+            (identical(other.x, x) || other.x == x) &&
+            (identical(other.y, y) || other.y == y) &&
+            (identical(other.scale, scale) || other.scale == scale) &&
+            (identical(other.quality, quality) || other.quality == quality) &&
+            (identical(other.renderBackground, renderBackground) ||
+                other.renderBackground == renderBackground));
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  int get hashCode => Object.hash(
+      runtimeType, width, height, x, y, scale, quality, renderBackground);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$ImageExportOptionsImplCopyWith<_$ImageExportOptionsImpl> get copyWith =>
+      __$$ImageExportOptionsImplCopyWithImpl<_$ImageExportOptionsImpl>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(double width, double height, double x, double y,
+            double scale, double quality, bool renderBackground)
+        image,
+    required TResult Function(double width, double height, double x, double y,
+            bool renderBackground)
+        svg,
+  }) {
+    return image(width, height, x, y, scale, quality, renderBackground);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(double width, double height, double x, double y,
+            double scale, double quality, bool renderBackground)?
+        image,
+    TResult? Function(double width, double height, double x, double y,
+            bool renderBackground)?
+        svg,
+  }) {
+    return image?.call(width, height, x, y, scale, quality, renderBackground);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(double width, double height, double x, double y,
+            double scale, double quality, bool renderBackground)?
+        image,
+    TResult Function(double width, double height, double x, double y,
+            bool renderBackground)?
+        svg,
+    required TResult orElse(),
+  }) {
+    if (image != null) {
+      return image(width, height, x, y, scale, quality, renderBackground);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(ImageExportOptions value) image,
+    required TResult Function(SVGExportOptions value) svg,
+  }) {
+    return image(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(ImageExportOptions value)? image,
+    TResult? Function(SVGExportOptions value)? svg,
+  }) {
+    return image?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(ImageExportOptions value)? image,
+    TResult Function(SVGExportOptions value)? svg,
+    required TResult orElse(),
+  }) {
+    if (image != null) {
+      return image(this);
+    }
+    return orElse();
+  }
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$ImageExportOptionsImplToJson(
+      this,
+    );
+  }
+}
+
+abstract class ImageExportOptions extends ExportOptions {
+  const factory ImageExportOptions(
+      {required final double width,
+      required final double height,
+      final double x,
+      final double y,
+      final double scale,
+      final double quality,
+      final bool renderBackground}) = _$ImageExportOptionsImpl;
+  const ImageExportOptions._() : super._();
+
+  factory ImageExportOptions.fromJson(Map<String, dynamic> json) =
+      _$ImageExportOptionsImpl.fromJson;
+
+  @override
+  double get width;
+  @override
+  double get height;
+  @override
+  double get x;
+  @override
+  double get y;
+  double get scale;
+  double get quality;
+  @override
+  bool get renderBackground;
+  @override
+  @JsonKey(ignore: true)
+  _$$ImageExportOptionsImplCopyWith<_$ImageExportOptionsImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$SVGExportOptionsImplCopyWith<$Res>
+    implements $ExportOptionsCopyWith<$Res> {
+  factory _$$SVGExportOptionsImplCopyWith(_$SVGExportOptionsImpl value,
+          $Res Function(_$SVGExportOptionsImpl) then) =
+      __$$SVGExportOptionsImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call(
+      {double width, double height, double x, double y, bool renderBackground});
+}
+
+/// @nodoc
+class __$$SVGExportOptionsImplCopyWithImpl<$Res>
+    extends _$ExportOptionsCopyWithImpl<$Res, _$SVGExportOptionsImpl>
+    implements _$$SVGExportOptionsImplCopyWith<$Res> {
+  __$$SVGExportOptionsImplCopyWithImpl(_$SVGExportOptionsImpl _value,
+      $Res Function(_$SVGExportOptionsImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? width = null,
+    Object? height = null,
+    Object? x = null,
+    Object? y = null,
+    Object? renderBackground = null,
+  }) {
+    return _then(_$SVGExportOptionsImpl(
+      width: null == width
+          ? _value.width
+          : width // ignore: cast_nullable_to_non_nullable
+              as double,
+      height: null == height
+          ? _value.height
+          : height // ignore: cast_nullable_to_non_nullable
+              as double,
+      x: null == x
+          ? _value.x
+          : x // ignore: cast_nullable_to_non_nullable
+              as double,
+      y: null == y
+          ? _value.y
+          : y // ignore: cast_nullable_to_non_nullable
+              as double,
+      renderBackground: null == renderBackground
+          ? _value.renderBackground
+          : renderBackground // ignore: cast_nullable_to_non_nullable
+              as bool,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$SVGExportOptionsImpl extends SVGExportOptions {
+  const _$SVGExportOptionsImpl(
+      {required this.width,
+      required this.height,
+      this.x = 0,
+      this.y = 0,
+      this.renderBackground = true,
+      final String? $type})
+      : $type = $type ?? 'svg',
+        super._();
+
+  factory _$SVGExportOptionsImpl.fromJson(Map<String, dynamic> json) =>
+      _$$SVGExportOptionsImplFromJson(json);
+
+  @override
+  final double width;
+  @override
+  final double height;
+  @override
+  @JsonKey()
+  final double x;
+  @override
+  @JsonKey()
+  final double y;
+  @override
+  @JsonKey()
+  final bool renderBackground;
+
+  @JsonKey(name: 'type')
+  final String $type;
+
+  @override
+  String toString() {
+    return 'ExportOptions.svg(width: $width, height: $height, x: $x, y: $y, renderBackground: $renderBackground)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$SVGExportOptionsImpl &&
+            (identical(other.width, width) || other.width == width) &&
+            (identical(other.height, height) || other.height == height) &&
+            (identical(other.x, x) || other.x == x) &&
+            (identical(other.y, y) || other.y == y) &&
+            (identical(other.renderBackground, renderBackground) ||
+                other.renderBackground == renderBackground));
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  int get hashCode =>
+      Object.hash(runtimeType, width, height, x, y, renderBackground);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$SVGExportOptionsImplCopyWith<_$SVGExportOptionsImpl> get copyWith =>
+      __$$SVGExportOptionsImplCopyWithImpl<_$SVGExportOptionsImpl>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(double width, double height, double x, double y,
+            double scale, double quality, bool renderBackground)
+        image,
+    required TResult Function(double width, double height, double x, double y,
+            bool renderBackground)
+        svg,
+  }) {
+    return svg(width, height, x, y, renderBackground);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(double width, double height, double x, double y,
+            double scale, double quality, bool renderBackground)?
+        image,
+    TResult? Function(double width, double height, double x, double y,
+            bool renderBackground)?
+        svg,
+  }) {
+    return svg?.call(width, height, x, y, renderBackground);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(double width, double height, double x, double y,
+            double scale, double quality, bool renderBackground)?
+        image,
+    TResult Function(double width, double height, double x, double y,
+            bool renderBackground)?
+        svg,
+    required TResult orElse(),
+  }) {
+    if (svg != null) {
+      return svg(width, height, x, y, renderBackground);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(ImageExportOptions value) image,
+    required TResult Function(SVGExportOptions value) svg,
+  }) {
+    return svg(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(ImageExportOptions value)? image,
+    TResult? Function(SVGExportOptions value)? svg,
+  }) {
+    return svg?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(ImageExportOptions value)? image,
+    TResult Function(SVGExportOptions value)? svg,
+    required TResult orElse(),
+  }) {
+    if (svg != null) {
+      return svg(this);
+    }
+    return orElse();
+  }
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$SVGExportOptionsImplToJson(
+      this,
+    );
+  }
+}
+
+abstract class SVGExportOptions extends ExportOptions {
+  const factory SVGExportOptions(
+      {required final double width,
+      required final double height,
+      final double x,
+      final double y,
+      final bool renderBackground}) = _$SVGExportOptionsImpl;
+  const SVGExportOptions._() : super._();
+
+  factory SVGExportOptions.fromJson(Map<String, dynamic> json) =
+      _$SVGExportOptionsImpl.fromJson;
+
+  @override
+  double get width;
+  @override
+  double get height;
+  @override
+  double get x;
+  @override
+  double get y;
+  @override
+  bool get renderBackground;
+  @override
+  @JsonKey(ignore: true)
+  _$$SVGExportOptionsImplCopyWith<_$SVGExportOptionsImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
 
 ExportPreset _$ExportPresetFromJson(Map<String, dynamic> json) {
   return _ExportPreset.fromJson(json);
@@ -133,7 +747,7 @@ class _$ExportPresetImpl implements _ExportPreset {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$ExportPresetImpl &&
@@ -334,7 +948,7 @@ class _$AreaPresetImpl implements _AreaPreset {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$AreaPresetImpl &&

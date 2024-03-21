@@ -25,24 +25,34 @@ Es gibt ein paar Verknüpfungen, die Sie im Editor verwenden können. Einige dav
 * `Strg` + `Z`: Rückgängig
 * `Strg` + `Y`: Erneut
 * `Ctrl` + `Shift` + `P`: Open waypoints dialog
-* `Strg` + `P`: Farbpalette öffnen
 * `Strg` + `B`: Hintergrunddialog öffnen
-* `Strg` + `Umschalt` + `A`: Öffne Bereiche Dialog
 * `Strg` + `S`: Speichern
 * `Alt` + `S`: Pfad ändern
 * `Strg` + (`1` - `0`): Wechseln Sie zum Werkzeug
 * `Strg` + `+`: Zoomen
 * `Strg` + `-`: Verkleinern
 
-## Stylus
+## Stift
 
-* `Primärer Button`: Zum Handwerkzeug wechseln
-* `Sekundäre Schaltfläche`: Zum zweiten Werkzeug wechseln
+Standardmäßig ist der Stift so konfiguriert, dass er wie folgt funktioniert:
+* `Pen`: als Stift konfiguriert.
+* `Erstes` (Primärer Knopf, falls unterstützt): Ändere das Handwerkzeug während gedrückt wird.
+* `Zweite` (sekundäre Schaltfläche, falls unterstützt): Wechsel zum zweiten Werkzeug (siehe [Konfigurieren](#configure) Abschnitt unten) während gedrückt.
+
+
 
 ## Konfigurieren {#configure}
 
-Passen Sie die Steuerelemente an, indem Sie jeder Steuerung einen Werkzeugindex geben.
+Sie können die Steuerelemente anpassen, indem Sie jeder Steuerung einen Werkzeugindex geben. Die Werkzeug-Indexierung beginnt links neben der Werkzeugleiste, wobei `1` der erste Index ist. Siehe Beispiel unten
 
-* Lassen Sie es leer um den Werkzeugschalter auf diesem Steuerelement zu deaktivieren.
-* Setze es auf `0` um das Verschieben mit diesem Steuerelement zu aktivieren.
-* Setzen Sie es auf eine Toolnummer, um zum Werkzeug zu wechseln. Dieser Index beginnt ab dem ersten links beginnend mit `1`.
+![toolbar nummeriert](toolbar_numbered.png)
+
+Hier bezieht sich 1 auf das Lasso-Werkzeug, 2, das Pfangenwerkzeug usw.
+
+Die Konfigurationsoptionen, die Sie haben, sind folgende:
+
+* Leer - das Werkzeug ist freigeschaltet.
+* 0 - das Werkzeug funktioniert als Bewegung (d.h. Hand) in diesem Mod.
+* Positive Nummer - Das Tool folgt der Indizierung wie oben beschrieben. 
+
+

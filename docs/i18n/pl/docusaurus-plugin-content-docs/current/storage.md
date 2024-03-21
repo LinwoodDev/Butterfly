@@ -42,3 +42,7 @@ Istnieje kilka ograniczeń:
 * Możesz zsynchronizować tylko najwyższy poziom katalogu. Na przykład jeśli masz katalog `a/b/test.bfly`, ten plik nie zostanie zsynchronizowany.
 * Nie można usunąć pliku lub folderu, gdy jesteś offline.
 * Nie możesz dodawać, edytować ani usuwać szablonów, gdy jesteś offline.
+
+## Inne metody przechowywania
+
+Jeśli jesteś na natywnym urządzeniu, możesz również zsynchronizować katalog aplikacji z ulubioną platformą. Dysk Google ma [oficjalną aplikację](https://www.google.com/drive/download/) na oknach i w sklepie odtwarzania są nieoficjalne. Na Linux możesz również użyć natywnego zdalnego systemu przechowywania danych i zmienić katalog na ten lub dodać nową pamięć zewnętrzną, jeśli klikniesz przycisk Dodaj połączenie.

@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:math';
+import 'dart:ui';
 
 import 'package:animations/animations.dart';
 import 'package:butterfly/api/open.dart';
@@ -9,11 +10,13 @@ import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/cubits/transform.dart';
 import 'package:butterfly/dialogs/area/context.dart';
 import 'package:butterfly/dialogs/elements.dart';
+import 'package:butterfly/dialogs/export/general.dart';
 import 'package:butterfly/helpers/element.dart';
 import 'package:butterfly/helpers/point.dart';
 import 'package:butterfly/helpers/rect.dart';
 import 'package:butterfly/models/cursor.dart';
 import 'package:butterfly/renderers/foregrounds/area.dart';
+import 'package:butterfly/renderers/foregrounds/select.dart';
 import 'package:butterfly/services/export.dart';
 import 'package:butterfly/visualizer/tool.dart';
 import 'package:butterfly_api/butterfly_api.dart';
@@ -26,8 +29,9 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:image/image.dart' as img;
-import 'package:lw_sysinfo/lw_sysinfo.dart';
+import 'package:lw_sysapi/lw_sysapi.dart';
 import 'package:material_leap/material_leap.dart';
+
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:share_plus/share_plus.dart';
 
@@ -49,10 +53,11 @@ import '../views/toolbar/components.dart';
 import '../views/toolbar/label.dart';
 import '../views/toolbar/presentation/toolbar.dart';
 import '../widgets/context_menu.dart';
-
+import 'package:one_dollar_unistroke_recognizer/one_dollar_unistroke_recognizer.dart';
 part 'area.dart';
 part 'asset.dart';
 part 'eraser.dart';
+part 'export.dart';
 part 'full_screen.dart';
 part 'hand.dart';
 part 'import.dart';
@@ -152,14 +157,14 @@ abstract class Handler<T> {
 
   const Handler(this.data);
 
-  bool onSelected(DocumentBloc bloc, CurrentIndexCubit currentIndexCubit,
-          bool justAdded) =>
-      true;
+  bool onSelected(BuildContext context) => true;
 
   List<Renderer> createForegrounds(CurrentIndexCubit currentIndexCubit,
           NoteData document, DocumentPage page, DocumentInfo info,
           [Area? currentArea]) =>
       [];
+
+  bool get setupForegrounds => true;
 
   bool onRendererUpdated(
           DocumentPage page, Renderer old, List<Renderer> updated) =>
@@ -219,26 +224,27 @@ abstract class Handler<T> {
 
   static Handler fromTool(Tool tool) {
     return tool.map(
-      hand: (value) => HandHandler(value),
-      select: (value) => SelectHandler(value),
-      import: (value) => ImportHandler(value),
-      undo: (value) => UndoHandler(value),
-      redo: (value) => RedoHandler(value),
-      label: (value) => LabelHandler(value),
-      pen: (value) => PenHandler(value),
-      eraser: (value) => EraserHandler(value),
-      pathEraser: (value) => PathEraserHandler(value),
-      layer: (value) => LayerHandler(value),
-      area: (value) => AreaHandler(value),
-      laser: (value) => LaserHandler(value),
-      shape: (value) => ShapeHandler(value),
-      stamp: (value) => StampHandler(value),
-      presentation: (value) => PresentationHandler(value),
-      spacer: (value) => SpacerHandler(value),
-      fullSceen: (value) => FullScreenHandler(value),
-      texture: (value) => TextureHandler(value),
-      asset: (value) => AssetHandler(value),
-      eyeDropper: (value) => EyeDropperHandler(value),
+      hand: HandHandler.new,
+      select: SelectHandler.new,
+      import: ImportHandler.new,
+      undo: UndoHandler.new,
+      redo: RedoHandler.new,
+      label: LabelHandler.new,
+      pen: PenHandler.new,
+      eraser: EraserHandler.new,
+      pathEraser: PathEraserHandler.new,
+      layer: LayerHandler.new,
+      area: AreaHandler.new,
+      laser: LaserHandler.new,
+      shape: ShapeHandler.new,
+      stamp: StampHandler.new,
+      presentation: PresentationHandler.new,
+      spacer: SpacerHandler.new,
+      fullSceen: FullScreenHandler.new,
+      texture: TextureHandler.new,
+      asset: AssetHandler.new,
+      eyeDropper: EyeDropperHandler.new,
+      export: ExportHandler.new,
     );
   }
 
@@ -274,10 +280,10 @@ mixin ColoredHandler<T extends Tool> on Handler<T> {
           final index = state.info.tools.indexOf(data);
           bloc.add(ToolsChanged({index: setColor(value)}));
         },
-        onEyeDropper: () {
+        onEyeDropper: (context) {
           final state = bloc.state;
           state.currentIndexCubit
-              ?.changeTemporaryHandler(bloc, EyeDropperTool());
+              ?.changeTemporaryHandler(context, EyeDropperTool(), bloc);
         },
       );
 }

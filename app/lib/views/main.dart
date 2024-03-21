@@ -27,7 +27,6 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../actions/areas.dart';
 import '../actions/background.dart';
 import '../actions/change_tool.dart';
 import '../actions/change_path.dart';
@@ -96,7 +95,6 @@ class _ProjectPageState extends State<ProjectPage> {
     PdfExportIntent: PdfExportAction(),
     ExportIntent: ExportAction(),
     SettingsIntent: SettingsAction(),
-    AreasIntent: AreasAction(),
     ColorPaletteIntent: ColorPaletteAction(),
     BackgroundIntent: BackgroundAction(),
     ChangePathIntent: ChangePathAction(),
@@ -324,7 +322,8 @@ class _ProjectPageState extends State<ProjectPage> {
                   builder: (context, currentIndex) =>
                       BlocBuilder<SettingsCubit, ButterflySettings>(
                           buildWhen: (previous, current) =>
-                              previous.fullScreen != current.fullScreen,
+                              previous.fullScreen != current.fullScreen ||
+                              previous.toolbarSize != current.toolbarSize,
                           builder: (context, settings) {
                             return Actions(
                               actions: _actions,
@@ -347,11 +346,6 @@ class _ProjectPageState extends State<ProjectPage> {
                                   LogicalKeySet(LogicalKeyboardKey.control,
                                           LogicalKeyboardKey.keyB):
                                       BackgroundIntent(context),
-                                  LogicalKeySet(
-                                          LogicalKeyboardKey.control,
-                                          LogicalKeyboardKey.shift,
-                                          LogicalKeyboardKey.keyA):
-                                      AreasIntent(context),
                                   LogicalKeySet(LogicalKeyboardKey.escape):
                                       ExitIntent(context),
                                   LogicalKeySet(LogicalKeyboardKey.f11):
@@ -427,31 +421,30 @@ class _ProjectPageState extends State<ProjectPage> {
                                         ChangeToolIntent(context, k))),
                                   },
                                 },
-                                child: SafeArea(
-                                  child: ClipRect(
-                                    child: Focus(
-                                      autofocus: true,
-                                      skipTraversal: true,
-                                      onFocusChange: (_) => false,
-                                      child: Scaffold(
-                                          appBar:
-                                              state is DocumentPresentationState ||
-                                                      settings.fullScreen ||
-                                                      currentIndex.hideUi !=
-                                                          HideState.visible
-                                                  ? null
-                                                  : PadAppBar(
-                                                      viewportKey: _viewportKey,
-                                                    ),
-                                          drawer: state is DocumentLoadSuccess
-                                              ? const DocumentNavigator(
-                                                  asDrawer: true)
-                                              : null,
-                                          body: Actions(
-                                            actions: _actions,
-                                            child: const _MainBody(),
-                                          )),
-                                    ),
+                                child: ClipRect(
+                                  child: Focus(
+                                    autofocus: true,
+                                    skipTraversal: true,
+                                    onFocusChange: (_) => false,
+                                    child: Scaffold(
+                                        appBar:
+                                            state is DocumentPresentationState ||
+                                                    settings.fullScreen ||
+                                                    currentIndex.hideUi !=
+                                                        HideState.visible
+                                                ? null
+                                                : PadAppBar(
+                                                    viewportKey: _viewportKey,
+                                                    size: settings.toolbarSize,
+                                                  ),
+                                        drawer: state is DocumentLoadSuccess
+                                            ? const DocumentNavigator(
+                                                asDrawer: true)
+                                            : null,
+                                        body: Actions(
+                                          actions: _actions,
+                                          child: const _MainBody(),
+                                        )),
                                   ),
                                 ),
                               ),

@@ -151,6 +151,8 @@
   "copy": "Kopiëren",
   "back": "Achterzijde",
   "zoomDependent": "Afhankelijk zoomen",
+  "shapeDetection": "Vorm Detectie",
+  "delay": "Vertraging",
   "defaultLayer": "Standaard laag",
   "layer": "Laag",
   "layers": "Lagen",
@@ -583,5 +585,14 @@
   "continueAnyway": "Toch doorgaan",
   "zoomControl": "Zoom beheer",
   "highContrast": "Hoog contrast",
-  "shouldANumber": "Deze waarde moet een geldig nummer zijn"
+  "shouldANumber": "Deze waarde moet een geldig nummer zijn",
+  "createAreas": "Maak gebieden",
+  "autosave": "Autosave",
+  "invert": "Invert",
+  "operations": "Bewerkingen",
+  "medium": "Middelgroot",
+  "large": "groot",
+  "toolbarSize": "Werkbalk grootte",
+  "addAll": "Alles toevoegen",
+  "onlyCurrentPage": "Alleen huidige pagina"
 }

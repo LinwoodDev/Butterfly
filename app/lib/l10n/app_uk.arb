@@ -151,6 +151,8 @@
   "copy": "Копія",
   "back": "Відмінити",
   "zoomDependent": "Залежність масштабу",
+  "shapeDetection": "Визначення форми",
+  "delay": "Затримка",
   "defaultLayer": "Типовий шар",
   "layer": "Шар",
   "layers": "Шари",
@@ -583,5 +585,14 @@
   "continueAnyway": "Все одно продовжити",
   "zoomControl": "Управління масштабуванням",
   "highContrast": "Високий контраст",
-  "shouldANumber": "Це значення має бути дійсним числом"
+  "shouldANumber": "Це значення має бути дійсним числом",
+  "createAreas": "Створення області",
+  "autosave": "Autosave",
+  "invert": "Invert",
+  "operations": "Операції",
+  "medium": "Медіум",
+  "large": "Великий",
+  "toolbarSize": "Розмір панелі інструментів",
+  "addAll": "Додати всі",
+  "onlyCurrentPage": "Тільки поточна сторінка"
 }

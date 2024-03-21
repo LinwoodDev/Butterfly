@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:butterfly/main.dart';
 import 'package:butterfly/visualizer/asset.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:file_selector/file_selector.dart' as fs;
@@ -13,7 +14,7 @@ Future<bool> openReleaseNotes() {
       Uri(
           scheme: 'https',
           host: 'go.linwood.dev',
-          pathSegments: ['butterfly', '2.0']),
+          pathSegments: ['butterfly', applicationMinorVersion]),
       mode: LaunchMode.externalApplication);
 }
 
@@ -23,7 +24,7 @@ Future<bool> openHelp(List<String> pageLocation, [String? fragment]) {
           scheme: 'https',
           host: 'docs.butterfly.linwood.dev',
           fragment: fragment,
-          pathSegments: ['docs', '2.0', ...pageLocation]),
+          pathSegments: ['docs', applicationMinorVersion, ...pageLocation]),
       mode: LaunchMode.externalApplication);
 }
 
@@ -35,6 +36,7 @@ Future<(Uint8List?, String?)> importFile(BuildContext context,
         .map((e) => fs.XTypeGroup(
               label: e.getLocalizedName(context),
               extensions: e.getFileExtensions(),
+              uniformTypeIdentifiers: e.getUniformTypeIdentifiers(),
               mimeTypes: [e.getMime()],
             ))
         .toList(),

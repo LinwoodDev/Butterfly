@@ -6,6 +6,7 @@ import 'package:butterfly/visualizer/element.dart';
 import 'package:butterfly/visualizer/icon.dart';
 import 'package:butterfly/visualizer/property.dart';
 import 'package:butterfly_api/butterfly_api.dart';
+import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -36,6 +37,7 @@ extension ToolVisualizer on Tool {
       fullSceen: (_) => loc.fullScreen,
       asset: (tool) => tool.importType.getLocalizedName(context),
       eyeDropper: (_) => loc.eyeDropper,
+      export: (_) => loc.export,
     );
   }
 
@@ -46,6 +48,8 @@ extension ToolVisualizer on Tool {
           value.axis == Axis2D.horizontal ? loc.horizontal : loc.vertical,
       select: (value) =>
           value.mode == SelectMode.lasso ? loc.lasso : loc.rectangle,
+      export: (value) =>
+          value.options.map(image: (_) => loc.image, svg: (_) => loc.svg),
       orElse: () => '',
     );
   }
@@ -77,6 +81,7 @@ extension ToolVisualizer on Tool {
         fullSceen: (_) => PhosphorIcons.arrowsOut,
         asset: (tool) => tool.importType.icon,
         eyeDropper: (_) => PhosphorIcons.eyedropper,
+        export: (_) => PhosphorIcons.export,
       );
 
   List<String> get help {
@@ -134,9 +139,16 @@ extension ImportTypeVisualizer on ImportType {
         ImportType.xopp => PhosphorIcons.notebook,
       };
 
-  bool isAvailable() => switch (this) {
-        ImportType.camera =>
-          kIsWeb || Platform.isWindows || Platform.isAndroid || Platform.isIOS,
-        _ => true,
-      };
+  Future<bool> isAvailable() async {
+    final androidVersion = !kIsWeb && Platform.isAndroid
+        ? (await DeviceInfoPlugin().androidInfo).version.sdkInt
+        : 0;
+    return switch (this) {
+      ImportType.camera => kIsWeb ||
+          Platform.isWindows ||
+          (Platform.isAndroid && androidVersion >= 21) ||
+          Platform.isIOS,
+      _ => true,
+    };
+  }
 }

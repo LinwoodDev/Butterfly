@@ -8,7 +8,7 @@ O pintor de selos permite que você adicione componentes à sua tela. Use um pac
 
 ## Configuração
 
-| Propriedade | Padrão  | Descrição:                                  |
+| Propriedade | Padrão  | Descrição                                   |
 | -----------:|:-------:|:------------------------------------------- |
-|         Pct | Nenhuma | O pacote onde o componente está localizado. |
+|      Pacote | Nenhuma | O pacote onde o componente está localizado. |
 |  Componente | Nenhuma | O componente que será adicionado à tela.    |

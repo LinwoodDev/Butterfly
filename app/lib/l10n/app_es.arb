@@ -151,6 +151,8 @@
   "copy": "Copiar",
   "back": "Atrás",
   "zoomDependent": "Dependiente de zoom",
+  "shapeDetection": "Detección de forma",
+  "delay": "Retraso",
   "defaultLayer": "Capa por defecto",
   "layer": "Capa",
   "layers": "Capas",
@@ -583,5 +585,14 @@
   "continueAnyway": "Continuar de todos modos",
   "zoomControl": "Control de zoom",
   "highContrast": "Alto contraste",
-  "shouldANumber": "Este valor debe ser un número válido"
+  "shouldANumber": "Este valor debe ser un número válido",
+  "createAreas": "Crear áreas",
+  "autosave": "Autosave",
+  "invert": "Invert",
+  "operations": "Operaciones",
+  "medium": "Medio",
+  "large": "Grande",
+  "toolbarSize": "Tamaño de barra de herramientas",
+  "addAll": "Añadir todo",
+  "onlyCurrentPage": "Sólo página actual"
 }

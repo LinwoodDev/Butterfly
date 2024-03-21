@@ -42,3 +42,7 @@ Il y a quelques limitations :
 * Vous ne pouvez synchroniser que le niveau supérieur d'un répertoire. Par exemple, si vous avez un répertoire `a/b/test.bfly`, ce fichier ne sera pas synchronisé.
 * Vous ne pouvez pas supprimer un fichier ou un dossier lorsque vous êtes hors ligne.
 * Vous ne pouvez pas ajouter, modifier ou supprimer des modèles lorsque vous êtes hors ligne.
+
+## Autres méthodes de stockage
+
+Si vous êtes sur un périphérique natif, vous pouvez également synchroniser le répertoire d'application avec votre plateforme préférée. Google drive a [une application officielle](https://www.google.com/drive/download/) sur les fenêtres et il y a des fois non officielles sur le Play Store. Sous Linux, vous pouvez également utiliser le système de stockage natif à distance et changer votre répertoire de données ou ajouter un nouveau stockage externe si vous cliquez sur le bouton d'ajout de connexion.

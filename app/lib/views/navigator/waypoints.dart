@@ -31,30 +31,35 @@ class WaypointsView extends StatelessWidget {
                     title: Text(AppLocalizations.of(context).origin),
                     selected: transform.position.toPoint() == origin.position,
                     onTap: () {
-                      context.read<TransformCubit>().moveToWaypoint(origin);
+                      context.read<TransformCubit>().teleportToWaypoint(origin);
                       context.read<DocumentBloc>().bake();
                     },
                   ),
                   const Divider(),
-                  ListView.builder(
+                  ReorderableListView.builder(
                       physics: const NeverScrollableScrollPhysics(),
                       shrinkWrap: true,
                       itemCount: waypoints.length,
+                      onReorder: (oldIndex, newIndex) => context
+                          .read<DocumentBloc>()
+                          .add(WaypointReordered(
+                              waypoints[oldIndex].name, newIndex)),
                       itemBuilder: (BuildContext context, int index) {
                         final waypoint = waypoints[index];
                         return EditableListTile(
+                          key: ValueKey(waypoint.name),
                           initialValue: waypoint.name,
                           onTap: () {
                             context
                                 .read<TransformCubit>()
-                                .moveToWaypoint(waypoint);
+                                .teleportToWaypoint(waypoint);
                             context.read<DocumentBloc>().bake();
                           },
-                          onSaved: (value) => context
-                              .read<DocumentBloc>()
-                              .add(WaypointRenamed(index, value)),
-                          selected: -transform.position.toPoint() ==
-                              waypoint.position,
+                          onSaved: (value) => context.read<DocumentBloc>().add(
+                              WaypointChanged(waypoint.name,
+                                  waypoint.copyWith(name: value))),
+                          selected:
+                              transform.position.toPoint() == waypoint.position,
                           actions: [
                             MenuItemButton(
                               leadingIcon:
@@ -67,7 +72,7 @@ class WaypointsView extends StatelessWidget {
                                 if (context.mounted) {
                                   context
                                       .read<DocumentBloc>()
-                                      .add(WaypointRemoved(index));
+                                      .add(WaypointRemoved(waypoint.name));
                                 }
                               },
                               child: Text(AppLocalizations.of(context).delete),
@@ -148,7 +153,7 @@ class _WaypointCreateDialogState extends State<WaypointCreateDialog> {
 
               bloc.add(WaypointCreated(Waypoint(
                   _nameController.text,
-                  -transform.position.toPoint(),
+                  transform.position.toPoint(),
                   _saveScale ? transform.size : null)));
               Navigator.of(context).pop();
             },

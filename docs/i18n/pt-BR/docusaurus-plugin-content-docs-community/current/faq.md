@@ -29,7 +29,7 @@ Eu estou usando os dados fornecidos pelo framework de agitação. Esse é o prob
 
 > [#244](https://github.com/LinwoodDev/Butterfly/issues/244)
 
-Você precisa de uma conta de desenvolvedor de maçã para obter aplicativos no iPhone. Para android você não precisa se registrar e se quiser você só precisa pagar 15$ uma vez. Na maçã você precisa pagar 99$ por ano. Não posso bancar isso. Os euroios precisam de ser capazes de deslizar os aplicativos no futuro. Talvez isso mude alguma coisa.
+A Borboleta está disponível no iOS como pré-visualização. Clique em [aqui](https://docs.butterfly.linwood.dev/downloads/ios) para baixá-lo. Veja [aqui](https://github.com/LinwoodDev/Butterfly/issues/244#issuecomment-1935460878) por que não está disponível na App Store.
 
 ## Computadores
 

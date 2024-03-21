@@ -151,6 +151,8 @@
   "copy": "Kopiér",
   "back": "Tilbage",
   "zoomDependent": "Zoom afhængig",
+  "shapeDetection": "Form- Detektering",
+  "delay": "Forsinkelse",
   "defaultLayer": "Standard lag",
   "layer": "Lag",
   "layers": "Lag",
@@ -583,5 +585,14 @@
   "continueAnyway": "Fortsæt alligevel",
   "zoomControl": "Zoom kontrol",
   "highContrast": "Høj kontrast",
-  "shouldANumber": "Denne værdi skal være gyldigt nummer"
+  "shouldANumber": "Denne værdi skal være gyldigt nummer",
+  "createAreas": "Opret områder",
+  "autosave": "Autosave",
+  "invert": "Invert",
+  "operations": "Operationer",
+  "medium": "Mellem",
+  "large": "Stor",
+  "toolbarSize": "Værktøjslinjens størrelse",
+  "addAll": "Tilføj alle",
+  "onlyCurrentPage": "Kun nuværende side"
 }

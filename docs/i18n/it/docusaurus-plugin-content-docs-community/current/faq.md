@@ -29,7 +29,7 @@ Sto usando l'input fornito dal framework flutter. Questo è il problema da tracc
 
 > [#244](https://github.com/LinwoodDev/Butterfly/issues/244)
 
-Hai bisogno di un account sviluppatore di mele per ottenere applicazioni su iPhone. Per android non è necessario registrarsi e se si desidera è solo bisogno di pagare 15$ una volta. Sulla mela è necessario pagare 99$ all'anno. Non posso permettermi questo. In Europa ios deve essere in grado di sideload applicazioni in futuro. Forse questo cambierà qualcosa.
+Butterfly è disponibile su iOS come anteprima. Clicca [qui](https://docs.butterfly.linwood.dev/downloads/ios) per scaricarlo. Vedi [qui](https://github.com/LinwoodDev/Butterfly/issues/244#issuecomment-1935460878) perché non è disponibile sull'App Store.
 
 ## Desktop
 

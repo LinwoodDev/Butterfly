@@ -1,51 +1,34 @@
-import 'dart:io';
-
-import 'package:file_selector/file_selector.dart' as fs;
-import 'package:flutter/foundation.dart';
+import 'package:butterfly/api/save_stub.dart'
+    if (dart.library.io) 'package:butterfly/api/save_io.dart'
+    if (dart.library.js) 'package:butterfly/api/save_html.dart' as save;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:share_plus/share_plus.dart';
 
 Future<void> exportFile(
   BuildContext context,
   List<int> bytes,
   String fileExtension,
   String mimeType,
-) async {
-  final file = fs.XFile.fromData(Uint8List.fromList(bytes),
-      mimeType: mimeType, name: 'output.$fileExtension');
-  if (kIsWeb || Platform.isAndroid || Platform.isIOS) {
-    Share.shareXFiles([file]);
-    return;
-  }
-  final result = await fs.getSaveLocation(
-    acceptedTypeGroups: [
-      fs.XTypeGroup(
-        label: AppLocalizations.of(context).export,
-        extensions: [fileExtension],
-        mimeTypes: [mimeType],
-      ),
-    ],
-  );
-  if (result == null) return;
-  await file.saveTo(result.path);
-}
+  String uniformTypeIdentifier,
+) =>
+    save.exportFile(
+        context, bytes, fileExtension, mimeType, uniformTypeIdentifier);
 
 Future<void> exportSvg(BuildContext context, String data) =>
-    exportFile(context, data.codeUnits, 'svg', 'image/svg');
+    exportFile(context, data.codeUnits, 'svg', 'image/svg', 'public.svg-image');
 
 Future<void> exportImage(BuildContext context, List<int> bytes) =>
-    exportFile(context, bytes, 'png', 'image/png');
+    exportFile(context, bytes, 'png', 'image/png', 'public.image');
 
 Future<void> exportPdf(BuildContext context, List<int> bytes) =>
-    exportFile(context, bytes, 'pdf', 'application/pdf');
+    exportFile(context, bytes, 'pdf', 'application/pdf', 'com.adobe.pdf');
 
 Future<void> exportZip(BuildContext context, List<int> bytes) =>
-    exportFile(context, bytes, 'zip', 'application/zip');
+    exportFile(context, bytes, 'zip', 'application/zip', 'public.zip-archive');
 
-Future<void> saveData(BuildContext context, List<int> bytes) =>
-    exportFile(context, bytes, 'bfly', 'application/zip');
+Future<void> exportData(BuildContext context, List<int> bytes) => exportFile(
+    context, bytes, 'bfly', 'application/zip', 'dev.linwood.butterfly.note');
 
 void saveToClipboard(BuildContext context, String text) {
   Clipboard.setData(ClipboardData(text: text));

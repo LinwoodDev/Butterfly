@@ -8,6 +8,6 @@ Com este pintor pode-se adicionar texto ao papel.
 
 ## Configuração
 
-| Propriedade | Padrão | Descrição:         |
+| Propriedade | Padrão | Descrição          |
 | -----------:|:------:|:------------------ |
 |     Tamanho |   12   | O tamanho do texto |

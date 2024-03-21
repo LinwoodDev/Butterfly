@@ -39,20 +39,23 @@ class AreaToolSelection extends ToolSelection<AreaTool> {
                   textAlign: TextAlign.center,
                 ),
               ),
-              PopupMenuButton<AspectRatioPreset>(
-                itemBuilder: (context) => AspectRatioPreset.values
-                    .map((e) => PopupMenuItem(
-                          value: e,
-                          child: Text(e.getLocalizedName(context)),
+              MenuAnchor(
+                menuChildren: AspectRatioPreset.values
+                    .map((preset) => MenuItemButton(
+                          leadingIcon: PhosphorIcon(
+                              preset.icon(PhosphorIconsStyle.light)),
+                          onPressed: () => update(
+                              context,
+                              selected
+                                  .map((e) => e.copyWith(
+                                      constrainedAspectRatio: preset.ratio))
+                                  .toList()),
+                          child: Text(preset.getLocalizedName(context)),
                         ))
                     .toList(),
-                onSelected: (preset) => update(
-                    context,
-                    selected
-                        .map((e) =>
-                            e.copyWith(constrainedAspectRatio: preset.ratio))
-                        .toList()),
-                tooltip: AppLocalizations.of(context).presets,
+                builder: defaultMenuButton(
+                  tooltip: AppLocalizations.of(context).presets,
+                ),
               )
             ],
           ),

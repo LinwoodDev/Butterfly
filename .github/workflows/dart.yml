@@ -18,7 +18,7 @@ jobs:
         run: |
           FLUTTER_VERSION=$(cat ../FLUTTER_VERSION)
           echo "FLUTTER_VERSION=${FLUTTER_VERSION}" >> $GITHUB_ENV
-      - uses: subosito/flutter-action@v2
+      - uses: subosito/flutter-action@v2.12.0
         with:
           flutter-version: ${{ env.FLUTTER_VERSION }}
           channel: 'master'
@@ -38,6 +38,11 @@ jobs:
       - name: Analyze project source
         run: |
           flutter analyze --fatal-infos
+      - name: Run build_runner
+        if: matrix.projects != 'tools'
+        run: flutter pub run build_runner build --delete-conflicting-outputs
+      - name: Test for git changes
+        run: git diff --exit-code
       # Your project will need to have tests in test/ and a dependency on
       # package:test for this step to succeed. Note that Flutter projects will
       # want to change this to 'flutter test'.

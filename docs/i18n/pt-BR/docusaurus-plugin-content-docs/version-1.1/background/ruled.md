@@ -4,7 +4,7 @@ title: "Papel regado"
 
 | Propriedade | Valor |
 | -----------:|:----- |
-|       Width | 0     |
+|     Largura | 0     |
 |      Altura | 25    |
 |  Contagem X | 0     |
 |  Contagem Y | 1     |

@@ -19,10 +19,11 @@ class ExportService {
 
   bool isExportable(PadElement element) => getExportInfo(element) != null;
 
-  (String, String)? getExportInfo(PadElement element) => element.maybeMap(
-        image: (_) => ('image/png', 'png'),
-        svg: (_) => ('image/svg', 'svg'),
-        markdown: (_) => ('text/markdown', 'md'),
+  (String, String, String)? getExportInfo(PadElement element) =>
+      element.maybeMap(
+        image: (_) => ('image/png', 'png', ''),
+        svg: (_) => ('image/svg', 'svg', ''),
+        markdown: (_) => ('text/markdown', 'md', ''),
         orElse: () => null,
       );
 
@@ -31,12 +32,13 @@ class ExportService {
     if (info == null) return;
     final data = await getData(element);
     if (data == null) return;
-    final (mimeType, fileExtension) = info;
+    final (mimeType, fileExtension, uniformTypeIdentifier) = info;
     return exportFile(
       context,
       data,
       fileExtension,
       mimeType,
+      uniformTypeIdentifier,
     );
   }
 

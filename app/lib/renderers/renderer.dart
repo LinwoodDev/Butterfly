@@ -2,6 +2,8 @@ import 'dart:async';
 import 'dart:math';
 import 'dart:ui' as ui;
 
+import 'package:butterfly/api/image.dart';
+import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/helpers/element.dart';
 import 'package:butterfly/helpers/rect.dart';
 import 'package:butterfly/helpers/point.dart';
@@ -11,10 +13,13 @@ import 'package:butterfly_api/butterfly_api.dart';
 import 'package:butterfly_api/butterfly_text.dart' as text;
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart' hide Image;
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:image/image.dart' as img;
 import 'package:markdown/markdown.dart' as md;
 import 'package:material_leap/material_leap.dart';
 import 'package:perfect_freehand/perfect_freehand.dart' as freehand;
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:xml/xml.dart';
 
 import '../cubits/current_index.dart';
@@ -82,6 +87,27 @@ abstract class HitCalculator {
   }
 }
 
+enum RendererOperation {
+  invert,
+  background;
+
+  String getLocalizedName(BuildContext context) {
+    final loc = AppLocalizations.of(context);
+    return switch (this) {
+      RendererOperation.invert => loc.invert,
+      RendererOperation.background => loc.background,
+    };
+  }
+
+  IconGetter get icon => switch (this) {
+        RendererOperation.invert => PhosphorIcons.circleHalf,
+        RendererOperation.background => PhosphorIcons.paintBucket,
+      };
+}
+
+typedef RendererOperationCallback = void Function(
+    DocumentBloc bloc, BuildContext context);
+
 abstract class Renderer<T> {
   final T element;
   Area? area;
@@ -91,24 +117,24 @@ abstract class Renderer<T> {
   factory Renderer.fromInstance(T element) {
     // Elements
     if (element is PadElement) {
-      return element.map(
-        pen: (value) => PenRenderer(value),
-        text: (value) => TextRenderer(value),
-        image: (value) => ImageRenderer(value),
-        svg: (value) => SvgRenderer(value),
-        shape: (value) => ShapeRenderer(value),
-        markdown: (value) => MarkdownRenderer(value),
-        texture: (value) => TextureRenderer(value),
-      ) as Renderer<T>;
+      return switch (element) {
+        PenElement() => PenRenderer(element),
+        TextElement() => TextRenderer(element),
+        ImageElement() => ImageRenderer(element),
+        SvgElement() => SvgRenderer(element),
+        ShapeElement() => ShapeRenderer(element),
+        MarkdownElement() => MarkdownRenderer(element),
+        TextureElement() => TextureRenderer(element),
+      } as Renderer<T>;
     }
 
     // Backgrounds
     if (element is Background) {
-      return element.map(
-        texture: (value) => TextureBackgroundRenderer(value),
-        image: (value) => ImageBackgroundRenderer(value),
-        svg: (value) => EmptyBackgroundRenderer(value),
-      ) as Renderer<T>;
+      return switch (element) {
+        TextureBackground() => TextureBackgroundRenderer(element),
+        ImageBackground() => ImageBackgroundRenderer(element),
+        SvgBackground() => EmptyBackgroundRenderer(element),
+      } as Renderer<T>;
     }
 
     if (element is UtilitiesState) {
@@ -132,12 +158,16 @@ abstract class Renderer<T> {
       ? null
       : page.areas.firstWhereOrNull((area) => area.rect.overlaps(rect!));
   FutureOr<bool> onAreaUpdate(
-      NoteData document, DocumentPage page, Area? area) async {
+      NoteData document, DocumentPage page, Area? area) {
     if (area?.rect.overlaps(rect!) ?? false) {
       this.area = area;
     }
     return false;
   }
+
+  FutureOr<bool> onAssetUpdate(NoteData document, AssetService assetService,
+          DocumentPage page, String path) =>
+      false;
 
   Rect? get rect => null;
 
@@ -206,4 +236,6 @@ abstract class Renderer<T> {
     double scaleY = 1,
   }) =>
       null;
+
+  Map<RendererOperation, RendererOperationCallback> getOperations() => {};
 }

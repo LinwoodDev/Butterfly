@@ -45,5 +45,46 @@
 	<true/>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
+  <key>NSCameraUsageDescription</key>
+  <string>Importing images from camera</string>
+  <key>NSMicrophoneUsageDescription</key>
+  <string>Importing images from camera</string>  
+  <key>UTExportedTypeDeclarations</key>
+  <array>
+      <dict>
+          <key>UTTypeIdentifier</key>
+          <string>dev.linwood.butterfly.note</string>
+          <key>UTTypeConformsTo</key>
+          <array>
+              <string>public.zip-archive</string>
+          </array>
+          <key>UTTypeDescription</key>
+          <string>Linwood Butterfly Note</string>
+          <key>UTTypeTagSpecification</key>
+          <dict>
+              <key>public.filename-extension</key>
+              <array>
+                  <string>bfly</string>
+              </array>
+          </dict>
+      </dict>
+      <dict>
+          <key>UTTypeIdentifier</key>
+          <string>dev.linwood.butterfly.xopp</string>
+          <key>UTTypeConformsTo</key>
+          <array>
+              <string>org.gnu.gnu-zip-archive</string>
+          </array>
+          <key>UTTypeDescription</key>
+          <string>Linwood Butterfly Xopp</string>
+          <key>UTTypeTagSpecification</key>
+          <dict>
+              <key>public.filename-extension</key>
+              <array>
+                  <string>xopp</string>
+              </array>
+          </dict>
+      </dict>
+  </array>
 </dict>
 </plist>

@@ -1,0 +1,16 @@
+* Add support for renaming the current page
+* Add advance button in quickstart
+* Add setting for toolbar size ([#589](https://github.com/LinwoodDev/Butterfly/issues/589))
+* Add "Add all" to area export dialog ([#633](https://github.com/LinwoodDev/Butterfly/issues/633))
+* Add move left and right to area export dialog
+* Add page name to export pdf dialog details
+* Add support for multiple document pages in pdf export dialog
+* Add "Only current page" filter option to area selection dialog for pdf export dialog
+* Allow multiple selections in templates dialog
+* Improve pdf export dialog sizing of cards
+* Fix folder fetching in web
+* Fix problems when changing to the same page
+* Fix missing scrolling in export pdf select dialogs ([#633](https://github.com/LinwoodDev/Butterfly/issues/633))
+* Upgrading major versions of many dependencies
+
+Read more here: https://linwood.dev/butterfly/2.1.0-beta.3

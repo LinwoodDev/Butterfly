@@ -38,8 +38,9 @@ import 'navigator/view.dart';
 
 class PadAppBar extends StatelessWidget implements PreferredSizeWidget {
   final GlobalKey viewportKey;
+  final ToolbarSize size;
 
-  PadAppBar({super.key, required this.viewportKey});
+  PadAppBar({super.key, required this.viewportKey, required this.size});
 
   late final windowTitleBar = _buildWindowTitleBar();
 
@@ -50,6 +51,7 @@ class PadAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   WindowTitleBar _buildWindowTitleBar() => WindowTitleBar(
         leadingWidth: 60,
+        height: max(70, size.size + 20),
         leading: Padding(
           padding: const EdgeInsets.only(left: 8.0),
           child: LayoutBuilder(builder: (context, constraints) {

@@ -25,24 +25,34 @@ On olemassa muutamia pikakuvakkeita, joita voit käyttää editorissa. Osa niist
 * `Ctrl` + `Z`: Kumoa
 * `Ctrl` + `Y`: Redo
 * `Ctrl` + `Shift` + `P`: Open waypoints dialog
-* `Ctrl` + `P`: Avaa väripaletti valintaikkuna
 * `Ctrl` + `B`: Avaa taustaikkuna
-* `Ctrl` + `Vaihto` + `A`: Avaa alueet -valintaikkuna
 * `Ctrl` + `S`: Tallenna
 * `Alt` + `S`: Muuta polkua
 * `Ctrl` + (`1` - `0`): Vaihda työkaluun
 * `Ctrl` + `+`: Lähennä
 * `Ctrl` + `-`: Lähennä
 
-## Stylus
+## Kynä
 
-* `Ensisijainen painike`: Vaihda käsityökaluksi
-* `Toissijainen painike`: Vaihda toiseen työkaluun
+Kynä on oletusarvoisesti määritetty toimimaan seuraavasti:
+* `Pen`: määritetty kynäksi.
+* `Ensimmäinen` (painike, jos tuettu): Vaihda käsityökaluksi painettuna.
+* `Toinen` (toissijainen painike, jos tuettu): Vaihda toiseen työkaluun (katso [määritä](#configure) -osio alla) painettuna.
+
+
 
 ## Määritä {#configure}
 
-Muokkaa ohjaimia antamalla jokaiselle ohjaimelle työkalun indeksin.
+Voit muokata ohjaimia antamalla jokaiselle ohjaukselle työkalun indeksin. Työkalun indeksointi alkaa työkalupalkin vasemmalta ja `1` on ensimmäinen indeksi. Katso esimerkki alla
 
-* Anna tyhjä, jos haluat poistaa työkalun kytkimen käytöstä tällä ohjaimella.
-* Aseta se `0` ottaaksesi liikkumisen käyttöön tällä ohjaimella.
-* Aseta se positve numero vaihtaa työkaluun tämän indeksin alkaen ensin vasemmalla alkaa `1`.
+![työkalupalkin numerointi](toolbar_numbered.png)
+
+Täällä, 1 viittaa lasso työkalu, 2, pan työkalu jne.
+
+Määritä asetukset sinulla on ovat seuraavat:
+
+* Tyhjä - työkalu on chaged.
+* 0 - työkalu toimii liikkuvana (eli kädessä) tässä moodissa.
+* Positiivinen numero - Työkalu seuraa indeksointi kuten selitetään edellä. 
+
+

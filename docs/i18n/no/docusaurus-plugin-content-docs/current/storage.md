@@ -42,3 +42,7 @@ Det finnes noen begrensninger:
 * Du kan bare synkronisere den øverste nivået i en mappe. Hvis du for eksempel har en mappe `a/b/test.bfly`, blir ikke denne filen synkronisert.
 * Du kan ikke slette en fil eller mappe mens du er frakoblet.
 * Du kan ikke legge til, redigere eller slette maler mens du er frakoblet.
+
+## Andre lagringsmetoder
+
+Hvis du er på en innebygd enhet, kan du også synkronisere programkatalogen med favorittplattformen din. Google drive har [en offisiell app](https://www.google.com/drive/download/) på vinduer og det er uoffisielle osv. i Play Butikk. På linux kan du også bruke det innebygde fjernlagringssystemet og endre datamappen din til denne eller legge til en ny ekstern lagring hvis du klikker på knappen Legg til tilkobling.

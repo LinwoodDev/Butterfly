@@ -42,3 +42,7 @@ Det finns några begränsningar:
 * Du kan bara synkronisera den översta nivån i en katalog. Till exempel om du har en katalog `a/b/test.bfly`kommer denna fil inte att synkroniseras.
 * Du kan inte ta bort en fil eller mapp när du är offline.
 * Du kan inte lägga till, redigera eller ta bort mallar medan du är offline.
+
+## Andra lagringsmetoder
+
+Om du är på en infödd enhet kan du även synkronisera applikationskatalogen med din favoritplattform. Google drive har [en officiell app](https://www.google.com/drive/download/) på fönster och det finns inofficiella en gång i play store. På Linux kan du också använda det inbyggda fjärrlagringssystemet och ändra datakatalogen till detta eller lägga till ett nytt externt lagringsutrymme om du klickar på knappen Lägg till anslutning.

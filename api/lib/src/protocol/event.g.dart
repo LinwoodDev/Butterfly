@@ -127,7 +127,7 @@ _$ElementsChangedImpl _$$ElementsChangedImplFromJson(Map json) =>
     _$ElementsChangedImpl(
       (json['elements'] as Map).map(
         (k, e) => MapEntry(
-            int.parse(k as String),
+            k as String,
             (e as List<dynamic>)
                 .map((e) =>
                     PadElement.fromJson(Map<String, dynamic>.from(e as Map)))
@@ -139,14 +139,14 @@ _$ElementsChangedImpl _$$ElementsChangedImplFromJson(Map json) =>
 Map<String, dynamic> _$$ElementsChangedImplToJson(
         _$ElementsChangedImpl instance) =>
     <String, dynamic>{
-      'elements': instance.elements.map(
-          (k, e) => MapEntry(k.toString(), e.map((e) => e.toJson()).toList())),
+      'elements': instance.elements
+          .map((k, e) => MapEntry(k, e.map((e) => e.toJson()).toList())),
       'type': instance.$type,
     };
 
 _$ElementsRemovedImpl _$$ElementsRemovedImplFromJson(Map json) =>
     _$ElementsRemovedImpl(
-      (json['elements'] as List<dynamic>).map((e) => e as int).toList(),
+      (json['elements'] as List<dynamic>).map((e) => e as String).toList(),
       $type: json['type'] as String?,
     );
 
@@ -160,7 +160,7 @@ Map<String, dynamic> _$$ElementsRemovedImplToJson(
 _$ElementsArrangedImpl _$$ElementsArrangedImplFromJson(Map json) =>
     _$ElementsArrangedImpl(
       $enumDecode(_$ArrangementEnumMap, json['arrangement']),
-      (json['elements'] as List<dynamic>).map((e) => e as int).toList(),
+      (json['elements'] as List<dynamic>).map((e) => e as String).toList(),
       $type: json['type'] as String?,
     );
 
@@ -289,31 +289,46 @@ Map<String, dynamic> _$$WaypointCreatedImplToJson(
       'type': instance.$type,
     };
 
-_$WaypointRenamedImpl _$$WaypointRenamedImplFromJson(Map json) =>
-    _$WaypointRenamedImpl(
-      json['index'] as int,
+_$WaypointChangedImpl _$$WaypointChangedImplFromJson(Map json) =>
+    _$WaypointChangedImpl(
       json['name'] as String,
+      Waypoint.fromJson(Map<String, dynamic>.from(json['waypoint'] as Map)),
       $type: json['type'] as String?,
     );
 
-Map<String, dynamic> _$$WaypointRenamedImplToJson(
-        _$WaypointRenamedImpl instance) =>
+Map<String, dynamic> _$$WaypointChangedImplToJson(
+        _$WaypointChangedImpl instance) =>
     <String, dynamic>{
-      'index': instance.index,
       'name': instance.name,
+      'waypoint': instance.waypoint.toJson(),
       'type': instance.$type,
     };
 
 _$WaypointRemovedImpl _$$WaypointRemovedImplFromJson(Map json) =>
     _$WaypointRemovedImpl(
-      json['index'] as int,
+      json['name'] as String,
       $type: json['type'] as String?,
     );
 
 Map<String, dynamic> _$$WaypointRemovedImplToJson(
         _$WaypointRemovedImpl instance) =>
     <String, dynamic>{
-      'index': instance.index,
+      'name': instance.name,
+      'type': instance.$type,
+    };
+
+_$WaypointReorderedImpl _$$WaypointReorderedImplFromJson(Map json) =>
+    _$WaypointReorderedImpl(
+      json['name'] as String,
+      json['newIndex'] as int,
+      $type: json['type'] as String?,
+    );
+
+Map<String, dynamic> _$$WaypointReorderedImplToJson(
+        _$WaypointReorderedImpl instance) =>
+    <String, dynamic>{
+      'name': instance.name,
+      'newIndex': instance.newIndex,
       'type': instance.$type,
     };
 
@@ -383,7 +398,7 @@ Map<String, dynamic> _$$CurrentLayerChangedImplToJson(
 _$ElementsLayerChangedImpl _$$ElementsLayerChangedImplFromJson(Map json) =>
     _$ElementsLayerChangedImpl(
       json['layer'] as String,
-      (json['elements'] as List<dynamic>).map((e) => e as int).toList(),
+      (json['elements'] as List<dynamic>).map((e) => e as String).toList(),
       $type: json['type'] as String?,
     );
 
@@ -446,6 +461,20 @@ Map<String, dynamic> _$$AreaChangedImplToJson(_$AreaChangedImpl instance) =>
     <String, dynamic>{
       'name': instance.name,
       'area': instance.area.toJson(),
+      'type': instance.$type,
+    };
+
+_$AreaReorderedImpl _$$AreaReorderedImplFromJson(Map json) =>
+    _$AreaReorderedImpl(
+      json['name'] as String,
+      json['newIndex'] as int,
+      $type: json['type'] as String?,
+    );
+
+Map<String, dynamic> _$$AreaReorderedImplToJson(_$AreaReorderedImpl instance) =>
+    <String, dynamic>{
+      'name': instance.name,
+      'newIndex': instance.newIndex,
       'type': instance.$type,
     };
 
@@ -626,5 +655,18 @@ Map<String, dynamic> _$$PresentationTickImplToJson(
         _$PresentationTickImpl instance) =>
     <String, dynamic>{
       'tick': instance.tick,
+      'type': instance.$type,
+    };
+
+_$AssetUpdatedImpl _$$AssetUpdatedImplFromJson(Map json) => _$AssetUpdatedImpl(
+      json['path'] as String,
+      (json['data'] as List<dynamic>).map((e) => e as int).toList(),
+      $type: json['type'] as String?,
+    );
+
+Map<String, dynamic> _$$AssetUpdatedImplToJson(_$AssetUpdatedImpl instance) =>
+    <String, dynamic>{
+      'path': instance.path,
+      'data': instance.data,
       'type': instance.$type,
     };

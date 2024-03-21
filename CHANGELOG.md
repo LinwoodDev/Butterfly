@@ -2,6 +2,82 @@
 
 <!--ENTER CHANGELOG HERE-->
 
+## 2.1.0-beta.2 (2024-03-11)
+
+* Add icons to sort dropdown items
+* Improve window buttons on custom title bar
+* Improve svg path export ([#620](https://github.com/LinwoodDev/Butterfly/issues/620))
+* Fix svg export preview shows nothing
+* Fix exporting on web
+* Fix file creation if the file path already exists
+
+Read more here: https://linwood.dev/butterfly/2.1.0-beta.2
+
+## 2.1.0-beta.1 (2024-03-04)
+
+* Add setting for adding background to pdf import ([#606](https://github.com/LinwoodDev/Butterfly/issues/606))
+* Add setting for inverting to pdf import ([#606](https://github.com/LinwoodDev/Butterfly/issues/606))
+* Add image operations
+  * Invert
+  * Background
+* Add ability to reorder waypoints
+* Change waypoint identifier to the name instead of index
+* Fix transformation pushed to reference handle ([#615](https://github.com/LinwoodDev/Butterfly/issues/615))
+* Disable showing transform controls while transforming
+
+Read more here: https://linwood.dev/butterfly/2.1.0-beta.1
+
+## 2.1.0-beta.0 (2024-02-26)
+
+* Add shape detection for lines ([#578](https://github.com/LinwoodDev/Butterfly/issues/578))
+* Add area navigator page ([#574](https://github.com/LinwoodDev/Butterfly/issues/574))
+* Add resize and move controls to area tool ([#542](https://github.com/LinwoodDev/Butterfly/issues/542))
+* Add reorder controls to area tool
+* Add option to export whole page ([#594](https://github.com/LinwoodDev/Butterfly/issues/594))
+* Add export tool ([#590](https://github.com/LinwoodDev/Butterfly/issues/590))
+* Move rotation controls to the top ([#607](https://github.com/LinwoodDev/Butterfly/issues/607))
+* Improve area tool creation rect selection
+* Make selection system of select tool modular
+* Upgrade to flutter 3.19
+* Improve pdf import ([#612](https://github.com/LinwoodDev/Butterfly/issues/612))
+* Rename release assets ([#568](https://github.com/LinwoodDev/Butterfly/discussions/568))
+* Generalize svg and png dialog
+* Fix thumbnail shoot position
+* Fix png export
+
+Read more here: https://linwood.dev/butterfly/2.1.0-beta.0
+
+## 2.0.3 (2024-02-19)
+
+* Fix png export
+
+See all changes since the last stable here: https://linwood.dev/butterfly/2.0.3
+
+## 2.0.3-rc.1 (2024-02-12)
+
+* Add initial ios support (currently nightly only) ([#244](https://github.com/LinwoodDev/Butterfly/issues/244))
+* Add option to disable autosave ([#591](https://github.com/LinwoodDev/Butterfly/issues/591))
+* Convert aspect ratio menu to material 3
+* Invert current inverted position to be normal
+* Fix file sharing on android ([#585](https://github.com/LinwoodDev/Butterfly/issues/585))
+* Fix laser movement is not locked
+* Fix color of icon dropdown in property view
+* Disable camera on android sdk version < 21
+
+Read more here: https://linwood.dev/butterfly/2.0.3-rc.1
+
+## 2.0.3-rc.0 (2024-02-05)
+
+* Fix export pdf print instead of export as file
+* Fix scroll in pdf export dialog
+* Fix pdf.js on web
+* Fix exporting on web
+* Fix notch area not being used in full screen ([#368](https://github.com/LinwoodDev/Butterfly/issues/368))
+* Fix performance of the eraser tool ([#461](https://github.com/LinwoodDev/Butterfly/issues/461))
+* Fix performance of the path eraser tool (partially [#528](https://github.com/LinwoodDev/Butterfly/issues/528))
+
+Read more here: https://linwood.dev/butterfly/2.0.3-rc.0
+
 ## 2.0.2 (2024-01-29)
 
 Nothing changed from the nightly build to the stable release.

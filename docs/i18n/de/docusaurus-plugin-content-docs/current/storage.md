@@ -42,3 +42,7 @@ Es gibt ein paar Einschränkungen:
 * Sie können nur die obere Ebene eines Verzeichnisses synchronisieren. Wenn Sie beispielsweise ein Verzeichnis `a/b/test.bfly`haben, wird diese Datei nicht synchronisiert.
 * Sie können keine Datei oder einen Ordner löschen, wenn Sie offline sind.
 * Sie können Vorlagen nicht hinzufügen, bearbeiten oder löschen, solange Sie offline sind.
+
+## Andere Speichermethoden
+
+Wenn Sie auf einem nativen Gerät sind, können Sie auch das Anwendungsverzeichnis mit Ihrer Lieblingsplattform synchronisieren. Google Drive hat [eine offizielle App](https://www.google.com/drive/download/) auf Fenstern und es gibt inoffizielle Einzige im Play Store. Auf Linux können Sie auch das native Remotespeicher System verwenden und Ihr Datenverzeichnis ändern oder einen neuen externen Speicher hinzufügen, wenn Sie auf die Schaltfläche Verbindung hinzufügen klicken.

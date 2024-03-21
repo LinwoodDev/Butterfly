@@ -3,7 +3,8 @@ import 'dart:convert';
 import 'dart:math';
 import 'dart:typed_data';
 import 'dart:ui' as ui;
-
+import 'package:butterfly/api/image.dart';
+import 'package:image/image.dart' as img;
 import 'package:butterfly/api/file_system/file_system.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/dialogs/import/confirmation.dart';
@@ -25,10 +26,9 @@ import '../api/save.dart';
 import '../cubits/current_index.dart';
 import '../cubits/settings.dart';
 import '../dialogs/error.dart';
-import '../dialogs/export/image.dart';
+import '../dialogs/export/general.dart';
 import '../dialogs/import/pages.dart';
 import '../dialogs/export/pdf.dart';
-import '../dialogs/export/svg.dart';
 
 class ImportService {
   final DocumentBloc? bloc;
@@ -97,8 +97,8 @@ class ImportService {
         AssetFileType.svg => importSvg(bytes, document, position: position),
         AssetFileType.markdown =>
           importMarkdown(bytes, document, position: position),
-        AssetFileType.pdf => importPdf(bytes, document,
-            position: position, createAreas: true, advanced: advanced),
+        AssetFileType.pdf =>
+          importPdf(bytes, document, position: position, advanced: advanced),
         AssetFileType.page => importPage(bytes, document, position: position),
         AssetFileType.xopp => importXopp(bytes, document, position: position),
       };
@@ -195,7 +195,7 @@ class ImportService {
                 ?.element ??
             e)
         .toList();
-    return _submit(document,
+    return _submit(context, document,
         elements: content, areas: areas, choosePosition: position == null);
   }
 
@@ -252,7 +252,7 @@ class ImportService {
             currentIndexCubit!.state.cameraViewport.scale;
         constraints = ElementConstraints.scaled(scaleX: scale, scaleY: scale);
       }
-      return _submit(document,
+      return _submit(context, document,
           elements: [
             ImageElement(
                 height: height,
@@ -321,7 +321,7 @@ class ImportService {
               currentIndexCubit!.state.cameraViewport.scale;
           constraints = ElementConstraints.scaled(scaleX: scale, scaleY: scale);
         }
-        return _submit(document,
+        return _submit(context, document,
             elements: [
               SvgElement(
                 width: width,
@@ -362,7 +362,7 @@ class ImportService {
       final foreground = isDarkColor(Color(background))
           ? BasicColors.white
           : BasicColors.black;
-      return _submit(document,
+      return _submit(context, document,
           elements: [
             MarkdownElement(
               position: firstPos.toPoint(),
@@ -383,21 +383,60 @@ class ImportService {
   }
 
   Future<NoteData?> importPdf(Uint8List bytes, NoteData document,
-      {Offset? position,
-      bool createAreas = false,
-      bool advanced = true}) async {
+      {Offset? position, bool advanced = true}) async {
     try {
+      final dialog = showLoadingDialog(context);
       final firstPos = position ?? Offset.zero;
       final elements = <Uint8List>[];
       final localizations = AppLocalizations.of(context);
+      // Define the compression value
+      int level = 9;
+      // Define the lot size
+      const batchSize = 100;
+      List<Uint8List> batch = [];
+      // Create a counter for decoded images
+      int decodedImagesCount = 0;
+      // Get the total number of pages
+      int totalPages = await Printing.raster(bytes).length;
+
       await for (var page in Printing.raster(bytes)) {
-        final png = await page.toPng();
-        elements.add(png);
+        try {
+          decodedImagesCount++;
+          await Future.delayed(const Duration(milliseconds: 100));
+          dialog?.setProgress(decodedImagesCount / totalPages);
+          final png = await page.toPng();
+          //decode image
+          img.Image? image = img.decodePng(png);
+          //compress image
+          List<int> compressedPng = img.encodePng(image!, level: level);
+          // Add the compressed image to the current batch
+          batch.add(Uint8List.fromList(compressedPng));
+          // elements.add(Uint8List.fromList(compressedPng));
+          // If the lot has reached the lot size, process the lot and empty the lot
+          if (batch.length == batchSize) {
+            elements.addAll(batch);
+            batch = [];
+          }
+        } catch (e) {
+          showDialog(
+            context: context,
+            builder: (context) =>
+                UnknownImportConfirmationDialog(message: e.toString()),
+          );
+        }
+      }
+      dialog?.close();
+      // Process any image left in the batch
+      if (batch.isNotEmpty) {
+        elements.addAll(batch);
       }
       if (context.mounted) {
         List<int> pages = List.generate(elements.length, (index) => index);
         double quality = context.read<SettingsCubit>().state.pdfQuality;
-        bool spreadToPages = false;
+        bool spreadToPages = false,
+            createAreas = false,
+            background = true,
+            invert = false;
         if (advanced) {
           final callback = await showDialog<PageDialogCallback>(
               context: context,
@@ -406,55 +445,73 @@ class ImportService {
           pages = callback.pages;
           quality = callback.quality;
           spreadToPages = callback.spreadToPages;
+          createAreas = callback.createAreas;
+          background = callback.background;
+          invert = callback.invert;
         }
         final dialog = showLoadingDialog(context);
         final selectedElements = <ImageElement>[];
         final areas = <Area>[];
         final documentPages = <DocumentPage>[];
-        var y = firstPos.dx;
+        var y = firstPos.dy;
         var current = 0;
+
         await for (final page in Printing.raster(bytes,
             pages: pages, dpi: PdfPageFormat.inch * quality)) {
-          await Future.delayed(const Duration(milliseconds: 100));
-          dialog?.setProgress(current / pages.length);
-          current++;
-          final png = await page.toPng();
-          final scale = 1 / quality;
-          final height = page.height;
-          final width = page.width;
-          final dataPath = Uri.dataFromBytes(png).toString();
-          final element = ImageElement(
-              height: height.toDouble(),
-              width: width.toDouble(),
-              source: dataPath,
-              constraints:
-                  ElementConstraints.scaled(scaleX: scale, scaleY: scale),
-              position: Point(firstPos.dx, y));
-          final area = Area(
-            height: height * scale,
-            width: width * scale,
-            position: Point(firstPos.dx, y),
-            name: localizations.pageIndex(areas.length + 1),
-          );
-          if (spreadToPages) {
-            documentPages.add(DocumentPage(
-              content: [element],
-              areas: [if (createAreas) area],
-            ));
-          } else {
-            selectedElements.add(element);
-            if (createAreas) {
+          try {
+            await Future.delayed(const Duration(milliseconds: 1));
+            dialog?.setProgress(current / pages.length);
+            current++;
+            var image = page.asImage();
+            // Add white background to the image if channels is 4
+            final cmd = img.Command()..image(image);
+            if (background) cmd.filter(updateImageBackground());
+            if (invert) cmd.invert();
+            cmd.encodePng();
+            final png = await cmd.getBytes();
+            if (png == null) continue;
+            final scale = 1 / quality;
+            final height = page.height;
+            final width = page.width;
+            final dataPath = Uri.dataFromBytes(png).toString();
+            final element = ImageElement(
+                height: height.toDouble(),
+                width: width.toDouble(),
+                source: dataPath,
+                constraints:
+                    ElementConstraints.scaled(scaleX: scale, scaleY: scale),
+                position: Point(firstPos.dx, y));
+            final area = Area(
+              height: height * scale,
+              width: width * scale,
+              position: Point(firstPos.dx, y),
+              name: localizations.pageIndex(areas.length + 1),
+            );
+            if (spreadToPages) {
+              documentPages.add(DocumentPage(
+                content: [element],
+                areas: [if (createAreas) area],
+              ));
+            } else {
+              selectedElements.add(element);
               areas.add(area);
             }
+            y += height * scale;
+          } catch (e) {
+            showDialog(
+              context: context,
+              builder: (context) =>
+                  UnknownImportConfirmationDialog(message: e.toString()),
+            );
           }
-          y += height * scale;
         }
         dialog?.close();
         return _submit(
+          context,
           document,
           elements: selectedElements,
           pages: documentPages,
-          areas: createAreas ? areas : [],
+          areas: spreadToPages ? [] : areas,
           choosePosition: position == null,
         );
       }
@@ -477,19 +534,21 @@ class ImportService {
     final viewport = currentIndexCubit.state.cameraViewport;
     switch (fileType) {
       case AssetFileType.note:
-        saveData(context, Uint8List.fromList(state.saveData().save()));
+        exportData(context, Uint8List.fromList(state.saveData().save()));
         break;
       case AssetFileType.image:
         return showDialog<void>(
             context: context,
             builder: (context) => BlocProvider.value(
                 value: bloc!,
-                child: ImageExportDialog(
-                  height: viewport.height?.toDouble() ?? 1000.0,
-                  width: viewport.width?.toDouble() ?? 1000.0,
-                  scale: viewport.scale,
-                  x: viewport.x,
-                  y: viewport.y,
+                child: GeneralExportDialog(
+                  options: ImageExportOptions(
+                    height: viewport.height?.toDouble() ?? 1000.0,
+                    width: viewport.width?.toDouble() ?? 1000.0,
+                    scale: viewport.scale,
+                    x: viewport.x,
+                    y: viewport.y,
+                  ),
                 )));
       case AssetFileType.pdf:
         return showDialog<void>(
@@ -505,18 +564,20 @@ class ImportService {
             context: context,
             builder: (context) => BlocProvider.value(
                 value: bloc!,
-                child: SvgExportDialog(
-                    width: ((viewport.width ?? 1000) / viewport.scale).round(),
-                    height:
-                        ((viewport.height ?? 1000) / viewport.scale).round(),
-                    x: viewport.x,
-                    y: viewport.y)));
+                child: GeneralExportDialog(
+                    options: SVGExportOptions(
+                  width: (viewport.width ?? 1000) / viewport.scale,
+                  height: (viewport.height ?? 1000) / viewport.scale,
+                  x: viewport.x,
+                  y: viewport.y,
+                ))));
       default:
         return;
     }
   }
 
   NoteData? _submit(
+    BuildContext context,
     NoteData document, {
     required List<PadElement> elements,
     List<DocumentPage> pages = const [],
@@ -530,11 +591,11 @@ class ImportService {
         state != null &&
         (elements.isNotEmpty || areas.isNotEmpty)) {
       state.currentIndexCubit.changeTemporaryHandler(
-          bloc!, ImportTool(elements: elements, areas: areas));
+          context, ImportTool(elements: elements, areas: areas), bloc!);
     } else {
       bloc
-        ?..add(ElementsCreated(elements))
-        ..add(AreasCreated(areas));
+        ?..add(AreasCreated(areas))
+        ..add(ElementsCreated(elements));
     }
     for (final page in pages) {
       bloc?.add(PageAdded(null, page));

@@ -3,6 +3,7 @@ import 'package:butterfly/actions/settings.dart';
 import 'package:butterfly/api/file_system/file_system.dart';
 import 'package:butterfly/api/open.dart';
 import 'package:butterfly/cubits/settings.dart';
+import 'package:butterfly/dialogs/template.dart';
 import 'package:butterfly/services/import.dart';
 import 'package:butterfly/widgets/window.dart';
 import 'package:butterfly_api/butterfly_api.dart';
@@ -446,11 +447,20 @@ class _QuickstartHomeViewState extends State<_QuickstartHomeView> {
         child:
             Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(
-                AppLocalizations.of(context).quickstart,
-                style: Theme.of(context).textTheme.headlineMedium,
+              Expanded(
+                child: Text(
+                  AppLocalizations.of(context).quickstart,
+                  style: Theme.of(context).textTheme.headlineMedium,
+                ),
+              ),
+              IconButton(
+                icon: const PhosphorIcon(PhosphorIconsLight.wrench),
+                tooltip: AppLocalizations.of(context).advanced,
+                onPressed: () => showDialog(
+                  context: context,
+                  builder: (ctx) => const TemplateDialog(),
+                ),
               ),
               IconButton(
                 icon: const PhosphorIcon(PhosphorIconsLight.arrowClockwise),

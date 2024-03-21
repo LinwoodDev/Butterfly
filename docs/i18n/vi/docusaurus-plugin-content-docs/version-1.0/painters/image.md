@@ -1,6 +1,6 @@
 ---
 title: "Image painter"
-sidebar_label: "Image"
+sidebar_label: "Hình ảnh"
 sidebar_position: 3
 ---
 

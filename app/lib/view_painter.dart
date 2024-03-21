@@ -28,7 +28,7 @@ class ForegroundPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     canvas.scale(transform.size);
-    canvas.translate(transform.position.dx, transform.position.dy);
+    canvas.translate(-transform.position.dx, -transform.position.dy);
     for (var renderer in renderers) {
       final center = renderer.rect?.center;
       final radian = renderer.rotation * (pi / 180);
@@ -137,10 +137,10 @@ class ViewPainter extends CustomPainter {
       }
     }
     if (cameraViewport.bakedElements.isNotEmpty && renderBaked) {
-      var image = cameraViewport.image;
-      var bakedSizeDiff =
+      final image = cameraViewport.image;
+      final bakedSizeDiff =
           (transform.size - cameraViewport.scale) / cameraViewport.scale;
-      var pos = transform.globalToLocal(-cameraViewport.toOffset());
+      final pos = transform.globalToLocal(cameraViewport.toOffset());
 
       // Draw our baked image, scaling it down with drawImageRect.
       if (image != null) {
@@ -153,7 +153,7 @@ class ViewPainter extends CustomPainter {
       }
     }
     canvas.scale(transform.size, transform.size);
-    canvas.translate(transform.position.dx, transform.position.dy);
+    canvas.translate(-transform.position.dx, -transform.position.dy);
     for (final renderer in cameraViewport.unbakedElements) {
       final state = states[renderer];
       if (!invisibleLayers.contains(renderer.element.layer) &&

@@ -3,7 +3,7 @@
   "redirects": [
     {
       "source":"/docs/latest/:path*",
-      "destination":"/docs/1.5/:path*"
+      "destination":"/docs/2.0/:path*"
     },
     {
       "source": "/docs/1.0.0/:path*",
@@ -44,6 +44,10 @@
     {
       "source": "/docs/privacypolicy",
       "destination": "/privacypolicy"
+    },
+    {
+      "source": "/web/:path*",
+      "destination": "https://web.butterfly.linwood.dev/:path*"
     }
   ],
   "github": {

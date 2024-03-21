@@ -151,6 +151,8 @@
   "copy": "Kopyala",
   "back": "Geri",
   "zoomDependent": "Bağımlı yakınlaştırma",
+  "shapeDetection": "Shape Detection",
+  "delay": "Delay",
   "defaultLayer": "Varsayılan Katman",
   "layer": "Katman",
   "layers": "Katmanlar",
@@ -583,5 +585,14 @@
   "continueAnyway": "Continue anyway",
   "zoomControl": "Zoom control",
   "highContrast": "High contrast",
-  "shouldANumber": "This value should be valid number"
+  "shouldANumber": "This value should be valid number",
+  "createAreas": "Create areas",
+  "autosave": "Autosave",
+  "invert": "Invert",
+  "operations": "Operations",
+  "medium": "Medium",
+  "large": "Large",
+  "toolbarSize": "Toolbar size",
+  "addAll": "Add all",
+  "onlyCurrentPage": "Only current page"
 }

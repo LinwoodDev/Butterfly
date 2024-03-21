@@ -183,7 +183,7 @@ class _PageEntityListTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final editable = entity.isFile && !selected;
+    final editable = entity.isFile;
     return EditableListTile(
       initialValue: entity.name,
       selected: selected,
@@ -205,15 +205,19 @@ class _PageEntityListTile extends StatelessWidget {
           ? [
               MenuItemButton(
                 leadingIcon: const PhosphorIcon(PhosphorIconsLight.trash),
-                onPressed: () async {
-                  final result = await showDialog<bool>(
-                      context: context,
-                      builder: (context) => const DeleteDialog());
-                  if (result != true) {
-                    return;
-                  }
-                  context.read<DocumentBloc>().add(PageRemoved(entity.path));
-                },
+                onPressed: selected
+                    ? null
+                    : () async {
+                        final result = await showDialog<bool>(
+                            context: context,
+                            builder: (context) => const DeleteDialog());
+                        if (result != true) {
+                          return;
+                        }
+                        context
+                            .read<DocumentBloc>()
+                            .add(PageRemoved(entity.path));
+                      },
                 child: Text(AppLocalizations.of(context).delete),
               )
             ]

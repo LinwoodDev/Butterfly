@@ -151,6 +151,8 @@
   "copy": "Kopírovat",
   "back": "Zpět",
   "zoomDependent": "Přiblížení závislé",
+  "shapeDetection": "Detekce tvarů",
+  "delay": "Zpoždění",
   "defaultLayer": "Výchozí vrstva",
   "layer": "Vrstva",
   "layers": "Vrstvy",
@@ -583,5 +585,14 @@
   "continueAnyway": "Přesto pokračovat",
   "zoomControl": "Ovládání přiblížení",
   "highContrast": "Vysoký kontrast",
-  "shouldANumber": "Tato hodnota by měla být platné číslo"
+  "shouldANumber": "Tato hodnota by měla být platné číslo",
+  "createAreas": "Vytvořit oblasti",
+  "autosave": "Autosave",
+  "invert": "Invert",
+  "operations": "Operace",
+  "medium": "Střední",
+  "large": "Velký",
+  "toolbarSize": "Velikost panelu nástrojů",
+  "addAll": "Přidat vše",
+  "onlyCurrentPage": "Pouze aktuální stránka"
 }

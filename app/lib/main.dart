@@ -14,7 +14,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_web_plugins/url_strategy.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hive/hive.dart';
-import 'package:lw_sysinfo/lw_sysinfo.dart';
+import 'package:lw_sysapi/lw_sysapi.dart';
 import 'package:material_leap/l10n/leap_localizations.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -105,14 +105,16 @@ Future<void> main([List<String> args = const []]) async {
     const kWindowOptions = WindowOptions(
       minimumSize: Size(410, 300),
       title: applicationName,
+      backgroundColor: Colors.transparent,
     );
 
     // Use it only after calling `hiddenWindowAtLaunch`
     await windowManager.waitUntilReadyToShow(kWindowOptions).then((_) async {
       await windowManager.setResizable(true);
+      await windowManager.setPreventClose(false);
     });
   }
-  final clipboardManager = await SysInfo.getClipboardManager();
+  final clipboardManager = await SysAPI.getClipboardManager();
   GeneralFileSystem.dataPath = result['path'];
   final isFullscreen = await isFullScreen();
   runApp(
@@ -391,3 +393,4 @@ const isNightly =
     flavor == 'nightly' || flavor == 'dev' || flavor == 'development';
 const shortApplicationName = isNightly ? 'Butterfly Nightly' : 'Butterfly';
 const applicationName = 'Linwood $shortApplicationName';
+const applicationMinorVersion = '2.1';

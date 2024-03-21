@@ -2,7 +2,7 @@
 id: "faq"
 slug: "/faq"
 title: "Frequently Asked Questions"
-sidebar_label: "FAQ"
+sidebar_label: "Câu hỏi thường gặp"
 ---
 
 Here are some frequently asked questions.
@@ -29,7 +29,7 @@ I'm using the input provided by the flutter framework. This is the issue to trac
 
 > [#244](https://github.com/LinwoodDev/Butterfly/issues/244)
 
-You need an apple developer account to get apps on the iPhone. For android you don't need to register and if you want you only need to pay 15$ once. On apple you need to pay 99$ yearly. I can't afford this. In europe ios needs to be able to sideload apps in the future. Maybe this will change something.
+Butterfly is available on iOS as preview. Click [here](https://docs.butterfly.linwood.dev/downloads/ios) to download it. See [here](https://github.com/LinwoodDev/Butterfly/issues/244#issuecomment-1935460878) why it's not available on the App Store.
 
 ## Desktop
 

@@ -151,6 +151,8 @@
   "copy": "Копировать",
   "back": "Назад",
   "zoomDependent": "Зависимость от масштаба",
+  "shapeDetection": "Обнаружение фигур",
+  "delay": "Задержка",
   "defaultLayer": "Слой по умолчанию",
   "layer": "Слой",
   "layers": "Слои",
@@ -583,5 +585,14 @@
   "continueAnyway": "Все равно продолжить",
   "zoomControl": "Управление масштабом",
   "highContrast": "Высокий контраст",
-  "shouldANumber": "Это значение должно быть действительным числом"
+  "shouldANumber": "Это значение должно быть действительным числом",
+  "createAreas": "Создать области",
+  "autosave": "Autosave",
+  "invert": "Invert",
+  "operations": "Операции",
+  "medium": "Средний",
+  "large": "Большой",
+  "toolbarSize": "Размер панели инструментов",
+  "addAll": "Добавить все",
+  "onlyCurrentPage": "Только текущая страница"
 }

@@ -1,9 +1,9 @@
 import 'package:butterfly/bloc/document_bloc.dart';
+import 'package:butterfly/dialogs/export/general.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../cubits/transform.dart';
-import '../dialogs/export/svg.dart';
 
 class SvgExportIntent extends Intent {
   final BuildContext context;
@@ -18,16 +18,15 @@ class SvgExportAction extends Action<SvgExportIntent> {
   Future<void> invoke(SvgExportIntent intent) async {
     final bloc = intent.context.read<DocumentBloc>();
     final transform = intent.context.read<TransformCubit>().state;
-    final size = MediaQuery.of(intent.context).size;
-    var scale = transform.size;
     showDialog<void>(
         builder: (context) => BlocProvider.value(
               value: bloc,
-              child: SvgExportDialog(
-                width: (size.width / scale).round(),
-                height: (size.height / scale).round(),
-                x: -transform.position.dx,
-                y: -transform.position.dy,
+              child: GeneralExportDialog(
+                preset: ExportTransformPreset.page,
+                options: getDefaultSVGExportOptions(
+                  context,
+                  transform: transform,
+                ),
               ),
             ),
         context: intent.context);

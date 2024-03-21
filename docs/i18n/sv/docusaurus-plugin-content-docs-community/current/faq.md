@@ -29,7 +29,7 @@ Jag använder indata från fladdrande ramverk. Detta är numret för att spåra 
 
 > [#244](https://github.com/LinwoodDev/Butterfly/issues/244)
 
-Du behöver ett apple-utvecklarkonto för att få appar på iPhone. För Android behöver du inte registrera dig och om du vill behöver du bara betala 15$ en gång. På äpple måste du betala 99$ årligen. Jag har inte råd med det här. I europa ios måste kunna sideload appar i framtiden. Kanske kommer detta att förändra något.
+Fjäril finns på iOS som förhandsvisning. Klicka på [här](https://docs.butterfly.linwood.dev/downloads/ios) för att ladda ner den. Se [här](https://github.com/LinwoodDev/Butterfly/issues/244#issuecomment-1935460878) varför den inte finns på App Store.
 
 ## Skrivbord
 

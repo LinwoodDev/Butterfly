@@ -20,7 +20,8 @@ class SelectAllAction extends Action<SelectAllIntent> {
     final cubit = intent.context.read<CurrentIndexCubit>();
     if (cubit.getHandler() is SelectHandler) return;
     final bloc = intent.context.read<DocumentBloc>();
-    final handler = await cubit.changeTemporaryHandler(bloc, HandTool());
+    final handler =
+        await cubit.changeTemporaryHandler(intent.context, HandTool(), bloc);
     if (handler is! SelectHandler) return;
     handler.selectAll(bloc);
   }

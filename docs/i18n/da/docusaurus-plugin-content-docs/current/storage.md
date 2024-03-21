@@ -42,3 +42,7 @@ Der er et par begrænsninger:
 * Du kan kun synkronisere det øverste niveau i en mappe. For eksempel hvis du har en mappe `a/b/test.bfly`, vil denne fil ikke blive synkroniseret.
 * Du kan ikke slette en fil eller mappe, mens du er offline.
 * Du kan ikke tilføje, redigere eller slette skabeloner, mens du er offline.
+
+## Andre oplagringsmetoder
+
+Hvis du er på en indfødt enhed, kan du også synkronisere programmappen med din foretrukne platform. Google drev har [en officiel app](https://www.google.com/drive/download/) på vinduer, og der er uofficielle onces i spillebutikken. På linux kan du også bruge det indfødte fjernlagringssystem og ændre din datamappe til dette eller tilføje en ny ekstern lagring, hvis du klikker på knappen Tilføj forbindelse.

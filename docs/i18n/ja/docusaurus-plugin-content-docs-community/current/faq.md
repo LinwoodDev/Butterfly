@@ -29,7 +29,7 @@ sidebar_label: "FAQ"
 
 > [#244](https://github.com/LinwoodDev/Butterfly/issues/244)
 
-iPhoneでアプリを入手するには、Apple開発者アカウントが必要です。 Androidの場合は、登録する必要はありませんし、あなただけの15ドルを支払う必要がある場合。 アップルでは毎年99ドルを支払う必要があります。 これを買う余裕はありません。 ヨーロッパでは、将来的にアプリをサイドロードできるようにする必要があります。 たぶんこれは何かを変えるでしょう。
+ButterflyはプレビューとしてiOSで利用できます。 Click [here](https://docs.butterfly.linwood.dev/downloads/ios) to download it. See [here](https://github.com/LinwoodDev/Butterfly/issues/244#issuecomment-1935460878) why it's not available on the App Store.
 
 ## デスクトップ
 

@@ -1,6 +1,6 @@
 ---
 title: "Ferramenta de borracha"
-sidebar_label: "Erro de caminho"
+sidebar_label: "Apagador de linha"
 sidebar_position: 5
 ---
 
@@ -9,7 +9,7 @@ Com essa ferramenta você pode excluir o caminho inteiro no papel.
 
 ## Configuração
 
-|            Propriedade | Padrão | Descrição:                                                                                                             |
+|            Propriedade | Padrão | Descrição                                                                                                              |
 | ----------------------:|:------:|:---------------------------------------------------------------------------------------------------------------------- |
 |     Espessura do traço |   5    | A largura do traço                                                                                                     |
 | Multiplicador de traço |   1    | Se você tem um estilo, este é o multiplicador que será adicionado à pressão                                            |

@@ -1,6 +1,6 @@
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/cubits/transform.dart';
-import 'package:butterfly/dialogs/export/image.dart';
+import 'package:butterfly/dialogs/export/general.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -17,16 +17,15 @@ class ImageExportAction extends Action<ImageExportIntent> {
   Future<void> invoke(ImageExportIntent intent) async {
     var bloc = intent.context.read<DocumentBloc>();
     var transform = intent.context.read<TransformCubit>().state;
-    var size = MediaQuery.of(intent.context).size;
     return showDialog<void>(
         builder: (context) => BlocProvider.value(
               value: bloc,
-              child: ImageExportDialog(
-                width: size.width,
-                height: size.height,
-                x: -transform.position.dx,
-                y: -transform.position.dy,
-                scale: transform.size,
+              child: GeneralExportDialog(
+                preset: ExportTransformPreset.view,
+                options: getDefaultImageExportOptions(
+                  context,
+                  transform: transform,
+                ),
               ),
             ),
         context: intent.context);

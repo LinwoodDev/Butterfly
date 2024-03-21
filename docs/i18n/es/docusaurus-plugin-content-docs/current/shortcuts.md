@@ -25,24 +25,34 @@ Hay algunos atajos que puedes usar en el editor. Algunos de ellos se escriben de
 * `Ctrl` + `Z`: Deshacer
 * `Ctrl` + `Y`: Rehacer
 * `Ctrl` + `Shift` + `P`: Open waypoints dialog
-* `Ctrl` + `P`: Abrir diálogo de paleta de colores
 * `Ctrl` + `B`: Abrir diálogo de fondo
-* `Ctrl` + `Shift` + `A`: Diálogo de áreas abiertas
 * `Ctrl` + `S`: Guardar
 * `Alt` + `S`: Cambiar ruta
 * `Ctrl` + (`1` - `0`): Cambiar a herramienta
 * `Ctrl` + `+`: Acercamiento en
 * `Ctrl` + `-`: Acercar el zoom
 
-## Stylus
+## Pen
 
-* `Botón primario`: Cambiar a herramienta de mano
-* `Botón secundario`: Cambiar a segunda herramienta
+Por defecto, el lápiz está configurado para funcionar de la siguiente manera:
+* `Pen`: configurado como pluma.
+* `Primero` (botón primario, si es compatible): Cambia a la herramienta manual mientras se pulsa.
+* `Segunda` (botón secundario, si es soportado): Cambie a segunda herramienta (vea [configurar](#configure) sección abajo) mientras se presiona.
+
+
 
 ## Configurar {#configure}
 
-Personalice los controles dando a cada control un índice de herramienta.
+Puede personalizar los controles dando a cada control un índice de herramientas. La indexación de la herramienta comienza desde la izquierda de la barra de herramientas, siendo `1` el primer índice. Ver ejemplo a continuación
 
-* Dejarlo vacío para desactivar el interruptor de herramienta en este control.
-* Establece en `0` para activar el movimiento con este control.
-* Establezca un número positvo para cambiar a la herramienta con este índice comenzando desde el primero a la izquierda comenzando con `1`.
+![barra de herramientas numerada](toolbar_numbered.png)
+
+Aquí, 1 se refiere a la herramienta lasso 2, a la herramienta pan etc.
+
+Las opciones de configuración son las siguientes:
+
+* Vaciar - la herramienta no está encajada.
+* 0 - la herramienta funcionará como moviendo (es decir, mano) en este mod.
+* Número positivo - La herramienta seguirá la indexación como explicamos arriba. 
+
+

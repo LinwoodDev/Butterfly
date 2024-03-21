@@ -45,16 +45,16 @@ class DocumentEvent extends ReplayEvent with _$DocumentEvent {
   ) = ElementsCreated;
 
   const factory DocumentEvent.elementsChanged(
-    Map<int, List<PadElement>> elements,
+    Map<String, List<PadElement>> elements,
   ) = ElementsChanged;
 
   const factory DocumentEvent.elementsRemoved(
-    List<int> elements,
+    List<String> elements,
   ) = ElementsRemoved;
 
   const factory DocumentEvent.elementsArranged(
     Arrangement arrangement,
-    List<int> elements,
+    List<String> elements,
   ) = ElementsArranged;
 
   const factory DocumentEvent.documentDescriptionChanged({
@@ -90,14 +90,19 @@ class DocumentEvent extends ReplayEvent with _$DocumentEvent {
     Waypoint waypoint,
   ) = WaypointCreated;
 
-  const factory DocumentEvent.waypointRenamed(
-    int index,
+  const factory DocumentEvent.waypointChanged(
     String name,
-  ) = WaypointRenamed;
+    Waypoint waypoint,
+  ) = WaypointChanged;
 
   const factory DocumentEvent.waypointRemoved(
-    int index,
+    String name,
   ) = WaypointRemoved;
+
+  const factory DocumentEvent.waypointReordered(
+    String name,
+    int newIndex,
+  ) = WaypointReordered;
 
   const factory DocumentEvent.layerRenamed(
     String oldName,
@@ -122,7 +127,7 @@ class DocumentEvent extends ReplayEvent with _$DocumentEvent {
 
   const factory DocumentEvent.elementsLayerChanged(
     String layer,
-    List<int> elements,
+    List<String> elements,
   ) = ElementsLayerChanged;
 
   const factory DocumentEvent.templateCreated(String directory,
@@ -140,6 +145,11 @@ class DocumentEvent extends ReplayEvent with _$DocumentEvent {
     String name,
     Area area,
   ) = AreaChanged;
+
+  const factory DocumentEvent.areaReordered(
+    String name,
+    int newIndex,
+  ) = AreaReordered;
 
   const factory DocumentEvent.currentAreaChanged(
     String name,
@@ -191,6 +201,9 @@ class DocumentEvent extends ReplayEvent with _$DocumentEvent {
   const factory DocumentEvent.presentationModeExited() = PresentationModeExited;
 
   const factory DocumentEvent.presentationTick(int tick) = PresentationTick;
+
+  const factory DocumentEvent.assetUpdated(String path, List<int> data) =
+      AssetUpdated;
 
   factory DocumentEvent.fromJson(Map<String, dynamic> json) =>
       _$DocumentEventFromJson(json);

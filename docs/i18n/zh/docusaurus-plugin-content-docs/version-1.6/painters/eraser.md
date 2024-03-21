@@ -1,6 +1,6 @@
 ---
 title: "擦除画面"
-sidebar_label: "Eraser"
+sidebar_label: "橡皮擦"
 sidebar_position: 4
 ---
 

@@ -4,7 +4,7 @@ title: "Papel da música"
 
 | Propriedade | Valor |
 | -----------:|:----- |
-|       Width | 200   |
+|     Largura | 200   |
 |      Altura | 5     |
 |  Contagem X | 1     |
 |  Contagem Y | 5     |

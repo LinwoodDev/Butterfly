@@ -30,7 +30,7 @@ LicenseFile=..\LICENSE
 ; Uncomment the following line to run in non administrative install mode (install for current user only.)
 PrivilegesRequired=lowest
 PrivilegesRequiredOverridesAllowed=dialog
-OutputDir=build\windows
+OutputDir=build\windows\x64
 OutputBaseFilename=linwood-butterfly-windows-setup
 SetupIconFile={#RunnerSourceDir}\resources\app_icon.ico
 UninstallDisplayIcon={app}\{#MyAppExeName}

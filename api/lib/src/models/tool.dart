@@ -5,6 +5,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'area.dart';
 import 'colors.dart';
 import 'element.dart';
+import 'export.dart';
 import 'pack.dart';
 import 'property.dart';
 import 'texture.dart';
@@ -23,16 +24,11 @@ enum AspectRatioPreset {
 }
 
 extension RatioPresetExtension on AspectRatioPreset {
-  double get ratio {
-    switch (this) {
-      case AspectRatioPreset.square:
-        return _kSquareRatio;
-      case AspectRatioPreset.portrait:
-        return _kAPortraitRatio;
-      case AspectRatioPreset.landscape:
-        return _kLandscapeRatio;
-    }
-  }
+  double get ratio => switch (this) {
+        AspectRatioPreset.square => _kSquareRatio,
+        AspectRatioPreset.portrait => _kAPortraitRatio,
+        AspectRatioPreset.landscape => _kLandscapeRatio,
+      };
 }
 
 enum LabelMode { markdown, text }
@@ -89,6 +85,8 @@ sealed class Tool with _$Tool {
     @Default('') String name,
     @Default('') String displayIcon,
     @Default(true) bool zoomDependent,
+    @Default(0.5) double shapeDetectionTime,
+    @Default(false) bool shapeDetectionEnabled,
     @Default(PenProperty()) PenProperty property,
   }) = PenTool;
 
@@ -166,6 +164,12 @@ sealed class Tool with _$Tool {
     @Default(ImportType.document) ImportType importType,
     @Default(true) bool advanced,
   }) = AssetTool;
+
+  factory Tool.export({
+    @Default('') String name,
+    @Default('') String displayIcon,
+    required ExportOptions options,
+  }) = ExportTool;
 
   factory Tool.texture({
     @Default('') String name,

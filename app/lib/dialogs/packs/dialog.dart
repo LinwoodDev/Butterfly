@@ -470,6 +470,6 @@ class _PacksDialogState extends State<PacksDialog>
   }
 
   Future<void> _exportPack(NoteData pack) async {
-    return saveData(context, pack.save());
+    return exportData(context, pack.save());
   }
 }

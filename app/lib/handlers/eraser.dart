@@ -4,13 +4,14 @@ class EraserHandler extends Handler<EraserTool> {
   bool _currentlyErasing = false;
   Offset? _currentPos, _lastErased;
   EraserHandler(super.data);
-
+// Called when the user presses the pointer (e.g., a finger or the mouse) on the screen. It starts the erasing action.
   @override
   Future<void> onPointerDown(
       PointerDownEvent event, EventContext context) async {
     _changeElement(event.localPosition, context);
   }
 
+// Creates the cursors for the eraser. It shows an eraser cursor when the user is erasing.
   @override
   List<Renderer> createForegrounds(CurrentIndexCubit currentIndexCubit,
           NoteData document, DocumentPage page, DocumentInfo info,
@@ -20,7 +21,7 @@ class EraserHandler extends Handler<EraserTool> {
           EraserCursor(
               ToolCursorData(EraserInfo.fromEraser(data), _currentPos!))
       ];
-
+// Called when the user moves or hovers the pointer on the screen. They update the current position of the cursor and call the _changeElement method.
   @override
   void onPointerMove(PointerMoveEvent event, EventContext context) {
     _changeElement(event.localPosition, context);
@@ -34,51 +35,58 @@ class EraserHandler extends Handler<EraserTool> {
     context.refresh();
   }
 
+//method that handles the erasing logic. It determines whether an element should be erased based on its distance from the cursor and the stroke width of the eraser.
   Future<void> _changeElement(Offset position, EventContext context) async {
-    final globalPos = context.getCameraTransform().localToGlobal(position);
+    final transform = context.getCameraTransform();
+    final globalPos = transform.localToGlobal(position);
     final size = data.strokeWidth;
     final shouldErase =
         _lastErased == null || (globalPos - _lastErased!).distance > size;
     final page = context.getPage();
     if (page == null) return;
-    if (!_currentlyErasing && shouldErase) {
-      _currentlyErasing = true;
-      _lastErased = globalPos;
-      // Raycast
-      final ray = await rayCast(globalPos, context.getDocumentBloc(),
-          context.getCameraTransform(), size);
-      final elements = ray.map((e) => e.element).whereType<PenElement>();
-      final modified = <int, List<PadElement>>{};
-      for (final element in elements) {
-        List<List<PathPoint>> paths = [[]];
-        for (final point in element.points) {
-          if ((point.toOffset() - globalPos).distance > size) {
-            paths.last.add(point);
-            continue;
-          } else if (paths.last.isNotEmpty) {
+    if (_currentlyErasing || !shouldErase) return;
+    _currentlyErasing = true;
+    _lastErased = globalPos;
+    final ray =
+        await rayCast(globalPos, context.getDocumentBloc(), transform, size);
+    final elements = ray.map((e) => e.element).whereType<PenElement>();
+    final modified = <String, List<PadElement>>{};
+    for (final element in elements) {
+      List<List<PathPoint>> paths = [[]];
+      bool broken = false;
+      for (final point in element.points) {
+        if ((point.toOffset() - globalPos).distance >= (size * size)) {
+          paths.last.add(point);
+          continue;
+        } else {
+          if (paths.last.isNotEmpty) {
             paths.add([]);
+            broken = true;
           }
         }
-        if (paths.length <= 1) continue;
-        final index = page.content.indexOf(element);
-        modified[index] = paths
-            .where((element) => element.isNotEmpty)
-            .map((e) => element.copyWith(points: e))
-            .toList();
       }
-      if (modified.isNotEmpty) {
-        context.getDocumentBloc().add(ElementsChanged(modified));
-        await context.getDocumentBloc().stream.first;
+      if (broken) {
+        modified[element.id] = [];
       }
-      _currentlyErasing = false;
+      modified[element.id] = paths
+          .where((element) => element.isNotEmpty)
+          .map((e) => element.copyWith(points: e))
+          .toList();
     }
+    if (modified.isNotEmpty) {
+      context.getDocumentBloc().add(ElementsChanged(modified));
+      await context.getDocumentBloc().stream.first;
+    }
+    _currentlyErasing = false;
   }
 
+// Called when the user releases the pointer. It completes the erasing action.
   @override
   void onPointerUp(PointerUpEvent event, EventContext context) {
     _changeElement(event.localPosition, context);
   }
 
+// Returns the mouse cursor to be used when the user interacts with the eraser tool.
   @override
   MouseCursor get cursor => SystemMouseCursors.precise;
 }

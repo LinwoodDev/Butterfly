@@ -1,6 +1,7 @@
 import 'package:butterfly/api/open.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/cubits/settings.dart';
+import 'package:butterfly/views/navigator/areas.dart';
 import 'package:butterfly/views/navigator/components.dart';
 import 'package:butterfly/views/files/view.dart';
 import 'package:butterfly/views/navigator/waypoints.dart';
@@ -18,6 +19,7 @@ const drawerWidth = 350.0;
 
 enum NavigatorPage {
   waypoints,
+  areas,
   layers,
   pages,
   components,
@@ -25,6 +27,7 @@ enum NavigatorPage {
 
   String getLocalizedName(BuildContext context) => switch (this) {
         NavigatorPage.waypoints => AppLocalizations.of(context).waypoints,
+        NavigatorPage.areas => AppLocalizations.of(context).areas,
         NavigatorPage.layers => AppLocalizations.of(context).layers,
         NavigatorPage.pages => AppLocalizations.of(context).pages,
         NavigatorPage.files => AppLocalizations.of(context).files,
@@ -33,6 +36,7 @@ enum NavigatorPage {
 
   (List<String>, String?) _getHelp() => switch (this) {
         NavigatorPage.waypoints => (['waypoints'], null),
+        NavigatorPage.areas => (['areas'], null),
         NavigatorPage.layers => (['layers'], null),
         NavigatorPage.pages => (['pages'], null),
         NavigatorPage.files => (['storage'], null),
@@ -41,6 +45,7 @@ enum NavigatorPage {
 
   IconGetter get icon => switch (this) {
         NavigatorPage.waypoints => PhosphorIcons.mapPin,
+        NavigatorPage.areas => PhosphorIcons.monitor,
         NavigatorPage.layers => PhosphorIcons.stack,
         NavigatorPage.pages => PhosphorIcons.book,
         NavigatorPage.files => PhosphorIcons.file,
@@ -172,6 +177,7 @@ class _DocumentNavigatorState extends State<DocumentNavigator>
             }
             final body = switch (page) {
               NavigatorPage.waypoints => const WaypointsView(),
+              NavigatorPage.areas => AreasView(),
               NavigatorPage.layers => const LayersView(),
               NavigatorPage.pages => const PagesView(),
               NavigatorPage.files => SingleChildScrollView(

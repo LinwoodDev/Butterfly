@@ -25,24 +25,34 @@ Existem alguns atalhos que você pode usar no editor. Alguns deles estão escrit
 * `Ctrl` + `Z`: Desfazer
 * `Ctrl` + `Y`: Refazer
 * `Ctrl` + `Shift` + `P`: Open waypoints dialog
-* `Ctrl` + `P`: Abrir caixa de diálogo da paleta de cores
 * `Ctrl` + `B`: Abrir diálogo em segundo plano
-* `Ctrl` + `Shift` + `A`: Abrir diálogo de áreas
 * `Ctrl` + `S`: Salvar
 * `Alt` + `S`: Mudar caminho
 * `Ctrl` + (`1` - `0`): Mudar para ferramenta
 * `Ctrl` + `+`: Zoom para
 * `Ctrl` + `-`: Zoom para fora
 
-## Stylus
+## Caneta
 
-* `Botão primário`: Alterar para ferramenta da mão
-* `Botão secundário`: Mudar para segunda ferramenta
+Por padrão, a caneta está configurada para funcionar como o seguinte:
+* `Pen`: configurado como caneta.
+* `Primeiro` (botão principal, se suportado): Altere para ferramenta de mão enquanto pressionado.
+* `Segundo` (botão secundário, se suportado): Altere para a segunda ferramenta (veja [configurar](#configure) seção abaixo enquanto pressionado.
+
+
 
 ## Configurar {#configure}
 
-Personalize os controles dando a cada controle um índice de ferramentas.
+Você pode personalizar os controles dando a cada controle uma ferramenta índice. A indexação das ferramentas começa à esquerda da barra de ferramentas, sendo `1` o primeiro índice. Ver exemplo abaixo
 
-* Deixe em branco para desativar a opção de ferramenta neste controle.
-* Defina como `0` para ativar movimento com este controle.
-* Defina um número de estação para mudar para a ferramenta com esse índice a partir do primeiro à esquerda, começando com `1`.
+![barra de ferramentas numerada](toolbar_numbered.png)
+
+Aqui, 1 se refere à ferramenta laço, 2, à ferramenta panaceia, etc.
+
+As opções de configuração que você tem são as seguintes:
+
+* Vazio - a ferramenta está desencurralada.
+* 0 - a ferramenta irá funcionar como movimento (ou seja, mão) neste mod.
+* Número positivo - A ferramenta seguirá a indexação conforme explicação acima. 
+
+

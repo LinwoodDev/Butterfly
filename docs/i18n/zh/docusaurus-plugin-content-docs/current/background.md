@@ -1,7 +1,7 @@
 ---
-sidebar_label: "二. 背景"
+sidebar_label: "背景"
 sidebar_position: 2
-title: 二. 背景
+title: 背景
 ---
 
 有两种不同的背景。

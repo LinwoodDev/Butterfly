@@ -1,5 +1,5 @@
 ---
-title: "二. 背景"
+title: "背景"
 sidebar_label: "一. 导言"
 ---
 

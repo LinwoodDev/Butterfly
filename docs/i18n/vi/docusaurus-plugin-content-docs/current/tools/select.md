@@ -1,6 +1,6 @@
 ---
 title: "Select tool"
-sidebar_label: "Select"
+sidebar_label: "Chọn"
 ---
 
 

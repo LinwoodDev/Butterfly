@@ -75,6 +75,12 @@ class FilesViewState extends State<FilesView> {
         SortBy.modified => AppLocalizations.of(context).modified,
       };
 
+  IconGetter getIconOfSortBy(SortBy sortBy) => switch (sortBy) {
+        SortBy.name => PhosphorIcons.file,
+        SortBy.created => PhosphorIcons.calendar,
+        SortBy.modified => PhosphorIcons.clock,
+      };
+
   void _setFilesStream() {
     _templateSystem = TemplateFileSystem.fromPlatform(remote: _remote);
     _fileSystem = DocumentFileSystem.fromPlatform(remote: _remote);
@@ -82,7 +88,9 @@ class FilesViewState extends State<FilesView> {
   }
 
   void reloadFileSystem() {
-    setState(_setFilesStream);
+    if (mounted) {
+      setState(_setFilesStream);
+    }
   }
 
   Future<void> _createFile(NoteData? template) async {
@@ -199,6 +207,8 @@ class FilesViewState extends State<FilesView> {
                     .map((e) => DropdownMenuEntry(
                           value: e,
                           label: getLocalizedNameOfSortBy(e),
+                          leadingIcon: PhosphorIcon(
+                              getIconOfSortBy(e)(PhosphorIconsStyle.light)),
                         ))
                     .toList(),
                 initialSelection: _sortBy,
@@ -379,10 +389,10 @@ class FilesViewState extends State<FilesView> {
                     icon: const PhosphorIcon(PhosphorIconsLight.arrowUp),
                     tooltip: AppLocalizations.of(context).goUp,
                   ),
-                  onWillAccept: (data) => true,
-                  onAccept: (data) async {
+                  onWillAcceptWithDetails: (data) => true,
+                  onAcceptWithDetails: (data) async {
                     await _fileSystem.moveAsset(
-                        data, '$parent/${data.split('/').last}');
+                        data.data, '$parent/${data.data.split('/').last}');
                     reloadFileSystem();
                   },
                 ),
@@ -431,9 +441,11 @@ class FilesViewState extends State<FilesView> {
                 if (snapshot.hasError) {
                   return Text(snapshot.error.toString());
                 }
-                if (snapshot.connectionState == ConnectionState.waiting ||
-                    !snapshot.hasData) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
                   return const Center(child: CircularProgressIndicator());
+                }
+                if (!snapshot.hasData) {
+                  return Text(AppLocalizations.of(context).noElements);
                 }
                 final entity = snapshot.data;
                 if (entity is! AppDocumentDirectory) {

@@ -151,6 +151,8 @@
   "copy": "Αντιγραφή",
   "back": "Πίσω",
   "zoomDependent": "Εξαρτώμενο από ζουμ",
+  "shapeDetection": "Ανίχνευση Σχήματος",
+  "delay": "Καθυστέρηση",
   "defaultLayer": "Προεπιλεγμένο επίπεδο",
   "layer": "Στρώμα",
   "layers": "Επίπεδα",
@@ -583,5 +585,14 @@
   "continueAnyway": "Συνεχίστε οπωσδήποτε",
   "zoomControl": "Έλεγχος εστίασης",
   "highContrast": "Υψηλή αντίθεση",
-  "shouldANumber": "Αυτή η τιμή πρέπει να είναι έγκυρος αριθμός"
+  "shouldANumber": "Αυτή η τιμή πρέπει να είναι έγκυρος αριθμός",
+  "createAreas": "Δημιουργία περιοχών",
+  "autosave": "Autosave",
+  "invert": "Invert",
+  "operations": "Λειτουργίες",
+  "medium": "Μεσαίο",
+  "large": "Μεγάλο",
+  "toolbarSize": "Μέγεθος γραμμής εργαλείων",
+  "addAll": "Προσθήκη όλων",
+  "onlyCurrentPage": "Μόνο η τρέχουσα σελίδα"
 }

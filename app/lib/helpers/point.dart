@@ -1,6 +1,7 @@
 import 'dart:math';
 import 'dart:ui';
 
+import 'package:butterfly/cubits/transform.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:material_leap/material_leap.dart';
 import 'package:perfect_freehand/perfect_freehand.dart' as freehand show Point;
@@ -8,6 +9,15 @@ import 'package:vector_math/vector_math.dart' show Vector2;
 
 extension PointHelper on Point<double> {
   Offset toOffset() => Offset(x, y);
+}
+
+extension FreeHandHelper on freehand.Point {
+  String roundedX() => x.toStringAsFixed(kRoundPrecision);
+  String roundedY() => y.toStringAsFixed(kRoundPrecision);
+  String roundedBetweenX(freehand.Point p) =>
+      ((x + p.x) / 2).toStringAsFixed(kRoundPrecision);
+  String roundedBetweenY(freehand.Point p) =>
+      ((y + p.y) / 2).toStringAsFixed(kRoundPrecision);
 }
 
 extension PathPointHelper on PathPoint {

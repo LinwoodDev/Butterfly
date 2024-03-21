@@ -8,6 +8,6 @@ Com esta ferramenta você pode selecionar elementos e acessar o menu de contexto
 
 ## Configuração
 
-|      Propriedade | Padrão | Descrição:                                                                       |
+|      Propriedade | Padrão | Descrição                                                                        |
 | ----------------:|:------:|:-------------------------------------------------------------------------------- |
 | Incluir borracha | Falso  | Esta configuração controla se você pode clicar na camada de borracha e editá-la. |

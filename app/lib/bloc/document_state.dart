@@ -22,6 +22,8 @@ abstract class DocumentState extends Equatable {
   NetworkingService? get networkingService =>
       currentIndexCubit?.state.networkingService;
   Embedding? get embedding => currentIndexCubit?.state.embedding;
+  Area? get currentArea => null;
+
   NoteData? saveData([NoteData? current]) => data;
   List<int>? saveBytes([NoteData? current]) => saveData()?.save();
 }
@@ -82,6 +84,7 @@ abstract class DocumentLoaded extends DocumentState {
 
   List<String> get invisibleLayers => [];
 
+  @override
   Area? get currentArea => null;
 
   AssetLocation get location => currentIndexCubit.state.location;
@@ -192,17 +195,18 @@ class DocumentLoadSuccess extends DocumentLoaded {
   bool isLayerVisible(String layer) => !invisibleLayers.contains(layer);
 
   bool hasAutosave() =>
-      networkingService.isActive ||
-      !(embedding?.save ?? true) ||
-      (!kIsWeb &&
-          !location.absolute &&
-          (location.fileType == AssetFileType.note ||
-              location.fileType == null) &&
-          (location.remote.isEmpty ||
-              (settingsCubit.state
-                      .getRemote(location.remote)
-                      ?.hasDocumentCached(location.path) ??
-                  false)));
+      settingsCubit.state.autosave &&
+      (networkingService.isActive ||
+          !(embedding?.save ?? true) ||
+          (!kIsWeb &&
+              !location.absolute &&
+              (location.fileType == AssetFileType.note ||
+                  location.fileType == null) &&
+              (location.remote.isEmpty ||
+                  (settingsCubit.state
+                          .getRemote(location.remote)
+                          ?.hasDocumentCached(location.path) ??
+                      false))));
 
   Future<AssetLocation> save([AssetLocation? location]) =>
       currentIndexCubit.save(this, location);

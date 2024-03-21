@@ -52,14 +52,15 @@ class CameraViewport extends Equatable {
 
   Point<double> toPoint() => Point(x, y);
 
-  ui.Size toSize() => ui.Size(width?.toDouble() ?? 0, height?.toDouble() ?? 0);
+  ui.Size toSize([bool scaled = false]) => ui.Size(
+      (width?.toDouble() ?? 0) / (scaled ? scale : 1),
+      (height?.toDouble() ?? 0) / (scaled ? scale : 1));
 
-  ui.Rect toRect() =>
-      ui.Rect.fromLTWH(x, y, width?.toDouble() ?? 0, height?.toDouble() ?? 0);
+  ui.Rect toRect() => toOffset() & toSize(true);
 
   Area toArea() => Area(
         name: '',
-        position: -toPoint(),
+        position: toPoint(),
         width: (width?.toDouble() ?? 0) / scale,
         height: (height?.toDouble() ?? 0) / scale,
       );

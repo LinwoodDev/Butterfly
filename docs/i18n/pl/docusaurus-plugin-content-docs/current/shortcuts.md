@@ -25,24 +25,34 @@ Jest kilka skrótów, których możesz użyć w edytorze. Niektóre z nich są n
 * `Ctrl` + `Z`: Cofnij
 * `Ctrl` + `Y`: Ponów
 * `Ctrl` + `Shift` + `P`: Open waypoints dialog
-* `Ctrl` + `P`: Otwórz okno dialogowe palety kolorów
 * `Ctrl` + `B`: Otwórz okno w tle
-* `Ctrl` + `Shift` + `A`: Otwarte okno dialogowe
 * `Ctrl` + `S`: Zapisz
 * `Alt` + `S`: Zmień ścieżkę
 * `Ctrl` + (`1` - `0`): Przełącz na narzędzie
 * `Ctrl` + `+`: Przybliż
 * `Ctrl` + `-`: Pomniejsz
 
-## Stylus
+## Długopis
 
-* `Główny przycisk`: Zmień na narzędzie ręczne
-* `Drugi przycisk`: Zmień na drugie narzędzie
+Domyślnie wstrzykiwacz jest skonfigurowany do następujących funkcji:
+* `Pen`: skonfigurowany jako długopis.
+* `najpierw` (główny przycisk, jeśli jest obsługiwany): Zmień na narzędzie ręczne po naciśnięciu.
+* `Drugie` (Drugi przycisk, jeśli jest wspierany): Zmień na drugie narzędzie (patrz sekcja [skonfiguruj](#configure) poniżej) po naciśnięciu.
+
+
 
 ## Skonfiguruj {#configure}
 
-Dostosuj ustawienia poprzez nadanie każdej kontroli indeksu narzędzi.
+Możesz dostosować ustawienia poprzez nadanie każdej kontroli indeksu narzędzi. Indeksowanie narzędzi zaczyna się od lewej strony paska narzędzi, przy czym `1` jest pierwszym indeksem Zobacz przykład poniżej
 
-* Pozostaw puste, aby wyłączyć włączanie narzędzia na tym urządzeniu.
-* Ustaw na `0` , aby włączyć ruch z tą kontrolą.
-* Ustaw liczbę pozycyjną, aby przełączyć się na narzędzie z tym indeksem zaczynając od pierwszego po lewej stronie, począwszy od `1`.
+![pasek narzędzi ponumerowany](toolbar_numbered.png)
+
+W tym miejscu 1 odnosi się do narzędzia laserowego, 2, narzędzia do panewki itp.
+
+Konfiguruj następujące opcje:
+
+* Puste - narzędzie jest odcięte.
+* 0 - narzędzie będzie działać jako poruszające się (tj. ręcznie) w tym modze.
+* Liczba dodatnia - Narzędzie będzie podążać za indeksacją, jak wyjaśniono powyżej. 
+
+
