@@ -310,6 +310,7 @@
   "shape": "Şekil",
   "circle": "Daire",
   "rectangle": "Dikdörtgen",
+  "triangle": "Triangle",
   "line": "Çizgi",
   "cornerRadius": "Köşe yuvarlaklığı",
   "topLeft": "Sol üst",
