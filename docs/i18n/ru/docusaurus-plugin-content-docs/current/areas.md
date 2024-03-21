@@ -3,7 +3,7 @@ title: "Области"
 sidebar_position: 2
 ---
 
-импортировать {Monitor} из "@phosphor-icons/react";
+import {Monitor} from "@phosphor-icons/react";
 
 
 ## Введение
