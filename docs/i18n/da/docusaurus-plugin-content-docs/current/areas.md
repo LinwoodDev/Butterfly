@@ -3,7 +3,7 @@ title: "Områder"
 sidebar_position: 2
 ---
 
-import {Monitor} fra "@phosphor-icons/react";
+import {Monitor} from "@phosphor-icons/react";
 
 
 ## Indledning
