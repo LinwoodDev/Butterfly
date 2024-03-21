@@ -66,9 +66,9 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
         emit,
         current.copyWith(data: newData, page: page, pageName: pageName),
         null,
-      ).then((value) {
+      ).then((_) {
         current.currentIndexCubit
-            .loadElements(current.data, current.assetService, page);
+            .loadElements(newData, current.assetService, page);
         refresh();
       });
     });
@@ -86,7 +86,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
           pageName: event.pageName,
         ),
         null,
-      ).then((value) {
+      ).then((_) {
         current.currentIndexCubit
             .loadElements(current.data, current.assetService, page);
         refresh();
