@@ -3,7 +3,7 @@ title: "Obszary"
 sidebar_position: 2
 ---
 
-importuj {Monitor} z "@phosphor-icons/react";
+import {Monitor} from "@phosphor-icons/react";
 
 
 ## Wprowadzanie
