@@ -3,7 +3,7 @@ title: "Περιοχές"
 sidebar_position: 2
 ---
 
-εισαγωγή {Monitor} από "@phosphor-icons/react";
+import {Monitor} from "@phosphor-icons/react";
 
 
 ## Εισαγωγή
