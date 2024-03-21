@@ -310,6 +310,7 @@
   "shape": "形狀",
   "circle": "圓形",
   "rectangle": "矩形",
+  "triangle": "Triangle",
   "line": "直線",
   "cornerRadius": "圓角大小",
   "topLeft": "左上角",
