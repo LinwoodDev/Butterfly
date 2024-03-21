@@ -310,6 +310,7 @@
   "shape": "รูปร่าง",
   "circle": "วงกลม",
   "rectangle": "สี่เหลี่ยม",
+  "triangle": "Triangle",
   "line": "เส้น",
   "cornerRadius": "Corner radius",
   "topLeft": "Top left",
