@@ -310,6 +310,7 @@
   "shape": "Σχήμα",
   "circle": "Κύκλος",
   "rectangle": "Ορθογώνιο",
+  "triangle": "Triangle",
   "line": "Γραμμή",
   "cornerRadius": "Corner radius",
   "topLeft": "Πάνω αριστερά",
