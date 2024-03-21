@@ -3,7 +3,7 @@ title: "Gebieden"
 sidebar_position: 2
 ---
 
-importeer {Monitor} van "@fosfor-icons/reactie";
+import {Monitor} from "@phosphor-icons/react";
 
 
 ## Introductie
