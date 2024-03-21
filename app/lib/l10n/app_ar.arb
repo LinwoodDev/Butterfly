@@ -310,6 +310,7 @@
   "shape": "شكل",
   "circle": "دائرة",
   "rectangle": "مستطيل",
+  "triangle": "Triangle",
   "line": "سطر",
   "cornerRadius": "Corner radius",
   "topLeft": "أعلى اليسار",
