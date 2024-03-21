@@ -3,7 +3,7 @@ title: "المناطق"
 sidebar_position: 2
 ---
 
-استيراد {Monitor} من "@phosphor-icons/react";
+import {Monitor} from "@phosphor-icons/react";
 
 
 ## مقدمة
