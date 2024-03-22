@@ -261,10 +261,10 @@ class _TemplateDialogState extends State<TemplateDialog> {
               ElevatedButton(
                 child: Text(AppLocalizations.of(context).create),
                 onPressed: () async {
-                  bloc.add(TemplateCreated(
-                    directoryController.text,
+                  bloc.createTemplate(
                     _fileSystem.remote?.identifier,
-                  ));
+                    directoryController.text,
+                  );
                   Navigator.of(context).pop();
                   load();
                   setState(() {});

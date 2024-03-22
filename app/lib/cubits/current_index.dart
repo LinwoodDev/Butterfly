@@ -595,15 +595,19 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
   }
 
   Future<void> loadElements(
-      NoteData document, AssetService assetService, DocumentPage page) async {
+      NoteData document, AssetService assetService, DocumentPage page,
+      [String currentLayer = '']) async {
     for (var e in state.cameraViewport.unbakedElements) {
       e.dispose();
     }
     for (var e in state.cameraViewport.bakedElements) {
       e.dispose();
     }
-    final renderers =
-        page.content.map((e) => Renderer.fromInstance(e)).toList();
+    final renderers = page.content
+        .where(
+            (element) => currentLayer.isEmpty || element.layer == currentLayer)
+        .map((e) => Renderer.fromInstance(e))
+        .toList();
     await Future.wait(renderers
         .map((e) async => await e.setup(document, assetService, page)));
     final backgrounds = page.backgrounds.map(Renderer.fromInstance).toList();
@@ -853,5 +857,60 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
       rect = rect?.expandToInclude(rendererRect) ?? rendererRect;
     }
     return rect ?? Rect.zero;
+  }
+
+  /// If addedElements is null, the viewport gets unbaked
+  Future<void> stateChanged(
+    DocumentLoadSuccess current,
+    DocumentBloc bloc, {
+    List<Renderer<PadElement>>? addedElements = const [],
+    List<Renderer<PadElement>>? replacedElements,
+    List<Renderer<Background>>? backgrounds,
+    bool reset = false,
+    bool refresh = false,
+    bool updateIndex = false,
+  }) async {
+    final cameraViewport = current.cameraViewport;
+    var elements = cameraViewport.unbakedElements;
+    if (addedElements != null) {
+      for (var renderer in addedElements) {
+        await renderer.setup(current.data, current.assetService, current.page);
+      }
+      elements = List<Renderer<PadElement>>.from(elements)
+        ..addAll(addedElements);
+    }
+    for (var renderer in backgrounds ?? []) {
+      await renderer.setup(current.data, current.assetService, current.page);
+    }
+
+    if (addedElements == null) {
+      current.currentIndexCubit
+          .unbake(unbakedElements: replacedElements, backgrounds: backgrounds);
+      if (backgrounds != null) {
+        unbake(backgrounds: backgrounds);
+      }
+    } else {
+      withUnbaked(elements);
+    }
+
+    setSaveState(saved: SaveState.unsaved);
+    if (current.embedding != null) {
+      return;
+    }
+    AssetLocation? path = current.location;
+    if (current.hasAutosave()) {
+      path = await current.save(path);
+    }
+    if (reset) {
+      loadElements(current.data, current.assetService, current.page,
+          current.currentLayer);
+    }
+    if (reset || refresh) {
+      this.refresh(
+          current.data, current.assetService, current.page, current.info);
+    }
+    if (updateIndex) {
+      this.updateIndex(bloc);
+    }
   }
 }
