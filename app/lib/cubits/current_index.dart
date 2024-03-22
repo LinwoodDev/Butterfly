@@ -879,7 +879,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
       elements = List<Renderer<PadElement>>.from(elements)
         ..addAll(addedElements);
     }
-    for (var renderer in backgrounds ?? []) {
+    for (var renderer in {...?backgrounds, ...?replacedElements}) {
       await renderer.setup(current.data, current.assetService, current.page);
     }
 

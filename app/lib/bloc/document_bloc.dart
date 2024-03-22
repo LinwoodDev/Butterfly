@@ -308,17 +308,9 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       if (!(current.embedding?.editable ?? true)) return;
       if (event.elements.isEmpty) return;
       final page = current.page;
-      final renderers = current.renderers;
       final newContent = page.content
           .where((element) => !event.elements.contains(element.id))
           .toList();
-      current.currentIndexCubit.unbake(
-        unbakedElements: renderers.where((renderer) {
-          if (newContent.contains(renderer.element)) return true;
-          renderer.dispose();
-          return false;
-        }).toList(),
-      );
       current.currentIndexCubit.removeSelection(event.elements);
       final newPage = page.copyWith(content: newContent);
       // Remove unused assets
@@ -334,6 +326,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
         emit,
         state: current.copyWith(page: newPage, data: data),
         addedElements: null,
+        reset: true,
       );
     }, transformer: sequential());
     on<DocumentDescriptionChanged>((event, emit) {
@@ -963,5 +956,11 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     if (current is! DocumentLoaded) return;
     current.currentIndexCubit.dispose();
     state.assetService?.dispose();
+  }
+
+  void save() {
+    final current = state;
+    if (current is! DocumentLoadSuccess) return;
+    current.save();
   }
 }
