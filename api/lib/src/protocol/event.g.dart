@@ -410,23 +410,6 @@ Map<String, dynamic> _$$ElementsLayerChangedImplToJson(
       'type': instance.$type,
     };
 
-_$TemplateCreatedImpl _$$TemplateCreatedImplFromJson(Map json) =>
-    _$TemplateCreatedImpl(
-      json['directory'] as String,
-      json['remote'] as String?,
-      json['deleteDocument'] as bool? ?? true,
-      json['type'] as String?,
-    );
-
-Map<String, dynamic> _$$TemplateCreatedImplToJson(
-        _$TemplateCreatedImpl instance) =>
-    <String, dynamic>{
-      'directory': instance.directory,
-      'remote': instance.remote,
-      'deleteDocument': instance.deleteDocument,
-      'type': instance.$type,
-    };
-
 _$AreasCreatedImpl _$$AreasCreatedImplFromJson(Map json) => _$AreasCreatedImpl(
       (json['areas'] as List<dynamic>)
           .map((e) => Area.fromJson(Map<String, dynamic>.from(e as Map)))
