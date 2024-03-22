@@ -310,7 +310,7 @@
   "shape": "Muoto",
   "circle": "Ympyrä",
   "rectangle": "Suorakulmio",
-  "triangle": "Triangle",
+  "triangle": "Kolmio",
   "line": "Viiva",
   "cornerRadius": "Corner radius",
   "topLeft": "Vasen yläreuna",
