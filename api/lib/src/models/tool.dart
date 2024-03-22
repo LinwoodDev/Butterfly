@@ -71,18 +71,15 @@ sealed class Tool with _$Tool {
     @Default('') String displayIcon,
   }) = RedoTool;
 
-  factory Tool.label({
-    @Default('') String name,
-    @Default('') String displayIcon,
-    @Default(LabelMode.text) LabelMode mode,
-    @Default(true) bool zoomDependent,
-    @Default(BasicColors.black) int foreground,
-    @Default(PackAssetLocation()) PackAssetLocation styleSheet,
-    @Default(2.0) double scale,
-    @Default(false) bool liveMode
-  }) = LabelTool;
-    
-
+  factory Tool.label(
+      {@Default('') String name,
+      @Default('') String displayIcon,
+      @Default(LabelMode.text) LabelMode mode,
+      @Default(true) bool zoomDependent,
+      @Default(BasicColors.black) int foreground,
+      @Default(PackAssetLocation()) PackAssetLocation styleSheet,
+      @Default(2.0) double scale,
+      @Default(false) bool liveMode}) = LabelTool;
 
   factory Tool.pen({
     @Default('') String name,
