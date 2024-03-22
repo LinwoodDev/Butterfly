@@ -43,7 +43,7 @@ class PathEraserHandler extends Handler<PathEraserTool> {
         await rayCast(globalPos, context.getDocumentBloc(), transform, size);
     final page = context.getPage();
     if (page == null) return;
-    final ids = ray.map((e) => e.element.id).toList();
+    final ids = ray.map((e) => e.element.id).whereNotNull().toList();
     context.addDocumentEvent(ElementsRemoved(ids));
     _currentlyErasing = false;
   }

@@ -71,19 +71,24 @@ class SpacerHandler extends Handler<SpacerTool> {
 
     final elements = Map<String, List<PadElement>>.fromEntries(_renderers
             ?.map(
-              (e) => MapEntry(
-                e.element.id,
-                [
-                  e
-                          .transform(
-                              position: (data.axis == Axis2D.horizontal
-                                  ? Offset(_spacing, 0)
-                                  : Offset(0, _spacing)))
-                          ?.element ??
-                      e.element
-                ],
-              ),
+              (e) {
+                final id = e.element.id;
+                if (id == null) return null;
+                return MapEntry(
+                  id,
+                  [
+                    e
+                            .transform(
+                                position: (data.axis == Axis2D.horizontal
+                                    ? Offset(_spacing, 0)
+                                    : Offset(0, _spacing)))
+                            ?.element ??
+                        e.element
+                  ],
+                );
+              },
             )
+            .whereNotNull()
             .toList() ??
         []);
     _startPosition = null;

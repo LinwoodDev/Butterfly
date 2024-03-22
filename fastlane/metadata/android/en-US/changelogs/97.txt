@@ -8,6 +8,7 @@
 * Add "Only current page" filter option to area selection dialog for pdf export dialog
 * Allow multiple selections in templates dialog
 * Improve pdf export dialog sizing of cards
+* Change identifier for elements from index to a key based id ([#528](https://github.com/LinwoodDev/Butterfly/issues/528))
 * Fix folder fetching in web
 * Fix problems when changing to the same page
 * Fix missing scrolling in export pdf select dialogs ([#633](https://github.com/LinwoodDev/Butterfly/issues/633))

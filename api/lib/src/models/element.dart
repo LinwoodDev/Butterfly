@@ -87,7 +87,7 @@ sealed class PadElement with _$PadElement {
   factory PadElement.pen({
     @Default(0) double rotation,
     @Default('') String layer,
-    @IdJsonConverter() @Default('') String id,
+    @IdJsonConverter() String? id,
     double? zoom,
     @Default([]) List<PathPoint> points,
     @Default(PenProperty()) PenProperty property,
@@ -98,7 +98,7 @@ sealed class PadElement with _$PadElement {
   factory PadElement.text({
     @Default(0) double rotation,
     @Default('') String layer,
-    @IdJsonConverter() @Default('') String id,
+    @IdJsonConverter() String? id,
     @DoublePointJsonConverter()
     @Default(Point(0.0, 0.0))
     Point<double> position,
@@ -114,7 +114,7 @@ sealed class PadElement with _$PadElement {
   factory PadElement.markdown({
     @Default(0) double rotation,
     @Default('') String layer,
-    @IdJsonConverter() @Default('') String id,
+    @IdJsonConverter() String? id,
     @DoublePointJsonConverter()
     @Default(Point(0.0, 0.0))
     Point<double> position,
@@ -131,7 +131,7 @@ sealed class PadElement with _$PadElement {
   factory PadElement.image({
     @Default(0) double rotation,
     @Default('') String layer,
-    @IdJsonConverter() @Default('') String id,
+    @IdJsonConverter() String? id,
     @DoublePointJsonConverter()
     @Default(Point(0.0, 0.0))
     Point<double> position,
@@ -147,7 +147,7 @@ sealed class PadElement with _$PadElement {
   factory PadElement.svg({
     @Default(0) double rotation,
     @Default('') String layer,
-    @IdJsonConverter() @Default('') String id,
+    @IdJsonConverter() String? id,
     @DoublePointJsonConverter()
     @Default(Point(0.0, 0.0))
     Point<double> position,
@@ -162,7 +162,7 @@ sealed class PadElement with _$PadElement {
   factory PadElement.shape({
     @Default(0) double rotation,
     @Default('') String layer,
-    @IdJsonConverter() @Default('') String id,
+    @IdJsonConverter() String? id,
     @DoublePointJsonConverter()
     @Default(Point(0.0, 0.0))
     Point<double> firstPosition,
@@ -176,7 +176,7 @@ sealed class PadElement with _$PadElement {
   factory PadElement.texture({
     @Default(0) double rotation,
     @Default('') String layer,
-    @IdJsonConverter() @Default('') String id,
+    @IdJsonConverter() String? id,
     @Default(SurfaceTexture.pattern()) SurfaceTexture texture,
     @DoublePointJsonConverter()
     @Default(Point(0.0, 0.0))

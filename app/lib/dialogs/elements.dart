@@ -5,6 +5,7 @@ import 'package:butterfly/services/export.dart';
 import 'package:butterfly/visualizer/event.dart';
 import 'package:butterfly/widgets/context_menu.dart';
 import 'package:butterfly_api/butterfly_api.dart';
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:lw_sysapi/lw_sysapi.dart';
@@ -95,8 +96,8 @@ ContextMenuBuilder buildElementsContextMenu(
               Navigator.of(context).pop(true);
               final state = bloc.state;
               if (state is! DocumentLoadSuccess) return;
-              bloc.add(
-                  ElementsRemoved(renderers.map((r) => r.element.id).toList()));
+              bloc.add(ElementsRemoved(
+                  renderers.map((r) => r.element.id).whereNotNull().toList()));
             },
             icon: const PhosphorIcon(PhosphorIconsLight.trash),
             label: AppLocalizations.of(context).delete,
@@ -112,7 +113,11 @@ ContextMenuBuilder buildElementsContextMenu(
                         final state = bloc.state;
                         if (state is! DocumentLoadSuccess) return;
                         bloc.add(ElementsArranged(
-                            e, renderers.map((r) => r.element.id).toList()));
+                            e,
+                            renderers
+                                .map((r) => r.element.id)
+                                .whereNotNull()
+                                .toList()));
                       },
                     ))
                 .toList(),
