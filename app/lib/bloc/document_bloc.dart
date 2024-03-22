@@ -997,6 +997,12 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     currentIndexCubit.init(this);
   }
 
+  void save() {
+    final current = state;
+    if (current is! DocumentLoadSuccess) return;
+    current.save();
+  }
+
   void dispose() {
     final current = state;
     if (current is! DocumentLoaded) return;

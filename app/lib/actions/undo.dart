@@ -17,6 +17,7 @@ class UndoAction extends Action<UndoIntent> {
     final bloc = intent.context.read<DocumentBloc>();
     bloc.undo();
     await bloc.load();
-    bloc.bake();
+    await bloc.bake();
+    bloc.save();
   }
 }
