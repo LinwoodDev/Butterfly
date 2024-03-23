@@ -22,7 +22,7 @@ On olemassa muutamia pikakuvakkeita, joita voit käyttää editorissa. Osa niist
 
 ### Projekti
 
-* `Ctrl` + `K`: Open search
+* `Ctrl` + `K`: Avaa haku
 * `Ctrl` + `Z`: Kumoa
 * `Ctrl` + `Y`: Redo
 * `Ctrl` + `Shift` + `P`: Open waypoints dialog
