@@ -22,6 +22,7 @@ Ci sono alcune scorciatoie che puoi usare nell'editor. Alcuni di loro sono scrit
 
 ### Progetto
 
+* `Ctrl` + `K`: Open search
 * `Ctrl` + `Z`: Annulla
 * `Ctrl` + `Y`: Ripeti
 * `Ctrl` + `Shift` + `P`: Open waypoints dialog
