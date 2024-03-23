@@ -22,6 +22,7 @@ sidebar_position: 2
 
 ### 项目
 
+* `Ctrl` + `K`: Open search
 * `Ctrl` + `Z`: 撤销
 * `Ctrl` + `Y`: Redo
 * `Ctrl` + `Shift` + `P`: Open waypoints dialog
