@@ -22,6 +22,7 @@ Er zijn een paar snelkoppelingen die je in de editor kunt gebruiken. Sommige erv
 
 ### Project
 
+* `Ctrl` + `K`: Open search
 * `Ctrl` + `Z`: Ongedaan maken
 * `Ctrl` + `Y`: Opnieuw
 * `Ctrl` + `Shift` + `P`: Open waypoints dialog
