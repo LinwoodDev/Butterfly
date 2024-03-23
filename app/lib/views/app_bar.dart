@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:butterfly/actions/change_path.dart';
+import 'package:butterfly/actions/search.dart';
 import 'package:butterfly/actions/settings.dart';
 import 'package:butterfly/actions/svg_export.dart';
 import 'package:butterfly/api/file_system/file_system.dart';
@@ -30,7 +31,6 @@ import '../actions/pdf_export.dart';
 import '../actions/save.dart';
 import '../bloc/document_bloc.dart';
 import '../cubits/settings.dart';
-import '../dialogs/search.dart';
 import '../embed/action.dart';
 import '../main.dart';
 import '../widgets/window.dart';
@@ -265,32 +265,8 @@ class _AppBarTitle extends StatelessWidget {
                             PhosphorIconsLight.magnifyingGlass),
                         tooltip: AppLocalizations.of(context).search,
                         onPressed: () {
-                          final bloc = context.read<DocumentBloc>();
-                          showGeneralDialog(
-                            context: context,
-                            pageBuilder:
-                                (context, animation, secondaryAnimation) =>
-                                    BlocProvider.value(
-                              value: bloc,
-                              child: const SearchDialog(),
-                            ),
-                            barrierDismissible: true,
-                            barrierLabel: MaterialLocalizations.of(context)
-                                .modalBarrierDismissLabel,
-                            transitionDuration:
-                                const Duration(milliseconds: 200),
-                            transitionBuilder: (context, animation,
-                                secondaryAnimation, child) {
-                              // Animate the dialog from bottom to center
-                              return SlideTransition(
-                                position: Tween<Offset>(
-                                  begin: const Offset(0, -0.5),
-                                  end: Offset.zero,
-                                ).animate(animation),
-                                child: child,
-                              );
-                            },
-                          );
+                          Actions.maybeInvoke<SearchIntent>(
+                              context, SearchIntent(context));
                         },
                       ),
                       if (state.location.path != '' &&
