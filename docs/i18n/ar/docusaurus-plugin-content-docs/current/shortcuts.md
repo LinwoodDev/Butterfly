@@ -22,6 +22,7 @@ sidebar_position: 2
 
 ### مشروع
 
+* `Ctrl` + `K`: Open search
 * `Ctrl` + `Z`: التراجع
 * `Ctrl` + `Y`: إعادة
 * `Ctrl` + `Shift` + `P`: Open waypoints dialog
