@@ -22,6 +22,7 @@ Jest kilka skrótów, których możesz użyć w edytorze. Niektóre z nich są n
 
 ### Projekt
 
+* `Ctrl` + `K`: Open search
 * `Ctrl` + `Z`: Cofnij
 * `Ctrl` + `Y`: Ponów
 * `Ctrl` + `Shift` + `P`: Open waypoints dialog
