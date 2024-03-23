@@ -22,7 +22,7 @@ Hay algunos atajos que puedes usar en el editor. Algunos de ellos se escriben de
 
 ### Projekt
 
-* `Ctrl` + `K`: Open search
+* `Ctrl` + `K`: Abrir búsqueda
 * `Ctrl` + `Z`: Deshacer
 * `Ctrl` + `Y`: Rehacer
 * `Ctrl` + `Shift` + `P`: Open waypoints dialog
