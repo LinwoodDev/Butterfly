@@ -22,6 +22,7 @@ Existuje několik zkratek, které můžete použít v editoru. Některé z nich 
 
 ### Projekt
 
+* `Ctrl` + `K`: Open search
 * `Ctrl` + `Z`: Vrátit zpět
 * `Ctrl` + `Y`: Znovu
 * `Ctrl` + `Shift` + `P`: Open waypoints dialog
