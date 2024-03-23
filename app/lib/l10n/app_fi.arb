@@ -589,5 +589,10 @@
   "createAreas": "Luo alueita",
   "autosave": "Autosave",
   "invert": "Invert",
-  "operations": "Toiminnot"
+  "operations": "Toiminnot",
+  "medium": "Keskitaso",
+  "large": "Suuri",
+  "toolbarSize": "Työkalupalkin koko",
+  "addAll": "Lisää kaikki",
+  "onlyCurrentPage": "Vain nykyinen sivu"
 }

@@ -17,6 +17,7 @@ class RedoAction extends Action<RedoIntent> {
     final bloc = intent.context.read<DocumentBloc>();
     bloc.redo();
     await bloc.load();
-    bloc.bake();
+    await bloc.bake();
+    bloc.save();
   }
 }

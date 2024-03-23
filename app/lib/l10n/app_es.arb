@@ -589,5 +589,10 @@
   "createAreas": "Crear áreas",
   "autosave": "Autosave",
   "invert": "Invert",
-  "operations": "Operaciones"
+  "operations": "Operaciones",
+  "medium": "Medio",
+  "large": "Grande",
+  "toolbarSize": "Tamaño de barra de herramientas",
+  "addAll": "Añadir todo",
+  "onlyCurrentPage": "Sólo página actual"
 }

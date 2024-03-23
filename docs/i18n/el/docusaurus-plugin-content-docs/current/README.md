@@ -74,6 +74,7 @@ import { Gear, Plus, FloppyDisk, MagnifyingGlass, ScribbleLoop, Pen, Path, Arrow
 
 Once opening a document by selecting a template or an existing file, you will get to the **Document View**
 
+
 ## Η Προβολή Εγγράφου
 
 Μπορείτε να επιστρέψετε από την προβολή εγγράφου στη λίστα εγγράφων με την πίσω ενέργεια της συσκευής σας. Όπως και με την κύρια προβολή, το έγγραφο εμφανίζει αλλαγές με βάση τη συσκευή σας.

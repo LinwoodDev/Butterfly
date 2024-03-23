@@ -589,5 +589,10 @@
   "createAreas": "Opret områder",
   "autosave": "Autosave",
   "invert": "Invert",
-  "operations": "Operationer"
+  "operations": "Operationer",
+  "medium": "Mellem",
+  "large": "Stor",
+  "toolbarSize": "Værktøjslinjens størrelse",
+  "addAll": "Tilføj alle",
+  "onlyCurrentPage": "Kun nuværende side"
 }

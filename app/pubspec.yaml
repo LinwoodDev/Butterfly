@@ -37,9 +37,9 @@ dependencies:
       url: https://github.com/CodeDoctorDE/phosphor-flutter
       ref: f370dd2c25d3ea51ffb8f1c7c183bc9f33889c82
   replay_bloc: ^0.2.6
-  share_plus: ^7.2.2
-  package_info_plus: ^5.0.1
-  idb_shim: ^2.3.2
+  share_plus: ^8.0.2
+  package_info_plus: ^6.0.0
+  idb_shim: ^2.4.1+1
   go_router: ^13.2.1
   xml: ^6.5.0
   collection: ^1.18.0
@@ -51,16 +51,16 @@ dependencies:
   json_annotation: ^4.8.1
   path: ^1.8.3
   printing: ^5.12.0
-  js: ^0.6.7
+  js: ^0.7.1
   pdf: ^3.10.8
-  http: ^1.2.0
+  http: ^1.2.1
   flutter_secure_storage: ^9.0.0
   equatable: ^2.0.5
   rxdart: ^0.27.7
   archive: ^3.4.10
   animations: ^2.0.11
-  connectivity_plus: ^5.0.2
-  cross_file: ^0.3.3+8
+  connectivity_plus: ^6.0.1
+  cross_file: ^0.3.4+1
   args: ^2.4.2
   perfect_freehand:
     git:
@@ -71,11 +71,11 @@ dependencies:
       url: https://github.com/LinwoodDev/dart_pkgs.git
       ref: f6161499b096f1d0bf55acbd0f6d8a58330a40e6
       path: packages/material_leap
-  lw_sysinfo:
+  lw_sysapi:
     git:
       url: https://github.com/LinwoodDev/dart_pkgs.git
-      ref: 205347161111273fd40d371c70ab6342bdcabf5c
-      path: packages/lw_sysinfo
+      ref: 9338503df442df2e9a156511de1e93dfee8c4257
+      path: packages/lw_sysapi
   networker:
     git:
       url: https://github.com/LinwoodDev/dart_pkgs.git
@@ -90,9 +90,9 @@ dependencies:
   dynamic_color: ^1.7.0
   popover: ^0.3.0
   markdown: ^7.2.2
-  device_info_plus: ^9.1.2
+  device_info_plus: ^10.0.1
   image: ^4.1.7
-  freezed_annotation: ^2.4.1
+  one_dollar_unistroke_recognizer: ^1.0.0
 dev_dependencies:
   flutter_native_splash: ^2.4.0
   #flutter_launcher_icons: ^0.11.0
@@ -105,7 +105,12 @@ dev_dependencies:
   json_serializable: ^6.7.1
   espresso: ^0.3.0+7
   freezed: ^2.4.7
-
+dependency_overrides:
+  flutter_secure_storage_web:
+    git:
+      url: https://github.com/ThexXTURBOXx/flutter_secure_storage.git
+      ref: 6ac827e457393b5c654c1abda40d31e2cb93f62c
+      path: flutter_secure_storage_web
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 # The following section is specific to Flutter.

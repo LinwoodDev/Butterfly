@@ -589,5 +589,10 @@
   "createAreas": "Maak gebieden",
   "autosave": "Autosave",
   "invert": "Invert",
-  "operations": "Bewerkingen"
+  "operations": "Bewerkingen",
+  "medium": "Middelgroot",
+  "large": "groot",
+  "toolbarSize": "Werkbalk grootte",
+  "addAll": "Alles toevoegen",
+  "onlyCurrentPage": "Alleen huidige pagina"
 }

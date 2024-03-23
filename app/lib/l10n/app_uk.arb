@@ -589,5 +589,10 @@
   "createAreas": "Створення області",
   "autosave": "Autosave",
   "invert": "Invert",
-  "operations": "Операції"
+  "operations": "Операції",
+  "medium": "Медіум",
+  "large": "Великий",
+  "toolbarSize": "Розмір панелі інструментів",
+  "addAll": "Додати всі",
+  "onlyCurrentPage": "Тільки поточна сторінка"
 }

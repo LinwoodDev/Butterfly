@@ -7,7 +7,7 @@ class RedoHandler extends Handler<RedoTool> {
   bool onSelected(BuildContext context) {
     final bloc = context.read<DocumentBloc>();
     bloc.redo();
-    bloc.load().then((value) => bloc.bake());
+    bloc.load().then((value) => bloc.bake().then((value) => bloc.save()));
     return false;
   }
 

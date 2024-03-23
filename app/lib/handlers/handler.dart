@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:math';
+import 'dart:ui';
 
 import 'package:animations/animations.dart';
 import 'package:butterfly/api/open.dart';
@@ -28,8 +29,9 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:image/image.dart' as img;
-import 'package:lw_sysinfo/lw_sysinfo.dart';
+import 'package:lw_sysapi/lw_sysapi.dart';
 import 'package:material_leap/material_leap.dart';
+
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:share_plus/share_plus.dart';
 
@@ -51,7 +53,7 @@ import '../views/toolbar/components.dart';
 import '../views/toolbar/label.dart';
 import '../views/toolbar/presentation/toolbar.dart';
 import '../widgets/context_menu.dart';
-
+import 'package:one_dollar_unistroke_recognizer/one_dollar_unistroke_recognizer.dart';
 part 'area.dart';
 part 'asset.dart';
 part 'eraser.dart';

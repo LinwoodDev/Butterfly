@@ -53,10 +53,8 @@ abstract class GenericTextRenderer<T extends LabelElement> extends Renderer<T> {
   }
 
   @override
-  FutureOr<bool> onAreaUpdate(
-      NoteData document, DocumentPage page, Area? area) async {
-    _updateRect(document);
-    await super.onAreaUpdate(document, page, area);
+  bool onAreaUpdate(NoteData document, DocumentPage page, Area? area) {
+    super.onAreaUpdate(document, page, area);
     _updateRect(document);
     return true;
   }

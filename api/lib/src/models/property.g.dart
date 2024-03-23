@@ -88,3 +88,15 @@ Map<String, dynamic> _$$LineShapeImplToJson(_$LineShapeImpl instance) =>
     <String, dynamic>{
       'type': instance.$type,
     };
+
+_$TriangleShapeImpl _$$TriangleShapeImplFromJson(Map json) =>
+    _$TriangleShapeImpl(
+      fillColor: json['fillColor'] as int? ?? BasicColors.transparent,
+      $type: json['type'] as String?,
+    );
+
+Map<String, dynamic> _$$TriangleShapeImplToJson(_$TriangleShapeImpl instance) =>
+    <String, dynamic>{
+      'fillColor': instance.fillColor,
+      'type': instance.$type,
+    };

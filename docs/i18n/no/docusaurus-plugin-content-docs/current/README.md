@@ -74,6 +74,7 @@ Hovedvisningen er satt sammen av flere elementer
 
 Når du åpner et dokument ved å velge en mal eller en eksisterende fil, vil du gå til **Dokumentvisning**
 
+
 ## Dokumentvisning (Automatic Translation)
 
 Fra dokumentvisningen kan du returnere til dokumentlisten med den bakenforliggende handlingen for enheten. Som for hovedvisningen vises dokumentet basert på enheten din.
