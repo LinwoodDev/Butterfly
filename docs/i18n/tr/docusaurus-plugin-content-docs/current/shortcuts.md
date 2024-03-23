@@ -22,6 +22,7 @@ Düzenleyicide kullanabileceğiniz birkaç kısayol vardır. Bazıları düğmel
 
 ### Proje
 
+* `Ctrl` + `K`: Open search
 * `Ctrl` + `Z`: Geri al
 * `Ctrl` + `Y`: Yinele
 * `Ctrl` + `Shift` + `P`: Yer imleri iletişim kutusunu aç
