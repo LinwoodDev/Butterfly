@@ -22,6 +22,7 @@ Es gibt ein paar Verknüpfungen, die Sie im Editor verwenden können. Einige dav
 
 ### Projekt
 
+* `Ctrl` + `K`: Open search
 * `Strg` + `Z`: Rückgängig
 * `Strg` + `Y`: Erneut
 * `Ctrl` + `Shift` + `P`: Open waypoints dialog
