@@ -589,5 +589,10 @@
   "createAreas": "Bereiche erstellen",
   "autosave": "Autosave",
   "invert": "Invert",
-  "operations": "Operationen"
+  "operations": "Operationen",
+  "medium": "Mittel",
+  "large": "Groß",
+  "toolbarSize": "Größe der Werkzeugleiste",
+  "addAll": "Alle hinzufügen",
+  "onlyCurrentPage": "Nur aktuelle Seite"
 }

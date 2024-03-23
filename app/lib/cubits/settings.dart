@@ -31,6 +31,24 @@ const secureStorage = FlutterSecureStorage(
 );
 const kRecentHistorySize = 5;
 
+enum ToolbarSize {
+  normal,
+  medium,
+  large;
+
+  String getLocalizedName(BuildContext context) => switch (this) {
+        ToolbarSize.normal => AppLocalizations.of(context).normal,
+        ToolbarSize.medium => AppLocalizations.of(context).medium,
+        ToolbarSize.large => AppLocalizations.of(context).large,
+      };
+
+  double get size => switch (this) {
+        ToolbarSize.normal => 60,
+        ToolbarSize.medium => 65,
+        ToolbarSize.large => 70,
+      };
+}
+
 enum PlatformTheme {
   system,
   mobile,
@@ -362,6 +380,7 @@ class ButterflySettings with _$ButterflySettings {
     @Default('') String defaultTemplate,
     @Default(NavigatorPage.waypoints) NavigatorPage navigatorPage,
     @Default(ToolbarPosition.top) ToolbarPosition toolbarPosition,
+    @Default(ToolbarSize.normal) ToolbarSize toolbarSize,
     @Default(SortBy.name) SortBy sortBy,
     @Default(SortOrder.ascending) SortOrder sortOrder,
     @Default(0.5) double imageScale,
@@ -599,6 +618,16 @@ class SettingsCubit extends Cubit<ButterflySettings> {
 
   Future<void> resetToolbarPosition() {
     emit(state.copyWith(toolbarPosition: ToolbarPosition.top));
+    return save();
+  }
+
+  Future<void> changeToolbarSize(ToolbarSize size) {
+    emit(state.copyWith(toolbarSize: size));
+    return save();
+  }
+
+  Future<void> resetToolbarSize() {
+    emit(state.copyWith(toolbarSize: ToolbarSize.normal));
     return save();
   }
 

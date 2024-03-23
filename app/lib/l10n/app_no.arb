@@ -589,5 +589,10 @@
   "createAreas": "Opprett områder",
   "autosave": "Autosave",
   "invert": "Invert",
-  "operations": "Aktiviteter"
+  "operations": "Aktiviteter",
+  "medium": "Middels",
+  "large": "Stor",
+  "toolbarSize": "Størrelse på verktøylinje",
+  "addAll": "Legg til alle",
+  "onlyCurrentPage": "Bare gjeldende side"
 }

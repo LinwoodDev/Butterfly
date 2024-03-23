@@ -589,5 +589,10 @@
   "createAreas": "Vytvořit oblasti",
   "autosave": "Autosave",
   "invert": "Invert",
-  "operations": "Operace"
+  "operations": "Operace",
+  "medium": "Střední",
+  "large": "Velký",
+  "toolbarSize": "Velikost panelu nástrojů",
+  "addAll": "Přidat vše",
+  "onlyCurrentPage": "Pouze aktuální stránka"
 }

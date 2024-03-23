@@ -54,6 +54,8 @@ class EraserHandler extends Handler<EraserTool> {
     for (final element in elements) {
       List<List<PathPoint>> paths = [[]];
       bool broken = false;
+      final id = element.id;
+      if (id == null) continue;
       for (final point in element.points) {
         if ((point.toOffset() - globalPos).distance >= (size * size)) {
           paths.last.add(point);
@@ -66,9 +68,9 @@ class EraserHandler extends Handler<EraserTool> {
         }
       }
       if (broken) {
-        modified[element.id] = [];
+        modified[id] = [];
       }
-      modified[element.id] = paths
+      modified[id] = paths
           .where((element) => element.isNotEmpty)
           .map((e) => element.copyWith(points: e))
           .toList();

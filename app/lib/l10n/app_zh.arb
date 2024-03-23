@@ -589,5 +589,10 @@
   "createAreas": "创建区域",
   "autosave": "Autosave",
   "invert": "Invert",
-  "operations": "业务活动"
+  "operations": "业务活动",
+  "medium": "中",
+  "large": "大的",
+  "toolbarSize": "工具栏大小",
+  "addAll": "添加全部",
+  "onlyCurrentPage": "仅当前页面"
 }

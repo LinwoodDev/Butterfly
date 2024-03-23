@@ -74,6 +74,7 @@ La vista principale è composta da diversi elementi
 
 Una volta aperto un documento selezionando un modello o un file esistente, si arriva alla **Document View**
 
+
 ## La Vista Documento
 
 È possibile tornare dalla vista documenti alla lista dei documenti con l'azione posteriore del dispositivo. Come per la vista principale, il display del documento cambia in base al dispositivo.

@@ -138,8 +138,11 @@ class SelectHandler extends Handler<SelectTool> {
     _selectionManager.deselect();
     bloc.add(_duplicate
         ? ElementsCreated(current!.map((e) => e.element).toList())
-        : ElementsChanged(Map.fromEntries(current!.mapIndexed(
-            (i, e) => MapEntry(_selected[i].element.id, [e.element])))));
+        : ElementsChanged(Map.fromEntries(current!.mapIndexed((i, e) {
+            final id = _selected[i].element.id;
+            if (id == null) return null;
+            return MapEntry(id, [e.element]);
+          }).whereNotNull())));
     return true;
   }
 
@@ -416,7 +419,8 @@ class SelectHandler extends Handler<SelectTool> {
     final state = bloc.state;
     if (state is! DocumentLoadSuccess) return;
     if (cut) {
-      bloc.add(ElementsRemoved(_selected.map((r) => r.element.id).toList()));
+      bloc.add(ElementsRemoved(
+          _selected.map((r) => r.element.id).whereNotNull().toList()));
     }
     final point = getSelectionRect()?.topLeft;
     if (point == null) return;
@@ -463,9 +467,8 @@ class SelectHandler extends Handler<SelectTool> {
           CallbackAction<DeleteCharacterIntent>(onInvoke: (intent) {
         final state = bloc.state;
         if (state is! DocumentLoadSuccess) return null;
-        context
-            .read<DocumentBloc>()
-            .add(ElementsRemoved(_selected.map((r) => r.element.id).toList()));
+        context.read<DocumentBloc>().add(ElementsRemoved(
+            _selected.map((r) => r.element.id).whereNotNull().toList()));
         _selected.clear();
         bloc.refresh();
         return null;

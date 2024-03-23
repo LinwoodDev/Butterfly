@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:butterfly/actions/search.dart';
 import 'package:butterfly/api/close.dart';
 import 'package:butterfly/api/file_system/file_system.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
@@ -94,6 +95,7 @@ class _ProjectPageState extends State<ProjectPage> {
     ImageExportIntent: ImageExportAction(),
     PdfExportIntent: PdfExportAction(),
     ExportIntent: ExportAction(),
+    SearchIntent: SearchAction(),
     SettingsIntent: SettingsAction(),
     ColorPaletteIntent: ColorPaletteAction(),
     BackgroundIntent: BackgroundAction(),
@@ -322,7 +324,8 @@ class _ProjectPageState extends State<ProjectPage> {
                   builder: (context, currentIndex) =>
                       BlocBuilder<SettingsCubit, ButterflySettings>(
                           buildWhen: (previous, current) =>
-                              previous.fullScreen != current.fullScreen,
+                              previous.fullScreen != current.fullScreen ||
+                              previous.toolbarSize != current.toolbarSize,
                           builder: (context, settings) {
                             return Actions(
                               actions: _actions,
@@ -358,6 +361,9 @@ class _ProjectPageState extends State<ProjectPage> {
                                   LogicalKeySet(LogicalKeyboardKey.control,
                                           LogicalKeyboardKey.keyA):
                                       SelectAllIntent(context),
+                                  LogicalKeySet(LogicalKeyboardKey.control,
+                                          LogicalKeyboardKey.keyK):
+                                      SearchIntent(context),
                                   if (widget.embedding == null) ...{
                                     LogicalKeySet(LogicalKeyboardKey.control,
                                             LogicalKeyboardKey.keyE):
@@ -434,6 +440,7 @@ class _ProjectPageState extends State<ProjectPage> {
                                                 ? null
                                                 : PadAppBar(
                                                     viewportKey: _viewportKey,
+                                                    size: settings.toolbarSize,
                                                   ),
                                         drawer: state is DocumentLoadSuccess
                                             ? const DocumentNavigator(

@@ -163,211 +163,158 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
     // Create recognizeUnistroke
     final recognized = recognizeUnistroke(points);
     final element = elements[pointer];
-    if (recognized != null) {
-      switch (recognized.name) {
-        case DefaultUnistrokeNames.line:
-          if (element != null && points.length < 500) {
-            double startX = points.first.dx;
-            double startY = points.first.dy;
-            double endX = points.last.dx;
-            double endY = points.last.dy;
+    if (recognized == null || points.length > 600 || element == null) {
+      return;
+    }
+    switch (recognized.name) {
+      case DefaultUnistrokeNames.line:
+        double startX = points.first.dx;
+        double startY = points.first.dy;
+        double endX = points.last.dx;
+        double endY = points.last.dy;
 
-            Point<double> firstPosition = Point(startX, startY);
-            Point<double> secondPosition = Point(endX, endY);
+        Point<double> firstPosition = Point(startX, startY);
+        Point<double> secondPosition = Point(endX, endY);
 
-            // Convert coordinates from the document coordinate system to the view coordinate system
-            Offset firstPositionInView =
-                transform.localToGlobal(firstPosition.toOffset());
-            Offset secondPositionInView =
-                transform.localToGlobal(secondPosition.toOffset());
+        // Convert coordinates from the document coordinate system to the view coordinate system
+        Offset firstPositionInView =
+            transform.localToGlobal(firstPosition.toOffset());
+        Offset secondPositionInView =
+            transform.localToGlobal(secondPosition.toOffset());
 
-            // Create new shape element
-            PadElement shapeElement = PadElement.shape(
-              firstPosition: firstPositionInView.toPoint(),
-              secondPosition: secondPositionInView.toPoint(),
-              property: ShapeProperty(
-                  shape: const LineShape(),
-                  color: data.property.color,
-                  strokeWidth: data.property.strokeWidth),
-            );
+        // Create new shape element
+        PadElement shapeElement = PadElement.shape(
+          firstPosition: firstPositionInView.toPoint(),
+          secondPosition: secondPositionInView.toPoint(),
+          property: ShapeProperty(
+              shape: const LineShape(),
+              color: data.property.color,
+              strokeWidth: data.property.strokeWidth),
+        );
 
-            // show SnackBar with recognized shape
-            ScaffoldMessenger.of(context.buildContext).showSnackBar(
-              SnackBar(
-                width: MediaQuery.of(context.buildContext).size.width * 0.1,
-                behavior: SnackBarBehavior.floating,
-                content: Text(
-                  textAlign: TextAlign.center,
-                  AppLocalizations.of(context.buildContext).line,
-                ),
-                duration: const Duration(milliseconds: 300),
-              ),
-            );
-            // Add element on document
-            context.getDocumentBloc().add(ElementsCreated([shapeElement]));
+        // Show dialog
+        showMessage(context, AppLocalizations.of(context.buildContext).line);
 
-            elements.clear();
-            context.refresh();
-          } else if (points.length > 500) {
-            return;
-          }
+        // Add element on document
+        context.getDocumentBloc().add(ElementsCreated([shapeElement]));
 
-        case DefaultUnistrokeNames.circle:
-          if (element != null && points.length < 700) {
-            // Calculate the center of the circle as the average of the points
-            double centerX =
-                points.map((p) => p.dx).reduce((a, b) => a + b) / points.length;
-            double centerY =
-                points.map((p) => p.dy).reduce((a, b) => a + b) / points.length;
-            Offset center = Offset(centerX, centerY);
+        elements.clear();
+        context.refresh();
 
-            // Calculate the radius as the average of the distances of the points from the center
-            double radius = points
-                    .map((p) => (p - center).distance)
-                    .reduce((a, b) => a + b) /
+      case DefaultUnistrokeNames.circle:
+        // Calculate the center of the circle as the average of the points
+        double centerX =
+            points.map((p) => p.dx).reduce((a, b) => a + b) / points.length;
+        double centerY =
+            points.map((p) => p.dy).reduce((a, b) => a + b) / points.length;
+        Offset center = Offset(centerX, centerY);
+
+        // Calculate the radius as the average of the distances of the points from the center
+        double radius =
+            points.map((p) => (p - center).distance).reduce((a, b) => a + b) /
                 points.length;
 
-            Point<double> firstPosition =
-                Point<double>(center.dx - radius, center.dy - radius);
-            Point<double> secondPosition =
-                Point<double>(center.dx + radius, center.dy + radius);
+        Point<double> firstPosition =
+            Point<double>(center.dx - radius, center.dy - radius);
+        Point<double> secondPosition =
+            Point<double>(center.dx + radius, center.dy + radius);
 
-            // Convert coordinates from the document coordinate system to the view coordinate system
-            Offset firstPositionInView =
-                transform.localToGlobal(firstPosition.toOffset());
-            Offset secondPositionInView =
-                transform.localToGlobal(secondPosition.toOffset());
+        // Convert coordinates from the document coordinate system to the view coordinate system
+        Offset firstPositionInView =
+            transform.localToGlobal(firstPosition.toOffset());
+        Offset secondPositionInView =
+            transform.localToGlobal(secondPosition.toOffset());
 
-            // Create new ShapeElement
-            PadElement shapeElement = PadElement.shape(
-              firstPosition: firstPositionInView.toPoint(),
-              secondPosition: secondPositionInView.toPoint(),
-              property: ShapeProperty(
-                  shape: const CircleShape(),
-                  color: data.property.color,
-                  strokeWidth: data.property.strokeWidth),
-            );
+        // Create new ShapeElement
+        PadElement shapeElement = PadElement.shape(
+          firstPosition: firstPositionInView.toPoint(),
+          secondPosition: secondPositionInView.toPoint(),
+          property: ShapeProperty(
+              shape: const CircleShape(),
+              color: data.property.color,
+              strokeWidth: data.property.strokeWidth),
+        );
 
-            // show SnackBar with recognized shape
-            ScaffoldMessenger.of(context.buildContext).showSnackBar(
-              SnackBar(
-                width: MediaQuery.of(context.buildContext).size.width * 0.1,
-                behavior: SnackBarBehavior.floating,
-                content: Text(
-                  textAlign: TextAlign.center,
-                  AppLocalizations.of(context.buildContext).circle,
-                ),
-                duration: const Duration(milliseconds: 300),
-              ),
-            );
-            // Add element on document
-            context.getDocumentBloc().add(ElementsCreated([shapeElement]));
+        // Show dialog
+        showMessage(context, AppLocalizations.of(context.buildContext).circle);
 
-            elements.clear();
-            context.refresh();
-          } else if (points.length > 700) {
-            return;
-          }
+        // Add element on document
+        context.getDocumentBloc().add(ElementsCreated([shapeElement]));
 
-        case DefaultUnistrokeNames.rectangle:
-          if (element != null && points.length < 700) {
-            double minX = points.map((p) => p.dx).reduce(min);
-            double maxX = points.map((p) => p.dx).reduce(max);
-            double minY = points.map((p) => p.dy).reduce(min);
-            double maxY = points.map((p) => p.dy).reduce(max);
+        elements.clear();
+        context.refresh();
 
-            Point<double> firstPosition = Point(minX, minY);
-            Point<double> secondPosition = Point(maxX, maxY);
+      case DefaultUnistrokeNames.rectangle:
+        double minX = points.map((p) => p.dx).reduce(min);
+        double maxX = points.map((p) => p.dx).reduce(max);
+        double minY = points.map((p) => p.dy).reduce(min);
+        double maxY = points.map((p) => p.dy).reduce(max);
 
-            // Convert coordinates from the document coordinate system to the view coordinate system
-            Offset firstPositionInView =
-                transform.localToGlobal(firstPosition.toOffset());
-            Offset secondPositionInView =
-                transform.localToGlobal(secondPosition.toOffset());
+        Point<double> firstPosition = Point(minX, minY);
+        Point<double> secondPosition = Point(maxX, maxY);
 
-            // Create new ShapeElement
-            PadElement shapeElement = PadElement.shape(
-              firstPosition: firstPositionInView.toPoint(),
-              secondPosition: secondPositionInView.toPoint(),
-              property: ShapeProperty(
-                  shape: const RectangleShape(),
-                  color: data.property.color,
-                  strokeWidth: data.property.strokeWidth),
-            );
+        // Convert coordinates from the document coordinate system to the view coordinate system
+        Offset firstPositionInView =
+            transform.localToGlobal(firstPosition.toOffset());
+        Offset secondPositionInView =
+            transform.localToGlobal(secondPosition.toOffset());
 
-            // show SnackBar with recognized shape
-            ScaffoldMessenger.of(context.buildContext).showSnackBar(
-              SnackBar(
-                width: MediaQuery.of(context.buildContext).size.width * 0.1,
-                behavior: SnackBarBehavior.floating,
-                content: Text(
-                  textAlign: TextAlign.center,
-                  AppLocalizations.of(context.buildContext).rectangle,
-                ),
-                duration: const Duration(milliseconds: 300),
-              ),
-            );
+        // Create new ShapeElement
+        PadElement shapeElement = PadElement.shape(
+          firstPosition: firstPositionInView.toPoint(),
+          secondPosition: secondPositionInView.toPoint(),
+          property: ShapeProperty(
+              shape: const RectangleShape(),
+              color: data.property.color,
+              strokeWidth: data.property.strokeWidth),
+        );
 
-            // Add element on document
-            context.getDocumentBloc().add(ElementsCreated([shapeElement]));
+        // Show dialog
+        showMessage(
+            context, AppLocalizations.of(context.buildContext).rectangle);
 
-            elements.clear();
-            context.refresh();
-          } else if (points.length > 700) {
-            return;
-          }
+        // Add element on document
+        context.getDocumentBloc().add(ElementsCreated([shapeElement]));
 
-        case DefaultUnistrokeNames.triangle:
-          if (element != null && points.length < 700) {
-            double minX = points.map((p) => p.dx).reduce(min);
-            double maxX = points.map((p) => p.dx).reduce(max);
-            double minY = points.map((p) => p.dy).reduce(min);
-            double maxY = points.map((p) => p.dy).reduce(max);
+        elements.clear();
+        context.refresh();
 
-            Point<double> firstPosition = Point(minX, minY);
-            Point<double> secondPosition = Point(maxX, maxY);
+      case DefaultUnistrokeNames.triangle:
+        double minX = points.map((p) => p.dx).reduce(min);
+        double maxX = points.map((p) => p.dx).reduce(max);
+        double minY = points.map((p) => p.dy).reduce(min);
+        double maxY = points.map((p) => p.dy).reduce(max);
 
-            // Convert coordinates from the document coordinate system to the view coordinate system
-            Offset firstPositionInView =
-                transform.localToGlobal(firstPosition.toOffset());
-            Offset secondPositionInView =
-                transform.localToGlobal(secondPosition.toOffset());
+        Point<double> firstPosition = Point(minX, minY);
+        Point<double> secondPosition = Point(maxX, maxY);
 
-            // Create new ShapeElement
-            PadElement shapeElement = PadElement.shape(
-              firstPosition: firstPositionInView.toPoint(),
-              secondPosition: secondPositionInView.toPoint(),
-              property: ShapeProperty(
-                  shape: const TriangleShape(),
-                  color: data.property.color,
-                  strokeWidth: data.property.strokeWidth),
-            );
+        // Convert coordinates from the document coordinate system to the view coordinate system
+        Offset firstPositionInView =
+            transform.localToGlobal(firstPosition.toOffset());
+        Offset secondPositionInView =
+            transform.localToGlobal(secondPosition.toOffset());
 
-            // show SnackBar with recognized shape
-            ScaffoldMessenger.of(context.buildContext).showSnackBar(
-              SnackBar(
-                width: MediaQuery.of(context.buildContext).size.width * 0.1,
-                behavior: SnackBarBehavior.floating,
-                content: Text(
-                  textAlign: TextAlign.center,
-                  AppLocalizations.of(context.buildContext).triangle,
-                ),
-                duration: const Duration(milliseconds: 300),
-              ),
-            );
+        // Create new ShapeElement
+        PadElement shapeElement = PadElement.shape(
+          firstPosition: firstPositionInView.toPoint(),
+          secondPosition: secondPositionInView.toPoint(),
+          property: ShapeProperty(
+              shape: const TriangleShape(),
+              color: data.property.color,
+              strokeWidth: data.property.strokeWidth),
+        );
 
-            // Add element on document
-            context.getDocumentBloc().add(ElementsCreated([shapeElement]));
+        // Show dialog
+        showMessage(
+            context, AppLocalizations.of(context.buildContext).triangle);
 
-            elements.clear();
-            context.refresh();
-          } else if (points.length > 700) {
-            return;
-          }
+        // Add element on document
+        context.getDocumentBloc().add(ElementsCreated([shapeElement]));
 
-        default:
-        // Manage custom shapes here
-      }
+        elements.clear();
+        context.refresh();
+
+      default: // Manage custom shapes here
     }
     // Reset the points list for the next shape detection
     points.clear();

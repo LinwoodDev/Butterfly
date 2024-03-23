@@ -69,68 +69,72 @@ class _OptionButtonState extends State<OptionButton>
       triggerMode: TooltipTriggerMode.manual,
       message: widget.tooltip,
       key: _tooltipKey,
-      child: InkWell(
-        radius: 12,
-        borderRadius: BorderRadius.circular(12),
-        onTap: widget.onPressed,
-        onSecondaryTap: widget.onSecondaryPressed,
-        onLongPress: widget.onLongPressed == null
-            ? null
-            : () {
-                _tooltipKey.currentState?.ensureTooltipVisible();
-                widget.onLongPressed?.call();
-              },
-        child: AnimatedBuilder(
-          animation: _animation,
-          builder: (context, child) {
-            return Container(
-              decoration: widget.highlighted
-                  ? BoxDecoration(
-                      // Border
-                      border: Border.all(
-                        color: Theme.of(context).colorScheme.primary,
-                        width: 2 * _animation.value,
-                      ),
-                      borderRadius: BorderRadius.circular(12),
-                    )
-                  : (widget.focussed
-                      ? BoxDecoration(
-                          // Border
-                          border: Border.all(
-                            color: Theme.of(context).colorScheme.outlineVariant,
-                            width: 2 * _animation.value,
-                          ),
-                          borderRadius: BorderRadius.circular(12),
-                        )
-                      : null),
-              margin: (widget.highlighted || widget.focussed)
-                  ? null
-                  : const EdgeInsets.all(2),
-              child: child,
-            );
-          },
-          child: Padding(
-            padding: const EdgeInsets.all(4),
-            child: IconTheme(
-                data: Theme.of(context).iconTheme.copyWith(
-                    size: 28,
-                    color: widget.selected
-                        ? Theme.of(context).colorScheme.primary
+      child: AspectRatio(
+        aspectRatio: 1,
+        child: InkWell(
+          radius: 12,
+          borderRadius: BorderRadius.circular(12),
+          onTap: widget.onPressed,
+          onSecondaryTap: widget.onSecondaryPressed,
+          onLongPress: widget.onLongPressed == null
+              ? null
+              : () {
+                  _tooltipKey.currentState?.ensureTooltipVisible();
+                  widget.onLongPressed?.call();
+                },
+          child: AnimatedBuilder(
+            animation: _animation,
+            builder: (context, child) {
+              return Container(
+                decoration: widget.highlighted
+                    ? BoxDecoration(
+                        // Border
+                        border: Border.all(
+                          color: Theme.of(context).colorScheme.primary,
+                          width: 2 * _animation.value,
+                        ),
+                        borderRadius: BorderRadius.circular(12),
+                      )
+                    : (widget.focussed
+                        ? BoxDecoration(
+                            // Border
+                            border: Border.all(
+                              color:
+                                  Theme.of(context).colorScheme.outlineVariant,
+                              width: 2 * _animation.value,
+                            ),
+                            borderRadius: BorderRadius.circular(12),
+                          )
                         : null),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    widget.selected
-                        ? (widget.selectedIcon ?? widget.icon)
-                        : widget.icon,
-                    SizeTransition(
-                      axisAlignment: -1,
-                      axis: Axis.vertical,
-                      sizeFactor: _animation,
-                      child: selectedBottom,
-                    ),
-                  ],
-                )),
+                margin: (widget.highlighted || widget.focussed)
+                    ? null
+                    : const EdgeInsets.all(2),
+                child: child,
+              );
+            },
+            child: Padding(
+              padding: const EdgeInsets.all(4),
+              child: IconTheme(
+                  data: Theme.of(context).iconTheme.copyWith(
+                      size: 28,
+                      color: widget.selected
+                          ? Theme.of(context).colorScheme.primary
+                          : null),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      widget.selected
+                          ? (widget.selectedIcon ?? widget.icon)
+                          : widget.icon,
+                      SizeTransition(
+                        axisAlignment: -1,
+                        axis: Axis.vertical,
+                        sizeFactor: _animation,
+                        child: selectedBottom,
+                      ),
+                    ],
+                  )),
+            ),
           ),
         ),
       ),
