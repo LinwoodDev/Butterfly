@@ -22,7 +22,7 @@ Det finns några genvägar som du kan använda i editorn. Några av dem är skri
 
 ### Projekt
 
-* `Ctrl` + `K`: Open search
+* `Ctrl` + `K`: Öppna sökningen
 * `Ctrl` + `Z`: Ångra
 * `Ctrl` + `Y`: Gör om
 * `Ctrl` + `Shift` + `P`: Open waypoints dialog
