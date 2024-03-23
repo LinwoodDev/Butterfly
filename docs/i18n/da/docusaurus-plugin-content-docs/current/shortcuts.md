@@ -22,7 +22,7 @@ Der er et par genveje, som du kan bruge i editoren. Nogle af dem er skrevet unde
 
 ### Projekt
 
-* `Ctrl` + `K`: Open search
+* `Ctrl` + `K`: Åbn søgning
 * `Ctrl` + `Z`: Fortryd
 * `Ctrl` + `Y`: Fortryd
 * `Ctrl` + `Shift` + `P`: Open waypoints dialog
