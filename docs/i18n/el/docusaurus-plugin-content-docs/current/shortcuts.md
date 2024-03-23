@@ -22,7 +22,7 @@ sidebar_position: 2
 
 ### Έργο
 
-* `Ctrl` + `K`: Open search
+* `Ctrl` + `K`: Άνοιγμα αναζήτησης
 * `Ctrl` + `Z`: Αναίρεση
 * `Ctrl` + `Y`: Επανάληψη
 * `Ctrl` + `Shift` + `P`: Open waypoints dialog
