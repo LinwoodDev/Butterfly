@@ -22,7 +22,7 @@ sidebar_position: 2
 
 ### プロジェクト
 
-* `Ctrl` + `K`: Open search
+* `Ctrl` + `K`: 検索を開く
 * `Ctrl` + `Z`: 元に戻す
 * `Ctrl` + `Y`: 再実行
 * `Ctrl` + `Shift` + `P`: Open waypoints dialog
