@@ -595,5 +595,6 @@
   "large": "Stor",
   "toolbarSize": "Værktøjslinjens størrelse",
   "addAll": "Tilføj alle",
-  "onlyCurrentPage": "Kun nuværende side"
+  "onlyCurrentPage": "Kun nuværende side",
+  "smoothNavigation": "Smooth navigation"
 }
