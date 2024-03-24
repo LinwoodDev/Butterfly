@@ -310,6 +310,7 @@
   "shape": "Forma",
   "circle": "Círculo",
   "rectangle": "Retângulo",
+  "triangle": "Triângulo",
   "line": "Linha",
   "cornerRadius": "Corner radius",
   "topLeft": "Canto superior esquerdo",
@@ -594,5 +595,6 @@
   "large": "grande",
   "toolbarSize": "Tamanho da barra",
   "addAll": "Adicionar tudo",
-  "onlyCurrentPage": "Somente a página atual"
+  "onlyCurrentPage": "Somente a página atual",
+  "smoothNavigation": "Navegação suave"
 }

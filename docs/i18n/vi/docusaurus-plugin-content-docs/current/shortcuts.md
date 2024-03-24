@@ -22,6 +22,7 @@ There are a few shortcuts that you can use in the editor. Some of them are writt
 
 ### Project
 
+* `Ctrl` + `K`: Open search
 * `Ctrl` + `Z`: Undo
 * `Ctrl` + `Y`: Redo
 * `Ctrl` + `Shift` + `P`: Open waypoints dialog

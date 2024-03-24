@@ -310,6 +310,7 @@
   "shape": "形状",
   "circle": "円",
   "rectangle": "矩形",
+  "triangle": "Triangle",
   "line": "線",
   "cornerRadius": "Corner radius",
   "topLeft": "左上",
@@ -594,5 +595,6 @@
   "large": "大",
   "toolbarSize": "ツールバーのサイズ",
   "addAll": "すべて追加",
-  "onlyCurrentPage": "現在のページのみ"
+  "onlyCurrentPage": "現在のページのみ",
+  "smoothNavigation": "スムーズなナビゲーション"
 }
