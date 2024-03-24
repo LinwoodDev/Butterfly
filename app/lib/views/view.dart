@@ -399,11 +399,16 @@ class _MainViewViewportState extends State<MainViewViewport>
           return;
         }
         _positionAnimation = Tween<Offset>(
-          begin: friction.beginPosition,
+          begin: friction.beginPosition -
+              (_positionAnimation?.value ?? Offset.zero),
           end: Offset.zero,
         ).animate(_animationController);
-        _animationController.duration =
-            Duration(milliseconds: (friction.duration * 1000).round());
+        final lastDuration = _animationController.duration?.inMilliseconds ?? 0;
+        final lastValue = lastDuration > 0
+            ? (1 - _animationController.value) / lastDuration
+            : 0;
+        _animationController.duration = Duration(
+            milliseconds: (lastValue + friction.duration * 1000).round());
         _animationController.forward(from: 0);
       },
       child: BlocBuilder<TransformCubit, CameraTransform>(
