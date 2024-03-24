@@ -595,5 +595,6 @@
   "large": "Mare",
   "toolbarSize": "Dimensiunea barei de instrumente",
   "addAll": "Adaugă toate",
-  "onlyCurrentPage": "Doar pagina curentă"
+  "onlyCurrentPage": "Doar pagina curentă",
+  "smoothNavigation": "Smooth navigation"
 }
