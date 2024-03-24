@@ -917,6 +917,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
   }
 
   void slide(ui.Offset positionVelocity, double scaleVelocity) {
+    if (!state.settingsCubit.state.hasFlag('smoothNavigation')) return;
     state.transformCubit.slide(positionVelocity, scaleVelocity);
   }
 }
