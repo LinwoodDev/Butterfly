@@ -595,5 +595,6 @@
   "large": "Suuri",
   "toolbarSize": "Työkalupalkin koko",
   "addAll": "Lisää kaikki",
-  "onlyCurrentPage": "Vain nykyinen sivu"
+  "onlyCurrentPage": "Vain nykyinen sivu",
+  "smoothNavigation": "Smooth navigation"
 }
