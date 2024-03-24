@@ -595,5 +595,6 @@
   "large": "Groß",
   "toolbarSize": "Größe der Werkzeugleiste",
   "addAll": "Alle hinzufügen",
-  "onlyCurrentPage": "Nur aktuelle Seite"
+  "onlyCurrentPage": "Nur aktuelle Seite",
+  "smoothNavigation": "Smooth navigation"
 }
