@@ -37,6 +37,8 @@ enum HideState { visible, keyboard, touch }
 
 enum RendererState { visible, temporary, hidden }
 
+const kFriction = 0.135;
+
 @Freezed(equal: false)
 class CurrentIndex with _$CurrentIndex {
   const CurrentIndex._();
@@ -912,5 +914,10 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     if (updateIndex) {
       this.updateIndex(bloc);
     }
+  }
+
+  void slide(ui.Offset positionVelocity, double scaleVelocity) {
+    if (!state.settingsCubit.state.hasFlag('smoothNavigation')) return;
+    state.transformCubit.slide(positionVelocity, scaleVelocity);
   }
 }

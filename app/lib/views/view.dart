@@ -28,16 +28,19 @@ class MainViewViewport extends StatefulWidget {
 enum _MouseState { normal, inverse, scale }
 
 class _MainViewViewportState extends State<MainViewViewport>
-    with WidgetsBindingObserver {
+    with WidgetsBindingObserver, SingleTickerProviderStateMixin {
+  late final AnimationController _animationController;
   double size = 1.0;
   GlobalKey paintKey = GlobalKey();
   _MouseState _mouseState = _MouseState.normal;
   bool _isShiftPressed = false, _isAltPressed = false, _isCtrlPressed = false;
   bool? _isScalingDisabled;
+  Animation<Offset>? _positionAnimation;
 
   @override
   void initState() {
     super.initState();
+    _animationController = AnimationController(vsync: this);
     HardwareKeyboard.instance.addHandler(_handleKey);
     WidgetsBinding.instance.addObserver(this);
   }
@@ -46,6 +49,7 @@ class _MainViewViewportState extends State<MainViewViewport>
   void dispose() {
     WidgetsBinding.instance.removeObserver(this);
     HardwareKeyboard.instance.removeHandler(_handleKey);
+    _animationController.dispose();
     super.dispose();
   }
 
@@ -238,7 +242,18 @@ class _MainViewViewportState extends State<MainViewViewport>
                               .onLongPressEnd(details, getEventContext()),
                           onScaleEnd: (details) {
                             getHandler().onScaleEnd(details, getEventContext());
-                            if (!(_isScalingDisabled ?? true)) delayBake();
+                            if (!(_isScalingDisabled ?? true)) {
+                              var sensitivity = context
+                                  .read<SettingsCubit>()
+                                  .state
+                                  .touchSensitivity;
+                              cubit.slide(
+                                  details.velocity.pixelsPerSecond /
+                                      sensitivity /
+                                      cubit.state.transformCubit.state.size,
+                                  details.scaleVelocity);
+                              delayBake();
+                            }
                           },
                           onScaleStart: (details) {
                             _isScalingDisabled ??= !cubit.state.moveEnabled;
@@ -324,9 +339,6 @@ class _MainViewViewportState extends State<MainViewViewport>
                               }
                               cubit.removePointer(event.pointer);
                               cubit.removeButtons();
-                              if (cubit.state.pointers.isEmpty) {
-                                _isScalingDisabled = null;
-                              }
                               Future.sync(() => cubit.resetTemporaryHandler(
                                   context.read<DocumentBloc>()));
                             },
@@ -349,10 +361,6 @@ class _MainViewViewportState extends State<MainViewViewport>
                                   cubit.move(-event.delta / transform.size);
                                   delayBake();
                                 }
-                                if (_isScalingDisabled ?? true) {
-                                  getHandler().onPointerGestureMove(
-                                      event, getEventContext());
-                                }
                                 return;
                               }
                               if (_isScalingDisabled ?? true) {
@@ -367,46 +375,7 @@ class _MainViewViewportState extends State<MainViewViewport>
                                 _isScalingDisabled = null;
                               }
                             },
-                            child: BlocBuilder<TransformCubit, CameraTransform>(
-                              builder: (context, transform) => MouseRegion(
-                                cursor: currentIndex.currentCursor,
-                                onExit: kIsWeb
-                                    ? (event) => cubit.resetInput(
-                                        context.read<DocumentBloc>())
-                                    : null,
-                                child: Stack(children: [
-                                  Container(color: Colors.white),
-                                  CustomPaint(
-                                    size: Size.infinite,
-                                    foregroundPainter: ForegroundPainter(
-                                      cubit.getForegrounds(),
-                                      state.data,
-                                      state.page,
-                                      state.info,
-                                      Theme.of(context).colorScheme,
-                                      transform,
-                                      cubit.state.selection,
-                                      currentIndex.cameraViewport.utilities,
-                                    ),
-                                    painter: ViewPainter(
-                                      state.data,
-                                      state.page,
-                                      state.info,
-                                      cameraViewport:
-                                          currentIndex.cameraViewport,
-                                      transform: transform,
-                                      invisibleLayers: state.invisibleLayers,
-                                      states: currentIndex.allRendererStates,
-                                      currentArea: state.currentArea,
-                                      colorScheme:
-                                          Theme.of(context).colorScheme,
-                                    ),
-                                    isComplex: true,
-                                    willChange: true,
-                                  )
-                                ]),
-                              ),
-                            ),
+                            child: _buildCanvas(currentIndex, cubit, state),
                           ),
                         );
                       }),
@@ -415,5 +384,79 @@ class _MainViewViewportState extends State<MainViewViewport>
         });
       }),
     ));
+  }
+
+  Widget _buildCanvas(CurrentIndex currentIndex, CurrentIndexCubit cubit,
+      DocumentLoaded state) {
+    return BlocListener<TransformCubit, CameraTransform>(
+      listenWhen: (previous, current) =>
+          previous.friction?.lastUpdate != current.friction?.lastUpdate,
+      listener: (context, transform) {
+        final friction = transform.friction;
+        if (friction == null) {
+          _animationController.stop();
+          _positionAnimation = null;
+          return;
+        }
+        _positionAnimation = Tween<Offset>(
+          begin: friction.beginPosition -
+              (_positionAnimation?.value ?? Offset.zero),
+          end: Offset.zero,
+        ).animate(_animationController);
+        final lastDuration = _animationController.duration?.inMilliseconds ?? 0;
+        final lastValue = lastDuration > 0
+            ? (1 - _animationController.value) / lastDuration
+            : 0;
+        _animationController.duration = Duration(
+            milliseconds: (lastValue + friction.duration * 1000).round());
+        _animationController.forward(from: 0);
+      },
+      child: BlocBuilder<TransformCubit, CameraTransform>(
+        builder: (context, transform) => MouseRegion(
+          cursor: currentIndex.currentCursor,
+          onExit: kIsWeb
+              ? (event) => cubit.resetInput(context.read<DocumentBloc>())
+              : null,
+          child: AnimatedBuilder(
+            animation: _animationController,
+            builder: (context, child) {
+              final frictionTransform = transform.withFrictionless(
+                _positionAnimation?.value ?? Offset.zero,
+                0,
+              );
+              return Stack(children: [
+                Container(color: Colors.white),
+                CustomPaint(
+                  size: Size.infinite,
+                  foregroundPainter: ForegroundPainter(
+                    cubit.getForegrounds(),
+                    state.data,
+                    state.page,
+                    state.info,
+                    Theme.of(context).colorScheme,
+                    frictionTransform,
+                    cubit.state.selection,
+                    currentIndex.cameraViewport.utilities,
+                  ),
+                  painter: ViewPainter(
+                    state.data,
+                    state.page,
+                    state.info,
+                    cameraViewport: currentIndex.cameraViewport,
+                    transform: frictionTransform,
+                    invisibleLayers: state.invisibleLayers,
+                    states: currentIndex.allRendererStates,
+                    currentArea: state.currentArea,
+                    colorScheme: Theme.of(context).colorScheme,
+                  ),
+                  isComplex: true,
+                  willChange: true,
+                )
+              ]);
+            },
+          ),
+        ),
+      ),
+    );
   }
 }
