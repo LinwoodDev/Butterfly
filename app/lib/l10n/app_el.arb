@@ -595,5 +595,6 @@
   "large": "Μεγάλο",
   "toolbarSize": "Μέγεθος γραμμής εργαλείων",
   "addAll": "Προσθήκη όλων",
-  "onlyCurrentPage": "Μόνο η τρέχουσα σελίδα"
+  "onlyCurrentPage": "Μόνο η τρέχουσα σελίδα",
+  "smoothNavigation": "Smooth navigation"
 }
