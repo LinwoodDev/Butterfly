@@ -97,7 +97,7 @@ class CameraTransform extends Equatable {
         FrictionState(-finalPos, 1 / velocitySize, DateTime.now(), duration);
 
     return CameraTransform(
-      position + finalPos,
+      position - finalPos,
       size + finalSize,
       frictionState,
     );
