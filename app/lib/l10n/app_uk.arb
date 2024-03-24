@@ -595,5 +595,6 @@
   "large": "Великий",
   "toolbarSize": "Розмір панелі інструментів",
   "addAll": "Додати всі",
-  "onlyCurrentPage": "Тільки поточна сторінка"
+  "onlyCurrentPage": "Тільки поточна сторінка",
+  "smoothNavigation": "Smooth navigation"
 }
