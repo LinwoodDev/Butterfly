@@ -595,5 +595,6 @@
   "large": "grande",
   "toolbarSize": "Tamanho da barra",
   "addAll": "Adicionar tudo",
-  "onlyCurrentPage": "Somente a página atual"
+  "onlyCurrentPage": "Somente a página atual",
+  "smoothNavigation": "Smooth navigation"
 }
