@@ -2,6 +2,36 @@
 
 <!--ENTER CHANGELOG HERE-->
 
+## 2.1.0-beta.3 (2024-03-25)
+
+* Add support for renaming the current page
+* Add advance button in quickstart
+* Add setting for toolbar size ([#589](https://github.com/LinwoodDev/Butterfly/issues/589))
+* Add "Add all" to area export dialog ([#633](https://github.com/LinwoodDev/Butterfly/issues/633))
+* Add move left and right to area export dialog
+* Add page name to export pdf dialog details
+* Add support for multiple document pages in pdf export dialog
+* Add "Only current page" filter option to area selection dialog for pdf export dialog
+* Add tools to search results
+* Add shortcut (ctrl + k) to open search
+* Advance shape detection and add support for rectangle, triangle and circle ([#632](https://github.com/LinwoodDev/Butterfly/pull/632))
+* Add smooth scrolling behind a feature flag ([#86](https://github.com/LinwoodDev/Butterfly/issues/86))
+* Allow multiple selections in templates dialog
+* Improve pdf export dialog sizing of cards
+* Change identifier for elements from index to a key based id ([#528](https://github.com/LinwoodDev/Butterfly/issues/528))
+* Save document on undo/redo
+* Run events synchronously instead of asynchronously ([#528](https://github.com/LinwoodDev/Butterfly/issues/528))
+* Fix folder fetching in web
+* Fix problems when changing to the same page
+* Fix missing scrolling in export pdf select dialogs ([#633](https://github.com/LinwoodDev/Butterfly/issues/633))
+* Fix position on search results
+* Fix page icon in search results
+* Fix search to search document wide instead of only the current page
+* Upgrading major versions of many dependencies
+* Update android build configuration
+
+Read more here: https://linwood.dev/butterfly/2.1.0-beta.3
+
 ## 2.1.0-beta.2 (2024-03-11)
 
 * Add icons to sort dropdown items
