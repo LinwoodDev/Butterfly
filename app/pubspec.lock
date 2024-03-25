@@ -85,10 +85,10 @@ packages:
     dependency: "direct main"
     description:
       name: bloc_concurrency
-      sha256: "5857eb6653b4dd5e30e1ffab91037957fd64a9b9c5e53d26714ef25a46c04679"
+      sha256: "456b7a3616a7c1ceb975c14441b3f198bf57d81cb95b7c6de5cb0c60201afcd8"
       url: "https://pub.dev"
     source: hosted
-    version: "0.2.4"
+    version: "0.2.5"
   boolean_selector:
     dependency: transitive
     description:
@@ -490,10 +490,10 @@ packages:
     dependency: "direct main"
     description:
       name: flutter_bloc
-      sha256: "87325da1ac757fcc4813e6b34ed5dd61169973871fdf181d6c2109dd6935ece1"
+      sha256: f0ecf6e6eb955193ca60af2d5ca39565a86b8a142452c5b24d96fb477428f4d2
       url: "https://pub.dev"
     source: hosted
-    version: "8.1.4"
+    version: "8.1.5"
   flutter_driver:
     dependency: "direct dev"
     description: flutter
@@ -1106,10 +1106,10 @@ packages:
     dependency: "direct main"
     description:
       name: replay_bloc
-      sha256: "799463f32aa9de4b8938ea2919797ed0d9b15496d4bc80734fde0771f4775e91"
+      sha256: "36d0fb566e47aa0f1f96d567e93b442c3fa5c957777ef52a5f60d2f9e9d8e766"
       url: "https://pub.dev"
     source: hosted
-    version: "0.2.6"
+    version: "0.2.7"
   rxdart:
     dependency: "direct main"
     description:
