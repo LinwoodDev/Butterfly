@@ -310,6 +310,7 @@
   "shape": "Muoto",
   "circle": "Ympyrä",
   "rectangle": "Suorakulmio",
+  "triangle": "Kolmio",
   "line": "Viiva",
   "cornerRadius": "Corner radius",
   "topLeft": "Vasen yläreuna",
@@ -594,5 +595,6 @@
   "large": "Suuri",
   "toolbarSize": "Työkalupalkin koko",
   "addAll": "Lisää kaikki",
-  "onlyCurrentPage": "Vain nykyinen sivu"
+  "onlyCurrentPage": "Vain nykyinen sivu",
+  "smoothNavigation": "Pehmeä navigointi"
 }

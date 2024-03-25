@@ -310,6 +310,7 @@
   "shape": "Vorm",
   "circle": "Cirkel",
   "rectangle": "Rechthoek",
+  "triangle": "Driehoek",
   "line": "Lijn",
   "cornerRadius": "Corner radius",
   "topLeft": "Boven links",
@@ -594,5 +595,6 @@
   "large": "groot",
   "toolbarSize": "Werkbalk grootte",
   "addAll": "Alles toevoegen",
-  "onlyCurrentPage": "Alleen huidige pagina"
+  "onlyCurrentPage": "Alleen huidige pagina",
+  "smoothNavigation": "Vloeiende navigatie"
 }

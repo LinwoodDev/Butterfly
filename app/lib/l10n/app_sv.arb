@@ -310,6 +310,7 @@
   "shape": "Form",
   "circle": "Cirkel",
   "rectangle": "Rektangel",
+  "triangle": "Triangel",
   "line": "Linje",
   "cornerRadius": "Corner radius",
   "topLeft": "Överst till vänster",
@@ -594,5 +595,6 @@
   "large": "Stor",
   "toolbarSize": "Storlek på verktygsfält",
   "addAll": "Lägg till alla",
-  "onlyCurrentPage": "Endast aktuell sida"
+  "onlyCurrentPage": "Endast aktuell sida",
+  "smoothNavigation": "Smidig navigering"
 }

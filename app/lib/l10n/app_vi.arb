@@ -310,6 +310,7 @@
   "shape": "Shape",
   "circle": "Circle",
   "rectangle": "Rectangle",
+  "triangle": "Triangle",
   "line": "Line",
   "cornerRadius": "Corner radius",
   "topLeft": "Top left",
@@ -594,5 +595,6 @@
   "large": "Large",
   "toolbarSize": "Toolbar size",
   "addAll": "Add all",
-  "onlyCurrentPage": "Only current page"
+  "onlyCurrentPage": "Only current page",
+  "smoothNavigation": "Smooth navigation"
 }

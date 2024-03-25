@@ -310,6 +310,7 @@
   "shape": "Formă",
   "circle": "Cerc",
   "rectangle": "Dreptunghi",
+  "triangle": "Triunghi",
   "line": "Linie",
   "cornerRadius": "Corner radius",
   "topLeft": "Sus stânga",
@@ -594,5 +595,6 @@
   "large": "Mare",
   "toolbarSize": "Dimensiunea barei de instrumente",
   "addAll": "Adaugă toate",
-  "onlyCurrentPage": "Doar pagina curentă"
+  "onlyCurrentPage": "Doar pagina curentă",
+  "smoothNavigation": "Navigare lină"
 }

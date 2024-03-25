@@ -310,6 +310,7 @@
   "shape": "Form",
   "circle": "Cirkel",
   "rectangle": "Rektangel",
+  "triangle": "Trekant",
   "line": "Linje",
   "cornerRadius": "Corner radius",
   "topLeft": "Øverst til venstre",
@@ -594,5 +595,6 @@
   "large": "Stor",
   "toolbarSize": "Værktøjslinjens størrelse",
   "addAll": "Tilføj alle",
-  "onlyCurrentPage": "Kun nuværende side"
+  "onlyCurrentPage": "Kun nuværende side",
+  "smoothNavigation": "Glat navigation"
 }
