@@ -8,10 +8,12 @@
 * Add "Only current page" filter option to area selection dialog for pdf export dialog
 * Add tools to search results
 * Add shortcut (ctrl + k) to open search
+* Advance shape detection and add support for rectangle, triangle and circle ([#632](https://github.com/LinwoodDev/Butterfly/pull/632))
 * Allow multiple selections in templates dialog
 * Improve pdf export dialog sizing of cards
 * Change identifier for elements from index to a key based id ([#528](https://github.com/LinwoodDev/Butterfly/issues/528))
 * Save document on undo/redo
+* Run events synchronously instead of asynchronously ([#528](https://github.com/LinwoodDev/Butterfly/issues/528))
 * Fix folder fetching in web
 * Fix problems when changing to the same page
 * Fix missing scrolling in export pdf select dialogs ([#633](https://github.com/LinwoodDev/Butterfly/issues/633))
@@ -19,5 +21,6 @@
 * Fix page icon in search results
 * Fix search to search document wide instead of only the current page
 * Upgrading major versions of many dependencies
+* Update android build configuration
 
 Read more here: https://linwood.dev/butterfly/2.1.0-beta.3
