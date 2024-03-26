@@ -310,6 +310,7 @@
   "shape": "Form",
   "circle": "Sirkel",
   "rectangle": "Rektangel",
+  "triangle": "Trekant",
   "line": "Linje",
   "cornerRadius": "Corner radius",
   "topLeft": "Øverst til venstre",
@@ -594,5 +595,6 @@
   "large": "Stor",
   "toolbarSize": "Størrelse på verktøylinje",
   "addAll": "Legg til alle",
-  "onlyCurrentPage": "Bare gjeldende side"
+  "onlyCurrentPage": "Bare gjeldende side",
+  "smoothNavigation": "Jevn navigasjon"
 }

@@ -310,6 +310,7 @@
   "shape": "Form",
   "circle": "Kreis",
   "rectangle": "Rechteck",
+  "triangle": "Dreieck",
   "line": "Linie",
   "cornerRadius": "Eckenradius",
   "topLeft": "Oben links",
@@ -594,5 +595,6 @@
   "large": "Groß",
   "toolbarSize": "Größe der Werkzeugleiste",
   "addAll": "Alle hinzufügen",
-  "onlyCurrentPage": "Nur aktuelle Seite"
+  "onlyCurrentPage": "Nur aktuelle Seite",
+  "smoothNavigation": "Glatte Navigation"
 }

@@ -281,6 +281,10 @@ class SelectHandler extends Handler<SelectTool> {
       _rulerPosition = details.localFocalPoint;
       return true;
     }
+    final currentIndex = context.getCurrentIndex();
+    if (currentIndex.buttons == kSecondaryMouseButton) {
+      return false;
+    }
     final cameraTransform = context.getCameraTransform();
     final globalPos = cameraTransform.localToGlobal(details.localFocalPoint);
     final shouldTransform =
@@ -329,7 +333,6 @@ class SelectHandler extends Handler<SelectTool> {
   @override
   void onScaleUpdate(ScaleUpdateDetails details, EventContext context) {
     if (details.pointerCount > 1) return;
-    final currentIndex = context.getCurrentIndex();
     final globalPos =
         context.getCameraTransform().localToGlobal(details.localFocalPoint);
     if (_rulerRotation != null && _rulerPosition != null) {
@@ -341,25 +344,17 @@ class SelectHandler extends Handler<SelectTool> {
       context.refresh();
       return;
     }
-    if (currentIndex.buttons != kSecondaryMouseButton) {
-      if (details.scale == 1.0) {
-        final topLeft = _rectangleFreeSelection?.topLeft ?? globalPos;
-        _rectangleFreeSelection = data.mode == SelectMode.rectangle
-            ? Rect.fromLTRB(topLeft.dx, topLeft.dy, globalPos.dx, globalPos.dy)
-            : null;
-        if (data.mode == SelectMode.lasso) {
-          _lassoFreeSelection ??= [];
-          _lassoFreeSelection!.add(globalPos);
-        } else {
-          _lassoFreeSelection = null;
-        }
-        context.refresh();
-      }
-      return;
+    final topLeft = _rectangleFreeSelection?.topLeft ?? globalPos;
+    _rectangleFreeSelection = data.mode == SelectMode.rectangle
+        ? Rect.fromLTRB(topLeft.dx, topLeft.dy, globalPos.dx, globalPos.dy)
+        : null;
+    if (data.mode == SelectMode.lasso) {
+      _lassoFreeSelection ??= [];
+      _lassoFreeSelection!.add(globalPos);
+    } else {
+      _lassoFreeSelection = null;
     }
-    context
-        .getCurrentIndexCubit()
-        .move(-details.focalPointDelta / context.getCameraTransform().size);
+    context.refresh();
   }
 
   @override

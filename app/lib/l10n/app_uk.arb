@@ -310,6 +310,7 @@
   "shape": "Форма",
   "circle": "Коло",
   "rectangle": "Прямокутник",
+  "triangle": "Трикутник",
   "line": "Лінія",
   "cornerRadius": "Corner radius",
   "topLeft": "Зверху зліва",
@@ -594,5 +595,6 @@
   "large": "Великий",
   "toolbarSize": "Розмір панелі інструментів",
   "addAll": "Додати всі",
-  "onlyCurrentPage": "Тільки поточна сторінка"
+  "onlyCurrentPage": "Тільки поточна сторінка",
+  "smoothNavigation": "Плавна навігація"
 }

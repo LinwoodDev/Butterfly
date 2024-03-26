@@ -348,7 +348,7 @@ class FilesViewState extends State<FilesView> {
                       },
                       child: Text(AppLocalizations.of(context).import),
                     ),
-                    if (settings.flags.contains('collaboration'))
+                    if (settings.hasFlag('collaboration'))
                       MenuItemButton(
                         leadingIcon:
                             const PhosphorIcon(PhosphorIconsLight.shareNetwork),

@@ -22,6 +22,7 @@ Il y a quelques raccourcis que vous pouvez utiliser dans l'éditeur. Certaines d
 
 ### Projet
 
+* `Ctrl` + `K`: Ouvrir la recherche
 * `Ctrl` + `Z`: Annuler
 * `Ctrl` + `Y`: Refaire
 * `Ctrl` + `Shift` + `P`: Open waypoints dialog

@@ -176,8 +176,6 @@ abstract class Handler<T> {
 
   void onPointerMove(PointerMoveEvent event, EventContext context) {}
 
-  void onPointerGestureMove(PointerMoveEvent event, EventContext context) {}
-
   void onPointerUp(PointerUpEvent event, EventContext context) {}
 
   void onPointerHover(PointerHoverEvent event, EventContext context) {}

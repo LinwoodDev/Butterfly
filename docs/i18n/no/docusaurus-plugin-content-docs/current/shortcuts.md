@@ -22,6 +22,7 @@ Det er noen snarveier du kan benytte i editoren. Noen av dem er skrevet under kn
 
 ### Prosjekt
 
+* `Ctrl` + `K`: Åpne søk
 * `Ctrl` + `Z`: Angre
 * `Ctrl` + `Y`: Gjør om igjen
 * `Ctrl` + `Shift` + `P`: Open waypoints dialog

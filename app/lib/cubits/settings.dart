@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:butterfly/api/full_screen.dart' as full_screen_api;
 import 'package:butterfly/api/file_system/file_system.dart';
+import 'package:butterfly/main.dart';
 import 'package:butterfly/widgets/window.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:collection/collection.dart';
@@ -562,6 +563,8 @@ class ButterflySettings with _$ButterflySettings {
     }
     return getRemote(location.remote)?.starred.contains(location.path) ?? false;
   }
+
+  bool hasFlag(String s) => flags.contains(s) && isNightly;
 }
 
 class SettingsCubit extends Cubit<ButterflySettings> {
