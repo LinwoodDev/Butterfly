@@ -650,18 +650,16 @@ class _RecentFilesViewState extends State<_RecentFilesView> {
                     final entity = files[index];
                     FileMetadata? metadata;
                     Uint8List? thumbnail;
-                    List<int>? data;
                     if (entity is AppDocumentFile) {
                       metadata = entity.metadata;
                       thumbnail = entity.thumbnail;
-                      data = entity.data;
                     }
                     return AssetCard(
                       metadata: metadata,
                       thumbnail: thumbnail,
                       name: entity.location.identifier,
-                      onTap: () => openFile(
-                          context, widget.replace, entity.location, data),
+                      onTap: () =>
+                          openFile(context, widget.replace, entity.location),
                     );
                   },
                 ),
