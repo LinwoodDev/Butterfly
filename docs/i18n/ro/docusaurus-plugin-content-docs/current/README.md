@@ -74,6 +74,7 @@ Opinia principală este compusă din mai multe elemente
 
 După deschiderea unui document selectând un şablon sau un fişier existent, veţi ajunge la **Document View**
 
+
 ## Vizualizare document
 
 Puteți reveni din vizualizarea documentului la lista de documente cu acțiunea din spate a dispozitivului dvs. Ca și în cazul vizualizării principale, documentul afișează modificări bazate pe dispozitivul dvs.

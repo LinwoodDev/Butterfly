@@ -310,6 +310,7 @@
   "shape": "شكل",
   "circle": "دائرة",
   "rectangle": "مستطيل",
+  "triangle": "مثلث",
   "line": "سطر",
   "cornerRadius": "Corner radius",
   "topLeft": "أعلى اليسار",
@@ -589,5 +590,11 @@
   "createAreas": "إنشاء مناطق",
   "autosave": "Autosave",
   "invert": "Invert",
-  "operations": "العمليات"
+  "operations": "العمليات",
+  "medium": "متوسط",
+  "large": "كبير",
+  "toolbarSize": "حجم شريط الأدوات",
+  "addAll": "إضافة الكل",
+  "onlyCurrentPage": "الصفحة الحالية فقط",
+  "smoothNavigation": "التنقل السلس"
 }

@@ -323,7 +323,7 @@ class _AreaPreview extends StatelessWidget {
         child: Column(children: [
           Expanded(
             child: image == null
-                ? const CircularProgressIndicator()
+                ? const Align(child: CircularProgressIndicator())
                 : Image.memory(image!),
           ),
           const SizedBox(height: 8),

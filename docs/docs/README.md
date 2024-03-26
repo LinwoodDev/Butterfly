@@ -84,9 +84,11 @@ The main view is composed of several elements
 
 Once opening a document by selecting a template or an existing file, you will get to the **Document View**
 
+
 ## The Document View
 
 You can return from the document view to the document list with the back action of your device. As with the main view, the document display changes based on your device.
+
 
 <Tabs
     defaultValue = "desktop"

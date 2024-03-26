@@ -310,6 +310,7 @@
   "shape": "Форма",
   "circle": "Коло",
   "rectangle": "Прямокутник",
+  "triangle": "Трикутник",
   "line": "Лінія",
   "cornerRadius": "Corner radius",
   "topLeft": "Зверху зліва",
@@ -589,5 +590,11 @@
   "createAreas": "Створення області",
   "autosave": "Autosave",
   "invert": "Invert",
-  "operations": "Операції"
+  "operations": "Операції",
+  "medium": "Медіум",
+  "large": "Великий",
+  "toolbarSize": "Розмір панелі інструментів",
+  "addAll": "Додати всі",
+  "onlyCurrentPage": "Тільки поточна сторінка",
+  "smoothNavigation": "Плавна навігація"
 }

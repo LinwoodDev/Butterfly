@@ -74,6 +74,7 @@ De hoofdweergave bestaat uit verschillende elementen
 
 Eenmaal een document openen door een sjabloon of een bestaand bestand te selecteren, zult u naar de **Document View** gaan
 
+
 ## De Document Weergave
 
 U kunt terugkeren van de documentweergave naar de documentenlijst met de back-actie van uw apparaat. Net als bij de hoofdweergave, wordt het document gewijzigd op basis van uw apparaat.

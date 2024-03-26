@@ -310,6 +310,7 @@
   "shape": "Şekil",
   "circle": "Daire",
   "rectangle": "Dikdörtgen",
+  "triangle": "Triangle",
   "line": "Çizgi",
   "cornerRadius": "Köşe yuvarlaklığı",
   "topLeft": "Sol üst",
@@ -589,5 +590,11 @@
   "createAreas": "Create areas",
   "autosave": "Autosave",
   "invert": "Invert",
-  "operations": "Operations"
+  "operations": "Operations",
+  "medium": "Medium",
+  "large": "Large",
+  "toolbarSize": "Toolbar size",
+  "addAll": "Add all",
+  "onlyCurrentPage": "Only current page",
+  "smoothNavigation": "Smooth navigation"
 }

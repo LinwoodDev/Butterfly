@@ -310,6 +310,7 @@
   "shape": "Forma",
   "circle": "Círculo",
   "rectangle": "Retângulo",
+  "triangle": "Triângulo",
   "line": "Linha",
   "cornerRadius": "Corner radius",
   "topLeft": "Canto superior esquerdo",
@@ -589,5 +590,11 @@
   "createAreas": "Criar áreas",
   "autosave": "Autosave",
   "invert": "Invert",
-  "operations": "Operações"
+  "operations": "Operações",
+  "medium": "Média",
+  "large": "grande",
+  "toolbarSize": "Tamanho da barra",
+  "addAll": "Adicionar tudo",
+  "onlyCurrentPage": "Somente a página atual",
+  "smoothNavigation": "Navegação suave"
 }

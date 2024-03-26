@@ -310,6 +310,7 @@
   "shape": "Form",
   "circle": "Sirkel",
   "rectangle": "Rektangel",
+  "triangle": "Trekant",
   "line": "Linje",
   "cornerRadius": "Corner radius",
   "topLeft": "Øverst til venstre",
@@ -589,5 +590,11 @@
   "createAreas": "Opprett områder",
   "autosave": "Autosave",
   "invert": "Invert",
-  "operations": "Aktiviteter"
+  "operations": "Aktiviteter",
+  "medium": "Middels",
+  "large": "Stor",
+  "toolbarSize": "Størrelse på verktøylinje",
+  "addAll": "Legg til alle",
+  "onlyCurrentPage": "Bare gjeldende side",
+  "smoothNavigation": "Jevn navigasjon"
 }

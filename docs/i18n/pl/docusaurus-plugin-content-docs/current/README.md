@@ -74,6 +74,7 @@ Główny widok składa się z kilku elementów
 
 Po otwarciu dokumentu wybierając szablon lub istniejący plik, przejdziesz do **Widok dokumentu**
 
+
 ## Widok dokumentu
 
 Możesz wrócić z widoku dokumentu do listy dokumentów z akcją wsteczną urządzenia. Tak jak w widoku głównym, dokument wyświetla zmiany w oparciu o Twoje urządzenie.

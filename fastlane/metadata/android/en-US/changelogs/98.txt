@@ -1,0 +1,3 @@
+* Fix baking when animating smooth navigation
+
+Read more here: https://linwood.dev/butterfly/2.1.0-beta.4

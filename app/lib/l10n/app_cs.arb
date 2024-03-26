@@ -310,6 +310,7 @@
   "shape": "Tvar",
   "circle": "Kruh",
   "rectangle": "Obdélník",
+  "triangle": "Trojúhelník",
   "line": "Řádek",
   "cornerRadius": "Corner radius",
   "topLeft": "Vlevo nahoře",
@@ -589,5 +590,11 @@
   "createAreas": "Vytvořit oblasti",
   "autosave": "Autosave",
   "invert": "Invert",
-  "operations": "Operace"
+  "operations": "Operace",
+  "medium": "Střední",
+  "large": "Velký",
+  "toolbarSize": "Velikost panelu nástrojů",
+  "addAll": "Přidat vše",
+  "onlyCurrentPage": "Pouze aktuální stránka",
+  "smoothNavigation": "Hladká navigace"
 }

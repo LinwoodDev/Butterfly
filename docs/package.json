@@ -48,12 +48,12 @@
       "last 1 safari version"
     ]
   },
-  "packageManager": "pnpm@8.15.4",
+  "packageManager": "pnpm@8.15.5",
   "devDependencies": {
     "@docusaurus/module-type-aliases": "3.1.1",
     "@docusaurus/tsconfig": "3.1.1",
     "markdownlint-cli2": "^0.12.1",
-    "typescript": "^5.4.2",
-    "webpack": "^5.90.3"
+    "typescript": "^5.4.3",
+    "webpack": "^5.91.0"
   }
 }

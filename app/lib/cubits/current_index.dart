@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:math';
 import 'dart:typed_data';
 import 'dart:ui' as ui;
 
@@ -36,6 +37,8 @@ enum SaveState { saved, saving, unsaved }
 enum HideState { visible, keyboard, touch }
 
 enum RendererState { visible, temporary, hidden }
+
+const kFriction = 0.135;
 
 @Freezed(equal: false)
 class CurrentIndex with _$CurrentIndex {
@@ -459,19 +462,36 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
   Future<void> bake(NoteData document, DocumentPage page, DocumentInfo info,
       {Size? viewportSize, double? pixelRatio, bool reset = false}) async {
     final cameraViewport = state.cameraViewport;
-    final size = viewportSize ?? cameraViewport.toSize();
+    var size = viewportSize ?? cameraViewport.toSize();
     final ratio = pixelRatio ?? cameraViewport.pixelRatio;
     if (size.height <= 0 || size.width <= 0) {
       return;
     }
-    final transform = state.transformCubit.state;
-    final rect = Rect.fromLTWH(transform.position.dx, transform.position.dy,
-        size.width / transform.size, size.height / transform.size);
+    var transform = state.transformCubit.state;
+    final realWidth = size.width / transform.size;
+    final realHeight = size.height / transform.size;
+    var rect = Rect.fromLTWH(
+        transform.position.dx, transform.position.dy, realWidth, realHeight);
     var renderers =
         List<Renderer<PadElement>>.from(cameraViewport.unbakedElements);
     final recorder = ui.PictureRecorder();
     final canvas = ui.Canvas(recorder);
     final last = state.cameraViewport;
+    final friction = transform.friction;
+    if (friction != null) {
+      final topLeft = Offset(
+        min(transform.position.dx, friction.beginPosition.dx),
+        min(transform.position.dy, friction.beginPosition.dy),
+      );
+      final bottomRight = Offset(
+        max(transform.position.dx, friction.beginPosition.dx),
+        max(transform.position.dy, friction.beginPosition.dy),
+      );
+      transform = transform.withPosition(topLeft);
+      rect = Rect.fromPoints(
+          topLeft, bottomRight.translate(realWidth, realHeight));
+      size += bottomRight - topLeft;
+    }
     reset = reset ||
         last.width != size.width.ceil() ||
         last.height != size.height.ceil() ||
@@ -595,15 +615,19 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
   }
 
   Future<void> loadElements(
-      NoteData document, AssetService assetService, DocumentPage page) async {
+      NoteData document, AssetService assetService, DocumentPage page,
+      [String currentLayer = '']) async {
     for (var e in state.cameraViewport.unbakedElements) {
       e.dispose();
     }
     for (var e in state.cameraViewport.bakedElements) {
       e.dispose();
     }
-    final renderers =
-        page.content.map((e) => Renderer.fromInstance(e)).toList();
+    final renderers = page.content
+        .where(
+            (element) => currentLayer.isEmpty || element.layer == currentLayer)
+        .map((e) => Renderer.fromInstance(e))
+        .toList();
     await Future.wait(renderers
         .map((e) async => await e.setup(document, assetService, page)));
     final backgrounds = page.backgrounds.map(Renderer.fromInstance).toList();
@@ -853,5 +877,65 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
       rect = rect?.expandToInclude(rendererRect) ?? rendererRect;
     }
     return rect ?? Rect.zero;
+  }
+
+  /// If addedElements is null, the viewport gets unbaked
+  Future<void> stateChanged(
+    DocumentLoadSuccess current,
+    DocumentBloc bloc, {
+    List<Renderer<PadElement>>? addedElements = const [],
+    List<Renderer<PadElement>>? replacedElements,
+    List<Renderer<Background>>? backgrounds,
+    bool reset = false,
+    bool refresh = false,
+    bool updateIndex = false,
+  }) async {
+    final cameraViewport = current.cameraViewport;
+    var elements = cameraViewport.unbakedElements;
+    if (addedElements != null) {
+      for (var renderer in addedElements) {
+        await renderer.setup(current.data, current.assetService, current.page);
+      }
+      elements = List<Renderer<PadElement>>.from(elements)
+        ..addAll(addedElements);
+    }
+    for (var renderer in {...?backgrounds, ...?replacedElements}) {
+      await renderer.setup(current.data, current.assetService, current.page);
+    }
+
+    if (addedElements == null) {
+      current.currentIndexCubit
+          .unbake(unbakedElements: replacedElements, backgrounds: backgrounds);
+      if (backgrounds != null) {
+        unbake(backgrounds: backgrounds);
+      }
+    } else {
+      withUnbaked(elements);
+    }
+
+    setSaveState(saved: SaveState.unsaved);
+    if (current.embedding != null) {
+      return;
+    }
+    AssetLocation? path = current.location;
+    if (current.hasAutosave()) {
+      path = await current.save(path);
+    }
+    if (reset) {
+      loadElements(current.data, current.assetService, current.page,
+          current.currentLayer);
+    }
+    if (reset || refresh) {
+      this.refresh(
+          current.data, current.assetService, current.page, current.info);
+    }
+    if (updateIndex) {
+      this.updateIndex(bloc);
+    }
+  }
+
+  void slide(ui.Offset positionVelocity, double scaleVelocity) {
+    if (!state.settingsCubit.state.hasFlag('smoothNavigation')) return;
+    state.transformCubit.slide(positionVelocity, scaleVelocity);
   }
 }

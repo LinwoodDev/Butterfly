@@ -64,6 +64,25 @@ class ShapeRenderer extends Renderer<ShapeElement> {
     } else if (shape is LineShape) {
       canvas.drawLine(element.firstPosition.toOffset(),
           element.secondPosition.toOffset(), paint);
+    } else if (shape is TriangleShape) {
+      final center = Offset(
+          (element.firstPosition.x + element.secondPosition.x) / 2,
+          (element.firstPosition.y + element.secondPosition.y) / 2);
+      final height = element.secondPosition.y - element.firstPosition.y;
+      final path = Path();
+      path.moveTo(center.dx, center.dy - height / 2); // Upper point
+      path.lineTo(center.dx - height * sqrt(3) / 4,
+          center.dy + height / 2); // Bottom Left Dot
+      path.lineTo(center.dx + height * sqrt(3) / 4,
+          center.dy + height / 2); // Bottom Right Dot
+      path.close();
+      canvas.drawPath(
+          path,
+          _buildPaint(
+              color: Color(shape.fillColor), style: PaintingStyle.fill));
+      if (strokeWidth > 0) {
+        canvas.drawPath(path, paint);
+      }
     }
   }
 
@@ -213,6 +232,7 @@ class ShapeHitCalculator extends HitCalculator {
     return shape.map(
         circle: (e) => containsRect(),
         rectangle: (e) => containsRect(),
+        triangle: (e) => containsRect(),
         line: (e) {
           final firstX = min(element.firstPosition.x, element.secondPosition.x);
           final firstY = min(element.firstPosition.y, element.secondPosition.y);
@@ -258,6 +278,14 @@ class ShapeHitCalculator extends HitCalculator {
             isPointInPolygon(polygon, bottomLeft) ||
             isPointInPolygon(polygon, bottomRight) ||
             isPointInPolygon(polygon, center);
+      },
+      triangle: (value) {
+        final firstPosition =
+            element.firstPosition.toOffset().rotate(center, rotation);
+        final secondPosition =
+            element.secondPosition.toOffset().rotate(center, rotation);
+        return isPointInPolygon(polygon, firstPosition) ||
+            isPointInPolygon(polygon, secondPosition);
       },
     );
   }

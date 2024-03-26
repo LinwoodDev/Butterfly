@@ -138,6 +138,7 @@ class ViewPainter extends CustomPainter {
     }
     if (cameraViewport.bakedElements.isNotEmpty && renderBaked) {
       final image = cameraViewport.image;
+      final size = cameraViewport.toSize();
       final bakedSizeDiff =
           (transform.size - cameraViewport.scale) / cameraViewport.scale;
       final pos = transform.globalToLocal(cameraViewport.toOffset());

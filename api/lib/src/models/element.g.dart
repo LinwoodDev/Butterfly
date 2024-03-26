@@ -76,9 +76,7 @@ Map<String, dynamic> _$$DynamicElementConstraintsImplToJson(
 _$PenElementImpl _$$PenElementImplFromJson(Map json) => _$PenElementImpl(
       rotation: (json['rotation'] as num?)?.toDouble() ?? 0,
       layer: json['layer'] as String? ?? '',
-      id: json['id'] == null
-          ? ''
-          : const IdJsonConverter().fromJson(json['id'] as String?),
+      id: const IdJsonConverter().fromJson(json['id'] as String?),
       zoom: (json['zoom'] as num?)?.toDouble(),
       points: (json['points'] as List<dynamic>?)
               ?.map((e) =>
@@ -111,9 +109,7 @@ Map<String, dynamic> _$$PenElementImplToJson(_$PenElementImpl instance) =>
 _$TextElementImpl _$$TextElementImplFromJson(Map json) => _$TextElementImpl(
       rotation: (json['rotation'] as num?)?.toDouble() ?? 0,
       layer: json['layer'] as String? ?? '',
-      id: json['id'] == null
-          ? ''
-          : const IdJsonConverter().fromJson(json['id'] as String?),
+      id: const IdJsonConverter().fromJson(json['id'] as String?),
       position: json['position'] == null
           ? const Point(0.0, 0.0)
           : const DoublePointJsonConverter().fromJson(json['position'] as Map),
@@ -154,9 +150,7 @@ _$MarkdownElementImpl _$$MarkdownElementImplFromJson(Map json) =>
     _$MarkdownElementImpl(
       rotation: (json['rotation'] as num?)?.toDouble() ?? 0,
       layer: json['layer'] as String? ?? '',
-      id: json['id'] == null
-          ? ''
-          : const IdJsonConverter().fromJson(json['id'] as String?),
+      id: const IdJsonConverter().fromJson(json['id'] as String?),
       position: json['position'] == null
           ? const Point(0.0, 0.0)
           : const DoublePointJsonConverter().fromJson(json['position'] as Map),
@@ -202,9 +196,7 @@ Map<String, dynamic> _$$MarkdownElementImplToJson(
 _$ImageElementImpl _$$ImageElementImplFromJson(Map json) => _$ImageElementImpl(
       rotation: (json['rotation'] as num?)?.toDouble() ?? 0,
       layer: json['layer'] as String? ?? '',
-      id: json['id'] == null
-          ? ''
-          : const IdJsonConverter().fromJson(json['id'] as String?),
+      id: const IdJsonConverter().fromJson(json['id'] as String?),
       position: json['position'] == null
           ? const Point(0.0, 0.0)
           : const DoublePointJsonConverter().fromJson(json['position'] as Map),
@@ -239,9 +231,7 @@ Map<String, dynamic> _$$ImageElementImplToJson(_$ImageElementImpl instance) =>
 _$SvgElementImpl _$$SvgElementImplFromJson(Map json) => _$SvgElementImpl(
       rotation: (json['rotation'] as num?)?.toDouble() ?? 0,
       layer: json['layer'] as String? ?? '',
-      id: json['id'] == null
-          ? ''
-          : const IdJsonConverter().fromJson(json['id'] as String?),
+      id: const IdJsonConverter().fromJson(json['id'] as String?),
       position: json['position'] == null
           ? const Point(0.0, 0.0)
           : const DoublePointJsonConverter().fromJson(json['position'] as Map),
@@ -276,9 +266,7 @@ Map<String, dynamic> _$$SvgElementImplToJson(_$SvgElementImpl instance) =>
 _$ShapeElementImpl _$$ShapeElementImplFromJson(Map json) => _$ShapeElementImpl(
       rotation: (json['rotation'] as num?)?.toDouble() ?? 0,
       layer: json['layer'] as String? ?? '',
-      id: json['id'] == null
-          ? ''
-          : const IdJsonConverter().fromJson(json['id'] as String?),
+      id: const IdJsonConverter().fromJson(json['id'] as String?),
       firstPosition: json['firstPosition'] == null
           ? const Point(0.0, 0.0)
           : const DoublePointJsonConverter()
@@ -316,9 +304,7 @@ _$TextureElementImpl _$$TextureElementImplFromJson(Map json) =>
     _$TextureElementImpl(
       rotation: (json['rotation'] as num?)?.toDouble() ?? 0,
       layer: json['layer'] as String? ?? '',
-      id: json['id'] == null
-          ? ''
-          : const IdJsonConverter().fromJson(json['id'] as String?),
+      id: const IdJsonConverter().fromJson(json['id'] as String?),
       texture: json['texture'] == null
           ? const SurfaceTexture.pattern()
           : SurfaceTexture.fromJson(

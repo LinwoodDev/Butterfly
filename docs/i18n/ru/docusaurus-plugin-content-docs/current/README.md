@@ -74,6 +74,7 @@ import { Gear, Plus, FloppyDisk, MagnifyingGlass, ScribbleLoop, Pen, Path, Arrow
 
 Once opening a document by selecting a template or an existing file, you will get to the **Document View**
 
+
 ## Документ Просмотр
 
 Вы можете вернуться из документа в список документов с обратным действием вашего устройства. Как и в случае с основным представлением, документ отображает изменения на основе вашего устройства.

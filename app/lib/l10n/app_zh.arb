@@ -310,6 +310,7 @@
   "shape": "形状",
   "circle": "圆圈",
   "rectangle": "矩形",
+  "triangle": "三角形",
   "line": "直线",
   "cornerRadius": "Corner radius",
   "topLeft": "左上方",
@@ -589,5 +590,11 @@
   "createAreas": "创建区域",
   "autosave": "Autosave",
   "invert": "Invert",
-  "operations": "业务活动"
+  "operations": "业务活动",
+  "medium": "中",
+  "large": "大的",
+  "toolbarSize": "工具栏大小",
+  "addAll": "添加全部",
+  "onlyCurrentPage": "仅当前页面",
+  "smoothNavigation": "平滑导航"
 }

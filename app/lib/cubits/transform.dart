@@ -4,18 +4,40 @@ import 'package:butterfly/helpers/point.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/physics.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 const kMinZoom = 0.1;
 const kMaxZoom = 10.0;
 const kRoundPrecision = 3;
+const kFriction = 0.135;
+
+@immutable
+class FrictionState extends Equatable {
+  final Offset beginPosition;
+  final double beginSize;
+  final DateTime lastUpdate;
+  final double duration;
+
+  const FrictionState(
+    this.beginPosition,
+    this.beginSize,
+    this.lastUpdate,
+    this.duration,
+  );
+
+  @override
+  List<Object?> get props => [beginPosition, beginSize, lastUpdate];
+}
 
 @immutable
 class CameraTransform extends Equatable {
   final Offset position;
   final double size;
+  final FrictionState? friction;
 
-  const CameraTransform([this.position = Offset.zero, this.size = 1]);
+  const CameraTransform(
+      [this.position = Offset.zero, this.size = 1, this.friction]);
 
   CameraTransform withPosition(Offset position) =>
       CameraTransform(position, size);
@@ -40,6 +62,50 @@ class CameraTransform extends Equatable {
 
   @override
   List<Object?> get props => [position, size];
+
+  double _getFinalTime(double velocity, double drag,
+          {double effectivelyMotionless = 10}) =>
+      log(effectivelyMotionless / velocity) / log(drag / 100);
+
+  FrictionSimulation _getSimulation(double velocity) => FrictionSimulation(
+        kFriction,
+        0,
+        velocity,
+      );
+  CameraTransform withFriction(Offset velocityPosition, double velocitySize) {
+    final simX = _getSimulation(velocityPosition.dx);
+    final finalX = simX.finalX;
+    final simY = _getSimulation(velocityPosition.dy);
+    final finalY = simY.finalX;
+    final durationPosition = _getFinalTime(
+      velocityPosition.distance,
+      kFriction,
+    );
+    final finalPos = Offset(finalX, finalY);
+    final simScale = _getSimulation(velocitySize);
+    final finalSize = simScale.finalX;
+    final durationSize = _getFinalTime(
+      velocitySize,
+      kFriction,
+    );
+    final duration = max(durationPosition, durationSize);
+    if (!duration.isFinite) {
+      return this;
+    }
+
+    final frictionState =
+        FrictionState(-finalPos, 1 / velocitySize, DateTime.now(), duration);
+
+    return CameraTransform(
+      position - finalPos,
+      size + finalSize,
+      frictionState,
+    );
+  }
+
+  CameraTransform withFrictionless(Offset position, double size) {
+    return CameraTransform(this.position - position, this.size - size, null);
+  }
 }
 
 class TransformCubit extends Cubit<CameraTransform> {
@@ -75,4 +141,10 @@ class TransformCubit extends Cubit<CameraTransform> {
     }
     teleport(position, size);
   }
+
+  void slide(Offset velocityPosition, double velocitySize) =>
+      emit(state.withFriction(
+        velocityPosition,
+        velocitySize,
+      ));
 }

@@ -310,6 +310,7 @@
   "shape": "形狀",
   "circle": "圓形",
   "rectangle": "矩形",
+  "triangle": "Triangle",
   "line": "直線",
   "cornerRadius": "圓角大小",
   "topLeft": "左上角",
@@ -589,5 +590,11 @@
   "createAreas": "Create areas",
   "autosave": "Autosave",
   "invert": "Invert",
-  "operations": "Operations"
+  "operations": "Operations",
+  "medium": "Medium",
+  "large": "Large",
+  "toolbarSize": "Toolbar size",
+  "addAll": "Add all",
+  "onlyCurrentPage": "Only current page",
+  "smoothNavigation": "Smooth navigation"
 }

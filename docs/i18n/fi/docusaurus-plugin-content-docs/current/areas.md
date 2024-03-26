@@ -3,6 +3,9 @@ title: "Alueet"
 sidebar_position: 2
 ---
 
+import {Monitor} from "@phosphor-icons/react";
+
+
 ## Johdanto
 
 ![Alue](area.png)
@@ -11,13 +14,23 @@ Alueet ovat keino rajoittaa kankaan kokoa. Voit luoda alueita käyttämällä [a
 
 ## Alueiden luominen ja poistaminen
 
-Käytä [aluetyökalua](tools/area.md) luodaksesi alueen. Alueet eivät voi olla päällekkäisiä. Kun olet luonut alueen, sinun täytyy nimetä se.
+Kun voit suoraan muokata sisältöä kankaalle, on tavallista, että haluatte rajoittaa aluetta, jolla voit muokata sisältöä, tai että haluat, että sinulla on mahdollisuus päästä nopeasti käsiksi osaan asiakirjasta. Sitä varten sinulla on <Monitor/> alue työkalu. Kuten [johdantoosiossa](README.md)on selitetty, saatat joutua lisäämään <Monitor/> alueen painikkeen työkaluriviisi. Käyttäen [aluetyökalua](tools/area.md), voit piirtää suorakulmion mihin tahansa kankaalle määritelläksesi alueen.
 
-Klikkaa aluetta, jos haluat muokata sitä. Voit myös käyttää alueen valintaikkunaa.
+## Lisää ohjausta
 
-Sinulla on muutamia vaihtoehtoja tässä valikossa:
+Voit määritellä alueen työkalun klikkaamalla uudelleen <Monitor/> - alueen painiketta. Siellä voit määritellä alueiden kiinteän leveyden, korkeuden tai kuvasuhdon.
 
-* `Syötä alue`: Syötä alue. Alueen ulkopuolelle ei voi maalata. Poistu alueesta klikkaamalla taustan kohdalta alueen työkalulla.
-* `Nimi`: Muuta nykyisen alueen nimeä
-* `Vie`: Vie tämä osa kankaalle kuvana
-* `Poista`: Poista tämä alue
+## Alueen kontekstivalikko
+
+ Alueen piirtämisen jälkeen voit painaa tai napauta pitkään koskettamalla aluetta avataksesi kontekstivalikon seuraavilla vaihtoehdoilla:
+
+* `Nimi` - Anna alueelle nimi, joka on convinient voit käyttää. Tämä on hyödyllistä, esimerkiksi, kun...
+* `Syötä alue` - Sallii muokata sisältöä vain tämän alueen reunustamana.
+* `Poista` - Poista alue. Tämä *ei* poista tämän alueen sisältöä.
+* `Export` - Vie valitun alueen sisältö.
+* `Lisää pakkaukseen` - Lisää alue [pakkaukseen](pack)
+
+## Toinen vaihtoehto
+
+Toinen vaihtoehto, jonka avulla voit käyttää alueen navigaattoria on vasemmassa valikossa, tai perhonen valikosta, jos käytät mobiili alustan. 
+
