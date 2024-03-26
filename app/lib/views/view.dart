@@ -352,8 +352,9 @@ class _MainViewViewportState extends State<MainViewViewport>
                             onPointerMove: (PointerMoveEvent event) async {
                               RenderObject? box = context.findRenderObject();
                               //!
-                              if (!box!.paintBounds 
-                                  .contains(event.localPosition ) && foundation.kIsWeb) {
+                              if (!box!.paintBounds
+                                      .contains(event.localPosition) &&
+                                  foundation.kIsWeb) {
                                 return;
                               }
                               cubit.updateLastPosition(event.localPosition);
