@@ -407,8 +407,13 @@ class _MainViewViewportState extends State<MainViewViewport>
         final lastValue = lastDuration > 0
             ? (1 - _animationController.value) / lastDuration
             : 0;
-        _animationController.duration = Duration(
-            milliseconds: (lastValue + friction.duration * 1000).round());
+        final duration = (lastValue + friction.duration * 1000).round();
+        if (duration <= 0) {
+          _animationController.stop();
+          _positionAnimation = null;
+          return;
+        }
+        _animationController.duration = Duration(milliseconds: duration);
         _animationController.forward(from: 0);
       },
       child: BlocBuilder<TransformCubit, CameraTransform>(

@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:math';
 import 'dart:typed_data';
 import 'dart:ui' as ui;
 
@@ -461,19 +462,36 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
   Future<void> bake(NoteData document, DocumentPage page, DocumentInfo info,
       {Size? viewportSize, double? pixelRatio, bool reset = false}) async {
     final cameraViewport = state.cameraViewport;
-    final size = viewportSize ?? cameraViewport.toSize();
+    var size = viewportSize ?? cameraViewport.toSize();
     final ratio = pixelRatio ?? cameraViewport.pixelRatio;
     if (size.height <= 0 || size.width <= 0) {
       return;
     }
-    final transform = state.transformCubit.state;
-    final rect = Rect.fromLTWH(transform.position.dx, transform.position.dy,
-        size.width / transform.size, size.height / transform.size);
+    var transform = state.transformCubit.state;
+    final realWidth = size.width / transform.size;
+    final realHeight = size.height / transform.size;
+    var rect = Rect.fromLTWH(
+        transform.position.dx, transform.position.dy, realWidth, realHeight);
     var renderers =
         List<Renderer<PadElement>>.from(cameraViewport.unbakedElements);
     final recorder = ui.PictureRecorder();
     final canvas = ui.Canvas(recorder);
     final last = state.cameraViewport;
+    final friction = transform.friction;
+    if (friction != null) {
+      final topLeft = Offset(
+        min(transform.position.dx, friction.beginPosition.dx),
+        min(transform.position.dy, friction.beginPosition.dy),
+      );
+      final bottomRight = Offset(
+        max(transform.position.dx, friction.beginPosition.dx),
+        max(transform.position.dy, friction.beginPosition.dy),
+      );
+      transform = transform.withPosition(topLeft);
+      rect = Rect.fromPoints(
+          topLeft, bottomRight.translate(realWidth, realHeight));
+      size += bottomRight - topLeft;
+    }
     reset = reset ||
         last.width != size.width.ceil() ||
         last.height != size.height.ceil() ||
