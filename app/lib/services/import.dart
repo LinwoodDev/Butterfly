@@ -390,16 +390,20 @@ class ImportService {
       final elements = <Uint8List>[];
       final localizations = AppLocalizations.of(context);
       // Define the compression value
-      int level = 9;
+      int level = 5;
       // Define the lot size
-      const batchSize = 100;
+      const batchSize = 200;
       List<Uint8List> batch = [];
       // Create a counter for decoded images
       int decodedImagesCount = 0;
       // Get the total number of pages
       int totalPages = await Printing.raster(bytes).length;
-
-      await for (var page in Printing.raster(bytes)) {
+      double quality = context.read<SettingsCubit>().state.pdfQuality;
+      double dpi = PdfPageFormat.inch * quality;
+      await for (var page in Printing.raster(
+        bytes,
+        dpi: dpi,
+      )) {
         try {
           decodedImagesCount++;
           await Future.delayed(const Duration(milliseconds: 100));
@@ -411,7 +415,6 @@ class ImportService {
           List<int> compressedPng = img.encodePng(image!, level: level);
           // Add the compressed image to the current batch
           batch.add(Uint8List.fromList(compressedPng));
-          // elements.add(Uint8List.fromList(compressedPng));
           // If the lot has reached the lot size, process the lot and empty the lot
           if (batch.length == batchSize) {
             elements.addAll(batch);
@@ -432,7 +435,6 @@ class ImportService {
       }
       if (context.mounted) {
         List<int> pages = List.generate(elements.length, (index) => index);
-        double quality = context.read<SettingsCubit>().state.pdfQuality;
         bool spreadToPages = false,
             createAreas = false,
             background = true,
@@ -456,30 +458,29 @@ class ImportService {
         var y = firstPos.dy;
         var current = 0;
 
-        await for (final page in Printing.raster(bytes,
-            pages: pages, dpi: PdfPageFormat.inch * quality)) {
+        for (var i = 0; i < elements.length; i++) {
+          var modifiedPng = elements[i];
           try {
             await Future.delayed(const Duration(milliseconds: 1));
             dialog?.setProgress(current / pages.length);
             current++;
-            var image = page.asImage();
-            // Add white background to the image if channels is 4
-            final cmd = img.Command()..image(image);
+            var image = img.decodePng(modifiedPng);
+            final cmd = img.Command()..image(image!);
             if (background) cmd.filter(updateImageBackground());
             if (invert) cmd.invert();
             cmd.encodePng();
             final png = await cmd.getBytes();
             if (png == null) continue;
-            final scale = 1 / quality;
-            final height = page.height;
-            final width = page.width;
+            const scale = 1.0;
+            final height = image.height;
+            final width = image.width;
             final dataPath = Uri.dataFromBytes(png).toString();
             final element = ImageElement(
                 height: height.toDouble(),
                 width: width.toDouble(),
                 source: dataPath,
-                constraints:
-                    ElementConstraints.scaled(scaleX: scale, scaleY: scale),
+                constraints: const ElementConstraints.scaled(
+                    scaleX: scale, scaleY: scale),
                 position: Point(firstPos.dx, y));
             final area = Area(
               height: height * scale,
