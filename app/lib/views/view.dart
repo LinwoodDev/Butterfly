@@ -11,7 +11,6 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter/foundation.dart' as foundation;
 
 import '../api/intent.dart';
 import '../services/import.dart';
@@ -351,10 +350,9 @@ class _MainViewViewportState extends State<MainViewViewport>
                             },
                             onPointerMove: (PointerMoveEvent event) async {
                               RenderObject? box = context.findRenderObject();
-                              //!
                               if (!box!.paintBounds
                                       .contains(event.localPosition) &&
-                                  foundation.kIsWeb) {
+                                  kIsWeb) {
                                 return;
                               }
                               cubit.updateLastPosition(event.localPosition);
@@ -427,9 +425,6 @@ class _MainViewViewportState extends State<MainViewViewport>
       child: BlocBuilder<TransformCubit, CameraTransform>(
         builder: (context, transform) => MouseRegion(
           cursor: currentIndex.currentCursor,
-          onExit: kIsWeb
-              ? (event) => cubit.resetInput(context.read<DocumentBloc>())
-              : null,
           child: AnimatedBuilder(
             animation: _animationController,
             builder: (context, child) {
