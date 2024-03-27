@@ -70,6 +70,7 @@ class CurrentIndex with _$CurrentIndex {
     Map<Renderer, RendererState>? temporaryRendererStates,
     @Default(ViewOption()) ViewOption viewOption,
     @Default(HideState.visible) HideState hideUi,
+    bool? autoCreateAreas,
   }) = _CurrentIndex;
 
   bool get moveEnabled =>
@@ -939,4 +940,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     if (!state.settingsCubit.state.hasFlag('smoothNavigation')) return;
     state.transformCubit.slide(positionVelocity, scaleVelocity);
   }
+
+  void setAutoCreateAreas(bool? value) =>
+      emit(state.copyWith(autoCreateAreas: value));
 }

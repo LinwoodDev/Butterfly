@@ -19,7 +19,8 @@ class AreasView extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<CurrentIndexCubit, CurrentIndex>(
         buildWhen: (previous, current) =>
-            previous.cameraViewport != current.cameraViewport,
+            previous.cameraViewport != current.cameraViewport ||
+            previous.autoCreateAreas != current.autoCreateAreas,
         builder: (context, currentIndex) {
           final viewport = currentIndex.cameraViewport;
           final viewportRect = viewport.toRect();
@@ -32,6 +33,7 @@ class AreasView extends StatelessWidget {
                   return const SizedBox.shrink();
                 }
                 return Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     Padding(
                       padding: const EdgeInsets.all(8.0),
@@ -60,77 +62,151 @@ class AreasView extends StatelessWidget {
                     ],
                     const Divider(),
                     Expanded(
-                      child: ListenableBuilder(
-                          listenable: _searchController,
-                          builder: (context, child) {
-                            final areas = state.page.areas
-                                .where((area) => area.name
-                                    .toLowerCase()
-                                    .contains(
-                                        _searchController.text.toLowerCase()))
-                                .toList();
-                            return ReorderableListView.builder(
-                                itemCount: areas.length,
-                                onReorder: (oldIndex, newIndex) => context
-                                    .read<DocumentBloc>()
-                                    .add(AreaReordered(
-                                        areas[oldIndex].name, newIndex)),
-                                itemBuilder: (BuildContext context, int index) {
-                                  final area = areas[index];
-                                  return EditableListTile(
-                                    initialValue: area.name,
-                                    key: ValueKey(area.name),
-                                    onTap: () {
-                                      final screen = context
-                                          .read<CurrentIndexCubit>()
-                                          .state
-                                          .cameraViewport
-                                          .toSize();
-                                      context
-                                          .read<TransformCubit>()
-                                          .teleportToArea(area, screen);
-                                      context.read<DocumentBloc>().bake();
-                                    },
-                                    onSaved: (value) => context
-                                        .read<DocumentBloc>()
-                                        .add(AreaChanged(area.name,
-                                            area.copyWith(name: value))),
-                                    selected: state.currentArea == null
-                                        ? area.rect.overlaps(viewportRect)
-                                        : state.currentArea?.name == area.name,
-                                    actions: [
-                                      MenuItemButton(
-                                        leadingIcon: const PhosphorIcon(
-                                            PhosphorIconsLight.signIn),
-                                        onPressed: () {
-                                          context.read<DocumentBloc>().add(
-                                              CurrentAreaChanged(area.name));
-                                        },
-                                        child: Text(AppLocalizations.of(context)
-                                            .enterArea),
-                                      ),
-                                      MenuItemButton(
-                                        leadingIcon: const PhosphorIcon(
-                                            PhosphorIconsLight.trash),
-                                        onPressed: () async {
-                                          final result = await showDialog<bool>(
-                                              context: context,
-                                              builder: (context) =>
-                                                  const DeleteDialog());
-                                          if (result != true) return;
-                                          if (context.mounted) {
-                                            context
-                                                .read<DocumentBloc>()
-                                                .add(AreasRemoved([area.name]));
-                                          }
-                                        },
-                                        child: Text(AppLocalizations.of(context)
-                                            .delete),
-                                      )
-                                    ],
-                                  );
-                                });
-                          }),
+                      child: Material(
+                        type: MaterialType.transparency,
+                        child: ListenableBuilder(
+                            listenable: _searchController,
+                            builder: (context, child) {
+                              final areas = state.page.areas
+                                  .where((area) => area.name
+                                      .toLowerCase()
+                                      .contains(
+                                          _searchController.text.toLowerCase()))
+                                  .toList();
+                              return ReorderableListView.builder(
+                                  itemCount: areas.length,
+                                  onReorder: (oldIndex, newIndex) => context
+                                      .read<DocumentBloc>()
+                                      .add(AreaReordered(
+                                          areas[oldIndex].name, newIndex)),
+                                  itemBuilder:
+                                      (BuildContext context, int index) {
+                                    final area = areas[index];
+                                    return EditableListTile(
+                                      initialValue: area.name,
+                                      key: ValueKey(area.name),
+                                      onTap: () {
+                                        final screen = context
+                                            .read<CurrentIndexCubit>()
+                                            .state
+                                            .cameraViewport
+                                            .toSize();
+                                        context
+                                            .read<TransformCubit>()
+                                            .teleportToArea(area, screen);
+                                        context.read<DocumentBloc>().bake();
+                                      },
+                                      onSaved: (value) => context
+                                          .read<DocumentBloc>()
+                                          .add(AreaChanged(area.name,
+                                              area.copyWith(name: value))),
+                                      selected: state.currentArea == null
+                                          ? area.rect.overlaps(viewportRect)
+                                          : state.currentArea?.name ==
+                                              area.name,
+                                      actions: [
+                                        MenuItemButton(
+                                          leadingIcon: const PhosphorIcon(
+                                              PhosphorIconsLight.signIn),
+                                          onPressed: () {
+                                            context.read<DocumentBloc>().add(
+                                                CurrentAreaChanged(area.name));
+                                          },
+                                          child: Text(
+                                              AppLocalizations.of(context)
+                                                  .enterArea),
+                                        ),
+                                        MenuItemButton(
+                                          leadingIcon: const PhosphorIcon(
+                                              PhosphorIconsLight.trash),
+                                          onPressed: () async {
+                                            final result =
+                                                await showDialog<bool>(
+                                                    context: context,
+                                                    builder: (context) =>
+                                                        const DeleteDialog());
+                                            if (result != true) return;
+                                            if (context.mounted) {
+                                              context.read<DocumentBloc>().add(
+                                                  AreasRemoved([area.name]));
+                                            }
+                                          },
+                                          child: Text(
+                                              AppLocalizations.of(context)
+                                                  .delete),
+                                        )
+                                      ],
+                                    );
+                                  });
+                            }),
+                      ),
+                    ),
+                    BottomAppBar(
+                      height: 120,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          CheckboxListTile(
+                            value: currentIndex.autoCreateAreas,
+                            onChanged: (value) => context
+                                .read<CurrentIndexCubit>()
+                                .setAutoCreateAreas(value),
+                            tristate: true,
+                            secondary: const PhosphorIcon(
+                                PhosphorIconsLight.plusCircle),
+                            title:
+                                Text(AppLocalizations.of(context).createAreas),
+                          ),
+                          Row(
+                            children: [
+                              Expanded(
+                                child: Row(
+                                  children: [
+                                    const PhosphorIcon(
+                                        PhosphorIconsLight.arrowsOutCardinal),
+                                    const SizedBox(width: 8),
+                                    Text(AppLocalizations.of(context).move),
+                                  ],
+                                ),
+                              ),
+                              Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  IconButton.filledTonal(
+                                    icon: const PhosphorIcon(
+                                        PhosphorIconsLight.arrowLeft),
+                                    tooltip: AppLocalizations.of(context).left,
+                                    onPressed: () {},
+                                  ),
+                                  const SizedBox(width: 8),
+                                  IconButton.filledTonal(
+                                    icon: const PhosphorIcon(
+                                        PhosphorIconsLight.arrowUp),
+                                    tooltip: AppLocalizations.of(context).top,
+                                    onPressed: () {},
+                                  ),
+                                  const SizedBox(width: 8),
+                                  IconButton.filledTonal(
+                                    icon: const PhosphorIcon(
+                                        PhosphorIconsLight.arrowDown),
+                                    tooltip:
+                                        AppLocalizations.of(context).bottom,
+                                    onPressed: () {},
+                                  ),
+                                  const SizedBox(width: 8),
+                                  IconButton.filledTonal(
+                                    icon: const PhosphorIcon(
+                                        PhosphorIconsLight.arrowRight),
+                                    tooltip: AppLocalizations.of(context).right,
+                                    onPressed: () {},
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
                     ),
                   ],
                 );
