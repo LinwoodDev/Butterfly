@@ -54,6 +54,19 @@ class MarkdownRenderer extends GenericTextRenderer<MarkdownElement> {
     ];
   }
 
+  text.TextParagraph _convertToParagraphLive(
+      Iterable<md.Node> node, text.TextStyleSheet? styleSheet) {
+    final style = styleSheet?.getParagraphProperty('p');
+    return text.TextParagraph.text(
+      textSpans: node
+          .expandIndexed(
+            (i, e) => _convertToSpan(e, styleSheet),
+          )
+          .toList(growable: false),
+      property: style ?? const text.ParagraphProperty.undefined(),
+    );
+  }
+
   text.TextParagraph _convertToParagraph(
       Iterable<md.Node> node, text.TextStyleSheet? styleSheet) {
     final style = styleSheet?.getParagraphProperty('p');
@@ -92,6 +105,10 @@ class MarkdownRenderer extends GenericTextRenderer<MarkdownElement> {
   text.TextParagraph getParagraph(NoteData document) {
     final parsed = _parse();
     final styleSheet = element.styleSheet.resolveStyle(document);
-    return _convertToParagraph(parsed, styleSheet);
+    if (context?.tool.liveMode == true) {
+      return _convertToParagraphLive(parsed, styleSheet);
+    } else {
+      return _convertToParagraph(parsed, styleSheet);
+    }
   }
 }

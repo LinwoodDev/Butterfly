@@ -16,6 +16,16 @@ class LabelToolSelection extends ToolSelection<LabelTool> {
             selected.map((e) => e.copyWith(foreground: value.value)).toList()),
         title: Text(AppLocalizations.of(context).foreground),
       ),
+      CheckboxListTile(
+        title: Text(AppLocalizations.of(context).dynamicContent),
+        value: selected.first.liveMode,
+        onChanged: (bool? newValue) {
+          update(
+            context,
+            selected.map((e) => e.copyWith(liveMode: newValue!)).toList(),
+          );
+        },
+      ),
       ExactSlider(
         header: Text(AppLocalizations.of(context).alpha),
         value: Color(selected.first.foreground).alpha.toDouble(),
