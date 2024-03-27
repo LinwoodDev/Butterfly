@@ -6,9 +6,8 @@ class EraserHandler extends Handler<EraserTool> {
   EraserHandler(super.data);
 // Called when the user presses the pointer (e.g., a finger or the mouse) on the screen. It starts the erasing action.
   @override
-  Future<void> onPointerDown(
-      PointerDownEvent event, EventContext context) async {
-    _changeElement(event.localPosition, context);
+  Future<void> onPointerDown(PointerDownEvent event, EventContext context) {
+    return _changeElement(event.localPosition, context);
   }
 
 // Creates the cursors for the eraser. It shows an eraser cursor when the user is erasing.
@@ -84,8 +83,8 @@ class EraserHandler extends Handler<EraserTool> {
 
 // Called when the user releases the pointer. It completes the erasing action.
   @override
-  void onPointerUp(PointerUpEvent event, EventContext context) {
-    _changeElement(event.localPosition, context);
+  Future<void> onPointerUp(PointerUpEvent event, EventContext context) {
+    return _changeElement(event.localPosition, context);
   }
 
 // Returns the mouse cursor to be used when the user interacts with the eraser tool.

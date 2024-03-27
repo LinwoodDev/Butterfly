@@ -82,12 +82,12 @@ module.exports = {
               href: "https://go.linwood.dev/butterfly/crowdin",
             },
             {
-              label: "Twitter",
-              href: "https://twitter.com/LinwoodDev",
-            },
-            {
               label: "Mastodon",
               href: "https://floss.social/@linwood",
+            },
+            {
+              label: "Bluesky",
+              href: "https://bsky.app/profile/LinwoodDev",
             },
             {
               label: "License",
@@ -129,12 +129,12 @@ module.exports = {
               href: "https://linwood.dev/matrix",
             },
             {
-              label: "Twitter",
-              href: "https://twitter.com/LinwoodDev",
-            },
-            {
               label: "Mastodon",
               href: "https://floss.social/@linwood",
+            },
+            {
+              label: "Bluesky",
+              href: "https://bsky.app/profile/linwood.dev",
             },
             {
               html: `

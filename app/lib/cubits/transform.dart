@@ -10,7 +10,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 const kMinZoom = 0.1;
 const kMaxZoom = 10.0;
 const kRoundPrecision = 3;
-const kFriction = 0.135;
+const kDrag = 0.0625;
 
 @immutable
 class FrictionState extends Equatable {
@@ -68,7 +68,7 @@ class CameraTransform extends Equatable {
       log(effectivelyMotionless / velocity) / log(drag / 100);
 
   FrictionSimulation _getSimulation(double velocity) => FrictionSimulation(
-        kFriction,
+        kDrag,
         0,
         velocity,
       );
@@ -79,14 +79,14 @@ class CameraTransform extends Equatable {
     final finalY = simY.finalX;
     final durationPosition = _getFinalTime(
       velocityPosition.distance,
-      kFriction,
+      kDrag,
     );
     final finalPos = Offset(finalX, finalY);
     final simScale = _getSimulation(velocitySize);
     final finalSize = simScale.finalX;
     final durationSize = _getFinalTime(
       velocitySize,
-      kFriction,
+      kDrag,
     );
     final duration = max(durationPosition, durationSize);
     if (!duration.isFinite) {

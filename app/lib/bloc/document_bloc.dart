@@ -197,7 +197,8 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
         if (updated != null) {
           renderer.dispose();
           final updatedRenderers = <Renderer<PadElement>>[];
-          for (final element in updated) {
+          for (var element in updated) {
+            element = element.copyWith(id: createUniqueId());
             final newRenderer = Renderer.fromInstance(element);
             renderers.add(newRenderer);
             updatedRenderers.add(newRenderer);

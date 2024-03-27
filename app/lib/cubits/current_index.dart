@@ -38,8 +38,6 @@ enum HideState { visible, keyboard, touch }
 
 enum RendererState { visible, temporary, hidden }
 
-const kFriction = 0.135;
-
 @Freezed(equal: false)
 class CurrentIndex with _$CurrentIndex {
   const CurrentIndex._();
