@@ -76,7 +76,6 @@ class EraserHandler extends Handler<EraserTool> {
     }
     if (modified.isNotEmpty) {
       context.getDocumentBloc().add(ElementsChanged(modified));
-      await context.getDocumentBloc().stream.first;
     }
     _currentlyErasing = false;
   }

@@ -901,9 +901,12 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
       await renderer.setup(current.data, current.assetService, current.page);
     }
 
-    if (addedElements == null) {
-      current.currentIndexCubit
-          .unbake(unbakedElements: replacedElements, backgrounds: backgrounds);
+    if (addedElements == null ||
+        replacedElements != null ||
+        backgrounds != null) {
+      current.currentIndexCubit.unbake(
+          unbakedElements: [...?replacedElements, ...?addedElements],
+          backgrounds: backgrounds);
       if (backgrounds != null) {
         unbake(backgrounds: backgrounds);
       }
