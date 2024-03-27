@@ -349,6 +349,12 @@ class _MainViewViewportState extends State<MainViewViewport>
                                   .onPointerHover(event, getEventContext());
                             },
                             onPointerMove: (PointerMoveEvent event) async {
+                              RenderObject? box = context.findRenderObject();
+                              if (!box!.paintBounds
+                                      .contains(event.localPosition) &&
+                                  kIsWeb) {
+                                return;
+                              }
                               cubit.updateLastPosition(event.localPosition);
                               if (cubit.state.moveEnabled &&
                                   event.kind != PointerDeviceKind.stylus) {
@@ -419,9 +425,6 @@ class _MainViewViewportState extends State<MainViewViewport>
       child: BlocBuilder<TransformCubit, CameraTransform>(
         builder: (context, transform) => MouseRegion(
           cursor: currentIndex.currentCursor,
-          onExit: kIsWeb
-              ? (event) => cubit.resetInput(context.read<DocumentBloc>())
-              : null,
           child: AnimatedBuilder(
             animation: _animationController,
             builder: (context, child) {
