@@ -596,5 +596,6 @@
   "toolbarSize": "Размер панели инструментов",
   "addAll": "Добавить все",
   "onlyCurrentPage": "Только текущая страница",
-  "smoothNavigation": "Гладкая навигация"
+  "smoothNavigation": "Гладкая навигация",
+  "exact": "Exact"
 }
