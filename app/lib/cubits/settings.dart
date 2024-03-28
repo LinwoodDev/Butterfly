@@ -307,12 +307,14 @@ enum SortOrder { ascending, descending }
 enum BannerVisibility { always, never, onlyOnUpdates }
 
 enum ToolbarPosition {
+  inline,
   top,
   bottom,
   left,
   right;
 
   String getLocalizedName(BuildContext context) => switch (this) {
+        ToolbarPosition.inline => AppLocalizations.of(context).inline,
         ToolbarPosition.top => AppLocalizations.of(context).top,
         ToolbarPosition.bottom => AppLocalizations.of(context).bottom,
         ToolbarPosition.left => AppLocalizations.of(context).left,
@@ -322,13 +324,14 @@ enum ToolbarPosition {
   Alignment get alignment => switch (this) {
         ToolbarPosition.left => Alignment.centerLeft,
         ToolbarPosition.right => Alignment.centerRight,
-        ToolbarPosition.top => Alignment.topCenter,
+        ToolbarPosition.top || ToolbarPosition.inline => Alignment.topCenter,
         ToolbarPosition.bottom => Alignment.bottomCenter,
       };
 
   Axis get axis => switch (this) {
         ToolbarPosition.left => Axis.vertical,
         ToolbarPosition.right => Axis.vertical,
+        ToolbarPosition.inline => Axis.horizontal,
         ToolbarPosition.top => Axis.horizontal,
         ToolbarPosition.bottom => Axis.horizontal,
       };
@@ -380,7 +383,7 @@ class ButterflySettings with _$ButterflySettings {
     @Default([]) List<String> starred,
     @Default('') String defaultTemplate,
     @Default(NavigatorPage.waypoints) NavigatorPage navigatorPage,
-    @Default(ToolbarPosition.top) ToolbarPosition toolbarPosition,
+    @Default(ToolbarPosition.inline) ToolbarPosition toolbarPosition,
     @Default(ToolbarSize.normal) ToolbarSize toolbarSize,
     @Default(SortBy.name) SortBy sortBy,
     @Default(SortOrder.ascending) SortOrder sortOrder,
@@ -393,6 +396,7 @@ class ButterflySettings with _$ButterflySettings {
     @Default(false) bool highContrast,
     @Default(false) bool gridView,
     @Default(true) bool autosave,
+    @Default(1) int toolbarColumns,
   }) = _ButterflySettings;
 
   factory ButterflySettings.fromPrefs(
@@ -452,7 +456,7 @@ class ButterflySettings with _$ButterflySettings {
       defaultTemplate: prefs.getString('default_template') ?? '',
       toolbarPosition: prefs.containsKey('toolbar_position')
           ? ToolbarPosition.values.byName(prefs.getString('toolbar_position')!)
-          : ToolbarPosition.top,
+          : ToolbarPosition.inline,
       navigationRail: prefs.getBool('navigation_rail') ?? true,
       sortBy: prefs.containsKey('sort_by')
           ? SortBy.values.byName(prefs.getString('sort_by')!)
@@ -472,6 +476,10 @@ class ButterflySettings with _$ButterflySettings {
       highContrast: prefs.getBool('high_contrast') ?? false,
       gridView: prefs.getBool('grid_view') ?? false,
       autosave: prefs.getBool('autosave') ?? true,
+      toolbarSize: prefs.containsKey('toolbar_size')
+          ? ToolbarSize.values.byName(prefs.getString('toolbar_size')!)
+          : ToolbarSize.normal,
+      toolbarColumns: prefs.getInt('toolbar_columns') ?? 1,
     );
   }
 
@@ -533,6 +541,8 @@ class ButterflySettings with _$ButterflySettings {
     await prefs.setBool('high_contrast', highContrast);
     await prefs.setBool('grid_view', gridView);
     await prefs.setBool('autosave', autosave);
+    await prefs.setString('toolbar_size', toolbarSize.name);
+    await prefs.setInt('toolbar_columns', toolbarColumns);
   }
 
   ExternalStorage? getRemote(String? identifier) {
@@ -1041,4 +1051,11 @@ class SettingsCubit extends Cubit<ButterflySettings> {
   }
 
   Future<void> resetAutosave() => changeAutosave(true);
+
+  Future<void> changeToolbarColumns(int value) {
+    emit(state.copyWith(toolbarColumns: value));
+    return save();
+  }
+
+  Future<void> resetToolbarColumns() => changeToolbarColumns(1);
 }

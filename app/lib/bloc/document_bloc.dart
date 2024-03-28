@@ -414,6 +414,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       var tools = List<Tool>.from(current.info.tools);
       var oldIndex = event.oldIndex;
       var newIndex = event.newIndex;
+      if (oldIndex >= tools.length || newIndex > tools.length) return;
       if (oldIndex < newIndex) {
         newIndex -= 1;
       }

@@ -11,6 +11,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
+import 'package:reorderable_grid/reorderable_grid.dart';
 
 import '../cubits/settings.dart';
 import '../handlers/handler.dart';
@@ -68,13 +69,17 @@ class _EditToolbarState extends State<EditToolbar> {
           buildWhen: (previous, current) =>
               previous.inputConfiguration != current.inputConfiguration ||
               previous.fullScreen != current.fullScreen ||
-              previous.toolbarSize != current.toolbarSize,
+              previous.toolbarSize != current.toolbarSize ||
+              previous.toolbarColumns != current.toolbarColumns,
           builder: (context, settings) {
             final shortcuts = settings.inputConfiguration.getShortcuts();
             final size = settings.toolbarSize.size;
+            final fullSize = (size + 4) * settings.toolbarColumns;
             return SizedBox(
-                height: widget.direction == Axis.horizontal ? size : null,
-                width: widget.direction == Axis.horizontal ? null : (size + 20),
+                height: widget.direction == Axis.horizontal ? fullSize : null,
+                width: widget.direction == Axis.horizontal
+                    ? null
+                    : (fullSize + 20),
                 child: BlocBuilder<DocumentBloc, DocumentState>(
                     buildWhen: (previous, current) =>
                         previous is! DocumentLoadSuccess ||
@@ -157,7 +162,6 @@ class _EditToolbarState extends State<EditToolbar> {
       }
     }
     tooltip ??= '';
-    int lastReorderable = 0;
     return ListView(
         controller: _scrollController,
         scrollDirection: widget.direction,
@@ -190,19 +194,17 @@ class _EditToolbarState extends State<EditToolbar> {
               ),
               const VerticalDivider(),
             ],
-            ReorderableListView.builder(
+            ReorderableGridView.count(
               shrinkWrap: true,
-              buildDefaultDragHandles: false,
               scrollDirection: widget.direction,
               physics: const NeverScrollableScrollPhysics(),
-              itemCount: tools.length + 1,
-              itemBuilder: (context, i) {
-                if (tools.length <= i) {
-                  final add = Padding(
-                    padding: widget.direction == Axis.horizontal
-                        ? const EdgeInsets.all(8)
-                        : const EdgeInsets.all(16),
-                    child: AspectRatio(
+              crossAxisCount: settings.toolbarColumns,
+              childAspectRatio: 1,
+              children: List.generate(
+                tools.length + 1,
+                (i) {
+                  if (tools.length <= i) {
+                    final add = AspectRatio(
                       aspectRatio: 1,
                       child: FloatingActionButton.small(
                         tooltip: AppLocalizations.of(context).add,
@@ -230,104 +232,103 @@ class _EditToolbarState extends State<EditToolbar> {
                           size: size / 3,
                         ),
                       ),
-                    ),
-                  );
+                    );
 
-                  if (widget.direction == Axis.horizontal) {
-                    return Row(
-                      mainAxisSize: MainAxisSize.min,
-                      key: const Key('add-horizontal'),
-                      children: [
-                        const VerticalDivider(),
-                        add,
-                      ],
-                    );
-                  } else {
-                    return Column(
-                      mainAxisSize: MainAxisSize.min,
-                      key: const Key('add-vertical'),
-                      children: [
-                        const Divider(),
-                        add,
-                      ],
-                    );
+                    if (widget.direction == Axis.horizontal) {
+                      return Row(
+                        mainAxisSize: MainAxisSize.min,
+                        key: const Key('add-horizontal'),
+                        children: [
+                          const VerticalDivider(),
+                          Expanded(child: add),
+                        ],
+                      );
+                    } else {
+                      return Column(
+                        mainAxisSize: MainAxisSize.min,
+                        key: const Key('add-vertical'),
+                        children: [
+                          const Divider(),
+                          Expanded(child: add),
+                        ],
+                      );
+                    }
                   }
-                }
-                var e = tools[i];
-                final selected = i == currentIndex.index;
-                final highlighted = currentIndex.selection?.selected
-                        .any((element) => element.hashCode == e.hashCode) ??
-                    false;
-                String tooltip = e.name.trim();
-                if (tooltip.isEmpty) {
-                  tooltip = e.getLocalizedName(context);
-                }
+                  var e = tools[i];
+                  final selected = i == currentIndex.index;
+                  final highlighted = currentIndex.selection?.selected
+                          .any((element) => element.hashCode == e.hashCode) ??
+                      false;
+                  String tooltip = e.name.trim();
+                  if (tooltip.isEmpty) {
+                    tooltip = e.getLocalizedName(context);
+                  }
 
-                final bloc = context.read<DocumentBloc>();
+                  final bloc = context.read<DocumentBloc>();
 
-                final handler = Handler.fromTool(e);
+                  final handler = Handler.fromTool(e);
 
-                final color = handler.getStatus(context.read<DocumentBloc>()) ==
-                        ToolStatus.disabled
-                    ? Theme.of(context).disabledColor
-                    : null;
-                var icon = handler.getIcon(bloc) ??
-                    e.icon(selected
-                        ? PhosphorIconsStyle.fill
-                        : PhosphorIconsStyle.light);
-                final toolWidget = Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 4.0),
-                    child: OptionButton(
-                        tooltip: tooltip,
-                        onLongPressed: selected || highlighted
-                            ? null
-                            : () => context
-                                .read<CurrentIndexCubit>()
-                                .insertSelection(e, true),
-                        onSecondaryPressed: () => context
-                            .read<CurrentIndexCubit>()
-                            .changeSelection(e),
-                        focussed: shortcuts.contains(i),
-                        selected: selected,
-                        highlighted: highlighted,
-                        selectedIcon:
-                            _buildIcon(icon, e.isAction(), size, color),
-                        icon: _buildIcon(icon, e.isAction(), size, color),
-                        onPressed: () {
-                          if (_mouseState == _MouseState.multi) {
-                            context
-                                .read<CurrentIndexCubit>()
-                                .insertSelection(e, true);
-                          } else if (!selected || temp != null) {
-                            context.read<CurrentIndexCubit>().resetSelection();
-                            context.read<CurrentIndexCubit>().changeTool(
-                                  context.read<DocumentBloc>(),
-                                  index: i,
-                                  handler: handler,
-                                  context: context,
-                                );
-                          } else {
-                            context
-                                .read<CurrentIndexCubit>()
-                                .changeSelection(e, true);
-                          }
-                        }));
-                return ReorderableDelayedDragStartListener(
-                  index: i,
-                  key: ObjectKey(i),
-                  enabled: selected || highlighted,
-                  child: toolWidget,
-                );
-              },
-              onReorderStart: (index) => lastReorderable = index,
-              onReorderEnd: (index) {
-                if (lastReorderable != index) return;
-                context
-                    .read<CurrentIndexCubit>()
-                    .insertSelection(tools[index], true);
-              },
+                  final color =
+                      handler.getStatus(context.read<DocumentBloc>()) ==
+                              ToolStatus.disabled
+                          ? Theme.of(context).disabledColor
+                          : null;
+                  var icon = handler.getIcon(bloc) ??
+                      e.icon(selected
+                          ? PhosphorIconsStyle.fill
+                          : PhosphorIconsStyle.light);
+                  final toolWidget = Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 4.0),
+                      child: OptionButton(
+                          tooltip: tooltip,
+                          onLongPressed: selected || highlighted
+                              ? null
+                              : () => context
+                                  .read<CurrentIndexCubit>()
+                                  .insertSelection(e, true),
+                          onSecondaryPressed: () => context
+                              .read<CurrentIndexCubit>()
+                              .changeSelection(e),
+                          focussed: shortcuts.contains(i),
+                          selected: selected,
+                          highlighted: highlighted,
+                          selectedIcon:
+                              _buildIcon(icon, e.isAction(), size, color),
+                          icon: _buildIcon(icon, e.isAction(), size, color),
+                          onPressed: () {
+                            if (_mouseState == _MouseState.multi) {
+                              context
+                                  .read<CurrentIndexCubit>()
+                                  .insertSelection(e, true);
+                            } else if (!selected || temp != null) {
+                              context
+                                  .read<CurrentIndexCubit>()
+                                  .resetSelection();
+                              context.read<CurrentIndexCubit>().changeTool(
+                                    context.read<DocumentBloc>(),
+                                    index: i,
+                                    handler: handler,
+                                    context: context,
+                                  );
+                            } else {
+                              context
+                                  .read<CurrentIndexCubit>()
+                                  .changeSelection(e, true);
+                            }
+                          }));
+                  return ReorderableDelayedDragStartListener(
+                    index: i,
+                    key: ObjectKey(i),
+                    enabled: selected || highlighted,
+                    child: toolWidget,
+                  );
+                },
+              ),
               onReorder: (oldIndex, newIndex) {
                 if (oldIndex == newIndex) {
+                  context
+                      .read<CurrentIndexCubit>()
+                      .insertSelection(tools[newIndex], true);
                   return;
                 }
                 final bloc = context.read<DocumentBloc>();
@@ -335,6 +336,9 @@ class _EditToolbarState extends State<EditToolbar> {
                 if (delete) {
                   bloc.add(ToolsRemoved([oldIndex]));
                   return;
+                }
+                if (oldIndex < newIndex) {
+                  newIndex++;
                 }
                 bloc.add(ToolReordered(oldIndex, newIndex));
               },

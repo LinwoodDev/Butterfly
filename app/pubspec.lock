@@ -1102,6 +1102,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.0.1"
+  reorderable_grid:
+    dependency: "direct main"
+    description:
+      name: reorderable_grid
+      sha256: "0b9cd95ef0f070ef99f92affe9cf85a4aa127099cd1334e5940950ce58cd981d"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.10"
   replay_bloc:
     dependency: "direct main"
     description:

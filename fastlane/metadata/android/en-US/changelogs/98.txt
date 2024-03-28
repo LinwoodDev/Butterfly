@@ -1,7 +1,12 @@
+* Add auto create areas functionality in areas navigator page
+* Add top toolbar setting that isn't integrated with the appbar
+* Add option to have multiple toolbar columns
+* Add multi columns for toolbar ([#589](https://github.com/LinwoodDev/Butterfly/issues/589))
 * Improve friction
 * Readd drawing outside of window ([#521](https://github.com/LinwoodDev/Butterfly/pull/521))
 * Fix baking when animating smooth navigation
 * Fix eraser
 * Fix crash and size when loading pdf or big butterfly files ([#645](https://github.com/LinwoodDev/Butterfly/pull/645))
+* Fix toolbar size setting saving
 
 Read more here: https://linwood.dev/butterfly/2.1.0-beta.4

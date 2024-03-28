@@ -597,5 +597,7 @@
   "addAll": "Add all",
   "onlyCurrentPage": "Only current page",
   "smoothNavigation": "Smooth navigation",
-  "exact": "Exact"
+  "exact": "Exact",
+  "inline": "Inline",
+  "toolbarColumns": "Toolbar columns"
 }
