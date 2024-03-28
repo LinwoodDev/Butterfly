@@ -596,5 +596,6 @@
   "toolbarSize": "Værktøjslinjens størrelse",
   "addAll": "Tilføj alle",
   "onlyCurrentPage": "Kun nuværende side",
-  "smoothNavigation": "Glat navigation"
+  "smoothNavigation": "Glat navigation",
+  "exact": "Exact"
 }
