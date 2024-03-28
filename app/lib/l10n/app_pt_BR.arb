@@ -597,9 +597,9 @@
   "addAll": "Adicionar tudo",
   "onlyCurrentPage": "Somente a página atual",
   "smoothNavigation": "Navegação suave",
-  "exact": "Exact",
-  "inline": "Inline",
-  "toolbarColumns": "Toolbar columns",
-  "pointerTest": "Pointer test",
-  "pressure": "Pressure"
+  "exact": "Exato",
+  "inline": "Embutido",
+  "toolbarColumns": "Colunas da barra",
+  "pointerTest": "Teste de ponteiro",
+  "pressure": "Pressão"
 }
