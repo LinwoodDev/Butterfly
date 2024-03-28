@@ -1,10 +1,13 @@
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/cubits/current_index.dart';
+import 'package:butterfly/helpers/page.dart';
 import 'package:butterfly/helpers/rect.dart';
 import 'package:butterfly_api/butterfly_api.dart';
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import '../../cubits/transform.dart';
@@ -32,6 +35,53 @@ class AreasView extends StatelessWidget {
                 if (state is! DocumentLoadSuccess) {
                   return const SizedBox.shrink();
                 }
+                final current = state.currentArea;
+                Rect? getRect(int dx, int dy) {
+                  if (current == null) return null;
+                  return Rect.fromLTWH(
+                    current.position.x + dx.toDouble() * current.width,
+                    current.position.y + dy.toDouble() * current.height,
+                    current.width,
+                    current.height,
+                  );
+                }
+
+                Area? overlap(Rect? rect, bool exact) {
+                  if (rect == null) return null;
+                  return state.page.areas.firstWhereOrNull((area) =>
+                      exact ? area.rect == rect : area.rect.overlaps(rect));
+                }
+
+                bool enableButton(int dx, int dy) =>
+                    currentIndex.autoCreateAreas != false ||
+                    overlap(getRect(dx, dy), false) != null;
+
+                final enableLeft = enableButton(-1, 0);
+                final enableTop = enableButton(0, -1);
+                final enableBottom = enableButton(0, 1);
+                final enableRight = enableButton(1, 0);
+
+                void move(int dx, int dy) {
+                  final rect = getRect(dx, dy);
+                  if (rect == null) return;
+                  var area =
+                      overlap(rect, currentIndex.autoCreateAreas == true);
+                  if (area != null) {
+                    context
+                        .read<DocumentBloc>()
+                        .add(CurrentAreaChanged(area.name));
+                    return;
+                  }
+                  if (currentIndex.autoCreateAreas == false) return;
+                  final newArea = Area(
+                    position: rect.topLeft.toPoint(),
+                    height: rect.height,
+                    width: rect.width,
+                    name: state.page.createAreaName(context),
+                  );
+                  context.read<DocumentBloc>().add(AreasCreated([newArea]));
+                }
+
                 return Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
@@ -48,7 +98,7 @@ class AreasView extends StatelessWidget {
                         autofocus: true,
                       ),
                     ),
-                    if (state.currentArea != null) ...[
+                    if (current != null) ...[
                       ListTile(
                         leading: const PhosphorIcon(PhosphorIconsLight.signOut),
                         onTap: () {
@@ -57,7 +107,7 @@ class AreasView extends StatelessWidget {
                               .add(const CurrentAreaChanged(''));
                         },
                         title: Text(AppLocalizations.of(context).exitArea),
-                        subtitle: Text(state.currentAreaName),
+                        subtitle: Text(current.name),
                       ),
                     ],
                     const Divider(),
@@ -100,10 +150,9 @@ class AreasView extends StatelessWidget {
                                           .read<DocumentBloc>()
                                           .add(AreaChanged(area.name,
                                               area.copyWith(name: value))),
-                                      selected: state.currentArea == null
+                                      selected: current == null
                                           ? area.rect.overlaps(viewportRect)
-                                          : state.currentArea?.name ==
-                                              area.name,
+                                          : current.name == area.name,
                                       actions: [
                                         MenuItemButton(
                                           leadingIcon: const PhosphorIcon(
@@ -141,73 +190,81 @@ class AreasView extends StatelessWidget {
                             }),
                       ),
                     ),
-                    BottomAppBar(
-                      height: 120,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          CheckboxListTile(
-                            value: currentIndex.autoCreateAreas,
-                            onChanged: (value) => context
-                                .read<CurrentIndexCubit>()
-                                .setAutoCreateAreas(value),
-                            tristate: true,
-                            secondary: const PhosphorIcon(
-                                PhosphorIconsLight.plusCircle),
-                            title:
-                                Text(AppLocalizations.of(context).createAreas),
-                          ),
-                          Row(
-                            children: [
-                              Expanded(
-                                child: Row(
+                    if (current != null)
+                      BottomAppBar(
+                        height: 120,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            CheckboxListTile(
+                              value: currentIndex.autoCreateAreas,
+                              onChanged: (value) => context
+                                  .read<CurrentIndexCubit>()
+                                  .setAutoCreateAreas(value),
+                              tristate: true,
+                              secondary: const PhosphorIcon(
+                                  PhosphorIconsLight.plusCircle),
+                              title: Text(
+                                  AppLocalizations.of(context).createAreas),
+                            ),
+                            Row(
+                              children: [
+                                Expanded(
+                                  child: Row(
+                                    children: [
+                                      const PhosphorIcon(
+                                          PhosphorIconsLight.arrowsOutCardinal),
+                                      const SizedBox(width: 8),
+                                      Text(AppLocalizations.of(context).move),
+                                    ],
+                                  ),
+                                ),
+                                Row(
+                                  mainAxisSize: MainAxisSize.min,
                                   children: [
-                                    const PhosphorIcon(
-                                        PhosphorIconsLight.arrowsOutCardinal),
+                                    IconButton.filledTonal(
+                                      icon: const PhosphorIcon(
+                                          PhosphorIconsLight.arrowLeft),
+                                      tooltip:
+                                          AppLocalizations.of(context).left,
+                                      onPressed:
+                                          enableLeft ? () => move(-1, 0) : null,
+                                    ),
                                     const SizedBox(width: 8),
-                                    Text(AppLocalizations.of(context).move),
+                                    IconButton.filledTonal(
+                                      icon: const PhosphorIcon(
+                                          PhosphorIconsLight.arrowUp),
+                                      tooltip: AppLocalizations.of(context).top,
+                                      onPressed:
+                                          enableTop ? () => move(0, -1) : null,
+                                    ),
+                                    const SizedBox(width: 8),
+                                    IconButton.filledTonal(
+                                      icon: const PhosphorIcon(
+                                          PhosphorIconsLight.arrowDown),
+                                      tooltip:
+                                          AppLocalizations.of(context).bottom,
+                                      onPressed: enableBottom
+                                          ? () => move(0, 1)
+                                          : null,
+                                    ),
+                                    const SizedBox(width: 8),
+                                    IconButton.filledTonal(
+                                      icon: const PhosphorIcon(
+                                          PhosphorIconsLight.arrowRight),
+                                      tooltip:
+                                          AppLocalizations.of(context).right,
+                                      onPressed:
+                                          enableRight ? () => move(1, 0) : null,
+                                    ),
                                   ],
                                 ),
-                              ),
-                              Row(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  IconButton.filledTonal(
-                                    icon: const PhosphorIcon(
-                                        PhosphorIconsLight.arrowLeft),
-                                    tooltip: AppLocalizations.of(context).left,
-                                    onPressed: () {},
-                                  ),
-                                  const SizedBox(width: 8),
-                                  IconButton.filledTonal(
-                                    icon: const PhosphorIcon(
-                                        PhosphorIconsLight.arrowUp),
-                                    tooltip: AppLocalizations.of(context).top,
-                                    onPressed: () {},
-                                  ),
-                                  const SizedBox(width: 8),
-                                  IconButton.filledTonal(
-                                    icon: const PhosphorIcon(
-                                        PhosphorIconsLight.arrowDown),
-                                    tooltip:
-                                        AppLocalizations.of(context).bottom,
-                                    onPressed: () {},
-                                  ),
-                                  const SizedBox(width: 8),
-                                  IconButton.filledTonal(
-                                    icon: const PhosphorIcon(
-                                        PhosphorIconsLight.arrowRight),
-                                    tooltip: AppLocalizations.of(context).right,
-                                    onPressed: () {},
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                        ],
+                              ],
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
                   ],
                 );
               });

@@ -158,8 +158,7 @@ class AreaHandler extends Handler<AreaTool> {
     final state = context.getState();
     if (state == null) return;
     context.refresh();
-    String? name = AppLocalizations.of(context.buildContext)
-        .areaIndex(state.page.areas.length + 1);
+    String? name = state.page.createAreaName(context.buildContext);
     if (data.askForName) {
       name = await showDialog<String>(
           context: context.buildContext,
