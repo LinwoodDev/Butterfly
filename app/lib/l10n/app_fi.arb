@@ -597,9 +597,9 @@
   "addAll": "Lisää kaikki",
   "onlyCurrentPage": "Vain nykyinen sivu",
   "smoothNavigation": "Pehmeä navigointi",
-  "exact": "Exact",
+  "exact": "Tarkka",
   "inline": "Inline",
-  "toolbarColumns": "Toolbar columns",
-  "pointerTest": "Pointer test",
-  "pressure": "Pressure"
+  "toolbarColumns": "Työkalupalkin sarakkeet",
+  "pointerTest": "Osoittimen testi",
+  "pressure": "Paine"
 }
