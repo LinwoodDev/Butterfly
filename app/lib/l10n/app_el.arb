@@ -597,9 +597,9 @@
   "addAll": "Προσθήκη όλων",
   "onlyCurrentPage": "Μόνο η τρέχουσα σελίδα",
   "smoothNavigation": "Ομαλή πλοήγηση",
-  "exact": "Exact",
-  "inline": "Inline",
-  "toolbarColumns": "Toolbar columns",
-  "pointerTest": "Pointer test",
-  "pressure": "Pressure"
+  "exact": "Ακριβής",
+  "inline": "Εμβόλιμο",
+  "toolbarColumns": "Στήλες γραμμής εργαλείων",
+  "pointerTest": "Δοκιμή δείκτη",
+  "pressure": "Πίεση"
 }
