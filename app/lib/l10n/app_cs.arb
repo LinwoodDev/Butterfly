@@ -597,5 +597,9 @@
   "addAll": "Přidat vše",
   "onlyCurrentPage": "Pouze aktuální stránka",
   "smoothNavigation": "Hladká navigace",
-  "exact": "Exact"
+  "exact": "Exact",
+  "inline": "Inline",
+  "toolbarColumns": "Toolbar columns",
+  "pointerTest": "Pointer test",
+  "pressure": "Pressure"
 }
