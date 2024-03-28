@@ -597,9 +597,9 @@
   "addAll": "すべて追加",
   "onlyCurrentPage": "現在のページのみ",
   "smoothNavigation": "スムーズなナビゲーション",
-  "exact": "Exact",
-  "inline": "Inline",
-  "toolbarColumns": "Toolbar columns",
-  "pointerTest": "Pointer test",
-  "pressure": "Pressure"
+  "exact": "正確な",
+  "inline": "インライン",
+  "toolbarColumns": "ツールバーの列",
+  "pointerTest": "ポインタテスト",
+  "pressure": "<unk>"
 }
