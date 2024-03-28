@@ -596,5 +596,6 @@
   "toolbarSize": "Velikost panelu nástrojů",
   "addAll": "Přidat vše",
   "onlyCurrentPage": "Pouze aktuální stránka",
-  "smoothNavigation": "Hladká navigace"
+  "smoothNavigation": "Hladká navigace",
+  "exact": "Exact"
 }
