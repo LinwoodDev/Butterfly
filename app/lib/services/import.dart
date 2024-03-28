@@ -1,9 +1,12 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:io';
 import 'dart:math';
-import 'dart:typed_data';
 import 'dart:ui' as ui;
 import 'package:butterfly/api/image.dart';
+import 'package:butterfly/helpers/asset.dart';
+import 'package:device_info_plus/device_info_plus.dart';
+import 'package:flutter/foundation.dart';
 import 'package:image/image.dart' as img;
 import 'package:butterfly/api/file_system/file_system.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
@@ -17,10 +20,12 @@ import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:lw_sysapi/lw_sysapi.dart';
 import 'package:material_leap/material_leap.dart';
 import 'package:pdf/pdf.dart';
 import 'package:printing/printing.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:super_clipboard/super_clipboard.dart';
 
 import '../api/save.dart';
 import '../cubits/current_index.dart';
@@ -102,6 +107,68 @@ class ImportService {
         AssetFileType.page => importPage(bytes, document, position: position),
         AssetFileType.xopp => importXopp(bytes, document, position: position),
       };
+
+  Future<Uint8List?>? _readFileFromClipboard(
+      DataReader reader, FileFormat format) {
+    final c = Completer<Uint8List?>();
+    final progress = reader.getFile(format, (file) async {
+      try {
+        final all = await file.readAll();
+        c.complete(all);
+      } catch (e) {
+        c.completeError(e);
+      }
+    }, onError: (e) {
+      c.completeError(e);
+    });
+    if (progress == null) {
+      c.complete(null);
+    }
+    return c.future;
+  }
+
+  Future<NoteData?> importClipboard(NoteData document,
+      {Offset? position, bool advanced = true}) async {
+    Uint8List? data;
+    AssetFileType? type;
+    if (kIsWeb ||
+        !Platform.isAndroid ||
+        (await DeviceInfoPlugin().androidInfo).version.sdkInt >= 23) {
+      final clipboard = SystemClipboard.instance;
+      final reader = await clipboard?.read();
+      if (reader == null) return null;
+      final formats = reader.getFormats(
+          AssetFileType.values.expand((e) => e.getClipboardFormats()).toList());
+      final result = AssetFileType.values.map((e) {
+        final format = e
+            .getClipboardFormats()
+            .firstWhereOrNull((element) => formats.contains(element));
+        return format == null ? null : (e, format);
+      }).firstOrNull;
+      if (result == null) return null;
+      if (result.$2 is FileFormat) {
+        data = await _readFileFromClipboard(reader, result.$2 as FileFormat);
+      } else if (result.$2 is ValueFormat<Uint8List>) {
+        data = await reader.readValue(result.$2 as ValueFormat<Uint8List>);
+      }
+      type = result.$1;
+    } else {
+      final clipboard = context.read<ClipboardManager>();
+      final content = clipboard.getContent();
+      data = content?.data;
+      try {
+        type = AssetFileType.values.byName(content?.type ?? '');
+      } catch (e) {
+        showDialog(
+          context: context,
+          builder: (context) =>
+              UnknownImportConfirmationDialog(message: e.toString()),
+        );
+      }
+    }
+    if (data == null || type == null) return null;
+    return import(type, data, document, position: position, advanced: advanced);
+  }
 
   FutureOr<NoteData?> importBfly(Uint8List bytes,
       {NoteData? document, Offset? position, bool advanced = true}) async {

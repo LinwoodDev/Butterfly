@@ -94,6 +94,7 @@ dependencies:
   device_info_plus: ^10.0.1
   image: ^4.1.7
   one_dollar_unistroke_recognizer: ^1.0.0
+  super_clipboard: ^0.8.10
 dev_dependencies:
   flutter_native_splash: ^2.4.0
   #flutter_launcher_icons: ^0.11.0

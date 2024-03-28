@@ -1,9 +1,17 @@
+import 'dart:io';
+
 import 'package:butterfly/api/save_stub.dart'
     if (dart.library.io) 'package:butterfly/api/save_io.dart'
     if (dart.library.js) 'package:butterfly/api/save_html.dart' as save;
+import 'package:butterfly/helpers/asset.dart';
+import 'package:butterfly_api/butterfly_api.dart';
+import 'package:device_info_plus/device_info_plus.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:lw_sysapi/lw_sysapi.dart';
+import 'package:super_clipboard/super_clipboard.dart';
 
 Future<void> exportFile(
   BuildContext context,
@@ -37,4 +45,19 @@ void saveToClipboard(BuildContext context, String text) {
       content: Text(AppLocalizations.of(context).copyTitle),
     ),
   );
+}
+
+Future<void> writeClipboardData(
+    ClipboardManager clipboard, AssetFileType type, Uint8List data) async {
+  if (kIsWeb ||
+      !Platform.isAndroid ||
+      (await DeviceInfoPlugin().androidInfo).version.sdkInt >= 23) {
+    final clipboard = SystemClipboard.instance;
+    final item = DataWriterItem();
+    final format = type.getClipboardFormats().first;
+    item.add(format(data));
+    clipboard?.write([item]);
+  } else {
+    clipboard.setContent((data: data, type: type.name));
+  }
 }
