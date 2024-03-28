@@ -596,5 +596,6 @@
   "toolbarSize": "Tamaño de barra de herramientas",
   "addAll": "Añadir todo",
   "onlyCurrentPage": "Sólo página actual",
-  "smoothNavigation": "Navegación suave"
+  "smoothNavigation": "Navegación suave",
+  "exact": "Exact"
 }
