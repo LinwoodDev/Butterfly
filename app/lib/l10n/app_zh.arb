@@ -597,9 +597,9 @@
   "addAll": "添加全部",
   "onlyCurrentPage": "仅当前页面",
   "smoothNavigation": "平滑导航",
-  "exact": "Exact",
-  "inline": "Inline",
-  "toolbarColumns": "Toolbar columns",
-  "pointerTest": "Pointer test",
-  "pressure": "Pressure"
+  "exact": "精准的",
+  "inline": "内联",
+  "toolbarColumns": "工具栏列",
+  "pointerTest": "指针测试",
+  "pressure": "气压"
 }
