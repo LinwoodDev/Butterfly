@@ -19,7 +19,7 @@ class BehaviorsSettingsPage extends StatelessWidget {
     PointerDeviceKind? kind;
     int? buttons;
     double? pressure;
-    bool pressed = false;
+    Color? pressed;
     return Scaffold(
         backgroundColor: inView ? Colors.transparent : null,
         appBar: WindowTitleBar(
@@ -143,14 +143,14 @@ class BehaviorsSettingsPage extends StatelessWidget {
                   child: Padding(
                     padding: const EdgeInsets.all(32),
                     child: StatefulBuilder(builder: (context, setState) {
-                      void changeInputTest(PointerEvent event) {
-                        setState(() {
-                          kind = event.kind;
-                          buttons = event.buttons;
-                          pressure = event.pressure;
-                          pressed = event is! PointerUpEvent;
-                        });
-                      }
+                      changeInputTest(Color? color) => (PointerEvent event) {
+                            setState(() {
+                              kind = event.kind;
+                              buttons = event.buttons;
+                              pressure = event.pressure;
+                              pressed = color;
+                            });
+                          };
 
                       return Column(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -161,11 +161,12 @@ class BehaviorsSettingsPage extends StatelessWidget {
                           SizedBox(
                             height: 150,
                             child: Listener(
-                              onPointerMove: changeInputTest,
-                              onPointerDown: changeInputTest,
-                              onPointerUp: changeInputTest,
+                              onPointerMove: changeInputTest(Colors.blue),
+                              onPointerDown: changeInputTest(Colors.green),
+                              onPointerUp: changeInputTest(null),
+                              onPointerCancel: changeInputTest(Colors.red),
                               child: Material(
-                                color: pressed ? Colors.green : null,
+                                color: pressed,
                               ),
                             ),
                           ),
