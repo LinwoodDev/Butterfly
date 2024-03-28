@@ -596,5 +596,6 @@
   "toolbarSize": "ツールバーのサイズ",
   "addAll": "すべて追加",
   "onlyCurrentPage": "現在のページのみ",
-  "smoothNavigation": "スムーズなナビゲーション"
+  "smoothNavigation": "スムーズなナビゲーション",
+  "exact": "Exact"
 }
