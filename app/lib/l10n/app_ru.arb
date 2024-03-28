@@ -597,9 +597,9 @@
   "addAll": "Добавить все",
   "onlyCurrentPage": "Только текущая страница",
   "smoothNavigation": "Гладкая навигация",
-  "exact": "Exact",
-  "inline": "Inline",
-  "toolbarColumns": "Toolbar columns",
-  "pointerTest": "Pointer test",
-  "pressure": "Pressure"
+  "exact": "Точно",
+  "inline": "Встроенный",
+  "toolbarColumns": "Столбцы панели инструментов",
+  "pointerTest": "Тест указателя",
+  "pressure": "Давление"
 }
