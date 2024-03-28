@@ -596,5 +596,6 @@
   "toolbarSize": "Storlek på verktygsfält",
   "addAll": "Lägg till alla",
   "onlyCurrentPage": "Endast aktuell sida",
-  "smoothNavigation": "Smidig navigering"
+  "smoothNavigation": "Smidig navigering",
+  "exact": "Exact"
 }
