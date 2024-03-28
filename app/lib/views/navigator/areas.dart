@@ -1,6 +1,6 @@
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/cubits/current_index.dart';
-import 'package:butterfly/helpers/page.dart';
+import 'package:butterfly/handlers/handler.dart';
 import 'package:butterfly/helpers/rect.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:collection/collection.dart';
@@ -23,7 +23,9 @@ class AreasView extends StatelessWidget {
     return BlocBuilder<CurrentIndexCubit, CurrentIndex>(
         buildWhen: (previous, current) =>
             previous.cameraViewport != current.cameraViewport ||
-            previous.autoCreateAreas != current.autoCreateAreas,
+            previous.areaNavigatorCreate != current.areaNavigatorCreate ||
+            previous.areaNavigatorExact != current.areaNavigatorExact ||
+            previous.areaNavigatorAsk != current.areaNavigatorAsk,
         builder: (context, currentIndex) {
           final viewport = currentIndex.cameraViewport;
           final viewportRect = viewport.toRect();
@@ -46,38 +48,42 @@ class AreasView extends StatelessWidget {
                   );
                 }
 
-                Area? overlap(Rect? rect, bool exact) {
+                Area? overlap(Rect? rect) {
                   if (rect == null) return null;
                   return state.page.areas.firstWhereOrNull((area) =>
-                      exact ? area.rect == rect : area.rect.overlaps(rect));
+                      currentIndex.areaNavigatorExact
+                          ? area.rect == rect
+                          : area.rect.overlaps(rect));
                 }
 
                 bool enableButton(int dx, int dy) =>
-                    currentIndex.autoCreateAreas != false ||
-                    overlap(getRect(dx, dy), false) != null;
+                    currentIndex.areaNavigatorCreate ||
+                    overlap(getRect(dx, dy)) != null;
 
                 final enableLeft = enableButton(-1, 0);
                 final enableTop = enableButton(0, -1);
                 final enableBottom = enableButton(0, 1);
                 final enableRight = enableButton(1, 0);
 
-                void move(int dx, int dy) {
+                Future<void> move(int dx, int dy) async {
                   final rect = getRect(dx, dy);
                   if (rect == null) return;
-                  var area =
-                      overlap(rect, currentIndex.autoCreateAreas == true);
+                  var area = overlap(rect);
                   if (area != null) {
                     context
                         .read<DocumentBloc>()
                         .add(CurrentAreaChanged(area.name));
                     return;
                   }
-                  if (currentIndex.autoCreateAreas == false) return;
+                  if (!currentIndex.areaNavigatorCreate) return;
+                  final name = await createAreaName(
+                      context, state.page, currentIndex.areaNavigatorAsk);
+                  if (name == null) return;
                   final newArea = Area(
                     position: rect.topLeft.toPoint(),
                     height: rect.height,
                     width: rect.width,
-                    name: state.page.createAreaName(context),
+                    name: name,
                   );
                   context.read<DocumentBloc>().add(AreasCreated([newArea]));
                 }
@@ -197,16 +203,41 @@ class AreasView extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.stretch,
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            CheckboxListTile(
-                              value: currentIndex.autoCreateAreas,
-                              onChanged: (value) => context
-                                  .read<CurrentIndexCubit>()
-                                  .setAutoCreateAreas(value),
-                              tristate: true,
-                              secondary: const PhosphorIcon(
-                                  PhosphorIconsLight.plusCircle),
-                              title: Text(
-                                  AppLocalizations.of(context).createAreas),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                IconButton(
+                                  isSelected: currentIndex.areaNavigatorCreate,
+                                  onPressed: () => context
+                                      .read<CurrentIndexCubit>()
+                                      .setAreaNavigatorCreate(
+                                          !currentIndex.areaNavigatorCreate),
+                                  icon: const PhosphorIcon(
+                                      PhosphorIconsLight.plusCircle),
+                                  tooltip: AppLocalizations.of(context).create,
+                                ),
+                                IconButton(
+                                  isSelected: currentIndex.areaNavigatorExact,
+                                  onPressed: () => context
+                                      .read<CurrentIndexCubit>()
+                                      .setAreaNavigatorExact(
+                                          !currentIndex.areaNavigatorExact),
+                                  icon: const PhosphorIcon(
+                                      PhosphorIconsLight.square),
+                                  tooltip: AppLocalizations.of(context).exact,
+                                ),
+                                IconButton(
+                                  isSelected: currentIndex.areaNavigatorAsk,
+                                  onPressed: () => context
+                                      .read<CurrentIndexCubit>()
+                                      .setAreaNavigatorAsk(
+                                          !currentIndex.areaNavigatorAsk),
+                                  icon: const PhosphorIcon(
+                                      PhosphorIconsLight.textT),
+                                  tooltip:
+                                      AppLocalizations.of(context).askForName,
+                                ),
+                              ],
                             ),
                             Row(
                               children: [
