@@ -37,13 +37,8 @@ ContextMenuBuilder buildElementsContextMenu(
           ContextMenuItem(
             onPressed: () {
               Navigator.of(context).pop(true);
-              final clipboard = clipboardManager.getContent();
-              if (clipboard == null) return;
               try {
-                importService.import(
-                    AssetFileType.values.byName(clipboard.type),
-                    clipboard.data,
-                    state.data,
+                importService.importClipboard(state.data,
                     position:
                         state.transformCubit.state.localToGlobal(position));
               } catch (_) {}
