@@ -597,5 +597,9 @@
   "addAll": "Adaugă toate",
   "onlyCurrentPage": "Doar pagina curentă",
   "smoothNavigation": "Navigare lină",
-  "exact": "Exact"
+  "exact": "Exact",
+  "inline": "Inline",
+  "toolbarColumns": "Toolbar columns",
+  "pointerTest": "Pointer test",
+  "pressure": "Pressure"
 }
