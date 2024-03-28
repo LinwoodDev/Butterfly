@@ -596,5 +596,6 @@
   "toolbarSize": "حجم شريط الأدوات",
   "addAll": "إضافة الكل",
   "onlyCurrentPage": "الصفحة الحالية فقط",
-  "smoothNavigation": "التنقل السلس"
+  "smoothNavigation": "التنقل السلس",
+  "exact": "Exact"
 }
