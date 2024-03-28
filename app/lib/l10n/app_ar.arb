@@ -597,9 +597,9 @@
   "addAll": "إضافة الكل",
   "onlyCurrentPage": "الصفحة الحالية فقط",
   "smoothNavigation": "التنقل السلس",
-  "exact": "Exact",
-  "inline": "Inline",
-  "toolbarColumns": "Toolbar columns",
-  "pointerTest": "Pointer test",
-  "pressure": "Pressure"
+  "exact": "بالضبط",
+  "inline": "مضمن",
+  "toolbarColumns": "أعمدة شريط الأدوات",
+  "pointerTest": "اختبار المؤشر",
+  "pressure": "الضغط"
 }
