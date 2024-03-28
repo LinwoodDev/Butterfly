@@ -597,9 +597,9 @@
   "addAll": "Alles toevoegen",
   "onlyCurrentPage": "Alleen huidige pagina",
   "smoothNavigation": "Vloeiende navigatie",
-  "exact": "Exact",
+  "exact": "Exacte",
   "inline": "Inline",
-  "toolbarColumns": "Toolbar columns",
-  "pointerTest": "Pointer test",
-  "pressure": "Pressure"
+  "toolbarColumns": "Kolommen op werkbalk",
+  "pointerTest": "Testen van aanwijzer",
+  "pressure": "Drukdruk"
 }
