@@ -596,5 +596,6 @@
   "toolbarSize": "Werkbalk grootte",
   "addAll": "Alles toevoegen",
   "onlyCurrentPage": "Alleen huidige pagina",
-  "smoothNavigation": "Vloeiende navigatie"
+  "smoothNavigation": "Vloeiende navigatie",
+  "exact": "Exact"
 }
