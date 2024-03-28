@@ -597,9 +597,9 @@
   "addAll": "Legg til alle",
   "onlyCurrentPage": "Bare gjeldende side",
   "smoothNavigation": "Jevn navigasjon",
-  "exact": "Exact",
-  "inline": "Inline",
-  "toolbarColumns": "Toolbar columns",
-  "pointerTest": "Pointer test",
-  "pressure": "Pressure"
+  "exact": "Nøyaktig",
+  "inline": "Innebygd",
+  "toolbarColumns": "Kolonner på verktøylinje",
+  "pointerTest": "Pekers test",
+  "pressure": "Trykk"
 }
