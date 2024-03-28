@@ -599,5 +599,7 @@
   "smoothNavigation": "Smooth navigation",
   "exact": "Exact",
   "inline": "Inline",
-  "toolbarColumns": "Toolbar columns"
+  "toolbarColumns": "Toolbar columns",
+  "pointerTest": "Pointer test",
+  "pressure": "Pressure"
 }

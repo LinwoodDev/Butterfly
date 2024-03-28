@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/widgets/window.dart';
 import 'package:flutter/material.dart';
@@ -14,6 +16,10 @@ class BehaviorsSettingsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    PointerDeviceKind? kind;
+    int? buttons;
+    double? pressure;
+    bool pressed = false;
     return Scaffold(
         backgroundColor: inView ? Colors.transparent : null,
         appBar: WindowTitleBar(
@@ -131,6 +137,66 @@ class BehaviorsSettingsPage extends StatelessWidget {
                                 context.push('/settings/behaviors/pen'),
                           ),
                         ]),
+                  )),
+              Card(
+                  margin: const EdgeInsets.all(8),
+                  child: Padding(
+                    padding: const EdgeInsets.all(32),
+                    child: StatefulBuilder(builder: (context, setState) {
+                      void changeInputTest(PointerEvent event) {
+                        setState(() {
+                          kind = event.kind;
+                          buttons = event.buttons;
+                          pressure = event.pressure;
+                          pressed = event is! PointerUpEvent;
+                        });
+                      }
+
+                      return Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          Text(AppLocalizations.of(context).pointerTest,
+                              style: Theme.of(context).textTheme.headlineSmall),
+                          const SizedBox(height: 16),
+                          SizedBox(
+                            height: 150,
+                            child: Listener(
+                              onPointerMove: changeInputTest,
+                              onPointerDown: changeInputTest,
+                              onPointerUp: changeInputTest,
+                              child: Material(
+                                color: pressed ? Colors.green : null,
+                              ),
+                            ),
+                          ),
+                          const SizedBox(height: 8),
+                          ListTile(
+                            title: Text(AppLocalizations.of(context).type),
+                            subtitle: Text(switch (kind) {
+                              PointerDeviceKind.touch =>
+                                AppLocalizations.of(context).touch,
+                              PointerDeviceKind.mouse =>
+                                AppLocalizations.of(context).mouse,
+                              PointerDeviceKind.stylus =>
+                                AppLocalizations.of(context).pen,
+                              PointerDeviceKind.invertedStylus =>
+                                AppLocalizations.of(context).invert,
+                              PointerDeviceKind.unknown =>
+                                AppLocalizations.of(context).error,
+                              _ => AppLocalizations.of(context).none,
+                            }),
+                          ),
+                          ListTile(
+                            title: Text(AppLocalizations.of(context).input),
+                            subtitle: Text(buttons.toString()),
+                          ),
+                          ListTile(
+                            title: Text(AppLocalizations.of(context).pressure),
+                            subtitle: Text(pressure.toString()),
+                          ),
+                        ],
+                      );
+                    }),
                   )),
             ],
           );

@@ -2,6 +2,7 @@
 * Add top toolbar setting that isn't integrated with the appbar
 * Add option to have multiple toolbar columns
 * Add multi columns for toolbar ([#589](https://github.com/LinwoodDev/Butterfly/issues/589))
+* Add pointer test to behavior settings
 * Improve friction
 * Readd drawing outside of window ([#521](https://github.com/LinwoodDev/Butterfly/pull/521))
 * Fix baking when animating smooth navigation
