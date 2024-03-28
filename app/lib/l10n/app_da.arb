@@ -597,9 +597,9 @@
   "addAll": "Tilføj alle",
   "onlyCurrentPage": "Kun nuværende side",
   "smoothNavigation": "Glat navigation",
-  "exact": "Exact",
-  "inline": "Inline",
-  "toolbarColumns": "Toolbar columns",
-  "pointerTest": "Pointer test",
-  "pressure": "Pressure"
+  "exact": "Præcis",
+  "inline": "Indlejret",
+  "toolbarColumns": "Søjler i værktøjslinjen",
+  "pointerTest": "Markør test",
+  "pressure": "Tryk"
 }
