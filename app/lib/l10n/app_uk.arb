@@ -597,9 +597,9 @@
   "addAll": "Додати всі",
   "onlyCurrentPage": "Тільки поточна сторінка",
   "smoothNavigation": "Плавна навігація",
-  "exact": "Exact",
-  "inline": "Inline",
-  "toolbarColumns": "Toolbar columns",
-  "pointerTest": "Pointer test",
-  "pressure": "Pressure"
+  "exact": "Точно",
+  "inline": "У тексті",
+  "toolbarColumns": "Стовпці панелі інструментів",
+  "pointerTest": "Тест вказівника",
+  "pressure": "Тиск"
 }
