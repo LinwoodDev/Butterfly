@@ -596,5 +596,6 @@
   "toolbarSize": "Toolbar size",
   "addAll": "Add all",
   "onlyCurrentPage": "Only current page",
-  "smoothNavigation": "Smooth navigation"
+  "smoothNavigation": "Smooth navigation",
+  "exact": "Exact"
 }

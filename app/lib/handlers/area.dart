@@ -158,17 +158,8 @@ class AreaHandler extends Handler<AreaTool> {
     final state = context.getState();
     if (state == null) return;
     context.refresh();
-    String? name = AppLocalizations.of(context.buildContext)
-        .areaIndex(state.page.areas.length + 1);
-    if (data.askForName) {
-      name = await showDialog<String>(
-          context: context.buildContext,
-          builder: (_) => NameDialog(
-                value: name,
-                validator: defaultNameValidator(
-                    context.buildContext, state.page.getAreaNames().toList()),
-              ));
-    }
+    final name =
+        await createAreaName(context.buildContext, state.page, data.askForName);
     if (name == null) return;
     currentRect = null;
     context.getDocumentBloc().add(AreasCreated([
@@ -270,4 +261,19 @@ class AreaHandler extends Handler<AreaTool> {
 
   @override
   MouseCursor? get cursor => _selectionManager.cursor;
+}
+
+Future<String?> createAreaName(BuildContext context, DocumentPage page,
+    [bool askForName = true]) async {
+  String? name = page.createAreaName(context);
+  if (askForName) {
+    name = await showDialog<String>(
+        context: context,
+        builder: (_) => NameDialog(
+              value: name,
+              validator:
+                  defaultNameValidator(context, page.getAreaNames().toList()),
+            ));
+  }
+  return name;
 }
