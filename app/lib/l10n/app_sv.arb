@@ -597,5 +597,9 @@
   "addAll": "Lägg till alla",
   "onlyCurrentPage": "Endast aktuell sida",
   "smoothNavigation": "Smidig navigering",
-  "exact": "Exact"
+  "exact": "Exact",
+  "inline": "Inline",
+  "toolbarColumns": "Toolbar columns",
+  "pointerTest": "Pointer test",
+  "pressure": "Pressure"
 }
