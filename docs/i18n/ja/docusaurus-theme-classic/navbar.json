@@ -43,10 +43,6 @@
     "message": "Crowdin",
     "description": "Navbar item with label Crowdin"
   },
-  "item.label.Twitter": {
-    "message": "Twitter",
-    "description": "Navbar item with label Twitter"
-  },
   "item.label.Mastodon": {
     "message": "Mastodon",
     "description": "Navbar item with label Mastodon"
@@ -54,5 +50,9 @@
   "item.label.License": {
     "message": "ライセンス",
     "description": "Navbar item with label License"
+  },
+  "item.label.Bluesky": {
+    "message": "Bluesky",
+    "description": "Navbar item with label Bluesky"
   }
 }

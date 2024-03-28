@@ -596,5 +596,10 @@
   "toolbarSize": "Розмір панелі інструментів",
   "addAll": "Додати всі",
   "onlyCurrentPage": "Тільки поточна сторінка",
-  "smoothNavigation": "Плавна навігація"
+  "smoothNavigation": "Плавна навігація",
+  "exact": "Exact",
+  "inline": "Inline",
+  "toolbarColumns": "Toolbar columns",
+  "pointerTest": "Pointer test",
+  "pressure": "Pressure"
 }

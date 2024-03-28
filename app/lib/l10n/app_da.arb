@@ -596,5 +596,10 @@
   "toolbarSize": "Værktøjslinjens størrelse",
   "addAll": "Tilføj alle",
   "onlyCurrentPage": "Kun nuværende side",
-  "smoothNavigation": "Glat navigation"
+  "smoothNavigation": "Glat navigation",
+  "exact": "Exact",
+  "inline": "Inline",
+  "toolbarColumns": "Toolbar columns",
+  "pointerTest": "Pointer test",
+  "pressure": "Pressure"
 }

@@ -596,5 +596,10 @@
   "toolbarSize": "工具栏大小",
   "addAll": "添加全部",
   "onlyCurrentPage": "仅当前页面",
-  "smoothNavigation": "平滑导航"
+  "smoothNavigation": "平滑导航",
+  "exact": "Exact",
+  "inline": "Inline",
+  "toolbarColumns": "Toolbar columns",
+  "pointerTest": "Pointer test",
+  "pressure": "Pressure"
 }

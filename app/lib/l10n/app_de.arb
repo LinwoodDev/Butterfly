@@ -596,5 +596,10 @@
   "toolbarSize": "Größe der Werkzeugleiste",
   "addAll": "Alle hinzufügen",
   "onlyCurrentPage": "Nur aktuelle Seite",
-  "smoothNavigation": "Glatte Navigation"
+  "smoothNavigation": "Glatte Navigation",
+  "exact": "Exact",
+  "inline": "Inline",
+  "toolbarColumns": "Toolbar columns",
+  "pointerTest": "Pointer test",
+  "pressure": "Pressure"
 }

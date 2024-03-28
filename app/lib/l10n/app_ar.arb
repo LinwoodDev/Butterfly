@@ -596,5 +596,10 @@
   "toolbarSize": "حجم شريط الأدوات",
   "addAll": "إضافة الكل",
   "onlyCurrentPage": "الصفحة الحالية فقط",
-  "smoothNavigation": "التنقل السلس"
+  "smoothNavigation": "التنقل السلس",
+  "exact": "Exact",
+  "inline": "Inline",
+  "toolbarColumns": "Toolbar columns",
+  "pointerTest": "Pointer test",
+  "pressure": "Pressure"
 }
