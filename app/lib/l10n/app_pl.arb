@@ -596,5 +596,6 @@
   "toolbarSize": "Rozmiar paska narzędzi",
   "addAll": "Dodaj wszystkie",
   "onlyCurrentPage": "Tylko bieżąca strona",
-  "smoothNavigation": "Gładka nawigacja"
+  "smoothNavigation": "Gładka nawigacja",
+  "exact": "Exact"
 }
