@@ -17,14 +17,14 @@
     "write-heading-ids": "docusaurus write-heading-ids"
   },
   "dependencies": {
-    "@docusaurus/core": "3.1.1",
-    "@docusaurus/plugin-client-redirects": "3.1.1",
-    "@docusaurus/plugin-content-docs": "3.1.1",
-    "@docusaurus/plugin-pwa": "3.1.1",
-    "@docusaurus/preset-classic": "3.1.1",
-    "@docusaurus/theme-common": "3.1.1",
+    "@docusaurus/core": "3.2.0",
+    "@docusaurus/plugin-client-redirects": "3.2.0",
+    "@docusaurus/plugin-content-docs": "3.2.0",
+    "@docusaurus/plugin-pwa": "3.2.0",
+    "@docusaurus/preset-classic": "3.2.0",
+    "@docusaurus/theme-common": "3.2.0",
     "@mdx-js/react": "^3.0.1",
-    "@phosphor-icons/react": "^2.0.15",
+    "@phosphor-icons/react": "^2.1.4",
     "@swc/core": "^1.4.11",
     "animate.css": "^4.1.1",
     "clsx": "^2.1.0",
@@ -50,8 +50,8 @@
   },
   "packageManager": "pnpm@8.15.4",
   "devDependencies": {
-    "@docusaurus/module-type-aliases": "3.1.1",
-    "@docusaurus/tsconfig": "3.1.1",
+    "@docusaurus/module-type-aliases": "3.2.0",
+    "@docusaurus/tsconfig": "3.2.0",
     "markdownlint-cli2": "^0.12.1",
     "typescript": "^5.4.3",
     "webpack": "^5.91.0"

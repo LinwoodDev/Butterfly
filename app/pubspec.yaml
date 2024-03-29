@@ -40,7 +40,7 @@ dependencies:
   share_plus: ^8.0.2
   package_info_plus: ^6.0.0
   idb_shim: ^2.4.1+1
-  go_router: ^13.2.1
+  go_router: ^13.2.2
   xml: ^6.5.0
   collection: ^1.18.0
   bloc_concurrency: ^0.2.5
@@ -102,7 +102,7 @@ dev_dependencies:
     sdk: flutter
   flutter_driver:
     sdk: flutter
-  build_runner: ^2.4.8
+  build_runner: ^2.4.9
   json_serializable: ^6.7.1
   espresso: ^0.3.0+7
   freezed: ^2.4.7
