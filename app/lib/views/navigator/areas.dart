@@ -153,7 +153,14 @@ class AreasView extends StatelessWidget {
                                         context
                                             .read<TransformCubit>()
                                             .teleportToArea(area, screen);
-                                        context.read<DocumentBloc>().bake();
+                                        final bloc =
+                                            context.read<DocumentBloc>();
+                                        if (current != null) {
+                                          bloc.add(
+                                              CurrentAreaChanged(area.name));
+                                        } else {
+                                          bloc.bake();
+                                        }
                                       },
                                       onSaved: (value) => context
                                           .read<DocumentBloc>()

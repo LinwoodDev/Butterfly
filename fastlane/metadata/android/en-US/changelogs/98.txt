@@ -4,6 +4,7 @@
 * Add multi columns for toolbar ([#589](https://github.com/LinwoodDev/Butterfly/issues/589))
 * Add pointer test to behavior settings
 * Change area enter and exit to the left of the area name in areas navigator page
+* Change current area on area click in areas navigator page if the current area is not the clicked area
 * Improve friction
 * Use percents for zoom in document properties
 * Readd drawing outside of window ([#521](https://github.com/LinwoodDev/Butterfly/pull/521))
