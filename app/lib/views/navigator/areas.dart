@@ -48,10 +48,10 @@ class AreasView extends StatelessWidget {
                   );
                 }
 
-                Area? overlap(Rect? rect) {
+                Area? overlap(Rect? rect, [bool? exact]) {
                   if (rect == null) return null;
                   return state.page.areas.firstWhereOrNull((area) =>
-                      currentIndex.areaNavigatorExact
+                      (exact ?? currentIndex.areaNavigatorExact)
                           ? area.rect == rect
                           : area.rect.overlaps(rect));
                 }
@@ -59,11 +59,8 @@ class AreasView extends StatelessWidget {
                 bool enableButton(int dx, int dy) =>
                     currentIndex.areaNavigatorCreate ||
                     overlap(getRect(dx, dy)) != null;
-
-                final enableLeft = enableButton(-1, 0);
-                final enableTop = enableButton(0, -1);
-                final enableBottom = enableButton(0, 1);
-                final enableRight = enableButton(1, 0);
+                bool selectedButton(int dx, int dy) =>
+                    overlap(getRect(dx, dy), true) != null;
 
                 Future<void> move(int dx, int dy) async {
                   final rect = getRect(dx, dy);
@@ -85,7 +82,9 @@ class AreasView extends StatelessWidget {
                     width: rect.width,
                     name: name,
                   );
-                  context.read<DocumentBloc>().add(AreasCreated([newArea]));
+                  context.read<DocumentBloc>()
+                    ..add(AreasCreated([newArea]))
+                    ..add(CurrentAreaChanged(name));
                 }
 
                 return Column(
@@ -104,18 +103,6 @@ class AreasView extends StatelessWidget {
                         autofocus: true,
                       ),
                     ),
-                    if (current != null) ...[
-                      ListTile(
-                        leading: const PhosphorIcon(PhosphorIconsLight.signOut),
-                        onTap: () {
-                          context
-                              .read<DocumentBloc>()
-                              .add(const CurrentAreaChanged(''));
-                        },
-                        title: Text(AppLocalizations.of(context).exitArea),
-                        subtitle: Text(current.name),
-                      ),
-                    ],
                     const Divider(),
                     Expanded(
                       child: Material(
@@ -138,9 +125,25 @@ class AreasView extends StatelessWidget {
                                   itemBuilder:
                                       (BuildContext context, int index) {
                                     final area = areas[index];
+                                    final selected = current?.name == area.name;
                                     return EditableListTile(
                                       initialValue: area.name,
                                       key: ValueKey(area.name),
+                                      leading: IconButton(
+                                        icon: PhosphorIcon(selected
+                                            ? PhosphorIconsLight.signOut
+                                            : PhosphorIconsLight.signIn),
+                                        onPressed: () {
+                                          context.read<DocumentBloc>().add(
+                                              CurrentAreaChanged(
+                                                  selected ? '' : area.name));
+                                        },
+                                        tooltip: selected
+                                            ? AppLocalizations.of(context)
+                                                .exitArea
+                                            : AppLocalizations.of(context)
+                                                .enterArea,
+                                      ),
                                       onTap: () {
                                         final screen = context
                                             .read<CurrentIndexCubit>()
@@ -160,17 +163,6 @@ class AreasView extends StatelessWidget {
                                           ? area.rect.overlaps(viewportRect)
                                           : current.name == area.name,
                                       actions: [
-                                        MenuItemButton(
-                                          leadingIcon: const PhosphorIcon(
-                                              PhosphorIconsLight.signIn),
-                                          onPressed: () {
-                                            context.read<DocumentBloc>().add(
-                                                CurrentAreaChanged(area.name));
-                                          },
-                                          child: Text(
-                                              AppLocalizations.of(context)
-                                                  .enterArea),
-                                        ),
                                         MenuItemButton(
                                           leadingIcon: const PhosphorIcon(
                                               PhosphorIconsLight.trash),
@@ -251,45 +243,47 @@ class AreasView extends StatelessWidget {
                                     ],
                                   ),
                                 ),
-                                Row(
-                                  mainAxisSize: MainAxisSize.min,
+                                Wrap(
+                                  spacing: 8,
                                   children: [
-                                    IconButton.filledTonal(
-                                      icon: const PhosphorIcon(
-                                          PhosphorIconsLight.arrowLeft),
-                                      tooltip:
-                                          AppLocalizations.of(context).left,
-                                      onPressed:
-                                          enableLeft ? () => move(-1, 0) : null,
+                                    (
+                                      (-1, 0),
+                                      AppLocalizations.of(context).left,
+                                      PhosphorIcons.arrowLeft
                                     ),
-                                    const SizedBox(width: 8),
-                                    IconButton.filledTonal(
-                                      icon: const PhosphorIcon(
-                                          PhosphorIconsLight.arrowUp),
-                                      tooltip: AppLocalizations.of(context).top,
-                                      onPressed:
-                                          enableTop ? () => move(0, -1) : null,
+                                    (
+                                      (0, -1),
+                                      AppLocalizations.of(context).top,
+                                      PhosphorIcons.arrowUp
                                     ),
-                                    const SizedBox(width: 8),
-                                    IconButton.filledTonal(
-                                      icon: const PhosphorIcon(
-                                          PhosphorIconsLight.arrowDown),
-                                      tooltip:
-                                          AppLocalizations.of(context).bottom,
-                                      onPressed: enableBottom
-                                          ? () => move(0, 1)
-                                          : null,
+                                    (
+                                      (0, 1),
+                                      AppLocalizations.of(context).bottom,
+                                      PhosphorIcons.arrowDown
                                     ),
-                                    const SizedBox(width: 8),
-                                    IconButton.filledTonal(
-                                      icon: const PhosphorIcon(
-                                          PhosphorIconsLight.arrowRight),
-                                      tooltip:
-                                          AppLocalizations.of(context).right,
-                                      onPressed:
-                                          enableRight ? () => move(1, 0) : null,
+                                    (
+                                      (1, 0),
+                                      AppLocalizations.of(context).right,
+                                      PhosphorIcons.arrowRight
                                     ),
-                                  ],
+                                  ]
+                                      .map(
+                                        (data) => IconButton.filledTonal(
+                                          icon: PhosphorIcon(data
+                                              .$3(PhosphorIconsStyle.light)),
+                                          tooltip: data.$2,
+                                          onPressed: enableButton(
+                                                  data.$1.$1, data.$1.$2)
+                                              ? () =>
+                                                  move(data.$1.$1, data.$1.$2)
+                                              : null,
+                                          selectedIcon: PhosphorIcon(data
+                                              .$3(PhosphorIconsStyle.light)),
+                                          isSelected: selectedButton(
+                                              data.$1.$1, data.$1.$2),
+                                        ),
+                                      )
+                                      .toList(),
                                 ),
                               ],
                             ),
