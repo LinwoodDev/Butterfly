@@ -155,10 +155,6 @@
     "message": "Brødsmuler",
     "description": "The ARIA label for the breadcrumbs"
   },
-  "theme.docs.DocCard.categoryDescription": {
-    "message": "{count} objekter",
-    "description": "The default description for a category card in the generated index about how many items this category includes"
-  },
   "theme.docs.paginator.navAriaLabel": {
     "message": "Docs side navigasjon",
     "description": "The ARIA label for the docs pagination"
@@ -516,5 +512,9 @@
   "theme.unlistedContent.message": {
     "message": "Denne siden er ikke listet opp. Søkemotorer vil ikke indeksere den, og bare brukere med en direktelink har tilgang til den.",
     "description": "The unlisted content banner message"
+  },
+  "theme.docs.DocCard.categoryDescription.plurals": {
+    "message": "{count} items",
+    "description": "The default description for a category card in the generated index about how many items this category includes"
   }
 }

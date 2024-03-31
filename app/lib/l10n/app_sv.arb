@@ -596,5 +596,10 @@
   "toolbarSize": "Storlek på verktygsfält",
   "addAll": "Lägg till alla",
   "onlyCurrentPage": "Endast aktuell sida",
-  "smoothNavigation": "Smidig navigering"
+  "smoothNavigation": "Smidig navigering",
+  "exact": "Exakt",
+  "inline": "Infogad",
+  "toolbarColumns": "Kolumner i verktygsfältet",
+  "pointerTest": "Pekare test",
+  "pressure": "Tryck"
 }

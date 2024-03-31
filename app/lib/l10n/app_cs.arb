@@ -596,5 +596,10 @@
   "toolbarSize": "Velikost panelu nástrojů",
   "addAll": "Přidat vše",
   "onlyCurrentPage": "Pouze aktuální stránka",
-  "smoothNavigation": "Hladká navigace"
+  "smoothNavigation": "Hladká navigace",
+  "exact": "Přesné",
+  "inline": "Řádek",
+  "toolbarColumns": "Sloupce panelu nástrojů",
+  "pointerTest": "Zkouška ukazovatele",
+  "pressure": "Tlak"
 }

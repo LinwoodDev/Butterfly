@@ -596,5 +596,10 @@
   "toolbarSize": "Taille de la barre d'outils",
   "addAll": "Ajouter tout",
   "onlyCurrentPage": "Uniquement la page courante",
-  "smoothNavigation": "Navigation fluide"
+  "smoothNavigation": "Navigation fluide",
+  "exact": "Exactement",
+  "inline": "En ligne",
+  "toolbarColumns": "Colonnes de la barre d'outils",
+  "pointerTest": "Test du pointeur",
+  "pressure": "Pression"
 }

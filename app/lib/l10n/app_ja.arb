@@ -596,5 +596,10 @@
   "toolbarSize": "ツールバーのサイズ",
   "addAll": "すべて追加",
   "onlyCurrentPage": "現在のページのみ",
-  "smoothNavigation": "スムーズなナビゲーション"
+  "smoothNavigation": "スムーズなナビゲーション",
+  "exact": "正確な",
+  "inline": "インライン",
+  "toolbarColumns": "ツールバーの列",
+  "pointerTest": "ポインタテスト",
+  "pressure": "<unk>"
 }

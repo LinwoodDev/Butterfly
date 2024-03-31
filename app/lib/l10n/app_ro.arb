@@ -596,5 +596,10 @@
   "toolbarSize": "Dimensiunea barei de instrumente",
   "addAll": "Adaugă toate",
   "onlyCurrentPage": "Doar pagina curentă",
-  "smoothNavigation": "Navigare lină"
+  "smoothNavigation": "Navigare lină",
+  "exact": "Exact",
+  "inline": "Inline",
+  "toolbarColumns": "Coloane din bara de instrumente",
+  "pointerTest": "Testul indicatorului",
+  "pressure": "Presiune"
 }

@@ -155,10 +155,6 @@
     "message": "Breadcrumbs",
     "description": "The ARIA label for the breadcrumbs"
   },
-  "theme.docs.DocCard.categoryDescription": {
-    "message": "{count} elementi",
-    "description": "The default description for a category card in the generated index about how many items this category includes"
-  },
   "theme.docs.paginator.navAriaLabel": {
     "message": "Navigazione pagine documenti",
     "description": "The ARIA label for the docs pagination"
@@ -516,5 +512,9 @@
   "theme.unlistedContent.message": {
     "message": "Questa pagina non è elencata. I motori di ricerca non la indicizzeranno, e solo gli utenti che hanno un collegamento diretto possono accedervi.",
     "description": "The unlisted content banner message"
+  },
+  "theme.docs.DocCard.categoryDescription.plurals": {
+    "message": "{count} elementi",
+    "description": "The default description for a category card in the generated index about how many items this category includes"
   }
 }

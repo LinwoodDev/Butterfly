@@ -596,5 +596,10 @@
   "toolbarSize": "Tamanho da barra",
   "addAll": "Adicionar tudo",
   "onlyCurrentPage": "Somente a página atual",
-  "smoothNavigation": "Navegação suave"
+  "smoothNavigation": "Navegação suave",
+  "exact": "Exato",
+  "inline": "Embutido",
+  "toolbarColumns": "Colunas da barra",
+  "pointerTest": "Teste de ponteiro",
+  "pressure": "Pressão"
 }

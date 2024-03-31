@@ -596,5 +596,10 @@
   "toolbarSize": "Værktøjslinjens størrelse",
   "addAll": "Tilføj alle",
   "onlyCurrentPage": "Kun nuværende side",
-  "smoothNavigation": "Glat navigation"
+  "smoothNavigation": "Glat navigation",
+  "exact": "Præcis",
+  "inline": "Indlejret",
+  "toolbarColumns": "Søjler i værktøjslinjen",
+  "pointerTest": "Markør test",
+  "pressure": "Tryk"
 }
