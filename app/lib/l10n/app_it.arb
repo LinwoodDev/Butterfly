@@ -180,7 +180,7 @@
   "templates": "Modelli",
   "untitled": "Senza titolo",
   "createTemplate": "Crea modello",
-  "createTemplateContent": "Vuoi davvero creare un modello da questo documento? Il documento originale verrà eliminato.",
+  "createTemplateContent": "Vuoi davvero creare un template da questo documento? Il documento originale verrà eliminato.",
   "replace": "Sostituisci",
   "reallyReplace": "Vuoi davvero sostituire il template? Questa operazione non può essere annullata!",
   "defaultTemplate": "Modello predefinito",
