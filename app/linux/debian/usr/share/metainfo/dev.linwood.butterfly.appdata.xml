@@ -17,7 +17,10 @@
 		<control>keyboard</control>
 		<control>touch</control>
 	</recommends>
-	<developer_name>Linwood</developer_name>
+	<branding>
+		<color type="primary" scheme_preference="light">#d0d0d0</color>
+		<color type="primary" scheme_preference="dark">#2f2f2f</color>
+	</branding>
 	<url type="homepage">https://docs.butterfly.linwood.dev/</url>
 	<url type="bugtracker">https://github.com/LinwoodDev/Butterfly/issues</url>
 	<url type="help">https://docs.butterfly.linwood.dev/docs/latest/intro</url>

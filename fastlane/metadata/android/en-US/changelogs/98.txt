@@ -12,5 +12,7 @@
 * Fix eraser
 * Fix crash and size when loading pdf or big butterfly files ([#645](https://github.com/LinwoodDev/Butterfly/pull/645))
 * Fix toolbar size setting saving
+* Fix template dialog loading failed
+* Update linux appdata
 
 Read more here: https://linwood.dev/butterfly/2.1.0-beta.4

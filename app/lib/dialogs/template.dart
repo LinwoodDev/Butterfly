@@ -24,7 +24,7 @@ class TemplateDialog extends StatefulWidget {
 
 class _TemplateDialogState extends State<TemplateDialog> {
   late TemplateFileSystem _fileSystem;
-  late Future<List<NoteData>>? _templatesFuture;
+  Future<List<NoteData>>? _templatesFuture;
   final TextEditingController _searchController = TextEditingController();
   final List<String> _selectedTemplates = [];
 
@@ -33,7 +33,7 @@ class _TemplateDialogState extends State<TemplateDialog> {
     super.initState();
     _fileSystem =
         context.read<SettingsCubit>().state.getDefaultTemplateFileSystem();
-    load();
+    WidgetsBinding.instance.addPostFrameCallback((_) => load());
   }
 
   void load() {
