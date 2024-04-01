@@ -21,14 +21,12 @@ Butterfly je aplikace pro přijímání poznámek, která se zaměřuje na jedno
 
 > K rychlému procházení wiki můžete použít postranní panel.
 
-
 Chcete-li začít pracovat na aplikaci, máte dvě možnosti:
+
 1. [Stahování](/downloads) verze aplikace, která je vhodná pro vaši platformu (Butterfly může běžet na většině mobilních, stolních a webových platforem).
-2. Použijte [webovou verzi](https://butterfly.linwood.dev) , pokud nemůžete najít platformu nebo na ni nechcete nainstalovat. Podívejte se na [](storage#web) o úložišti souborů ve webové verzi.
+2. Use [web version](https://web.butterfly.linwood.dev) if you cannot find your platform or if you don't want to install it on it. Podívejte se na [](storage#web) o úložišti souborů ve webové verzi.
 
 > Jakmile otevřete aplikaci, pokračujte ve čtení.
-
-
 
 ## Hlavní pohled
 
@@ -74,7 +72,6 @@ Hlavní pohled se skládá z několika prvků.
 
 Po otevření dokumentu výběrem šablony nebo existujícího souboru se dostanete do **Zobrazení dokumentu**
 
-
 ## Zobrazení dokumentu
 
 Můžete se vrátit z zobrazení dokumentu do seznamu dokumentů pomocí zadní akce vašeho zařízení. Stejně jako v případě hlavního zobrazení, změny zobrazení dokumentu na základě vašeho zařízení.
@@ -117,5 +114,3 @@ Můžete se vrátit z zobrazení dokumentu do seznamu dokumentů pomocí zadní 
         3. Další nástroje můžete přidat kliknutím na <Plus/> plus na znaménko. 
     </TabItem>
 </Tabs>
-	
-
