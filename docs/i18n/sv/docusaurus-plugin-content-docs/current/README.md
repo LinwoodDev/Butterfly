@@ -5,9 +5,7 @@ slug: /intro
 sidebar_position: 1
 ---
 
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
-import { Gear, Plus, FloppyDisk, MagnifyingGlass, ScribbleLoop, Pen, Path, ArrowCounterClockwise, ArrowClockwise, Hand, Wrench, Lock} from "@phosphor-icons/react";
+import Flikar från '@theme/Tabs'; import TabItem från '@theme/TabItem'; import { Gear, Plus, FloppyDisk, MagnifyingGlas, ScribbleLoop, Pen, Path, ArrowCounterClockwise, ArrowClockwise, Hand, nyckel, Lock} från "@phosphor-icons/react";
 
 ![Banderoll](/img/banner.png)
 
@@ -24,7 +22,7 @@ Fjärilen är en anteckningsapp som syftar till en enhetlig upplevelse över all
 För att börja arbeta med appen har du två alternativ:
 
 1. [Nedladdningar](/downloads) appversionen som är lämplig för din plattform (Butterfly kan köras på de flesta mobiler, skrivbord och webbplattformar).
-2. Use [web version](https://web.butterfly.linwood.dev) if you cannot find your platform or if you don't want to install it on it. Se [här](storage#web) om fillagring på webbversionen.
+2. Använd [webbversion](https://web.butterfly.linwood.dev) om du inte hittar din plattform eller om du inte vill installera den på den. Se [här](storage#web) om fillagring på webbversionen.
 
 > När du öppnar appen, fortsätt läsa.
 
