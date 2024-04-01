@@ -16,9 +16,9 @@
 		<color type="primary" scheme_preference="light">#d0d0d0</color>
 		<color type="primary" scheme_preference="dark">#2f2f2f</color>
 	</branding>
-	<url type="homepage">https://docs.butterfly.linwood.dev/</url>
+	<url type="homepage">https://butterfly.linwood.dev/</url>
 	<url type="bugtracker">https://github.com/LinwoodDev/Butterfly/issues</url>
-	<url type="help">https://docs.butterfly.linwood.dev/docs/latest/intro</url>
+	<url type="help">https://butterfly.linwood.dev/docs/latest/intro</url>
 	<url type="translate">https://translate.linwood.dev/butterfly</url>
 	<url type="vcs-browser">https://github.com/LinwoodDev/Butterfly.git</url>
 	<url type="contribute">https://github.com/LinwoodDev/Butterfly/blob/develop/CONTRIBUTING.md</url>

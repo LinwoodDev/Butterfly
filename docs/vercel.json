@@ -1,5 +1,11 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
+  "rewrites": [
+    {
+      "source": "/web/:path*",
+      "destination": "https://web.butterfly.linwood.dev/:path*"
+    }
+  ],
   "redirects": [
     {
       "source":"/docs/latest/:path*",

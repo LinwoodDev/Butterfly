@@ -266,7 +266,7 @@ jobs:
           embed-url: https://github.com/LinwoodDev/butterfly/releases/tag/v${{ env.BUTTERFLY_VERSION }}
           content: |
             Version ${{ env.BUTTERFLY_VERSION }} released!
-            Download it here: https://docs.butterfly.linwood.dev/downloads
+            Download it here: https://butterfly.linwood.dev/downloads
             https://github.com/LinwoodDev/butterfly/releases/tag/v${{ env.BUTTERFLY_VERSION }}
       - name: Discord Webhook Action
         uses: tsickert/discord-webhook@v5.4.0
@@ -278,6 +278,6 @@ jobs:
           embed-url: https://github.com/LinwoodDev/butterfly/releases/tag/v${{ env.BUTTERFLY_VERSION }}
           content: |
             Pre-release version ${{ env.BUTTERFLY_VERSION }} released!
-            Download it here: https://docs.butterfly.linwood.dev/downloads
+            Download it here: https://butterfly.linwood.dev/downloads
             Please note that this is a pre-release version and is not intended for production use.
-            Read more about it here: https://docs.butterfly.linwood.dev/nightly
+            Read more about it here: https://butterfly.linwood.dev/nightly
