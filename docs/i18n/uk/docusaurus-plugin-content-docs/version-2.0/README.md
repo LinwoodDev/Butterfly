@@ -15,7 +15,7 @@ sidebar_position: 1
 ## Початок роботи
 
 Відвідайте [завантаження програми](/downloads), щоб завантажити додаток для своєї платформи.
-Використовуйте [веб-версію](https://butterfly.linwood.dev), якщо ви не можете знайти свою платформу.
+Use [web version](https://v2.web.butterfly.linwood.dev) if you cannot find your platform.
 
 ## Основний вигляд
 
