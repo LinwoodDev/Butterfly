@@ -15,7 +15,7 @@ sidebar_position: 1
 ## Aloittaminen
 
 Käy osoitteessa [downloads](/downloads) ladataksesi sovelluksen alustallesi.
-Use [web version](https://v2.web.butterfly.linwood.dev) if you cannot find your platform.
+Käytä [web-versio](https://v2.web.butterfly.linwood.dev) jos et löydä alustaasi.
 
 ## Päänäkymä
 
