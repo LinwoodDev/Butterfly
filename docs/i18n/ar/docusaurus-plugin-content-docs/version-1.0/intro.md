@@ -11,7 +11,7 @@ sidebar_position: 1
 
 ## بدء التشغيل
 
-قم بزيارة [التنزيلات](/downloads) لتحميل التطبيق الخاص بالمنصة الخاصة بك. استخدم [إصدار الويب](https://butterfly.linwood.dev) إذا لم تتمكن من العثور على المنصة الخاصة بك.
+قم بزيارة [التنزيلات](/downloads) لتحميل التطبيق الخاص بالمنصة الخاصة بك. Use [web version](https://v1.web.butterfly.linwood.dev) if you cannot find your platform.
 
 ## العرض الرئيسي
 
