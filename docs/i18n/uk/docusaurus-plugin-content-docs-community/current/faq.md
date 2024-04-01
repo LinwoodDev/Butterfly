@@ -1,5 +1,5 @@
 ---
-id: "faq"
+id: "чапи"
 slug: "/faq"
 title: "Найчастіші питання"
 sidebar_label: "ЧАП"
