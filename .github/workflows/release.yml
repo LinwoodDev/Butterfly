@@ -257,7 +257,7 @@ jobs:
           echo '' >> $GITHUB_ENV
           echo 'EOF' >> $GITHUB_ENV
       - name: Discord Webhook Action
-        uses: tsickert/discord-webhook@v5.4.0
+        uses: tsickert/discord-webhook@v5.5.0
         if: ${{ github.event.inputs.stable == 'true' || github.ref == 'refs/heads/main' }}
         with:
           webhook-url: ${{ secrets.WEBHOOK_URL }}
@@ -269,7 +269,7 @@ jobs:
             Download it here: https://butterfly.linwood.dev/downloads
             https://github.com/LinwoodDev/butterfly/releases/tag/v${{ env.BUTTERFLY_VERSION }}
       - name: Discord Webhook Action
-        uses: tsickert/discord-webhook@v5.4.0
+        uses: tsickert/discord-webhook@v5.5.0
         if: ${{ github.event.inputs.stable == 'false' && github.ref == 'refs/heads/develop' }}
         with:
           webhook-url: ${{ secrets.WEBHOOK_URL }}
