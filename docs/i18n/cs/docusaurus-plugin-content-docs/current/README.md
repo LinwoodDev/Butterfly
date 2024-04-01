@@ -5,9 +5,7 @@ slug: /intro
 sidebar_position: 1
 ---
 
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
-import { Gear, Plus, FloppyDisk, MagnifyingGlass, ScribbleLoop, Pen, Path, ArrowCounterClockwise, ArrowClockwise, Hand, Wrench, Lock} from "@phosphor-icons/react";
+importovat záložky z '@theme/Tabs'; importovat položku záložky z '@theme/TabItem'; importovat { Gear, Plus, FloppyDisk, MagnifyingGlass, ScribbleLoop, Pen, Cesta, Šipka CounterClockise, Šipkový kurz, Ruce, Wrench, Lock} z "@fosfor-icons/react";
 
 ![Banner](/img/banner.png)
 
@@ -24,7 +22,7 @@ Butterfly je aplikace pro přijímání poznámek, která se zaměřuje na jedno
 Chcete-li začít pracovat na aplikaci, máte dvě možnosti:
 
 1. [Stahování](/downloads) verze aplikace, která je vhodná pro vaši platformu (Butterfly může běžet na většině mobilních, stolních a webových platforem).
-2. Use [web version](https://web.butterfly.linwood.dev) if you cannot find your platform or if you don't want to install it on it. Podívejte se na [](storage#web) o úložišti souborů ve webové verzi.
+2. Použijte [webovou verzi](https://web.butterfly.linwood.dev) , pokud nemůžete najít platformu nebo na ni nechcete nainstalovat. Podívejte se na [](storage#web) o úložišti souborů ve webové verzi.
 
 > Jakmile otevřete aplikaci, pokračujte ve čtení.
 
