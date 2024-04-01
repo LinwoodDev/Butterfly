@@ -5,9 +5,7 @@ slug: /intro
 sidebar_position: 1
 ---
 
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
-import { Gear, Plus, FloppyDisk, MagnifyingGlass, ScribbleLoop, Pen, Path, ArrowCounterClockwise, ArrowClockwise, Hand, Wrench, Lock} from "@phosphor-icons/react";
+Импортировать вкладки из '@theme/Tabs'; импортировать вкладки из '@theme/TabItem'; import { Gear, Plus, FloppyDisk, MagnifyingGlass, Цикл кристалла, Сен, Путь, Часы против стрел, Часовой стрелы, Рука, Ключ, Заблокировать} от "@phosphor-icons/react";
 
 ![Баннер](/img/banner.png)
 
@@ -24,7 +22,7 @@ import { Gear, Plus, FloppyDisk, MagnifyingGlass, ScribbleLoop, Pen, Path, Arrow
 Чтобы начать работу над приложением, у вас есть два варианта:
 
 1. [Downloads](/downloads) версия приложения, подходящая для вашей платформы (Butterfly может работать на большинстве мобильных, настольных и веб-платформах).
-2. Use [web version](https://web.butterfly.linwood.dev) if you cannot find your platform or if you don't want to install it on it. See [here](storage#web) about file storage on the web version.
+2. Используйте [веб-версию](https://web.butterfly.linwood.dev) , если вы не можете найти свою платформу или не хотите ее устанавливать. See [here](storage#web) about file storage on the web version.
 
 > Как только вы откроете приложение, продолжайте чтение.
 
