@@ -1,6 +1,6 @@
 ---
 title: 一. 导言
-id: intro
+id: 介绍者
 slug: /intro
 sidebar_position: 1
 ---
@@ -15,7 +15,7 @@ sidebar_position: 1
 ## 入门开始
 
 访问 [downloads](/downloads) 下载应用到您的平台。
-Use [web version](https://v2.web.butterfly.linwood.dev) if you cannot find your platform.
+如果您找不到您的平台，请使用 [web version](https://v2.web.butterfly.linwood.dev)。
 
 ## 主视图
 
