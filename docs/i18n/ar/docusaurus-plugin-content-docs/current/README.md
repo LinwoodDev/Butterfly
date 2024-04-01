@@ -5,9 +5,7 @@ slug: /intro
 sidebar_position: 1
 ---
 
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
-import { Gear, Plus, FloppyDisk, MagnifyingGlass, ScribbleLoop, Pen, Path, ArrowCounterClockwise, ArrowClockwise, Hand, Wrench, Lock} from "@phosphor-icons/react";
+استيراد علامات التبويب من '@theme/Tabs'; استيراد البند التبويب من '@theme/TabItem'; استيراد { Gear, Plus, FloppyDisk, MagnifyingGlass, ScribbleLoop, Pen, Path, ArrowCounterClockwise, ArrowClockwise, Hand, Wrench, Lock} من "@phosphor-icons/react";
 
 ![لافتة](/img/banner.png)
 
@@ -24,7 +22,7 @@ import { Gear, Plus, FloppyDisk, MagnifyingGlass, ScribbleLoop, Pen, Path, Arrow
 لبدء العمل على التطبيق لديك خياران:
 
 1. [يقوم بتنزيل](/downloads) إصدار التطبيق المناسب للمنصة الخاصة بك (يمكن للفراشة أن تعمل على معظم أجهزة الهاتف المحمول، وسطح المكتب، ومنصات الويب).
-2. Use [web version](https://web.butterfly.linwood.dev) if you cannot find your platform or if you don't want to install it on it. See [here](storage#web) about file storage on the web version.
+2. استخدم [إصدار ويب](https://web.butterfly.linwood.dev) إذا لم تتمكن من العثور على المنصة الخاصة بك أو إذا كنت لا تريد تثبيتها عليها. See [here](storage#web) about file storage on the web version.
 
 > بمجرد فتح التطبيق، استمر في القراءة.
 
