@@ -5,9 +5,7 @@ slug: /intro
 sidebar_position: 1
 ---
 
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
-import { Gear, Plus, FloppyDisk, MagnifyingGlass, ScribbleLoop, Pen, Path, ArrowCounterClockwise, ArrowClockwise, Hand, Wrench, Lock} from "@phosphor-icons/react";
+Importér faneblade fra '@theme/Tabs'; importér Tabelement fra '@theme/TabItem'; import { Gear, Plus, FloppyDisk, MagnifyingGlas, ScribbleLoop, Pen, Path, ProwCounterClockwise, ProwClockwise, Hand, Wrench, Lock} fra "@phosphor-icons/react";
 
 ![Banner](/img/banner.png)
 
@@ -24,7 +22,7 @@ Butterfly er en note tager app, der sigter efter samlet oplevelse på tværs af 
 For at begynde at arbejde på appen, har du to muligheder:
 
 1. [Downloads](/downloads) den app-version, der passer til din platform (Butterfly kan køre på de fleste mobil, skrivebord og webplatfra).
-2. Use [web version](https://web.butterfly.linwood.dev) if you cannot find your platform or if you don't want to install it on it. Se [her](storage#web) om fillagring i webversionen.
+2. Brug [webversion](https://web.butterfly.linwood.dev) , hvis du ikke kan finde din platform, eller hvis du ikke ønsker at installere den på den. Se [her](storage#web) om fillagring i webversionen.
 
 > Når du åbner appen, fortsæt med at læse.
 
