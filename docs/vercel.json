@@ -6,7 +6,7 @@
       "destination": "https://web.butterfly.linwood.dev/:path*"
     },
     {
-      "source": ":path*",
+      "source": "/:path*",
       "has": [
         {
           "type": "header",
@@ -63,11 +63,8 @@
       "destination": "/privacypolicy"
     },
     {
-      "source": "flutter.js",
+      "source": "/flutter.js",
       "destination": "https://web.butterfly.linwood.dev/flutter.js"
     }
-  ],
-  "github": {
-      "silent": true
-  }
+  ]
 }
