@@ -5,9 +5,7 @@ slug: /intro
 sidebar_position: 1
 ---
 
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
-import { Gear, Plus, FloppyDisk, MagnifyingGlass, ScribbleLoop, Pen, Path, ArrowCounterClockwise, ArrowClockwise, Hand, Wrench, Lock} from "@phosphor-icons/react";
+import Schede da '@theme/Tabs'; import TabItem da '@theme/TabItem'; import { Gear, Plus, FloppyDisk, MagnifyingGlass, ScribbleLoop, Pen, Percorso, ArrowCounterClockwise, ArrowClockwise, Hand, Chiave, Lock} da "@phosphor-icons/react";
 
 ![Banner](/img/banner.png)
 
@@ -24,7 +22,7 @@ Butterfly è una nota prendendo app che mira a un'esperienza unificata su tutte 
 Per iniziare a lavorare sull'app hai due opzioni:
 
 1. [Downloads](/downloads) la versione dell'app che è appropriata per la tua piattaforma (Butterfly può funzionare sulla maggior parte delle piattaforme mobili, desktop e web).
-2. Use [web version](https://web.butterfly.linwood.dev) if you cannot find your platform or if you don't want to install it on it. Vedi [qui](storage#web) sulla memorizzazione dei file nella versione web.
+2. Usa [versione web](https://web.butterfly.linwood.dev) se non riesci a trovare la tua piattaforma o se non vuoi installarla su di essa. Vedi [qui](storage#web) sulla memorizzazione dei file nella versione web.
 
 > Una volta aperta l'app, continua a leggere.
 
