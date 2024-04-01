@@ -1,5 +1,5 @@
 ---
-id: "faq"
+id: "FAQ"
 slug: "/faq"
 title: "Veelgestelde vragen (FAQ's)"
 sidebar_label: "FAQ"
@@ -29,7 +29,7 @@ Ik gebruik de input van het flutter framework. Dit is het probleem om het te vol
 
 > [#244](https://github.com/LinwoodDev/Butterfly/issues/244)
 
-Vlinder is beschikbaar op iOS als voorbeeld. Click [here](https://butterfly.linwood.dev/downloads/ios) to download it. Zie [hier](https://github.com/LinwoodDev/Butterfly/issues/244#issuecomment-1935460878) waarom het niet beschikbaar is in de App Store.
+Vlinder is beschikbaar op iOS als voorbeeld. Klik [hier](https://butterfly.linwood.dev/downloads/ios) om het te downloaden. Zie [hier](https://github.com/LinwoodDev/Butterfly/issues/244#issuecomment-1935460878) waarom het niet beschikbaar is in de App Store.
 
 ## Startscherm
 
