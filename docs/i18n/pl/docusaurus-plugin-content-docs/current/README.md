@@ -5,9 +5,7 @@ slug: /intro
 sidebar_position: 1
 ---
 
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
-import { Gear, Plus, FloppyDisk, MagnifyingGlass, ScribbleLoop, Pen, Path, ArrowCounterClockwise, ArrowClockwise, Hand, Wrench, Lock} from "@phosphor-icons/react";
+importuj zakładki z '@theme/Tabs'; zaimportuj zakładkę z '@theme/Tabela'; import { Gear, Plus, FloppyDisk, MagnifyingGlass, ScribbleLoop, Pen, Ścieżka ArrowCounterClockline, ArrowClockline, Dłoń, Wrench, Lock} z "@phosphor-icons/react";
 
 ![Sztandar](/img/banner.png)
 
@@ -24,7 +22,7 @@ Butterfly to notatka z aplikacją, która ma na celu ujednolicenie doświadczeni
 Aby rozpocząć pracę nad aplikacją, masz dwie opcje:
 
 1. [Pobiera](/downloads) wersję aplikacji, która jest odpowiednia dla Twojej platformy (Butterfly może działać na większości telefonów komórkowych, desktopowych i webplatfroms).
-2. Use [web version](https://web.butterfly.linwood.dev) if you cannot find your platform or if you don't want to install it on it. Zobacz [tutaj](storage#web) o przechowywaniu plików w wersji internetowej.
+2. Użyj [web version](https://web.butterfly.linwood.dev) jeśli nie możesz znaleźć swojej platformy lub jeśli nie chcesz na niej zainstalować. Zobacz [tutaj](storage#web) o przechowywaniu plików w wersji internetowej.
 
 > Po otwarciu aplikacji, kontynuuj czytanie.
 
