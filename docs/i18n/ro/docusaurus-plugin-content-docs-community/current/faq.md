@@ -29,7 +29,7 @@ Folosesc datele furnizate de cadrul flutter. Aceasta este problema pentru a o ur
 
 > [#244](https://github.com/LinwoodDev/Butterfly/issues/244)
 
-Butterfly este disponibil pe iOS ca previzualizare. Click [here](https://butterfly.linwood.dev/downloads/ios) to download it. Vezi [aici](https://github.com/LinwoodDev/Butterfly/issues/244#issuecomment-1935460878) de ce nu este disponibil în App Store.
+Butterfly este disponibil pe iOS ca previzualizare. Click [aici](https://butterfly.linwood.dev/downloads/ios) pentru a o descărca. Vezi [aici](https://github.com/LinwoodDev/Butterfly/issues/244#issuecomment-1935460878) de ce nu este disponibil în App Store.
 
 ## Birou
 
