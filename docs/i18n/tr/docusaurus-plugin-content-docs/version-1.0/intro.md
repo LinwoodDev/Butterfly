@@ -11,7 +11,7 @@ sidebar_position: 1
 
 ## Başlarken
 
-Platformunuz için uygulamayı indirmek için [indir](/downloads)i ziyaret edin. Platformunuzu bulamıyorsanız [web sürümü](https://butterfly.linwood.dev)nü kullanın.
+Platformunuz için uygulamayı indirmek için [indir](/downloads)i ziyaret edin. Use [web version](https://v1.web.butterfly.linwood.dev) if you cannot find your platform.
 
 ## Ana Görünüm
 
