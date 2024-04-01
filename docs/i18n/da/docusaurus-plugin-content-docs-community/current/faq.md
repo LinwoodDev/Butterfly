@@ -29,7 +29,7 @@ Jeg bruger input leveret af flutter rammer. Dette er problemet at spore det: [fl
 
 > [#244](https://github.com/LinwoodDev/Butterfly/issues/244)
 
-Butterfly er tilgængelig på iOS som forhåndsvisning. Klik på [her](https://docs.butterfly.linwood.dev/downloads/ios) for at downloade den. Se [her](https://github.com/LinwoodDev/Butterfly/issues/244#issuecomment-1935460878) hvorfor det ikke er tilgængeligt i App Store.
+Butterfly er tilgængelig på iOS som forhåndsvisning. Click [here](https://butterfly.linwood.dev/downloads/ios) to download it. Se [her](https://github.com/LinwoodDev/Butterfly/issues/244#issuecomment-1935460878) hvorfor det ikke er tilgængeligt i App Store.
 
 ## Skrivebord
 
