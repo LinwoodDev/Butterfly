@@ -15,7 +15,7 @@ sidebar_position: 1
 ## Aan de slag
 
 Bezoek [de downloads](/downloads) om de app voor jouw platform te downloaden.
-Use [web version](https://v2.web.butterfly.linwood.dev) if you cannot find your platform.
+Gebruik [webversie](https://v2.web.butterfly.linwood.dev) als je je platform niet kan vinden.
 
 ## Hoofd weergave
 
