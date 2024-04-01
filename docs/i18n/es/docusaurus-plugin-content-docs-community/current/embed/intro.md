@@ -6,7 +6,7 @@ sidebar_label: Introducción
 Incrustar es una forma sencilla de incluir la aplicación en tu sitio web. Añade el siguiente código a tu sitio web:
 
 ```html
-<iframe src="https://butterfly.linwood.dev/embed" width="100%" height="500px" allowtransparency="true"></iframe>
+<iframe src="https://web.butterfly.linwood.dev/embed" width="100%" height="500px" allowtransparency="true"></iframe>
 ```
 
 ## Opciones
