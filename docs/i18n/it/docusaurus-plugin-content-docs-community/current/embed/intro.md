@@ -6,7 +6,7 @@ sidebar_label: Introduzione
 L'incorporazione è un modo semplice per includere l'applicazione nel tuo sito web. Aggiungi il seguente codice al tuo sito web:
 
 ```html
-<iframe src="https://butterfly.linwood.dev/embed" width="100%" height="500px" allowtransparency="true"></iframe>
+<iframe src="https://web.butterfly.linwood.dev/embed" width="100%" height="500px" allowtransparency="true"></iframe>
 ```
 
 ## Opzioni
