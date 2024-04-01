@@ -15,11 +15,11 @@ Dit is een progressieve webapplicatie. U kunt deze installeren in uw browser en 
 ## Koppelingen
 
 <div className="row margin-bottom--lg padding--sm">
-<Link className="button button--outline button--info button--lg margin--sm" href="https://butterfly.linwood.dev">
-  Hoofd
+<Link className="button button--outline button--info button--lg margin--sm" href="https://web.butterfly.linwood.dev">
+  Main
 </Link>
-<Link className="button button--outline button--danger button--lg margin--sm" href="https://preview.butterfly.linwood.dev">
-  Voorbeeld
+<Link className="button button--outline button--danger button--lg margin--sm" href="https://preview.web.butterfly.linwood.dev">
+  Preview
 </Link>
 </div>
 
