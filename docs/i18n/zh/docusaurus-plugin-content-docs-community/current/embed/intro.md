@@ -6,7 +6,7 @@ sidebar_label: 简介
 嵌入是一种简单的方式，可以在您的网站中包含应用程序。 添加以下代码到您的网站：
 
 ```html
-<iframe src="https://butterfly.linwood.dev/embed" width="100%" height="500px" allowtransparency="true"></iframe>
+<iframe src="https://web.butterfly.linwood.dev/embed" width="100%" height="500px" allowtransparency="true"></iframe>
 ```
 
 ## 备选方案
