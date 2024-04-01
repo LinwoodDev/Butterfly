@@ -21,14 +21,12 @@ Butterfly to notatka z aplikacją, która ma na celu ujednolicenie doświadczeni
 
 > Możesz użyć paska bocznego, aby szybko nawigować przez wiki.
 
-
 Aby rozpocząć pracę nad aplikacją, masz dwie opcje:
+
 1. [Pobiera](/downloads) wersję aplikacji, która jest odpowiednia dla Twojej platformy (Butterfly może działać na większości telefonów komórkowych, desktopowych i webplatfroms).
-2. Użyj [web version](https://butterfly.linwood.dev) jeśli nie możesz znaleźć swojej platformy lub jeśli nie chcesz na niej zainstalować. Zobacz [tutaj](storage#web) o przechowywaniu plików w wersji internetowej.
+2. Use [web version](https://web.butterfly.linwood.dev) if you cannot find your platform or if you don't want to install it on it. Zobacz [tutaj](storage#web) o przechowywaniu plików w wersji internetowej.
 
 > Po otwarciu aplikacji, kontynuuj czytanie.
-
-
 
 ## Widok główny
 
@@ -74,7 +72,6 @@ Główny widok składa się z kilku elementów
 
 Po otwarciu dokumentu wybierając szablon lub istniejący plik, przejdziesz do **Widok dokumentu**
 
-
 ## Widok dokumentu
 
 Możesz wrócić z widoku dokumentu do listy dokumentów z akcją wsteczną urządzenia. Tak jak w widoku głównym, dokument wyświetla zmiany w oparciu o Twoje urządzenie.
@@ -117,5 +114,3 @@ Możesz wrócić z widoku dokumentu do listy dokumentów z akcją wsteczną urz�
         3. Możesz dodać więcej narzędzi do paska narzędzi, klikając znak <Plus/> plus. 
     </TabItem>
 </Tabs>
-	
-
