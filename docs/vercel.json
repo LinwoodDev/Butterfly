@@ -4,6 +4,17 @@
     {
       "source": "/web/:path*",
       "destination": "https://web.butterfly.linwood.dev/:path*"
+    },
+    {
+      "source": ":path*",
+      "has": [
+        {
+          "type": "header",
+          "key": "Referer",
+          "value": "https://butterfly.linwood.dev/web"
+        }
+      ],
+      "destination": "https://web.butterfly.linwood.dev/:path*"
     }
   ],
   "redirects": [
@@ -50,6 +61,10 @@
     {
       "source": "/docs/privacypolicy",
       "destination": "/privacypolicy"
+    },
+    {
+      "source": "flutter.js",
+      "destination": "https://web.butterfly.linwood.dev/flutter.js"
     }
   ],
   "github": {
