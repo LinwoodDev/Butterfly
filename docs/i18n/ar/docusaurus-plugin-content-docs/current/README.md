@@ -21,14 +21,12 @@ import { Gear, Plus, FloppyDisk, MagnifyingGlass, ScribbleLoop, Pen, Path, Arrow
 
 > يمكنك استخدام الشريط الجانبي للتنقل بسرعة عبر ويكي.
 
-
 لبدء العمل على التطبيق لديك خياران:
+
 1. [يقوم بتنزيل](/downloads) إصدار التطبيق المناسب للمنصة الخاصة بك (يمكن للفراشة أن تعمل على معظم أجهزة الهاتف المحمول، وسطح المكتب، ومنصات الويب).
-2. استخدم [إصدار ويب](https://butterfly.linwood.dev) إذا لم تتمكن من العثور على المنصة الخاصة بك أو إذا كنت لا تريد تثبيتها عليها. See [here](storage#web) about file storage on the web version.
+2. Use [web version](https://web.butterfly.linwood.dev) if you cannot find your platform or if you don't want to install it on it. See [here](storage#web) about file storage on the web version.
 
 > بمجرد فتح التطبيق، استمر في القراءة.
-
-
 
 ## العرض الرئيسي
 
@@ -74,7 +72,6 @@ import { Gear, Plus, FloppyDisk, MagnifyingGlass, ScribbleLoop, Pen, Path, Arrow
 
 بمجرد فتح مستند عن طريق تحديد قالب أو ملف موجود ، ستحصل على **عرض المستند**
 
-
 ## عرض المستند
 
 يمكنك العودة من عرض المستند إلى قائمة المستندات مع الإجراء الخلفي لجهازك. كما هو الحال مع العرض الرئيسي، يتغير عرض المستند استناداً إلى جهازك.
@@ -117,5 +114,3 @@ import { Gear, Plus, FloppyDisk, MagnifyingGlass, ScribbleLoop, Pen, Path, Arrow
         3. يمكنك إضافة المزيد من الأدوات إلى شريط الأدوات بالنقر فوق علامة <Plus/> زائدا. 
     </TabItem>
 </Tabs>
-	
-
