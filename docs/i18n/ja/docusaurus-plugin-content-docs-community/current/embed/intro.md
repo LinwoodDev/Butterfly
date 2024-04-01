@@ -6,7 +6,7 @@ sidebar_label: はじめに
 埋め込みはあなたのウェブサイトにアプリを含める簡単な方法です。 次のコードをウェブサイトに追加します。
 
 ```html
-<iframe src="https://butterfly.linwood.dev/embed" width="100%" height="500px" allowtransparency="true"></iframe>
+<iframe src="https://web.butterfly.linwood.dev/embed" width="100%" height="500px" allowtransparency="true"></iframe>
 ```
 
 ## オプション
