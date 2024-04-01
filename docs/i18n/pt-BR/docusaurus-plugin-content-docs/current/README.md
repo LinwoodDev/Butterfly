@@ -21,14 +21,12 @@ A Borboleta é um aplicativo que grava anotações que busca uma experiência un
 
 > Você pode usar a barra lateral para navegar rapidamente através da wiki.
 
-
 Para começar a trabalhar no aplicativo, você tem duas opções:
+
 1. [Downloads](/downloads) the app version that is appropriate for your platform (Butterfly can run on most mobile, desktop, and web platfroms).
-2. Use a versão [web](https://butterfly.linwood.dev) se você não puder encontrar sua plataforma ou se você não quiser instalá-la nela. Veja [aqui](storage#web) sobre o armazenamento do arquivo na versão web.
+2. Use [web version](https://web.butterfly.linwood.dev) if you cannot find your platform or if you don't want to install it on it. Veja [aqui](storage#web) sobre o armazenamento do arquivo na versão web.
 
 > Assim que você abrir o aplicativo, continue lendo.
-
-
 
 ## Vista principal
 
@@ -74,7 +72,6 @@ A visão principal é composta de vários elementos
 
 Ao abrir um documento, selecionando um modelo ou um arquivo existente, você chegará à **Visualização de Documento**
 
-
 ## A visualização de documentos
 
 Você pode retornar da visualização de documentos para a lista de documentos com a ação traseira do seu dispositivo. Como na visualização principal, as alterações do documento são exibidas com base no seu dispositivo.
@@ -117,5 +114,3 @@ Você pode retornar da visualização de documentos para a lista de documentos c
         3. Você pode adicionar mais ferramentas na barra de ferramentas clicando no símbolo <Plus/> mais. 
     </TabItem>
 </Tabs>
-	
-
