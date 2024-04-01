@@ -16,10 +16,10 @@ Aceasta este o aplicație web progresivă. Îl poți instala în browser și îl
 
 <div className="row margin-bottom--lg padding--sm">
 <Link className="button button--outline button--info button--lg margin--sm" href="https://web.butterfly.linwood.dev">
-  Main
+  Principalul
 </Link>
 <Link className="button button--outline button--danger button--lg margin--sm" href="https://preview.web.butterfly.linwood.dev">
-  Preview
+  Previzualizare
 </Link>
 </div>
 
