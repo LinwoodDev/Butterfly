@@ -21,14 +21,12 @@ Butterfly è una nota prendendo app che mira a un'esperienza unificata su tutte 
 
 > È possibile utilizzare la barra laterale per navigare rapidamente attraverso la wiki.
 
-
 Per iniziare a lavorare sull'app hai due opzioni:
+
 1. [Downloads](/downloads) la versione dell'app che è appropriata per la tua piattaforma (Butterfly può funzionare sulla maggior parte delle piattaforme mobili, desktop e web).
-2. Usa [versione web](https://butterfly.linwood.dev) se non riesci a trovare la tua piattaforma o se non vuoi installarla su di essa. Vedi [qui](storage#web) sulla memorizzazione dei file nella versione web.
+2. Use [web version](https://web.butterfly.linwood.dev) if you cannot find your platform or if you don't want to install it on it. Vedi [qui](storage#web) sulla memorizzazione dei file nella versione web.
 
 > Una volta aperta l'app, continua a leggere.
-
-
 
 ## Vista principale
 
@@ -74,7 +72,6 @@ La vista principale è composta da diversi elementi
 
 Una volta aperto un documento selezionando un modello o un file esistente, si arriva alla **Document View**
 
-
 ## La Vista Documento
 
 È possibile tornare dalla vista documenti alla lista dei documenti con l'azione posteriore del dispositivo. Come per la vista principale, il display del documento cambia in base al dispositivo.
@@ -117,5 +114,3 @@ Una volta aperto un documento selezionando un modello o un file esistente, si ar
         3. È possibile aggiungere altri strumenti alla barra degli strumenti facendo clic sul segno <Plus/> più . 
     </TabItem>
 </Tabs>
-	
-
