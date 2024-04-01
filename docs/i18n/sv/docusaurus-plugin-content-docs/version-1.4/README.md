@@ -14,7 +14,7 @@ sidebar_position: 1
 
 ## Komma igång
 
-Besök [nedladdningarna](/downloads) för att ladda ner appen för din plattform. Use [web version](https://v1.web.butterfly.linwood.dev) if you cannot find your platform.
+Besök [nedladdningarna](/downloads) för att ladda ner appen för din plattform. Använd [webbversion](https://v1.web.butterfly.linwood.dev) om du inte hittar din plattform.
 
 ## Huvudvy
 
