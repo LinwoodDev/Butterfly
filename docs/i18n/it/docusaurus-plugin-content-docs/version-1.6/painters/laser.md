@@ -12,6 +12,6 @@ Con questo pittore è possibile disegnare su questo foglio temporaneamente. Dopo
 |             Proprietà | Predefinito | Descrizione                                                                    |
 | ---------------------:|:-----------:|:------------------------------------------------------------------------------ |
 |                Colore |    Nero     | Il colore che verrà disegnato                                                  |
-|      Larghezza tratto |      5      | La larghezza del tratto                                                        |
+|       Spessore tratto |      5      | La larghezza del tratto                                                        |
 | Moltiplicatore tratto |      1      | Se hai uno stilo, questo è il moltiplicatore che verrà aggiunto alla pressione |
 |                Durata |      5      | La durata in secondi che il disegno sarà visibile                              |
