@@ -1,6 +1,6 @@
 ---
 title: Wprowadzanie
-id: intro
+id: wprowadzenie
 slug: /intro
 sidebar_position: 1
 ---
@@ -15,7 +15,7 @@ sidebar_position: 1
 ## Pierwsze kroki
 
 Odwiedź [pobierania](/downloads), aby pobrać aplikację na swoją platformę.
-Use [web version](https://v2.web.butterfly.linwood.dev) if you cannot find your platform.
+Użyj [wersji internetowej](https://v2.web.butterfly.linwood.dev) jeśli nie możesz znaleźć swojej platformy.
 
 ## Widok główny
 
