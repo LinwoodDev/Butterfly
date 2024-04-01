@@ -1,6 +1,6 @@
 ---
 title: Indledning
-id: intro
+id: Introduktion
 slug: /intro
 sidebar_position: 1
 ---
@@ -15,7 +15,7 @@ sidebar_position: 1
 ## Før injektion
 
 Besøg [downloads](/downloads) for at downloade appen til din platform.
-Use [web version](https://v2.web.butterfly.linwood.dev) if you cannot find your platform.
+Brug [webversion](https://v2.web.butterfly.linwood.dev) hvis du ikke kan finde din platform.
 
 ## Hoved visning
 
