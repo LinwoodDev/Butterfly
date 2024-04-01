@@ -29,7 +29,7 @@ J'utilise l'entrée fournie par le cadre flutter. Voici le problème à suivre :
 
 > [#244](https://github.com/LinwoodDev/Butterfly/issues/244)
 
-Butterfly est disponible sur iOS comme aperçu. Cliquez sur [ici](https://docs.butterfly.linwood.dev/downloads/ios) pour le télécharger. Voir [ici](https://github.com/LinwoodDev/Butterfly/issues/244#issuecomment-1935460878) pourquoi il n'est pas disponible sur l'App Store.
+Butterfly est disponible sur iOS comme aperçu. Click [here](https://butterfly.linwood.dev/downloads/ios) to download it. Voir [ici](https://github.com/LinwoodDev/Butterfly/issues/244#issuecomment-1935460878) pourquoi il n'est pas disponible sur l'App Store.
 
 ## Bureau
 
