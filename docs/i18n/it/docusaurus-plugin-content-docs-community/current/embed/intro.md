@@ -11,11 +11,11 @@ L'incorporazione è un modo semplice per includere l'applicazione nel tuo sito w
 
 ## Opzioni
 
-| Opzione  | Tipo                           | Predefinito | Descrizione                                                                                                                           |
-| -------- | ------------------------------ | ----------- | ------------------------------------------------------------------------------------------------------------------------------------- |
-| save     | Boolean (true, false)          | true        | Abilita il salvataggio. Se disabilitato, verrà mostrato solo un pulsante di uscita                                                    |
-| editable | Boolean (true, false)          | true        | Abilita le modifiche. Se disabilitato, il documento sarà in sola lettura                                                              |
-| language | Stringa (..., sistema, utente) | system      | Lingua del documento. Se il sistema, la lingua verrà rilevata dal browser. Se l'utente, la lingua imposterà la preferenza dell'utente |
+| Opzione      | Tipo                           | Predefinito | Descrizione                                                                                                                           |
+| ------------ | ------------------------------ | ----------- | ------------------------------------------------------------------------------------------------------------------------------------- |
+| salva        | Booleano (vero, falso)         | vero        | Abilita il salvataggio. Se disabilitato, verrà mostrato solo un pulsante di uscita                                                    |
+| modificabile | Booleano (vero, falso)         | vero        | Abilita le modifiche. Se disabilitato, il documento sarà in sola lettura                                                              |
+| lingua       | Stringa (..., sistema, utente) | sistema     | Lingua del documento. Se il sistema, la lingua verrà rilevata dal browser. Se l'utente, la lingua imposterà la preferenza dell'utente |
 
 ## Eventi
 
@@ -30,7 +30,7 @@ embedElement.addEventListener('message', (data) => {
 });
 ```
 
-### save
+### salva
 
 > L'evento `save` si verifica quando l'utente fa clic sul pulsante Salva.
 
@@ -38,7 +38,7 @@ Parametri:
 
 * `data` (Type `List<int>`): I dati del documento.
 
-### exit
+### esce
 
 > L'evento `exit` si verifica quando l'utente fa clic sul pulsante di uscita.
 
@@ -46,7 +46,7 @@ Parametri:
 
 * `data` (Type `List<int>`): I dati del documento.
 
-### change
+### modifica
 
 > L'evento `change` si verifica quando l'utente cambia il documento.
 
@@ -82,7 +82,7 @@ Parametri:
 
 * `data` (Type `List<int>`): I dati del documento.
 
-### render
+### renderizza
 
 > Il metodo `render` renderizza il documento in un'immagine png.
 
