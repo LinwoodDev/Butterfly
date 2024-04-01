@@ -21,14 +21,12 @@ Butterfly este o notă care ia aplicația ce vizează o experiență unificată 
 
 > Poți folosi bara laterală pentru a naviga rapid prin wiki.
 
-
 Pentru a începe să lucrați la aplicație aveți două opțiuni:
+
 1. [Descarca](/downloads) versiunea aplicatiei care este potrivit pentru platforma ta (Butterfly poate rula pe cele mai multe mobile, desktop si web platfromuri).
-2. Utilizaţi [versiunea web](https://butterfly.linwood.dev) dacă nu găsiţi platforma sau dacă nu doriţi să o instalaţi pe ea. Vezi [aici](storage#web) despre stocarea fișierelor pe versiunea web.
+2. Use [web version](https://web.butterfly.linwood.dev) if you cannot find your platform or if you don't want to install it on it. Vezi [aici](storage#web) despre stocarea fișierelor pe versiunea web.
 
 > Odată ce deschideți aplicația, continuați citirea.
-
-
 
 ## Vizualizare principală
 
@@ -74,7 +72,6 @@ Opinia principală este compusă din mai multe elemente
 
 După deschiderea unui document selectând un şablon sau un fişier existent, veţi ajunge la **Document View**
 
-
 ## Vizualizare document
 
 Puteți reveni din vizualizarea documentului la lista de documente cu acțiunea din spate a dispozitivului dvs. Ca și în cazul vizualizării principale, documentul afișează modificări bazate pe dispozitivul dvs.
@@ -117,5 +114,3 @@ Puteți reveni din vizualizarea documentului la lista de documente cu acțiunea 
         3. Poți adăuga mai multe unelte în bara de instrumente făcând clic pe semnul <Plus/> plus. 
     </TabItem>
 </Tabs>
-	
-
