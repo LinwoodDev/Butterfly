@@ -6,7 +6,7 @@ sidebar_label: Introducere
 Integrarea este o modalitate simplă de a include aplicația în site-ul dvs. Adaugă următorul cod la site-ul tău:
 
 ```html
-<iframe src="https://butterfly.linwood.dev/embed" width="100%" height="500px" allowtransparency="true"></iframe>
+<iframe src="https://web.butterfly.linwood.dev/embed" width="100%" height="500px" allowtransparency="true"></iframe>
 ```
 
 ## Opţiuni
