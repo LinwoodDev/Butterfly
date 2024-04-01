@@ -93,7 +93,6 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       _saveState(
         emit,
         state: current.copyWith(data: newData),
-        addedElements: null,
       );
     });
     on<PageRenamed>((event, emit) {
@@ -132,7 +131,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       );
     });
     on<ElementsCreated>((event, emit) {
-      var current = state;
+      final current = state;
       if (current is! DocumentLoadSuccess) return;
       if (!(current.embedding?.editable ?? true)) return;
       var data = current.data;
@@ -162,24 +161,16 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
           .toList();
       final renderers = elements.map((e) => Renderer.fromInstance(e)).toList();
       if (renderers.isEmpty) return;
-      if (current.currentIndexCubit
-          .getHandler()
-          .onRenderersCreated(current.page, renderers)) {
-        refresh();
-      }
-      if (current != state) {
-        final next = state;
-        if (next is! DocumentLoadSuccess) return;
-        data = next.data;
-        current = next;
-      }
       _saveState(
         emit,
         state: current.copyWith(
             data: data,
-            page: current.page.copyWith(
-                content: (List.from(current.page.content)..addAll(elements)))),
+            page: current.page
+                .copyWith(content: [...current.page.content, ...elements])),
         addedElements: renderers,
+        refresh: current.currentIndexCubit
+            .getHandler()
+            .onRenderersCreated(current.page, renderers),
       );
     });
     on<ElementsChanged>((event, emit) {
@@ -191,13 +182,15 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       final page = current.page;
       bool shouldRefresh = false;
       final oldRenderers = current.renderers;
+      final elements = event.elements.map((key, value) => MapEntry(
+          key, value.map((e) => e.copyWith(id: createUniqueId())).toList()));
       for (final renderer in oldRenderers) {
         final id = renderer.element.id;
-        final updated = event.elements[id];
+        final updated = elements[id];
         if (updated != null) {
           renderer.dispose();
           final updatedRenderers = <Renderer<PadElement>>[];
-          for (final element in updated) {
+          for (var element in updated) {
             final newRenderer = Renderer.fromInstance(element);
             renderers.add(newRenderer);
             updatedRenderers.add(newRenderer);
@@ -220,16 +213,15 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
           renderers.add(renderer);
         }
       }
-      current.currentIndexCubit.unbake(unbakedElements: renderers);
       final content = page.content
-          .expand((element) => event.elements[element.id] ?? [element])
+          .expand((element) => elements[element.id] ?? [element])
           .toList();
       _saveState(
         emit,
         state: current.copyWith(
           page: page.copyWith(content: content),
         ),
-        addedElements: null,
+        replacedElements: renderers,
         refresh: true,
       );
     }, transformer: sequential());
@@ -421,6 +413,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       var tools = List<Tool>.from(current.info.tools);
       var oldIndex = event.oldIndex;
       var newIndex = event.newIndex;
+      if (oldIndex >= tools.length || newIndex > tools.length) return;
       if (oldIndex < newIndex) {
         newIndex -= 1;
       }

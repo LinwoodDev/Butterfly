@@ -596,5 +596,10 @@
   "toolbarSize": "Tamaño de barra de herramientas",
   "addAll": "Añadir todo",
   "onlyCurrentPage": "Sólo página actual",
-  "smoothNavigation": "Navegación suave"
+  "smoothNavigation": "Navegación suave",
+  "exact": "Exacto",
+  "inline": "En línea",
+  "toolbarColumns": "Columnas de barra de herramientas",
+  "pointerTest": "Prueba de puntero",
+  "pressure": "Presión"
 }

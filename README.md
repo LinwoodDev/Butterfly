@@ -11,18 +11,18 @@
 [![GitHub Repo stars](https://img.shields.io/github/stars/LinwoodDev/butterfly?color=EBB733&logo=github&logoColor=EBB733&style=for-the-badge)](https://github.com/LinwoodDev/butterfly)
 [![Matrix badge](https://img.shields.io/matrix/linwood:matrix.org?style=for-the-badge&color=EBB733&logo=matrix&logoColor=EBB733&label=Matrix)](https://linwood.dev/matrix)
 [![Discord badge](https://img.shields.io/discord/735424757142519848?style=for-the-badge&color=EBB733&logo=discord&logoColor=EBB733&label=Discord)](https://discord.linwood.dev)
-[![Download](https://img.shields.io/github/downloads/LinwoodDev/butterfly/total?color=EBB733&style=for-the-badge&logo=data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxOTIiIGhlaWdodD0iMTkyIiBmaWxsPSIjZWJiNzMzIiB2aWV3Qm94PSIwIDAgMjU2IDI1NiI+PHJlY3Qgd2lkdGg9IjI1NiIgaGVpZ2h0PSIyNTYiIGZpbGw9Im5vbmUiPjwvcmVjdD48cG9seWxpbmUgcG9pbnRzPSI4NiAxMTAuMDExIDEyOCAxNTIgMTcwIDExMC4wMTEiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2ViYjczMyIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBzdHJva2Utd2lkdGg9IjE2Ij48L3BvbHlsaW5lPjxsaW5lIHgxPSIxMjgiIHkxPSI0MCIgeDI9IjEyOCIgeTI9IjE1MS45NzA1NyIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjZWJiNzMzIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIHN0cm9rZS13aWR0aD0iMTYiPjwvbGluZT48cGF0aCBkPSJNMjE2LDE1MnY1NmE4LDgsMCwwLDEtOCw4SDQ4YTgsOCwwLDAsMS04LThWMTUyIiBmaWxsPSJub25lIiBzdHJva2U9IiNlYmI3MzMiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgc3Ryb2tlLXdpZHRoPSIxNiI+PC9wYXRoPjwvc3ZnPg==)](https://docs.butterfly.linwood.dev/downloads)
+[![Download](https://img.shields.io/github/downloads/LinwoodDev/butterfly/total?color=EBB733&style=for-the-badge&logo=data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxOTIiIGhlaWdodD0iMTkyIiBmaWxsPSIjZWJiNzMzIiB2aWV3Qm94PSIwIDAgMjU2IDI1NiI+PHJlY3Qgd2lkdGg9IjI1NiIgaGVpZ2h0PSIyNTYiIGZpbGw9Im5vbmUiPjwvcmVjdD48cG9seWxpbmUgcG9pbnRzPSI4NiAxMTAuMDExIDEyOCAxNTIgMTcwIDExMC4wMTEiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2ViYjczMyIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBzdHJva2Utd2lkdGg9IjE2Ij48L3BvbHlsaW5lPjxsaW5lIHgxPSIxMjgiIHkxPSI0MCIgeDI9IjEyOCIgeTI9IjE1MS45NzA1NyIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjZWJiNzMzIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIHN0cm9rZS13aWR0aD0iMTYiPjwvbGluZT48cGF0aCBkPSJNMjE2LDE1MnY1NmE4LDgsMCwwLDEtOCw4SDQ4YTgsOCwwLDAsMS04LThWMTUyIiBmaWxsPSJub25lIiBzdHJva2U9IiNlYmI3MzMiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgc3Ryb2tlLXdpZHRoPSIxNiI+PC9wYXRoPjwvc3ZnPg==)](https://butterfly.linwood.dev/downloads)
 </div>
 
 <p align="center">
-    <a href="http://docs.butterfly.linwood.dev"><b>Website</b></a> •
-    <a href="http://docs.butterfly.linwood.dev/downloads"><b>Download</b></a> •
+    <a href="https://butterfly.linwood.dev"><b>Website</b></a> •
+    <a href="https://butterfly.linwood.dev/downloads"><b>Download</b></a> •
     <a href="https://linwood.dev/matrix"><b>Matrix</b></a> •
     <a href="https://go.linwood.dev/discord"><b>Discord</b></a> •
     <a href="https://floss.social/@linwood"><b>Mastodon</b></a> •
     <a href="https://bsky.app/profile/linwood.dev"><b>Bluesky</b></a> •
     <a href="CONTRIBUTING.md"><b>Contribute</b></a>
-</p>  
+</p>
 
 ---
 
@@ -45,7 +45,7 @@ Butterfly is a note taking app where your ideas come first. You can paint, add t
 * **🟦 Add shapes:** You can add shapes to your notes. You can choose between a rectangle, circle and line.
 * **🔳 Structure your notes:** Add areas and waypoints to your notes to keep them organized.
 
-Try it [now](http://docs.butterfly.linwood.dev/downloads)!
+Try it [now](http://butterfly.linwood.dev/downloads)!
 
 ---
 

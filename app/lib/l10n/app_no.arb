@@ -596,5 +596,10 @@
   "toolbarSize": "Størrelse på verktøylinje",
   "addAll": "Legg til alle",
   "onlyCurrentPage": "Bare gjeldende side",
-  "smoothNavigation": "Jevn navigasjon"
+  "smoothNavigation": "Jevn navigasjon",
+  "exact": "Nøyaktig",
+  "inline": "Innebygd",
+  "toolbarColumns": "Kolonner på verktøylinje",
+  "pointerTest": "Pekers test",
+  "pressure": "Trykk"
 }

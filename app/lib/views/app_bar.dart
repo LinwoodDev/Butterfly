@@ -311,7 +311,7 @@ class _AppBarTitle extends StatelessWidget {
                   builder: (context, settings) => Stack(
                     children: [
                       const WindowFreeSpace(),
-                      settings.toolbarPosition == ToolbarPosition.top
+                      settings.toolbarPosition == ToolbarPosition.inline
                           ? const Align(
                               alignment: Alignment.centerRight,
                               child: EditToolbar(

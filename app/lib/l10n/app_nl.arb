@@ -596,5 +596,10 @@
   "toolbarSize": "Werkbalk grootte",
   "addAll": "Alles toevoegen",
   "onlyCurrentPage": "Alleen huidige pagina",
-  "smoothNavigation": "Vloeiende navigatie"
+  "smoothNavigation": "Vloeiende navigatie",
+  "exact": "Exacte",
+  "inline": "Inline",
+  "toolbarColumns": "Kolommen op werkbalk",
+  "pointerTest": "Testen van aanwijzer",
+  "pressure": "Drukdruk"
 }

@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 
 export default function EmbedPlayground() {
-  const [host, setHost] = useState("https://butterfly.linwood.dev")
+  const [host, setHost] = useState("https://web.butterfly.linwood.dev")
   const [save, setSave] = useState(true)
   const [editable, setEditable] = useState(true)
   const [language, setLanguage] = useState("system")
@@ -12,10 +12,10 @@ export default function EmbedPlayground() {
         <label htmlFor="language">Host</label>
         <input className="input" type="text" value={host} id="host" readOnly />
         <div className="grid">
-            <button className="button button--outline button--secondary" onClick={() => setHost("https://butterfly.linwood.dev")}>Main</button>
-            <button className="button button--outline button--secondary" onClick={() => setHost("https://preview.butterfly.linwood.dev")}>Preview</button>
-            <button className="button button--outline button--secondary" onClick={() => setHost("https://v1.butterfly.linwood.dev")}>V1</button>
-            <button className="button button--outline button--secondary" onClick={() => setHost("https://v2.butterfly.linwood.dev")}>V2</button>
+            <button className="button button--outline button--secondary" onClick={() => setHost("https://web.butterfly.linwood.dev")}>Main</button>
+            <button className="button button--outline button--secondary" onClick={() => setHost("https://preview.web.butterfly.linwood.dev")}>Preview</button>
+            <button className="button button--outline button--secondary" onClick={() => setHost("https://v1.web.butterfly.linwood.dev")}>V1</button>
+            <button className="button button--outline button--secondary" onClick={() => setHost("https://v2.web.butterfly.linwood.dev")}>V2</button>
         </div>
       </div>
       <label className="checkbox">Save

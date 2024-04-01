@@ -489,6 +489,8 @@ class _MainBody extends StatelessWidget {
                   ButterflySettings>(
               buildWhen: (previous, current) =>
                   previous.toolbarPosition != current.toolbarPosition ||
+                  previous.toolbarSize != current.toolbarSize ||
+                  previous.toolbarColumns != current.toolbarColumns ||
                   previous.fullScreen != current.fullScreen ||
                   previous.navigationRail != current.navigationRail,
               builder: (context, settings) {
@@ -499,11 +501,7 @@ class _MainBody extends StatelessWidget {
                   final toolbar = EditToolbar(
                     isMobile: false,
                     centered: true,
-                    direction: pos == ToolbarPosition.bottom ||
-                            pos == ToolbarPosition.top ||
-                            isMobile
-                        ? Axis.horizontal
-                        : Axis.vertical,
+                    direction: pos.axis,
                   );
                   return Stack(
                     children: [
@@ -534,8 +532,9 @@ class _MainBody extends StatelessWidget {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
-                                if ((settings.fullScreen &&
-                                        pos == ToolbarPosition.top &&
+                                if (((settings.fullScreen &&
+                                                pos == ToolbarPosition.inline ||
+                                            pos == ToolbarPosition.top) &&
                                         !isMobile) &&
                                     currentIndex.hideUi == HideState.visible)
                                   toolbar,
@@ -578,7 +577,8 @@ class _MainBody extends StatelessWidget {
                                     ),
                                   ),
                                 ),
-                                if (pos != ToolbarPosition.top &&
+                                if (pos != ToolbarPosition.inline &&
+                                    pos != ToolbarPosition.top &&
                                     !isMobile &&
                                     currentIndex.hideUi == HideState.visible)
                                   const ToolbarView(),

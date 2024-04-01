@@ -47,6 +47,14 @@ class NoteData {
     return noteDataMigrator(data);
   }
 
+  factory NoteData.fromArchive(Archive archive,
+      {bool disableMigrations = false}) {
+    if (disableMigrations) {
+      return NoteData(archive);
+    }
+    return archiveNoteDataMigrator(archive);
+  }
+
   factory NoteData.fromJson(dynamic json) => NoteData.fromData(
         base64Decode(json as String),
       );
@@ -69,6 +77,8 @@ class NoteData {
   NoteFileType? get type => getMetadata()?.type;
 
   String? get name => getMetadata()?.name;
+
+  bool get isValid => getAsset(kMetaArchiveFile) != null;
 
   NoteData setName(String? value) {
     final meta = getMetadata();

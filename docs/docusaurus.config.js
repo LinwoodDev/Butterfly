@@ -3,7 +3,7 @@ module.exports = {
   title: "Linwood Butterfly",
   tagline:
     "🎨 Powerful, minimalistic, cross-platform, opensource note-taking app 🎨",
-  url: "https://docs.butterfly.linwood.dev",
+  url: "https://butterfly.linwood.dev",
   baseUrl: "/",
   onBrokenLinks: "throw",
   onBrokenMarkdownLinks: "warn",
@@ -82,12 +82,12 @@ module.exports = {
               href: "https://go.linwood.dev/butterfly/crowdin",
             },
             {
-              label: "Twitter",
-              href: "https://twitter.com/LinwoodDev",
-            },
-            {
               label: "Mastodon",
               href: "https://floss.social/@linwood",
+            },
+            {
+              label: "Bluesky",
+              href: "https://bsky.app/profile/linwood.dev",
             },
             {
               label: "License",
@@ -129,12 +129,12 @@ module.exports = {
               href: "https://linwood.dev/matrix",
             },
             {
-              label: "Twitter",
-              href: "https://twitter.com/LinwoodDev",
-            },
-            {
               label: "Mastodon",
               href: "https://floss.social/@linwood",
+            },
+            {
+              label: "Bluesky",
+              href: "https://bsky.app/profile/linwood.dev",
             },
             {
               html: `

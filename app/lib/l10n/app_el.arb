@@ -596,5 +596,10 @@
   "toolbarSize": "Μέγεθος γραμμής εργαλείων",
   "addAll": "Προσθήκη όλων",
   "onlyCurrentPage": "Μόνο η τρέχουσα σελίδα",
-  "smoothNavigation": "Ομαλή πλοήγηση"
+  "smoothNavigation": "Ομαλή πλοήγηση",
+  "exact": "Ακριβής",
+  "inline": "Εμβόλιμο",
+  "toolbarColumns": "Στήλες γραμμής εργαλείων",
+  "pointerTest": "Δοκιμή δείκτη",
+  "pressure": "Πίεση"
 }

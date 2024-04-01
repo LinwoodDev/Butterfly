@@ -300,18 +300,18 @@ class _UtilitiesViewState extends State<_UtilitiesView>
                     const SizedBox(height: 8),
                     ExactSlider(
                       header: Text(AppLocalizations.of(context).zoom),
-                      value: context.read<TransformCubit>().state.size,
-                      defaultValue: 1,
-                      min: 0.1,
-                      max: 10,
+                      value: context.read<TransformCubit>().state.size * 100,
+                      defaultValue: 100,
+                      min: kMinZoom * 100,
+                      max: kMaxZoom * 100,
                       onChangeEnd: (value) {
                         final size = context
                             .read<CurrentIndexCubit>()
                             .state
                             .cameraViewport
                             .toSize();
-                        context.read<TransformCubit>().size(
-                            value, Offset(size.width / 2, size.height / 2));
+                        context.read<TransformCubit>().size(value / 100,
+                            Offset(size.width / 2, size.height / 2));
                         context.read<DocumentBloc>().bake();
                       },
                     ),

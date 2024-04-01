@@ -38,8 +38,6 @@ enum HideState { visible, keyboard, touch }
 
 enum RendererState { visible, temporary, hidden }
 
-const kFriction = 0.135;
-
 @Freezed(equal: false)
 class CurrentIndex with _$CurrentIndex {
   const CurrentIndex._();
@@ -72,6 +70,9 @@ class CurrentIndex with _$CurrentIndex {
     Map<Renderer, RendererState>? temporaryRendererStates,
     @Default(ViewOption()) ViewOption viewOption,
     @Default(HideState.visible) HideState hideUi,
+    @Default(true) bool areaNavigatorCreate,
+    @Default(true) bool areaNavigatorExact,
+    @Default(false) bool areaNavigatorAsk,
   }) = _CurrentIndex;
 
   bool get moveEnabled =>
@@ -903,9 +904,12 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
       await renderer.setup(current.data, current.assetService, current.page);
     }
 
-    if (addedElements == null) {
-      current.currentIndexCubit
-          .unbake(unbakedElements: replacedElements, backgrounds: backgrounds);
+    if (addedElements == null ||
+        replacedElements != null ||
+        backgrounds != null) {
+      current.currentIndexCubit.unbake(
+          unbakedElements: [...?replacedElements, ...?addedElements],
+          backgrounds: backgrounds);
       if (backgrounds != null) {
         unbake(backgrounds: backgrounds);
       }
@@ -938,4 +942,11 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     if (!state.settingsCubit.state.hasFlag('smoothNavigation')) return;
     state.transformCubit.slide(positionVelocity, scaleVelocity);
   }
+
+  void setAreaNavigatorCreate(bool value) =>
+      emit(state.copyWith(areaNavigatorCreate: value));
+  void setAreaNavigatorExact(bool value) =>
+      emit(state.copyWith(areaNavigatorExact: value));
+  void setAreaNavigatorAsk(bool value) =>
+      emit(state.copyWith(areaNavigatorAsk: value));
 }

@@ -155,10 +155,6 @@
     "message": "Ψίχουλα",
     "description": "The ARIA label for the breadcrumbs"
   },
-  "theme.docs.DocCard.categoryDescription": {
-    "message": "{count} αντικείμενα",
-    "description": "The default description for a category card in the generated index about how many items this category includes"
-  },
   "theme.docs.paginator.navAriaLabel": {
     "message": "Πλοήγηση σελίδων εγγράφων",
     "description": "The ARIA label for the docs pagination"
@@ -516,5 +512,9 @@
   "theme.unlistedContent.message": {
     "message": "Αυτή η σελίδα δεν είναι καταχωρημένη. Οι μηχανές αναζήτησης δεν θα την ευρετηριάσουν, και μόνο οι χρήστες που έχουν άμεση σύνδεση μπορούν να έχουν πρόσβαση σε αυτήν.",
     "description": "The unlisted content banner message"
+  },
+  "theme.docs.DocCard.categoryDescription.plurals": {
+    "message": "{count} αντικείμενα",
+    "description": "The default description for a category card in the generated index about how many items this category includes"
   }
 }
