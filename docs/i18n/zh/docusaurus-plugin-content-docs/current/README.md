@@ -24,7 +24,7 @@ Butterflight是一个注意事项，它旨在实现所有平台的统一体验�
 要开始运行应用，您有两个选项：
 
 1. [Downloads](/downloads) the app version that is appropriate for your platform (Butterfly can run on most mobile, desktop, and web platfroms).
-2. Use [web version](https://web.butterfly.linwood.dev) if you cannot find your platform or if you don't want to install it on it. See [here](storage#web) about file storage on the web version.
+2. 如果您找不到您的平台，或者您不想在它上安装它，请使用 [web 版本](https://web.butterfly.linwood.dev)。 See [here](storage#web) about file storage on the web version.
 
 > 一旦您打开了应用程序，继续阅读。
 
