@@ -132,6 +132,10 @@ Future<void> main([List<String> args = const []]) async {
   );
 }
 
+const kUnsupportedLanguages = [];
+
+List<Locale> getLocales() => AppLocalizations.supportedLocales;
+
 class ButterflyApp extends StatelessWidget {
   final String initialLocation;
   final String importedLocation;
@@ -365,7 +369,7 @@ class ButterflyApp extends StatelessWidget {
                 }
                 return child ?? Container();
               },
-              supportedLocales: AppLocalizations.supportedLocales,
+              supportedLocales: getLocales(),
               themeMode: state.theme,
               theme: getThemeData(state.design, false,
                   state.density.toFlutter(), lightDynamic, state.highContrast),

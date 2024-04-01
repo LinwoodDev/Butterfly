@@ -37,7 +37,7 @@ Future<(Uint8List?, String?)> importFile(BuildContext context,
               label: e.getLocalizedName(context),
               extensions: e.getFileExtensions(),
               uniformTypeIdentifiers: e.getUniformTypeIdentifiers(),
-              mimeTypes: [e.getMime()],
+              mimeTypes: e.getMimeTypes(),
             ))
         .toList(),
   );

@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'dart:math';
 import 'dart:typed_data';
 import 'dart:ui' as ui;
+import 'package:archive/archive.dart';
 import 'package:butterfly/api/image.dart';
 import 'package:image/image.dart' as img;
 import 'package:butterfly/api/file_system/file_system.dart';
@@ -101,6 +102,7 @@ class ImportService {
           importPdf(bytes, document, position: position, advanced: advanced),
         AssetFileType.page => importPage(bytes, document, position: position),
         AssetFileType.xopp => importXopp(bytes, document, position: position),
+        AssetFileType.archive => importArchive(bytes).then((value) => null),
       };
 
   FutureOr<NoteData?> importBfly(Uint8List bytes,
@@ -108,6 +110,10 @@ class ImportService {
     try {
       document ??= DocumentDefaults.createDocument();
       final data = NoteData.fromData(bytes);
+      if (!data.isValid) {
+        await importArchive(bytes);
+        return null;
+      }
       final type = data.getMetadata()?.type;
       switch (type) {
         case NoteFileType.document:
@@ -607,5 +613,28 @@ class ImportService {
       (document, _) = document.addPage(page);
     }
     return document;
+  }
+
+  Future<bool> importArchive(Uint8List bytes) async {
+    try {
+      final archive = ZipDecoder().decodeBytes(bytes);
+      final data = NoteData.fromArchive(archive);
+      if (data.isValid) {
+        await importBfly(bytes);
+        return true;
+      }
+      for (final file in archive) {
+        if (!file.name.endsWith('.bfly')) continue;
+        await importBfly(bytes);
+      }
+      return true;
+    } catch (e) {
+      showDialog(
+        context: context,
+        builder: (context) =>
+            UnknownImportConfirmationDialog(message: e.toString()),
+      );
+      return false;
+    }
   }
 }

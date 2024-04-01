@@ -87,7 +87,7 @@ module.exports = {
             },
             {
               label: "Bluesky",
-              href: "https://bsky.app/profile/LinwoodDev",
+              href: "https://bsky.app/profile/linwood.dev",
             },
             {
               label: "License",
