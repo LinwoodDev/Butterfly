@@ -11,11 +11,11 @@ Intégrer est un moyen simple d'inclure l'application dans votre site Web. Ajout
 
 ## Options
 
-| Option   | Type de texte                                    | Par défaut | Libellé                                                                                                                                                      |
-| -------- | ------------------------------------------------ | ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| save     | Boolean (true, false)                            | true       | Activer la sauvegarde. Si désactivé, seul un bouton de sortie sera affiché                                                                                   |
-| editable | Boolean (true, false)                            | true       | Activer l'édition. Si désactivé, le document sera en lecture seule                                                                                           |
-| language | Chaîne de caractères (..., système, utilisateur) | system     | Langue du document. Si le système, la langue sera détectée à partir du navigateur. Si l'utilisateur, la langue sera définie à la préférence des utilisateurs |
+| Option     | Type de texte                                    | Par défaut | Libellé                                                                                                                                                      |
+| ---------- | ------------------------------------------------ | ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| économiser | Booléen (vrai, faux)                             | vrai       | Activer la sauvegarde. Si désactivé, seul un bouton de sortie sera affiché                                                                                   |
+| modifiable | Booléen (vrai, faux)                             | vrai       | Activer l'édition. Si désactivé, le document sera en lecture seule                                                                                           |
+| Langue     | Chaîne de caractères (..., système, utilisateur) | système    | Langue du document. Si le système, la langue sera détectée à partir du navigateur. Si l'utilisateur, la langue sera définie à la préférence des utilisateurs |
 
 ## Évènements
 
@@ -30,7 +30,7 @@ embedElement.addEventListener('message', (data) => {
 });
 ```
 
-### save
+### économiser
 
 > L'événement `save` est émis lorsque l'utilisateur clique sur le bouton Enregistrer.
 
@@ -38,7 +38,7 @@ Paramètres:
 
 * `données` (Type `Liste<int>`) : Les données du document.
 
-### exit
+### Sortir
 
 > L'événement `exit` est émis lorsque l'utilisateur clique sur le bouton de fermeture.
 
@@ -46,7 +46,7 @@ Paramètres:
 
 * `données` (Type `Liste<int>`) : Les données du document.
 
-### change
+### changer
 
 > L'événement `change` est émis lorsque l'utilisateur change le document.
 
@@ -74,7 +74,7 @@ embedElement.addEventListener('message', (data) => {
 
 Aucun paramètre. Renvoie : `Liste<int>`
 
-### setData
+### définir les données
 
 > La méthode `setData` définit les données du document.
 
@@ -82,7 +82,7 @@ Paramètres:
 
 * `données` (Type `Liste<int>`) : Les données du document.
 
-### render
+### rendu
 
 > La méthode `render` rend le document à une image png.
 
@@ -95,7 +95,7 @@ Paramètres:
 
 Renvoie : `String` (image encodée en Base64)
 
-### renderSVG
+### Raccourci SVG
 
 > La méthode `renderSVG` rend le document à une image svg.
 
