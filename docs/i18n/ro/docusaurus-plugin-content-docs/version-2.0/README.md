@@ -1,7 +1,7 @@
 ---
 title: Introducere
-id: intro
-slug: /intro
+id: Introducere
+slug: /ro_RO/ro
 sidebar_position: 1
 ---
 
@@ -15,7 +15,7 @@ sidebar_position: 1
 ## Noțiuni de bază
 
 Vizitați [descărcările](/downloads) pentru a descărca aplicația pe platforma dvs.
-Use [web version](https://v2.web.butterfly.linwood.dev) if you cannot find your platform.
+Folosiți [versiunea web](https://v2.web.butterfly.linwood.dev) dacă nu vă puteți găsi platforma.
 
 ## Vizualizare principală
 
