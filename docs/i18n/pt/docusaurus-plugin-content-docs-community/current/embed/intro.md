@@ -6,7 +6,7 @@ sidebar_label: Introdução
 Embutir é uma maneira simples de incluir o aplicativo em seu site. Adicione o seguinte código ao seu site:
 
 ```html
-<iframe src="https://butterfly.linwood.dev/embed" width="100%" height="500px" allowtransparency="true"></iframe>
+<iframe src="https://web.butterfly.linwood.dev/embed" width="100%" height="500px" allowtransparency="true"></iframe>
 ```
 
 ## Opções
