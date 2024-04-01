@@ -1,5 +1,5 @@
 ---
-id: "faq"
+id: "فاك"
 slug: "/faq"
 title: "الأسئلة المتكررة"
 sidebar_label: "أسئلة متكررة"
@@ -29,7 +29,7 @@ sidebar_label: "أسئلة متكررة"
 
 > [#244](https://github.com/LinwoodDev/Butterfly/issues/244)
 
-الفراشة متاحة على iOS كمعاينة. Click [here](https://butterfly.linwood.dev/downloads/ios) to download it. انظر [هنا](https://github.com/LinwoodDev/Butterfly/issues/244#issuecomment-1935460878) لماذا لا يتوفر في متجر التطبيقات.
+الفراشة متاحة على iOS كمعاينة. انقر فوق [هنا](https://butterfly.linwood.dev/downloads/ios) لتحميله. انظر [هنا](https://github.com/LinwoodDev/Butterfly/issues/244#issuecomment-1935460878) لماذا لا يتوفر في متجر التطبيقات.
 
 ## سطح المكتب
 
