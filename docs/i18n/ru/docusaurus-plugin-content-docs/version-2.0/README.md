@@ -1,7 +1,7 @@
 ---
 title: Введение
-id: intro
-slug: /intro
+id: интро
+slug: /интро
 sidebar_position: 1
 ---
 
@@ -15,7 +15,7 @@ sidebar_position: 1
 ## Приступая к работе
 
 Посетите [загрузки](/downloads), чтобы загрузить приложение для вашей платформы.
-Use [web version](https://v2.web.butterfly.linwood.dev) if you cannot find your platform.
+Используйте [веб-версию](https://v2.web.butterfly.linwood.dev), если вы не можете найти свою платформу.
 
 ## Основной вид
 
