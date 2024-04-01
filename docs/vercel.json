@@ -2,7 +2,7 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "rewrites": [
     {
-      "source": "/web/:path*",
+      "source": "/settings/:path*",
       "destination": "https://web.butterfly.linwood.dev/:path*"
     },
     {
@@ -11,7 +11,7 @@
         {
           "type": "header",
           "key": "Referer",
-          "value": "https://butterfly.linwood.dev/web"
+          "value": "https://butterfly.linwood.dev/settings"
         }
       ],
       "destination": "https://web.butterfly.linwood.dev/:path*"
