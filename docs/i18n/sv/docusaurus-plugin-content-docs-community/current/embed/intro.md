@@ -6,7 +6,7 @@ sidebar_label: Introduktion
 Inbäddning är ett enkelt sätt att inkludera appen på din webbplats. Lägg till följande kod på din webbplats:
 
 ```html
-<iframe src="https://butterfly.linwood.dev/embed" width="100%" height="500px" allowtransparency="true"></iframe>
+<iframe src="https://web.butterfly.linwood.dev/embed" width="100%" height="500px" allowtransparency="true"></iframe>
 ```
 
 ## Alternativ
