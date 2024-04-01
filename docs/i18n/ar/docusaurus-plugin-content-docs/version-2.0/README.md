@@ -1,7 +1,7 @@
 ---
 title: مقدمة
-id: intro
-slug: /intro
+id: مقدمة
+slug: / مقدمة
 sidebar_position: 1
 ---
 
@@ -15,7 +15,7 @@ sidebar_position: 1
 ## بدء التشغيل
 
 قم بزيارة [التنزيلات](/downloads) لتحميل التطبيق الخاص بالمنصة الخاصة بك.
-Use [web version](https://v2.web.butterfly.linwood.dev) if you cannot find your platform.
+استخدم [webversion](https://v2.web.butterfly.linwood.dev) إذا لم تتمكن من العثور على منصتك.
 
 ## العرض الرئيسي
 
