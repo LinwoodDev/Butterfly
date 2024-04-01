@@ -11,11 +11,11 @@ sidebar_label: 简介
 
 ## 备选方案
 
-| 选项       | 类型                    | 默认设置   | 描述                                        |
-| -------- | --------------------- | ------ | ----------------------------------------- |
-| save     | Boolean (true, false) | true   | 启用保存。 如果禁用，只显示退出按钮                        |
-| editable | Boolean (true, false) | true   | 启用编辑。 如果禁用，文档将只读                          |
-| language | 字符串 (..., 系统, 用户)     | system | 文件所用语文。 如果系统从浏览器中检测到该语言。 如果用户，语言将设置为用户首选项 |
+| 选项  | 类型                | 默认设置 | 描述                                        |
+| --- | ----------------- | ---- | ----------------------------------------- |
+| 保存  | 布尔值(true，false)   | true | 启用保存。 如果禁用，只显示退出按钮                        |
+| 可编辑 | 布尔值(true，false)   | true | 启用编辑。 如果禁用，文档将只读                          |
+| 语言  | 字符串 (..., 系统, 用户) | 系统   | 文件所用语文。 如果系统从浏览器中检测到该语言。 如果用户，语言将设置为用户首选项 |
 
 ## 事件
 
@@ -30,7 +30,7 @@ embedElement.addEventListener('message', (data) => {
 });
 ```
 
-### save
+### 保存
 
 > 当用户点击保存按钮时， `保存` 事件将被发出。
 
@@ -38,7 +38,7 @@ embedElement.addEventListener('message', (data) => {
 
 * `数据` (键盘 `列表<int>`): 文档的数据。
 
-### exit
+### 退出
 
 > 当用户点击退出按钮时， `退出` 事件将被发出。
 
@@ -46,7 +46,7 @@ embedElement.addEventListener('message', (data) => {
 
 * `数据` (键盘 `列表<int>`): 文档的数据。
 
-### change
+### 更改
 
 > 当用户更改文档时， `更改` 事件将被发布。
 
@@ -74,7 +74,7 @@ Element.addEventListener('message', (data) => }
 
 没有参数。 返回： `列表<int>`
 
-### setData
+### 设置数据
 
 > `setData` 方法设置文档的数据。
 
@@ -82,7 +82,7 @@ Element.addEventListener('message', (data) => }
 
 * `数据` (键盘 `列表<int>`): 文档的数据。
 
-### render
+### 渲染
 
 > `渲染` 方法将文档渲染为 png 图像。
 
@@ -95,7 +95,7 @@ Element.addEventListener('message', (data) => }
 
 返回： `字符串` (Base64 编码的图像)
 
-### renderSVG
+### 渲染SVG
 
 > `渲染SVG` 方法将文档渲染为 svg 图像。
 
