@@ -21,14 +21,12 @@ Butterfly on muistiinpanon sovellus, joka tähtää yhtenäiseen kokemukseen kai
 
 > Voit käyttää sivupalkkia navigoidaksesi nopeasti wikin kautta.
 
-
 Jos haluat aloittaa sovelluksen käytön, sinulla on kaksi vaihtoehtoa:
+
 1. [Lataa](/downloads) sovellusversio, joka sopii alustallesi (Butterfly voi ajaa useimmilla mobiili-, työpöytä- ja web-alustoilla).
-2. Käytä [web-versiota](https://butterfly.linwood.dev) , jos et löydä alustaasi tai jos et halua asentaa sitä siihen. Katso [täällä](storage#web) tiedoston tallennustilasta web-versiossa.
+2. Use [web version](https://web.butterfly.linwood.dev) if you cannot find your platform or if you don't want to install it on it. Katso [täällä](storage#web) tiedoston tallennustilasta web-versiossa.
 
 > Kun olet avannut sovelluksen, jatka lukemista.
-
-
 
 ## Päänäkymä
 
@@ -74,7 +72,6 @@ Tärkein näkemys koostuu useista tekijöistä
 
 Kun asiakirja on avattu valitsemalla malli tai olemassa oleva tiedosto, pääset **Document View**
 
-
 ## Asiakirjan Näkymä
 
 Voit palata asiakirjan näkymästä asiakirjan luetteloon, jossa on laitteen takatoiminto (back action of your device). Kuten päänäkymässä, dokumentin näytön muutokset perustuvat laitteeseesi.
@@ -117,5 +114,3 @@ Voit palata asiakirjan näkymästä asiakirjan luetteloon, jossa on laitteen tak
         3. Voit lisätä työkaluriviin lisää työkaluja klikkaamalla <Plus/> plus -merkkiä. 
     </TabItem>
 </Tabs>
-	
-
