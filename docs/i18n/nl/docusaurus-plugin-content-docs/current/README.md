@@ -21,14 +21,12 @@ Butterfly is een aantekening bij het nemen van de app die gericht is op uniforme
 
 > Je kunt de zijbalk gebruiken om snel door de wiki te navigeren.
 
-
 Om te beginnen met werken aan de app heb je twee opties:
+
 1. [Downloads](/downloads) de app versie die geschikt is voor uw platform (Butterfly kan op de meeste mobiele, desktop- en webplatfrom) worden uitgevoerd.
-2. Gebruik [webversie](https://butterfly.linwood.dev) als u uw platform niet kunt vinden of als u het niet op wilt installeren. Zie [hier](storage#web) over bestandsopslag op de webversie.
+2. Use [web version](https://web.butterfly.linwood.dev) if you cannot find your platform or if you don't want to install it on it. Zie [hier](storage#web) over bestandsopslag op de webversie.
 
 > Zodra je de app opent, ga verder met lezen.
-
-
 
 ## Hoofd weergave
 
@@ -74,7 +72,6 @@ De hoofdweergave bestaat uit verschillende elementen
 
 Eenmaal een document openen door een sjabloon of een bestaand bestand te selecteren, zult u naar de **Document View** gaan
 
-
 ## De Document Weergave
 
 U kunt terugkeren van de documentweergave naar de documentenlijst met de back-actie van uw apparaat. Net als bij de hoofdweergave, wordt het document gewijzigd op basis van uw apparaat.
@@ -117,5 +114,3 @@ U kunt terugkeren van de documentweergave naar de documentenlijst met de back-ac
         3. Je kunt meer gereedschappen toevoegen aan de werkbalk door op de <Plus/> plus teken te klikken. 
     </TabItem>
 </Tabs>
-	
-
