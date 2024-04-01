@@ -21,14 +21,12 @@ Butterflyは、すべてのプラットフォームで統一されたエクス�
 
 > サイドバーを使用して、Wikiを素早くナビゲートできます。
 
-
 アプリの作業を開始するには、2つのオプションがあります。
+
 1. [ダウンロード](/downloads) ご使用のプラットフォームに適したアプリバージョン (ほとんどのモバイル、デスクトップ、および Web プラットフォームで実行できます)。
-2. プラットフォームが見つからない場合や、インストールしたくない場合は、 [ウェブバージョン](https://butterfly.linwood.dev) を使用してください。 See [here](storage#web) about file storage on the web version.
+2. Use [web version](https://web.butterfly.linwood.dev) if you cannot find your platform or if you don't want to install it on it. See [here](storage#web) about file storage on the web version.
 
 > アプリを開いたら、お読みください。
-
-
 
 ## メインビュー
 
@@ -74,7 +72,6 @@ Butterflyは、すべてのプラットフォームで統一されたエクス�
 
 テンプレートまたは既存のファイルを選択してドキュメントを開くと、 **ドキュメントビュー** に移動します。
 
-
 ## ドキュメントビュー
 
 デバイスのバックアクションを使用して、ドキュメント ビューからドキュメント リストに戻ることができます。 メインビューと同様に、お使いのデバイスに基づいてドキュメントが表示されます。
@@ -117,5 +114,3 @@ Butterflyは、すべてのプラットフォームで統一されたエクス�
         3. ツールバーに <Plus/> プラス記号をクリックすると、さらにツールを追加できます。 
     </TabItem>
 </Tabs>
-	
-
