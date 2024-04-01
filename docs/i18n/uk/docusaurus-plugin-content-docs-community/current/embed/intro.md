@@ -6,7 +6,7 @@ sidebar_label: Вступ
 Додавання — це простий спосіб включити програму у вашому веб-сайті. Додайте наступний код на свій сайт:
 
 ```html
-<iframe src="https://butterfly.linwood.dev/embed" width="100%" height="500px" allowtransparency="true"></iframe>
+<iframe src="https://web.butterfly.linwood.dev/embed" width="100%" height="500px" allowtransparency="true"></iframe>
 ```
 
 ## Опції
