@@ -29,7 +29,7 @@ Eu estou usando os dados fornecidos pelo framework de agitação. Esse é o prob
 
 > [#244](https://github.com/LinwoodDev/Butterfly/issues/244)
 
-A Borboleta está disponível no iOS como pré-visualização. Clique em [aqui](https://docs.butterfly.linwood.dev/downloads/ios) para baixá-lo. Veja [aqui](https://github.com/LinwoodDev/Butterfly/issues/244#issuecomment-1935460878) por que não está disponível na App Store.
+A Borboleta está disponível no iOS como pré-visualização. Click [here](https://butterfly.linwood.dev/downloads/ios) to download it. Veja [aqui](https://github.com/LinwoodDev/Butterfly/issues/244#issuecomment-1935460878) por que não está disponível na App Store.
 
 ## Computadores
 
