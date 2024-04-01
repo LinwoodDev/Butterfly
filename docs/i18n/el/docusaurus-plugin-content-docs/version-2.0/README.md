@@ -1,6 +1,6 @@
 ---
 title: Εισαγωγή
-id: intro
+id: εισαγωγή
 slug: /intro
 sidebar_position: 1
 ---
@@ -15,7 +15,7 @@ sidebar_position: 1
 ## Ξεκινώντας
 
 Επισκεφθείτε [τις λήψεις](/downloads) για να κατεβάσετε την εφαρμογή για την πλατφόρμα σας.
-Use [web version](https://v2.web.butterfly.linwood.dev) if you cannot find your platform.
+Χρησιμοποιήστε το [web version](https://v2.web.butterfly.linwood.dev) αν δεν μπορείτε να βρείτε την πλατφόρμα σας.
 
 ## Κύρια προβολή
 
