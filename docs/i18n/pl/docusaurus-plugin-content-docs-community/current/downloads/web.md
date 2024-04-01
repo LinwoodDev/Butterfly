@@ -15,11 +15,11 @@ Jest to postępowa aplikacja internetowa. Możesz go zainstalować w przeglądar
 ## Linki
 
 <div className="row margin-bottom--lg padding--sm">
-<Link className="button button--outline button--info button--lg margin--sm" href="https://butterfly.linwood.dev">
-  Główne
+<Link className="button button--outline button--info button--lg margin--sm" href="https://web.butterfly.linwood.dev">
+  Main
 </Link>
-<Link className="button button--outline button--danger button--lg margin--sm" href="https://preview.butterfly.linwood.dev">
-  Podgląd
+<Link className="button button--outline button--danger button--lg margin--sm" href="https://preview.web.butterfly.linwood.dev">
+  Preview
 </Link>
 </div>
 
