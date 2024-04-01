@@ -6,7 +6,7 @@ sidebar_label: Introduktion
 Indlejring er en enkel måde at inkludere appen på din hjemmeside. Tilføj følgende kode til dit websted:
 
 ```html
-<iframe src="https://butterfly.linwood.dev/embed" width="100%" height="500px" allowtransparency="true"></iframe>
+<iframe src="https://web.butterfly.linwood.dev/embed" width="100%" height="500px" allowtransparency="true"></iframe>
 ```
 
 ## Indstillinger
