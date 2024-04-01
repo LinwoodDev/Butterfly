@@ -6,7 +6,7 @@ sidebar_label: Introductie
 Insluiten is een eenvoudige manier om de app toe te voegen aan uw website. Voeg de volgende code toe aan je website:
 
 ```html
-<iframe src="https://butterfly.linwood.dev/embed" width="100%" height="500px" allowtransparency="true"></iframe>
+<iframe src="https://web.butterfly.linwood.dev/embed" width="100%" height="500px" allowtransparency="true"></iframe>
 ```
 
 ## Instellingen
