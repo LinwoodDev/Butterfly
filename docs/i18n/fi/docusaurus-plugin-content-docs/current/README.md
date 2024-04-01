@@ -5,9 +5,7 @@ slug: /intro
 sidebar_position: 1
 ---
 
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
-import { Gear, Plus, FloppyDisk, MagnifyingGlass, ScribbleLoop, Pen, Path, ArrowCounterClockwise, ArrowClockwise, Hand, Wrench, Lock} from "@phosphor-icons/react";
+tuo välilehdet paikasta '@theme/Tabs'; tuo TabItem paikasta '@theme/TabItem'; import { Gear, Plus, FloppyDisk, Suurennuslasit, ScribbleLoop, Kynä, Polku, ArrowCounterClockwise, ArrowClockwise, Hand, Ranskalainen, Lock} "@phosphor-icons/react";
 
 ![Mainospalkki](/img/banner.png)
 
@@ -24,7 +22,7 @@ Butterfly on muistiinpanon sovellus, joka tähtää yhtenäiseen kokemukseen kai
 Jos haluat aloittaa sovelluksen käytön, sinulla on kaksi vaihtoehtoa:
 
 1. [Lataa](/downloads) sovellusversio, joka sopii alustallesi (Butterfly voi ajaa useimmilla mobiili-, työpöytä- ja web-alustoilla).
-2. Use [web version](https://web.butterfly.linwood.dev) if you cannot find your platform or if you don't want to install it on it. Katso [täällä](storage#web) tiedoston tallennustilasta web-versiossa.
+2. Käytä [web-versiota](https://web.butterfly.linwood.dev) , jos et löydä alustaasi tai jos et halua asentaa sitä siihen. Katso [täällä](storage#web) tiedoston tallennustilasta web-versiossa.
 
 > Kun olet avannut sovelluksen, jatka lukemista.
 
