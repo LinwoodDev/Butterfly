@@ -6,8 +6,7 @@ sidebar_position: 1
 ---
 
 import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
-import { Gear, Plus, FloppyDisk, MagnifyingGlass, ScribbleLoop, Pen, Path, ArrowCounterClockwise, ArrowClockwise, Hand, Wrench, Lock} from "@phosphor-icons/react";
+import TabItem din '@theme/TabItem'; import { Gear, Plus, FloppyDisk, MagnifyingGlass, ScribbleLoop, Pen, Cale, ArrowCounterClockwise, ArrowClockwise, Wrench, Lock} de la "@fosfor-icons/react";
 
 ![Banner](/img/banner.png)
 
@@ -24,7 +23,7 @@ Butterfly este o notă care ia aplicația ce vizează o experiență unificată 
 Pentru a începe să lucrați la aplicație aveți două opțiuni:
 
 1. [Descarca](/downloads) versiunea aplicatiei care este potrivit pentru platforma ta (Butterfly poate rula pe cele mai multe mobile, desktop si web platfromuri).
-2. Use [web version](https://web.butterfly.linwood.dev) if you cannot find your platform or if you don't want to install it on it. Vezi [aici](storage#web) despre stocarea fișierelor pe versiunea web.
+2. Utilizaţi [versiunea web](https://web.butterfly.linwood.dev) dacă nu găsiţi platforma sau dacă nu doriţi să o instalaţi pe ea. Vezi [aici](storage#web) despre stocarea fișierelor pe versiunea web.
 
 > Odată ce deschideți aplicația, continuați citirea.
 
