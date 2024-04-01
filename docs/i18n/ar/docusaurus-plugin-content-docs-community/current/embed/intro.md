@@ -6,7 +6,7 @@ sidebar_label: مقدمة
 التضمين طريقة بسيطة لإدراج التطبيق في موقع الويب الخاص بك. أضف التعليمة البرمجية التالية إلى موقع الويب الخاص بك:
 
 ```html
-<iframe src="https://butterfly.linwood.dev/embed" width="100%" height="500px" allowtransparency="true"></iframe>
+<iframe src="https://web.butterfly.linwood.dev/embed" width="100%" height="500px" allowtransparency="true"></iframe>
 ```
 
 ## خيارات
