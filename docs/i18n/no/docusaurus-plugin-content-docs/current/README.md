@@ -5,9 +5,7 @@ slug: /intro
 sidebar_position: 1
 ---
 
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
-import { Gear, Plus, FloppyDisk, MagnifyingGlass, ScribbleLoop, Pen, Path, ArrowCounterClockwise, ArrowClockwise, Hand, Wrench, Lock} from "@phosphor-icons/react";
+Importer faner fra '@theme/Tabs'; import TabItem fra '@theme/TabItem'; import { Gear, Plus, FloppyDisk, MagnifyingGlass, ScribbleLoop, Pen, Sti, ArrowCounterClockwise, ArrowClockwise, Glødende Lock} fra "@fosfor-icons/react";
 
 ![Fane](/img/banner.png)
 
@@ -24,7 +22,7 @@ Sommerfugl arbeider et notat som tar app som sikter mot en enhetlig opplevelse p
 For å begynne å jobbe med appen har du to alternativer:
 
 1. [Downloads](/downloads) appversjonen som passer for plattformen (Butterfly kan kjøre på mest mobil, skrivebord og nettplater).
-2. Use [web version](https://web.butterfly.linwood.dev) if you cannot find your platform or if you don't want to install it on it. Se [her](storage#web) om fillagring på nettversjonen.
+2. Bruk [web versjon](https://web.butterfly.linwood.dev) hvis du ikke finner plattformen din, eller hvis du ikke vil installere den i den. Se [her](storage#web) om fillagring på nettversjonen.
 
 > Fortsett å lese når du åpner appen.
 
