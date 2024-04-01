@@ -13,9 +13,9 @@ Integrarea este o modalitate simplă de a include aplicația în site-ul dvs. Ad
 
 | Opţiune  | Tip                           | Implicit | Descriere                                                                                                                        |
 | -------- | ----------------------------- | -------- | -------------------------------------------------------------------------------------------------------------------------------- |
-| save     | Boolean (true, false)         | true     | Activează salvarea. Dacă este dezactivat, numai un buton de ieșire va fi afișat                                                  |
-| editable | Boolean (true, false)         | true     | Activează editarea. Dacă este dezactivat, documentul va fi numai în citire                                                       |
-| language | Șir (..., sistem, utilizator) | system   | Limba documentului Dacă sistemul va fi detectat limba din browser. Dacă utilizator, limba va seta la preferințele utilizatorilor |
+| salvează | Boolean (adevărat, fals)      | adevărat | Activează salvarea. Dacă este dezactivat, numai un buton de ieșire va fi afișat                                                  |
+| editabil | Boolean (adevărat, fals)      | adevărat | Activează editarea. Dacă este dezactivat, documentul va fi numai în citire                                                       |
+| limbă    | Șir (..., sistem, utilizator) | sistem   | Limba documentului Dacă sistemul va fi detectat limba din browser. Dacă utilizator, limba va seta la preferințele utilizatorilor |
 
 ## Evenimente
 
@@ -30,7 +30,7 @@ embedElement.addEventListener('message', (data) => {
 });
 ```
 
-### save
+### salvează
 
 > Evenimentul `salvează` este emis atunci când utilizatorul apasă butonul de salvare.
 
@@ -38,7 +38,7 @@ Parametrii:
 
 * `date` (Tip `Lista<int>`): Datele documentului.
 
-### exit
+### Ieșire
 
 > Evenimentul `Ieșire` este emis atunci când utilizatorul face clic pe butonul de ieșire.
 
@@ -46,7 +46,7 @@ Parametrii:
 
 * `date` (Tip `Lista<int>`): Datele documentului.
 
-### change
+### schimbă
 
 > Evenimentul `schimbă` este emis atunci când utilizatorul schimbă documentul.
 
@@ -74,7 +74,7 @@ embedElement.addEventListener('message', (data) => {
 
 Niciun parametru. Returnări: `Lista<int>`
 
-### setData
+### setare date
 
 > Metoda `setează Data` stabilește datele documentului.
 
@@ -82,7 +82,7 @@ Parametrii:
 
 * `date` (Tip `Lista<int>`): Datele documentului.
 
-### render
+### randare
 
 > Metoda de randare `` redă documentul unei imagini png.
 
