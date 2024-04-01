@@ -1,7 +1,7 @@
 ---
 title: Вступ
-id: intro
-slug: /intro
+id: інтро
+slug: /вступ
 sidebar_position: 1
 ---
 
@@ -15,7 +15,7 @@ sidebar_position: 1
 ## Початок роботи
 
 Відвідайте [завантаження програми](/downloads), щоб завантажити додаток для своєї платформи.
-Use [web version](https://v2.web.butterfly.linwood.dev) if you cannot find your platform.
+Використовуйте [веб-версію](https://v2.web.butterfly.linwood.dev) якщо ви не можете знайти свою платформу.
 
 ## Основний вигляд
 
