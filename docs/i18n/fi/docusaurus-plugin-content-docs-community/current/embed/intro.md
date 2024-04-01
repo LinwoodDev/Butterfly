@@ -6,7 +6,7 @@ sidebar_label: Esittely
 Upottaminen on yksinkertainen tapa sisällyttää sovellus sivustoosi. Lisää seuraava koodi sivustollesi:
 
 ```html
-<iframe src="https://butterfly.linwood.dev/embed" width="100%" height="500px" allowtransparency="true"></iframe>
+<iframe src="https://web.butterfly.linwood.dev/embed" width="100%" height="500px" allowtransparency="true"></iframe>
 ```
 
 ## Valinnat
