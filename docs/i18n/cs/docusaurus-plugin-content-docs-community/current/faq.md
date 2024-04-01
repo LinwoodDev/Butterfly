@@ -29,7 +29,7 @@ Používám vstup poskytnutý rámcem blesku. Toto je úkol ke sledování jako:
 
 > [#244](https://github.com/LinwoodDev/Butterfly/issues/244)
 
-Butterfly je k dispozici na iOS jako náhled. Klikněte na [zde](https://docs.butterfly.linwood.dev/downloads/ios) pro jeho stažení. Podívejte se [zde](https://github.com/LinwoodDev/Butterfly/issues/244#issuecomment-1935460878) , proč není k dispozici v App Store.
+Butterfly je k dispozici na iOS jako náhled. Click [here](https://butterfly.linwood.dev/downloads/ios) to download it. Podívejte se [zde](https://github.com/LinwoodDev/Butterfly/issues/244#issuecomment-1935460878) , proč není k dispozici v App Store.
 
 ## Stolní počítače
 
