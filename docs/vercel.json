@@ -50,10 +50,6 @@
     {
       "source": "/docs/privacypolicy",
       "destination": "/privacypolicy"
-    },
-    {
-      "source": "/web/:path*",
-      "destination": "https://web.butterfly.linwood.dev/:path*"
     }
   ],
   "github": {

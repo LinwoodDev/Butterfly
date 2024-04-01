@@ -13,7 +13,7 @@ Future<bool> openReleaseNotes() {
   return launchUrl(
       Uri(
           scheme: 'https',
-          host: 'go.linwood.dev',
+          host: 'linwood.dev',
           pathSegments: ['butterfly', applicationMinorVersion]),
       mode: LaunchMode.externalApplication);
 }
