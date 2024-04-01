@@ -6,7 +6,7 @@ sidebar_label: Wprowadzenie
 Osadzanie jest prostym sposobem na włączenie aplikacji do Twojej strony internetowej. Dodaj następujący kod do swojej strony internetowej:
 
 ```html
-<iframe src="https://butterfly.linwood.dev/embed" width="100%" height="500px" allowtransparency="true"></iframe>
+<iframe src="https://web.butterfly.linwood.dev/embed" width="100%" height="500px" allowtransparency="true"></iframe>
 ```
 
 ## Opcje
