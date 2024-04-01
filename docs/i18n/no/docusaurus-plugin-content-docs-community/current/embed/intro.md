@@ -13,9 +13,9 @@ Embedding er en enkel måte å inkludere appen på nettstedet ditt. Legg til fø
 
 | Alternativ | Type:                        | Standard | Beskrivelse                                                                                                                                        |
 | ---------- | ---------------------------- | -------- | -------------------------------------------------------------------------------------------------------------------------------------------------- |
-| save       | Boolean (true, false)        | true     | Aktiver lagring. Hvis deaktivert, vil bare en avslutning-knappen bli vist                                                                          |
-| editable   | Boolean (true, false)        | true     | Aktiver redigering. Hvis deaktivert vil dokumentet være skrivebeskyttet                                                                            |
-| language   | Streng (..., system, bruker) | system   | Språket til dokumentet. Dersom systemet er lagt, vil språket bli oppdaget fra nettleseren. Hvis bruker vil språket settes til brukerens preferanse |
+| lagre      | Boolsk (sann, usann)         | sann     | Aktiver lagring. Hvis deaktivert, vil bare en avslutning-knappen bli vist                                                                          |
+| redigerbar | Boolsk (sann, usann)         | sann     | Aktiver redigering. Hvis deaktivert vil dokumentet være skrivebeskyttet                                                                            |
+| språk      | Streng (..., system, bruker) | system   | Språket til dokumentet. Dersom systemet er lagt, vil språket bli oppdaget fra nettleseren. Hvis bruker vil språket settes til brukerens preferanse |
 
 ## Hendelser
 
@@ -29,7 +29,7 @@ embedElement.addEventListener('melding', (data) => {
   }
 ```
 
-### save
+### lagre
 
 > `Lagre` -hendelsen slås ut når brukeren klikker på lagreknappen.
 
@@ -37,7 +37,7 @@ Parametre:
 
 * `data` (Type `liste<int>`): Dataen til dokumentet.
 
-### exit
+### utgang
 
 > `avslutt` hendelsen slås ut når brukeren klikker på avslutningsknappen.
 
@@ -45,7 +45,7 @@ Parametre:
 
 * `data` (Type `liste<int>`): Dataen til dokumentet.
 
-### change
+### endre
 
 > `Endre` hendelse sendes ut når brukeren endrer dokumentet.
 
@@ -73,7 +73,7 @@ embedElement.addEventListener('message', (data) => {
 
 Ingen parametere. Returer: `Liste<int>`
 
-### setData
+### settData
 
 > Metoden `settData` angir data i dokumentet.
 
@@ -81,7 +81,7 @@ Parametre:
 
 * `data` (Type `liste<int>`): Dataen til dokumentet.
 
-### render
+### generer
 
 > `render` method renders the document to a png image.
 
@@ -94,7 +94,7 @@ Parametre:
 
 Returer: `Streng` (Base64 kodet bilde)
 
-### renderSVG
+### rendersvegg
 
 > `renderSVG` -metoden gjengir dokumentet til et svg-bilde.
 
