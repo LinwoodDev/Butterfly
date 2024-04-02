@@ -5,7 +5,9 @@ slug: /intro
 sidebar_position: 1
 ---
 
-tuo välilehdet paikasta '@theme/Tabs'; tuo TabItem paikasta '@theme/TabItem'; import { Gear, Plus, FloppyDisk, Suurennuslasit, ScribbleLoop, Kynä, Polku, ArrowCounterClockwise, ArrowClockwise, Hand, Ranskalainen, Lock} "@phosphor-icons/react";
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+import { Gear, Plus, FloppyDisk, MagnifyingGlass, ScribbleLoop, Pen, Path, ArrowCounterClockwise, ArrowClockwise, Hand, Wrench, Lock} from "@phosphor-icons/react";
 
 ![Mainospalkki](/img/banner.png)
 
