@@ -1,5 +1,8 @@
 * Add option to import zip archive
-* Allow using laser and select as temporary tool ([#656](https://github.com/LinwoodDev/Butterfly/issues/656))
+* Allow using these tools as temporary tool ([#656](https://github.com/LinwoodDev/Butterfly/issues/656))
+  * Select
+  * Area
+  * Laser
 * Remove navigating to canvas view if no document was imported
 * Use correct remote for importing
 * Change size of quickstart to be smaller

@@ -283,7 +283,7 @@ class SelectHandler extends Handler<SelectTool> {
     }
     final currentIndex = context.getCurrentIndex();
     if (currentIndex.buttons == kSecondaryMouseButton &&
-        context.getCurrentIndex().temporaryHandler == null) {
+        currentIndex.temporaryHandler == null) {
       return false;
     }
     final cameraTransform = context.getCameraTransform();

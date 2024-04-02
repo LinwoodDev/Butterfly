@@ -80,8 +80,8 @@ class AreaHandler extends Handler<AreaTool> {
   @override
   bool onScaleStart(ScaleStartDetails details, EventContext context) {
     final currentIndex = context.getCurrentIndex();
-    if (details.pointerCount > 1 ||
-        currentIndex.buttons == kSecondaryMouseButton) return true;
+    if (currentIndex.buttons == kSecondaryMouseButton &&
+        currentIndex.temporaryHandler == null) return true;
     final transform = context.getCameraTransform();
     final globalPos = transform.localToGlobal(details.localFocalPoint);
     if (_selectionManager.isValid) {
@@ -96,19 +96,11 @@ class AreaHandler extends Handler<AreaTool> {
 
   @override
   void onScaleUpdate(ScaleUpdateDetails details, EventContext context) {
-    final currentIndex = context.getCurrentIndex();
     final transform = context.getCameraTransform();
     var globalPos = transform.localToGlobal(details.localFocalPoint);
     if (_selectionManager.isValid) {
       _selectionManager.updateCurrentPosition(globalPos);
       _updateArea();
-      context.refresh();
-      return;
-    }
-    if (details.pointerCount > 1 ||
-        currentIndex.buttons == kSecondaryMouseButton ||
-        _start == null) {
-      currentRect = null;
       context.refresh();
       return;
     }
@@ -135,7 +127,6 @@ class AreaHandler extends Handler<AreaTool> {
 
   @override
   Future<void> onScaleEnd(ScaleEndDetails details, EventContext context) async {
-    final currentIndex = context.getCurrentIndex();
     final rect = currentRect;
     if (_selectionManager.isValid) {
       _updateArea();
@@ -145,13 +136,6 @@ class AreaHandler extends Handler<AreaTool> {
       }
       _selectionManager.resetTransform();
       _updateSelectionRect();
-      context.refresh();
-      return;
-    }
-    if (details.pointerCount > 1 ||
-        currentIndex.buttons == kSecondaryMouseButton ||
-        (rect?.isEmpty ?? true)) {
-      currentRect = null;
       context.refresh();
       return;
     }
