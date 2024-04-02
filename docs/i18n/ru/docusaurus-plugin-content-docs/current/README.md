@@ -5,7 +5,9 @@ slug: /intro
 sidebar_position: 1
 ---
 
-Импортировать вкладки из '@theme/Tabs'; импортировать вкладки из '@theme/TabItem'; import { Gear, Plus, FloppyDisk, MagnifyingGlass, Цикл кристалла, Сен, Путь, Часы против стрел, Часовой стрелы, Рука, Ключ, Заблокировать} от "@phosphor-icons/react";
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+import { Gear, Plus, FloppyDisk, MagnifyingGlass, ScribbleLoop, Pen, Path, ArrowCounterClockwise, ArrowClockwise, Hand, Wrench, Lock} from "@phosphor-icons/react";
 
 ![Баннер](/img/banner.png)
 
