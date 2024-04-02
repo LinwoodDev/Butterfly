@@ -1,4 +1,6 @@
 * Add option to import zip archive
+* Remove navigating to canvas view if no document was imported
+* Use correct remote for importing
 * Change size of quickstart to be smaller
 * Change size of recent files card
 * Improve home page header to be more responsive

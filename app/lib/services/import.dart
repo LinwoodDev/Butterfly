@@ -89,11 +89,24 @@ class ImportService {
   }
 
   Future<NoteData?> import(
-          AssetFileType type, Uint8List bytes, NoteData document,
-          {Offset? position, bool advanced = true}) async =>
+    AssetFileType type,
+    Uint8List bytes,
+    NoteData document, {
+    Offset? position,
+    bool advanced = true,
+    DocumentFileSystem? fileSystem,
+    TemplateFileSystem? templateSystem,
+    PackFileSystem? packSystem,
+  }) async =>
       switch (type) {
-        AssetFileType.note => importBfly(bytes,
-            document: document, position: position, advanced: advanced),
+        AssetFileType.note => importBfly(
+            bytes,
+            document: document,
+            position: position,
+            advanced: advanced,
+            templateSystem: templateSystem,
+            packSystem: packSystem,
+          ),
         AssetFileType.image => importImage(bytes, document, position: position),
         AssetFileType.svg => importSvg(bytes, document, position: position),
         AssetFileType.markdown =>
@@ -102,11 +115,18 @@ class ImportService {
           importPdf(bytes, document, position: position, advanced: advanced),
         AssetFileType.page => importPage(bytes, document, position: position),
         AssetFileType.xopp => importXopp(bytes, document, position: position),
-        AssetFileType.archive => importArchive(bytes).then((value) => null),
+        AssetFileType.archive =>
+          importArchive(bytes, fileSystem: fileSystem).then((value) => null),
       };
 
-  FutureOr<NoteData?> importBfly(Uint8List bytes,
-      {NoteData? document, Offset? position, bool advanced = true}) async {
+  FutureOr<NoteData?> importBfly(
+    Uint8List bytes, {
+    NoteData? document,
+    Offset? position,
+    bool advanced = true,
+    TemplateFileSystem? templateSystem,
+    PackFileSystem? packSystem,
+  }) async {
     try {
       document ??= DocumentDefaults.createDocument();
       final data = NoteData.fromData(bytes);
@@ -119,9 +139,9 @@ class ImportService {
         case NoteFileType.document:
           return _importDocument(data, document, advanced: advanced);
         case NoteFileType.template:
-          return _importTemplate(data);
+          return _importTemplate(data, templateSystem);
         case NoteFileType.pack:
-          await _importPack(data);
+          await _importPack(data, packSystem);
           break;
         default:
           showDialog(
@@ -205,8 +225,10 @@ class ImportService {
         elements: content, areas: areas, choosePosition: position == null);
   }
 
-  Future<NoteData?> _importTemplate(NoteData template) async {
+  Future<NoteData?> _importTemplate(NoteData template,
+      [TemplateFileSystem? templateSystem]) async {
     final metadata = template.getMetadata();
+    templateSystem ??= getTemplateFileSystem();
     if (metadata == null) return null;
     final result = await showDialog<bool>(
       context: context,
@@ -214,12 +236,13 @@ class ImportService {
           TemplateImportConfirmationDialog(template: metadata),
     );
     if (context.mounted && result == true) {
-      getTemplateFileSystem().createTemplate(template);
+      templateSystem.createTemplate(template);
     }
     return template.createDocument();
   }
 
-  Future<bool> _importPack(NoteData pack) async {
+  Future<bool> _importPack(NoteData pack, [PackFileSystem? packSystem]) async {
+    packSystem ??= getPackFileSystem();
     final metadata = pack.getMetadata();
     if (metadata == null) return false;
     final result = await showDialog<bool>(
@@ -228,7 +251,7 @@ class ImportService {
     );
     if (result != true) return false;
     if (context.mounted) {
-      getPackFileSystem().createPack(pack);
+      packSystem.createPack(pack);
     }
     return true;
   }
@@ -615,14 +638,16 @@ class ImportService {
     return document;
   }
 
-  Future<bool> importArchive(Uint8List bytes) async {
+  Future<bool> importArchive(Uint8List bytes,
+      {DocumentFileSystem? fileSystem}) async {
     try {
+      fileSystem ??= getFileSystem();
       final archive = ZipDecoder().decodeBytes(bytes);
       final data = NoteData.fromArchive(archive);
       if (data.isValid) {
         final document = await importBfly(bytes);
         if (document != null) {
-          getFileSystem().importDocument(document);
+          fileSystem.importDocument(document);
         }
         return document != null;
       }
@@ -630,7 +655,7 @@ class ImportService {
         if (!file.name.endsWith('.bfly')) continue;
         final document = await importBfly(file.content);
         if (document != null) {
-          getFileSystem().importDocument(document);
+          fileSystem.importDocument(document);
         }
       }
       return true;

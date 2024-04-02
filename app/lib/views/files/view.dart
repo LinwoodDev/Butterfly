@@ -334,11 +334,16 @@ class FilesViewState extends State<FilesView> {
                         final (result, extension) = await importFile(context);
                         if (result == null) return;
                         final model = await importService.import(
-                            AssetFileTypeHelper.fromFileExtension(extension) ??
-                                AssetFileType.note,
-                            result,
-                            DocumentDefaults.createDocument(),
-                            advanced: false);
+                          AssetFileTypeHelper.fromFileExtension(extension) ??
+                              AssetFileType.note,
+                          result,
+                          DocumentDefaults.createDocument(),
+                          advanced: false,
+                          fileSystem: _fileSystem,
+                          templateSystem: _templateSystem,
+                          packSystem:
+                              PackFileSystem.fromPlatform(remote: _remote),
+                        );
                         if (model == null) {
                           reloadFileSystem();
                           return;
