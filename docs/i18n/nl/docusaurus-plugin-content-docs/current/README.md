@@ -5,7 +5,9 @@ slug: /intro
 sidebar_position: 1
 ---
 
-Importeer tabbladen van '@theme/Tabs'; importeer TabItem van '@theme/TabItem'; import { Gear, Plus, FloppyDisk, MagnifyingGlass, ScribbleLoop, Pen, pad, ArrowCounterClockwise, pijl Hand, Wrench, Lock} van "@fosfor-pictogrammen/reactie";
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+import { Gear, Plus, FloppyDisk, MagnifyingGlass, ScribbleLoop, Pen, Path, ArrowCounterClockwise, ArrowClockwise, Hand, Wrench, Lock} from "@phosphor-icons/react";
 
 ![Spandoek](/img/banner.png)
 
