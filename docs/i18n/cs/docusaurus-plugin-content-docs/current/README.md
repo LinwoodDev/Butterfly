@@ -5,7 +5,9 @@ slug: /intro
 sidebar_position: 1
 ---
 
-importovat záložky z '@theme/Tabs'; importovat položku záložky z '@theme/TabItem'; importovat { Gear, Plus, FloppyDisk, MagnifyingGlass, ScribbleLoop, Pen, Cesta, Šipka CounterClockise, Šipkový kurz, Ruce, Wrench, Lock} z "@fosfor-icons/react";
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+import { Gear, Plus, FloppyDisk, MagnifyingGlass, ScribbleLoop, Pen, Path, ArrowCounterClockwise, ArrowClockwise, Hand, Wrench, Lock} from "@phosphor-icons/react";
 
 ![Banner](/img/banner.png)
 
