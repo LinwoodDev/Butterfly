@@ -339,7 +339,10 @@ class FilesViewState extends State<FilesView> {
                             result,
                             DocumentDefaults.createDocument(),
                             advanced: false);
-                        if (model == null) return;
+                        if (model == null) {
+                          reloadFileSystem();
+                          return;
+                        }
                         const route = '/native?name=document.bfly&type=note';
                         router.go(route, extra: model.save());
                         if (!widget.collapsed) {

@@ -620,12 +620,18 @@ class ImportService {
       final archive = ZipDecoder().decodeBytes(bytes);
       final data = NoteData.fromArchive(archive);
       if (data.isValid) {
-        await importBfly(bytes);
-        return true;
+        final document = await importBfly(bytes);
+        if (document != null) {
+          getFileSystem().importDocument(document);
+        }
+        return document != null;
       }
       for (final file in archive) {
         if (!file.name.endsWith('.bfly')) continue;
-        await importBfly(bytes);
+        final document = await importBfly(file.content);
+        if (document != null) {
+          getFileSystem().importDocument(document);
+        }
       }
       return true;
     } catch (e) {
