@@ -1,4 +1,7 @@
 * Add option to import zip archive
+* Change size of quickstart to be smaller
+* Change size of recent files card
+* Improve home page header to be more responsive
 * Fix linux metainfo again
 
 Read more here: https://linwood.dev/butterfly/2.1.0-beta.5

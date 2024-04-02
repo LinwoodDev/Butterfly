@@ -639,7 +639,7 @@ class _RecentFilesViewState extends State<_RecentFilesView> {
               return Container();
             }
             return SizedBox(
-              height: 150,
+              height: 160,
               child: Scrollbar(
                 controller: _recentScrollController,
                 child: ListView.builder(
@@ -658,6 +658,7 @@ class _RecentFilesViewState extends State<_RecentFilesView> {
                       metadata: metadata,
                       thumbnail: thumbnail,
                       name: entity.location.identifier,
+                      height: double.infinity,
                       onTap: () =>
                           openFile(context, widget.replace, entity.location),
                     );
@@ -677,11 +678,13 @@ class AssetCard extends StatelessWidget {
     required this.thumbnail,
     required this.onTap,
     this.name,
+    this.height = 150,
   });
   final String? name;
   final FileMetadata? metadata;
   final Uint8List? thumbnail;
   final VoidCallback onTap;
+  final double height;
 
   @override
   Widget build(BuildContext context) {
@@ -690,7 +693,7 @@ class AssetCard extends StatelessWidget {
           color: colorScheme.onSurface,
         );
     return ConstrainedBox(
-        constraints: const BoxConstraints(maxHeight: 200),
+        constraints: BoxConstraints(maxHeight: height),
         child: AspectRatio(
           aspectRatio: 16 / 9,
           child: Card(
