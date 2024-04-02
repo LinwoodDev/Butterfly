@@ -5,7 +5,9 @@ slug: /intro
 sidebar_position: 1
 ---
 
-імпортувати вкладки з '@theme/Tabs'; імпортувати елемент з '@theme/TabItem'; імпортувати { Gear, Plus, FloppyDisk, MagnifyingGlass, ScribbleLoop, Pen, Шлях, ArrowCounterClockwise, ArrowClockwise, Hand, Захід, Замикайте} з "@phosphor-icons/react";
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+import { Gear, Plus, FloppyDisk, MagnifyingGlass, ScribbleLoop, Pen, Path, ArrowCounterClockwise, ArrowClockwise, Hand, Wrench, Lock} from "@phosphor-icons/react";
 
 ![Стяг](/img/banner.png)
 
