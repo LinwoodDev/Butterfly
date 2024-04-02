@@ -7,5 +7,6 @@
 * Improve home page header to be more responsive
 * Fix linux metainfo again
 * Fix template infinite loading on initial load
+* Fix size of temporary tool and lock and tools button if toolbar columns count is bigger than 1a
 
 Read more here: https://linwood.dev/butterfly/2.1.0-beta.5
