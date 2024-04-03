@@ -599,7 +599,9 @@
   "smoothNavigation": "التنقل السلس",
   "exact": "بالضبط",
   "inline": "مضمن",
-  "toolbarColumns": "أعمدة شريط الأدوات",
+  "toolbarRows": "Toolbar rows",
   "pointerTest": "اختبار المؤشر",
-  "pressure": "الضغط"
+  "pressure": "الضغط",
+  "small": "Small",
+  "tiny": "Tiny"
 }
