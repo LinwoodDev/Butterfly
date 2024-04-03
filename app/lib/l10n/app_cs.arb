@@ -599,7 +599,9 @@
   "smoothNavigation": "Hladká navigace",
   "exact": "Přesné",
   "inline": "Řádek",
-  "toolbarColumns": "Sloupce panelu nástrojů",
+  "toolbarRows": "Toolbar rows",
   "pointerTest": "Zkouška ukazovatele",
-  "pressure": "Tlak"
+  "pressure": "Tlak",
+  "small": "Small",
+  "tiny": "Tiny"
 }
