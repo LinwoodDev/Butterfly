@@ -599,7 +599,9 @@
   "smoothNavigation": "Navigation fluide",
   "exact": "Exactement",
   "inline": "En ligne",
-  "toolbarColumns": "Colonnes de la barre d'outils",
+  "toolbarRows": "Toolbar rows",
   "pointerTest": "Test du pointeur",
-  "pressure": "Pression"
+  "pressure": "Pression",
+  "small": "Small",
+  "tiny": "Tiny"
 }
