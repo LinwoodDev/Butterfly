@@ -599,7 +599,9 @@
   "smoothNavigation": "Pehmeä navigointi",
   "exact": "Tarkka",
   "inline": "Inline",
-  "toolbarColumns": "Työkalupalkin sarakkeet",
+  "toolbarRows": "Toolbar rows",
   "pointerTest": "Osoittimen testi",
-  "pressure": "Paine"
+  "pressure": "Paine",
+  "small": "Small",
+  "tiny": "Tiny"
 }
