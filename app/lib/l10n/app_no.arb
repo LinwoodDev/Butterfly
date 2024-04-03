@@ -599,7 +599,9 @@
   "smoothNavigation": "Jevn navigasjon",
   "exact": "Nøyaktig",
   "inline": "Innebygd",
-  "toolbarColumns": "Kolonner på verktøylinje",
+  "toolbarRows": "Toolbar rows",
   "pointerTest": "Pekers test",
-  "pressure": "Trykk"
+  "pressure": "Trykk",
+  "small": "Small",
+  "tiny": "Tiny"
 }
