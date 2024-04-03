@@ -3,8 +3,10 @@
   * Select
   * Area
   * Laser
+* Add small, tiny and compact toolbar size option
 * Remove navigating to canvas view if no document was imported
 * Use correct remote for importing
+* Rename toolbar columns to rows
 * Change size of quickstart to be smaller
 * Change size of recent files card
 * Improve home page header to be more responsive

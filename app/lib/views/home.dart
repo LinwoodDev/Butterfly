@@ -290,7 +290,17 @@ class _HeaderHomeViewState extends State<_HeaderHomeView>
                 child: Text(AppLocalizations.of(context).whatsNew),
               ),
         if (widget.hasNewerVersion)
-          const PhosphorIcon(PhosphorIconsLight.caretUp),
+          const SizedBox(
+            height: 0,
+            child: Stack(
+              children: [
+                Align(
+                  alignment: Alignment.bottomCenter,
+                  child: PhosphorIcon(PhosphorIconsLight.caretUp),
+                ),
+              ],
+            ),
+          ),
       ],
     );
     final logo = Row(

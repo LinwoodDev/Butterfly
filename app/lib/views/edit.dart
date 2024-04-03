@@ -70,11 +70,11 @@ class _EditToolbarState extends State<EditToolbar> {
               previous.inputConfiguration != current.inputConfiguration ||
               previous.fullScreen != current.fullScreen ||
               previous.toolbarSize != current.toolbarSize ||
-              previous.toolbarColumns != current.toolbarColumns,
+              previous.toolbarRows != current.toolbarRows,
           builder: (context, settings) {
             final shortcuts = settings.inputConfiguration.getShortcuts();
             final size = settings.toolbarSize.size;
-            final fullSize = (size + 4) * settings.toolbarColumns;
+            final fullSize = (size + 4) * settings.toolbarRows;
             return SizedBox(
                 height: widget.direction == Axis.horizontal ? fullSize : null,
                 width: widget.direction == Axis.horizontal
@@ -123,14 +123,14 @@ class _EditToolbarState extends State<EditToolbar> {
         mainAxisAlignment: MainAxisAlignment.end,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const SizedBox(width: 4),
+          const SizedBox(width: 3),
           PhosphorIcon(
             data,
             size: size * (5 / 12),
             color: color,
           ),
           SizedBox(
-            width: 4,
+            width: 3,
             child: action
                 ? PhosphorIcon(
                     PhosphorIconsLight.playCircle,
@@ -207,7 +207,7 @@ class _EditToolbarState extends State<EditToolbar> {
               shrinkWrap: true,
               scrollDirection: widget.direction,
               physics: const NeverScrollableScrollPhysics(),
-              crossAxisCount: settings.toolbarColumns,
+              crossAxisCount: settings.toolbarRows,
               childAspectRatio: 1,
               children: List.generate(
                 tools.length + 1,
