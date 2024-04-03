@@ -599,7 +599,9 @@
   "smoothNavigation": "Smidig navigering",
   "exact": "Exakt",
   "inline": "Infogad",
-  "toolbarColumns": "Kolumner i verktygsfältet",
+  "toolbarRows": "Toolbar rows",
   "pointerTest": "Pekare test",
-  "pressure": "Tryck"
+  "pressure": "Tryck",
+  "small": "Small",
+  "tiny": "Tiny"
 }
