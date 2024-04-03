@@ -599,7 +599,9 @@
   "smoothNavigation": "スムーズなナビゲーション",
   "exact": "正確な",
   "inline": "インライン",
-  "toolbarColumns": "ツールバーの列",
+  "toolbarRows": "Toolbar rows",
   "pointerTest": "ポインタテスト",
-  "pressure": "<unk>"
+  "pressure": "<unk>",
+  "small": "Small",
+  "tiny": "Tiny"
 }
