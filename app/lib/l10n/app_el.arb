@@ -599,9 +599,9 @@
   "smoothNavigation": "Ομαλή πλοήγηση",
   "exact": "Ακριβής",
   "inline": "Εμβόλιμο",
-  "toolbarRows": "Toolbar rows",
+  "toolbarRows": "Γραμμές γραμμής εργαλείων",
   "pointerTest": "Δοκιμή δείκτη",
   "pressure": "Πίεση",
-  "small": "Small",
-  "tiny": "Tiny"
+  "small": "Μικρό",
+  "tiny": "Μικροσκοπικό"
 }
