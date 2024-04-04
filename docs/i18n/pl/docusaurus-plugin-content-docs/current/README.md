@@ -5,7 +5,9 @@ slug: /intro
 sidebar_position: 1
 ---
 
-importuj zakładki z '@theme/Tabs'; zaimportuj zakładkę z '@theme/Tabela'; import { Gear, Plus, FloppyDisk, MagnifyingGlass, ScribbleLoop, Pen, Ścieżka ArrowCounterClockline, ArrowClockline, Dłoń, Wrench, Lock} z "@phosphor-icons/react";
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+import { Gear, Plus, FloppyDisk, MagnifyingGlass, ScribbleLoop, Pen, Path, ArrowCounterClockwise, ArrowClockwise, Hand, Wrench, Lock} from "@phosphor-icons/react";
 
 ![Sztandar](/img/banner.png)
 
