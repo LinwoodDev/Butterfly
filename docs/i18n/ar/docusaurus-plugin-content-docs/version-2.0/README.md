@@ -1,6 +1,6 @@
 ---
 title: مقدمة
-id: مقدمة
+id: intro
 slug: / مقدمة
 sidebar_position: 1
 ---
