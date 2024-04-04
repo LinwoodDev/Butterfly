@@ -599,9 +599,9 @@
   "smoothNavigation": "Glatte Navigation",
   "exact": "Exakt",
   "inline": "Inline",
-  "toolbarRows": "Toolbar rows",
+  "toolbarRows": "Zeilen der Symbolleiste",
   "pointerTest": "Zeigertest",
   "pressure": "Druck",
-  "small": "Small",
-  "tiny": "Tiny"
+  "small": "Klein",
+  "tiny": "Klein"
 }
