@@ -599,9 +599,9 @@
   "smoothNavigation": "Гладкая навигация",
   "exact": "Точно",
   "inline": "Встроенный",
-  "toolbarRows": "Toolbar rows",
+  "toolbarRows": "Строки панели",
   "pointerTest": "Тест указателя",
   "pressure": "Давление",
-  "small": "Small",
-  "tiny": "Tiny"
+  "small": "Маленький",
+  "tiny": "Маленький"
 }
