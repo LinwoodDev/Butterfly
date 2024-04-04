@@ -599,9 +599,9 @@
   "smoothNavigation": "Плавна навігація",
   "exact": "Точно",
   "inline": "У тексті",
-  "toolbarRows": "Toolbar rows",
+  "toolbarRows": "Рядки панелі інструментів",
   "pointerTest": "Тест вказівника",
   "pressure": "Тиск",
-  "small": "Small",
-  "tiny": "Tiny"
+  "small": "Маленький",
+  "tiny": "Дрібний"
 }
