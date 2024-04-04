@@ -1,6 +1,6 @@
 ---
 title: Úvod
-id: úvod
+id: intro
 slug: /úvod
 sidebar_position: 1
 ---
