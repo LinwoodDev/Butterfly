@@ -599,9 +599,9 @@
   "smoothNavigation": "Smidig navigering",
   "exact": "Exakt",
   "inline": "Infogad",
-  "toolbarRows": "Toolbar rows",
+  "toolbarRows": "Verktygsfält rader",
   "pointerTest": "Pekare test",
   "pressure": "Tryck",
-  "small": "Small",
-  "tiny": "Tiny"
+  "small": "Liten",
+  "tiny": "Liten"
 }
