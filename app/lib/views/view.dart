@@ -339,8 +339,6 @@ class _MainViewViewportState extends State<MainViewViewport>
                               }
                               cubit.removePointer(event.pointer);
                               cubit.removeButtons();
-                              Future.sync(() => cubit.resetTemporaryHandler(
-                                  context.read<DocumentBloc>()));
                             },
                             behavior: HitTestBehavior.translucent,
                             onPointerHover: (event) {

@@ -490,7 +490,7 @@ class _MainBody extends StatelessWidget {
               buildWhen: (previous, current) =>
                   previous.toolbarPosition != current.toolbarPosition ||
                   previous.toolbarSize != current.toolbarSize ||
-                  previous.toolbarColumns != current.toolbarColumns ||
+                  previous.toolbarRows != current.toolbarRows ||
                   previous.fullScreen != current.fullScreen ||
                   previous.navigationRail != current.navigationRail,
               builder: (context, settings) {

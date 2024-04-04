@@ -596,5 +596,10 @@
   "toolbarSize": "Rozmiar paska narzędzi",
   "addAll": "Dodaj wszystkie",
   "onlyCurrentPage": "Tylko bieżąca strona",
-  "smoothNavigation": "Gładka nawigacja"
+  "smoothNavigation": "Gładka nawigacja",
+  "exact": "Dokładny",
+  "inline": "Wbudowany",
+  "toolbarColumns": "Kolumny paska narzędzi",
+  "pointerTest": "Badanie wskaźnika",
+  "pressure": "Ciśnienie"
 }

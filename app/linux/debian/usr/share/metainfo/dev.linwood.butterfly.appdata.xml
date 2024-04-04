@@ -3,23 +3,22 @@
 	<id>dev.linwood.butterfly</id>
 	<name>Linwood Butterfly</name>
 	<developer_name>Linwood</developer_name>
-	<summary>Powerful, minimalistic, cross-platform, opensource note-taking app</summary>
+	<summary>Powerful, minimalistic note-taking</summary>
 	<metadata_license>CC0-1.0</metadata_license>
 	<project_license>AGPL-3.0-only</project_license>
-	<supports>
-	  <control>pointing</control>
-	  <control>keyboard</control>
-	  <control>touch</control>
-	</supports>
+	<launchable type="desktop-id">dev.linwood.butterfly.desktop</launchable>
 	<recommends>
 		<control>pointing</control>
 		<control>keyboard</control>
 		<control>touch</control>
 	</recommends>
-	<developer_name>Linwood</developer_name>
-	<url type="homepage">https://docs.butterfly.linwood.dev/</url>
+	<branding>
+		<color type="primary" scheme_preference="light">#d0d0d0</color>
+		<color type="primary" scheme_preference="dark">#2f2f2f</color>
+	</branding>
+	<url type="homepage">https://butterfly.linwood.dev/</url>
 	<url type="bugtracker">https://github.com/LinwoodDev/Butterfly/issues</url>
-	<url type="help">https://docs.butterfly.linwood.dev/docs/latest/intro</url>
+	<url type="help">https://butterfly.linwood.dev/docs/latest/intro</url>
 	<url type="translate">https://translate.linwood.dev/butterfly</url>
 	<url type="vcs-browser">https://github.com/LinwoodDev/Butterfly.git</url>
 	<url type="contribute">https://github.com/LinwoodDev/Butterfly/blob/develop/CONTRIBUTING.md</url>
@@ -35,6 +34,7 @@
 	<screenshots>
 		<screenshot type="default">
 			<image type="source">https://raw.githubusercontent.com/LinwoodDev/butterfly/develop/docs/static/img/main.png</image>
+			<caption>Main draw view</caption>
 		</screenshot>
 	</screenshots>
 	<launchable type="desktop-id">dev.linwood.butterfly.desktop</launchable>

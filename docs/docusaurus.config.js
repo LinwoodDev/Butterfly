@@ -3,7 +3,7 @@ module.exports = {
   title: "Linwood Butterfly",
   tagline:
     "🎨 Powerful, minimalistic, cross-platform, opensource note-taking app 🎨",
-  url: "https://docs.butterfly.linwood.dev",
+  url: "https://butterfly.linwood.dev",
   baseUrl: "/",
   onBrokenLinks: "throw",
   onBrokenMarkdownLinks: "warn",
@@ -87,7 +87,7 @@ module.exports = {
             },
             {
               label: "Bluesky",
-              href: "https://bsky.app/profile/LinwoodDev",
+              href: "https://bsky.app/profile/linwood.dev",
             },
             {
               label: "License",

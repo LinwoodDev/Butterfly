@@ -93,7 +93,6 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       _saveState(
         emit,
         state: current.copyWith(data: newData),
-        addedElements: null,
       );
     });
     on<PageRenamed>((event, emit) {

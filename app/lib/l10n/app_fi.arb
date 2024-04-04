@@ -596,5 +596,10 @@
   "toolbarSize": "Työkalupalkin koko",
   "addAll": "Lisää kaikki",
   "onlyCurrentPage": "Vain nykyinen sivu",
-  "smoothNavigation": "Pehmeä navigointi"
+  "smoothNavigation": "Pehmeä navigointi",
+  "exact": "Tarkka",
+  "inline": "Inline",
+  "toolbarColumns": "Työkalupalkin sarakkeet",
+  "pointerTest": "Osoittimen testi",
+  "pressure": "Paine"
 }

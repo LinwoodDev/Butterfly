@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'dart:math';
 import 'dart:ui' as ui;
+import 'package:archive/archive.dart';
 import 'package:butterfly/api/image.dart';
 import 'package:butterfly/helpers/asset.dart';
 import 'package:device_info_plus/device_info_plus.dart';
@@ -93,11 +94,24 @@ class ImportService {
   }
 
   Future<NoteData?> import(
-          AssetFileType type, Uint8List bytes, NoteData document,
-          {Offset? position, bool advanced = true}) async =>
+    AssetFileType type,
+    Uint8List bytes,
+    NoteData document, {
+    Offset? position,
+    bool advanced = true,
+    DocumentFileSystem? fileSystem,
+    TemplateFileSystem? templateSystem,
+    PackFileSystem? packSystem,
+  }) async =>
       switch (type) {
-        AssetFileType.note => importBfly(bytes,
-            document: document, position: position, advanced: advanced),
+        AssetFileType.note => importBfly(
+            bytes,
+            document: document,
+            position: position,
+            advanced: advanced,
+            templateSystem: templateSystem,
+            packSystem: packSystem,
+          ),
         AssetFileType.image => importImage(bytes, document, position: position),
         AssetFileType.svg => importSvg(bytes, document, position: position),
         AssetFileType.markdown =>
@@ -106,6 +120,8 @@ class ImportService {
           importPdf(bytes, document, position: position, advanced: advanced),
         AssetFileType.page => importPage(bytes, document, position: position),
         AssetFileType.xopp => importXopp(bytes, document, position: position),
+        AssetFileType.archive =>
+          importArchive(bytes, fileSystem: fileSystem).then((value) => null),
       };
 
   Future<Uint8List?>? _readFileFromClipboard(
@@ -170,19 +186,29 @@ class ImportService {
     return import(type, data, document, position: position, advanced: advanced);
   }
 
-  FutureOr<NoteData?> importBfly(Uint8List bytes,
-      {NoteData? document, Offset? position, bool advanced = true}) async {
+  FutureOr<NoteData?> importBfly(
+    Uint8List bytes, {
+    NoteData? document,
+    Offset? position,
+    bool advanced = true,
+    TemplateFileSystem? templateSystem,
+    PackFileSystem? packSystem,
+  }) async {
     try {
       document ??= DocumentDefaults.createDocument();
       final data = NoteData.fromData(bytes);
+      if (!data.isValid) {
+        await importArchive(bytes);
+        return null;
+      }
       final type = data.getMetadata()?.type;
       switch (type) {
         case NoteFileType.document:
           return _importDocument(data, document, advanced: advanced);
         case NoteFileType.template:
-          return _importTemplate(data);
+          return _importTemplate(data, templateSystem);
         case NoteFileType.pack:
-          await _importPack(data);
+          await _importPack(data, packSystem);
           break;
         default:
           showDialog(
@@ -266,8 +292,10 @@ class ImportService {
         elements: content, areas: areas, choosePosition: position == null);
   }
 
-  Future<NoteData?> _importTemplate(NoteData template) async {
+  Future<NoteData?> _importTemplate(NoteData template,
+      [TemplateFileSystem? templateSystem]) async {
     final metadata = template.getMetadata();
+    templateSystem ??= getTemplateFileSystem();
     if (metadata == null) return null;
     final result = await showDialog<bool>(
       context: context,
@@ -275,12 +303,13 @@ class ImportService {
           TemplateImportConfirmationDialog(template: metadata),
     );
     if (context.mounted && result == true) {
-      getTemplateFileSystem().createTemplate(template);
+      templateSystem.createTemplate(template);
     }
     return template.createDocument();
   }
 
-  Future<bool> _importPack(NoteData pack) async {
+  Future<bool> _importPack(NoteData pack, [PackFileSystem? packSystem]) async {
+    packSystem ??= getPackFileSystem();
     final metadata = pack.getMetadata();
     if (metadata == null) return false;
     final result = await showDialog<bool>(
@@ -289,7 +318,7 @@ class ImportService {
     );
     if (result != true) return false;
     if (context.mounted) {
-      getPackFileSystem().createPack(pack);
+      packSystem.createPack(pack);
     }
     return true;
   }
@@ -674,5 +703,36 @@ class ImportService {
       (document, _) = document.addPage(page);
     }
     return document;
+  }
+
+  Future<bool> importArchive(Uint8List bytes,
+      {DocumentFileSystem? fileSystem}) async {
+    try {
+      fileSystem ??= getFileSystem();
+      final archive = ZipDecoder().decodeBytes(bytes);
+      final data = NoteData.fromArchive(archive);
+      if (data.isValid) {
+        final document = await importBfly(bytes);
+        if (document != null) {
+          fileSystem.importDocument(document);
+        }
+        return document != null;
+      }
+      for (final file in archive) {
+        if (!file.name.endsWith('.bfly')) continue;
+        final document = await importBfly(file.content);
+        if (document != null) {
+          fileSystem.importDocument(document);
+        }
+      }
+      return true;
+    } catch (e) {
+      showDialog(
+        context: context,
+        builder: (context) =>
+            UnknownImportConfirmationDialog(message: e.toString()),
+      );
+      return false;
+    }
   }
 }

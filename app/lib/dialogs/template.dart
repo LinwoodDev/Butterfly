@@ -24,7 +24,7 @@ class TemplateDialog extends StatefulWidget {
 
 class _TemplateDialogState extends State<TemplateDialog> {
   late TemplateFileSystem _fileSystem;
-  late Future<List<NoteData>>? _templatesFuture;
+  Future<List<NoteData>>? _templatesFuture;
   final TextEditingController _searchController = TextEditingController();
   final List<String> _selectedTemplates = [];
 
@@ -33,20 +33,22 @@ class _TemplateDialogState extends State<TemplateDialog> {
     super.initState();
     _fileSystem =
         context.read<SettingsCubit>().state.getDefaultTemplateFileSystem();
-    load();
+    WidgetsBinding.instance.addPostFrameCallback((_) => load());
   }
 
   void load() {
-    _templatesFuture = _fileSystem.createDefault(context).then((value) async {
-      var templates = await _fileSystem.getTemplates();
-      templates = templates
-          .where((element) =>
-              element.name
-                  ?.toLowerCase()
-                  .contains(_searchController.text.toLowerCase()) ??
-              true)
-          .toList();
-      return templates;
+    setState(() {
+      _templatesFuture = _fileSystem.createDefault(context).then((value) async {
+        var templates = await _fileSystem.getTemplates();
+        templates = templates
+            .where((element) =>
+                element.name
+                    ?.toLowerCase()
+                    .contains(_searchController.text.toLowerCase()) ??
+                true)
+            .toList();
+        return templates;
+      });
     });
   }
 
@@ -71,7 +73,6 @@ class _TemplateDialogState extends State<TemplateDialog> {
                         _fileSystem =
                             TemplateFileSystem.fromPlatform(remote: value);
                         load();
-                        setState(() {});
                       },
                     ),
                     IconButton(

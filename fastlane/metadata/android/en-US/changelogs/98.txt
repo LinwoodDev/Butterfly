@@ -3,11 +3,17 @@
 * Add option to have multiple toolbar columns
 * Add multi columns for toolbar ([#589](https://github.com/LinwoodDev/Butterfly/issues/589))
 * Add pointer test to behavior settings
+* Change area enter and exit to the left of the area name in areas navigator page
+* Change current area on area click in areas navigator page if the current area is not the clicked area
 * Improve friction
+* Use percents for zoom in document properties
 * Readd drawing outside of window ([#521](https://github.com/LinwoodDev/Butterfly/pull/521))
 * Fix baking when animating smooth navigation
 * Fix eraser
 * Fix crash and size when loading pdf or big butterfly files ([#645](https://github.com/LinwoodDev/Butterfly/pull/645))
 * Fix toolbar size setting saving
+* Fix template dialog loading failed
+* Fix grid x position negation
+* Update linux appdata
 
 Read more here: https://linwood.dev/butterfly/2.1.0-beta.4

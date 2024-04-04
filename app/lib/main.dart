@@ -134,10 +134,7 @@ Future<void> main([List<String> args = const []]) async {
 
 const kUnsupportedLanguages = [];
 
-List<Locale> getLocales() =>
-    List<Locale>.from(AppLocalizations.supportedLocales)
-        .where((l) => !kUnsupportedLanguages.contains(l.toString()))
-        .toList();
+List<Locale> getLocales() => AppLocalizations.supportedLocales;
 
 class ButterflyApp extends StatelessWidget {
   final String initialLocation;

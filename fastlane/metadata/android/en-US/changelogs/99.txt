@@ -1,0 +1,18 @@
+* Add option to import zip archive
+* Allow using these tools as temporary tool ([#656](https://github.com/LinwoodDev/Butterfly/issues/656))
+  * Select
+  * Area
+  * Laser
+* Add small, tiny and compact toolbar size option
+* Remove navigating to canvas view if no document was imported
+* Use correct remote for importing
+* Rename toolbar columns to rows
+* Change size of quickstart to be smaller
+* Change size of recent files card
+* Improve home page header to be more responsive
+* Fix linux metainfo again
+* Fix template infinite loading on initial load
+* Fix size of temporary tool and lock and tools button if toolbar columns count is bigger than 1a
+* Fix snackbar will be shown twice when copying to clipboard in settings
+
+Read more here: https://linwood.dev/butterfly/2.1.0-beta.5

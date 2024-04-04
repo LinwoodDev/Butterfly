@@ -155,10 +155,6 @@
     "message": "Навигационные крошки",
     "description": "The ARIA label for the breadcrumbs"
   },
-  "theme.docs.DocCard.categoryDescription": {
-    "message": "{count} элементов",
-    "description": "The default description for a category card in the generated index about how many items this category includes"
-  },
   "theme.docs.paginator.navAriaLabel": {
     "message": "Навигация страниц документов",
     "description": "The ARIA label for the docs pagination"
@@ -516,5 +512,9 @@
   "theme.unlistedContent.message": {
     "message": "Эта страница удалена. Поисковые системы не будут индексировать ее, и только пользователи, имеющие прямую ссылку, имеют доступ к ней.",
     "description": "The unlisted content banner message"
+  },
+  "theme.docs.DocCard.categoryDescription.plurals": {
+    "message": "{count} items",
+    "description": "The default description for a category card in the generated index about how many items this category includes"
   }
 }

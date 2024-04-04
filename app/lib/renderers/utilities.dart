@@ -39,9 +39,9 @@ class UtilitiesRenderer extends Renderer<UtilitiesState> {
         while (x < size.width) {
           final localX = x / transform.size;
           canvas.drawLine(
-            Offset(localX - transform.position.dx, -transform.position.dy),
-            Offset(localX - transform.position.dx,
-                size.height / transform.size - transform.position.dy),
+            Offset(localX + transform.position.dx, transform.position.dy),
+            Offset(localX + transform.position.dx,
+                size.height / transform.size + transform.position.dy),
             Paint()
               ..strokeWidth = 1 / transform.size
               ..color = Color(option.gridColor),
