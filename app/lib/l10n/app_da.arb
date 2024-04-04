@@ -599,9 +599,9 @@
   "smoothNavigation": "Glat navigation",
   "exact": "Præcis",
   "inline": "Indlejret",
-  "toolbarRows": "Toolbar rows",
+  "toolbarRows": "Værktøjslinje- rækker",
   "pointerTest": "Markør test",
   "pressure": "Tryk",
-  "small": "Small",
-  "tiny": "Tiny"
+  "small": "Lille",
+  "tiny": "Lille"
 }
