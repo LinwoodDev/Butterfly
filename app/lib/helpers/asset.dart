@@ -20,5 +20,6 @@ extension AssetFileTypeClipboardHelper on AssetFileType {
         AssetFileType.markdown => [Formats.plainText],
         AssetFileType.page => [formatPage],
         AssetFileType.xopp => [formatXopp],
+        AssetFileType.archive => [Formats.zip],
       };
 }
