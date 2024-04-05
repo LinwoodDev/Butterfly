@@ -153,14 +153,15 @@ class ImportService {
       final clipboard = SystemClipboard.instance;
       final reader = await clipboard?.read();
       if (reader == null) return null;
-      final formats = reader.getFormats(
-          AssetFileType.values.expand((e) => e.getClipboardFormats()).toList());
-      final result = AssetFileType.values.map((e) {
-        final format = e
-            .getClipboardFormats()
-            .firstWhereOrNull((element) => formats.contains(element));
-        return format == null ? null : (e, format);
-      }).firstOrNull;
+      final result = AssetFileType.values
+          .map((e) {
+            final format = e
+                .getClipboardFormats()
+                .firstWhereOrNull((f) => reader.canProvide(f));
+            return format == null ? null : (e, format);
+          })
+          .whereNotNull()
+          .firstOrNull;
       if (result == null) return null;
       if (result.$2 is FileFormat) {
         data = await _readFileFromClipboard(reader, result.$2 as FileFormat);
