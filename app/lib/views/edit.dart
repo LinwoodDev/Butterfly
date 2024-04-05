@@ -123,14 +123,14 @@ class _EditToolbarState extends State<EditToolbar> {
         mainAxisAlignment: MainAxisAlignment.end,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const SizedBox(width: 3),
+          const SizedBox(width: 2),
           PhosphorIcon(
             data,
-            size: size * (5 / 12),
+            size: size * (6 / 16),
             color: color,
           ),
           SizedBox(
-            width: 3,
+            width: 2,
             child: action
                 ? PhosphorIcon(
                     PhosphorIconsLight.playCircle,
