@@ -42,8 +42,8 @@ jobs:
       - name: 🏭 Build nightly
         if: ${{ github.ref != 'refs/tags/stable' && (github.event_name != 'release' || github.event.prerelease) }}
         run: |
-          flutter build apk -v --release --flavor development --dart-define=flavor=development
-          cp build/app/outputs/flutter-apk/app-development-release.apk linwood-butterfly-android.apk
+          flutter build apk -v --release --flavor nightly --dart-define=flavor=nightly
+          cp build/app/outputs/flutter-apk/app-nightly-release.apk linwood-butterfly-android.apk
       - name: 🏭 Build production
         if: ${{ github.ref == 'refs/tags/stable' || (github.event_name == 'release' && !github.event.prerelease) }}
         run: |
@@ -54,6 +54,35 @@ jobs:
         with:
           name: apk-build
           path: app/linwood-butterfly-android.apk
+      - name: 🏭 Build architecture nightly
+        if: ${{ github.ref != 'refs/tags/stable' && (github.event_name != 'release' || github.event.prerelease) }}
+        run: |
+          flutter build apk -v --release --target-platform android-arm,android-arm64,android-x64 --split-per-abi --flavor nightly --dart-define=flavor=nightly
+          cp build/app/outputs/flutter-apk/app-armeabi-v7a-nightly-release.apk linwood-butterfly-android-arm.apk
+          cp build/app/outputs/flutter-apk/app-arm64-v8a-nightly-release.apk linwood-butterfly-android-arm64.apk
+          cp build/app/outputs/flutter-apk/app-x86_64-nightly-release.apk linwood-butterfly-android-x86_64.apk
+      - name: 🏭 Build architecture production
+        if: ${{ github.ref == 'refs/tags/stable' || (github.event_name == 'release' && !github.event.prerelease) }}
+        run: |
+          flutter build apk -v --release --target-platform android-arm,android-arm64,android-x64 --split-per-abi --flavor production
+          cp build/app/outputs/flutter-apk/app-armeabi-v7a-production-release.apk linwood-butterfly-android-arm.apk
+          cp build/app/outputs/flutter-apk/app-arm64-v8a-production-release.apk linwood-butterfly-android-arm64.apk
+          cp build/app/outputs/flutter-apk/app-x86_64-production-release.apk linwood-butterfly-android-x86_64.apk
+      - name: Archive
+        uses: actions/upload-artifact@v4
+        with:
+          name: apk-arm-build
+          path: app/linwood-butterfly-android-arm.apk
+      - name: Archive
+        uses: actions/upload-artifact@v4
+        with:
+          name: apk-arm64-build
+          path: app/linwood-butterfly-android-arm64.apk
+      - name: Archive
+        uses: actions/upload-artifact@v4
+        with:
+          name: apk-x64-build
+          path: app/linwood-butterfly-android-x86_64.apk
   build-windows:
     runs-on: windows-2022
     defaults:
@@ -82,7 +111,7 @@ jobs:
         if: ${{ github.ref != 'refs/tags/stable' && (github.event_name != 'release' || github.event.prerelease) }}
         run: |
           flutter doctor -v
-          flutter build windows -v --release --dart-define=flavor=development
+          flutter build windows -v --release --dart-define=flavor=nightly
       - name: 🏭 Build production
         if: ${{ github.ref == 'refs/tags/stable' || (github.event_name == 'release' && !github.event.prerelease) }}
         run: |
@@ -161,7 +190,7 @@ jobs:
         if: ${{ github.ref != 'refs/tags/stable' && (github.event_name != 'release' || github.event.prerelease) }}
         run: |
           flutter doctor -v
-          flutter build linux -v --release --dart-define=flavor=development
+          flutter build linux -v --release --dart-define=flavor=nightly
       - name: 🏭 Build production
         if: ${{ github.ref == 'refs/tags/stable' || (github.event_name == 'release' && !github.event.prerelease) }}
         run: |
@@ -272,7 +301,7 @@ jobs:
         if: ${{ github.ref != 'refs/tags/stable' && (github.event_name != 'release' || github.event.prerelease) }}
         run: |
           flutter doctor -v
-          flutter build linux -v --release --dart-define=flavor=development
+          flutter build linux -v --release --dart-define=flavor=nightly
       - name: 🏭 Build production
         if: ${{ github.ref == 'refs/tags/stable' || (github.event_name == 'release' && !github.event.prerelease) }}
         run: |
@@ -462,6 +491,15 @@ jobs:
           name: apk-build
       - uses: actions/download-artifact@v4
         with:
+          name: apk-arm-build
+      - uses: actions/download-artifact@v4
+        with:
+          name: apk-arm64-build
+      - uses: actions/download-artifact@v4
+        with:
+          name: apk-x86_64-build
+      - uses: actions/download-artifact@v4
+        with:
           name: windows-build
           path: windows-build/
       - uses: actions/download-artifact@v4
@@ -544,6 +582,9 @@ jobs:
             linwood-butterfly-macos.zip
             linwood-butterfly-macos.dmg
             linwood-butterfly-android.apk
+            linwood-butterfly-android-arm.apk
+            linwood-butterfly-android-arm64.apk
+            linwood-butterfly-android-x86_64.apk
             linwood-butterfly-ios.ipa
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -563,6 +604,9 @@ jobs:
             linwood-butterfly-macos.zip
             linwood-butterfly-macos.dmg
             linwood-butterfly-android.apk
+            linwood-butterfly-android-arm.apk
+            linwood-butterfly-android-arm64.apk
+            linwood-butterfly-android-x86_64.apk
             linwood-butterfly-ios.ipa
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

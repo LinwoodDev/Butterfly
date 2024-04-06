@@ -16,4 +16,7 @@
 * Fix size of temporary tool and lock and tools button if toolbar columns count is bigger than 1a
 * Fix snackbar will be shown twice when copying to clipboard in settings
 
+* Use nightly flavor for nightly builds to allow installing both stable and nightly builds on the same device
+* Add architecture specific apk builds ([#657](https://github.com/LinwoodDev/Butterfly/issues/657))
+
 Read more here: https://linwood.dev/butterfly/2.1.0-beta.5
