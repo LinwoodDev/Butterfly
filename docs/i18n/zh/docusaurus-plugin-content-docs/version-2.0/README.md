@@ -7,7 +7,7 @@ sidebar_position: 1
 
 ![Banner](/img/banner.png)
 
-***
+---
 
 > 欢迎使用 Butterfly，开源笔记应用。
 > 使用侧边栏导航wiki。
