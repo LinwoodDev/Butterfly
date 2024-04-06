@@ -7,7 +7,7 @@ sidebar_position: 1
 
 ![Banner](/img/banner.png)
 
-***
+---
 
 > Butterfly, açık kaynaklı not uygulaması'na hoş geldiniz.
 > Wiki'de gezinmek için kenar çubuğunu kullanın.
