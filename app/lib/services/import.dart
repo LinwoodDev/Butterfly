@@ -154,12 +154,12 @@ class ImportService {
       {Offset? position, bool advanced = true}) async {
     Uint8List? data;
     AssetFileType? type;
-    if (kIsWeb ||
-        !Platform.isAndroid ||
-        (await DeviceInfoPlugin().androidInfo).version.sdkInt >= 23) {
-      final clipboard = SystemClipboard.instance;
-      final reader = await clipboard?.read();
-      if (reader == null) return null;
+    final clipboard = SystemClipboard.instance;
+    if (clipboard != null &&
+        (kIsWeb ||
+            !Platform.isAndroid ||
+            (await DeviceInfoPlugin().androidInfo).version.sdkInt >= 23)) {
+      final reader = await clipboard.read();
       final result = AssetFileType.values
           .map((e) {
             final format = e

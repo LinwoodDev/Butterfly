@@ -47,17 +47,18 @@ void saveToClipboard(BuildContext context, String text) {
   );
 }
 
-Future<void> writeClipboardData(
-    ClipboardManager clipboard, AssetFileType type, Uint8List data) async {
-  if (kIsWeb ||
-      !Platform.isAndroid ||
-      (await DeviceInfoPlugin().androidInfo).version.sdkInt >= 23) {
-    final clipboard = SystemClipboard.instance;
+Future<void> writeClipboardData(ClipboardManager clipboardManager,
+    AssetFileType type, Uint8List data) async {
+  final clipboard = SystemClipboard.instance;
+  if (clipboard != null &&
+      (kIsWeb ||
+          !Platform.isAndroid ||
+          (await DeviceInfoPlugin().androidInfo).version.sdkInt >= 23)) {
     final item = DataWriterItem();
     final format = type.getClipboardFormats().first;
     item.add(format(data));
-    clipboard?.write([item]);
+    clipboard.write([item]);
   } else {
-    clipboard.setContent((data: data, type: type.name));
+    clipboardManager.setContent((data: data, type: type.name));
   }
 }
