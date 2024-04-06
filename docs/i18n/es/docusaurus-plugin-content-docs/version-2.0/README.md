@@ -7,7 +7,7 @@ sidebar_position: 1
 
 ![Banner](/img/banner.png)
 
-***
+---
 
 > Bienvenido a Butterfly, la aplicación de notas de código abierto.
 > Utilice la barra lateral para navegar a través de la wiki.
