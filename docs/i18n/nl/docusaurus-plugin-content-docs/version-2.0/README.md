@@ -7,7 +7,7 @@ sidebar_position: 1
 
 ![Banner](/img/banner.png)
 
-***
+---
 
 > Welkom bij Butterfly, de opensource notitie app.
 > Gebruik de zijbalk om door de wiki te navigeren.
