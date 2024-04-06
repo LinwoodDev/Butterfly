@@ -32,7 +32,7 @@ Læs mere om natteversionen af Butterfly [here](/nighly).
 IPA filen vi distribuerer, er ikke underskrevet. Det betyder, at du selv skal underskrive den, før du kan installere den på din iOS-enhed. \
 Heldigvis er der projekter som [AltStore](https://altstore.io) (open source) eller [sideloadly](https://sideloadly.io) (lukket kilde). \
 \
-Du har brug for et Apple-id til sideloading af Butterfly. Vi anbefaler, at der oprettes en ny specielt til dette formål. Log venligst ind på [Apple Developer] (https\://developer.apple.com) mindst én gang og accepter deres vilkår.
+Du har brug for et Apple-id til sideloading af Butterfly. Vi anbefaler, at der oprettes en ny specielt til dette formål. Log venligst ind på [Apple Developer] (https://developer.apple.com) mindst én gang og accepter deres vilkår.
 \
 Hvis din enhed kører iOS 16.0 eller nyere, skal du aktivere udviklertilstand i indstillinger/Privatliv/Udviklertilstand.
 
