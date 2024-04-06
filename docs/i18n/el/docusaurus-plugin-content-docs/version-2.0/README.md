@@ -7,7 +7,7 @@ sidebar_position: 1
 
 ![Banner](/img/banner.png)
 
-***
+---
 
 > Καλώς ήλθατε στο Butterfly, το opensource note app.
 > Χρησιμοποιήστε την πλαϊνή μπάρα για να περιηγηθείτε στο wiki.
