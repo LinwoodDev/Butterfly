@@ -63,8 +63,6 @@ abstract class PathRenderer<T extends PadElement> extends Renderer<T> {
       [ColorScheme? colorScheme, bool foreground = false]) {
     final current = element as PathElement;
     final points = current.points;
-    final currentZoom = zoom ?? kMaxZoom;
-    final property = current.property;
     final paint = buildPaint(page, foreground);
     if (points.isEmpty) return;
     if (paint.style == PaintingStyle.fill) {
@@ -75,26 +73,7 @@ abstract class PathRenderer<T extends PadElement> extends Renderer<T> {
       canvas.drawPath(path, paint);
       return;
     }
-    final center = rect.center;
-    // 1. Get the outline points from the input points
-    var outlinePoints = freehand.getStroke(
-      points
-          .map((e) => e.scale(zoom ?? kMaxZoom, center))
-          .map((e) => e.toFreehandPoint())
-          .toList(),
-      size: property.strokeWidth * currentZoom,
-      thinning: property.thinning.clamp(0, 1),
-      smoothing: property.smoothing.clamp(0, 1),
-      streamline: property.streamline.clamp(.1, 1),
-      simulatePressure: true,
-    );
-
-    // Unscale the points
-    outlinePoints = outlinePoints.map((e) {
-      var point = Offset(e.x, e.y);
-      point = point.scaleFromCenter(1 / currentZoom, center);
-      return freehand.Point(point.dx, point.dy, e.p);
-    }).toList();
+    final outlinePoints = _getOutlinePoints();
 
     // 2. Render the points as a path
     final path = Path();
@@ -105,16 +84,16 @@ abstract class PathRenderer<T extends PadElement> extends Renderer<T> {
     } else if (outlinePoints.length < 2) {
       // If the list only has one point, draw a dot.
       path.addOval(Rect.fromCircle(
-          center: Offset(outlinePoints[0].x, outlinePoints[0].y), radius: 1));
+          center: Offset(outlinePoints[0].dx, outlinePoints[0].dy), radius: 1));
     } else {
       // Otherwise, draw a line that connects each point with a bezier curve segment.
-      path.moveTo(outlinePoints[0].x, outlinePoints[0].y);
+      path.moveTo(outlinePoints[0].dx, outlinePoints[0].dy);
 
       for (int i = 1; i < outlinePoints.length - 1; ++i) {
         final p0 = outlinePoints[i];
         final p1 = outlinePoints[i + 1];
         path.quadraticBezierTo(
-            p0.x, p0.y, (p0.x + p1.x) / 2, (p0.y + p1.y) / 2);
+            p0.dx, p0.dy, (p0.dx + p1.dx) / 2, (p0.dy + p1.dy) / 2);
       }
     }
 
@@ -122,13 +101,38 @@ abstract class PathRenderer<T extends PadElement> extends Renderer<T> {
     canvas.drawPath(path, paint..style = PaintingStyle.fill);
   }
 
+  List<Offset> _getOutlinePoints() {
+    final current = element as PathElement;
+    final currentZoom = zoom ?? kMaxZoom;
+    final property = current.property;
+    final center = rect.center;
+    // 1. Get the outline points from the input points
+    var outlinePoints = freehand.getStroke(
+      current.points
+          .map((e) => e.scale(zoom ?? kMaxZoom, center))
+          .map((e) => e.toFreehandPoint())
+          .toList(),
+      options: freehand.StrokeOptions(
+        size: property.strokeWidth * currentZoom,
+        thinning: property.thinning.clamp(0, 1),
+        smoothing: property.smoothing.clamp(0, 1),
+        streamline: property.streamline.clamp(.1, 1),
+        simulatePressure: true,
+      ),
+    );
+
+    // Unscale the points
+    outlinePoints = outlinePoints
+        .map((e) => e.scaleFromCenter(1 / currentZoom, center))
+        .toList();
+    return outlinePoints;
+  }
+
   @override
   void buildSvg(XmlDocument xml, NoteData document, DocumentPage page,
       Rect viewportRect) {
     final current = element as PathElement;
     final points = current.points;
-    final currentZoom = zoom ?? kMaxZoom;
-    final property = current.property;
     final visual = buildPathVisual(page);
     var path = '';
     if (points.isEmpty) return;
@@ -138,26 +142,8 @@ abstract class PathRenderer<T extends PadElement> extends Renderer<T> {
       points.sublist(1).forEach((point) => path += ' L ${point.x} ${point.y}');
     }
 
-    final center = rect.center;
     // 1. Get the outline points from the input points
-    var outlinePoints = freehand.getStroke(
-      points
-          .map((e) => e.scale(zoom ?? kMaxZoom, center))
-          .map((e) => e.toFreehandPoint())
-          .toList(),
-      size: property.strokeWidth * currentZoom,
-      thinning: property.thinning.clamp(0, 1),
-      smoothing: property.smoothing.clamp(0, 1),
-      streamline: property.streamline.clamp(.1, 1),
-      simulatePressure: true,
-    );
-
-    // Unscale the points
-    outlinePoints = outlinePoints.map((e) {
-      var point = Offset(e.x, e.y);
-      point = point.scaleFromCenter(1 / currentZoom, center);
-      return freehand.Point(point.dx, point.dy, e.p);
-    }).toList();
+    var outlinePoints = _getOutlinePoints();
 
     // 2. Render the points as a path
     if (outlinePoints.isEmpty) {
