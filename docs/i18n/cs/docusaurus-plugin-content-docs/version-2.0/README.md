@@ -7,7 +7,7 @@ sidebar_position: 1
 
 ![Banner](/img/banner.png)
 
-***
+---
 
 > Vítejte v aplikaci Butterfly, opensource poznámky.
 > Pomocí postranního panelu přejděte přes wiki.
