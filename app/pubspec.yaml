@@ -105,7 +105,7 @@ dev_dependencies:
   build_runner: ^2.4.9
   json_serializable: ^6.7.1
   espresso: ^0.3.0+7
-  freezed: ^2.4.7
+  freezed: ^2.5.0
 dependency_overrides:
   flutter_secure_storage_web:
     git:

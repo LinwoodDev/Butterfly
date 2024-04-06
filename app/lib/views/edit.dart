@@ -213,32 +213,35 @@ class _EditToolbarState extends State<EditToolbar> {
                 tools.length + 1,
                 (i) {
                   if (tools.length <= i) {
-                    final add = AspectRatio(
-                      aspectRatio: 1,
-                      child: FloatingActionButton.small(
-                        tooltip: AppLocalizations.of(context).add,
-                        heroTag: null,
-                        onPressed: () {
-                          final bloc = context.read<DocumentBloc>();
-                          final cubit = context.read<CurrentIndexCubit>();
-                          final importService = context.read<ImportService>();
-                          showDialog(
-                            context: context,
-                            builder: (ctx) => MultiBlocProvider(
-                              providers: [
-                                BlocProvider.value(value: bloc),
-                                BlocProvider.value(value: cubit),
-                              ],
-                              child: RepositoryProvider.value(
-                                value: importService,
-                                child: AddDialog(),
+                    final add = Padding(
+                      padding: const EdgeInsets.only(right: 4),
+                      child: AspectRatio(
+                        aspectRatio: 1,
+                        child: FloatingActionButton.small(
+                          tooltip: AppLocalizations.of(context).add,
+                          heroTag: null,
+                          onPressed: () {
+                            final bloc = context.read<DocumentBloc>();
+                            final cubit = context.read<CurrentIndexCubit>();
+                            final importService = context.read<ImportService>();
+                            showDialog(
+                              context: context,
+                              builder: (ctx) => MultiBlocProvider(
+                                providers: [
+                                  BlocProvider.value(value: bloc),
+                                  BlocProvider.value(value: cubit),
+                                ],
+                                child: RepositoryProvider.value(
+                                  value: importService,
+                                  child: AddDialog(),
+                                ),
                               ),
-                            ),
-                          );
-                        },
-                        child: PhosphorIcon(
-                          PhosphorIconsLight.plus,
-                          size: size / 3,
+                            );
+                          },
+                          child: PhosphorIcon(
+                            PhosphorIconsLight.plus,
+                            size: size * 3 / 7,
+                          ),
                         ),
                       ),
                     );

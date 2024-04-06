@@ -10,6 +10,7 @@
 * Change size of quickstart to be smaller
 * Change size of recent files card
 * Improve home page header to be more responsive
+* Improve size of add button
 * Fix linux metainfo again
 * Fix template infinite loading on initial load
 * Fix size of temporary tool and lock and tools button if toolbar columns count is bigger than 1a

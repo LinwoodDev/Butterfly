@@ -25,7 +25,7 @@
     "@docusaurus/theme-common": "3.2.0",
     "@mdx-js/react": "^3.0.1",
     "@phosphor-icons/react": "^2.1.4",
-    "@swc/core": "^1.4.11",
+    "@swc/core": "^1.4.12",
     "animate.css": "^4.1.1",
     "clsx": "^2.1.0",
     "node-fetch": "^3.3.2",
@@ -53,7 +53,7 @@
     "@docusaurus/module-type-aliases": "3.2.0",
     "@docusaurus/tsconfig": "3.2.0",
     "markdownlint-cli2": "^0.12.1",
-    "typescript": "^5.4.3",
+    "typescript": "^5.4.4",
     "webpack": "^5.91.0"
   }
 }
