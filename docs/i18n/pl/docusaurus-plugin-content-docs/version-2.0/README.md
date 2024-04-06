@@ -7,7 +7,7 @@ sidebar_position: 1
 
 ![Banner](/img/banner.png)
 
-***
+---
 
 > Witamy w Butterfly, aplikacji "opensource notatka".
 > Użyj paska bocznego, aby przejść przez wiki.
