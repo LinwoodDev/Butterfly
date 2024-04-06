@@ -1,13 +1,13 @@
 ---
 title: Introducere
 id: intro
-slug: /ro_RO/ro
+slug: /intro
 sidebar_position: 1
 ---
 
 ![Banner](/img/banner.png)
 
-***
+---
 
 > Bine ați venit la Butterfly, aplicația opensource note.
 > Utilizați bara laterală pentru a naviga prin wiki.
