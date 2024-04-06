@@ -68,7 +68,7 @@ class _MainViewViewportState extends State<MainViewViewport>
           if (mounted) {
             context
                 .read<ImportService>()
-                .import(assetType, intentData, blocState.data);
+                .import(assetType, intentData, document: blocState.data);
           }
         }
       }

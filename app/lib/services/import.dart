@@ -89,40 +89,47 @@ class ImportService {
       return null;
     }
     if (bytes == null) return null;
-    return import(fileType ?? AssetFileType.note, bytes, document,
-        advanced: false);
+    return import(
+      fileType ?? AssetFileType.note,
+      bytes,
+      document: document,
+      advanced: false,
+    );
   }
 
   Future<NoteData?> import(
     AssetFileType type,
-    Uint8List bytes,
-    NoteData document, {
+    Uint8List bytes, {
+    NoteData? document,
     Offset? position,
     bool advanced = true,
     DocumentFileSystem? fileSystem,
     TemplateFileSystem? templateSystem,
     PackFileSystem? packSystem,
-  }) async =>
-      switch (type) {
-        AssetFileType.note => importBfly(
-            bytes,
-            document: document,
-            position: position,
-            advanced: advanced,
-            templateSystem: templateSystem,
-            packSystem: packSystem,
-          ),
-        AssetFileType.image => importImage(bytes, document, position: position),
-        AssetFileType.svg => importSvg(bytes, document, position: position),
-        AssetFileType.markdown =>
-          importMarkdown(bytes, document, position: position),
-        AssetFileType.pdf =>
-          importPdf(bytes, document, position: position, advanced: advanced),
-        AssetFileType.page => importPage(bytes, document, position: position),
-        AssetFileType.xopp => importXopp(bytes, document, position: position),
-        AssetFileType.archive =>
-          importArchive(bytes, fileSystem: fileSystem).then((value) => null),
-      };
+  }) async {
+    final realDocument = document ?? DocumentDefaults.createDocument();
+    return switch (type) {
+      AssetFileType.note => importBfly(
+          bytes,
+          document: document,
+          position: position,
+          advanced: advanced,
+          templateSystem: templateSystem,
+          packSystem: packSystem,
+        ),
+      AssetFileType.image =>
+        importImage(bytes, realDocument, position: position),
+      AssetFileType.svg => importSvg(bytes, realDocument, position: position),
+      AssetFileType.markdown =>
+        importMarkdown(bytes, realDocument, position: position),
+      AssetFileType.pdf =>
+        importPdf(bytes, realDocument, position: position, advanced: advanced),
+      AssetFileType.page => importPage(bytes, realDocument, position: position),
+      AssetFileType.xopp => importXopp(bytes, realDocument, position: position),
+      AssetFileType.archive =>
+        importArchive(bytes, fileSystem: fileSystem).then((value) => null),
+    };
+  }
 
   Future<Uint8List?>? _readFileFromClipboard(
       DataReader reader, FileFormat format) {
@@ -184,7 +191,8 @@ class ImportService {
       }
     }
     if (data == null || type == null) return null;
-    return import(type, data, document, position: position, advanced: advanced);
+    return import(type, data,
+        document: document, position: position, advanced: advanced);
   }
 
   FutureOr<NoteData?> importBfly(
@@ -196,28 +204,27 @@ class ImportService {
     PackFileSystem? packSystem,
   }) async {
     try {
-      document ??= DocumentDefaults.createDocument();
+      final documentOpened = document != null;
+      final realDocument = document ?? DocumentDefaults.createDocument();
       final data = NoteData.fromData(bytes);
       if (!data.isValid) {
         await importArchive(bytes);
         return null;
       }
       final type = data.getMetadata()?.type;
-      switch (type) {
-        case NoteFileType.document:
-          return _importDocument(data, document, advanced: advanced);
-        case NoteFileType.template:
-          return _importTemplate(data, templateSystem);
-        case NoteFileType.pack:
-          await _importPack(data, packSystem);
-          break;
-        default:
-          showDialog(
+      return switch (type) {
+        NoteFileType.document =>
+          _importDocument(data, realDocument, advanced: advanced),
+        NoteFileType.template when documentOpened =>
+          _importTemplate(data, templateSystem),
+        NoteFileType.pack when documentOpened =>
+          _importPack(data, document, packSystem).then((value) => null),
+        _ => showDialog(
             context: context,
             builder: (context) => UnknownImportConfirmationDialog(
                 message: AppLocalizations.of(context).unknownImportType),
-          );
-      }
+          ).then((value) => null),
+      };
     } catch (e) {
       showDialog(
         context: context,
@@ -309,7 +316,8 @@ class ImportService {
     return template.createDocument();
   }
 
-  Future<bool> _importPack(NoteData pack, [PackFileSystem? packSystem]) async {
+  Future<bool> _importPack(NoteData pack,
+      [NoteData? document, PackFileSystem? packSystem]) async {
     packSystem ??= getPackFileSystem();
     final metadata = pack.getMetadata();
     if (metadata == null) return false;
@@ -319,7 +327,11 @@ class ImportService {
     );
     if (result != true) return false;
     if (context.mounted) {
-      packSystem.createPack(pack);
+      if (document != null) {
+        document = document.setPack(pack);
+      } else {
+        packSystem.createPack(pack);
+      }
     }
     return true;
   }
@@ -680,6 +692,7 @@ class ImportService {
     required List<PadElement> elements,
     List<DocumentPage> pages = const [],
     List<Area> areas = const [],
+    List<NoteData> packs = const [],
     bool choosePosition = false,
   }) {
     final state = _getState();
@@ -698,10 +711,16 @@ class ImportService {
     for (final page in pages) {
       bloc?.add(PageAdded(null, page));
     }
+    for (final pack in packs) {
+      bloc?.add(PackAdded(pack));
+    }
     page = page.copyWith(content: [...page.content, ...elements]);
     document = document.setPage(page);
     for (final page in pages) {
       (document, _) = document.addPage(page);
+    }
+    for (final pack in packs) {
+      document = document.setPack(pack);
     }
     return document;
   }
