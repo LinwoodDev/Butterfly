@@ -7,7 +7,7 @@ sidebar_position: 1
 
 ![Banner](/img/banner.png)
 
-***
+---
 
 > Tervetuloa Butterfly, opensource note app.
 > Käytä sivupalkkia navigoidaksesi wikin läpi.
