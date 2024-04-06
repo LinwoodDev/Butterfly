@@ -31,14 +31,12 @@ Butterfly is a note taking app that is aiming for unified experience across all 
 
 > You can use the sidebar to navigate quickly through the wiki.
 
-
 To start working on the app you have two options:
-1. [Downloads](/downloads) the app version that is appropriate for your platform (Butterfly can run on most mobile, desktop, and web platfroms). 
-2. Use [web version](https://butterfly.linwood.dev) if you cannot find your platform or if you don't want to install it on it. See [here](storage#web) about file storage on the web version.
 
-> Once you open the app, continue reading. 
+1. [Downloads](/downloads) the app version that is appropriate for your platform (Butterfly can run on most mobile, desktop, and web platfroms).
+2. Use [web version](https://web.butterfly.linwood.dev) if you cannot find your platform or if you don't want to install it on it. See [here](storage#web) about file storage on the web version.
 
-
+> Once you open the app, continue reading.
 
 ## Main view
 
@@ -84,11 +82,9 @@ The main view is composed of several elements
 
 Once opening a document by selecting a template or an existing file, you will get to the **Document View**
 
-
 ## The Document View
 
 You can return from the document view to the document list with the back action of your device. As with the main view, the document display changes based on your device.
-
 
 <Tabs
     defaultValue = "desktop"
@@ -128,5 +124,3 @@ You can return from the document view to the document list with the back action 
 		3. You can add more tools to the toolbar by clicking the <Plus/> plus sign. 
 	</TabItem>
 </Tabs>
-	
-

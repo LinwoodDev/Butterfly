@@ -86,14 +86,8 @@ class LaserHandler extends Handler<LaserTool> with ColoredHandler {
     _stopTimer();
   }
 
-  bool _moving = false;
-
   void _submit(DocumentBloc bloc, List<int> indexes) {
-    if (_moving) {
-      _moving = false;
-      return;
-    }
-    var elements =
+    final elements =
         indexes.map((e) => this.elements.remove(e)).whereNotNull().toList();
     if (elements.isEmpty) return;
     submittedElements.addAll(elements);
@@ -149,22 +143,14 @@ class LaserHandler extends Handler<LaserTool> with ColoredHandler {
       elements.clear();
       return;
     }
-    if (kSecondaryMouseButton == event.buttons) {
-      _moving = true;
-      return;
-    }
     addPoint(context.buildContext, event.pointer, event.localPosition,
         event.pressure, event.kind,
         forceCreate: true);
   }
 
   @override
-  void onPointerMove(PointerMoveEvent event, EventContext context) {
-    if (kSecondaryMouseButton == event.buttons) {
-      final transform = context.getCameraTransform();
-      context.getCurrentIndexCubit().move(event.localDelta / transform.size);
-      return;
-    }
+  Future<void> onPointerMove(
+      PointerMoveEvent event, EventContext context) async {
     addPoint(context.buildContext, event.pointer, event.localPosition,
         event.pressure, event.kind);
   }

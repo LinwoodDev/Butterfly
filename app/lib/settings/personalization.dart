@@ -183,15 +183,15 @@ class PersonalizationSettingsPage extends StatelessWidget {
                         ),
                         ExactSlider(
                           header:
-                              Text(AppLocalizations.of(context).toolbarColumns),
-                          value: state.toolbarColumns.toDouble(),
+                              Text(AppLocalizations.of(context).toolbarRows),
+                          value: state.toolbarRows.toDouble(),
                           defaultValue: 1,
                           min: 1,
                           max: 4,
                           fractionDigits: 0,
                           onChangeEnd: (value) => context
                               .read<SettingsCubit>()
-                              .changeToolbarColumns(value.round()),
+                              .changeToolbarRows(value.round()),
                         ),
                         SwitchListTile(
                           secondary:

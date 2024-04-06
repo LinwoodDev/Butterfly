@@ -6,7 +6,7 @@ If you have any questions, please contact me at [contact@linwood.dev](mailto:con
 
 There is a matrix server for this project [here](https://linwood.dev/matrix) and a discord server [here](https://discord.linwood.dev).
 
-Please follow the [Code of Conduct](https://docs.butterfly.linwood.dev/code-of-conduct).
+Please follow the [Code of Conduct](https://butterfly.linwood.dev/code-of-conduct).
 
 ## Give feedback
 
@@ -20,7 +20,7 @@ If you have a feature that you would like to see added, please open an issue [he
 Nightly builds are not production ready and need to be tested.
 Please report any bugs in the github issues section.
 
-Read more about it [here](https://docs.butterfly.linwood.dev/nightly).
+Read more about it [here](https://butterfly.linwood.dev/nightly).
 
 ## Write documentation
 

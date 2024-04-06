@@ -34,8 +34,8 @@ class GeneralSettingsPage extends StatelessWidget {
   const GeneralSettingsPage({super.key, this.inView = false});
 
   Future<Meta> _fetchMeta() async {
-    final response = await http
-        .get(Uri.parse('https://docs.butterfly.linwood.dev/meta.json'));
+    final response =
+        await http.get(Uri.parse('https://butterfly.linwood.dev/meta.json'));
     return Meta.fromJson({...json.decode(response.body)});
   }
 
@@ -144,7 +144,7 @@ class GeneralSettingsPage extends StatelessWidget {
                                     onTap: () async {
                                       await launchUrl(
                                           Uri.parse(
-                                              'https://docs.butterfly.linwood.dev/downloads'),
+                                              'https://butterfly.linwood.dev/downloads'),
                                           mode: LaunchMode.externalApplication);
                                     },
                                   ),
@@ -166,7 +166,7 @@ class GeneralSettingsPage extends StatelessWidget {
                           title:
                               Text(AppLocalizations.of(context).documentation),
                           onTap: () => launchUrl(
-                              Uri.https('docs.butterfly.linwood.dev', ''),
+                              Uri.https('butterfly.linwood.dev', ''),
                               mode: LaunchMode.externalApplication)),
                       ListTile(
                           leading: const PhosphorIcon(PhosphorIconsLight.flag),
@@ -203,8 +203,7 @@ class GeneralSettingsPage extends StatelessWidget {
                               PhosphorIconsLight.arrowCounterClockwise),
                           title: Text(AppLocalizations.of(context).changelog),
                           onTap: () => launchUrl(
-                              Uri.https(
-                                  'docs.butterfly.linwood.dev', 'changelog'),
+                              Uri.https('butterfly.linwood.dev', 'changelog'),
                               mode: LaunchMode.externalApplication)),
                     ]),
               ),
@@ -235,8 +234,8 @@ class GeneralSettingsPage extends StatelessWidget {
                           title:
                               Text(AppLocalizations.of(context).privacypolicy),
                           onTap: () => launchUrl(
-                              Uri.https('docs.butterfly.linwood.dev',
-                                  'privacypolicy'),
+                              Uri.https(
+                                  'butterfly.linwood.dev', 'privacypolicy'),
                               mode: LaunchMode.externalApplication)),
                       ListTile(
                         title: Text(

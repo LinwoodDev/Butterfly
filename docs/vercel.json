@@ -1,5 +1,22 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
+  "rewrites": [
+    {
+      "source": "/settings/:path*",
+      "destination": "https://web.butterfly.linwood.dev/:path*"
+    },
+    {
+      "source": "/:path*",
+      "has": [
+        {
+          "type": "header",
+          "key": "Referer",
+          "value": "https://butterfly.linwood.dev/settings"
+        }
+      ],
+      "destination": "https://web.butterfly.linwood.dev/:path*"
+    }
+  ],
   "redirects": [
     {
       "source":"/docs/latest/:path*",
@@ -46,11 +63,8 @@
       "destination": "/privacypolicy"
     },
     {
-      "source": "/web/:path*",
-      "destination": "https://web.butterfly.linwood.dev/:path*"
+      "source": "/flutter.js",
+      "destination": "https://web.butterfly.linwood.dev/flutter.js"
     }
-  ],
-  "github": {
-      "silent": true
-  }
+  ]
 }

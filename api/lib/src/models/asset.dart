@@ -9,7 +9,7 @@ import 'meta.dart';
 part 'asset.freezed.dart';
 part 'asset.g.dart';
 
-enum AssetFileType { note, page, image, markdown, pdf, svg, xopp }
+enum AssetFileType { note, page, image, markdown, pdf, svg, xopp, archive }
 
 @freezed
 sealed class AssetLocation with _$AssetLocation {
