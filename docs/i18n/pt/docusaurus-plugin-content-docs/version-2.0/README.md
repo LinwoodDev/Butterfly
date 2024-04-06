@@ -7,7 +7,7 @@ sidebar_position: 1
 
 ![Banner](/img/banner.png)
 
-***
+---
 
 > Bem-vindo à Borboleta, o aplicativo de notas de código-aberto.
 > Use a barra lateral para navegar através da wiki.
