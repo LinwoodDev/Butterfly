@@ -7,7 +7,7 @@ sidebar_position: 1
 
 ![Banner](/img/banner.png)
 
-***
+---
 
 > Välkommen till Butterfly, appen för öppen källkod.
 > Använd sidofältet för att navigera genom wikin.
