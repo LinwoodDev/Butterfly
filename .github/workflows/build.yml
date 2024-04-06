@@ -81,7 +81,7 @@ jobs:
       - name: Archive
         uses: actions/upload-artifact@v4
         with:
-          name: apk-x64-build
+          name: apk-x86_64-build
           path: app/linwood-butterfly-android-x86_64.apk
   build-windows:
     runs-on: windows-2022

@@ -18,5 +18,6 @@
 
 * Use nightly flavor for nightly builds to allow installing both stable and nightly builds on the same device
 * Add architecture specific apk builds ([#657](https://github.com/LinwoodDev/Butterfly/issues/657))
+* Upgrade path rendering api
 
 Read more here: https://linwood.dev/butterfly/2.1.0-beta.5
