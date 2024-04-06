@@ -40,19 +40,17 @@ Future<void> exportData(BuildContext context, List<int> bytes) => exportFile(
 
 void saveToClipboard(BuildContext context, String text) {
   Clipboard.setData(ClipboardData(text: text));
-  ScaffoldMessenger.of(context).showSnackBar(
-    SnackBar(
-      content: Text(AppLocalizations.of(context).copyTitle),
-    ),
-  );
+  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+    content: Text(AppLocalizations.of(context).copyTitle),
+  ));
 }
 
 Future<void> writeClipboardData(ClipboardManager clipboardManager,
     AssetFileType type, Uint8List data) async {
   final clipboard = SystemClipboard.instance;
   if (clipboard != null &&
-      (kIsWeb ||
-          !Platform.isAndroid ||
+      !kIsWeb &&
+      (!Platform.isAndroid ||
           (await DeviceInfoPlugin().androidInfo).version.sdkInt >= 23)) {
     final item = DataWriterItem();
     final format = type.getClipboardFormats().first;

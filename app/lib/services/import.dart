@@ -156,8 +156,8 @@ class ImportService {
     AssetFileType? type;
     final clipboard = SystemClipboard.instance;
     if (clipboard != null &&
-        (kIsWeb ||
-            !Platform.isAndroid ||
+        !kIsWeb &&
+        (!Platform.isAndroid ||
             (await DeviceInfoPlugin().androidInfo).version.sdkInt >= 23)) {
       final reader = await clipboard.read();
       final result = AssetFileType.values
