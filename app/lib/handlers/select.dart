@@ -420,9 +420,10 @@ class SelectHandler extends Handler<SelectTool> {
     }
     final point = getSelectionRect()?.topLeft;
     if (point == null) return;
-    final clipboard = (
-      type: AssetFileType.page.name,
-      data: Uint8List.fromList(
+    writeClipboardData(
+      clipboardManager,
+      AssetFileType.page,
+      Uint8List.fromList(
         utf8.encode(
           json.encode(await DocumentPage(
                   content: _selected
@@ -437,7 +438,6 @@ class SelectHandler extends Handler<SelectTool> {
         ),
       ),
     );
-    clipboardManager.setContent(clipboard);
     _selected.clear();
     bloc.refresh();
   }
