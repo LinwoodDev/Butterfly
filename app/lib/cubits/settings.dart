@@ -348,13 +348,19 @@ enum ToolbarPosition {
 
 enum ThemeDensity {
   system,
+  maximize,
+  desktop,
   compact,
   comfortable,
   standard;
 
   VisualDensity toFlutter() => switch (this) {
-        ThemeDensity.comfortable => VisualDensity.comfortable,
+        ThemeDensity.maximize =>
+          const VisualDensity(horizontal: -4, vertical: -4),
+        ThemeDensity.desktop =>
+          const VisualDensity(horizontal: -3, vertical: -3),
         ThemeDensity.compact => VisualDensity.compact,
+        ThemeDensity.comfortable => VisualDensity.comfortable,
         ThemeDensity.standard => VisualDensity.standard,
         ThemeDensity.system => VisualDensity.adaptivePlatformDensity,
       };

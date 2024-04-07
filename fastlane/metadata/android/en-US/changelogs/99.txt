@@ -4,6 +4,7 @@
   * Area
   * Laser
 * Add small, tiny and compact toolbar size option
+* Add maximize and desktop density personalization setting
 * Remove navigating to canvas view if no document was imported
 * Use correct remote for importing
 * Rename toolbar columns to rows
