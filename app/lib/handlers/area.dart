@@ -140,7 +140,7 @@ class AreaHandler extends Handler<AreaTool> {
       return;
     }
     final state = context.getState();
-    if (state == null) return;
+    if (state == null || rect == null) return;
     context.refresh();
     final name =
         await createAreaName(context.buildContext, state.page, data.askForName);
@@ -148,7 +148,7 @@ class AreaHandler extends Handler<AreaTool> {
     currentRect = null;
     context.getDocumentBloc().add(AreasCreated([
           Area(
-            width: rect!.width,
+            width: rect.width,
             height: rect.height,
             position: rect.topLeft.toPoint(),
             name: name,
