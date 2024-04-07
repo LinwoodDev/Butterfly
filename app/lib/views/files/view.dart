@@ -337,7 +337,6 @@ class FilesViewState extends State<FilesView> {
                           AssetFileTypeHelper.fromFileExtension(extension) ??
                               AssetFileType.note,
                           result,
-                          DocumentDefaults.createDocument(),
                           advanced: false,
                           fileSystem: _fileSystem,
                           templateSystem: _templateSystem,

@@ -720,6 +720,22 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.4"
+  irondash_engine_context:
+    dependency: transitive
+    description:
+      name: irondash_engine_context
+      sha256: "4f5e2629296430cce08cdff42e47cef07b8f74a64fdbdfb0525d147bc1a969a2"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.5.2"
+  irondash_message_channel:
+    dependency: transitive
+    description:
+      name: irondash_message_channel
+      sha256: dd581214215dca054bd9873209d690ec3609288c28774cb509dbd86b21180cf8
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.6.0"
   js:
     dependency: "direct main"
     description:
@@ -1014,6 +1030,14 @@ packages:
       url: "https://github.com/CodeDoctorDE/phosphor-flutter"
     source: git
     version: "2.0.0"
+  pixel_snap:
+    dependency: transitive
+    description:
+      name: pixel_snap
+      sha256: "677410ea37b07cd37ecb6d5e6c0d8d7615a7cf3bd92ba406fd1ac57e937d1fb0"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.1.5"
   platform:
     dependency: transitive
     description:
@@ -1299,6 +1323,22 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.2.0"
+  super_clipboard:
+    dependency: "direct main"
+    description:
+      name: super_clipboard
+      sha256: "42348119cac72f334c33866515a3bc84350aaf72e5d977f1abd35ab44e529dfc"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.8.10"
+  super_native_extensions:
+    dependency: transitive
+    description:
+      name: super_native_extensions
+      sha256: abd3b8cb479ca685132472202c70cc11ebb8f4242080f290130d1377bab7cbc1
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.8.10"
   sync_http:
     dependency: transitive
     description:
