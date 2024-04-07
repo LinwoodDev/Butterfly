@@ -17,7 +17,7 @@
 * Force top instead of inline if multiple rows in toolbar
 * Fix linux metainfo again
 * Fix template infinite loading on initial load
-* Fix size of temporary tool and lock and tools button if toolbar columns count is bigger than 1a
+* Fix size of temporary tool and lock and tools button if toolbar columns count is bigger than 1
 * Fix snackbar will be shown twice when copying to clipboard in settings
 * Fix null check in area handler
 * Fix pen renderer doesn't use the real pressure value ([#650](https://github.com/LinwoodDev/Butterfly/issues/650))
