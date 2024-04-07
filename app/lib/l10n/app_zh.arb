@@ -599,7 +599,9 @@
   "smoothNavigation": "平滑导航",
   "exact": "精准的",
   "inline": "内联",
-  "toolbarColumns": "工具栏列",
+  "toolbarRows": "工具栏行",
   "pointerTest": "指针测试",
-  "pressure": "气压"
+  "pressure": "气压",
+  "small": "小的",
+  "tiny": "微调"
 }

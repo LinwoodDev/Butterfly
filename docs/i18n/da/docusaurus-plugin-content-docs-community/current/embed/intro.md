@@ -6,16 +6,16 @@ sidebar_label: Introduktion
 Indlejring er en enkel måde at inkludere appen på din hjemmeside. Tilføj følgende kode til dit websted:
 
 ```html
-<iframe src="https://butterfly.linwood.dev/embed" width="100%" height="500px" allowtransparency="true"></iframe>
+<iframe src="https://web.butterfly.linwood.dev/embed" width="100%" height="500px" allowtransparency="true"></iframe>
 ```
 
 ## Indstillinger
 
 | Valgmulighed | Type                         | Standard | Varebeskrivelse                                                                                                                            |
 | ------------ | ---------------------------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------ |
-| save         | Boolean (true, false)        | true     | Aktiver gemning. Hvis deaktiveret, vil kun en afslutningsknap blive vist                                                                   |
-| editable     | Boolean (true, false)        | true     | Aktiver redigering. Hvis deaktiveret, vil dokumentet være skrivebeskyttet                                                                  |
-| language     | Streng (..., system, bruger) | system   | Sprog for dokumentet. Hvis systemet, sproget vil blive opdaget fra browseren. Hvis bruger, vil sproget blive sat til brugernes præferencer |
+| gem          | Boolsk (sandt, falsk)        | sandt    | Aktiver gemning. Hvis deaktiveret, vil kun en afslutningsknap blive vist                                                                   |
+| redigerbar   | Boolsk (sandt, falsk)        | sandt    | Aktiver redigering. Hvis deaktiveret, vil dokumentet være skrivebeskyttet                                                                  |
+| sprog        | Streng (..., system, bruger) | system   | Sprog for dokumentet. Hvis systemet, sproget vil blive opdaget fra browseren. Hvis bruger, vil sproget blive sat til brugernes præferencer |
 
 ## Begivenheder
 
@@ -30,7 +30,7 @@ embedElement.addEventListener('message', (data) => {
 });
 ```
 
-### save
+### gem
 
 > Den `gem` begivenhed udsendes, når brugeren klikker på Gem-knappen.
 
@@ -38,7 +38,7 @@ Parametre:
 
 * `data` (Type `Liste<int>`): Data for dokumentet.
 
-### exit
+### afslut
 
 > Begivenheden `exit` udsendes, når brugeren klikker på exit knappen.
 
@@ -46,7 +46,7 @@ Parametre:
 
 * `data` (Type `Liste<int>`): Data for dokumentet.
 
-### change
+### skift
 
 > Begivenheden `ændring` udsendes, når brugeren ændrer dokumentet.
 
@@ -82,7 +82,7 @@ Parametre:
 
 * `data` (Type `Liste<int>`): Data for dokumentet.
 
-### render
+### gengiver
 
 > Metoden `render` gør dokumentet til et png billede.
 

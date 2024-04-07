@@ -21,14 +21,12 @@ import { Gear, Plus, FloppyDisk, MagnifyingGlass, ScribbleLoop, Pen, Path, Arrow
 
 > Μπορείτε να χρησιμοποιήσετε την πλαϊνή μπάρα για να πλοηγηθείτε γρήγορα μέσω του wiki.
 
-
 Για να ξεκινήσετε να εργάζεστε στην εφαρμογή έχετε δύο επιλογές:
+
 1. [Downloads](/downloads) την έκδοση της εφαρμογής που είναι κατάλληλη για την πλατφόρμα σας (η Butterfly μπορεί να τρέξει στα περισσότερα κινητά, επιτραπέζια και διαδικτυακές πλατφόρμες).
-2. Use [web version](https://butterfly.linwood.dev) if you cannot find your platform or if you don't want to install it on it. Δείτε το [εδώ](storage#web) σχετικά με την αποθήκευση αρχείων στην έκδοση web.
+2. Use [web version](https://web.butterfly.linwood.dev) if you cannot find your platform or if you don't want to install it on it. Δείτε το [εδώ](storage#web) σχετικά με την αποθήκευση αρχείων στην έκδοση web.
 
 > Μόλις ανοίξετε την εφαρμογή, συνεχίστε την ανάγνωση.
-
-
 
 ## Κύρια προβολή
 
@@ -74,7 +72,6 @@ import { Gear, Plus, FloppyDisk, MagnifyingGlass, ScribbleLoop, Pen, Path, Arrow
 
 Once opening a document by selecting a template or an existing file, you will get to the **Document View**
 
-
 ## Η Προβολή Εγγράφου
 
 Μπορείτε να επιστρέψετε από την προβολή εγγράφου στη λίστα εγγράφων με την πίσω ενέργεια της συσκευής σας. Όπως και με την κύρια προβολή, το έγγραφο εμφανίζει αλλαγές με βάση τη συσκευή σας.
@@ -117,5 +114,3 @@ Once opening a document by selecting a template or an existing file, you will ge
         3. Μπορείτε να προσθέσετε περισσότερα εργαλεία στη γραμμή εργαλείων κάνοντας κλικ στο σύμβολο <Plus/> plus . 
     </TabItem>
 </Tabs>
-	
-

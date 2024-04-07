@@ -6,16 +6,16 @@ sidebar_label: Introducción
 Incrustar es una forma sencilla de incluir la aplicación en tu sitio web. Añade el siguiente código a tu sitio web:
 
 ```html
-<iframe src="https://butterfly.linwood.dev/embed" width="100%" height="500px" allowtransparency="true"></iframe>
+<iframe src="https://web.butterfly.linwood.dev/embed" width="100%" height="500px" allowtransparency="true"></iframe>
 ```
 
 ## Opciones
 
 | Opción   | Tipo                           | Por defecto | Descripción                                                                                                                                             |
 | -------- | ------------------------------ | ----------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| save     | Boolean (true, false)          | true        | Activar guardar. Si está desactivado, sólo se mostrará un botón de salida                                                                               |
-| editable | Boolean (true, false)          | true        | Activar la edición. Si está deshabilitado, el documento será de sólo lectura                                                                            |
-| language | Cadena (..., sistema, usuario) | system      | Idioma del documento. Si el sistema, el idioma se detectará desde el navegador. Si el usuario, el idioma se ajustará a las preferencias de los usuarios |
+| ahorra   | Booleano (verdadero, falso)    | verdad      | Activar guardar. Si está desactivado, sólo se mostrará un botón de salida                                                                               |
+| editable | Booleano (verdadero, falso)    | verdad      | Activar la edición. Si está deshabilitado, el documento será de sólo lectura                                                                            |
+| idioma   | Cadena (..., sistema, usuario) | sistema     | Idioma del documento. Si el sistema, el idioma se detectará desde el navegador. Si el usuario, el idioma se ajustará a las preferencias de los usuarios |
 
 ## Eventos
 
@@ -30,7 +30,7 @@ embedElement.addEventListener('message', (data) => {
 });
 ```
 
-### save
+### ahorra
 
 > El evento `guardar` se emite cuando el usuario hace clic en el botón guardar.
 
@@ -38,7 +38,7 @@ Parámetros:
 
 * `data` (Escriba `Lista<int>`): Los datos del documento.
 
-### exit
+### salir
 
 > El evento `salir` se emite cuando el usuario hace clic en el botón de salida.
 
@@ -46,7 +46,7 @@ Parámetros:
 
 * `data` (Escriba `Lista<int>`): Los datos del documento.
 
-### change
+### cambiar
 
 > El evento `cambiar` se emite cuando el usuario cambia el documento.
 
@@ -82,7 +82,7 @@ Parámetros:
 
 * `data` (Escriba `Lista<int>`): Los datos del documento.
 
-### render
+### renderizar
 
 > El método `render` renderiza el documento a una imagen png.
 
@@ -95,7 +95,7 @@ Parámetros:
 
 Devuelve: `String` (imagen codificada en Base64)
 
-### renderSVG
+### renderizarSVG
 
 > El método `renderSVG` renderiza el documento a una imagen svg.
 

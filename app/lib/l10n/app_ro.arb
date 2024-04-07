@@ -599,7 +599,9 @@
   "smoothNavigation": "Navigare lină",
   "exact": "Exact",
   "inline": "Inline",
-  "toolbarColumns": "Coloane din bara de instrumente",
+  "toolbarRows": "Rânduri din bara de instrumente",
   "pointerTest": "Testul indicatorului",
-  "pressure": "Presiune"
+  "pressure": "Presiune",
+  "small": "Mică",
+  "tiny": "Mică"
 }

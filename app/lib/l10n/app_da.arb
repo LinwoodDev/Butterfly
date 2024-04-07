@@ -599,7 +599,9 @@
   "smoothNavigation": "Glat navigation",
   "exact": "Præcis",
   "inline": "Indlejret",
-  "toolbarColumns": "Søjler i værktøjslinjen",
+  "toolbarRows": "Værktøjslinje- rækker",
   "pointerTest": "Markør test",
-  "pressure": "Tryk"
+  "pressure": "Tryk",
+  "small": "Lille",
+  "tiny": "Lille"
 }

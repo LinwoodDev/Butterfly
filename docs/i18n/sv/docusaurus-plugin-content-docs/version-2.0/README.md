@@ -7,7 +7,7 @@ sidebar_position: 1
 
 ![Banner](/img/banner.png)
 
-***
+---
 
 > Välkommen till Butterfly, appen för öppen källkod.
 > Använd sidofältet för att navigera genom wikin.
@@ -15,7 +15,7 @@ sidebar_position: 1
 ## Komma igång
 
 Besök [nedladdningar](/downloads) för att ladda ner appen för din plattform.
-Använd [webbversion](https://butterfly.linwood.dev) om du inte hittar din plattform.
+Använd [webbversion](https://v2.web.butterfly.linwood.dev) om du inte hittar din plattform.
 
 ## Huvudvy
 

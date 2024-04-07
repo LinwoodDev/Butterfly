@@ -6,7 +6,7 @@ sidebar_position: 2
 ## 数据目录
 
 数据目录是存储文档、模板和包的目录。
-在桌面上你可以在 "\~/Documents/Linwood/Butterfly" 中找到它。
+在桌面上你可以在 "~/Documents/Linwood/Butterfly" 中找到它。
 移动时，它在 `getExternalFilesDir(null)/Linwood/Butterfly` 中。
 您也可以在“数据”下的设置中更改它。
 

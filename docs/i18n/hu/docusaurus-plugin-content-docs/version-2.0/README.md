@@ -7,7 +7,7 @@ sidebar_position: 1
 
 ![Banner](/img/banner.png)
 
-***
+---
 
 > Welcome to Butterfly, the opensource note app.
 > Use the sidebar to navigate through the wiki.
@@ -15,7 +15,7 @@ sidebar_position: 1
 ## Getting started
 
 Visit [the downloads](/downloads) to download the app for your platform.
-Use [web version](https://butterfly.linwood.dev) if you cannot find your platform.
+Use [web version](https://v2.web.butterfly.linwood.dev) if you cannot find your platform.
 
 ## Main view
 

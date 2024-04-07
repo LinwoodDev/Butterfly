@@ -14,7 +14,7 @@ sidebar_position: 1
 
 ## Jak začít
 
-Navštivte [stahování](/downloads) a stáhněte si aplikaci pro vaši platformu. Pokud nemůžete najít platformu, použijte [webovou verzi](https://butterfly.linwood.dev).
+Navštivte [stahování](/downloads) a stáhněte si aplikaci pro vaši platformu. Pokud nemůžete najít platformu, použijte [webovou verzi](https://v1.web.butterfly.linwood.dev).
 
 ## Hlavní pohled
 

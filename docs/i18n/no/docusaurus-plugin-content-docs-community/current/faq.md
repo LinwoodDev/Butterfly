@@ -29,7 +29,7 @@ Jeg bruker det innspillet som følger med flutter rammeverket. Dette er probleme
 
 > [#244](https://github.com/LinwoodDev/Butterfly/issues/244)
 
-Sommerfugl er tilgjengelig på iOS som forhåndsvisning. Klikk [her](https://docs.butterfly.linwood.dev/downloads/ios) for å laste den ned. Se [her](https://github.com/LinwoodDev/Butterfly/issues/244#issuecomment-1935460878) hvorfor det ikke er tilgjengelig på App Store.
+Sommerfugl er tilgjengelig på iOS som forhåndsvisning. Klikk [her](https://butterfly.linwood.dev/downloads/ios) for å laste den ned. Se [her](https://github.com/LinwoodDev/Butterfly/issues/244#issuecomment-1935460878) hvorfor det ikke er tilgjengelig på App Store.
 
 ## Skrivebord
 

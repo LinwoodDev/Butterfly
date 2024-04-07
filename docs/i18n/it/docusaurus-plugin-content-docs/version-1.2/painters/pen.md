@@ -11,5 +11,5 @@ Con questo pittore puoi disegnare su questa carta.
 |             Proprietà | Predefinito | Descrizione                                                                    |
 | ---------------------:|:-----------:|:------------------------------------------------------------------------------ |
 |                Colore |    Nero     | Il colore che verrà disegnato                                                  |
-|      Larghezza tratto |      5      | La larghezza del tratto                                                        |
+|       Spessore tratto |      5      | La larghezza del tratto                                                        |
 | Moltiplicatore tratto |      1      | Se hai uno stilo, questo è il moltiplicatore che verrà aggiunto alla pressione |

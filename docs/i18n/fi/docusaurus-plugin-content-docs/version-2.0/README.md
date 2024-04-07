@@ -7,7 +7,7 @@ sidebar_position: 1
 
 ![Banner](/img/banner.png)
 
-***
+---
 
 > Tervetuloa Butterfly, opensource note app.
 > Käytä sivupalkkia navigoidaksesi wikin läpi.
@@ -15,7 +15,7 @@ sidebar_position: 1
 ## Aloittaminen
 
 Käy osoitteessa [downloads](/downloads) ladataksesi sovelluksen alustallesi.
-Käytä [web-versio](https://butterfly.linwood.dev) jos et löydä alustaasi.
+Käytä [web-versio](https://v2.web.butterfly.linwood.dev) jos et löydä alustaasi.
 
 ## Päänäkymä
 

@@ -599,7 +599,9 @@
   "smoothNavigation": "Gładka nawigacja",
   "exact": "Dokładny",
   "inline": "Wbudowany",
-  "toolbarColumns": "Kolumny paska narzędzi",
+  "toolbarRows": "Wiersze paska narzędzi",
   "pointerTest": "Badanie wskaźnika",
-  "pressure": "Ciśnienie"
+  "pressure": "Ciśnienie",
+  "small": "Mały",
+  "tiny": "Małe"
 }

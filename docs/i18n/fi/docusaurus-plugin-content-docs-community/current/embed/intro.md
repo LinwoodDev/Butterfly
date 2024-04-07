@@ -6,16 +6,16 @@ sidebar_label: Esittely
 Upottaminen on yksinkertainen tapa sisällyttää sovellus sivustoosi. Lisää seuraava koodi sivustollesi:
 
 ```html
-<iframe src="https://butterfly.linwood.dev/embed" width="100%" height="500px" allowtransparency="true"></iframe>
+<iframe src="https://web.butterfly.linwood.dev/embed" width="100%" height="500px" allowtransparency="true"></iframe>
 ```
 
 ## Valinnat
 
-| Valinta  | Tyyppi                                  | Oletus | Kuvaus                                                                                                                    |
-| -------- | --------------------------------------- | ------ | ------------------------------------------------------------------------------------------------------------------------- |
-| save     | Boolean (true, false)                   | true   | Ota tallennus käyttöön. Jos poistettu käytöstä, näytetään vain poistumispainike                                           |
-| editable | Boolean (true, false)                   | true   | Ota muokkaus käyttöön. Jos poistettu käytöstä, asiakirja on vain luku                                                     |
-| language | Merkkijono (..., järjestelmä, käyttäjä) | system | Asiakirjan kieli. Jos järjestelmä, kieli havaitaan selaimesta käsin. Jos käyttäjä, kieli asetetaan käyttäjien asetukseksi |
+| Valinta       | Tyyppi                                  | Oletus      | Kuvaus                                                                                                                    |
+| ------------- | --------------------------------------- | ----------- | ------------------------------------------------------------------------------------------------------------------------- |
+| tallenna      | Totuus (tosi, epäto)                    | tosi        | Ota tallennus käyttöön. Jos poistettu käytöstä, näytetään vain poistumispainike                                           |
+| muokattavissa | Totuus (tosi, epäto)                    | tosi        | Ota muokkaus käyttöön. Jos poistettu käytöstä, asiakirja on vain luku                                                     |
+| kieli         | Merkkijono (..., järjestelmä, käyttäjä) | järjestelmä | Asiakirjan kieli. Jos järjestelmä, kieli havaitaan selaimesta käsin. Jos käyttäjä, kieli asetetaan käyttäjien asetukseksi |
 
 ## Tapahtumat
 
@@ -30,7 +30,7 @@ embedElement.addEventListener('message', (data) => {
 });
 ```
 
-### save
+### tallenna
 
 > The `save` event is emitted when user click the save button. (Automatic Copy)
 
@@ -38,7 +38,7 @@ Parametrit:
 
 * `data` (Kirjoita `Luettelo<int>`): Asiakirjan tiedot.
 
-### exit
+### poistu
 
 > Tapahtuma `exit` on lähetetty, kun käyttäjä klikkaa poistumispainiketta.
 
@@ -46,7 +46,7 @@ Parametrit:
 
 * `data` (Kirjoita `Luettelo<int>`): Asiakirjan tiedot.
 
-### change
+### muuta
 
 > The `change` event is emitted when user change the document. (Automatic Copy)
 
@@ -82,7 +82,7 @@ Parametrit:
 
 * `data` (Kirjoita `Luettelo<int>`): Asiakirjan tiedot.
 
-### render
+### renderöi
 
 > The `render` method rmakes the document to a png image.
 

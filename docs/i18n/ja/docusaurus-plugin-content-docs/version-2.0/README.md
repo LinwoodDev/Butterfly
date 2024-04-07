@@ -7,7 +7,7 @@ sidebar_position: 1
 
 ![Banner](/img/banner.png)
 
-***
+---
 
 > オープンソースノートアプリ「Butterfly」へようこそ。
 > サイドバーを使用してコミュニティ内をナビゲートします。
@@ -15,7 +15,7 @@ sidebar_position: 1
 ## はじめに
 
 format@@0(/downloads) にアクセスして、あなたのプラットフォーム用のアプリをダウンロードしてください。
-プラットフォームが見つからない場合は、format@@0(https\://butterfly.linwood.dev)を使用してください。
+プラットフォームが見つからない場合は、format@@0(https://v2.web.butterfly.linwood.dev)を使用してください。
 
 ## メインビュー
 

@@ -599,7 +599,9 @@
   "smoothNavigation": "Vloeiende navigatie",
   "exact": "Exacte",
   "inline": "Inline",
-  "toolbarColumns": "Kolommen op werkbalk",
+  "toolbarRows": "Werkbalk rijen",
   "pointerTest": "Testen van aanwijzer",
-  "pressure": "Drukdruk"
+  "pressure": "Drukdruk",
+  "small": "Klein",
+  "tiny": "Klein"
 }

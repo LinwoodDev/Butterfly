@@ -21,14 +21,12 @@ import { Gear, Plus, FloppyDisk, MagnifyingGlass, ScribbleLoop, Pen, Path, Arrow
 
 > Вы можете использовать боковую панель для быстрого перехода по вики.
 
-
 Чтобы начать работу над приложением, у вас есть два варианта:
+
 1. [Downloads](/downloads) версия приложения, подходящая для вашей платформы (Butterfly может работать на большинстве мобильных, настольных и веб-платформах).
-2. Используйте [веб-версию](https://butterfly.linwood.dev) , если вы не можете найти свою платформу или не хотите ее устанавливать. See [here](storage#web) about file storage on the web version.
+2. Используйте [веб-версию](https://web.butterfly.linwood.dev) , если вы не можете найти свою платформу или не хотите ее устанавливать. See [here](storage#web) about file storage on the web version.
 
 > Как только вы откроете приложение, продолжайте чтение.
-
-
 
 ## Основной вид
 
@@ -74,7 +72,6 @@ import { Gear, Plus, FloppyDisk, MagnifyingGlass, ScribbleLoop, Pen, Path, Arrow
 
 Once opening a document by selecting a template or an existing file, you will get to the **Document View**
 
-
 ## Документ Просмотр
 
 Вы можете вернуться из документа в список документов с обратным действием вашего устройства. Как и в случае с основным представлением, документ отображает изменения на основе вашего устройства.
@@ -117,5 +114,3 @@ Once opening a document by selecting a template or an existing file, you will ge
         3. Вы можете добавить инструменты на панель инструментов, нажав на знак <Plus/> плюс. 
     </TabItem>
 </Tabs>
-	
-

@@ -7,7 +7,7 @@ sidebar_position: 1
 
 ![Banner](/img/banner.png)
 
-***
+---
 
 > Witamy w Butterfly, aplikacji "opensource notatka".
 > Użyj paska bocznego, aby przejść przez wiki.
@@ -15,7 +15,7 @@ sidebar_position: 1
 ## Pierwsze kroki
 
 Odwiedź [pobierania](/downloads), aby pobrać aplikację na swoją platformę.
-Użyj [wersji internetowej](https://butterfly.linwood.dev) jeśli nie możesz znaleźć swojej platformy.
+Użyj [wersji internetowej](https://v2.web.butterfly.linwood.dev) jeśli nie możesz znaleźć swojej platformy.
 
 ## Widok główny
 
