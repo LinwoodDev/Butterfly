@@ -16,6 +16,11 @@ abstract class PathRenderer<T extends PadElement> extends Renderer<T> {
 
   PathVisual buildPathVisual([DocumentPage? page, bool foreground = false]);
 
+  bool shouldSimulatePressure() {
+    final points = (element as PathElement).points.sublist(1);
+    return points.every((element) => element.pressure == 0);
+  }
+
   Paint buildPaint([DocumentPage? page, bool foreground = false]) {
     final visual = buildPathVisual(page, foreground);
     return Paint()
@@ -117,7 +122,7 @@ abstract class PathRenderer<T extends PadElement> extends Renderer<T> {
         thinning: property.thinning.clamp(0, 1),
         smoothing: property.smoothing.clamp(0, 1),
         streamline: property.streamline.clamp(.1, 1),
-        simulatePressure: true,
+        simulatePressure: shouldSimulatePressure(),
       ),
     );
 
