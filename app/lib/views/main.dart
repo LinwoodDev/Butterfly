@@ -532,7 +532,7 @@ class _MainBody extends StatelessWidget {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
-                                if (((settings.fullScreen &&
+                                if ((((settings.fullScreen || settings.toolbarRows > 1) &&
                                                 pos == ToolbarPosition.inline ||
                                             pos == ToolbarPosition.top) &&
                                         !isMobile) &&
