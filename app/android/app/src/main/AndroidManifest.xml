@@ -1,4 +1,5 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
     <application
         android:label="${appName}"
         android:name="${applicationName}"
@@ -27,11 +28,11 @@
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
-            
+
                 <data android:scheme="http" />
                 <data android:scheme="https" />
-            
-                <data android:host="butterfly.linwood.dev" />            
+
+                <data android:host="butterfly.linwood.dev" />
             </intent-filter>
             <!-- Custom file extension .bfly -->
             <intent-filter>
@@ -58,7 +59,14 @@
         <meta-data
             android:name="flutterEmbedding"
             android:value="2" />
+        <provider
+            android:name="com.superlist.super_native_extensions.DataProvider"
+            android:authorities="${applicationId}.SuperClipboardDataProvider"
+            android:exported="true"
+            android:grantUriPermissions="true">
+        </provider>
     </application>
+    <uses-sdk tools:overrideLibrary="com.superlist.super_native_extensions" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 </manifest>

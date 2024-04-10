@@ -50,4 +50,4 @@ Url-ul ar trebui să arate astfel: `ws://{ip}:28005`. Înlocuiți `{ip}` cu adre
 
 Dacă nu sunteți în aceeași rețea, trebuie să utilizați adresa ip publică a calculatorului. Poți găsi acest lucru căutând `ceea ce este ip`-ul meu\` în browserul tău de căutare preferat. Url-ul ar trebui să arate ca cel de mai sus, dar cu adresa ip publică.
 
-Dacă folosești ngrok, configurarea este puțin diferită. Înlocuiţi `http`` cu `wss`şi adăugaţi portul`:28005`la sfârşit. Url-ul ar trebui să arate astfel:`wss\://{random}:28005\`. Înlocuiește partea aleatoare cu partea pe care ți-o oferă ngrokul.
+Dacă folosești ngrok, configurarea este puțin diferită. Înlocuiţi `http`` cu `wss`şi adăugaţi portul`:28005`la sfârşit. Url-ul ar trebui să arate astfel:`wss://{random}:28005\`. Înlocuiește partea aleatoare cu partea pe care ți-o oferă ngrokul.

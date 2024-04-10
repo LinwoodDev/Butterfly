@@ -11,7 +11,7 @@ sidebar_position: 1
 
 ## Erste Schritte
 
-Besuche [die Downloads](/downloads) um die App für deine Plattform herunterzuladen. Verwenden Sie [Web-Version](https://butterfly.linwood.dev) wenn Sie Ihre Plattform nicht finden können.
+Besuche [die Downloads](/downloads) um die App für deine Plattform herunterzuladen. Verwenden Sie [Web-Version](https://v1.web.butterfly.linwood.dev) , wenn Sie Ihre Plattform nicht finden können.
 
 ## Hauptansicht
 

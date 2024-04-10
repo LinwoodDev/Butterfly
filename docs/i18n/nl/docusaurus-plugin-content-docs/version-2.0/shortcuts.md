@@ -52,5 +52,5 @@ Hier verwijst 1 naar de lasso tool, 2, naar de pan tool etc.
 De configuratie-opties die u heeft zijn de volgende:
 
 - Leeg - de tool is unchaged.
-- 0 - het gereedschap zal functioneren als bewegend (d.w\.z. hand) in deze mod.
+- 0 - het gereedschap zal functioneren als bewegend (d.w.z. hand) in deze mod.
 - Positief nummer - De tool zal de indexering volgen zoals hierboven uitgelegd.

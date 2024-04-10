@@ -8,12 +8,6 @@ class ShapeRenderer extends Renderer<ShapeElement> {
   ShapeRenderer(super.element);
 
   @override
-  FutureOr<void> setup(
-      NoteData document, AssetService assetService, DocumentPage page) async {
-    await super.setup(document, assetService, page);
-  }
-
-  @override
   FutureOr<void> build(Canvas canvas, Size size, NoteData document,
       DocumentPage page, DocumentInfo info, CameraTransform transform,
       [ColorScheme? colorScheme, bool foreground = false]) {

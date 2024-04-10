@@ -7,7 +7,7 @@ sidebar_position: 1
 
 ![Banner](/img/banner.png)
 
-***
+---
 
 > 欢迎使用 Butterfly，开源笔记应用。
 > 使用侧边栏导航wiki。
@@ -15,7 +15,7 @@ sidebar_position: 1
 ## 入门开始
 
 访问 [downloads](/downloads) 下载应用到您的平台。
-如果您找不到您的平台，请使用 [web version](https://butterfly.linwood.dev)。
+如果您找不到您的平台，请使用 [web version](https://v2.web.butterfly.linwood.dev)。
 
 ## 主视图
 

@@ -68,7 +68,7 @@ class _MainViewViewportState extends State<MainViewViewport>
           if (mounted) {
             context
                 .read<ImportService>()
-                .import(assetType, intentData, blocState.data);
+                .import(assetType, intentData, document: blocState.data);
           }
         }
       }
@@ -339,8 +339,6 @@ class _MainViewViewportState extends State<MainViewViewport>
                               }
                               cubit.removePointer(event.pointer);
                               cubit.removeButtons();
-                              Future.sync(() => cubit.resetTemporaryHandler(
-                                  context.read<DocumentBloc>()));
                             },
                             behavior: HitTestBehavior.translucent,
                             onPointerHover: (event) {

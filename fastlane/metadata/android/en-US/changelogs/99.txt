@@ -1,4 +1,30 @@
+* Add native clipboard ([#605](https://github.com/LinwoodDev/Butterfly/issues/605))
 * Add option to import zip archive
+* Allow using these tools as temporary tool ([#656](https://github.com/LinwoodDev/Butterfly/issues/656))
+  * Select
+  * Area
+  * Laser
+* Add small, tiny and compact toolbar size option
+* Add maximize and desktop density personalization setting
+* Allow pasting packs inside documents
+* Remove navigating to canvas view if no document was imported
+* Use correct remote for importing
+* Rename toolbar columns to rows
+* Change size of quickstart to be smaller
+* Change size of recent files card
+* Improve home page header to be more responsive
+* Improve size of add button
+* Force top instead of inline if multiple rows in toolbar
 * Fix linux metainfo again
+* Fix template infinite loading on initial load
+* Fix size of temporary tool and lock and tools button if toolbar columns count is bigger than 1
+* Fix snackbar will be shown twice when copying to clipboard in settings
+* Fix null check in area handler
+* Fix pen renderer doesn't use the real pressure value ([#650](https://github.com/LinwoodDev/Butterfly/issues/650))
+* Don't allow importing templates when document is opened
+
+* Use nightly flavor for nightly builds to allow installing both stable and nightly builds on the same device
+* Add architecture specific apk builds ([#657](https://github.com/LinwoodDev/Butterfly/issues/657))
+* Upgrade path rendering api
 
 Read more here: https://linwood.dev/butterfly/2.1.0-beta.5

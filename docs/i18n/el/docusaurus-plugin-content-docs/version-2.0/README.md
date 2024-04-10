@@ -7,7 +7,7 @@ sidebar_position: 1
 
 ![Banner](/img/banner.png)
 
-***
+---
 
 > Καλώς ήλθατε στο Butterfly, το opensource note app.
 > Χρησιμοποιήστε την πλαϊνή μπάρα για να περιηγηθείτε στο wiki.
@@ -15,7 +15,7 @@ sidebar_position: 1
 ## Ξεκινώντας
 
 Επισκεφθείτε [τις λήψεις](/downloads) για να κατεβάσετε την εφαρμογή για την πλατφόρμα σας.
-Χρησιμοποιήστε την [web έκδοση](https://butterfly.linwood.dev) αν δεν μπορείτε να βρείτε την πλατφόρμα σας.
+Χρησιμοποιήστε το [web version](https://v2.web.butterfly.linwood.dev) αν δεν μπορείτε να βρείτε την πλατφόρμα σας.
 
 ## Κύρια προβολή
 

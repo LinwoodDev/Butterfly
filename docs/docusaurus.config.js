@@ -107,7 +107,7 @@ module.exports = {
           position: "right",
           dropdownItemsAfter: [
             {
-              to: "https://translate.linwood.dev/butterfly",
+              to: "https://linwood.dev/butterfly/crowdin",
               label: "Help translate",
             },
           ],

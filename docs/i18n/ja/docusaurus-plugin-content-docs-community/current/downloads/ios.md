@@ -32,7 +32,7 @@ Butterfly [here](/nightly)のナイトリーバージョンの詳細をご覧く
 私たちが配布しているIPAファイルは署名されていません。 これは、iOSデバイスにインストールする前に自分でサインインする必要があることを意味します。 \
 幸いなことに、 [AltStore](https://altstore.io) (オープンソース) または [sideloadly](https://sideloadly.io) (クローズソース) のようなプロジェクトがあります。 \
 \
-サイドローディング蝶にはApple IDが必要です。 特にこの目的のために新しいものを作成することをお勧めします。 format@@0(https\://developer.apple.com)に少なくとも一度ログインし、条件に同意してください。
+サイドローディング蝶にはApple IDが必要です。 特にこの目的のために新しいものを作成することをお勧めします。 format@@0(https://developer.apple.com)に少なくとも一度ログインし、条件に同意してください。
 \
 お使いのデバイスが iOS 16.0 以降を実行している場合は、Settings/Privacy/Developer Mode で開発者モードを有効にしてください。
 

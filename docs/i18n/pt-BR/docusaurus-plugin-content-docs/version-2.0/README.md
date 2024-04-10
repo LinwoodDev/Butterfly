@@ -7,7 +7,7 @@ sidebar_position: 1
 
 ![Banner](/img/banner.png)
 
-***
+---
 
 > Bem-vindo à Borboleta, o aplicativo de notas de código-aberto.
 > Use a barra lateral para navegar através da wiki.
@@ -15,7 +15,7 @@ sidebar_position: 1
 ## Primeiros Passos
 
 Visite [os downloads](/downloads) para baixar o app da sua plataforma.
-Use [versão web](https://butterfly.linwood.dev) se você não conseguir encontrar sua plataforma.
+Use [versão web](https://v2.web.butterfly.linwood.dev) se você não conseguir encontrar sua plataforma.
 
 ## Vista principal
 

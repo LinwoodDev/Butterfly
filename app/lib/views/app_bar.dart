@@ -307,11 +307,13 @@ class _AppBarTitle extends StatelessWidget {
                 Flexible(
                     child: BlocBuilder<SettingsCubit, ButterflySettings>(
                   buildWhen: (previous, current) =>
-                      previous.toolbarPosition != current.toolbarPosition,
+                      previous.toolbarPosition != current.toolbarPosition ||
+                      previous.toolbarRows != current.toolbarRows,
                   builder: (context, settings) => Stack(
                     children: [
                       const WindowFreeSpace(),
-                      settings.toolbarPosition == ToolbarPosition.inline
+                      settings.toolbarPosition == ToolbarPosition.inline &&
+                              settings.toolbarRows <= 1
                           ? const Align(
                               alignment: Alignment.centerRight,
                               child: EditToolbar(

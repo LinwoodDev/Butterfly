@@ -6,16 +6,16 @@ sidebar_label: Wprowadzenie
 Osadzanie jest prostym sposobem na włączenie aplikacji do Twojej strony internetowej. Dodaj następujący kod do swojej strony internetowej:
 
 ```html
-<iframe src="https://butterfly.linwood.dev/embed" width="100%" height="500px" allowtransparency="true"></iframe>
+<iframe src="https://web.butterfly.linwood.dev/embed" width="100%" height="500px" allowtransparency="true"></iframe>
 ```
 
 ## Opcje
 
-| Opcja    | Typ                                   | Domyślny | Opis                                                                                                                                         |
-| -------- | ------------------------------------- | -------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
-| save     | Boolean (true, false)                 | true     | Włącz zapisywanie. Jeśli wyłączone, wyświetlany będzie tylko przycisk wyjścia                                                                |
-| editable | Boolean (true, false)                 | true     | Włącz edycję. Jeśli wyłączone, dokument będzie tylko do odczytu                                                                              |
-| language | Ciąg znaków (..., system, użytkownik) | system   | Język dokumentu. Jeśli system, język zostanie wykryty z przeglądarki. Jeśli użytkownik, język zostanie ustawiony na preferencje użytkowników |
+| Opcja      | Typ                                   | Domyślny | Opis                                                                                                                                         |
+| ---------- | ------------------------------------- | -------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
+| zapisz     | Wartość logiczna (prawda, fałsz)      | prawda   | Włącz zapisywanie. Jeśli wyłączone, wyświetlany będzie tylko przycisk wyjścia                                                                |
+| edytowalne | Wartość logiczna (prawda, fałsz)      | prawda   | Włącz edycję. Jeśli wyłączone, dokument będzie tylko do odczytu                                                                              |
+| język      | Ciąg znaków (..., system, użytkownik) | system   | Język dokumentu. Jeśli system, język zostanie wykryty z przeglądarki. Jeśli użytkownik, język zostanie ustawiony na preferencje użytkowników |
 
 ## Wydarzenia
 
@@ -30,7 +30,7 @@ embedElement.addEventListener('message', (data) => {
 });
 ```
 
-### save
+### zapisz
 
 > Wydarzenie `save` jest emitowane po kliknięciu przycisku zapisu.
 
@@ -38,7 +38,7 @@ Parametry:
 
 * `data` (Wpisz `List<int>`): Dane dokumentu.
 
-### exit
+### wyjdź
 
 > Wydarzenie `Wyjdź` jest emitowane po kliknięciu przez użytkownika przycisku wyjście.
 
@@ -46,7 +46,7 @@ Parametry:
 
 * `data` (Wpisz `List<int>`): Dane dokumentu.
 
-### change
+### zmień
 
 > Wydarzenie `change` jest emitowane po zmianie dokumentu przez użytkownika.
 
@@ -82,7 +82,7 @@ Parametry:
 
 * `data` (Wpisz `List<int>`): Dane dokumentu.
 
-### render
+### renderowanie
 
 > Metoda renderowania `` renderuje dokument na obrazek png.
 

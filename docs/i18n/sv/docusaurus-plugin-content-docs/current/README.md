@@ -21,14 +21,12 @@ Fjärilen är en anteckningsapp som syftar till en enhetlig upplevelse över all
 
 > Du kan använda sidofältet för att navigera snabbt genom wikin.
 
-
 För att börja arbeta med appen har du två alternativ:
+
 1. [Nedladdningar](/downloads) appversionen som är lämplig för din plattform (Butterfly kan köras på de flesta mobiler, skrivbord och webbplattformar).
-2. Använd [webbversion](https://butterfly.linwood.dev) om du inte hittar din plattform eller om du inte vill installera den på den. Se [här](storage#web) om fillagring på webbversionen.
+2. Använd [webbversion](https://web.butterfly.linwood.dev) om du inte hittar din plattform eller om du inte vill installera den på den. Se [här](storage#web) om fillagring på webbversionen.
 
 > När du öppnar appen, fortsätt läsa.
-
-
 
 ## Huvudvy
 
@@ -74,7 +72,6 @@ Huvudvyn består av flera element
 
 När du har öppnat ett dokument genom att välja en mall eller en befintlig fil, kommer du till **Document View**
 
-
 ## Dokumentvyn
 
 Du kan återvända från dokumentvyn till dokumentlistan med den bakre åtgärden av din enhet. Precis som med huvudvyn ändras dokumentet baserat på din enhet.
@@ -117,5 +114,3 @@ Du kan återvända från dokumentvyn till dokumentlistan med den bakre åtgärde
         3. Du kan lägga till fler verktyg i verktygsfältet genom att klicka på <Plus/> plusknappen. 
     </TabItem>
 </Tabs>
-	
-

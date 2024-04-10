@@ -493,11 +493,6 @@ class LabelHandler extends Handler<LabelTool>
   }
 
   @override
-  bool canChange(PointerDownEvent event, EventContext context) =>
-      event.kind == PointerDeviceKind.mouse &&
-      event.buttons != kSecondaryMouseButton;
-
-  @override
   void updateFloatingCursor(RawFloatingCursorPoint point) {}
 
   @override

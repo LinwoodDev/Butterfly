@@ -334,12 +334,19 @@ class FilesViewState extends State<FilesView> {
                         final (result, extension) = await importFile(context);
                         if (result == null) return;
                         final model = await importService.import(
-                            AssetFileTypeHelper.fromFileExtension(extension) ??
-                                AssetFileType.note,
-                            result,
-                            DocumentDefaults.createDocument(),
-                            advanced: false);
-                        if (model == null) return;
+                          AssetFileTypeHelper.fromFileExtension(extension) ??
+                              AssetFileType.note,
+                          result,
+                          advanced: false,
+                          fileSystem: _fileSystem,
+                          templateSystem: _templateSystem,
+                          packSystem:
+                              PackFileSystem.fromPlatform(remote: _remote),
+                        );
+                        if (model == null) {
+                          reloadFileSystem();
+                          return;
+                        }
                         const route = '/native?name=document.bfly&type=note';
                         router.go(route, extra: model.save());
                         if (!widget.collapsed) {
@@ -639,7 +646,7 @@ class _RecentFilesViewState extends State<_RecentFilesView> {
               return Container();
             }
             return SizedBox(
-              height: 150,
+              height: 160,
               child: Scrollbar(
                 controller: _recentScrollController,
                 child: ListView.builder(
@@ -658,6 +665,7 @@ class _RecentFilesViewState extends State<_RecentFilesView> {
                       metadata: metadata,
                       thumbnail: thumbnail,
                       name: entity.location.identifier,
+                      height: double.infinity,
                       onTap: () =>
                           openFile(context, widget.replace, entity.location),
                     );
@@ -677,11 +685,13 @@ class AssetCard extends StatelessWidget {
     required this.thumbnail,
     required this.onTap,
     this.name,
+    this.height = 150,
   });
   final String? name;
   final FileMetadata? metadata;
   final Uint8List? thumbnail;
   final VoidCallback onTap;
+  final double height;
 
   @override
   Widget build(BuildContext context) {
@@ -690,7 +700,7 @@ class AssetCard extends StatelessWidget {
           color: colorScheme.onSurface,
         );
     return ConstrainedBox(
-        constraints: const BoxConstraints(maxHeight: 200),
+        constraints: BoxConstraints(maxHeight: height),
         child: AspectRatio(
           aspectRatio: 16 / 9,
           child: Card(

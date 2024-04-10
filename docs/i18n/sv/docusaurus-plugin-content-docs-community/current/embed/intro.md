@@ -6,16 +6,16 @@ sidebar_label: Introduktion
 Inbäddning är ett enkelt sätt att inkludera appen på din webbplats. Lägg till följande kod på din webbplats:
 
 ```html
-<iframe src="https://butterfly.linwood.dev/embed" width="100%" height="500px" allowtransparency="true"></iframe>
+<iframe src="https://web.butterfly.linwood.dev/embed" width="100%" height="500px" allowtransparency="true"></iframe>
 ```
 
 ## Alternativ
 
 | Alternativ | Typ                             | Standard | Beskrivning                                                                                                                                             |
 | ---------- | ------------------------------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| save       | Boolean (true, false)           | true     | Aktivera spara. Om inaktiverad, visas endast en avgångsknapp                                                                                            |
-| editable   | Boolean (true, false)           | true     | Aktivera redigering. Om inaktiverad, kommer dokumentet att skrivas enbart                                                                               |
-| language   | Sträng (..., system, användare) | system   | Språk i dokumentet. Om systemet, kommer språket att upptäckas från webbläsaren. Om användaren kommer språket att ställas in efter användarens preferens |
+| spara      | Boolesk (sant, falskt)          | sant     | Aktivera spara. Om inaktiverad, visas endast en avgångsknapp                                                                                            |
+| redigerbar | Boolesk (sant, falskt)          | sant     | Aktivera redigering. Om inaktiverad, kommer dokumentet att skrivas enbart                                                                               |
+| språk      | Sträng (..., system, användare) | system   | Språk i dokumentet. Om systemet, kommer språket att upptäckas från webbläsaren. Om användaren kommer språket att ställas in efter användarens preferens |
 
 ## Händelser
 
@@ -30,7 +30,7 @@ embedElement.addEventListener('message', (data) => {
 });
 ```
 
-### save
+### spara
 
 > Händelsen `spara` släpps ut när användaren klickar på knappen Spara.
 
@@ -38,7 +38,7 @@ Parametrar:
 
 * `data` (Typ `Lista<int>`): Dokumentets data.
 
-### exit
+### avsluta
 
 > Händelsen `exit` avges när användaren klickar på utgångsknappen.
 
@@ -46,7 +46,7 @@ Parametrar:
 
 * `data` (Typ `Lista<int>`): Dokumentets data.
 
-### change
+### ändra
 
 > Händelsen `ändra` släpps ut när användaren ändrar dokumentet.
 
@@ -82,7 +82,7 @@ Parametrar:
 
 * `data` (Typ `Lista<int>`): Dokumentets data.
 
-### render
+### renderare
 
 > Metoden `render` renderar dokumentet till en png bild.
 

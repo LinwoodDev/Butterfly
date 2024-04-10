@@ -21,14 +21,12 @@ Butterfly ist eine Notizenanwendung, die auf einheitliche Erfahrungen auf allen 
 
 > Sie können die Seitenleiste benutzen, um schnell durch das Wiki zu navigieren.
 
-
 Um mit der Arbeit an der App zu beginnen, haben Sie zwei Möglichkeiten:
+
 1. [Downloads](/downloads) die App-Version, die für Ihre Plattform geeignet ist (Butterfly kann auf den meisten Mobiltelefonen, Desktop- und Web-Plattformen ausgeführt werden).
-2. Verwenden Sie [Web-Version](https://butterfly.linwood.dev) , wenn Sie Ihre Plattform nicht finden oder sie nicht auf ihr installieren möchten. Siehe [hier](storage#web) über Dateispeicher auf der Web-Version.
+2. Verwenden Sie [Web-Version](https://web.butterfly.linwood.dev) , wenn Sie Ihre Plattform nicht finden oder sie nicht auf ihr installieren möchten. Siehe [hier](storage#web) über Dateispeicher auf der Web-Version.
 
 > Sobald Sie die App geöffnet haben, lesen Sie weiter.
-
-
 
 ## Hauptansicht
 
@@ -74,7 +72,6 @@ Die Hauptansicht besteht aus mehreren Elementen
 
 Sobald Sie ein Dokument durch Auswahl einer Vorlage oder einer existierenden Datei geöffnet haben, gelangen Sie zur **Dokumentenansicht**
 
-
 ## Die Dokumentansicht
 
 Sie können von der Dokumentenansicht mit der Rücken-Aktion Ihres Geräts in die Dokumentenliste zurückkehren. Wie bei der Hauptansicht zeigt das Dokument Änderungen basierend auf Ihrem Gerät an.
@@ -117,5 +114,3 @@ Sie können von der Dokumentenansicht mit der Rücken-Aktion Ihres Geräts in di
         3 ziehen. Sie können weitere Werkzeuge zur Werkzeugleiste hinzufügen, indem Sie auf das <Plus/> Plus-Zeichen klicken. 
     </TabItem>
 </Tabs>
-	
-

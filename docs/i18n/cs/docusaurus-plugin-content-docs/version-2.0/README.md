@@ -1,13 +1,13 @@
 ---
 title: Úvod
 id: intro
-slug: /intro
+slug: /úvod
 sidebar_position: 1
 ---
 
 ![Banner](/img/banner.png)
 
-***
+---
 
 > Vítejte v aplikaci Butterfly, opensource poznámky.
 > Pomocí postranního panelu přejděte přes wiki.
@@ -15,7 +15,7 @@ sidebar_position: 1
 ## Jak začít
 
 Navštivte [stažení](/downloads) a stáhněte si aplikaci pro vaši platformu.
-Pokud nemůžete najít platformu, použijte [webovou verzi](https://butterfly.linwood.dev).
+Pokud nemůžete najít platformu, použijte [webovou verzi](https://v2.web.butterfly.linwood.dev).
 
 ## Hlavní pohled
 

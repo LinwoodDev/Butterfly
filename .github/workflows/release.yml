@@ -25,7 +25,7 @@ jobs:
         run: |
           FLUTTER_VERSION=$(cat FLUTTER_VERSION)
           echo "FLUTTER_VERSION=${FLUTTER_VERSION}" >> $GITHUB_ENV
-      - uses: subosito/flutter-action@v2.15.0
+      - uses: subosito/flutter-action@v2.16.0
         with:
           flutter-version: ${{ env.FLUTTER_VERSION }}
           channel: 'master'
@@ -74,7 +74,7 @@ jobs:
         run: |
           FLUTTER_VERSION=$(cat FLUTTER_VERSION)
           echo "FLUTTER_VERSION=${FLUTTER_VERSION}" >> $GITHUB_ENV
-      - uses: subosito/flutter-action@v2.15.0
+      - uses: subosito/flutter-action@v2.16.0
         with:
           flutter-version: ${{ env.FLUTTER_VERSION }}
           channel: 'master'
@@ -141,7 +141,7 @@ jobs:
         run: |
           FLUTTER_VERSION=$(cat FLUTTER_VERSION)
           echo "FLUTTER_VERSION=${FLUTTER_VERSION}" >> $GITHUB_ENV
-      - uses: subosito/flutter-action@v2.15.0
+      - uses: subosito/flutter-action@v2.16.0
         with:
           flutter-version: ${{ env.FLUTTER_VERSION }}
           channel: 'master'
@@ -215,7 +215,7 @@ jobs:
         run: |
           FLUTTER_VERSION=$(cat FLUTTER_VERSION)
           echo "FLUTTER_VERSION=${FLUTTER_VERSION}" >> $GITHUB_ENV
-      - uses: subosito/flutter-action@v2.15.0
+      - uses: subosito/flutter-action@v2.16.0
         with:
           flutter-version: ${{ env.FLUTTER_VERSION }}
           channel: 'master'
@@ -257,7 +257,7 @@ jobs:
           echo '' >> $GITHUB_ENV
           echo 'EOF' >> $GITHUB_ENV
       - name: Discord Webhook Action
-        uses: tsickert/discord-webhook@v5.5.0
+        uses: tsickert/discord-webhook@v6.0.0
         if: ${{ github.event.inputs.stable == 'true' || github.ref == 'refs/heads/main' }}
         with:
           webhook-url: ${{ secrets.WEBHOOK_URL }}
@@ -269,7 +269,7 @@ jobs:
             Download it here: https://butterfly.linwood.dev/downloads
             https://github.com/LinwoodDev/butterfly/releases/tag/v${{ env.BUTTERFLY_VERSION }}
       - name: Discord Webhook Action
-        uses: tsickert/discord-webhook@v5.5.0
+        uses: tsickert/discord-webhook@v6.0.0
         if: ${{ github.event.inputs.stable == 'false' && github.ref == 'refs/heads/develop' }}
         with:
           webhook-url: ${{ secrets.WEBHOOK_URL }}

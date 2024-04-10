@@ -6,16 +6,16 @@ sidebar_label: Introductie
 Insluiten is een eenvoudige manier om de app toe te voegen aan uw website. Voeg de volgende code toe aan je website:
 
 ```html
-<iframe src="https://butterfly.linwood.dev/embed" width="100%" height="500px" allowtransparency="true"></iframe>
+<iframe src="https://web.butterfly.linwood.dev/embed" width="100%" height="500px" allowtransparency="true"></iframe>
 ```
 
 ## Instellingen
 
-| Optie    | Type                             | Standaard | Beschrijving                                                                                                                                           |
-| -------- | -------------------------------- | --------- | ------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| save     | Boolean (true, false)            | true      | Schakel opslaan in. Indien uitgeschakeld wordt alleen een afsluitknop weergegeven                                                                      |
-| editable | Boolean (true, false)            | true      | Bewerken inschakelen. Indien uitgeschakeld zal het document alleen-lezen zijn                                                                          |
-| language | String (..., systeem, gebruiker) | system    | Taal van het document. Indien systeem wordt de taal van de browser gedetecteerd. Als gebruiker wordt de taal ingesteld op de voorkeur van de gebruiker |
+| Optie      | Type                             | Standaard | Beschrijving                                                                                                                                           |
+| ---------- | -------------------------------- | --------- | ------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| opslaan    | Boolean (waar, onwaar)           | waar      | Schakel opslaan in. Indien uitgeschakeld wordt alleen een afsluitknop weergegeven                                                                      |
+| bewerkbaar | Boolean (waar, onwaar)           | waar      | Bewerken inschakelen. Indien uitgeschakeld zal het document alleen-lezen zijn                                                                          |
+| Taal       | String (..., systeem, gebruiker) | systeem   | Taal van het document. Indien systeem wordt de taal van de browser gedetecteerd. Als gebruiker wordt de taal ingesteld op de voorkeur van de gebruiker |
 
 ## Evenementen
 
@@ -30,7 +30,7 @@ embedElement.addEventListener('message', (data) => {
 });
 ```
 
-### save
+### opslaan
 
 > De `save` event wordt uitgestoten wanneer de gebruiker op de save knop klikt.
 
@@ -38,7 +38,7 @@ Parameters:
 
 * `gegevens` (Type `Lijst<int>`): De gegevens van het document.
 
-### exit
+### verlaten
 
 > Het `afsluiten` event wordt uitgestoten wanneer de gebruiker op de afsluitknop klikt.
 
@@ -46,7 +46,7 @@ Parameters:
 
 * `gegevens` (Type `Lijst<int>`): De gegevens van het document.
 
-### change
+### Wijzigen
 
 > De `wijziging` gebeurtenis wordt uitgestoten wanneer de gebruiker het document wijzigt.
 
@@ -74,7 +74,7 @@ embedElement.addEventListener('message', (data) => {
 
 Geen parameters. Retourneert: `Lijst<int>`
 
-### setData
+### stelgegevens
 
 > De `setData` methode stelt de data van het document in.
 
@@ -82,7 +82,7 @@ Parameters:
 
 * `gegevens` (Type `Lijst<int>`): De gegevens van het document.
 
-### render
+### renderen
 
 > De `render` methode geeft het document een png afbeelding.
 

@@ -34,9 +34,11 @@ class PersonalizationSettingsPage extends StatelessWidget {
   String _getDensityName(BuildContext context, ThemeDensity density) =>
       switch (density) {
         ThemeDensity.system => AppLocalizations.of(context).systemTheme,
-        ThemeDensity.comfortable => AppLocalizations.of(context).comfortable,
+        ThemeDensity.maximize => AppLocalizations.of(context).maximize,
+        ThemeDensity.desktop => AppLocalizations.of(context).desktop,
         ThemeDensity.compact => AppLocalizations.of(context).compact,
         ThemeDensity.standard => AppLocalizations.of(context).standard,
+        ThemeDensity.comfortable => AppLocalizations.of(context).comfortable,
       };
 
   @override
@@ -183,15 +185,15 @@ class PersonalizationSettingsPage extends StatelessWidget {
                         ),
                         ExactSlider(
                           header:
-                              Text(AppLocalizations.of(context).toolbarColumns),
-                          value: state.toolbarColumns.toDouble(),
+                              Text(AppLocalizations.of(context).toolbarRows),
+                          value: state.toolbarRows.toDouble(),
                           defaultValue: 1,
                           min: 1,
                           max: 4,
                           fractionDigits: 0,
                           onChangeEnd: (value) => context
                               .read<SettingsCubit>()
-                              .changeToolbarColumns(value.round()),
+                              .changeToolbarRows(value.round()),
                         ),
                         SwitchListTile(
                           secondary:

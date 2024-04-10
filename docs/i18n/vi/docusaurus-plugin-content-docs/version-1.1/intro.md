@@ -11,7 +11,7 @@ sidebar_position: 1
 
 ## Getting started
 
-Visit [the downloads](/downloads) to download the app for your platform. Use [web version](https://butterfly.linwood.dev) if you cannot find your platform.
+Visit [the downloads](/downloads) to download the app for your platform. Use [web version](https://web.butterfly.linwood.dev) if you cannot find your platform.
 
 ## Main view
 

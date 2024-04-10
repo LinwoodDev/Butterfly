@@ -18,14 +18,17 @@ class SettingsAction extends Action<SettingsIntent> {
 
 Future<void> openSettings(BuildContext context) => showGeneralDialog<void>(
       context: context,
-      pageBuilder: (context, animation, secondaryAnimation) => BackdropFilter(
-        filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
-        child: Dialog(
-            clipBehavior: Clip.antiAlias,
-            child: ConstrainedBox(
-                constraints:
-                    const BoxConstraints(maxHeight: 800, maxWidth: 1000),
-                child: const SettingsPage(isDialog: true))),
+      pageBuilder: (context, animation, secondaryAnimation) =>
+          ScaffoldMessenger(
+        child: BackdropFilter(
+          filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
+          child: Dialog(
+              clipBehavior: Clip.antiAlias,
+              child: ConstrainedBox(
+                  constraints:
+                      const BoxConstraints(maxHeight: 800, maxWidth: 1000),
+                  child: const SettingsPage(isDialog: true))),
+        ),
       ),
       barrierDismissible: true,
       barrierLabel: MaterialLocalizations.of(context).modalBarrierDismissLabel,

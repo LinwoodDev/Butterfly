@@ -11,7 +11,7 @@ sidebar_position: 1
 
 ## はじめに
 
-[ダウンロード](/downloads) にアクセスして、プラットフォーム用のアプリをダウンロードしてください。 あなたのプラットフォームが見つからない場合は、 [Web バージョン](https://butterfly.linwood.dev) を使用してください。
+[ダウンロード](/downloads) にアクセスして、プラットフォーム用のアプリをダウンロードしてください。 Use [web version](https://v1.web.butterfly.linwood.dev) if you cannot find your platform.
 
 ## メインビュー
 

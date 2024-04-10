@@ -33,17 +33,26 @@ const secureStorage = FlutterSecureStorage(
 const kRecentHistorySize = 5;
 
 enum ToolbarSize {
+  tiny,
+  small,
+  compact,
   normal,
   medium,
   large;
 
   String getLocalizedName(BuildContext context) => switch (this) {
+        ToolbarSize.tiny => AppLocalizations.of(context).tiny,
+        ToolbarSize.small => AppLocalizations.of(context).small,
+        ToolbarSize.compact => AppLocalizations.of(context).compact,
         ToolbarSize.normal => AppLocalizations.of(context).normal,
         ToolbarSize.medium => AppLocalizations.of(context).medium,
         ToolbarSize.large => AppLocalizations.of(context).large,
       };
 
   double get size => switch (this) {
+        ToolbarSize.tiny => 45,
+        ToolbarSize.small => 50,
+        ToolbarSize.compact => 55,
         ToolbarSize.normal => 60,
         ToolbarSize.medium => 65,
         ToolbarSize.large => 70,
@@ -339,13 +348,19 @@ enum ToolbarPosition {
 
 enum ThemeDensity {
   system,
+  maximize,
+  desktop,
   compact,
   comfortable,
   standard;
 
   VisualDensity toFlutter() => switch (this) {
-        ThemeDensity.comfortable => VisualDensity.comfortable,
+        ThemeDensity.maximize =>
+          const VisualDensity(horizontal: -4, vertical: -4),
+        ThemeDensity.desktop =>
+          const VisualDensity(horizontal: -3, vertical: -3),
         ThemeDensity.compact => VisualDensity.compact,
+        ThemeDensity.comfortable => VisualDensity.comfortable,
         ThemeDensity.standard => VisualDensity.standard,
         ThemeDensity.system => VisualDensity.adaptivePlatformDensity,
       };
@@ -396,7 +411,7 @@ class ButterflySettings with _$ButterflySettings {
     @Default(false) bool highContrast,
     @Default(false) bool gridView,
     @Default(true) bool autosave,
-    @Default(1) int toolbarColumns,
+    @Default(1) int toolbarRows,
   }) = _ButterflySettings;
 
   factory ButterflySettings.fromPrefs(
@@ -479,7 +494,7 @@ class ButterflySettings with _$ButterflySettings {
       toolbarSize: prefs.containsKey('toolbar_size')
           ? ToolbarSize.values.byName(prefs.getString('toolbar_size')!)
           : ToolbarSize.normal,
-      toolbarColumns: prefs.getInt('toolbar_columns') ?? 1,
+      toolbarRows: prefs.getInt('toolbar_rows') ?? 1,
     );
   }
 
@@ -542,7 +557,7 @@ class ButterflySettings with _$ButterflySettings {
     await prefs.setBool('grid_view', gridView);
     await prefs.setBool('autosave', autosave);
     await prefs.setString('toolbar_size', toolbarSize.name);
-    await prefs.setInt('toolbar_columns', toolbarColumns);
+    await prefs.setInt('toolbar_rows', toolbarRows);
   }
 
   ExternalStorage? getRemote(String? identifier) {
@@ -1052,10 +1067,10 @@ class SettingsCubit extends Cubit<ButterflySettings> {
 
   Future<void> resetAutosave() => changeAutosave(true);
 
-  Future<void> changeToolbarColumns(int value) {
-    emit(state.copyWith(toolbarColumns: value));
+  Future<void> changeToolbarRows(int value) {
+    emit(state.copyWith(toolbarRows: value));
     return save();
   }
 
-  Future<void> resetToolbarColumns() => changeToolbarColumns(1);
+  Future<void> resetToolbarRows() => changeToolbarRows(1);
 }

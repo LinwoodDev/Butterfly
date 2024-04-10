@@ -21,14 +21,12 @@ Sommerfugl arbeider et notat som tar app som sikter mot en enhetlig opplevelse p
 
 > Du kan bruke sidepanelet til å raskt navigere gjennom wikien.
 
-
 For å begynne å jobbe med appen har du to alternativer:
+
 1. [Downloads](/downloads) appversjonen som passer for plattformen (Butterfly kan kjøre på mest mobil, skrivebord og nettplater).
-2. Bruk [web versjon](https://butterfly.linwood.dev) hvis du ikke finner plattformen din, eller hvis du ikke vil installere den i den. Se [her](storage#web) om fillagring på nettversjonen.
+2. Bruk [web versjon](https://web.butterfly.linwood.dev) hvis du ikke finner plattformen din, eller hvis du ikke vil installere den i den. Se [her](storage#web) om fillagring på nettversjonen.
 
 > Fortsett å lese når du åpner appen.
-
-
 
 ## Hoved visning
 
@@ -74,7 +72,6 @@ Hovedvisningen er satt sammen av flere elementer
 
 Når du åpner et dokument ved å velge en mal eller en eksisterende fil, vil du gå til **Dokumentvisning**
 
-
 ## Dokumentvisning (Automatic Translation)
 
 Fra dokumentvisningen kan du returnere til dokumentlisten med den bakenforliggende handlingen for enheten. Som for hovedvisningen vises dokumentet basert på enheten din.
@@ -117,5 +114,3 @@ Fra dokumentvisningen kan du returnere til dokumentlisten med den bakenforliggen
         3. Du kan legge til flere verktøy til verktøylinjen ved å klikke på <Plus/> pluss skilt. 
     </TabItem>
 </Tabs>
-	
-

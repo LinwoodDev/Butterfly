@@ -1,5 +1,5 @@
 ---
-title: Waypoints
+title: Segnaposti
 sidebar_position: 2
 ---
 
