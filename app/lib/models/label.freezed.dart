@@ -19,7 +19,6 @@ mixin _$LabelContext {
   LabelTool get tool => throw _privateConstructorUsedError;
   TextPainter get textPainter => throw _privateConstructorUsedError;
   PadElement? get element => throw _privateConstructorUsedError;
-  bool get isCreating => throw _privateConstructorUsedError;
   double get zoom => throw _privateConstructorUsedError;
   TextSelection get selection => throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -28,7 +27,6 @@ mixin _$LabelContext {
             LabelTool tool,
             TextPainter textPainter,
             TextElement? element,
-            bool isCreating,
             double zoom,
             TextSelection selection,
             txt.ParagraphProperty? forcedProperty,
@@ -51,7 +49,6 @@ mixin _$LabelContext {
             LabelTool tool,
             TextPainter textPainter,
             TextElement? element,
-            bool isCreating,
             double zoom,
             TextSelection selection,
             txt.ParagraphProperty? forcedProperty,
@@ -74,7 +71,6 @@ mixin _$LabelContext {
             LabelTool tool,
             TextPainter textPainter,
             TextElement? element,
-            bool isCreating,
             double zoom,
             TextSelection selection,
             txt.ParagraphProperty? forcedProperty,
@@ -126,7 +122,6 @@ abstract class $LabelContextCopyWith<$Res> {
   $Res call(
       {LabelTool tool,
       TextPainter textPainter,
-      bool isCreating,
       double zoom,
       TextSelection selection});
 }
@@ -146,7 +141,6 @@ class _$LabelContextCopyWithImpl<$Res, $Val extends LabelContext>
   $Res call({
     Object? tool = null,
     Object? textPainter = null,
-    Object? isCreating = null,
     Object? zoom = null,
     Object? selection = null,
   }) {
@@ -159,10 +153,6 @@ class _$LabelContextCopyWithImpl<$Res, $Val extends LabelContext>
           ? _value.textPainter
           : textPainter // ignore: cast_nullable_to_non_nullable
               as TextPainter,
-      isCreating: null == isCreating
-          ? _value.isCreating
-          : isCreating // ignore: cast_nullable_to_non_nullable
-              as bool,
       zoom: null == zoom
           ? _value.zoom
           : zoom // ignore: cast_nullable_to_non_nullable
@@ -187,7 +177,6 @@ abstract class _$$TextContextImplCopyWith<$Res>
       {LabelTool tool,
       TextPainter textPainter,
       TextElement? element,
-      bool isCreating,
       double zoom,
       TextSelection selection,
       txt.ParagraphProperty? forcedProperty,
@@ -212,7 +201,6 @@ class __$$TextContextImplCopyWithImpl<$Res>
     Object? tool = null,
     Object? textPainter = null,
     Object? element = freezed,
-    Object? isCreating = null,
     Object? zoom = null,
     Object? selection = null,
     Object? forcedProperty = freezed,
@@ -232,10 +220,6 @@ class __$$TextContextImplCopyWithImpl<$Res>
           ? _value.element
           : element // ignore: cast_nullable_to_non_nullable
               as TextElement?,
-      isCreating: null == isCreating
-          ? _value.isCreating
-          : isCreating // ignore: cast_nullable_to_non_nullable
-              as bool,
       zoom: null == zoom
           ? _value.zoom
           : zoom // ignore: cast_nullable_to_non_nullable
@@ -291,7 +275,6 @@ class _$TextContextImpl extends TextContext {
       {required this.tool,
       required this.textPainter,
       this.element,
-      this.isCreating = false,
       this.zoom = 1.0,
       this.selection = const TextSelection.collapsed(offset: 0),
       this.forcedProperty,
@@ -307,9 +290,6 @@ class _$TextContextImpl extends TextContext {
   final TextElement? element;
   @override
   @JsonKey()
-  final bool isCreating;
-  @override
-  @JsonKey()
   final double zoom;
   @override
   @JsonKey()
@@ -323,7 +303,7 @@ class _$TextContextImpl extends TextContext {
 
   @override
   String toString() {
-    return 'LabelContext.text(tool: $tool, textPainter: $textPainter, element: $element, isCreating: $isCreating, zoom: $zoom, selection: $selection, forcedProperty: $forcedProperty, forcedSpanProperty: $forcedSpanProperty, forceParagraph: $forceParagraph)';
+    return 'LabelContext.text(tool: $tool, textPainter: $textPainter, element: $element, zoom: $zoom, selection: $selection, forcedProperty: $forcedProperty, forcedSpanProperty: $forcedSpanProperty, forceParagraph: $forceParagraph)';
   }
 
   @override
@@ -335,8 +315,6 @@ class _$TextContextImpl extends TextContext {
             (identical(other.textPainter, textPainter) ||
                 other.textPainter == textPainter) &&
             (identical(other.element, element) || other.element == element) &&
-            (identical(other.isCreating, isCreating) ||
-                other.isCreating == isCreating) &&
             (identical(other.zoom, zoom) || other.zoom == zoom) &&
             (identical(other.selection, selection) ||
                 other.selection == selection) &&
@@ -349,17 +327,8 @@ class _$TextContextImpl extends TextContext {
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      tool,
-      textPainter,
-      element,
-      isCreating,
-      zoom,
-      selection,
-      forcedProperty,
-      forcedSpanProperty,
-      forceParagraph);
+  int get hashCode => Object.hash(runtimeType, tool, textPainter, element, zoom,
+      selection, forcedProperty, forcedSpanProperty, forceParagraph);
 
   @JsonKey(ignore: true)
   @override
@@ -374,7 +343,6 @@ class _$TextContextImpl extends TextContext {
             LabelTool tool,
             TextPainter textPainter,
             TextElement? element,
-            bool isCreating,
             double zoom,
             TextSelection selection,
             txt.ParagraphProperty? forcedProperty,
@@ -390,8 +358,8 @@ class _$TextContextImpl extends TextContext {
             TextSelection selection)
         markdown,
   }) {
-    return text(tool, textPainter, element, isCreating, zoom, selection,
-        forcedProperty, forcedSpanProperty, forceParagraph);
+    return text(tool, textPainter, element, zoom, selection, forcedProperty,
+        forcedSpanProperty, forceParagraph);
   }
 
   @override
@@ -401,7 +369,6 @@ class _$TextContextImpl extends TextContext {
             LabelTool tool,
             TextPainter textPainter,
             TextElement? element,
-            bool isCreating,
             double zoom,
             TextSelection selection,
             txt.ParagraphProperty? forcedProperty,
@@ -417,7 +384,7 @@ class _$TextContextImpl extends TextContext {
             TextSelection selection)?
         markdown,
   }) {
-    return text?.call(tool, textPainter, element, isCreating, zoom, selection,
+    return text?.call(tool, textPainter, element, zoom, selection,
         forcedProperty, forcedSpanProperty, forceParagraph);
   }
 
@@ -428,7 +395,6 @@ class _$TextContextImpl extends TextContext {
             LabelTool tool,
             TextPainter textPainter,
             TextElement? element,
-            bool isCreating,
             double zoom,
             TextSelection selection,
             txt.ParagraphProperty? forcedProperty,
@@ -446,8 +412,8 @@ class _$TextContextImpl extends TextContext {
     required TResult orElse(),
   }) {
     if (text != null) {
-      return text(tool, textPainter, element, isCreating, zoom, selection,
-          forcedProperty, forcedSpanProperty, forceParagraph);
+      return text(tool, textPainter, element, zoom, selection, forcedProperty,
+          forcedSpanProperty, forceParagraph);
     }
     return orElse();
   }
@@ -489,7 +455,6 @@ abstract class TextContext extends LabelContext {
       {required final LabelTool tool,
       required final TextPainter textPainter,
       final TextElement? element,
-      final bool isCreating,
       final double zoom,
       final TextSelection selection,
       final txt.ParagraphProperty? forcedProperty,
@@ -503,8 +468,6 @@ abstract class TextContext extends LabelContext {
   TextPainter get textPainter;
   @override
   TextElement? get element;
-  @override
-  bool get isCreating;
   @override
   double get zoom;
   @override
@@ -649,7 +612,6 @@ class _$MarkdownContextImpl extends MarkdownContext {
             LabelTool tool,
             TextPainter textPainter,
             TextElement? element,
-            bool isCreating,
             double zoom,
             TextSelection selection,
             txt.ParagraphProperty? forcedProperty,
@@ -675,7 +637,6 @@ class _$MarkdownContextImpl extends MarkdownContext {
             LabelTool tool,
             TextPainter textPainter,
             TextElement? element,
-            bool isCreating,
             double zoom,
             TextSelection selection,
             txt.ParagraphProperty? forcedProperty,
@@ -702,7 +663,6 @@ class _$MarkdownContextImpl extends MarkdownContext {
             LabelTool tool,
             TextPainter textPainter,
             TextElement? element,
-            bool isCreating,
             double zoom,
             TextSelection selection,
             txt.ParagraphProperty? forcedProperty,
@@ -773,7 +733,6 @@ abstract class MarkdownContext extends LabelContext {
   TextPainter get textPainter;
   @override
   MarkdownElement? get element;
-  @override
   bool get isCreating;
   @override
   double get zoom;

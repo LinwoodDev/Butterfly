@@ -2,5 +2,6 @@ This is the 100th release 🎉
 
 * Add image background svg support
 * Fix linux metainfo again
+* Fix label is not being created when unfocussing
 
 Read more here: https://linwood.dev/butterfly/2.1.0-rc.0

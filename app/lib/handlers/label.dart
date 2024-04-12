@@ -21,7 +21,6 @@ class LabelHandler extends Handler<LabelTool>
         final forced = _context?.mapOrNull(text: (e) => e.forcedProperty);
         return TextContext(
           tool: data,
-          isCreating: true,
           element: (element as TextElement?) ??
               (position == null
                   ? null
@@ -248,9 +247,8 @@ class LabelHandler extends Handler<LabelTool>
     _context = value;
     if (context == null) return;
     final id = context.element?.id;
-    if (id == null) return;
 
-    if (context.element != null && value.element != null) {
+    if (context.element != null && value.element != null && id != null) {
       if (!value.isCreating) {
         bloc.add(ElementsChanged({
           id: [value.element!],
@@ -283,11 +281,10 @@ class LabelHandler extends Handler<LabelTool>
     final element = context.element;
     if (element == null) return;
     final id = element.id;
-    if (id == null) return;
     final isEmpty = context.isEmpty;
     if (context.isCreating && !isEmpty) {
       bloc.add(ElementsCreated([element]));
-    } else if (!context.isCreating && isEmpty) {
+    } else if (!context.isCreating && isEmpty && id != null) {
       bloc.add(ElementsRemoved([id]));
     }
   }
