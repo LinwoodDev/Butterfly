@@ -1,0 +1,6 @@
+This is the 100th release 🎉
+
+* Add image background svg support
+* Fix linux metainfo again
+
+Read more here: https://linwood.dev/butterfly/2.1.0-rc.0
