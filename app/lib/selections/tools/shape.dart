@@ -173,9 +173,7 @@ class _ShapeViewState extends State<ShapeView> {
     if (current is RectangleShape) {
       return _RectangleShapeView(shape: current, onChanged: _onShapeChanged);
     }
-    if (current is RectangleShape) {
-      return _RectangleShapeView(shape: current, onChanged: _onShapeChanged);
-    }
+
     return const SizedBox();
   }
 
