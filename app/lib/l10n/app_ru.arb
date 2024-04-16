@@ -604,6 +604,6 @@
   "pressure": "Давление",
   "small": "Маленький",
   "tiny": "Маленький",
-  "selectAll": "Select all",
-  "overrideTools": "Override tools"
+  "selectAll": "Выбрать все",
+  "overrideTools": "Переопределить инструменты"
 }
