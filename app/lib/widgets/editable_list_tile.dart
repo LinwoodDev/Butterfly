@@ -43,6 +43,20 @@ class _EditableListTileState extends State<EditableListTile> {
   }
 
   @override
+  void didUpdateWidget(covariant EditableListTile oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    setState(() {
+      if (widget.controller != oldWidget.controller) {
+        _controller = widget.controller ?? TextEditingController();
+      }
+      final initialValue = widget.initialValue;
+      if (initialValue != oldWidget.initialValue && initialValue != null) {
+        _controller.text = initialValue;
+      }
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     void onSaved([String? value]) {
       widget.onSaved?.call(value ?? _controller.text);
@@ -96,7 +110,7 @@ class _EditableListTileState extends State<EditableListTile> {
                       vertical: 13,
                     ),
                     child: Text(
-                      widget.initialValue ?? '',
+                      _controller.text,
                     ),
                   ),
                 ),

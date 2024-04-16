@@ -98,9 +98,12 @@ class _FileEntityItemState extends State<FileEntityItem> {
                     child: const PhosphorIcon(PhosphorIconsLight.x),
                   ),
                   FilledButton(
-                    onPressed: () {
+                    onPressed: () async {
                       Navigator.of(ctx).pop();
-                      fileSystem.deleteAsset(widget.entity.location.path);
+                      context
+                          .read<SettingsCubit>()
+                          .removeRecentHistory(widget.entity.location);
+                      await fileSystem.deleteAsset(widget.entity.location.path);
                       widget.onReload();
                     },
                     child: const PhosphorIcon(PhosphorIconsLight.check),

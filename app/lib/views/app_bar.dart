@@ -143,7 +143,9 @@ class _AppBarTitle extends StatelessWidget {
                                       DocumentFileSystem.fromPlatform(
                                           remote: settings
                                               .getRemote(location.remote));
-
+                                  context
+                                      .read<SettingsCubit>()
+                                      .removeRecentHistory(location);
                                   await fileSystem.deleteAsset(location.path);
                                   if (state is DocumentLoadSuccess) {
                                     await state.save(location.copyWith(

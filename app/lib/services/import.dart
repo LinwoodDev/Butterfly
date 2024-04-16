@@ -31,7 +31,6 @@ import 'package:super_clipboard/super_clipboard.dart';
 import '../api/save.dart';
 import '../cubits/current_index.dart';
 import '../cubits/settings.dart';
-import '../dialogs/error.dart';
 import '../dialogs/export/general.dart';
 import '../dialogs/import/pages.dart';
 import '../dialogs/export/pdf.dart';
@@ -441,12 +440,11 @@ class ImportService {
               ),
             ],
             choosePosition: position == null);
-      } catch (e, stackTrace) {
+      } catch (e) {
         showDialog<void>(
             context: context,
-            builder: (context) => ErrorDialog(
-                  error: e,
-                  stackTrace: stackTrace,
+            builder: (context) => UnknownImportConfirmationDialog(
+                  message: e.toString(),
                 ));
       }
     } catch (e) {
