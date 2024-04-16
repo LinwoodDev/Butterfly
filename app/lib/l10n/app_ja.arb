@@ -604,6 +604,6 @@
   "pressure": "<unk>",
   "small": "小",
   "tiny": "<unk>",
-  "selectAll": "Select all",
-  "overrideTools": "Override tools"
+  "selectAll": "すべて選択",
+  "overrideTools": "ツールを上書きする"
 }
