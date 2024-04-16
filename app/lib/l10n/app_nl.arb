@@ -603,5 +603,7 @@
   "pointerTest": "Testen van aanwijzer",
   "pressure": "Drukdruk",
   "small": "Klein",
-  "tiny": "Klein"
+  "tiny": "Klein",
+  "selectAll": "Select all",
+  "overrideTools": "Override tools"
 }
