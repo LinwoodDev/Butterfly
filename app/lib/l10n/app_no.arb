@@ -603,5 +603,7 @@
   "pointerTest": "Pekers test",
   "pressure": "Trykk",
   "small": "Liten",
-  "tiny": "Bitteliten"
+  "tiny": "Bitteliten",
+  "selectAll": "Select all",
+  "overrideTools": "Override tools"
 }
