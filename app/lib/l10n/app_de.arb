@@ -604,6 +604,6 @@
   "pressure": "Druck",
   "small": "Klein",
   "tiny": "Klein",
-  "selectAll": "Select all",
-  "overrideTools": "Override tools"
+  "selectAll": "Alles auswählen",
+  "overrideTools": "Werkzeuge überschreiben"
 }
