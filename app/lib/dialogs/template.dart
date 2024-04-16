@@ -3,6 +3,7 @@ import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/widgets/remote_button.dart';
 import 'package:butterfly/widgets/responsive_dialog.dart';
 import 'package:butterfly_api/butterfly_api.dart';
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -130,104 +131,145 @@ class _TemplateDialogState extends State<TemplateDialog> {
                 ),
                 Flexible(
                   child: FutureBuilder<List<NoteData>>(
-                      future: _templatesFuture,
-                      builder: (context, snapshot) {
-                        if (snapshot.hasError) {
-                          return Text(snapshot.error.toString());
-                        }
-                        if (!snapshot.hasData) {
-                          return const Center(
-                              child: CircularProgressIndicator());
-                        }
-                        var templates = snapshot.data!;
-                        return Column(children: [
-                          SearchBar(
-                            leading: const PhosphorIcon(
-                                PhosphorIconsLight.magnifyingGlass),
-                            constraints: const BoxConstraints(
-                                maxWidth: 500, minHeight: 50),
-                            controller: _searchController,
-                            hintText: AppLocalizations.of(context).search,
-                            onChanged: (value) async {
-                              load();
-                              setState(() {});
-                            },
-                          ),
-                          const SizedBox(height: 8),
-                          SizedBox(
-                            height: 64,
-                            child: _selectedTemplates.isEmpty
-                                ? null
-                                : Card(
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(8),
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          IconButton(
-                                            icon: const PhosphorIcon(
-                                                PhosphorIconsLight.trash),
-                                            onPressed: () async {
-                                              final result =
-                                                  await showDialog<bool>(
-                                                      context: context,
-                                                      builder: (ctx) =>
-                                                          const DeleteDialog());
-                                              if (result != true) return;
-                                              for (final template
-                                                  in _selectedTemplates) {
-                                                await _fileSystem
-                                                    .deleteTemplate(template);
-                                              }
-                                              _selectedTemplates.clear();
-                                              load();
-                                              setState(() {});
-                                            },
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                          ),
-                          const SizedBox(height: 8),
-                          Expanded(
-                              child: Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 20, vertical: 15),
-                                  child: ListView.builder(
-                                      itemCount: templates.length,
-                                      itemBuilder: (context, index) {
-                                        var template = templates[index];
-                                        return _TemplateItem(
-                                          template: template,
-                                          fileSystem: _fileSystem,
-                                          replace: widget.bloc != null,
-                                          selected: _selectedTemplates
-                                              .contains(template.name),
-                                          onSelected: () {
-                                            setState(() {
-                                              _selectedTemplates
-                                                  .add(template.name!);
-                                            });
-                                          },
-                                          onUnselected: () {
-                                            setState(() {
-                                              _selectedTemplates
-                                                  .remove(template.name);
-                                            });
-                                          },
-                                          onChanged: () {
-                                            load();
-                                            setState(() {});
-                                          },
-                                        );
-                                      })))
-                        ]);
-                      }),
+                      future: _templatesFuture, builder: _buildBody),
                 ),
               ],
             )));
+  }
+
+  Widget _buildBody(
+      BuildContext context, AsyncSnapshot<List<NoteData>> snapshot) {
+    if (snapshot.hasError) {
+      return Text(snapshot.error.toString());
+    }
+    if (!snapshot.hasData) {
+      return const Center(child: CircularProgressIndicator());
+    }
+    var templates = snapshot.data!;
+    return Stack(children: [
+      ListView.builder(
+          itemCount: templates.length,
+          padding: const EdgeInsets.only(
+            top: 64,
+            bottom: 32,
+            left: 8,
+            right: 8,
+          ),
+          itemBuilder: (context, index) {
+            var template = templates[index];
+            return _TemplateItem(
+              template: template,
+              fileSystem: _fileSystem,
+              replace: widget.bloc != null,
+              selected: _selectedTemplates.contains(template.name),
+              onSelected: () {
+                setState(() {
+                  _selectedTemplates.add(template.name!);
+                });
+              },
+              onUnselected: () {
+                setState(() {
+                  _selectedTemplates.remove(template.name);
+                });
+              },
+              onChanged: () {
+                load();
+                setState(() {});
+              },
+            );
+          }),
+      Align(
+        alignment: Alignment.topCenter,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 12),
+          child: SearchBar(
+            leading: const PhosphorIcon(PhosphorIconsLight.magnifyingGlass),
+            constraints: const BoxConstraints(maxWidth: 500, minHeight: 50),
+            controller: _searchController,
+            hintText: AppLocalizations.of(context).search,
+            onChanged: (value) async {
+              load();
+              setState(() {});
+            },
+          ),
+        ),
+      ),
+      if (_selectedTemplates.isNotEmpty)
+        Align(
+          alignment: Alignment.bottomCenter,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 12),
+            child: Card(
+              child: Padding(
+                padding: const EdgeInsets.all(8),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    IconButton(
+                      icon: const PhosphorIcon(
+                          PhosphorIconsLight.selectionInverse),
+                      tooltip: AppLocalizations.of(context).invertSelection,
+                      onPressed: () {
+                        setState(() {
+                          final inverted = templates
+                              .map((e) => e.name!)
+                              .toSet()
+                              .difference(_selectedTemplates.toSet());
+                          _selectedTemplates.clear();
+                          _selectedTemplates.addAll(inverted);
+                        });
+                      },
+                    ),
+                    Row(
+                      children: [
+                        if (widget.bloc != null)
+                          IconButton(
+                            icon: const PhosphorIcon(PhosphorIconsLight.wrench),
+                            tooltip: AppLocalizations.of(context).overrideTools,
+                            onPressed: () async {
+                              final state = widget.bloc!.state;
+                              if (state is! DocumentLoaded) return;
+                              final tools = state.info.tools;
+                              for (final name in _selectedTemplates) {
+                                var template = templates.firstWhereOrNull(
+                                    (element) => element.name == name);
+                                if (template == null) continue;
+                                final info = template.getInfo();
+                                if (info == null) continue;
+                                template = template
+                                    .setInfo(info.copyWith(tools: tools));
+                                await _fileSystem.updateTemplate(template);
+                              }
+                              setState(() {
+                                _selectedTemplates.clear();
+                              });
+                            },
+                          ),
+                        IconButton(
+                          icon: const PhosphorIcon(PhosphorIconsLight.trash),
+                          tooltip: AppLocalizations.of(context).delete,
+                          onPressed: () async {
+                            final result = await showDialog<bool>(
+                                context: context,
+                                builder: (ctx) => const DeleteDialog());
+                            if (result != true) return;
+                            for (final template in _selectedTemplates) {
+                              await _fileSystem.deleteTemplate(template);
+                            }
+                            _selectedTemplates.clear();
+                            load();
+                            setState(() {});
+                          },
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ),
+    ]);
   }
 
   Future<void> _showCreateDialog(DocumentBloc bloc) {

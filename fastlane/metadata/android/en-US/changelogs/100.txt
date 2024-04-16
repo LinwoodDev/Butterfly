@@ -3,6 +3,8 @@ This is the 100th release 🎉
 * Add image background svg support
 * Add triangle to shape tool and add dialog ([#664](https://github.com/LinwoodDev/Butterfly/pull/664))
 * Add name field to create template dialog
+* Add option to override tools for selected templates
+* Redesign templates dialog
 * Fix linux metainfo again
 * Fix label is not being created when unfocussing
 
