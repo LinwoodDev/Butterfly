@@ -603,5 +603,7 @@
   "pointerTest": "اختبار المؤشر",
   "pressure": "الضغط",
   "small": "صغير",
-  "tiny": "صغير"
+  "tiny": "صغير",
+  "selectAll": "Select all",
+  "overrideTools": "Override tools"
 }
