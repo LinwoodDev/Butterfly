@@ -603,5 +603,7 @@
   "pointerTest": "Prueba de puntero",
   "pressure": "Presión",
   "small": "Pequeño",
-  "tiny": "Pequeño"
+  "tiny": "Pequeño",
+  "selectAll": "Select all",
+  "overrideTools": "Override tools"
 }
