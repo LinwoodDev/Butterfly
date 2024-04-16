@@ -603,5 +603,7 @@
   "pointerTest": "Тест указателя",
   "pressure": "Давление",
   "small": "Маленький",
-  "tiny": "Маленький"
+  "tiny": "Маленький",
+  "selectAll": "Select all",
+  "overrideTools": "Override tools"
 }
