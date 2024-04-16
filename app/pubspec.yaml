@@ -93,7 +93,7 @@ dependencies:
   markdown: ^7.2.2
   device_info_plus: ^10.1.0
   image: ^4.1.7
-  one_dollar_unistroke_recognizer: ^1.0.0
+  one_dollar_unistroke_recognizer: ^1.2.0
   super_clipboard: ^0.8.11
 dev_dependencies:
   flutter_native_splash: ^2.4.0
@@ -105,7 +105,7 @@ dev_dependencies:
     sdk: flutter
   build_runner: ^2.4.9
   json_serializable: ^6.7.1
-  espresso: ^0.3.0+7
+  espresso: ^0.3.0+8
   freezed: ^2.5.2
 dependency_overrides:
   flutter_secure_storage_web:

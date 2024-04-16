@@ -231,7 +231,13 @@ class _TemplateDialogState extends State<TemplateDialog> {
   }
 
   Future<void> _showCreateDialog(DocumentBloc bloc) {
-    final directoryController = TextEditingController();
+    final state = bloc.state;
+    var initialName = '';
+    if (state is DocumentLoaded) {
+      initialName = state.metadata.name;
+    }
+    final nameController = TextEditingController(text: initialName),
+        directoryController = TextEditingController();
     return showDialog<void>(
         context: context,
         builder: (context) {
@@ -241,9 +247,18 @@ class _TemplateDialogState extends State<TemplateDialog> {
             content: SizedBox(
               width: 500,
               child: Column(
+                mainAxisSize: MainAxisSize.min,
                 children: [
                   Text(AppLocalizations.of(context).createTemplateContent),
                   const SizedBox(height: 16),
+                  TextFormField(
+                    controller: nameController,
+                    decoration: InputDecoration(
+                      labelText: AppLocalizations.of(context).name,
+                      filled: true,
+                    ),
+                  ),
+                  const SizedBox(height: 8),
                   TextFormField(
                     controller: directoryController,
                     decoration: InputDecoration(
@@ -264,7 +279,8 @@ class _TemplateDialogState extends State<TemplateDialog> {
                 onPressed: () async {
                   bloc.createTemplate(
                     _fileSystem.remote?.identifier,
-                    directoryController.text,
+                    name: nameController.text,
+                    directory: directoryController.text,
                   );
                   Navigator.of(context).pop();
                   load();
