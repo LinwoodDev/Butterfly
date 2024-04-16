@@ -7,5 +7,6 @@ This is the 100th release 🎉
 * Redesign templates dialog
 * Fix linux metainfo again
 * Fix label is not being created when unfocussing
+* Fix area preview rendering
 
 Read more here: https://linwood.dev/butterfly/2.1.0-rc.0
