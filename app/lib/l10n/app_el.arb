@@ -603,5 +603,7 @@
   "pointerTest": "Δοκιμή δείκτη",
   "pressure": "Πίεση",
   "small": "Μικρό",
-  "tiny": "Μικροσκοπικό"
+  "tiny": "Μικροσκοπικό",
+  "selectAll": "Select all",
+  "overrideTools": "Override tools"
 }
