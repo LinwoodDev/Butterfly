@@ -487,11 +487,12 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
       final bottomRight = Offset(
         max(transform.position.dx, friction.beginPosition.dx),
         max(transform.position.dy, friction.beginPosition.dy),
-      );
+      ).translate(realWidth, realHeight);
       transform = transform.withPosition(topLeft);
       rect = Rect.fromPoints(
           topLeft, bottomRight.translate(realWidth, realHeight));
-      size += bottomRight - topLeft;
+      size = Size(bottomRight.dx - topLeft.dx, bottomRight.dy - topLeft.dy) *
+          transform.size;
     }
     reset = reset ||
         last.width != size.width.ceil() ||

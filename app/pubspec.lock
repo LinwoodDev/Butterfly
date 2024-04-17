@@ -188,10 +188,10 @@ packages:
     dependency: transitive
     description:
       name: camera_avfoundation
-      sha256: "5d009ae48de1c8ab621b1c4496dadb6e2a83f3223b76c6e6a4a252414105f561"
+      sha256: "9375082d2da45754277b5ae6ff2560cfecb799a4991aa9a3a2ee8e56d2bb0561"
       url: "https://pub.dev"
     source: hosted
-    version: "0.9.15"
+    version: "0.9.15+1"
   camera_platform_interface:
     dependency: transitive
     description:

@@ -109,8 +109,11 @@ class _EditableListTileState extends State<EditableListTile> {
                       horizontal: 8,
                       vertical: 13,
                     ),
-                    child: Text(
-                      _controller.text,
+                    child: ListenableBuilder(
+                      listenable: _controller,
+                      builder: (context, _) => Text(
+                        _controller.text,
+                      ),
                     ),
                   ),
                 ),
