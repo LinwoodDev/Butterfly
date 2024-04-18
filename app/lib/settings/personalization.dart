@@ -27,9 +27,10 @@ class PersonalizationSettingsPage extends StatelessWidget {
         PlatformTheme.mobile => AppLocalizations.of(context).mobile,
       };
 
-  String _getLocaleName(BuildContext context, String locale) =>
-      LocaleNames.of(context)?.nameOf(locale) ??
-      AppLocalizations.of(context).systemLocale;
+  String _getLocaleName(BuildContext context, String locale) => locale
+          .isNotEmpty
+      ? LocaleNames.of(context)?.nameOf(locale.replaceAll('-', '_')) ?? locale
+      : AppLocalizations.of(context).systemLocale;
 
   String _getDensityName(BuildContext context, ThemeDensity density) =>
       switch (density) {

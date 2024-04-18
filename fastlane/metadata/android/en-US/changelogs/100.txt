@@ -12,6 +12,8 @@ This is the 100th release 🎉
 * Fix recent history not removed when deleting the document
 * Fix editable input not being updated
 * Fix baking when using smooth navigation
+* Fix locale displayed as system language if there is no translation for this
+* Fix missing translations for locales
 * Remove old unused code
 
 Read more here: https://linwood.dev/butterfly/2.1.0-rc.0
