@@ -5,6 +5,7 @@ This is the 100th release 🎉
 * Add name field to create template dialog
 * Add button to invert selection in templates dialog
 * Add option to override tools for selected templates
+* Add intents to open zip, pdf and images with this app on android
 * Redesign templates dialog
 * Fix linux metainfo again
 * Fix label is not being created when unfocussing
