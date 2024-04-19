@@ -188,10 +188,10 @@ packages:
     dependency: transitive
     description:
       name: camera_avfoundation
-      sha256: "138242ed4e3030c2738ca70858e56714deb087c2f8ce8226c0aa61208f075882"
+      sha256: "83efee15415605aa8beff82df769213aaccc289dd325e7c47d782b509b58be04"
       url: "https://pub.dev"
     source: hosted
-    version: "0.9.15+2"
+    version: "0.9.15+3"
   camera_platform_interface:
     dependency: transitive
     description:
@@ -1030,14 +1030,6 @@ packages:
       url: "https://github.com/CodeDoctorDE/phosphor-flutter"
     source: git
     version: "2.0.0"
-  pigeon:
-    dependency: transitive
-    description:
-      name: pigeon
-      sha256: be883401d09121c427ed9c5f6e96427787d93d335f55e5e2b0d780a0a22cd561
-      url: "https://pub.dev"
-    source: hosted
-    version: "18.0.0"
   pixel_snap:
     dependency: transitive
     description:
@@ -1066,10 +1058,10 @@ packages:
     dependency: transitive
     description:
       name: pointycastle
-      sha256: "70fe966348fe08c34bf929582f1d8247d9d9408130723206472b4687227e4333"
+      sha256: "79fbafed02cfdbe85ef3fd06c7f4bc2cbcba0177e61b765264853d4253b21744"
       url: "https://pub.dev"
     source: hosted
-    version: "3.8.0"
+    version: "3.9.0"
   pool:
     dependency: transitive
     description:
@@ -1335,18 +1327,18 @@ packages:
     dependency: "direct main"
     description:
       name: super_clipboard
-      sha256: "28ab9c7b4d53cb4acabf4db3a1e3bf37a4f7efa51bb007ecafe53e4448dc13aa"
+      sha256: cf9ab12d00856318dcf84d5e16cfd7b53a34ee74ca55cf2c566f0cc9d2a66013
       url: "https://pub.dev"
     source: hosted
-    version: "0.8.11"
+    version: "0.8.12"
   super_native_extensions:
     dependency: transitive
     description:
       name: super_native_extensions
-      sha256: "3fd7096b0293ea40a968ae9294b45710f9a13996e165ff7c588acd52541c487b"
+      sha256: "530a2118d032483b192713c68ed7105fe64418f22492165f87ed01f9b01d4965"
       url: "https://pub.dev"
     source: hosted
-    version: "0.8.11"
+    version: "0.8.12"
   sync_http:
     dependency: transitive
     description:
