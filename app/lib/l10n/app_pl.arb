@@ -603,5 +603,7 @@
   "pointerTest": "Badanie wskaźnika",
   "pressure": "Ciśnienie",
   "small": "Mały",
-  "tiny": "Małe"
+  "tiny": "Małe",
+  "selectAll": "Zaznacz wszystkie",
+  "overrideTools": "Zastąp narzędzia"
 }

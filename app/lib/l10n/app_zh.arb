@@ -603,5 +603,7 @@
   "pointerTest": "指针测试",
   "pressure": "气压",
   "small": "小的",
-  "tiny": "微调"
+  "tiny": "微调",
+  "selectAll": "选择所有",
+  "overrideTools": "覆盖工具"
 }

@@ -603,5 +603,7 @@
   "pointerTest": "Markør test",
   "pressure": "Tryk",
   "small": "Lille",
-  "tiny": "Lille"
+  "tiny": "Lille",
+  "selectAll": "Vælg alle",
+  "overrideTools": "Tilsidesæt værktøjer"
 }

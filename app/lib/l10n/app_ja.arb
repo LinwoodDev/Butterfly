@@ -603,5 +603,7 @@
   "pointerTest": "ポインタテスト",
   "pressure": "<unk>",
   "small": "小",
-  "tiny": "<unk>"
+  "tiny": "<unk>",
+  "selectAll": "すべて選択",
+  "overrideTools": "ツールを上書きする"
 }

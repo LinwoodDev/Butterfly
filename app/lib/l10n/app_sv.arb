@@ -603,5 +603,7 @@
   "pointerTest": "Pekare test",
   "pressure": "Tryck",
   "small": "Liten",
-  "tiny": "Liten"
+  "tiny": "Liten",
+  "selectAll": "Markera alla",
+  "overrideTools": "Åsidosätt verktyg"
 }
