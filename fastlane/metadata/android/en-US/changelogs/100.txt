@@ -4,7 +4,7 @@ This is the 100th release 🎉
 * Add triangle to shape tool and add dialog ([#664](https://github.com/LinwoodDev/Butterfly/pull/664))
 * Add name field to create template dialog
 * Add button to invert selection in templates dialog
-* Add option to override tools for selected templates
+* Add option to override tools for selected templates ([#613](https://github.com/LinwoodDev/Butterfly/issues/613))
 * Add intents to open zip, pdf and images with this app on android
 * Redesign templates dialog
 * Fix linux metainfo again
