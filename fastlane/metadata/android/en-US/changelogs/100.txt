@@ -15,6 +15,7 @@ This is the 100th release 🎉
 * Fix baking when using smooth navigation
 * Fix locale displayed as system language if there is no translation for this
 * Fix missing translations for locales
+* Fix render background gets ignored ([#670](https://github.com/LinwoodDev/Butterfly/issues/670))
 * Remove old unused code
 
 Read more here: https://linwood.dev/butterfly/2.1.0-rc.0

@@ -64,7 +64,6 @@ class _GeneralExportDialogState extends State<GeneralExportDialog> {
 
   ExportTransformPreset? _preset;
 
-  bool _renderBackground = true;
   late ExportOptions _options;
 
   ByteData? _previewImage;
@@ -384,10 +383,12 @@ class _GeneralExportDialogState extends State<GeneralExportDialog> {
           ..._getImageOptions(_options as ImageExportOptions),
         const SizedBox(height: 8),
         CheckboxListTile(
-            value: _renderBackground,
+            value: _options.renderBackground,
             title: Text(AppLocalizations.of(context).background),
             onChanged: (value) {
-              setState(() => _renderBackground = value ?? _renderBackground);
+              setState(() => _options = _options.copyWith(
+                    renderBackground: value ?? !_options.renderBackground,
+                  ));
               _regeneratePreviewImage();
             })
       ]);
