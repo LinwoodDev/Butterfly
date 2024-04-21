@@ -603,5 +603,7 @@
   "pointerTest": "Teste de ponteiro",
   "pressure": "Pressão",
   "small": "Pequeno",
-  "tiny": "Minúsculo"
+  "tiny": "Minúsculo",
+  "selectAll": "Selecionar todos",
+  "overrideTools": "Sobrescrever ferramentas"
 }

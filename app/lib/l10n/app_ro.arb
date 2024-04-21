@@ -603,5 +603,7 @@
   "pointerTest": "Testul indicatorului",
   "pressure": "Presiune",
   "small": "Mică",
-  "tiny": "Mică"
+  "tiny": "Mică",
+  "selectAll": "Selectează tot",
+  "overrideTools": "Suprascrie uneltele"
 }

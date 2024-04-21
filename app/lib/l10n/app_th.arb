@@ -603,5 +603,7 @@
   "pointerTest": "Pointer test",
   "pressure": "Pressure",
   "small": "Small",
-  "tiny": "Tiny"
+  "tiny": "Tiny",
+  "selectAll": "Select all",
+  "overrideTools": "Override tools"
 }

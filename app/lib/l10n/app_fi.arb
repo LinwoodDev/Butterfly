@@ -603,5 +603,7 @@
   "pointerTest": "Osoittimen testi",
   "pressure": "Paine",
   "small": "Pieni",
-  "tiny": "Pieni"
+  "tiny": "Pieni",
+  "selectAll": "Valitse kaikki",
+  "overrideTools": "Ohita työkalut"
 }
