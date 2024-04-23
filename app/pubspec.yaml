@@ -23,6 +23,8 @@ dependencies:
     sdk: flutter
   flutter_localizations:
     sdk: flutter
+  integration_test:
+    sdk: flutter
   butterfly_api:
     path: ../api
   flutter_svg: ^2.0.10+1
