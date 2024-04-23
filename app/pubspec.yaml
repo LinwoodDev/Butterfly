@@ -61,7 +61,7 @@ dependencies:
   rxdart: ^0.27.7
   archive: ^3.4.10
   animations: ^2.0.11
-  connectivity_plus: ^6.0.2
+  connectivity_plus: ^6.0.3
   cross_file: ^0.3.4+1
   args: ^2.5.0
   reorderable_grid: ^1.0.10

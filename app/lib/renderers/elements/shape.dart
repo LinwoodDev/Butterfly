@@ -59,17 +59,12 @@ class ShapeRenderer extends Renderer<ShapeElement> {
       canvas.drawLine(element.firstPosition.toOffset(),
           element.secondPosition.toOffset(), paint);
     } else if (shape is TriangleShape) {
-      final center = Offset(
-          (element.firstPosition.x + element.secondPosition.x) / 2,
-          (element.firstPosition.y + element.secondPosition.y) / 2);
-      final height = element.secondPosition.y - element.firstPosition.y;
-      final path = Path();
-      path.moveTo(center.dx, center.dy - height / 2); // Upper point
-      path.lineTo(center.dx - height * sqrt(3) / 4,
-          center.dy + height / 2); // Bottom Left Dot
-      path.lineTo(center.dx + height * sqrt(3) / 4,
-          center.dy + height / 2); // Bottom Right Dot
-      path.close();
+      final topCenter = drawRect.topCenter;
+      final path = Path()
+        ..moveTo(topCenter.dx, topCenter.dy)
+        ..lineTo(drawRect.right, drawRect.bottom)
+        ..lineTo(drawRect.left, drawRect.bottom)
+        ..close();
       canvas.drawPath(
           path,
           _buildPaint(
