@@ -202,7 +202,7 @@ class _GeneralExportDialogState extends State<GeneralExportDialog> {
                           ),
                           if (supportsShare())
                             ElevatedButton(
-                              child: Text(AppLocalizations.of(context).export),
+                              child: Text(AppLocalizations.of(context).share),
                               onPressed: () => export(true),
                             ),
                           ElevatedButton(
