@@ -23,7 +23,7 @@ Future<void> exportFile(BuildContext context, List<int> bytes,
     return exportUsingShare(bytes, fileExtension, mimeType);
   }
   return save.exportFile(
-      context, bytes, fileExtension, mimeType, uniformTypeIdentifier, share);
+      context, bytes, fileExtension, mimeType, uniformTypeIdentifier);
 }
 
 Future<void> exportUsingShare(
