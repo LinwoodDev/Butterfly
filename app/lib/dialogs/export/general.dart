@@ -113,6 +113,28 @@ class _GeneralExportDialogState extends State<GeneralExportDialog> {
         .toXmlString();
   }
 
+  Future<void> export(bool share) async {
+    final state = context.read<DocumentBloc>().state;
+    if (state is! DocumentLoadSuccess) {
+      return;
+    }
+    switch (_options) {
+      case ImageExportOptions():
+        final data = await generateImage();
+        if (data == null) {
+          return;
+        }
+        await exportImage(context, data.buffer.asUint8List(), share);
+      case final SVGExportOptions options:
+        final data = await generateSVG(options);
+        if (data == null) {
+          return;
+        }
+        await exportSvg(context, data, share);
+    }
+    if (mounted) Navigator.of(context).pop();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Builder(builder: (context) {
@@ -178,30 +200,14 @@ class _GeneralExportDialogState extends State<GeneralExportDialog> {
                             child: Text(AppLocalizations.of(context).cancel),
                             onPressed: () => Navigator.of(context).pop(),
                           ),
+                          if (supportsShare())
+                            ElevatedButton(
+                              child: Text(AppLocalizations.of(context).export),
+                              onPressed: () => export(true),
+                            ),
                           ElevatedButton(
                             child: Text(AppLocalizations.of(context).export),
-                            onPressed: () async {
-                              final state = context.read<DocumentBloc>().state;
-                              if (state is! DocumentLoadSuccess) {
-                                return;
-                              }
-                              switch (_options) {
-                                case ImageExportOptions():
-                                  final data = await generateImage();
-                                  if (data == null) {
-                                    return;
-                                  }
-                                  await exportImage(
-                                      context, data.buffer.asUint8List());
-                                case final SVGExportOptions options:
-                                  final data = await generateSVG(options);
-                                  if (data == null) {
-                                    return;
-                                  }
-                                  await exportSvg(context, data);
-                              }
-                              if (mounted) Navigator.of(context).pop();
-                            },
+                            onPressed: () => export(false),
                           ),
                         ],
                       )
