@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:butterfly/api/save.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:collection/collection.dart';
@@ -261,27 +259,51 @@ class _PdfExportDialogState extends State<PdfExportDialog> {
                                     Text(AppLocalizations.of(context).cancel),
                                 onPressed: () => Navigator.of(context).pop(),
                               ),
-                              ElevatedButton(
-                                child: Text(widget.print
-                                    ? AppLocalizations.of(context).print
-                                    : AppLocalizations.of(context).export),
-                                onPressed: () async {
-                                  Future<Uint8List> getBytes() async =>
-                                      (await currentIndex.renderPDF(
-                                              state.data, state.info,
-                                              areas: areas, state: state))
-                                          .save();
-                                  if (widget.print) {
+                              if (widget.print) ...[
+                                ElevatedButton(
+                                  child: Text(widget.print
+                                      ? AppLocalizations.of(context).print
+                                      : AppLocalizations.of(context).export),
+                                  onPressed: () async {
                                     await Printing.layoutPdf(
-                                      onLayout: (_) => getBytes(),
+                                      onLayout: (_) async => (await currentIndex
+                                              .renderPDF(state.data, state.info,
+                                                  areas: areas, state: state))
+                                          .save(),
                                     );
                                     Navigator.of(context).pop();
-                                    return;
-                                  }
-                                  await exportPdf(context, await getBytes());
-                                  Navigator.of(context).pop();
-                                },
-                              ),
+                                  },
+                                ),
+                              ] else ...[
+                                if (supportsShare())
+                                  ElevatedButton(
+                                    child: Text(
+                                        AppLocalizations.of(context).share),
+                                    onPressed: () async {
+                                      await exportPdf(
+                                          context,
+                                          await (await currentIndex.renderPDF(
+                                                  state.data, state.info,
+                                                  areas: areas, state: state))
+                                              .save(),
+                                          true);
+                                      Navigator.of(context).pop();
+                                    },
+                                  ),
+                                ElevatedButton(
+                                  child:
+                                      Text(AppLocalizations.of(context).export),
+                                  onPressed: () async {
+                                    await exportPdf(
+                                        context,
+                                        await (await currentIndex.renderPDF(
+                                                state.data, state.info,
+                                                areas: areas, state: state))
+                                            .save());
+                                    Navigator.of(context).pop();
+                                  },
+                                ),
+                              ],
                             ],
                           )
                         ]),

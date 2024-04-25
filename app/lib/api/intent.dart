@@ -1,7 +1,6 @@
 import 'dart:async';
+import 'package:butterfly/main.dart';
 import 'package:flutter/services.dart';
-
-const platform = MethodChannel('linwood.dev/butterfly');
 
 Future<String?> getIntentType() async {
   final String? result = await platform.invokeMethod('getIntentType');
