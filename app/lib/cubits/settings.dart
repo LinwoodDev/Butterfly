@@ -752,7 +752,9 @@ class SettingsCubit extends Cubit<ButterflySettings> {
 
   Future<void> removeRecentHistory(AssetLocation location) async {
     final history = state.history.toList();
-    history.remove(location);
+    history.removeWhere((element) =>
+        element.remote == location.remote &&
+        element.pathWithLeadingSlash.startsWith(location.pathWithLeadingSlash));
     emit(state.copyWith(history: history));
     return save();
   }

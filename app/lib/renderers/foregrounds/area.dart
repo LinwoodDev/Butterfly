@@ -19,12 +19,10 @@ class AreaForegroundRenderer extends Renderer<Area> {
       ..color =
           (colorScheme?.primaryContainer ?? Colors.lightBlue).withOpacity(0.2);
     canvas.drawRRect(
-        RRect.fromRectAndRadius(rect.inflate(5 / transform.size),
-            Radius.circular(5 / transform.size)),
+        RRect.fromRectAndRadius(rect, Radius.circular(5 / transform.size)),
         paint);
     canvas.drawRRect(
-        RRect.fromRectAndRadius(rect.inflate(5 / transform.size),
-            Radius.circular(5 / transform.size)),
+        RRect.fromRectAndRadius(rect, Radius.circular(5 / transform.size)),
         backgroundPaint);
   }
 

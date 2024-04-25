@@ -603,5 +603,7 @@
   "pointerTest": "Testen van aanwijzer",
   "pressure": "Drukdruk",
   "small": "Klein",
-  "tiny": "Klein"
+  "tiny": "Klein",
+  "selectAll": "Alles selecteren",
+  "overrideTools": "Hulpmiddelen vervangen"
 }

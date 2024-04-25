@@ -923,7 +923,8 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     currentIndexCubit.init(this);
   }
 
-  Future<void> createTemplate(String? remote, [String? directory]) async {
+  Future<void> createTemplate(String? remote,
+      {String? directory, String? name}) async {
     final current = state;
     if (current is! DocumentLoadSuccess) return;
     final data = current.saveData();
@@ -939,6 +940,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     final remoteStorage = settings.getRemote(remote);
     TemplateFileSystem.fromPlatform(remote: remoteStorage)
         .createTemplate(data.createTemplate(
+      name: name,
       thumbnail: thumbnail,
       directory: directory,
     ));

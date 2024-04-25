@@ -1,0 +1,21 @@
+This is the 100th release 🎉
+
+* Add image background svg support
+* Add triangle to shape tool and add dialog ([#664](https://github.com/LinwoodDev/Butterfly/pull/664))
+* Add name field to create template dialog
+* Add button to invert selection in templates dialog
+* Add option to override tools for selected templates ([#613](https://github.com/LinwoodDev/Butterfly/issues/613))
+* Add intents to open zip, pdf and images with this app on android
+* Redesign templates dialog
+* Fix linux metainfo again
+* Fix label is not being created when unfocussing
+* Fix area preview rendering
+* Fix recent history not removed when deleting the document
+* Fix editable input not being updated
+* Fix baking when using smooth navigation
+* Fix locale displayed as system language if there is no translation for this
+* Fix missing translations for locales
+* Fix render background gets ignored ([#670](https://github.com/LinwoodDev/Butterfly/issues/670))
+* Remove old unused code
+
+Read more here: https://linwood.dev/butterfly/2.1.0-rc.0

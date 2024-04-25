@@ -24,10 +24,10 @@
     "@docusaurus/preset-classic": "3.2.1",
     "@docusaurus/theme-common": "3.2.1",
     "@mdx-js/react": "^3.0.1",
-    "@phosphor-icons/react": "^2.1.4",
-    "@swc/core": "^1.4.12",
+    "@phosphor-icons/react": "^2.1.5",
+    "@swc/core": "^1.5.0",
     "animate.css": "^4.1.1",
-    "clsx": "^2.1.0",
+    "clsx": "^2.1.1",
     "node-fetch": "^3.3.2",
     "prism-react-renderer": "^2.3.1",
     "react": "^18.2.0",
@@ -48,12 +48,12 @@
       "last 1 safari version"
     ]
   },
-  "packageManager": "pnpm@8.15.6",
+  "packageManager": "pnpm@9.0.4",
   "devDependencies": {
     "@docusaurus/module-type-aliases": "3.2.1",
     "@docusaurus/tsconfig": "3.2.1",
     "markdownlint-cli2": "^0.13.0",
-    "typescript": "^5.4.4",
+    "typescript": "^5.4.5",
     "webpack": "^5.91.0"
   }
 }

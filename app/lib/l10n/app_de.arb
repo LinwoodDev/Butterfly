@@ -603,5 +603,7 @@
   "pointerTest": "Zeigertest",
   "pressure": "Druck",
   "small": "Klein",
-  "tiny": "Klein"
+  "tiny": "Klein",
+  "selectAll": "Alles auswählen",
+  "overrideTools": "Werkzeuge überschreiben"
 }
