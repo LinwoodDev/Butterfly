@@ -52,13 +52,16 @@ Future<void> main(List<String> args) async {
       'Updating the version in the pubspec.yaml from $lastVersion to $newVersion');
 
   // Update api
-  final apiPubspec = File('api/pubspec.yaml');
-  var apiContent = await apiPubspec.readAsString();
-  apiContent =
-      apiContent.replaceAll(RegExp(r'version: .+'), 'version: $version');
-  await apiPubspec.writeAsString(apiContent);
-  print(
-      'Updating the version in the api pubspec.yaml from $lastVersion to $newVersion');
+  final folders = ['api', 'core'];
+  for (final folder in folders) {
+    final apiPubspec = File('$folder/pubspec.yaml');
+    var apiContent = await apiPubspec.readAsString();
+    apiContent =
+        apiContent.replaceAll(RegExp(r'version: .+'), 'version: $version');
+    await apiPubspec.writeAsString(apiContent);
+    print(
+        'Updating the version in the api pubspec.yaml from $lastVersion to $newVersion');
+  }
 
   await updateAppImageVersion(version);
   await updateDebianVersion(version);

@@ -8,12 +8,9 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.io.OutputStreamWriter;
-import java.nio.charset.StandardCharsets;
 
 import io.flutter.embedding.android.FlutterActivity;
 import io.flutter.plugin.common.MethodChannel;
@@ -42,16 +39,18 @@ public class MainActivity extends FlutterActivity {
                 try {
                     // Open an InputStream to read data from the URI
                     InputStream inputStream = getContentResolver().openInputStream(uri);
+                    if (inputStream != null) {
+                        // Read data from the InputStream into a byte array
+                        intentData = new byte[inputStream.available()];
+                        //noinspection ResultOfMethodCallIgnored
+                        inputStream.read(intentData);
 
-                    // Read data from the InputStream into a byte array
-                    intentData = new byte[inputStream.available()];
-                    inputStream.read(intentData);
+                        // Now, you have the data as a byte array in 'byteArray'
+                        // You can use it as needed, e.g., display an image or process the data.
 
-                    // Now, you have the data as a byte array in 'byteArray'
-                    // You can use it as needed, e.g., display an image or process the data.
-
-                    // Don't forget to close the input stream
-                    inputStream.close();
+                        // Don't forget to close the input stream
+                        inputStream.close();
+                    }
                 } catch (IOException e) {
                     intentData = null;
                     intentType = null;

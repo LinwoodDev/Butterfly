@@ -1,0 +1,21 @@
+name: butterfly_core
+description: "A new Flutter plugin project."
+version: 2.0.0-rc.1
+publish_to: none
+
+environment:
+  sdk: '>=3.3.4 <4.0.0'
+  flutter: '>=3.3.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  material_leap:
+    git:
+      url: https://github.com/LinwoodDev/dart_pkgs.git
+      ref: f6161499b096f1d0bf55acbd0f6d8a58330a40e6
+      path: packages/material_leap
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^3.0.0
