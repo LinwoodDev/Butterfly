@@ -9,7 +9,7 @@ dependencies:
   archive: ^3.4.10
   collection: ^1.18.0
   freezed_annotation: ^2.2.0
-  json_annotation: ^4.8.1
+  json_annotation: ^4.9.0
   replay_bloc: ^0.2.7
   rxdart: ^0.27.7
   uuid: ^4.4.0

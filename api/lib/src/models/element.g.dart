@@ -123,7 +123,7 @@ _$TextElementImpl _$$TextElementImplFromJson(Map json) => _$TextElementImpl(
           ? const ElementConstraint(size: 1000)
           : ElementConstraint.fromJson(
               Map<String, dynamic>.from(json['constraint'] as Map)),
-      foreground: json['foreground'] as int? ?? BasicColors.black,
+      foreground: (json['foreground'] as num?)?.toInt() ?? BasicColors.black,
       extra: (json['extra'] as Map?)?.map(
             (k, e) => MapEntry(k as String, e),
           ) ??
@@ -168,7 +168,7 @@ _$MarkdownElementImpl _$$MarkdownElementImplFromJson(Map json) =>
           ? const ElementConstraint(size: 1000)
           : ElementConstraint.fromJson(
               Map<String, dynamic>.from(json['constraint'] as Map)),
-      foreground: json['foreground'] as int? ?? BasicColors.black,
+      foreground: (json['foreground'] as num?)?.toInt() ?? BasicColors.black,
       extra: (json['extra'] as Map?)?.map(
             (k, e) => MapEntry(k as String, e),
           ) ??

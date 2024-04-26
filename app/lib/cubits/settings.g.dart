@@ -97,13 +97,13 @@ Map<String, dynamic> _$$LocalStorageImplToJson(_$LocalStorageImpl instance) =>
 
 _$InputConfigurationImpl _$$InputConfigurationImplFromJson(Map json) =>
     _$InputConfigurationImpl(
-      leftMouse: json['leftMouse'] as int?,
-      middleMouse: json['middleMouse'] as int? ?? -1,
-      rightMouse: json['rightMouse'] as int? ?? 1,
-      pen: json['pen'] as int?,
-      firstPenButton: json['firstPenButton'] as int? ?? 2,
-      secondPenButton: json['secondPenButton'] as int? ?? 1,
-      touch: json['touch'] as int?,
+      leftMouse: (json['leftMouse'] as num?)?.toInt(),
+      middleMouse: (json['middleMouse'] as num?)?.toInt() ?? -1,
+      rightMouse: (json['rightMouse'] as num?)?.toInt() ?? 1,
+      pen: (json['pen'] as num?)?.toInt(),
+      firstPenButton: (json['firstPenButton'] as num?)?.toInt() ?? 2,
+      secondPenButton: (json['secondPenButton'] as num?)?.toInt() ?? 1,
+      touch: (json['touch'] as num?)?.toInt(),
     );
 
 Map<String, dynamic> _$$InputConfigurationImplToJson(

@@ -42,7 +42,7 @@ dependencies:
   share_plus: ^9.0.0
   package_info_plus: ^8.0.0
   idb_shim: ^2.4.1+1
-  go_router: ^13.2.4
+  go_router: ^14.0.1
   xml: ^6.5.0
   collection: ^1.18.0
   bloc_concurrency: ^0.2.5
@@ -50,7 +50,7 @@ dependencies:
   camera_windows: ^0.2.1+9
   window_manager: ^0.3.8
   flex_color_scheme: ^7.3.1
-  json_annotation: ^4.8.1
+  json_annotation: ^4.9.0
   path: ^1.8.3
   printing: ^5.12.0
   js: ^0.7.1

@@ -14,7 +14,7 @@ sidebar_position: 1
 
 ## Початок роботи
 
-Відвідайте [завантаження](/downloads) , щоб завантажити додаток для вашої платформи. Use [web version](https://v1.web.butterfly.linwood.dev) if you cannot find your platform.
+Відвідайте [завантаження](/downloads) , щоб завантажити додаток для вашої платформи. Use [web version](https://v1.butterfly.linwood.dev) if you cannot find your platform.
 
 ## Основний вигляд
 

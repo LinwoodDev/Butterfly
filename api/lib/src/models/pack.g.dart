@@ -27,7 +27,7 @@ Map<String, dynamic> _$$ButterflyComponentImplToJson(
 
 _$TextParameterImpl _$$TextParameterImplFromJson(Map json) =>
     _$TextParameterImpl(
-      child: json['child'] as int,
+      child: (json['child'] as num).toInt(),
       name: json['name'] as String,
       value: json['value'] as String,
       $type: json['type'] as String?,
@@ -43,9 +43,9 @@ Map<String, dynamic> _$$TextParameterImplToJson(_$TextParameterImpl instance) =>
 
 _$ColorParameterImpl _$$ColorParameterImplFromJson(Map json) =>
     _$ColorParameterImpl(
-      child: json['child'] as int,
+      child: (json['child'] as num).toInt(),
       name: json['name'] as String,
-      value: json['value'] as int,
+      value: (json['value'] as num).toInt(),
       $type: json['type'] as String?,
     );
 
@@ -60,7 +60,7 @@ Map<String, dynamic> _$$ColorParameterImplToJson(
 
 _$BoolParameterImpl _$$BoolParameterImplFromJson(Map json) =>
     _$BoolParameterImpl(
-      child: json['child'] as int,
+      child: (json['child'] as num).toInt(),
       name: json['name'] as String,
       value: json['value'] as bool,
       $type: json['type'] as String?,
@@ -75,9 +75,9 @@ Map<String, dynamic> _$$BoolParameterImplToJson(_$BoolParameterImpl instance) =>
     };
 
 _$IntParameterImpl _$$IntParameterImplFromJson(Map json) => _$IntParameterImpl(
-      child: json['child'] as int,
+      child: (json['child'] as num).toInt(),
       name: json['name'] as String,
-      value: json['value'] as int,
+      value: (json['value'] as num).toInt(),
       $type: json['type'] as String?,
     );
 
@@ -91,7 +91,7 @@ Map<String, dynamic> _$$IntParameterImplToJson(_$IntParameterImpl instance) =>
 
 _$DoubleParameterImpl _$$DoubleParameterImplFromJson(Map json) =>
     _$DoubleParameterImpl(
-      child: json['child'] as int,
+      child: (json['child'] as num).toInt(),
       name: json['name'] as String,
       value: (json['value'] as num).toDouble(),
       $type: json['type'] as String?,

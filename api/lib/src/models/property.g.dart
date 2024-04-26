@@ -9,7 +9,7 @@ part of 'property.dart';
 _$PenPropertyImpl _$$PenPropertyImplFromJson(Map json) => _$PenPropertyImpl(
       strokeWidth: (json['strokeWidth'] as num?)?.toDouble() ?? 5,
       thinning: (json['thinning'] as num?)?.toDouble() ?? 0.4,
-      color: json['color'] as int? ?? BasicColors.black,
+      color: (json['color'] as num?)?.toInt() ?? BasicColors.black,
       fill: json['fill'] as bool? ?? false,
       smoothing: (json['smoothing'] as num?)?.toDouble() ?? 0.5,
       streamline: (json['streamline'] as num?)?.toDouble() ?? 0.3,
@@ -32,7 +32,7 @@ _$ShapePropertyImpl _$$ShapePropertyImplFromJson(Map json) =>
       strokeWidth: (json['strokeWidth'] as num?)?.toDouble() ?? 5,
       shape:
           PathShape.fromJson(Map<String, dynamic>.from(json['shape'] as Map)),
-      color: json['color'] as int? ?? BasicColors.black,
+      color: (json['color'] as num?)?.toInt() ?? BasicColors.black,
       $type: json['type'] as String?,
     );
 
@@ -45,7 +45,8 @@ Map<String, dynamic> _$$ShapePropertyImplToJson(_$ShapePropertyImpl instance) =>
     };
 
 _$CircleShapeImpl _$$CircleShapeImplFromJson(Map json) => _$CircleShapeImpl(
-      fillColor: json['fillColor'] as int? ?? BasicColors.transparent,
+      fillColor:
+          (json['fillColor'] as num?)?.toInt() ?? BasicColors.transparent,
       $type: json['type'] as String?,
     );
 
@@ -57,7 +58,8 @@ Map<String, dynamic> _$$CircleShapeImplToJson(_$CircleShapeImpl instance) =>
 
 _$RectangleShapeImpl _$$RectangleShapeImplFromJson(Map json) =>
     _$RectangleShapeImpl(
-      fillColor: json['fillColor'] as int? ?? BasicColors.transparent,
+      fillColor:
+          (json['fillColor'] as num?)?.toInt() ?? BasicColors.transparent,
       topLeftCornerRadius:
           (json['topLeftCornerRadius'] as num?)?.toDouble() ?? 0,
       topRightCornerRadius:
@@ -91,7 +93,8 @@ Map<String, dynamic> _$$LineShapeImplToJson(_$LineShapeImpl instance) =>
 
 _$TriangleShapeImpl _$$TriangleShapeImplFromJson(Map json) =>
     _$TriangleShapeImpl(
-      fillColor: json['fillColor'] as int? ?? BasicColors.transparent,
+      fillColor:
+          (json['fillColor'] as num?)?.toInt() ?? BasicColors.transparent,
       $type: json['type'] as String?,
     );
 

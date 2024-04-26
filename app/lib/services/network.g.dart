@@ -8,7 +8,7 @@ part of 'network.dart';
 
 _$NetworkingInitMessageImpl _$$NetworkingInitMessageImplFromJson(Map json) =>
     _$NetworkingInitMessageImpl(
-      (json['data'] as List<dynamic>?)?.map((e) => e as int).toList(),
+      (json['data'] as List<dynamic>?)?.map((e) => (e as num).toInt()).toList(),
     );
 
 Map<String, dynamic> _$$NetworkingInitMessageImplToJson(

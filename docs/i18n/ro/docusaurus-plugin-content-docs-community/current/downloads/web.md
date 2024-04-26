@@ -18,7 +18,7 @@ Aceasta este o aplicație web progresivă. Îl poți instala în browser și îl
 <Link className="button button--outline button--info button--lg margin--sm" href="https://web.butterfly.linwood.dev">
   Principalul
 </Link>
-<Link className="button button--outline button--danger button--lg margin--sm" href="https://preview.web.butterfly.linwood.dev">
+<Link className="button button--outline button--danger button--lg margin--sm" href="https://preview.butterfly.linwood.dev">
   Previzualizare
 </Link>
 </div>
