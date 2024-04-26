@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:args/args.dart';
+import 'package:butterfly/api/file_system/nextcloud_system.dart';
 import 'package:butterfly/api/intent.dart';
 import 'package:butterfly/services/sync.dart';
 import 'package:butterfly/settings/behaviors/mouse.dart';
@@ -51,6 +52,26 @@ Future<void> main([List<String> args = const []]) async {
   usePathUrlStrategy();
 
   await setup();
+
+  // Directory app
+  String directory = await DocumentFileSystem.fromPlatform().getDirectory();
+  // Default nextcloud folder
+  String defaultfolder = '/Butterfly/';
+  // Client nextcloud
+  var nextCloudClient = NextCloudFileSystem(
+      username: '*******',
+      password: '*******',
+      baseUrl:
+          '****************');
+  // Load file on nextcloud
+  try {
+    await nextCloudClient.createFolder(defaultfolder);
+    await nextCloudClient.syncFile(directory, defaultfolder);
+  } catch (e) {
+    print('Errore durante la sincronizzazione con NextCloud: $e');
+    // Gestire l'errore adeguatamente
+  }
+
   var initialLocation = '/';
   final argParser = ArgParser();
   argParser.addOption('path', abbr: 'p');
@@ -62,6 +83,7 @@ Future<void> main([List<String> args = const []]) async {
     if (await file.exists()) {
       var directory =
           Directory(await DocumentFileSystem.fromPlatform().getDirectory());
+
       // Test if file is in directory
       if (file.path.startsWith(directory.path)) {
         // Relative path

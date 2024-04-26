@@ -42,7 +42,7 @@ dependencies:
   share_plus: ^9.0.0
   package_info_plus: ^8.0.0
   idb_shim: ^2.4.1+1
-  go_router: ^13.2.4
+  go_router: ^14.0.1
   xml: ^6.5.0
   collection: ^1.18.0
   bloc_concurrency: ^0.2.5
@@ -97,6 +97,8 @@ dependencies:
   image: ^4.1.7
   one_dollar_unistroke_recognizer: ^1.2.0
   super_clipboard: ^0.8.11
+  webdav_client: ^1.2.1
+  nextcloud: ^6.0.0
 dev_dependencies:
   flutter_native_splash: ^2.4.0
   #flutter_launcher_icons: ^0.11.0
