@@ -15,7 +15,7 @@ sidebar_position: 1
 ## Приступая к работе
 
 Посетите [загрузки](/downloads), чтобы загрузить приложение для вашей платформы.
-Используйте [веб-версию](https://v2.butterfly.linwood.dev), если вы не можете найти свою платформу.
+Use [web version](https://v2.butterfly.linwood.dev) if you cannot find your platform.
 
 ## Основной вид
 
