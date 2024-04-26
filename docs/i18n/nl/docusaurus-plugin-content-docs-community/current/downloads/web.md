@@ -16,10 +16,10 @@ Dit is een progressieve webapplicatie. U kunt deze installeren in uw browser en 
 
 <div className="row margin-bottom--lg padding--sm">
 <Link className="button button--outline button--info button--lg margin--sm" href="https://web.butterfly.linwood.dev">
-  Hoofd
+  Main
 </Link>
 <Link className="button button--outline button--danger button--lg margin--sm" href="https://preview.butterfly.linwood.dev">
-  Voorbeeld
+  Preview
 </Link>
 </div>
 
