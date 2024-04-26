@@ -16,10 +16,10 @@ Detta är en progressiv webbapplikation. Du kan installera den på din webbläsa
 
 <div className="row margin-bottom--lg padding--sm">
 <Link className="button button--outline button--info button--lg margin--sm" href="https://web.butterfly.linwood.dev">
-  Huvud
+  Main
 </Link>
 <Link className="button button--outline button--danger button--lg margin--sm" href="https://preview.butterfly.linwood.dev">
-  Förhandsgranska
+  Preview
 </Link>
 </div>
 
