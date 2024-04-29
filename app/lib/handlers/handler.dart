@@ -281,8 +281,12 @@ mixin ColoredHandler<T extends Tool> on Handler<T> {
         },
         onEyeDropper: (context) {
           final state = bloc.state;
-          state.currentIndexCubit
-              ?.changeTemporaryHandler(context, EyeDropperTool(), bloc);
+          state.currentIndexCubit?.changeTemporaryHandler(
+            context,
+            EyeDropperTool(),
+            bloc: bloc,
+            temporaryClicked: true,
+          );
         },
       );
 }

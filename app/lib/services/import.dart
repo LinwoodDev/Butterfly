@@ -700,7 +700,11 @@ class ImportService {
         state != null &&
         (elements.isNotEmpty || areas.isNotEmpty)) {
       state.currentIndexCubit.changeTemporaryHandler(
-          context, ImportTool(elements: elements, areas: areas), bloc!);
+        context,
+        ImportTool(elements: elements, areas: areas),
+        bloc: bloc!,
+        temporaryClicked: true,
+      );
     } else {
       bloc
         ?..add(AreasCreated(areas))

@@ -1,1 +1,3 @@
 * Fix triangle rendering
+* Fix temporary tool won't be removed when using not configured input
+* Fix select all
