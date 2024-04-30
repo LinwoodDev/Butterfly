@@ -74,12 +74,11 @@ class ImportService {
       return data;
     }
     if (type.isEmpty) type = 'note';
-    AssetFileType? fileType;
-    try {
-      fileType = type.isNotEmpty
-          ? AssetFileType.values.byName(type)
-          : location?.fileType;
-    } catch (e) {
+    final fileType = AssetFileType.values.firstWhereOrNull((element) =>
+        element.getMimeTypes().contains(type) ||
+        element.getFileExtensions().contains(type) ||
+        element.name == type);
+    if (fileType == null) {
       showDialog(
         context: context,
         builder: (context) =>
@@ -89,7 +88,7 @@ class ImportService {
     }
     if (bytes == null) return null;
     return import(
-      fileType ?? AssetFileType.note,
+      fileType,
       bytes,
       document: document,
       advanced: false,
