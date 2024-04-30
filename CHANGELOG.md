@@ -2,15 +2,6 @@
 
 <!--ENTER CHANGELOG HERE-->
 
-## 2.0.0-rc.1 (2024-04-30)
-
-* Fix triangle rendering
-* Fix temporary tool won't be removed when using not configured input
-* Fix select all
-* Fix import error when using open with on android
-
-Read more here: https://linwood.dev/butterfly/2.1.0-rc.1
-
 ## 2.1.0-rc.0 (2024-04-22)
 
 This is the 100th release 🎉
