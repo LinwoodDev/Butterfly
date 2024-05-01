@@ -106,6 +106,7 @@ public class MainActivity extends FlutterActivity {
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == SAVE_REQUEST_CODE) {
             switch (resultCode) {
                 case Activity.RESULT_OK:

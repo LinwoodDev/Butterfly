@@ -1,0 +1,1 @@
+* Reenable changing data directory on android ([#569](https://github.com/LinwoodDev/Butterfly/issues/569))
