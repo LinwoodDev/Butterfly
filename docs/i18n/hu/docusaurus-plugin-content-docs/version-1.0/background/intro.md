@@ -1,5 +1,5 @@
 ---
-title: "Background"
+title: "Háttér"
 sidebar_label: "Introduction"
 ---
 
