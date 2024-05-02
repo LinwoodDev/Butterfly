@@ -243,7 +243,7 @@
   "recentFiles": "Legutóbbi fájlok",
   "start": "Indítás",
   "noRecentFiles": "Nincsenek legutóbbi fájlok",
-  "countPages": "{count,plural, =0{No pages} =1{1 page} other{{count} pages}}",
+  "countPages": "{count,plural, =0{Nincs oldal} =1{1 oldal} other{{count} oldal}}",
   "@countPages": {
     "placeholders": {
       "count": {
@@ -252,7 +252,7 @@
       }
     }
   },
-  "pageIndex": "Page {index}",
+  "pageIndex": "Oldal {index}",
   "@pageIndex": {
     "placeholders": {
       "index": {
@@ -261,16 +261,16 @@
       }
     }
   },
-  "exit": "Exit",
-  "noElements": "No elements",
-  "invertSelection": "Invert selection",
-  "errorWhileImporting": "Error while importing",
-  "errorWhileImportingContent": "An error occurred while importing the file",
-  "showDetails": "Show details",
-  "hideDetails": "Hide details",
-  "error": "Error",
+  "exit": "Kilépés",
+  "noElements": "Nincsenek elemek",
+  "invertSelection": "Kijelölés megfordítása",
+  "errorWhileImporting": "Hiba az importálás során",
+  "errorWhileImportingContent": "Hiba történt a fájl megnyitása közben",
+  "showDetails": "Részletek megjelenítése",
+  "hideDetails": "Részletek elrejtése",
+  "error": "Hiba",
   "stackTrace": "Stack trace",
-  "alwaysOnTop": "Always on top",
+  "alwaysOnTop": "Mindig felül legyen",
   "exitAlwaysOnTop": "Exit always on top",
   "maximize": "Maximize",
   "minimize": "Minimize",
