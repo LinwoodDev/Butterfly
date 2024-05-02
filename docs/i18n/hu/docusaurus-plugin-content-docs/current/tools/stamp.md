@@ -8,7 +8,7 @@ The stamp tool allows you to add components to your canvas. Use an existing pack
 
 ## Configuration
 
-|  Property | Default | Description                                     |
+|  Property | Default | Leírás                                          |
 | ---------:|:-------:|:----------------------------------------------- |
 |      Pack |  None   | The pack where the component is located.        |
 | Component |  None   | The component that will be added to the canvas. |
