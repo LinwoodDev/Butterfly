@@ -1,6 +1,6 @@
 ---
 title: Úvod
-id: intro
+id: úvod
 slug: /úvod
 sidebar_position: 1
 ---
@@ -15,7 +15,7 @@ sidebar_position: 1
 ## Jak začít
 
 Navštivte [stažení](/downloads) a stáhněte si aplikaci pro vaši platformu.
-Use [web version](https://v2.butterfly.linwood.dev) if you cannot find your platform.
+Pokud nemůžete najít platformu, použijte [webovou verzi](https://v2.butterfly.linwood.dev).
 
 ## Hlavní pohled
 
