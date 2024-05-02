@@ -75,14 +75,15 @@ class ImportService {
     }
     if (type.isEmpty) type = 'note';
     final fileType = AssetFileType.values.firstWhereOrNull((element) =>
-        element.getMimeTypes().contains(type) ||
+        element.isMimeType(type) ||
         element.getFileExtensions().contains(type) ||
         element.name == type);
     if (fileType == null) {
       showDialog(
         context: context,
-        builder: (context) =>
-            UnknownImportConfirmationDialog(message: e.toString()),
+        builder: (context) => UnknownImportConfirmationDialog(
+          message: AppLocalizations.of(context).unknownImportType,
+        ),
       );
       return null;
     }
