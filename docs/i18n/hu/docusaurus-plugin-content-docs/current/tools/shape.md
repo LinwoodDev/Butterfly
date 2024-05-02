@@ -14,7 +14,7 @@ Use `ctrl` to have the same height and width and `shift` to draw from the center
 |       Property |  Default  | Description                                                                                                                                      |
 | --------------:|:---------:|:------------------------------------------------------------------------------------------------------------------------------------------------ |
 |          Color |   Black   | The color that will be drawn                                                                                                                     |
-|   Stroke width |     5     | The width of the stroke                                                                                                                          |
+|      Vastagság |     5     | The width of the stroke                                                                                                                          |
 | Zoom dependent |   false   | This will change the stroke width based on the zoom level.                                                                                       |
 |          Shape | rectangle | The shape that will be drawn                                                                                                                     |
 |          Width |     0     | The fixed width of the area. If set to 0, the width will be calculated automatically.                                                            |
