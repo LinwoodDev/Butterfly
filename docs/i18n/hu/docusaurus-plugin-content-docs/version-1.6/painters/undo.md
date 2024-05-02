@@ -1,6 +1,6 @@
 ---
 title: "Undo painter"
-sidebar_label: "Undo"
+sidebar_label: "Mégse"
 sidebar_position: 0
 ---
 
