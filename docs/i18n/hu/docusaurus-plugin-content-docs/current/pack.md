@@ -7,11 +7,11 @@ A pack is a collection of components that can be used in the stamp tool. You can
 
 ## Properties
 
-|         Név | Description               |
-| -----------:|:------------------------- |
-|         Név | The name of the pack      |
-|      Author | The author of the pack    |
-| Description | A description of the pack |
+|    Név | Leírás                    |
+| ------:|:------------------------- |
+|    Név | The name of the pack      |
+| Author | The author of the pack    |
+| Leírás | A description of the pack |
 
 ### Components
 
