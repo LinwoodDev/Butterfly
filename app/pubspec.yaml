@@ -99,6 +99,8 @@ dependencies:
   super_clipboard: ^0.8.11
   webdav_client: ^1.2.1
   nextcloud: ^6.0.0
+  googleapis: ^13.1.0
+  googleapis_auth: ^1.6.0
 dev_dependencies:
   flutter_native_splash: ^2.4.0
   #flutter_launcher_icons: ^0.11.0

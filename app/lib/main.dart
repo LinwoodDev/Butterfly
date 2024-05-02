@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:args/args.dart';
-import 'package:butterfly/api/file_system/nextcloud_system.dart';
+import 'package:butterfly/api/file_system/googledrive_system.dart';
 import 'package:butterfly/api/intent.dart';
 import 'package:butterfly/services/sync.dart';
 import 'package:butterfly/settings/behaviors/mouse.dart';
@@ -53,24 +53,22 @@ Future<void> main([List<String> args = const []]) async {
 
   await setup();
 
-  // Directory app
+   // App directory
   String directory = await DocumentFileSystem.fromPlatform().getDirectory();
-  // Default nextcloud folder
-  String defaultfolder = '/Butterfly/';
-  // Client nextcloud
-  var nextCloudClient = NextCloudFileSystem(
-      username: '*******',
-      password: '*******',
-      baseUrl:
-          '****************');
-  // Load file on nextcloud
+  // Google Drive Directory
+  String remoteFolderName = 'Butterfly';
+
+  // Initialize Google Drive client
+  var googleDriveClient = GoogleDriveFileSystem();
+  await googleDriveClient.init(); // Inizializza il client con autenticazione
+
+  // Upload file
   try {
-    await nextCloudClient.createFolder(defaultfolder);
-    await nextCloudClient.syncFile(directory, defaultfolder);
+    await googleDriveClient.syncFile(directory, remoteFolderName);
   } catch (e) {
-    print('Errore durante la sincronizzazione con NextCloud: $e');
-    // Gestire l'errore adeguatamente
+    print('Error syncing with Google Drive: $e');
   }
+
 
   var initialLocation = '/';
   final argParser = ArgParser();
