@@ -14,7 +14,7 @@ sidebar_position: 1
 
 ## Ξεκινώντας
 
-Επισκεφθείτε [τις λήψεις](/downloads) για να κατεβάσετε την εφαρμογή για την πλατφόρμα σας. Use [web version](https://v1.butterfly.linwood.dev) if you cannot find your platform.
+Επισκεφθείτε [τις λήψεις](/downloads) για να κατεβάσετε την εφαρμογή για την πλατφόρμα σας. Χρησιμοποιήστε [web έκδοση](https://v1.butterfly.linwood.dev) αν δεν μπορείτε να βρείτε την πλατφόρμα σας.
 
 ## Κύρια προβολή
 
