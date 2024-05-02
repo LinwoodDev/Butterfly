@@ -910,26 +910,24 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
   }) async {
     final cameraViewport = current.cameraViewport;
     var elements = cameraViewport.unbakedElements;
+    for (var renderer in {
+      ...?backgrounds,
+      ...?replacedElements,
+      ...?addedElements
+    }) {
+      await renderer.setup(current.data, current.assetService, current.page);
+    }
     if (addedElements != null) {
-      for (var renderer in addedElements) {
-        await renderer.setup(current.data, current.assetService, current.page);
-      }
       elements = List<Renderer<PadElement>>.from(elements)
         ..addAll(addedElements);
     }
-    for (var renderer in {...?backgrounds, ...?replacedElements}) {
-      await renderer.setup(current.data, current.assetService, current.page);
-    }
 
-    if (addedElements == null ||
-        replacedElements != null ||
-        backgrounds != null) {
+    if (addedElements == null || replacedElements != null) {
       current.currentIndexCubit.unbake(
           unbakedElements: [...?replacedElements, ...?addedElements],
           backgrounds: backgrounds);
-      if (backgrounds != null) {
-        unbake(backgrounds: backgrounds);
-      }
+    } else if (backgrounds != null) {
+      unbake(backgrounds: backgrounds);
     } else {
       withUnbaked(elements);
     }
