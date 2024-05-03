@@ -19,7 +19,7 @@ In this directory you will find a folder `Documents`, `Templates` and `Packs`.
 
 ## Віддалене сховище {#remote}
 
-:::note
+::note
 
 Ця функція недоступна в Інтернеті.
 

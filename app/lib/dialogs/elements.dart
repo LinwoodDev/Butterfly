@@ -5,9 +5,10 @@ import 'package:butterfly/services/export.dart';
 import 'package:butterfly/visualizer/event.dart';
 import 'package:butterfly/widgets/context_menu.dart';
 import 'package:butterfly_api/butterfly_api.dart';
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:lw_sysinfo/lw_sysinfo.dart';
+import 'package:lw_sysapi/lw_sysapi.dart';
 import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
@@ -36,13 +37,8 @@ ContextMenuBuilder buildElementsContextMenu(
           ContextMenuItem(
             onPressed: () {
               Navigator.of(context).pop(true);
-              final clipboard = clipboardManager.getContent();
-              if (clipboard == null) return;
               try {
-                importService.import(
-                    AssetFileType.values.byName(clipboard.type),
-                    clipboard.data,
-                    state.data,
+                importService.importClipboard(state.data,
                     position:
                         state.transformCubit.state.localToGlobal(position));
               } catch (_) {}
@@ -95,8 +91,8 @@ ContextMenuBuilder buildElementsContextMenu(
               Navigator.of(context).pop(true);
               final state = bloc.state;
               if (state is! DocumentLoadSuccess) return;
-              bloc.add(
-                  ElementsRemoved(renderers.map((r) => r.element.id).toList()));
+              bloc.add(ElementsRemoved(
+                  renderers.map((r) => r.element.id).whereNotNull().toList()));
             },
             icon: const PhosphorIcon(PhosphorIconsLight.trash),
             label: AppLocalizations.of(context).delete,
@@ -112,7 +108,11 @@ ContextMenuBuilder buildElementsContextMenu(
                         final state = bloc.state;
                         if (state is! DocumentLoadSuccess) return;
                         bloc.add(ElementsArranged(
-                            e, renderers.map((r) => r.element.id).toList()));
+                            e,
+                            renderers
+                                .map((r) => r.element.id)
+                                .whereNotNull()
+                                .toList()));
                       },
                     ))
                 .toList(),

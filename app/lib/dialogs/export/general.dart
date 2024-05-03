@@ -64,7 +64,6 @@ class _GeneralExportDialogState extends State<GeneralExportDialog> {
 
   ExportTransformPreset? _preset;
 
-  bool _renderBackground = true;
   late ExportOptions _options;
 
   ByteData? _previewImage;
@@ -112,6 +111,28 @@ class _GeneralExportDialogState extends State<GeneralExportDialog> {
     return state.currentIndexCubit
         .renderSVG(state.data, state.page, options)
         .toXmlString();
+  }
+
+  Future<void> export(bool share) async {
+    final state = context.read<DocumentBloc>().state;
+    if (state is! DocumentLoadSuccess) {
+      return;
+    }
+    switch (_options) {
+      case ImageExportOptions():
+        final data = await generateImage();
+        if (data == null) {
+          return;
+        }
+        await exportImage(context, data.buffer.asUint8List(), share);
+      case final SVGExportOptions options:
+        final data = await generateSVG(options);
+        if (data == null) {
+          return;
+        }
+        await exportSvg(context, data, share);
+    }
+    if (mounted) Navigator.of(context).pop();
   }
 
   @override
@@ -179,30 +200,14 @@ class _GeneralExportDialogState extends State<GeneralExportDialog> {
                             child: Text(AppLocalizations.of(context).cancel),
                             onPressed: () => Navigator.of(context).pop(),
                           ),
+                          if (supportsShare())
+                            ElevatedButton(
+                              child: Text(AppLocalizations.of(context).share),
+                              onPressed: () => export(true),
+                            ),
                           ElevatedButton(
                             child: Text(AppLocalizations.of(context).export),
-                            onPressed: () async {
-                              final state = context.read<DocumentBloc>().state;
-                              if (state is! DocumentLoadSuccess) {
-                                return;
-                              }
-                              switch (_options) {
-                                case ImageExportOptions():
-                                  final data = await generateImage();
-                                  if (data == null) {
-                                    return;
-                                  }
-                                  await exportImage(
-                                      context, data.buffer.asUint8List());
-                                case final SVGExportOptions options:
-                                  final data = await generateSVG(options);
-                                  if (data == null) {
-                                    return;
-                                  }
-                                  await exportSvg(context, data);
-                              }
-                              if (mounted) Navigator.of(context).pop();
-                            },
+                            onPressed: () => export(false),
                           ),
                         ],
                       )
@@ -384,10 +389,12 @@ class _GeneralExportDialogState extends State<GeneralExportDialog> {
           ..._getImageOptions(_options as ImageExportOptions),
         const SizedBox(height: 8),
         CheckboxListTile(
-            value: _renderBackground,
+            value: _options.renderBackground,
             title: Text(AppLocalizations.of(context).background),
             onChanged: (value) {
-              setState(() => _renderBackground = value ?? _renderBackground);
+              setState(() => _options = _options.copyWith(
+                    renderBackground: value ?? !_options.renderBackground,
+                  ));
               _regeneratePreviewImage();
             })
       ]);

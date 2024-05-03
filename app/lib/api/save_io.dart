@@ -1,11 +1,11 @@
 import 'dart:io';
 import 'dart:typed_data';
 
+import 'package:butterfly/api/save.dart';
+import 'package:butterfly/main.dart';
 import 'package:file_selector/file_selector.dart' as fs;
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:path_provider/path_provider.dart';
-import 'package:share_plus/share_plus.dart';
 
 Future<void> exportFile(
   BuildContext context,
@@ -14,15 +14,15 @@ Future<void> exportFile(
   String mimeType,
   String uniformTypeIdentifier,
 ) async {
-  if (Platform.isAndroid || Platform.isIOS) {
-    final file = File(
-        '${(await getTemporaryDirectory()).path}/butterfly.$fileExtension');
-    await file.writeAsBytes(bytes);
-    final box = context.findRenderObject() as RenderBox?;
-    Share.shareXFiles(
-      [XFile(file.path, mimeType: mimeType)],
-      sharePositionOrigin: box!.localToGlobal(Offset.zero) & box.size,
-    );
+  if (Platform.isIOS) {
+    return exportUsingShare(bytes, fileExtension, mimeType);
+  }
+  if (Platform.isAndroid) {
+    await platform.invokeMethod('saveFile', {
+      'mime': mimeType,
+      'data': Uint8List.fromList(bytes),
+      'name': 'output.$fileExtension',
+    });
     return;
   }
   final file = fs.XFile.fromData(Uint8List.fromList(bytes),

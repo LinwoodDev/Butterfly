@@ -21,14 +21,12 @@ Butterfly est une application de prise de notes qui vise à une expérience unif
 
 > Vous pouvez utiliser la barre latérale pour naviguer rapidement à travers le wiki.
 
-
 Pour commencer à travailler sur l'application, vous avez deux options :
+
 1. [Télécharge](/downloads) la version de l'application qui convient à votre plateforme (Butterfly peut fonctionner sur la plupart des plateformes mobile, bureau et web).
-2. Use [web version](https://butterfly.linwood.dev) if you cannot find your platform or if you don't want to install it on it. Voir [ici](storage#web) sur le stockage de fichiers sur la version web.
+2. Use [web version](https://web.butterfly.linwood.dev) if you cannot find your platform or if you don't want to install it on it. Voir [ici](storage#web) sur le stockage de fichiers sur la version web.
 
 > Une fois que vous avez ouvert l'application, continuez à lire.
-
-
 
 ## Vue principale
 
@@ -116,5 +114,3 @@ Vous pouvez retourner de la vue du document à la liste des documents avec l'act
         3. Vous pouvez ajouter plus d'outils à la barre d'outils en cliquant sur le signe <Plus/> plus . 
     </TabItem>
 </Tabs>
-	
-

@@ -13,7 +13,7 @@ Future<bool> openReleaseNotes() {
   return launchUrl(
       Uri(
           scheme: 'https',
-          host: 'go.linwood.dev',
+          host: 'linwood.dev',
           pathSegments: ['butterfly', applicationMinorVersion]),
       mode: LaunchMode.externalApplication);
 }
@@ -22,7 +22,7 @@ Future<bool> openHelp(List<String> pageLocation, [String? fragment]) {
   return launchUrl(
       Uri(
           scheme: 'https',
-          host: 'docs.butterfly.linwood.dev',
+          host: 'butterfly.linwood.dev',
           fragment: fragment,
           pathSegments: ['docs', applicationMinorVersion, ...pageLocation]),
       mode: LaunchMode.externalApplication);
@@ -37,7 +37,7 @@ Future<(Uint8List?, String?)> importFile(BuildContext context,
               label: e.getLocalizedName(context),
               extensions: e.getFileExtensions(),
               uniformTypeIdentifiers: e.getUniformTypeIdentifiers(),
-              mimeTypes: [e.getMime()],
+              mimeTypes: e.getMimeTypes(),
             ))
         .toList(),
   );

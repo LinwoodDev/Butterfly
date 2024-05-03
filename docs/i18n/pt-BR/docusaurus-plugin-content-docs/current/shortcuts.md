@@ -22,6 +22,7 @@ Existem alguns atalhos que você pode usar no editor. Alguns deles estão escrit
 
 ### Projecto
 
+* `Ctrl` + `K`: Abrir pesquisa
 * `Ctrl` + `Z`: Desfazer
 * `Ctrl` + `Y`: Refazer
 * `Ctrl` + `Shift` + `P`: Open waypoints dialog

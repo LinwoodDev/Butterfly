@@ -167,9 +167,13 @@ class _ShapeViewState extends State<ShapeView> {
     if (current is CircleShape) {
       return _CircleShapeView(shape: current, onChanged: _onShapeChanged);
     }
+    if (current is TriangleShape) {
+      return _TriangleShapeView(shape: current, onChanged: _onShapeChanged);
+    }
     if (current is RectangleShape) {
       return _RectangleShapeView(shape: current, onChanged: _onShapeChanged);
     }
+
     return const SizedBox();
   }
 
@@ -191,8 +195,12 @@ class _ShapeViewState extends State<ShapeView> {
             title: Text(AppLocalizations.of(context).shape),
             trailing: DropdownButton<String>(
               value: _currentShape.runtimeType.toString(),
-              items: [PathShape.circle, PathShape.rectangle, PathShape.line]
-                  .map((e) {
+              items: [
+                PathShape.circle,
+                PathShape.rectangle,
+                PathShape.line,
+                PathShape.triangle
+              ].map((e) {
                 var shape = e();
                 return DropdownMenuItem<String>(
                   value: shape.runtimeType.toString(),
@@ -218,6 +226,35 @@ class _CircleShapeView extends StatelessWidget {
   final CircleShape shape;
   final ValueChanged<CircleShape> onChanged;
   const _CircleShapeView({required this.shape, required this.onChanged});
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(children: [
+      ColorField(
+        value: Color(shape.fillColor),
+        title: Text(AppLocalizations.of(context).fill),
+        leading: const PhosphorIcon(PhosphorIconsLight.paintBucket),
+        defaultColor: Colors.transparent,
+        onChanged: (color) => onChanged(shape.copyWith(fillColor: color.value)),
+      ),
+      ExactSlider(
+        value: Color(shape.fillColor).alpha.toDouble(),
+        header: Text(AppLocalizations.of(context).alpha),
+        fractionDigits: 0,
+        max: 255,
+        min: 0,
+        defaultValue: 255,
+        onChangeEnd: (value) => onChanged(shape.copyWith(
+            fillColor: convertColor(shape.fillColor, value.toInt()))),
+      )
+    ]);
+  }
+}
+
+class _TriangleShapeView extends StatelessWidget {
+  final TriangleShape shape;
+  final ValueChanged<TriangleShape> onChanged;
+  const _TriangleShapeView({required this.shape, required this.onChanged});
 
   @override
   Widget build(BuildContext context) {

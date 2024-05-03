@@ -157,15 +157,14 @@ abstract class Renderer<T> {
   void _updateArea(DocumentPage page) => area = rect == null
       ? null
       : page.areas.firstWhereOrNull((area) => area.rect.overlaps(rect!));
-  FutureOr<bool> onAreaUpdate(
-      NoteData document, DocumentPage page, Area? area) {
+  bool onAreaUpdate(NoteData document, DocumentPage page, Area? area) {
     if (area?.rect.overlaps(rect!) ?? false) {
       this.area = area;
     }
     return false;
   }
 
-  FutureOr<bool> onAssetUpdate(NoteData document, AssetService assetService,
+  bool onAssetUpdate(NoteData document, AssetService assetService,
           DocumentPage page, String path) =>
       false;
 

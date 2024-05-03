@@ -6,12 +6,11 @@ class ImageRenderer extends Renderer<ImageElement> {
   ImageRenderer(super.element, [this.image]);
 
   @override
-  Future<bool> onAssetUpdate(NoteData document, AssetService assetService,
-      DocumentPage page, String path) async {
+  bool onAssetUpdate(NoteData document, AssetService assetService,
+      DocumentPage page, String path) {
     final uri = Uri.parse(element.source);
     if (uri.hasScheme && !uri.isScheme('file')) return false;
     final shouldUpdate = uri.path == path;
-    if (shouldUpdate) await setup(document, assetService, page, true);
     return shouldUpdate;
   }
 

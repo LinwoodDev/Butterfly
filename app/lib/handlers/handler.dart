@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:math';
+import 'dart:ui';
 
 import 'package:animations/animations.dart';
 import 'package:butterfly/api/open.dart';
@@ -11,6 +12,7 @@ import 'package:butterfly/dialogs/area/context.dart';
 import 'package:butterfly/dialogs/elements.dart';
 import 'package:butterfly/dialogs/export/general.dart';
 import 'package:butterfly/helpers/element.dart';
+import 'package:butterfly/helpers/page.dart';
 import 'package:butterfly/helpers/point.dart';
 import 'package:butterfly/helpers/rect.dart';
 import 'package:butterfly/models/cursor.dart';
@@ -28,8 +30,9 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:image/image.dart' as img;
-import 'package:lw_sysinfo/lw_sysinfo.dart';
+import 'package:lw_sysapi/lw_sysapi.dart';
 import 'package:material_leap/material_leap.dart';
+
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:share_plus/share_plus.dart';
 
@@ -51,7 +54,7 @@ import '../views/toolbar/components.dart';
 import '../views/toolbar/label.dart';
 import '../views/toolbar/presentation/toolbar.dart';
 import '../widgets/context_menu.dart';
-
+import 'package:one_dollar_unistroke_recognizer/one_dollar_unistroke_recognizer.dart';
 part 'area.dart';
 part 'asset.dart';
 part 'eraser.dart';
@@ -174,8 +177,6 @@ abstract class Handler<T> {
 
   void onPointerMove(PointerMoveEvent event, EventContext context) {}
 
-  void onPointerGestureMove(PointerMoveEvent event, EventContext context) {}
-
   void onPointerUp(PointerUpEvent event, EventContext context) {}
 
   void onPointerHover(PointerHoverEvent event, EventContext context) {}
@@ -280,8 +281,12 @@ mixin ColoredHandler<T extends Tool> on Handler<T> {
         },
         onEyeDropper: (context) {
           final state = bloc.state;
-          state.currentIndexCubit
-              ?.changeTemporaryHandler(context, EyeDropperTool(), bloc);
+          state.currentIndexCubit?.changeTemporaryHandler(
+            context,
+            EyeDropperTool(),
+            bloc: bloc,
+            temporaryClicked: true,
+          );
         },
       );
 }

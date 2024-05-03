@@ -80,8 +80,8 @@ class AreaHandler extends Handler<AreaTool> {
   @override
   bool onScaleStart(ScaleStartDetails details, EventContext context) {
     final currentIndex = context.getCurrentIndex();
-    if (details.pointerCount > 1 ||
-        currentIndex.buttons == kSecondaryMouseButton) return true;
+    if (currentIndex.buttons == kSecondaryMouseButton &&
+        currentIndex.temporaryHandler == null) return true;
     final transform = context.getCameraTransform();
     final globalPos = transform.localToGlobal(details.localFocalPoint);
     if (_selectionManager.isValid) {
@@ -96,19 +96,11 @@ class AreaHandler extends Handler<AreaTool> {
 
   @override
   void onScaleUpdate(ScaleUpdateDetails details, EventContext context) {
-    final currentIndex = context.getCurrentIndex();
     final transform = context.getCameraTransform();
     var globalPos = transform.localToGlobal(details.localFocalPoint);
     if (_selectionManager.isValid) {
       _selectionManager.updateCurrentPosition(globalPos);
       _updateArea();
-      context.refresh();
-      return;
-    }
-    if (details.pointerCount > 1 ||
-        currentIndex.buttons == kSecondaryMouseButton ||
-        _start == null) {
-      currentRect = null;
       context.refresh();
       return;
     }
@@ -135,7 +127,6 @@ class AreaHandler extends Handler<AreaTool> {
 
   @override
   Future<void> onScaleEnd(ScaleEndDetails details, EventContext context) async {
-    final currentIndex = context.getCurrentIndex();
     final rect = currentRect;
     if (_selectionManager.isValid) {
       _updateArea();
@@ -148,32 +139,16 @@ class AreaHandler extends Handler<AreaTool> {
       context.refresh();
       return;
     }
-    if (details.pointerCount > 1 ||
-        currentIndex.buttons == kSecondaryMouseButton ||
-        (rect?.isEmpty ?? true)) {
-      currentRect = null;
-      context.refresh();
-      return;
-    }
     final state = context.getState();
-    if (state == null) return;
+    if (state == null || rect == null) return;
     context.refresh();
-    String? name = AppLocalizations.of(context.buildContext)
-        .areaIndex(state.page.areas.length + 1);
-    if (data.askForName) {
-      name = await showDialog<String>(
-          context: context.buildContext,
-          builder: (_) => NameDialog(
-                value: name,
-                validator: defaultNameValidator(
-                    context.buildContext, state.page.getAreaNames().toList()),
-              ));
-    }
+    final name =
+        await createAreaName(context.buildContext, state.page, data.askForName);
     if (name == null) return;
     currentRect = null;
     context.getDocumentBloc().add(AreasCreated([
           Area(
-            width: rect!.width,
+            width: rect.width,
             height: rect.height,
             position: rect.topLeft.toPoint(),
             name: name,
@@ -270,4 +245,19 @@ class AreaHandler extends Handler<AreaTool> {
 
   @override
   MouseCursor? get cursor => _selectionManager.cursor;
+}
+
+Future<String?> createAreaName(BuildContext context, DocumentPage page,
+    [bool askForName = true]) async {
+  String? name = page.createAreaName(context);
+  if (askForName) {
+    name = await showDialog<String>(
+        context: context,
+        builder: (_) => NameDialog(
+              value: name,
+              validator:
+                  defaultNameValidator(context, page.getAreaNames().toList()),
+            ));
+  }
+  return name;
 }

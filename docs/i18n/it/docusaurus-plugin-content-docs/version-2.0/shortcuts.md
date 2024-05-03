@@ -3,7 +3,7 @@ title: Scorciatoie
 sidebar_position: 2
 ---
 
-## Keyboard
+## Tastiera
 
 Ci sono alcune scorciatoie che puoi usare nell'editor.
 Alcuni di loro sono scritti sotto i pulsanti.

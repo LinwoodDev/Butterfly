@@ -11,6 +11,7 @@ extension AssetFileTypeHelper on AssetFileType {
         AssetFileType.markdown => ['public.plain-text'],
         AssetFileType.page => [],
         AssetFileType.xopp => ['dev.linwood.butterfly.xopp'],
+        AssetFileType.archive => ['public.archive'],
       };
 
   List<String> getFileExtensions() => switch (this) {
@@ -21,21 +22,31 @@ extension AssetFileTypeHelper on AssetFileType {
         AssetFileType.markdown => ['md', 'markdown'],
         AssetFileType.page => [],
         AssetFileType.xopp => ['xopp'],
+        AssetFileType.archive => ['zip'],
       };
 
-  String getMime() => switch (this) {
-        AssetFileType.note => 'application/zip',
-        AssetFileType.image => 'image/*',
-        AssetFileType.markdown => 'text/markdown',
-        AssetFileType.pdf => 'application/pdf',
-        AssetFileType.svg => 'image/svg+xml',
-        AssetFileType.page => 'application/json',
-        AssetFileType.xopp => 'application/zip',
+  List<String> getMimeTypes() => switch (this) {
+        AssetFileType.note => ['application/zip'],
+        AssetFileType.image => ['image/*'],
+        AssetFileType.markdown => ['text/markdown'],
+        AssetFileType.pdf => ['application/pdf'],
+        AssetFileType.svg => ['image/svg+xml'],
+        AssetFileType.page => ['application/json'],
+        AssetFileType.xopp => ['application/zip'],
+        AssetFileType.archive => [
+            'application/zip',
+            'application/x-tar',
+            'application/x-gzip',
+            'application/x-bzip2',
+            'application/x-7z-compressed'
+          ],
       };
 
   bool isMimeType(String mimeType) {
-    final mime = getMime();
-    return RegExp(mime).hasMatch(mime);
+    final mime = getMimeTypes();
+    return mime.any((m) {
+      return RegExp(m).hasMatch(mimeType);
+    });
   }
 
   static AssetFileType? fromFileExtension(String? ext) {

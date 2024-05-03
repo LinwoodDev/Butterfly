@@ -6,16 +6,16 @@ sidebar_label: Introdução
 Embutir é uma maneira simples de incluir o aplicativo em seu site. Adicione o seguinte código ao seu site:
 
 ```html
-<iframe src="https://butterfly.linwood.dev/embed" width="100%" height="500px" allowtransparency="true"></iframe>
+<iframe src="https://web.butterfly.linwood.dev/embed" width="100%" height="500px" allowtransparency="true"></iframe>
 ```
 
 ## Opções
 
-| Alternativa | tipo                           | Padrão | Descrição                                                                                                                                      |
-| ----------- | ------------------------------ | ------ | ---------------------------------------------------------------------------------------------------------------------------------------------- |
-| save        | Boolean (true, false)          | true   | Habilitar salvamento. Se desativado, somente um botão de saída será mostrado                                                                   |
-| editable    | Boolean (true, false)          | true   | Habilitar edição. Se desativado, o documento será somente leitura                                                                              |
-| language    | String (..., sistema, usuário) | system | Idioma do documento. Se o sistema, o idioma será detectado do navegador. Se o usuário, o idioma será ajustado para as preferências de usuários |
+| Alternativa | tipo                           | Padrão     | Descrição                                                                                                                                      |
+| ----------- | ------------------------------ | ---------- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
+| Salvar      | Booleano (true, false)         | verdadeiro | Habilitar salvamento. Se desativado, somente um botão de saída será mostrado                                                                   |
+| editável    | Booleano (true, false)         | verdadeiro | Habilitar edição. Se desativado, o documento será somente leitura                                                                              |
+| Idioma      | String (..., sistema, usuário) | Sistema    | Idioma do documento. Se o sistema, o idioma será detectado do navegador. Se o usuário, o idioma será ajustado para as preferências de usuários |
 
 ## Eventos
 
@@ -30,7 +30,7 @@ embedElement.addEventListener('message', (data) => {
 });
 ```
 
-### save
+### Salvar
 
 > O evento `salvar` é emitido quando o usuário clica no botão salvar.
 
@@ -38,7 +38,7 @@ Parâmetros:
 
 * `dados` (Tipo `Lista<int>`): Os dados do documento.
 
-### exit
+### saindo
 
 > O evento `exit` é emitido quando o usuário clica no botão de sair.
 
@@ -46,7 +46,7 @@ Parâmetros:
 
 * `dados` (Tipo `Lista<int>`): Os dados do documento.
 
-### change
+### Alterar
 
 > O evento `alterar` é emitido quando o usuário altera o documento.
 
@@ -74,7 +74,7 @@ embedElement.addEventListener('message', (data) => {
 
 Nenhum parâmetro. Retorna: `Lista<int>`
 
-### setData
+### definirDados
 
 > O método `setData` define os dados do documento.
 
@@ -82,7 +82,7 @@ Parâmetros:
 
 * `dados` (Tipo `Lista<int>`): Os dados do documento.
 
-### render
+### renderizar
 
 > O método `render` renderiza o documento em uma imagem png
 
@@ -95,7 +95,7 @@ Parâmetros:
 
 Retorna: `String` (imagem codificada em Base64)
 
-### renderSVG
+### renderização
 
 > O método `renderSVG` renderiza o documento a uma imagem svg.
 

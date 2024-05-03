@@ -8,17 +8,11 @@ class TextureRenderer extends Renderer<TextureElement> {
   TextureRenderer(super.element);
 
   @override
-  void setup(NoteData document, AssetService assetService, DocumentPage page) {
-    super.setup(document, assetService, page);
-  }
-
-  @override
-  FutureOr<void> build(Canvas canvas, Size size, NoteData document,
-      DocumentPage page, DocumentInfo info, CameraTransform transform,
-      [ColorScheme? colorScheme, bool foreground = false]) {
-    drawSurfaceTextureOnCanvas(
-        element.texture, canvas, 1, Offset.zero, rect.size, rect.topLeft);
-  }
+  void build(Canvas canvas, Size size, NoteData document, DocumentPage page,
+          DocumentInfo info, CameraTransform transform,
+          [ColorScheme? colorScheme, bool foreground = false]) =>
+      drawSurfaceTextureOnCanvas(
+          element.texture, canvas, 1, Offset.zero, rect.size, rect.topLeft);
 
   @override
   void buildSvg(XmlDocument xml, NoteData document, DocumentPage page,

@@ -13,6 +13,7 @@ extension AssetFileTypeVisualizer on AssetFileType? {
         AssetFileType.svg => AppLocalizations.of(context).svg,
         AssetFileType.xopp => 'Xopp',
         AssetFileType.page => AppLocalizations.of(context).page,
+        AssetFileType.archive => AppLocalizations.of(context).data,
         null => AppLocalizations.of(context).unknownImportType,
       };
 

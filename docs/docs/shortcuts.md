@@ -23,6 +23,7 @@ Some of them are written below the buttons.
 
 ### Project
 
+* `Ctrl` + `K`: Open search
 * `Ctrl` + `Z`: Undo
 * `Ctrl` + `Y`: Redo
 * `Ctrl` + `Shift` + `P`: Open waypoints dialog

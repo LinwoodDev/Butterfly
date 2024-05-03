@@ -98,7 +98,7 @@ Root: HKA; Subkey: "Software\Classes\Applications\{#MyAppExeName}\SupportedTypes
 
 [Icons]
 Name: "{group}\Visit Website"; Filename: "https://www.linwood.dev/"
-Name: "{group}\Butterfly Documentation"; Filename: "https://docs.butterfly.linwood.dev/"
+Name: "{group}\Butterfly Documentation"; Filename: "https://butterfly.linwood.dev/"
 Name: "{group}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"
 Name: "{autodesktop}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; Tasks: desktopicon
 

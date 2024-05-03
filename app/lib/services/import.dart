@@ -1,9 +1,13 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:io';
 import 'dart:math';
-import 'dart:typed_data';
 import 'dart:ui' as ui;
+import 'package:archive/archive.dart';
 import 'package:butterfly/api/image.dart';
+import 'package:butterfly/helpers/asset.dart';
+import 'package:device_info_plus/device_info_plus.dart';
+import 'package:flutter/foundation.dart';
 import 'package:image/image.dart' as img;
 import 'package:butterfly/api/file_system/file_system.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
@@ -17,15 +21,16 @@ import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:lw_sysapi/lw_sysapi.dart';
 import 'package:material_leap/material_leap.dart';
 import 'package:pdf/pdf.dart';
 import 'package:printing/printing.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:super_clipboard/super_clipboard.dart';
 
 import '../api/save.dart';
 import '../cubits/current_index.dart';
 import '../cubits/settings.dart';
-import '../dialogs/error.dart';
 import '../dialogs/export/general.dart';
 import '../dialogs/import/pages.dart';
 import '../dialogs/export/pdf.dart';
@@ -69,61 +74,156 @@ class ImportService {
       return data;
     }
     if (type.isEmpty) type = 'note';
-    AssetFileType? fileType;
-    try {
-      fileType = type.isNotEmpty
-          ? AssetFileType.values.byName(type)
-          : location?.fileType;
-    } catch (e) {
+    final fileType = AssetFileType.values.firstWhereOrNull((element) =>
+        element.isMimeType(type) ||
+        element.getFileExtensions().contains(type) ||
+        element.name == type);
+    if (fileType == null) {
       showDialog(
         context: context,
-        builder: (context) =>
-            UnknownImportConfirmationDialog(message: e.toString()),
+        builder: (context) => UnknownImportConfirmationDialog(
+          message: AppLocalizations.of(context).unknownImportType,
+        ),
       );
       return null;
     }
     if (bytes == null) return null;
-    return import(fileType ?? AssetFileType.note, bytes, document,
-        advanced: false);
+    return import(
+      fileType,
+      bytes,
+      document: document,
+      advanced: false,
+    );
   }
 
   Future<NoteData?> import(
-          AssetFileType type, Uint8List bytes, NoteData document,
-          {Offset? position, bool advanced = true}) async =>
-      switch (type) {
-        AssetFileType.note => importBfly(bytes,
-            document: document, position: position, advanced: advanced),
-        AssetFileType.image => importImage(bytes, document, position: position),
-        AssetFileType.svg => importSvg(bytes, document, position: position),
-        AssetFileType.markdown =>
-          importMarkdown(bytes, document, position: position),
-        AssetFileType.pdf =>
-          importPdf(bytes, document, position: position, advanced: advanced),
-        AssetFileType.page => importPage(bytes, document, position: position),
-        AssetFileType.xopp => importXopp(bytes, document, position: position),
-      };
+    AssetFileType type,
+    Uint8List bytes, {
+    NoteData? document,
+    Offset? position,
+    bool advanced = true,
+    DocumentFileSystem? fileSystem,
+    TemplateFileSystem? templateSystem,
+    PackFileSystem? packSystem,
+  }) async {
+    final realDocument = document ?? DocumentDefaults.createDocument();
+    return switch (type) {
+      AssetFileType.note => importBfly(
+          bytes,
+          document: document,
+          position: position,
+          advanced: advanced,
+          templateSystem: templateSystem,
+          packSystem: packSystem,
+        ),
+      AssetFileType.image =>
+        importImage(bytes, realDocument, position: position),
+      AssetFileType.svg => importSvg(bytes, realDocument, position: position),
+      AssetFileType.markdown =>
+        importMarkdown(bytes, realDocument, position: position),
+      AssetFileType.pdf =>
+        importPdf(bytes, realDocument, position: position, advanced: advanced),
+      AssetFileType.page => importPage(bytes, realDocument, position: position),
+      AssetFileType.xopp => importXopp(bytes, realDocument, position: position),
+      AssetFileType.archive =>
+        importArchive(bytes, fileSystem: fileSystem).then((value) => null),
+    };
+  }
 
-  FutureOr<NoteData?> importBfly(Uint8List bytes,
-      {NoteData? document, Offset? position, bool advanced = true}) async {
+  Future<Uint8List?>? _readFileFromClipboard(
+      DataReader reader, FileFormat format) {
+    final c = Completer<Uint8List?>();
+    final progress = reader.getFile(format, (file) async {
+      try {
+        final all = await file.readAll();
+        c.complete(all);
+      } catch (e) {
+        c.completeError(e);
+      }
+    }, onError: (e) {
+      c.completeError(e);
+    });
+    if (progress == null) {
+      c.complete(null);
+    }
+    return c.future;
+  }
+
+  Future<NoteData?> importClipboard(NoteData document,
+      {Offset? position, bool advanced = true}) async {
+    Uint8List? data;
+    AssetFileType? type;
+    final clipboard = SystemClipboard.instance;
+    if (clipboard != null &&
+        !kIsWeb &&
+        (!Platform.isAndroid ||
+            (await DeviceInfoPlugin().androidInfo).version.sdkInt >= 23)) {
+      final reader = await clipboard.read();
+      final result = AssetFileType.values
+          .map((e) {
+            final format = e
+                .getClipboardFormats()
+                .firstWhereOrNull((f) => reader.canProvide(f));
+            return format == null ? null : (e, format);
+          })
+          .whereNotNull()
+          .firstOrNull;
+      if (result == null) return null;
+      if (result.$2 is FileFormat) {
+        data = await _readFileFromClipboard(reader, result.$2 as FileFormat);
+      } else if (result.$2 is ValueFormat<Uint8List>) {
+        data = await reader.readValue(result.$2 as ValueFormat<Uint8List>);
+      }
+      type = result.$1;
+    } else {
+      final clipboard = context.read<ClipboardManager>();
+      final content = clipboard.getContent();
+      data = content?.data;
+      try {
+        type = AssetFileType.values.byName(content?.type ?? '');
+      } catch (e) {
+        showDialog(
+          context: context,
+          builder: (context) =>
+              UnknownImportConfirmationDialog(message: e.toString()),
+        );
+      }
+    }
+    if (data == null || type == null) return null;
+    return import(type, data,
+        document: document, position: position, advanced: advanced);
+  }
+
+  FutureOr<NoteData?> importBfly(
+    Uint8List bytes, {
+    NoteData? document,
+    Offset? position,
+    bool advanced = true,
+    TemplateFileSystem? templateSystem,
+    PackFileSystem? packSystem,
+  }) async {
     try {
-      document ??= DocumentDefaults.createDocument();
+      final documentOpened = document != null;
+      final realDocument = document ?? DocumentDefaults.createDocument();
       final data = NoteData.fromData(bytes);
+      if (!data.isValid) {
+        await importArchive(bytes);
+        return null;
+      }
       final type = data.getMetadata()?.type;
-      switch (type) {
-        case NoteFileType.document:
-          return _importDocument(data, document, advanced: advanced);
-        case NoteFileType.template:
-          return _importTemplate(data);
-        case NoteFileType.pack:
-          await _importPack(data);
-          break;
-        default:
-          showDialog(
+      return switch (type) {
+        NoteFileType.document =>
+          _importDocument(data, realDocument, advanced: advanced),
+        NoteFileType.template when documentOpened =>
+          _importTemplate(data, templateSystem),
+        NoteFileType.pack when documentOpened =>
+          _importPack(data, document, packSystem).then((value) => null),
+        _ => showDialog(
             context: context,
             builder: (context) => UnknownImportConfirmationDialog(
                 message: AppLocalizations.of(context).unknownImportType),
-          );
-      }
+          ).then((value) => null),
+      };
     } catch (e) {
       showDialog(
         context: context,
@@ -199,8 +299,10 @@ class ImportService {
         elements: content, areas: areas, choosePosition: position == null);
   }
 
-  Future<NoteData?> _importTemplate(NoteData template) async {
+  Future<NoteData?> _importTemplate(NoteData template,
+      [TemplateFileSystem? templateSystem]) async {
     final metadata = template.getMetadata();
+    templateSystem ??= getTemplateFileSystem();
     if (metadata == null) return null;
     final result = await showDialog<bool>(
       context: context,
@@ -208,12 +310,14 @@ class ImportService {
           TemplateImportConfirmationDialog(template: metadata),
     );
     if (context.mounted && result == true) {
-      getTemplateFileSystem().createTemplate(template);
+      templateSystem.createTemplate(template);
     }
     return template.createDocument();
   }
 
-  Future<bool> _importPack(NoteData pack) async {
+  Future<bool> _importPack(NoteData pack,
+      [NoteData? document, PackFileSystem? packSystem]) async {
+    packSystem ??= getPackFileSystem();
     final metadata = pack.getMetadata();
     if (metadata == null) return false;
     final result = await showDialog<bool>(
@@ -222,7 +326,11 @@ class ImportService {
     );
     if (result != true) return false;
     if (context.mounted) {
-      getPackFileSystem().createPack(pack);
+      if (document != null) {
+        document = document.setPack(pack);
+      } else {
+        packSystem.createPack(pack);
+      }
     }
     return true;
   }
@@ -332,12 +440,11 @@ class ImportService {
               ),
             ],
             choosePosition: position == null);
-      } catch (e, stackTrace) {
+      } catch (e) {
         showDialog<void>(
             context: context,
-            builder: (context) => ErrorDialog(
-                  error: e,
-                  stackTrace: stackTrace,
+            builder: (context) => UnknownImportConfirmationDialog(
+                  message: e.toString(),
                 ));
       }
     } catch (e) {
@@ -390,16 +497,20 @@ class ImportService {
       final elements = <Uint8List>[];
       final localizations = AppLocalizations.of(context);
       // Define the compression value
-      int level = 9;
+      int level = 5;
       // Define the lot size
-      const batchSize = 100;
+      const batchSize = 200;
       List<Uint8List> batch = [];
       // Create a counter for decoded images
       int decodedImagesCount = 0;
       // Get the total number of pages
       int totalPages = await Printing.raster(bytes).length;
-
-      await for (var page in Printing.raster(bytes)) {
+      double quality = context.read<SettingsCubit>().state.pdfQuality;
+      double dpi = PdfPageFormat.inch * quality;
+      await for (var page in Printing.raster(
+        bytes,
+        dpi: dpi,
+      )) {
         try {
           decodedImagesCount++;
           await Future.delayed(const Duration(milliseconds: 100));
@@ -411,7 +522,6 @@ class ImportService {
           List<int> compressedPng = img.encodePng(image!, level: level);
           // Add the compressed image to the current batch
           batch.add(Uint8List.fromList(compressedPng));
-          // elements.add(Uint8List.fromList(compressedPng));
           // If the lot has reached the lot size, process the lot and empty the lot
           if (batch.length == batchSize) {
             elements.addAll(batch);
@@ -432,7 +542,6 @@ class ImportService {
       }
       if (context.mounted) {
         List<int> pages = List.generate(elements.length, (index) => index);
-        double quality = context.read<SettingsCubit>().state.pdfQuality;
         bool spreadToPages = false,
             createAreas = false,
             background = true,
@@ -456,30 +565,29 @@ class ImportService {
         var y = firstPos.dy;
         var current = 0;
 
-        await for (final page in Printing.raster(bytes,
-            pages: pages, dpi: PdfPageFormat.inch * quality)) {
+        for (var i = 0; i < elements.length; i++) {
+          var modifiedPng = elements[i];
           try {
             await Future.delayed(const Duration(milliseconds: 1));
             dialog?.setProgress(current / pages.length);
             current++;
-            var image = page.asImage();
-            // Add white background to the image if channels is 4
-            final cmd = img.Command()..image(image);
+            var image = img.decodePng(modifiedPng);
+            final cmd = img.Command()..image(image!);
             if (background) cmd.filter(updateImageBackground());
             if (invert) cmd.invert();
             cmd.encodePng();
             final png = await cmd.getBytes();
             if (png == null) continue;
-            final scale = 1 / quality;
-            final height = page.height;
-            final width = page.width;
+            const scale = 1.0;
+            final height = image.height;
+            final width = image.width;
             final dataPath = Uri.dataFromBytes(png).toString();
             final element = ImageElement(
                 height: height.toDouble(),
                 width: width.toDouble(),
                 source: dataPath,
-                constraints:
-                    ElementConstraints.scaled(scaleX: scale, scaleY: scale),
+                constraints: const ElementConstraints.scaled(
+                    scaleX: scale, scaleY: scale),
                 position: Point(firstPos.dx, y));
             final area = Area(
               height: height * scale,
@@ -582,6 +690,7 @@ class ImportService {
     required List<PadElement> elements,
     List<DocumentPage> pages = const [],
     List<Area> areas = const [],
+    List<NoteData> packs = const [],
     bool choosePosition = false,
   }) {
     final state = _getState();
@@ -591,7 +700,11 @@ class ImportService {
         state != null &&
         (elements.isNotEmpty || areas.isNotEmpty)) {
       state.currentIndexCubit.changeTemporaryHandler(
-          context, ImportTool(elements: elements, areas: areas), bloc!);
+        context,
+        ImportTool(elements: elements, areas: areas),
+        bloc: bloc!,
+        temporaryClicked: true,
+      );
     } else {
       bloc
         ?..add(AreasCreated(areas))
@@ -600,11 +713,48 @@ class ImportService {
     for (final page in pages) {
       bloc?.add(PageAdded(null, page));
     }
+    for (final pack in packs) {
+      bloc?.add(PackAdded(pack));
+    }
     page = page.copyWith(content: [...page.content, ...elements]);
     document = document.setPage(page);
     for (final page in pages) {
       (document, _) = document.addPage(page);
     }
+    for (final pack in packs) {
+      document = document.setPack(pack);
+    }
     return document;
+  }
+
+  Future<bool> importArchive(Uint8List bytes,
+      {DocumentFileSystem? fileSystem}) async {
+    try {
+      fileSystem ??= getFileSystem();
+      final archive = ZipDecoder().decodeBytes(bytes);
+      final data = NoteData.fromArchive(archive);
+      if (data.isValid) {
+        final document = await importBfly(bytes);
+        if (document != null) {
+          fileSystem.importDocument(document);
+        }
+        return document != null;
+      }
+      for (final file in archive) {
+        if (!file.name.endsWith('.bfly')) continue;
+        final document = await importBfly(file.content);
+        if (document != null) {
+          fileSystem.importDocument(document);
+        }
+      }
+      return true;
+    } catch (e) {
+      showDialog(
+        context: context,
+        builder: (context) =>
+            UnknownImportConfirmationDialog(message: e.toString()),
+      );
+      return false;
+    }
   }
 }

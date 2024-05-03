@@ -19,10 +19,6 @@
     "message": "Matrix",
     "description": "The label of footer link with label=Matrix linking to https://linwood.dev/matrix"
   },
-  "link.item.label.Twitter": {
-    "message": "Twitter",
-    "description": "The label of footer link with label=Twitter linking to https://twitter.com/LinwoodDev"
-  },
   "link.item.label.Mastodon": {
     "message": "Mastodon",
     "description": "The label of footer link with label=Mastodon linking to https://floss.social/@linwood"
@@ -58,5 +54,9 @@
   "logo.alt": {
     "message": "Linwood 標誌",
     "description": "The alt text of footer logo"
+  },
+  "link.item.label.Bluesky": {
+    "message": "Bluesky",
+    "description": "The label of footer link with label=Bluesky linking to https://bsky.app/profile/linwood.dev"
   }
 }

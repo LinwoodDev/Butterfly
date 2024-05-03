@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:math';
 import 'dart:typed_data';
 import 'dart:ui' as ui;
 
@@ -55,6 +56,7 @@ class CurrentIndex with _$CurrentIndex {
     @Default([]) List<Renderer> networkingForegrounds,
     @Default(MouseCursor.defer) MouseCursor cursor,
     MouseCursor? temporaryCursor,
+    @Default(false) bool temporaryClicked,
     Offset? lastPosition,
     @Default([]) List<int> pointers,
     int? buttons,
@@ -69,6 +71,9 @@ class CurrentIndex with _$CurrentIndex {
     Map<Renderer, RendererState>? temporaryRendererStates,
     @Default(ViewOption()) ViewOption viewOption,
     @Default(HideState.visible) HideState hideUi,
+    @Default(true) bool areaNavigatorCreate,
+    @Default(true) bool areaNavigatorExact,
+    @Default(false) bool areaNavigatorAsk,
   }) = _CurrentIndex;
 
   bool get moveEnabled =>
@@ -389,7 +394,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
   }
 
   Future<Handler?> changeTemporaryHandlerIndex(BuildContext context, int index,
-      [DocumentBloc? bloc]) async {
+      {DocumentBloc? bloc, bool temporaryClicked = true}) async {
     bloc ??= context.read<DocumentBloc>();
     final blocState = bloc.state;
     if (blocState is! DocumentLoadSuccess) return null;
@@ -397,11 +402,16 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
       return null;
     }
     final tool = blocState.info.tools[index];
-    return changeTemporaryHandler(context, tool, bloc);
+    return changeTemporaryHandler(
+      context,
+      tool,
+      bloc: bloc,
+      temporaryClicked: temporaryClicked,
+    );
   }
 
   Future<Handler?> changeTemporaryHandler(BuildContext context, Tool tool,
-      [DocumentBloc? bloc]) async {
+      {DocumentBloc? bloc, bool temporaryClicked = true}) async {
     bloc ??= context.read<DocumentBloc>();
     final handler = Handler.fromTool(tool);
     final blocState = bloc.state;
@@ -434,8 +444,14 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
         if (networking) ...state.networkingForegrounds,
       ];
 
-  void resetTemporaryHandler(DocumentBloc bloc) {
+  void resetTemporaryHandler(DocumentBloc bloc, [bool force = false]) {
     if (state.temporaryHandler == null) {
+      return;
+    }
+    if (!force && state.temporaryClicked) {
+      emit(state.copyWith(
+        temporaryClicked: false,
+      ));
       return;
     }
     state.temporaryHandler?.dispose(bloc);
@@ -446,6 +462,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
       temporaryToolbar: null,
       temporaryCursor: null,
       temporaryRendererStates: null,
+      temporaryClicked: false,
     ));
   }
 
@@ -459,19 +476,37 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
   Future<void> bake(NoteData document, DocumentPage page, DocumentInfo info,
       {Size? viewportSize, double? pixelRatio, bool reset = false}) async {
     final cameraViewport = state.cameraViewport;
-    final size = viewportSize ?? cameraViewport.toSize();
+    var size = viewportSize ?? cameraViewport.toSize();
     final ratio = pixelRatio ?? cameraViewport.pixelRatio;
     if (size.height <= 0 || size.width <= 0) {
       return;
     }
-    final transform = state.transformCubit.state;
-    final rect = Rect.fromLTWH(transform.position.dx, transform.position.dy,
-        size.width / transform.size, size.height / transform.size);
+    var transform = state.transformCubit.state;
+    final realWidth = size.width / transform.size;
+    final realHeight = size.height / transform.size;
+    var rect = Rect.fromLTWH(
+        transform.position.dx, transform.position.dy, realWidth, realHeight);
     var renderers =
         List<Renderer<PadElement>>.from(cameraViewport.unbakedElements);
     final recorder = ui.PictureRecorder();
     final canvas = ui.Canvas(recorder);
     final last = state.cameraViewport;
+    final friction = transform.friction;
+    if (friction != null) {
+      final topLeft = Offset(
+        min(transform.position.dx, friction.beginPosition.dx),
+        min(transform.position.dy, friction.beginPosition.dy),
+      );
+      final bottomRight = Offset(
+        max(transform.position.dx, friction.beginPosition.dx),
+        max(transform.position.dy, friction.beginPosition.dy),
+      ).translate(realWidth, realHeight);
+      transform = transform.withPosition(topLeft);
+      rect = Rect.fromPoints(
+          topLeft, bottomRight.translate(realWidth, realHeight));
+      size = Size(bottomRight.dx - topLeft.dx, bottomRight.dy - topLeft.dy) *
+          transform.size;
+    }
     reset = reset ||
         last.width != size.width.ceil() ||
         last.height != size.height.ceil() ||
@@ -595,15 +630,19 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
   }
 
   Future<void> loadElements(
-      NoteData document, AssetService assetService, DocumentPage page) async {
+      NoteData document, AssetService assetService, DocumentPage page,
+      [String currentLayer = '']) async {
     for (var e in state.cameraViewport.unbakedElements) {
       e.dispose();
     }
     for (var e in state.cameraViewport.bakedElements) {
       e.dispose();
     }
-    final renderers =
-        page.content.map((e) => Renderer.fromInstance(e)).toList();
+    final renderers = page.content
+        .where(
+            (element) => currentLayer.isEmpty || element.layer == currentLayer)
+        .map((e) => Renderer.fromInstance(e))
+        .toList();
     await Future.wait(renderers
         .map((e) async => await e.setup(document, assetService, page)));
     final backgrounds = page.backgrounds.map(Renderer.fromInstance).toList();
@@ -741,8 +780,11 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
   }
 
   void changeTemporaryHandlerMove() {
-    emit(
-        state.copyWith(temporaryHandler: HandHandler(), temporaryCursor: null));
+    emit(state.copyWith(
+      temporaryHandler: HandHandler(),
+      temporaryCursor: null,
+      temporaryClicked: false,
+    ));
   }
 
   void updateUtilities({UtilitiesState? utilities, ViewOption? view}) {
@@ -854,4 +896,72 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     }
     return rect ?? Rect.zero;
   }
+
+  /// If addedElements is null, the viewport gets unbaked
+  Future<void> stateChanged(
+    DocumentLoadSuccess current,
+    DocumentBloc bloc, {
+    List<Renderer<PadElement>>? addedElements = const [],
+    List<Renderer<PadElement>>? replacedElements,
+    List<Renderer<Background>>? backgrounds,
+    bool reset = false,
+    bool refresh = false,
+    bool updateIndex = false,
+  }) async {
+    final cameraViewport = current.cameraViewport;
+    var elements = cameraViewport.unbakedElements;
+    for (var renderer in {
+      ...?backgrounds,
+      ...?replacedElements,
+      ...?addedElements
+    }) {
+      await renderer.setup(current.data, current.assetService, current.page);
+    }
+    if (addedElements != null) {
+      elements = List<Renderer<PadElement>>.from(elements)
+        ..addAll(addedElements);
+    }
+
+    if (addedElements == null || replacedElements != null) {
+      current.currentIndexCubit.unbake(
+          unbakedElements: [...?replacedElements, ...?addedElements],
+          backgrounds: backgrounds);
+    } else if (backgrounds != null) {
+      unbake(backgrounds: backgrounds);
+    } else {
+      withUnbaked(elements);
+    }
+
+    setSaveState(saved: SaveState.unsaved);
+    if (current.embedding != null) {
+      return;
+    }
+    AssetLocation? path = current.location;
+    if (current.hasAutosave()) {
+      path = await current.save(path);
+    }
+    if (reset) {
+      loadElements(current.data, current.assetService, current.page,
+          current.currentLayer);
+    }
+    if (reset || refresh) {
+      this.refresh(
+          current.data, current.assetService, current.page, current.info);
+    }
+    if (updateIndex) {
+      this.updateIndex(bloc);
+    }
+  }
+
+  void slide(ui.Offset positionVelocity, double scaleVelocity) {
+    if (!state.settingsCubit.state.hasFlag('smoothNavigation')) return;
+    state.transformCubit.slide(positionVelocity, scaleVelocity);
+  }
+
+  void setAreaNavigatorCreate(bool value) =>
+      emit(state.copyWith(areaNavigatorCreate: value));
+  void setAreaNavigatorExact(bool value) =>
+      emit(state.copyWith(areaNavigatorExact: value));
+  void setAreaNavigatorAsk(bool value) =>
+      emit(state.copyWith(areaNavigatorAsk: value));
 }

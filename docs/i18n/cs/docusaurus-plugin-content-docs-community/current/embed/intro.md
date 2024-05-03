@@ -6,16 +6,16 @@ sidebar_label: Úvod
 Vložení je jednoduchý způsob, jak zahrnout aplikaci do vašich webových stránek. Přidejte následující kód na vaše webové stránky:
 
 ```html
-<iframe src="https://butterfly.linwood.dev/embed" width="100%" height="500px" allowtransparency="true"></iframe>
+<iframe src="https://web.butterfly.linwood.dev/embed" width="100%" height="500px" allowtransparency="true"></iframe>
 ```
 
 ## Možnosti
 
-| Možnost  | Typ                             | Výchozí | L 343, 22.12.2009, s. 1).                                                                                           |
-| -------- | ------------------------------- | ------- | ------------------------------------------------------------------------------------------------------------------- |
-| save     | Boolean (true, false)           | true    | Povolit uložení. Pokud je zakázáno, zobrazí se pouze tlačítko ukončení                                              |
-| editable | Boolean (true, false)           | true    | Povolit úpravy. Je-li zakázáno, dokument bude pouze pro čtení                                                       |
-| language | Řetězec (..., systém, uživatel) | system  | Jazyk dokumentu. Pokud je systém rozpoznán z prohlížeče. Pokud uživatel, jazyk bude nastaven na předvolby uživatelů |
+| Možnost      | Typ                             | Výchozí | L 343, 22.12.2009, s. 1).                                                                                           |
+| ------------ | ------------------------------- | ------- | ------------------------------------------------------------------------------------------------------------------- |
+| uložit       | Logická (pravda, nepravda)      | pravda  | Povolit uložení. Pokud je zakázáno, zobrazí se pouze tlačítko ukončení                                              |
+| editovatelná | Logická (pravda, nepravda)      | pravda  | Povolit úpravy. Je-li zakázáno, dokument bude pouze pro čtení                                                       |
+| jazyk        | Řetězec (..., systém, uživatel) | systém  | Jazyk dokumentu. Pokud je systém rozpoznán z prohlížeče. Pokud uživatel, jazyk bude nastaven na předvolby uživatelů |
 
 ## Události
 
@@ -30,7 +30,7 @@ embedElement.addEventListener('message', (data) => {
 });
 ```
 
-### save
+### uložit
 
 > Uložená událost `` je emitována, když uživatel klikne na tlačítko Uložit.
 
@@ -38,7 +38,7 @@ Parametry:
 
 * `data` (typ `seznam<int>`): Údaje tohoto dokumentu.
 
-### exit
+### opustit
 
 > Událost `ukončení` je zapnuta, když uživatel klikne na tlačítko ukončení.
 
@@ -46,7 +46,7 @@ Parametry:
 
 * `data` (typ `seznam<int>`): Údaje tohoto dokumentu.
 
-### change
+### změna
 
 > Událost `změna` je emitována, když uživatel změní dokument.
 
@@ -82,7 +82,7 @@ Parametry:
 
 * `data` (typ `seznam<int>`): Údaje tohoto dokumentu.
 
-### render
+### vykreslit
 
 > Metoda `render` vykresluje dokument na png obrázek.
 

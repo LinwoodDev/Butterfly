@@ -30,6 +30,7 @@ ThemeData getThemeData(String name, bool dark,
       fontFamily: 'Comfortaa',
       visualDensity: density,
       darkIsTrueBlack: highContrast,
+      fontFamilyFallback: ['Roboto'],
     );
   } else {
     theme = FlexThemeData.light(
@@ -40,6 +41,7 @@ ThemeData getThemeData(String name, bool dark,
       fontFamily: 'Comfortaa',
       visualDensity: density,
       lightIsWhite: highContrast,
+      fontFamilyFallback: ['Roboto'],
     );
   }
   return theme.copyWith(
@@ -67,5 +69,5 @@ FlexSchemeColor getFlexThemeColor(String name, bool dark) {
 }
 
 List<String> getThemes() {
-  return FlexColor.schemesList.map((e) => e.name).toList();
+  return ['classic', ...FlexColor.schemesList.map((e) => e.name)];
 }

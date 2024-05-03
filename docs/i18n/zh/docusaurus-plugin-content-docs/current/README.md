@@ -21,14 +21,12 @@ Butterflight是一个注意事项，它旨在实现所有平台的统一体验�
 
 > 您可以使用侧边栏快速导航wiki。
 
-
 要开始运行应用，您有两个选项：
+
 1. [Downloads](/downloads) the app version that is appropriate for your platform (Butterfly can run on most mobile, desktop, and web platfroms).
-2. 如果您找不到您的平台，或者您不想在它上安装它，请使用 [web 版本](https://butterfly.linwood.dev)。 See [here](storage#web) about file storage on the web version.
+2. 如果您找不到您的平台，或者您不想在它上安装它，请使用 [web 版本](https://web.butterfly.linwood.dev)。 See [here](storage#web) about file storage on the web version.
 
 > 一旦您打开了应用程序，继续阅读。
-
-
 
 ## 主视图
 
@@ -116,5 +114,3 @@ Once opening a document by selecting a template or an existing file, you will ge
         3。 您可以通过单击 <Plus/> 加号来添加更多工具到工具栏。 
     </TabItem>
 </Tabs>
-	
-

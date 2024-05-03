@@ -11,7 +11,7 @@ sidebar_position: 1
 
 ## Før injektion
 
-Besøg [downloads](/downloads) for at downloade appen til din platform. Brug [webversion](https://butterfly.linwood.dev) , hvis du ikke kan finde din platform.
+Besøg [downloads](/downloads) for at downloade appen til din platform. Brug [webversion](https://web.butterfly.linwood.dev) , hvis du ikke kan finde din platform.
 
 ## Hoved visning
 

@@ -6,16 +6,16 @@ sidebar_label: Einleitung
 Einbetten ist eine einfache Möglichkeit, die App in Ihre Website einzubinden. Fügen Sie den folgenden Code Ihrer Webseite hinzu:
 
 ```html
-<iframe src="https://butterfly.linwood.dev/embed" width="100%" height="500px" allowtransparency="true"></iframe>
+<iframe src="https://web.butterfly.linwood.dev/embed" width="100%" height="500px" allowtransparency="true"></iframe>
 ```
 
 ## Optionen
 
-| Option   | Typ                            | Standard | Beschreibung                                                                                                                                   |
-| -------- | ------------------------------ | -------- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
-| save     | Boolean (true, false)          | true     | Speichern aktivieren. Wenn deaktiviert, wird nur ein Beenden-Button angezeigt                                                                  |
-| editable | Boolean (true, false)          | true     | Bearbeiten aktivieren. Wenn deaktiviert, wird das Dokument schreibgeschützt                                                                    |
-| language | String (..., System, Benutzer) | system   | Sprache des Dokuments. Wenn System wird die Sprache vom Browser erkannt. Wenn Benutzer, wird die Sprache auf die Benutzereinstellungen gesetzt |
+| Option     | Typ                            | Standard | Beschreibung                                                                                                                                   |
+| ---------- | ------------------------------ | -------- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
+| speichern  | Boolesche (wahr, falsch)       | wahr     | Speichern aktivieren. Wenn deaktiviert, wird nur ein Beenden-Button angezeigt                                                                  |
+| editierbar | Boolesche (wahr, falsch)       | wahr     | Bearbeiten aktivieren. Wenn deaktiviert, wird das Dokument schreibgeschützt                                                                    |
+| sprache    | String (..., System, Benutzer) | system   | Sprache des Dokuments. Wenn System wird die Sprache vom Browser erkannt. Wenn Benutzer, wird die Sprache auf die Benutzereinstellungen gesetzt |
 
 ## Ereignisse
 
@@ -30,7 +30,7 @@ embedElement.addEventListener('message', (data) => {
 });
 ```
 
-### save
+### speichern
 
 > Das Ereignis `speichern` wird abgesendet, wenn der Benutzer auf den Speicherknopf klickt.
 
@@ -38,7 +38,7 @@ Parameter:
 
 * `Daten` (Typ `Liste<int>`): Die Daten des Dokuments.
 
-### exit
+### beenden
 
 > Das `Exit` Event wird abgesendet, wenn der Benutzer auf den Exit-Button klickt.
 
@@ -46,7 +46,7 @@ Parameter:
 
 * `Daten` (Typ `Liste<int>`): Die Daten des Dokuments.
 
-### change
+### ändern
 
 > Das `Änderungs-` Ereignis wird abgesendet, wenn der Benutzer das Dokument ändert.
 
@@ -82,7 +82,7 @@ Parameter:
 
 * `Daten` (Typ `Liste<int>`): Die Daten des Dokuments.
 
-### render
+### rendern
 
 > Die `Rendering-` Methode macht das Dokument zu einem PNG-Bild.
 

@@ -167,6 +167,7 @@ class AddDialog extends StatelessWidget {
                           PathShape.circle,
                           PathShape.rectangle,
                           PathShape.line,
+                          PathShape.triangle,
                         ]
                             .map((e) => e())
                             .where((e) => e

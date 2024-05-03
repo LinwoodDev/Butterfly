@@ -6,9 +6,8 @@ class EraserHandler extends Handler<EraserTool> {
   EraserHandler(super.data);
 // Called when the user presses the pointer (e.g., a finger or the mouse) on the screen. It starts the erasing action.
   @override
-  Future<void> onPointerDown(
-      PointerDownEvent event, EventContext context) async {
-    _changeElement(event.localPosition, context);
+  Future<void> onPointerDown(PointerDownEvent event, EventContext context) {
+    return _changeElement(event.localPosition, context);
   }
 
 // Creates the cursors for the eraser. It shows an eraser cursor when the user is erasing.
@@ -54,6 +53,8 @@ class EraserHandler extends Handler<EraserTool> {
     for (final element in elements) {
       List<List<PathPoint>> paths = [[]];
       bool broken = false;
+      final id = element.id;
+      if (id == null) continue;
       for (final point in element.points) {
         if ((point.toOffset() - globalPos).distance >= (size * size)) {
           paths.last.add(point);
@@ -66,24 +67,23 @@ class EraserHandler extends Handler<EraserTool> {
         }
       }
       if (broken) {
-        modified[element.id] = [];
+        modified[id] = [];
       }
-      modified[element.id] = paths
+      modified[id] = paths
           .where((element) => element.isNotEmpty)
           .map((e) => element.copyWith(points: e))
           .toList();
     }
     if (modified.isNotEmpty) {
       context.getDocumentBloc().add(ElementsChanged(modified));
-      await context.getDocumentBloc().stream.first;
     }
     _currentlyErasing = false;
   }
 
 // Called when the user releases the pointer. It completes the erasing action.
   @override
-  void onPointerUp(PointerUpEvent event, EventContext context) {
-    _changeElement(event.localPosition, context);
+  Future<void> onPointerUp(PointerUpEvent event, EventContext context) {
+    return _changeElement(event.localPosition, context);
   }
 
 // Returns the mouse cursor to be used when the user interacts with the eraser tool.

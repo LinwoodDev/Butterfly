@@ -21,7 +21,6 @@ class LabelHandler extends Handler<LabelTool>
         final forced = _context?.mapOrNull(text: (e) => e.forcedProperty);
         return TextContext(
           tool: data,
-          isCreating: true,
           element: (element as TextElement?) ??
               (position == null
                   ? null
@@ -160,6 +159,7 @@ class LabelHandler extends Handler<LabelTool>
         final page = context.getPage();
         if (page == null) return;
         final id = (labelRenderer.element as PadElement).id;
+        if (id == null) return;
         context.getDocumentBloc().add(ElementsRemoved([id]));
         _context = _createContext(document, element: labelRenderer.element);
       }
@@ -246,11 +246,12 @@ class LabelHandler extends Handler<LabelTool>
     final context = _context;
     _context = value;
     if (context == null) return;
+    final id = context.element?.id;
 
-    if (context.element != null && value.element != null) {
+    if (context.element != null && value.element != null && id != null) {
       if (!value.isCreating) {
         bloc.add(ElementsChanged({
-          context.element!.id: [value.element!],
+          id: [value.element!],
         }));
       }
     }
@@ -279,11 +280,12 @@ class LabelHandler extends Handler<LabelTool>
     if (context == null) return;
     final element = context.element;
     if (element == null) return;
+    final id = element.id;
     final isEmpty = context.isEmpty;
     if (context.isCreating && !isEmpty) {
       bloc.add(ElementsCreated([element]));
-    } else if (!context.isCreating && isEmpty) {
-      bloc.add(ElementsRemoved([element.id]));
+    } else if (!context.isCreating && isEmpty && id != null) {
+      bloc.add(ElementsRemoved([id]));
     }
   }
 
@@ -486,11 +488,6 @@ class LabelHandler extends Handler<LabelTool>
     if (_bloc != null) _refreshToolbar(_bloc!);
     if (!replace) _updateEditingState();
   }
-
-  @override
-  bool canChange(PointerDownEvent event, EventContext context) =>
-      event.kind == PointerDeviceKind.mouse &&
-      event.buttons != kSecondaryMouseButton;
 
   @override
   void updateFloatingCursor(RawFloatingCursorPoint point) {}

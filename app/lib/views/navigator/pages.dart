@@ -219,7 +219,7 @@ class _PageEntityListTile extends StatelessWidget {
                             .add(PageRemoved(entity.path));
                       },
                 child: Text(AppLocalizations.of(context).delete),
-              )
+              ),
             ]
           : null,
     );

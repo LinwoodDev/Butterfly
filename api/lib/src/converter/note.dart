@@ -15,6 +15,10 @@ NoteData noteDataMigrator(Uint8List data) {
   } else {
     archive = ZipDecoder().decodeBytes(data);
   }
+  return archiveNoteDataMigrator(archive);
+}
+
+NoteData archiveNoteDataMigrator(Archive archive) {
   var noteData = NoteData(archive);
   var metadata = noteData.getMetadata();
   if (metadata != null &&

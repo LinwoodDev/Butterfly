@@ -2,6 +2,7 @@ import 'dart:typed_data';
 
 import 'package:butterfly/main.dart';
 import 'package:butterfly/models/defaults.dart';
+import 'package:butterfly/views/files/card.dart';
 import 'package:butterfly/views/files/entity.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/material.dart';
@@ -334,12 +335,19 @@ class FilesViewState extends State<FilesView> {
                         final (result, extension) = await importFile(context);
                         if (result == null) return;
                         final model = await importService.import(
-                            AssetFileTypeHelper.fromFileExtension(extension) ??
-                                AssetFileType.note,
-                            result,
-                            DocumentDefaults.createDocument(),
-                            advanced: false);
-                        if (model == null) return;
+                          AssetFileTypeHelper.fromFileExtension(extension) ??
+                              AssetFileType.note,
+                          result,
+                          advanced: false,
+                          fileSystem: _fileSystem,
+                          templateSystem: _templateSystem,
+                          packSystem:
+                              PackFileSystem.fromPlatform(remote: _remote),
+                        );
+                        if (model == null) {
+                          reloadFileSystem();
+                          return;
+                        }
                         const route = '/native?name=document.bfly&type=note';
                         router.go(route, extra: model.save());
                         if (!widget.collapsed) {
@@ -348,7 +356,7 @@ class FilesViewState extends State<FilesView> {
                       },
                       child: Text(AppLocalizations.of(context).import),
                     ),
-                    if (settings.flags.contains('collaboration'))
+                    if (settings.hasFlag('collaboration'))
                       MenuItemButton(
                         leadingIcon:
                             const PhosphorIcon(PhosphorIconsLight.shareNetwork),
@@ -639,7 +647,7 @@ class _RecentFilesViewState extends State<_RecentFilesView> {
               return Container();
             }
             return SizedBox(
-              height: 150,
+              height: 160,
               child: Scrollbar(
                 controller: _recentScrollController,
                 child: ListView.builder(
@@ -650,18 +658,17 @@ class _RecentFilesViewState extends State<_RecentFilesView> {
                     final entity = files[index];
                     FileMetadata? metadata;
                     Uint8List? thumbnail;
-                    List<int>? data;
                     if (entity is AppDocumentFile) {
                       metadata = entity.metadata;
                       thumbnail = entity.thumbnail;
-                      data = entity.data;
                     }
                     return AssetCard(
                       metadata: metadata,
                       thumbnail: thumbnail,
                       name: entity.location.identifier,
-                      onTap: () => openFile(
-                          context, widget.replace, entity.location, data),
+                      height: double.infinity,
+                      onTap: () =>
+                          openFile(context, widget.replace, entity.location),
                     );
                   },
                 ),
@@ -669,79 +676,5 @@ class _RecentFilesViewState extends State<_RecentFilesView> {
             );
           }),
     );
-  }
-}
-
-class AssetCard extends StatelessWidget {
-  const AssetCard({
-    super.key,
-    required this.metadata,
-    required this.thumbnail,
-    required this.onTap,
-    this.name,
-  });
-  final String? name;
-  final FileMetadata? metadata;
-  final Uint8List? thumbnail;
-  final VoidCallback onTap;
-
-  @override
-  Widget build(BuildContext context) {
-    final colorScheme = Theme.of(context).colorScheme;
-    final textStyle = Theme.of(context).textTheme.bodyLarge?.copyWith(
-          color: colorScheme.onSurface,
-        );
-    return ConstrainedBox(
-        constraints: const BoxConstraints(maxHeight: 200),
-        child: AspectRatio(
-          aspectRatio: 16 / 9,
-          child: Card(
-            elevation: 5,
-            clipBehavior: Clip.hardEdge,
-            child: Stack(
-              children: [
-                if (thumbnail?.isNotEmpty ?? false)
-                  Align(
-                    child: Image.memory(
-                      thumbnail!,
-                      fit: BoxFit.cover,
-                      width: 640,
-                      alignment: Alignment.center,
-                    ),
-                  ),
-                if ((metadata?.name.isNotEmpty ?? false) ||
-                    (name?.isNotEmpty ?? false))
-                  Align(
-                    alignment: Alignment.bottomLeft,
-                    child: Tooltip(
-                      message: name ?? metadata!.name,
-                      child: Container(
-                        padding: const EdgeInsets.all(8),
-                        margin: const EdgeInsets.all(8),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(8),
-                          color: colorScheme.primaryContainer.withAlpha(200),
-                        ),
-                        child: Text(
-                          (metadata?.name.isNotEmpty ?? false)
-                              ? metadata!.name
-                              : name!,
-                          style: textStyle,
-                        ),
-                      ),
-                    ),
-                  ),
-                Positioned.fill(
-                  child: Material(
-                    type: MaterialType.transparency,
-                    child: InkWell(
-                      onTap: onTap,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ));
   }
 }

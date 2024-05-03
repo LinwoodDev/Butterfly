@@ -9,11 +9,12 @@ import 'package:butterfly_api/butterfly_api.dart';
 import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_web_plugins/url_strategy.dart';
 import 'package:go_router/go_router.dart';
-import 'package:lw_sysinfo/lw_sysinfo.dart';
+import 'package:lw_sysapi/lw_sysapi.dart';
 import 'package:material_leap/l10n/leap_localizations.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:window_manager/window_manager.dart';
@@ -42,6 +43,8 @@ import 'widgets/window.dart';
 
 const kMobileWidth = 600.0;
 const kLargeWidth = 1200.0;
+
+const platform = MethodChannel('linwood.dev/butterfly');
 
 Future<void> main([List<String> args = const []]) async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -89,7 +92,7 @@ Future<void> main([List<String> args = const []]) async {
           'native',
         ],
         queryParameters: {
-          'type': 'note',
+          'type': intentType,
         },
       ).toString();
       initialExtra = await getIntentData();
@@ -110,7 +113,7 @@ Future<void> main([List<String> args = const []]) async {
       await windowManager.setPreventClose(false);
     });
   }
-  final clipboardManager = await SysInfo.getClipboardManager();
+  final clipboardManager = await SysAPI.getClipboardManager();
   GeneralFileSystem.dataPath = result['path'];
   final isFullscreen = await isFullScreen();
   runApp(
@@ -134,10 +137,7 @@ Future<void> main([List<String> args = const []]) async {
 
 const kUnsupportedLanguages = [];
 
-List<Locale> getLocales() =>
-    List<Locale>.from(AppLocalizations.supportedLocales)
-        .where((l) => !kUnsupportedLanguages.contains(l.toString()))
-        .toList();
+List<Locale> getLocales() => AppLocalizations.supportedLocales;
 
 class ButterflyApp extends StatelessWidget {
   final String initialLocation;

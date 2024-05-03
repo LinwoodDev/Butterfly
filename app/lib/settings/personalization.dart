@@ -27,16 +27,19 @@ class PersonalizationSettingsPage extends StatelessWidget {
         PlatformTheme.mobile => AppLocalizations.of(context).mobile,
       };
 
-  String _getLocaleName(BuildContext context, String locale) =>
-      LocaleNames.of(context)?.nameOf(locale) ??
-      AppLocalizations.of(context).systemLocale;
+  String _getLocaleName(BuildContext context, String locale) => locale
+          .isNotEmpty
+      ? LocaleNames.of(context)?.nameOf(locale.replaceAll('-', '_')) ?? locale
+      : AppLocalizations.of(context).systemLocale;
 
   String _getDensityName(BuildContext context, ThemeDensity density) =>
       switch (density) {
         ThemeDensity.system => AppLocalizations.of(context).systemTheme,
-        ThemeDensity.comfortable => AppLocalizations.of(context).comfortable,
+        ThemeDensity.maximize => AppLocalizations.of(context).maximize,
+        ThemeDensity.desktop => AppLocalizations.of(context).desktop,
         ThemeDensity.compact => AppLocalizations.of(context).compact,
         ThemeDensity.standard => AppLocalizations.of(context).standard,
+        ThemeDensity.comfortable => AppLocalizations.of(context).comfortable,
       };
 
   @override
@@ -181,6 +184,18 @@ class PersonalizationSettingsPage extends StatelessWidget {
                           ),
                           onTap: () => _openToolbarPositionModal(context),
                         ),
+                        ExactSlider(
+                          header:
+                              Text(AppLocalizations.of(context).toolbarRows),
+                          value: state.toolbarRows.toDouble(),
+                          defaultValue: 1,
+                          min: 1,
+                          max: 4,
+                          fractionDigits: 0,
+                          onChangeEnd: (value) => context
+                              .read<SettingsCubit>()
+                              .changeToolbarRows(value.round()),
+                        ),
                         SwitchListTile(
                           secondary:
                               const PhosphorIcon(PhosphorIconsLight.sidebar),
@@ -253,14 +268,6 @@ class PersonalizationSettingsPage extends StatelessWidget {
               onTap: () => changeDesign(''),
               leading: ThemeBox(
                 theme: getThemeData('', false),
-              ),
-            ),
-            ListTile(
-              title: const Text('Classic'),
-              selected: design == 'classic',
-              onTap: () => changeDesign('classic'),
-              leading: ThemeBox(
-                theme: getThemeData('classic', false),
               ),
             ),
             ...getThemes().map(

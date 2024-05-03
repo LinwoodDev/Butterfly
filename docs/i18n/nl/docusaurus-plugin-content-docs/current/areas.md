@@ -3,6 +3,9 @@ title: "Gebieden"
 sidebar_position: 2
 ---
 
+import {Monitor} from "@phosphor-icons/react";
+
+
 ## Introductie
 
 ![Oppervlak](area.png)
@@ -11,13 +14,23 @@ Gebieden zijn een manier om de grootte van het doek te beperken. Je kunt gebiede
 
 ## Gebieden maken en verwijderen
 
-Gebruik de functie [gebied](tools/area.md) om een gebied te creëren. Gebieden kunnen niet overlappen. Nadat je een gebied hebt aangemaakt moet je het een naam geven.
+Terwijl je de inhoud van het canvas direct kunt bewerken, Het is gebruikelijk dat u de regio waarin u de inhoud kunt wijzigen wilt beperken of u wilt dat u snel toegang krijgt tot een deel van het document. Hiervoor heb je de tool <Monitor/> Gebied tool. Zoals uitgelegd in de [introductie sectie](README.md), moet je mogelijk de knop <Monitor/> toevoegen aan je werkbalk. Met behulp van de tool [oppervlakte](tools/area.md)kun je overal op het canvas rechthoek tekenen om vervolgens het gebied te definiëren.
 
-Klik op het gebied om het te wijzigen. U kunt ook gebruik maken van het veld dialoogvenster.
+## Meer controle
 
-U heeft enkele opties in dit menu:
+U kunt ruimtetool verder definiëren door opnieuw te klikken op de knop <Monitor/> van het gebied. Daar kun je de vaste breedte, hoogte of hoogteverhouding van de gebieden definiëren.
 
-* `Enter area`: Enter the area Je kunt niet buiten het gebied schilderen. Je kunt niet buiten het gebied schilderen. Sluit het gebied af door op de achtergrond te klikken met de functie gebied.
-* `Naam`: Wijzig de naam van het huidige gebied
-* `Export`: Exporteer dit deel van het canvas als een afbeelding
-* `Delete`: Verwijder dit gebied
+## Het gebied contextmenu
+
+ Na het tekenen van een gebied, kunt u klikken op een aanraakgebied om het gebied te openen met de volgende opties:
+
+* `naam` - Geef het gebied een naam die hangende is voor jou om te gebruiken. Dat is bijvoorbeeld nuttig wanneer...
+* `Enter the area` - Toestaan dat u de inhoud alleen aanpast aan dit gebied.
+* `Delete` - Verwijder het gebied. This *does not* delete the content within this area.
+* `Export` - Exporteer de inhoud van het geselecteerde gebied.
+* `Voeg toe aan pack` - Voeg het gebied toe aan een [pakket](pack)
+
+## Andere optie
+
+Een andere optie voor u om de gebiednavigator te gebruiken is in het linkermenu, of in het vlindermenu als u een mobiel platform gebruikt. 
+

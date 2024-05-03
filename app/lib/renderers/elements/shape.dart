@@ -8,12 +8,6 @@ class ShapeRenderer extends Renderer<ShapeElement> {
   ShapeRenderer(super.element);
 
   @override
-  FutureOr<void> setup(
-      NoteData document, AssetService assetService, DocumentPage page) async {
-    await super.setup(document, assetService, page);
-  }
-
-  @override
   FutureOr<void> build(Canvas canvas, Size size, NoteData document,
       DocumentPage page, DocumentInfo info, CameraTransform transform,
       [ColorScheme? colorScheme, bool foreground = false]) {
@@ -64,6 +58,20 @@ class ShapeRenderer extends Renderer<ShapeElement> {
     } else if (shape is LineShape) {
       canvas.drawLine(element.firstPosition.toOffset(),
           element.secondPosition.toOffset(), paint);
+    } else if (shape is TriangleShape) {
+      final topCenter = drawRect.topCenter;
+      final path = Path()
+        ..moveTo(topCenter.dx, topCenter.dy)
+        ..lineTo(drawRect.right, drawRect.bottom)
+        ..lineTo(drawRect.left, drawRect.bottom)
+        ..close();
+      canvas.drawPath(
+          path,
+          _buildPaint(
+              color: Color(shape.fillColor), style: PaintingStyle.fill));
+      if (strokeWidth > 0) {
+        canvas.drawPath(path, paint);
+      }
     }
   }
 
@@ -213,6 +221,7 @@ class ShapeHitCalculator extends HitCalculator {
     return shape.map(
         circle: (e) => containsRect(),
         rectangle: (e) => containsRect(),
+        triangle: (e) => containsRect(),
         line: (e) {
           final firstX = min(element.firstPosition.x, element.secondPosition.x);
           final firstY = min(element.firstPosition.y, element.secondPosition.y);
@@ -258,6 +267,14 @@ class ShapeHitCalculator extends HitCalculator {
             isPointInPolygon(polygon, bottomLeft) ||
             isPointInPolygon(polygon, bottomRight) ||
             isPointInPolygon(polygon, center);
+      },
+      triangle: (value) {
+        final firstPosition =
+            element.firstPosition.toOffset().rotate(center, rotation);
+        final secondPosition =
+            element.secondPosition.toOffset().rotate(center, rotation);
+        return isPointInPolygon(polygon, firstPosition) ||
+            isPointInPolygon(polygon, secondPosition);
       },
     );
   }

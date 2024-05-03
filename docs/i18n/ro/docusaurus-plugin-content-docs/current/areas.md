@@ -3,6 +3,9 @@ title: "Domenii"
 sidebar_position: 2
 ---
 
+import {Monitor} from "@phosphor-icons/react";
+
+
 ## Introducere
 
 ![Suprafață](area.png)
@@ -11,13 +14,23 @@ Zonele reprezintă o modalitate de a limita dimensiunea pânzilor. Poți crea zo
 
 ## Crearea şi ştergerea zonelor
 
-Utilizați [zona](tools/area.md) pentru a crea o zonă. Suprafeţele nu se pot suprapune. După ce aţi creat o zonă trebuie să o denumiţi.
+În timp ce puteţi edita direct conţinutul de pe pânză, este un lucru obişnuit să limitaţi regiunea în care puteţi modifica conţinutul, sau că aţi dori să puteţi accesa rapid o parte a documentului. Pentru asta, ai o unealtă de zonă <Monitor/>. Așa cum se explică în secțiunea [de introducere](README.md), s-ar putea să fie nevoie să adăugați butonul <Monitor/> pentru zona în bara de instrumente. Folosind unealta [zona](tools/area.md), poți desena dreptunghi oriunde pe planșă pentru a defini apoi zona.
 
-Dă click pe zonă dacă vrei să o modifici. De asemenea, puteți utiliza dialogul de zonă.
+## Mai mult control
 
-Aveți câteva opțiuni în acest meniu:
+Poți defini mai în detaliu unealta făcând clic din nou pe butonul <Monitor/> al ariei. Aici puteţi defini lăţimea fixă a suprafeţelor, înălţimea sau raportul aspectului.
 
-* `Introduceți zona`: Introduceți zona. Nu poți picta în afara zonei. Ieși din zonă făcând clic pe fundal cu unealta zonală.
-* `Nume`: Schimbă numele zonei curente
-* `Export`: Exportă această parte a pânzei ca o imagine
-* `Șterge`: Șterge această zonă
+## Meniul zonei contextual
+
+ După ce desenați o zonă, puteți face clic sau apăsați lung pe ecranul zonei pentru a deschide un meniu contextual cu următoarele opțiuni:
+
+* `Numele` - Dă o denumire convenţională pe care o vei folosi. Acest lucru este util, de exemplu, atunci când...
+* `Introduceți zona` - Vă permite să editați conținutul legat doar de această zonă.
+* `Șterge` - Șterge zona. This *does not* delete the content within this area.
+* `Export` - Exportă conținutul zonei selectate.
+* `Adăugaţi la pachetul` - Adăugaţi zona la un pachet [](pack)
+
+## O altă opțiune
+
+O altă opţiune pentru a utiliza navigatorul în zonă este în meniul din stânga, sau în meniul fluture dacă utilizați o platformă mobilă. 
+

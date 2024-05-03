@@ -14,7 +14,7 @@ Usa `ctrl` per avere la stessa altezza e larghezza e `spostamento` per disegnare
 |             Proprietà | Predefinito | Descrizione                                                                                                                                                           |
 | ---------------------:|:-----------:|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 |                Colore |    Nero     | Il colore che verrà disegnato                                                                                                                                         |
-|      Larghezza tratto |      5      | La larghezza del tratto                                                                                                                                               |
+|       Spessore tratto |      5      | La larghezza del tratto                                                                                                                                               |
 | Dipendente dallo zoom |    falso    | Questo cambierà la larghezza del tratto in base al livello di zoom.                                                                                                   |
 |                 Forma | rettangolo  | La forma che sarà disegnata                                                                                                                                           |
 |             Larghezza |      0      | La larghezza fissa dell'area. Se impostato a 0, la larghezza verrà calcolata automaticamente.                                                                         |

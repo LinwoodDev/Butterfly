@@ -130,9 +130,6 @@ class DocumentEvent extends ReplayEvent with _$DocumentEvent {
     List<String> elements,
   ) = ElementsLayerChanged;
 
-  const factory DocumentEvent.templateCreated(String directory,
-      [String? remote, @Default(true) bool deleteDocument]) = TemplateCreated;
-
   const factory DocumentEvent.areasCreated(
     List<Area> areas,
   ) = AreasCreated;
@@ -210,7 +207,6 @@ class DocumentEvent extends ReplayEvent with _$DocumentEvent {
 
   bool shouldSync() => maybeMap(
         currentLayerChanged: (_) => false,
-        templateCreated: (_) => false,
         documentSaved: (_) => false,
         currentAreaChanged: (_) => false,
         layerVisibilityChanged: (_) => false,

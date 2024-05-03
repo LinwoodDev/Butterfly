@@ -24,6 +24,11 @@ class ExperimentsSettingsPage extends StatelessWidget {
           name: 'collaboration',
           description: AppLocalizations.of(context).collaboration,
           icon: PhosphorIcons.chatTeardrop,
+        ),
+        (
+          name: 'smoothNavigation',
+          description: AppLocalizations.of(context).smoothNavigation,
+          icon: PhosphorIcons.caretCircleDoubleDown,
         )
       ];
 

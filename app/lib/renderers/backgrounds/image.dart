@@ -39,11 +39,31 @@ class ImageBackgroundRenderer extends Renderer<ImageBackground> {
   @override
   void buildSvg(XmlDocument xml, NoteData document, DocumentPage page,
       Rect viewportRect) {
-    // TODO: implement buildSvg
+    final height = element.height;
+    final width = element.width;
+    // Add pattern
+    final pattern =
+        xml.getOrCreateElement('defs').createElement('pattern', attributes: {
+      'id': 'background-pattern',
+      'viewBox': '0,0,$width,$height',
+      'width': '100%',
+      'height': '100%'
+    });
+    pattern.createElement('image', attributes: {
+      'xlink:href': element.source,
+      'width': '${width}px',
+      'height': '${height}px'
+    });
+    // Add patern to svg
+    xml.createElement('rect', attributes: {
+      'width': '100%',
+      'height': '100%',
+      'fill': 'url(#background-pattern)'
+    });
   }
 
   @override
-  FutureOr<void> setup(
+  Future<void> setup(
       NoteData document, AssetService assetService, DocumentPage page) async {
     super.setup(document, assetService, page);
     if (image != null) return;

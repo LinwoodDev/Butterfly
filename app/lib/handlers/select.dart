@@ -138,8 +138,11 @@ class SelectHandler extends Handler<SelectTool> {
     _selectionManager.deselect();
     bloc.add(_duplicate
         ? ElementsCreated(current!.map((e) => e.element).toList())
-        : ElementsChanged(Map.fromEntries(current!.mapIndexed(
-            (i, e) => MapEntry(_selected[i].element.id, [e.element])))));
+        : ElementsChanged(Map.fromEntries(current!.mapIndexed((i, e) {
+            final id = _selected[i].element.id;
+            if (id == null) return null;
+            return MapEntry(id, [e.element]);
+          }).whereNotNull())));
     return true;
   }
 
@@ -278,6 +281,11 @@ class SelectHandler extends Handler<SelectTool> {
       _rulerPosition = details.localFocalPoint;
       return true;
     }
+    final currentIndex = context.getCurrentIndex();
+    if (currentIndex.buttons == kSecondaryMouseButton &&
+        currentIndex.temporaryHandler == null) {
+      return false;
+    }
     final cameraTransform = context.getCameraTransform();
     final globalPos = cameraTransform.localToGlobal(details.localFocalPoint);
     final shouldTransform =
@@ -326,7 +334,6 @@ class SelectHandler extends Handler<SelectTool> {
   @override
   void onScaleUpdate(ScaleUpdateDetails details, EventContext context) {
     if (details.pointerCount > 1) return;
-    final currentIndex = context.getCurrentIndex();
     final globalPos =
         context.getCameraTransform().localToGlobal(details.localFocalPoint);
     if (_rulerRotation != null && _rulerPosition != null) {
@@ -338,25 +345,17 @@ class SelectHandler extends Handler<SelectTool> {
       context.refresh();
       return;
     }
-    if (currentIndex.buttons != kSecondaryMouseButton) {
-      if (details.scale == 1.0) {
-        final topLeft = _rectangleFreeSelection?.topLeft ?? globalPos;
-        _rectangleFreeSelection = data.mode == SelectMode.rectangle
-            ? Rect.fromLTRB(topLeft.dx, topLeft.dy, globalPos.dx, globalPos.dy)
-            : null;
-        if (data.mode == SelectMode.lasso) {
-          _lassoFreeSelection ??= [];
-          _lassoFreeSelection!.add(globalPos);
-        } else {
-          _lassoFreeSelection = null;
-        }
-        context.refresh();
-      }
-      return;
+    final topLeft = _rectangleFreeSelection?.topLeft ?? globalPos;
+    _rectangleFreeSelection = data.mode == SelectMode.rectangle
+        ? Rect.fromLTRB(topLeft.dx, topLeft.dy, globalPos.dx, globalPos.dy)
+        : null;
+    if (data.mode == SelectMode.lasso) {
+      _lassoFreeSelection ??= [];
+      _lassoFreeSelection!.add(globalPos);
+    } else {
+      _lassoFreeSelection = null;
     }
-    context
-        .getCurrentIndexCubit()
-        .move(-details.focalPointDelta / context.getCameraTransform().size);
+    context.refresh();
   }
 
   @override
@@ -416,13 +415,15 @@ class SelectHandler extends Handler<SelectTool> {
     final state = bloc.state;
     if (state is! DocumentLoadSuccess) return;
     if (cut) {
-      bloc.add(ElementsRemoved(_selected.map((r) => r.element.id).toList()));
+      bloc.add(ElementsRemoved(
+          _selected.map((r) => r.element.id).whereNotNull().toList()));
     }
     final point = getSelectionRect()?.topLeft;
     if (point == null) return;
-    final clipboard = (
-      type: AssetFileType.page.name,
-      data: Uint8List.fromList(
+    writeClipboardData(
+      clipboardManager,
+      AssetFileType.page,
+      Uint8List.fromList(
         utf8.encode(
           json.encode(await DocumentPage(
                   content: _selected
@@ -437,7 +438,6 @@ class SelectHandler extends Handler<SelectTool> {
         ),
       ),
     );
-    clipboardManager.setContent(clipboard);
     _selected.clear();
     bloc.refresh();
   }
@@ -463,9 +463,8 @@ class SelectHandler extends Handler<SelectTool> {
           CallbackAction<DeleteCharacterIntent>(onInvoke: (intent) {
         final state = bloc.state;
         if (state is! DocumentLoadSuccess) return null;
-        context
-            .read<DocumentBloc>()
-            .add(ElementsRemoved(_selected.map((r) => r.element.id).toList()));
+        context.read<DocumentBloc>().add(ElementsRemoved(
+            _selected.map((r) => r.element.id).whereNotNull().toList()));
         _selected.clear();
         bloc.refresh();
         return null;

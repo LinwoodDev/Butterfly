@@ -29,7 +29,7 @@ sidebar_label: "常见问题"
 
 > [#244](https://github.com/LinwoodDev/Butterfly/issues/244)
 
-Butterfight可以在 iOS 上作为预览。 Click [here](https://docs.butterfly.linwood.dev/downloads/ios) to download it. 请参阅 [这里的](https://github.com/LinwoodDev/Butterfly/issues/244#issuecomment-1935460878) 为什么在App Store上不可用。
+Butterfight可以在 iOS 上作为预览。 Click [here](https://butterfly.linwood.dev/downloads/ios) to download it. 请参阅 [这里的](https://github.com/LinwoodDev/Butterfly/issues/244#issuecomment-1935460878) 为什么在App Store上不可用。
 
 ## 桌面
 

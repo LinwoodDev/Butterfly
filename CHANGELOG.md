@@ -2,6 +2,124 @@
 
 <!--ENTER CHANGELOG HERE-->
 
+## 2.1.0-rc.1 (2024-04-30)
+
+* Fix triangle rendering
+* Fix temporary tool won't be removed when using not configured input
+* Fix select all
+* Fix import error when using open with on android
+
+Read more here: https://linwood.dev/butterfly/2.1.0-rc.1
+
+## 2.1.0-rc.0 (2024-04-22)
+
+This is the 100th release 🎉
+
+* Add image background svg support
+* Add triangle to shape tool and add dialog ([#664](https://github.com/LinwoodDev/Butterfly/pull/664))
+* Add name field to create template dialog
+* Add button to invert selection in templates dialog
+* Add option to override tools for selected templates ([#613](https://github.com/LinwoodDev/Butterfly/issues/613))
+* Add intents to open zip, pdf and images with this app on android
+* Redesign templates dialog
+* Fix linux metainfo again
+* Fix label is not being created when unfocussing
+* Fix area preview rendering
+* Fix recent history not removed when deleting the document
+* Fix editable input not being updated
+* Fix baking when using smooth navigation
+* Fix locale displayed as system language if there is no translation for this
+* Fix missing translations for locales
+* Fix render background gets ignored ([#670](https://github.com/LinwoodDev/Butterfly/issues/670))
+* Remove old unused code
+
+Read more here: https://linwood.dev/butterfly/2.1.0-rc.0
+
+## 2.1.0-beta.5 (2024-04-08)
+
+* Add native clipboard ([#605](https://github.com/LinwoodDev/Butterfly/issues/605))
+* Add option to import zip archive
+* Allow using these tools as temporary tool ([#656](https://github.com/LinwoodDev/Butterfly/issues/656))
+  * Select
+  * Area
+  * Laser
+* Add small, tiny and compact toolbar size option
+* Add maximize and desktop density personalization setting
+* Allow pasting packs inside documents
+* Remove navigating to canvas view if no document was imported
+* Use correct remote for importing
+* Rename toolbar columns to rows
+* Change size of quickstart to be smaller
+* Change size of recent files card
+* Improve home page header to be more responsive
+* Improve size of add button
+* Force top instead of inline if multiple rows in toolbar
+* Fix linux metainfo again
+* Fix template infinite loading on initial load
+* Fix size of temporary tool and lock and tools button if toolbar columns count is bigger than 1
+* Fix snackbar will be shown twice when copying to clipboard in settings
+* Fix null check in area handler
+* Fix pen renderer doesn't use the real pressure value ([#650](https://github.com/LinwoodDev/Butterfly/issues/650))
+* Don't allow importing templates when document is opened
+
+* Use nightly flavor for nightly builds to allow installing both stable and nightly builds on the same device
+* Add architecture specific apk builds ([#657](https://github.com/LinwoodDev/Butterfly/issues/657))
+* Upgrade path rendering api
+
+Read more here: https://linwood.dev/butterfly/2.1.0-beta.5
+
+## 2.1.0-beta.4 (2024-04-01)
+
+* Add auto create areas functionality in areas navigator page
+* Add top toolbar setting that isn't integrated with the appbar
+* Add option to have multiple toolbar columns
+* Add multi columns for toolbar ([#589](https://github.com/LinwoodDev/Butterfly/issues/589))
+* Add pointer test to behavior settings
+* Change area enter and exit to the left of the area name in areas navigator page
+* Change current area on area click in areas navigator page if the current area is not the clicked area
+* Improve friction
+* Use percents for zoom in document properties
+* Readd drawing outside of window ([#521](https://github.com/LinwoodDev/Butterfly/pull/521))
+* Fix baking when animating smooth navigation
+* Fix eraser
+* Fix crash and size when loading pdf or big butterfly files ([#645](https://github.com/LinwoodDev/Butterfly/pull/645))
+* Fix toolbar size setting saving
+* Fix template dialog loading failed
+* Fix grid x position negation
+* Update linux appdata
+
+Read more here: https://linwood.dev/butterfly/2.1.0-beta.4
+
+## 2.1.0-beta.3 (2024-03-25)
+
+* Add support for renaming the current page
+* Add advance button in quickstart
+* Add setting for toolbar size ([#589](https://github.com/LinwoodDev/Butterfly/issues/589))
+* Add "Add all" to area export dialog ([#633](https://github.com/LinwoodDev/Butterfly/issues/633))
+* Add move left and right to area export dialog
+* Add page name to export pdf dialog details
+* Add support for multiple document pages in pdf export dialog
+* Add "Only current page" filter option to area selection dialog for pdf export dialog
+* Add tools to search results
+* Add shortcut (ctrl + k) to open search
+* Advance shape detection and add support for rectangle, triangle and circle ([#632](https://github.com/LinwoodDev/Butterfly/pull/632))
+* Add smooth scrolling behind a feature flag ([#86](https://github.com/LinwoodDev/Butterfly/issues/86))
+* Allow multiple selections in templates dialog
+* Improve pdf export dialog sizing of cards
+* Change identifier for elements from index to a key based id ([#528](https://github.com/LinwoodDev/Butterfly/issues/528))
+* Save document on undo/redo
+* Run events synchronously instead of asynchronously ([#528](https://github.com/LinwoodDev/Butterfly/issues/528))
+* Fix folder fetching in web
+* Fix problems when changing to the same page
+* Fix missing scrolling in export pdf select dialogs ([#633](https://github.com/LinwoodDev/Butterfly/issues/633))
+* Fix position on search results
+* Fix page icon in search results
+* Fix search to search document wide instead of only the current page
+* Upgrading major versions of many dependencies
+* Update android build configuration
+
+Read more here: https://linwood.dev/butterfly/2.1.0-beta.3
+
 ## 2.1.0-beta.2 (2024-03-11)
 
 * Add icons to sort dropdown items

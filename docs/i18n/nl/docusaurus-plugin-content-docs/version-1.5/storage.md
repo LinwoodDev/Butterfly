@@ -13,7 +13,7 @@ De applicatie slaat de gegevens op in de map documenten in een submap met de naa
 
 ## Externe opslag {#remote}
 
-:::note
+::note
 
 Deze functie is niet beschikbaar op het web.
 

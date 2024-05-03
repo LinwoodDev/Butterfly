@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:butterfly/api/full_screen.dart' as full_screen_api;
 import 'package:butterfly/api/file_system/file_system.dart';
+import 'package:butterfly/main.dart';
 import 'package:butterfly/widgets/window.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:collection/collection.dart';
@@ -32,17 +33,26 @@ const secureStorage = FlutterSecureStorage(
 const kRecentHistorySize = 5;
 
 enum ToolbarSize {
+  tiny,
+  small,
+  compact,
   normal,
   medium,
   large;
 
   String getLocalizedName(BuildContext context) => switch (this) {
+        ToolbarSize.tiny => AppLocalizations.of(context).tiny,
+        ToolbarSize.small => AppLocalizations.of(context).small,
+        ToolbarSize.compact => AppLocalizations.of(context).compact,
         ToolbarSize.normal => AppLocalizations.of(context).normal,
         ToolbarSize.medium => AppLocalizations.of(context).medium,
         ToolbarSize.large => AppLocalizations.of(context).large,
       };
 
   double get size => switch (this) {
+        ToolbarSize.tiny => 45,
+        ToolbarSize.small => 50,
+        ToolbarSize.compact => 55,
         ToolbarSize.normal => 60,
         ToolbarSize.medium => 65,
         ToolbarSize.large => 70,
@@ -306,12 +316,14 @@ enum SortOrder { ascending, descending }
 enum BannerVisibility { always, never, onlyOnUpdates }
 
 enum ToolbarPosition {
+  inline,
   top,
   bottom,
   left,
   right;
 
   String getLocalizedName(BuildContext context) => switch (this) {
+        ToolbarPosition.inline => AppLocalizations.of(context).inline,
         ToolbarPosition.top => AppLocalizations.of(context).top,
         ToolbarPosition.bottom => AppLocalizations.of(context).bottom,
         ToolbarPosition.left => AppLocalizations.of(context).left,
@@ -321,13 +333,14 @@ enum ToolbarPosition {
   Alignment get alignment => switch (this) {
         ToolbarPosition.left => Alignment.centerLeft,
         ToolbarPosition.right => Alignment.centerRight,
-        ToolbarPosition.top => Alignment.topCenter,
+        ToolbarPosition.top || ToolbarPosition.inline => Alignment.topCenter,
         ToolbarPosition.bottom => Alignment.bottomCenter,
       };
 
   Axis get axis => switch (this) {
         ToolbarPosition.left => Axis.vertical,
         ToolbarPosition.right => Axis.vertical,
+        ToolbarPosition.inline => Axis.horizontal,
         ToolbarPosition.top => Axis.horizontal,
         ToolbarPosition.bottom => Axis.horizontal,
       };
@@ -335,13 +348,19 @@ enum ToolbarPosition {
 
 enum ThemeDensity {
   system,
+  maximize,
+  desktop,
   compact,
   comfortable,
   standard;
 
   VisualDensity toFlutter() => switch (this) {
-        ThemeDensity.comfortable => VisualDensity.comfortable,
+        ThemeDensity.maximize =>
+          const VisualDensity(horizontal: -4, vertical: -4),
+        ThemeDensity.desktop =>
+          const VisualDensity(horizontal: -3, vertical: -3),
         ThemeDensity.compact => VisualDensity.compact,
+        ThemeDensity.comfortable => VisualDensity.comfortable,
         ThemeDensity.standard => VisualDensity.standard,
         ThemeDensity.system => VisualDensity.adaptivePlatformDensity,
       };
@@ -379,7 +398,7 @@ class ButterflySettings with _$ButterflySettings {
     @Default([]) List<String> starred,
     @Default('') String defaultTemplate,
     @Default(NavigatorPage.waypoints) NavigatorPage navigatorPage,
-    @Default(ToolbarPosition.top) ToolbarPosition toolbarPosition,
+    @Default(ToolbarPosition.inline) ToolbarPosition toolbarPosition,
     @Default(ToolbarSize.normal) ToolbarSize toolbarSize,
     @Default(SortBy.name) SortBy sortBy,
     @Default(SortOrder.ascending) SortOrder sortOrder,
@@ -392,6 +411,7 @@ class ButterflySettings with _$ButterflySettings {
     @Default(false) bool highContrast,
     @Default(false) bool gridView,
     @Default(true) bool autosave,
+    @Default(1) int toolbarRows,
   }) = _ButterflySettings;
 
   factory ButterflySettings.fromPrefs(
@@ -451,7 +471,7 @@ class ButterflySettings with _$ButterflySettings {
       defaultTemplate: prefs.getString('default_template') ?? '',
       toolbarPosition: prefs.containsKey('toolbar_position')
           ? ToolbarPosition.values.byName(prefs.getString('toolbar_position')!)
-          : ToolbarPosition.top,
+          : ToolbarPosition.inline,
       navigationRail: prefs.getBool('navigation_rail') ?? true,
       sortBy: prefs.containsKey('sort_by')
           ? SortBy.values.byName(prefs.getString('sort_by')!)
@@ -471,6 +491,10 @@ class ButterflySettings with _$ButterflySettings {
       highContrast: prefs.getBool('high_contrast') ?? false,
       gridView: prefs.getBool('grid_view') ?? false,
       autosave: prefs.getBool('autosave') ?? true,
+      toolbarSize: prefs.containsKey('toolbar_size')
+          ? ToolbarSize.values.byName(prefs.getString('toolbar_size')!)
+          : ToolbarSize.normal,
+      toolbarRows: prefs.getInt('toolbar_rows') ?? 1,
     );
   }
 
@@ -532,6 +556,8 @@ class ButterflySettings with _$ButterflySettings {
     await prefs.setBool('high_contrast', highContrast);
     await prefs.setBool('grid_view', gridView);
     await prefs.setBool('autosave', autosave);
+    await prefs.setString('toolbar_size', toolbarSize.name);
+    await prefs.setInt('toolbar_rows', toolbarRows);
   }
 
   ExternalStorage? getRemote(String? identifier) {
@@ -562,6 +588,8 @@ class ButterflySettings with _$ButterflySettings {
     }
     return getRemote(location.remote)?.starred.contains(location.path) ?? false;
   }
+
+  bool hasFlag(String s) => flags.contains(s) && isNightly;
 }
 
 class SettingsCubit extends Cubit<ButterflySettings> {
@@ -724,7 +752,9 @@ class SettingsCubit extends Cubit<ButterflySettings> {
 
   Future<void> removeRecentHistory(AssetLocation location) async {
     final history = state.history.toList();
-    history.remove(location);
+    history.removeWhere((element) =>
+        element.remote == location.remote &&
+        element.pathWithLeadingSlash.startsWith(location.pathWithLeadingSlash));
     emit(state.copyWith(history: history));
     return save();
   }
@@ -1038,4 +1068,11 @@ class SettingsCubit extends Cubit<ButterflySettings> {
   }
 
   Future<void> resetAutosave() => changeAutosave(true);
+
+  Future<void> changeToolbarRows(int value) {
+    emit(state.copyWith(toolbarRows: value));
+    return save();
+  }
+
+  Future<void> resetToolbarRows() => changeToolbarRows(1);
 }

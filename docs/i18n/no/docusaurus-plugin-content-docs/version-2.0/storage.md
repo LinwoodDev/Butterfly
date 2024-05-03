@@ -52,5 +52,5 @@ Det finnes noen begrensninger:
 ## Andre lagringsmetoder
 
 Hvis du er på en innebygd enhet, kan du også synkronisere programkatalogen med favorittplattformen din.
-Google drive har en offisiell app](https\://www\.google.com/drive/download/) på vinduer og det er uoffisielle onces i spillbutikken.
+Google drive har en offisiell app](https://www.google.com/drive/download/) på vinduer og det er uoffisielle onces i spillbutikken.
 På linux kan du også bruke det innebygde fjernlagringssystemet og endre datamappen din til denne eller legge til en ny ekstern lagring hvis du klikker på knappen Legg til tilkobling.

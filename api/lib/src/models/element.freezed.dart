@@ -877,14 +877,14 @@ mixin _$PadElement {
   double get rotation => throw _privateConstructorUsedError;
   String get layer => throw _privateConstructorUsedError;
   @IdJsonConverter()
-  String get id => throw _privateConstructorUsedError;
+  String? get id => throw _privateConstructorUsedError;
   Map<String, dynamic> get extra => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(
             double rotation,
             String layer,
-            @IdJsonConverter() String id,
+            @IdJsonConverter() String? id,
             double? zoom,
             List<PathPoint> points,
             PenProperty property,
@@ -893,7 +893,7 @@ mixin _$PadElement {
     required TResult Function(
             double rotation,
             String layer,
-            @IdJsonConverter() String id,
+            @IdJsonConverter() String? id,
             @DoublePointJsonConverter() Point<double> position,
             double scale,
             PackAssetLocation styleSheet,
@@ -905,7 +905,7 @@ mixin _$PadElement {
     required TResult Function(
             double rotation,
             String layer,
-            @IdJsonConverter() String id,
+            @IdJsonConverter() String? id,
             @DoublePointJsonConverter() Point<double> position,
             double scale,
             PackAssetLocation styleSheet,
@@ -918,7 +918,7 @@ mixin _$PadElement {
     required TResult Function(
             double rotation,
             String layer,
-            @IdJsonConverter() String id,
+            @IdJsonConverter() String? id,
             @DoublePointJsonConverter() Point<double> position,
             ElementConstraints? constraints,
             String source,
@@ -929,7 +929,7 @@ mixin _$PadElement {
     required TResult Function(
             double rotation,
             String layer,
-            @IdJsonConverter() String id,
+            @IdJsonConverter() String? id,
             @DoublePointJsonConverter() Point<double> position,
             ElementConstraints? constraints,
             String source,
@@ -940,7 +940,7 @@ mixin _$PadElement {
     required TResult Function(
             double rotation,
             String layer,
-            @IdJsonConverter() String id,
+            @IdJsonConverter() String? id,
             @DoublePointJsonConverter() Point<double> firstPosition,
             @DoublePointJsonConverter() Point<double> secondPosition,
             ShapeProperty property,
@@ -949,7 +949,7 @@ mixin _$PadElement {
     required TResult Function(
             double rotation,
             String layer,
-            @IdJsonConverter() String id,
+            @IdJsonConverter() String? id,
             SurfaceTexture texture,
             @DoublePointJsonConverter() Point<double> firstPosition,
             @DoublePointJsonConverter() Point<double> secondPosition,
@@ -962,7 +962,7 @@ mixin _$PadElement {
     TResult? Function(
             double rotation,
             String layer,
-            @IdJsonConverter() String id,
+            @IdJsonConverter() String? id,
             double? zoom,
             List<PathPoint> points,
             PenProperty property,
@@ -971,7 +971,7 @@ mixin _$PadElement {
     TResult? Function(
             double rotation,
             String layer,
-            @IdJsonConverter() String id,
+            @IdJsonConverter() String? id,
             @DoublePointJsonConverter() Point<double> position,
             double scale,
             PackAssetLocation styleSheet,
@@ -983,7 +983,7 @@ mixin _$PadElement {
     TResult? Function(
             double rotation,
             String layer,
-            @IdJsonConverter() String id,
+            @IdJsonConverter() String? id,
             @DoublePointJsonConverter() Point<double> position,
             double scale,
             PackAssetLocation styleSheet,
@@ -996,7 +996,7 @@ mixin _$PadElement {
     TResult? Function(
             double rotation,
             String layer,
-            @IdJsonConverter() String id,
+            @IdJsonConverter() String? id,
             @DoublePointJsonConverter() Point<double> position,
             ElementConstraints? constraints,
             String source,
@@ -1007,7 +1007,7 @@ mixin _$PadElement {
     TResult? Function(
             double rotation,
             String layer,
-            @IdJsonConverter() String id,
+            @IdJsonConverter() String? id,
             @DoublePointJsonConverter() Point<double> position,
             ElementConstraints? constraints,
             String source,
@@ -1018,7 +1018,7 @@ mixin _$PadElement {
     TResult? Function(
             double rotation,
             String layer,
-            @IdJsonConverter() String id,
+            @IdJsonConverter() String? id,
             @DoublePointJsonConverter() Point<double> firstPosition,
             @DoublePointJsonConverter() Point<double> secondPosition,
             ShapeProperty property,
@@ -1027,7 +1027,7 @@ mixin _$PadElement {
     TResult? Function(
             double rotation,
             String layer,
-            @IdJsonConverter() String id,
+            @IdJsonConverter() String? id,
             SurfaceTexture texture,
             @DoublePointJsonConverter() Point<double> firstPosition,
             @DoublePointJsonConverter() Point<double> secondPosition,
@@ -1040,7 +1040,7 @@ mixin _$PadElement {
     TResult Function(
             double rotation,
             String layer,
-            @IdJsonConverter() String id,
+            @IdJsonConverter() String? id,
             double? zoom,
             List<PathPoint> points,
             PenProperty property,
@@ -1049,7 +1049,7 @@ mixin _$PadElement {
     TResult Function(
             double rotation,
             String layer,
-            @IdJsonConverter() String id,
+            @IdJsonConverter() String? id,
             @DoublePointJsonConverter() Point<double> position,
             double scale,
             PackAssetLocation styleSheet,
@@ -1061,7 +1061,7 @@ mixin _$PadElement {
     TResult Function(
             double rotation,
             String layer,
-            @IdJsonConverter() String id,
+            @IdJsonConverter() String? id,
             @DoublePointJsonConverter() Point<double> position,
             double scale,
             PackAssetLocation styleSheet,
@@ -1074,7 +1074,7 @@ mixin _$PadElement {
     TResult Function(
             double rotation,
             String layer,
-            @IdJsonConverter() String id,
+            @IdJsonConverter() String? id,
             @DoublePointJsonConverter() Point<double> position,
             ElementConstraints? constraints,
             String source,
@@ -1085,7 +1085,7 @@ mixin _$PadElement {
     TResult Function(
             double rotation,
             String layer,
-            @IdJsonConverter() String id,
+            @IdJsonConverter() String? id,
             @DoublePointJsonConverter() Point<double> position,
             ElementConstraints? constraints,
             String source,
@@ -1096,7 +1096,7 @@ mixin _$PadElement {
     TResult Function(
             double rotation,
             String layer,
-            @IdJsonConverter() String id,
+            @IdJsonConverter() String? id,
             @DoublePointJsonConverter() Point<double> firstPosition,
             @DoublePointJsonConverter() Point<double> secondPosition,
             ShapeProperty property,
@@ -1105,7 +1105,7 @@ mixin _$PadElement {
     TResult Function(
             double rotation,
             String layer,
-            @IdJsonConverter() String id,
+            @IdJsonConverter() String? id,
             SurfaceTexture texture,
             @DoublePointJsonConverter() Point<double> firstPosition,
             @DoublePointJsonConverter() Point<double> secondPosition,
@@ -1163,7 +1163,7 @@ abstract class $PadElementCopyWith<$Res> {
   $Res call(
       {double rotation,
       String layer,
-      @IdJsonConverter() String id,
+      @IdJsonConverter() String? id,
       Map<String, dynamic> extra});
 }
 
@@ -1182,7 +1182,7 @@ class _$PadElementCopyWithImpl<$Res, $Val extends PadElement>
   $Res call({
     Object? rotation = null,
     Object? layer = null,
-    Object? id = null,
+    Object? id = freezed,
     Object? extra = null,
   }) {
     return _then(_value.copyWith(
@@ -1194,10 +1194,10 @@ class _$PadElementCopyWithImpl<$Res, $Val extends PadElement>
           ? _value.layer
           : layer // ignore: cast_nullable_to_non_nullable
               as String,
-      id: null == id
+      id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       extra: null == extra
           ? _value.extra
           : extra // ignore: cast_nullable_to_non_nullable
@@ -1217,7 +1217,7 @@ abstract class _$$PenElementImplCopyWith<$Res>
   $Res call(
       {double rotation,
       String layer,
-      @IdJsonConverter() String id,
+      @IdJsonConverter() String? id,
       double? zoom,
       List<PathPoint> points,
       PenProperty property,
@@ -1237,7 +1237,7 @@ class __$$PenElementImplCopyWithImpl<$Res>
   $Res call({
     Object? rotation = null,
     Object? layer = null,
-    Object? id = null,
+    Object? id = freezed,
     Object? zoom = freezed,
     Object? points = null,
     Object? property = freezed,
@@ -1252,10 +1252,10 @@ class __$$PenElementImplCopyWithImpl<$Res>
           ? _value.layer
           : layer // ignore: cast_nullable_to_non_nullable
               as String,
-      id: null == id
+      id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       zoom: freezed == zoom
           ? _value.zoom
           : zoom // ignore: cast_nullable_to_non_nullable
@@ -1282,7 +1282,7 @@ class _$PenElementImpl implements PenElement {
   _$PenElementImpl(
       {this.rotation = 0,
       this.layer = '',
-      @IdJsonConverter() this.id = '',
+      @IdJsonConverter() this.id,
       this.zoom,
       final List<PathPoint> points = const [],
       this.property = const PenProperty(),
@@ -1302,9 +1302,8 @@ class _$PenElementImpl implements PenElement {
   @JsonKey()
   final String layer;
   @override
-  @JsonKey()
   @IdJsonConverter()
-  final String id;
+  final String? id;
   @override
   final double? zoom;
   final List<PathPoint> _points;
@@ -1348,7 +1347,7 @@ class _$PenElementImpl implements PenElement {
     required TResult Function(
             double rotation,
             String layer,
-            @IdJsonConverter() String id,
+            @IdJsonConverter() String? id,
             double? zoom,
             List<PathPoint> points,
             PenProperty property,
@@ -1357,7 +1356,7 @@ class _$PenElementImpl implements PenElement {
     required TResult Function(
             double rotation,
             String layer,
-            @IdJsonConverter() String id,
+            @IdJsonConverter() String? id,
             @DoublePointJsonConverter() Point<double> position,
             double scale,
             PackAssetLocation styleSheet,
@@ -1369,7 +1368,7 @@ class _$PenElementImpl implements PenElement {
     required TResult Function(
             double rotation,
             String layer,
-            @IdJsonConverter() String id,
+            @IdJsonConverter() String? id,
             @DoublePointJsonConverter() Point<double> position,
             double scale,
             PackAssetLocation styleSheet,
@@ -1382,7 +1381,7 @@ class _$PenElementImpl implements PenElement {
     required TResult Function(
             double rotation,
             String layer,
-            @IdJsonConverter() String id,
+            @IdJsonConverter() String? id,
             @DoublePointJsonConverter() Point<double> position,
             ElementConstraints? constraints,
             String source,
@@ -1393,7 +1392,7 @@ class _$PenElementImpl implements PenElement {
     required TResult Function(
             double rotation,
             String layer,
-            @IdJsonConverter() String id,
+            @IdJsonConverter() String? id,
             @DoublePointJsonConverter() Point<double> position,
             ElementConstraints? constraints,
             String source,
@@ -1404,7 +1403,7 @@ class _$PenElementImpl implements PenElement {
     required TResult Function(
             double rotation,
             String layer,
-            @IdJsonConverter() String id,
+            @IdJsonConverter() String? id,
             @DoublePointJsonConverter() Point<double> firstPosition,
             @DoublePointJsonConverter() Point<double> secondPosition,
             ShapeProperty property,
@@ -1413,7 +1412,7 @@ class _$PenElementImpl implements PenElement {
     required TResult Function(
             double rotation,
             String layer,
-            @IdJsonConverter() String id,
+            @IdJsonConverter() String? id,
             SurfaceTexture texture,
             @DoublePointJsonConverter() Point<double> firstPosition,
             @DoublePointJsonConverter() Point<double> secondPosition,
@@ -1429,7 +1428,7 @@ class _$PenElementImpl implements PenElement {
     TResult? Function(
             double rotation,
             String layer,
-            @IdJsonConverter() String id,
+            @IdJsonConverter() String? id,
             double? zoom,
             List<PathPoint> points,
             PenProperty property,
@@ -1438,7 +1437,7 @@ class _$PenElementImpl implements PenElement {
     TResult? Function(
             double rotation,
             String layer,
-            @IdJsonConverter() String id,
+            @IdJsonConverter() String? id,
             @DoublePointJsonConverter() Point<double> position,
             double scale,
             PackAssetLocation styleSheet,
@@ -1450,7 +1449,7 @@ class _$PenElementImpl implements PenElement {
     TResult? Function(
             double rotation,
             String layer,
-            @IdJsonConverter() String id,
+            @IdJsonConverter() String? id,
             @DoublePointJsonConverter() Point<double> position,
             double scale,
             PackAssetLocation styleSheet,
@@ -1463,7 +1462,7 @@ class _$PenElementImpl implements PenElement {
     TResult? Function(
             double rotation,
             String layer,
-            @IdJsonConverter() String id,
+            @IdJsonConverter() String? id,
             @DoublePointJsonConverter() Point<double> position,
             ElementConstraints? constraints,
             String source,
@@ -1474,7 +1473,7 @@ class _$PenElementImpl implements PenElement {
     TResult? Function(
             double rotation,
             String layer,
-            @IdJsonConverter() String id,
+            @IdJsonConverter() String? id,
             @DoublePointJsonConverter() Point<double> position,
             ElementConstraints? constraints,
             String source,
@@ -1485,7 +1484,7 @@ class _$PenElementImpl implements PenElement {
     TResult? Function(
             double rotation,
             String layer,
-            @IdJsonConverter() String id,
+            @IdJsonConverter() String? id,
             @DoublePointJsonConverter() Point<double> firstPosition,
             @DoublePointJsonConverter() Point<double> secondPosition,
             ShapeProperty property,
@@ -1494,7 +1493,7 @@ class _$PenElementImpl implements PenElement {
     TResult? Function(
             double rotation,
             String layer,
-            @IdJsonConverter() String id,
+            @IdJsonConverter() String? id,
             SurfaceTexture texture,
             @DoublePointJsonConverter() Point<double> firstPosition,
             @DoublePointJsonConverter() Point<double> secondPosition,
@@ -1510,7 +1509,7 @@ class _$PenElementImpl implements PenElement {
     TResult Function(
             double rotation,
             String layer,
-            @IdJsonConverter() String id,
+            @IdJsonConverter() String? id,
             double? zoom,
             List<PathPoint> points,
             PenProperty property,
@@ -1519,7 +1518,7 @@ class _$PenElementImpl implements PenElement {
     TResult Function(
             double rotation,
             String layer,
-            @IdJsonConverter() String id,
+            @IdJsonConverter() String? id,
             @DoublePointJsonConverter() Point<double> position,
             double scale,
             PackAssetLocation styleSheet,
@@ -1531,7 +1530,7 @@ class _$PenElementImpl implements PenElement {
     TResult Function(
             double rotation,
             String layer,
-            @IdJsonConverter() String id,
+            @IdJsonConverter() String? id,
             @DoublePointJsonConverter() Point<double> position,
             double scale,
             PackAssetLocation styleSheet,
@@ -1544,7 +1543,7 @@ class _$PenElementImpl implements PenElement {
     TResult Function(
             double rotation,
             String layer,
-            @IdJsonConverter() String id,
+            @IdJsonConverter() String? id,
             @DoublePointJsonConverter() Point<double> position,
             ElementConstraints? constraints,
             String source,
@@ -1555,7 +1554,7 @@ class _$PenElementImpl implements PenElement {
     TResult Function(
             double rotation,
             String layer,
-            @IdJsonConverter() String id,
+            @IdJsonConverter() String? id,
             @DoublePointJsonConverter() Point<double> position,
             ElementConstraints? constraints,
             String source,
@@ -1566,7 +1565,7 @@ class _$PenElementImpl implements PenElement {
     TResult Function(
             double rotation,
             String layer,
-            @IdJsonConverter() String id,
+            @IdJsonConverter() String? id,
             @DoublePointJsonConverter() Point<double> firstPosition,
             @DoublePointJsonConverter() Point<double> secondPosition,
             ShapeProperty property,
@@ -1575,7 +1574,7 @@ class _$PenElementImpl implements PenElement {
     TResult Function(
             double rotation,
             String layer,
-            @IdJsonConverter() String id,
+            @IdJsonConverter() String? id,
             SurfaceTexture texture,
             @DoublePointJsonConverter() Point<double> firstPosition,
             @DoublePointJsonConverter() Point<double> secondPosition,
@@ -1647,7 +1646,7 @@ abstract class PenElement implements PadElement, PathElement {
   factory PenElement(
       {final double rotation,
       final String layer,
-      @IdJsonConverter() final String id,
+      @IdJsonConverter() final String? id,
       final double? zoom,
       final List<PathPoint> points,
       final PenProperty property,
@@ -1662,7 +1661,7 @@ abstract class PenElement implements PadElement, PathElement {
   String get layer;
   @override
   @IdJsonConverter()
-  String get id;
+  String? get id;
   double? get zoom;
   List<PathPoint> get points;
   PenProperty get property;
@@ -1685,7 +1684,7 @@ abstract class _$$TextElementImplCopyWith<$Res>
   $Res call(
       {double rotation,
       String layer,
-      @IdJsonConverter() String id,
+      @IdJsonConverter() String? id,
       @DoublePointJsonConverter() Point<double> position,
       double scale,
       PackAssetLocation styleSheet,
@@ -1712,7 +1711,7 @@ class __$$TextElementImplCopyWithImpl<$Res>
   $Res call({
     Object? rotation = null,
     Object? layer = null,
-    Object? id = null,
+    Object? id = freezed,
     Object? position = null,
     Object? scale = null,
     Object? styleSheet = null,
@@ -1730,10 +1729,10 @@ class __$$TextElementImplCopyWithImpl<$Res>
           ? _value.layer
           : layer // ignore: cast_nullable_to_non_nullable
               as String,
-      id: null == id
+      id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       position: null == position
           ? _value.position
           : position // ignore: cast_nullable_to_non_nullable
@@ -1796,7 +1795,7 @@ class _$TextElementImpl with LabelElement implements TextElement {
   _$TextElementImpl(
       {this.rotation = 0,
       this.layer = '',
-      @IdJsonConverter() this.id = '',
+      @IdJsonConverter() this.id,
       @DoublePointJsonConverter() this.position = const Point(0.0, 0.0),
       this.scale = 1.0,
       this.styleSheet = const PackAssetLocation(),
@@ -1818,9 +1817,8 @@ class _$TextElementImpl with LabelElement implements TextElement {
   @JsonKey()
   final String layer;
   @override
-  @JsonKey()
   @IdJsonConverter()
-  final String id;
+  final String? id;
   @override
   @JsonKey()
   @DoublePointJsonConverter()
@@ -1868,7 +1866,7 @@ class _$TextElementImpl with LabelElement implements TextElement {
     required TResult Function(
             double rotation,
             String layer,
-            @IdJsonConverter() String id,
+            @IdJsonConverter() String? id,
             double? zoom,
             List<PathPoint> points,
             PenProperty property,
@@ -1877,7 +1875,7 @@ class _$TextElementImpl with LabelElement implements TextElement {
     required TResult Function(
             double rotation,
             String layer,
-            @IdJsonConverter() String id,
+            @IdJsonConverter() String? id,
             @DoublePointJsonConverter() Point<double> position,
             double scale,
             PackAssetLocation styleSheet,
@@ -1889,7 +1887,7 @@ class _$TextElementImpl with LabelElement implements TextElement {
     required TResult Function(
             double rotation,
             String layer,
-            @IdJsonConverter() String id,
+            @IdJsonConverter() String? id,
             @DoublePointJsonConverter() Point<double> position,
             double scale,
             PackAssetLocation styleSheet,
@@ -1902,7 +1900,7 @@ class _$TextElementImpl with LabelElement implements TextElement {
     required TResult Function(
             double rotation,
             String layer,
-            @IdJsonConverter() String id,
+            @IdJsonConverter() String? id,
             @DoublePointJsonConverter() Point<double> position,
             ElementConstraints? constraints,
             String source,
@@ -1913,7 +1911,7 @@ class _$TextElementImpl with LabelElement implements TextElement {
     required TResult Function(
             double rotation,
             String layer,
-            @IdJsonConverter() String id,
+            @IdJsonConverter() String? id,
             @DoublePointJsonConverter() Point<double> position,
             ElementConstraints? constraints,
             String source,
@@ -1924,7 +1922,7 @@ class _$TextElementImpl with LabelElement implements TextElement {
     required TResult Function(
             double rotation,
             String layer,
-            @IdJsonConverter() String id,
+            @IdJsonConverter() String? id,
             @DoublePointJsonConverter() Point<double> firstPosition,
             @DoublePointJsonConverter() Point<double> secondPosition,
             ShapeProperty property,
@@ -1933,7 +1931,7 @@ class _$TextElementImpl with LabelElement implements TextElement {
     required TResult Function(
             double rotation,
             String layer,
-            @IdJsonConverter() String id,
+            @IdJsonConverter() String? id,
             SurfaceTexture texture,
             @DoublePointJsonConverter() Point<double> firstPosition,
             @DoublePointJsonConverter() Point<double> secondPosition,
@@ -1950,7 +1948,7 @@ class _$TextElementImpl with LabelElement implements TextElement {
     TResult? Function(
             double rotation,
             String layer,
-            @IdJsonConverter() String id,
+            @IdJsonConverter() String? id,
             double? zoom,
             List<PathPoint> points,
             PenProperty property,
@@ -1959,7 +1957,7 @@ class _$TextElementImpl with LabelElement implements TextElement {
     TResult? Function(
             double rotation,
             String layer,
-            @IdJsonConverter() String id,
+            @IdJsonConverter() String? id,
             @DoublePointJsonConverter() Point<double> position,
             double scale,
             PackAssetLocation styleSheet,
@@ -1971,7 +1969,7 @@ class _$TextElementImpl with LabelElement implements TextElement {
     TResult? Function(
             double rotation,
             String layer,
-            @IdJsonConverter() String id,
+            @IdJsonConverter() String? id,
             @DoublePointJsonConverter() Point<double> position,
             double scale,
             PackAssetLocation styleSheet,
@@ -1984,7 +1982,7 @@ class _$TextElementImpl with LabelElement implements TextElement {
     TResult? Function(
             double rotation,
             String layer,
-            @IdJsonConverter() String id,
+            @IdJsonConverter() String? id,
             @DoublePointJsonConverter() Point<double> position,
             ElementConstraints? constraints,
             String source,
@@ -1995,7 +1993,7 @@ class _$TextElementImpl with LabelElement implements TextElement {
     TResult? Function(
             double rotation,
             String layer,
-            @IdJsonConverter() String id,
+            @IdJsonConverter() String? id,
             @DoublePointJsonConverter() Point<double> position,
             ElementConstraints? constraints,
             String source,
@@ -2006,7 +2004,7 @@ class _$TextElementImpl with LabelElement implements TextElement {
     TResult? Function(
             double rotation,
             String layer,
-            @IdJsonConverter() String id,
+            @IdJsonConverter() String? id,
             @DoublePointJsonConverter() Point<double> firstPosition,
             @DoublePointJsonConverter() Point<double> secondPosition,
             ShapeProperty property,
@@ -2015,7 +2013,7 @@ class _$TextElementImpl with LabelElement implements TextElement {
     TResult? Function(
             double rotation,
             String layer,
-            @IdJsonConverter() String id,
+            @IdJsonConverter() String? id,
             SurfaceTexture texture,
             @DoublePointJsonConverter() Point<double> firstPosition,
             @DoublePointJsonConverter() Point<double> secondPosition,
@@ -2032,7 +2030,7 @@ class _$TextElementImpl with LabelElement implements TextElement {
     TResult Function(
             double rotation,
             String layer,
-            @IdJsonConverter() String id,
+            @IdJsonConverter() String? id,
             double? zoom,
             List<PathPoint> points,
             PenProperty property,
@@ -2041,7 +2039,7 @@ class _$TextElementImpl with LabelElement implements TextElement {
     TResult Function(
             double rotation,
             String layer,
-            @IdJsonConverter() String id,
+            @IdJsonConverter() String? id,
             @DoublePointJsonConverter() Point<double> position,
             double scale,
             PackAssetLocation styleSheet,
@@ -2053,7 +2051,7 @@ class _$TextElementImpl with LabelElement implements TextElement {
     TResult Function(
             double rotation,
             String layer,
-            @IdJsonConverter() String id,
+            @IdJsonConverter() String? id,
             @DoublePointJsonConverter() Point<double> position,
             double scale,
             PackAssetLocation styleSheet,
@@ -2066,7 +2064,7 @@ class _$TextElementImpl with LabelElement implements TextElement {
     TResult Function(
             double rotation,
             String layer,
-            @IdJsonConverter() String id,
+            @IdJsonConverter() String? id,
             @DoublePointJsonConverter() Point<double> position,
             ElementConstraints? constraints,
             String source,
@@ -2077,7 +2075,7 @@ class _$TextElementImpl with LabelElement implements TextElement {
     TResult Function(
             double rotation,
             String layer,
-            @IdJsonConverter() String id,
+            @IdJsonConverter() String? id,
             @DoublePointJsonConverter() Point<double> position,
             ElementConstraints? constraints,
             String source,
@@ -2088,7 +2086,7 @@ class _$TextElementImpl with LabelElement implements TextElement {
     TResult Function(
             double rotation,
             String layer,
-            @IdJsonConverter() String id,
+            @IdJsonConverter() String? id,
             @DoublePointJsonConverter() Point<double> firstPosition,
             @DoublePointJsonConverter() Point<double> secondPosition,
             ShapeProperty property,
@@ -2097,7 +2095,7 @@ class _$TextElementImpl with LabelElement implements TextElement {
     TResult Function(
             double rotation,
             String layer,
-            @IdJsonConverter() String id,
+            @IdJsonConverter() String? id,
             SurfaceTexture texture,
             @DoublePointJsonConverter() Point<double> firstPosition,
             @DoublePointJsonConverter() Point<double> secondPosition,
@@ -2170,7 +2168,7 @@ abstract class TextElement implements PadElement, LabelElement {
   factory TextElement(
       {final double rotation,
       final String layer,
-      @IdJsonConverter() final String id,
+      @IdJsonConverter() final String? id,
       @DoublePointJsonConverter() final Point<double> position,
       final double scale,
       final PackAssetLocation styleSheet,
@@ -2188,7 +2186,7 @@ abstract class TextElement implements PadElement, LabelElement {
   String get layer;
   @override
   @IdJsonConverter()
-  String get id;
+  String? get id;
   @DoublePointJsonConverter()
   Point<double> get position;
   double get scale;
@@ -2215,7 +2213,7 @@ abstract class _$$MarkdownElementImplCopyWith<$Res>
   $Res call(
       {double rotation,
       String layer,
-      @IdJsonConverter() String id,
+      @IdJsonConverter() String? id,
       @DoublePointJsonConverter() Point<double> position,
       double scale,
       PackAssetLocation styleSheet,
@@ -2243,7 +2241,7 @@ class __$$MarkdownElementImplCopyWithImpl<$Res>
   $Res call({
     Object? rotation = null,
     Object? layer = null,
-    Object? id = null,
+    Object? id = freezed,
     Object? position = null,
     Object? scale = null,
     Object? styleSheet = null,
@@ -2262,10 +2260,10 @@ class __$$MarkdownElementImplCopyWithImpl<$Res>
           ? _value.layer
           : layer // ignore: cast_nullable_to_non_nullable
               as String,
-      id: null == id
+      id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       position: null == position
           ? _value.position
           : position // ignore: cast_nullable_to_non_nullable
@@ -2332,7 +2330,7 @@ class _$MarkdownElementImpl with LabelElement implements MarkdownElement {
   _$MarkdownElementImpl(
       {this.rotation = 0,
       this.layer = '',
-      @IdJsonConverter() this.id = '',
+      @IdJsonConverter() this.id,
       @DoublePointJsonConverter() this.position = const Point(0.0, 0.0),
       this.scale = 1.0,
       this.styleSheet = const PackAssetLocation(),
@@ -2355,9 +2353,8 @@ class _$MarkdownElementImpl with LabelElement implements MarkdownElement {
   @JsonKey()
   final String layer;
   @override
-  @JsonKey()
   @IdJsonConverter()
-  final String id;
+  final String? id;
   @override
   @JsonKey()
   @DoublePointJsonConverter()
@@ -2409,7 +2406,7 @@ class _$MarkdownElementImpl with LabelElement implements MarkdownElement {
     required TResult Function(
             double rotation,
             String layer,
-            @IdJsonConverter() String id,
+            @IdJsonConverter() String? id,
             double? zoom,
             List<PathPoint> points,
             PenProperty property,
@@ -2418,7 +2415,7 @@ class _$MarkdownElementImpl with LabelElement implements MarkdownElement {
     required TResult Function(
             double rotation,
             String layer,
-            @IdJsonConverter() String id,
+            @IdJsonConverter() String? id,
             @DoublePointJsonConverter() Point<double> position,
             double scale,
             PackAssetLocation styleSheet,
@@ -2430,7 +2427,7 @@ class _$MarkdownElementImpl with LabelElement implements MarkdownElement {
     required TResult Function(
             double rotation,
             String layer,
-            @IdJsonConverter() String id,
+            @IdJsonConverter() String? id,
             @DoublePointJsonConverter() Point<double> position,
             double scale,
             PackAssetLocation styleSheet,
@@ -2443,7 +2440,7 @@ class _$MarkdownElementImpl with LabelElement implements MarkdownElement {
     required TResult Function(
             double rotation,
             String layer,
-            @IdJsonConverter() String id,
+            @IdJsonConverter() String? id,
             @DoublePointJsonConverter() Point<double> position,
             ElementConstraints? constraints,
             String source,
@@ -2454,7 +2451,7 @@ class _$MarkdownElementImpl with LabelElement implements MarkdownElement {
     required TResult Function(
             double rotation,
             String layer,
-            @IdJsonConverter() String id,
+            @IdJsonConverter() String? id,
             @DoublePointJsonConverter() Point<double> position,
             ElementConstraints? constraints,
             String source,
@@ -2465,7 +2462,7 @@ class _$MarkdownElementImpl with LabelElement implements MarkdownElement {
     required TResult Function(
             double rotation,
             String layer,
-            @IdJsonConverter() String id,
+            @IdJsonConverter() String? id,
             @DoublePointJsonConverter() Point<double> firstPosition,
             @DoublePointJsonConverter() Point<double> secondPosition,
             ShapeProperty property,
@@ -2474,7 +2471,7 @@ class _$MarkdownElementImpl with LabelElement implements MarkdownElement {
     required TResult Function(
             double rotation,
             String layer,
-            @IdJsonConverter() String id,
+            @IdJsonConverter() String? id,
             SurfaceTexture texture,
             @DoublePointJsonConverter() Point<double> firstPosition,
             @DoublePointJsonConverter() Point<double> secondPosition,
@@ -2491,7 +2488,7 @@ class _$MarkdownElementImpl with LabelElement implements MarkdownElement {
     TResult? Function(
             double rotation,
             String layer,
-            @IdJsonConverter() String id,
+            @IdJsonConverter() String? id,
             double? zoom,
             List<PathPoint> points,
             PenProperty property,
@@ -2500,7 +2497,7 @@ class _$MarkdownElementImpl with LabelElement implements MarkdownElement {
     TResult? Function(
             double rotation,
             String layer,
-            @IdJsonConverter() String id,
+            @IdJsonConverter() String? id,
             @DoublePointJsonConverter() Point<double> position,
             double scale,
             PackAssetLocation styleSheet,
@@ -2512,7 +2509,7 @@ class _$MarkdownElementImpl with LabelElement implements MarkdownElement {
     TResult? Function(
             double rotation,
             String layer,
-            @IdJsonConverter() String id,
+            @IdJsonConverter() String? id,
             @DoublePointJsonConverter() Point<double> position,
             double scale,
             PackAssetLocation styleSheet,
@@ -2525,7 +2522,7 @@ class _$MarkdownElementImpl with LabelElement implements MarkdownElement {
     TResult? Function(
             double rotation,
             String layer,
-            @IdJsonConverter() String id,
+            @IdJsonConverter() String? id,
             @DoublePointJsonConverter() Point<double> position,
             ElementConstraints? constraints,
             String source,
@@ -2536,7 +2533,7 @@ class _$MarkdownElementImpl with LabelElement implements MarkdownElement {
     TResult? Function(
             double rotation,
             String layer,
-            @IdJsonConverter() String id,
+            @IdJsonConverter() String? id,
             @DoublePointJsonConverter() Point<double> position,
             ElementConstraints? constraints,
             String source,
@@ -2547,7 +2544,7 @@ class _$MarkdownElementImpl with LabelElement implements MarkdownElement {
     TResult? Function(
             double rotation,
             String layer,
-            @IdJsonConverter() String id,
+            @IdJsonConverter() String? id,
             @DoublePointJsonConverter() Point<double> firstPosition,
             @DoublePointJsonConverter() Point<double> secondPosition,
             ShapeProperty property,
@@ -2556,7 +2553,7 @@ class _$MarkdownElementImpl with LabelElement implements MarkdownElement {
     TResult? Function(
             double rotation,
             String layer,
-            @IdJsonConverter() String id,
+            @IdJsonConverter() String? id,
             SurfaceTexture texture,
             @DoublePointJsonConverter() Point<double> firstPosition,
             @DoublePointJsonConverter() Point<double> secondPosition,
@@ -2573,7 +2570,7 @@ class _$MarkdownElementImpl with LabelElement implements MarkdownElement {
     TResult Function(
             double rotation,
             String layer,
-            @IdJsonConverter() String id,
+            @IdJsonConverter() String? id,
             double? zoom,
             List<PathPoint> points,
             PenProperty property,
@@ -2582,7 +2579,7 @@ class _$MarkdownElementImpl with LabelElement implements MarkdownElement {
     TResult Function(
             double rotation,
             String layer,
-            @IdJsonConverter() String id,
+            @IdJsonConverter() String? id,
             @DoublePointJsonConverter() Point<double> position,
             double scale,
             PackAssetLocation styleSheet,
@@ -2594,7 +2591,7 @@ class _$MarkdownElementImpl with LabelElement implements MarkdownElement {
     TResult Function(
             double rotation,
             String layer,
-            @IdJsonConverter() String id,
+            @IdJsonConverter() String? id,
             @DoublePointJsonConverter() Point<double> position,
             double scale,
             PackAssetLocation styleSheet,
@@ -2607,7 +2604,7 @@ class _$MarkdownElementImpl with LabelElement implements MarkdownElement {
     TResult Function(
             double rotation,
             String layer,
-            @IdJsonConverter() String id,
+            @IdJsonConverter() String? id,
             @DoublePointJsonConverter() Point<double> position,
             ElementConstraints? constraints,
             String source,
@@ -2618,7 +2615,7 @@ class _$MarkdownElementImpl with LabelElement implements MarkdownElement {
     TResult Function(
             double rotation,
             String layer,
-            @IdJsonConverter() String id,
+            @IdJsonConverter() String? id,
             @DoublePointJsonConverter() Point<double> position,
             ElementConstraints? constraints,
             String source,
@@ -2629,7 +2626,7 @@ class _$MarkdownElementImpl with LabelElement implements MarkdownElement {
     TResult Function(
             double rotation,
             String layer,
-            @IdJsonConverter() String id,
+            @IdJsonConverter() String? id,
             @DoublePointJsonConverter() Point<double> firstPosition,
             @DoublePointJsonConverter() Point<double> secondPosition,
             ShapeProperty property,
@@ -2638,7 +2635,7 @@ class _$MarkdownElementImpl with LabelElement implements MarkdownElement {
     TResult Function(
             double rotation,
             String layer,
-            @IdJsonConverter() String id,
+            @IdJsonConverter() String? id,
             SurfaceTexture texture,
             @DoublePointJsonConverter() Point<double> firstPosition,
             @DoublePointJsonConverter() Point<double> secondPosition,
@@ -2711,7 +2708,7 @@ abstract class MarkdownElement implements PadElement, LabelElement {
   factory MarkdownElement(
       {final double rotation,
       final String layer,
-      @IdJsonConverter() final String id,
+      @IdJsonConverter() final String? id,
       @DoublePointJsonConverter() final Point<double> position,
       final double scale,
       final PackAssetLocation styleSheet,
@@ -2730,7 +2727,7 @@ abstract class MarkdownElement implements PadElement, LabelElement {
   String get layer;
   @override
   @IdJsonConverter()
-  String get id;
+  String? get id;
   @DoublePointJsonConverter()
   Point<double> get position;
   double get scale;
@@ -2758,7 +2755,7 @@ abstract class _$$ImageElementImplCopyWith<$Res>
   $Res call(
       {double rotation,
       String layer,
-      @IdJsonConverter() String id,
+      @IdJsonConverter() String? id,
       @DoublePointJsonConverter() Point<double> position,
       ElementConstraints? constraints,
       String source,
@@ -2782,7 +2779,7 @@ class __$$ImageElementImplCopyWithImpl<$Res>
   $Res call({
     Object? rotation = null,
     Object? layer = null,
-    Object? id = null,
+    Object? id = freezed,
     Object? position = null,
     Object? constraints = freezed,
     Object? source = null,
@@ -2799,10 +2796,10 @@ class __$$ImageElementImplCopyWithImpl<$Res>
           ? _value.layer
           : layer // ignore: cast_nullable_to_non_nullable
               as String,
-      id: null == id
+      id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       position: null == position
           ? _value.position
           : position // ignore: cast_nullable_to_non_nullable
@@ -2849,7 +2846,7 @@ class _$ImageElementImpl implements ImageElement {
   _$ImageElementImpl(
       {this.rotation = 0,
       this.layer = '',
-      @IdJsonConverter() this.id = '',
+      @IdJsonConverter() this.id,
       @DoublePointJsonConverter() this.position = const Point(0.0, 0.0),
       this.constraints = const ScaledElementConstraints(scaleX: 1, scaleY: 1),
       required this.source,
@@ -2870,9 +2867,8 @@ class _$ImageElementImpl implements ImageElement {
   @JsonKey()
   final String layer;
   @override
-  @JsonKey()
   @IdJsonConverter()
-  final String id;
+  final String? id;
   @override
   @JsonKey()
   @DoublePointJsonConverter()
@@ -2915,7 +2911,7 @@ class _$ImageElementImpl implements ImageElement {
     required TResult Function(
             double rotation,
             String layer,
-            @IdJsonConverter() String id,
+            @IdJsonConverter() String? id,
             double? zoom,
             List<PathPoint> points,
             PenProperty property,
@@ -2924,7 +2920,7 @@ class _$ImageElementImpl implements ImageElement {
     required TResult Function(
             double rotation,
             String layer,
-            @IdJsonConverter() String id,
+            @IdJsonConverter() String? id,
             @DoublePointJsonConverter() Point<double> position,
             double scale,
             PackAssetLocation styleSheet,
@@ -2936,7 +2932,7 @@ class _$ImageElementImpl implements ImageElement {
     required TResult Function(
             double rotation,
             String layer,
-            @IdJsonConverter() String id,
+            @IdJsonConverter() String? id,
             @DoublePointJsonConverter() Point<double> position,
             double scale,
             PackAssetLocation styleSheet,
@@ -2949,7 +2945,7 @@ class _$ImageElementImpl implements ImageElement {
     required TResult Function(
             double rotation,
             String layer,
-            @IdJsonConverter() String id,
+            @IdJsonConverter() String? id,
             @DoublePointJsonConverter() Point<double> position,
             ElementConstraints? constraints,
             String source,
@@ -2960,7 +2956,7 @@ class _$ImageElementImpl implements ImageElement {
     required TResult Function(
             double rotation,
             String layer,
-            @IdJsonConverter() String id,
+            @IdJsonConverter() String? id,
             @DoublePointJsonConverter() Point<double> position,
             ElementConstraints? constraints,
             String source,
@@ -2971,7 +2967,7 @@ class _$ImageElementImpl implements ImageElement {
     required TResult Function(
             double rotation,
             String layer,
-            @IdJsonConverter() String id,
+            @IdJsonConverter() String? id,
             @DoublePointJsonConverter() Point<double> firstPosition,
             @DoublePointJsonConverter() Point<double> secondPosition,
             ShapeProperty property,
@@ -2980,7 +2976,7 @@ class _$ImageElementImpl implements ImageElement {
     required TResult Function(
             double rotation,
             String layer,
-            @IdJsonConverter() String id,
+            @IdJsonConverter() String? id,
             SurfaceTexture texture,
             @DoublePointJsonConverter() Point<double> firstPosition,
             @DoublePointJsonConverter() Point<double> secondPosition,
@@ -2997,7 +2993,7 @@ class _$ImageElementImpl implements ImageElement {
     TResult? Function(
             double rotation,
             String layer,
-            @IdJsonConverter() String id,
+            @IdJsonConverter() String? id,
             double? zoom,
             List<PathPoint> points,
             PenProperty property,
@@ -3006,7 +3002,7 @@ class _$ImageElementImpl implements ImageElement {
     TResult? Function(
             double rotation,
             String layer,
-            @IdJsonConverter() String id,
+            @IdJsonConverter() String? id,
             @DoublePointJsonConverter() Point<double> position,
             double scale,
             PackAssetLocation styleSheet,
@@ -3018,7 +3014,7 @@ class _$ImageElementImpl implements ImageElement {
     TResult? Function(
             double rotation,
             String layer,
-            @IdJsonConverter() String id,
+            @IdJsonConverter() String? id,
             @DoublePointJsonConverter() Point<double> position,
             double scale,
             PackAssetLocation styleSheet,
@@ -3031,7 +3027,7 @@ class _$ImageElementImpl implements ImageElement {
     TResult? Function(
             double rotation,
             String layer,
-            @IdJsonConverter() String id,
+            @IdJsonConverter() String? id,
             @DoublePointJsonConverter() Point<double> position,
             ElementConstraints? constraints,
             String source,
@@ -3042,7 +3038,7 @@ class _$ImageElementImpl implements ImageElement {
     TResult? Function(
             double rotation,
             String layer,
-            @IdJsonConverter() String id,
+            @IdJsonConverter() String? id,
             @DoublePointJsonConverter() Point<double> position,
             ElementConstraints? constraints,
             String source,
@@ -3053,7 +3049,7 @@ class _$ImageElementImpl implements ImageElement {
     TResult? Function(
             double rotation,
             String layer,
-            @IdJsonConverter() String id,
+            @IdJsonConverter() String? id,
             @DoublePointJsonConverter() Point<double> firstPosition,
             @DoublePointJsonConverter() Point<double> secondPosition,
             ShapeProperty property,
@@ -3062,7 +3058,7 @@ class _$ImageElementImpl implements ImageElement {
     TResult? Function(
             double rotation,
             String layer,
-            @IdJsonConverter() String id,
+            @IdJsonConverter() String? id,
             SurfaceTexture texture,
             @DoublePointJsonConverter() Point<double> firstPosition,
             @DoublePointJsonConverter() Point<double> secondPosition,
@@ -3079,7 +3075,7 @@ class _$ImageElementImpl implements ImageElement {
     TResult Function(
             double rotation,
             String layer,
-            @IdJsonConverter() String id,
+            @IdJsonConverter() String? id,
             double? zoom,
             List<PathPoint> points,
             PenProperty property,
@@ -3088,7 +3084,7 @@ class _$ImageElementImpl implements ImageElement {
     TResult Function(
             double rotation,
             String layer,
-            @IdJsonConverter() String id,
+            @IdJsonConverter() String? id,
             @DoublePointJsonConverter() Point<double> position,
             double scale,
             PackAssetLocation styleSheet,
@@ -3100,7 +3096,7 @@ class _$ImageElementImpl implements ImageElement {
     TResult Function(
             double rotation,
             String layer,
-            @IdJsonConverter() String id,
+            @IdJsonConverter() String? id,
             @DoublePointJsonConverter() Point<double> position,
             double scale,
             PackAssetLocation styleSheet,
@@ -3113,7 +3109,7 @@ class _$ImageElementImpl implements ImageElement {
     TResult Function(
             double rotation,
             String layer,
-            @IdJsonConverter() String id,
+            @IdJsonConverter() String? id,
             @DoublePointJsonConverter() Point<double> position,
             ElementConstraints? constraints,
             String source,
@@ -3124,7 +3120,7 @@ class _$ImageElementImpl implements ImageElement {
     TResult Function(
             double rotation,
             String layer,
-            @IdJsonConverter() String id,
+            @IdJsonConverter() String? id,
             @DoublePointJsonConverter() Point<double> position,
             ElementConstraints? constraints,
             String source,
@@ -3135,7 +3131,7 @@ class _$ImageElementImpl implements ImageElement {
     TResult Function(
             double rotation,
             String layer,
-            @IdJsonConverter() String id,
+            @IdJsonConverter() String? id,
             @DoublePointJsonConverter() Point<double> firstPosition,
             @DoublePointJsonConverter() Point<double> secondPosition,
             ShapeProperty property,
@@ -3144,7 +3140,7 @@ class _$ImageElementImpl implements ImageElement {
     TResult Function(
             double rotation,
             String layer,
-            @IdJsonConverter() String id,
+            @IdJsonConverter() String? id,
             SurfaceTexture texture,
             @DoublePointJsonConverter() Point<double> firstPosition,
             @DoublePointJsonConverter() Point<double> secondPosition,
@@ -3217,7 +3213,7 @@ abstract class ImageElement implements PadElement, SourcedElement {
   factory ImageElement(
       {final double rotation,
       final String layer,
-      @IdJsonConverter() final String id,
+      @IdJsonConverter() final String? id,
       @DoublePointJsonConverter() final Point<double> position,
       final ElementConstraints? constraints,
       required final String source,
@@ -3234,7 +3230,7 @@ abstract class ImageElement implements PadElement, SourcedElement {
   String get layer;
   @override
   @IdJsonConverter()
-  String get id;
+  String? get id;
   @DoublePointJsonConverter()
   Point<double> get position;
   ElementConstraints? get constraints;
@@ -3260,7 +3256,7 @@ abstract class _$$SvgElementImplCopyWith<$Res>
   $Res call(
       {double rotation,
       String layer,
-      @IdJsonConverter() String id,
+      @IdJsonConverter() String? id,
       @DoublePointJsonConverter() Point<double> position,
       ElementConstraints? constraints,
       String source,
@@ -3284,7 +3280,7 @@ class __$$SvgElementImplCopyWithImpl<$Res>
   $Res call({
     Object? rotation = null,
     Object? layer = null,
-    Object? id = null,
+    Object? id = freezed,
     Object? position = null,
     Object? constraints = freezed,
     Object? source = null,
@@ -3301,10 +3297,10 @@ class __$$SvgElementImplCopyWithImpl<$Res>
           ? _value.layer
           : layer // ignore: cast_nullable_to_non_nullable
               as String,
-      id: null == id
+      id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       position: null == position
           ? _value.position
           : position // ignore: cast_nullable_to_non_nullable
@@ -3351,7 +3347,7 @@ class _$SvgElementImpl implements SvgElement {
   _$SvgElementImpl(
       {this.rotation = 0,
       this.layer = '',
-      @IdJsonConverter() this.id = '',
+      @IdJsonConverter() this.id,
       @DoublePointJsonConverter() this.position = const Point(0.0, 0.0),
       this.constraints = const ScaledElementConstraints(scaleX: 1, scaleY: 1),
       required this.source,
@@ -3372,9 +3368,8 @@ class _$SvgElementImpl implements SvgElement {
   @JsonKey()
   final String layer;
   @override
-  @JsonKey()
   @IdJsonConverter()
-  final String id;
+  final String? id;
   @override
   @JsonKey()
   @DoublePointJsonConverter()
@@ -3417,7 +3412,7 @@ class _$SvgElementImpl implements SvgElement {
     required TResult Function(
             double rotation,
             String layer,
-            @IdJsonConverter() String id,
+            @IdJsonConverter() String? id,
             double? zoom,
             List<PathPoint> points,
             PenProperty property,
@@ -3426,7 +3421,7 @@ class _$SvgElementImpl implements SvgElement {
     required TResult Function(
             double rotation,
             String layer,
-            @IdJsonConverter() String id,
+            @IdJsonConverter() String? id,
             @DoublePointJsonConverter() Point<double> position,
             double scale,
             PackAssetLocation styleSheet,
@@ -3438,7 +3433,7 @@ class _$SvgElementImpl implements SvgElement {
     required TResult Function(
             double rotation,
             String layer,
-            @IdJsonConverter() String id,
+            @IdJsonConverter() String? id,
             @DoublePointJsonConverter() Point<double> position,
             double scale,
             PackAssetLocation styleSheet,
@@ -3451,7 +3446,7 @@ class _$SvgElementImpl implements SvgElement {
     required TResult Function(
             double rotation,
             String layer,
-            @IdJsonConverter() String id,
+            @IdJsonConverter() String? id,
             @DoublePointJsonConverter() Point<double> position,
             ElementConstraints? constraints,
             String source,
@@ -3462,7 +3457,7 @@ class _$SvgElementImpl implements SvgElement {
     required TResult Function(
             double rotation,
             String layer,
-            @IdJsonConverter() String id,
+            @IdJsonConverter() String? id,
             @DoublePointJsonConverter() Point<double> position,
             ElementConstraints? constraints,
             String source,
@@ -3473,7 +3468,7 @@ class _$SvgElementImpl implements SvgElement {
     required TResult Function(
             double rotation,
             String layer,
-            @IdJsonConverter() String id,
+            @IdJsonConverter() String? id,
             @DoublePointJsonConverter() Point<double> firstPosition,
             @DoublePointJsonConverter() Point<double> secondPosition,
             ShapeProperty property,
@@ -3482,7 +3477,7 @@ class _$SvgElementImpl implements SvgElement {
     required TResult Function(
             double rotation,
             String layer,
-            @IdJsonConverter() String id,
+            @IdJsonConverter() String? id,
             SurfaceTexture texture,
             @DoublePointJsonConverter() Point<double> firstPosition,
             @DoublePointJsonConverter() Point<double> secondPosition,
@@ -3499,7 +3494,7 @@ class _$SvgElementImpl implements SvgElement {
     TResult? Function(
             double rotation,
             String layer,
-            @IdJsonConverter() String id,
+            @IdJsonConverter() String? id,
             double? zoom,
             List<PathPoint> points,
             PenProperty property,
@@ -3508,7 +3503,7 @@ class _$SvgElementImpl implements SvgElement {
     TResult? Function(
             double rotation,
             String layer,
-            @IdJsonConverter() String id,
+            @IdJsonConverter() String? id,
             @DoublePointJsonConverter() Point<double> position,
             double scale,
             PackAssetLocation styleSheet,
@@ -3520,7 +3515,7 @@ class _$SvgElementImpl implements SvgElement {
     TResult? Function(
             double rotation,
             String layer,
-            @IdJsonConverter() String id,
+            @IdJsonConverter() String? id,
             @DoublePointJsonConverter() Point<double> position,
             double scale,
             PackAssetLocation styleSheet,
@@ -3533,7 +3528,7 @@ class _$SvgElementImpl implements SvgElement {
     TResult? Function(
             double rotation,
             String layer,
-            @IdJsonConverter() String id,
+            @IdJsonConverter() String? id,
             @DoublePointJsonConverter() Point<double> position,
             ElementConstraints? constraints,
             String source,
@@ -3544,7 +3539,7 @@ class _$SvgElementImpl implements SvgElement {
     TResult? Function(
             double rotation,
             String layer,
-            @IdJsonConverter() String id,
+            @IdJsonConverter() String? id,
             @DoublePointJsonConverter() Point<double> position,
             ElementConstraints? constraints,
             String source,
@@ -3555,7 +3550,7 @@ class _$SvgElementImpl implements SvgElement {
     TResult? Function(
             double rotation,
             String layer,
-            @IdJsonConverter() String id,
+            @IdJsonConverter() String? id,
             @DoublePointJsonConverter() Point<double> firstPosition,
             @DoublePointJsonConverter() Point<double> secondPosition,
             ShapeProperty property,
@@ -3564,7 +3559,7 @@ class _$SvgElementImpl implements SvgElement {
     TResult? Function(
             double rotation,
             String layer,
-            @IdJsonConverter() String id,
+            @IdJsonConverter() String? id,
             SurfaceTexture texture,
             @DoublePointJsonConverter() Point<double> firstPosition,
             @DoublePointJsonConverter() Point<double> secondPosition,
@@ -3581,7 +3576,7 @@ class _$SvgElementImpl implements SvgElement {
     TResult Function(
             double rotation,
             String layer,
-            @IdJsonConverter() String id,
+            @IdJsonConverter() String? id,
             double? zoom,
             List<PathPoint> points,
             PenProperty property,
@@ -3590,7 +3585,7 @@ class _$SvgElementImpl implements SvgElement {
     TResult Function(
             double rotation,
             String layer,
-            @IdJsonConverter() String id,
+            @IdJsonConverter() String? id,
             @DoublePointJsonConverter() Point<double> position,
             double scale,
             PackAssetLocation styleSheet,
@@ -3602,7 +3597,7 @@ class _$SvgElementImpl implements SvgElement {
     TResult Function(
             double rotation,
             String layer,
-            @IdJsonConverter() String id,
+            @IdJsonConverter() String? id,
             @DoublePointJsonConverter() Point<double> position,
             double scale,
             PackAssetLocation styleSheet,
@@ -3615,7 +3610,7 @@ class _$SvgElementImpl implements SvgElement {
     TResult Function(
             double rotation,
             String layer,
-            @IdJsonConverter() String id,
+            @IdJsonConverter() String? id,
             @DoublePointJsonConverter() Point<double> position,
             ElementConstraints? constraints,
             String source,
@@ -3626,7 +3621,7 @@ class _$SvgElementImpl implements SvgElement {
     TResult Function(
             double rotation,
             String layer,
-            @IdJsonConverter() String id,
+            @IdJsonConverter() String? id,
             @DoublePointJsonConverter() Point<double> position,
             ElementConstraints? constraints,
             String source,
@@ -3637,7 +3632,7 @@ class _$SvgElementImpl implements SvgElement {
     TResult Function(
             double rotation,
             String layer,
-            @IdJsonConverter() String id,
+            @IdJsonConverter() String? id,
             @DoublePointJsonConverter() Point<double> firstPosition,
             @DoublePointJsonConverter() Point<double> secondPosition,
             ShapeProperty property,
@@ -3646,7 +3641,7 @@ class _$SvgElementImpl implements SvgElement {
     TResult Function(
             double rotation,
             String layer,
-            @IdJsonConverter() String id,
+            @IdJsonConverter() String? id,
             SurfaceTexture texture,
             @DoublePointJsonConverter() Point<double> firstPosition,
             @DoublePointJsonConverter() Point<double> secondPosition,
@@ -3719,7 +3714,7 @@ abstract class SvgElement implements PadElement, SourcedElement {
   factory SvgElement(
       {final double rotation,
       final String layer,
-      @IdJsonConverter() final String id,
+      @IdJsonConverter() final String? id,
       @DoublePointJsonConverter() final Point<double> position,
       final ElementConstraints? constraints,
       required final String source,
@@ -3736,7 +3731,7 @@ abstract class SvgElement implements PadElement, SourcedElement {
   String get layer;
   @override
   @IdJsonConverter()
-  String get id;
+  String? get id;
   @DoublePointJsonConverter()
   Point<double> get position;
   ElementConstraints? get constraints;
@@ -3762,7 +3757,7 @@ abstract class _$$ShapeElementImplCopyWith<$Res>
   $Res call(
       {double rotation,
       String layer,
-      @IdJsonConverter() String id,
+      @IdJsonConverter() String? id,
       @DoublePointJsonConverter() Point<double> firstPosition,
       @DoublePointJsonConverter() Point<double> secondPosition,
       ShapeProperty property,
@@ -3782,7 +3777,7 @@ class __$$ShapeElementImplCopyWithImpl<$Res>
   $Res call({
     Object? rotation = null,
     Object? layer = null,
-    Object? id = null,
+    Object? id = freezed,
     Object? firstPosition = null,
     Object? secondPosition = null,
     Object? property = freezed,
@@ -3797,10 +3792,10 @@ class __$$ShapeElementImplCopyWithImpl<$Res>
           ? _value.layer
           : layer // ignore: cast_nullable_to_non_nullable
               as String,
-      id: null == id
+      id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       firstPosition: null == firstPosition
           ? _value.firstPosition
           : firstPosition // ignore: cast_nullable_to_non_nullable
@@ -3827,7 +3822,7 @@ class _$ShapeElementImpl implements ShapeElement {
   _$ShapeElementImpl(
       {this.rotation = 0,
       this.layer = '',
-      @IdJsonConverter() this.id = '',
+      @IdJsonConverter() this.id,
       @DoublePointJsonConverter() this.firstPosition = const Point(0.0, 0.0),
       @DoublePointJsonConverter() this.secondPosition = const Point(0.0, 0.0),
       this.property = const ShapeProperty(shape: RectangleShape()),
@@ -3846,9 +3841,8 @@ class _$ShapeElementImpl implements ShapeElement {
   @JsonKey()
   final String layer;
   @override
-  @JsonKey()
   @IdJsonConverter()
-  final String id;
+  final String? id;
   @override
   @JsonKey()
   @DoublePointJsonConverter()
@@ -3889,7 +3883,7 @@ class _$ShapeElementImpl implements ShapeElement {
     required TResult Function(
             double rotation,
             String layer,
-            @IdJsonConverter() String id,
+            @IdJsonConverter() String? id,
             double? zoom,
             List<PathPoint> points,
             PenProperty property,
@@ -3898,7 +3892,7 @@ class _$ShapeElementImpl implements ShapeElement {
     required TResult Function(
             double rotation,
             String layer,
-            @IdJsonConverter() String id,
+            @IdJsonConverter() String? id,
             @DoublePointJsonConverter() Point<double> position,
             double scale,
             PackAssetLocation styleSheet,
@@ -3910,7 +3904,7 @@ class _$ShapeElementImpl implements ShapeElement {
     required TResult Function(
             double rotation,
             String layer,
-            @IdJsonConverter() String id,
+            @IdJsonConverter() String? id,
             @DoublePointJsonConverter() Point<double> position,
             double scale,
             PackAssetLocation styleSheet,
@@ -3923,7 +3917,7 @@ class _$ShapeElementImpl implements ShapeElement {
     required TResult Function(
             double rotation,
             String layer,
-            @IdJsonConverter() String id,
+            @IdJsonConverter() String? id,
             @DoublePointJsonConverter() Point<double> position,
             ElementConstraints? constraints,
             String source,
@@ -3934,7 +3928,7 @@ class _$ShapeElementImpl implements ShapeElement {
     required TResult Function(
             double rotation,
             String layer,
-            @IdJsonConverter() String id,
+            @IdJsonConverter() String? id,
             @DoublePointJsonConverter() Point<double> position,
             ElementConstraints? constraints,
             String source,
@@ -3945,7 +3939,7 @@ class _$ShapeElementImpl implements ShapeElement {
     required TResult Function(
             double rotation,
             String layer,
-            @IdJsonConverter() String id,
+            @IdJsonConverter() String? id,
             @DoublePointJsonConverter() Point<double> firstPosition,
             @DoublePointJsonConverter() Point<double> secondPosition,
             ShapeProperty property,
@@ -3954,7 +3948,7 @@ class _$ShapeElementImpl implements ShapeElement {
     required TResult Function(
             double rotation,
             String layer,
-            @IdJsonConverter() String id,
+            @IdJsonConverter() String? id,
             SurfaceTexture texture,
             @DoublePointJsonConverter() Point<double> firstPosition,
             @DoublePointJsonConverter() Point<double> secondPosition,
@@ -3971,7 +3965,7 @@ class _$ShapeElementImpl implements ShapeElement {
     TResult? Function(
             double rotation,
             String layer,
-            @IdJsonConverter() String id,
+            @IdJsonConverter() String? id,
             double? zoom,
             List<PathPoint> points,
             PenProperty property,
@@ -3980,7 +3974,7 @@ class _$ShapeElementImpl implements ShapeElement {
     TResult? Function(
             double rotation,
             String layer,
-            @IdJsonConverter() String id,
+            @IdJsonConverter() String? id,
             @DoublePointJsonConverter() Point<double> position,
             double scale,
             PackAssetLocation styleSheet,
@@ -3992,7 +3986,7 @@ class _$ShapeElementImpl implements ShapeElement {
     TResult? Function(
             double rotation,
             String layer,
-            @IdJsonConverter() String id,
+            @IdJsonConverter() String? id,
             @DoublePointJsonConverter() Point<double> position,
             double scale,
             PackAssetLocation styleSheet,
@@ -4005,7 +3999,7 @@ class _$ShapeElementImpl implements ShapeElement {
     TResult? Function(
             double rotation,
             String layer,
-            @IdJsonConverter() String id,
+            @IdJsonConverter() String? id,
             @DoublePointJsonConverter() Point<double> position,
             ElementConstraints? constraints,
             String source,
@@ -4016,7 +4010,7 @@ class _$ShapeElementImpl implements ShapeElement {
     TResult? Function(
             double rotation,
             String layer,
-            @IdJsonConverter() String id,
+            @IdJsonConverter() String? id,
             @DoublePointJsonConverter() Point<double> position,
             ElementConstraints? constraints,
             String source,
@@ -4027,7 +4021,7 @@ class _$ShapeElementImpl implements ShapeElement {
     TResult? Function(
             double rotation,
             String layer,
-            @IdJsonConverter() String id,
+            @IdJsonConverter() String? id,
             @DoublePointJsonConverter() Point<double> firstPosition,
             @DoublePointJsonConverter() Point<double> secondPosition,
             ShapeProperty property,
@@ -4036,7 +4030,7 @@ class _$ShapeElementImpl implements ShapeElement {
     TResult? Function(
             double rotation,
             String layer,
-            @IdJsonConverter() String id,
+            @IdJsonConverter() String? id,
             SurfaceTexture texture,
             @DoublePointJsonConverter() Point<double> firstPosition,
             @DoublePointJsonConverter() Point<double> secondPosition,
@@ -4053,7 +4047,7 @@ class _$ShapeElementImpl implements ShapeElement {
     TResult Function(
             double rotation,
             String layer,
-            @IdJsonConverter() String id,
+            @IdJsonConverter() String? id,
             double? zoom,
             List<PathPoint> points,
             PenProperty property,
@@ -4062,7 +4056,7 @@ class _$ShapeElementImpl implements ShapeElement {
     TResult Function(
             double rotation,
             String layer,
-            @IdJsonConverter() String id,
+            @IdJsonConverter() String? id,
             @DoublePointJsonConverter() Point<double> position,
             double scale,
             PackAssetLocation styleSheet,
@@ -4074,7 +4068,7 @@ class _$ShapeElementImpl implements ShapeElement {
     TResult Function(
             double rotation,
             String layer,
-            @IdJsonConverter() String id,
+            @IdJsonConverter() String? id,
             @DoublePointJsonConverter() Point<double> position,
             double scale,
             PackAssetLocation styleSheet,
@@ -4087,7 +4081,7 @@ class _$ShapeElementImpl implements ShapeElement {
     TResult Function(
             double rotation,
             String layer,
-            @IdJsonConverter() String id,
+            @IdJsonConverter() String? id,
             @DoublePointJsonConverter() Point<double> position,
             ElementConstraints? constraints,
             String source,
@@ -4098,7 +4092,7 @@ class _$ShapeElementImpl implements ShapeElement {
     TResult Function(
             double rotation,
             String layer,
-            @IdJsonConverter() String id,
+            @IdJsonConverter() String? id,
             @DoublePointJsonConverter() Point<double> position,
             ElementConstraints? constraints,
             String source,
@@ -4109,7 +4103,7 @@ class _$ShapeElementImpl implements ShapeElement {
     TResult Function(
             double rotation,
             String layer,
-            @IdJsonConverter() String id,
+            @IdJsonConverter() String? id,
             @DoublePointJsonConverter() Point<double> firstPosition,
             @DoublePointJsonConverter() Point<double> secondPosition,
             ShapeProperty property,
@@ -4118,7 +4112,7 @@ class _$ShapeElementImpl implements ShapeElement {
     TResult Function(
             double rotation,
             String layer,
-            @IdJsonConverter() String id,
+            @IdJsonConverter() String? id,
             SurfaceTexture texture,
             @DoublePointJsonConverter() Point<double> firstPosition,
             @DoublePointJsonConverter() Point<double> secondPosition,
@@ -4191,7 +4185,7 @@ abstract class ShapeElement implements PadElement {
   factory ShapeElement(
       {final double rotation,
       final String layer,
-      @IdJsonConverter() final String id,
+      @IdJsonConverter() final String? id,
       @DoublePointJsonConverter() final Point<double> firstPosition,
       @DoublePointJsonConverter() final Point<double> secondPosition,
       final ShapeProperty property,
@@ -4206,7 +4200,7 @@ abstract class ShapeElement implements PadElement {
   String get layer;
   @override
   @IdJsonConverter()
-  String get id;
+  String? get id;
   @DoublePointJsonConverter()
   Point<double> get firstPosition;
   @DoublePointJsonConverter()
@@ -4231,7 +4225,7 @@ abstract class _$$TextureElementImplCopyWith<$Res>
   $Res call(
       {double rotation,
       String layer,
-      @IdJsonConverter() String id,
+      @IdJsonConverter() String? id,
       SurfaceTexture texture,
       @DoublePointJsonConverter() Point<double> firstPosition,
       @DoublePointJsonConverter() Point<double> secondPosition,
@@ -4253,7 +4247,7 @@ class __$$TextureElementImplCopyWithImpl<$Res>
   $Res call({
     Object? rotation = null,
     Object? layer = null,
-    Object? id = null,
+    Object? id = freezed,
     Object? texture = null,
     Object? firstPosition = null,
     Object? secondPosition = null,
@@ -4268,10 +4262,10 @@ class __$$TextureElementImplCopyWithImpl<$Res>
           ? _value.layer
           : layer // ignore: cast_nullable_to_non_nullable
               as String,
-      id: null == id
+      id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       texture: null == texture
           ? _value.texture
           : texture // ignore: cast_nullable_to_non_nullable
@@ -4306,7 +4300,7 @@ class _$TextureElementImpl implements TextureElement {
   _$TextureElementImpl(
       {this.rotation = 0,
       this.layer = '',
-      @IdJsonConverter() this.id = '',
+      @IdJsonConverter() this.id,
       this.texture = const SurfaceTexture.pattern(),
       @DoublePointJsonConverter() this.firstPosition = const Point(0.0, 0.0),
       @DoublePointJsonConverter() this.secondPosition = const Point(0.0, 0.0),
@@ -4325,9 +4319,8 @@ class _$TextureElementImpl implements TextureElement {
   @JsonKey()
   final String layer;
   @override
-  @JsonKey()
   @IdJsonConverter()
-  final String id;
+  final String? id;
   @override
   @JsonKey()
   final SurfaceTexture texture;
@@ -4369,7 +4362,7 @@ class _$TextureElementImpl implements TextureElement {
     required TResult Function(
             double rotation,
             String layer,
-            @IdJsonConverter() String id,
+            @IdJsonConverter() String? id,
             double? zoom,
             List<PathPoint> points,
             PenProperty property,
@@ -4378,7 +4371,7 @@ class _$TextureElementImpl implements TextureElement {
     required TResult Function(
             double rotation,
             String layer,
-            @IdJsonConverter() String id,
+            @IdJsonConverter() String? id,
             @DoublePointJsonConverter() Point<double> position,
             double scale,
             PackAssetLocation styleSheet,
@@ -4390,7 +4383,7 @@ class _$TextureElementImpl implements TextureElement {
     required TResult Function(
             double rotation,
             String layer,
-            @IdJsonConverter() String id,
+            @IdJsonConverter() String? id,
             @DoublePointJsonConverter() Point<double> position,
             double scale,
             PackAssetLocation styleSheet,
@@ -4403,7 +4396,7 @@ class _$TextureElementImpl implements TextureElement {
     required TResult Function(
             double rotation,
             String layer,
-            @IdJsonConverter() String id,
+            @IdJsonConverter() String? id,
             @DoublePointJsonConverter() Point<double> position,
             ElementConstraints? constraints,
             String source,
@@ -4414,7 +4407,7 @@ class _$TextureElementImpl implements TextureElement {
     required TResult Function(
             double rotation,
             String layer,
-            @IdJsonConverter() String id,
+            @IdJsonConverter() String? id,
             @DoublePointJsonConverter() Point<double> position,
             ElementConstraints? constraints,
             String source,
@@ -4425,7 +4418,7 @@ class _$TextureElementImpl implements TextureElement {
     required TResult Function(
             double rotation,
             String layer,
-            @IdJsonConverter() String id,
+            @IdJsonConverter() String? id,
             @DoublePointJsonConverter() Point<double> firstPosition,
             @DoublePointJsonConverter() Point<double> secondPosition,
             ShapeProperty property,
@@ -4434,7 +4427,7 @@ class _$TextureElementImpl implements TextureElement {
     required TResult Function(
             double rotation,
             String layer,
-            @IdJsonConverter() String id,
+            @IdJsonConverter() String? id,
             SurfaceTexture texture,
             @DoublePointJsonConverter() Point<double> firstPosition,
             @DoublePointJsonConverter() Point<double> secondPosition,
@@ -4451,7 +4444,7 @@ class _$TextureElementImpl implements TextureElement {
     TResult? Function(
             double rotation,
             String layer,
-            @IdJsonConverter() String id,
+            @IdJsonConverter() String? id,
             double? zoom,
             List<PathPoint> points,
             PenProperty property,
@@ -4460,7 +4453,7 @@ class _$TextureElementImpl implements TextureElement {
     TResult? Function(
             double rotation,
             String layer,
-            @IdJsonConverter() String id,
+            @IdJsonConverter() String? id,
             @DoublePointJsonConverter() Point<double> position,
             double scale,
             PackAssetLocation styleSheet,
@@ -4472,7 +4465,7 @@ class _$TextureElementImpl implements TextureElement {
     TResult? Function(
             double rotation,
             String layer,
-            @IdJsonConverter() String id,
+            @IdJsonConverter() String? id,
             @DoublePointJsonConverter() Point<double> position,
             double scale,
             PackAssetLocation styleSheet,
@@ -4485,7 +4478,7 @@ class _$TextureElementImpl implements TextureElement {
     TResult? Function(
             double rotation,
             String layer,
-            @IdJsonConverter() String id,
+            @IdJsonConverter() String? id,
             @DoublePointJsonConverter() Point<double> position,
             ElementConstraints? constraints,
             String source,
@@ -4496,7 +4489,7 @@ class _$TextureElementImpl implements TextureElement {
     TResult? Function(
             double rotation,
             String layer,
-            @IdJsonConverter() String id,
+            @IdJsonConverter() String? id,
             @DoublePointJsonConverter() Point<double> position,
             ElementConstraints? constraints,
             String source,
@@ -4507,7 +4500,7 @@ class _$TextureElementImpl implements TextureElement {
     TResult? Function(
             double rotation,
             String layer,
-            @IdJsonConverter() String id,
+            @IdJsonConverter() String? id,
             @DoublePointJsonConverter() Point<double> firstPosition,
             @DoublePointJsonConverter() Point<double> secondPosition,
             ShapeProperty property,
@@ -4516,7 +4509,7 @@ class _$TextureElementImpl implements TextureElement {
     TResult? Function(
             double rotation,
             String layer,
-            @IdJsonConverter() String id,
+            @IdJsonConverter() String? id,
             SurfaceTexture texture,
             @DoublePointJsonConverter() Point<double> firstPosition,
             @DoublePointJsonConverter() Point<double> secondPosition,
@@ -4533,7 +4526,7 @@ class _$TextureElementImpl implements TextureElement {
     TResult Function(
             double rotation,
             String layer,
-            @IdJsonConverter() String id,
+            @IdJsonConverter() String? id,
             double? zoom,
             List<PathPoint> points,
             PenProperty property,
@@ -4542,7 +4535,7 @@ class _$TextureElementImpl implements TextureElement {
     TResult Function(
             double rotation,
             String layer,
-            @IdJsonConverter() String id,
+            @IdJsonConverter() String? id,
             @DoublePointJsonConverter() Point<double> position,
             double scale,
             PackAssetLocation styleSheet,
@@ -4554,7 +4547,7 @@ class _$TextureElementImpl implements TextureElement {
     TResult Function(
             double rotation,
             String layer,
-            @IdJsonConverter() String id,
+            @IdJsonConverter() String? id,
             @DoublePointJsonConverter() Point<double> position,
             double scale,
             PackAssetLocation styleSheet,
@@ -4567,7 +4560,7 @@ class _$TextureElementImpl implements TextureElement {
     TResult Function(
             double rotation,
             String layer,
-            @IdJsonConverter() String id,
+            @IdJsonConverter() String? id,
             @DoublePointJsonConverter() Point<double> position,
             ElementConstraints? constraints,
             String source,
@@ -4578,7 +4571,7 @@ class _$TextureElementImpl implements TextureElement {
     TResult Function(
             double rotation,
             String layer,
-            @IdJsonConverter() String id,
+            @IdJsonConverter() String? id,
             @DoublePointJsonConverter() Point<double> position,
             ElementConstraints? constraints,
             String source,
@@ -4589,7 +4582,7 @@ class _$TextureElementImpl implements TextureElement {
     TResult Function(
             double rotation,
             String layer,
-            @IdJsonConverter() String id,
+            @IdJsonConverter() String? id,
             @DoublePointJsonConverter() Point<double> firstPosition,
             @DoublePointJsonConverter() Point<double> secondPosition,
             ShapeProperty property,
@@ -4598,7 +4591,7 @@ class _$TextureElementImpl implements TextureElement {
     TResult Function(
             double rotation,
             String layer,
-            @IdJsonConverter() String id,
+            @IdJsonConverter() String? id,
             SurfaceTexture texture,
             @DoublePointJsonConverter() Point<double> firstPosition,
             @DoublePointJsonConverter() Point<double> secondPosition,
@@ -4671,7 +4664,7 @@ abstract class TextureElement implements PadElement {
   factory TextureElement(
       {final double rotation,
       final String layer,
-      @IdJsonConverter() final String id,
+      @IdJsonConverter() final String? id,
       final SurfaceTexture texture,
       @DoublePointJsonConverter() final Point<double> firstPosition,
       @DoublePointJsonConverter() final Point<double> secondPosition,
@@ -4686,7 +4679,7 @@ abstract class TextureElement implements PadElement {
   String get layer;
   @override
   @IdJsonConverter()
-  String get id;
+  String? get id;
   SurfaceTexture get texture;
   @DoublePointJsonConverter()
   Point<double> get firstPosition;

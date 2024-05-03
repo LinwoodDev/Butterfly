@@ -22,6 +22,7 @@ Există câteva comenzi rapide pe care le poți folosi în editor. Unele dintre 
 
 ### Proiect
 
+* `Ctrl` + `K`: Deschide căutarea
 * `Ctrl` + `Z`: Anulare
 * `Ctrl` + `Y`: Redo
 * `Ctrl` + `Shift` + `P`: Open waypoints dialog

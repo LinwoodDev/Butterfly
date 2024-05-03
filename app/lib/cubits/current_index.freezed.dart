@@ -32,6 +32,7 @@ mixin _$CurrentIndex {
       throw _privateConstructorUsedError;
   MouseCursor get cursor => throw _privateConstructorUsedError;
   MouseCursor? get temporaryCursor => throw _privateConstructorUsedError;
+  bool get temporaryClicked => throw _privateConstructorUsedError;
   ui.Offset? get lastPosition => throw _privateConstructorUsedError;
   List<int> get pointers => throw _privateConstructorUsedError;
   int? get buttons => throw _privateConstructorUsedError;
@@ -48,6 +49,9 @@ mixin _$CurrentIndex {
       throw _privateConstructorUsedError;
   ViewOption get viewOption => throw _privateConstructorUsedError;
   HideState get hideUi => throw _privateConstructorUsedError;
+  bool get areaNavigatorCreate => throw _privateConstructorUsedError;
+  bool get areaNavigatorExact => throw _privateConstructorUsedError;
+  bool get areaNavigatorAsk => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $CurrentIndexCopyWith<CurrentIndex> get copyWith =>
@@ -75,6 +79,7 @@ abstract class $CurrentIndexCopyWith<$Res> {
       List<Renderer> networkingForegrounds,
       MouseCursor cursor,
       MouseCursor? temporaryCursor,
+      bool temporaryClicked,
       ui.Offset? lastPosition,
       List<int> pointers,
       int? buttons,
@@ -87,7 +92,10 @@ abstract class $CurrentIndexCopyWith<$Res> {
       Map<Renderer, RendererState> rendererStates,
       Map<Renderer, RendererState>? temporaryRendererStates,
       ViewOption viewOption,
-      HideState hideUi});
+      HideState hideUi,
+      bool areaNavigatorCreate,
+      bool areaNavigatorExact,
+      bool areaNavigatorAsk});
 
   $AssetLocationCopyWith<$Res> get location;
   $ViewOptionCopyWith<$Res> get viewOption;
@@ -120,6 +128,7 @@ class _$CurrentIndexCopyWithImpl<$Res, $Val extends CurrentIndex>
     Object? networkingForegrounds = null,
     Object? cursor = null,
     Object? temporaryCursor = freezed,
+    Object? temporaryClicked = null,
     Object? lastPosition = freezed,
     Object? pointers = null,
     Object? buttons = freezed,
@@ -133,6 +142,9 @@ class _$CurrentIndexCopyWithImpl<$Res, $Val extends CurrentIndex>
     Object? temporaryRendererStates = freezed,
     Object? viewOption = null,
     Object? hideUi = null,
+    Object? areaNavigatorCreate = null,
+    Object? areaNavigatorExact = null,
+    Object? areaNavigatorAsk = null,
   }) {
     return _then(_value.copyWith(
       index: freezed == index
@@ -191,6 +203,10 @@ class _$CurrentIndexCopyWithImpl<$Res, $Val extends CurrentIndex>
           ? _value.temporaryCursor
           : temporaryCursor // ignore: cast_nullable_to_non_nullable
               as MouseCursor?,
+      temporaryClicked: null == temporaryClicked
+          ? _value.temporaryClicked
+          : temporaryClicked // ignore: cast_nullable_to_non_nullable
+              as bool,
       lastPosition: freezed == lastPosition
           ? _value.lastPosition
           : lastPosition // ignore: cast_nullable_to_non_nullable
@@ -243,6 +259,18 @@ class _$CurrentIndexCopyWithImpl<$Res, $Val extends CurrentIndex>
           ? _value.hideUi
           : hideUi // ignore: cast_nullable_to_non_nullable
               as HideState,
+      areaNavigatorCreate: null == areaNavigatorCreate
+          ? _value.areaNavigatorCreate
+          : areaNavigatorCreate // ignore: cast_nullable_to_non_nullable
+              as bool,
+      areaNavigatorExact: null == areaNavigatorExact
+          ? _value.areaNavigatorExact
+          : areaNavigatorExact // ignore: cast_nullable_to_non_nullable
+              as bool,
+      areaNavigatorAsk: null == areaNavigatorAsk
+          ? _value.areaNavigatorAsk
+          : areaNavigatorAsk // ignore: cast_nullable_to_non_nullable
+              as bool,
     ) as $Val);
   }
 
@@ -286,6 +314,7 @@ abstract class _$$CurrentIndexImplCopyWith<$Res>
       List<Renderer> networkingForegrounds,
       MouseCursor cursor,
       MouseCursor? temporaryCursor,
+      bool temporaryClicked,
       ui.Offset? lastPosition,
       List<int> pointers,
       int? buttons,
@@ -298,7 +327,10 @@ abstract class _$$CurrentIndexImplCopyWith<$Res>
       Map<Renderer, RendererState> rendererStates,
       Map<Renderer, RendererState>? temporaryRendererStates,
       ViewOption viewOption,
-      HideState hideUi});
+      HideState hideUi,
+      bool areaNavigatorCreate,
+      bool areaNavigatorExact,
+      bool areaNavigatorAsk});
 
   @override
   $AssetLocationCopyWith<$Res> get location;
@@ -331,6 +363,7 @@ class __$$CurrentIndexImplCopyWithImpl<$Res>
     Object? networkingForegrounds = null,
     Object? cursor = null,
     Object? temporaryCursor = freezed,
+    Object? temporaryClicked = null,
     Object? lastPosition = freezed,
     Object? pointers = null,
     Object? buttons = freezed,
@@ -344,6 +377,9 @@ class __$$CurrentIndexImplCopyWithImpl<$Res>
     Object? temporaryRendererStates = freezed,
     Object? viewOption = null,
     Object? hideUi = null,
+    Object? areaNavigatorCreate = null,
+    Object? areaNavigatorExact = null,
+    Object? areaNavigatorAsk = null,
   }) {
     return _then(_$CurrentIndexImpl(
       freezed == index
@@ -402,6 +438,10 @@ class __$$CurrentIndexImplCopyWithImpl<$Res>
           ? _value.temporaryCursor
           : temporaryCursor // ignore: cast_nullable_to_non_nullable
               as MouseCursor?,
+      temporaryClicked: null == temporaryClicked
+          ? _value.temporaryClicked
+          : temporaryClicked // ignore: cast_nullable_to_non_nullable
+              as bool,
       lastPosition: freezed == lastPosition
           ? _value.lastPosition
           : lastPosition // ignore: cast_nullable_to_non_nullable
@@ -454,6 +494,18 @@ class __$$CurrentIndexImplCopyWithImpl<$Res>
           ? _value.hideUi
           : hideUi // ignore: cast_nullable_to_non_nullable
               as HideState,
+      areaNavigatorCreate: null == areaNavigatorCreate
+          ? _value.areaNavigatorCreate
+          : areaNavigatorCreate // ignore: cast_nullable_to_non_nullable
+              as bool,
+      areaNavigatorExact: null == areaNavigatorExact
+          ? _value.areaNavigatorExact
+          : areaNavigatorExact // ignore: cast_nullable_to_non_nullable
+              as bool,
+      areaNavigatorAsk: null == areaNavigatorAsk
+          ? _value.areaNavigatorAsk
+          : areaNavigatorAsk // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -471,6 +523,7 @@ class _$CurrentIndexImpl extends _CurrentIndex {
       final List<Renderer> networkingForegrounds = const [],
       this.cursor = MouseCursor.defer,
       this.temporaryCursor,
+      this.temporaryClicked = false,
       this.lastPosition,
       final List<int> pointers = const [],
       this.buttons,
@@ -484,7 +537,10 @@ class _$CurrentIndexImpl extends _CurrentIndex {
           const <Renderer, RendererState>{},
       final Map<Renderer, RendererState>? temporaryRendererStates,
       this.viewOption = const ViewOption(),
-      this.hideUi = HideState.visible})
+      this.hideUi = HideState.visible,
+      this.areaNavigatorCreate = true,
+      this.areaNavigatorExact = true,
+      this.areaNavigatorAsk = false})
       : _foregrounds = foregrounds,
         _temporaryForegrounds = temporaryForegrounds,
         _networkingForegrounds = networkingForegrounds,
@@ -548,6 +604,9 @@ class _$CurrentIndexImpl extends _CurrentIndex {
   @override
   final MouseCursor? temporaryCursor;
   @override
+  @JsonKey()
+  final bool temporaryClicked;
+  @override
   final ui.Offset? lastPosition;
   final List<int> _pointers;
   @override
@@ -601,10 +660,19 @@ class _$CurrentIndexImpl extends _CurrentIndex {
   @override
   @JsonKey()
   final HideState hideUi;
+  @override
+  @JsonKey()
+  final bool areaNavigatorCreate;
+  @override
+  @JsonKey()
+  final bool areaNavigatorExact;
+  @override
+  @JsonKey()
+  final bool areaNavigatorAsk;
 
   @override
   String toString() {
-    return 'CurrentIndex(index: $index, handler: $handler, cameraViewport: $cameraViewport, settingsCubit: $settingsCubit, transformCubit: $transformCubit, networkingService: $networkingService, temporaryHandler: $temporaryHandler, foregrounds: $foregrounds, selection: $selection, pinned: $pinned, temporaryForegrounds: $temporaryForegrounds, networkingForegrounds: $networkingForegrounds, cursor: $cursor, temporaryCursor: $temporaryCursor, lastPosition: $lastPosition, pointers: $pointers, buttons: $buttons, location: $location, embedding: $embedding, saved: $saved, currentlySaving: $currentlySaving, toolbar: $toolbar, temporaryToolbar: $temporaryToolbar, rendererStates: $rendererStates, temporaryRendererStates: $temporaryRendererStates, viewOption: $viewOption, hideUi: $hideUi)';
+    return 'CurrentIndex(index: $index, handler: $handler, cameraViewport: $cameraViewport, settingsCubit: $settingsCubit, transformCubit: $transformCubit, networkingService: $networkingService, temporaryHandler: $temporaryHandler, foregrounds: $foregrounds, selection: $selection, pinned: $pinned, temporaryForegrounds: $temporaryForegrounds, networkingForegrounds: $networkingForegrounds, cursor: $cursor, temporaryCursor: $temporaryCursor, temporaryClicked: $temporaryClicked, lastPosition: $lastPosition, pointers: $pointers, buttons: $buttons, location: $location, embedding: $embedding, saved: $saved, currentlySaving: $currentlySaving, toolbar: $toolbar, temporaryToolbar: $temporaryToolbar, rendererStates: $rendererStates, temporaryRendererStates: $temporaryRendererStates, viewOption: $viewOption, hideUi: $hideUi, areaNavigatorCreate: $areaNavigatorCreate, areaNavigatorExact: $areaNavigatorExact, areaNavigatorAsk: $areaNavigatorAsk)';
   }
 
   @JsonKey(ignore: true)
@@ -630,6 +698,7 @@ abstract class _CurrentIndex extends CurrentIndex {
       final List<Renderer> networkingForegrounds,
       final MouseCursor cursor,
       final MouseCursor? temporaryCursor,
+      final bool temporaryClicked,
       final ui.Offset? lastPosition,
       final List<int> pointers,
       final int? buttons,
@@ -642,7 +711,10 @@ abstract class _CurrentIndex extends CurrentIndex {
       final Map<Renderer, RendererState> rendererStates,
       final Map<Renderer, RendererState>? temporaryRendererStates,
       final ViewOption viewOption,
-      final HideState hideUi}) = _$CurrentIndexImpl;
+      final HideState hideUi,
+      final bool areaNavigatorCreate,
+      final bool areaNavigatorExact,
+      final bool areaNavigatorAsk}) = _$CurrentIndexImpl;
   const _CurrentIndex._() : super._();
 
   @override
@@ -674,6 +746,8 @@ abstract class _CurrentIndex extends CurrentIndex {
   @override
   MouseCursor? get temporaryCursor;
   @override
+  bool get temporaryClicked;
+  @override
   ui.Offset? get lastPosition;
   @override
   List<int> get pointers;
@@ -699,6 +773,12 @@ abstract class _CurrentIndex extends CurrentIndex {
   ViewOption get viewOption;
   @override
   HideState get hideUi;
+  @override
+  bool get areaNavigatorCreate;
+  @override
+  bool get areaNavigatorExact;
+  @override
+  bool get areaNavigatorAsk;
   @override
   @JsonKey(ignore: true)
   _$$CurrentIndexImplCopyWith<_$CurrentIndexImpl> get copyWith =>

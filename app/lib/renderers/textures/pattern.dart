@@ -8,6 +8,7 @@ void drawPatternTextureOnCanvas(PatternTexture texture, Canvas canvas,
       Paint()
         ..color = Color(texture.boxColor)
         ..style = PaintingStyle.fill);
+  if (scale <= 0) return;
   if (texture.boxWidth > 0 && texture.boxXCount > 0) {
     var relativeWidth = texture.boxWidth * scale;
     var relativeSpace = texture.boxXSpace * scale;

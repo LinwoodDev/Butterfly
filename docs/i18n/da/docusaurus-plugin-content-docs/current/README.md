@@ -21,14 +21,12 @@ Butterfly er en note tager app, der sigter efter samlet oplevelse på tværs af 
 
 > Du kan bruge sidebjælken til at navigere hurtigt gennem wikien.
 
-
 For at begynde at arbejde på appen, har du to muligheder:
+
 1. [Downloads](/downloads) den app-version, der passer til din platform (Butterfly kan køre på de fleste mobil, skrivebord og webplatfra).
-2. Brug [webversion](https://butterfly.linwood.dev) , hvis du ikke kan finde din platform, eller hvis du ikke ønsker at installere den på den. Se [her](storage#web) om fillagring i webversionen.
+2. Brug [webversion](https://web.butterfly.linwood.dev) , hvis du ikke kan finde din platform, eller hvis du ikke ønsker at installere den på den. Se [her](storage#web) om fillagring i webversionen.
 
 > Når du åbner appen, fortsæt med at læse.
-
-
 
 ## Hoved visning
 
@@ -116,5 +114,3 @@ Du kan vende tilbage fra dokumentvisningen til dokumentlisten med baghandlingen 
         3. Du kan tilføje flere værktøjer til værktøjslinjen ved at klikke på <Plus/> plus tegn. 
     </TabItem>
 </Tabs>
-	
-

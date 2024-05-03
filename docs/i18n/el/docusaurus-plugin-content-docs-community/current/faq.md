@@ -29,7 +29,7 @@ sidebar_label: "Συχνές"
 
 > [#244](https://github.com/LinwoodDev/Butterfly/issues/244)
 
-Το Butterfly είναι διαθέσιμο σε iOS ως προεπισκόπηση. Click [here](https://docs.butterfly.linwood.dev/downloads/ios) to download it. See [here](https://github.com/LinwoodDev/Butterfly/issues/244#issuecomment-1935460878) why it's not available on the App Store.
+Το Butterfly είναι διαθέσιμο σε iOS ως προεπισκόπηση. Click [here](https://butterfly.linwood.dev/downloads/ios) to download it. See [here](https://github.com/LinwoodDev/Butterfly/issues/244#issuecomment-1935460878) why it's not available on the App Store.
 
 ## Επιφάνεια Εργασίας
 

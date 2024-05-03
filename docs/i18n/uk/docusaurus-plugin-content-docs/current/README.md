@@ -21,14 +21,12 @@ import { Gear, Plus, FloppyDisk, MagnifyingGlass, ScribbleLoop, Pen, Path, Arrow
 
 > Ви можете використовувати бічну панель, щоб швидко орієнтуватися в wiki.
 
-
 Для того, щоб почати роботу над додатком у вас є два варіанти:
+
 1. [Завантаження](/downloads) Версія додатку, яка підходить для вашої платформи (Butterfly може працювати на більшості мобільних пристроїв, настільних комп'ютерах та веб-платформ).
-2. Use [web version](https://butterfly.linwood.dev) if you cannot find your platform or if you don't want to install it on it. See [here](storage#web) about file storage on the web version.
+2. Use [web version](https://web.butterfly.linwood.dev) if you cannot find your platform or if you don't want to install it on it. See [here](storage#web) about file storage on the web version.
 
 > Як тільки ви відкриєте програму, продовжуйте читати.
-
-
 
 ## Основний вигляд
 
@@ -116,5 +114,3 @@ import { Gear, Plus, FloppyDisk, MagnifyingGlass, ScribbleLoop, Pen, Path, Arrow
         3. Ви можете додати більше інструментів для панелі інструментів, натиснувши <Plus/> плюс знак. 
     </TabItem>
 </Tabs>
-	
-

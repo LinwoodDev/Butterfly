@@ -5,6 +5,7 @@ import 'package:butterfly/api/open.dart';
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/dialogs/template.dart';
 import 'package:butterfly/services/import.dart';
+import 'package:butterfly/views/files/card.dart';
 import 'package:butterfly/widgets/window.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/material.dart';
@@ -247,6 +248,7 @@ class _HeaderHomeViewState extends State<_HeaderHomeView>
     final colorScheme = Theme.of(context).colorScheme;
     final actions = Row(
       mainAxisSize: MainAxisSize.min,
+      mainAxisAlignment: MainAxisAlignment.center,
       children: [
         TextButton.icon(
           onPressed: () => openHelp(['intro']),
@@ -310,10 +312,10 @@ class _HeaderHomeViewState extends State<_HeaderHomeView>
           width: 64,
         ),
         const SizedBox(width: 16),
-        Expanded(
+        Flexible(
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
             mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
                 AppLocalizations.of(context).welcome,
@@ -333,23 +335,18 @@ class _HeaderHomeViewState extends State<_HeaderHomeView>
         ),
       ],
     );
-    final innerCard = widget.isDesktop
-        ? Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Expanded(child: logo),
-              const SizedBox(width: 32),
-              whatsNew,
-            ],
-          )
-        : Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              logo,
-              const SizedBox(height: 32),
-              whatsNew,
-            ],
-          );
+    final innerCard = LayoutBuilder(builder: (context, constraints) {
+      final isMobile = constraints.maxWidth <= kMobileWidth;
+      if (isMobile) {
+        return Column(
+          children: [logo, const SizedBox(height: 16), whatsNew],
+        );
+      }
+      return Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [logo, whatsNew],
+      );
+    });
     final card = Material(
       elevation: 10,
       borderRadius: BorderRadius.circular(24),
@@ -381,7 +378,7 @@ class _HeaderHomeViewState extends State<_HeaderHomeView>
             ],
           )
         : Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               card,
               const SizedBox(height: 32),
@@ -523,8 +520,8 @@ class _QuickstartHomeViewState extends State<_QuickstartHomeView> {
                   alignment: WrapAlignment.center,
                   runAlignment: WrapAlignment.center,
                   crossAxisAlignment: WrapCrossAlignment.center,
-                  runSpacing: 16,
-                  spacing: 16,
+                  runSpacing: 4,
+                  spacing: 4,
                   children: templates.map(
                     (e) {
                       final thumbnail = e.getThumbnail();

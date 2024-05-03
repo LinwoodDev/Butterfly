@@ -32,7 +32,7 @@ Ensiksikin mahdollistaa yhteistyön kokeilu asetuksissa. Sen jälkeen kun olet a
 Oletuksena palvelin toimii kaikilla rajapintoilla portin `28005`. Voit muuttaa tätä ikkunassa. Sinun täytyy varmistaa, että tämä palvelin on käytettävissä asiakkaalle.
 Paikallisessa verkossa tämän pitäisi toimia ulos laatikosta. Jos haluat käyttää palvelinta internetistä, sinun täytyy lähettää portti eteenpäin reitittimessäsi. Lisätietoa tästä [here](https://en.wikipedia.org/wiki/Port_forwarding/).
 
-Jos et voi välittää satamaa, voit käyttää [ngrok]kaltaista palvelua (https\://ngrok.com/). Tämä luo tunnelin paikalliselle palvelimellesi. Tämä on hyödyllistä, jos haluat jakaa asiakirjan muiden ihmisten kanssa.
+Jos et voi välittää satamaa, voit käyttää [ngrok]kaltaista palvelua (https://ngrok.com/). Tämä luo tunnelin paikalliselle palvelimellesi. Tämä on hyödyllistä, jos haluat jakaa asiakirjan muiden ihmisten kanssa.
 
 Ngrok komento näyttäisi tältä:
 

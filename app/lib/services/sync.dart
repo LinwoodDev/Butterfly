@@ -124,7 +124,8 @@ class RemoteSync {
       return;
     }
     if (syncMode == SyncMode.noMobile &&
-        await Connectivity().checkConnectivity() != ConnectivityResult.mobile) {
+        !(await Connectivity().checkConnectivity())
+            .contains(ConnectivityResult.mobile)) {
       return;
     }
     await sync();

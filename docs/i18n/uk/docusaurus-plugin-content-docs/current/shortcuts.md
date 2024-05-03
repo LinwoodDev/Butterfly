@@ -22,6 +22,7 @@ sidebar_position: 2
 
 ### Проект
 
+* `Ctrl` + `K`: Open search
 * `Ctrl` + `Z`: Скасувати
 * `Ctrl` + `Y`: Redo
 * `Ctrl` + `Shift` + `P`: Open waypoints dialog

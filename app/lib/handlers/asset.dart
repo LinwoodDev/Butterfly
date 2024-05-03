@@ -24,8 +24,8 @@ Future<void> showImportAssetWizard(ImportType type, BuildContext context,
   Future<void> importAsset(AssetFileType type, Uint8List bytes) async {
     final state = bloc.state;
     if (state is! DocumentLoaded) return;
-    await service.import(type, bytes, state.data,
-        position: position, advanced: advanced);
+    await service.import(type, bytes,
+        document: state.data, position: position, advanced: advanced);
   }
 
   Future<void> importWithDialog(AssetFileType type) async {

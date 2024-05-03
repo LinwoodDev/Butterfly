@@ -6,8 +6,10 @@ list(APPEND FLUTTER_PLUGIN_LIST
   dynamic_color
   file_selector_linux
   flutter_secure_storage_linux
+  irondash_engine_context
   printing
   screen_retriever
+  super_native_extensions
   url_launcher_linux
   window_manager
 )
