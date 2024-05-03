@@ -1,6 +1,6 @@
 ---
 title: Введение
-id: интро
+id: intro
 slug: /интро
 sidebar_position: 1
 ---
