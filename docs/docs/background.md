@@ -21,6 +21,7 @@ There are 8 different background templates available that you can choose from. F
 
 
 ### <Gear/> Properties
+
 In the horizontal configuration tab, you have the following option:
 - Width - the width for each row respectively.
 - Count - you can group the rows in group that way. 
@@ -32,6 +33,7 @@ For example, to create a music sheet, you can use the following configuration:
 The vertical configuration follows the same logic for columns instead of rows. 
 
 ## <Globe/> Image
+
 The image background type allows you to upload an image and use it as background for thepage.
 
 ### <Gear/> Properties. 
