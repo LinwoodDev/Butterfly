@@ -1,6 +1,6 @@
 ---
 title: Wprowadzanie
-id: wprowadzenie
+id: intro
 slug: /intro
 sidebar_position: 1
 ---
