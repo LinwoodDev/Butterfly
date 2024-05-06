@@ -4,24 +4,35 @@ sidebar_position: 2
 title: Фон
 ---
 
-Существует два типа фонов.
+import {Wrench, Book, Image, Globe, Gear,
 
-### Шаблон
+} from "@phosphor-icons/react";
 
-Вы можете настроить фон бумаги. Нажмите на значок фона в диалоговом окне просмотра, чтобы добавить его. Доступны 8 различных фоновых шаблонов.
+To edit the background of the page, click on the <Wrench/> icon and there, on the <Book/> page icon. There, you'll have the option to click on the <Image/> icon. On a computer, you can also use the `ctrl-B` shortcut.
 
-### Конфигурация
+When configuring a backgournd, you have two tabs. The <Globe/> General tab to select the type of background to use, and the <Gear/> To configure the selected background.
 
-Ширина и высота являются общими настройками коробки.
+## <Globe/> Шаблон
 
-Кроме того, можно настроить цвет фона.
+There are 8 different background templates available that you can choose from. For each of the available patterns, you can configure the following:
 
-Свойство подсчета и интервала позволяет создать музыкальную бумагу. Для музыкальной бумаги установите значение 5 и интервал больше ширины.
 
-## Изображение
+### <Gear/> Свойства
 
-Тип фона изображения позволяет использовать изображение в качестве фона.
+In the horizontal configuration tab, you have the following option:
 
-### Конфигурация
+- Width - the width for each row respectively.
+- Count - you can group the rows in group that way.
+- Space - the distance between each group of rows.
+
+For example, to create a music sheet, you can use the following configuration: `Width - 40`, `Count - 5`, `Space - 80`
+
+The vertical configuration follows the same logic for columns instead of rows.
+
+## <Globe/> Изображение
+
+The image background type allows you to upload an image and use it as background for the page.
+
+### <Gear/> Properties.
 
 Масштаб в направлении x и y можно изменить, если это изображение будет малым или большим.
