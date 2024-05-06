@@ -4,24 +4,35 @@ sidebar_position: 2
 title: 背景
 ---
 
-背景には二つの異なる種類があります。
+import {Wrench, Book, Image, Globe, Gear,
 
-### パターン
+} from "@phosphor-icons/react";
 
-論文の背景をカスタマイズできます。 ビューダイアログの背景アイコンをクリックして追加します。 利用可能な背景テンプレートは8種類あります。
+To edit the background of the page, click on the <Wrench/> icon and there, on the <Book/> page icon. There, you'll have the option to click on the <Image/> icon. On a computer, you can also use the `ctrl-B` shortcut.
 
-### 設定
+When configuring a backgournd, you have two tabs. The <Globe/> General tab to select the type of background to use, and the <Gear/> To configure the selected background.
 
-幅と高さは、ボックスの一般的な設定です。
+## <Globe/> パターン
 
-また、背景の色をカスタマイズすることもできます。
+There are 8 different background templates available that you can choose from. For each of the available patterns, you can configure the following:
 
-countとspacing プロパティを使用すると、ミュージックペーパーを作成できます。 音楽用紙の場合、数を5に設定し、間隔を幅以上に設定します。
 
-## 画像
+### <Gear/> プロパティー
 
-背景画像の種類では、画像を背景として使用できます。
+In the horizontal configuration tab, you have the following option:
 
-### 設定
+- Width - the width for each row respectively.
+- Count - you can group the rows in group that way.
+- Space - the distance between each group of rows.
+
+For example, to create a music sheet, you can use the following configuration: `Width - 40`, `Count - 5`, `Space - 80`
+
+The vertical configuration follows the same logic for columns instead of rows.
+
+## <Globe/> 画像
+
+The image background type allows you to upload an image and use it as background for the page.
+
+### <Gear/> Properties.
 
 この画像が小さい場合や大きい場合は、x 方向と y 方向のスケールを変更できます。
