@@ -4,24 +4,35 @@ sidebar_position: 2
 title: Kontekst
 ---
 
-Istnieją dwa różne rodzaje tła.
+import {Wrench, Book, Image, Globe, Gear,
 
-### Wzorzec
+} from "@phosphor-icons/react";
 
-Możesz dostosować tło papieru. Kliknij ikonę tła w oknie dialogowym, aby ją dodać. Dostępne są 8 różnych szablonów w tle.
+To edit the background of the page, click on the <Wrench/> icon and there, on the <Book/> page icon. There, you'll have the option to click on the <Image/> icon. On a computer, you can also use the `ctrl-B` shortcut.
 
-### Konfiguracja
+When configuring a backgournd, you have two tabs. The <Globe/> General tab to select the type of background to use, and the <Gear/> To configure the selected background.
 
-Szerokość i wysokość są ogólnymi ustawieniami pola.
+## <Globe/> Wzorzec
 
-Dodatkowo, możesz dostosować kolor tła.
+There are 8 different background templates available that you can choose from. For each of the available patterns, you can configure the following:
 
-Właściwość licznika i odstępów pozwala na tworzenie arkusza muzycznego. Dla papieru muzycznego, ustaw liczbę na 5 i odstępy na więcej niż szerokość.
 
-## Obraz
+### <Gear/> Właściwości
 
-Typ tła obrazu pozwala na użycie obrazu jako tła.
+In the horizontal configuration tab, you have the following option:
 
-### Konfiguracja
+- Width - the width for each row respectively.
+- Count - you can group the rows in group that way.
+- Space - the distance between each group of rows.
+
+For example, to create a music sheet, you can use the following configuration: `Width - 40`, `Count - 5`, `Space - 80`
+
+The vertical configuration follows the same logic for columns instead of rows.
+
+## <Globe/> Obraz
+
+The image background type allows you to upload an image and use it as background for the page.
+
+### <Gear/> Properties.
 
 Skala w kierunku x i y może zostać zmieniona, jeśli ten obraz jest mały lub duży.
