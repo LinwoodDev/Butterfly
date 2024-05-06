@@ -4,24 +4,35 @@ sidebar_position: 2
 title: الخلفية
 ---
 
-وهناك نوعان مختلفان من الخلفية.
+import {Wrench, Book, Image, Globe, Gear,
 
-### النمط
+} from "@phosphor-icons/react";
 
-يمكنك تخصيص خلفية الورقة. انقر على أيقونة الخلفية في مربع حوار العرض لإضافته. هناك 8 قوالب خلفية مختلفة متاحة.
+To edit the background of the page, click on the <Wrench/> icon and there, on the <Book/> page icon. There, you'll have the option to click on the <Image/> icon. On a computer, you can also use the `ctrl-B` shortcut.
 
-### الإعدادات
+When configuring a backgournd, you have two tabs. The <Globe/> General tab to select the type of background to use, and the <Gear/> To configure the selected background.
 
-العرض والارتفاع هما الإعدادات العامة للصندوق.
+## <Globe/> النمط
 
-بالإضافة إلى ذلك، يمكنك تخصيص لون الخلفية.
+There are 8 different background templates available that you can choose from. For each of the available patterns, you can configure the following:
 
-تسمح لك خاصية العد والفاصل بإنشاء ورقة موسيقية. بالنسبة لورقة الموسيقى، قم بتعيين العد إلى 5 والفاصل إلى أكثر من العرض.
 
-## صورة
+### <Gear/> الخصائص
 
-نوع خلفية الصورة يسمح لك باستخدام صورة كخلفية.
+In the horizontal configuration tab, you have the following option:
 
-### الإعدادات
+- Width - the width for each row respectively.
+- Count - you can group the rows in group that way.
+- Space - the distance between each group of rows.
+
+For example, to create a music sheet, you can use the following configuration: `Width - 40`, `Count - 5`, `Space - 80`
+
+The vertical configuration follows the same logic for columns instead of rows.
+
+## <Globe/> صورة
+
+The image background type allows you to upload an image and use it as background for the page.
+
+### <Gear/> Properties.
 
 يمكن تغيير المقياس في x و y إذا كانت هذه الصورة صغيرة أو كبيرة.
