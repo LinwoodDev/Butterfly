@@ -4,24 +4,35 @@ sidebar_position: 2
 title: Achtergrond
 ---
 
-Er zijn twee verschillende soorten achtergronden.
+import {Wrench, Book, Image, Globe, Gear,
 
-### Patroon
+} from "@phosphor-icons/react";
 
-Je kunt de achtergrond van het papier aanpassen. Klik op het achtergrondpictogram in het dialoogvenster bekijken om het toe te voegen. Er zijn 8 verschillende achtergrondsjablonen beschikbaar.
+To edit the background of the page, click on the <Wrench/> icon and there, on the <Book/> page icon. There, you'll have the option to click on the <Image/> icon. On a computer, you can also use the `ctrl-B` shortcut.
 
-### Configuratie
+When configuring a backgournd, you have two tabs. The <Globe/> General tab to select the type of background to use, and the <Gear/> To configure the selected background.
 
-Breedte en hoogte zijn de algemene instellingen van het vak.
+## <Globe/> Patroon
 
-Daarnaast kunt u de kleur van de achtergrond aanpassen.
+There are 8 different background templates available that you can choose from. For each of the available patterns, you can configure the following:
 
-De eigenschap teller en afstand maakt het mogelijk om muziekpapier te maken. Voor muziekpapier, stel het aantal in op 5 en afstand naar meer dan de breedte.
 
-## Afbeelding
+### <Gear/> Eigenschappen
 
-Het achtergrondafype stelt u in staat een afbeelding als achtergrond te gebruiken.
+In the horizontal configuration tab, you have the following option:
 
-### Configuratie
+- Width - the width for each row respectively.
+- Count - you can group the rows in group that way.
+- Space - the distance between each group of rows.
+
+For example, to create a music sheet, you can use the following configuration: `Width - 40`, `Count - 5`, `Space - 80`
+
+The vertical configuration follows the same logic for columns instead of rows.
+
+## <Globe/> Afbeelding
+
+The image background type allows you to upload an image and use it as background for the page.
+
+### <Gear/> Properties.
 
 De schaal in x en y richting kan worden gewijzigd als deze afbeelding klein of groot is.
