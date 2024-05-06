@@ -4,24 +4,35 @@ sidebar_position: 2
 title: Φόντο
 ---
 
-Υπάρχουν δύο διαφορετικοί τύποι φόντων.
+import {Wrench, Book, Image, Globe, Gear,
 
-### Μοτίβο
+} from "@phosphor-icons/react";
 
-Μπορείτε να προσαρμόσετε το φόντο του χαρτιού. Κάντε κλικ στο εικονίδιο φόντου στο διάλογο προβολής για να το προσθέσετε. Υπάρχουν 8 διαφορετικά πρότυπα φόντου διαθέσιμα.
+To edit the background of the page, click on the <Wrench/> icon and there, on the <Book/> page icon. There, you'll have the option to click on the <Image/> icon. On a computer, you can also use the `ctrl-B` shortcut.
 
-### Διαμόρφωση
+When configuring a backgournd, you have two tabs. The <Globe/> General tab to select the type of background to use, and the <Gear/> To configure the selected background.
 
-Πλάτος και ύψος είναι οι γενικές ρυθμίσεις του κουτιού.
+## <Globe/> Μοτίβο
 
-Επιπλέον, μπορείτε να προσαρμόσετε το χρώμα του φόντου.
+There are 8 different background templates available that you can choose from. For each of the available patterns, you can configure the following:
 
-Η ιδιότητα καταμέτρησης και διαστήματος σας επιτρέπει να δημιουργήσετε ένα μουσικό χαρτί. Για χαρτί μουσικής, που μετράει σε 5 και το διάστημα σε περισσότερο από το πλάτος.
 
-## Εικόνα
+### <Gear/> Ιδιότητες
 
-Ο τύπος φόντου εικόνας σας επιτρέπει να χρησιμοποιήσετε μια εικόνα ως φόντο.
+In the horizontal configuration tab, you have the following option:
 
-### Διαμόρφωση
+- Width - the width for each row respectively.
+- Count - you can group the rows in group that way.
+- Space - the distance between each group of rows.
+
+For example, to create a music sheet, you can use the following configuration: `Width - 40`, `Count - 5`, `Space - 80`
+
+The vertical configuration follows the same logic for columns instead of rows.
+
+## <Globe/> Εικόνα
+
+The image background type allows you to upload an image and use it as background for the page.
+
+### <Gear/> Properties.
 
 Η κλίμακα στην κατεύθυνση x και y μπορεί να αλλάξει αν αυτή η εικόνα σε μικρή ή μεγάλη.
