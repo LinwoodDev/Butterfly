@@ -4,24 +4,35 @@ sidebar_position: 2
 title: Sfondo
 ---
 
-Ci sono due tipi diversi di sfondi.
+import {Wrench, Book, Image, Globe, Gear,
 
-### Sequenza
+} from "@phosphor-icons/react";
 
-È possibile personalizzare lo sfondo della carta. Fare clic sull'icona di sfondo nella finestra di dialogo della vista per aggiungerla. Ci sono 8 diversi modelli di sfondo disponibili.
+To edit the background of the page, click on the <Wrench/> icon and there, on the <Book/> page icon. There, you'll have the option to click on the <Image/> icon. On a computer, you can also use the `ctrl-B` shortcut.
 
-### Configurazione
+When configuring a backgournd, you have two tabs. The <Globe/> General tab to select the type of background to use, and the <Gear/> To configure the selected background.
 
-Larghezza e altezza sono le impostazioni generali della scatola.
+## <Globe/> Sequenza
 
-Inoltre, è possibile personalizzare il colore dello sfondo.
+There are 8 different background templates available that you can choose from. For each of the available patterns, you can configure the following:
 
-La proprietà conteggio e spaziatura consente di creare carta musicale. Per la carta musicale, impostare il conteggio a 5 e la spaziatura a più della larghezza.
 
-## Immagine
+### <Gear/> Proprietà
 
-Il tipo di sfondo dell'immagine consente di usare un'immagine come sfondo.
+In the horizontal configuration tab, you have the following option:
 
-### Configurazione
+- Width - the width for each row respectively.
+- Count - you can group the rows in group that way.
+- Space - the distance between each group of rows.
+
+For example, to create a music sheet, you can use the following configuration: `Width - 40`, `Count - 5`, `Space - 80`
+
+The vertical configuration follows the same logic for columns instead of rows.
+
+## <Globe/> Immagine
+
+The image background type allows you to upload an image and use it as background for the page.
+
+### <Gear/> Properties.
 
 La scala in direzione x e y può essere cambiata se l'immagine è piccola o grande.
