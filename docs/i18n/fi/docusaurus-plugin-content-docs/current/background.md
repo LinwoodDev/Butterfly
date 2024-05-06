@@ -4,24 +4,35 @@ sidebar_position: 2
 title: Tausta
 ---
 
-On olemassa kaksi erilaista taustaa.
+import {Wrench, Book, Image, Globe, Gear,
 
-### Kuvio
+} from "@phosphor-icons/react";
 
-Voit muokata taustan paperin sisältöä. Klikkaa taustakuvaketta näkymäikkunassa ja lisää se. @ info: whatsthis Saatavilla on 8 erilaista taustamallia.
+To edit the background of the page, click on the <Wrench/> icon and there, on the <Book/> page icon. There, you'll have the option to click on the <Image/> icon. On a computer, you can also use the `ctrl-B` shortcut.
 
-### Asetukset
+When configuring a backgournd, you have two tabs. The <Globe/> General tab to select the type of background to use, and the <Gear/> To configure the selected background.
 
-Leveys ja korkeus ovat laatikon yleiset asetukset.
+## <Globe/> Kuvio
 
-Lisäksi voit muokata taustan väriä.
+There are 8 different background templates available that you can choose from. For each of the available patterns, you can configure the following:
 
-Laskenta ja väli ominaisuus voit luoda musiikkipaperia. Musiikkipaperille asetettu määrä 5 ja väli enemmän kuin leveys.
 
-## Kuva
+### <Gear/> Ominaisuudet
 
-Kuvan taustatyypin avulla voit käyttää kuvaa taustakuvaksi.
+In the horizontal configuration tab, you have the following option:
 
-### Asetukset
+- Width - the width for each row respectively.
+- Count - you can group the rows in group that way.
+- Space - the distance between each group of rows.
+
+For example, to create a music sheet, you can use the following configuration: `Width - 40`, `Count - 5`, `Space - 80`
+
+The vertical configuration follows the same logic for columns instead of rows.
+
+## <Globe/> Kuva
+
+The image background type allows you to upload an image and use it as background for the page.
+
+### <Gear/> Properties.
 
 Mittakaavassa x ja y suuntaan voidaan muuttaa, jos tämä kuva on pieni tai suuri.
