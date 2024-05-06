@@ -37,10 +37,10 @@ packages:
     dependency: "direct main"
     description:
       name: archive
-      sha256: "0763b45fa9294197a2885c8567927e2830ade852e5c896fd4ab7e0e348d0f373"
+      sha256: ecf4273855368121b1caed0d10d4513c7241dfc813f7d3c8933b36622ae9b265
       url: "https://pub.dev"
     source: hosted
-    version: "3.5.0"
+    version: "3.5.1"
   args:
     dependency: "direct main"
     description:
@@ -167,7 +167,7 @@ packages:
       path: "../api"
       relative: true
     source: path
-    version: "2.1.0-rc.2"
+    version: "2.1.0-rc.3"
   camera:
     dependency: "direct main"
     description:
@@ -572,11 +572,11 @@ packages:
     dependency: "direct overridden"
     description:
       path: flutter_secure_storage_web
-      ref: "6ac827e457393b5c654c1abda40d31e2cb93f62c"
-      resolved-ref: "6ac827e457393b5c654c1abda40d31e2cb93f62c"
-      url: "https://github.com/ThexXTURBOXx/flutter_secure_storage.git"
+      ref: ce09c8a5fd2b3a48949e386c7cc2849451961b46
+      resolved-ref: ce09c8a5fd2b3a48949e386c7cc2849451961b46
+      url: "https://github.com/CodeDoctorDE/flutter_secure_storage.git"
     source: git
-    version: "1.2.0"
+    version: "1.1.2"
   flutter_secure_storage_windows:
     dependency: transitive
     description:

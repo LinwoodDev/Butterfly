@@ -41,276 +41,301 @@ class _PdfExportDialogState extends State<PdfExportDialog> {
     return Dialog(
       child: ConstrainedBox(
         constraints: const BoxConstraints(maxWidth: 1000, maxHeight: 700),
-        child:
-            BlocBuilder<DocumentBloc, DocumentState>(builder: (context, state) {
-          if (state is! DocumentLoadSuccess) {
-            return const Center(child: CircularProgressIndicator());
-          }
-          final currentIndex = state.currentIndexCubit;
-          return Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                Header(
-                  title: Text(AppLocalizations.of(context).exportPdf),
-                  actions: [
-                    IconButton(
-                      icon: const PhosphorIcon(PhosphorIconsLight.list),
-                      tooltip: AppLocalizations.of(context).presets,
-                      onPressed: () async {
-                        final preset = await showDialog<ExportPreset>(
-                            context: context,
-                            builder: (ctx) => BlocProvider.value(
+        child: BlocBuilder<DocumentBloc, DocumentState>(
+            buildWhen: (previous, current) =>
+                previous.currentIndexCubit != current.currentIndexCubit ||
+                previous.page != current.page ||
+                previous.pageName != current.pageName,
+            builder: (context, state) {
+              if (state is! DocumentLoadSuccess) {
+                return const Center(child: CircularProgressIndicator());
+              }
+              final currentIndex = state.currentIndexCubit;
+              return Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    Header(
+                      title: Text(AppLocalizations.of(context).exportPdf),
+                      actions: [
+                        IconButton(
+                          icon: const PhosphorIcon(PhosphorIconsLight.list),
+                          tooltip: AppLocalizations.of(context).presets,
+                          onPressed: () async {
+                            final preset = await showDialog<ExportPreset>(
+                                context: context,
+                                builder: (ctx) => BlocProvider.value(
+                                    value: context.read<DocumentBloc>(),
+                                    child: ExportPresetsDialog(areas: areas)));
+                            if (preset != null) {
+                              setState(() {
+                                areas.clear();
+                                areas.addAll(preset.areas);
+                              });
+                            }
+                          },
+                        ),
+                        IconButton(
+                          onPressed: () async {
+                            final result = await showDialog<(String, Area)>(
+                              context: context,
+                              builder: (_) => BlocProvider.value(
                                 value: context.read<DocumentBloc>(),
-                                child: ExportPresetsDialog(areas: areas)));
-                        if (preset != null) {
-                          setState(() {
-                            areas.clear();
-                            areas.addAll(preset.areas);
-                          });
-                        }
-                      },
+                                child:
+                                    _AreaSelectionDialog(document: state.data),
+                              ),
+                            );
+                            if (result != null) {
+                              final (page, area) = result;
+                              setState(() {
+                                areas.add(
+                                    AreaPreset(name: area.name, page: page));
+                              });
+                            }
+                          },
+                          icon: const PhosphorIcon(PhosphorIconsLight.plus),
+                          tooltip: AppLocalizations.of(context).add,
+                        )
+                      ],
                     ),
-                    IconButton(
-                      onPressed: () async {
-                        final result = await showDialog<(String, Area)>(
-                          context: context,
-                          builder: (_) => BlocProvider.value(
-                            value: context.read<DocumentBloc>(),
-                            child: _AreaSelectionDialog(document: state.data),
-                          ),
-                        );
-                        if (result != null) {
-                          final (page, area) = result;
-                          setState(() {
-                            areas.add(AreaPreset(name: area.name, page: page));
-                          });
-                        }
-                      },
-                      icon: const PhosphorIcon(PhosphorIconsLight.plus),
-                      tooltip: AppLocalizations.of(context).add,
-                    )
-                  ],
-                ),
-                Flexible(
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 20, vertical: 15),
-                    child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                        children: [
-                          Flexible(
-                            child: areas.isEmpty
-                                ? Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.stretch,
-                                    children: [
-                                      Text(
-                                        AppLocalizations.of(context).noElements,
-                                        textAlign: TextAlign.center,
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .headlineMedium,
-                                      ),
-                                      Align(
-                                        child: ConstrainedBox(
-                                          constraints: const BoxConstraints(
-                                              maxWidth: 400),
-                                          child: const Divider(),
-                                        ),
-                                      ),
-                                      Text(
-                                        AppLocalizations.of(context).addAll,
-                                        textAlign: TextAlign.center,
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .bodyLarge,
-                                      ),
-                                      Row(
+                    Flexible(
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 20, vertical: 15),
+                        child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            crossAxisAlignment: CrossAxisAlignment.stretch,
+                            children: [
+                              Flexible(
+                                child: areas.isEmpty
+                                    ? Column(
                                         mainAxisAlignment:
                                             MainAxisAlignment.center,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.stretch,
                                         children: [
-                                          ElevatedButton.icon(
-                                            label: Text(
-                                                AppLocalizations.of(context)
-                                                    .page),
-                                            icon: const PhosphorIcon(
-                                                PhosphorIconsLight.book),
-                                            onPressed: () {
-                                              final areas = state.page.areas;
-                                              setState(() {
-                                                this.areas.addAll(
-                                                    areas.map((e) => AreaPreset(
-                                                          name: e.name,
-                                                          page: state.pageName,
-                                                        )));
-                                              });
-                                            },
+                                          Text(
+                                            AppLocalizations.of(context)
+                                                .noElements,
+                                            textAlign: TextAlign.center,
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .headlineMedium,
                                           ),
-                                          ElevatedButton.icon(
-                                            label: Text(
-                                                AppLocalizations.of(context)
-                                                    .document),
-                                            icon: const PhosphorIcon(
-                                                PhosphorIconsLight.file),
-                                            onPressed: () {
-                                              final areas = state.data
-                                                  .getPages(true)
-                                                  .expand((e) =>
-                                                      (state.pageName == e
-                                                              ? state.page
-                                                              : state.data
-                                                                  .getPage(e))
-                                                          ?.areas
-                                                          .map((area) =>
-                                                              AreaPreset(
-                                                                name: area.name,
-                                                                page: e,
-                                                              ))
-                                                          .toList() ??
-                                                      <AreaPreset>[])
-                                                  .toList();
-                                              setState(() {
-                                                this.areas.addAll(areas);
-                                              });
-                                            },
+                                          Align(
+                                            child: ConstrainedBox(
+                                              constraints: const BoxConstraints(
+                                                  maxWidth: 400),
+                                              child: const Divider(),
+                                            ),
+                                          ),
+                                          Text(
+                                            AppLocalizations.of(context).addAll,
+                                            textAlign: TextAlign.center,
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .bodyLarge,
+                                          ),
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              ElevatedButton.icon(
+                                                label: Text(
+                                                    AppLocalizations.of(context)
+                                                        .page),
+                                                icon: const PhosphorIcon(
+                                                    PhosphorIconsLight.book),
+                                                onPressed: () {
+                                                  final areas =
+                                                      state.page.areas;
+                                                  setState(() {
+                                                    this.areas.addAll(areas
+                                                        .map((e) => AreaPreset(
+                                                              name: e.name,
+                                                              page: state
+                                                                  .pageName,
+                                                            )));
+                                                  });
+                                                },
+                                              ),
+                                              ElevatedButton.icon(
+                                                label: Text(
+                                                    AppLocalizations.of(context)
+                                                        .document),
+                                                icon: const PhosphorIcon(
+                                                    PhosphorIconsLight.file),
+                                                onPressed: () {
+                                                  final areas = state.data
+                                                      .getPages(true)
+                                                      .expand((e) =>
+                                                          (state.pageName == e
+                                                                  ? state.page
+                                                                  : state.data
+                                                                      .getPage(
+                                                                          e))
+                                                              ?.areas
+                                                              .map((area) =>
+                                                                  AreaPreset(
+                                                                    name: area
+                                                                        .name,
+                                                                    page: e,
+                                                                  ))
+                                                              .toList() ??
+                                                          <AreaPreset>[])
+                                                      .toList();
+                                                  setState(() {
+                                                    this.areas.addAll(areas);
+                                                  });
+                                                },
+                                              ),
+                                            ],
                                           ),
                                         ],
-                                      ),
-                                    ],
-                                  )
-                                : SingleChildScrollView(
-                                    child: Wrap(
-                                      alignment: WrapAlignment.center,
-                                      crossAxisAlignment:
-                                          WrapCrossAlignment.center,
-                                      children: areas.mapIndexed((i, e) {
-                                        final page = (e.page == state.pageName
-                                                ? null
-                                                : state.data.getPage(e.page)) ??
-                                            state.page;
-                                        final area = e.area ??
-                                            page.getAreaByName(e.name);
-                                        if (area == null) {
-                                          return Container();
-                                        }
-                                        return FutureBuilder<ByteData?>(
-                                          future: currentIndex.render(
-                                            state.data,
-                                            page,
-                                            state.info,
-                                            ImageExportOptions(
-                                                width: area.width,
-                                                height: area.height,
+                                      )
+                                    : SingleChildScrollView(
+                                        child: Wrap(
+                                          alignment: WrapAlignment.center,
+                                          crossAxisAlignment:
+                                              WrapCrossAlignment.center,
+                                          children: areas.mapIndexed((i, e) {
+                                            final page =
+                                                (e.page == state.pageName
+                                                        ? null
+                                                        : state.data
+                                                            .getPage(e.page)) ??
+                                                    state.page;
+                                            final area = e.area ??
+                                                page.getAreaByName(e.name);
+                                            if (area == null) {
+                                              return Container();
+                                            }
+                                            return FutureBuilder<ByteData?>(
+                                              future: currentIndex.render(
+                                                state.data,
+                                                page,
+                                                state.info,
+                                                ImageExportOptions(
+                                                    width: area.width,
+                                                    height: area.height,
+                                                    quality: e.quality,
+                                                    x: area.position.x,
+                                                    y: area.position.y),
+                                              ),
+                                              builder: (context, snapshot) =>
+                                                  _AreaPreview(
+                                                area: area,
+                                                page: e.page,
                                                 quality: e.quality,
-                                                x: area.position.x,
-                                                y: area.position.y),
-                                          ),
-                                          builder: (context, snapshot) =>
-                                              _AreaPreview(
-                                            area: area,
-                                            page: e.page,
-                                            quality: e.quality,
-                                            onRemove: () {
-                                              setState(() {
-                                                areas.removeAt(i);
-                                              });
-                                            },
-                                            onQualityChanged: (value) {
-                                              setState(() {
-                                                areas[i] =
-                                                    e.copyWith(quality: value);
-                                              });
-                                            },
-                                            onMoveLeft: i == 0
-                                                ? null
-                                                : () {
-                                                    setState(() {
-                                                      final temp = areas[i - 1];
-                                                      areas[i - 1] = areas[i];
-                                                      areas[i] = temp;
-                                                    });
-                                                  },
-                                            onMoveRight: i >= areas.length - 1
-                                                ? null
-                                                : () {
-                                                    setState(() {
-                                                      final temp = areas[i + 1];
-                                                      areas[i + 1] = areas[i];
-                                                      areas[i] = temp;
-                                                    });
-                                                  },
-                                            image: snapshot.data?.buffer
-                                                .asUint8List(),
-                                          ),
-                                        );
-                                      }).toList(),
-                                    ),
-                                  ),
-                          ),
-                          const Divider(),
-                          Row(
-                            children: [
-                              Expanded(child: Container()),
-                              TextButton(
-                                child:
-                                    Text(AppLocalizations.of(context).cancel),
-                                onPressed: () => Navigator.of(context).pop(),
+                                                onRemove: () {
+                                                  setState(() {
+                                                    areas.removeAt(i);
+                                                  });
+                                                },
+                                                onQualityChanged: (value) {
+                                                  setState(() {
+                                                    areas[i] = e.copyWith(
+                                                        quality: value);
+                                                  });
+                                                },
+                                                onMoveLeft: i == 0
+                                                    ? null
+                                                    : () {
+                                                        setState(() {
+                                                          final temp =
+                                                              areas[i - 1];
+                                                          areas[i - 1] =
+                                                              areas[i];
+                                                          areas[i] = temp;
+                                                        });
+                                                      },
+                                                onMoveRight:
+                                                    i >= areas.length - 1
+                                                        ? null
+                                                        : () {
+                                                            setState(() {
+                                                              final temp =
+                                                                  areas[i + 1];
+                                                              areas[i + 1] =
+                                                                  areas[i];
+                                                              areas[i] = temp;
+                                                            });
+                                                          },
+                                                image: snapshot.data?.buffer
+                                                    .asUint8List(),
+                                              ),
+                                            );
+                                          }).toList(),
+                                        ),
+                                      ),
                               ),
-                              if (widget.print) ...[
-                                ElevatedButton(
-                                  child: Text(widget.print
-                                      ? AppLocalizations.of(context).print
-                                      : AppLocalizations.of(context).export),
-                                  onPressed: () async {
-                                    await Printing.layoutPdf(
-                                      onLayout: (_) async => (await currentIndex
-                                              .renderPDF(state.data, state.info,
-                                                  areas: areas, state: state))
-                                          .save(),
-                                    );
-                                    Navigator.of(context).pop();
-                                  },
-                                ),
-                              ] else ...[
-                                if (supportsShare())
-                                  ElevatedButton(
+                              const Divider(),
+                              Row(
+                                children: [
+                                  Expanded(child: Container()),
+                                  TextButton(
                                     child: Text(
-                                        AppLocalizations.of(context).share),
-                                    onPressed: () async {
-                                      await exportPdf(
-                                          context,
-                                          await (await currentIndex.renderPDF(
-                                                  state.data, state.info,
-                                                  areas: areas, state: state))
-                                              .save(),
-                                          true);
-                                      Navigator.of(context).pop();
-                                    },
+                                        AppLocalizations.of(context).cancel),
+                                    onPressed: () =>
+                                        Navigator.of(context).pop(),
                                   ),
-                                ElevatedButton(
-                                  child:
-                                      Text(AppLocalizations.of(context).export),
-                                  onPressed: () async {
-                                    await exportPdf(
-                                        context,
-                                        await (await currentIndex.renderPDF(
-                                                state.data, state.info,
-                                                areas: areas, state: state))
-                                            .save());
-                                    Navigator.of(context).pop();
-                                  },
-                                ),
-                              ],
-                            ],
-                          )
-                        ]),
-                  ),
-                ),
-              ]);
-        }),
+                                  if (widget.print) ...[
+                                    ElevatedButton(
+                                      child: Text(widget.print
+                                          ? AppLocalizations.of(context).print
+                                          : AppLocalizations.of(context)
+                                              .export),
+                                      onPressed: () async {
+                                        await Printing.layoutPdf(
+                                          onLayout: (_) async =>
+                                              (await currentIndex.renderPDF(
+                                                      state.data, state.info,
+                                                      areas: areas,
+                                                      state: state))
+                                                  .save(),
+                                        );
+                                        Navigator.of(context).pop();
+                                      },
+                                    ),
+                                  ] else ...[
+                                    if (supportsShare())
+                                      ElevatedButton(
+                                        child: Text(
+                                            AppLocalizations.of(context).share),
+                                        onPressed: () async {
+                                          await exportPdf(
+                                              context,
+                                              await (await currentIndex
+                                                      .renderPDF(state.data,
+                                                          state.info,
+                                                          areas: areas,
+                                                          state: state))
+                                                  .save(),
+                                              true);
+                                          Navigator.of(context).pop();
+                                        },
+                                      ),
+                                    ElevatedButton(
+                                      child: Text(
+                                          AppLocalizations.of(context).export),
+                                      onPressed: () async {
+                                        await exportPdf(
+                                            context,
+                                            await (await currentIndex.renderPDF(
+                                                    state.data, state.info,
+                                                    areas: areas, state: state))
+                                                .save());
+                                        Navigator.of(context).pop();
+                                      },
+                                    ),
+                                  ],
+                                ],
+                              )
+                            ]),
+                      ),
+                    ),
+                  ]);
+            }),
       ),
     );
   }
@@ -539,33 +564,37 @@ class _ExportPresetsDialogState extends State<ExportPresetsDialog> {
             child: Material(
               type: MaterialType.transparency,
               child: BlocBuilder<DocumentBloc, DocumentState>(
+                  buildWhen: (previous, current) =>
+                      previous.info?.exportPresets !=
+                      current.info?.exportPresets,
                   builder: (context, state) {
-                if (state is! DocumentLoadSuccess) return Container();
-                return ListView(shrinkWrap: true, children: [
-                  ...state.info.exportPresets
-                      .where((element) => element.name.contains(_searchQuery))
-                      .map((e) => Dismissible(
-                            key: ObjectKey(e.name),
-                            onDismissed: (direction) {
-                              context
-                                  .read<DocumentBloc>()
-                                  .add(ExportPresetRemoved(e.name));
-                            },
-                            child: ListTile(
-                              title: Text(e.name),
-                              onTap: () => Navigator.of(context).pop(e),
-                            ),
-                          )),
-                  if (widget.areas == null) ...[
-                    const Divider(),
-                    ListTile(
-                      title: Text(AppLocalizations.of(context).newContent),
-                      onTap: () =>
-                          Navigator.of(context).pop(const ExportPreset()),
-                    ),
-                  ],
-                ]);
-              }),
+                    if (state is! DocumentLoadSuccess) return Container();
+                    return ListView(shrinkWrap: true, children: [
+                      ...state.info.exportPresets
+                          .where(
+                              (element) => element.name.contains(_searchQuery))
+                          .map((e) => Dismissible(
+                                key: ObjectKey(e.name),
+                                onDismissed: (direction) {
+                                  context
+                                      .read<DocumentBloc>()
+                                      .add(ExportPresetRemoved(e.name));
+                                },
+                                child: ListTile(
+                                  title: Text(e.name),
+                                  onTap: () => Navigator.of(context).pop(e),
+                                ),
+                              )),
+                      if (widget.areas == null) ...[
+                        const Divider(),
+                        ListTile(
+                          title: Text(AppLocalizations.of(context).newContent),
+                          onTap: () =>
+                              Navigator.of(context).pop(const ExportPreset()),
+                        ),
+                      ],
+                    ]);
+                  }),
             ),
           ),
           Padding(
