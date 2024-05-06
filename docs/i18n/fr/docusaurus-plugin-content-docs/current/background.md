@@ -4,24 +4,35 @@ sidebar_position: 2
 title: Arrière-plan
 ---
 
-Il existe deux types de fonds différents.
+import {Wrench, Book, Image, Globe, Gear,
 
-### Schéma
+} from "@phosphor-icons/react";
 
-Vous pouvez personnaliser l'arrière-plan du papier. Cliquez sur l'icône d'arrière-plan dans la fenêtre d'affichage pour l'ajouter. Il y a 8 modèles d'arrière-plan différents.
+To edit the background of the page, click on the <Wrench/> icon and there, on the <Book/> page icon. There, you'll have the option to click on the <Image/> icon. On a computer, you can also use the `ctrl-B` shortcut.
 
-### Configuration
+When configuring a backgournd, you have two tabs. The <Globe/> General tab to select the type of background to use, and the <Gear/> To configure the selected background.
 
-Largeur et hauteur sont les paramètres généraux de la boîte.
+## <Globe/> Schéma
 
-De plus, vous pouvez personnaliser la couleur de l'arrière-plan.
+There are 8 different background templates available that you can choose from. For each of the available patterns, you can configure the following:
 
-La propriété comptage et espacement vous permet de créer du papier musical. Pour le papier de musique, réglez le nombre à 5 et l'espacement à plus de la largeur.
 
-## Image
+### <Gear/> Propriétés
 
-Le type d'arrière-plan de l'image vous permet d'utiliser une image comme arrière-plan.
+In the horizontal configuration tab, you have the following option:
 
-### Configuration
+- Width - the width for each row respectively.
+- Count - you can group the rows in group that way.
+- Space - the distance between each group of rows.
+
+For example, to create a music sheet, you can use the following configuration: `Width - 40`, `Count - 5`, `Space - 80`
+
+The vertical configuration follows the same logic for columns instead of rows.
+
+## <Globe/> Image
+
+The image background type allows you to upload an image and use it as background for the page.
+
+### <Gear/> Properties.
 
 L'échelle dans la direction x et y peut être modifiée si cette image est petite ou grande.
