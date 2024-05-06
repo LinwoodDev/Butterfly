@@ -4,24 +4,35 @@ sidebar_position: 2
 title: Fondo
 ---
 
-Hay dos tipos diferentes de fondos.
+import {Wrench, Book, Image, Globe, Gear,
 
-### Patrón
+} from "@phosphor-icons/react";
 
-Puede personalizar el fondo del papel. Haga clic en el icono de fondo en el diálogo de vista para añadirlo. Hay 8 diferentes plantillas de fondo disponibles.
+To edit the background of the page, click on the <Wrench/> icon and there, on the <Book/> page icon. There, you'll have the option to click on the <Image/> icon. On a computer, you can also use the `ctrl-B` shortcut.
 
-### Configuración
+When configuring a backgournd, you have two tabs. The <Globe/> General tab to select the type of background to use, and the <Gear/> To configure the selected background.
 
-Ancho y altura son los ajustes generales de la caja.
+## <Globe/> Patrón
 
-Además, puede personalizar el color del fondo.
+There are 8 different background templates available that you can choose from. For each of the available patterns, you can configure the following:
 
-La propiedad de conteo y espaciado le permite crear papel musical. Para el papel musical, ajuste el recuento a 5 y el espaciado a más de la anchura.
 
-## Imagen
+### <Gear/> Propiedades
 
-El tipo de fondo de la imagen le permite usar una imagen como fondo.
+In the horizontal configuration tab, you have the following option:
 
-### Configuración
+- Width - the width for each row respectively.
+- Count - you can group the rows in group that way.
+- Space - the distance between each group of rows.
+
+For example, to create a music sheet, you can use the following configuration: `Width - 40`, `Count - 5`, `Space - 80`
+
+The vertical configuration follows the same logic for columns instead of rows.
+
+## <Globe/> Imagen
+
+The image background type allows you to upload an image and use it as background for the page.
+
+### <Gear/> Properties.
 
 La escala en la dirección x e y se puede cambiar si esta imagen es pequeña o grande.
