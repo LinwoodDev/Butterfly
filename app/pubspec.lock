@@ -572,11 +572,11 @@ packages:
     dependency: "direct overridden"
     description:
       path: flutter_secure_storage_web
-      ref: "6ac827e457393b5c654c1abda40d31e2cb93f62c"
-      resolved-ref: "6ac827e457393b5c654c1abda40d31e2cb93f62c"
-      url: "https://github.com/ThexXTURBOXx/flutter_secure_storage.git"
+      ref: ce09c8a5fd2b3a48949e386c7cc2849451961b46
+      resolved-ref: ce09c8a5fd2b3a48949e386c7cc2849451961b46
+      url: "https://github.com/CodeDoctorDE/flutter_secure_storage.git"
     source: git
-    version: "1.2.0"
+    version: "1.1.2"
   flutter_secure_storage_windows:
     dependency: transitive
     description:

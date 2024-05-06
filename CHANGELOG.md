@@ -2,16 +2,6 @@
 
 <!--ENTER CHANGELOG HERE-->
 
-## 2.1.0-rc.2 (2024-05-06)
-
-* Reenable changing data directory on android ([#569](https://github.com/LinwoodDev/Butterfly/issues/569))
-* Fix unknown import type shows euler number
-* Fix unknown import type on images ([#679](https://github.com/LinwoodDev/Butterfly/issues/679))
-* Fix changing background removes all elements from the canvas ([#681](https://github.com/LinwoodDev/Butterfly/issues/681))
-* Fix unnessesary rerender dialogs and views
-
-Read more here: https://linwood.dev/butterfly/2.1.0-rc.2
-
 ## 2.1.0-rc.1 (2024-04-30)
 
 * Fix triangle rendering
