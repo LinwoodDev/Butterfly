@@ -4,24 +4,35 @@ sidebar_position: 2
 title: 背景
 ---
 
-有两种不同的背景。
+import {Wrench, Book, Image, Globe, Gear,
 
-### 图案
+} from "@phosphor-icons/react";
 
-您可以自定义文档的背景。 点击视图对话框中的背景图标来添加它。 现有8个不同的背景模板。
+To edit the background of the page, click on the <Wrench/> icon and there, on the <Book/> page icon. There, you'll have the option to click on the <Image/> icon. On a computer, you can also use the `ctrl-B` shortcut.
 
-### 配置
+When configuring a backgournd, you have two tabs. The <Globe/> General tab to select the type of background to use, and the <Gear/> To configure the selected background.
 
-宽度和高度是方框的一般设置。
+## <Globe/> 图案
 
-此外，您可以自定义背景的颜色。
+There are 8 different background templates available that you can choose from. For each of the available patterns, you can configure the following:
 
-计数和间距属性允许您创建音乐纸。 对于音乐纸，设置计数为5，间隔超过宽度。
 
-## 图片
+### <Gear/> 属性
 
-图像背景类型允许您使用图像作为背景。
+In the horizontal configuration tab, you have the following option:
 
-### 配置
+- Width - the width for each row respectively.
+- Count - you can group the rows in group that way.
+- Space - the distance between each group of rows.
+
+For example, to create a music sheet, you can use the following configuration: `Width - 40`, `Count - 5`, `Space - 80`
+
+The vertical configuration follows the same logic for columns instead of rows.
+
+## <Globe/> 图片
+
+The image background type allows you to upload an image and use it as background for the page.
+
+### <Gear/> Properties.
 
 x和y方向的缩放可以更改，如果这个图像大小或大小。
