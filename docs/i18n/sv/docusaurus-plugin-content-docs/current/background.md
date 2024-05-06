@@ -4,24 +4,35 @@ sidebar_position: 2
 title: Bakgrund
 ---
 
-Det finns två olika typer av bakgrunder.
+import {Wrench, Book, Image, Globe, Gear,
 
-### Mönster
+} from "@phosphor-icons/react";
 
-Du kan anpassa bakgrunden till pappret. Klicka på bakgrundsikonen i dialogrutan för att lägga till den. Det finns 8 olika bakgrundsmallar tillgängliga.
+To edit the background of the page, click on the <Wrench/> icon and there, on the <Book/> page icon. There, you'll have the option to click on the <Image/> icon. On a computer, you can also use the `ctrl-B` shortcut.
 
-### Konfiguration
+When configuring a backgournd, you have two tabs. The <Globe/> General tab to select the type of background to use, and the <Gear/> To configure the selected background.
 
-Bredd och höjd är de allmänna inställningarna i lådan.
+## <Globe/> Mönster
 
-Dessutom kan du anpassa färgen på bakgrunden.
+There are 8 different background templates available that you can choose from. For each of the available patterns, you can configure the following:
 
-Räkna och avstånd egenskapen kan du skapa musik papper. För musik papper, ange räkna till 5 och avstånd till mer än bredden.
 
-## Bild
+### <Gear/> Egenskaper
 
-Bakgrundstypen låter dig använda en bild som bakgrund.
+In the horizontal configuration tab, you have the following option:
 
-### Konfiguration
+- Width - the width for each row respectively.
+- Count - you can group the rows in group that way.
+- Space - the distance between each group of rows.
+
+For example, to create a music sheet, you can use the following configuration: `Width - 40`, `Count - 5`, `Space - 80`
+
+The vertical configuration follows the same logic for columns instead of rows.
+
+## <Globe/> Bild
+
+The image background type allows you to upload an image and use it as background for the page.
+
+### <Gear/> Properties.
 
 Skalan i x och y riktning kan ändras om denna bild till liten eller stor.
