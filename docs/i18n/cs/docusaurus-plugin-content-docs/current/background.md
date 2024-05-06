@@ -4,24 +4,35 @@ sidebar_position: 2
 title: Pozadí
 ---
 
-Existují dva různé typy pozadí.
+import {Wrench, Book, Image, Globe, Gear,
 
-### Vzor
+} from "@phosphor-icons/react";
 
-Pozadí dokumentu si můžete přizpůsobit. Klikněte na ikonu pozadí v dialogovém okně pro její přidání. K dispozici je 8 různých šablon na pozadí.
+To edit the background of the page, click on the <Wrench/> icon and there, on the <Book/> page icon. There, you'll have the option to click on the <Image/> icon. On a computer, you can also use the `ctrl-B` shortcut.
 
-### Konfigurace
+When configuring a backgournd, you have two tabs. The <Globe/> General tab to select the type of background to use, and the <Gear/> To configure the selected background.
 
-Šířka a výška jsou obecným nastavením boxu.
+## <Globe/> Vzor
 
-Navíc si můžete přizpůsobit barvu pozadí.
+There are 8 different background templates available that you can choose from. For each of the available patterns, you can configure the following:
 
-Vlastnost počtu a mezery vám umožní vytvořit hudební papír. Pro hudební papír nastavte počet na 5 a mezeru na více než šířku.
 
-## Obrázek
+### <Gear/> Vlastnosti
 
-Typ pozadí obrázku umožňuje použít obrázek jako pozadí.
+In the horizontal configuration tab, you have the following option:
 
-### Konfigurace
+- Width - the width for each row respectively.
+- Count - you can group the rows in group that way.
+- Space - the distance between each group of rows.
+
+For example, to create a music sheet, you can use the following configuration: `Width - 40`, `Count - 5`, `Space - 80`
+
+The vertical configuration follows the same logic for columns instead of rows.
+
+## <Globe/> Obrázek
+
+The image background type allows you to upload an image and use it as background for the page.
+
+### <Gear/> Properties.
 
 Měřítko ve směru x a y lze změnit, pokud je tento obrázek malý nebo velký.
