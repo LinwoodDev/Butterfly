@@ -284,9 +284,8 @@ class _GeneralExportDialogState extends State<GeneralExportDialog> {
             ),
             const SizedBox(height: 16),
             Expanded(
-              child: BlocBuilder<DocumentBloc, DocumentState>(
-                  builder: (context, state) {
-                if (state is! DocumentLoadSuccess || _previewImage == null) {
+              child: Builder(builder: (context) {
+                if (_previewImage == null) {
                   return const Center(child: CircularProgressIndicator());
                 }
                 return Image(

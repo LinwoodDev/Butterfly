@@ -636,6 +636,7 @@ class _RecentFilesViewState extends State<_RecentFilesView> {
   @override
   Widget build(BuildContext context) {
     return BlocListener<SettingsCubit, ButterflySettings>(
+      listenWhen: (previous, current) => previous.history != current.history,
       listener: (_, state) => setState(() {
         _setStream(state);
       }),
