@@ -23,96 +23,101 @@ class BackgroundDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<DocumentBloc, DocumentState>(builder: (context, state) {
-      if (state is! DocumentLoadSuccess) return Container();
-      var background = state.page.backgrounds.firstOrNull;
+    return BlocBuilder<DocumentBloc, DocumentState>(
+        buildWhen: (previous, current) =>
+            previous.page?.backgrounds != current.page?.backgrounds,
+        builder: (context, state) {
+          if (state is! DocumentLoadSuccess) return Container();
+          var background = state.page.backgrounds.firstOrNull;
 
-      return AlertDialog(
-        content: SizedBox(
-          width: 600,
-          height: 600,
-          child: DefaultTabController(
-            length: 2,
-            child: Column(
-              children: [
-                Header(
-                  title: Text(AppLocalizations.of(context).background),
-                  leading: const PhosphorIcon(PhosphorIconsLight.image),
-                  actions: [
-                    IconButton(
-                      tooltip: AppLocalizations.of(context).help,
-                      icon: const PhosphorIcon(PhosphorIconsLight.sealQuestion),
-                      onPressed: () => openHelp(['background', 'intro']),
+          return AlertDialog(
+            content: SizedBox(
+              width: 600,
+              height: 600,
+              child: DefaultTabController(
+                length: 2,
+                child: Column(
+                  children: [
+                    Header(
+                      title: Text(AppLocalizations.of(context).background),
+                      leading: const PhosphorIcon(PhosphorIconsLight.image),
+                      actions: [
+                        IconButton(
+                          tooltip: AppLocalizations.of(context).help,
+                          icon: const PhosphorIcon(
+                              PhosphorIconsLight.sealQuestion),
+                          onPressed: () => openHelp(['background', 'intro']),
+                        ),
+                      ],
+                    ),
+                    TabBar(
+                      tabAlignment: TabAlignment.fill,
+                      tabs: [
+                        (
+                          PhosphorIconsLight.globe,
+                          AppLocalizations.of(context).general,
+                        ),
+                        (
+                          PhosphorIconsLight.gear,
+                          AppLocalizations.of(context).properties,
+                        ),
+                      ]
+                          .map((e) => HorizontalTab(
+                                icon: PhosphorIcon(e.$1),
+                                label: Text(e.$2),
+                              ))
+                          .toList(),
+                    ),
+                    const SizedBox(height: 8),
+                    Expanded(
+                      child: StatefulBuilder(builder: (context, setState) {
+                        return TabBarView(
+                          children: [
+                            _GeneralBackgroundPropertiesView(
+                                value: background,
+                                onChanged: (value) =>
+                                    setState(() => background = value)),
+                            if (background != null) ...[
+                              background!.map(
+                                texture: (e) =>
+                                    _TextureBackgroundPropertiesView(
+                                        value: e,
+                                        onChanged: (value) =>
+                                            setState(() => background = value)),
+                                image: (e) => _ImageBackgroundPropertiesView(
+                                    value: e,
+                                    onChanged: (value) =>
+                                        setState(() => background = value)),
+                                svg: (e) => _SvgBackgroundPropertiesView(
+                                    value: e,
+                                    onChanged: (value) =>
+                                        setState(() => background = value)),
+                              ),
+                            ] else
+                              const SizedBox(),
+                          ],
+                        );
+                      }),
                     ),
                   ],
                 ),
-                TabBar(
-                  tabAlignment: TabAlignment.fill,
-                  tabs: [
-                    (
-                      PhosphorIconsLight.globe,
-                      AppLocalizations.of(context).general,
-                    ),
-                    (
-                      PhosphorIconsLight.gear,
-                      AppLocalizations.of(context).properties,
-                    ),
-                  ]
-                      .map((e) => HorizontalTab(
-                            icon: PhosphorIcon(e.$1),
-                            label: Text(e.$2),
-                          ))
-                      .toList(),
-                ),
-                const SizedBox(height: 8),
-                Expanded(
-                  child: StatefulBuilder(builder: (context, setState) {
-                    return TabBarView(
-                      children: [
-                        _GeneralBackgroundPropertiesView(
-                            value: background,
-                            onChanged: (value) =>
-                                setState(() => background = value)),
-                        if (background != null) ...[
-                          background!.map(
-                            texture: (e) => _TextureBackgroundPropertiesView(
-                                value: e,
-                                onChanged: (value) =>
-                                    setState(() => background = value)),
-                            image: (e) => _ImageBackgroundPropertiesView(
-                                value: e,
-                                onChanged: (value) =>
-                                    setState(() => background = value)),
-                            svg: (e) => _SvgBackgroundPropertiesView(
-                                value: e,
-                                onChanged: (value) =>
-                                    setState(() => background = value)),
-                          ),
-                        ] else
-                          const SizedBox(),
-                      ],
-                    );
-                  }),
-                ),
-              ],
+              ),
             ),
-          ),
-        ),
-        actions: [
-          TextButton(
-            child: Text(AppLocalizations.of(context).cancel),
-            onPressed: () => Navigator.of(context).pop(),
-          ),
-          ElevatedButton(
-            child: Text(AppLocalizations.of(context).ok),
-            onPressed: () {
-              context.read<DocumentBloc>().add(DocumentBackgroundsChanged(
-                  [if (background != null) background!]));
-              Navigator.of(context).pop();
-            },
-          ),
-        ],
-      );
-    });
+            actions: [
+              TextButton(
+                child: Text(AppLocalizations.of(context).cancel),
+                onPressed: () => Navigator.of(context).pop(),
+              ),
+              ElevatedButton(
+                child: Text(AppLocalizations.of(context).ok),
+                onPressed: () {
+                  context.read<DocumentBloc>().add(DocumentBackgroundsChanged(
+                      [if (background != null) background!]));
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        });
   }
 }

@@ -10,13 +10,13 @@ _$PatternTextureImpl _$$PatternTextureImplFromJson(Map json) =>
     _$PatternTextureImpl(
       boxWidth: (json['boxWidth'] as num?)?.toDouble() ?? 0,
       boxHeight: (json['boxHeight'] as num?)?.toDouble() ?? 0,
-      boxXCount: json['boxXCount'] as int? ?? 1,
-      boxYCount: json['boxYCount'] as int? ?? 1,
+      boxXCount: (json['boxXCount'] as num?)?.toInt() ?? 1,
+      boxYCount: (json['boxYCount'] as num?)?.toInt() ?? 1,
       boxXSpace: (json['boxXSpace'] as num?)?.toDouble() ?? 0,
       boxYSpace: (json['boxYSpace'] as num?)?.toDouble() ?? 0,
-      boxXColor: json['boxXColor'] as int? ?? BasicColors.blue,
-      boxYColor: json['boxYColor'] as int? ?? BasicColors.red,
-      boxColor: json['boxColor'] as int? ?? BasicColors.white,
+      boxXColor: (json['boxXColor'] as num?)?.toInt() ?? BasicColors.blue,
+      boxYColor: (json['boxYColor'] as num?)?.toInt() ?? BasicColors.red,
+      boxColor: (json['boxColor'] as num?)?.toInt() ?? BasicColors.white,
       boxXStroke: (json['boxXStroke'] as num?)?.toDouble() ?? 0.5,
       boxYStroke: (json['boxYStroke'] as num?)?.toDouble() ?? 0.5,
     );

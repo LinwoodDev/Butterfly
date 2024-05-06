@@ -92,7 +92,7 @@ Future<void> main([List<String> args = const []]) async {
           'native',
         ],
         queryParameters: {
-          'type': 'note',
+          'type': intentType,
         },
       ).toString();
       initialExtra = await getIntentData();
