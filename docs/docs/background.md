@@ -23,6 +23,7 @@ There are 8 different background templates available that you can choose from. F
 ### <Gear/> Properties
 
 In the horizontal configuration tab, you have the following option:
+
 - Width - the width for each row respectively.
 - Count - you can group the rows in group that way. 
 - Space - the distance between each group of rows. 
@@ -34,7 +35,7 @@ The vertical configuration follows the same logic for columns instead of rows.
 
 ## <Globe/> Image
 
-The image background type allows you to upload an image and use it as background for thepage.
+The image background type allows you to upload an image and use it as background for the page.
 
 ### <Gear/> Properties. 
 
