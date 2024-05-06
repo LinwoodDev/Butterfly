@@ -311,6 +311,7 @@
   "circle": "Circle",
   "rectangle": "Rectangle",
   "triangle": "Triangle",
+  "arrow": "Arrow",
   "line": "Line",
   "cornerRadius": "Corner radius",
   "topLeft": "Top left",

@@ -72,6 +72,26 @@ class ShapeRenderer extends Renderer<ShapeElement> {
       if (strokeWidth > 0) {
         canvas.drawPath(path, paint);
       }
+    } else if (shape is ArrowShape) {
+      final arrowPath = Path();
+      final tailLength = drawRect.width - shape.arrowheadLength;
+      arrowPath.moveTo(drawRect.left, drawRect.center.dy);
+      arrowPath.lineTo(drawRect.left + tailLength, drawRect.center.dy);
+      arrowPath.lineTo(drawRect.left + tailLength,
+          drawRect.center.dy - shape.arrowheadWidth / 2);
+      arrowPath.lineTo(drawRect.right, drawRect.center.dy);
+      arrowPath.lineTo(drawRect.left + tailLength,
+          drawRect.center.dy + shape.arrowheadWidth / 2);
+      arrowPath.lineTo(drawRect.left + tailLength, drawRect.center.dy);
+      arrowPath.close();
+
+      canvas.drawPath(
+          arrowPath,
+          _buildPaint(
+              color: Color(shape.fillColor), style: PaintingStyle.fill));
+      if (strokeWidth > 0) {
+        canvas.drawPath(arrowPath, paint);
+      }
     }
   }
 
@@ -152,6 +172,24 @@ class ShapeRenderer extends Renderer<ShapeElement> {
           'fill': 'none',
         },
       );
+    } else if (shape is ArrowShape) {
+      final tailLength = drawRect.width - shape.arrowheadLength;
+      final d = 'M${drawRect.left} ${drawRect.center.dy} '
+          'L${drawRect.left + tailLength} ${drawRect.center.dy} '
+          'L${drawRect.left + tailLength} ${drawRect.center.dy - shape.arrowheadWidth / 2} '
+          'L${drawRect.right} ${drawRect.center.dy} '
+          'L${drawRect.left + tailLength} ${drawRect.center.dy + shape.arrowheadWidth / 2} '
+          'L${drawRect.left + tailLength} ${drawRect.center.dy} Z';
+
+      xml.getElement('svg')?.createElement(
+        'path',
+        attributes: {
+          'd': d,
+          'fill': shape.fillColor.toHexColor(),
+          'stroke': element.property.color.toHexColor(),
+          'stroke-width': '${element.property.strokeWidth}px',
+        },
+      );
     }
   }
 
@@ -222,6 +260,7 @@ class ShapeHitCalculator extends HitCalculator {
         circle: (e) => containsRect(),
         rectangle: (e) => containsRect(),
         triangle: (e) => containsRect(),
+        arrow: (e) => containsRect(),
         line: (e) {
           final firstX = min(element.firstPosition.x, element.secondPosition.x);
           final firstY = min(element.firstPosition.y, element.secondPosition.y);
@@ -275,6 +314,26 @@ class ShapeHitCalculator extends HitCalculator {
             element.secondPosition.toOffset().rotate(center, rotation);
         return isPointInPolygon(polygon, firstPosition) ||
             isPointInPolygon(polygon, secondPosition);
+      },
+      arrow: (value) {
+        final arrowPoints = [
+          element.firstPosition.toOffset().rotate(center, rotation),
+          Offset(rect.left + (rect.width - value.arrowheadLength),
+                  rect.center.dy)
+              .rotate(center, rotation),
+          Offset(rect.left + (rect.width - value.arrowheadLength),
+                  rect.center.dy - value.arrowheadWidth / 2)
+              .rotate(center, rotation),
+          Offset(rect.right, rect.center.dy).rotate(center, rotation),
+          Offset(rect.left + (rect.width - value.arrowheadLength),
+                  rect.center.dy + value.arrowheadWidth / 2)
+              .rotate(center, rotation),
+          Offset(rect.left + (rect.width - value.arrowheadLength),
+                  rect.center.dy)
+              .rotate(center, rotation)
+        ];
+
+        return arrowPoints.any((point) => isPointInPolygon(polygon, point));
       },
     );
   }

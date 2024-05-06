@@ -170,6 +170,9 @@ class _ShapeViewState extends State<ShapeView> {
     if (current is TriangleShape) {
       return _TriangleShapeView(shape: current, onChanged: _onShapeChanged);
     }
+    if (current is ArrowShape) {
+      return _ArrowShapeView(shape: current, onChanged: _onShapeChanged);
+    }
     if (current is RectangleShape) {
       return _RectangleShapeView(shape: current, onChanged: _onShapeChanged);
     }
@@ -199,7 +202,8 @@ class _ShapeViewState extends State<ShapeView> {
                 PathShape.circle,
                 PathShape.rectangle,
                 PathShape.line,
-                PathShape.triangle
+                PathShape.triangle,
+                PathShape.arrow,
               ].map((e) {
                 var shape = e();
                 return DropdownMenuItem<String>(
@@ -255,6 +259,35 @@ class _TriangleShapeView extends StatelessWidget {
   final TriangleShape shape;
   final ValueChanged<TriangleShape> onChanged;
   const _TriangleShapeView({required this.shape, required this.onChanged});
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(children: [
+      ColorField(
+        value: Color(shape.fillColor),
+        title: Text(AppLocalizations.of(context).fill),
+        leading: const PhosphorIcon(PhosphorIconsLight.paintBucket),
+        defaultColor: Colors.transparent,
+        onChanged: (color) => onChanged(shape.copyWith(fillColor: color.value)),
+      ),
+      ExactSlider(
+        value: Color(shape.fillColor).alpha.toDouble(),
+        header: Text(AppLocalizations.of(context).alpha),
+        fractionDigits: 0,
+        max: 255,
+        min: 0,
+        defaultValue: 255,
+        onChangeEnd: (value) => onChanged(shape.copyWith(
+            fillColor: convertColor(shape.fillColor, value.toInt()))),
+      )
+    ]);
+  }
+}
+
+class _ArrowShapeView extends StatelessWidget {
+  final ArrowShape shape;
+  final ValueChanged<ArrowShape> onChanged;
+  const _ArrowShapeView({required this.shape, required this.onChanged});
 
   @override
   Widget build(BuildContext context) {

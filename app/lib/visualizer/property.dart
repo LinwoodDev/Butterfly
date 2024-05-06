@@ -10,6 +10,7 @@ extension PathShapeVisualizer on PathShape {
         rectangle: (_) => PhosphorIcons.square,
         line: (_) => PhosphorIcons.lineSegment,
         triangle: (_) => PhosphorIcons.triangle,
+        arrow: (_) => PhosphorIcons.arrowUpRight,
       );
 
   String getLocalizedName(BuildContext context) {
@@ -19,6 +20,7 @@ extension PathShapeVisualizer on PathShape {
       rectangle: (_) => loc.rectangle,
       line: (_) => loc.line,
       triangle: (_) => loc.triangle,
+      arrow: (_) => loc.arrow,
     );
   }
 }

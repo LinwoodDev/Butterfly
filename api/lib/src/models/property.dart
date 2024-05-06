@@ -54,6 +54,13 @@ sealed class PathShape with _$PathShape {
     @Default(BasicColors.transparent) int fillColor,
   }) = TriangleShape;
 
+   const factory PathShape.arrow({
+    @Default(BasicColors.transparent) int fillColor,
+    @Default(10) double arrowheadLength,
+    @Default(5) double arrowheadWidth,
+  }) = ArrowShape;
+
   factory PathShape.fromJson(Map<String, dynamic> json) =>
       _$PathShapeFromJson(json);
 }
+
