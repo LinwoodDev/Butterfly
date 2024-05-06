@@ -74,22 +74,22 @@ class ImportService {
       return data;
     }
     if (type.isEmpty) type = 'note';
-    AssetFileType? fileType;
-    try {
-      fileType = type.isNotEmpty
-          ? AssetFileType.values.byName(type)
-          : location?.fileType;
-    } catch (e) {
+    final fileType = AssetFileType.values.firstWhereOrNull((element) =>
+        element.isMimeType(type) ||
+        element.getFileExtensions().contains(type) ||
+        element.name == type);
+    if (fileType == null) {
       showDialog(
         context: context,
-        builder: (context) =>
-            UnknownImportConfirmationDialog(message: e.toString()),
+        builder: (context) => UnknownImportConfirmationDialog(
+          message: AppLocalizations.of(context).unknownImportType,
+        ),
       );
       return null;
     }
     if (bytes == null) return null;
     return import(
-      fileType ?? AssetFileType.note,
+      fileType,
       bytes,
       document: document,
       advanced: false,
@@ -700,7 +700,11 @@ class ImportService {
         state != null &&
         (elements.isNotEmpty || areas.isNotEmpty)) {
       state.currentIndexCubit.changeTemporaryHandler(
-          context, ImportTool(elements: elements, areas: areas), bloc!);
+        context,
+        ImportTool(elements: elements, areas: areas),
+        bloc: bloc!,
+        temporaryClicked: true,
+      );
     } else {
       bloc
         ?..add(AreasCreated(areas))

@@ -18,7 +18,7 @@ Esta es una aplicación web progresiva. Puedes instalarlo en tu navegador y usar
 <Link className="button button--outline button--info button--lg margin--sm" href="https://web.butterfly.linwood.dev">
   Principal
 </Link>
-<Link className="button button--outline button--danger button--lg margin--sm" href="https://preview.web.butterfly.linwood.dev">
+<Link className="button button--outline button--danger button--lg margin--sm" href="https://preview.butterfly.linwood.dev">
   Vista previa
 </Link>
 </div>

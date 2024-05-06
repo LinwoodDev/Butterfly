@@ -18,7 +18,7 @@ Dette er en progressiv webapplikasjon. Du kan installere den i nettleseren din o
 <Link className="button button--outline button--info button--lg margin--sm" href="https://web.butterfly.linwood.dev">
   Hoved
 </Link>
-<Link className="button button--outline button--danger button--lg margin--sm" href="https://preview.web.butterfly.linwood.dev">
+<Link className="button button--outline button--danger button--lg margin--sm" href="https://preview.butterfly.linwood.dev">
   Forhåndsvisning
 </Link>
 </div>

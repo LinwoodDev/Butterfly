@@ -14,7 +14,7 @@ sidebar_position: 1
 
 ## Noțiuni de bază
 
-Vizitați [descărcările](/downloads) pentru a descărca aplicația pentru platforma dvs. Utilizaţi [versiunea web](https://v1.web.butterfly.linwood.dev) dacă nu vă puteţi găsi platforma.
+Vizitați [descărcările](/downloads) pentru a descărca aplicația pentru platforma dvs. Utilizaţi [versiunea web](https://v1.butterfly.linwood.dev) dacă nu vă puteţi găsi platforma.
 
 ## Vizualizare principală
 
