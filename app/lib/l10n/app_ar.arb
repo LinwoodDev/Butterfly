@@ -303,6 +303,7 @@
   "stable": "اسطبل",
   "nightly": "ليلي",
   "checkForUpdates": "التحقق من وجود تحديثات",
+  "checkForUpdatesWarning": "Performing a check for updates will connect to the Butterfly website to get the information.",
   "usingLatestStable": "أنت تستخدم أحدث إصدار مستقر",
   "usingLatestNightly": "أنت تستخدم أحدث إصدار ليلي",
   "currentVersion": "الإصدار الحالي",
