@@ -4,35 +4,35 @@ sidebar_position: 2
 title: الخلفية
 ---
 
-import {Wrench, Book, Image, Globe, Gear,
+استيراد {Wrench, Book, Image, Globe, Gear,
 
-} from "@phosphor-icons/react";
+} من "@phosphor-icons/react";
 
-To edit the background of the page, click on the <Wrench/> icon and there, on the <Book/> page icon. There, you'll have the option to click on the <Image/> icon. On a computer, you can also use the `ctrl-B` shortcut.
+لتحرير خلفية الصفحة، انقر على أيقونة <Wrench/> وهناك، على أيقونة <Book/>. هناك ، سيكون لديك الخيار بالنقر على أيقونة <Image/>. على جهاز الكمبيوتر، يمكنك أيضًا استخدام اختصار `ctrl-B`.
 
-When configuring a backgournd, you have two tabs. The <Globe/> General tab to select the type of background to use, and the <Gear/> To configure the selected background.
+عند تكوين الخلف، لديك علامات تبويب اثنين. علامة التبويب <Globe/> العامة لتحديد نوع الخلفية للاستخدام، و <Gear/> لتكوين الخلفية المحددة.
 
 ## <Globe/> النمط
 
-There are 8 different background templates available that you can choose from. For each of the available patterns, you can configure the following:
+هناك 8 قوالب خلفية مختلفة متاحة يمكنك الاختيار منها. لكل من الأنماط المتاحة، يمكنك تكوين ما يلي:
 
 
 ### <Gear/> الخصائص
 
-In the horizontal configuration tab, you have the following option:
+في علامة التبويب التكوين الأفقي، لديك الخيار التالي:
 
-- Width - the width for each row respectively.
-- Count - you can group the rows in group that way.
-- Space - the distance between each group of rows.
+- العرض - العرض لكل صف على التوالي.
+- العد - يمكنك تجميع الصفوف في مجموعة بهذه الطريقة.
+- المسافة - المسافة بين كل مجموعة من الصفوف
 
-For example, to create a music sheet, you can use the following configuration: `Width - 40`, `Count - 5`, `Space - 80`
+على سبيل المثال، لإنشاء ورقة موسيقية، يمكنك استخدام التكوين التالي: `العرض - 40`، `العد - 5`, `Space - 80`
 
-The vertical configuration follows the same logic for columns instead of rows.
+التكوين العمودي يتبع نفس المنطق للأعمدة بدلا من الصفوف
 
 ## <Globe/> صورة
 
-The image background type allows you to upload an image and use it as background for the page.
+نوع خلفية الصورة يسمح لك برفع صورة واستخدامها كخلفية للصفحة.
 
-### <Gear/> Properties.
+### <Gear/> الخواص.
 
 يمكن تغيير المقياس في x و y إذا كانت هذه الصورة صغيرة أو كبيرة.
