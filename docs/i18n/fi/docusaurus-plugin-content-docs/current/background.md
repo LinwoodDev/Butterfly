@@ -8,31 +8,31 @@ import {Wrench, Book, Image, Globe, Gear,
 
 } from "@phosphor-icons/react";
 
-To edit the background of the page, click on the <Wrench/> icon and there, on the <Book/> page icon. There, you'll have the option to click on the <Image/> icon. On a computer, you can also use the `ctrl-B` shortcut.
+Muokataksesi sivun taustaa, klikkaa <Wrench/> -kuvaketta ja siellä, <Book/> -sivun kuvaketta. Siellä sinulla on mahdollisuus klikata <Image/> -kuvaketta. Tietokoneella voit myös käyttää `ctrl-B` -pikakuvaketta.
 
-When configuring a backgournd, you have two tabs. The <Globe/> General tab to select the type of background to use, and the <Gear/> To configure the selected background.
+Kun määrität backgournd, sinulla on kaksi välilehteä. <Globe/> Yleiset välilehdet, jotka valitsevat käytettävän taustan tyypin, ja <Gear/> Määrittääksesi valitun taustan.
 
 ## <Globe/> Kuvio
 
-There are 8 different background templates available that you can choose from. For each of the available patterns, you can configure the following:
+Käytettävissä on 8 erilaista taustamallia, joista voit valita. Jokaista käytettävissä olevia malleja, voit määrittää seuraavat:
 
 
 ### <Gear/> Ominaisuudet
 
-In the horizontal configuration tab, you have the following option:
+Vaakasuora asetusvälilehti, sinulla on seuraava vaihtoehto:
 
-- Width - the width for each row respectively.
-- Count - you can group the rows in group that way.
-- Space - the distance between each group of rows.
+- Leveys - leveys kullekin riville vastaavasti.
+- Laske - voit ryhmitellä rivit ryhmän tällä tavalla.
+- Tila - etäisyys kunkin ryhmän rivejä.
 
-For example, to create a music sheet, you can use the following configuration: `Width - 40`, `Count - 5`, `Space - 80`
+Esimerkiksi, luodaksesi musiikkilevyn, voit käyttää seuraavia asetuksia: `Leveys - 40`, `Lukumäärä - 5`, `Välilyönti - 80`
 
-The vertical configuration follows the same logic for columns instead of rows.
+Pystysuuntainen konfiguraatio noudattaa samaa logiikkaa sarakkeissa rivien sijasta.
 
 ## <Globe/> Kuva
 
-The image background type allows you to upload an image and use it as background for the page.
+Kuvan taustatyypin avulla voit ladata kuvan ja käyttää sitä taustakuvaksi sivulle.
 
-### <Gear/> Properties.
+### <Gear/> Ominaisuudet
 
 Mittakaavassa x ja y suuntaan voidaan muuttaa, jos tämä kuva on pieni tai suuri.
