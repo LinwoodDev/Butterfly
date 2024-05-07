@@ -4,34 +4,34 @@ sidebar_position: 2
 title: Bakgrunn
 ---
 
-import {Wrench, Book, Image, Globe, Gear,
+Importer {Wrench, Book, Bilde, Globe, Gear,
 
-} from "@phosphor-icons/react";
+} fra "@fosfor-icons/react";
 
-To edit the background of the page, click on the <Wrench/> icon and there, on the <Book/> page icon. There, you'll have the option to click on the <Image/> icon. On a computer, you can also use the `ctrl-B` shortcut.
+For å redigere bakgrunnen på siden, klikk på <Wrench/> -ikonet og der, på <Book/> sideikonet. Der har du muligheten til å klikke på <Image/> ikonet. På en datamaskin kan du også bruke `ctrl-B` snarveien.
 
-When configuring a backgournd, you have two tabs. The <Globe/> General tab to select the type of background to use, and the <Gear/> To configure the selected background.
+Når du konfigurerer en backgournd, har du to faner. Generelt kategorien <Globe/> for å velge type bakgrunn som skal brukes, og <Gear/> for å konfigurere den valgte bakgrunnen.
 
 ## <Globe/> Mønster
 
-There are 8 different background templates available that you can choose from. For each of the available patterns, you can configure the following:
+Det finnes 8 forskjellige bakgrunnmaler som du kan velge mellom. For hvert av de tilgjengelige mønsteret kan du konfigurere følgende:
 
 
 ### <Gear/> Egenskaper
 
-In the horizontal configuration tab, you have the following option:
+I fanen horisontale konfigurasjoner har du følgende alternativ:
 
-- Width - the width for each row respectively.
-- Count - you can group the rows in group that way.
-- Space - the distance between each group of rows.
+- Bredde - bredden for hver rad.
+- Tell - du kan gruppere radene i gruppen på denne måten.
+- Mellomrom - avstanden mellom hver gruppe av rader.
 
-For example, to create a music sheet, you can use the following configuration: `Width - 40`, `Count - 5`, `Space - 80`
+For eksempel, for å opprette et musikkark, kan du bruke følgende konfigurasjon: `Bredde - 40`, `teller - 5`, `mellomrom - 80`
 
-The vertical configuration follows the same logic for columns instead of rows.
+Den vertikale konfigurasjonen følger den samme logikken for kolonner i stedet for rader.
 
 ## <Globe/> Bilde
 
-The image background type allows you to upload an image and use it as background for the page.
+Bakgrunnstypen gir deg mulighet til å laste opp et bilde og bruke det som bakgrunn for siden.
 
 ### <Gear/> Properties.
 
