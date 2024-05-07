@@ -303,6 +303,7 @@
   "stable": "Стабільний",
   "nightly": "Нічна",
   "checkForUpdates": "Перевірити наявність оновлень",
+  "checkForUpdatesWarning": "Performing a check for updates will connect to the Butterfly website to get the information.",
   "usingLatestStable": "Ви використовуєте останню стабільну версію",
   "usingLatestNightly": "Ви використовуєте останню нічну версію",
   "currentVersion": "Поточна версія",
