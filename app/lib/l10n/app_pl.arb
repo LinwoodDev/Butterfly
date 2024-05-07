@@ -303,7 +303,7 @@
   "stable": "Stabilność",
   "nightly": "Nocny",
   "checkForUpdates": "Sprawdź aktualizacje",
-  "checkForUpdatesWarning": "Performing a check for updates will connect to the Butterfly website to get the information.",
+  "checkForUpdatesWarning": "Sprawdzanie aktualizacji połączy się ze stroną Motyl, aby uzyskać informacje.",
   "usingLatestStable": "Używasz najnowszej stabilnej wersji",
   "usingLatestNightly": "Używasz najnowszej wersji nocnej",
   "currentVersion": "Aktualna wersja",
