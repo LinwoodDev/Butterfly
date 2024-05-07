@@ -303,7 +303,7 @@
   "stable": "Vakaa",
   "nightly": "Yöllä",
   "checkForUpdates": "Tarkista päivitykset",
-  "checkForUpdatesWarning": "Performing a check for updates will connect to the Butterfly website to get the information.",
+  "checkForUpdatesWarning": "Tarkistamalla päivityksiä voit ottaa yhteyttä Butterflen verkkosivuihin saadaksesi tiedot.",
   "usingLatestStable": "Käytät viimeisintä vakaata versiota",
   "usingLatestNightly": "Olet käyttämässä uusinta yöllä versiota",
   "currentVersion": "Nykyinen versio",
