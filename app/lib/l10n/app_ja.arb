@@ -303,7 +303,7 @@
   "stable": "安定版",
   "nightly": "ナイトリー",
   "checkForUpdates": "アップデートを確認",
-  "checkForUpdatesWarning": "Performing a check for updates will connect to the Butterfly website to get the information.",
+  "checkForUpdatesWarning": "アップデートのチェックを実行すると、Butterflyのウェブサイトに接続して情報を取得できます。",
   "usingLatestStable": "最新の安定版を使用しています",
   "usingLatestNightly": "最新のナイトリーバージョンを使用しています",
   "currentVersion": "現在のバージョン",
