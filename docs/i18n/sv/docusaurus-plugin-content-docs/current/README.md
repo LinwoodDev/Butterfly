@@ -5,9 +5,7 @@ slug: /intro
 sidebar_position: 1
 ---
 
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
-import { Gear, Plus, FloppyDisk, MagnifyingGlass, ScribbleLoop, Pen, Path, ArrowCounterClockwise, ArrowClockwise, Hand, Wrench, Lock} from "@phosphor-icons/react";
+import Flikar från '@theme/Tabs'; import TabItem från '@theme/TabItem'; import { Gear, Plus, FloppyDisk, MagnifyingGlas, ScribbleLoop, Pen, Path, ArrowCounterClockwise, ArrowClockwise, Hand, nyckel, Lock} från "@phosphor-icons/react";
 
 ![Banderoll](/img/banner.png)
 
