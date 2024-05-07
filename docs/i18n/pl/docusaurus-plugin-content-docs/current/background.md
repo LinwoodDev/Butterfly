@@ -4,35 +4,35 @@ sidebar_position: 2
 title: Kontekst
 ---
 
-import {Wrench, Book, Image, Globe, Gear,
+importuj {Wrench, Book, Image, Globe, Gear,
 
-} from "@phosphor-icons/react";
+} z "@phosphor-icons/react";
 
-To edit the background of the page, click on the <Wrench/> icon and there, on the <Book/> page icon. There, you'll have the option to click on the <Image/> icon. On a computer, you can also use the `ctrl-B` shortcut.
+Aby edytować tło strony, kliknij na ikonę <Wrench/> i na ikonę <Book/>. Tutaj będziesz miał możliwość kliknięcia ikony <Image/>. Na komputerze możesz również użyć skrótu `ctrl-B`.
 
-When configuring a backgournd, you have two tabs. The <Globe/> General tab to select the type of background to use, and the <Gear/> To configure the selected background.
+Podczas konfiguracji backgournd, masz dwie karty. Karta <Globe/> Ogólne, aby wybrać typ tła do użycia, i <Gear/> Aby skonfigurować wybrane tło.
 
 ## <Globe/> Wzorzec
 
-There are 8 different background templates available that you can choose from. For each of the available patterns, you can configure the following:
+Istnieje 8 różnych szablonów w tle, z których możesz wybrać. Dla każdego z dostępnych wzorców można skonfigurować:
 
 
 ### <Gear/> Właściwości
 
-In the horizontal configuration tab, you have the following option:
+W zakładce konfiguracji poziomej masz następującą opcję:
 
-- Width - the width for each row respectively.
-- Count - you can group the rows in group that way.
-- Space - the distance between each group of rows.
+- Szerokość - szerokość odpowiednio dla każdego wiersza.
+- Policz - możesz grupować wiersze w grupie.
+- Przestrzeń - odległość między poszczególnymi grupami wierszy.
 
-For example, to create a music sheet, you can use the following configuration: `Width - 40`, `Count - 5`, `Space - 80`
+Na przykład, aby utworzyć arkusz muzyczny, możesz użyć następującej konfiguracji: `Szerokość - 40`, `Count - 5`, `Spacja - 80`
 
-The vertical configuration follows the same logic for columns instead of rows.
+Konfiguracja pionowa opiera się na tej samej logice dla kolumn zamiast wierszy.
 
 ## <Globe/> Obraz
 
-The image background type allows you to upload an image and use it as background for the page.
+Typ tła obrazu pozwala wgrać obraz i używać go jako tła strony.
 
-### <Gear/> Properties.
+### <Gear/> Właściwości.
 
 Skala w kierunku x i y może zostać zmieniona, jeśli ten obraz jest mały lub duży.
