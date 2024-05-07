@@ -6,33 +6,33 @@ title: Sfondo
 
 import {Wrench, Book, Image, Globe, Gear,
 
-} from "@phosphor-icons/react";
+} da "@phosphor-icons/react";
 
-To edit the background of the page, click on the <Wrench/> icon and there, on the <Book/> page icon. There, you'll have the option to click on the <Image/> icon. On a computer, you can also use the `ctrl-B` shortcut.
+Per modificare lo sfondo della pagina, clicca sull'icona <Wrench/> e lì, sull'icona <Book/>. Lì, avrai la possibilità di cliccare sull'icona <Image/>. Su un computer, puoi anche utilizzare la scorciatoia `ctrl-B`.
 
-When configuring a backgournd, you have two tabs. The <Globe/> General tab to select the type of background to use, and the <Gear/> To configure the selected background.
+Durante la configurazione di un backgournd, hai due schede. La scheda <Globe/> Generale per selezionare il tipo di sfondo da usare e la <Gear/> Per configurare lo sfondo selezionato.
 
 ## <Globe/> Sequenza
 
-There are 8 different background templates available that you can choose from. For each of the available patterns, you can configure the following:
+Ci sono 8 diversi modelli di sfondo tra cui puoi scegliere. Per ciascuno dei modelli disponibili, è possibile configurare quanto segue:
 
 
 ### <Gear/> Proprietà
 
-In the horizontal configuration tab, you have the following option:
+Nella scheda di configurazione orizzontale, hai la seguente opzione:
 
-- Width - the width for each row respectively.
-- Count - you can group the rows in group that way.
-- Space - the distance between each group of rows.
+- Larghezza - la larghezza per ogni riga, rispettivamente.
+- Conteggio - è possibile raggruppare le righe in questo modo.
+- Spazio - la distanza tra ogni gruppo di righe.
 
-For example, to create a music sheet, you can use the following configuration: `Width - 40`, `Count - 5`, `Space - 80`
+Ad esempio, per creare un foglio musicale, è possibile utilizzare la seguente configurazione: `Width - 40`, `Count - 5`, `Space - 80`
 
-The vertical configuration follows the same logic for columns instead of rows.
+La configurazione verticale segue la stessa logica per le colonne invece che per le righe.
 
 ## <Globe/> Immagine
 
-The image background type allows you to upload an image and use it as background for the page.
+Il tipo di sfondo dell'immagine consente di caricare un'immagine e utilizzarla come sfondo per la pagina.
 
-### <Gear/> Properties.
+### <Gear/> Proprietà.
 
 La scala in direzione x e y può essere cambiata se l'immagine è piccola o grande.
