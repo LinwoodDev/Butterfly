@@ -6,33 +6,33 @@ title: Context
 
 import {Wrench, Book, Image, Globe, Gear,
 
-} from "@phosphor-icons/react";
+} from "@foshor-icons/react";
 
-To edit the background of the page, click on the <Wrench/> icon and there, on the <Book/> page icon. There, you'll have the option to click on the <Image/> icon. On a computer, you can also use the `ctrl-B` shortcut.
+Pentru a edita fundalul paginii, faceţi clic pe pictograma <Wrench/> şi acolo, pe pictograma de pe pagina <Book/>. Acolo, vei avea opțiunea de a da click pe pictograma <Image/>. Pe un calculator, poți de asemenea să folosești comanda rapidă `ctrl-B`.
 
-When configuring a backgournd, you have two tabs. The <Globe/> General tab to select the type of background to use, and the <Gear/> To configure the selected background.
+Când configurați un backgournd, aveți două file. Tab-ul <Globe/> General pentru a selecta tipul de fundal folosit și <Gear/> Pentru a configura fundalul selectat.
 
 ## <Globe/> Model
 
-There are 8 different background templates available that you can choose from. For each of the available patterns, you can configure the following:
+Există 8 şabloane de fundal diferite din care puteţi alege. Pentru fiecare dintre șabloanele disponibile, puteți configura următoarele:
 
 
 ### <Gear/> Proprietăți
 
-In the horizontal configuration tab, you have the following option:
+În fila de configurare orizontală, aveți următoarea opțiune:
 
-- Width - the width for each row respectively.
-- Count - you can group the rows in group that way.
-- Space - the distance between each group of rows.
+- Lățime - lățimea pentru fiecare rând.
+- Numără - poți grupa rândurile în acest fel.
+- Spaţiu - distanţa dintre fiecare grup de rânduri.
 
-For example, to create a music sheet, you can use the following configuration: `Width - 40`, `Count - 5`, `Space - 80`
+De exemplu, pentru a crea o foaie de muzică, puteți utiliza următoarea configurație: `Lățime - 40`, `Numărul - 5`, `Spațiu - 80`
 
-The vertical configuration follows the same logic for columns instead of rows.
+Configurația verticală urmează aceeași logică pentru coloane în loc de rânduri.
 
 ## <Globe/> Imagine
 
-The image background type allows you to upload an image and use it as background for the page.
+Tipul de fundal al imaginii vă permite să încărcați o imagine și să o folosiți ca fundal pentru pagină.
 
-### <Gear/> Properties.
+### <Gear/> Proprietăți.
 
 Scara in directia x si y poate fi schimbata daca aceasta imagine este mica sau mare.
