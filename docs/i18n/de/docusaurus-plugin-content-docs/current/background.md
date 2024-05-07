@@ -4,35 +4,35 @@ sidebar_position: 2
 title: Hintergrund
 ---
 
-import {Wrench, Book, Image, Globe, Gear,
+importieren {Wrench, Buch, Bild, Globe, Gear,
 
-} from "@phosphor-icons/react";
+} von "@phosphor-icons/react";
 
-To edit the background of the page, click on the <Wrench/> icon and there, on the <Book/> page icon. There, you'll have the option to click on the <Image/> icon. On a computer, you can also use the `ctrl-B` shortcut.
+Um den Hintergrund der Seite zu bearbeiten, klicken Sie auf das <Wrench/> -Symbol und dort auf das <Book/> Seitensymbol. Dort haben Sie die Möglichkeit, auf das <Image/> -Symbol zu klicken. Auf einem Computer können Sie auch die `Strg-B` Verknüpfung verwenden.
 
-When configuring a backgournd, you have two tabs. The <Globe/> General tab to select the type of background to use, and the <Gear/> To configure the selected background.
+Bei der Konfiguration eines Backgournds haben Sie zwei Tabs. Auf der Registerkarte <Globe/> Allgemein wählen Sie den zu verwendenden Hintergrundtyp und die <Gear/> um den ausgewählten Hintergrund zu konfigurieren.
 
 ## <Globe/> Muster
 
-There are 8 different background templates available that you can choose from. For each of the available patterns, you can configure the following:
+Es stehen 8 verschiedene Hintergrundvorlagen zur Verfügung, aus denen Sie wählen können. Für jedes der verfügbaren Muster können Sie Folgendes konfigurieren:
 
 
 ### <Gear/> Eigenschaften
 
-In the horizontal configuration tab, you have the following option:
+Im Tab der horizontalen Konfiguration haben Sie folgende Option:
 
-- Width - the width for each row respectively.
-- Count - you can group the rows in group that way.
-- Space - the distance between each group of rows.
+- Breite - die Breite für jede Zeile.
+- Zähler - Sie können die Zeilen auf diese Weise gruppieren.
+- Leerzeichen - der Abstand zwischen jeder Gruppe von Zeilen.
 
-For example, to create a music sheet, you can use the following configuration: `Width - 40`, `Count - 5`, `Space - 80`
+Zum Beispiel können Sie die folgende Konfiguration verwenden: `Breite - 40`, `Anzahl - 5`, `Leerzeichen - 80`
 
-The vertical configuration follows the same logic for columns instead of rows.
+Die vertikale Konfiguration folgt der gleichen Logik für Spalten statt Zeilen.
 
 ## <Globe/> Bild
 
-The image background type allows you to upload an image and use it as background for the page.
+Der Hintergrundtyp des Bildes erlaubt es, ein Bild hochzuladen und es als Hintergrund für die Seite zu verwenden.
 
-### <Gear/> Properties.
+### <Gear/> Eigenschaften.
 
 Die Skalierung in x und y Richtung kann geändert werden, wenn dieses Bild klein oder groß ist.
