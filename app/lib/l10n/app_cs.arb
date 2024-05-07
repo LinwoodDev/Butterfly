@@ -303,7 +303,7 @@
   "stable": "Stabilní",
   "nightly": "Noční",
   "checkForUpdates": "Zkontrolovat aktualizace",
-  "checkForUpdatesWarning": "Performing a check for updates will connect to the Butterfly website to get the information.",
+  "checkForUpdatesWarning": "Kontrola aktualizací se připojí k webové stránce Butterfly pro získání informací.",
   "usingLatestStable": "Používáte nejnovější stabilní verzi",
   "usingLatestNightly": "Používáte nejnovější noční verzi",
   "currentVersion": "Aktuální verze",
