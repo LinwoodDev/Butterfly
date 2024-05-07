@@ -303,7 +303,7 @@
   "stable": "Σταθερό",
   "nightly": "Νυχτερινή",
   "checkForUpdates": "Έλεγχος ενημερώσεων",
-  "checkForUpdatesWarning": "Performing a check for updates will connect to the Butterfly website to get the information.",
+  "checkForUpdatesWarning": "Εκτελώντας έναν έλεγχο για ενημερώσεις θα συνδεθείτε στην ιστοσελίδα Butterfly για να πάρετε τις πληροφορίες.",
   "usingLatestStable": "Χρησιμοποιείτε την τελευταία σταθερή έκδοση",
   "usingLatestNightly": "Χρησιμοποιείτε την τελευταία νυχτερινή έκδοση",
   "currentVersion": "Τρέχουσα έκδοση",
