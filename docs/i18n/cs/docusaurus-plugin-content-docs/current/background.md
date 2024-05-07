@@ -4,9 +4,9 @@ sidebar_position: 2
 title: Pozadí
 ---
 
-importovat {Wrench, Book, Image, Globe, Gear,
+import {Wrench, Book, Image, Globe, Gear,
 
-} z "@fosfor-icons/react";
+} from "@phosphor-icons/react";
 
 Chcete-li upravit pozadí stránky, klikněte na ikonu <Wrench/> a tam na ikonu <Book/>. Tady budete mít možnost kliknout na ikonu <Image/>. Na počítači můžete také použít zkratku `ctrl-B`.
 
