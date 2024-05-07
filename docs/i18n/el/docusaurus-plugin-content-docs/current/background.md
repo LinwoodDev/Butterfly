@@ -4,35 +4,35 @@ sidebar_position: 2
 title: Φόντο
 ---
 
-import {Wrench, Book, Image, Globe, Gear,
+εισαγωγή {Wrench, Book, Image, Globe, Gear,
 
-} from "@phosphor-icons/react";
+} από "@phosphor-icons/react";
 
-To edit the background of the page, click on the <Wrench/> icon and there, on the <Book/> page icon. There, you'll have the option to click on the <Image/> icon. On a computer, you can also use the `ctrl-B` shortcut.
+Για να επεξεργαστείτε το φόντο της σελίδας, κάντε κλικ στο εικονίδιο <Wrench/> και εκεί, στο εικονίδιο σελίδας <Book/>. Εκεί, θα έχετε την επιλογή να κάνετε κλικ στο εικονίδιο <Image/>. Σε έναν υπολογιστή, μπορείτε επίσης να χρησιμοποιήσετε τη συντόμευση `ctrl-B`.
 
-When configuring a backgournd, you have two tabs. The <Globe/> General tab to select the type of background to use, and the <Gear/> To configure the selected background.
+Όταν ρυθμίζετε ένα backgournd, έχετε δύο καρτέλες. The <Globe/> General tab to select the type of background to use and the <Gear/> To configure the selected background. (Automatic Copy)
 
 ## <Globe/> Μοτίβο
 
-There are 8 different background templates available that you can choose from. For each of the available patterns, you can configure the following:
+Υπάρχουν 8 διαφορετικά πρότυπα φόντου που μπορείτε να διαλέξετε. Για κάθε ένα από τα διαθέσιμα μοτίβα, μπορείτε να ρυθμίσετε τα ακόλουθα:
 
 
 ### <Gear/> Ιδιότητες
 
-In the horizontal configuration tab, you have the following option:
+Στην καρτέλα οριζόντιας διαμόρφωσης, έχετε την ακόλουθη επιλογή:
 
-- Width - the width for each row respectively.
-- Count - you can group the rows in group that way.
-- Space - the distance between each group of rows.
+- Πλάτος - το πλάτος για κάθε γραμμή αντίστοιχα.
+- Μετρητής - μπορείτε να ομαδοποιήσετε τις σειρές στην ομάδα με αυτόν τον τρόπο.
+- Διάστημα - η απόσταση μεταξύ κάθε ομάδας των γραμμών.
 
-For example, to create a music sheet, you can use the following configuration: `Width - 40`, `Count - 5`, `Space - 80`
+Για παράδειγμα, για να δημιουργήσετε ένα μουσικό φύλλο, μπορείτε να χρησιμοποιήσετε τις ακόλουθες ρυθμίσεις: `Width - 40`, Μετρητής `- 5`, Διάστημα `- 80`
 
-The vertical configuration follows the same logic for columns instead of rows.
+Η κάθετη διαμόρφωση ακολουθεί την ίδια λογική για τις στήλες αντί για τις γραμμές.
 
 ## <Globe/> Εικόνα
 
-The image background type allows you to upload an image and use it as background for the page.
+Ο τύπος φόντου εικόνας σας επιτρέπει να ανεβάσετε μια εικόνα και να την χρησιμοποιήσετε ως φόντο για τη σελίδα.
 
-### <Gear/> Properties.
+### <Gear/> Ιδιότητες.
 
 Η κλίμακα στην κατεύθυνση x και y μπορεί να αλλάξει αν αυτή η εικόνα σε μικρή ή μεγάλη.
