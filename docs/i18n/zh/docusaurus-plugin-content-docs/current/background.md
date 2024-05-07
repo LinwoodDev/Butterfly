@@ -4,35 +4,35 @@ sidebar_position: 2
 title: 背景
 ---
 
-import {Wrench, Book, Image, Globe, Gear,
+从 "@phosphor-icons/react"导入{Wrench, 书， 图像, Globe, Gear,
 
-} from "@phosphor-icons/react";
+} ;
 
-To edit the background of the page, click on the <Wrench/> icon and there, on the <Book/> page icon. There, you'll have the option to click on the <Image/> icon. On a computer, you can also use the `ctrl-B` shortcut.
+要编辑页面的背景，请点击 <Wrench/> 图标和 <Book/> 页面图标。 在这里，您可以选择点击 <Image/> 图标。 在计算机上，您也可以使用 `ctrl-B` 快捷方式。
 
-When configuring a backgournd, you have two tabs. The <Globe/> General tab to select the type of background to use, and the <Gear/> To configure the selected background.
+配置后端时，您有两个标签。 要选择要使用的背景类型的 <Globe/> 常规标签， <Gear/> 要配置选定的背景。
 
 ## <Globe/> 图案
 
-There are 8 different background templates available that you can choose from. For each of the available patterns, you can configure the following:
+您可以选择8个不同的背景模板。 对于每个可用模式，您可以配置以下内容：
 
 
 ### <Gear/> 属性
 
-In the horizontal configuration tab, you have the following option:
+在水平配置选项卡中，您有以下选项：
 
-- Width - the width for each row respectively.
-- Count - you can group the rows in group that way.
-- Space - the distance between each group of rows.
+- 宽度 - 各行的宽度。
+- 计数 - 您可以按分组分组列出。
+- 空格-每组行之间的距离。
 
-For example, to create a music sheet, you can use the following configuration: `Width - 40`, `Count - 5`, `Space - 80`
+例如，要创建音乐表单，您可以使用以下配置： `宽度-40` `计数 - 5` `空间 - 80`
 
-The vertical configuration follows the same logic for columns instead of rows.
+垂直配置对列而不是对行采用相同的逻辑。
 
 ## <Globe/> 图片
 
-The image background type allows you to upload an image and use it as background for the page.
+图像背景类型允许您上传图像并将其用作页面的背景资料。
 
-### <Gear/> Properties.
+### <Gear/> 属性.
 
 x和y方向的缩放可以更改，如果这个图像大小或大小。
