@@ -6,33 +6,33 @@ title: Bakgrund
 
 import {Wrench, Book, Image, Globe, Gear,
 
-} from "@phosphor-icons/react";
+} från "@phosphor-icons/react";
 
-To edit the background of the page, click on the <Wrench/> icon and there, on the <Book/> page icon. There, you'll have the option to click on the <Image/> icon. On a computer, you can also use the `ctrl-B` shortcut.
+För att redigera bakgrunden på sidan, klicka på ikonen <Wrench/> och där, på ikonen <Book/> sida. Där har du möjlighet att klicka på ikonen <Image/>. På en dator kan du också använda genvägen `ctrl-B`.
 
-When configuring a backgournd, you have two tabs. The <Globe/> General tab to select the type of background to use, and the <Gear/> To configure the selected background.
+När du konfigurerar en backgournd, har du två flikar. Fliken <Globe/> Allmänt för att välja typ av bakgrund att använda och <Gear/> för att konfigurera den valda bakgrunden.
 
 ## <Globe/> Mönster
 
-There are 8 different background templates available that you can choose from. For each of the available patterns, you can configure the following:
+Det finns 8 olika bakgrundsmallar som du kan välja mellan. För vart och ett av de tillgängliga mönstren kan du konfigurera följande:
 
 
 ### <Gear/> Egenskaper
 
-In the horizontal configuration tab, you have the following option:
+I fliken horisontell konfiguration har du följande alternativ:
 
-- Width - the width for each row respectively.
-- Count - you can group the rows in group that way.
-- Space - the distance between each group of rows.
+- Bredd - bredden för varje rad respektive.
+- Räkna - du kan gruppera raderna i gruppen på det sättet.
+- Utrymme - avståndet mellan varje grupp av rader.
 
-For example, to create a music sheet, you can use the following configuration: `Width - 40`, `Count - 5`, `Space - 80`
+Till exempel för att skapa ett musikblad kan du använda följande konfiguration: `Bredd - 40`, `antal - 5`, `utrymme - 80`
 
-The vertical configuration follows the same logic for columns instead of rows.
+Den vertikala konfigurationen följer samma logik för kolumner istället för rader.
 
 ## <Globe/> Bild
 
-The image background type allows you to upload an image and use it as background for the page.
+Bakgrundstypen låter dig ladda upp en bild och använda den som bakgrund för sidan.
 
-### <Gear/> Properties.
+### <Gear/> Egenskaper.
 
 Skalan i x och y riktning kan ändras om denna bild till liten eller stor.
