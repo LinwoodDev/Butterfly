@@ -1,3 +1,4 @@
 * Add button to check for updates instead of automatically checking on opening the settings ([#691](https://github.com/LinwoodDev/Butterfly/issues/691))
+* Update android build files
 
 Read more here: https://linwood.dev/butterfly/2.1.0-rc.3
