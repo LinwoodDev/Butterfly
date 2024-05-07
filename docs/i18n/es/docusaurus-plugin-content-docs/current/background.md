@@ -4,35 +4,35 @@ sidebar_position: 2
 title: Fondo
 ---
 
-import {Wrench, Book, Image, Globe, Gear,
+import {Wrench, Book, Image, Globo, Gear,
 
 } from "@phosphor-icons/react";
 
-To edit the background of the page, click on the <Wrench/> icon and there, on the <Book/> page icon. There, you'll have the option to click on the <Image/> icon. On a computer, you can also use the `ctrl-B` shortcut.
+Para editar el fondo de la página, haga clic en el icono <Wrench/> y allí, en el icono <Book/>. Ahí tendrás la opción de hacer clic en el icono <Image/>. En una computadora, también puedes usar el acceso directo `ctrl-B`.
 
-When configuring a backgournd, you have two tabs. The <Globe/> General tab to select the type of background to use, and the <Gear/> To configure the selected background.
+Al configurar un backgournd, tiene dos pestañas. La pestaña <Globe/> General para seleccionar el tipo de fondo a usar y la <Gear/> para configurar el fondo seleccionado.
 
 ## <Globe/> Patrón
 
-There are 8 different background templates available that you can choose from. For each of the available patterns, you can configure the following:
+Hay 8 diferentes plantillas de fondo disponibles entre las que puedes elegir. Para cada uno de los patrones disponibles, puede configurar lo siguiente:
 
 
 ### <Gear/> Propiedades
 
-In the horizontal configuration tab, you have the following option:
+En la pestaña de configuración horizontal, tiene la siguiente opción:
 
-- Width - the width for each row respectively.
-- Count - you can group the rows in group that way.
-- Space - the distance between each group of rows.
+- Ancho - el ancho de cada fila respectivamente.
+- Cuenta - puede agrupar las filas en grupo de esa manera.
+- Espacio - la distancia entre cada grupo de filas.
 
-For example, to create a music sheet, you can use the following configuration: `Width - 40`, `Count - 5`, `Space - 80`
+Por ejemplo, para crear una hoja de música, puede utilizar la siguiente configuración: `Ancho - 40`, `Cuenta - 5`, `Espacio - 80`
 
-The vertical configuration follows the same logic for columns instead of rows.
+La configuración vertical sigue la misma lógica para columnas en lugar de filas.
 
 ## <Globe/> Imagen
 
-The image background type allows you to upload an image and use it as background for the page.
+El tipo de fondo de la imagen le permite subir una imagen y usarla como fondo para la página.
 
-### <Gear/> Properties.
+### <Gear/> Propiedades.
 
 La escala en la dirección x e y se puede cambiar si esta imagen es pequeña o grande.
