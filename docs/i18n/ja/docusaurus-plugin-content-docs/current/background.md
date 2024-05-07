@@ -8,31 +8,31 @@ import {Wrench, Book, Image, Globe, Gear,
 
 } from "@phosphor-icons/react";
 
-To edit the background of the page, click on the <Wrench/> icon and there, on the <Book/> page icon. There, you'll have the option to click on the <Image/> icon. On a computer, you can also use the `ctrl-B` shortcut.
+ページの背景を編集するには、 <Wrench/> アイコンをクリックし、 <Book/> ページアイコンをクリックします。 そこで、 <Image/> アイコンをクリックするオプションがあります。 コンピュータでは、 `ctrl-B` ショートカットを使用することもできます。
 
-When configuring a backgournd, you have two tabs. The <Globe/> General tab to select the type of background to use, and the <Gear/> To configure the selected background.
+backgourndを設定するときは、2つのタブがあります。 <Globe/> 一般タブで使用する背景の種類を選択し、 <Gear/> 選択した背景を設定します。
 
 ## <Globe/> パターン
 
-There are 8 different background templates available that you can choose from. For each of the available patterns, you can configure the following:
+選択できる背景テンプレートは8種類あります。 使用可能な各パターンについて、次のように構成できます。
 
 
 ### <Gear/> プロパティー
 
-In the horizontal configuration tab, you have the following option:
+水平方向の構成タブでは、次のオプションがあります。
 
-- Width - the width for each row respectively.
-- Count - you can group the rows in group that way.
-- Space - the distance between each group of rows.
+- 幅 - 各行の幅。
+- カウント - その方法で行をグループ化できます。
+- スペース - 行の各グループ間の距離。
 
 For example, to create a music sheet, you can use the following configuration: `Width - 40`, `Count - 5`, `Space - 80`
 
-The vertical configuration follows the same logic for columns instead of rows.
+垂直方向の構成は、行の代わりに列に対して同じロジックに従います。
 
 ## <Globe/> 画像
 
-The image background type allows you to upload an image and use it as background for the page.
+画像の背景タイプでは、画像をアップロードしてページの背景として使用できます。
 
-### <Gear/> Properties.
+### <Gear/> プロパティ
 
 この画像が小さい場合や大きい場合は、x 方向と y 方向のスケールを変更できます。
