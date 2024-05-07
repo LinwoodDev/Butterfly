@@ -6,33 +6,33 @@ title: Baggrund
 
 import {Wrench, Book, Image, Globe, Gear,
 
-} from "@phosphor-icons/react";
+} fra "@phosphor-icons/react";
 
-To edit the background of the page, click on the <Wrench/> icon and there, on the <Book/> page icon. There, you'll have the option to click on the <Image/> icon. On a computer, you can also use the `ctrl-B` shortcut.
+For at redigere baggrunden på siden, skal du klikke på <Wrench/> -ikonet og der, på <Book/> -sideikonet. Der, vil du have mulighed for at klikke på <Image/> ikonet. På en computer kan du også bruge genvejen `ctrl-B`.
 
-When configuring a backgournd, you have two tabs. The <Globe/> General tab to select the type of background to use, and the <Gear/> To configure the selected background.
+Når du konfigurerer en backgournd, har du to faner. Fanebladet <Globe/> Generelt for at vælge den type baggrund, der skal bruges, og <Gear/> For at konfigurere den valgte baggrund.
 
 ## <Globe/> Mønster
 
-There are 8 different background templates available that you can choose from. For each of the available patterns, you can configure the following:
+Der er 8 forskellige baggrundsskabeloner til rådighed, som du kan vælge imellem. For hvert af de tilgængelige mønstre, kan du konfigurere følgende:
 
 
 ### <Gear/> Egenskaber
 
-In the horizontal configuration tab, you have the following option:
+I den vandrette indstillingsfane har du følgende mulighed:
 
-- Width - the width for each row respectively.
-- Count - you can group the rows in group that way.
-- Space - the distance between each group of rows.
+- Bredde - bredden for hver række henholdsvis.
+- Tæller - du kan gruppere rækkerne i gruppen på den måde.
+- Mellemrum - afstanden mellem hver gruppe af rækker.
 
-For example, to create a music sheet, you can use the following configuration: `Width - 40`, `Count - 5`, `Space - 80`
+For eksempel, for at oprette et musikark, kan du bruge følgende konfiguration: `Bredde - 40`, `Tæl - 5`, `Mellemrum - 80`
 
-The vertical configuration follows the same logic for columns instead of rows.
+Den lodrette konfiguration følger samme logik for kolonner i stedet for rækker.
 
 ## <Globe/> Billede
 
-The image background type allows you to upload an image and use it as background for the page.
+Billedbaggrundstypen giver dig mulighed for at uploade et billede og bruge det som baggrund for siden.
 
-### <Gear/> Properties.
+### <Gear/> Egenskaber.
 
 Skalaen i x og y retning kan ændres, hvis dette billede til lille eller stort.
