@@ -4,35 +4,35 @@ sidebar_position: 2
 title: Фон
 ---
 
-import {Wrench, Book, Image, Globe, Gear,
+импортируйте {Wrench, Book, Image, Globe, Gear,
 
-} from "@phosphor-icons/react";
+} из "@phosphor-icons/react";
 
-To edit the background of the page, click on the <Wrench/> icon and there, on the <Book/> page icon. There, you'll have the option to click on the <Image/> icon. On a computer, you can also use the `ctrl-B` shortcut.
+To edit the background of the page, click on the <Wrench/> icon and there, on the <Book/> page icon. Там у вас будет возможность нажать на значок " <Image/>". На компьютере можно также использовать ярлык `ctrl-B`.
 
-When configuring a backgournd, you have two tabs. The <Globe/> General tab to select the type of background to use, and the <Gear/> To configure the selected background.
+При настройке backgourned, у вас есть две вкладки. Вкладка <Globe/> Общая для выбора типа используемого фона и <Gear/> для настройки выбранного фона.
 
 ## <Globe/> Шаблон
 
-There are 8 different background templates available that you can choose from. For each of the available patterns, you can configure the following:
+Существует 8 различных фоновых шаблонов, которые вы можете выбрать. Для каждого из доступных шаблонов можно настроить следующее:
 
 
 ### <Gear/> Свойства
 
-In the horizontal configuration tab, you have the following option:
+В горизонтальной вкладке конфигурации у вас есть следующий параметр:
 
-- Width - the width for each row respectively.
-- Count - you can group the rows in group that way.
-- Space - the distance between each group of rows.
+- Ширина - ширина для каждой строки соответственно.
+- Количество - так можно группировать строки в группу.
+- Пространство - расстояние между каждой группой строк.
 
 For example, to create a music sheet, you can use the following configuration: `Width - 40`, `Count - 5`, `Space - 80`
 
-The vertical configuration follows the same logic for columns instead of rows.
+Вертикальная конфигурация следует той же логике для колонок вместо строк.
 
 ## <Globe/> Изображение
 
-The image background type allows you to upload an image and use it as background for the page.
+Тип фона изображения позволяет загрузить изображение и использовать его в качестве фона страницы.
 
-### <Gear/> Properties.
+### <Gear/> Свойства.
 
 Масштаб в направлении x и y можно изменить, если это изображение будет малым или большим.
