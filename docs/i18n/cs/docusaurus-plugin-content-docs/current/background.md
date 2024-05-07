@@ -4,35 +4,35 @@ sidebar_position: 2
 title: Pozadí
 ---
 
-import {Wrench, Book, Image, Globe, Gear,
+importovat {Wrench, Book, Image, Globe, Gear,
 
-} from "@phosphor-icons/react";
+} z "@fosfor-icons/react";
 
-To edit the background of the page, click on the <Wrench/> icon and there, on the <Book/> page icon. There, you'll have the option to click on the <Image/> icon. On a computer, you can also use the `ctrl-B` shortcut.
+Chcete-li upravit pozadí stránky, klikněte na ikonu <Wrench/> a tam na ikonu <Book/>. Tady budete mít možnost kliknout na ikonu <Image/>. Na počítači můžete také použít zkratku `ctrl-B`.
 
-When configuring a backgournd, you have two tabs. The <Globe/> General tab to select the type of background to use, and the <Gear/> To configure the selected background.
+Při konfiguraci backgourndu máte dva panely. <Globe/> Obecná karta pro výběr typu pozadí, které má být použito, a <Gear/> Pro konfiguraci vybraného pozadí.
 
 ## <Globe/> Vzor
 
-There are 8 different background templates available that you can choose from. For each of the available patterns, you can configure the following:
+K dispozici je 8 různých šablon na pozadí, ze kterých si můžete vybrat. Pro každý z dostupných vzorů můžete nakonfigurovat následující:
 
 
 ### <Gear/> Vlastnosti
 
-In the horizontal configuration tab, you have the following option:
+Na kartě horizontální konfigurace máte následující možnost:
 
-- Width - the width for each row respectively.
-- Count - you can group the rows in group that way.
-- Space - the distance between each group of rows.
+- Šířka - šířka pro každý řádek.
+- Počítat - můžete seskupit řádky do skupiny tímto způsobem.
+- Mezera - vzdálenost mezi každou skupinou řádků.
 
-For example, to create a music sheet, you can use the following configuration: `Width - 40`, `Count - 5`, `Space - 80`
+Například k vytvoření hudebního listu můžete použít následující konfiguraci: `Šířka - 40`, `počet - 5`, `mezera - 80`
 
-The vertical configuration follows the same logic for columns instead of rows.
+Svislá konfigurace se řídí stejnou logikou pro sloupce namísto řádků.
 
 ## <Globe/> Obrázek
 
-The image background type allows you to upload an image and use it as background for the page.
+Typ pozadí obrázku umožňuje nahrát obrázek a použít jej jako pozadí stránky.
 
-### <Gear/> Properties.
+### <Gear/> Vlastnosti.
 
 Měřítko ve směru x a y lze změnit, pokud je tento obrázek malý nebo velký.
