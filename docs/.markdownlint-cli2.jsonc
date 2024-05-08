@@ -1,8 +1,0 @@
-{
-  "ignores": [
-    "./README.md",
-    "**/privacypolicy.md",
-    "CODE_OF_CONDUCT.md",
-    "**/downloads/**"
-  ]
-}
