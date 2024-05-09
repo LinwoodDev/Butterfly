@@ -4,9 +4,9 @@ sidebar_position: 2
 title: Hintergrund
 ---
 
-importieren {Wrench, Buch, Bild, Globe, Gear,
+import {Wrench, Book, Image, Globe, Gear,
 
-} von "@phosphor-icons/react";
+} from "@phosphor-icons/react";
 
 Um den Hintergrund der Seite zu bearbeiten, klicken Sie auf das <Wrench/> -Symbol und dort auf das <Book/> Seitensymbol. Dort haben Sie die Möglichkeit, auf das <Image/> -Symbol zu klicken. Auf einem Computer können Sie auch die `Strg-B` Verknüpfung verwenden.
 
