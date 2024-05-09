@@ -4,9 +4,9 @@ sidebar_position: 2
 title: 背景
 ---
 
-从 "@phosphor-icons/react"导入{Wrench, 书， 图像, Globe, Gear,
+import {Wrench, Book, Image, Globe, Gear,
 
-} ;
+} from "@phosphor-icons/react";
 
 要编辑页面的背景，请点击 <Wrench/> 图标和 <Book/> 页面图标。 在这里，您可以选择点击 <Image/> 图标。 在计算机上，您也可以使用 `ctrl-B` 快捷方式。
 
