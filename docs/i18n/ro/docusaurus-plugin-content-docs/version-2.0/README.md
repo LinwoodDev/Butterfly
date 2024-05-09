@@ -1,7 +1,7 @@
 ---
 title: Introducere
 id: intro
-slug: /ro_RO/ro
+slug: /intro
 sidebar_position: 1
 ---
 
