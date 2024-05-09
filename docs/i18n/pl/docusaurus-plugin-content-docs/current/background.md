@@ -4,9 +4,9 @@ sidebar_position: 2
 title: Kontekst
 ---
 
-importuj {Wrench, Book, Image, Globe, Gear,
+import {Wrench, Book, Image, Globe, Gear,
 
-} z "@phosphor-icons/react";
+} from "@phosphor-icons/react";
 
 Aby edytować tło strony, kliknij na ikonę <Wrench/> i na ikonę <Book/>. Tutaj będziesz miał możliwość kliknięcia ikony <Image/>. Na komputerze możesz również użyć skrótu `ctrl-B`.
 
