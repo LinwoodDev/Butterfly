@@ -6,7 +6,7 @@ title: Context
 
 import {Wrench, Book, Image, Globe, Gear,
 
-} from "@foshor-icons/react";
+} from "@phosphor-icons/react";
 
 Pentru a edita fundalul paginii, faceţi clic pe pictograma <Wrench/> şi acolo, pe pictograma de pe pagina <Book/>. Acolo, vei avea opțiunea de a da click pe pictograma <Image/>. Pe un calculator, poți de asemenea să folosești comanda rapidă `ctrl-B`.
 
