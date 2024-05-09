@@ -4,9 +4,9 @@ sidebar_position: 2
 title: الخلفية
 ---
 
-استيراد {Wrench, Book, Image, Globe, Gear,
+import {Wrench, Book, Image, Globe, Gear,
 
-} من "@phosphor-icons/react";
+} from "@phosphor-icons/react";
 
 لتحرير خلفية الصفحة، انقر على أيقونة <Wrench/> وهناك، على أيقونة <Book/>. هناك ، سيكون لديك الخيار بالنقر على أيقونة <Image/>. على جهاز الكمبيوتر، يمكنك أيضًا استخدام اختصار `ctrl-B`.
 
