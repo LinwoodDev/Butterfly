@@ -4,9 +4,9 @@ sidebar_position: 2
 title: Arrière-plan
 ---
 
-importer {Wrench, Book, Image, Globe, Gear,
+import {Wrench, Book, Image, Globe, Gear,
 
-} de "@phosphor-icons/react";
+} from "@phosphor-icons/react";
 
 Pour modifier l'arrière-plan de la page, cliquez sur l'icône <Wrench/> et là, sur l'icône <Book/> de la page. Là, vous aurez la possibilité de cliquer sur l'icône <Image/>. Sur un ordinateur, vous pouvez également utiliser le raccourci `ctrl-B`.
 
