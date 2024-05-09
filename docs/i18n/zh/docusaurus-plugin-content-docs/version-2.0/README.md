@@ -1,6 +1,6 @@
 ---
 title: 一. 导言
-id: 介绍者
+id: intro
 slug: /intro
 sidebar_position: 1
 ---
