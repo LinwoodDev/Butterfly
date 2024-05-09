@@ -4,7 +4,7 @@ sidebar_position: 2
 title: Fondo
 ---
 
-import {Wrench, Book, Image, Globo, Gear,
+import {Wrench, Book, Image, Globe, Gear,
 
 } from "@phosphor-icons/react";
 
