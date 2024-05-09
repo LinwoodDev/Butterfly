@@ -6,7 +6,7 @@ title: Baggrund
 
 import {Wrench, Book, Image, Globe, Gear,
 
-} fra "@phosphor-icons/react";
+} from "@phosphor-icons/react";
 
 For at redigere baggrunden på siden, skal du klikke på <Wrench/> -ikonet og der, på <Book/> -sideikonet. Der, vil du have mulighed for at klikke på <Image/> ikonet. På en computer kan du også bruge genvejen `ctrl-B`.
 
