@@ -5,7 +5,9 @@ slug: /intro
 sidebar_position: 1
 ---
 
-Importér faneblade fra '@theme/Tabs'; importér Tabelement fra '@theme/TabItem'; import { Gear, Plus, FloppyDisk, MagnifyingGlas, ScribbleLoop, Pen, Path, ProwCounterClockwise, ProwClockwise, Hand, Wrench, Lock} fra "@phosphor-icons/react";
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+import { Gear, Plus, FloppyDisk, MagnifyingGlass, ScribbleLoop, Pen, Path, ArrowCounterClockwise, ArrowClockwise, Hand, Wrench, Lock} from "@phosphor-icons/react";
 
 ![Banner](/img/banner.png)
 
