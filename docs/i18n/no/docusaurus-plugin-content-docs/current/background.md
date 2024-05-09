@@ -4,9 +4,9 @@ sidebar_position: 2
 title: Bakgrunn
 ---
 
-Importer {Wrench, Book, Bilde, Globe, Gear,
+import {Wrench, Book, Image, Globe, Gear,
 
-} fra "@fosfor-icons/react";
+} from "@phosphor-icons/react";
 
 For å redigere bakgrunnen på siden, klikk på <Wrench/> -ikonet og der, på <Book/> sideikonet. Der har du muligheten til å klikke på <Image/> ikonet. På en datamaskin kan du også bruke `ctrl-B` snarveien.
 
