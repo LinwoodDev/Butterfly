@@ -4,9 +4,9 @@ sidebar_position: 2
 title: Achtergrond
 ---
 
-importeer {Wrench, Book, Afbeelding, Globe, Gear,
+import {Wrench, Book, Image, Globe, Gear,
 
-} van "@phosphor-icons/reactie";
+} from "@phosphor-icons/react";
 
 To edit the background of the page, click on the <Wrench/> icon and there, on the <Book/> page icon. Hier heb je de mogelijkheid om op het <Image/> pictogram te klikken. Op een computer kan je ook de `ctrl-B` snelkoppeling gebruiken.
 
