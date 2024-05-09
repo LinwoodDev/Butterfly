@@ -4,9 +4,9 @@ sidebar_position: 2
 title: Fundo
 ---
 
-importar {Wrench, Book, Imagem, Globe, Equipamento ,
+import {Wrench, Book, Image, Globe, Gear,
 
-} de "@phosphor-icons/react";
+} from "@phosphor-icons/react";
 
 Para editar o plano de fundo da página, clique no ícone <Wrench/> e lá, no ícone de página <Book/>. Lá, você terá a opção de clicar no ícone <Image/>. Em um computador, você também pode usar o atalho `ctrl-B`.
 
