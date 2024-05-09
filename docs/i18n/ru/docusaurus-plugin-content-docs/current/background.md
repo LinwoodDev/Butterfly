@@ -4,9 +4,9 @@ sidebar_position: 2
 title: Фон
 ---
 
-импортируйте {Wrench, Book, Image, Globe, Gear,
+import {Wrench, Book, Image, Globe, Gear,
 
-} из "@phosphor-icons/react";
+} from "@phosphor-icons/react";
 
 To edit the background of the page, click on the <Wrench/> icon and there, on the <Book/> page icon. Там у вас будет возможность нажать на значок " <Image/>". На компьютере можно также использовать ярлык `ctrl-B`.
 
