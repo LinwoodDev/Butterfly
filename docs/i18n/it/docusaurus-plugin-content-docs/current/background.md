@@ -6,7 +6,7 @@ title: Sfondo
 
 import {Wrench, Book, Image, Globe, Gear,
 
-} da "@phosphor-icons/react";
+} from "@phosphor-icons/react";
 
 Per modificare lo sfondo della pagina, clicca sull'icona <Wrench/> e lì, sull'icona <Book/>. Lì, avrai la possibilità di cliccare sull'icona <Image/>. Su un computer, puoi anche utilizzare la scorciatoia `ctrl-B`.
 
