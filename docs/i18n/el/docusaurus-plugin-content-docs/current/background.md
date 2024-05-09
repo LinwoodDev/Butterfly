@@ -4,9 +4,9 @@ sidebar_position: 2
 title: Φόντο
 ---
 
-εισαγωγή {Wrench, Book, Image, Globe, Gear,
+import {Wrench, Book, Image, Globe, Gear,
 
-} από "@phosphor-icons/react";
+} from "@phosphor-icons/react";
 
 Για να επεξεργαστείτε το φόντο της σελίδας, κάντε κλικ στο εικονίδιο <Wrench/> και εκεί, στο εικονίδιο σελίδας <Book/>. Εκεί, θα έχετε την επιλογή να κάνετε κλικ στο εικονίδιο <Image/>. Σε έναν υπολογιστή, μπορείτε επίσης να χρησιμοποιήσετε τη συντόμευση `ctrl-B`.
 
