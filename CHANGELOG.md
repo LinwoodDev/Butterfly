@@ -2,6 +2,12 @@
 
 <!--ENTER CHANGELOG HERE-->
 
+## 2.1.0 (2024-05-10)
+
+Nothing changed from the nightly build to the stable release.
+
+See all changes since the last stable here: https://linwood.dev/butterfly/2.1
+
 ## 2.1.0-rc.3 (2024-05-07)
 
 * Add button to check for updates instead of automatically checking on opening the settings ([#691](https://github.com/LinwoodDev/Butterfly/issues/691))
