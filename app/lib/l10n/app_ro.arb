@@ -303,6 +303,7 @@
   "stable": "Stabil",
   "nightly": "Noptez",
   "checkForUpdates": "Verifică pentru actualizări",
+  "checkForUpdatesWarning": "Verificarea actualizărilor se va conecta la site-ul Butterfly pentru a obţine informaţiile.",
   "usingLatestStable": "Folosești cea mai recentă versiune stabilă",
   "usingLatestNightly": "Folosești ultima versiune nocturnă",
   "currentVersion": "Versiunea curentă",

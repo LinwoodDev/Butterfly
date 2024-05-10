@@ -4,24 +4,35 @@ sidebar_position: 2
 title: Bakgrunn
 ---
 
-Det finnes to ulike bakgrunnstyper.
+import {Wrench, Book, Image, Globe, Gear,
 
-### Mønster
+} from "@phosphor-icons/react";
 
-Du kan tilpasse bakgrunnen til papiret. Klikk på bakgrunnsikonet i visning for å legge det til. Det er 8 forskjellige bakgrunnmaler tilgjengelig.
+For å redigere bakgrunnen på siden, klikk på <Wrench/> -ikonet og der, på <Book/> sideikonet. Der har du muligheten til å klikke på <Image/> ikonet. På en datamaskin kan du også bruke `ctrl-B` snarveien.
 
-### Konfigurasjon
+Når du konfigurerer en backgournd, har du to faner. Generelt kategorien <Globe/> for å velge type bakgrunn som skal brukes, og <Gear/> for å konfigurere den valgte bakgrunnen.
 
-Bredde og høyde er de generelle innstillingene på boksen.
+## <Globe/> Mønster
 
-I tillegg kan du tilpasse fargen på bakgrunnen.
+Det finnes 8 forskjellige bakgrunnmaler som du kan velge mellom. For hvert av de tilgjengelige mønsteret kan du konfigurere følgende:
 
-Telle og romvesenets egenskap gjør det mulig å lage musikk papir. For musikkpapir, satt tallet til 5 og med større avstand enn bredden.
 
-## Bilde
+### <Gear/> Egenskaper
 
-Bildetypen lar deg bruke et bilde som bakgrunn.
+I fanen horisontale konfigurasjoner har du følgende alternativ:
 
-### Konfigurasjon
+- Bredde - bredden for hver rad.
+- Tell - du kan gruppere radene i gruppen på denne måten.
+- Mellomrom - avstanden mellom hver gruppe av rader.
+
+For eksempel, for å opprette et musikkark, kan du bruke følgende konfigurasjon: `Bredde - 40`, `teller - 5`, `mellomrom - 80`
+
+Den vertikale konfigurasjonen følger den samme logikken for kolonner i stedet for rader.
+
+## <Globe/> Bilde
+
+Bakgrunnstypen gir deg mulighet til å laste opp et bilde og bruke det som bakgrunn for siden.
+
+### <Gear/> Properties.
 
 Skalaen i x og y kan endres hvis dette bildet blir stort eller stort.

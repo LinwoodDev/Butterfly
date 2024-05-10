@@ -1,7 +1,7 @@
 ---
 title: Úvod
 id: intro
-slug: /úvod
+slug: /intro
 sidebar_position: 1
 ---
 
