@@ -150,7 +150,7 @@ class _HomePageState extends State<HomePage> {
                                     )),
                                     const SizedBox(width: 16),
                                     SizedBox(
-                                      width: 400,
+                                      width: 350,
                                       child: _QuickstartHomeView(
                                         remote: _remote,
                                         isMobile: false,
@@ -555,7 +555,6 @@ class _QuickstartHomeViewState extends State<_QuickstartHomeView> {
                   );
                 }
                 return Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: children,
                 );
               }),

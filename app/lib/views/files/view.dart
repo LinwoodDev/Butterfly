@@ -675,7 +675,7 @@ class _RecentFilesViewState extends State<_RecentFilesView> {
               return Container();
             }
             return SizedBox(
-              height: 160,
+              height: 128,
               child: Scrollbar(
                 controller: _recentScrollController,
                 child: ListView.builder(
