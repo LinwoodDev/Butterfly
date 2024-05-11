@@ -303,6 +303,7 @@
   "stable": "Kararlı",
   "nightly": "Nightly",
   "checkForUpdates": "Güncellemeleri denetle",
+  "checkForUpdatesWarning": "Performing a check for updates will connect to the Butterfly website to get the information.",
   "usingLatestStable": "En son sürümü kullanıyorsunuz",
   "usingLatestNightly": "En son nightly (kod tabanından gelen) sürümü kullanıyorsunuz",
   "currentVersion": "Şu anki sürüm",

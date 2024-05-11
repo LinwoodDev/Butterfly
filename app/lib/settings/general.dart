@@ -29,9 +29,20 @@ class Meta {
         mainVersion = json['version']?['main'] ?? '?';
 }
 
-class GeneralSettingsPage extends StatelessWidget {
+class GeneralSettingsPage extends StatefulWidget {
   final bool inView;
   const GeneralSettingsPage({super.key, this.inView = false});
+
+  @override
+  State<GeneralSettingsPage> createState() => _GeneralSettingsPageState();
+}
+
+class _GeneralSettingsPageState extends State<GeneralSettingsPage> {
+  Future<Meta>? _metaFuture;
+
+  void loadMeta() => setState(() {
+        _metaFuture = _fetchMeta();
+      });
 
   Future<Meta> _fetchMeta() async {
     final response =
@@ -42,11 +53,11 @@ class GeneralSettingsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: inView ? Colors.transparent : null,
+      backgroundColor: widget.inView ? Colors.transparent : null,
       appBar: WindowTitleBar(
         title: Text(AppLocalizations.of(context).general),
-        backgroundColor: inView ? Colors.transparent : null,
-        inView: inView,
+        backgroundColor: widget.inView ? Colors.transparent : null,
+        inView: widget.inView,
       ),
       body: FutureBuilder(
         future: PackageInfo.fromPlatform(),
@@ -73,14 +84,24 @@ class GeneralSettingsPage extends StatelessWidget {
                       ),
                       if (!kIsWeb)
                         FutureBuilder<Meta>(
-                            future: _fetchMeta(),
+                            future: _metaFuture,
                             builder: (context, snapshot) {
                               if (snapshot.hasError) {
                                 return Text('Error: ${snapshot.error}');
                               }
-                              if (!snapshot.hasData) {
+                              if (snapshot.connectionState ==
+                                  ConnectionState.waiting) {
                                 return const Center(
                                     child: CircularProgressIndicator());
+                              }
+                              if (!snapshot.hasData) {
+                                return ListTile(
+                                  title: Text(AppLocalizations.of(context)
+                                      .checkForUpdates),
+                                  subtitle: Text(AppLocalizations.of(context)
+                                      .checkForUpdatesWarning),
+                                  onTap: loadMeta,
+                                );
                               }
                               final meta = snapshot.data!;
                               final stableVersion = meta.stableVersion;

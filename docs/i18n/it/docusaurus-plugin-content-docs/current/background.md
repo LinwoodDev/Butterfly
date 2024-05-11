@@ -4,24 +4,35 @@ sidebar_position: 2
 title: Sfondo
 ---
 
-Ci sono due tipi diversi di sfondi.
+import {Wrench, Book, Image, Globe, Gear,
 
-### Sequenza
+} from "@phosphor-icons/react";
 
-È possibile personalizzare lo sfondo della carta. Fare clic sull'icona di sfondo nella finestra di dialogo della vista per aggiungerla. Ci sono 8 diversi modelli di sfondo disponibili.
+Per modificare lo sfondo della pagina, clicca sull'icona <Wrench/> e lì, sull'icona <Book/>. Lì, avrai la possibilità di cliccare sull'icona <Image/>. Su un computer, puoi anche utilizzare la scorciatoia `ctrl-B`.
 
-### Configurazione
+Durante la configurazione di un backgournd, hai due schede. La scheda <Globe/> Generale per selezionare il tipo di sfondo da usare e la <Gear/> Per configurare lo sfondo selezionato.
 
-Larghezza e altezza sono le impostazioni generali della scatola.
+## <Globe/> Sequenza
 
-Inoltre, è possibile personalizzare il colore dello sfondo.
+Ci sono 8 diversi modelli di sfondo tra cui puoi scegliere. Per ciascuno dei modelli disponibili, è possibile configurare quanto segue:
 
-La proprietà conteggio e spaziatura consente di creare carta musicale. Per la carta musicale, impostare il conteggio a 5 e la spaziatura a più della larghezza.
 
-## Immagine
+### <Gear/> Proprietà
 
-Il tipo di sfondo dell'immagine consente di usare un'immagine come sfondo.
+Nella scheda di configurazione orizzontale, hai la seguente opzione:
 
-### Configurazione
+- Larghezza - la larghezza per ogni riga, rispettivamente.
+- Conteggio - è possibile raggruppare le righe in questo modo.
+- Spazio - la distanza tra ogni gruppo di righe.
+
+Ad esempio, per creare un foglio musicale, è possibile utilizzare la seguente configurazione: `Width - 40`, `Count - 5`, `Space - 80`
+
+La configurazione verticale segue la stessa logica per le colonne invece che per le righe.
+
+## <Globe/> Immagine
+
+Il tipo di sfondo dell'immagine consente di caricare un'immagine e utilizzarla come sfondo per la pagina.
+
+### <Gear/> Proprietà.
 
 La scala in direzione x e y può essere cambiata se l'immagine è piccola o grande.

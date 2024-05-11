@@ -4,24 +4,35 @@ sidebar_position: 2
 title: พื้นหลัง
 ---
 
-There are two different types of backgrounds.
+import {Wrench, Book, Image, Globe, Gear,
 
-### Pattern
+} from "@phosphor-icons/react";
 
-You can customize the background of the paper. Click on the background icon in the view dialog to add it. There are 8 different background templates available.
+To edit the background of the page, click on the <Wrench/> icon and there, on the <Book/> page icon. There, you'll have the option to click on the <Image/> icon. On a computer, you can also use the `ctrl-B` shortcut.
 
-### Configuration
+When configuring a backgournd, you have two tabs. The <Globe/> General tab to select the type of background to use, and the <Gear/> To configure the selected background.
 
-Width and height are the general settings of the box.
+## <Globe/> Pattern
 
-Additionally, you can customize the color of the background.
+There are 8 different background templates available that you can choose from. For each of the available patterns, you can configure the following:
 
-The count and spacing property allows you to create music paper. For music paper, set count to 5 and spacing to more than the width.
 
-## รูปภาพ
+### <Gear/> Properties
 
-The image background type allows you to use an image as background.
+In the horizontal configuration tab, you have the following option:
 
-### Configuration
+- Width - the width for each row respectively.
+- Count - you can group the rows in group that way.
+- Space - the distance between each group of rows.
+
+For example, to create a music sheet, you can use the following configuration: `Width - 40`, `Count - 5`, `Space - 80`
+
+The vertical configuration follows the same logic for columns instead of rows.
+
+## <Globe/> รูปภาพ
+
+The image background type allows you to upload an image and use it as background for the page.
+
+### <Gear/> Properties.
 
 The scale in x and y direction can be changed if this image to small or big.

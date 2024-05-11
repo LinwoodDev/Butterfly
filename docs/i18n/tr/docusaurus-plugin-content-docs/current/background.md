@@ -4,24 +4,35 @@ sidebar_position: 2
 title: Arkaplan
 ---
 
-There are two different types of backgrounds.
+import {Wrench, Book, Image, Globe, Gear,
 
-### Pattern
+} from "@phosphor-icons/react";
 
-Kağıdın arka planını özelleştirebilirsiniz. Eklemek için iletişim kutusundaki arka plan simgesine tıklayın. 8 farklı arka plan şablonu mevcuttur.
+To edit the background of the page, click on the <Wrench/> icon and there, on the <Book/> page icon. There, you'll have the option to click on the <Image/> icon. On a computer, you can also use the `ctrl-B` shortcut.
 
-### Yapılandırma
+When configuring a backgournd, you have two tabs. The <Globe/> General tab to select the type of background to use, and the <Gear/> To configure the selected background.
 
-Genişlik ve yükseklik kutunun genel ayarlarıdır.
+## <Globe/> Pattern
 
-Ek olarak, arka planın rengini özelleştirebilirsiniz.
+There are 8 different background templates available that you can choose from. For each of the available patterns, you can configure the following:
 
-The count and spacing property allows you to create music paper. For music paper, set count to 5 and spacing to more than the width.
 
-## Görsel
+### <Gear/> Özellikler
 
-The image background type allows you to use an image as background.
+In the horizontal configuration tab, you have the following option:
 
-### Yapılandırma
+- Width - the width for each row respectively.
+- Count - you can group the rows in group that way.
+- Space - the distance between each group of rows.
+
+For example, to create a music sheet, you can use the following configuration: `Width - 40`, `Count - 5`, `Space - 80`
+
+The vertical configuration follows the same logic for columns instead of rows.
+
+## <Globe/> Görsel
+
+The image background type allows you to upload an image and use it as background for the page.
+
+### <Gear/> Properties.
 
 The scale in x and y direction can be changed if this image to small or big.

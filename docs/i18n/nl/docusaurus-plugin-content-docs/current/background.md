@@ -4,24 +4,35 @@ sidebar_position: 2
 title: Achtergrond
 ---
 
-Er zijn twee verschillende soorten achtergronden.
+import {Wrench, Book, Image, Globe, Gear,
 
-### Patroon
+} from "@phosphor-icons/react";
 
-Je kunt de achtergrond van het papier aanpassen. Klik op het achtergrondpictogram in het dialoogvenster bekijken om het toe te voegen. Er zijn 8 verschillende achtergrondsjablonen beschikbaar.
+To edit the background of the page, click on the <Wrench/> icon and there, on the <Book/> page icon. Hier heb je de mogelijkheid om op het <Image/> pictogram te klikken. Op een computer kan je ook de `ctrl-B` snelkoppeling gebruiken.
 
-### Configuratie
+Bij het configureren van een backgourd, heb je twee tabbladen. Het tabblad <Globe/> Algemeen om het type achtergrond te selecteren om te gebruiken en de <Gear/> om de geselecteerde achtergrond te configureren.
 
-Breedte en hoogte zijn de algemene instellingen van het vak.
+## <Globe/> Patroon
 
-Daarnaast kunt u de kleur van de achtergrond aanpassen.
+Er zijn 8 verschillende achtergrondsjablonen beschikbaar waaruit u kunt kiezen. Voor elk van de beschikbare patronen kunt u het volgende configureren:
 
-De eigenschap teller en afstand maakt het mogelijk om muziekpapier te maken. Voor muziekpapier, stel het aantal in op 5 en afstand naar meer dan de breedte.
 
-## Afbeelding
+### <Gear/> Eigenschappen
 
-Het achtergrondafype stelt u in staat een afbeelding als achtergrond te gebruiken.
+In de horizontale configuratie tab heeft u de volgende optie:
 
-### Configuratie
+- Breedte - de breedte voor elke rij respectievelijk
+- Tel - je kunt de rijen zo groeperen.
+- Ruimte - de afstand tussen elke groep rijen.
+
+Bijvoorbeeld, om een muziekblad aan te maken, kunt u de volgende configuratie gebruiken: `Breedte - 40`, `Telling - 5`, `Spatie - 80`
+
+De verticale configuratie volgt dezelfde logica voor kolommen in plaats van rijen.
+
+## <Globe/> Afbeelding
+
+Het achtergrondafype geeft u de mogelijkheid om een afbeelding te uploaden en als achtergrond te gebruiken voor de pagina.
+
+### <Gear/> Eigenschappen.
 
 De schaal in x en y richting kan worden gewijzigd als deze afbeelding klein of groot is.

@@ -7,7 +7,7 @@ part of 'event.dart';
 // **************************************************************************
 
 _$PageAddedImpl _$$PageAddedImplFromJson(Map json) => _$PageAddedImpl(
-      json['index'] as int?,
+      (json['index'] as num?)?.toInt(),
       json['page'] == null
           ? null
           : DocumentPage.fromJson(
@@ -36,7 +36,7 @@ Map<String, dynamic> _$$PageChangedImplToJson(_$PageChangedImpl instance) =>
 _$PageReorderedImpl _$$PageReorderedImplFromJson(Map json) =>
     _$PageReorderedImpl(
       json['page'] as String,
-      json['newIndex'] as int?,
+      (json['newIndex'] as num?)?.toInt(),
       json['type'] as String?,
     );
 
@@ -236,7 +236,7 @@ Map<String, dynamic> _$$ToolsChangedImplToJson(_$ToolsChangedImpl instance) =>
     };
 
 _$ToolsRemovedImpl _$$ToolsRemovedImplFromJson(Map json) => _$ToolsRemovedImpl(
-      (json['tools'] as List<dynamic>).map((e) => e as int).toList(),
+      (json['tools'] as List<dynamic>).map((e) => (e as num).toInt()).toList(),
       $type: json['type'] as String?,
     );
 
@@ -248,8 +248,8 @@ Map<String, dynamic> _$$ToolsRemovedImplToJson(_$ToolsRemovedImpl instance) =>
 
 _$ToolReorderedImpl _$$ToolReorderedImplFromJson(Map json) =>
     _$ToolReorderedImpl(
-      json['oldIndex'] as int,
-      json['newIndex'] as int,
+      (json['oldIndex'] as num).toInt(),
+      (json['newIndex'] as num).toInt(),
       $type: json['type'] as String?,
     );
 
@@ -320,7 +320,7 @@ Map<String, dynamic> _$$WaypointRemovedImplToJson(
 _$WaypointReorderedImpl _$$WaypointReorderedImplFromJson(Map json) =>
     _$WaypointReorderedImpl(
       json['name'] as String,
-      json['newIndex'] as int,
+      (json['newIndex'] as num).toInt(),
       $type: json['type'] as String?,
     );
 
@@ -450,7 +450,7 @@ Map<String, dynamic> _$$AreaChangedImplToJson(_$AreaChangedImpl instance) =>
 _$AreaReorderedImpl _$$AreaReorderedImplFromJson(Map json) =>
     _$AreaReorderedImpl(
       json['name'] as String,
-      json['newIndex'] as int,
+      (json['newIndex'] as num).toInt(),
       $type: json['type'] as String?,
     );
 
@@ -630,7 +630,7 @@ Map<String, dynamic> _$$PresentationModeExitedImplToJson(
 
 _$PresentationTickImpl _$$PresentationTickImplFromJson(Map json) =>
     _$PresentationTickImpl(
-      json['tick'] as int,
+      (json['tick'] as num).toInt(),
       $type: json['type'] as String?,
     );
 
@@ -643,7 +643,7 @@ Map<String, dynamic> _$$PresentationTickImplToJson(
 
 _$AssetUpdatedImpl _$$AssetUpdatedImplFromJson(Map json) => _$AssetUpdatedImpl(
       json['path'] as String,
-      (json['data'] as List<dynamic>).map((e) => e as int).toList(),
+      (json['data'] as List<dynamic>).map((e) => (e as num).toInt()).toList(),
       $type: json['type'] as String?,
     );
 

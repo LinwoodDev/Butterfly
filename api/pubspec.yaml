@@ -1,6 +1,6 @@
 name: butterfly_api
 description: The Linwood Butterfly API
-version: 2.0.0-rc.1
+version: 2.1.1-rc.0
 
 environment:
   sdk: '>=3.0.0 <4.0.0'
@@ -9,7 +9,7 @@ dependencies:
   archive: ^3.4.10
   collection: ^1.18.0
   freezed_annotation: ^2.2.0
-  json_annotation: ^4.8.1
+  json_annotation: ^4.9.0
   replay_bloc: ^0.2.7
   rxdart: ^0.27.7
   uuid: ^4.4.0
@@ -20,5 +20,5 @@ dev_dependencies:
   json_serializable: ^6.7.1
   build_runner: ^2.4.9
   freezed: ^2.5.2
-  lints: ^3.0.0
+  lints: ^4.0.0
   analyzer: ^6.3.0

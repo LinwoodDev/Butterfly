@@ -15,7 +15,7 @@ sidebar_position: 1
 ## Pierwsze kroki
 
 Odwiedź [pobierania](/downloads), aby pobrać aplikację na swoją platformę.
-Użyj [wersji internetowej](https://v2.web.butterfly.linwood.dev) jeśli nie możesz znaleźć swojej platformy.
+Użyj [wersji internetowej](https://v2.butterfly.linwood.dev) jeśli nie możesz znaleźć swojej platformy.
 
 ## Widok główny
 
