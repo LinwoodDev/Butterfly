@@ -1,9 +1,9 @@
 import 'dart:typed_data';
 
-import 'package:butterfly/main.dart';
 import 'package:butterfly/models/defaults.dart';
 import 'package:butterfly/views/files/card.dart';
 import 'package:butterfly/views/files/entity.dart';
+import 'package:butterfly/widgets/connection_button.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -114,7 +114,7 @@ class FilesViewState extends State<FilesView> {
   }
 
   void _setRemote(ExternalStorage? remote) {
-    _remote = remote;
+    setState(() => _remote = remote);
     _setFilesStream();
     widget.onRemoteChanged?.call(remote);
   }
@@ -128,35 +128,44 @@ class FilesViewState extends State<FilesView> {
       builder: (context, state) =>
           Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
         LayoutBuilder(builder: (context, constraints) {
-          final isMobile = constraints.maxWidth <= kMobileWidth;
+          final isDesktop = constraints.maxWidth > 800;
           final text = Text(
             AppLocalizations.of(context).files,
             style: Theme.of(context).textTheme.headlineMedium,
             textAlign: TextAlign.start,
           );
-          final actions = OverflowBar(
+          final orderButton = IconButton(
+            icon: PhosphorIcon(_sortOrder == SortOrder.ascending
+                ? PhosphorIconsLight.sortAscending
+                : PhosphorIconsLight.sortDescending),
+            tooltip: _sortOrder == SortOrder.ascending
+                ? AppLocalizations.of(context).ascending
+                : AppLocalizations.of(context).descending,
+            onPressed: () => setState(() {
+              _sortOrder = _sortOrder == SortOrder.ascending
+                  ? SortOrder.descending
+                  : SortOrder.ascending;
+              _settingsCubit.changeSortOrder(_sortOrder);
+            }),
+          );
+          final desktopActions = OverflowBar(
             spacing: 8,
             overflowSpacing: 8,
-            overflowAlignment: widget.collapsed
-                ? OverflowBarAlignment.start
-                : OverflowBarAlignment.end,
-            alignment: MainAxisAlignment.end,
             children: [
-              if (!widget.collapsed)
-                Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Text(AppLocalizations.of(context).switchView),
-                    const SizedBox(width: 8),
-                    IconButton.filledTonal(
-                      onPressed: () =>
-                          context.read<SettingsCubit>().toggleGridView(),
-                      icon: state.gridView
-                          ? const PhosphorIcon(PhosphorIconsLight.list)
-                          : const PhosphorIcon(PhosphorIconsLight.gridFour),
-                    ),
-                  ],
-                ),
+              Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(AppLocalizations.of(context).switchView),
+                  const SizedBox(width: 8),
+                  IconButton.filledTonal(
+                    onPressed: () =>
+                        context.read<SettingsCubit>().toggleGridView(),
+                    icon: state.gridView
+                        ? const PhosphorIcon(PhosphorIconsLight.list)
+                        : const PhosphorIcon(PhosphorIconsLight.gridFour),
+                  ),
+                ],
+              ),
               BlocBuilder<SettingsCubit, ButterflySettings>(
                 buildWhen: (previous, current) =>
                     previous.connections != current.connections,
@@ -188,20 +197,7 @@ class FilesViewState extends State<FilesView> {
                 ),
               ),
               DropdownMenu<SortBy>(
-                leadingIcon: IconButton(
-                  icon: PhosphorIcon(_sortOrder == SortOrder.ascending
-                      ? PhosphorIconsLight.sortAscending
-                      : PhosphorIconsLight.sortDescending),
-                  tooltip: _sortOrder == SortOrder.ascending
-                      ? AppLocalizations.of(context).ascending
-                      : AppLocalizations.of(context).descending,
-                  onPressed: () => setState(() {
-                    _sortOrder = _sortOrder == SortOrder.ascending
-                        ? SortOrder.descending
-                        : SortOrder.ascending;
-                    _settingsCubit.changeSortOrder(_sortOrder);
-                  }),
-                ),
+                leadingIcon: orderButton,
                 label: Text(AppLocalizations.of(context).sortBy),
                 width: 225,
                 dropdownMenuEntries: SortBy.values
@@ -220,24 +216,55 @@ class FilesViewState extends State<FilesView> {
               ),
             ],
           );
+          final primary = Theme.of(context).colorScheme.primary;
+          final mobileActions = OverflowBar(
+            spacing: 8,
+            overflowSpacing: 8,
+            children: [
+              IconButton(
+                onPressed: () => context.read<SettingsCubit>().toggleGridView(),
+                tooltip: AppLocalizations.of(context).switchView,
+                icon: state.gridView
+                    ? const PhosphorIcon(PhosphorIconsLight.list)
+                    : const PhosphorIcon(PhosphorIconsLight.gridFour),
+              ),
+              ConnectionButton(
+                currentRemote: _remote?.identifier ?? '',
+                onChanged: _setRemote,
+              ),
+              MenuAnchor(
+                builder: defaultMenuButton(
+                  tooltip: AppLocalizations.of(context).sortBy,
+                  icon: PhosphorIcon(
+                      getIconOfSortBy(_sortBy)(PhosphorIconsStyle.light)),
+                ),
+                menuChildren: SortBy.values
+                    .map((e) => MenuItemButton(
+                          leadingIcon: PhosphorIcon(
+                              getIconOfSortBy(e)(PhosphorIconsStyle.light),
+                              color: e == _sortBy ? primary : null),
+                          child: Text(getLocalizedNameOfSortBy(e),
+                              style: e == _sortBy
+                                  ? TextStyle(color: primary)
+                                  : null),
+                          onPressed: () => setState(() {
+                            _sortBy = e;
+                            _settingsCubit.changeSortBy(_sortBy);
+                          }),
+                        ))
+                    .toList(),
+              ),
+              orderButton,
+            ],
+          );
           if (widget.collapsed) {
-            return actions;
+            return mobileActions;
           }
-          if (isMobile) {
-            return Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                text,
-                const SizedBox(height: 16),
-                actions,
-              ],
-            );
-          }
-          return Row(
+          return OverflowBar(
+            alignment: MainAxisAlignment.spaceBetween,
             children: [
               text,
-              const SizedBox(width: 8),
-              Expanded(child: actions),
+              isDesktop ? desktopActions : mobileActions,
             ],
           );
         }),
