@@ -629,9 +629,11 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
             backgrounds: backgrounds)));
   }
 
-  Future<void> loadElements(
-      NoteData document, AssetService assetService, DocumentPage page,
-      [String currentLayer = '']) async {
+  Future<void> loadElements(DocumentState docState) async {
+    if (docState is! DocumentLoaded) return;
+    final document = docState.data;
+    final assetService = docState.assetService;
+    final page = docState.page;
     for (var e in state.cameraViewport.unbakedElements) {
       e.dispose();
     }
@@ -639,8 +641,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
       e.dispose();
     }
     final renderers = page.content
-        .where(
-            (element) => currentLayer.isEmpty || element.layer == currentLayer)
+        .where((element) => !docState.invisibleLayers.contains(element.layer))
         .map((e) => Renderer.fromInstance(e))
         .toList();
     await Future.wait(renderers
@@ -941,8 +942,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
       path = await current.save(path);
     }
     if (reset) {
-      loadElements(current.data, current.assetService, current.page,
-          current.currentLayer);
+      loadElements(current);
     }
     if (reset || refresh) {
       this.refresh(

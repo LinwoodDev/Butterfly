@@ -354,6 +354,11 @@ class PersonalizationSettingsPage extends StatelessWidget {
         childrenBuilder: (context) => PlatformTheme.values
             .map((e) => ListTile(
                 title: Text(_getPlatformThemeName(context, e)),
+                leading: PhosphorIcon(switch (e) {
+                  PlatformTheme.system => PhosphorIconsLight.power,
+                  PlatformTheme.desktop => PhosphorIconsLight.desktop,
+                  PlatformTheme.mobile => PhosphorIconsLight.phone,
+                }),
                 selected: currentTheme == e,
                 onTap: () {
                   cubit.changePlatformTheme(e);
