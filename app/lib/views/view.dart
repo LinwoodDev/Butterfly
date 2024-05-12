@@ -184,210 +184,210 @@ class _MainViewViewportState extends State<MainViewViewport>
           }
 
           return BlocBuilder<CurrentIndexCubit, CurrentIndex>(
-              buildWhen: (previous, current) =>
-                  previous.cameraViewport != current.cameraViewport ||
-                  previous.foregrounds != current.foregrounds ||
-                  previous.handler != current.handler ||
-                  previous.temporaryHandler != current.temporaryHandler ||
-                  previous.temporaryForegrounds !=
-                      current.temporaryForegrounds ||
-                  previous.rendererStates != current.rendererStates ||
-                  previous.networkingForegrounds !=
-                      current.networkingForegrounds ||
-                  previous.temporaryRendererStates !=
-                      current.temporaryRendererStates,
-              builder: (context, currentIndex) => Actions(
-                  actions: getHandler().getActions(context),
-                  child: DefaultTextEditingShortcuts(
+            buildWhen: (previous, current) =>
+                previous.cameraViewport != current.cameraViewport ||
+                previous.foregrounds != current.foregrounds ||
+                previous.handler != current.handler ||
+                previous.temporaryHandler != current.temporaryHandler ||
+                previous.temporaryForegrounds != current.temporaryForegrounds ||
+                previous.rendererStates != current.rendererStates ||
+                previous.networkingForegrounds !=
+                    current.networkingForegrounds ||
+                previous.temporaryRendererStates !=
+                    current.temporaryRendererStates ||
+                previous.cursor != current.cursor ||
+                previous.temporaryCursor != current.temporaryCursor,
+            builder: (context, currentIndex) => Actions(
+                actions: getHandler().getActions(context),
+                child: DefaultTextEditingShortcuts(
                     child: Focus(
-                      child: Builder(builder: (context) {
-                        EventContext getEventContext() {
-                          return EventContext(context, constraints.biggest,
-                              _isShiftPressed, _isAltPressed, _isCtrlPressed);
-                        }
+                  child: MouseRegion(
+                    cursor: currentIndex.currentCursor,
+                    child: Builder(builder: (context) {
+                      EventContext getEventContext() {
+                        return EventContext(context, constraints.biggest,
+                            _isShiftPressed, _isAltPressed, _isCtrlPressed);
+                      }
 
-                        return GestureDetector(
-                          onTapUp: (details) =>
-                              getHandler().onTapUp(details, getEventContext()),
-                          onTapDown: (details) => getHandler()
-                              .onTapDown(details, getEventContext()),
-                          onSecondaryTapUp: (details) => getHandler()
-                              .onSecondaryTapUp(details, getEventContext()),
-                          onScaleUpdate: (details) {
-                            final handler = getHandler();
-                            if (_isScalingDisabled ?? true) {
-                              handler.onScaleUpdate(details, getEventContext());
-                              return;
-                            }
-                            final cubit = context.read<CurrentIndexCubit>();
-                            if (openView) openView = details.scale == 1;
-                            final settings =
-                                context.read<SettingsCubit>().state;
-                            if (cubit.fetchHandler<SelectHandler>() == null &&
-                                !settings.inputGestures) return;
-                            var current = details.scale;
-                            current = current - size;
+                      return GestureDetector(
+                        onTapUp: (details) =>
+                            getHandler().onTapUp(details, getEventContext()),
+                        onTapDown: (details) =>
+                            getHandler().onTapDown(details, getEventContext()),
+                        onSecondaryTapUp: (details) => getHandler()
+                            .onSecondaryTapUp(details, getEventContext()),
+                        onScaleUpdate: (details) {
+                          final handler = getHandler();
+                          if (_isScalingDisabled ?? true) {
+                            handler.onScaleUpdate(details, getEventContext());
+                            return;
+                          }
+                          final cubit = context.read<CurrentIndexCubit>();
+                          if (openView) openView = details.scale == 1;
+                          final settings = context.read<SettingsCubit>().state;
+                          if (cubit.fetchHandler<SelectHandler>() == null &&
+                              !settings.inputGestures) return;
+                          var current = details.scale;
+                          current = current - size;
+                          var sensitivity = context
+                              .read<SettingsCubit>()
+                              .state
+                              .touchSensitivity;
+                          if (details.scale == 1) {
+                            cubit.move(-details.focalPointDelta /
+                                sensitivity /
+                                cubit.state.transformCubit.state.size);
+                          } else {
+                            cubit.zoom(current / sensitivity + 1, point);
+                          }
+                          size = details.scale;
+                          delayBake();
+                        },
+                        onLongPressEnd: (details) => getHandler()
+                            .onLongPressEnd(details, getEventContext()),
+                        onScaleEnd: (details) {
+                          getHandler().onScaleEnd(details, getEventContext());
+                          if (!(_isScalingDisabled ?? true)) {
                             var sensitivity = context
                                 .read<SettingsCubit>()
                                 .state
                                 .touchSensitivity;
-                            if (details.scale == 1) {
-                              cubit.move(-details.focalPointDelta /
-                                  sensitivity /
-                                  cubit.state.transformCubit.state.size);
-                            } else {
-                              cubit.zoom(current / sensitivity + 1, point);
-                            }
-                            size = details.scale;
+                            cubit.slide(
+                                details.velocity.pixelsPerSecond /
+                                    sensitivity /
+                                    cubit.state.transformCubit.state.size,
+                                details.scaleVelocity);
                             delayBake();
-                          },
-                          onLongPressEnd: (details) => getHandler()
-                              .onLongPressEnd(details, getEventContext()),
-                          onScaleEnd: (details) {
-                            getHandler().onScaleEnd(details, getEventContext());
-                            if (!(_isScalingDisabled ?? true)) {
+                          }
+                        },
+                        onScaleStart: (details) {
+                          _isScalingDisabled ??= !cubit.state.moveEnabled;
+                          if (_isScalingDisabled != false) {
+                            _isScalingDisabled = cubit
+                                .getHandler()
+                                .onScaleStart(details, getEventContext());
+                          } else {
+                            cubit
+                                .getHandler()
+                                .onScaleStartAbort(details, getEventContext());
+                          }
+                          point = details.localFocalPoint;
+                          size = 1;
+                        },
+                        onDoubleTapDown: (details) => getHandler()
+                            .onDoubleTapDown(details, getEventContext()),
+                        onDoubleTap: () =>
+                            getHandler().onDoubleTap(getEventContext()),
+                        onLongPressStart: (details) => getHandler()
+                            .onLongPressStart(details, getEventContext()),
+                        onLongPressDown: (details) => getHandler()
+                            .onLongPressDown(details, getEventContext()),
+                        child: Listener(
+                          onPointerSignal: (pointerSignal) {
+                            if (state is! DocumentLoadSuccess) return;
+                            if (pointerSignal is PointerScrollEvent) {
+                              // dx and dy are the delta between the last scroll event
+                              var dx = pointerSignal.scrollDelta.dx;
+                              var dy = pointerSignal.scrollDelta.dy;
+                              // Get zoom by dx and dy
+                              var scale = pointerSignal.size;
                               var sensitivity = context
                                   .read<SettingsCubit>()
                                   .state
-                                  .touchSensitivity;
-                              cubit.slide(
-                                  details.velocity.pixelsPerSecond /
-                                      sensitivity /
-                                      cubit.state.transformCubit.state.size,
-                                  details.scaleVelocity);
+                                  .mouseSensitivity;
+                              scale /= -sensitivity * 100;
+                              scale += 1;
+                              final cubit = context.read<CurrentIndexCubit>();
+                              final transform =
+                                  context.read<TransformCubit>().state;
+                              if (_mouseState == _MouseState.scale) {
+                                // Calculate the new scale using dx and dy
+                                scale = -(dx + dy / 2) / sensitivity / 100 + 1;
+                                cubit.zoom(scale, pointerSignal.localPosition);
+                              } else {
+                                cubit
+                                  ..move((_mouseState == _MouseState.inverse
+                                          ? Offset(dy, dx)
+                                          : Offset(dx, dy)) /
+                                      transform.size)
+                                  ..zoom(scale, pointerSignal.localPosition);
+                              }
                               delayBake();
                             }
                           },
-                          onScaleStart: (details) {
-                            _isScalingDisabled ??= !cubit.state.moveEnabled;
-                            if (_isScalingDisabled != false) {
-                              _isScalingDisabled = cubit
-                                  .getHandler()
-                                  .onScaleStart(details, getEventContext());
-                            } else {
-                              cubit.getHandler().onScaleStartAbort(
-                                  details, getEventContext());
-                            }
-                            point = details.localFocalPoint;
-                            size = 1;
+                          onPointerPanZoomStart: (event) {
+                            _isScalingDisabled = false;
                           },
-                          onDoubleTapDown: (details) => getHandler()
-                              .onDoubleTapDown(details, getEventContext()),
-                          onDoubleTap: () =>
-                              getHandler().onDoubleTap(getEventContext()),
-                          onLongPressStart: (details) => getHandler()
-                              .onLongPressStart(details, getEventContext()),
-                          onLongPressDown: (details) => getHandler()
-                              .onLongPressDown(details, getEventContext()),
-                          child: Listener(
-                            onPointerSignal: (pointerSignal) {
-                              if (state is! DocumentLoadSuccess) return;
-                              if (pointerSignal is PointerScrollEvent) {
-                                // dx and dy are the delta between the last scroll event
-                                var dx = pointerSignal.scrollDelta.dx;
-                                var dy = pointerSignal.scrollDelta.dy;
-                                // Get zoom by dx and dy
-                                var scale = pointerSignal.size;
-                                var sensitivity = context
-                                    .read<SettingsCubit>()
-                                    .state
-                                    .mouseSensitivity;
-                                scale /= -sensitivity * 100;
-                                scale += 1;
-                                final cubit = context.read<CurrentIndexCubit>();
+                          onPointerDown: (PointerDownEvent event) async {
+                            _isScalingDisabled =
+                                event.kind == PointerDeviceKind.trackpad
+                                    ? false
+                                    : null;
+                            cubit.addPointer(event.pointer);
+                            cubit.setButtons(event.buttons);
+                            final handler = getHandler();
+                            if (handler.canChange(event, getEventContext())) {
+                              await changeTemporaryTool(
+                                  event.kind, event.buttons);
+                            }
+                            if (_isScalingDisabled ?? true) {
+                              getHandler()
+                                  .onPointerDown(event, getEventContext());
+                            }
+                          },
+                          onPointerUp: (PointerUpEvent event) async {
+                            cubit.updateLastPosition(event.localPosition);
+                            if (_isScalingDisabled ?? true) {
+                              getHandler()
+                                  .onPointerUp(event, getEventContext());
+                            }
+                            cubit.removePointer(event.pointer);
+                            cubit.removeButtons();
+                          },
+                          behavior: HitTestBehavior.translucent,
+                          onPointerHover: (event) {
+                            cubit.updateLastPosition(event.localPosition);
+                            getHandler()
+                                .onPointerHover(event, getEventContext());
+                          },
+                          onPointerMove: (PointerMoveEvent event) async {
+                            RenderObject? box = context.findRenderObject();
+                            if (!box!.paintBounds
+                                    .contains(event.localPosition) &&
+                                kIsWeb) {
+                              return;
+                            }
+                            cubit.updateLastPosition(event.localPosition);
+                            if (cubit.state.moveEnabled &&
+                                event.kind != PointerDeviceKind.stylus) {
+                              if (event.pointer == cubit.state.pointers.first) {
                                 final transform =
                                     context.read<TransformCubit>().state;
-                                if (_mouseState == _MouseState.scale) {
-                                  // Calculate the new scale using dx and dy
-                                  scale =
-                                      -(dx + dy / 2) / sensitivity / 100 + 1;
-                                  cubit.zoom(
-                                      scale, pointerSignal.localPosition);
-                                } else {
-                                  cubit
-                                    ..move((_mouseState == _MouseState.inverse
-                                            ? Offset(dy, dx)
-                                            : Offset(dx, dy)) /
-                                        transform.size)
-                                    ..zoom(scale, pointerSignal.localPosition);
-                                }
+                                final cubit = context.read<CurrentIndexCubit>();
+                                cubit.move(-event.delta / transform.size);
                                 delayBake();
                               }
-                            },
-                            onPointerPanZoomStart: (event) {
-                              _isScalingDisabled = false;
-                            },
-                            onPointerDown: (PointerDownEvent event) async {
-                              _isScalingDisabled =
-                                  event.kind == PointerDeviceKind.trackpad
-                                      ? false
-                                      : null;
-                              cubit.addPointer(event.pointer);
-                              cubit.setButtons(event.buttons);
-                              final handler = getHandler();
-                              if (handler.canChange(event, getEventContext())) {
-                                await changeTemporaryTool(
-                                    event.kind, event.buttons);
-                              }
-                              if (_isScalingDisabled ?? true) {
-                                getHandler()
-                                    .onPointerDown(event, getEventContext());
-                              }
-                            },
-                            onPointerUp: (PointerUpEvent event) async {
-                              cubit.updateLastPosition(event.localPosition);
-                              if (_isScalingDisabled ?? true) {
-                                getHandler()
-                                    .onPointerUp(event, getEventContext());
-                              }
-                              cubit.removePointer(event.pointer);
-                              cubit.removeButtons();
-                            },
-                            behavior: HitTestBehavior.translucent,
-                            onPointerHover: (event) {
-                              cubit.updateLastPosition(event.localPosition);
+                              return;
+                            }
+                            if (_isScalingDisabled ?? true) {
                               getHandler()
-                                  .onPointerHover(event, getEventContext());
-                            },
-                            onPointerMove: (PointerMoveEvent event) async {
-                              RenderObject? box = context.findRenderObject();
-                              if (!box!.paintBounds
-                                      .contains(event.localPosition) &&
-                                  kIsWeb) {
-                                return;
-                              }
-                              cubit.updateLastPosition(event.localPosition);
-                              if (cubit.state.moveEnabled &&
-                                  event.kind != PointerDeviceKind.stylus) {
-                                if (event.pointer ==
-                                    cubit.state.pointers.first) {
-                                  final transform =
-                                      context.read<TransformCubit>().state;
-                                  final cubit =
-                                      context.read<CurrentIndexCubit>();
-                                  cubit.move(-event.delta / transform.size);
-                                  delayBake();
-                                }
-                                return;
-                              }
-                              if (_isScalingDisabled ?? true) {
-                                getHandler()
-                                    .onPointerMove(event, getEventContext());
-                              }
-                            },
-                            onPointerCancel: (event) {
-                              cubit.removePointer(event.pointer);
-                              cubit.removeButtons();
-                              if (cubit.state.pointers.isEmpty) {
-                                _isScalingDisabled = null;
-                              }
-                            },
-                            child: _buildCanvas(currentIndex, cubit, state),
-                          ),
-                        );
-                      }),
-                    ),
-                  )));
+                                  .onPointerMove(event, getEventContext());
+                            }
+                          },
+                          onPointerCancel: (event) {
+                            cubit.removePointer(event.pointer);
+                            cubit.removeButtons();
+                            if (cubit.state.pointers.isEmpty) {
+                              _isScalingDisabled = null;
+                            }
+                          },
+                          child: _buildCanvas(currentIndex, cubit, state),
+                        ),
+                      );
+                    }),
+                  ),
+                ))),
+          );
         });
       }),
     ));
@@ -424,46 +424,43 @@ class _MainViewViewportState extends State<MainViewViewport>
         _animationController.forward(from: 0);
       },
       child: BlocBuilder<TransformCubit, CameraTransform>(
-        builder: (context, transform) => MouseRegion(
-          cursor: currentIndex.currentCursor,
-          child: AnimatedBuilder(
-            animation: _animationController,
-            builder: (context, child) {
-              final frictionTransform = transform.withFrictionless(
-                _positionAnimation?.value ?? Offset.zero,
-                0,
-              );
-              return Stack(children: [
-                Container(color: Colors.white),
-                CustomPaint(
-                  size: Size.infinite,
-                  foregroundPainter: ForegroundPainter(
-                    cubit.getForegrounds(),
-                    state.data,
-                    state.page,
-                    state.info,
-                    Theme.of(context).colorScheme,
-                    frictionTransform,
-                    cubit.state.selection,
-                    currentIndex.cameraViewport.utilities,
-                  ),
-                  painter: ViewPainter(
-                    state.data,
-                    state.page,
-                    state.info,
-                    cameraViewport: currentIndex.cameraViewport,
-                    transform: frictionTransform,
-                    invisibleLayers: state.invisibleLayers,
-                    states: currentIndex.allRendererStates,
-                    currentArea: state.currentArea,
-                    colorScheme: Theme.of(context).colorScheme,
-                  ),
-                  isComplex: true,
-                  willChange: true,
-                )
-              ]);
-            },
-          ),
+        builder: (context, transform) => AnimatedBuilder(
+          animation: _animationController,
+          builder: (context, child) {
+            final frictionTransform = transform.withFrictionless(
+              _positionAnimation?.value ?? Offset.zero,
+              0,
+            );
+            return Stack(children: [
+              Container(color: Colors.white),
+              CustomPaint(
+                size: Size.infinite,
+                foregroundPainter: ForegroundPainter(
+                  cubit.getForegrounds(),
+                  state.data,
+                  state.page,
+                  state.info,
+                  Theme.of(context).colorScheme,
+                  frictionTransform,
+                  cubit.state.selection,
+                  currentIndex.cameraViewport.utilities,
+                ),
+                painter: ViewPainter(
+                  state.data,
+                  state.page,
+                  state.info,
+                  cameraViewport: currentIndex.cameraViewport,
+                  transform: frictionTransform,
+                  invisibleLayers: state.invisibleLayers,
+                  states: currentIndex.allRendererStates,
+                  currentArea: state.currentArea,
+                  colorScheme: Theme.of(context).colorScheme,
+                ),
+                isComplex: true,
+                willChange: true,
+              )
+            ]);
+          },
         ),
       ),
     );
