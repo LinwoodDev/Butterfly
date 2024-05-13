@@ -202,20 +202,46 @@ class DavRemoteDocumentFileSystem extends DocumentRemoteSystem {
     if (!forceSync && remote.hasDocumentCached(path)) {
       cacheContent(path, data);
     }
+
     var last = path.lastIndexOf('/');
     if (last == -1) {
       last = path.length;
     }
+
     // Create directory if not exists
     final directoryPath = path.substring(0, last);
-    if (!await hasAsset(directoryPath)) {
-      await createDirectory(directoryPath);
+    final directory = Directory(directoryPath);
+    if (!await directory.exists()) {
+      await directory.create(recursive: true);
     }
-    final response =
-        await createRequest(path.split('/'), method: 'PUT', bodyBytes: data);
-    if (response?.statusCode != 201 && response?.statusCode != 204) {
-      throw Exception(
-          'Failed to update document: ${response?.statusCode} ${response?.reasonPhrase}');
+
+    String newPath = path;
+    int counter = 1;
+    bool fileUpdated = false;
+
+    while (!fileUpdated) {
+      final response = await createRequest(newPath.split('/'),
+          method: 'PUT', bodyBytes: data);
+      if (response?.statusCode == 201 || response?.statusCode == 204) {
+        fileUpdated = true;
+      } else if (response?.statusCode == 409) {
+        // Conflict, rename the file
+        final fileName = path.substring(last + 1);
+        final extensionIndex = fileName.lastIndexOf('.');
+        String baseName = fileName;
+        String extension = '';
+
+        if (extensionIndex != -1) {
+          baseName = fileName.substring(0, extensionIndex);
+          extension = fileName.substring(extensionIndex);
+        }
+
+        newPath = '$directoryPath/$baseName($counter)$extension';
+        counter++;
+      } else {
+        throw Exception(
+            'Failed to update document: ${response?.statusCode} ${response?.reasonPhrase}');
+      }
     }
   }
 

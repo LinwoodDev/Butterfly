@@ -144,9 +144,29 @@ mixin RemoteSystem {
 
   Future<void> clearCachedContent() async {
     var cacheDir = await getRemoteCacheDirectory();
+    print('Cache directory path: $cacheDir');
     var directory = Directory(cacheDir);
-    if (await directory.exists()) {
-      await directory.delete(recursive: true);
+    bool exists = await directory.exists();
+    print('Directory exists: $exists');
+    if (exists) {
+      try {
+        await directory.delete(recursive: true);
+        print('Directory deleted successfully.');
+      } on FileSystemException catch (e) {
+        if (e.osError?.errorCode == 32) {
+          print('Directory is in use, retrying... $e');
+          // Retry after a short delay
+          await Future.delayed(const Duration(seconds: 5));
+          await clearCachedContent();
+        } else if (e.osError?.errorCode == 2) {
+          print('Directory not found, nothing to delete. $e');
+          // Directory not found, no further action needed
+        } else {
+          rethrow;
+        }
+      }
+    } else {
+      print('Directory does not exist.');
     }
   }
 
