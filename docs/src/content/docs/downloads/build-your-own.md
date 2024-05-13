@@ -1,6 +1,5 @@
 ---
 title: "Build your own"
-sidebar_position: 1
 ---
 
 1. Install git and flutter (beta)
