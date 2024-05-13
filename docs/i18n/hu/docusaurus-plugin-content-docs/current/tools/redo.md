@@ -1,6 +1,6 @@
 ---
 title: "Redo tool"
-sidebar_label: "Redo"
+sidebar_label: "Újra"
 sidebar_position: 0
 ---
 

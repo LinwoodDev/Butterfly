@@ -64,7 +64,7 @@ Future<void> main(List<String> args) async {
   await updateDebianVersion(version);
   if (results['changelog']) {
     var changelogFile =
-        File('fastlane/metadata/android/en-US/changelogs/$newBuildNumber.txt');
+        File('metadata/android/en-US/changelogs/$newBuildNumber.txt');
     var changelog = await changelogFile.readAsString();
     await updateChangelog(version, changelog);
     await updateAppData(version);
@@ -109,7 +109,7 @@ Future<void> updateAppData(String version) async {
   var dateString = DateFormat('yyyy-MM-dd').format(currentDate);
   var line = '\t\t<release version="$version" date="$dateString" />';
   var lines = List<String>.from(await file.readAsLines());
-  lines.insert(41, line);
+  lines.insert(40, line);
   await file.writeAsString(lines.join('\n'));
   print('Successfully updated appdata version to $version');
 }

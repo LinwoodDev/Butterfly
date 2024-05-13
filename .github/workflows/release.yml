@@ -108,7 +108,7 @@ jobs:
           tag_name: v${{ env.BUTTERFLY_VERSION }}
           name: v${{ env.BUTTERFLY_VERSION }}
           token: ${{ secrets.CI_PAT }}
-          body_path: fastlane/metadata/android/en-US/changelogs/${{ env.BUTTERFLY_BUILD_NUMBER }}.txt
+          body_path: metadata/android/en-US/changelogs/${{ env.BUTTERFLY_BUILD_NUMBER }}.txt
       - name: Retag stable
         if: ${{ github.event.inputs.stable == 'true' || github.ref == 'refs/heads/main' }}
         run: |
@@ -253,7 +253,7 @@ jobs:
           BUTTERFLY_BUILD_NUMBER="${BASH_REMATCH[2]}"
           echo "BUTTERFLY_BUILD_NUMBER=${BUTTERFLY_BUILD_NUMBER}" >> $GITHUB_ENV
           echo 'BUTTERFLY_CHANGELOG<<EOF' >> $GITHUB_ENV
-          cat fastlane/metadata/android/en-US/changelogs/${BUTTERFLY_BUILD_NUMBER}.txt >> $GITHUB_ENV
+          cat metadata/android/en-US/changelogs/${BUTTERFLY_BUILD_NUMBER}.txt >> $GITHUB_ENV
           echo '' >> $GITHUB_ENV
           echo 'EOF' >> $GITHUB_ENV
       - name: Discord Webhook Action

@@ -22,91 +22,93 @@ class AssetDialog extends StatelessWidget {
     String? pack = value?.pack;
     String name = value?.name ?? '';
     final bloc = context.read<DocumentBloc>();
-    return BlocBuilder<DocumentBloc, DocumentState>(builder: (context, state) {
-      if (state is! DocumentLoaded) return const SizedBox();
-      final document = state.data;
-      final packs = document.getPacks();
-      pack ??= packs.firstOrNull;
-      return AlertDialog(
-        title: Text(
-          value == null
-              ? AppLocalizations.of(context).addAsset
-              : AppLocalizations.of(context).editAsset,
-        ),
-        scrollable: true,
-        content: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            Row(
+    return BlocBuilder<DocumentBloc, DocumentState>(
+        buildWhen: (previous, current) => previous.data != current.data,
+        builder: (context, state) {
+          if (state is! DocumentLoaded) return const SizedBox();
+          final document = state.data;
+          final packs = document.getPacks();
+          pack ??= packs.firstOrNull;
+          return AlertDialog(
+            title: Text(
+              value == null
+                  ? AppLocalizations.of(context).addAsset
+                  : AppLocalizations.of(context).editAsset,
+            ),
+            scrollable: true,
+            content: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                Flexible(
-                  child: DropdownMenu<String>(
-                    label: Text(AppLocalizations.of(context).pack),
-                    key: UniqueKey(),
-                    dropdownMenuEntries: packs
-                        .map(
-                          (e) => DropdownMenuEntry<String>(
-                            value: e,
-                            label: e,
-                          ),
-                        )
-                        .toList(),
-                    onSelected: (value) {
-                      pack = value;
-                    },
-                    initialSelection: pack,
-                    expandedInsets: const EdgeInsets.all(0),
-                  ),
+                Row(
+                  children: [
+                    Flexible(
+                      child: DropdownMenu<String>(
+                        label: Text(AppLocalizations.of(context).pack),
+                        key: UniqueKey(),
+                        dropdownMenuEntries: packs
+                            .map(
+                              (e) => DropdownMenuEntry<String>(
+                                value: e,
+                                label: e,
+                              ),
+                            )
+                            .toList(),
+                        onSelected: (value) {
+                          pack = value;
+                        },
+                        initialSelection: pack,
+                        expandedInsets: const EdgeInsets.all(0),
+                      ),
+                    ),
+                    const SizedBox(width: 8),
+                    IconButton(
+                      icon: const PhosphorIcon(PhosphorIconsLight.plusCircle),
+                      onPressed: () async {
+                        final pack = await showDialog<NoteData>(
+                          context: context,
+                          builder: (context) => const PackDialog(),
+                        );
+                        if (pack == null) return;
+                        bloc.add(PackAdded(pack));
+                      },
+                      tooltip: AppLocalizations.of(context).createPack,
+                    ),
+                  ],
                 ),
-                const SizedBox(width: 8),
-                IconButton(
-                  icon: const PhosphorIcon(PhosphorIconsLight.plusCircle),
-                  onPressed: () async {
-                    final pack = await showDialog<NoteData>(
-                      context: context,
-                      builder: (context) => const PackDialog(),
-                    );
-                    if (pack == null) return;
-                    bloc.add(PackAdded(pack));
+                const SizedBox(height: 8),
+                TextFormField(
+                  decoration: InputDecoration(
+                    labelText: AppLocalizations.of(context).name,
+                    filled: true,
+                  ),
+                  initialValue: name,
+                  onChanged: (value) {
+                    name = value;
                   },
-                  tooltip: AppLocalizations.of(context).createPack,
                 ),
               ],
             ),
-            const SizedBox(height: 8),
-            TextFormField(
-              decoration: InputDecoration(
-                labelText: AppLocalizations.of(context).name,
-                filled: true,
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: Text(AppLocalizations.of(context).cancel),
               ),
-              initialValue: name,
-              onChanged: (value) {
-                name = value;
-              },
-            ),
-          ],
-        ),
-        actions: [
-          TextButton(
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
-            child: Text(AppLocalizations.of(context).cancel),
-          ),
-          ElevatedButton(
-            onPressed: () {
-              if (pack == null) return;
-              Navigator.of(context).pop(PackAssetLocation(
-                pack!,
-                name,
-              ));
-            },
-            child: Text(AppLocalizations.of(context).ok),
-          ),
-        ],
-      );
-    });
+              ElevatedButton(
+                onPressed: () {
+                  if (pack == null) return;
+                  Navigator.of(context).pop(PackAssetLocation(
+                    pack!,
+                    name,
+                  ));
+                },
+                child: Text(AppLocalizations.of(context).ok),
+              ),
+            ],
+          );
+        });
   }
 }
 

@@ -85,7 +85,7 @@ class DavRemoteDocumentFileSystem extends DocumentRemoteSystem {
       return;
     }
     final xml = XmlDocument.parse(content);
-    var responses = xml.findAllElements('d:response').where((element) {
+    final responses = xml.findAllElements('d:response').where((element) {
       final current = element.getElement('d:href')?.innerText;
       return current == fileName || current == '$fileName/';
     }).toList();

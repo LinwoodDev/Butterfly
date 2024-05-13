@@ -4,24 +4,35 @@ sidebar_position: 2
 title: Fondo
 ---
 
-Hay dos tipos diferentes de fondos.
+import {Wrench, Book, Image, Globe, Gear,
 
-### Patrón
+} from "@phosphor-icons/react";
 
-Puede personalizar el fondo del papel. Haga clic en el icono de fondo en el diálogo de vista para añadirlo. Hay 8 diferentes plantillas de fondo disponibles.
+Para editar el fondo de la página, haga clic en el icono <Wrench/> y allí, en el icono <Book/>. Ahí tendrás la opción de hacer clic en el icono <Image/>. En una computadora, también puedes usar el acceso directo `ctrl-B`.
 
-### Configuración
+Al configurar un backgournd, tiene dos pestañas. La pestaña <Globe/> General para seleccionar el tipo de fondo a usar y la <Gear/> para configurar el fondo seleccionado.
 
-Ancho y altura son los ajustes generales de la caja.
+## <Globe/> Patrón
 
-Además, puede personalizar el color del fondo.
+Hay 8 diferentes plantillas de fondo disponibles entre las que puedes elegir. Para cada uno de los patrones disponibles, puede configurar lo siguiente:
 
-La propiedad de conteo y espaciado le permite crear papel musical. Para el papel musical, ajuste el recuento a 5 y el espaciado a más de la anchura.
 
-## Imagen
+### <Gear/> Propiedades
 
-El tipo de fondo de la imagen le permite usar una imagen como fondo.
+En la pestaña de configuración horizontal, tiene la siguiente opción:
 
-### Configuración
+- Ancho - el ancho de cada fila respectivamente.
+- Cuenta - puede agrupar las filas en grupo de esa manera.
+- Espacio - la distancia entre cada grupo de filas.
+
+Por ejemplo, para crear una hoja de música, puede utilizar la siguiente configuración: `Ancho - 40`, `Cuenta - 5`, `Espacio - 80`
+
+La configuración vertical sigue la misma lógica para columnas en lugar de filas.
+
+## <Globe/> Imagen
+
+El tipo de fondo de la imagen le permite subir una imagen y usarla como fondo para la página.
+
+### <Gear/> Propiedades.
 
 La escala en la dirección x e y se puede cambiar si esta imagen es pequeña o grande.

@@ -57,7 +57,7 @@ extension ToolVisualizer on Tool {
   IconGetter get icon => map(
         hand: (_) => PhosphorIcons.hand,
         select: (tool) => tool.mode == SelectMode.lasso
-            ? PhosphorIcons.scribbleLoop
+            ? PhosphorIcons.lasso
             : PhosphorIcons.selection,
         import: (_) => PhosphorIcons.arrowSquareIn,
         undo: (_) => PhosphorIcons.arrowCounterClockwise,

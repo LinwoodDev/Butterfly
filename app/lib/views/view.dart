@@ -123,10 +123,11 @@ class _MainViewViewportState extends State<MainViewViewport>
             PointerDeviceKind kind, int buttons) async {
           int? nextPointerIndex;
           final config = context.read<SettingsCubit>().state.inputConfiguration;
+          final cubit = context.read<CurrentIndexCubit>();
+          final bloc = context.read<DocumentBloc>();
           switch (kind) {
             case PointerDeviceKind.touch:
               nextPointerIndex = config.touch;
-              break;
             case PointerDeviceKind.mouse:
               if (buttons == kPrimaryMouseButton) {
                 nextPointerIndex = config.leftMouse;
@@ -135,7 +136,6 @@ class _MainViewViewportState extends State<MainViewViewport>
               } else if (buttons == kSecondaryMouseButton) {
                 nextPointerIndex = config.rightMouse;
               }
-              break;
             case PointerDeviceKind.stylus:
               nextPointerIndex = config.pen;
               if (buttons == kPrimaryStylusButton) {
@@ -143,18 +143,21 @@ class _MainViewViewportState extends State<MainViewViewport>
               } else if (buttons == kSecondaryStylusButton) {
                 nextPointerIndex = config.secondPenButton;
               }
-              break;
             default:
-              return;
+              nextPointerIndex = null;
           }
-          final cubit = context.read<CurrentIndexCubit>();
           if (nextPointerIndex == null) {
+            cubit.resetTemporaryHandler(bloc);
             return;
           }
           if (nextPointerIndex <= 0) {
             cubit.changeTemporaryHandlerMove();
           } else {
-            await cubit.changeTemporaryHandlerIndex(context, nextPointerIndex);
+            await cubit.changeTemporaryHandlerIndex(
+              context,
+              nextPointerIndex,
+              temporaryClicked: false,
+            );
           }
         }
 

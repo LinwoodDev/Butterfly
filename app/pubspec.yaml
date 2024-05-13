@@ -13,7 +13,7 @@ publish_to: none
 # In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
 # Read more about iOS versioning at
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
-version: 2.0.0-rc.1+101
+version: 2.1.1-rc.0+105
 
 environment:
   sdk: ">=3.0.0 <4.0.0"
@@ -34,23 +34,20 @@ dependencies:
   shared_preferences: ^2.2.3
   url_launcher: ^6.2.6
   file_selector: ^1.0.3
-  phosphor_flutter:
-    git:
-      url: https://github.com/CodeDoctorDE/phosphor-flutter
-      ref: f370dd2c25d3ea51ffb8f1c7c183bc9f33889c82
+  phosphor_flutter: ^2.1.0
   replay_bloc: ^0.2.7
   share_plus: ^9.0.0
   package_info_plus: ^8.0.0
   idb_shim: ^2.4.1+1
-  go_router: ^13.2.4
+  go_router: ^14.1.0
   xml: ^6.5.0
   collection: ^1.18.0
   bloc_concurrency: ^0.2.5
-  camera: ^0.10.5+9
+  camera: ^0.11.0
   camera_windows: ^0.2.1+9
   window_manager: ^0.3.8
   flex_color_scheme: ^7.3.1
-  json_annotation: ^4.8.1
+  json_annotation: ^4.9.0
   path: ^1.8.3
   printing: ^5.12.0
   js: ^0.7.1
@@ -59,7 +56,7 @@ dependencies:
   flutter_secure_storage: ^9.0.0
   equatable: ^2.0.5
   rxdart: ^0.27.7
-  archive: ^3.4.10
+  archive: ^3.5.0
   animations: ^2.0.11
   connectivity_plus: ^6.0.3
   cross_file: ^0.3.4+1
@@ -72,7 +69,7 @@ dependencies:
   material_leap:
     git:
       url: https://github.com/LinwoodDev/dart_pkgs.git
-      ref: f6161499b096f1d0bf55acbd0f6d8a58330a40e6
+      ref: fa2fa0e74c8d749e77b7f085a4c7656043bdca92
       path: packages/material_leap
   lw_sysapi:
     git:
@@ -100,7 +97,7 @@ dependencies:
 dev_dependencies:
   flutter_native_splash: ^2.4.0
   #flutter_launcher_icons: ^0.11.0
-  flutter_lints: ^3.0.2
+  flutter_lints: ^4.0.0
   flutter_test:
     sdk: flutter
   flutter_driver:
@@ -112,8 +109,8 @@ dev_dependencies:
 dependency_overrides:
   flutter_secure_storage_web:
     git:
-      url: https://github.com/ThexXTURBOXx/flutter_secure_storage.git
-      ref: 6ac827e457393b5c654c1abda40d31e2cb93f62c
+      url: https://github.com/CodeDoctorDE/flutter_secure_storage.git
+      ref: ce09c8a5fd2b3a48949e386c7cc2849451961b46
       path: flutter_secure_storage_web
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

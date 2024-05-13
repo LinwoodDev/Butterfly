@@ -2,6 +2,38 @@
 
 <!--ENTER CHANGELOG HERE-->
 
+## 2.1.0 (2024-05-10)
+
+Nothing changed from the nightly build to the stable release.
+
+See all changes since the last stable here: https://linwood.dev/butterfly/2.1
+
+## 2.1.0-rc.3 (2024-05-07)
+
+* Add button to check for updates instead of automatically checking on opening the settings ([#691](https://github.com/LinwoodDev/Butterfly/issues/691))
+* Update android build files
+
+Read more here: https://linwood.dev/butterfly/2.1.0-rc.3
+
+## 2.1.0-rc.2 (2024-05-06)
+
+* Reenable changing data directory on android ([#569](https://github.com/LinwoodDev/Butterfly/issues/569))
+* Fix unknown import type shows euler number
+* Fix unknown import type on images ([#679](https://github.com/LinwoodDev/Butterfly/issues/679))
+* Fix changing background removes all elements from the canvas ([#681](https://github.com/LinwoodDev/Butterfly/issues/681))
+* Fix unnessesary rerender dialogs and views
+
+Read more here: https://linwood.dev/butterfly/2.1.0-rc.2
+
+## 2.1.0-rc.1 (2024-04-30)
+
+* Fix triangle rendering
+* Fix temporary tool won't be removed when using not configured input
+* Fix select all
+* Fix import error when using open with on android
+
+Read more here: https://linwood.dev/butterfly/2.1.0-rc.1
+
 ## 2.1.0-rc.0 (2024-04-22)
 
 This is the 100th release 🎉

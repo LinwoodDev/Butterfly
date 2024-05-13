@@ -1,6 +1,6 @@
 ---
 title: "Label tool"
-sidebar_label: "Label"
+sidebar_label: "Címke"
 sidebar_position: 6
 ---
 
@@ -9,6 +9,6 @@ With this tool you can add text to the paper.
 
 ## Configuration
 
-| Property | Default | Description          |
+| Property | Default | Leírás               |
 | --------:|:-------:|:-------------------- |
-|     Size |   12    | The size of the text |
+|    Méret |   12    | The size of the text |

@@ -14,8 +14,8 @@ _$AnimationTrackImpl _$$AnimationTrackImplFromJson(Map json) =>
                 AnimationKey.fromJson(Map<String, dynamic>.from(e as Map))),
           ) ??
           const <int, AnimationKey>{},
-      duration: json['duration'] as int? ?? 250,
-      fps: json['fps'] as int? ?? 24,
+      duration: (json['duration'] as num?)?.toInt() ?? 250,
+      fps: (json['fps'] as num?)?.toInt() ?? 24,
     );
 
 Map<String, dynamic> _$$AnimationTrackImplToJson(
