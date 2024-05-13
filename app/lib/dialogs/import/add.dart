@@ -193,104 +193,90 @@ class AddDialog extends StatelessWidget {
                                 .toLowerCase()
                                 .contains(search.toLowerCase()))
                             .toList();
-                        return BlocBuilder<DocumentBloc, DocumentState>(
-                            builder: (context, state) => ListView(
-                                  children: [
-                                    if (imports.isNotEmpty) ...[
-                                      _ToolsListView(
-                                        isMobile: isMobile,
-                                        title:
-                                            AppLocalizations.of(context).import,
-                                        children: imports
-                                            .map(
-                                              (e) => BoxTile(
-                                                title: Text(
-                                                  e.getLocalizedName(context),
-                                                  textAlign: TextAlign.center,
-                                                ),
-                                                trailing: IconButton(
-                                                  onPressed: () => addTool(
-                                                      Tool.asset(
-                                                          importType: e)),
-                                                  tooltip: AppLocalizations.of(
-                                                          context)
-                                                      .pin,
-                                                  icon: const PhosphorIcon(
-                                                      PhosphorIconsLight
-                                                          .pushPin),
-                                                ),
-                                                icon: PhosphorIcon(e.icon(
-                                                    PhosphorIconsStyle.light)),
-                                                onTap: () async {
-                                                  final bloc = context
-                                                      .read<DocumentBloc>();
-                                                  final importService = context
-                                                      .read<ImportService>();
-                                                  Navigator.of(context).pop();
-                                                  await showImportAssetWizard(
-                                                      e,
-                                                      context,
-                                                      bloc,
-                                                      importService);
-                                                },
-                                              ),
-                                            )
-                                            .toList(),
+                        return ListView(
+                          children: [
+                            if (imports.isNotEmpty) ...[
+                              _ToolsListView(
+                                isMobile: isMobile,
+                                title: AppLocalizations.of(context).import,
+                                children: imports
+                                    .map(
+                                      (e) => BoxTile(
+                                        title: Text(
+                                          e.getLocalizedName(context),
+                                          textAlign: TextAlign.center,
+                                        ),
+                                        trailing: IconButton(
+                                          onPressed: () => addTool(
+                                              Tool.asset(importType: e)),
+                                          tooltip:
+                                              AppLocalizations.of(context).pin,
+                                          icon: const PhosphorIcon(
+                                              PhosphorIconsLight.pushPin),
+                                        ),
+                                        icon: PhosphorIcon(
+                                            e.icon(PhosphorIconsStyle.light)),
+                                        onTap: () async {
+                                          final bloc =
+                                              context.read<DocumentBloc>();
+                                          final importService =
+                                              context.read<ImportService>();
+                                          Navigator.of(context).pop();
+                                          await showImportAssetWizard(
+                                              e, context, bloc, importService);
+                                        },
                                       ),
-                                      const SizedBox(height: 16),
-                                    ],
-                                    if (tools.isNotEmpty) ...[
-                                      _ToolsListView(
-                                        isMobile: isMobile,
-                                        title:
-                                            AppLocalizations.of(context).tools,
-                                        children: tools.map(buildTool).toList(),
-                                      ),
-                                      const SizedBox(height: 16),
-                                    ],
-                                    if (shapes.isNotEmpty ||
-                                        textures.isNotEmpty) ...[
-                                      _ToolsListView(
-                                        isMobile: isMobile,
-                                        title: AppLocalizations.of(context)
-                                            .surface,
-                                        children: [
-                                          ...shapes.map((e) => BoxTile(
-                                                title: Text(
-                                                  e.getLocalizedName(context),
-                                                  textAlign: TextAlign.center,
-                                                ),
-                                                icon: Icon(e.icon(
-                                                    PhosphorIconsStyle.light)),
-                                                onTap: () => addTool(ShapeTool(
-                                                    property: ShapeProperty(
-                                                        shape: e))),
-                                              )),
-                                          ...textures.map((e) => BoxTile(
-                                                title: Text(
-                                                  e.getLocalizedName(context),
-                                                  textAlign: TextAlign.center,
-                                                ),
-                                                icon: Icon(e.icon(
-                                                    PhosphorIconsStyle.light)),
-                                                onTap: () => addTool(
-                                                    TextureTool(texture: e)),
-                                              )),
-                                        ],
-                                      ),
-                                      const SizedBox(height: 16),
-                                    ],
-                                    if (actions.isNotEmpty) ...[
-                                      _ToolsListView(
-                                        isMobile: isMobile,
-                                        title: AppLocalizations.of(context)
-                                            .actions,
-                                        children:
-                                            actions.map(buildTool).toList(),
-                                      ),
-                                    ],
-                                  ],
-                                ));
+                                    )
+                                    .toList(),
+                              ),
+                              const SizedBox(height: 16),
+                            ],
+                            if (tools.isNotEmpty) ...[
+                              _ToolsListView(
+                                isMobile: isMobile,
+                                title: AppLocalizations.of(context).tools,
+                                children: tools.map(buildTool).toList(),
+                              ),
+                              const SizedBox(height: 16),
+                            ],
+                            if (shapes.isNotEmpty || textures.isNotEmpty) ...[
+                              _ToolsListView(
+                                isMobile: isMobile,
+                                title: AppLocalizations.of(context).surface,
+                                children: [
+                                  ...shapes.map((e) => BoxTile(
+                                        title: Text(
+                                          e.getLocalizedName(context),
+                                          textAlign: TextAlign.center,
+                                        ),
+                                        icon: Icon(
+                                            e.icon(PhosphorIconsStyle.light)),
+                                        onTap: () => addTool(ShapeTool(
+                                            property: ShapeProperty(shape: e))),
+                                      )),
+                                  ...textures.map((e) => BoxTile(
+                                        title: Text(
+                                          e.getLocalizedName(context),
+                                          textAlign: TextAlign.center,
+                                        ),
+                                        icon: Icon(
+                                            e.icon(PhosphorIconsStyle.light)),
+                                        onTap: () =>
+                                            addTool(TextureTool(texture: e)),
+                                      )),
+                                ],
+                              ),
+                              const SizedBox(height: 16),
+                            ],
+                            if (actions.isNotEmpty) ...[
+                              _ToolsListView(
+                                isMobile: isMobile,
+                                title: AppLocalizations.of(context).actions,
+                                children: actions.map(buildTool).toList(),
+                              ),
+                            ],
+                          ],
+                        );
                       }),
                 ),
               ),

@@ -10,7 +10,7 @@ class AssetCard extends StatelessWidget {
     required this.thumbnail,
     required this.onTap,
     this.name,
-    this.height = 150,
+    this.height = 128,
   });
   final String? name;
   final FileMetadata? metadata;

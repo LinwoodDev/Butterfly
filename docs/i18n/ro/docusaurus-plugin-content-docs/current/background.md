@@ -4,24 +4,35 @@ sidebar_position: 2
 title: Context
 ---
 
-Există două tipuri diferite de fundaluri.
+import {Wrench, Book, Image, Globe, Gear,
 
-### Model
+} from "@phosphor-icons/react";
 
-Puteți personaliza fundalul hârtiei. Faceţi clic pe pictograma de fundal din dialogul de vizualizare pentru a-l adăuga. Există 8 șabloane de fundal diferite.
+Pentru a edita fundalul paginii, faceţi clic pe pictograma <Wrench/> şi acolo, pe pictograma de pe pagina <Book/>. Acolo, vei avea opțiunea de a da click pe pictograma <Image/>. Pe un calculator, poți de asemenea să folosești comanda rapidă `ctrl-B`.
 
-### Configurare
+Când configurați un backgournd, aveți două file. Tab-ul <Globe/> General pentru a selecta tipul de fundal folosit și <Gear/> Pentru a configura fundalul selectat.
 
-Lățimea și înălțimea sunt setările generale ale cutiei.
+## <Globe/> Model
 
-Adițional, poți personaliza culoarea fundalului.
+Există 8 şabloane de fundal diferite din care puteţi alege. Pentru fiecare dintre șabloanele disponibile, puteți configura următoarele:
 
-Proprietatea de numărare și spațiere vă permite să creați hârtie muzicală. Pentru hârtia muzicală, setează numărul la 5 şi distanţează mai mult decât lăţimea.
 
-## Imagine
+### <Gear/> Proprietăți
 
-Tipul de fundal al imaginii vă permite să utilizaţi o imagine ca fundal.
+În fila de configurare orizontală, aveți următoarea opțiune:
 
-### Configurare
+- Lățime - lățimea pentru fiecare rând.
+- Numără - poți grupa rândurile în acest fel.
+- Spaţiu - distanţa dintre fiecare grup de rânduri.
+
+De exemplu, pentru a crea o foaie de muzică, puteți utiliza următoarea configurație: `Lățime - 40`, `Numărul - 5`, `Spațiu - 80`
+
+Configurația verticală urmează aceeași logică pentru coloane în loc de rânduri.
+
+## <Globe/> Imagine
+
+Tipul de fundal al imaginii vă permite să încărcați o imagine și să o folosiți ca fundal pentru pagină.
+
+### <Gear/> Proprietăți.
 
 Scara in directia x si y poate fi schimbata daca aceasta imagine este mica sau mare.

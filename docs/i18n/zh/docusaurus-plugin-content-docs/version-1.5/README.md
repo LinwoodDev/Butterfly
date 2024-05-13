@@ -14,7 +14,7 @@ sidebar_position: 1
 
 ## 入门开始
 
-访问 [下载](/downloads) 以下载应用到您的平台。 如果您找不到您的平台，请使用 [web 版本](https://v1.web.butterfly.linwood.dev)。
+访问 [下载](/downloads) 以下载应用到您的平台。 如果您找不到您的平台，请使用 [web 版本](https://v1.butterfly.linwood.dev)。
 
 ## 主视图
 

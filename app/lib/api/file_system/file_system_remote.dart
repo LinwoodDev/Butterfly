@@ -84,11 +84,11 @@ mixin RemoteSystem {
   }
 
   Future<Uint8List> getBodyBytes(HttpClientResponse response) async {
-    return response.fold<Uint8List>(
-      Uint8List(0),
-      (Uint8List accumulator, List<int> chunk) =>
-          Uint8List.fromList(accumulator + chunk),
-    );
+    final BytesBuilder builder = BytesBuilder(copy: false);
+    await for (var chunk in response) {
+      builder.add(chunk);
+    }
+    return builder.takeBytes();
   }
 
   Future<String> getBodyString(HttpClientResponse response) async {

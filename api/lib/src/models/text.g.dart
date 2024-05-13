@@ -9,18 +9,18 @@ part of 'text.dart';
 _$DefinedSpanPropertyImpl _$$DefinedSpanPropertyImplFromJson(Map json) =>
     _$DefinedSpanPropertyImpl(
       size: (json['size'] as num?)?.toDouble(),
-      color: json['color'] as int?,
-      fontWeight: json['fontWeight'] as int?,
+      color: (json['color'] as num?)?.toInt(),
+      fontWeight: (json['fontWeight'] as num?)?.toInt(),
       lineThrough: json['lineThrough'] as bool?,
       underline: json['underline'] as bool?,
       overline: json['overline'] as bool?,
       italic: json['italic'] as bool?,
       letterSpacing: (json['letterSpacing'] as num?)?.toDouble(),
-      decorationColor: json['decorationColor'] as int?,
+      decorationColor: (json['decorationColor'] as num?)?.toInt(),
       decorationStyle: $enumDecodeNullable(
           _$TextDecorationStyleEnumMap, json['decorationStyle']),
       decorationThickness: (json['decorationThickness'] as num?)?.toDouble(),
-      backgroundColor: json['backgroundColor'] as int?,
+      backgroundColor: (json['backgroundColor'] as num?)?.toInt(),
       $type: json['type'] as String?,
     );
 

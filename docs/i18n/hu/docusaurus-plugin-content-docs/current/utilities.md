@@ -13,7 +13,7 @@ Here are all globally properties that you can set like name and description. Add
 
 Here are all page specific properties. Currently you can find the background setting here.
 
-## View
+## Megtekintés
 
 ### Grid
 

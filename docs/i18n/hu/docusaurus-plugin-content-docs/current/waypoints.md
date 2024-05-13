@@ -1,5 +1,5 @@
 ---
-title: Waypoints
+title: Útvonalpontok
 sidebar_position: 2
 ---
 

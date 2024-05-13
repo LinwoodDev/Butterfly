@@ -7,7 +7,7 @@ part of 'meta.dart';
 // **************************************************************************
 
 _$FileMetadataImpl _$$FileMetadataImplFromJson(Map json) => _$FileMetadataImpl(
-      fileVersion: json['fileVersion'] as int?,
+      fileVersion: (json['fileVersion'] as num?)?.toInt(),
       type: $enumDecode(_$NoteFileTypeEnumMap, json['type']),
       createdAt: _$JsonConverterFromJson<int, DateTime>(
           json['createdAt'], const DateTimeJsonConverter().fromJson),

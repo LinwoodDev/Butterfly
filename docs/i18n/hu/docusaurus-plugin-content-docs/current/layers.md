@@ -1,5 +1,5 @@
 ---
-title: "Layers"
+title: "Rétegek"
 sidebar_position: 2
 ---
 

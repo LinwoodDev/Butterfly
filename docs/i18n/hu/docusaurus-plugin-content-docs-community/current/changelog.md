@@ -1,7 +1,7 @@
 ---
-title: Changelog
+title: Változások listája
 hide_title: true
-sidebar_label: Changelog
+sidebar_label: Változások listája
 ---
 
 import Changelog, {toc as ChangelogTOC} from "@site/../CHANGELOG.md"
