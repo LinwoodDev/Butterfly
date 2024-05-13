@@ -34,10 +34,7 @@ dependencies:
   shared_preferences: ^2.2.3
   url_launcher: ^6.2.6
   file_selector: ^1.0.3
-  phosphor_flutter:
-    git:
-      url: https://github.com/CodeDoctorDE/phosphor-flutter
-      ref: f370dd2c25d3ea51ffb8f1c7c183bc9f33889c82
+  phosphor_flutter: ^2.1.0
   replay_bloc: ^0.2.7
   share_plus: ^9.0.0
   package_info_plus: ^8.0.0
@@ -46,7 +43,7 @@ dependencies:
   xml: ^6.5.0
   collection: ^1.18.0
   bloc_concurrency: ^0.2.5
-  camera: ^0.10.5+9
+  camera: ^0.11.0
   camera_windows: ^0.2.1+9
   window_manager: ^0.3.8
   flex_color_scheme: ^7.3.1
@@ -72,7 +69,7 @@ dependencies:
   material_leap:
     git:
       url: https://github.com/LinwoodDev/dart_pkgs.git
-      ref: f6161499b096f1d0bf55acbd0f6d8a58330a40e6
+      ref: fa2fa0e74c8d749e77b7f085a4c7656043bdca92
       path: packages/material_leap
   lw_sysapi:
     git:
