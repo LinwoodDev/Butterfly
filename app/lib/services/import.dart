@@ -511,13 +511,15 @@ class ImportService {
         bytes,
         dpi: dpi,
       )) {
-        img.Image image = page.asImage();
         try {
           decodedImagesCount++;
           await Future.delayed(const Duration(milliseconds: 100));
           dialog?.setProgress(decodedImagesCount / totalPages);
+          final png = await page.toPng();
+          //decode image
+          img.Image? image = img.decodePng(png);
           //compress image
-          List<int> compressedPng = img.encodePng(image, level: level);
+          List<int> compressedPng = img.encodePng(image!, level: level);
           // Add the compressed image to the current batch
           batch.add(Uint8List.fromList(compressedPng));
           // If the lot has reached the lot size, process the lot and empty the lot
@@ -576,7 +578,7 @@ class ImportService {
             cmd.encodePng();
             final png = await cmd.getBytes();
             if (png == null) continue;
-            final scale = 2.0 / quality;
+            const scale = 1.0;
             final height = image.height;
             final width = image.width;
             final dataPath = Uri.dataFromBytes(png).toString();
@@ -584,8 +586,8 @@ class ImportService {
                 height: height.toDouble(),
                 width: width.toDouble(),
                 source: dataPath,
-                constraints:
-                    ElementConstraints.scaled(scaleX: scale, scaleY: scale),
+                constraints: const ElementConstraints.scaled(
+                    scaleX: scale, scaleY: scale),
                 position: Point(firstPos.dx, y));
             final area = Area(
               height: height * scale,
