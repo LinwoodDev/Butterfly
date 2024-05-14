@@ -511,7 +511,7 @@ class ImportService {
         bytes,
         dpi: dpi,
       )) {
-        img.Image image = page.asImage();
+        final image = page.asImage();
         try {
           decodedImagesCount++;
           await Future.delayed(const Duration(milliseconds: 100));
