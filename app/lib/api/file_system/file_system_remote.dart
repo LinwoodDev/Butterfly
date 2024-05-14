@@ -143,30 +143,34 @@ mixin RemoteSystem {
   }
 
   Future<void> clearCachedContent() async {
-    try {
-      var cacheDir = await getRemoteCacheDirectory();
-      var directory = Directory(cacheDir);
-      final exists = await directory.exists();
-      if (exists) {
-        try {
-          await directory.delete(recursive: true);
-          // Directory deleted successfully, perform any needed actions
-        } on FileSystemException catch (e) {
-          if (e.osError?.errorCode == 32) {
-            // Directory in use, retry after a short delay
-            await Future.delayed(const Duration(seconds: 1));
-            await clearCachedContent();
-          } else if (e.osError?.errorCode == 2) {
-            // Directory not found, no further action needed
-          } else {
-            // Handle unexpected FileSystemException
-          }
+    var cacheDir = await getRemoteCacheDirectory();
+    var directory = Directory(cacheDir);
+    final exists = await directory.exists();
+    int maxRetries = 5;
+    int retryCount = 0;
+
+    while (exists && retryCount < maxRetries) {
+      try {
+        await directory.delete(recursive: true);
+        // Directory deleted successfully, exit loop
+        return;
+      } on FileSystemException catch (e) {
+        if (e.osError?.errorCode == 32) {
+          // Directory in use, retry after a short delay
+          await Future.delayed(const Duration(seconds: 5));
+          retryCount++;
+        } else if (e.osError?.errorCode == 2) {
+          // Directory not found, exit loop
+          return;
+        } else {
+          // Handle unexpected FileSystemException, allowing it to propagate
+          rethrow;
         }
-      } else {
-        // No directory exists, no action needed
       }
-    } catch (e) {
-      // Handle any other exceptions that may occur
+    }
+    if (retryCount >= maxRetries) {
+      throw Exception(
+          'Maximum retry limit reached, directory might still be in use.');
     }
   }
 

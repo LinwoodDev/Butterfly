@@ -199,39 +199,23 @@ class DavRemoteDocumentFileSystem extends DocumentRemoteSystem {
   @override
   Future<void> updateFile(String path, List<int> data,
       {bool forceSync = false}) async {
-    if (!forceSync && remote.hasDocumentCached(path)) {
-      cacheContent(path, data);
-    }
-
-    final directoryPath = p.dirname(path);
     // Create directory if not exists
+    final directoryPath = p.dirname(path);
     final directory = Directory(directoryPath);
     if (!await directory.exists()) {
       await directory.create(recursive: true);
     }
 
+    // Request to overwrite the file
     final response =
         await createRequest(p.split(path), method: 'PUT', bodyBytes: data);
-    if (response?.statusCode == 201 || response?.statusCode == 204) {
-      // File updated
+    if (response?.statusCode == 200 ||
+        response?.statusCode == 201 ||
+        response?.statusCode == 204) {
+      // File overwritten successfully
       return;
-    } else if (response?.statusCode == 409) {
-      // Conflict, rename the file
-      final baseName = p.basenameWithoutExtension(path);
-      final extension = p.extension(path);
-      String newPath = p.join(directoryPath, '$baseName(1)$extension');
-
-      // Potresti decidere di fare un altro tentativo qui o gestire diversamente
-      final retryResponse =
-          await createRequest(p.split(newPath), method: 'PUT', bodyBytes: data);
-      if (retryResponse?.statusCode == 201 ||
-          retryResponse?.statusCode == 204) {
-        return;
-      } else {
-        throw Exception(
-            'Failed to update document on retry: ${retryResponse?.statusCode} ${retryResponse?.reasonPhrase}');
-      }
     } else {
+      // Management of error cases
       throw Exception(
           'Failed to update document: ${response?.statusCode} ${response?.reasonPhrase}');
     }
