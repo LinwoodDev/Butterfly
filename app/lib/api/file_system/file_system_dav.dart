@@ -203,45 +203,37 @@ class DavRemoteDocumentFileSystem extends DocumentRemoteSystem {
       cacheContent(path, data);
     }
 
-    var last = path.lastIndexOf('/');
-    if (last == -1) {
-      last = path.length;
-    }
-
+    final directoryPath = p.dirname(path);
     // Create directory if not exists
-    final directoryPath = path.substring(0, last);
     final directory = Directory(directoryPath);
     if (!await directory.exists()) {
       await directory.create(recursive: true);
     }
 
-    String newPath = path;
-    int counter = 1;
-    bool fileUpdated = false;
+    final response =
+        await createRequest(p.split(path), method: 'PUT', bodyBytes: data);
+    if (response?.statusCode == 201 || response?.statusCode == 204) {
+      // File updated
+      return;
+    } else if (response?.statusCode == 409) {
+      // Conflict, rename the file
+      final baseName = p.basenameWithoutExtension(path);
+      final extension = p.extension(path);
+      String newPath = p.join(directoryPath, '$baseName(1)$extension');
 
-    while (!fileUpdated) {
-      final response = await createRequest(newPath.split('/'),
-          method: 'PUT', bodyBytes: data);
-      if (response?.statusCode == 201 || response?.statusCode == 204) {
-        fileUpdated = true;
-      } else if (response?.statusCode == 409) {
-        // Conflict, rename the file
-        final fileName = path.substring(last + 1);
-        final extensionIndex = fileName.lastIndexOf('.');
-        String baseName = fileName;
-        String extension = '';
-
-        if (extensionIndex != -1) {
-          baseName = fileName.substring(0, extensionIndex);
-          extension = fileName.substring(extensionIndex);
-        }
-
-        newPath = '$directoryPath/$baseName($counter)$extension';
-        counter++;
+      // Potresti decidere di fare un altro tentativo qui o gestire diversamente
+      final retryResponse =
+          await createRequest(p.split(newPath), method: 'PUT', bodyBytes: data);
+      if (retryResponse?.statusCode == 201 ||
+          retryResponse?.statusCode == 204) {
+        return;
       } else {
         throw Exception(
-            'Failed to update document: ${response?.statusCode} ${response?.reasonPhrase}');
+            'Failed to update document on retry: ${retryResponse?.statusCode} ${retryResponse?.reasonPhrase}');
       }
+    } else {
+      throw Exception(
+          'Failed to update document: ${response?.statusCode} ${response?.reasonPhrase}');
     }
   }
 
