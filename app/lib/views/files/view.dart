@@ -218,8 +218,8 @@ class FilesViewState extends State<FilesView> {
           );
           final primary = Theme.of(context).colorScheme.primary;
           final mobileActions = OverflowBar(
-            spacing: 8,
-            overflowSpacing: 8,
+            spacing: 4,
+            overflowSpacing: 4,
             children: [
               IconButton(
                 onPressed: () => context.read<SettingsCubit>().toggleGridView(),
@@ -502,8 +502,8 @@ class FilesViewState extends State<FilesView> {
                 }
                 if (state.gridView && !widget.collapsed) {
                   return Wrap(
-                    spacing: 8,
-                    runSpacing: 8,
+                    spacing: 4,
+                    runSpacing: 4,
                     children: assets.map(
                       (e) {
                         final selected =

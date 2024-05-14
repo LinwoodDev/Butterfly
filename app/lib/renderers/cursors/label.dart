@@ -84,8 +84,7 @@ class LabelSelectionCursor extends Renderer<LabelContext> {
     final cursorBox =
         element.textPainter.getOffsetForCaret(selection.base, Rect.zero);
     final height =
-        element.textPainter.getFullHeightForCaret(selection.base, Rect.zero) ??
-            0;
+        element.textPainter.getFullHeightForCaret(selection.base, Rect.zero);
     canvas.drawRect(
       Rect.fromLTWH(
         labelElement.position.x + cursorBox.dx - 1 / transform.size,

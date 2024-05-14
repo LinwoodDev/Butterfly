@@ -1,0 +1,5 @@
+* Improve pdf import performance ([#702](https://github.com/LinwoodDev/Butterfly/pull/702))
+* Reimplement quality in pdf import ([#702](https://github.com/LinwoodDev/Butterfly/pull/702))
+* Upgrade to flutter 3.22
+
+Read more here: https://linwood.dev/butterfly/2.1.1-rc.1

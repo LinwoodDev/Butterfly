@@ -176,7 +176,7 @@ class FileEntityGridItem extends StatelessWidget {
                                           .textTheme
                                           .bodySmall
                                           ?.copyWith(
-                                            color: colorScheme.onBackground,
+                                            color: colorScheme.onSurface,
                                           ),
                                       onSubmitted: (value) async {
                                         await fileSystem.renameAsset(
