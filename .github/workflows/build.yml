@@ -65,14 +65,14 @@ jobs:
       - name: 🏭 Build architecture nightly
         if: ${{ github.ref != 'refs/tags/stable' && (github.event_name != 'release' || github.event.prerelease) }}
         run: |
-          flutter build apk -v --release --target-platform android-arm,android-arm64,android-x64,android-x86 --split-per-abi --flavor nightly --dart-define=flavor=nightly
+          flutter build apk -v --release --target-platform android-arm,android-arm64,android-x64 --split-per-abi --flavor nightly --dart-define=flavor=nightly
           cp build/app/outputs/flutter-apk/app-armeabi-v7a-nightly-release.apk linwood-butterfly-android-arm.apk
           cp build/app/outputs/flutter-apk/app-arm64-v8a-nightly-release.apk linwood-butterfly-android-arm64.apk
           cp build/app/outputs/flutter-apk/app-x86_64-nightly-release.apk linwood-butterfly-android-x86_64.apk
       - name: 🏭 Build architecture production
         if: ${{ github.ref == 'refs/tags/stable' || (github.event_name == 'release' && !github.event.prerelease) }}
         run: |
-          flutter build apk -v --release --target-platform android-arm,android-arm64,android-x64,android-x86 --split-per-abi --flavor production
+          flutter build apk -v --release --target-platform android-arm,android-arm64,android-x64 --split-per-abi --flavor production
           cp build/app/outputs/flutter-apk/app-armeabi-v7a-production-release.apk linwood-butterfly-android-arm.apk
           cp build/app/outputs/flutter-apk/app-arm64-v8a-production-release.apk linwood-butterfly-android-arm64.apk
           cp build/app/outputs/flutter-apk/app-x86_64-production-release.apk linwood-butterfly-android-x86_64.apk
