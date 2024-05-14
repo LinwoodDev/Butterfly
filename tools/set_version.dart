@@ -63,8 +63,7 @@ Future<void> main(List<String> args) async {
   await updateAppImageVersion(version);
   await updateDebianVersion(version);
   if (results['changelog']) {
-    var changelogFile =
-        File('metadata/android/en-US/changelogs/$newBuildNumber.txt');
+    var changelogFile = File('metadata/en-US/changelogs/$newBuildNumber.txt');
     var changelog = await changelogFile.readAsString();
     await updateChangelog(version, changelog);
     await updateAppData(version);
