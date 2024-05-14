@@ -412,6 +412,7 @@ class ButterflySettings with _$ButterflySettings {
     @Default(false) bool gridView,
     @Default(true) bool autosave,
     @Default(1) int toolbarRows,
+    @Default(false) bool hideCursorWhileDrawing,
   }) = _ButterflySettings;
 
   factory ButterflySettings.fromPrefs(
@@ -495,6 +496,8 @@ class ButterflySettings with _$ButterflySettings {
           ? ToolbarSize.values.byName(prefs.getString('toolbar_size')!)
           : ToolbarSize.normal,
       toolbarRows: prefs.getInt('toolbar_rows') ?? 1,
+      hideCursorWhileDrawing:
+          prefs.getBool('hide_cursor_while_drawing') ?? false,
     );
   }
 
@@ -558,6 +561,7 @@ class ButterflySettings with _$ButterflySettings {
     await prefs.setBool('autosave', autosave);
     await prefs.setString('toolbar_size', toolbarSize.name);
     await prefs.setInt('toolbar_rows', toolbarRows);
+    await prefs.setBool('hide_cursor_while_drawing', hideCursorWhileDrawing);
   }
 
   ExternalStorage? getRemote(String? identifier) {
@@ -1075,4 +1079,12 @@ class SettingsCubit extends Cubit<ButterflySettings> {
   }
 
   Future<void> resetToolbarRows() => changeToolbarRows(1);
+
+  Future<void> changeHideCursorWhileDrawing(bool value) {
+    emit(state.copyWith(hideCursorWhileDrawing: value));
+    return save();
+  }
+
+  Future<void> resetHideCursorWhileDrawing() =>
+      changeHideCursorWhileDrawing(false);
 }

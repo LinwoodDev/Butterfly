@@ -2,6 +2,7 @@ part of 'handler.dart';
 
 // This class represents the handler for the PenTool.
 class PenHandler extends Handler<PenTool> with ColoredHandler {
+  bool _hideCursorWhileDrawing = false;
   // Map to store the PenElements.
   final Map<int, PenElement> elements = {};
   // Map to store the starting positions of each element.
@@ -115,6 +116,7 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
   @override
   void onPointerDown(PointerDownEvent event, EventContext context) {
     isDrawing = true;
+    _hideCursorWhileDrawing = context.getSettings().hideCursorWhileDrawing;
     final currentIndex = context.getCurrentIndex();
     // Save initial position
     startPosition[event.pointer] = event.localPosition;
@@ -351,5 +353,7 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
           .copyWith(color: convertOldColor(color, data.property.color)));
 
   @override
-  MouseCursor get cursor => SystemMouseCursors.precise;
+  MouseCursor get cursor => (_hideCursorWhileDrawing && elements.isNotEmpty)
+      ? SystemMouseCursors.none
+      : SystemMouseCursors.precise;
 }
