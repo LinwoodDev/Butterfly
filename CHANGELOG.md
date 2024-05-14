@@ -2,6 +2,21 @@
 
 <!--ENTER CHANGELOG HERE-->
 
+## 2.1.1-rc.0 (2024-05-14)
+
+* Make dav requests more performant ([#689](https://github.com/LinwoodDev/Butterfly/pull/689))
+* Add icons to platform theme setting
+* Enhance mobile home page
+* Change lasso select icon to a real lasso
+* Fix visible layers are not working correctly ([#692](https://github.com/LinwoodDev/Butterfly/issues/692))
+* Fix remote button if external storage is default
+* Fix linux metainfo
+* Fix image operations
+* Fix no element on fetch in dav requests ([#695](https://github.com/LinwoodDev/Butterfly/pull/695))
+* Fix context buttons in template dialog closes the dialog
+
+Read more here: https://linwood.dev/butterfly/2.1.1-rc.0
+
 ## 2.1.0 (2024-05-10)
 
 Nothing changed from the nightly build to the stable release.
