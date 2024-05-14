@@ -606,5 +606,6 @@
   "small": "Μικρό",
   "tiny": "Μικροσκοπικό",
   "selectAll": "Επιλογή όλων",
-  "overrideTools": "Παράκαμψη εργαλείων"
+  "overrideTools": "Παράκαμψη εργαλείων",
+  "hideCursorWhileDrawing": "Hide cursor while drawing"
 }
