@@ -606,5 +606,6 @@
   "small": "Маленький",
   "tiny": "Маленький",
   "selectAll": "Выбрать все",
-  "overrideTools": "Переопределить инструменты"
+  "overrideTools": "Переопределить инструменты",
+  "hideCursorWhileDrawing": "Hide cursor while drawing"
 }
