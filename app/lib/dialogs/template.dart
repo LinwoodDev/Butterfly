@@ -410,7 +410,6 @@ class _TemplateItem extends StatelessWidget {
           onChanged: (value) async {
             final name = metadata.name;
             settingsCubit.changeDefaultTemplate(name);
-            Navigator.of(context).pop();
             onChanged();
           },
         ),
@@ -418,7 +417,6 @@ class _TemplateItem extends StatelessWidget {
           leadingIcon: const PhosphorIcon(PhosphorIconsLight.trash),
           child: Text(AppLocalizations.of(context).delete),
           onPressed: () async {
-            Navigator.of(context).pop();
             final result = await showDialog<bool>(
                 context: context, builder: (ctx) => const DeleteDialog());
             if (result != true) return;

@@ -7,5 +7,6 @@
 * Fix linux metainfo
 * Fix image operations
 * Fix no element on fetch in dav requests ([#695](https://github.com/LinwoodDev/Butterfly/pull/695))
+* Fix context buttons in template dialog closes the dialog
 
 Read more here: https://linwood.dev/butterfly/2.1.1-rc.0
