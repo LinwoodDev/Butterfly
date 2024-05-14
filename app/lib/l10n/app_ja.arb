@@ -606,5 +606,6 @@
   "small": "小",
   "tiny": "<unk>",
   "selectAll": "すべて選択",
-  "overrideTools": "ツールを上書きする"
+  "overrideTools": "ツールを上書きする",
+  "hideCursorWhileDrawing": "Hide cursor while drawing"
 }
