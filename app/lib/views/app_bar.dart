@@ -209,7 +209,6 @@ class _AppBarTitle extends StatelessWidget {
                               onFieldSubmitted: submit,
                               onSaved: submit,
                               decoration: InputDecoration(
-                                isDense: true,
                                 filled: true,
                                 hintText: AppLocalizations.of(context).untitled,
                               ),
