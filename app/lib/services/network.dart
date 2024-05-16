@@ -61,7 +61,7 @@ class NetworkingService {
       BehaviorSubject.seeded(null);
   final BehaviorSubject<Set<ConnectionId>> _connections =
       BehaviorSubject.seeded({});
-  final BehaviorSubject<Map<ConnectionId, NetworkingUser>> _users =
+  final BehaviorSubject<Map<ConnectionId?, NetworkingUser>> _users =
       BehaviorSubject.seeded({});
 
   Stream<NetworkingState?> get stream => _subject.stream;
@@ -70,8 +70,8 @@ class NetworkingService {
   Stream<Set<ConnectionId>> get connectionsStream => _connections.stream;
   Set<ConnectionId> get connections => _connections.value;
 
-  Stream<Map<ConnectionId, NetworkingUser>> get usersStream => _users.stream;
-  Map<ConnectionId, NetworkingUser> get users => _users.value;
+  Stream<Map<ConnectionId?, NetworkingUser>> get usersStream => _users.stream;
+  Map<ConnectionId?, NetworkingUser> get users => _users.value;
 
   NetworkingService();
 
@@ -157,7 +157,7 @@ class NetworkingService {
         'user',
         RpcFunction(RpcType.any, (message) {
           final user = NetworkingUser.fromJson(message.message);
-          final users = Map<ConnectionId, NetworkingUser>.from(_users.value)
+          final users = Map<ConnectionId?, NetworkingUser>.from(_users.value)
             ..[message.client] = user;
           _users.add(users);
           _bloc?.state.currentIndexCubit?.updateNetworkingState(_bloc!, users);

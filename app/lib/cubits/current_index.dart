@@ -187,7 +187,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
   }
 
   Future<void> updateNetworkingState(DocumentBloc bloc,
-      [Map<ConnectionId, NetworkingUser>? current]) async {
+      [Map<ConnectionId?, NetworkingUser>? current]) async {
     final blocState = bloc.state;
     if (blocState is! DocumentLoadSuccess) return;
     final users = (current ?? state.networkingService.users).values.toList();

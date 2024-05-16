@@ -1,3 +1,4 @@
+* Add hide cursor while drawing
 * Improve pdf import performance ([#702](https://github.com/LinwoodDev/Butterfly/pull/702))
 * Reimplement quality in pdf import ([#702](https://github.com/LinwoodDev/Butterfly/pull/702))
 * Center grid items in home page 
