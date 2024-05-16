@@ -6,6 +6,7 @@ import { getTranslations } from "./src/translations";
 
 // https://astro.build/config
 export default defineConfig({
+  outDir: "./build",
   integrations: [
     starlight({
       title: "Linwood Butterfly",

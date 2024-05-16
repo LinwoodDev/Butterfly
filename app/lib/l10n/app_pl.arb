@@ -303,6 +303,7 @@
   "stable": "Stabilność",
   "nightly": "Nocny",
   "checkForUpdates": "Sprawdź aktualizacje",
+  "checkForUpdatesWarning": "Sprawdzanie aktualizacji połączy się ze stroną Motyl, aby uzyskać informacje.",
   "usingLatestStable": "Używasz najnowszej stabilnej wersji",
   "usingLatestNightly": "Używasz najnowszej wersji nocnej",
   "currentVersion": "Aktualna wersja",

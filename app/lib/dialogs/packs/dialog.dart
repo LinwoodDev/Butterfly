@@ -11,7 +11,7 @@ import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import '../../api/save.dart';
-import '../../widgets/remote_button.dart';
+import '../../widgets/connection_button.dart';
 import 'pack.dart';
 
 class PacksDialog extends StatefulWidget {
@@ -56,7 +56,7 @@ class _PacksDialogState extends State<PacksDialog>
                     Header(
                       title: Text(AppLocalizations.of(context).packs),
                       actions: [
-                        RemoteButton(
+                        ConnectionButton(
                           currentRemote: _fileSystem.remote?.identifier ?? '',
                           onChanged: (value) {
                             setState(() {

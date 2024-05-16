@@ -303,6 +303,7 @@
   "stable": "Stable",
   "nightly": "Nuit",
   "checkForUpdates": "Vérifier les mises à jour",
+  "checkForUpdatesWarning": "Effectuer une vérification des mises à jour se connectera au site web Butterfly pour obtenir les informations.",
   "usingLatestStable": "Vous utilisez la dernière version stable",
   "usingLatestNightly": "Vous utilisez la dernière version de nightly",
   "currentVersion": "Version actuelle",

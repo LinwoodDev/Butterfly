@@ -303,6 +303,7 @@
   "stable": "اسطبل",
   "nightly": "ليلي",
   "checkForUpdates": "التحقق من وجود تحديثات",
+  "checkForUpdatesWarning": "سيؤدي إجراء التحقق من التحديثات إلى الاتصال بموقع الفراشة للحصول على المعلومات.",
   "usingLatestStable": "أنت تستخدم أحدث إصدار مستقر",
   "usingLatestNightly": "أنت تستخدم أحدث إصدار ليلي",
   "currentVersion": "الإصدار الحالي",

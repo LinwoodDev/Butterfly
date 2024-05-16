@@ -129,7 +129,8 @@ ContextMenuBuilder buildElementsContextMenu(
                         child: Text(e.getLocalizedName(context)),
                         onPressed: () {
                           operations.values
-                              .expand((e) => e.values)
+                              .map((v) => v[e])
+                              .whereNotNull()
                               .forEach((e) => e(bloc, context));
                           if (context.mounted) Navigator.of(context).pop(true);
                         },

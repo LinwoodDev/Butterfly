@@ -1,6 +1,6 @@
 import 'package:butterfly/actions/new.dart';
 import 'package:butterfly/cubits/settings.dart';
-import 'package:butterfly/widgets/remote_button.dart';
+import 'package:butterfly/widgets/connection_button.dart';
 import 'package:butterfly/widgets/responsive_dialog.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:collection/collection.dart';
@@ -68,7 +68,7 @@ class _TemplateDialogState extends State<TemplateDialog> {
                     tooltip: AppLocalizations.of(context).close,
                   ),
                   actions: [
-                    RemoteButton(
+                    ConnectionButton(
                       currentRemote: _fileSystem.remote?.identifier ?? '',
                       onChanged: (value) {
                         _fileSystem =

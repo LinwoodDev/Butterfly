@@ -919,7 +919,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     final tool = UtilitiesRenderer(const UtilitiesState());
     await tool.setup(document, assetService, page);
     currentIndexCubit.unbake(tool: tool);
-    currentIndexCubit.loadElements(document, assetService, page);
+    currentIndexCubit.loadElements(current);
     currentIndexCubit.init(this);
   }
 

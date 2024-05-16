@@ -303,6 +303,7 @@
   "stable": "穩定版",
   "nightly": "Nightly",
   "checkForUpdates": "檢查更新",
+  "checkForUpdatesWarning": "Performing a check for updates will connect to the Butterfly website to get the information.",
   "usingLatestStable": "現在的是最新穩定版",
   "usingLatestNightly": "現在的是最新夜間版",
   "currentVersion": "目前版本",
