@@ -209,7 +209,6 @@ class _AppBarTitle extends StatelessWidget {
                               onFieldSubmitted: submit,
                               onSaved: submit,
                               decoration: InputDecoration(
-                                isDense: true,
                                 filled: true,
                                 hintText: AppLocalizations.of(context).untitled,
                               ),
@@ -525,7 +524,7 @@ class _MainPopupMenu extends StatelessWidget {
               ],
             ],
             style: MenuStyle(
-              shape: MaterialStateProperty.all(
+              shape: WidgetStateProperty.all(
                 RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(16),
                 ),
@@ -540,7 +539,7 @@ class _MainPopupMenu extends StatelessWidget {
                   ),
                   style: IconButton.styleFrom(
                     backgroundColor: controller.isOpen
-                        ? Theme.of(context).colorScheme.surfaceVariant
+                        ? Theme.of(context).colorScheme.surfaceContainerHighest
                         : null,
                   ),
                   tooltip: AppLocalizations.of(context).actions,

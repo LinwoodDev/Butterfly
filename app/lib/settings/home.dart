@@ -83,7 +83,7 @@ class _SettingsPageState extends State<SettingsPage> {
             }
           }
 
-          var navigation = Column(children: [
+          var navigation = Column(mainAxisSize: MainAxisSize.min, children: [
             Header(
               title: Text(AppLocalizations.of(context).settings),
               leading: IconButton.outlined(

@@ -1,6 +1,7 @@
 part of 'handler.dart';
 
 class LaserHandler extends Handler<LaserTool> with ColoredHandler {
+  bool _hideCursorWhileDrawing = false;
   final Map<int, PenElement> elements = {};
   final List<PenElement> submittedElements = [];
   DateTime? _lastChanged;
@@ -138,6 +139,8 @@ class LaserHandler extends Handler<LaserTool> with ColoredHandler {
 
   @override
   void onPointerDown(PointerDownEvent event, EventContext context) {
+    _hideCursorWhileDrawing = context.getSettings().hideCursorWhileDrawing;
+    context.refresh();
     final currentIndex = context.getCurrentIndex();
     if (currentIndex.moveEnabled && event.kind != PointerDeviceKind.stylus) {
       elements.clear();
@@ -162,5 +165,7 @@ class LaserHandler extends Handler<LaserTool> with ColoredHandler {
   LaserTool setColor(int color) => data.copyWith(color: color);
 
   @override
-  MouseCursor get cursor => SystemMouseCursors.precise;
+  MouseCursor get cursor => (_hideCursorWhileDrawing && elements.isNotEmpty)
+      ? SystemMouseCursors.grabbing
+      : SystemMouseCursors.precise;
 }

@@ -1,5 +1,7 @@
-<!DOCTYPE html><html><head>
-  <!--
+<!DOCTYPE html>
+<html>
+  <head>
+    <!--
     If you are serving your web app in a path other than the root, change the
     href value below to reflect the base path you are serving from.
 
@@ -12,41 +14,39 @@
     This is a placeholder for base href that will be replaced by the value of
     the `--base-href` argument provided to `flutter build`.
   -->
-  <base href="$FLUTTER_BASE_HREF">
+    <base href="$FLUTTER_BASE_HREF" />
 
-  <meta charset="UTF-8">
-  <meta content="IE=Edge" http-equiv="X-UA-Compatible">
-  <meta name="description" content="Powerful, minimalistic, cross-platform, opensource note-taking app">
+    <meta charset="UTF-8" />
+    <meta content="IE=Edge" http-equiv="X-UA-Compatible" />
+    <meta
+      name="description"
+      content="Powerful, minimalistic, cross-platform, opensource note-taking app"
+    />
 
-  <!-- iOS meta tags & icons -->
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
-  <meta name="apple-mobile-web-app-title" content="Butterfly Nightly">
-  <link rel="apple-touch-icon" href="android/android-launchericon-192-192.png">
+    <!-- iOS meta tags & icons -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="apple-mobile-web-app-title" content="Butterfly" />
+    <link
+      rel="apple-touch-icon"
+      href="android/android-launchericon-192-192.png"
+    />
 
-  <!-- Favicon -->
-  <link href="windows11/Square44x44Logo.targetsize-16.png" rel="icon" type="image/png">
+    <!-- Favicon -->
+    <link
+      href="windows11/Square44x44Logo.targetsize-16.png"
+      rel="icon"
+      type="image/png"
+    />
 
-  <title>Linwood Butterfly Nightly</title>
-  <link rel="manifest" href="manifest.json">
+    <title>Linwood Butterfly Nightly</title>
+    <link rel="manifest" href="manifest.json" />
+    <style id="splash-screen-style">
+      .flutter-loader {
+        z-index: 999999;
+      }
 
-  
-  <script src="pdf.js/pdf.min.mjs" type="module"></script>
-  <script type="text/javascript">
-      pdfjsLib.GlobalWorkerOptions.workerSrc = "pdf.js/pdf.worker.min.mjs";
-  </script>
-  <script>
-    // The value below is injected by flutter build, do not touch.
-    var serviceWorkerVersion = null;
-  </script>
-  <!-- This script adds the flutter initialization JS code -->
-  <script src="flutter.js" defer=""></script>
-  <style id="splash-screen-style">
-    .flutter-loader {
-      z-index: 999999;
-    }
-    
-    #splash {
+      #splash {
         position: fixed;
         width: 100%;
         height: 100%;
@@ -56,145 +56,157 @@
         opacity: 1;
         /* animation type and duration */
         transition: opacity 0.25s;
-        background-color: #FAFAFA;
-              -moz-osx-font-smoothing: grayscale;
+        background-color: #fafafa;
+        -moz-osx-font-smoothing: grayscale;
         -webkit-font-smoothing: antialiased;
-    }
-    
-    #splash.remove {
-      /* enable click through when run animation */
-      pointer-events: none;
-      /* start animation */
-      opacity: 0;
-    }
+      }
 
-    #splash .center {
-      margin: 0;
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      -ms-transform: translate(-50%, -50%);
-      transform: translate(-50%, -50%);
-    }
+      #splash.remove {
+        /* enable click through when run animation */
+        pointer-events: none;
+        /* start animation */
+        opacity: 0;
+      }
 
-    #splash .contain {
-      display:block;
-      width:100%; height:100%;
-      object-fit: contain;
-    }
+      #splash .center {
+        margin: 0;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        -ms-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);
+      }
 
-    #splash .stretch {
-      display:block;
-      width:100%; height:100%;
-    }
+      #splash .contain {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+      }
 
-    #splash .cover {
-      display:block;
-      width:100%; height:100%;
-      object-fit: cover;
-    }
+      #splash .stretch {
+        display: block;
+        width: 100%;
+        height: 100%;
+      }
 
-    #splash .bottom {
-      position: absolute;
-      bottom: 0;
-      left: 50%;
-      -ms-transform: translate(-50%, 0);
-      transform: translate(-50%, 0);
-    }
+      #splash .cover {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
 
-    #splash .bottomLeft {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-    }
+      #splash .bottom {
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        -ms-transform: translate(-50%, 0);
+        transform: translate(-50%, 0);
+      }
 
-    #splash .bottomRight {
-      position: absolute;
-      bottom: 0;
-      right: 0;
-    }
+      #splash .bottomLeft {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+      }
 
-    @media (prefers-color-scheme: dark) {
-      #splash {
-        background-color: #353535;
+      #splash .bottomRight {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+      }
+
+      @media (prefers-color-scheme: dark) {
+        #splash {
+          background-color: #353535;
+        }
+      }
+    </style>
+    <script id="splash-screen-script">
+      function removeSplashFromWeb() {
+        const splashElement = document.getElementById("splash");
+        splashElement.classList.add("remove");
+        setTimeout(function () {
+          splashElement.remove();
+          document.getElementById("splash-screen-script")?.remove();
+        }, 750 /* animation time + wait rendering and others(500ms) */);
+      }
+    </script>
+  </head>
+  <body>
+    <div id="splash">
+      <picture>
+        <source
+          srcset="
+            splash/img/light-1x.png 1x,
+            splash/img/light-2x.png 2x,
+            splash/img/light-3x.png 3x,
+            splash/img/light-4x.png 4x
+          "
+          media="(prefers-color-scheme: light)"
+        />
+        <source
+          srcset="
+            splash/img/dark-1x.png 1x,
+            splash/img/dark-2x.png 2x,
+            splash/img/dark-3x.png 3x,
+            splash/img/dark-4x.png 4x
+          "
+          media="(prefers-color-scheme: dark)"
+        />
+        <img
+          class="center"
+          aria-hidden="true"
+          src="splash/img/light-1x.png"
+          alt=""
+        />
+      </picture>
+    </div>
+    <script>
+      // Prevent default browser behaviors
+
+      document.addEventListener(
+        "wheel",
+        (e) => e.ctrlKey && e.preventDefault(),
+        { passive: false }
+      );
+      window.addEventListener("keydown", function (event) {
+        if (event.metaKey || event.ctrlKey) {
+          // When ctrl or meta is pressed we want to suppress some default bound
+          // browser actions (like CMD+Plus/Minus to zoom).
+          switch (event.keyCode) {
+            case 78: // 'n' for new
+            case 68: // 'd' for duplication
+            case 71: // 'g' for grouping
+            case 187: // '=' for zoom in
+            case 189: // '-' for zoom out
+            case 90: // 'z' for preventing opening a previous tab in Safari
+            case 221: // ']' for changing draw order
+            case 219: // '[' for changing draw order
+            case 37: // left arrow for moving keys: #1786
+            case 39: // right arrow for moving keys: #1786
+            case 188: // , #1835
+            case 65:
+              // Needs to be removed as it kills text copy
+              // case 67:  // 'c' for preventing negative beep on Safari
+              event.preventDefault();
+              break;
+            // default:
+            //   console.log('Keycode pressed: ' + event.keyCode);
           }
-    }
-  </style>
-  <script id="splash-screen-script">
-    function removeSplashFromWeb() {
-      const splashElement = document.getElementById("splash");
-      splashElement.classList.add("remove");
-      setTimeout(function () {
-        splashElement.remove();
-        document.getElementById("splash-screen-script")?.remove();
-      }, 750 /* animation time + wait rendering and others(500ms) */);
-    }
-  </script>
-  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
-</head>
-<body>
-  <div id="splash">
-    <picture>
-        <source srcset="splash/img/light-1x.png 1x, splash/img/light-2x.png 2x, splash/img/light-3x.png 3x, splash/img/light-4x.png 4x" media="(prefers-color-scheme: light)">
-        <source srcset="splash/img/dark-1x.png 1x, splash/img/dark-2x.png 2x, splash/img/dark-3x.png 3x, splash/img/dark-4x.png 4x" media="(prefers-color-scheme: dark)">
-        <img class="center" aria-hidden="true" src="splash/img/light-1x.png" alt="">
-    </picture>
-  </div>
-  <script>
-    window.addEventListener('load', function(ev) {
-      // Download main.dart.js
-      _flutter.loader.loadEntrypoint({
-        serviceWorker: {
-          serviceWorkerVersion: serviceWorkerVersion,
-        },
-        onEntrypointLoaded: function(engineInitializer) {
-          engineInitializer.initializeEngine().then(function(appRunner) {
-            return appRunner.runApp();
-          }).then(function (app) {
-            window.setTimeout(function () {
-              removeSplashFromWeb();
-            }, 200);
-          });
+        }
+        // Suppress backspace triggering a navigated back action.
+        if (event.keyCode === 8 && event.target === document.body) {
+          event.preventDefault();
         }
       });
-    });
-  </script>
-  <script>
-    // Prevent default browser behaviors
-
-    document.addEventListener("wheel", (e) => (e.ctrlKey)
-      && e.preventDefault(), { passive: false });
-    window.addEventListener("keydown", function (event) {
-      if (event.metaKey || event.ctrlKey) {
-        // When ctrl or meta is pressed we want to suppress some default bound
-        // browser actions (like CMD+Plus/Minus to zoom).
-        switch (event.keyCode) {
-          case 78: // 'n' for new
-          case 68: // 'd' for duplication
-          case 71: // 'g' for grouping
-          case 187: // '=' for zoom in
-          case 189: // '-' for zoom out
-          case 90: // 'z' for preventing opening a previous tab in Safari
-          case 221: // ']' for changing draw order
-          case 219: // '[' for changing draw order
-          case 37: // left arrow for moving keys: #1786
-          case 39: // right arrow for moving keys: #1786
-          case 188: // , #1835
-          case 65:
-            // Needs to be removed as it kills text copy
-            // case 67:  // 'c' for preventing negative beep on Safari
-            event.preventDefault();
-            break;
-          // default:
-          //   console.log('Keycode pressed: ' + event.keyCode);
-        }
-      }
-      // Suppress backspace triggering a navigated back action.
-      if (event.keyCode === 8 && event.target === document.body) {
-        event.preventDefault();
-      }
-    });
-  </script>
-
-
-</body></html>
+    </script>
+    <script src="pdf.js/pdf.min.mjs" type="module"></script>
+    <script type="module">
+      var { pdfjsLib } = globalThis;
+      pdfjsLib.GlobalWorkerOptions.workerSrc = "pdf.js/pdf.worker.min.mjs";
+    </script>
+    <script src="flutter_bootstrap.js" async></script>
+  </body>
+</html>

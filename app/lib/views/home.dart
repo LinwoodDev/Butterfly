@@ -101,11 +101,6 @@ class _HomePageState extends State<HomePage> {
                       (settings.bannerVisibility ==
                               BannerVisibility.onlyOnUpdates &&
                           hasNewerVersion);
-              final quickStart = _QuickstartHomeView(
-                remote: _remote,
-                onReload: () => setState(
-                    () => _filesViewKey.currentState?.reloadFileSystem()),
-              );
               return Scaffold(
                 appBar: WindowTitleBar(
                   title: const Text(shortApplicationName),
@@ -130,7 +125,6 @@ class _HomePageState extends State<HomePage> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
-                          const SizedBox(height: 64),
                           LayoutBuilder(builder: (context, constraints) {
                             final isDesktop = constraints.maxWidth > 1000;
                             return _HeaderHomeView(
@@ -139,7 +133,7 @@ class _HomePageState extends State<HomePage> {
                               showBanner: showBanner,
                             );
                           }),
-                          const SizedBox(height: 64),
+                          const SizedBox(height: 16),
                           LayoutBuilder(
                             builder: (context, constraints) {
                               if (constraints.maxWidth > 1000) {
@@ -156,15 +150,27 @@ class _HomePageState extends State<HomePage> {
                                     )),
                                     const SizedBox(width: 16),
                                     SizedBox(
-                                      width: 400,
-                                      child: quickStart,
+                                      width: 350,
+                                      child: _QuickstartHomeView(
+                                        remote: _remote,
+                                        isMobile: false,
+                                        onReload: () => setState(() =>
+                                            _filesViewKey.currentState
+                                                ?.reloadFileSystem()),
+                                      ),
                                     ),
                                   ],
                                 );
                               } else {
                                 return Column(
                                   children: [
-                                    quickStart,
+                                    _QuickstartHomeView(
+                                      remote: _remote,
+                                      isMobile: true,
+                                      onReload: () => setState(() =>
+                                          _filesViewKey.currentState
+                                              ?.reloadFileSystem()),
+                                    ),
                                     const SizedBox(height: 32),
                                     FilesView(
                                       selectedAsset: widget.selectedAsset,
@@ -387,18 +393,26 @@ class _HeaderHomeViewState extends State<_HeaderHomeView>
           );
     return SizeTransition(
       sizeFactor: _animation,
-      child: child,
+      child: Column(
+        children: [
+          const SizedBox(height: 64),
+          child,
+          const SizedBox(height: 48),
+        ],
+      ),
     );
   }
 }
 
 class _QuickstartHomeView extends StatefulWidget {
   final ExternalStorage? remote;
+  final bool isMobile;
   final VoidCallback onReload;
 
   const _QuickstartHomeView({
     this.remote,
     required this.onReload,
+    required this.isMobile,
   });
 
   @override
@@ -406,6 +420,7 @@ class _QuickstartHomeView extends StatefulWidget {
 }
 
 class _QuickstartHomeViewState extends State<_QuickstartHomeView> {
+  final ScrollController _scrollController = ScrollController();
   late final TemplateFileSystem _templateFileSystem;
   Future<List<NoteData>>? _templatesFuture;
 
@@ -427,6 +442,12 @@ class _QuickstartHomeViewState extends State<_QuickstartHomeView> {
         _templatesFuture = _fetchTemplates();
       });
     }
+  }
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
   }
 
   Future<List<NoteData>> _fetchTemplates() => _templateFileSystem
@@ -516,27 +537,36 @@ class _QuickstartHomeViewState extends State<_QuickstartHomeView> {
                     ],
                   );
                 }
-                return Wrap(
-                  alignment: WrapAlignment.center,
-                  runAlignment: WrapAlignment.center,
-                  crossAxisAlignment: WrapCrossAlignment.center,
-                  runSpacing: 4,
-                  spacing: 4,
-                  children: templates.map(
-                    (e) {
-                      final thumbnail = e.getThumbnail();
-                      final metadata = e.getMetadata()!;
-                      return AssetCard(
-                        metadata: metadata,
-                        thumbnail: thumbnail,
-                        onTap: () async {
-                          await openNewDocument(
-                              context, false, e, widget.remote?.identifier);
-                          widget.onReload();
-                        },
-                      );
-                    },
-                  ).toList(),
+                final children = templates.map(
+                  (e) {
+                    final thumbnail = e.getThumbnail();
+                    final metadata = e.getMetadata()!;
+                    return AssetCard(
+                      metadata: metadata,
+                      thumbnail: thumbnail,
+                      onTap: () async {
+                        await openNewDocument(
+                            context, false, e, widget.remote?.identifier);
+                        widget.onReload();
+                      },
+                    );
+                  },
+                ).toList();
+                if (widget.isMobile) {
+                  return SizedBox(
+                    height: 150,
+                    child: Scrollbar(
+                      controller: _scrollController,
+                      child: ListView(
+                        controller: _scrollController,
+                        scrollDirection: Axis.horizontal,
+                        children: children,
+                      ),
+                    ),
+                  );
+                }
+                return Column(
+                  children: children,
                 );
               }),
         ]),
