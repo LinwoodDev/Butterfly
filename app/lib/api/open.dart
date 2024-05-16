@@ -11,21 +11,21 @@ import 'package:url_launcher/url_launcher.dart';
 
 Future<bool> openReleaseNotes() {
   return launchUrl(
-      Uri(
-          scheme: 'https',
-          host: 'linwood.dev',
-          pathSegments: ['butterfly', applicationMinorVersion]),
-      mode: LaunchMode.externalApplication);
+    Uri(
+        scheme: 'https',
+        host: 'linwood.dev',
+        pathSegments: ['butterfly', applicationMinorVersion]),
+  );
 }
 
 Future<bool> openHelp(List<String> pageLocation, [String? fragment]) {
   return launchUrl(
-      Uri(
-          scheme: 'https',
-          host: 'butterfly.linwood.dev',
-          fragment: fragment,
-          pathSegments: ['docs', applicationMinorVersion, ...pageLocation]),
-      mode: LaunchMode.externalApplication);
+    Uri(
+        scheme: 'https',
+        host: 'butterfly.linwood.dev',
+        fragment: fragment,
+        pathSegments: ['docs', applicationMinorVersion, ...pageLocation]),
+  );
 }
 
 Future<(Uint8List?, String?)> importFile(BuildContext context,

@@ -221,13 +221,15 @@ class FilesViewState extends State<FilesView> {
             spacing: 4,
             overflowSpacing: 4,
             children: [
-              IconButton(
-                onPressed: () => context.read<SettingsCubit>().toggleGridView(),
-                tooltip: AppLocalizations.of(context).switchView,
-                icon: state.gridView
-                    ? const PhosphorIcon(PhosphorIconsLight.list)
-                    : const PhosphorIcon(PhosphorIconsLight.gridFour),
-              ),
+              if (!widget.collapsed)
+                IconButton(
+                  onPressed: () =>
+                      context.read<SettingsCubit>().toggleGridView(),
+                  tooltip: AppLocalizations.of(context).switchView,
+                  icon: state.gridView
+                      ? const PhosphorIcon(PhosphorIconsLight.list)
+                      : const PhosphorIcon(PhosphorIconsLight.gridFour),
+                ),
               ConnectionButton(
                 currentRemote: _remote?.identifier ?? '',
                 onChanged: _setRemote,
@@ -258,7 +260,7 @@ class FilesViewState extends State<FilesView> {
             ],
           );
           if (widget.collapsed) {
-            return mobileActions;
+            return Center(child: mobileActions);
           }
           return OverflowBar(
             alignment: MainAxisAlignment.spaceBetween,
@@ -501,24 +503,27 @@ class FilesViewState extends State<FilesView> {
                   );
                 }
                 if (state.gridView && !widget.collapsed) {
-                  return Wrap(
-                    spacing: 4,
-                    runSpacing: 4,
-                    children: assets.map(
-                      (e) {
-                        final selected =
-                            widget.selectedAsset?.isSame(e.location) ?? false;
-                        return FileEntityItem(
-                          entity: e,
-                          isMobile: widget.isMobile,
-                          selected: selected,
-                          collapsed: widget.collapsed,
-                          onTap: () => _onFileTap(e),
-                          onReload: reloadFileSystem,
-                          gridView: true,
-                        );
-                      },
-                    ).toList(),
+                  return Center(
+                    child: Wrap(
+                      spacing: 4,
+                      runSpacing: 4,
+                      crossAxisAlignment: WrapCrossAlignment.start,
+                      children: assets.map(
+                        (e) {
+                          final selected =
+                              widget.selectedAsset?.isSame(e.location) ?? false;
+                          return FileEntityItem(
+                            entity: e,
+                            isMobile: widget.isMobile,
+                            selected: selected,
+                            collapsed: widget.collapsed,
+                            onTap: () => _onFileTap(e),
+                            onReload: reloadFileSystem,
+                            gridView: true,
+                          );
+                        },
+                      ).toList(),
+                    ),
                   );
                 }
                 return ListView.builder(

@@ -79,12 +79,12 @@ dependencies:
   networker:
     git:
       url: https://github.com/LinwoodDev/dart_pkgs.git
-      ref: 51e8e6e0f3531c35f9d4f34f04ac1235e74fea9b
+      ref: 6617b9bbfb481ef59b1a6921f1676bb90d73ecf9
       path: packages/networker/networker
   networker_socket:
     git:
       url: https://github.com/LinwoodDev/dart_pkgs.git
-      ref: 75b5ec0e51096ae169df3cd4f02c9f6affe22a81
+      ref: fce8dc67ec282861bf629e32c404c52921f54bbd
       path: packages/networker/networker_socket
   flutter_localized_locales: ^2.0.5
   dynamic_color: ^1.7.0
@@ -107,11 +107,7 @@ dev_dependencies:
   espresso: ^0.3.0+8
   freezed: ^2.5.2
 dependency_overrides:
-  flutter_secure_storage_web:
-    git:
-      url: https://github.com/CodeDoctorDE/flutter_secure_storage.git
-      ref: ce09c8a5fd2b3a48949e386c7cc2849451961b46
-      path: flutter_secure_storage_web
+  flutter_secure_storage_web: ^2.0.0-beta.1
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 # The following section is specific to Flutter.

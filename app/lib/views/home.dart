@@ -420,6 +420,7 @@ class _QuickstartHomeView extends StatefulWidget {
 }
 
 class _QuickstartHomeViewState extends State<_QuickstartHomeView> {
+  final ScrollController _scrollController = ScrollController();
   late final TemplateFileSystem _templateFileSystem;
   Future<List<NoteData>>? _templatesFuture;
 
@@ -441,6 +442,12 @@ class _QuickstartHomeViewState extends State<_QuickstartHomeView> {
         _templatesFuture = _fetchTemplates();
       });
     }
+  }
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
   }
 
   Future<List<NoteData>> _fetchTemplates() => _templateFileSystem
@@ -548,9 +555,13 @@ class _QuickstartHomeViewState extends State<_QuickstartHomeView> {
                 if (widget.isMobile) {
                   return SizedBox(
                     height: 150,
-                    child: ListView(
-                      scrollDirection: Axis.horizontal,
-                      children: children,
+                    child: Scrollbar(
+                      controller: _scrollController,
+                      child: ListView(
+                        controller: _scrollController,
+                        scrollDirection: Axis.horizontal,
+                        children: children,
+                      ),
                     ),
                   );
                 }
