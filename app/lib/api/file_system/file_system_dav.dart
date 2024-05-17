@@ -199,11 +199,20 @@ class DavRemoteDocumentFileSystem extends DocumentRemoteSystem {
   @override
   Future<void> updateFile(String path, List<int> data,
       {bool forceSync = false}) async {
-    // Create directory if not exists
-    final directoryPath = p.dirname(path);
-    final directory = Directory(directoryPath);
-    if (!await directory.exists()) {
-      await directory.create(recursive: true);
+    // Cache check
+    if (!forceSync && remote.hasDocumentCached(path)) {
+      cacheContent(path, data);
+      return;
+    }
+
+    // Create directory if not exits
+    var last = path.lastIndexOf('/');
+    if (last == -1) {
+      last = path.length;
+    }
+    final directoryPath = path.substring(0, last);
+    if (!await hasAsset(directoryPath)) {
+      await createDirectory(directoryPath);
     }
 
     // Request to overwrite the file
