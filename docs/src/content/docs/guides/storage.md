@@ -1,5 +1,5 @@
 ---
-title: "Storage"
+title: Storage
 sidebar_position: 2
 ---
 

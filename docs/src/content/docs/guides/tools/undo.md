@@ -1,10 +1,8 @@
 ---
-title: "Undo tool"
-sidebar_label: "Undo"
-sidebar_position: 0
+title: Undo tool
 ---
 
-:::note ⚡ Action tool
+:::note[⚡ Action tool]
 
 This is a special tool.
 You can't select it and it will run the action if you click on it.

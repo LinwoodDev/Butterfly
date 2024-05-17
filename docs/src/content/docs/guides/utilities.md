@@ -1,6 +1,5 @@
 ---
-title: "Utilities"
-sidebar_position: 3
+title: Utilities
 ---
 
 This view allows you to change the general document or the view.

@@ -1,6 +1,5 @@
 ---
-title: "Select tool"
-sidebar_label: "Select"
+title: Select tool
 ---
 
 

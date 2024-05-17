@@ -1,7 +1,5 @@
 ---
-title: "Shape tool"
-sidebar_label: "Shape"
-sidebar_position: 3
+title: Shape tool
 ---
 
 

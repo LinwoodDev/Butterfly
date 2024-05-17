@@ -1,7 +1,5 @@
 ---
-title: "Path eraser tool"
-sidebar_label: "Path eraser"
-sidebar_position: 5
+title: Path eraser tool
 ---
 
 

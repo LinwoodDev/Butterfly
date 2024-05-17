@@ -1,7 +1,5 @@
 ---
-title: "Pen tool"
-sidebar_label: "Pen"
-sidebar_position: 2
+title: Pen tool
 ---
 
 

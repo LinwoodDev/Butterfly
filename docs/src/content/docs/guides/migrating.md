@@ -1,6 +1,5 @@
 ---
-title: "Migrating"
-sidebar_position: 2
+title: Migrating
 ---
 
 This guide will show you how to migrate to the latest version.

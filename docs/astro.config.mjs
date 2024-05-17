@@ -1,12 +1,15 @@
 import { defineConfig } from "astro/config";
 import starlight from "@astrojs/starlight";
-
+import remarkHeadingID from "remark-heading-id";
 import react from "@astrojs/react";
-import { getTranslations } from "./src/translations";
+import { getSidebarTranslatedLabel } from "./src/translations";
 
 // https://astro.build/config
 export default defineConfig({
   outDir: "./build",
+  markdown: {
+    remarkPlugins: [remarkHeadingID],
+  },
   integrations: [
     starlight({
       title: "Linwood Butterfly",
@@ -28,44 +31,145 @@ export default defineConfig({
       },
       sidebar: [
         {
-          label: "Guides",
-          translations: getTranslations("guides"),
+          ...getSidebarTranslatedLabel("Guides"),
           items: [
             {
-              label: "Introduction",
-              translations: getTranslations("introduction"),
+              ...getSidebarTranslatedLabel("Introduction"),
               link: "/guides/",
             },
             {
-              label: "Area",
-              translations: getTranslations("area"),
+              ...getSidebarTranslatedLabel("Area"),
               link: "/guides/area/",
             },
             {
-              label: "Add",
-              translations: getTranslations("add"),
-              link: "/guides/add/",
-            },
-            {
-              label: "Background",
-              translations: getTranslations("background"),
+              ...getSidebarTranslatedLabel("Background"),
               link: "/guides/background/",
             },
             {
-              label: "Collaboration",
-              translations: getTranslations("collaboration"),
+              ...getSidebarTranslatedLabel("Color picker"),
+              link: "/guides/color_picker/",
+            },
+            {
+              ...getSidebarTranslatedLabel("Layers"),
+              link: "/guides/layers/",
+            },
+            {
+              ...getSidebarTranslatedLabel("Migrating"),
+              link: "/guides/migrating/",
+            },
+            {
+              ...getSidebarTranslatedLabel("Pack"),
+              link: "/guides/pack/",
+            },
+            {
+              ...getSidebarTranslatedLabel("Pages"),
+              link: "/guides/pages/",
+            },
+            {
+              ...getSidebarTranslatedLabel("Shortcuts"),
+              link: "/guides/shortcuts/",
+            },
+            {
+              ...getSidebarTranslatedLabel("Storage"),
+              link: "/guides/storage/",
+            },
+            {
+              ...getSidebarTranslatedLabel("Waypoints"),
+              link: "/guides/waypoints/",
+            },
+            {
+              ...getSidebarTranslatedLabel("Add"),
+              link: "/guides/add/",
+            },
+            {
+              ...getSidebarTranslatedLabel("Collaboration"),
               link: "/guides/collaboration/",
             },
             {
-              label: "Tools",
-              translations: getTranslations("tools"),
-              link: "/guides/tools/",
+              ...getSidebarTranslatedLabel("Arguments"),
+              link: "/guides/arguments/",
+            },
+            {
+              ...getSidebarTranslatedLabel("Tools"),
+              items: [
+                {
+                  ...getSidebarTranslatedLabel("Overview"),
+                  link: "/guides/tools/",
+                },
+                {
+                  ...getSidebarTranslatedLabel("Pen"),
+                  link: "/guides/tools/pen/",
+                },
+                {
+                  ...getSidebarTranslatedLabel("Select"),
+                  link: "/guides/tools/select/",
+                },
+                {
+                  ...getSidebarTranslatedLabel("Hand"),
+                  link: "/guides/tools/hand/",
+                },
+                {
+                  ...getSidebarTranslatedLabel("Path eraser"),
+                  link: "/guides/tools/path_eraser/",
+                },
+                {
+                  ...getSidebarTranslatedLabel("Eraser"),
+                  link: "/guides/tools/eraser/",
+                },
+                {
+                  ...getSidebarTranslatedLabel("Undo"),
+                  link: "/guides/tools/undo/",
+                },
+                {
+                  ...getSidebarTranslatedLabel("Redo"),
+                  link: "/guides/tools/redo/",
+                },
+                {
+                  ...getSidebarTranslatedLabel("Shape"),
+                  link: "/guides/tools/shape/",
+                },
+                {
+                  ...getSidebarTranslatedLabel("Spacer"),
+                  link: "/guides/tools/spacer/",
+                },
+                {
+                  ...getSidebarTranslatedLabel("Area"),
+                  link: "/guides/tools/area/",
+                },
+                {
+                  ...getSidebarTranslatedLabel("Full screen"),
+                  link: "/guides/tools/full_screen/",
+                },
+                {
+                  ...getSidebarTranslatedLabel("Label"),
+                  link: "/guides/tools/label/",
+                },
+                {
+                  ...getSidebarTranslatedLabel("Laser"),
+                  link: "/guides/tools/laser/",
+                },
+                {
+                  ...getSidebarTranslatedLabel("Texture"),
+                  link: "/guides/tools/texture/",
+                },
+                {
+                  ...getSidebarTranslatedLabel("Stamp"),
+                  link: "/guides/tools/stamp/",
+                },
+                {
+                  ...getSidebarTranslatedLabel("Layer"),
+                  link: "/guides/tools/layer/",
+                },
+                {
+                  ...getSidebarTranslatedLabel("Presentation"),
+                  link: "/guides/tools/presentation/",
+                },
+              ],
             },
           ],
         },
         {
-          label: "Downloads",
-          translations: getTranslations("downloads"),
+          ...getSidebarTranslatedLabel("Downloads"),
           link: "/downloads/",
         },
       ],

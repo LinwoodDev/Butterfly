@@ -1,6 +1,5 @@
 ---
-title: "Pages"
-sidebar_position: 2
+title: Pages
 ---
 
 Pages are a way to organize your notes.

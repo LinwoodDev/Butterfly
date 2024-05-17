@@ -1,7 +1,5 @@
 ---
-title: "Stamp tool"
-sidebar_label: "Stamp"
-sidebar_position: 3
+title: Stamp tool
 ---
 
 The stamp tool allows you to add components to your canvas.

@@ -1,10 +1,8 @@
 ---
-title: "Full screen tool"
-sidebar_label: "Full screen"
-sidebar_position: 0
+title: Full screen tool
 ---
 
-:::note ⚡ Action tool
+:::note[⚡ Action tool]
 
 This is a special tool.
 You can't select it and it will run the action if you click on it.

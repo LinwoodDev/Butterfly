@@ -1,10 +1,8 @@
 ---
-title: "Redo tool"
-sidebar_label: "Redo"
-sidebar_position: 0
+title: Redo tool
 ---
 
-:::note ⚡ Action tool
+:::note[⚡ Action tool]
 
 This is a special tool.
 You can't select it and it will run the action if you click on it.

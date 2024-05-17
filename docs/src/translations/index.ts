@@ -78,3 +78,21 @@ for (const [lang, dictionary] of Object.entries(locales)) {
 export function getTranslations(key: string): Record<string, string> | undefined {
   return translations[key];
 }
+
+export function toSnakeCase(str: string): string {
+  return str
+      .replace(/\s+/g, ' ')  // Replace multiple spaces with a single space
+      .trim()                // Trim leading and trailing spaces
+      .toLowerCase()         // Convert to lowercase
+      .replace(/\s/g, '_');  // Replace spaces with underscores
+}
+
+export function getSidebarTranslatedLabel(key: string): {
+  label: string,
+  translations: Record<string, string> | undefined,
+} {
+  return {
+    label: key,
+    translations: getTranslations(toSnakeCase(key)),
+  };
+}

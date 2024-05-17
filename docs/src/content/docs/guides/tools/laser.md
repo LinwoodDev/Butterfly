@@ -1,7 +1,5 @@
 ---
-title: "Laser tool"
-sidebar_label: "Laser"
-sidebar_position: 3
+title: Laser tool
 ---
 
 

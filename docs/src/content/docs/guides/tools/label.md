@@ -1,7 +1,5 @@
 ---
-title: "Label tool"
-sidebar_label: "Label"
-sidebar_position: 6
+title: Label tool
 ---
 
 

@@ -1,5 +1,4 @@
 ---
-sidebar_label: "Arguments"
 title: Arguments
 ---
 

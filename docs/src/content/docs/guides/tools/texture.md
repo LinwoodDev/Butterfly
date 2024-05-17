@@ -1,7 +1,5 @@
 ---
-title: "Texture"
-sidebar_label: "Stamp"
-sidebar_position: 3
+title: Texture
 ---
 
 The texture tool allows you to add the background to a small area of the canvas.

@@ -1,6 +1,5 @@
 ---
-sidebar_label: "Area"
-title: "Area tool"
+title: Area tool
 ---
 
 The area tool allows you to create, edit and remove areas.

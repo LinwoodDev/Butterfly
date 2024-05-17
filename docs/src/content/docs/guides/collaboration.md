@@ -1,10 +1,8 @@
 ---
-sidebar_label: "Collaboration"
-sidebar_position: 4
 title: Collaboration
 ---
 
-:::warning 🧪 Experiment
+:::caution[🧪 Experiment]
 
 This feature is behind an experiment flag. Read more [here](/nightly#experiments).
 Everything in this section is subject to change.

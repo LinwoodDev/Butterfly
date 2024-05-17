@@ -1,6 +1,5 @@
 ---
-title: "Waypoints"
-sidebar_position: 2
+title: Waypoints
 ---
 
 With waypoints you can save important locations in your notes. You can use them to navigate through your notes.

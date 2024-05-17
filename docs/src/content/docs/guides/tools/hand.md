@@ -1,6 +1,5 @@
 ---
-title: "Hand tool"
-sidebar_label: "Hand"
+title: Hand tool
 ---
 
 
