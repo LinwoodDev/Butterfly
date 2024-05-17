@@ -202,15 +202,10 @@ class DavRemoteDocumentFileSystem extends DocumentRemoteSystem {
     // Cache check
     if (!forceSync && remote.hasDocumentCached(path)) {
       cacheContent(path, data);
-      return;
     }
 
-    // Create directory if not exits
-    var last = path.lastIndexOf('/');
-    if (last == -1) {
-      last = path.length;
-    }
-    final directoryPath = path.substring(0, last);
+    // Create directory if not exists
+    final directoryPath = p.dirname(path);
     if (!await hasAsset(directoryPath)) {
       await createDirectory(directoryPath);
     }
