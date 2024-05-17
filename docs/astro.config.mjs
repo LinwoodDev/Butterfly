@@ -3,12 +3,13 @@ import starlight from "@astrojs/starlight";
 import remarkHeadingID from "remark-heading-id";
 import react from "@astrojs/react";
 import { getSidebarTranslatedLabel } from "./src/translations";
+import remarkGemoji from "remark-gemoji";
 
 // https://astro.build/config
 export default defineConfig({
   outDir: "./build",
   markdown: {
-    remarkPlugins: [remarkHeadingID],
+    remarkPlugins: [remarkHeadingID, remarkGemoji],
   },
   integrations: [
     starlight({
@@ -39,134 +40,134 @@ export default defineConfig({
           items: [
             {
               ...getSidebarTranslatedLabel("Introduction"),
-              link: "/guides/",
+              link: "/docs/",
             },
             {
               ...getSidebarTranslatedLabel("Area"),
-              link: "/guides/area/",
+              link: "/docs/area/",
             },
             {
               ...getSidebarTranslatedLabel("Background"),
-              link: "/guides/background/",
+              link: "/docs/background/",
             },
             {
               ...getSidebarTranslatedLabel("Color picker"),
-              link: "/guides/color_picker/",
+              link: "/docs/color_picker/",
             },
             {
               ...getSidebarTranslatedLabel("Layers"),
-              link: "/guides/layers/",
+              link: "/docs/layers/",
             },
             {
               ...getSidebarTranslatedLabel("Migrating"),
-              link: "/guides/migrating/",
+              link: "/docs/migrating/",
             },
             {
               ...getSidebarTranslatedLabel("Pack"),
-              link: "/guides/pack/",
+              link: "/docs/pack/",
             },
             {
               ...getSidebarTranslatedLabel("Pages"),
-              link: "/guides/pages/",
+              link: "/docs/pages/",
             },
             {
               ...getSidebarTranslatedLabel("Shortcuts"),
-              link: "/guides/shortcuts/",
+              link: "/docs/shortcuts/",
             },
             {
               ...getSidebarTranslatedLabel("Storage"),
-              link: "/guides/storage/",
+              link: "/docs/storage/",
             },
             {
               ...getSidebarTranslatedLabel("Waypoints"),
-              link: "/guides/waypoints/",
+              link: "/docs/waypoints/",
             },
             {
               ...getSidebarTranslatedLabel("Add"),
-              link: "/guides/add/",
+              link: "/docs/add/",
             },
             {
               ...getSidebarTranslatedLabel("Collaboration"),
-              link: "/guides/collaboration/",
+              link: "/docs/collaboration/",
             },
             {
               ...getSidebarTranslatedLabel("Arguments"),
-              link: "/guides/arguments/",
+              link: "/docs/arguments/",
             },
             {
               ...getSidebarTranslatedLabel("Tools"),
               items: [
                 {
                   ...getSidebarTranslatedLabel("Overview"),
-                  link: "/guides/tools/",
+                  link: "/docs/tools/",
                 },
                 {
                   ...getSidebarTranslatedLabel("Pen"),
-                  link: "/guides/tools/pen/",
+                  link: "/docs/tools/pen/",
                 },
                 {
                   ...getSidebarTranslatedLabel("Select"),
-                  link: "/guides/tools/select/",
+                  link: "/docs/tools/select/",
                 },
                 {
                   ...getSidebarTranslatedLabel("Hand"),
-                  link: "/guides/tools/hand/",
+                  link: "/docs/tools/hand/",
                 },
                 {
                   ...getSidebarTranslatedLabel("Path eraser"),
-                  link: "/guides/tools/path_eraser/",
+                  link: "/docs/tools/path_eraser/",
                 },
                 {
                   ...getSidebarTranslatedLabel("Eraser"),
-                  link: "/guides/tools/eraser/",
+                  link: "/docs/tools/eraser/",
                 },
                 {
                   ...getSidebarTranslatedLabel("Undo"),
-                  link: "/guides/tools/undo/",
+                  link: "/docs/tools/undo/",
                 },
                 {
                   ...getSidebarTranslatedLabel("Redo"),
-                  link: "/guides/tools/redo/",
+                  link: "/docs/tools/redo/",
                 },
                 {
                   ...getSidebarTranslatedLabel("Shape"),
-                  link: "/guides/tools/shape/",
+                  link: "/docs/tools/shape/",
                 },
                 {
                   ...getSidebarTranslatedLabel("Spacer"),
-                  link: "/guides/tools/spacer/",
+                  link: "/docs/tools/spacer/",
                 },
                 {
                   ...getSidebarTranslatedLabel("Area"),
-                  link: "/guides/tools/area/",
+                  link: "/docs/tools/area/",
                 },
                 {
                   ...getSidebarTranslatedLabel("Full screen"),
-                  link: "/guides/tools/full_screen/",
+                  link: "/docs/tools/full_screen/",
                 },
                 {
                   ...getSidebarTranslatedLabel("Label"),
-                  link: "/guides/tools/label/",
+                  link: "/docs/tools/label/",
                 },
                 {
                   ...getSidebarTranslatedLabel("Laser"),
-                  link: "/guides/tools/laser/",
+                  link: "/docs/tools/laser/",
                 },
                 {
                   ...getSidebarTranslatedLabel("Texture"),
-                  link: "/guides/tools/texture/",
+                  link: "/docs/tools/texture/",
                 },
                 {
                   ...getSidebarTranslatedLabel("Stamp"),
-                  link: "/guides/tools/stamp/",
+                  link: "/docs/tools/stamp/",
                 },
                 {
                   ...getSidebarTranslatedLabel("Layer"),
-                  link: "/guides/tools/layer/",
+                  link: "/docs/tools/layer/",
                 },
                 {
                   ...getSidebarTranslatedLabel("Presentation"),
-                  link: "/guides/tools/presentation/",
+                  link: "/docs/tools/presentation/",
                 },
               ],
             },

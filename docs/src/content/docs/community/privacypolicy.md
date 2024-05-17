@@ -1,5 +1,6 @@
 ---
 title: "Privacy Policy"
+tableOfContents: false
 slug: /privacypolicy
 ---
 
