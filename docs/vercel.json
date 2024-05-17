@@ -1,9 +1,9 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
-  "rewrites": [
+  "redirects": [
     {
-      "source": "/docs/(0-9\\.)/:path*",
-      "destination": "/docs/:path*"
+      "source": "/docs/:version/:path*",
+      "destination": "/docs/v2/:path*"
     }
   ]
 }
