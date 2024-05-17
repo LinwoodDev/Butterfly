@@ -66,8 +66,12 @@ class RectSelectionForegroundManager {
     _corner = getCornerHit(_currentPosition!, scale);
   }
 
-  void resetTransform() {
+  void reset() {
+    resetTransform();
     _scaleMode = SelectionScaleMode.scale;
+  }
+
+  void resetTransform() {
     _corner = null;
     _startPosition = null;
     _currentPosition = null;

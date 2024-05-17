@@ -34,7 +34,7 @@ class SelectHandler extends Handler<SelectTool> {
     _submitTransform(bloc);
     _rectangleFreeSelection = null;
     _lassoFreeSelection = null;
-    _selectionManager.resetTransform();
+    _selectionManager.reset();
     bloc.refresh();
   }
 
