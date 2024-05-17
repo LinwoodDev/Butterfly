@@ -180,10 +180,10 @@ packages:
     dependency: transitive
     description:
       name: camera_android_camerax
-      sha256: a2aac9505259a86d5eb6b0a14116b9a64f34a4735009f47731e59834218a5a29
+      sha256: "59967e6d80df9d682a33b86f228cc524e6b52d6184b84f6ac62151dd98bd1ea0"
       url: "https://pub.dev"
     source: hosted
-    version: "0.6.5+1"
+    version: "0.6.5+2"
   camera_avfoundation:
     dependency: transitive
     description:
@@ -413,10 +413,10 @@ packages:
     dependency: transitive
     description:
       name: file_selector_ios
-      sha256: "7160121e434910ec23717bde3a0c514ca039e8c97b791ff35d1786da38abcb4a"
+      sha256: "2bacc6d8725b88f4124c2a780fbf939e96eb1f804362867be4f617dcccec959c"
       url: "https://pub.dev"
     source: hosted
-    version: "0.5.2"
+    version: "0.5.2+1"
   file_selector_linux:
     dependency: transitive
     description:

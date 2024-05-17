@@ -26,7 +26,7 @@ class ImageRenderer extends Renderer<ImageElement> {
       canvas.drawRect(rect, paint);
       return;
     }
-    var paint = Paint();
+    var paint = Paint()..filterQuality = FilterQuality.high;
 
     canvas.drawImageRect(
       image!,
