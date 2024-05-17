@@ -20,6 +20,7 @@ export default defineConfig({
       logo: {
         src: "./src/assets/img/docs.svg",
       },
+      favicon: './favicon.ico',
       social: {
         mastodon: "https://floss.social/@linwood",
         matrix: "https://linwood.dev/matrix",
@@ -28,6 +29,8 @@ export default defineConfig({
       },
       components: {
         SocialIcons: "./src/components/CustomSocialIcons.astro",
+        Head: "./src/components/Head.astro",
+        ContentPanel: "./src/components/ContentPanel.astro",
       },
       sidebar: [
         {
