@@ -18,9 +18,9 @@ export default defineConfig({
         "./src/styles/custom.css",
       ],
       logo: {
-        src: "./src/assets/img/docs.svg",
+        src: "./public/img/docs.svg",
       },
-      favicon: './favicon.ico',
+      favicon: "./favicon.ico",
       social: {
         mastodon: "https://floss.social/@linwood",
         matrix: "https://linwood.dev/matrix",
@@ -175,6 +175,51 @@ export default defineConfig({
         {
           ...getSidebarTranslatedLabel("Downloads"),
           link: "/downloads/",
+        },
+        {
+          ...getSidebarTranslatedLabel("Community"),
+          items: [
+            {
+              ...getSidebarTranslatedLabel("Home"),
+              link: "/community/",
+            },
+            {
+              ...getSidebarTranslatedLabel("Branding"),
+              link: "/community/branding/",
+            },
+            {
+              ...getSidebarTranslatedLabel("Changelog"),
+              link: "/community/changelog/",
+            },
+            {
+              ...getSidebarTranslatedLabel("Contributing"),
+              link: "/community/contributing/",
+            },
+            {
+              ...getSidebarTranslatedLabel("Code of conduct"),
+              link: "/community/code-of-conduct/",
+            },
+            {
+              ...getSidebarTranslatedLabel("Embedding"),
+              link: "/community/embed/",
+            },
+            {
+              ...getSidebarTranslatedLabel("FAQ"),
+              link: "/faq/",
+            },
+            {
+              ...getSidebarTranslatedLabel("Versions"),
+              link: "/community/versions/",
+            },
+            {
+              ...getSidebarTranslatedLabel("Nightly builds"),
+              link: "/nightly/",
+            },
+            {
+              ...getSidebarTranslatedLabel("Privacy policy"),
+              link: "/privacypolicy/",
+            },
+          ],
         },
       ],
       locales: {
