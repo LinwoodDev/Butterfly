@@ -30,6 +30,7 @@ export default defineConfig({
       components: {
         SocialIcons: "./src/components/CustomSocialIcons.astro",
         Head: "./src/components/Head.astro",
+        Footer: "./src/components/Footer.astro",
         ContentPanel: "./src/components/ContentPanel.astro",
       },
       sidebar: [
