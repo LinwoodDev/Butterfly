@@ -38,7 +38,7 @@ Som standard konfigureres pennen til å fungere som følgende:
 
 - En penn: konfigurert som penn.
 - `Først` (Primærknapp, hvis støttet): Bytt til håndverktøy mens du trykker.
-- `Sekund` (sekundærknapp, hvis støttet): Endre til andre verktøy (se [configure](#configure) seksjonen nedenfor) mens du trykkes.
+- `Second` (Secondary button, if supported): Change to second tool (see [configure](#configure) section below) while pressed.
 
 ## Konfigurer {#configure}
 
