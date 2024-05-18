@@ -1,0 +1,28 @@
+---
+title: Web
+---
+
+![Stable release version](https://img.shields.io/badge/dynamic/yaml?color=c4840d&label=Stable&query=%24.version&url=https%3A%2F%2Fraw.githubusercontent.com%2FLinwoodDev%2Fbutterfly%2Fstable%2Fapp%2Fpubspec.yaml&style=for-the-badge)
+![Nightly release version](https://img.shields.io/badge/dynamic/yaml?color=f7d28c&label=Nightly&query=%24.version&url=https%3A%2F%2Fraw.githubusercontent.com%2FLinwoodDev%2Fbutterfly%2Fnightly%2Fapp%2Fpubspec.yaml&style=for-the-badge)
+
+import { CardGrid } from '@astrojs/starlight/components';
+import DownloadButton from '../../../components/DownloadButton.astro';
+
+:::note
+
+这是一个渐进的网络应用程序。 您可以在浏览器上安装并离线使用。
+所有数据都保存在您的浏览器中。
+
+:::
+
+## 链接
+
+<CardGrid>
+  <DownloadButton after="/downloads/post-windows" href="https://web.butterfly.linwood.dev" title="Main" />
+  <DownloadButton href="https://preview.butterfly.linwood.dev" title="Preview" />
+</CardGrid>
+
+## 版本
+
+Butterfight的主要版本和预览（开发）版本与稳定和夜间版本不同。
+他们与释放没有直接关联。 一旦新的提交被推送到仓库，它们将立即更新。
