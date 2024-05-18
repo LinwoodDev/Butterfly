@@ -1,5 +1,5 @@
 {
-  "guides": "Guides",
+  "guides": "أدلة",
   "introduction": "مقدمة",
   "areas": "المناطق",
   "background": "الخلفية",
@@ -14,7 +14,7 @@
   "collaboration": "التعاون",
   "arguments": "حجج",
   "tools": "أدوات",
-  "overview": "Overview",
+  "overview": "نظرة عامة",
   "pen": "القلم",
   "select": "حدد",
   "hand": "اليد",
@@ -42,6 +42,6 @@
   "embedding": "Embedding",
   "faq": "أسئلة متكررة",
   "versions": "الإصدارات",
-  "nightly": "Nightly",
+  "nightly": "ليلي",
   "privacy_policy": "سياسة الخصوصية"
 }
