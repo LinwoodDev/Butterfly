@@ -1,5 +1,5 @@
 {
-  "guides": "Guides",
+  "guides": "Przewodniki",
   "introduction": "Wprowadzanie",
   "areas": "Obszary",
   "background": "Kontekst",
@@ -14,7 +14,7 @@
   "collaboration": "Współpraca",
   "arguments": "Argumenty",
   "tools": "Narzędzia",
-  "overview": "Overview",
+  "overview": "Przegląd",
   "pen": "Długopis",
   "select": "Wybierz",
   "hand": "Dłoń",
@@ -37,11 +37,11 @@
   "home": "Strona główna",
   "branding": "Marka",
   "changelog": "Lista zmian",
-  "contributing": "Contributing",
+  "contributing": "Przyczynianie się",
   "code_of_conduct": "Kodeks postępowania",
   "embedding": "Embedding",
   "faq": "Często zadawane pytania",
   "versions": "Wersje",
-  "nightly": "Nightly",
+  "nightly": "Nocny",
   "privacy_policy": "Polityka prywatności"
 }
