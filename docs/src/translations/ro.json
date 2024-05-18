@@ -1,5 +1,5 @@
 {
-  "guides": "Guides",
+  "guides": "Ghiduri",
   "introduction": "Introducere",
   "areas": "Domenii",
   "background": "Context",
@@ -14,7 +14,7 @@
   "collaboration": "Colaborare",
   "arguments": "Argumente",
   "tools": "Unelte",
-  "overview": "Overview",
+  "overview": "Prezentare generală",
   "pen": "Stiloul",
   "select": "Selectare",
   "hand": "Mână",
@@ -42,6 +42,6 @@
   "embedding": "Embedding",
   "faq": "Întrebări",
   "versions": "Versiuni",
-  "nightly": "Nightly",
+  "nightly": "Noptez",
   "privacy_policy": "Politica de confidenţialitate"
 }
