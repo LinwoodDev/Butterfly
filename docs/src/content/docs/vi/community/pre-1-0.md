@@ -3,7 +3,7 @@ title: Pre-1.0 versions
 ---
 
 These versions are not supported anymore.
-New versions are available at [versions](versions.md).
+New versions are available at [versions](/community/versions).
 
 | Phiên bản                                                     | Supported                           |                                                                                                                                               |
 | ------------------------------------------------------------- | ----------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
