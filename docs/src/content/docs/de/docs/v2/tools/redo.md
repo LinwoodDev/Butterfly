@@ -10,4 +10,4 @@ Sie können es nicht auswählen und es wird die Aktion ausführen, wenn Sie dara
 :::
 
 When clicking on this tool you can redo your last action.
-See the [undo tool](undo) for undoing your last action.
+See the [undo tool](../undo) for undoing your last action.
