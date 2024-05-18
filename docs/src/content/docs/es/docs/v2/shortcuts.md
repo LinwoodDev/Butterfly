@@ -38,7 +38,7 @@ Por defecto, el lápiz está configurado para funcionar de la siguiente manera:
 
 - `Pen`: configurado como pluma.
 - `Primero` (botón primario, si es soportado): Cambia a la herramienta de mano mientras se presiona.
-- `Segundo` (botón secundario, si es soportado): Cambia a la segunda herramienta (ver la sección [configure](#configurado) abajo) mientras se pulsa.
+- `Second` (Secondary button, if supported): Change to second tool (see [configure](#configure) section below) while pressed.
 
 ## Configurar {#configure}
 
