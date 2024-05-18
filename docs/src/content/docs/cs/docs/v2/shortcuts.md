@@ -38,7 +38,7 @@ Ve výchozím nastavení je pero nastaveno tak, aby fungovalo:
 
 - `Pen`: nakonfigurován jako pen.
 - `First` (Primární tlačítko, pokud je podporováno): Přepnout na ruční nástroj při stisknutí.
-- `Second` (druhé tlačítko, pokud je podporováno): Po stisknutí přepněte na druhý nástroj (viz [configure](#configure).
+- `Second` (Secondary button, if supported): Change to second tool (see [configure](#configure) section below) while pressed.
 
 ## Konfigurovat {#configure}
 
