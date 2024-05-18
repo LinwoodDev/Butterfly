@@ -3,7 +3,7 @@ title: Wersje przed 1.0
 ---
 
 Te wersje nie są już obsługiwane.
-New versions are available at [versions](versions.md).
+New versions are available at [versions](/community/versions).
 
 | Wersja                                                       | Wspierane                           |                                                                                                                                               |
 | ------------------------------------------------------------ | ----------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
