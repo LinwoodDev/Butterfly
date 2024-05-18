@@ -38,7 +38,7 @@ Som standard är pennan konfigurerad att fungera som följande:
 
 - `Pen`: konfigurerad som penna.
 - `First` (Primär knapp, om det stöds): Ändra till handverktyg medan du trycker.
-- `Second` (Sekundär knapp, om det stöds): Ändra till andra verktyget (se avsnittet [configure](#configure) nedan) medan du tryckte på.
+- `Second` (Secondary button, if supported): Change to second tool (see [configure](#configure) section below) while pressed.
 
 ## Konfigurera {#configure}
 
