@@ -13,7 +13,7 @@ Add the following code to your website:
 
 | Možnost  | Typ                                                                                                | Výchozí | L 343, 22.12.2009, s. 1).                                                                                   |
 | -------- | -------------------------------------------------------------------------------------------------- | ------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| save     | Boolean (true, false)                                                           | true    | Enable save. If disabled, only an exit button will be shown                                                                                                 |
+| uložit   | Boolean (true, false)                                                           | true    | Enable save. If disabled, only an exit button will be shown                                                                                                 |
 | editable | Boolean (true, false)                                                           | true    | Enable editing. If disabled, the document will be read-only                                                                                                 |
 | language | Řetězec (..., systém, uživatel) | system  | Language of the document. If system, the language will be detected from the browser. If user, the language will set to the users preference |
 
@@ -30,7 +30,7 @@ embedElement.addEventListener('message', (data) => {
 });
 ```
 
-### save
+### uložit
 
 > The `save` event is emitted when the user clicks the save button.
 
@@ -38,7 +38,7 @@ Parametry:
 
 - `data` (Type `List<int>`): The data of the document.
 
-### exit
+### ukončit
 
 > The `exit` event is emitted when the user clicks the exit button.
 
