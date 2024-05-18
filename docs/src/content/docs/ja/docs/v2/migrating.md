@@ -6,7 +6,7 @@ title: 移行中
 
 ## 7 (Breaking change) {#7}
 
-**Version: 2.0**
+**バージョン: 2.0**
 
 ### 破壊的な変更
 
