@@ -3,7 +3,7 @@ title: 1.0 öncesi sürümler
 ---
 
 Bu sürümler artık desteklenmiyor.
-New versions are available at [versions](versions.md).
+New versions are available at [versions](/community/versions).
 
 | Sürüm                                                         | Destek                              |                                                                                                                                               |
 | ------------------------------------------------------------- | ----------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
