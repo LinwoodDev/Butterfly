@@ -38,7 +38,7 @@ Por padrão, a caneta está configurada para funcionar como o seguinte:
 
 - `Pen`: configurado como caneta.
 - `Primeiro` (botão principal, se suportado): Mude a ferramenta enquanto pressionado.
-- `Segundo` (botão secundário, se suportado): Altere para a segunda ferramenta (veja [configure](#configure) seção abaixo) enquanto pressionado.
+- `Second` (Secondary button, if supported): Change to second tool (see [configure](#configure) section below) while pressed.
 
 ## Configurar {#configure}
 
