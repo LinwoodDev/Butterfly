@@ -13,7 +13,7 @@ title: Embed
 
 | Option   | タイプ                                                                                    | デフォルト  | 説明                                                                                           |
 | -------- | -------------------------------------------------------------------------------------- | ------ | -------------------------------------------------------------------------------------------- |
-| save     | Boolean (true, false)                                               | true   | Enable save. If disabled, only an exit button will be shown                  |
+| 保存       | Boolean (true, false)                                               | true   | Enable save. If disabled, only an exit button will be shown                  |
 | editable | Boolean (true, false)                                               | true   | Enable editing. 無効にすると、ドキュメントは読み取り専用になります                                    |
 | language | 文字列 (...、システム、ユーザー) | system | Language of the document. システムの場合、言語はブラウザから検出されます。 ユーザーの場合、言語はユーザーの好みに設定されます |
 
@@ -30,7 +30,7 @@ embedElement.addEventListener('message', (data) => {
 });
 ```
 
-### save
+### 保存
 
 > The `save` event is emitted when the user clicks the save button.
 
@@ -38,7 +38,7 @@ embedElement.addEventListener('message', (data) => {
 
 - `data` (Type `List<int>`): The data of the document.
 
-### exit
+### 終了
 
 > The `exit` event is emitted when the user clicks the exit button.
 
