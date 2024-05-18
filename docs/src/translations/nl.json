@@ -1,5 +1,5 @@
 {
-  "guides": "Guides",
+  "guides": "Handleidingen",
   "introduction": "Introductie",
   "areas": "Gebieden",
   "background": "Achtergrond",
@@ -14,7 +14,7 @@
   "collaboration": "Samenwerken",
   "arguments": "Argumenten",
   "tools": "Hulpmiddelen",
-  "overview": "Overview",
+  "overview": "Overzicht.",
   "pen": "pennen",
   "select": "Selecteren",
   "hand": "Hand",
@@ -42,6 +42,6 @@
   "embedding": "Embedding",
   "faq": "FAQ",
   "versions": "versies",
-  "nightly": "Nightly",
+  "nightly": "Nachtelijk",
   "privacy_policy": "Privacy Beleid"
 }
