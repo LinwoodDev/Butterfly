@@ -15,7 +15,7 @@
 | 1.1.2     | :x:                | [Docs](https://butterfly.linwood.dev/docs/1.1/intro) [Release](https://github.com/LinwoodDev/butterfly/releases/tag/v1.1.2)      |
 | 1.0.0     | :x:                | [Docs](https://butterfly.linwood.dev/docs/1.0/intro) [Release](https://github.com/LinwoodDev/butterfly/releases/tag/v1.0.0)      |
 
-Older versions can be found [here](https://butterfly.linwood.dev/pre-1-0).
+Older versions can be found [here](https://butterfly.linwood.dev/community/pre-1-0).
 
 ## Reporting a Vulnerability
 
