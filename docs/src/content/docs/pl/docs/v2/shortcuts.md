@@ -38,7 +38,7 @@ Domyślnie wstrzykiwacz jest skonfigurowany do następujących funkcji:
 
 - `Pióro`: skonfigurowany jako długopis.
 - `First` (główny przycisk, jeśli jest obsługiwany): Zmień na narzędzie ręczne po naciśnięciu.
-- `Second` (Drugi przycisk, jeśli jest obsługiwany): Zmień na drugie narzędzie (patrz sekcja [configure](#configure) poniżej) po naciśnięciu.
+- `Second` (Secondary button, if supported): Change to second tool (see [configure](#configure) section below) while pressed.
 
 ## Konfiguruj {#configure}
 
