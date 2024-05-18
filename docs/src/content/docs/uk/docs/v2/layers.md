@@ -2,7 +2,7 @@
 title: Шари
 ---
 
-Шари - це можливість групування елементів разом. Натисніть на елемент, щоб побачити та змінити шар. Use the [layer tool](tools/layer.md) to change the layers of multiple elements.
+Шари - це можливість групування елементів разом. Натисніть на елемент, щоб побачити та змінити шар. Use the [layer tool](../tools/layer) to change the layers of multiple elements.
 
 ## Діалог шарів
 
