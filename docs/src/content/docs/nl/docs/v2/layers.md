@@ -2,7 +2,7 @@
 title: Lagen
 ---
 
-Lagen zijn een optie om elementen samen te groeperen. Klik op het element om de laag te bekijken en te wijzigen. Use the [layer tool](tools/layer.md) to change the layers of multiple elements.
+Lagen zijn een optie om elementen samen te groeperen. Klik op het element om de laag te bekijken en te wijzigen. Use the [layer tool](../tools/layer) to change the layers of multiple elements.
 
 ## De lagen dialoog
 
