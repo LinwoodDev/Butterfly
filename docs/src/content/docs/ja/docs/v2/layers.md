@@ -2,7 +2,7 @@
 title: レイヤー
 ---
 
-レイヤーは、要素をまとめてグループ化するオプションです。 要素をクリックしてレイヤーを表示および変更します。 Use the [layer tool](tools/layer.md) to change the layers of multiple elements.
+レイヤーは、要素をまとめてグループ化するオプションです。 要素をクリックしてレイヤーを表示および変更します。 Use the [layer tool](../tools/layer) to change the layers of multiple elements.
 
 ## レイヤーダイアログ
 
