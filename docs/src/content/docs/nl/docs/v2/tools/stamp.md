@@ -3,7 +3,7 @@ title: Stamp tool
 ---
 
 The stamp tool allows you to add components to your canvas.
-Gebruik een bestaand pakket, maak een eigen pakket of importeer een pakket om het te gebruiken. Read more [here](../pack).
+Gebruik een bestaand pakket, maak een eigen pakket of importeer een pakket om het te gebruiken. Read more [here](../../pack).
 
 ## Configuratie
 
