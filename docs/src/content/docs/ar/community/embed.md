@@ -13,7 +13,7 @@ title: Embed
 
 | خيار     | نوع                                                                                              | الافتراضي | الوصف                                                                                                                                                                    |
 | -------- | ------------------------------------------------------------------------------------------------ | --------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| save     | Boolean (true, false)                                                         | true      | تمكين الحفظ. في حالة التعطيل، سيتم عرض زر الخروج فقط                                                                                                     |
+| حفظ      | Boolean (true, false)                                                         | true      | تمكين الحفظ. في حالة التعطيل، سيتم عرض زر الخروج فقط                                                                                                     |
 | editable | Boolean (true, false)                                                         | true      | تمكين التحرير. في حالة التعطيل، سيكون المستند للقراءة فقط                                                                                                |
 | language | سلسلة (...، النظام، المستخدم) | system    | () لغة الوثيقة. إذا كان النظام، سيتم اكتشاف اللغة من المتصفح. إذا كان المستخدم، سيتم تعيين اللغة إلى تفضيل المستخدمين |
 
@@ -30,7 +30,7 @@ embedElement.addEventListener('message', (data) => {
 });
 ```
 
-### save
+### حفظ
 
 > The `save` event is emitted when the user clicks the save button.
 
@@ -38,7 +38,7 @@ embedElement.addEventListener('message', (data) => {
 
 - `data` (Type `List<int>`): The data of the document.
 
-### exit
+### الخروج
 
 > The `exit` event is emitted when the user clicks the exit button.
 
