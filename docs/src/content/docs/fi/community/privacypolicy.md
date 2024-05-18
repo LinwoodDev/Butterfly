@@ -16,7 +16,7 @@ Service. I will not use or share your information with anyone except as describe
 
 Tässä tietosuojakäytännössä käytettävillä termeillä on samat merkitykset kuin käyttöehdoillamme, johon pääsee Butterfyssa, ellei tässä tietosuojakäytännössä toisin määrätä.
 
-**Information Collection and Use**
+**Tietojen kerääminen ja käyttö**
 
 For a better experience, while using our Service, I may require you to provide us with certain personally identifiable information. The information that I request will be retained on your device and
 is not collected by me in any way.
@@ -35,7 +35,7 @@ internal memory.
 This Service does not use these “cookies” explicitly. However, the app may use third party code and libraries that use “cookies” to collect information and improve their services. You have the option
 to either accept or refuse these cookies and know when a cookie is being sent to your device. If you choose to refuse our cookies, you may not be able to use some portions of this Service.
 
-**Service Providers**
+**Palveluntarjoajat**
 
 Voin palkata kolmannen osapuolen yrityksiä ja yksityishenkilöitä seuraavista syistä:
 
@@ -52,12 +52,12 @@ not to disclose or use the information for any other purpose.
 I value your trust in providing us your Personal Information, thus we are striving to use commercially acceptable means of protecting it. But remember that no method of transmission over the internet,
 or method of electronic storage is 100% secure and reliable, and I cannot guarantee its absolute security.
 
-**Links to Other Sites**
+**Linkit muihin sivustoihin**
 
 This Service may contain links to other sites. If you click on a third-party link, you will be directed to that site. Note that these external sites are not operated by me. Therefore, I strongly
 advise you to review the Privacy Policy of these websites. I have no control over and assume no responsibility for the content, privacy policies, or practices of any third-party sites or services.
 
-**Changes to This Privacy Policy**
+**Muutokset tähän tietosuojakäytäntöön**
 
 I may update our Privacy Policy from time to time. Thus, you are advised to review this page periodically for any changes. I will notify you of any changes by posting the new Privacy Policy on this
 page.
