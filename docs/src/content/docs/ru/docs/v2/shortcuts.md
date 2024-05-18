@@ -38,7 +38,7 @@ title: Ярлыки
 
 - `Pen`: сконфигурирован как pen.
 - `First` (основная кнопка, если поддерживается): Измените на инструмент вручную.
-- `Second` (кнопка секунды, если поддерживается): Измените на второй инструмент (см. раздел (см. [configure](#configure) ниже) при нажатии.
+- `Second` (Secondary button, if supported): Change to second tool (see [configure](#configure) section below) while pressed.
 
 ## Настроить {#configure}
 
