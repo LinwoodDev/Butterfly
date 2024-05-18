@@ -1,0 +1,43 @@
+---
+import type { Props } from "@astrojs/starlight/props";
+import StarlightFooter from "@astrojs/starlight/components/Footer.astro";
+import { Image } from "astro:assets";
+import poweredByVercel from "../assets/img/powered-by-vercel.svg";
+---
+
+<StarlightFooter {...Astro.props}>
+  <slot />
+</StarlightFooter>
+<footer class="real-footer">
+<a href="https://vercel.com/?utm_source=Linwood&utm_campaign=oss">
+  <Image src={poweredByVercel} alt="Powered by Vercel" />
+</a>
+<div class="divider"></div>
+<a href="https://linwood.dev">
+  <Image src="https://www.linwood.dev/logos/logo.png" width="32" height="32" alt="Linwood" />
+</a>
+</footer>
+
+<style lang="scss">
+  .real-footer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: fit-content;
+    border-radius: 0.25rem;
+    gap: 1rem;
+    margin-top: 5rem;
+    background-color: var(--sl-color-gray-6);
+    padding: 0.5rem 1rem;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .divider {
+    align-self: stretch;
+    width: 2px;
+    background-color: var(--sl-color-gray-4);
+  }
+  a {
+    line-height: 0;
+  }
+</style>

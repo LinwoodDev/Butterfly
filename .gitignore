@@ -5,3 +5,6 @@
 \#*\#
 .\#*f
 
+# Temporary files
+docs_old/
+

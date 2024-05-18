@@ -1,0 +1,8 @@
+---
+import type { Props } from "@astrojs/starlight/props";
+import StarlightContentPanel from "@astrojs/starlight/components/ContentPanel.astro";
+---
+
+<div transition:name="slide">
+  <StarlightContentPanel {...Astro.props}><slot /></StarlightContentPanel>
+</div>
