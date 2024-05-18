@@ -2,7 +2,7 @@
 title: الطبقات
 ---
 
-الطبقات هي خيار لتجميع العناصر معا. انقر على العنصر لرؤية وتغيير الطبقة. Use the [layer tool](tools/layer.md) to change the layers of multiple elements.
+الطبقات هي خيار لتجميع العناصر معا. انقر على العنصر لرؤية وتغيير الطبقة. Use the [layer tool](../tools/layer) to change the layers of multiple elements.
 
 ## مربع حوار الطبقات
 
