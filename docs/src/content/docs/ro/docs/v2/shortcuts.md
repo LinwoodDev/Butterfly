@@ -38,7 +38,7 @@ Unele dintre ele sunt scrise sub butoane.
 
 - `Stilu`: configurat ca stilou injector (pen).
 - `First` (buton principal, dacă este suportat): Schimbă cu unealta de mână în timp ce este apăsată.
-- `Secundă` (buton secundar, dacă este suportat): Schimbă la al doilea instrument (a se vedea secţiunea [configure](#configure) de mai jos) în timp ce este apăsată.
+- `Second` (Secondary button, if supported): Change to second tool (see [configure](#configure) section below) while pressed.
 
 ## Configurare {#configure}
 
