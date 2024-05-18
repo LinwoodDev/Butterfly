@@ -15,7 +15,7 @@ Wenn Sie sich für die Nutzung meines Dienstes entscheiden, stimmen Sie der Erhe
 
 Die in dieser Datenschutzerklärung verwendeten Begriffe haben die gleiche Bedeutung wie in unseren Nutzungsbedingungen, , die bei Butterfly zugänglich ist, sofern in dieser Datenschutzrichtlinie nicht anders definiert ist.
 
-**Information Collection and Use**
+**Informationssammlung und -nutzung**
 
 Für eine bessere Erfahrung bei der Nutzung unseres Services kann ich von Ihnen verlangen, dass Sie uns bestimmte personenbezogene Daten zur Verfügung stellen. Die von mir angeforderten Informationen werden auf Ihrem Gerät gespeichert und wird von mir in keiner Weise gesammelt.
 
@@ -31,7 +31,7 @@ Cookies sind Dateien mit einer geringen Datenmenge, die häufig als anonyme eind
 
 Dieser Service verwendet diese „Cookies“ nicht explizit. Die App kann jedoch den Code und die Bibliotheken von Drittanbietern verwenden, die „Cookies“ verwenden, um Informationen zu sammeln und ihre Dienste zu verbessern. Sie haben die Option , diese Cookies zu akzeptieren oder abzulehnen und zu wissen, wann ein Cookie an Ihr Gerät gesendet wird. Wenn Sie sich entscheiden, unsere Cookies abzulehnen, können Sie einige Bereiche dieses Services nicht nutzen.
 
-**Service Providers**
+**Diensteanbieter**
 
 Ich kann aus folgenden Gründen Drittunternehmen und Einzelpersonen beschäftigen:
 
@@ -46,11 +46,11 @@ Ich möchte die Nutzer dieses Dienstes darüber informieren, dass diese Dritten 
 
 Ich schätze Ihr Vertrauen, uns Ihre persönlichen Daten zur Verfügung zu stellen, daher bemühen wir uns, kommerziell akzeptable Schutzmittel einzusetzen. Aber denken Sie daran, dass keine Übertragungsmethode über das Internet oder Methode der elektronischen Speicherung ist 100% sicher und zuverlässig, und ich kann seine absolute Sicherheit nicht garantieren.
 
-**Links to Other Sites**
+**Links zu anderen Seiten**
 
 Dieser Service kann Links zu anderen Websites enthalten. Wenn Sie auf einen Link von Drittanbietern klicken, werden Sie zu dieser Seite weitergeleitet. Beachten Sie, dass diese externen Seiten nicht von mir betrieben werden. Daher empfehle ich Ihnen, die Datenschutzerklärung dieser Websites zu lesen. Ich habe keine Kontrolle über den Inhalt, die Datenschutzrichtlinien oder die Praktiken von Websites oder Diensten von Drittanbietern.
 
-**Changes to This Privacy Policy**
+**Änderungen an dieser Datenschutzerklärung**
 
 Ich kann unsere Datenschutzerklärung von Zeit zu Zeit aktualisieren. Daher wird empfohlen, diese Seite regelmäßig auf alle Änderungen zu überprüfen. Ich werde Sie über alle Änderungen informieren, indem ich die neue Datenschutzerklärung auf dieser -Seite veröffentliche.
 
