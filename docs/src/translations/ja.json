@@ -1,5 +1,5 @@
 {
-  "guides": "Guides",
+  "guides": "補助線",
   "introduction": "はじめに",
   "areas": "エリア",
   "background": "背景",
@@ -14,7 +14,7 @@
   "collaboration": "コラボレーション",
   "arguments": "引数",
   "tools": "ツール",
-  "overview": "Overview",
+  "overview": "概要",
   "pen": "ペン",
   "select": "選択",
   "hand": "手",
@@ -37,11 +37,11 @@
   "home": "ホーム",
   "branding": "Branding",
   "changelog": "更新履歴",
-  "contributing": "Contributing",
-  "code_of_conduct": "Code of conduct",
+  "contributing": "コントリビューション",
+  "code_of_conduct": "行動基準",
   "embedding": "Embedding",
   "faq": "FAQ",
   "versions": "バージョン",
-  "nightly": "Nightly",
+  "nightly": "ナイトリー",
   "privacy_policy": "プライバシーポリシー"
 }
