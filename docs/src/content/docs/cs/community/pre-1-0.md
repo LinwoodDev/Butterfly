@@ -3,7 +3,7 @@ title: Pre1.0 verze
 ---
 
 Tyto verze již nejsou podporovány.
-New versions are available at [versions](versions.md).
+New versions are available at [versions](/community/versions).
 
 | Verze                                                        | Podporováno                         |                                                                                                                                               |
 | ------------------------------------------------------------ | ----------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
