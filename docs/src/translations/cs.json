@@ -1,5 +1,5 @@
 {
-  "guides": "Guides",
+  "guides": "Návody",
   "introduction": "Úvod",
   "areas": "Oblasti",
   "background": "Pozadí",
@@ -14,7 +14,7 @@
   "collaboration": "Spolupráce",
   "arguments": "Argumenty",
   "tools": "Nástroje a nářadí",
-  "overview": "Overview",
+  "overview": "Přehled",
   "pen": "Pec",
   "select": "Vybrat",
   "hand": "Ruka",
@@ -42,6 +42,6 @@
   "embedding": "Embedding",
   "faq": "Nejčastější dotazy",
   "versions": "Verze",
-  "nightly": "Nightly",
+  "nightly": "Noční",
   "privacy_policy": "Zásady ochrany soukromí"
 }
