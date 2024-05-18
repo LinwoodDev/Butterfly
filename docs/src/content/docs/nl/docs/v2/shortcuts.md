@@ -38,7 +38,7 @@ Standaard is de pen geconfigureerd om als volgt te functioneren:
 
 - `Pen`: geconfigureerd als pen.
 - `Eer` (Primaire knop, indien ondersteund): Verander naar handgereedschap terwijl je wordt ingedrukt.
-- `Tweede` (Seconterende knop, indien ondersteund): verander naar tweede tool (zie [configure](#geconfigureerd) sectie hieronder, wanneer ingedrukt.
+- `Second` (Secondary button, if supported): Change to second tool (see [configure](#configure) section below) while pressed.
 
 ## {#configure} configureren
 
