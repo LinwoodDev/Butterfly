@@ -15,7 +15,7 @@ Se você optar por usar meu Serviço, você concorda com a coleta e utilização
 
 Os termos usados nesta Política de Privacidade têm os mesmos significados em nossos Termos e Condições, que é acessível em Borboleta a menos que esteja definido de outra forma nesta Política de Privacidade.
 
-**Information Collection and Use**
+**Coleta e Uso de Informações**
 
 Para uma melhor experiência, ao usar nosso Serviço, posso exigir que você nos forneça certas informações de identificação pessoal. As informações que eu solicitei serão mantidas no seu dispositivo e não são coletadas por mim de forma alguma.
 
@@ -31,7 +31,7 @@ Cookies são arquivos com uma pequena quantidade de dados que são comumente usa
 
 Este Serviço não usa esses "cookies" explicitamente. No entanto, o app pode usar códigos de terceiros e bibliotecas que usam "cookies" para coletar informações e melhorar seus serviços. Você tem a opção de aceitar ou recusar esses cookies e saber quando um cookie está sendo enviado para seu dispositivo. Se você optar por recusar nossos cookies, pode não ser capaz de usar algumas partes deste Serviço.
 
-**Service Providers**
+**Prestadores de serviços**
 
 Eu posso empregar empresas e indivíduos de terceiros pelas seguintes razões:
 
@@ -46,11 +46,11 @@ Eu quero informar aos usuários deste Serviço que estes terceiros têm acesso �
 
 Valorizo a sua confiança ao fornecer-nos suas Informações Pessoais, assim nos esforçamos por utilizar meios comercialmente aceitáveis para as proteger. Mas lembre-se de que nenhum método de transmissão pela internet, ou método de armazenamento eletrônico é 100% seguro e confiável, e não posso garantir sua absoluta segurança.
 
-**Links to Other Sites**
+**Links para Outros Sites**
 
 Este Serviço pode conter links para outros sites. Se você clicar em um link de terceiros, você será direcionado para esse site. Note-se que estes sítios externos não são operados por mim. Therefore, I strongly advise you to review the Privacy Policy of these websites. Eu não tenho controle e não assumo nenhuma responsabilidade pelo conteúdo, políticas de privacidade ou práticas de sites ou serviços de terceiros.
 
-**Changes to This Privacy Policy**
+**Alterações nesta Política de Privacidade**
 
 Eu posso atualizar nossa Política de Privacidade de vez em quando. Assim, recomendamos que você revise esta página periodicamente para quaisquer alterações. Eu irei notificá-lo de qualquer alteração publicando a nova Política de Privacidade nesta página.
 
