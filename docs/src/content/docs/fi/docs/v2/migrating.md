@@ -6,7 +6,7 @@ Tämä opas näyttää sinulle miten siirtyä uusimpaan versioon.
 
 ## 7 (Breaking change) {#7}
 
-**Version: 2.0**
+**Versio: 2.0**
 
 ### Muutosten murtaminen
 
