@@ -1,5 +1,5 @@
 {
-  "guides": "Guides",
+  "guides": "Руководства",
   "introduction": "Введение",
   "areas": "Области",
   "background": "Фон",
@@ -14,7 +14,7 @@
   "collaboration": "Сотрудничество",
   "arguments": "Аргументы",
   "tools": "Инструменты",
-  "overview": "Overview",
+  "overview": "Общий обзор",
   "pen": "Перо",
   "select": "Выбрать",
   "hand": "Рука",
@@ -37,11 +37,11 @@
   "home": "Домашний",
   "branding": "Брендинг",
   "changelog": "Список изменений",
-  "contributing": "Contributing",
+  "contributing": "Вклад",
   "code_of_conduct": "Кодекс поведения",
   "embedding": "Embedding",
-  "faq": "FAQ",
+  "faq": "ЧАВО",
   "versions": "Версии",
-  "nightly": "Nightly",
+  "nightly": "Ночной",
   "privacy_policy": "Политика конфиденциальности"
 }
