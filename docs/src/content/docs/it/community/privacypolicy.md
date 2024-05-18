@@ -15,7 +15,7 @@ Se scegliete di utilizzare il mio servizio, accettate la raccolta e l'uso di inf
 
 I termini utilizzati nella presente Informativa sulla privacy hanno lo stesso significato dei nostri Termini e Condizioni, che è accessibile a Butterfly se non diversamente definito nella presente Informativa sulla privacy.
 
-**Information Collection and Use**
+**Raccolta e utilizzo delle informazioni**
 
 Per una migliore esperienza, durante l'utilizzo del nostro Servizio, posso richiedere di fornirci alcune informazioni personali identificabili. Le informazioni che richiedo verranno conservate sul tuo dispositivo e
 non vengono raccolte da me in alcun modo.
@@ -34,7 +34,7 @@ del tuo dispositivo.
 Questo Servizio non utilizza questi “cookie” esplicitamente. Tuttavia, l'app può utilizzare codici di terze parti e librerie che utilizzano “cookie” per raccogliere informazioni e migliorare i loro servizi. Hai la possibilità
 di accettare o rifiutare questi cookie e di sapere quando viene inviato un cookie al tuo dispositivo. Se scegli di rifiutare i nostri cookie, potresti non essere in grado di utilizzare alcune porzioni di questo Servizio.
 
-**Service Providers**
+**Fornitori Di Servizi**
 
 Posso impiegare società e individui terzi per i seguenti motivi:
 
@@ -51,12 +51,12 @@ a non divulgare o utilizzare le informazioni per altri scopi.
 Apprezzo la vostra fiducia nel fornirci le vostre informazioni personali, così ci sforziamo di utilizzare mezzi commercialmente accettabili per proteggerle. Ma ricordate che nessun metodo di trasmissione su internet,
 o metodo di archiviazione elettronica è 100% sicuro e affidabile, e non posso garantire la sua assoluta sicurezza.
 
-**Links to Other Sites**
+**Collegamenti ad altri siti**
 
 Questo servizio può contenere collegamenti ad altri siti. Se clicchi su un link di terze parti, verrai indirizzato a quel sito. Nota che questi siti esterni non sono gestiti da me. Pertanto, vi consiglio vivamente
 di rivedere la Privacy Policy di questi siti web. Non ho alcun controllo e non assumo alcuna responsabilità per i contenuti, le politiche sulla privacy o le pratiche di siti o servizi di terze parti.
 
-**Changes to This Privacy Policy**
+**Modifiche alla presente informativa sulla privacy**
 
 Potrei aggiornare di tanto in tanto la nostra Informativa sulla privacy. Pertanto, si consiglia di rivedere questa pagina periodicamente per eventuali modifiche. Ti informerò di eventuali modifiche pubblicando la nuova Informativa sulla privacy su questa pagina
 .
