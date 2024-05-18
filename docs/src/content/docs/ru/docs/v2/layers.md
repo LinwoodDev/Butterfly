@@ -2,7 +2,7 @@
 title: Слои
 ---
 
-Слои — это возможность группировать элементы вместе. Нажмите на элемент, чтобы увидеть и изменить слой. Use the [layer tool](tools/layer.md) to change the layers of multiple elements.
+Слои — это возможность группировать элементы вместе. Нажмите на элемент, чтобы увидеть и изменить слой. Use the [layer tool](../tools/layer) to change the layers of multiple elements.
 
 ## Диалог слоёв
 
