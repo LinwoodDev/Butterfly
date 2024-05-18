@@ -13,7 +13,7 @@ Add the following code to your website:
 
 | Option   | Type                                                                                          | Default | คำอธิบาย                                                                                                                                                                    |
 | -------- | --------------------------------------------------------------------------------------------- | ------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| save     | Boolean (true, false)                                                      | true    | Enable save. If disabled, only an exit button will be shown                                                                                                 |
+| บันทึก   | Boolean (true, false)                                                      | true    | Enable save. If disabled, only an exit button will be shown                                                                                                 |
 | editable | Boolean (true, false)                                                      | true    | Enable editing. If disabled, the document will be read-only                                                                                                 |
 | language | String (..., system, user) | system  | Language of the document. If system, the language will be detected from the browser. If user, the language will set to the users preference |
 
@@ -30,7 +30,7 @@ embedElement.addEventListener('message', (data) => {
 });
 ```
 
-### save
+### บันทึก
 
 > The `save` event is emitted when the user clicks the save button.
 
