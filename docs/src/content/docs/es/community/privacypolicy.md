@@ -15,7 +15,7 @@ Si usted decide utilizar mi Servicio, entonces usted acepta la recopilación y e
 
 Los términos utilizados en esta política de privacidad tienen los mismos significados que en nuestros términos y condiciones, que es accesible en Butterfly a menos que se defina lo contrario en esta Política de Privacidad.
 
-**Information Collection and Use**
+**Recopilación de información y uso**
 
 Para una mejor experiencia, mientras utilizo nuestro Servicio, podría requerirle que nos proporcione cierta información personal identificable. La información que solicito se conservará en tu dispositivo y no es recopilada por mí de ninguna manera.
 
@@ -31,7 +31,7 @@ Las cookies son archivos con una pequeña cantidad de datos que se utilizan com�
 
 Este Servicio no utiliza estas “cookies” explícitamente. Sin embargo, la aplicación puede usar códigos de terceros y bibliotecas que utilizan “cookies” para recopilar información y mejorar sus servicios. Tienes la opción de aceptar o rechazar estas cookies y saber cuándo se envía una cookie a tu dispositivo. Si decide rechazar nuestras cookies, es posible que no pueda utilizar algunas partes de este Servicio.
 
-**Service Providers**
+**Proveedores de servicios**
 
 Puedo contratar a empresas e individuos de terceros por las siguientes razones:
 
@@ -46,11 +46,11 @@ Quiero informar a los usuarios de este Servicio que estos terceros tienen acceso
 
 Valoro su confianza a la hora de proporcionarnos su Información Personal, por lo que nos esforzamos por utilizar medios comercialmente aceptables para protegerla. Pero recuerde que ningún método de transmisión a través de Internet, o método de almacenamiento electrónico es 100% seguro y fiable, y no puedo garantizar su absoluta seguridad.
 
-**Links to Other Sites**
+**Enlaces a otros sitios**
 
 Este Servicio puede contener enlaces a otros sitios. Si haces clic en un enlace de terceros, serás dirigido a ese sitio. Tenga en cuenta que estos sitios externos no son operados por mí. Por lo tanto, le aconsejo encarecidamente que revise la política de privacidad de estos sitios web. No tengo ningún control sobre el contenido, las políticas de privacidad o las prácticas de ningún sitio o servicio de terceros.
 
-**Changes to This Privacy Policy**
+**Cambios a esta política de privacidad**
 
 Puedo actualizar nuestra Política de Privacidad de vez en cuando. Por lo tanto, se le aconseja que revise esta página periódicamente para cualquier cambio. Te notificaré de cualquier cambio publicando la nueva Política de Privacidad en esta página .
 
