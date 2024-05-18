@@ -38,7 +38,7 @@ Per impostazione predefinita, la penna è configurata per funzionare come segue:
 
 - `Penna`: configurato come penna.
 - `First` (pulsante primario, se supportato): Cambia a mano mentre premuto lo strumento.
-- `Second` (Pulsante secondario, se supportato): Passa al secondo strumento (vedi sezione [configure](#configure) qui sotto) mentre premi.
+- `Second` (Secondary button, if supported): Change to second tool (see [configure](#configure) section below) while pressed.
 
 ## Configura {#configure}
 
