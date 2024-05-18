@@ -2,9 +2,10 @@ commit_message: '[ci skip]'
 files:
   - source: /app/lib/l10n/app_en.arb
     translation: /app/lib/l10n/app_%osx_locale%.arb
-  - source: /docs/content/translations/en.json
-    translation: /app/lib/l10n/%two_letters_code%.json
-  - source: /docs/content/docs/**/*
-    translation: /docs/content/docs/%two_letters_code%/**/%original_file_name%
+  - source: /docs/src/translations/en.json
+    translation: /docs/src/translations/%two_letters_code%.json
+  - source: /docs/src/content/docs/**/*
+    ignore_settings: 1
     ignore:
-      - "%two_letters_code%/**/*"
+      - '%two_letters_code%/**/*'
+    translation: /docs/src/content/docs/%two_letters_code%/**/%original_file_name%
