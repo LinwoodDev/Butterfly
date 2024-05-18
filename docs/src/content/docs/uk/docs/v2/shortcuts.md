@@ -38,7 +38,7 @@ title: Гарячі клавіші
 
 - `Пен`: налаштований як ручка.
 - `Перший` (основна кнопка, якщо підтримується): Поміняйте на інструмент керування при натисканні кнопки вручну.
-- `Second` (Secondary button, if supported): Change to second tool (see [configure](#configure) section below)  while pressed.
+- `Second` (Secondary button, if supported): Change to second tool (see [configure](#configure) section below) while pressed.
 
 ## Configure {#configure}
 
