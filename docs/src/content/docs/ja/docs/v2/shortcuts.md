@@ -38,7 +38,7 @@ title: ショートカット
 
 - `Pen`: ペンとして設定されています。
 - `First` (サポートされている場合はプライマリボタン): 押したまま手動ツールに変更します。
-- `Second` (サポートされている場合はSecondary button): 押された状態で2番目のツールに変更します (下記の [configure](#configure) セクションを参照してください)。
+- `Second` (Secondary button, if supported): Change to second tool (see [configure](#configure) section below) while pressed.
 
 ## {#configure} を設定
 
