@@ -2,7 +2,7 @@
 title: Camadas
 ---
 
-Camadas são uma opção para agrupar elementos em conjunto. Clique no elemento para ver e alterar a camada. Use the [layer tool](tools/layer.md) to change the layers of multiple elements.
+Camadas são uma opção para agrupar elementos em conjunto. Clique no elemento para ver e alterar a camada. Use the [layer tool](../tools/layer) to change the layers of multiple elements.
 
 ## Diálogo de camadas
 
