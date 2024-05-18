@@ -13,7 +13,7 @@ title: 嵌入
 
 | 选项       | 类型                                                                                   | 默认设置   | 描述                                        |
 | -------- | ------------------------------------------------------------------------------------ | ------ | ----------------------------------------- |
-| save     | Boolean (true, false)                                             | true   | 启用保存。 如果禁用，只显示退出按钮                        |
+| 保存       | Boolean (true, false)                                             | true   | 启用保存。 如果禁用，只显示退出按钮                        |
 | editable | Boolean (true, false)                                             | true   | 启用编辑。 如果禁用，文档将只读                          |
 | language | 字符串 (..., 系统, 用户) | system | 文件所用语文。 如果系统从浏览器中检测到该语言。 如果用户，语言将设置为用户首选项 |
 
@@ -30,7 +30,7 @@ embedElement.addEventListener('message', (data) => {
 });
 ```
 
-### save
+### 保存
 
 > The `save` event is emitted when the user clicks the save button.
 
@@ -38,7 +38,7 @@ embedElement.addEventListener('message', (data) => {
 
 - `data` (Type `List<int>`): The data of the document.
 
-### exit
+### 退出
 
 > The `exit` event is emitted when the user clicks the exit button.
 
