@@ -15,7 +15,7 @@ Jeśli zdecydujesz się korzystać z mojej usługi, zgadzasz się na zbieranie i
 
 Terminy używane w niniejszej Polityce Prywatności mają takie same znaczenie jak w naszym Regulaminie, który jest dostępny w Motyllocie, o ile nie określono inaczej w niniejszej Polityce prywatności.
 
-**Information Collection and Use**
+**Gromadzenie i wykorzystanie informacji**
 
 Dla lepszego doświadczenia, korzystając z naszego serwisu, mogę wymagać od Państwa dostarczenia pewnych informacji możliwych do identyfikacji osobiście. Informacje, których zażądam, zostaną zachowane na Twoim urządzeniu i nie są zbierane przez mnie w żaden sposób.
 
@@ -31,7 +31,7 @@ Pliki cookie to pliki z niewielką ilością danych, które są powszechnie uży
 
 Ta usługa nie używa tych "ciasteczek" bezpośrednio. Aplikacja może jednak używać kodu firm trzecich i bibliotek, które używają plików cookie do zbierania informacji i ulepszania swoich usług. Masz opcję , aby zaakceptować lub odrzucić te ciasteczka i wiedzieć kiedy ciasteczka są wysyłane na twoje urządzenie. Jeśli zdecydujesz się odrzucić nasze ciasteczka, możesz nie być w stanie użyć części tej usługi.
 
-**Service Providers**
+**Dostawcy usług**
 
 Mogę zatrudniać przedsiębiorstwa i osoby fizyczne z następujących powodów:
 
@@ -46,11 +46,11 @@ Chcę poinformować użytkowników tej usługi o tym, że te osoby trzecie mają
 
 Doceniam wasze zaufanie do dostarczania nam Twoich danych osobowych, dlatego staramy się wykorzystać akceptowalne z handlowego punktu widzenia sposoby ich ochrony. Należy jednak pamiętać, że nie ma żadnej metody transmisji przez Internet, lub metoda przechowywania elektronicznego jest w 100% bezpieczna i niezawodna i nie mogę zagwarantować jej absolutnego bezpieczeństwa.
 
-**Links to Other Sites**
+**Linki do innych witryn**
 
 Ta usługa może zawierać linki do innych witryn. Jeśli klikniesz na link osoby trzeciej, zostaniesz przekierowany na tę stronę. Pamiętaj, że te zewnętrzne strony nie są obsługiwane przeze mnie. Dlatego też zdecydowanie zalecam zapoznanie się z Polityką Prywatności tych stron. Nie mam kontroli nad treścią, polityką ochrony prywatności ani praktykami stron internetowych lub usług osób trzecich.
 
-**Changes to This Privacy Policy**
+**Zmiany w polityce prywatności**
 
 Mogę od czasu do czasu aktualizować naszą Politykę prywatności. Zaleca się zatem, aby okresowo przeglądać tę stronę pod kątem jakichkolwiek zmian. Powiadomię Cię o wszelkich zmianach, publikując nową Politykę prywatności na tej stronie .
 
