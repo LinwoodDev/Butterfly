@@ -3,7 +3,7 @@ title: Versiuni Pre-1.0
 ---
 
 Aceste versiuni nu mai sunt acceptate.
-New versions are available at [versions](versions.md).
+New versions are available at [versions](/community/versions).
 
 | Versiune                                                     | Suportat                            |                                                                                                                                               |
 | ------------------------------------------------------------ | ----------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
