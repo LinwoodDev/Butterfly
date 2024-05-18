@@ -12,7 +12,7 @@ Supported are butterfly documents, markdown, png, svg and pdf.
 ## 工具
 
 To add more tools to your toolbar, click on them.
-Read more about them [here](tools).
+Read more about them [here](../tools).
 
 ## Surfaces
 
