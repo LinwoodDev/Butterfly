@@ -6,7 +6,7 @@ Tento návod vám ukáže, jak přejít na nejnovější verzi.
 
 ## 7 (Breaking change) {#7}
 
-**Version: 2.0**
+**Verze: 2.0**
 
 ### Zlomit změny
 
