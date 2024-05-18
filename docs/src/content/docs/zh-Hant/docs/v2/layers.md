@@ -2,7 +2,7 @@
 title: 圖層
 ---
 
-Layers are an option to group elements together. Click on the element to see and change the layer. Use the [layer tool](tools/layer.md) to change the layers of multiple elements.
+Layers are an option to group elements together. Click on the element to see and change the layer. Use the [layer tool](../tools/layer) to change the layers of multiple elements.
 
 ## The layers dialog
 
