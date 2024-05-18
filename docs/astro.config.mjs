@@ -40,134 +40,134 @@ export default defineConfig({
           items: [
             {
               ...getSidebarTranslatedLabel("Introduction"),
-              link: "/docs/",
+              link: "/docs/v2/",
             },
             {
               ...getSidebarTranslatedLabel("Area"),
-              link: "/docs/area/",
+              link: "/docs/v2/area/",
             },
             {
               ...getSidebarTranslatedLabel("Background"),
-              link: "/docs/background/",
+              link: "/docs/v2/background/",
             },
             {
               ...getSidebarTranslatedLabel("Color picker"),
-              link: "/docs/color_picker/",
+              link: "/docs/v2/color_picker/",
             },
             {
               ...getSidebarTranslatedLabel("Layers"),
-              link: "/docs/layers/",
+              link: "/docs/v2/layers/",
             },
             {
               ...getSidebarTranslatedLabel("Migrating"),
-              link: "/docs/migrating/",
+              link: "/docs/v2/migrating/",
             },
             {
               ...getSidebarTranslatedLabel("Pack"),
-              link: "/docs/pack/",
+              link: "/docs/v2/pack/",
             },
             {
               ...getSidebarTranslatedLabel("Pages"),
-              link: "/docs/pages/",
+              link: "/docs/v2/pages/",
             },
             {
               ...getSidebarTranslatedLabel("Shortcuts"),
-              link: "/docs/shortcuts/",
+              link: "/docs/v2/shortcuts/",
             },
             {
               ...getSidebarTranslatedLabel("Storage"),
-              link: "/docs/storage/",
+              link: "/docs/v2/storage/",
             },
             {
               ...getSidebarTranslatedLabel("Waypoints"),
-              link: "/docs/waypoints/",
+              link: "/docs/v2/waypoints/",
             },
             {
               ...getSidebarTranslatedLabel("Add"),
-              link: "/docs/add/",
+              link: "/docs/v2/add/",
             },
             {
               ...getSidebarTranslatedLabel("Collaboration"),
-              link: "/docs/collaboration/",
+              link: "/docs/v2/collaboration/",
             },
             {
               ...getSidebarTranslatedLabel("Arguments"),
-              link: "/docs/arguments/",
+              link: "/docs/v2/arguments/",
             },
             {
               ...getSidebarTranslatedLabel("Tools"),
               items: [
                 {
                   ...getSidebarTranslatedLabel("Overview"),
-                  link: "/docs/tools/",
+                  link: "/docs/v2/tools/",
                 },
                 {
                   ...getSidebarTranslatedLabel("Pen"),
-                  link: "/docs/tools/pen/",
+                  link: "/docs/v2/tools/pen/",
                 },
                 {
                   ...getSidebarTranslatedLabel("Select"),
-                  link: "/docs/tools/select/",
+                  link: "/docs/v2/tools/select/",
                 },
                 {
                   ...getSidebarTranslatedLabel("Hand"),
-                  link: "/docs/tools/hand/",
+                  link: "/docs/v2/tools/hand/",
                 },
                 {
                   ...getSidebarTranslatedLabel("Path eraser"),
-                  link: "/docs/tools/path_eraser/",
+                  link: "/docs/v2/tools/path_eraser/",
                 },
                 {
                   ...getSidebarTranslatedLabel("Eraser"),
-                  link: "/docs/tools/eraser/",
+                  link: "/docs/v2/tools/eraser/",
                 },
                 {
                   ...getSidebarTranslatedLabel("Undo"),
-                  link: "/docs/tools/undo/",
+                  link: "/docs/v2/tools/undo/",
                 },
                 {
                   ...getSidebarTranslatedLabel("Redo"),
-                  link: "/docs/tools/redo/",
+                  link: "/docs/v2/tools/redo/",
                 },
                 {
                   ...getSidebarTranslatedLabel("Shape"),
-                  link: "/docs/tools/shape/",
+                  link: "/docs/v2/tools/shape/",
                 },
                 {
                   ...getSidebarTranslatedLabel("Spacer"),
-                  link: "/docs/tools/spacer/",
+                  link: "/docs/v2/tools/spacer/",
                 },
                 {
                   ...getSidebarTranslatedLabel("Area"),
-                  link: "/docs/tools/area/",
+                  link: "/docs/v2/tools/area/",
                 },
                 {
                   ...getSidebarTranslatedLabel("Full screen"),
-                  link: "/docs/tools/full_screen/",
+                  link: "/docs/v2/tools/full_screen/",
                 },
                 {
                   ...getSidebarTranslatedLabel("Label"),
-                  link: "/docs/tools/label/",
+                  link: "/docs/v2/tools/label/",
                 },
                 {
                   ...getSidebarTranslatedLabel("Laser"),
-                  link: "/docs/tools/laser/",
+                  link: "/docs/v2/tools/laser/",
                 },
                 {
                   ...getSidebarTranslatedLabel("Texture"),
-                  link: "/docs/tools/texture/",
+                  link: "/docs/v2/tools/texture/",
                 },
                 {
                   ...getSidebarTranslatedLabel("Stamp"),
-                  link: "/docs/tools/stamp/",
+                  link: "/docs/v2/tools/stamp/",
                 },
                 {
                   ...getSidebarTranslatedLabel("Layer"),
-                  link: "/docs/tools/layer/",
+                  link: "/docs/v2/tools/layer/",
                 },
                 {
                   ...getSidebarTranslatedLabel("Presentation"),
-                  link: "/docs/tools/presentation/",
+                  link: "/docs/v2/tools/presentation/",
                 },
               ],
             },
