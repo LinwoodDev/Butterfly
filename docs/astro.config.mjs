@@ -44,7 +44,7 @@ export default defineConfig({
             },
             {
               ...getSidebarTranslatedLabel("Area"),
-              link: "/docs/v2/area/",
+              link: "/docs/v2/areas/",
             },
             {
               ...getSidebarTranslatedLabel("Background"),

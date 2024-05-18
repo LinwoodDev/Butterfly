@@ -1,8 +1,6 @@
 ---
-id: "faq"
-slug: "/faq"
-title: "Frequently Asked Questions"
-sidebar_label: "FAQ"
+slug: /faq
+title: Frequently Asked Questions
 ---
 
 Here are some frequently asked questions.
