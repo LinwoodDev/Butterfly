@@ -38,7 +38,7 @@ title: 快捷键
 
 - “Pen\`：被配置为笔”。
 - `First` (主按钮，如果支持的话)：按住时更改为手工具。
-- `second` (次要按钮，如果支持的话)：按下时更改为第二个工具(见下面 [configure](#configure) 部分)。
+- `Second` (Secondary button, if supported): Change to second tool (see [configure](#configure) section below) while pressed.
 
 ## 配置 {#configure}
 
