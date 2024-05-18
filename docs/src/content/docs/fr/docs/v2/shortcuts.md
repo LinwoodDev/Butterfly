@@ -38,7 +38,7 @@ Par défaut, le stylo est configuré pour fonctionner comme suit :
 
 - `Stylo`: configuré comme stylo.
 - `Premier` (Bouton primaire, si supporté) : Changer pour l'outil main pendant qu'il est pressé.
-- `Second` (bouton secondaire, si supporté) : Changer en deuxième outil (voir [configure](#configure) section ci-dessous) pendant qu'il est pressé.
+- `Second` (Secondary button, if supported): Change to second tool (see [configure](#configure) section below) while pressed.
 
 ## Configurer {#configure}
 
