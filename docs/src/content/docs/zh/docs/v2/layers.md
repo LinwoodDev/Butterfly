@@ -2,7 +2,7 @@
 title: 图层
 ---
 
-图层是组元素的一个选项。 点击元素来查看和更改图层。 Use the [layer tool](tools/layer.md) to change the layers of multiple elements.
+图层是组元素的一个选项。 点击元素来查看和更改图层。 Use the [layer tool](../tools/layer) to change the layers of multiple elements.
 
 ## 图层对话框
 
