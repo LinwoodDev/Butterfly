@@ -15,7 +15,7 @@ Als je mijn dienst gebruikt, ga je akkoord met het verzamelen en gebruiken van i
 
 De gebruikte voorwaarden in dit privacybeleid hebben dezelfde betekenis als in onze Algemene Voorwaarden, die toegankelijk is op Butterfly tenzij anders gedefinieerd in dit privacybeleid.
 
-**Information Collection and Use**
+**Informatie verzamelen en gebruiken**
 
 Voor een betere ervaring, kan het zijn dat ik je nodig heb om ons bepaalde persoonlijk identificeerbare informatie te verstrekken. De informatie die ik verzoek wordt bewaard op uw apparaat en wordt op geen enkele manier door mij verzameld.
 
@@ -31,7 +31,7 @@ Cookies zijn bestanden met een kleine hoeveelheid gegevens die vaak worden gebru
 
 Deze dienst gebruikt deze "cookies" niet expliciet. De app kan echter wel de code van derden en bibliotheken gebruiken die "cookies" gebruiken om informatie te verzamelen en hun diensten te verbeteren. U heeft de optie om deze cookies te accepteren of te weigeren en te weten wanneer een cookie wordt verzonden naar uw apparaat. Als u onze cookies wenst te weigeren, kunt u sommige delen van deze service niet gebruiken.
 
-**Service Providers**
+**Service providers**
 
 Ik kan bedrijven en personen uit derde landen in dienst nemen om de volgende redenen:
 
@@ -46,11 +46,11 @@ Ik wil de gebruikers van deze dienst informeren dat deze derden toegang hebben t
 
 Ik stel het op prijs dat u ons op de hoogte stelt van uw persoonlijke informatie, en wij proberen dus commercieel aanvaardbare middelen te gebruiken om deze te beschermen. Maar vergeet niet dat er geen methode is voor overdracht via het internet of elektronische opslag is 100% veilig en betrouwbaar, en ik kan de absolute veiligheid ervan niet garanderen.
 
-**Links to Other Sites**
+**Links naar andere sites**
 
 Deze dienst kan links naar andere websites bevatten. Als u op een link van derden klikt, wordt u doorverwezen naar die site. Merk op dat deze externe sites niet door mij worden beheerd. Daarom raad ik u sterk aan om het privacybeleid van deze websites te herzien. Ik heb geen controle over en neem geen verantwoordelijkheid op mij voor de inhoud, het privacybeleid of de praktijken van websites of diensten van derden.
 
-**Changes to This Privacy Policy**
+**Wijzigingen in dit privacybeleid**
 
 Ik kan ons privacybeleid van tijd tot tijd updaten. U wordt dus aangeraden om deze pagina periodiek te bekijken voor eventuele wijzigingen. Ik zal u op de hoogte brengen van eventuele wijzigingen door het nieuwe privacybeleid op deze pagina te plaatsen.
 
