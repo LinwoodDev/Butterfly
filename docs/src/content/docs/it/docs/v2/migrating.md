@@ -6,7 +6,7 @@ Questa guida ti mostrerà come migrare all'ultima versione.
 
 ## 7 (Breaking change) {#7}
 
-**Version: 2.0**
+**Versione: 2.0**
 
 ### Cambiamenti di rottura
 
