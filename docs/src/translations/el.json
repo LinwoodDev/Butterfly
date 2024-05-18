@@ -1,5 +1,5 @@
 {
-  "guides": "Guides",
+  "guides": "Οδηγοί",
   "introduction": "Εισαγωγή",
   "areas": "Περιοχές",
   "background": "Φόντο",
@@ -14,7 +14,7 @@
   "collaboration": "Συνεργασία",
   "arguments": "Παράμετροι",
   "tools": "Εργαλεία",
-  "overview": "Overview",
+  "overview": "Επισκόπηση",
   "pen": "Πένα",
   "select": "Επιλογή",
   "hand": "Χέρι",
@@ -42,6 +42,6 @@
   "embedding": "Embedding",
   "faq": "Συχνές",
   "versions": "Εκδόσεις",
-  "nightly": "Nightly",
+  "nightly": "Νυχτερινή",
   "privacy_policy": "Πολιτική απορρήτου"
 }
