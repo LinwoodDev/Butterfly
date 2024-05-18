@@ -38,7 +38,7 @@ Parameters:
 
 - `data` (Type `List<int>`): The data of the document.
 
-### exit
+### ପ୍ରସ୍ଥାନ
 
 > The `exit` event is emitted when the user clicks the exit button.
 
