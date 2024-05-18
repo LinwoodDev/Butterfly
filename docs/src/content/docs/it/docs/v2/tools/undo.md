@@ -10,4 +10,4 @@ Non è possibile selezionarlo e verrà eseguita l'azione se si fa clic su di ess
 :::
 
 When clicking on this tool you can undo your last action.
-See the [redo tool](redo) for redoing your last action.
+See the [redo tool](../redo) for redoing your last action.
