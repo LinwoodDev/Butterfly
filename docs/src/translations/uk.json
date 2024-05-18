@@ -1,5 +1,5 @@
 {
-  "guides": "Guides",
+  "guides": "Посібники",
   "introduction": "Вступ",
   "areas": "Розділи",
   "background": "Фон",
@@ -14,7 +14,7 @@
   "collaboration": "Співпраця",
   "arguments": "Аргументи",
   "tools": "Інструменти",
-  "overview": "Overview",
+  "overview": "Перегляд попереднього контакту",
   "pen": "Ручка",
   "select": "Вибрати",
   "hand": "Кисть",
@@ -42,6 +42,6 @@
   "embedding": "Embedding",
   "faq": "ЧАП",
   "versions": "Версії",
-  "nightly": "Nightly",
+  "nightly": "Нічна",
   "privacy_policy": "Політика конфіденційності"
 }
