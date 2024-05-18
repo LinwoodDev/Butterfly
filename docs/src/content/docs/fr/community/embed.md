@@ -11,11 +11,11 @@ Ajoute le code suivant à ton site web :
 
 ## Options
 
-| Option   | Type de texte                                                                                                       | Par défaut | Libellé                                                                                                                                                                                      |
-| -------- | ------------------------------------------------------------------------------------------------------------------- | ---------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| save     | Boolean (true, false)                                                                            | true       | Activer la sauvegarde. Si désactivé, seul un bouton de sortie sera affiché                                                                                                   |
-| editable | Boolean (true, false)                                                                            | true       | Activer l'édition. Si désactivé, le document sera en lecture seule                                                                                                           |
-| language | Chaîne de caractères (..., système, utilisateur) | system     | Langue du document. Si le système, la langue sera détectée à partir du navigateur. Si l'utilisateur, la langue sera définie à la préférence des utilisateurs |
+| Option      | Type de texte                                                                                                       | Par défaut | Libellé                                                                                                                                                                                      |
+| ----------- | ------------------------------------------------------------------------------------------------------------------- | ---------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| enregistrer | Boolean (true, false)                                                                            | true       | Activer la sauvegarde. Si désactivé, seul un bouton de sortie sera affiché                                                                                                   |
+| editable    | Boolean (true, false)                                                                            | true       | Activer l'édition. Si désactivé, le document sera en lecture seule                                                                                                           |
+| language    | Chaîne de caractères (..., système, utilisateur) | system     | Langue du document. Si le système, la langue sera détectée à partir du navigateur. Si l'utilisateur, la langue sera définie à la préférence des utilisateurs |
 
 ## Évènements
 
@@ -30,7 +30,7 @@ embedElement.addEventListener('message', (data) => {
 });
 ```
 
-### save
+### enregistrer
 
 > The `save` event is emitted when the user clicks the save button.
 
@@ -38,7 +38,7 @@ Paramètres:
 
 - `data` (Type `List<int>`): The data of the document.
 
-### exit
+### quitter
 
 > The `exit` event is emitted when the user clicks the exit button.
 
