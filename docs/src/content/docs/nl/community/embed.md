@@ -13,7 +13,7 @@ Voeg de volgende code toe aan je website:
 
 | Optie    | Type                                                                                                | Standaard | Beschrijving                                                                                                                                                                           |
 | -------- | --------------------------------------------------------------------------------------------------- | --------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| save     | Boolean (true, false)                                                            | true      | Schakel opslaan in. Indien uitgeschakeld wordt alleen een afsluitknop weergegeven                                                                                      |
+| opslaan  | Boolean (true, false)                                                            | true      | Schakel opslaan in. Indien uitgeschakeld wordt alleen een afsluitknop weergegeven                                                                                      |
 | editable | Boolean (true, false)                                                            | true      | Bewerken inschakelen. Indien uitgeschakeld zal het document alleen-lezen zijn                                                                                          |
 | language | String (..., systeem, gebruiker) | system    | Taal van het document. Indien systeem wordt de taal van de browser gedetecteerd. Als gebruiker wordt de taal ingesteld op de voorkeur van de gebruiker |
 
@@ -30,7 +30,7 @@ embedElement.addEventListener('message', (data) => {
 });
 ```
 
-### save
+### opslaan
 
 > The `save` event is emitted when the user clicks the save button.
 
@@ -38,7 +38,7 @@ Parameters:
 
 - `data` (Type `List<int>`): The data of the document.
 
-### exit
+### afsluiten
 
 > The `exit` event is emitted when the user clicks the exit button.
 
