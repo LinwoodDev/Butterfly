@@ -15,7 +15,7 @@ Hizmetimi kullanmayı seçerseniz, bu politikayla ilgili bilgilerin toplanmasın
 
 Bu Gizlilik Politikasında kullanılan terimler, yine bu Gizlilik Politikasında aksi belirtilmedikçe Butterfly'dan erişilebilen Hüküm ve Koşullarımızdakilerle aynı anlamlara sahiptir.
 
-**Information Collection and Use**
+**Bilgi Toplama ve Kullanma**
 
 Daha iyi bir deneyim için Hizmetimizi kullanırken, bize kişisel olarak tanımlanabilir bazı bilgiler vermenizi isteyebilirim. İstediğim bilgiler cihazınızda tutulacak ve hiçbir şekilde tarafımdan toplanmayacaktır.
 
@@ -31,7 +31,7 @@ Uygulama tarafından kullanılan üçüncü taraf hizmet sağlayıcılarının g
 
 Bu Hizmet, bu "çerezleri" açıkça kullanmaz. Ancak uygulama, bilgi toplamak ve hizmetlerini iyileştirmek için "çerezleri" kullanan üçüncü taraf kodu ve kitaplıklar kullanabilir. Bu tanımlama bilgilerini kabul etme ya da reddetme ve cihazınıza bir tanımlama bilgisinin ne zaman gönderildiğini bilme seçeneğine sahipsiniz. Çerezlerimizi reddetmeyi seçerseniz, bu hizmetin bazı kısımlarını kullanamayabilirsiniz.
 
-**Service Providers**
+**Servis Sağlayıcılar**
 
 Aşağıdaki nedenlerden dolayı üçüncü taraf şirketleri ve bireyleri görevlendirebilirim:
 
@@ -46,11 +46,11 @@ Bu Hizmetin kullanıcılarını, bahsi geçen üçüncü tarafların Kişisel Bi
 
 Bize Kişisel Bilgilerinizi sağlama konusundaki güveninize değer veriyorum, bu nedenle ticari olarak kabul edilebilir koruma yöntemlerini kullanmaya çalışıyoruz. Ancak, internet üzerinden hiçbir aktarım yönteminin veya elektronik depolama yönteminin %100 güvenli ve güvenilir olmadığını ve mutlak güvenliğini garanti edemediğimi unutmayın.
 
-**Links to Other Sites**
+**Diğer Sitelere Bağlantılar**
 
 Bu Hizmet, diğer sitelere bağlantılar içerebilir. Üçüncü taraf bir bağlantıya tıklarsanız, o siteye yönlendirileceksiniz. Bu harici sitelerin benim tarafımdan işletilmediğini unutmayın. Bu nedenle, bu web sitelerinin Gizlilik Politikasını incelemenizi şiddetle tavsiye ederim. Herhangi bir üçüncü taraf site veya hizmetin içeriği, gizlilik politikaları veya uygulamaları üzerinde hiçbir kontrolüm ve sorumluluğum yoktur.
 
-**Changes to This Privacy Policy**
+**Bu Gizlilik Politikasındaki Değişiklikler**
 
 Gizlilik Politikamızı zaman zaman güncelleyebilirim. Bu nedenle, herhangi bir değişiklik için bu sayfayı periyodik olarak gözden geçirmeniz önerilir. Bu sayfada yeni Gizlilik Politikasını yayınlayarak değişiklikler hakkında sizi bilgilendireceğim.
 
