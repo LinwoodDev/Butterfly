@@ -38,7 +38,7 @@ By default, the the pen is configured to function as the following:
 
 - `Pen`: configured as pen.
 - `First` (Primary button, if supported): Change to hand tool while pressed.
-- `Second` (Secondary button, if supported): Change to second tool (see [configure](#configure) section below)  while pressed.
+- `Second` (Secondary button, if supported): Change to second tool (see [configure](#configure) section below) while pressed.
 
 ## Configure {#configure}
 
