@@ -15,7 +15,7 @@ Si vous choisissez d'utiliser mon Service, vous acceptez la collecte et l'utilis
 
 Les termes utilisés dans cette politique de confidentialité ont les mêmes significations que dans nos conditions générales, qui est accessible à Butterfly sauf indication contraire dans la présente Politique de confidentialité.
 
-**Information Collection and Use**
+**Collecte et utilisation des informations**
 
 Pour une meilleure expérience, tout en utilisant notre Service, je peux vous demander de nous fournir certaines informations personnelles identifiables. Les informations que je demande seront conservées sur votre appareil et ne sont collectées par moi d'aucune façon.
 
@@ -31,7 +31,7 @@ Les cookies sont des fichiers contenant une petite quantité de données qui son
 
 Ce Service n'utilise pas explicitement ces "cookies". Cependant, l'application peut utiliser du code de tiers et des bibliothèques qui utilisent des « cookies » pour recueillir des informations et améliorer leurs services. Vous avez l’option d’accepter ou de refuser ces cookies et de savoir quand un cookie est envoyé à votre appareil. Si vous choisissez de refuser nos cookies, il se peut que vous ne puissiez pas utiliser certaines parties de ce service.
 
-**Service Providers**
+**Fournisseurs de services**
 
 Je peux employer des entreprises et des particuliers tiers pour les raisons suivantes :
 
@@ -46,11 +46,11 @@ Je veux informer les utilisateurs de ce Service que ces tiers ont accès à vos 
 
 J'apprécie votre confiance en nous fournissant vos informations personnelles, c'est pourquoi nous nous efforçons d'utiliser des moyens commercialement acceptables pour les protéger. Mais rappelez-vous qu'il n'y a pas de méthode de transmission sur Internet, ou la méthode de stockage électronique est 100% sécurisée et fiable, et je ne peux pas garantir sa sécurité absolue.
 
-**Links to Other Sites**
+**Liens vers d'autres sites**
 
 Ce Service peut contenir des liens vers d'autres sites. Si vous cliquez sur un lien tiers, vous serez dirigé vers ce site. Notez que ces sites externes ne sont pas exploités par moi. Par conséquent, je vous conseille fortement de consulter la politique de confidentialité de ces sites Web. Je n'ai aucun contrôle sur et n'assume aucune responsabilité pour le contenu, les politiques de confidentialité ou les pratiques de tout site ou service tiers.
 
-**Changes to This Privacy Policy**
+**Modifications de cette politique de confidentialité**
 
 Je peux mettre à jour notre politique de confidentialité de temps à autre. Il est donc conseillé de consulter régulièrement cette page pour toute modification. Je vous informerai de toute modification en publiant la nouvelle politique de confidentialité sur cette page .
 
