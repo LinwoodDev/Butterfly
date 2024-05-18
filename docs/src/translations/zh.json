@@ -1,5 +1,5 @@
 {
-  "guides": "Guides",
+  "guides": "指南",
   "introduction": "一. 导言",
   "areas": "地区",
   "background": "背景",
@@ -14,7 +14,7 @@
   "collaboration": "合作",
   "arguments": "参数",
   "tools": "工具",
-  "overview": "Overview",
+  "overview": "概览",
   "pen": "笔",
   "select": "选择",
   "hand": "手",
@@ -42,6 +42,6 @@
   "embedding": "Embedding",
   "faq": "常见问题",
   "versions": "版本",
-  "nightly": "Nightly",
+  "nightly": "每晚一次",
   "privacy_policy": "隐私政策"
 }
