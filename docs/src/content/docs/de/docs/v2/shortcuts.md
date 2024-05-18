@@ -38,7 +38,7 @@ Standardmäßig ist der Stift so konfiguriert, dass er wie folgt funktioniert:
 
 - `Pen`: als Stift konfiguriert.
 - `First` (Primärer Knopf, falls unterstützt): Ändern Sie das Handwerkzeug während Sie gedrückt werden.
-- `Second` (sekundäre Schaltfläche, falls unterstützt): Wechseln Sie zum zweiten Werkzeug (siehe [configure](#configure) Abschnitt unten, während Sie gedrückt werden.
+- `Second` (Secondary button, if supported): Change to second tool (see [configure](#configure) section below) while pressed.
 
 ## Konfiguriere {#configure}
 
