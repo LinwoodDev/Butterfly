@@ -6,7 +6,7 @@ Este guia irá mostrar-lhe como migrar para a versão mais recente.
 
 ## 7 (Breaking change) {#7}
 
-**Version: 2.0**
+**Versão: 2.0**
 
 ### Quebrar alterações
 
