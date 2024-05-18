@@ -1,5 +1,5 @@
 {
-  "guides": "Guides",
+  "guides": "Guías",
   "introduction": "Introducción",
   "areas": "Áreas",
   "background": "Fondo",
@@ -14,7 +14,7 @@
   "collaboration": "Colaboración",
   "arguments": "Argumentos",
   "tools": "Herramientas",
-  "overview": "Overview",
+  "overview": "Resumen",
   "pen": "Pen",
   "select": "Seleccionar",
   "hand": "Mano",
@@ -42,6 +42,6 @@
   "embedding": "Embedding",
   "faq": "FAQ",
   "versions": "Versiones",
-  "nightly": "Nightly",
+  "nightly": "Noche",
   "privacy_policy": "Política de privacidad"
 }
