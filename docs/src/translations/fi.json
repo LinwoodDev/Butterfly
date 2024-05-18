@@ -1,5 +1,5 @@
 {
-  "guides": "Guides",
+  "guides": "Oppaat",
   "introduction": "Johdanto",
   "areas": "Alueet",
   "background": "Tausta",
@@ -14,7 +14,7 @@
   "collaboration": "Yhteistyö",
   "arguments": "Argumentit",
   "tools": "Työkalut",
-  "overview": "Overview",
+  "overview": "Yleiskatsaus",
   "pen": "Kynä",
   "select": "Valitse",
   "hand": "Käsi",
@@ -42,6 +42,6 @@
   "embedding": "Embedding",
   "faq": "UKK",
   "versions": "Versiot",
-  "nightly": "Nightly",
+  "nightly": "Yöllä",
   "privacy_policy": "Yksityisyyden suoja"
 }
