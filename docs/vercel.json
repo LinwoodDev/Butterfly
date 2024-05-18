@@ -2,7 +2,7 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "redirects": [
     {
-      "source": "/docs/:version(?!v2)/:path*",
+      "source": "/docs/((?!v2).*)/:path*",
       "destination": "/docs/v2/:path*"
     }
   ]
