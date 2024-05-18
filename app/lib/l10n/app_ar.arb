@@ -606,5 +606,6 @@
   "small": "صغير",
   "tiny": "صغير",
   "selectAll": "حدد الكل",
-  "overrideTools": "أدوات التجاوز"
+  "overrideTools": "أدوات التجاوز",
+  "hideCursorWhileDrawing": "إخفاء المؤشر أثناء الرسم"
 }

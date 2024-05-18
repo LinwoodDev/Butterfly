@@ -606,5 +606,6 @@
   "small": "小的",
   "tiny": "微调",
   "selectAll": "选择所有",
-  "overrideTools": "覆盖工具"
+  "overrideTools": "覆盖工具",
+  "hideCursorWhileDrawing": "绘制时隐藏光标"
 }

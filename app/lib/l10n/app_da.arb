@@ -606,5 +606,6 @@
   "small": "Lille",
   "tiny": "Lille",
   "selectAll": "Vælg alle",
-  "overrideTools": "Tilsidesæt værktøjer"
+  "overrideTools": "Tilsidesæt værktøjer",
+  "hideCursorWhileDrawing": "Skjul markør under tegning"
 }

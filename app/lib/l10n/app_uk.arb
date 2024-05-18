@@ -606,5 +606,6 @@
   "small": "Маленький",
   "tiny": "Дрібний",
   "selectAll": "Виділити все",
-  "overrideTools": "Змінити інструменти"
+  "overrideTools": "Змінити інструменти",
+  "hideCursorWhileDrawing": "Сховати курсор під час малювання"
 }

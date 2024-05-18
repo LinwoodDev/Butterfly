@@ -606,5 +606,6 @@
   "small": "Mică",
   "tiny": "Mică",
   "selectAll": "Selectează tot",
-  "overrideTools": "Suprascrie uneltele"
+  "overrideTools": "Suprascrie uneltele",
+  "hideCursorWhileDrawing": "Ascunde cursorul în timpul desenării"
 }

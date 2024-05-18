@@ -606,5 +606,6 @@
   "small": "Pieni",
   "tiny": "Pieni",
   "selectAll": "Valitse kaikki",
-  "overrideTools": "Ohita työkalut"
+  "overrideTools": "Ohita työkalut",
+  "hideCursorWhileDrawing": "Piilota kohdistin piirroksen aikana"
 }

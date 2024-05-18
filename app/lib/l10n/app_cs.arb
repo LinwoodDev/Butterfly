@@ -606,5 +606,6 @@
   "small": "Malá",
   "tiny": "Malý",
   "selectAll": "Vybrat vše",
-  "overrideTools": "Přepsat nástroje"
+  "overrideTools": "Přepsat nástroje",
+  "hideCursorWhileDrawing": "Skrýt kurzor při kreslení"
 }

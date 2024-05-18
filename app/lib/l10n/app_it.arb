@@ -606,5 +606,6 @@
   "small": "Piccolo",
   "tiny": "Minuscolo",
   "selectAll": "Seleziona tutto",
-  "overrideTools": "Sovrascrivi strumenti"
+  "overrideTools": "Sovrascrivi strumenti",
+  "hideCursorWhileDrawing": "Nascondi il cursore durante il disegno"
 }

@@ -606,5 +606,6 @@
   "small": "Klein",
   "tiny": "Klein",
   "selectAll": "Alles selecteren",
-  "overrideTools": "Hulpmiddelen vervangen"
+  "overrideTools": "Hulpmiddelen vervangen",
+  "hideCursorWhileDrawing": "Verberg cursor tijdens tekenen"
 }
