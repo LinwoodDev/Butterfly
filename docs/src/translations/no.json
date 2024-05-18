@@ -1,5 +1,5 @@
 {
-  "guides": "Guides",
+  "guides": "Veiledninger",
   "introduction": "Introduksjon",
   "areas": "Områder",
   "background": "Bakgrunn",
@@ -14,7 +14,7 @@
   "collaboration": "Samarbeid",
   "arguments": "Argumenter",
   "tools": "Verktøy",
-  "overview": "Overview",
+  "overview": "Oversikt",
   "pen": "Penn",
   "select": "Velg",
   "hand": "Hånd",
@@ -42,6 +42,6 @@
   "embedding": "Embedding",
   "faq": "OSS",
   "versions": "Versjoner",
-  "nightly": "Nightly",
+  "nightly": "Nattlig",
   "privacy_policy": "Retningslinjer for personvern"
 }
