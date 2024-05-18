@@ -15,7 +15,7 @@ CodeDoctor构建了 Butterfight 应用作为开源应用。 这种服务由CodeD
 
 本隐私政策中使用的术语与我们的条款和条件具有相同的含义， 除非在本隐私政策中另有定义，否则它可以在 Butterfight 中访问。
 
-**Information Collection and Use**
+**信息收集和使用**
 
 为了更好的体验，我可以在使用我们的服务时要求你们向我们提供某些可以识别个人身份的信息。 我请求的信息将保存在您的设备上， 不会被我以任何方式收集。
 
@@ -31,7 +31,7 @@ Cookie 是具有少量数据的文件，通常用作匿名唯一标识符。 这
 
 此服务没有明确使用这些“cookes”。 然而，应用可以使用第三方代码和使用"cookies"的图书馆来收集信息和改进他们的服务。 您可以选择 接受或拒绝这些cookie，并知道什么时候有一个 cookie 被发送到您的设备。 如果您选择拒绝我们的 cookie，您可能无法使用此服务的某些部分。
 
-**Service Providers**
+**服务商**
 
 我可以雇用第三方公司和个人，原因如下：
 
@@ -46,11 +46,11 @@ Cookie 是具有少量数据的文件，通常用作匿名唯一标识符。 这
 
 我珍视你们对向我们提供个人信息的信任，因此我们正在努力使用商业上可以接受的手段来保护它。 但记得没有任何通过互联网传输的方法， 或电子存储方法100% 安全可靠，我不能保证其绝对安全。
 
-**Links to Other Sites**
+**链接到其他站点**
 
 此服务可能包含到其他站点的链接。 如果您点击第三方链接，您将被引导到该站点。 请注意这些外部站点不是由我操作的。 Therefore, I strongly advise you to review the Privacy Policy of these websites. 我对任何第三方网站或服务的内容、隐私政策或做法没有控制权，也没有任何责任。 I have no control over and assume no responsibility for the content, privacy policies, or practices of any third-party sites or services.
 
-**Changes to This Privacy Policy**
+**此隐私政策的更改**
 
 我可以不时更新我们的隐私政策。 因此，建议您定期审查本页以了解任何更改。 我将通过在这个 页面上发布新的隐私政策来通知您任何更改。
 
