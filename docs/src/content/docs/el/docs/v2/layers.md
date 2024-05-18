@@ -2,7 +2,7 @@
 title: Επίπεδα
 ---
 
-Τα επίπεδα είναι μια επιλογή για ομαδοποίηση στοιχείων. Κάντε κλικ στο στοιχείο για να δείτε και να αλλάξετε το στρώμα. Use the [layer tool](tools/layer.md) to change the layers of multiple elements.
+Τα επίπεδα είναι μια επιλογή για ομαδοποίηση στοιχείων. Κάντε κλικ στο στοιχείο για να δείτε και να αλλάξετε το στρώμα. Use the [layer tool](../tools/layer) to change the layers of multiple elements.
 
 ## Ο διάλογος επιπέδων
 
