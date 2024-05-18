@@ -13,7 +13,7 @@ Aşağıdaki kodu web sitenize ekleyin:
 
 | Seçenek  | Tür                                                                                           | Varsayılan | Tanım                                                                                                                                                             |
 | -------- | --------------------------------------------------------------------------------------------- | ---------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| save     | Boolean (true, false)                                                      | true       | Kaydetmeyi etkinleştirin. Eğer devre dışı bırakılırsa, yalnızca bir çıkış düğmesi gösterilir                                                      |
+| kaydet   | Boolean (true, false)                                                      | true       | Kaydetmeyi etkinleştirin. Eğer devre dışı bırakılırsa, yalnızca bir çıkış düğmesi gösterilir                                                      |
 | editable | Boolean (true, false)                                                      | true       | Düzenlemeyi etkinleştir. Eğer devre dışı bırakılırsa, belge salt okunur olur                                                                      |
 | language | String (..., system, user) | system     | Belge dili. Eğer sistem ise, dil tarayıcıdan algılanacaktır. Eğer kullanıcı ise, dil kullanıcıların tercihine göre ayarlanacaktır |
 
@@ -30,7 +30,7 @@ embedElement.addEventListener('message', (data) => {
 });
 ```
 
-### save
+### kaydet
 
 > The `save` event is emitted when the user clicks the save button.
 
@@ -38,7 +38,7 @@ Parametreler:
 
 - `data` (Type `List<int>`): The data of the document.
 
-### exit
+### çıkış
 
 > The `exit` event is emitted when the user clicks the exit button.
 
