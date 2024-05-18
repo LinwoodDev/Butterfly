@@ -1,0 +1,28 @@
+---
+title: Web
+---
+
+![Stable release version](https://img.shields.io/badge/dynamic/yaml?color=c4840d&label=Stable&query=%24.version&url=https%3A%2F%2Fraw.githubusercontent.com%2FLinwoodDev%2Fbutterfly%2Fstable%2Fapp%2Fpubspec.yaml&style=for-the-badge)
+![Nightly release version](https://img.shields.io/badge/dynamic/yaml?color=f7d28c&label=Nightly&query=%24.version&url=https%3A%2F%2Fraw.githubusercontent.com%2FLinwoodDev%2Fbutterfly%2Fnightly%2Fapp%2Fpubspec.yaml&style=for-the-badge)
+
+import { CardGrid } from '@astrojs/starlight/components';
+import DownloadButton from '../../../components/DownloadButton.astro';
+
+:::note
+
+Esta es una aplicación web progresiva. Puedes instalarlo en tu navegador y usarlo sin conexión.
+Todos los datos se almacenan en su navegador.
+
+:::
+
+## Enlaces
+
+<CardGrid>
+  <DownloadButton after="/downloads/post-windows" href="https://web.butterfly.linwood.dev" title="Main" />
+  <DownloadButton href="https://preview.butterfly.linwood.dev" title="Preview" />
+</CardGrid>
+
+## Versiones
+
+Las versiones principales y la vista previa de Butterfly no son las mismas que las versiones estables y nocturnas.
+No están directamente asociados con una liberación. Se actualizan tan pronto como un nuevo commit se inserta en el repositorio.
