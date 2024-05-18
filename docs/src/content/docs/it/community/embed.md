@@ -13,7 +13,7 @@ Aggiungi il seguente codice al tuo sito web:
 
 | Opzione  | Tipo                                                                                              | Predefinito | Descrizione                                                                                                                                                           |
 | -------- | ------------------------------------------------------------------------------------------------- | ----------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| save     | Boolean (true, false)                                                          | true        | Abilita il salvataggio. Se disabilitato, verrà mostrato solo un pulsante di uscita                                                                    |
+| salva    | Boolean (true, false)                                                          | true        | Abilita il salvataggio. Se disabilitato, verrà mostrato solo un pulsante di uscita                                                                    |
 | editable | Boolean (true, false)                                                          | true        | Abilita le modifiche. Se disabilitato, il documento sarà in sola lettura                                                                              |
 | language | Stringa (..., sistema, utente) | system      | Lingua del documento. Se il sistema, la lingua verrà rilevata dal browser. Se l'utente, la lingua imposterà la preferenza dell'utente |
 
@@ -30,7 +30,7 @@ embedElement.addEventListener('message', (data) => {
 });
 ```
 
-### save
+### salva
 
 > The `save` event is emitted when the user clicks the save button.
 
@@ -38,7 +38,7 @@ Parametri:
 
 - `data` (Type `List<int>`): The data of the document.
 
-### exit
+### esci
 
 > The `exit` event is emitted when the user clicks the exit button.
 
