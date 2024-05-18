@@ -6,7 +6,7 @@ Ten przewodnik pokaże jak przenieść do najnowszej wersji.
 
 ## 7 (Breaking change) {#7}
 
-**Version: 2.0**
+**Wersja: 2.0**
 
 ### Przerażające zmiany
 
