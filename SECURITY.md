@@ -36,4 +36,4 @@ There will be alphas, betas and release candidates on every major release, betas
 | main    |    ✅    |                   This branch is production ready. It will be updated when a new stable version is released! | Stable  |
 | develop |    ⚠️    | This branch is only for testing and developing. Pull request for feature requests should only be added here! | Nightly |
 
-Read more about nightly [here](https://butterfly.linwood.dev/nightly).
+Read more about nightly [here](https://butterfly.linwood.dev/community/nightly).

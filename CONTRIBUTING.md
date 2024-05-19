@@ -20,7 +20,7 @@ If you have a feature that you would like to see added, please open an issue [he
 Nightly builds are not production ready and need to be tested.
 Please report any bugs in the github issues section.
 
-Read more about it [here](https://butterfly.linwood.dev/nightly).
+Read more about it [here](https://butterfly.linwood.dev/community/nightly).
 
 ## Write documentation
 
