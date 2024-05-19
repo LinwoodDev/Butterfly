@@ -217,7 +217,7 @@ class _EditToolbarState extends State<EditToolbar> {
                       padding: const EdgeInsets.only(right: 4),
                       child: AspectRatio(
                         aspectRatio: 1,
-                        child: FloatingActionButton.small(
+                        child: FloatingActionButton(
                           tooltip: AppLocalizations.of(context).add,
                           heroTag: null,
                           onPressed: () {

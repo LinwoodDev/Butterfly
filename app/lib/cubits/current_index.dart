@@ -66,9 +66,9 @@ class CurrentIndex with _$CurrentIndex {
     @Default(false) bool currentlySaving,
     PreferredSizeWidget? toolbar,
     PreferredSizeWidget? temporaryToolbar,
-    @Default(<Renderer, RendererState>{})
-    Map<Renderer, RendererState> rendererStates,
-    Map<Renderer, RendererState>? temporaryRendererStates,
+    @Default(<String, RendererState>{})
+    Map<String, RendererState> rendererStates,
+    Map<String, RendererState>? temporaryRendererStates,
     @Default(ViewOption()) ViewOption viewOption,
     @Default(HideState.visible) HideState hideUi,
     @Default(true) bool areaNavigatorCreate,
@@ -83,7 +83,7 @@ class CurrentIndex with _$CurrentIndex {
 
   UtilitiesState get utilitiesState => cameraViewport.utilities.element;
 
-  Map<Renderer, RendererState> get allRendererStates => {
+  Map<String, RendererState> get allRendererStates => {
         ...rendererStates,
         ...?temporaryRendererStates,
       };
@@ -166,6 +166,10 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
   @override
   void onChange(Change<CurrentIndex> change) {
     super.onChange(change);
+    if (change.currentState.cameraViewport.image !=
+        change.nextState.cameraViewport.image) {
+      change.currentState.cameraViewport.image?.dispose();
+    }
     if (change.nextState.foregrounds != change.currentState.foregrounds ||
         change.nextState.temporaryForegrounds !=
             change.currentState.temporaryForegrounds ||
@@ -570,7 +574,6 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
             bakedElements: renderers,
             unbakedElements: currentRenderers,
             visibleElements: visibleElements)));
-    cameraViewport.image?.dispose();
   }
 
   Future<ByteData?> render(NoteData document, DocumentPage page,
@@ -923,9 +926,9 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
         ..addAll(addedElements);
     }
 
-    if (addedElements == null || replacedElements != null) {
+    if (replacedElements != null) {
       current.currentIndexCubit.unbake(
-          unbakedElements: [...?replacedElements, ...?addedElements],
+          unbakedElements: [...replacedElements, ...?addedElements],
           backgrounds: backgrounds);
     } else if (backgrounds != null) {
       unbake(backgrounds: backgrounds);

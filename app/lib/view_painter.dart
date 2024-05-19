@@ -97,7 +97,7 @@ class ViewPainter extends CustomPainter {
   final CameraTransform transform;
   final ColorScheme? colorScheme;
   final List<String> invisibleLayers;
-  final Map<Renderer, RendererState> states;
+  final Map<String, RendererState> states;
 
   const ViewPainter(
     this.document,
@@ -158,7 +158,7 @@ class ViewPainter extends CustomPainter {
     canvas.scale(transform.size, transform.size);
     canvas.translate(-transform.position.dx, -transform.position.dy);
     for (final renderer in cameraViewport.unbakedElements) {
-      final state = states[renderer];
+      final state = states[renderer.id];
       if (!invisibleLayers.contains(renderer.element.layer) &&
           state != RendererState.hidden) {
         final center = renderer.rect?.center;

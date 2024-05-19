@@ -43,9 +43,9 @@ mixin _$CurrentIndex {
   PreferredSizeWidget? get toolbar => throw _privateConstructorUsedError;
   PreferredSizeWidget? get temporaryToolbar =>
       throw _privateConstructorUsedError;
-  Map<Renderer, RendererState> get rendererStates =>
+  Map<String, RendererState> get rendererStates =>
       throw _privateConstructorUsedError;
-  Map<Renderer, RendererState>? get temporaryRendererStates =>
+  Map<String, RendererState>? get temporaryRendererStates =>
       throw _privateConstructorUsedError;
   ViewOption get viewOption => throw _privateConstructorUsedError;
   HideState get hideUi => throw _privateConstructorUsedError;
@@ -89,8 +89,8 @@ abstract class $CurrentIndexCopyWith<$Res> {
       bool currentlySaving,
       PreferredSizeWidget? toolbar,
       PreferredSizeWidget? temporaryToolbar,
-      Map<Renderer, RendererState> rendererStates,
-      Map<Renderer, RendererState>? temporaryRendererStates,
+      Map<String, RendererState> rendererStates,
+      Map<String, RendererState>? temporaryRendererStates,
       ViewOption viewOption,
       HideState hideUi,
       bool areaNavigatorCreate,
@@ -246,11 +246,11 @@ class _$CurrentIndexCopyWithImpl<$Res, $Val extends CurrentIndex>
       rendererStates: null == rendererStates
           ? _value.rendererStates
           : rendererStates // ignore: cast_nullable_to_non_nullable
-              as Map<Renderer, RendererState>,
+              as Map<String, RendererState>,
       temporaryRendererStates: freezed == temporaryRendererStates
           ? _value.temporaryRendererStates
           : temporaryRendererStates // ignore: cast_nullable_to_non_nullable
-              as Map<Renderer, RendererState>?,
+              as Map<String, RendererState>?,
       viewOption: null == viewOption
           ? _value.viewOption
           : viewOption // ignore: cast_nullable_to_non_nullable
@@ -324,8 +324,8 @@ abstract class _$$CurrentIndexImplCopyWith<$Res>
       bool currentlySaving,
       PreferredSizeWidget? toolbar,
       PreferredSizeWidget? temporaryToolbar,
-      Map<Renderer, RendererState> rendererStates,
-      Map<Renderer, RendererState>? temporaryRendererStates,
+      Map<String, RendererState> rendererStates,
+      Map<String, RendererState>? temporaryRendererStates,
       ViewOption viewOption,
       HideState hideUi,
       bool areaNavigatorCreate,
@@ -481,11 +481,11 @@ class __$$CurrentIndexImplCopyWithImpl<$Res>
       rendererStates: null == rendererStates
           ? _value._rendererStates
           : rendererStates // ignore: cast_nullable_to_non_nullable
-              as Map<Renderer, RendererState>,
+              as Map<String, RendererState>,
       temporaryRendererStates: freezed == temporaryRendererStates
           ? _value._temporaryRendererStates
           : temporaryRendererStates // ignore: cast_nullable_to_non_nullable
-              as Map<Renderer, RendererState>?,
+              as Map<String, RendererState>?,
       viewOption: null == viewOption
           ? _value.viewOption
           : viewOption // ignore: cast_nullable_to_non_nullable
@@ -533,9 +533,9 @@ class _$CurrentIndexImpl extends _CurrentIndex {
       this.currentlySaving = false,
       this.toolbar,
       this.temporaryToolbar,
-      final Map<Renderer, RendererState> rendererStates =
-          const <Renderer, RendererState>{},
-      final Map<Renderer, RendererState>? temporaryRendererStates,
+      final Map<String, RendererState> rendererStates =
+          const <String, RendererState>{},
+      final Map<String, RendererState>? temporaryRendererStates,
       this.viewOption = const ViewOption(),
       this.hideUi = HideState.visible,
       this.areaNavigatorCreate = true,
@@ -634,18 +634,18 @@ class _$CurrentIndexImpl extends _CurrentIndex {
   final PreferredSizeWidget? toolbar;
   @override
   final PreferredSizeWidget? temporaryToolbar;
-  final Map<Renderer, RendererState> _rendererStates;
+  final Map<String, RendererState> _rendererStates;
   @override
   @JsonKey()
-  Map<Renderer, RendererState> get rendererStates {
+  Map<String, RendererState> get rendererStates {
     if (_rendererStates is EqualUnmodifiableMapView) return _rendererStates;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableMapView(_rendererStates);
   }
 
-  final Map<Renderer, RendererState>? _temporaryRendererStates;
+  final Map<String, RendererState>? _temporaryRendererStates;
   @override
-  Map<Renderer, RendererState>? get temporaryRendererStates {
+  Map<String, RendererState>? get temporaryRendererStates {
     final value = _temporaryRendererStates;
     if (value == null) return null;
     if (_temporaryRendererStates is EqualUnmodifiableMapView)
@@ -708,8 +708,8 @@ abstract class _CurrentIndex extends CurrentIndex {
       final bool currentlySaving,
       final PreferredSizeWidget? toolbar,
       final PreferredSizeWidget? temporaryToolbar,
-      final Map<Renderer, RendererState> rendererStates,
-      final Map<Renderer, RendererState>? temporaryRendererStates,
+      final Map<String, RendererState> rendererStates,
+      final Map<String, RendererState>? temporaryRendererStates,
       final ViewOption viewOption,
       final HideState hideUi,
       final bool areaNavigatorCreate,
@@ -766,9 +766,9 @@ abstract class _CurrentIndex extends CurrentIndex {
   @override
   PreferredSizeWidget? get temporaryToolbar;
   @override
-  Map<Renderer, RendererState> get rendererStates;
+  Map<String, RendererState> get rendererStates;
   @override
-  Map<Renderer, RendererState>? get temporaryRendererStates;
+  Map<String, RendererState>? get temporaryRendererStates;
   @override
   ViewOption get viewOption;
   @override
