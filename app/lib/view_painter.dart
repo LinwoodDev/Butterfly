@@ -149,7 +149,9 @@ class ViewPainter extends CustomPainter {
           image,
           Offset.zero & Size(image.width.toDouble(), image.height.toDouble()),
           pos & size * (1 + bakedSizeDiff),
-          Paint(),
+          Paint()
+            ..filterQuality = FilterQuality.high
+            ..isAntiAlias = true,
         );
       }
     }

@@ -490,7 +490,6 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
         List<Renderer<PadElement>>.from(cameraViewport.unbakedElements);
     final recorder = ui.PictureRecorder();
     final canvas = ui.Canvas(recorder);
-    final last = state.cameraViewport;
     final friction = transform.friction;
     if (friction != null) {
       final topLeft = Offset(
@@ -508,11 +507,11 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
           transform.size;
     }
     reset = reset ||
-        last.width != size.width.ceil() ||
-        last.height != size.height.ceil() ||
-        last.x != transform.position.dx ||
-        last.y != transform.position.dy ||
-        last.scale != transform.size;
+        cameraViewport.width != size.width.ceil() ||
+        cameraViewport.height != size.height.ceil() ||
+        cameraViewport.x != transform.position.dx ||
+        cameraViewport.y != transform.position.dy ||
+        cameraViewport.scale != transform.size;
     if (renderers.isEmpty && !reset) return;
     List<Renderer<PadElement>> visibleElements;
     if (reset) {
@@ -539,7 +538,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
           ? cameraViewport.unbake(
               unbakedElements: visibleElements,
               visibleElements: visibleElements)
-          : last,
+          : cameraViewport,
       renderBackground: false,
       renderBaked: !reset,
     ).paint(canvas, size);
@@ -571,6 +570,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
             bakedElements: renderers,
             unbakedElements: currentRenderers,
             visibleElements: visibleElements)));
+    cameraViewport.image?.dispose();
   }
 
   Future<ByteData?> render(NoteData document, DocumentPage page,
