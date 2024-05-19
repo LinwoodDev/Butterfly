@@ -1,6 +1,5 @@
 ---
 title: Natlige Bygninger
-slug: /nightly
 ---
 
 :::warning
