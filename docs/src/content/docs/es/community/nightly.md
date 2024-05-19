@@ -1,6 +1,5 @@
 ---
 title: Construcciones nocturnas
-slug: /nightly
 ---
 
 :::warning
