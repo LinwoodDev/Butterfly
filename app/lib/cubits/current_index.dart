@@ -66,9 +66,9 @@ class CurrentIndex with _$CurrentIndex {
     @Default(false) bool currentlySaving,
     PreferredSizeWidget? toolbar,
     PreferredSizeWidget? temporaryToolbar,
-    @Default(<Renderer, RendererState>{})
-    Map<Renderer, RendererState> rendererStates,
-    Map<Renderer, RendererState>? temporaryRendererStates,
+    @Default(<String, RendererState>{})
+    Map<String, RendererState> rendererStates,
+    Map<String, RendererState>? temporaryRendererStates,
     @Default(ViewOption()) ViewOption viewOption,
     @Default(HideState.visible) HideState hideUi,
     @Default(true) bool areaNavigatorCreate,
@@ -83,7 +83,7 @@ class CurrentIndex with _$CurrentIndex {
 
   UtilitiesState get utilitiesState => cameraViewport.utilities.element;
 
-  Map<Renderer, RendererState> get allRendererStates => {
+  Map<String, RendererState> get allRendererStates => {
         ...rendererStates,
         ...?temporaryRendererStates,
       };
@@ -926,9 +926,9 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
         ..addAll(addedElements);
     }
 
-    if (addedElements == null || replacedElements != null) {
+    if (replacedElements != null) {
       current.currentIndexCubit.unbake(
-          unbakedElements: [...?replacedElements, ...?addedElements],
+          unbakedElements: [...replacedElements, ...?addedElements],
           backgrounds: backgrounds);
     } else if (backgrounds != null) {
       unbake(backgrounds: backgrounds);

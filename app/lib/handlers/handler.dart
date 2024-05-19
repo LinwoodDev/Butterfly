@@ -249,7 +249,7 @@ abstract class Handler<T> {
 
   PreferredSizeWidget? getToolbar(DocumentBloc bloc) => null;
 
-  Map<Renderer, RendererState> get rendererStates => const {};
+  Map<String, RendererState> get rendererStates => const {};
 
   void dispose(DocumentBloc bloc) {}
 

@@ -28,8 +28,8 @@ class SpacerHandler extends Handler<SpacerTool> {
       ];
 
   @override
-  Map<Renderer, RendererState> get rendererStates => Map.fromEntries(
-      _renderers?.map((e) => MapEntry(e, RendererState.hidden)) ?? []);
+  Map<String, RendererState> get rendererStates => Map.fromEntries(
+      _renderers?.map((e) => MapEntry(e.id, RendererState.hidden)) ?? []);
 
   Rect? _lastRect;
 

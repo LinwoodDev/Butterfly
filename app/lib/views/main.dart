@@ -541,7 +541,9 @@ class _MainBody extends StatelessWidget {
                                         !isMobile) &&
                                     currentIndex.hideUi == HideState.visible)
                                   toolbar,
-                                if ((pos == ToolbarPosition.top || isMobile) &&
+                                if ((pos == ToolbarPosition.top ||
+                                        pos == ToolbarPosition.inline ||
+                                        isMobile) &&
                                     currentIndex.hideUi == HideState.visible)
                                   const ToolbarView(),
                                 const Expanded(

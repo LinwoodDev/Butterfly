@@ -24,10 +24,11 @@ class SelectHandler extends Handler<SelectTool> {
   }
 
   @override
-  Map<Renderer, RendererState> get rendererStates => _selectionManager
-          .isTransforming
-      ? Map.fromEntries(_selected.map((e) => MapEntry(e, RendererState.hidden)))
-      : {};
+  Map<String, RendererState> get rendererStates =>
+      _selectionManager.isTransforming
+          ? Map.fromEntries(
+              _selected.map((e) => MapEntry(e.id, RendererState.hidden)))
+          : {};
 
   @override
   void resetInput(DocumentBloc bloc) {

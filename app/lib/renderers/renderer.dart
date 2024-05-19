@@ -147,6 +147,9 @@ abstract class Renderer<T> {
   double get rotation =>
       element is PadElement ? (element as PadElement).rotation : 0.0;
 
+  String get id =>
+      (element is PadElement ? (element as PadElement).id : null) ?? '';
+
   @mustCallSuper
   FutureOr<void> setup(NoteData document, AssetService assetService,
           DocumentPage page) async =>
