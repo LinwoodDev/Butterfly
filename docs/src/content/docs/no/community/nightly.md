@@ -1,6 +1,5 @@
 ---
 title: Nattlig bygger
-slug: /nightly
 ---
 
 :::warning
