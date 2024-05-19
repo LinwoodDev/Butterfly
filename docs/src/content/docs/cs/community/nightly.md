@@ -1,6 +1,5 @@
 ---
 title: Noční sestavení
-slug: /nightly
 ---
 
 :::warning
