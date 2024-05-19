@@ -1,6 +1,5 @@
 ---
 title: Builds Noturnas
-slug: /nightly
 ---
 
 :::warning
