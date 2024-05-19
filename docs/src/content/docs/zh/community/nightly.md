@@ -1,6 +1,5 @@
 ---
 title: 每晚生成
-slug: /nightly
 ---
 
 :::warning
