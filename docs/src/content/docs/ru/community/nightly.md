@@ -1,6 +1,5 @@
 ---
 title: Ночные сборки
-slug: /nightly
 ---
 
 :::warning
