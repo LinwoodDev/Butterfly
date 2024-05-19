@@ -1,5 +1,4 @@
 ---
-slug: /faq
 title: Często zadawane pytania
 ---
 
