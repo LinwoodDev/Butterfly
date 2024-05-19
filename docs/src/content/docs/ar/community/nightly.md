@@ -1,6 +1,5 @@
 ---
 title: المباني الليلية
-slug: /nightly
 ---
 
 :::warning
