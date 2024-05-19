@@ -1,6 +1,5 @@
 ---
 title: Nightly Builds
-slug: /nightly
 ---
 
 :::warning
