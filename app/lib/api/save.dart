@@ -57,7 +57,7 @@ Future<void> exportZip(BuildContext context, List<int> bytes,
 
 Future<void> exportData(BuildContext context, List<int> bytes,
         [bool share = false]) =>
-    exportFile(context, bytes, 'bfly', 'application/zip',
+    exportFile(context, bytes, 'bfly', 'application/octet-stream',
         'dev.linwood.butterfly.note', share);
 
 void saveToClipboard(BuildContext context, String text) {

@@ -26,7 +26,7 @@ extension AssetFileTypeHelper on AssetFileType {
       };
 
   List<String> getMimeTypes() => switch (this) {
-        AssetFileType.note => ['application/zip'],
+        AssetFileType.note => ['application/octet-stream', 'application/zip'],
         AssetFileType.image => ['image/*'],
         AssetFileType.markdown => ['text/markdown'],
         AssetFileType.pdf => ['application/pdf'],
