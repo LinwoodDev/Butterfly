@@ -36,11 +36,10 @@ Some of them are written below the buttons.
 ## Pen
 
 By default, the the pen is configured to function as the following:
-* `Pen`: configured as pen. 
+
+* `Pen`: configured as pen.
 * `First` (Primary button, if supported): Change to hand tool while pressed.
-* `Second` (Secondary button, if supported): Change to second tool (see [configure](#configure) section below)  while pressed. 
-
-
+* `Second` (Secondary button, if supported): Change to second tool (see [configure](#configure) section below) while pressed.
 
 ## Configure {#configure}
 
@@ -54,6 +53,4 @@ The configure options you have are the following:
 
 * Empty - the tool is unchaged.
 * 0 - the tool will function as moving (i.e., hand) in this mod.
-* Positive number - The tool will follow the indexing as explain above. 
-
-
+* Positive number - The tool will follow the indexing as explain above.
