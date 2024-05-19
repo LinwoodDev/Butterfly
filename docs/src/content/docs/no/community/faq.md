@@ -1,5 +1,4 @@
 ---
-slug: /faq
 title: Ofte stilte spørsmål
 ---
 
