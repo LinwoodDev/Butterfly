@@ -44,48 +44,42 @@ class _StyleDialogState extends State<StyleDialog> {
 
   @override
   Widget build(BuildContext context) {
-    return AlertDialog(
+    return ResponsiveAlertDialog(
       title: Text(AppLocalizations.of(context).style),
-      content: SizedBox(
-        height: 600,
-        width: 700,
-        child: DefaultTabController(
-          length: 3,
-          child: Column(
-            children: [
-              TabBar(
-                  isScrollable: true,
-                  tabs: [
-                    (
-                      PhosphorIconsLight.gear,
-                      AppLocalizations.of(context).general
-                    ),
-                    (
-                      PhosphorIconsLight.article,
-                      AppLocalizations.of(context).paragraph
-                    ),
-                    (
-                      PhosphorIconsLight.textT,
-                      AppLocalizations.of(context).text
-                    )
-                  ]
-                      .map((e) => HorizontalTab(
-                            icon: PhosphorIcon(e.$1),
-                            label: Text(e.$2),
-                          ))
-                      .toList()),
-              const SizedBox(height: 8),
-              Expanded(
-                child: TabBarView(
-                  children: [
-                    GeneralStyleView(value: _style, onChanged: _onChanged),
-                    ParagraphsStyleView(value: _style, onChanged: _onChanged),
-                    TextsStyleView(value: _style, onChanged: _onChanged),
-                  ],
-                ),
+      constraints: const BoxConstraints(maxWidth: 700, maxHeight: 800),
+      content: DefaultTabController(
+        length: 3,
+        child: Column(
+          children: [
+            TabBar(
+                isScrollable: true,
+                tabs: [
+                  (
+                    PhosphorIconsLight.gear,
+                    AppLocalizations.of(context).general
+                  ),
+                  (
+                    PhosphorIconsLight.article,
+                    AppLocalizations.of(context).paragraph
+                  ),
+                  (PhosphorIconsLight.textT, AppLocalizations.of(context).text)
+                ]
+                    .map((e) => HorizontalTab(
+                          icon: PhosphorIcon(e.$1),
+                          label: Text(e.$2),
+                        ))
+                    .toList()),
+            const SizedBox(height: 8),
+            Expanded(
+              child: TabBarView(
+                children: [
+                  GeneralStyleView(value: _style, onChanged: _onChanged),
+                  ParagraphsStyleView(value: _style, onChanged: _onChanged),
+                  TextsStyleView(value: _style, onChanged: _onChanged),
+                ],
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
       actions: [

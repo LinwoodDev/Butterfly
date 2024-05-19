@@ -139,7 +139,7 @@ class _GeneralExportDialogState extends State<GeneralExportDialog> {
   Widget build(BuildContext context) {
     return Builder(builder: (context) {
       return Dialog(
-        child: Container(
+        child: ConstrainedBox(
           constraints: const BoxConstraints(maxHeight: 600, maxWidth: 1000),
           child: Column(
             children: [
@@ -166,7 +166,8 @@ class _GeneralExportDialogState extends State<GeneralExportDialog> {
                     children: [
                       Expanded(
                         child: LayoutBuilder(builder: (context, constraints) {
-                          var isMobile = constraints.maxWidth < 600;
+                          var isMobile =
+                              constraints.maxWidth < LeapBreakpoints.compact;
                           if (isMobile) {
                             return ListView(
                               children: [

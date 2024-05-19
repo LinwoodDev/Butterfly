@@ -4,6 +4,7 @@
 * Center grid items in home page
 * Improve webdav requests ([#703](https://github.com/LinwoodDev/Butterfly/pull/703))
 * Improve image quality ([#704](https://github.com/LinwoodDev/Butterfly/issues/704))
+* Improve responsiveness
 * Fix launching url does nothing
 * Fix settings on mobile fill full height
 * Fix grid switch on file view will be shown in navigator

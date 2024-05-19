@@ -80,7 +80,8 @@ class _SearchDialogState extends State<SearchDialog> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           SizedBox(
-            width: min(constraints.maxWidth, 600),
+            width:
+                min(constraints.maxWidth, LeapBreakpoints.compact.toDouble()),
             child: Material(
               borderRadius: const BorderRadius.only(
                 bottomLeft: Radius.circular(12),

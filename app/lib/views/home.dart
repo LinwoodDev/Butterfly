@@ -342,7 +342,7 @@ class _HeaderHomeViewState extends State<_HeaderHomeView>
       ],
     );
     final innerCard = LayoutBuilder(builder: (context, constraints) {
-      final isMobile = constraints.maxWidth <= kMobileWidth;
+      final isMobile = constraints.maxWidth < LeapBreakpoints.compact;
       if (isMobile) {
         return Column(
           children: [logo, const SizedBox(height: 16), whatsNew],

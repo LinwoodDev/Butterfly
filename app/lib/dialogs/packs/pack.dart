@@ -39,58 +39,55 @@ class _PackDialogState extends State<PackDialog> {
 
   @override
   Widget build(BuildContext context) {
-    return AlertDialog(
+    return ResponsiveAlertDialog(
       title: Text(widget.pack == null
           ? AppLocalizations.of(context).createPack
           : AppLocalizations.of(context).editPack),
-      content: SizedBox(
-        width: 600,
-        height: 600,
-        child: DefaultTabController(
-          length: widget.pack == null ? 1 : 4,
-          child: Column(
-            children: [
-              if (widget.pack != null)
-                TabBar(
-                    isScrollable: true,
-                    tabs: [
-                      (
-                        PhosphorIconsLight.gear,
-                        AppLocalizations.of(context).general
-                      ),
-                      (
-                        PhosphorIconsLight.puzzlePiece,
-                        AppLocalizations.of(context).components
-                      ),
-                      (
-                        PhosphorIconsLight.pencilCircle,
-                        AppLocalizations.of(context).styles
-                      ),
-                      (
-                        PhosphorIconsLight.palette,
-                        AppLocalizations.of(context).palettes
-                      )
-                    ]
-                        .map((e) => HorizontalTab(
-                              icon: PhosphorIcon(e.$1),
-                              label: Text(e.$2),
-                            ))
-                        .toList()),
-              const SizedBox(height: 8),
-              Expanded(
-                child: TabBarView(
-                  children: [
-                    GeneralPackView(value: pack, onChanged: _onChanged),
-                    if (widget.pack != null) ...[
-                      ComponentsPackView(value: pack, onChanged: _onChanged),
-                      StylesPackView(value: pack, onChanged: _onChanged),
-                      PalettesPackView(value: pack, onChanged: _onChanged),
-                    ],
+      constraints: const BoxConstraints(maxWidth: 700, maxHeight: 800),
+      content: DefaultTabController(
+        length: widget.pack == null ? 1 : 4,
+        child: Column(
+          children: [
+            if (widget.pack != null)
+              TabBar(
+                  isScrollable: true,
+                  tabs: [
+                    (
+                      PhosphorIconsLight.gear,
+                      AppLocalizations.of(context).general
+                    ),
+                    (
+                      PhosphorIconsLight.puzzlePiece,
+                      AppLocalizations.of(context).components
+                    ),
+                    (
+                      PhosphorIconsLight.pencilCircle,
+                      AppLocalizations.of(context).styles
+                    ),
+                    (
+                      PhosphorIconsLight.palette,
+                      AppLocalizations.of(context).palettes
+                    )
+                  ]
+                      .map((e) => HorizontalTab(
+                            icon: PhosphorIcon(e.$1),
+                            label: Text(e.$2),
+                          ))
+                      .toList()),
+            const SizedBox(height: 8),
+            Expanded(
+              child: TabBarView(
+                children: [
+                  GeneralPackView(value: pack, onChanged: _onChanged),
+                  if (widget.pack != null) ...[
+                    ComponentsPackView(value: pack, onChanged: _onChanged),
+                    StylesPackView(value: pack, onChanged: _onChanged),
+                    PalettesPackView(value: pack, onChanged: _onChanged),
                   ],
-                ),
+                ],
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
       actions: [
