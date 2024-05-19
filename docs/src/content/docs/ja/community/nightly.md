@@ -1,6 +1,5 @@
 ---
 title: 夜のビルド
-slug: /nightly
 ---
 
 :::warning
