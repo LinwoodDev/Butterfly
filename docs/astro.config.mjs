@@ -40,7 +40,7 @@ export default defineConfig({
           items: [
             {
               ...getSidebarTranslatedLabel("Introduction"),
-              link: "/docs/v2/",
+              link: "/docs/v2/intro",
             },
             {
               ...getSidebarTranslatedLabel("Area"),
