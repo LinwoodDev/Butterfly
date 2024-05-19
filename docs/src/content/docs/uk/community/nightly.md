@@ -1,6 +1,5 @@
 ---
 title: Нічна збірка
-slug: /nightly
 ---
 
 :::warning
