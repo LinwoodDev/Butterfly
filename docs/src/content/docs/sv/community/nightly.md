@@ -1,6 +1,5 @@
 ---
 title: Nattliga byggnader
-slug: /nightly
 ---
 
 :::warning
