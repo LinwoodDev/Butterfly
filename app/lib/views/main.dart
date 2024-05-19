@@ -25,6 +25,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -50,7 +51,6 @@ import '../actions/settings.dart';
 import '../actions/svg_export.dart';
 import '../actions/undo.dart';
 import '../actions/zoom.dart';
-import '../main.dart';
 import '../models/viewport.dart';
 import '../services/asset.dart';
 import '../api/changes.dart';
@@ -496,8 +496,10 @@ class _MainBody extends StatelessWidget {
               builder: (context, settings) {
                 final pos = settings.toolbarPosition;
                 return LayoutBuilder(builder: (context, constraints) {
-                  final isMobile = constraints.maxWidth < kMobileWidth;
-                  final isLarge = constraints.maxWidth > kLargeWidth;
+                  final isMobile =
+                      constraints.maxWidth < LeapBreakpoints.compact;
+                  final isLarge =
+                      constraints.maxWidth >= LeapBreakpoints.expanded;
                   final toolbar = EditToolbar(
                     isMobile: false,
                     centered: true,

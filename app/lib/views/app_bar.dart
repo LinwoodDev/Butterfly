@@ -32,7 +32,6 @@ import '../actions/save.dart';
 import '../bloc/document_bloc.dart';
 import '../cubits/settings.dart';
 import '../embed/action.dart';
-import '../main.dart';
 import '../widgets/window.dart';
 import 'navigator/view.dart';
 
@@ -55,7 +54,8 @@ class PadAppBar extends StatelessWidget implements PreferredSizeWidget {
         leading: Padding(
           padding: const EdgeInsets.only(left: 8.0),
           child: LayoutBuilder(builder: (context, constraints) {
-            final isLarge = MediaQuery.of(context).size.width < kLargeWidth;
+            final isLarge =
+                MediaQuery.of(context).size.width < LeapBreakpoints.expanded;
             return _MainPopupMenu(
               viewportKey: viewportKey,
               isLarge: isLarge,
@@ -63,7 +63,8 @@ class PadAppBar extends StatelessWidget implements PreferredSizeWidget {
           }),
         ),
         title: LayoutBuilder(builder: (context, constraints) {
-          final isMobile = MediaQuery.of(context).size.width < kMobileWidth;
+          final isMobile =
+              MediaQuery.of(context).size.width < LeapBreakpoints.compact;
           return _AppBarTitle(
             isMobile: isMobile,
           );
@@ -343,7 +344,8 @@ class _MainPopupMenu extends StatelessWidget {
                     }
                   },
                 ),
-                if (MediaQuery.of(context).size.width < kLargeWidth ||
+                if (MediaQuery.of(context).size.width <
+                        LeapBreakpoints.expanded ||
                     !settings.navigationRail)
                   ...NavigatorPage.values.map(
                     (e) => MenuItemButton(

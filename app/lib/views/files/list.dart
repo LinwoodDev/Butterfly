@@ -13,6 +13,7 @@ import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 class FileEntityListTile extends StatelessWidget {
@@ -50,8 +51,8 @@ class FileEntityListTile extends StatelessWidget {
     final remote = settingsCubit.getRemote(entity.location.remote);
     final fileSystem = DocumentFileSystem.fromPlatform(remote: remote);
     return LayoutBuilder(builder: (context, constraints) {
-      final isDesktop = constraints.maxWidth > 600;
-      final isTablet = constraints.maxWidth > 500;
+      final isDesktop = constraints.maxWidth >= LeapBreakpoints.medium;
+      final isTablet = constraints.maxWidth >= LeapBreakpoints.compact;
       return Row(
         children: [
           Expanded(

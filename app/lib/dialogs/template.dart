@@ -1,7 +1,6 @@
 import 'package:butterfly/actions/new.dart';
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/widgets/connection_button.dart';
-import 'package:butterfly/widgets/responsive_dialog.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
@@ -56,85 +55,81 @@ class _TemplateDialogState extends State<TemplateDialog> {
   @override
   Widget build(BuildContext context) {
     return ResponsiveDialog(
-        child: ConstrainedBox(
-            constraints: const BoxConstraints(maxWidth: 600, maxHeight: 800),
-            child: Column(
-              children: [
-                Header(
-                  title: Text(AppLocalizations.of(context).templates),
-                  leading: IconButton.outlined(
-                    icon: const PhosphorIcon(PhosphorIconsLight.x),
-                    onPressed: () => Navigator.of(context).pop(),
-                    tooltip: AppLocalizations.of(context).close,
-                  ),
-                  actions: [
-                    ConnectionButton(
-                      currentRemote: _fileSystem.remote?.identifier ?? '',
-                      onChanged: (value) {
-                        _fileSystem =
-                            TemplateFileSystem.fromPlatform(remote: value);
-                        load();
-                      },
-                    ),
-                    IconButton(
-                      icon: const PhosphorIcon(
-                          PhosphorIconsLight.clockCounterClockwise),
-                      tooltip: AppLocalizations.of(context).defaultTemplate,
-                      onPressed: () {
-                        showDialog<void>(
-                          context: context,
-                          builder: (context) => AlertDialog(
-                            title: Text(
-                                AppLocalizations.of(context).defaultTemplate),
-                            content:
-                                Text(AppLocalizations.of(context).reallyReset),
-                            actions: [
-                              TextButton(
-                                child:
-                                    Text(AppLocalizations.of(context).cancel),
-                                onPressed: () => Navigator.of(context).pop(),
-                              ),
-                              ElevatedButton(
-                                child: Text(AppLocalizations.of(context).ok),
-                                onPressed: () async {
-                                  for (final template
-                                      in await _fileSystem.getTemplates()) {
-                                    _fileSystem.deleteTemplate(template.name!);
-                                  }
-                                  if (context.mounted) {
-                                    await _fileSystem.createDefault(
-                                        this.context,
-                                        force: true);
-                                  }
-                                  if (context.mounted) {
-                                    Navigator.of(context).pop();
-                                    load();
-                                    setState(() {});
-                                  }
-                                },
-                              ),
-                            ],
+        constraints: const BoxConstraints(maxWidth: 600, maxHeight: 800),
+        child: Column(
+          children: [
+            Header(
+              title: Text(AppLocalizations.of(context).templates),
+              leading: IconButton.outlined(
+                icon: const PhosphorIcon(PhosphorIconsLight.x),
+                onPressed: () => Navigator.of(context).pop(),
+                tooltip: AppLocalizations.of(context).close,
+              ),
+              actions: [
+                ConnectionButton(
+                  currentRemote: _fileSystem.remote?.identifier ?? '',
+                  onChanged: (value) {
+                    _fileSystem =
+                        TemplateFileSystem.fromPlatform(remote: value);
+                    load();
+                  },
+                ),
+                IconButton(
+                  icon: const PhosphorIcon(
+                      PhosphorIconsLight.clockCounterClockwise),
+                  tooltip: AppLocalizations.of(context).defaultTemplate,
+                  onPressed: () {
+                    showDialog<void>(
+                      context: context,
+                      builder: (context) => AlertDialog(
+                        title:
+                            Text(AppLocalizations.of(context).defaultTemplate),
+                        content: Text(AppLocalizations.of(context).reallyReset),
+                        actions: [
+                          TextButton(
+                            child: Text(AppLocalizations.of(context).cancel),
+                            onPressed: () => Navigator.of(context).pop(),
                           ),
-                        );
-                      },
-                    ),
-                    ...widget.bloc == null
-                        ? []
-                        : [
-                            IconButton(
-                              onPressed: () => _showCreateDialog(widget.bloc!),
-                              tooltip: AppLocalizations.of(context).create,
-                              icon: const PhosphorIcon(PhosphorIconsLight.plus),
-                            )
-                          ],
-                  ],
+                          ElevatedButton(
+                            child: Text(AppLocalizations.of(context).ok),
+                            onPressed: () async {
+                              for (final template
+                                  in await _fileSystem.getTemplates()) {
+                                _fileSystem.deleteTemplate(template.name!);
+                              }
+                              if (context.mounted) {
+                                await _fileSystem.createDefault(this.context,
+                                    force: true);
+                              }
+                              if (context.mounted) {
+                                Navigator.of(context).pop();
+                                load();
+                                setState(() {});
+                              }
+                            },
+                          ),
+                        ],
+                      ),
+                    );
+                  },
                 ),
-                Flexible(
-                  child: FutureBuilder<List<NoteData>>(
-                      future: _templatesFuture, builder: _buildBody),
-                ),
+                ...widget.bloc == null
+                    ? []
+                    : [
+                        IconButton(
+                          onPressed: () => _showCreateDialog(widget.bloc!),
+                          tooltip: AppLocalizations.of(context).create,
+                          icon: const PhosphorIcon(PhosphorIconsLight.plus),
+                        )
+                      ],
               ],
-            )));
+            ),
+            Flexible(
+              child: FutureBuilder<List<NoteData>>(
+                  future: _templatesFuture, builder: _buildBody),
+            ),
+          ],
+        ));
   }
 
   Widget _buildBody(

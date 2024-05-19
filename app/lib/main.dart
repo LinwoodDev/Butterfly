@@ -41,9 +41,6 @@ import 'views/home.dart';
 import 'views/main.dart';
 import 'widgets/window.dart';
 
-const kMobileWidth = 600.0;
-const kLargeWidth = 1200.0;
-
 const platform = MethodChannel('linwood.dev/butterfly');
 
 Future<void> main([List<String> args = const []]) async {
