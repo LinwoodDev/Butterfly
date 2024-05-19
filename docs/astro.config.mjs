@@ -206,7 +206,7 @@ export default defineConfig({
             },
             {
               ...getSidebarTranslatedLabel("FAQ"),
-              link: "/faq/",
+              link: "/community/faq/",
             },
             {
               ...getSidebarTranslatedLabel("Versions"),

@@ -1,5 +1,5 @@
 ---
-title: "Pre-1.0 versions"
+title: Pre-1.0 versions
 ---
 
 These versions are not supported anymore.
