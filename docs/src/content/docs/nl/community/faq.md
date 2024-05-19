@@ -1,5 +1,4 @@
 ---
-slug: /faq
 title: Veelgestelde vragen (FAQ's)
 ---
 
