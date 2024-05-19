@@ -1,7 +1,6 @@
 ---
 title: Privacy Policy
 tableOfContents: false
-slug: /privacypolicy
 ---
 
 This is the privacy policy of the app. Please read it carefully.

@@ -166,6 +166,6 @@ class LaserHandler extends Handler<LaserTool> with ColoredHandler {
 
   @override
   MouseCursor get cursor => (_hideCursorWhileDrawing && elements.isNotEmpty)
-      ? SystemMouseCursors.grabbing
+      ? SystemMouseCursors.none
       : SystemMouseCursors.precise;
 }
