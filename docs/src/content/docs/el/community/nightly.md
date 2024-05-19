@@ -1,6 +1,5 @@
 ---
 title: Νυχτερινά Κτίρια
-slug: /nightly
 ---
 
 :::warning
