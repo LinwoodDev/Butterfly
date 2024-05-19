@@ -1,6 +1,5 @@
 ---
 title: Kompilacje Nightly
-slug: /nightly
 ---
 
 :::warning
