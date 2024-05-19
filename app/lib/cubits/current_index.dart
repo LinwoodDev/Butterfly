@@ -166,6 +166,10 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
   @override
   void onChange(Change<CurrentIndex> change) {
     super.onChange(change);
+    if (change.currentState.cameraViewport.image !=
+        change.nextState.cameraViewport.image) {
+      change.currentState.cameraViewport.image?.dispose();
+    }
     if (change.nextState.foregrounds != change.currentState.foregrounds ||
         change.nextState.temporaryForegrounds !=
             change.currentState.temporaryForegrounds ||
@@ -570,7 +574,6 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
             bakedElements: renderers,
             unbakedElements: currentRenderers,
             visibleElements: visibleElements)));
-    cameraViewport.image?.dispose();
   }
 
   Future<ByteData?> render(NoteData document, DocumentPage page,

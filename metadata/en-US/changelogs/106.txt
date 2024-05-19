@@ -4,6 +4,7 @@
 * Center grid items in home page
 * Improve webdav requests ([#703](https://github.com/LinwoodDev/Butterfly/pull/703))
 * Improve image quality ([#704](https://github.com/LinwoodDev/Butterfly/issues/704))
+* Improve baked image quality
 * Improve responsiveness
 * Fix launching url does nothing
 * Fix settings on mobile fill full height
@@ -11,6 +12,7 @@
 * Fix missing scrollbar in home page
 * Fix scale proportional not working
 * Fix bfly file import and export on android ([#709](https://github.com/LinwoodDev/Butterfly/issues/709))
+* Fix old baked image not being disposed
 * Upgrade to flutter 3.22
 
 Read more here: https://linwood.dev/butterfly/2.1.1-rc.1
