@@ -1,6 +1,5 @@
 ---
 title: Nachtelijke builds
-slug: /nightly
 ---
 
 :::warning
