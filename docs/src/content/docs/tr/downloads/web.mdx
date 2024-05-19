@@ -1,0 +1,28 @@
+---
+title: Ağ
+---
+
+![Stable release version](https://img.shields.io/badge/dynamic/yaml?color=c4840d&label=Stable&query=%24.version&url=https%3A%2F%2Fraw.githubusercontent.com%2FLinwoodDev%2Fbutterfly%2Fstable%2Fapp%2Fpubspec.yaml&style=for-the-badge)
+![Nightly release version](https://img.shields.io/badge/dynamic/yaml?color=f7d28c&label=Nightly&query=%24.version&url=https%3A%2F%2Fraw.githubusercontent.com%2FLinwoodDev%2Fbutterfly%2Fnightly%2Fapp%2Fpubspec.yaml&style=for-the-badge)
+
+import { CardGrid } from '@astrojs/starlight/components';
+import DownloadButton from '../../../components/DownloadButton.astro';
+
+:::note
+
+Bu ilerici bir web uygulamasıdır. Tarayıcınıza yükleyebilir ve çevrimdışı kullanabilirsiniz.
+Tüm veriler tarayıcınızda saklanır.
+
+:::
+
+## Bağlantılar
+
+<CardGrid>
+  <DownloadButton after="/downloads/post-windows" href="https://web.butterfly.linwood.dev" title="Main" />
+  <DownloadButton href="https://preview.butterfly.linwood.dev" title="Preview" />
+</CardGrid>
+
+## Sürümler
+
+Butterfly'ın ana ve önizleme (geliştirme) sürümleri, kararlı ve nightly sürümleriyle aynı değildir.
+Doğrudan bir sürümle ilişkili değildirler. Depoya yeni bir öneri gönderilir gönderilmez güncellenirler.
