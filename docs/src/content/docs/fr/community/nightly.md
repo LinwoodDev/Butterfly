@@ -1,6 +1,5 @@
 ---
 title: Compilations nocturnes
-slug: /nightly
 ---
 
 :::warning
