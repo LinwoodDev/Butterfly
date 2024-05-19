@@ -1,6 +1,5 @@
 ---
 title: Yölliset Rakennukset
-slug: /nightly
 ---
 
 :::warning
