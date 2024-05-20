@@ -33,13 +33,8 @@ mixin _$LabelContext {
             txt.SpanProperty? forcedSpanProperty,
             bool? forceParagraph)
         text,
-    required TResult Function(
-            LabelTool tool,
-            TextPainter textPainter,
-            MarkdownElement? element,
-            bool isCreating,
-            double zoom,
-            TextSelection selection)
+    required TResult Function(LabelTool tool, TextPainter textPainter,
+            MarkdownElement? element, double zoom, TextSelection selection)
         markdown,
   }) =>
       throw _privateConstructorUsedError;
@@ -55,13 +50,8 @@ mixin _$LabelContext {
             txt.SpanProperty? forcedSpanProperty,
             bool? forceParagraph)?
         text,
-    TResult? Function(
-            LabelTool tool,
-            TextPainter textPainter,
-            MarkdownElement? element,
-            bool isCreating,
-            double zoom,
-            TextSelection selection)?
+    TResult? Function(LabelTool tool, TextPainter textPainter,
+            MarkdownElement? element, double zoom, TextSelection selection)?
         markdown,
   }) =>
       throw _privateConstructorUsedError;
@@ -77,13 +67,8 @@ mixin _$LabelContext {
             txt.SpanProperty? forcedSpanProperty,
             bool? forceParagraph)?
         text,
-    TResult Function(
-            LabelTool tool,
-            TextPainter textPainter,
-            MarkdownElement? element,
-            bool isCreating,
-            double zoom,
-            TextSelection selection)?
+    TResult Function(LabelTool tool, TextPainter textPainter,
+            MarkdownElement? element, double zoom, TextSelection selection)?
         markdown,
     required TResult orElse(),
   }) =>
@@ -349,13 +334,8 @@ class _$TextContextImpl extends TextContext {
             txt.SpanProperty? forcedSpanProperty,
             bool? forceParagraph)
         text,
-    required TResult Function(
-            LabelTool tool,
-            TextPainter textPainter,
-            MarkdownElement? element,
-            bool isCreating,
-            double zoom,
-            TextSelection selection)
+    required TResult Function(LabelTool tool, TextPainter textPainter,
+            MarkdownElement? element, double zoom, TextSelection selection)
         markdown,
   }) {
     return text(tool, textPainter, element, zoom, selection, forcedProperty,
@@ -375,13 +355,8 @@ class _$TextContextImpl extends TextContext {
             txt.SpanProperty? forcedSpanProperty,
             bool? forceParagraph)?
         text,
-    TResult? Function(
-            LabelTool tool,
-            TextPainter textPainter,
-            MarkdownElement? element,
-            bool isCreating,
-            double zoom,
-            TextSelection selection)?
+    TResult? Function(LabelTool tool, TextPainter textPainter,
+            MarkdownElement? element, double zoom, TextSelection selection)?
         markdown,
   }) {
     return text?.call(tool, textPainter, element, zoom, selection,
@@ -401,13 +376,8 @@ class _$TextContextImpl extends TextContext {
             txt.SpanProperty? forcedSpanProperty,
             bool? forceParagraph)?
         text,
-    TResult Function(
-            LabelTool tool,
-            TextPainter textPainter,
-            MarkdownElement? element,
-            bool isCreating,
-            double zoom,
-            TextSelection selection)?
+    TResult Function(LabelTool tool, TextPainter textPainter,
+            MarkdownElement? element, double zoom, TextSelection selection)?
         markdown,
     required TResult orElse(),
   }) {
@@ -493,7 +463,6 @@ abstract class _$$MarkdownContextImplCopyWith<$Res>
       {LabelTool tool,
       TextPainter textPainter,
       MarkdownElement? element,
-      bool isCreating,
       double zoom,
       TextSelection selection});
 }
@@ -512,7 +481,6 @@ class __$$MarkdownContextImplCopyWithImpl<$Res>
     Object? tool = null,
     Object? textPainter = null,
     Object? element = freezed,
-    Object? isCreating = null,
     Object? zoom = null,
     Object? selection = null,
   }) {
@@ -529,10 +497,6 @@ class __$$MarkdownContextImplCopyWithImpl<$Res>
           ? _value.element
           : element // ignore: cast_nullable_to_non_nullable
               as MarkdownElement?,
-      isCreating: null == isCreating
-          ? _value.isCreating
-          : isCreating // ignore: cast_nullable_to_non_nullable
-              as bool,
       zoom: null == zoom
           ? _value.zoom
           : zoom // ignore: cast_nullable_to_non_nullable
@@ -552,7 +516,6 @@ class _$MarkdownContextImpl extends MarkdownContext {
       {required this.tool,
       required this.textPainter,
       this.element,
-      this.isCreating = false,
       this.zoom = 1.0,
       this.selection = const TextSelection.collapsed(offset: 0)})
       : super._();
@@ -565,9 +528,6 @@ class _$MarkdownContextImpl extends MarkdownContext {
   final MarkdownElement? element;
   @override
   @JsonKey()
-  final bool isCreating;
-  @override
-  @JsonKey()
   final double zoom;
   @override
   @JsonKey()
@@ -575,7 +535,7 @@ class _$MarkdownContextImpl extends MarkdownContext {
 
   @override
   String toString() {
-    return 'LabelContext.markdown(tool: $tool, textPainter: $textPainter, element: $element, isCreating: $isCreating, zoom: $zoom, selection: $selection)';
+    return 'LabelContext.markdown(tool: $tool, textPainter: $textPainter, element: $element, zoom: $zoom, selection: $selection)';
   }
 
   @override
@@ -587,16 +547,14 @@ class _$MarkdownContextImpl extends MarkdownContext {
             (identical(other.textPainter, textPainter) ||
                 other.textPainter == textPainter) &&
             (identical(other.element, element) || other.element == element) &&
-            (identical(other.isCreating, isCreating) ||
-                other.isCreating == isCreating) &&
             (identical(other.zoom, zoom) || other.zoom == zoom) &&
             (identical(other.selection, selection) ||
                 other.selection == selection));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType, tool, textPainter, element, isCreating, zoom, selection);
+  int get hashCode =>
+      Object.hash(runtimeType, tool, textPainter, element, zoom, selection);
 
   @JsonKey(ignore: true)
   @override
@@ -618,16 +576,11 @@ class _$MarkdownContextImpl extends MarkdownContext {
             txt.SpanProperty? forcedSpanProperty,
             bool? forceParagraph)
         text,
-    required TResult Function(
-            LabelTool tool,
-            TextPainter textPainter,
-            MarkdownElement? element,
-            bool isCreating,
-            double zoom,
-            TextSelection selection)
+    required TResult Function(LabelTool tool, TextPainter textPainter,
+            MarkdownElement? element, double zoom, TextSelection selection)
         markdown,
   }) {
-    return markdown(tool, textPainter, element, isCreating, zoom, selection);
+    return markdown(tool, textPainter, element, zoom, selection);
   }
 
   @override
@@ -643,17 +596,11 @@ class _$MarkdownContextImpl extends MarkdownContext {
             txt.SpanProperty? forcedSpanProperty,
             bool? forceParagraph)?
         text,
-    TResult? Function(
-            LabelTool tool,
-            TextPainter textPainter,
-            MarkdownElement? element,
-            bool isCreating,
-            double zoom,
-            TextSelection selection)?
+    TResult? Function(LabelTool tool, TextPainter textPainter,
+            MarkdownElement? element, double zoom, TextSelection selection)?
         markdown,
   }) {
-    return markdown?.call(
-        tool, textPainter, element, isCreating, zoom, selection);
+    return markdown?.call(tool, textPainter, element, zoom, selection);
   }
 
   @override
@@ -669,18 +616,13 @@ class _$MarkdownContextImpl extends MarkdownContext {
             txt.SpanProperty? forcedSpanProperty,
             bool? forceParagraph)?
         text,
-    TResult Function(
-            LabelTool tool,
-            TextPainter textPainter,
-            MarkdownElement? element,
-            bool isCreating,
-            double zoom,
-            TextSelection selection)?
+    TResult Function(LabelTool tool, TextPainter textPainter,
+            MarkdownElement? element, double zoom, TextSelection selection)?
         markdown,
     required TResult orElse(),
   }) {
     if (markdown != null) {
-      return markdown(tool, textPainter, element, isCreating, zoom, selection);
+      return markdown(tool, textPainter, element, zoom, selection);
     }
     return orElse();
   }
@@ -722,7 +664,6 @@ abstract class MarkdownContext extends LabelContext {
       {required final LabelTool tool,
       required final TextPainter textPainter,
       final MarkdownElement? element,
-      final bool isCreating,
       final double zoom,
       final TextSelection selection}) = _$MarkdownContextImpl;
   const MarkdownContext._() : super._();
@@ -733,7 +674,6 @@ abstract class MarkdownContext extends LabelContext {
   TextPainter get textPainter;
   @override
   MarkdownElement? get element;
-  bool get isCreating;
   @override
   double get zoom;
   @override
