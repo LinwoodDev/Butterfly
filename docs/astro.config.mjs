@@ -8,6 +8,7 @@ import remarkGemoji from "remark-gemoji";
 // https://astro.build/config
 export default defineConfig({
   outDir: "./build",
+  site: "https://butterfly.linwood.dev",
   markdown: {
     remarkPlugins: [remarkHeadingID, remarkGemoji],
   },

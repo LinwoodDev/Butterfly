@@ -1322,18 +1322,18 @@ packages:
     dependency: "direct main"
     description:
       name: super_clipboard
-      sha256: "2b9c6118bf887182096c13646d0ad83e585f026f655e555731ba7743f9d2bee6"
+      sha256: f81058a9b3cadaaf60f37c2a37dd2647c6e5eda4533e335f1512605e3b9fb860
       url: "https://pub.dev"
     source: hosted
-    version: "0.8.13"
+    version: "0.8.15"
   super_native_extensions:
     dependency: transitive
     description:
       name: super_native_extensions
-      sha256: "12f4bee60f94ed4a460795c9b4a52679ba9dd292cb0d154c8fe2438189864f4b"
+      sha256: bb6499c83484c1dbe293e68907a9b6d51e30b699502c5e11940e834c310df261
       url: "https://pub.dev"
     source: hosted
-    version: "0.8.13"
+    version: "0.8.15"
   sync_http:
     dependency: transitive
     description:
