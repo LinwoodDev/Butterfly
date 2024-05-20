@@ -26,12 +26,11 @@ class LabelContext with _$LabelContext {
     required LabelTool tool,
     required TextPainter textPainter,
     MarkdownElement? element,
-    @Default(false) bool isCreating,
     @Default(1.0) double zoom,
     @Default(TextSelection.collapsed(offset: 0)) TextSelection selection,
   }) = MarkdownContext;
 
-  bool get isCreating => element?.id?.isEmpty ?? true;
+  bool get isCreating => true;
 
   String? get text => labelElement?.text;
 

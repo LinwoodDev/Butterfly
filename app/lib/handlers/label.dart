@@ -42,7 +42,6 @@ class LabelHandler extends Handler<LabelTool>
       case LabelMode.markdown:
         return MarkdownContext(
           tool: data,
-          isCreating: true,
           element: (element as MarkdownElement?) ??
               (position == null
                   ? null
