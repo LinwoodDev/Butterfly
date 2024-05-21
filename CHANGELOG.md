@@ -2,6 +2,35 @@
 
 <!--ENTER CHANGELOG HERE-->
 
+## 2.1.1-rc.1 (2024-05-21)
+
+* Add hide cursor while drawing
+* Improve pdf import performance ([#702](https://github.com/LinwoodDev/Butterfly/pull/702))
+* Reimplement quality in pdf import ([#702](https://github.com/LinwoodDev/Butterfly/pull/702))
+* Center grid items in home page
+* Modernize home page header gradient to use secondary and primary color
+* Improve webdav requests ([#703](https://github.com/LinwoodDev/Butterfly/pull/703))
+* Improve image quality ([#704](https://github.com/LinwoodDev/Butterfly/issues/704))
+* Improve baked image quality
+* Improve responsiveness
+* Improve path eraser performance
+* Use a blue/gray for secondary color in classic theme
+* Fix launching url does nothing
+* Fix settings on mobile fill full height
+* Fix grid switch on file view will be shown in navigator
+* Fix missing scrollbar in home page
+* Fix scale proportional not working
+* Fix bfly file import and export on android ([#709](https://github.com/LinwoodDev/Butterfly/issues/709))
+* Fix old baked image not being disposed
+* Fix toolbar not showing on desktop in toolbar position inline
+* Fix removing elements hides all elements for a moment
+* Fix label could not be edited ([#712](https://github.com/LinwoodDev/Butterfly/issues/712))
+* Upgrade to flutter 3.22
+* Fix linux screenshot appdata
+
+Read more here: https://linwood.dev/butterfly/2.1.1-rc.1
+Visit the new docs here: https://butterfly.linwood.dev
+
 ## 2.1.1-rc.0 (2024-05-14)
 
 * Make dav requests more performant ([#689](https://github.com/LinwoodDev/Butterfly/pull/689))
