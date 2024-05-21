@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 
 import 'main.dart';
 
-const kClassicFirstColor = Color(0xFFf2b138);
-const kClassicSecondColor = Color(0xFFbe5050);
+const kClassicFirstColor = Color(0xFFc4840d);
+const kClassicSecondColor = Color(0xFF7b8f96);
 const kClassicThemePrimary =
     isNightly ? kClassicSecondColor : kClassicFirstColor;
 const kClassicThemeSecondary =

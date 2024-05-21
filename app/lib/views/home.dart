@@ -361,14 +361,13 @@ class _HeaderHomeViewState extends State<_HeaderHomeView>
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(24),
           gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
             colors: [
-              Color.alphaBlend(colorScheme.inverseSurface.withOpacity(0.3),
-                  colorScheme.surface),
+              colorScheme.secondary,
               colorScheme.primary,
             ],
-            stops: const [0, 0.8],
+            stops: const [0.2, 0.8],
           ),
         ),
         child: innerCard,
