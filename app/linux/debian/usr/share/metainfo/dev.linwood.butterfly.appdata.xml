@@ -32,7 +32,7 @@
 	</description>
 	<screenshots>
 		<screenshot type="default">
-			<image type="source">https://raw.githubusercontent.com/LinwoodDev/butterfly/develop/docs/static/img/main.png</image>
+			<image type="source">https://raw.githubusercontent.com/LinwoodDev/Butterfly/9cfb9d1f8b1d5862f7ef0bbc45df909d8be82782/docs/src/assets/img/main.png</image>
 			<caption>Main draw view</caption>
 		</screenshot>
 	</screenshots>

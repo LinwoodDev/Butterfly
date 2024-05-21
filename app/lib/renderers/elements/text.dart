@@ -69,8 +69,10 @@ abstract class GenericTextRenderer<T extends LabelElement> extends Renderer<T> {
   FutureOr<void> build(Canvas canvas, Size size, NoteData document,
       DocumentPage page, DocumentInfo info, CameraTransform transform,
       [ColorScheme? colorScheme, bool foreground = false]) {
-    _tp?.layout(maxWidth: rect.width);
-    _tp?.paint(canvas, element.getOffset(rect.height).toOffset());
+    if (_tp?.plainText.isNotEmpty ?? false) {
+      _tp?.layout(maxWidth: rect.width);
+      _tp?.paint(canvas, element.getOffset(rect.height).toOffset());
+    }
   }
 
   String _convertTextToHtml(String inputText) {
