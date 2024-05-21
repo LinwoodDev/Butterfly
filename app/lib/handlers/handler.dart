@@ -375,7 +375,6 @@ Future<Set<Renderer<PadElement>>> rayCastRect(
   final state = bloc.state;
   if (state is! DocumentLoadSuccess) return {};
   final renderers = state.cameraViewport.visibleElements;
-  rect = rect.normalized();
   return compute(
     _executeRayCast,
     _RayCastParams(
@@ -388,11 +387,12 @@ Future<Set<Renderer<PadElement>>> rayCastRect(
 }
 
 Set<int> _executeRayCast(_RayCastParams params) {
+  final rect = params.rect.normalized();
   return params.renderers
       .asMap()
       .entries
       .where((e) => !params.invisibleLayers.contains(e.value.element.layer))
-      .where((e) => e.value.hitCalc.hit(params.rect))
+      .where((e) => e.value.hitCalc.hit(rect))
       .map((e) => e.key)
       .toSet();
 }

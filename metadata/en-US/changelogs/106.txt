@@ -18,5 +18,7 @@
 * Fix removing elements hides all elements for a moment
 * Fix label could not be edited ([#712](https://github.com/LinwoodDev/Butterfly/issues/712))
 * Upgrade to flutter 3.22
+* Fix linux screenshot appdata
 
 Read more here: https://linwood.dev/butterfly/2.1.1-rc.1
+Visit the new docs here: https://butterfly.linwood.dev
