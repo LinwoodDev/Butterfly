@@ -212,7 +212,7 @@ class DavRemoteDocumentFileSystem extends DocumentRemoteSystem {
 
     // Request to overwrite the file
     final response =
-        await createRequest(p.split(path), method: 'PUT', bodyBytes: data);
+        await createRequest(path.split('/'), method: 'PUT', bodyBytes: data);
     if (response?.statusCode == 200 ||
         response?.statusCode == 201 ||
         response?.statusCode == 204) {
