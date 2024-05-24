@@ -199,6 +199,11 @@ class DavRemoteDocumentFileSystem extends DocumentRemoteSystem {
   @override
   Future<void> updateFile(String path, List<int> data,
       {bool forceSync = false}) async {
+    // Create a copy of the path and remove the leading slash if it exists
+    String modifiedPath = path;
+    if (modifiedPath.startsWith('/')) {
+      modifiedPath = modifiedPath.substring(1);
+    }
     // Cache check
     if (!forceSync && remote.hasDocumentCached(path)) {
       cacheContent(path, data);
@@ -211,8 +216,8 @@ class DavRemoteDocumentFileSystem extends DocumentRemoteSystem {
     }
 
     // Request to overwrite the file
-    final response =
-        await createRequest(p.split(path), method: 'PUT', bodyBytes: data);
+    final response = await createRequest(p.split(modifiedPath),
+        method: 'PUT', bodyBytes: data);
     if (response?.statusCode == 200 ||
         response?.statusCode == 201 ||
         response?.statusCode == 204) {
