@@ -511,8 +511,8 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
           transform.size;
     }
     reset = reset ||
-        cameraViewport.width != size.width.ceil() ||
-        cameraViewport.height != size.height.ceil() ||
+        cameraViewport.width != size.width.round() ||
+        cameraViewport.height != size.height.round() ||
         cameraViewport.x != transform.position.dx ||
         cameraViewport.y != transform.position.dy ||
         cameraViewport.scale != transform.size;
