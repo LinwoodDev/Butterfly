@@ -180,6 +180,8 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
     // Create recognizeUnistroke
     final recognized = recognizeUnistroke(points);
     final element = elements[pointer];
+    final state = context.getDocumentBloc().state as DocumentLoadSuccess;
+    final currentLayer = state.currentLayer;
 
     if (recognized == null || points.length > 600 || element == null) {
       return;
@@ -208,6 +210,7 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
               shape: const LineShape(),
               color: data.property.color,
               strokeWidth: data.property.strokeWidth),
+          layer: currentLayer,
         );
 
         // Show dialog
@@ -251,6 +254,7 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
               shape: const CircleShape(),
               color: data.property.color,
               strokeWidth: data.property.strokeWidth),
+          layer: currentLayer,
         );
 
         // Show dialog
@@ -285,6 +289,7 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
               shape: const RectangleShape(),
               color: data.property.color,
               strokeWidth: data.property.strokeWidth),
+          layer: currentLayer,
         );
 
         // Show dialog
@@ -320,6 +325,7 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
               shape: const TriangleShape(),
               color: data.property.color,
               strokeWidth: data.property.strokeWidth),
+          layer: currentLayer,
         );
 
         // Show dialog
