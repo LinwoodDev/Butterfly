@@ -1,9 +1,7 @@
 import 'dart:convert';
 
-import 'package:butterfly/api/full_screen.dart' as full_screen_api;
 import 'package:butterfly/api/file_system/file_system.dart';
 import 'package:butterfly/main.dart';
-import 'package:butterfly/widgets/window.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
@@ -367,7 +365,7 @@ enum ThemeDensity {
 }
 
 @freezed
-class ButterflySettings with _$ButterflySettings {
+class ButterflySettings with _$ButterflySettings, LeapSettings {
   const ButterflySettings._();
   const factory ButterflySettings({
     @Default(ThemeMode.system) ThemeMode theme,
@@ -391,7 +389,6 @@ class ButterflySettings with _$ButterflySettings {
     @Default(false) bool nativeTitleBar,
     @Default(false) bool startInFullScreen,
     @Default(true) bool navigationRail,
-    required bool fullScreen,
     @Default(SyncMode.noMobile) SyncMode syncMode,
     @Default(InputConfiguration()) InputConfiguration inputConfiguration,
     @Default('') String fallbackPack,
@@ -415,15 +412,13 @@ class ButterflySettings with _$ButterflySettings {
     @Default(false) bool hideCursorWhileDrawing,
   }) = _ButterflySettings;
 
-  factory ButterflySettings.fromPrefs(
-      SharedPreferences prefs, bool fullScreen) {
+  factory ButterflySettings.fromPrefs(SharedPreferences prefs) {
     final connections = prefs
             .getStringList('connections')
             ?.map((e) => ExternalStorage.fromJson(json.decode(e)))
             .toList() ??
         const [];
     return ButterflySettings(
-      fullScreen: fullScreen,
       localeTag: prefs.getString('locale') ?? '',
       penOnlyInput: prefs.getBool('pen_only_input') ?? false,
       inputGestures: prefs.getBool('input_gestures') ?? true,
@@ -596,9 +591,10 @@ class ButterflySettings with _$ButterflySettings {
   bool hasFlag(String s) => flags.contains(s) && isNightly;
 }
 
-class SettingsCubit extends Cubit<ButterflySettings> {
-  SettingsCubit(SharedPreferences prefs, bool fullScreen)
-      : super(ButterflySettings.fromPrefs(prefs, fullScreen));
+class SettingsCubit extends Cubit<ButterflySettings>
+    with LeapSettingsBlocBaseMixin {
+  SettingsCubit(SharedPreferences prefs)
+      : super(ButterflySettings.fromPrefs(prefs));
 
   void setTheme(MediaQueryData mediaQuery, [ThemeMode? theme]) {
     if (kIsWeb || !isWindow) return;
@@ -954,15 +950,6 @@ class SettingsCubit extends Cubit<ButterflySettings> {
   void setNavigatorPage(NavigatorPage page) {
     emit(state.copyWith(navigatorPage: page));
   }
-
-  void setFullScreen(bool value, [bool modify = true]) {
-    if (value != state.fullScreen && modify) {
-      full_screen_api.setFullScreen(value);
-    }
-    emit(state.copyWith(fullScreen: value));
-  }
-
-  void toggleFullScreen() => setFullScreen(!state.fullScreen);
 
   Future<void> changeNavigationRail(bool value) {
     emit(state.copyWith(navigationRail: value));

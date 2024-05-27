@@ -3,7 +3,6 @@ import 'dart:ui';
 
 import 'package:butterfly/api/open.dart';
 import 'package:butterfly/cubits/settings.dart';
-import 'package:butterfly/widgets/window.dart';
 import 'package:file_selector/file_selector.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -40,7 +39,7 @@ class ExperimentsSettingsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: inView ? Colors.transparent : null,
-        appBar: WindowTitleBar(
+        appBar: WindowTitleBar<SettingsCubit, ButterflySettings>(
           title: Text(AppLocalizations.of(context).experiments),
           backgroundColor: inView ? Colors.transparent : null,
           inView: inView,

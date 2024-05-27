@@ -6,7 +6,6 @@ import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/dialogs/template.dart';
 import 'package:butterfly/services/import.dart';
 import 'package:butterfly/views/files/card.dart';
-import 'package:butterfly/widgets/window.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -102,7 +101,7 @@ class _HomePageState extends State<HomePage> {
                               BannerVisibility.onlyOnUpdates &&
                           hasNewerVersion);
               return Scaffold(
-                appBar: WindowTitleBar(
+                appBar: WindowTitleBar<SettingsCubit, ButterflySettings>(
                   title: const Text(shortApplicationName),
                   onlyShowOnDesktop: showBanner,
                   actions: [

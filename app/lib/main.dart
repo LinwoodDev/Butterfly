@@ -16,12 +16,12 @@ import 'package:flutter_web_plugins/url_strategy.dart';
 import 'package:go_router/go_router.dart';
 import 'package:lw_sysapi/lw_sysapi.dart';
 import 'package:material_leap/l10n/leap_localizations.dart';
+import 'package:material_leap/material_leap.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:window_manager/window_manager.dart';
 import 'package:flutter_localized_locales/flutter_localized_locales.dart';
 
 import 'api/file_system/file_system.dart';
-import 'api/full_screen.dart';
 import 'cubits/settings.dart';
 import 'embed/embedding.dart';
 import 'settings/behaviors/home.dart';
@@ -39,7 +39,6 @@ import 'theme.dart';
 import 'views/error.dart';
 import 'views/home.dart';
 import 'views/main.dart';
-import 'widgets/window.dart';
 
 const platform = MethodChannel('linwood.dev/butterfly');
 
@@ -112,7 +111,6 @@ Future<void> main([List<String> args = const []]) async {
   }
   final clipboardManager = await SysAPI.getClipboardManager();
   GeneralFileSystem.dataPath = result['path'];
-  final isFullscreen = await isFullScreen();
   runApp(
     MultiRepositoryProvider(
         providers: [
@@ -127,7 +125,7 @@ Future<void> main([List<String> args = const []]) async {
           prefs: prefs,
           initialLocation: initialLocation,
           initialExtra: initialExtra,
-          isFullScreen: isFullscreen,
+          fullScreen: await isFullScreen(),
         )),
   );
 }
@@ -140,13 +138,13 @@ class ButterflyApp extends StatelessWidget {
   final String initialLocation;
   final String importedLocation;
   final SharedPreferences prefs;
-  final bool isFullScreen;
   final Object? initialExtra;
+  final bool fullScreen;
 
   ButterflyApp(
       {super.key,
       required this.prefs,
-      required this.isFullScreen,
+      this.fullScreen = false,
       this.initialLocation = '/',
       this.initialExtra,
       this.importedLocation = ''})
@@ -319,20 +317,27 @@ class ButterflyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DynamicColorBuilder(
-      builder: (lightDynamic, darkDynamic) => BlocProvider(
-        create: (context) {
-          final cubit = SettingsCubit(prefs, isFullScreen);
-          if (!kIsWeb && isWindow) {
-            windowManager.waitUntilReadyToShow().then((_) async {
-              cubit.setFullScreen(cubit.state.startInFullScreen);
-              cubit.setTheme(MediaQuery.of(context));
-              cubit.setNativeTitleBar();
-              windowManager.show();
-            });
-          }
-          return cubit;
-        },
-        lazy: false,
+      builder: (lightDynamic, darkDynamic) => MultiBlocProvider(
+        providers: [
+          BlocProvider(
+            create: (context) {
+              final cubit = SettingsCubit(prefs);
+              if (!kIsWeb && isWindow) {
+                windowManager.waitUntilReadyToShow().then((_) async {
+                  await windowManager
+                      .setFullScreen(cubit.state.startInFullScreen);
+                  cubit.setTheme(MediaQuery.of(context));
+                  cubit.setNativeTitleBar();
+                  await windowManager.show();
+                });
+              }
+              return cubit;
+            },
+            lazy: false,
+          ),
+          BlocProvider(
+              create: (context) => WindowCubit(fullScreen: fullScreen)),
+        ],
         child: RepositoryProvider(
           create: (context) =>
               SyncService(context, context.read<SettingsCubit>()),

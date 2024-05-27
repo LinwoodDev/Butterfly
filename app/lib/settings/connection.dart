@@ -1,5 +1,4 @@
 import 'package:butterfly/cubits/settings.dart';
-import 'package:butterfly/widgets/window.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -46,7 +45,7 @@ class _ConnectionSettingsPageState extends State<ConnectionSettingsPage>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: WindowTitleBar(
+      appBar: WindowTitleBar<SettingsCubit, ButterflySettings>(
         title: Text(widget.remote),
         bottom: _isRemote
             ? TabBar(

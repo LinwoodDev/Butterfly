@@ -32,7 +32,6 @@ import '../actions/save.dart';
 import '../bloc/document_bloc.dart';
 import '../cubits/settings.dart';
 import '../embed/action.dart';
-import '../widgets/window.dart';
 import 'navigator/view.dart';
 
 class PadAppBar extends StatelessWidget implements PreferredSizeWidget {
@@ -48,7 +47,8 @@ class PadAppBar extends StatelessWidget implements PreferredSizeWidget {
     return RepaintBoundary(child: windowTitleBar);
   }
 
-  WindowTitleBar _buildWindowTitleBar() => WindowTitleBar(
+  WindowTitleBar _buildWindowTitleBar() =>
+      WindowTitleBar<SettingsCubit, ButterflySettings>(
         leadingWidth: 60,
         height: max(70, size.size + 20),
         leading: Padding(
@@ -136,7 +136,7 @@ class _AppBarTitle extends StatelessWidget {
                       previous.toolbarRows != current.toolbarRows,
                   builder: (context, settings) => Stack(
                     children: [
-                      const WindowFreeSpace(),
+                      const WindowFreeSpace<SettingsCubit, ButterflySettings>(),
                       settings.toolbarPosition == ToolbarPosition.inline &&
                               settings.toolbarRows <= 1
                           ? const Align(
@@ -498,18 +498,18 @@ class _MainPopupMenu extends StatelessWidget {
                   },
                   child: Text(AppLocalizations.of(context).hideUI),
                 ),
-                BlocBuilder<SettingsCubit, ButterflySettings>(
+                BlocBuilder<WindowCubit, WindowState>(
                     buildWhen: (previous, current) =>
                         previous.fullScreen != current.fullScreen,
-                    builder: (context, settings) => MenuItemButton(
-                          leadingIcon: settings.fullScreen
+                    builder: (context, windowState) => MenuItemButton(
+                          leadingIcon: windowState.fullScreen
                               ? const PhosphorIcon(PhosphorIconsLight.arrowsIn)
                               : const PhosphorIcon(
                                   PhosphorIconsLight.arrowsOut),
                           shortcut:
                               const SingleActivator(LogicalKeyboardKey.f11),
                           onPressed: () async {
-                            settingsCubit.toggleFullScreen();
+                            context.read<WindowCubit>().toggleFullScreen();
                           },
                           child: Text(AppLocalizations.of(context).fullScreen),
                         )),

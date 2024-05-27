@@ -5,7 +5,6 @@ import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/dialogs/template.dart';
 import 'package:butterfly/visualizer/sync.dart';
-import 'package:butterfly/widgets/window.dart';
 import 'package:file_selector/file_selector.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -30,7 +29,7 @@ class _DataSettingsPageState extends State<DataSettingsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: widget.inView ? Colors.transparent : null,
-        appBar: WindowTitleBar(
+        appBar: WindowTitleBar<SettingsCubit, ButterflySettings>(
           inView: widget.inView,
           backgroundColor: widget.inView ? Colors.transparent : null,
           title: Text(AppLocalizations.of(context).data),
@@ -109,7 +108,8 @@ class _DataSettingsPageState extends State<DataSettingsPage> {
                                 BlocProvider(
                                   lazy: false,
                                   create: (ctx) => DocumentBloc.placeholder(
-                                      context.read<SettingsCubit>()),
+                                      context.read<SettingsCubit>(),
+                                      context.read<WindowCubit>()),
                                 ),
                               ],
                               child: const PacksDialog(globalOnly: true),

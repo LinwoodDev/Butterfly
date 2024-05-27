@@ -1,7 +1,6 @@
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/main.dart';
 import 'package:butterfly/theme.dart';
-import 'package:butterfly/widgets/window.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -46,7 +45,7 @@ class PersonalizationSettingsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: inView ? Colors.transparent : null,
-        appBar: WindowTitleBar(
+        appBar: WindowTitleBar<SettingsCubit, ButterflySettings>(
           inView: inView,
           backgroundColor: inView ? Colors.transparent : null,
           title: Text(AppLocalizations.of(context).personalization),

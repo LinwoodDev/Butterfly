@@ -5,14 +5,13 @@ class FullScreenHandler extends Handler<FullScreenTool> {
 
   @override
   bool onSelected(BuildContext context) {
-    final bloc = context.read<DocumentBloc>();
-    bloc.state.settingsCubit.toggleFullScreen();
+    context.read<WindowCubit>().toggleFullScreen();
     return false;
   }
 
   @override
   PhosphorIconData getIcon(DocumentBloc bloc) {
-    return bloc.state.settingsCubit.state.fullScreen
+    return bloc.state.windowCubit.state.fullScreen
         ? PhosphorIconsLight.arrowsIn
         : PhosphorIconsLight.arrowsOut;
   }

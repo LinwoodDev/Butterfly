@@ -68,7 +68,6 @@ class _EditToolbarState extends State<EditToolbar> {
       child: BlocBuilder<SettingsCubit, ButterflySettings>(
           buildWhen: (previous, current) =>
               previous.inputConfiguration != current.inputConfiguration ||
-              previous.fullScreen != current.fullScreen ||
               previous.toolbarSize != current.toolbarSize ||
               previous.toolbarRows != current.toolbarRows,
           builder: (context, settings) {
@@ -355,86 +354,95 @@ class _EditToolbarState extends State<EditToolbar> {
                 bloc.add(ToolReordered(oldIndex, newIndex));
               },
             ),
-            Row(
-              children: [
-                IconButton(
-                  icon: const PhosphorIcon(PhosphorIconsLight.wrench),
-                  tooltip: AppLocalizations.of(context).tools,
-                  selectedIcon: const PhosphorIcon(PhosphorIconsFill.wrench),
-                  isSelected: currentIndex.selection?.selected
-                          .any((element) => element is UtilitiesState) ??
-                      false,
-                  onPressed: () {
-                    final cubit = context.read<CurrentIndexCubit>();
-                    final state = cubit.state.cameraViewport.utilities.element;
-                    cubit.changeSelection(state);
-                  },
-                ),
-                if (settings.fullScreen &&
-                    tools.every((e) => e is! FullScreenTool))
-                  IconButton(
-                    icon: const PhosphorIcon(PhosphorIconsLight.arrowsIn),
-                    tooltip: AppLocalizations.of(context).exitFullScreen,
-                    onPressed: () {
-                      context.read<SettingsCubit>().setFullScreen(false);
-                    },
-                  ),
-                BlocBuilder<CurrentIndexCubit, CurrentIndex>(
-                  builder: (context, currentIndex) {
-                    final utilitiesState = currentIndex.utilitiesState;
-                    Widget buildButton(
-                            bool selected,
-                            UtilitiesState Function() update,
-                            PhosphorIconData icon,
-                            String title) =>
-                        CheckboxMenuButton(
-                          value: selected,
-                          trailingIcon: PhosphorIcon(icon),
-                          onChanged: (value) => context
-                              .read<CurrentIndexCubit>()
-                              .updateUtilities(utilities: update()),
-                          child: Text(title),
-                        );
+            BlocBuilder<WindowCubit, WindowState>(
+                builder: (context, windowState) => Row(
+                      children: [
+                        IconButton(
+                          icon: const PhosphorIcon(PhosphorIconsLight.wrench),
+                          tooltip: AppLocalizations.of(context).tools,
+                          selectedIcon:
+                              const PhosphorIcon(PhosphorIconsFill.wrench),
+                          isSelected: currentIndex.selection?.selected.any(
+                                  (element) => element is UtilitiesState) ??
+                              false,
+                          onPressed: () {
+                            final cubit = context.read<CurrentIndexCubit>();
+                            final state =
+                                cubit.state.cameraViewport.utilities.element;
+                            cubit.changeSelection(state);
+                          },
+                        ),
+                        if (windowState.fullScreen &&
+                            tools.every((e) => e is! FullScreenTool))
+                          IconButton(
+                            icon:
+                                const PhosphorIcon(PhosphorIconsLight.arrowsIn),
+                            tooltip:
+                                AppLocalizations.of(context).exitFullScreen,
+                            onPressed: () {
+                              context
+                                  .read<WindowCubit>()
+                                  .changeFullScreen(false);
+                            },
+                          ),
+                        BlocBuilder<CurrentIndexCubit, CurrentIndex>(
+                          builder: (context, currentIndex) {
+                            final utilitiesState = currentIndex.utilitiesState;
+                            Widget buildButton(
+                                    bool selected,
+                                    UtilitiesState Function() update,
+                                    PhosphorIconData icon,
+                                    String title) =>
+                                CheckboxMenuButton(
+                                  value: selected,
+                                  trailingIcon: PhosphorIcon(icon),
+                                  onChanged: (value) => context
+                                      .read<CurrentIndexCubit>()
+                                      .updateUtilities(utilities: update()),
+                                  child: Text(title),
+                                );
 
-                    return MenuAnchor(
-                      menuChildren: [
-                        buildButton(
-                          utilitiesState.lockZoom,
-                          () => utilitiesState.copyWith(
-                            lockZoom: !utilitiesState.lockZoom,
-                          ),
-                          PhosphorIconsLight.magnifyingGlassPlus,
-                          AppLocalizations.of(context).zoom,
-                        ),
-                        buildButton(
-                          utilitiesState.lockHorizontal,
-                          () => utilitiesState.copyWith(
-                            lockHorizontal: !utilitiesState.lockHorizontal,
-                          ),
-                          PhosphorIconsLight.arrowsHorizontal,
-                          AppLocalizations.of(context).horizontal,
-                        ),
-                        buildButton(
-                          utilitiesState.lockVertical,
-                          () => utilitiesState.copyWith(
-                            lockVertical: !utilitiesState.lockVertical,
-                          ),
-                          PhosphorIconsLight.arrowsVertical,
-                          AppLocalizations.of(context).vertical,
+                            return MenuAnchor(
+                              menuChildren: [
+                                buildButton(
+                                  utilitiesState.lockZoom,
+                                  () => utilitiesState.copyWith(
+                                    lockZoom: !utilitiesState.lockZoom,
+                                  ),
+                                  PhosphorIconsLight.magnifyingGlassPlus,
+                                  AppLocalizations.of(context).zoom,
+                                ),
+                                buildButton(
+                                  utilitiesState.lockHorizontal,
+                                  () => utilitiesState.copyWith(
+                                    lockHorizontal:
+                                        !utilitiesState.lockHorizontal,
+                                  ),
+                                  PhosphorIconsLight.arrowsHorizontal,
+                                  AppLocalizations.of(context).horizontal,
+                                ),
+                                buildButton(
+                                  utilitiesState.lockVertical,
+                                  () => utilitiesState.copyWith(
+                                    lockVertical: !utilitiesState.lockVertical,
+                                  ),
+                                  PhosphorIconsLight.arrowsVertical,
+                                  AppLocalizations.of(context).vertical,
+                                ),
+                              ],
+                              style: const MenuStyle(
+                                alignment: Alignment.bottomLeft,
+                              ),
+                              builder: defaultMenuButton(
+                                icon: const PhosphorIcon(
+                                    PhosphorIconsLight.lockKey),
+                                tooltip: AppLocalizations.of(context).lock,
+                              ),
+                            );
+                          },
                         ),
                       ],
-                      style: const MenuStyle(
-                        alignment: Alignment.bottomLeft,
-                      ),
-                      builder: defaultMenuButton(
-                        icon: const PhosphorIcon(PhosphorIconsLight.lockKey),
-                        tooltip: AppLocalizations.of(context).lock,
-                      ),
-                    );
-                  },
-                ),
-              ],
-            ),
+                    )),
           ],
         ]);
   }

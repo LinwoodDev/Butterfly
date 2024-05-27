@@ -9,6 +9,7 @@ import 'package:collection/collection.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:material_leap/material_leap.dart';
 import 'package:replay_bloc/replay_bloc.dart';
 
 import '../cubits/settings.dart';
@@ -29,6 +30,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
   DocumentBloc(
     CurrentIndexCubit currentIndexCubit,
     SettingsCubit settingsCubit,
+    WindowCubit windowCubit,
     NoteData initial,
     AssetLocation location,
     List<Renderer<PadElement>> renderer, [
@@ -39,6 +41,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
           initial,
           page: page,
           assetService: assetService,
+          windowCubit: windowCubit,
           currentIndexCubit: currentIndexCubit,
           location: location,
           settingsCubit: settingsCubit,
@@ -47,13 +50,24 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     _init();
   }
 
-  DocumentBloc.error(SettingsCubit settingsCubit, String message,
+  DocumentBloc.error(
+      SettingsCubit settingsCubit, WindowCubit windowCubit, String message,
       [StackTrace? stackTrace])
-      : super(DocumentLoadFailure(settingsCubit, message, stackTrace));
+      : super(DocumentLoadFailure(
+          settingsCubit: settingsCubit,
+          windowCubit: windowCubit,
+          message: message,
+          stackTrace: stackTrace,
+        ));
 
   DocumentBloc.placeholder(
     SettingsCubit settingsCubit,
-  ) : super(DocumentLoadFailure(settingsCubit, ''));
+    WindowCubit windowCubit,
+  ) : super(DocumentLoadFailure(
+          settingsCubit: settingsCubit,
+          windowCubit: windowCubit,
+          message: '',
+        ));
 
   void _init() {
     on<PageAdded>((event, emit) {
@@ -826,6 +840,8 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
         pageName: current.pageName,
         page: current.page,
         metadata: current.metadata,
+        settingsCubit: current.settingsCubit,
+        windowCubit: current.windowCubit,
       );
       current.currentIndexCubit.updateHandler(this, newState.handler);
       emit(newState);
@@ -835,7 +851,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       if (current is! DocumentPresentationState) return;
       emit(current.oldState);
       current.currentIndexCubit.changeTool(this);
-      current.settingsCubit.setFullScreen(current.fullScreen);
+      setFullScreen(current.fullScreen);
     });
     on<PresentationTick>((event, emit) {
       final current = state;
