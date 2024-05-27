@@ -19,7 +19,7 @@ class PenBehaviorSettings extends StatelessWidget {
       body: Align(
         alignment: Alignment.center,
         child: ConstrainedBox(
-          constraints: const BoxConstraints(maxWidth: 600),
+          constraints: const BoxConstraints(maxWidth: LeapBreakpoints.compact),
           child: BlocBuilder<SettingsCubit, ButterflySettings>(
             builder: (context, state) {
               final config = state.inputConfiguration;

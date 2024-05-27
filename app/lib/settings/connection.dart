@@ -125,7 +125,7 @@ class _GeneralConnectionSettingsView extends StatelessWidget {
     return Align(
       alignment: Alignment.center,
       child: ConstrainedBox(
-        constraints: const BoxConstraints(maxWidth: 600),
+        constraints: const BoxConstraints(maxWidth: LeapBreakpoints.compact),
         child: ListView(children: [
           Card(
             margin: const EdgeInsets.all(8),
@@ -202,7 +202,7 @@ class _CachesConnectionSettingsView extends StatelessWidget {
       return Align(
         alignment: Alignment.center,
         child: ConstrainedBox(
-          constraints: const BoxConstraints(maxWidth: 600),
+          constraints: const BoxConstraints(maxWidth: LeapBreakpoints.compact),
           child: ListView.builder(
             itemCount: storage.cachedDocuments.length,
             itemBuilder: (context, index) {
