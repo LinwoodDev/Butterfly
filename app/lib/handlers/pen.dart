@@ -180,8 +180,8 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
     // Create recognizeUnistroke
     final recognized = recognizeUnistroke(points);
     final element = elements[pointer];
-    final state = context.getDocumentBloc().state as DocumentLoadSuccess;
-    final currentLayer = state.currentLayer;
+    final state = context.getState();
+    final currentLayer = state!.currentLayer;
 
     if (recognized == null || points.length > 600 || element == null) {
       return;
