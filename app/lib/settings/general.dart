@@ -1,16 +1,15 @@
 import 'dart:convert';
 
 import 'package:butterfly/api/open.dart';
-import 'package:butterfly/api/save.dart';
+import 'package:butterfly/cubits/settings.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:material_leap/material_leap.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:http/http.dart' as http;
-
-import '../widgets/window.dart';
 
 @immutable
 class Meta {
@@ -54,7 +53,7 @@ class _GeneralSettingsPageState extends State<GeneralSettingsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: widget.inView ? Colors.transparent : null,
-      appBar: WindowTitleBar(
+      appBar: WindowTitleBar<SettingsCubit, ButterflySettings>(
         title: Text(AppLocalizations.of(context).general),
         backgroundColor: widget.inView ? Colors.transparent : null,
         inView: widget.inView,

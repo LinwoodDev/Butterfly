@@ -1,7 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
-
-import 'api/full_screen.dart';
+import 'package:material_leap/material_leap.dart';
 
 Future<void> setup() async {
   setupFullScreen();

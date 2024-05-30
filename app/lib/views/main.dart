@@ -132,6 +132,7 @@ class _ProjectPageState extends State<ProjectPage> {
 
   Future<void> _load() async {
     final settingsCubit = context.read<SettingsCubit>();
+    final windowCubit = context.read<WindowCubit>();
     final embedding = widget.embedding;
     if (embedding != null) {
       final document = DocumentDefaults.createDocument();
@@ -149,6 +150,7 @@ class _ProjectPageState extends State<ProjectPage> {
         _bloc = DocumentBloc(
           _currentIndexCubit!,
           settingsCubit,
+          windowCubit,
           document,
           widget.location ?? const AssetLocation(path: ''),
           [],
@@ -245,8 +247,8 @@ class _ProjectPageState extends State<ProjectPage> {
             CameraViewport.unbaked(UtilitiesRenderer(), backgrounds),
             null,
             networkingService);
-        _bloc = DocumentBloc(_currentIndexCubit!, settingsCubit, document!,
-            location!, renderers, assetService, page, pageName);
+        _bloc = DocumentBloc(_currentIndexCubit!, settingsCubit, windowCubit,
+            document!, location!, renderers, assetService, page, pageName);
         networkingService.setup(_bloc!);
         _importService = ImportService(context, _bloc);
         _exportService = ExportService(context, _bloc);
@@ -264,7 +266,8 @@ class _ProjectPageState extends State<ProjectPage> {
           null,
           networkingService,
         );
-        _bloc = DocumentBloc.error(settingsCubit, e.toString(), stackTrace);
+        _bloc = DocumentBloc.error(
+            settingsCubit, windowCubit, e.toString(), stackTrace);
       });
     }
     WidgetsBinding.instance.scheduleFrameCallback((_) async {
@@ -318,13 +321,14 @@ class _ProjectPageState extends State<ProjectPage> {
                   FocusManager.instance.primaryFocus?.unfocus();
                 }
               },
-              child: BlocBuilder<CurrentIndexCubit, CurrentIndex>(
-                  buildWhen: (previous, current) =>
-                      previous.hideUi != current.hideUi,
-                  builder: (context, currentIndex) =>
-                      BlocBuilder<SettingsCubit, ButterflySettings>(
+              child: BlocBuilder<WindowCubit, WindowState>(
+                  builder: (context, windowState) => BlocBuilder<
+                          CurrentIndexCubit, CurrentIndex>(
+                      buildWhen: (previous, current) =>
+                          previous.hideUi != current.hideUi,
+                      builder: (context, currentIndex) => BlocBuilder<
+                              SettingsCubit, ButterflySettings>(
                           buildWhen: (previous, current) =>
-                              previous.fullScreen != current.fullScreen ||
                               previous.toolbarSize != current.toolbarSize,
                           builder: (context, settings) {
                             return Actions(
@@ -434,7 +438,7 @@ class _ProjectPageState extends State<ProjectPage> {
                                     child: Scaffold(
                                         appBar:
                                             state is DocumentPresentationState ||
-                                                    settings.fullScreen ||
+                                                    windowState.fullScreen ||
                                                     currentIndex.hideUi !=
                                                         HideState.visible
                                                 ? null
@@ -454,7 +458,7 @@ class _ProjectPageState extends State<ProjectPage> {
                                 ),
                               ),
                             );
-                          })),
+                          }))),
             ),
           );
         },
@@ -485,124 +489,135 @@ class _MainBody extends StatelessWidget {
               previous.pinned != current.pinned ||
               previous.selection != current.selection ||
               previous.hideUi != current.hideUi,
-          builder: (context, currentIndex) => BlocBuilder<SettingsCubit,
-                  ButterflySettings>(
-              buildWhen: (previous, current) =>
-                  previous.toolbarPosition != current.toolbarPosition ||
-                  previous.toolbarSize != current.toolbarSize ||
-                  previous.toolbarRows != current.toolbarRows ||
-                  previous.fullScreen != current.fullScreen ||
-                  previous.navigationRail != current.navigationRail,
-              builder: (context, settings) {
-                final pos = settings.toolbarPosition;
-                return LayoutBuilder(builder: (context, constraints) {
-                  final isMobile =
-                      constraints.maxWidth < LeapBreakpoints.compact;
-                  final isLarge =
-                      constraints.maxWidth >= LeapBreakpoints.expanded;
-                  final toolbar = EditToolbar(
-                    isMobile: false,
-                    centered: true,
-                    direction: pos.axis,
-                  );
-                  return Stack(
-                    children: [
-                      const MainViewViewport(),
-                      Listener(
-                        behavior: currentIndex.pinned ||
-                                currentIndex.selection == null
-                            ? HitTestBehavior.translucent
-                            : HitTestBehavior.opaque,
-                        onPointerUp: (details) {
-                          if (currentIndex.pinned) return;
-                          context.read<CurrentIndexCubit>().resetSelection();
-                        },
-                      ),
-                      Row(
+          builder: (context, currentIndex) => BlocBuilder<WindowCubit,
+                  WindowState>(
+              builder: (context, windowState) => BlocBuilder<SettingsCubit,
+                      ButterflySettings>(
+                  buildWhen: (previous, current) =>
+                      previous.toolbarPosition != current.toolbarPosition ||
+                      previous.toolbarSize != current.toolbarSize ||
+                      previous.toolbarRows != current.toolbarRows ||
+                      previous.navigationRail != current.navigationRail,
+                  builder: (context, settings) {
+                    final pos = settings.toolbarPosition;
+                    return LayoutBuilder(builder: (context, constraints) {
+                      final isMobile =
+                          constraints.maxWidth < LeapBreakpoints.compact;
+                      final isLarge =
+                          constraints.maxWidth >= LeapBreakpoints.expanded;
+                      final toolbar = EditToolbar(
+                        isMobile: false,
+                        centered: true,
+                        direction: pos.axis,
+                      );
+                      return Stack(
                         children: [
-                          if (isLarge &&
-                              settings.navigationRail &&
-                              !settings.fullScreen &&
-                              state is DocumentLoadSuccess &&
-                              currentIndex.hideUi == HideState.visible)
-                            const NavigatorView(),
-                          if (pos == ToolbarPosition.left &&
-                              !isMobile &&
-                              currentIndex.hideUi == HideState.visible)
-                            toolbar,
-                          Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                if ((((settings.fullScreen ||
-                                                    settings.toolbarRows > 1) &&
-                                                pos == ToolbarPosition.inline ||
-                                            pos == ToolbarPosition.top) &&
-                                        !isMobile) &&
-                                    currentIndex.hideUi == HideState.visible)
-                                  toolbar,
-                                if ((pos == ToolbarPosition.top ||
-                                        pos == ToolbarPosition.inline ||
-                                        isMobile) &&
-                                    currentIndex.hideUi == HideState.visible)
-                                  const ToolbarView(),
-                                const Expanded(
-                                  child: Align(
-                                    alignment: Alignment.topRight,
-                                    child: PropertyView(),
-                                  ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Align(
-                                    alignment: Alignment.centerRight,
-                                    child: SizedBox(
-                                      width: isMobile ? 100 : 400,
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.end,
-                                        children: [
-                                          ZoomView(isMobile: isMobile),
-                                          if (currentIndex.hideUi ==
-                                              HideState.touch)
-                                            FloatingActionButton.small(
-                                              tooltip:
-                                                  AppLocalizations.of(context)
-                                                      .exit,
-                                              child: const Icon(
-                                                  PhosphorIconsLight.door),
-                                              onPressed: () {
-                                                context
-                                                    .read<CurrentIndexCubit>()
-                                                    .exitHideUI();
-                                              },
-                                            ),
-                                        ],
+                          const MainViewViewport(),
+                          Listener(
+                            behavior: currentIndex.pinned ||
+                                    currentIndex.selection == null
+                                ? HitTestBehavior.translucent
+                                : HitTestBehavior.opaque,
+                            onPointerUp: (details) {
+                              if (currentIndex.pinned) return;
+                              context
+                                  .read<CurrentIndexCubit>()
+                                  .resetSelection();
+                            },
+                          ),
+                          Row(
+                            children: [
+                              if (isLarge &&
+                                  settings.navigationRail &&
+                                  !windowState.fullScreen &&
+                                  state is DocumentLoadSuccess &&
+                                  currentIndex.hideUi == HideState.visible)
+                                const NavigatorView(),
+                              if (pos == ToolbarPosition.left &&
+                                  !isMobile &&
+                                  currentIndex.hideUi == HideState.visible)
+                                toolbar,
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    if ((((windowState.fullScreen ||
+                                                        settings.toolbarRows >
+                                                            1) &&
+                                                    pos ==
+                                                        ToolbarPosition
+                                                            .inline ||
+                                                pos == ToolbarPosition.top) &&
+                                            !isMobile) &&
+                                        currentIndex.hideUi ==
+                                            HideState.visible)
+                                      toolbar,
+                                    if ((pos == ToolbarPosition.top ||
+                                            pos == ToolbarPosition.inline ||
+                                            isMobile) &&
+                                        currentIndex.hideUi ==
+                                            HideState.visible)
+                                      const ToolbarView(),
+                                    const Expanded(
+                                      child: Align(
+                                        alignment: Alignment.topRight,
+                                        child: PropertyView(),
                                       ),
                                     ),
-                                  ),
+                                    Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Align(
+                                        alignment: Alignment.centerRight,
+                                        child: SizedBox(
+                                          width: isMobile ? 100 : 400,
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.end,
+                                            children: [
+                                              ZoomView(isMobile: isMobile),
+                                              if (currentIndex.hideUi ==
+                                                  HideState.touch)
+                                                FloatingActionButton.small(
+                                                  tooltip: AppLocalizations.of(
+                                                          context)
+                                                      .exit,
+                                                  child: const Icon(
+                                                      PhosphorIconsLight.door),
+                                                  onPressed: () {
+                                                    context
+                                                        .read<
+                                                            CurrentIndexCubit>()
+                                                        .exitHideUI();
+                                                  },
+                                                ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    if (pos != ToolbarPosition.inline &&
+                                        pos != ToolbarPosition.top &&
+                                        !isMobile &&
+                                        currentIndex.hideUi ==
+                                            HideState.visible)
+                                      const ToolbarView(),
+                                    if ((isMobile ||
+                                            pos == ToolbarPosition.bottom) &&
+                                        currentIndex.hideUi ==
+                                            HideState.visible)
+                                      toolbar,
+                                  ],
                                 ),
-                                if (pos != ToolbarPosition.inline &&
-                                    pos != ToolbarPosition.top &&
-                                    !isMobile &&
-                                    currentIndex.hideUi == HideState.visible)
-                                  const ToolbarView(),
-                                if ((isMobile ||
-                                        pos == ToolbarPosition.bottom) &&
-                                    currentIndex.hideUi == HideState.visible)
-                                  toolbar,
-                              ],
-                            ),
+                              ),
+                              if (pos == ToolbarPosition.right &&
+                                  currentIndex.hideUi == HideState.visible)
+                                toolbar,
+                            ],
                           ),
-                          if (pos == ToolbarPosition.right &&
-                              currentIndex.hideUi == HideState.visible)
-                            toolbar,
                         ],
-                      ),
-                    ],
-                  );
-                });
-              })),
+                      );
+                    });
+                  }))),
     );
   }
 }

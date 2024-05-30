@@ -1,5 +1,4 @@
 import 'package:butterfly/cubits/settings.dart';
-import 'package:butterfly/widgets/window.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -46,7 +45,7 @@ class _ConnectionSettingsPageState extends State<ConnectionSettingsPage>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: WindowTitleBar(
+      appBar: WindowTitleBar<SettingsCubit, ButterflySettings>(
         title: Text(widget.remote),
         bottom: _isRemote
             ? TabBar(
@@ -126,7 +125,7 @@ class _GeneralConnectionSettingsView extends StatelessWidget {
     return Align(
       alignment: Alignment.center,
       child: ConstrainedBox(
-        constraints: const BoxConstraints(maxWidth: 600),
+        constraints: const BoxConstraints(maxWidth: LeapBreakpoints.compact),
         child: ListView(children: [
           Card(
             margin: const EdgeInsets.all(8),
@@ -203,7 +202,7 @@ class _CachesConnectionSettingsView extends StatelessWidget {
       return Align(
         alignment: Alignment.center,
         child: ConstrainedBox(
-          constraints: const BoxConstraints(maxWidth: 600),
+          constraints: const BoxConstraints(maxWidth: LeapBreakpoints.compact),
           child: ListView.builder(
             itemCount: storage.cachedDocuments.length,
             itemBuilder: (context, index) {

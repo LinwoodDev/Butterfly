@@ -6,7 +6,13 @@ enum StorageType {
 }
 
 abstract class DocumentState extends Equatable {
-  const DocumentState();
+  final WindowCubit windowCubit;
+  final SettingsCubit settingsCubit;
+
+  const DocumentState({
+    required this.windowCubit,
+    required this.settingsCubit,
+  });
 
   @override
   List<Object?> get props => [];
@@ -18,7 +24,6 @@ abstract class DocumentState extends Equatable {
   FileMetadata? get metadata => null;
   AssetService? get assetService => null;
   CurrentIndexCubit? get currentIndexCubit => null;
-  SettingsCubit get settingsCubit;
   NetworkingService? get networkingService =>
       currentIndexCubit?.state.networkingService;
   Embedding? get embedding => currentIndexCubit?.state.embedding;
@@ -29,20 +34,20 @@ abstract class DocumentState extends Equatable {
 }
 
 class DocumentLoadInProgress extends DocumentState {
-  @override
-  final SettingsCubit settingsCubit;
-
-  const DocumentLoadInProgress(this.settingsCubit);
+  const DocumentLoadInProgress(
+      {required super.settingsCubit, required super.windowCubit});
 }
 
 class DocumentLoadFailure extends DocumentState {
   final String message;
   final StackTrace? stackTrace;
-  @override
-  final SettingsCubit settingsCubit;
 
-  const DocumentLoadFailure(this.settingsCubit, this.message,
-      [this.stackTrace]);
+  const DocumentLoadFailure({
+    required super.settingsCubit,
+    required super.windowCubit,
+    required this.message,
+    this.stackTrace,
+  });
 
   @override
   List<Object?> get props => [message, stackTrace];
@@ -72,6 +77,8 @@ abstract class DocumentLoaded extends DocumentState {
 
   DocumentLoaded(this.data,
       {DocumentPage? page,
+      required super.settingsCubit,
+      required super.windowCubit,
       required this.pageName,
       AssetService? assetService,
       FileMetadata? metadata,
@@ -121,19 +128,18 @@ class DocumentLoadSuccess extends DocumentLoaded {
   @override
   final List<String> invisibleLayers;
   @override
-  final SettingsCubit settingsCubit;
-  @override
   final CurrentIndexCubit currentIndexCubit;
 
   DocumentLoadSuccess(super.data,
       {super.page,
+      required super.settingsCubit,
+      required super.windowCubit,
       super.assetService,
       required super.pageName,
       super.metadata,
       super.info,
       AssetLocation? location,
       this.storageType = StorageType.local,
-      required this.settingsCubit,
       required this.currentIndexCubit,
       this.currentAreaName = '',
       this.currentLayer = '',
@@ -188,6 +194,7 @@ class DocumentLoadSuccess extends DocumentLoaded {
         currentLayer: currentLayer ?? this.currentLayer,
         currentAreaName: currentAreaName ?? this.currentAreaName,
         settingsCubit: settingsCubit,
+        windowCubit: windowCubit,
         currentIndexCubit: currentIndexCubit,
         location: location,
       );
@@ -235,6 +242,8 @@ class DocumentPresentationState extends DocumentLoaded {
       {this.frame = 0,
       super.metadata,
       super.page,
+      required super.settingsCubit,
+      required super.windowCubit,
       required super.pageName,
       required super.assetService})
       : handler = PresentationStateHandler(track, bloc),
@@ -245,6 +254,8 @@ class DocumentPresentationState extends DocumentLoaded {
       {this.frame = 0,
       super.metadata,
       super.page,
+      required super.settingsCubit,
+      required super.windowCubit,
       required super.pageName,
       required super.assetService})
       : super(oldState.data);
@@ -268,6 +279,8 @@ class DocumentPresentationState extends DocumentLoaded {
         metadata: metadata,
         page: page,
         pageName: pageName,
+        settingsCubit: settingsCubit,
+        windowCubit: windowCubit,
       );
 
   @override

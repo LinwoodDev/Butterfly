@@ -1,6 +1,4 @@
 import 'package:butterfly/api/open.dart';
-import 'package:butterfly/widgets/advanced_text_field.dart';
-import 'package:butterfly/widgets/window.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -15,13 +13,13 @@ class MouseBehaviorSettings extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: WindowTitleBar(
+      appBar: WindowTitleBar<SettingsCubit, ButterflySettings>(
         title: Text(AppLocalizations.of(context).mouse),
       ),
       body: Align(
         alignment: Alignment.center,
         child: ConstrainedBox(
-          constraints: const BoxConstraints(maxWidth: 600),
+          constraints: const BoxConstraints(maxWidth: LeapBreakpoints.compact),
           child: BlocBuilder<SettingsCubit, ButterflySettings>(
             builder: (context, state) {
               final config = state.inputConfiguration;

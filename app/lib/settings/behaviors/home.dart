@@ -1,7 +1,6 @@
 import 'dart:ui';
 
 import 'package:butterfly/cubits/settings.dart';
-import 'package:butterfly/widgets/window.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -22,7 +21,7 @@ class BehaviorsSettingsPage extends StatelessWidget {
     Color? pressed;
     return Scaffold(
         backgroundColor: inView ? Colors.transparent : null,
-        appBar: WindowTitleBar(
+        appBar: WindowTitleBar<SettingsCubit, ButterflySettings>(
           title: Text(AppLocalizations.of(context).behaviors),
           backgroundColor: inView ? Colors.transparent : null,
           inView: inView,

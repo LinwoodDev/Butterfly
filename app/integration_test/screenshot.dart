@@ -35,7 +35,6 @@ void main() {
         final prefs = await SharedPreferences.getInstance();
         await tester.pumpWidget(ButterflyApp(
           prefs: prefs,
-          isFullScreen: false,
         ));
         await tester.pumpAndSettle();
 

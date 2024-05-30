@@ -125,7 +125,8 @@ class _CameraDialogState extends State<CameraDialog>
   Widget build(BuildContext context) {
     return Dialog(
       child: ConstrainedBox(
-        constraints: const BoxConstraints(maxHeight: 600, maxWidth: 600),
+        constraints: const BoxConstraints(
+            maxHeight: 600, maxWidth: LeapBreakpoints.compact),
         child: Column(
           children: [
             Header(

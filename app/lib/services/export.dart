@@ -1,9 +1,10 @@
-import 'package:butterfly/api/save.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/cubits/current_index.dart';
 import 'package:butterfly/helpers/element.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:lw_sysapi/lw_sysapi.dart';
 
 class ExportService {
   final DocumentBloc? bloc;
@@ -34,11 +35,13 @@ class ExportService {
     if (data == null) return;
     final (mimeType, fileExtension, uniformTypeIdentifier) = info;
     return exportFile(
-      context,
-      data,
-      fileExtension,
-      mimeType,
-      uniformTypeIdentifier,
+      context: context,
+      bytes: data,
+      fileExtension: fileExtension,
+      mimeType: mimeType,
+      uniformTypeIdentifier: uniformTypeIdentifier,
+      fileName: 'output',
+      label: AppLocalizations.of(context).export,
     );
   }
 

@@ -1,8 +1,6 @@
-import 'package:butterfly/api/full_screen.dart';
-import 'package:butterfly/cubits/settings.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 class PresentationControlsDialog extends StatelessWidget {
@@ -51,7 +49,7 @@ class PresentationControlsDialog extends StatelessWidget {
                   value: fullscreen,
                   title: Text(AppLocalizations.of(context).fullScreen),
                   onChanged: (value) {
-                    context.read<SettingsCubit>().setFullScreen(value);
+                    setFullScreen(value);
                     setState(() => fullscreen = value);
                   },
                 ),

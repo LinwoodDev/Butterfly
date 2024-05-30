@@ -4,6 +4,7 @@ import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/cubits/transform.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:material_leap/material_leap.dart';
 
 class ZoomView extends StatefulWidget {
   final bool isMobile;
@@ -62,123 +63,126 @@ class _ZoomViewState extends State<ZoomView> with TickerProviderStateMixin {
       child: BlocBuilder<DocumentBloc, DocumentState>(
           buildWhen: (previous, current) =>
               previous.runtimeType != current.runtimeType,
-          builder: (context, state) =>
-              BlocBuilder<SettingsCubit, ButterflySettings>(
-                buildWhen: (previous, current) =>
-                    previous.zoomEnabled != current.zoomEnabled ||
-                    previous.fullScreen != current.fullScreen,
-                builder: (context, settings) =>
-                    BlocBuilder<TransformCubit, CameraTransform>(
-                  buildWhen: (previous, current) =>
-                      previous.size != current.size,
-                  builder: (context, transform) {
-                    var scale = transform.size;
-                    final currentIndexCubit = context.read<CurrentIndexCubit>();
-                    final hideZoom = !settings.zoomEnabled ||
-                        settings.fullScreen ||
-                        currentIndexCubit.state.hideUi != HideState.visible;
-                    void zoom(double value, [bool bake = true]) {
-                      final state = context.read<DocumentBloc>().state;
-                      final currentIndex =
-                          context.read<CurrentIndexCubit>().state;
-                      if (state is! DocumentLoaded) {
-                        return;
-                      }
-                      final viewport = currentIndex.cameraViewport;
-                      final center = Offset(
-                        (viewport.width ?? 0) / 2,
-                        (viewport.height ?? 0) / 2,
-                      );
-                      currentIndex.transformCubit.size(value, center);
-                      if (bake) {
-                        currentIndexCubit.bake(
-                            state.data, state.page, state.info);
-                      }
-                      if ((!_focusNode.hasFocus && widget.isMobile) ||
-                          hideZoom) {
-                        _controller.reverse();
-                      }
-                    }
-
-                    final body = StatefulBuilder(
-                      builder: (context, setState) {
-                        final text = (scale * 100).toStringAsFixed(0);
-                        if (text != _zoomController.text) {
-                          _zoomController.text = text;
+          builder: (context, state) => BlocBuilder<WindowCubit, WindowState>(
+              builder: (context, windowState) =>
+                  BlocBuilder<SettingsCubit, ButterflySettings>(
+                    buildWhen: (previous, current) =>
+                        previous.zoomEnabled != current.zoomEnabled,
+                    builder: (context, settings) =>
+                        BlocBuilder<TransformCubit, CameraTransform>(
+                      buildWhen: (previous, current) =>
+                          previous.size != current.size,
+                      builder: (context, transform) {
+                        var scale = transform.size;
+                        final currentIndexCubit =
+                            context.read<CurrentIndexCubit>();
+                        final hideZoom = !settings.zoomEnabled ||
+                            windowState.fullScreen ||
+                            currentIndexCubit.state.hideUi != HideState.visible;
+                        void zoom(double value, [bool bake = true]) {
+                          final state = context.read<DocumentBloc>().state;
+                          final currentIndex =
+                              context.read<CurrentIndexCubit>().state;
+                          if (state is! DocumentLoaded) {
+                            return;
+                          }
+                          final viewport = currentIndex.cameraViewport;
+                          final center = Offset(
+                            (viewport.width ?? 0) / 2,
+                            (viewport.height ?? 0) / 2,
+                          );
+                          currentIndex.transformCubit.size(value, center);
+                          if (bake) {
+                            currentIndexCubit.bake(
+                                state.data, state.page, state.info);
+                          }
+                          if ((!_focusNode.hasFocus && widget.isMobile) ||
+                              hideZoom) {
+                            _controller.reverse();
+                          }
                         }
-                        return LayoutBuilder(
-                          builder: (context, constraints) {
-                            return Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  SizedBox(
-                                    width: 75,
-                                    child: TextFormField(
-                                      textAlign: TextAlign.center,
-                                      controller: _zoomController,
-                                      keyboardType: TextInputType.number,
-                                      focusNode: _focusNode,
-                                      onChanged: (value) {
-                                        setState(() => scale =
-                                            (double.tryParse(value) ??
-                                                    (scale * 100)) /
-                                                100);
-                                      },
-                                      onEditingComplete: () => zoom(scale),
-                                      onTapOutside: (event) {
-                                        if (!_focusNode.hasFocus) return;
-                                        zoom(scale);
-                                        _focusNode.unfocus();
-                                      },
-                                      onFieldSubmitted: (value) => zoom(scale),
-                                    ),
-                                  ),
-                                  if (!widget.isMobile) ...[
-                                    if (constraints.maxWidth > 200)
-                                      Flexible(
-                                        child: Slider(
-                                          value: scale.clamp(kMinZoom, 10),
-                                          min: kMinZoom,
-                                          max: 10,
-                                          onChanged: (value) =>
-                                              zoom(value, false),
-                                          onChangeEnd: zoom,
+
+                        final body = StatefulBuilder(
+                          builder: (context, setState) {
+                            final text = (scale * 100).toStringAsFixed(0);
+                            if (text != _zoomController.text) {
+                              _zoomController.text = text;
+                            }
+                            return LayoutBuilder(
+                              builder: (context, constraints) {
+                                return Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      SizedBox(
+                                        width: 75,
+                                        child: TextFormField(
+                                          textAlign: TextAlign.center,
+                                          controller: _zoomController,
+                                          keyboardType: TextInputType.number,
+                                          focusNode: _focusNode,
+                                          onChanged: (value) {
+                                            setState(() => scale =
+                                                (double.tryParse(value) ??
+                                                        (scale * 100)) /
+                                                    100);
+                                          },
+                                          onEditingComplete: () => zoom(scale),
+                                          onTapOutside: (event) {
+                                            if (!_focusNode.hasFocus) return;
+                                            zoom(scale);
+                                            _focusNode.unfocus();
+                                          },
+                                          onFieldSubmitted: (value) =>
+                                              zoom(scale),
                                         ),
                                       ),
-                                  ],
-                                ]);
+                                      if (!widget.isMobile) ...[
+                                        if (constraints.maxWidth > 200)
+                                          Flexible(
+                                            child: Slider(
+                                              value: scale.clamp(kMinZoom, 10),
+                                              min: kMinZoom,
+                                              max: 10,
+                                              onChanged: (value) =>
+                                                  zoom(value, false),
+                                              onChangeEnd: zoom,
+                                            ),
+                                          ),
+                                      ],
+                                    ]);
+                              },
+                            );
+                          },
+                        );
+
+                        if ((!_focusNode.hasFocus && widget.isMobile) ||
+                            hideZoom) {
+                          _controller.reverse();
+                        } else {
+                          _controller.forward();
+                        }
+                        return AnimatedBuilder(
+                          animation: _animation,
+                          child: body,
+                          builder: (context, child) {
+                            if (_animation.value == 0 ||
+                                state is! DocumentLoadSuccess) {
+                              return const SizedBox();
+                            }
+                            return Opacity(
+                              opacity: _animation.value,
+                              child: Card(
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: child,
+                                ),
+                              ),
+                            );
                           },
                         );
                       },
-                    );
-
-                    if ((!_focusNode.hasFocus && widget.isMobile) || hideZoom) {
-                      _controller.reverse();
-                    } else {
-                      _controller.forward();
-                    }
-                    return AnimatedBuilder(
-                      animation: _animation,
-                      child: body,
-                      builder: (context, child) {
-                        if (_animation.value == 0 ||
-                            state is! DocumentLoadSuccess) {
-                          return const SizedBox();
-                        }
-                        return Opacity(
-                          opacity: _animation.value,
-                          child: Card(
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: child,
-                            ),
-                          ),
-                        );
-                      },
-                    );
-                  },
-                ),
-              )),
+                    ),
+                  ))),
     );
   }
 }
