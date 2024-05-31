@@ -112,9 +112,6 @@ abstract class DocumentFileSystem extends GeneralFileSystem {
         .then((value) => value as AppDocumentDirectory);
   }
 
-  @override
-  FutureOr<String> getDirectory();
-
   /// If listFiles is null, it will fetch recursively
   Stream<AppDocumentEntity?> fetchAsset(String path, [bool? listFiles = true]);
 

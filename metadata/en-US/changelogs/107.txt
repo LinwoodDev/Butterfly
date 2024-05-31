@@ -1,1 +1,2 @@
 * Fix file changing in webdav on root folder
+* Fix x icon button in navigator page
