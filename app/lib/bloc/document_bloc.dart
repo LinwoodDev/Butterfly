@@ -75,10 +75,15 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       if (current is! DocumentLoadSuccess) return;
       final page =
           event.page ?? DocumentPage(backgrounds: current.page.backgrounds);
-      final (newData, pageName) = current.data.addPage(page, event.index);
+      final data = current.data.setPage(current.page, current.pageName);
+      final (newData, pageName) = data.addPage(page, event.index);
       _saveState(
         emit,
-        state: current.copyWith(data: newData, page: page, pageName: pageName),
+        state: current.copyWith(
+          data: newData,
+          page: page,
+          pageName: pageName,
+        ),
         addedElements: null,
         reset: true,
       );

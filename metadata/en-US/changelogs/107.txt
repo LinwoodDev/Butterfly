@@ -1,2 +1,5 @@
 * Fix file changing in webdav on root folder
-* Fix x icon button in navigator page
+* Fix x icon button in navigator page on mobile
+* Fix page not saved after creating a new page
+
+Read more here: https://linwood.dev/butterfly/2.1.1-rc.2
