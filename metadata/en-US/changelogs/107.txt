@@ -1,4 +1,6 @@
-* Fix file changing in webdav on root folder
+* Show no elements message when document search is empty
+* Fix file changing in webdav on root folder ([#714](https://github.com/LinwoodDev/Butterfly/pull/714))
+* Fix layer not set on automatic shapes ([#717](https://github.com/LinwoodDev/Butterfly/pull/717))
 * Fix x icon button in navigator page on mobile
 * Fix page not saved after creating a new page
 

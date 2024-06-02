@@ -26,7 +26,7 @@ Future<List<SearchResult>> _searchIsolate(NoteData noteData, String currentPage,
 
 class _SearchDialogState extends State<SearchDialog> {
   final TextEditingController _searchController = TextEditingController();
-  Future<Iterable<SearchResult>> _searchResults = Future.value([]);
+  Future<Iterable<SearchResult>?> _searchResults = Future.value(null);
   final FocusNode _focusNode = FocusNode();
 
   @override
@@ -121,7 +121,7 @@ class _SearchDialogState extends State<SearchDialog> {
                     ),
                     const SizedBox(height: 16),
                     Flexible(
-                      child: FutureBuilder<Iterable<SearchResult>>(
+                      child: FutureBuilder<Iterable<SearchResult>?>(
                           future: _searchResults,
                           builder: (context, snapshot) {
                             if (snapshot.hasError) {
@@ -136,7 +136,15 @@ class _SearchDialogState extends State<SearchDialog> {
                                 ],
                               );
                             }
+                            if (!snapshot.hasData) return const SizedBox();
                             final results = snapshot.data?.toList() ?? [];
+                            if (results.isEmpty) {
+                              return Text(
+                                AppLocalizations.of(context).noElements,
+                                textAlign: TextAlign.center,
+                                style: Theme.of(context).textTheme.bodyLarge,
+                              );
+                            }
                             return ListView.builder(
                               itemCount: results.length,
                               shrinkWrap: true,
