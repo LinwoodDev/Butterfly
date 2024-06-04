@@ -1036,8 +1036,8 @@ packages:
     resolution: {integrity: sha512-xlx1yCK2Oc1APsPXDL2LdlNP6+uu8OCDdhOBSVT279M/S+y75O30C2VuD8T2ogdePBBl7PfPF4504tnLgX3zfw==}
     engines: {node: '>=14.16'}
 
-  caniuse-lite@1.0.30001626:
-    resolution: {integrity: sha512-JRW7kAH8PFJzoPCJhLSHgDgKg5348hsQ68aqb+slnzuB5QFERv846oA/mRChmlLAOdEDeOkRn3ynb1gSFnjt3w==}
+  caniuse-lite@1.0.30001627:
+    resolution: {integrity: sha512-4zgNiB8nTyV/tHhwZrFs88ryjls/lHiqFhrxCW4qSTeuRByBVnPYpDInchOIySWknznucaf31Z4KYqjfbrecVw==}
 
   ccount@2.0.1:
     resolution: {integrity: sha512-eyrF0jiFpY+3drT6383f1qhkbGsLSifNAjA61IUjZjmLCWjItY6LB9ft9YhoDgwfmclB2zhu51Lc7+95b8NRAg==}
@@ -1192,8 +1192,8 @@ packages:
   eastasianwidth@0.2.0:
     resolution: {integrity: sha512-I88TYZWc9XiYHRQ4/3c5rjjfgkjhLyW2luGIheGERbNQ6OY7yTybanSpDXZa8y7VUP9YmDcYa+eyq4ca7iLqWA==}
 
-  electron-to-chromium@1.4.788:
-    resolution: {integrity: sha512-ubp5+Ev/VV8KuRoWnfP2QF2Bg+O2ZFdb49DiiNbz2VmgkIqrnyYaqIOqj8A6K/3p1xV0QcU5hBQ1+BmB6ot1OA==}
+  electron-to-chromium@1.4.789:
+    resolution: {integrity: sha512-0VbyiaXoT++Fi2vHGo2ThOeS6X3vgRCWrjPeO2FeIAWL6ItiSJ9BqlH8LfCXe3X1IdcG+S0iLoNaxQWhfZoGzQ==}
 
   emmet@2.4.7:
     resolution: {integrity: sha512-O5O5QNqtdlnQM2bmKHtJgyChcrFMgQuulI+WdiOw2NArzprUqqxUW6bgYtKvzKgrsYpuLWalOkdhNP+1jluhCA==}
@@ -3559,8 +3559,8 @@ snapshots:
 
   browserslist@4.23.0:
     dependencies:
-      caniuse-lite: 1.0.30001626
-      electron-to-chromium: 1.4.788
+      caniuse-lite: 1.0.30001627
+      electron-to-chromium: 1.4.789
       node-releases: 2.0.14
       update-browserslist-db: 1.0.16(browserslist@4.23.0)
 
@@ -3569,7 +3569,7 @@ snapshots:
 
   camelcase@7.0.1: {}
 
-  caniuse-lite@1.0.30001626: {}
+  caniuse-lite@1.0.30001627: {}
 
   ccount@2.0.1: {}
 
@@ -3698,7 +3698,7 @@ snapshots:
 
   eastasianwidth@0.2.0: {}
 
-  electron-to-chromium@1.4.788: {}
+  electron-to-chromium@1.4.789: {}
 
   emmet@2.4.7:
     dependencies:
