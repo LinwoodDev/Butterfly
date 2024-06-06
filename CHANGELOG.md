@@ -2,6 +2,16 @@
 
 <!--ENTER CHANGELOG HERE-->
 
+## 2.1.1-rc.2 (2024-06-03)
+
+* Show no elements message when document search is empty
+* Fix file changing in webdav on root folder ([#714](https://github.com/LinwoodDev/Butterfly/pull/714))
+* Fix layer not set on automatic shapes ([#717](https://github.com/LinwoodDev/Butterfly/pull/717))
+* Fix x icon button in navigator page on mobile
+* Fix page not saved after creating a new page
+
+Read more here: https://linwood.dev/butterfly/2.1.1-rc.2
+
 ## 2.1.1-rc.1 (2024-05-21)
 
 * Add hide cursor while drawing

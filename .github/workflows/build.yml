@@ -7,7 +7,8 @@ on:
     tags:
       - stable
       - nightly
-  release: 
+  release:
+    types: [published]
   pull_request:
 jobs:
   build-apk:
@@ -48,12 +49,12 @@ jobs:
           if [[ -n "$KEY_JKS" ]] ; then echo "$KEY_JKS" | base64 --decode > key.jks  ; fi
       #- run: flutter test
       - name: 🏭 Build nightly
-        if: ${{ github.ref != 'refs/tags/stable' && (github.event_name != 'release' || github.event.prerelease) }}
+        if: ${{ github.ref != 'refs/tags/stable' && (github.event_name != 'release' || github.event.release.prerelease) }}
         run: |
           flutter build apk -v --release --flavor nightly --dart-define=flavor=nightly
           cp build/app/outputs/flutter-apk/app-nightly-release.apk linwood-butterfly-android.apk
       - name: 🏭 Build production
-        if: ${{ github.ref == 'refs/tags/stable' || (github.event_name == 'release' && !github.event.prerelease) }}
+        if: ${{ github.ref == 'refs/tags/stable' || (github.event_name == 'release' && !github.event.release.prerelease) }}
         run: |
           flutter build apk -v --release --flavor production
           cp build/app/outputs/flutter-apk/app-production-release.apk linwood-butterfly-android.apk
@@ -63,14 +64,14 @@ jobs:
           name: apk-build
           path: app/linwood-butterfly-android.apk
       - name: 🏭 Build architecture nightly
-        if: ${{ github.ref != 'refs/tags/stable' && (github.event_name != 'release' || github.event.prerelease) }}
+        if: ${{ github.ref != 'refs/tags/stable' && (github.event_name != 'release' || github.event.release.prerelease) }}
         run: |
           flutter build apk -v --release --target-platform android-arm,android-arm64,android-x64 --split-per-abi --flavor nightly --dart-define=flavor=nightly
           cp build/app/outputs/flutter-apk/app-armeabi-v7a-nightly-release.apk linwood-butterfly-android-arm.apk
           cp build/app/outputs/flutter-apk/app-arm64-v8a-nightly-release.apk linwood-butterfly-android-arm64.apk
           cp build/app/outputs/flutter-apk/app-x86_64-nightly-release.apk linwood-butterfly-android-x86_64.apk
       - name: 🏭 Build architecture production
-        if: ${{ github.ref == 'refs/tags/stable' || (github.event_name == 'release' && !github.event.prerelease) }}
+        if: ${{ github.ref == 'refs/tags/stable' || (github.event_name == 'release' && !github.event.release.prerelease) }}
         run: |
           flutter build apk -v --release --target-platform android-arm,android-arm64,android-x64 --split-per-abi --flavor production
           cp build/app/outputs/flutter-apk/app-armeabi-v7a-production-release.apk linwood-butterfly-android-arm.apk
@@ -116,12 +117,12 @@ jobs:
           flutter pub get
           flutter doctor -v
       - name: 🏭 Build nightly
-        if: ${{ github.ref != 'refs/tags/stable' && (github.event_name != 'release' || github.event.prerelease) }}
+        if: ${{ github.ref != 'refs/tags/stable' && (github.event_name != 'release' || github.event.release.prerelease) }}
         run: |
           flutter doctor -v
           flutter build windows -v --release --dart-define=flavor=nightly
       - name: 🏭 Build production
-        if: ${{ github.ref == 'refs/tags/stable' || (github.event_name == 'release' && !github.event.prerelease) }}
+        if: ${{ github.ref == 'refs/tags/stable' || (github.event_name == 'release' && !github.event.release.prerelease) }}
         run: |
           flutter doctor -v
           flutter build windows -v --release --dart-define=flavor=production
@@ -195,12 +196,12 @@ jobs:
           flutter pub get
           flutter doctor -v
       - name: 🏭 Build nightly
-        if: ${{ github.ref != 'refs/tags/stable' && (github.event_name != 'release' || github.event.prerelease) }}
+        if: ${{ github.ref != 'refs/tags/stable' && (github.event_name != 'release' || github.event.release.prerelease) }}
         run: |
           flutter doctor -v
           flutter build linux -v --release --dart-define=flavor=nightly
       - name: 🏭 Build production
-        if: ${{ github.ref == 'refs/tags/stable' || (github.event_name == 'release' && !github.event.prerelease) }}
+        if: ${{ github.ref == 'refs/tags/stable' || (github.event_name == 'release' && !github.event.release.prerelease) }}
         run: |
           flutter doctor -v
           flutter build linux -v --release --dart-define=flavor=production
@@ -306,12 +307,12 @@ jobs:
           flutter pub get
           flutter doctor -v
       - name: 🏭 Build nightly
-        if: ${{ github.ref != 'refs/tags/stable' && (github.event_name != 'release' || github.event.prerelease) }}
+        if: ${{ github.ref != 'refs/tags/stable' && (github.event_name != 'release' || github.event.release.prerelease) }}
         run: |
           flutter doctor -v
           flutter build linux -v --release --dart-define=flavor=nightly
       - name: 🏭 Build production
-        if: ${{ github.ref == 'refs/tags/stable' || (github.event_name == 'release' && !github.event.prerelease) }}
+        if: ${{ github.ref == 'refs/tags/stable' || (github.event_name == 'release' && !github.event.release.prerelease) }}
         run: |
           flutter doctor -v
           flutter build linux -v --release --dart-define=flavor=production
@@ -552,7 +553,7 @@ jobs:
           git config --global user.name "Actions"
           git pull --tags
       - name: 🚀 Deploy stable
-        if: ${{ github.ref == 'refs/tags/stable' || (github.event_name == 'release' && !github.event.prerelease) }}
+        if: ${{ github.ref == 'refs/tags/stable' || (github.event_name == 'release' && !github.event.release.prerelease) }}
         uses: softprops/action-gh-release@v2
         continue-on-error: true
         with:
@@ -687,7 +688,7 @@ jobs:
       - uses: actions/checkout@v4
         with:
           token: ${{ secrets.CI_PAT }}
-      - if: ${{ github.ref == 'refs/tags/stable' || (github.event_name == 'release' && !github.event.prerelease) }}
+      - if: ${{ github.ref == 'refs/tags/stable' }}
         uses: vedantmgoyal2009/winget-releaser@v2
         with:
           identifier: LinwoodCloud.Butterfly

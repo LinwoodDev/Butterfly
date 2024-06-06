@@ -9,8 +9,6 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
   final Map<int, Offset> startPosition = {};
   // Map to store the last positions of each element.
   final Map<int, Offset> lastPosition = {};
-  // Dictionary to plot the total distance traveled by each pointer
-  Map<int, double> totalDistance = {};
   // List for shapeDetection
   final points = <Offset>[];
   // For control if the pointer has not moved

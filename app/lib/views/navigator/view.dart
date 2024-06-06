@@ -200,9 +200,8 @@ class _DocumentNavigatorState extends State<DocumentNavigator>
                 children: [
                   Header(
                     leading: widget.asDrawer
-                        ? IconButton(
-                            icon:
-                                const PhosphorIcon(PhosphorIconsLight.xCircle),
+                        ? IconButton.outlined(
+                            icon: const PhosphorIcon(PhosphorIconsLight.x),
                             onPressed: () => Navigator.of(context).pop(),
                             tooltip: AppLocalizations.of(context).close,
                           )
