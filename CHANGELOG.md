@@ -2,6 +2,12 @@
 
 <!--ENTER CHANGELOG HERE-->
 
+## 2.1.1 (2024-06-10)
+
+Nothing changed from the nightly build to the stable release.
+
+See all changes since the last stable here: https://linwood.dev/butterfly/2.1.1
+
 ## 2.1.1-rc.2 (2024-06-03)
 
 * Show no elements message when document search is empty
