@@ -26,10 +26,10 @@ packages:
     dependency: "direct main"
     description:
       name: archive
-      sha256: ecf4273855368121b1caed0d10d4513c7241dfc813f7d3c8933b36622ae9b265
+      sha256: cb6a278ef2dbb298455e1a713bda08524a175630ec643a242c399c932a0a1f7d
       url: "https://pub.dev"
     source: hosted
-    version: "3.5.1"
+    version: "3.6.1"
   args:
     dependency: transitive
     description:
@@ -98,18 +98,18 @@ packages:
     dependency: "direct dev"
     description:
       name: build_runner
-      sha256: "1414d6d733a85d8ad2f1dfcb3ea7945759e35a123cb99ccfac75d0758f75edfa"
+      sha256: "644dc98a0f179b872f612d3eb627924b578897c629788e858157fa5e704ca0c7"
       url: "https://pub.dev"
     source: hosted
-    version: "2.4.10"
+    version: "2.4.11"
   build_runner_core:
     dependency: transitive
     description:
       name: build_runner_core
-      sha256: "4ae8ffe5ac758da294ecf1802f2aff01558d8b1b00616aa7538ea9a8a5d50799"
+      sha256: e3c79f69a64bdfcd8a776a3c28db4eb6e3fb5356d013ae5eb2e52007706d5dbe
       url: "https://pub.dev"
     source: hosted
-    version: "7.3.0"
+    version: "7.3.1"
   built_collection:
     dependency: transitive
     description:
@@ -386,10 +386,10 @@ packages:
     dependency: transitive
     description:
       name: pubspec_parse
-      sha256: c63b2876e58e194e4b0828fcb080ad0e06d051cb607a6be51a9e084f47cb9367
+      sha256: c799b721d79eb6ee6fa56f00c04b472dcd44a30d258fac2174a6ec57302678f8
       url: "https://pub.dev"
     source: hosted
-    version: "1.2.3"
+    version: "1.3.0"
   replay_bloc:
     dependency: "direct main"
     description:
@@ -530,26 +530,26 @@ packages:
     dependency: "direct dev"
     description:
       name: test
-      sha256: d11b55850c68c1f6c0cf00eabded4e66c4043feaf6c0d7ce4a36785137df6331
+      sha256: "7ee44229615f8f642b68120165ae4c2a75fe77ae2065b1e55ae4711f6cf0899e"
       url: "https://pub.dev"
     source: hosted
-    version: "1.25.5"
+    version: "1.25.7"
   test_api:
     dependency: transitive
     description:
       name: test_api
-      sha256: "2419f20b0c8677b2d67c8ac4d1ac7372d862dc6c460cdbb052b40155408cd794"
+      sha256: "5b8a98dafc4d5c4c9c72d8b31ab2b23fc13422348d2997120294d3bac86b4ddb"
       url: "https://pub.dev"
     source: hosted
-    version: "0.7.1"
+    version: "0.7.2"
   test_core:
     dependency: transitive
     description:
       name: test_core
-      sha256: "4d070a6bc36c1c4e89f20d353bfd71dc30cdf2bd0e14349090af360a029ab292"
+      sha256: "55ea5a652e38a1dfb32943a7973f3681a60f872f8c3a05a14664ad54ef9c6696"
       url: "https://pub.dev"
     source: hosted
-    version: "0.6.2"
+    version: "0.6.4"
   timing:
     dependency: transitive
     description:
@@ -578,10 +578,10 @@ packages:
     dependency: transitive
     description:
       name: vm_service
-      sha256: "7475cb4dd713d57b6f7464c0e13f06da0d535d8b2067e188962a59bac2cf280b"
+      sha256: "360c4271613beb44db559547d02f8b0dc044741d0eeb9aa6ccdb47e8ec54c63a"
       url: "https://pub.dev"
     source: hosted
-    version: "14.2.2"
+    version: "14.2.3"
   watcher:
     dependency: transitive
     description:
@@ -602,10 +602,10 @@ packages:
     dependency: transitive
     description:
       name: web_socket
-      sha256: "217f49b5213796cb508d6a942a5dc604ce1cb6a0a6b3d8cb3f0c314f0ecea712"
+      sha256: "24301d8c293ce6fe327ffe6f59d8fd8834735f0ec36e4fd383ec7ff8a64aa078"
       url: "https://pub.dev"
     source: hosted
-    version: "0.1.4"
+    version: "0.1.5"
   web_socket_channel:
     dependency: transitive
     description:

@@ -21,14 +21,8 @@ RUN flutter config --enable-web
 # Copy files to container and build
 RUN flutter build web
 
-FROM python:3
+FROM nginx:alpine
 
 RUN mkdir /app/
 # Copy build/web in container to /app/
-COPY --from=builder ./build/web /app/
-WORKDIR /app/
-
-# Record the exposed port
-EXPOSE 5000
-
-CMD python -m http.server 5000
+COPY --from=builder ./build/web /usr/share/nginx/html
