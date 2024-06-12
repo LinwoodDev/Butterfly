@@ -5,20 +5,20 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 extension PathShapeVisualizer on PathShape {
-  IconGetter get icon => map(
-        circle: (_) => PhosphorIcons.circle,
-        rectangle: (_) => PhosphorIcons.square,
-        line: (_) => PhosphorIcons.lineSegment,
-        triangle: (_) => PhosphorIcons.triangle,
-      );
+  IconGetter get icon => switch (this) {
+        CircleShape _ => PhosphorIcons.circle,
+        RectangleShape _ => PhosphorIcons.square,
+        LineShape _ => PhosphorIcons.lineSegment,
+        TriangleShape _ => PhosphorIcons.triangle,
+      };
 
   String getLocalizedName(BuildContext context) {
     final loc = AppLocalizations.of(context);
-    return map(
-      circle: (_) => loc.circle,
-      rectangle: (_) => loc.rectangle,
-      line: (_) => loc.line,
-      triangle: (_) => loc.triangle,
-    );
+    return switch (this) {
+      CircleShape _ => loc.circle,
+      RectangleShape _ => loc.rectangle,
+      LineShape _ => loc.line,
+      TriangleShape _ => loc.triangle,
+    };
   }
 }

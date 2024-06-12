@@ -222,29 +222,29 @@ abstract class Handler<T> {
   }
 
   static Handler fromTool(Tool tool) {
-    return tool.map(
-      hand: HandHandler.new,
-      select: SelectHandler.new,
-      import: ImportHandler.new,
-      undo: UndoHandler.new,
-      redo: RedoHandler.new,
-      label: LabelHandler.new,
-      pen: PenHandler.new,
-      eraser: EraserHandler.new,
-      pathEraser: PathEraserHandler.new,
-      layer: LayerHandler.new,
-      area: AreaHandler.new,
-      laser: LaserHandler.new,
-      shape: ShapeHandler.new,
-      stamp: StampHandler.new,
-      presentation: PresentationHandler.new,
-      spacer: SpacerHandler.new,
-      fullSceen: FullScreenHandler.new,
-      texture: TextureHandler.new,
-      asset: AssetHandler.new,
-      eyeDropper: EyeDropperHandler.new,
-      export: ExportHandler.new,
-    );
+    return switch (tool) {
+      HandTool e => HandHandler(e) as Handler,
+      SelectTool e => SelectHandler(e),
+      ImportTool e => ImportHandler(e),
+      UndoTool e => UndoHandler(e),
+      RedoTool e => RedoHandler(e),
+      LabelTool e => LabelHandler(e),
+      PenTool e => PenHandler(e),
+      EraserTool e => EraserHandler(e),
+      PathEraserTool e => PathEraserHandler(e),
+      LayerTool e => LayerHandler(e),
+      AreaTool e => AreaHandler(e),
+      LaserTool e => LaserHandler(e),
+      ShapeTool e => ShapeHandler(e),
+      StampTool e => StampHandler(e),
+      PresentationTool e => PresentationHandler(e),
+      SpacerTool e => SpacerHandler(e),
+      FullScreenTool e => FullScreenHandler(e),
+      TextureTool e => TextureHandler(e),
+      AssetTool e => AssetHandler(e),
+      EyeDropperTool e => EyeDropperHandler(e),
+      ExportTool e => ExportHandler(e),
+    };
   }
 
   PreferredSizeWidget? getToolbar(DocumentBloc bloc) => null;

@@ -1,5 +1,6 @@
 import 'package:butterfly/visualizer/element.dart';
 import 'package:butterfly_api/butterfly_api.dart';
+import 'package:butterfly_api/butterfly_models.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:material_leap/material_leap.dart';
@@ -39,20 +40,21 @@ class _ConstraintsViewState extends State<ConstraintsView> {
 
   @override
   Widget build(BuildContext context) {
-    Widget? content = constraints?.map(
-      scaled: (value) => _ScaledConstraintsContent(
-        constraints: value,
-        onChanged: _onChanged,
-      ),
-      fixed: (value) => _FixedConstraintsContent(
-        constraints: value,
-        onChanged: _onChanged,
-      ),
-      dynamic: (value) => _DynamicConstraintsContent(
-        constraints: value,
-        onChanged: _onChanged,
-      ),
-    );
+    Widget? content = switch (constraints) {
+      ScaledElementConstraints e => _ScaledConstraintsContent(
+          constraints: e,
+          onChanged: _onChanged,
+        ),
+      FixedElementConstraints e => _FixedConstraintsContent(
+          constraints: e,
+          onChanged: _onChanged,
+        ),
+      DynamicElementConstraints e => _DynamicConstraintsContent(
+          constraints: e,
+          onChanged: _onChanged,
+        ),
+      _ => null,
+    };
     return ExpansionPanelList(
       expansionCallback: (panelIndex, isExpanded) => setState(() {
         opened = isExpanded;

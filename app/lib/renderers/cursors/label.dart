@@ -23,8 +23,10 @@ class LabelCursor extends Renderer<LabelCursorData> {
       DocumentInfo info, CameraTransform transform,
       [ColorScheme? colorScheme, bool foreground = false]) {
     const icon = PhosphorIconsLight.cursorText;
-    final property =
-        element.context?.mapOrNull(text: (e) => e.getDefinedProperty(document));
+    final property = switch (element.context) {
+      TextContext e => e.getDefinedProperty(document),
+      _ => null
+    };
     final iconSize =
         (property ?? const text.DefinedParagraphProperty()).span.getSize() *
             (element.context?.labelElement?.scale ??

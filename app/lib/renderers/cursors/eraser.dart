@@ -29,9 +29,10 @@ class EraserCursor extends Renderer<ToolCursorData<EraserInfo>> {
         radius,
         Paint()
           ..style = PaintingStyle.stroke
-          ..color = background?.mapOrNull(
-                  texture: (box) => Color(box.texture.boxColor)) ??
-              Colors.white
+          ..color = switch (background) {
+            TextureBackground e => Color(e.texture.boxColor),
+            _ => Colors.white,
+          }
           ..strokeCap = StrokeCap.round
           ..invertColors = true
           ..strokeWidth = radius / transform.size

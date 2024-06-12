@@ -1,0 +1,1 @@
+* Fix spacer has no help page

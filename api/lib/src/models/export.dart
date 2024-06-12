@@ -25,21 +25,21 @@ sealed class ExportOptions with _$ExportOptions {
     @Default(0) double x,
     @Default(0) double y,
     @Default(true) bool renderBackground,
-  }) = SVGExportOptions;
+  }) = SvgExportOptions;
 
   factory ExportOptions.fromJson(Map<String, dynamic> json) =>
       _$ExportOptionsFromJson(json);
 
-  ImageExportOptions toImageOptions() => map(
-        image: (e) => e,
-        svg: (e) => ImageExportOptions(
-          width: e.width,
-          height: e.height,
-          x: e.x,
-          y: e.y,
-          renderBackground: e.renderBackground,
-        ),
-      );
+  ImageExportOptions toImageOptions() => switch (this) {
+        ImageExportOptions e => e,
+        SvgExportOptions e => ImageExportOptions(
+            width: e.width,
+            height: e.height,
+            x: e.x,
+            y: e.y,
+            renderBackground: e.renderBackground,
+          ),
+      };
 }
 
 @freezed

@@ -31,8 +31,8 @@ Map<String, dynamic> _$$ImageExportOptionsImplToJson(
       'type': instance.$type,
     };
 
-_$SVGExportOptionsImpl _$$SVGExportOptionsImplFromJson(Map json) =>
-    _$SVGExportOptionsImpl(
+_$SvgExportOptionsImpl _$$SvgExportOptionsImplFromJson(Map json) =>
+    _$SvgExportOptionsImpl(
       width: (json['width'] as num).toDouble(),
       height: (json['height'] as num).toDouble(),
       x: (json['x'] as num?)?.toDouble() ?? 0,
@@ -41,8 +41,8 @@ _$SVGExportOptionsImpl _$$SVGExportOptionsImplFromJson(Map json) =>
       $type: json['type'] as String?,
     );
 
-Map<String, dynamic> _$$SVGExportOptionsImplToJson(
-        _$SVGExportOptionsImpl instance) =>
+Map<String, dynamic> _$$SvgExportOptionsImplToJson(
+        _$SvgExportOptionsImpl instance) =>
     <String, dynamic>{
       'width': instance.width,
       'height': instance.height,

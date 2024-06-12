@@ -21,12 +21,12 @@ class ExportService {
   bool isExportable(PadElement element) => getExportInfo(element) != null;
 
   (String, String, String)? getExportInfo(PadElement element) =>
-      element.maybeMap(
-        image: (_) => ('image/png', 'png', ''),
-        svg: (_) => ('image/svg', 'svg', ''),
-        markdown: (_) => ('text/markdown', 'md', ''),
-        orElse: () => null,
-      );
+      switch (element) {
+        ImageElement _ => ('image/png', 'png', ''),
+        SvgElement _ => ('image/svg', 'svg', ''),
+        MarkdownElement _ => ('text/markdown', 'md', ''),
+        _ => null,
+      };
 
   Future<void> export(PadElement element) async {
     final info = getExportInfo(element);
@@ -49,11 +49,11 @@ class ExportService {
     final document = _getDocument();
     if (document == null) return null;
     List<int>? fromString(String? value) => value?.codeUnits;
-    return element.maybeMap(
-      image: (value) => value.getData(document),
-      svg: (value) => value.getData(document).then(fromString),
-      markdown: (value) => fromString(value.text),
-      orElse: () => null,
-    );
+    return switch (element) {
+      ImageElement e => await e.getData(document),
+      SvgElement e => await e.getData(document).then(fromString),
+      MarkdownElement e => fromString(e.text),
+      _ => null,
+    };
   }
 }

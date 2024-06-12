@@ -17,10 +17,11 @@ class LabelElementSelection extends ElementSelection<PadElement> {
         onChangeEnd: (value) => updateElements(
             context,
             elements
-                .map((e) => e.maybeMap(
-                    text: (e) => e.copyWith(scale: value),
-                    markdown: (e) => e.copyWith(scale: value),
-                    orElse: () => e))
+                .map((e) => switch (e) {
+                      TextElement e => e.copyWith(scale: value),
+                      MarkdownElement e => e.copyWith(scale: value),
+                      _ => e
+                    })
                 .toList()),
       ),
       ConstraintView(
@@ -28,10 +29,11 @@ class LabelElementSelection extends ElementSelection<PadElement> {
         onChanged: (constraint) => updateElements(
             context,
             elements
-                .map((e) => e.maybeMap(
-                    text: (e) => e.copyWith(constraint: constraint),
-                    markdown: (e) => e.copyWith(constraint: constraint),
-                    orElse: () => e))
+                .map((e) => switch (e) {
+                      TextElement e => e.copyWith(constraint: constraint),
+                      MarkdownElement e => e.copyWith(constraint: constraint),
+                      _ => e
+                    })
                 .toList()),
       ),
     ];

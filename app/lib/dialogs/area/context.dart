@@ -91,7 +91,7 @@ ContextMenuBuilder buildGeneralAreaContextMenu(DocumentBloc bloc, Area area,
                       builder: (context) => BlocProvider.value(
                           value: bloc,
                           child: GeneralExportDialog(
-                            options: SVGExportOptions(
+                            options: SvgExportOptions(
                               width: area.width,
                               height: area.height,
                               x: area.position.x,

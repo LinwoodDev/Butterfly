@@ -62,23 +62,17 @@ mixin LabelElement {
   ElementConstraint get constraint;
   int get foreground;
 
-  AreaProperty get areaProperty {
-    final element = this as PadElement;
-    return element.maybeMap(
-      markdown: (e) => e.areaProperty,
-      text: (e) => e.area.areaProperty,
-      orElse: () => throw UnimplementedError(),
-    );
-  }
+  AreaProperty get areaProperty => switch (this) {
+        MarkdownElement e => e.areaProperty,
+        TextElement e => e.area.areaProperty,
+        _ => throw UnimplementedError(),
+      };
 
-  String get text {
-    final element = this as PadElement;
-    return element.maybeMap(
-      markdown: (e) => e.text,
-      text: (e) => e.area.paragraph.text,
-      orElse: () => throw UnimplementedError(),
-    );
-  }
+  String get text => switch (this) {
+        MarkdownElement e => e.text,
+        TextElement e => e.area.paragraph.text,
+        _ => throw UnimplementedError(),
+      };
 }
 
 @Freezed(equal: false)

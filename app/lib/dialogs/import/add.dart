@@ -180,7 +180,7 @@ class AddDialog extends StatelessWidget {
                       final actions = [
                         Tool.undo,
                         Tool.redo,
-                        Tool.fullSceen,
+                        Tool.fullScreen,
                       ]
                           .map((e) => e())
                           .where((e) => e

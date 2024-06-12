@@ -366,22 +366,20 @@ sealed class TextStyleSheet with _$TextStyleSheet {
 }
 
 extension ResolveProperty on TextStyleSheet? {
-  DefinedSpanProperty? resolveSpanProperty(SpanProperty? property) {
-    return property?.map(
-      defined: (value) => value,
-      named: (value) => this?.spanProperties[value.name],
-      undefined: (value) => null,
-    );
-  }
+  DefinedSpanProperty? resolveSpanProperty(SpanProperty? property) =>
+      switch (property) {
+        DefinedSpanProperty e => e,
+        NamedSpanProperty e => this?.spanProperties[e.name],
+        _ => null,
+      };
 
   DefinedParagraphProperty? resolveParagraphProperty(
-      ParagraphProperty? property) {
-    return property?.map(
-      defined: (value) => value,
-      named: (value) => this?.paragraphProperties[value.name],
-      undefined: (value) => null,
-    );
-  }
+          ParagraphProperty? property) =>
+      switch (property) {
+        DefinedParagraphProperty e => e,
+        NamedParagraphProperty e => this?.paragraphProperties[e.name],
+        _ => null,
+      };
 }
 
 extension SpanPropertyGetter on DefinedSpanProperty {

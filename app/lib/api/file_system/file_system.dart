@@ -224,12 +224,12 @@ abstract class DocumentFileSystem extends GeneralFileSystem {
     if (kIsWeb) {
       return WebDocumentFileSystem();
     } else {
-      return remote?.map(
-            dav: (e) => DavRemoteDocumentFileSystem(e),
-            local: (e) =>
-                IODocumentFileSystem(e.fullDocumentsPath, remote.identifier),
-          ) ??
-          IODocumentFileSystem();
+      return switch (remote) {
+        DavRemoteStorage e => DavRemoteDocumentFileSystem(e),
+        LocalStorage e =>
+          IODocumentFileSystem(e.fullDocumentsPath, remote.identifier),
+        _ => IODocumentFileSystem(),
+      };
     }
   }
 
@@ -293,11 +293,11 @@ abstract class TemplateFileSystem extends GeneralFileSystem {
     if (kIsWeb) {
       return WebTemplateFileSystem();
     } else {
-      return remote?.map(
-            dav: (e) => DavRemoteTemplateFileSystem(e),
-            local: (e) => IOTemplateFileSystem(e.fullTemplatesPath),
-          ) ??
-          IOTemplateFileSystem();
+      return switch (remote) {
+        DavRemoteStorage e => DavRemoteTemplateFileSystem(e),
+        LocalStorage e => IOTemplateFileSystem(e.fullTemplatesPath),
+        _ => IOTemplateFileSystem(),
+      };
     }
   }
 }
@@ -359,11 +359,11 @@ abstract class PackFileSystem extends GeneralFileSystem {
     if (kIsWeb) {
       return WebPackFileSystem();
     } else {
-      return remote?.map(
-            dav: (e) => DavRemotePackFileSystem(e),
-            local: (e) => IOPackFileSystem(e.fullPacksPath),
-          ) ??
-          IOPackFileSystem();
+      return switch (remote) {
+        DavRemoteStorage e => DavRemotePackFileSystem(e),
+        LocalStorage e => IOPackFileSystem(e.fullPacksPath),
+        _ => IOPackFileSystem(),
+      };
     }
   }
 }

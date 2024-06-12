@@ -49,15 +49,15 @@ extension PadElementDataExtension on PadElement {
 
     return {
       ...toJson(),
-      ...await maybeMap(
-        image: (value) async => {
-          'source': await getUriData(value.source, 'image/png'),
-        },
-        svg: (value) async => {
-          'source': await getUriData(value.source, 'image/svg+xml'),
-        },
-        orElse: () => {},
-      ),
+      ...switch (this) {
+        ImageElement e => {
+            'source': await getUriData(e.source, 'image/png'),
+          },
+        SvgElement e => {
+            'source': await getUriData(e.source, 'image/svg+xml'),
+          },
+        _ => {},
+      },
     };
   }
 }

@@ -36,7 +36,8 @@ sealed class Background with _$Background {
   factory Background.fromJson(Map<String, dynamic> json) =>
       _$BackgroundFromJson(json);
 
-  int get defaultColor => maybeMap(
-      texture: (texture) => texture.texture.boxColor,
-      orElse: () => BasicColors.white);
+  int get defaultColor => switch (this) {
+        TextureBackground e => e.texture.boxColor,
+        _ => BasicColors.white
+      };
 }

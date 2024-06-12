@@ -33,57 +33,54 @@ sealed class SearchResult with _$SearchResult {
     int index,
   ) = ToolResult;
 
-  String getDisplay() {
-    return map(
-      page: (value) => value.name,
-      element: (value) => value.text,
-      area: (value) => value.area.name,
-      waypoint: (value) => value.waypoint.name,
-      tool: (value) => value.name,
-    );
-  }
+  String getDisplay() => switch (this) {
+        PageResult e => e.name,
+        ElementResult e => e.text,
+        AreaResult e => e.area.name,
+        WaypointResult e => e.waypoint.name,
+        ToolResult e => e.name,
+      };
 
-  String? getPage() {
-    return maybeMap(
-      page: (value) => value.name,
-      element: (value) => value.page,
-      area: (value) => value.page,
-      waypoint: (value) => value.page,
-      orElse: () => null,
-    );
-  }
+  String? getPage() => switch (this) {
+        PageResult e => e.name,
+        ElementResult e => e.page,
+        AreaResult e => e.page,
+        WaypointResult e => e.page,
+        _ => null,
+      };
 
-  Point<double>? getPosition() {
-    return maybeMap(
-      element: (value) => value.position,
-      area: (value) => value.area.position,
-      waypoint: (value) => value.waypoint.position,
-      orElse: () => null,
-    );
-  }
+  Point<double>? getPosition() => switch (this) {
+        ElementResult e => e.position,
+        AreaResult e => e.area.position,
+        WaypointResult e => e.waypoint.position,
+        _ => null,
+      };
 
-  SearchResult withPage(String page) => maybeMap(
-        element: (value) => value.copyWith(page: page),
-        page: (value) => value.copyWith(name: page),
-        area: (value) => value.copyWith(page: page),
-        waypoint: (value) => value.copyWith(page: page),
-        orElse: () => this,
-      );
+  SearchResult withPage(String page) => switch (this) {
+        ElementResult e => e.copyWith(page: page),
+        PageResult e => e.copyWith(name: page),
+        AreaResult e => e.copyWith(page: page),
+        WaypointResult e => e.copyWith(page: page),
+        _ => this,
+      };
 }
 
 extension ElementSearchHelper on PadElement {
   ElementResult? matches(Pattern query) {
-    return mapOrNull(
-      text: (value) {
-        if (!value.area.paragraph.text.contains(query)) return null;
-        return ElementResult(
-          value.area.paragraph.text,
-          '',
-          value.position,
-          this,
-        );
-      },
-    );
+    ElementResult? matchText(TextElement e) {
+      if (!e.area.paragraph.text.contains(query)) return null;
+      return ElementResult(
+        e.area.paragraph.text,
+        '',
+        e.position,
+        this,
+      );
+    }
+
+    return switch (this) {
+      TextElement e => matchText(e),
+      _ => null,
+    };
   }
 }
 

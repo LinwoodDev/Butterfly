@@ -153,7 +153,8 @@ sealed class Tool with _$Tool {
     @Default(Axis2D.horizontal) Axis2D axis,
   }) = SpacerTool;
 
-  factory Tool.fullSceen({
+  @FreezedUnionValue('fullSceen')
+  factory Tool.fullScreen({
     @Default('') String name,
     @Default('') String displayIcon,
   }) = FullScreenTool;

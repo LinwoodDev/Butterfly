@@ -8,39 +8,36 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 extension ElementVisualizer on PadElement {
   String getLocalizedName(BuildContext context) {
     final loc = AppLocalizations.of(context);
-    return map(
-      pen: (_) => loc.pen,
-      text: (_) => loc.text,
-      image: (_) => loc.image,
-      shape: (_) => loc.shape,
-      svg: (_) => loc.svg,
-      markdown: (_) => loc.markdown,
-      texture: (_) => loc.texture,
-    );
+    return switch (this) {
+      PenElement _ => loc.pen,
+      TextElement _ => loc.text,
+      ImageElement _ => loc.image,
+      ShapeElement _ => loc.shape,
+      SvgElement _ => loc.svg,
+      MarkdownElement _ => loc.markdown,
+      TextureElement _ => loc.texture,
+    };
   }
 
-  IconGetter get icon {
-    return map(
-      pen: (_) => PhosphorIcons.pen,
-      text: (_) => PhosphorIcons.textT,
-      image: (_) => PhosphorIcons.image,
-      shape: (element) => element.property.shape.icon,
-      svg: (_) => PhosphorIcons.fileSvg,
-      markdown: (_) => PhosphorIcons.textbox,
-      texture: (element) => element.texture.icon,
-    );
-  }
+  IconGetter get icon => switch (this) {
+        PenElement _ => PhosphorIcons.pen,
+        TextElement _ => PhosphorIcons.textT,
+        ImageElement _ => PhosphorIcons.image,
+        ShapeElement element => element.property.shape.icon,
+        SvgElement _ => PhosphorIcons.fileSvg,
+        MarkdownElement _ => PhosphorIcons.textbox,
+        TextureElement e => e.texture.icon,
+      };
 }
 
 extension ElementConstraintsVisualizer on ElementConstraints? {
-  String getLocalizedName(BuildContext context) {
-    return this?.map(
-          fixed: (_) => AppLocalizations.of(context).fixed,
-          scaled: (_) => AppLocalizations.of(context).scaled,
-          dynamic: (_) => AppLocalizations.of(context).dynamicContent,
-        ) ??
-        AppLocalizations.of(context).none;
-  }
+  String getLocalizedName(BuildContext context) => switch (this) {
+        FixedElementConstraints _ => AppLocalizations.of(context).fixed,
+        ScaledElementConstraints _ => AppLocalizations.of(context).scaled,
+        DynamicElementConstraints _ =>
+          AppLocalizations.of(context).dynamicContent,
+        null => AppLocalizations.of(context).none,
+      };
 
   ElementConstraints scale(double scaleX, double scaleY) {
     final constraints = this;
