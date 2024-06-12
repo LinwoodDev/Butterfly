@@ -5,7 +5,8 @@ script:
  - cp -r build/linux/x64/release/bundle AppDir
  - mkdir -p AppDir/usr/share/icons/hicolor/64x64/apps/
  - cp linux/debian/usr/share/icons/hicolor AppDir/usr/share/icons/hicolor -r
-   cp -r linux/debian/usr/share/metainfo/dev.linwood.butterfly.appdata.xml AppDir/usr/share/metainfo/
+ - cp linux/debian/usr/share/metainfo/dev.linwood.butterfly.appdata.xml AppDir/usr/share/metainfo/
+
 AppDir:
   path: ./AppDir
   app_info:
