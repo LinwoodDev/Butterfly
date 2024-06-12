@@ -148,6 +148,7 @@ _$EraserToolImpl _$$EraserToolImplFromJson(Map json) => _$EraserToolImpl(
       name: json['name'] as String? ?? '',
       displayIcon: json['displayIcon'] as String? ?? '',
       strokeWidth: (json['strokeWidth'] as num?)?.toDouble() ?? 5,
+      eraseElements: json['eraseElements'] as bool? ?? false,
       $type: json['type'] as String?,
     );
 
@@ -156,6 +157,7 @@ Map<String, dynamic> _$$EraserToolImplToJson(_$EraserToolImpl instance) =>
       'name': instance.name,
       'displayIcon': instance.displayIcon,
       'strokeWidth': instance.strokeWidth,
+      'eraseElements': instance.eraseElements,
       'type': instance.$type,
     };
 
@@ -164,6 +166,7 @@ _$PathEraserToolImpl _$$PathEraserToolImplFromJson(Map json) =>
       name: json['name'] as String? ?? '',
       displayIcon: json['displayIcon'] as String? ?? '',
       strokeWidth: (json['strokeWidth'] as num?)?.toDouble() ?? 5,
+      eraseElements: json['eraseElements'] as bool? ?? false,
       $type: json['type'] as String?,
     );
 
@@ -173,6 +176,7 @@ Map<String, dynamic> _$$PathEraserToolImplToJson(
       'name': instance.name,
       'displayIcon': instance.displayIcon,
       'strokeWidth': instance.strokeWidth,
+      'eraseElements': instance.eraseElements,
       'type': instance.$type,
     };
 

@@ -19,6 +19,7 @@ import 'package:butterfly/models/cursor.dart';
 import 'package:butterfly/renderers/foregrounds/area.dart';
 import 'package:butterfly/renderers/foregrounds/select.dart';
 import 'package:butterfly/services/export.dart';
+import 'package:butterfly/views/toolbar/eraser.dart';
 import 'package:butterfly/visualizer/tool.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:butterfly_api/butterfly_text.dart' as text;
@@ -266,6 +267,15 @@ abstract class Handler<T> {
   MouseCursor? get cursor => null;
 }
 
+extension ToolHandler<T extends Tool> on Handler<T> {
+  void changeTool(DocumentBloc bloc, T newTool) {
+    final state = bloc.state;
+    if (state is! DocumentLoadSuccess) return;
+    final index = state.info.tools.indexOf(data);
+    bloc.add(ToolsChanged({index: newTool}));
+  }
+}
+
 mixin ColoredHandler<T extends Tool> on Handler<T> {
   int getColor();
   T setColor(int color);
@@ -273,12 +283,7 @@ mixin ColoredHandler<T extends Tool> on Handler<T> {
   @override
   PreferredSizeWidget getToolbar(DocumentBloc bloc) => ColorToolbarView(
         color: getColor(),
-        onChanged: (value) {
-          final state = bloc.state;
-          if (state is! DocumentLoadSuccess) return;
-          final index = state.info.tools.indexOf(data);
-          bloc.add(ToolsChanged({index: setColor(value)}));
-        },
+        onChanged: (value) => changeToolColor(bloc, value),
         onEyeDropper: (context) {
           final state = bloc.state;
           state.currentIndexCubit?.changeTemporaryHandler(
@@ -289,6 +294,9 @@ mixin ColoredHandler<T extends Tool> on Handler<T> {
           );
         },
       );
+
+  void changeToolColor(DocumentBloc bloc, int value) =>
+      changeTool(bloc, setColor(value));
 }
 
 mixin HandlerWithCursor<T> on Handler<T> {

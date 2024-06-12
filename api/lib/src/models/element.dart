@@ -49,7 +49,7 @@ sealed class ElementConstraints with _$ElementConstraints {
       _$ElementConstraintsFromJson(json);
 }
 
-abstract class PathElement {
+mixin PathElement {
   List<PathPoint> get points;
   PathProperty get property;
 }
@@ -77,7 +77,9 @@ mixin LabelElement {
 
 @Freezed(equal: false)
 sealed class PadElement with _$PadElement {
-  @Implements<PathElement>()
+  const PadElement._();
+
+  @With<PathElement>()
   factory PadElement.pen({
     @Default(0) double rotation,
     @Default('') String layer,
@@ -183,4 +185,10 @@ sealed class PadElement with _$PadElement {
 
   factory PadElement.fromJson(Map<String, dynamic> json) =>
       _$PadElementFromJson(json);
+
+  bool isStroke() => switch (this) {
+        PenElement _ => true,
+        ShapeElement _ => true,
+        _ => false,
+      };
 }

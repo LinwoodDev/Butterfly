@@ -244,7 +244,6 @@ class LabelHandler extends Handler<LabelTool>
   void _change(DocumentBloc bloc, LabelContext value) {
     final state = bloc.state;
     if (state is! DocumentLoaded) return;
-    final tools = state.info.tools;
     final context = _context;
     _context = value;
     if (context == null) return;
@@ -258,7 +257,7 @@ class LabelHandler extends Handler<LabelTool>
       }
     }
     if (context.tool != value.tool) {
-      bloc.add(ToolsChanged({tools.indexOf(data): value.tool}));
+      changeTool(bloc, value.tool);
     }
     bloc.refresh();
     _refreshToolbar(bloc);

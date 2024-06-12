@@ -94,12 +94,14 @@ sealed class Tool with _$Tool {
     @Default('') String name,
     @Default('') String displayIcon,
     @Default(5) double strokeWidth,
+    @Default(false) bool eraseElements,
   }) = EraserTool;
 
   factory Tool.pathEraser({
     @Default('') String name,
     @Default('') String displayIcon,
     @Default(5) double strokeWidth,
+    @Default(false) bool eraseElements,
   }) = PathEraserTool;
 
   factory Tool.layer({

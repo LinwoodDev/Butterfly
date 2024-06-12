@@ -962,7 +962,11 @@ abstract class _$$EraserToolImplCopyWith<$Res> implements $ToolCopyWith<$Res> {
       __$$EraserToolImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String name, String displayIcon, double strokeWidth});
+  $Res call(
+      {String name,
+      String displayIcon,
+      double strokeWidth,
+      bool eraseElements});
 }
 
 /// @nodoc
@@ -979,6 +983,7 @@ class __$$EraserToolImplCopyWithImpl<$Res>
     Object? name = null,
     Object? displayIcon = null,
     Object? strokeWidth = null,
+    Object? eraseElements = null,
   }) {
     return _then(_$EraserToolImpl(
       name: null == name
@@ -993,6 +998,10 @@ class __$$EraserToolImplCopyWithImpl<$Res>
           ? _value.strokeWidth
           : strokeWidth // ignore: cast_nullable_to_non_nullable
               as double,
+      eraseElements: null == eraseElements
+          ? _value.eraseElements
+          : eraseElements // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -1004,6 +1013,7 @@ class _$EraserToolImpl extends EraserTool {
       {this.name = '',
       this.displayIcon = '',
       this.strokeWidth = 5,
+      this.eraseElements = false,
       final String? $type})
       : $type = $type ?? 'eraser',
         super._();
@@ -1020,13 +1030,16 @@ class _$EraserToolImpl extends EraserTool {
   @override
   @JsonKey()
   final double strokeWidth;
+  @override
+  @JsonKey()
+  final bool eraseElements;
 
   @JsonKey(name: 'type')
   final String $type;
 
   @override
   String toString() {
-    return 'Tool.eraser(name: $name, displayIcon: $displayIcon, strokeWidth: $strokeWidth)';
+    return 'Tool.eraser(name: $name, displayIcon: $displayIcon, strokeWidth: $strokeWidth, eraseElements: $eraseElements)';
   }
 
   @JsonKey(ignore: true)
@@ -1047,7 +1060,8 @@ abstract class EraserTool extends Tool {
   factory EraserTool(
       {final String name,
       final String displayIcon,
-      final double strokeWidth}) = _$EraserToolImpl;
+      final double strokeWidth,
+      final bool eraseElements}) = _$EraserToolImpl;
   EraserTool._() : super._();
 
   factory EraserTool.fromJson(Map<String, dynamic> json) =
@@ -1058,6 +1072,7 @@ abstract class EraserTool extends Tool {
   @override
   String get displayIcon;
   double get strokeWidth;
+  bool get eraseElements;
   @override
   @JsonKey(ignore: true)
   _$$EraserToolImplCopyWith<_$EraserToolImpl> get copyWith =>
@@ -1072,7 +1087,11 @@ abstract class _$$PathEraserToolImplCopyWith<$Res>
       __$$PathEraserToolImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String name, String displayIcon, double strokeWidth});
+  $Res call(
+      {String name,
+      String displayIcon,
+      double strokeWidth,
+      bool eraseElements});
 }
 
 /// @nodoc
@@ -1089,6 +1108,7 @@ class __$$PathEraserToolImplCopyWithImpl<$Res>
     Object? name = null,
     Object? displayIcon = null,
     Object? strokeWidth = null,
+    Object? eraseElements = null,
   }) {
     return _then(_$PathEraserToolImpl(
       name: null == name
@@ -1103,6 +1123,10 @@ class __$$PathEraserToolImplCopyWithImpl<$Res>
           ? _value.strokeWidth
           : strokeWidth // ignore: cast_nullable_to_non_nullable
               as double,
+      eraseElements: null == eraseElements
+          ? _value.eraseElements
+          : eraseElements // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -1114,6 +1138,7 @@ class _$PathEraserToolImpl extends PathEraserTool {
       {this.name = '',
       this.displayIcon = '',
       this.strokeWidth = 5,
+      this.eraseElements = false,
       final String? $type})
       : $type = $type ?? 'pathEraser',
         super._();
@@ -1130,13 +1155,16 @@ class _$PathEraserToolImpl extends PathEraserTool {
   @override
   @JsonKey()
   final double strokeWidth;
+  @override
+  @JsonKey()
+  final bool eraseElements;
 
   @JsonKey(name: 'type')
   final String $type;
 
   @override
   String toString() {
-    return 'Tool.pathEraser(name: $name, displayIcon: $displayIcon, strokeWidth: $strokeWidth)';
+    return 'Tool.pathEraser(name: $name, displayIcon: $displayIcon, strokeWidth: $strokeWidth, eraseElements: $eraseElements)';
   }
 
   @JsonKey(ignore: true)
@@ -1158,7 +1186,8 @@ abstract class PathEraserTool extends Tool {
   factory PathEraserTool(
       {final String name,
       final String displayIcon,
-      final double strokeWidth}) = _$PathEraserToolImpl;
+      final double strokeWidth,
+      final bool eraseElements}) = _$PathEraserToolImpl;
   PathEraserTool._() : super._();
 
   factory PathEraserTool.fromJson(Map<String, dynamic> json) =
@@ -1169,6 +1198,7 @@ abstract class PathEraserTool extends Tool {
   @override
   String get displayIcon;
   double get strokeWidth;
+  bool get eraseElements;
   @override
   @JsonKey(ignore: true)
   _$$PathEraserToolImplCopyWith<_$PathEraserToolImpl> get copyWith =>

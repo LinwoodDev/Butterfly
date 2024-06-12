@@ -738,7 +738,7 @@ class __$$PenElementImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$PenElementImpl implements PenElement {
+class _$PenElementImpl extends PenElement with PathElement {
   _$PenElementImpl(
       {this.rotation = 0,
       this.layer = '',
@@ -750,7 +750,8 @@ class _$PenElementImpl implements PenElement {
       final String? $type})
       : _points = points,
         _extra = extra,
-        $type = $type ?? 'pen';
+        $type = $type ?? 'pen',
+        super._();
 
   factory _$PenElementImpl.fromJson(Map<String, dynamic> json) =>
       _$$PenElementImplFromJson(json);
@@ -809,7 +810,7 @@ class _$PenElementImpl implements PenElement {
   }
 }
 
-abstract class PenElement implements PadElement, PathElement {
+abstract class PenElement extends PadElement implements PathElement {
   factory PenElement(
       {final double rotation,
       final String layer,
@@ -818,6 +819,7 @@ abstract class PenElement implements PadElement, PathElement {
       final List<PathPoint> points,
       final PenProperty property,
       final Map<String, dynamic> extra}) = _$PenElementImpl;
+  PenElement._() : super._();
 
   factory PenElement.fromJson(Map<String, dynamic> json) =
       _$PenElementImpl.fromJson;
@@ -958,7 +960,7 @@ class __$$TextElementImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$TextElementImpl with LabelElement implements TextElement {
+class _$TextElementImpl extends TextElement with LabelElement {
   _$TextElementImpl(
       {this.rotation = 0,
       this.layer = '',
@@ -972,7 +974,8 @@ class _$TextElementImpl with LabelElement implements TextElement {
       final Map<String, dynamic> extra = const {},
       final String? $type})
       : _extra = extra,
-        $type = $type ?? 'text';
+        $type = $type ?? 'text',
+        super._();
 
   factory _$TextElementImpl.fromJson(Map<String, dynamic> json) =>
       _$$TextElementImplFromJson(json);
@@ -1035,7 +1038,7 @@ class _$TextElementImpl with LabelElement implements TextElement {
   }
 }
 
-abstract class TextElement implements PadElement, LabelElement {
+abstract class TextElement extends PadElement implements LabelElement {
   factory TextElement(
       {final double rotation,
       final String layer,
@@ -1047,6 +1050,7 @@ abstract class TextElement implements PadElement, LabelElement {
       final ElementConstraint constraint,
       final int foreground,
       final Map<String, dynamic> extra}) = _$TextElementImpl;
+  TextElement._() : super._();
 
   factory TextElement.fromJson(Map<String, dynamic> json) =
       _$TextElementImpl.fromJson;
@@ -1197,7 +1201,7 @@ class __$$MarkdownElementImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$MarkdownElementImpl with LabelElement implements MarkdownElement {
+class _$MarkdownElementImpl extends MarkdownElement with LabelElement {
   _$MarkdownElementImpl(
       {this.rotation = 0,
       this.layer = '',
@@ -1212,7 +1216,8 @@ class _$MarkdownElementImpl with LabelElement implements MarkdownElement {
       final Map<String, dynamic> extra = const {},
       final String? $type})
       : _extra = extra,
-        $type = $type ?? 'markdown';
+        $type = $type ?? 'markdown',
+        super._();
 
   factory _$MarkdownElementImpl.fromJson(Map<String, dynamic> json) =>
       _$$MarkdownElementImplFromJson(json);
@@ -1279,7 +1284,7 @@ class _$MarkdownElementImpl with LabelElement implements MarkdownElement {
   }
 }
 
-abstract class MarkdownElement implements PadElement, LabelElement {
+abstract class MarkdownElement extends PadElement implements LabelElement {
   factory MarkdownElement(
       {final double rotation,
       final String layer,
@@ -1292,6 +1297,7 @@ abstract class MarkdownElement implements PadElement, LabelElement {
       final ElementConstraint constraint,
       final int foreground,
       final Map<String, dynamic> extra}) = _$MarkdownElementImpl;
+  MarkdownElement._() : super._();
 
   factory MarkdownElement.fromJson(Map<String, dynamic> json) =
       _$MarkdownElementImpl.fromJson;
@@ -1417,7 +1423,7 @@ class __$$ImageElementImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$ImageElementImpl implements ImageElement {
+class _$ImageElementImpl extends ImageElement {
   _$ImageElementImpl(
       {this.rotation = 0,
       this.layer = '',
@@ -1430,7 +1436,8 @@ class _$ImageElementImpl implements ImageElement {
       final Map<String, dynamic> extra = const {},
       final String? $type})
       : _extra = extra,
-        $type = $type ?? 'image';
+        $type = $type ?? 'image',
+        super._();
 
   factory _$ImageElementImpl.fromJson(Map<String, dynamic> json) =>
       _$$ImageElementImplFromJson(json);
@@ -1488,7 +1495,7 @@ class _$ImageElementImpl implements ImageElement {
   }
 }
 
-abstract class ImageElement implements PadElement, SourcedElement {
+abstract class ImageElement extends PadElement implements SourcedElement {
   factory ImageElement(
       {final double rotation,
       final String layer,
@@ -1499,6 +1506,7 @@ abstract class ImageElement implements PadElement, SourcedElement {
       required final double width,
       required final double height,
       final Map<String, dynamic> extra}) = _$ImageElementImpl;
+  ImageElement._() : super._();
 
   factory ImageElement.fromJson(Map<String, dynamic> json) =
       _$ImageElementImpl.fromJson;
@@ -1622,7 +1630,7 @@ class __$$SvgElementImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$SvgElementImpl implements SvgElement {
+class _$SvgElementImpl extends SvgElement {
   _$SvgElementImpl(
       {this.rotation = 0,
       this.layer = '',
@@ -1635,7 +1643,8 @@ class _$SvgElementImpl implements SvgElement {
       final Map<String, dynamic> extra = const {},
       final String? $type})
       : _extra = extra,
-        $type = $type ?? 'svg';
+        $type = $type ?? 'svg',
+        super._();
 
   factory _$SvgElementImpl.fromJson(Map<String, dynamic> json) =>
       _$$SvgElementImplFromJson(json);
@@ -1693,7 +1702,7 @@ class _$SvgElementImpl implements SvgElement {
   }
 }
 
-abstract class SvgElement implements PadElement, SourcedElement {
+abstract class SvgElement extends PadElement implements SourcedElement {
   factory SvgElement(
       {final double rotation,
       final String layer,
@@ -1704,6 +1713,7 @@ abstract class SvgElement implements PadElement, SourcedElement {
       required final double width,
       required final double height,
       final Map<String, dynamic> extra}) = _$SvgElementImpl;
+  SvgElement._() : super._();
 
   factory SvgElement.fromJson(Map<String, dynamic> json) =
       _$SvgElementImpl.fromJson;
@@ -1801,7 +1811,7 @@ class __$$ShapeElementImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$ShapeElementImpl implements ShapeElement {
+class _$ShapeElementImpl extends ShapeElement {
   _$ShapeElementImpl(
       {this.rotation = 0,
       this.layer = '',
@@ -1812,7 +1822,8 @@ class _$ShapeElementImpl implements ShapeElement {
       final Map<String, dynamic> extra = const {},
       final String? $type})
       : _extra = extra,
-        $type = $type ?? 'shape';
+        $type = $type ?? 'shape',
+        super._();
 
   factory _$ShapeElementImpl.fromJson(Map<String, dynamic> json) =>
       _$$ShapeElementImplFromJson(json);
@@ -1868,7 +1879,7 @@ class _$ShapeElementImpl implements ShapeElement {
   }
 }
 
-abstract class ShapeElement implements PadElement {
+abstract class ShapeElement extends PadElement {
   factory ShapeElement(
       {final double rotation,
       final String layer,
@@ -1877,6 +1888,7 @@ abstract class ShapeElement implements PadElement {
       @DoublePointJsonConverter() final Point<double> secondPosition,
       final ShapeProperty property,
       final Map<String, dynamic> extra}) = _$ShapeElementImpl;
+  ShapeElement._() : super._();
 
   factory ShapeElement.fromJson(Map<String, dynamic> json) =
       _$ShapeElementImpl.fromJson;
@@ -1983,7 +1995,7 @@ class __$$TextureElementImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$TextureElementImpl implements TextureElement {
+class _$TextureElementImpl extends TextureElement {
   _$TextureElementImpl(
       {this.rotation = 0,
       this.layer = '',
@@ -1994,7 +2006,8 @@ class _$TextureElementImpl implements TextureElement {
       final Map<String, dynamic> extra = const {},
       final String? $type})
       : _extra = extra,
-        $type = $type ?? 'texture';
+        $type = $type ?? 'texture',
+        super._();
 
   factory _$TextureElementImpl.fromJson(Map<String, dynamic> json) =>
       _$$TextureElementImplFromJson(json);
@@ -2051,7 +2064,7 @@ class _$TextureElementImpl implements TextureElement {
   }
 }
 
-abstract class TextureElement implements PadElement {
+abstract class TextureElement extends PadElement {
   factory TextureElement(
       {final double rotation,
       final String layer,
@@ -2060,6 +2073,7 @@ abstract class TextureElement implements PadElement {
       @DoublePointJsonConverter() final Point<double> firstPosition,
       @DoublePointJsonConverter() final Point<double> secondPosition,
       final Map<String, dynamic> extra}) = _$TextureElementImpl;
+  TextureElement._() : super._();
 
   factory TextureElement.fromJson(Map<String, dynamic> json) =
       _$TextureElementImpl.fromJson;
