@@ -18,7 +18,8 @@ class LabelHandler extends Handler<LabelTool>
     final styleSheet = data.styleSheet.fixStyle(document);
     switch (mode) {
       case LabelMode.text:
-        final forced = _context?.mapOrNull(text: (e) => e.forcedProperty);
+        final forced =
+            switch (_context) { TextContext e => e.forcedProperty, _ => null };
         return TextContext(
           tool: data,
           element: (element as TextElement?) ??
@@ -66,9 +67,11 @@ class LabelHandler extends Handler<LabelTool>
             currentIndexCubit, document, page, info, currentArea),
         if (_context?.element != null) ...[
           if (_context?.isCreating ?? false)
-            _context!.map(
-                text: (e) => TextRenderer(e.element!, e),
-                markdown: (e) => MarkdownRenderer(e.element!, e)),
+            switch (_context!) {
+              TextContext e =>
+                TextRenderer(e.element!, e) as GenericTextRenderer,
+              MarkdownContext e => MarkdownRenderer(e.element!, e)
+            },
           LabelSelectionCursor(_context!)
         ],
       ];
@@ -241,7 +244,6 @@ class LabelHandler extends Handler<LabelTool>
   void _change(DocumentBloc bloc, LabelContext value) {
     final state = bloc.state;
     if (state is! DocumentLoaded) return;
-    final tools = state.info.tools;
     final context = _context;
     _context = value;
     if (context == null) return;
@@ -255,7 +257,7 @@ class LabelHandler extends Handler<LabelTool>
       }
     }
     if (context.tool != value.tool) {
-      bloc.add(ToolsChanged({tools.indexOf(data): value.tool}));
+      changeTool(bloc, value.tool);
     }
     bloc.refresh();
     _refreshToolbar(bloc);
@@ -361,17 +363,21 @@ class LabelHandler extends Handler<LabelTool>
     final element = context.element;
     final text = context.text;
     if (element == null || text == null) return const TextEditingValue();
-    var (indexed, length) = element.maybeMap(
-      text: (e) {
-        final indexed =
-            e.area.paragraph.getIndexedSpan(context.selection.start, false);
-        if (indexed == null) return (0, text.length);
-        return (indexed.index, indexed.model.length);
-      },
-      orElse: () => (0, text.length),
-    );
-    if (context.maybeMap(
-        text: (e) => e.shouldNewSpan(state.data), orElse: () => false)) {
+    (int, int) getTextProperty(TextElement e) {
+      final indexed =
+          e.area.paragraph.getIndexedSpan(context.selection.start, false);
+      if (indexed == null) return (0, text.length);
+      return (indexed.index, indexed.model.length);
+    }
+
+    var (indexed, length) = switch (element) {
+      TextElement e => getTextProperty(e),
+      _ => (0, text.length),
+    };
+    if (switch (context) {
+      TextContext e => e.shouldNewSpan(state.data),
+      _ => false
+    }) {
       indexed = min(context.selection.start, text.length);
       length = 0;
     }
@@ -436,53 +442,55 @@ class LabelHandler extends Handler<LabelTool>
         ? value.substring(start,
             value.length - lastValue.text.length + lastValue.composing.end)
         : value;
-    _context = _context?.map(text: (e) {
-      final old = e.element;
-      if (old != null) {
-        final newSpan = e.shouldNewSpan(data);
-        final paragraph = newSpan
-            ? old.area.paragraph.replace(
-                text.TextSpan.text(
-                  text: currentText,
-                  property: e.forcedSpanProperty ??
-                      const text.SpanProperty.undefined(),
-                ),
-                start,
-                length)
-            : old.area.paragraph
-                .replaceText(currentText, start, length, replace);
-        final area = old.area.copyWith(
-          paragraph: paragraph,
+    if (_context == null) return;
+    switch (_context!) {
+      case TextContext e:
+        final old = e.element;
+        if (old != null) {
+          final newSpan = e.shouldNewSpan(data);
+          final paragraph = newSpan
+              ? old.area.paragraph.replace(
+                  text.TextSpan.text(
+                    text: currentText,
+                    property: e.forcedSpanProperty ??
+                        const text.SpanProperty.undefined(),
+                  ),
+                  start,
+                  length)
+              : old.area.paragraph
+                  .replaceText(currentText, start, length, replace);
+          final area = old.area.copyWith(
+            paragraph: paragraph,
+          );
+          element = old.copyWith(area: area);
+        } else {
+          final paragraph = text.TextParagraph.text(
+            textSpans: [text.TextSpan.text(text: value)],
+            property:
+                e.forcedProperty ?? const text.ParagraphProperty.undefined(),
+          );
+          final area = text.TextArea(
+            paragraph: paragraph,
+          );
+          element = TextElement(area: area);
+        }
+        _context = e.copyWith(
+          element: element,
+          selection: TextSelection.collapsed(offset: newIndex),
         );
-        element = old.copyWith(area: area);
-      } else {
-        final paragraph = text.TextParagraph.text(
-          textSpans: [text.TextSpan.text(text: value)],
-          property:
-              e.forcedProperty ?? const text.ParagraphProperty.undefined(),
+      case MarkdownContext e:
+        var text = e.text ?? '';
+        text = replace
+            ? value
+            : text.replaceRange(
+                start, lastValue.selection.end.clamp(0, text.length), value);
+        _context = e.copyWith(
+          element: e.element?.copyWith(
+            text: text,
+          ),
+          selection: TextSelection.collapsed(offset: newIndex),
         );
-        final area = text.TextArea(
-          paragraph: paragraph,
-        );
-        element = TextElement(area: area);
-      }
-      return e.copyWith(
-        element: element,
-        selection: TextSelection.collapsed(offset: newIndex),
-      );
-    }, markdown: (e) {
-      var text = e.text ?? '';
-      text = replace
-          ? value
-          : text.replaceRange(
-              start, lastValue.selection.end.clamp(0, text.length), value);
-      return e.copyWith(
-        element: e.element?.copyWith(
-          text: text,
-        ),
-        selection: TextSelection.collapsed(offset: newIndex),
-      );
-    });
+    }
     _bloc?.refresh();
     if (_bloc != null) _refreshToolbar(_bloc!);
     if (!replace) _updateEditingState();
@@ -540,31 +548,34 @@ class LabelHandler extends Handler<LabelTool>
             }
             length = 1;
           }
-          _context = _context?.map(text: (e) {
-            var element = e.element;
-            if (element == null) return e;
-            var area = element.area;
-            final paragraph = area.paragraph.remove(
-              start,
-              length,
-            );
-            area = area.copyWith(paragraph: paragraph);
-            final newElement = element.copyWith(area: area);
+          switch (_context) {
+            case TextContext e:
+              var element = e.element;
+              if (element == null) return e;
+              var area = element.area;
+              final paragraph = area.paragraph.remove(
+                start,
+                length,
+              );
+              area = area.copyWith(paragraph: paragraph);
+              final newElement = element.copyWith(area: area);
 
-            return e.copyWith(
-              element: newElement,
-              selection: TextSelection.collapsed(offset: start),
-            );
-          }, markdown: (e) {
-            var element = e.element;
-            if (element == null) return e;
-            element = element.copyWith(
-                text: element.text.replaceRange(start, selection.end, ''));
-            return e.copyWith(
-              element: element,
-              selection: TextSelection.collapsed(offset: start),
-            );
-          });
+              _context = e.copyWith(
+                element: newElement,
+                selection: TextSelection.collapsed(offset: start),
+              );
+            case MarkdownContext e:
+              var element = e.element;
+              if (element == null) return e;
+              element = element.copyWith(
+                  text: element.text.replaceRange(start, selection.end, ''));
+              _context = e.copyWith(
+                element: element,
+                selection: TextSelection.collapsed(offset: start),
+              );
+            default:
+              return null;
+          }
           bloc.refresh();
           _refreshToolbar(bloc);
           _updateEditingState();
@@ -614,16 +625,16 @@ class LabelHandler extends Handler<LabelTool>
           _context = _context?.copyWith(
             selection: selection,
           );
-          _context = _context?.maybeMap(
-            text: (e) => e.copyWith(
-              forcedSpanProperty: e.element?.area.paragraph
-                      .getSpan(selection.baseOffset)
-                      ?.property ??
-                  e.forcedSpanProperty,
-              forceParagraph: null,
-            ),
-            orElse: () => _context,
-          );
+          _context = switch (_context) {
+            TextContext e => e.copyWith(
+                forcedSpanProperty: e.element?.area.paragraph
+                        .getSpan(selection.baseOffset)
+                        ?.property ??
+                    e.forcedSpanProperty,
+                forceParagraph: null,
+              ),
+            _ => _context,
+          };
           bloc.refresh();
           _refreshToolbar(bloc);
           _updateEditingState();
@@ -659,8 +670,8 @@ class LabelHandler extends Handler<LabelTool>
             index = wordIndex;
           }
           final length = selection.end - wordIndex;
-          _context = _context?.map(
-            text: (e) {
+          switch (_context) {
+            case TextContext e:
               final element = e.element;
               if (element == null) return e;
               var area = element.area;
@@ -672,23 +683,24 @@ class LabelHandler extends Handler<LabelTool>
               area = area.copyWith(paragraph: paragraph);
               final newElement = element.copyWith(area: area);
 
-              return e.copyWith(
+              _context = e.copyWith(
                 element: newElement,
                 selection: TextSelection.collapsed(offset: wordIndex),
               );
-            },
-            markdown: (e) {
+              break;
+            case MarkdownContext e:
               final element = e.element;
               if (element == null) return e;
               final text =
                   element.text.replaceRange(wordIndex, length.abs(), '');
 
-              return e.copyWith(
+              _context = e.copyWith(
                 element: element.copyWith(text: text),
                 selection: TextSelection.collapsed(offset: wordIndex),
               );
-            },
-          );
+            default:
+              return null;
+          }
 
           bloc.refresh();
           _refreshToolbar(bloc);
@@ -734,14 +746,15 @@ class LabelHandler extends Handler<LabelTool>
         extentOffset: 0,
       ),
     );
-    _context = _context?.maybeMap(
-        text: (e) => e.copyWith(
-              forcedSpanProperty:
-                  e.element?.area.paragraph.getSpan(length)?.property ??
-                      e.forcedSpanProperty,
-              forceParagraph: null,
-            ),
-        orElse: () => _context);
+    _context = switch (_context) {
+      TextContext e => e.copyWith(
+          forcedSpanProperty:
+              e.element?.area.paragraph.getSpan(length)?.property ??
+                  e.forcedSpanProperty,
+          forceParagraph: null,
+        ),
+      _ => _context
+    };
     _bloc?.refresh();
     _updateEditingState();
     if (_bloc != null) _refreshToolbar(_bloc!);

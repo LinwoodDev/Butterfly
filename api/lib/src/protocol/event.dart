@@ -205,23 +205,23 @@ class DocumentEvent extends ReplayEvent with _$DocumentEvent {
   factory DocumentEvent.fromJson(Map<String, dynamic> json) =>
       _$DocumentEventFromJson(json);
 
-  bool shouldSync() => maybeMap(
-        currentLayerChanged: (_) => false,
-        documentSaved: (_) => false,
-        currentAreaChanged: (_) => false,
-        layerVisibilityChanged: (_) => false,
-        utilitiesChanged: (_) => false,
-        presentationModeEntered: (_) => false,
-        presentationModeExited: (_) => false,
-        presentationTick: (_) => false,
-        orElse: () => true,
-      );
+  bool shouldSync() => switch (this) {
+        CurrentLayerChanged _ => false,
+        DocumentSaved _ => false,
+        CurrentAreaChanged _ => false,
+        LayerVisibilityChanged _ => false,
+        UtilitiesChanged _ => false,
+        PresentationModeEntered _ => false,
+        PresentationModeExited _ => false,
+        PresentationTick _ => false,
+        _ => true,
+      };
 
   bool isAllowed(DocumentPermission permission) {
     if (permission == DocumentPermission.read) return false;
     if (!shouldSync()) return false;
-    return maybeMap(
-      orElse: () => true,
-    );
+    return switch (this) {
+      _ => true,
+    };
   }
 }

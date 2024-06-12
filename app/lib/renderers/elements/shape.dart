@@ -218,30 +218,31 @@ class ShapeHitCalculator extends HitCalculator {
       return lrt || tbr || lrb || tbl;
     }
 
-    return shape.map(
-        circle: (e) => containsRect(),
-        rectangle: (e) => containsRect(),
-        triangle: (e) => containsRect(),
-        line: (e) {
-          final firstX = min(element.firstPosition.x, element.secondPosition.x);
-          final firstY = min(element.firstPosition.y, element.secondPosition.y);
-          final secondX =
-              max(element.firstPosition.x, element.secondPosition.x);
-          final secondY =
-              max(element.firstPosition.y, element.secondPosition.y);
-          final firstPos = Offset(firstX, firstY);
-          final secondPos = Offset(secondX, secondY);
-          return rect.containsLine(firstPos.rotate(center, rotation),
-              secondPos.rotate(center, rotation));
-        });
+    bool hitLine() {
+      final firstX = min(element.firstPosition.x, element.secondPosition.x);
+      final firstY = min(element.firstPosition.y, element.secondPosition.y);
+      final secondX = max(element.firstPosition.x, element.secondPosition.x);
+      final secondY = max(element.firstPosition.y, element.secondPosition.y);
+      final firstPos = Offset(firstX, firstY);
+      final secondPos = Offset(secondX, secondY);
+      return rect.containsLine(firstPos.rotate(center, rotation),
+          secondPos.rotate(center, rotation));
+    }
+
+    return switch (shape) {
+      CircleShape _ => containsRect(),
+      RectangleShape _ => containsRect(),
+      TriangleShape _ => containsRect(),
+      LineShape _ => hitLine(),
+    };
   }
 
   @override
   bool hitPolygon(List<ui.Offset> polygon) {
     final center = rect.center;
     // use isPointInPolygon
-    return element.property.shape.map(
-      circle: (shape) {
+    switch (element.property.shape) {
+      case CircleShape _:
         final top = Offset(center.dx, rect.top).rotate(center, rotation);
         final right = Offset(rect.right, center.dy).rotate(center, rotation);
         final bottom = Offset(center.dx, rect.bottom).rotate(center, rotation);
@@ -251,13 +252,12 @@ class ShapeHitCalculator extends HitCalculator {
             isPointInPolygon(polygon, bottom) ||
             isPointInPolygon(polygon, left) ||
             isPointInPolygon(polygon, center);
-      },
-      line: (value) =>
-          isPointInPolygon(polygon,
-              element.firstPosition.toOffset().rotate(center, rotation)) ||
-          isPointInPolygon(polygon,
-              element.secondPosition.toOffset().rotate(center, rotation)),
-      rectangle: (value) {
+      case LineShape _:
+        return isPointInPolygon(polygon,
+                element.firstPosition.toOffset().rotate(center, rotation)) ||
+            isPointInPolygon(polygon,
+                element.secondPosition.toOffset().rotate(center, rotation));
+      case RectangleShape _:
         final topLeft = rect.topLeft.rotate(center, rotation);
         final topRight = rect.topRight.rotate(center, rotation);
         final bottomLeft = rect.bottomLeft.rotate(center, rotation);
@@ -267,15 +267,13 @@ class ShapeHitCalculator extends HitCalculator {
             isPointInPolygon(polygon, bottomLeft) ||
             isPointInPolygon(polygon, bottomRight) ||
             isPointInPolygon(polygon, center);
-      },
-      triangle: (value) {
+      case TriangleShape _:
         final firstPosition =
             element.firstPosition.toOffset().rotate(center, rotation);
         final secondPosition =
             element.secondPosition.toOffset().rotate(center, rotation);
         return isPointInPolygon(polygon, firstPosition) ||
             isPointInPolygon(polygon, secondPosition);
-      },
-    );
+    }
   }
 }

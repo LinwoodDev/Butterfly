@@ -92,7 +92,7 @@ class EmbedHandler {
               .renderSVG(
                 state.data,
                 state.page,
-                SVGExportOptions(
+                SvgExportOptions(
                   width: width,
                   height: height,
                   x: x,

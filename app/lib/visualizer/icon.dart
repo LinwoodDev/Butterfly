@@ -24,15 +24,15 @@ enum DisplayIcons {
   }
 
   static List<DisplayIcons> recommended(Object tool) {
-    if (tool is! Tool) return const [];
-    return tool.maybeMap(
-        pen: (_) => [
-              DisplayIcons.pen,
-              DisplayIcons.pencil,
-              DisplayIcons.pencilSimple,
-              DisplayIcons.penNib,
-              DisplayIcons.highlighterCircle,
-            ],
-        orElse: () => const []);
+    return switch (tool) {
+      PenTool _ => [
+          DisplayIcons.pen,
+          DisplayIcons.pencil,
+          DisplayIcons.pencilSimple,
+          DisplayIcons.penNib,
+          DisplayIcons.highlighterCircle,
+        ],
+      _ => const []
+    };
   }
 }

@@ -50,11 +50,12 @@ class PathEraserHandler extends Handler<PathEraserTool> {
     if (_currentlyErasing || !shouldErase) return;
     _currentlyErasing = true;
     _lastErased = globalPos;
-    final ray =
+    Iterable<Renderer<PadElement>> ray =
         await rayCast(globalPos, context.getDocumentBloc(), transform, size);
     final page = context.getPage();
     if (page == null) return;
-    final ids = ray.map((e) => e.element.id).whereNotNull().toList();
+    if (!data.eraseElements) ray = ray.where((e) => e.element.isStroke());
+    var ids = ray.map((e) => e.element.id).whereNotNull();
     _erased.addAll(ids);
     _currentlyErasing = false;
   }
@@ -65,4 +66,11 @@ class PathEraserHandler extends Handler<PathEraserTool> {
       context.getDocumentBloc().add(ElementsRemoved(_erased.toList()));
     }
   }
+
+  @override
+  PreferredSizeWidget? getToolbar(DocumentBloc bloc) => EraserToolbarView(
+        eraseElements: data.eraseElements,
+        onToggleEraseElements: () =>
+            changeTool(bloc, data.copyWith(eraseElements: !data.eraseElements)),
+      );
 }

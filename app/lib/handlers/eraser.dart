@@ -48,13 +48,20 @@ class EraserHandler extends Handler<EraserTool> {
     _lastErased = globalPos;
     final ray =
         await rayCast(globalPos, context.getDocumentBloc(), transform, size);
-    final elements = ray.map((e) => e.element).whereType<PenElement>();
+    var elements = ray.map((e) => e.element);
+    if (!data.eraseElements) {
+      elements = elements.where((e) => e.isStroke());
+    }
     final modified = <String, List<PadElement>>{};
     for (final element in elements) {
       List<List<PathPoint>> paths = [[]];
       bool broken = false;
       final id = element.id;
       if (id == null) continue;
+      if (element is! PenElement) {
+        modified[id] = [];
+        continue;
+      }
       for (final point in element.points) {
         if ((point.toOffset() - globalPos).distance >= (size * size)) {
           paths.last.add(point);
@@ -89,4 +96,11 @@ class EraserHandler extends Handler<EraserTool> {
 // Returns the mouse cursor to be used when the user interacts with the eraser tool.
   @override
   MouseCursor get cursor => SystemMouseCursors.precise;
+
+  @override
+  PreferredSizeWidget? getToolbar(DocumentBloc bloc) => EraserToolbarView(
+        eraseElements: data.eraseElements,
+        onToggleEraseElements: () =>
+            changeTool(bloc, data.copyWith(eraseElements: !data.eraseElements)),
+      );
 }

@@ -52,25 +52,22 @@ class _SearchDialogState extends State<SearchDialog> {
     });
   }
 
-  IconGetter _getIcon(SearchResult item) {
-    return item.map(
-      element: (item) => item.element.icon,
-      waypoint: (_) => PhosphorIcons.mapPin,
-      area: (_) => PhosphorIcons.selection,
-      page: (_) => PhosphorIcons.book,
-      tool: (_) => PhosphorIcons.hammer,
-    );
-  }
+  IconGetter _getIcon(SearchResult item) => switch (item) {
+        ElementResult e => e.element.icon,
+        WaypointResult _ => PhosphorIcons.mapPin,
+        AreaResult _ => PhosphorIcons.selection,
+        PageResult _ => PhosphorIcons.book,
+        ToolResult _ => PhosphorIcons.hammer,
+      };
 
-  String _getLocalizedName(SearchResult item, BuildContext context) {
-    return item.map(
-      element: (item) => item.element.getLocalizedName(context),
-      waypoint: (_) => AppLocalizations.of(context).waypoint,
-      area: (_) => AppLocalizations.of(context).area,
-      page: (_) => AppLocalizations.of(context).page,
-      tool: (_) => AppLocalizations.of(context).tool,
-    );
-  }
+  String _getLocalizedName(SearchResult item, BuildContext context) =>
+      switch (item) {
+        ElementResult e => e.element.getLocalizedName(context),
+        WaypointResult _ => AppLocalizations.of(context).waypoint,
+        AreaResult _ => AppLocalizations.of(context).area,
+        PageResult _ => AppLocalizations.of(context).page,
+        ToolResult _ => AppLocalizations.of(context).tool,
+      };
 
   @override
   Widget build(BuildContext context) {

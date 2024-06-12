@@ -10,7 +10,7 @@ import 'package:butterfly_api/butterfly_text.dart' as txt;
 part 'label.freezed.dart';
 
 @freezed
-class LabelContext with _$LabelContext {
+sealed class LabelContext with _$LabelContext {
   const LabelContext._();
   const factory LabelContext.text(
       {required LabelTool tool,
@@ -40,15 +40,16 @@ class LabelContext with _$LabelContext {
       labelElement?.styleSheet ?? tool.styleSheet;
 
   int get length =>
-      map(
-          text: (e) => e.area?.length,
-          markdown: (e) => e.element?.text.length) ??
+      switch (this) {
+        TextContext e => e.area?.length,
+        MarkdownContext e => e.element?.text.length,
+      } ??
       0;
 
   bool isParagraph() {
     if (element == null) return true;
     final force =
-        maybeMap(text: (value) => value.forceParagraph, orElse: () => false);
+        switch (this) { TextContext e => e.forceParagraph, _ => false };
     if (force != null) return force;
     return selection.start <= 0 && selection.end >= length;
   }
@@ -119,42 +120,41 @@ extension TextContextHelper on TextContext {
 
   SpanProperty? getSpanProperty(NoteData document) {
     final index = selection.start;
-    return paragraph?.getSpan(index)?.property.mapOrNull(
-              undefined: (_) => null,
-              defined: (p) => p,
-              named: (p) => p,
-            ) ??
-        getDefinedProperty(document)?.span;
+    return switch (paragraph?.getSpan(index)?.property) {
+      DefinedSpanProperty e => e,
+      NamedSpanProperty e => e,
+      _ => getDefinedProperty(document)?.span,
+    };
   }
 
   DefinedSpanProperty getDefinedSpanProperty(NoteData document) {
-    return getSpanProperty(document)?.map(
-          defined: (p) => p,
-          undefined: (_) => null,
-          named: (p) =>
-              styleSheet.resolveStyle(document)?.resolveSpanProperty(p),
-        ) ??
+    return switch (getSpanProperty(document)) {
+          DefinedSpanProperty e => e,
+          NamedSpanProperty e =>
+            styleSheet.resolveStyle(document)?.resolveSpanProperty(e),
+          _ => null,
+        } ??
         const DefinedSpanProperty();
   }
 
   DefinedParagraphProperty getDefinedForcedProperty(NoteData document) {
-    return forcedProperty?.map(
-          defined: (p) => p,
-          undefined: (_) => null,
-          named: (p) =>
-              styleSheet.resolveStyle(document)?.resolveParagraphProperty(p),
-        ) ??
+    return switch (forcedProperty) {
+          DefinedParagraphProperty e => e,
+          NamedParagraphProperty e =>
+            styleSheet.resolveStyle(document)?.resolveParagraphProperty(e),
+          _ => null,
+        } ??
         const DefinedParagraphProperty();
   }
 
   DefinedSpanProperty getDefinedForcedSpanProperty(NoteData document,
       [bool fallback = true]) {
-    return forcedSpanProperty?.map(
-          defined: (p) => p,
-          undefined: (_) => null,
-          named: (p) =>
-              styleSheet.resolveStyle(document)?.resolveSpanProperty(p),
-        ) ??
+    return switch (forcedSpanProperty) {
+          DefinedSpanProperty e => e,
+          NamedSpanProperty e =>
+            styleSheet.resolveStyle(document)?.resolveSpanProperty(e),
+          _ => null,
+        } ??
         (fallback
             ? getDefinedSpanProperty(document)
             : const DefinedSpanProperty());
@@ -164,15 +164,15 @@ extension TextContextHelper on TextContext {
       getDefinedSpanProperty(document) !=
       getDefinedForcedSpanProperty(document);
 
-  bool paragraphModified() =>
-      getProperty().maybeMap(orElse: () => true, named: (p) => false);
+  bool paragraphModified() => switch (getProperty()) {
+        NamedParagraphProperty _ => false,
+        _ => true,
+      };
 
-  bool spanModified(NoteData document) =>
-      getSpanProperty(document)?.maybeMap(
-        orElse: () => true,
-        named: (p) => false,
-      ) ??
-      true;
+  bool spanModified(NoteData document) => switch (getSpanProperty(document)) {
+        NamedParagraphProperty _ => false,
+        _ => true,
+      };
 
   bool modified(NoteData document) =>
       isParagraph() ? paragraphModified() : spanModified(document);

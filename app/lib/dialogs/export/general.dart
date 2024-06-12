@@ -25,12 +25,12 @@ ImageExportOptions getDefaultImageExportOptions(BuildContext context,
   );
 }
 
-SVGExportOptions getDefaultSVGExportOptions(BuildContext context,
+SvgExportOptions getDefaultSvgExportOptions(BuildContext context,
     {CameraTransform? transform}) {
   transform ??= context.read<TransformCubit>().state;
   final size = MediaQuery.of(context).size;
   final scale = transform.size;
-  return SVGExportOptions(
+  return SvgExportOptions(
     width: size.width / scale,
     height: size.height / scale,
     x: transform.position.dx,
@@ -105,7 +105,7 @@ class _GeneralExportDialogState extends State<GeneralExportDialog> {
         .render(state.data, state.page, state.info, _options.toImageOptions());
   }
 
-  Future<String?> generateSVG(SVGExportOptions options) async {
+  Future<String?> generateSVG(SvgExportOptions options) async {
     final bloc = context.read<DocumentBloc>();
     final state = bloc.state;
     if (state is! DocumentLoaded) return null;
@@ -126,7 +126,7 @@ class _GeneralExportDialogState extends State<GeneralExportDialog> {
           return;
         }
         await exportImage(context, data.buffer.asUint8List(), share);
-      case final SVGExportOptions options:
+      case final SvgExportOptions options:
         final data = await generateSVG(options);
         if (data == null) {
           return;
@@ -240,12 +240,13 @@ class _GeneralExportDialogState extends State<GeneralExportDialog> {
                         ?.state
                         .transformCubit
                         .state;
-                    _applyOptions(_options.map(
-                      image: (e) => getDefaultImageExportOptions(context,
+                    _applyOptions(switch (_options) {
+                      ImageExportOptions _ => getDefaultImageExportOptions(
+                          context,
                           transform: transform),
-                      svg: (e) => getDefaultSVGExportOptions(context,
+                      SvgExportOptions _ => getDefaultSvgExportOptions(context,
                           transform: transform),
-                    ));
+                    });
                     setState(() => _preset = ExportTransformPreset.view);
                     _regeneratePreviewImage();
                   },
@@ -260,21 +261,21 @@ class _GeneralExportDialogState extends State<GeneralExportDialog> {
                         context.read<DocumentBloc>().state.currentIndexCubit;
                     if (cubit == null) return;
                     final rect = cubit.getPageRect();
-                    _applyOptions(_options.map(
-                      image: (e) => e.copyWith(
-                        width: rect.width,
-                        height: rect.height,
-                        x: rect.left,
-                        y: rect.top,
-                        scale: 1,
-                      ),
-                      svg: (e) => e.copyWith(
-                        width: rect.width,
-                        height: rect.height,
-                        x: rect.left,
-                        y: rect.top,
-                      ),
-                    ));
+                    _applyOptions(switch (_options) {
+                      ImageExportOptions e => e.copyWith(
+                          width: rect.width,
+                          height: rect.height,
+                          x: rect.left,
+                          y: rect.top,
+                          scale: 1,
+                        ),
+                      SvgExportOptions e => e.copyWith(
+                          width: rect.width,
+                          height: rect.height,
+                          x: rect.left,
+                          y: rect.top,
+                        ),
+                    });
                     setState(() => _preset = ExportTransformPreset.page);
                     _regeneratePreviewImage();
                   },

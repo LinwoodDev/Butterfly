@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:butterfly/api/file_system/file_system.dart';
 import 'package:butterfly_api/butterfly_api.dart';
+import 'package:butterfly_api/butterfly_models.dart';
 import 'package:collection/collection.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/foundation.dart';
@@ -234,16 +235,14 @@ class RemoteSync {
       case FileSyncStatus.conflict:
         await fileSystem.cache(path);
         final remoteAsset = await fileSystem.fetchAsset(path, true, true).last;
-        await remoteAsset?.maybeMap(
-          file: (file) async {
-            if (remoteAsset is! AppDocumentFile) return;
+        switch (remoteAsset) {
+          case AppDocumentFile e:
             final parent = path.substring(0, path.lastIndexOf('/'));
-            final doc = file.load();
+            final doc = e.load();
             await fileSystem.importDocument(doc, path: parent, forceSync: true);
             await fileSystem.uploadCachedContent(path);
-          },
-          orElse: () {},
-        );
+            break;
+        }
         break;
       default:
         _statusSubject.add(SyncStatus.error);

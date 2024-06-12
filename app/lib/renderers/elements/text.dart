@@ -20,13 +20,13 @@ abstract class GenericTextRenderer<T extends LabelElement> extends Renderer<T> {
     final styleSheet = element.styleSheet.resolveStyle(document);
     final style = styleSheet.resolveParagraphProperty(paragraph.property) ??
         const text.DefinedParagraphProperty();
-    _tp?.text = paragraph.map(
-      text: (p) => TextSpan(
-        children:
-            p.textSpans.map((e) => _createSpan(document, e, style)).toList(),
-        style: style.span.toFlutter(null, element.foreground),
-      ),
-    );
+    _tp?.text = switch (paragraph) {
+      text.TextParagraph p => TextSpan(
+          children:
+              p.textSpans.map((e) => _createSpan(document, e, style)).toList(),
+          style: style.span.toFlutter(null, element.foreground),
+        ),
+    };
     _tp?.textAlign = style.alignment.toFlutter();
     _tp?.layout(maxWidth: element.getMaxWidth(area));
   }

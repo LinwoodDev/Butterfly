@@ -173,7 +173,7 @@ enum ExternalStorageType {
 }
 
 @freezed
-class ExternalStorage with _$ExternalStorage {
+sealed class ExternalStorage with _$ExternalStorage {
   @With<RemoteStorage>()
   const factory ExternalStorage.dav({
     @Default('') String name,
@@ -244,23 +244,23 @@ class ExternalStorage with _$ExternalStorage {
   }
 
   String get identifier => name.isEmpty
-      ? map(
-          dav: (d) => 'dav:${d.username}@${d.url}',
-          local: (l) => 'local:${l.path}',
-        )
+      ? switch (this) {
+          DavRemoteStorage e => 'dav:${e.username}@${e.url}',
+          LocalStorage e => 'local:${e.path}',
+        }
       : name;
 
   String get label => name.isEmpty
-      ? map(
-          dav: (d) => d.uri.host,
-          local: (l) => l.path.split('/').last,
-        )
+      ? switch (this) {
+          DavRemoteStorage e => e.uri.host,
+          LocalStorage e => e.path.split('/').last,
+        }
       : name;
 
-  ExternalStorageType get type => map(
-        dav: (d) => ExternalStorageType.dav,
-        local: (l) => ExternalStorageType.local,
-      );
+  ExternalStorageType get type => switch (this) {
+        DavRemoteStorage _ => ExternalStorageType.dav,
+        LocalStorage _ => ExternalStorageType.local,
+      };
 
   DocumentFileSystem get documentFileSystem =>
       DocumentFileSystem.fromPlatform(remote: this);

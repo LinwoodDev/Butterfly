@@ -671,7 +671,7 @@ class ImportService {
             builder: (context) => BlocProvider.value(
                 value: bloc!,
                 child: GeneralExportDialog(
-                    options: SVGExportOptions(
+                    options: SvgExportOptions(
                   width: (viewport.width ?? 1000) / viewport.scale,
                   height: (viewport.height ?? 1000) / viewport.scale,
                   x: viewport.x,

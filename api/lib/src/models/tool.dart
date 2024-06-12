@@ -94,12 +94,14 @@ sealed class Tool with _$Tool {
     @Default('') String name,
     @Default('') String displayIcon,
     @Default(5) double strokeWidth,
+    @Default(false) bool eraseElements,
   }) = EraserTool;
 
   factory Tool.pathEraser({
     @Default('') String name,
     @Default('') String displayIcon,
     @Default(5) double strokeWidth,
+    @Default(false) bool eraseElements,
   }) = PathEraserTool;
 
   factory Tool.layer({
@@ -153,7 +155,8 @@ sealed class Tool with _$Tool {
     @Default(Axis2D.horizontal) Axis2D axis,
   }) = SpacerTool;
 
-  factory Tool.fullSceen({
+  @FreezedUnionValue('fullSceen')
+  factory Tool.fullScreen({
     @Default('') String name,
     @Default('') String displayIcon,
   }) = FullScreenTool;

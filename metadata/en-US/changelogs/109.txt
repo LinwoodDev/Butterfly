@@ -1,0 +1,5 @@
+* Add erase elements property to eraser and patheraser ([#680](https://github.com/LinwoodDev/Butterfly/issues/680))
+* Add shape element to normal eraser([#683](https://github.com/LinwoodDev/Butterfly/issues/683))
+* Fix spacer has no help page
+
+Read more here: https://linwood.dev/butterfly/2.2.0-beta.0

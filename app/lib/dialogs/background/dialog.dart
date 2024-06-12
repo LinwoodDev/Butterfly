@@ -73,20 +73,22 @@ class BackgroundDialog extends StatelessWidget {
                               onChanged: (value) =>
                                   setState(() => background = value)),
                           if (background != null) ...[
-                            background!.map(
-                              texture: (e) => _TextureBackgroundPropertiesView(
+                            switch (background!) {
+                              TextureBackground e =>
+                                _TextureBackgroundPropertiesView(
+                                    value: e,
+                                    onChanged: (value) =>
+                                        setState(() => background = value)),
+                              ImageBackground e =>
+                                _ImageBackgroundPropertiesView(
+                                    value: e,
+                                    onChanged: (value) =>
+                                        setState(() => background = value)),
+                              SvgBackground e => _SvgBackgroundPropertiesView(
                                   value: e,
                                   onChanged: (value) =>
                                       setState(() => background = value)),
-                              image: (e) => _ImageBackgroundPropertiesView(
-                                  value: e,
-                                  onChanged: (value) =>
-                                      setState(() => background = value)),
-                              svg: (e) => _SvgBackgroundPropertiesView(
-                                  value: e,
-                                  onChanged: (value) =>
-                                      setState(() => background = value)),
-                            ),
+                            },
                           ] else
                             const SizedBox(),
                         ],

@@ -594,7 +594,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
   }
 
   XmlDocument renderSVG(
-      NoteData document, DocumentPage page, SVGExportOptions options) {
+      NoteData document, DocumentPage page, SvgExportOptions options) {
     final xml = XmlDocument();
     xml.createElement('svg', attributes: {
       'xmlns': 'http://www.w3.org/2000/svg',

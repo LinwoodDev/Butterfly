@@ -31,15 +31,13 @@ class EyeDropperHandler extends Handler<EyeDropperTool> {
           pixel.r.toInt() << 16 |
           pixel.g.toInt() << 8 |
           pixel.b.toInt();
-      final newTool = handler.setColor(color);
-      final index = state.info.tools.indexOf(handler.data);
-      context.getDocumentBloc().add(ToolsChanged({index: newTool}));
+      handler.changeToolColor(context.getDocumentBloc(), color);
     } else {
       final color =
           pixel.r.toInt() << 16 | pixel.g.toInt() << 8 | pixel.b.toInt();
       saveToClipboard(
         context.buildContext,
-        '#${color.toRadixString(16).padLeft(6, '0')}',
+        color.toHexColor(alpha: false),
       );
     }
   }
