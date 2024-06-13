@@ -15,7 +15,7 @@ title: Embed
 | -------- | -------------------------------------------------------------------------------------- | ------ | -------------------------------------------------------------------------------------------- |
 | 保存       | Boolean (true, false)                                               | true   | Enable save. If disabled, only an exit button will be shown                  |
 | editable | Boolean (true, false)                                               | true   | Enable editing. 無効にすると、ドキュメントは読み取り専用になります                                    |
-| language | 文字列 (...、システム、ユーザー) | system | Language of the document. システムの場合、言語はブラウザから検出されます。 ユーザーの場合、言語はユーザーの好みに設定されます |
+| 言語       | 文字列 (...、システム、ユーザー) | system | Language of the document. システムの場合、言語はブラウザから検出されます。 ユーザーの場合、言語はユーザーの好みに設定されます |
 
 ## イベント
 
