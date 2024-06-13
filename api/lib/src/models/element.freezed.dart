@@ -738,7 +738,7 @@ class __$$PenElementImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$PenElementImpl extends PenElement with PathElement {
+class _$PenElementImpl extends PenElement {
   _$PenElementImpl(
       {this.rotation = 0,
       this.layer = '',

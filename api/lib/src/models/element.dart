@@ -49,7 +49,7 @@ sealed class ElementConstraints with _$ElementConstraints {
       _$ElementConstraintsFromJson(json);
 }
 
-mixin PathElement {
+abstract class PathElement {
   List<PathPoint> get points;
   PathProperty get property;
 }
@@ -79,7 +79,7 @@ mixin LabelElement {
 sealed class PadElement with _$PadElement {
   const PadElement._();
 
-  @With<PathElement>()
+  @Implements<PathElement>()
   factory PadElement.pen({
     @Default(0) double rotation,
     @Default('') String layer,

@@ -12,11 +12,11 @@
   "dependencies": {
     "@astrojs/check": "^0.7.0",
     "@astrojs/react": "^3.5.0",
-    "@astrojs/starlight": "^0.24.0",
-    "@phosphor-icons/react": "^2.1.5",
+    "@astrojs/starlight": "^0.24.2",
+    "@phosphor-icons/react": "^2.1.6",
     "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.0",
-    "astro": "^4.10.1",
+    "astro": "^4.10.2",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "remark-gemoji": "^8.0.0",
@@ -26,6 +26,6 @@
   },
   "packageManager": "pnpm@9.2.0",
   "devDependencies": {
-    "sass": "^1.77.4"
+    "sass": "^1.77.5"
   }
 }

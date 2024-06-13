@@ -9,6 +9,7 @@ part 'utilities.freezed.dart';
 @freezed
 sealed class UtilitiesState with _$UtilitiesState {
   const factory UtilitiesState({
+    @Default(false) bool lockLayer,
     @Default(false) bool lockZoom,
     @Default(false) bool lockHorizontal,
     @Default(false) bool lockVertical,

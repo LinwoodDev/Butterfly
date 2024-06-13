@@ -405,6 +405,14 @@ class _EditToolbarState extends State<EditToolbar> {
                             return MenuAnchor(
                               menuChildren: [
                                 buildButton(
+                                  utilitiesState.lockLayer,
+                                  () => utilitiesState.copyWith(
+                                    lockLayer: !utilitiesState.lockLayer,
+                                  ),
+                                  PhosphorIconsLight.stack,
+                                  AppLocalizations.of(context).layer,
+                                ),
+                                buildButton(
                                   utilitiesState.lockZoom,
                                   () => utilitiesState.copyWith(
                                     lockZoom: !utilitiesState.lockZoom,
