@@ -15,7 +15,7 @@ Ajoute le code suivant à ton site web :
 | ----------- | ------------------------------------------------------------------------------------------------------------------- | ---------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | enregistrer | Boolean (true, false)                                                                            | true       | Activer la sauvegarde. Si désactivé, seul un bouton de sortie sera affiché                                                                                                   |
 | editable    | Boolean (true, false)                                                                            | true       | Activer l'édition. Si désactivé, le document sera en lecture seule                                                                                                           |
-| language    | Chaîne de caractères (..., système, utilisateur) | system     | Langue du document. Si le système, la langue sera détectée à partir du navigateur. Si l'utilisateur, la langue sera définie à la préférence des utilisateurs |
+| langue      | Chaîne de caractères (..., système, utilisateur) | system     | Langue du document. Si le système, la langue sera détectée à partir du navigateur. Si l'utilisateur, la langue sera définie à la préférence des utilisateurs |
 
 ## Évènements
 
