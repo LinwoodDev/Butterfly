@@ -15,7 +15,7 @@ Voeg de volgende code toe aan je website:
 | -------- | --------------------------------------------------------------------------------------------------- | --------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | opslaan  | Boolean (true, false)                                                            | true      | Schakel opslaan in. Indien uitgeschakeld wordt alleen een afsluitknop weergegeven                                                                                      |
 | editable | Boolean (true, false)                                                            | true      | Bewerken inschakelen. Indien uitgeschakeld zal het document alleen-lezen zijn                                                                                          |
-| language | String (..., systeem, gebruiker) | system    | Taal van het document. Indien systeem wordt de taal van de browser gedetecteerd. Als gebruiker wordt de taal ingesteld op de voorkeur van de gebruiker |
+| taal     | String (..., systeem, gebruiker) | system    | Taal van het document. Indien systeem wordt de taal van de browser gedetecteerd. Als gebruiker wordt de taal ingesteld op de voorkeur van de gebruiker |
 
 ## Evenementen
 
