@@ -138,7 +138,8 @@ class LabelHandler extends Handler<LabelTool>
   Future<void> create(EventContext context, Offset localPosition,
       [bool forceCreate = false]) async {
     final pixelRatio = context.devicePixelRatio;
-    final document = context.getData();
+    final state = context.getState();
+    final document = state?.data;
     if (document == null) return;
     final focusNode = Focus.of(context.buildContext);
     final globalPos = context.getCameraTransform().localToGlobal(localPosition);
@@ -150,8 +151,11 @@ class LabelHandler extends Handler<LabelTool>
     final style = theme.textTheme.bodyLarge!;
     if (hadFocus || _context?.element == null) {
       if (_context?.element != null) _submit(context.getDocumentBloc());
-      final hit = await rayCast(globalPos, context.getDocumentBloc(),
-          context.getCameraTransform(), 0.0);
+      final hit = await context.getDocumentBloc().rayCast(
+            globalPos,
+            0.0,
+            useLayer: true,
+          );
       final labelRenderer = hit.whereType<Renderer<LabelElement>>().firstOrNull;
       if (labelRenderer == null) {
         _context = _createContext(document,

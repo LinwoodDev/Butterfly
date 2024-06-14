@@ -332,115 +332,6 @@ mixin HandlerWithCursor<T> on Handler<T> {
   }
 }
 
-typedef HitRequest = bool Function(Offset position, [double radius]);
-
-class _SmallRenderer {
-  final HitCalculator hitCalc;
-  final PadElement element;
-
-  _SmallRenderer(this.hitCalc, this.element);
-  _SmallRenderer.fromRenderer(Renderer renderer)
-      : hitCalc = renderer.getHitCalculator(),
-        element = renderer.element;
-}
-
-class _RayCastParams {
-  final List<String> invisibleLayers;
-  final List<_SmallRenderer> renderers;
-  final Rect rect;
-  final double size;
-
-  const _RayCastParams(
-      this.invisibleLayers, this.renderers, this.rect, this.size);
-}
-
-bool isInBounds(DocumentBloc bloc, Offset globalPosition) {
-  final state = bloc.state;
-  if (state is! DocumentLoadSuccess) return false;
-  final area = state.currentArea;
-  if (area == null) return true;
-  return area.rect.contains(globalPosition);
-}
-
-Future<Set<Renderer<PadElement>>> rayCast(
-  Offset globalPosition,
-  DocumentBloc bloc,
-  CameraTransform transform,
-  double radius,
-) async {
-  return rayCastRect(
-    Rect.fromCircle(center: globalPosition, radius: radius),
-    bloc,
-    transform,
-  );
-}
-
-Future<Set<Renderer<PadElement>>> rayCastRect(
-  Rect rect,
-  DocumentBloc bloc,
-  CameraTransform transform,
-) async {
-  final state = bloc.state;
-  if (state is! DocumentLoadSuccess) return {};
-  final renderers = state.cameraViewport.visibleElements;
-  return compute(
-    _executeRayCast,
-    _RayCastParams(
-      state.invisibleLayers,
-      renderers.map((e) => _SmallRenderer.fromRenderer(e)).toList(),
-      rect,
-      transform.size,
-    ),
-  ).then((value) => value.map((e) => renderers[e]).toSet());
-}
-
-Set<int> _executeRayCast(_RayCastParams params) {
-  final rect = params.rect.normalized();
-  return params.renderers
-      .asMap()
-      .entries
-      .where((e) => !params.invisibleLayers.contains(e.value.element.layer))
-      .where((e) => e.value.hitCalc.hit(rect))
-      .map((e) => e.key)
-      .toSet();
-}
-
-class _RayCastPolygonParams {
-  final List<String> invisibleLayers;
-  final List<_SmallRenderer> renderers;
-  final List<Offset> polygon;
-  final double size;
-
-  const _RayCastPolygonParams(
-      this.invisibleLayers, this.renderers, this.polygon, this.size);
-}
-
-Future<Set<Renderer<PadElement>>> rayCastPolygon(
-    List<Offset> points, DocumentBloc bloc, CameraTransform transform) async {
-  final state = bloc.state;
-  if (state is! DocumentLoadSuccess) return {};
-  final renderers = state.cameraViewport.visibleElements;
-  return compute(
-    _executeRayCastPolygon,
-    _RayCastPolygonParams(
-      state.invisibleLayers,
-      renderers.map((e) => _SmallRenderer.fromRenderer(e)).toList(),
-      points,
-      transform.size,
-    ),
-  ).then((value) => value.map((e) => renderers[e]).toSet());
-}
-
-Set<int> _executeRayCastPolygon(_RayCastPolygonParams params) {
-  return params.renderers
-      .asMap()
-      .entries
-      .where((e) => !params.invisibleLayers.contains(e.value.element.layer))
-      .where((e) => e.value.hitCalc.hitPolygon(params.polygon))
-      .map((e) => e.key)
-      .toSet();
-}
-
 abstract class PastingHandler<T> extends Handler<T> {
   Offset? _firstPos;
   Offset? _secondPos;
@@ -525,7 +416,7 @@ abstract class PastingHandler<T> extends Handler<T> {
       [bool first = false]) {
     final transform = context.getCameraTransform();
     final globalPos = transform.localToGlobal(event.localPosition);
-    if (!isInBounds(context.getDocumentBloc(), globalPos)) return;
+    if (!context.getDocumentBloc().isInBounds(globalPos)) return;
     if (first) _firstPos = transform.localToGlobal(event.localPosition);
     if (!first && _firstPos == null) return;
     _secondPos = globalPos;

@@ -37,8 +37,10 @@ class SpacerHandler extends Handler<SpacerTool> {
     final rect = _getRect(position, _spacing);
     if (rect == _lastRect) return;
     _lastRect = rect;
-    final renderers = await rayCastRect(
-        rect, context.getDocumentBloc(), context.getCameraTransform());
+    final renderers = await context.getDocumentBloc().rayCastRect(
+          rect,
+          useLayer: true,
+        );
     if (rect != _lastRect) return;
     _renderers = renderers;
   }

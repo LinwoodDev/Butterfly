@@ -184,8 +184,11 @@ class SelectHandler extends Handler<SelectTool> {
     _selectionManager.resetTransform();
     final settings = context.getSettings();
     final radius = settings.selectSensitivity / transform.size;
-    final hits = await rayCast(globalPos, context.getDocumentBloc(),
-        context.getCameraTransform(), radius);
+    final hits = await context.getDocumentBloc().rayCast(
+          globalPos,
+          radius,
+          useLayer: true,
+        );
     if (hits.isEmpty) {
       if (!context.isCtrlPressed) {
         _selected.clear();
@@ -235,8 +238,11 @@ class SelectHandler extends Handler<SelectTool> {
     final bloc = context.getDocumentBloc();
     final state = bloc.state;
     if (state is! DocumentLoadSuccess) return;
-    final hits =
-        await rayCast(position, bloc, context.getCameraTransform(), 0.0);
+    final hits = await bloc.rayCast(
+      position,
+      0.0,
+      useLayer: true,
+    );
     final hit = hits.firstOrNull;
     final rect = hit?.expandedRect;
     final selectionRect = getSelectionRect();
@@ -377,12 +383,16 @@ class SelectHandler extends Handler<SelectTool> {
       _selected.clear();
     }
     if (rectangleSelection != null && !rectangleSelection.isEmpty) {
-      final hits = await rayCastRect(rectangleSelection,
-          context.getDocumentBloc(), context.getCameraTransform());
+      final hits = await context.getDocumentBloc().rayCastRect(
+            rectangleSelection,
+            useLayer: true,
+          );
       _selected.addAll(hits);
     } else if (lassoSelection != null && lassoSelection.isNotEmpty) {
-      final hits = await rayCastPolygon(lassoSelection,
-          context.getDocumentBloc(), context.getCameraTransform());
+      final hits = await context.getDocumentBloc().rayCastPolygon(
+            lassoSelection,
+            useLayer: true,
+          );
       _selected.addAll(hits);
     } else {
       _updateSelectionRect();

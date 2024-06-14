@@ -42,7 +42,6 @@ class PathEraserHandler extends Handler<PathEraserTool> {
       PointerMoveEvent event, EventContext context) async {
     _currentPos = event.localPosition;
     final transform = context.getCameraTransform();
-    final currentIndex = context.getCurrentIndex();
     final state = context.getState();
     final globalPos = transform.localToGlobal(event.localPosition);
     final size = data.strokeWidth;
@@ -53,11 +52,14 @@ class PathEraserHandler extends Handler<PathEraserTool> {
     _currentlyErasing = true;
     _lastErased = globalPos;
     Iterable<Renderer<PadElement>> ray =
-        await rayCast(globalPos, context.getDocumentBloc(), transform, size);
-    final page = context.getPage();
+        await context.getDocumentBloc().rayCast(
+              globalPos,
+              size,
+              useLayer: true,
+            );
+    final page = state?.page;
     if (page == null) return;
     if (!data.eraseElements) ray = ray.where((e) => e.element.isStroke());
-    if (currentIndex.utilitiesState.lockLayer) ray = ray.where((e) => e.element.layer == state?.currentLayer);
     var ids = ray.map((e) => e.element.id).whereNotNull();
     _erased.addAll(ids);
     _currentlyErasing = false;

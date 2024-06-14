@@ -82,7 +82,7 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
     final viewport = currentIndexCubit.state.cameraViewport;
     final transform = context.read<TransformCubit>().state;
     final globalPos = transform.localToGlobal(localPos);
-    if (!isInBounds(bloc, globalPos)) return;
+    if (!bloc.isInBounds(globalPos)) return;
     final state = bloc.state as DocumentLoadSuccess;
     final settings = context.read<SettingsCubit>().state;
     final penOnlyInput = settings.penOnlyInput;

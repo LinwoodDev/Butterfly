@@ -4,6 +4,7 @@ import 'package:bloc_concurrency/bloc_concurrency.dart';
 import 'package:butterfly/api/file_system/file_system.dart';
 import 'package:butterfly/cubits/current_index.dart';
 import 'package:butterfly/handlers/handler.dart';
+import 'package:butterfly/helpers/rect.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:collection/collection.dart';
 import 'package:equatable/equatable.dart';
@@ -249,7 +250,6 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       if (current is! DocumentLoadSuccess) return;
       final content = List<PadElement>.from(current.page.content);
       final renderers = List<Renderer<PadElement>>.from(current.renderers);
-      final transform = current.transformCubit.state;
       for (final id in event.elements) {
         final index = content.indexWhere((element) => element.id == id);
         final element = content.removeAt(index);
@@ -267,7 +267,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
         } else {
           final rect = renderer?.rect;
           if (rect != null) {
-            final hits = (await rayCastRect(rect, this, transform))
+            final hits = (await rayCastRect(rect, useLayer: false))
                 .map((e) => e.element)
                 .toList();
             final hitIndex = hits.indexOf(renderer!.element);
@@ -979,4 +979,131 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     if (current is! DocumentLoadSuccess) return;
     current.save();
   }
+
+  bool isInBounds(Offset globalPosition) {
+    final state = this.state;
+    if (state is! DocumentLoadSuccess) return false;
+    final area = state.currentArea;
+    if (area == null) return true;
+    return area.rect.contains(globalPosition);
+  }
+
+  Future<Set<Renderer<PadElement>>> rayCast(
+    Offset globalPosition,
+    double radius, {
+    CameraTransform? transform,
+    required bool useLayer,
+  }) async {
+    return rayCastRect(
+      Rect.fromCircle(center: globalPosition, radius: radius),
+      transform: transform,
+      useLayer: useLayer,
+    );
+  }
+
+  Future<Set<Renderer<PadElement>>> rayCastRect(
+    Rect rect, {
+    CameraTransform? transform,
+    required bool useLayer,
+  }) async {
+    final state = this.state;
+    if (state is! DocumentLoadSuccess) return {};
+    transform ??= state.currentIndexCubit.state.transformCubit.state;
+    final renderers = state.cameraViewport.visibleElements;
+    return compute(
+      _executeRayCast,
+      _RayCastParams(
+        state.invisibleLayers,
+        renderers.map((e) => _SmallRenderer.fromRenderer(e)).toList(),
+        rect,
+        transform.size,
+        useLayer ? state.currentLayer : null,
+      ),
+    ).then((value) => value.map((e) => renderers[e]).toSet());
+  }
+
+  Future<Set<Renderer<PadElement>>> rayCastPolygon(
+    List<Offset> points, {
+    CameraTransform? transform,
+    required bool useLayer,
+  }) async {
+    final state = this.state;
+    if (state is! DocumentLoadSuccess) return {};
+    final renderers = state.cameraViewport.visibleElements;
+    transform ??= state.currentIndexCubit.state.transformCubit.state;
+    return compute(
+      _executeRayCastPolygon,
+      _RayCastPolygonParams(
+        state.invisibleLayers,
+        renderers.map((e) => _SmallRenderer.fromRenderer(e)).toList(),
+        points,
+        transform.size,
+        useLayer ? state.currentLayer : null,
+      ),
+    ).then((value) => value.map((e) => renderers[e]).toSet());
+  }
+}
+
+typedef HitRequest = bool Function(Offset position, [double radius]);
+
+class _SmallRenderer {
+  final HitCalculator hitCalc;
+  final PadElement element;
+
+  _SmallRenderer(this.hitCalc, this.element);
+  _SmallRenderer.fromRenderer(Renderer renderer)
+      : hitCalc = renderer.getHitCalculator(),
+        element = renderer.element;
+}
+
+class _RayCastParams {
+  final List<String> invisibleLayers;
+  final List<_SmallRenderer> renderers;
+  final Rect rect;
+  final double size;
+  final String? layer;
+
+  const _RayCastParams(
+    this.invisibleLayers,
+    this.renderers,
+    this.rect,
+    this.size,
+    this.layer,
+  );
+}
+
+Set<int> _executeRayCast(_RayCastParams params) {
+  final rect = params.rect.normalized();
+  return params.renderers
+      .asMap()
+      .entries
+      .where((e) => !params.invisibleLayers.contains(e.value.element.layer))
+      .where((e) =>
+          e.value.hitCalc.hit(rect) &&
+          (params.layer == null || e.value.element.layer == params.layer))
+      .map((e) => e.key)
+      .toSet();
+}
+
+class _RayCastPolygonParams {
+  final List<String> invisibleLayers;
+  final List<_SmallRenderer> renderers;
+  final List<Offset> polygon;
+  final double size;
+  final String? layer;
+
+  const _RayCastPolygonParams(this.invisibleLayers, this.renderers,
+      this.polygon, this.size, this.layer);
+}
+
+Set<int> _executeRayCastPolygon(_RayCastPolygonParams params) {
+  return params.renderers
+      .asMap()
+      .entries
+      .where((e) => !params.invisibleLayers.contains(e.value.element.layer))
+      .where((e) =>
+          e.value.hitCalc.hitPolygon(params.polygon) &&
+          (params.layer == null || e.value.element.layer == params.layer))
+      .map((e) => e.key)
+      .toSet();
 }
