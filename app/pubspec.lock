@@ -643,10 +643,10 @@ packages:
     dependency: "direct main"
     description:
       name: go_router
-      sha256: abec47eb8c8c36ebf41d0a4c64dbbe7f956e39a012b3aafc530e951bdc12fe3f
+      sha256: cdae1b9c8bd7efadcef6112e81c903662ef2ce105cbd220a04bbb7c3425b5554
       url: "https://pub.dev"
     source: hosted
-    version: "14.1.4"
+    version: "14.2.0"
   graphs:
     dependency: transitive
     description:
@@ -728,10 +728,10 @@ packages:
     dependency: transitive
     description:
       name: irondash_engine_context
-      sha256: e8398cca5e28dc280c87b8c35a6ff4e15be844eabec51e713631f83903563681
+      sha256: cd7b769db11a2b5243b037c8a9b1ecaef02e1ae27a2d909ffa78c1dad747bb10
       url: "https://pub.dev"
     source: hosted
-    version: "0.5.3"
+    version: "0.5.4"
   irondash_message_channel:
     dependency: transitive
     description:
@@ -1141,10 +1141,10 @@ packages:
     dependency: "direct main"
     description:
       name: rxdart
-      sha256: "0c7c0cedd93788d996e33041ffecda924cc54389199cde4e6a34b440f50044cb"
+      sha256: "5c3004a4a8dbb94bd4bf5412a4def4acdaa12e12f269737a5751369e12d1a962"
       url: "https://pub.dev"
     source: hosted
-    version: "0.27.7"
+    version: "0.28.0"
   screen_retriever:
     dependency: transitive
     description:
@@ -1322,18 +1322,18 @@ packages:
     dependency: "direct main"
     description:
       name: super_clipboard
-      sha256: "17978c3dc7b6ebf588a8007448f668ad6aa64733b60ed2ae18152113cca39fa2"
+      sha256: cdab725bac26655ebd189f4d202d694a8cbc1c21e0f0478ccd7829c71716f09b
       url: "https://pub.dev"
     source: hosted
-    version: "0.8.16"
+    version: "0.8.17"
   super_native_extensions:
     dependency: transitive
     description:
       name: super_native_extensions
-      sha256: d2d1259c7e43966173c394ef64475e612bd5822095f6cd1008eb978175ce2f0d
+      sha256: fa55d452d34b7112453afbb9fa4d13c0527ff201630d10d86546497179030544
       url: "https://pub.dev"
     source: hosted
-    version: "0.8.16"
+    version: "0.8.17"
   sync_http:
     dependency: transitive
     description:

@@ -55,7 +55,7 @@ dependencies:
   http: ^1.2.1
   flutter_secure_storage: ^9.0.0
   equatable: ^2.0.5
-  rxdart: ^0.27.7
+  rxdart: ^0.28.0
   archive: ^3.5.0
   animations: ^2.0.11
   connectivity_plus: ^6.0.3
