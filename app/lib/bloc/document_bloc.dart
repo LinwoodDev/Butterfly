@@ -932,16 +932,16 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
   Future<void> load() async {
     final current = state;
     if (current is! DocumentLoaded) return;
-    final currentIndexCubit = current.currentIndexCubit;
+    final cubit = current.currentIndexCubit;
     final document = current.data;
     final page = current.page;
     final assetService = current.assetService;
-    currentIndexCubit.setSaveState(saved: SaveState.saved);
-    final tool = UtilitiesRenderer(const UtilitiesState());
+    cubit.setSaveState(saved: SaveState.saved);
+    final tool = UtilitiesRenderer(cubit.state.utilitiesState);
     await tool.setup(document, assetService, page);
-    currentIndexCubit.unbake(tool: tool);
-    currentIndexCubit.loadElements(current);
-    currentIndexCubit.init(this);
+    cubit.unbake(tool: tool);
+    cubit.loadElements(current);
+    cubit.init(this);
   }
 
   Future<void> createTemplate(String? remote,
