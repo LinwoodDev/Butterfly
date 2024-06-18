@@ -45,57 +45,56 @@ class SelectPackAssetDialog extends StatelessWidget {
     final bloc = context.read<DocumentBloc>();
     return BlocBuilder<DocumentBloc, DocumentState>(builder: (context, state) {
       if (state is! DocumentLoaded) return const SizedBox();
-      return AlertDialog(
-        title: Row(
-          children: [
-            Flexible(child: Text(AppLocalizations.of(context).selectAsset)),
-            const SizedBox(width: 8),
-            IconButton(
-              icon: const PhosphorIcon(PhosphorIconsLight.plusCircle),
-              tooltip: AppLocalizations.of(context).addAsset,
-              onPressed: () async {
-                final result = await showDialog<PackAssetLocation>(
-                  context: context,
-                  builder: (context) => BlocProvider.value(
-                    value: bloc,
-                    child: const AssetDialog(),
-                  ),
-                );
-                if (result == null) return;
-                if (context.mounted) {
-                  final pack = state.data.getPack(result.pack);
-                  if (pack == null) return;
-                  bloc.add(
-                      PackUpdated(pack.name!, _createAsset(pack, result.name)));
-                  Navigator.of(context).pop(result);
-                }
-              },
-            ),
-          ],
-        ),
-        content: SizedBox(
+      return SizedBox(
           width: 300,
-          height: 300,
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: _getAssets(state.data)
-                .map((e) => ListTile(
-                      title: Text(e.name),
-                      subtitle: Text(e.pack),
-                      onTap: () => Navigator.of(context).pop(e),
-                      selected: e == selected,
-                    ))
-                .toList(),
-          ),
-        ),
-        scrollable: true,
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.of(context).pop(),
-            child: Text(AppLocalizations.of(context).cancel),
-          ),
-        ],
-      );
+          height: 500,
+          child: AlertDialog(
+            title: Row(
+              children: [
+                Flexible(child: Text(AppLocalizations.of(context).selectAsset)),
+                const SizedBox(width: 8),
+                IconButton(
+                  icon: const PhosphorIcon(PhosphorIconsLight.plusCircle),
+                  tooltip: AppLocalizations.of(context).addAsset,
+                  onPressed: () async {
+                    final result = await showDialog<PackAssetLocation>(
+                      context: context,
+                      builder: (context) => BlocProvider.value(
+                        value: bloc,
+                        child: const AssetDialog(),
+                      ),
+                    );
+                    if (result == null) return;
+                    if (context.mounted) {
+                      final pack = state.data.getPack(result.pack);
+                      if (pack == null) return;
+                      bloc.add(PackUpdated(
+                          pack.name!, _createAsset(pack, result.name)));
+                      Navigator.of(context).pop(result);
+                    }
+                  },
+                ),
+              ],
+            ),
+            content: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: _getAssets(state.data)
+                  .map((e) => ListTile(
+                        title: Text(e.name),
+                        subtitle: Text(e.pack),
+                        onTap: () => Navigator.of(context).pop(e),
+                        selected: e == selected,
+                      ))
+                  .toList(),
+            ),
+            scrollable: true,
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.of(context).pop(),
+                child: Text(AppLocalizations.of(context).cancel),
+              ),
+            ],
+          ));
     });
   }
 }
