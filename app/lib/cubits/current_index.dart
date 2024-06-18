@@ -438,6 +438,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
         temporaryToolbar: handler.getToolbar(bloc),
         temporaryCursor: handler.cursor,
         temporaryRendererStates: handler.rendererStates,
+        temporaryClicked: temporaryClicked,
       ));
     }
     return handler;
