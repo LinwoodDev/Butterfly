@@ -69,7 +69,7 @@ class _PacksDialogState extends State<PacksDialog>
                     ),
                     if (!widget.globalOnly)
                       TabBar(
-                        tabAlignment: TabAlignment.fill,
+                        isScrollable: true,
                         controller: _controller,
                         tabs: [
                           HorizontalTab(
@@ -77,9 +77,8 @@ class _PacksDialogState extends State<PacksDialog>
                             label: Text(AppLocalizations.of(context).document),
                           ),
                           HorizontalTab(
-                            icon: const PhosphorIcon(
-                                PhosphorIconsLight.appWindow),
-                            label: Text(AppLocalizations.of(context).local),
+                            icon: const PhosphorIcon(PhosphorIconsLight.folder),
+                            label: Text(AppLocalizations.of(context).installed),
                           ),
                         ],
                       ),
@@ -240,6 +239,22 @@ class _PacksDialogState extends State<PacksDialog>
                                             Text(metadata.description),
                                         ],
                                       ),
+                                      leading: widget.globalOnly
+                                          ? null
+                                          : IconButton.outlined(
+                                              icon: const PhosphorIcon(
+                                                  PhosphorIconsLight.plus),
+                                              onPressed: () async {
+                                                await _addPack(pack, false);
+                                                _controller.animateTo(0);
+                                                if (mounted) {
+                                                  setState(() {});
+                                                }
+                                              },
+                                              tooltip:
+                                                  AppLocalizations.of(context)
+                                                      .install,
+                                            ),
                                       onTap: () async {
                                         final bloc =
                                             context.read<DocumentBloc>();
@@ -265,20 +280,6 @@ class _PacksDialogState extends State<PacksDialog>
                                               AppLocalizations.of(context).copy,
                                         ),
                                         menuChildren: [
-                                          if (!widget.globalOnly)
-                                            MenuItemButton(
-                                              leadingIcon: const PhosphorIcon(
-                                                  PhosphorIconsLight.file),
-                                              child: Text(
-                                                  AppLocalizations.of(context)
-                                                      .document),
-                                              onPressed: () async {
-                                                await _addPack(pack, false);
-                                                if (mounted) {
-                                                  setState(() {});
-                                                }
-                                              },
-                                            ),
                                           MenuItemButton(
                                             leadingIcon: const PhosphorIcon(
                                                 PhosphorIconsLight.download),

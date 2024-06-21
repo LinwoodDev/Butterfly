@@ -1,6 +1,7 @@
 * Add erase elements property to eraser and patheraser ([#680](https://github.com/LinwoodDev/Butterfly/issues/680))
 * Add shape element to normal eraser([#683](https://github.com/LinwoodDev/Butterfly/issues/683))
 * Add lock layer ([#688](https://github.com/LinwoodDev/Butterfly/issues/688))
+* Improve packs dialog
 * Fix spacer has no help page
 * Fix utilities state on undo/redo ([#721](https://github.com/LinwoodDev/Butterfly/issues/721))
 * Fix select and eye dropper temporary tool already gets removed before doing the action
