@@ -607,5 +607,7 @@
   "tiny": "Μικροσκοπικό",
   "selectAll": "Επιλογή όλων",
   "overrideTools": "Παράκαμψη εργαλείων",
-  "hideCursorWhileDrawing": "Απόκρυψη δρομέα κατά το σχέδιο"
+  "hideCursorWhileDrawing": "Απόκρυψη δρομέα κατά το σχέδιο",
+  "installed": "Installed",
+  "install": "Install"
 }
