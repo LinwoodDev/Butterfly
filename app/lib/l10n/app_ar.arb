@@ -607,5 +607,7 @@
   "tiny": "صغير",
   "selectAll": "حدد الكل",
   "overrideTools": "أدوات التجاوز",
-  "hideCursorWhileDrawing": "إخفاء المؤشر أثناء الرسم"
+  "hideCursorWhileDrawing": "إخفاء المؤشر أثناء الرسم",
+  "installed": "Installed",
+  "install": "Install"
 }
