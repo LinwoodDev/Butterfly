@@ -607,5 +607,7 @@
   "tiny": "Маленький",
   "selectAll": "Выбрать все",
   "overrideTools": "Переопределить инструменты",
-  "hideCursorWhileDrawing": "Скрыть курсор во время рисования"
+  "hideCursorWhileDrawing": "Скрыть курсор во время рисования",
+  "installed": "Installed",
+  "install": "Install"
 }
