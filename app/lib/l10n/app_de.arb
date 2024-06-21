@@ -607,5 +607,7 @@
   "tiny": "Klein",
   "selectAll": "Alles auswählen",
   "overrideTools": "Werkzeuge überschreiben",
-  "hideCursorWhileDrawing": "Cursor während Zeichnung ausblenden"
+  "hideCursorWhileDrawing": "Cursor während Zeichnung ausblenden",
+  "installed": "Installed",
+  "install": "Install"
 }
