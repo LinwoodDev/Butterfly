@@ -607,5 +607,7 @@
   "tiny": "<unk>",
   "selectAll": "すべて選択",
   "overrideTools": "ツールを上書きする",
-  "hideCursorWhileDrawing": "描画中にカーソルを隠す"
+  "hideCursorWhileDrawing": "描画中にカーソルを隠す",
+  "installed": "Installed",
+  "install": "Install"
 }
