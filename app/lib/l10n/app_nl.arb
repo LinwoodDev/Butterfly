@@ -607,5 +607,7 @@
   "tiny": "Klein",
   "selectAll": "Alles selecteren",
   "overrideTools": "Hulpmiddelen vervangen",
-  "hideCursorWhileDrawing": "Verberg cursor tijdens tekenen"
+  "hideCursorWhileDrawing": "Verberg cursor tijdens tekenen",
+  "installed": "Installed",
+  "install": "Install"
 }
