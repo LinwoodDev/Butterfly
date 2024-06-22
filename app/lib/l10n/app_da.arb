@@ -608,6 +608,6 @@
   "selectAll": "Vælg alle",
   "overrideTools": "Tilsidesæt værktøjer",
   "hideCursorWhileDrawing": "Skjul markør under tegning",
-  "installed": "Installed",
-  "install": "Install"
+  "installed": "Installeret",
+  "install": "Installér"
 }
