@@ -608,6 +608,6 @@
   "selectAll": "Επιλογή όλων",
   "overrideTools": "Παράκαμψη εργαλείων",
   "hideCursorWhileDrawing": "Απόκρυψη δρομέα κατά το σχέδιο",
-  "installed": "Installed",
-  "install": "Install"
+  "installed": "Εγκατεστημένο",
+  "install": "Εγκατάσταση"
 }
