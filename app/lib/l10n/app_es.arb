@@ -608,6 +608,6 @@
   "selectAll": "Seleccionar todo",
   "overrideTools": "Anular herramientas",
   "hideCursorWhileDrawing": "Ocultar cursor al dibujar",
-  "installed": "Installed",
-  "install": "Install"
+  "installed": "Instalado",
+  "install": "Instalar"
 }
