@@ -608,6 +608,6 @@
   "selectAll": "Виділити все",
   "overrideTools": "Змінити інструменти",
   "hideCursorWhileDrawing": "Сховати курсор під час малювання",
-  "installed": "Installed",
-  "install": "Install"
+  "installed": "Встановлено",
+  "install": "Інсталювати"
 }
