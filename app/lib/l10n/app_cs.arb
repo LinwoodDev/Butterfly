@@ -608,6 +608,6 @@
   "selectAll": "Vybrat vše",
   "overrideTools": "Přepsat nástroje",
   "hideCursorWhileDrawing": "Skrýt kurzor při kreslení",
-  "installed": "Installed",
-  "install": "Install"
+  "installed": "Nainstalováno",
+  "install": "Instalovat"
 }
