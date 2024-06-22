@@ -1,11 +1,13 @@
 * Add erase elements property to eraser and patheraser ([#680](https://github.com/LinwoodDev/Butterfly/issues/680))
 * Add shape element to normal eraser([#683](https://github.com/LinwoodDev/Butterfly/issues/683))
 * Add lock layer ([#688](https://github.com/LinwoodDev/Butterfly/issues/688))
+* Add export button to templates dialog
 * Improve packs dialog
 * Fix spacer has no help page
 * Fix utilities state on undo/redo ([#721](https://github.com/LinwoodDev/Butterfly/issues/721))
 * Fix select and eye dropper temporary tool already gets removed before doing the action
 * Fix asset select dialog overflows on too many assets
+* Fix full screen button in top left corner menu doesn't work
 * Upgrade AGB to 8.5.0 in android
 
 Read more here: https://linwood.dev/butterfly/2.2.0-beta.0

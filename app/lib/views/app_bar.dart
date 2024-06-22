@@ -323,6 +323,7 @@ class _MainPopupMenu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final settingsCubit = context.read<SettingsCubit>();
+    final windowCubit = context.read<WindowCubit>();
     return BlocBuilder<SettingsCubit, ButterflySettings>(
         buildWhen: (previous, current) =>
             previous.navigationRail != current.navigationRail,
@@ -509,7 +510,7 @@ class _MainPopupMenu extends StatelessWidget {
                           shortcut:
                               const SingleActivator(LogicalKeyboardKey.f11),
                           onPressed: () async {
-                            context.read<WindowCubit>().toggleFullScreen();
+                            windowCubit.toggleFullScreen();
                           },
                           child: Text(AppLocalizations.of(context).fullScreen),
                         )),

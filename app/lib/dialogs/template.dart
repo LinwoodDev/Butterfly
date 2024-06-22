@@ -1,4 +1,6 @@
+import 'package:archive/archive.dart';
 import 'package:butterfly/actions/new.dart';
+import 'package:butterfly/api/save.dart';
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/widgets/connection_button.dart';
 import 'package:butterfly_api/butterfly_api.dart';
@@ -72,6 +74,23 @@ class _TemplateDialogState extends State<TemplateDialog> {
                     _fileSystem =
                         TemplateFileSystem.fromPlatform(remote: value);
                     load();
+                  },
+                ),
+                IconButton(
+                  icon: const PhosphorIcon(PhosphorIconsLight.export),
+                  tooltip: AppLocalizations.of(context).export,
+                  onPressed: () async {
+                    final archive = Archive();
+                    for (final template in await _fileSystem.getTemplates()) {
+                      final data = template.save();
+                      archive.addFile(
+                        ArchiveFile('${template.name}.bfly', data.length, data),
+                      );
+                    }
+                    final encoder = ZipEncoder();
+                    final bytes = encoder.encode(archive);
+                    if (bytes == null) return;
+                    await exportZip(context, bytes);
                   },
                 ),
                 IconButton(
