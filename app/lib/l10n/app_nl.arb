@@ -608,6 +608,6 @@
   "selectAll": "Alles selecteren",
   "overrideTools": "Hulpmiddelen vervangen",
   "hideCursorWhileDrawing": "Verberg cursor tijdens tekenen",
-  "installed": "Installed",
-  "install": "Install"
+  "installed": "Geinstalleerd",
+  "install": "Installeren"
 }
