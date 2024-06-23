@@ -607,5 +607,7 @@
   "tiny": "Mică",
   "selectAll": "Selectează tot",
   "overrideTools": "Suprascrie uneltele",
-  "hideCursorWhileDrawing": "Ascunde cursorul în timpul desenării"
+  "hideCursorWhileDrawing": "Ascunde cursorul în timpul desenării",
+  "installed": "Instalat",
+  "install": "Instalează"
 }

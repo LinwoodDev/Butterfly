@@ -607,5 +607,7 @@
   "tiny": "Malý",
   "selectAll": "Vybrat vše",
   "overrideTools": "Přepsat nástroje",
-  "hideCursorWhileDrawing": "Skrýt kurzor při kreslení"
+  "hideCursorWhileDrawing": "Skrýt kurzor při kreslení",
+  "installed": "Nainstalováno",
+  "install": "Instalovat"
 }

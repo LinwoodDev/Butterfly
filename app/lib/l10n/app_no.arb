@@ -607,5 +607,7 @@
   "tiny": "Bitteliten",
   "selectAll": "Velg alle",
   "overrideTools": "Overstyr verktøy",
-  "hideCursorWhileDrawing": "Skjul markøren under tegning"
+  "hideCursorWhileDrawing": "Skjul markøren under tegning",
+  "installed": "Installert",
+  "install": "Installer"
 }

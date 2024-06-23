@@ -607,5 +607,7 @@
   "tiny": "Liten",
   "selectAll": "Markera alla",
   "overrideTools": "Åsidosätt verktyg",
-  "hideCursorWhileDrawing": "Dölj markören medan du ritar"
+  "hideCursorWhileDrawing": "Dölj markören medan du ritar",
+  "installed": "Installerad",
+  "install": "Installera"
 }
