@@ -307,7 +307,7 @@ packages:
   dart_leap:
     dependency: transitive
     description:
-      path: "packages\\dart_leap"
+      path: "packages/dart_leap"
       ref: "0e04c453c2b6d4aa499f79e54bb1c0b7a9b2c42c"
       resolved-ref: "0e04c453c2b6d4aa499f79e54bb1c0b7a9b2c42c"
       url: "https://github.com/LinwoodDev/dart_pkgs.git"
