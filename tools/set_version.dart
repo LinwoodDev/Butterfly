@@ -79,7 +79,7 @@ Future<void> main(List<String> args) async {
 Future<void> updateAppImageVersion(String version) async {
   var file = File('app/AppImageBuilder.yml');
   var lines = await file.readAsLines();
-  lines[13] = '    version: $version';
+  lines[16] = '    version: $version';
   lines.add('');
   await file.writeAsString(lines.join('\r\n'));
   print('Successfully updated app image version to $version');

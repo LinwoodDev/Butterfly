@@ -11,7 +11,7 @@ script:
 AppDir:
   path: ./AppDir
   app_info:
-    version: 2.2.0-beta.1
+    id: dev.linwood.butterfly
     name: Linwood Butterfly
     icon: dev.linwood.butterfly
     version: 2.2.0-beta.0
