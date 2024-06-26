@@ -83,7 +83,8 @@ class _NavigatorViewState extends State<NavigatorView>
     return BlocBuilder<SettingsCubit, ButterflySettings>(
         buildWhen: (previous, current) =>
             previous.navigatorEnabled != current.navigatorEnabled ||
-            previous.navigatorPage != current.navigatorPage,
+            previous.navigatorPage != current.navigatorPage ||
+            previous.navigatorPosition != current.navigatorPosition,
         builder: (context, settings) {
           final selected = NavigatorPage.values.indexOf(settings.navigatorPage);
           if (settings.navigatorEnabled) {
@@ -92,7 +93,13 @@ class _NavigatorViewState extends State<NavigatorView>
             _animationController.reverse();
           }
           return Row(
-            textDirection: TextDirection.rtl,
+            textDirection: settings.navigatorPosition == NavigatorPosition.left
+                ? TextDirection.rtl
+                : TextDirection.ltr,
+            mainAxisAlignment:
+                settings.navigatorPosition == NavigatorPosition.left
+                    ? MainAxisAlignment.start
+                    : MainAxisAlignment.end,
             children: [
               SizeTransition(
                 sizeFactor: _animation,

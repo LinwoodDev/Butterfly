@@ -497,7 +497,8 @@ class _MainBody extends StatelessWidget {
                       previous.toolbarPosition != current.toolbarPosition ||
                       previous.toolbarSize != current.toolbarSize ||
                       previous.toolbarRows != current.toolbarRows ||
-                      previous.navigationRail != current.navigationRail,
+                      previous.navigationRail != current.navigationRail ||
+                      previous.navigatorPosition != current.navigatorPosition,
                   builder: (context, settings) {
                     final pos = settings.toolbarPosition;
                     return LayoutBuilder(builder: (context, constraints) {
@@ -510,6 +511,11 @@ class _MainBody extends StatelessWidget {
                         centered: true,
                         direction: pos.axis,
                       );
+                      final showNavigator = isLarge &&
+                          settings.navigationRail &&
+                          !windowState.fullScreen &&
+                          state is DocumentLoadSuccess &&
+                          currentIndex.hideUi == HideState.visible;
                       return Stack(
                         children: [
                           const MainViewViewport(),
@@ -527,11 +533,9 @@ class _MainBody extends StatelessWidget {
                           ),
                           Row(
                             children: [
-                              if (isLarge &&
-                                  settings.navigationRail &&
-                                  !windowState.fullScreen &&
-                                  state is DocumentLoadSuccess &&
-                                  currentIndex.hideUi == HideState.visible)
+                              if (showNavigator &&
+                                  settings.navigatorPosition ==
+                                      NavigatorPosition.left)
                                 const NavigatorView(),
                               if (pos == ToolbarPosition.left &&
                                   !isMobile &&
@@ -612,6 +616,10 @@ class _MainBody extends StatelessWidget {
                               if (pos == ToolbarPosition.right &&
                                   currentIndex.hideUi == HideState.visible)
                                 toolbar,
+                              if (showNavigator &&
+                                  settings.navigatorPosition ==
+                                      NavigatorPosition.right)
+                                const NavigatorView(),
                             ],
                           ),
                         ],

@@ -313,6 +313,8 @@ enum SortOrder { ascending, descending }
 
 enum BannerVisibility { always, never, onlyOnUpdates }
 
+enum NavigatorPosition { left, right }
+
 enum ToolbarPosition {
   inline,
   top,
@@ -395,6 +397,7 @@ class ButterflySettings with _$ButterflySettings, LeapSettings {
     @Default([]) List<String> starred,
     @Default('') String defaultTemplate,
     @Default(NavigatorPage.waypoints) NavigatorPage navigatorPage,
+    @Default(NavigatorPosition.left) NavigatorPosition navigatorPosition,
     @Default(ToolbarPosition.inline) ToolbarPosition toolbarPosition,
     @Default(ToolbarSize.normal) ToolbarSize toolbarSize,
     @Default(SortBy.name) SortBy sortBy,
@@ -493,6 +496,10 @@ class ButterflySettings with _$ButterflySettings, LeapSettings {
       toolbarRows: prefs.getInt('toolbar_rows') ?? 1,
       hideCursorWhileDrawing:
           prefs.getBool('hide_cursor_while_drawing') ?? false,
+      navigatorPosition: prefs.containsKey('navigator_position')
+          ? NavigatorPosition.values
+              .byName(prefs.getString('navigator_position')!)
+          : NavigatorPosition.left,
     );
   }
 
@@ -557,6 +564,7 @@ class ButterflySettings with _$ButterflySettings, LeapSettings {
     await prefs.setString('toolbar_size', toolbarSize.name);
     await prefs.setInt('toolbar_rows', toolbarRows);
     await prefs.setBool('hide_cursor_while_drawing', hideCursorWhileDrawing);
+    await prefs.setString('navigator_position', navigatorPosition.name);
   }
 
   ExternalStorage? getRemote(String? identifier) {
@@ -1074,4 +1082,12 @@ class SettingsCubit extends Cubit<ButterflySettings>
 
   Future<void> resetHideCursorWhileDrawing() =>
       changeHideCursorWhileDrawing(false);
+
+  Future<void> changeNavigatorPosition(NavigatorPosition value) {
+    emit(state.copyWith(navigatorPosition: value));
+    return save();
+  }
+
+  Future<void> resetNavigatorPosition() =>
+      changeNavigatorPosition(NavigatorPosition.left);
 }

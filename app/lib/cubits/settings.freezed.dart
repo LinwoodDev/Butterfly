@@ -993,6 +993,7 @@ mixin _$ButterflySettings {
   List<String> get starred => throw _privateConstructorUsedError;
   String get defaultTemplate => throw _privateConstructorUsedError;
   NavigatorPage get navigatorPage => throw _privateConstructorUsedError;
+  NavigatorPosition get navigatorPosition => throw _privateConstructorUsedError;
   ToolbarPosition get toolbarPosition => throw _privateConstructorUsedError;
   ToolbarSize get toolbarSize => throw _privateConstructorUsedError;
   SortBy get sortBy => throw _privateConstructorUsedError;
@@ -1048,6 +1049,7 @@ abstract class $ButterflySettingsCopyWith<$Res> {
       List<String> starred,
       String defaultTemplate,
       NavigatorPage navigatorPage,
+      NavigatorPosition navigatorPosition,
       ToolbarPosition toolbarPosition,
       ToolbarSize toolbarSize,
       SortBy sortBy,
@@ -1107,6 +1109,7 @@ class _$ButterflySettingsCopyWithImpl<$Res, $Val extends ButterflySettings>
     Object? starred = null,
     Object? defaultTemplate = null,
     Object? navigatorPage = null,
+    Object? navigatorPosition = null,
     Object? toolbarPosition = null,
     Object? toolbarSize = null,
     Object? sortBy = null,
@@ -1232,6 +1235,10 @@ class _$ButterflySettingsCopyWithImpl<$Res, $Val extends ButterflySettings>
           ? _value.navigatorPage
           : navigatorPage // ignore: cast_nullable_to_non_nullable
               as NavigatorPage,
+      navigatorPosition: null == navigatorPosition
+          ? _value.navigatorPosition
+          : navigatorPosition // ignore: cast_nullable_to_non_nullable
+              as NavigatorPosition,
       toolbarPosition: null == toolbarPosition
           ? _value.toolbarPosition
           : toolbarPosition // ignore: cast_nullable_to_non_nullable
@@ -1341,6 +1348,7 @@ abstract class _$$ButterflySettingsImplCopyWith<$Res>
       List<String> starred,
       String defaultTemplate,
       NavigatorPage navigatorPage,
+      NavigatorPosition navigatorPosition,
       ToolbarPosition toolbarPosition,
       ToolbarSize toolbarSize,
       SortBy sortBy,
@@ -1399,6 +1407,7 @@ class __$$ButterflySettingsImplCopyWithImpl<$Res>
     Object? starred = null,
     Object? defaultTemplate = null,
     Object? navigatorPage = null,
+    Object? navigatorPosition = null,
     Object? toolbarPosition = null,
     Object? toolbarSize = null,
     Object? sortBy = null,
@@ -1524,6 +1533,10 @@ class __$$ButterflySettingsImplCopyWithImpl<$Res>
           ? _value.navigatorPage
           : navigatorPage // ignore: cast_nullable_to_non_nullable
               as NavigatorPage,
+      navigatorPosition: null == navigatorPosition
+          ? _value.navigatorPosition
+          : navigatorPosition // ignore: cast_nullable_to_non_nullable
+              as NavigatorPosition,
       toolbarPosition: null == toolbarPosition
           ? _value.toolbarPosition
           : toolbarPosition // ignore: cast_nullable_to_non_nullable
@@ -1620,6 +1633,7 @@ class _$ButterflySettingsImpl extends _ButterflySettings
       final List<String> starred = const [],
       this.defaultTemplate = '',
       this.navigatorPage = NavigatorPage.waypoints,
+      this.navigatorPosition = NavigatorPosition.left,
       this.toolbarPosition = ToolbarPosition.inline,
       this.toolbarSize = ToolbarSize.normal,
       this.sortBy = SortBy.name,
@@ -1742,6 +1756,9 @@ class _$ButterflySettingsImpl extends _ButterflySettings
   final NavigatorPage navigatorPage;
   @override
   @JsonKey()
+  final NavigatorPosition navigatorPosition;
+  @override
+  @JsonKey()
   final ToolbarPosition toolbarPosition;
   @override
   @JsonKey()
@@ -1800,7 +1817,7 @@ class _$ButterflySettingsImpl extends _ButterflySettings
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'ButterflySettings(theme: $theme, density: $density, localeTag: $localeTag, documentPath: $documentPath, touchSensitivity: $touchSensitivity, mouseSensitivity: $mouseSensitivity, penSensitivity: $penSensitivity, selectSensitivity: $selectSensitivity, penOnlyInput: $penOnlyInput, inputGestures: $inputGestures, design: $design, bannerVisibility: $bannerVisibility, history: $history, navigatorEnabled: $navigatorEnabled, zoomEnabled: $zoomEnabled, lastVersion: $lastVersion, connections: $connections, defaultRemote: $defaultRemote, nativeTitleBar: $nativeTitleBar, startInFullScreen: $startInFullScreen, navigationRail: $navigationRail, syncMode: $syncMode, inputConfiguration: $inputConfiguration, fallbackPack: $fallbackPack, starred: $starred, defaultTemplate: $defaultTemplate, navigatorPage: $navigatorPage, toolbarPosition: $toolbarPosition, toolbarSize: $toolbarSize, sortBy: $sortBy, sortOrder: $sortOrder, imageScale: $imageScale, pdfQuality: $pdfQuality, platformTheme: $platformTheme, recentColors: $recentColors, flags: $flags, spreadPages: $spreadPages, highContrast: $highContrast, gridView: $gridView, autosave: $autosave, toolbarRows: $toolbarRows, hideCursorWhileDrawing: $hideCursorWhileDrawing)';
+    return 'ButterflySettings(theme: $theme, density: $density, localeTag: $localeTag, documentPath: $documentPath, touchSensitivity: $touchSensitivity, mouseSensitivity: $mouseSensitivity, penSensitivity: $penSensitivity, selectSensitivity: $selectSensitivity, penOnlyInput: $penOnlyInput, inputGestures: $inputGestures, design: $design, bannerVisibility: $bannerVisibility, history: $history, navigatorEnabled: $navigatorEnabled, zoomEnabled: $zoomEnabled, lastVersion: $lastVersion, connections: $connections, defaultRemote: $defaultRemote, nativeTitleBar: $nativeTitleBar, startInFullScreen: $startInFullScreen, navigationRail: $navigationRail, syncMode: $syncMode, inputConfiguration: $inputConfiguration, fallbackPack: $fallbackPack, starred: $starred, defaultTemplate: $defaultTemplate, navigatorPage: $navigatorPage, navigatorPosition: $navigatorPosition, toolbarPosition: $toolbarPosition, toolbarSize: $toolbarSize, sortBy: $sortBy, sortOrder: $sortOrder, imageScale: $imageScale, pdfQuality: $pdfQuality, platformTheme: $platformTheme, recentColors: $recentColors, flags: $flags, spreadPages: $spreadPages, highContrast: $highContrast, gridView: $gridView, autosave: $autosave, toolbarRows: $toolbarRows, hideCursorWhileDrawing: $hideCursorWhileDrawing)';
   }
 
   @override
@@ -1835,6 +1852,7 @@ class _$ButterflySettingsImpl extends _ButterflySettings
       ..add(DiagnosticsProperty('starred', starred))
       ..add(DiagnosticsProperty('defaultTemplate', defaultTemplate))
       ..add(DiagnosticsProperty('navigatorPage', navigatorPage))
+      ..add(DiagnosticsProperty('navigatorPosition', navigatorPosition))
       ..add(DiagnosticsProperty('toolbarPosition', toolbarPosition))
       ..add(DiagnosticsProperty('toolbarSize', toolbarSize))
       ..add(DiagnosticsProperty('sortBy', sortBy))
@@ -1907,6 +1925,8 @@ class _$ButterflySettingsImpl extends _ButterflySettings
                 other.defaultTemplate == defaultTemplate) &&
             (identical(other.navigatorPage, navigatorPage) ||
                 other.navigatorPage == navigatorPage) &&
+            (identical(other.navigatorPosition, navigatorPosition) ||
+                other.navigatorPosition == navigatorPosition) &&
             (identical(other.toolbarPosition, toolbarPosition) ||
                 other.toolbarPosition == toolbarPosition) &&
             (identical(other.toolbarSize, toolbarSize) ||
@@ -1967,6 +1987,7 @@ class _$ButterflySettingsImpl extends _ButterflySettings
         const DeepCollectionEquality().hash(_starred),
         defaultTemplate,
         navigatorPage,
+        navigatorPosition,
         toolbarPosition,
         toolbarSize,
         sortBy,
@@ -2021,6 +2042,7 @@ abstract class _ButterflySettings extends ButterflySettings {
       final List<String> starred,
       final String defaultTemplate,
       final NavigatorPage navigatorPage,
+      final NavigatorPosition navigatorPosition,
       final ToolbarPosition toolbarPosition,
       final ToolbarSize toolbarSize,
       final SortBy sortBy,
@@ -2092,6 +2114,8 @@ abstract class _ButterflySettings extends ButterflySettings {
   String get defaultTemplate;
   @override
   NavigatorPage get navigatorPage;
+  @override
+  NavigatorPosition get navigatorPosition;
   @override
   ToolbarPosition get toolbarPosition;
   @override

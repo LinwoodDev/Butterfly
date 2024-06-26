@@ -195,8 +195,8 @@ class PersonalizationSettingsPage extends StatelessWidget {
                               .read<SettingsCubit>()
                               .changeToolbarRows(value.round()),
                         ),
-                        SwitchListTile(
-                          secondary:
+                        AdvancedSwitchListTile(
+                          leading:
                               const PhosphorIcon(PhosphorIconsLight.sidebar),
                           title:
                               Text(AppLocalizations.of(context).navigationRail),
@@ -204,6 +204,10 @@ class PersonalizationSettingsPage extends StatelessWidget {
                             mainAxisSize: MainAxisSize.min,
                             crossAxisAlignment: CrossAxisAlignment.stretch,
                             children: [
+                              Text(state.navigatorPosition ==
+                                      NavigatorPosition.left
+                                  ? AppLocalizations.of(context).left
+                                  : AppLocalizations.of(context).right),
                               Text(
                                 AppLocalizations.of(context)
                                     .onlyAvailableLargerScreen,
@@ -211,6 +215,34 @@ class PersonalizationSettingsPage extends StatelessWidget {
                               ),
                             ],
                           ),
+                          onTap: () async {
+                            final position = await showLeapBottomSheet(
+                                context: context,
+                                title: AppLocalizations.of(context).position,
+                                childrenBuilder: (context) => [
+                                      ListTile(
+                                        title: Text(
+                                            AppLocalizations.of(context).left),
+                                        selected: state.navigatorPosition ==
+                                            NavigatorPosition.left,
+                                        onTap: () => Navigator.of(context)
+                                            .pop(NavigatorPosition.left),
+                                      ),
+                                      ListTile(
+                                        title: Text(
+                                            AppLocalizations.of(context).right),
+                                        selected: state.navigatorPosition ==
+                                            NavigatorPosition.right,
+                                        onTap: () => Navigator.of(context)
+                                            .pop(NavigatorPosition.right),
+                                      ),
+                                    ]);
+                            if (position != null) {
+                              context
+                                  .read<SettingsCubit>()
+                                  .changeNavigatorPosition(position);
+                            }
+                          },
                           value: state.navigationRail,
                           onChanged: (value) => context
                               .read<SettingsCubit>()
