@@ -29,7 +29,7 @@ class FileSystemDirectoryTreeView extends StatefulWidget {
 class FileSystemDirectoryTreeViewState
     extends State<FileSystemDirectoryTreeView> {
   bool _expanded = false;
-  late Future<AppDocumentDirectory> _directoryFuture;
+  late Future<FileSystemDirectory> _directoryFuture;
   String _selected = '/';
 
   @override
@@ -40,10 +40,10 @@ class FileSystemDirectoryTreeViewState
     _directoryFuture = load();
   }
 
-  Future<AppDocumentDirectory> load() {
+  Future<FileSystemDirectory> load() {
     return widget.fileSystem
         .getAsset(widget.path)
-        .then((value) => value as AppDocumentDirectory);
+        .then((value) => value as FileSystemDirectory);
   }
 
   @override
@@ -59,7 +59,7 @@ class FileSystemDirectoryTreeViewState
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<AppDocumentDirectory>(
+    return FutureBuilder<FileSystemDirectory>(
         future: _directoryFuture,
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
@@ -69,7 +69,7 @@ class FileSystemDirectoryTreeViewState
           }
           if (snapshot.hasData) {
             var directory = snapshot.data!;
-            var children = directory.assets.whereType<AppDocumentDirectory>();
+            var children = directory.assets.whereType<FileSystemDirectory>();
             var name = directory.pathWithLeadingSlash.split('/').last;
             if (name.isEmpty) {
               name = '/';

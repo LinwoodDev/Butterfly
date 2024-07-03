@@ -174,6 +174,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.0.3"
+  dart_mappable:
+    dependency: transitive
+    description:
+      name: dart_mappable
+      sha256: "47269caf2060533c29b823ff7fa9706502355ffcb61e7f2a374e3a0fb2f2c3f0"
+      url: "https://pub.dev"
+    source: hosted
+    version: "4.2.2"
   dart_style:
     dependency: transitive
     description:
@@ -302,6 +310,15 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.2.0"
+  lw_file_system_api:
+    dependency: "direct main"
+    description:
+      path: "packages/lw_file_system_api"
+      ref: "3cf054ad60aa87507a8c4a6d2fdf61625da39e3a"
+      resolved-ref: "3cf054ad60aa87507a8c4a6d2fdf61625da39e3a"
+      url: "https://github.com/LinwoodDev/dart_pkgs"
+    source: git
+    version: "1.0.0"
   macros:
     dependency: transitive
     description:
@@ -558,6 +575,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.1"
+  type_plus:
+    dependency: transitive
+    description:
+      name: type_plus
+      sha256: d5d1019471f0d38b91603adb9b5fd4ce7ab903c879d2fbf1a3f80a630a03fcc9
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.1.1"
   typed_data:
     dependency: transitive
     description:

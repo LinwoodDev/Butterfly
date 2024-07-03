@@ -485,7 +485,7 @@ class FilesViewState extends State<FilesView> {
                   return Text(AppLocalizations.of(context).noElements);
                 }
                 final entity = snapshot.data;
-                if (entity is! AppDocumentDirectory) {
+                if (entity is! FileSystemDirectory) {
                   return Container();
                 }
                 final assets = entity.assets.where((e) {
@@ -579,10 +579,10 @@ class FilesViewState extends State<FilesView> {
       if (bStarred && !aStarred) {
         return 1;
       }
-      if (a is AppDocumentDirectory) {
+      if (a is FileSystemDirectory) {
         return -1;
       }
-      if (b is AppDocumentDirectory) {
+      if (b is FileSystemDirectory) {
         return 1;
       }
       final aFile = a as AppDocumentFile;

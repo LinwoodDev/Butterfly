@@ -1,6 +1,7 @@
 name: butterfly_api
 description: The Linwood Butterfly API
 version: 2.2.0-beta.1
+publish_to: none
 
 environment:
   sdk: '>=3.0.0 <4.0.0'
@@ -14,6 +15,11 @@ dependencies:
   rxdart: ^0.28.0
   uuid: ^4.4.0
   xml: ^6.5.0
+  lw_file_system_api:
+    git:
+      url: https://github.com/LinwoodDev/dart_pkgs
+      path: packages/lw_file_system_api
+      ref: 3cf054ad60aa87507a8c4a6d2fdf61625da39e3a
 
 dev_dependencies:
   test: ^1.25.3

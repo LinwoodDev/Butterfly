@@ -313,6 +313,14 @@ packages:
       url: "https://github.com/LinwoodDev/dart_pkgs"
     source: git
     version: "1.0.0"
+  dart_mappable:
+    dependency: transitive
+    description:
+      name: dart_mappable
+      sha256: "47269caf2060533c29b823ff7fa9706502355ffcb61e7f2a374e3a0fb2f2c3f0"
+      url: "https://pub.dev"
+    source: hosted
+    version: "4.2.2"
   dart_style:
     dependency: transitive
     description:
@@ -365,10 +373,10 @@ packages:
     dependency: "direct dev"
     description:
       name: espresso
-      sha256: acf6f7dc485aca872ad5e4bf64c4102a43efdaa537778adc3681991a089ef1b3
+      sha256: "125b70cc1de37e2fe56f0e7a7f323f9f34b798ffec2aae5f8bb5e63a2a641f3e"
       url: "https://pub.dev"
     source: hosted
-    version: "0.3.0+9"
+    version: "0.3.0+10"
   fake_async:
     dependency: transitive
     description:
@@ -614,10 +622,10 @@ packages:
     dependency: transitive
     description:
       name: freezed_annotation
-      sha256: c3fd9336eb55a38cc1bbd79ab17573113a8deccd0ecbbf926cca3c62803b5c2d
+      sha256: f54946fdb1fa7b01f780841937b1a80783a20b393485f3f6cdf336fd6f4705f2
       url: "https://pub.dev"
     source: hosted
-    version: "2.4.1"
+    version: "2.4.2"
   frontend_server_client:
     dependency: transitive
     description:
@@ -804,6 +812,24 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.2.0"
+  lw_file_system:
+    dependency: "direct main"
+    description:
+      path: "packages/lw_file_system"
+      ref: "8e8ec43715ea29b0ea04789628a7edab7d2e15c7"
+      resolved-ref: "8e8ec43715ea29b0ea04789628a7edab7d2e15c7"
+      url: "https://github.com/LinwoodDev/dart_pkgs.git"
+    source: git
+    version: "1.0.0"
+  lw_file_system_api:
+    dependency: transitive
+    description:
+      path: "packages/lw_file_system_api"
+      ref: "3cf054ad60aa87507a8c4a6d2fdf61625da39e3a"
+      resolved-ref: "3cf054ad60aa87507a8c4a6d2fdf61625da39e3a"
+      url: "https://github.com/LinwoodDev/dart_pkgs"
+    source: git
+    version: "1.0.0"
   lw_sysapi:
     dependency: "direct main"
     description:
@@ -996,10 +1022,10 @@ packages:
     dependency: "direct main"
     description:
       name: pdf
-      sha256: "243f05342fc0bdf140eba5b069398985cdbdd3dbb1d776cf43d5ea29cc570ba6"
+      sha256: "81d5522bddc1ef5c28e8f0ee40b71708761753c163e0c93a40df56fd515ea0f0"
       url: "https://pub.dev"
     source: hosted
-    version: "3.10.8"
+    version: "3.11.0"
   pdf_widget_wrapper:
     dependency: transitive
     description:
@@ -1077,10 +1103,10 @@ packages:
     dependency: "direct main"
     description:
       name: printing
-      sha256: "1c99cab90ebcc1fff65831d264627d5b529359d563e53f33ab9b8117f2d280bc"
+      sha256: cc4b256a5a89d5345488e3318897b595867f5181b8c5ed6fc63bfa5f2044aec3
       url: "https://pub.dev"
     source: hosted
-    version: "5.12.0"
+    version: "5.13.1"
   process:
     dependency: transitive
     description:
@@ -1374,6 +1400,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.1"
+  type_plus:
+    dependency: transitive
+    description:
+      name: type_plus
+      sha256: d5d1019471f0d38b91603adb9b5fd4ce7ab903c879d2fbf1a3f80a630a03fcc9
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.1.1"
   typed_data:
     dependency: transitive
     description:
@@ -1591,5 +1625,5 @@ packages:
     source: hosted
     version: "3.1.2"
 sdks:
-  dart: ">=3.4.0 <4.0.0"
+  dart: ">=3.4.1 <4.0.0"
   flutter: ">=3.22.0"

@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:butterfly/api/file_system/file_system.dart';
 import 'package:butterfly/main.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:collection/collection.dart';
@@ -10,6 +9,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:lw_file_system/lw_file_system.dart';
 import 'package:material_leap/material_leap.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
@@ -73,90 +73,6 @@ enum PlatformTheme {
   }
 }
 
-mixin RemoteStorage {
-  String get defaultTemplate;
-  String get username;
-  String? get certificateSha1;
-  String get url;
-  String get path;
-  String get documentsPath;
-  String get templatesPath;
-  String get packsPath;
-  String get fullDocumentsPath;
-  String get fullTemplatesPath;
-  String get fullPacksPath;
-  DateTime? get lastSynced;
-  String get identifier;
-  List<String> get cachedDocuments;
-
-  Uri get uri => Uri.parse(url);
-  String get displayName => '$username@${uri.host}';
-
-  Uri buildUri({
-    List<String> path = const [],
-    Map<String, String> query = const {},
-  }) {
-    final currentUri = uri;
-    final paths = List<String>.from(currentUri.pathSegments);
-    if (paths.lastOrNull == '') {
-      paths.removeLast();
-    }
-    return Uri(
-      scheme: currentUri.scheme,
-      port: currentUri.port,
-      host: currentUri.host,
-      queryParameters: {
-        ...currentUri.queryParameters,
-        ...query,
-      },
-      pathSegments: {
-        ...paths,
-        ...path,
-      },
-    );
-  }
-
-  Uri? buildDocumentsUri({
-    List<String> path = const [],
-    Map<String, String> query = const {},
-  }) {
-    return fullDocumentsPath.isEmpty
-        ? null
-        : buildUri(
-            path: [...fullDocumentsPath.split('/'), ...path],
-            query: query,
-          );
-  }
-
-  Uri? buildTemplatesUri({
-    List<String> path = const [],
-    Map<String, String> query = const {},
-  }) {
-    return fullTemplatesPath.isEmpty
-        ? null
-        : buildUri(
-            path: [...fullTemplatesPath.split('/'), ...path],
-            query: query,
-          );
-  }
-
-  Uri? buildPacksUri({
-    List<String> path = const [],
-    Map<String, String> query = const {},
-  }) {
-    return fullPacksPath.isEmpty
-        ? null
-        : buildUri(
-            path: [...fullPacksPath.split('/'), ...path],
-            query: query,
-          );
-  }
-
-  bool hasDocumentCached(String name);
-
-  Future<String?> getRemotePassword();
-}
-
 enum ExternalStorageType {
   dav,
   local;
@@ -170,111 +86,6 @@ enum ExternalStorageType {
         ExternalStorageType.dav => AppLocalizations.of(context).dav,
         ExternalStorageType.local => AppLocalizations.of(context).local,
       };
-}
-
-@freezed
-sealed class ExternalStorage with _$ExternalStorage {
-  @With<RemoteStorage>()
-  const factory ExternalStorage.dav({
-    @Default('') String name,
-    @Default('') String defaultTemplate,
-    @Default('') String username,
-    String? certificateSha1,
-    @Default('') String url,
-    @Default('') String path,
-    @Default('') String documentsPath,
-    @Default('') String templatesPath,
-    @Default('') String packsPath,
-    @Default([]) List<String> cachedDocuments,
-    @Default([]) List<String> starred,
-    @Uint8ListJsonConverter() Uint8List? icon,
-    DateTime? lastSynced,
-  }) = DavRemoteStorage;
-
-  const factory ExternalStorage.local({
-    @Default('') String name,
-    @Default('') String defaultTemplate,
-    @Default('') String path,
-    @Default('') String documentsPath,
-    @Default('') String templatesPath,
-    @Default('') String packsPath,
-    @Uint8ListJsonConverter() Uint8List? icon,
-    @Default([]) List<String> starred,
-  }) = LocalStorage;
-
-  factory ExternalStorage.fromJson(Map<String, dynamic> json) =>
-      _$ExternalStorageFromJson(json);
-
-  const ExternalStorage._();
-
-  String get fullDocumentsPath => documentsPath.isEmpty
-      ? ''
-      : path.endsWith('/') || path.isEmpty
-          ? '$path$documentsPath'
-          : '$path/$documentsPath';
-
-  String get fullTemplatesPath => templatesPath.isEmpty
-      ? ''
-      : path.endsWith('/') || path.isEmpty
-          ? '$path$templatesPath'
-          : '$path/$templatesPath';
-
-  String get fullPacksPath => packsPath.isEmpty
-      ? ''
-      : path.endsWith('/') || path.isEmpty
-          ? '$path$packsPath'
-          : '$path/$packsPath';
-
-  bool hasDocumentCached(String name) {
-    if (!name.startsWith('/')) {
-      name = '/$name';
-    }
-    if (this is! RemoteStorage) {
-      return true;
-    }
-    return (this as RemoteStorage).cachedDocuments.any((doc) {
-      if (doc == name) {
-        return true;
-      }
-      if (name.startsWith(doc)) {
-        return !name.substring(doc.length + 1).contains('/');
-      }
-      return false;
-    });
-  }
-
-  String get identifier => name.isEmpty
-      ? switch (this) {
-          DavRemoteStorage e => 'dav:${e.username}@${e.url}',
-          LocalStorage e => 'local:${e.path}',
-        }
-      : name;
-
-  String get label => name.isEmpty
-      ? switch (this) {
-          DavRemoteStorage e => e.uri.host,
-          LocalStorage e => e.path.split('/').last,
-        }
-      : name;
-
-  ExternalStorageType get type => switch (this) {
-        DavRemoteStorage _ => ExternalStorageType.dav,
-        LocalStorage _ => ExternalStorageType.local,
-      };
-
-  DocumentFileSystem get documentFileSystem =>
-      DocumentFileSystem.fromPlatform(remote: this);
-
-  TemplateFileSystem get templateFileSystem =>
-      TemplateFileSystem.fromPlatform(remote: this);
-
-  String encodeIdentifier() => base64Encode(utf8.encode(identifier));
-
-  Future<String?> getRemotePassword() =>
-      secureStorage.read(key: 'remote ${encodeIdentifier()}');
-
-  Future<void> writeRemotePassword(String password) =>
-      secureStorage.write(key: 'remote ${encodeIdentifier()}', value: password);
 }
 
 enum SyncMode { always, noMobile, manual }

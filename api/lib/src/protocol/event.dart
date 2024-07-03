@@ -1,6 +1,7 @@
 import 'dart:typed_data';
 
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:lw_file_system_api/lw_file_system_api.dart';
 import 'package:replay_bloc/replay_bloc.dart';
 
 import '../../butterfly_models.dart';

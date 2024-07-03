@@ -86,6 +86,11 @@ dependencies:
       url: https://github.com/LinwoodDev/dart_pkgs.git
       ref: fce8dc67ec282861bf629e32c404c52921f54bbd
       path: packages/networker/networker_socket
+  lw_file_system:
+    git:
+      url: https://github.com/LinwoodDev/dart_pkgs.git
+      ref: 8e8ec43715ea29b0ea04789628a7edab7d2e15c7
+      path: packages/lw_file_system
   flutter_localized_locales: ^2.0.5
   dynamic_color: ^1.7.0
   popover: ^0.3.0

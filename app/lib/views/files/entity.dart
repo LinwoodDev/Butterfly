@@ -163,7 +163,7 @@ class _FileEntityItemState extends State<FileEntityItem> {
               thumbnail: thumbnail,
             ),
     );
-    if (widget.entity is AppDocumentDirectory) {
+    if (widget.entity is FileSystemDirectory) {
       return DragTarget<String>(
         builder: (context, candidateData, rejectedData) {
           return draggable;
