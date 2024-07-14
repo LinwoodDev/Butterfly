@@ -1,11 +1,11 @@
 import 'dart:io';
 
 import 'package:args/args.dart';
+import 'package:butterfly/api/file_system.dart';
 import 'package:butterfly/api/intent.dart';
 import 'package:butterfly/services/sync.dart';
 import 'package:butterfly/settings/behaviors/mouse.dart';
 import 'package:butterfly/settings/experiments.dart';
-import 'package:butterfly_api/butterfly_api.dart';
 import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -22,7 +22,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:window_manager/window_manager.dart';
 import 'package:flutter_localized_locales/flutter_localized_locales.dart';
 
-import 'api/file_system/file_system.dart';
 import 'cubits/settings.dart';
 import 'embed/embedding.dart';
 import 'settings/behaviors/home.dart';
@@ -57,8 +56,7 @@ Future<void> main([List<String> args = const []]) async {
     var path = result.arguments[0].replaceAll('\\', '/');
     var file = File(path);
     if (await file.exists()) {
-      var directory =
-          Directory(await DocumentFileSystem.fromPlatform().getDirectory());
+      var directory = Directory(await getButterflyDocumentsDirectory());
       // Test if file is in directory
       if (file.path.startsWith(directory.path)) {
         // Relative path
@@ -111,14 +109,11 @@ Future<void> main([List<String> args = const []]) async {
     });
   }
   final clipboardManager = await SysAPI.getClipboardManager();
-  GeneralFileSystem.dataPath = result['path'];
+  overrideButterflyDirectory = result['path'];
   runApp(
     MultiRepositoryProvider(
         providers: [
-          RepositoryProvider(
-              create: (context) => DocumentFileSystem.fromPlatform()),
-          RepositoryProvider(
-              create: (context) => TemplateFileSystem.fromPlatform()),
+          RepositoryProvider(create: ButterflyFileSystem.new),
           RepositoryProvider<ClipboardManager>(
               create: (context) => clipboardManager),
         ],

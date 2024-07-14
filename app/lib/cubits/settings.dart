@@ -73,21 +73,6 @@ enum PlatformTheme {
   }
 }
 
-enum ExternalStorageType {
-  dav,
-  local;
-
-  IconGetter get icon => switch (this) {
-        ExternalStorageType.dav => PhosphorIcons.cloud,
-        ExternalStorageType.local => PhosphorIcons.folder,
-      };
-
-  String getLocalizedName(BuildContext context) => switch (this) {
-        ExternalStorageType.dav => AppLocalizations.of(context).dav,
-        ExternalStorageType.local => AppLocalizations.of(context).local,
-      };
-}
-
 enum SyncMode { always, noMobile, manual }
 
 @freezed
@@ -229,7 +214,7 @@ class ButterflySettings with _$ButterflySettings, LeapSettings {
   factory ButterflySettings.fromPrefs(SharedPreferences prefs) {
     final connections = prefs
             .getStringList('connections')
-            ?.map((e) => ExternalStorage.fromJson(json.decode(e)))
+            ?.map((e) => ExternalStorageMapper.fromJson(json.decode(e)))
             .toList() ??
         const [];
     return ButterflySettings(
