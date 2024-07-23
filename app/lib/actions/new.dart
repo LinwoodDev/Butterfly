@@ -30,9 +30,9 @@ class NewAction extends Action<NewIntent> {
       );
       return;
     }
-    final templateSystem = settings.getDefaultTemplateFileSystem();
-    final template = await templateSystem.getDefaultTemplate(
-      templateSystem.remote?.defaultTemplate ?? settings.defaultTemplate,
+    final templateSystem = settings.buildDefaultTemplateSystem();
+    final template = await templateSystem.getDefaultFile(
+      templateSystem.storage?.defaults['template'] ?? settings.defaultTemplate,
     );
     openNewDocument(context, true, template);
   }

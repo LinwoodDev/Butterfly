@@ -1,8 +1,6 @@
 import 'dart:async';
 
-import 'package:butterfly/api/file_system/file_system.dart';
-import 'package:butterfly_api/butterfly_api.dart';
-import 'package:butterfly_api/butterfly_models.dart';
+import 'package:butterfly/api/file_system.dart';
 import 'package:collection/collection.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/foundation.dart';
@@ -10,8 +8,6 @@ import 'package:flutter/material.dart';
 import 'package:lw_file_system/lw_file_system.dart';
 import 'package:rxdart/subjects.dart';
 
-import '../api/file_system/file_system_dav.dart';
-import '../api/file_system/file_system_remote.dart';
 import '../cubits/settings.dart';
 
 class SyncService {
@@ -101,6 +97,8 @@ class RemoteSync {
   final BehaviorSubject<SyncStatus> _statusSubject =
       BehaviorSubject<SyncStatus>();
 
+  ButterflyFileSystem get fileSystem => settingsCubit.state.fileSystem;
+
   Stream<List<SyncFile>> get filesStream => _filesSubject.stream;
   List<SyncFile>? get files => _filesSubject.valueOrNull;
   Stream<SyncStatus> get statusStream => _statusSubject.stream;
@@ -114,9 +112,8 @@ class RemoteSync {
     if (status == SyncStatus.syncing) {
       return;
     }
-    final fileSystem = DocumentFileSystem.fromPlatform(remote: remoteStorage)
-        as DavRemoteDocumentFileSystem;
-    final currentFiles = await fileSystem.getAllSyncFiles();
+    final documentSystem = fileSystem.buildDocumentSystem(remoteStorage);
+    final currentFiles = await documentSystem.getAllSyncFiles();
     _filesSubject.add(currentFiles);
   }
 

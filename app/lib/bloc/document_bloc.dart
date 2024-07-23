@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:bloc_concurrency/bloc_concurrency.dart';
-import 'package:butterfly/api/file_system/file_system.dart';
+import 'package:butterfly/api/file_system.dart';
 import 'package:butterfly/cubits/current_index.dart';
 import 'package:butterfly/handlers/handler.dart';
 import 'package:butterfly/helpers/rect.dart';
@@ -10,6 +10,7 @@ import 'package:collection/collection.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:lw_file_system/lw_file_system.dart';
 import 'package:material_leap/material_leap.dart';
 import 'package:replay_bloc/replay_bloc.dart';
 
@@ -29,8 +30,8 @@ enum ConnectionStatus { none, server, client }
 
 class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
   DocumentBloc(
-    CurrentIndexCubit currentIndexCubit,
     SettingsCubit settingsCubit,
+    CurrentIndexCubit currentIndexCubit,
     WindowCubit windowCubit,
     NoteData initial,
     AssetLocation location,
@@ -959,12 +960,13 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     final thumbnail = render?.buffer.asUint8List();
     final settings = current.settingsCubit.state;
     final remoteStorage = settings.getRemote(remote);
-    TemplateFileSystem.fromPlatform(remote: remoteStorage)
-        .createTemplate(data.createTemplate(
-      name: name,
-      thumbnail: thumbnail,
-      directory: directory,
-    ));
+    current.fileSystem.buildTemplateSystem(remoteStorage).createFile(
+        name ?? '',
+        data.createTemplate(
+          name: name,
+          thumbnail: thumbnail,
+          directory: directory,
+        ));
   }
 
   void dispose() {

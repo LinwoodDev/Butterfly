@@ -3,7 +3,6 @@ import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:butterfly/models/defaults.dart';
-import 'package:butterfly/visualizer/connection.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/material.dart';
 import 'package:idb_shim/idb.dart';
@@ -58,13 +57,47 @@ Future<String> Function(ExternalStorage? storage) _getRemoteDirectory(
 
 Future<String> getButterflyDocumentsDirectory([ExternalStorage? storage]) =>
     _getRemoteDirectory('Documents')(storage);
+typedef DocumentFileSystem = TypedDirectoryFileSystem<NoteData>;
+typedef TemplateFileSystem = TypedKeyFileSystem<NoteData>;
+typedef PackFileSystem = TypedKeyFileSystem<NoteData>;
 
 class ButterflyFileSystem {
   final BuildContext context;
+  final PasswordStorage passwordStorage;
+  final FileSystemConfig _documentConfig, _templateConfig, _packConfig;
 
-  ButterflyFileSystem(this.context);
+  ButterflyFileSystem(this.context, this.passwordStorage)
+      : _documentConfig = FileSystemConfig(
+          passwordStorage: passwordStorage,
+          storeName: 'documents',
+          variant: '',
+          getDirectory: getButterflyDocumentsDirectory,
+          database: _database,
+          databaseVersion: _databaseVersion,
+          onDatabaseUpgrade: _upgradeDatabase,
+        ),
+        _templateConfig = FileSystemConfig(
+          passwordStorage: passwordStorage,
+          storeName: 'templates',
+          variant: '',
+          getDirectory: _getRemoteDirectory('Templates'),
+          database: _database,
+          databaseVersion: _databaseVersion,
+          onDatabaseUpgrade: _upgradeDatabase,
+        ),
+        _packConfig = FileSystemConfig(
+          passwordStorage: passwordStorage,
+          storeName: 'packs',
+          variant: '',
+          getDirectory: _getRemoteDirectory('Packs'),
+          database: _database,
+          databaseVersion: _databaseVersion,
+          onDatabaseUpgrade: _upgradeDatabase,
+        );
 
-  static final _passwordStorage = SecureStoragePasswordStorage();
+  factory ButterflyFileSystem.build(BuildContext context) =>
+      ButterflyFileSystem(context, SecureStoragePasswordStorage());
+
   static const _database = 'butterfly.db';
   static const _databaseVersion = 4;
 
@@ -117,44 +150,16 @@ class ButterflyFileSystem {
     }
   }
 
-  static final _documentConfig = FileSystemConfig(
-    passwordStorage: _passwordStorage,
-    storeName: 'documents',
-    variant: '',
-    getDirectory: getButterflyDocumentsDirectory,
-    database: _database,
-    databaseVersion: _databaseVersion,
-    onDatabaseUpgrade: _upgradeDatabase,
-  );
-  static final _templateConfig = FileSystemConfig(
-    passwordStorage: _passwordStorage,
-    storeName: 'templates',
-    variant: '',
-    getDirectory: _getRemoteDirectory('Templates'),
-    database: _database,
-    databaseVersion: _databaseVersion,
-    onDatabaseUpgrade: _upgradeDatabase,
-  );
-  static final _packConfig = FileSystemConfig(
-    passwordStorage: _passwordStorage,
-    storeName: 'packs',
-    variant: '',
-    getDirectory: _getRemoteDirectory('Packs'),
-    database: _database,
-    databaseVersion: _databaseVersion,
-    onDatabaseUpgrade: _upgradeDatabase,
-  );
-
-  void _createDefaultTemplates(TypedKeyFileSystem<NoteData> fs) async =>
+  Future<void> _createDefaultTemplates(TemplateFileSystem fs) async =>
       Future.wait((await DocumentDefaults.getDefaults(context))
-          .map((e) => fs.createFile(e.getMetadata()?.name ?? '', e)));
+          .map((e) => fs.createFile(e.name ?? '', e)));
 
-  void _createDefaultPacks(TypedKeyFileSystem<NoteData> fs) async {
+  Future<void> _createDefaultPacks(PackFileSystem fs) async {
     final pack = await DocumentDefaults.getCorePack();
-    fs.createFile(fs.getLocalizedName(context), pack);
+    fs.createFile(pack.name ?? '', pack);
   }
 
-  TypedDirectoryFileSystem<NoteData> buildDocumentsSystem(
+  TypedDirectoryFileSystem<NoteData> buildDocumentSystem(
           [ExternalStorage? storage]) =>
       TypedDirectoryFileSystem.build(
         _documentConfig,
@@ -162,7 +167,7 @@ class ButterflyFileSystem {
         onDecode: _decode,
         storage: storage,
       );
-  TypedKeyFileSystem<NoteData> buildTemplatesSystem(
+  TypedKeyFileSystem<NoteData> buildTemplateSystem(
           [ExternalStorage? storage]) =>
       TypedKeyFileSystem.build(
         _templateConfig,
@@ -171,7 +176,7 @@ class ButterflyFileSystem {
         storage: storage,
         createDefault: _createDefaultTemplates,
       );
-  TypedKeyFileSystem<NoteData> buildPacksSystem([ExternalStorage? storage]) =>
+  TypedKeyFileSystem<NoteData> buildPackSystem([ExternalStorage? storage]) =>
       TypedKeyFileSystem.build(
         _packConfig,
         onEncode: _encode,

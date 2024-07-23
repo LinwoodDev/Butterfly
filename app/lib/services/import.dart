@@ -4,12 +4,12 @@ import 'dart:io';
 import 'dart:math';
 import 'dart:ui' as ui;
 import 'package:archive/archive.dart';
+import 'package:butterfly/api/file_system.dart';
 import 'package:butterfly/api/image.dart';
 import 'package:butterfly/helpers/asset.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/foundation.dart';
 import 'package:image/image.dart' as img;
-import 'package:butterfly/api/file_system/file_system.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/dialogs/import/confirmation.dart';
 import 'package:butterfly/dialogs/import/note.dart';
@@ -21,6 +21,7 @@ import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:lw_file_system/lw_file_system.dart';
 import 'package:lw_sysapi/lw_sysapi.dart';
 import 'package:material_leap/material_leap.dart';
 import 'package:pdf/pdf.dart';
@@ -64,8 +65,8 @@ class ImportService {
       bytes = data;
     } else if (data is String) {
       bytes = Uint8List.fromList(utf8.encode(data));
-    } else if (data is AppDocumentFile) {
-      bytes = Uint8List.fromList(data.data);
+    } else if (data is FileSystemFile<NoteData>) {
+      bytes = Uint8List.fromList(data.data?.save() ?? []);
     } else if (location != null) {
       bytes = await getFileSystem().loadAbsolute(location.path);
     } else if (data is List) {

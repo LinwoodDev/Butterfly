@@ -10,3 +10,8 @@ extension AppDocumentLoadExtension on FileSystemFile {
       NoteData.fromData(Uint8List.fromList(data),
           disableMigrations: disableMigrations);
 }
+
+extension AssetLocationFileTypeExtension on AssetLocation {
+  AssetFileType? get fileType =>
+      AssetFileTypeHelper.fromFileExtension(fileExtension);
+}

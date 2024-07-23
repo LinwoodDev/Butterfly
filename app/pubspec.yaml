@@ -89,7 +89,7 @@ dependencies:
   lw_file_system:
     git:
       url: https://github.com/LinwoodDev/dart_pkgs.git
-      ref: 67de874ba425fca483f94a4dd29fe76004e6f516
+      ref: 3f5d1b82ff479cf064b5d689631d14e300025dea
       path: packages/lw_file_system
   flutter_localized_locales: ^2.0.5
   dynamic_color: ^1.7.0
@@ -109,7 +109,7 @@ dev_dependencies:
     sdk: flutter
   build_runner: ^2.4.9
   json_serializable: ^6.7.1
-  espresso: ^0.3.0+8
+  espresso: ^0.4.0
   freezed: ^2.5.2
 dependency_overrides:
   flutter_secure_storage_web: ^2.0.0-beta.1

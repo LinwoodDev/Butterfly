@@ -1,5 +1,6 @@
 import 'package:archive/archive.dart';
 import 'package:butterfly/actions/new.dart';
+import 'package:butterfly/api/file_system.dart';
 import 'package:butterfly/api/save.dart';
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/widgets/connection_button.dart';
@@ -24,7 +25,8 @@ class TemplateDialog extends StatefulWidget {
 }
 
 class _TemplateDialogState extends State<TemplateDialog> {
-  late TemplateFileSystem _fileSystem;
+  late TemplateFileSystem _templateSystem;
+  late final ButterflyFileSystem _fileSystem;
   Future<List<NoteData>>? _templatesFuture;
   final TextEditingController _searchController = TextEditingController();
   final List<String> _selectedTemplates = [];
@@ -32,15 +34,16 @@ class _TemplateDialogState extends State<TemplateDialog> {
   @override
   void initState() {
     super.initState();
-    _fileSystem =
-        context.read<SettingsCubit>().state.getDefaultTemplateFileSystem();
+    final settingsCubit = context.read<SettingsCubit>().state;
+    _fileSystem = settingsCubit.fileSystem;
+    _templateSystem = settingsCubit.buildDefaultTemplateSystem();
     WidgetsBinding.instance.addPostFrameCallback((_) => load());
   }
 
   void load() {
     setState(() {
-      _templatesFuture = _fileSystem.createDefault(context).then((value) async {
-        var templates = await _fileSystem.getTemplates();
+      _templatesFuture = _templateSystem.initialize().then((value) async {
+        var templates = (await _templateSystem.getFiles()).values.toList();
         templates = templates
             .where((element) =>
                 element.name
@@ -68,10 +71,9 @@ class _TemplateDialogState extends State<TemplateDialog> {
               ),
               actions: [
                 ConnectionButton(
-                  currentRemote: _fileSystem.remote?.identifier ?? '',
+                  currentRemote: _templateSystem.storage?.identifier ?? '',
                   onChanged: (value) {
-                    _fileSystem =
-                        TemplateFileSystem.fromPlatform(remote: value);
+                    _templateSystem = _fileSystem.buildTemplateSystem(value);
                     load();
                   },
                 ),
@@ -80,10 +82,11 @@ class _TemplateDialogState extends State<TemplateDialog> {
                   tooltip: AppLocalizations.of(context).export,
                   onPressed: () async {
                     final archive = Archive();
-                    for (final template in await _fileSystem.getTemplates()) {
-                      final data = template.save();
+                    for (final template
+                        in (await _templateSystem.getFiles()).entries) {
+                      final data = template.value.save();
                       archive.addFile(
-                        ArchiveFile('${template.name}.bfly', data.length, data),
+                        ArchiveFile('${template.key}.bfly', data.length, data),
                       );
                     }
                     final encoder = ZipEncoder();
@@ -112,12 +115,11 @@ class _TemplateDialogState extends State<TemplateDialog> {
                             child: Text(AppLocalizations.of(context).ok),
                             onPressed: () async {
                               for (final template
-                                  in await _fileSystem.getTemplates()) {
-                                _fileSystem.deleteTemplate(template.name!);
+                                  in await _templateSystem.getKeys()) {
+                                _templateSystem.deleteFile(template);
                               }
                               if (context.mounted) {
-                                await _fileSystem.createDefault(this.context,
-                                    force: true);
+                                await _templateSystem.initialize(force: true);
                               }
                               if (context.mounted) {
                                 Navigator.of(context).pop();
@@ -172,7 +174,7 @@ class _TemplateDialogState extends State<TemplateDialog> {
             var template = templates[index];
             return _TemplateItem(
               template: template,
-              fileSystem: _fileSystem,
+              fileSystem: _templateSystem,
               replace: widget.bloc != null,
               selected: _selectedTemplates.contains(template.name),
               onSelected: () {
@@ -251,7 +253,7 @@ class _TemplateDialogState extends State<TemplateDialog> {
                                 if (info == null) continue;
                                 template = template
                                     .setInfo(info.copyWith(tools: tools));
-                                await _fileSystem.updateTemplate(template);
+                                await _templateSystem.updateTemplate(template);
                               }
                               setState(() {
                                 _selectedTemplates.clear();
@@ -267,7 +269,7 @@ class _TemplateDialogState extends State<TemplateDialog> {
                                 builder: (ctx) => const DeleteDialog());
                             if (result != true) return;
                             for (final template in _selectedTemplates) {
-                              await _fileSystem.deleteTemplate(template);
+                              await _templateSystem.deleteTemplate(template);
                             }
                             _selectedTemplates.clear();
                             load();
@@ -333,7 +335,7 @@ class _TemplateDialogState extends State<TemplateDialog> {
                 child: Text(AppLocalizations.of(context).create),
                 onPressed: () async {
                   bloc.createTemplate(
-                    _fileSystem.remote?.identifier,
+                    _templateSystem.remote?.identifier,
                     name: nameController.text,
                     directory: directoryController.text,
                   );

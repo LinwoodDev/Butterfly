@@ -1,4 +1,4 @@
-import 'package:butterfly/api/file_system/file_system.dart';
+import 'package:butterfly/api/file_system.dart';
 import 'package:butterfly/api/open.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/cubits/settings.dart';
@@ -25,13 +25,15 @@ class PacksDialog extends StatefulWidget {
 class _PacksDialogState extends State<PacksDialog>
     with TickerProviderStateMixin {
   late final TabController _controller;
-  late PackFileSystem _fileSystem;
+  late final ButterflyFileSystem _fileSystem;
+  late PackFileSystem _packSystem;
 
   @override
   initState() {
     _controller = TabController(length: widget.globalOnly ? 1 : 2, vsync: this);
-    _fileSystem = PackFileSystem.fromPlatform(
-        remote: context.read<SettingsCubit>().state.getDefaultRemote());
+    _fileSystem = context.read<ButterflyFileSystem>();
+    _packSystem =
+        context.read<SettingsCubit>().state.buildDefaultTemplateSystem();
     super.initState();
   }
 
@@ -57,11 +59,10 @@ class _PacksDialogState extends State<PacksDialog>
                       title: Text(AppLocalizations.of(context).packs),
                       actions: [
                         ConnectionButton(
-                          currentRemote: _fileSystem.remote?.identifier ?? '',
+                          currentRemote: _packSystem.storage?.identifier ?? '',
                           onChanged: (value) {
                             setState(() {
-                              _fileSystem =
-                                  PackFileSystem.fromPlatform(remote: value);
+                              _packSystem = _fileSystem.buildPackSystem(value);
                             });
                           },
                         ),
@@ -189,10 +190,10 @@ class _PacksDialogState extends State<PacksDialog>
                               },
                             );
                           }),
-                        FutureBuilder<List<NoteData>>(
-                          future: _fileSystem
-                              .createDefault(context)
-                              .then((value) => _fileSystem.getPacks()),
+                        FutureBuilder<Map<String, NoteData>>(
+                          future: _packSystem
+                              .initialize()
+                              .then((value) => _packSystem.getFiles()),
                           builder: (context, snapshot) {
                             if (snapshot.hasError) {
                               return Text(snapshot.error.toString());
@@ -203,7 +204,8 @@ class _PacksDialogState extends State<PacksDialog>
                                 child: CircularProgressIndicator(),
                               );
                             }
-                            final globalPacks = List.of(snapshot.data!);
+                            final globalPacks = List<NoteData>.from(
+                                snapshot.data?.values ?? <NoteData>[]);
                             return StatefulBuilder(
                                 builder: (context, setInnerState) {
                               return ListView.builder(
@@ -219,8 +221,8 @@ class _PacksDialogState extends State<PacksDialog>
                                     onDismissed: (direction) async {
                                       setInnerState(
                                           () => globalPacks.removeAt(index));
-                                      await _fileSystem
-                                          .deletePack(metadata.name);
+                                      await _packSystem
+                                          .deleteFile(metadata.name);
                                       if (mounted) setState(() {});
                                     },
                                     background: Container(
@@ -267,11 +269,13 @@ class _PacksDialogState extends State<PacksDialog>
                                                   child: PackDialog(pack: pack),
                                                 ));
                                         if (newPack == null) return;
-                                        if (pack.name != newPack.name) {
-                                          await _fileSystem
-                                              .deletePack(metadata.name);
+                                        final name = newPack.name ?? '';
+                                        if (pack.name != name) {
+                                          await _packSystem
+                                              .deleteFile(metadata.name);
                                         }
-                                        await _fileSystem.updatePack(newPack);
+                                        await _packSystem.updateFile(
+                                            name, newPack);
                                         setState(() {});
                                       },
                                       trailing: MenuAnchor(
@@ -300,8 +304,8 @@ class _PacksDialogState extends State<PacksDialog>
                                                 AppLocalizations.of(context)
                                                     .delete),
                                             onPressed: () async {
-                                              await _fileSystem
-                                                  .deletePack(metadata.name);
+                                              await _packSystem
+                                                  .deleteFile(metadata.name);
                                               if (mounted) {
                                                 setState(() {});
                                               }
@@ -424,7 +428,7 @@ class _PacksDialogState extends State<PacksDialog>
                                 final pack =
                                     await DocumentDefaults.getCorePack();
                                 if (_isGlobal()) {
-                                  await _fileSystem.deletePack(pack.name!);
+                                  await _packSystem.deleteFile(pack.name!);
                                 } else if (mounted) {
                                   final bloc = context.read<DocumentBloc>();
                                   bloc.add(PackRemoved(pack.name!));
@@ -463,7 +467,7 @@ class _PacksDialogState extends State<PacksDialog>
 
   Future<void> _addPack(NoteData pack, [bool? global]) async {
     if (global ?? _isGlobal()) {
-      await _fileSystem.createPack(pack);
+      await _packSystem.createFile(pack.name ?? '', pack);
       setState(() {});
     } else {
       context.read<DocumentBloc>().add(PackAdded(pack));

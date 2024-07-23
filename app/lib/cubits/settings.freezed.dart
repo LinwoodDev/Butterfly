@@ -14,667 +14,6 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
-ExternalStorage _$ExternalStorageFromJson(Map<String, dynamic> json) {
-  switch (json['type']) {
-    case 'dav':
-      return DavRemoteStorage.fromJson(json);
-    case 'local':
-      return LocalStorage.fromJson(json);
-
-    default:
-      throw CheckedFromJsonException(json, 'type', 'ExternalStorage',
-          'Invalid union type "${json['type']}"!');
-  }
-}
-
-/// @nodoc
-mixin _$ExternalStorage {
-  String get name => throw _privateConstructorUsedError;
-  String get defaultTemplate => throw _privateConstructorUsedError;
-  String get path => throw _privateConstructorUsedError;
-  String get documentsPath => throw _privateConstructorUsedError;
-  String get templatesPath => throw _privateConstructorUsedError;
-  String get packsPath => throw _privateConstructorUsedError;
-  List<String> get starred => throw _privateConstructorUsedError;
-  @Uint8ListJsonConverter()
-  Uint8List? get icon => throw _privateConstructorUsedError;
-
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
-  $ExternalStorageCopyWith<ExternalStorage> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class $ExternalStorageCopyWith<$Res> {
-  factory $ExternalStorageCopyWith(
-          ExternalStorage value, $Res Function(ExternalStorage) then) =
-      _$ExternalStorageCopyWithImpl<$Res, ExternalStorage>;
-  @useResult
-  $Res call(
-      {String name,
-      String defaultTemplate,
-      String path,
-      String documentsPath,
-      String templatesPath,
-      String packsPath,
-      List<String> starred,
-      @Uint8ListJsonConverter() Uint8List? icon});
-}
-
-/// @nodoc
-class _$ExternalStorageCopyWithImpl<$Res, $Val extends ExternalStorage>
-    implements $ExternalStorageCopyWith<$Res> {
-  _$ExternalStorageCopyWithImpl(this._value, this._then);
-
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? name = null,
-    Object? defaultTemplate = null,
-    Object? path = null,
-    Object? documentsPath = null,
-    Object? templatesPath = null,
-    Object? packsPath = null,
-    Object? starred = null,
-    Object? icon = freezed,
-  }) {
-    return _then(_value.copyWith(
-      name: null == name
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
-              as String,
-      defaultTemplate: null == defaultTemplate
-          ? _value.defaultTemplate
-          : defaultTemplate // ignore: cast_nullable_to_non_nullable
-              as String,
-      path: null == path
-          ? _value.path
-          : path // ignore: cast_nullable_to_non_nullable
-              as String,
-      documentsPath: null == documentsPath
-          ? _value.documentsPath
-          : documentsPath // ignore: cast_nullable_to_non_nullable
-              as String,
-      templatesPath: null == templatesPath
-          ? _value.templatesPath
-          : templatesPath // ignore: cast_nullable_to_non_nullable
-              as String,
-      packsPath: null == packsPath
-          ? _value.packsPath
-          : packsPath // ignore: cast_nullable_to_non_nullable
-              as String,
-      starred: null == starred
-          ? _value.starred
-          : starred // ignore: cast_nullable_to_non_nullable
-              as List<String>,
-      icon: freezed == icon
-          ? _value.icon
-          : icon // ignore: cast_nullable_to_non_nullable
-              as Uint8List?,
-    ) as $Val);
-  }
-}
-
-/// @nodoc
-abstract class _$$DavRemoteStorageImplCopyWith<$Res>
-    implements $ExternalStorageCopyWith<$Res> {
-  factory _$$DavRemoteStorageImplCopyWith(_$DavRemoteStorageImpl value,
-          $Res Function(_$DavRemoteStorageImpl) then) =
-      __$$DavRemoteStorageImplCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call(
-      {String name,
-      String defaultTemplate,
-      String username,
-      String? certificateSha1,
-      String url,
-      String path,
-      String documentsPath,
-      String templatesPath,
-      String packsPath,
-      List<String> cachedDocuments,
-      List<String> starred,
-      @Uint8ListJsonConverter() Uint8List? icon,
-      DateTime? lastSynced});
-}
-
-/// @nodoc
-class __$$DavRemoteStorageImplCopyWithImpl<$Res>
-    extends _$ExternalStorageCopyWithImpl<$Res, _$DavRemoteStorageImpl>
-    implements _$$DavRemoteStorageImplCopyWith<$Res> {
-  __$$DavRemoteStorageImplCopyWithImpl(_$DavRemoteStorageImpl _value,
-      $Res Function(_$DavRemoteStorageImpl) _then)
-      : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? name = null,
-    Object? defaultTemplate = null,
-    Object? username = null,
-    Object? certificateSha1 = freezed,
-    Object? url = null,
-    Object? path = null,
-    Object? documentsPath = null,
-    Object? templatesPath = null,
-    Object? packsPath = null,
-    Object? cachedDocuments = null,
-    Object? starred = null,
-    Object? icon = freezed,
-    Object? lastSynced = freezed,
-  }) {
-    return _then(_$DavRemoteStorageImpl(
-      name: null == name
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
-              as String,
-      defaultTemplate: null == defaultTemplate
-          ? _value.defaultTemplate
-          : defaultTemplate // ignore: cast_nullable_to_non_nullable
-              as String,
-      username: null == username
-          ? _value.username
-          : username // ignore: cast_nullable_to_non_nullable
-              as String,
-      certificateSha1: freezed == certificateSha1
-          ? _value.certificateSha1
-          : certificateSha1 // ignore: cast_nullable_to_non_nullable
-              as String?,
-      url: null == url
-          ? _value.url
-          : url // ignore: cast_nullable_to_non_nullable
-              as String,
-      path: null == path
-          ? _value.path
-          : path // ignore: cast_nullable_to_non_nullable
-              as String,
-      documentsPath: null == documentsPath
-          ? _value.documentsPath
-          : documentsPath // ignore: cast_nullable_to_non_nullable
-              as String,
-      templatesPath: null == templatesPath
-          ? _value.templatesPath
-          : templatesPath // ignore: cast_nullable_to_non_nullable
-              as String,
-      packsPath: null == packsPath
-          ? _value.packsPath
-          : packsPath // ignore: cast_nullable_to_non_nullable
-              as String,
-      cachedDocuments: null == cachedDocuments
-          ? _value._cachedDocuments
-          : cachedDocuments // ignore: cast_nullable_to_non_nullable
-              as List<String>,
-      starred: null == starred
-          ? _value._starred
-          : starred // ignore: cast_nullable_to_non_nullable
-              as List<String>,
-      icon: freezed == icon
-          ? _value.icon
-          : icon // ignore: cast_nullable_to_non_nullable
-              as Uint8List?,
-      lastSynced: freezed == lastSynced
-          ? _value.lastSynced
-          : lastSynced // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
-    ));
-  }
-}
-
-/// @nodoc
-@JsonSerializable()
-class _$DavRemoteStorageImpl extends DavRemoteStorage
-    with DiagnosticableTreeMixin, RemoteStorage {
-  const _$DavRemoteStorageImpl(
-      {this.name = '',
-      this.defaultTemplate = '',
-      this.username = '',
-      this.certificateSha1,
-      this.url = '',
-      this.path = '',
-      this.documentsPath = '',
-      this.templatesPath = '',
-      this.packsPath = '',
-      final List<String> cachedDocuments = const [],
-      final List<String> starred = const [],
-      @Uint8ListJsonConverter() this.icon,
-      this.lastSynced,
-      final String? $type})
-      : _cachedDocuments = cachedDocuments,
-        _starred = starred,
-        $type = $type ?? 'dav',
-        super._();
-
-  factory _$DavRemoteStorageImpl.fromJson(Map<String, dynamic> json) =>
-      _$$DavRemoteStorageImplFromJson(json);
-
-  @override
-  @JsonKey()
-  final String name;
-  @override
-  @JsonKey()
-  final String defaultTemplate;
-  @override
-  @JsonKey()
-  final String username;
-  @override
-  final String? certificateSha1;
-  @override
-  @JsonKey()
-  final String url;
-  @override
-  @JsonKey()
-  final String path;
-  @override
-  @JsonKey()
-  final String documentsPath;
-  @override
-  @JsonKey()
-  final String templatesPath;
-  @override
-  @JsonKey()
-  final String packsPath;
-  final List<String> _cachedDocuments;
-  @override
-  @JsonKey()
-  List<String> get cachedDocuments {
-    if (_cachedDocuments is EqualUnmodifiableListView) return _cachedDocuments;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_cachedDocuments);
-  }
-
-  final List<String> _starred;
-  @override
-  @JsonKey()
-  List<String> get starred {
-    if (_starred is EqualUnmodifiableListView) return _starred;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_starred);
-  }
-
-  @override
-  @Uint8ListJsonConverter()
-  final Uint8List? icon;
-  @override
-  final DateTime? lastSynced;
-
-  @JsonKey(name: 'type')
-  final String $type;
-
-  @override
-  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'ExternalStorage.dav(name: $name, defaultTemplate: $defaultTemplate, username: $username, certificateSha1: $certificateSha1, url: $url, path: $path, documentsPath: $documentsPath, templatesPath: $templatesPath, packsPath: $packsPath, cachedDocuments: $cachedDocuments, starred: $starred, icon: $icon, lastSynced: $lastSynced)';
-  }
-
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties
-      ..add(DiagnosticsProperty('type', 'ExternalStorage.dav'))
-      ..add(DiagnosticsProperty('name', name))
-      ..add(DiagnosticsProperty('defaultTemplate', defaultTemplate))
-      ..add(DiagnosticsProperty('username', username))
-      ..add(DiagnosticsProperty('certificateSha1', certificateSha1))
-      ..add(DiagnosticsProperty('url', url))
-      ..add(DiagnosticsProperty('path', path))
-      ..add(DiagnosticsProperty('documentsPath', documentsPath))
-      ..add(DiagnosticsProperty('templatesPath', templatesPath))
-      ..add(DiagnosticsProperty('packsPath', packsPath))
-      ..add(DiagnosticsProperty('cachedDocuments', cachedDocuments))
-      ..add(DiagnosticsProperty('starred', starred))
-      ..add(DiagnosticsProperty('icon', icon))
-      ..add(DiagnosticsProperty('lastSynced', lastSynced));
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$DavRemoteStorageImpl &&
-            (identical(other.name, name) || other.name == name) &&
-            (identical(other.defaultTemplate, defaultTemplate) ||
-                other.defaultTemplate == defaultTemplate) &&
-            (identical(other.username, username) ||
-                other.username == username) &&
-            (identical(other.certificateSha1, certificateSha1) ||
-                other.certificateSha1 == certificateSha1) &&
-            (identical(other.url, url) || other.url == url) &&
-            (identical(other.path, path) || other.path == path) &&
-            (identical(other.documentsPath, documentsPath) ||
-                other.documentsPath == documentsPath) &&
-            (identical(other.templatesPath, templatesPath) ||
-                other.templatesPath == templatesPath) &&
-            (identical(other.packsPath, packsPath) ||
-                other.packsPath == packsPath) &&
-            const DeepCollectionEquality()
-                .equals(other._cachedDocuments, _cachedDocuments) &&
-            const DeepCollectionEquality().equals(other._starred, _starred) &&
-            const DeepCollectionEquality().equals(other.icon, icon) &&
-            (identical(other.lastSynced, lastSynced) ||
-                other.lastSynced == lastSynced));
-  }
-
-  @JsonKey(ignore: true)
-  @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      name,
-      defaultTemplate,
-      username,
-      certificateSha1,
-      url,
-      path,
-      documentsPath,
-      templatesPath,
-      packsPath,
-      const DeepCollectionEquality().hash(_cachedDocuments),
-      const DeepCollectionEquality().hash(_starred),
-      const DeepCollectionEquality().hash(icon),
-      lastSynced);
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$DavRemoteStorageImplCopyWith<_$DavRemoteStorageImpl> get copyWith =>
-      __$$DavRemoteStorageImplCopyWithImpl<_$DavRemoteStorageImpl>(
-          this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$DavRemoteStorageImplToJson(
-      this,
-    );
-  }
-}
-
-abstract class DavRemoteStorage extends ExternalStorage
-    implements RemoteStorage {
-  const factory DavRemoteStorage(
-      {final String name,
-      final String defaultTemplate,
-      final String username,
-      final String? certificateSha1,
-      final String url,
-      final String path,
-      final String documentsPath,
-      final String templatesPath,
-      final String packsPath,
-      final List<String> cachedDocuments,
-      final List<String> starred,
-      @Uint8ListJsonConverter() final Uint8List? icon,
-      final DateTime? lastSynced}) = _$DavRemoteStorageImpl;
-  const DavRemoteStorage._() : super._();
-
-  factory DavRemoteStorage.fromJson(Map<String, dynamic> json) =
-      _$DavRemoteStorageImpl.fromJson;
-
-  @override
-  String get name;
-  @override
-  String get defaultTemplate;
-  String get username;
-  String? get certificateSha1;
-  String get url;
-  @override
-  String get path;
-  @override
-  String get documentsPath;
-  @override
-  String get templatesPath;
-  @override
-  String get packsPath;
-  List<String> get cachedDocuments;
-  @override
-  List<String> get starred;
-  @override
-  @Uint8ListJsonConverter()
-  Uint8List? get icon;
-  DateTime? get lastSynced;
-  @override
-  @JsonKey(ignore: true)
-  _$$DavRemoteStorageImplCopyWith<_$DavRemoteStorageImpl> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class _$$LocalStorageImplCopyWith<$Res>
-    implements $ExternalStorageCopyWith<$Res> {
-  factory _$$LocalStorageImplCopyWith(
-          _$LocalStorageImpl value, $Res Function(_$LocalStorageImpl) then) =
-      __$$LocalStorageImplCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call(
-      {String name,
-      String defaultTemplate,
-      String path,
-      String documentsPath,
-      String templatesPath,
-      String packsPath,
-      @Uint8ListJsonConverter() Uint8List? icon,
-      List<String> starred});
-}
-
-/// @nodoc
-class __$$LocalStorageImplCopyWithImpl<$Res>
-    extends _$ExternalStorageCopyWithImpl<$Res, _$LocalStorageImpl>
-    implements _$$LocalStorageImplCopyWith<$Res> {
-  __$$LocalStorageImplCopyWithImpl(
-      _$LocalStorageImpl _value, $Res Function(_$LocalStorageImpl) _then)
-      : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? name = null,
-    Object? defaultTemplate = null,
-    Object? path = null,
-    Object? documentsPath = null,
-    Object? templatesPath = null,
-    Object? packsPath = null,
-    Object? icon = freezed,
-    Object? starred = null,
-  }) {
-    return _then(_$LocalStorageImpl(
-      name: null == name
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
-              as String,
-      defaultTemplate: null == defaultTemplate
-          ? _value.defaultTemplate
-          : defaultTemplate // ignore: cast_nullable_to_non_nullable
-              as String,
-      path: null == path
-          ? _value.path
-          : path // ignore: cast_nullable_to_non_nullable
-              as String,
-      documentsPath: null == documentsPath
-          ? _value.documentsPath
-          : documentsPath // ignore: cast_nullable_to_non_nullable
-              as String,
-      templatesPath: null == templatesPath
-          ? _value.templatesPath
-          : templatesPath // ignore: cast_nullable_to_non_nullable
-              as String,
-      packsPath: null == packsPath
-          ? _value.packsPath
-          : packsPath // ignore: cast_nullable_to_non_nullable
-              as String,
-      icon: freezed == icon
-          ? _value.icon
-          : icon // ignore: cast_nullable_to_non_nullable
-              as Uint8List?,
-      starred: null == starred
-          ? _value._starred
-          : starred // ignore: cast_nullable_to_non_nullable
-              as List<String>,
-    ));
-  }
-}
-
-/// @nodoc
-@JsonSerializable()
-class _$LocalStorageImpl extends LocalStorage with DiagnosticableTreeMixin {
-  const _$LocalStorageImpl(
-      {this.name = '',
-      this.defaultTemplate = '',
-      this.path = '',
-      this.documentsPath = '',
-      this.templatesPath = '',
-      this.packsPath = '',
-      @Uint8ListJsonConverter() this.icon,
-      final List<String> starred = const [],
-      final String? $type})
-      : _starred = starred,
-        $type = $type ?? 'local',
-        super._();
-
-  factory _$LocalStorageImpl.fromJson(Map<String, dynamic> json) =>
-      _$$LocalStorageImplFromJson(json);
-
-  @override
-  @JsonKey()
-  final String name;
-  @override
-  @JsonKey()
-  final String defaultTemplate;
-  @override
-  @JsonKey()
-  final String path;
-  @override
-  @JsonKey()
-  final String documentsPath;
-  @override
-  @JsonKey()
-  final String templatesPath;
-  @override
-  @JsonKey()
-  final String packsPath;
-  @override
-  @Uint8ListJsonConverter()
-  final Uint8List? icon;
-  final List<String> _starred;
-  @override
-  @JsonKey()
-  List<String> get starred {
-    if (_starred is EqualUnmodifiableListView) return _starred;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_starred);
-  }
-
-  @JsonKey(name: 'type')
-  final String $type;
-
-  @override
-  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'ExternalStorage.local(name: $name, defaultTemplate: $defaultTemplate, path: $path, documentsPath: $documentsPath, templatesPath: $templatesPath, packsPath: $packsPath, icon: $icon, starred: $starred)';
-  }
-
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties
-      ..add(DiagnosticsProperty('type', 'ExternalStorage.local'))
-      ..add(DiagnosticsProperty('name', name))
-      ..add(DiagnosticsProperty('defaultTemplate', defaultTemplate))
-      ..add(DiagnosticsProperty('path', path))
-      ..add(DiagnosticsProperty('documentsPath', documentsPath))
-      ..add(DiagnosticsProperty('templatesPath', templatesPath))
-      ..add(DiagnosticsProperty('packsPath', packsPath))
-      ..add(DiagnosticsProperty('icon', icon))
-      ..add(DiagnosticsProperty('starred', starred));
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$LocalStorageImpl &&
-            (identical(other.name, name) || other.name == name) &&
-            (identical(other.defaultTemplate, defaultTemplate) ||
-                other.defaultTemplate == defaultTemplate) &&
-            (identical(other.path, path) || other.path == path) &&
-            (identical(other.documentsPath, documentsPath) ||
-                other.documentsPath == documentsPath) &&
-            (identical(other.templatesPath, templatesPath) ||
-                other.templatesPath == templatesPath) &&
-            (identical(other.packsPath, packsPath) ||
-                other.packsPath == packsPath) &&
-            const DeepCollectionEquality().equals(other.icon, icon) &&
-            const DeepCollectionEquality().equals(other._starred, _starred));
-  }
-
-  @JsonKey(ignore: true)
-  @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      name,
-      defaultTemplate,
-      path,
-      documentsPath,
-      templatesPath,
-      packsPath,
-      const DeepCollectionEquality().hash(icon),
-      const DeepCollectionEquality().hash(_starred));
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$LocalStorageImplCopyWith<_$LocalStorageImpl> get copyWith =>
-      __$$LocalStorageImplCopyWithImpl<_$LocalStorageImpl>(this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$LocalStorageImplToJson(
-      this,
-    );
-  }
-}
-
-abstract class LocalStorage extends ExternalStorage {
-  const factory LocalStorage(
-      {final String name,
-      final String defaultTemplate,
-      final String path,
-      final String documentsPath,
-      final String templatesPath,
-      final String packsPath,
-      @Uint8ListJsonConverter() final Uint8List? icon,
-      final List<String> starred}) = _$LocalStorageImpl;
-  const LocalStorage._() : super._();
-
-  factory LocalStorage.fromJson(Map<String, dynamic> json) =
-      _$LocalStorageImpl.fromJson;
-
-  @override
-  String get name;
-  @override
-  String get defaultTemplate;
-  @override
-  String get path;
-  @override
-  String get documentsPath;
-  @override
-  String get templatesPath;
-  @override
-  String get packsPath;
-  @override
-  @Uint8ListJsonConverter()
-  Uint8List? get icon;
-  @override
-  List<String> get starred;
-  @override
-  @JsonKey(ignore: true)
-  _$$LocalStorageImplCopyWith<_$LocalStorageImpl> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
 InputConfiguration _$InputConfigurationFromJson(Map<String, dynamic> json) {
   return _InputConfiguration.fromJson(json);
 }
@@ -965,6 +304,7 @@ abstract class _InputConfiguration extends InputConfiguration {
 
 /// @nodoc
 mixin _$ButterflySettings {
+  ButterflyFileSystem get fileSystem => throw _privateConstructorUsedError;
   ThemeMode get theme => throw _privateConstructorUsedError;
   ThemeDensity get density => throw _privateConstructorUsedError;
   String get localeTag => throw _privateConstructorUsedError;
@@ -1022,7 +362,8 @@ abstract class $ButterflySettingsCopyWith<$Res> {
       _$ButterflySettingsCopyWithImpl<$Res, ButterflySettings>;
   @useResult
   $Res call(
-      {ThemeMode theme,
+      {ButterflyFileSystem fileSystem,
+      ThemeMode theme,
       ThemeDensity density,
       String localeTag,
       String documentPath,
@@ -1082,6 +423,7 @@ class _$ButterflySettingsCopyWithImpl<$Res, $Val extends ButterflySettings>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? fileSystem = null,
     Object? theme = null,
     Object? density = null,
     Object? localeTag = null,
@@ -1127,6 +469,10 @@ class _$ButterflySettingsCopyWithImpl<$Res, $Val extends ButterflySettings>
     Object? hideCursorWhileDrawing = null,
   }) {
     return _then(_value.copyWith(
+      fileSystem: null == fileSystem
+          ? _value.fileSystem
+          : fileSystem // ignore: cast_nullable_to_non_nullable
+              as ButterflyFileSystem,
       theme: null == theme
           ? _value.theme
           : theme // ignore: cast_nullable_to_non_nullable
@@ -1321,7 +667,8 @@ abstract class _$$ButterflySettingsImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {ThemeMode theme,
+      {ButterflyFileSystem fileSystem,
+      ThemeMode theme,
       ThemeDensity density,
       String localeTag,
       String documentPath,
@@ -1380,6 +727,7 @@ class __$$ButterflySettingsImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? fileSystem = null,
     Object? theme = null,
     Object? density = null,
     Object? localeTag = null,
@@ -1425,6 +773,10 @@ class __$$ButterflySettingsImplCopyWithImpl<$Res>
     Object? hideCursorWhileDrawing = null,
   }) {
     return _then(_$ButterflySettingsImpl(
+      fileSystem: null == fileSystem
+          ? _value.fileSystem
+          : fileSystem // ignore: cast_nullable_to_non_nullable
+              as ButterflyFileSystem,
       theme: null == theme
           ? _value.theme
           : theme // ignore: cast_nullable_to_non_nullable
@@ -1606,7 +958,8 @@ class __$$ButterflySettingsImplCopyWithImpl<$Res>
 class _$ButterflySettingsImpl extends _ButterflySettings
     with DiagnosticableTreeMixin {
   const _$ButterflySettingsImpl(
-      {this.theme = ThemeMode.system,
+      {required this.fileSystem,
+      this.theme = ThemeMode.system,
       this.density = ThemeDensity.system,
       this.localeTag = '',
       this.documentPath = '',
@@ -1656,6 +1009,8 @@ class _$ButterflySettingsImpl extends _ButterflySettings
         _flags = flags,
         super._();
 
+  @override
+  final ButterflyFileSystem fileSystem;
   @override
   @JsonKey()
   final ThemeMode theme;
@@ -1817,7 +1172,7 @@ class _$ButterflySettingsImpl extends _ButterflySettings
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'ButterflySettings(theme: $theme, density: $density, localeTag: $localeTag, documentPath: $documentPath, touchSensitivity: $touchSensitivity, mouseSensitivity: $mouseSensitivity, penSensitivity: $penSensitivity, selectSensitivity: $selectSensitivity, penOnlyInput: $penOnlyInput, inputGestures: $inputGestures, design: $design, bannerVisibility: $bannerVisibility, history: $history, navigatorEnabled: $navigatorEnabled, zoomEnabled: $zoomEnabled, lastVersion: $lastVersion, connections: $connections, defaultRemote: $defaultRemote, nativeTitleBar: $nativeTitleBar, startInFullScreen: $startInFullScreen, navigationRail: $navigationRail, syncMode: $syncMode, inputConfiguration: $inputConfiguration, fallbackPack: $fallbackPack, starred: $starred, defaultTemplate: $defaultTemplate, navigatorPage: $navigatorPage, navigatorPosition: $navigatorPosition, toolbarPosition: $toolbarPosition, toolbarSize: $toolbarSize, sortBy: $sortBy, sortOrder: $sortOrder, imageScale: $imageScale, pdfQuality: $pdfQuality, platformTheme: $platformTheme, recentColors: $recentColors, flags: $flags, spreadPages: $spreadPages, highContrast: $highContrast, gridView: $gridView, autosave: $autosave, toolbarRows: $toolbarRows, hideCursorWhileDrawing: $hideCursorWhileDrawing)';
+    return 'ButterflySettings(fileSystem: $fileSystem, theme: $theme, density: $density, localeTag: $localeTag, documentPath: $documentPath, touchSensitivity: $touchSensitivity, mouseSensitivity: $mouseSensitivity, penSensitivity: $penSensitivity, selectSensitivity: $selectSensitivity, penOnlyInput: $penOnlyInput, inputGestures: $inputGestures, design: $design, bannerVisibility: $bannerVisibility, history: $history, navigatorEnabled: $navigatorEnabled, zoomEnabled: $zoomEnabled, lastVersion: $lastVersion, connections: $connections, defaultRemote: $defaultRemote, nativeTitleBar: $nativeTitleBar, startInFullScreen: $startInFullScreen, navigationRail: $navigationRail, syncMode: $syncMode, inputConfiguration: $inputConfiguration, fallbackPack: $fallbackPack, starred: $starred, defaultTemplate: $defaultTemplate, navigatorPage: $navigatorPage, navigatorPosition: $navigatorPosition, toolbarPosition: $toolbarPosition, toolbarSize: $toolbarSize, sortBy: $sortBy, sortOrder: $sortOrder, imageScale: $imageScale, pdfQuality: $pdfQuality, platformTheme: $platformTheme, recentColors: $recentColors, flags: $flags, spreadPages: $spreadPages, highContrast: $highContrast, gridView: $gridView, autosave: $autosave, toolbarRows: $toolbarRows, hideCursorWhileDrawing: $hideCursorWhileDrawing)';
   }
 
   @override
@@ -1825,6 +1180,7 @@ class _$ButterflySettingsImpl extends _ButterflySettings
     super.debugFillProperties(properties);
     properties
       ..add(DiagnosticsProperty('type', 'ButterflySettings'))
+      ..add(DiagnosticsProperty('fileSystem', fileSystem))
       ..add(DiagnosticsProperty('theme', theme))
       ..add(DiagnosticsProperty('density', density))
       ..add(DiagnosticsProperty('localeTag', localeTag))
@@ -1876,6 +1232,8 @@ class _$ButterflySettingsImpl extends _ButterflySettings
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$ButterflySettingsImpl &&
+            (identical(other.fileSystem, fileSystem) ||
+                other.fileSystem == fileSystem) &&
             (identical(other.theme, theme) || other.theme == theme) &&
             (identical(other.density, density) || other.density == density) &&
             (identical(other.localeTag, localeTag) ||
@@ -1960,6 +1318,7 @@ class _$ButterflySettingsImpl extends _ButterflySettings
   @override
   int get hashCode => Object.hashAll([
         runtimeType,
+        fileSystem,
         theme,
         density,
         localeTag,
@@ -2015,7 +1374,8 @@ class _$ButterflySettingsImpl extends _ButterflySettings
 
 abstract class _ButterflySettings extends ButterflySettings {
   const factory _ButterflySettings(
-      {final ThemeMode theme,
+      {required final ButterflyFileSystem fileSystem,
+      final ThemeMode theme,
       final ThemeDensity density,
       final String localeTag,
       final String documentPath,
@@ -2060,6 +1420,8 @@ abstract class _ButterflySettings extends ButterflySettings {
       final bool hideCursorWhileDrawing}) = _$ButterflySettingsImpl;
   const _ButterflySettings._() : super._();
 
+  @override
+  ButterflyFileSystem get fileSystem;
   @override
   ThemeMode get theme;
   @override

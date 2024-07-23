@@ -27,6 +27,7 @@ abstract class DocumentState extends Equatable {
   NetworkingService? get networkingService =>
       currentIndexCubit?.state.networkingService;
   Embedding? get embedding => currentIndexCubit?.state.embedding;
+  ButterflyFileSystem get fileSystem => settingsCubit.state.fileSystem;
   Area? get currentArea => null;
 
   NoteData? saveData([NoteData? current]) => data;

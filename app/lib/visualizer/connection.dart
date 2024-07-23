@@ -72,6 +72,7 @@ extension SyncModeVisualizer on SyncMode {
 
 extension ExternalStorageVisualizer on ExternalStorage {
   PhosphorIconData get icon => switch (this) {
-        LocalStorage() => PhosphorIconsLight.bomb,
+        LocalStorage() => PhosphorIconsLight.house,
+        DavRemoteStorage() => PhosphorIconsLight.cloud,
       };
 }

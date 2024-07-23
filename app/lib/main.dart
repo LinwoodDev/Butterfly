@@ -113,7 +113,7 @@ Future<void> main([List<String> args = const []]) async {
   runApp(
     MultiRepositoryProvider(
         providers: [
-          RepositoryProvider(create: ButterflyFileSystem.new),
+          RepositoryProvider(create: ButterflyFileSystem.build),
           RepositoryProvider<ClipboardManager>(
               create: (context) => clipboardManager),
         ],
@@ -317,7 +317,8 @@ class ButterflyApp extends StatelessWidget {
         providers: [
           BlocProvider(
             create: (context) {
-              final cubit = SettingsCubit(prefs);
+              final cubit =
+                  SettingsCubit(prefs, context.read<ButterflyFileSystem>());
               if (!kIsWeb && isWindow) {
                 windowManager.waitUntilReadyToShow().then((_) async {
                   await windowManager

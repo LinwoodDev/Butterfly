@@ -1,7 +1,7 @@
 import 'dart:convert';
 
+import 'package:butterfly/api/file_system.dart';
 import 'package:butterfly/main.dart';
-import 'package:butterfly_api/butterfly_api.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -12,7 +12,6 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:lw_file_system/lw_file_system.dart';
 import 'package:material_leap/material_leap.dart';
 import 'package:package_info_plus/package_info_plus.dart';
-import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:window_manager/window_manager.dart';
 
@@ -166,6 +165,7 @@ enum ThemeDensity {
 class ButterflySettings with _$ButterflySettings, LeapSettings {
   const ButterflySettings._();
   const factory ButterflySettings({
+    required ButterflyFileSystem fileSystem,
     @Default(ThemeMode.system) ThemeMode theme,
     @Default(ThemeDensity.system) ThemeDensity density,
     @Default('') String localeTag,
@@ -211,13 +211,15 @@ class ButterflySettings with _$ButterflySettings, LeapSettings {
     @Default(false) bool hideCursorWhileDrawing,
   }) = _ButterflySettings;
 
-  factory ButterflySettings.fromPrefs(SharedPreferences prefs) {
+  factory ButterflySettings.fromPrefs(
+      SharedPreferences prefs, ButterflyFileSystem fileSystem) {
     final connections = prefs
             .getStringList('connections')
             ?.map((e) => ExternalStorageMapper.fromJson(json.decode(e)))
             .toList() ??
         const [];
     return ButterflySettings(
+      fileSystem: fileSystem,
       localeTag: prefs.getString('locale') ?? '',
       penOnlyInput: prefs.getBool('pen_only_input') ?? false,
       inputGestures: prefs.getBool('input_gestures') ?? true,
@@ -242,7 +244,7 @@ class ButterflySettings with _$ButterflySettings, LeapSettings {
               ?.map((e) {
                 // Try to parse the asset location
                 try {
-                  return AssetLocation.fromJson(json.decode(e));
+                  return AssetLocationMapper.fromJson(json.decode(e));
                 } catch (e) {
                   return null;
                 }
@@ -363,6 +365,15 @@ class ButterflySettings with _$ButterflySettings, LeapSettings {
     await prefs.setString('navigator_position', navigatorPosition.name);
   }
 
+  DocumentFileSystem buildDefaultDocumentSystem() =>
+      fileSystem.buildDocumentSystem(getDefaultRemote());
+
+  TemplateFileSystem buildDefaultTemplateSystem() =>
+      fileSystem.buildTemplateSystem(getDefaultRemote());
+
+  PackFileSystem buildDefaultPackSystem() =>
+      fileSystem.buildPackSystem(getDefaultRemote());
+
   ExternalStorage? getRemote(String? identifier) {
     if (identifier?.isEmpty ?? true) {
       return getDefaultRemote();
@@ -379,17 +390,12 @@ class ButterflySettings with _$ButterflySettings, LeapSettings {
     return connections.firstWhereOrNull((e) => e.identifier == defaultRemote);
   }
 
-  DocumentFileSystem getDefaultDocumentFileSystem() =>
-      DocumentFileSystem.fromPlatform(remote: getDefaultRemote());
-
-  TemplateFileSystem getDefaultTemplateFileSystem() =>
-      TemplateFileSystem.fromPlatform(remote: getDefaultRemote());
-
   bool isStarred(AssetLocation location) {
     if (location.remote.isEmpty) {
       return starred.contains(location.path);
     }
-    return getRemote(location.remote)?.starred.contains(location.path) ?? false;
+    return getRemote(location.remote)?.starred['']?.contains(location.path) ??
+        false;
   }
 
   bool hasFlag(String s) => flags.contains(s) && isNightly;
@@ -397,8 +403,8 @@ class ButterflySettings with _$ButterflySettings, LeapSettings {
 
 class SettingsCubit extends Cubit<ButterflySettings>
     with LeapSettingsBlocBaseMixin {
-  SettingsCubit(SharedPreferences prefs)
-      : super(ButterflySettings.fromPrefs(prefs));
+  SettingsCubit(SharedPreferences prefs, ButterflyFileSystem fileSystem)
+      : super(ButterflySettings.fromPrefs(prefs, fileSystem));
 
   void setTheme(MediaQueryData mediaQuery, [ThemeMode? theme]) {
     if (kIsWeb || !isWindow) return;
@@ -602,7 +608,9 @@ class SettingsCubit extends Cubit<ButterflySettings>
         connections: List.from(state.connections)
           ..removeWhere((element) => element.identifier == storage.identifier)
           ..add(storage)));
-    storage.writeRemotePassword(password);
+    if (storage is RemoteStorage) {
+      state.fileSystem.passwordStorage.write(storage, password);
+    }
     return save();
   }
 
@@ -630,8 +638,7 @@ class SettingsCubit extends Cubit<ButterflySettings>
     emit(state.copyWith(
         connections: List<ExternalStorage>.from(state.connections).map((e) {
       if (e.identifier == identifier && e is RemoteStorage) {
-        final documents =
-            List<String>.from((e as RemoteStorage).cachedDocuments);
+        final documents = List<String>.from(e.cachedDocuments[''] ?? []);
         return (e as dynamic).copyWith(
             cachedDocuments: documents
               ..removeWhere((element) => element == current)
@@ -647,9 +654,8 @@ class SettingsCubit extends Cubit<ButterflySettings>
         connections: List<ExternalStorage>.from(state.connections).map((e) {
       if (e.identifier == identifier && e is RemoteStorage) {
         return (e as dynamic).copyWith(
-            cachedDocuments:
-                List<String>.from((e as RemoteStorage).cachedDocuments)
-                  ..remove(current)) as ExternalStorage;
+            cachedDocuments: List<String>.from(e.cachedDocuments[''] ?? [])
+              ..remove(current)) as ExternalStorage;
       }
       return e;
     }).toList()));
@@ -723,7 +729,7 @@ class SettingsCubit extends Cubit<ButterflySettings>
     } else {
       final remote = getRemote(location.remote);
       if (remote != null) {
-        final starred = remote.starred.toList();
+        final starred = remote.starred['']?.toList() ?? [];
         if (starred.contains(location.path)) {
           starred.remove(location.path);
         } else {
@@ -732,7 +738,7 @@ class SettingsCubit extends Cubit<ButterflySettings>
         emit(state.copyWith(
             connections: List<ExternalStorage>.from(state.connections).map((e) {
           if (e.identifier == remote.identifier) {
-            return e.copyWith(starred: starred);
+            return e.copyWith(starred: {'': starred});
           }
           return e;
         }).toList()));

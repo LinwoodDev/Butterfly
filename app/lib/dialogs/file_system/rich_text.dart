@@ -1,14 +1,15 @@
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:lw_file_system/lw_file_system.dart';
 
 class FileSystemFileRichText extends StatelessWidget {
-  final AppDocumentFile file;
+  final FileSystemFile<NoteData> file;
   const FileSystemFileRichText({super.key, required this.file});
 
   @override
   Widget build(BuildContext context) {
-    final metadata = file.metadata;
+    final metadata = file.data?.getMetadata();
     if (metadata == null) {
       return Container();
     }
