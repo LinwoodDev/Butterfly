@@ -33,6 +33,9 @@ class _$SearchResultCopyWithImpl<$Res, $Val extends SearchResult>
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
+
+  /// Create a copy of SearchResult
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -52,6 +55,8 @@ class __$$PageResultImplCopyWithImpl<$Res>
       _$PageResultImpl _value, $Res Function(_$PageResultImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of SearchResult
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -90,7 +95,9 @@ class _$PageResultImpl extends PageResult {
   @override
   int get hashCode => Object.hash(runtimeType, name);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of SearchResult
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$PageResultImplCopyWith<_$PageResultImpl> get copyWith =>
@@ -102,7 +109,10 @@ abstract class PageResult extends SearchResult {
   const PageResult._() : super._();
 
   String get name;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of SearchResult
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$PageResultImplCopyWith<_$PageResultImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -127,6 +137,8 @@ class __$$ElementResultImplCopyWithImpl<$Res>
       _$ElementResultImpl _value, $Res Function(_$ElementResultImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of SearchResult
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -155,6 +167,8 @@ class __$$ElementResultImplCopyWithImpl<$Res>
     ));
   }
 
+  /// Create a copy of SearchResult
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $PadElementCopyWith<$Res> get element {
@@ -199,7 +213,9 @@ class _$ElementResultImpl extends ElementResult {
   @override
   int get hashCode => Object.hash(runtimeType, text, page, position, element);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of SearchResult
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$ElementResultImplCopyWith<_$ElementResultImpl> get copyWith =>
@@ -218,7 +234,10 @@ abstract class ElementResult extends SearchResult {
   String get page;
   Point<double> get position;
   PadElement get element;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of SearchResult
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$ElementResultImplCopyWith<_$ElementResultImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -242,6 +261,8 @@ class __$$AreaResultImplCopyWithImpl<$Res>
       _$AreaResultImpl _value, $Res Function(_$AreaResultImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of SearchResult
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -260,6 +281,8 @@ class __$$AreaResultImplCopyWithImpl<$Res>
     ));
   }
 
+  /// Create a copy of SearchResult
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $AreaCopyWith<$Res> get area {
@@ -296,7 +319,9 @@ class _$AreaResultImpl extends AreaResult {
   @override
   int get hashCode => Object.hash(runtimeType, area, page);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of SearchResult
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$AreaResultImplCopyWith<_$AreaResultImpl> get copyWith =>
@@ -310,7 +335,10 @@ abstract class AreaResult extends SearchResult {
 
   Area get area;
   String get page;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of SearchResult
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$AreaResultImplCopyWith<_$AreaResultImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -334,6 +362,8 @@ class __$$WaypointResultImplCopyWithImpl<$Res>
       _$WaypointResultImpl _value, $Res Function(_$WaypointResultImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of SearchResult
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -352,6 +382,8 @@ class __$$WaypointResultImplCopyWithImpl<$Res>
     ));
   }
 
+  /// Create a copy of SearchResult
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $WaypointCopyWith<$Res> get waypoint {
@@ -389,7 +421,9 @@ class _$WaypointResultImpl extends WaypointResult {
   @override
   int get hashCode => Object.hash(runtimeType, waypoint, page);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of SearchResult
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$WaypointResultImplCopyWith<_$WaypointResultImpl> get copyWith =>
@@ -404,7 +438,10 @@ abstract class WaypointResult extends SearchResult {
 
   Waypoint get waypoint;
   String get page;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of SearchResult
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$WaypointResultImplCopyWith<_$WaypointResultImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -428,6 +465,8 @@ class __$$ToolResultImplCopyWithImpl<$Res>
       _$ToolResultImpl _value, $Res Function(_$ToolResultImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of SearchResult
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -451,6 +490,8 @@ class __$$ToolResultImplCopyWithImpl<$Res>
     ));
   }
 
+  /// Create a copy of SearchResult
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $ToolCopyWith<$Res> get tool {
@@ -490,7 +531,9 @@ class _$ToolResultImpl extends ToolResult {
   @override
   int get hashCode => Object.hash(runtimeType, name, tool, index);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of SearchResult
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$ToolResultImplCopyWith<_$ToolResultImpl> get copyWith =>
@@ -505,7 +548,10 @@ abstract class ToolResult extends SearchResult {
   String get name;
   Tool get tool;
   int get index;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of SearchResult
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$ToolResultImplCopyWith<_$ToolResultImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

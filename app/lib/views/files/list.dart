@@ -1,7 +1,5 @@
 import 'dart:typed_data';
 
-import 'package:butterfly/api/file_system/file_system.dart';
-import 'package:butterfly/api/file_system/file_system_remote.dart';
 import 'package:butterfly/api/save.dart';
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/dialogs/file_system/move.dart';
@@ -13,6 +11,7 @@ import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:lw_file_system/lw_file_system.dart';
 import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
@@ -23,7 +22,7 @@ class FileEntityListTile extends StatelessWidget {
   final VoidCallback onTap, onDelete, onReload;
   final ValueChanged<bool> onEdit;
   final Uint8List? thumbnail;
-  final AppDocumentEntity entity;
+  final FileSystemEntity<NoteData> entity;
   final TextEditingController nameController;
 
   const FileEntityListTile({
@@ -49,7 +48,8 @@ class FileEntityListTile extends StatelessWidget {
     final settingsCubit = context.read<SettingsCubit>();
     final syncService = context.read<SyncService>();
     final remote = settingsCubit.getRemote(entity.location.remote);
-    final fileSystem = DocumentFileSystem.fromPlatform(remote: remote);
+    final fileSystem =
+        settingsCubit.state.fileSystem.buildDocumentSystem(remote);
     return LayoutBuilder(builder: (context, constraints) {
       final isDesktop = constraints.maxWidth >= LeapBreakpoints.medium;
       final isTablet = constraints.maxWidth >= LeapBreakpoints.compact;
@@ -166,7 +166,7 @@ class FileEntityListTile extends StatelessWidget {
                           if (remote is RemoteStorage)
                             StreamBuilder<List<SyncFile>>(
                               stream: syncService
-                                  .getSync(remote!.identifier)
+                                  .getSync(remote.identifier)
                                   ?.filesStream,
                               builder: (context, snapshot) {
                                 final currentStatus = snapshot.data
@@ -356,12 +356,13 @@ class FileEntityListTile extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.end,
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  if (entity is AppDocumentFile)
+                  if (entity is FileSystemFile<NoteData>)
                     IconButton(
                       onPressed: () {
                         try {
-                          final data = (entity as AppDocumentFile).data;
-                          exportData(context, data);
+                          final data =
+                              (entity as FileSystemFile<NoteData>).data;
+                          exportData(context, data?.save() ?? []);
                         } catch (e) {
                           ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(

@@ -197,16 +197,13 @@ Map<String, dynamic> _$$DocumentDescriptionChangedImplToJson(
 
 _$DocumentSavedImpl _$$DocumentSavedImplFromJson(Map json) =>
     _$DocumentSavedImpl(
-      json['location'] == null
-          ? null
-          : AssetLocation.fromJson(
-              Map<String, dynamic>.from(json['location'] as Map)),
+      AssetLocationMapper.fromMap(json['location'] as Map<String, dynamic>),
       json['type'] as String?,
     );
 
 Map<String, dynamic> _$$DocumentSavedImplToJson(_$DocumentSavedImpl instance) =>
     <String, dynamic>{
-      'location': instance.location?.toJson(),
+      'location': _assetLocationToJson(instance.location),
       'type': instance.$type,
     };
 

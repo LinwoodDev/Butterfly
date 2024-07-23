@@ -32,8 +32,12 @@ mixin _$Property {
   double get strokeWidth => throw _privateConstructorUsedError;
   int get color => throw _privateConstructorUsedError;
 
+  /// Serializes this Property to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of Property
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $PropertyCopyWith<Property> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -56,6 +60,8 @@ class _$PropertyCopyWithImpl<$Res, $Val extends Property>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of Property
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -100,6 +106,8 @@ class __$$PenPropertyImplCopyWithImpl<$Res>
       _$PenPropertyImpl _value, $Res Function(_$PenPropertyImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of Property
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -199,12 +207,14 @@ class _$PenPropertyImpl implements PenProperty {
                 other.streamline == streamline));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(
       runtimeType, strokeWidth, thinning, color, fill, smoothing, streamline);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of Property
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$PenPropertyImplCopyWith<_$PenPropertyImpl> get copyWith =>
@@ -238,8 +248,11 @@ abstract class PenProperty implements Property, PathProperty {
   bool get fill;
   double get smoothing;
   double get streamline;
+
+  /// Create a copy of Property
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$PenPropertyImplCopyWith<_$PenPropertyImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -265,6 +278,8 @@ class __$$ShapePropertyImplCopyWithImpl<$Res>
       _$ShapePropertyImpl _value, $Res Function(_$ShapePropertyImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of Property
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -288,6 +303,8 @@ class __$$ShapePropertyImplCopyWithImpl<$Res>
     ));
   }
 
+  /// Create a copy of Property
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $PathShapeCopyWith<$Res> get shape {
@@ -338,11 +355,13 @@ class _$ShapePropertyImpl implements ShapeProperty {
             (identical(other.color, color) || other.color == color));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, strokeWidth, shape, color);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of Property
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$ShapePropertyImplCopyWith<_$ShapePropertyImpl> get copyWith =>
@@ -370,8 +389,11 @@ abstract class ShapeProperty implements Property {
   PathShape get shape;
   @override
   int get color;
+
+  /// Create a copy of Property
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$ShapePropertyImplCopyWith<_$ShapePropertyImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -395,6 +417,7 @@ PathShape _$PathShapeFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$PathShape {
+  /// Serializes this PathShape to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
 }
 
@@ -413,6 +436,9 @@ class _$PathShapeCopyWithImpl<$Res, $Val extends PathShape>
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
+
+  /// Create a copy of PathShape
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -432,6 +458,8 @@ class __$$CircleShapeImplCopyWithImpl<$Res>
       _$CircleShapeImpl _value, $Res Function(_$CircleShapeImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of PathShape
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -478,11 +506,13 @@ class _$CircleShapeImpl extends CircleShape {
                 other.fillColor == fillColor));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, fillColor);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of PathShape
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$CircleShapeImplCopyWith<_$CircleShapeImpl> get copyWith =>
@@ -504,7 +534,10 @@ abstract class CircleShape extends PathShape {
       _$CircleShapeImpl.fromJson;
 
   int get fillColor;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of PathShape
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$CircleShapeImplCopyWith<_$CircleShapeImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -531,6 +564,8 @@ class __$$RectangleShapeImplCopyWithImpl<$Res>
       _$RectangleShapeImpl _value, $Res Function(_$RectangleShapeImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of PathShape
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -623,12 +658,14 @@ class _$RectangleShapeImpl extends RectangleShape {
                 other.bottomRightCornerRadius == bottomRightCornerRadius));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, fillColor, topLeftCornerRadius,
       topRightCornerRadius, bottomLeftCornerRadius, bottomRightCornerRadius);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of PathShape
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$RectangleShapeImplCopyWith<_$RectangleShapeImpl> get copyWith =>
@@ -660,7 +697,10 @@ abstract class RectangleShape extends PathShape {
   double get topRightCornerRadius;
   double get bottomLeftCornerRadius;
   double get bottomRightCornerRadius;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of PathShape
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$RectangleShapeImplCopyWith<_$RectangleShapeImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -679,6 +719,9 @@ class __$$LineShapeImplCopyWithImpl<$Res>
   __$$LineShapeImplCopyWithImpl(
       _$LineShapeImpl _value, $Res Function(_$LineShapeImpl) _then)
       : super(_value, _then);
+
+  /// Create a copy of PathShape
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -705,7 +748,7 @@ class _$LineShapeImpl extends LineShape {
         (other.runtimeType == runtimeType && other is _$LineShapeImpl);
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => runtimeType.hashCode;
 
@@ -742,6 +785,8 @@ class __$$TriangleShapeImplCopyWithImpl<$Res>
       _$TriangleShapeImpl _value, $Res Function(_$TriangleShapeImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of PathShape
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -788,11 +833,13 @@ class _$TriangleShapeImpl extends TriangleShape {
                 other.fillColor == fillColor));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, fillColor);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of PathShape
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$TriangleShapeImplCopyWith<_$TriangleShapeImpl> get copyWith =>
@@ -814,7 +861,10 @@ abstract class TriangleShape extends PathShape {
       _$TriangleShapeImpl.fromJson;
 
   int get fillColor;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of PathShape
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$TriangleShapeImplCopyWith<_$TriangleShapeImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

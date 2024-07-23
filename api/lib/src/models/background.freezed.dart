@@ -33,8 +33,12 @@ Background _$BackgroundFromJson(Map<String, dynamic> json) {
 mixin _$Background {
   Map<String, dynamic> get extra => throw _privateConstructorUsedError;
 
+  /// Serializes this Background to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of Background
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $BackgroundCopyWith<Background> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -58,6 +62,8 @@ class _$BackgroundCopyWithImpl<$Res, $Val extends Background>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of Background
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -93,6 +99,8 @@ class __$$TextureBackgroundImplCopyWithImpl<$Res>
       $Res Function(_$TextureBackgroundImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of Background
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -111,6 +119,8 @@ class __$$TextureBackgroundImplCopyWithImpl<$Res>
     ));
   }
 
+  /// Create a copy of Background
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $SurfaceTextureCopyWith<$Res> get texture {
@@ -153,7 +163,9 @@ class _$TextureBackgroundImpl extends TextureBackground {
     return 'Background.texture(texture: $texture, extra: $extra)';
   }
 
-  @JsonKey(ignore: true)
+  /// Create a copy of Background
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$TextureBackgroundImplCopyWith<_$TextureBackgroundImpl> get copyWith =>
@@ -180,8 +192,11 @@ abstract class TextureBackground extends Background {
   SurfaceTexture get texture;
   @override
   Map<String, dynamic> get extra;
+
+  /// Create a copy of Background
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$TextureBackgroundImplCopyWith<_$TextureBackgroundImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -211,6 +226,8 @@ class __$$ImageBackgroundImplCopyWithImpl<$Res>
       _$ImageBackgroundImpl _value, $Res Function(_$ImageBackgroundImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of Background
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -297,7 +314,9 @@ class _$ImageBackgroundImpl extends ImageBackground {
     return 'Background.image(source: $source, width: $width, height: $height, scaleX: $scaleX, scaleY: $scaleY, extra: $extra)';
   }
 
-  @JsonKey(ignore: true)
+  /// Create a copy of Background
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$ImageBackgroundImplCopyWith<_$ImageBackgroundImpl> get copyWith =>
@@ -332,8 +351,11 @@ abstract class ImageBackground extends Background {
   double get scaleY;
   @override
   Map<String, dynamic> get extra;
+
+  /// Create a copy of Background
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$ImageBackgroundImplCopyWith<_$ImageBackgroundImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -363,6 +385,8 @@ class __$$SvgBackgroundImplCopyWithImpl<$Res>
       _$SvgBackgroundImpl _value, $Res Function(_$SvgBackgroundImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of Background
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -449,7 +473,9 @@ class _$SvgBackgroundImpl extends SvgBackground {
     return 'Background.svg(source: $source, width: $width, height: $height, scaleX: $scaleX, scaleY: $scaleY, extra: $extra)';
   }
 
-  @JsonKey(ignore: true)
+  /// Create a copy of Background
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$SvgBackgroundImplCopyWith<_$SvgBackgroundImpl> get copyWith =>
@@ -483,8 +509,11 @@ abstract class SvgBackground extends Background {
   double get scaleY;
   @override
   Map<String, dynamic> get extra;
+
+  /// Create a copy of Background
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$SvgBackgroundImplCopyWith<_$SvgBackgroundImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

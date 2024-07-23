@@ -413,10 +413,10 @@ packages:
     dependency: transitive
     description:
       name: file_selector_android
-      sha256: "8bcc3af859e9d47fab9c7dc315537406511a894ab578e198bd8f9ed745ea5a01"
+      sha256: f46339915288f39135d6d708a9bd43dfba6d1d79fe33d1143bafe87b5271ab8b
       url: "https://pub.dev"
     source: hosted
-    version: "0.5.1+2"
+    version: "0.5.1+3"
   file_selector_ios:
     dependency: transitive
     description:
@@ -699,10 +699,10 @@ packages:
     dependency: "direct main"
     description:
       name: idb_shim
-      sha256: e2f1e75626ba041e4d8a7e143d36db0f52196cbc1097aa37488e8375ffea714c
+      sha256: "0ae356560abbd07d2bd38165c5f3d9bc4fe9d1e73cdb5ed22691052d63bfdd4b"
       url: "https://pub.dev"
     source: hosted
-    version: "2.6.0+3"
+    version: "2.6.0+5"
   image:
     dependency: "direct main"
     description:
@@ -816,8 +816,8 @@ packages:
     dependency: "direct main"
     description:
       path: "packages/lw_file_system"
-      ref: "3f5d1b82ff479cf064b5d689631d14e300025dea"
-      resolved-ref: "3f5d1b82ff479cf064b5d689631d14e300025dea"
+      ref: "2c4bef35e55abefea3572ebd2135ccad0d563948"
+      resolved-ref: "2c4bef35e55abefea3572ebd2135ccad0d563948"
       url: "https://github.com/LinwoodDev/dart_pkgs.git"
     source: git
     version: "1.0.0"
@@ -825,8 +825,8 @@ packages:
     dependency: transitive
     description:
       path: "packages/lw_file_system_api"
-      ref: "3cf054ad60aa87507a8c4a6d2fdf61625da39e3a"
-      resolved-ref: "3cf054ad60aa87507a8c4a6d2fdf61625da39e3a"
+      ref: b76f064b45e41a8ca1f3efae3da945edb08d47bd
+      resolved-ref: b76f064b45e41a8ca1f3efae3da945edb08d47bd
       url: "https://github.com/LinwoodDev/dart_pkgs"
     source: git
     version: "1.0.0"

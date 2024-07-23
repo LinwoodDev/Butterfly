@@ -24,8 +24,12 @@ mixin _$ButterflyComponent {
   String? get thumbnail => throw _privateConstructorUsedError;
   List<PadElement> get elements => throw _privateConstructorUsedError;
 
+  /// Serializes this ButterflyComponent to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of ButterflyComponent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $ButterflyComponentCopyWith<ButterflyComponent> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -49,6 +53,8 @@ class _$ButterflyComponentCopyWithImpl<$Res, $Val extends ButterflyComponent>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of ButterflyComponent
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -92,6 +98,8 @@ class __$$ButterflyComponentImplCopyWithImpl<$Res>
       $Res Function(_$ButterflyComponentImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of ButterflyComponent
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -146,7 +154,9 @@ class _$ButterflyComponentImpl implements _ButterflyComponent {
     return 'ButterflyComponent(name: $name, thumbnail: $thumbnail, elements: $elements)';
   }
 
-  @JsonKey(ignore: true)
+  /// Create a copy of ButterflyComponent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$ButterflyComponentImplCopyWith<_$ButterflyComponentImpl> get copyWith =>
@@ -176,8 +186,11 @@ abstract class _ButterflyComponent implements ButterflyComponent {
   String? get thumbnail;
   @override
   List<PadElement> get elements;
+
+  /// Create a copy of ButterflyComponent
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$ButterflyComponentImplCopyWith<_$ButterflyComponentImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -207,8 +220,12 @@ mixin _$ButterflyParameter {
   String get name => throw _privateConstructorUsedError;
   Object get value => throw _privateConstructorUsedError;
 
+  /// Serializes this ButterflyParameter to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of ButterflyParameter
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $ButterflyParameterCopyWith<ButterflyParameter> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -232,6 +249,8 @@ class _$ButterflyParameterCopyWithImpl<$Res, $Val extends ButterflyParameter>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of ButterflyParameter
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -270,6 +289,8 @@ class __$$TextParameterImplCopyWithImpl<$Res>
       _$TextParameterImpl _value, $Res Function(_$TextParameterImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of ButterflyParameter
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -322,7 +343,9 @@ class _$TextParameterImpl implements TextParameter {
     return 'ButterflyParameter.text(child: $child, name: $name, value: $value)';
   }
 
-  @JsonKey(ignore: true)
+  /// Create a copy of ButterflyParameter
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$TextParameterImplCopyWith<_$TextParameterImpl> get copyWith =>
@@ -351,8 +374,11 @@ abstract class TextParameter implements ButterflyParameter {
   String get name;
   @override
   String get value;
+
+  /// Create a copy of ButterflyParameter
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$TextParameterImplCopyWith<_$TextParameterImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -376,6 +402,8 @@ class __$$ColorParameterImplCopyWithImpl<$Res>
       _$ColorParameterImpl _value, $Res Function(_$ColorParameterImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of ButterflyParameter
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -428,7 +456,9 @@ class _$ColorParameterImpl implements ColorParameter {
     return 'ButterflyParameter.color(child: $child, name: $name, value: $value)';
   }
 
-  @JsonKey(ignore: true)
+  /// Create a copy of ButterflyParameter
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$ColorParameterImplCopyWith<_$ColorParameterImpl> get copyWith =>
@@ -458,8 +488,11 @@ abstract class ColorParameter implements ButterflyParameter {
   String get name;
   @override
   int get value;
+
+  /// Create a copy of ButterflyParameter
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$ColorParameterImplCopyWith<_$ColorParameterImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -483,6 +516,8 @@ class __$$BoolParameterImplCopyWithImpl<$Res>
       _$BoolParameterImpl _value, $Res Function(_$BoolParameterImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of ButterflyParameter
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -535,7 +570,9 @@ class _$BoolParameterImpl implements BoolParameter {
     return 'ButterflyParameter.bool(child: $child, name: $name, value: $value)';
   }
 
-  @JsonKey(ignore: true)
+  /// Create a copy of ButterflyParameter
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$BoolParameterImplCopyWith<_$BoolParameterImpl> get copyWith =>
@@ -564,8 +601,11 @@ abstract class BoolParameter implements ButterflyParameter {
   String get name;
   @override
   bool get value;
+
+  /// Create a copy of ButterflyParameter
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$BoolParameterImplCopyWith<_$BoolParameterImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -589,6 +629,8 @@ class __$$IntParameterImplCopyWithImpl<$Res>
       _$IntParameterImpl _value, $Res Function(_$IntParameterImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of ButterflyParameter
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -641,7 +683,9 @@ class _$IntParameterImpl implements IntParameter {
     return 'ButterflyParameter.int(child: $child, name: $name, value: $value)';
   }
 
-  @JsonKey(ignore: true)
+  /// Create a copy of ButterflyParameter
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$IntParameterImplCopyWith<_$IntParameterImpl> get copyWith =>
@@ -670,8 +714,11 @@ abstract class IntParameter implements ButterflyParameter {
   String get name;
   @override
   int get value;
+
+  /// Create a copy of ButterflyParameter
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$IntParameterImplCopyWith<_$IntParameterImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -695,6 +742,8 @@ class __$$DoubleParameterImplCopyWithImpl<$Res>
       _$DoubleParameterImpl _value, $Res Function(_$DoubleParameterImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of ButterflyParameter
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -747,7 +796,9 @@ class _$DoubleParameterImpl implements DoubleParameter {
     return 'ButterflyParameter.double(child: $child, name: $name, value: $value)';
   }
 
-  @JsonKey(ignore: true)
+  /// Create a copy of ButterflyParameter
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$DoubleParameterImplCopyWith<_$DoubleParameterImpl> get copyWith =>
@@ -777,8 +828,11 @@ abstract class DoubleParameter implements ButterflyParameter {
   String get name;
   @override
   double get value;
+
+  /// Create a copy of ButterflyParameter
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$DoubleParameterImplCopyWith<_$DoubleParameterImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -792,8 +846,12 @@ mixin _$PackAssetLocation {
   String get pack => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
 
+  /// Serializes this PackAssetLocation to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of PackAssetLocation
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $PackAssetLocationCopyWith<PackAssetLocation> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -817,6 +875,8 @@ class _$PackAssetLocationCopyWithImpl<$Res, $Val extends PackAssetLocation>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of PackAssetLocation
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -855,6 +915,8 @@ class __$$PackAssetLocationImplCopyWithImpl<$Res>
       $Res Function(_$PackAssetLocationImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of PackAssetLocation
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -903,11 +965,13 @@ class _$PackAssetLocationImpl extends _PackAssetLocation {
             (identical(other.name, name) || other.name == name));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, pack, name);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of PackAssetLocation
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$PackAssetLocationImplCopyWith<_$PackAssetLocationImpl> get copyWith =>
@@ -934,8 +998,11 @@ abstract class _PackAssetLocation extends PackAssetLocation {
   String get pack;
   @override
   String get name;
+
+  /// Create a copy of PackAssetLocation
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$PackAssetLocationImplCopyWith<_$PackAssetLocationImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

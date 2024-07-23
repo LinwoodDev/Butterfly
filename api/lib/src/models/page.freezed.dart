@@ -27,8 +27,12 @@ mixin _$DocumentPage {
   List<Area> get areas => throw _privateConstructorUsedError;
   Map<String, dynamic> get extra => throw _privateConstructorUsedError;
 
+  /// Serializes this DocumentPage to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of DocumentPage
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $DocumentPageCopyWith<DocumentPage> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -58,6 +62,8 @@ class _$DocumentPageCopyWithImpl<$Res, $Val extends DocumentPage>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of DocumentPage
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -122,6 +128,8 @@ class __$$DocumentPageImplCopyWithImpl<$Res>
       _$DocumentPageImpl _value, $Res Function(_$DocumentPageImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of DocumentPage
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -257,7 +265,7 @@ class _$DocumentPageImpl extends _DocumentPage {
             const DeepCollectionEquality().equals(other._extra, _extra));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(
       runtimeType,
@@ -268,7 +276,9 @@ class _$DocumentPageImpl extends _DocumentPage {
       const DeepCollectionEquality().hash(_areas),
       const DeepCollectionEquality().hash(_extra));
 
-  @JsonKey(ignore: true)
+  /// Create a copy of DocumentPage
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$DocumentPageImplCopyWith<_$DocumentPageImpl> get copyWith =>
@@ -307,8 +317,11 @@ abstract class _DocumentPage extends DocumentPage {
   List<Area> get areas;
   @override
   Map<String, dynamic> get extra;
+
+  /// Create a copy of DocumentPage
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$DocumentPageImplCopyWith<_$DocumentPageImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

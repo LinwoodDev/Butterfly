@@ -108,12 +108,20 @@ class RemoteSync {
     _filesSubject.onListen = _onListen;
   }
 
+  RemoteDirectoryFileSystem? buildRemoteSystem() {
+    final remoteSystem =
+        fileSystem.buildDocumentSystem(remoteStorage).fileSystem;
+    if (remoteSystem is! RemoteDirectoryFileSystem) return null;
+    return remoteSystem;
+  }
+
   Future<void> _refreshSyncStatus() async {
     if (status == SyncStatus.syncing) {
       return;
     }
-    final documentSystem = fileSystem.buildDocumentSystem(remoteStorage);
-    final currentFiles = await documentSystem.getAllSyncFiles();
+    final remoteSystem = buildRemoteSystem();
+    if (remoteSystem == null) return;
+    final currentFiles = await remoteSystem.getSyncFiles();
     _filesSubject.add(currentFiles);
   }
 
@@ -135,11 +143,11 @@ class RemoteSync {
       return;
     }
     _statusSubject.add(SyncStatus.syncing);
-    final fileSystem = DocumentFileSystem.fromPlatform(remote: remoteStorage);
-    if (fileSystem is! DocumentRemoteSystem) return;
+    final remoteSystem = buildRemoteSystem();
+    if (remoteSystem == null) return;
     var files = <SyncFile>[];
     _filesSubject.add([]);
-    final currentFiles = await fileSystem.getAllSyncFiles();
+    final currentFiles = await remoteSystem.getAllSyncFiles();
     _filesSubject.add(currentFiles);
     final now = DateTime.now().toUtc();
 
@@ -148,7 +156,7 @@ class RemoteSync {
     for (final file in currentFiles) {
       switch (file.status) {
         case FileSyncStatus.localLatest:
-          await fileSystem
+          await remoteSystem
               .uploadCachedContent(file.location.pathWithLeadingSlash);
           final syncedFile = SyncFile(
             isDirectory: file.isDirectory,
@@ -161,7 +169,7 @@ class RemoteSync {
           break;
         case FileSyncStatus.remoteLatest:
           if (!hasError) {
-            await fileSystem.cache(file.location.pathWithLeadingSlash);
+            await remoteSystem.cache(file.location.pathWithLeadingSlash);
             final syncedFile = SyncFile(
               isDirectory: file.isDirectory,
               location: file.location,
@@ -216,30 +224,31 @@ class RemoteSync {
       return;
     }
     _statusSubject.add(SyncStatus.syncing);
-    final fileSystem = DocumentFileSystem.fromPlatform(remote: remoteStorage)
-        as DavRemoteDocumentFileSystem;
     final last = List<SyncFile>.from(files ?? []);
+    final remoteSystem = buildRemoteSystem();
+    if (remoteSystem == null) return;
     last.removeWhere(
         (element) => element.location.pathWithLeadingSlash == path);
     _filesSubject.add(last);
     switch (status) {
       case FileSyncStatus.localLatest:
         // Upload local file to remote
-        await fileSystem.uploadCachedContent(path);
-        await fileSystem.deleteCachedContent(path);
+        await remoteSystem.uploadCachedContent(path);
+        await remoteSystem.deleteCachedContent(path);
         break;
       case FileSyncStatus.remoteLatest:
-        return fileSystem.deleteCachedContent(path);
+        return remoteSystem.deleteCachedContent(path);
       case FileSyncStatus.conflict:
-        await fileSystem.cache(path);
-        final remoteAsset = await fileSystem.fetchAsset(path, true, true).last;
-        switch (remoteAsset) {
-          case AppDocumentFile e:
-            final parent = path.substring(0, path.lastIndexOf('/'));
-            final doc = e.load();
-            await fileSystem.importDocument(doc, path: parent, forceSync: true);
-            await fileSystem.uploadCachedContent(path);
-            break;
+        await remoteSystem.cache(path);
+        final remoteAsset = await remoteSystem
+            .fetchAsset(path, readData: true, forceRemote: true)
+            .last;
+        if (remoteAsset is RawFileSystemFile) {
+          final doc = remoteAsset.data;
+          if (doc == null) return;
+          await remoteSystem.createFile(remoteAsset.pathWithLeadingSlash, doc,
+              forceSync: true);
+          await remoteSystem.uploadCachedContent(path);
         }
         break;
       default:

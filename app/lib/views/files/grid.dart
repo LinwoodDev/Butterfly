@@ -1,7 +1,5 @@
 import 'dart:typed_data';
 
-import 'package:butterfly/api/file_system/file_system.dart';
-import 'package:butterfly/api/file_system/file_system_remote.dart';
 import 'package:butterfly/api/save.dart';
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/services/sync.dart';
@@ -11,6 +9,7 @@ import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:lw_file_system/lw_file_system.dart';
 import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
@@ -21,7 +20,7 @@ class FileEntityGridItem extends StatelessWidget {
   final VoidCallback onTap, onDelete, onReload;
   final ValueChanged<bool> onEdit;
   final Uint8List? thumbnail;
-  final AppDocumentEntity entity;
+  final FileSystemEntity<NoteData> entity;
   final TextEditingController nameController;
 
   const FileEntityGridItem({
@@ -47,7 +46,8 @@ class FileEntityGridItem extends StatelessWidget {
     final settingsCubit = context.read<SettingsCubit>();
     final syncService = context.read<SyncService>();
     final remote = settingsCubit.getRemote(entity.location.remote);
-    final fileSystem = DocumentFileSystem.fromPlatform(remote: remote);
+    final fileSystem =
+        settingsCubit.state.fileSystem.buildDocumentSystem(remote);
     final leading = PhosphorIcon(
       icon,
       color: colorScheme.outline,
@@ -242,7 +242,7 @@ class FilesActionMenu extends StatelessWidget {
 
   final ExternalStorage? remote;
   final SyncService syncService;
-  final AppDocumentEntity entity;
+  final FileSystemEntity<NoteData> entity;
   final SettingsCubit settingsCubit;
   final bool editable;
   final ValueChanged<bool> onEdit;
@@ -300,12 +300,12 @@ class FilesActionMenu extends StatelessWidget {
             leadingIcon: const PhosphorIcon(PhosphorIconsLight.pencil),
             child: Text(AppLocalizations.of(context).rename),
           ),
-        if (entity is AppDocumentFile)
+        if (entity is FileSystemFile<NoteData>)
           MenuItemButton(
             onPressed: () {
               try {
-                final data = (entity as AppDocumentFile).data;
-                exportData(context, data);
+                final data = (entity as FileSystemFile<NoteData>).data;
+                exportData(context, data?.save() ?? []);
               } catch (e) {
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(

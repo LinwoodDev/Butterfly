@@ -13,6 +13,9 @@ enum Arrangement { forward, backward, front, back }
 
 enum DocumentPermission { read, write, admin }
 
+Map<String, dynamic> _assetLocationToJson(AssetLocation? location) =>
+    location?.toMap() ?? {};
+
 @freezed
 class DocumentEvent extends ReplayEvent with _$DocumentEvent {
   const DocumentEvent._();
@@ -63,8 +66,10 @@ class DocumentEvent extends ReplayEvent with _$DocumentEvent {
     String? description,
   }) = DocumentDescriptionChanged;
 
-  const factory DocumentEvent.documentSaved([AssetLocation? location]) =
-      DocumentSaved;
+  const factory DocumentEvent.documentSaved(
+      [@JsonKey(
+          fromJson: AssetLocationMapper.fromMap, toJson: _assetLocationToJson)
+      AssetLocation? location]) = DocumentSaved;
 
   const factory DocumentEvent.toolCreated(
     Tool tool,

@@ -119,6 +119,7 @@ DocumentEvent _$DocumentEventFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$DocumentEvent {
+  /// Serializes this DocumentEvent to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
 }
 
@@ -138,6 +139,9 @@ class _$DocumentEventCopyWithImpl<$Res, $Val extends DocumentEvent>
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
+
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -159,6 +163,8 @@ class __$$PageAddedImplCopyWithImpl<$Res>
       _$PageAddedImpl _value, $Res Function(_$PageAddedImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -177,6 +183,8 @@ class __$$PageAddedImplCopyWithImpl<$Res>
     ));
   }
 
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $DocumentPageCopyWith<$Res>? get page {
@@ -222,11 +230,13 @@ class _$PageAddedImpl extends PageAdded {
             (identical(other.page, page) || other.page == page));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, index, page);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$PageAddedImplCopyWith<_$PageAddedImpl> get copyWith =>
@@ -250,7 +260,10 @@ abstract class PageAdded extends DocumentEvent {
 
   int? get index;
   DocumentPage? get page;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$PageAddedImplCopyWith<_$PageAddedImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -272,6 +285,8 @@ class __$$PageChangedImplCopyWithImpl<$Res>
       _$PageChangedImpl _value, $Res Function(_$PageChangedImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -316,11 +331,13 @@ class _$PageChangedImpl extends PageChanged {
                 other.pageName == pageName));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, pageName);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$PageChangedImplCopyWith<_$PageChangedImpl> get copyWith =>
@@ -342,7 +359,10 @@ abstract class PageChanged extends DocumentEvent {
       _$PageChangedImpl.fromJson;
 
   String get pageName;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$PageChangedImplCopyWith<_$PageChangedImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -364,6 +384,8 @@ class __$$PageReorderedImplCopyWithImpl<$Res>
       _$PageReorderedImpl _value, $Res Function(_$PageReorderedImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -416,11 +438,13 @@ class _$PageReorderedImpl extends PageReordered {
                 other.newIndex == newIndex));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, page, newIndex);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$PageReorderedImplCopyWith<_$PageReorderedImpl> get copyWith =>
@@ -444,7 +468,10 @@ abstract class PageReordered extends DocumentEvent {
 
   String get page;
   int? get newIndex;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$PageReorderedImplCopyWith<_$PageReorderedImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -466,6 +493,8 @@ class __$$PageRenamedImplCopyWithImpl<$Res>
       _$PageRenamedImpl _value, $Res Function(_$PageRenamedImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -517,11 +546,13 @@ class _$PageRenamedImpl extends PageRenamed {
             (identical(other.newName, newName) || other.newName == newName));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, oldName, newName);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$PageRenamedImplCopyWith<_$PageRenamedImpl> get copyWith =>
@@ -545,7 +576,10 @@ abstract class PageRenamed extends DocumentEvent {
 
   String get oldName;
   String get newName;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$PageRenamedImplCopyWith<_$PageRenamedImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -567,6 +601,8 @@ class __$$PageRemovedImplCopyWithImpl<$Res>
       _$PageRemovedImpl _value, $Res Function(_$PageRemovedImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -610,11 +646,13 @@ class _$PageRemovedImpl extends PageRemoved {
             (identical(other.page, page) || other.page == page));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, page);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$PageRemovedImplCopyWith<_$PageRemovedImpl> get copyWith =>
@@ -636,7 +674,10 @@ abstract class PageRemoved extends DocumentEvent {
       _$PageRemovedImpl.fromJson;
 
   String get page;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$PageRemovedImplCopyWith<_$PageRemovedImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -658,6 +699,8 @@ class __$$ThumbnailCapturedImplCopyWithImpl<$Res>
       $Res Function(_$ThumbnailCapturedImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -703,12 +746,14 @@ class _$ThumbnailCapturedImpl extends ThumbnailCaptured {
             const DeepCollectionEquality().equals(other.data, data));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode =>
       Object.hash(runtimeType, const DeepCollectionEquality().hash(data));
 
-  @JsonKey(ignore: true)
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$ThumbnailCapturedImplCopyWith<_$ThumbnailCapturedImpl> get copyWith =>
@@ -733,7 +778,10 @@ abstract class ThumbnailCaptured extends DocumentEvent {
 
   @Uint8ListJsonConverter()
   Uint8List get data;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$ThumbnailCapturedImplCopyWith<_$ThumbnailCapturedImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -757,6 +805,8 @@ class __$$ViewChangedImplCopyWithImpl<$Res>
       _$ViewChangedImpl _value, $Res Function(_$ViewChangedImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -770,6 +820,8 @@ class __$$ViewChangedImplCopyWithImpl<$Res>
     ));
   }
 
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $ViewOptionCopyWith<$Res> get view {
@@ -808,11 +860,13 @@ class _$ViewChangedImpl extends ViewChanged {
             (identical(other.view, view) || other.view == view));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, view);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$ViewChangedImplCopyWith<_$ViewChangedImpl> get copyWith =>
@@ -834,7 +888,10 @@ abstract class ViewChanged extends DocumentEvent {
       _$ViewChangedImpl.fromJson;
 
   ViewOption get view;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$ViewChangedImplCopyWith<_$ViewChangedImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -858,6 +915,8 @@ class __$$UtilitiesChangedImplCopyWithImpl<$Res>
       $Res Function(_$UtilitiesChangedImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -871,6 +930,8 @@ class __$$UtilitiesChangedImplCopyWithImpl<$Res>
     ));
   }
 
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $UtilitiesStateCopyWith<$Res> get state {
@@ -909,11 +970,13 @@ class _$UtilitiesChangedImpl extends UtilitiesChanged {
             (identical(other.state, state) || other.state == state));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, state);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$UtilitiesChangedImplCopyWith<_$UtilitiesChangedImpl> get copyWith =>
@@ -937,7 +1000,10 @@ abstract class UtilitiesChanged extends DocumentEvent {
       _$UtilitiesChangedImpl.fromJson;
 
   UtilitiesState get state;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$UtilitiesChangedImplCopyWith<_$UtilitiesChangedImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -959,6 +1025,8 @@ class __$$ElementsCreatedImplCopyWithImpl<$Res>
       _$ElementsCreatedImpl _value, $Res Function(_$ElementsCreatedImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -1009,12 +1077,14 @@ class _$ElementsCreatedImpl extends ElementsCreated {
             const DeepCollectionEquality().equals(other._elements, _elements));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode =>
       Object.hash(runtimeType, const DeepCollectionEquality().hash(_elements));
 
-  @JsonKey(ignore: true)
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$ElementsCreatedImplCopyWith<_$ElementsCreatedImpl> get copyWith =>
@@ -1038,7 +1108,10 @@ abstract class ElementsCreated extends DocumentEvent {
       _$ElementsCreatedImpl.fromJson;
 
   List<PadElement> get elements;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$ElementsCreatedImplCopyWith<_$ElementsCreatedImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -1060,6 +1133,8 @@ class __$$ElementsChangedImplCopyWithImpl<$Res>
       _$ElementsChangedImpl _value, $Res Function(_$ElementsChangedImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -1110,12 +1185,14 @@ class _$ElementsChangedImpl extends ElementsChanged {
             const DeepCollectionEquality().equals(other._elements, _elements));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode =>
       Object.hash(runtimeType, const DeepCollectionEquality().hash(_elements));
 
-  @JsonKey(ignore: true)
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$ElementsChangedImplCopyWith<_$ElementsChangedImpl> get copyWith =>
@@ -1139,7 +1216,10 @@ abstract class ElementsChanged extends DocumentEvent {
       _$ElementsChangedImpl.fromJson;
 
   Map<String, List<PadElement>> get elements;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$ElementsChangedImplCopyWith<_$ElementsChangedImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -1161,6 +1241,8 @@ class __$$ElementsRemovedImplCopyWithImpl<$Res>
       _$ElementsRemovedImpl _value, $Res Function(_$ElementsRemovedImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -1211,12 +1293,14 @@ class _$ElementsRemovedImpl extends ElementsRemoved {
             const DeepCollectionEquality().equals(other._elements, _elements));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode =>
       Object.hash(runtimeType, const DeepCollectionEquality().hash(_elements));
 
-  @JsonKey(ignore: true)
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$ElementsRemovedImplCopyWith<_$ElementsRemovedImpl> get copyWith =>
@@ -1240,7 +1324,10 @@ abstract class ElementsRemoved extends DocumentEvent {
       _$ElementsRemovedImpl.fromJson;
 
   List<String> get elements;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$ElementsRemovedImplCopyWith<_$ElementsRemovedImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -1262,6 +1349,8 @@ class __$$ElementsArrangedImplCopyWithImpl<$Res>
       $Res Function(_$ElementsArrangedImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -1321,12 +1410,14 @@ class _$ElementsArrangedImpl extends ElementsArranged {
             const DeepCollectionEquality().equals(other._elements, _elements));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(
       runtimeType, arrangement, const DeepCollectionEquality().hash(_elements));
 
-  @JsonKey(ignore: true)
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$ElementsArrangedImplCopyWith<_$ElementsArrangedImpl> get copyWith =>
@@ -1352,7 +1443,10 @@ abstract class ElementsArranged extends DocumentEvent {
 
   Arrangement get arrangement;
   List<String> get elements;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$ElementsArrangedImplCopyWith<_$ElementsArrangedImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -1376,6 +1470,8 @@ class __$$DocumentDescriptionChangedImplCopyWithImpl<$Res>
       $Res Function(_$DocumentDescriptionChangedImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -1430,11 +1526,13 @@ class _$DocumentDescriptionChangedImpl extends DocumentDescriptionChanged {
                 other.description == description));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, name, description);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$DocumentDescriptionChangedImplCopyWith<_$DocumentDescriptionChangedImpl>
@@ -1460,7 +1558,10 @@ abstract class DocumentDescriptionChanged extends DocumentEvent {
 
   String? get name;
   String? get description;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$DocumentDescriptionChangedImplCopyWith<_$DocumentDescriptionChangedImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
@@ -1471,9 +1572,10 @@ abstract class _$$DocumentSavedImplCopyWith<$Res> {
           _$DocumentSavedImpl value, $Res Function(_$DocumentSavedImpl) then) =
       __$$DocumentSavedImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({AssetLocation? location});
-
-  $AssetLocationCopyWith<$Res>? get location;
+  $Res call(
+      {@JsonKey(
+          fromJson: AssetLocationMapper.fromMap, toJson: _assetLocationToJson)
+      AssetLocation? location});
 }
 
 /// @nodoc
@@ -1484,6 +1586,8 @@ class __$$DocumentSavedImplCopyWithImpl<$Res>
       _$DocumentSavedImpl _value, $Res Function(_$DocumentSavedImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -1496,24 +1600,16 @@ class __$$DocumentSavedImplCopyWithImpl<$Res>
               as AssetLocation?,
     ));
   }
-
-  @override
-  @pragma('vm:prefer-inline')
-  $AssetLocationCopyWith<$Res>? get location {
-    if (_value.location == null) {
-      return null;
-    }
-
-    return $AssetLocationCopyWith<$Res>(_value.location!, (value) {
-      return _then(_value.copyWith(location: value));
-    });
-  }
 }
 
 /// @nodoc
 @JsonSerializable()
 class _$DocumentSavedImpl extends DocumentSaved {
-  const _$DocumentSavedImpl([this.location, final String? $type])
+  const _$DocumentSavedImpl(
+      [@JsonKey(
+          fromJson: AssetLocationMapper.fromMap, toJson: _assetLocationToJson)
+      this.location,
+      final String? $type])
       : $type = $type ?? 'documentSaved',
         super._();
 
@@ -1521,6 +1617,7 @@ class _$DocumentSavedImpl extends DocumentSaved {
       _$$DocumentSavedImplFromJson(json);
 
   @override
+  @JsonKey(fromJson: AssetLocationMapper.fromMap, toJson: _assetLocationToJson)
   final AssetLocation? location;
 
   @JsonKey(name: 'type')
@@ -1540,11 +1637,13 @@ class _$DocumentSavedImpl extends DocumentSaved {
                 other.location == location));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, location);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$DocumentSavedImplCopyWith<_$DocumentSavedImpl> get copyWith =>
@@ -1559,15 +1658,21 @@ class _$DocumentSavedImpl extends DocumentSaved {
 }
 
 abstract class DocumentSaved extends DocumentEvent {
-  const factory DocumentSaved([final AssetLocation? location]) =
-      _$DocumentSavedImpl;
+  const factory DocumentSaved(
+      [@JsonKey(
+          fromJson: AssetLocationMapper.fromMap, toJson: _assetLocationToJson)
+      final AssetLocation? location]) = _$DocumentSavedImpl;
   const DocumentSaved._() : super._();
 
   factory DocumentSaved.fromJson(Map<String, dynamic> json) =
       _$DocumentSavedImpl.fromJson;
 
+  @JsonKey(fromJson: AssetLocationMapper.fromMap, toJson: _assetLocationToJson)
   AssetLocation? get location;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$DocumentSavedImplCopyWith<_$DocumentSavedImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -1591,6 +1696,8 @@ class __$$ToolCreatedImplCopyWithImpl<$Res>
       _$ToolCreatedImpl _value, $Res Function(_$ToolCreatedImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -1604,6 +1711,8 @@ class __$$ToolCreatedImplCopyWithImpl<$Res>
     ));
   }
 
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $ToolCopyWith<$Res> get tool {
@@ -1642,11 +1751,13 @@ class _$ToolCreatedImpl extends ToolCreated {
             (identical(other.tool, tool) || other.tool == tool));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, tool);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$ToolCreatedImplCopyWith<_$ToolCreatedImpl> get copyWith =>
@@ -1668,7 +1779,10 @@ abstract class ToolCreated extends DocumentEvent {
       _$ToolCreatedImpl.fromJson;
 
   Tool get tool;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$ToolCreatedImplCopyWith<_$ToolCreatedImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -1690,6 +1804,8 @@ class __$$ToolsChangedImplCopyWithImpl<$Res>
       _$ToolsChangedImpl _value, $Res Function(_$ToolsChangedImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -1739,12 +1855,14 @@ class _$ToolsChangedImpl extends ToolsChanged {
             const DeepCollectionEquality().equals(other._tools, _tools));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode =>
       Object.hash(runtimeType, const DeepCollectionEquality().hash(_tools));
 
-  @JsonKey(ignore: true)
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$ToolsChangedImplCopyWith<_$ToolsChangedImpl> get copyWith =>
@@ -1766,7 +1884,10 @@ abstract class ToolsChanged extends DocumentEvent {
       _$ToolsChangedImpl.fromJson;
 
   Map<int, Tool> get tools;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$ToolsChangedImplCopyWith<_$ToolsChangedImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -1788,6 +1909,8 @@ class __$$ToolsRemovedImplCopyWithImpl<$Res>
       _$ToolsRemovedImpl _value, $Res Function(_$ToolsRemovedImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -1837,12 +1960,14 @@ class _$ToolsRemovedImpl extends ToolsRemoved {
             const DeepCollectionEquality().equals(other._tools, _tools));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode =>
       Object.hash(runtimeType, const DeepCollectionEquality().hash(_tools));
 
-  @JsonKey(ignore: true)
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$ToolsRemovedImplCopyWith<_$ToolsRemovedImpl> get copyWith =>
@@ -1864,7 +1989,10 @@ abstract class ToolsRemoved extends DocumentEvent {
       _$ToolsRemovedImpl.fromJson;
 
   List<int> get tools;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$ToolsRemovedImplCopyWith<_$ToolsRemovedImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -1886,6 +2014,8 @@ class __$$ToolReorderedImplCopyWithImpl<$Res>
       _$ToolReorderedImpl _value, $Res Function(_$ToolReorderedImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -1939,11 +2069,13 @@ class _$ToolReorderedImpl extends ToolReordered {
                 other.newIndex == newIndex));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, oldIndex, newIndex);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$ToolReorderedImplCopyWith<_$ToolReorderedImpl> get copyWith =>
@@ -1967,7 +2099,10 @@ abstract class ToolReordered extends DocumentEvent {
 
   int get oldIndex;
   int get newIndex;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$ToolReorderedImplCopyWith<_$ToolReorderedImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -1991,6 +2126,8 @@ class __$$DocumentBackgroundsChangedImplCopyWithImpl<$Res>
       $Res Function(_$DocumentBackgroundsChangedImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -2043,12 +2180,14 @@ class _$DocumentBackgroundsChangedImpl extends DocumentBackgroundsChanged {
                 .equals(other._backgrounds, _backgrounds));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(
       runtimeType, const DeepCollectionEquality().hash(_backgrounds));
 
-  @JsonKey(ignore: true)
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$DocumentBackgroundsChangedImplCopyWith<_$DocumentBackgroundsChangedImpl>
@@ -2072,7 +2211,10 @@ abstract class DocumentBackgroundsChanged extends DocumentEvent {
       _$DocumentBackgroundsChangedImpl.fromJson;
 
   List<Background> get backgrounds;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$DocumentBackgroundsChangedImplCopyWith<_$DocumentBackgroundsChangedImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
@@ -2096,6 +2238,8 @@ class __$$WaypointCreatedImplCopyWithImpl<$Res>
       _$WaypointCreatedImpl _value, $Res Function(_$WaypointCreatedImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -2109,6 +2253,8 @@ class __$$WaypointCreatedImplCopyWithImpl<$Res>
     ));
   }
 
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $WaypointCopyWith<$Res> get waypoint {
@@ -2148,11 +2294,13 @@ class _$WaypointCreatedImpl extends WaypointCreated {
                 other.waypoint == waypoint));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, waypoint);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$WaypointCreatedImplCopyWith<_$WaypointCreatedImpl> get copyWith =>
@@ -2176,7 +2324,10 @@ abstract class WaypointCreated extends DocumentEvent {
       _$WaypointCreatedImpl.fromJson;
 
   Waypoint get waypoint;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$WaypointCreatedImplCopyWith<_$WaypointCreatedImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -2200,6 +2351,8 @@ class __$$WaypointChangedImplCopyWithImpl<$Res>
       _$WaypointChangedImpl _value, $Res Function(_$WaypointChangedImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -2218,6 +2371,8 @@ class __$$WaypointChangedImplCopyWithImpl<$Res>
     ));
   }
 
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $WaypointCopyWith<$Res> get waypoint {
@@ -2260,11 +2415,13 @@ class _$WaypointChangedImpl extends WaypointChanged {
                 other.waypoint == waypoint));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, name, waypoint);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$WaypointChangedImplCopyWith<_$WaypointChangedImpl> get copyWith =>
@@ -2289,7 +2446,10 @@ abstract class WaypointChanged extends DocumentEvent {
 
   String get name;
   Waypoint get waypoint;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$WaypointChangedImplCopyWith<_$WaypointChangedImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -2311,6 +2471,8 @@ class __$$WaypointRemovedImplCopyWithImpl<$Res>
       _$WaypointRemovedImpl _value, $Res Function(_$WaypointRemovedImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -2354,11 +2516,13 @@ class _$WaypointRemovedImpl extends WaypointRemoved {
             (identical(other.name, name) || other.name == name));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, name);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$WaypointRemovedImplCopyWith<_$WaypointRemovedImpl> get copyWith =>
@@ -2381,7 +2545,10 @@ abstract class WaypointRemoved extends DocumentEvent {
       _$WaypointRemovedImpl.fromJson;
 
   String get name;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$WaypointRemovedImplCopyWith<_$WaypointRemovedImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -2403,6 +2570,8 @@ class __$$WaypointReorderedImplCopyWithImpl<$Res>
       $Res Function(_$WaypointReorderedImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -2455,11 +2624,13 @@ class _$WaypointReorderedImpl extends WaypointReordered {
                 other.newIndex == newIndex));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, name, newIndex);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$WaypointReorderedImplCopyWith<_$WaypointReorderedImpl> get copyWith =>
@@ -2484,7 +2655,10 @@ abstract class WaypointReordered extends DocumentEvent {
 
   String get name;
   int get newIndex;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$WaypointReorderedImplCopyWith<_$WaypointReorderedImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -2506,6 +2680,8 @@ class __$$LayerRenamedImplCopyWithImpl<$Res>
       _$LayerRenamedImpl _value, $Res Function(_$LayerRenamedImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -2557,11 +2733,13 @@ class _$LayerRenamedImpl extends LayerRenamed {
             (identical(other.newName, newName) || other.newName == newName));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, oldName, newName);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$LayerRenamedImplCopyWith<_$LayerRenamedImpl> get copyWith =>
@@ -2585,7 +2763,10 @@ abstract class LayerRenamed extends DocumentEvent {
 
   String get oldName;
   String get newName;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$LayerRenamedImplCopyWith<_$LayerRenamedImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -2607,6 +2788,8 @@ class __$$LayerRemovedImplCopyWithImpl<$Res>
       _$LayerRemovedImpl _value, $Res Function(_$LayerRemovedImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -2650,11 +2833,13 @@ class _$LayerRemovedImpl extends LayerRemoved {
             (identical(other.name, name) || other.name == name));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, name);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$LayerRemovedImplCopyWith<_$LayerRemovedImpl> get copyWith =>
@@ -2676,7 +2861,10 @@ abstract class LayerRemoved extends DocumentEvent {
       _$LayerRemovedImpl.fromJson;
 
   String get name;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$LayerRemovedImplCopyWith<_$LayerRemovedImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -2698,6 +2886,8 @@ class __$$LayerElementsRemovedImplCopyWithImpl<$Res>
       $Res Function(_$LayerElementsRemovedImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -2741,11 +2931,13 @@ class _$LayerElementsRemovedImpl extends LayerElementsRemoved {
             (identical(other.name, name) || other.name == name));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, name);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$LayerElementsRemovedImplCopyWith<_$LayerElementsRemovedImpl>
@@ -2770,7 +2962,10 @@ abstract class LayerElementsRemoved extends DocumentEvent {
       _$LayerElementsRemovedImpl.fromJson;
 
   String get name;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$LayerElementsRemovedImplCopyWith<_$LayerElementsRemovedImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
@@ -2794,6 +2989,8 @@ class __$$LayerVisibilityChangedImplCopyWithImpl<$Res>
       $Res Function(_$LayerVisibilityChangedImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -2837,11 +3034,13 @@ class _$LayerVisibilityChangedImpl extends LayerVisibilityChanged {
             (identical(other.name, name) || other.name == name));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, name);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$LayerVisibilityChangedImplCopyWith<_$LayerVisibilityChangedImpl>
@@ -2865,7 +3064,10 @@ abstract class LayerVisibilityChanged extends DocumentEvent {
       _$LayerVisibilityChangedImpl.fromJson;
 
   String get name;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$LayerVisibilityChangedImplCopyWith<_$LayerVisibilityChangedImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
@@ -2887,6 +3089,8 @@ class __$$CurrentLayerChangedImplCopyWithImpl<$Res>
       $Res Function(_$CurrentLayerChangedImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -2930,11 +3134,13 @@ class _$CurrentLayerChangedImpl extends CurrentLayerChanged {
             (identical(other.name, name) || other.name == name));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, name);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$CurrentLayerChangedImplCopyWith<_$CurrentLayerChangedImpl> get copyWith =>
@@ -2958,7 +3164,10 @@ abstract class CurrentLayerChanged extends DocumentEvent {
       _$CurrentLayerChangedImpl.fromJson;
 
   String get name;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$CurrentLayerChangedImplCopyWith<_$CurrentLayerChangedImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -2980,6 +3189,8 @@ class __$$ElementsLayerChangedImplCopyWithImpl<$Res>
       $Res Function(_$ElementsLayerChangedImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -3038,12 +3249,14 @@ class _$ElementsLayerChangedImpl extends ElementsLayerChanged {
             const DeepCollectionEquality().equals(other._elements, _elements));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(
       runtimeType, layer, const DeepCollectionEquality().hash(_elements));
 
-  @JsonKey(ignore: true)
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$ElementsLayerChangedImplCopyWith<_$ElementsLayerChangedImpl>
@@ -3070,7 +3283,10 @@ abstract class ElementsLayerChanged extends DocumentEvent {
 
   String get layer;
   List<String> get elements;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$ElementsLayerChangedImplCopyWith<_$ElementsLayerChangedImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
@@ -3092,6 +3308,8 @@ class __$$AreasCreatedImplCopyWithImpl<$Res>
       _$AreasCreatedImpl _value, $Res Function(_$AreasCreatedImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -3141,12 +3359,14 @@ class _$AreasCreatedImpl extends AreasCreated {
             const DeepCollectionEquality().equals(other._areas, _areas));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode =>
       Object.hash(runtimeType, const DeepCollectionEquality().hash(_areas));
 
-  @JsonKey(ignore: true)
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$AreasCreatedImplCopyWith<_$AreasCreatedImpl> get copyWith =>
@@ -3168,7 +3388,10 @@ abstract class AreasCreated extends DocumentEvent {
       _$AreasCreatedImpl.fromJson;
 
   List<Area> get areas;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$AreasCreatedImplCopyWith<_$AreasCreatedImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -3190,6 +3413,8 @@ class __$$AreasRemovedImplCopyWithImpl<$Res>
       _$AreasRemovedImpl _value, $Res Function(_$AreasRemovedImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -3239,12 +3464,14 @@ class _$AreasRemovedImpl extends AreasRemoved {
             const DeepCollectionEquality().equals(other._areas, _areas));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode =>
       Object.hash(runtimeType, const DeepCollectionEquality().hash(_areas));
 
-  @JsonKey(ignore: true)
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$AreasRemovedImplCopyWith<_$AreasRemovedImpl> get copyWith =>
@@ -3266,7 +3493,10 @@ abstract class AreasRemoved extends DocumentEvent {
       _$AreasRemovedImpl.fromJson;
 
   List<String> get areas;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$AreasRemovedImplCopyWith<_$AreasRemovedImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -3290,6 +3520,8 @@ class __$$AreaChangedImplCopyWithImpl<$Res>
       _$AreaChangedImpl _value, $Res Function(_$AreaChangedImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -3308,6 +3540,8 @@ class __$$AreaChangedImplCopyWithImpl<$Res>
     ));
   }
 
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $AreaCopyWith<$Res> get area {
@@ -3349,11 +3583,13 @@ class _$AreaChangedImpl extends AreaChanged {
             (identical(other.area, area) || other.area == area));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, name, area);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$AreaChangedImplCopyWith<_$AreaChangedImpl> get copyWith =>
@@ -3377,7 +3613,10 @@ abstract class AreaChanged extends DocumentEvent {
 
   String get name;
   Area get area;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$AreaChangedImplCopyWith<_$AreaChangedImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -3399,6 +3638,8 @@ class __$$AreaReorderedImplCopyWithImpl<$Res>
       _$AreaReorderedImpl _value, $Res Function(_$AreaReorderedImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -3451,11 +3692,13 @@ class _$AreaReorderedImpl extends AreaReordered {
                 other.newIndex == newIndex));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, name, newIndex);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$AreaReorderedImplCopyWith<_$AreaReorderedImpl> get copyWith =>
@@ -3479,7 +3722,10 @@ abstract class AreaReordered extends DocumentEvent {
 
   String get name;
   int get newIndex;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$AreaReorderedImplCopyWith<_$AreaReorderedImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -3501,6 +3747,8 @@ class __$$CurrentAreaChangedImplCopyWithImpl<$Res>
       $Res Function(_$CurrentAreaChangedImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -3544,11 +3792,13 @@ class _$CurrentAreaChangedImpl extends CurrentAreaChanged {
             (identical(other.name, name) || other.name == name));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, name);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$CurrentAreaChangedImplCopyWith<_$CurrentAreaChangedImpl> get copyWith =>
@@ -3572,7 +3822,10 @@ abstract class CurrentAreaChanged extends DocumentEvent {
       _$CurrentAreaChangedImpl.fromJson;
 
   String get name;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$CurrentAreaChangedImplCopyWith<_$CurrentAreaChangedImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -3594,6 +3847,8 @@ class __$$ExportPresetCreatedImplCopyWithImpl<$Res>
       $Res Function(_$ExportPresetCreatedImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -3653,12 +3908,14 @@ class _$ExportPresetCreatedImpl extends ExportPresetCreated {
             const DeepCollectionEquality().equals(other._areas, _areas));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(
       runtimeType, name, const DeepCollectionEquality().hash(_areas));
 
-  @JsonKey(ignore: true)
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$ExportPresetCreatedImplCopyWith<_$ExportPresetCreatedImpl> get copyWith =>
@@ -3683,7 +3940,10 @@ abstract class ExportPresetCreated extends DocumentEvent {
 
   String get name;
   List<AreaPreset> get areas;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$ExportPresetCreatedImplCopyWith<_$ExportPresetCreatedImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -3705,6 +3965,8 @@ class __$$ExportPresetUpdatedImplCopyWithImpl<$Res>
       $Res Function(_$ExportPresetUpdatedImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -3763,12 +4025,14 @@ class _$ExportPresetUpdatedImpl extends ExportPresetUpdated {
             const DeepCollectionEquality().equals(other._areas, _areas));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(
       runtimeType, name, const DeepCollectionEquality().hash(_areas));
 
-  @JsonKey(ignore: true)
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$ExportPresetUpdatedImplCopyWith<_$ExportPresetUpdatedImpl> get copyWith =>
@@ -3794,7 +4058,10 @@ abstract class ExportPresetUpdated extends DocumentEvent {
 
   String get name;
   List<AreaPreset> get areas;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$ExportPresetUpdatedImplCopyWith<_$ExportPresetUpdatedImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -3816,6 +4083,8 @@ class __$$ExportPresetRemovedImplCopyWithImpl<$Res>
       $Res Function(_$ExportPresetRemovedImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -3859,11 +4128,13 @@ class _$ExportPresetRemovedImpl extends ExportPresetRemoved {
             (identical(other.name, name) || other.name == name));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, name);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$ExportPresetRemovedImplCopyWith<_$ExportPresetRemovedImpl> get copyWith =>
@@ -3887,7 +4158,10 @@ abstract class ExportPresetRemoved extends DocumentEvent {
       _$ExportPresetRemovedImpl.fromJson;
 
   String get name;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$ExportPresetRemovedImplCopyWith<_$ExportPresetRemovedImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -3909,6 +4183,8 @@ class __$$PackAddedImplCopyWithImpl<$Res>
       _$PackAddedImpl _value, $Res Function(_$PackAddedImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -3952,11 +4228,13 @@ class _$PackAddedImpl extends PackAdded {
             (identical(other.pack, pack) || other.pack == pack));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, pack);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$PackAddedImplCopyWith<_$PackAddedImpl> get copyWith =>
@@ -3978,7 +4256,10 @@ abstract class PackAdded extends DocumentEvent {
       _$PackAddedImpl.fromJson;
 
   NoteData get pack;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$PackAddedImplCopyWith<_$PackAddedImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -4000,6 +4281,8 @@ class __$$PackUpdatedImplCopyWithImpl<$Res>
       _$PackUpdatedImpl _value, $Res Function(_$PackUpdatedImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -4051,11 +4334,13 @@ class _$PackUpdatedImpl extends PackUpdated {
             (identical(other.pack, pack) || other.pack == pack));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, name, pack);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$PackUpdatedImplCopyWith<_$PackUpdatedImpl> get copyWith =>
@@ -4079,7 +4364,10 @@ abstract class PackUpdated extends DocumentEvent {
 
   String get name;
   NoteData get pack;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$PackUpdatedImplCopyWith<_$PackUpdatedImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -4101,6 +4389,8 @@ class __$$PackRemovedImplCopyWithImpl<$Res>
       _$PackRemovedImpl _value, $Res Function(_$PackRemovedImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -4144,11 +4434,13 @@ class _$PackRemovedImpl extends PackRemoved {
             (identical(other.name, name) || other.name == name));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, name);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$PackRemovedImplCopyWith<_$PackRemovedImpl> get copyWith =>
@@ -4170,7 +4462,10 @@ abstract class PackRemoved extends DocumentEvent {
       _$PackRemovedImpl.fromJson;
 
   String get name;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$PackRemovedImplCopyWith<_$PackRemovedImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -4194,6 +4489,8 @@ class __$$AnimationAddedImplCopyWithImpl<$Res>
       _$AnimationAddedImpl _value, $Res Function(_$AnimationAddedImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -4207,6 +4504,8 @@ class __$$AnimationAddedImplCopyWithImpl<$Res>
     ));
   }
 
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $AnimationTrackCopyWith<$Res> get animation {
@@ -4246,11 +4545,13 @@ class _$AnimationAddedImpl extends AnimationAdded {
                 other.animation == animation));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, animation);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$AnimationAddedImplCopyWith<_$AnimationAddedImpl> get copyWith =>
@@ -4274,7 +4575,10 @@ abstract class AnimationAdded extends DocumentEvent {
       _$AnimationAddedImpl.fromJson;
 
   AnimationTrack get animation;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$AnimationAddedImplCopyWith<_$AnimationAddedImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -4298,6 +4602,8 @@ class __$$AnimationUpdatedImplCopyWithImpl<$Res>
       $Res Function(_$AnimationUpdatedImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -4316,6 +4622,8 @@ class __$$AnimationUpdatedImplCopyWithImpl<$Res>
     ));
   }
 
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $AnimationTrackCopyWith<$Res> get animation {
@@ -4358,11 +4666,13 @@ class _$AnimationUpdatedImpl extends AnimationUpdated {
                 other.animation == animation));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, name, animation);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$AnimationUpdatedImplCopyWith<_$AnimationUpdatedImpl> get copyWith =>
@@ -4388,7 +4698,10 @@ abstract class AnimationUpdated extends DocumentEvent {
 
   String get name;
   AnimationTrack get animation;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$AnimationUpdatedImplCopyWith<_$AnimationUpdatedImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -4410,6 +4723,8 @@ class __$$AnimationRemovedImplCopyWithImpl<$Res>
       $Res Function(_$AnimationRemovedImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -4453,11 +4768,13 @@ class _$AnimationRemovedImpl extends AnimationRemoved {
             (identical(other.name, name) || other.name == name));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, name);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$AnimationRemovedImplCopyWith<_$AnimationRemovedImpl> get copyWith =>
@@ -4480,7 +4797,10 @@ abstract class AnimationRemoved extends DocumentEvent {
       _$AnimationRemovedImpl.fromJson;
 
   String get name;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$AnimationRemovedImplCopyWith<_$AnimationRemovedImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -4506,6 +4826,8 @@ class __$$PresentationModeEnteredImplCopyWithImpl<$Res>
       $Res Function(_$PresentationModeEnteredImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -4524,6 +4846,8 @@ class __$$PresentationModeEnteredImplCopyWithImpl<$Res>
     ));
   }
 
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $AnimationTrackCopyWith<$Res> get track {
@@ -4567,11 +4891,13 @@ class _$PresentationModeEnteredImpl extends PresentationModeEntered {
                 other.fullScreen == fullScreen));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, track, fullScreen);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$PresentationModeEnteredImplCopyWith<_$PresentationModeEnteredImpl>
@@ -4597,7 +4923,10 @@ abstract class PresentationModeEntered extends DocumentEvent {
 
   AnimationTrack get track;
   bool get fullScreen;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$PresentationModeEnteredImplCopyWith<_$PresentationModeEnteredImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
@@ -4618,6 +4947,9 @@ class __$$PresentationModeExitedImplCopyWithImpl<$Res>
       _$PresentationModeExitedImpl _value,
       $Res Function(_$PresentationModeExitedImpl) _then)
       : super(_value, _then);
+
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -4645,7 +4977,7 @@ class _$PresentationModeExitedImpl extends PresentationModeExited {
             other is _$PresentationModeExitedImpl);
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => runtimeType.hashCode;
 
@@ -4682,6 +5014,8 @@ class __$$PresentationTickImplCopyWithImpl<$Res>
       $Res Function(_$PresentationTickImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -4725,11 +5059,13 @@ class _$PresentationTickImpl extends PresentationTick {
             (identical(other.tick, tick) || other.tick == tick));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, tick);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$PresentationTickImplCopyWith<_$PresentationTickImpl> get copyWith =>
@@ -4752,7 +5088,10 @@ abstract class PresentationTick extends DocumentEvent {
       _$PresentationTickImpl.fromJson;
 
   int get tick;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$PresentationTickImplCopyWith<_$PresentationTickImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -4774,6 +5113,8 @@ class __$$AssetUpdatedImplCopyWithImpl<$Res>
       _$AssetUpdatedImpl _value, $Res Function(_$AssetUpdatedImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -4832,12 +5173,14 @@ class _$AssetUpdatedImpl extends AssetUpdated {
             const DeepCollectionEquality().equals(other._data, _data));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(
       runtimeType, path, const DeepCollectionEquality().hash(_data));
 
-  @JsonKey(ignore: true)
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$AssetUpdatedImplCopyWith<_$AssetUpdatedImpl> get copyWith =>
@@ -4861,7 +5204,10 @@ abstract class AssetUpdated extends DocumentEvent {
 
   String get path;
   List<int> get data;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$AssetUpdatedImplCopyWith<_$AssetUpdatedImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

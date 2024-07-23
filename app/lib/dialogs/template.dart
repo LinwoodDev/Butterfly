@@ -253,7 +253,8 @@ class _TemplateDialogState extends State<TemplateDialog> {
                                 if (info == null) continue;
                                 template = template
                                     .setInfo(info.copyWith(tools: tools));
-                                await _templateSystem.updateTemplate(template);
+                                await _templateSystem.updateFile(
+                                    name, template);
                               }
                               setState(() {
                                 _selectedTemplates.clear();
@@ -269,7 +270,7 @@ class _TemplateDialogState extends State<TemplateDialog> {
                                 builder: (ctx) => const DeleteDialog());
                             if (result != true) return;
                             for (final template in _selectedTemplates) {
-                              await _templateSystem.deleteTemplate(template);
+                              await _templateSystem.deleteFile(template);
                             }
                             _selectedTemplates.clear();
                             load();
@@ -335,7 +336,7 @@ class _TemplateDialogState extends State<TemplateDialog> {
                 child: Text(AppLocalizations.of(context).create),
                 onPressed: () async {
                   bloc.createTemplate(
-                    _templateSystem.remote?.identifier,
+                    _templateSystem.storage?.identifier,
                     name: nameController.text,
                     directory: directoryController.text,
                   );
@@ -415,7 +416,7 @@ class _TemplateItem extends StatelessWidget {
       ),
       onSaved: (value) async {
         if (value == metadata.name) return;
-        await fileSystem.renameTemplate(metadata.name, value);
+        await fileSystem.renameFile(metadata.name, value);
         onChanged();
       },
       actions: [
@@ -436,14 +437,14 @@ class _TemplateItem extends StatelessWidget {
                 context: context, builder: (ctx) => const DeleteDialog());
             if (result != true) return;
             if (context.mounted) {
-              await fileSystem.deleteTemplate(metadata.name);
+              await fileSystem.deleteFile(metadata.name);
               onChanged();
             }
           },
         ),
       ],
       onTap: () => openNewDocument(
-          context, replace, template, fileSystem.remote?.identifier),
+          context, replace, template, fileSystem.storage?.identifier),
     );
   }
 }

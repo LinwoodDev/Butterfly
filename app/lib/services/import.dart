@@ -39,18 +39,31 @@ import '../dialogs/export/pdf.dart';
 class ImportService {
   final DocumentBloc? bloc;
   final BuildContext context;
+  final ExternalStorage? storage;
+  final bool useDefaultStorage;
 
-  ImportService(this.context, [this.bloc]);
+  ImportService(
+    this.context, {
+    this.bloc,
+    this.storage,
+    this.useDefaultStorage = true,
+  });
 
   DocumentLoadSuccess? _getState() => bloc?.state is DocumentLoadSuccess
       ? (bloc?.state as DocumentLoadSuccess)
       : null;
   CurrentIndexCubit? get currentIndexCubit => _getState()?.currentIndexCubit;
-  DocumentFileSystem getFileSystem() => context.read<DocumentFileSystem>();
-  TemplateFileSystem getTemplateFileSystem() =>
-      context.read<TemplateFileSystem>();
-  PackFileSystem getPackFileSystem() => context.read<PackFileSystem>();
   SettingsCubit getSettingsCubit() => context.read<SettingsCubit>();
+  ButterflySettings getSettings() => getSettingsCubit().state;
+  DocumentFileSystem getDocumentSystem() => useDefaultStorage
+      ? getSettings().buildDefaultDocumentSystem()
+      : getSettings().fileSystem.buildDocumentSystem(storage);
+  TemplateFileSystem getTemplateFileSystem() => useDefaultStorage
+      ? getSettings().buildDefaultTemplateSystem()
+      : getSettings().fileSystem.buildTemplateSystem(storage);
+  PackFileSystem getPackFileSystem() => useDefaultStorage
+      ? getSettings().buildDefaultPackSystem()
+      : getSettings().fileSystem.buildPackSystem(storage);
 
   Future<NoteData?> load(
       {String type = '', Object? data, NoteData? document}) async {
@@ -61,6 +74,7 @@ class ImportService {
     document ??= state?.data;
     document ??= DocumentDefaults.createDocument();
     Uint8List? bytes;
+    final fs = getDocumentSystem();
     if (data is Uint8List) {
       bytes = data;
     } else if (data is String) {
@@ -68,7 +82,7 @@ class ImportService {
     } else if (data is FileSystemFile<NoteData>) {
       bytes = Uint8List.fromList(data.data?.save() ?? []);
     } else if (location != null) {
-      bytes = await getFileSystem().loadAbsolute(location.path);
+      bytes = await fs.loadAbsolute(location.path);
     } else if (data is List) {
       bytes = Uint8List.fromList(List<int>.from(data));
     } else if (data is NoteData) {
@@ -311,7 +325,7 @@ class ImportService {
           TemplateImportConfirmationDialog(template: metadata),
     );
     if (context.mounted && result == true) {
-      templateSystem.createTemplate(template);
+      templateSystem.createFile(template.name ?? '', template);
     }
     return template.createDocument();
   }
@@ -330,7 +344,7 @@ class ImportService {
       if (document != null) {
         document = document.setPack(pack);
       } else {
-        packSystem.createPack(pack);
+        packSystem.createFile(pack.name ?? '', pack);
       }
     }
     return true;
@@ -729,21 +743,24 @@ class ImportService {
   Future<bool> importArchive(Uint8List bytes,
       {DocumentFileSystem? fileSystem}) async {
     try {
-      fileSystem ??= getFileSystem();
+      fileSystem ??= getDocumentSystem();
       final archive = ZipDecoder().decodeBytes(bytes);
       final data = NoteData.fromArchive(archive);
       if (data.isValid) {
         final document = await importBfly(bytes);
         if (document != null) {
-          fileSystem.importDocument(document);
+          fileSystem.createFile(document.name ?? '', document);
         }
         return document != null;
       }
       for (final file in archive) {
-        if (!file.name.endsWith('.bfly')) continue;
+        const fileExtension = '.bfly';
+        if (!file.name.endsWith(fileExtension)) continue;
         final document = await importBfly(file.content);
         if (document != null) {
-          fileSystem.importDocument(document);
+          fileSystem.createFile(
+              file.name.substring(0, file.name.length - fileExtension.length),
+              document);
         }
       }
       return true;

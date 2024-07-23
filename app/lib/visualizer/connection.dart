@@ -3,6 +3,7 @@ import 'package:butterfly/services/sync.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:lw_file_system/lw_file_system.dart';
+import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 extension FileSyncStatusVisualizer on FileSyncStatus? {
@@ -71,8 +72,17 @@ extension SyncModeVisualizer on SyncMode {
 }
 
 extension ExternalStorageVisualizer on ExternalStorage {
-  PhosphorIconData get icon => switch (this) {
-        LocalStorage() => PhosphorIconsLight.house,
-        DavRemoteStorage() => PhosphorIconsLight.cloud,
+  IconGetter get typeIcon => switch (this) {
+        LocalStorage() => PhosphorIcons.house,
+        DavRemoteStorage() => PhosphorIcons.cloud,
+      };
+  String getLocalizedTypeName(BuildContext context) => switch (this) {
+        LocalStorage() => AppLocalizations.of(context).local,
+        DavRemoteStorage() => AppLocalizations.of(context).dav,
       };
 }
+
+List<ExternalStorage> getSupportedStorages() => [
+      const LocalStorage(),
+      const DavRemoteStorage(username: '', url: ''),
+    ];

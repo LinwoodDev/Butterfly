@@ -4,7 +4,6 @@ import 'package:butterfly/actions/change_path.dart';
 import 'package:butterfly/actions/search.dart';
 import 'package:butterfly/actions/settings.dart';
 import 'package:butterfly/actions/svg_export.dart';
-import 'package:butterfly/api/file_system/file_system.dart';
 import 'package:butterfly/api/open.dart';
 import 'package:butterfly/cubits/current_index.dart';
 import 'package:butterfly/dialogs/collaboration/dialog.dart';
@@ -178,8 +177,9 @@ class _AppBarTitle extends StatelessWidget {
                         final settingsCubit = context.read<SettingsCubit>();
                         final settings = settingsCubit.state;
                         final location = cubit.state.location;
-                        final fileSystem = DocumentFileSystem.fromPlatform(
-                            remote: settings.getRemote(location.remote));
+                        final fileSystem = settings.fileSystem
+                            .buildDocumentSystem(
+                                settings.getRemote(location.remote));
                         await fileSystem.deleteAsset(location.path);
                         await settingsCubit.removeRecentHistory(location);
                         if (state is DocumentLoadSuccess) {

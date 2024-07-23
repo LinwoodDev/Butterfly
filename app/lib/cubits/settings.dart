@@ -368,6 +368,14 @@ class ButterflySettings with _$ButterflySettings, LeapSettings {
   DocumentFileSystem buildDefaultDocumentSystem() =>
       fileSystem.buildDocumentSystem(getDefaultRemote());
 
+  Map<String, DocumentFileSystem> buildAllDocumentSystems() {
+    final map = <String, DocumentFileSystem>{};
+    for (final remote in connections) {
+      map[remote.identifier] = fileSystem.buildDocumentSystem(remote);
+    }
+    return map;
+  }
+
   TemplateFileSystem buildDefaultTemplateSystem() =>
       fileSystem.buildTemplateSystem(getDefaultRemote());
 
