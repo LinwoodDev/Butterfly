@@ -44,8 +44,7 @@ class _FileEntityItemState extends State<FileEntityItem> {
     final fileSystem = context.read<ButterflyFileSystem>();
     final remote =
         fileSystem.settingsCubit.getRemote(widget.entity.location.remote);
-    final documentSystem =
-        fileSystem.buildDocumentSystem(remote);
+    final documentSystem = fileSystem.buildDocumentSystem(remote);
     FileMetadata? metadata;
     Uint8List? thumbnail;
     String? modifiedText, createdText;
