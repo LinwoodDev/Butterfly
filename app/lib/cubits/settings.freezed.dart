@@ -304,7 +304,6 @@ abstract class _InputConfiguration extends InputConfiguration {
 
 /// @nodoc
 mixin _$ButterflySettings {
-  ButterflyFileSystem get fileSystem => throw _privateConstructorUsedError;
   ThemeMode get theme => throw _privateConstructorUsedError;
   ThemeDensity get density => throw _privateConstructorUsedError;
   String get localeTag => throw _privateConstructorUsedError;
@@ -362,8 +361,7 @@ abstract class $ButterflySettingsCopyWith<$Res> {
       _$ButterflySettingsCopyWithImpl<$Res, ButterflySettings>;
   @useResult
   $Res call(
-      {ButterflyFileSystem fileSystem,
-      ThemeMode theme,
+      {ThemeMode theme,
       ThemeDensity density,
       String localeTag,
       String documentPath,
@@ -423,7 +421,6 @@ class _$ButterflySettingsCopyWithImpl<$Res, $Val extends ButterflySettings>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? fileSystem = null,
     Object? theme = null,
     Object? density = null,
     Object? localeTag = null,
@@ -469,10 +466,6 @@ class _$ButterflySettingsCopyWithImpl<$Res, $Val extends ButterflySettings>
     Object? hideCursorWhileDrawing = null,
   }) {
     return _then(_value.copyWith(
-      fileSystem: null == fileSystem
-          ? _value.fileSystem
-          : fileSystem // ignore: cast_nullable_to_non_nullable
-              as ButterflyFileSystem,
       theme: null == theme
           ? _value.theme
           : theme // ignore: cast_nullable_to_non_nullable
@@ -667,8 +660,7 @@ abstract class _$$ButterflySettingsImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {ButterflyFileSystem fileSystem,
-      ThemeMode theme,
+      {ThemeMode theme,
       ThemeDensity density,
       String localeTag,
       String documentPath,
@@ -727,7 +719,6 @@ class __$$ButterflySettingsImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? fileSystem = null,
     Object? theme = null,
     Object? density = null,
     Object? localeTag = null,
@@ -773,10 +764,6 @@ class __$$ButterflySettingsImplCopyWithImpl<$Res>
     Object? hideCursorWhileDrawing = null,
   }) {
     return _then(_$ButterflySettingsImpl(
-      fileSystem: null == fileSystem
-          ? _value.fileSystem
-          : fileSystem // ignore: cast_nullable_to_non_nullable
-              as ButterflyFileSystem,
       theme: null == theme
           ? _value.theme
           : theme // ignore: cast_nullable_to_non_nullable
@@ -958,8 +945,7 @@ class __$$ButterflySettingsImplCopyWithImpl<$Res>
 class _$ButterflySettingsImpl extends _ButterflySettings
     with DiagnosticableTreeMixin {
   const _$ButterflySettingsImpl(
-      {required this.fileSystem,
-      this.theme = ThemeMode.system,
+      {this.theme = ThemeMode.system,
       this.density = ThemeDensity.system,
       this.localeTag = '',
       this.documentPath = '',
@@ -1009,8 +995,6 @@ class _$ButterflySettingsImpl extends _ButterflySettings
         _flags = flags,
         super._();
 
-  @override
-  final ButterflyFileSystem fileSystem;
   @override
   @JsonKey()
   final ThemeMode theme;
@@ -1172,7 +1156,7 @@ class _$ButterflySettingsImpl extends _ButterflySettings
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'ButterflySettings(fileSystem: $fileSystem, theme: $theme, density: $density, localeTag: $localeTag, documentPath: $documentPath, touchSensitivity: $touchSensitivity, mouseSensitivity: $mouseSensitivity, penSensitivity: $penSensitivity, selectSensitivity: $selectSensitivity, penOnlyInput: $penOnlyInput, inputGestures: $inputGestures, design: $design, bannerVisibility: $bannerVisibility, history: $history, navigatorEnabled: $navigatorEnabled, zoomEnabled: $zoomEnabled, lastVersion: $lastVersion, connections: $connections, defaultRemote: $defaultRemote, nativeTitleBar: $nativeTitleBar, startInFullScreen: $startInFullScreen, navigationRail: $navigationRail, syncMode: $syncMode, inputConfiguration: $inputConfiguration, fallbackPack: $fallbackPack, starred: $starred, defaultTemplate: $defaultTemplate, navigatorPage: $navigatorPage, navigatorPosition: $navigatorPosition, toolbarPosition: $toolbarPosition, toolbarSize: $toolbarSize, sortBy: $sortBy, sortOrder: $sortOrder, imageScale: $imageScale, pdfQuality: $pdfQuality, platformTheme: $platformTheme, recentColors: $recentColors, flags: $flags, spreadPages: $spreadPages, highContrast: $highContrast, gridView: $gridView, autosave: $autosave, toolbarRows: $toolbarRows, hideCursorWhileDrawing: $hideCursorWhileDrawing)';
+    return 'ButterflySettings(theme: $theme, density: $density, localeTag: $localeTag, documentPath: $documentPath, touchSensitivity: $touchSensitivity, mouseSensitivity: $mouseSensitivity, penSensitivity: $penSensitivity, selectSensitivity: $selectSensitivity, penOnlyInput: $penOnlyInput, inputGestures: $inputGestures, design: $design, bannerVisibility: $bannerVisibility, history: $history, navigatorEnabled: $navigatorEnabled, zoomEnabled: $zoomEnabled, lastVersion: $lastVersion, connections: $connections, defaultRemote: $defaultRemote, nativeTitleBar: $nativeTitleBar, startInFullScreen: $startInFullScreen, navigationRail: $navigationRail, syncMode: $syncMode, inputConfiguration: $inputConfiguration, fallbackPack: $fallbackPack, starred: $starred, defaultTemplate: $defaultTemplate, navigatorPage: $navigatorPage, navigatorPosition: $navigatorPosition, toolbarPosition: $toolbarPosition, toolbarSize: $toolbarSize, sortBy: $sortBy, sortOrder: $sortOrder, imageScale: $imageScale, pdfQuality: $pdfQuality, platformTheme: $platformTheme, recentColors: $recentColors, flags: $flags, spreadPages: $spreadPages, highContrast: $highContrast, gridView: $gridView, autosave: $autosave, toolbarRows: $toolbarRows, hideCursorWhileDrawing: $hideCursorWhileDrawing)';
   }
 
   @override
@@ -1180,7 +1164,6 @@ class _$ButterflySettingsImpl extends _ButterflySettings
     super.debugFillProperties(properties);
     properties
       ..add(DiagnosticsProperty('type', 'ButterflySettings'))
-      ..add(DiagnosticsProperty('fileSystem', fileSystem))
       ..add(DiagnosticsProperty('theme', theme))
       ..add(DiagnosticsProperty('density', density))
       ..add(DiagnosticsProperty('localeTag', localeTag))
@@ -1232,8 +1215,6 @@ class _$ButterflySettingsImpl extends _ButterflySettings
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$ButterflySettingsImpl &&
-            (identical(other.fileSystem, fileSystem) ||
-                other.fileSystem == fileSystem) &&
             (identical(other.theme, theme) || other.theme == theme) &&
             (identical(other.density, density) || other.density == density) &&
             (identical(other.localeTag, localeTag) ||
@@ -1318,7 +1299,6 @@ class _$ButterflySettingsImpl extends _ButterflySettings
   @override
   int get hashCode => Object.hashAll([
         runtimeType,
-        fileSystem,
         theme,
         density,
         localeTag,
@@ -1374,8 +1354,7 @@ class _$ButterflySettingsImpl extends _ButterflySettings
 
 abstract class _ButterflySettings extends ButterflySettings {
   const factory _ButterflySettings(
-      {required final ButterflyFileSystem fileSystem,
-      final ThemeMode theme,
+      {final ThemeMode theme,
       final ThemeDensity density,
       final String localeTag,
       final String documentPath,
@@ -1420,8 +1399,6 @@ abstract class _ButterflySettings extends ButterflySettings {
       final bool hideCursorWhileDrawing}) = _$ButterflySettingsImpl;
   const _ButterflySettings._() : super._();
 
-  @override
-  ButterflyFileSystem get fileSystem;
   @override
   ThemeMode get theme;
   @override

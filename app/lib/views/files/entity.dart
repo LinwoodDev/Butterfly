@@ -1,5 +1,6 @@
 import 'dart:typed_data';
 
+import 'package:butterfly/api/file_system.dart';
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/views/files/grid.dart';
 import 'package:butterfly/views/files/list.dart';
@@ -40,10 +41,11 @@ class _FileEntityItemState extends State<FileEntityItem> {
 
   @override
   Widget build(BuildContext context) {
-    final settingsCubit = context.read<SettingsCubit>();
-    final remote = settingsCubit.getRemote(widget.entity.location.remote);
+    final fileSystem = context.read<ButterflyFileSystem>();
+    final remote =
+        fileSystem.settingsCubit.getRemote(widget.entity.location.remote);
     final documentSystem =
-        settingsCubit.state.fileSystem.buildDocumentSystem(remote);
+        fileSystem.buildDocumentSystem(remote);
     FileMetadata? metadata;
     Uint8List? thumbnail;
     String? modifiedText, createdText;

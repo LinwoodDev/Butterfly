@@ -30,7 +30,7 @@ enum ConnectionStatus { none, server, client }
 
 class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
   DocumentBloc(
-    SettingsCubit settingsCubit,
+    ButterflyFileSystem fileSystem,
     CurrentIndexCubit currentIndexCubit,
     WindowCubit windowCubit,
     NoteData initial,
@@ -46,27 +46,27 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
           windowCubit: windowCubit,
           currentIndexCubit: currentIndexCubit,
           location: location,
-          settingsCubit: settingsCubit,
+          fileSystem: fileSystem,
           pageName: pageName ?? initial.getPages().firstOrNull ?? 'default',
         )) {
     _init();
   }
 
   DocumentBloc.error(
-      SettingsCubit settingsCubit, WindowCubit windowCubit, String message,
+      ButterflyFileSystem fileSystem, WindowCubit windowCubit, String message,
       [StackTrace? stackTrace])
       : super(DocumentLoadFailure(
-          settingsCubit: settingsCubit,
+          fileSystem: fileSystem,
           windowCubit: windowCubit,
           message: message,
           stackTrace: stackTrace,
         ));
 
   DocumentBloc.placeholder(
-    SettingsCubit settingsCubit,
+    ButterflyFileSystem fileSystem,
     WindowCubit windowCubit,
   ) : super(DocumentLoadFailure(
-          settingsCubit: settingsCubit,
+          fileSystem: fileSystem,
           windowCubit: windowCubit,
           message: '',
         ));
@@ -846,7 +846,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
         pageName: current.pageName,
         page: current.page,
         metadata: current.metadata,
-        settingsCubit: current.settingsCubit,
+        fileSystem: current.fileSystem,
         windowCubit: current.windowCubit,
       );
       current.currentIndexCubit.updateHandler(this, newState.handler);

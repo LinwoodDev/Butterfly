@@ -1,5 +1,6 @@
 import 'dart:typed_data';
 
+import 'package:butterfly/api/file_system.dart';
 import 'package:butterfly/api/save.dart';
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/services/sync.dart';
@@ -43,11 +44,10 @@ class FileEntityGridItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
-    final settingsCubit = context.read<SettingsCubit>();
+    final fileSystem = context.read<ButterflyFileSystem>();
     final syncService = context.read<SyncService>();
-    final remote = settingsCubit.getRemote(entity.location.remote);
-    final fileSystem =
-        settingsCubit.state.fileSystem.buildDocumentSystem(remote);
+    final remote = fileSystem.settingsCubit.getRemote(entity.location.remote);
+    final documentSystem = fileSystem.buildDocumentSystem(remote);
     final leading = PhosphorIcon(
       icon,
       color: colorScheme.outline,
@@ -179,7 +179,7 @@ class FileEntityGridItem extends StatelessWidget {
                                             color: colorScheme.onSurface,
                                           ),
                                       onSubmitted: (value) async {
-                                        await fileSystem.renameAsset(
+                                        await documentSystem.renameAsset(
                                             entity.location.path, value);
                                         onEdit(false);
                                         onReload();
@@ -209,7 +209,7 @@ class FileEntityGridItem extends StatelessWidget {
                             remote: remote,
                             syncService: syncService,
                             entity: entity,
-                            settingsCubit: settingsCubit,
+                            settingsCubit: fileSystem.settingsCubit,
                             editable: editable,
                             onEdit: onEdit,
                             nameController: nameController,

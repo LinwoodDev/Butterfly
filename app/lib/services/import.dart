@@ -55,15 +55,16 @@ class ImportService {
   CurrentIndexCubit? get currentIndexCubit => _getState()?.currentIndexCubit;
   SettingsCubit getSettingsCubit() => context.read<SettingsCubit>();
   ButterflySettings getSettings() => getSettingsCubit().state;
+  ButterflyFileSystem getFileSystem() => context.read<ButterflyFileSystem>();
   DocumentFileSystem getDocumentSystem() => useDefaultStorage
-      ? getSettings().buildDefaultDocumentSystem()
-      : getSettings().fileSystem.buildDocumentSystem(storage);
+      ? getFileSystem().buildDefaultDocumentSystem()
+      : getFileSystem().buildDocumentSystem(storage);
   TemplateFileSystem getTemplateFileSystem() => useDefaultStorage
-      ? getSettings().buildDefaultTemplateSystem()
-      : getSettings().fileSystem.buildTemplateSystem(storage);
+      ? getFileSystem().buildDefaultTemplateSystem()
+      : getFileSystem().buildTemplateSystem(storage);
   PackFileSystem getPackFileSystem() => useDefaultStorage
-      ? getSettings().buildDefaultPackSystem()
-      : getSettings().fileSystem.buildPackSystem(storage);
+      ? getFileSystem().buildDefaultPackSystem()
+      : getFileSystem().buildPackSystem(storage);
 
   Future<NoteData?> load(
       {String type = '', Object? data, NoteData? document}) async {

@@ -651,11 +651,13 @@ class _RecentFilesView extends StatefulWidget {
 
 class _RecentFilesViewState extends State<_RecentFilesView> {
   late Stream<List<FileSystemEntity<NoteData>>> _stream;
+  late final ButterflyFileSystem _fileSystem;
   final ScrollController _recentScrollController = ScrollController();
 
   @override
   void initState() {
     super.initState();
+    _fileSystem = context.read<ButterflyFileSystem>();
     _setStream(context.read<SettingsCubit>().state);
   }
 
@@ -667,7 +669,7 @@ class _RecentFilesViewState extends State<_RecentFilesView> {
 
   void _setStream(ButterflySettings settings) =>
       _stream = GeneralDirectoryFileSystem.fetchAssetsGlobalSync(
-          settings.history, settings.buildAllDocumentSystems());
+          settings.history, _fileSystem.buildAllDocumentSystems());
 
   @override
   Widget build(BuildContext context) {

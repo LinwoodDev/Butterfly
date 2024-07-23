@@ -111,12 +111,10 @@ class _DataSettingsPageState extends State<DataSettingsPage> {
                             context: context,
                             builder: (ctx) => MultiBlocProvider(
                               providers: [
-                                BlocProvider.value(
-                                    value: context.read<SettingsCubit>()),
                                 BlocProvider(
                                   lazy: false,
                                   create: (ctx) => DocumentBloc.placeholder(
-                                      context.read<SettingsCubit>(),
+                                      context.read<ButterflyFileSystem>(),
                                       context.read<WindowCubit>()),
                                 ),
                               ],

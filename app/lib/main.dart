@@ -113,7 +113,6 @@ Future<void> main([List<String> args = const []]) async {
   runApp(
     MultiRepositoryProvider(
         providers: [
-          RepositoryProvider(create: ButterflyFileSystem.build),
           RepositoryProvider<ClipboardManager>(
               create: (context) => clipboardManager),
         ],
@@ -317,8 +316,7 @@ class ButterflyApp extends StatelessWidget {
         providers: [
           BlocProvider(
             create: (context) {
-              final cubit =
-                  SettingsCubit(prefs, context.read<ButterflyFileSystem>());
+              final cubit = SettingsCubit(prefs);
               if (!kIsWeb && isWindow) {
                 windowManager.waitUntilReadyToShow().then((_) async {
                   await windowManager
@@ -335,12 +333,7 @@ class ButterflyApp extends StatelessWidget {
           BlocProvider(
               create: (context) => WindowCubit(fullScreen: fullScreen)),
         ],
-        child: RepositoryProvider(
-          create: (context) =>
-              SyncService(context, context.read<SettingsCubit>()),
-          lazy: false,
-          child: _buildApp(lightDynamic, darkDynamic),
-        ),
+        child: _buildApp(lightDynamic, darkDynamic),
       ),
     );
   }
@@ -369,7 +362,15 @@ class ButterflyApp extends StatelessWidget {
                 if (!state.nativeTitleBar) {
                   child = virtualWindowFrameBuilder(context, child);
                 }
-                return child ?? Container();
+                return RepositoryProvider(
+                  create: ButterflyFileSystem.build,
+                  child: RepositoryProvider(
+                    create: (context) => SyncService(
+                        context, context.read<ButterflyFileSystem>()),
+                    lazy: false,
+                    child: child ?? Container(),
+                  ),
+                );
               },
               supportedLocales: getLocales(),
               themeMode: state.theme,

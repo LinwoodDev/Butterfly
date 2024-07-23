@@ -2,9 +2,11 @@ import 'dart:convert';
 import 'dart:io';
 import 'dart:typed_data';
 
+import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/models/defaults.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:idb_shim/idb.dart';
 import 'package:lw_file_system/lw_file_system.dart';
 import 'package:path_provider/path_provider.dart';
@@ -51,7 +53,7 @@ Future<String> Function(ExternalStorage? storage) _getRemoteDirectory(
         final directory = base64.encode(bytes);
         path += '/Remotes/$directory';
       }
-      path += subDirectory;
+      path += '/$subDirectory';
       return path;
     };
 
@@ -61,12 +63,14 @@ typedef DocumentFileSystem = TypedDirectoryFileSystem<NoteData>;
 typedef TemplateFileSystem = TypedKeyFileSystem<NoteData>;
 typedef PackFileSystem = TypedKeyFileSystem<NoteData>;
 
+final PasswordStorage passwordStorage = SecureStoragePasswordStorage();
+
 class ButterflyFileSystem {
   final BuildContext context;
-  final PasswordStorage passwordStorage;
+  final SettingsCubit settingsCubit;
   final FileSystemConfig _documentConfig, _templateConfig, _packConfig;
 
-  ButterflyFileSystem(this.context, this.passwordStorage)
+  ButterflyFileSystem(this.context, this.settingsCubit)
       : _documentConfig = FileSystemConfig(
           passwordStorage: passwordStorage,
           storeName: 'documents',
@@ -96,7 +100,10 @@ class ButterflyFileSystem {
         );
 
   factory ButterflyFileSystem.build(BuildContext context) =>
-      ButterflyFileSystem(context, SecureStoragePasswordStorage());
+      ButterflyFileSystem(
+        context,
+        context.read<SettingsCubit>(),
+      );
 
   static const _database = 'butterfly.db';
   static const _databaseVersion = 4;
@@ -184,4 +191,21 @@ class ButterflyFileSystem {
         storage: storage,
         createDefault: _createDefaultPacks,
       );
+
+  DocumentFileSystem buildDefaultDocumentSystem() =>
+      buildDocumentSystem(settingsCubit.state.getDefaultRemote());
+
+  Map<String, DocumentFileSystem> buildAllDocumentSystems() {
+    final map = <String, DocumentFileSystem>{};
+    for (final remote in settingsCubit.state.connections) {
+      map[remote.identifier] = buildDocumentSystem(remote);
+    }
+    return map;
+  }
+
+  TemplateFileSystem buildDefaultTemplateSystem() =>
+      buildTemplateSystem(settingsCubit.state.getDefaultRemote());
+
+  PackFileSystem buildDefaultPackSystem() =>
+      buildPackSystem(settingsCubit.state.getDefaultRemote());
 }

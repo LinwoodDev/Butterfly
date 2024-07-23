@@ -34,9 +34,8 @@ class _TemplateDialogState extends State<TemplateDialog> {
   @override
   void initState() {
     super.initState();
-    final settingsCubit = context.read<SettingsCubit>().state;
-    _fileSystem = settingsCubit.fileSystem;
-    _templateSystem = settingsCubit.buildDefaultTemplateSystem();
+    _fileSystem = context.read<ButterflyFileSystem>();
+    _templateSystem = _fileSystem.buildDefaultTemplateSystem();
     WidgetsBinding.instance.addPostFrameCallback((_) => load());
   }
 

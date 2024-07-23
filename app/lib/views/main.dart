@@ -151,7 +151,7 @@ class _ProjectPageState extends State<ProjectPage> {
         _currentIndexCubit = CurrentIndexCubit(settingsCubit, _transformCubit!,
             CameraViewport.unbaked(UtilitiesRenderer()), embedding);
         _bloc = DocumentBloc(
-          settingsCubit,
+          fileSystem,
           _currentIndexCubit!,
           windowCubit,
           document,
@@ -250,7 +250,7 @@ class _ProjectPageState extends State<ProjectPage> {
             CameraViewport.unbaked(UtilitiesRenderer(), backgrounds),
             null,
             networkingService);
-        _bloc = DocumentBloc(settingsCubit, _currentIndexCubit!, windowCubit,
+        _bloc = DocumentBloc(fileSystem, _currentIndexCubit!, windowCubit,
             document!, location!, renderers, assetService, page, pageName);
         networkingService.setup(_bloc!);
         _importService = ImportService(context, bloc: _bloc);
@@ -270,7 +270,7 @@ class _ProjectPageState extends State<ProjectPage> {
           networkingService,
         );
         _bloc = DocumentBloc.error(
-            settingsCubit, windowCubit, e.toString(), stackTrace);
+            fileSystem, windowCubit, e.toString(), stackTrace);
       });
     }
     WidgetsBinding.instance.scheduleFrameCallback((_) async {

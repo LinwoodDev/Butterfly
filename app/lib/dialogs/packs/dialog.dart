@@ -1,7 +1,6 @@
 import 'package:butterfly/api/file_system.dart';
 import 'package:butterfly/api/open.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
-import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/models/defaults.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/material.dart';
@@ -32,8 +31,7 @@ class _PacksDialogState extends State<PacksDialog>
   initState() {
     _controller = TabController(length: widget.globalOnly ? 1 : 2, vsync: this);
     _fileSystem = context.read<ButterflyFileSystem>();
-    _packSystem =
-        context.read<SettingsCubit>().state.buildDefaultTemplateSystem();
+    _packSystem = _fileSystem.buildDefaultTemplateSystem();
     super.initState();
   }
 

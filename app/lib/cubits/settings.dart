@@ -165,7 +165,6 @@ enum ThemeDensity {
 class ButterflySettings with _$ButterflySettings, LeapSettings {
   const ButterflySettings._();
   const factory ButterflySettings({
-    required ButterflyFileSystem fileSystem,
     @Default(ThemeMode.system) ThemeMode theme,
     @Default(ThemeDensity.system) ThemeDensity density,
     @Default('') String localeTag,
@@ -211,15 +210,13 @@ class ButterflySettings with _$ButterflySettings, LeapSettings {
     @Default(false) bool hideCursorWhileDrawing,
   }) = _ButterflySettings;
 
-  factory ButterflySettings.fromPrefs(
-      SharedPreferences prefs, ButterflyFileSystem fileSystem) {
+  factory ButterflySettings.fromPrefs(SharedPreferences prefs) {
     final connections = prefs
             .getStringList('connections')
             ?.map((e) => ExternalStorageMapper.fromJson(json.decode(e)))
             .toList() ??
         const [];
     return ButterflySettings(
-      fileSystem: fileSystem,
       localeTag: prefs.getString('locale') ?? '',
       penOnlyInput: prefs.getBool('pen_only_input') ?? false,
       inputGestures: prefs.getBool('input_gestures') ?? true,
@@ -244,7 +241,7 @@ class ButterflySettings with _$ButterflySettings, LeapSettings {
               ?.map((e) {
                 // Try to parse the asset location
                 try {
-                  return AssetLocationMapper.fromJson(json.decode(e));
+                  return AssetLocationMapper.fromJson(e);
                 } catch (e) {
                   return null;
                 }
@@ -326,15 +323,15 @@ class ButterflySettings with _$ButterflySettings, LeapSettings {
     await prefs.setString('design', design);
     await prefs.setString('banner_visibility', bannerVisibility.name);
     await prefs.setStringList(
-        'history', history.map((e) => json.encode(e.toJson())).toList());
+        'history', history.map((e) => e.toJson()).toList());
     await prefs.setBool('zoom_enabled', zoomEnabled);
     if (lastVersion == null && prefs.containsKey('last_version')) {
       await prefs.remove('last_version');
     } else if (lastVersion != null) {
       await prefs.setString('last_version', lastVersion!);
     }
-    await prefs.setStringList('connections',
-        connections.map((e) => json.encode(e.toJson())).toList());
+    await prefs.setStringList(
+        'connections', connections.map((e) => e.toJson()).toList());
     await prefs.setString('default_remote', defaultRemote);
     await prefs.setBool('native_title_bar', nativeTitleBar);
     await prefs.setBool('start_in_full_screen', startInFullScreen);
@@ -365,23 +362,6 @@ class ButterflySettings with _$ButterflySettings, LeapSettings {
     await prefs.setString('navigator_position', navigatorPosition.name);
   }
 
-  DocumentFileSystem buildDefaultDocumentSystem() =>
-      fileSystem.buildDocumentSystem(getDefaultRemote());
-
-  Map<String, DocumentFileSystem> buildAllDocumentSystems() {
-    final map = <String, DocumentFileSystem>{};
-    for (final remote in connections) {
-      map[remote.identifier] = fileSystem.buildDocumentSystem(remote);
-    }
-    return map;
-  }
-
-  TemplateFileSystem buildDefaultTemplateSystem() =>
-      fileSystem.buildTemplateSystem(getDefaultRemote());
-
-  PackFileSystem buildDefaultPackSystem() =>
-      fileSystem.buildPackSystem(getDefaultRemote());
-
   ExternalStorage? getRemote(String? identifier) {
     if (identifier?.isEmpty ?? true) {
       return getDefaultRemote();
@@ -411,8 +391,8 @@ class ButterflySettings with _$ButterflySettings, LeapSettings {
 
 class SettingsCubit extends Cubit<ButterflySettings>
     with LeapSettingsBlocBaseMixin {
-  SettingsCubit(SharedPreferences prefs, ButterflyFileSystem fileSystem)
-      : super(ButterflySettings.fromPrefs(prefs, fileSystem));
+  SettingsCubit(SharedPreferences prefs)
+      : super(ButterflySettings.fromPrefs(prefs));
 
   void setTheme(MediaQueryData mediaQuery, [ThemeMode? theme]) {
     if (kIsWeb || !isWindow) return;
@@ -617,7 +597,7 @@ class SettingsCubit extends Cubit<ButterflySettings>
           ..removeWhere((element) => element.identifier == storage.identifier)
           ..add(storage)));
     if (storage is RemoteStorage) {
-      state.fileSystem.passwordStorage.write(storage, password);
+      passwordStorage.write(storage, password);
     }
     return save();
   }

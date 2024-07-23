@@ -13,13 +13,14 @@ import '../cubits/settings.dart';
 class SyncService {
   final BuildContext context;
   final List<RemoteSync> _syncs = [];
-  final SettingsCubit settingsCubit;
+  final ButterflyFileSystem fileSystem;
   final BehaviorSubject<SyncStatus> _statusSubject =
       BehaviorSubject<SyncStatus>();
   Stream<SyncStatus> get statusStream => _statusSubject.stream;
   SyncStatus? get status => _statusSubject.valueOrNull;
+  SettingsCubit get settingsCubit => fileSystem.settingsCubit;
 
-  SyncService(this.context, this.settingsCubit) {
+  SyncService(this.context, this.fileSystem) {
     settingsCubit.stream.listen(_loadSettings);
     _loadSettings(settingsCubit.state);
   }
@@ -38,7 +39,7 @@ class SyncService {
     if (storage == null) {
       return null;
     }
-    final current = RemoteSync(context, settingsCubit, storage);
+    final current = RemoteSync(context, fileSystem, storage);
     current.statusStream.listen((status) => _refreshStatus());
     _syncs.add(current);
     current.autoSync();
@@ -91,20 +92,20 @@ enum SyncStatus {
 class RemoteSync {
   final BuildContext context;
   final ExternalStorage remoteStorage;
-  final SettingsCubit settingsCubit;
+  final ButterflyFileSystem fileSystem;
   final BehaviorSubject<List<SyncFile>> _filesSubject =
       BehaviorSubject<List<SyncFile>>();
   final BehaviorSubject<SyncStatus> _statusSubject =
       BehaviorSubject<SyncStatus>();
 
-  ButterflyFileSystem get fileSystem => settingsCubit.state.fileSystem;
+  SettingsCubit get settingsCubit => fileSystem.settingsCubit;
 
   Stream<List<SyncFile>> get filesStream => _filesSubject.stream;
   List<SyncFile>? get files => _filesSubject.valueOrNull;
   Stream<SyncStatus> get statusStream => _statusSubject.stream;
   SyncStatus? get status => _statusSubject.valueOrNull;
 
-  RemoteSync(this.context, this.settingsCubit, this.remoteStorage) {
+  RemoteSync(this.context, this.fileSystem, this.remoteStorage) {
     _filesSubject.onListen = _onListen;
   }
 

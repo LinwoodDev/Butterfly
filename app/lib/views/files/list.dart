@@ -1,5 +1,6 @@
 import 'dart:typed_data';
 
+import 'package:butterfly/api/file_system.dart';
 import 'package:butterfly/api/save.dart';
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/dialogs/file_system/move.dart';
@@ -45,11 +46,10 @@ class FileEntityListTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
-    final settingsCubit = context.read<SettingsCubit>();
+    final fileSystem = context.read<ButterflyFileSystem>();
     final syncService = context.read<SyncService>();
-    final remote = settingsCubit.getRemote(entity.location.remote);
-    final fileSystem =
-        settingsCubit.state.fileSystem.buildDocumentSystem(remote);
+    final remote = fileSystem.settingsCubit.getRemote(entity.location.remote);
+    final documentSystem = fileSystem.buildDocumentSystem(remote);
     return LayoutBuilder(builder: (context, constraints) {
       final isDesktop = constraints.maxWidth >= LeapBreakpoints.medium;
       final isTablet = constraints.maxWidth >= LeapBreakpoints.compact;
@@ -124,7 +124,7 @@ class FileEntityListTile extends StatelessWidget {
                                             color: colorScheme.onSurface,
                                           ),
                                       onSubmitted: (value) async {
-                                        await fileSystem.renameAsset(
+                                        await documentSystem.renameAsset(
                                             entity.location.path, value);
                                         onEdit(false);
                                         onReload();
@@ -194,7 +194,8 @@ class FileEntityListTile extends StatelessWidget {
                             final starred = state.isStarred(entity.location);
                             return IconButton(
                               onPressed: () {
-                                settingsCubit.toggleStarred(entity.location);
+                                fileSystem.settingsCubit
+                                    .toggleStarred(entity.location);
                               },
                               selectedIcon:
                                   const PhosphorIcon(PhosphorIconsFill.star),
@@ -210,7 +211,7 @@ class FileEntityListTile extends StatelessWidget {
                               context: context,
                               builder: (context) => FileSystemAssetMoveDialog(
                                 asset: entity,
-                                fileSystem: fileSystem,
+                                fileSystem: documentSystem,
                               ),
                             ).then((value) => onReload()),
                             tooltip: AppLocalizations.of(context).move,
@@ -275,7 +276,7 @@ class FileEntityListTile extends StatelessWidget {
                         remote: remote,
                         syncService: syncService,
                         entity: entity,
-                        settingsCubit: settingsCubit,
+                        settingsCubit: fileSystem.settingsCubit,
                         editable: editable,
                         onEdit: onEdit,
                         nameController: nameController,
