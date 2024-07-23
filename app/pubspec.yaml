@@ -89,7 +89,7 @@ dependencies:
   lw_file_system:
     git:
       url: https://github.com/LinwoodDev/dart_pkgs.git
-      ref: 618d7cc83cc57582c03939b8516018ad974bc942
+      ref: b8c77d09288aa1bf31b2de527cfca881352b2cbf
       path: packages/lw_file_system
   flutter_localized_locales: ^2.0.5
   dynamic_color: ^1.7.0
