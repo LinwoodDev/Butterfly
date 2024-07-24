@@ -70,8 +70,12 @@ mixin _$Tool {
   String get name => throw _privateConstructorUsedError;
   String get displayIcon => throw _privateConstructorUsedError;
 
+  /// Serializes this Tool to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of Tool
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $ToolCopyWith<Tool> get copyWith => throw _privateConstructorUsedError;
 }
 
@@ -93,6 +97,8 @@ class _$ToolCopyWithImpl<$Res, $Val extends Tool>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of Tool
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -130,6 +136,8 @@ class __$$SelectToolImplCopyWithImpl<$Res>
       _$SelectToolImpl _value, $Res Function(_$SelectToolImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of Tool
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -186,7 +194,9 @@ class _$SelectToolImpl extends SelectTool {
     return 'Tool.select(name: $name, displayIcon: $displayIcon, mode: $mode)';
   }
 
-  @JsonKey(ignore: true)
+  /// Create a copy of Tool
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$SelectToolImplCopyWith<_$SelectToolImpl> get copyWith =>
@@ -215,8 +225,11 @@ abstract class SelectTool extends Tool {
   @override
   String get displayIcon;
   SelectMode get mode;
+
+  /// Create a copy of Tool
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$SelectToolImplCopyWith<_$SelectToolImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -239,6 +252,8 @@ class __$$HandToolImplCopyWithImpl<$Res>
       _$HandToolImpl _value, $Res Function(_$HandToolImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of Tool
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -283,7 +298,9 @@ class _$HandToolImpl extends HandTool {
     return 'Tool.hand(name: $name, displayIcon: $displayIcon)';
   }
 
-  @JsonKey(ignore: true)
+  /// Create a copy of Tool
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$HandToolImplCopyWith<_$HandToolImpl> get copyWith =>
@@ -309,8 +326,11 @@ abstract class HandTool extends Tool {
   String get name;
   @override
   String get displayIcon;
+
+  /// Create a copy of Tool
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$HandToolImplCopyWith<_$HandToolImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -337,6 +357,8 @@ class __$$ImportToolImplCopyWithImpl<$Res>
       _$ImportToolImpl _value, $Res Function(_$ImportToolImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of Tool
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -413,7 +435,9 @@ class _$ImportToolImpl extends ImportTool {
     return 'Tool.import(name: $name, displayIcon: $displayIcon, elements: $elements, areas: $areas)';
   }
 
-  @JsonKey(ignore: true)
+  /// Create a copy of Tool
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$ImportToolImplCopyWith<_$ImportToolImpl> get copyWith =>
@@ -444,8 +468,11 @@ abstract class ImportTool extends Tool {
   String get displayIcon;
   List<PadElement> get elements;
   List<Area> get areas;
+
+  /// Create a copy of Tool
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$ImportToolImplCopyWith<_$ImportToolImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -468,6 +495,8 @@ class __$$UndoToolImplCopyWithImpl<$Res>
       _$UndoToolImpl _value, $Res Function(_$UndoToolImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of Tool
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -512,7 +541,9 @@ class _$UndoToolImpl extends UndoTool {
     return 'Tool.undo(name: $name, displayIcon: $displayIcon)';
   }
 
-  @JsonKey(ignore: true)
+  /// Create a copy of Tool
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$UndoToolImplCopyWith<_$UndoToolImpl> get copyWith =>
@@ -538,8 +569,11 @@ abstract class UndoTool extends Tool {
   String get name;
   @override
   String get displayIcon;
+
+  /// Create a copy of Tool
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$UndoToolImplCopyWith<_$UndoToolImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -562,6 +596,8 @@ class __$$RedoToolImplCopyWithImpl<$Res>
       _$RedoToolImpl _value, $Res Function(_$RedoToolImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of Tool
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -606,7 +642,9 @@ class _$RedoToolImpl extends RedoTool {
     return 'Tool.redo(name: $name, displayIcon: $displayIcon)';
   }
 
-  @JsonKey(ignore: true)
+  /// Create a copy of Tool
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$RedoToolImplCopyWith<_$RedoToolImpl> get copyWith =>
@@ -632,8 +670,11 @@ abstract class RedoTool extends Tool {
   String get name;
   @override
   String get displayIcon;
+
+  /// Create a copy of Tool
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$RedoToolImplCopyWith<_$RedoToolImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -665,6 +706,8 @@ class __$$LabelToolImplCopyWithImpl<$Res>
       _$LabelToolImpl _value, $Res Function(_$LabelToolImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of Tool
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -708,6 +751,8 @@ class __$$LabelToolImplCopyWithImpl<$Res>
     ));
   }
 
+  /// Create a copy of Tool
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $PackAssetLocationCopyWith<$Res> get styleSheet {
@@ -765,7 +810,9 @@ class _$LabelToolImpl extends LabelTool {
     return 'Tool.label(name: $name, displayIcon: $displayIcon, mode: $mode, zoomDependent: $zoomDependent, foreground: $foreground, styleSheet: $styleSheet, scale: $scale)';
   }
 
-  @JsonKey(ignore: true)
+  /// Create a copy of Tool
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$LabelToolImplCopyWith<_$LabelToolImpl> get copyWith =>
@@ -802,8 +849,11 @@ abstract class LabelTool extends Tool {
   int get foreground;
   PackAssetLocation get styleSheet;
   double get scale;
+
+  /// Create a copy of Tool
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$LabelToolImplCopyWith<_$LabelToolImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -832,6 +882,8 @@ class __$$PenToolImplCopyWithImpl<$Res>
       _$PenToolImpl _value, $Res Function(_$PenToolImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of Tool
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -915,7 +967,9 @@ class _$PenToolImpl extends PenTool {
     return 'Tool.pen(name: $name, displayIcon: $displayIcon, zoomDependent: $zoomDependent, shapeDetectionTime: $shapeDetectionTime, shapeDetectionEnabled: $shapeDetectionEnabled, property: $property)';
   }
 
-  @JsonKey(ignore: true)
+  /// Create a copy of Tool
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$PenToolImplCopyWith<_$PenToolImpl> get copyWith =>
@@ -949,8 +1003,11 @@ abstract class PenTool extends Tool {
   double get shapeDetectionTime;
   bool get shapeDetectionEnabled;
   PenProperty get property;
+
+  /// Create a copy of Tool
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$PenToolImplCopyWith<_$PenToolImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -977,6 +1034,8 @@ class __$$EraserToolImplCopyWithImpl<$Res>
       _$EraserToolImpl _value, $Res Function(_$EraserToolImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of Tool
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -1042,7 +1101,9 @@ class _$EraserToolImpl extends EraserTool {
     return 'Tool.eraser(name: $name, displayIcon: $displayIcon, strokeWidth: $strokeWidth, eraseElements: $eraseElements)';
   }
 
-  @JsonKey(ignore: true)
+  /// Create a copy of Tool
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$EraserToolImplCopyWith<_$EraserToolImpl> get copyWith =>
@@ -1073,8 +1134,11 @@ abstract class EraserTool extends Tool {
   String get displayIcon;
   double get strokeWidth;
   bool get eraseElements;
+
+  /// Create a copy of Tool
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$EraserToolImplCopyWith<_$EraserToolImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -1102,6 +1166,8 @@ class __$$PathEraserToolImplCopyWithImpl<$Res>
       _$PathEraserToolImpl _value, $Res Function(_$PathEraserToolImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of Tool
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -1167,7 +1233,9 @@ class _$PathEraserToolImpl extends PathEraserTool {
     return 'Tool.pathEraser(name: $name, displayIcon: $displayIcon, strokeWidth: $strokeWidth, eraseElements: $eraseElements)';
   }
 
-  @JsonKey(ignore: true)
+  /// Create a copy of Tool
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$PathEraserToolImplCopyWith<_$PathEraserToolImpl> get copyWith =>
@@ -1199,8 +1267,11 @@ abstract class PathEraserTool extends Tool {
   String get displayIcon;
   double get strokeWidth;
   bool get eraseElements;
+
+  /// Create a copy of Tool
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$PathEraserToolImplCopyWith<_$PathEraserToolImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -1223,6 +1294,8 @@ class __$$LayerToolImplCopyWithImpl<$Res>
       _$LayerToolImpl _value, $Res Function(_$LayerToolImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of Tool
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -1279,7 +1352,9 @@ class _$LayerToolImpl extends LayerTool {
     return 'Tool.layer(name: $name, displayIcon: $displayIcon, strokeWidth: $strokeWidth)';
   }
 
-  @JsonKey(ignore: true)
+  /// Create a copy of Tool
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$LayerToolImplCopyWith<_$LayerToolImpl> get copyWith =>
@@ -1308,8 +1383,11 @@ abstract class LayerTool extends Tool {
   @override
   String get displayIcon;
   double get strokeWidth;
+
+  /// Create a copy of Tool
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$LayerToolImplCopyWith<_$LayerToolImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -1338,6 +1416,8 @@ class __$$AreaToolImplCopyWithImpl<$Res>
       _$AreaToolImpl _value, $Res Function(_$AreaToolImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of Tool
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -1421,7 +1501,9 @@ class _$AreaToolImpl extends AreaTool {
     return 'Tool.area(name: $name, displayIcon: $displayIcon, constrainedWidth: $constrainedWidth, constrainedHeight: $constrainedHeight, constrainedAspectRatio: $constrainedAspectRatio, askForName: $askForName)';
   }
 
-  @JsonKey(ignore: true)
+  /// Create a copy of Tool
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$AreaToolImplCopyWith<_$AreaToolImpl> get copyWith =>
@@ -1456,8 +1538,11 @@ abstract class AreaTool extends Tool {
   double get constrainedHeight;
   double get constrainedAspectRatio;
   bool get askForName;
+
+  /// Create a copy of Tool
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$AreaToolImplCopyWith<_$AreaToolImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -1486,6 +1571,8 @@ class __$$LaserToolImplCopyWithImpl<$Res>
       _$LaserToolImpl _value, $Res Function(_$LaserToolImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of Tool
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -1569,7 +1656,9 @@ class _$LaserToolImpl extends LaserTool {
     return 'Tool.laser(name: $name, displayIcon: $displayIcon, duration: $duration, strokeWidth: $strokeWidth, thinning: $thinning, color: $color)';
   }
 
-  @JsonKey(ignore: true)
+  /// Create a copy of Tool
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$LaserToolImplCopyWith<_$LaserToolImpl> get copyWith =>
@@ -1604,8 +1693,11 @@ abstract class LaserTool extends Tool {
   double get strokeWidth;
   double get thinning;
   int get color;
+
+  /// Create a copy of Tool
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$LaserToolImplCopyWith<_$LaserToolImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -1635,6 +1727,8 @@ class __$$ShapeToolImplCopyWithImpl<$Res>
       _$ShapeToolImpl _value, $Res Function(_$ShapeToolImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of Tool
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -1727,7 +1821,9 @@ class _$ShapeToolImpl extends ShapeTool {
     return 'Tool.shape(name: $name, displayIcon: $displayIcon, zoomDependent: $zoomDependent, constrainedWidth: $constrainedWidth, constrainedHeight: $constrainedHeight, constrainedAspectRatio: $constrainedAspectRatio, property: $property)';
   }
 
-  @JsonKey(ignore: true)
+  /// Create a copy of Tool
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$ShapeToolImplCopyWith<_$ShapeToolImpl> get copyWith =>
@@ -1764,8 +1860,11 @@ abstract class ShapeTool extends Tool {
   double get constrainedHeight;
   double get constrainedAspectRatio;
   ShapeProperty get property;
+
+  /// Create a copy of Tool
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$ShapeToolImplCopyWith<_$ShapeToolImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -1790,6 +1889,8 @@ class __$$StampToolImplCopyWithImpl<$Res>
       _$StampToolImpl _value, $Res Function(_$StampToolImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of Tool
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -1813,6 +1914,8 @@ class __$$StampToolImplCopyWithImpl<$Res>
     ));
   }
 
+  /// Create a copy of Tool
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $PackAssetLocationCopyWith<$Res> get component {
@@ -1854,7 +1957,9 @@ class _$StampToolImpl extends StampTool {
     return 'Tool.stamp(name: $name, displayIcon: $displayIcon, component: $component)';
   }
 
-  @JsonKey(ignore: true)
+  /// Create a copy of Tool
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$StampToolImplCopyWith<_$StampToolImpl> get copyWith =>
@@ -1883,8 +1988,11 @@ abstract class StampTool extends Tool {
   @override
   String get displayIcon;
   PackAssetLocation get component;
+
+  /// Create a copy of Tool
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$StampToolImplCopyWith<_$StampToolImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -1908,6 +2016,8 @@ class __$$PresentationToolImplCopyWithImpl<$Res>
       $Res Function(_$PresentationToolImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of Tool
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -1953,7 +2063,9 @@ class _$PresentationToolImpl extends PresentationTool {
     return 'Tool.presentation(name: $name, displayIcon: $displayIcon)';
   }
 
-  @JsonKey(ignore: true)
+  /// Create a copy of Tool
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$PresentationToolImplCopyWith<_$PresentationToolImpl> get copyWith =>
@@ -1980,8 +2092,11 @@ abstract class PresentationTool extends Tool {
   String get name;
   @override
   String get displayIcon;
+
+  /// Create a copy of Tool
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$PresentationToolImplCopyWith<_$PresentationToolImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -2004,6 +2119,8 @@ class __$$SpacerToolImplCopyWithImpl<$Res>
       _$SpacerToolImpl _value, $Res Function(_$SpacerToolImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of Tool
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -2060,7 +2177,9 @@ class _$SpacerToolImpl extends SpacerTool {
     return 'Tool.spacer(name: $name, displayIcon: $displayIcon, axis: $axis)';
   }
 
-  @JsonKey(ignore: true)
+  /// Create a copy of Tool
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$SpacerToolImplCopyWith<_$SpacerToolImpl> get copyWith =>
@@ -2089,8 +2208,11 @@ abstract class SpacerTool extends Tool {
   @override
   String get displayIcon;
   Axis2D get axis;
+
+  /// Create a copy of Tool
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$SpacerToolImplCopyWith<_$SpacerToolImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -2114,6 +2236,8 @@ class __$$FullScreenToolImplCopyWithImpl<$Res>
       _$FullScreenToolImpl _value, $Res Function(_$FullScreenToolImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of Tool
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -2159,7 +2283,9 @@ class _$FullScreenToolImpl extends FullScreenTool {
     return 'Tool.fullScreen(name: $name, displayIcon: $displayIcon)';
   }
 
-  @JsonKey(ignore: true)
+  /// Create a copy of Tool
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$FullScreenToolImplCopyWith<_$FullScreenToolImpl> get copyWith =>
@@ -2186,8 +2312,11 @@ abstract class FullScreenTool extends Tool {
   String get name;
   @override
   String get displayIcon;
+
+  /// Create a copy of Tool
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$FullScreenToolImplCopyWith<_$FullScreenToolImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -2211,6 +2340,8 @@ class __$$AssetToolImplCopyWithImpl<$Res>
       _$AssetToolImpl _value, $Res Function(_$AssetToolImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of Tool
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -2276,7 +2407,9 @@ class _$AssetToolImpl extends AssetTool {
     return 'Tool.asset(name: $name, displayIcon: $displayIcon, importType: $importType, advanced: $advanced)';
   }
 
-  @JsonKey(ignore: true)
+  /// Create a copy of Tool
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$AssetToolImplCopyWith<_$AssetToolImpl> get copyWith =>
@@ -2307,8 +2440,11 @@ abstract class AssetTool extends Tool {
   String get displayIcon;
   ImportType get importType;
   bool get advanced;
+
+  /// Create a copy of Tool
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$AssetToolImplCopyWith<_$AssetToolImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -2333,6 +2469,8 @@ class __$$ExportToolImplCopyWithImpl<$Res>
       _$ExportToolImpl _value, $Res Function(_$ExportToolImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of Tool
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -2356,6 +2494,8 @@ class __$$ExportToolImplCopyWithImpl<$Res>
     ));
   }
 
+  /// Create a copy of Tool
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $ExportOptionsCopyWith<$Res> get options {
@@ -2396,7 +2536,9 @@ class _$ExportToolImpl extends ExportTool {
     return 'Tool.export(name: $name, displayIcon: $displayIcon, options: $options)';
   }
 
-  @JsonKey(ignore: true)
+  /// Create a copy of Tool
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$ExportToolImplCopyWith<_$ExportToolImpl> get copyWith =>
@@ -2425,8 +2567,11 @@ abstract class ExportTool extends Tool {
   @override
   String get displayIcon;
   ExportOptions get options;
+
+  /// Create a copy of Tool
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$ExportToolImplCopyWith<_$ExportToolImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -2458,6 +2603,8 @@ class __$$TextureToolImplCopyWithImpl<$Res>
       _$TextureToolImpl _value, $Res Function(_$TextureToolImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of Tool
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -2501,6 +2648,8 @@ class __$$TextureToolImplCopyWithImpl<$Res>
     ));
   }
 
+  /// Create a copy of Tool
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $SurfaceTextureCopyWith<$Res> get texture {
@@ -2558,7 +2707,9 @@ class _$TextureToolImpl extends TextureTool {
     return 'Tool.texture(name: $name, displayIcon: $displayIcon, zoomDependent: $zoomDependent, constrainedWidth: $constrainedWidth, constrainedHeight: $constrainedHeight, constrainedAspectRatio: $constrainedAspectRatio, texture: $texture)';
   }
 
-  @JsonKey(ignore: true)
+  /// Create a copy of Tool
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$TextureToolImplCopyWith<_$TextureToolImpl> get copyWith =>
@@ -2595,8 +2746,11 @@ abstract class TextureTool extends Tool {
   double get constrainedHeight;
   double get constrainedAspectRatio;
   SurfaceTexture get texture;
+
+  /// Create a copy of Tool
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$TextureToolImplCopyWith<_$TextureToolImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -2620,6 +2774,8 @@ class __$$EyeDropperToolImplCopyWithImpl<$Res>
       _$EyeDropperToolImpl _value, $Res Function(_$EyeDropperToolImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of Tool
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -2665,7 +2821,9 @@ class _$EyeDropperToolImpl extends EyeDropperTool {
     return 'Tool.eyeDropper(name: $name, displayIcon: $displayIcon)';
   }
 
-  @JsonKey(ignore: true)
+  /// Create a copy of Tool
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$EyeDropperToolImplCopyWith<_$EyeDropperToolImpl> get copyWith =>
@@ -2692,8 +2850,11 @@ abstract class EyeDropperTool extends Tool {
   String get name;
   @override
   String get displayIcon;
+
+  /// Create a copy of Tool
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$EyeDropperToolImplCopyWith<_$EyeDropperToolImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

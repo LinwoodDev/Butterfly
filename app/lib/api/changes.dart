@@ -4,11 +4,12 @@ import 'package:butterfly/api/open.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:lw_file_system/lw_file_system.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 Future<NoteData?> checkFileChanges(
-    BuildContext context, AppDocumentEntity? entity) async {
-  if (entity is! AppDocumentFile) return null;
+    BuildContext context, FileSystemEntity? entity) async {
+  if (entity is! FileSystemFile) return null;
   final data = entity.load();
   final metadata = data.getMetadata();
   if (metadata == null) return null;

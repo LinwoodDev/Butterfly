@@ -25,8 +25,12 @@ mixin _$DocumentInfo {
   ViewOption get view => throw _privateConstructorUsedError;
   Map<String, dynamic> get extra => throw _privateConstructorUsedError;
 
+  /// Serializes this DocumentInfo to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of DocumentInfo
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $DocumentInfoCopyWith<DocumentInfo> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -56,6 +60,8 @@ class _$DocumentInfoCopyWithImpl<$Res, $Val extends DocumentInfo>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of DocumentInfo
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -84,6 +90,8 @@ class _$DocumentInfoCopyWithImpl<$Res, $Val extends DocumentInfo>
     ) as $Val);
   }
 
+  /// Create a copy of DocumentInfo
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $ViewOptionCopyWith<$Res> get view {
@@ -119,6 +127,8 @@ class __$$DocumentInfoImplCopyWithImpl<$Res>
       _$DocumentInfoImpl _value, $Res Function(_$DocumentInfoImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of DocumentInfo
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -210,7 +220,7 @@ class _$DocumentInfoImpl implements _DocumentInfo {
             const DeepCollectionEquality().equals(other._extra, _extra));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(
       runtimeType,
@@ -219,7 +229,9 @@ class _$DocumentInfoImpl implements _DocumentInfo {
       view,
       const DeepCollectionEquality().hash(_extra));
 
-  @JsonKey(ignore: true)
+  /// Create a copy of DocumentInfo
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$DocumentInfoImplCopyWith<_$DocumentInfoImpl> get copyWith =>
@@ -251,8 +263,11 @@ abstract class _DocumentInfo implements DocumentInfo {
   ViewOption get view;
   @override
   Map<String, dynamic> get extra;
+
+  /// Create a copy of DocumentInfo
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$DocumentInfoImplCopyWith<_$DocumentInfoImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

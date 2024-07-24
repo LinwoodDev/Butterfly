@@ -24,8 +24,12 @@ mixin _$ViewOption {
   double get gridXSize => throw _privateConstructorUsedError;
   double get gridYSize => throw _privateConstructorUsedError;
 
+  /// Serializes this ViewOption to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of ViewOption
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $ViewOptionCopyWith<ViewOption> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -49,6 +53,8 @@ class _$ViewOptionCopyWithImpl<$Res, $Val extends ViewOption>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of ViewOption
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -92,6 +98,8 @@ class __$$ViewOptionImplCopyWithImpl<$Res>
       _$ViewOptionImpl _value, $Res Function(_$ViewOptionImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of ViewOption
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -155,11 +163,13 @@ class _$ViewOptionImpl implements _ViewOption {
                 other.gridYSize == gridYSize));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, gridColor, gridXSize, gridYSize);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of ViewOption
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$ViewOptionImplCopyWith<_$ViewOptionImpl> get copyWith =>
@@ -188,8 +198,11 @@ abstract class _ViewOption implements ViewOption {
   double get gridXSize;
   @override
   double get gridYSize;
+
+  /// Create a copy of ViewOption
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$ViewOptionImplCopyWith<_$ViewOptionImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

@@ -1,4 +1,4 @@
-import 'package:butterfly/api/file_system/file_system.dart';
+import 'package:butterfly/api/file_system.dart';
 import 'package:butterfly/models/defaults.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -48,7 +48,7 @@ class FileSystemAssetCreateDialog extends StatelessWidget {
                 final newPath = '$path/${_nameController.text}';
                 if (!isFolder) {
                   await fileSystem.createFile(
-                      newPath, DocumentDefaults.createDocument().save());
+                      newPath, DocumentDefaults.createDocument());
                 } else {
                   await fileSystem.createDirectory(newPath);
                 }

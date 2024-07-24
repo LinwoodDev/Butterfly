@@ -24,8 +24,12 @@ mixin _$NoteDataState {
   Map<String, Uint8List> get added => throw _privateConstructorUsedError;
   List<String> get removed => throw _privateConstructorUsedError;
 
+  /// Serializes this NoteDataState to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of NoteDataState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $NoteDataStateCopyWith<NoteDataState> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -51,6 +55,8 @@ class _$NoteDataStateCopyWithImpl<$Res, $Val extends NoteDataState>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of NoteDataState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -91,6 +97,8 @@ class __$$NoteDataStateImplCopyWithImpl<$Res>
       _$NoteDataStateImpl _value, $Res Function(_$NoteDataStateImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of NoteDataState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -156,14 +164,16 @@ class _$NoteDataStateImpl implements _NoteDataState {
             const DeepCollectionEquality().equals(other._removed, _removed));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(
       runtimeType,
       const DeepCollectionEquality().hash(_added),
       const DeepCollectionEquality().hash(_removed));
 
-  @JsonKey(ignore: true)
+  /// Create a copy of NoteDataState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$NoteDataStateImplCopyWith<_$NoteDataStateImpl> get copyWith =>
@@ -190,8 +200,11 @@ abstract class _NoteDataState implements NoteDataState {
   Map<String, Uint8List> get added;
   @override
   List<String> get removed;
+
+  /// Create a copy of NoteDataState
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$NoteDataStateImplCopyWith<_$NoteDataStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

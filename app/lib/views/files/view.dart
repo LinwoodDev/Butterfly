@@ -1,5 +1,6 @@
 import 'dart:typed_data';
 
+import 'package:butterfly/api/file_system.dart';
 import 'package:butterfly/models/defaults.dart';
 import 'package:butterfly/views/files/card.dart';
 import 'package:butterfly/views/files/entity.dart';
@@ -9,10 +10,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:go_router/go_router.dart';
+import 'package:lw_file_system/lw_file_system.dart';
 import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
-import '../../api/file_system/file_system.dart';
 import '../../api/open.dart';
 import '../../cubits/settings.dart';
 import '../../dialogs/file_system/sync.dart';
@@ -41,7 +42,8 @@ class FilesView extends StatefulWidget {
 
 class FilesViewState extends State<FilesView> {
   final TextEditingController _locationController = TextEditingController();
-  late DocumentFileSystem _fileSystem;
+  late final ButterflyFileSystem _fileSystem;
+  late DocumentFileSystem _documentSystem;
   late TemplateFileSystem _templateSystem;
 
   SortBy _sortBy = SortBy.name;
@@ -49,11 +51,12 @@ class FilesViewState extends State<FilesView> {
   ExternalStorage? _remote;
   String _search = '';
   late final SettingsCubit _settingsCubit;
-  Stream<AppDocumentEntity?>? _filesStream;
+  Stream<FileSystemEntity<NoteData>?>? _filesStream;
 
   @override
   void initState() {
     super.initState();
+    _fileSystem = context.read<ButterflyFileSystem>();
     _settingsCubit = context.read<SettingsCubit>();
     _sortBy = _settingsCubit.state.sortBy;
     _sortOrder = _settingsCubit.state.sortOrder;
@@ -83,9 +86,9 @@ class FilesViewState extends State<FilesView> {
       };
 
   void _setFilesStream() {
-    _templateSystem = TemplateFileSystem.fromPlatform(remote: _remote);
-    _fileSystem = DocumentFileSystem.fromPlatform(remote: _remote);
-    _filesStream = _fileSystem.fetchAsset(_locationController.text);
+    _templateSystem = _fileSystem.buildTemplateSystem(_remote);
+    _documentSystem = _fileSystem.buildDocumentSystem(_remote);
+    _filesStream = _documentSystem.fetchAsset(_locationController.text);
   }
 
   void reloadFileSystem() {
@@ -104,8 +107,8 @@ class FilesViewState extends State<FilesView> {
     );
     if (name == null) return;
     final path = _locationController.text;
-    final newPath = '$path/${_fileSystem.convertNameToFile(name)}.bfly';
-    await _fileSystem.updateDocument(
+    final newPath = '$path/${_documentSystem.convertNameToFile(name)}.bfly';
+    await _documentSystem.updateFile(
         newPath,
         template.createDocument(
           name: name,
@@ -312,14 +315,14 @@ class FilesViewState extends State<FilesView> {
                         if (name == null) return;
                         final path = _locationController.text;
                         final newPath = '$path/$name';
-                        await _fileSystem.createDirectory(newPath);
+                        await _documentSystem.createDirectory(newPath);
                         reloadFileSystem();
                       },
                     ),
                     MenuItemButton(
                       onPressed: () async => _createFile(
-                        await _templateSystem.getDefaultTemplate(
-                          _templateSystem.remote?.defaultTemplate ??
+                        await _templateSystem.getDefaultFile(
+                          _templateSystem.storage?.defaults['template'] ??
                               _settingsCubit.state.defaultTemplate,
                         ),
                       ),
@@ -327,14 +330,14 @@ class FilesViewState extends State<FilesView> {
                           const PhosphorIcon(PhosphorIconsLight.filePlus),
                       child: Text(AppLocalizations.of(context).newFile),
                     ),
-                    FutureBuilder<List<NoteData>>(
+                    FutureBuilder<Map<String, NoteData>>(
                       future: _templateSystem
-                          .createDefault(context)
-                          .then((_) => _templateSystem.getTemplates()),
+                          .initialize()
+                          .then((_) => _templateSystem.getFiles()),
                       builder: (context, snapshot) => SubmenuButton(
                         leadingIcon:
                             const PhosphorIcon(PhosphorIconsLight.file),
-                        menuChildren: snapshot.data?.map((e) {
+                        menuChildren: snapshot.data?.values.map((e) {
                               final metadata = e.getMetadata();
                               final thumbnail = e.getThumbnail();
                               return MenuItemButton(
@@ -368,10 +371,9 @@ class FilesViewState extends State<FilesView> {
                               AssetFileType.note,
                           result,
                           advanced: false,
-                          fileSystem: _fileSystem,
+                          fileSystem: _documentSystem,
                           templateSystem: _templateSystem,
-                          packSystem:
-                              PackFileSystem.fromPlatform(remote: _remote),
+                          packSystem: _fileSystem.buildPackSystem(_remote),
                         );
                         if (model == null) {
                           reloadFileSystem();
@@ -428,7 +430,7 @@ class FilesViewState extends State<FilesView> {
                   ),
                   onWillAcceptWithDetails: (data) => true,
                   onAcceptWithDetails: (data) async {
-                    await _fileSystem.moveAsset(
+                    await _documentSystem.moveAsset(
                         data.data, '$parent/${data.data.split('/').last}');
                     reloadFileSystem();
                   },
@@ -472,7 +474,8 @@ class FilesViewState extends State<FilesView> {
         const SizedBox(height: 16),
         BlocBuilder<SettingsCubit, ButterflySettings>(
           buildWhen: (previous, current) => previous.starred != current.starred,
-          builder: (context, settings) => StreamBuilder<AppDocumentEntity?>(
+          builder: (context, settings) => StreamBuilder<
+                  FileSystemEntity<NoteData>?>(
               stream: _filesStream,
               builder: (context, snapshot) {
                 if (snapshot.hasError) {
@@ -485,7 +488,7 @@ class FilesViewState extends State<FilesView> {
                   return Text(AppLocalizations.of(context).noElements);
                 }
                 final entity = snapshot.data;
-                if (entity is! AppDocumentDirectory) {
+                if (entity is! FileSystemDirectory<NoteData>) {
                   return Container();
                 }
                 final assets = entity.assets.where((e) {
@@ -551,8 +554,8 @@ class FilesViewState extends State<FilesView> {
     );
   }
 
-  Future<void> _onFileTap(AppDocumentEntity entity) async {
-    if (entity is! AppDocumentFile) {
+  Future<void> _onFileTap(FileSystemEntity entity) async {
+    if (entity is! FileSystemFile) {
       setState(() {
         _locationController.text = entity.pathWithoutLeadingSlash;
         _setFilesStream();
@@ -567,7 +570,7 @@ class FilesViewState extends State<FilesView> {
     }
   }
 
-  int _sortAssets(AppDocumentEntity a, AppDocumentEntity b) {
+  int _sortAssets(FileSystemEntity<NoteData> a, FileSystemEntity<NoteData> b) {
     try {
       final settings = _settingsCubit.state;
       // Test if starred
@@ -579,20 +582,20 @@ class FilesViewState extends State<FilesView> {
       if (bStarred && !aStarred) {
         return 1;
       }
-      if (a is AppDocumentDirectory) {
+      if (a is FileSystemDirectory<NoteData>) {
         return -1;
       }
-      if (b is AppDocumentDirectory) {
+      if (b is FileSystemDirectory<NoteData>) {
         return 1;
       }
-      final aFile = a as AppDocumentFile;
-      final bFile = b as AppDocumentFile;
+      final aFile = a as FileSystemFile<NoteData>;
+      final bFile = b as FileSystemFile<NoteData>;
       FileMetadata? aInfo, bInfo;
       try {
-        aInfo = aFile.metadata;
+        aInfo = aFile.data?.getMetadata();
       } catch (_) {}
       try {
-        bInfo = bFile.metadata;
+        bInfo = bFile.data?.getMetadata();
       } catch (_) {}
       if (aInfo == null) {
         if (bInfo == null) {
@@ -647,12 +650,14 @@ class _RecentFilesView extends StatefulWidget {
 }
 
 class _RecentFilesViewState extends State<_RecentFilesView> {
-  late Stream<List<AppDocumentEntity>> _stream;
+  late Stream<List<FileSystemEntity<NoteData>>> _stream;
+  late final ButterflyFileSystem _fileSystem;
   final ScrollController _recentScrollController = ScrollController();
 
   @override
   void initState() {
     super.initState();
+    _fileSystem = context.read<ButterflyFileSystem>();
     _setStream(context.read<SettingsCubit>().state);
   }
 
@@ -662,8 +667,9 @@ class _RecentFilesViewState extends State<_RecentFilesView> {
     super.dispose();
   }
 
-  void _setStream(ButterflySettings settings) => _stream =
-      DocumentFileSystem.fetchAssetsGlobalSync(settings.history, settings);
+  void _setStream(ButterflySettings settings) =>
+      _stream = GeneralDirectoryFileSystem.fetchAssetsGlobalSync(
+          settings.history, _fileSystem.buildAllDocumentSystems());
 
   @override
   Widget build(BuildContext context) {
@@ -672,7 +678,7 @@ class _RecentFilesViewState extends State<_RecentFilesView> {
       listener: (_, state) => setState(() {
         _setStream(state);
       }),
-      child: StreamBuilder<List<AppDocumentEntity>>(
+      child: StreamBuilder<List<FileSystemEntity>>(
           stream: _stream,
           builder: (context, snapshot) {
             final files = snapshot.data ?? [];
@@ -691,9 +697,9 @@ class _RecentFilesViewState extends State<_RecentFilesView> {
                     final entity = files[index];
                     FileMetadata? metadata;
                     Uint8List? thumbnail;
-                    if (entity is AppDocumentFile) {
-                      metadata = entity.metadata;
-                      thumbnail = entity.thumbnail;
+                    if (entity is FileSystemFile<NoteData>) {
+                      metadata = entity.data?.getMetadata();
+                      thumbnail = entity.data?.getThumbnail();
                     }
                     return AssetCard(
                       metadata: metadata,

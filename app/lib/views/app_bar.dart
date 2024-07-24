@@ -4,7 +4,7 @@ import 'package:butterfly/actions/change_path.dart';
 import 'package:butterfly/actions/search.dart';
 import 'package:butterfly/actions/settings.dart';
 import 'package:butterfly/actions/svg_export.dart';
-import 'package:butterfly/api/file_system/file_system.dart';
+import 'package:butterfly/api/file_system.dart';
 import 'package:butterfly/api/open.dart';
 import 'package:butterfly/cubits/current_index.dart';
 import 'package:butterfly/dialogs/collaboration/dialog.dart';
@@ -175,17 +175,17 @@ class _AppBarTitle extends StatelessWidget {
                       if (value == null) return;
                       if (area == null || areaName == null) {
                         final cubit = context.read<CurrentIndexCubit>();
-                        final settingsCubit = context.read<SettingsCubit>();
-                        final settings = settingsCubit.state;
+                        final fileSystem = context.read<ButterflyFileSystem>();
                         final location = cubit.state.location;
-                        final fileSystem = DocumentFileSystem.fromPlatform(
-                            remote: settings.getRemote(location.remote));
-                        await fileSystem.deleteAsset(location.path);
-                        await settingsCubit.removeRecentHistory(location);
+                        final documentSystem = fileSystem.buildDocumentSystem(
+                            settings.getRemote(location.remote));
+                        await documentSystem.deleteAsset(location.path);
+                        await fileSystem.settingsCubit
+                            .removeRecentHistory(location);
                         if (state is DocumentLoadSuccess) {
                           await state.save(location.copyWith(
                             path:
-                                '${location.parent}/${fileSystem.convertNameToFile(value)}.bfly',
+                                '${location.parent}/${documentSystem.convertNameToFile(value)}.bfly',
                           ));
                         }
                         bloc.add(DocumentDescriptionChanged(name: value));

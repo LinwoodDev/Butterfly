@@ -30,8 +30,12 @@ mixin _$UtilitiesState {
   Point<double> get rulerPosition => throw _privateConstructorUsedError;
   double get rulerAngle => throw _privateConstructorUsedError;
 
+  /// Serializes this UtilitiesState to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of UtilitiesState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $UtilitiesStateCopyWith<UtilitiesState> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -63,6 +67,8 @@ class _$UtilitiesStateCopyWithImpl<$Res, $Val extends UtilitiesState>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of UtilitiesState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -139,6 +145,8 @@ class __$$UtilitiesStateImplCopyWithImpl<$Res>
       _$UtilitiesStateImpl _value, $Res Function(_$UtilitiesStateImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of UtilitiesState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -258,7 +266,7 @@ class _$UtilitiesStateImpl implements _UtilitiesState {
                 other.rulerAngle == rulerAngle));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(
       runtimeType,
@@ -271,7 +279,9 @@ class _$UtilitiesStateImpl implements _UtilitiesState {
       rulerPosition,
       rulerAngle);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of UtilitiesState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$UtilitiesStateImplCopyWith<_$UtilitiesStateImpl> get copyWith =>
@@ -317,8 +327,11 @@ abstract class _UtilitiesState implements UtilitiesState {
   Point<double> get rulerPosition;
   @override
   double get rulerAngle;
+
+  /// Create a copy of UtilitiesState
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$UtilitiesStateImplCopyWith<_$UtilitiesStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

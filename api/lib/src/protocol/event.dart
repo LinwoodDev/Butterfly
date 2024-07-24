@@ -1,6 +1,7 @@
 import 'dart:typed_data';
 
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:lw_file_system_api/lw_file_system_api.dart';
 import 'package:replay_bloc/replay_bloc.dart';
 
 import '../../butterfly_models.dart';
@@ -11,6 +12,9 @@ part 'event.g.dart';
 enum Arrangement { forward, backward, front, back }
 
 enum DocumentPermission { read, write, admin }
+
+Map<String, dynamic> _assetLocationToJson(AssetLocation? location) =>
+    location?.toMap() ?? {};
 
 @freezed
 class DocumentEvent extends ReplayEvent with _$DocumentEvent {
@@ -62,8 +66,10 @@ class DocumentEvent extends ReplayEvent with _$DocumentEvent {
     String? description,
   }) = DocumentDescriptionChanged;
 
-  const factory DocumentEvent.documentSaved([AssetLocation? location]) =
-      DocumentSaved;
+  const factory DocumentEvent.documentSaved(
+      [@JsonKey(
+          fromJson: AssetLocationMapper.fromMap, toJson: _assetLocationToJson)
+      AssetLocation? location]) = DocumentSaved;
 
   const factory DocumentEvent.toolCreated(
     Tool tool,

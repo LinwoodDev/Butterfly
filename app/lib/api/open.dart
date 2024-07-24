@@ -7,6 +7,7 @@ import 'package:file_selector/file_selector.dart' as fs;
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:lw_file_system/lw_file_system.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 Future<bool> openReleaseNotes() {

@@ -3,7 +3,6 @@ import 'dart:math';
 import 'dart:typed_data';
 import 'dart:ui' as ui;
 
-import 'package:butterfly/api/file_system/file_system.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/cubits/transform.dart';
@@ -16,6 +15,7 @@ import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:lw_file_system/lw_file_system.dart';
 import 'package:material_leap/material_leap.dart';
 import 'package:networker/networker.dart';
 import 'package:pdf/pdf.dart';
@@ -863,7 +863,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     }
     emit(state.copyWith(currentlySaving: true));
     final storage = getRemoteStorage();
-    final fileSystem = DocumentFileSystem.fromPlatform(remote: storage);
+    final fileSystem = blocState.fileSystem.buildDocumentSystem(storage);
     while (state.saved == SaveState.unsaved) {
       emit(state.copyWith(
           saved: SaveState.saving, location: location ?? state.location));
@@ -874,11 +874,12 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
       if (!location.path.endsWith('.bfly') ||
           location.absolute ||
           location.fileType != AssetFileType.note) {
-        final document = await fileSystem.importDocument(currentData);
+        final document =
+            await fileSystem.createFile(currentData.name ?? '', currentData);
         if (document == null) return AssetLocation.empty;
         location = document.location;
       } else {
-        await fileSystem.updateDocument(location.path, currentData);
+        await fileSystem.updateFile(location.path, currentData);
       }
       state.settingsCubit.addRecentHistory(location);
     }

@@ -27,8 +27,12 @@ mixin _$Area {
   Point<double> get position => throw _privateConstructorUsedError;
   Map<String, dynamic> get extra => throw _privateConstructorUsedError;
 
+  /// Serializes this Area to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of Area
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $AreaCopyWith<Area> get copyWith => throw _privateConstructorUsedError;
 }
 
@@ -55,6 +59,8 @@ class _$AreaCopyWithImpl<$Res, $Val extends Area>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of Area
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -111,6 +117,8 @@ class __$$AreaImplCopyWithImpl<$Res>
   __$$AreaImplCopyWithImpl(_$AreaImpl _value, $Res Function(_$AreaImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of Area
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -197,12 +205,14 @@ class _$AreaImpl extends _Area {
             const DeepCollectionEquality().equals(other._extra, _extra));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, name, width, height, position,
       const DeepCollectionEquality().hash(_extra));
 
-  @JsonKey(ignore: true)
+  /// Create a copy of Area
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$AreaImplCopyWith<_$AreaImpl> get copyWith =>
@@ -238,8 +248,11 @@ abstract class _Area extends Area {
   Point<double> get position;
   @override
   Map<String, dynamic> get extra;
+
+  /// Create a copy of Area
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$AreaImplCopyWith<_$AreaImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

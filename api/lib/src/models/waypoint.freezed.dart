@@ -25,8 +25,12 @@ mixin _$Waypoint {
   Point<double> get position => throw _privateConstructorUsedError;
   double? get scale => throw _privateConstructorUsedError;
 
+  /// Serializes this Waypoint to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of Waypoint
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $WaypointCopyWith<Waypoint> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -52,6 +56,8 @@ class _$WaypointCopyWithImpl<$Res, $Val extends Waypoint>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of Waypoint
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -98,6 +104,8 @@ class __$$WaypointImplCopyWithImpl<$Res>
       _$WaypointImpl _value, $Res Function(_$WaypointImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of Waypoint
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -155,11 +163,13 @@ class _$WaypointImpl implements _Waypoint {
             (identical(other.scale, scale) || other.scale == scale));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, name, position, scale);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of Waypoint
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$WaypointImplCopyWith<_$WaypointImpl> get copyWith =>
@@ -188,8 +198,11 @@ abstract class _Waypoint implements Waypoint {
   Point<double> get position;
   @override
   double? get scale;
+
+  /// Create a copy of Waypoint
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$WaypointImplCopyWith<_$WaypointImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

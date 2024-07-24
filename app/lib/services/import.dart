@@ -4,12 +4,12 @@ import 'dart:io';
 import 'dart:math';
 import 'dart:ui' as ui;
 import 'package:archive/archive.dart';
+import 'package:butterfly/api/file_system.dart';
 import 'package:butterfly/api/image.dart';
 import 'package:butterfly/helpers/asset.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/foundation.dart';
 import 'package:image/image.dart' as img;
-import 'package:butterfly/api/file_system/file_system.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/dialogs/import/confirmation.dart';
 import 'package:butterfly/dialogs/import/note.dart';
@@ -21,6 +21,7 @@ import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:lw_file_system/lw_file_system.dart';
 import 'package:lw_sysapi/lw_sysapi.dart';
 import 'package:material_leap/material_leap.dart';
 import 'package:pdf/pdf.dart';
@@ -38,18 +39,32 @@ import '../dialogs/export/pdf.dart';
 class ImportService {
   final DocumentBloc? bloc;
   final BuildContext context;
+  final ExternalStorage? storage;
+  final bool useDefaultStorage;
 
-  ImportService(this.context, [this.bloc]);
+  ImportService(
+    this.context, {
+    this.bloc,
+    this.storage,
+    this.useDefaultStorage = true,
+  });
 
   DocumentLoadSuccess? _getState() => bloc?.state is DocumentLoadSuccess
       ? (bloc?.state as DocumentLoadSuccess)
       : null;
   CurrentIndexCubit? get currentIndexCubit => _getState()?.currentIndexCubit;
-  DocumentFileSystem getFileSystem() => context.read<DocumentFileSystem>();
-  TemplateFileSystem getTemplateFileSystem() =>
-      context.read<TemplateFileSystem>();
-  PackFileSystem getPackFileSystem() => context.read<PackFileSystem>();
   SettingsCubit getSettingsCubit() => context.read<SettingsCubit>();
+  ButterflySettings getSettings() => getSettingsCubit().state;
+  ButterflyFileSystem getFileSystem() => context.read<ButterflyFileSystem>();
+  DocumentFileSystem getDocumentSystem() => useDefaultStorage
+      ? getFileSystem().buildDefaultDocumentSystem()
+      : getFileSystem().buildDocumentSystem(storage);
+  TemplateFileSystem getTemplateFileSystem() => useDefaultStorage
+      ? getFileSystem().buildDefaultTemplateSystem()
+      : getFileSystem().buildTemplateSystem(storage);
+  PackFileSystem getPackFileSystem() => useDefaultStorage
+      ? getFileSystem().buildDefaultPackSystem()
+      : getFileSystem().buildPackSystem(storage);
 
   Future<NoteData?> load(
       {String type = '', Object? data, NoteData? document}) async {
@@ -60,14 +75,15 @@ class ImportService {
     document ??= state?.data;
     document ??= DocumentDefaults.createDocument();
     Uint8List? bytes;
+    final fs = getDocumentSystem();
     if (data is Uint8List) {
       bytes = data;
     } else if (data is String) {
       bytes = Uint8List.fromList(utf8.encode(data));
-    } else if (data is AppDocumentFile) {
-      bytes = Uint8List.fromList(data.data);
+    } else if (data is FileSystemFile<NoteData>) {
+      bytes = Uint8List.fromList(data.data?.save() ?? []);
     } else if (location != null) {
-      bytes = await getFileSystem().loadAbsolute(location.path);
+      bytes = await fs.loadAbsolute(location.path);
     } else if (data is List) {
       bytes = Uint8List.fromList(List<int>.from(data));
     } else if (data is NoteData) {
@@ -310,7 +326,7 @@ class ImportService {
           TemplateImportConfirmationDialog(template: metadata),
     );
     if (context.mounted && result == true) {
-      templateSystem.createTemplate(template);
+      templateSystem.createFile(template.name ?? '', template);
     }
     return template.createDocument();
   }
@@ -329,7 +345,7 @@ class ImportService {
       if (document != null) {
         document = document.setPack(pack);
       } else {
-        packSystem.createPack(pack);
+        packSystem.createFile(pack.name ?? '', pack);
       }
     }
     return true;
@@ -728,21 +744,24 @@ class ImportService {
   Future<bool> importArchive(Uint8List bytes,
       {DocumentFileSystem? fileSystem}) async {
     try {
-      fileSystem ??= getFileSystem();
+      fileSystem ??= getDocumentSystem();
       final archive = ZipDecoder().decodeBytes(bytes);
       final data = NoteData.fromArchive(archive);
       if (data.isValid) {
         final document = await importBfly(bytes);
         if (document != null) {
-          fileSystem.importDocument(document);
+          fileSystem.createFile(document.name ?? '', document);
         }
         return document != null;
       }
       for (final file in archive) {
-        if (!file.name.endsWith('.bfly')) continue;
+        const fileExtension = '.bfly';
+        if (!file.name.endsWith(fileExtension)) continue;
         final document = await importBfly(file.content);
         if (document != null) {
-          fileSystem.importDocument(document);
+          fileSystem.createFile(
+              file.name.substring(0, file.name.length - fileExtension.length),
+              document);
         }
       }
       return true;
