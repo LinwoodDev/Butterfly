@@ -213,7 +213,7 @@ class ButterflySettings with _$ButterflySettings, LeapSettings {
   factory ButterflySettings.fromPrefs(SharedPreferences prefs) {
     final connections = prefs
             .getStringList('connections')
-            ?.map((e) => ExternalStorageMapper.fromJson(json.decode(e)))
+            ?.map((e) => ExternalStorageMapper.fromJson(e))
             .toList() ??
         const [];
     return ButterflySettings(

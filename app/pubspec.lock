@@ -816,8 +816,8 @@ packages:
     dependency: "direct main"
     description:
       path: "packages/lw_file_system"
-      ref: b8c77d09288aa1bf31b2de527cfca881352b2cbf
-      resolved-ref: b8c77d09288aa1bf31b2de527cfca881352b2cbf
+      ref: "67ca07251dd0cd107414cac50c793c56e63f4164"
+      resolved-ref: "67ca07251dd0cd107414cac50c793c56e63f4164"
       url: "https://github.com/LinwoodDev/dart_pkgs.git"
     source: git
     version: "1.0.0"
@@ -825,8 +825,8 @@ packages:
     dependency: transitive
     description:
       path: "packages/lw_file_system_api"
-      ref: b76f064b45e41a8ca1f3efae3da945edb08d47bd
-      resolved-ref: b76f064b45e41a8ca1f3efae3da945edb08d47bd
+      ref: a8b91886ae772f012a1cceb4428a958b8329db80
+      resolved-ref: a8b91886ae772f012a1cceb4428a958b8329db80
       url: "https://github.com/LinwoodDev/dart_pkgs"
     source: git
     version: "1.0.0"
@@ -1348,18 +1348,18 @@ packages:
     dependency: "direct main"
     description:
       name: super_clipboard
-      sha256: cdab725bac26655ebd189f4d202d694a8cbc1c21e0f0478ccd7829c71716f09b
+      sha256: c72d2ae8c3a66b20a104523add86b7c2813b1d4cced893a9764b84fb97ac8e2a
       url: "https://pub.dev"
     source: hosted
-    version: "0.8.17"
+    version: "0.8.18"
   super_native_extensions:
     dependency: transitive
     description:
       name: super_native_extensions
-      sha256: fa55d452d34b7112453afbb9fa4d13c0527ff201630d10d86546497179030544
+      sha256: b03f19e54744b65940a7c2cb4f93abd4819b5355aa3464d7b3c9a013b6b76db1
       url: "https://pub.dev"
     source: hosted
-    version: "0.8.17"
+    version: "0.8.18"
   sync_http:
     dependency: transitive
     description:
