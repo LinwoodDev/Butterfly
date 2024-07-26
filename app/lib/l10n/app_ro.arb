@@ -609,5 +609,6 @@
   "overrideTools": "Suprascrie uneltele",
   "hideCursorWhileDrawing": "Ascunde cursorul în timpul desenării",
   "installed": "Instalat",
-  "install": "Instalează"
+  "install": "Instalează",
+  "deselect": "Deselect"
 }
