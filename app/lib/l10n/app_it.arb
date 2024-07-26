@@ -609,5 +609,6 @@
   "overrideTools": "Sovrascrivi strumenti",
   "hideCursorWhileDrawing": "Nascondi il cursore durante il disegno",
   "installed": "Installato",
-  "install": "Installa"
+  "install": "Installa",
+  "deselect": "Deselect"
 }
