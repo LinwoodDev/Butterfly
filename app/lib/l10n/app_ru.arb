@@ -609,5 +609,6 @@
   "overrideTools": "Переопределить инструменты",
   "hideCursorWhileDrawing": "Скрыть курсор во время рисования",
   "installed": "Установлено",
-  "install": "Установить"
+  "install": "Установить",
+  "deselect": "Deselect"
 }
