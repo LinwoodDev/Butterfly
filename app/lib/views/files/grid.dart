@@ -226,7 +226,9 @@ class FileEntityGridItem extends StatelessWidget {
                           onDelete: onDelete,
                           onReload: onReload,
                           documentSystem: documentSystem,
-                          onSelect: () => onSelectedChanged(true),
+                          onSelect: selected == null
+                              ? () => onSelectedChanged(true)
+                              : null,
                         ),
                       ],
                     ),

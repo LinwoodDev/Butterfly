@@ -285,7 +285,9 @@ class FileEntityListTile extends StatelessWidget {
                         onDelete: onDelete,
                         documentSystem: documentSystem,
                         onReload: onReload,
-                        onSelect: () => onSelectedChanged(true),
+                        onSelect: selected == null
+                            ? () => onSelectedChanged(true)
+                            : null,
                       );
                       final selectionCheckbox = Checkbox(
                         value: selected ?? false,
@@ -344,6 +346,10 @@ class FileEntityListTile extends StatelessWidget {
                       } else {
                         return Row(
                           children: [
+                            if (selected != null) ...[
+                              selectionCheckbox,
+                              const SizedBox(width: 8),
+                            ],
                             Expanded(
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.stretch,
