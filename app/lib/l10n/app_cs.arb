@@ -609,5 +609,6 @@
   "overrideTools": "Přepsat nástroje",
   "hideCursorWhileDrawing": "Skrýt kurzor při kreslení",
   "installed": "Nainstalováno",
-  "install": "Instalovat"
+  "install": "Instalovat",
+  "deselect": "Deselect"
 }
