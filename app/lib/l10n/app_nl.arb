@@ -609,5 +609,6 @@
   "overrideTools": "Hulpmiddelen vervangen",
   "hideCursorWhileDrawing": "Verberg cursor tijdens tekenen",
   "installed": "Geinstalleerd",
-  "install": "Installeren"
+  "install": "Installeren",
+  "deselect": "Deselect"
 }
