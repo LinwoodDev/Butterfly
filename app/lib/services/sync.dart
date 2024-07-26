@@ -109,12 +109,8 @@ class RemoteSync {
     _filesSubject.onListen = _onListen;
   }
 
-  RemoteDirectoryFileSystem? buildRemoteSystem() {
-    final remoteSystem =
-        fileSystem.buildDocumentSystem(remoteStorage).fileSystem;
-    if (remoteSystem is! RemoteDirectoryFileSystem) return null;
-    return remoteSystem;
-  }
+  RemoteDirectoryFileSystem? buildRemoteSystem() =>
+      fileSystem.buildDocumentSystem(remoteStorage).remoteSystem;
 
   Future<void> _refreshSyncStatus() async {
     if (status == SyncStatus.syncing) {

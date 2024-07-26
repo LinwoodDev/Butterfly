@@ -180,10 +180,10 @@ packages:
     dependency: transitive
     description:
       name: camera_android_camerax
-      sha256: "7c03940cb8c92eb5b184952674a07cc4a73c6ba2b3568aad70255ad4cb913660"
+      sha256: "8bd9cab67551642eb33ceb33ece7acc0890014fc90ddfae637c7e2b683657e65"
       url: "https://pub.dev"
     source: hosted
-    version: "0.6.7+1"
+    version: "0.6.7+2"
   camera_avfoundation:
     dependency: transitive
     description:
@@ -373,10 +373,10 @@ packages:
     dependency: "direct dev"
     description:
       name: espresso
-      sha256: "96e5092f060a43aa0905a5aef6dd7b939e7f168517ef3380ce378b3ae6dd7cd2"
+      sha256: ceb78974a79f266c9acc13c476e84e877ee320cadff857d9c3fbc425d27a46d4
       url: "https://pub.dev"
     source: hosted
-    version: "0.4.0"
+    version: "0.4.0+1"
   fake_async:
     dependency: transitive
     description:
@@ -413,10 +413,10 @@ packages:
     dependency: transitive
     description:
       name: file_selector_android
-      sha256: f46339915288f39135d6d708a9bd43dfba6d1d79fe33d1143bafe87b5271ab8b
+      sha256: e7610bcdaee3ad5310c075dc7535c91db06ae03bf8f6ec8fff04e1f6d071d7ed
       url: "https://pub.dev"
     source: hosted
-    version: "0.5.1+3"
+    version: "0.5.1+4"
   file_selector_ios:
     dependency: transitive
     description:
@@ -476,19 +476,20 @@ packages:
   flex_color_scheme:
     dependency: "direct main"
     description:
-      name: flex_color_scheme
-      sha256: "32914024a4f404d90ff449f58d279191675b28e7c08824046baf06826e99d984"
-      url: "https://pub.dev"
-    source: hosted
-    version: "7.3.1"
+      path: "."
+      ref: "6b34ee7d2efcf0d964163e925ba946a7bf454d72"
+      resolved-ref: "6b34ee7d2efcf0d964163e925ba946a7bf454d72"
+      url: "https://github.com/rydmike/flex_color_scheme"
+    source: git
+    version: "8.0.0-dev.1"
   flex_seed_scheme:
     dependency: transitive
     description:
       name: flex_seed_scheme
-      sha256: "4cee2f1d07259f77e8b36f4ec5f35499d19e74e17c7dce5b819554914082bc01"
+      sha256: cc08c81879ecfd2ab840664ce4770980da0b8a319e35f51bcf763849b7f7596b
       url: "https://pub.dev"
     source: hosted
-    version: "1.5.0"
+    version: "3.1.2"
   flutter:
     dependency: "direct main"
     description: flutter
@@ -540,10 +541,10 @@ packages:
     dependency: transitive
     description:
       name: flutter_plugin_android_lifecycle
-      sha256: c6b0b4c05c458e1c01ad9bcc14041dd7b1f6783d487be4386f793f47a8a4d03e
+      sha256: "9d98bd47ef9d34e803d438f17fd32b116d31009f534a6fa5ce3a1167f189a6de"
       url: "https://pub.dev"
     source: hosted
-    version: "2.0.20"
+    version: "2.0.21"
   flutter_secure_storage:
     dependency: "direct main"
     description:
@@ -816,8 +817,8 @@ packages:
     dependency: "direct main"
     description:
       path: "packages/lw_file_system"
-      ref: "67ca07251dd0cd107414cac50c793c56e63f4164"
-      resolved-ref: "67ca07251dd0cd107414cac50c793c56e63f4164"
+      ref: "9447d510c9094dc0750e85922ddeaa218ece0485"
+      resolved-ref: "9447d510c9094dc0750e85922ddeaa218ece0485"
       url: "https://github.com/LinwoodDev/dart_pkgs.git"
     source: git
     version: "1.0.0"
@@ -825,8 +826,8 @@ packages:
     dependency: transitive
     description:
       path: "packages/lw_file_system_api"
-      ref: a8b91886ae772f012a1cceb4428a958b8329db80
-      resolved-ref: a8b91886ae772f012a1cceb4428a958b8329db80
+      ref: d0c9eb7d403eba898153fe2c03016aa83050cf69
+      resolved-ref: d0c9eb7d403eba898153fe2c03016aa83050cf69
       url: "https://github.com/LinwoodDev/dart_pkgs"
     source: git
     version: "1.0.0"
@@ -982,10 +983,10 @@ packages:
     dependency: transitive
     description:
       name: path_provider_android
-      sha256: "30c5aa827a6ae95ce2853cdc5fe3971daaac00f6f081c419c013f7f57bff2f5e"
+      sha256: e84c8a53fe1510ef4582f118c7b4bdf15b03002b51d7c2b66983c65843d61193
       url: "https://pub.dev"
     source: hosted
-    version: "2.2.7"
+    version: "2.2.8"
   path_provider_foundation:
     dependency: transitive
     description:
@@ -1215,10 +1216,10 @@ packages:
     dependency: transitive
     description:
       name: shared_preferences_android
-      sha256: "93d0ec9dd902d85f326068e6a899487d1f65ffcd5798721a95330b26c8131577"
+      sha256: "3d4571b3c5eb58ce52a419d86e655493d0bc3020672da79f72fa0c16ca3a8ec1"
       url: "https://pub.dev"
     source: hosted
-    version: "2.2.3"
+    version: "2.2.4"
   shared_preferences_foundation:
     dependency: transitive
     description:
@@ -1436,10 +1437,10 @@ packages:
     dependency: transitive
     description:
       name: url_launcher_android
-      sha256: "95d8027db36a0e52caf55680f91e33ea6aa12a3ce608c90b06f4e429a21067ac"
+      sha256: c24484594a8dea685610569ab0f2547de9c7a1907500a9bc5e37e4c9a3cbfb23
       url: "https://pub.dev"
     source: hosted
-    version: "6.3.5"
+    version: "6.3.6"
   url_launcher_ios:
     dependency: transitive
     description:

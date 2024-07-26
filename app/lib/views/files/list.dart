@@ -18,10 +18,11 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 class FileEntityListTile extends StatelessWidget {
   final String? modifiedText, createdText;
-  final bool selected, editable, collapsed;
+  final bool active, editable, collapsed;
+  final bool? selected;
   final PhosphorIconData icon;
   final VoidCallback onTap, onDelete, onReload;
-  final ValueChanged<bool> onEdit;
+  final ValueChanged<bool> onEdit, onSelectedChanged;
   final Uint8List? thumbnail;
   final FileSystemEntity<NoteData> entity;
   final TextEditingController nameController;
@@ -30,7 +31,8 @@ class FileEntityListTile extends StatelessWidget {
     super.key,
     this.createdText,
     this.modifiedText,
-    this.selected = false,
+    this.selected,
+    this.active = false,
     this.editable = false,
     this.collapsed = false,
     required this.icon,
@@ -38,6 +40,7 @@ class FileEntityListTile extends StatelessWidget {
     required this.onDelete,
     required this.onReload,
     required this.onEdit,
+    required this.onSelectedChanged,
     this.thumbnail,
     required this.entity,
     required this.nameController,
@@ -64,21 +67,20 @@ class FileEntityListTile extends StatelessWidget {
               ),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(16),
-                side: selected
+                side: active
                     ? BorderSide(
                         color: colorScheme.primaryContainer,
                         width: 1,
                       )
                     : BorderSide.none,
               ),
-              surfaceTintColor: selected
+              surfaceTintColor: active
                   ? colorScheme.primaryContainer
                   : colorScheme.secondaryContainer,
               clipBehavior: Clip.hardEdge,
               child: InkWell(
                   onTap: onTap,
-                  highlightColor:
-                      selected ? colorScheme.primaryContainer : null,
+                  highlightColor: active ? colorScheme.primaryContainer : null,
                   child: Padding(
                     padding: const EdgeInsets.symmetric(
                       vertical: 8,
@@ -281,11 +283,20 @@ class FileEntityListTile extends StatelessWidget {
                         onEdit: onEdit,
                         nameController: nameController,
                         onDelete: onDelete,
+                        documentSystem: documentSystem,
+                        onReload: onReload,
+                        onSelect: () => onSelectedChanged(true),
+                      );
+                      final selectionCheckbox = Checkbox(
+                        value: selected ?? false,
+                        onChanged: (value) => onSelectedChanged(value ?? false),
                       );
                       if (isDesktop) {
                         return Row(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
+                            selectionCheckbox,
+                            const SizedBox(width: 8),
                             Expanded(
                               child: Wrap(
                                 spacing: 8,
@@ -311,6 +322,8 @@ class FileEntityListTile extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
+                            selectionCheckbox,
+                            const SizedBox(width: 8),
                             Expanded(
                                 child: Row(children: [
                               Flexible(

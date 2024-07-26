@@ -147,7 +147,7 @@ class _HomePageState extends State<HomePage> {
                                   children: [
                                     Expanded(
                                         child: FilesView(
-                                      selectedAsset: widget.selectedAsset,
+                                      activeAsset: widget.selectedAsset,
                                       remote: _remote,
                                       isMobile: false,
                                       onRemoteChanged: (value) =>
@@ -178,7 +178,7 @@ class _HomePageState extends State<HomePage> {
                                     ),
                                     const SizedBox(height: 32),
                                     FilesView(
-                                      selectedAsset: widget.selectedAsset,
+                                      activeAsset: widget.selectedAsset,
                                       remote: _remote,
                                       isMobile: true,
                                       key: _filesViewKey,

@@ -46,7 +46,10 @@ dependencies:
   camera: ^0.11.0
   camera_windows: ^0.2.1+9
   window_manager: ^0.3.8
-  flex_color_scheme: ^7.3.1
+  flex_color_scheme:
+    git:
+      url: https://github.com/rydmike/flex_color_scheme
+      ref: 6b34ee7d2efcf0d964163e925ba946a7bf454d72
   json_annotation: ^4.9.0
   path: ^1.8.3
   printing: ^5.12.0
@@ -89,7 +92,7 @@ dependencies:
   lw_file_system:
     git:
       url: https://github.com/LinwoodDev/dart_pkgs.git
-      ref: 67ca07251dd0cd107414cac50c793c56e63f4164
+      ref: 9447d510c9094dc0750e85922ddeaa218ece0485
       path: packages/lw_file_system
   flutter_localized_locales: ^2.0.5
   dynamic_color: ^1.7.0

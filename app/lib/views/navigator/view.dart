@@ -190,7 +190,7 @@ class _DocumentNavigatorState extends State<DocumentNavigator>
               NavigatorPage.files => SingleChildScrollView(
                   child: FilesView(
                     remote: _remote,
-                    selectedAsset: location,
+                    activeAsset: location,
                     onRemoteChanged: (remote) {
                       setState(() {
                         _remote = remote;

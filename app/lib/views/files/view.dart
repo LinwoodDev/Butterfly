@@ -21,7 +21,7 @@ import '../../dialogs/name.dart';
 import '../../services/import.dart';
 
 class FilesView extends StatefulWidget {
-  final AssetLocation? selectedAsset;
+  final AssetLocation? activeAsset;
   final ExternalStorage? remote;
   final ValueChanged<ExternalStorage?>? onRemoteChanged;
   final bool collapsed;
@@ -29,7 +29,7 @@ class FilesView extends StatefulWidget {
 
   const FilesView({
     super.key,
-    this.selectedAsset,
+    this.activeAsset,
     this.remote,
     this.onRemoteChanged,
     this.collapsed = false,
@@ -52,6 +52,7 @@ class FilesViewState extends State<FilesView> {
   String _search = '';
   late final SettingsCubit _settingsCubit;
   Stream<FileSystemEntity<NoteData>?>? _filesStream;
+  final List<String> _selectedFiles = [];
 
   @override
   void initState() {
@@ -121,6 +122,16 @@ class FilesViewState extends State<FilesView> {
     _setFilesStream();
     widget.onRemoteChanged?.call(remote);
   }
+
+  void Function(bool) _updateSelection(String path) => (bool value) {
+        setState(() {
+          if (value) {
+            _selectedFiles.add(path);
+          } else {
+            _selectedFiles.remove(path);
+          }
+        });
+      };
 
   @override
   Widget build(BuildContext context) {
@@ -471,84 +482,130 @@ class FilesViewState extends State<FilesView> {
             );
           }
         }),
-        const SizedBox(height: 16),
+        SizedBox(
+          height: 64,
+          child: _selectedFiles.isNotEmpty
+              ? Center(
+                  child: Card(
+                    child: Padding(
+                      padding: const EdgeInsets.all(8),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          IconButton(
+                            icon: const PhosphorIcon(
+                                PhosphorIconsLight.selectionSlash),
+                            tooltip: AppLocalizations.of(context).deselect,
+                            onPressed: () =>
+                                setState(() => _selectedFiles.clear()),
+                          ),
+                          Builder(builder: (context) {
+                            return IconButton(
+                              icon:
+                                  const PhosphorIcon(PhosphorIconsLight.trash),
+                              tooltip: AppLocalizations.of(context).delete,
+                              onPressed: () async => deleteEntities(
+                                context: context,
+                                entities: _selectedFiles,
+                                documentSystem: _documentSystem,
+                                isMobile: widget.isMobile,
+                                onDelete: reloadFileSystem,
+                              ),
+                            );
+                          }),
+                        ],
+                      ),
+                    ),
+                  ),
+                )
+              : null,
+        ),
         BlocBuilder<SettingsCubit, ButterflySettings>(
           buildWhen: (previous, current) => previous.starred != current.starred,
-          builder: (context, settings) => StreamBuilder<
-                  FileSystemEntity<NoteData>?>(
-              stream: _filesStream,
-              builder: (context, snapshot) {
-                if (snapshot.hasError) {
-                  return Text(snapshot.error.toString());
-                }
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return const Center(child: CircularProgressIndicator());
-                }
-                if (!snapshot.hasData) {
-                  return Text(AppLocalizations.of(context).noElements);
-                }
-                final entity = snapshot.data;
-                if (entity is! FileSystemDirectory<NoteData>) {
-                  return Container();
-                }
-                final assets = entity.assets.where((e) {
-                  if (_search.isNotEmpty) {
-                    return e.fileName
-                        .toLowerCase()
-                        .contains(_search.toLowerCase());
-                  }
-                  return true;
-                }).toList()
-                  ..sort(_sortAssets);
-                if (assets.isEmpty) {
-                  return Center(
-                    child: Text(AppLocalizations.of(context).noElements),
-                  );
-                }
-                if (state.gridView && !widget.collapsed) {
-                  return Center(
-                    child: Wrap(
-                      spacing: 4,
-                      runSpacing: 4,
-                      crossAxisAlignment: WrapCrossAlignment.start,
-                      children: assets.map(
-                        (e) {
-                          final selected =
-                              widget.selectedAsset?.isSame(e.location) ?? false;
-                          return FileEntityItem(
-                            entity: e,
-                            isMobile: widget.isMobile,
-                            selected: selected,
-                            collapsed: widget.collapsed,
-                            onTap: () => _onFileTap(e),
-                            onReload: reloadFileSystem,
-                            gridView: true,
-                          );
-                        },
-                      ).toList(),
-                    ),
-                  );
-                }
-                return ListView.builder(
-                  shrinkWrap: true,
-                  itemCount: assets.length,
-                  physics: const NeverScrollableScrollPhysics(),
-                  itemBuilder: (context, index) {
-                    final entity = assets[index];
-                    final selected =
-                        widget.selectedAsset?.isSame(entity.location) ?? false;
-                    return FileEntityItem(
-                      entity: entity,
-                      selected: selected,
-                      collapsed: widget.collapsed,
-                      onTap: () => _onFileTap(entity),
-                      onReload: reloadFileSystem,
-                      gridView: false,
-                      isMobile: widget.isMobile,
+          builder: (context, settings) =>
+              StreamBuilder<FileSystemEntity<NoteData>?>(
+                  stream: _filesStream,
+                  builder: (context, snapshot) {
+                    if (snapshot.hasError) {
+                      return Text(snapshot.error.toString());
+                    }
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return const Center(child: CircularProgressIndicator());
+                    }
+                    if (!snapshot.hasData) {
+                      return Text(AppLocalizations.of(context).noElements);
+                    }
+                    final entity = snapshot.data;
+                    if (entity is! FileSystemDirectory<NoteData>) {
+                      return Container();
+                    }
+                    final assets = entity.assets.where((e) {
+                      if (_search.isNotEmpty) {
+                        return e.fileName
+                            .toLowerCase()
+                            .contains(_search.toLowerCase());
+                      }
+                      return true;
+                    }).toList()
+                      ..sort(_sortAssets);
+                    if (assets.isEmpty) {
+                      return Center(
+                        child: Text(AppLocalizations.of(context).noElements),
+                      );
+                    }
+                    if (state.gridView && !widget.collapsed) {
+                      return Center(
+                        child: Wrap(
+                          spacing: 4,
+                          runSpacing: 4,
+                          crossAxisAlignment: WrapCrossAlignment.start,
+                          children: assets.map(
+                            (e) {
+                              final active =
+                                  widget.activeAsset?.isSame(e.location) ??
+                                      false;
+                              return FileEntityItem(
+                                entity: e,
+                                isMobile: widget.isMobile,
+                                active: active,
+                                collapsed: widget.collapsed,
+                                onTap: () => _onFileTap(e),
+                                selected: _selectedFiles.isEmpty
+                                    ? null
+                                    : _selectedFiles.contains(e.location.path),
+                                onSelected: _updateSelection(e.location.path),
+                                onReload: reloadFileSystem,
+                                gridView: true,
+                              );
+                            },
+                          ).toList(),
+                        ),
+                      );
+                    }
+                    return ListView.builder(
+                      shrinkWrap: true,
+                      itemCount: assets.length,
+                      physics: const NeverScrollableScrollPhysics(),
+                      itemBuilder: (context, index) {
+                        final e = assets[index];
+                        final active =
+                            widget.activeAsset?.isSame(e.location) ?? false;
+                        return FileEntityItem(
+                          entity: e,
+                          active: active,
+                          collapsed: widget.collapsed,
+                          selected: _selectedFiles.isEmpty
+                              ? null
+                              : _selectedFiles.contains(e.location.path),
+                          onTap: () => _onFileTap(e),
+                          onSelected: _updateSelection(e.location.path),
+                          onReload: reloadFileSystem,
+                          gridView: false,
+                          isMobile: widget.isMobile,
+                        );
+                      },
                     );
-                  },
-                );
-              }),
+                  }),
         ),
       ]),
     );

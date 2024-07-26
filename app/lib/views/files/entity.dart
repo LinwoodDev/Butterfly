@@ -16,23 +16,85 @@ import 'package:popover/popover.dart';
 
 class FileEntityItem extends StatefulWidget {
   final FileSystemEntity<NoteData> entity;
-  final bool selected, collapsed, gridView;
+  final bool active, collapsed, gridView;
+  final bool? selected;
   final VoidCallback onTap, onReload;
+  final ValueChanged<bool> onSelected;
   final bool isMobile;
 
   const FileEntityItem({
     super.key,
     required this.entity,
     this.selected = false,
+    this.active = false,
     this.collapsed = false,
     this.gridView = false,
     required this.isMobile,
     required this.onTap,
     required this.onReload,
+    required this.onSelected,
   });
 
   @override
   State<FileEntityItem> createState() => _FileEntityItemState();
+}
+
+void deleteEntities({
+  required BuildContext context,
+  required bool isMobile,
+  required DocumentFileSystem documentSystem,
+  required List<String> entities,
+  required VoidCallback onDelete,
+}) {
+  final colorScheme = Theme.of(context).colorScheme;
+  showPopover(
+    backgroundColor: colorScheme.surface,
+    context: context,
+    direction: isMobile ? PopoverDirection.top : PopoverDirection.right,
+    radius: 16,
+    width: 180,
+    height: 130,
+    arrowHeight: 15,
+    arrowWidth: 20,
+    bodyBuilder: (ctx) => Padding(
+      padding: const EdgeInsets.all(16.0),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(
+            AppLocalizations.of(context).areYouSure,
+            textAlign: TextAlign.center,
+          ),
+          const SizedBox(height: 16),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.of(ctx).pop();
+                },
+                child: const PhosphorIcon(PhosphorIconsLight.x),
+              ),
+              FilledButton(
+                onPressed: () async {
+                  final settingsCubit = context.read<SettingsCubit>();
+                  Navigator.of(ctx).pop();
+                  for (final entity in entities) {
+                    await documentSystem.deleteAsset(entity);
+                    await settingsCubit.removeRecentHistory(AssetLocation(
+                        path: entity,
+                        remote: documentSystem.storage?.identifier ?? ''));
+                  }
+                  onDelete();
+                },
+                child: const PhosphorIcon(PhosphorIconsLight.check),
+              ),
+            ],
+          ),
+        ],
+      ),
+    ),
+  );
 }
 
 class _FileEntityItemState extends State<FileEntityItem> {
@@ -68,56 +130,13 @@ class _FileEntityItemState extends State<FileEntityItem> {
       }
     } catch (_) {}
     void onEdit(bool value) => setState(() => _editable = value);
-    void onDelete() {
-      final colorScheme = Theme.of(context).colorScheme;
-      showPopover(
-        backgroundColor: colorScheme.surface,
-        context: context,
-        direction:
-            widget.isMobile ? PopoverDirection.top : PopoverDirection.right,
-        radius: 16,
-        width: 180,
-        height: 130,
-        arrowHeight: 15,
-        arrowWidth: 20,
-        bodyBuilder: (ctx) => Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                AppLocalizations.of(context).areYouSure,
-                textAlign: TextAlign.center,
-              ),
-              const SizedBox(height: 16),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  ElevatedButton(
-                    onPressed: () {
-                      Navigator.of(ctx).pop();
-                    },
-                    child: const PhosphorIcon(PhosphorIconsLight.x),
-                  ),
-                  FilledButton(
-                    onPressed: () async {
-                      final settingsCubit = context.read<SettingsCubit>();
-                      Navigator.of(ctx).pop();
-                      await documentSystem
-                          .deleteAsset(widget.entity.location.path);
-                      await settingsCubit
-                          .removeRecentHistory(widget.entity.location);
-                      widget.onReload();
-                    },
-                    child: const PhosphorIcon(PhosphorIconsLight.check),
-                  ),
-                ],
-              ),
-            ],
-          ),
-        ),
-      );
-    }
+    void onDelete() => deleteEntities(
+          context: context,
+          isMobile: widget.isMobile,
+          documentSystem: documentSystem,
+          entities: [widget.entity.location.path],
+          onDelete: widget.onReload,
+        );
 
     final draggable = LongPressDraggable<String>(
       data: widget.entity.pathWithLeadingSlash,
@@ -147,7 +166,9 @@ class _FileEntityItemState extends State<FileEntityItem> {
               nameController: _nameController,
               collapsed: widget.collapsed,
               editable: _editable,
+              active: widget.active,
               selected: widget.selected,
+              onSelectedChanged: widget.onSelected,
               thumbnail: thumbnail,
             )
           : FileEntityListTile(
@@ -162,7 +183,9 @@ class _FileEntityItemState extends State<FileEntityItem> {
               nameController: _nameController,
               collapsed: widget.collapsed,
               editable: _editable,
+              active: widget.active,
               selected: widget.selected,
+              onSelectedChanged: widget.onSelected,
               thumbnail: thumbnail,
             ),
     );
