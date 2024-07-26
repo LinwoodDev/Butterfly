@@ -609,5 +609,6 @@
   "overrideTools": "ツールを上書きする",
   "hideCursorWhileDrawing": "描画中にカーソルを隠す",
   "installed": "インストール済み",
-  "install": "インストール"
+  "install": "インストール",
+  "deselect": "Deselect"
 }
