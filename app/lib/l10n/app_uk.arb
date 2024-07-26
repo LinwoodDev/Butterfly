@@ -609,5 +609,6 @@
   "overrideTools": "Змінити інструменти",
   "hideCursorWhileDrawing": "Сховати курсор під час малювання",
   "installed": "Встановлено",
-  "install": "Інсталювати"
+  "install": "Інсталювати",
+  "deselect": "Deselect"
 }
