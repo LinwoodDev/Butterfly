@@ -609,5 +609,6 @@
   "overrideTools": "Overstyr verktøy",
   "hideCursorWhileDrawing": "Skjul markøren under tegning",
   "installed": "Installert",
-  "install": "Installer"
+  "install": "Installer",
+  "deselect": "Deselect"
 }
