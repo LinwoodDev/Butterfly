@@ -89,18 +89,51 @@ class FileEntityGridItem extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              SizedBox(
-                height: 64,
-                width: 64,
-                child: thumbnail != null
-                    ? Image.memory(
-                        thumbnail!,
-                        fit: BoxFit.contain,
-                        cacheWidth: 64,
-                        cacheHeight: 64,
-                        errorBuilder: (context, error, stackTrace) => leading,
-                      )
-                    : leading,
+              Stack(
+                children: [
+                  Center(
+                    child: SizedBox(
+                      height: 64,
+                      width: 64,
+                      child: thumbnail != null
+                          ? Image.memory(
+                              thumbnail!,
+                              fit: BoxFit.contain,
+                              cacheWidth: 64,
+                              cacheHeight: 64,
+                              errorBuilder: (context, error, stackTrace) =>
+                                  leading,
+                            )
+                          : leading,
+                    ),
+                  ),
+                  Align(
+                    alignment: Alignment.topRight,
+                    child: FilesActionMenu(
+                      remote: remote,
+                      syncService: syncService,
+                      entity: entity,
+                      settingsCubit: fileSystem.settingsCubit,
+                      editable: editable,
+                      onEdit: onEdit,
+                      nameController: nameController,
+                      onDelete: onDelete,
+                      onReload: onReload,
+                      documentSystem: documentSystem,
+                      onSelect: selected == null
+                          ? () => onSelectedChanged(true)
+                          : null,
+                    ),
+                  ),
+                  if (selected != null)
+                    Align(
+                      alignment: Alignment.topLeft,
+                      child: Checkbox(
+                        value: selected,
+                        onChanged: (value) => onSelectedChanged(value ?? false),
+                      ),
+                    ),
+                ],
               ),
               const SizedBox(height: 8),
               Expanded(
@@ -163,74 +196,60 @@ class FileEntityGridItem extends StatelessWidget {
                           : null,
                     ),
                     const SizedBox(height: 8),
-                    Row(
-                      children: [
-                        if (selected != null)
-                          Checkbox(
-                            value: selected,
-                            onChanged: (value) =>
-                                onSelectedChanged(value ?? false),
-                          ),
-                        Expanded(
-                          child: SizedBox(
-                            height: 32,
-                            child: editable
-                                ? ConstrainedBox(
-                                    constraints: const BoxConstraints(
-                                      maxWidth: 200,
-                                    ),
-                                    child: TextField(
-                                      controller: nameController,
-                                      autofocus: true,
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .bodySmall
-                                          ?.copyWith(
-                                            color: colorScheme.onSurface,
-                                          ),
-                                      onSubmitted: (value) async {
-                                        await documentSystem.renameAsset(
-                                            entity.location.path, value);
-                                        onEdit(false);
-                                        onReload();
-                                      },
-                                    ),
-                                  )
-                                : Align(
-                                    alignment: Alignment.centerLeft,
-                                    child: Tooltip(
-                                      message: entity.fileName,
-                                      child: GestureDetector(
-                                        child: Text(
-                                          entity.fileName,
-                                          maxLines: 1,
-                                          overflow: TextOverflow.ellipsis,
-                                        ),
-                                        onDoubleTap: () {
-                                          onEdit(true);
-                                          nameController.text = entity.fileName;
-                                        },
-                                      ),
-                                    ),
+                    SizedBox(
+                      height: 32,
+                      child: editable
+                          ? ConstrainedBox(
+                              constraints: const BoxConstraints(
+                                maxWidth: 200,
+                              ),
+                              child: TextField(
+                                controller: nameController,
+                                autofocus: true,
+                                style: Theme.of(context).textTheme.labelLarge,
+                                onSubmitted: (value) async {
+                                  await documentSystem.renameAsset(
+                                      entity.location.path, value);
+                                  onEdit(false);
+                                  onReload();
+                                },
+                                decoration: InputDecoration(
+                                  filled: true,
+                                  hintText:
+                                      AppLocalizations.of(context).enterText,
+                                  suffix: IconButton(
+                                    onPressed: () async {
+                                      await documentSystem.renameAsset(
+                                          entity.location.path,
+                                          nameController.text);
+                                      onEdit(false);
+                                      onReload();
+                                    },
+                                    icon: const PhosphorIcon(
+                                        PhosphorIconsLight.check),
+                                    tooltip: AppLocalizations.of(context).save,
                                   ),
-                          ),
-                        ),
-                        FilesActionMenu(
-                          remote: remote,
-                          syncService: syncService,
-                          entity: entity,
-                          settingsCubit: fileSystem.settingsCubit,
-                          editable: editable,
-                          onEdit: onEdit,
-                          nameController: nameController,
-                          onDelete: onDelete,
-                          onReload: onReload,
-                          documentSystem: documentSystem,
-                          onSelect: selected == null
-                              ? () => onSelectedChanged(true)
-                              : null,
-                        ),
-                      ],
+                                ),
+                              ))
+                          : Align(
+                              alignment: Alignment.centerLeft,
+                              child: Tooltip(
+                                message: entity.fileName,
+                                child: GestureDetector(
+                                  child: Text(
+                                    entity.fileName,
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
+                                    style:
+                                        Theme.of(context).textTheme.labelLarge,
+                                  ),
+                                  onDoubleTap: () {
+                                    onEdit(true);
+                                    nameController.text = entity.fileName;
+                                  },
+                                ),
+                              ),
+                            ),
                     ),
                   ],
                 ),

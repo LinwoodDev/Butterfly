@@ -20,7 +20,7 @@ import no from "./no.json";
 import or from "./or.json";
 import pl from "./pl.json";
 import pt from "./pt.json";
-import ptBR from "./pt-BR.json";
+import ptBR from "./pt-br.json";
 import ro from "./ro.json";
 import ru from "./ru.json";
 import sr from "./sr.json";
@@ -30,7 +30,7 @@ import tr from "./tr.json";
 import uk from "./uk.json";
 import vi from "./vi.json";
 import zh from "./zh.json";
-import zhHant from "./zh-Hant.json";
+import zhHant from "./zh-hant.json";
 
 const locales = {
   af,
@@ -75,21 +75,23 @@ for (const [lang, dictionary] of Object.entries(locales)) {
   }
 }
 
-export function getTranslations(key: string): Record<string, string> | undefined {
+export function getTranslations(
+  key: string
+): Record<string, string> | undefined {
   return translations[key];
 }
 
 export function toSnakeCase(str: string): string {
   return str
-      .replace(/\s+/g, ' ')  // Replace multiple spaces with a single space
-      .trim()                // Trim leading and trailing spaces
-      .toLowerCase()         // Convert to lowercase
-      .replace(/\s/g, '_');  // Replace spaces with underscores
+    .replace(/\s+/g, " ") // Replace multiple spaces with a single space
+    .trim() // Trim leading and trailing spaces
+    .toLowerCase() // Convert to lowercase
+    .replace(/\s/g, "_"); // Replace spaces with underscores
 }
 
 export function getSidebarTranslatedLabel(key: string): {
-  label: string,
-  translations: Record<string, string> | undefined,
+  label: string;
+  translations: Record<string, string> | undefined;
 } {
   return {
     label: key,
