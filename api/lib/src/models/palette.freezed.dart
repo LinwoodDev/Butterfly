@@ -23,8 +23,12 @@ mixin _$ColorPalette {
   String get name => throw _privateConstructorUsedError;
   List<int> get colors => throw _privateConstructorUsedError;
 
+  /// Serializes this ColorPalette to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of ColorPalette
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $ColorPaletteCopyWith<ColorPalette> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -48,6 +52,8 @@ class _$ColorPaletteCopyWithImpl<$Res, $Val extends ColorPalette>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of ColorPalette
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -86,6 +92,8 @@ class __$$ColorPaletteImplCopyWithImpl<$Res>
       _$ColorPaletteImpl _value, $Res Function(_$ColorPaletteImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of ColorPalette
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -140,12 +148,14 @@ class _$ColorPaletteImpl implements _ColorPalette {
             const DeepCollectionEquality().equals(other._colors, _colors));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(
       runtimeType, name, const DeepCollectionEquality().hash(_colors));
 
-  @JsonKey(ignore: true)
+  /// Create a copy of ColorPalette
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$ColorPaletteImplCopyWith<_$ColorPaletteImpl> get copyWith =>
@@ -171,8 +181,11 @@ abstract class _ColorPalette implements ColorPalette {
   String get name;
   @override
   List<int> get colors;
+
+  /// Create a copy of ColorPalette
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$ColorPaletteImplCopyWith<_$ColorPaletteImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

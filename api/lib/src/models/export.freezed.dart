@@ -35,8 +35,12 @@ mixin _$ExportOptions {
   double get y => throw _privateConstructorUsedError;
   bool get renderBackground => throw _privateConstructorUsedError;
 
+  /// Serializes this ExportOptions to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of ExportOptions
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $ExportOptionsCopyWith<ExportOptions> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -61,6 +65,8 @@ class _$ExportOptionsCopyWithImpl<$Res, $Val extends ExportOptions>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of ExportOptions
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -121,6 +127,8 @@ class __$$ImageExportOptionsImplCopyWithImpl<$Res>
       $Res Function(_$ImageExportOptionsImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of ExportOptions
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -226,12 +234,14 @@ class _$ImageExportOptionsImpl extends ImageExportOptions {
                 other.renderBackground == renderBackground));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(
       runtimeType, width, height, x, y, scale, quality, renderBackground);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of ExportOptions
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$ImageExportOptionsImplCopyWith<_$ImageExportOptionsImpl> get copyWith =>
@@ -272,8 +282,11 @@ abstract class ImageExportOptions extends ExportOptions {
   double get quality;
   @override
   bool get renderBackground;
+
+  /// Create a copy of ExportOptions
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$ImageExportOptionsImplCopyWith<_$ImageExportOptionsImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -298,6 +311,8 @@ class __$$SvgExportOptionsImplCopyWithImpl<$Res>
       $Res Function(_$SvgExportOptionsImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of ExportOptions
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -383,12 +398,14 @@ class _$SvgExportOptionsImpl extends SvgExportOptions {
                 other.renderBackground == renderBackground));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode =>
       Object.hash(runtimeType, width, height, x, y, renderBackground);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of ExportOptions
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$SvgExportOptionsImplCopyWith<_$SvgExportOptionsImpl> get copyWith =>
@@ -425,8 +442,11 @@ abstract class SvgExportOptions extends ExportOptions {
   double get y;
   @override
   bool get renderBackground;
+
+  /// Create a copy of ExportOptions
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$SvgExportOptionsImplCopyWith<_$SvgExportOptionsImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -440,8 +460,12 @@ mixin _$ExportPreset {
   String get name => throw _privateConstructorUsedError;
   List<AreaPreset> get areas => throw _privateConstructorUsedError;
 
+  /// Serializes this ExportPreset to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of ExportPreset
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $ExportPresetCopyWith<ExportPreset> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -465,6 +489,8 @@ class _$ExportPresetCopyWithImpl<$Res, $Val extends ExportPreset>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of ExportPreset
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -503,6 +529,8 @@ class __$$ExportPresetImplCopyWithImpl<$Res>
       _$ExportPresetImpl _value, $Res Function(_$ExportPresetImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of ExportPreset
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -558,12 +586,14 @@ class _$ExportPresetImpl implements _ExportPreset {
             const DeepCollectionEquality().equals(other._areas, _areas));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(
       runtimeType, name, const DeepCollectionEquality().hash(_areas));
 
-  @JsonKey(ignore: true)
+  /// Create a copy of ExportPreset
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$ExportPresetImplCopyWith<_$ExportPresetImpl> get copyWith =>
@@ -588,8 +618,11 @@ abstract class _ExportPreset implements ExportPreset {
   String get name;
   @override
   List<AreaPreset> get areas;
+
+  /// Create a copy of ExportPreset
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$ExportPresetImplCopyWith<_$ExportPresetImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -605,8 +638,12 @@ mixin _$AreaPreset {
   double get quality => throw _privateConstructorUsedError;
   Area? get area => throw _privateConstructorUsedError;
 
+  /// Serializes this AreaPreset to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of AreaPreset
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $AreaPresetCopyWith<AreaPreset> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -632,6 +669,8 @@ class _$AreaPresetCopyWithImpl<$Res, $Val extends AreaPreset>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of AreaPreset
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -660,6 +699,8 @@ class _$AreaPresetCopyWithImpl<$Res, $Val extends AreaPreset>
     ) as $Val);
   }
 
+  /// Create a copy of AreaPreset
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $AreaCopyWith<$Res>? get area {
@@ -695,6 +736,8 @@ class __$$AreaPresetImplCopyWithImpl<$Res>
       _$AreaPresetImpl _value, $Res Function(_$AreaPresetImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of AreaPreset
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -761,11 +804,13 @@ class _$AreaPresetImpl implements _AreaPreset {
             (identical(other.area, area) || other.area == area));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, page, name, quality, area);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of AreaPreset
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$AreaPresetImplCopyWith<_$AreaPresetImpl> get copyWith =>
@@ -797,8 +842,11 @@ abstract class _AreaPreset implements AreaPreset {
   double get quality;
   @override
   Area? get area;
+
+  /// Create a copy of AreaPreset
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$AreaPresetImplCopyWith<_$AreaPresetImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

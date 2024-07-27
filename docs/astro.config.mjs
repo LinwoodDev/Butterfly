@@ -1,8 +1,8 @@
-import {defineConfig} from "astro/config";
+import { defineConfig } from "astro/config";
 import starlight from "@astrojs/starlight";
 import remarkHeadingID from "remark-heading-id";
 import react from "@astrojs/react";
-import {getSidebarTranslatedLabel} from "./src/translations";
+import { getSidebarTranslatedLabel } from "./src/translations";
 import remarkGemoji from "remark-gemoji";
 
 // https://astro.build/config
@@ -292,8 +292,9 @@ export default defineConfig({
         pt: {
           label: "Portuguese",
         },
-        "pt-BR": {
+        "pt-br": {
           label: "Portuguese (Brazil)",
+          lang: "pt-BR",
         },
         ro: {
           label: "Romanian",
@@ -322,8 +323,9 @@ export default defineConfig({
         zh: {
           label: "Chinese",
         },
-        "zh-Hant": {
+        "zh-hant": {
           label: "Chinese (Traditional)",
+          lang: "zh-Hant",
         },
       },
     }),

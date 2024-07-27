@@ -5,10 +5,10 @@ import 'package:butterfly/views/navigator/areas.dart';
 import 'package:butterfly/views/navigator/components.dart';
 import 'package:butterfly/views/files/view.dart';
 import 'package:butterfly/views/navigator/waypoints.dart';
-import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:lw_file_system/lw_file_system.dart';
 import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
@@ -190,7 +190,7 @@ class _DocumentNavigatorState extends State<DocumentNavigator>
               NavigatorPage.files => SingleChildScrollView(
                   child: FilesView(
                     remote: _remote,
-                    selectedAsset: location,
+                    activeAsset: location,
                     onRemoteChanged: (remote) {
                       setState(() {
                         _remote = remote;

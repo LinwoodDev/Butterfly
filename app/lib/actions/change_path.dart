@@ -1,4 +1,4 @@
-import 'package:butterfly/api/file_system/file_system.dart';
+import 'package:butterfly/api/file_system.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/dialogs/file_system/move.dart';
 import 'package:flutter/material.dart';
@@ -23,8 +23,9 @@ class ChangePathAction extends Action<ChangePathIntent> {
     if (state is! DocumentLoadSuccess || state.location.path == '') return;
     final location = state.location;
     final settings = context.read<SettingsCubit>().state;
-    final fileSystem = DocumentFileSystem.fromPlatform(
-        remote: settings.getRemote(location.remote));
+    final fileSystem = context
+        .read<ButterflyFileSystem>()
+        .buildDocumentSystem(settings.getRemote(location.remote));
     var asset = await fileSystem.getAsset(location.path);
     if (asset == null) return;
     if (context.mounted) {

@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:butterfly/actions/search.dart';
 import 'package:butterfly/api/close.dart';
-import 'package:butterfly/api/file_system/file_system.dart';
+import 'package:butterfly/api/file_system.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/cubits/current_index.dart';
 import 'package:butterfly/cubits/settings.dart';
@@ -25,6 +25,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:lw_file_system/lw_file_system.dart';
 import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -133,6 +134,8 @@ class _ProjectPageState extends State<ProjectPage> {
   Future<void> _load() async {
     final settingsCubit = context.read<SettingsCubit>();
     final windowCubit = context.read<WindowCubit>();
+    final fileSystem = context.read<ButterflyFileSystem>();
+    final documentSystem = fileSystem.buildDocumentSystem(_remote);
     final embedding = widget.embedding;
     if (embedding != null) {
       final document = DocumentDefaults.createDocument();
@@ -148,8 +151,8 @@ class _ProjectPageState extends State<ProjectPage> {
         _currentIndexCubit = CurrentIndexCubit(settingsCubit, _transformCubit!,
             CameraViewport.unbaked(UtilitiesRenderer()), embedding);
         _bloc = DocumentBloc(
+          fileSystem,
           _currentIndexCubit!,
-          settingsCubit,
           windowCubit,
           document,
           widget.location ?? const AssetLocation(path: ''),
@@ -157,7 +160,7 @@ class _ProjectPageState extends State<ProjectPage> {
         );
         _bloc?.load();
         embedding.handler.register(context, _bloc!);
-        _importService = ImportService(context, _bloc);
+        _importService = ImportService(context, bloc: _bloc);
         _exportService = ExportService(context, _bloc);
       });
       return;
@@ -169,7 +172,6 @@ class _ProjectPageState extends State<ProjectPage> {
       _remote = location != null
           ? settingsCubit.state.getRemote(location.remote)
           : settingsCubit.state.getDefaultRemote();
-      final fileSystem = DocumentFileSystem.fromPlatform(remote: _remote);
       final prefs = await SharedPreferences.getInstance();
       final fileType =
           AssetFileTypeHelper.fromFileExtension(location?.fileExtension)?.name;
@@ -187,8 +189,9 @@ class _ProjectPageState extends State<ProjectPage> {
       final name = (location?.absolute ?? false) ? location!.fileName : '';
       NoteData? defaultDocument;
       if (document == null && prefs.containsKey('default_template')) {
-        var template = await TemplateFileSystem.fromPlatform(remote: _remote)
-            .getTemplate(prefs.getString('default_template')!);
+        var template = await fileSystem
+            .buildTemplateSystem(_remote)
+            .getDefaultFile(prefs.getString('default_template')!);
         if (template != null && mounted) {
           defaultDocument = template.createDocument(
             name: name,
@@ -201,13 +204,13 @@ class _ProjectPageState extends State<ProjectPage> {
       );
       if (location != null && location.path.isNotEmpty && document == null) {
         if (!location.absolute) {
-          final asset = await fileSystem.getAsset(location.path);
+          final asset = await documentSystem.getAsset(location.path);
           if (!mounted) return;
-          if (asset?.fileType == AssetFileType.note) {
+          if (location.fileType == AssetFileType.note) {
             document = await checkFileChanges(context, asset);
           }
         } else {
-          final data = await fileSystem.loadAbsolute(location.path);
+          final data = await documentSystem.loadAbsolute(location.path);
           if (data != null) {
             document = await globalImportService.load(
                 document: defaultDocument,
@@ -247,10 +250,10 @@ class _ProjectPageState extends State<ProjectPage> {
             CameraViewport.unbaked(UtilitiesRenderer(), backgrounds),
             null,
             networkingService);
-        _bloc = DocumentBloc(_currentIndexCubit!, settingsCubit, windowCubit,
+        _bloc = DocumentBloc(fileSystem, _currentIndexCubit!, windowCubit,
             document!, location!, renderers, assetService, page, pageName);
         networkingService.setup(_bloc!);
-        _importService = ImportService(context, _bloc);
+        _importService = ImportService(context, bloc: _bloc);
         _exportService = ExportService(context, _bloc);
       });
     } catch (e, stackTrace) {
@@ -267,7 +270,7 @@ class _ProjectPageState extends State<ProjectPage> {
           networkingService,
         );
         _bloc = DocumentBloc.error(
-            settingsCubit, windowCubit, e.toString(), stackTrace);
+            fileSystem, windowCubit, e.toString(), stackTrace);
       });
     }
     WidgetsBinding.instance.scheduleFrameCallback((_) async {
@@ -304,12 +307,6 @@ class _ProjectPageState extends State<ProjectPage> {
           }
           return MultiRepositoryProvider(
             providers: [
-              RepositoryProvider<DocumentFileSystem>.value(
-                  value: DocumentFileSystem.fromPlatform(remote: _remote)),
-              RepositoryProvider<TemplateFileSystem>.value(
-                  value: TemplateFileSystem.fromPlatform(remote: _remote)),
-              RepositoryProvider<PackFileSystem>.value(
-                  value: PackFileSystem.fromPlatform(remote: _remote)),
               RepositoryProvider.value(value: _importService!),
               RepositoryProvider.value(value: _exportService!)
             ],

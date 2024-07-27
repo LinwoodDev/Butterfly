@@ -1,11 +1,11 @@
 import 'dart:io';
 
 import 'package:args/args.dart';
+import 'package:butterfly/api/file_system.dart';
 import 'package:butterfly/api/intent.dart';
 import 'package:butterfly/services/sync.dart';
 import 'package:butterfly/settings/behaviors/mouse.dart';
 import 'package:butterfly/settings/experiments.dart';
-import 'package:butterfly_api/butterfly_api.dart';
 import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -14,6 +14,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_web_plugins/url_strategy.dart';
 import 'package:go_router/go_router.dart';
+import 'package:lw_file_system/lw_file_system.dart';
 import 'package:lw_sysapi/lw_sysapi.dart';
 import 'package:material_leap/l10n/leap_localizations.dart';
 import 'package:material_leap/material_leap.dart';
@@ -21,7 +22,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:window_manager/window_manager.dart';
 import 'package:flutter_localized_locales/flutter_localized_locales.dart';
 
-import 'api/file_system/file_system.dart';
 import 'cubits/settings.dart';
 import 'embed/embedding.dart';
 import 'settings/behaviors/home.dart';
@@ -56,8 +56,7 @@ Future<void> main([List<String> args = const []]) async {
     var path = result.arguments[0].replaceAll('\\', '/');
     var file = File(path);
     if (await file.exists()) {
-      var directory =
-          Directory(await DocumentFileSystem.fromPlatform().getDirectory());
+      var directory = Directory(await getButterflyDocumentsDirectory());
       // Test if file is in directory
       if (file.path.startsWith(directory.path)) {
         // Relative path
@@ -110,14 +109,10 @@ Future<void> main([List<String> args = const []]) async {
     });
   }
   final clipboardManager = await SysAPI.getClipboardManager();
-  GeneralFileSystem.dataPath = result['path'];
+  overrideButterflyDirectory = result['path'];
   runApp(
     MultiRepositoryProvider(
         providers: [
-          RepositoryProvider(
-              create: (context) => DocumentFileSystem.fromPlatform()),
-          RepositoryProvider(
-              create: (context) => TemplateFileSystem.fromPlatform()),
           RepositoryProvider<ClipboardManager>(
               create: (context) => clipboardManager),
         ],
@@ -338,12 +333,7 @@ class ButterflyApp extends StatelessWidget {
           BlocProvider(
               create: (context) => WindowCubit(fullScreen: fullScreen)),
         ],
-        child: RepositoryProvider(
-          create: (context) =>
-              SyncService(context, context.read<SettingsCubit>()),
-          lazy: false,
-          child: _buildApp(lightDynamic, darkDynamic),
-        ),
+        child: _buildApp(lightDynamic, darkDynamic),
       ),
     );
   }
@@ -372,7 +362,15 @@ class ButterflyApp extends StatelessWidget {
                 if (!state.nativeTitleBar) {
                   child = virtualWindowFrameBuilder(context, child);
                 }
-                return child ?? Container();
+                return RepositoryProvider(
+                  create: ButterflyFileSystem.build,
+                  child: RepositoryProvider(
+                    create: (context) => SyncService(
+                        context, context.read<ButterflyFileSystem>()),
+                    lazy: false,
+                    child: child ?? Container(),
+                  ),
+                );
               },
               supportedLocales: getLocales(),
               themeMode: state.theme,

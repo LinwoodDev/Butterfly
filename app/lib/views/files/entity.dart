@@ -1,6 +1,6 @@
 import 'dart:typed_data';
 
-import 'package:butterfly/api/file_system/file_system.dart';
+import 'package:butterfly/api/file_system.dart';
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/views/files/grid.dart';
 import 'package:butterfly/views/files/list.dart';
@@ -10,28 +10,91 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:intl/intl.dart';
+import 'package:lw_file_system/lw_file_system.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:popover/popover.dart';
 
 class FileEntityItem extends StatefulWidget {
-  final AppDocumentEntity entity;
-  final bool selected, collapsed, gridView;
+  final FileSystemEntity<NoteData> entity;
+  final bool active, collapsed, gridView;
+  final bool? selected;
   final VoidCallback onTap, onReload;
+  final ValueChanged<bool> onSelected;
   final bool isMobile;
 
   const FileEntityItem({
     super.key,
     required this.entity,
     this.selected = false,
+    this.active = false,
     this.collapsed = false,
     this.gridView = false,
     required this.isMobile,
     required this.onTap,
     required this.onReload,
+    required this.onSelected,
   });
 
   @override
   State<FileEntityItem> createState() => _FileEntityItemState();
+}
+
+void deleteEntities({
+  required BuildContext context,
+  required bool isMobile,
+  required DocumentFileSystem documentSystem,
+  required List<String> entities,
+  required VoidCallback onDelete,
+}) {
+  final colorScheme = Theme.of(context).colorScheme;
+  showPopover(
+    backgroundColor: colorScheme.surface,
+    context: context,
+    direction: isMobile ? PopoverDirection.top : PopoverDirection.right,
+    radius: 16,
+    width: 180,
+    height: 130,
+    arrowHeight: 15,
+    arrowWidth: 20,
+    bodyBuilder: (ctx) => Padding(
+      padding: const EdgeInsets.all(16.0),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(
+            AppLocalizations.of(context).areYouSure,
+            textAlign: TextAlign.center,
+          ),
+          const SizedBox(height: 16),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.of(ctx).pop();
+                },
+                child: const PhosphorIcon(PhosphorIconsLight.x),
+              ),
+              FilledButton(
+                onPressed: () async {
+                  final settingsCubit = context.read<SettingsCubit>();
+                  Navigator.of(ctx).pop();
+                  for (final entity in entities) {
+                    await documentSystem.deleteAsset(entity);
+                    await settingsCubit.removeRecentHistory(AssetLocation(
+                        path: entity,
+                        remote: documentSystem.storage?.identifier ?? ''));
+                  }
+                  onDelete();
+                },
+                child: const PhosphorIcon(PhosphorIconsLight.check),
+              ),
+            ],
+          ),
+        ],
+      ),
+    ),
+  );
 }
 
 class _FileEntityItemState extends State<FileEntityItem> {
@@ -40,20 +103,21 @@ class _FileEntityItemState extends State<FileEntityItem> {
 
   @override
   Widget build(BuildContext context) {
-    final settingsCubit = context.read<SettingsCubit>();
-    final remote = settingsCubit.getRemote(widget.entity.location.remote);
-    final fileSystem = DocumentFileSystem.fromPlatform(remote: remote);
+    final fileSystem = context.read<ButterflyFileSystem>();
+    final remote =
+        fileSystem.settingsCubit.getRemote(widget.entity.location.remote);
+    final documentSystem = fileSystem.buildDocumentSystem(remote);
     FileMetadata? metadata;
     Uint8List? thumbnail;
     String? modifiedText, createdText;
     PhosphorIconData icon = PhosphorIconsLight.folder;
+    final entity = widget.entity;
     try {
-      if (widget.entity is AppDocumentFile) {
-        final file = widget.entity as AppDocumentFile;
-        icon = file.fileType.icon(PhosphorIconsStyle.light);
-        thumbnail = file.thumbnail;
+      if (entity is FileSystemFile<NoteData>) {
+        icon = entity.location.fileType.icon(PhosphorIconsStyle.light);
+        thumbnail = entity.data?.getThumbnail();
         if (thumbnail?.isEmpty ?? false) thumbnail = null;
-        metadata = file.metadata;
+        metadata = entity.data?.getMetadata();
         final locale = Localizations.localeOf(context).languageCode;
         final dateFormatter = DateFormat.yMd(locale);
         final timeFormatter = DateFormat.Hm(locale);
@@ -66,55 +130,13 @@ class _FileEntityItemState extends State<FileEntityItem> {
       }
     } catch (_) {}
     void onEdit(bool value) => setState(() => _editable = value);
-    void onDelete() {
-      final colorScheme = Theme.of(context).colorScheme;
-      showPopover(
-        backgroundColor: colorScheme.surface,
-        context: context,
-        direction:
-            widget.isMobile ? PopoverDirection.top : PopoverDirection.right,
-        radius: 16,
-        width: 180,
-        height: 130,
-        arrowHeight: 15,
-        arrowWidth: 20,
-        bodyBuilder: (ctx) => Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                AppLocalizations.of(context).areYouSure,
-                textAlign: TextAlign.center,
-              ),
-              const SizedBox(height: 16),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  ElevatedButton(
-                    onPressed: () {
-                      Navigator.of(ctx).pop();
-                    },
-                    child: const PhosphorIcon(PhosphorIconsLight.x),
-                  ),
-                  FilledButton(
-                    onPressed: () async {
-                      final settingsCubit = context.read<SettingsCubit>();
-                      Navigator.of(ctx).pop();
-                      await fileSystem.deleteAsset(widget.entity.location.path);
-                      await settingsCubit
-                          .removeRecentHistory(widget.entity.location);
-                      widget.onReload();
-                    },
-                    child: const PhosphorIcon(PhosphorIconsLight.check),
-                  ),
-                ],
-              ),
-            ],
-          ),
-        ),
-      );
-    }
+    void onDelete() => deleteEntities(
+          context: context,
+          isMobile: widget.isMobile,
+          documentSystem: documentSystem,
+          entities: [widget.entity.location.path],
+          onDelete: widget.onReload,
+        );
 
     final draggable = LongPressDraggable<String>(
       data: widget.entity.pathWithLeadingSlash,
@@ -144,7 +166,9 @@ class _FileEntityItemState extends State<FileEntityItem> {
               nameController: _nameController,
               collapsed: widget.collapsed,
               editable: _editable,
+              active: widget.active,
               selected: widget.selected,
+              onSelectedChanged: widget.onSelected,
               thumbnail: thumbnail,
             )
           : FileEntityListTile(
@@ -159,11 +183,13 @@ class _FileEntityItemState extends State<FileEntityItem> {
               nameController: _nameController,
               collapsed: widget.collapsed,
               editable: _editable,
+              active: widget.active,
               selected: widget.selected,
+              onSelectedChanged: widget.onSelected,
               thumbnail: thumbnail,
             ),
     );
-    if (widget.entity is AppDocumentDirectory) {
+    if (widget.entity is FileSystemDirectory) {
       return DragTarget<String>(
         builder: (context, candidateData, rejectedData) {
           return draggable;
@@ -172,7 +198,7 @@ class _FileEntityItemState extends State<FileEntityItem> {
           return data.data != widget.entity.location.path;
         },
         onAcceptWithDetails: (data) async {
-          await fileSystem.moveAsset(data.data,
+          await documentSystem.moveAsset(data.data,
               '${widget.entity.location.path}/${data.data.split('/').last}');
           widget.onReload();
         },

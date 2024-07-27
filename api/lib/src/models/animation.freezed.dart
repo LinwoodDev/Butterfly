@@ -25,8 +25,12 @@ mixin _$AnimationTrack {
   int get duration => throw _privateConstructorUsedError;
   int get fps => throw _privateConstructorUsedError;
 
+  /// Serializes this AnimationTrack to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of AnimationTrack
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $AnimationTrackCopyWith<AnimationTrack> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -50,6 +54,8 @@ class _$AnimationTrackCopyWithImpl<$Res, $Val extends AnimationTrack>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of AnimationTrack
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -98,6 +104,8 @@ class __$$AnimationTrackImplCopyWithImpl<$Res>
       _$AnimationTrackImpl _value, $Res Function(_$AnimationTrackImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of AnimationTrack
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -177,12 +185,14 @@ class _$AnimationTrackImpl extends _AnimationTrack {
             (identical(other.fps, fps) || other.fps == fps));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, name,
       const DeepCollectionEquality().hash(_keys), duration, fps);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of AnimationTrack
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$AnimationTrackImplCopyWith<_$AnimationTrackImpl> get copyWith =>
@@ -216,8 +226,11 @@ abstract class _AnimationTrack extends AnimationTrack {
   int get duration;
   @override
   int get fps;
+
+  /// Create a copy of AnimationTrack
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$AnimationTrackImplCopyWith<_$AnimationTrackImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -233,8 +246,12 @@ mixin _$AnimationKey {
   double? get cameraZoom => throw _privateConstructorUsedError;
   bool get breakpoint => throw _privateConstructorUsedError;
 
+  /// Serializes this AnimationKey to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of AnimationKey
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $AnimationKeyCopyWith<AnimationKey> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -261,6 +278,8 @@ class _$AnimationKeyCopyWithImpl<$Res, $Val extends AnimationKey>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of AnimationKey
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -307,6 +326,8 @@ class __$$AnimationKeyImplCopyWithImpl<$Res>
       _$AnimationKeyImpl _value, $Res Function(_$AnimationKeyImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of AnimationKey
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -370,12 +391,14 @@ class _$AnimationKeyImpl extends _AnimationKey {
                 other.breakpoint == breakpoint));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode =>
       Object.hash(runtimeType, cameraPosition, cameraZoom, breakpoint);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of AnimationKey
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$AnimationKeyImplCopyWith<_$AnimationKeyImpl> get copyWith =>
@@ -406,8 +429,11 @@ abstract class _AnimationKey extends AnimationKey {
   double? get cameraZoom;
   @override
   bool get breakpoint;
+
+  /// Create a copy of AnimationKey
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$AnimationKeyImplCopyWith<_$AnimationKeyImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

@@ -1,6 +1,6 @@
 import 'package:butterfly/actions/new.dart';
 import 'package:butterfly/actions/settings.dart';
-import 'package:butterfly/api/file_system/file_system.dart';
+import 'package:butterfly/api/file_system.dart';
 import 'package:butterfly/api/open.dart';
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/dialogs/template.dart';
@@ -10,6 +10,7 @@ import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:lw_file_system/lw_file_system.dart';
 import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
@@ -67,25 +68,30 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   final GlobalKey<FilesViewState> _filesViewKey = GlobalKey();
   ExternalStorage? _remote;
+  late ImportService _importService;
 
   @override
   void initState() {
     super.initState();
     _remote = context.read<SettingsCubit>().state.getDefaultRemote();
+    _importService = ImportService(context);
+  }
+
+  void updateRemote(ExternalStorage? remote) {
+    setState(() {
+      _remote = remote;
+      _importService =
+          ImportService(context, storage: _remote, useDefaultStorage: false);
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     return MultiRepositoryProvider(
       providers: [
-        RepositoryProvider<DocumentFileSystem>.value(
-            value: DocumentFileSystem.fromPlatform(remote: _remote)),
-        RepositoryProvider<TemplateFileSystem>.value(
-            value: TemplateFileSystem.fromPlatform(remote: _remote)),
-        RepositoryProvider<PackFileSystem>.value(
-            value: PackFileSystem.fromPlatform(remote: _remote)),
-        RepositoryProvider<ImportService>(
-            create: (context) => ImportService(context)),
+        RepositoryProvider<ImportService>.value(
+          value: _importService,
+        ),
       ],
       child: BlocBuilder<SettingsCubit, ButterflySettings>(
         buildWhen: (previous, current) =>
@@ -141,11 +147,11 @@ class _HomePageState extends State<HomePage> {
                                   children: [
                                     Expanded(
                                         child: FilesView(
-                                      selectedAsset: widget.selectedAsset,
+                                      activeAsset: widget.selectedAsset,
                                       remote: _remote,
                                       isMobile: false,
                                       onRemoteChanged: (value) =>
-                                          setState(() => _remote = value),
+                                          updateRemote(value),
                                     )),
                                     const SizedBox(width: 16),
                                     SizedBox(
@@ -172,12 +178,12 @@ class _HomePageState extends State<HomePage> {
                                     ),
                                     const SizedBox(height: 32),
                                     FilesView(
-                                      selectedAsset: widget.selectedAsset,
+                                      activeAsset: widget.selectedAsset,
                                       remote: _remote,
                                       isMobile: true,
                                       key: _filesViewKey,
                                       onRemoteChanged: (value) =>
-                                          setState(() => _remote = value),
+                                          updateRemote(value),
                                     ),
                                   ],
                                 );
@@ -419,13 +425,13 @@ class _QuickstartHomeView extends StatefulWidget {
 
 class _QuickstartHomeViewState extends State<_QuickstartHomeView> {
   final ScrollController _scrollController = ScrollController();
-  late final TemplateFileSystem _templateFileSystem;
+  late final TemplateFileSystem _templateSystem;
   Future<List<NoteData>>? _templatesFuture;
 
   @override
   void initState() {
-    _templateFileSystem =
-        TemplateFileSystem.fromPlatform(remote: widget.remote);
+    _templateSystem =
+        context.read<ButterflyFileSystem>().buildTemplateSystem(widget.remote);
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {
           _templatesFuture = _fetchTemplates();
         }));
@@ -448,9 +454,9 @@ class _QuickstartHomeViewState extends State<_QuickstartHomeView> {
     super.dispose();
   }
 
-  Future<List<NoteData>> _fetchTemplates() => _templateFileSystem
-      .createDefault(context)
-      .then((value) => _templateFileSystem.getTemplates());
+  Future<List<NoteData>> _fetchTemplates() =>
+      _templateSystem.initialize().then((value) =>
+          _templateSystem.getFiles().then((value) => value.values.toList()));
 
   @override
   Widget build(BuildContext context) {
@@ -520,8 +526,7 @@ class _QuickstartHomeViewState extends State<_QuickstartHomeView> {
                       const SizedBox(height: 16),
                       FilledButton(
                         onPressed: () async {
-                          await _templateFileSystem.createDefault(context,
-                              force: true);
+                          await _templateSystem.initialize(force: true);
                           setState(() {
                             _templatesFuture = _fetchTemplates();
                           });

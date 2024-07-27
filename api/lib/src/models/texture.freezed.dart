@@ -32,8 +32,12 @@ mixin _$SurfaceTexture {
   double get boxXStroke => throw _privateConstructorUsedError;
   double get boxYStroke => throw _privateConstructorUsedError;
 
+  /// Serializes this SurfaceTexture to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of SurfaceTexture
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $SurfaceTextureCopyWith<SurfaceTexture> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -68,6 +72,8 @@ class _$SurfaceTextureCopyWithImpl<$Res, $Val extends SurfaceTexture>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of SurfaceTexture
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -162,6 +168,8 @@ class __$$PatternTextureImplCopyWithImpl<$Res>
       _$PatternTextureImpl _value, $Res Function(_$PatternTextureImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of SurfaceTexture
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -313,7 +321,7 @@ class _$PatternTextureImpl implements PatternTexture {
                 other.boxYStroke == boxYStroke));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(
       runtimeType,
@@ -329,7 +337,9 @@ class _$PatternTextureImpl implements PatternTexture {
       boxXStroke,
       boxYStroke);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of SurfaceTexture
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$PatternTextureImplCopyWith<_$PatternTextureImpl> get copyWith =>
@@ -383,8 +393,11 @@ abstract class PatternTexture implements SurfaceTexture {
   double get boxXStroke;
   @override
   double get boxYStroke;
+
+  /// Create a copy of SurfaceTexture
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$PatternTextureImplCopyWith<_$PatternTextureImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

@@ -31,6 +31,7 @@ SpanProperty _$SpanPropertyFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$SpanProperty {
+  /// Serializes this SpanProperty to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
 }
 
@@ -50,6 +51,9 @@ class _$SpanPropertyCopyWithImpl<$Res, $Val extends SpanProperty>
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
+
+  /// Create a copy of SpanProperty
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -81,6 +85,8 @@ class __$$DefinedSpanPropertyImplCopyWithImpl<$Res>
       $Res Function(_$DefinedSpanPropertyImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of SpanProperty
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -233,7 +239,7 @@ class _$DefinedSpanPropertyImpl implements DefinedSpanProperty {
                 other.backgroundColor == backgroundColor));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(
       runtimeType,
@@ -250,7 +256,9 @@ class _$DefinedSpanPropertyImpl implements DefinedSpanProperty {
       decorationThickness,
       backgroundColor);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of SpanProperty
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$DefinedSpanPropertyImplCopyWith<_$DefinedSpanPropertyImpl> get copyWith =>
@@ -295,7 +303,10 @@ abstract class DefinedSpanProperty implements SpanProperty {
   TextDecorationStyle? get decorationStyle;
   double? get decorationThickness;
   int? get backgroundColor;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of SpanProperty
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$DefinedSpanPropertyImplCopyWith<_$DefinedSpanPropertyImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -317,6 +328,8 @@ class __$$NamedSpanPropertyImplCopyWithImpl<$Res>
       $Res Function(_$NamedSpanPropertyImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of SpanProperty
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -359,11 +372,13 @@ class _$NamedSpanPropertyImpl implements NamedSpanProperty {
             (identical(other.name, name) || other.name == name));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, name);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of SpanProperty
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$NamedSpanPropertyImplCopyWith<_$NamedSpanPropertyImpl> get copyWith =>
@@ -385,7 +400,10 @@ abstract class NamedSpanProperty implements SpanProperty {
       _$NamedSpanPropertyImpl.fromJson;
 
   String get name;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of SpanProperty
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$NamedSpanPropertyImplCopyWith<_$NamedSpanPropertyImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -405,6 +423,9 @@ class __$$UndefinedSpanPropertyImplCopyWithImpl<$Res>
   __$$UndefinedSpanPropertyImplCopyWithImpl(_$UndefinedSpanPropertyImpl _value,
       $Res Function(_$UndefinedSpanPropertyImpl) _then)
       : super(_value, _then);
+
+  /// Create a copy of SpanProperty
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -431,7 +452,7 @@ class _$UndefinedSpanPropertyImpl implements UndefinedSpanProperty {
             other is _$UndefinedSpanPropertyImpl);
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => runtimeType.hashCode;
 
@@ -467,6 +488,7 @@ ParagraphProperty _$ParagraphPropertyFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$ParagraphProperty {
+  /// Serializes this ParagraphProperty to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
 }
 
@@ -486,6 +508,9 @@ class _$ParagraphPropertyCopyWithImpl<$Res, $Val extends ParagraphProperty>
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
+
+  /// Create a copy of ParagraphProperty
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -508,6 +533,8 @@ class __$$DefinedParagraphPropertyImplCopyWithImpl<$Res>
       $Res Function(_$DefinedParagraphPropertyImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of ParagraphProperty
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -564,12 +591,14 @@ class _$DefinedParagraphPropertyImpl implements DefinedParagraphProperty {
                 other.alignment == alignment));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(
       runtimeType, const DeepCollectionEquality().hash(span), alignment);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of ParagraphProperty
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$DefinedParagraphPropertyImplCopyWith<_$DefinedParagraphPropertyImpl>
@@ -594,7 +623,10 @@ abstract class DefinedParagraphProperty implements ParagraphProperty {
 
   DefinedSpanProperty get span;
   HorizontalAlignment get alignment;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of ParagraphProperty
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$DefinedParagraphPropertyImplCopyWith<_$DefinedParagraphPropertyImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
@@ -618,6 +650,8 @@ class __$$NamedParagraphPropertyImplCopyWithImpl<$Res>
       $Res Function(_$NamedParagraphPropertyImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of ParagraphProperty
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -660,11 +694,13 @@ class _$NamedParagraphPropertyImpl implements NamedParagraphProperty {
             (identical(other.name, name) || other.name == name));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, name);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of ParagraphProperty
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$NamedParagraphPropertyImplCopyWith<_$NamedParagraphPropertyImpl>
@@ -687,7 +723,10 @@ abstract class NamedParagraphProperty implements ParagraphProperty {
       _$NamedParagraphPropertyImpl.fromJson;
 
   String get name;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of ParagraphProperty
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$NamedParagraphPropertyImplCopyWith<_$NamedParagraphPropertyImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
@@ -709,6 +748,9 @@ class __$$UndefinedParagraphPropertyImplCopyWithImpl<$Res>
       _$UndefinedParagraphPropertyImpl _value,
       $Res Function(_$UndefinedParagraphPropertyImpl) _then)
       : super(_value, _then);
+
+  /// Create a copy of ParagraphProperty
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -736,7 +778,7 @@ class _$UndefinedParagraphPropertyImpl implements UndefinedParagraphProperty {
             other is _$UndefinedParagraphPropertyImpl);
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => runtimeType.hashCode;
 
@@ -763,8 +805,12 @@ AreaProperty _$AreaPropertyFromJson(Map<String, dynamic> json) {
 mixin _$AreaProperty {
   VerticalAlignment get alignment => throw _privateConstructorUsedError;
 
+  /// Serializes this AreaProperty to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of AreaProperty
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $AreaPropertyCopyWith<AreaProperty> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -788,6 +834,8 @@ class _$AreaPropertyCopyWithImpl<$Res, $Val extends AreaProperty>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of AreaProperty
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -821,6 +869,8 @@ class __$$AreaPropertyImplCopyWithImpl<$Res>
       _$AreaPropertyImpl _value, $Res Function(_$AreaPropertyImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of AreaProperty
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -861,11 +911,13 @@ class _$AreaPropertyImpl implements _AreaProperty {
                 other.alignment == alignment));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, alignment);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of AreaProperty
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$AreaPropertyImplCopyWith<_$AreaPropertyImpl> get copyWith =>
@@ -888,8 +940,11 @@ abstract class _AreaProperty implements AreaProperty {
 
   @override
   VerticalAlignment get alignment;
+
+  /// Create a copy of AreaProperty
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$AreaPropertyImplCopyWith<_$AreaPropertyImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -903,8 +958,12 @@ mixin _$TextSpan {
   String get text => throw _privateConstructorUsedError;
   SpanProperty get property => throw _privateConstructorUsedError;
 
+  /// Serializes this TextSpan to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of TextSpan
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $TextSpanCopyWith<TextSpan> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -929,6 +988,8 @@ class _$TextSpanCopyWithImpl<$Res, $Val extends TextSpan>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of TextSpan
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -947,6 +1008,8 @@ class _$TextSpanCopyWithImpl<$Res, $Val extends TextSpan>
     ) as $Val);
   }
 
+  /// Create a copy of TextSpan
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $SpanPropertyCopyWith<$Res> get property {
@@ -978,6 +1041,8 @@ class __$$TextSpanImplCopyWithImpl<$Res>
       _$TextSpanImpl _value, $Res Function(_$TextSpanImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of TextSpan
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -1029,11 +1094,13 @@ class _$TextSpanImpl extends _TextSpan {
                 other.property == property));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, text, property);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of TextSpan
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$TextSpanImplCopyWith<_$TextSpanImpl> get copyWith =>
@@ -1059,8 +1126,11 @@ abstract class _TextSpan extends TextSpan {
   String get text;
   @override
   SpanProperty get property;
+
+  /// Create a copy of TextSpan
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$TextSpanImplCopyWith<_$TextSpanImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -1070,7 +1140,9 @@ mixin _$IndexedModel<T> {
   int get index => throw _privateConstructorUsedError;
   T get model => throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of IndexedModel
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $IndexedModelCopyWith<T, IndexedModel<T>> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -1094,6 +1166,8 @@ class _$IndexedModelCopyWithImpl<T, $Res, $Val extends IndexedModel<T>>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of IndexedModel
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -1132,6 +1206,8 @@ class __$$IndexedModelImplCopyWithImpl<T, $Res>
       _$IndexedModelImpl<T> _value, $Res Function(_$IndexedModelImpl<T>) _then)
       : super(_value, _then);
 
+  /// Create a copy of IndexedModel
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -1179,7 +1255,9 @@ class _$IndexedModelImpl<T> implements _IndexedModel<T> {
   int get hashCode => Object.hash(
       runtimeType, index, const DeepCollectionEquality().hash(model));
 
-  @JsonKey(ignore: true)
+  /// Create a copy of IndexedModel
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$IndexedModelImplCopyWith<T, _$IndexedModelImpl<T>> get copyWith =>
@@ -1195,8 +1273,11 @@ abstract class _IndexedModel<T> implements IndexedModel<T> {
   int get index;
   @override
   T get model;
+
+  /// Create a copy of IndexedModel
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$IndexedModelImplCopyWith<T, _$IndexedModelImpl<T>> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -1210,8 +1291,12 @@ mixin _$TextParagraph {
   ParagraphProperty get property => throw _privateConstructorUsedError;
   List<TextSpan> get textSpans => throw _privateConstructorUsedError;
 
+  /// Serializes this TextParagraph to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of TextParagraph
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $TextParagraphCopyWith<TextParagraph> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -1237,6 +1322,8 @@ class _$TextParagraphCopyWithImpl<$Res, $Val extends TextParagraph>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of TextParagraph
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -1255,6 +1342,8 @@ class _$TextParagraphCopyWithImpl<$Res, $Val extends TextParagraph>
     ) as $Val);
   }
 
+  /// Create a copy of TextParagraph
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $ParagraphPropertyCopyWith<$Res> get property {
@@ -1286,6 +1375,8 @@ class __$$ParagraphPropertyImplCopyWithImpl<$Res>
       $Res Function(_$ParagraphPropertyImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of TextParagraph
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -1345,12 +1436,14 @@ class _$ParagraphPropertyImpl extends _ParagraphProperty {
                 .equals(other._textSpans, _textSpans));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(
       runtimeType, property, const DeepCollectionEquality().hash(_textSpans));
 
-  @JsonKey(ignore: true)
+  /// Create a copy of TextParagraph
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$ParagraphPropertyImplCopyWith<_$ParagraphPropertyImpl> get copyWith =>
@@ -1378,8 +1471,11 @@ abstract class _ParagraphProperty extends TextParagraph {
   ParagraphProperty get property;
   @override
   List<TextSpan> get textSpans;
+
+  /// Create a copy of TextParagraph
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$ParagraphPropertyImplCopyWith<_$ParagraphPropertyImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -1393,8 +1489,12 @@ mixin _$TextArea {
   AreaProperty get areaProperty => throw _privateConstructorUsedError;
   TextParagraph get paragraph => throw _privateConstructorUsedError;
 
+  /// Serializes this TextArea to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of TextArea
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $TextAreaCopyWith<TextArea> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -1420,6 +1520,8 @@ class _$TextAreaCopyWithImpl<$Res, $Val extends TextArea>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of TextArea
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -1438,6 +1540,8 @@ class _$TextAreaCopyWithImpl<$Res, $Val extends TextArea>
     ) as $Val);
   }
 
+  /// Create a copy of TextArea
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $AreaPropertyCopyWith<$Res> get areaProperty {
@@ -1446,6 +1550,8 @@ class _$TextAreaCopyWithImpl<$Res, $Val extends TextArea>
     });
   }
 
+  /// Create a copy of TextArea
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $TextParagraphCopyWith<$Res> get paragraph {
@@ -1479,6 +1585,8 @@ class __$$TextAreaImplCopyWithImpl<$Res>
       _$TextAreaImpl _value, $Res Function(_$TextAreaImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of TextArea
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -1530,11 +1638,13 @@ class _$TextAreaImpl extends _TextArea {
                 other.paragraph == paragraph));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, areaProperty, paragraph);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of TextArea
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$TextAreaImplCopyWith<_$TextAreaImpl> get copyWith =>
@@ -1561,8 +1671,11 @@ abstract class _TextArea extends TextArea {
   AreaProperty get areaProperty;
   @override
   TextParagraph get paragraph;
+
+  /// Create a copy of TextArea
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$TextAreaImplCopyWith<_$TextAreaImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -1579,8 +1692,12 @@ mixin _$TextStyleSheet {
   Map<String, DefinedParagraphProperty> get paragraphProperties =>
       throw _privateConstructorUsedError;
 
+  /// Serializes this TextStyleSheet to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of TextStyleSheet
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $TextStyleSheetCopyWith<TextStyleSheet> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -1607,6 +1724,8 @@ class _$TextStyleSheetCopyWithImpl<$Res, $Val extends TextStyleSheet>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of TextStyleSheet
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -1653,6 +1772,8 @@ class __$$TextStyleSheetImplCopyWithImpl<$Res>
       _$TextStyleSheetImpl _value, $Res Function(_$TextStyleSheetImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of TextStyleSheet
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -1731,7 +1852,7 @@ class _$TextStyleSheetImpl extends _TextStyleSheet {
                 .equals(other._paragraphProperties, _paragraphProperties));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(
       runtimeType,
@@ -1739,7 +1860,9 @@ class _$TextStyleSheetImpl extends _TextStyleSheet {
       const DeepCollectionEquality().hash(_spanProperties),
       const DeepCollectionEquality().hash(_paragraphProperties));
 
-  @JsonKey(ignore: true)
+  /// Create a copy of TextStyleSheet
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$TextStyleSheetImplCopyWith<_$TextStyleSheetImpl> get copyWith =>
@@ -1771,8 +1894,11 @@ abstract class _TextStyleSheet extends TextStyleSheet {
   Map<String, DefinedSpanProperty> get spanProperties;
   @override
   Map<String, DefinedParagraphProperty> get paragraphProperties;
+
+  /// Create a copy of TextStyleSheet
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$TextStyleSheetImplCopyWith<_$TextStyleSheetImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

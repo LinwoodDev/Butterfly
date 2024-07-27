@@ -1,36 +1,38 @@
 import 'dart:typed_data';
 
-import 'package:butterfly/api/file_system/file_system.dart';
-import 'package:butterfly/api/file_system/file_system_remote.dart';
+import 'package:butterfly/api/file_system.dart';
 import 'package:butterfly/api/save.dart';
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/dialogs/file_system/move.dart';
 import 'package:butterfly/services/sync.dart';
 import 'package:butterfly/views/files/grid.dart';
-import 'package:butterfly/visualizer/sync.dart';
+import 'package:butterfly/visualizer/connection.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:lw_file_system/lw_file_system.dart';
 import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 class FileEntityListTile extends StatelessWidget {
   final String? modifiedText, createdText;
-  final bool selected, editable, collapsed;
+  final bool active, editable, collapsed;
+  final bool? selected;
   final PhosphorIconData icon;
   final VoidCallback onTap, onDelete, onReload;
-  final ValueChanged<bool> onEdit;
+  final ValueChanged<bool> onEdit, onSelectedChanged;
   final Uint8List? thumbnail;
-  final AppDocumentEntity entity;
+  final FileSystemEntity<NoteData> entity;
   final TextEditingController nameController;
 
   const FileEntityListTile({
     super.key,
     this.createdText,
     this.modifiedText,
-    this.selected = false,
+    this.selected,
+    this.active = false,
     this.editable = false,
     this.collapsed = false,
     required this.icon,
@@ -38,6 +40,7 @@ class FileEntityListTile extends StatelessWidget {
     required this.onDelete,
     required this.onReload,
     required this.onEdit,
+    required this.onSelectedChanged,
     this.thumbnail,
     required this.entity,
     required this.nameController,
@@ -46,10 +49,10 @@ class FileEntityListTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
-    final settingsCubit = context.read<SettingsCubit>();
+    final fileSystem = context.read<ButterflyFileSystem>();
     final syncService = context.read<SyncService>();
-    final remote = settingsCubit.getRemote(entity.location.remote);
-    final fileSystem = DocumentFileSystem.fromPlatform(remote: remote);
+    final remote = fileSystem.settingsCubit.getRemote(entity.location.remote);
+    final documentSystem = fileSystem.buildDocumentSystem(remote);
     return LayoutBuilder(builder: (context, constraints) {
       final isDesktop = constraints.maxWidth >= LeapBreakpoints.medium;
       final isTablet = constraints.maxWidth >= LeapBreakpoints.compact;
@@ -64,21 +67,20 @@ class FileEntityListTile extends StatelessWidget {
               ),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(16),
-                side: selected
+                side: active
                     ? BorderSide(
                         color: colorScheme.primaryContainer,
                         width: 1,
                       )
                     : BorderSide.none,
               ),
-              surfaceTintColor: selected
+              surfaceTintColor: active
                   ? colorScheme.primaryContainer
                   : colorScheme.secondaryContainer,
               clipBehavior: Clip.hardEdge,
               child: InkWell(
                   onTap: onTap,
-                  highlightColor:
-                      selected ? colorScheme.primaryContainer : null,
+                  highlightColor: active ? colorScheme.primaryContainer : null,
                   child: Padding(
                     padding: const EdgeInsets.symmetric(
                       vertical: 8,
@@ -124,7 +126,7 @@ class FileEntityListTile extends StatelessWidget {
                                             color: colorScheme.onSurface,
                                           ),
                                       onSubmitted: (value) async {
-                                        await fileSystem.renameAsset(
+                                        await documentSystem.renameAsset(
                                             entity.location.path, value);
                                         onEdit(false);
                                         onReload();
@@ -166,7 +168,7 @@ class FileEntityListTile extends StatelessWidget {
                           if (remote is RemoteStorage)
                             StreamBuilder<List<SyncFile>>(
                               stream: syncService
-                                  .getSync(remote!.identifier)
+                                  .getSync(remote.identifier)
                                   ?.filesStream,
                               builder: (context, snapshot) {
                                 final currentStatus = snapshot.data
@@ -194,7 +196,8 @@ class FileEntityListTile extends StatelessWidget {
                             final starred = state.isStarred(entity.location);
                             return IconButton(
                               onPressed: () {
-                                settingsCubit.toggleStarred(entity.location);
+                                fileSystem.settingsCubit
+                                    .toggleStarred(entity.location);
                               },
                               selectedIcon:
                                   const PhosphorIcon(PhosphorIconsFill.star),
@@ -210,7 +213,7 @@ class FileEntityListTile extends StatelessWidget {
                               context: context,
                               builder: (context) => FileSystemAssetMoveDialog(
                                 asset: entity,
-                                fileSystem: fileSystem,
+                                fileSystem: documentSystem,
                               ),
                             ).then((value) => onReload()),
                             tooltip: AppLocalizations.of(context).move,
@@ -275,16 +278,27 @@ class FileEntityListTile extends StatelessWidget {
                         remote: remote,
                         syncService: syncService,
                         entity: entity,
-                        settingsCubit: settingsCubit,
+                        settingsCubit: fileSystem.settingsCubit,
                         editable: editable,
                         onEdit: onEdit,
                         nameController: nameController,
                         onDelete: onDelete,
+                        documentSystem: documentSystem,
+                        onReload: onReload,
+                        onSelect: selected == null
+                            ? () => onSelectedChanged(true)
+                            : null,
+                      );
+                      final selectionCheckbox = Checkbox(
+                        value: selected ?? false,
+                        onChanged: (value) => onSelectedChanged(value ?? false),
                       );
                       if (isDesktop) {
                         return Row(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
+                            selectionCheckbox,
+                            const SizedBox(width: 8),
                             Expanded(
                               child: Wrap(
                                 spacing: 8,
@@ -310,6 +324,8 @@ class FileEntityListTile extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
+                            selectionCheckbox,
+                            const SizedBox(width: 8),
                             Expanded(
                                 child: Row(children: [
                               Flexible(
@@ -330,6 +346,10 @@ class FileEntityListTile extends StatelessWidget {
                       } else {
                         return Row(
                           children: [
+                            if (selected != null) ...[
+                              selectionCheckbox,
+                              const SizedBox(width: 8),
+                            ],
                             Expanded(
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -356,12 +376,13 @@ class FileEntityListTile extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.end,
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  if (entity is AppDocumentFile)
+                  if (entity is FileSystemFile<NoteData>)
                     IconButton(
                       onPressed: () {
                         try {
-                          final data = (entity as AppDocumentFile).data;
-                          exportData(context, data);
+                          final data =
+                              (entity as FileSystemFile<NoteData>).data;
+                          exportData(context, data?.save() ?? []);
                         } catch (e) {
                           ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(

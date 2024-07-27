@@ -97,7 +97,6 @@ abstract class $CurrentIndexCopyWith<$Res> {
       bool areaNavigatorExact,
       bool areaNavigatorAsk});
 
-  $AssetLocationCopyWith<$Res> get location;
   $ViewOptionCopyWith<$Res> get viewOption;
 }
 
@@ -276,14 +275,6 @@ class _$CurrentIndexCopyWithImpl<$Res, $Val extends CurrentIndex>
 
   @override
   @pragma('vm:prefer-inline')
-  $AssetLocationCopyWith<$Res> get location {
-    return $AssetLocationCopyWith<$Res>(_value.location, (value) {
-      return _then(_value.copyWith(location: value) as $Val);
-    });
-  }
-
-  @override
-  @pragma('vm:prefer-inline')
   $ViewOptionCopyWith<$Res> get viewOption {
     return $ViewOptionCopyWith<$Res>(_value.viewOption, (value) {
       return _then(_value.copyWith(viewOption: value) as $Val);
@@ -332,8 +323,6 @@ abstract class _$$CurrentIndexImplCopyWith<$Res>
       bool areaNavigatorExact,
       bool areaNavigatorAsk});
 
-  @override
-  $AssetLocationCopyWith<$Res> get location;
   @override
   $ViewOptionCopyWith<$Res> get viewOption;
 }

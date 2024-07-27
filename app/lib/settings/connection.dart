@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:lw_file_system/lw_file_system.dart';
 import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
@@ -143,10 +144,12 @@ class _GeneralConnectionSettingsView extends StatelessWidget {
                         final storage = state.getRemote(this.storage.identifier)
                             as RemoteStorage?;
                         return CheckboxListTile(
-                          value: storage?.cachedDocuments.contains('/'),
+                          value: storage?.cachedDocuments['']?.contains('/') ??
+                              false,
                           onChanged: (value) {
                             if (storage == null) return;
-                            if (storage.cachedDocuments.contains('/')) {
+                            if (storage.cachedDocuments['']?.contains('/') ??
+                                false) {
                               context.read<SettingsCubit>().removeCache(
                                     storage.identifier,
                                     '/',
@@ -204,9 +207,9 @@ class _CachesConnectionSettingsView extends StatelessWidget {
         child: ConstrainedBox(
           constraints: const BoxConstraints(maxWidth: LeapBreakpoints.compact),
           child: ListView.builder(
-            itemCount: storage.cachedDocuments.length,
+            itemCount: storage.cachedDocuments['']?.length,
             itemBuilder: (context, index) {
-              final current = storage.cachedDocuments[index];
+              final current = storage.cachedDocuments['']![index];
               return Dismissible(
                 key: Key(current),
                 onDismissed: (_) {

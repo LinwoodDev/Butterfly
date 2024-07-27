@@ -1,4 +1,4 @@
-import 'package:butterfly/visualizer/sync.dart';
+import 'package:butterfly/visualizer/connection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
@@ -18,7 +18,7 @@ class SyncButton extends StatelessWidget {
         final status = snapshot.data;
         return IconButton(
           icon: PhosphorIcon(status.getIcon(),
-              color: status.getColor(Theme.of(context).colorScheme)),
+              color: status?.getColor(Theme.of(context).colorScheme)),
           tooltip: status.getLocalizedName(context),
           onPressed: () => showDialog<void>(
             context: context,

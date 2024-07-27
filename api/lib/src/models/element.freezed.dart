@@ -24,8 +24,12 @@ mixin _$ElementConstraint {
   double get length => throw _privateConstructorUsedError;
   bool get includeArea => throw _privateConstructorUsedError;
 
+  /// Serializes this ElementConstraint to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of ElementConstraint
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $ElementConstraintCopyWith<ElementConstraint> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -49,6 +53,8 @@ class _$ElementConstraintCopyWithImpl<$Res, $Val extends ElementConstraint>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of ElementConstraint
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -92,6 +98,8 @@ class __$$ElementConstraintImplCopyWithImpl<$Res>
       $Res Function(_$ElementConstraintImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of ElementConstraint
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -151,11 +159,13 @@ class _$ElementConstraintImpl implements _ElementConstraint {
                 other.includeArea == includeArea));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, size, length, includeArea);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of ElementConstraint
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$ElementConstraintImplCopyWith<_$ElementConstraintImpl> get copyWith =>
@@ -185,8 +195,11 @@ abstract class _ElementConstraint implements ElementConstraint {
   double get length;
   @override
   bool get includeArea;
+
+  /// Create a copy of ElementConstraint
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$ElementConstraintImplCopyWith<_$ElementConstraintImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -208,6 +221,7 @@ ElementConstraints _$ElementConstraintsFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$ElementConstraints {
+  /// Serializes this ElementConstraints to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
 }
 
@@ -227,6 +241,9 @@ class _$ElementConstraintsCopyWithImpl<$Res, $Val extends ElementConstraints>
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
+
+  /// Create a copy of ElementConstraints
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -249,6 +266,8 @@ class __$$ScaledElementConstraintsImplCopyWithImpl<$Res>
       $Res Function(_$ScaledElementConstraintsImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of ElementConstraints
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -302,11 +321,13 @@ class _$ScaledElementConstraintsImpl implements ScaledElementConstraints {
             (identical(other.scaleY, scaleY) || other.scaleY == scaleY));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, scaleX, scaleY);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of ElementConstraints
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$ScaledElementConstraintsImplCopyWith<_$ScaledElementConstraintsImpl>
@@ -331,7 +352,10 @@ abstract class ScaledElementConstraints implements ElementConstraints {
 
   double get scaleX;
   double get scaleY;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of ElementConstraints
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$ScaledElementConstraintsImplCopyWith<_$ScaledElementConstraintsImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
@@ -356,6 +380,8 @@ class __$$FixedElementConstraintsImplCopyWithImpl<$Res>
       $Res Function(_$FixedElementConstraintsImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of ElementConstraints
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -407,11 +433,13 @@ class _$FixedElementConstraintsImpl implements FixedElementConstraints {
             (identical(other.width, width) || other.width == width));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, height, width);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of ElementConstraints
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$FixedElementConstraintsImplCopyWith<_$FixedElementConstraintsImpl>
@@ -435,7 +463,10 @@ abstract class FixedElementConstraints implements ElementConstraints {
 
   double get height;
   double get width;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of ElementConstraints
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$FixedElementConstraintsImplCopyWith<_$FixedElementConstraintsImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
@@ -461,6 +492,8 @@ class __$$DynamicElementConstraintsImplCopyWithImpl<$Res>
       $Res Function(_$DynamicElementConstraintsImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of ElementConstraints
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -538,12 +571,14 @@ class _$DynamicElementConstraintsImpl implements DynamicElementConstraints {
                 other.includeArea == includeArea));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode =>
       Object.hash(runtimeType, height, width, aspectRatio, includeArea);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of ElementConstraints
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$DynamicElementConstraintsImplCopyWith<_$DynamicElementConstraintsImpl>
@@ -572,7 +607,10 @@ abstract class DynamicElementConstraints implements ElementConstraints {
   double get width;
   double get aspectRatio;
   bool get includeArea;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of ElementConstraints
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$DynamicElementConstraintsImplCopyWith<_$DynamicElementConstraintsImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
@@ -608,8 +646,12 @@ mixin _$PadElement {
   String? get id => throw _privateConstructorUsedError;
   Map<String, dynamic> get extra => throw _privateConstructorUsedError;
 
+  /// Serializes this PadElement to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of PadElement
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $PadElementCopyWith<PadElement> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -637,6 +679,8 @@ class _$PadElementCopyWithImpl<$Res, $Val extends PadElement>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of PadElement
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -692,6 +736,8 @@ class __$$PenElementImplCopyWithImpl<$Res>
       _$PenElementImpl _value, $Res Function(_$PenElementImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of PadElement
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -796,7 +842,9 @@ class _$PenElementImpl extends PenElement {
     return 'PadElement.pen(rotation: $rotation, layer: $layer, id: $id, zoom: $zoom, points: $points, property: $property, extra: $extra)';
   }
 
-  @JsonKey(ignore: true)
+  /// Create a copy of PadElement
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$PenElementImplCopyWith<_$PenElementImpl> get copyWith =>
@@ -836,8 +884,11 @@ abstract class PenElement extends PadElement implements PathElement {
   PenProperty get property;
   @override
   Map<String, dynamic> get extra;
+
+  /// Create a copy of PadElement
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$PenElementImplCopyWith<_$PenElementImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -875,6 +926,8 @@ class __$$TextElementImplCopyWithImpl<$Res>
       _$TextElementImpl _value, $Res Function(_$TextElementImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of PadElement
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -933,6 +986,8 @@ class __$$TextElementImplCopyWithImpl<$Res>
     ));
   }
 
+  /// Create a copy of PadElement
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $PackAssetLocationCopyWith<$Res> get styleSheet {
@@ -941,6 +996,8 @@ class __$$TextElementImplCopyWithImpl<$Res>
     });
   }
 
+  /// Create a copy of PadElement
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $TextAreaCopyWith<$Res> get area {
@@ -949,6 +1006,8 @@ class __$$TextElementImplCopyWithImpl<$Res>
     });
   }
 
+  /// Create a copy of PadElement
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $ElementConstraintCopyWith<$Res> get constraint {
@@ -1024,7 +1083,9 @@ class _$TextElementImpl extends TextElement with LabelElement {
     return 'PadElement.text(rotation: $rotation, layer: $layer, id: $id, position: $position, scale: $scale, styleSheet: $styleSheet, area: $area, constraint: $constraint, foreground: $foreground, extra: $extra)';
   }
 
-  @JsonKey(ignore: true)
+  /// Create a copy of PadElement
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$TextElementImplCopyWith<_$TextElementImpl> get copyWith =>
@@ -1071,8 +1132,11 @@ abstract class TextElement extends PadElement implements LabelElement {
   int get foreground;
   @override
   Map<String, dynamic> get extra;
+
+  /// Create a copy of PadElement
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$TextElementImplCopyWith<_$TextElementImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -1111,6 +1175,8 @@ class __$$MarkdownElementImplCopyWithImpl<$Res>
       _$MarkdownElementImpl _value, $Res Function(_$MarkdownElementImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of PadElement
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -1174,6 +1240,8 @@ class __$$MarkdownElementImplCopyWithImpl<$Res>
     ));
   }
 
+  /// Create a copy of PadElement
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $PackAssetLocationCopyWith<$Res> get styleSheet {
@@ -1182,6 +1250,8 @@ class __$$MarkdownElementImplCopyWithImpl<$Res>
     });
   }
 
+  /// Create a copy of PadElement
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $AreaPropertyCopyWith<$Res> get areaProperty {
@@ -1190,6 +1260,8 @@ class __$$MarkdownElementImplCopyWithImpl<$Res>
     });
   }
 
+  /// Create a copy of PadElement
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $ElementConstraintCopyWith<$Res> get constraint {
@@ -1269,7 +1341,9 @@ class _$MarkdownElementImpl extends MarkdownElement with LabelElement {
     return 'PadElement.markdown(rotation: $rotation, layer: $layer, id: $id, position: $position, scale: $scale, styleSheet: $styleSheet, areaProperty: $areaProperty, text: $text, constraint: $constraint, foreground: $foreground, extra: $extra)';
   }
 
-  @JsonKey(ignore: true)
+  /// Create a copy of PadElement
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$MarkdownElementImplCopyWith<_$MarkdownElementImpl> get copyWith =>
@@ -1319,8 +1393,11 @@ abstract class MarkdownElement extends PadElement implements LabelElement {
   int get foreground;
   @override
   Map<String, dynamic> get extra;
+
+  /// Create a copy of PadElement
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$MarkdownElementImplCopyWith<_$MarkdownElementImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -1355,6 +1432,8 @@ class __$$ImageElementImplCopyWithImpl<$Res>
       _$ImageElementImpl _value, $Res Function(_$ImageElementImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of PadElement
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -1408,6 +1487,8 @@ class __$$ImageElementImplCopyWithImpl<$Res>
     ));
   }
 
+  /// Create a copy of PadElement
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $ElementConstraintsCopyWith<$Res>? get constraints {
@@ -1481,7 +1562,9 @@ class _$ImageElementImpl extends ImageElement {
     return 'PadElement.image(rotation: $rotation, layer: $layer, id: $id, position: $position, constraints: $constraints, source: $source, width: $width, height: $height, extra: $extra)';
   }
 
-  @JsonKey(ignore: true)
+  /// Create a copy of PadElement
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$ImageElementImplCopyWith<_$ImageElementImpl> get copyWith =>
@@ -1526,8 +1609,11 @@ abstract class ImageElement extends PadElement implements SourcedElement {
   double get height;
   @override
   Map<String, dynamic> get extra;
+
+  /// Create a copy of PadElement
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$ImageElementImplCopyWith<_$ImageElementImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -1562,6 +1648,8 @@ class __$$SvgElementImplCopyWithImpl<$Res>
       _$SvgElementImpl _value, $Res Function(_$SvgElementImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of PadElement
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -1615,6 +1703,8 @@ class __$$SvgElementImplCopyWithImpl<$Res>
     ));
   }
 
+  /// Create a copy of PadElement
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $ElementConstraintsCopyWith<$Res>? get constraints {
@@ -1688,7 +1778,9 @@ class _$SvgElementImpl extends SvgElement {
     return 'PadElement.svg(rotation: $rotation, layer: $layer, id: $id, position: $position, constraints: $constraints, source: $source, width: $width, height: $height, extra: $extra)';
   }
 
-  @JsonKey(ignore: true)
+  /// Create a copy of PadElement
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$SvgElementImplCopyWith<_$SvgElementImpl> get copyWith =>
@@ -1733,8 +1825,11 @@ abstract class SvgElement extends PadElement implements SourcedElement {
   double get height;
   @override
   Map<String, dynamic> get extra;
+
+  /// Create a copy of PadElement
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$SvgElementImplCopyWith<_$SvgElementImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -1765,6 +1860,8 @@ class __$$ShapeElementImplCopyWithImpl<$Res>
       _$ShapeElementImpl _value, $Res Function(_$ShapeElementImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of PadElement
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -1865,7 +1962,9 @@ class _$ShapeElementImpl extends ShapeElement {
     return 'PadElement.shape(rotation: $rotation, layer: $layer, id: $id, firstPosition: $firstPosition, secondPosition: $secondPosition, property: $property, extra: $extra)';
   }
 
-  @JsonKey(ignore: true)
+  /// Create a copy of PadElement
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$ShapeElementImplCopyWith<_$ShapeElementImpl> get copyWith =>
@@ -1907,8 +2006,11 @@ abstract class ShapeElement extends PadElement {
   ShapeProperty get property;
   @override
   Map<String, dynamic> get extra;
+
+  /// Create a copy of PadElement
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$ShapeElementImplCopyWith<_$ShapeElementImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -1941,6 +2043,8 @@ class __$$TextureElementImplCopyWithImpl<$Res>
       _$TextureElementImpl _value, $Res Function(_$TextureElementImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of PadElement
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -1984,6 +2088,8 @@ class __$$TextureElementImplCopyWithImpl<$Res>
     ));
   }
 
+  /// Create a copy of PadElement
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $SurfaceTextureCopyWith<$Res> get texture {
@@ -2049,7 +2155,9 @@ class _$TextureElementImpl extends TextureElement {
     return 'PadElement.texture(rotation: $rotation, layer: $layer, id: $id, texture: $texture, firstPosition: $firstPosition, secondPosition: $secondPosition, extra: $extra)';
   }
 
-  @JsonKey(ignore: true)
+  /// Create a copy of PadElement
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$TextureElementImplCopyWith<_$TextureElementImpl> get copyWith =>
@@ -2092,8 +2200,11 @@ abstract class TextureElement extends PadElement {
   Point<double> get secondPosition;
   @override
   Map<String, dynamic> get extra;
+
+  /// Create a copy of PadElement
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$TextureElementImplCopyWith<_$TextureElementImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

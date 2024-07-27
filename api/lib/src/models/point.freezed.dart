@@ -24,8 +24,12 @@ mixin _$PathPoint {
   double get y => throw _privateConstructorUsedError;
   double get pressure => throw _privateConstructorUsedError;
 
+  /// Serializes this PathPoint to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of PathPoint
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $PathPointCopyWith<PathPoint> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -48,6 +52,8 @@ class _$PathPointCopyWithImpl<$Res, $Val extends PathPoint>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of PathPoint
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -91,6 +97,8 @@ class __$$PathPointImplCopyWithImpl<$Res>
       _$PathPointImpl _value, $Res Function(_$PathPointImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of PathPoint
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -147,11 +155,13 @@ class _$PathPointImpl extends _PathPoint {
                 other.pressure == pressure));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, x, y, pressure);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of PathPoint
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$PathPointImplCopyWith<_$PathPointImpl> get copyWith =>
@@ -179,8 +189,11 @@ abstract class _PathPoint extends PathPoint {
   double get y;
   @override
   double get pressure;
+
+  /// Create a copy of PathPoint
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$PathPointImplCopyWith<_$PathPointImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

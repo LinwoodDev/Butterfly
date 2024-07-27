@@ -1,27 +1,29 @@
 import 'dart:typed_data';
 
-import 'package:butterfly/api/file_system/file_system.dart';
-import 'package:butterfly/api/file_system/file_system_remote.dart';
+import 'package:butterfly/api/file_system.dart';
 import 'package:butterfly/api/save.dart';
 import 'package:butterfly/cubits/settings.dart';
+import 'package:butterfly/dialogs/file_system/move.dart';
 import 'package:butterfly/services/sync.dart';
-import 'package:butterfly/visualizer/sync.dart';
+import 'package:butterfly/visualizer/connection.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:lw_file_system/lw_file_system.dart';
 import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 class FileEntityGridItem extends StatelessWidget {
   final String? modifiedText, createdText;
-  final bool selected, editable, collapsed;
+  final bool active, editable, collapsed;
+  final bool? selected;
   final PhosphorIconData icon;
   final VoidCallback onTap, onDelete, onReload;
-  final ValueChanged<bool> onEdit;
+  final ValueChanged<bool> onEdit, onSelectedChanged;
   final Uint8List? thumbnail;
-  final AppDocumentEntity entity;
+  final FileSystemEntity<NoteData> entity;
   final TextEditingController nameController;
 
   const FileEntityGridItem({
@@ -29,6 +31,7 @@ class FileEntityGridItem extends StatelessWidget {
     this.createdText,
     this.modifiedText,
     this.selected = false,
+    this.active = false,
     this.editable = false,
     this.collapsed = false,
     required this.icon,
@@ -36,6 +39,7 @@ class FileEntityGridItem extends StatelessWidget {
     required this.onDelete,
     required this.onReload,
     required this.onEdit,
+    required this.onSelectedChanged,
     this.thumbnail,
     required this.entity,
     required this.nameController,
@@ -44,10 +48,10 @@ class FileEntityGridItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
-    final settingsCubit = context.read<SettingsCubit>();
+    final fileSystem = context.read<ButterflyFileSystem>();
     final syncService = context.read<SyncService>();
-    final remote = settingsCubit.getRemote(entity.location.remote);
-    final fileSystem = DocumentFileSystem.fromPlatform(remote: remote);
+    final remote = fileSystem.settingsCubit.getRemote(entity.location.remote);
+    final documentSystem = fileSystem.buildDocumentSystem(remote);
     final leading = PhosphorIcon(
       icon,
       color: colorScheme.outline,
@@ -61,20 +65,20 @@ class FileEntityGridItem extends StatelessWidget {
       ),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(16),
-        side: selected
+        side: active
             ? BorderSide(
                 color: colorScheme.primaryContainer,
                 width: 1,
               )
             : BorderSide.none,
       ),
-      surfaceTintColor: selected
+      surfaceTintColor: active
           ? colorScheme.primaryContainer
           : colorScheme.secondaryContainer,
       clipBehavior: Clip.hardEdge,
       child: InkWell(
         onTap: onTap,
-        highlightColor: selected ? colorScheme.primaryContainer : null,
+        highlightColor: active ? colorScheme.primaryContainer : null,
         child: Container(
           padding: const EdgeInsets.symmetric(
             vertical: 8,
@@ -161,6 +165,12 @@ class FileEntityGridItem extends StatelessWidget {
                     const SizedBox(height: 8),
                     Row(
                       children: [
+                        if (selected != null)
+                          Checkbox(
+                            value: selected,
+                            onChanged: (value) =>
+                                onSelectedChanged(value ?? false),
+                          ),
                         Expanded(
                           child: SizedBox(
                             height: 32,
@@ -179,7 +189,7 @@ class FileEntityGridItem extends StatelessWidget {
                                             color: colorScheme.onSurface,
                                           ),
                                       onSubmitted: (value) async {
-                                        await fileSystem.renameAsset(
+                                        await documentSystem.renameAsset(
                                             entity.location.path, value);
                                         onEdit(false);
                                         onReload();
@@ -206,14 +216,20 @@ class FileEntityGridItem extends StatelessWidget {
                           ),
                         ),
                         FilesActionMenu(
-                            remote: remote,
-                            syncService: syncService,
-                            entity: entity,
-                            settingsCubit: settingsCubit,
-                            editable: editable,
-                            onEdit: onEdit,
-                            nameController: nameController,
-                            onDelete: onDelete),
+                          remote: remote,
+                          syncService: syncService,
+                          entity: entity,
+                          settingsCubit: fileSystem.settingsCubit,
+                          editable: editable,
+                          onEdit: onEdit,
+                          nameController: nameController,
+                          onDelete: onDelete,
+                          onReload: onReload,
+                          documentSystem: documentSystem,
+                          onSelect: selected == null
+                              ? () => onSelectedChanged(true)
+                              : null,
+                        ),
                       ],
                     ),
                   ],
@@ -238,16 +254,21 @@ class FilesActionMenu extends StatelessWidget {
     required this.onEdit,
     required this.nameController,
     required this.onDelete,
+    required this.documentSystem,
+    required this.onReload,
+    this.onSelect,
   });
 
   final ExternalStorage? remote;
   final SyncService syncService;
-  final AppDocumentEntity entity;
+  final DocumentFileSystem documentSystem;
+  final FileSystemEntity<NoteData> entity;
   final SettingsCubit settingsCubit;
   final bool editable;
   final ValueChanged<bool> onEdit;
+  final VoidCallback onReload, onDelete;
+  final VoidCallback? onSelect;
   final TextEditingController nameController;
-  final VoidCallback onDelete;
 
   @override
   Widget build(BuildContext context) {
@@ -291,6 +312,23 @@ class FilesActionMenu extends StatelessWidget {
                 : AppLocalizations.of(context).star),
           );
         }),
+        if (onSelect != null)
+          MenuItemButton(
+            onPressed: onSelect,
+            leadingIcon: const PhosphorIcon(PhosphorIconsLight.check),
+            child: Text(AppLocalizations.of(context).select),
+          ),
+        MenuItemButton(
+          onPressed: () => showDialog(
+            context: context,
+            builder: (context) => FileSystemAssetMoveDialog(
+              asset: entity,
+              fileSystem: documentSystem,
+            ),
+          ).then((value) => onReload()),
+          leadingIcon: const PhosphorIcon(PhosphorIconsLight.arrowsDownUp),
+          child: Text(AppLocalizations.of(context).move),
+        ),
         if (!editable)
           MenuItemButton(
             onPressed: () {
@@ -300,12 +338,12 @@ class FilesActionMenu extends StatelessWidget {
             leadingIcon: const PhosphorIcon(PhosphorIconsLight.pencil),
             child: Text(AppLocalizations.of(context).rename),
           ),
-        if (entity is AppDocumentFile)
+        if (entity is FileSystemFile<NoteData>)
           MenuItemButton(
             onPressed: () {
               try {
-                final data = (entity as AppDocumentFile).data;
-                exportData(context, data);
+                final data = (entity as FileSystemFile<NoteData>).data;
+                exportData(context, data?.save() ?? []);
               } catch (e) {
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(

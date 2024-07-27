@@ -7,11 +7,11 @@ enum StorageType {
 
 abstract class DocumentState extends Equatable {
   final WindowCubit windowCubit;
-  final SettingsCubit settingsCubit;
+  final ButterflyFileSystem fileSystem;
 
   const DocumentState({
     required this.windowCubit,
-    required this.settingsCubit,
+    required this.fileSystem,
   });
 
   @override
@@ -27,6 +27,7 @@ abstract class DocumentState extends Equatable {
   NetworkingService? get networkingService =>
       currentIndexCubit?.state.networkingService;
   Embedding? get embedding => currentIndexCubit?.state.embedding;
+  SettingsCubit get settingsCubit => fileSystem.settingsCubit;
   Area? get currentArea => null;
 
   NoteData? saveData([NoteData? current]) => data;
@@ -35,7 +36,7 @@ abstract class DocumentState extends Equatable {
 
 class DocumentLoadInProgress extends DocumentState {
   const DocumentLoadInProgress(
-      {required super.settingsCubit, required super.windowCubit});
+      {required super.fileSystem, required super.windowCubit});
 }
 
 class DocumentLoadFailure extends DocumentState {
@@ -43,7 +44,7 @@ class DocumentLoadFailure extends DocumentState {
   final StackTrace? stackTrace;
 
   const DocumentLoadFailure({
-    required super.settingsCubit,
+    required super.fileSystem,
     required super.windowCubit,
     required this.message,
     this.stackTrace,
@@ -77,7 +78,7 @@ abstract class DocumentLoaded extends DocumentState {
 
   DocumentLoaded(this.data,
       {DocumentPage? page,
-      required super.settingsCubit,
+      required super.fileSystem,
       required super.windowCubit,
       required this.pageName,
       AssetService? assetService,
@@ -132,7 +133,7 @@ class DocumentLoadSuccess extends DocumentLoaded {
 
   DocumentLoadSuccess(super.data,
       {super.page,
-      required super.settingsCubit,
+      required super.fileSystem,
       required super.windowCubit,
       super.assetService,
       required super.pageName,
@@ -193,7 +194,7 @@ class DocumentLoadSuccess extends DocumentLoaded {
         invisibleLayers: invisibleLayers ?? this.invisibleLayers,
         currentLayer: currentLayer ?? this.currentLayer,
         currentAreaName: currentAreaName ?? this.currentAreaName,
-        settingsCubit: settingsCubit,
+        fileSystem: fileSystem,
         windowCubit: windowCubit,
         currentIndexCubit: currentIndexCubit,
         location: location,
@@ -242,7 +243,7 @@ class DocumentPresentationState extends DocumentLoaded {
       {this.frame = 0,
       super.metadata,
       super.page,
-      required super.settingsCubit,
+      required super.fileSystem,
       required super.windowCubit,
       required super.pageName,
       required super.assetService})
@@ -254,7 +255,7 @@ class DocumentPresentationState extends DocumentLoaded {
       {this.frame = 0,
       super.metadata,
       super.page,
-      required super.settingsCubit,
+      required super.fileSystem,
       required super.windowCubit,
       required super.pageName,
       required super.assetService})
@@ -279,7 +280,7 @@ class DocumentPresentationState extends DocumentLoaded {
         metadata: metadata,
         page: page,
         pageName: pageName,
-        settingsCubit: settingsCubit,
+        fileSystem: fileSystem,
         windowCubit: windowCubit,
       );
 

@@ -1,19 +1,19 @@
 import 'package:archive/archive.dart';
-import 'package:butterfly/api/file_system/file_system_io.dart';
+import 'package:butterfly/api/file_system.dart';
 import 'package:butterfly/api/save.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/dialogs/template.dart';
-import 'package:butterfly/visualizer/sync.dart';
+import 'package:butterfly/visualizer/connection.dart';
 import 'package:file_selector/file_selector.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:lw_file_system/lw_file_system.dart';
 import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
-import '../api/file_system/file_system.dart';
 import '../dialogs/packs/dialog.dart';
 
 class DataSettingsPage extends StatefulWidget {
@@ -25,6 +25,14 @@ class DataSettingsPage extends StatefulWidget {
 }
 
 class _DataSettingsPageState extends State<DataSettingsPage> {
+  late final DocumentFileSystem _documentSystem;
+
+  @override
+  void initState() {
+    super.initState();
+    _documentSystem = context.read<ButterflyFileSystem>().buildDocumentSystem();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -60,7 +68,7 @@ class _DataSettingsPageState extends State<DataSettingsPage> {
                                 const PhosphorIcon(PhosphorIconsLight.folder),
                             subtitle: state.documentPath.isNotEmpty
                                 ? FutureBuilder<String>(
-                                    future: getButterflyDirectory(true),
+                                    future: getButterflyDirectory(root: true),
                                     builder: (context, snapshot) {
                                       if (snapshot.hasData) {
                                         return Text(snapshot.data!);
@@ -103,12 +111,10 @@ class _DataSettingsPageState extends State<DataSettingsPage> {
                             context: context,
                             builder: (ctx) => MultiBlocProvider(
                               providers: [
-                                BlocProvider.value(
-                                    value: context.read<SettingsCubit>()),
                                 BlocProvider(
                                   lazy: false,
                                   create: (ctx) => DocumentBloc.placeholder(
-                                      context.read<SettingsCubit>(),
+                                      context.read<ButterflyFileSystem>(),
                                       context.read<WindowCubit>()),
                                 ),
                               ],
@@ -121,10 +127,8 @@ class _DataSettingsPageState extends State<DataSettingsPage> {
                           leading:
                               const PhosphorIcon(PhosphorIconsLight.export),
                           onTap: () async {
-                            final fileSystem =
-                                DocumentFileSystem.fromPlatform();
-                            final directory =
-                                await fileSystem.getRootDirectory(true);
+                            final directory = await _documentSystem
+                                .getRootDirectory(listLevel: allListLevel);
                             final archive = exportDirectory(directory);
                             final encoder = ZipEncoder();
                             final bytes = encoder.encode(archive);
@@ -163,8 +167,7 @@ class _DataSettingsPageState extends State<DataSettingsPage> {
 
   Future<void> _changePath(SettingsCubit settingsCubit, String newPath) async {
     final oldPath = settingsCubit.state.documentPath;
-    if (!(await DocumentFileSystem.fromPlatform()
-        .moveAbsolute(oldPath, newPath))) {
+    if (!(await _documentSystem.moveAbsolute(oldPath, newPath))) {
       return;
     }
     settingsCubit.changeDocumentPath(newPath);

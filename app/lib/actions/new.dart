@@ -1,3 +1,4 @@
+import 'package:butterfly/api/file_system.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly_api/butterfly_api.dart';
@@ -30,9 +31,10 @@ class NewAction extends Action<NewIntent> {
       );
       return;
     }
-    final templateSystem = settings.getDefaultTemplateFileSystem();
-    final template = await templateSystem.getDefaultTemplate(
-      templateSystem.remote?.defaultTemplate ?? settings.defaultTemplate,
+    final templateSystem =
+        context.read<ButterflyFileSystem>().buildDefaultTemplateSystem();
+    final template = await templateSystem.getDefaultFile(
+      templateSystem.storage?.defaults['template'] ?? settings.defaultTemplate,
     );
     openNewDocument(context, true, template);
   }

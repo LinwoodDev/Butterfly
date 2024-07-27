@@ -4,6 +4,7 @@ import 'dart:ui';
 
 import 'package:butterfly/api/open.dart';
 import 'package:butterfly/cubits/settings.dart';
+import 'package:butterfly/visualizer/connection.dart';
 import 'package:collection/collection.dart';
 import 'package:file_selector/file_selector.dart';
 import 'package:flutter/foundation.dart';
@@ -12,6 +13,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:go_router/go_router.dart';
 import 'package:http/http.dart' as http;
+import 'package:lw_file_system/lw_file_system.dart';
 import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
@@ -52,24 +54,23 @@ class ConnectionsSettingsPage extends StatelessWidget {
         floatingActionButton: kIsWeb
             ? null
             : FloatingActionButton.extended(
-                onPressed: () => showLeapBottomSheet(
+                onPressed: () => showLeapBottomSheet<ExternalStorage>(
                     context: context,
                     title: AppLocalizations.of(context).addConnection,
-                    childrenBuilder: (context) => ExternalStorageType.values
-                        .whereNot((e) =>
-                            e == ExternalStorageType.local &&
-                            Platform.isAndroid)
+                    childrenBuilder: (context) => getSupportedStorages()
+                        .whereNot(
+                            (e) => e is LocalStorage && Platform.isAndroid)
                         .map((e) => ListTile(
-                              title: Text(e.getLocalizedName(context)),
+                              title: Text(e.getLocalizedTypeName(context)),
                               leading: PhosphorIcon(
-                                  e.icon(PhosphorIconsStyle.light)),
+                                  e.typeIcon(PhosphorIconsStyle.light)),
                               onTap: () => Navigator.pop(context, e),
                             ))
                         .toList()).then((value) {
                   if (value == null) return;
                   showDialog<void>(
                     context: context,
-                    builder: (context) => _AddRemoteDialog(type: value),
+                    builder: (context) => _AddRemoteDialog(storage: value),
                   );
                 }),
                 label: Text(AppLocalizations.of(context).addConnection),
@@ -103,7 +104,7 @@ class ConnectionsSettingsPage extends StatelessWidget {
                         title: Text(remote.label),
                         leading: remote.icon?.isEmpty ?? true
                             ? PhosphorIcon(
-                                remote.type.icon(PhosphorIconsStyle.light))
+                                remote.typeIcon(PhosphorIconsStyle.light))
                             : Image.memory(remote.icon!),
                         onTap: () => context.pushNamed('connection',
                             pathParameters: {'id': remote.identifier}),
@@ -145,9 +146,9 @@ String _formatSha1Uint8List(Uint8List sha1Bytes) {
 }
 
 class _AddRemoteDialog extends StatefulWidget {
-  final ExternalStorageType type;
+  final ExternalStorage storage;
 
-  const _AddRemoteDialog({required this.type});
+  const _AddRemoteDialog({required this.storage});
 
   @override
   State<_AddRemoteDialog> createState() => __AddRemoteDialogState();
@@ -168,7 +169,7 @@ class __AddRemoteDialogState extends State<_AddRemoteDialog> {
       _showPassword = false,
       _syncRootDirectory = false;
 
-  bool get _isRemote => widget.type != ExternalStorageType.local;
+  bool get _isRemote => widget.storage is! LocalStorage;
   final HttpClient _httpClient = HttpClient();
 
   @override
@@ -282,24 +283,31 @@ class __AddRemoteDialogState extends State<_AddRemoteDialog> {
     final navigator = Navigator.of(context);
     final settingsCubit = context.read<SettingsCubit>();
     final icon = await _getIcon();
-    final remoteStorage = switch (widget.type) {
-      ExternalStorageType.dav => DavRemoteStorage(
+    final remoteStorage = switch (widget.storage) {
+      DavRemoteStorage() => DavRemoteStorage(
           name: _nameController.text,
           username: _usernameController.text,
           url: _urlController.text,
-          path: _directoryController.text,
+          paths: {
+            '': _directoryController.text,
+            'documents': _documentsDirectoryController.text,
+            'templates': _templatesDirectoryController.text,
+            'packs': _packsDirectoryController.text,
+          },
           certificateSha1: _certificateSha1,
-          documentsPath: _documentsDirectoryController.text,
-          templatesPath: _templatesDirectoryController.text,
-          packsPath: _packsDirectoryController.text,
           icon: icon,
-          cachedDocuments: [if (_syncRootDirectory) '/']),
-      ExternalStorageType.local => LocalStorage(
+          cachedDocuments: {
+            '': [if (_syncRootDirectory) '/']
+          },
+        ),
+      LocalStorage() => LocalStorage(
           name: _nameController.text,
-          path: _directoryController.text,
-          documentsPath: _documentsDirectoryController.text,
-          templatesPath: _templatesDirectoryController.text,
-          packsPath: _packsDirectoryController.text,
+          paths: {
+            '': _directoryController.text,
+            'documents': _documentsDirectoryController.text,
+            'templates': _templatesDirectoryController.text,
+            'packs': _packsDirectoryController.text,
+          },
           icon: icon,
         ),
     };

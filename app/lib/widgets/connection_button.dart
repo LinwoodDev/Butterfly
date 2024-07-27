@@ -1,8 +1,10 @@
 import 'package:butterfly/cubits/settings.dart';
+import 'package:butterfly/visualizer/connection.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:lw_file_system/lw_file_system.dart';
 import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
@@ -64,7 +66,7 @@ class _ConnectionButtonState extends State<ConnectionButton> {
               ? const PhosphorIcon(PhosphorIconsLight.house)
               : _currentConnection!.icon?.isEmpty ?? true
                   ? PhosphorIcon(
-                      _currentConnection!.type.icon(PhosphorIconsStyle.light))
+                      _currentConnection!.typeIcon(PhosphorIconsStyle.light))
                   : Image.memory(_currentConnection!.icon!, width: 24),
         ),
         menuChildren: [
@@ -79,7 +81,7 @@ class _ConnectionButtonState extends State<ConnectionButton> {
           ...settings.connections.map((remote) => MenuItemButton(
                 onPressed: () => _onChange(remote),
                 leadingIcon: remote.icon?.isEmpty ?? true
-                    ? PhosphorIcon(remote.type.icon(PhosphorIconsStyle.light))
+                    ? PhosphorIcon(remote.typeIcon(PhosphorIconsStyle.light))
                     : Image.memory(remote.icon!, width: 24),
                 child: Text(
                   remote.identifier,
