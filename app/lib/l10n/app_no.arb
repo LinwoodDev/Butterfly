@@ -610,5 +610,6 @@
   "hideCursorWhileDrawing": "Skjul markøren under tegning",
   "installed": "Installert",
   "install": "Installer",
-  "deselect": "Avvelg"
+  "deselect": "Avvelg",
+  "changeLayer": "Change layer"
 }
