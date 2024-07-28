@@ -79,6 +79,18 @@ ContextMenuBuilder buildAreaContextMenu(DocumentBloc bloc,
 ContextMenuBuilder buildGeneralAreaContextMenu(DocumentBloc bloc, Area area,
         SettingsCubit settingsCubit, List<PadElement> elements) =>
     (context) => [
+          ContextMenuItem(
+            onPressed: () async {
+              Navigator.of(context).pop(true);
+              final result = await showDialog<String>(
+                  builder: (context) => NameDialog(), context: context);
+              if (result == null) return;
+              bloc.add(ElementsLayerChanged(
+                  result, elements.map((e) => e.id).whereNotNull().toList()));
+            },
+            icon: const PhosphorIcon(PhosphorIconsLight.stack),
+            label: AppLocalizations.of(context).changeLayer,
+          ),
           ContextMenuGroup(
             icon: const PhosphorIcon(PhosphorIconsLight.export),
             label: AppLocalizations.of(context).export,

@@ -1,4 +1,5 @@
 * Add navigator position to position it to the right (useful for left handed users)
+* Add option to change layer in select and area context menu
 * Start adding multi file selection ([#713](https://github.com/LinwoodDev/Butterfly/issues/713))
 * Improve renaming in files view
 * Improve grid view item

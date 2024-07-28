@@ -79,11 +79,7 @@ class FileEntityGridItem extends StatelessWidget {
       child: InkWell(
         onTap: onTap,
         highlightColor: active ? colorScheme.primaryContainer : null,
-        child: Container(
-          padding: const EdgeInsets.symmetric(
-            vertical: 8,
-            horizontal: 16,
-          ),
+        child: SizedBox(
           width: 160,
           height: 192,
           child: Column(
@@ -92,15 +88,16 @@ class FileEntityGridItem extends StatelessWidget {
               Stack(
                 children: [
                   Center(
-                    child: SizedBox(
-                      height: 64,
-                      width: 64,
+                    child: Container(
+                      height: 96,
+                      width: 96,
+                      padding: const EdgeInsets.only(top: 8),
                       child: thumbnail != null
                           ? Image.memory(
                               thumbnail!,
                               fit: BoxFit.contain,
-                              cacheWidth: 64,
-                              cacheHeight: 64,
+                              cacheWidth: 96,
+                              cacheHeight: 96,
                               errorBuilder: (context, error, stackTrace) =>
                                   leading,
                             )
@@ -137,121 +134,126 @@ class FileEntityGridItem extends StatelessWidget {
               ),
               const SizedBox(height: 8),
               Expanded(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    SizedBox(
-                      height: 16,
-                      child: modifiedText != null
-                          ? Tooltip(
-                              message: AppLocalizations.of(context).modified,
-                              child: Row(
-                                children: [
-                                  PhosphorIcon(
-                                    PhosphorIconsLight.clockCounterClockwise,
-                                    size: 12,
-                                    color: colorScheme.outline,
-                                  ),
-                                  const SizedBox(width: 8),
-                                  Text(
-                                    modifiedText!,
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .bodySmall
-                                        ?.copyWith(
-                                          color: colorScheme.outline,
-                                        ),
-                                  ),
-                                ],
-                              ),
-                            )
-                          : null,
-                    ),
-                    SizedBox(
-                      height: 16,
-                      child: createdText != null
-                          ? Tooltip(
-                              message: AppLocalizations.of(context).created,
-                              child: Row(
-                                children: [
-                                  PhosphorIcon(
-                                    PhosphorIconsLight.plus,
-                                    size: 12,
-                                    color: colorScheme.outline,
-                                  ),
-                                  const SizedBox(width: 8),
-                                  Text(
-                                    createdText!,
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .bodySmall
-                                        ?.copyWith(
-                                          color: colorScheme.outline,
-                                        ),
-                                  ),
-                                ],
-                              ),
-                            )
-                          : null,
-                    ),
-                    const SizedBox(height: 8),
-                    SizedBox(
-                      height: 32,
-                      child: editable
-                          ? ConstrainedBox(
-                              constraints: const BoxConstraints(
-                                maxWidth: 200,
-                              ),
-                              child: TextField(
-                                controller: nameController,
-                                autofocus: true,
-                                style: Theme.of(context).textTheme.labelLarge,
-                                onSubmitted: (value) async {
-                                  await documentSystem.renameAsset(
-                                      entity.location.path, value);
-                                  onEdit(false);
-                                  onReload();
-                                },
-                                decoration: InputDecoration(
-                                  filled: true,
-                                  hintText:
-                                      AppLocalizations.of(context).enterText,
-                                  suffix: IconButton(
-                                    onPressed: () async {
-                                      await documentSystem.renameAsset(
-                                          entity.location.path,
-                                          nameController.text);
-                                      onEdit(false);
-                                      onReload();
-                                    },
-                                    icon: const PhosphorIcon(
-                                        PhosphorIconsLight.check),
-                                    tooltip: AppLocalizations.of(context).save,
-                                  ),
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      SizedBox(
+                        height: 16,
+                        child: modifiedText != null
+                            ? Tooltip(
+                                message: AppLocalizations.of(context).modified,
+                                child: Row(
+                                  children: [
+                                    PhosphorIcon(
+                                      PhosphorIconsLight.clockCounterClockwise,
+                                      size: 12,
+                                      color: colorScheme.outline,
+                                    ),
+                                    const SizedBox(width: 8),
+                                    Text(
+                                      modifiedText!,
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodySmall
+                                          ?.copyWith(
+                                            color: colorScheme.outline,
+                                          ),
+                                    ),
+                                  ],
                                 ),
-                              ))
-                          : Align(
-                              alignment: Alignment.centerLeft,
-                              child: Tooltip(
-                                message: entity.fileName,
-                                child: GestureDetector(
-                                  child: Text(
-                                    entity.fileName,
-                                    maxLines: 1,
-                                    overflow: TextOverflow.ellipsis,
-                                    style:
-                                        Theme.of(context).textTheme.labelLarge,
-                                  ),
-                                  onDoubleTap: () {
-                                    onEdit(true);
-                                    nameController.text = entity.fileName;
+                              )
+                            : null,
+                      ),
+                      SizedBox(
+                        height: 16,
+                        child: createdText != null
+                            ? Tooltip(
+                                message: AppLocalizations.of(context).created,
+                                child: Row(
+                                  children: [
+                                    PhosphorIcon(
+                                      PhosphorIconsLight.plus,
+                                      size: 12,
+                                      color: colorScheme.outline,
+                                    ),
+                                    const SizedBox(width: 8),
+                                    Text(
+                                      createdText!,
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodySmall
+                                          ?.copyWith(
+                                            color: colorScheme.outline,
+                                          ),
+                                    ),
+                                  ],
+                                ),
+                              )
+                            : null,
+                      ),
+                      const SizedBox(height: 8),
+                      SizedBox(
+                        height: 32,
+                        child: editable
+                            ? ConstrainedBox(
+                                constraints: const BoxConstraints(
+                                  maxWidth: 200,
+                                ),
+                                child: TextField(
+                                  controller: nameController,
+                                  autofocus: true,
+                                  style: Theme.of(context).textTheme.labelLarge,
+                                  onSubmitted: (value) async {
+                                    await documentSystem.renameAsset(
+                                        entity.location.path, value);
+                                    onEdit(false);
+                                    onReload();
                                   },
+                                  decoration: InputDecoration(
+                                    filled: true,
+                                    hintText:
+                                        AppLocalizations.of(context).enterText,
+                                    suffix: IconButton(
+                                      onPressed: () async {
+                                        await documentSystem.renameAsset(
+                                            entity.location.path,
+                                            nameController.text);
+                                        onEdit(false);
+                                        onReload();
+                                      },
+                                      icon: const PhosphorIcon(
+                                          PhosphorIconsLight.check),
+                                      tooltip:
+                                          AppLocalizations.of(context).save,
+                                    ),
+                                  ),
+                                ))
+                            : Align(
+                                alignment: Alignment.centerLeft,
+                                child: Tooltip(
+                                  message: entity.fileName,
+                                  child: GestureDetector(
+                                    child: Text(
+                                      entity.fileName,
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .labelLarge,
+                                    ),
+                                    onDoubleTap: () {
+                                      onEdit(true);
+                                      nameController.text = entity.fileName;
+                                    },
+                                  ),
                                 ),
                               ),
-                            ),
-                    ),
-                  ],
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ],

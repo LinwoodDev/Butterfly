@@ -91,76 +91,76 @@ class FileEntityListTile extends StatelessWidget {
                         icon,
                         color: colorScheme.outline,
                       );
-                      final fileName = Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          SizedBox(
-                            width: 32,
-                            height: 32,
-                            child: thumbnail != null
-                                ? Image.memory(
-                                    thumbnail!,
-                                    fit: BoxFit.cover,
-                                    cacheHeight: 32,
-                                    cacheWidth: 32,
-                                    errorBuilder:
-                                        (context, error, stackTrace) => leading,
-                                  )
-                                : leading,
-                          ),
-                          const SizedBox(width: 8),
-                          Flexible(
-                            child: SizedBox(
-                              height: 42,
+                      final fileName = SizedBox(
+                        height: 42,
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            SizedBox(
+                              width: 32,
+                              height: 32,
+                              child: thumbnail != null
+                                  ? Image.memory(
+                                      thumbnail!,
+                                      fit: BoxFit.cover,
+                                      cacheHeight: 32,
+                                      cacheWidth: 32,
+                                      errorBuilder:
+                                          (context, error, stackTrace) =>
+                                              leading,
+                                    )
+                                  : leading,
+                            ),
+                            const SizedBox(width: 8),
+                            Flexible(
                               child: editable
-                                  ? ConstrainedBox(
-                                      constraints: BoxConstraints(
-                                        maxWidth: constraints.maxWidth,
-                                        minWidth: 100,
+                                  ? TextField(
+                                      controller: nameController,
+                                      autofocus: true,
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .labelLarge,
+                                      onSubmitted: (value) async {
+                                        await documentSystem.renameAsset(
+                                            entity.location.path, value);
+                                        onEdit(false);
+                                        onReload();
+                                      },
+                                      textAlignVertical:
+                                          TextAlignVertical.center,
+                                      decoration: InputDecoration(
+                                        filled: true,
+                                        constraints: BoxConstraints(
+                                          maxWidth: constraints.maxWidth,
+                                          minWidth: 100,
+                                          maxHeight: 40,
+                                        ),
+                                        hintText: AppLocalizations.of(context)
+                                            .enterText,
+                                        suffix: IconButton(
+                                          onPressed: () async {
+                                            await documentSystem.renameAsset(
+                                                entity.location.path,
+                                                nameController.text);
+                                            onEdit(false);
+                                            onReload();
+                                          },
+                                          icon: const PhosphorIcon(
+                                              PhosphorIconsLight.check),
+                                          tooltip:
+                                              AppLocalizations.of(context).save,
+                                        ),
                                       ),
-                                      child: TextField(
-                                        controller: nameController,
-                                        autofocus: true,
+                                    )
+                                  : GestureDetector(
+                                      child: Text(
+                                        entity.fileName,
+                                        maxLines: 1,
+                                        overflow: TextOverflow.ellipsis,
                                         style: Theme.of(context)
                                             .textTheme
                                             .labelLarge,
-                                        onSubmitted: (value) async {
-                                          await documentSystem.renameAsset(
-                                              entity.location.path, value);
-                                          onEdit(false);
-                                          onReload();
-                                        },
-                                        decoration: InputDecoration(
-                                          filled: true,
-                                          hintText: AppLocalizations.of(context)
-                                              .enterText,
-                                          suffix: IconButton(
-                                            onPressed: () async {
-                                              await documentSystem.renameAsset(
-                                                  entity.location.path,
-                                                  nameController.text);
-                                              onEdit(false);
-                                              onReload();
-                                            },
-                                            icon: const PhosphorIcon(
-                                                PhosphorIconsLight.check),
-                                            tooltip:
-                                                AppLocalizations.of(context)
-                                                    .save,
-                                          ),
-                                        ),
-                                      ))
-                                  : GestureDetector(
-                                      child: Align(
-                                        alignment: Alignment.centerLeft,
-                                        child: Text(
-                                          entity.fileName,
-                                          maxLines: 1,
-                                          overflow: TextOverflow.ellipsis,
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .labelLarge,
-                                        ),
                                       ),
                                       onDoubleTap: () {
                                         onEdit(true);
@@ -168,8 +168,8 @@ class FileEntityListTile extends StatelessWidget {
                                       },
                                     ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       );
                       final edit = editable
                           ? Container()
