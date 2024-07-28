@@ -610,5 +610,6 @@
   "hideCursorWhileDrawing": "Скрыть курсор во время рисования",
   "installed": "Установлено",
   "install": "Установить",
-  "deselect": "Отменить выбор"
+  "deselect": "Отменить выбор",
+  "changeLayer": "Change layer"
 }
