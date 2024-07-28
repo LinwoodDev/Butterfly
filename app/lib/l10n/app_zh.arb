@@ -610,5 +610,6 @@
   "hideCursorWhileDrawing": "绘制时隐藏光标",
   "installed": "已安装",
   "install": "安装",
-  "deselect": "取消选择"
+  "deselect": "取消选择",
+  "changeLayer": "Change layer"
 }
