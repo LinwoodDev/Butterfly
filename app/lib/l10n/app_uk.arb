@@ -610,5 +610,6 @@
   "hideCursorWhileDrawing": "Сховати курсор під час малювання",
   "installed": "Встановлено",
   "install": "Інсталювати",
-  "deselect": "Зняти виділення"
+  "deselect": "Зняти виділення",
+  "changeLayer": "Change layer"
 }
