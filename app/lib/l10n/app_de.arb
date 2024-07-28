@@ -610,5 +610,6 @@
   "hideCursorWhileDrawing": "Cursor während Zeichnung ausblenden",
   "installed": "Installiert",
   "install": "Installieren",
-  "deselect": "Abwählen"
+  "deselect": "Abwählen",
+  "changeLayer": "Change layer"
 }
