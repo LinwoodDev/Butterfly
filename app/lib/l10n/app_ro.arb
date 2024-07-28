@@ -610,5 +610,6 @@
   "hideCursorWhileDrawing": "Ascunde cursorul în timpul desenării",
   "installed": "Instalat",
   "install": "Instalează",
-  "deselect": "Deselectează"
+  "deselect": "Deselectează",
+  "changeLayer": "Change layer"
 }
