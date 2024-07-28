@@ -610,5 +610,6 @@
   "hideCursorWhileDrawing": "Απόκρυψη δρομέα κατά το σχέδιο",
   "installed": "Εγκατεστημένο",
   "install": "Εγκατάσταση",
-  "deselect": "Αποεπιλογή"
+  "deselect": "Αποεπιλογή",
+  "changeLayer": "Change layer"
 }
