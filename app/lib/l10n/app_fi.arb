@@ -610,5 +610,6 @@
   "hideCursorWhileDrawing": "Piilota kohdistin piirroksen aikana",
   "installed": "Asennettu",
   "install": "Asenna",
-  "deselect": "Poista Valinta"
+  "deselect": "Poista Valinta",
+  "changeLayer": "Change layer"
 }
