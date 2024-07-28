@@ -610,5 +610,6 @@
   "hideCursorWhileDrawing": "إخفاء المؤشر أثناء الرسم",
   "installed": "مثبت",
   "install": "تثبيت",
-  "deselect": "إلغاء التحديد"
+  "deselect": "إلغاء التحديد",
+  "changeLayer": "Change layer"
 }
