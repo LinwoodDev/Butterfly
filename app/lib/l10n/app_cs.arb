@@ -610,5 +610,6 @@
   "hideCursorWhileDrawing": "Skrýt kurzor při kreslení",
   "installed": "Nainstalováno",
   "install": "Instalovat",
-  "deselect": "Zrušit výběr"
+  "deselect": "Zrušit výběr",
+  "changeLayer": "Change layer"
 }
