@@ -610,5 +610,6 @@
   "hideCursorWhileDrawing": "Dölj markören medan du ritar",
   "installed": "Installerad",
   "install": "Installera",
-  "deselect": "Avmarkera"
+  "deselect": "Avmarkera",
+  "changeLayer": "Change layer"
 }
