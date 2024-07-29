@@ -126,9 +126,9 @@
     <script id="splash-screen-script">
       function removeSplashFromWeb() {
         const splashElement = document.getElementById("splash");
-        splashElement.classList.add("remove");
+        splashElement?.classList.add("remove");
         setTimeout(function () {
-          splashElement.remove();
+          splashElement?.remove();
           document.getElementById("splash-screen-script")?.remove();
         }, 750 /* animation time + wait rendering and others(500ms) */);
       }

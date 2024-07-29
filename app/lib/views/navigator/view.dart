@@ -122,8 +122,9 @@ class _NavigatorViewState extends State<NavigatorView>
                       ),
                     )
                     .toList(),
-                labelType: NavigationRailLabelType.all,
+                labelType: NavigationRailLabelType.none,
                 selectedIndex: settings.navigatorEnabled ? selected : null,
+                groupAlignment: 0,
                 onDestinationSelected: (index) {
                   final cubit = context.read<SettingsCubit>();
                   if (selected == index) {
