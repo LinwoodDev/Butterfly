@@ -609,5 +609,7 @@
   "overrideTools": "Override tools",
   "hideCursorWhileDrawing": "Hide cursor while drawing",
   "installed": "Installed",
-  "install": "Install"
+  "install": "Install",
+  "deselect": "Deselect",
+  "changeLayer": "Change layer"
 }

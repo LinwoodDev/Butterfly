@@ -609,5 +609,7 @@
   "overrideTools": "Παράκαμψη εργαλείων",
   "hideCursorWhileDrawing": "Απόκρυψη δρομέα κατά το σχέδιο",
   "installed": "Εγκατεστημένο",
-  "install": "Εγκατάσταση"
+  "install": "Εγκατάσταση",
+  "deselect": "Αποεπιλογή",
+  "changeLayer": "Αλλαγή επιπέδου"
 }

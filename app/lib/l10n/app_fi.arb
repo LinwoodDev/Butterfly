@@ -609,5 +609,7 @@
   "overrideTools": "Ohita työkalut",
   "hideCursorWhileDrawing": "Piilota kohdistin piirroksen aikana",
   "installed": "Asennettu",
-  "install": "Asenna"
+  "install": "Asenna",
+  "deselect": "Poista Valinta",
+  "changeLayer": "Vaihda kerros"
 }

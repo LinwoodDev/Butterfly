@@ -609,5 +609,7 @@
   "overrideTools": "Åsidosätt verktyg",
   "hideCursorWhileDrawing": "Dölj markören medan du ritar",
   "installed": "Installerad",
-  "install": "Installera"
+  "install": "Installera",
+  "deselect": "Avmarkera",
+  "changeLayer": "Ändra lager"
 }

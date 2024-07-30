@@ -609,5 +609,7 @@
   "overrideTools": "Zastąp narzędzia",
   "hideCursorWhileDrawing": "Ukryj kursor podczas rysowania",
   "installed": "Zainstalowane",
-  "install": "Zainstaluj"
+  "install": "Zainstaluj",
+  "deselect": "Odznacz",
+  "changeLayer": "Zmień warstwę"
 }

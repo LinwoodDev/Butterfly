@@ -609,5 +609,7 @@
   "overrideTools": "Remplacer les outils",
   "hideCursorWhileDrawing": "Masquer le curseur pendant le dessin",
   "installed": "Installé",
-  "install": "Installer"
+  "install": "Installer",
+  "deselect": "Désélectionner",
+  "changeLayer": "Changer le calque"
 }

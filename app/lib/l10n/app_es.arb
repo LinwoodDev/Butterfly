@@ -609,5 +609,7 @@
   "overrideTools": "Anular herramientas",
   "hideCursorWhileDrawing": "Ocultar cursor al dibujar",
   "installed": "Instalado",
-  "install": "Instalar"
+  "install": "Instalar",
+  "deselect": "Deseleccionar",
+  "changeLayer": "Cambiar capa"
 }

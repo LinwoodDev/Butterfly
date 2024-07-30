@@ -609,5 +609,7 @@
   "overrideTools": "Werkzeuge überschreiben",
   "hideCursorWhileDrawing": "Cursor während Zeichnung ausblenden",
   "installed": "Installiert",
-  "install": "Installieren"
+  "install": "Installieren",
+  "deselect": "Abwählen",
+  "changeLayer": "Ebene ändern"
 }

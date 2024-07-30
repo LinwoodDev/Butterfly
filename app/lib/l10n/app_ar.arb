@@ -609,5 +609,7 @@
   "overrideTools": "أدوات التجاوز",
   "hideCursorWhileDrawing": "إخفاء المؤشر أثناء الرسم",
   "installed": "مثبت",
-  "install": "تثبيت"
+  "install": "تثبيت",
+  "deselect": "إلغاء التحديد",
+  "changeLayer": "تغيير الطبقة"
 }
