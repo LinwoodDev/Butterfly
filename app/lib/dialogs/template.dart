@@ -415,7 +415,9 @@ class _TemplateItem extends StatelessWidget {
       ),
       onSaved: (value) async {
         if (value == metadata.name) return;
-        await fileSystem.renameFile(metadata.name, value);
+        await fileSystem.deleteFile(metadata.name);
+        await fileSystem.createFile(
+            value, template.setMetadata(metadata.copyWith(name: value)));
         onChanged();
       },
       actions: [

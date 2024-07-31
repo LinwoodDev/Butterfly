@@ -88,6 +88,7 @@ class ButterflyFileSystem {
           database: _database,
           databaseVersion: _databaseVersion,
           onDatabaseUpgrade: _upgradeDatabase,
+          defaultStorageKey: 'defaultTemplate',
         ),
         _packConfig = FileSystemConfig(
           passwordStorage: passwordStorage,
@@ -97,6 +98,7 @@ class ButterflyFileSystem {
           database: _database,
           databaseVersion: _databaseVersion,
           onDatabaseUpgrade: _upgradeDatabase,
+          defaultStorageKey: 'defaultPack',
         );
 
   factory ButterflyFileSystem.build(BuildContext context) =>
