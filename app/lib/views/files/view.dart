@@ -472,7 +472,13 @@ class FilesViewState extends State<FilesView> {
                               prefixIcon:
                                   const PhosphorIcon(PhosphorIconsLight.folder),
                               filled: true,
+                              contentPadding: const EdgeInsets.only(
+                                left: 16,
+                                right: 16,
+                                bottom: 6,
+                              ),
                             ),
+                            textAlignVertical: TextAlignVertical.center,
                             controller: _locationController,
                             onFieldSubmitted: (value) => reloadFileSystem(),
                           ),

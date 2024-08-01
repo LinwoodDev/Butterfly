@@ -191,7 +191,7 @@ class _PropertyViewState extends State<PropertyView>
                                           selection?.onDelete(context);
                                           context
                                               .read<CurrentIndexCubit>()
-                                              .resetSelection();
+                                              .resetSelection(force: true);
                                         }),
                                   if (help.isNotEmpty)
                                     IconButton(
@@ -251,6 +251,6 @@ class _PropertyViewState extends State<PropertyView>
   }
 
   void _closeView() {
-    context.read<CurrentIndexCubit>().resetSelection();
+    context.read<CurrentIndexCubit>().resetSelection(force: true);
   }
 }

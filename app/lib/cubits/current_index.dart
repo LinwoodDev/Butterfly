@@ -767,8 +767,10 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     emit(state.copyWith(selection: selection));
   }
 
-  void resetSelection() {
-    emit(state.copyWith(selection: null));
+  void resetSelection({bool force = false}) {
+    if (force || !state.pinned) {
+      emit(state.copyWith(selection: null));
+    }
   }
 
   void setButtons(int buttons) {

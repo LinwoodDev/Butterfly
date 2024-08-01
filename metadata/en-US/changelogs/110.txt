@@ -5,5 +5,6 @@
 * Improve grid view item
 * Improve navigator rail
 * Refactor file system to include it as library
+* Fix pinned properties view gets closed when switching tools
 
 Read more here: https://linwood.dev/butterfly/2.2.0-beta.0
