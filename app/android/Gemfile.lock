@@ -10,7 +10,7 @@ GEM
     artifactory (3.0.17)
     atomos (0.1.3)
     aws-eventstream (1.3.0)
-    aws-partitions (1.958.0)
+    aws-partitions (1.961.0)
     aws-sdk-core (3.201.3)
       aws-eventstream (~> 1, >= 1.3.0)
       aws-partitions (~> 1, >= 1.651.0)
@@ -19,11 +19,11 @@ GEM
     aws-sdk-kms (1.88.0)
       aws-sdk-core (~> 3, >= 3.201.0)
       aws-sigv4 (~> 1.5)
-    aws-sdk-s3 (1.156.0)
+    aws-sdk-s3 (1.157.0)
       aws-sdk-core (~> 3, >= 3.201.0)
       aws-sdk-kms (~> 1)
       aws-sigv4 (~> 1.5)
-    aws-sigv4 (1.9.0)
+    aws-sigv4 (1.9.1)
       aws-eventstream (~> 1, >= 1.0.2)
     babosa (1.0.4)
     base64 (0.2.0)
@@ -111,14 +111,14 @@ GEM
     gh_inspector (1.1.3)
     google-apis-androidpublisher_v3 (0.67.0)
       google-apis-core (>= 0.15.0, < 2.a)
-    google-apis-core (0.15.0)
+    google-apis-core (0.15.1)
       addressable (~> 2.5, >= 2.5.1)
       googleauth (~> 1.9)
-      httpclient (>= 2.8.1, < 3.a)
+      httpclient (>= 2.8.3, < 3.a)
       mini_mime (~> 1.0)
+      mutex_m
       representable (~> 3.0)
       retriable (>= 2.0, < 4.a)
-      rexml
     google-apis-iamcredentials_v1 (0.21.0)
       google-apis-core (>= 0.15.0, < 2.a)
     google-apis-playcustomapp_v1 (0.16.0)
@@ -159,6 +159,7 @@ GEM
     mini_mime (1.1.5)
     multi_json (1.15.0)
     multipart-post (2.4.1)
+    mutex_m (0.2.0)
     nanaimo (0.3.0)
     naturally (2.2.1)
     nkf (0.2.0)
@@ -172,7 +173,7 @@ GEM
       trailblazer-option (>= 0.1.1, < 0.2.0)
       uber (< 0.2.0)
     retriable (3.1.2)
-    rexml (3.3.3)
+    rexml (3.3.4)
       strscan
     rouge (2.0.7)
     ruby2_keywords (0.0.5)
@@ -222,4 +223,4 @@ DEPENDENCIES
   screengrab
 
 BUNDLED WITH
-   2.5.16
+   2.5.17
