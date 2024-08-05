@@ -2,6 +2,19 @@
 
 <!--ENTER CHANGELOG HERE-->
 
+## 2.2.0-beta.1 (2024-08-05)
+
+* Add navigator position to position it to the right (useful for left handed users)
+* Add option to change layer in select and area context menu
+* Start adding multi file selection ([#713](https://github.com/LinwoodDev/Butterfly/issues/713))
+* Improve renaming in files view
+* Improve grid view item
+* Improve navigator rail
+* Refactor file system to include it as library
+* Fix pinned properties view gets closed when switching tools
+
+Read more here: https://linwood.dev/butterfly/2.2.0-beta.1
+
 ## 2.2.0-beta.0 (2024-06-25)
 
 * Add erase elements property to eraser and patheraser ([#680](https://github.com/LinwoodDev/Butterfly/issues/680))
