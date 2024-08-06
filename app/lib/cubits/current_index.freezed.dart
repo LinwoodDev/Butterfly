@@ -53,7 +53,9 @@ mixin _$CurrentIndex {
   bool get areaNavigatorExact => throw _privateConstructorUsedError;
   bool get areaNavigatorAsk => throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of CurrentIndex
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $CurrentIndexCopyWith<CurrentIndex> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -110,6 +112,8 @@ class _$CurrentIndexCopyWithImpl<$Res, $Val extends CurrentIndex>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of CurrentIndex
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -273,6 +277,8 @@ class _$CurrentIndexCopyWithImpl<$Res, $Val extends CurrentIndex>
     ) as $Val);
   }
 
+  /// Create a copy of CurrentIndex
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $ViewOptionCopyWith<$Res> get viewOption {
@@ -335,6 +341,8 @@ class __$$CurrentIndexImplCopyWithImpl<$Res>
       _$CurrentIndexImpl _value, $Res Function(_$CurrentIndexImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of CurrentIndex
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -664,7 +672,9 @@ class _$CurrentIndexImpl extends _CurrentIndex {
     return 'CurrentIndex(index: $index, handler: $handler, cameraViewport: $cameraViewport, settingsCubit: $settingsCubit, transformCubit: $transformCubit, networkingService: $networkingService, temporaryHandler: $temporaryHandler, foregrounds: $foregrounds, selection: $selection, pinned: $pinned, temporaryForegrounds: $temporaryForegrounds, networkingForegrounds: $networkingForegrounds, cursor: $cursor, temporaryCursor: $temporaryCursor, temporaryClicked: $temporaryClicked, lastPosition: $lastPosition, pointers: $pointers, buttons: $buttons, location: $location, embedding: $embedding, saved: $saved, currentlySaving: $currentlySaving, toolbar: $toolbar, temporaryToolbar: $temporaryToolbar, rendererStates: $rendererStates, temporaryRendererStates: $temporaryRendererStates, viewOption: $viewOption, hideUi: $hideUi, areaNavigatorCreate: $areaNavigatorCreate, areaNavigatorExact: $areaNavigatorExact, areaNavigatorAsk: $areaNavigatorAsk)';
   }
 
-  @JsonKey(ignore: true)
+  /// Create a copy of CurrentIndex
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$CurrentIndexImplCopyWith<_$CurrentIndexImpl> get copyWith =>
@@ -768,8 +778,11 @@ abstract class _CurrentIndex extends CurrentIndex {
   bool get areaNavigatorExact;
   @override
   bool get areaNavigatorAsk;
+
+  /// Create a copy of CurrentIndex
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$CurrentIndexImplCopyWith<_$CurrentIndexImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

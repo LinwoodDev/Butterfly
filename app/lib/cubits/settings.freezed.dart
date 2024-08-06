@@ -28,8 +28,12 @@ mixin _$InputConfiguration {
   int? get secondPenButton => throw _privateConstructorUsedError;
   int? get touch => throw _privateConstructorUsedError;
 
+  /// Serializes this InputConfiguration to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of InputConfiguration
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $InputConfigurationCopyWith<InputConfiguration> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -60,6 +64,8 @@ class _$InputConfigurationCopyWithImpl<$Res, $Val extends InputConfiguration>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of InputConfiguration
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -130,6 +136,8 @@ class __$$InputConfigurationImplCopyWithImpl<$Res>
       $Res Function(_$InputConfigurationImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of InputConfiguration
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -248,12 +256,14 @@ class _$InputConfigurationImpl extends _InputConfiguration
             (identical(other.touch, touch) || other.touch == touch));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, leftMouse, middleMouse,
       rightMouse, pen, firstPenButton, secondPenButton, touch);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of InputConfiguration
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$InputConfigurationImplCopyWith<_$InputConfigurationImpl> get copyWith =>
@@ -296,8 +306,11 @@ abstract class _InputConfiguration extends InputConfiguration {
   int? get secondPenButton;
   @override
   int? get touch;
+
+  /// Create a copy of InputConfiguration
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$InputConfigurationImplCopyWith<_$InputConfigurationImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -349,7 +362,9 @@ mixin _$ButterflySettings {
   int get toolbarRows => throw _privateConstructorUsedError;
   bool get hideCursorWhileDrawing => throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of ButterflySettings
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $ButterflySettingsCopyWith<ButterflySettings> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -418,6 +433,8 @@ class _$ButterflySettingsCopyWithImpl<$Res, $Val extends ButterflySettings>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of ButterflySettings
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -641,6 +658,8 @@ class _$ButterflySettingsCopyWithImpl<$Res, $Val extends ButterflySettings>
     ) as $Val);
   }
 
+  /// Create a copy of ButterflySettings
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $InputConfigurationCopyWith<$Res> get inputConfiguration {
@@ -716,6 +735,8 @@ class __$$ButterflySettingsImplCopyWithImpl<$Res>
       $Res Function(_$ButterflySettingsImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of ButterflySettings
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -1344,7 +1365,9 @@ class _$ButterflySettingsImpl extends _ButterflySettings
         hideCursorWhileDrawing
       ]);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of ButterflySettings
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$ButterflySettingsImplCopyWith<_$ButterflySettingsImpl> get copyWith =>
@@ -1485,8 +1508,11 @@ abstract class _ButterflySettings extends ButterflySettings {
   int get toolbarRows;
   @override
   bool get hideCursorWhileDrawing;
+
+  /// Create a copy of ButterflySettings
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$ButterflySettingsImplCopyWith<_$ButterflySettingsImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

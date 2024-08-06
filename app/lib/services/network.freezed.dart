@@ -23,8 +23,12 @@ NetworkingInitMessage _$NetworkingInitMessageFromJson(
 mixin _$NetworkingInitMessage {
   List<int>? get data => throw _privateConstructorUsedError;
 
+  /// Serializes this NetworkingInitMessage to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of NetworkingInitMessage
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $NetworkingInitMessageCopyWith<NetworkingInitMessage> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -49,6 +53,8 @@ class _$NetworkingInitMessageCopyWithImpl<$Res,
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of NetworkingInitMessage
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -84,6 +90,8 @@ class __$$NetworkingInitMessageImplCopyWithImpl<$Res>
       $Res Function(_$NetworkingInitMessageImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of NetworkingInitMessage
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -139,12 +147,14 @@ class _$NetworkingInitMessageImpl
             const DeepCollectionEquality().equals(other._data, _data));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode =>
       Object.hash(runtimeType, const DeepCollectionEquality().hash(_data));
 
-  @JsonKey(ignore: true)
+  /// Create a copy of NetworkingInitMessage
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$NetworkingInitMessageImplCopyWith<_$NetworkingInitMessageImpl>
@@ -168,8 +178,11 @@ abstract class _NetworkingInitMessage implements NetworkingInitMessage {
 
   @override
   List<int>? get data;
+
+  /// Create a copy of NetworkingInitMessage
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$NetworkingInitMessageImplCopyWith<_$NetworkingInitMessageImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
@@ -184,8 +197,12 @@ mixin _$NetworkingUser {
   Point<double>? get cursor => throw _privateConstructorUsedError;
   List<PadElement>? get foreground => throw _privateConstructorUsedError;
 
+  /// Serializes this NetworkingUser to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of NetworkingUser
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $NetworkingUserCopyWith<NetworkingUser> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -211,6 +228,8 @@ class _$NetworkingUserCopyWithImpl<$Res, $Val extends NetworkingUser>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of NetworkingUser
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -251,6 +270,8 @@ class __$$NetworkingUserImplCopyWithImpl<$Res>
       _$NetworkingUserImpl _value, $Res Function(_$NetworkingUserImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of NetworkingUser
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -320,12 +341,14 @@ class _$NetworkingUserImpl
                 .equals(other._foreground, _foreground));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(
       runtimeType, cursor, const DeepCollectionEquality().hash(_foreground));
 
-  @JsonKey(ignore: true)
+  /// Create a copy of NetworkingUser
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$NetworkingUserImplCopyWith<_$NetworkingUserImpl> get copyWith =>
@@ -353,8 +376,11 @@ abstract class _NetworkingUser implements NetworkingUser {
   Point<double>? get cursor;
   @override
   List<PadElement>? get foreground;
+
+  /// Create a copy of NetworkingUser
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$NetworkingUserImplCopyWith<_$NetworkingUserImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

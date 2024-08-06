@@ -22,7 +22,9 @@ mixin _$LabelContext {
   double get zoom => throw _privateConstructorUsedError;
   TextSelection get selection => throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of LabelContext
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $LabelContextCopyWith<LabelContext> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -50,6 +52,8 @@ class _$LabelContextCopyWithImpl<$Res, $Val extends LabelContext>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of LabelContext
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -109,6 +113,8 @@ class __$$TextContextImplCopyWithImpl<$Res>
       _$TextContextImpl _value, $Res Function(_$TextContextImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of LabelContext
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -157,6 +163,8 @@ class __$$TextContextImplCopyWithImpl<$Res>
     ));
   }
 
+  /// Create a copy of LabelContext
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $ParagraphPropertyCopyWith<$Res>? get forcedProperty {
@@ -169,6 +177,8 @@ class __$$TextContextImplCopyWithImpl<$Res>
     });
   }
 
+  /// Create a copy of LabelContext
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $SpanPropertyCopyWith<$Res>? get forcedSpanProperty {
@@ -244,7 +254,9 @@ class _$TextContextImpl extends TextContext {
   int get hashCode => Object.hash(runtimeType, tool, textPainter, element, zoom,
       selection, forcedProperty, forcedSpanProperty, forceParagraph);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of LabelContext
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$TextContextImplCopyWith<_$TextContextImpl> get copyWith =>
@@ -276,8 +288,11 @@ abstract class TextContext extends LabelContext {
   txt.ParagraphProperty? get forcedProperty;
   txt.SpanProperty? get forcedSpanProperty;
   bool? get forceParagraph;
+
+  /// Create a copy of LabelContext
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$TextContextImplCopyWith<_$TextContextImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -306,6 +321,8 @@ class __$$MarkdownContextImplCopyWithImpl<$Res>
       _$MarkdownContextImpl _value, $Res Function(_$MarkdownContextImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of LabelContext
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -387,7 +404,9 @@ class _$MarkdownContextImpl extends MarkdownContext {
   int get hashCode =>
       Object.hash(runtimeType, tool, textPainter, element, zoom, selection);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of LabelContext
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$MarkdownContextImplCopyWith<_$MarkdownContextImpl> get copyWith =>
@@ -414,8 +433,11 @@ abstract class MarkdownContext extends LabelContext {
   double get zoom;
   @override
   TextSelection get selection;
+
+  /// Create a copy of LabelContext
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$MarkdownContextImplCopyWith<_$MarkdownContextImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
