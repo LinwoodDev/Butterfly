@@ -1,3 +1,4 @@
+* Add wasm support for chromium based browsers
 * Upgrade to flutter 3.24
 
 Read more here: https://linwood.dev/butterfly/2.2.0-beta.2

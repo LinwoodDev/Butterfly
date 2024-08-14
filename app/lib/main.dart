@@ -34,7 +34,7 @@ import 'settings/home.dart';
 import 'settings/personalization.dart';
 import 'settings/connection.dart';
 import 'settings/connections.dart';
-import 'setup.dart' if (dart.library.html) 'setup_web.dart';
+import 'setup.dart' if (dart.library.js_interop) 'setup_web.dart';
 import 'theme.dart';
 import 'views/error.dart';
 import 'views/home.dart';

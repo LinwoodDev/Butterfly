@@ -1,41 +1,46 @@
-// ignore_for_file: avoid_web_libraries_in_flutter
+import 'dart:js_interop';
+import 'dart:js_interop_unsafe';
 
-import 'dart:html';
-
-import 'package:js/js.dart';
+import 'package:web/web.dart' as html;
 
 import 'action.dart';
 
-typedef PushMessageHandler = void Function(String type, [Object? message]);
-
 @JS('pushMessage')
-external set _pushMessage(PushMessageHandler f);
+external set _pushMessage(JSFunction f);
 
 void setup() {
-  _pushMessage = allowInterop(pushMessage);
+  _pushMessage = pushMessage.toJS;
 }
 
-void pushMessage(String type, [Object? message]) {
-  window.dispatchEvent(
-      MessageEvent('receive', data: {'type': type, 'message': message}));
+void pushMessage(JSString type, [JSObject? message]) {
+  html.window.dispatchEvent(html.MessageEvent(
+      'receive',
+      html.MessageEventInit(
+          data: {'type': type.toDart, 'message': message}.toJSBox)));
 }
 
 void sendEmbedMessage(String type, [Object? message]) {
-  window.dispatchEvent(
-      MessageEvent('message', data: {'type': type, 'message': message}));
+  html.window.dispatchEvent(html.MessageEvent('message',
+      html.MessageEventInit(data: {'type': type, 'message': message}.toJSBox)));
 }
 
 EventListener onEmbedMessage(String type, EmbedMessageHandler callback) {
-  void listener(event) {
-    if (event is MessageEvent && event.data?.type == type) {
-      callback(event.data.message);
+  void listener(JSObject event) {
+    if (event is html.MessageEvent) {
+      final data = event.data;
+      if (data is JSObject) {
+        final messageType = data.getProperty('type'.toJS).toString();
+        final message = data.getProperty('message'.toJS).dartify();
+        if (type == messageType) callback(message);
+      }
     }
   }
 
-  window.addEventListener('receive', listener);
-  return listener;
+  html.window.addEventListener('receive', listener.toJS);
+  return listener.toJS;
 }
 
 void removeEmbedMessageListener(EventListener listener) {
-  window.removeEventListener('receive', listener);
+  if (listener is JSFunction)
+    html.window.removeEventListener('receive', listener);
 }
