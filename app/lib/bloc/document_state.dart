@@ -96,8 +96,9 @@ abstract class DocumentLoaded extends DocumentState {
   Area? get currentArea => null;
 
   AssetLocation get location => currentIndexCubit.state.location;
+  bool get absolute => currentIndexCubit.state.absolute;
   SaveState get saved =>
-      location.absolute ? SaveState.unsaved : currentIndexCubit.state.saved;
+      absolute ? SaveState.unsaved : currentIndexCubit.state.saved;
 
   @override
   CurrentIndexCubit get currentIndexCubit;
@@ -140,13 +141,14 @@ class DocumentLoadSuccess extends DocumentLoaded {
       super.metadata,
       super.info,
       AssetLocation? location,
+      bool absolute = false,
       this.storageType = StorageType.local,
       required this.currentIndexCubit,
       this.currentAreaName = '',
       this.currentLayer = '',
       this.invisibleLayers = const []}) {
     if (location != null) {
-      currentIndexCubit.setSaveState(location: location);
+      currentIndexCubit.setSaveState(location: location, absolute: absolute);
     }
   }
 
@@ -198,6 +200,7 @@ class DocumentLoadSuccess extends DocumentLoaded {
         windowCubit: windowCubit,
         currentIndexCubit: currentIndexCubit,
         location: location,
+        absolute: absolute,
       );
 
   bool isLayerVisible(String layer) => !invisibleLayers.contains(layer);
@@ -207,7 +210,7 @@ class DocumentLoadSuccess extends DocumentLoaded {
       (networkingService.isActive ||
           !(embedding?.save ?? true) ||
           (!kIsWeb &&
-              !location.absolute &&
+              !absolute &&
               (location.fileType == AssetFileType.note ||
                   location.fileType == null) &&
               (location.remote.isEmpty ||

@@ -69,7 +69,7 @@ class FileSystemDirectoryTreeViewState
           if (snapshot.hasData) {
             var directory = snapshot.data!;
             var children = directory.assets.whereType<FileSystemDirectory>();
-            var name = directory.pathWithLeadingSlash.split('/').last;
+            var name = directory.path.split('/').last;
             if (name.isEmpty) {
               name = '/';
             }
@@ -94,7 +94,7 @@ class FileSystemDirectoryTreeViewState
                       _expanded = true;
                       _selected = widget.path;
                     });
-                    widget.onPathSelected(directory.pathWithLeadingSlash);
+                    widget.onPathSelected(directory.path);
                   }
                 },
                 selected: _selected == widget.path,
@@ -110,7 +110,7 @@ class FileSystemDirectoryTreeViewState
                           var current = children.elementAt(index);
                           return FileSystemDirectoryTreeView(
                               fileSystem: widget.fileSystem,
-                              path: current.pathWithLeadingSlash,
+                              path: current.path,
                               selectedPath: _selected,
                               onPathSelected: (value) {
                                 setState(() {

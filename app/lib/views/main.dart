@@ -59,6 +59,7 @@ import 'view.dart';
 import 'zoom.dart';
 
 class ProjectPage extends StatefulWidget {
+  final bool absolute;
   final AssetLocation? location;
   final Embedding? embedding;
   final String type;
@@ -72,6 +73,7 @@ class ProjectPage extends StatefulWidget {
     this.type = '',
     this.data,
     this.uri,
+    this.absolute = false,
   });
 
   @override
@@ -169,6 +171,7 @@ class _ProjectPageState extends State<ProjectPage> {
     try {
       final globalImportService = ImportService(context);
       var location = widget.location;
+      final absolute = widget.absolute;
       _remote = location != null
           ? settingsCubit.state.getRemote(location.remote)
           : settingsCubit.state.getDefaultRemote();
@@ -186,7 +189,7 @@ class _ProjectPageState extends State<ProjectPage> {
             type: widget.type.isEmpty ? (fileType ?? widget.type) : widget.type,
             data: data);
       }
-      final name = (location?.absolute ?? false) ? location!.fileName : '';
+      final name = absolute ? location!.fileName : '';
       NoteData? defaultDocument;
       if (document == null && prefs.containsKey('default_template')) {
         var template = await fileSystem
@@ -203,7 +206,7 @@ class _ProjectPageState extends State<ProjectPage> {
         name: name,
       );
       if (location != null && location.path.isNotEmpty && document == null) {
-        if (!location.absolute) {
+        if (!absolute) {
           final asset = await documentSystem.getAsset(location.path);
           if (!mounted) return;
           if (location.fileType == AssetFileType.note) {
@@ -223,7 +226,7 @@ class _ProjectPageState extends State<ProjectPage> {
       }
       if (!mounted) return;
       var documentOpened = document != null;
-      if (!documentOpened && !(location?.absolute ?? false)) {
+      if (!documentOpened && !absolute) {
         location = null;
       }
       if (!mounted) {
@@ -245,11 +248,12 @@ class _ProjectPageState extends State<ProjectPage> {
       setState(() {
         _transformCubit = TransformCubit();
         _currentIndexCubit = CurrentIndexCubit(
-            settingsCubit,
-            _transformCubit!,
-            CameraViewport.unbaked(UtilitiesRenderer(), backgrounds),
-            null,
-            networkingService);
+          settingsCubit,
+          _transformCubit!,
+          CameraViewport.unbaked(UtilitiesRenderer(), backgrounds),
+          null,
+          networkingService,
+        );
         _bloc = DocumentBloc(fileSystem, _currentIndexCubit!, windowCubit,
             document!, location!, renderers, assetService, page, pageName);
         networkingService.setup(_bloc!);

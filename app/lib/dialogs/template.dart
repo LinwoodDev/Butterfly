@@ -42,7 +42,8 @@ class _TemplateDialogState extends State<TemplateDialog> {
   void load() {
     setState(() {
       _templatesFuture = _templateSystem.initialize().then((value) async {
-        var templates = (await _templateSystem.getFiles()).values.toList();
+        var templates =
+            (await _templateSystem.getFiles()).map((e) => e.data!).toList();
         templates = templates
             .where((element) =>
                 element.name
@@ -81,11 +82,11 @@ class _TemplateDialogState extends State<TemplateDialog> {
                   tooltip: AppLocalizations.of(context).export,
                   onPressed: () async {
                     final archive = Archive();
-                    for (final template
-                        in (await _templateSystem.getFiles()).entries) {
-                      final data = template.value.save();
+                    for (final template in (await _templateSystem.getFiles())) {
+                      final data = template.data!.save();
                       archive.addFile(
-                        ArchiveFile('${template.key}.bfly', data.length, data),
+                        ArchiveFile(
+                            '${template.fileName}.bfly', data.length, data),
                       );
                     }
                     final encoder = ZipEncoder();

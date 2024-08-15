@@ -39,6 +39,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     AssetService? assetService,
     DocumentPage? page,
     String? pageName,
+    bool absolute = false,
   ]) : super(DocumentLoadSuccess(
           initial,
           page: page,

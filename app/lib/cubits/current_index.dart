@@ -32,7 +32,7 @@ import '../view_painter.dart';
 
 part 'current_index.freezed.dart';
 
-enum SaveState { saved, saving, unsaved }
+enum SaveState { saved, saving, unsaved, absoluteRead }
 
 enum HideState { visible, keyboard, touch }
 
@@ -78,6 +78,8 @@ class CurrentIndex with _$CurrentIndex {
 
   bool get moveEnabled =>
       settingsCubit.state.inputGestures && pointers.length > 1;
+
+  bool get absolute => saved == SaveState.absoluteRead;
 
   MouseCursor get currentCursor => temporaryCursor ?? cursor;
 
@@ -663,11 +665,14 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
         cameraViewport: state.cameraViewport.withUnbaked(unbakedElements)));
   }
 
-  void setSaveState({AssetLocation? location, SaveState? saved}) =>
+  void setSaveState(
+          {AssetLocation? location, SaveState? saved, bool absolute = false}) =>
       emit(state.copyWith(
           location: location ?? state.location,
-          saved:
-              saved ?? (location != null ? SaveState.unsaved : state.saved)));
+          saved: absolute
+              ? SaveState.absoluteRead
+              : (saved ??
+                  (location != null ? SaveState.unsaved : state.saved))));
 
   Future<pw.Document> renderPDF(
     NoteData document,
@@ -874,7 +879,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
       if (currentData == null) return AssetLocation.empty;
       if (blocState.embedding != null) return AssetLocation.empty;
       if (!location.path.endsWith('.bfly') ||
-          location.absolute ||
+          state.absolute ||
           location.fileType != AssetFileType.note) {
         final document =
             await fileSystem.createFile(currentData.name ?? '', currentData);

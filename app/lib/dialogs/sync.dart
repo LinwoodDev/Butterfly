@@ -130,16 +130,16 @@ class _RemoteSyncView extends StatelessWidget {
                     children: [
                       TextButton(
                         onPressed: () {
-                          sync.resolve(file.location.pathWithLeadingSlash,
-                              FileSyncStatus.localLatest);
+                          sync.resolve(
+                              file.location.path, FileSyncStatus.localLatest);
                         },
                         child: Text(AppLocalizations.of(context).keepLocal),
                       ),
                       const SizedBox(width: 8),
                       TextButton(
                         onPressed: () {
-                          sync.resolve(file.location.pathWithLeadingSlash,
-                              FileSyncStatus.remoteLatest);
+                          sync.resolve(
+                              file.location.path, FileSyncStatus.remoteLatest);
                         },
                         child:
                             Text(AppLocalizations.of(context).keepConnection),
@@ -147,8 +147,8 @@ class _RemoteSyncView extends StatelessWidget {
                       const SizedBox(width: 8),
                       TextButton(
                         onPressed: () {
-                          sync.resolve(file.location.pathWithLeadingSlash,
-                              FileSyncStatus.conflict);
+                          sync.resolve(
+                              file.location.path, FileSyncStatus.conflict);
                         },
                         child: Text(AppLocalizations.of(context).keepBoth),
                       ),

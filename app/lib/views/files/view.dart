@@ -348,16 +348,17 @@ class FilesViewState extends State<FilesView> {
                                   PhosphorIconsLight.filePlus),
                               child: Text(AppLocalizations.of(context).newFile),
                             ),
-                            FutureBuilder<Map<String, NoteData>>(
+                            FutureBuilder<List<FileSystemFile<NoteData>>>(
                               future: _templateSystem
                                   .initialize()
                                   .then((_) => _templateSystem.getFiles()),
                               builder: (context, snapshot) => SubmenuButton(
                                 leadingIcon:
                                     const PhosphorIcon(PhosphorIconsLight.file),
-                                menuChildren: snapshot.data?.values.map((e) {
-                                      final metadata = e.getMetadata();
-                                      final thumbnail = e.getThumbnail();
+                                menuChildren: snapshot.data?.map((e) {
+                                      final data = e.data!;
+                                      final metadata = data.getMetadata();
+                                      final thumbnail = data.getThumbnail();
                                       return MenuItemButton(
                                         leadingIcon: thumbnail == null
                                             ? null
@@ -369,7 +370,7 @@ class FilesViewState extends State<FilesView> {
                                                 cacheHeight: 18,
                                               ),
                                         child: Text(metadata?.name ?? ''),
-                                        onPressed: () => _createFile(e),
+                                        onPressed: () => _createFile(data),
                                       );
                                     }).toList() ??
                                     [],
@@ -582,9 +583,7 @@ class FilesViewState extends State<FilesView> {
                           crossAxisAlignment: WrapCrossAlignment.start,
                           children: assets.map(
                             (e) {
-                              final active =
-                                  widget.activeAsset?.isSame(e.location) ??
-                                      false;
+                              final active = widget.activeAsset == e.location;
                               return FileEntityItem(
                                 entity: e,
                                 isMobile: widget.isMobile,
@@ -609,8 +608,7 @@ class FilesViewState extends State<FilesView> {
                       physics: const NeverScrollableScrollPhysics(),
                       itemBuilder: (context, index) {
                         final e = assets[index];
-                        final active =
-                            widget.activeAsset?.isSame(e.location) ?? false;
+                        final active = widget.activeAsset == e.location;
                         return FileEntityItem(
                           entity: e,
                           active: active,

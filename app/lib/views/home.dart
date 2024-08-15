@@ -455,8 +455,9 @@ class _QuickstartHomeViewState extends State<_QuickstartHomeView> {
   }
 
   Future<List<NoteData>> _fetchTemplates() =>
-      _templateSystem.initialize().then((value) =>
-          _templateSystem.getFiles().then((value) => value.values.toList()));
+      _templateSystem.initialize().then((value) => _templateSystem
+          .getFiles()
+          .then((value) => value.map((e) => e.data!).toList()));
 
   @override
   Widget build(BuildContext context) {

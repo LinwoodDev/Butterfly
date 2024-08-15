@@ -6,6 +6,7 @@ import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:lw_file_system/lw_file_system.dart';
 import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
@@ -188,7 +189,7 @@ class _PacksDialogState extends State<PacksDialog>
                               },
                             );
                           }),
-                        FutureBuilder<Map<String, NoteData>>(
+                        FutureBuilder<List<FileSystemFile<NoteData>>>(
                           future: _packSystem
                               .initialize()
                               .then((value) => _packSystem.getFiles()),
@@ -202,15 +203,14 @@ class _PacksDialogState extends State<PacksDialog>
                                 child: CircularProgressIndicator(),
                               );
                             }
-                            final globalPacks = List<NoteData>.from(
-                                snapshot.data?.values ?? <NoteData>[]);
+                            final globalPacks = snapshot.data ?? [];
                             return StatefulBuilder(
                                 builder: (context, setInnerState) {
                               return ListView.builder(
                                 shrinkWrap: true,
                                 itemCount: globalPacks.length,
                                 itemBuilder: (context, index) {
-                                  final pack = globalPacks[index];
+                                  final pack = globalPacks[index].data!;
                                   final metadata = pack.getMetadata();
                                   if (metadata == null) return Container();
                                   return Dismissible(

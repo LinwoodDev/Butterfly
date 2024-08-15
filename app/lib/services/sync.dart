@@ -153,8 +153,7 @@ class RemoteSync {
     for (final file in currentFiles) {
       switch (file.status) {
         case FileSyncStatus.localLatest:
-          await remoteSystem
-              .uploadCachedContent(file.location.pathWithLeadingSlash);
+          await remoteSystem.uploadCachedContent(file.location.path);
           final syncedFile = SyncFile(
             isDirectory: file.isDirectory,
             location: file.location,
@@ -166,7 +165,7 @@ class RemoteSync {
           break;
         case FileSyncStatus.remoteLatest:
           if (!hasError) {
-            await remoteSystem.cache(file.location.pathWithLeadingSlash);
+            await remoteSystem.cache(file.location.path);
             final syncedFile = SyncFile(
               isDirectory: file.isDirectory,
               location: file.location,
@@ -224,8 +223,7 @@ class RemoteSync {
     final last = List<SyncFile>.from(files ?? []);
     final remoteSystem = buildRemoteSystem();
     if (remoteSystem == null) return;
-    last.removeWhere(
-        (element) => element.location.pathWithLeadingSlash == path);
+    last.removeWhere((element) => element.location.path == path);
     _filesSubject.add(last);
     switch (status) {
       case FileSyncStatus.localLatest:
@@ -243,8 +241,7 @@ class RemoteSync {
         if (remoteAsset is RawFileSystemFile) {
           final doc = remoteAsset.data;
           if (doc == null) return;
-          await remoteSystem.createFile(remoteAsset.pathWithLeadingSlash, doc,
-              forceSync: true);
+          await remoteSystem.createFile(remoteAsset.path, doc, forceSync: true);
           await remoteSystem.uploadCachedContent(path);
         }
         break;

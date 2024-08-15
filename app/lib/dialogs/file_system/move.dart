@@ -43,11 +43,9 @@ class _FileSystemAssetMoveDialogState extends State<FileSystemAssetMoveDialog> {
     newPath += _nameController.text;
     newPath += '.${widget.asset.fileExtension}';
     if (duplicate) {
-      await widget.fileSystem
-          .duplicateAsset(widget.asset.pathWithLeadingSlash, newPath);
+      await widget.fileSystem.duplicateAsset(widget.asset.path, newPath);
     } else {
-      await widget.fileSystem
-          .moveAsset(widget.asset.pathWithLeadingSlash, newPath);
+      await widget.fileSystem.moveAsset(widget.asset.path, newPath);
     }
     navigator.pop(newPath);
   }

@@ -225,7 +225,7 @@ class _AppBarTitle extends StatelessWidget {
                             Tooltip(
                               message: currentIndex.location.identifier,
                               child: Text(
-                                ((currentIndex.location.absolute &&
+                                ((currentIndex.absolute &&
                                             currentIndex.location.path.isEmpty)
                                         ? currentIndex.location.fileType
                                             ?.getLocalizedName(context)
@@ -248,7 +248,9 @@ class _AppBarTitle extends StatelessWidget {
                 child: Builder(builder: (context) {
                   Widget icon = PhosphorIcon(switch (currentIndex.saved) {
                     SaveState.saved => PhosphorIconsFill.floppyDisk,
-                    SaveState.unsaved => PhosphorIconsLight.floppyDisk,
+                    SaveState.unsaved ||
+                    SaveState.absoluteRead =>
+                      PhosphorIconsLight.floppyDisk,
                     SaveState.saving => PhosphorIconsDuotone.floppyDisk,
                   });
                   return IconButton(
@@ -271,7 +273,7 @@ class _AppBarTitle extends StatelessWidget {
                       .add(const CurrentAreaChanged(''));
                 },
               ),
-            if (state.location.absolute)
+            if (state.absolute)
               IconButton(
                   icon: PhosphorIcon(
                       state.location.fileType.icon(PhosphorIconsStyle.light)),

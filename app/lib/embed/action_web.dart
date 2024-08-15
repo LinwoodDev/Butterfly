@@ -41,6 +41,6 @@ EventListener onEmbedMessage(String type, EmbedMessageHandler callback) {
 }
 
 void removeEmbedMessageListener(EventListener listener) {
-  if (listener is JSFunction)
-    html.window.removeEventListener('receive', listener);
+  if (listener is! JSFunction) return;
+  html.window.removeEventListener('receive', listener);
 }

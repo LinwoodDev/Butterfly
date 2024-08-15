@@ -303,9 +303,8 @@ class FilesActionMenu extends StatelessWidget {
             stream: syncService.getSync(remote!.identifier)?.filesStream,
             builder: (context, snapshot) {
               final currentStatus = snapshot.data
-                  ?.lastWhereOrNull((element) => entity
-                      .location.pathWithLeadingSlash
-                      .startsWith(element.location.pathWithLeadingSlash))
+                  ?.lastWhereOrNull((element) =>
+                      entity.location.path.startsWith(element.location.path))
                   ?.status;
               return MenuItemButton(
                 leadingIcon: PhosphorIcon(currentStatus.getIcon(),

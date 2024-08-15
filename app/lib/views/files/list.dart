@@ -199,9 +199,8 @@ class FileEntityListTile extends StatelessWidget {
                               builder: (context, snapshot) {
                                 final currentStatus = snapshot.data
                                     ?.lastWhereOrNull((element) => entity
-                                        .location.pathWithLeadingSlash
-                                        .startsWith(element
-                                            .location.pathWithLeadingSlash))
+                                        .location.path
+                                        .startsWith(element.location.path))
                                     ?.status;
                                 return IconButton(
                                   icon: PhosphorIcon(currentStatus.getIcon(),

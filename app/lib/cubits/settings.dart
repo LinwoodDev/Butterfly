@@ -552,7 +552,7 @@ class SettingsCubit extends Cubit<ButterflySettings>
     final history = state.history.toList();
     history.removeWhere((element) =>
         element.remote == location.remote &&
-        element.pathWithLeadingSlash.startsWith(location.pathWithLeadingSlash));
+        element.path.startsWith(location.path));
     emit(state.copyWith(history: history));
     return save();
   }
