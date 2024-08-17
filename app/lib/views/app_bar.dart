@@ -184,8 +184,10 @@ class _AppBarTitle extends StatelessWidget {
                             .removeRecentHistory(location);
                         if (state is DocumentLoadSuccess) {
                           await state.save(location.copyWith(
-                            path:
-                                '${location.parent}/${documentSystem.convertNameToFile(value)}.bfly',
+                            path: documentSystem.convertNameToFile(
+                                name: value,
+                                fileExtension: '.bfly',
+                                directory: location.parent),
                           ));
                         }
                         bloc.add(DocumentDescriptionChanged(name: value));

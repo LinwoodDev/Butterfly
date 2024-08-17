@@ -871,26 +871,26 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     emit(state.copyWith(currentlySaving: true));
     final storage = getRemoteStorage();
     final fileSystem = blocState.fileSystem.buildDocumentSystem(storage);
-    while (state.saved == SaveState.unsaved) {
-      emit(state.copyWith(
-          saved: SaveState.saving, location: location ?? state.location));
-      location ??= state.location;
-      final currentData = blocState.saveData();
-      if (currentData == null) return AssetLocation.empty;
-      if (blocState.embedding != null) return AssetLocation.empty;
-      if (!location.path.endsWith('.bfly') ||
-          state.absolute ||
-          location.fileType != AssetFileType.note) {
-        final document =
-            await fileSystem.createFile(currentData.name ?? '', currentData);
-        if (document == null) return AssetLocation.empty;
-        location = document.location;
-      } else {
-        await fileSystem.updateFile(location.path, currentData);
-      }
-      state.settingsCubit.addRecentHistory(location);
+    while (state.saved == SaveState.saving) {}
+    if (state.saved == SaveState.saved) {
+      return state.location;
     }
+    emit(state.copyWith(
+        saved: SaveState.saving, location: location ?? state.location));
     location ??= state.location;
+    final currentData = blocState.saveData();
+    if (currentData == null) return AssetLocation.empty;
+    if (blocState.embedding != null) return AssetLocation.empty;
+    if (!location.path.endsWith('.bfly') ||
+        state.absolute ||
+        location.fileType != AssetFileType.note) {
+      final document = await fileSystem.createFileWithName(
+          name: currentData.name, fileExtension: '.bfly', currentData);
+      location = document.location;
+    } else {
+      await fileSystem.updateFile(location.path, currentData);
+    }
+    state.settingsCubit.addRecentHistory(location);
     emit(state.copyWith(
         location: location, saved: SaveState.saved, currentlySaving: false));
     return location;

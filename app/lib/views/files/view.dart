@@ -108,9 +108,10 @@ class FilesViewState extends State<FilesView> {
     );
     if (name == null) return;
     final path = _locationController.text;
-    final newPath = '$path/${_documentSystem.convertNameToFile(name)}.bfly';
-    await _documentSystem.updateFile(
-        newPath,
+    await _documentSystem.createFileWithName(
+        directory: path,
+        name: name,
+        fileExtension: '.bfly',
         template.createDocument(
           name: name,
         ));
