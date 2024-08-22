@@ -10,42 +10,76 @@ jobs:
     runs-on: ubuntu-22.04
     strategy:
       matrix:
-        language: [af, ar, ca, cs, da, de, el, en, es, fi, fr, he, hu, it, ja, ko, nl, no, or, pl, pt, pt-BR, ro, ru, sr, sv, th, tr, uk, vi, zh, zh-Hant]
+        language:
+          [
+            af,
+            ar,
+            ca,
+            cs,
+            da,
+            de,
+            el,
+            en,
+            es,
+            fi,
+            fr,
+            he,
+            hu,
+            it,
+            ja,
+            ko,
+            nl,
+            no,
+            or,
+            pl,
+            pt,
+            pt-BR,
+            ro,
+            ru,
+            sr,
+            sv,
+            th,
+            tr,
+            uk,
+            vi,
+            zh,
+            zh-Hant,
+          ]
     steps:
-    - uses: actions/checkout@v4
-    - uses: actions/setup-node@v4
-      with:
-        node-version: '20'
-        cache: 'pnpm'
-        cache-dependency-path: docs/pnpm-lock.yaml
-    - name: Install dependencies
-      run: |
-        cd docs
-        pnpm install
-    - name: Build
-      run: |
-        cd docs
-        pnpm build --locale ${{ matrix.language }}
-    - name: Move into subdirectory if locale is not en
-      if: ${{ matrix.language != 'en' }}
-      continue-on-error: true
-      run: |
-        cd docs/build
-        mkdir ${{ matrix.language }}
-        mv * ${{ matrix.language }}
-    - uses: actions/upload-artifact@v4
-      with:
-        path: docs/build
-        name: build
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: "pnpm"
+          cache-dependency-path: docs/pnpm-lock.yaml
+      - name: Install dependencies
+        run: |
+          cd docs
+          pnpm install
+      - name: Build
+        run: |
+          cd docs
+          pnpm build --locale ${{ matrix.language }}
+      - name: Move into subdirectory if locale is not en
+        if: ${{ matrix.language != 'en' }}
+        continue-on-error: true
+        run: |
+          cd docs/build
+          mkdir ${{ matrix.language }}
+          mv * ${{ matrix.language }}
+      - uses: actions/upload-artifact@v4
+        with:
+          path: docs/build
+          name: build
   deploy:
     runs-on: ubuntu-22.04
     needs: build
     steps:
-    - uses: actions/download-artifact@v4
-      with:
-        name: build
-        path: build
-    - name: Pull Vercel Environment Information
-      run: vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
-    - name: Deploy to Vercel
-      run: vercel deploy build --prod --token=${{ secrets.VERCEL_TOKEN }} --prebuilt
+      - uses: actions/download-artifact@v4
+        with:
+          name: build
+          path: build
+      - name: Pull Vercel Environment Information
+        run: vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
+      - name: Deploy to Vercel
+        run: vercel deploy build --prod --token=${{ secrets.VERCEL_TOKEN }} --prebuilt

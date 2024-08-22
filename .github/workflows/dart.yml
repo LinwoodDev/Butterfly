@@ -14,14 +14,9 @@ jobs:
     steps:
       - name: ⬆️ Checkout
         uses: actions/checkout@v4
-      - name: Get flutter version
-        run: |
-          FLUTTER_VERSION=$(cat ../FLUTTER_VERSION)
-          echo "FLUTTER_VERSION=${FLUTTER_VERSION}" >> $GITHUB_ENV
       - uses: subosito/flutter-action@v2.16.0
         with:
-          flutter-version: ${{ env.FLUTTER_VERSION }}
-          channel: 'master'
+          flutter-version-file: app/pubspec.yaml
       - uses: actions/checkout@v4
       - name: Print Dart SDK version
         run: |
@@ -33,7 +28,6 @@ jobs:
       # Uncomment this step to verify the use of 'dart format' on each commit.
       - name: Verify formatting
         run: dart format --output=none --set-exit-if-changed .
-
       # Consider passing '--fatal-infos' for slightly stricter analysis.
       - name: Analyze project source
         run: |

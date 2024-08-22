@@ -21,14 +21,9 @@ jobs:
         with:
           token: ${{ secrets.CI_PAT }}
           fetch-depth: 0
-      - name: Get flutter version
-        run: |
-          FLUTTER_VERSION=$(cat FLUTTER_VERSION)
-          echo "FLUTTER_VERSION=${FLUTTER_VERSION}" >> $GITHUB_ENV
       - uses: subosito/flutter-action@v2.16.0
         with:
-          flutter-version: ${{ env.FLUTTER_VERSION }}
-          channel: 'master'
+          flutter-version-file: app/pubspec.yaml
       - name: Setup git
         id: setup
         run: |
@@ -70,14 +65,9 @@ jobs:
           token: ${{ secrets.CI_PAT }}
           ref: ${{ github.ref }}
           fetch-depth: 0
-      - name: Get flutter version
-        run: |
-          FLUTTER_VERSION=$(cat FLUTTER_VERSION)
-          echo "FLUTTER_VERSION=${FLUTTER_VERSION}" >> $GITHUB_ENV
       - uses: subosito/flutter-action@v2.16.0
         with:
-          flutter-version: ${{ env.FLUTTER_VERSION }}
-          channel: 'master'
+          flutter-version-file: app/pubspec.yaml
       - name: Setup git
         id: setup
         shell: bash
@@ -137,14 +127,9 @@ jobs:
         with:
           token: ${{ secrets.CI_PAT }}
           fetch-depth: 0
-      - name: Get flutter version
-        run: |
-          FLUTTER_VERSION=$(cat FLUTTER_VERSION)
-          echo "FLUTTER_VERSION=${FLUTTER_VERSION}" >> $GITHUB_ENV
       - uses: subosito/flutter-action@v2.16.0
         with:
-          flutter-version: ${{ env.FLUTTER_VERSION }}
-          channel: 'master'
+          flutter-version-file: app/pubspec.yaml
       - name: Setup git
         id: setup
         run: |
@@ -205,20 +190,9 @@ jobs:
           echo "BUTTERFLY_BUILD_NUMBER=${BUTTERFLY_BUILD_NUMBER}" >> $GITHUB_ENV
           git config --global user.email "ci@linwood.dev"
           git config --global user.name "Linwood CI"
-      - name: Get flutter version
-        if: ${{ github.ref == 'refs/heads/develop' }}
-        run: |
-          FLUTTER_VERSION=$(cat FLUTTER_VERSION)
-          echo "FLUTTER_VERSION=${FLUTTER_VERSION}" >> $GITHUB_ENV
-      - name: Get flutter version
-        if: ${{ github.ref == 'refs/heads/main' }}
-        run: |
-          FLUTTER_VERSION=$(cat FLUTTER_VERSION)
-          echo "FLUTTER_VERSION=${FLUTTER_VERSION}" >> $GITHUB_ENV
       - uses: subosito/flutter-action@v2.16.0
         with:
-          flutter-version: ${{ env.FLUTTER_VERSION }}
-          channel: 'master'
+          flutter-version-file: app/pubspec.yaml
       - name: Bump version
         run: |
           git fetch

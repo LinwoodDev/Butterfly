@@ -10,21 +10,21 @@
     "astro": "astro"
   },
   "dependencies": {
-    "@astrojs/check": "^0.9.2",
-    "@astrojs/react": "^3.6.1",
-    "@astrojs/starlight": "^0.25.4",
+    "@astrojs/check": "^0.9.3",
+    "@astrojs/react": "^3.6.2",
+    "@astrojs/starlight": "^0.26.1",
     "@phosphor-icons/react": "^2.1.7",
-    "@types/react": "^18.3.3",
+    "@types/react": "^18.3.4",
     "@types/react-dom": "^18.3.0",
-    "astro": "^4.13.1",
+    "astro": "^4.14.4",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "remark-gemoji": "^8.0.0",
     "remark-heading-id": "^1.0.1",
-    "sharp": "^0.33.4",
+    "sharp": "^0.33.5",
     "typescript": "^5.5.4"
   },
-  "packageManager": "pnpm@9.6.0",
+  "packageManager": "pnpm@9.8.0",
   "devDependencies": {
     "sass": "^1.77.8"
   }

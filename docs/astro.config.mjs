@@ -1,8 +1,8 @@
 import { defineConfig } from "astro/config";
 import starlight from "@astrojs/starlight";
-import remarkHeadingID from "remark-heading-id";
 import react from "@astrojs/react";
 import { getSidebarTranslatedLabel } from "./src/translations";
+import remarkHeadingID from "remark-heading-id";
 import remarkGemoji from "remark-gemoji";
 
 // https://astro.build/config

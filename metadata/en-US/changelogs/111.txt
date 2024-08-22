@@ -2,5 +2,6 @@
 * Use date for default file name
 * Fix unnamed files gets duplicated on save
 * Upgrade to flutter 3.24
+* Remove FLUTTER_VERSION file, use pubspec instead
 
 Read more here: https://linwood.dev/butterfly/2.2.0-beta.2

@@ -1,6 +1,6 @@
 name: Flutter build
 
-on: 
+on:
   push:
     branches:
       - "*"
@@ -25,14 +25,9 @@ jobs:
         with:
           java-version: "17"
           distribution: "adopt"
-      - name: Get flutter version
-        run: |
-          FLUTTER_VERSION=$(cat ../FLUTTER_VERSION)
-          echo "FLUTTER_VERSION=${FLUTTER_VERSION}" >> $GITHUB_ENV
       - uses: subosito/flutter-action@v2.16.0
         with:
-          flutter-version: ${{ env.FLUTTER_VERSION }}
-          channel: 'master'
+          flutter-version-file: app/pubspec.yaml
       - name: 📦 Get dependencies
         run: |
           flutter clean
@@ -100,15 +95,11 @@ jobs:
     steps:
       - name: ⬆️ Checkout
         uses: actions/checkout@v4
-      - name: Get flutter version
-        shell: bash
-        run: |
-          FLUTTER_VERSION=$(cat ../FLUTTER_VERSION)
-          echo "FLUTTER_VERSION=${FLUTTER_VERSION}" >> $GITHUB_ENV
+      - name: Make yq tool available on Windows runners
+        run: choco install yq
       - uses: subosito/flutter-action@v2.16.0
         with:
-          flutter-version: ${{ env.FLUTTER_VERSION }}
-          channel: 'master'
+          flutter-version-file: app/pubspec.yaml
       - name: ✅ Enable platforms
         run: flutter config --enable-windows-desktop
       - name: 📦 Get dependencies
@@ -180,14 +171,9 @@ jobs:
             libsecret-1-dev \
             libjsoncpp-dev \
             rpm
-      - name: Get flutter version
-        run: |
-          FLUTTER_VERSION=$(cat ../FLUTTER_VERSION)
-          echo "FLUTTER_VERSION=${FLUTTER_VERSION}" >> $GITHUB_ENV
       - uses: subosito/flutter-action@v2.16.0
         with:
-          flutter-version: ${{ env.FLUTTER_VERSION }}
-          channel: 'master'
+          flutter-version-file: app/pubspec.yaml
       - name: ✅ Enable platforms
         run: flutter config --enable-linux-desktop
       - name: 📦 Get dependencies
@@ -291,14 +277,9 @@ jobs:
             alien \
             libsecret-1-dev \
             libjsoncpp-dev
-      - name: Get flutter version
-        run: |
-          FLUTTER_VERSION=$(cat ../FLUTTER_VERSION)
-          echo "FLUTTER_VERSION=${FLUTTER_VERSION}" >> $GITHUB_ENV
       - uses: subosito/flutter-action@v2.16.0
         with:
-          flutter-version: ${{ env.FLUTTER_VERSION }}
-          channel: 'master'
+          flutter-version-file: app/pubspec.yaml
       - name: ✅ Enable platforms
         run: flutter config --enable-linux-desktop
       - name: 📦 Get dependencies
@@ -355,17 +336,12 @@ jobs:
     steps:
       - name: ⬆️ Checkout
         uses: actions/checkout@v4
-      - name: Get flutter version
-        run: |
-          FLUTTER_VERSION=$(cat ../FLUTTER_VERSION)
-          echo "FLUTTER_VERSION=${FLUTTER_VERSION}" >> $GITHUB_ENV
       - uses: subosito/flutter-action@v2.16.0
         with:
-          flutter-version: ${{ env.FLUTTER_VERSION }}
-          channel: 'master'
+          flutter-version-file: app/pubspec.yaml
       - uses: actions/setup-python@v5
         with:
-          python-version: '3.11' 
+          python-version: "3.12"
       - name: ✅ Enable platforms
         run: flutter config --enable-macos-desktop
       - name: 📦 Get dependencies
@@ -382,9 +358,11 @@ jobs:
       - name: Setup node
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: "22"
       - name: Install appdmg
-        run: npm install -g appdmg
+        run: |
+          python3 -m pip install setuptools
+          npm install -g appdmg
       - name: Create dmg
         run: |
           appdmg DmgSetup.json linwood-butterfly-macos.dmg
@@ -410,14 +388,9 @@ jobs:
     steps:
       - name: ⬆️ Checkout
         uses: actions/checkout@v4
-      - name: Get flutter version
-        run: |
-          FLUTTER_VERSION=$(cat ../FLUTTER_VERSION)
-          echo "FLUTTER_VERSION=${FLUTTER_VERSION}" >> $GITHUB_ENV
       - uses: subosito/flutter-action@v2.16.0
         with:
-          flutter-version: ${{ env.FLUTTER_VERSION }}
-          channel: 'master'
+          flutter-version-file: app/pubspec.yaml
       - name: 📦 Get dependencies
         run: |
           flutter clean
@@ -434,7 +407,7 @@ jobs:
           cp -R Runner.app Payload/
           rm -f linwood-butterfly-ios.ipa
           zip -vr linwood-butterfly-ios.ipa Payload/
-#          ls -l linwood-butterfly-ios.ipa
+      #          ls -l linwood-butterfly-ios.ipa
       - name: Archive
         uses: actions/upload-artifact@v4
         with:
@@ -461,7 +434,7 @@ jobs:
   #     - uses: actions/upload-artifact@v4
   #       with:
   #         name: butterfly-snap
-  #         path: ${{ steps.build.outputs.snap }}    
+  #         path: ${{ steps.build.outputs.snap }}
   deploy:
     runs-on: ubuntu-22.04
     if: github.event_name != 'pull_request'
@@ -621,7 +594,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   deploy-to-play-store:
     runs-on: ubuntu-22.04
-    if:  ${{ startsWith(github.ref, 'refs/tags/') }}
+    if: ${{ startsWith(github.ref, 'refs/tags/') }}
     defaults:
       run:
         working-directory: app
@@ -652,14 +625,9 @@ jobs:
         with:
           java-version: "17"
           distribution: "adopt"
-      - name: Get flutter version
-        run: |
-          FLUTTER_VERSION=$(cat ../FLUTTER_VERSION)
-          echo "FLUTTER_VERSION=${FLUTTER_VERSION}" >> $GITHUB_ENV
       - uses: subosito/flutter-action@v2.16.0
         with:
-          flutter-version: ${{ env.FLUTTER_VERSION }}
-          channel: 'master'
+          flutter-version-file: app/pubspec.yaml
       - name: 📦 Get dependencies
         run: |
           flutter pub get
