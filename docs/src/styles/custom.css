@@ -1,156 +1,185 @@
+/* Background: #35EF53 with 0.1 chroma */
 /* Dark mode colors. */
 :root {
-	--sl-color-accent-low: #c4840d;
-	--sl-color-accent: #f2b138;
-	--sl-color-accent-high: #f7d28c;
-	--sl-color-white: #ffffff;
-	--sl-color-gray-1: #e7eff2;
-	--sl-color-gray-2: #bac4c8;
-	--sl-color-gray-3: #7b8f96;
-	--sl-color-gray-4: #495c62;
-	--sl-color-gray-5: #2a3b41;
-	--sl-color-gray-6: #182a2f;
-	--sl-color-black: #121a1c;
-	--sl-font-system: "Raleway", sans-serif;
+  --sl-color-accent-low: #312007;
+  --sl-color-accent: #8f5e00;
+  --sl-color-accent-high: #dbc5a8;
+  --sl-color-white: #ffffff;
+  --sl-color-gray-1: #def5de;
+  --sl-color-gray-2: #afcbaf;
+  --sl-color-gray-3: #639c65;
+  --sl-color-gray-4: #2f6633;
+  --sl-color-gray-5: #084512;
+  --sl-color-gray-6: #003107;
+  --sl-color-black: #071e09;
+  --sl-font-system: "Barlow", sans-serif;
 }
 /* Light mode colors. */
-:root[data-theme='light'] {
-	--sl-color-accent-low: #f7d28c;
-	--sl-color-accent: #f2b138;
-	--sl-color-accent-high: #c4840d;
-	--sl-color-white: #121a1c;
-	--sl-color-gray-1: #182a2f;
-	--sl-color-gray-2: #2a3b41;
-	--sl-color-gray-3: #495c62;
-	--sl-color-gray-4: #7b8f96;
-	--sl-color-gray-5: #bac4c8;
-	--sl-color-gray-6: #e7eff2;
-	--sl-color-gray-7: #f3f7f9;
-	--sl-color-black: #ffffff;
+:root[data-theme="light"] {
+  --sl-color-accent-low: #e5d4bf;
+  --sl-color-accent: #916000;
+  --sl-color-accent-high: #462c00;
+  --sl-color-white: #071e09;
+  --sl-color-gray-1: #003107;
+  --sl-color-gray-2: #084512;
+  --sl-color-gray-3: #2f6633;
+  --sl-color-gray-4: #639c65;
+  --sl-color-gray-5: #afcbaf;
+  --sl-color-gray-6: #def5de;
+  --sl-color-gray-7: #eefaee;
+  --sl-color-black: #ffffff;
 }
 
 .inline-icon {
-	display: inline !important;
-	vertical-align: sub;
-	margin: 0 !important;
-	padding: 0;
+  display: inline !important;
+  vertical-align: sub;
+  margin: 0 !important;
+  padding: 0;
 }
 
 br {
-	display: block;
+  display: block;
 }
 
 @font-face {
-	font-family: 'Raleway';
-	src: url('/fonts/Raleway-Regular.ttf') format('truetype');
+  font-family: "Barlow";
+  src: url("/fonts/Barlow-Regular.ttf") format("truetype");
 }
 
 @font-face {
-	font-family: 'Raleway';
-	src: url('/fonts/Raleway-Bold.ttf') format('truetype');
-	font-weight: bold;
+  font-family: "Barlow";
+  src: url("/fonts/Barlow-Bold.ttf") format("truetype");
+  font-weight: bold;
 }
 
 @font-face {
-	font-family: 'Raleway';
-	src: url('/fonts/Raleway-Italic.ttf') format('truetype');
-	font-style: italic;
+  font-family: "Barlow";
+  src: url("/fonts/Barlow-Italic.ttf") format("truetype");
+  font-style: italic;
 }
 
 @font-face {
-	font-family: 'Raleway';
-	src: url('/fonts/Raleway-BoldItalic.ttf') format('truetype');
-	font-weight: bold;
-	font-style: italic;
+  font-family: "Barlow";
+  src: url("/fonts/Barlow-BoldItalic.ttf") format("truetype");
+  font-weight: bold;
+  font-style: italic;
 }
 
 @font-face {
-	font-family: 'Raleway';
-	src: url('/fonts/Raleway-Light.ttf') format('truetype');
-	font-weight: 300;
+  font-family: "Barlow";
+  src: url("/fonts/Barlow-Light.ttf") format("truetype");
+  font-weight: 300;
 }
 
 @font-face {
-	font-family: 'Raleway';
-	src: url('/fonts/Raleway-LightItalic.ttf') format('truetype');
-	font-weight: 300;
-	font-style: italic;
+  font-family: "Barlow";
+  src: url("/fonts/Barlow-LightItalic.ttf") format("truetype");
+  font-weight: 300;
+  font-style: italic;
 }
 
 @font-face {
-	font-family: 'Raleway';
-	src: url('/fonts/Raleway-SemiBold.ttf') format('truetype');
-	font-weight: 600;
+  font-family: "Barlow";
+  src: url("/fonts/Barlow-SemiBold.ttf") format("truetype");
+  font-weight: 600;
 }
 
 @font-face {
-	font-family: 'Raleway';
-	src: url('/fonts/Raleway-SemiBoldItalic.ttf') format('truetype');
-	font-weight: 600;
-	font-style: italic;
+  font-family: "Barlow";
+  src: url("/fonts/Barlow-SemiBoldItalic.ttf") format("truetype");
+  font-weight: 600;
+  font-style: italic;
 }
 
 @font-face {
-	font-family: 'Raleway';
-	src: url('/fonts/Raleway-ExtraBold.ttf') format('truetype');
-	font-weight: 800;
+  font-family: "Barlow";
+  src: url("/fonts/Barlow-ExtraBold.ttf") format("truetype");
+  font-weight: 800;
 }
 
 @font-face {
-	font-family: 'Raleway';
-	src: url('/fonts/Raleway-ExtraBoldItalic.ttf') format('truetype');
-	font-weight: 800;
-	font-style: italic;
+  font-family: "Barlow";
+  src: url("/fonts/Barlow-ExtraBoldItalic.ttf") format("truetype");
+  font-weight: 800;
+  font-style: italic;
+}
+/* Dark mode colors. */
+:root {
+  --sl-color-accent-low: #312007;
+  --sl-color-accent: #8f5e00;
+  --sl-color-accent-high: #dbc5a8;
+  --sl-color-white: #ffffff;
+  --sl-color-gray-1: #eceeec;
+  --sl-color-gray-2: #c0c3c0;
+  --sl-color-gray-3: #888d88;
+  --sl-color-gray-4: #555a55;
+  --sl-color-gray-5: #353a35;
+  --sl-color-gray-6: #242824;
+  --sl-color-black: #171917;
+}
+/* Light mode colors. */
+:root[data-theme="light"] {
+  --sl-color-accent-low: #e5d4bf;
+  --sl-color-accent: #916000;
+  --sl-color-accent-high: #462c00;
+  --sl-color-white: #171917;
+  --sl-color-gray-1: #242824;
+  --sl-color-gray-2: #353a35;
+  --sl-color-gray-3: #555a55;
+  --sl-color-gray-4: #888d88;
+  --sl-color-gray-5: #c0c3c0;
+  --sl-color-gray-6: #eceeec;
+  --sl-color-gray-7: #f5f7f5;
+  --sl-color-black: #ffffff;
+}
+@font-face {
+  font-family: "Barlow";
+  src: url("/fonts/Barlow-Black.ttf") format("truetype");
+  font-weight: 900;
 }
 
 @font-face {
-	font-family: 'Raleway';
-	src: url('/fonts/Raleway-Black.ttf') format('truetype');
-	font-weight: 900;
+  font-family: "Barlow";
+  src: url("/fonts/Barlow-BlackItalic.ttf") format("truetype");
+  font-weight: 900;
+  font-style: italic;
 }
 
 @font-face {
-	font-family: 'Raleway';
-	src: url('/fonts/Raleway-BlackItalic.ttf') format('truetype');
-	font-weight: 900;
-	font-style: italic;
+  font-family: "Barlow";
+  src: url("/fonts/Barlow-Thin.ttf") format("truetype");
+  font-weight: 100;
 }
 
 @font-face {
-	font-family: 'Raleway';
-	src: url('/fonts/Raleway-Thin.ttf') format('truetype');
-	font-weight: 100;
+  font-family: "Barlow";
+  src: url("/fonts/Barlow-ThinItalic.ttf") format("truetype");
+  font-weight: 100;
+  font-style: italic;
 }
 
 @font-face {
-	font-family: 'Raleway';
-	src: url('/fonts/Raleway-ThinItalic.ttf') format('truetype');
-	font-weight: 100;
-	font-style: italic;
+  font-family: "Barlow";
+  src: url("/fonts/Barlow-ExtraLight.ttf") format("truetype");
+  font-weight: 200;
 }
 
 @font-face {
-	font-family: 'Raleway';
-	src: url('/fonts/Raleway-ExtraLight.ttf') format('truetype');
-	font-weight: 200;
+  font-family: "Barlow";
+  src: url("/fonts/Barlow-ExtraLightItalic.ttf") format("truetype");
+  font-weight: 200;
+  font-style: italic;
 }
 
 @font-face {
-	font-family: 'Raleway';
-	src: url('/fonts/Raleway-ExtraLightItalic.ttf') format('truetype');
-	font-weight: 200;
-	font-style: italic;
+  font-family: "Barlow";
+  src: url("/fonts/Barlow-Medium.ttf") format("truetype");
+  font-weight: 500;
 }
 
 @font-face {
-	font-family: 'Raleway';
-	src: url('/fonts/Raleway-Medium.ttf') format('truetype');
-	font-weight: 500;
-}
-
-@font-face {
-	font-family: 'Raleway';
-	src: url('/fonts/Raleway-MediumItalic.ttf') format('truetype');
-	font-weight: 500;
-	font-style: italic;
+  font-family: "Barlow";
+  src: url("/fonts/Barlow-MediumItalic.ttf") format("truetype");
+  font-weight: 500;
+  font-style: italic;
 }
