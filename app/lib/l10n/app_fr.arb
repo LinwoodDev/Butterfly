@@ -208,7 +208,7 @@
   "design": "Conception",
   "text": "Texte du texte",
   "selectSensitivity": "Sélectionner la sensibilité",
-  "welcome": "Hé, c'est le papillon de bois de Linwood",
+  "welcome": "Hé, voici Linwood Butterfly",
   "welcomeContent": "Un espace de dessin libre et open-source !",
   "updated": "Application mise à jour vers la version {version}",
   "@updated": {
@@ -270,7 +270,7 @@
   "hideDetails": "Cacher les détails",
   "error": "Erreur",
   "stackTrace": "Trace de pile",
-  "alwaysOnTop": "Toujours au dessus",
+  "alwaysOnTop": "Toujours au-dessus",
   "exitAlwaysOnTop": "Quitter toujours en haut",
   "maximize": "Maximiser",
   "minimize": "Minimiser",
