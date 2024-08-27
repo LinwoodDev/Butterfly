@@ -175,7 +175,7 @@ class _DataSettingsPageState extends State<DataSettingsPage> {
 
   Future<void> _openSyncModeModal(BuildContext context) => showLeapBottomSheet(
       context: context,
-      title: AppLocalizations.of(context).syncMode,
+      titleBuilder: (ctx) => Text(AppLocalizations.of(ctx).syncMode),
       childrenBuilder: (ctx) {
         final settingsCubit = context.read<SettingsCubit>();
         void changeSyncMode(SyncMode syncMode) {

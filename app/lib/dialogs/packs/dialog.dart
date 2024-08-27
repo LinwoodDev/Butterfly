@@ -332,7 +332,8 @@ class _PacksDialogState extends State<PacksDialog>
                       onPressed: () {
                         showLeapBottomSheet(
                           context: context,
-                          title: AppLocalizations.of(context).add,
+                          titleBuilder: (ctx) =>
+                              Text(AppLocalizations.of(ctx).add),
                           childrenBuilder: (ctx) => [
                             ListTile(
                               title: Text(AppLocalizations.of(ctx).import),

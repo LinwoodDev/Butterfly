@@ -141,6 +141,8 @@ class _PropertyViewState extends State<PropertyView>
                             crossAxisAlignment: CrossAxisAlignment.stretch,
                             children: [
                               Header(
+                                centerTitle: false,
+                                leadingWidth: 60,
                                 title:
                                     Text(selection.getLocalizedName(context)),
                                 leading: menuChildren.length <= 1

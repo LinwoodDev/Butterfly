@@ -72,7 +72,7 @@ dependencies:
   material_leap:
     git:
       url: https://github.com/LinwoodDev/dart_pkgs.git
-      ref: e844798751461be17a633fc98565a1aa9003a297
+      ref: 065b5b2808517551559f7cd27d6f9a8b294ffebf
       path: packages/material_leap
   lw_sysapi:
     git:
@@ -116,7 +116,6 @@ dev_dependencies:
   espresso: ^0.4.0
   freezed: ^2.5.2
 dependency_overrides:
-  web: ^1.0.0
   flutter_secure_storage_web:
     git:
       url: https://github.com/CodeDoctorDE/flutter_secure_storage.git

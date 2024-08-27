@@ -218,7 +218,8 @@ class PersonalizationSettingsPage extends StatelessWidget {
                           onTap: () async {
                             final position = await showLeapBottomSheet(
                                 context: context,
-                                title: AppLocalizations.of(context).position,
+                                titleBuilder: (context) =>
+                                    Text(AppLocalizations.of(context).position),
                                 childrenBuilder: (context) => [
                                       ListTile(
                                         title: Text(
@@ -262,7 +263,7 @@ class PersonalizationSettingsPage extends StatelessWidget {
 
     showLeapBottomSheet(
         context: context,
-        title: AppLocalizations.of(context).density,
+        titleBuilder: (context) => Text(AppLocalizations.of(context).density),
         childrenBuilder: (context) {
           void changeDensity(ThemeDensity density) {
             cubit.changeDensity(density);
@@ -285,7 +286,7 @@ class PersonalizationSettingsPage extends StatelessWidget {
 
     showLeapBottomSheet(
         context: context,
-        title: AppLocalizations.of(context).design,
+        titleBuilder: (context) => Text(AppLocalizations.of(context).design),
         childrenBuilder: (context) {
           void changeDesign(String design) {
             cubit.changeDesign(design);
@@ -323,7 +324,7 @@ class PersonalizationSettingsPage extends StatelessWidget {
 
     showLeapBottomSheet(
         context: context,
-        title: AppLocalizations.of(context).theme,
+        titleBuilder: (context) => Text(AppLocalizations.of(context).theme),
         childrenBuilder: (context) {
           void changeTheme(ThemeMode themeMode) {
             cubit.changeTheme(themeMode, MediaQuery.of(context));
@@ -356,7 +357,7 @@ class PersonalizationSettingsPage extends StatelessWidget {
     var locales = getLocales();
     showLeapBottomSheet(
         context: context,
-        title: AppLocalizations.of(context).locale,
+        titleBuilder: (context) => Text(AppLocalizations.of(context).locale),
         childrenBuilder: (context) {
           void changeLocale(Locale? locale) {
             cubit.changeLocale(locale);
@@ -381,7 +382,8 @@ class PersonalizationSettingsPage extends StatelessWidget {
     var currentTheme = cubit.state.platformTheme;
     showLeapBottomSheet(
         context: context,
-        title: AppLocalizations.of(context).platformTheme,
+        titleBuilder: (context) =>
+            Text(AppLocalizations.of(context).platformTheme),
         childrenBuilder: (context) => PlatformTheme.values
             .map((e) => ListTile(
                 title: Text(_getPlatformThemeName(context, e)),
@@ -403,7 +405,8 @@ class PersonalizationSettingsPage extends StatelessWidget {
     var currentPos = cubit.state.toolbarPosition;
     showLeapBottomSheet(
         context: context,
-        title: AppLocalizations.of(context).toolbarPosition,
+        titleBuilder: (context) =>
+            Text(AppLocalizations.of(context).toolbarPosition),
         childrenBuilder: (context) => ToolbarPosition.values
             .map((e) => ListTile(
                 title: Text(e.getLocalizedName(context)),
@@ -420,7 +423,8 @@ class PersonalizationSettingsPage extends StatelessWidget {
     var currentSize = cubit.state.toolbarSize;
     showLeapBottomSheet(
         context: context,
-        title: AppLocalizations.of(context).toolbarSize,
+        titleBuilder: (context) =>
+            Text(AppLocalizations.of(context).toolbarSize),
         childrenBuilder: (context) => ToolbarSize.values
             .map((e) => ListTile(
                 title: Text(e.getLocalizedName(context)),

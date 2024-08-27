@@ -56,7 +56,8 @@ class ConnectionsSettingsPage extends StatelessWidget {
             : FloatingActionButton.extended(
                 onPressed: () => showLeapBottomSheet<ExternalStorage>(
                     context: context,
-                    title: AppLocalizations.of(context).addConnection,
+                    titleBuilder: (context) =>
+                        Text(AppLocalizations.of(context).addConnection),
                     childrenBuilder: (context) => getSupportedStorages()
                         .whereNot(
                             (e) => e is LocalStorage && Platform.isAndroid)
