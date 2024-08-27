@@ -2,6 +2,17 @@
 
 <!--ENTER CHANGELOG HERE-->
 
+## 2.2.0-beta.2 (2024-08-27)
+
+* Add wasm support for chromium based browsers
+* Use date for default file name
+* Fix unnamed files gets duplicated on save
+* Upgrade to flutter 3.24
+* Update internal component library
+* Remove FLUTTER_VERSION file, use pubspec instead
+
+Read more here: https://linwood.dev/butterfly/2.2.0-beta.2
+
 ## 2.2.0-beta.1 (2024-08-05)
 
 * Add navigator position to position it to the right (useful for left handed users)
