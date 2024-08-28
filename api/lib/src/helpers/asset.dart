@@ -50,6 +50,9 @@ extension AssetFileTypeHelper on AssetFileType {
   }
 
   static AssetFileType? fromFileExtension(String? ext) {
+    if (ext?.startsWith('.') ?? false) {
+      ext = ext?.substring(1);
+    }
     return AssetFileType.values.firstWhereOrNull(
       (type) => type.getFileExtensions().contains(ext),
     );

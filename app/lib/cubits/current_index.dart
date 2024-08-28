@@ -885,7 +885,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
         state.absolute ||
         location.fileType != AssetFileType.note) {
       final document = await fileSystem.createFileWithName(
-          name: currentData.name, fileExtension: '.bfly', currentData);
+          name: currentData.name, suffix: '.bfly', currentData);
       location = document.location;
     } else {
       await fileSystem.updateFile(location.path, currentData);

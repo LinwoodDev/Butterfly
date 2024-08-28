@@ -1,0 +1,4 @@
+* Ignore invalid files with invalid syntax
+* Fix file gets duplicated on save (again)
+
+Read more here: https://linwood.dev/butterfly/2.2.0-beta.2

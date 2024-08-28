@@ -111,7 +111,7 @@ class FilesViewState extends State<FilesView> {
     await _documentSystem.createFileWithName(
         directory: path,
         name: name,
-        fileExtension: '.bfly',
+        suffix: '.bfly',
         template.createDocument(
           name: name,
         ));

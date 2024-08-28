@@ -186,7 +186,7 @@ class _AppBarTitle extends StatelessWidget {
                           await state.save(location.copyWith(
                             path: documentSystem.convertNameToFile(
                                 name: value,
-                                fileExtension: '.bfly',
+                                suffix: '.bfly',
                                 directory: location.parent),
                           ));
                         }
