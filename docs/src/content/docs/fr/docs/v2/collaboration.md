@@ -15,30 +15,30 @@ Depuis la version bêta 2.0, Butterfly prend en charge la collaboration. Cela si
 
 ## Comment ça marche
 
-Butterfly utilise un serveur Websocket qui sera hébergé sur votre ordinateur. Ce serveur doit être accessible depuis internet ou depuis votre réseau local. The client will connect to this server. The server sync all changes and events with all clients.
+Butterfly utilise un serveur Websocket qui sera hébergé sur votre ordinateur. Ce serveur doit être accessible depuis internet ou depuis votre réseau local. Le client se connectera sur ce serveur. Le serveur synchronise toutes les modifications et tous les événements avec tous les clients.
 
-## Setup the server
+## Configuration du serveur
 
 :::note
 
-This server feature is not available on the web.
+Cette fonctionnalité de serveur n'est pas disponible dans la version web.
 
 :::
 
-Firstly, enable the collaboration experiment in the settings. After that open your document you want to share. Then click on the share button in the top left corner right to the title. This will open a dialog. Click on `Start server`.
+Firstly, enable the collaboration experiment in the settings. Ensuite, ouvrez le document que vous souhaitez partager. Then click on the share button in the top left corner right to the title. This will open a dialog. Click on `Start server`.
 
-Default the server will be hosted on all interfaces on port `28005`. You can change this in the dialog. You need to make sure that this server is accessible to the client.
-In the local network this should work out of the box. If you want to access the server from the internet, you need to forward the port in your router. You can find more information about this [here](https://en.wikipedia.org/wiki/Port_forwarding/).
+Par défaut, le serveur sera hébergé sur toutes les interfaces sur le port `28005`. You can change this in the dialog. Vous devez vous assurer que ce serveur est accessible au client.
+Dans le réseau local, cela devrait fonctionner sans problème. Si vous souhaitez accéder au serveur depuis internet, vous devez rediriger le port sur votre routeur. Vous pouvez trouver plus d'informations à ce sujet [ici](https://fr.wikipedia.org/wiki/Redirection_de_port).
 
-If you cannot forward the port, you can use a service like [ngrok](https://ngrok.com/). This will create a tunnel to your local server. This is useful if you want to share the document with other people.
+Si vous ne pouvez pas rediriger le port, vous pouvez utiliser un service comme [ngrok](https://ngrok.com/). Cela va créer un tunnel vers votre serveur local. C'est utile si vous voulez partager le document avec d'autres personnes.
 
-For ngrok the command would look like this:
+Pour ngrok, la commande ressemblerait à ceci :
 
 ```bash
 ngrok http 28005
 ```
 
-## Connect to the server
+## Se connecter au serveur
 
 Now you need to connect to the server. To do this, go to the home page and click on the plus button like you would create a new document. There you will see a new menu item called `Connect`.
 
