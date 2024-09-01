@@ -25,9 +25,9 @@ Cette fonctionnalité de serveur n'est pas disponible dans la version web.
 
 :::
 
-Firstly, enable the collaboration experiment in the settings. Ensuite, ouvrez le document que vous souhaitez partager. Then click on the share button in the top left corner right to the title. This will open a dialog. Click on `Start server`.
+Tout d'abord, activez la collaboration expérimentale dans les paramètres. Ensuite, ouvrez le document que vous souhaitez partager. Puis cliquez sur le bouton de partage qui se situe dans l'angle supérieur gauche, à droite du titre. Cela ouvrira une boîte de dialogue. Cliquez sur `Début`.
 
-Par défaut, le serveur sera hébergé sur toutes les interfaces sur le port `28005`. You can change this in the dialog. Vous devez vous assurer que ce serveur est accessible au client.
+Par défaut, le serveur sera hébergé sur toutes les interfaces sur le port `28005`. Vous pouvez changer cela dans la boîte de dialogue. Vous devez vous assurer que ce serveur est accessible au client.
 Dans le réseau local, cela devrait fonctionner sans problème. Si vous souhaitez accéder au serveur depuis internet, vous devez rediriger le port sur votre routeur. Vous pouvez trouver plus d'informations à ce sujet [ici](https://fr.wikipedia.org/wiki/Redirection_de_port).
 
 Si vous ne pouvez pas rediriger le port, vous pouvez utiliser un service comme [ngrok](https://ngrok.com/). Cela va créer un tunnel vers votre serveur local. C'est utile si vous voulez partager le document avec d'autres personnes.
@@ -40,7 +40,7 @@ ngrok http 28005
 
 ## Se connecter au serveur
 
-Now you need to connect to the server. To do this, go to the home page and click on the plus button like you would create a new document. There you will see a new menu item called `Connect`.
+Vous devez maintenant vous connecter au serveur. Pour ce faire, allez à la page d'accueil et cliquez sur le bouton "plus" comme si vous alliez créer un nouveau document. There you will see a new menu item called `Connect`.
 
 Click on this and you will see a dialog. Enter the connection url here.
 If you are in the same network, you can use the local ip address of the computer where the server is running.
