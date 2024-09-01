@@ -40,11 +40,11 @@ ngrok http 28005
 
 ## Se connecter au serveur
 
-Vous devez maintenant vous connecter au serveur. Pour ce faire, allez à la page d'accueil et cliquez sur le bouton "plus" comme si vous alliez créer un nouveau document. There you will see a new menu item called `Connect`.
+Vous devez maintenant vous connecter au serveur. Pour ce faire, allez à la page d'accueil et cliquez sur le bouton "plus" comme si vous alliez créer un nouveau document. Là, vous verrez un nouvel élément de menu appelé `Connecter`.
 
-Click on this and you will see a dialog. Enter the connection url here.
-If you are in the same network, you can use the local ip address of the computer where the server is running.
-The url should look like this: `ws://{ip}:28005`. Replace `{ip}` with the ip address of the computer. You can find the ip address with the command `ipconfig` on windows or `ifconfig` on linux. On android you can find the ip address in the wifi settings.
+Cliquez dessus et vous verrez une boîte de dialogue. Entrez ici l'url de connexion.
+Si vous êtes sur le même réseau, vous pouvez utiliser l'adresse IP locale de l'ordinateur où le serveur fonctionne.
+L'URL devrait ressembler à ceci : `ws://{IP}:28005`. Replace `{ip}` with the ip address of the computer. You can find the ip address with the command `ipconfig` on windows or `ifconfig` on linux. On android you can find the ip address in the wifi settings.
 
 If you are not in the same network, you need to use the public ip address of the computer. You can find this by searching for `what is my ip` in your favorite search browser. The url should look like the one above, but with the public ip address.
 
