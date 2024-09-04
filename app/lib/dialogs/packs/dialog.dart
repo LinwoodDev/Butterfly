@@ -32,7 +32,7 @@ class _PacksDialogState extends State<PacksDialog>
   initState() {
     _controller = TabController(length: widget.globalOnly ? 1 : 2, vsync: this);
     _fileSystem = context.read<ButterflyFileSystem>();
-    _packSystem = _fileSystem.buildDefaultTemplateSystem();
+    _packSystem = _fileSystem.buildDefaultPackSystem();
     super.initState();
   }
 

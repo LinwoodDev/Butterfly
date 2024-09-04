@@ -161,11 +161,11 @@ class ButterflyFileSystem {
 
   Future<void> _createDefaultTemplates(TemplateFileSystem fs) async =>
       Future.wait((await DocumentDefaults.getDefaults(context))
-          .map((e) => fs.createFile(e.name ?? '', e)));
+          .map((e) => fs.createFile('${e.name}.bfly', e)));
 
   Future<void> _createDefaultPacks(PackFileSystem fs) async {
     final pack = await DocumentDefaults.getCorePack();
-    fs.createFile(pack.name ?? '', pack);
+    await fs.createFile('${pack.name}.bfly', pack);
   }
 
   TypedDirectoryFileSystem<NoteData> buildDocumentSystem(

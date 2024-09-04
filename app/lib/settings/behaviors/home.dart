@@ -153,7 +153,6 @@ class BehaviorsSettingsPage extends StatelessWidget {
                     padding: const EdgeInsets.all(32),
                     child: StatefulBuilder(builder: (context, setState) {
                       changeInputTest(Color? color) => (PointerEvent event) {
-                            print(event.runtimeType);
                             setState(() {
                               kind = event.kind;
                               buttons = event.buttons;
@@ -171,9 +170,6 @@ class BehaviorsSettingsPage extends StatelessWidget {
                           SizedBox(
                             height: 150,
                             child: Listener(
-                              onPointerSignal: (event) {
-                                print(event.runtimeType);
-                              },
                               onPointerMove: changeInputTest(Colors.blue),
                               onPointerDown: changeInputTest(Colors.green),
                               onPointerUp: changeInputTest(null),
