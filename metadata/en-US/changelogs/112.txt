@@ -1,4 +1,5 @@
 * Ignore invalid files with invalid syntax
 * Fix file gets duplicated on save (again)
+* Fix image background wrong offset when moving on canvas
 
 Read more here: https://linwood.dev/butterfly/2.2.0-beta.2

@@ -217,6 +217,7 @@ class _MainViewViewportState extends State<MainViewViewport>
                         onSecondaryTapUp: (details) => getHandler()
                             .onSecondaryTapUp(details, getEventContext()),
                         onScaleUpdate: (details) {
+                          print('onScaleUpdate');
                           final handler = getHandler();
                           if (_isScalingDisabled ?? true) {
                             handler.onScaleUpdate(details, getEventContext());
@@ -261,6 +262,7 @@ class _MainViewViewportState extends State<MainViewViewport>
                           }
                         },
                         onScaleStart: (details) {
+                          print('scale start');
                           _isScalingDisabled ??= !cubit.state.moveEnabled;
                           if (_isScalingDisabled != false) {
                             _isScalingDisabled = cubit
@@ -317,8 +319,13 @@ class _MainViewViewportState extends State<MainViewViewport>
                           },
                           onPointerPanZoomStart: (event) {
                             _isScalingDisabled = false;
+                            print('lal');
+                          },
+                          onPointerPanZoomUpdate: (event) {
+                            print('el');
                           },
                           onPointerDown: (PointerDownEvent event) async {
+                            print('onPointerDown');
                             _isScalingDisabled =
                                 event.kind == PointerDeviceKind.trackpad
                                     ? false

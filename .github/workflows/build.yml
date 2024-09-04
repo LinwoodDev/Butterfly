@@ -24,7 +24,7 @@ jobs:
         uses: actions/setup-java@v4
         with:
           java-version: "17"
-          distribution: "adopt"
+          distribution: "temurin"
       - uses: subosito/flutter-action@v2.16.0
         with:
           flutter-version-file: app/pubspec.yaml
@@ -624,7 +624,7 @@ jobs:
         uses: actions/setup-java@v4
         with:
           java-version: "17"
-          distribution: "adopt"
+          distribution: "temurin"
       - uses: subosito/flutter-action@v2.16.0
         with:
           flutter-version-file: app/pubspec.yaml
@@ -634,7 +634,7 @@ jobs:
       - name: Setup Fastlane
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: "3.3.0"
+          ruby-version: "3.3.5"
           bundler-cache: true
           working-directory: app/android
       - name: 🚀 Deploy to Play Store

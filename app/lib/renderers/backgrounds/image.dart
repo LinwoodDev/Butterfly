@@ -12,11 +12,11 @@ class ImageBackgroundRenderer extends Renderer<ImageBackground> {
     if (image == null) return;
     final sizeX = element.width * element.scaleX * transform.size;
     final sizeY = element.height * element.scaleY * transform.size;
-    var offsetX = (transform.position.dx * transform.size) % sizeX;
+    var offsetX = (transform.position.dx * -transform.size) % sizeX;
     if (offsetX > 0) {
       offsetX -= sizeX;
     }
-    var offsetY = (transform.position.dy * transform.size) % sizeY;
+    var offsetY = (transform.position.dy * -transform.size) % sizeY;
     if (offsetY > 0) {
       offsetY -= sizeY;
     }
