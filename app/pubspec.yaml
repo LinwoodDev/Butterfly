@@ -50,7 +50,7 @@ dependencies:
   flex_color_scheme:
     git:
       url: https://github.com/rydmike/flex_color_scheme
-      ref: e33c22a3e6f2326e73830b3d6e6442e8bef5ad9f
+      ref: 0dea6f8f827ca8ae34a2260824599537f78c1cb3
   json_annotation: ^4.9.0
   path: ^1.8.3
   printing: ^5.13.1
@@ -92,7 +92,7 @@ dependencies:
   lw_file_system:
     git:
       url: https://github.com/LinwoodDev/dart_pkgs.git
-      ref: 5d1be5a4e1d49a3c69d0701c8921a7884fe48b83
+      ref: 6401cbb311f161230bdc162c86c5b0bc9fcd5eba
       path: packages/lw_file_system
   flutter_localized_locales: ^2.0.5
   dynamic_color: ^1.7.0

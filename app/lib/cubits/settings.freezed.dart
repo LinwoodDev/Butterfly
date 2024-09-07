@@ -361,6 +361,7 @@ mixin _$ButterflySettings {
   bool get autosave => throw _privateConstructorUsedError;
   int get toolbarRows => throw _privateConstructorUsedError;
   bool get hideCursorWhileDrawing => throw _privateConstructorUsedError;
+  UtilitiesState get utilities => throw _privateConstructorUsedError;
 
   /// Create a copy of ButterflySettings
   /// with the given fields replaced by the non-null parameter values.
@@ -418,9 +419,11 @@ abstract class $ButterflySettingsCopyWith<$Res> {
       bool gridView,
       bool autosave,
       int toolbarRows,
-      bool hideCursorWhileDrawing});
+      bool hideCursorWhileDrawing,
+      UtilitiesState utilities});
 
   $InputConfigurationCopyWith<$Res> get inputConfiguration;
+  $UtilitiesStateCopyWith<$Res> get utilities;
 }
 
 /// @nodoc
@@ -481,6 +484,7 @@ class _$ButterflySettingsCopyWithImpl<$Res, $Val extends ButterflySettings>
     Object? autosave = null,
     Object? toolbarRows = null,
     Object? hideCursorWhileDrawing = null,
+    Object? utilities = null,
   }) {
     return _then(_value.copyWith(
       theme: null == theme
@@ -655,6 +659,10 @@ class _$ButterflySettingsCopyWithImpl<$Res, $Val extends ButterflySettings>
           ? _value.hideCursorWhileDrawing
           : hideCursorWhileDrawing // ignore: cast_nullable_to_non_nullable
               as bool,
+      utilities: null == utilities
+          ? _value.utilities
+          : utilities // ignore: cast_nullable_to_non_nullable
+              as UtilitiesState,
     ) as $Val);
   }
 
@@ -666,6 +674,16 @@ class _$ButterflySettingsCopyWithImpl<$Res, $Val extends ButterflySettings>
     return $InputConfigurationCopyWith<$Res>(_value.inputConfiguration,
         (value) {
       return _then(_value.copyWith(inputConfiguration: value) as $Val);
+    });
+  }
+
+  /// Create a copy of ButterflySettings
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $UtilitiesStateCopyWith<$Res> get utilities {
+    return $UtilitiesStateCopyWith<$Res>(_value.utilities, (value) {
+      return _then(_value.copyWith(utilities: value) as $Val);
     });
   }
 }
@@ -721,10 +739,13 @@ abstract class _$$ButterflySettingsImplCopyWith<$Res>
       bool gridView,
       bool autosave,
       int toolbarRows,
-      bool hideCursorWhileDrawing});
+      bool hideCursorWhileDrawing,
+      UtilitiesState utilities});
 
   @override
   $InputConfigurationCopyWith<$Res> get inputConfiguration;
+  @override
+  $UtilitiesStateCopyWith<$Res> get utilities;
 }
 
 /// @nodoc
@@ -783,6 +804,7 @@ class __$$ButterflySettingsImplCopyWithImpl<$Res>
     Object? autosave = null,
     Object? toolbarRows = null,
     Object? hideCursorWhileDrawing = null,
+    Object? utilities = null,
   }) {
     return _then(_$ButterflySettingsImpl(
       theme: null == theme
@@ -957,6 +979,10 @@ class __$$ButterflySettingsImplCopyWithImpl<$Res>
           ? _value.hideCursorWhileDrawing
           : hideCursorWhileDrawing // ignore: cast_nullable_to_non_nullable
               as bool,
+      utilities: null == utilities
+          ? _value.utilities
+          : utilities // ignore: cast_nullable_to_non_nullable
+              as UtilitiesState,
     ));
   }
 }
@@ -1008,7 +1034,8 @@ class _$ButterflySettingsImpl extends _ButterflySettings
       this.gridView = false,
       this.autosave = true,
       this.toolbarRows = 1,
-      this.hideCursorWhileDrawing = false})
+      this.hideCursorWhileDrawing = false,
+      this.utilities = const UtilitiesState()})
       : _history = history,
         _connections = connections,
         _starred = starred,
@@ -1174,10 +1201,13 @@ class _$ButterflySettingsImpl extends _ButterflySettings
   @override
   @JsonKey()
   final bool hideCursorWhileDrawing;
+  @override
+  @JsonKey()
+  final UtilitiesState utilities;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'ButterflySettings(theme: $theme, density: $density, localeTag: $localeTag, documentPath: $documentPath, touchSensitivity: $touchSensitivity, mouseSensitivity: $mouseSensitivity, penSensitivity: $penSensitivity, selectSensitivity: $selectSensitivity, penOnlyInput: $penOnlyInput, inputGestures: $inputGestures, design: $design, bannerVisibility: $bannerVisibility, history: $history, navigatorEnabled: $navigatorEnabled, zoomEnabled: $zoomEnabled, lastVersion: $lastVersion, connections: $connections, defaultRemote: $defaultRemote, nativeTitleBar: $nativeTitleBar, startInFullScreen: $startInFullScreen, navigationRail: $navigationRail, syncMode: $syncMode, inputConfiguration: $inputConfiguration, fallbackPack: $fallbackPack, starred: $starred, defaultTemplate: $defaultTemplate, navigatorPage: $navigatorPage, navigatorPosition: $navigatorPosition, toolbarPosition: $toolbarPosition, toolbarSize: $toolbarSize, sortBy: $sortBy, sortOrder: $sortOrder, imageScale: $imageScale, pdfQuality: $pdfQuality, platformTheme: $platformTheme, recentColors: $recentColors, flags: $flags, spreadPages: $spreadPages, highContrast: $highContrast, gridView: $gridView, autosave: $autosave, toolbarRows: $toolbarRows, hideCursorWhileDrawing: $hideCursorWhileDrawing)';
+    return 'ButterflySettings(theme: $theme, density: $density, localeTag: $localeTag, documentPath: $documentPath, touchSensitivity: $touchSensitivity, mouseSensitivity: $mouseSensitivity, penSensitivity: $penSensitivity, selectSensitivity: $selectSensitivity, penOnlyInput: $penOnlyInput, inputGestures: $inputGestures, design: $design, bannerVisibility: $bannerVisibility, history: $history, navigatorEnabled: $navigatorEnabled, zoomEnabled: $zoomEnabled, lastVersion: $lastVersion, connections: $connections, defaultRemote: $defaultRemote, nativeTitleBar: $nativeTitleBar, startInFullScreen: $startInFullScreen, navigationRail: $navigationRail, syncMode: $syncMode, inputConfiguration: $inputConfiguration, fallbackPack: $fallbackPack, starred: $starred, defaultTemplate: $defaultTemplate, navigatorPage: $navigatorPage, navigatorPosition: $navigatorPosition, toolbarPosition: $toolbarPosition, toolbarSize: $toolbarSize, sortBy: $sortBy, sortOrder: $sortOrder, imageScale: $imageScale, pdfQuality: $pdfQuality, platformTheme: $platformTheme, recentColors: $recentColors, flags: $flags, spreadPages: $spreadPages, highContrast: $highContrast, gridView: $gridView, autosave: $autosave, toolbarRows: $toolbarRows, hideCursorWhileDrawing: $hideCursorWhileDrawing, utilities: $utilities)';
   }
 
   @override
@@ -1227,8 +1257,9 @@ class _$ButterflySettingsImpl extends _ButterflySettings
       ..add(DiagnosticsProperty('gridView', gridView))
       ..add(DiagnosticsProperty('autosave', autosave))
       ..add(DiagnosticsProperty('toolbarRows', toolbarRows))
-      ..add(DiagnosticsProperty(
-          'hideCursorWhileDrawing', hideCursorWhileDrawing));
+      ..add(
+          DiagnosticsProperty('hideCursorWhileDrawing', hideCursorWhileDrawing))
+      ..add(DiagnosticsProperty('utilities', utilities));
   }
 
   @override
@@ -1314,7 +1345,9 @@ class _$ButterflySettingsImpl extends _ButterflySettings
             (identical(other.toolbarRows, toolbarRows) ||
                 other.toolbarRows == toolbarRows) &&
             (identical(other.hideCursorWhileDrawing, hideCursorWhileDrawing) ||
-                other.hideCursorWhileDrawing == hideCursorWhileDrawing));
+                other.hideCursorWhileDrawing == hideCursorWhileDrawing) &&
+            (identical(other.utilities, utilities) ||
+                other.utilities == utilities));
   }
 
   @override
@@ -1362,7 +1395,8 @@ class _$ButterflySettingsImpl extends _ButterflySettings
         gridView,
         autosave,
         toolbarRows,
-        hideCursorWhileDrawing
+        hideCursorWhileDrawing,
+        utilities
       ]);
 
   /// Create a copy of ButterflySettings
@@ -1419,7 +1453,8 @@ abstract class _ButterflySettings extends ButterflySettings {
       final bool gridView,
       final bool autosave,
       final int toolbarRows,
-      final bool hideCursorWhileDrawing}) = _$ButterflySettingsImpl;
+      final bool hideCursorWhileDrawing,
+      final UtilitiesState utilities}) = _$ButterflySettingsImpl;
   const _ButterflySettings._() : super._();
 
   @override
@@ -1508,6 +1543,8 @@ abstract class _ButterflySettings extends ButterflySettings {
   int get toolbarRows;
   @override
   bool get hideCursorWhileDrawing;
+  @override
+  UtilitiesState get utilities;
 
   /// Create a copy of ButterflySettings
   /// with the given fields replaced by the non-null parameter values.

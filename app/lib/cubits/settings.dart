@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:butterfly/api/file_system.dart';
 import 'package:butterfly/main.dart';
+import 'package:butterfly_api/butterfly_api.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -208,6 +209,7 @@ class ButterflySettings with _$ButterflySettings, LeapSettings {
     @Default(true) bool autosave,
     @Default(1) int toolbarRows,
     @Default(false) bool hideCursorWhileDrawing,
+    @Default(UtilitiesState()) UtilitiesState utilities,
   }) = _ButterflySettings;
 
   factory ButterflySettings.fromPrefs(SharedPreferences prefs) {
@@ -295,6 +297,9 @@ class ButterflySettings with _$ButterflySettings, LeapSettings {
           ? NavigatorPosition.values
               .byName(prefs.getString('navigator_position')!)
           : NavigatorPosition.left,
+      utilities: prefs.containsKey('utilities')
+          ? UtilitiesState.fromJson(json.decode(prefs.getString('utilities')!))
+          : const UtilitiesState(),
     );
   }
 
@@ -360,6 +365,7 @@ class ButterflySettings with _$ButterflySettings, LeapSettings {
     await prefs.setInt('toolbar_rows', toolbarRows);
     await prefs.setBool('hide_cursor_while_drawing', hideCursorWhileDrawing);
     await prefs.setString('navigator_position', navigatorPosition.name);
+    await prefs.setString('utilities', json.encode(utilities.toJson()));
   }
 
   ExternalStorage? getRemote(String? identifier) {
@@ -880,4 +886,9 @@ class SettingsCubit extends Cubit<ButterflySettings>
 
   Future<void> resetNavigatorPosition() =>
       changeNavigatorPosition(NavigatorPosition.left);
+
+  Future<void> changeUtilities(UtilitiesState utilities) {
+    emit(state.copyWith(utilities: utilities));
+    return save();
+  }
 }

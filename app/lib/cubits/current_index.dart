@@ -655,9 +655,18 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     final backgrounds = page.backgrounds.map(Renderer.fromInstance).toList();
     await Future.wait(backgrounds
         .map((e) async => await e.setup(document, assetService, page)));
+    final utilities = UtilitiesRenderer(state.settingsCubit.state.utilities);
+    await utilities.setup(
+      docState.data,
+      docState.assetService,
+      docState.page,
+    );
     emit(state.copyWith(
-        cameraViewport: state.cameraViewport
-            .unbake(unbakedElements: renderers, backgrounds: backgrounds)));
+        cameraViewport: state.cameraViewport.unbake(
+      unbakedElements: renderers,
+      backgrounds: backgrounds,
+      utilities: utilities,
+    )));
   }
 
   void withUnbaked(List<Renderer<PadElement>> unbakedElements) {
@@ -799,7 +808,8 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     ));
   }
 
-  void updateUtilities({UtilitiesState? utilities, ViewOption? view}) {
+  Future<void> updateUtilities(
+      {UtilitiesState? utilities, ViewOption? view}) async {
     var state = this.state;
     final renderer = UtilitiesRenderer(
         utilities ?? state.utilitiesState, view ?? state.viewOption);
@@ -820,6 +830,9 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
       state = state.copyWith(viewOption: view);
     }
     emit(state);
+    if (utilities != null) {
+      return state.settingsCubit.changeUtilities(utilities);
+    }
   }
 
   void togglePin() => emit(state.copyWith(pinned: !state.pinned));

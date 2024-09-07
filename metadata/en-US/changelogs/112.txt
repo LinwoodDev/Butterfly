@@ -1,7 +1,9 @@
+* Save utilities states after restart
 * Ignore invalid files with invalid syntax
 * Fix file gets duplicated on save (again)
 * Fix image background wrong offset when moving on canvas
 * Fix packs dialog showing templates
 * Fix web showing no templates on first start
+* Fix templates and packs gets overriden on creation with same name
 
-Read more here: https://linwood.dev/butterfly/2.2.0-beta.2
+Read more here: https://linwood.dev/butterfly/2.2.0-beta.3

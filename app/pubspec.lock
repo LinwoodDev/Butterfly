@@ -482,8 +482,8 @@ packages:
     dependency: "direct main"
     description:
       path: "."
-      ref: e33c22a3e6f2326e73830b3d6e6442e8bef5ad9f
-      resolved-ref: e33c22a3e6f2326e73830b3d6e6442e8bef5ad9f
+      ref: "0dea6f8f827ca8ae34a2260824599537f78c1cb3"
+      resolved-ref: "0dea6f8f827ca8ae34a2260824599537f78c1cb3"
       url: "https://github.com/rydmike/flex_color_scheme"
     source: git
     version: "8.0.0-dev.1"
@@ -823,8 +823,8 @@ packages:
     dependency: "direct main"
     description:
       path: "packages/lw_file_system"
-      ref: "5d1be5a4e1d49a3c69d0701c8921a7884fe48b83"
-      resolved-ref: "5d1be5a4e1d49a3c69d0701c8921a7884fe48b83"
+      ref: "6401cbb311f161230bdc162c86c5b0bc9fcd5eba"
+      resolved-ref: "6401cbb311f161230bdc162c86c5b0bc9fcd5eba"
       url: "https://github.com/LinwoodDev/dart_pkgs.git"
     source: git
     version: "1.0.0"
@@ -1198,10 +1198,10 @@ packages:
     dependency: transitive
     description:
       name: sembast
-      sha256: "481e0a4199015e0050ee4b42d59d51731b1fb324a1eea5c24557fa72335790b0"
+      sha256: "99f9d53ecdc75db1630797a8b9b2f2050ee5377e49f60f5f6e788431db04224d"
       url: "https://pub.dev"
     source: hosted
-    version: "3.7.3+2"
+    version: "3.7.3+3"
   share_plus:
     dependency: "direct main"
     description:
