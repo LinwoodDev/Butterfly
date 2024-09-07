@@ -82,7 +82,7 @@ sealed class PadElement with _$PadElement {
   @Implements<PathElement>()
   factory PadElement.pen({
     @Default(0) double rotation,
-    @Default('') String layer,
+    @Default('') String collection,
     @IdJsonConverter() String? id,
     double? zoom,
     @Default([]) List<PathPoint> points,
@@ -93,7 +93,7 @@ sealed class PadElement with _$PadElement {
   @With<LabelElement>()
   factory PadElement.text({
     @Default(0) double rotation,
-    @Default('') String layer,
+    @Default('') String collection,
     @IdJsonConverter() String? id,
     @DoublePointJsonConverter()
     @Default(Point(0.0, 0.0))
@@ -109,7 +109,7 @@ sealed class PadElement with _$PadElement {
   @With<LabelElement>()
   factory PadElement.markdown({
     @Default(0) double rotation,
-    @Default('') String layer,
+    @Default('') String collection,
     @IdJsonConverter() String? id,
     @DoublePointJsonConverter()
     @Default(Point(0.0, 0.0))
@@ -126,7 +126,7 @@ sealed class PadElement with _$PadElement {
   @Implements<SourcedElement>()
   factory PadElement.image({
     @Default(0) double rotation,
-    @Default('') String layer,
+    @Default('') String collection,
     @IdJsonConverter() String? id,
     @DoublePointJsonConverter()
     @Default(Point(0.0, 0.0))
@@ -142,7 +142,7 @@ sealed class PadElement with _$PadElement {
   @Implements<SourcedElement>()
   factory PadElement.svg({
     @Default(0) double rotation,
-    @Default('') String layer,
+    @Default('') String collection,
     @IdJsonConverter() String? id,
     @DoublePointJsonConverter()
     @Default(Point(0.0, 0.0))
@@ -157,7 +157,7 @@ sealed class PadElement with _$PadElement {
 
   factory PadElement.shape({
     @Default(0) double rotation,
-    @Default('') String layer,
+    @Default('') String collection,
     @IdJsonConverter() String? id,
     @DoublePointJsonConverter()
     @Default(Point(0.0, 0.0))
@@ -171,7 +171,7 @@ sealed class PadElement with _$PadElement {
 
   factory PadElement.texture({
     @Default(0) double rotation,
-    @Default('') String layer,
+    @Default('') String collection,
     @IdJsonConverter() String? id,
     @Default(SurfaceTexture.pattern()) SurfaceTexture texture,
     @DoublePointJsonConverter()

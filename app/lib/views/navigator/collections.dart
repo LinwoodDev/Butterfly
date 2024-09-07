@@ -9,8 +9,8 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 import '../../dialogs/delete.dart';
 import '../../widgets/editable_list_tile.dart';
 
-class LayersView extends StatelessWidget {
-  const LayersView({super.key});
+class CollectionsView extends StatelessWidget {
+  const CollectionsView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -18,14 +18,14 @@ class LayersView extends StatelessWidget {
       buildWhen: (previous, current) =>
           previous is DocumentLoadSuccess &&
           current is DocumentLoadSuccess &&
-          (previous.currentLayer != current.currentLayer ||
-              previous.invisibleLayers != current.invisibleLayers ||
+          (previous.currentCollection != current.currentCollection ||
+              previous.invisibleCollections != current.invisibleCollections ||
               previous.page.content != current.page.content),
       builder: (context, state) {
         if (state is! DocumentLoadSuccess) return const SizedBox.shrink();
-        final currentLayer = state.currentLayer;
-        var layers = (state.page.content.map((e) => e.layer).toSet()
-              ..add(currentLayer)
+        final currentCollection = state.currentCollection;
+        final collections = (state.page.content.map((e) => e.collection).toSet()
+              ..add(currentCollection)
               ..remove(''))
             .toList();
         final defaultVisble = state.isLayerVisible('');
@@ -38,7 +38,7 @@ class LayersView extends StatelessWidget {
                         .read<DocumentBloc>()
                         .add(const CurrentLayerChanged(''));
                   },
-                  selected: state.currentLayer.isEmpty,
+                  selected: state.currentCollection.isEmpty,
                   leading: IconButton(
                     icon: PhosphorIcon(defaultVisble
                         ? PhosphorIconsLight.eye
@@ -60,7 +60,7 @@ class LayersView extends StatelessWidget {
                       final result = await showDialog<String>(
                           builder: (context) => NameDialog(), context: context);
                       if (result == null) return;
-                      bloc.add(LayerRenamed(state.currentLayer, result));
+                      bloc.add(LayerRenamed(state.currentCollection, result));
                     },
                   ),
                   title: Text(AppLocalizations.of(context).defaultLayer)),
@@ -68,13 +68,13 @@ class LayersView extends StatelessWidget {
               ListView.builder(
                   physics: const NeverScrollableScrollPhysics(),
                   shrinkWrap: true,
-                  itemCount: layers.length,
+                  itemCount: collections.length,
                   itemBuilder: (BuildContext context, int index) {
-                    final layer = layers[index];
+                    final layer = collections[index];
                     final visible = state.isLayerVisible(layer);
                     return EditableListTile(
                       initialValue: layer,
-                      selected: layer == currentLayer,
+                      selected: layer == currentCollection,
                       onTap: () => context
                           .read<DocumentBloc>()
                           .add(CurrentLayerChanged(layer)),
@@ -88,7 +88,7 @@ class LayersView extends StatelessWidget {
                         onPressed: () {
                           context
                               .read<DocumentBloc>()
-                              .add(LayerVisibilityChanged(layers[index]));
+                              .add(LayerVisibilityChanged(collections[index]));
                         },
                       ),
                       onSaved: (value) => context
@@ -98,7 +98,7 @@ class LayersView extends StatelessWidget {
                         MenuItemButton(
                           leadingIcon:
                               const PhosphorIcon(PhosphorIconsLight.trash),
-                          onPressed: currentLayer == layer
+                          onPressed: currentCollection == layer
                               ? null
                               : () async {
                                   final result = await showDialog<bool>(
@@ -131,7 +131,7 @@ class LayersView extends StatelessWidget {
                       if (state is! DocumentLoadSuccess) return;
                       final result = await showDialog<String>(
                           builder: (context) => NameDialog(
-                                value: state.currentLayer,
+                                value: state.currentCollection,
                               ),
                           context: context);
                       if (result == null) return;

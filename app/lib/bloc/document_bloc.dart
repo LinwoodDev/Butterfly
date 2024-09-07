@@ -187,8 +187,8 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
         emit,
         state: current.copyWith(
             data: data,
-            page: current.page
-                .copyWith(content: [...current.page.content, ...elements])),
+            page: current.mapLayer(
+                (e) => e.copyWith(content: [...e.content, ...elements]))),
         addedElements: renderers,
         refresh: current.currentIndexCubit
             .getHandler()
@@ -201,7 +201,6 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       if (!(current.embedding?.editable ?? true)) return;
       final renderers = <Renderer<PadElement>>[];
       var selection = current.currentIndexCubit.state.selection;
-      final page = current.page;
       bool shouldRefresh = false;
       final oldRenderers = current.renderers;
       final elements = event.elements.map((key, value) => MapEntry(
@@ -235,13 +234,19 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
           renderers.add(renderer);
         }
       }
-      final content = page.content
-          .expand((element) => elements[element.id] ?? [element])
-          .toList();
+      final newPage = current.mapLayer((e) => e.copyWith(
+            content: e.content.expand((e) {
+              final updated = elements[e.id];
+              if (updated != null) {
+                return updated;
+              }
+              return [e];
+            }).toList(),
+          ));
       _saveState(
         emit,
         state: current.copyWith(
-          page: page.copyWith(content: content),
+          page: newPage,
         ),
         replacedElements: renderers,
         refresh: true,
@@ -535,16 +540,17 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       if (current is! DocumentLoadSuccess) return;
       if (!(current.embedding?.editable ?? true)) return;
       final content = List<PadElement>.from(current.page.content)
-          .map((e) =>
-              e.layer == event.oldName ? e.copyWith(layer: event.newName) : e)
+          .map((e) => e.collection == event.oldName
+              ? e.copyWith(collection: event.newName)
+              : e)
           .toList();
       _saveState(
         emit,
         state: current.copyWith(
             page: current.page.copyWith(content: content),
-            currentLayer: current.currentLayer == event.oldName
+            currentCollection: current.currentCollection == event.oldName
                 ? event.newName
-                : current.currentLayer),
+                : current.currentCollection),
         addedElements: null,
         refresh: true,
       );
@@ -556,8 +562,8 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       if (!(current.embedding?.editable ?? true)) return;
       final content = <PadElement>[];
       for (var element in current.page.content) {
-        if (element.layer == event.name) {
-          content.add(element.copyWith(layer: ''));
+        if (element.collection == event.name) {
+          content.add(element.copyWith(collection: ''));
         } else {
           content.add(element);
         }
@@ -579,7 +585,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
         state: current.copyWith(
           page: current.page.copyWith(
             content: List<PadElement>.from(current.page.content)
-                .where((e) => e.layer != event.name)
+                .where((e) => e.collection != event.name)
                 .toList(),
           ),
         ),
@@ -591,7 +597,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     on<LayerVisibilityChanged>((event, emit) {
       final current = state;
       if (current is! DocumentLoadSuccess) return;
-      var invisibleLayers = List<String>.from(current.invisibleLayers);
+      var invisibleLayers = List<String>.from(current.invisibleCollections);
       var isVisible = current.isLayerVisible(event.name);
       if (isVisible) {
         invisibleLayers.add(event.name);
@@ -600,7 +606,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       }
       return _saveState(
         emit,
-        state: current.copyWith(invisibleLayers: invisibleLayers),
+        state: current.copyWith(invisibleCollections: invisibleLayers),
         addedElements: null,
       );
     });
@@ -612,7 +618,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       return _saveState(
         emit,
         state: current.copyWith(
-          currentLayer: event.name,
+          currentCollection: event.name,
         ),
         reset: true,
       );
@@ -625,7 +631,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       var content = List<PadElement>.from(current.page.content);
       for (var element in event.elements) {
         final index = content.indexWhere((e) => e.id == element);
-        content[index] = content[index].copyWith(layer: event.layer);
+        content[index] = content[index].copyWith(collection: event.layer);
       }
       _saveState(
         emit,
@@ -1016,11 +1022,11 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     return compute(
       _executeRayCast,
       _RayCastParams(
-        state.invisibleLayers,
+        state.invisibleCollections,
         renderers.map((e) => _SmallRenderer.fromRenderer(e)).toList(),
         rect,
         transform.size,
-        useLayer ? state.currentLayer : null,
+        useLayer ? state.currentCollection : null,
       ),
     ).then((value) => value.map((e) => renderers[e]).toSet());
   }
@@ -1037,11 +1043,11 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     return compute(
       _executeRayCastPolygon,
       _RayCastPolygonParams(
-        state.invisibleLayers,
+        state.invisibleCollections,
         renderers.map((e) => _SmallRenderer.fromRenderer(e)).toList(),
         points,
         transform.size,
-        useLayer ? state.currentLayer : null,
+        useLayer ? state.currentCollection : null,
       ),
     ).then((value) => value.map((e) => renderers[e]).toSet());
   }
@@ -1060,18 +1066,18 @@ class _SmallRenderer {
 }
 
 class _RayCastParams {
-  final List<String> invisibleLayers;
+  final List<String> invisibleCollections;
   final List<_SmallRenderer> renderers;
   final Rect rect;
   final double size;
-  final String? layer;
+  final String? collection;
 
   const _RayCastParams(
-    this.invisibleLayers,
+    this.invisibleCollections,
     this.renderers,
     this.rect,
     this.size,
-    this.layer,
+    this.collection,
   );
 }
 
@@ -1080,33 +1086,37 @@ Set<int> _executeRayCast(_RayCastParams params) {
   return params.renderers
       .asMap()
       .entries
-      .where((e) => !params.invisibleLayers.contains(e.value.element.layer))
+      .where((e) =>
+          !params.invisibleCollections.contains(e.value.element.collection))
       .where((e) =>
           e.value.hitCalc.hit(rect) &&
-          (params.layer == null || e.value.element.layer == params.layer))
+          (params.collection == null ||
+              e.value.element.collection == params.collection))
       .map((e) => e.key)
       .toSet();
 }
 
 class _RayCastPolygonParams {
-  final List<String> invisibleLayers;
+  final List<String> invisibleCollections;
   final List<_SmallRenderer> renderers;
   final List<Offset> polygon;
   final double size;
-  final String? layer;
+  final String? collection;
 
-  const _RayCastPolygonParams(this.invisibleLayers, this.renderers,
-      this.polygon, this.size, this.layer);
+  const _RayCastPolygonParams(this.invisibleCollections, this.renderers,
+      this.polygon, this.size, this.collection);
 }
 
 Set<int> _executeRayCastPolygon(_RayCastPolygonParams params) {
   return params.renderers
       .asMap()
       .entries
-      .where((e) => !params.invisibleLayers.contains(e.value.element.layer))
+      .where((e) =>
+          !params.invisibleCollections.contains(e.value.element.collection))
       .where((e) =>
           e.value.hitCalc.hitPolygon(params.polygon) &&
-          (params.layer == null || e.value.element.layer == params.layer))
+          (params.collection == null ||
+              e.value.element.collection == params.collection))
       .map((e) => e.key)
       .toSet();
 }

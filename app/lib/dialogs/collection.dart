@@ -8,10 +8,11 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
-class LayerDialog extends StatelessWidget {
-  final String layer;
+class CollectionDialog extends StatelessWidget {
+  final String collection;
   final bool popupMenu;
-  const LayerDialog({super.key, required this.layer, this.popupMenu = false});
+  const CollectionDialog(
+      {super.key, required this.collection, this.popupMenu = false});
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +30,7 @@ class LayerDialog extends StatelessWidget {
             padding: EdgeInsets.symmetric(horizontal: 16.0),
             child: PhosphorIcon(PhosphorIconsLight.squaresFour),
           ),
-          Text(layer),
+          Text(collection),
         ],
       ),
       content: Column(
@@ -51,11 +52,11 @@ class LayerDialog extends StatelessWidget {
             final name = await showDialog<String>(
               context: context,
               builder: (context) => NameDialog(
-                value: layer,
+                value: collection,
               ),
             );
             if (name == null) return;
-            bloc.add(LayerRenamed(layer, name));
+            bloc.add(LayerRenamed(collection, name));
           },
         ),
         ListTile(
@@ -66,14 +67,14 @@ class LayerDialog extends StatelessWidget {
             final result = await showDialog<bool>(
                 context: context, builder: (context) => const DeleteDialog());
             if (result != true) return;
-            bloc.add(LayerElementsRemoved(layer));
+            bloc.add(LayerElementsRemoved(collection));
             if (context.mounted) Navigator.pop(context);
           },
         ),
         MenuItemButton(
           leadingIcon: const PhosphorIcon(PhosphorIconsLight.x),
           onPressed: () {
-            context.read<DocumentBloc>().add(LayerRemoved(layer));
+            context.read<DocumentBloc>().add(LayerRemoved(collection));
             Navigator.pop(context);
           },
           child: Text(AppLocalizations.of(context).remove),

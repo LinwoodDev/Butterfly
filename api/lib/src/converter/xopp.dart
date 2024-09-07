@@ -31,7 +31,7 @@ String _exportColor(int value) {
 }
 
 (NoteData, PadElement?) getElement(
-    NoteData data, XmlElement element, String layerName) {
+    NoteData data, XmlElement element, String collectionName) {
   PadElement? get() {
     switch (element.qualifiedName) {
       case 'stroke':
@@ -48,7 +48,7 @@ String _exportColor(int value) {
               .split(' ')
               .map((e) => double.parse(e))
               .toList()),
-          layer: layerName,
+          collection: collectionName,
         );
       case 'text':
         return TextElement(
@@ -66,7 +66,7 @@ String _exportColor(int value) {
           )),
           position: Point(double.parse(element.getAttribute('x')!),
               double.parse(element.getAttribute('y')!)),
-          layer: layerName,
+          collection: collectionName,
         );
       case 'image':
         final imageData = UriData.parse(element.innerText);
@@ -79,7 +79,7 @@ String _exportColor(int value) {
         return ImageElement(
           source: Uri.file(path, windows: false).toString(),
           position: Point(left, top),
-          layer: layerName,
+          collection: collectionName,
           height: bottom - top,
           width: right - left,
         );
@@ -134,7 +134,9 @@ NoteData xoppMigrator(Uint8List data) {
       _ => null,
     };
     (note, _) = note.addPage(DocumentPage(
-      content: elements,
+      layers: [
+        DocumentLayer(content: elements),
+      ],
       backgrounds: [
         if (background != null) background,
       ],

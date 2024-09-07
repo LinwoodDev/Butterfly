@@ -647,7 +647,8 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
       e.dispose();
     }
     final renderers = page.content
-        .where((element) => !docState.invisibleLayers.contains(element.layer))
+        .where((element) =>
+            !docState.invisibleCollections.contains(element.collection))
         .map((e) => Renderer.fromInstance(e))
         .toList();
     await Future.wait(renderers

@@ -16,7 +16,7 @@ sealed class DocumentPage with _$DocumentPage {
 
   const factory DocumentPage({
     @Default([]) List<AnimationTrack> animations,
-    @Default([]) List<PadElement> content,
+    @Default([]) List<DocumentLayer> layers,
     @Default([]) List<Background> backgrounds,
     @Default([]) List<Waypoint> waypoints,
     @Default([]) List<Area> areas,
@@ -26,6 +26,8 @@ sealed class DocumentPage with _$DocumentPage {
   factory DocumentPage.fromJson(Map<String, dynamic> json) =>
       _$DocumentPageFromJson(json);
 
+  List<PadElement> get content => layers.expand((e) => e.content).toList();
+
   Area? getAreaByName(String value) {
     return areas.firstWhereOrNull((e) => e.name == value);
   }
@@ -34,15 +36,29 @@ sealed class DocumentPage with _$DocumentPage {
     return areas.map((e) => e.name).toSet();
   }
 
-  Set<String> getLayerNames() {
-    return content.map((e) => e.layer).toSet();
-  }
-
   AnimationTrack? getAnimation(String name) {
     return animations.firstWhereOrNull((e) => e.name == name);
   }
 
   bool usesSource(String source) {
-    return content.whereType<SourcedElement>().any((e) => e.source == source);
+    return layers.any((e) =>
+        e.content.whereType<SourcedElement>().any((e) => e.source == source));
+  }
+}
+
+@freezed
+sealed class DocumentLayer with _$DocumentLayer {
+  const DocumentLayer._();
+
+  const factory DocumentLayer({
+    @Default('') String name,
+    @Default([]) List<PadElement> content,
+  }) = _DocumentLayer;
+
+  factory DocumentLayer.fromJson(Map<String, dynamic> json) =>
+      _$DocumentLayerFromJson(json);
+
+  Set<String> getCollectionNames() {
+    return content.map((e) => e.collection).toSet();
   }
 }

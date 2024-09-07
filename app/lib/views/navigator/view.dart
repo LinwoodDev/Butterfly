@@ -12,7 +12,7 @@ import 'package:lw_file_system/lw_file_system.dart';
 import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
-import 'layers.dart';
+import 'collections.dart';
 import 'pages.dart';
 
 const drawerWidth = 350.0;
@@ -186,7 +186,7 @@ class _DocumentNavigatorState extends State<DocumentNavigator>
             final body = switch (page) {
               NavigatorPage.waypoints => const WaypointsView(),
               NavigatorPage.areas => AreasView(),
-              NavigatorPage.layers => const LayersView(),
+              NavigatorPage.layers => const CollectionsView(),
               NavigatorPage.pages => const PagesView(),
               NavigatorPage.files => SingleChildScrollView(
                   child: FilesView(

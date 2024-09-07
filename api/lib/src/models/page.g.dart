@@ -12,9 +12,9 @@ _$DocumentPageImpl _$$DocumentPageImplFromJson(Map json) => _$DocumentPageImpl(
                   AnimationTrack.fromJson(Map<String, dynamic>.from(e as Map)))
               .toList() ??
           const [],
-      content: (json['content'] as List<dynamic>?)
+      layers: (json['layers'] as List<dynamic>?)
               ?.map((e) =>
-                  PadElement.fromJson(Map<String, dynamic>.from(e as Map)))
+                  DocumentLayer.fromJson(Map<String, dynamic>.from(e as Map)))
               .toList() ??
           const [],
       backgrounds: (json['backgrounds'] as List<dynamic>?)
@@ -40,9 +40,25 @@ _$DocumentPageImpl _$$DocumentPageImplFromJson(Map json) => _$DocumentPageImpl(
 Map<String, dynamic> _$$DocumentPageImplToJson(_$DocumentPageImpl instance) =>
     <String, dynamic>{
       'animations': instance.animations.map((e) => e.toJson()).toList(),
-      'content': instance.content.map((e) => e.toJson()).toList(),
+      'layers': instance.layers.map((e) => e.toJson()).toList(),
       'backgrounds': instance.backgrounds.map((e) => e.toJson()).toList(),
       'waypoints': instance.waypoints.map((e) => e.toJson()).toList(),
       'areas': instance.areas.map((e) => e.toJson()).toList(),
       'extra': instance.extra,
+    };
+
+_$DocumentLayerImpl _$$DocumentLayerImplFromJson(Map json) =>
+    _$DocumentLayerImpl(
+      name: json['name'] as String? ?? '',
+      content: (json['content'] as List<dynamic>?)
+              ?.map((e) =>
+                  PadElement.fromJson(Map<String, dynamic>.from(e as Map)))
+              .toList() ??
+          const [],
+    );
+
+Map<String, dynamic> _$$DocumentLayerImplToJson(_$DocumentLayerImpl instance) =>
+    <String, dynamic>{
+      'name': instance.name,
+      'content': instance.content.map((e) => e.toJson()).toList(),
     };

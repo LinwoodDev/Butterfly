@@ -336,7 +336,7 @@ abstract class PastingHandler<T> extends Handler<T> {
   Offset? _firstPos;
   Offset? _secondPos;
   bool _aspectRatio = false, _center = false;
-  String _currentLayer = '';
+  String _currentCollection = '';
 
   PastingHandler(super.data);
 
@@ -349,7 +349,7 @@ abstract class PastingHandler<T> extends Handler<T> {
           ...getTransformed().map((e) => Renderer.fromInstance(e)),
       ];
 
-  List<PadElement> transformElements(Rect rect, String layer);
+  List<PadElement> transformElements(Rect rect, String collection);
 
   bool get shouldNormalize => true;
 
@@ -409,7 +409,7 @@ abstract class PastingHandler<T> extends Handler<T> {
       left -= width;
     }
     final rect = Rect.fromLTRB(left, top, right, bottom);
-    return transformElements(rect, _currentLayer);
+    return transformElements(rect, _currentCollection);
   }
 
   void _updateElement(PointerEvent event, EventContext context,
@@ -422,7 +422,7 @@ abstract class PastingHandler<T> extends Handler<T> {
     _secondPos = globalPos;
     _aspectRatio = context.isCtrlPressed;
     _center = context.isShiftPressed;
-    _currentLayer = context.getState()?.currentLayer ?? '';
+    _currentCollection = context.getState()?.currentCollection ?? '';
 
     context.refresh();
   }

@@ -21,7 +21,7 @@ DocumentPage _$DocumentPageFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$DocumentPage {
   List<AnimationTrack> get animations => throw _privateConstructorUsedError;
-  List<PadElement> get content => throw _privateConstructorUsedError;
+  List<DocumentLayer> get layers => throw _privateConstructorUsedError;
   List<Background> get backgrounds => throw _privateConstructorUsedError;
   List<Waypoint> get waypoints => throw _privateConstructorUsedError;
   List<Area> get areas => throw _privateConstructorUsedError;
@@ -45,7 +45,7 @@ abstract class $DocumentPageCopyWith<$Res> {
   @useResult
   $Res call(
       {List<AnimationTrack> animations,
-      List<PadElement> content,
+      List<DocumentLayer> layers,
       List<Background> backgrounds,
       List<Waypoint> waypoints,
       List<Area> areas,
@@ -68,7 +68,7 @@ class _$DocumentPageCopyWithImpl<$Res, $Val extends DocumentPage>
   @override
   $Res call({
     Object? animations = null,
-    Object? content = null,
+    Object? layers = null,
     Object? backgrounds = null,
     Object? waypoints = null,
     Object? areas = null,
@@ -79,10 +79,10 @@ class _$DocumentPageCopyWithImpl<$Res, $Val extends DocumentPage>
           ? _value.animations
           : animations // ignore: cast_nullable_to_non_nullable
               as List<AnimationTrack>,
-      content: null == content
-          ? _value.content
-          : content // ignore: cast_nullable_to_non_nullable
-              as List<PadElement>,
+      layers: null == layers
+          ? _value.layers
+          : layers // ignore: cast_nullable_to_non_nullable
+              as List<DocumentLayer>,
       backgrounds: null == backgrounds
           ? _value.backgrounds
           : backgrounds // ignore: cast_nullable_to_non_nullable
@@ -113,7 +113,7 @@ abstract class _$$DocumentPageImplCopyWith<$Res>
   @useResult
   $Res call(
       {List<AnimationTrack> animations,
-      List<PadElement> content,
+      List<DocumentLayer> layers,
       List<Background> backgrounds,
       List<Waypoint> waypoints,
       List<Area> areas,
@@ -134,7 +134,7 @@ class __$$DocumentPageImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? animations = null,
-    Object? content = null,
+    Object? layers = null,
     Object? backgrounds = null,
     Object? waypoints = null,
     Object? areas = null,
@@ -145,10 +145,10 @@ class __$$DocumentPageImplCopyWithImpl<$Res>
           ? _value._animations
           : animations // ignore: cast_nullable_to_non_nullable
               as List<AnimationTrack>,
-      content: null == content
-          ? _value._content
-          : content // ignore: cast_nullable_to_non_nullable
-              as List<PadElement>,
+      layers: null == layers
+          ? _value._layers
+          : layers // ignore: cast_nullable_to_non_nullable
+              as List<DocumentLayer>,
       backgrounds: null == backgrounds
           ? _value._backgrounds
           : backgrounds // ignore: cast_nullable_to_non_nullable
@@ -174,13 +174,13 @@ class __$$DocumentPageImplCopyWithImpl<$Res>
 class _$DocumentPageImpl extends _DocumentPage {
   const _$DocumentPageImpl(
       {final List<AnimationTrack> animations = const [],
-      final List<PadElement> content = const [],
+      final List<DocumentLayer> layers = const [],
       final List<Background> backgrounds = const [],
       final List<Waypoint> waypoints = const [],
       final List<Area> areas = const [],
       final Map<String, dynamic> extra = const {}})
       : _animations = animations,
-        _content = content,
+        _layers = layers,
         _backgrounds = backgrounds,
         _waypoints = waypoints,
         _areas = areas,
@@ -199,13 +199,13 @@ class _$DocumentPageImpl extends _DocumentPage {
     return EqualUnmodifiableListView(_animations);
   }
 
-  final List<PadElement> _content;
+  final List<DocumentLayer> _layers;
   @override
   @JsonKey()
-  List<PadElement> get content {
-    if (_content is EqualUnmodifiableListView) return _content;
+  List<DocumentLayer> get layers {
+    if (_layers is EqualUnmodifiableListView) return _layers;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_content);
+    return EqualUnmodifiableListView(_layers);
   }
 
   final List<Background> _backgrounds;
@@ -246,7 +246,7 @@ class _$DocumentPageImpl extends _DocumentPage {
 
   @override
   String toString() {
-    return 'DocumentPage(animations: $animations, content: $content, backgrounds: $backgrounds, waypoints: $waypoints, areas: $areas, extra: $extra)';
+    return 'DocumentPage(animations: $animations, layers: $layers, backgrounds: $backgrounds, waypoints: $waypoints, areas: $areas, extra: $extra)';
   }
 
   @override
@@ -256,7 +256,7 @@ class _$DocumentPageImpl extends _DocumentPage {
             other is _$DocumentPageImpl &&
             const DeepCollectionEquality()
                 .equals(other._animations, _animations) &&
-            const DeepCollectionEquality().equals(other._content, _content) &&
+            const DeepCollectionEquality().equals(other._layers, _layers) &&
             const DeepCollectionEquality()
                 .equals(other._backgrounds, _backgrounds) &&
             const DeepCollectionEquality()
@@ -270,7 +270,7 @@ class _$DocumentPageImpl extends _DocumentPage {
   int get hashCode => Object.hash(
       runtimeType,
       const DeepCollectionEquality().hash(_animations),
-      const DeepCollectionEquality().hash(_content),
+      const DeepCollectionEquality().hash(_layers),
       const DeepCollectionEquality().hash(_backgrounds),
       const DeepCollectionEquality().hash(_waypoints),
       const DeepCollectionEquality().hash(_areas),
@@ -295,7 +295,7 @@ class _$DocumentPageImpl extends _DocumentPage {
 abstract class _DocumentPage extends DocumentPage {
   const factory _DocumentPage(
       {final List<AnimationTrack> animations,
-      final List<PadElement> content,
+      final List<DocumentLayer> layers,
       final List<Background> backgrounds,
       final List<Waypoint> waypoints,
       final List<Area> areas,
@@ -308,7 +308,7 @@ abstract class _DocumentPage extends DocumentPage {
   @override
   List<AnimationTrack> get animations;
   @override
-  List<PadElement> get content;
+  List<DocumentLayer> get layers;
   @override
   List<Background> get backgrounds;
   @override
@@ -323,5 +323,184 @@ abstract class _DocumentPage extends DocumentPage {
   @override
   @JsonKey(includeFromJson: false, includeToJson: false)
   _$$DocumentPageImplCopyWith<_$DocumentPageImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+DocumentLayer _$DocumentLayerFromJson(Map<String, dynamic> json) {
+  return _DocumentLayer.fromJson(json);
+}
+
+/// @nodoc
+mixin _$DocumentLayer {
+  String get name => throw _privateConstructorUsedError;
+  List<PadElement> get content => throw _privateConstructorUsedError;
+
+  /// Serializes this DocumentLayer to a JSON map.
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+
+  /// Create a copy of DocumentLayer
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  $DocumentLayerCopyWith<DocumentLayer> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $DocumentLayerCopyWith<$Res> {
+  factory $DocumentLayerCopyWith(
+          DocumentLayer value, $Res Function(DocumentLayer) then) =
+      _$DocumentLayerCopyWithImpl<$Res, DocumentLayer>;
+  @useResult
+  $Res call({String name, List<PadElement> content});
+}
+
+/// @nodoc
+class _$DocumentLayerCopyWithImpl<$Res, $Val extends DocumentLayer>
+    implements $DocumentLayerCopyWith<$Res> {
+  _$DocumentLayerCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  /// Create a copy of DocumentLayer
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? name = null,
+    Object? content = null,
+  }) {
+    return _then(_value.copyWith(
+      name: null == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      content: null == content
+          ? _value.content
+          : content // ignore: cast_nullable_to_non_nullable
+              as List<PadElement>,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$DocumentLayerImplCopyWith<$Res>
+    implements $DocumentLayerCopyWith<$Res> {
+  factory _$$DocumentLayerImplCopyWith(
+          _$DocumentLayerImpl value, $Res Function(_$DocumentLayerImpl) then) =
+      __$$DocumentLayerImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({String name, List<PadElement> content});
+}
+
+/// @nodoc
+class __$$DocumentLayerImplCopyWithImpl<$Res>
+    extends _$DocumentLayerCopyWithImpl<$Res, _$DocumentLayerImpl>
+    implements _$$DocumentLayerImplCopyWith<$Res> {
+  __$$DocumentLayerImplCopyWithImpl(
+      _$DocumentLayerImpl _value, $Res Function(_$DocumentLayerImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of DocumentLayer
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? name = null,
+    Object? content = null,
+  }) {
+    return _then(_$DocumentLayerImpl(
+      name: null == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      content: null == content
+          ? _value._content
+          : content // ignore: cast_nullable_to_non_nullable
+              as List<PadElement>,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$DocumentLayerImpl extends _DocumentLayer {
+  const _$DocumentLayerImpl(
+      {this.name = '', final List<PadElement> content = const []})
+      : _content = content,
+        super._();
+
+  factory _$DocumentLayerImpl.fromJson(Map<String, dynamic> json) =>
+      _$$DocumentLayerImplFromJson(json);
+
+  @override
+  @JsonKey()
+  final String name;
+  final List<PadElement> _content;
+  @override
+  @JsonKey()
+  List<PadElement> get content {
+    if (_content is EqualUnmodifiableListView) return _content;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_content);
+  }
+
+  @override
+  String toString() {
+    return 'DocumentLayer(name: $name, content: $content)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$DocumentLayerImpl &&
+            (identical(other.name, name) || other.name == name) &&
+            const DeepCollectionEquality().equals(other._content, _content));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => Object.hash(
+      runtimeType, name, const DeepCollectionEquality().hash(_content));
+
+  /// Create a copy of DocumentLayer
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$DocumentLayerImplCopyWith<_$DocumentLayerImpl> get copyWith =>
+      __$$DocumentLayerImplCopyWithImpl<_$DocumentLayerImpl>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$DocumentLayerImplToJson(
+      this,
+    );
+  }
+}
+
+abstract class _DocumentLayer extends DocumentLayer {
+  const factory _DocumentLayer(
+      {final String name,
+      final List<PadElement> content}) = _$DocumentLayerImpl;
+  const _DocumentLayer._() : super._();
+
+  factory _DocumentLayer.fromJson(Map<String, dynamic> json) =
+      _$DocumentLayerImpl.fromJson;
+
+  @override
+  String get name;
+  @override
+  List<PadElement> get content;
+
+  /// Create a copy of DocumentLayer
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$DocumentLayerImplCopyWith<_$DocumentLayerImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

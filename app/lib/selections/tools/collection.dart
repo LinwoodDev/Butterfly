@@ -21,15 +21,15 @@ class LayerToolSelection extends ToolSelection<LayerTool> {
             ExpansionPanel(
               isExpanded: opened,
               headerBuilder: (context, isExpanded) => ListTile(
-                  title: Text(AppLocalizations.of(context).layers),
+                  title: Text(AppLocalizations.of(context).collections),
                   trailing: IconButton(
                       icon: const PhosphorIcon(PhosphorIconsLight.selection),
                       tooltip: AppLocalizations.of(context).selectCustomLayer,
                       onPressed: () async {
                         final bloc = context.read<DocumentBloc>();
                         final state = bloc.state as DocumentLoadSuccess;
-                        final nameController =
-                            TextEditingController(text: state.currentLayer);
+                        final nameController = TextEditingController(
+                            text: state.currentCollection);
                         final success = await showDialog<bool>(
                               context: context,
                               builder: (ctx) => AlertDialog(
@@ -92,22 +92,22 @@ class LayerToolSelection extends ToolSelection<LayerTool> {
                         var prev = previous as DocumentLoadSuccess;
                         var curr = current as DocumentLoadSuccess;
                         return curr.page.content != curr.page.content ||
-                            curr.invisibleLayers.length !=
-                                prev.invisibleLayers.length ||
-                            curr.currentLayer != prev.currentLayer;
+                            curr.invisibleCollections.length !=
+                                prev.invisibleCollections.length ||
+                            curr.currentCollection != prev.currentCollection;
                       }, builder: (context, state) {
                         if (state is! DocumentLoadSuccess) {
                           return Container();
                         }
-                        var layers = {
-                          ...state.page.content.map((e) => e.layer),
-                          state.currentLayer,
+                        var collections = {
+                          ...state.page.content.map((e) => e.collection),
+                          state.currentCollection,
                         }
                             .where((element) =>
                                 element.contains(searchController.text))
                             .toSet()
                             .toList();
-                        layers.remove('');
+                        collections.remove('');
                         return Column(children: [
                           ListTile(
                               onTap: () {
@@ -115,7 +115,7 @@ class LayerToolSelection extends ToolSelection<LayerTool> {
                                     .read<DocumentBloc>()
                                     .add(const CurrentLayerChanged(''));
                               },
-                              selected: state.currentLayer.isEmpty,
+                              selected: state.currentCollection.isEmpty,
                               leading: IconButton(
                                 icon: PhosphorIcon(state.isLayerVisible('')
                                     ? PhosphorIconsLight.eye
@@ -132,25 +132,26 @@ class LayerToolSelection extends ToolSelection<LayerTool> {
                                   AppLocalizations.of(context).defaultLayer)),
                           const Divider(),
                           ...List.generate(
-                            layers.length,
+                            collections.length,
                             (index) {
                               final visible =
-                                  state.isLayerVisible(layers[index]);
+                                  state.isLayerVisible(collections[index]);
                               return Dismissible(
-                                key: ObjectKey(layers[index]),
+                                key: ObjectKey(collections[index]),
                                 background: Container(color: Colors.red),
                                 onDismissed: (direction) {
                                   context
                                       .read<DocumentBloc>()
-                                      .add(LayerRemoved(layers[index]));
+                                      .add(LayerRemoved(collections[index]));
                                 },
                                 child: ListTile(
                                     onTap: () {
                                       context.read<DocumentBloc>().add(
-                                          CurrentLayerChanged(layers[index]));
+                                          CurrentLayerChanged(
+                                              collections[index]));
                                     },
-                                    selected:
-                                        layers[index] == state.currentLayer,
+                                    selected: collections[index] ==
+                                        state.currentCollection,
                                     leading: IconButton(
                                       icon: PhosphorIcon(visible
                                           ? PhosphorIconsLight.eye
@@ -161,16 +162,16 @@ class LayerToolSelection extends ToolSelection<LayerTool> {
                                       onPressed: () {
                                         context.read<DocumentBloc>().add(
                                             LayerVisibilityChanged(
-                                                layers[index]));
+                                                collections[index]));
                                       },
                                     ),
                                     trailing: IconTheme.merge(
                                         data: Theme.of(context).iconTheme,
-                                        child: LayerDialog(
+                                        child: CollectionDialog(
                                           popupMenu: true,
-                                          layer: layers[index],
+                                          collection: collections[index],
                                         )),
-                                    title: Text(layers[index])),
+                                    title: Text(collections[index])),
                               );
                             },
                           )

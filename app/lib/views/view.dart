@@ -451,7 +451,7 @@ class _MainViewViewportState extends State<MainViewViewport>
                   state.info,
                   cameraViewport: currentIndex.cameraViewport,
                   transform: frictionTransform,
-                  invisibleLayers: state.invisibleLayers,
+                  invisibleCollections: state.invisibleCollections,
                   states: currentIndex.allRendererStates,
                   currentArea: state.currentArea,
                   colorScheme: Theme.of(context).colorScheme,

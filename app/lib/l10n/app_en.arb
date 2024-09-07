@@ -611,5 +611,6 @@
   "installed": "Installed",
   "install": "Install",
   "deselect": "Deselect",
-  "changeLayer": "Change layer"
+  "changeLayer": "Change layer",
+  "collections": "Collections"
 }

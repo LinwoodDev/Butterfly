@@ -96,7 +96,7 @@ class ViewPainter extends CustomPainter {
   final CameraViewport cameraViewport;
   final CameraTransform transform;
   final ColorScheme? colorScheme;
-  final List<String> invisibleLayers;
+  final List<String> invisibleCollections;
   final Map<String, RendererState> states;
 
   const ViewPainter(
@@ -104,7 +104,7 @@ class ViewPainter extends CustomPainter {
     this.page,
     this.info, {
     this.currentArea,
-    this.invisibleLayers = const [],
+    this.invisibleCollections = const [],
     this.states = const {},
     this.renderBackground = true,
     this.renderBaked = true,
@@ -159,7 +159,7 @@ class ViewPainter extends CustomPainter {
     canvas.translate(-transform.position.dx, -transform.position.dy);
     for (final renderer in cameraViewport.unbakedElements) {
       final state = states[renderer.id];
-      if (!invisibleLayers.contains(renderer.element.layer) &&
+      if (!invisibleCollections.contains(renderer.element.collection) &&
           state != RendererState.hidden) {
         final center = renderer.rect?.center;
         final radian = renderer.rotation * (pi / 180);

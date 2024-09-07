@@ -436,16 +436,17 @@ class SelectHandler extends Handler<SelectTool> {
       AssetFileType.page,
       Uint8List.fromList(
         utf8.encode(
-          json.encode(await DocumentPage(
-                  content: _selected
-                      .map((e) => (e.transform(
-                                position: -point,
-                                relative: true,
-                              ) ??
-                              e)
-                          .element)
-                      .toList())
-              .toDataJson(state.data)),
+          json.encode(await DocumentPage(layers: [
+            DocumentLayer(
+                content: _selected
+                    .map((e) => (e.transform(
+                              position: -point,
+                              relative: true,
+                            ) ??
+                            e)
+                        .element)
+                    .toList())
+          ]).toDataJson(state.data)),
         ),
       ),
     );

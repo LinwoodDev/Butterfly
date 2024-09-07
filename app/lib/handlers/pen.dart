@@ -99,7 +99,7 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
     final element = elements[pointer] ??
         PenElement(
           zoom: transform.size,
-          layer: state.currentLayer,
+          collection: state.currentCollection,
           property: data.property
               .copyWith(strokeWidth: data.property.strokeWidth / zoom),
         );
@@ -179,7 +179,7 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
     final recognized = recognizeUnistroke(points);
     final element = elements[pointer];
     final state = context.getState();
-    final currentLayer = state!.currentLayer;
+    final currentCollection = state!.currentCollection;
 
     if (recognized == null || points.length > 600 || element == null) {
       return;
@@ -208,7 +208,7 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
               shape: const LineShape(),
               color: data.property.color,
               strokeWidth: data.property.strokeWidth),
-          layer: currentLayer,
+          collection: currentCollection,
         );
 
         // Show dialog
@@ -252,7 +252,7 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
               shape: const CircleShape(),
               color: data.property.color,
               strokeWidth: data.property.strokeWidth),
-          layer: currentLayer,
+          collection: currentCollection,
         );
 
         // Show dialog
@@ -287,7 +287,7 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
               shape: const RectangleShape(),
               color: data.property.color,
               strokeWidth: data.property.strokeWidth),
-          layer: currentLayer,
+          collection: currentCollection,
         );
 
         // Show dialog
@@ -323,7 +323,7 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
               shape: const TriangleShape(),
               color: data.property.color,
               strokeWidth: data.property.strokeWidth),
-          layer: currentLayer,
+          collection: currentCollection,
         );
 
         // Show dialog
