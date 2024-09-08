@@ -11,11 +11,11 @@ Voeg de volgende code toe aan je website:
 
 ## Instellingen
 
-| Optie    | Type                                                                                                | Standaard | Beschrijving                                                                                                                                                                           |
-| -------- | --------------------------------------------------------------------------------------------------- | --------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| opslaan  | Boolean (true, false)                                                            | true      | Schakel opslaan in. Indien uitgeschakeld wordt alleen een afsluitknop weergegeven                                                                                      |
-| editable | Boolean (true, false)                                                            | true      | Bewerken inschakelen. Indien uitgeschakeld zal het document alleen-lezen zijn                                                                                          |
-| taal     | String (..., systeem, gebruiker) | system    | Taal van het document. Indien systeem wordt de taal van de browser gedetecteerd. Als gebruiker wordt de taal ingesteld op de voorkeur van de gebruiker |
+| Optie      | Type                                                                                                | Standaard | Beschrijving                                                                                                                                                                           |
+| ---------- | --------------------------------------------------------------------------------------------------- | --------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| opslaan    | Boolean (waar, onwaar)                                                           | waar      | Schakel opslaan in. Indien uitgeschakeld wordt alleen een afsluitknop weergegeven                                                                                      |
+| bewerkbaar | Boolean (waar, onwaar)                                                           | waar      | Bewerken inschakelen. Indien uitgeschakeld zal het document alleen-lezen zijn                                                                                          |
+| taal       | String (..., systeem, gebruiker) | systeem   | Taal van het document. Indien systeem wordt de taal van de browser gedetecteerd. Als gebruiker wordt de taal ingesteld op de voorkeur van de gebruiker |
 
 ## Evenementen
 
@@ -32,27 +32,27 @@ embedElement.addEventListener('message', (data) => {
 
 ### opslaan
 
-> The `save` event is emitted when the user clicks the save button.
+> Het 'opslaan' event wordt uitgestoten wanneer de gebruiker op de knop 'opslaan' klikt.
 
 Parameters:
 
-- `data` (Type `List<int>`): The data of the document.
+- `data` (Type `List<int>`): De gegevens van het document.
 
 ### afsluiten
 
-> The `exit` event is emitted when the user clicks the exit button.
+> Het `exit` evenement wordt uitgestoten wanneer de gebruiker op de afsluitknop klikt.
 
 Parameters:
 
-- `data` (Type `List<int>`): The data of the document.
+- `data` (Type `List<int>`): De gegevens van het document.
 
-### change
+### Wijzigen
 
-> The `change` event is emitted when the user changes the document.
+> De 'veranderen' gebeurtenis wordt uitgestoten wanneer de gebruiker het document wijzigt.
 
 Parameters:
 
-- `data` (Type `List<int>`): The data of the document.
+- `data` (Type `List<int>`): De gegevens van het document.
 
 ## Methoden
 
@@ -70,40 +70,40 @@ embedElement.addEventListener('message', (data) => {
 
 ### getData
 
-> The `getData` method returns the data of the document.
+> De `getData` methode heeft de data van het document geretourneerd.
 
 Geen parameters.
-Returns: `List<int>`
+Retourneert: `Lijst<int>`
 
-### setData
+### stelgegevens
 
-> The `setData` method sets the data of the document.
-
-Parameters:
-
-- `data` (Type `List<int>`): The data of the document.
-
-### render
-
-> The `render` method renders the document to a png image.
+> De `setData` methode bepaalt de data van het document.
 
 Parameters:
 
-- `width` (Type `Number`): The width of the image.
-- `height` (Type `Number`): The height of the image.
-- `scale` (Type `Number`): The scale of the image.
-- `renderBackground` (Type `Boolean`): If true, the background will be rendered.
+- `data` (Type `List<int>`): De gegevens van het document.
 
-Returns: `String` (Base64 encoded image)
+### renderen
+
+> De `render` methode geeft het document weer naar een png afbeelding.
+
+Parameters:
+
+- `width` (Type `Number`): De breedte van de afbeelding.
+- `height` (Type `Number`): De hoogte van de afbeelding.
+- `scale` (Type `Number`): De schaal van de afbeelding.
+- `renderBackground` (Type `Boolean`): Indien waar, dan wordt de achtergrond gerenderd.
+
+Retourneert: `String` (Base64 gecodeerde afbeelding)
 
 ### renderSVG
 
-> The `renderSVG` method renders the document to a svg image.
+> De `renderSVG` methode maakt het document tot een svg afbeelding.
 
 Parameters:
 
-- `width` (Type `Number`): The width of the image.
-- `height` (Type `Number`): The height of the image.
-- `renderBackground` (Type `Boolean`): If true, the background will be rendered.
+- `width` (Type `Number`): De breedte van de afbeelding.
+- `height` (Type `Number`): De hoogte van de afbeelding.
+- `renderBackground` (Type `Boolean`): Indien waar, dan wordt de achtergrond gerenderd.
 
-Returns: `String` (SVG)
+Retourneert: `String` (SVG)
