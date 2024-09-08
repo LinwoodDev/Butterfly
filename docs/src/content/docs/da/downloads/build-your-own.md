@@ -12,5 +12,5 @@ title: Byg din egen
    - `flutter build linux`
    - `flutter build windows`
    - `flutter build ios --release --no-codesign`\
-     efter at, oprette en mappe med navnet "Payload", kopiere Runner.app ind i det og zip nyttelasten mappe. Omdøb derefter ".zip" til ".ipa".
+     after that, create a folder named "Payload", copy Runner.app into it and zip the payload folder. Then rename ".zip" to ".ipa".
 5. De kompilerede filer er i byggemappen
