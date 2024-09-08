@@ -21,7 +21,7 @@ Některé z nich jsou zapsány pod tlačítky.
 
 ### Projekt
 
-- `Ctrl` + `K`: Open search
+- `Ctrl` + `K`: Otevřít hledání
 - `Ctrl` + `Z`: Vrátit zpět
 - `Ctrl` + `Y`: Znovu
 - `Ctrl` + `Shift` + `P`: Otevřete dialog trasových bodů
@@ -38,7 +38,7 @@ Ve výchozím nastavení je pero nastaveno tak, aby fungovalo:
 
 - `Pen`: nakonfigurován jako pen.
 - `First` (Primární tlačítko, pokud je podporováno): Přepnout na ruční nástroj při stisknutí.
-- `Second` (Secondary button, if supported): Change to second tool (see [configure](#configure) section below) while pressed.
+- `Second` (druhé tlačítko, pokud je podporováno): Po stisknutí přepněte na druhý nástroj (viz [configure](#configure).
 
 ## Konfigurovat {#configure}
 
