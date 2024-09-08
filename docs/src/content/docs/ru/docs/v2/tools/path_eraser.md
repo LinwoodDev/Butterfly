@@ -1,8 +1,8 @@
 ---
-title: Path eraser tool
+title: Ластик пути
 ---
 
-With this tool you can delete the whole path on the paper.
+С помощью этого инструмента вы можете удалить весь путь на бумаге.
 
 ## Конфигурация
 
