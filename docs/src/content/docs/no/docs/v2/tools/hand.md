@@ -1,5 +1,5 @@
 ---
-title: Håndverktøy
+title: Hand tool
 ---
 
-Med dette verktøyet kan du flytte på siden.
+With this tool you can move on the page.
