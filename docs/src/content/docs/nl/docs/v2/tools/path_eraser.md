@@ -1,8 +1,8 @@
 ---
-title: Pad gum tool
+title: Path eraser tool
 ---
 
-Met deze tool kun je het hele pad op het papier verwijderen.
+With this tool you can delete the whole path on the paper.
 
 ## Configuratie
 
