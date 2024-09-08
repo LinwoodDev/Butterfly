@@ -2,7 +2,7 @@
 title: Seletor de cores
 ---
 
-![Color picker](color_picker.png)
+![Seletor de cores](color_picker.png)
 
 - Abra, salve a caixa de diálogo para acessá-la em outros documentos
 - Redefinir a paleta do material padrão
