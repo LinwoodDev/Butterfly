@@ -1,8 +1,8 @@
 ---
-title: Flächenwerkzeug
+title: Area tool
 ---
 
-Das Flächenwerkzeug ermöglicht das Erstellen, Bearbeiten und Entfernen von Bereichen.
+The area tool allows you to create, edit and remove areas.
 
 ## Aktionen
 
