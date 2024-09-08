@@ -1,8 +1,8 @@
 ---
-title: Nástroj pro vymazání trasy
+title: Path eraser tool
 ---
 
-Pomocí tohoto nástroje můžete odstranit celou cestu z dokumentu.
+With this tool you can delete the whole path on the paper.
 
 ## Konfigurace
 
