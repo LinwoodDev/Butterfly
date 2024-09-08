@@ -1,11 +1,11 @@
 ---
-title: Selecteer tool
+title: Select tool
 ---
 
-Met deze tool kun je elementen selecteren.
+With this tool you can select elements.
 
 ## Configuratie
 
-| Eigenschap | Standaard | Beschrijving                                                  |
-| ---------: | :-------: | :------------------------------------------------------------ |
-|      modus | rechthoek | Selectiemodus. Geldig zijn rechthoek en lasso |
+| Eigenschap | Standaard | Beschrijving                                                     |
+| ---------: | :-------: | :--------------------------------------------------------------- |
+|       mode | rechthoek | Mode of selection. Valid are rectangle and lasso |
