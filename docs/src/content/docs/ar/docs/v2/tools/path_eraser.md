@@ -1,8 +1,8 @@
 ---
-title: Path eraser tool
+title: أداة مسير الممحاة
 ---
 
-With this tool you can delete the whole path on the paper.
+مع هذه الأداة يمكنك حذف المسار الكامل على الورقة.
 
 ## الإعدادات
 
