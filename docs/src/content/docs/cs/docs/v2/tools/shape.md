@@ -1,11 +1,11 @@
 ---
-title: Shape tool
+title: Nástroj pro tvar
 ---
 
-Use this tool to draw shapes on the paper.
+Použijte tento nástroj k nakreslení tvarů na papír.
 Můžeš nakreslit obdélníky, kruhy a další tvary.
 
-Use `ctrl` to have the same height and width and `shift` to draw from the center.
+Použij `ctrl` pro stejnou výšku a šířku a `shift` pro kreslení ze středu.
 
 ## Konfigurace
 
