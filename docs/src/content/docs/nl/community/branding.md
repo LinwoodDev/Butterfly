@@ -2,7 +2,7 @@
 title: Merk
 ---
 
-Deze activa zijn gelicenseerd onder de [CC-BY-4.0](https://github.com/LinwoodDev/Butterfly/blob/develop/BRANDING_LICENSE).
+These assets are licensed under the [CC-BY-4.0](https://github.com/LinwoodDev/Butterfly/blob/develop/BRANDING_LICENSE).
 
 ## Logo
 
@@ -10,7 +10,7 @@ Deze activa zijn gelicenseerd onder de [CC-BY-4.0](https://github.com/LinwoodDev
 
 [SVG](/img/logo.svg) [PNG](/img/logo.png)
 
-## Nachtelijk Logo
+## Nightly Logo
 
 ![Logo](/img/nightly.svg)
 
