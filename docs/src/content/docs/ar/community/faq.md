@@ -19,18 +19,18 @@ title: الأسئلة المتكررة
 
 ## الجوال
 
-### لن يتم التعرف على SPen
+### S-Pen won't be recognized
 
 > [#270](https://github.com/LinwoodDev/Butterfly/issues/270)
 
 أنا أستخدم المدخل الذي يوفره إطار التردد.
-هذه هي المشكلة لتعقبها: [flutter/flutter#42846](https://github.com/flutter/flutter/issues/42846).
+This is the issue to track it: [flutter/flutter#42846](https://github.com/flutter/flutter/issues/42846).
 
-### دعم iOS
+### iOS support
 
 > [#244](https://github.com/LinwoodDev/Butterfly/issues/244)
 
-الفراشة متاحة على iOS كمعاينة. انقر فوق [here](https://butterfly.linwood.dev/downloads/ios) لتحميله. انظر [here](https://github.com/LinwoodDev/Butterfly/issues/244#issuecomment-1935460878) لماذا لا يتوفر على App Store.
+Butterfly is available on iOS as preview. Click [here](https://butterfly.linwood.dev/downloads/ios) to download it. See [here](https://github.com/LinwoodDev/Butterfly/issues/244#issuecomment-1935460878) why it's not available on the App Store.
 
 ## سطح المكتب
 
@@ -39,8 +39,8 @@ title: الأسئلة المتكررة
 > [#238](https://github.com/LinwoodDev/Butterfly/issues/238)
 
 أنا أستخدم المدخل الذي يوفره إطار التردد.
-هناك بالفعل مشاكل لتعقبها:
-Windows: [flutter/flutter#65248](https://github.com/flutter/flutter/issues/65248) و [flutter/flutter#102836](https://github.com/flutter/issues/102836).
-لينوكس: [flutter/flutter#63209](https://github.com/flutter/flutter/issues/63209)
+There are already issues to track it:
+Windows: [flutter/flutter#65248](https://github.com/flutter/flutter/issues/65248) and [flutter/flutter#102836](https://github.com/flutter/flutter/issues/102836).
+Linux: [flutter/flutter#63209](https://github.com/flutter/flutter/issues/63209)
 
 وهذه المسائل قديمة إلى حد ما. يجب أن تعمل نسخة الويب بشكل جيد في الوقت الحالي.
