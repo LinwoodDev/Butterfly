@@ -2,23 +2,23 @@
 title: إضافة
 ---
 
-هنا يمكنك إضافة أشياء إلى ملاحظاتك.
+Here you can add things to your notes.
 
 ## استيراد
 
-هنا يمكنك استيراد الملفات الموجودة داخل مستنداتك.
-مدعوم هي مستندات الفراشات، و markdown، و png، و svg و pdf.
+Here you can import existing files inside your documents.
+Supported are butterfly documents, markdown, png, svg and pdf.
 
 ## أدوات
 
-لإضافة المزيد من الأدوات إلى شريط الأدوات الخاص بك، انقر عليهم.
-اقرأ المزيد عنها [here](../أدوات).
+To add more tools to your toolbar, click on them.
+Read more about them [here](../tools).
 
-## الأسطح
+## Surfaces
 
-هذه أدوات خاصة لخلق الأسطح.
+These are special tools to create surfaces.
 
 ## الإجراءات
 
-هذه هي الأدوات التي سيتم تنفيذها بالنقر عليها.
-يمكنك استخدام زر التشغيل لتنفيذه دون إضافته إلى شريط الأدوات.
+These are tools that will be executed by clicking on them.
+You can use the play button to execute them without adding them to the toolbar.
