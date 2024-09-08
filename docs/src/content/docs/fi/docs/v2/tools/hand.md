@@ -1,5 +1,5 @@
 ---
-title: Hand tool
+title: Käsin työkalu
 ---
 
-With this tool you can move on the page.
+Tämän työkalun avulla voit siirtyä sivulle.
