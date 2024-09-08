@@ -1,5 +1,5 @@
 ---
-title: Spacer tool
+title: Διαστημικό εργαλείο
 ---
 
-With this tool you can add space between elements by dragging where you want to add space.
+Με αυτό το εργαλείο μπορείτε να προσθέσετε χώρο μεταξύ των στοιχείων σύροντας όπου θέλετε να προσθέσετε χώρο.
