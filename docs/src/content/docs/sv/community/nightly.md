@@ -18,5 +18,5 @@ Alla nattliga byggen publiceras också som förhandsrelease på github.
 ## Experiment
 
 Experiment är funktioner som ännu inte är redo för produktion.
-Standard de är inaktiverade. You can enable them in the settings under `Experiments`.
+Standard de är inaktiverade. Du kan aktivera dem i inställningarna under `Experiments`.
 Denna flik syns bara i den nattliga versionen.
