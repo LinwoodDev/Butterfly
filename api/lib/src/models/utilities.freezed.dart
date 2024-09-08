@@ -26,6 +26,7 @@ mixin _$UtilitiesState {
   bool get lockVertical => throw _privateConstructorUsedError;
   bool get rulerEnabled => throw _privateConstructorUsedError;
   bool get gridEnabled => throw _privateConstructorUsedError;
+  bool get fullSelection => throw _privateConstructorUsedError;
   @DoublePointJsonConverter()
   Point<double> get rulerPosition => throw _privateConstructorUsedError;
   double get rulerAngle => throw _privateConstructorUsedError;
@@ -53,6 +54,7 @@ abstract class $UtilitiesStateCopyWith<$Res> {
       bool lockVertical,
       bool rulerEnabled,
       bool gridEnabled,
+      bool fullSelection,
       @DoublePointJsonConverter() Point<double> rulerPosition,
       double rulerAngle});
 }
@@ -78,6 +80,7 @@ class _$UtilitiesStateCopyWithImpl<$Res, $Val extends UtilitiesState>
     Object? lockVertical = null,
     Object? rulerEnabled = null,
     Object? gridEnabled = null,
+    Object? fullSelection = null,
     Object? rulerPosition = null,
     Object? rulerAngle = null,
   }) {
@@ -106,6 +109,10 @@ class _$UtilitiesStateCopyWithImpl<$Res, $Val extends UtilitiesState>
           ? _value.gridEnabled
           : gridEnabled // ignore: cast_nullable_to_non_nullable
               as bool,
+      fullSelection: null == fullSelection
+          ? _value.fullSelection
+          : fullSelection // ignore: cast_nullable_to_non_nullable
+              as bool,
       rulerPosition: null == rulerPosition
           ? _value.rulerPosition
           : rulerPosition // ignore: cast_nullable_to_non_nullable
@@ -133,6 +140,7 @@ abstract class _$$UtilitiesStateImplCopyWith<$Res>
       bool lockVertical,
       bool rulerEnabled,
       bool gridEnabled,
+      bool fullSelection,
       @DoublePointJsonConverter() Point<double> rulerPosition,
       double rulerAngle});
 }
@@ -156,6 +164,7 @@ class __$$UtilitiesStateImplCopyWithImpl<$Res>
     Object? lockVertical = null,
     Object? rulerEnabled = null,
     Object? gridEnabled = null,
+    Object? fullSelection = null,
     Object? rulerPosition = null,
     Object? rulerAngle = null,
   }) {
@@ -184,6 +193,10 @@ class __$$UtilitiesStateImplCopyWithImpl<$Res>
           ? _value.gridEnabled
           : gridEnabled // ignore: cast_nullable_to_non_nullable
               as bool,
+      fullSelection: null == fullSelection
+          ? _value.fullSelection
+          : fullSelection // ignore: cast_nullable_to_non_nullable
+              as bool,
       rulerPosition: null == rulerPosition
           ? _value.rulerPosition
           : rulerPosition // ignore: cast_nullable_to_non_nullable
@@ -206,6 +219,7 @@ class _$UtilitiesStateImpl implements _UtilitiesState {
       this.lockVertical = false,
       this.rulerEnabled = false,
       this.gridEnabled = false,
+      this.fullSelection = false,
       @DoublePointJsonConverter() this.rulerPosition = const Point(0.0, 0.0),
       this.rulerAngle = 0});
 
@@ -232,6 +246,9 @@ class _$UtilitiesStateImpl implements _UtilitiesState {
   final bool gridEnabled;
   @override
   @JsonKey()
+  final bool fullSelection;
+  @override
+  @JsonKey()
   @DoublePointJsonConverter()
   final Point<double> rulerPosition;
   @override
@@ -240,7 +257,7 @@ class _$UtilitiesStateImpl implements _UtilitiesState {
 
   @override
   String toString() {
-    return 'UtilitiesState(lockLayer: $lockLayer, lockZoom: $lockZoom, lockHorizontal: $lockHorizontal, lockVertical: $lockVertical, rulerEnabled: $rulerEnabled, gridEnabled: $gridEnabled, rulerPosition: $rulerPosition, rulerAngle: $rulerAngle)';
+    return 'UtilitiesState(lockLayer: $lockLayer, lockZoom: $lockZoom, lockHorizontal: $lockHorizontal, lockVertical: $lockVertical, rulerEnabled: $rulerEnabled, gridEnabled: $gridEnabled, fullSelection: $fullSelection, rulerPosition: $rulerPosition, rulerAngle: $rulerAngle)';
   }
 
   @override
@@ -260,6 +277,8 @@ class _$UtilitiesStateImpl implements _UtilitiesState {
                 other.rulerEnabled == rulerEnabled) &&
             (identical(other.gridEnabled, gridEnabled) ||
                 other.gridEnabled == gridEnabled) &&
+            (identical(other.fullSelection, fullSelection) ||
+                other.fullSelection == fullSelection) &&
             (identical(other.rulerPosition, rulerPosition) ||
                 other.rulerPosition == rulerPosition) &&
             (identical(other.rulerAngle, rulerAngle) ||
@@ -276,6 +295,7 @@ class _$UtilitiesStateImpl implements _UtilitiesState {
       lockVertical,
       rulerEnabled,
       gridEnabled,
+      fullSelection,
       rulerPosition,
       rulerAngle);
 
@@ -304,6 +324,7 @@ abstract class _UtilitiesState implements UtilitiesState {
       final bool lockVertical,
       final bool rulerEnabled,
       final bool gridEnabled,
+      final bool fullSelection,
       @DoublePointJsonConverter() final Point<double> rulerPosition,
       final double rulerAngle}) = _$UtilitiesStateImpl;
 
@@ -322,6 +343,8 @@ abstract class _UtilitiesState implements UtilitiesState {
   bool get rulerEnabled;
   @override
   bool get gridEnabled;
+  @override
+  bool get fullSelection;
   @override
   @DoublePointJsonConverter()
   Point<double> get rulerPosition;

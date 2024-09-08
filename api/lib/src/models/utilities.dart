@@ -15,6 +15,7 @@ sealed class UtilitiesState with _$UtilitiesState {
     @Default(false) bool lockVertical,
     @Default(false) bool rulerEnabled,
     @Default(false) bool gridEnabled,
+    @Default(false) bool fullSelection,
     @DoublePointJsonConverter()
     @Default(Point(0.0, 0.0))
     Point<double> rulerPosition,

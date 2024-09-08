@@ -315,6 +315,15 @@ class _UtilitiesViewState extends State<_UtilitiesView>
                         context.read<DocumentBloc>().bake();
                       },
                     ),
+                    const SizedBox(height: 8),
+                    CheckboxListTile(
+                      value: widget.state.fullSelection,
+                      onChanged: (value) => widget.onStateChanged(
+                          widget.state.copyWith(fullSelection: value ?? false)),
+                      title: Text(AppLocalizations.of(context).fullSelection),
+                      subtitle: Text(AppLocalizations.of(context)
+                          .fullSelectionDescription),
+                    ),
                   ],
                 ),
               ][_tabController.index]),

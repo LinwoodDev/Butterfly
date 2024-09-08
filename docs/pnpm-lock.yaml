@@ -15,8 +15,8 @@ importers:
         specifier: ^3.6.2
         version: 3.6.2(@types/react-dom@18.3.0)(@types/react@18.3.5)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(vite@5.4.3(sass@1.78.0)(terser@5.31.6))
       '@astrojs/starlight':
-        specifier: ^0.27.0
-        version: 0.27.0(astro@4.15.4(rollup@4.21.2)(sass@1.78.0)(terser@5.31.6)(typescript@5.5.4))
+        specifier: ^0.27.1
+        version: 0.27.1(astro@4.15.4(rollup@4.21.2)(sass@1.78.0)(terser@5.31.6)(typescript@5.5.4))
       '@phosphor-icons/react':
         specifier: ^2.1.7
         version: 2.1.7(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -107,8 +107,8 @@ packages:
   '@astrojs/sitemap@3.1.6':
     resolution: {integrity: sha512-1Qp2NvAzVImqA6y+LubKi1DVhve/hXXgFvB0szxiipzh7BvtuKe4oJJ9dXSqaubaTkt4nMa6dv6RCCAYeB6xaQ==}
 
-  '@astrojs/starlight@0.27.0':
-    resolution: {integrity: sha512-W06VHc4VVohKE6g1CytSF64WQ97nv/hlHHf2+vKGh/+I9nDdom/M7RXqkyLx7FBlLCbgsSvLYZUkh8cQ/mMOzQ==}
+  '@astrojs/starlight@0.27.1':
+    resolution: {integrity: sha512-L2hEgN/Tk7tfBDeaqUOgOpey5NcUL78FuQa06iNxyZ6RjyYyuXSniOoFxZYIo5PpY9O1dLdK22PkZyCDpO729g==}
     peerDependencies:
       astro: ^4.8.6
 
@@ -2412,7 +2412,7 @@ snapshots:
       stream-replace-string: 2.0.0
       zod: 3.23.8
 
-  '@astrojs/starlight@0.27.0(astro@4.15.4(rollup@4.21.2)(sass@1.78.0)(terser@5.31.6)(typescript@5.5.4))':
+  '@astrojs/starlight@0.27.1(astro@4.15.4(rollup@4.21.2)(sass@1.78.0)(terser@5.31.6)(typescript@5.5.4))':
     dependencies:
       '@astrojs/mdx': 3.1.5(astro@4.15.4(rollup@4.21.2)(sass@1.78.0)(terser@5.31.6)(typescript@5.5.4))
       '@astrojs/sitemap': 3.1.6

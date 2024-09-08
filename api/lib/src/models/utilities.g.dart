@@ -14,6 +14,7 @@ _$UtilitiesStateImpl _$$UtilitiesStateImplFromJson(Map json) =>
       lockVertical: json['lockVertical'] as bool? ?? false,
       rulerEnabled: json['rulerEnabled'] as bool? ?? false,
       gridEnabled: json['gridEnabled'] as bool? ?? false,
+      fullSelection: json['fullSelection'] as bool? ?? false,
       rulerPosition: json['rulerPosition'] == null
           ? const Point(0.0, 0.0)
           : const DoublePointJsonConverter()
@@ -30,6 +31,7 @@ Map<String, dynamic> _$$UtilitiesStateImplToJson(
       'lockVertical': instance.lockVertical,
       'rulerEnabled': instance.rulerEnabled,
       'gridEnabled': instance.gridEnabled,
+      'fullSelection': instance.fullSelection,
       'rulerPosition':
           const DoublePointJsonConverter().toJson(instance.rulerPosition),
       'rulerAngle': instance.rulerAngle,

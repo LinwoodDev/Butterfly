@@ -1,3 +1,4 @@
+* Add full selection mode
 * Save utilities states after restart
 * Ignore invalid files with invalid syntax
 * Fix elements not being selected after moving

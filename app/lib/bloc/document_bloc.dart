@@ -269,7 +269,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
         } else {
           final rect = renderer?.rect;
           if (rect != null) {
-            final hits = (await rayCastRect(rect, useLayer: false))
+            final hits = (await rayCastRect(rect, useLayer: false, full: false))
                 .map((e) => e.element)
                 .toList();
             final hitIndex = hits.indexOf(renderer!.element);
@@ -1008,11 +1008,13 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     Rect rect, {
     CameraTransform? transform,
     required bool useLayer,
+    bool? full,
   }) async {
     final state = this.state;
     if (state is! DocumentLoadSuccess) return {};
     transform ??= state.currentIndexCubit.state.transformCubit.state;
     final renderers = state.cameraViewport.visibleElements;
+    full ??= state.cameraViewport.utilities.element.fullSelection;
     return compute(
       _executeRayCast,
       _RayCastParams(
@@ -1021,6 +1023,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
         rect,
         transform.size,
         useLayer ? state.currentLayer : null,
+        full,
       ),
     ).then((value) => value.map((e) => renderers[e]).toSet());
   }
@@ -1029,11 +1032,13 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     List<Offset> points, {
     CameraTransform? transform,
     required bool useLayer,
+    bool? full,
   }) async {
     final state = this.state;
     if (state is! DocumentLoadSuccess) return {};
     final renderers = state.cameraViewport.visibleElements;
     transform ??= state.currentIndexCubit.state.transformCubit.state;
+    full ??= state.cameraViewport.utilities.element.fullSelection;
     return compute(
       _executeRayCastPolygon,
       _RayCastPolygonParams(
@@ -1042,6 +1047,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
         points,
         transform.size,
         useLayer ? state.currentLayer : null,
+        full,
       ),
     ).then((value) => value.map((e) => renderers[e]).toSet());
   }
@@ -1065,6 +1071,7 @@ class _RayCastParams {
   final Rect rect;
   final double size;
   final String? layer;
+  final bool full;
 
   const _RayCastParams(
     this.invisibleLayers,
@@ -1072,6 +1079,7 @@ class _RayCastParams {
     this.rect,
     this.size,
     this.layer,
+    this.full,
   );
 }
 
@@ -1082,7 +1090,7 @@ Set<int> _executeRayCast(_RayCastParams params) {
       .entries
       .where((e) => !params.invisibleLayers.contains(e.value.element.layer))
       .where((e) =>
-          e.value.hitCalc.hit(rect) &&
+          e.value.hitCalc.hit(rect, full: params.full) &&
           (params.layer == null || e.value.element.layer == params.layer))
       .map((e) => e.key)
       .toSet();
@@ -1094,9 +1102,10 @@ class _RayCastPolygonParams {
   final List<Offset> polygon;
   final double size;
   final String? layer;
+  final bool full;
 
   const _RayCastPolygonParams(this.invisibleLayers, this.renderers,
-      this.polygon, this.size, this.layer);
+      this.polygon, this.size, this.layer, this.full);
 }
 
 Set<int> _executeRayCastPolygon(_RayCastPolygonParams params) {
@@ -1105,7 +1114,7 @@ Set<int> _executeRayCastPolygon(_RayCastPolygonParams params) {
       .entries
       .where((e) => !params.invisibleLayers.contains(e.value.element.layer))
       .where((e) =>
-          e.value.hitCalc.hitPolygon(params.polygon) &&
+          e.value.hitCalc.hitPolygon(params.polygon, full: params.full) &&
           (params.layer == null || e.value.element.layer == params.layer))
       .map((e) => e.key)
       .toSet();
