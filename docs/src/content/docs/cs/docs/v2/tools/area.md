@@ -1,8 +1,8 @@
 ---
-title: Nástroj pro oblast
+title: Area tool
 ---
 
-Nástroj pro oblast umožňuje vytvářet, upravovat a odstraňovat oblasti.
+The area tool allows you to create, edit and remove areas.
 
 ## Akce
 
