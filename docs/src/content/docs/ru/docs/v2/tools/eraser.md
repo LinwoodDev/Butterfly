@@ -2,7 +2,7 @@
 title: Eraser tool
 ---
 
-С помощью этого инструмента вы можете стереть элементы на бумаге.
+With this tool you can erase the elements on the paper.
 
 ## Конфигурация
 
