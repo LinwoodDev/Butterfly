@@ -2,4 +2,4 @@
 title: 列报内容
 ---
 
-The presentation tool allows you to create your own animations inside your notes.
+演示工具允许您在笔记中创建自己的动画。
