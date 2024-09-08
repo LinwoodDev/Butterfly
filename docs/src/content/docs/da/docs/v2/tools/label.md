@@ -1,8 +1,8 @@
 ---
-title: Etiket værktøj
+title: Label tool
 ---
 
-Med dette værktøj kan du tilføje tekst til papiret.
+With this tool you can add text to the paper.
 
 ## Konfiguration
 
