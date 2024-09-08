@@ -1,11 +1,11 @@
 ---
-title: Select tool
+title: Sélectionner un outil
 ---
 
-With this tool you can select elements.
+Avec cet outil, vous pouvez sélectionner des éléments.
 
 ## Configuration
 
-| Propriété | Par défaut | Libellé                                                          |
-| --------: | :--------: | :--------------------------------------------------------------- |
-|      mode |  rectangle | Mode of selection. Valid are rectangle and lasso |
+| Propriété | Par défaut | Libellé                                                                        |
+| --------: | :--------: | :----------------------------------------------------------------------------- |
+|      mode |  rectangle | Mode de sélection. Les données valides sont rectangle et lasso |
