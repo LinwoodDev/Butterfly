@@ -3,7 +3,7 @@ title: Pre-1.0 versies
 ---
 
 Deze versies worden niet meer ondersteund.
-Nieuwe versies zijn beschikbaar op [versions](/community/versions).
+New versions are available at [versions](/community/versions).
 
 | Versie                                                        | Ondersteund                         |                                                                                                                                               |
 | ------------------------------------------------------------- | ----------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
