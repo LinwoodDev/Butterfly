@@ -2,7 +2,7 @@
 title: Farve vælger
 ---
 
-![Color picker](color_picker.png)
+![Farvevælger ](color_picker.png)
 
 - Åbn, gem dialogen for at få adgang til den i andre dokumenter
 - Nulstil paletten for standardmaterialet paletten
