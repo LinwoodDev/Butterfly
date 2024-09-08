@@ -4,15 +4,15 @@ title: Overføre
 
 Denne guiden vil vise deg hvordan du migrerer til siste versjon.
 
-## 7 (Breaking change) {#7}
+## 7 (Brudd endring) {#7}
 
 **Versjon: 2.0**
 
 ### Endringer brytes
 
-The eraser layer will be removed. On migration, the eraser layer will be removed.
+laserlaget vil bli fjernet. Ved overføring vil viserlaget fjernes.
 
 ## Eldre versjoner
 
-All migrations before will be done automatically.
-Read the full migration in code [here](https://github.com/LinwoodDev/Butterfly/blob/95825da4ebbf9ded392c863da577666dbcdda45c/app/lib/models/converter.dart#L17).
+Alle overføringene før vil bli gjort automatisk.
+Les hele migrasjonen i kode [here](https://github.com/LinwoodDev/Butterfly/blob/95825da4ebbf9ded392c863da577666dbcdda45c/app/lib/models/converter.dart#L17).
