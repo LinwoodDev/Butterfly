@@ -1,8 +1,8 @@
 ---
-title: Pen tool
+title: Kynän työkalu
 ---
 
-With this tool you can draw on this paper.
+Tämän työkalun avulla voit piirtää tämän paperin.
 
 ## Asetukset
 
