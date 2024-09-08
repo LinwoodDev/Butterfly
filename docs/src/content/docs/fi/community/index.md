@@ -8,10 +8,10 @@ Tervetuloa yhteisön osioon.
 
 Erityinen kiitos kuuluu seuraaville:
 
-- [Flutter](https://github.com/flutter/flutter) for providing this useful crossplatform ui framework
-- [window_manager](https://github.com/leanflutter/window_manager) for all this useful desktop window features
-- [Starlight](https://github.com/withastro/starlight) for an easy-to-use static react documentation framework
-- [Phosphor Icons](https://phosphoricons.com/) for the beautiful icons
+- [Flutter](https://github.com/flutter/flutter) tämän hyödyllisen crossplatform ui -kehyksen tarjoamiseksi
+- [window_manager](https://github.com/leanflutter/window_manager) kaikille tämän hyödyllisen työpöytäikkunan ominaisuuksille
+- [Starlight](https://github.com/withastro/starlight) helppokäyttöisen staattisen reagoinnin dokumentointikehyksen luomiseksi
+- [Fosphor Icons](https://phosphoricons.com/) kauniille kuvakkeille
 
 Kaikki muut lisenssit löytyvät asetuksista.
 
