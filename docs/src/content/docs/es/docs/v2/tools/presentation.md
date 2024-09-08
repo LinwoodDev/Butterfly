@@ -2,4 +2,4 @@
 title: Presentación
 ---
 
-The presentation tool allows you to create your own animations inside your notes.
+La herramienta de presentación le permite crear sus propias animaciones dentro de sus notas.
