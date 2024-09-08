@@ -12,47 +12,47 @@ import logo from '/public/img/logo.svg';
 
 > Bienvenue sur Butterfly, l'application de note opensource.
 
-Butterfly is a note taking app that is aiming for unified experience across all platforms. It provides simple UI with powerful customization.
+Butterfly est une application de prise de notes qui vise à une expérience unifiée sur toutes les plateformes. Il fournit une interface utilisateur simple avec une personnalisation puissante.
 
 ## Commencer
 
-> You can use the sidebar to navigate quickly through the wiki.
+> Vous pouvez utiliser la barre latérale pour naviguer rapidement à travers le wiki.
 
-To start working on the app you have two options:
+Pour commencer à travailler sur l'application, vous avez deux options :
 
-1. [Downloads](/downloads) the app version that is appropriate for your platform (Butterfly can run on most mobile, desktop, and web platforms).
-2. Use [web version](https://web.butterfly.linwood.dev) if you cannot find your platform or if you don't want to install it on it. See [here](storage#web) about file storage on the web version.
+1. [Downloads](/downloads) la version de l'application qui convient à votre plateforme (Butterfly peut fonctionner sur la plupart des plateformes mobile, bureau et web).
+2. Utilisez [version web](https://web.butterfly.linwood.dev) si vous ne trouvez pas votre plateforme ou si vous ne voulez pas l'installer. Voir [here](stockage#web) à propos du stockage de fichiers sur la version web.
 
-> Once you open the app, continue reading.
+> Une fois que vous avez ouvert l'application, continuez à lire.
 
 ## Vue principale
 
 ![Vue principale](main.png)
 
-The main view is composed of several elements
+La vue principale est composée de plusieurs éléments
 
 <Tabs syncKey="platform">
     <TabItem label="Desktop">
-        ![Welcome screen](welcome_screen_desktop.png)
-        The top of the screen holds the banner for updates, the link to this documentations, and the <Gear className="inline-icon"/> config icon. Finally, to the right of the <Gear className="inline-icon"/> config symbol you have a drop down menu for controlling when this banner will appear (always/never/on updates).
-        The "Files" section in the major area of the left. There, you can do the typical operations:
-        - Select the display type (grid or list)
-        - Select the [source storage](../storage) of the files
-        - Sort the display order of the files
-        - Add a folder, file, template, or import files by clicking the <Plus className="inline-icon"/> plus sign
-        - Type the direct path to a desired location (the Location field),
-        - Search for files
-        Finally, to the right, you have the quick start display with the templates available in the current location. For a fresh install this includes the light and dark template
+        ![Écran Bienvenue](welcome_screen_desktop. ng)
+        Le haut de l'écran contient la bannière pour les mises à jour, le lien vers ces documentations, et l'icône de configuration <Gear className="inline-icon"/>. Enfin, à droite du symbole de configuration <Gear className="inline-icon"/> vous avez un menu déroulant pour contrôler quand cette bannière apparaîtra (toujours/jamais/sur les mises à jour).
+        La section "Fichiers" dans la zone principale de gauche. Là, vous pouvez faire les opérations typiques :
+        - Sélectionnez le type d'affichage (grille ou liste)
+        - Sélectionnez le [stockage source](.. stockage) des fichiers
+        - Trier l'ordre d'affichage des fichiers
+        - Ajouter un dossier, fichier, modèle, ou importez des fichiers en cliquant sur le signe <Plus className="inline-icon"/> plus
+        - Tapez le chemin d'accès direct à l'emplacement souhaité (le champ Emplacement),
+        - Rechercher des fichiers
+        Enfin, à droite, vous avez l'affichage de démarrage rapide avec les modèles disponibles à l'emplacement actuel. Pour une nouvelle installation, cela inclut le modèle clair et sombre
     </TabItem>
     <TabItem label="Mobile">
-        When opening Butterfly on a mobile device you will be presented with a screen as this
-        ![Welcome screen first part](welcome_screen_mobile_1.png)
-        The top of the screen holds the banner for updates, and below it you can find the documnentation link, and next to it the <Gear className="inline-icon"/> config icon. Finally, to the right of the <Gear className="inline-icon"/> config symbol you have a drop down menu for controlling when this banner will appear (always/never/on updates).
-        Below those, you can find the quick start section holding the templates avialable to you. By defaule, the templates are the light and dark templates.
-        Scrolling down, you will see the file interface:
+        Lorsque vous ouvrez Butterfly sur un appareil mobile, vous serez présenté avec un écran comme ceci
+        ! Écran de bienvenue première partie](welcome_screen_mobile_1. ng)
+        Le haut de l'écran contient la bannière pour les mises à jour, et plus bas, vous pouvez trouver le lien documentation, et à côté de l'icône de configuration <Gear className="inline-icon"/>. Enfin, à droite du symbole de configuration <Gear className="inline-icon"/> vous avez un menu déroulant pour contrôler quand cette bannière apparaîtra (toujours/jamais/sur les mises à jour).
+        Ci-dessous, vous pouvez trouver la section de démarrage rapide tenant les modèles avialable à vous. Par défaut, les modèles sont les modèles clairs et sombres.
+        Défilement vers le bas vous verrez l'interface de fichier :
         \
-        ![Welcome screen second part](welcome_screen_mobile_2.png)  
-        The "Files" section in the major area of the left. There, you can do the typical operations:
+        ! Écran d'accueil deuxième partie](welcome_screen_mobile_2. ng)  
+        La section "Fichiers" dans la zone principale de la gauche. There, you can do the typical operations:
         - Select the display type (grid or list)
         - Select the [source storage](../storage) of the files
         - Sort the display order of the files
@@ -62,37 +62,37 @@ The main view is composed of several elements
  </TabItem>
 </Tabs>
 
-Once opening a document by selecting a template or an existing file, you will get to the **Document View**
+Une fois un document ouvert en sélectionnant un modèle ou un fichier existant, vous accéderez à la **Vue du document**
 
-## The Document View
+## La vue du document
 
-You can return from the document view to the document list with the back action of your device. As with the main view, the document display changes based on your device.
+Vous pouvez retourner de la vue du document à la liste des documents avec l'action de retour de votre appareil. Comme pour la vue principale, l'affichage du document est basé sur votre appareil.
 
 <Tabs syncKey="platform">
     <TabItem label="Desktop">
-  In the Desktop view, you'll have at the top left the file bar\
-  ![file_bar](document_view_file_bar.png)\
-  This holds, from left to right, the <img alt="logo" src={logo.src} className="inline-icon" width="16"/> butterfly button to open the menu. Next to it there is the name field that displays the name of the note. You can rename the note by typing a new name into that field and saving it using the <FloppyDisk className="inline-icon"/> save button. Finally you can <MagnifyingGlass className="inline-icon"/> search for elements within the note.
+  Dans la vue Bureau, vous aurez en haut à gauche la barre de fichiers\
+  ![file_bar](document_view_file_bar. ng)\
+  Ceci contient, de gauche à droite, le bouton <img alt="logo" src={logo.src} className="inline-icon" width="16"/> papillon pour ouvrir le menu. À côté de cela, il y a le champ nom qui affiche le nom de la note. Vous pouvez renommer la note en tapant un nouveau nom dans ce champ et en l'enregistrant en utilisant le bouton <FloppyDisk className="inline-icon"/> Enregistrer. Enfin vous pouvez <MagnifyingGlass className="inline-icon"/> rechercher des éléments dans la note.
   \
-  At the top right of the screen you have the toolbar\
-  ![toolbar](document_view_toolbar.png)\
-  By default this bar has the <ScribbleLoop className="inline-icon"/> lasso tool; the <Pen className="inline-icon"/> pen tool; the <Path className="inline-icon"/> path erase tool; the <ArrowCounterClockwise className="inline-icon"/> undo and <ArrowClockwise className="inline-icon"/> redo butons, and the <Hand className="inline-icon"/> hand tool. Then you have the <Plus className="inline-icon"/> button to add elements to the tool bar, the <Wrench className="inline-icon"/> button to configure the document, and finally the <Lock className="inline-icon"/> tool to look the zoom and/or the position of the screen.
-  ### Important notes
-  1. If some of the element on the toolbar are not visible to you, click and drag (or swipe) left and right to reveal further tools.
-  2. After selecting a tool, a small menu will appear. Long clicking the tool again will allow you to drag it to a new position
-  3. You can add more tools to the toolbar by clicking the <Plus className="inline-icon"/> plus sign.
+  En haut à droite de l'écran, vous avez la barre d'outils\
+  ![toolbar](document_view_toolbar. ng)\
+  Par défaut, cette barre a l'outil lasso <ScribbleLoop className="inline-icon"/> ; l'outil de stylo <Pen className="inline-icon"/> ; l'outil d'effacement du chemin <Path className="inline-icon"/> ; les butons <ArrowCounterClockwise className="inline-icon"/> d'annulation et <ArrowClockwise className="inline-icon"/> et l'outil à la main <Hand className="inline-icon"/>. Ensuite, vous avez le bouton <Plus className="inline-icon"/> pour ajouter des éléments à la barre d'outils, le bouton <Wrench className="inline-icon"/> pour configurer le document, et enfin l'outil <Lock className="inline-icon"/> pour regarder le zoom et/ou la position de l'écran.
+  ### Notes importantes
+  1. Si certains des éléments de la barre d'outils ne sont pas visibles pour vous, cliquez et faites glisser (ou glisser) vers la gauche et la droite pour révéler d'autres outils.
+  2. Après avoir sélectionné un outil, un petit menu apparaît. Un clic long sur l'outil vous permettra de le déplacer vers une nouvelle position
+  3. Vous pouvez ajouter plus d'outils à la barre d'outils en cliquant sur le signe <Plus className="inline-icon"/> plus .
  </TabItem>
  <TabItem label="Mobile">
-  In the mobile view, you'll have at the top the file bar\
-     ![file_bar](document_view_file_bar.png)\
-  This holds, from left to right, the <img alt="logo" src={logo.src} class="inline-icon" width="16"/> butterfly button to open the menu. Next to it there is the name field that displays the name of the note. You can rename the note by typing a new name into that field and saving it using the <FloppyDisk className="inline-icon"/> save button. Finally you can <MagnifyingGlass className="inline-icon"/> search for elements within the note.
+  Dans la vue mobile, vous aurez en haut de la barre de fichiers\
+     ![file_bar](document_view_file_bar. ng)\
+  Ceci contient, de gauche à droite, le bouton <img alt="logo" src={logo.src} class="inline-icon" width="16"/> papillon pour ouvrir le menu. À côté de cela, il y a le champ nom qui affiche le nom de la note. Vous pouvez renommer la note en tapant un nouveau nom dans ce champ et en l'enregistrant en utilisant le bouton <FloppyDisk className="inline-icon"/> Enregistrer. Enfin vous pouvez <MagnifyingGlass className="inline-icon"/> rechercher des éléments dans la note.
   \
-  At the bottom of the screen you have the toolbar\
-  ![toolbar](document_view_toolbar.png)\
-  By default this bar has the <ScribbleLoop className="inline-icon"/> lasso tool; the <Pen className="inline-icon" /> pen tool; the <Path className="inline-icon"/> path erase tool; the <ArrowCounterClockwise className="inline-icon"/> undo and <ArrowClockwise className="inline-icon"/> redo butons, and the <Hand className="inline-icon"/> hand tool. Then you have the <Plus className="inline-icon"/> button to add elements to the tool bar, the <Wrench className="inline-icon"/> button to configure the document, and finally the <Lock className="inline-icon"/> tool to look the zoom and/or the position of the screen.
-  ### Important notes
-  1. If some of the element on the toolbar are not visible to you, or swipe left and right to reveal further elements.
-  2. After selecting a tool, a small menu will appear to configure the it. Long clicking the tool again will allow you to drag it to a new position
-  3. You can add more tools to the toolbar by clicking the <Plus className="inline-icon"/> plus sign.
+  En bas de l'écran, vous avez la barre d'outils\
+  ![toolbar](document_view_toolbar. ng)\
+  Par défaut, cette barre a l'outil lasso <ScribbleLoop className="inline-icon"/> ; l'outil de stylo <Pen className="inline-icon" /> ; l'outil d'effacement du chemin <Path className="inline-icon"/> ; les butons <ArrowCounterClockwise className="inline-icon"/> d'annulation et <ArrowClockwise className="inline-icon"/> et l'outil à la main <Hand className="inline-icon"/>. Ensuite, vous avez le bouton <Plus className="inline-icon"/> pour ajouter des éléments à la barre d'outils, le bouton <Wrench className="inline-icon"/> pour configurer le document, et enfin l'outil <Lock className="inline-icon"/> pour regarder le zoom et/ou la position de l'écran.
+  ### Notes importantes
+  1. Si certains éléments de la barre d'outils ne sont pas visibles pour vous, ou glissez vers la gauche et la droite pour révéler d'autres éléments.
+  2. Après avoir sélectionné un outil, un petit menu apparaîtra pour le configurer. Un clic long sur l'outil vous permettra de le déplacer vers une nouvelle position
+  3. Vous pouvez ajouter plus d'outils à la barre d'outils en cliquant sur le signe <Plus className="inline-icon"/> plus .
  </TabItem>
 </Tabs>
