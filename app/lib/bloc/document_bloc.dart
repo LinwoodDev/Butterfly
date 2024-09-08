@@ -179,7 +179,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
                   e.copyWith(source: importImage(e.source, 'svg')),
                 _ => e,
               })
-          .map((e) => e.copyWith(id: createUniqueId()))
+          .map((e) => e.copyWith(id: e.id ?? createUniqueId()))
           .toList();
       final renderers = elements.map((e) => Renderer.fromInstance(e)).toList();
       if (renderers.isEmpty) return;
@@ -190,7 +190,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
             page: current.page
                 .copyWith(content: [...current.page.content, ...elements])),
         addedElements: renderers,
-        refresh: current.currentIndexCubit
+        shouldRefresh: () => current.currentIndexCubit
             .getHandler()
             .onRenderersCreated(current.page, renderers),
       );
@@ -202,10 +202,11 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       final renderers = <Renderer<PadElement>>[];
       var selection = current.currentIndexCubit.state.selection;
       final page = current.page;
-      bool shouldRefresh = false;
       final oldRenderers = current.renderers;
       final elements = event.elements.map((key, value) => MapEntry(
           key, value.map((e) => e.copyWith(id: createUniqueId())).toList()));
+      final replacedRenderers =
+          <Renderer<PadElement>, List<Renderer<PadElement>>>{};
       for (final renderer in oldRenderers) {
         final id = renderer.element.id;
         final updated = elements[id];
@@ -226,11 +227,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
               selection = newSelection;
             }
           }
-          shouldRefresh = current.currentIndexCubit
-                  .getHandler()
-                  .onRendererUpdated(
-                      current.page, renderer, updatedRenderers) ||
-              shouldRefresh;
+          replacedRenderers[renderer] = updatedRenderers;
         } else {
           renderers.add(renderer);
         }
@@ -244,7 +241,10 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
           page: page.copyWith(content: content),
         ),
         replacedElements: renderers,
-        refresh: true,
+        shouldRefresh: () => replacedRenderers.entries.any((element) => current
+            .currentIndexCubit
+            .getHandler()
+            .onRendererUpdated(page, element.key, element.value)),
       );
     }, transformer: sequential());
     on<ElementsArranged>((event, emit) async {
@@ -546,7 +546,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
                 ? event.newName
                 : current.currentLayer),
         addedElements: null,
-        refresh: true,
+        shouldRefresh: () => true,
       );
     });
 
@@ -662,7 +662,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       return _saveState(
         emit,
         state: current.copyWith(page: currentDocument),
-        refresh: true,
+        shouldRefresh: () => true,
         reset: shouldRepaint,
       );
     });
@@ -683,7 +683,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       _saveState(
         emit,
         state: current.copyWith(page: currentPage),
-        refresh: true,
+        shouldRefresh: () => true,
         reset: shouldRepaint,
       );
     });
@@ -889,7 +889,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     List<Renderer<PadElement>>? replacedElements,
     List<Renderer<Background>>? backgrounds,
     bool reset = false,
-    bool refresh = false,
+    bool Function()? shouldRefresh,
     bool updateIndex = false,
   }) {
     if (this.state is! DocumentLoadSuccess && state == null) return;
@@ -902,7 +902,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       replacedElements: replacedElements,
       backgrounds: backgrounds,
       reset: reset,
-      refresh: refresh,
+      shouldRefresh: shouldRefresh,
       updateIndex: updateIndex,
     );
   }

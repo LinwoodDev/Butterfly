@@ -931,7 +931,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     List<Renderer<PadElement>>? replacedElements,
     List<Renderer<Background>>? backgrounds,
     bool reset = false,
-    bool refresh = false,
+    bool Function()? shouldRefresh,
     bool updateIndex = false,
   }) async {
     final cameraViewport = current.cameraViewport;
@@ -969,9 +969,8 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     if (reset) {
       loadElements(current);
     }
-    if (reset || refresh) {
-      this.refresh(
-          current.data, current.assetService, current.page, current.info);
+    if (reset || shouldRefresh?.call() == true) {
+      refresh(current.data, current.assetService, current.page, current.info);
     }
     if (updateIndex) {
       this.updateIndex(bloc);

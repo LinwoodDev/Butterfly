@@ -1,5 +1,6 @@
 * Save utilities states after restart
 * Ignore invalid files with invalid syntax
+* Fix elements not being selected after moving
 * Fix file gets duplicated on save (again)
 * Fix image background wrong offset when moving on canvas
 * Fix packs dialog showing templates
