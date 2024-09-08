@@ -1,13 +1,13 @@
 ---
-title: Redo tool
+title: Gendan værktøj
 ---
 
-:::note[⚡ Action tool]
+:::note[⚡ Værktøjer til handling]
 
-This is a special tool.
+Dette er et særligt værktøj.
 Du kan ikke vælge det, og det vil køre handlingen, hvis du klikker på det.
 
 :::
 
-When clicking on this tool you can redo your last action.
-See the [undo tool](../undo) for undoing your last action.
+Når du klikker på dette værktøj, kan du gentage din sidste handling.
+Se [fortryd værktøj](../undo) for at fortryde din sidste handling.
