@@ -1,17 +1,17 @@
 ---
-title: Utilities
+title: Утилиты
 ---
 
-This view allows you to change the general document or the view.
+Этот вид позволяет изменять общий документ или вид.
 
 ## Проект
 
-Here are all globally properties that you can set like name and description.
-Additionally you can capture a thumbnail from the current viewport to see it in the home page.
+Здесь представлены все глобальные свойства, которые можно задать как имя и описание.
+Кроме того, вы можете захватить эскиз из текущего видового порта, чтобы увидеть его на главной странице.
 
 ## Страница
 
-Here are all page specific properties. Currently you can find the background setting here.
+Здесь представлены все свойства, специфичные для страницы. В настоящее время вы можете найти настройки фона здесь.
 
 ## Вид
 
@@ -25,4 +25,4 @@ Here are all page specific properties. Currently you can find the background set
 
 ## Снимок
 
-To jump to a specific position or zoom to a specific level you can use this tab.
+Чтобы перейти к определенной позиции или увеличить на конкретный уровень, используйте эту вкладку.
