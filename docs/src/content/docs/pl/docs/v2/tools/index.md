@@ -2,11 +2,11 @@
 title: Narzędzia
 ---
 
-Narzędzia mogą edytować arkusze.
+Tools can edit the paper.
 
 Użyj paska bocznego, aby dowiedzieć się więcej o narzędziach.
 
-Utwórz nowe narzędzie klikając ikonę plus. Zmień kolejność narzędzia poprzez przeciąganie i zmianę narzędzia kliknięciem.
+Create a new tool by clicking on the plus icon. Change the tool order by dragging and change the tool by clicking.
 Jeśli klikniesz na wybrane narzędzie możesz go skonfigurować.
 
-Nazwa narzędzia będzie wyświetlana jako podpowiedź po najechaniu na narzędziu.
+The name of the tool will be displayed as tooltip on hover on the tool.
