@@ -4,11 +4,11 @@ title: Сторінки
 
 :::note
 
-Ця сторінка охоплює систему сторінки, яка окрема різні нотатки в одному документі. Якщо ви шукаєте спосіб обмежити нескінченне полотно, будь ласка, [скористайтеся функцією області](../area)
+This page covers the page system which distinct different notes in one document. If you search a way to restrict the infinite canvas, please [use the area feature](../area)
 
 :::
 
-Сторінки — це спосіб впорядковувати свої нотатки.
-Якщо додати слеш у заголовок сторінки, можна створити теки.
+Pages are a way to organize your notes.
+If you add a slash in the title of a page, you can create folders.
 
-Використовуйте сторінку для створення та управління сторінками.
+Use the page navigator page to create and manage pages.
