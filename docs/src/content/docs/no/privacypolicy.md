@@ -3,36 +3,36 @@ title: Retningslinjer for personvern
 tableOfContents: false
 ---
 
-This is the privacy policy of the app. Please read it carefully.
-Click [here](https://go.linwood.dev/privacypolicy) to read the privacy policy of the website.
+Dette er personvernet til appen. Les det nøye.
+Klikk på [here](https://go.linwood.dev/privacypolicy) for å lese nettstedets retningslinjer for personvern.
 
-CodeDoctor built the Butterfly app as an Open Source app. This SERVICE is provided by CodeDoctor at no cost and is intended for use as is.
+CodeDoctor bygget blokkeringsprogrammet som en åpen kildekode-app. Denne SERVICE leveres av CodeDoctor uten kostnad og er beregnet på bruk som den er.
 
 Denne siden brukes til å informere besøkende om mine retningslinjer med samlingen, bruk og formidling av personlig informasjon hvis noen bestemte seg for å bruke Tjenesten min.
 
-If you choose to use my Service, then you agree to the collection and use of information in relation to this policy. The Personal Information that I collect is used for providing and improving the
-Service. I will not use or share your information with anyone except as described in this Privacy Policy.
+Dersom du velger å bruke min Tjeneste er du enig i innsamling og bruk av informasjon i forhold til denne politikken. Personlig informasjon som jeg samler brukes til å gi og forbedre
+Tjenesten. Jeg vil ikke bruke eller dele informasjon med noen som er unntatt beskrevet i denne personvernerklæringen.
 
 Begrepene som brukes i denne personvernerklæringen har samme betydning som i våre vilkår og betingelser, som er tilgjengelig på Sommerfugl med mindre annet er definert i denne personvernerklæringen.
 
 **Informasjonsinnsamling og bruk**
 
-For a better experience, while using our Service, I may require you to provide us with certain personally identifiable information. The information that I request will be retained on your device and
-is not collected by me in any way.
+Bedre erfaring når du bruker vår Tjeneste krever jeg at du gir oss sikker personlig identifiserbar informasjon. Informasjonen jeg ber om blir beholdt på din enhet og
+ikke samlet inn av meg på noen måte.
 
 Appen bruker tredjepartstjenester som kan samle informasjon som brukes til å identifisere deg.
 
 Lenke til personvernregler for tredjeparts tjenesteleverandører som appen bruker
 
-- [Google Play Services](https://www.google.com/policies/privacy/)
+- [Google Play tjenester](https://www.google.com/policies/privacy/)
 
-**Cookies**
+\*\*Informasjonskapsler
 
-Cookies are files with a small amount of data that are commonly used as anonymous unique identifiers. These are sent to your browser from the websites that you visit and are stored on your device's
+Informasjonskapsler er filer med en liten mengde data som vanligvis brukes som anonym unik identifikator. These are sent to your browser from the websites that you visit and are stored on your device's
 internal memory.
 
-This Service does not use these “cookies” explicitly. However, the app may use third party code and libraries that use “cookies” to collect information and improve their services. You have the option
-to either accept or refuse these cookies and know when a cookie is being sent to your device. If you choose to refuse our cookies, you may not be able to use some portions of this Service.
+Denne tjenesten bruker ikke disse «cookies» eksplisitt. Appen kan imidlertid benytte tredjepartskode og biblioteker som bruker "cookies" for å samle inn informasjon og forbedre tjenestene deres. Du har muligheten
+til enten å akseptere eller avslå disse informasjonskapslene og vite når en informasjonskapsel sendes til enheten. Dersom du velger å avvise våre informasjonskapsler, kan det hende at du ikke kan bruke noen deler av denne tjenesten.
 
 **Tjenesteleverandører**
 
@@ -43,29 +43,29 @@ Jeg kan ansette tredjepartsselskaper og enkeltpersoner av følgende årsaker:
 - Å utføre driftsrelaterte tjenester; eller
 - Som hjelp til å analysere hvordan tjenesten brukes.
 
-I want to inform users of this Service that these third parties have access to your Personal Information. The reason is to perform the tasks assigned to them on our behalf. However, they are obligated
+Jeg ønsker å informere brukere om denne tjenesten om at disse tredjepartene har tilgang til din personlige informasjon. Årsaken er at de oppgavene de er tilordnet på vegne av oss. However, they are obligated
 not to disclose or use the information for any other purpose.
 
-**Security**
+**Sikkerhet**
 
-I value your trust in providing us your Personal Information, thus we are striving to use commercially acceptable means of protecting it. But remember that no method of transmission over the internet,
-or method of electronic storage is 100% secure and reliable, and I cannot guarantee its absolute security.
+Jeg verdsetter din tillit til å gi oss din personlige informasjon. Derfor arbeider vi med å bruke kommersielt akseptable metoder for å beskytte den. Men husk at det ikke er noen overføringsmetode over Internett,
+eller metoden for elektronisk lagring er 100 % sikker og pålitelig, og jeg kan ikke garantere sin absolutte sikkerhet.
 
 **Lenker til andre nettsteder**
 
-This Service may contain links to other sites. If you click on a third-party link, you will be directed to that site. Note that these external sites are not operated by me. Therefore, I strongly
-advise you to review the Privacy Policy of these websites. I have no control over and assume no responsibility for the content, privacy policies, or practices of any third-party sites or services.
+Denne tjenesten kan inneholde lenker til andre nettsteder. Hvis du klikker på en tredjeparts lenke, blir du sendt til dette nettstedet. Vær oppmerksom på at disse eksterne lokalitetene ikke drives av meg. Derfor vil jeg på det sterkeste
+råde deg til å gjennomgå personvernerklæringen til disse nettsidene. Jeg har ingen kontroll over og tar ikke ansvar for innholdet, personvernpolitikken eller praksis hos tredjeparter eller tjenester.
 
 **Endringer i denne personvernerklæringen**
 
-I may update our Privacy Policy from time to time. Thus, you are advised to review this page periodically for any changes. I will notify you of any changes by posting the new Privacy Policy on this
-page.
+Jeg kan fra tid til annen oppdatere våre retningslinjer for personvern. Derfor anbefales du å gjennomgå denne siden med jevne mellomrom for eventuelle endringer. Jeg vil varsle deg om endringer ved å publisere den nye personvernerklæringen på denne
+-siden.
 
 Denne politikken gjelder fra 2021-02-07.
 
-**Contact Us**
+**Kontakt oss**
 
 Hvis du har spørsmål eller forslag om min personvernerklæring, ikke nøl med å kontakte meg på contact@linwood.dev.
 
-This privacy policy page was created at [privacypolicytemplate.net](https://privacypolicytemplate.net) and modified/generated
-by [App Privacy Policy Generator](https://app-privacy-policy-generator.nisrulz.com/)
+Denne siden for personvern ble opprettet på [privacypolicytemplate.net](https://privacypolicytemplate.net) og modifisert/generert
+av [App Privacy Policy Generator](https://app-privacy-policy-generator.nisrulz.com/)
