@@ -1,5 +1,5 @@
 ---
-title: Verktyg för distans
+title: Spacer tool
 ---
 
-Med det här verktyget kan du lägga till mellanslag mellan element genom att dra där du vill lägga till mellanslag.
+With this tool you can add space between elements by dragging where you want to add space.
