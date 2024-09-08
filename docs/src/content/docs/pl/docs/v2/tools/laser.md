@@ -1,8 +1,8 @@
 ---
-title: Laser tool
+title: Narzędzie laserowe
 ---
 
-With this tool you can draw on this paper temporarily. Po pewnym czasie rysunek zanika. Dodaj nowy rysunek do arkusza, aby go anulować.
+Za pomocą tego narzędzia możesz tymczasowo narysować ten papier. Po pewnym czasie rysunek zanika. Dodaj nowy rysunek do arkusza, aby go anulować.
 
 ## Konfiguracja
 
