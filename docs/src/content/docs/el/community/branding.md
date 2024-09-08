@@ -2,7 +2,7 @@
 title: Μάρκα
 ---
 
-These assets are licensed under the [CC-BY-4.0](https://github.com/LinwoodDev/Butterfly/blob/develop/BRANDING_LICENSE).
+Αυτά τα περιουσιακά στοιχεία έχουν αδειοδοτηθεί από το [CC-BY-4.0](https://github.com/LinwoodDev/Butterfly/blob/develop/BRANDING_LICENSE).
 
 ## Λογότυπο
 
@@ -10,7 +10,7 @@ These assets are licensed under the [CC-BY-4.0](https://github.com/LinwoodDev/Bu
 
 [SVG](/img/logo.svg) [PNG](/img/logo.png)
 
-## Nightly Logo
+## Νυχτερινό Λογότυπο
 
 ![Logo](/img/nightly.svg)
 
@@ -31,11 +31,11 @@ These assets are licensed under the [CC-BY-4.0](https://github.com/LinwoodDev/Bu
 ## Χρώματα
 
 - Primary: `#c4840d`
-- Accent: `#7b8f96`
+- Προφορά: `#7b8f96`
 
 ## Γραμματοσειρές
 
-- Website: `Barlow`
+- Ιστοσελίδα: `Barlow`
 - App: `Comfortaa`
 
 ## Οθόνες
