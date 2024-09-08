@@ -12,87 +12,87 @@ import logo from '/public/img/logo.svg';
 
 > Bine ați venit la Butterfly, aplicația opensource note.
 
-Butterfly is a note taking app that is aiming for unified experience across all platforms. It provides simple UI with powerful customization.
+Butterfly este o notă care ia aplicația ce vizează o experiență unificată pe toate platformele. Oferă interfață simplă cu o personalizare puternică.
 
 ## Noțiuni de bază
 
-> You can use the sidebar to navigate quickly through the wiki.
+> Poți folosi bara laterală pentru a naviga rapid prin wiki.
 
-To start working on the app you have two options:
+Pentru a începe să lucrați la aplicație aveți două opțiuni:
 
-1. [Downloads](/downloads) the app version that is appropriate for your platform (Butterfly can run on most mobile, desktop, and web platforms).
-2. Use [web version](https://web.butterfly.linwood.dev) if you cannot find your platform or if you don't want to install it on it. See [here](storage#web) about file storage on the web version.
+1. [Downloads](/downloads) versiunea aplicației potrivită pentru platforma ta (Butterfly poate rula pe majoritatea platformelor mobile, desktop și web).
+2. Folosiți [versiunea web](https://web.butterfly.linwood.dev) dacă nu vă puteți găsi platforma sau dacă nu doriți să o instalați pe ea. Vezi [here](storage#web) despre stocarea fișierelor pe versiunea web.
 
-> Once you open the app, continue reading.
+> Odată ce deschideți aplicația, continuați citirea.
 
 ## Vizualizare principală
 
 ![Vizualizare principală](main.png)
 
-The main view is composed of several elements
+Opinia principală este compusă din mai multe elemente
 
 <Tabs syncKey="platform">
     <TabItem label="Desktop">
-        ![Welcome screen](welcome_screen_desktop.png)
-        The top of the screen holds the banner for updates, the link to this documentations, and the <Gear className="inline-icon"/> config icon. Finally, to the right of the <Gear className="inline-icon"/> config symbol you have a drop down menu for controlling when this banner will appear (always/never/on updates).
-        The "Files" section in the major area of the left. There, you can do the typical operations:
-        - Select the display type (grid or list)
-        - Select the [source storage](../storage) of the files
-        - Sort the display order of the files
-        - Add a folder, file, template, or import files by clicking the <Plus className="inline-icon"/> plus sign
-        - Type the direct path to a desired location (the Location field),
-        - Search for files
-        Finally, to the right, you have the quick start display with the templates available in the current location. For a fresh install this includes the light and dark template
+        ![Ecran de întâmpinare](welcome_screen_desktop. ng)
+        În partea de sus a ecranului se ține banner-ul pentru actualizări, link-ul către această documentaţie şi pictograma de configurare <Gear className="inline-icon"/>. În final, în dreapta simbolului de configurare <Gear className="inline-icon"/> aveţi un meniu dropdown pentru control atunci când acest banner va apărea (întotdeauna/niciodată/pe actualizări).
+        Secţiunea "File" din zona principală a stângii. Acolo, puteți face operațiunile tipice:
+        - Selectați tipul de afișare (grilă sau listă)
+        - Selectați [spațiul de stocare sursă](.. stocarea) fișierelor
+        - Sortează ordinea de afișare a fișierelor
+        - Adaugă un dosar, fișier, șablon, sau de a importa fişiere făcând clic pe semnul <Plus className="inline-icon"/> plus
+        - Tastaţi calea directă către o locaţie dorită (câmpul locaţie),
+        - Caută fişiere
+        În final, la dreapta, aveți afișarea unui start rapid cu șabloanele disponibile în locația curentă. Pentru o nouă instalare, aceasta include şablonul luminos şi întunecat
     </TabItem>
     <TabItem label="Mobile">
-        When opening Butterfly on a mobile device you will be presented with a screen as this
-        ![Welcome screen first part](welcome_screen_mobile_1.png)
-        The top of the screen holds the banner for updates, and below it you can find the documnentation link, and next to it the <Gear className="inline-icon"/> config icon. Finally, to the right of the <Gear className="inline-icon"/> config symbol you have a drop down menu for controlling when this banner will appear (always/never/on updates).
-        Below those, you can find the quick start section holding the templates avialable to you. By defaule, the templates are the light and dark templates.
-        Scrolling down, you will see the file interface:
+        La deschiderea Butterfl-ului pe un dispozitiv mobil vi se va prezenta un ecran ca
+        ! Prima parte a ecranului](welcome_screen_mobile_1. ng)
+        Partea de sus a ecranului ține banner-ul pentru actualizări, și dedesubt poți găsi linkul de nentație și lângă acesta icoana de configurare <Gear className="inline-icon"/>. În final, în dreapta simbolului de configurare <Gear className="inline-icon"/> aveţi un meniu dropdown pentru control atunci când acest banner va apărea (întotdeauna/niciodată/pe actualizări).
+        Sub acestea, puteţi găsi secţiunea de pornire rapidă ţinând şabloanele care vă sunt accesibile. În mod implicit, șabloanele sunt șabloanele deschise și întunecate.
+        Derulare în jos, vei vedea interfața fișierului:
         \
-        ![Welcome screen second part](welcome_screen_mobile_2.png)  
-        The "Files" section in the major area of the left. There, you can do the typical operations:
-        - Select the display type (grid or list)
-        - Select the [source storage](../storage) of the files
-        - Sort the display order of the files
-        - Add a folder, file, template, or import files by clicking the <Plus className="inline-icon"/> plus sign
-        - Type the direct path to a desired location (the Location field),
-        - Search for files
+        ! Partea a doua a ecranului](welcome_screen_mobile_2. ng)  
+        Secţiunea „Files” în zona principală a stângii. Acolo, puteți face operațiunile tipice:
+        - Selectați tipul de afișare (grilă sau listă)
+        - Selectați [spațiul de stocare sursă](.. stocarea) fișierelor
+        - Sortează ordinea de afișare a fișierelor
+        - Adaugă un dosar, fișier, șablon, sau de a importa fişiere făcând clic pe semnul <Plus className="inline-icon"/> plus
+        - Tastaţi calea directă către o locaţie dorită (câmpul locaţie),
+        - Caută fişiere
  </TabItem>
 </Tabs>
 
-Once opening a document by selecting a template or an existing file, you will get to the **Document View**
+După deschiderea unui document selectând un șablon sau un fișier existent, veți ajunge la **Vizualizarea Documentului**
 
-## The Document View
+## Vizualizare document
 
-You can return from the document view to the document list with the back action of your device. As with the main view, the document display changes based on your device.
+Puteți reveni din vizualizarea documentului la lista de documente cu acțiunea din spate a dispozitivului dvs. Ca și în cazul vizualizării principale, documentul afișează modificări bazate pe dispozitivul dvs.
 
 <Tabs syncKey="platform">
     <TabItem label="Desktop">
-  In the Desktop view, you'll have at the top left the file bar\
-  ![file_bar](document_view_file_bar.png)\
-  This holds, from left to right, the <img alt="logo" src={logo.src} className="inline-icon" width="16"/> butterfly button to open the menu. Next to it there is the name field that displays the name of the note. You can rename the note by typing a new name into that field and saving it using the <FloppyDisk className="inline-icon"/> save button. Finally you can <MagnifyingGlass className="inline-icon"/> search for elements within the note.
+  În vizualizarea pe desktop, vei avea în partea de sus din stânga barei de fișiere\
+  ![file_bar](document_view_file_bar. ng)\
+  Această opțiune ține, de la stânga la dreapta, butonul <img alt="logo" src={logo.src} className="inline-icon" width="16"/> flutură pentru a deschide meniul. Lângă el este câmpul pentru nume care afișează numele notei. Puteți redenumi nota introducând un nou nume în acel câmp și salvându-l folosind butonul <FloppyDisk className="inline-icon"/> de salvare. În cele din urmă, puteţi căuta <MagnifyingGlass className="inline-icon"/> elemente în notă.
   \
-  At the top right of the screen you have the toolbar\
-  ![toolbar](document_view_toolbar.png)\
-  By default this bar has the <ScribbleLoop className="inline-icon"/> lasso tool; the <Pen className="inline-icon"/> pen tool; the <Path className="inline-icon"/> path erase tool; the <ArrowCounterClockwise className="inline-icon"/> undo and <ArrowClockwise className="inline-icon"/> redo butons, and the <Hand className="inline-icon"/> hand tool. Then you have the <Plus className="inline-icon"/> button to add elements to the tool bar, the <Wrench className="inline-icon"/> button to configure the document, and finally the <Lock className="inline-icon"/> tool to look the zoom and/or the position of the screen.
-  ### Important notes
-  1. If some of the element on the toolbar are not visible to you, click and drag (or swipe) left and right to reveal further tools.
-  2. After selecting a tool, a small menu will appear. Long clicking the tool again will allow you to drag it to a new position
-  3. You can add more tools to the toolbar by clicking the <Plus className="inline-icon"/> plus sign.
+  În dreapta sus a ecranului aveți bara de unelte
+  ![toolbar](document_view_toolbar. ng)\
+  Implicit această bară are unealta <ScribbleLoop className="inline-icon"/> lasso, unealta Stiloului <Pen className="inline-icon"/> . unealta de ștergere a traiectoriei <Path className="inline-icon"/> , butoanele de repetare <ArrowCounterClockwise className="inline-icon"/> undo și <ArrowClockwise className="inline-icon"/> , și unealta manuală <Hand className="inline-icon"/>. Apoi aveți butonul <Plus className="inline-icon"/> pentru a adăuga elemente în bara de unelte, butonul <Wrench className="inline-icon"/> pentru a configura documentul, și, în cele din urmă, instrumentul <Lock className="inline-icon"/> pentru a arăta zoom și/sau poziția ecranului.
+  ### Note importante
+  1. Dacă unele elemente din bara de instrumente nu sunt vizibile pentru tine, apasă și trage (sau glisează) la stânga și la dreapta pentru a dezvălui alte unelte.
+  2. După selectarea unei unelte, va apărea un mic meniu. Dând click din nou pe unealtă vei putea să o tragi într-o poziție nouă
+  3. Poți adăuga mai multe unelte în bara de instrumente făcând clic pe semnul <Plus className="inline-icon"/> plus.
  </TabItem>
  <TabItem label="Mobile">
-  In the mobile view, you'll have at the top the file bar\
-     ![file_bar](document_view_file_bar.png)\
-  This holds, from left to right, the <img alt="logo" src={logo.src} class="inline-icon" width="16"/> butterfly button to open the menu. Next to it there is the name field that displays the name of the note. You can rename the note by typing a new name into that field and saving it using the <FloppyDisk className="inline-icon"/> save button. Finally you can <MagnifyingGlass className="inline-icon"/> search for elements within the note.
+  În vizualizarea pe mobil. vei avea în partea de sus bara de fișiere \
+     ![file_bar](document_view_file_bar. ng)\
+  Această opțiune ține, de la stânga la dreapta, butonul <img alt="logo" src={logo.src} class="inline-icon" width="16"/> flutură pentru a deschide meniul. Lângă el este câmpul pentru nume care afișează numele notei. Puteți redenumi nota introducând un nou nume în acel câmp și salvându-l folosind butonul <FloppyDisk className="inline-icon"/> de salvare. În cele din urmă, puteţi căuta <MagnifyingGlass className="inline-icon"/> elemente în notă.
   \
-  At the bottom of the screen you have the toolbar\
-  ![toolbar](document_view_toolbar.png)\
-  By default this bar has the <ScribbleLoop className="inline-icon"/> lasso tool; the <Pen className="inline-icon" /> pen tool; the <Path className="inline-icon"/> path erase tool; the <ArrowCounterClockwise className="inline-icon"/> undo and <ArrowClockwise className="inline-icon"/> redo butons, and the <Hand className="inline-icon"/> hand tool. Then you have the <Plus className="inline-icon"/> button to add elements to the tool bar, the <Wrench className="inline-icon"/> button to configure the document, and finally the <Lock className="inline-icon"/> tool to look the zoom and/or the position of the screen.
-  ### Important notes
-  1. If some of the element on the toolbar are not visible to you, or swipe left and right to reveal further elements.
-  2. After selecting a tool, a small menu will appear to configure the it. Long clicking the tool again will allow you to drag it to a new position
-  3. You can add more tools to the toolbar by clicking the <Plus className="inline-icon"/> plus sign.
+  În partea de jos a ecranului aveți bara de unelte\
+  ![toolbar](document_view_toolbar. ng)\
+  Implicit această bară are unealta <ScribbleLoop className="inline-icon"/> lasso, unealta Stiloului <Pen className="inline-icon" /> . unealta de ștergere a traiectoriei <Path className="inline-icon"/> , butoanele de repetare <ArrowCounterClockwise className="inline-icon"/> undo și <ArrowClockwise className="inline-icon"/> , și unealta manuală <Hand className="inline-icon"/>. Apoi aveți butonul <Plus className="inline-icon"/> pentru a adăuga elemente în bara de unelte, butonul <Wrench className="inline-icon"/> pentru a configura documentul, și, în cele din urmă, instrumentul <Lock className="inline-icon"/> pentru a arăta zoom și/sau poziția ecranului.
+  ### Note importante
+  1. Dacă unele elemente din bara de instrumente nu sunt vizibile pentru tine, sau glisează la stânga și la dreapta pentru a dezvălui alte elemente.
+  2. Dupa selectarea unei unelte, un mic meniu va aparea sa configureze. Dând click din nou pe unealtă vei putea să o tragi într-o poziție nouă
+  3. Poți adăuga mai multe unelte în bara de instrumente făcând clic pe semnul <Plus className="inline-icon"/> plus.
  </TabItem>
 </Tabs>
