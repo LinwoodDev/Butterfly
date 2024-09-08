@@ -612,6 +612,6 @@
   "install": "安装",
   "deselect": "取消选择",
   "changeLayer": "更改图层",
-  "fullSelection": "Full selection",
-  "fullSelectionDescription": "Requires elements to be fully within the selection box for selection."
+  "fullSelection": "完整选择",
+  "fullSelectionDescription": "需要元素完全在选择框内。"
 }
