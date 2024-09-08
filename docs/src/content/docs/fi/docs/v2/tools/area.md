@@ -1,8 +1,8 @@
 ---
-title: Area tool
+title: Alueen työkalu
 ---
 
-The area tool allows you to create, edit and remove areas.
+Alueen työkalun avulla voit luoda, muokata ja poistaa alueita.
 
 ## Toiminnot
 
