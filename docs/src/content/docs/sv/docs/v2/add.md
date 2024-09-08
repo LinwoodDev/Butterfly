@@ -2,23 +2,23 @@
 title: Lägg till
 ---
 
-Here you can add things to your notes.
+Här kan du lägga till saker till dina anteckningar.
 
 ## Importera
 
-Here you can import existing files inside your documents.
-Supported are butterfly documents, markdown, png, svg and pdf.
+Här kan du importera befintliga filer i dina dokument.
+Stöds är fjärilsdokument, markdown, png, svg och pdf.
 
 ## Verktyg
 
-To add more tools to your toolbar, click on them.
-Read more about them [here](../tools).
+För att lägga till fler verktyg i verktygsfältet, klicka på dem.
+Läs mer om dem [here](../tools).
 
-## Surfaces
+## Ytor
 
-These are special tools to create surfaces.
+Dessa är speciella verktyg för att skapa ytor.
 
 ## Åtgärder
 
-These are tools that will be executed by clicking on them.
-You can use the play button to execute them without adding them to the toolbar.
+Dessa är verktyg som kommer att utföras genom att klicka på dem.
+Du kan använda play-knappen för att köra dem utan att lägga till dem i verktygsfältet.
