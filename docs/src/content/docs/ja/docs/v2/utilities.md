@@ -1,17 +1,17 @@
 ---
-title: Utilities
+title: ユーティリティ
 ---
 
-This view allows you to change the general document or the view.
+このビューでは、一般ドキュメントまたはビューを変更できます。
 
 ## プロジェクト
 
-Here are all globally properties that you can set like name and description.
-Additionally you can capture a thumbnail from the current viewport to see it in the home page.
+ここでは、name と descriptionのように設定できるすべてのグローバルプロパティがあります。
+さらに、現在のビューポートからサムネイルをキャプチャして、ホームページに表示することもできます。
 
 ## ページ
 
-Here are all page specific properties. Currently you can find the background setting here.
+ここにすべてのページ固有のプロパティがあります。 現在、背景の設定はこちらで確認できます。
 
 ## 表示
 
@@ -25,4 +25,4 @@ Here are all page specific properties. Currently you can find the background set
 
 ## カメラ
 
-To jump to a specific position or zoom to a specific level you can use this tab.
+特定の位置にジャンプしたり、特定のレベルにズームしたりするには、このタブを使用します。
