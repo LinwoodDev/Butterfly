@@ -1,8 +1,8 @@
 ---
-title: 路径擦除工具
+title: Path eraser tool
 ---
 
-通过这个工具，您可以删除纸上的整个路径。
+With this tool you can delete the whole path on the paper.
 
 ## 配置
 
