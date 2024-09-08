@@ -2,23 +2,23 @@
 title: Додати
 ---
 
-Here you can add things to your notes.
+Тут ви можете додати речі до ваших нотаток.
 
 ## Імпорт
 
-Here you can import existing files inside your documents.
-Supported are butterfly documents, markdown, png, svg and pdf.
+Тут ви можете імпортувати існуючі файли у ваші документи.
+Підтримуються документи для метеликів, розмітки, png, svg і pdf.
 
 ## Інструменти
 
-To add more tools to your toolbar, click on them.
+Щоб додати більше інструментів до панелі інструментів, натисніть на них.
 Read more about them [here](../tools).
 
-## Surfaces
+## Поверхні
 
-These are special tools to create surfaces.
+Це особливі інструменти для створення поверхонь.
 
 ## Дії
 
-These are tools that will be executed by clicking on them.
-You can use the play button to execute them without adding them to the toolbar.
+Ці інструменти будуть виконані кліком на них.
+Можна використовувати кнопку Play, щоб виконувати їх, не додавши їх до панелі інструментів.
