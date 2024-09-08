@@ -2,7 +2,7 @@
 title: Branding
 ---
 
-これらのアセットは [CC-BY-4.0](https://github.com/LinwoodDev/Butterfly/blob/develop/BRANDING_LICENSE) でライセンスされています。
+These assets are licensed under the [CC-BY-4.0](https://github.com/LinwoodDev/Butterfly/blob/develop/BRANDING_LICENSE).
 
 ## ロゴ
 
@@ -10,7 +10,7 @@ title: Branding
 
 [SVG](/img/logo.svg) [PNG](/img/logo.png)
 
-## Nightlyロゴ
+## Nightly Logo
 
 ![Logo](/img/nightly.svg)
 
@@ -30,12 +30,12 @@ title: Branding
 
 ## 色
 
-- プライマリ: `#c4840d`
-- アクセント: `#7b8f96`
+- Primary: `#c4840d`
+- Accent: `#7b8f96`
 
 ## フォント
 
-- ウェブサイト: `Barlow`
+- Website: `Barlow`
 - App: `Comfortaa`
 
 ## スクリーンショット
