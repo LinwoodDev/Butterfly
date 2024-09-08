@@ -2,6 +2,6 @@
 title: Σημεία
 ---
 
-With waypoints you can save important locations in your notes. You can use them to navigate through your notes.
+Με το waypoints μπορείτε να αποθηκεύσετε σημαντικές τοποθεσίες στις σημειώσεις σας. Μπορείτε να τις χρησιμοποιήσετε για να περιηγηθείτε στις σημειώσεις σας.
 
-Use the waypoint navigator page to create and manage waypoints.
+Χρησιμοποιήστε τη σελίδα πλοήγησης σημείου για να δημιουργήσετε και να διαχειριστείτε σημεία αναφοράς.
