@@ -1,8 +1,8 @@
 ---
-title: Outil de zone
+title: Area tool
 ---
 
-L'outil zone vous permet de créer, modifier et supprimer des zones.
+The area tool allows you to create, edit and remove areas.
 
 ## Actions
 
