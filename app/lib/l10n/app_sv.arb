@@ -612,6 +612,6 @@
   "install": "Installera",
   "deselect": "Avmarkera",
   "changeLayer": "Ändra lager",
-  "fullSelection": "Full selection",
-  "fullSelectionDescription": "Requires elements to be fully within the selection box for selection."
+  "fullSelection": "Fullt urval",
+  "fullSelectionDescription": "Kräver element för att vara helt i urvalsrutan."
 }
