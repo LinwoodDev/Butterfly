@@ -1,12 +1,12 @@
 ---
-title: Instrument ecran complet
+title: Full screen tool
 ---
 
-:::note[⚡ Instrument de acțiune]
+:::note[⚡ Action tool]
 
-Aceasta este o unealtă specială.
+This is a special tool.
 Nu o puteți selecta și va rula acțiunea dacă faceți clic pe ea.
 
 :::
 
-Când faceți clic pe această unealtă puteți comuta ecranul complet.
+When clicking on this tool you can toggle full screen.
