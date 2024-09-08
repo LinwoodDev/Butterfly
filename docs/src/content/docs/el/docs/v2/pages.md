@@ -4,11 +4,11 @@ title: Σελίδες
 
 :::note
 
-This page covers the page system which distinct different notes in one document. If you search a way to restrict the infinite canvas, please [use the area feature](../area)
+Αυτή η σελίδα καλύπτει το σύστημα σελίδας που διακρίνει διαφορετικές σημειώσεις σε ένα έγγραφο. Αν ψάχνετε έναν τρόπο για να περιορίσετε τον άπειρο καμβά, παρακαλώ [χρησιμοποιήστε τη λειτουργία περιοχή](../area)
 
 :::
 
-Pages are a way to organize your notes.
-If you add a slash in the title of a page, you can create folders.
+Οι σελίδες είναι ένας τρόπος οργάνωσης των σημειώσεων σας.
+Αν προσθέσετε μια κάθετο στον τίτλο μιας σελίδας, μπορείτε να δημιουργήσετε φακέλους.
 
-Use the page navigator page to create and manage pages.
+Χρησιμοποιήστε τη σελίδα πλοήγησης σελίδας για να δημιουργήσετε και να διαχειριστείτε σελίδες.
