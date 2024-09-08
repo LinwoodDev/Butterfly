@@ -1,8 +1,8 @@
 ---
-title: Instrument laser
+title: Laser tool
 ---
 
-Cu acest instrument puteţi desena temporar pe acest hârtie. După o vreme, desenul dispare. Adaugă un desen nou pe hârtie pentru a-l anula.
+With this tool you can draw on this paper temporarily. După o vreme, desenul dispare. Adaugă un desen nou pe hârtie pentru a-l anula.
 
 ## Configurare
 
