@@ -2,8 +2,8 @@
 title: Încorporează
 ---
 
-Embedding is a simple way to include the app in your website.
-Add the following code to your website:
+Integrarea este o modalitate simplă de a include aplicația în site-ul dvs.
+Adaugă următorul cod la site-ul tău:
 
 ```html
 <iframe src="https://web.butterfly.linwood.dev/embed" width="100%" height="500px" allowtransparency="true"></iframe>
@@ -11,11 +11,11 @@ Add the following code to your website:
 
 ## Opţiuni
 
-| Opţiune  | Tip                                                                                              | Implicit | Descriere                                                                                                                                                                   |
-| -------- | ------------------------------------------------------------------------------------------------ | -------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| salvează | Boolean (true, false)                                                         | true     | Enable save. If disabled, only an exit button will be shown                                                                                                 |
-| editable | Boolean (true, false)                                                         | true     | Enable editing. If disabled, the document will be read-only                                                                                                 |
-| limba    | Șir (..., sistem, utilizator) | system   | Language of the document. If system, the language will be detected from the browser. If user, the language will set to the users preference |
+| Opţiune  | Tip                                                                                              | Implicit | Descriere                                                                                                                                        |
+| -------- | ------------------------------------------------------------------------------------------------ | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------ |
+| salvează | Boolean (adevărat, fals)                                                      | adevărat | Activează salvarea. Dacă este dezactivat, numai un buton de ieșire va fi afișat                                                  |
+| editabil | Boolean (adevărat, fals)                                                      | adevărat | Activează editarea. Dacă este dezactivat, documentul va fi numai în citire                                                       |
+| limba    | Șir (..., sistem, utilizator) | sistem   | Limba documentului Dacă sistemul va fi detectat limba din browser. Dacă utilizator, limba va seta la preferințele utilizatorilor |
 
 ## Evenimente
 
@@ -32,27 +32,27 @@ embedElement.addEventListener('message', (data) => {
 
 ### salvează
 
-> The `save` event is emitted when the user clicks the save button.
+> Evenimentul `salvează` este emis atunci când utilizatorul apasă butonul de salvare.
 
 Parametrii:
 
-- `data` (Type `List<int>`): The data of the document.
+- `data` (Type `List<int>`): Datele documentului.
 
 ### ieșire
 
-> The `exit` event is emitted when the user clicks the exit button.
+> Evenimentul "ieşire" este emis atunci când utilizatorul face clic pe butonul de ieşire.
 
 Parametrii:
 
-- `data` (Type `List<int>`): The data of the document.
+- `data` (Type `List<int>`): Datele documentului.
 
-### change
+### schimbă
 
-> The `change` event is emitted when the user changes the document.
+> Evenimentul `change` este emis atunci când utilizatorul schimbă documentul.
 
 Parametrii:
 
-- `data` (Type `List<int>`): The data of the document.
+- `data` (Type `List<int>`): Datele documentului.
 
 ## Metode
 
@@ -70,40 +70,40 @@ embedElement.addEventListener('message', (data) => {
 
 ### getData
 
-> The `getData` method returns the data of the document.
+> Metoda `getData` returnează datele documentului.
 
-No parameters.
-Returns: `List<int>`
+Niciun parametru.
+Returnări: `List<int>`
 
-### setData
+### setare date
 
-> The `setData` method sets the data of the document.
-
-Parametrii:
-
-- `data` (Type `List<int>`): The data of the document.
-
-### render
-
-> The `render` method renders the document to a png image.
+> Metoda `setData` stabileşte datele documentului.
 
 Parametrii:
 
-- `width` (Type `Number`): The width of the image.
-- `height` (Type `Number`): The height of the image.
-- `scale` (Type `Number`): The scale of the image.
-- `renderBackground` (Type `Boolean`): If true, the background will be rendered.
+- `data` (Type `List<int>`): Datele documentului.
 
-Returns: `String` (Base64 encoded image)
+### randare
+
+> Metoda `render` face documentul la o imagine png.
+
+Parametrii:
+
+- `width` (Type `Number`): Lăţimea imaginii.
+- `height` (Type `Number`): Înălțimea imaginii.
+- `scale` (Type `Number`): Scara imaginii.
+- `renderBackground` (Tip `Boolean`): Dacă este adevărat, fundalul va fi randat.
+
+Returnări: `String` (imagine codificată Base64 )
 
 ### renderSVG
 
-> The `renderSVG` method renders the document to a svg image.
+> Metoda `renderSVG` face documentul la o imagine svg.
 
 Parametrii:
 
-- `width` (Type `Number`): The width of the image.
-- `height` (Type `Number`): The height of the image.
-- `renderBackground` (Type `Boolean`): If true, the background will be rendered.
+- `width` (Type `Number`): Lăţimea imaginii.
+- `height` (Type `Number`): Înălțimea imaginii.
+- `renderBackground` (Tip `Boolean`): Dacă este adevărat, fundalul va fi randat.
 
-Returns: `String` (SVG)
+Returnări: `String` (SVG)
