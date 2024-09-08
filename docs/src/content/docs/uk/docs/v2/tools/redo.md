@@ -1,13 +1,13 @@
 ---
-title: Відновити програму
+title: Redo tool
 ---
 
-:::note[⚡ Інструмент дії]
+:::note[⚡ Action tool]
 
-Це особливий інструмент.
+This is a special tool.
 Ви не можете обрати його і він запустить дію якщо натиснути на нього.
 
 :::
 
-При натисканні на цей інструмент можна повторити останню дію.
-Перегляньте [скасувати інструмент](../undo) для скасування вашої останньої дії.
+When clicking on this tool you can redo your last action.
+See the [undo tool](../undo) for undoing your last action.
