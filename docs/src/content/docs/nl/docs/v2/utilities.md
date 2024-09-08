@@ -1,17 +1,17 @@
 ---
-title: Hulpprogramma's
+title: Utilities
 ---
 
-Met deze weergave kunt u het algemene document of de weergave wijzigen.
+This view allows you to change the general document or the view.
 
 ## Project
 
-Hier zijn alle globale eigenschappen die je kunt instellen van naam en beschrijving.
-Bovendien kunt u een miniatuur van de huidige viewport maken om deze te zien op de home pagina.
+Here are all globally properties that you can set like name and description.
+Additionally you can capture a thumbnail from the current viewport to see it in the home page.
 
 ## Pagina
 
-Hier zijn alle pagina-specifieke eigenschappen. Op dit moment vindt u de achtergrondinstelling hier.
+Here are all page specific properties. Currently you can find the background setting here.
 
 ## Bekijken
 
@@ -25,4 +25,4 @@ De liniaal stelt je in staat om de afstand tussen twee punten te meten. Bovendie
 
 ## camera
 
-Om naar een specifieke positie te gaan of naar een bepaald niveau te zoomen kan je dit tabblad gebruiken.
+To jump to a specific position or zoom to a specific level you can use this tab.
