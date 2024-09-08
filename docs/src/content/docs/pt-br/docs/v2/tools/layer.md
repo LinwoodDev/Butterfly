@@ -1,8 +1,8 @@
 ---
-title: Layer tool
+title: Ferramenta da camada
 ---
 
-Com esta ferramenta você pode alterar a camada de vários objetos. Read more about layers [here](../layers.md).
+Com esta ferramenta você pode alterar a camada de vários objetos. Leia mais sobre camadas [here](../layers.md).
 Quando você clicar em um objeto, a camada do objeto será alterada para a camada definida na configuração. Deixar o campo da camada vazio definirá a camada para a camada padrão.
 
 ## Configuração
