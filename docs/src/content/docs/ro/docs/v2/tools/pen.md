@@ -1,8 +1,8 @@
 ---
-title: Unealta pentru stilou
+title: Pen tool
 ---
 
-Cu această unealtă poți desena pe această hârtie.
+With this tool you can draw on this paper.
 
 ## Configurare
 
