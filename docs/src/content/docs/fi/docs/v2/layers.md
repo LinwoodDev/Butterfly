@@ -2,7 +2,7 @@
 title: Kerrokset
 ---
 
-Kerrokset ovat mahdollisuus ryhmitellä elementtejä yhdessä. Klikkaa elementtiä nähdäksesi ja muuttaaksesi kerrosta. Use the [layer tool](../tools/layer) to change the layers of multiple elements.
+Kerrokset ovat mahdollisuus ryhmitellä elementtejä yhdessä. Klikkaa elementtiä nähdäksesi ja muuttaaksesi kerrosta. Käytä [kerroksen työkalua](../tools/layer) vaihtaaksesi useiden elementtien kerroksia.
 
 ## Tasojen valintaikkuna
 
