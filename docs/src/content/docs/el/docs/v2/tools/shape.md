@@ -1,11 +1,11 @@
 ---
-title: Shape tool
+title: Εργαλείο σχήματος
 ---
 
-Use this tool to draw shapes on the paper.
+Χρησιμοποιήστε αυτό το εργαλείο για τη σχεδίαση σχημάτων στο χαρτί.
 Μπορείτε να σχεδιάσετε ορθογώνια, κύκλους, και άλλα σχήματα.
 
-Use `ctrl` to have the same height and width and `shift` to draw from the center.
+Χρησιμοποίησε το `ctrl` για να έχεις το ίδιο ύψος και πλάτος και `shift` για να σχεδιάσεις από το κέντρο.
 
 ## Διαμόρφωση
 
