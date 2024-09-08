@@ -1,9 +1,9 @@
 ---
-title: Stamp tool
+title: Ferramenta de selo
 ---
 
-The stamp tool allows you to add components to your canvas.
-Use um pacote existente, crie seu próprio ou importe um pacote para usá-lo. Read more [here](../../pack).
+A ferramenta de selos permite que você adicione componentes à sua tela.
+Use um pacote existente, crie seu próprio ou importe um pacote para usá-lo. Leia mais [here](../../pack).
 
 ## Configuração
 
