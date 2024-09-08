@@ -19,18 +19,18 @@ Tente atualizar seu navegador para a versão mais recente.
 
 ## Celular
 
-### S-Pen won't be recognized
+### O S-Pen não será reconhecido
 
 > [#270](https://github.com/LinwoodDev/Butterfly/issues/270)
 
 Eu estou usando os dados fornecidos pelo framework de agitação.
-This is the issue to track it: [flutter/flutter#42846](https://github.com/flutter/flutter/issues/42846).
+Este é o problema para rastreá-lo: [flutter/flutter#42846](https://github.com/flutter/flutter/issues/42846).
 
-### iOS support
+### Suporte para iOS
 
 > [#244](https://github.com/LinwoodDev/Butterfly/issues/244)
 
-Butterfly is available on iOS as preview. Click [here](https://butterfly.linwood.dev/downloads/ios) to download it. See [here](https://github.com/LinwoodDev/Butterfly/issues/244#issuecomment-1935460878) why it's not available on the App Store.
+A Borboleta está disponível no iOS como pré-visualização. Clique em [here](https://butterfly.linwood.dev/downloads/ios) para baixá-lo. Veja [here](https://github.com/LinwoodDev/Butterfly/issues/244#issuecomment-1935460878) por que não está disponível na App Store.
 
 ## Computadores
 
@@ -39,8 +39,8 @@ Butterfly is available on iOS as preview. Click [here](https://butterfly.linwood
 > [#238](https://github.com/LinwoodDev/Butterfly/issues/238)
 
 Eu estou usando os dados fornecidos pelo framework de agitação.
-There are already issues to track it:
-Windows: [flutter/flutter#65248](https://github.com/flutter/flutter/issues/65248) and [flutter/flutter#102836](https://github.com/flutter/flutter/issues/102836).
+Já existem erros para monitorá-lo:
+Windows: [flutter/flutter#65248](https://github.com/flutter/flutter/issues/65248) e [flutter/flutter#102836](https://github.com/flutter/flutter/issues/102836).
 Linux: [flutter/flutter#63209](https://github.com/flutter/flutter/issues/63209)
 
 Estas questões são um pouco mais antigas. A versão web deve funcionar bem por enquanto.
