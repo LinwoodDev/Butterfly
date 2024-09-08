@@ -1,8 +1,8 @@
 ---
-title: Pen tool
+title: Stift Werkzeug
 ---
 
-With this tool you can draw on this paper.
+Mit diesem Werkzeug können Sie auf dieses Papier zeichnen.
 
 ## Konfiguration
 
