@@ -2,7 +2,7 @@
 title: Фірмове оформлення
 ---
 
-Ці активи ліцензовані за [CC-BY-4.0](https://github.com/LinwoodDev/Butterfly/blob/develop/BRANDING_LICENSE).
+These assets are licensed under the [CC-BY-4.0](https://github.com/LinwoodDev/Butterfly/blob/develop/BRANDING_LICENSE).
 
 ## Логотип
 
@@ -10,7 +10,7 @@ title: Фірмове оформлення
 
 [SVG](/img/logo.svg) [PNG](/img/logo.png)
 
-## Нічний логотип
+## Nightly Logo
 
 ![Logo](/img/nightly.svg)
 
@@ -30,12 +30,12 @@ title: Фірмове оформлення
 
 ## Кольори
 
-- Первинний: `#c4840d`
-- Акцент: `#7b8f96`
+- Primary: `#c4840d`
+- Accent: `#7b8f96`
 
 ## Шрифти
 
-- Веб-сайт: `Барло`
+- Website: `Barlow`
 - App: `Comfortaa`
 
 ## Скріншоти
