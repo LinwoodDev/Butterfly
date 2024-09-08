@@ -1,8 +1,8 @@
 ---
-title: Layer tool
+title: Nástroj pro vrstvu
 ---
 
-Pomocí tohoto nástroje můžete změnit vrstvu více objektů. Read more about layers [here](../layers.md).
+Pomocí tohoto nástroje můžete změnit vrstvu více objektů. Přečtěte si více o vrstvách [here](../layers.md).
 Po kliknutí na objekt se vrstva objektu změní na vrstvu nastavenou v konfiguraci. Ponecháním pole vrstvy prázdného bude vrstva nastavena na výchozí vrstvu.
 
 ## Konfigurace
