@@ -1,8 +1,8 @@
 ---
-title: Area tool
+title: Strumento area
 ---
 
-The area tool allows you to create, edit and remove areas.
+Lo strumento area consente di creare, modificare e rimuovere aree.
 
 ## Azioni
 
