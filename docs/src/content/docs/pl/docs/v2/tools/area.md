@@ -1,8 +1,8 @@
 ---
-title: Narzędzie obszarowe
+title: Area tool
 ---
 
-Narzędzie obszaru pozwala na tworzenie, edycję i usuwanie obszarów.
+The area tool allows you to create, edit and remove areas.
 
 ## Akcje
 
