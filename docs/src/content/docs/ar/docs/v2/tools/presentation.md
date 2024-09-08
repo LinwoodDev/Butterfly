@@ -2,4 +2,4 @@
 title: عرض
 ---
 
-تتيح لك أداة العرض التقديمي إنشاء الرسوم المتحركة الخاصة بك داخل ملاحظاتك.
+The presentation tool allows you to create your own animations inside your notes.
