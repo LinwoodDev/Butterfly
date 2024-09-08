@@ -1,8 +1,8 @@
 ---
-title: Stamp tool
+title: Інструмент штампу
 ---
 
-The stamp tool allows you to add components to your canvas.
+Інструмент штампу дозволяє додавати компоненти до вашого полотна.
 Використовуйте наявний пакунок, створіть свій власний або імпортуйте пакет. Read more [here](../../pack).
 
 ## Конфігурація
