@@ -18,5 +18,5 @@ Tutte le costruzioni notturne vengono pubblicate anche come pre-release su githu
 ## Esperimenti
 
 Gli esperimenti sono caratteristiche che non sono ancora pronte per la produzione.
-Predefinito sono disabilitati. You can enable them in the settings under `Experiments`.
+Predefinito sono disabilitati. Puoi abilitarli nelle impostazioni in `Experiments`.
 Questa scheda è visibile solo nella versione notturna.
