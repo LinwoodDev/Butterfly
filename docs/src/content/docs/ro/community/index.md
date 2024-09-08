@@ -8,10 +8,10 @@ Bine ați venit la secțiunea comunitate.
 
 Mulțumiri speciale se referă la:
 
-- [Flutter](https://github.com/flutter/flutter) for providing this useful crossplatform ui framework
-- [window_manager](https://github.com/leanflutter/window_manager) for all this useful desktop window features
-- [Starlight](https://github.com/withastro/starlight) for an easy-to-use static react documentation framework
-- [Phosphor Icons](https://phosphoricons.com/) for the beautiful icons
+- [Flutter](https://github.com/flutter/flutter) pentru că oferă acest cadru util pentru o platformă interactivă
+- [window_manager](https://github.com/leanflutter/window_manager) pentru toate aceste funcții utile pentru fereastra desktop
+- [Starlight](https://github.com/withastro/starlight) pentru o documentație statică de reacție ușor de utilizat
+- [Pictograma fosforului](https://fosfors.com/) pentru iconițele frumoase
 
 Toate celelalte licențe pot fi găsite în setări.
 
