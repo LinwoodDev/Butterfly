@@ -541,7 +541,7 @@
   "page": "Page",
   "iceServers": "ICE Servers",
   "collaboration": "Collaboration",
-  "webRtc": "Web RTC",
+  "webRtc": "",
   "webSocket": "Web Socket",
   "iceServer": "ICE Server",
   "port": "Port",
