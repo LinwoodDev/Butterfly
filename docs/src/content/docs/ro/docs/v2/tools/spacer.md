@@ -1,5 +1,5 @@
 ---
-title: Spacer tool
+title: Unealtă spațială
 ---
 
-With this tool you can add space between elements by dragging where you want to add space.
+Cu acest instrument puteţi adăuga spaţiu între elemente, trăgând unde doriţi să adăugaţi spaţiu.
