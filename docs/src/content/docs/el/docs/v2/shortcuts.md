@@ -21,7 +21,7 @@ title: Συντομεύσεις
 
 ### Έργο
 
-- `Ctrl` + `K`: Άνοιγμα αναζήτησης
+- `Ctrl` + `K`: Open search
 - `Ctrl` + `Z`: Αναίρεση
 - `Ctrl` + `Y`: Redo
 - `Ctrl` + `Shift` + `P`: Διάλογος ανοιχτών σημείων
@@ -38,7 +38,7 @@ title: Συντομεύσεις
 
 - `Pen`: έχει ρυθμιστεί ως στυλό.
 - `First` (Πρωτεύον κουμπί, αν υποστηρίζεται): Αλλαγή σε εργαλείο χεριού ενώ πιέζεται.
-- `Second` (Secondary button, αν υποστηρίζεται): Αλλαγή σε δεύτερο εργαλείο (βλ. [configure](#configure) ενότητα παρακάτω), ενώ πατήθηκε.
+- `Second` (Secondary button, if supported): Change to second tool (see [configure](#configure) section below) while pressed.
 
 ## Ρύθμιση {#configure}
 
