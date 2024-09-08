@@ -2,6 +2,6 @@
 title: Reittipisteet
 ---
 
-Reittipisteiden avulla voit tallentaa tärkeitä sijainteja muistiinpanoihin. Voit käyttää niitä navigoidaksesi muistiinpanojesi kautta.
+With waypoints you can save important locations in your notes. You can use them to navigate through your notes.
 
-Käytä reittipisteen navigaattorin sivua luodaksesi ja hallitaksesi reittipisteitä.
+Use the waypoint navigator page to create and manage waypoints.
