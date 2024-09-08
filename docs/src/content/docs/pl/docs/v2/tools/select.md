@@ -1,11 +1,11 @@
 ---
-title: Wybierz narzędzie
+title: Select tool
 ---
 
-Za pomocą tego narzędzia możesz wybrać elementy.
+With this tool you can select elements.
 
 ## Konfiguracja
 
-| Własność |  Domyślny | Opis                                                           |
-| -------: | :-------: | :------------------------------------------------------------- |
-|     tryb | prostokąt | Sposób wyboru. Prawidłowe to prostokąt i lasso |
+| Własność |  Domyślny | Opis                                                             |
+| -------: | :-------: | :--------------------------------------------------------------- |
+|     mode | prostokąt | Mode of selection. Valid are rectangle and lasso |
