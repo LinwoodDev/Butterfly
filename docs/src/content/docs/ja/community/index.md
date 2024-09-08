@@ -8,10 +8,10 @@ title: コミュニティ
 
 特別な感謝は次のとおりです:
 
-- [Flutter](https://github.com/flutter/flutter) for providing this useful crossplatform ui framework
-- [window_manager](https://github.com/leanflutter/window_manager) for all this useful desktop window features
-- [Starlight](https://github.com/withastro/starlight) for an easy-to-use static react documentation framework
-- [Phosphor Icons](https://phosphoricons.com/) for the beautiful icons
+- [Flutter](https://github.com/flutter/futter) この便利なクロスプラットフォームUIフレームワークを提供する
+- [window_manager](https://github.com/leanflutter/window_manager) このすべての便利なデスクトップウィンドウ機能について
+- [Starlight](https://github.com/withastro/starlight) で使いやすい静的反応文書化フレームワーク
+- 美しいアイコンのformat@@0(https://phosphoricons.com/)
 
 他のすべてのライセンスは、設定で見つけることができます。
 
