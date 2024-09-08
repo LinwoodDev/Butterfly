@@ -3,7 +3,7 @@ title: Esi- 1.0 versiot
 ---
 
 Näitä versioita ei tueta enää.
-New versions are available at [versions](/community/versions).
+Uudet versiot ovat saatavilla [versions](/community/version).
 
 | Versio                     | Tuettu                              |                                                                                                                                               |
 | -------------------------- | ----------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
