@@ -1,13 +1,13 @@
 ---
-title: Undo tool
+title: Herstel gereedschap
 ---
 
-:::note[⚡ Action tool]
+:::note[⚡ Actie tool]
 
-This is a special tool.
+Dit is een speciaal instrument.
 U kunt het niet selecteren en het zal de actie uitvoeren als u erop klikt.
 
 :::
 
-When clicking on this tool you can undo your last action.
-See the [redo tool](../redo) for redoing your last action.
+Wanneer u op deze tool klikt, kunt u uw laatste actie ongedaan maken.
+Zie de [redo tool](../redo) voor het opnieuw doen van je laatste actie.
