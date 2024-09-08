@@ -1,8 +1,8 @@
 ---
-title: أداة التسمية
+title: Label tool
 ---
 
-مع هذه الأداة يمكنك إضافة نص إلى الورقة.
+With this tool you can add text to the paper.
 
 ## الإعدادات
 
