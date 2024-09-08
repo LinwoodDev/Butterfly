@@ -2,7 +2,7 @@
 title: Brändi
 ---
 
-Nämä omaisuuserät ovat lisensoitu [CC-BY-4.0](https://github.com/LinwoodDev/Butterfly/blob/develop/BRANDING_LICENSE).
+These assets are licensed under the [CC-BY-4.0](https://github.com/LinwoodDev/Butterfly/blob/develop/BRANDING_LICENSE).
 
 ## Logo
 
@@ -10,11 +10,11 @@ Nämä omaisuuserät ovat lisensoitu [CC-BY-4.0](https://github.com/LinwoodDev/B
 
 [SVG](/img/logo.svg) [PNG](/img/logo.png)
 
-## Yöllinen Logo
+## Nightly Logo
 
-![Logo](/img/yösti.svg)
+![Logo](/img/nightly.svg)
 
-[SVG](/img/yöl.svg) [PNG](/img/yöl.png)
+[SVG](/img/nightly.svg) [PNG](/img/nightly.png)
 
 ## Mainospalkki
 
@@ -30,12 +30,12 @@ Nämä omaisuuserät ovat lisensoitu [CC-BY-4.0](https://github.com/LinwoodDev/B
 
 ## Värit
 
-- Ensisijainen: `#c4840d`
-- Akseli: `#7b8f96`
+- Primary: `#c4840d`
+- Accent: `#7b8f96`
 
 ## Kirjasimet
 
-- Verkkosivusto: `Barlow`
+- Website: `Barlow`
 - App: `Comfortaa`
 
 ## Kuvakaappaukset
