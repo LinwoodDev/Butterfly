@@ -1,12 +1,12 @@
 ---
-title: Full screen tool
+title: Ferramenta para tela cheia
 ---
 
-:::note[⚡ Action tool]
+:::note[⚡ Ferramenta de ação]
 
-This is a special tool.
+Trata-se de uma ferramenta especial.
 Você não pode selecioná-lo e ele executará a ação se você clicar nela.
 
 :::
 
-When clicking on this tool you can toggle full screen.
+Ao clicar nesta ferramenta você poderá alternar a tela cheia.
