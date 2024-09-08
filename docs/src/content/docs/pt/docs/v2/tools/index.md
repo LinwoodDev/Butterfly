@@ -2,11 +2,11 @@
 title: Ferramentas
 ---
 
-Tools can edit the paper.
+Ferramentas podem editar o papel.
 
 Use a barra lateral para aprender mais sobre as ferramentas.
 
-Create a new tool by clicking on the plus icon. Change the tool order by dragging and change the tool by clicking.
+Crie uma nova ferramenta clicando no ícone de mais. Altere a ordem das ferramentas arrastando e alterando a ferramenta clicando.
 Se você clicar em uma ferramenta selecionada, você pode configurá-la.
 
-The name of the tool will be displayed as tooltip on hover on the tool.
+O nome da ferramenta será exibido como dica de ferramenta de vídeo na ferramenta.
