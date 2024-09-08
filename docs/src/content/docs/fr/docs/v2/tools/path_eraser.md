@@ -1,8 +1,8 @@
 ---
-title: Outil gomme de chemin
+title: Path eraser tool
 ---
 
-Grâce à cet outil, vous pouvez supprimer le chemin complet sur le papier.
+With this tool you can delete the whole path on the paper.
 
 ## Configuration
 
