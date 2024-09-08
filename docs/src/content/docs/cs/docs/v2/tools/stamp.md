@@ -1,9 +1,9 @@
 ---
-title: Nástroj pro razítko
+title: Stamp tool
 ---
 
-Nástroj pro razítka umožňuje přidávat komponenty do plátna.
-Použijte existující balíček, vytvořte si vlastní nebo importujte balíček, který ho použije. Přečtěte si více [here](../../pack).
+The stamp tool allows you to add components to your canvas.
+Použijte existující balíček, vytvořte si vlastní nebo importujte balíček, který ho použije. Read more [here](../../pack).
 
 ## Konfigurace
 
