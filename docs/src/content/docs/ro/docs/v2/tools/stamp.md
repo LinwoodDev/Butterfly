@@ -1,9 +1,9 @@
 ---
-title: Stamp tool
+title: Timbru unealtă
 ---
 
-The stamp tool allows you to add components to your canvas.
-Folosiți un pachet existent, creați-vă propriul pachet sau importați un pachet pentru a-l folosi. Read more [here](../../pack).
+Unealta de timbru vă permite să adăugați componente la pânza dvs.
+Folosiți un pachet existent, creați-vă propriul pachet sau importați un pachet pentru a-l folosi. Citește mai mult [here](../../pack).
 
 ## Configurare
 
