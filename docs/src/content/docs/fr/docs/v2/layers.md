@@ -2,7 +2,7 @@
 title: Couches
 ---
 
-Les calques sont une option pour regrouper les éléments ensemble. Cliquez sur l'élément pour voir et changer le calque. Use the [layer tool](../tools/layer) to change the layers of multiple elements.
+Les calques sont une option pour regrouper les éléments ensemble. Cliquez sur l'élément pour voir et changer le calque. Utilisez [outil de calque](../tools/layer) pour changer les calques de plusieurs éléments.
 
 ## La boîte de dialogue des couches
 
