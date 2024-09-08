@@ -1,11 +1,11 @@
 ---
-title: Shape tool
+title: Unealta de forma
 ---
 
-Use this tool to draw shapes on the paper.
+Utilizați această unealtă pentru a desena forme pe hârtie.
 Poți desena dreptunghiuri, cercuri și alte forme.
 
-Use `ctrl` to have the same height and width and `shift` to draw from the center.
+Utilizaţi `ctrl` pentru a avea aceeaşi înălţime şi lăţime şi `shift` pentru a desena din centru.
 
 ## Configurare
 
