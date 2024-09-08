@@ -4,11 +4,11 @@ title: Pagini
 
 :::note
 
-This page covers the page system which distinct different notes in one document. If you search a way to restrict the infinite canvas, please [use the area feature](../area)
+Această pagină acoperă sistemul de pagini care distinge note diferite într-un singur document. Dacă căutați o modalitate de a restricționa pânza infinită, vă rugăm să [folosiți funcția regiunii](../area)
 
 :::
 
-Pages are a way to organize your notes.
-If you add a slash in the title of a page, you can create folders.
+Paginile sunt o modalitate de a vă organiza notiţele.
+Dacă adăugați un slash în titlul unei pagini, puteți crea foldere.
 
-Use the page navigator page to create and manage pages.
+Utilizați pagina de navigare a paginii pentru a crea și gestiona pagini.
