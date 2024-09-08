@@ -2,11 +2,11 @@
 title: ツール
 ---
 
-ツールは論文を編集できます。
+Tools can edit the paper.
 
 ツールの詳細については、サイドバーを使用してください。
 
-プラスアイコンをクリックして新しいツールを作成します。 ドラッグしてツールの順序を変更するには、クリックしてツールを変更します。
+Create a new tool by clicking on the plus icon. Change the tool order by dragging and change the tool by clicking.
 選択したツールをクリックすると、設定できます。
 
-ツールの名前はツールにカーソルを合わせるとツールチップとして表示されます。
+The name of the tool will be displayed as tooltip on hover on the tool.
