@@ -1,17 +1,17 @@
 ---
-title: Serviços
+title: Utilities
 ---
 
-Este modo de exibição permite que você altere o documento geral ou a exibição.
+This view allows you to change the general document or the view.
 
 ## Projecto
 
-Aqui estão todas as propriedades globais que você pode definir como nome e descrição.
-Além disso, você pode capturar uma miniatura do visualizador atual para vê-la na página inicial.
+Here are all globally properties that you can set like name and description.
+Additionally you can capture a thumbnail from the current viewport to see it in the home page.
 
 ## Página
 
-Aqui estão todas as propriedades específicas da página. Atualmente você pode encontrar a configuração de fundo aqui.
+Here are all page specific properties. Currently you can find the background setting here.
 
 ## Visualizar
 
@@ -25,4 +25,4 @@ O régua permite que você meça a distância entre dois pontos. Além disso, vo
 
 ## Câmera
 
-Para pular para uma posição específica ou zoom para um nível específico, você pode usar esta guia.
+To jump to a specific position or zoom to a specific level you can use this tab.
