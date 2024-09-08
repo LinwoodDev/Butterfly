@@ -1,8 +1,8 @@
 ---
-title: Pen tool
+title: Nástroj Pen
 ---
 
-With this tool you can draw on this paper.
+Pomocí tohoto nástroje můžete nakreslit tento dokument.
 
 ## Konfigurace
 
