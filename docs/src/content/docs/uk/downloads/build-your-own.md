@@ -6,11 +6,11 @@ title: Створіть свій власний
 2. Скопіювати репозиторій
 3. Перейти до каталогу додатків
 4. Використовувати інструмент спалаху для компіляції програми
-   - `тремтити збірку`
-   - `весела збірка`
-   - `тремтити збірку Інтернет`
-   - `flutter побудувати linux`
-   - `прошивати вікна потвору`
+   - `flutter build apk`
+   - `flutter build appbundle`
+   - `flutter build web`
+   - `flutter build linux`
+   - `flutter build windows`
    - `flutter build ios --release --no-codesign`\
-     після цього створіть папку з ім'ям "Payload", копіювати Runner.app у неї та заархівувати папку payload. Потім перейменуйте ".zip" на ".ipa".
+     after that, create a folder named "Payload", copy Runner.app into it and zip the payload folder. Then rename ".zip" to ".ipa".
 5. Скомпільовані файли в каталозі збірки
