@@ -1,17 +1,17 @@
 ---
-title: Utilities
+title: Службові програми
 ---
 
-This view allows you to change the general document or the view.
+Цей вигляд дозволяє вам змінювати загальний документ чи перегляд.
 
 ## Проект
 
-Here are all globally properties that you can set like name and description.
-Additionally you can capture a thumbnail from the current viewport to see it in the home page.
+Ось усі світові властивості, які можна встановити як ім'я і опис.
+Додатково ви можете зробити мініатюру з поточного перегляду, щоб побачити його на головній сторінці.
 
 ## Сторінка
 
-Here are all page specific properties. Currently you can find the background setting here.
+Ось всі специфічні властивості сторінки. Наразі ви можете знайти тут фонове значення.
 
 ## Дивитись
 
@@ -25,4 +25,4 @@ Here are all page specific properties. Currently you can find the background set
 
 ## Камера
 
-To jump to a specific position or zoom to a specific level you can use this tab.
+Щоб перейти до певного положення або масштабу до певного рівня, ви можете використовувати цю вкладку.
