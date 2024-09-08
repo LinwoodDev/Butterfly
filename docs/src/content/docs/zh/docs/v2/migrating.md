@@ -4,7 +4,7 @@ title: 迁移
 
 本指南将向您展示如何迁移到最新版本。
 
-## 7 (做出改变) {#7}
+## 7 (Breaking change) {#7}
 
 **版本： 2.0**
 
@@ -15,4 +15,4 @@ title: 迁移
 ## 旧版本
 
 之前的所有迁移都将自动进行。
-以代码 [here]阅读完整迁移(https://github.com/LinwoodDev/Butterfly/blob/95825da4ebbf9ed392c863da577666dbcdda45c/app/lib/models/converter.dart#L17)。
+Read the full migration in code [here](https://github.com/LinwoodDev/Butterfly/blob/95825da4ebbf9ded392c863da577666dbcdda45c/app/lib/models/converter.dart#L17).
