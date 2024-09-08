@@ -1,8 +1,8 @@
 ---
-title: Laser tool
+title: Laserové nástroje
 ---
 
-With this tool you can draw on this paper temporarily. Po nějaké době se rýsuje pryč. Přidejte nový výkres do dokumentu, aby byl zrušen.
+S tímto nástrojem můžete nakreslit na tento dokument dočasně. Po nějaké době se rýsuje pryč. Přidejte nový výkres do dokumentu, aby byl zrušen.
 
 ## Konfigurace
 
