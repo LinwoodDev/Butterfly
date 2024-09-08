@@ -1,13 +1,13 @@
 ---
-title: Toista työkalu
+title: Redo tool
 ---
 
-:::note[⚡ Toiminnan väline]
+:::note[⚡ Action tool]
 
-Tämä on erityinen työkalu.
+This is a special tool.
 Et voi valita sitä, ja se suorittaa toiminnon, jos klikkaat sitä.
 
 :::
 
-Kun napsautat tätä työkalua, voit tehdä viimeisen toiminnon uudelleen.
-Katso [undo tool](../undo) lopettaaksesi viimeisen toiminnon.
+When clicking on this tool you can redo your last action.
+See the [undo tool](../undo) for undoing your last action.
