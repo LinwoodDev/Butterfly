@@ -10,6 +10,6 @@ Banen er stien til filen du vil åpne.
 
 ## Alternativer
 
-|     Alternativ | Beskrivelse                                                          |
-| -------------: | :------------------------------------------------------------------- |
-| `--path`, `-p` | Velg datamappen der alle dataene i Butterfly lagres. |
+|   Alternativ | Beskrivelse                                                          |
+| -----------: | :------------------------------------------------------------------- |
+| `-sti`, `-p` | Velg datamappen der alle dataene i Butterfly lagres. |
