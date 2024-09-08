@@ -2,23 +2,23 @@
 title: Adicionar
 ---
 
-Aqui você pode adicionar coisas a suas notas.
+Here you can add things to your notes.
 
 ## Importação
 
-Aqui você pode importar arquivos existentes dentro de seus documentos.
-Suportado são documentos de borboleta, markdown, png, svg e pdf.
+Here you can import existing files inside your documents.
+Supported are butterfly documents, markdown, png, svg and pdf.
 
 ## Ferramentas
 
-Para adicionar mais ferramentas à sua barra de ferramentas, clique nelas.
-Leia mais sobre eles [here](../ferramentas).
+To add more tools to your toolbar, click on them.
+Read more about them [here](../tools).
 
-## Superfícies
+## Surfaces
 
-Trata-se de ferramentas especiais para criar superfícies.
+These are special tools to create surfaces.
 
 ## Ações.
 
-Estas são ferramentas que serão executadas clicando sobre elas.
-Você pode usar o botão play para executá-los sem adicioná-los à barra de ferramentas.
+These are tools that will be executed by clicking on them.
+You can use the play button to execute them without adding them to the toolbar.
