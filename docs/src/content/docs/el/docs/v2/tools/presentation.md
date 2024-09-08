@@ -2,4 +2,4 @@
 title: Παρουσίαση
 ---
 
-Το εργαλείο παρουσίασης σας επιτρέπει να δημιουργήσετε τα δικά σας κινούμενα σχέδια μέσα στις σημειώσεις σας.
+The presentation tool allows you to create your own animations inside your notes.
