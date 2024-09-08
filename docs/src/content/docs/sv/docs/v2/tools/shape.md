@@ -1,11 +1,11 @@
 ---
-title: Shape tool
+title: Forma verktyg
 ---
 
-Use this tool to draw shapes on the paper.
+Använd detta verktyg för att rita former på pappret.
 Du kan rita rektanglar, cirklar och andra former.
 
-Use `ctrl` to have the same height and width and `shift` to draw from the center.
+Använd `ctrl` för att ha samma höjd och bredd och `shift` för att rita från mitten.
 
 ## Konfiguration
 
