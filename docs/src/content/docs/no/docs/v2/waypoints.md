@@ -2,6 +2,6 @@
 title: Veipunkter
 ---
 
-Med veipunkter kan du lagre viktige steder i notatene dine. Du kan bruke dem til å navigere gjennom notatene dine.
+With waypoints you can save important locations in your notes. You can use them to navigate through your notes.
 
-Bruk navigasjonssiden for veipunkt for å opprette og administrere veipunkter.
+Use the waypoint navigator page to create and manage waypoints.
