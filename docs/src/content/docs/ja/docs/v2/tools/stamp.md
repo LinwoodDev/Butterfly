@@ -1,9 +1,9 @@
 ---
-title: Stamp tool
+title: スタンプツール
 ---
 
-The stamp tool allows you to add components to your canvas.
-既存のパックを使用し、独自のパックを作成するか、それを使用するためにパックをインポートします。 Read more [here](../../pack).
+スタンプツールを使用すると、キャンバスにコンポーネントを追加できます。
+既存のパックを使用し、独自のパックを作成するか、それを使用するためにパックをインポートします。 もっと読む [here](../../pack)。
 
 ## 設定
 
