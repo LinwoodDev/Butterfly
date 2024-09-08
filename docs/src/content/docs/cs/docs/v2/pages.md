@@ -4,11 +4,11 @@ title: Stránky
 
 :::note
 
-This page covers the page system which distinct different notes in one document. If you search a way to restrict the infinite canvas, please [use the area feature](../area)
+Tato stránka pokrývá systém stránek, který odlišuje různé poznámky v jednom dokumentu. Pokud hledáte způsob, jak omezit nekonečné plátno, prosím [použijte funkci oblasti](../area)
 
 :::
 
-Pages are a way to organize your notes.
-If you add a slash in the title of a page, you can create folders.
+Stránky jsou způsob, jak uspořádat vaše poznámky.
+Pokud přidáte lomítko do názvu stránky, můžete vytvořit složky.
 
-Use the page navigator page to create and manage pages.
+Použijte stránku navigátoru pro vytváření a správu stránek.
