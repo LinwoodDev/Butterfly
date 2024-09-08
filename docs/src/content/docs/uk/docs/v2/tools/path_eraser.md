@@ -1,8 +1,8 @@
 ---
-title: Інструмент гумки траєкторії
+title: Path eraser tool
 ---
 
-За допомогою цього інструменту ви можете видалити весь шлях на папері.
+With this tool you can delete the whole path on the paper.
 
 ## Конфігурація
 
