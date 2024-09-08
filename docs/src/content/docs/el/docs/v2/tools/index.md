@@ -2,11 +2,11 @@
 title: Εργαλεία
 ---
 
-Τα εργαλεία μπορούν να επεξεργαστούν το χαρτί.
+Tools can edit the paper.
 
 Χρησιμοποιήστε την πλαϊνή μπάρα για να μάθετε περισσότερα σχετικά με τα εργαλεία.
 
-Δημιουργήστε ένα νέο εργαλείο κάνοντας κλικ στο εικονίδιο συν . Αλλάξτε τη σειρά του εργαλείου σύροντας και αλλάξτε το εργαλείο κάνοντας κλικ.
+Create a new tool by clicking on the plus icon. Change the tool order by dragging and change the tool by clicking.
 Αν κάνετε κλικ σε ένα επιλεγμένο εργαλείο μπορείτε να το ρυθμίσετε.
 
-Το όνομα του εργαλείου θα εμφανίζεται ως υπόδειξη στο hover πάνω στο εργαλείο.
+The name of the tool will be displayed as tooltip on hover on the tool.
