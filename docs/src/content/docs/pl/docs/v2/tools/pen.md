@@ -1,8 +1,8 @@
 ---
-title: Pen tool
+title: Narzędzie do pióra
 ---
 
-With this tool you can draw on this paper.
+Za pomocą tego narzędzia możesz narysować ten papier.
 
 ## Konfiguracja
 
