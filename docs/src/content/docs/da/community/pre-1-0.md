@@ -3,7 +3,7 @@ title: Pre-1.0 versioner
 ---
 
 Disse versioner understøttes ikke længere.
-New versions are available at [versions](/community/versions).
+Nye versioner er tilgængelige på [versions](/community/versioner).
 
 | Version                      | Understøttet                        |                                                                                                                                               |
 | ---------------------------- | ----------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
