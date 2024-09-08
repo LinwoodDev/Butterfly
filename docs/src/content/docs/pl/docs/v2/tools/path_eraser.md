@@ -1,8 +1,8 @@
 ---
-title: Path eraser tool
+title: Narzędzie do wymazywania ścieżki
 ---
 
-With this tool you can delete the whole path on the paper.
+Za pomocą tego narzędzia możesz usunąć całą ścieżkę na papierze.
 
 ## Konfiguracja
 
