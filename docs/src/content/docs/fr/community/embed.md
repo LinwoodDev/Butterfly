@@ -13,9 +13,9 @@ Ajoute le code suivant à ton site web :
 
 | Option      | Type de texte                                                                                                       | Par défaut | Libellé                                                                                                                                                                                      |
 | ----------- | ------------------------------------------------------------------------------------------------------------------- | ---------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| enregistrer | Boolean (true, false)                                                                            | true       | Activer la sauvegarde. Si désactivé, seul un bouton de sortie sera affiché                                                                                                   |
-| editable    | Boolean (true, false)                                                                            | true       | Activer l'édition. Si désactivé, le document sera en lecture seule                                                                                                           |
-| langue      | Chaîne de caractères (..., système, utilisateur) | system     | Langue du document. Si le système, la langue sera détectée à partir du navigateur. Si l'utilisateur, la langue sera définie à la préférence des utilisateurs |
+| enregistrer | Booléen (vrai, faux)                                                                             | vrai       | Activer la sauvegarde. Si désactivé, seul un bouton de sortie sera affiché                                                                                                   |
+| modifiable  | Booléen (vrai, faux)                                                                             | vrai       | Activer l'édition. Si désactivé, le document sera en lecture seule                                                                                                           |
+| langue      | Chaîne de caractères (..., système, utilisateur) | système    | Langue du document. Si le système, la langue sera détectée à partir du navigateur. Si l'utilisateur, la langue sera définie à la préférence des utilisateurs |
 
 ## Évènements
 
@@ -32,27 +32,27 @@ embedElement.addEventListener('message', (data) => {
 
 ### enregistrer
 
-> The `save` event is emitted when the user clicks the save button.
+> L'événement `save` est émis lorsque l'utilisateur clique sur le bouton Enregistrer.
 
 Paramètres:
 
-- `data` (Type `List<int>`): The data of the document.
+- `data` (Tapez `List<int>`): Les données du document.
 
 ### quitter
 
-> The `exit` event is emitted when the user clicks the exit button.
+> L'événement `exit` est émis lorsque l'utilisateur clique sur le bouton de sortie.
 
 Paramètres:
 
-- `data` (Type `List<int>`): The data of the document.
+- `data` (Tapez `List<int>`): Les données du document.
 
-### change
+### changer
 
-> The `change` event is emitted when the user changes the document.
+> L'événement `change` est émis lorsque l'utilisateur change le document.
 
 Paramètres:
 
-- `data` (Type `List<int>`): The data of the document.
+- `data` (Tapez `List<int>`): Les données du document.
 
 ## Méthodes
 
@@ -70,40 +70,40 @@ embedElement.addEventListener('message', (data) => {
 
 ### getData
 
-> The `getData` method returns the data of the document.
+> La méthode `getData` retourne les données du document.
 
 Aucun paramètre.
-Returns: `List<int>`
+Renvoie : `Liste<int>`
 
-### setData
+### définir les données
 
-> The `setData` method sets the data of the document.
-
-Paramètres:
-
-- `data` (Type `List<int>`): The data of the document.
-
-### render
-
-> The `render` method renders the document to a png image.
+> La méthode `setData` définit les données du document.
 
 Paramètres:
 
-- `width` (Type `Number`): The width of the image.
-- `height` (Type `Number`): The height of the image.
-- `scale` (Type `Number`): The scale of the image.
-- `renderBackground` (Type `Boolean`): If true, the background will be rendered.
+- `data` (Tapez `List<int>`): Les données du document.
 
-Returns: `String` (Base64 encoded image)
+### rendu
 
-### renderSVG
-
-> The `renderSVG` method renders the document to a svg image.
+> La méthode `render` rend le document à une image png.
 
 Paramètres:
 
-- `width` (Type `Number`): The width of the image.
-- `height` (Type `Number`): The height of the image.
-- `renderBackground` (Type `Boolean`): If true, the background will be rendered.
+- `width` (Tapez `Number`): La largeur de l'image.
+- `height` (Tapez `Number`): La hauteur de l'image.
+- `scale` (Tapez `Number`): L'échelle de l'image.
+- `renderBackground` (Tapez `Boolean`): Si vrai, l'arrière-plan sera affiché.
 
-Returns: `String` (SVG)
+Renvoie : `String` (image encodée en Base64)
+
+### Raccourci SVG
+
+> La méthode `renderSVG` rend le document à une image svg.
+
+Paramètres:
+
+- `width` (Tapez `Number`): La largeur de l'image.
+- `height` (Tapez `Number`): La hauteur de l'image.
+- `renderBackground` (Tapez `Boolean`): Si vrai, l'arrière-plan sera affiché.
+
+Renvoie : `String` (SVG)
