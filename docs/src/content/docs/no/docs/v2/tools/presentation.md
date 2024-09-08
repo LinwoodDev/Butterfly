@@ -2,4 +2,4 @@
 title: Presentasjon
 ---
 
-Presentasjonsverktøyet lar deg lage dine egne animasjoner inne i notatene dine.
+The presentation tool allows you to create your own animations inside your notes.
