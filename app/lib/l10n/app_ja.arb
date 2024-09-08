@@ -612,6 +612,6 @@
   "install": "インストール",
   "deselect": "選択を解除",
   "changeLayer": "レイヤーを変更",
-  "fullSelection": "Full selection",
-  "fullSelectionDescription": "Requires elements to be fully within the selection box for selection."
+  "fullSelection": "完全な選択",
+  "fullSelectionDescription": "選択するには、選択ボックス内に要素を完全に含める必要があります。"
 }
