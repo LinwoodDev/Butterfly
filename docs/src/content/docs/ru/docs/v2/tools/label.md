@@ -1,8 +1,8 @@
 ---
-title: Label tool
+title: Ярлык
 ---
 
-With this tool you can add text to the paper.
+С помощью этого инструмента вы можете добавить на бумагу текст.
 
 ## Конфигурация
 
