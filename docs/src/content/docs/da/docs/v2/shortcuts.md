@@ -21,7 +21,7 @@ Nogle af dem er skrevet under knapperne.
 
 ### Projekt
 
-- `Ctrl` + `K`: Åbn søgning
+- `Ctrl` + `K`: Open search
 - `Ctrl` + `Z`: Fortryd
 - `Ctrl` + `Y`: Fortryd
 - `Ctrl` + `Shift` + `P`: Åbn waypoints dialog
@@ -38,7 +38,7 @@ Som standard er pennen konfigureret til at fungere som følgende:
 
 - `Pen`: konfigureret som pen.
 - `Først` (Primær knap, hvis understøttet): Skift til håndværktøj under tryk.
-- `Sekund` (sekundær knap, hvis understøttet): Skift til andet værktøj (se [configure](#configure) sektion nedenfor) under tryk.
+- `Second` (Secondary button, if supported): Change to second tool (see [configure](#configure) section below) while pressed.
 
 ## Konfigurer {#configure}
 
