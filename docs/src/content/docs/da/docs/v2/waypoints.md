@@ -2,6 +2,6 @@
 title: Waypoints
 ---
 
-Med waypoints kan du gemme vigtige placeringer i dine noter. Du kan bruge dem til at navigere gennem dine noter.
+With waypoints you can save important locations in your notes. You can use them to navigate through your notes.
 
-Brug waypoint navigator side til at oprette og administrere waypoints.
+Use the waypoint navigator page to create and manage waypoints.
