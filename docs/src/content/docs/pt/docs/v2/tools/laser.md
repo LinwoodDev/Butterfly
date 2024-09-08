@@ -1,8 +1,8 @@
 ---
-title: Laser tool
+title: Ferramenta laser
 ---
 
-With this tool you can draw on this paper temporarily. Depois de um tempo, o sorteio desaparece. Adicione um novo desenho ao papel para que ele cancele.
+Com esta ferramenta você pode extrair esse papel temporariamente. Depois de um tempo, o sorteio desaparece. Adicione um novo desenho ao papel para que ele cancele.
 
 ## Configuração
 
