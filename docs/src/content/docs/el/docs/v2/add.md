@@ -2,23 +2,23 @@
 title: Προσθήκη
 ---
 
-Εδώ μπορείτε να προσθέσετε πράγματα στις σημειώσεις σας.
+Here you can add things to your notes.
 
 ## Εισαγωγή
 
-Εδώ μπορείτε να εισάγετε τα υπάρχοντα αρχεία μέσα στα έγγραφά σας.
-Υποστηριζόμενα είναι τα έγγραφα πεταλούδα, markdown, png, svg και pdf.
+Here you can import existing files inside your documents.
+Supported are butterfly documents, markdown, png, svg and pdf.
 
 ## Εργαλεία
 
-Για να προσθέσετε περισσότερα εργαλεία στη γραμμή εργαλείων σας, κάντε κλικ πάνω τους.
-Διαβάστε περισσότερα για αυτά [here](../tools).
+To add more tools to your toolbar, click on them.
+Read more about them [here](../tools).
 
-## Επιφάνειες
+## Surfaces
 
-Αυτά είναι ειδικά εργαλεία για τη δημιουργία επιφανειών.
+These are special tools to create surfaces.
 
 ## Ενέργειες
 
-Αυτά είναι εργαλεία που θα εκτελεστούν κάνοντας κλικ πάνω τους.
-Μπορείτε να χρησιμοποιήσετε το κουμπί αναπαραγωγής για να το εκτελέσετε χωρίς να το προσθέσετε στη γραμμή εργαλείων.
+These are tools that will be executed by clicking on them.
+You can use the play button to execute them without adding them to the toolbar.
