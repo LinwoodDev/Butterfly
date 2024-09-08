@@ -1,13 +1,13 @@
 ---
-title: Redo tool
+title: やり直しツール
 ---
 
-:::note[⚡ Action tool]
+:::note[⚡ アクションツール]
 
-This is a special tool.
+これは特別なツールです。
 あなたはそれを選択することはできませんし、それをクリックするとアクションを実行します。
 
 :::
 
-When clicking on this tool you can redo your last action.
-See the [undo tool](../undo) for undoing your last action.
+このツールをクリックすると、最後の操作をやり直すことができます。
+最後の操作を元に戻すには format@@0(../undo) を参照してください。
