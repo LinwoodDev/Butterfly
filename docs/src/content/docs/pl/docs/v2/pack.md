@@ -2,7 +2,7 @@
 title: Paczka
 ---
 
-Pakiet jest zbiorem elementów, które mogą być użyte w narzędziu stemplowym. Możesz utworzyć własny pakiet lub zaimportować istniejący. Aby kliknąć w lewym górnym rogu i kliknij na "Paczki".
+A pack is a collection of components that can be used in the stamp tool. Możesz utworzyć własny pakiet lub zaimportować istniejący. Aby kliknąć w lewym górnym rogu i kliknij na "Paczki".
 
 ## Właściwości
 
@@ -14,6 +14,6 @@ Pakiet jest zbiorem elementów, które mogą być użyte w narzędziu stemplowym
 
 ### Składniki
 
-Komponenty są sposobem na zapisywanie elementów, które często używasz. Możesz utworzyć własne komponenty lub zaimportować istniejące przy użyciu pakietów.
+Components are a way to save elements that you use often. You can create your own components or import an existing one using packs.
 
-Użyj strony nawigatora komponentów, aby wkleić komponenty do notatek.
+Use the components navigator page to paste components into your notes.
