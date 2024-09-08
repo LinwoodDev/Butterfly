@@ -21,7 +21,7 @@ title: الاختصارات
 
 ### مشروع
 
-- `Ctrl` + `K`: Open search
+- `Ctrl` + `K`: فتح البحث
 - `Ctrl` + `Z`: التراجع
 - `Ctrl` + `Y`: إعادة
 - 'Ctrl' + 'Shift' + 'P': فتح مربع حوار إحداثيات الطريق
@@ -38,7 +38,7 @@ title: الاختصارات
 
 - `القضية`: تم تكوينها كقلم.
 - 'أولا\` (الزر الأساسي، إذا كان مدعوماً): قم بتغيير الأداة اليدوية أثناء الضغط عليها.
-- `Second` (Secondary button, if supported): Change to second tool (see [configure](#configure) section below) while pressed.
+- 'ثانية\` (زر ثانوي، إذا كان مدعوماً): تغيير إلى أداة ثانية (انظر القسم [configure](#configure) أدناه) أثناء النقض.
 
 ## تكوين {#configure}
 
