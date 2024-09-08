@@ -2,4 +2,4 @@
 title: プレゼンテーション
 ---
 
-プレゼンテーションツールを使用すると、ノート内に独自のアニメーションを作成できます。
+The presentation tool allows you to create your own animations inside your notes.
