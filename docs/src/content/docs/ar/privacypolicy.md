@@ -4,7 +4,7 @@ tableOfContents: false
 ---
 
 هذه هي سياسة الخصوصية في التطبيق. من فضلك قرأته بعناية.
-انقر فوق [here](https://go.linwood.dev/privacypolicy) لقراءة سياسة الخصوصية للموقع.
+Click [here](https://go.linwood.dev/privacypolicy) to read the privacy policy of the website.
 
 قام CodeDoctor ببناء تطبيق الفراشة كتطبيق مفتوح المصدر. وهذا النظام مقدم من مركز الدكتوراه مجانا وهو مخصص للاستخدام كما هو الحال الآن.
 
@@ -24,7 +24,7 @@ tableOfContents: false
 
 - [Google Play Services](https://www.google.com/policies/privacy/)
 
-**ملفات تعريف الارتباط**
+**Cookies**
 
 ملفات تعريف الارتباط هي ملفات تحتوي على كمية صغيرة من البيانات الشائعة الاستخدام كمعرّفات فريدة مجهولة الهوية. يتم إرسال هذه إلى المتصفح الخاص بك من المواقع التي تزورها ويتم تخزينها على الذاكرة الداخلية لجهازك.
 
@@ -41,7 +41,7 @@ tableOfContents: false
 
 وأود أن أبلغ مستخدمي هذه الدائرة بأن هذه الأطراف الثالثة تستطيع الوصول إلى معلوماتك الشخصية. والسبب في ذلك هو أداء المهام المسندة إليهم بالنيابة عننا. ومع ذلك، فهم ملزمون بعدم الكشف عن المعلومات أو استخدامها لأي غرض آخر.
 
-**الأمن**
+**Security**
 
 وأنا أقدر ثقتكم في تزويدنا بمعلوماتك الشخصية، وبالتالي فإننا نسعى جاهدين لاستخدام وسائل مقبولة تجاريا لحمايتها. لكن تذكروا أنه لا توجد طريقة للانتقال عبر الإنترنت، أو طريقة التخزين الإلكتروني آمنة وموثوق بها بنسبة 100 في المائة، ولا يمكنني ضمان أمنها المطلق.
 
@@ -55,9 +55,9 @@ tableOfContents: false
 
 وهذه السياسة فعالة اعتباراً من 2021-02-07
 
-**اتصل بنا**
+**Contact Us**
 
 إذا كان لديك أي أسئلة أو اقتراحات حول سياسة الخصوصية الخاصة بي، فلا تتردد في الاتصال بي على contact@linwood.dev.
 
-تم إنشاء صفحة سياسة الخصوصية هذه في [privacypolicytemplate.net](https://privacypolicytemplate.net) وتعديل/مولد
-من قبل [مولد سياسة الخصوصية في التطبيق](https://app-privacy-Policy Generator.nisrulz.com/)
+This privacy policy page was created at [privacypolicytemplate.net](https://privacypolicytemplate.net) and modified/generated
+by [App Privacy Policy Generator](https://app-privacy-policy-generator.nisrulz.com/)
