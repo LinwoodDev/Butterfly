@@ -1,17 +1,17 @@
 ---
-title: Utilities
+title: Narzędzia
 ---
 
-This view allows you to change the general document or the view.
+Ten widok pozwala na zmianę ogólnego dokumentu lub widoku.
 
 ## Projekt
 
-Here are all globally properties that you can set like name and description.
-Additionally you can capture a thumbnail from the current viewport to see it in the home page.
+Oto wszystkie globalne właściwości, które możesz ustawić jak nazwa i opis.
+Dodatkowo możesz przechwycić miniaturę z bieżącego widoku aby zobaczyć ją na stronie głównej.
 
 ## Strona
 
-Here are all page specific properties. Currently you can find the background setting here.
+Oto wszystkie właściwości strony. Obecnie możesz znaleźć tło tutaj.
 
 ## Widok
 
@@ -25,4 +25,4 @@ Powiernik pozwala na pomiar odległości między dwoma punktami. Dodatkowo możn
 
 ## Aparat
 
-To jump to a specific position or zoom to a specific level you can use this tab.
+Aby przejść do określonej pozycji lub przybliżyć do określonego poziomu, możesz użyć tej karty.
