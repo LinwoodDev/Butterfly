@@ -18,5 +18,5 @@ Kaikki yölliset rakennukset julkaistaan myös githubin esijulkaisuna.
 ## Kokeet
 
 Kokeet ovat ominaisuuksia, jotka eivät ole vielä valmiita tuotantoon.
-Oletus ne on poistettu käytöstä. You can enable them in the settings under `Experiments`.
+Oletus ne on poistettu käytöstä. Voit ottaa ne käyttöön asetuksissa `Kokeet`.
 Tämä välilehti näkyy vain yöllisessä versiossa.
