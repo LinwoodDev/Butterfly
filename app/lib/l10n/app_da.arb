@@ -612,6 +612,6 @@
   "install": "Installér",
   "deselect": "Fravælg",
   "changeLayer": "Skift lag",
-  "fullSelection": "Full selection",
-  "fullSelectionDescription": "Requires elements to be fully within the selection box for selection."
+  "fullSelection": "Fuld udvælgelse",
+  "fullSelectionDescription": "Kræver elementer for at være helt inde i markeringsfeltet for valg."
 }
