@@ -2,7 +2,7 @@
 title: Capas
 ---
 
-Las capas son una opción para agrupar elementos juntos. Haga clic en el elemento para ver y cambiar la capa. Use the [layer tool](../tools/layer) to change the layers of multiple elements.
+Las capas son una opción para agrupar elementos juntos. Haga clic en el elemento para ver y cambiar la capa. Usa la [herramienta de capa](../tools/layer) para cambiar las capas de múltiples elementos.
 
 ## El diálogo de capas
 
