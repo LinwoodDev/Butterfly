@@ -12,5 +12,5 @@ title: Construiți-vă propriul
    - `flutter build linux`
    - `flutter build windows`
    - `flutter build ios --release --no-codesign`\
-     after that, create a folder named "Payload", copy Runner.app into it and zip the payload folder. Then rename ".zip" to ".ipa".
+     după aceea, creați un folder numit "Payload", copiați Runner.app în el şi arhivați folderul payload. Apoi redenumiţi ".zip" în ".ipa".
 5. Fișierele compilate sunt în directorul de construcții
