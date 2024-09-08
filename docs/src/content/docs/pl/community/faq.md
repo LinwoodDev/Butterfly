@@ -19,18 +19,18 @@ Spróbuj zaktualizować przeglądarkę do najnowszej wersji.
 
 ## Komórka
 
-### Nie rozpoznano wstrzykiwacza S-Pen
+### S-Pen won't be recognized
 
 > [#270](https://github.com/LinwoodDev/Butterfly/issues/270)
 
 Używam danych wejściowych dostarczanych przez ramę wytrząsania.
-To jest problem do śledzenia: [flutter/flutter#42846](https://github.com/flutter/flutter/issues/42846).
+This is the issue to track it: [flutter/flutter#42846](https://github.com/flutter/flutter/issues/42846).
 
-### Wsparcie dla iOS
+### iOS support
 
 > [#244](https://github.com/LinwoodDev/Butterfly/issues/244)
 
-Motylka jest dostępna w iOS jako podgląd. Kliknij [here](https://butterfly.linwood.dev/downloads/ios), aby go pobrać. Zobacz [here](https://github.com/LinwoodDev/Butterfly/issues/244#issuecomment-1935460878), dlaczego nie jest dostępny w App Store.
+Butterfly is available on iOS as preview. Click [here](https://butterfly.linwood.dev/downloads/ios) to download it. See [here](https://github.com/LinwoodDev/Butterfly/issues/244#issuecomment-1935460878) why it's not available on the App Store.
 
 ## Pulpit
 
@@ -39,8 +39,8 @@ Motylka jest dostępna w iOS jako podgląd. Kliknij [here](https://butterfly.lin
 > [#238](https://github.com/LinwoodDev/Butterfly/issues/238)
 
 Używam danych wejściowych dostarczanych przez ramę wytrząsania.
-Istnieją już problemy do śledzenia:
-Windows: [flutter/flutter#65248](https://github.com/flutter/flutter/issues/65248) i [flutter/flutter#102836](https://github.com/flutter/flutter/issues/102836).
+There are already issues to track it:
+Windows: [flutter/flutter#65248](https://github.com/flutter/flutter/issues/65248) and [flutter/flutter#102836](https://github.com/flutter/flutter/issues/102836).
 Linux: [flutter/flutter#63209](https://github.com/flutter/flutter/issues/63209)
 
 Te kwestie są nieco starsze. Na razie wersja internetowa powinna działać dobrze.
