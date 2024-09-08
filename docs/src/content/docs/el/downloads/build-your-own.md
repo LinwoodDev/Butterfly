@@ -10,7 +10,7 @@ title: Φτιάξτε το δικό σας
    - `flutter build appbundle`
    - `flutter build web`
    - `flutter build linux`
-   - `flutter κατασκευή παραθύρων`
+   - `flutter build windows`
    - `flutter build ios --release --no-codesign`\
-     μετά από αυτό, δημιουργήστε ένα φάκελο που ονομάζεται "Payload", αντιγράψτε Runner.app σε αυτό και zip το φάκελο payload. Στη συνέχεια, μετονομάστε ".zip" σε ".ipa".
+     after that, create a folder named "Payload", copy Runner.app into it and zip the payload folder. Then rename ".zip" to ".ipa".
 5. Τα μεταγλωττισμένα αρχεία βρίσκονται στον κατάλογο κατασκευής
