@@ -1,11 +1,11 @@
 ---
-title: シェイプツール
+title: Shape tool
 ---
 
-このツールを使って紙に図形を描きましょう。
+Use this tool to draw shapes on the paper.
 長方形、円、その他の図形を描画できます。
 
-同じ高さと幅を持つ場合は`ctrl`を、中央から描く場合は`shift`を使います。
+Use `ctrl` to have the same height and width and `shift` to draw from the center.
 
 ## 設定
 
@@ -36,4 +36,4 @@ title: シェイプツール
 
 #### 線
 
-_利用可能な設定はありません_
+_No configuration available._
