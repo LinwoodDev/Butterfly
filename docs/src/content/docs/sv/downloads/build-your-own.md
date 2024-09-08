@@ -6,11 +6,11 @@ title: Bygg din egen
 2. Klona förrådet
 3. Navigera till app-katalogen
 4. Använd fladderverktyget för att sammanställa applikationen
-   - `flutter build apk`
+   - `fladder bygga apk`
    - `flutter build appbundle`
-   - `flutter build web`
-   - `flutter build linux`
-   - `flutter build windows`
+   - `fladder bygga web`
+   - `fladder bygga linux`
+   - `fladder bygga fönster`
    - `flutter build ios --release --no-codesign`\
-     after that, create a folder named "Payload", copy Runner.app into it and zip the payload folder. Then rename ".zip" to ".ipa".
+     efter det, skapa en mapp som heter "Payload", kopiera Runner.app till det och zippa mappen nyttolast. Byt sedan namn på ".zip" till ".ipa".
 5. De kompilerade filerna finns i kompileringskatalogen
