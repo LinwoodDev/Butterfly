@@ -1,5 +1,5 @@
 ---
-title: Herramienta de mano
+title: Hand tool
 ---
 
-Con esta herramienta puedes moverte en la página.
+With this tool you can move on the page.
