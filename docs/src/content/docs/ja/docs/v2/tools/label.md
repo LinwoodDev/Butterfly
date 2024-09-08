@@ -1,8 +1,8 @@
 ---
-title: Label tool
+title: ラベルツール
 ---
 
-With this tool you can add text to the paper.
+このツールを使用すると、紙にテキストを追加できます。
 
 ## 設定
 
