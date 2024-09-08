@@ -21,7 +21,7 @@ title: ショートカット
 
 ### プロジェクト
 
-- `Ctrl` + `K`: Open search
+- `Ctrl` + `K`: 検索を開く
 - `Ctrl` + `Z`: 元に戻す
 - `Ctrl` + `Y`: やり直します
 - `Ctrl` + `Shift` + `P`: ウェイポイントダイアログを開く
@@ -38,7 +38,7 @@ title: ショートカット
 
 - `Pen`: ペンとして設定されています。
 - `First` (サポートされている場合はプライマリボタン): 押したまま手動ツールに変更します。
-- `Second` (Secondary button, if supported): Change to second tool (see [configure](#configure) section below) while pressed.
+- `Second` (サポートされている場合はSecondary button): 押された状態で2番目のツールに変更します (下記の [configure](#configure) セクションを参照してください)。
 
 ## {#configure} を設定
 
