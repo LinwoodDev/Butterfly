@@ -1,11 +1,11 @@
 ---
-title: Shape tool
+title: Form verktøy
 ---
 
-Use this tool to draw shapes on the paper.
+Bruk dette verktøyet til å tegne figurer på papiret.
 Du kan tegne rektangler, sirkler og andre former.
 
-Use `ctrl` to have the same height and width and `shift` to draw from the center.
+Bruk `ctrl` for å ha samme høyde og bredde og `shift` for å tegne fra midten.
 
 ## Konfigurasjon
 
