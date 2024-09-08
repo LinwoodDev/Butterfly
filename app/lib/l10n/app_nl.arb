@@ -612,6 +612,6 @@
   "install": "Installeren",
   "deselect": "Deselecteer",
   "changeLayer": "Laag wijzigen",
-  "fullSelection": "Full selection",
-  "fullSelectionDescription": "Requires elements to be fully within the selection box for selection."
+  "fullSelection": "Volledige selectie",
+  "fullSelectionDescription": "Vereist elementen om volledig in het selectievakje te zijn voor selectie."
 }
