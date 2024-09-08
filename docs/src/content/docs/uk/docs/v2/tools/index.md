@@ -2,11 +2,11 @@
 title: Інструменти
 ---
 
-Інструменти можуть редагувати папір.
+Tools can edit the paper.
 
 Використовуйте бічну панель, щоб дізнатися більше про інструменти.
 
-Створити новий інструмент, натиснувши на значок плюса. Змінити порядок інструментів перетягуванням та міняючи інструмент, клікаючи.
+Create a new tool by clicking on the plus icon. Change the tool order by dragging and change the tool by clicking.
 Якщо натиснути на вибраний інструмент, ви можете налаштувати його.
 
-Назва інструменту буде відображатися як підказка на Hover інструменті.
+The name of the tool will be displayed as tooltip on hover on the tool.
