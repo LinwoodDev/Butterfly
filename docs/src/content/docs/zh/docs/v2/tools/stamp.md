@@ -1,9 +1,9 @@
 ---
-title: Stamp tool
+title: 印章工具
 ---
 
-The stamp tool allows you to add components to your canvas.
-使用现有的包，创建您自己或导入一个包来使用它。 Read more [here](../../pack).
+印花工具允许您将组件添加到画布中。
+使用现有的包，创建您自己或导入一个包来使用它。 阅读更多的 [here](../../pack)。
 
 ## 配置
 
