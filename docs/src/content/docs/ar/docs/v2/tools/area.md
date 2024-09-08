@@ -1,8 +1,8 @@
 ---
-title: Area tool
+title: أداة المنطقة
 ---
 
-The area tool allows you to create, edit and remove areas.
+أداة المنطقة تسمح لك بإنشاء المناطق وتحريرها وإزالة المناطق.
 
 ## الإجراءات
 
