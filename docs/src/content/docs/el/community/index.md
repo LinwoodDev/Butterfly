@@ -8,10 +8,10 @@ title: Κοινότητα
 
 Ιδιαίτερες ευχαριστίες απευθύνεται:
 
-- [Flutter](https://github.com/flutter/flutter) for providing this useful crossplatform ui framework
-- [window_manager](https://github.com/leanflutter/window_manager) for all this useful desktop window features
-- [Starlight](https://github.com/withastro/starlight) for an easy-to-use static react documentation framework
-- [Phosphor Icons](https://phosphoricons.com/) for the beautiful icons
+- [Flutter](https://github.com/flutter/flutter) για την παροχή αυτού του χρήσιμου crossplatform
+- [window_manager](https://github.com/leanflutter/window_manager) για όλα αυτά τα χρήσιμα χαρακτηριστικά παραθύρων επιφάνειας εργασίας
+- [Starlight](https://github.com/withastro/starlight) για ένα εύκολο στη χρήση πλαίσιο στατικής αντίδρασης τεκμηρίωσης
+- [Phosphor Icons](https://phosphoricons.com/) για τα όμορφα εικονίδια
 
 Όλες οι άλλες άδειες χρήσης μπορείτε να βρείτε στις ρυθμίσεις.
 
