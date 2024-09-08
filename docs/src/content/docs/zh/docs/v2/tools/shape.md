@@ -1,11 +1,11 @@
 ---
-title: Shape tool
+title: 形状工具
 ---
 
-Use this tool to draw shapes on the paper.
+使用此工具在纸上绘制形状。
 你可以绘制矩形、圆圈和其他形状。
 
-Use `ctrl` to have the same height and width and `shift` to draw from the center.
+使用 `ctrl` 来绘制中心的高度和宽度与`shift` 。
 
 ## 配置
 
@@ -36,4 +36,4 @@ Use `ctrl` to have the same height and width and `shift` to draw from the center
 
 #### 直线
 
-_No configuration available._
+_没有可用的配置。_
