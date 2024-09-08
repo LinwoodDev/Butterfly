@@ -1,8 +1,8 @@
 ---
-title: Label tool
+title: Nástroj popisku
 ---
 
-With this tool you can add text to the paper.
+Pomocí tohoto nástroje můžete přidat text do dokumentu.
 
 ## Konfigurace
 
