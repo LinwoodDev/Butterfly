@@ -1,9 +1,9 @@
 ---
-title: Stempel gereedschap
+title: Stamp tool
 ---
 
-Met het stempel kun je onderdelen aan je canvas toevoegen.
-Gebruik een bestaand pakket, maak een eigen pakket of importeer een pakket om het te gebruiken. Lees meer [here](../../pack).
+The stamp tool allows you to add components to your canvas.
+Gebruik een bestaand pakket, maak een eigen pakket of importeer een pakket om het te gebruiken. Read more [here](../../pack).
 
 ## Configuratie
 
