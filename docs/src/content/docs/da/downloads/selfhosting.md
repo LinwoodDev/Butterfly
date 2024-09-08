@@ -2,8 +2,8 @@
 title: Selfhosting
 ---
 
-![Stable release version](https://img.shields.io/badge/dynamic/yaml?color=c4840d\&label=Stable\&query=%24.version\&url=https%3A%2F%2Fraw.githubusercontent.com%2FLinwoodDev%2Fbutterfly%2Fstable%2Fapp%2Fpubspec.yaml\&style=for-the-badge)
-![Nightly release version](https://img.shields.io/badge/dynamic/yaml?color=f7d28c\&label=Nightly\&query=%24.version\&url=https%3A%2F%2Fraw.githubusercontent.com%2FLinwoodDev%2Fbutterfly%2Fnightly%2Fapp%2Fpubspec.yaml\&style=for-the-badge)
+![Stabil udgivelsesversion](https://img.shields.io/badge/dynamic/yaml?color=c4840d&label=Stable&query=%24.version&url=https%3A%2F%2Fraw.githubusercontent.com%2FLinwoodDev%2Fsommerfugl%2Fstabil%2Fapp%2Fpubspec. aml&style=for-the-badge)
+![Natlige udgivelsesversion](https://img.shields.io/badge/dynamic/yaml?color=f7d28c\&label=Nat\&query=%24.version\&url=https%3A%2F%2Fraw.githubusercontent.com%2FLinwoodDev%2Fbutterfly%2Fnightly%2Fapp%2Fpubspec.yaml\&style=for-the-badge)
 
 Det er meget nemt at være vært for din egen butterfly webserver.
 
@@ -17,9 +17,9 @@ flutter pub get
 flutter build web
 ```
 
-All the files are in the `app/build/web` directory.
+Alle filerne er i mappen 'app/build/web'.
 
 ## Docker
 
-Clone the repository and build the `Dockerfile` using: `docker build -t linwood-butterfly`.
-Start the server using: `docker run -p 8080:8080 -d linwood-butterfly`.
+Klon depotet og opbyg `Dockerfile` med: `docker build -t linwood-butterfly`.
+Start serveren med: `docker køre -p 8080:8080 -d linwood-butterfly`.
