@@ -1,8 +1,8 @@
 ---
-title: Area tool
+title: Зона
 ---
 
-The area tool allows you to create, edit and remove areas.
+Дозволяє створювати і видаляти області.
 
 ## Дії
 
