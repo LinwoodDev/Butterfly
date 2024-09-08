@@ -1,13 +1,13 @@
 ---
-title: Undo tool
+title: Vrátit nástroj
 ---
 
-:::note[⚡ Action tool]
+:::note[⚡ Nástroj akce]
 
-This is a special tool.
+Toto je speciální nástroj.
 Nemůžete ji vybrat a po kliknutí na ni spustí akci.
 
 :::
 
-When clicking on this tool you can undo your last action.
-See the [redo tool](../redo) for redoing your last action.
+Po kliknutí na tento nástroj můžete vrátit zpět poslední akci.
+Podívej se na [redo tool](../redo) pro opětovné provedení poslední akce.
