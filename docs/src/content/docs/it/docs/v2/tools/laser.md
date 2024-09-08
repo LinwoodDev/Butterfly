@@ -1,8 +1,8 @@
 ---
-title: Laser tool
+title: Strumento laser
 ---
 
-With this tool you can draw on this paper temporarily. Dopo un po ', il disegno svanisce. Aggiungi un nuovo disegno alla carta per renderla annullata.
+Con questo strumento è possibile disegnare su questo documento temporaneamente. Dopo un po ', il disegno svanisce. Aggiungi un nuovo disegno alla carta per renderla annullata.
 
 ## Configurazione
 
