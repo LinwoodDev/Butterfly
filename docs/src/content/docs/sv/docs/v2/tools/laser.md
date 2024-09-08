@@ -1,8 +1,8 @@
 ---
-title: Laser tool
+title: Laser verktyg
 ---
 
-With this tool you can draw on this paper temporarily. Efter ett tag bleknar teckningen bort. Lägg till en ny ritning till papperet för att göra det avbryta.
+Med detta verktyg kan du rita på detta papper tillfälligt. Efter ett tag bleknar teckningen bort. Lägg till en ny ritning till papperet för att göra det avbryta.
 
 ## Konfiguration
 
