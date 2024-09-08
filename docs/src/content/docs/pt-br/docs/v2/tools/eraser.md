@@ -2,7 +2,7 @@
 title: Eraser tool
 ---
 
-Com esta ferramenta você poderá apagar os elementos no papel.
+With this tool you can erase the elements on the paper.
 
 ## Configuração
 
