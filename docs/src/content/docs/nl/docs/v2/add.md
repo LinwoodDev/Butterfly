@@ -2,23 +2,23 @@
 title: Toevoegen
 ---
 
-Here you can add things to your notes.
+Hier kunt u dingen aan uw notities toevoegen.
 
 ## Importeren
 
-Here you can import existing files inside your documents.
-Supported are butterfly documents, markdown, png, svg and pdf.
+Hier kunt u bestaande bestanden in uw documenten importeren.
+Ondersteunde vlinderdocumenten, markdown, png, svg en pdf.
 
 ## Hulpmiddelen
 
-To add more tools to your toolbar, click on them.
-Read more about them [here](../tools).
+Klik op de toolbar om meer gereedschappen toe te voegen.
+Lees meer over ze [here](../tools).
 
-## Surfaces
+## Oppervlakken
 
-These are special tools to create surfaces.
+Dit zijn speciale gereedschappen om oppervlakten te maken.
 
 ## acties
 
-These are tools that will be executed by clicking on them.
-You can use the play button to execute them without adding them to the toolbar.
+Dit zijn functies die zullen worden uitgevoerd door erop te klikken.
+Je kunt de afspeelknop gebruiken om ze uit te voeren zonder ze toe te voegen aan de werkbalk.
