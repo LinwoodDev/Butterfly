@@ -2,11 +2,11 @@
 title: أدوات
 ---
 
-يمكن للأدوات تعديل الورقة.
+Tools can edit the paper.
 
 استخدم الشريط الجانبي لمعرفة المزيد عن الأدوات.
 
-إنشاء أداة جديدة عن طريق النقر على أيقونة زائد. تغيير ترتيب الأداة عن طريق سحب وتغيير الأداة بالنقر.
+Create a new tool by clicking on the plus icon. Change the tool order by dragging and change the tool by clicking.
 إذا قمت بالنقر على أداة محددة يمكنك تكوينها.
 
-سيتم عرض اسم الأداة كتلميح على الوصلة على الأداة.
+The name of the tool will be displayed as tooltip on hover on the tool.
