@@ -19,18 +19,18 @@ Intenta actualizar tu navegador a la última versión.
 
 ## Móvil
 
-### S-Pen won't be recognized
+### S-Pen no será reconocido
 
 > [#270](https://github.com/LinwoodDev/Butterfly/issues/270)
 
 Estoy usando la entrada proporcionada por el framework de flujos.
-This is the issue to track it: [flutter/flutter#42846](https://github.com/flutter/flutter/issues/42846).
+Este es el problema para seguirlo: [flutter/flutter#42846](https://github.com/flutter/flutter/issues/42846).
 
-### iOS support
+### soporte para iOS
 
 > [#244](https://github.com/LinwoodDev/Butterfly/issues/244)
 
-Butterfly is available on iOS as preview. Click [here](https://butterfly.linwood.dev/downloads/ios) to download it. See [here](https://github.com/LinwoodDev/Butterfly/issues/244#issuecomment-1935460878) why it's not available on the App Store.
+La mariposa está disponible en iOS como vista previa. Haz clic en [here](https://butterfly.linwood.dev/downloads/ios) para descargarlo. Ver [here](https://github.com/LinwoodDev/Butterfly/issues/244#issuecomment-1935460878) por qué no está disponible en App Store.
 
 ## Escritorio
 
@@ -39,8 +39,8 @@ Butterfly is available on iOS as preview. Click [here](https://butterfly.linwood
 > [#238](https://github.com/LinwoodDev/Butterfly/issues/238)
 
 Estoy usando la entrada proporcionada por el framework de flujos.
-There are already issues to track it:
-Windows: [flutter/flutter#65248](https://github.com/flutter/flutter/issues/65248) and [flutter/flutter#102836](https://github.com/flutter/flutter/issues/102836).
+Ya hay problemas para rastrearla:
+Windows: [flutter/flutter#65248](https://github.com/flutter/flutter/issues/65248) y [flutter/flutter#102836](https://github.com/flutter/flutter/issues/102836).
 Linux: [flutter/flutter#63209](https://github.com/flutter/flutter/issues/63209)
 
 Estas cuestiones son un poco más antiguas. La versión web debería funcionar bien por ahora.
