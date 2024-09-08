@@ -1,8 +1,8 @@
 ---
-title: Pen tool
+title: Penna verktyg
 ---
 
-With this tool you can draw on this paper.
+Med detta verktyg kan du rita på detta papper.
 
 ## Konfiguration
 
