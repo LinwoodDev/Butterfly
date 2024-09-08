@@ -1,8 +1,8 @@
 ---
-title: Laser tool
+title: Laser verktøy
 ---
 
-With this tool you can draw on this paper temporarily. Etter en stund unngår tegningen seg vekk. Legg til en ny tegning i papiret slik at den blir avbrutt.
+Med dette verktøyet kan du midlertidig tegne det papiret. Etter en stund unngår tegningen seg vekk. Legg til en ny tegning i papiret slik at den blir avbrutt.
 
 ## Konfigurasjon
 
