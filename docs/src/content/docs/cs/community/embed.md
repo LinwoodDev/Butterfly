@@ -2,8 +2,8 @@
 title: Vložit
 ---
 
-Vložení je jednoduchý způsob, jak zahrnout aplikaci do vašich webových stránek.
-Přidejte následující kód na vaše webové stránky:
+Embedding is a simple way to include the app in your website.
+Add the following code to your website:
 
 ```html
 <iframe src="https://web.butterfly.linwood.dev/embed" width="100%" height="500px" allowtransparency="true"></iframe>
@@ -11,11 +11,11 @@ Přidejte následující kód na vaše webové stránky:
 
 ## Možnosti
 
-| Možnost      | Typ                                                                                                | Výchozí | L 343, 22.12.2009, s. 1).                                                           |
-| ------------ | -------------------------------------------------------------------------------------------------- | ------- | --------------------------------------------------------------------------------------------------------------------------------------------------- |
-| uložit       | Logická (pravda, nepravda)                                                      | pravda  | Povolit uložení. Pokud je zakázáno, zobrazí se pouze tlačítko ukončení                                                              |
-| editovatelná | Logická (pravda, nepravda)                                                      | pravda  | Povolit úpravy. Je-li zakázáno, dokument bude pouze pro čtení                                                                       |
-| jazyk        | Řetězec (..., systém, uživatel) | systém  | Jazyk dokumentu. Pokud je systém rozpoznán z prohlížeče. Pokud uživatel, jazyk bude nastaven na předvolby uživatelů |
+| Možnost  | Typ                                                                                                | Výchozí | L 343, 22.12.2009, s. 1).                                                                                   |
+| -------- | -------------------------------------------------------------------------------------------------- | ------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| uložit   | Boolean (true, false)                                                           | true    | Enable save. If disabled, only an exit button will be shown                                                                                                 |
+| editable | Boolean (true, false)                                                           | true    | Enable editing. If disabled, the document will be read-only                                                                                                 |
+| jazyk    | Řetězec (..., systém, uživatel) | system  | Language of the document. If system, the language will be detected from the browser. If user, the language will set to the users preference |
 
 ## Události
 
@@ -32,27 +32,27 @@ embedElement.addEventListener('message', (data) => {
 
 ### uložit
 
-> Uložit" událost je aktivována, když uživatel klikne na tlačítko Uložit.
+> The `save` event is emitted when the user clicks the save button.
 
 Parametry:
 
-- `data` (Typ `List<int>`): Data dokumentu.
+- `data` (Type `List<int>`): The data of the document.
 
 ### ukončit
 
-> Událost "ukončit" je zapnuta, když uživatel klikne na tlačítko "Ukončí".
+> The `exit` event is emitted when the user clicks the exit button.
 
 Parametry:
 
-- `data` (Typ `List<int>`): Data dokumentu.
+- `data` (Type `List<int>`): The data of the document.
 
-### změna
+### change
 
-> Událost `change` se vypouští, když uživatel změní dokument.
+> The `change` event is emitted when the user changes the document.
 
 Parametry:
 
-- `data` (Typ `List<int>`): Data dokumentu.
+- `data` (Type `List<int>`): The data of the document.
 
 ## Metody
 
@@ -70,40 +70,40 @@ embedElement.addEventListener('message', (data) => {
 
 ### getData
 
-> Metoda `getData` vrací data dokumentu.
+> The `getData` method returns the data of the document.
 
-Žádné parametry.
-Vrácené hodnoty: `List<int>`
+No parameters.
+Returns: `List<int>`
 
 ### setData
 
-> Metoda `setData` nastavuje data dokumentu.
+> The `setData` method sets the data of the document.
 
 Parametry:
 
-- `data` (Typ `List<int>`): Data dokumentu.
+- `data` (Type `List<int>`): The data of the document.
 
-### vykreslit
+### render
 
-> Metoda `render` vykresluje dokument na png obrázek.
+> The `render` method renders the document to a png image.
 
 Parametry:
 
-- `width` (Typ `Number`): Šířka obrázku.
-- `height` (Typ `Number`): Výška obrázku.
-- `měřítko` (typ `číslo`): měřítko obrázku.
-- `renderBackground` (Type `Boolean`): Pokud je pravda, pozadí bude vykresleno.
+- `width` (Type `Number`): The width of the image.
+- `height` (Type `Number`): The height of the image.
+- `scale` (Type `Number`): The scale of the image.
+- `renderBackground` (Type `Boolean`): If true, the background will be rendered.
 
-Vrácení: `String` (Base64 enkódovaný obrázek)
+Returns: `String` (Base64 encoded image)
 
 ### renderSVG
 
-> Metoda `renderSVG` vykresluje dokument na svg obrázek.
+> The `renderSVG` method renders the document to a svg image.
 
 Parametry:
 
-- `width` (Typ `Number`): Šířka obrázku.
-- `height` (Typ `Number`): Výška obrázku.
-- `renderBackground` (Type `Boolean`): Pokud je pravda, pozadí bude vykresleno.
+- `width` (Type `Number`): The width of the image.
+- `height` (Type `Number`): The height of the image.
+- `renderBackground` (Type `Boolean`): If true, the background will be rendered.
 
-Vrácené hodnoty: `String` (SVG)
+Returns: `String` (SVG)
