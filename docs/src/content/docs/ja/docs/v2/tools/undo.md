@@ -1,13 +1,13 @@
 ---
-title: Undo tool
+title: 元に戻す
 ---
 
-:::note[⚡ Action tool]
+:::note[⚡ アクションツール]
 
-This is a special tool.
+これは特別なツールです。
 あなたはそれを選択することはできませんし、それをクリックするとアクションを実行します。
 
 :::
 
-When clicking on this tool you can undo your last action.
-See the [redo tool](../redo) for redoing your last action.
+このツールをクリックすると、最後の操作を元に戻すことができます。
+最後の操作をやり直すには format@@0(../redo) を参照してください。
