@@ -1,13 +1,13 @@
 ---
-title: Εργαλείο αναίρεσης
+title: Undo tool
 ---
 
-:::note[⚡ Εργαλείο ενέργειας]
+:::note[⚡ Action tool]
 
-Αυτό είναι ένα ειδικό εργαλείο.
+This is a special tool.
 Δεν μπορείτε να την επιλέξετε και θα εκτελέσει την ενέργεια αν κάνετε κλικ σε αυτήν.
 
 :::
 
-Όταν κάνετε κλικ σε αυτό το εργαλείο, μπορείτε να αναιρέσετε την τελευταία σας ενέργεια.
-Δείτε το εργαλείο [redo](../redo) για την επανάληψη της τελευταίας σας ενέργειας.
+When clicking on this tool you can undo your last action.
+See the [redo tool](../redo) for redoing your last action.
