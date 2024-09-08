@@ -8,29 +8,29 @@ Her er noen ofte stilte spørsmål.
 
 ### Hvordan installerer jeg web versjonen?
 
-Du kan installere webversjonen ved å klikke på knappen Installer i tittellinjen.
-Etter det kan du bruke denne appen frakoblet.
+You can install the web version by clicking on the install button in the title bar.
+After that you can use this app offline.
 
 ### Sommerfugl lastes ikke på trær
 
-Modige brukere som har angitt innstillingen 'Block Fingerprint' til Aggressiva, må endres til 'Standard' eller bare 'Blokkering av fingeravtrykk'.
-Klikk på skjerm-ikonet i adresselinjen for å endre innstillingen.
-Prøv å oppdatere nettleseren til den nyeste versjonen.
+Brave Users who have set the 'Block Fingerprinting' Shield setting to Aggressive, need to change it to 'Standard' or just plain 'Block Fingerprinting'.
+Click on the shield icon in the address bar to change the setting.
+Try updating your browser to the latest version.
 
 ## Mobil
 
-### S-penn vil ikke gjenkjennes
+### S-Pen won't be recognized
 
 > [#270](https://github.com/LinwoodDev/Butterfly/issues/270)
 
-Jeg bruker det innspillet som følger med flutter rammeverket.
-Dette er problemet som sporer den: [flutter/flutter#42846](https://github.com/flutter/flutter/issues/42846).
+I'm using the input provided by the flutter framework.
+This is the issue to track it: [flutter/flutter#42846](https://github.com/flutter/flutter/issues/42846).
 
-### iOS brukerstøtte
+### iOS support
 
 > [#244](https://github.com/LinwoodDev/Butterfly/issues/244)
 
-Sommerfugl er tilgjengelig på iOS som forhåndsvisning. Klikk på [here](https://butterfly.linwood.dev/downloads/ios) for å laste den ned. Se [here](https://github.com/LinwoodDev/Butterfly/issues/244#issuecomment-1935460878) hvorfor det ikke er tilgjengelig på App Store.
+Butterfly is available on iOS as preview. Click [here](https://butterfly.linwood.dev/downloads/ios) to download it. See [here](https://github.com/LinwoodDev/Butterfly/issues/244#issuecomment-1935460878) why it's not available on the App Store.
 
 ## Skrivebord
 
@@ -38,9 +38,9 @@ Sommerfugl er tilgjengelig på iOS som forhåndsvisning. Klikk på [here](https:
 
 > [#238](https://github.com/LinwoodDev/Butterfly/issues/238)
 
-Jeg bruker det innspillet som følger med flutter rammeverket.
-Det er allerede problemer med å spore det:
-Windows: [flutter/flutter#65248](https://github.com/flutter/flutter/issues/65248) and [flutter/flutter#102836](https://github.com/flutter/flutter/flutter/issues/102836).
+I'm using the input provided by the flutter framework.
+There are already issues to track it:
+Windows: [flutter/flutter#65248](https://github.com/flutter/flutter/issues/65248) and [flutter/flutter#102836](https://github.com/flutter/flutter/issues/102836).
 Linux: [flutter/flutter#63209](https://github.com/flutter/flutter/issues/63209)
 
-Disse sakene er litt eldre. Nettversjonen skal fungere fint for nå.
+These issues are a bit older. The web version should work fine for now.
