@@ -4,7 +4,7 @@ tableOfContents: false
 ---
 
 Dit is het privacybeleid van de app. Leest u het alstublieft zorgvuldig.
-Click [here](https://go.linwood.dev/privacypolicy) to read the privacy policy of the website.
+Klik [here](https://go.linwood.dev/privacybeleid) om het privacybeleid van de website te lezen.
 
 CodeDoctor heeft de Butterfly app gebouwd als een Open Source app. Deze SERVICE wordt geleverd door CodeDoctor zonder kosten en is bedoeld voor gebruik zoals dat is.
 
@@ -22,9 +22,9 @@ De app maakt wel gebruik van diensten van derden die informatie kunnen verzamele
 
 Link naar privacybeleid van externe serviceproviders gebruikt door de app
 
-- [Google Play Services](https://www.google.com/policies/privacy/)
+- [Google Play Services](https://www.google.com/policy/privacy/)
 
-**Cookies**
+**Koekjes**
 
 Cookies zijn bestanden met een kleine hoeveelheid gegevens die vaak worden gebruikt als anonieme unieke ID's. Deze worden verzonden naar uw browser van de websites die u bezoekt en worden opgeslagen in het interne geheugen van uw apparaat.
 
@@ -41,7 +41,7 @@ Ik kan bedrijven en personen uit derde landen in dienst nemen om de volgende red
 
 Ik wil de gebruikers van deze dienst informeren dat deze derden toegang hebben tot uw persoonlijke informatie. De reden is om de taken die hun namens ons zijn toegewezen uit te voeren. Ze zijn echter verplicht om de informatie niet voor enig ander doel openbaar te maken of te gebruiken.
 
-**Security**
+**Beveiliging**
 
 Ik stel het op prijs dat u ons op de hoogte stelt van uw persoonlijke informatie, en wij proberen dus commercieel aanvaardbare middelen te gebruiken om deze te beschermen. Maar vergeet niet dat er geen methode is voor overdracht via het internet of elektronische opslag is 100% veilig en betrouwbaar, en ik kan de absolute veiligheid ervan niet garanderen.
 
@@ -55,9 +55,9 @@ Ik kan ons privacybeleid van tijd tot tijd updaten. U wordt dus aangeraden om de
 
 Dit beleid is van kracht vanaf 2021-02-07
 
-**Contact Us**
+**Neem contact op**
 
 Als u vragen of suggesties hebt over mijn privacybeleid, aarzel dan niet om contact met mij op te nemen via contact@linwood.dev.
 
-This privacy policy page was created at [privacypolicytemplate.net](https://privacypolicytemplate.net) and modified/generated
-by [App Privacy Policy Generator](https://app-privacy-policy-generator.nisrulz.com/)
+Deze privacy policy pagina is gemaakt bij [privacypolicytemplate.net](https://privacypolicytemplate.net) en
+gewijzigd en gegenereerd door [App Privacy Policy Generator](https://app-privacy-policy-generator.nisrulz.com/)
