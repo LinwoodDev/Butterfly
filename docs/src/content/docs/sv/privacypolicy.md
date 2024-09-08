@@ -3,22 +3,22 @@ title: Integritetspolicy
 tableOfContents: false
 ---
 
-This is the privacy policy of the app. Please read it carefully.
-Click [here](https://go.linwood.dev/privacypolicy) to read the privacy policy of the website.
+Detta är integritetspolicyn för appen. Var snäll och läs den noga.
+Klicka på [here](https://go.linwood.dev/privacypolicy) för att läsa sekretesspolicyn för webbplatsen.
 
-CodeDoctor built the Butterfly app as an Open Source app. This SERVICE is provided by CodeDoctor at no cost and is intended for use as is.
+CodeDoctor byggde fjärilsappen som en öppen källkodsapp. Denna TJÄNSTEN tillhandahålls av CodeDoctor utan kostnad och är avsedd för användning som är.
 
 Denna sida används för att informera besökare om mina policyer med samlingen, användning och utlämnande av personuppgifter om någon har beslutat att använda min Tjänst.
 
-If you choose to use my Service, then you agree to the collection and use of information in relation to this policy. The Personal Information that I collect is used for providing and improving the
-Service. I will not use or share your information with anyone except as described in this Privacy Policy.
+Om ni väljer att använda min tjänst samtycker ni till insamling och användning av information i samband med denna politik. Den personliga information som jag samlar in används för att tillhandahålla och förbättra
+Tjänsten. Jag kommer inte att använda eller dela dina uppgifter med någon annan än vad som beskrivs i denna sekretesspolicy.
 
 Villkoren som används i denna sekretesspolicy har samma betydelse som i våra användarvillkor, som är tillgänglig på Butterfly om inte annat anges i denna sekretesspolicy.
 
 **Insamling och användning av information**
 
-For a better experience, while using our Service, I may require you to provide us with certain personally identifiable information. The information that I request will be retained on your device and
-is not collected by me in any way.
+För en bättre upplevelse, när du använder vår tjänst, kan jag kräva att du ger oss viss personligt identifierbar information. Den information som jag begär kommer att lagras på din enhet och
+samlas inte in av mig på något sätt.
 
 Appen använder tjänster från tredje part som kan samla in information som används för att identifiera dig.
 
@@ -28,11 +28,11 @@ Länk till integritetspolicy för tredjepartsleverantörer som används av appen
 
 **Cookies**
 
-Cookies are files with a small amount of data that are commonly used as anonymous unique identifiers. These are sent to your browser from the websites that you visit and are stored on your device's
-internal memory.
+Cookies är filer med en liten mängd data som ofta används som anonyma unika identifierare. Dessa skickas till din webbläsare från de webbplatser som du besöker och lagras på din enhets internminne
+.
 
-This Service does not use these “cookies” explicitly. However, the app may use third party code and libraries that use “cookies” to collect information and improve their services. You have the option
-to either accept or refuse these cookies and know when a cookie is being sent to your device. If you choose to refuse our cookies, you may not be able to use some portions of this Service.
+Denna tjänst använder inte dessa ”cookies” explicit. Appen kan dock använda tredjepartskod och bibliotek som använder ”cookies” för att samla in information och förbättra sina tjänster. Du har alternativet
+att antingen acceptera eller vägra dessa cookies och veta när en cookie skickas till din enhet. Om du väljer att vägra våra cookies kanske du inte kan använda vissa delar av denna Tjänst.
 
 **Tjänsteleverantörer**
 
@@ -43,29 +43,29 @@ Jag kan anställa tredjepartsföretag och privatpersoner på grund av följande 
 - Att utföra Tjänstrelaterade tjänster; eller
 - För att hjälpa oss att analysera hur vår Tjänst används.
 
-I want to inform users of this Service that these third parties have access to your Personal Information. The reason is to perform the tasks assigned to them on our behalf. However, they are obligated
-not to disclose or use the information for any other purpose.
+Jag vill informera användarna om att dessa tredje parter har tillgång till din personliga information. Anledningen är att utföra de uppgifter som tilldelats dem för vår räkning. De är dock skyldiga
+att inte lämna ut eller använda informationen för något annat ändamål.
 
-**Security**
+**Säkerhet**
 
-I value your trust in providing us your Personal Information, thus we are striving to use commercially acceptable means of protecting it. But remember that no method of transmission over the internet,
-or method of electronic storage is 100% secure and reliable, and I cannot guarantee its absolute security.
+Jag värdesätter ditt förtroende för att ge oss din personliga information, så vi strävar efter att använda kommersiellt acceptabla sätt att skydda den. Men kom ihåg att ingen metod för överföring via internet,
+eller metod för elektronisk lagring är 100% säker och tillförlitlig, och jag kan inte garantera dess absoluta säkerhet.
 
 **Länkar till andra webbplatser**
 
-This Service may contain links to other sites. If you click on a third-party link, you will be directed to that site. Note that these external sites are not operated by me. Therefore, I strongly
-advise you to review the Privacy Policy of these websites. I have no control over and assume no responsibility for the content, privacy policies, or practices of any third-party sites or services.
+Denna tjänst kan innehålla länkar till andra webbplatser. Om du klickar på en tredje part länk, kommer du att riktas till den webbplatsen. Observera att dessa externa webbplatser inte drivs av mig. Därför rekommenderar jag starkt
+att du granskar sekretesspolicyn för dessa webbplatser. Jag har ingen kontroll över och tar inget ansvar för innehållet, sekretesspolicyer eller praxis på någon tredje parts webbplatser eller tjänster.
 
 **Ändringar i denna sekretesspolicy**
 
-I may update our Privacy Policy from time to time. Thus, you are advised to review this page periodically for any changes. I will notify you of any changes by posting the new Privacy Policy on this
-page.
+Jag kan uppdatera vår sekretesspolicy från tid till annan. Således uppmanas du att granska denna sida med jämna mellanrum för eventuella ändringar. Jag kommer att meddela dig om eventuella ändringar genom att publicera den nya sekretesspolicyn på denna
+sida.
 
 Denna policy gäller från och med 2021-02-07
 
-**Contact Us**
+**Kontakta oss**
 
 Om du har några frågor eller förslag om min integritetspolicy, tveka inte att kontakta mig på contact@linwood.dev.
 
-This privacy policy page was created at [privacypolicytemplate.net](https://privacypolicytemplate.net) and modified/generated
-by [App Privacy Policy Generator](https://app-privacy-policy-generator.nisrulz.com/)
+Denna sida för sekretesspolicy skapades på [privacypolicytemplate.net](https://privacypolicytemplate.net) och modifierade/genererade
+av [App Privacy Policy Generator](https://app-privacy-policy-generator.nisrulz.com/)
