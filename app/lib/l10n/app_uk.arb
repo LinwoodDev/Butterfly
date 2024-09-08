@@ -612,6 +612,6 @@
   "install": "Інсталювати",
   "deselect": "Зняти виділення",
   "changeLayer": "Змінити шар",
-  "fullSelection": "Full selection",
-  "fullSelectionDescription": "Requires elements to be fully within the selection box for selection."
+  "fullSelection": "Повний вибір",
+  "fullSelectionDescription": "Для вибору потрібні елементи."
 }
