@@ -21,7 +21,7 @@ Några av dem är skrivna under knapparna.
 
 ### Projekt
 
-- `Ctrl` + `K`: Open search
+- `Ctrl` + `K`: Öppna sök
 - `Ctrl` + `Z`: Ångra
 - `Ctrl` + `Y`: Gör om
 - `Ctrl` + `Shift` + `P`: Öppna waypoints dialogrutan
@@ -38,7 +38,7 @@ Som standard är pennan konfigurerad att fungera som följande:
 
 - `Pen`: konfigurerad som penna.
 - `First` (Primär knapp, om det stöds): Ändra till handverktyg medan du trycker.
-- `Second` (Secondary button, if supported): Change to second tool (see [configure](#configure) section below) while pressed.
+- `Second` (Sekundär knapp, om det stöds): Ändra till andra verktyget (se avsnittet [configure](#configure) nedan) medan du tryckte på.
 
 ## Konfigurera {#configure}
 
