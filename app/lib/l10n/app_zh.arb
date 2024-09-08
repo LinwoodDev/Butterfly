@@ -611,5 +611,7 @@
   "installed": "已安装",
   "install": "安装",
   "deselect": "取消选择",
-  "changeLayer": "更改图层"
+  "changeLayer": "更改图层",
+  "fullSelection": "Full selection",
+  "fullSelectionDescription": "When enabled, elements must be fully contained within the selection box to be selected. If disabled, elements can be selected by touching the selection box, even if only partially."
 }
