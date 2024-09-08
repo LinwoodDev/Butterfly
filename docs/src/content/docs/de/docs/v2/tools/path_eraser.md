@@ -1,8 +1,8 @@
 ---
-title: Pfadlöscherwerkzeug
+title: Path eraser tool
 ---
 
-Mit diesem Tool können Sie den gesamten Pfad auf dem Papier löschen.
+With this tool you can delete the whole path on the paper.
 
 ## Konfiguration
 
