@@ -1,8 +1,8 @@
 ---
-title: Area tool
+title: エリアツール
 ---
 
-The area tool allows you to create, edit and remove areas.
+領域ツールを使用すると、領域を作成、編集、および削除できます。
 
 ## アクション
 
