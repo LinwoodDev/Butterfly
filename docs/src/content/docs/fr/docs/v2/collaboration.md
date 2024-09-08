@@ -2,10 +2,10 @@
 title: Collaboration
 ---
 
-:::caution[🧪 Experiment]
+:::caution[🧪 Expérimentation]
 
-This feature is behind an experiment flag. Read more [here](/nightly#experiments).
-Everything in this section is subject to change.
+Cette fonctionnalité est derrière un drapeau d'expérience. En savoir plus [here](/nightly#experiments).
+Tout ce qui se trouve dans cette section peut être modifié.
 
 :::
 
@@ -44,8 +44,8 @@ Vous devez maintenant vous connecter au serveur. Pour ce faire, allez à la page
 
 Cliquez dessus et vous verrez une boîte de dialogue. Entrez ici l'url de connexion.
 Si vous êtes sur le même réseau, vous pouvez utiliser l'adresse IP locale de l'ordinateur où le serveur fonctionne.
-L'URL devrait ressembler à ceci : `ws://{IP}:28005`. Replace `{ip}` with the ip address of the computer. You can find the ip address with the command `ipconfig` on windows or `ifconfig` on linux. On android you can find the ip address in the wifi settings.
+L'URL devrait ressembler à ceci : `ws://{IP}:28005`. Remplacez `{ip}` par l'adresse IP de l'ordinateur. Vous pouvez trouver l'adresse IP avec la commande `ipconfig` sur windows ou `ifconfig` sur linux. Sur android vous pouvez trouver l'adresse IP dans les paramètres du wifi.
 
-If you are not in the same network, you need to use the public ip address of the computer. You can find this by searching for `what is my ip` in your favorite search browser. The url should look like the one above, but with the public ip address.
+Si vous n'êtes pas dans le même réseau, vous devez utiliser l'adresse IP publique de l'ordinateur. Vous pouvez trouver cela en recherchant `ce qui est mon ip` dans votre navigateur de recherche favori. L'url devrait ressembler à celle ci-dessus, mais avec l'adresse IP publique.
 
-If you use ngrok, the setup is a bit different. Replace the `https` with `wss` and add the port `:28005` at the end. The url should look like this: `wss://{random}:28005`. Replace the random part with the part that ngrok gives you.
+Si vous utilisez ngrok, la configuration est un peu différente. Remplacez le `https` par `wss` et ajoutez le port `:28005` à la fin. L'url devrait ressembler à ceci: `wss://{random}:28005`. Remplacez la partie aléatoire par la partie que ngrok vous donne.
