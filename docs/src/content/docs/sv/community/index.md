@@ -8,10 +8,10 @@ Välkommen till sektionen gemenskap.
 
 Ett särskilt tack går till:
 
-- [Flutter](https://github.com/flutter/flutter) for providing this useful crossplatform ui framework
-- [window_manager](https://github.com/leanflutter/window_manager) for all this useful desktop window features
-- [Starlight](https://github.com/withastro/starlight) for an easy-to-use static react documentation framework
-- [Phosphor Icons](https://phosphoricons.com/) for the beautiful icons
+- [Flutter](https://github.com/flutter/flutter) för att tillhandahålla denna användbara crossplatform ui framework
+- [window_manager](https://github.com/leanflutter/window_manager) för alla dessa användbara skrivbords fönster funktioner
+- [Starlight](https://github.com/withastro/starlight) för en lättanvänd statisk dokumentation
+- [Fosfor Icons] (https://phosphoricons.com/) för de vackra ikonerna
 
 Alla andra licenser hittar du i inställningarna.
 
