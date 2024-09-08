@@ -2,7 +2,7 @@
 title: Eraser tool
 ---
 
-With this tool you can erase the elements on the paper.
+通过这个工具，你可以擦除纸上的元素。
 
 ## 配置
 
