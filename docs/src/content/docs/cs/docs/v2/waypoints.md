@@ -2,6 +2,6 @@
 title: Trasové body
 ---
 
-With waypoints you can save important locations in your notes. You can use them to navigate through your notes.
+S body trasy můžete ve svých poznámkách uložit důležitá místa. Můžete je použít k procházení poznámkami.
 
-Use the waypoint navigator page to create and manage waypoints.
+Použijte stránku navigátoru trasových bodů k vytvoření a správě trasových bodů.
