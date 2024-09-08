@@ -2,7 +2,7 @@
 title: Wybór kolorów
 ---
 
-![Color picker](color_picker.png)
+![Wybór kolorów](color_picker.png)
 
 - Otwórz, zapisz okno dialogowe, aby uzyskać dostęp do niego w innych dokumentach
 - Zresetuj paletę dla domyślnej palety materiału
