@@ -2,7 +2,7 @@
 title: Eraser tool
 ---
 
-このツールを使用すると、紙の要素を消去できます。
+With this tool you can erase the elements on the paper.
 
 ## 設定
 
