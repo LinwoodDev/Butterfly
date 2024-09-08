@@ -12,5 +12,5 @@ title: Compilazione
    - `flutter build linux`
    - `flutter build windows`
    - `flutter build ios --release --no-codesign`\
-     after that, create a folder named "Payload", copy Runner.app into it and zip the payload folder. Then rename ".zip" to ".ipa".
+     dopo, crea una cartella chiamata "Payload", copia Runner.app in esso e zip la cartella payload. Quindi rinominare ".zip" in ".ipa".
 5. I file compilati saranno nella cartella di compilazione
