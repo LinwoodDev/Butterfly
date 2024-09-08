@@ -2,8 +2,8 @@
 title: Bädda in
 ---
 
-Embedding is a simple way to include the app in your website.
-Add the following code to your website:
+Inbäddning är ett enkelt sätt att inkludera appen på din webbplats.
+Lägg till följande kod på din webbplats:
 
 ```html
 <iframe src="https://web.butterfly.linwood.dev/embed" width="100%" height="500px" allowtransparency="true"></iframe>
@@ -11,11 +11,11 @@ Add the following code to your website:
 
 ## Alternativ
 
-| Alternativ | Typ                                                                                                | Standard | Beskrivning                                                                                                                                                                 |
-| ---------- | -------------------------------------------------------------------------------------------------- | -------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| spara      | Boolean (true, false)                                                           | true     | Enable save. If disabled, only an exit button will be shown                                                                                                 |
-| editable   | Boolean (true, false)                                                           | true     | Enable editing. If disabled, the document will be read-only                                                                                                 |
-| språk      | Sträng (..., system, användare) | system   | Language of the document. If system, the language will be detected from the browser. If user, the language will set to the users preference |
+| Alternativ | Typ                                                                                                | Standard | Beskrivning                                                                                                                                                                             |
+| ---------- | -------------------------------------------------------------------------------------------------- | -------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| spara      | Boolesk (sant, falskt)                                                          | sant     | Aktivera spara. Om inaktiverad, visas endast en avgångsknapp                                                                                                            |
+| redigerbar | Boolesk (sant, falskt)                                                          | sant     | Aktivera redigering. Om inaktiverad, kommer dokumentet att skrivas enbart                                                                                               |
+| språk      | Sträng (..., system, användare) | system   | Språk i dokumentet. Om systemet, kommer språket att upptäckas från webbläsaren. Om användaren kommer språket att ställas in efter användarens preferens |
 
 ## Händelser
 
@@ -32,27 +32,27 @@ embedElement.addEventListener('message', (data) => {
 
 ### spara
 
-> The `save` event is emitted when the user clicks the save button.
+> Händelsen `save` avges när användaren klickar på knappen "Spara".
 
 Parametrar:
 
-- `data` (Type `List<int>`): The data of the document.
+- `data` (Skriv `List<int>`): Dokumentets data.
 
 ### avsluta
 
-> The `exit` event is emitted when the user clicks the exit button.
+> Händelsen "exit" avges när användaren klickar på exitknappen.
 
 Parametrar:
 
-- `data` (Type `List<int>`): The data of the document.
+- `data` (Skriv `List<int>`): Dokumentets data.
 
-### change
+### ändra
 
-> The `change` event is emitted when the user changes the document.
+> Händelsen `change` avges när användaren ändrar dokumentet.
 
 Parametrar:
 
-- `data` (Type `List<int>`): The data of the document.
+- `data` (Skriv `List<int>`): Dokumentets data.
 
 ## Metoder
 
@@ -70,40 +70,40 @@ embedElement.addEventListener('message', (data) => {
 
 ### getData
 
-> The `getData` method returns the data of the document.
+> Metoden `getData` returnerar data i dokumentet.
 
-No parameters.
-Returns: `List<int>`
+Inga parametrar.
+Returer: `Lista<int>`
 
 ### setData
 
-> The `setData` method sets the data of the document.
+> `setData`-metoden anger dokumentets data.
 
 Parametrar:
 
-- `data` (Type `List<int>`): The data of the document.
+- `data` (Skriv `List<int>`): Dokumentets data.
 
-### render
+### renderare
 
-> The `render` method renders the document to a png image.
+> `render`-metoden renderar dokumentet till en png-bild.
 
 Parametrar:
 
-- `width` (Type `Number`): The width of the image.
-- `height` (Type `Number`): The height of the image.
-- `scale` (Type `Number`): The scale of the image.
-- `renderBackground` (Type `Boolean`): If true, the background will be rendered.
+- `width` (Skriv `Number`): Bredden på bilden.
+- `height` (Skriv `Number`): Höjden på bilden.
+- `scale` (Skriv `Number`): Skalan på bilden.
+- `renderBackground` (Skriv `Boolean`): Om det är sant kommer bakgrunden att renderas.
 
-Returns: `String` (Base64 encoded image)
+Returer: `String` (Base64-kodad bild)
 
 ### renderSVG
 
-> The `renderSVG` method renders the document to a svg image.
+> `renderSVG`-metoden renderar dokumentet till en svg-bild.
 
 Parametrar:
 
-- `width` (Type `Number`): The width of the image.
-- `height` (Type `Number`): The height of the image.
-- `renderBackground` (Type `Boolean`): If true, the background will be rendered.
+- `width` (Skriv `Number`): Bredden på bilden.
+- `height` (Skriv `Number`): Höjden på bilden.
+- `renderBackground` (Skriv `Boolean`): Om det är sant kommer bakgrunden att renderas.
 
-Returns: `String` (SVG)
+Returer: `String` (SVG)
