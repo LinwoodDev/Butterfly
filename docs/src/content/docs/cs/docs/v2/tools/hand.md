@@ -1,5 +1,5 @@
 ---
-title: Hand tool
+title: Ruční nástroj
 ---
 
-With this tool you can move on the page.
+Pomocí tohoto nástroje se můžete pohybovat po stránce.
