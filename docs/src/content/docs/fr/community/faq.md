@@ -19,18 +19,18 @@ Essayez de mettre à jour votre navigateur vers la dernière version.
 
 ## Téléphone mobile
 
-### S-Pen won't be recognized
+### S-Pen ne sera pas reconnu
 
 > [#270](https://github.com/LinwoodDev/Butterfly/issues/270)
 
 J'utilise l'entrée fournie par le cadre flutter.
-This is the issue to track it: [flutter/flutter#42846](https://github.com/flutter/flutter/issues/42846).
+Voici le problème à suivre : [flutter/flutter#42846](https://github.com/flutter/flutter/issues/42846).
 
-### iOS support
+### Support iOS
 
 > [#244](https://github.com/LinwoodDev/Butterfly/issues/244)
 
-Butterfly is available on iOS as preview. Click [here](https://butterfly.linwood.dev/downloads/ios) to download it. See [here](https://github.com/LinwoodDev/Butterfly/issues/244#issuecomment-1935460878) why it's not available on the App Store.
+Butterfly est disponible sur iOS comme aperçu. Cliquez sur [here](https://butterfly.linwood.dev/downloads/ios) pour le télécharger. Voir [here](https://github.com/LinwoodDev/Butterfly/issues/244#issuecomment-1935460878) pourquoi il n'est pas disponible sur l'App Store.
 
 ## Bureau
 
@@ -39,8 +39,8 @@ Butterfly is available on iOS as preview. Click [here](https://butterfly.linwood
 > [#238](https://github.com/LinwoodDev/Butterfly/issues/238)
 
 J'utilise l'entrée fournie par le cadre flutter.
-There are already issues to track it:
-Windows: [flutter/flutter#65248](https://github.com/flutter/flutter/issues/65248) and [flutter/flutter#102836](https://github.com/flutter/flutter/issues/102836).
+Il y a déjà des problèmes à suivre :
+Windows: [flutter/flutter#65248](https://github.com/flutter/flutter/issues/65248) et [flutter/flutter#102836](https://github.com/flutter/flutter/issues/102836).
 Linux: [flutter/flutter#63209](https://github.com/flutter/flutter/issues/63209)
 
 Ces questions sont un peu plus anciennes. La version web devrait fonctionner correctement pour le moment.
