@@ -1,5 +1,5 @@
 ---
-title: Outil main
+title: Hand tool
 ---
 
-Avec cet outil vous pouvez déplacer sur la page.
+With this tool you can move on the page.
