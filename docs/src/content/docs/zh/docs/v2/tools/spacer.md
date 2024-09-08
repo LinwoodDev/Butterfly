@@ -1,5 +1,5 @@
 ---
-title: Spacer tool
+title: 空格工具
 ---
 
-With this tool you can add space between elements by dragging where you want to add space.
+通过这个工具，你可以通过拖动你想要添加空格的地方来添加元素之间的空间。
