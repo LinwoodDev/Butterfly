@@ -613,5 +613,5 @@
   "deselect": "Deseleccionar",
   "changeLayer": "Cambiar capa",
   "fullSelection": "Full selection",
-  "fullSelectionDescription": "When enabled, elements must be fully contained within the selection box to be selected. If disabled, elements can be selected by touching the selection box, even if only partially."
+  "fullSelectionDescription": "Requires elements to be fully within the selection box for selection."
 }
