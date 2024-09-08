@@ -2,8 +2,8 @@
 title: Integrer
 ---
 
-Embedding is a simple way to include the app in your website.
-Add the following code to your website:
+Embedding er en enkel måte å inkludere appen på nettstedet ditt.
+Legg til følgende kode til nettstedet ditt:
 
 ```html
 <iframe src="https://web.butterfly.linwood.dev/embed" width="100%" height="500px" allowtransparency="true"></iframe>
@@ -11,11 +11,11 @@ Add the following code to your website:
 
 ## Alternativer
 
-| Alternativ | Type:                                                                           | Standard | Beskrivelse                                                                                                                                                                 |
-| ---------- | ----------------------------------------------------------------------------------------------- | -------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| lagre      | Boolean (true, false)                                                        | true     | Enable save. If disabled, only an exit button will be shown                                                                                                 |
-| editable   | Boolean (true, false)                                                        | true     | Enable editing. If disabled, the document will be read-only                                                                                                 |
-| språk      | Streng (..., system, bruker) | system   | Language of the document. If system, the language will be detected from the browser. If user, the language will set to the users preference |
+| Alternativ | Type:                                                                           | Standard | Beskrivelse                                                                                                                                                                        |
+| ---------- | ----------------------------------------------------------------------------------------------- | -------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| lagre      | Boolsk (sann, usann)                                                         | sann     | Aktiver lagring. Hvis deaktivert, vil bare en avslutning-knappen bli vist                                                                                          |
+| redigerbar | Boolsk (sann, usann)                                                         | sann     | Aktiver redigering. Hvis deaktivert vil dokumentet være skrivebeskyttet                                                                                            |
+| språk      | Streng (..., system, bruker) | system   | Språket til dokumentet. Dersom systemet er lagt, vil språket bli oppdaget fra nettleseren. Hvis bruker vil språket settes til brukerens preferanse |
 
 ## Hendelser
 
@@ -32,27 +32,27 @@ embedElement.addEventListener('message', (data) => {
 
 ### lagre
 
-> The `save` event is emitted when the user clicks the save button.
+> "Lagre"-hendelsen kommer ut når brukeren klikker på lagreknappen.
 
 Parametre:
 
-- `data` (Type `List<int>`): The data of the document.
+- `data` (skriv `List<int>`): Dataen til dokumentet.
 
 ### avslutt
 
-> The `exit` event is emitted when the user clicks the exit button.
+> Hendelsen `exit` blir sluppet ut når brukeren klikker på Avkjør-knappen.
 
 Parametre:
 
-- `data` (Type `List<int>`): The data of the document.
+- `data` (skriv `List<int>`): Dataen til dokumentet.
 
-### change
+### endre
 
-> The `change` event is emitted when the user changes the document.
+> Hendelsen `change` sendes ut når brukeren endrer dokumentet.
 
 Parametre:
 
-- `data` (Type `List<int>`): The data of the document.
+- `data` (skriv `List<int>`): Dataen til dokumentet.
 
 ## Metoder
 
@@ -70,40 +70,40 @@ embedElement.addEventListener('message', (data) => {
 
 ### getData
 
-> The `getData` method returns the data of the document.
+> `getData`-metoden returnerer dataene til dokumentet.
 
-No parameters.
-Returns: `List<int>`
+Ingen parametere.
+Returner: `Liste<int>`
 
-### setData
+### settData
 
-> The `setData` method sets the data of the document.
-
-Parametre:
-
-- `data` (Type `List<int>`): The data of the document.
-
-### render
-
-> The `render` method renders the document to a png image.
+> `setData`-metoden angir dataene for dokumentet.
 
 Parametre:
 
-- `width` (Type `Number`): The width of the image.
-- `height` (Type `Number`): The height of the image.
-- `scale` (Type `Number`): The scale of the image.
-- `renderBackground` (Type `Boolean`): If true, the background will be rendered.
+- `data` (skriv `List<int>`): Dataen til dokumentet.
 
-Returns: `String` (Base64 encoded image)
+### generer
 
-### renderSVG
-
-> The `renderSVG` method renders the document to a svg image.
+> `render`-metoden gjengir dokumentet til et png bilde.
 
 Parametre:
 
-- `width` (Type `Number`): The width of the image.
-- `height` (Type `Number`): The height of the image.
-- `renderBackground` (Type `Boolean`): If true, the background will be rendered.
+- `width` (Skriv `Number`): Bredde på bildet.
+- `height` (Skriv `Number`): høyden på bildet.
+- `skala` (Skriv inn `Number`): Skalaen på bildet.
+- `renderBackground` (skriv `Boolean`): Hvis true, vil bakgrunnen bli gjengitt.
 
-Returns: `String` (SVG)
+Returer: `String` (Base64 kodet bilde)
+
+### rendersvegg
+
+> "renderSVG"-metoden gjengir dokumentet til et svg-bilde.
+
+Parametre:
+
+- `width` (Skriv `Number`): Bredde på bildet.
+- `height` (Skriv `Number`): høyden på bildet.
+- `renderBackground` (skriv `Boolean`): Hvis true, vil bakgrunnen bli gjengitt.
+
+Returer: `String` (SVG)
