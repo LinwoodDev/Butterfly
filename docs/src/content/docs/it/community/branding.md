@@ -2,7 +2,7 @@
 title: Marchio
 ---
 
-These assets are licensed under the [CC-BY-4.0](https://github.com/LinwoodDev/Butterfly/blob/develop/BRANDING_LICENSE).
+Questi asset sono concessi sotto licenza [CC-BY-4.0](https://github.com/LinwoodDev/Butterfly/blob/develop/BRANDING_LICENSE).
 
 ## Logo
 
@@ -10,7 +10,7 @@ These assets are licensed under the [CC-BY-4.0](https://github.com/LinwoodDev/Bu
 
 [SVG](/img/logo.svg) [PNG](/img/logo.png)
 
-## Nightly Logo
+## Logo Notturno
 
 ![Logo](/img/nightly.svg)
 
@@ -30,12 +30,12 @@ These assets are licensed under the [CC-BY-4.0](https://github.com/LinwoodDev/Bu
 
 ## Colori
 
-- Primary: `#c4840d`
-- Accent: `#7b8f96`
+- Primario: `#c4840d`
+- Accento: `#7b8f96`
 
 ## Caratteri
 
-- Website: `Barlow`
+- Sito Web: `Barlow`
 - App: `Comfortaa`
 
 ## Screenshot
