@@ -2,7 +2,7 @@
 title: Merkevare
 ---
 
-These assets are licensed under the [CC-BY-4.0](https://github.com/LinwoodDev/Butterfly/blob/develop/BRANDING_LICENSE).
+Disse ressursene er lisensiert under [CC-BY-4.0](https://github.com/LinwoodDev/Butterfly/blob/develop/BRANDING_LICENSE).
 
 ## Logo
 
@@ -10,7 +10,7 @@ These assets are licensed under the [CC-BY-4.0](https://github.com/LinwoodDev/Bu
 
 [SVG](/img/logo.svg) [PNG](/img/logo.png)
 
-## Nightly Logo
+## Nattlig Logo
 
 ![Logo](/img/nightly.svg)
 
@@ -35,7 +35,7 @@ These assets are licensed under the [CC-BY-4.0](https://github.com/LinwoodDev/Bu
 
 ## Skrifttyper
 
-- Website: `Barlow`
+- Nettsted: `Barlow`
 - App: `Comfortaa`
 
 ## Skjermbilder
