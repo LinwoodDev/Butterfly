@@ -1,8 +1,8 @@
 ---
-title: Layer tool
+title: Lag værktøj
 ---
 
-Med dette værktøj kan du ændre lag af flere objekter. Read more about layers [here](../layers.md).
+Med dette værktøj kan du ændre lag af flere objekter. Læs mere om lag [here](../layers.md).
 Når du klikker på et objekt, vil laget af objektet blive ændret til det lag, der er sat i konfigurationen. At efterlade lagfeltet tomt vil sætte laget til standardlaget.
 
 ## Konfiguration
