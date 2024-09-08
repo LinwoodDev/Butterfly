@@ -1,8 +1,8 @@
 ---
-title: Label-Werkzeug
+title: Label tool
 ---
 
-Mit diesem Tool können Sie dem Papier Text hinzufügen.
+With this tool you can add text to the paper.
 
 ## Konfiguration
 
