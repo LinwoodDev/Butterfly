@@ -18,5 +18,5 @@ Všechny noční sestavení jsou také publikovány jako předběžný vydání 
 ## Experimenty
 
 Experimenty jsou funkce, které ještě nejsou připraveny k výrobě.
-Ve výchozím nastavení jsou zakázány. You can enable them in the settings under `Experiments`.
+Ve výchozím nastavení jsou zakázány. Můžete je povolit v nastavení pod `Experiments`.
 Tato karta je viditelná pouze v noční verzi.
