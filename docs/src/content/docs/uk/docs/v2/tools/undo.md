@@ -1,13 +1,13 @@
 ---
-title: Undo tool
+title: Скасувати інструмент
 ---
 
-:::note[⚡ Action tool]
+:::note[⚡ Інструмент дії]
 
-This is a special tool.
+Це особливий інструмент.
 Ви не можете обрати його і він запустить дію якщо натиснути на нього.
 
 :::
 
-When clicking on this tool you can undo your last action.
-See the [redo tool](../redo) for redoing your last action.
+При натисканні на цей інструмент можна скасувати останню дію.
+Перегляньте [засіб повторення](../redo) для повторного виконання вашої останньої дії.
