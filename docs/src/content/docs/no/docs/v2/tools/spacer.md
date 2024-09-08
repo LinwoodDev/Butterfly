@@ -1,5 +1,5 @@
 ---
-title: Verktøy for mellomrom
+title: Spacer tool
 ---
 
-Med dette verktøyet kan du legge til mellomrom mellom elementer ved å dra der du vil legge til.
+With this tool you can add space between elements by dragging where you want to add space.
