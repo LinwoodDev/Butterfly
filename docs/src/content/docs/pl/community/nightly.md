@@ -18,5 +18,5 @@ Wszystkie wersje nocne są również publikowane jako wstępne wydanie na github
 ## Eksperymenty
 
 Eksperymenty to funkcje, które nie są jeszcze gotowe do produkcji.
-Domyślnie są wyłączone. Możesz włączyć je w ustawieniach w `Eksperymenty`.
+Domyślnie są wyłączone. You can enable them in the settings under `Experiments`.
 Ta karta jest widoczna tylko w wersji nocnej.
