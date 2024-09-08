@@ -2,7 +2,7 @@
 title: Farbauswahl
 ---
 
-![Farbwähler](color_picker.png)
+![Color picker](color_picker.png)
 
 - Öffnen, speichern Sie den Dialog um ihn in anderen Dokumenten aufzurufen
 - Die Palette für die Standardwerkstoffpalette zurücksetzen
