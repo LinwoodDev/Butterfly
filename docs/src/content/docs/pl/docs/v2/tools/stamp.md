@@ -1,9 +1,9 @@
 ---
-title: Stamp tool
+title: Narzędzie stempla
 ---
 
-The stamp tool allows you to add components to your canvas.
-Użyj istniejącej paczki, utwórz własną lub zaimportuj paczkę, aby ją użyć. Read more [here](../../pack).
+Narzędzie stempla pozwala na dodawanie komponentów do płótna.
+Użyj istniejącej paczki, utwórz własną lub zaimportuj paczkę, aby ją użyć. Przeczytaj więcej [here](../pack).
 
 ## Konfiguracja
 
