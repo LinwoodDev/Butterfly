@@ -8,10 +8,10 @@ Vítejte v sekci komunity.
 
 Zvláštní poděkování patří na:
 
-- [Flutter](https://github.com/flutter/flutter) for providing this useful crossplatform ui framework
-- [window_manager](https://github.com/leanflutter/window_manager) for all this useful desktop window features
-- [Starlight](https://github.com/withastro/starlight) for an easy-to-use static react documentation framework
-- [Phosphor Icons](https://phosphoricons.com/) for the beautiful icons
+- [Flutter](https://github.com/flutter/flutter) pro poskytnutí tohoto užitečného rozhraní
+- [window_manager](https://github.com/leanflutter/window_manager) pro všechny tyto užitečné funkce desktopového okna
+- [Starlight](https://github.com/withastro/starlight) pro snadno použitelný rámec pro dokumentaci statické reakce
+- [Phosphor Icons](https://fosforicons.com/) pro krásné ikony
 
 Všechny ostatní licence naleznete v nastavení.
 
