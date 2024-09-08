@@ -1,8 +1,8 @@
 ---
-title: Laser tool
+title: Laser gereedschap
 ---
 
-With this tool you can draw on this paper temporarily. Na een tijdje vervaagt de tekening. Voeg een nieuwe tekening toe aan het papier om het te annuleren.
+Met dit gereedschap kun je tijdelijk op dit papier tekenen. Na een tijdje vervaagt de tekening. Voeg een nieuwe tekening toe aan het papier om het te annuleren.
 
 ## Configuratie
 
