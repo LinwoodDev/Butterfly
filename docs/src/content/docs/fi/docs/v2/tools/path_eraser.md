@@ -1,8 +1,8 @@
 ---
-title: Path eraser tool
+title: Polun tyhjennystyökalu
 ---
 
-With this tool you can delete the whole path on the paper.
+Tämän työkalun avulla voit poistaa koko polun paperilla.
 
 ## Asetukset
 
