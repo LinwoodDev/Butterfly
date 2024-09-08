@@ -612,6 +612,6 @@
   "install": "Установить",
   "deselect": "Отменить выбор",
   "changeLayer": "Изменить слой",
-  "fullSelection": "Full selection",
-  "fullSelectionDescription": "Requires elements to be fully within the selection box for selection."
+  "fullSelection": "Полная выборка",
+  "fullSelectionDescription": "Для выбора требуется, чтобы элементы были полностью внутри окна выбора."
 }
