@@ -8,29 +8,29 @@ Tässä muutamia usein kysyttyjä kysymyksiä.
 
 ### Miten voin asentaa web-version?
 
-You can install the web version by clicking on the install button in the title bar.
-After that you can use this app offline.
+Voit asentaa web-version klikkaamalla asennuksen painiketta otsikkopalkissa. @ info: whatsthis
+Sen jälkeen voit käyttää tätä sovellusta offline-tilassa.
 
 ### Perhonen ei lataudu Bravelle
 
-Brave Users who have set the 'Block Fingerprinting' Shield setting to Aggressive, need to change it to 'Standard' or just plain 'Block Fingerprinting'.
-Click on the shield icon in the address bar to change the setting.
-Try updating your browser to the latest version.
+Rohkeiden käyttäjien, jotka ovat asettaneet sormenjälkikilven asetuksen Aggressiivisuuteen, täytyy muuttaa se 'Standard' tai vain 'Block Fingerprinting'.
+Napsauta suojaimen kuvaketta osoitepalkissa, jotta voit muuttaa asetusta.
+Yritä päivittää selaimesi uusimpaan versioon.
 
 ## Mobiili
 
-### S-Pen won't be recognized
+### S-kynää ei tunnisteta
 
 > [#270](https://github.com/LinwoodDev/Butterfly/issues/270)
 
-I'm using the input provided by the flutter framework.
-This is the issue to track it: [flutter/flutter#42846](https://github.com/flutter/flutter/issues/42846).
+Käytän syötteitä, jotka on saatu lepyttävän kehyksen avulla.
+Tämä on ongelma seurata sitä: [flutter/flutter#42846](https://github.com/flutter/flutter/issues/42846).
 
-### iOS support
+### iOS- tuki
 
 > [#244](https://github.com/LinwoodDev/Butterfly/issues/244)
 
-Butterfly is available on iOS as preview. Click [here](https://butterfly.linwood.dev/downloads/ios) to download it. See [here](https://github.com/LinwoodDev/Butterfly/issues/244#issuecomment-1935460878) why it's not available on the App Store.
+Perhonen on saatavilla iOS:ssa esikatseluna. Lataa se napsauttamalla [here](https://butterfly.linwood.dev/downloads/ios). Ks. [here](https://github.com/LinwoodDev/Butterfly/issues/244#issuecomment-1935460878), miksi sitä ei ole saatavilla App Storessa.
 
 ## Työpöytä
 
@@ -38,9 +38,9 @@ Butterfly is available on iOS as preview. Click [here](https://butterfly.linwood
 
 > [#238](https://github.com/LinwoodDev/Butterfly/issues/238)
 
-I'm using the input provided by the flutter framework.
-There are already issues to track it:
-Windows: [flutter/flutter#65248](https://github.com/flutter/flutter/issues/65248) and [flutter/flutter#102836](https://github.com/flutter/flutter/issues/102836).
+Käytän syötteitä, jotka on saatu lepyttävän kehyksen avulla.
+On jo olemassa ongelmia seurata sitä:
+Windows: [flutter/flutter#65248](https://github.com/flutter/flutter/issues/65248) ja [flutter/flutter#102836](https://github.com/flutter/flutter/issues/102836).
 Linux: [flutter/flutter#63209](https://github.com/flutter/flutter/issues/63209)
 
-These issues are a bit older. The web version should work fine for now.
+Nämä asiat ovat hieman vanhempia. Web-version pitäisi toimia hyvin toistaiseksi.
