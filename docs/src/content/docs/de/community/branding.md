@@ -2,7 +2,7 @@
 title: Branding
 ---
 
-Diese Assets sind unter der [CC-BY-4.0]lizenziert (https://github.com/LinwoodDev/Butterfly/blob/develop/BRANDING_LICENSE).
+These assets are licensed under the [CC-BY-4.0](https://github.com/LinwoodDev/Butterfly/blob/develop/BRANDING_LICENSE).
 
 ## Logo
 
@@ -10,7 +10,7 @@ Diese Assets sind unter der [CC-BY-4.0]lizenziert (https://github.com/LinwoodDev
 
 [SVG](/img/logo.svg) [PNG](/img/logo.png)
 
-## Nachtlogo
+## Nightly Logo
 
 ![Logo](/img/nightly.svg)
 
@@ -30,12 +30,12 @@ Diese Assets sind unter der [CC-BY-4.0]lizenziert (https://github.com/LinwoodDev
 
 ## Farben
 
-- Primär: `#c4840d`
-- Akzent: `#7b8f96`
+- Primary: `#c4840d`
+- Accent: `#7b8f96`
 
 ## Schriftarten
 
-- Website: "Barlow"
+- Website: `Barlow`
 - App: `Comfortaa`
 
 ## Screenshots
