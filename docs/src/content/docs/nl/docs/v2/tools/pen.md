@@ -1,8 +1,8 @@
 ---
-title: Pen gereedschap
+title: Pen tool
 ---
 
-Met dit gereedschap kun je op dit papier tekenen.
+With this tool you can draw on this paper.
 
 ## Configuratie
 
