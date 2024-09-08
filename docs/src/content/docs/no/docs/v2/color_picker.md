@@ -2,7 +2,7 @@
 title: Farge velger
 ---
 
-ARS Color picker](color_picker.png)
+![Color picker](color_picker.png)
 
 - Åpn, lagre dialogen for å få tilgang til den i andre dokumenter
 - Tilbakestill paletten til standard materialpalett
