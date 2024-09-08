@@ -2,6 +2,6 @@
 title: Routepunten
 ---
 
-Met waypoints kun je belangrijke locaties in je notities besparen. Je kunt ze gebruiken om door je notities te navigeren.
+With waypoints you can save important locations in your notes. You can use them to navigate through your notes.
 
-Gebruik de waypoint navigator pagina om waypoints aan te maken en te beheren.
+Use the waypoint navigator page to create and manage waypoints.
