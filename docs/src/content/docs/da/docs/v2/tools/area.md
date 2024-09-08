@@ -1,8 +1,8 @@
 ---
-title: Area tool
+title: Areal værktøj
 ---
 
-The area tool allows you to create, edit and remove areas.
+Området værktøj giver dig mulighed for at oprette, redigere og fjerne områder.
 
 ## Handlinger
 
