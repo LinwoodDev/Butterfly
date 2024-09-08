@@ -2,7 +2,7 @@
 title: Pacchetto
 ---
 
-Una confezione è una collezione di componenti che possono essere utilizzati nello strumento timbro. È possibile creare il proprio pacchetto o importare uno esistente. Per questo cliccare sull'angolo in alto a sinistra e cliccare su "Packs".
+A pack is a collection of components that can be used in the stamp tool. È possibile creare il proprio pacchetto o importare uno esistente. Per questo cliccare sull'angolo in alto a sinistra e cliccare su "Packs".
 
 ## Proprietà
 
@@ -14,6 +14,6 @@ Una confezione è una collezione di componenti che possono essere utilizzati nel
 
 ### Componenti
 
-I componenti sono un modo per salvare gli elementi che usi spesso. È possibile creare i propri componenti o importare uno esistente utilizzando pacchetti.
+Components are a way to save elements that you use often. You can create your own components or import an existing one using packs.
 
-Usa la pagina dei componenti navigatore per incollare componenti nelle tue note.
+Use the components navigator page to paste components into your notes.
