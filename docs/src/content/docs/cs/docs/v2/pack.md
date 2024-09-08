@@ -2,7 +2,7 @@
 title: Balení
 ---
 
-A pack is a collection of components that can be used in the stamp tool. Můžete vytvořit vlastní balíček nebo importovat existující balíček. Pro tento klik v levém horním rohu klikněte na "Balíčky".
+Balíček je sbírka součástí, které lze použít v nástroji pro razítka. Můžete vytvořit vlastní balíček nebo importovat existující balíček. Pro tento klik v levém horním rohu klikněte na "Balíčky".
 
 ## Vlastnosti
 
@@ -14,6 +14,6 @@ A pack is a collection of components that can be used in the stamp tool. Můžet
 
 ### Součásti
 
-Components are a way to save elements that you use often. You can create your own components or import an existing one using packs.
+Komponenty jsou způsob, jak ukládat prvky, které používáte často. Můžete vytvořit vlastní komponenty nebo importovat existující komponenty pomocí balíčků.
 
-Use the components navigator page to paste components into your notes.
+Použijte stránku navigátoru komponent k vložení komponent do poznámek.
