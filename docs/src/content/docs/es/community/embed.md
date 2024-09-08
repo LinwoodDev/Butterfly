@@ -1,5 +1,5 @@
 ---
-title: Incrustar
+title: Embed
 ---
 
 Incrustar es una forma sencilla de incluir la aplicación en tu sitio web.
@@ -13,9 +13,9 @@ Añade el siguiente código a tu sitio web:
 
 | Opción   | Tipo                                                                                              | Por defecto | Descripción                                                                                                                                                                             |
 | -------- | ------------------------------------------------------------------------------------------------- | ----------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| guardar  | Booleano (verdadero, falso)                                                    | verdad      | Activar guardar. Si está desactivado, sólo se mostrará un botón de salida                                                                                               |
-| editable | Booleano (verdadero, falso)                                                    | verdad      | Activar la edición. Si está deshabilitado, el documento será de sólo lectura                                                                                            |
-| idioma   | Cadena (..., sistema, usuario) | sistema     | Idioma del documento. Si el sistema, el idioma se detectará desde el navegador. Si el usuario, el idioma se ajustará a las preferencias de los usuarios |
+| guardar  | Boolean (true, false)                                                          | true        | Activar guardar. Si está desactivado, sólo se mostrará un botón de salida                                                                                               |
+| editable | Boolean (true, false)                                                          | true        | Activar la edición. Si está deshabilitado, el documento será de sólo lectura                                                                                            |
+| idioma   | Cadena (..., sistema, usuario) | system      | Idioma del documento. Si el sistema, el idioma se detectará desde el navegador. Si el usuario, el idioma se ajustará a las preferencias de los usuarios |
 
 ## Eventos
 
@@ -32,27 +32,27 @@ embedElement.addEventListener('message', (data) => {
 
 ### guardar
 
-> El evento 'guardar' se emite cuando el usuario hace clic en el botón guardar.
+> The `save` event is emitted when the user clicks the save button.
 
 Parámetros:
 
-- `data` (Escribe `List<int>`): Los datos del documento.
+- `data` (Type `List<int>`): The data of the document.
 
 ### salir
 
-> El evento `exit` se emite cuando el usuario hace clic en el botón de salida.
+> The `exit` event is emitted when the user clicks the exit button.
 
 Parámetros:
 
-- `data` (Escribe `List<int>`): Los datos del documento.
+- `data` (Type `List<int>`): The data of the document.
 
-### cambiar
+### change
 
-> El evento `change` se emite cuando el usuario cambia el documento.
+> The `change` event is emitted when the user changes the document.
 
 Parámetros:
 
-- `data` (Escribe `List<int>`): Los datos del documento.
+- `data` (Type `List<int>`): The data of the document.
 
 ## Métodos
 
@@ -70,40 +70,40 @@ embedElement.addEventListener('message', (data) => {
 
 ### getData
 
-> El método `getData` devuelve los datos del documento.
+> The `getData` method returns the data of the document.
 
 No hay parámetros.
-Devuelve: `List<int>`
+Returns: `List<int>`
 
 ### setData
 
-> El método `setData` establece los datos del documento.
+> The `setData` method sets the data of the document.
 
 Parámetros:
 
-- `data` (Escribe `List<int>`): Los datos del documento.
+- `data` (Type `List<int>`): The data of the document.
 
-### renderizar
+### render
 
-> El método `render` renderiza el documento a una imagen png.
-
-Parámetros:
-
-- `width` (Escribe `Number`): El ancho de la imagen.
-- `height` (Escribe `Number`): La altura de la imagen.
-- `scale` (Escribe `Number`): La escala de la imagen.
-- `renderBackground` (Escribe `Boolean`): Si es verdadero, el fondo será renderizado.
-
-Devuelve: `String` (imagen codificada en Base64)
-
-### renderizarSVG
-
-> El método `renderSVG` renderiza el documento a una imagen svg.
+> The `render` method renders the document to a png image.
 
 Parámetros:
 
-- `width` (Escribe `Number`): El ancho de la imagen.
-- `height` (Escribe `Number`): La altura de la imagen.
-- `renderBackground` (Escribe `Boolean`): Si es verdadero, el fondo será renderizado.
+- `width` (Type `Number`): The width of the image.
+- `height` (Type `Number`): The height of the image.
+- `scale` (Type `Number`): The scale of the image.
+- `renderBackground` (Type `Boolean`): If true, the background will be rendered.
 
-Devuelve: `String` (SVG)
+Returns: `String` (Base64 encoded image)
+
+### renderSVG
+
+> The `renderSVG` method renders the document to a svg image.
+
+Parámetros:
+
+- `width` (Type `Number`): The width of the image.
+- `height` (Type `Number`): The height of the image.
+- `renderBackground` (Type `Boolean`): If true, the background will be rendered.
+
+Returns: `String` (SVG)
