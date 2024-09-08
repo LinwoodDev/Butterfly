@@ -1,11 +1,11 @@
 ---
-title: Shape tool
+title: Vorm gereedschap
 ---
 
-Use this tool to draw shapes on the paper.
+Gebruik dit gereedschap om vormen op het papier te tekenen.
 Je kunt rechthoeken, cirkels en andere vormen tekenen.
 
-Use `ctrl` to have the same height and width and `shift` to draw from the center.
+Gebruik `ctrl` om dezelfde hoogte en breedte te hebben en `shift` om te tekenen vanaf het midden.
 
 ## Configuratie
 
