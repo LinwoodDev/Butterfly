@@ -11,11 +11,11 @@ Dodaj następujący kod do swojej strony internetowej:
 
 ## Opcje
 
-| Opcja      | Typ                                                                                                      | Domyślny | Opis                                                                                                                                                                         |
-| ---------- | -------------------------------------------------------------------------------------------------------- | -------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| zapisz     | Wartość logiczna (prawda, fałsz)                                                      | prawda   | Włącz zapisywanie. Jeśli wyłączone, wyświetlany będzie tylko przycisk wyjścia                                                                                |
-| edytowalne | Wartość logiczna (prawda, fałsz)                                                      | prawda   | Włącz edycję. Jeśli wyłączone, dokument będzie tylko do odczytu                                                                                              |
-| język      | Ciąg znaków (..., system, użytkownik) | system   | Język dokumentu. Jeśli system, język zostanie wykryty z przeglądarki. Jeśli użytkownik, język zostanie ustawiony na preferencje użytkowników |
+| Opcja    | Typ                                                                                                      | Domyślny | Opis                                                                                                                                                                         |
+| -------- | -------------------------------------------------------------------------------------------------------- | -------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| zapisz   | Boolean (true, false)                                                                 | true     | Włącz zapisywanie. Jeśli wyłączone, wyświetlany będzie tylko przycisk wyjścia                                                                                |
+| editable | Boolean (true, false)                                                                 | true     | Włącz edycję. Jeśli wyłączone, dokument będzie tylko do odczytu                                                                                              |
+| język    | Ciąg znaków (..., system, użytkownik) | system   | Język dokumentu. Jeśli system, język zostanie wykryty z przeglądarki. Jeśli użytkownik, język zostanie ustawiony na preferencje użytkowników |
 
 ## Wydarzenia
 
@@ -32,27 +32,27 @@ embedElement.addEventListener('message', (data) => {
 
 ### zapisz
 
-> Zdarzenie `save` jest emitowane po kliknięciu przez użytkownika przycisku zapisu.
+> The `save` event is emitted when the user clicks the save button.
 
 Parametry:
 
-- `data` (Wpisz `List<int>`): Dane dokumentu.
+- `data` (Type `List<int>`): The data of the document.
 
 ### wyjście
 
-> Zdarzenie `exit` jest emitowane po kliknięciu przez użytkownika przycisku wyjścia.
+> The `exit` event is emitted when the user clicks the exit button.
 
 Parametry:
 
-- `data` (Wpisz `List<int>`): Dane dokumentu.
+- `data` (Type `List<int>`): The data of the document.
 
-### zmień
+### change
 
-> Zdarzenie `change` jest emitowane, gdy użytkownik zmienia dokument.
+> The `change` event is emitted when the user changes the document.
 
 Parametry:
 
-- `data` (Wpisz `List<int>`): Dane dokumentu.
+- `data` (Type `List<int>`): The data of the document.
 
 ## Metody
 
@@ -70,40 +70,40 @@ embedElement.addEventListener('message', (data) => {
 
 ### getData
 
-> Metoda `getData` zwraca dane dokumentu.
+> The `getData` method returns the data of the document.
 
 Brak parametrów.
-Zwroty: `Lista<int>`
+Returns: `List<int>`
 
 ### setData
 
-> Metoda `setData` ustawia dane dokumentu.
+> The `setData` method sets the data of the document.
 
 Parametry:
 
-- `data` (Wpisz `List<int>`): Dane dokumentu.
+- `data` (Type `List<int>`): The data of the document.
 
-### renderowanie
+### render
 
-> Metoda `render` render\` renderuje dokument na obrazek png.
+> The `render` method renders the document to a png image.
 
 Parametry:
 
-- `width` (Wpisz `Number`): Szerokość obrazu.
-- `height` (Wpisz `Number`): wysokość obrazu.
-- `scale` (Wpisz `Number`): Skala obrazu.
-- `renderBackground` (Wpisz `Boolean`): Jeśli prawda, tło będzie renderowane.
+- `width` (Type `Number`): The width of the image.
+- `height` (Type `Number`): The height of the image.
+- `scale` (Type `Number`): The scale of the image.
+- `renderBackground` (Type `Boolean`): If true, the background will be rendered.
 
-Zwraca: `String` (obraz zakodowany w systemie Base64)
+Returns: `String` (Base64 encoded image)
 
 ### renderSVG
 
-> Metoda `renderSVG` renderuje dokument na obrazek svg.
+> The `renderSVG` method renders the document to a svg image.
 
 Parametry:
 
-- `width` (Wpisz `Number`): Szerokość obrazu.
-- `height` (Wpisz `Number`): wysokość obrazu.
-- `renderBackground` (Wpisz `Boolean`): Jeśli prawda, tło będzie renderowane.
+- `width` (Type `Number`): The width of the image.
+- `height` (Type `Number`): The height of the image.
+- `renderBackground` (Type `Boolean`): If true, the background will be rendered.
 
-Zwraca: `String` (SVG)
+Returns: `String` (SVG)
