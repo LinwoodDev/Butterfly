@@ -1,17 +1,17 @@
 ---
-title: Utilities
+title: Utilități
 ---
 
-This view allows you to change the general document or the view.
+Această vizualizare vă permite să modificaţi documentul general sau vizualizarea.
 
 ## Proiect
 
-Here are all globally properties that you can set like name and description.
-Additionally you can capture a thumbnail from the current viewport to see it in the home page.
+Aici sunt toate proprietățile globale pe care le puteți seta ca nume și descriere.
+Adițional, poți captura o miniatură din vizualizarea curentă pentru a o vedea în pagina principală.
 
 ## Pagină
 
-Here are all page specific properties. Currently you can find the background setting here.
+Aici sunt toate proprietățile specifice paginii. În prezent puteţi găsi setarea de fundal aici.
 
 ## Vizualizare
 
@@ -25,4 +25,4 @@ Regula vă permite să măsurați distanța dintre două puncte. În plus, îl p
 
 ## Cameră
 
-To jump to a specific position or zoom to a specific level you can use this tab.
+Pentru a sări la o anumită poziție sau pentru a zoom la un anumit nivel, puteți utiliza această filă.
