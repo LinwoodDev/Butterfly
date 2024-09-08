@@ -1,8 +1,8 @@
 ---
-title: Layer tool
+title: Instrument de nivel
 ---
 
-Cu acest instrument puteţi schimba stratul de obiecte multiple. Read more about layers [here](../layers.md).
+Cu acest instrument puteţi schimba stratul de obiecte multiple. Citește mai multe despre straturile [here](../layers.md).
 Când faceţi clic pe un obiect, stratul obiectului va fi schimbat în stratul setat în configurare. Lăsând câmpul de strat gol va seta stratul la nivelul implicit.
 
 ## Configurare
