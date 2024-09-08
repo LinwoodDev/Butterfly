@@ -1,8 +1,8 @@
 ---
-title: Laser tool
+title: Laser- værktøj
 ---
 
-With this tool you can draw on this paper temporarily. Efter et stykke tid forsvinder tegningen. Tilføj en ny tegning til papiret for at få den til at annullere.
+Med dette værktøj kan du trække på dette papir midlertidigt. Efter et stykke tid forsvinder tegningen. Tilføj en ny tegning til papiret for at få den til at annullere.
 
 ## Konfiguration
 
