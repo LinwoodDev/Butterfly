@@ -7,10 +7,10 @@ title: Construisez la vôtre
 3. Naviguer vers le répertoire de l'application
 4. Utilisez l'outil flotteur pour compiler l'application
    - `flutter build apk`
-   - `appbundle de construction de flotteur`
+   - `flutter build appbundle`
    - `flutter build web`
    - `flutter build linux`
-   - `fenêtre de construction de flotteur`
+   - `flutter build windows`
    - `flutter build ios --release --no-codesign`\
-     après cela, créez un dossier nommé "Payload", copiez Runner.app et zippez le dossier charge utile. Renommez ensuite ".zip" en ".ipa".
+     after that, create a folder named "Payload", copy Runner.app into it and zip the payload folder. Then rename ".zip" to ".ipa".
 5. Les fichiers compilés sont dans le répertoire de compilation
