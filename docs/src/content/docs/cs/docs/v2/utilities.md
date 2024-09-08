@@ -1,17 +1,17 @@
 ---
-title: Nástroje
+title: Utilities
 ---
 
-Toto zobrazení umožňuje změnit obecný dokument nebo zobrazení.
+This view allows you to change the general document or the view.
 
 ## Projekt
 
-Zde jsou všechny globální vlastnosti, které můžete nastavit jako název a popis.
-Kromě toho si můžete pořídit náhled z aktuálního náhledu a zobrazit jej na domovské stránce.
+Here are all globally properties that you can set like name and description.
+Additionally you can capture a thumbnail from the current viewport to see it in the home page.
 
 ## Stránka
 
-Zde jsou všechny specifické vlastnosti stránky. V současné době můžete najít nastavení pozadí.
+Here are all page specific properties. Currently you can find the background setting here.
 
 ## Zobrazit
 
@@ -25,4 +25,4 @@ Vládce vám umožňuje měřit vzdálenost mezi dvěma body. Navíc ji můžete
 
 ## Fotoaparát
 
-Chcete-li přejít na určitou pozici nebo přiblížení na určitou úroveň, můžete použít tuto záložku.
+To jump to a specific position or zoom to a specific level you can use this tab.
