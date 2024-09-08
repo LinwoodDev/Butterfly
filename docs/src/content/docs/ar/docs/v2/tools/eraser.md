@@ -2,7 +2,7 @@
 title: Eraser tool
 ---
 
-With this tool you can erase the elements on the paper.
+مع هذه الأداة يمكنك مسح العناصر الموجودة على الورق.
 
 ## الإعدادات
 
