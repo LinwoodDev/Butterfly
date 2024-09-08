@@ -12,87 +12,87 @@ import logo from '/public/img/logo.svg';
 
 > Velkommen til Butterfly, the opensource note app.
 
-Butterfly is a note taking app that is aiming for unified experience across all platforms. It provides simple UI with powerful customization.
+Sommerfugl arbeider et notat som tar app som sikter mot en enhetlig opplevelse på tvers av alle plattformer. Den har et enkelt brukergrensesnitt med kraftfull tilpasning.
 
 ## Komme i gang
 
-> You can use the sidebar to navigate quickly through the wiki.
+> Du kan bruke sidepanelet til å raskt navigere gjennom wikien.
 
-To start working on the app you have two options:
+For å begynne å jobbe med appen har du to alternativer:
 
-1. [Downloads](/downloads) the app version that is appropriate for your platform (Butterfly can run on most mobile, desktop, and web platforms).
-2. Use [web version](https://web.butterfly.linwood.dev) if you cannot find your platform or if you don't want to install it on it. See [here](storage#web) about file storage on the web version.
+1. [Downloads](/downloads) appversjonen som passer for plattformen din (Butterfly kan kjøre på mest mobil, skrivebord og nettplattformer).
+2. Bruk [web version](https://web.butterfly.linwood.dev) hvis du ikke finner din plattform, eller hvis du ikke ønsker å installere den på den. Se [here](storage#web) om fillagring på nettversjonen.
 
-> Once you open the app, continue reading.
+> Fortsett å lese når du åpner appen.
 
 ## Hoved visning
 
 εHoved visning](main.png)
 
-The main view is composed of several elements
+Hovedvisningen er satt sammen av flere elementer
 
 <Tabs syncKey="platform">
     <TabItem label="Desktop">
-        ![Welcome screen](welcome_screen_desktop.png)
-        The top of the screen holds the banner for updates, the link to this documentations, and the <Gear className="inline-icon"/> config icon. Finally, to the right of the <Gear className="inline-icon"/> config symbol you have a drop down menu for controlling when this banner will appear (always/never/on updates).
-        The "Files" section in the major area of the left. There, you can do the typical operations:
-        - Select the display type (grid or list)
-        - Select the [source storage](../storage) of the files
-        - Sort the display order of the files
-        - Add a folder, file, template, or import files by clicking the <Plus className="inline-icon"/> plus sign
-        - Type the direct path to a desired location (the Location field),
-        - Search for files
-        Finally, to the right, you have the quick start display with the templates available in the current location. For a fresh install this includes the light and dark template
+        ====Velkommen skjerm](welcome_screen_desktop. ng)
+        Øverst på skjermen holder banner for oppdateringer, lenken til dette dokumentasjonene, og <Gear className="inline-icon"/> konfigurasjonsikonet. Til slutt til høyre for <Gear className="inline-icon"/> config-symbolet har du en rullegardinmeny for å kontrollere når dette banneret vises (alltid/aldri/on updates).
+        «Filer»-seksjonen i det største området til venstre. Da, du kan utføre typiske operasjoner:
+        - Velg visningstype (grid eller liste)
+        - Velg [kilde lagring](.. lagring) av filene
+        - Sorter visningsrekkefølgen til filene
+        - Legg til en mappe, fil, mal eller importer filer ved å klikke på <Plus className="inline-icon"/> pluss tegn
+        - Skriv den direkte banen til en ønsket posisjon (lokasjonsfeltet),
+        - Søk etter filer
+        fullstendig, til høyre, du har hurtig start visning med malene som er tilgjengelig i gjeldende posisjon. På en fersk installasjon inkluderer dette lyset og mørk mal
     </TabItem>
     <TabItem label="Mobile">
-        When opening Butterfly on a mobile device you will be presented with a screen as this
-        ![Welcome screen first part](welcome_screen_mobile_1.png)
-        The top of the screen holds the banner for updates, and below it you can find the documnentation link, and next to it the <Gear className="inline-icon"/> config icon. Finally, to the right of the <Gear className="inline-icon"/> config symbol you have a drop down menu for controlling when this banner will appear (always/never/on updates).
-        Below those, you can find the quick start section holding the templates avialable to you. By defaule, the templates are the light and dark templates.
-        Scrolling down, you will see the file interface:
+        Når du åpner Butterfly på en mobil enhet vil du bli vist med en skjerm som denne
+        ! Velkommen skjerm første part](welcome_screen_mobile_1. ng)
+        Toppen av skjermen har banner for oppdateringer, og under den finner du kobling til documnentation og ved siden av det <Gear className="inline-icon"/> konfigurasjonsikonet. Til slutt til høyre for <Gear className="inline-icon"/> config-symbolet har du en rullegardinmeny for å kontrollere når dette banneret vises (alltid/aldri/on updates).
+        Under dem, kan du finne hurtigseksjonen som holder disse malene utenfor deg. By defaule, the templates are the light and dark templates.
+        Rulling ned. du vil se filgrensesnittet:
         \
-        ![Welcome screen second part](welcome_screen_mobile_2.png)  
-        The "Files" section in the major area of the left. There, you can do the typical operations:
-        - Select the display type (grid or list)
-        - Select the [source storage](../storage) of the files
-        - Sort the display order of the files
-        - Add a folder, file, template, or import files by clicking the <Plus className="inline-icon"/> plus sign
-        - Type the direct path to a desired location (the Location field),
-        - Search for files
+        ! Velkommen neste part](welcome_screen_mobile_2. ng)  
+        seksjonen «Filer» i det største området til venstre. Da, du kan utføre typiske operasjoner:
+        - Velg visningstype (grid eller liste)
+        - Velg [kilde lagring](.. lagring) av filene
+        - Sorter visningsrekkefølgen til filene
+        - Legg til en mappe, fil, mal eller importer filer ved å klikke på <Plus className="inline-icon"/> pluss tegn
+        - Skriv den direkte banen til en ønsket posisjon (lokasjonsfeltet),
+        - Søk etter filer
  </TabItem>
 </Tabs>
 
-Once opening a document by selecting a template or an existing file, you will get to the **Document View**
+Når du åpner et dokument ved å velge en mal eller en eksisterende fil, vil du komme til **Dokumentvisning**
 
-## The Document View
+## Dokumentvisning (Automatic Translation)
 
-You can return from the document view to the document list with the back action of your device. As with the main view, the document display changes based on your device.
+Fra dokumentvisningen kan du returnere til dokumentlisten med den bakenforliggende handlingen for enheten. Som for hovedvisningen vises dokumentet basert på enheten din.
 
 <Tabs syncKey="platform">
     <TabItem label="Desktop">
-  In the Desktop view, you'll have at the top left the file bar\
-  ![file_bar](document_view_file_bar.png)\
-  This holds, from left to right, the <img alt="logo" src={logo.src} className="inline-icon" width="16"/> butterfly button to open the menu. Next to it there is the name field that displays the name of the note. You can rename the note by typing a new name into that field and saving it using the <FloppyDisk className="inline-icon"/> save button. Finally you can <MagnifyingGlass className="inline-icon"/> search for elements within the note.
+  I skrivebordsvisningen Du har øverst til venstre fillinjen\
+  ![file_bar](document_view_file_bar. ng)\
+  Dette holder, fra venstre til høyre, <img alt="logo" src={logo.src} className="inline-icon" width="16"/> sommerfugl-knappen for å åpne menyen. Ved siden av det er det navnefeltet som viser navnet på merknaden. Du kan endre navn på notatet ved å skrive et nytt navn i det feltet og lagre det ved hjelp av <FloppyDisk className="inline-icon"/> Lagre-knappen. Til slutt kan du <MagnifyingGlass className="inline-icon"/> søke etter elementer i notatet.
   \
-  At the top right of the screen you have the toolbar\
-  ![toolbar](document_view_toolbar.png)\
-  By default this bar has the <ScribbleLoop className="inline-icon"/> lasso tool; the <Pen className="inline-icon"/> pen tool; the <Path className="inline-icon"/> path erase tool; the <ArrowCounterClockwise className="inline-icon"/> undo and <ArrowClockwise className="inline-icon"/> redo butons, and the <Hand className="inline-icon"/> hand tool. Then you have the <Plus className="inline-icon"/> button to add elements to the tool bar, the <Wrench className="inline-icon"/> button to configure the document, and finally the <Lock className="inline-icon"/> tool to look the zoom and/or the position of the screen.
-  ### Important notes
-  1. If some of the element on the toolbar are not visible to you, click and drag (or swipe) left and right to reveal further tools.
-  2. After selecting a tool, a small menu will appear. Long clicking the tool again will allow you to drag it to a new position
-  3. You can add more tools to the toolbar by clicking the <Plus className="inline-icon"/> plus sign.
+  øverst til høyre på skjermen har du verktøylinjen\
+  ![toolbar](document_view_toolbar. ng)\
+  Som standard har denne linjen <ScribbleLoop className="inline-icon"/> lasso-verktøyet; <Pen className="inline-icon"/> pennens verktøy; verktøyet <Path className="inline-icon"/> bane-feltet; <ArrowCounterClockwise className="inline-icon"/> undo og <ArrowClockwise className="inline-icon"/> redo-butonene og verktøyet <Hand className="inline-icon"/> Deretter har du knappen <Plus className="inline-icon"/> for å legge til elementer til verktøylinjen, <Wrench className="inline-icon"/> for å konfigurere dokumentet, og til slutt verktøyet <Lock className="inline-icon"/> for å se zoomen og/eller posisjonen til skjermen.
+  ### Viktige merknader
+  1. Hvis noe av elementet på verktøylinjen ikke er synlig for deg, klikk og dra (eller sveiper) til venstre og høyre for å vise flere verktøy.
+  2. Etter å ha valgt et verktøy vil en liten meny vises. Langt klikk på verktøyet igjen lar deg dra den til en ny posisjon
+  3. Du kan legge til flere verktøy til verktøylinjen ved å klikke på <Plus className="inline-icon"/> pluss skilt.
  </TabItem>
  <TabItem label="Mobile">
-  In the mobile view, you'll have at the top the file bar\
-     ![file_bar](document_view_file_bar.png)\
-  This holds, from left to right, the <img alt="logo" src={logo.src} class="inline-icon" width="16"/> butterfly button to open the menu. Next to it there is the name field that displays the name of the note. You can rename the note by typing a new name into that field and saving it using the <FloppyDisk className="inline-icon"/> save button. Finally you can <MagnifyingGlass className="inline-icon"/> search for elements within the note.
+  i mobilvisningen Du har øverst i fillinjen \
+     ![file_bar](document_view_file_bar. ng)\
+  Dette holder, fra venstre til høyre, <img alt="logo" src={logo.src} class="inline-icon" width="16"/> sommerfugl-knappen for å åpne menyen. Ved siden av det er det navnefeltet som viser navnet på merknaden. Du kan endre navn på notatet ved å skrive et nytt navn i det feltet og lagre det ved hjelp av <FloppyDisk className="inline-icon"/> Lagre-knappen. Til slutt kan du <MagnifyingGlass className="inline-icon"/> søke etter elementer i notatet.
   \
-  At the bottom of the screen you have the toolbar\
-  ![toolbar](document_view_toolbar.png)\
-  By default this bar has the <ScribbleLoop className="inline-icon"/> lasso tool; the <Pen className="inline-icon" /> pen tool; the <Path className="inline-icon"/> path erase tool; the <ArrowCounterClockwise className="inline-icon"/> undo and <ArrowClockwise className="inline-icon"/> redo butons, and the <Hand className="inline-icon"/> hand tool. Then you have the <Plus className="inline-icon"/> button to add elements to the tool bar, the <Wrench className="inline-icon"/> button to configure the document, and finally the <Lock className="inline-icon"/> tool to look the zoom and/or the position of the screen.
-  ### Important notes
-  1. If some of the element on the toolbar are not visible to you, or swipe left and right to reveal further elements.
-  2. After selecting a tool, a small menu will appear to configure the it. Long clicking the tool again will allow you to drag it to a new position
-  3. You can add more tools to the toolbar by clicking the <Plus className="inline-icon"/> plus sign.
+  nederst på skjermen har du verktøylinjen\
+  ![toolbar](document_view_toolbar. ng)\
+  Som standard har denne linjen <ScribbleLoop className="inline-icon"/> lasso-verktøyet; <Pen className="inline-icon" /> pennens verktøy; verktøyet <Path className="inline-icon"/> bane-feltet; <ArrowCounterClockwise className="inline-icon"/> undo og <ArrowClockwise className="inline-icon"/> redo-butonene og verktøyet <Hand className="inline-icon"/> Deretter har du knappen <Plus className="inline-icon"/> for å legge til elementer til verktøylinjen, <Wrench className="inline-icon"/> for å konfigurere dokumentet, og til slutt verktøyet <Lock className="inline-icon"/> for å se zoomen og/eller posisjonen til skjermen.
+  ### Viktige merknader
+  1. Hvis noe av elementet på verktøylinjen ikke er synlig for deg, eller du sveiper mot venstre og høyre for å vise flere elementer.
+  2. Etter å ha valgt et verktøy vil det vises en liten meny for å konfigurere den. Langt klikk på verktøyet igjen lar deg dra den til en ny posisjon
+  3. Du kan legge til flere verktøy til verktøylinjen ved å klikke på <Plus className="inline-icon"/> pluss skilt.
  </TabItem>
 </Tabs>
