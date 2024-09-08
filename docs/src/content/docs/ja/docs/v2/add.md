@@ -2,23 +2,23 @@
 title: 追加
 ---
 
-ここでは、メモに追加できます。
+Here you can add things to your notes.
 
 ## インポート
 
-ドキュメント内に既存のファイルをインポートできます。
-サポートされているのはバタフライ文書、markdown、png、svg、pdfです。
+Here you can import existing files inside your documents.
+Supported are butterfly documents, markdown, png, svg and pdf.
 
 ## ツール
 
-ツールバーにツールを追加するには、ツールバーをクリックします。
-それらについてもっと読む [here](../tools).
+To add more tools to your toolbar, click on them.
+Read more about them [here](../tools).
 
-## 面
+## Surfaces
 
-これらは表面を作成するための特別なツールです。
+These are special tools to create surfaces.
 
 ## アクション
 
-これらは、それらをクリックすることによって実行されるツールです。
-再生ボタンを使用して、ツールバーに追加することなく実行できます。
+These are tools that will be executed by clicking on them.
+You can use the play button to execute them without adding them to the toolbar.
