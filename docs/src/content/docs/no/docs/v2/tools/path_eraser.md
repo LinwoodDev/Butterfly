@@ -1,8 +1,8 @@
 ---
-title: Path eraser tool
+title: Bane eraserverktøy
 ---
 
-With this tool you can delete the whole path on the paper.
+Med dette verktøyet kan du slette hele banen i papiren.
 
 ## Konfigurasjon
 
