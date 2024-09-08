@@ -1,11 +1,11 @@
 ---
-title: Vælg værktøj
+title: Select tool
 ---
 
-Med dette værktøj kan du vælge elementer.
+With this tool you can select elements.
 
 ## Konfiguration
 
-| Egenskab |  Standard | Varebeskrivelse                                                 |
-| -------: | :-------: | :-------------------------------------------------------------- |
-| tilstand | rektangel | Tilstand for valg. Gyldig er rektangel og lasso |
+| Egenskab |  Standard | Varebeskrivelse                                                  |
+| -------: | :-------: | :--------------------------------------------------------------- |
+|     mode | rektangel | Mode of selection. Valid are rectangle and lasso |
