@@ -2,7 +2,7 @@
 title: Eraser tool
 ---
 
-Med dette verktøyet kan du slette elementene i papiret.
+With this tool you can erase the elements on the paper.
 
 ## Konfigurasjon
 
