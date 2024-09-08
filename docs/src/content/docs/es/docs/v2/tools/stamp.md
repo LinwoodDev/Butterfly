@@ -1,9 +1,9 @@
 ---
-title: Stamp tool
+title: Estampar herramienta
 ---
 
-The stamp tool allows you to add components to your canvas.
-Usa un paquete existente, crea el tuyo propio o importa un paquete para usarlo. Read more [here](../../pack).
+La herramienta de sello le permite añadir componentes a su lienzo.
+Usa un paquete existente, crea el tuyo propio o importa un paquete para usarlo. Leer más [here](../../pack).
 
 ## Configuración
 
