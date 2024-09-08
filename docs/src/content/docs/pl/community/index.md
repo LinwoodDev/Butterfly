@@ -8,10 +8,10 @@ Witamy w sekcji społeczności.
 
 Specjalne podziękowania należą się do:
 
-- [Flutter](https://github.com/flutter/flutter) for providing this useful crossplatform ui framework
-- [window_manager](https://github.com/leanflutter/window_manager) for all this useful desktop window features
-- [Starlight](https://github.com/withastro/starlight) for an easy-to-use static react documentation framework
-- [Phosphor Icons](https://phosphoricons.com/) for the beautiful icons
+- [Flutter](https://github.com/flutter/flutter) dla zapewnienia tej przydatnej ramy crossplatform ui
+- [window_manager](https://github.com/leanflutter/window_manager) dla wszystkich przydatnych funkcji okna desktopowego
+- [Starlight](https://github.com/withastro/starlight) dla prostego do użycia ram dokumentacji statycznej reakcji
+- [Ikony fosforowe](https://phosphoricons.com/) dla pięknych ikon
 
 Wszystkie inne licencje można znaleźć w ustawieniach.
 
