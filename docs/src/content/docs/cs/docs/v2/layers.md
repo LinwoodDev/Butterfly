@@ -2,7 +2,7 @@
 title: Vrstvy
 ---
 
-Vrstvy jsou možností seskupit prvky dohromady. Klikněte na element pro zobrazení a změnu vrstvy. Use the [layer tool](../tools/layer) to change the layers of multiple elements.
+Vrstvy jsou možností seskupit prvky dohromady. Klikněte na element pro zobrazení a změnu vrstvy. Použij [nástroj vrstvy](../tools/layer) ke změně vrstev více prvků.
 
 ## Dialog vrstev
 
