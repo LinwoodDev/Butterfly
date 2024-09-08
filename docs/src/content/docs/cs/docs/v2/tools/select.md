@@ -1,11 +1,11 @@
 ---
-title: Select tool
+title: Vybrat nástroj
 ---
 
-With this tool you can select elements.
+Pomocí tohoto nástroje můžete vybrat prvky.
 
 ## Konfigurace
 
 | Majetek |  Výchozí | L 343, 22.12.2009, s. 1). |
 | ------: | :------: | :---------------------------------------------------------------------------------------- |
-|    mode | obdélník | Mode of selection. Valid are rectangle and lasso                          |
+|   režim | obdélník | Způsob výběru. Platné jsou obdélník a lasso                               |
