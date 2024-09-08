@@ -1,5 +1,5 @@
 ---
-title: تضمين
+title: Embed
 ---
 
 التضمين طريقة بسيطة لإدراج التطبيق في موقع الويب الخاص بك.
@@ -11,11 +11,11 @@ title: تضمين
 
 ## خيارات
 
-| خيار         | نوع                                                                                              | الافتراضي | الوصف                                                                                                                                                                    |
-| ------------ | ------------------------------------------------------------------------------------------------ | --------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| حفظ          | منطقية (صحيح, خطأ)                                                            | صحيح      | تمكين الحفظ. في حالة التعطيل، سيتم عرض زر الخروج فقط                                                                                                     |
-| قابل للتحرير | منطقية (صحيح, خطأ)                                                            | صحيح      | تمكين التحرير. في حالة التعطيل، سيكون المستند للقراءة فقط                                                                                                |
-| اللغة        | سلسلة (...، النظام، المستخدم) | النظام    | () لغة الوثيقة. إذا كان النظام، سيتم اكتشاف اللغة من المتصفح. إذا كان المستخدم، سيتم تعيين اللغة إلى تفضيل المستخدمين |
+| خيار     | نوع                                                                                              | الافتراضي | الوصف                                                                                                                                                                    |
+| -------- | ------------------------------------------------------------------------------------------------ | --------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| حفظ      | Boolean (true, false)                                                         | true      | تمكين الحفظ. في حالة التعطيل، سيتم عرض زر الخروج فقط                                                                                                     |
+| editable | Boolean (true, false)                                                         | true      | تمكين التحرير. في حالة التعطيل، سيكون المستند للقراءة فقط                                                                                                |
+| اللغة    | سلسلة (...، النظام، المستخدم) | system    | () لغة الوثيقة. إذا كان النظام، سيتم اكتشاف اللغة من المتصفح. إذا كان المستخدم، سيتم تعيين اللغة إلى تفضيل المستخدمين |
 
 ## الأحداث
 
@@ -32,27 +32,27 @@ embedElement.addEventListener('message', (data) => {
 
 ### حفظ
 
-> حدث "حفظ" ينبعث عندما ينقر المستخدم على زر الحفظ.
+> The `save` event is emitted when the user clicks the save button.
 
 البارامترات:
 
-- `data` (نوع `List<int>`): بيانات المستند.
+- `data` (Type `List<int>`): The data of the document.
 
 ### الخروج
 
-> حدث "الخروج" ينبعث عندما ينقر المستخدم على زر الخروج.
+> The `exit` event is emitted when the user clicks the exit button.
 
 البارامترات:
 
-- `data` (نوع `List<int>`): بيانات المستند.
+- `data` (Type `List<int>`): The data of the document.
 
-### تغيير
+### change
 
-> يحدث "التغيير" عندما يقوم المستخدم بتغيير المستند.
+> The `change` event is emitted when the user changes the document.
 
 البارامترات:
 
-- `data` (نوع `List<int>`): بيانات المستند.
+- `data` (Type `List<int>`): The data of the document.
 
 ## الأساليب
 
@@ -70,40 +70,40 @@ embedElement.addEventListener('message', (data) => {
 
 ### getData
 
-> وتعيد طريقة 'getData\` البيانات الواردة في الوثيقة.
+> The `getData` method returns the data of the document.
 
 لا توجد معلمات.
 Returns: `List<int>`
 
-### بيانات الإعدادات
+### setData
 
-> وتضع طريقة 'setData\` بيانات الوثيقة.
-
-البارامترات:
-
-- `data` (نوع `List<int>`): بيانات المستند.
-
-### تقديم
-
-> طريقة "render" تجعل المستند في صورة png .
+> The `setData` method sets the data of the document.
 
 البارامترات:
 
-- `العرض` (نوع `عدد`): عرض الصورة.
-- `ارتفاع` (نوع `عدد`): ارتفاع الصورة.
-- `المقياس` (نوع `عدد`): حجم الصورة.
-- `renderBackground` (نوع `Boolean`): إذا كان صحيحاً، فسيتم تقديم الخلفية.
+- `data` (Type `List<int>`): The data of the document.
 
-العائدات: `String` (صورة مشفرة القاعدة64)
+### render
+
+> The `render` method renders the document to a png image.
+
+البارامترات:
+
+- `width` (Type `Number`): The width of the image.
+- `height` (Type `Number`): The height of the image.
+- `scale` (Type `Number`): The scale of the image.
+- `renderBackground` (Type `Boolean`): If true, the background will be rendered.
+
+Returns: `String` (Base64 encoded image)
 
 ### renderSVG
 
-> طريقة 'renderSVG\` تجعل المستند في صورة svg .
+> The `renderSVG` method renders the document to a svg image.
 
 البارامترات:
 
-- `العرض` (نوع `عدد`): عرض الصورة.
-- `ارتفاع` (نوع `عدد`): ارتفاع الصورة.
-- `renderBackground` (نوع `Boolean`): إذا كان صحيحاً، فسيتم تقديم الخلفية.
+- `width` (Type `Number`): The width of the image.
+- `height` (Type `Number`): The height of the image.
+- `renderBackground` (Type `Boolean`): If true, the background will be rendered.
 
-العائدات: `السلسلة` (SVG)
+Returns: `String` (SVG)
