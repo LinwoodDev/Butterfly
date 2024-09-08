@@ -4,11 +4,11 @@ title: Страницы
 
 :::note
 
-Эта страница описывает систему страниц, которая отделяет различные заметки в одном документе. Если вы ищете способ ограничить бесконечный холст, пожалуйста, [используйте функцию площади](../area)
+This page covers the page system which distinct different notes in one document. If you search a way to restrict the infinite canvas, please [use the area feature](../area)
 
 :::
 
-Страницы - это способ упорядочить ваши заметки.
-При добавлении косой черты в заголовок страницы можно создавать папки.
+Pages are a way to organize your notes.
+If you add a slash in the title of a page, you can create folders.
 
-Используйте страницу навигации для создания и управления страницами.
+Use the page navigator page to create and manage pages.
