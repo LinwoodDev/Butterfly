@@ -1,12 +1,12 @@
 ---
-title: أداة ملء الشاشة
+title: Full screen tool
 ---
 
-:::note[⚡ أداة العمل]
+:::note[⚡ Action tool]
 
-وهذه أداة خاصة.
+This is a special tool.
 لا يمكنك إختياره وستقوم بتشغيل الإجراء إذا قمت بالنقر عليه.
 
 :::
 
-عند النقر على هذه الأداة يمكنك تبديل ملء الشاشة.
+When clicking on this tool you can toggle full screen.
