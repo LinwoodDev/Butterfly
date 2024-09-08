@@ -2,4 +2,4 @@
 title: Presentatie
 ---
 
-The presentation tool allows you to create your own animations inside your notes.
+De presentatietool stelt je in staat om je eigen animaties binnen je notities te maken.
