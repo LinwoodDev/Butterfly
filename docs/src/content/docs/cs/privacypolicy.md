@@ -3,22 +3,22 @@ title: Ochrana osobních údajů
 tableOfContents: false
 ---
 
-This is the privacy policy of the app. Please read it carefully.
-Click [here](https://go.linwood.dev/privacypolicy) to read the privacy policy of the website.
+Toto jsou zásady ochrany osobních údajů aplikace. Přečtěte si to prosím pozorně.
+Klepněte na tlačítko [here](https://go.linwood.dev/privacypolicy) pro čtení zásad ochrany osobních údajů na webových stránkách.
 
-CodeDoctor built the Butterfly app as an Open Source app. This SERVICE is provided by CodeDoctor at no cost and is intended for use as is.
+CodeDoctor vytvořil aplikaci Butterfly jako Open Source aplikaci. Tato služba je poskytována CodeDoctorem bez nákladů a je určena k použití tak, jak je.
 
 Tato stránka se používá k informování návštěvníků o mých pravidlech se sběrem, používání a zveřejňování osobních údajů, pokud se někdo rozhodne použít mou službu.
 
-If you choose to use my Service, then you agree to the collection and use of information in relation to this policy. The Personal Information that I collect is used for providing and improving the
-Service. I will not use or share your information with anyone except as described in this Privacy Policy.
+Pokud se rozhodnete využít moji službu, pak souhlasíte se shromažďováním a využíváním informací týkajících se této politiky. Osobní informace, které shromažďuji, jsou využívány k poskytování a zlepšování
+Služby. Nebudu používat ani sdílet vaše informace s nikým kromě těch, které jsou popsány v těchto Zásadách ochrany osobních údajů.
 
 Výrazy použité v těchto zásadách ochrany osobních údajů mají stejný význam jako v našich Podmínkách, které je přístupné v Butterfly pokud není v těchto zásadách ochrany osobních údajů stanoveno jinak.
 
 **Shromažďování a používání informací**
 
-For a better experience, while using our Service, I may require you to provide us with certain personally identifiable information. The information that I request will be retained on your device and
-is not collected by me in any way.
+Za účelem lepšího zážitku při používání naší služby vám mohu požádat, abyste nám poskytli určité osobní informace. Informace, které požaduji, budou uloženy na vašem zařízení a
+mi v žádném případě nejsou shromažďovány.
 
 Aplikace používá služby třetích stran, které mohou shromažďovat informace použité k vaší identifikaci.
 
@@ -28,11 +28,11 @@ Odkaz na zásady ochrany osobních údajů poskytovatelů služeb třetích stra
 
 **Cookies**
 
-Cookies are files with a small amount of data that are commonly used as anonymous unique identifiers. These are sent to your browser from the websites that you visit and are stored on your device's
-internal memory.
+Soubory cookie jsou soubory s malým množstvím dat, které se běžně používají jako anonymní jedinečné identifikátory. Ty jsou odeslány vašemu prohlížeči z webových stránek, které navštívíte a které jsou uloženy v
+interní paměti vašeho zařízení.
 
-This Service does not use these “cookies” explicitly. However, the app may use third party code and libraries that use “cookies” to collect information and improve their services. You have the option
-to either accept or refuse these cookies and know when a cookie is being sent to your device. If you choose to refuse our cookies, you may not be able to use some portions of this Service.
+Tato služba tyto „cookies“ výslovně nepoužívá. Aplikace však může pro sběr informací a zlepšení svých služeb používat kód třetích stran a knihovny, které používají „cookies“. Máte možnost
+buď tyto soubory cookie přijmout, nebo je odmítnout, a víte, kdy je cookie odeslána do vašeho zařízení. Pokud se rozhodnete odmítnout soubory cookie, nemusí být možné použít některé části této služby.
 
 **Poskytovatelé služeb**
 
@@ -43,29 +43,29 @@ Mohu zaměstnat třetí strany a jednotlivce z těchto důvodů:
 - poskytovat služby nebo
 - Abyste nám pomohli analyzovat, jak je naše služba používána.
 
-I want to inform users of this Service that these third parties have access to your Personal Information. The reason is to perform the tasks assigned to them on our behalf. However, they are obligated
-not to disclose or use the information for any other purpose.
+Chci uživatele této služby informovat, že tyto třetí strany mají přístup k vašim osobním údajům. Důvodem je plnění úkolů, které jim byly přiděleny naším jménem. Jsou však povinni
+nezveřejňovat ani používat tyto informace k jiným účelům.
 
-**Security**
+**Bezpečnost**
 
-I value your trust in providing us your Personal Information, thus we are striving to use commercially acceptable means of protecting it. But remember that no method of transmission over the internet,
-or method of electronic storage is 100% secure and reliable, and I cannot guarantee its absolute security.
+Oceňuji vaši důvěru v to, že nám poskytnete vaše osobní údaje, a proto se snažíme používat komerčně přijatelné prostředky na jejich ochranu. Ale nezapomeňte, že žádná metoda přenosu přes internet,
+nebo metoda elektronického ukládání je 100% bezpečná a spolehlivá a já nemohu zaručit jeho absolutní bezpečnost.
 
 **Odkazy na jiné weby**
 
-This Service may contain links to other sites. If you click on a third-party link, you will be directed to that site. Note that these external sites are not operated by me. Therefore, I strongly
-advise you to review the Privacy Policy of these websites. I have no control over and assume no responsibility for the content, privacy policies, or practices of any third-party sites or services.
+Tato služba může obsahovat odkazy na jiné stránky. Pokud kliknete na odkaz třetí strany, budete přesměrováni na tento web. Všimněte si, že tyto externí stránky mě neprovozuji. Proto vám důrazně
+doporučuji, abyste přezkoumali Zásady ochrany osobních údajů na těchto webových stránkách. Nemám žádnou kontrolu a nepřevezmu žádnou odpovědnost za obsah, zásady ochrany osobních údajů nebo praktiky třetích stran na stránkách nebo službách.
 
 **Změny těchto zásad ochrany osobních údajů**
 
-I may update our Privacy Policy from time to time. Thus, you are advised to review this page periodically for any changes. I will notify you of any changes by posting the new Privacy Policy on this
-page.
+Mohu čas od času aktualizovat naše zásady ochrany osobních údajů. Proto se doporučuje, abyste tuto stránku pravidelně přezkoumávali pro jakékoliv změny. Budu vás informovat o jakýchkoli změnách zveřejněním nových zásad ochrany osobních údajů na této stránce
+.
 
 Tato politika je účinná od roku 2021-02-07
 
-**Contact Us**
+**Kontaktujte nás**
 
 Pokud máte jakékoliv dotazy nebo návrhy ohledně mých zásad ochrany osobních údajů, neváhejte mě kontaktovat na contact@linwood.dev.
 
-This privacy policy page was created at [privacypolicytemplate.net](https://privacypolicytemplate.net) and modified/generated
-by [App Privacy Policy Generator](https://app-privacy-policy-generator.nisrulz.com/)
+Tato stránka o zásadách ochrany osobních údajů byla vytvořena na [privacypolicytemplate.net](https://privacypolicytemplate.net) a upravena/generována
+[generátor zásad ochrany osobních údajů aplikace](https://app-privacy-policy-generator.nisrulz.com/)
