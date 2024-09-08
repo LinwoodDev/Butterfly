@@ -1,5 +1,5 @@
 ---
-title: Инструмент пробела
+title: Spacer tool
 ---
 
-С помощью этого инструмента вы можете добавить пробел между элементами, перетаскивая там, где вы хотите добавить пространство.
+With this tool you can add space between elements by dragging where you want to add space.
