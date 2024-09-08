@@ -1,8 +1,8 @@
 ---
-title: Lag verktøy
+title: Layer tool
 ---
 
-Med dette verktøyet kan du endre laget av flere objekter. Les mer om lag [here](../layers.md).
+Med dette verktøyet kan du endre laget av flere objekter. Read more about layers [here](../layers.md).
 Når du klikker på et objekt, endres laget av objektet til laget som er angitt i konfigurasjonen. La feltet stå tomt vil sette laget til standard lag.
 
 ## Konfigurasjon
