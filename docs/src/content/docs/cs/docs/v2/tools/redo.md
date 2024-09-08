@@ -1,13 +1,13 @@
 ---
-title: Opakovat nástroj
+title: Redo tool
 ---
 
-:::note[⚡ Nástroj akce]
+:::note[⚡ Action tool]
 
-Toto je speciální nástroj.
+This is a special tool.
 Nemůžete ji vybrat a po kliknutí na ni spustí akci.
 
 :::
 
-Po kliknutí na tento nástroj můžete znovu provést poslední akci.
-Podívej se na [Vrátit nástroj](../undo) pro vrácení poslední akce.
+When clicking on this tool you can redo your last action.
+See the [undo tool](../undo) for undoing your last action.
