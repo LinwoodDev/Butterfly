@@ -21,7 +21,7 @@ Algunos de ellos se escriben debajo de los botones.
 
 ### Projekt
 
-- `Ctrl` + `K`: Open search
+- `Ctrl` + `K`: Abrir búsqueda
 - `Ctrl` + `Z`: Deshacer
 - `Ctrl` + `Y`: Rehacer
 - `Ctrl` + `Shift` + `P`: Abrir diálogo de waypoints
@@ -38,7 +38,7 @@ Por defecto, el lápiz está configurado para funcionar de la siguiente manera:
 
 - `Pen`: configurado como pluma.
 - `Primero` (botón primario, si es soportado): Cambia a la herramienta de mano mientras se presiona.
-- `Second` (Secondary button, if supported): Change to second tool (see [configure](#configure) section below) while pressed.
+- `Segundo` (botón secundario, si es soportado): Cambia a la segunda herramienta (ver la sección [configure](#configurado) abajo) mientras se pulsa.
 
 ## Configurar {#configure}
 
