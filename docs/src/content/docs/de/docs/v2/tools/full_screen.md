@@ -1,12 +1,12 @@
 ---
-title: Vollbildmodus
+title: Full screen tool
 ---
 
-:::note[⚡ Aktionswerkzeug]
+:::note[⚡ Action tool]
 
-Dies ist ein spezielles Werkzeug.
+This is a special tool.
 Sie können es nicht auswählen und es wird die Aktion ausführen, wenn Sie darauf klicken.
 
 :::
 
-Wenn Sie auf dieses Tool klicken, können Sie den Vollbildmodus umschalten.
+When clicking on this tool you can toggle full screen.
