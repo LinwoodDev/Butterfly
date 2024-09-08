@@ -2,7 +2,7 @@
 title: Eraser tool
 ---
 
-Met dit gereedschap kun je de elementen op het papier wissen.
+With this tool you can erase the elements on the paper.
 
 ## Configuratie
 
