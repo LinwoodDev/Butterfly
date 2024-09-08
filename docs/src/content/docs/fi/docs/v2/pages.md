@@ -4,11 +4,11 @@ title: Sivut
 
 :::note
 
-Tämä sivu kattaa sivujärjestelmän, joka erottelee eri muistiinpanoja yhdessä asiakirjassa. Jos etsit tapaa rajoittaa ääretöntä kangasta, ole hyvä ja [käytä alueen ominaisuutta](../area)
+This page covers the page system which distinct different notes in one document. If you search a way to restrict the infinite canvas, please [use the area feature](../area)
 
 :::
 
-Sivut ovat tapa järjestää muistiinpanoja.
-Jos lisäät kauttaviivan sivun otsikkoon, voit luoda kansioita. @ option: check
+Pages are a way to organize your notes.
+If you add a slash in the title of a page, you can create folders.
 
-Käytä sivujen navigaattori sivua luodaksesi ja hallitaksesi sivuja.
+Use the page navigator page to create and manage pages.
