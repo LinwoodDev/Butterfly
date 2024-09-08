@@ -2,7 +2,7 @@
 title: Färg väljare
 ---
 
-![Färgväljare](color_picker.png)
+![Color picker](color_picker.png)
 
 - Öppna, spara dialogrutan för att komma åt den i andra dokument
 - Återställ paletten för standardmaterialpaletten
