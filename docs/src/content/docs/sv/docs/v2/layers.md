@@ -2,7 +2,7 @@
 title: Lager
 ---
 
-Lager är ett alternativ för att gruppera element tillsammans. Klicka på elementet för att se och ändra lagret. Use the [layer tool](../tools/layer) to change the layers of multiple elements.
+Lager är ett alternativ för att gruppera element tillsammans. Klicka på elementet för att se och ändra lagret. Använd [lagerverktyget](../tools/layer) för att ändra lager av flera element.
 
 ## Dialogen med lager
 
