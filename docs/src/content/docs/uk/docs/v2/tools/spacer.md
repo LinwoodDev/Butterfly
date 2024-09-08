@@ -1,5 +1,5 @@
 ---
-title: Spacer tool
+title: Інструмент Spacer
 ---
 
-With this tool you can add space between elements by dragging where you want to add space.
+Цей інструмент можна додавати пробіли між елементами, перетягуючи місце, де потрібно додати простір.
