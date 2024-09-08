@@ -2,7 +2,7 @@
 title: Eraser tool
 ---
 
-Cu acest instrument puteţi şterge elementele de pe hârtie.
+With this tool you can erase the elements on the paper.
 
 ## Configurare
 
