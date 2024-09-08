@@ -2,7 +2,7 @@
 title: Warstwa
 ---
 
-Warstwy są opcją do grupowania elementów razem. Kliknij element, aby zobaczyć i zmienić warstwę. Use the [layer tool](../tools/layer) to change the layers of multiple elements.
+Warstwy są opcją do grupowania elementów razem. Kliknij element, aby zobaczyć i zmienić warstwę. Użyj [narzędzia warstw](../tools/layer) aby zmienić warstwy wielu elementów.
 
 ## Okno dialogowe warstw
 
