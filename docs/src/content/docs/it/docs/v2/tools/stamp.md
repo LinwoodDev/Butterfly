@@ -1,9 +1,9 @@
 ---
-title: Stamp tool
+title: Strumento timbro
 ---
 
-The stamp tool allows you to add components to your canvas.
-Utilizzare un pacchetto esistente, creare il proprio o importare un pacchetto per utilizzarlo. Read more [here](../../pack).
+Lo strumento timbro consente di aggiungere componenti alla tua tela.
+Utilizzare un pacchetto esistente, creare il proprio o importare un pacchetto per utilizzarlo. Leggi tutto [here](../../pack).
 
 ## Configurazione
 
