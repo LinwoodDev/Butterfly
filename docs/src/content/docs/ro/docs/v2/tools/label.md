@@ -1,8 +1,8 @@
 ---
-title: Label tool
+title: Unelte de etichetare
 ---
 
-With this tool you can add text to the paper.
+Cu acest instrument puteţi adăuga text pe hârtie.
 
 ## Configurare
 
