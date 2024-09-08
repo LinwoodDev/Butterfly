@@ -1,13 +1,13 @@
 ---
-title: Redo tool
+title: Перезапустить инструмент
 ---
 
-:::note[⚡ Action tool]
+:::note[⚡ Инструмент действия]
 
-This is a special tool.
+Это специальный инструмент.
 Вы не можете выбрать его и действие будет выполнено, если вы нажмете на него.
 
 :::
 
-When clicking on this tool you can redo your last action.
-See the [undo tool](../undo) for undoing your last action.
+При нажатии на этот инструмент вы можете повторить свое последнее действие.
+См. [утилиту отмены](../undo), чтобы отменить ваше последнее действие.
