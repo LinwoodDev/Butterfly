@@ -4,11 +4,11 @@ title: Páginas
 
 :::note
 
-This page covers the page system which distinct different notes in one document. If you search a way to restrict the infinite canvas, please [use the area feature](../area)
+Esta página cubre el sistema de páginas que distinguen diferentes notas en un documento. Si buscas una manera de restringir el lienzo infinito, por favor [usa la función de área](../area)
 
 :::
 
-Pages are a way to organize your notes.
-If you add a slash in the title of a page, you can create folders.
+Las páginas son una forma de organizar sus notas.
+Si añade una barra en el título de una página, puede crear carpetas.
 
-Use the page navigator page to create and manage pages.
+Utilice la página del navegador para crear y gestionar páginas.
