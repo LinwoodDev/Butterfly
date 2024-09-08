@@ -1,17 +1,17 @@
 ---
-title: Utilities
+title: Utilità
 ---
 
-This view allows you to change the general document or the view.
+Questa vista consente di modificare il documento generale o la vista.
 
 ## Progetto
 
-Here are all globally properties that you can set like name and description.
-Additionally you can capture a thumbnail from the current viewport to see it in the home page.
+Qui ci sono tutte le proprietà globali che puoi impostare come nome e descrizione.
+Inoltre è possibile catturare una miniatura dalla vista corrente per vederla nella home page.
 
 ## Pagina
 
-Here are all page specific properties. Currently you can find the background setting here.
+Ecco tutte le proprietà specifiche della pagina. Al momento puoi trovare qui l'impostazione dello sfondo.
 
 ## Visualizza
 
@@ -25,4 +25,4 @@ Il righello permette di misurare la distanza tra due punti. Inoltre è possibile
 
 ## Fotocamera
 
-To jump to a specific position or zoom to a specific level you can use this tab.
+Per passare a una posizione specifica o a uno zoom ad un livello specifico è possibile utilizzare questa scheda.
