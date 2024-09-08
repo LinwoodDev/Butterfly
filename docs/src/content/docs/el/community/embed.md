@@ -2,8 +2,8 @@
 title: Ενσωμάτωση
 ---
 
-Embedding is a simple way to include the app in your website.
-Add the following code to your website:
+Η ενσωμάτωση είναι ένας απλός τρόπος για να συμπεριλάβετε την εφαρμογή στην ιστοσελίδα σας.
+Προσθέστε τον ακόλουθο κώδικα στην ιστοσελίδα σας:
 
 ```html
 <iframe src="https://web.butterfly.linwood.dev/embed" width="100%" height="500px" allowtransparency="true"></iframe>
@@ -11,11 +11,11 @@ Add the following code to your website:
 
 ## Επιλογές
 
-| Επιλογή    | Τύπος                                                                                                   | Προεπιλογή | Περιγραφή                                                                                                                                                                   |
-| ---------- | ------------------------------------------------------------------------------------------------------- | ---------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| αποθήκευση | Boolean (true, false)                                                                | true       | Enable save. If disabled, only an exit button will be shown                                                                                                 |
-| editable   | Boolean (true, false)                                                                | true       | Enable editing. If disabled, the document will be read-only                                                                                                 |
-| γλώσσα     | Συμβολοσειρά (..., σύστημα, χρήστης) | system     | Language of the document. If system, the language will be detected from the browser. If user, the language will set to the users preference |
+| Επιλογή      | Τύπος                                                                                                   | Προεπιλογή | Περιγραφή                                                                                                                                                                            |
+| ------------ | ------------------------------------------------------------------------------------------------------- | ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| αποθήκευση   | Δυαδικό (αληθές, ψευδές)                                                             | αληθές     | Ενεργοποίηση αποθήκευσης. Αν απενεργοποιηθεί, θα εμφανιστεί μόνο ένα κουμπί εξόδου                                                                                   |
+| επεξεργάσιμο | Δυαδικό (αληθές, ψευδές)                                                             | αληθές     | Ενεργοποίηση επεξεργασίας. Εάν απενεργοποιηθεί, το έγγραφο θα είναι μόνο για ανάγνωση                                                                                |
+| γλώσσα       | Συμβολοσειρά (..., σύστημα, χρήστης) | σύστημα    | Γλώσσα του εγγράφου. Εάν το σύστημα, η γλώσσα θα εντοπιστεί από το πρόγραμμα περιήγησης. Εάν ο χρήστης, η γλώσσα θα ορίσει την προτίμηση των χρηστών |
 
 ## Συμβάντα
 
@@ -32,27 +32,27 @@ embedElement.addEventListener('message', (data) => {
 
 ### αποθήκευση
 
-> The `save` event is emitted when the user clicks the save button.
+> Το συμβάν `save` εκπέμπεται όταν ο χρήστης κάνει κλικ στο κουμπί αποθήκευσης.
 
 Παράμετροι:
 
-- `data` (Type `List<int>`): The data of the document.
+- `data` (Πληκτρολογήστε `List<int>`): Τα δεδομένα του εγγράφου.
 
 ### έξοδος
 
-> The `exit` event is emitted when the user clicks the exit button.
+> Το συμβάν `exit` εκπέμπεται όταν ο χρήστης κάνει κλικ στο κουμπί εξόδου.
 
 Παράμετροι:
 
-- `data` (Type `List<int>`): The data of the document.
+- `data` (Πληκτρολογήστε `List<int>`): Τα δεδομένα του εγγράφου.
 
-### change
+### αλλαγή
 
-> The `change` event is emitted when the user changes the document.
+> Το συμβάν `change` εκπέμπεται όταν ο χρήστης αλλάξει το έγγραφο.
 
 Παράμετροι:
 
-- `data` (Type `List<int>`): The data of the document.
+- `data` (Πληκτρολογήστε `List<int>`): Τα δεδομένα του εγγράφου.
 
 ## Μέθοδοι
 
@@ -70,40 +70,40 @@ embedElement.addEventListener('message', (data) => {
 
 ### getData
 
-> The `getData` method returns the data of the document.
+> Η μέθοδος `getData` επιστρέφει τα δεδομένα του εγγράφου.
 
-No parameters.
-Returns: `List<int>`
+Δεν υπάρχουν παράμετροι.
+Επιστρέφει: `Λίστα<int>`
 
-### setData
+### ορισμόςδεδομένων
 
-> The `setData` method sets the data of the document.
-
-Παράμετροι:
-
-- `data` (Type `List<int>`): The data of the document.
-
-### render
-
-> The `render` method renders the document to a png image.
+> Η μέθοδος `setData` ορίζει τα δεδομένα του εγγράφου.
 
 Παράμετροι:
 
-- `width` (Type `Number`): The width of the image.
-- `height` (Type `Number`): The height of the image.
-- `scale` (Type `Number`): The scale of the image.
-- `renderBackground` (Type `Boolean`): If true, the background will be rendered.
+- `data` (Πληκτρολογήστε `List<int>`): Τα δεδομένα του εγγράφου.
 
-Returns: `String` (Base64 encoded image)
+### απόδοση
+
+> Η μέθοδος `render` καθιστά το έγγραφο σε μια εικόνα png.
+
+Παράμετροι:
+
+- `width` (Πληκτρολογήστε `Number`): Το πλάτος της εικόνας.
+- `height` (Πληκτρολογήστε `Number`): Το ύψος της εικόνας.
+- `scale` (Πληκτρολογήστε `Number`): Η κλίμακα της εικόνας.
+- `renderBackground` (Πληκτρολογήστε `Boolean`): Αν είναι αληθές, το φόντο θα εμφανιστεί.
+
+Επιστρέφει: `String` (εικόνα με κωδικοποίηση Base64)
 
 ### renderSVG
 
-> The `renderSVG` method renders the document to a svg image.
+> Η μέθοδος `renderSVG` αποδίδει το έγγραφο σε μια εικόνα svg
 
 Παράμετροι:
 
-- `width` (Type `Number`): The width of the image.
-- `height` (Type `Number`): The height of the image.
-- `renderBackground` (Type `Boolean`): If true, the background will be rendered.
+- `width` (Πληκτρολογήστε `Number`): Το πλάτος της εικόνας.
+- `height` (Πληκτρολογήστε `Number`): Το ύψος της εικόνας.
+- `renderBackground` (Πληκτρολογήστε `Boolean`): Αν είναι αληθές, το φόντο θα εμφανιστεί.
 
-Returns: `String` (SVG)
+Επιστρέφει: `String` (SVG)
