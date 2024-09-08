@@ -22,7 +22,7 @@ CodeDoctor构建了 Butterfight 应用作为开源应用。 这种服务由CodeD
 
 链接到应用程序使用的第三方服务提供商的隐私政策
 
-- [Google Play 服务](https://www.google.com/policies/privacy/)
+- [Google Play Services](https://www.google.com/policies/privacy/)
 
 **Cookies**
 
@@ -41,13 +41,13 @@ Cookie 是具有少量数据的文件，通常用作匿名唯一标识符。 这
 
 我想告诉该服务的用户，这些第三方可以访问您的个人信息。 原因是为了执行分配给他们的任务。 然而，他们有义务 不为任何其他目的披露或使用信息。
 
-**安全性**
+**Security**
 
 我珍视你们对向我们提供个人信息的信任，因此我们正在努力使用商业上可以接受的手段来保护它。 但记得没有任何通过互联网传输的方法， 或电子存储方法100% 安全可靠，我不能保证其绝对安全。
 
 **链接到其他站点**
 
-此服务可能包含到其他站点的链接。 如果您点击第三方链接，您将被引导到该站点。 请注意这些外部站点不是由我操作的。 Therefore, I strongly advise you to review the Privacy Policy of these websites. 我对任何第三方网站或服务的内容、隐私政策或做法没有控制权，也没有任何责任。 我对任何第三方网站或服务的内容、隐私政策或做法没有控制权，也没有任何责任。
+此服务可能包含到其他站点的链接。 如果您点击第三方链接，您将被引导到该站点。 请注意这些外部站点不是由我操作的。 Therefore, I strongly advise you to review the Privacy Policy of these websites. 我对任何第三方网站或服务的内容、隐私政策或做法没有控制权，也没有任何责任。 I have no control over and assume no responsibility for the content, privacy policies, or practices of any third-party sites or services.
 
 **此隐私政策的更改**
 
@@ -55,7 +55,7 @@ Cookie 是具有少量数据的文件，通常用作匿名唯一标识符。 这
 
 这项政策自2021-02-07年起生效
 
-**联系我们**
+**Contact Us**
 
 如果您对我的隐私政策有任何问题或建议，请毫不犹豫地通过contact@linwood.dev联系我。
 
