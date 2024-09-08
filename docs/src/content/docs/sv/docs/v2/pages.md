@@ -4,11 +4,11 @@ title: Sidor
 
 :::note
 
-This page covers the page system which distinct different notes in one document. If you search a way to restrict the infinite canvas, please [use the area feature](../area)
+Denna sida täcker sidsystemet som skiljer olika anteckningar i ett dokument. Om du söker efter ett sätt att begränsa den oändliga duken, vänligen [använd områdesfunktionen](../area)
 
 :::
 
-Pages are a way to organize your notes.
-If you add a slash in the title of a page, you can create folders.
+Sidor är ett sätt att organisera dina anteckningar.
+Om du lägger till ett snedstreck i titeln på en sida kan du skapa mappar.
 
-Use the page navigator page to create and manage pages.
+Använd sidnavigeringssidan för att skapa och hantera sidor.
