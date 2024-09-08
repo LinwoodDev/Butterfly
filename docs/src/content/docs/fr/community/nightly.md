@@ -18,5 +18,5 @@ Toutes les versions nightly sont également publiées en tant que pré-version s
 ## Expériences
 
 Les expériences sont des fonctionnalités qui ne sont pas encore prêtes pour la production.
-Par défaut, ils sont désactivés. You can enable them in the settings under `Experiments`.
+Par défaut, ils sont désactivés. Vous pouvez les activer dans les paramètres dans `Experiments`.
 Cet onglet n'est visible que dans la version nocturne.
