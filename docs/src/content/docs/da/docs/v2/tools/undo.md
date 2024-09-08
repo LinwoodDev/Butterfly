@@ -1,13 +1,13 @@
 ---
-title: Undo tool
+title: Fortryd værktøj
 ---
 
-:::note[⚡ Action tool]
+:::note[⚡ Værktøjer til handling]
 
-This is a special tool.
+Dette er et særligt værktøj.
 Du kan ikke vælge det, og det vil køre handlingen, hvis du klikker på det.
 
 :::
 
-When clicking on this tool you can undo your last action.
-See the [redo tool](../redo) for redoing your last action.
+Når du klikker på dette værktøj, kan du fortryde din sidste handling.
+Se [redo værktøj](../redo) for at gengøre din sidste handling.
