@@ -18,5 +18,5 @@ Toate construcțiile nocturne sunt publicate și ca versiune pre-lansată pe git
 ## Experimente
 
 Experimentele sunt caracteristici care nu sunt încă gata pentru producție.
-În mod implicit acestea sunt dezactivate. You can enable them in the settings under `Experiments`.
+În mod implicit acestea sunt dezactivate. Le puteţi activa în setările de la `Experiments`.
 Această filă este vizibilă doar în versiunea nocturnă.
