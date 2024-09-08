@@ -1,5 +1,5 @@
 ---
-title: Hand tool
+title: Unealta de mână
 ---
 
-With this tool you can move on the page.
+Cu acest instrument puteţi muta pe pagină.
