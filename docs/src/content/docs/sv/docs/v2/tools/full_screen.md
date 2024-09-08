@@ -1,12 +1,12 @@
 ---
-title: Helskärmsverktyg
+title: Full screen tool
 ---
 
-:::note[⚡ Verktyg för åtgärd]
+:::note[⚡ Action tool]
 
-Detta är ett speciellt verktyg.
+This is a special tool.
 Du kan inte välja det och det kommer att köra åtgärden om du klickar på det.
 
 :::
 
-När du klickar på detta verktyg kan du växla helskärm.
+When clicking on this tool you can toggle full screen.
