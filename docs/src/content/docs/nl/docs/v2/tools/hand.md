@@ -1,5 +1,5 @@
 ---
-title: Hand tool
+title: Handleiding gereedschap
 ---
 
-With this tool you can move on the page.
+Met deze tool kun je op de pagina bewegen.
