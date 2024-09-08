@@ -1,8 +1,8 @@
 ---
-title: Layer tool
+title: Capa herramienta
 ---
 
-Con esta herramienta puedes cambiar la capa de múltiples objetos. Read more about layers [here](../layers.md).
+Con esta herramienta puedes cambiar la capa de múltiples objetos. Lea más sobre las capas [here](../layers.md).
 Cuando hace clic en un objeto, la capa del objeto se cambiará a la capa establecida en la configuración. Dejar el campo de capa vacío establecerá la capa a la capa por defecto.
 
 ## Configuración
