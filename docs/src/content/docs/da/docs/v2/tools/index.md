@@ -2,11 +2,11 @@
 title: Værktøjer
 ---
 
-Værktøjer kan redigere papiret.
+Tools can edit the paper.
 
 Brug sidepanelet til at lære mere om værktøjerne.
 
-Opret et nyt værktøj ved at klikke på plus-ikonet. Ændre værktøjets rækkefølge ved at trække og ændre værktøjet ved at klikke.
+Create a new tool by clicking on the plus icon. Change the tool order by dragging and change the tool by clicking.
 Hvis du klikker på et valgt værktøj, kan du konfigurere det.
 
-Navnet på værktøjet vil blive vist som værktøjstip på hover på værktøjet.
+The name of the tool will be displayed as tooltip on hover on the tool.
