@@ -2,23 +2,23 @@
 title: Lisää
 ---
 
-Here you can add things to your notes.
+Täällä voit lisätä asioita muistiinpanoihisi.
 
 ## Tuo
 
-Here you can import existing files inside your documents.
-Supported are butterfly documents, markdown, png, svg and pdf.
+Täällä voit tuoda olemassa olevia tiedostoja asiakirjojasi.
+Tuetut ovat perhonen asiakirjoja, merkintä, png, svg ja pdf.
 
 ## Työkalut
 
-To add more tools to your toolbar, click on them.
-Read more about them [here](../tools).
+Jos haluat lisätä työkaluriviisi lisää työkaluja, klikkaa niitä.
+Lue lisää niistä [here](../työkalut).
 
-## Surfaces
+## Pinnat
 
-These are special tools to create surfaces.
+Nämä ovat erityisiä työkaluja luoda pintoja.
 
 ## Toiminnot
 
-These are tools that will be executed by clicking on them.
-You can use the play button to execute them without adding them to the toolbar.
+Nämä ovat työkaluja, jotka toteutetaan klikkaamalla niitä.
+Voit käyttää toistopainiketta suorittaaksesi ne lisäämättä niitä työkaluriviin.
