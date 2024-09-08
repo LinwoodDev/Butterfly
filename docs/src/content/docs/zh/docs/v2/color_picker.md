@@ -2,7 +2,7 @@
 title: 颜色选择器
 ---
 
-![颜色选择器](color_selecer.png)
+![Color picker](color_picker.png)
 
 - 打开，保存对话框以在其他文档中访问它
 - 为默认的调色板重置调色板
