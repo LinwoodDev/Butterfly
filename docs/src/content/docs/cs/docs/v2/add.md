@@ -2,23 +2,23 @@
 title: Přidat
 ---
 
-Here you can add things to your notes.
+Zde můžete přidat věci do poznámek.
 
 ## Importovat
 
-Here you can import existing files inside your documents.
-Supported are butterfly documents, markdown, png, svg and pdf.
+Zde můžete importovat existující soubory uvnitř vašich dokumentů.
+Podporovány jsou doklady o motýlech, markdown, png, svg a pdf.
 
 ## Nástroje a nářadí
 
-To add more tools to your toolbar, click on them.
-Read more about them [here](../tools).
+Pro přidání více nástrojů do panelu nástrojů klikněte na ně.
+Přečtěte si více o nich [here](../tools).
 
-## Surfaces
+## Povrch
 
-These are special tools to create surfaces.
+Jedná se o speciální nástroje pro vytváření povrchů.
 
 ## Akce
 
-These are tools that will be executed by clicking on them.
-You can use the play button to execute them without adding them to the toolbar.
+Jedná se o nástroje, které budou spuštěny kliknutím na ně.
+Tlačítko přehrávání můžete spustit bez přidání do panelu nástrojů.
