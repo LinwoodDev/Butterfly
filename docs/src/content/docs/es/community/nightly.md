@@ -18,5 +18,5 @@ Todas las compilaciones nocturnas también se publican como pre-lanzamiento en g
 ## Experimentos
 
 Los expertos son características que aún no están listas para la producción.
-Por defecto están deshabilitados. You can enable them in the settings under `Experiments`.
+Por defecto están deshabilitados. Puedes activarlos en la configuración bajo `Experiments`.
 Esta pestaña sólo es visible en la versión nocturna.
