@@ -1,5 +1,5 @@
 ---
-title: Spacer tool
+title: أداة الفضاء
 ---
 
-With this tool you can add space between elements by dragging where you want to add space.
+مع هذه الأداة يمكنك إضافة مساحة بين العناصر عن طريق السحب حيث تريد إضافة مساحة.
