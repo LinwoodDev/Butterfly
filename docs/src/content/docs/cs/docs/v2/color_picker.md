@@ -2,7 +2,7 @@
 title: Výběr barev
 ---
 
-![Color picker](color_picker.png)
+![Výběr barvy](color_picker.png)
 
 - Otevřít, uložit dialogové okno pro přístup do jiných dokumentů
 - Obnovit paletu pro výchozí paletu materiálu
