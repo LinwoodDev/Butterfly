@@ -2,11 +2,11 @@
 title: Työkalut
 ---
 
-Työkalut voivat muokata paperia.
+Tools can edit the paper.
 
 Käytä sivupalkkia saadaksesi lisää tietoa työkaluista.
 
-Luo uusi työkalu klikkaamalla plus kuvaketta. Muuta työkalun tilausta vetämällä ja vaihtamalla työkalua klikkaamalla.
+Create a new tool by clicking on the plus icon. Change the tool order by dragging and change the tool by clicking.
 Jos klikkaat valittua työkalua, voit määrittää sen.
 
-Työkalun nimi näytetään työkaluvihjeenä sen päällä olevan työkalun kohdalla.
+The name of the tool will be displayed as tooltip on hover on the tool.
