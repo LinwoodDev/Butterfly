@@ -10,6 +10,6 @@ Sti er stien til den fil du vil åbne.
 
 ## Indstillinger
 
-|   Valgmulighed | Varebeskrivelse                                                     |
-| -------------: | :------------------------------------------------------------------ |
-| `--path`, `-p` | Vælg datamappe hvor alle data fra Butterfly gemmes. |
+|    Valgmulighed | Varebeskrivelse                                                     |
+| --------------: | :------------------------------------------------------------------ |
+| `-- path`, `-p` | Vælg datamappe hvor alle data fra Butterfly gemmes. |
