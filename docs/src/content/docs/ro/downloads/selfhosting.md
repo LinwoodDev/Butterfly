@@ -17,9 +17,9 @@ flutter pub get
 flutter build web
 ```
 
-All the files are in the `app/build/web` directory.
+Toate fișierele sunt în folderul `app/build/web`.
 
 ## Doctor
 
-Clone the repository and build the `Dockerfile` using: `docker build -t linwood-butterfly`.
-Start the server using: `docker run -p 8080:8080 -d linwood-butterfly`.
+Clonați depozitul și construiți `Dockerfile` folosind: `docker construiește -t linwood-butterfly`.
+Porniți serverul folosind: `docker run -p 8080:8080 -d linwood-butterfly`.
