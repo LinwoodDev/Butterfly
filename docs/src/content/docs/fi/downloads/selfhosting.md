@@ -17,9 +17,9 @@ flutter pub get
 flutter build web
 ```
 
-All the files are in the `app/build/web` directory.
+Kaikki tiedostot ovat `app/build/web`-hakemistossa.
 
 ## Telakoitsija
 
-Clone the repository and build the `Dockerfile` using: `docker build -t linwood-butterfly`.
-Start the server using: `docker run -p 8080:8080 -d linwood-butterfly`.
+Kloonaa repo ja rakenna `Dockerfile` käyttämällä `docker build -t linwood-butterfly`.
+Käynnistä palvelin käyttäen: `docker run -p 8080:8080 -d linwood-butterfly`.
