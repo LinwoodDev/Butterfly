@@ -2,7 +2,7 @@
 title: Image de marque
 ---
 
-Ces actifs sont sous licence [CC-BY-4.0](https://github.com/LinwoodDev/Butterfly/blob/develop/BRANDING_LICENSE).
+These assets are licensed under the [CC-BY-4.0](https://github.com/LinwoodDev/Butterfly/blob/develop/BRANDING_LICENSE).
 
 ## Logo
 
@@ -10,7 +10,7 @@ Ces actifs sont sous licence [CC-BY-4.0](https://github.com/LinwoodDev/Butterfly
 
 [SVG](/img/logo.svg) [PNG](/img/logo.png)
 
-## Logo de nuit
+## Nightly Logo
 
 ![Logo](/img/nightly.svg)
 
@@ -30,12 +30,12 @@ Ces actifs sont sous licence [CC-BY-4.0](https://github.com/LinwoodDev/Butterfly
 
 ## Couleurs
 
-- Primaire: `#c4840d`
-- Accent : `#7b8f96`
+- Primary: `#c4840d`
+- Accent: `#7b8f96`
 
 ## Polices
 
-- Site Web: `Barlow`
+- Website: `Barlow`
 - App: `Comfortaa`
 
 ## Captures d'écran
