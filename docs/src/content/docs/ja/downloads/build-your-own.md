@@ -11,6 +11,6 @@ title: 自分で作ってください
    - `flutter build web`
    - `flutter build linux`
    - `flutter build windows`
-   - `flutter build ios --release --no-codesign`\
-     after that, create a folder named "Payload", copy Runner.app into it and zip the payload folder. Then rename ".zip" to ".ipa".
+   - `flutter build ios --release --no-codesign` \
+     その後、"Payload" という名前のフォルダを作成し、Runner.app をコピーして zip します。 次に、".zip" の名前を ".ipa" に変更します。
 5. コンパイルされたファイルはビルドディレクトリにあります
