@@ -4,14 +4,14 @@ title: Gemeenschap
 
 Welkom bij de community sectie.
 
-## Acknowledgements
+## Erkenningen
 
 Een speciale dank aan:
 
-- [Flutter](https://github.com/flutter/flutter) for providing this useful crossplatform ui framework
-- [window_manager](https://github.com/leanflutter/window_manager) for all this useful desktop window features
-- [Starlight](https://github.com/withastro/starlight) for an easy-to-use static react documentation framework
-- [Phosphor Icons](https://phosphoricons.com/) for the beautiful icons
+- [Flutter](https://github.com/flutter/flutter) voor dit handige crossplatform ui framework
+- [window_manager](https://github.com/leanflutter/window_manager) voor al dit nuttige bureaublad venster functies
+- [Starlight](https://github.com/withastro/starlight) voor een eenvoudig te gebruiken statische reactie documentatie framework
+- [Phosphor Icons](https://foshoricons.com/) voor de prachtige iconen
 
 Alle andere licenties vind je in de instellingen.
 
