@@ -8,29 +8,29 @@ title: Найчастіші питання
 
 ### Як встановити веб-версію?
 
-You can install the web version by clicking on the install button in the title bar.
-After that you can use this app offline.
+Ви можете встановити веб-версію, натиснувши на кнопку встановлення в заголовку панелі.
+Після цього Ви зможете використовувати цей додаток в автономному режимі.
 
 ### Метелик не завантажується Хоробрий
 
-Brave Users who have set the 'Block Fingerprinting' Shield setting to Aggressive, need to change it to 'Standard' or just plain 'Block Fingerprinting'.
-Click on the shield icon in the address bar to change the setting.
-Try updating your browser to the latest version.
+Хоробрих користувачів, які встановили "Виводити блокувальник" налаштування щита на вимикач, повинні змінити його на "Стандартний" або просто "Блок відбиток пальця".
+Натисніть на іконку щита в панелі адрес для зміни налаштувань.
+Спробуйте оновити ваш браузер до найновішої версії.
 
 ## Мобільний
 
-### S-Pen won't be recognized
+### S-Pen не буде визнано
 
 > [#270](https://github.com/LinwoodDev/Butterfly/issues/270)
 
-I'm using the input provided by the flutter framework.
-This is the issue to track it: [flutter/flutter#42846](https://github.com/flutter/flutter/issues/42846).
+Я використовую вхідний фреймворк, що світиться.
+Це задача, яку потрібно відстежувати: [flutter/flutter#42846](https://github.com/flutter/flutter/issues/42846).
 
-### iOS support
+### Підтримка iOS
 
 > [#244](https://github.com/LinwoodDev/Butterfly/issues/244)
 
-Butterfly is available on iOS as preview. Click [here](https://butterfly.linwood.dev/downloads/ios) to download it. See [here](https://github.com/LinwoodDev/Butterfly/issues/244#issuecomment-1935460878) why it's not available on the App Store.
+Метелик доступний для iOS у якості попереднього перегляду. Натисніть [here](https://butterfly.linwood.dev/downloads/ios) для завантаження. Дивіться [here](https://github.com/LinwoodDev/Butterfly/issues/244#issuecomment-1935460878), чому його не доступно в App Store.
 
 ## Стільниця
 
@@ -38,9 +38,9 @@ Butterfly is available on iOS as preview. Click [here](https://butterfly.linwood
 
 > [#238](https://github.com/LinwoodDev/Butterfly/issues/238)
 
-I'm using the input provided by the flutter framework.
-There are already issues to track it:
-Windows: [flutter/flutter#65248](https://github.com/flutter/flutter/issues/65248) and [flutter/flutter#102836](https://github.com/flutter/flutter/issues/102836).
-Linux: [flutter/flutter#63209](https://github.com/flutter/flutter/issues/63209)
+Я використовую вхідний фреймворк, що світиться.
+Вже є проблеми для відстеження:
+Windows: [flutter/flutter#65248](https://github.com/flutter/issues/65248) and [flutter/flutter#102836](https://github.com/flutter/issues/102836).
+Linux: [flutter/flutter#63209](https://github.com/flutter/issues/63209)
 
-These issues are a bit older. The web version should work fine for now.
+Ці питання трохи старші. Веб-версія повинна працювати належним чином.
