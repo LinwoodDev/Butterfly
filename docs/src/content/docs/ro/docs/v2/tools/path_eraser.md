@@ -1,8 +1,8 @@
 ---
-title: Unealta pentru ștergerea traiectoriei
+title: Path eraser tool
 ---
 
-Cu acest instrument puteţi şterge întregul drum de pe hârtie.
+With this tool you can delete the whole path on the paper.
 
 ## Configurare
 
