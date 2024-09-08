@@ -1,17 +1,17 @@
 ---
-title: Verktøy
+title: Utilities
 ---
 
-Denne visningen lar deg endre det generelle dokumentet eller visningen.
+This view allows you to change the general document or the view.
 
 ## Prosjekt
 
-Her er alle globale egenskaper som du kan angi som navn og beskrivelse.
-Du kan også ta et miniatyrbilde fra gjeldende visningsport for å se den på forsiden.
+Here are all globally properties that you can set like name and description.
+Additionally you can capture a thumbnail from the current viewport to see it in the home page.
 
 ## Side
 
-Her er alle sidespesifikke egenskaper. Du kan finne bakgrunnsinnstillingen her.
+Here are all page specific properties. Currently you can find the background setting here.
 
 ## Vis
 
@@ -25,4 +25,4 @@ Herskeren lar deg måle avstanden mellom to punkter. I tillegg kan du bruke den 
 
 ## Kamera
 
-For å hoppe til en bestemt posisjon eller zoome til et bestemt nivå kan du bruke denne fanen.
+To jump to a specific position or zoom to a specific level you can use this tab.
