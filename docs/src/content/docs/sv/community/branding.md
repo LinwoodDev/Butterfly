@@ -2,7 +2,7 @@
 title: Varumärke
 ---
 
-Dessa tillgångar är licensierade under [CC-BY-4.0](https://github.com/LinwoodDev/Butterfly/blob/develop/BRANDING_LICENSE).
+These assets are licensed under the [CC-BY-4.0](https://github.com/LinwoodDev/Butterfly/blob/develop/BRANDING_LICENSE).
 
 ## Logotyp
 
@@ -10,7 +10,7 @@ Dessa tillgångar är licensierade under [CC-BY-4.0](https://github.com/LinwoodD
 
 [SVG](/img/logo.svg) [PNG](/img/logo.png)
 
-## Nattlig logotyp
+## Nightly Logo
 
 ![Logo](/img/nightly.svg)
 
@@ -30,12 +30,12 @@ Dessa tillgångar är licensierade under [CC-BY-4.0](https://github.com/LinwoodD
 
 ## Färger
 
-- Primär: `#c4840d`
+- Primary: `#c4840d`
 - Accent: `#7b8f96`
 
 ## Typsnitt
 
-- Webbplats: `Barlow`
+- Website: `Barlow`
 - App: `Comfortaa`
 
 ## Skärmdumpar
