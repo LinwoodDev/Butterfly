@@ -21,7 +21,7 @@ Osa niistä on kirjoitettu painikkeiden alle.
 
 ### Projekti
 
-- `Ctrl` + `K`: Open search
+- `Ctrl` + `K`: Avaa haku
 - `Ctrl` + `Z`: Kumoa
 - `Ctrl` + `Y`: Redo
 - `Ctrl` + `Shift` + `P`: Avoimet reittipisteet -valintaikkuna
@@ -38,7 +38,7 @@ Kynä on oletusarvoisesti määritetty toimimaan seuraavasti:
 
 - `Pen`: määritetty kynäksi.
 - `First` (Valinnainen painike, jos tuettu): Vaihda käsityökalua painettuna.
-- `Second` (Secondary button, if supported): Change to second tool (see [configure](#configure) section below) while pressed.
+- `Second` (Toissijainen painike, jos sitä tuetaan): Vaihda toiseen työkaluun (katso [configure](#konfiguraatio) painettuna
 
 ## Määritä {#configure}
 
