@@ -1,9 +1,9 @@
 ---
-title: Stamp tool
+title: Stämpel verktyg
 ---
 
-The stamp tool allows you to add components to your canvas.
-Använd ett befintligt paket, skapa din egen eller importera ett paket för att använda det. Read more [here](../../pack).
+Stämplingsverktyget låter dig lägga till komponenter till din duk.
+Använd ett befintligt paket, skapa din egen eller importera ett paket för att använda det. Läs mer [here](../../pack).
 
 ## Konfiguration
 
