@@ -1,5 +1,5 @@
 ---
-title: Hand tool
+title: ハンドツール
 ---
 
-With this tool you can move on the page.
+このツールを使用すると、ページ上に移動できます。
