@@ -1,12 +1,12 @@
 ---
-title: Full screen tool
+title: Інструмент повноекранного режиму
 ---
 
-:::note[⚡ Action tool]
+:::note[⚡ Інструмент дії]
 
-This is a special tool.
+Це особливий інструмент.
 Ви не можете обрати його і він запустить дію якщо натиснути на нього.
 
 :::
 
-When clicking on this tool you can toggle full screen.
+При натисканні на цей інструмент ви можете перемкнути повноекранний режим.
