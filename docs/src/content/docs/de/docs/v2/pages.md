@@ -4,11 +4,11 @@ title: Seiten
 
 :::note
 
-This page covers the page system which distinct different notes in one document. If you search a way to restrict the infinite canvas, please [use the area feature](../area)
+Diese Seite behandelt das Seitensystem, das verschiedene Notizen in einem Dokument unterscheidet. Wenn du eine Möglichkeit suchst, die unendliche Leinwand einzuschränken, [benutze die Flächenfunktion](../area)
 
 :::
 
-Pages are a way to organize your notes.
-If you add a slash in the title of a page, you can create folders.
+Seiten sind eine Möglichkeit, Ihre Notizen zu organisieren.
+Wenn Sie einen Schrägstrich im Titel einer Seite hinzufügen, können Sie Ordner erstellen.
 
-Use the page navigator page to create and manage pages.
+Benutzen Sie die Seite des Navigators um Seiten zu erstellen und zu verwalten.
