@@ -2,8 +2,8 @@
 title: Selfhosting
 ---
 
-![Stable release version](https://img.shields.io/badge/dynamic/yaml?color=c4840d\&label=Stable\&query=%24.version\&url=https%3A%2F%2Fraw.githubusercontent.com%2FLinwoodDev%2Fbutterfly%2Fstable%2Fapp%2Fpubspec.yaml\&style=for-the-badge)
-![Nightly release version](https://img.shields.io/badge/dynamic/yaml?color=f7d28c\&label=Nightly\&query=%24.version\&url=https%3A%2F%2Fraw.githubusercontent.com%2FLinwoodDev%2Fbutterfly%2Fnightly%2Fapp%2Fpubspec.yaml\&style=for-the-badge)
+![Versão da versão de lançamento estável](https://img.shields.io/badge/dynamic/yaml?├c4840d&label=Stable&query=%24.version&url=https%3A%2F%2Fraw.githubusercontent.com%2FLinwoodDev%2Fbutterfly%2Fapp estável%2F%2Fpubspec. aml&style=for-the-badge)
+![Versão de lançamento noturna](https://img.shields.io/badge/dynamic/yaml?├f7d28c\&label=Nightly\&query=%24.version\&url=https%3A%2F%2Fraw.githubusercontent.com%2FLinwoodDev%2Fbutterfly%2Fapp%2Fapp%2Fpubspec.yaml\&style=for-the-badge)
 
 É muito fácil hospedar seu próprio servidor web de borboleta.
 
@@ -17,9 +17,9 @@ flutter pub get
 flutter build web
 ```
 
-All the files are in the `app/build/web` directory.
+Todos os arquivos estão no diretório `app/build/web`.
 
-## Docker
+## Atracador
 
-Clone the repository and build the `Dockerfile` using: `docker build -t linwood-butterfly`.
-Start the server using: `docker run -p 8080:8080 -d linwood-butterfly`.
+Clone o repositório e crie o `Dockerfile` usando: `docker build -t linwood-butterfly`.
+Inicie o servidor usando: `docker run -p 80:808080 -d linwood-butterfly`.
