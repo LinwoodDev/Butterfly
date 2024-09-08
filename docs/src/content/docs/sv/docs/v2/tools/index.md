@@ -2,11 +2,11 @@
 title: Verktyg
 ---
 
-Tools can edit the paper.
+Verktyg kan redigera papperet.
 
 Använd sidofältet för att lära dig mer om verktygen.
 
-Create a new tool by clicking on the plus icon. Change the tool order by dragging and change the tool by clicking.
+Skapa ett nytt verktyg genom att klicka på plusknappen. Ändra verktygsordningen genom att dra och ändra verktyget genom att klicka.
 Om du klickar på ett valt verktyg kan du konfigurera det.
 
-The name of the tool will be displayed as tooltip on hover on the tool.
+Namnet på verktyget kommer att visas som verktygstips på hovra på verktyget.
