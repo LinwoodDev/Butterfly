@@ -2,23 +2,23 @@
 title: Dodaj
 ---
 
-Tutaj możesz dodać rzeczy do notatek.
+Here you can add things to your notes.
 
 ## Importuj
 
-Tutaj możesz zaimportować istniejące pliki w swoich dokumentach.
-Wspierane są dokumenty motyli, markdown, png, svg i pdf.
+Here you can import existing files inside your documents.
+Supported are butterfly documents, markdown, png, svg and pdf.
 
 ## Narzędzia
 
-Aby dodać więcej narzędzi do paska narzędzi, kliknij na nią.
-Dowiedz się więcej o nich [here](../tools).
+To add more tools to your toolbar, click on them.
+Read more about them [here](../tools).
 
-## Powierzchnie
+## Surfaces
 
-Są to specjalne narzędzia do tworzenia powierzchni.
+These are special tools to create surfaces.
 
 ## Akcje
 
-Są to narzędzia, które będą wykonywane klikając na nie.
-Możesz użyć przycisku odtwarzania, aby je wykonać bez dodawania ich do paska narzędzi.
+These are tools that will be executed by clicking on them.
+You can use the play button to execute them without adding them to the toolbar.
