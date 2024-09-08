@@ -1,11 +1,11 @@
 ---
-title: Shape tool
+title: Formwerkzeug
 ---
 
-Use this tool to draw shapes on the paper.
+Benutzen Sie dieses Werkzeug, um Formen auf dem Papier zu zeichnen.
 Sie können Rechtecke, Kreise und andere Formen zeichnen.
 
-Use `ctrl` to have the same height and width and `shift` to draw from the center.
+Benutze `ctrl` um die gleiche Höhe und Breite und `Shift` aus der Mitte zu ziehen.
 
 ## Konfiguration
 
