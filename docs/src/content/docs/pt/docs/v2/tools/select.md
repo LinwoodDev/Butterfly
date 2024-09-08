@@ -1,11 +1,11 @@
 ---
-title: Selecionar ferramenta
+title: Select tool
 ---
 
-Com esta ferramenta você pode selecionar elementos.
+With this tool you can select elements.
 
 ## Configuração
 
 | Propriedade |   Padrão  | Descrição:                                       |
 | ----------: | :-------: | :--------------------------------------------------------------- |
-|        Modo | retângulo | Modo de seleção. Válido são o retângulo e o laço |
+|        mode | retângulo | Mode of selection. Valid are rectangle and lasso |
