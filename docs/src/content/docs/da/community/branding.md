@@ -2,7 +2,7 @@
 title: Branding
 ---
 
-These assets are licensed under the [CC-BY-4.0](https://github.com/LinwoodDev/Butterfly/blob/develop/BRANDING_LICENSE).
+Disse aktiver er licenseret under [CC-BY-4.0](https://github.com/LinwoodDev/Butterfly/blob/develop/BRANDING_LICENSE).
 
 ## Logo
 
@@ -12,9 +12,9 @@ These assets are licensed under the [CC-BY-4.0](https://github.com/LinwoodDev/Bu
 
 ## Nightly Logo
 
-![Logo](/img/nightly.svg)
+![Logo](/img/natly.svg)
 
-[SVG](/img/nightly.svg) [PNG](/img/nightly.png)
+[SVG](/img/natly.svg) [PNG](/img/natly.png)
 
 ## Banner
 
@@ -30,12 +30,12 @@ These assets are licensed under the [CC-BY-4.0](https://github.com/LinwoodDev/Bu
 
 ## Farver
 
-- Primary: `#c4840d`
+- Primær: `#c4840d`
 - Accent: `#7b8f96`
 
 ## Skrifttyper
 
-- Website: `Barlow`
+- Websted: `Barlow`
 - App: `Comfortaa`
 
 ## Skærmbilleder
