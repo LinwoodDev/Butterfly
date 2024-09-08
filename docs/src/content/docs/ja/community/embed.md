@@ -1,5 +1,5 @@
 ---
-title: Embed
+title: 埋め込み
 ---
 
 埋め込みはあなたのウェブサイトにアプリを含める簡単な方法です。
@@ -11,11 +11,11 @@ title: Embed
 
 ## オプション
 
-| Option   | タイプ                                                                                    | デフォルト  | 説明                                                                                           |
-| -------- | -------------------------------------------------------------------------------------- | ------ | -------------------------------------------------------------------------------------------- |
-| 保存       | Boolean (true, false)                                               | true   | Enable save. If disabled, only an exit button will be shown                  |
-| editable | Boolean (true, false)                                               | true   | Enable editing. 無効にすると、ドキュメントは読み取り専用になります                                    |
-| 言語       | 文字列 (...、システム、ユーザー) | system | Language of the document. システムの場合、言語はブラウザから検出されます。 ユーザーの場合、言語はユーザーの好みに設定されます |
+| Option | タイプ                                                                                    | デフォルト | 説明                                                       |
+| ------ | -------------------------------------------------------------------------------------- | ----- | -------------------------------------------------------- |
+| 保存     | ブール値 (true, false)                                                  | true  | 保存を有効にする 無効にすると、終了ボタンだけが表示されます                           |
+| 編集可能   | ブール値 (true, false)                                                  | true  | 編集を有効にする 無効にすると、ドキュメントは読み取り専用になります                       |
+| 言語     | 文字列 (...、システム、ユーザー) | システム  | 文書の言語 システムの場合、言語はブラウザから検出されます。 ユーザーの場合、言語はユーザーの好みに設定されます |
 
 ## イベント
 
@@ -32,27 +32,27 @@ embedElement.addEventListener('message', (data) => {
 
 ### 保存
 
-> The `save` event is emitted when the user clicks the save button.
+> ユーザーがセーブボタンをクリックすると、`save` イベントが発生します。
 
 パラメータ:
 
-- `data` (Type `List<int>`): The data of the document.
+- `data` (Type `List<int>`): ドキュメントのデータ。
 
 ### 終了
 
-> The `exit` event is emitted when the user clicks the exit button.
+> 終了ボタンをクリックすると、`exit` イベントが発生します。
 
 パラメータ:
 
-- `data` (Type `List<int>`): The data of the document.
+- `data` (Type `List<int>`): ドキュメントのデータ。
 
-### change
+### 変更
 
-> The `change` event is emitted when the user changes the document.
+> `change` イベントは、ユーザーがドキュメントを変更したときに発生します。
 
 パラメータ:
 
-- `data` (Type `List<int>`): The data of the document.
+- `data` (Type `List<int>`): ドキュメントのデータ。
 
 ## メソッド
 
@@ -70,40 +70,40 @@ embedElement.addEventListener('message', (data) => {
 
 ### getData
 
-> The `getData` method returns the data of the document.
+> `getData` メソッドはドキュメントのデータを返します。
 
 パラメータはありません。
-Returns: `List<int>`
+戻り値: `List<int>`
 
 ### setData
 
-> The `setData` method sets the data of the document.
+> `setData` メソッドはドキュメントのデータを設定します。
 
 パラメータ:
 
-- `data` (Type `List<int>`): The data of the document.
+- `data` (Type `List<int>`): ドキュメントのデータ。
 
-### render
+### レンダリング
 
-> The `render` method renders the document to a png image.
+> `render` メソッドはドキュメントを png 画像にレンダリングします。
 
 パラメータ:
 
-- `width` (Type `Number`): The width of the image.
-- `height` (Type `Number`): The height of the image.
-- `scale` (Type `Number`): The scale of the image.
-- `renderBackground` (Type `Boolean`): If true, the background will be rendered.
+- `width` (Type `Number`): 画像の幅。
+- `height` (Type `Number`): 画像の高さ。
+- `scale` (Type `Number`): イメージのスケール。
+- `renderBackground` (Type `Boolean`): true の場合、背景がレンダリングされます。
 
-Returns: `String` (Base64 encoded image)
+戻り値: `String` (Base64 エンコードされた画像)
 
 ### renderSVG
 
-> The `renderSVG` method renders the document to a svg image.
+> `renderSVG` メソッドはドキュメントを svg イメージにレンダリングします。
 
 パラメータ:
 
-- `width` (Type `Number`): The width of the image.
-- `height` (Type `Number`): The height of the image.
-- `renderBackground` (Type `Boolean`): If true, the background will be rendered.
+- `width` (Type `Number`): 画像の幅。
+- `height` (Type `Number`): 画像の高さ。
+- `renderBackground` (Type `Boolean`): true の場合、背景がレンダリングされます。
 
-Returns: `String` (SVG)
+戻り値: `String` (SVG)
