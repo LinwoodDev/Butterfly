@@ -1,5 +1,5 @@
 ---
-title: Spacer tool
+title: Ferramenta do espaçador
 ---
 
-With this tool you can add space between elements by dragging where you want to add space.
+Com esta ferramenta você pode adicionar espaço entre elementos, arrastando para onde você deseja adicionar espaço.
