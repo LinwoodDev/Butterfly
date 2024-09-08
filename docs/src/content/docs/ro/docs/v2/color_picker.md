@@ -2,7 +2,7 @@
 title: Selector culoare
 ---
 
-![Picker de culoare](color_picker.png)
+![Color picker](color_picker.png)
 
 - Deschideţi, salvaţi dialogul pentru a-l accesa în alte documente
 - Resetează paleta pentru paleta implicită a materialului
