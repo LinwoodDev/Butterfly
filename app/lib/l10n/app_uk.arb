@@ -611,5 +611,7 @@
   "installed": "Встановлено",
   "install": "Інсталювати",
   "deselect": "Зняти виділення",
-  "changeLayer": "Змінити шар"
+  "changeLayer": "Змінити шар",
+  "fullSelection": "Full selection",
+  "fullSelectionDescription": "When enabled, elements must be fully contained within the selection box to be selected. If disabled, elements can be selected by touching the selection box, even if only partially."
 }
