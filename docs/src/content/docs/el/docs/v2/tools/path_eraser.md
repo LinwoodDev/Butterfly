@@ -1,8 +1,8 @@
 ---
-title: Εργαλείο γόμα διαδρομής
+title: Path eraser tool
 ---
 
-Με αυτό το εργαλείο μπορείτε να διαγράψετε ολόκληρη τη διαδρομή στο χαρτί.
+With this tool you can delete the whole path on the paper.
 
 ## Διαμόρφωση
 
