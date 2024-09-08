@@ -1,8 +1,8 @@
 ---
-title: Strumento gomma tracciati
+title: Path eraser tool
 ---
 
-Con questo strumento è possibile eliminare l'intero percorso sulla carta.
+With this tool you can delete the whole path on the paper.
 
 ## Configurazione
 
