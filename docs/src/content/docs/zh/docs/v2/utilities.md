@@ -1,17 +1,17 @@
 ---
-title: Utilities
+title: 实用工具
 ---
 
-This view allows you to change the general document or the view.
+此视图允许您更改一般文档或视图。
 
 ## 项目
 
-Here are all globally properties that you can set like name and description.
-Additionally you can capture a thumbnail from the current viewport to see it in the home page.
+这里是所有可以设置为名称和描述的全局属性。
+此外，您可以从当前视图抓取缩略图在主页中看到。
 
 ## 纸张
 
-Here are all page specific properties. Currently you can find the background setting here.
+这里是所有页面的特定属性。 目前您可以在这里找到后台设置。
 
 ## 查看
 
@@ -25,4 +25,4 @@ Here are all page specific properties. Currently you can find the background set
 
 ## 摄像头
 
-To jump to a specific position or zoom to a specific level you can use this tab.
+要跳转到某个特定位置或缩放到某个特定级别，您可以使用此选项卡。
