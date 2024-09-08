@@ -1,17 +1,17 @@
 ---
-title: Utilities
+title: Työkalut
 ---
 
-This view allows you to change the general document or the view.
+Tämän näkymän avulla voit muuttaa yleistä asiakirjaa tai näkymää.
 
 ## Projekti
 
-Here are all globally properties that you can set like name and description.
-Additionally you can capture a thumbnail from the current viewport to see it in the home page.
+Tässä ovat kaikki globaalisti ominaisuuksia, jotka voit asettaa kuin nimi ja kuvaus.
+Lisäksi voit kaapata pikkukuvan nykyisestä näkymästä, jotta voit nähdä sen etusivulla.
 
 ## Sivu
 
-Here are all page specific properties. Currently you can find the background setting here.
+Tässä ovat kaikki sivun erityisominaisuudet. Tällä hetkellä löydät tausta-asetuksen täältä.
 
 ## Näytä
 
@@ -25,4 +25,4 @@ Päällikön avulla voit mitata etäisyyttä kahden pisteen välillä. Lisäksi 
 
 ## Kamera
 
-To jump to a specific position or zoom to a specific level you can use this tab.
+Hyppäämällä tiettyyn paikkaan tai zoomaamalla tietylle tasolle voit käyttää tätä välilehteä.
