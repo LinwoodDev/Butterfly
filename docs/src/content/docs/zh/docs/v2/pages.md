@@ -4,11 +4,11 @@ title: 页 次
 
 :::note
 
-This page covers the page system which distinct different notes in one document. If you search a way to restrict the infinite canvas, please [use the area feature](../area)
+这个页面涵盖了一个文件中不同的注解的页面系统。 如果您搜索限制无限画布的方法，请[使用区域功能](../area)
 
 :::
 
-Pages are a way to organize your notes.
-If you add a slash in the title of a page, you can create folders.
+页面是组织您的笔记的一种方式。
+如果您在页面标题中添加斜杠，您可以创建文件夹。
 
-Use the page navigator page to create and manage pages.
+使用页面导航页面创建和管理页面。
