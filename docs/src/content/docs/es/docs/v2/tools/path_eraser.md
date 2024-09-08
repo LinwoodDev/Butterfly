@@ -1,8 +1,8 @@
 ---
-title: Herramienta de borrador de ruta
+title: Path eraser tool
 ---
 
-Con esta herramienta se puede eliminar toda la ruta en el papel.
+With this tool you can delete the whole path on the paper.
 
 ## Configuración
 
