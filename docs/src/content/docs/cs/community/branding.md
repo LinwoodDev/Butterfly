@@ -2,7 +2,7 @@
 title: Značka
 ---
 
-These assets are licensed under the [CC-BY-4.0](https://github.com/LinwoodDev/Butterfly/blob/develop/BRANDING_LICENSE).
+Tato aktiva jsou licencována pod licencí [CC-BY-4.0](https://github.com/LinwoodDev/Butterfly/blob/develop/BRANDING_LICENSE).
 
 ## Logo
 
@@ -10,7 +10,7 @@ These assets are licensed under the [CC-BY-4.0](https://github.com/LinwoodDev/Bu
 
 [SVG](/img/logo.svg) [PNG](/img/logo.png)
 
-## Nightly Logo
+## Noční logo
 
 ![Logo](/img/nightly.svg)
 
@@ -30,12 +30,12 @@ These assets are licensed under the [CC-BY-4.0](https://github.com/LinwoodDev/Bu
 
 ## Barvy
 
-- Primary: `#c4840d`
-- Accent: `#7b8f96`
+- Primární: `#c4840d`
+- Akcent: `#7b8f96`
 
 ## Písma
 
-- Website: `Barlow`
+- Webová stránka: `Barlow`
 - App: `Comfortaa`
 
 ## Snímek obrazovky
