@@ -1,11 +1,11 @@
 ---
-title: Shape tool
+title: Muoto työkalu
 ---
 
-Use this tool to draw shapes on the paper.
+Käytä tätä työkalua piirtääksesi muotoja paperille.
 Voit piirtää suorakulmioita, piirejä ja muita muotoja.
 
-Use `ctrl` to have the same height and width and `shift` to draw from the center.
+Käytä `ctrl` samaa korkeutta ja leveyttä ja `shift` piirtääksesi keskustasta.
 
 ## Asetukset
 
