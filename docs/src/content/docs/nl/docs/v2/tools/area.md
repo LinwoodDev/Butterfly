@@ -1,8 +1,8 @@
 ---
-title: Gebied tool
+title: Area tool
 ---
 
-Het gereedschap voor het gebied stelt u in staat om gebieden aan te maken, te bewerken en te verwijderen.
+The area tool allows you to create, edit and remove areas.
 
 ## acties
 
