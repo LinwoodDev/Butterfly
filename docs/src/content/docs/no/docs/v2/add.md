@@ -2,23 +2,23 @@
 title: Legg til
 ---
 
-Her kan du legge til ting i notatene dine.
+Here you can add things to your notes.
 
 ## Importer
 
-Her kan du importere eksisterende filer i dokumentene dine.
-Støttede er sommerfugldokumenter, marked, png, svg og pdf.
+Here you can import existing files inside your documents.
+Supported are butterfly documents, markdown, png, svg and pdf.
 
 ## Verktøy
 
-For å legge til flere verktøy til verktøylinjen, klikk på dem.
-Les mer om dem [here](../tools).
+To add more tools to your toolbar, click on them.
+Read more about them [here](../tools).
 
-## Overflater
+## Surfaces
 
-Dette er spesialverktøy for å lage overflater.
+These are special tools to create surfaces.
 
 ## Handlinger
 
-Dette er verktøy som utføres ved å klikke på dem.
-Du kan bruke avspillingsknappen til å utføre dem uten å legge dem til i verktøylinjen.
+These are tools that will be executed by clicking on them.
+You can use the play button to execute them without adding them to the toolbar.
