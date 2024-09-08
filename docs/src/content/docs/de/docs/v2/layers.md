@@ -2,7 +2,7 @@
 title: Ebenen
 ---
 
-Ebenen sind eine Option, um Elemente zu gruppieren. Klicken Sie auf das Element, um die Ebene zu sehen und zu ändern. Use the [layer tool](../tools/layer) to change the layers of multiple elements.
+Ebenen sind eine Option, um Elemente zu gruppieren. Klicken Sie auf das Element, um die Ebene zu sehen und zu ändern. Benutze das [Layer-Tool](../tools/layer) um die Ebenen von mehreren Elementen zu ändern.
 
 ## Der Ebenendialog
 
