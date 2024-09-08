@@ -4,11 +4,11 @@ title: Sider
 
 :::note
 
-Denne side dækker det sidesystem som adskiller forskellige noter i et dokument. Hvis du søger en måde at begrænse uendelig lærred, så [brug venligst arealfunktionen](../area)
+This page covers the page system which distinct different notes in one document. If you search a way to restrict the infinite canvas, please [use the area feature](../area)
 
 :::
 
-Sider er en måde at organisere dine noter.
-Hvis du tilføjer en skråstreg i titlen på en side, kan du oprette mapper.
+Pages are a way to organize your notes.
+If you add a slash in the title of a page, you can create folders.
 
-Brug siden navigator til at oprette og administrere sider.
+Use the page navigator page to create and manage pages.
