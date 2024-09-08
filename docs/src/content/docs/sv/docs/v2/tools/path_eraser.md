@@ -1,8 +1,8 @@
 ---
-title: Path eraser tool
+title: Verktyg för suddgummin
 ---
 
-With this tool you can delete the whole path on the paper.
+Med detta verktyg kan du ta bort hela sökvägen på papperet.
 
 ## Konfiguration
 
