@@ -1,8 +1,8 @@
 ---
-title: Layer tool
+title: Strumento livello
 ---
 
-Con questo strumento è possibile cambiare il livello di più oggetti. Read more about layers [here](../layers.md).
+Con questo strumento è possibile cambiare il livello di più oggetti. Per saperne di più sugli strati [here](../layers.md).
 Quando si fa clic su un oggetto, il livello dell'oggetto verrà cambiato nel livello impostato nella configurazione. Lasciare vuoto il campo del livello imposterà il livello sul livello predefinito.
 
 ## Configurazione
