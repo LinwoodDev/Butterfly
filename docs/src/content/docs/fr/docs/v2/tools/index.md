@@ -2,11 +2,11 @@
 title: Outils
 ---
 
-Tools can edit the paper.
+Les outils peuvent modifier le papier.
 
 Utilisez la barre latérale pour en savoir plus sur les outils.
 
-Create a new tool by clicking on the plus icon. Change the tool order by dragging and change the tool by clicking.
+Créez un nouvel outil en cliquant sur l'icône plus. Changez l'ordre des outils en faisant glisser et changez l'outil en cliquant dessus.
 Si vous cliquez sur un outil sélectionné, vous pouvez le configurer.
 
-The name of the tool will be displayed as tooltip on hover on the tool.
+Le nom de l'outil sera affiché comme infobulle au survol de l'outil.
