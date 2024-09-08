@@ -1,11 +1,11 @@
 ---
-title: Shape tool
+title: Инструмент формы
 ---
 
-Use this tool to draw shapes on the paper.
+Используйте этот инструмент, чтобы нарисовать фигуры на бумаге.
 Можно рисовать прямоугольники, круги и другие фигуры.
 
-Use `ctrl` to have the same height and width and `shift` to draw from the center.
+Используйте «ctrl», чтобы иметь одинаковую высоту и ширину и «shift», чтобы нарисовать из центра.
 
 ## Конфигурация
 
