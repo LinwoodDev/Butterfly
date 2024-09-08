@@ -21,7 +21,7 @@ title: 快捷键
 
 ### 项目
 
-- `Ctrl` + `K`: Open search
+- `Ctrl` + `K`: 打开搜索
 - `Ctrl` + `Z`: 撤销
 - `Ctrl` + `Y`: Redo
 - `Ctrl` + `Shift` + `P`: 打开航点对话框
@@ -38,7 +38,7 @@ title: 快捷键
 
 - “Pen\`：被配置为笔”。
 - `First` (主按钮，如果支持的话)：按住时更改为手工具。
-- `Second` (Secondary button, if supported): Change to second tool (see [configure](#configure) section below) while pressed.
+- `second` (次要按钮，如果支持的话)：按下时更改为第二个工具(见下面 [configure](#configure) 部分)。
 
 ## 配置 {#configure}
 
