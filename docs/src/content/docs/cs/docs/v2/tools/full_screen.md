@@ -1,12 +1,12 @@
 ---
-title: Full screen tool
+title: Celá obrazovka
 ---
 
-:::note[⚡ Action tool]
+:::note[⚡ Nástroj akce]
 
-This is a special tool.
+Toto je speciální nástroj.
 Nemůžete ji vybrat a po kliknutí na ni spustí akci.
 
 :::
 
-When clicking on this tool you can toggle full screen.
+Po kliknutí na tento nástroj můžete přepnout celou obrazovku.
