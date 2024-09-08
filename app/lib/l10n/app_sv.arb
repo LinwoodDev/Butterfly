@@ -611,5 +611,7 @@
   "installed": "Installerad",
   "install": "Installera",
   "deselect": "Avmarkera",
-  "changeLayer": "Ändra lager"
+  "changeLayer": "Ändra lager",
+  "fullSelection": "Full selection",
+  "fullSelectionDescription": "When enabled, elements must be fully contained within the selection box to be selected. If disabled, elements can be selected by touching the selection box, even if only partially."
 }
