@@ -1,8 +1,8 @@
 ---
-title: Narzędzie warstwy
+title: Layer tool
 ---
 
-Za pomocą tego narzędzia możesz zmienić warstwę wielu obiektów. Dowiedz się więcej o warstwach [here](../layers.md).
+Za pomocą tego narzędzia możesz zmienić warstwę wielu obiektów. Read more about layers [here](../layers.md).
 Po kliknięciu na obiekt, warstwa obiektu zostanie zmieniona na warstwę ustawioną w konfiguracji. Pozostawienie pustego pola warstwy spowoduje ustawienie warstwy domyślnej.
 
 ## Konfiguracja
