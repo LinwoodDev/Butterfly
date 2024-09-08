@@ -1,8 +1,8 @@
 ---
-title: Outil stylo
+title: Pen tool
 ---
 
-Avec cet outil, vous pouvez dessiner sur ce papier.
+With this tool you can draw on this paper.
 
 ## Configuration
 
