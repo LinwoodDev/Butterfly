@@ -4,7 +4,7 @@ tableOfContents: false
 ---
 
 To jest polityka prywatności aplikacji. Należy uważnie przeczytać ten dokument.
-Click [here](https://go.linwood.dev/privacypolicy) to read the privacy policy of the website.
+Kliknij [here](https://go.linwood.dev/privacypolicy), aby przeczytać politykę prywatności strony.
 
 CodeDoctor zbudował aplikację Butterfly jako aplikację Open Source. Usługa ta jest świadczona przez CodeDoctor za wszelką cenę i jest przeznaczona do użytku.
 
@@ -22,9 +22,9 @@ Aplikacja korzysta z usług firm trzecich, które mogą gromadzić informacje u�
 
 Link do polityki prywatności dostawców usług będących osobami trzecimi używanych przez aplikację
 
-- [Google Play Services](https://www.google.com/policies/privacy/)
+- [Usługi Google Play](https://www.google.com/policies/privacy/)
 
-**Cookies**
+**Pliki cookies**
 
 Pliki cookie to pliki z niewielką ilością danych, które są powszechnie używane jako anonimowe niepowtarzalne identyfikatory. Są one wysyłane do Twojej przeglądarki ze stron, które odwiedzasz i są przechowywane w pamięci wewnętrznej urządzenia.
 
@@ -41,7 +41,7 @@ Mogę zatrudniać przedsiębiorstwa i osoby fizyczne z następujących powodów:
 
 Chcę poinformować użytkowników tej usługi o tym, że te osoby trzecie mają dostęp do Twoich danych osobowych. Powodem jest wykonanie zadań przydzielonych im w naszym imieniu. Są one jednak zobowiązane do nieujawniania lub wykorzystywania informacji do innych celów.
 
-**Security**
+**Bezpieczeństwo**
 
 Doceniam wasze zaufanie do dostarczania nam Twoich danych osobowych, dlatego staramy się wykorzystać akceptowalne z handlowego punktu widzenia sposoby ich ochrony. Należy jednak pamiętać, że nie ma żadnej metody transmisji przez Internet, lub metoda przechowywania elektronicznego jest w 100% bezpieczna i niezawodna i nie mogę zagwarantować jej absolutnego bezpieczeństwa.
 
@@ -55,9 +55,9 @@ Mogę od czasu do czasu aktualizować naszą Politykę prywatności. Zaleca się
 
 Polityka ta jest skuteczna od 2021-02-07
 
-**Contact Us**
+**Skontaktuj się z nami**
 
 Jeśli masz jakiekolwiek pytania lub sugestie dotyczące mojej polityki prywatności, nie wahaj się skontaktować ze mną pod adresem contact@linwood.dev.
 
-This privacy policy page was created at [privacypolicytemplate.net](https://privacypolicytemplate.net) and modified/generated
-by [App Privacy Policy Generator](https://app-privacy-policy-generator.nisrulz.com/)
+Ta strona polityki prywatności została utworzona w [privacypolicytemplate.net](https://privacypolicytemplate.net) i zmodyfikowana/wygenerowana
+przez [App Privacy Policy Generator](https://app-privacy-policy-generator.nisrulz.com/)
