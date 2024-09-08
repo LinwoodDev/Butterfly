@@ -1,8 +1,8 @@
 ---
-title: Verktyg för lager
+title: Layer tool
 ---
 
-Med detta verktyg kan du ändra lagret av flera objekt. Läs mer om lager [here](../layers.md).
+Med detta verktyg kan du ändra lagret av flera objekt. Read more about layers [here](../layers.md).
 När du klickar på ett objekt kommer objektets lager att ändras till det lager som anges i konfigurationen. Lämnar lagerfältet tomt kommer lagret att ställas in på standardlagret.
 
 ## Konfiguration
