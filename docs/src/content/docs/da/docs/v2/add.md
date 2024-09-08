@@ -2,23 +2,23 @@
 title: Tilføj
 ---
 
-Her kan du tilføje ting til dine noter.
+Here you can add things to your notes.
 
 ## Importér
 
-Her kan du importere eksisterende filer i dine dokumenter.
-Understøttede er sommerfugl dokumenter, markdown, png, svg og pdf.
+Here you can import existing files inside your documents.
+Supported are butterfly documents, markdown, png, svg and pdf.
 
 ## Værktøjer
 
-Klik på dem for at tilføje flere værktøjer til værktøjslinjen.
-Læs mere om dem [here](../tools).
+To add more tools to your toolbar, click on them.
+Read more about them [here](../tools).
 
-## Overflader
+## Surfaces
 
-Disse er specielle værktøjer til at skabe overflader.
+These are special tools to create surfaces.
 
 ## Handlinger
 
-Det er værktøjer, der vil blive udført ved at klikke på dem.
-Du kan bruge afspilningsknappen til at udføre dem uden at tilføje dem til værktøjslinjen.
+These are tools that will be executed by clicking on them.
+You can use the play button to execute them without adding them to the toolbar.
