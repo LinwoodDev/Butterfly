@@ -2,7 +2,7 @@
 title: Eraser tool
 ---
 
-Pomocí tohoto nástroje můžete vymazat prvky z dokumentu.
+With this tool you can erase the elements on the paper.
 
 ## Konfigurace
 
