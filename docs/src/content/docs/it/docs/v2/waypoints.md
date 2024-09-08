@@ -2,6 +2,6 @@
 title: Segnaposti
 ---
 
-With waypoints you can save important locations in your notes. You can use them to navigate through your notes.
+Con waypoint è possibile salvare posizioni importanti nelle vostre note. Puoi usarli per navigare tra le tue note.
 
-Use the waypoint navigator page to create and manage waypoints.
+Utilizzare la pagina di navigazione waypoint per creare e gestire waypoint.
