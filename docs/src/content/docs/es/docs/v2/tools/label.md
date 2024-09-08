@@ -1,8 +1,8 @@
 ---
-title: Herramienta de etiqueta
+title: Label tool
 ---
 
-Con esta herramienta puedes añadir texto al papel.
+With this tool you can add text to the paper.
 
 ## Configuración
 
