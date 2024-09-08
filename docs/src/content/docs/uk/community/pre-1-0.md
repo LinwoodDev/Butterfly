@@ -9,7 +9,7 @@ New versions are available at [versions](/community/versions).
 | ------------------------------------------------------------- | ----------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
 | 1,0.0-rc.6                    | :x: | [Docs](https://butterfly.linwood.dev/docs/1.0.0-rc.6/intro) [Release](https://github.com/LinwoodDev/Butterfly/releases/tag/v1.0.0-rc.6)       |
 | 1,0.0-rc.5                    | :x: | [Docs](https://butterfly.linwood.dev/docs/1.0.0-rc.5/intro) [Release](https://github.com/LinwoodDev/Butterfly/releases/tag/v1.0.0-rc.5)       |
-| 1,0.0-rc.4                    | :x: | [Docs](https://butterfly.linwood.dev/docs/1.0.0-rc.intro) [Release](https://github.com/LinwoodDev/Butterfly/releases/tag/v1.0.0-rc.4)         |
+| 1,0.0-rc.4                    | :x: | [Docs](https://butterfly.linwood.dev/docs/1.0.0-rc.4/intro) [Release](https://github.com/LinwoodDev/Butterfly/releases/tag/v1.0.0-rc.4)       |
 | 1,0.0-rc.3                    | :x: | [Docs](https://butterfly.linwood.dev/docs/1.0.0-rc.3/intro) [Release](https://github.com/LinwoodDev/Butterfly/releases/tag/v1.0.0-rc.3)       |
 | 1,0.0-rc.2                    | :x: | [Docs](https://butterfly.linwood.dev/docs/1.0.0-rc.2/intro) [Release](https://github.com/LinwoodDev/Butterfly/releases/tag/v1.0.0-rc.2)       |
 | 1,0.0-rc.1                    | :x: | [Docs](https://butterfly.linwood.dev/docs/1.0.0-rc.1/intro) [Release](https://github.com/LinwoodDev/Butterfly/releases/tag/v1.0.0-rc.1)       |
