@@ -1,9 +1,9 @@
 ---
-title: Outil tampon
+title: Stamp tool
 ---
 
-L'outil tampon vous permet d'ajouter des composants à votre toile.
-Utilisez un pack existant, créez le vôtre ou importez un pack pour l'utiliser. Lire plus de [here](../../pack).
+The stamp tool allows you to add components to your canvas.
+Utilisez un pack existant, créez le vôtre ou importez un pack pour l'utiliser. Read more [here](../../pack).
 
 ## Configuration
 
