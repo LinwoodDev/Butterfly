@@ -21,7 +21,7 @@ Noen av dem er skrevet under knappene.
 
 ### Prosjekt
 
-- `Ctrl` + `K`: Open search
+- `Ctrl` + `K`: åpne søk
 - `Ctrl` + `Z`: Angre
 - `Ctrl` + `Y`: Omgjør
 - `Ctrl` + `Shift` + `P`: Open waypoint dialog
@@ -38,7 +38,7 @@ Som standard konfigureres pennen til å fungere som følgende:
 
 - En penn: konfigurert som penn.
 - `Først` (Primærknapp, hvis støttet): Bytt til håndverktøy mens du trykker.
-- `Second` (Secondary button, if supported): Change to second tool (see [configure](#configure) section below) while pressed.
+- `Sekund` (sekundærknapp, hvis støttet): Endre til andre verktøy (se [configure](#configure) seksjonen nedenfor) mens du trykkes.
 
 ## Konfigurer {#configure}
 
