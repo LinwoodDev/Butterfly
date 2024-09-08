@@ -21,7 +21,7 @@ Niektóre z nich są napisane pod przyciskami.
 
 ### Projekt
 
-- `Ctrl` + `K`: Open search
+- `Ctrl` + `K`: Otwórz wyszukiwanie
 - `Ctrl` + `Z`: Cofnij
 - `Ctrl` + `Y`: Ponów
 - `Ctrl` + `Shift` + `P`: Otwarte okno dialogowe punktów drogi
@@ -38,7 +38,7 @@ Domyślnie wstrzykiwacz jest skonfigurowany do następujących funkcji:
 
 - `Pióro`: skonfigurowany jako długopis.
 - `First` (główny przycisk, jeśli jest obsługiwany): Zmień na narzędzie ręczne po naciśnięciu.
-- `Second` (Secondary button, if supported): Change to second tool (see [configure](#configure) section below) while pressed.
+- `Second` (Drugi przycisk, jeśli jest obsługiwany): Zmień na drugie narzędzie (patrz sekcja [configure](#configure) poniżej) po naciśnięciu.
 
 ## Konfiguruj {#configure}
 
