@@ -1,8 +1,8 @@
 ---
-title: Path eraser tool
+title: パス消しゴムツール
 ---
 
-With this tool you can delete the whole path on the paper.
+このツールを使用すると、紙上のパス全体を削除することができます。
 
 ## 設定
 
