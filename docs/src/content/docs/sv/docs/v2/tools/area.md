@@ -1,8 +1,8 @@
 ---
-title: Area tool
+title: Verktyg för område
 ---
 
-The area tool allows you to create, edit and remove areas.
+Fältverktyget låter dig skapa, redigera och ta bort områden.
 
 ## Åtgärder
 
