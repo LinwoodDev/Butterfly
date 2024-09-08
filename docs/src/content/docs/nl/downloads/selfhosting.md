@@ -17,9 +17,9 @@ flutter pub get
 flutter build web
 ```
 
-All the files are in the `app/build/web` directory.
+Alle bestanden zijn in de `app/build/web` map.
 
 ## Docker
 
-Clone the repository and build the `Dockerfile` using: `docker build -t linwood-butterfly`.
-Start the server using: `docker run -p 8080:8080 -d linwood-butterfly`.
+Kloon de repository en bouw het `Dockerfile` gebruikt: `docker build -t linwood-butterfly`.
+Start de server met behulp van `docker run -p 8080:8080 -d linwood-butterfly`.
