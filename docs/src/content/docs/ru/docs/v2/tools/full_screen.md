@@ -1,12 +1,12 @@
 ---
-title: Full screen tool
+title: Полноэкранный инструмент
 ---
 
-:::note[⚡ Action tool]
+:::note[⚡ Инструмент действия]
 
-This is a special tool.
+Это специальный инструмент.
 Вы не можете выбрать его и действие будет выполнено, если вы нажмете на него.
 
 :::
 
-When clicking on this tool you can toggle full screen.
+При нажатии на этот инструмент вы можете переключить весь экран.
