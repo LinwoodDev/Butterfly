@@ -1,8 +1,8 @@
 ---
-title: Εργαλείο στυλό
+title: Pen tool
 ---
 
-Με αυτό το εργαλείο μπορείτε να σχεδιάσετε σε αυτό το χαρτί.
+With this tool you can draw on this paper.
 
 ## Διαμόρφωση
 
