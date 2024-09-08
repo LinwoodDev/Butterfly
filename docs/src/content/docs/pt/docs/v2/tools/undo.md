@@ -1,13 +1,13 @@
 ---
-title: Desfazer ferramenta
+title: Undo tool
 ---
 
-:::note[⚡ Ferramenta de ação]
+:::note[⚡ Action tool]
 
-Trata-se de uma ferramenta especial.
+This is a special tool.
 Você não pode selecioná-lo e ele executará a ação se você clicar nela.
 
 :::
 
-Ao clicar nesta ferramenta você pode desfazer sua última ação.
-Veja a [ferramenta de refazer](../redo) para refazer sua última ação.
+When clicking on this tool you can undo your last action.
+See the [redo tool](../redo) for redoing your last action.
