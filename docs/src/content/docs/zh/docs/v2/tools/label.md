@@ -1,8 +1,8 @@
 ---
-title: 标签工具
+title: Label tool
 ---
 
-通过此工具，您可以将文本添加到文档中。
+With this tool you can add text to the paper.
 
 ## 配置
 
