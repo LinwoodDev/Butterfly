@@ -1,5 +1,5 @@
 ---
-title: Tussenruimte voor tussenruimte
+title: Spacer tool
 ---
 
-Met deze tool kun je ruimte toevoegen tussen elementen door te slepen waar je ruimte wilt toevoegen.
+With this tool you can add space between elements by dragging where you want to add space.
