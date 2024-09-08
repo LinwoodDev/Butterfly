@@ -2,4 +2,4 @@
 title: Zobrazení
 ---
 
-Prezentační nástroj umožňuje vytvářet vlastní animace uvnitř Vašich poznámek.
+The presentation tool allows you to create your own animations inside your notes.
