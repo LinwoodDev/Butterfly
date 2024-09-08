@@ -2,11 +2,11 @@
 title: Unelte
 ---
 
-Instrumentele pot edita hârtia.
+Tools can edit the paper.
 
 Folosește bara laterală pentru a afla mai multe despre unelte.
 
-Creează o nouă unealtă dând click pe pictograma plus. Schimbă ordinul sculei prin glisarea și schimbarea uneltei prin click.
+Create a new tool by clicking on the plus icon. Change the tool order by dragging and change the tool by clicking.
 Dacă faceți clic pe o unealtă selectată, o puteți configura.
 
-Numele sculei va fi afișat ca tip de instrument în plutire pe unealtă.
+The name of the tool will be displayed as tooltip on hover on the tool.
