@@ -2,8 +2,8 @@
 title: Upota
 ---
 
-Embedding is a simple way to include the app in your website.
-Add the following code to your website:
+Upottaminen on yksinkertainen tapa sisällyttää sovellus sivustoosi.
+Lisää seuraava koodi sivustollesi:
 
 ```html
 <iframe src="https://web.butterfly.linwood.dev/embed" width="100%" height="500px" allowtransparency="true"></iframe>
@@ -11,11 +11,11 @@ Add the following code to your website:
 
 ## Valinnat
 
-| Valinta  | Tyyppi                                                                                                     | Oletus | Kuvaus                                                                                                                                                                      |
-| -------- | ---------------------------------------------------------------------------------------------------------- | ------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| tallenna | Boolean (true, false)                                                                   | true   | Enable save. If disabled, only an exit button will be shown                                                                                                 |
-| editable | Boolean (true, false)                                                                   | true   | Enable editing. If disabled, the document will be read-only                                                                                                 |
-| kieli    | Merkkijono (..., järjestelmä, käyttäjä) | system | Language of the document. If system, the language will be detected from the browser. If user, the language will set to the users preference |
+| Valinta       | Tyyppi                                                                                                     | Oletus      | Kuvaus                                                                                                                                                    |
+| ------------- | ---------------------------------------------------------------------------------------------------------- | ----------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| tallenna      | Totuus (tosi, epäto)                                                                    | tosi        | Ota tallennus käyttöön. Jos poistettu käytöstä, näytetään vain poistumispainike                                                           |
+| muokattavissa | Totuus (tosi, epäto)                                                                    | tosi        | Ota muokkaus käyttöön. Jos poistettu käytöstä, asiakirja on vain luku                                                                     |
+| kieli         | Merkkijono (..., järjestelmä, käyttäjä) | järjestelmä | Asiakirjan kieli. Jos järjestelmä, kieli havaitaan selaimesta käsin. Jos käyttäjä, kieli asetetaan käyttäjien asetukseksi |
 
 ## Tapahtumat
 
@@ -32,27 +32,27 @@ embedElement.addEventListener('message', (data) => {
 
 ### tallenna
 
-> The `save` event is emitted when the user clicks the save button.
+> Tapahtuma `save` vapautetaan, kun käyttäjä klikkaa tallennuspainiketta.
 
 Parametrit:
 
-- `data` (Type `List<int>`): The data of the document.
+- `data` (Kirjoita `List<int>`): Asiakirjan tiedot.
 
 ### poistu
 
-> The `exit` event is emitted when the user clicks the exit button.
+> Tapahtuma `exit` vapautetaan, kun käyttäjä klikkaa poistumispainiketta.
 
 Parametrit:
 
-- `data` (Type `List<int>`): The data of the document.
+- `data` (Kirjoita `List<int>`): Asiakirjan tiedot.
 
-### change
+### muuta
 
-> The `change` event is emitted when the user changes the document.
+> Tapahtuma `change` on lähetetty, kun käyttäjä muuttaa asiakirjaa.
 
 Parametrit:
 
-- `data` (Type `List<int>`): The data of the document.
+- `data` (Kirjoita `List<int>`): Asiakirjan tiedot.
 
 ## Menetelmät
 
@@ -70,40 +70,40 @@ embedElement.addEventListener('message', (data) => {
 
 ### getData
 
-> The `getData` method returns the data of the document.
+> The `getData` method palauttaa asiakirjan tiedot.
 
-No parameters.
-Returns: `List<int>`
+Ei parametreja.
+Palautukset: `Luettelo<int>`
 
 ### setData
 
-> The `setData` method sets the data of the document.
+> The `setData` method set the data of the document.
 
 Parametrit:
 
-- `data` (Type `List<int>`): The data of the document.
+- `data` (Kirjoita `List<int>`): Asiakirjan tiedot.
 
-### render
+### renderöi
 
-> The `render` method renders the document to a png image.
+> The `render` method render\` makes the document to a png image.
 
 Parametrit:
 
-- `width` (Type `Number`): The width of the image.
-- `height` (Type `Number`): The height of the image.
-- `scale` (Type `Number`): The scale of the image.
-- `renderBackground` (Type `Boolean`): If true, the background will be rendered.
+- `width` (Kirjoita `Numero`): Kuvan leveys.
+- `height` (Kirjoita `Numero`): Kuvan korkeus.
+- `scale` (Kirjoita `Numero`): Kuvan skaala.
+- `renderBackground` (Kirjoita `Boolean`): Jos tosi, tausta renderöidään.
 
-Returns: `String` (Base64 encoded image)
+Palautukset: `String` (64 koodattu kuva)
 
 ### renderSVG
 
-> The `renderSVG` method renders the document to a svg image.
+> The `renderSVG` method makes the document to a svg image.
 
 Parametrit:
 
-- `width` (Type `Number`): The width of the image.
-- `height` (Type `Number`): The height of the image.
-- `renderBackground` (Type `Boolean`): If true, the background will be rendered.
+- `width` (Kirjoita `Numero`): Kuvan leveys.
+- `height` (Kirjoita `Numero`): Kuvan korkeus.
+- `renderBackground` (Kirjoita `Boolean`): Jos tosi, tausta renderöidään.
 
-Returns: `String` (SVG)
+Palautukset: `String` (SVG)
