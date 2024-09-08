@@ -1,8 +1,8 @@
 ---
-title: 笔刀具
+title: Pen tool
 ---
 
-使用此工具，您可以在此纸上绘制。
+With this tool you can draw on this paper.
 
 ## 配置
 
