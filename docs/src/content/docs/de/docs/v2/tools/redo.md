@@ -1,13 +1,13 @@
 ---
-title: Redo tool
+title: Wiederholen Werkzeug
 ---
 
-:::note[⚡ Action tool]
+:::note[⚡ Aktionswerkzeug]
 
-This is a special tool.
+Dies ist ein spezielles Werkzeug.
 Sie können es nicht auswählen und es wird die Aktion ausführen, wenn Sie darauf klicken.
 
 :::
 
-When clicking on this tool you can redo your last action.
-See the [undo tool](../undo) for undoing your last action.
+Wenn Sie auf dieses Tool klicken, können Sie Ihre letzte Aktion wiederholen.
+Schaue dir das [Undo-Tool](../undo) an, um deine letzte Aktion rückgängig zu machen.
