@@ -1,13 +1,13 @@
 ---
-title: Undo tool
+title: Ångra verktyg
 ---
 
-:::note[⚡ Action tool]
+:::note[⚡ Verktyg för åtgärd]
 
-This is a special tool.
+Detta är ett speciellt verktyg.
 Du kan inte välja det och det kommer att köra åtgärden om du klickar på det.
 
 :::
 
-When clicking on this tool you can undo your last action.
-See the [redo tool](../redo) for redoing your last action.
+När du klickar på detta verktyg kan du ångra din sista åtgärd.
+Se [redo tool](../red) för att göra om din sista åtgärd.
