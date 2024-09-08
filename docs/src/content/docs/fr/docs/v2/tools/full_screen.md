@@ -1,12 +1,12 @@
 ---
-title: Outil plein écran
+title: Full screen tool
 ---
 
-:::note[⚡ Outil d'action]
+:::note[⚡ Action tool]
 
-C'est un outil spécial.
+This is a special tool.
 Vous ne pouvez pas le sélectionner et il exécutera l'action si vous cliquez dessus.
 
 :::
 
-En cliquant sur cet outil, vous pouvez activer/désactiver le plein écran.
+When clicking on this tool you can toggle full screen.
