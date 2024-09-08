@@ -1,11 +1,11 @@
 ---
-title: Shape tool
+title: Herramienta de forma
 ---
 
-Use this tool to draw shapes on the paper.
+Utilice esta herramienta para dibujar formas sobre el papel.
 Puedes dibujar rectángulos, círculos y otras formas.
 
-Use `ctrl` to have the same height and width and `shift` to draw from the center.
+Usa `ctrl` para tener la misma altura y ancho y `Mayar` para dibujar desde el centro.
 
 ## Configuración
 
