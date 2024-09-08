@@ -2,7 +2,7 @@
 title: Pachet
 ---
 
-Un pachet este o colecție de componente care pot fi folosite în unealta de ștampilă. Puteți crea propriul pachet sau să importați unul existent. Pentru acest clic în colțul din stânga sus și faceți clic pe "Pachete".
+A pack is a collection of components that can be used in the stamp tool. Puteți crea propriul pachet sau să importați unul existent. Pentru acest clic în colțul din stânga sus și faceți clic pe "Pachete".
 
 ## Proprietăți
 
@@ -14,6 +14,6 @@ Un pachet este o colecție de componente care pot fi folosite în unealta de șt
 
 ### Componente
 
-Componentele sunt un mod de a salva elementele pe care le utilizați frecvent. Puteți crea propriile componente sau să importați componentele existente folosind pachete.
+Components are a way to save elements that you use often. You can create your own components or import an existing one using packs.
 
-Folosește pagina de navigare a componentelor pentru a lipi componentele în notele tale.
+Use the components navigator page to paste components into your notes.
