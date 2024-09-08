@@ -8,9 +8,9 @@ title: Bouw je eigen
 4. Gebruik het flutter gereedschap om de applicatie te compileren
    - `flutter build apk`
    - `flutter build appbundle`
-   - `Fluit build web`
+   - `flutter build web`
    - `flutter build linux`
-   - 'vensters flutterbouwen'
+   - `flutter build windows`
    - `flutter build ios --release --no-codesign`\
-     daarna, maak een map genaamd "Payload", kopieer Runner.app erin en plaats de payload map. Wijzig de naam ".zip" naar ".ipa".
+     after that, create a folder named "Payload", copy Runner.app into it and zip the payload folder. Then rename ".zip" to ".ipa".
 5. De gecompileerde bestanden zijn in de build-map
