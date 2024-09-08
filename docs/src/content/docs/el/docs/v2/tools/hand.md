@@ -1,5 +1,5 @@
 ---
-title: Εργαλείο χεριού
+title: Hand tool
 ---
 
-Με αυτό το εργαλείο μπορείτε να μετακινήσετε στη σελίδα.
+With this tool you can move on the page.
