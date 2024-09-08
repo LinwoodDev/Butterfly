@@ -1,11 +1,11 @@
 ---
-title: Select tool
+title: Valitse työkalu
 ---
 
-With this tool you can select elements.
+Tällä työkalulla voit valita elementtejä.
 
 ## Asetukset
 
-| Ominaisuus |    Oletus   | Kuvaus                                                           |
-| ---------: | :---------: | :--------------------------------------------------------------- |
-|       mode | suorakulmio | Mode of selection. Valid are rectangle and lasso |
+| Ominaisuus |    Oletus   | Kuvaus                                                                |
+| ---------: | :---------: | :-------------------------------------------------------------------- |
+|       tila | suorakulmio | Valinnan muoto. Kelvolliset ovat suorakulmio ja lasso |
