@@ -8,10 +8,10 @@ title: Сообщество
 
 Особая благодарность дает:
 
-- [Flutter](https://github.com/flutter/flutter) for providing this useful crossplatform ui framework
-- [window_manager](https://github.com/leanflutter/window_manager) for all this useful desktop window features
-- [Starlight](https://github.com/withastro/starlight) for an easy-to-use static react documentation framework
-- [Phosphor Icons](https://phosphoricons.com/) for the beautiful icons
+- [Flutter](https://github.com/flutter/flutter) для предоставления этой полезной кросплатформенной UI фреймворк
+- [window_manager](https://github.com/leanflutter/window_manager) для всех функций рабочего стола
+- [Starlight](https://github.com/withastro/starlight) для простого в использовании статической реакционной документации фреймворка
+- [Фосфорные иконки](https://phoricons.com/) для красивых иконок
 
 Все остальные лицензии могут быть найдены в настройках.
 
