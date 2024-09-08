@@ -1,5 +1,5 @@
 ---
-title: スペーサツール
+title: Spacer tool
 ---
 
-このツールを使用すると、スペースを追加する場所をドラッグすることで、要素間にスペースを追加できます。
+With this tool you can add space between elements by dragging where you want to add space.
