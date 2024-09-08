@@ -1,13 +1,13 @@
 ---
-title: Undo tool
+title: 撤销工具
 ---
 
-:::note[⚡ Action tool]
+:::note[⚡ 操作工具]
 
-This is a special tool.
+这是一个特殊的工具。
 您不能选择它，如果您点击它，它将运行该动作。
 
 :::
 
-When clicking on this tool you can undo your last action.
-See the [redo tool](../redo) for redoing your last action.
+点击此工具后，您可以撤消您上次的操作。
+请参阅[redo tool](../redo)重新做你最后一个动作。
