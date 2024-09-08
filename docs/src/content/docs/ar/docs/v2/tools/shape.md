@@ -1,11 +1,11 @@
 ---
-title: أداة الشكل
+title: Shape tool
 ---
 
-استخدم هذه الأداة لرسم الأشكال على الورق.
+Use this tool to draw shapes on the paper.
 يمكنك رسم المستطيلات، الدوائر والأشكال الأخرى.
 
-استخدم ctrl' للحصول على نفس الارتفاع والعرض و 'تحول\` للسحب من المركز.
+Use `ctrl` to have the same height and width and `shift` to draw from the center.
 
 ## الإعدادات
 
