@@ -482,8 +482,8 @@ packages:
     dependency: "direct main"
     description:
       path: "."
-      ref: "0dea6f8f827ca8ae34a2260824599537f78c1cb3"
-      resolved-ref: "0dea6f8f827ca8ae34a2260824599537f78c1cb3"
+      ref: bb3b74ea95dcb133a19bf9a00942355030961b6e
+      resolved-ref: bb3b74ea95dcb133a19bf9a00942355030961b6e
       url: "https://github.com/rydmike/flex_color_scheme"
     source: git
     version: "8.0.0-dev.1"
@@ -491,10 +491,10 @@ packages:
     dependency: transitive
     description:
       name: flex_seed_scheme
-      sha256: "86470c8dc470f55dd3e28a6d30e3253a1c176df32903263d7daeabfc0c77dbd4"
+      sha256: "7d97ba5c20f0e5cb1e3e2c17c865e1f797d129de31fc1f75d2dcce9470d6373c"
       url: "https://pub.dev"
     source: hosted
-    version: "3.2.0"
+    version: "3.3.0"
   flutter:
     dependency: "direct main"
     description: flutter
