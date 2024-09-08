@@ -2,7 +2,7 @@
 title: 品牌化
 ---
 
-这些资源被授权使用 [CC-BY-4.0](https://github.com/LinwoodDev/Butterfly/blob/develop/BRANDING_LICENSE)。
+These assets are licensed under the [CC-BY-4.0](https://github.com/LinwoodDev/Butterfly/blob/develop/BRANDING_LICENSE).
 
 ## 徽标
 
@@ -10,7 +10,7 @@ title: 品牌化
 
 [SVG](/img/logo.svg) [PNG](/img/logo.png)
 
-## 每晚标志
+## Nightly Logo
 
 ![Logo](/img/nightly.svg)
 
@@ -30,7 +30,7 @@ title: 品牌化
 
 ## 颜色
 
-- 主: `#c4840d`
+- Primary: `#c4840d`
 - Accent: `#7b8f96`
 
 ## 字体
