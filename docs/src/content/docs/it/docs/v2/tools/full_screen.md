@@ -1,12 +1,12 @@
 ---
-title: Full screen tool
+title: Strumento a schermo intero
 ---
 
-:::note[⚡ Action tool]
+:::note[⚡ Strumento di azione]
 
-This is a special tool.
+Questo è uno strumento speciale.
 Non è possibile selezionarlo e verrà eseguita l'azione se si fa clic su di esso.
 
 :::
 
-When clicking on this tool you can toggle full screen.
+Quando si fa clic su questo strumento è possibile attivare/disattivare schermo intero.
