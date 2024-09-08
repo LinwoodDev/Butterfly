@@ -2,7 +2,7 @@
 title: Marka
 ---
 
-Te aktywa są licencjonowane na podstawie [CC-BY-4.0](https://github.com/LinwoodDev/Butterfly/blob/develop/BRANDING_LICENSE).
+These assets are licensed under the [CC-BY-4.0](https://github.com/LinwoodDev/Butterfly/blob/develop/BRANDING_LICENSE).
 
 ## Logo
 
@@ -10,7 +10,7 @@ Te aktywa są licencjonowane na podstawie [CC-BY-4.0](https://github.com/Linwood
 
 [SVG](/img/logo.svg) [PNG](/img/logo.png)
 
-## Logo nocne
+## Nightly Logo
 
 ![Logo](/img/nightly.svg)
 
@@ -30,12 +30,12 @@ Te aktywa są licencjonowane na podstawie [CC-BY-4.0](https://github.com/Linwood
 
 ## Kolory
 
-- Podstawowy: `#c4840d`
-- Akcent: `#7b8f96`
+- Primary: `#c4840d`
+- Accent: `#7b8f96`
 
 ## Czcionki
 
-- Strona internetowa: `Barlow`
+- Website: `Barlow`
 - App: `Comfortaa`
 
 ## Zrzuty ekranu
