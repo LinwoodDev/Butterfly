@@ -2,6 +2,6 @@
 title: Путевые точки
 ---
 
-С путевыми точками вы можете сохранить важные места в ваших примечаниях. Вы можете использовать их для навигации по вашим заметкам.
+With waypoints you can save important locations in your notes. You can use them to navigate through your notes.
 
-Используйте страницу навигатора точки для создания и управления путевыми точками.
+Use the waypoint navigator page to create and manage waypoints.
