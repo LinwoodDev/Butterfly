@@ -1,8 +1,8 @@
 ---
-title: Pen tool
+title: أداة القلم
 ---
 
-With this tool you can draw on this paper.
+مع هذه الأداة يمكنك الاعتماد على هذه الورقة.
 
 ## الإعدادات
 
