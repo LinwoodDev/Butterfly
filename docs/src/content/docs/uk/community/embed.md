@@ -2,8 +2,8 @@
 title: Влаштувати
 ---
 
-Embedding is a simple way to include the app in your website.
-Add the following code to your website:
+Додавання — це простий спосіб включити програму у вашому веб-сайті.
+Додайте наступний код на свій сайт:
 
 ```html
 <iframe src="https://web.butterfly.linwood.dev/embed" width="100%" height="500px" allowtransparency="true"></iframe>
@@ -11,11 +11,11 @@ Add the following code to your website:
 
 ## Опції
 
-| Опція                 | Тип                                                                                                 | Типово | Опис                                                                                                                                                                        |
-| --------------------- | --------------------------------------------------------------------------------------------------- | ------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| зберегти              | Boolean (true, false)                                                            | true   | Enable save. If disabled, only an exit button will be shown                                                                                                 |
-| editable              | Boolean (true, false)                                                            | true   | Enable editing. If disabled, the document will be read-only                                                                                                 |
-| мова: | Рядок (..., система, користувач) | system | Language of the document. If system, the language will be detected from the browser. If user, the language will set to the users preference |
+| Опція                 | Тип                                                                                                 | Типово  | Опис                                                                                                                                                                         |
+| --------------------- | --------------------------------------------------------------------------------------------------- | ------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| зберегти              | Бульовий (true, false)                                                           | істина  | Увімкнути збереження. Якщо вимкнено, відображатиметься лише кнопка виходу                                                                                    |
+| для редагування       | Бульовий (true, false)                                                           | істина  | Увімкнути редагування. Якщо вимкнено, то документ буде лише для читання                                                                                      |
+| мова: | Рядок (..., система, користувач) | система | Мова документа. Якщо система, мова буде виявлена у браузері. При використанні користувача буде встановлена мова для налаштувань користувачів |
 
 ## Події
 
@@ -32,27 +32,27 @@ embedElement.addEventListener('message', (data) => {
 
 ### зберегти
 
-> The `save` event is emitted when the user clicks the save button.
+> Подія "save" викидається при натисканні на кнопку "Зберегти".
 
 Параметри:
 
-- `data` (Type `List<int>`): The data of the document.
+- `data` (Тип `List<int>`): Дані документа.
 
 ### вийти
 
-> The `exit` event is emitted when the user clicks the exit button.
+> Коли користувач натисне кнопку виходу з програми, то вона переключається.
 
 Параметри:
 
-- `data` (Type `List<int>`): The data of the document.
+- `data` (Тип `List<int>`): Дані документа.
 
-### change
+### змінити
 
-> The `change` event is emitted when the user changes the document.
+> Коли користувач змінює документ, він викликається.
 
 Параметри:
 
-- `data` (Type `List<int>`): The data of the document.
+- `data` (Тип `List<int>`): Дані документа.
 
 ## Методи
 
@@ -70,40 +70,40 @@ embedElement.addEventListener('message', (data) => {
 
 ### getData
 
-> The `getData` method returns the data of the document.
+> Метод `getData` повертає дані документа.
 
-No parameters.
+Параметри відсутні.
 Returns: `List<int>`
 
 ### setData
 
-> The `setData` method sets the data of the document.
+> Метод `setData` встановлює дані документа.
 
 Параметри:
 
-- `data` (Type `List<int>`): The data of the document.
+- `data` (Тип `List<int>`): Дані документа.
 
-### render
+### візуалізація
 
-> The `render` method renders the document to a png image.
-
-Параметри:
-
-- `width` (Type `Number`): The width of the image.
-- `height` (Type `Number`): The height of the image.
-- `scale` (Type `Number`): The scale of the image.
-- `renderBackground` (Type `Boolean`): If true, the background will be rendered.
-
-Returns: `String` (Base64 encoded image)
-
-### renderSVG
-
-> The `renderSVG` method renders the document to a svg image.
+> Метод `render` генерує документ до png зображення.
 
 Параметри:
 
-- `width` (Type `Number`): The width of the image.
-- `height` (Type `Number`): The height of the image.
-- `renderBackground` (Type `Boolean`): If true, the background will be rendered.
+- `width` (Наберіть `Number`): ширину зображення.
+- `height` (Type `Number`): Висота зображення.
+- `scale` (Наберіть `Number`): масштаб зображення.
+- `renderBackground` (Тип `Boolean`): Якщо увімкнено, фон буде відтворено.
 
-Returns: `String` (SVG)
+Повернення: `String` (Base64 закодоване зображення)
+
+### рендерСВГ
+
+> Метод `renderSVG` відображає документ до svg зображення.
+
+Параметри:
+
+- `width` (Наберіть `Number`): ширину зображення.
+- `height` (Type `Number`): Висота зображення.
+- `renderBackground` (Тип `Boolean`): Якщо увімкнено, фон буде відтворено.
+
+Повертається: `Рядок` (SVG)
