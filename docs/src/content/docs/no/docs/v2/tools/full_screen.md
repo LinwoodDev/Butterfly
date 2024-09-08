@@ -1,12 +1,12 @@
 ---
-title: Full screen tool
+title: Fullskjermsverktøy
 ---
 
-:::note[⚡ Action tool]
+:::note[⚡ Verktøy] for handling
 
-This is a special tool.
+Dette er et spesielt verktøy.
 Du kan ikke velge den, og det vil kjøre handlingen hvis du klikker på den.
 
 :::
 
-When clicking on this tool you can toggle full screen.
+Når du klikker på dette verktøyet kan du veksle til fullskjerm.
