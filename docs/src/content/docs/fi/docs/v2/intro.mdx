@@ -12,87 +12,87 @@ import logo from '/public/img/logo.svg';
 
 > Tervetuloa Butterfly, opensource note app.
 
-Butterfly is a note taking app that is aiming for unified experience across all platforms. It provides simple UI with powerful customization.
+Butterfly on muistiinpanon sovellus, joka tähtää yhtenäiseen kokemukseen kaikilla alustoilla. Se tarjoaa yksinkertaisen käyttöliittymän tehokkaalla muokkauksella.
 
 ## Aloittaminen
 
-> You can use the sidebar to navigate quickly through the wiki.
+> Voit käyttää sivupalkkia navigoidaksesi nopeasti wikin kautta.
 
-To start working on the app you have two options:
+Jos haluat aloittaa sovelluksen käytön, sinulla on kaksi vaihtoehtoa:
 
-1. [Downloads](/downloads) the app version that is appropriate for your platform (Butterfly can run on most mobile, desktop, and web platforms).
-2. Use [web version](https://web.butterfly.linwood.dev) if you cannot find your platform or if you don't want to install it on it. See [here](storage#web) about file storage on the web version.
+1. [Downloads](/downloads) sovellusversio, joka sopii alustallesi (Butterfly voi ajaa useimmilla mobiili-, työpöytä- ja web-alustoilla).
+2. Käytä [web-versio](https://web.butterfly.linwood.dev) jos et löydä alustaasi tai jos et halua asentaa sitä siihen. Katso [here](storage#web) tiedostotallennustilasta web-versiossa.
 
-> Once you open the app, continue reading.
+> Kun olet avannut sovelluksen, jatka lukemista.
 
 ## Päänäkymä
 
 ![Päänäkymä](main.png)
 
-The main view is composed of several elements
+Tärkein näkemys koostuu useista tekijöistä
 
 <Tabs syncKey="platform">
     <TabItem label="Desktop">
-        ![Welcome screen](welcome_screen_desktop.png)
-        The top of the screen holds the banner for updates, the link to this documentations, and the <Gear className="inline-icon"/> config icon. Finally, to the right of the <Gear className="inline-icon"/> config symbol you have a drop down menu for controlling when this banner will appear (always/never/on updates).
-        The "Files" section in the major area of the left. There, you can do the typical operations:
-        - Select the display type (grid or list)
-        - Select the [source storage](../storage) of the files
-        - Sort the display order of the files
-        - Add a folder, file, template, or import files by clicking the <Plus className="inline-icon"/> plus sign
-        - Type the direct path to a desired location (the Location field),
-        - Search for files
-        Finally, to the right, you have the quick start display with the templates available in the current location. For a fresh install this includes the light and dark template
+        ![Tervetuliaisnäyttö](welcome_screen_desktop. ng)
+        Näytön yläosassa on päivitysten banneri, linkki näihin asiakirjoihin, ja <Gear className="inline-icon"/> config kuvake. Lopuksi, oikealle <Gear className="inline-icon"/> config symboli sinulla on pudota alas valikko valvoa milloin tämä banneri näkyy (aina / ei päivityksiä).
+        The "Files" section in the major area of the left. Siellä, voit tehdä tyypillisiä toimintoja:
+        - Valitse näyttötyyppi (ruudukko tai lista)
+        - Valitse [lähdetallennus](.. tiedostojen tallennus)
+        - Järjestä tiedostojen esitysjärjestys
+        - Lisää kansio, tiedostomalli, tai tuo tiedostoja klikkaamalla <Plus className="inline-icon"/> plus merkki
+        - Kirjoita suora polku haluttuun paikkaan (Sijaintikenttä),
+        - Etsi tiedostoja
+        Lopuksi, oikealle, sinulla on nopea käynnistys näyttö malleja, jotka ovat käytettävissä nykyisessä paikassa. Uutta asennusta varten tämä sisältää vaalean ja tumman mallin
     </TabItem>
     <TabItem label="Mobile">
-        When opening Butterfly on a mobile device you will be presented with a screen as this
-        ![Welcome screen first part](welcome_screen_mobile_1.png)
-        The top of the screen holds the banner for updates, and below it you can find the documnentation link, and next to it the <Gear className="inline-icon"/> config icon. Finally, to the right of the <Gear className="inline-icon"/> config symbol you have a drop down menu for controlling when this banner will appear (always/never/on updates).
-        Below those, you can find the quick start section holding the templates avialable to you. By defaule, the templates are the light and dark templates.
-        Scrolling down, you will see the file interface:
+        Kun avaat Butterfly mobiililaitteelle, sinulle esitetään näyttö kuin tämä
+        ! Tervetuloa näytön ensimmäinen osa](welcome_screen_mobile_1. ng)
+        Näytön yläosassa on päivitysten banneri, ja sen alapuolella löydät documnentation linkin, ja sen vieressä <Gear className="inline-icon"/> config kuvake. Lopuksi, oikealle <Gear className="inline-icon"/> config symboli sinulla on pudota alas valikko valvoa milloin tämä banneri näkyy (aina / ei päivityksiä).
+        Alla ne, löydät nopean alun osion pitämällä malleja avialable sinulle. Sivupohjat ovat vaaleita ja tummia malleja.
+        Vieritä alas, näet tiedoston käyttöliittymä:
         \
-        ![Welcome screen second part](welcome_screen_mobile_2.png)  
-        The "Files" section in the major area of the left. There, you can do the typical operations:
-        - Select the display type (grid or list)
-        - Select the [source storage](../storage) of the files
-        - Sort the display order of the files
-        - Add a folder, file, template, or import files by clicking the <Plus className="inline-icon"/> plus sign
-        - Type the direct path to a desired location (the Location field),
-        - Search for files
+        ! Tervetuloa ruutu toinen osa](welcome_screen_mobile_2. ng)  
+        The "Files" -osio vasemman pääosassa. Siellä, voit tehdä tyypillisiä toimintoja:
+        - Valitse näyttötyyppi (ruudukko tai lista)
+        - Valitse [lähdetallennus](.. tiedostojen tallennus)
+        - Järjestä tiedostojen esitysjärjestys
+        - Lisää kansio, tiedostomalli, tai tuo tiedostoja klikkaamalla <Plus className="inline-icon"/> plus merkki
+        - Kirjoita suora polku haluttuun paikkaan (Sijaintikenttä),
+        - Etsi tiedostoja
  </TabItem>
 </Tabs>
 
-Once opening a document by selecting a template or an existing file, you will get to the **Document View**
+Kun avaat asiakirjan valitsemalla mallin tai olemassa olevan tiedoston, pääset **Document View** -näkymään
 
-## The Document View
+## Asiakirjan Näkymä
 
-You can return from the document view to the document list with the back action of your device. As with the main view, the document display changes based on your device.
+Voit palata asiakirjan näkymästä asiakirjan luetteloon, jossa on laitteen takatoiminto (back action of your device). Kuten päänäkymässä, dokumentin näytön muutokset perustuvat laitteeseesi.
 
 <Tabs syncKey="platform">
     <TabItem label="Desktop">
-  In the Desktop view, you'll have at the top left the file bar\
-  ![file_bar](document_view_file_bar.png)\
-  This holds, from left to right, the <img alt="logo" src={logo.src} className="inline-icon" width="16"/> butterfly button to open the menu. Next to it there is the name field that displays the name of the note. You can rename the note by typing a new name into that field and saving it using the <FloppyDisk className="inline-icon"/> save button. Finally you can <MagnifyingGlass className="inline-icon"/> search for elements within the note.
+  Työpöydän näkymässä sinulla on tiedostopalkin vasemmassa yläreunassa \
+  ![file_bar](document_view_file_bar. ng)\
+  Tässä on vasemmalta oikealle, <img alt="logo" src={logo.src} className="inline-icon" width="16"/> perhonen painiketta avataksesi valikon. Sen vieressä on nimikenttä, joka näyttää huomautuksen nimen. Voit uudelleennimetä merkinnän kirjoittamalla uuden nimen kyseiseen kenttään ja tallentamalla sen käyttämällä <FloppyDisk className="inline-icon"/> -näppäintä. Finally you can <MagnifyingGlass className="inline-icon"/> search for elements within the note.
   \
-  At the top right of the screen you have the toolbar\
-  ![toolbar](document_view_toolbar.png)\
-  By default this bar has the <ScribbleLoop className="inline-icon"/> lasso tool; the <Pen className="inline-icon"/> pen tool; the <Path className="inline-icon"/> path erase tool; the <ArrowCounterClockwise className="inline-icon"/> undo and <ArrowClockwise className="inline-icon"/> redo butons, and the <Hand className="inline-icon"/> hand tool. Then you have the <Plus className="inline-icon"/> button to add elements to the tool bar, the <Wrench className="inline-icon"/> button to configure the document, and finally the <Lock className="inline-icon"/> tool to look the zoom and/or the position of the screen.
-  ### Important notes
-  1. If some of the element on the toolbar are not visible to you, click and drag (or swipe) left and right to reveal further tools.
-  2. After selecting a tool, a small menu will appear. Long clicking the tool again will allow you to drag it to a new position
-  3. You can add more tools to the toolbar by clicking the <Plus className="inline-icon"/> plus sign.
+  Näytön oikeassa yläkulmassa on työkalurivi\
+  ![toolbar](document_view_toolbar. ng)\
+  Oletuksena tällä palkilla on <ScribbleLoop className="inline-icon"/> lasso työkalu; <Pen className="inline-icon"/> kynä työkalu; <Path className="inline-icon"/> polku poistaa työkalun; <ArrowCounterClockwise className="inline-icon"/> kumoa ja <ArrowClockwise className="inline-icon"/> redo butonit ja <Hand className="inline-icon"/> kädentyökalu. Sitten sinulla on <Plus className="inline-icon"/> -painike lisätäksesi elementtejä työkaluriviin, <Wrench className="inline-icon"/> -painikkeeseen, jolla voit määrittää asiakirjan, ja lopuksi <Lock className="inline-icon"/> työkalu näyttääksesi näytön zoomauksen ja/tai sijainnin.
+  ### Tärkeitä muistiinpanoja
+  1. Jos osa työkalupalkin elementeistä ei näy sinulle, klikkaa ja vedä (tai pyyhkäise) vasemmalle ja oikealle paljastaaksesi lisää työkaluja.
+  2. Työkalun valinnan jälkeen ilmestyy pieni valikko. Pitkä klikkaamalla työkalua uudelleen voit vetää sen uuteen kohtaan
+  3. Voit lisätä työkaluriviin lisää työkaluja klikkaamalla <Plus className="inline-icon"/> plus -merkkiä.
  </TabItem>
  <TabItem label="Mobile">
-  In the mobile view, you'll have at the top the file bar\
-     ![file_bar](document_view_file_bar.png)\
-  This holds, from left to right, the <img alt="logo" src={logo.src} class="inline-icon" width="16"/> butterfly button to open the menu. Next to it there is the name field that displays the name of the note. You can rename the note by typing a new name into that field and saving it using the <FloppyDisk className="inline-icon"/> save button. Finally you can <MagnifyingGlass className="inline-icon"/> search for elements within the note.
+  Mobiilinäkymässä sinulla on tiedoston yläreunassa palkki\
+     ![file_bar](document_view_file_bar. ng)\
+  Tässä on vasemmalta oikealle, <img alt="logo" src={logo.src} class="inline-icon" width="16"/> perhonen painiketta avataksesi valikon. Sen vieressä on nimikenttä, joka näyttää huomautuksen nimen. Voit uudelleennimetä merkinnän kirjoittamalla uuden nimen kyseiseen kenttään ja tallentamalla sen käyttämällä <FloppyDisk className="inline-icon"/> -näppäintä. Finally you can <MagnifyingGlass className="inline-icon"/> search for elements within the note.
   \
-  At the bottom of the screen you have the toolbar\
-  ![toolbar](document_view_toolbar.png)\
-  By default this bar has the <ScribbleLoop className="inline-icon"/> lasso tool; the <Pen className="inline-icon" /> pen tool; the <Path className="inline-icon"/> path erase tool; the <ArrowCounterClockwise className="inline-icon"/> undo and <ArrowClockwise className="inline-icon"/> redo butons, and the <Hand className="inline-icon"/> hand tool. Then you have the <Plus className="inline-icon"/> button to add elements to the tool bar, the <Wrench className="inline-icon"/> button to configure the document, and finally the <Lock className="inline-icon"/> tool to look the zoom and/or the position of the screen.
-  ### Important notes
-  1. If some of the element on the toolbar are not visible to you, or swipe left and right to reveal further elements.
-  2. After selecting a tool, a small menu will appear to configure the it. Long clicking the tool again will allow you to drag it to a new position
-  3. You can add more tools to the toolbar by clicking the <Plus className="inline-icon"/> plus sign.
+  Näytön alareunassa on työkalurivi\
+  ![toolbar](document_view_toolbar. ng)\
+  Oletuksena tällä palkilla on <ScribbleLoop className="inline-icon"/> lasso työkalu; <Pen className="inline-icon" /> kynä työkalu; <Path className="inline-icon"/> polku poistaa työkalun; <ArrowCounterClockwise className="inline-icon"/> kumoa ja <ArrowClockwise className="inline-icon"/> redo butonit ja <Hand className="inline-icon"/> kädentyökalu. Sitten sinulla on <Plus className="inline-icon"/> -painike lisätäksesi elementtejä työkaluriviin, <Wrench className="inline-icon"/> -painikkeeseen, jolla voit määrittää asiakirjan, ja lopuksi <Lock className="inline-icon"/> työkalu näyttääksesi näytön zoomauksen ja/tai sijainnin.
+  ### Tärkeitä muistiinpanoja
+  1. Jos osa työkalupalkin elementeistä ei näy sinulle, tai pyyhkäise vasemmalle ja oikealle paljastaaksesi uusia elementtejä.
+  2. Työkalun valinnan jälkeen sen määrittämiseen näytetään pieni valikko. Pitkä klikkaamalla työkalua uudelleen voit vetää sen uuteen kohtaan
+  3. Voit lisätä työkaluriviin lisää työkaluja klikkaamalla <Plus className="inline-icon"/> plus -merkkiä.
  </TabItem>
 </Tabs>
