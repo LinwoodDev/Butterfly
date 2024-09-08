@@ -2,7 +2,7 @@
 title: Branding
 ---
 
-These assets are licensed under the [CC-BY-4.0](https://github.com/LinwoodDev/Butterfly/blob/develop/BRANDING_LICENSE).
+Aceste active sunt licențiate sub licența [CC-BY-4.0](https://github.com/LinwoodDev/Butterfly/blob/develop/BRANDING_LICENSE).
 
 ## Logo
 
@@ -10,7 +10,7 @@ These assets are licensed under the [CC-BY-4.0](https://github.com/LinwoodDev/Bu
 
 [SVG](/img/logo.svg) [PNG](/img/logo.png)
 
-## Nightly Logo
+## Logo noapte
 
 ![Logo](/img/nightly.svg)
 
@@ -30,12 +30,12 @@ These assets are licensed under the [CC-BY-4.0](https://github.com/LinwoodDev/Bu
 
 ## Culori
 
-- Primary: `#c4840d`
+- Primar: `#c4840d`
 - Accent: `#7b8f96`
 
 ## Fonturi
 
-- Website: `Barlow`
+- Site web: `Barlow`
 - App: `Comfortaa`
 
 ## Capturi ecran
