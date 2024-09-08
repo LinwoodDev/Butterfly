@@ -3,7 +3,7 @@ title: Pre-1.0 versioner
 ---
 
 Dessa versioner stöds inte längre.
-New versions are available at [versions](/community/versions).
+Nya versioner finns på [versions](/community/versioner).
 
 | Version                                                      | Stöds                               |                                                                                                                                               |
 | ------------------------------------------------------------ | ----------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
