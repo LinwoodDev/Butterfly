@@ -1,13 +1,13 @@
 ---
-title: Redo tool
+title: Reface unealta
 ---
 
-:::note[⚡ Action tool]
+:::note[⚡ Instrument de acțiune]
 
-This is a special tool.
+Aceasta este o unealtă specială.
 Nu o puteți selecta și va rula acțiunea dacă faceți clic pe ea.
 
 :::
 
-When clicking on this tool you can redo your last action.
-See the [undo tool](../undo) for undoing your last action.
+Când faceți clic pe acest instrument, puteți face din nou ultima acțiune.
+Vedeți [unealta de anulare](../undo) pentru anularea ultimei acțiuni.
