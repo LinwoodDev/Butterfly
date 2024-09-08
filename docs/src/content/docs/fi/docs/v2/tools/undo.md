@@ -1,13 +1,13 @@
 ---
-title: Undo tool
+title: Kumoa työkalu
 ---
 
-:::note[⚡ Action tool]
+:::note[⚡ Toiminnan väline]
 
-This is a special tool.
+Tämä on erityinen työkalu.
 Et voi valita sitä, ja se suorittaa toiminnon, jos klikkaat sitä.
 
 :::
 
-When clicking on this tool you can undo your last action.
-See the [redo tool](../redo) for redoing your last action.
+Kun napsautat tätä työkalua, voit perua viimeisen toiminnon.
+Katso [redo tool](../redo) tehdäksesi viimeisen toiminnon.
