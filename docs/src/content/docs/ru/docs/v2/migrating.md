@@ -4,7 +4,7 @@ title: Миграция
 
 Это руководство покажет вам, как перейти на последнюю версию.
 
-## 7 (Breaking change) {#7}
+## 7 (Разрушение изменений) {#7}
 
 **Версия: 2.0**
 
@@ -15,4 +15,4 @@ title: Миграция
 ## Старые версии
 
 Все переходы до этого будут выполнены автоматически.
-Read the full migration in code [here](https://github.com/LinwoodDev/Butterfly/blob/95825da4ebbf9ded392c863da577666dbcdda45c/app/lib/models/converter.dart#L17).
+Полная миграция в коде [here](https://github.com/LinwoodDev/Butterfly/blob/95825da4ebbf9ded392c863da577666dbcdda45c/app/lib/models/converter.dart#L17).
