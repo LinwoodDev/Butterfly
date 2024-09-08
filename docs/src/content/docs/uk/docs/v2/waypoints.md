@@ -2,6 +2,6 @@
 title: Точки
 ---
 
-With waypoints you can save important locations in your notes. You can use them to navigate through your notes.
+З шляховими точками ви можете зберегти важливі місця у ваших нотатках. Ви можете використовувати їх для навігації у ваших нотатках.
 
-Use the waypoint navigator page to create and manage waypoints.
+Створіть та керуйте точками навігатором шляхових точок.
