@@ -1,17 +1,17 @@
 ---
-title: Utilities
+title: Utilitaires
 ---
 
-This view allows you to change the general document or the view.
+Cette vue vous permet de modifier le document général ou la vue.
 
 ## Projet
 
-Here are all globally properties that you can set like name and description.
-Additionally you can capture a thumbnail from the current viewport to see it in the home page.
+Voici toutes les propriétés globales que vous pouvez définir comme nom et description.
+De plus, vous pouvez capturer une vignette à partir de la fenêtre d'affichage actuelle pour la voir dans la page d'accueil.
 
 ## Page
 
-Here are all page specific properties. Currently you can find the background setting here.
+Voici toutes les propriétés spécifiques à la page. Actuellement vous pouvez trouver le paramètre d'arrière-plan ici.
 
 ## Voir
 
@@ -25,4 +25,4 @@ La règle vous permet de mesurer la distance entre deux points. De plus, vous po
 
 ## Appareil photo
 
-To jump to a specific position or zoom to a specific level you can use this tab.
+Pour accéder à une position spécifique ou zoomer à un niveau spécifique, vous pouvez utiliser cet onglet.
