@@ -21,7 +21,7 @@ Sommige ervan worden onder de knoppen geschreven.
 
 ### Project
 
-- `Ctrl` + `K`: Open search
+- `Ctrl` + `K`: Zoeken openen
 - `Ctrl` + `Z`: Herstel
 - `Ctrl` + `Y`: Opnieuw
 - `Ctrl` + `Shift` + `P`: Open waypoints dialoogvenster
@@ -38,7 +38,7 @@ Standaard is de pen geconfigureerd om als volgt te functioneren:
 
 - `Pen`: geconfigureerd als pen.
 - `Eer` (Primaire knop, indien ondersteund): Verander naar handgereedschap terwijl je wordt ingedrukt.
-- `Second` (Secondary button, if supported): Change to second tool (see [configure](#configure) section below) while pressed.
+- `Tweede` (Seconterende knop, indien ondersteund): verander naar tweede tool (zie [configure](#geconfigureerd) sectie hieronder, wanneer ingedrukt.
 
 ## {#configure} configureren
 
