@@ -3,36 +3,36 @@ title: Політика конфіденційності
 tableOfContents: false
 ---
 
-Це політика конфіденційності додатку. Будь ласка, прочитайте це обережно.
+This is the privacy policy of the app. Please read it carefully.
 Click [here](https://go.linwood.dev/privacypolicy) to read the privacy policy of the website.
 
-CodeDoctor створив додаток Butterfly як додаток з відкритим вихідним кодом. Цей SERVICE надається CodeDoctor за безцінної вартості і призначений для використання як є.
+CodeDoctor built the Butterfly app as an Open Source app. This SERVICE is provided by CodeDoctor at no cost and is intended for use as is.
 
 Ця сторінка використовується для відправки інформації відвідувачам про мої політики з колекцією, Користуйтесь та розголошуйте особистою інформацією, якщо хто-небудь вирішив використовувати мою Службу.
 
-Якщо ви вирішите використовувати мою Послугу, ви погоджуєтесь із колекцією та використанням інформації стосовно цієї політики. The Personal Information that I collect is used for providing and improving the
-Service. Я не буду використовувати і не буду ділитися вашою інформацією з будь-ким, крім того, що описано в цій Політиці конфіденційності.
+If you choose to use my Service, then you agree to the collection and use of information in relation to this policy. The Personal Information that I collect is used for providing and improving the
+Service. I will not use or share your information with anyone except as described in this Privacy Policy.
 
 Терміни, що використовуються в цій Політиці конфіденційності, мають ті самі значення, що і в наших Загальних умовах, що доступне на Butterfly якщо інше не визначено в цій Політиці конфіденційності.
 
 **Колекція та використання інформації**
 
-Для кращого досвіду, при користуванні нашою Службою, я можу вимагати від вас надати вам певну особисту інформацію. The information that I request will be retained on your device and
+For a better experience, while using our Service, I may require you to provide us with certain personally identifiable information. The information that I request will be retained on your device and
 is not collected by me in any way.
 
 Додаток використовує сторонні послуги, які можуть збирати інформацію для ідентифікації вас.
 
 Посилання на політику конфіденційності сторонніх постачальників послуг, що використовують додаток
 
-- [Google Play Сервіси](https://www.google.com/policies/privacy/)
+- [Google Play Services](https://www.google.com/policies/privacy/)
 
-**Куки**
+**Cookies**
 
-Кукі - це файли з невеликою кількістю даних, які зазвичай використовуються як анонімні унікальні ідентифікатори. Надсилаються до веб-переглядача з веб-сторінок, які ви відвідуєте та зберігаєте на
-внутрішньої пам'яті пристрою.
+Cookies are files with a small amount of data that are commonly used as anonymous unique identifiers. These are sent to your browser from the websites that you visit and are stored on your device's
+internal memory.
 
-Ця служба не використовує ці "cookies" явно між собою. Однак додаток може використовувати сторонній код та бібліотеки, які використовують «куки» для збору інформації та покращення їх послуг. You have the option
-to either accept or refuse these cookies and know when a cookie is being sent to your device. Якщо ви вирішите відмовитись від наших куків, ви не зможете використати деякі частини цієї Служби.
+This Service does not use these “cookies” explicitly. However, the app may use third party code and libraries that use “cookies” to collect information and improve their services. You have the option
+to either accept or refuse these cookies and know when a cookie is being sent to your device. If you choose to refuse our cookies, you may not be able to use some portions of this Service.
 
 **Постачальники послуг**
 
@@ -43,29 +43,29 @@ to either accept or refuse these cookies and know when a cookie is being sent to
 - Для виконання служб, пов'язаних з сервісом; або
 - Щоб допомогти нам аналізувати, як використовується наша служба.
 
-Я хочу повідомити користувачів цієї служби підтримки, що ці треті сторони мають доступ до вашої персональної інформації. Причина в тому, щоб виконувати завдання, покладені на них від нашого імені. However, they are obligated
+I want to inform users of this Service that these third parties have access to your Personal Information. The reason is to perform the tasks assigned to them on our behalf. However, they are obligated
 not to disclose or use the information for any other purpose.
 
-**Безпека**
+**Security**
 
-Я ціную свою довіру до того, щоб надати нам свою персональну інформацію, таким чином ми прагнемо використовувати комерційно прийнятні засоби захисту. Але пам'ятайте, що немає методу передачі через інтернет,
-або метод електронного сховища на 100% безпечний і надійний, і я не можу гарантувати його абсолютну безпеку.
+I value your trust in providing us your Personal Information, thus we are striving to use commercially acceptable means of protecting it. But remember that no method of transmission over the internet,
+or method of electronic storage is 100% secure and reliable, and I cannot guarantee its absolute security.
 
 **Посилання на інші сайти**
 
-Цей сервіс може містити посилання на інші сайти. Якщо натиснути на посилання від третьої сторони, вас буде направлено на цей сайт. Зверніть увагу, що мої зовнішні сайти не працюють. Therefore, I strongly
-advise you to review the Privacy Policy of these websites. Я не контролюю і не беру на себе відповідальності за зміст, політику конфіденційності чи практику будь-яких сторонніх сайтів чи послуг.
+This Service may contain links to other sites. If you click on a third-party link, you will be directed to that site. Note that these external sites are not operated by me. Therefore, I strongly
+advise you to review the Privacy Policy of these websites. I have no control over and assume no responsibility for the content, privacy policies, or practices of any third-party sites or services.
 
 **Зміни в політиці конфіденційності**
 
-Я можу оновлювати нашу політику конфіденційності час від часу. Таким чином, вам рекомендується періодично переглядати цю сторінку за будь-які зміни. I will notify you of any changes by posting the new Privacy Policy on this
+I may update our Privacy Policy from time to time. Thus, you are advised to review this page periodically for any changes. I will notify you of any changes by posting the new Privacy Policy on this
 page.
 
 Ця політика ефективна при 2021-02-07
 
-**Зв'яжіться з нами**
+**Contact Us**
 
 Якщо у вас є які-небудь питання або пропозиції про мою політику конфіденційності, зв’яжіться зі мною по контакту@linwood.dev.
 
-Ця сторінка політики конфіденційності була створена в [privacypolicytemplate.net](https://privacypolicytemplate.net) та modified/згенерована
-[Генератором Політик конфіденційності](https://app-privacy-policy-generator.nisrulz.com/)
+This privacy policy page was created at [privacypolicytemplate.net](https://privacypolicytemplate.net) and modified/generated
+by [App Privacy Policy Generator](https://app-privacy-policy-generator.nisrulz.com/)
