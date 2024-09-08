@@ -2,23 +2,23 @@
 title: 添加
 ---
 
-Here you can add things to your notes.
+在这里您可以添加一些内容到您的笔记中。
 
 ## 导入
 
-Here you can import existing files inside your documents.
-Supported are butterfly documents, markdown, png, svg and pdf.
+在这里您可以导入您的文档中存在的文件。
+支持的是蝴蝶 文档、Markdown、png、svg 和 pdf。
 
 ## 工具
 
-To add more tools to your toolbar, click on them.
-Read more about them [here](../tools).
+要添加更多工具到您的工具栏，请点击它们。
+阅读更多关于他们的 [here](../tools)。
 
-## Surfaces
+## 面
 
-These are special tools to create surfaces.
+这些是创造表面的特殊工具。
 
 ## 行动
 
-These are tools that will be executed by clicking on them.
-You can use the play button to execute them without adding them to the toolbar.
+这些是通过点击它们来执行的工具。
+您可以使用播放按钮来执行它们而不将它们添加到工具栏。
