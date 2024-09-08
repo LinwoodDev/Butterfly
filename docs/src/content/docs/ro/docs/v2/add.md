@@ -2,23 +2,23 @@
 title: Adăugare
 ---
 
-Aici poți adăuga lucruri notelor tale.
+Here you can add things to your notes.
 
 ## Importă
 
-Aici puteţi importa fişiere existente în documentele dvs.
-Sunt acceptate documente fluture, marcaj, png, svg şi pdf.
+Here you can import existing files inside your documents.
+Supported are butterfly documents, markdown, png, svg and pdf.
 
 ## Unelte
 
-Pentru a adăuga mai multe instrumente în bara de instrumente, apăsați pe ele.
-Citește mai multe despre ele [here](../tools).
+To add more tools to your toolbar, click on them.
+Read more about them [here](../tools).
 
-## Suprafeţe
+## Surfaces
 
-Acestea sunt unelte speciale pentru a crea suprafeţe.
+These are special tools to create surfaces.
 
 ## Acțiuni
 
-Acestea sunt instrumente care vor fi executate făcând clic pe ele.
-Poți folosi butonul de redare pentru a le executa fără a le adăuga la bara de instrumente.
+These are tools that will be executed by clicking on them.
+You can use the play button to execute them without adding them to the toolbar.
