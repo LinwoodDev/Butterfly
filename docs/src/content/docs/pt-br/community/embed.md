@@ -1,5 +1,5 @@
 ---
-title: Incorporar
+title: Embed
 ---
 
 Embutir é uma maneira simples de incluir o aplicativo em seu site.
@@ -11,11 +11,11 @@ Adicione o seguinte código ao seu site:
 
 ## Opções
 
-| Alternativa | tipo                                                                                              | Padrão     | Descrição                                                                                                                                                                      |
-| ----------- | ------------------------------------------------------------------------------------------------- | ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| salvar      | Booleano (true, false)                                                         | verdadeiro | Habilitar salvamento. Se desativado, somente um botão de saída será mostrado                                                                                   |
-| editável    | Booleano (true, false)                                                         | verdadeiro | Habilitar edição. Se desativado, o documento será somente leitura                                                                                              |
-| iDIOMA      | String (..., sistema, usuário) | Sistema    | Idioma do documento. Se o sistema, o idioma será detectado do navegador. Se o usuário, o idioma será ajustado para as preferências de usuários |
+| Alternativa | tipo                                                                                              | Padrão | Descrição                                                                                                                                                                      |
+| ----------- | ------------------------------------------------------------------------------------------------- | ------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| salvar      | Boolean (true, false)                                                          | true   | Habilitar salvamento. Se desativado, somente um botão de saída será mostrado                                                                                   |
+| editable    | Boolean (true, false)                                                          | true   | Habilitar edição. Se desativado, o documento será somente leitura                                                                                              |
+| iDIOMA      | String (..., sistema, usuário) | system | Idioma do documento. Se o sistema, o idioma será detectado do navegador. Se o usuário, o idioma será ajustado para as preferências de usuários |
 
 ## Eventos
 
@@ -32,27 +32,27 @@ embedElement.addEventListener('message', (data) => {
 
 ### salvar
 
-> O evento 'salvar' é emitido quando o usuário clica no botão salvar.
+> The `save` event is emitted when the user clicks the save button.
 
 Parâmetros:
 
-- `data` (digite `List<int>`): Os dados do documento.
+- `data` (Type `List<int>`): The data of the document.
 
 ### sair
 
-> O evento `exit` é emitido quando o usuário clica no botão de sair.
+> The `exit` event is emitted when the user clicks the exit button.
 
 Parâmetros:
 
-- `data` (digite `List<int>`): Os dados do documento.
+- `data` (Type `List<int>`): The data of the document.
 
-### Alterar
+### change
 
-> O evento `mudar` é emitido quando o usuário altera o documento.
+> The `change` event is emitted when the user changes the document.
 
 Parâmetros:
 
-- `data` (digite `List<int>`): Os dados do documento.
+- `data` (Type `List<int>`): The data of the document.
 
 ## Métodos
 
@@ -70,40 +70,40 @@ embedElement.addEventListener('message', (data) => {
 
 ### getData
 
-> O método `getData` retorna os dados do documento.
+> The `getData` method returns the data of the document.
 
 Nenhum parâmetro.
-Retorna: `Listar<int>`
+Returns: `List<int>`
 
-### definirDados
+### setData
 
-> O método `setData` define os dados do documento.
-
-Parâmetros:
-
-- `data` (digite `List<int>`): Os dados do documento.
-
-### renderizar
-
-> O método `render` renderiza o documento a uma imagem png.
+> The `setData` method sets the data of the document.
 
 Parâmetros:
 
-- `width` (Digite `Number`): A largura da imagem.
-- `height` (Digite `Number`): A altura da imagem.
-- `scale` (Digite `Number`): A escala da imagem.
-- `renderBackground` (Digite `Boolean`): Se verdadeiro, o fundo será renderizado.
+- `data` (Type `List<int>`): The data of the document.
 
-Retorna: `String` (imagem codificada em Base64)
+### render
 
-### renderização
-
-> O método `renderSVG` renderiza o documento a uma imagem svg.
+> The `render` method renders the document to a png image.
 
 Parâmetros:
 
-- `width` (Digite `Number`): A largura da imagem.
-- `height` (Digite `Number`): A altura da imagem.
-- `renderBackground` (Digite `Boolean`): Se verdadeiro, o fundo será renderizado.
+- `width` (Type `Number`): The width of the image.
+- `height` (Type `Number`): The height of the image.
+- `scale` (Type `Number`): The scale of the image.
+- `renderBackground` (Type `Boolean`): If true, the background will be rendered.
 
-Retorna: `String` (SVG)
+Returns: `String` (Base64 encoded image)
+
+### renderSVG
+
+> The `renderSVG` method renders the document to a svg image.
+
+Parâmetros:
+
+- `width` (Type `Number`): The width of the image.
+- `height` (Type `Number`): The height of the image.
+- `renderBackground` (Type `Boolean`): If true, the background will be rendered.
+
+Returns: `String` (SVG)
