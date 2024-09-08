@@ -1,13 +1,13 @@
 ---
-title: Undo tool
+title: التراجع عن الأداة
 ---
 
-:::note[⚡ Action tool]
+:::note[⚡ أداة العمل]
 
-This is a special tool.
+وهذه أداة خاصة.
 لا يمكنك إختياره وستقوم بتشغيل الإجراء إذا قمت بالنقر عليه.
 
 :::
 
-When clicking on this tool you can undo your last action.
-See the [redo tool](../redo) for redoing your last action.
+عند النقر على هذه الأداة يمكنك التراجع عن الإجراء الأخير.
+راجع [أداة إعادة النظر](../redo) لإعادة القيام بالإجراء الأخير.
