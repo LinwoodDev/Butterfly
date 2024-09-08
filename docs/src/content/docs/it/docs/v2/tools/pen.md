@@ -1,8 +1,8 @@
 ---
-title: Strumento penna
+title: Pen tool
 ---
 
-Con questo strumento è possibile disegnare su questo foglio.
+With this tool you can draw on this paper.
 
 ## Configurazione
 
