@@ -1,12 +1,12 @@
 ---
-title: Full screen tool
+title: Volledig scherm
 ---
 
-:::note[⚡ Action tool]
+:::note[⚡ Actie tool]
 
-This is a special tool.
+Dit is een speciaal instrument.
 U kunt het niet selecteren en het zal de actie uitvoeren als u erop klikt.
 
 :::
 
-When clicking on this tool you can toggle full screen.
+Wanneer u op deze tool klikt, kunt u schakelen tussen volledig scherm.
