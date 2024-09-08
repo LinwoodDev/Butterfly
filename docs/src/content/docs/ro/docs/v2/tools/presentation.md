@@ -2,4 +2,4 @@
 title: Prezentare
 ---
 
-Instrumentul de prezentare îți permite să îți creezi propriile animații în interiorul notelor tale.
+The presentation tool allows you to create your own animations inside your notes.
