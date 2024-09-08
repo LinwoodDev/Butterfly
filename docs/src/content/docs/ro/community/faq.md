@@ -8,29 +8,29 @@ Iată câteva întrebări puse frecvent.
 
 ### Cum instalez versiunea web?
 
-You can install the web version by clicking on the install button in the title bar.
-After that you can use this app offline.
+Puteți instala versiunea web făcând clic pe butonul de instalare din bara de titlu.
+După aceea poți utiliza această aplicație offline.
 
 ### Flutura nu se încarcă pe Brave
 
-Brave Users who have set the 'Block Fingerprinting' Shield setting to Aggressive, need to change it to 'Standard' or just plain 'Block Fingerprinting'.
-Click on the shield icon in the address bar to change the setting.
-Try updating your browser to the latest version.
+Utilizatorii curajoși care au setat setarea Scutului "Blocare amprentată" ca Agresiv, trebuie să o schimbe la 'Standard' sau pur și simplu 'Blocare amprentare'.
+Faceți clic pe pictograma scutul din bara de adrese pentru a schimba setarea.
+Încercați să actualizați browser-ul la cea mai recentă versiune.
 
 ## Mobil
 
-### S-Pen won't be recognized
+### S-Pen nu va fi recunoscut
 
 > [#270](https://github.com/LinwoodDev/Butterfly/issues/270)
 
-I'm using the input provided by the flutter framework.
-This is the issue to track it: [flutter/flutter#42846](https://github.com/flutter/flutter/issues/42846).
+Folosesc datele furnizate de cadrul flutter.
+Aceasta este problema pentru a o urmări: [flutter/flutter#42846](https://github.com/flutter/flutter/issues/42846).
 
-### iOS support
+### Suport iOS
 
 > [#244](https://github.com/LinwoodDev/Butterfly/issues/244)
 
-Butterfly is available on iOS as preview. Click [here](https://butterfly.linwood.dev/downloads/ios) to download it. See [here](https://github.com/LinwoodDev/Butterfly/issues/244#issuecomment-1935460878) why it's not available on the App Store.
+Butterfly este disponibil pe iOS ca previzualizare. Faceți clic pe [here](https://butterfly.linwood.dev/downloads/ios) pentru a o descărca. Vezi [here](https://github.com/LinwoodDev/Butterfly/issues/244#issuecomment-1935460878) de ce nu este disponibil în App Store.
 
 ## Birou
 
@@ -38,9 +38,9 @@ Butterfly is available on iOS as preview. Click [here](https://butterfly.linwood
 
 > [#238](https://github.com/LinwoodDev/Butterfly/issues/238)
 
-I'm using the input provided by the flutter framework.
-There are already issues to track it:
-Windows: [flutter/flutter#65248](https://github.com/flutter/flutter/issues/65248) and [flutter/flutter#102836](https://github.com/flutter/flutter/issues/102836).
+Folosesc datele furnizate de cadrul flutter.
+Există deja probleme de urmărire:
+Windows: [flutter/flutter#65248](https://github.com/flutter/flutter/issues/65248) și [flutter/flutter#102836](https://github.com/flutter/flutter/issues/102836).
 Linux: [flutter/flutter#63209](https://github.com/flutter/flutter/issues/63209)
 
-These issues are a bit older. The web version should work fine for now.
+Aceste probleme sunt puţin mai vechi. Versiunea web ar trebui să funcționeze bine deocamdată.
