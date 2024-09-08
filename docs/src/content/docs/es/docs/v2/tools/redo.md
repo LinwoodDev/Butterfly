@@ -1,13 +1,13 @@
 ---
-title: Redo tool
+title: Rehacer herramienta
 ---
 
-:::note[⚡ Action tool]
+:::note[⚡ Herramienta de acción]
 
-This is a special tool.
+Esta es una herramienta especial.
 No puedes seleccionarlo y se ejecutará la acción si haces clic en él.
 
 :::
 
-When clicking on this tool you can redo your last action.
-See the [undo tool](../undo) for undoing your last action.
+Al hacer clic en esta herramienta puedes rehacer tu última acción.
+Mira la [herramienta de deshacer](../deshacer) para deshacer tu última acción.
