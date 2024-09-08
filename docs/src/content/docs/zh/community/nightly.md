@@ -18,5 +18,5 @@ title: 每晚生成
 ## 实验
 
 实验是尚未准备好生产的功能。
-默认禁用。 您可以在“实验”下的设置中启用它们。
+默认禁用。 You can enable them in the settings under `Experiments`.
 此选项卡仅在夜间版本中可见。
