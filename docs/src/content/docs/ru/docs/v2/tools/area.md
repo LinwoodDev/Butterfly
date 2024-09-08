@@ -1,8 +1,8 @@
 ---
-title: Area tool
+title: Область инструмента
 ---
 
-The area tool allows you to create, edit and remove areas.
+Инструмент области позволяет создавать, редактировать и удалять области.
 
 ## Действия
 
