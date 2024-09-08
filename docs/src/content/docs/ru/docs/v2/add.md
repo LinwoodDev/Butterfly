@@ -2,23 +2,23 @@
 title: Добавить
 ---
 
-Here you can add things to your notes.
+Здесь вы можете добавить вещи к вашим заметкам.
 
 ## Импорт
 
-Here you can import existing files inside your documents.
-Supported are butterfly documents, markdown, png, svg and pdf.
+Здесь вы можете импортировать существующие файлы внутри ваших документов.
+Поддерживаются документы на бабочках, markdown, png, svg и pdf.
 
 ## Инструменты
 
-To add more tools to your toolbar, click on them.
-Read more about them [here](../tools).
+Чтобы добавить дополнительные инструменты на панель инструментов, нажмите на них.
+Узнайте больше о них [here](../tools).
 
-## Surfaces
+## Поверхности
 
-These are special tools to create surfaces.
+Это специальные инструменты для создания поверхностей.
 
 ## Действия
 
-These are tools that will be executed by clicking on them.
-You can use the play button to execute them without adding them to the toolbar.
+Это инструменты, которые будут выполнены нажатием на них.
+Вы можете использовать кнопку воспроизведения для их выполнения без добавления их на панель инструментов.
