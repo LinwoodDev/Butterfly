@@ -4,7 +4,7 @@ tableOfContents: false
 ---
 
 Dies ist die Datenschutzerklärung der App. Bitte lesen Sie es sorgfältig.
-Click [here](https://go.linwood.dev/privacypolicy) to read the privacy policy of the website.
+Klicken Sie auf [here](https://go.linwood.dev/privacypolicy) um die Datenschutzrichtlinien der Website zu lesen.
 
 CodeDoctor hat die Butterfly-App als Open Source App entwickelt. Dieser SERVICE wird von CodeDoctor kostenlos zur Verfügung gestellt und ist so konzipiert, wie er ist.
 
@@ -22,7 +22,7 @@ Die App nutzt Dienste von Dritten, die möglicherweise Informationen sammeln, um
 
 Link zur Datenschutzrichtlinie von Drittanbietern, die von der App verwendet werden
 
-- [Google Play Services](https://www.google.com/policies/privacy/)
+- [Google Play Services](https://www.google.com/polices/privacy/)
 
 **Cookies**
 
@@ -41,7 +41,7 @@ Ich kann aus folgenden Gründen Drittunternehmen und Einzelpersonen beschäftige
 
 Ich möchte die Nutzer dieses Dienstes darüber informieren, dass diese Dritten Zugriff auf Ihre persönlichen Daten haben. Der Grund dafür ist, die ihnen zugewiesenen Aufgaben in unserem Namen auszuführen. Sie sind jedoch verpflichtet, die Informationen nicht für andere Zwecke offen zu legen oder zu verwenden.
 
-**Security**
+**Sicherheit**
 
 Ich schätze Ihr Vertrauen, uns Ihre persönlichen Daten zur Verfügung zu stellen, daher bemühen wir uns, kommerziell akzeptable Schutzmittel einzusetzen. Aber denken Sie daran, dass keine Übertragungsmethode über das Internet oder Methode der elektronischen Speicherung ist 100% sicher und zuverlässig, und ich kann seine absolute Sicherheit nicht garantieren.
 
@@ -55,9 +55,8 @@ Ich kann unsere Datenschutzerklärung von Zeit zu Zeit aktualisieren. Daher wird
 
 Diese Richtlinie gilt ab 2021-02-07
 
-**Contact Us**
+**Kontakt uns**
 
 Wenn Sie Fragen oder Anregungen zu meiner Datenschutzrichtlinie haben, zögern Sie nicht, mich unter contact@linwood.dev zu kontaktieren.
 
-This privacy policy page was created at [privacypolicytemplate.net](https://privacypolicytemplate.net) and modified/generated
-by [App Privacy Policy Generator](https://app-privacy-policy-generator.nisrulz.com/)
+Diese Datenschutz-Seite wurde unter [privacypolicytemplate.net](https://privacypolicytemplate.net) erstellt und von [App Privacy Policy Generator](https://app-privacy-policy-generator.nisrulz.com/) geändert und generiert
