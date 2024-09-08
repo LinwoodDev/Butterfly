@@ -1,8 +1,8 @@
 ---
-title: Area tool
+title: Unealta suprafață
 ---
 
-The area tool allows you to create, edit and remove areas.
+Instrumentul zonei vă permite să creaţi, să editaţi şi să eliminaţi zonele.
 
 ## Acțiuni
 
