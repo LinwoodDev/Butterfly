@@ -612,6 +612,6 @@
   "install": "Instalează",
   "deselect": "Deselectează",
   "changeLayer": "Schimbă stratul",
-  "fullSelection": "Full selection",
-  "fullSelectionDescription": "Requires elements to be fully within the selection box for selection."
+  "fullSelection": "Selecţie completă",
+  "fullSelectionDescription": "Necesită ca elementele să fie complet în caseta de selecție pentru selecție."
 }
