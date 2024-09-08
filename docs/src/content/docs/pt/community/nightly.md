@@ -18,5 +18,5 @@ Todas as compilações noturnas também são publicadas como pré-lançamento no
 ## Experimentos
 
 Experimentos são características que ainda não estão prontas para produção.
-Por padrão, eles estão desabilitados. You can enable them in the settings under `Experiments`.
+Por padrão, eles estão desabilitados. Você pode habilitá-los nas configurações em `Experiments`.
 Esta aba só é visível na versão noturna.
