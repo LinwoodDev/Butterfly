@@ -1,5 +1,5 @@
 ---
-title: Mellemrumsværktøj
+title: Spacer tool
 ---
 
-Med dette værktøj kan du tilføje plads mellem elementer ved at trække der, hvor du vil tilføje plads.
+With this tool you can add space between elements by dragging where you want to add space.
