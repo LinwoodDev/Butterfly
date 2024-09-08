@@ -2,7 +2,7 @@
 title: Eraser tool
 ---
 
-Με αυτό το εργαλείο μπορείτε να διαγράψετε τα στοιχεία στο χαρτί.
+With this tool you can erase the elements on the paper.
 
 ## Διαμόρφωση
 
