@@ -18,5 +18,5 @@ Alle Nightly Builds werden auch als Pre-Release auf github veröffentlicht.
 ## Experimente
 
 Experimente sind Funktionen, die noch nicht für die Produktion bereit sind.
-Standardmäßig sind sie deaktiviert. You can enable them in the settings under `Experiments`.
+Standardmäßig sind sie deaktiviert. Sie können sie in den Einstellungen unter "Experimente" aktivieren.
 Diese Registerkarte ist nur in der nächtlichen Version sichtbar.
