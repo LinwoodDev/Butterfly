@@ -2,6 +2,6 @@
 title: Puncte
 ---
 
-Cu puncte poți salva locații importante în notele tale. Le poți folosi pentru a naviga prin notele tale.
+With waypoints you can save important locations in your notes. You can use them to navigate through your notes.
 
-Utilizaţi pagina de navigator punct pentru a crea şi gestiona puncte.
+Use the waypoint navigator page to create and manage waypoints.
