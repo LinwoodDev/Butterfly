@@ -11,11 +11,11 @@ title: 嵌入
 
 ## 备选方案
 
-| 选项  | 类型                                                                                   | 默认设置 | 描述                                        |
-| --- | ------------------------------------------------------------------------------------ | ---- | ----------------------------------------- |
-| 保存  | 布尔值(true，false)                                                   | true | 启用保存。 如果禁用，只显示退出按钮                        |
-| 可编辑 | 布尔值(true，false)                                                   | true | 启用编辑。 如果禁用，文档将只读                          |
-| 语言  | 字符串 (..., 系统, 用户) | 系统   | 文件所用语文。 如果系统从浏览器中检测到该语言。 如果用户，语言将设置为用户首选项 |
+| 选项       | 类型                                                                                   | 默认设置   | 描述                                        |
+| -------- | ------------------------------------------------------------------------------------ | ------ | ----------------------------------------- |
+| 保存       | Boolean (true, false)                                             | true   | 启用保存。 如果禁用，只显示退出按钮                        |
+| editable | Boolean (true, false)                                             | true   | 启用编辑。 如果禁用，文档将只读                          |
+| 语言       | 字符串 (..., 系统, 用户) | system | 文件所用语文。 如果系统从浏览器中检测到该语言。 如果用户，语言将设置为用户首选项 |
 
 ## 事件
 
@@ -32,27 +32,27 @@ embedElement.addEventListener('message', (data) => {
 
 ### 保存
 
-> 当用户点击保存按钮时会释放“保存”事件。
+> The `save` event is emitted when the user clicks the save button.
 
 参数：
 
-- `data` (Type `list<int>`): 文档的数据。
+- `data` (Type `List<int>`): The data of the document.
 
 ### 退出
 
-> 当用户点击退出按钮时，会释放“退出”事件。
+> The `exit` event is emitted when the user clicks the exit button.
 
 参数：
 
-- `data` (Type `list<int>`): 文档的数据。
+- `data` (Type `List<int>`): The data of the document.
 
-### 更改
+### change
 
-> 当用户更改文档时，"变更"事件将被发布。
+> The `change` event is emitted when the user changes the document.
 
 参数：
 
-- `data` (Type `list<int>`): 文档的数据。
+- `data` (Type `List<int>`): The data of the document.
 
 ## 方法
 
@@ -70,40 +70,40 @@ embedElement.addEventListener('message', (data) => {
 
 ### getData
 
-> `getData` 方法返回文档的数据。
+> The `getData` method returns the data of the document.
 
 没有参数。
-返回：`List<int>`
+Returns: `List<int>`
 
-### 设置数据
+### setData
 
-> `setData`方法设置文档的数据。
-
-参数：
-
-- `data` (Type `list<int>`): 文档的数据。
-
-### 渲染
-
-> `render` 方法将文档渲染为 png 图像。
+> The `setData` method sets the data of the document.
 
 参数：
 
-- `width` (Type `Number` )：图像的宽度。
-- `height` (类型`Number`)：图像的高度
-- `scale`(Type `Number`): 图像的尺度。
-- `renderBackground` (Type `Boolean`)：如果为 true，背景将会渲染。
+- `data` (Type `List<int>`): The data of the document.
 
-返回: `String` (Base64 编码的图像)
+### render
 
-### 渲染SVG
-
-> `renderSVG` 方法将文档渲染为 svg 图像。
+> The `render` method renders the document to a png image.
 
 参数：
 
-- `width` (Type `Number` )：图像的宽度。
-- `height` (类型`Number`)：图像的高度
-- `renderBackground` (Type `Boolean`)：如果为 true，背景将会渲染。
+- `width` (Type `Number`): The width of the image.
+- `height` (Type `Number`): The height of the image.
+- `scale` (Type `Number`): The scale of the image.
+- `renderBackground` (Type `Boolean`): If true, the background will be rendered.
 
-返回： `String` (SVG)
+Returns: `String` (Base64 encoded image)
+
+### renderSVG
+
+> The `renderSVG` method renders the document to a svg image.
+
+参数：
+
+- `width` (Type `Number`): The width of the image.
+- `height` (Type `Number`): The height of the image.
+- `renderBackground` (Type `Boolean`): If true, the background will be rendered.
+
+Returns: `String` (SVG)
