@@ -1,8 +1,8 @@
 ---
-title: Outil laser
+title: Laser tool
 ---
 
-Grâce à cet outil, vous pouvez dessiner temporairement ce document. Après un certain temps, le dessin s'estompe. Ajouter un nouveau dessin au papier pour l'annuler.
+With this tool you can draw on this paper temporarily. Après un certain temps, le dessin s'estompe. Ajouter un nouveau dessin au papier pour l'annuler.
 
 ## Configuration
 
