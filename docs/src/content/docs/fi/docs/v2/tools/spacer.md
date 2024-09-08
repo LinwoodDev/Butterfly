@@ -1,5 +1,5 @@
 ---
-title: Spacer työkalu
+title: Spacer tool
 ---
 
-Tällä työkalulla voit lisätä tilaa elementtien välillä vetämällä mihin haluat lisätä tilaa.
+With this tool you can add space between elements by dragging where you want to add space.
