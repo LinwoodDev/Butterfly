@@ -2,7 +2,7 @@
 title: Selector de color
 ---
 
-![Color picker](color_picker.png)
+![Selector de color](color_picker.png)
 
 - Abrir, guardar el diálogo para acceder a él en otros documentos
 - Restablecer la paleta para la paleta de materiales por defecto
