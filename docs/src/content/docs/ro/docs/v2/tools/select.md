@@ -1,11 +1,11 @@
 ---
-title: Unealta de selectare
+title: Select tool
 ---
 
-Cu acest instrument puteţi selecta elemente.
+With this tool you can select elements.
 
 ## Configurare
 
-| Proprietate |  Implicit  | Descriere                                                       |
-| ----------: | :--------: | :-------------------------------------------------------------- |
-|         mod | dreptunghi | Mod de selecție. Valid este dreptunghi şi lasso |
+| Proprietate |  Implicit  | Descriere                                                        |
+| ----------: | :--------: | :--------------------------------------------------------------- |
+|        mode | dreptunghi | Mode of selection. Valid are rectangle and lasso |
