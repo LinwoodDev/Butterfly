@@ -11,11 +11,11 @@ Fügen Sie den folgenden Code Ihrer Webseite hinzu:
 
 ## Optionen
 
-| Option     | Typ                                                                                               | Standard | Beschreibung                                                                                                                                                                   |
-| ---------- | ------------------------------------------------------------------------------------------------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| speichern  | Boolesche (wahr, falsch)                                                       | wahr     | Speichern aktivieren. Wenn deaktiviert, wird nur ein Beenden-Button angezeigt                                                                                  |
-| editierbar | Boolesche (wahr, falsch)                                                       | wahr     | Bearbeiten aktivieren. Wenn deaktiviert, wird das Dokument schreibgeschützt                                                                                    |
-| sprache    | String (..., System, Benutzer) | system   | Sprache des Dokuments. Wenn System wird die Sprache vom Browser erkannt. Wenn Benutzer, wird die Sprache auf die Benutzereinstellungen gesetzt |
+| Option    | Typ                                                                                               | Standard | Beschreibung                                                                                                                                                                   |
+| --------- | ------------------------------------------------------------------------------------------------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| speichern | Boolean (true, false)                                                          | true     | Speichern aktivieren. Wenn deaktiviert, wird nur ein Beenden-Button angezeigt                                                                                  |
+| editable  | Boolean (true, false)                                                          | true     | Bearbeiten aktivieren. Wenn deaktiviert, wird das Dokument schreibgeschützt                                                                                    |
+| sprache   | String (..., System, Benutzer) | system   | Sprache des Dokuments. Wenn System wird die Sprache vom Browser erkannt. Wenn Benutzer, wird die Sprache auf die Benutzereinstellungen gesetzt |
 
 ## Ereignisse
 
@@ -32,27 +32,27 @@ embedElement.addEventListener('message', (data) => {
 
 ### speichern
 
-> Das `save` Event wird emittiert, wenn der Benutzer auf den Speicherknopf klickt.
+> The `save` event is emitted when the user clicks the save button.
 
 Parameter:
 
-- `data` (Typ `Liste<int>`): Die Daten des Dokuments.
+- `data` (Type `List<int>`): The data of the document.
 
 ### beenden
 
-> Das `exit` Event wird emittiert, wenn der Benutzer auf den Beenden-Button klickt.
+> The `exit` event is emitted when the user clicks the exit button.
 
 Parameter:
 
-- `data` (Typ `Liste<int>`): Die Daten des Dokuments.
+- `data` (Type `List<int>`): The data of the document.
 
-### ändern
+### change
 
-> Das `change` Ereignis wird emittiert, wenn der Benutzer das Dokument ändert.
+> The `change` event is emitted when the user changes the document.
 
 Parameter:
 
-- `data` (Typ `Liste<int>`): Die Daten des Dokuments.
+- `data` (Type `List<int>`): The data of the document.
 
 ## Methoden
 
@@ -70,40 +70,40 @@ embedElement.addEventListener('message', (data) => {
 
 ### getData
 
-> Die `getData` Methode gibt die Daten des Dokuments zurück.
+> The `getData` method returns the data of the document.
 
 Keine Parameter.
-Rückgaben: `Liste<int>`
+Returns: `List<int>`
 
 ### setData
 
-> Die `setData` Methode legt die Daten des Dokuments fest.
+> The `setData` method sets the data of the document.
 
 Parameter:
 
-- `data` (Typ `Liste<int>`): Die Daten des Dokuments.
+- `data` (Type `List<int>`): The data of the document.
 
-### rendern
+### render
 
-> Die Methode `render` stellt das Dokument zu einem PNG-Bild dar.
+> The `render` method renders the document to a png image.
 
 Parameter:
 
-- `width` (Typ `Number`): Die Breite des Bildes.
-- `height` (Typ `Number`): Die Höhe des Bildes.
-- `scale` (Typ `Number`): Der Maßstab des Bildes.
-- `renderBackground` (Typ `Boolean`): Wenn true wird der Hintergrund dargestellt.
+- `width` (Type `Number`): The width of the image.
+- `height` (Type `Number`): The height of the image.
+- `scale` (Type `Number`): The scale of the image.
+- `renderBackground` (Type `Boolean`): If true, the background will be rendered.
 
-Gibt `String` zurück (Base64-kodiertes Bild)
+Returns: `String` (Base64 encoded image)
 
 ### renderSVG
 
-> Die `renderSVG` Methode stellt das Dokument zu einem svg-Bild dar.
+> The `renderSVG` method renders the document to a svg image.
 
 Parameter:
 
-- `width` (Typ `Number`): Die Breite des Bildes.
-- `height` (Typ `Number`): Die Höhe des Bildes.
-- `renderBackground` (Typ `Boolean`): Wenn true wird der Hintergrund dargestellt.
+- `width` (Type `Number`): The width of the image.
+- `height` (Type `Number`): The height of the image.
+- `renderBackground` (Type `Boolean`): If true, the background will be rendered.
 
-Rückgaben: `String` (SVG)
+Returns: `String` (SVG)
