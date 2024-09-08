@@ -1,5 +1,5 @@
 ---
-title: Вставить
+title: Embed
 ---
 
 Встраивание - это простой способ включить приложение на ваш сайт.
@@ -11,11 +11,11 @@ title: Вставить
 
 ## Варианты
 
-| Вариант       | Тип                                                                                                    | По умолчанию | Описание                                                                                                                                                                 |
-| ------------- | ------------------------------------------------------------------------------------------------------ | ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| сохранить     | Логическое (true, false)                                                            | истина       | Включить сохранение. Если отключено, будет показана только кнопка выхода                                                                                 |
-| редактируемый | Логическое (true, false)                                                            | истина       | Включить редактирование. Если отключено, документ будет доступен только для чтения                                                                       |
-| язык          | Строка (..., система, пользователь) | система      | Язык документа. Если система, то язык будет обнаружен из браузера. Если пользователь, язык будет установлен в предпочтение пользователей |
+| Вариант   | Тип                                                                                                    | По умолчанию | Описание                                                                                                                                                                 |
+| --------- | ------------------------------------------------------------------------------------------------------ | ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| сохранить | Boolean (true, false)                                                               | true         | Включить сохранение. Если отключено, будет показана только кнопка выхода                                                                                 |
+| editable  | Boolean (true, false)                                                               | true         | Включить редактирование. Если отключено, документ будет доступен только для чтения                                                                       |
+| язык      | Строка (..., система, пользователь) | system       | Язык документа. Если система, то язык будет обнаружен из браузера. Если пользователь, язык будет установлен в предпочтение пользователей |
 
 ## События
 
@@ -32,27 +32,27 @@ embedElement.addEventListener('message', (data) => {
 
 ### сохранить
 
-> Событие «сохранить» отображается, когда пользователь нажимает кнопку «Сохранить».
+> The `save` event is emitted when the user clicks the save button.
 
 Параметры:
 
-- `data` (Тип `List<int>`): Данные документа.
+- `data` (Type `List<int>`): The data of the document.
 
 ### выход
 
-> Событие «exit» отображается, когда пользователь нажимает кнопку выхода.
+> The `exit` event is emitted when the user clicks the exit button.
 
 Параметры:
 
-- `data` (Тип `List<int>`): Данные документа.
+- `data` (Type `List<int>`): The data of the document.
 
-### изменение
+### change
 
-> Событие `change` выдается, когда пользователь изменяет документ.
+> The `change` event is emitted when the user changes the document.
 
 Параметры:
 
-- `data` (Тип `List<int>`): Данные документа.
+- `data` (Type `List<int>`): The data of the document.
 
 ## Методы
 
@@ -70,40 +70,40 @@ embedElement.addEventListener('message', (data) => {
 
 ### getData
 
-> Метод `getData` возвращает данные документа.
+> The `getData` method returns the data of the document.
 
 Нет параметров.
-Возвраты: «Список<int>»
+Returns: `List<int>`
 
-### настройки данных
+### setData
 
-> Метод `setData` устанавливает данные документа.
-
-Параметры:
-
-- `data` (Тип `List<int>`): Данные документа.
-
-### рендер
-
-> Метод `render` превращает документ в png изображение.
+> The `setData` method sets the data of the document.
 
 Параметры:
 
-- `width` (Тип `Number`): Ширина изображения.
-- `height` (Тип `Number`): Высота изображения.
-- `scale` (Тип `Number`): Масштаб изображения.
-- `renderBackground` (Тип `Boolean`): Если истинно, фон будет показан.
+- `data` (Type `List<int>`): The data of the document.
 
-Возвращается: `String` (изображение с кодировкой Base64)
+### render
+
+> The `render` method renders the document to a png image.
+
+Параметры:
+
+- `width` (Type `Number`): The width of the image.
+- `height` (Type `Number`): The height of the image.
+- `scale` (Type `Number`): The scale of the image.
+- `renderBackground` (Type `Boolean`): If true, the background will be rendered.
+
+Returns: `String` (Base64 encoded image)
 
 ### renderSVG
 
-> Метод `renderSVG` превращает документ в изображение svg.
+> The `renderSVG` method renders the document to a svg image.
 
 Параметры:
 
-- `width` (Тип `Number`): Ширина изображения.
-- `height` (Тип `Number`): Высота изображения.
-- `renderBackground` (Тип `Boolean`): Если истинно, фон будет показан.
+- `width` (Type `Number`): The width of the image.
+- `height` (Type `Number`): The height of the image.
+- `renderBackground` (Type `Boolean`): If true, the background will be rendered.
 
-Возврат: `String` (SVG)
+Returns: `String` (SVG)
