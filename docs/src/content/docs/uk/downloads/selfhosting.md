@@ -17,9 +17,9 @@ flutter pub get
 flutter build web
 ```
 
-Всі файли збережені в каталозі `app/build/web`.
+All the files are in the `app/build/web` directory.
 
 ## Докер
 
-Клонуйте репозиторій і побудуйте "Dockerfile", використовуючи: "докер будує -t linwood-butterfly".
-Запустити сервер за допомогою: "докер запуститься -p 80:808080-d-метеликом".
+Clone the repository and build the `Dockerfile` using: `docker build -t linwood-butterfly`.
+Start the server using: `docker run -p 8080:8080 -d linwood-butterfly`.
