@@ -1,8 +1,8 @@
 ---
-title: Pen tool
+title: ペンツール
 ---
 
-With this tool you can draw on this paper.
+このツールを使えば、この紙に書くことができます。
 
 ## 設定
 
