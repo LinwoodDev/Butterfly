@@ -12,5 +12,5 @@ title: Vytvořte si vlastní
    - `flutter build linux`
    - `flutter build windows`
    - `flutter build ios --release --no-codesign`\
-     after that, create a folder named "Payload", copy Runner.app into it and zip the payload folder. Then rename ".zip" to ".ipa".
+     poté vytvořte složku s názvem "Payload", zkopírujte Runner.app do ní a zipněte složku payload. Pak přejmenujte ".zip" na ".ipa".
 5. Kompilované soubory jsou v adresáři sestavení
