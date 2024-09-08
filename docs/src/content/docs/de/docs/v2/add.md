@@ -2,23 +2,23 @@
 title: Neu
 ---
 
-Here you can add things to your notes.
+Hier können Sie Dinge zu Ihren Notizen hinzufügen.
 
 ## Importieren
 
-Here you can import existing files inside your documents.
-Supported are butterfly documents, markdown, png, svg and pdf.
+Hier können Sie vorhandene Dateien in Ihren Dokumenten importieren.
+Unterstützt werden Schmetterlingsdokumente, Markdown, png, svg und pdf.
 
 ## Werkzeuge
 
-To add more tools to your toolbar, click on them.
-Read more about them [here](../tools).
+Um weitere Werkzeuge zu Ihrer Symbolleiste hinzuzufügen, klicken Sie auf sie.
+Lesen Sie mehr über sie [here](../tools).
 
-## Surfaces
+## Oberflächen
 
-These are special tools to create surfaces.
+Dies sind spezielle Werkzeuge, um Oberflächen zu erzeugen.
 
 ## Aktionen
 
-These are tools that will be executed by clicking on them.
-You can use the play button to execute them without adding them to the toolbar.
+Dies sind Werkzeuge, die durch einen Klick ausgeführt werden.
+Mit dem Play-Knopf können Sie sie ausführen, ohne sie in die Symbolleiste hinzuzufügen.
