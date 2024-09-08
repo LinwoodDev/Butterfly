@@ -18,5 +18,5 @@ Nightlyビルドは、最新バージョンをテストして最新の機能を�
 ## 実験
 
 実験は、まだ制作の準備ができていない機能です。
-デフォルトでは無効になっています You can enable them in the settings under `Experiments`.
+デフォルトでは無効になっています これらは、`Experiments` の設定で有効にできます。
 このタブは毎晩のバージョンでのみ表示されます。
