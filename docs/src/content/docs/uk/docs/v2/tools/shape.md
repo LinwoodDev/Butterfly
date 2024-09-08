@@ -1,11 +1,11 @@
 ---
-title: Shape tool
+title: Інструмент формування
 ---
 
-Use this tool to draw shapes on the paper.
+Використовуйте цей інструмент для малювання фігур на папері.
 Намалюйте прямокутники, колі та інші форми.
 
-Use `ctrl` to have the same height and width and `shift` to draw from the center.
+Використайте `ctrl`, щоб мати однакову висоту, ширину та зміщення\` щоб намалювати з центру.
 
 ## Конфігурація
 
