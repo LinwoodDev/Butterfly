@@ -4,11 +4,11 @@ title: ページ
 
 :::note
 
-This page covers the page system which distinct different notes in one document. If you search a way to restrict the infinite canvas, please [use the area feature](../area)
+このページでは、1つのドキュメントに異なる異なるノートを含むページシステムについて説明します。 無限キャンバスを制限する方法を検索する場合は、format@@0(../area)
 
 :::
 
-Pages are a way to organize your notes.
-If you add a slash in the title of a page, you can create folders.
+ページはノートを整理する方法です。
+ページのタイトルにスラッシュを追加すると、フォルダを作成できます。
 
-Use the page navigator page to create and manage pages.
+ページ ナビゲーターページを使用して、ページを作成および管理します。
