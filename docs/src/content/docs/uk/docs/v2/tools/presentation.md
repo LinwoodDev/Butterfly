@@ -2,4 +2,4 @@
 title: Презентація
 ---
 
-The presentation tool allows you to create your own animations inside your notes.
+Інструмент презентації дозволяє створювати власні анімації всередині ваших нотаток.
