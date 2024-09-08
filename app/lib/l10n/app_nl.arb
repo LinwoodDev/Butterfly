@@ -611,5 +611,7 @@
   "installed": "Geinstalleerd",
   "install": "Installeren",
   "deselect": "Deselecteer",
-  "changeLayer": "Laag wijzigen"
+  "changeLayer": "Laag wijzigen",
+  "fullSelection": "Full selection",
+  "fullSelectionDescription": "When enabled, elements must be fully contained within the selection box to be selected. If disabled, elements can be selected by touching the selection box, even if only partially."
 }
