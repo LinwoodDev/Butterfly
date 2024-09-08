@@ -1,5 +1,5 @@
 ---
-title: Nástroj mezery
+title: Spacer tool
 ---
 
-Pomocí tohoto nástroje můžete přidat mezeru mezi prvky přetažením tam, kde chcete přidat místo.
+With this tool you can add space between elements by dragging where you want to add space.
