@@ -1,8 +1,8 @@
 ---
-title: Laserin työkalu
+title: Laser tool
 ---
 
-Tämän työkalun avulla voit piirtää tämän paperin väliaikaisesti. Hetken kuluttua piirros katoaa pois. Lisää uusi piirustus paperille, jotta se voidaan peruuttaa.
+With this tool you can draw on this paper temporarily. Hetken kuluttua piirros katoaa pois. Lisää uusi piirustus paperille, jotta se voidaan peruuttaa.
 
 ## Asetukset
 
