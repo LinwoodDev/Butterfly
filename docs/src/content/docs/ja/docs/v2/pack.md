@@ -2,7 +2,7 @@
 title: パック
 ---
 
-パックは、スタンプツールで使用できるコンポーネントのコレクションです。 独自のパックを作成したり、既存のパックをインポートすることができます。 このためには、左上隅をクリックし、をクリックします "Packs".
+A pack is a collection of components that can be used in the stamp tool. 独自のパックを作成したり、既存のパックをインポートすることができます。 このためには、左上隅をクリックし、をクリックします "Packs".
 
 ## プロパティー
 
@@ -14,6 +14,6 @@ title: パック
 
 ### コンポーネント
 
-コンポーネントは、頻繁に使用する要素を保存する方法です。 独自のコンポーネントを作成したり、パックを使用して既存のコンポーネントをインポートしたりできます。
+Components are a way to save elements that you use often. You can create your own components or import an existing one using packs.
 
-コンポーネント ナビゲーターページを使用して、コンポーネントをノートに貼り付けます。
+Use the components navigator page to paste components into your notes.
