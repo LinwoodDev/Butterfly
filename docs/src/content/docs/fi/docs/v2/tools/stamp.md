@@ -1,9 +1,9 @@
 ---
-title: Leima työkalu
+title: Stamp tool
 ---
 
-Leima työkalun avulla voit lisätä komponentteja kankaalle.
-Käytä olemassa olevaa pakkausta, luo oma tai tuo paketti käyttääksesi sitä. Lue lisää [here](../../pack).
+The stamp tool allows you to add components to your canvas.
+Käytä olemassa olevaa pakkausta, luo oma tai tuo paketti käyttääksesi sitä. Read more [here](../../pack).
 
 ## Asetukset
 
