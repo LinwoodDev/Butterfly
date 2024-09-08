@@ -1,8 +1,8 @@
 ---
-title: Εργαλείο ετικέτας
+title: Label tool
 ---
 
-Με αυτό το εργαλείο μπορείτε να προσθέσετε κείμενο στο χαρτί.
+With this tool you can add text to the paper.
 
 ## Διαμόρφωση
 
