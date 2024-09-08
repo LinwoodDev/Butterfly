@@ -2,8 +2,8 @@
 title: Indlejr
 ---
 
-Indlejring er en enkel måde at inkludere appen på din hjemmeside.
-Tilføj følgende kode til dit websted:
+Embedding is a simple way to include the app in your website.
+Add the following code to your website:
 
 ```html
 <iframe src="https://web.butterfly.linwood.dev/embed" width="100%" height="500px" allowtransparency="true"></iframe>
@@ -11,11 +11,11 @@ Tilføj følgende kode til dit websted:
 
 ## Indstillinger
 
-| Valgmulighed | Type                                                                                            | Standard | Varebeskrivelse                                                                                                                                                            |
-| ------------ | ----------------------------------------------------------------------------------------------- | -------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| gem          | Boolsk (sandt, falsk)                                                        | sandt    | Aktiver gemning. Hvis deaktiveret, vil kun en afslutningsknap blive vist                                                                                   |
-| redigerbar   | Boolsk (sandt, falsk)                                                        | sandt    | Aktiver redigering. Hvis deaktiveret, vil dokumentet være skrivebeskyttet                                                                                  |
-| sprog        | Streng (..., system, bruger) | system   | Sprog for dokumentet. Hvis systemet, sproget vil blive opdaget fra browseren. Hvis bruger, vil sproget blive sat til brugernes præferencer |
+| Valgmulighed | Type                                                                                            | Standard | Varebeskrivelse                                                                                                                                                             |
+| ------------ | ----------------------------------------------------------------------------------------------- | -------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| gem          | Boolean (true, false)                                                        | true     | Enable save. If disabled, only an exit button will be shown                                                                                                 |
+| editable     | Boolean (true, false)                                                        | true     | Enable editing. If disabled, the document will be read-only                                                                                                 |
+| sprog        | Streng (..., system, bruger) | system   | Language of the document. If system, the language will be detected from the browser. If user, the language will set to the users preference |
 
 ## Begivenheder
 
@@ -32,27 +32,27 @@ embedElement.addEventListener('message', (data) => {
 
 ### gem
 
-> Den `save` begivenhed udsendes, når brugeren klikker på Gem knappen.
+> The `save` event is emitted when the user clicks the save button.
 
 Parametre:
 
-- `data` (Type `Liste<int>`): Dokumentets data.
+- `data` (Type `List<int>`): The data of the document.
 
 ### afslut
 
-> Begivenheden 'exit' udsendes, når brugeren klikker på exit knappen.
+> The `exit` event is emitted when the user clicks the exit button.
 
 Parametre:
 
-- `data` (Type `Liste<int>`): Dokumentets data.
+- `data` (Type `List<int>`): The data of the document.
 
-### skift
+### change
 
-> The `change` event is emitted when the user changes the document (Automatic Copy)
+> The `change` event is emitted when the user changes the document.
 
 Parametre:
 
-- `data` (Type `Liste<int>`): Dokumentets data.
+- `data` (Type `List<int>`): The data of the document.
 
 ## Metoder
 
@@ -70,40 +70,40 @@ embedElement.addEventListener('message', (data) => {
 
 ### getData
 
-> Metoden `getData` returnerer dokumentets data.
+> The `getData` method returns the data of the document.
 
-Ingen parametre.
-Returnering: `Liste<int>`
+No parameters.
+Returns: `List<int>`
 
 ### setData
 
-> Metoden `setData` angiver dokumentets data.
+> The `setData` method sets the data of the document.
 
 Parametre:
 
-- `data` (Type `Liste<int>`): Dokumentets data.
+- `data` (Type `List<int>`): The data of the document.
 
-### gengiver
+### render
 
-> Metoden 'render' gør dokumentet til et png billede.
+> The `render` method renders the document to a png image.
 
 Parametre:
 
-- `width` (Type `Number`): Bredden af billedet.
-- `højde` (Type `Number`): Højden af billedet.
-- `skala` (Type `Number`): Billedets skala.
-- `renderBackground` (Type `Boolean`): Hvis sandt, vil baggrunden blive gengivet.
+- `width` (Type `Number`): The width of the image.
+- `height` (Type `Number`): The height of the image.
+- `scale` (Type `Number`): The scale of the image.
+- `renderBackground` (Type `Boolean`): If true, the background will be rendered.
 
-Returnering: `String` (Base64 kodet billede)
+Returns: `String` (Base64 encoded image)
 
 ### renderSVG
 
-> Metoden `renderSVG` gør dokumentet til et svg-billede.
+> The `renderSVG` method renders the document to a svg image.
 
 Parametre:
 
-- `width` (Type `Number`): Bredden af billedet.
-- `højde` (Type `Number`): Højden af billedet.
-- `renderBackground` (Type `Boolean`): Hvis sandt, vil baggrunden blive gengivet.
+- `width` (Type `Number`): The width of the image.
+- `height` (Type `Number`): The height of the image.
+- `renderBackground` (Type `Boolean`): If true, the background will be rendered.
 
-Returnering: `String` (SVG)
+Returns: `String` (SVG)
