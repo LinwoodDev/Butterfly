@@ -1,8 +1,8 @@
 ---
-title: Laserwerkzeug
+title: Laser tool
 ---
 
-Mit diesem Tool können Sie auf dieses Papier vorübergehend zeichnen. Nach einer Weile verschwindet die Zeichnung. Fügen Sie dem Papier eine neue Zeichnung hinzu, um es abzubrechen.
+With this tool you can draw on this paper temporarily. Nach einer Weile verschwindet die Zeichnung. Fügen Sie dem Papier eine neue Zeichnung hinzu, um es abzubrechen.
 
 ## Konfiguration
 
