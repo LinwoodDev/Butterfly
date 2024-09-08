@@ -2,7 +2,7 @@
 title: Label tool
 ---
 
-With this tool you can add text to the paper.
+Met deze tool kun je tekst toevoegen aan het papier.
 
 ## Configuratie
 
