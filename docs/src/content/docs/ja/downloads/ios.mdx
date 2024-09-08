@@ -10,8 +10,8 @@ import DownloadButton from '/src/components/DownloadButton.astro';
 
 :::warning
 
-ButterflyのiOSバージョンはプレビュー中であり、期待通りに動作しない可能性があります。
-[here](https://github.com/LinwoodDev/Butterfly/issues/244)をクリックして、GitHubで既知のバグやアップデートを確認してください。 問題を報告してください。
+The iOS version of Butterfly is in preview and may not work as expected.
+Click [here](https://github.com/LinwoodDev/Butterfly/issues/244) to visit the issue on GitHub to find current known bugs and updates. Please report any issues there.
 
 :::
 
@@ -30,26 +30,26 @@ ButterflyのiOSバージョンはプレビュー中であり、期待通りに�
 </TabItem>
 </Tabs>
 
-Butterfly [here](/community/nightly) のナイトリーバージョンの詳細をご覧ください。
+Read more about the nightly version of Butterfly [here](/community/nightly).
 
-## インストール中
+## Installing
 
-私たちが配布しているIPAファイルは署名されていません。 これは、iOSデバイスにインストールする前に自分でサインインする必要があることを意味します。 \
-幸いなことに、 [AltStore](https://altstore.io) (オープンソース) または [sideloadly](https://sideloadly.io) (クローズソース) のようなプロジェクトがあります。 \
+The IPA file we distribute is unsigned. This means you'll have to sign it yourself before being able to install it onto your iOS device. \
+Fortunately, there are projects like [AltStore](https://altstore.io) (open source) or [sideloadly](https://sideloadly.io) (closed source). \
 \
-サイドローディング蝶にはApple IDが必要です。 特にこの目的のために新しいものを作成することをお勧めします。 format@@0(https://developer.apple.com)に少なくとも一度ログインし、条件に同意してください。
+You do need an Apple ID for sideloading Butterfly. We recommend creating a new one especially for this purpose. Please log into [Apple Developer](https://developer.apple.com) at least once and accept their terms.
 \
-お使いのデバイスが iOS 16.0 以降を実行している場合は、Settings/Privacy/Developer Mode で開発者モードを有効にしてください。
+If your device is running iOS 16.0 or newer, enable developer mode in Settings/Privacy/Developer Mode.
 
 ## Installing (AltStore)
 
-1. AltStoreのウェブサイトの指示に従ってAltStoreを設定します。
-2. お使いのデバイスにIPAファイルのコピーを取得します。 最善の方法は、Webブラウザを使用してダウンロードするか、IPAを含むzipファイルを自分自身に送信することです。 Airdropを使用しないでください。 また、ファイルを自分自身に直接送信しないでください。 それを開くことができないかもしれません。
-3. IPAファイルを開き、「共有」メニューを使用して「AltStore」をタップします。 お使いのデバイスがAltServer(有線または無線)を実行しているPCに接続されている場合は、自動的にインストールされます。
+1. Set up AltStore using the instructions provided on the AltStore website.
+2. Get a copy of the IPA file onto your device. The best way is to download it using a web browser or sending a zip file containing the IPA to yourself. Do not use Airdrop. Also, do not send the file directly to yourself. You might not be able to open it.
+3. Open the IPA file, use the "share" menu and tap "AltStore". If your device is connected to your PC running AltServer (wired or wirelessly) it'll install automatically.
 
-## インストール中 (Sideloady)
+## Installing (Sideloadly)
 
-1. sideloadly.ioで提供されているガイドを使用して、Sideloadlyを設定します。
-2. PC上でサイドローダードリーを開きます。
-3. 右上隅にIPAを追加し、デバイスとApple IDを選択します。 format@@0 をクリックします。 アプリが端末にインストールされます。
-   開発者が信頼されていないというポップアップが表示された場合は、「設定/一般/VPN」および「デバイス管理」に移動して変更してください。
+1. Set up Sideloadly using the guides provided on sideloadly.io.
+2. Open sideloadly on your PC.
+3. Add the IPA in the top right corner, select your device and Apple ID. Click Start. The app will be installed onto your device.
+   If you get a popup saying a developer isn't trusted go to Settings/General/VPN and Device Management and change that.
