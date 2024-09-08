@@ -19,18 +19,18 @@ title: よく寄せられる質問
 
 ## モバイル
 
-### S-Pen won't be recognized
+### S-ペンは認識されません
 
 > [#270](https://github.com/LinwoodDev/Butterfly/issues/270)
 
 フラッターフレームワークで提供される入力を使っています。
-This is the issue to track it: [flutter/flutter#42846](https://github.com/flutter/flutter/issues/42846).
+これはそれを追跡する問題です: [flutter/flutter#42846](https://github.com/flutter/flutter/issues/42846)。
 
-### iOS support
+### iOS のサポート
 
 > [#244](https://github.com/LinwoodDev/Butterfly/issues/244)
 
-Butterfly is available on iOS as preview. Click [here](https://butterfly.linwood.dev/downloads/ios) to download it. See [here](https://github.com/LinwoodDev/Butterfly/issues/244#issuecomment-1935460878) why it's not available on the App Store.
+ButterflyはプレビューとしてiOSで利用できます。 [here](https://butterfly.linwood.dev/downloads/ios) をクリックしてダウンロードします。 [here](https://github.com/LinwoodDev/Butterfly/issues/244#issuecomment-1935460878) をご覧ください。
 
 ## デスクトップ
 
@@ -38,9 +38,7 @@ Butterfly is available on iOS as preview. Click [here](https://butterfly.linwood
 
 > [#238](https://github.com/LinwoodDev/Butterfly/issues/238)
 
-フラッターフレームワークで提供される入力を使っています。
-There are already issues to track it:
-Windows: [flutter/flutter#65248](https://github.com/flutter/flutter/issues/65248) and [flutter/flutter#102836](https://github.com/flutter/flutter/issues/102836).
+フラッターフレームワークで提供される入力を使っています。Windows: [flutter/flutter#65248](https://github.com/flutter/flutter/issues/65248) and [flutter/flutter#102836](https://github.com/flutter/flutter/issues/102836).
 Linux: [flutter/flutter#63209](https://github.com/flutter/flutter/issues/63209)
 
 これらの問題は少し古いです。 ウェブバージョンは今のところ正常に動作するはずです。
