@@ -19,18 +19,18 @@ Brave Пользователи, которые установили параме
 
 ## Мобильный
 
-### S-Pen won't be recognized
+### S-Pen не распознан
 
 > [#270](https://github.com/LinwoodDev/Butterfly/issues/270)
 
 Я использую вход, предоставленный флэттер.
-This is the issue to track it: [flutter/flutter#42846](https://github.com/flutter/flutter/issues/42846).
+Отслеживать эту проблему: [flutter/flutter#42846](https://github.com/flutter/flutter/issues/42846).
 
-### iOS support
+### Поддержка iOS
 
 > [#244](https://github.com/LinwoodDev/Butterfly/issues/244)
 
-Butterfly is available on iOS as preview. Click [here](https://butterfly.linwood.dev/downloads/ios) to download it. See [here](https://github.com/LinwoodDev/Butterfly/issues/244#issuecomment-1935460878) why it's not available on the App Store.
+Butterfly доступен на iOS в качестве предварительного просмотра. Нажмите [here](https://butterfly.linwood.dev/downloads/ios), чтобы загрузить его. See [here](https://github.com/LinwoodDev/Butterfly/issues/244#issuecomment-1935460878) why it's not available on the App Store.
 
 ## Рабочий стол
 
