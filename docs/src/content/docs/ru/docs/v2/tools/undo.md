@@ -1,13 +1,13 @@
 ---
-title: Отменить
+title: Undo tool
 ---
 
-:::note[⚡ Инструмент действия]
+:::note[⚡ Action tool]
 
-Это специальный инструмент.
+This is a special tool.
 Вы не можете выбрать его и действие будет выполнено, если вы нажмете на него.
 
 :::
 
-При нажатии на этот инструмент вы можете отменить ваше последнее действие.
-Смотрите [переделать](../redo) для повторного выполнения вашего последнего действия.
+When clicking on this tool you can undo your last action.
+See the [redo tool](../redo) for redoing your last action.
