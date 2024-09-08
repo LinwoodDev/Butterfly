@@ -1,8 +1,8 @@
 ---
-title: Label tool
+title: Інструмент міток
 ---
 
-With this tool you can add text to the paper.
+За допомогою цього інструменту можна додавати текст до паперу.
 
 ## Конфігурація
 
