@@ -2,7 +2,7 @@
 title: العلامة
 ---
 
-These assets are licensed under the [CC-BY-4.0](https://github.com/LinwoodDev/Butterfly/blob/develop/BRANDING_LICENSE).
+هذه الأصول مرخصة بموجب [CC-BY-4.0](https://github.com/LinwoodDev/Butterfly/blob/develop/BRANDING_LICENSE).
 
 ## الشعار
 
@@ -10,7 +10,7 @@ These assets are licensed under the [CC-BY-4.0](https://github.com/LinwoodDev/Bu
 
 [SVG](/img/logo.svg) [PNG](/img/logo.png)
 
-## Nightly Logo
+## شعار ليلي
 
 ![Logo](/img/nightly.svg)
 
@@ -30,12 +30,12 @@ These assets are licensed under the [CC-BY-4.0](https://github.com/LinwoodDev/Bu
 
 ## الألوان
 
-- Primary: `#c4840d`
-- Accent: `#7b8f96`
+- الأساس: `#c4840d`
+- الممثل: `#7b8f96`
 
 ## الخطوط
 
-- Website: `Barlow`
+- الموقع: `بارلو`
 - App: `Comfortaa`
 
 ## لقطات الشاشة
