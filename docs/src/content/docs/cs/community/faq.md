@@ -8,29 +8,29 @@ Zde jsou některé často kladené otázky.
 
 ### Jak nainstaluji webovou verzi?
 
-You can install the web version by clicking on the install button in the title bar.
-After that you can use this app offline.
+Webovou verzi můžete nainstalovat kliknutím na tlačítko instalace v záhlaví.
+Poté můžete použít tuto aplikaci offline.
 
 ### Butterfly se nenačte na Hrobe
 
-Brave Users who have set the 'Block Fingerprinting' Shield setting to Aggressive, need to change it to 'Standard' or just plain 'Block Fingerprinting'.
-Click on the shield icon in the address bar to change the setting.
-Try updating your browser to the latest version.
+Hrobní uživatelé, kteří nastavili pole 'Blokovat otisk prstu' na Agresivní, musí jej změnit na 'Standard' nebo jednoduše 'Blokovat otisk prstu'.
+Klikněte na ikonu štítu v adresním řádku pro změnu nastavení.
+Zkuste aktualizovat váš prohlížeč na nejnovější verzi.
 
 ## Mobil
 
-### S-Pen won't be recognized
+### S-Pen nebude rozpoznán
 
 > [#270](https://github.com/LinwoodDev/Butterfly/issues/270)
 
-I'm using the input provided by the flutter framework.
-This is the issue to track it: [flutter/flutter#42846](https://github.com/flutter/flutter/issues/42846).
+Používám vstup poskytnutý rámcem blesku.
+Tohle je úkol ho sledovat: [flutter/flutter#42846](https://github.com/flutter/flutter/issues/42846).
 
-### iOS support
+### Podpora iOS
 
 > [#244](https://github.com/LinwoodDev/Butterfly/issues/244)
 
-Butterfly is available on iOS as preview. Click [here](https://butterfly.linwood.dev/downloads/ios) to download it. See [here](https://github.com/LinwoodDev/Butterfly/issues/244#issuecomment-1935460878) why it's not available on the App Store.
+Butterfly je k dispozici na iOS jako náhled. Klikněte [here](https://butterfly.linwood.dev/downloads/ios) pro jeho stažení. Viz [here](https://github.com/LinwoodDev/Butterfly/issues/244#issuecomment-1935460878) proč není k dispozici v App Store.
 
 ## Stolní počítače
 
@@ -38,9 +38,9 @@ Butterfly is available on iOS as preview. Click [here](https://butterfly.linwood
 
 > [#238](https://github.com/LinwoodDev/Butterfly/issues/238)
 
-I'm using the input provided by the flutter framework.
-There are already issues to track it:
-Windows: [flutter/flutter#65248](https://github.com/flutter/flutter/issues/65248) and [flutter/flutter#102836](https://github.com/flutter/flutter/issues/102836).
+Používám vstup poskytnutý rámcem blesku.
+Již existují problémy se sledováním:
+Windows: [flutter/flutter#65248](https://github.com/flutter/flutter/issues/65248) a [flutter/flutter#102836](https://github.com/flutter/flutter/issues/102836).
 Linux: [flutter/flutter#63209](https://github.com/flutter/flutter/issues/63209)
 
-These issues are a bit older. The web version should work fine for now.
+Tyto problémy jsou o něco starší. Webová verze by pro tuto chvíli měla fungovat v pořádku.
