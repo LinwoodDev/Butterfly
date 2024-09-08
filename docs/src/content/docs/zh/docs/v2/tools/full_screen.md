@@ -1,12 +1,12 @@
 ---
-title: 全屏工具
+title: Full screen tool
 ---
 
-:::note[⚡ 操作工具]
+:::note[⚡ Action tool]
 
-这是一个特殊的工具。
+This is a special tool.
 您不能选择它，如果您点击它，它将运行该动作。
 
 :::
 
-当点击此工具时，您可以切换全屏。
+When clicking on this tool you can toggle full screen.
