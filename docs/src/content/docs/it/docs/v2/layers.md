@@ -2,7 +2,7 @@
 title: Layers
 ---
 
-I livelli sono un'opzione per raggruppare gli elementi insieme. Fare clic sull'elemento per vedere e cambiare il livello. Use the [layer tool](../tools/layer) to change the layers of multiple elements.
+I livelli sono un'opzione per raggruppare gli elementi insieme. Fare clic sull'elemento per vedere e cambiare il livello. Usa lo [strumento di livello](../tools/layer) per cambiare i livelli di più elementi.
 
 ## La finestra dei livelli
 
