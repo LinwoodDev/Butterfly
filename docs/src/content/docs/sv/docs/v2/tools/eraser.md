@@ -2,7 +2,7 @@
 title: Eraser tool
 ---
 
-Med detta verktyg kan du radera elementen på pappret.
+With this tool you can erase the elements on the paper.
 
 ## Konfiguration
 
