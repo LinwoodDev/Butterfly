@@ -1,12 +1,12 @@
 ---
-title: Koko näytön työkalu
+title: Full screen tool
 ---
 
-:::note[⚡ Toiminnan väline]
+:::note[⚡ Action tool]
 
-Tämä on erityinen työkalu.
+This is a special tool.
 Et voi valita sitä, ja se suorittaa toiminnon, jos klikkaat sitä.
 
 :::
 
-Kun napsautat tätä työkalua, voit ottaa koko näytön käyttöön.
+When clicking on this tool you can toggle full screen.
