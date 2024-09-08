@@ -2,7 +2,7 @@
 title: Värin valitsin
 ---
 
-![Värin keräys](color_picker.png)
+![Color picker](color_picker.png)
 
 - Avaa, tallenna valintaikkuna, jotta voit käyttää sitä muissa asiakirjoissa
 - Palauta paletti oletusmateriaalille palettia varten
