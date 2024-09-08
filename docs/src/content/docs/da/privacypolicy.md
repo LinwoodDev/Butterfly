@@ -3,36 +3,36 @@ title: Privat Politik
 tableOfContents: false
 ---
 
-This is the privacy policy of the app. Please read it carefully.
-Click [here](https://go.linwood.dev/privacypolicy) to read the privacy policy of the website.
+Dette er appens privatlivspolitik. Læs den venligst omhyggeligt.
+Klik på [here](https://go.linwood.dev/privacypolicy) for at læse webstedets privatlivspolitik.
 
-CodeDoctor built the Butterfly app as an Open Source app. This SERVICE is provided by CodeDoctor at no cost and is intended for use as is.
+CodeDoctor byggede Butterfly appen som en Open Source app. Denne SERVICE leveres af CodeDoctor uden omkostninger og er beregnet til brug, som det er.
 
 Denne side bruges til at informere besøgende om mine politikker med samlingen, brug og videregivelse af personlige oplysninger, hvis nogen besluttede at bruge min tjeneste.
 
-If you choose to use my Service, then you agree to the collection and use of information in relation to this policy. The Personal Information that I collect is used for providing and improving the
-Service. I will not use or share your information with anyone except as described in this Privacy Policy.
+Hvis du vælger at bruge min tjeneste, accepterer du indsamling og brug af oplysninger i forbindelse med denne politik. De personlige oplysninger, som jeg indsamler, bruges til at levere og forbedre
+tjenesten. Jeg vil ikke bruge eller dele dine oplysninger med nogen, undtagen som beskrevet i denne fortrolighedspolitik.
 
 De vilkår, der anvendes i denne privatlivspolitik har samme betydning som i vores Vilkår og Betingelser, som er tilgængelig på Butterfly medmindre andet er fastsat i denne privatlivspolitik.
 
 **Indsamling og anvendelse af oplysninger**
 
-For a better experience, while using our Service, I may require you to provide us with certain personally identifiable information. The information that I request will be retained on your device and
-is not collected by me in any way.
+For en bedre oplevelse, mens du bruger vores service, kan jeg kræve, at du giver os visse personligt identificerbare oplysninger. De oplysninger, som jeg anmoder om, vil blive opbevaret på din enhed, og
+indsamles ikke af mig på nogen måde.
 
 Appen bruger tredjepartstjenester, der kan indsamle oplysninger, der bruges til at identificere dig.
 
 Link til privatlivspolitik for tredjepartstjenesteudbydere, der bruges af appen
 
-- [Google Play Services](https://www.google.com/policies/privacy/)
+- [Google Play-tjenester](https://www.google.com/polices/privacy/)
 
 **Cookies**
 
-Cookies are files with a small amount of data that are commonly used as anonymous unique identifiers. These are sent to your browser from the websites that you visit and are stored on your device's
-internal memory.
+Cookies er filer med en lille mængde data, der almindeligvis anvendes som anonyme unikke identifikatorer. Disse sendes til din browser fra de websteder, du besøger, og gemmes på din enheds
+interne hukommelse.
 
-This Service does not use these “cookies” explicitly. However, the app may use third party code and libraries that use “cookies” to collect information and improve their services. You have the option
-to either accept or refuse these cookies and know when a cookie is being sent to your device. If you choose to refuse our cookies, you may not be able to use some portions of this Service.
+Denne tjeneste bruger ikke disse “cookies” udtrykkeligt. Appen kan dog bruge tredjepartskode og biblioteker, der bruger “cookies” til at indsamle oplysninger og forbedre deres tjenester. Du har mulighed
+for enten at acceptere eller afvise disse cookies og vide, hvornår en cookie sendes til din enhed. Hvis du vælger at afvise vores cookies, kan du muligvis ikke bruge nogle dele af denne tjeneste.
 
 **Tjenesteudbydere**
 
@@ -43,29 +43,29 @@ Jeg kan ansætte tredjepartsvirksomheder og enkeltpersoner på grund af følgend
 - Udførelse af tjenesterelaterede tjenester, eller
 - For at hjælpe os med at analysere, hvordan vores Service anvendes.
 
-I want to inform users of this Service that these third parties have access to your Personal Information. The reason is to perform the tasks assigned to them on our behalf. However, they are obligated
-not to disclose or use the information for any other purpose.
+Jeg vil gerne informere brugerne af denne tjeneste om, at disse tredjeparter har adgang til dine personlige oplysninger. Grunden er at udføre de opgaver, der er tildelt dem på vores vegne. De er imidlertid forpligtede
+til ikke at videregive eller anvende oplysningerne til andre formål.
 
-**Security**
+**Sikkerhed**
 
-I value your trust in providing us your Personal Information, thus we are striving to use commercially acceptable means of protecting it. But remember that no method of transmission over the internet,
-or method of electronic storage is 100% secure and reliable, and I cannot guarantee its absolute security.
+Jeg værdsætter din tillid til at give os dine personlige oplysninger, så vi stræber efter at bruge kommercielt acceptable midler til at beskytte det. Men husk, at ingen metode til overførsel over internettet,
+eller metode til elektronisk lagring er 100 % sikker og pålidelig, og jeg kan ikke garantere dens absolutte sikkerhed.
 
 **Links til andre websteder**
 
-This Service may contain links to other sites. If you click on a third-party link, you will be directed to that site. Note that these external sites are not operated by me. Therefore, I strongly
-advise you to review the Privacy Policy of these websites. I have no control over and assume no responsibility for the content, privacy policies, or practices of any third-party sites or services.
+Denne tjeneste kan indeholde links til andre websteder. Hvis du klikker på et tredjepartslink, vil du blive dirigeret til dette websted. Bemærk, at disse eksterne websteder ikke drives af mig. Derfor, jeg kraftigt
+råde dig til at gennemgå Privacy Policy af disse hjemmesider. Jeg har ingen kontrol over og påtager sig intet ansvar for indholdet, privatlivets fred politikker, eller praksis af nogen tredjeparts websteder eller tjenester.
 
 **Ændringer til denne privatlivspolitik**
 
-I may update our Privacy Policy from time to time. Thus, you are advised to review this page periodically for any changes. I will notify you of any changes by posting the new Privacy Policy on this
-page.
+Jeg kan opdatere vores privatlivspolitik fra tid til anden. Derfor rådes du til at gennemgå denne side med jævne mellemrum for eventuelle ændringer. Jeg vil give dig besked om eventuelle ændringer ved at sende den nye fortrolighedspolitik på denne
+side.
 
 Denne politik er effektiv fra 2021-02-07
 
-**Contact Us**
+**Kontakt os**
 
 Hvis du har spørgsmål eller forslag til min privatlivspolitik, tøv ikke med at kontakte mig på contact@linwood.dev.
 
-This privacy policy page was created at [privacypolicytemplate.net](https://privacypolicytemplate.net) and modified/generated
-by [App Privacy Policy Generator](https://app-privacy-policy-generator.nisrulz.com/)
+Denne privatlivspolitik side blev oprettet på [privacypolicytemplate.net](https://privacypolicytemplate.net) og modified/generated
+af [App Privacy Policy Generator](https://app-privacy-policy-generator.nisrulz.com/)
