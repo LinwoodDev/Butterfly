@@ -1,13 +1,13 @@
 ---
-title: Redo tool
+title: أداة إعادة التشكيل
 ---
 
-:::note[⚡ Action tool]
+:::note[⚡ أداة العمل]
 
-This is a special tool.
+وهذه أداة خاصة.
 لا يمكنك إختياره وستقوم بتشغيل الإجراء إذا قمت بالنقر عليه.
 
 :::
 
-When clicking on this tool you can redo your last action.
-See the [undo tool](../undo) for undoing your last action.
+عند النقر على هذه الأداة يمكنك إعادة تنفيذ الإجراء الأخير.
+راجع [أداة التراجع](../التراجع) لإلغاء الإجراء الأخير.
