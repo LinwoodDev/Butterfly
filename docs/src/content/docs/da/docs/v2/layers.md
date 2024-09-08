@@ -2,7 +2,7 @@
 title: Lag
 ---
 
-Lag er en mulighed for at gruppere elementer sammen. Klik på elementet for at se og ændre laget. Use the [layer tool](../tools/layer) to change the layers of multiple elements.
+Lag er en mulighed for at gruppere elementer sammen. Klik på elementet for at se og ændre laget. Brug [layer-værktøjet](../tools/layer) til at ændre flere elementers lag.
 
 ## Dialogen for lag
 
