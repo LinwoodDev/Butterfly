@@ -612,6 +612,6 @@
   "install": "Installa",
   "deselect": "Deseleziona",
   "changeLayer": "Cambia livello",
-  "fullSelection": "Full selection",
-  "fullSelectionDescription": "Requires elements to be fully within the selection box for selection."
+  "fullSelection": "Selezione completa",
+  "fullSelectionDescription": "Richiede elementi per essere completamente all'interno della casella di selezione per la selezione."
 }
