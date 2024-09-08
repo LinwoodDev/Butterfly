@@ -1,8 +1,8 @@
 ---
-title: Ferramenta de caneta
+title: Pen tool
 ---
 
-Com esta ferramenta pode-se usar esse papel.
+With this tool you can draw on this paper.
 
 ## Configuração
 
