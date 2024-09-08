@@ -1,8 +1,8 @@
 ---
-title: Værktøjet Sti viskelæder
+title: Path eraser tool
 ---
 
-Med dette værktøj kan du slette hele stien på papiret.
+With this tool you can delete the whole path on the paper.
 
 ## Konfiguration
 
