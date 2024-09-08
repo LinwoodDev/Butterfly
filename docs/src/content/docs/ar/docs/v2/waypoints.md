@@ -2,6 +2,6 @@
 title: إحداثيات
 ---
 
-مع إحداثيات الطريق، يمكنك حفظ المواقع الهامة في ملاحظاتك. يمكنك استخدامها للتنقل عبر ملاحظاتك.
+With waypoints you can save important locations in your notes. You can use them to navigate through your notes.
 
-استخدم صفحة متنقل إحداثيات الطريق لإنشاء وإدارة نقاط الطريق.
+Use the waypoint navigator page to create and manage waypoints.
