@@ -1,17 +1,17 @@
 ---
-title: Utilities
+title: Hilfsmittel
 ---
 
-This view allows you to change the general document or the view.
+Mit dieser Ansicht können Sie das allgemeine Dokument oder die Ansicht ändern.
 
 ## Projekt
 
-Here are all globally properties that you can set like name and description.
-Additionally you can capture a thumbnail from the current viewport to see it in the home page.
+Hier sind alle globalen Eigenschaften, die Sie wie Name und Beschreibung festlegen können.
+Zusätzlich können Sie ein Miniaturbild aus dem aktuellen Viewport aufnehmen, um es auf der Startseite zu sehen.
 
 ## Seite
 
-Here are all page specific properties. Currently you can find the background setting here.
+Hier sind alle seitenspezifischen Eigenschaften. Zur Zeit finden Sie hier die Hintergrundeinstellung.
 
 ## Ansicht
 
@@ -25,4 +25,4 @@ Mit dem Lineal können Sie den Abstand zwischen zwei Punkten messen. Zusätzlich
 
 ## Kamera
 
-To jump to a specific position or zoom to a specific level you can use this tab.
+Um zu einer bestimmten Position zu springen oder zu einer bestimmten Ebene zu zoomen können Sie diesen Tab benutzen.
