@@ -1,8 +1,8 @@
 ---
-title: Kerroksen työkalu
+title: Layer tool
 ---
 
-Tämän työkalun avulla voit vaihtaa kerroksen useita esineitä. Lue lisää kerroksista [here](../layers.md).
+Tämän työkalun avulla voit vaihtaa kerroksen useita esineitä. Read more about layers [here](../layers.md).
 Kun napsautat objektia, objektin kerros vaihdetaan tasolle, joka on asetettu asetetussa asetuksessa. Jos kerroksen kenttä jätetään tyhjäksi, kerros asetetaan oletuskerrokseen.
 
 ## Asetukset
