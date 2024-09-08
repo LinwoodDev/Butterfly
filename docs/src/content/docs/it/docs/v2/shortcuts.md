@@ -21,7 +21,7 @@ Alcuni di loro sono scritti sotto i pulsanti.
 
 ### Progetto
 
-- `Ctrl` + `K`: Open search
+- `Ctrl` + `K`: Apri ricerca
 - `Ctrl` + `Z`: Annulla
 - `Ctrl` + `Y`: Ripeti
 - `Ctrl` + `Shift` + `P`: Apri waypoints finestra
@@ -38,7 +38,7 @@ Per impostazione predefinita, la penna è configurata per funzionare come segue:
 
 - `Penna`: configurato come penna.
 - `First` (pulsante primario, se supportato): Cambia a mano mentre premuto lo strumento.
-- `Second` (Secondary button, if supported): Change to second tool (see [configure](#configure) section below) while pressed.
+- `Second` (Pulsante secondario, se supportato): Passa al secondo strumento (vedi sezione [configure](#configure) qui sotto) mentre premi.
 
 ## Configura {#configure}
 
