@@ -1,12 +1,12 @@
 ---
-title: Full screen tool
+title: 全画面表示ツール
 ---
 
-:::note[⚡ Action tool]
+:::note[⚡ アクションツール]
 
-This is a special tool.
+これは特別なツールです。
 あなたはそれを選択することはできませんし、それをクリックするとアクションを実行します。
 
 :::
 
-When clicking on this tool you can toggle full screen.
+このツールをクリックすると、フルスクリーンを切り替えることができます。
