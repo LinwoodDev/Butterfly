@@ -1,8 +1,8 @@
 ---
-title: Інструмент пера
+title: Pen tool
 ---
 
-За допомогою цього інструменту можна намалювати цей папір.
+With this tool you can draw on this paper.
 
 ## Конфігурація
 
