@@ -2,6 +2,6 @@
 title: Waypoints
 ---
 
-Avec les waypoints, vous pouvez enregistrer des emplacements importants dans vos notes. Vous pouvez les utiliser pour naviguer dans vos notes.
+With waypoints you can save important locations in your notes. You can use them to navigate through your notes.
 
-Utilisez la page du navigateur de waypoint pour créer et gérer les waypoints.
+Use the waypoint navigator page to create and manage waypoints.
