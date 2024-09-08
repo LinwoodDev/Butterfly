@@ -2,11 +2,11 @@
 title: Strumenti
 ---
 
-Tools can edit the paper.
+Gli strumenti possono modificare la carta.
 
 Usa la barra laterale per saperne di più sugli strumenti.
 
-Create a new tool by clicking on the plus icon. Change the tool order by dragging and change the tool by clicking.
+Crea un nuovo strumento facendo clic sull'icona plus. Cambia l'ordine dello strumento trascinando e cambiando lo strumento facendo clic.
 Se si fa clic su uno strumento selezionato è possibile configurarlo.
 
-The name of the tool will be displayed as tooltip on hover on the tool.
+Il nome dello strumento verrà visualizzato come suggerimento al passaggio sullo strumento.
