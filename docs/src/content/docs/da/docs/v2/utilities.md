@@ -1,17 +1,17 @@
 ---
-title: Værktøjer
+title: Utilities
 ---
 
-Denne visning tillader dig at ændre det generelle dokument eller visningen.
+This view allows you to change the general document or the view.
 
 ## Projekt
 
-Her er alle globale egenskaber, som du kan indstille som navn og beskrivelse.
-Derudover kan du tage en miniature fra den aktuelle viewport for at se den på hjemmesiden.
+Here are all globally properties that you can set like name and description.
+Additionally you can capture a thumbnail from the current viewport to see it in the home page.
 
 ## Side
 
-Her er alle sidespecifikke egenskaber. I øjeblikket kan du finde baggrundsindstillingen her.
+Here are all page specific properties. Currently you can find the background setting here.
 
 ## Vis
 
@@ -25,4 +25,4 @@ Den lineal tillader dig at måle afstanden mellem to punkter. Derudover kan du b
 
 ## Kamera
 
-For at hoppe til en bestemt position eller zoome til et bestemt niveau, kan du bruge denne fane.
+To jump to a specific position or zoom to a specific level you can use this tab.
