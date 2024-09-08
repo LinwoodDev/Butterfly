@@ -1,8 +1,8 @@
 ---
-title: Label tool
+title: Tunnisteiden työkalu
 ---
 
-With this tool you can add text to the paper.
+Tämän työkalun avulla voit lisätä tekstiä paperiin.
 
 ## Asetukset
 
