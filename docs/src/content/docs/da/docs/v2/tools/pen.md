@@ -1,8 +1,8 @@
 ---
-title: Værktøjet til pen
+title: Pen tool
 ---
 
-Med dette værktøj kan du trække på dette papir.
+With this tool you can draw on this paper.
 
 ## Konfiguration
 
