@@ -1,5 +1,5 @@
 ---
-title: 手工具
+title: Hand tool
 ---
 
-使用此工具，您可以在页面上移动。
+With this tool you can move on the page.
