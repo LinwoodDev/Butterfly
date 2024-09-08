@@ -1,11 +1,11 @@
 ---
-title: Shape tool
+title: Narzędzie kształtu
 ---
 
-Use this tool to draw shapes on the paper.
+Użyj tego narzędzia, aby narysować kształty na papierze.
 Możesz narysować prostokąty, koła i inne kształty.
 
-Use `ctrl` to have the same height and width and `shift` to draw from the center.
+Użyj `ctrl` aby mieć tę samą wysokość i szerokość oraz `shift` aby narysować z środka.
 
 ## Konfiguracja
 
