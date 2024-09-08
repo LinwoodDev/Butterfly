@@ -1,8 +1,8 @@
 ---
-title: Ручной инструмент
+title: Pen tool
 ---
 
-С помощью этого инструмента вы можете нарисовать на этой бумаге.
+With this tool you can draw on this paper.
 
 ## Конфигурация
 
