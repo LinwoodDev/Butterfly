@@ -1,8 +1,8 @@
 ---
-title: 区域工具
+title: Area tool
 ---
 
-区域工具允许您创建、编辑和删除区域。
+The area tool allows you to create, edit and remove areas.
 
 ## 行动
 
