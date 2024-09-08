@@ -1,8 +1,8 @@
 ---
-title: 激光工具
+title: Laser tool
 ---
 
-使用这个工具，你可以暂时使用这个纸张。 一段时间后，抽取消失了。 在文档中添加一个新绘图以使其取消。
+With this tool you can draw on this paper temporarily. 一段时间后，抽取消失了。 在文档中添加一个新绘图以使其取消。
 
 ## 配置
 
