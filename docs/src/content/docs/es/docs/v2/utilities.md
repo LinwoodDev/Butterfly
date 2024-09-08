@@ -1,17 +1,17 @@
 ---
-title: Utilities
+title: Utilidades
 ---
 
-This view allows you to change the general document or the view.
+Esta vista le permite cambiar el documento general o la vista.
 
 ## Projekt
 
-Here are all globally properties that you can set like name and description.
-Additionally you can capture a thumbnail from the current viewport to see it in the home page.
+Aquí están todas las propiedades globales que puede establecer como nombre y descripción.
+Además, puede capturar una miniatura desde la vista actual para verla en la página de inicio.
 
 ## Pgina
 
-Here are all page specific properties. Currently you can find the background setting here.
+Aquí están todas las propiedades específicas de la página. Actualmente puede encontrar la configuración de fondo aquí.
 
 ## Ver
 
@@ -25,4 +25,4 @@ La regla le permite medir la distancia entre dos puntos. Además, puede usarlo p
 
 ## Cámara
 
-To jump to a specific position or zoom to a specific level you can use this tab.
+Para saltar a una posición específica o acercar a un nivel específico puede utilizar esta pestaña.
