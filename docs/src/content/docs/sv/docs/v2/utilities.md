@@ -1,17 +1,17 @@
 ---
-title: Utilities
+title: Verktyg
 ---
 
-This view allows you to change the general document or the view.
+Med den här vyn kan du ändra det allmänna dokumentet eller vyn.
 
 ## Projekt
 
-Here are all globally properties that you can set like name and description.
-Additionally you can capture a thumbnail from the current viewport to see it in the home page.
+Här är alla globalt egenskaper som du kan ställa in som namn och beskrivning.
+Dessutom kan du fånga en miniatyrbild från den aktuella vyn för att se den på startsidan.
 
 ## Sida
 
-Here are all page specific properties. Currently you can find the background setting here.
+Här är alla sidspecifika egenskaper. För närvarande kan du hitta bakgrundsinställningen här.
 
 ## Visa
 
@@ -25,4 +25,4 @@ Linjalen låter dig mäta avståndet mellan två punkter. Dessutom kan du använ
 
 ## Kamera
 
-To jump to a specific position or zoom to a specific level you can use this tab.
+För att hoppa till en specifik position eller zooma till en specifik nivå kan du använda den här fliken.
