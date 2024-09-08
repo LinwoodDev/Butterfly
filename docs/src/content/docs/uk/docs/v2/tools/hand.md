@@ -1,5 +1,5 @@
 ---
-title: Hand tool
+title: Ручний інструмент
 ---
 
-With this tool you can move on the page.
+За допомогою цього інструменту можна перемістити сторінку.
