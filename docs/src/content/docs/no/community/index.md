@@ -8,10 +8,10 @@ Velkommen til samfunnsseksjonen.
 
 En spesiell takk går til:
 
-- [Flutter](https://github.com/flutter/flutter) for providing this useful crossplatform ui framework
-- [window_manager](https://github.com/leanflutter/window_manager) for all this useful desktop window features
-- [Starlight](https://github.com/withastro/starlight) for an easy-to-use static react documentation framework
-- [Phosphor Icons](https://phosphoricons.com/) for the beautiful icons
+- [Flutter](https://github.com/flutter/flutter) for å gi dette nyttige crossplatform ui rammeverket
+- [window_manager](https://github.com/leanflutter/window_manager) for alle disse nyttige skrivebordsfunksjonene
+- [Starlight](https://github.com/withastro/starlight) for et system som er lett å bruke statisk reagere
+- [Fosfor Icons](https://fosicons.com/) for de vakre ikonene
 
 Du finner alle andre lisenser i innstillingene.
 
