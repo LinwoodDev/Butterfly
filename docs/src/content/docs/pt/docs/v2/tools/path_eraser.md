@@ -1,8 +1,8 @@
 ---
-title: Ferramenta de borracha
+title: Path eraser tool
 ---
 
-Com essa ferramenta você pode excluir o caminho inteiro no papel.
+With this tool you can delete the whole path on the paper.
 
 ## Configuração
 
