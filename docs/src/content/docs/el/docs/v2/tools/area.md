@@ -1,8 +1,8 @@
 ---
-title: Area tool
+title: Περιοχή εργαλείου
 ---
 
-The area tool allows you to create, edit and remove areas.
+Το εργαλείο περιοχής σας επιτρέπει να δημιουργήσετε, να επεξεργαστείτε και να αφαιρέσετε περιοχές.
 
 ## Ενέργειες
 
