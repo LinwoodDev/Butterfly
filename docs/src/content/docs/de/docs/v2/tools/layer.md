@@ -1,8 +1,8 @@
 ---
-title: Ebenen-Werkzeug
+title: Layer tool
 ---
 
-Mit diesem Tool können Sie die Ebene von mehreren Objekten ändern. Lesen Sie mehr über die Ebenen [here](../layers.md).
+Mit diesem Tool können Sie die Ebene von mehreren Objekten ändern. Read more about layers [here](../layers.md).
 Wenn Sie auf ein Objekt klicken, wird die Ebene des Objekts in der Konfiguration geändert. Wenn das Ebenenfeld leer gelassen wird, wird die Ebene auf die Standardebene gesetzt.
 
 ## Konfiguration
