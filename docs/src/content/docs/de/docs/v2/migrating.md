@@ -15,4 +15,4 @@ Die Radierschicht wird entfernt. Bei der Migration wird die Löschschschicht ent
 ## Ältere Versionen
 
 Alle vorher durchgeführten Migrationen werden automatisch durchgeführt.
-Read the full migration in code [here](https://github.com/LinwoodDev/Butterfly/blob/95825da4ebbf9ded392c863da577666dbcdda45c/app/lib/models/converter.dart#L17).
+Lesen Sie die vollständige Migration im Code [here](https://github.com/LinwoodDev/Butterfly/blob/95825da4ebbf9ded392c863da577666dbcdda45c/app/lib/models/converter.dart#L17).
