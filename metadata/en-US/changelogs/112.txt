@@ -1,4 +1,4 @@
-* Add full selection mode
+* Add full selection mode ([#684](https://github.com/LinwoodDev/Butterfly/issues/684))
 * Save utilities states after restart
 * Ignore invalid files with invalid syntax
 * Fix elements not being selected after moving

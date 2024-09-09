@@ -482,9 +482,9 @@ packages:
     dependency: "direct main"
     description:
       path: "."
-      ref: bb3b74ea95dcb133a19bf9a00942355030961b6e
-      resolved-ref: bb3b74ea95dcb133a19bf9a00942355030961b6e
-      url: "https://github.com/rydmike/flex_color_scheme"
+      ref: "43fe29eff33540de906e402b5a7df1ed0153ef0c"
+      resolved-ref: "43fe29eff33540de906e402b5a7df1ed0153ef0c"
+      url: "https://github.com/CodeDoctorDE/flex_color_scheme"
     source: git
     version: "8.0.0-dev.1"
   flex_seed_scheme:
@@ -1363,18 +1363,18 @@ packages:
     dependency: "direct main"
     description:
       name: super_clipboard
-      sha256: "71d2a81e0e3a8c5d6339715a42f8dd42c6def02c0c805a23d45611010de39fbe"
+      sha256: f79df139913c6810c4ccf37a962c0995e996baef6cbe95ef99a22a8eb39182e4
       url: "https://pub.dev"
     source: hosted
-    version: "0.8.20"
+    version: "0.8.21"
   super_native_extensions:
     dependency: transitive
     description:
       name: super_native_extensions
-      sha256: "9d674b8c71e16f586b3967e67a6faa83c35e3d9ea4f64bca8551badfddf992cb"
+      sha256: "46d99771d50cbc37dfd4eeae90a37ca8f8eb58fd7995867b667189be2f90fed0"
       url: "https://pub.dev"
     source: hosted
-    version: "0.8.20"
+    version: "0.8.21"
   sync_http:
     dependency: transitive
     description:

@@ -49,8 +49,8 @@ dependencies:
   window_manager: ^0.4.0
   flex_color_scheme:
     git:
-      url: https://github.com/rydmike/flex_color_scheme
-      ref: bb3b74ea95dcb133a19bf9a00942355030961b6e
+      url: https://github.com/CodeDoctorDE/flex_color_scheme
+      ref: 43fe29eff33540de906e402b5a7df1ed0153ef0c
   json_annotation: ^4.9.0
   path: ^1.8.3
   printing: ^5.13.1
