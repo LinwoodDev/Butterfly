@@ -541,7 +541,7 @@
   "page": "Page",
   "iceServers": "ICE Servers",
   "collaboration": "Collaboration",
-  "webRtc": "Web RTC",
+  "webRtc": "",
   "webSocket": "Web Socket",
   "iceServer": "ICE Server",
   "port": "Port",
@@ -611,5 +611,7 @@
   "installed": "Installed",
   "install": "Install",
   "deselect": "Deselect",
-  "changeLayer": "Change layer"
+  "changeLayer": "Change layer",
+  "fullSelection": "Full selection",
+  "fullSelectionDescription": "Requires elements to be fully within the selection box for selection."
 }

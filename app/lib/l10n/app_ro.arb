@@ -611,5 +611,7 @@
   "installed": "Instalat",
   "install": "Instalează",
   "deselect": "Deselectează",
-  "changeLayer": "Schimbă stratul"
+  "changeLayer": "Schimbă stratul",
+  "fullSelection": "Selecţie completă",
+  "fullSelectionDescription": "Necesită ca elementele să fie complet în caseta de selecție pentru selecție."
 }

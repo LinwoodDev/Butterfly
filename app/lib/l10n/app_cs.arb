@@ -611,5 +611,7 @@
   "installed": "Nainstalováno",
   "install": "Instalovat",
   "deselect": "Zrušit výběr",
-  "changeLayer": "Změnit vrstvu"
+  "changeLayer": "Změnit vrstvu",
+  "fullSelection": "Plný výběr",
+  "fullSelectionDescription": "Vyžaduje, aby prvky byly plně ve výběrovém poli pro výběr."
 }

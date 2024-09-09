@@ -611,5 +611,7 @@
   "installed": "Zainstalowane",
   "install": "Zainstaluj",
   "deselect": "Odznacz",
-  "changeLayer": "Zmień warstwę"
+  "changeLayer": "Zmień warstwę",
+  "fullSelection": "Pełny wybór",
+  "fullSelectionDescription": "Wymaga, aby elementy znajdowały się w całości w polu wyboru do wyboru."
 }
