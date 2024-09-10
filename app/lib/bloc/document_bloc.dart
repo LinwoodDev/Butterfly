@@ -247,10 +247,12 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
           page: newPage,
         ),
         replacedElements: renderers,
-        shouldRefresh: () => replacedRenderers.entries.any((element) => current
-            .currentIndexCubit
-            .getHandler()
-            .onRendererUpdated(page, element.key, element.value)),
+        shouldRefresh: () => replacedRenderers.entries
+            .map((element) => current.currentIndexCubit
+                .getHandler()
+                .onRendererUpdated(page, element.key, element.value))
+            .toList()
+            .any((e) => e),
       );
     }, transformer: sequential());
     on<ElementsArranged>((event, emit) async {

@@ -8,4 +8,5 @@
 * Change layer navigator page to new layer system
 * Improve action tool visualization in edit toolbar
 * Add eye dropper docs
-* Add tollerance to area move in navigator page to fix duplicated areas
+* Add tolerance to area move in navigator page to fix duplicated areas
+* Update selection incorrect when transforming multiple elements

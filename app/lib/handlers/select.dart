@@ -75,7 +75,7 @@ class SelectHandler extends Handler<SelectTool> {
     Rect? rect;
     for (final element in _selected) {
       final current = element.expandedRect;
-      if (current != null) {
+      if (current != null && !current.isEmpty) {
         rect = rect?.expandToInclude(current) ?? current;
       }
     }
