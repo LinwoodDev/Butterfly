@@ -466,11 +466,13 @@ class SelectHandler extends Handler<SelectTool> {
     bloc.refresh();
   }
 
-  void selectAll(DocumentBloc bloc) {
+  void selectAll(DocumentBloc bloc,
+      [bool Function(Renderer<PadElement>)? filter]) {
     final state = bloc.state;
     if (state is! DocumentLoadSuccess) return;
     _selected.clear();
-    _selected.addAll(state.renderers);
+    _selected.addAll(state.renderers.where((e) => filter?.call(e) ?? true));
+    _updateSelectionRect();
     bloc.refresh();
   }
 

@@ -615,5 +615,6 @@
   "collections": "Collections",
   "fullSelection": "Full selection",
   "fullSelectionDescription": "Requires elements to be fully within the selection box for selection.",
-  "collection": "Collection"
+  "collection": "Collection",
+  "defaultCollection": "Default collection"
 }

@@ -160,8 +160,8 @@ class _EditToolbarState extends State<EditToolbar> {
                       highlighted:
                           currentIndex.selection?.selected.contains(tempData) ??
                               false,
-                      icon: PhosphorIcon(icon),
-                      selectedIcon: PhosphorIcon(iconFilled),
+                      icon: _buildIcon(icon, size),
+                      selectedIcon: _buildIcon(iconFilled, size),
                       onLongPressed: () => context
                           .read<CurrentIndexCubit>()
                           .changeSelection(tempData),

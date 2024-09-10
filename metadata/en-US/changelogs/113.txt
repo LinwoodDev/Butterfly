@@ -10,3 +10,5 @@
 * Add eye dropper docs
 * Add tolerance to area move in navigator page to fix duplicated areas
 * Update selection incorrect when transforming multiple elements
+* Fix select all shortcut
+* Fix temporary tool is not the right size in the edit toolbar
