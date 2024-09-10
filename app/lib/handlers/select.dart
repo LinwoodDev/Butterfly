@@ -397,13 +397,13 @@ class SelectHandler extends Handler<SelectTool> {
     if (rectangleSelection != null && !rectangleSelection.isEmpty) {
       final hits = await context.getDocumentBloc().rayCastRect(
             rectangleSelection,
-            useLayer: true,
+            useCollection: true,
           );
       _selected.addAll(hits);
     } else if (lassoSelection != null && lassoSelection.isNotEmpty) {
       final hits = await context.getDocumentBloc().rayCastPolygon(
             lassoSelection,
-            useLayer: true,
+            useCollection: true,
           );
       _selected.addAll(hits);
     } else {

@@ -149,7 +149,7 @@ class _GeneralExportDialogState extends State<GeneralExportDialog> {
                 leading: const PhosphorIcon(PhosphorIconsLight.export),
                 actions: [
                   IconButton(
-                    icon: const Icon(PhosphorIconsLight.mapPin),
+                    icon: const Icon(PhosphorIconsLight.pushPin),
                     tooltip: AppLocalizations.of(context).pin,
                     onPressed: () {
                       final tool = ExportTool(options: _options);

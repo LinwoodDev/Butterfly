@@ -74,7 +74,7 @@ class CollectionDialog extends StatelessWidget {
         MenuItemButton(
           leadingIcon: const PhosphorIcon(PhosphorIconsLight.x),
           onPressed: () {
-            context.read<DocumentBloc>().add(LayerRemoved(collection));
+            context.read<DocumentBloc>().add(LayerRenamed(collection, ''));
             Navigator.pop(context);
           },
           child: Text(AppLocalizations.of(context).remove),

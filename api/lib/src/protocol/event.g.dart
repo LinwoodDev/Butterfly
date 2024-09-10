@@ -342,17 +342,6 @@ Map<String, dynamic> _$$LayerRenamedImplToJson(_$LayerRenamedImpl instance) =>
       'type': instance.$type,
     };
 
-_$LayerRemovedImpl _$$LayerRemovedImplFromJson(Map json) => _$LayerRemovedImpl(
-      json['name'] as String,
-      $type: json['type'] as String?,
-    );
-
-Map<String, dynamic> _$$LayerRemovedImplToJson(_$LayerRemovedImpl instance) =>
-    <String, dynamic>{
-      'name': instance.name,
-      'type': instance.$type,
-    };
-
 _$LayerElementsRemovedImpl _$$LayerElementsRemovedImplFromJson(Map json) =>
     _$LayerElementsRemovedImpl(
       json['name'] as String,

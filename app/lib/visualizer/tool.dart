@@ -117,10 +117,11 @@ extension ToolVisualizer on Tool {
 
   bool isAction() {
     return switch (this) {
-      ImportTool _ => true,
-      UndoTool _ => true,
-      RedoTool _ => true,
-      FullScreenTool _ => true,
+      ImportTool() => true,
+      UndoTool() => true,
+      RedoTool() => true,
+      FullScreenTool() => true,
+      ExportTool() => true,
       _ => false,
     };
   }

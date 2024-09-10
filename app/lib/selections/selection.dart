@@ -18,7 +18,6 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 import '../actions/background.dart';
 import '../actions/packs.dart';
 import '../cubits/transform.dart';
-import '../dialogs/layer.dart';
 import '../renderers/renderer.dart';
 import '../widgets/color_field.dart';
 
@@ -35,7 +34,6 @@ part 'tools/area.dart';
 part 'tools/eraser.dart';
 part 'tools/label.dart';
 part 'tools/laser.dart';
-part 'tools/layer.dart';
 part 'tools/path_eraser.dart';
 part 'tools/pen.dart';
 part 'tools/shape.dart';

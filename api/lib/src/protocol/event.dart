@@ -115,10 +115,6 @@ class DocumentEvent extends ReplayEvent with _$DocumentEvent {
     String newName,
   ) = LayerRenamed;
 
-  const factory DocumentEvent.layerRemoved(
-    String name,
-  ) = LayerRemoved;
-
   const factory DocumentEvent.layerElementsRemoved(
     String name,
   ) = LayerElementsRemoved;

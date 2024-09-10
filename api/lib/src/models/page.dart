@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:collection/collection.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
@@ -43,6 +45,19 @@ sealed class DocumentPage with _$DocumentPage {
   bool usesSource(String source) {
     return layers.any((e) =>
         e.content.whereType<SourcedElement>().any((e) => e.source == source));
+  }
+
+  DocumentPage mapLayers(DocumentLayer Function(DocumentLayer) mapper) {
+    final newLayers = layers.map(mapper).toList();
+    return copyWith(layers: newLayers);
+  }
+
+  Future<DocumentPage> mapLayersAsync(
+      FutureOr<DocumentLayer> Function(DocumentLayer) mapper) {
+    return Future.wait(layers.map((e) => Future.value(mapper(e))))
+        .then((newLayers) {
+      return copyWith(layers: newLayers.toList());
+    });
   }
 }
 

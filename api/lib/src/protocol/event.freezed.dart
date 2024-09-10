@@ -64,8 +64,6 @@ DocumentEvent _$DocumentEventFromJson(Map<String, dynamic> json) {
       return WaypointReordered.fromJson(json);
     case 'layerRenamed':
       return LayerRenamed.fromJson(json);
-    case 'layerRemoved':
-      return LayerRemoved.fromJson(json);
     case 'layerElementsRemoved':
       return LayerElementsRemoved.fromJson(json);
     case 'layerVisibilityChanged':
@@ -2768,104 +2766,6 @@ abstract class LayerRenamed extends DocumentEvent {
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
   _$$LayerRenamedImplCopyWith<_$LayerRenamedImpl> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class _$$LayerRemovedImplCopyWith<$Res> {
-  factory _$$LayerRemovedImplCopyWith(
-          _$LayerRemovedImpl value, $Res Function(_$LayerRemovedImpl) then) =
-      __$$LayerRemovedImplCopyWithImpl<$Res>;
-  @useResult
-  $Res call({String name});
-}
-
-/// @nodoc
-class __$$LayerRemovedImplCopyWithImpl<$Res>
-    extends _$DocumentEventCopyWithImpl<$Res, _$LayerRemovedImpl>
-    implements _$$LayerRemovedImplCopyWith<$Res> {
-  __$$LayerRemovedImplCopyWithImpl(
-      _$LayerRemovedImpl _value, $Res Function(_$LayerRemovedImpl) _then)
-      : super(_value, _then);
-
-  /// Create a copy of DocumentEvent
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? name = null,
-  }) {
-    return _then(_$LayerRemovedImpl(
-      null == name
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
-              as String,
-    ));
-  }
-}
-
-/// @nodoc
-@JsonSerializable()
-class _$LayerRemovedImpl extends LayerRemoved {
-  const _$LayerRemovedImpl(this.name, {final String? $type})
-      : $type = $type ?? 'layerRemoved',
-        super._();
-
-  factory _$LayerRemovedImpl.fromJson(Map<String, dynamic> json) =>
-      _$$LayerRemovedImplFromJson(json);
-
-  @override
-  final String name;
-
-  @JsonKey(name: 'type')
-  final String $type;
-
-  @override
-  String toString() {
-    return 'DocumentEvent.layerRemoved(name: $name)';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$LayerRemovedImpl &&
-            (identical(other.name, name) || other.name == name));
-  }
-
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  int get hashCode => Object.hash(runtimeType, name);
-
-  /// Create a copy of DocumentEvent
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$LayerRemovedImplCopyWith<_$LayerRemovedImpl> get copyWith =>
-      __$$LayerRemovedImplCopyWithImpl<_$LayerRemovedImpl>(this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$LayerRemovedImplToJson(
-      this,
-    );
-  }
-}
-
-abstract class LayerRemoved extends DocumentEvent {
-  const factory LayerRemoved(final String name) = _$LayerRemovedImpl;
-  const LayerRemoved._() : super._();
-
-  factory LayerRemoved.fromJson(Map<String, dynamic> json) =
-      _$LayerRemovedImpl.fromJson;
-
-  String get name;
-
-  /// Create a copy of DocumentEvent
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$LayerRemovedImplCopyWith<_$LayerRemovedImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 

@@ -108,7 +108,7 @@ class CollectionsView extends StatelessWidget {
                                   if (result != true) return;
                                   context
                                       .read<DocumentBloc>()
-                                      .add(LayerRemoved(layer));
+                                      .add(LayerRenamed(layer, ''));
                                 },
                           child: Text(AppLocalizations.of(context).delete),
                         )
