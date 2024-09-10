@@ -104,11 +104,11 @@ sealed class Tool with _$Tool {
     @Default(false) bool eraseElements,
   }) = PathEraserTool;
 
-  factory Tool.layer({
+  factory Tool.collection({
     @Default('') String name,
     @Default('') String displayIcon,
     @Default(5) double strokeWidth,
-  }) = LayerTool;
+  }) = CollectionTool;
 
   factory Tool.area({
     @Default('') String name,

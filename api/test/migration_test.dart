@@ -25,7 +25,7 @@ void main() {
       expect(info.tools[3], isA<UndoTool>());
       expect(info.tools[4], isA<RedoTool>());
       expect(info.tools[5], isA<AreaTool>());
-      expect(info.tools[6], isA<LayerTool>());
+      expect(info.tools[6], isA<CollectionTool>());
       expect(info.tools[7], isA<ShapeTool>());
       expect(info.tools[8], isA<StampTool>());
       expect(info.tools[9], isA<LaserTool>());

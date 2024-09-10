@@ -65,7 +65,7 @@ part 'hand.dart';
 part 'import.dart';
 part 'label.dart';
 part 'laser.dart';
-part 'layer.dart';
+part 'collection.dart';
 part 'path_eraser.dart';
 part 'pen.dart';
 part 'eye_dropper.dart';
@@ -233,7 +233,7 @@ abstract class Handler<T> {
       PenTool e => PenHandler(e),
       EraserTool e => EraserHandler(e),
       PathEraserTool e => PathEraserHandler(e),
-      LayerTool e => LayerHandler(e),
+      CollectionTool e => CollectionHandler(e),
       AreaTool e => AreaHandler(e),
       LaserTool e => LaserHandler(e),
       ShapeTool e => ShapeHandler(e),

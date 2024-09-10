@@ -614,5 +614,6 @@
   "changeLayer": "Change layer",
   "collections": "Collections",
   "fullSelection": "Full selection",
-  "fullSelectionDescription": "Requires elements to be fully within the selection box for selection."
+  "fullSelectionDescription": "Requires elements to be fully within the selection box for selection.",
+  "collection": "Collection"
 }

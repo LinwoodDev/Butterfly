@@ -55,7 +55,7 @@ abstract class PathElement {
 }
 
 mixin LabelElement {
-  String get layer;
+  String get collection;
   Point<double> get position;
   double get scale;
   PackAssetLocation get styleSheet;

@@ -1,7 +1,7 @@
 part of 'handler.dart';
 
-class LayerHandler extends Handler<LayerTool> {
-  LayerHandler(super.data);
+class CollectionHandler extends Handler<CollectionTool> {
+  CollectionHandler(super.data);
 
   @override
   Future<void> onPointerMove(

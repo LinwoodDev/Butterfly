@@ -145,7 +145,6 @@ class AddDialog extends StatelessWidget {
                         Tool.pathEraser,
                         Tool.label,
                         Tool.eraser,
-                        Tool.layer,
                         Tool.area,
                         Tool.presentation,
                         () => Tool.spacer(axis: Axis2D.vertical),
@@ -181,6 +180,7 @@ class AddDialog extends StatelessWidget {
                         Tool.undo,
                         Tool.redo,
                         Tool.fullScreen,
+                        Tool.collection,
                       ]
                           .map((e) => e())
                           .where((e) => e

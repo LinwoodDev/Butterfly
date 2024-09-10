@@ -180,14 +180,16 @@ Map<String, dynamic> _$$PathEraserToolImplToJson(
       'type': instance.$type,
     };
 
-_$LayerToolImpl _$$LayerToolImplFromJson(Map json) => _$LayerToolImpl(
+_$CollectionToolImpl _$$CollectionToolImplFromJson(Map json) =>
+    _$CollectionToolImpl(
       name: json['name'] as String? ?? '',
       displayIcon: json['displayIcon'] as String? ?? '',
       strokeWidth: (json['strokeWidth'] as num?)?.toDouble() ?? 5,
       $type: json['type'] as String?,
     );
 
-Map<String, dynamic> _$$LayerToolImplToJson(_$LayerToolImpl instance) =>
+Map<String, dynamic> _$$CollectionToolImplToJson(
+        _$CollectionToolImpl instance) =>
     <String, dynamic>{
       'name': instance.name,
       'displayIcon': instance.displayIcon,
