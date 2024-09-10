@@ -188,7 +188,7 @@ class ShapeHitCalculator extends HitCalculator {
   ShapeHitCalculator(this.element, this.rect, this.rotation);
 
   @override
-  bool hit(Rect rect) {
+  bool hit(Rect rect, {bool full = false}) {
     if (!this.rect.inflate(element.property.strokeWidth).overlaps(rect)) {
       return false;
     }
@@ -215,6 +215,9 @@ class ShapeHitCalculator extends HitCalculator {
         tl,
         bl,
       );
+      if (full) {
+        return lrt && tbr && lrb && tbl;
+      }
       return lrt || tbr || lrb || tbl;
     }
 
@@ -238,7 +241,7 @@ class ShapeHitCalculator extends HitCalculator {
   }
 
   @override
-  bool hitPolygon(List<ui.Offset> polygon) {
+  bool hitPolygon(List<ui.Offset> polygon, {bool full = false}) {
     final center = rect.center;
     // use isPointInPolygon
     switch (element.property.shape) {
@@ -247,33 +250,49 @@ class ShapeHitCalculator extends HitCalculator {
         final right = Offset(rect.right, center.dy).rotate(center, rotation);
         final bottom = Offset(center.dx, rect.bottom).rotate(center, rotation);
         final left = Offset(rect.left, center.dy).rotate(center, rotation);
-        return isPointInPolygon(polygon, top) ||
-            isPointInPolygon(polygon, right) ||
-            isPointInPolygon(polygon, bottom) ||
-            isPointInPolygon(polygon, left) ||
-            isPointInPolygon(polygon, center);
+        final isTop = isPointInPolygon(polygon, top);
+        final isRight = isPointInPolygon(polygon, right);
+        final isBottom = isPointInPolygon(polygon, bottom);
+        final isLeft = isPointInPolygon(polygon, left);
+        final isCenter = isPointInPolygon(polygon, center);
+        if (full) {
+          return isTop && isRight && isBottom && isLeft && isCenter;
+        }
+        return isTop || isRight || isBottom || isLeft || isCenter;
       case LineShape _:
-        return isPointInPolygon(polygon,
-                element.firstPosition.toOffset().rotate(center, rotation)) ||
-            isPointInPolygon(polygon,
-                element.secondPosition.toOffset().rotate(center, rotation));
+        final isFirst = isPointInPolygon(
+            polygon, element.firstPosition.toOffset().rotate(center, rotation));
+        final isSecond = isPointInPolygon(polygon,
+            element.secondPosition.toOffset().rotate(center, rotation));
+        if (full) {
+          return isFirst && isSecond;
+        }
+        return isFirst || isSecond;
       case RectangleShape _:
         final topLeft = rect.topLeft.rotate(center, rotation);
         final topRight = rect.topRight.rotate(center, rotation);
         final bottomLeft = rect.bottomLeft.rotate(center, rotation);
         final bottomRight = rect.bottomRight.rotate(center, rotation);
-        return isPointInPolygon(polygon, topLeft) ||
-            isPointInPolygon(polygon, topRight) ||
-            isPointInPolygon(polygon, bottomLeft) ||
-            isPointInPolygon(polygon, bottomRight) ||
-            isPointInPolygon(polygon, center);
+        final isTopLeft = isPointInPolygon(polygon, topLeft);
+        final isTopRight = isPointInPolygon(polygon, topRight);
+        final isBottomLeft = isPointInPolygon(polygon, bottomLeft);
+        final isBottomRight = isPointInPolygon(polygon, bottomRight);
+        if (full) {
+          return isTopLeft && isTopRight && isBottomLeft && isBottomRight;
+        }
+        return isTopLeft || isTopRight || isBottomLeft || isBottomRight;
       case TriangleShape _:
         final firstPosition =
             element.firstPosition.toOffset().rotate(center, rotation);
         final secondPosition =
             element.secondPosition.toOffset().rotate(center, rotation);
-        return isPointInPolygon(polygon, firstPosition) ||
-            isPointInPolygon(polygon, secondPosition);
+        final isFirst = isPointInPolygon(polygon, firstPosition);
+        final isSecond = isPointInPolygon(polygon, secondPosition);
+        final isCenter = isPointInPolygon(polygon, center);
+        if (full) {
+          return isFirst && isSecond && isCenter;
+        }
+        return isFirst || isSecond || isCenter;
     }
   }
 }

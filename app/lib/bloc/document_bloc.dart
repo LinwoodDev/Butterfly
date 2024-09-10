@@ -179,7 +179,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
                   e.copyWith(source: importImage(e.source, 'svg')),
                 _ => e,
               })
-          .map((e) => e.copyWith(id: createUniqueId()))
+          .map((e) => e.copyWith(id: e.id ?? createUniqueId()))
           .toList();
       final renderers = elements.map((e) => Renderer.fromInstance(e)).toList();
       if (renderers.isEmpty) return;
@@ -190,7 +190,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
             page: current.mapLayer(
                 (e) => e.copyWith(content: [...e.content, ...elements]))),
         addedElements: renderers,
-        refresh: current.currentIndexCubit
+        shouldRefresh: () => current.currentIndexCubit
             .getHandler()
             .onRenderersCreated(current.page, renderers),
       );
@@ -201,10 +201,12 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       if (!(current.embedding?.editable ?? true)) return;
       final renderers = <Renderer<PadElement>>[];
       var selection = current.currentIndexCubit.state.selection;
-      bool shouldRefresh = false;
+      final page = current.page;
       final oldRenderers = current.renderers;
       final elements = event.elements.map((key, value) => MapEntry(
           key, value.map((e) => e.copyWith(id: createUniqueId())).toList()));
+      final replacedRenderers =
+          <Renderer<PadElement>, List<Renderer<PadElement>>>{};
       for (final renderer in oldRenderers) {
         final id = renderer.element.id;
         final updated = elements[id];
@@ -225,11 +227,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
               selection = newSelection;
             }
           }
-          shouldRefresh = current.currentIndexCubit
-                  .getHandler()
-                  .onRendererUpdated(
-                      current.page, renderer, updatedRenderers) ||
-              shouldRefresh;
+          replacedRenderers[renderer] = updatedRenderers;
         } else {
           renderers.add(renderer);
         }
@@ -249,7 +247,10 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
           page: newPage,
         ),
         replacedElements: renderers,
-        refresh: true,
+        shouldRefresh: () => replacedRenderers.entries.any((element) => current
+            .currentIndexCubit
+            .getHandler()
+            .onRendererUpdated(page, element.key, element.value)),
       );
     }, transformer: sequential());
     on<ElementsArranged>((event, emit) async {
@@ -274,9 +275,10 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
         } else {
           final rect = renderer?.rect;
           if (rect != null) {
-            final hits = (await rayCastRect(rect, useLayer: false))
-                .map((e) => e.element)
-                .toList();
+            final hits =
+                (await rayCastRect(rect, useCollection: false, full: false))
+                    .map((e) => e.element)
+                    .toList();
             final hitIndex = hits.indexOf(renderer!.element);
             if (hitIndex != -1) {
               if (event.arrangement == Arrangement.backward && hitIndex != 0) {
@@ -552,7 +554,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
                 ? event.newName
                 : current.currentCollection),
         addedElements: null,
-        refresh: true,
+        shouldRefresh: () => true,
       );
     });
 
@@ -668,7 +670,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       return _saveState(
         emit,
         state: current.copyWith(page: currentDocument),
-        refresh: true,
+        shouldRefresh: () => true,
         reset: shouldRepaint,
       );
     });
@@ -689,7 +691,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       _saveState(
         emit,
         state: current.copyWith(page: currentPage),
-        refresh: true,
+        shouldRefresh: () => true,
         reset: shouldRepaint,
       );
     });
@@ -895,7 +897,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     List<Renderer<PadElement>>? replacedElements,
     List<Renderer<Background>>? backgrounds,
     bool reset = false,
-    bool refresh = false,
+    bool Function()? shouldRefresh,
     bool updateIndex = false,
   }) {
     if (this.state is! DocumentLoadSuccess && state == null) return;
@@ -908,7 +910,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       replacedElements: replacedElements,
       backgrounds: backgrounds,
       reset: reset,
-      refresh: refresh,
+      shouldRefresh: shouldRefresh,
       updateIndex: updateIndex,
     );
   }
@@ -1006,19 +1008,21 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     return rayCastRect(
       Rect.fromCircle(center: globalPosition, radius: radius),
       transform: transform,
-      useLayer: useLayer,
+      useCollection: useLayer,
     );
   }
 
   Future<Set<Renderer<PadElement>>> rayCastRect(
     Rect rect, {
     CameraTransform? transform,
-    required bool useLayer,
+    required bool useCollection,
+    bool? full,
   }) async {
     final state = this.state;
     if (state is! DocumentLoadSuccess) return {};
     transform ??= state.currentIndexCubit.state.transformCubit.state;
     final renderers = state.cameraViewport.visibleElements;
+    full ??= state.cameraViewport.utilities.element.fullSelection;
     return compute(
       _executeRayCast,
       _RayCastParams(
@@ -1026,7 +1030,8 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
         renderers.map((e) => _SmallRenderer.fromRenderer(e)).toList(),
         rect,
         transform.size,
-        useLayer ? state.currentCollection : null,
+        useCollection ? state.currentCollection : null,
+        full,
       ),
     ).then((value) => value.map((e) => renderers[e]).toSet());
   }
@@ -1034,12 +1039,14 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
   Future<Set<Renderer<PadElement>>> rayCastPolygon(
     List<Offset> points, {
     CameraTransform? transform,
-    required bool useLayer,
+    required bool useCollection,
+    bool? full,
   }) async {
     final state = this.state;
     if (state is! DocumentLoadSuccess) return {};
     final renderers = state.cameraViewport.visibleElements;
     transform ??= state.currentIndexCubit.state.transformCubit.state;
+    full ??= state.cameraViewport.utilities.element.fullSelection;
     return compute(
       _executeRayCastPolygon,
       _RayCastPolygonParams(
@@ -1047,7 +1054,8 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
         renderers.map((e) => _SmallRenderer.fromRenderer(e)).toList(),
         points,
         transform.size,
-        useLayer ? state.currentCollection : null,
+        useCollection ? state.currentCollection : null,
+        full,
       ),
     ).then((value) => value.map((e) => renderers[e]).toSet());
   }
@@ -1071,6 +1079,7 @@ class _RayCastParams {
   final Rect rect;
   final double size;
   final String? collection;
+  final bool full;
 
   const _RayCastParams(
     this.invisibleCollections,
@@ -1078,6 +1087,7 @@ class _RayCastParams {
     this.rect,
     this.size,
     this.collection,
+    this.full,
   );
 }
 
@@ -1089,7 +1099,7 @@ Set<int> _executeRayCast(_RayCastParams params) {
       .where((e) =>
           !params.invisibleCollections.contains(e.value.element.collection))
       .where((e) =>
-          e.value.hitCalc.hit(rect) &&
+          e.value.hitCalc.hit(rect, full: params.full) &&
           (params.collection == null ||
               e.value.element.collection == params.collection))
       .map((e) => e.key)
@@ -1102,9 +1112,10 @@ class _RayCastPolygonParams {
   final List<Offset> polygon;
   final double size;
   final String? collection;
+  final bool full;
 
   const _RayCastPolygonParams(this.invisibleCollections, this.renderers,
-      this.polygon, this.size, this.collection);
+      this.polygon, this.size, this.collection, this.full);
 }
 
 Set<int> _executeRayCastPolygon(_RayCastPolygonParams params) {
@@ -1114,7 +1125,7 @@ Set<int> _executeRayCastPolygon(_RayCastPolygonParams params) {
       .where((e) =>
           !params.invisibleCollections.contains(e.value.element.collection))
       .where((e) =>
-          e.value.hitCalc.hitPolygon(params.polygon) &&
+          e.value.hitCalc.hitPolygon(params.polygon, full: params.full) &&
           (params.collection == null ||
               e.value.element.collection == params.collection))
       .map((e) => e.key)

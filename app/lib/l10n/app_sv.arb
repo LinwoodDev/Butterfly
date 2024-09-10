@@ -611,5 +611,7 @@
   "installed": "Installerad",
   "install": "Installera",
   "deselect": "Avmarkera",
-  "changeLayer": "Ändra lager"
+  "changeLayer": "Ändra lager",
+  "fullSelection": "Fullt urval",
+  "fullSelectionDescription": "Kräver element för att vara helt i urvalsrutan."
 }

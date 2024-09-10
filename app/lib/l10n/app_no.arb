@@ -611,5 +611,7 @@
   "installed": "Installert",
   "install": "Installer",
   "deselect": "Avvelg",
-  "changeLayer": "Endre lag"
+  "changeLayer": "Endre lag",
+  "fullSelection": "Fullt valg",
+  "fullSelectionDescription": "Krever at elementer er fullstendig inne i avmerkingsboksen for valg."
 }

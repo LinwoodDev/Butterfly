@@ -13,7 +13,7 @@ publish_to: none
 # In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
 # Read more about iOS versioning at
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
-version: 2.2.0-beta.3+112
+version: 2.2.0-beta.4+113
 
 environment:
   sdk: ">=3.3.0 <4.0.0"
@@ -49,8 +49,8 @@ dependencies:
   window_manager: ^0.4.0
   flex_color_scheme:
     git:
-      url: https://github.com/rydmike/flex_color_scheme
-      ref: e33c22a3e6f2326e73830b3d6e6442e8bef5ad9f
+      url: https://github.com/CodeDoctorDE/flex_color_scheme
+      ref: 43fe29eff33540de906e402b5a7df1ed0153ef0c
   json_annotation: ^4.9.0
   path: ^1.8.3
   printing: ^5.13.1
@@ -92,7 +92,7 @@ dependencies:
   lw_file_system:
     git:
       url: https://github.com/LinwoodDev/dart_pkgs.git
-      ref: 5d1be5a4e1d49a3c69d0701c8921a7884fe48b83
+      ref: 6401cbb311f161230bdc162c86c5b0bc9fcd5eba
       path: packages/lw_file_system
   flutter_localized_locales: ^2.0.5
   dynamic_color: ^1.7.0

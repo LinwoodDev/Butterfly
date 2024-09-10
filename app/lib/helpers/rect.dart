@@ -70,18 +70,23 @@ extension RectHelper on Rect {
     return Rect.fromLTRB(firstX, firstY, secondX, secondY);
   }
 
-  bool containsLine(Offset first, Offset second) {
+  bool containsLine(Offset first, Offset second, {bool full = false}) {
     final normalizedRect = normalized();
     final topLeft = normalizedRect.topLeft;
     final topRight = normalizedRect.topRight;
     final bottomLeft = normalizedRect.bottomLeft;
     final bottomRight = normalizedRect.bottomRight;
-    return lineIntersectsLine(topLeft, topRight, first, second) ||
-        lineIntersectsLine(topRight, bottomRight, first, second) ||
-        lineIntersectsLine(bottomRight, bottomLeft, first, second) ||
-        lineIntersectsLine(bottomLeft, topLeft, first, second) ||
-        normalizedRect.contains(first) ||
-        normalizedRect.contains(second);
+    final tlr = lineIntersectsLine(topLeft, topRight, first, second);
+
+    final tbr = lineIntersectsLine(topRight, bottomRight, first, second);
+    final blr = lineIntersectsLine(bottomRight, bottomLeft, first, second);
+    final tbl = lineIntersectsLine(bottomLeft, topLeft, first, second);
+    final containsFirst = normalizedRect.contains(first);
+    final containsSecond = normalizedRect.contains(second);
+    if (full) {
+      return tlr && tbr && blr && tbl && containsFirst && containsSecond;
+    }
+    return tlr || tbr || blr || tbl || containsFirst || containsSecond;
   }
 }
 

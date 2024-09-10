@@ -52,6 +52,7 @@ class SelectHandler extends Handler<SelectTool> {
         })
         .whereNotNull()
         .toList();
+    _updateSelectionRect();
     return changed;
   }
 
@@ -60,11 +61,12 @@ class SelectHandler extends Handler<SelectTool> {
       DocumentPage page, Renderer old, List<Renderer> updated) {
     bool changed = false;
     if (old is Renderer<PadElement> &&
-        _selected.contains(old) &&
+        _selected.any((e) => e.id == old.id) &&
         updated is List<Renderer<PadElement>>) {
-      _selected.remove(old);
+      _selected.removeWhere((e) => e.id == old.id);
       _selected.addAll(updated);
       changed = true;
+      _updateSelectionRect();
     }
     return changed;
   }
@@ -131,20 +133,24 @@ class SelectHandler extends Handler<SelectTool> {
     return foregrounds;
   }
 
-  bool _submitTransform(DocumentBloc bloc) {
-    if (!_selectionManager.isTransforming) return false;
+  List<Renderer<PadElement>>? _submitTransform(DocumentBloc bloc) {
+    if (!_selectionManager.isTransforming) return null;
     final state = bloc.state;
-    if (state is! DocumentLoadSuccess) return false;
+    if (state is! DocumentLoadSuccess) return null;
     final current = _getTransformed();
     _selectionManager.deselect();
+    if (current == null) return null;
     bloc.add(_duplicate
-        ? ElementsCreated(current!.map((e) => e.element).toList())
-        : ElementsChanged(Map.fromEntries(current!.mapIndexed((i, e) {
+        ? ElementsCreated(current.map((e) => e.element).toList())
+        : ElementsChanged(Map.fromEntries(current.mapIndexed((i, e) {
             final id = _selected[i].element.id;
             if (id == null) return null;
             return MapEntry(id, [e.element]);
           }).whereNotNull())));
-    return true;
+    if (_duplicate) {
+      return _selected;
+    }
+    return current;
   }
 
   @override
@@ -376,7 +382,13 @@ class SelectHandler extends Handler<SelectTool> {
       _rulerRotation = null;
       return;
     }
-    if (_submitTransform(context.getDocumentBloc())) return;
+    final transformed = _submitTransform(context.getDocumentBloc());
+    if (transformed != null) {
+      _selected.clear();
+      _selected.addAll(transformed);
+      _updateSelectionRect();
+      return;
+    }
     _lassoFreeSelection = null;
     _rectangleFreeSelection = null;
     if (!context.isCtrlPressed) {

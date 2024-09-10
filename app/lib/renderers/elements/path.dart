@@ -242,18 +242,28 @@ class PathHitCalculator extends HitCalculator {
   }
 
   @override
-  bool hit(Rect rect) {
+  bool hit(Rect rect, {bool full = false}) {
     if (!elementRect.overlaps(rect)) {
       return false;
     }
     if (points.length == 1) {
       return rect.contains(points.first.toOffset());
     }
-    return _getInterpolatedPoints(points)
-        .any((point) => rect.contains(point.toOffset()));
+    final interpolated = _getInterpolatedPoints(points);
+    if (full) {
+      return interpolated.every((point) => rect.contains(point.toOffset()));
+    }
+    return interpolated.any((point) => rect.contains(point.toOffset()));
   }
 
   @override
-  bool hitPolygon(List<ui.Offset> polygon) => _getInterpolatedPoints(points)
-      .any((point) => isPointInPolygon(polygon, point.toOffset()));
+  bool hitPolygon(List<ui.Offset> polygon, {bool full = false}) {
+    final interpolated = _getInterpolatedPoints(points);
+    if (full) {
+      return interpolated
+          .every((point) => isPointInPolygon(polygon, point.toOffset()));
+    }
+    return interpolated
+        .any((point) => isPointInPolygon(polygon, point.toOffset()));
+  }
 }

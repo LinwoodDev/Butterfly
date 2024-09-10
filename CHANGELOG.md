@@ -2,6 +2,20 @@
 
 <!--ENTER CHANGELOG HERE-->
 
+## 2.2.0-beta.3 (2024-09-09)
+
+* Add full selection mode ([#684](https://github.com/LinwoodDev/Butterfly/issues/684))
+* Save utilities states after restart
+* Ignore invalid files with invalid syntax
+* Fix elements not being selected after moving
+* Fix file gets duplicated on save (again)
+* Fix image background wrong offset when moving on canvas
+* Fix packs dialog showing templates
+* Fix web showing no templates on first start
+* Fix templates and packs gets overriden on creation with same name
+
+Read more here: https://linwood.dev/butterfly/2.2.0-beta.3
+
 ## 2.2.0-beta.2 (2024-08-27)
 
 * Add wasm support for chromium based browsers

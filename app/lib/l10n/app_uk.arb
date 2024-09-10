@@ -611,5 +611,7 @@
   "installed": "Встановлено",
   "install": "Інсталювати",
   "deselect": "Зняти виділення",
-  "changeLayer": "Змінити шар"
+  "changeLayer": "Змінити шар",
+  "fullSelection": "Повний вибір",
+  "fullSelectionDescription": "Для вибору потрібні елементи."
 }

@@ -97,7 +97,7 @@ flutter {
 dependencies {
     testImplementation 'junit:junit:5.8.2'
     testImplementation "com.google.truth:truth:1.1.3"
-    androidTestImplementation 'androidx.test:runner:1.6.1'
+    androidTestImplementation 'androidx.test:runner:1.6.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.6.1'
     api 'androidx.test:core:1.6.1'
     androidTestImplementation 'tools.fastlane:screengrab:2.1.1'

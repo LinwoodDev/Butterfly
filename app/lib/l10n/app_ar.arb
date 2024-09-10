@@ -611,5 +611,7 @@
   "installed": "مثبت",
   "install": "تثبيت",
   "deselect": "إلغاء التحديد",
-  "changeLayer": "تغيير الطبقة"
+  "changeLayer": "تغيير الطبقة",
+  "fullSelection": "التحديد الكامل",
+  "fullSelectionDescription": "يتطلب أن تكون العناصر كاملة داخل مربع الاختيار من أجل الاختيار."
 }

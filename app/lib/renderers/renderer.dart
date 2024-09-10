@@ -49,23 +49,45 @@ class DefaultHitCalculator extends HitCalculator {
   DefaultHitCalculator(this.rect, this.rotation);
 
   @override
-  bool hit(Rect rect) => this.rect?.overlaps(rect) ?? false;
+  bool hit(Rect rect, {bool full = false}) {
+    final element = this.rect;
+    if (element == null) return false;
+    if (full) {
+      return element.top >= rect.top &&
+          element.left >= rect.left &&
+          element.right <= rect.right &&
+          element.bottom <= rect.bottom;
+    }
+    return element.overlaps(rect);
+  }
 
   @override
-  bool hitPolygon(List<ui.Offset> polygon) {
+  bool hitPolygon(List<ui.Offset> polygon, {bool full = false}) {
     if (rect == null) return false;
     final center = rect!.center;
-    return isPointInPolygon(polygon, center) ||
-        isPointInPolygon(polygon, rect!.topLeft.rotate(center, rotation)) ||
-        isPointInPolygon(polygon, rect!.topRight.rotate(center, rotation)) ||
-        isPointInPolygon(polygon, rect!.bottomLeft.rotate(center, rotation)) ||
+    final isCenter = isPointInPolygon(polygon, center);
+    final isTopLeft =
+        isPointInPolygon(polygon, rect!.topLeft.rotate(center, rotation));
+    final isTopRight =
+        isPointInPolygon(polygon, rect!.topRight.rotate(center, rotation));
+    final isBottomLeft =
+        isPointInPolygon(polygon, rect!.bottomLeft.rotate(center, rotation));
+    final isBottomRight =
         isPointInPolygon(polygon, rect!.bottomRight.rotate(center, rotation));
+    if (full) {
+      return isCenter &&
+          isTopLeft &&
+          isTopRight &&
+          isBottomLeft &&
+          isBottomRight;
+    }
+    return isCenter || isTopLeft || isTopRight || isBottomLeft || isBottomRight;
   }
 }
 
 abstract class HitCalculator {
-  bool hit(Rect rect);
-  bool hitPolygon(List<Offset> polygon);
+  bool hit(Rect rect, {bool full = false});
+  bool hitPolygon(List<Offset> polygon, {bool full = false});
 
   bool isPointInPolygon(List<Offset> polygon, Offset testPoint) {
     bool result = false;

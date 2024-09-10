@@ -611,5 +611,7 @@
   "installed": "Asennettu",
   "install": "Asenna",
   "deselect": "Poista Valinta",
-  "changeLayer": "Vaihda kerros"
+  "changeLayer": "Vaihda kerros",
+  "fullSelection": "Täysi valinta",
+  "fullSelectionDescription": "Vaatii, että elementit ovat täysin valintakentän sisällä."
 }
