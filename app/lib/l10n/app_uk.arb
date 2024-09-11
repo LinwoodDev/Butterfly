@@ -612,6 +612,9 @@
   "install": "Інсталювати",
   "deselect": "Зняти виділення",
   "changeLayer": "Змінити шар",
+  "collections": "Collections",
   "fullSelection": "Повний вибір",
-  "fullSelectionDescription": "Для вибору потрібні елементи."
+  "fullSelectionDescription": "Для вибору потрібні елементи.",
+  "collection": "Collection",
+  "defaultCollection": "Default collection"
 }
