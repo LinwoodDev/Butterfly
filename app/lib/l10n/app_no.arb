@@ -612,9 +612,9 @@
   "install": "Installer",
   "deselect": "Avvelg",
   "changeLayer": "Endre lag",
-  "collections": "Collections",
+  "collections": "Samlinger",
   "fullSelection": "Fullt valg",
   "fullSelectionDescription": "Krever at elementer er fullstendig inne i avmerkingsboksen for valg.",
-  "collection": "Collection",
-  "defaultCollection": "Default collection"
+  "collection": "Samling",
+  "defaultCollection": "Standard samling"
 }
