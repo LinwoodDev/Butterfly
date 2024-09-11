@@ -612,6 +612,9 @@
   "install": "Installér",
   "deselect": "Fravælg",
   "changeLayer": "Skift lag",
+  "collections": "Collections",
   "fullSelection": "Fuld udvælgelse",
-  "fullSelectionDescription": "Kræver elementer for at være helt inde i markeringsfeltet for valg."
+  "fullSelectionDescription": "Kræver elementer for at være helt inde i markeringsfeltet for valg.",
+  "collection": "Collection",
+  "defaultCollection": "Default collection"
 }
