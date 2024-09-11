@@ -612,9 +612,9 @@
   "install": "Installér",
   "deselect": "Fravælg",
   "changeLayer": "Skift lag",
-  "collections": "Collections",
+  "collections": "Samlinger",
   "fullSelection": "Fuld udvælgelse",
   "fullSelectionDescription": "Kræver elementer for at være helt inde i markeringsfeltet for valg.",
-  "collection": "Collection",
-  "defaultCollection": "Default collection"
+  "collection": "Samling",
+  "defaultCollection": "Standard samling"
 }
