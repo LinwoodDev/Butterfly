@@ -140,6 +140,11 @@ class DocumentEvent extends ReplayEvent with _$DocumentEvent {
     String id,
   ) = LayerRemoved;
 
+  const factory DocumentEvent.layerOrderChanged(
+    String id,
+    int index,
+  ) = LayerOrderChanged;
+
   const factory DocumentEvent.layerVisibilityChanged(
     String id,
     bool visible,

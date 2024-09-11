@@ -151,7 +151,9 @@ class DocumentLoadSuccess extends DocumentLoaded {
       this.currentCollection = '',
       String? currentLayer,
       this.invisibleLayers = const {}})
-      : currentLayer = page?.layers.lastOrNull?.id ?? createUniqueId() {
+      : currentLayer =
+            (page ?? data.getPage(pageName))?.layers.lastOrNull?.id ??
+                createUniqueId() {
     if (location != null) {
       currentIndexCubit.setSaveState(location: location, absolute: absolute);
     }

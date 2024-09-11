@@ -76,6 +76,8 @@ DocumentEvent _$DocumentEventFromJson(Map<String, dynamic> json) {
       return LayerChanged.fromJson(json);
     case 'layerRemoved':
       return LayerRemoved.fromJson(json);
+    case 'layerOrderChanged':
+      return LayerOrderChanged.fromJson(json);
     case 'layerVisibilityChanged':
       return LayerVisibilityChanged.fromJson(json);
     case 'elementsCollectionChanged':
@@ -3384,6 +3386,115 @@ abstract class LayerRemoved extends DocumentEvent {
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
   _$$LayerRemovedImplCopyWith<_$LayerRemovedImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$LayerOrderChangedImplCopyWith<$Res> {
+  factory _$$LayerOrderChangedImplCopyWith(_$LayerOrderChangedImpl value,
+          $Res Function(_$LayerOrderChangedImpl) then) =
+      __$$LayerOrderChangedImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String id, int index});
+}
+
+/// @nodoc
+class __$$LayerOrderChangedImplCopyWithImpl<$Res>
+    extends _$DocumentEventCopyWithImpl<$Res, _$LayerOrderChangedImpl>
+    implements _$$LayerOrderChangedImplCopyWith<$Res> {
+  __$$LayerOrderChangedImplCopyWithImpl(_$LayerOrderChangedImpl _value,
+      $Res Function(_$LayerOrderChangedImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? id = null,
+    Object? index = null,
+  }) {
+    return _then(_$LayerOrderChangedImpl(
+      null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String,
+      null == index
+          ? _value.index
+          : index // ignore: cast_nullable_to_non_nullable
+              as int,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$LayerOrderChangedImpl extends LayerOrderChanged {
+  const _$LayerOrderChangedImpl(this.id, this.index, {final String? $type})
+      : $type = $type ?? 'layerOrderChanged',
+        super._();
+
+  factory _$LayerOrderChangedImpl.fromJson(Map<String, dynamic> json) =>
+      _$$LayerOrderChangedImplFromJson(json);
+
+  @override
+  final String id;
+  @override
+  final int index;
+
+  @JsonKey(name: 'type')
+  final String $type;
+
+  @override
+  String toString() {
+    return 'DocumentEvent.layerOrderChanged(id: $id, index: $index)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$LayerOrderChangedImpl &&
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.index, index) || other.index == index));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => Object.hash(runtimeType, id, index);
+
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$LayerOrderChangedImplCopyWith<_$LayerOrderChangedImpl> get copyWith =>
+      __$$LayerOrderChangedImplCopyWithImpl<_$LayerOrderChangedImpl>(
+          this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$LayerOrderChangedImplToJson(
+      this,
+    );
+  }
+}
+
+abstract class LayerOrderChanged extends DocumentEvent {
+  const factory LayerOrderChanged(final String id, final int index) =
+      _$LayerOrderChangedImpl;
+  const LayerOrderChanged._() : super._();
+
+  factory LayerOrderChanged.fromJson(Map<String, dynamic> json) =
+      _$LayerOrderChangedImpl.fromJson;
+
+  String get id;
+  int get index;
+
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$LayerOrderChangedImplCopyWith<_$LayerOrderChangedImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 

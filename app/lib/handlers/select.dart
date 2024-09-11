@@ -450,6 +450,7 @@ class SelectHandler extends Handler<SelectTool> {
         utf8.encode(
           json.encode(await DocumentPage(layers: [
             DocumentLayer(
+                id: createUniqueId(),
                 content: _selected
                     .map((e) => (e.transform(
                               position: -point,

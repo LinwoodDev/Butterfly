@@ -612,7 +612,7 @@ class ImportService {
             if (spreadToPages) {
               documentPages.add(DocumentPage(
                 layers: [
-                  DocumentLayer(content: [element])
+                  DocumentLayer(content: [element], id: createUniqueId())
                 ],
                 areas: [if (createAreas) area],
               ));
@@ -733,7 +733,8 @@ class ImportService {
       bloc?.add(PackAdded(pack));
     }
     page = page.copyWith(layers: [
-      DocumentLayer(content: [...page.content, ...elements])
+      DocumentLayer(
+          content: [...page.content, ...elements], id: createUniqueId())
     ]);
     document = document.setPage(page);
     for (final page in pages) {

@@ -420,6 +420,21 @@ Map<String, dynamic> _$$LayerRemovedImplToJson(_$LayerRemovedImpl instance) =>
       'type': instance.$type,
     };
 
+_$LayerOrderChangedImpl _$$LayerOrderChangedImplFromJson(Map json) =>
+    _$LayerOrderChangedImpl(
+      json['id'] as String,
+      (json['index'] as num).toInt(),
+      $type: json['type'] as String?,
+    );
+
+Map<String, dynamic> _$$LayerOrderChangedImplToJson(
+        _$LayerOrderChangedImpl instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'index': instance.index,
+      'type': instance.$type,
+    };
+
 _$LayerVisibilityChangedImpl _$$LayerVisibilityChangedImplFromJson(Map json) =>
     _$LayerVisibilityChangedImpl(
       json['id'] as String,

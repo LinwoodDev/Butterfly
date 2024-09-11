@@ -587,6 +587,18 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       );
     });
 
+    on<LayerOrderChanged>((event, emit) {
+      final current = state;
+      if (current is! DocumentLoadSuccess) return;
+      final layers = List<DocumentLayer>.from(current.page.layers);
+      final layer = layers.firstWhereOrNull((e) => e.id == event.id);
+      if (layer == null) return;
+      layers.remove(layer);
+      layers.insert(event.index, layer);
+      final currentDocument = current.page.copyWith(layers: layers);
+      _saveState(emit, state: current.copyWith(page: currentDocument));
+    });
+
     on<LayerVisibilityChanged>((event, emit) {
       final current = state;
       if (current is! DocumentLoadSuccess) return;

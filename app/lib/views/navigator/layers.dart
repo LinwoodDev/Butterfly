@@ -28,56 +28,67 @@ class LayersView extends StatelessWidget {
         final currentLayer = state.page.getLayer(currentIndex);
         return Stack(
           children: [
-            ListView.builder(
-                physics: const NeverScrollableScrollPhysics(),
-                shrinkWrap: true,
-                itemCount: layers.length,
-                itemBuilder: (BuildContext context, int index) {
-                  final layer = layers[index];
-                  final id = layer.id ?? '';
-                  final visible = state.isLayerVisible(id);
-                  return EditableListTile(
-                    initialValue: layer.name,
-                    selected: id == state.currentLayer,
-                    onTap: () => context
-                        .read<DocumentBloc>()
-                        .add(CurrentLayerChanged(id)),
-                    leading: IconButton(
-                      icon: PhosphorIcon(visible
-                          ? PhosphorIconsLight.eye
-                          : PhosphorIconsLight.eyeSlash),
-                      tooltip: visible
-                          ? AppLocalizations.of(context).hide
-                          : AppLocalizations.of(context).show,
-                      onPressed: () {
-                        context
-                            .read<DocumentBloc>()
-                            .add(LayerVisibilityChanged(id, !visible));
-                      },
-                    ),
-                    onSaved: (value) => context
-                        .read<DocumentBloc>()
-                        .add(LayerChanged(id, name: value)),
-                    actions: [
-                      MenuItemButton(
-                        leadingIcon:
-                            const PhosphorIcon(PhosphorIconsLight.trash),
-                        onPressed: currentLayer == layer
-                            ? null
-                            : () async {
-                                final result = await showDialog<bool>(
-                                    context: context,
-                                    builder: (context) => const DeleteDialog());
-                                if (result != true) return;
-                                context
-                                    .read<DocumentBloc>()
-                                    .add(LayerRemoved(id));
-                              },
-                        child: Text(AppLocalizations.of(context).delete),
-                      )
-                    ],
-                  );
-                }),
+            ReorderableListView.builder(
+              physics: const NeverScrollableScrollPhysics(),
+              shrinkWrap: true,
+              itemCount: layers.length,
+              itemBuilder: (BuildContext context, int index) {
+                final layer = layers[index];
+                final id = layer.id ?? '';
+                final visible = state.isLayerVisible(id);
+                return EditableListTile(
+                  initialValue: layer.name,
+                  selected: id == state.currentLayer,
+                  onTap: () =>
+                      context.read<DocumentBloc>().add(CurrentLayerChanged(id)),
+                  leading: IconButton(
+                    icon: PhosphorIcon(visible
+                        ? PhosphorIconsLight.eye
+                        : PhosphorIconsLight.eyeSlash),
+                    tooltip: visible
+                        ? AppLocalizations.of(context).hide
+                        : AppLocalizations.of(context).show,
+                    onPressed: () {
+                      context
+                          .read<DocumentBloc>()
+                          .add(LayerVisibilityChanged(id, !visible));
+                    },
+                  ),
+                  textFormatter: (e) =>
+                      e.isEmpty ? AppLocalizations.of(context).layer : e,
+                  onSaved: (value) => context
+                      .read<DocumentBloc>()
+                      .add(LayerChanged(id, name: value)),
+                  key: ValueKey(id),
+                  actions: [
+                    MenuItemButton(
+                      leadingIcon: const PhosphorIcon(PhosphorIconsLight.trash),
+                      onPressed: currentLayer == layer
+                          ? null
+                          : () async {
+                              final result = await showDialog<bool>(
+                                  context: context,
+                                  builder: (context) => const DeleteDialog());
+                              if (result != true) return;
+                              context
+                                  .read<DocumentBloc>()
+                                  .add(LayerRemoved(id));
+                            },
+                      child: Text(AppLocalizations.of(context).delete),
+                    )
+                  ],
+                );
+              },
+              onReorder: (int oldIndex, int newIndex) {
+                final layer = layers[oldIndex];
+                if (oldIndex < newIndex) {
+                  newIndex -= 1;
+                }
+                context
+                    .read<DocumentBloc>()
+                    .add(LayerOrderChanged(layer.id ?? '', newIndex));
+              },
+            ),
             Align(
               alignment: Alignment.bottomCenter,
               child: Padding(
