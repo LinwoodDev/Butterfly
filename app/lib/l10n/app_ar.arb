@@ -612,6 +612,9 @@
   "install": "تثبيت",
   "deselect": "إلغاء التحديد",
   "changeLayer": "تغيير الطبقة",
+  "collections": "Collections",
   "fullSelection": "التحديد الكامل",
-  "fullSelectionDescription": "يتطلب أن تكون العناصر كاملة داخل مربع الاختيار من أجل الاختيار."
+  "fullSelectionDescription": "يتطلب أن تكون العناصر كاملة داخل مربع الاختيار من أجل الاختيار.",
+  "collection": "Collection",
+  "defaultCollection": "Default collection"
 }
