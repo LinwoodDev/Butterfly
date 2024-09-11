@@ -129,7 +129,7 @@ class DocumentLoadSuccess extends DocumentLoaded {
   @override
   final String currentCollection;
   final String currentAreaName;
-  final int currentLayer;
+  final String currentLayer;
   @override
   final Set<String> invisibleLayers;
   @override
@@ -149,8 +149,9 @@ class DocumentLoadSuccess extends DocumentLoaded {
       required this.currentIndexCubit,
       this.currentAreaName = '',
       this.currentCollection = '',
-      this.currentLayer = 0,
-      this.invisibleLayers = const {}}) {
+      String? currentLayer,
+      this.invisibleLayers = const {}})
+      : currentLayer = page?.layers.lastOrNull?.id ?? createUniqueId() {
     if (location != null) {
       currentIndexCubit.setSaveState(location: location, absolute: absolute);
     }
@@ -186,6 +187,7 @@ class DocumentLoadSuccess extends DocumentLoaded {
     FileMetadata? metadata,
     DocumentInfo? info,
     bool? editMode,
+    String? currentLayer,
     String? currentCollection,
     String? currentAreaName,
     Set<String>? invisibleLayers,
@@ -198,6 +200,7 @@ class DocumentLoadSuccess extends DocumentLoaded {
         metadata: metadata ?? this.metadata,
         info: info ?? this.info,
         invisibleLayers: invisibleLayers ?? this.invisibleLayers,
+        currentLayer: currentLayer ?? this.currentLayer,
         currentCollection: currentCollection ?? this.currentCollection,
         currentAreaName: currentAreaName ?? this.currentAreaName,
         fileSystem: fileSystem,

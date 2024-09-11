@@ -38,7 +38,7 @@ class LayersView extends StatelessWidget {
                   final visible = state.isLayerVisible(id);
                   return EditableListTile(
                     initialValue: layer.name,
-                    selected: index == state.currentLayer,
+                    selected: id == state.currentLayer,
                     onTap: () => context
                         .read<DocumentBloc>()
                         .add(CurrentLayerChanged(id)),

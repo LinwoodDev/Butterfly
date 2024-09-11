@@ -154,7 +154,7 @@ class LabelHandler extends Handler<LabelTool>
       final hit = await context.getDocumentBloc().rayCast(
             globalPos,
             0.0,
-            useLayer: true,
+            useCollection: true,
           );
       final labelRenderer = hit.whereType<Renderer<LabelElement>>().firstOrNull;
       if (labelRenderer == null) {

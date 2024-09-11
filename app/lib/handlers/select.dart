@@ -193,7 +193,7 @@ class SelectHandler extends Handler<SelectTool> {
     final hits = await context.getDocumentBloc().rayCast(
           globalPos,
           radius,
-          useLayer: true,
+          useCollection: true,
         );
     if (hits.isEmpty) {
       if (!context.isCtrlPressed) {
@@ -247,7 +247,7 @@ class SelectHandler extends Handler<SelectTool> {
     final hits = await bloc.rayCast(
       position,
       0.0,
-      useLayer: true,
+      useCollection: true,
     );
     final hit = hits.firstOrNull;
     final rect = hit?.expandedRect;

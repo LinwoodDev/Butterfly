@@ -603,6 +603,68 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       );
     });
 
+    on<LayerCreated>((event, emit) {
+      final current = state;
+      if (current is! DocumentLoadSuccess) return;
+      if (!(current.embedding?.editable ?? true)) return;
+      return _saveState(
+        emit,
+        state: current.copyWith(
+          page: current.page.copyWith(layers: [
+            ...current.page.layers,
+            DocumentLayer(id: createUniqueId(), name: event.name),
+          ]),
+        ),
+      );
+    });
+
+    on<LayerChanged>((event, emit) {
+      final current = state;
+      if (current is! DocumentLoadSuccess) return;
+      if (!(current.embedding?.editable ?? true)) return;
+      return _saveState(
+        emit,
+        state: current.copyWith(
+          page: current.page.copyWith(
+            layers: current.page.layers
+                .map((e) => e.id == event.id
+                    ? e.copyWith(
+                        name: event.name ?? e.name,
+                      )
+                    : e)
+                .toList(),
+          ),
+        ),
+      );
+    });
+
+    on<LayerRemoved>((event, emit) {
+      final current = state;
+      if (current is! DocumentLoadSuccess) return;
+      if (!(current.embedding?.editable ?? true)) return;
+      return _saveState(
+        emit,
+        state: current.copyWith(
+          page: current.page.copyWith(
+            layers: current.page.layers.where((e) => e.id != event.id).toList(),
+          ),
+        ),
+      );
+    });
+
+    on<CurrentLayerChanged>((event, emit) {
+      final current = state;
+      if (current is! DocumentLoadSuccess) return;
+      if (!(current.embedding?.editable ?? true)) return;
+      return _saveState(
+        emit,
+        state: current.copyWith(
+          currentLayer: event.name,
+        ),
+        reset: true,
+      );
+    });
+
     on<CurrentCollectionChanged>((event, emit) {
       final current = state;
       if (current is! DocumentLoadSuccess) return;
@@ -992,12 +1054,12 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     Offset globalPosition,
     double radius, {
     CameraTransform? transform,
-    required bool useLayer,
+    required bool useCollection,
   }) async {
     return rayCastRect(
       Rect.fromCircle(center: globalPosition, radius: radius),
       transform: transform,
-      useCollection: useLayer,
+      useCollection: useCollection,
     );
   }
 

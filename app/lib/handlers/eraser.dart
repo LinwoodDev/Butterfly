@@ -49,7 +49,7 @@ class EraserHandler extends Handler<EraserTool> {
     final ray = await context.getDocumentBloc().rayCast(
           globalPos,
           size,
-          useLayer: true,
+          useCollection: true,
         );
     var elements = ray.map((e) => e.element);
     if (!data.eraseElements) {

@@ -65,12 +65,12 @@ NoteData _migrate(NoteData noteData, FileMetadata metadata) {
             'type': 'pattern',
           },
         };
-        noteData = noteData.setAsset('$kPagesArchiveDirectory/$page',
-            utf8.encode(json.encode(pageData)));
       }
       pageData['backgrounds'] = [
         if (backgroundType != 'empty') pageData['background'],
       ];
+      noteData = noteData.setAsset(
+          '$kPagesArchiveDirectory/$page', utf8.encode(json.encode(pageData)));
     }
     final info = noteData.getAsset(kInfoArchiveFile);
     if (info != null) {
@@ -81,6 +81,38 @@ NoteData _migrate(NoteData noteData, FileMetadata metadata) {
           e['type'] = 'select';
         } else if (e['type'] == 'move') {
           e['type'] = 'hand';
+        }
+        return e;
+      }).toList();
+      noteData = noteData.setAsset(
+          kInfoArchiveFile, utf8.encode(json.encode(infoData)));
+    }
+  }
+  if (version < 11) {
+    for (final page in noteData.getAssets(kPagesArchiveDirectory)) {
+      final data = noteData.getAsset('$kPagesArchiveDirectory/$page');
+      if (data == null) continue;
+      final pageData = json.decode(utf8.decode(data)) as Map<String, dynamic>;
+      final content = pageData['content'] as List;
+      final newLayer = {
+        'id': createUniqueId(),
+        'content': content
+            .map((e) => {
+                  ...e,
+                  'collection': e['layer'],
+                })
+            .toList(),
+      };
+      pageData['layers'] = [newLayer];
+      noteData = noteData.setAsset(
+          '$kPagesArchiveDirectory/$page', utf8.encode(json.encode(pageData)));
+    }
+    final info = noteData.getAsset(kInfoArchiveFile);
+    if (info != null) {
+      final infoData = json.decode(utf8.decode(info)) as Map<String, dynamic>;
+      infoData['tools'] = (infoData['tools'] as List).map((e) {
+        if (e['type'] == 'layer') {
+          e['type'] = 'collection';
         }
         return e;
       }).toList();

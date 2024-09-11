@@ -47,25 +47,22 @@ sealed class DocumentPage with _$DocumentPage {
         e.content.whereType<SourcedElement>().any((e) => e.source == source));
   }
 
-  DocumentLayer getLayer(int index) {
-    if (layers.isEmpty) {
-      return DocumentLayer();
-    }
-    final layerIndex = index.clamp(0, layers.length - 1);
-    return layers[layerIndex];
+  DocumentLayer getLayer(String id) {
+    return layers.where((e) => e.id == id).firstOrNull ??
+        DocumentLayer(
+          id: id,
+        );
   }
 
   DocumentPage mapLayer(
-      int index, DocumentLayer Function(DocumentLayer) mapper) {
-    final layer = getLayer(index);
-    final newLayer = mapper(layer);
-    final newLayers = layers.toList();
-    if (newLayers.isEmpty) {
-      newLayers.add(newLayer);
+      String id, DocumentLayer Function(DocumentLayer) mapper) {
+    var newLayers = layers.toList();
+    if (!newLayers.any((e) => e.id == id)) {
+      newLayers.add(mapper(DocumentLayer(id: id)));
     } else {
-      newLayers[index.clamp(0, layers.length - 1)] = newLayer;
+      newLayers = newLayers.map((e) => e.id == id ? mapper(e) : e).toList();
     }
-    final newPage = copyWith(layers: layers);
+    final newPage = copyWith(layers: newLayers);
     return newPage;
   }
 
