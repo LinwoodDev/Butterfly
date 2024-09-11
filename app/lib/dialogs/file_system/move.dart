@@ -1,5 +1,4 @@
 import 'package:butterfly/api/file_system.dart';
-import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:lw_file_system/lw_file_system.dart';
@@ -10,12 +9,12 @@ enum MoveMode { duplicate, move }
 
 class FileSystemAssetMoveDialog extends StatefulWidget {
   final MoveMode? moveMode;
-  final FileSystemEntity<NoteData> asset;
+  final List<AssetLocation> assets;
   final DocumentFileSystem fileSystem;
   const FileSystemAssetMoveDialog(
       {super.key,
       this.moveMode,
-      required this.asset,
+      required this.assets,
       required this.fileSystem});
 
   @override
@@ -30,8 +29,8 @@ class _FileSystemAssetMoveDialogState extends State<FileSystemAssetMoveDialog> {
   @override
   void initState() {
     super.initState();
-    _nameController.text = widget.asset.fileNameWithoutExtension;
-    selectedPath = widget.asset.parent;
+    _nameController.text = widget.assets.first.fileNameWithoutExtension;
+    selectedPath = widget.assets.first.parent;
   }
 
   @override
@@ -40,18 +39,25 @@ class _FileSystemAssetMoveDialogState extends State<FileSystemAssetMoveDialog> {
     _nameController.dispose();
   }
 
+  bool isSingleFile() => widget.assets.length == 1;
+
   Future<void> _move(bool duplicate) async {
     final navigator = Navigator.of(context);
-    var newPath = selectedPath;
-    if (selectedPath != '/') {
-      newPath += '/';
-    }
-    newPath += _nameController.text;
-    newPath += '.${widget.asset.fileExtension}';
-    if (duplicate) {
-      await widget.fileSystem.duplicateAsset(widget.asset.path, newPath);
-    } else {
-      await widget.fileSystem.moveAsset(widget.asset.path, newPath);
+    String newPath = '';
+    for (final asset in widget.assets) {
+      newPath = selectedPath;
+      if (selectedPath != '/') {
+        newPath += '/';
+      }
+      newPath += isSingleFile()
+          ? _nameController.text
+          : asset.fileNameWithoutExtension;
+      newPath += '.${asset.fileExtension}';
+      if (duplicate) {
+        await widget.fileSystem.duplicateAsset(asset.path, newPath);
+      } else {
+        await widget.fileSystem.moveAsset(asset.path, newPath);
+      }
     }
     navigator.pop(newPath);
   }
@@ -94,13 +100,15 @@ class _FileSystemAssetMoveDialogState extends State<FileSystemAssetMoveDialog> {
               onPathSelected: (path) => selectedPath = path,
               initialExpanded: true,
             ),
-            const SizedBox(height: 16),
-            TextField(
-              decoration: InputDecoration(
-                  filled: true, hintText: AppLocalizations.of(context).name),
-              autofocus: true,
-              controller: _nameController,
-            ),
+            if (isSingleFile()) ...[
+              const SizedBox(height: 16),
+              TextField(
+                decoration: InputDecoration(
+                    filled: true, hintText: AppLocalizations.of(context).name),
+                autofocus: true,
+                controller: _nameController,
+              ),
+            ],
           ],
         ));
   }

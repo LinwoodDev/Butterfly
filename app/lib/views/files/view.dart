@@ -1,6 +1,7 @@
 import 'dart:typed_data';
 
 import 'package:butterfly/api/file_system.dart';
+import 'package:butterfly/dialogs/file_system/move.dart';
 import 'package:butterfly/models/defaults.dart';
 import 'package:butterfly/views/files/card.dart';
 import 'package:butterfly/views/files/entity.dart';
@@ -536,20 +537,45 @@ class FilesViewState extends State<FilesView> {
                                 ),
                               ],
                             ),
-                            Builder(builder: (context) {
-                              return IconButton(
-                                icon: const PhosphorIcon(
-                                    PhosphorIconsLight.trash),
-                                tooltip: AppLocalizations.of(context).delete,
-                                onPressed: () async => deleteEntities(
-                                  context: context,
-                                  entities: _selectedFiles,
-                                  documentSystem: _documentSystem,
-                                  isMobile: widget.isMobile,
-                                  onDelete: reloadFileSystem,
+                            Row(
+                              children: [
+                                IconButton(
+                                  icon: const PhosphorIcon(
+                                      PhosphorIconsLight.arrowsDownUp),
+                                  tooltip: AppLocalizations.of(context).move,
+                                  onPressed: () => showDialog(
+                                    context: context,
+                                    builder: (context) =>
+                                        FileSystemAssetMoveDialog(
+                                      assets: _selectedFiles
+                                          .map((e) => AssetLocation(
+                                                path: e,
+                                                remote:
+                                                    _remote?.identifier ?? '',
+                                              ))
+                                          .toList(),
+                                      fileSystem: _documentSystem,
+                                    ),
+                                  ).then(
+                                    (value) => reloadFileSystem(),
+                                  ),
                                 ),
-                              );
-                            }),
+                                Builder(
+                                    builder: (context) => IconButton(
+                                          icon: const PhosphorIcon(
+                                              PhosphorIconsLight.trash),
+                                          tooltip: AppLocalizations.of(context)
+                                              .delete,
+                                          onPressed: () async => deleteEntities(
+                                            context: context,
+                                            entities: _selectedFiles,
+                                            documentSystem: _documentSystem,
+                                            isMobile: widget.isMobile,
+                                            onDelete: reloadFileSystem,
+                                          ),
+                                        )),
+                              ],
+                            ),
                           ],
                         ),
                       ),

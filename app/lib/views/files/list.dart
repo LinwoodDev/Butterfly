@@ -237,7 +237,7 @@ class FileEntityListTile extends StatelessWidget {
                             onPressed: () => showDialog(
                               context: context,
                               builder: (context) => FileSystemAssetMoveDialog(
-                                asset: entity,
+                                assets: [entity.location],
                                 fileSystem: documentSystem,
                               ),
                             ).then((value) => onReload()),

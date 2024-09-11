@@ -32,7 +32,7 @@ class ChangePathAction extends Action<ChangePathIntent> {
       var newPath = await showDialog<String?>(
           context: context,
           builder: (context) => FileSystemAssetMoveDialog(
-                asset: asset,
+                assets: [asset.location],
                 fileSystem: fileSystem,
               ));
       if (newPath == null) return;
