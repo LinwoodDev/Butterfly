@@ -29,7 +29,7 @@ class _PacksDialogState extends State<PacksDialog>
   late PackFileSystem _packSystem;
 
   @override
-  initState() {
+  void initState() {
     _controller = TabController(length: widget.globalOnly ? 1 : 2, vsync: this);
     _fileSystem = context.read<ButterflyFileSystem>();
     _packSystem = _fileSystem.buildDefaultPackSystem();
@@ -37,7 +37,7 @@ class _PacksDialogState extends State<PacksDialog>
   }
 
   @override
-  dispose() {
+  void dispose() {
     _controller.dispose();
     super.dispose();
   }

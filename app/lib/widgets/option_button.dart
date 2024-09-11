@@ -47,6 +47,12 @@ class _OptionButtonState extends State<OptionButton>
     );
   }
 
+  @override
+  void dispose() {
+    super.dispose();
+    _animationController.dispose();
+  }
+
   double get _nextValue =>
       widget.alwaysShowBottom || widget.selected || widget.highlighted ? 1 : 0;
 

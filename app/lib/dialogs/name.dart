@@ -17,10 +17,10 @@ class NameDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final nameController = TextEditingController(text: value);
+    String value = this.value ?? '';
     void submit() {
       if (_formKey.currentState!.validate()) {
-        Navigator.of(context).pop(nameController.text);
+        Navigator.of(context).pop(value);
       }
     }
 
@@ -42,7 +42,8 @@ class NameDialog extends StatelessWidget {
             hintText: hint ?? AppLocalizations.of(context).name,
           ),
           autofocus: true,
-          controller: nameController,
+          initialValue: value,
+          onChanged: (e) => value = e,
           validator: validator?.call(value),
           onFieldSubmitted: (value) => submit(),
         ),

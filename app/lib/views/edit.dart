@@ -48,6 +48,7 @@ class _EditToolbarState extends State<EditToolbar> {
 
   @override
   void dispose() {
+    _scrollController.dispose();
     HardwareKeyboard.instance.removeHandler(_handleKey);
     super.dispose();
   }
@@ -213,7 +214,7 @@ class _EditToolbarState extends State<EditToolbar> {
                                 ],
                                 child: RepositoryProvider.value(
                                   value: importService,
-                                  child: AddDialog(),
+                                  child: const AddDialog(),
                                 ),
                               ),
                             );

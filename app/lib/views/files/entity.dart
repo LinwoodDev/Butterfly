@@ -102,6 +102,12 @@ class _FileEntityItemState extends State<FileEntityItem> {
   bool _editable = false;
 
   @override
+  void dispose() {
+    _nameController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final fileSystem = context.read<ButterflyFileSystem>();
     final remote =

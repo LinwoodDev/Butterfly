@@ -180,6 +180,21 @@ class __AddRemoteDialogState extends State<_AddRemoteDialog> {
     _httpClient.badCertificateCallback = _onBadCertificate;
   }
 
+  @override
+  void dispose() {
+    super.dispose();
+    _httpClient.close(force: true);
+    _nameController.dispose();
+    _urlController.dispose();
+    _usernameController.dispose();
+    _passwordController.dispose();
+    _iconController.dispose();
+    _directoryController.dispose();
+    _documentsDirectoryController.dispose();
+    _templatesDirectoryController.dispose();
+    _packsDirectoryController.dispose();
+  }
+
   String? _certificateSha1;
   bool _badCertificate = false;
 

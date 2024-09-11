@@ -46,6 +46,12 @@ class _ComponentsToolbarViewState extends State<ComponentsToolbarView> {
   }
 
   @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final state = context.read<DocumentBloc>().state;
     if (state is! DocumentLoadSuccess) return const SizedBox.shrink();

@@ -15,9 +15,21 @@ import '../../cubits/transform.dart';
 import '../../dialogs/delete.dart';
 import '../../widgets/editable_list_tile.dart';
 
-class AreasView extends StatelessWidget {
+class AreasView extends StatefulWidget {
+  const AreasView({super.key});
+
+  @override
+  State<AreasView> createState() => _AreasViewState();
+}
+
+class _AreasViewState extends State<AreasView> {
   final TextEditingController _searchController = TextEditingController();
-  AreasView({super.key});
+
+  @override
+  void dispose() {
+    super.dispose();
+    _searchController.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {

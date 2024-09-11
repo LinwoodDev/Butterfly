@@ -3,18 +3,33 @@ import 'package:butterfly/models/defaults.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-class FileSystemAssetCreateDialog extends StatelessWidget {
+class FileSystemAssetCreateDialog extends StatefulWidget {
   final bool isFolder;
   final String path;
-  final GlobalKey<FormState> _formKey = GlobalKey();
-  final _nameController = TextEditingController();
   final DocumentFileSystem fileSystem;
 
-  FileSystemAssetCreateDialog(
+  const FileSystemAssetCreateDialog(
       {super.key,
       this.isFolder = false,
       this.path = '',
       required this.fileSystem});
+
+  @override
+  State<FileSystemAssetCreateDialog> createState() =>
+      _FileSystemAssetCreateDialogState();
+}
+
+class _FileSystemAssetCreateDialogState
+    extends State<FileSystemAssetCreateDialog> {
+  final GlobalKey<FormState> _formKey = GlobalKey();
+
+  final _nameController = TextEditingController();
+
+  @override
+  void dispose() {
+    super.dispose();
+    _nameController.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -45,12 +60,12 @@ class FileSystemAssetCreateDialog extends StatelessWidget {
             onPressed: () async {
               final navigator = Navigator.of(context);
               if (_formKey.currentState?.validate() ?? false) {
-                final newPath = '$path/${_nameController.text}';
-                if (!isFolder) {
-                  await fileSystem.createFile(
-                      newPath, DocumentDefaults.createDocument());
+                final newPath = '${widget.path}/${_nameController.text}';
+                if (!widget.isFolder) {
+                  await widget.fileSystem
+                      .createFile(newPath, DocumentDefaults.createDocument());
                 } else {
-                  await fileSystem.createDirectory(newPath);
+                  await widget.fileSystem.createDirectory(newPath);
                 }
               }
               navigator.pop(true);

@@ -36,6 +36,12 @@ class _TextsStyleViewState extends State<TextsStyleView> {
   }
 
   @override
+  void dispose() {
+    super.dispose();
+    _controller.dispose();
+  }
+
+  @override
   void didUpdateWidget(covariant TextsStyleView oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (oldWidget.value != widget.value && _currentStyle != null) {

@@ -45,6 +45,12 @@ class _EditableListTileState extends State<EditableListTile> {
   }
 
   @override
+  void dispose() {
+    super.dispose();
+    _controller.dispose();
+  }
+
+  @override
   void didUpdateWidget(covariant EditableListTile oldWidget) {
     super.didUpdateWidget(oldWidget);
     setState(() {

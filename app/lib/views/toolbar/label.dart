@@ -41,6 +41,14 @@ class _LabelToolbarViewState extends State<LabelToolbarView> {
   final GlobalKey _paragraphKey = GlobalKey(), _spanKey = GlobalKey();
 
   @override
+  void dispose() {
+    _scrollController.dispose();
+    _sizeController.dispose();
+    _scaleController.dispose();
+    super.dispose();
+  }
+
+  @override
   void didUpdateWidget(covariant LabelToolbarView oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (widget.value != oldWidget.value) {

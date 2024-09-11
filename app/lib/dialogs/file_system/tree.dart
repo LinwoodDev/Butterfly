@@ -129,20 +129,20 @@ class FileSystemDirectoryTreeViewState
   }
 
   Future<void> _newFolder() async {
-    final TextEditingController controller = TextEditingController();
+    String name = '';
     final success = await showDialog<bool>(
             context: context,
             builder: (context) {
               return AlertDialog(
                 title: Text(AppLocalizations.of(context).newFolder),
-                content: TextField(
+                content: TextFormField(
                   autofocus: true,
                   decoration: InputDecoration(
                     border: const OutlineInputBorder(),
                     labelText: AppLocalizations.of(context).name,
                   ),
-                  controller: controller,
-                  onSubmitted: (value) {
+                  onChanged: (value) => name = value,
+                  onFieldSubmitted: (value) {
                     Navigator.of(context).pop(true);
                   },
                 ),
@@ -160,7 +160,6 @@ class FileSystemDirectoryTreeViewState
     if (!success) {
       return;
     }
-    final name = controller.text;
     if (name.isEmpty) {
       return;
     }

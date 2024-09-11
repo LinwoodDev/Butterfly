@@ -66,6 +66,8 @@ class _UtilitiesViewState extends State<_UtilitiesView>
     super.dispose();
 
     _tabController.dispose();
+    _nameController.dispose();
+    _descriptionController.dispose();
   }
 
   @override

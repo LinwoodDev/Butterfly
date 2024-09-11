@@ -12,3 +12,4 @@
 * Update selection incorrect when transforming multiple elements
 * Fix select all shortcut
 * Fix temporary tool is not the right size in the edit toolbar
+* Fix memory leaks

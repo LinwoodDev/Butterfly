@@ -121,6 +121,12 @@ class _WaypointCreateDialogState extends State<WaypointCreateDialog> {
   final TextEditingController _nameController = TextEditingController();
 
   @override
+  void dispose() {
+    super.dispose();
+    _nameController.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return AlertDialog(
       title: Text(AppLocalizations.of(context).create),

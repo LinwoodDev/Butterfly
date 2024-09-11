@@ -15,10 +15,21 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 import '../../api/open.dart';
 import '../../bloc/document_bloc.dart';
 
-class AddDialog extends StatelessWidget {
+class AddDialog extends StatefulWidget {
+  const AddDialog({super.key});
+
+  @override
+  State<AddDialog> createState() => _AddDialogState();
+}
+
+class _AddDialogState extends State<AddDialog> {
   final TextEditingController _searchController = TextEditingController();
 
-  AddDialog({super.key});
+  @override
+  void dispose() {
+    super.dispose();
+    _searchController.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -282,28 +293,40 @@ class AddDialog extends StatelessWidget {
   }
 }
 
-class _ToolsListView extends StatelessWidget {
+class _ToolsListView extends StatefulWidget {
   final List<Widget> children;
   final bool isMobile;
   final String title;
-  final ScrollController _scrollController = ScrollController();
 
-  _ToolsListView({
+  const _ToolsListView({
     required this.children,
     required this.title,
     required this.isMobile,
   });
 
   @override
+  State<_ToolsListView> createState() => _ToolsListViewState();
+}
+
+class _ToolsListViewState extends State<_ToolsListView> {
+  final ScrollController _scrollController = ScrollController();
+
+  @override
+  void dispose() {
+    super.dispose();
+    _scrollController.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         Text(
-          title,
+          widget.title,
           style: Theme.of(context).textTheme.bodyLarge,
           textAlign: TextAlign.center,
         ),
-        if (isMobile)
+        if (widget.isMobile)
           SizedBox(
             height: 130,
             child: Scrollbar(
@@ -311,7 +334,7 @@ class _ToolsListView extends StatelessWidget {
               child: ListView(
                 scrollDirection: Axis.horizontal,
                 controller: _scrollController,
-                children: children,
+                children: widget.children,
               ),
             ),
           )
@@ -320,7 +343,7 @@ class _ToolsListView extends StatelessWidget {
             padding: const EdgeInsets.all(4),
             child: Wrap(
               alignment: WrapAlignment.start,
-              children: children,
+              children: widget.children,
             ),
           )
       ],

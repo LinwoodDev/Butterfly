@@ -24,6 +24,13 @@ class _StartCollaborationDialogState extends State<StartCollaborationDialog>
   }
 
   @override
+  void dispose() {
+    super.dispose();
+    _addressController.dispose();
+    _portController.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Form(
       key: _formKey,
