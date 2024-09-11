@@ -612,9 +612,9 @@
   "install": "Installera",
   "deselect": "Avmarkera",
   "changeLayer": "Ändra lager",
-  "collections": "Collections",
+  "collections": "Samlingar",
   "fullSelection": "Fullt urval",
   "fullSelectionDescription": "Kräver element för att vara helt i urvalsrutan.",
-  "collection": "Collection",
-  "defaultCollection": "Default collection"
+  "collection": "Samling",
+  "defaultCollection": "Förvald samling"
 }
