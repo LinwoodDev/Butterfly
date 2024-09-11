@@ -612,6 +612,9 @@
   "install": "Instalar",
   "deselect": "Deseleccionar",
   "changeLayer": "Cambiar capa",
+  "collections": "Collections",
   "fullSelection": "Selección completa",
-  "fullSelectionDescription": "Requiere que los elementos estén completamente dentro del cuadro de selección para la selección."
+  "fullSelectionDescription": "Requiere que los elementos estén completamente dentro del cuadro de selección para la selección.",
+  "collection": "Collection",
+  "defaultCollection": "Default collection"
 }
