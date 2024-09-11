@@ -612,6 +612,9 @@
   "install": "Instalează",
   "deselect": "Deselectează",
   "changeLayer": "Schimbă stratul",
+  "collections": "Collections",
   "fullSelection": "Selecţie completă",
-  "fullSelectionDescription": "Necesită ca elementele să fie complet în caseta de selecție pentru selecție."
+  "fullSelectionDescription": "Necesită ca elementele să fie complet în caseta de selecție pentru selecție.",
+  "collection": "Collection",
+  "defaultCollection": "Default collection"
 }
