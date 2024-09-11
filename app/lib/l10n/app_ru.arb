@@ -612,6 +612,9 @@
   "install": "Установить",
   "deselect": "Отменить выбор",
   "changeLayer": "Изменить слой",
+  "collections": "Collections",
   "fullSelection": "Полная выборка",
-  "fullSelectionDescription": "Для выбора требуется, чтобы элементы были полностью внутри окна выбора."
+  "fullSelectionDescription": "Для выбора требуется, чтобы элементы были полностью внутри окна выбора.",
+  "collection": "Collection",
+  "defaultCollection": "Default collection"
 }
