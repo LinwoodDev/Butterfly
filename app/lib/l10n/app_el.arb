@@ -612,6 +612,9 @@
   "install": "Εγκατάσταση",
   "deselect": "Αποεπιλογή",
   "changeLayer": "Αλλαγή επιπέδου",
+  "collections": "Collections",
   "fullSelection": "Πλήρης επιλογή",
-  "fullSelectionDescription": "Απαιτεί στοιχεία να είναι πλήρως εντός του πλαισίου επιλογής για την επιλογή."
+  "fullSelectionDescription": "Απαιτεί στοιχεία να είναι πλήρως εντός του πλαισίου επιλογής για την επιλογή.",
+  "collection": "Collection",
+  "defaultCollection": "Default collection"
 }
