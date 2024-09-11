@@ -14,3 +14,4 @@
 * Fix select all shortcut
 * Fix temporary tool is not the right size in the edit toolbar
 * Fix memory leaks
+* Fix regression bug introduced in 2.2 that caused weird behavior in webdav file system

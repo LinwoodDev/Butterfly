@@ -74,7 +74,7 @@ class ButterflyFileSystem {
       : _documentConfig = FileSystemConfig(
           passwordStorage: passwordStorage,
           storeName: 'documents',
-          variant: '',
+          variant: 'documents',
           getDirectory: getButterflyDocumentsDirectory,
           database: _database,
           databaseVersion: _databaseVersion,
@@ -83,7 +83,7 @@ class ButterflyFileSystem {
         _templateConfig = FileSystemConfig(
           passwordStorage: passwordStorage,
           storeName: 'templates',
-          variant: '',
+          variant: 'templates',
           getDirectory: _getRemoteDirectory('Templates'),
           database: _database,
           databaseVersion: _databaseVersion,
@@ -93,7 +93,7 @@ class ButterflyFileSystem {
         _packConfig = FileSystemConfig(
           passwordStorage: passwordStorage,
           storeName: 'packs',
-          variant: '',
+          variant: 'packs',
           getDirectory: _getRemoteDirectory('Packs'),
           database: _database,
           databaseVersion: _databaseVersion,
