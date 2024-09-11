@@ -612,9 +612,9 @@
   "install": "Installeren",
   "deselect": "Deselecteer",
   "changeLayer": "Laag wijzigen",
-  "collections": "Collections",
+  "collections": "Collecties",
   "fullSelection": "Volledige selectie",
   "fullSelectionDescription": "Vereist elementen om volledig in het selectievakje te zijn voor selectie.",
-  "collection": "Collection",
-  "defaultCollection": "Default collection"
+  "collection": "Collectie",
+  "defaultCollection": "Standaard collectie"
 }
