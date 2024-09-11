@@ -612,9 +612,9 @@
   "install": "Instalovat",
   "deselect": "Zrušit výběr",
   "changeLayer": "Změnit vrstvu",
-  "collections": "Collections",
+  "collections": "Sbírky",
   "fullSelection": "Plný výběr",
   "fullSelectionDescription": "Vyžaduje, aby prvky byly plně ve výběrovém poli pro výběr.",
-  "collection": "Collection",
-  "defaultCollection": "Default collection"
+  "collection": "Sbírka",
+  "defaultCollection": "Výchozí kolekce"
 }
