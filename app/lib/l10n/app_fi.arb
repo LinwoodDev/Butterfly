@@ -612,9 +612,9 @@
   "install": "Asenna",
   "deselect": "Poista Valinta",
   "changeLayer": "Vaihda kerros",
-  "collections": "Collections",
+  "collections": "Kokoelmat",
   "fullSelection": "Täysi valinta",
   "fullSelectionDescription": "Vaatii, että elementit ovat täysin valintakentän sisällä.",
-  "collection": "Collection",
-  "defaultCollection": "Default collection"
+  "collection": "Kokoelma",
+  "defaultCollection": "Oletus kokoelma"
 }
