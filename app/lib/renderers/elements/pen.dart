@@ -1,7 +1,7 @@
 part of '../renderer.dart';
 
 class PenRenderer extends PathRenderer<PenElement> {
-  PenRenderer(super.element, [super.rect = Rect.zero]);
+  PenRenderer(super.element, [super.layer, super.rect = Rect.zero]);
 
   @override
   double? get zoom => element.zoom;
@@ -20,5 +20,6 @@ class PenRenderer extends PathRenderer<PenElement> {
       PenRenderer(
           element.copyWith(
               rotation: rotation, points: movePoints(position, scaleX, scaleY)),
+          layer,
           moveRect(position, scaleX, scaleY));
 }

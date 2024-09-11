@@ -69,8 +69,8 @@ class LabelHandler extends Handler<LabelTool>
           if (_context?.isCreating ?? false)
             switch (_context!) {
               TextContext e =>
-                TextRenderer(e.element!, e) as GenericTextRenderer,
-              MarkdownContext e => MarkdownRenderer(e.element!, e)
+                TextRenderer(e.element!, null, e) as GenericTextRenderer,
+              MarkdownContext e => MarkdownRenderer(e.element!, null, e)
             },
           LabelSelectionCursor(_context!)
         ],

@@ -5,7 +5,7 @@ class ShapeRenderer extends Renderer<ShapeElement> {
   Rect get rect => Rect.fromPoints(
       element.firstPosition.toOffset(), element.secondPosition.toOffset());
 
-  ShapeRenderer(super.element);
+  ShapeRenderer(super.element, [super.layer]);
 
   @override
   FutureOr<void> build(Canvas canvas, Size size, NoteData document,
@@ -172,6 +172,7 @@ class ShapeRenderer extends Renderer<ShapeElement> {
         secondPosition: position.translate(sizeX, sizeY).toPoint(),
         rotation: rotation,
       ),
+      layer,
     );
   }
 

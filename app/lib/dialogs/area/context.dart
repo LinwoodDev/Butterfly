@@ -85,8 +85,8 @@ ContextMenuBuilder buildGeneralAreaContextMenu(DocumentBloc bloc, Area area,
               final result = await showDialog<String>(
                   builder: (context) => NameDialog(), context: context);
               if (result == null) return;
-              bloc.add(ElementsLayerChanged(
-                  result, elements.map((e) => e.id).whereNotNull().toList()));
+              bloc.add(ElementsCollectionChanged(
+                  elements.map((e) => e.id).nonNulls.toList(), result));
             },
             icon: const PhosphorIcon(PhosphorIconsLight.stack),
             label: AppLocalizations.of(context).changeLayer,

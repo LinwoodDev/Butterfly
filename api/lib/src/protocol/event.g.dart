@@ -329,40 +329,44 @@ Map<String, dynamic> _$$WaypointReorderedImplToJson(
       'type': instance.$type,
     };
 
-_$LayerRenamedImpl _$$LayerRenamedImplFromJson(Map json) => _$LayerRenamedImpl(
+_$CollectionRenamedImpl _$$CollectionRenamedImplFromJson(Map json) =>
+    _$CollectionRenamedImpl(
       json['oldName'] as String,
       json['newName'] as String,
       $type: json['type'] as String?,
     );
 
-Map<String, dynamic> _$$LayerRenamedImplToJson(_$LayerRenamedImpl instance) =>
+Map<String, dynamic> _$$CollectionRenamedImplToJson(
+        _$CollectionRenamedImpl instance) =>
     <String, dynamic>{
       'oldName': instance.oldName,
       'newName': instance.newName,
       'type': instance.$type,
     };
 
-_$LayerElementsRemovedImpl _$$LayerElementsRemovedImplFromJson(Map json) =>
-    _$LayerElementsRemovedImpl(
+_$CollectionElementsRemovedImpl _$$CollectionElementsRemovedImplFromJson(
+        Map json) =>
+    _$CollectionElementsRemovedImpl(
       json['name'] as String,
       $type: json['type'] as String?,
     );
 
-Map<String, dynamic> _$$LayerElementsRemovedImplToJson(
-        _$LayerElementsRemovedImpl instance) =>
+Map<String, dynamic> _$$CollectionElementsRemovedImplToJson(
+        _$CollectionElementsRemovedImpl instance) =>
     <String, dynamic>{
       'name': instance.name,
       'type': instance.$type,
     };
 
-_$LayerVisibilityChangedImpl _$$LayerVisibilityChangedImplFromJson(Map json) =>
-    _$LayerVisibilityChangedImpl(
+_$CurrentCollectionChangedImpl _$$CurrentCollectionChangedImplFromJson(
+        Map json) =>
+    _$CurrentCollectionChangedImpl(
       json['name'] as String,
       $type: json['type'] as String?,
     );
 
-Map<String, dynamic> _$$LayerVisibilityChangedImplToJson(
-        _$LayerVisibilityChangedImpl instance) =>
+Map<String, dynamic> _$$CurrentCollectionChangedImplToJson(
+        _$CurrentCollectionChangedImpl instance) =>
     <String, dynamic>{
       'name': instance.name,
       'type': instance.$type,
@@ -381,18 +385,69 @@ Map<String, dynamic> _$$CurrentLayerChangedImplToJson(
       'type': instance.$type,
     };
 
-_$ElementsLayerChangedImpl _$$ElementsLayerChangedImplFromJson(Map json) =>
-    _$ElementsLayerChangedImpl(
-      json['layer'] as String,
-      (json['elements'] as List<dynamic>).map((e) => e as String).toList(),
+_$LayerCreatedImpl _$$LayerCreatedImplFromJson(Map json) => _$LayerCreatedImpl(
+      json['name'] as String,
       $type: json['type'] as String?,
     );
 
-Map<String, dynamic> _$$ElementsLayerChangedImplToJson(
-        _$ElementsLayerChangedImpl instance) =>
+Map<String, dynamic> _$$LayerCreatedImplToJson(_$LayerCreatedImpl instance) =>
     <String, dynamic>{
-      'layer': instance.layer,
+      'name': instance.name,
+      'type': instance.$type,
+    };
+
+_$LayerChangedImpl _$$LayerChangedImplFromJson(Map json) => _$LayerChangedImpl(
+      json['id'] as String,
+      name: json['name'] as String?,
+      $type: json['type'] as String?,
+    );
+
+Map<String, dynamic> _$$LayerChangedImplToJson(_$LayerChangedImpl instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'name': instance.name,
+      'type': instance.$type,
+    };
+
+_$LayerRemovedImpl _$$LayerRemovedImplFromJson(Map json) => _$LayerRemovedImpl(
+      json['id'] as String,
+      $type: json['type'] as String?,
+    );
+
+Map<String, dynamic> _$$LayerRemovedImplToJson(_$LayerRemovedImpl instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'type': instance.$type,
+    };
+
+_$LayerVisibilityChangedImpl _$$LayerVisibilityChangedImplFromJson(Map json) =>
+    _$LayerVisibilityChangedImpl(
+      json['id'] as String,
+      json['visible'] as bool,
+      $type: json['type'] as String?,
+    );
+
+Map<String, dynamic> _$$LayerVisibilityChangedImplToJson(
+        _$LayerVisibilityChangedImpl instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'visible': instance.visible,
+      'type': instance.$type,
+    };
+
+_$ElementsCollectionChangedImpl _$$ElementsCollectionChangedImplFromJson(
+        Map json) =>
+    _$ElementsCollectionChangedImpl(
+      (json['elements'] as List<dynamic>).map((e) => e as String).toList(),
+      json['collection'] as String,
+      $type: json['type'] as String?,
+    );
+
+Map<String, dynamic> _$$ElementsCollectionChangedImplToJson(
+        _$ElementsCollectionChangedImpl instance) =>
+    <String, dynamic>{
       'elements': instance.elements,
+      'collection': instance.collection,
       'type': instance.$type,
     };
 

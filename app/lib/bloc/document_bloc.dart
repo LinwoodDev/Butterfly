@@ -543,7 +543,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       _saveState(emit, state: current.copyWith(page: currentDocument));
     });
 
-    on<LayerRenamed>((event, emit) {
+    on<CollectionRenamed>((event, emit) {
       final current = state;
       if (current is! DocumentLoadSuccess) return;
       if (!(current.embedding?.editable ?? true)) return;
@@ -564,20 +564,24 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       );
     });
 
-    on<LayerElementsRemoved>((event, emit) {
+    on<CollectionElementsRemoved>((event, emit) {
       final current = state;
       if (current is! DocumentLoadSuccess) return;
       if (!(current.embedding?.editable ?? true)) return;
       _saveState(
         emit,
         state: current.copyWith(
-            page: current.page.mapLayers(
-          (e) => e.copyWith(
-            content: List<PadElement>.from(e.content)
-                .where((e) => e.collection != event.name)
-                .toList(),
+          page: current.page.mapLayers(
+            (e) => e.copyWith(
+              content: List<PadElement>.from(e.content)
+                  .where((e) => e.collection != event.name)
+                  .toList(),
+            ),
           ),
-        )),
+          currentCollection: current.currentCollection == event.name
+              ? ''
+              : current.currentCollection,
+        ),
         addedElements: null,
         reset: true,
       );
@@ -586,21 +590,20 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     on<LayerVisibilityChanged>((event, emit) {
       final current = state;
       if (current is! DocumentLoadSuccess) return;
-      var invisibleLayers = List<String>.from(current.invisibleCollections);
-      var isVisible = current.isLayerVisible(event.name);
-      if (isVisible) {
-        invisibleLayers.add(event.name);
+      final invisibleLayers = Set<String>.from(current.invisibleLayers);
+      if (event.visible) {
+        invisibleLayers.remove(event.id);
       } else {
-        invisibleLayers.remove(event.name);
+        invisibleLayers.add(event.id);
       }
       return _saveState(
         emit,
-        state: current.copyWith(invisibleCollections: invisibleLayers),
+        state: current.copyWith(invisibleLayers: invisibleLayers),
         addedElements: null,
       );
     });
 
-    on<CurrentLayerChanged>((event, emit) {
+    on<CurrentCollectionChanged>((event, emit) {
       final current = state;
       if (current is! DocumentLoadSuccess) return;
       if (!(current.embedding?.editable ?? true)) return;
@@ -613,7 +616,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       );
     });
 
-    on<ElementsLayerChanged>((event, emit) {
+    on<ElementsCollectionChanged>((event, emit) {
       final current = state;
       if (current is! DocumentLoadSuccess) return;
       if (!(current.embedding?.editable ?? true)) return;
@@ -623,7 +626,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
           page: current.page.mapLayers((e) => e.copyWith(
                   content: e.content.map((e) {
                 if (event.elements.contains(e.id)) {
-                  return e.copyWith(collection: event.layer);
+                  return e.copyWith(collection: event.collection);
                 }
                 return e;
               }).toList())),
@@ -1012,7 +1015,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     return compute(
       _executeRayCast,
       _RayCastParams(
-        state.invisibleCollections,
+        state.invisibleLayers,
         renderers.map((e) => _SmallRenderer.fromRenderer(e)).toList(),
         rect,
         transform.size,
@@ -1036,7 +1039,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     return compute(
       _executeRayCastPolygon,
       _RayCastPolygonParams(
-        state.invisibleCollections,
+        state.invisibleLayers,
         renderers.map((e) => _SmallRenderer.fromRenderer(e)).toList(),
         points,
         transform.size,
@@ -1052,15 +1055,15 @@ typedef HitRequest = bool Function(Offset position, [double radius]);
 class _SmallRenderer {
   final HitCalculator hitCalc;
   final PadElement element;
+  final String? layer;
 
-  _SmallRenderer(this.hitCalc, this.element);
+  _SmallRenderer(this.hitCalc, this.element, this.layer);
   _SmallRenderer.fromRenderer(Renderer renderer)
-      : hitCalc = renderer.getHitCalculator(),
-        element = renderer.element;
+      : this(renderer.getHitCalculator(), renderer.element, renderer.layer);
 }
 
 class _RayCastParams {
-  final List<String> invisibleCollections;
+  final Set<String> invisibleLayers;
   final List<_SmallRenderer> renderers;
   final Rect rect;
   final double size;
@@ -1068,7 +1071,7 @@ class _RayCastParams {
   final bool full;
 
   const _RayCastParams(
-    this.invisibleCollections,
+    this.invisibleLayers,
     this.renderers,
     this.rect,
     this.size,
@@ -1082,8 +1085,7 @@ Set<int> _executeRayCast(_RayCastParams params) {
   return params.renderers
       .asMap()
       .entries
-      .where((e) =>
-          !params.invisibleCollections.contains(e.value.element.collection))
+      .where((e) => !params.invisibleLayers.contains(e.value.layer))
       .where((e) =>
           e.value.hitCalc.hit(rect, full: params.full) &&
           (params.collection == null ||
@@ -1093,14 +1095,14 @@ Set<int> _executeRayCast(_RayCastParams params) {
 }
 
 class _RayCastPolygonParams {
-  final List<String> invisibleCollections;
+  final Set<String> invisibleLayers;
   final List<_SmallRenderer> renderers;
   final List<Offset> polygon;
   final double size;
   final String? collection;
   final bool full;
 
-  const _RayCastPolygonParams(this.invisibleCollections, this.renderers,
+  const _RayCastPolygonParams(this.invisibleLayers, this.renderers,
       this.polygon, this.size, this.collection, this.full);
 }
 
@@ -1108,8 +1110,7 @@ Set<int> _executeRayCastPolygon(_RayCastPolygonParams params) {
   return params.renderers
       .asMap()
       .entries
-      .where((e) =>
-          !params.invisibleCollections.contains(e.value.element.collection))
+      .where((e) => !params.invisibleLayers.contains(e.value.layer))
       .where((e) =>
           e.value.hitCalc.hitPolygon(params.polygon, full: params.full) &&
           (params.collection == null ||

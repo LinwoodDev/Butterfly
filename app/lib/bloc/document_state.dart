@@ -29,6 +29,7 @@ abstract class DocumentState extends Equatable {
   Embedding? get embedding => currentIndexCubit?.state.embedding;
   SettingsCubit get settingsCubit => fileSystem.settingsCubit;
   Area? get currentArea => null;
+  String? get currentCollection => null;
 
   NoteData? saveData([NoteData? current]) => data;
   List<int>? saveBytes([NoteData? current]) => saveData()?.save();
@@ -90,7 +91,7 @@ abstract class DocumentLoaded extends DocumentState {
             metadata ?? data.getMetadata() ?? DocumentDefaults.createMetadata(),
         info = info ?? data.getInfo() ?? DocumentDefaults.createInfo();
 
-  List<String> get invisibleCollections => [];
+  Set<String> get invisibleLayers => {};
 
   @override
   Area? get currentArea => null;
@@ -125,10 +126,12 @@ abstract class DocumentLoaded extends DocumentState {
 
 class DocumentLoadSuccess extends DocumentLoaded {
   final StorageType storageType;
-  final String currentCollection, currentAreaName;
+  @override
+  final String currentCollection;
+  final String currentAreaName;
   final int currentLayer;
   @override
-  final List<String> invisibleCollections;
+  final Set<String> invisibleLayers;
   @override
   final CurrentIndexCubit currentIndexCubit;
 
@@ -147,7 +150,7 @@ class DocumentLoadSuccess extends DocumentLoaded {
       this.currentAreaName = '',
       this.currentCollection = '',
       this.currentLayer = 0,
-      this.invisibleCollections = const []}) {
+      this.invisibleLayers = const {}}) {
     if (location != null) {
       currentIndexCubit.setSaveState(location: location, absolute: absolute);
     }
@@ -155,7 +158,7 @@ class DocumentLoadSuccess extends DocumentLoaded {
 
   @override
   List<Object?> get props => [
-        invisibleCollections,
+        invisibleLayers,
         data,
         info,
         page,
@@ -185,7 +188,7 @@ class DocumentLoadSuccess extends DocumentLoaded {
     bool? editMode,
     String? currentCollection,
     String? currentAreaName,
-    List<String>? invisibleCollections,
+    Set<String>? invisibleLayers,
   }) =>
       DocumentLoadSuccess(
         data ?? this.data,
@@ -194,7 +197,7 @@ class DocumentLoadSuccess extends DocumentLoaded {
         pageName: pageName ?? this.pageName,
         metadata: metadata ?? this.metadata,
         info: info ?? this.info,
-        invisibleCollections: invisibleCollections ?? this.invisibleCollections,
+        invisibleLayers: invisibleLayers ?? this.invisibleLayers,
         currentCollection: currentCollection ?? this.currentCollection,
         currentAreaName: currentAreaName ?? this.currentAreaName,
         fileSystem: fileSystem,
@@ -204,7 +207,7 @@ class DocumentLoadSuccess extends DocumentLoaded {
         absolute: absolute,
       );
 
-  bool isLayerVisible(String layer) => !invisibleCollections.contains(layer);
+  bool isLayerVisible(String? layer) => !invisibleLayers.contains(layer);
 
   bool hasAutosave() =>
       settingsCubit.state.autosave &&
@@ -234,17 +237,10 @@ class DocumentLoadSuccess extends DocumentLoaded {
         quality: settingsCubit.state.pdfQuality,
       );
 
-  DocumentPage mapLayer(DocumentLayer Function(DocumentLayer) mapper) {
-    final layers = List<DocumentLayer>.from(page.layers);
-    if (layers.isEmpty) {
-      layers.add(const DocumentLayer());
-    }
-    final layerIndex = currentLayer.clamp(0, layers.length - 1);
-    final newLayer = mapper(layers[layerIndex]);
-    layers[layerIndex] = newLayer;
-    final newPage = page.copyWith(layers: layers);
-    return newPage;
-  }
+  DocumentLayer getLayer() => page.getLayer(currentLayer);
+
+  DocumentPage mapLayer(DocumentLayer Function(DocumentLayer) mapper) =>
+      page.mapLayer(currentLayer, mapper);
 }
 
 class DocumentPresentationState extends DocumentLoaded {

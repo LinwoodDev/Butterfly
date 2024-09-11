@@ -3,7 +3,7 @@ part of '../renderer.dart';
 class SvgRenderer extends Renderer<SvgElement> {
   PictureInfo? pictureInfo;
 
-  SvgRenderer(super.element, [this.pictureInfo]);
+  SvgRenderer(super.element, [super.layer, this.pictureInfo]);
 
   @override
   void build(Canvas canvas, Size size, NoteData document, DocumentPage page,
@@ -116,6 +116,7 @@ class SvgRenderer extends Renderer<SvgElement> {
           width: element.width * scaleX,
           height: element.height * scaleY,
         ),
+        layer,
         pictureInfo);
   }
 }

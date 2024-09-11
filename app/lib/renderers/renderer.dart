@@ -132,21 +132,22 @@ typedef RendererOperationCallback = void Function(
 
 abstract class Renderer<T> {
   final T element;
+  final String? layer;
   Area? area;
 
-  Renderer(this.element);
+  Renderer(this.element, [this.layer]);
 
-  factory Renderer.fromInstance(T element) {
+  factory Renderer.fromInstance(T element, [String? layer]) {
     // Elements
     if (element is PadElement) {
       return switch (element) {
-        PenElement() => PenRenderer(element),
-        TextElement() => TextRenderer(element),
-        ImageElement() => ImageRenderer(element),
-        SvgElement() => SvgRenderer(element),
-        ShapeElement() => ShapeRenderer(element),
-        MarkdownElement() => MarkdownRenderer(element),
-        TextureElement() => TextureRenderer(element),
+        PenElement() => PenRenderer(element, layer),
+        TextElement() => TextRenderer(element, layer),
+        ImageElement() => ImageRenderer(element, layer),
+        SvgElement() => SvgRenderer(element, layer),
+        ShapeElement() => ShapeRenderer(element, layer),
+        MarkdownElement() => MarkdownRenderer(element, layer),
+        TextureElement() => TextureRenderer(element, layer),
       } as Renderer<T>;
     }
 

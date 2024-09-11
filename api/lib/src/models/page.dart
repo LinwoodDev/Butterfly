@@ -47,6 +47,28 @@ sealed class DocumentPage with _$DocumentPage {
         e.content.whereType<SourcedElement>().any((e) => e.source == source));
   }
 
+  DocumentLayer getLayer(int index) {
+    if (layers.isEmpty) {
+      return DocumentLayer();
+    }
+    final layerIndex = index.clamp(0, layers.length - 1);
+    return layers[layerIndex];
+  }
+
+  DocumentPage mapLayer(
+      int index, DocumentLayer Function(DocumentLayer) mapper) {
+    final layer = getLayer(index);
+    final newLayer = mapper(layer);
+    final newLayers = layers.toList();
+    if (newLayers.isEmpty) {
+      newLayers.add(newLayer);
+    } else {
+      newLayers[index.clamp(0, layers.length - 1)] = newLayer;
+    }
+    final newPage = copyWith(layers: layers);
+    return newPage;
+  }
+
   DocumentPage mapLayers(DocumentLayer Function(DocumentLayer) mapper) {
     final newLayers = layers.map(mapper).toList();
     return copyWith(layers: newLayers);
@@ -66,6 +88,7 @@ sealed class DocumentLayer with _$DocumentLayer {
   const DocumentLayer._();
 
   const factory DocumentLayer({
+    String? id,
     @Default('') String name,
     @Default([]) List<PadElement> content,
   }) = _DocumentLayer;

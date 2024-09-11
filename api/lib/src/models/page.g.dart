@@ -49,6 +49,7 @@ Map<String, dynamic> _$$DocumentPageImplToJson(_$DocumentPageImpl instance) =>
 
 _$DocumentLayerImpl _$$DocumentLayerImplFromJson(Map json) =>
     _$DocumentLayerImpl(
+      id: json['id'] as String?,
       name: json['name'] as String? ?? '',
       content: (json['content'] as List<dynamic>?)
               ?.map((e) =>
@@ -59,6 +60,7 @@ _$DocumentLayerImpl _$$DocumentLayerImplFromJson(Map json) =>
 
 Map<String, dynamic> _$$DocumentLayerImplToJson(_$DocumentLayerImpl instance) =>
     <String, dynamic>{
+      'id': instance.id,
       'name': instance.name,
       'content': instance.content.map((e) => e.toJson()).toList(),
     };

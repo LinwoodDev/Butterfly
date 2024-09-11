@@ -62,16 +62,24 @@ DocumentEvent _$DocumentEventFromJson(Map<String, dynamic> json) {
       return WaypointRemoved.fromJson(json);
     case 'waypointReordered':
       return WaypointReordered.fromJson(json);
-    case 'layerRenamed':
-      return LayerRenamed.fromJson(json);
-    case 'layerElementsRemoved':
-      return LayerElementsRemoved.fromJson(json);
-    case 'layerVisibilityChanged':
-      return LayerVisibilityChanged.fromJson(json);
+    case 'collectionRenamed':
+      return CollectionRenamed.fromJson(json);
+    case 'collectionElementsRemoved':
+      return CollectionElementsRemoved.fromJson(json);
+    case 'currentCollectionChanged':
+      return CurrentCollectionChanged.fromJson(json);
     case 'currentLayerChanged':
       return CurrentLayerChanged.fromJson(json);
-    case 'elementsLayerChanged':
-      return ElementsLayerChanged.fromJson(json);
+    case 'layerCreated':
+      return LayerCreated.fromJson(json);
+    case 'layerChanged':
+      return LayerChanged.fromJson(json);
+    case 'layerRemoved':
+      return LayerRemoved.fromJson(json);
+    case 'layerVisibilityChanged':
+      return LayerVisibilityChanged.fromJson(json);
+    case 'elementsCollectionChanged':
+      return ElementsCollectionChanged.fromJson(json);
     case 'areasCreated':
       return AreasCreated.fromJson(json);
     case 'areasRemoved':
@@ -2662,20 +2670,20 @@ abstract class WaypointReordered extends DocumentEvent {
 }
 
 /// @nodoc
-abstract class _$$LayerRenamedImplCopyWith<$Res> {
-  factory _$$LayerRenamedImplCopyWith(
-          _$LayerRenamedImpl value, $Res Function(_$LayerRenamedImpl) then) =
-      __$$LayerRenamedImplCopyWithImpl<$Res>;
+abstract class _$$CollectionRenamedImplCopyWith<$Res> {
+  factory _$$CollectionRenamedImplCopyWith(_$CollectionRenamedImpl value,
+          $Res Function(_$CollectionRenamedImpl) then) =
+      __$$CollectionRenamedImplCopyWithImpl<$Res>;
   @useResult
   $Res call({String oldName, String newName});
 }
 
 /// @nodoc
-class __$$LayerRenamedImplCopyWithImpl<$Res>
-    extends _$DocumentEventCopyWithImpl<$Res, _$LayerRenamedImpl>
-    implements _$$LayerRenamedImplCopyWith<$Res> {
-  __$$LayerRenamedImplCopyWithImpl(
-      _$LayerRenamedImpl _value, $Res Function(_$LayerRenamedImpl) _then)
+class __$$CollectionRenamedImplCopyWithImpl<$Res>
+    extends _$DocumentEventCopyWithImpl<$Res, _$CollectionRenamedImpl>
+    implements _$$CollectionRenamedImplCopyWith<$Res> {
+  __$$CollectionRenamedImplCopyWithImpl(_$CollectionRenamedImpl _value,
+      $Res Function(_$CollectionRenamedImpl) _then)
       : super(_value, _then);
 
   /// Create a copy of DocumentEvent
@@ -2686,7 +2694,7 @@ class __$$LayerRenamedImplCopyWithImpl<$Res>
     Object? oldName = null,
     Object? newName = null,
   }) {
-    return _then(_$LayerRenamedImpl(
+    return _then(_$CollectionRenamedImpl(
       null == oldName
           ? _value.oldName
           : oldName // ignore: cast_nullable_to_non_nullable
@@ -2701,13 +2709,14 @@ class __$$LayerRenamedImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$LayerRenamedImpl extends LayerRenamed {
-  const _$LayerRenamedImpl(this.oldName, this.newName, {final String? $type})
-      : $type = $type ?? 'layerRenamed',
+class _$CollectionRenamedImpl extends CollectionRenamed {
+  const _$CollectionRenamedImpl(this.oldName, this.newName,
+      {final String? $type})
+      : $type = $type ?? 'collectionRenamed',
         super._();
 
-  factory _$LayerRenamedImpl.fromJson(Map<String, dynamic> json) =>
-      _$$LayerRenamedImplFromJson(json);
+  factory _$CollectionRenamedImpl.fromJson(Map<String, dynamic> json) =>
+      _$$CollectionRenamedImplFromJson(json);
 
   @override
   final String oldName;
@@ -2719,14 +2728,14 @@ class _$LayerRenamedImpl extends LayerRenamed {
 
   @override
   String toString() {
-    return 'DocumentEvent.layerRenamed(oldName: $oldName, newName: $newName)';
+    return 'DocumentEvent.collectionRenamed(oldName: $oldName, newName: $newName)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$LayerRenamedImpl &&
+            other is _$CollectionRenamedImpl &&
             (identical(other.oldName, oldName) || other.oldName == oldName) &&
             (identical(other.newName, newName) || other.newName == newName));
   }
@@ -2740,24 +2749,25 @@ class _$LayerRenamedImpl extends LayerRenamed {
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
-  _$$LayerRenamedImplCopyWith<_$LayerRenamedImpl> get copyWith =>
-      __$$LayerRenamedImplCopyWithImpl<_$LayerRenamedImpl>(this, _$identity);
+  _$$CollectionRenamedImplCopyWith<_$CollectionRenamedImpl> get copyWith =>
+      __$$CollectionRenamedImplCopyWithImpl<_$CollectionRenamedImpl>(
+          this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$LayerRenamedImplToJson(
+    return _$$CollectionRenamedImplToJson(
       this,
     );
   }
 }
 
-abstract class LayerRenamed extends DocumentEvent {
-  const factory LayerRenamed(final String oldName, final String newName) =
-      _$LayerRenamedImpl;
-  const LayerRenamed._() : super._();
+abstract class CollectionRenamed extends DocumentEvent {
+  const factory CollectionRenamed(final String oldName, final String newName) =
+      _$CollectionRenamedImpl;
+  const CollectionRenamed._() : super._();
 
-  factory LayerRenamed.fromJson(Map<String, dynamic> json) =
-      _$LayerRenamedImpl.fromJson;
+  factory CollectionRenamed.fromJson(Map<String, dynamic> json) =
+      _$CollectionRenamedImpl.fromJson;
 
   String get oldName;
   String get newName;
@@ -2765,25 +2775,27 @@ abstract class LayerRenamed extends DocumentEvent {
   /// Create a copy of DocumentEvent
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$LayerRenamedImplCopyWith<_$LayerRenamedImpl> get copyWith =>
+  _$$CollectionRenamedImplCopyWith<_$CollectionRenamedImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$LayerElementsRemovedImplCopyWith<$Res> {
-  factory _$$LayerElementsRemovedImplCopyWith(_$LayerElementsRemovedImpl value,
-          $Res Function(_$LayerElementsRemovedImpl) then) =
-      __$$LayerElementsRemovedImplCopyWithImpl<$Res>;
+abstract class _$$CollectionElementsRemovedImplCopyWith<$Res> {
+  factory _$$CollectionElementsRemovedImplCopyWith(
+          _$CollectionElementsRemovedImpl value,
+          $Res Function(_$CollectionElementsRemovedImpl) then) =
+      __$$CollectionElementsRemovedImplCopyWithImpl<$Res>;
   @useResult
   $Res call({String name});
 }
 
 /// @nodoc
-class __$$LayerElementsRemovedImplCopyWithImpl<$Res>
-    extends _$DocumentEventCopyWithImpl<$Res, _$LayerElementsRemovedImpl>
-    implements _$$LayerElementsRemovedImplCopyWith<$Res> {
-  __$$LayerElementsRemovedImplCopyWithImpl(_$LayerElementsRemovedImpl _value,
-      $Res Function(_$LayerElementsRemovedImpl) _then)
+class __$$CollectionElementsRemovedImplCopyWithImpl<$Res>
+    extends _$DocumentEventCopyWithImpl<$Res, _$CollectionElementsRemovedImpl>
+    implements _$$CollectionElementsRemovedImplCopyWith<$Res> {
+  __$$CollectionElementsRemovedImplCopyWithImpl(
+      _$CollectionElementsRemovedImpl _value,
+      $Res Function(_$CollectionElementsRemovedImpl) _then)
       : super(_value, _then);
 
   /// Create a copy of DocumentEvent
@@ -2793,7 +2805,7 @@ class __$$LayerElementsRemovedImplCopyWithImpl<$Res>
   $Res call({
     Object? name = null,
   }) {
-    return _then(_$LayerElementsRemovedImpl(
+    return _then(_$CollectionElementsRemovedImpl(
       null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -2804,13 +2816,13 @@ class __$$LayerElementsRemovedImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$LayerElementsRemovedImpl extends LayerElementsRemoved {
-  const _$LayerElementsRemovedImpl(this.name, {final String? $type})
-      : $type = $type ?? 'layerElementsRemoved',
+class _$CollectionElementsRemovedImpl extends CollectionElementsRemoved {
+  const _$CollectionElementsRemovedImpl(this.name, {final String? $type})
+      : $type = $type ?? 'collectionElementsRemoved',
         super._();
 
-  factory _$LayerElementsRemovedImpl.fromJson(Map<String, dynamic> json) =>
-      _$$LayerElementsRemovedImplFromJson(json);
+  factory _$CollectionElementsRemovedImpl.fromJson(Map<String, dynamic> json) =>
+      _$$CollectionElementsRemovedImplFromJson(json);
 
   @override
   final String name;
@@ -2820,14 +2832,14 @@ class _$LayerElementsRemovedImpl extends LayerElementsRemoved {
 
   @override
   String toString() {
-    return 'DocumentEvent.layerElementsRemoved(name: $name)';
+    return 'DocumentEvent.collectionElementsRemoved(name: $name)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$LayerElementsRemovedImpl &&
+            other is _$CollectionElementsRemovedImpl &&
             (identical(other.name, name) || other.name == name));
   }
 
@@ -2840,53 +2852,52 @@ class _$LayerElementsRemovedImpl extends LayerElementsRemoved {
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
-  _$$LayerElementsRemovedImplCopyWith<_$LayerElementsRemovedImpl>
-      get copyWith =>
-          __$$LayerElementsRemovedImplCopyWithImpl<_$LayerElementsRemovedImpl>(
-              this, _$identity);
+  _$$CollectionElementsRemovedImplCopyWith<_$CollectionElementsRemovedImpl>
+      get copyWith => __$$CollectionElementsRemovedImplCopyWithImpl<
+          _$CollectionElementsRemovedImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$LayerElementsRemovedImplToJson(
+    return _$$CollectionElementsRemovedImplToJson(
       this,
     );
   }
 }
 
-abstract class LayerElementsRemoved extends DocumentEvent {
-  const factory LayerElementsRemoved(final String name) =
-      _$LayerElementsRemovedImpl;
-  const LayerElementsRemoved._() : super._();
+abstract class CollectionElementsRemoved extends DocumentEvent {
+  const factory CollectionElementsRemoved(final String name) =
+      _$CollectionElementsRemovedImpl;
+  const CollectionElementsRemoved._() : super._();
 
-  factory LayerElementsRemoved.fromJson(Map<String, dynamic> json) =
-      _$LayerElementsRemovedImpl.fromJson;
+  factory CollectionElementsRemoved.fromJson(Map<String, dynamic> json) =
+      _$CollectionElementsRemovedImpl.fromJson;
 
   String get name;
 
   /// Create a copy of DocumentEvent
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$LayerElementsRemovedImplCopyWith<_$LayerElementsRemovedImpl>
+  _$$CollectionElementsRemovedImplCopyWith<_$CollectionElementsRemovedImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$LayerVisibilityChangedImplCopyWith<$Res> {
-  factory _$$LayerVisibilityChangedImplCopyWith(
-          _$LayerVisibilityChangedImpl value,
-          $Res Function(_$LayerVisibilityChangedImpl) then) =
-      __$$LayerVisibilityChangedImplCopyWithImpl<$Res>;
+abstract class _$$CurrentCollectionChangedImplCopyWith<$Res> {
+  factory _$$CurrentCollectionChangedImplCopyWith(
+          _$CurrentCollectionChangedImpl value,
+          $Res Function(_$CurrentCollectionChangedImpl) then) =
+      __$$CurrentCollectionChangedImplCopyWithImpl<$Res>;
   @useResult
   $Res call({String name});
 }
 
 /// @nodoc
-class __$$LayerVisibilityChangedImplCopyWithImpl<$Res>
-    extends _$DocumentEventCopyWithImpl<$Res, _$LayerVisibilityChangedImpl>
-    implements _$$LayerVisibilityChangedImplCopyWith<$Res> {
-  __$$LayerVisibilityChangedImplCopyWithImpl(
-      _$LayerVisibilityChangedImpl _value,
-      $Res Function(_$LayerVisibilityChangedImpl) _then)
+class __$$CurrentCollectionChangedImplCopyWithImpl<$Res>
+    extends _$DocumentEventCopyWithImpl<$Res, _$CurrentCollectionChangedImpl>
+    implements _$$CurrentCollectionChangedImplCopyWith<$Res> {
+  __$$CurrentCollectionChangedImplCopyWithImpl(
+      _$CurrentCollectionChangedImpl _value,
+      $Res Function(_$CurrentCollectionChangedImpl) _then)
       : super(_value, _then);
 
   /// Create a copy of DocumentEvent
@@ -2896,7 +2907,7 @@ class __$$LayerVisibilityChangedImplCopyWithImpl<$Res>
   $Res call({
     Object? name = null,
   }) {
-    return _then(_$LayerVisibilityChangedImpl(
+    return _then(_$CurrentCollectionChangedImpl(
       null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -2907,13 +2918,13 @@ class __$$LayerVisibilityChangedImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$LayerVisibilityChangedImpl extends LayerVisibilityChanged {
-  const _$LayerVisibilityChangedImpl(this.name, {final String? $type})
-      : $type = $type ?? 'layerVisibilityChanged',
+class _$CurrentCollectionChangedImpl extends CurrentCollectionChanged {
+  const _$CurrentCollectionChangedImpl(this.name, {final String? $type})
+      : $type = $type ?? 'currentCollectionChanged',
         super._();
 
-  factory _$LayerVisibilityChangedImpl.fromJson(Map<String, dynamic> json) =>
-      _$$LayerVisibilityChangedImplFromJson(json);
+  factory _$CurrentCollectionChangedImpl.fromJson(Map<String, dynamic> json) =>
+      _$$CurrentCollectionChangedImplFromJson(json);
 
   @override
   final String name;
@@ -2923,14 +2934,14 @@ class _$LayerVisibilityChangedImpl extends LayerVisibilityChanged {
 
   @override
   String toString() {
-    return 'DocumentEvent.layerVisibilityChanged(name: $name)';
+    return 'DocumentEvent.currentCollectionChanged(name: $name)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$LayerVisibilityChangedImpl &&
+            other is _$CurrentCollectionChangedImpl &&
             (identical(other.name, name) || other.name == name));
   }
 
@@ -2943,32 +2954,32 @@ class _$LayerVisibilityChangedImpl extends LayerVisibilityChanged {
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
-  _$$LayerVisibilityChangedImplCopyWith<_$LayerVisibilityChangedImpl>
-      get copyWith => __$$LayerVisibilityChangedImplCopyWithImpl<
-          _$LayerVisibilityChangedImpl>(this, _$identity);
+  _$$CurrentCollectionChangedImplCopyWith<_$CurrentCollectionChangedImpl>
+      get copyWith => __$$CurrentCollectionChangedImplCopyWithImpl<
+          _$CurrentCollectionChangedImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$LayerVisibilityChangedImplToJson(
+    return _$$CurrentCollectionChangedImplToJson(
       this,
     );
   }
 }
 
-abstract class LayerVisibilityChanged extends DocumentEvent {
-  const factory LayerVisibilityChanged(final String name) =
-      _$LayerVisibilityChangedImpl;
-  const LayerVisibilityChanged._() : super._();
+abstract class CurrentCollectionChanged extends DocumentEvent {
+  const factory CurrentCollectionChanged(final String name) =
+      _$CurrentCollectionChangedImpl;
+  const CurrentCollectionChanged._() : super._();
 
-  factory LayerVisibilityChanged.fromJson(Map<String, dynamic> json) =
-      _$LayerVisibilityChangedImpl.fromJson;
+  factory CurrentCollectionChanged.fromJson(Map<String, dynamic> json) =
+      _$CurrentCollectionChangedImpl.fromJson;
 
   String get name;
 
   /// Create a copy of DocumentEvent
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$LayerVisibilityChangedImplCopyWith<_$LayerVisibilityChangedImpl>
+  _$$CurrentCollectionChangedImplCopyWith<_$CurrentCollectionChangedImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
 
@@ -3073,20 +3084,20 @@ abstract class CurrentLayerChanged extends DocumentEvent {
 }
 
 /// @nodoc
-abstract class _$$ElementsLayerChangedImplCopyWith<$Res> {
-  factory _$$ElementsLayerChangedImplCopyWith(_$ElementsLayerChangedImpl value,
-          $Res Function(_$ElementsLayerChangedImpl) then) =
-      __$$ElementsLayerChangedImplCopyWithImpl<$Res>;
+abstract class _$$LayerCreatedImplCopyWith<$Res> {
+  factory _$$LayerCreatedImplCopyWith(
+          _$LayerCreatedImpl value, $Res Function(_$LayerCreatedImpl) then) =
+      __$$LayerCreatedImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({String layer, List<String> elements});
+  $Res call({String name});
 }
 
 /// @nodoc
-class __$$ElementsLayerChangedImplCopyWithImpl<$Res>
-    extends _$DocumentEventCopyWithImpl<$Res, _$ElementsLayerChangedImpl>
-    implements _$$ElementsLayerChangedImplCopyWith<$Res> {
-  __$$ElementsLayerChangedImplCopyWithImpl(_$ElementsLayerChangedImpl _value,
-      $Res Function(_$ElementsLayerChangedImpl) _then)
+class __$$LayerCreatedImplCopyWithImpl<$Res>
+    extends _$DocumentEventCopyWithImpl<$Res, _$LayerCreatedImpl>
+    implements _$$LayerCreatedImplCopyWith<$Res> {
+  __$$LayerCreatedImplCopyWithImpl(
+      _$LayerCreatedImpl _value, $Res Function(_$LayerCreatedImpl) _then)
       : super(_value, _then);
 
   /// Create a copy of DocumentEvent
@@ -3094,36 +3105,453 @@ class __$$ElementsLayerChangedImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? layer = null,
-    Object? elements = null,
+    Object? name = null,
   }) {
-    return _then(_$ElementsLayerChangedImpl(
-      null == layer
-          ? _value.layer
-          : layer // ignore: cast_nullable_to_non_nullable
+    return _then(_$LayerCreatedImpl(
+      null == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
               as String,
-      null == elements
-          ? _value._elements
-          : elements // ignore: cast_nullable_to_non_nullable
-              as List<String>,
     ));
   }
 }
 
 /// @nodoc
 @JsonSerializable()
-class _$ElementsLayerChangedImpl extends ElementsLayerChanged {
-  const _$ElementsLayerChangedImpl(this.layer, final List<String> elements,
-      {final String? $type})
-      : _elements = elements,
-        $type = $type ?? 'elementsLayerChanged',
+class _$LayerCreatedImpl extends LayerCreated {
+  const _$LayerCreatedImpl(this.name, {final String? $type})
+      : $type = $type ?? 'layerCreated',
         super._();
 
-  factory _$ElementsLayerChangedImpl.fromJson(Map<String, dynamic> json) =>
-      _$$ElementsLayerChangedImplFromJson(json);
+  factory _$LayerCreatedImpl.fromJson(Map<String, dynamic> json) =>
+      _$$LayerCreatedImplFromJson(json);
 
   @override
-  final String layer;
+  final String name;
+
+  @JsonKey(name: 'type')
+  final String $type;
+
+  @override
+  String toString() {
+    return 'DocumentEvent.layerCreated(name: $name)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$LayerCreatedImpl &&
+            (identical(other.name, name) || other.name == name));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => Object.hash(runtimeType, name);
+
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$LayerCreatedImplCopyWith<_$LayerCreatedImpl> get copyWith =>
+      __$$LayerCreatedImplCopyWithImpl<_$LayerCreatedImpl>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$LayerCreatedImplToJson(
+      this,
+    );
+  }
+}
+
+abstract class LayerCreated extends DocumentEvent {
+  const factory LayerCreated(final String name) = _$LayerCreatedImpl;
+  const LayerCreated._() : super._();
+
+  factory LayerCreated.fromJson(Map<String, dynamic> json) =
+      _$LayerCreatedImpl.fromJson;
+
+  String get name;
+
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$LayerCreatedImplCopyWith<_$LayerCreatedImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$LayerChangedImplCopyWith<$Res> {
+  factory _$$LayerChangedImplCopyWith(
+          _$LayerChangedImpl value, $Res Function(_$LayerChangedImpl) then) =
+      __$$LayerChangedImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String id, String? name});
+}
+
+/// @nodoc
+class __$$LayerChangedImplCopyWithImpl<$Res>
+    extends _$DocumentEventCopyWithImpl<$Res, _$LayerChangedImpl>
+    implements _$$LayerChangedImplCopyWith<$Res> {
+  __$$LayerChangedImplCopyWithImpl(
+      _$LayerChangedImpl _value, $Res Function(_$LayerChangedImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? id = null,
+    Object? name = freezed,
+  }) {
+    return _then(_$LayerChangedImpl(
+      null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String,
+      name: freezed == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$LayerChangedImpl extends LayerChanged {
+  const _$LayerChangedImpl(this.id, {this.name, final String? $type})
+      : $type = $type ?? 'layerChanged',
+        super._();
+
+  factory _$LayerChangedImpl.fromJson(Map<String, dynamic> json) =>
+      _$$LayerChangedImplFromJson(json);
+
+  @override
+  final String id;
+  @override
+  final String? name;
+
+  @JsonKey(name: 'type')
+  final String $type;
+
+  @override
+  String toString() {
+    return 'DocumentEvent.layerChanged(id: $id, name: $name)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$LayerChangedImpl &&
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.name, name) || other.name == name));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => Object.hash(runtimeType, id, name);
+
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$LayerChangedImplCopyWith<_$LayerChangedImpl> get copyWith =>
+      __$$LayerChangedImplCopyWithImpl<_$LayerChangedImpl>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$LayerChangedImplToJson(
+      this,
+    );
+  }
+}
+
+abstract class LayerChanged extends DocumentEvent {
+  const factory LayerChanged(final String id, {final String? name}) =
+      _$LayerChangedImpl;
+  const LayerChanged._() : super._();
+
+  factory LayerChanged.fromJson(Map<String, dynamic> json) =
+      _$LayerChangedImpl.fromJson;
+
+  String get id;
+  String? get name;
+
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$LayerChangedImplCopyWith<_$LayerChangedImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$LayerRemovedImplCopyWith<$Res> {
+  factory _$$LayerRemovedImplCopyWith(
+          _$LayerRemovedImpl value, $Res Function(_$LayerRemovedImpl) then) =
+      __$$LayerRemovedImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String id});
+}
+
+/// @nodoc
+class __$$LayerRemovedImplCopyWithImpl<$Res>
+    extends _$DocumentEventCopyWithImpl<$Res, _$LayerRemovedImpl>
+    implements _$$LayerRemovedImplCopyWith<$Res> {
+  __$$LayerRemovedImplCopyWithImpl(
+      _$LayerRemovedImpl _value, $Res Function(_$LayerRemovedImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? id = null,
+  }) {
+    return _then(_$LayerRemovedImpl(
+      null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$LayerRemovedImpl extends LayerRemoved {
+  const _$LayerRemovedImpl(this.id, {final String? $type})
+      : $type = $type ?? 'layerRemoved',
+        super._();
+
+  factory _$LayerRemovedImpl.fromJson(Map<String, dynamic> json) =>
+      _$$LayerRemovedImplFromJson(json);
+
+  @override
+  final String id;
+
+  @JsonKey(name: 'type')
+  final String $type;
+
+  @override
+  String toString() {
+    return 'DocumentEvent.layerRemoved(id: $id)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$LayerRemovedImpl &&
+            (identical(other.id, id) || other.id == id));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => Object.hash(runtimeType, id);
+
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$LayerRemovedImplCopyWith<_$LayerRemovedImpl> get copyWith =>
+      __$$LayerRemovedImplCopyWithImpl<_$LayerRemovedImpl>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$LayerRemovedImplToJson(
+      this,
+    );
+  }
+}
+
+abstract class LayerRemoved extends DocumentEvent {
+  const factory LayerRemoved(final String id) = _$LayerRemovedImpl;
+  const LayerRemoved._() : super._();
+
+  factory LayerRemoved.fromJson(Map<String, dynamic> json) =
+      _$LayerRemovedImpl.fromJson;
+
+  String get id;
+
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$LayerRemovedImplCopyWith<_$LayerRemovedImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$LayerVisibilityChangedImplCopyWith<$Res> {
+  factory _$$LayerVisibilityChangedImplCopyWith(
+          _$LayerVisibilityChangedImpl value,
+          $Res Function(_$LayerVisibilityChangedImpl) then) =
+      __$$LayerVisibilityChangedImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String id, bool visible});
+}
+
+/// @nodoc
+class __$$LayerVisibilityChangedImplCopyWithImpl<$Res>
+    extends _$DocumentEventCopyWithImpl<$Res, _$LayerVisibilityChangedImpl>
+    implements _$$LayerVisibilityChangedImplCopyWith<$Res> {
+  __$$LayerVisibilityChangedImplCopyWithImpl(
+      _$LayerVisibilityChangedImpl _value,
+      $Res Function(_$LayerVisibilityChangedImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? id = null,
+    Object? visible = null,
+  }) {
+    return _then(_$LayerVisibilityChangedImpl(
+      null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String,
+      null == visible
+          ? _value.visible
+          : visible // ignore: cast_nullable_to_non_nullable
+              as bool,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$LayerVisibilityChangedImpl extends LayerVisibilityChanged {
+  const _$LayerVisibilityChangedImpl(this.id, this.visible,
+      {final String? $type})
+      : $type = $type ?? 'layerVisibilityChanged',
+        super._();
+
+  factory _$LayerVisibilityChangedImpl.fromJson(Map<String, dynamic> json) =>
+      _$$LayerVisibilityChangedImplFromJson(json);
+
+  @override
+  final String id;
+  @override
+  final bool visible;
+
+  @JsonKey(name: 'type')
+  final String $type;
+
+  @override
+  String toString() {
+    return 'DocumentEvent.layerVisibilityChanged(id: $id, visible: $visible)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$LayerVisibilityChangedImpl &&
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.visible, visible) || other.visible == visible));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => Object.hash(runtimeType, id, visible);
+
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$LayerVisibilityChangedImplCopyWith<_$LayerVisibilityChangedImpl>
+      get copyWith => __$$LayerVisibilityChangedImplCopyWithImpl<
+          _$LayerVisibilityChangedImpl>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$LayerVisibilityChangedImplToJson(
+      this,
+    );
+  }
+}
+
+abstract class LayerVisibilityChanged extends DocumentEvent {
+  const factory LayerVisibilityChanged(final String id, final bool visible) =
+      _$LayerVisibilityChangedImpl;
+  const LayerVisibilityChanged._() : super._();
+
+  factory LayerVisibilityChanged.fromJson(Map<String, dynamic> json) =
+      _$LayerVisibilityChangedImpl.fromJson;
+
+  String get id;
+  bool get visible;
+
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$LayerVisibilityChangedImplCopyWith<_$LayerVisibilityChangedImpl>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$ElementsCollectionChangedImplCopyWith<$Res> {
+  factory _$$ElementsCollectionChangedImplCopyWith(
+          _$ElementsCollectionChangedImpl value,
+          $Res Function(_$ElementsCollectionChangedImpl) then) =
+      __$$ElementsCollectionChangedImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({List<String> elements, String collection});
+}
+
+/// @nodoc
+class __$$ElementsCollectionChangedImplCopyWithImpl<$Res>
+    extends _$DocumentEventCopyWithImpl<$Res, _$ElementsCollectionChangedImpl>
+    implements _$$ElementsCollectionChangedImplCopyWith<$Res> {
+  __$$ElementsCollectionChangedImplCopyWithImpl(
+      _$ElementsCollectionChangedImpl _value,
+      $Res Function(_$ElementsCollectionChangedImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? elements = null,
+    Object? collection = null,
+  }) {
+    return _then(_$ElementsCollectionChangedImpl(
+      null == elements
+          ? _value._elements
+          : elements // ignore: cast_nullable_to_non_nullable
+              as List<String>,
+      null == collection
+          ? _value.collection
+          : collection // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$ElementsCollectionChangedImpl extends ElementsCollectionChanged {
+  const _$ElementsCollectionChangedImpl(
+      final List<String> elements, this.collection,
+      {final String? $type})
+      : _elements = elements,
+        $type = $type ?? 'elementsCollectionChanged',
+        super._();
+
+  factory _$ElementsCollectionChangedImpl.fromJson(Map<String, dynamic> json) =>
+      _$$ElementsCollectionChangedImplFromJson(json);
+
   final List<String> _elements;
   @override
   List<String> get elements {
@@ -3132,62 +3560,65 @@ class _$ElementsLayerChangedImpl extends ElementsLayerChanged {
     return EqualUnmodifiableListView(_elements);
   }
 
+  @override
+  final String collection;
+
   @JsonKey(name: 'type')
   final String $type;
 
   @override
   String toString() {
-    return 'DocumentEvent.elementsLayerChanged(layer: $layer, elements: $elements)';
+    return 'DocumentEvent.elementsCollectionChanged(elements: $elements, collection: $collection)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$ElementsLayerChangedImpl &&
-            (identical(other.layer, layer) || other.layer == layer) &&
-            const DeepCollectionEquality().equals(other._elements, _elements));
+            other is _$ElementsCollectionChangedImpl &&
+            const DeepCollectionEquality().equals(other._elements, _elements) &&
+            (identical(other.collection, collection) ||
+                other.collection == collection));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(
-      runtimeType, layer, const DeepCollectionEquality().hash(_elements));
+      runtimeType, const DeepCollectionEquality().hash(_elements), collection);
 
   /// Create a copy of DocumentEvent
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
-  _$$ElementsLayerChangedImplCopyWith<_$ElementsLayerChangedImpl>
-      get copyWith =>
-          __$$ElementsLayerChangedImplCopyWithImpl<_$ElementsLayerChangedImpl>(
-              this, _$identity);
+  _$$ElementsCollectionChangedImplCopyWith<_$ElementsCollectionChangedImpl>
+      get copyWith => __$$ElementsCollectionChangedImplCopyWithImpl<
+          _$ElementsCollectionChangedImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$ElementsLayerChangedImplToJson(
+    return _$$ElementsCollectionChangedImplToJson(
       this,
     );
   }
 }
 
-abstract class ElementsLayerChanged extends DocumentEvent {
-  const factory ElementsLayerChanged(
-          final String layer, final List<String> elements) =
-      _$ElementsLayerChangedImpl;
-  const ElementsLayerChanged._() : super._();
+abstract class ElementsCollectionChanged extends DocumentEvent {
+  const factory ElementsCollectionChanged(
+          final List<String> elements, final String collection) =
+      _$ElementsCollectionChangedImpl;
+  const ElementsCollectionChanged._() : super._();
 
-  factory ElementsLayerChanged.fromJson(Map<String, dynamic> json) =
-      _$ElementsLayerChangedImpl.fromJson;
+  factory ElementsCollectionChanged.fromJson(Map<String, dynamic> json) =
+      _$ElementsCollectionChangedImpl.fromJson;
 
-  String get layer;
   List<String> get elements;
+  String get collection;
 
   /// Create a copy of DocumentEvent
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$ElementsLayerChangedImplCopyWith<_$ElementsLayerChangedImpl>
+  _$$ElementsCollectionChangedImplCopyWith<_$ElementsCollectionChangedImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
 

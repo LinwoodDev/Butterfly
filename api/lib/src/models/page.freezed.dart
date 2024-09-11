@@ -332,6 +332,7 @@ DocumentLayer _$DocumentLayerFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$DocumentLayer {
+  String? get id => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
   List<PadElement> get content => throw _privateConstructorUsedError;
 
@@ -351,7 +352,7 @@ abstract class $DocumentLayerCopyWith<$Res> {
           DocumentLayer value, $Res Function(DocumentLayer) then) =
       _$DocumentLayerCopyWithImpl<$Res, DocumentLayer>;
   @useResult
-  $Res call({String name, List<PadElement> content});
+  $Res call({String? id, String name, List<PadElement> content});
 }
 
 /// @nodoc
@@ -369,10 +370,15 @@ class _$DocumentLayerCopyWithImpl<$Res, $Val extends DocumentLayer>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? id = freezed,
     Object? name = null,
     Object? content = null,
   }) {
     return _then(_value.copyWith(
+      id: freezed == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String?,
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -393,7 +399,7 @@ abstract class _$$DocumentLayerImplCopyWith<$Res>
       __$$DocumentLayerImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String name, List<PadElement> content});
+  $Res call({String? id, String name, List<PadElement> content});
 }
 
 /// @nodoc
@@ -409,10 +415,15 @@ class __$$DocumentLayerImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? id = freezed,
     Object? name = null,
     Object? content = null,
   }) {
     return _then(_$DocumentLayerImpl(
+      id: freezed == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String?,
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -429,13 +440,15 @@ class __$$DocumentLayerImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$DocumentLayerImpl extends _DocumentLayer {
   const _$DocumentLayerImpl(
-      {this.name = '', final List<PadElement> content = const []})
+      {this.id, this.name = '', final List<PadElement> content = const []})
       : _content = content,
         super._();
 
   factory _$DocumentLayerImpl.fromJson(Map<String, dynamic> json) =>
       _$$DocumentLayerImplFromJson(json);
 
+  @override
+  final String? id;
   @override
   @JsonKey()
   final String name;
@@ -450,7 +463,7 @@ class _$DocumentLayerImpl extends _DocumentLayer {
 
   @override
   String toString() {
-    return 'DocumentLayer(name: $name, content: $content)';
+    return 'DocumentLayer(id: $id, name: $name, content: $content)';
   }
 
   @override
@@ -458,6 +471,7 @@ class _$DocumentLayerImpl extends _DocumentLayer {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$DocumentLayerImpl &&
+            (identical(other.id, id) || other.id == id) &&
             (identical(other.name, name) || other.name == name) &&
             const DeepCollectionEquality().equals(other._content, _content));
   }
@@ -465,7 +479,7 @@ class _$DocumentLayerImpl extends _DocumentLayer {
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(
-      runtimeType, name, const DeepCollectionEquality().hash(_content));
+      runtimeType, id, name, const DeepCollectionEquality().hash(_content));
 
   /// Create a copy of DocumentLayer
   /// with the given fields replaced by the non-null parameter values.
@@ -485,13 +499,16 @@ class _$DocumentLayerImpl extends _DocumentLayer {
 
 abstract class _DocumentLayer extends DocumentLayer {
   const factory _DocumentLayer(
-      {final String name,
+      {final String? id,
+      final String name,
       final List<PadElement> content}) = _$DocumentLayerImpl;
   const _DocumentLayer._() : super._();
 
   factory _DocumentLayer.fromJson(Map<String, dynamic> json) =
       _$DocumentLayerImpl.fromJson;
 
+  @override
+  String? get id;
   @override
   String get name;
   @override

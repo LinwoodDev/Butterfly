@@ -96,7 +96,7 @@ class ViewPainter extends CustomPainter {
   final CameraViewport cameraViewport;
   final CameraTransform transform;
   final ColorScheme? colorScheme;
-  final List<String> invisibleCollections;
+  final Set<String> invisibleCollections;
   final Map<String, RendererState> states;
 
   const ViewPainter(
@@ -104,7 +104,7 @@ class ViewPainter extends CustomPainter {
     this.page,
     this.info, {
     this.currentArea,
-    this.invisibleCollections = const [],
+    this.invisibleCollections = const {},
     this.states = const {},
     this.renderBackground = true,
     this.renderBaked = true,

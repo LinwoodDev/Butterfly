@@ -17,38 +17,37 @@ class CollectionsDialog extends StatefulWidget {
 }
 
 class _CollectionsDialogState extends State<CollectionsDialog> {
-  String _collection = '';
-
   @override
   Widget build(BuildContext context) {
     return ResponsiveAlertDialog(
       title: Text(AppLocalizations.of(context).collections),
       constraints: const BoxConstraints(maxWidth: LeapBreakpoints.compact),
-      content:
-          BlocBuilder<DocumentBloc, DocumentState>(builder: (context, state) {
-        final collections =
-            {'', ...?state.page?.content.map((e) => e.collection)}.toList();
-        return ListView.separated(
-          shrinkWrap: true,
-          itemCount: collections.length,
-          separatorBuilder: (context, index) =>
-              index == 0 ? const Divider() : const SizedBox(),
-          itemBuilder: (context, index) {
-            final collection = collections[index];
-            return ListTile(
-              title: Text(collection.isEmpty
-                  ? AppLocalizations.of(context).defaultCollection
-                  : collection),
-              selected: collection == _collection,
-              onTap: () {
-                setState(() {
-                  _collection = collection;
-                });
+      content: BlocBuilder<DocumentBloc, DocumentState>(
+          buildWhen: (previous, current) =>
+              previous.page?.content != current.page?.content ||
+              previous.currentCollection != current.currentCollection,
+          builder: (context, state) {
+            final collections =
+                {'', ...?state.page?.content.map((e) => e.collection)}.toList();
+            return ListView.separated(
+              shrinkWrap: true,
+              itemCount: collections.length,
+              separatorBuilder: (context, index) =>
+                  index == 0 ? const Divider() : const SizedBox(),
+              itemBuilder: (context, index) {
+                final collection = collections[index];
+                return ListTile(
+                  title: Text(collection.isEmpty
+                      ? AppLocalizations.of(context).defaultCollection
+                      : collection),
+                  selected: collection == state.currentCollection,
+                  onTap: () {
+                    //context.read<DocumentBloc>().add();
+                  },
+                );
               },
             );
-          },
-        );
-      }),
+          }),
       leading: IconButton.outlined(
         icon: const Icon(PhosphorIconsLight.x),
         onPressed: () {
@@ -70,7 +69,8 @@ class _CollectionsDialogState extends State<CollectionsDialog> {
                   temporaryClicked: true,
                 );
             if (handler is! SelectHandler) return;
-            handler.selectAll(bloc, (e) => e.element.collection == _collection);
+            handler.selectAll(bloc,
+                (e) => e.element.collection == bloc.state.currentCollection);
           },
           label: Text(AppLocalizations.of(context).select),
           icon: const PhosphorIcon(PhosphorIconsLight.selection),
@@ -78,15 +78,15 @@ class _CollectionsDialogState extends State<CollectionsDialog> {
         ElevatedButton.icon(
           onPressed: () async {
             final bloc = context.read<DocumentBloc>();
+            final current = bloc.state.currentCollection ?? '';
             final name = await showDialog<String>(
               context: context,
               builder: (context) => NameDialog(
-                value: _collection,
+                value: current,
               ),
             );
             if (name == null) return;
-            bloc.add(LayerRenamed(_collection, name));
-            setState(() => _collection = name);
+            bloc.add(CollectionRenamed(current, name));
           },
           icon: const PhosphorIcon(PhosphorIconsLight.textT),
           label: Text(AppLocalizations.of(context).rename),
@@ -94,12 +94,12 @@ class _CollectionsDialogState extends State<CollectionsDialog> {
         ElevatedButton.icon(
           onPressed: () async {
             final bloc = context.read<DocumentBloc>();
+            final current = bloc.state.currentCollection ?? '';
             final result = await showDialog<bool>(
                 context: context, builder: (context) => const DeleteDialog());
             if (result != true) return;
-            bloc.add(LayerElementsRemoved(_collection));
+            bloc.add(CollectionElementsRemoved(current));
             if (context.mounted) Navigator.pop(context);
-            setState(() => _collection = '');
           },
           label: Text(AppLocalizations.of(context).deleteElements),
           icon: const PhosphorIcon(PhosphorIconsLight.trash),
