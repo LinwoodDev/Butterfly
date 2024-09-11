@@ -612,9 +612,9 @@
   "install": "Installa",
   "deselect": "Deseleziona",
   "changeLayer": "Cambia livello",
-  "collections": "Collections",
+  "collections": "Collezioni",
   "fullSelection": "Selezione completa",
   "fullSelectionDescription": "Richiede elementi per essere completamente all'interno della casella di selezione per la selezione.",
-  "collection": "Collection",
-  "defaultCollection": "Default collection"
+  "collection": "Collezione",
+  "defaultCollection": "Collezione predefinita"
 }
