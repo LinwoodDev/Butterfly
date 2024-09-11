@@ -612,6 +612,9 @@
   "install": "安装",
   "deselect": "取消选择",
   "changeLayer": "更改图层",
+  "collections": "Collections",
   "fullSelection": "完整选择",
-  "fullSelectionDescription": "需要元素完全在选择框内。"
+  "fullSelectionDescription": "需要元素完全在选择框内。",
+  "collection": "Collection",
+  "defaultCollection": "Default collection"
 }
