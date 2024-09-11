@@ -35,6 +35,7 @@ class ColorToolbarView extends StatefulWidget implements PreferredSizeWidget {
 class _ColorToolbarViewState extends State<ColorToolbarView> {
   final ScrollController _scrollController = ScrollController();
   PackAssetLocation? colorPalette;
+
   @override
   void initState() {
     super.initState();
@@ -52,6 +53,12 @@ class _ColorToolbarViewState extends State<ColorToolbarView> {
         }
       } catch (_) {}
     }
+  }
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
   }
 
   @override

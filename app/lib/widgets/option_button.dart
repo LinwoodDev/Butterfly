@@ -3,9 +3,9 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 class OptionButton extends StatefulWidget {
   final Widget icon;
-  final Widget? selectedIcon;
+  final Widget? selectedIcon, bottomIcon;
   final VoidCallback? onPressed, onSecondaryPressed, onLongPressed;
-  final bool selected, highlighted, focussed;
+  final bool selected, highlighted, focussed, alwaysShowBottom;
   final String tooltip;
 
   const OptionButton({
@@ -13,12 +13,14 @@ class OptionButton extends StatefulWidget {
     this.tooltip = '',
     required this.icon,
     this.selectedIcon,
+    this.bottomIcon,
     this.onPressed,
     this.onSecondaryPressed,
     this.onLongPressed,
     this.selected = false,
     this.highlighted = false,
     this.focussed = false,
+    this.alwaysShowBottom = false,
   });
 
   @override
@@ -45,7 +47,14 @@ class _OptionButtonState extends State<OptionButton>
     );
   }
 
-  double get _nextValue => widget.selected || widget.highlighted ? 1 : 0;
+  @override
+  void dispose() {
+    super.dispose();
+    _animationController.dispose();
+  }
+
+  double get _nextValue =>
+      widget.alwaysShowBottom || widget.selected || widget.highlighted ? 1 : 0;
 
   @override
   void didUpdateWidget(covariant OptionButton oldWidget) {
@@ -59,10 +68,17 @@ class _OptionButtonState extends State<OptionButton>
 
   @override
   Widget build(BuildContext context) {
-    const selectedBottom = Align(
-      child: PhosphorIcon(
-        PhosphorIconsLight.caretDown,
-        size: 12,
+    final selectedBottom = IconTheme(
+      data: Theme.of(context).iconTheme.copyWith(
+            size: 14,
+            color:
+                widget.selected ? Theme.of(context).colorScheme.primary : null,
+          ),
+      child: Align(
+        child: widget.bottomIcon ??
+            const PhosphorIcon(
+              PhosphorIconsLight.caretDown,
+            ),
       ),
     );
     return Tooltip(
@@ -130,7 +146,12 @@ class _OptionButtonState extends State<OptionButton>
                         axisAlignment: -1,
                         axis: Axis.vertical,
                         sizeFactor: _animation,
-                        child: selectedBottom,
+                        child: Column(
+                          children: [
+                            const SizedBox(height: 4),
+                            selectedBottom,
+                          ],
+                        ),
                       ),
                     ],
                   )),

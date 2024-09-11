@@ -55,7 +55,7 @@ class PathEraserHandler extends Handler<PathEraserTool> {
         await context.getDocumentBloc().rayCast(
               globalPos,
               size,
-              useLayer: true,
+              useCollection: true,
             );
     final page = state?.page;
     if (page == null) return;

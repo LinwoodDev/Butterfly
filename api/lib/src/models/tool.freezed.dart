@@ -34,8 +34,8 @@ Tool _$ToolFromJson(Map<String, dynamic> json) {
       return EraserTool.fromJson(json);
     case 'pathEraser':
       return PathEraserTool.fromJson(json);
-    case 'layer':
-      return LayerTool.fromJson(json);
+    case 'collection':
+      return CollectionTool.fromJson(json);
     case 'area':
       return AreaTool.fromJson(json);
     case 'laser':
@@ -1277,21 +1277,22 @@ abstract class PathEraserTool extends Tool {
 }
 
 /// @nodoc
-abstract class _$$LayerToolImplCopyWith<$Res> implements $ToolCopyWith<$Res> {
-  factory _$$LayerToolImplCopyWith(
-          _$LayerToolImpl value, $Res Function(_$LayerToolImpl) then) =
-      __$$LayerToolImplCopyWithImpl<$Res>;
+abstract class _$$CollectionToolImplCopyWith<$Res>
+    implements $ToolCopyWith<$Res> {
+  factory _$$CollectionToolImplCopyWith(_$CollectionToolImpl value,
+          $Res Function(_$CollectionToolImpl) then) =
+      __$$CollectionToolImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({String name, String displayIcon, double strokeWidth});
 }
 
 /// @nodoc
-class __$$LayerToolImplCopyWithImpl<$Res>
-    extends _$ToolCopyWithImpl<$Res, _$LayerToolImpl>
-    implements _$$LayerToolImplCopyWith<$Res> {
-  __$$LayerToolImplCopyWithImpl(
-      _$LayerToolImpl _value, $Res Function(_$LayerToolImpl) _then)
+class __$$CollectionToolImplCopyWithImpl<$Res>
+    extends _$ToolCopyWithImpl<$Res, _$CollectionToolImpl>
+    implements _$$CollectionToolImplCopyWith<$Res> {
+  __$$CollectionToolImplCopyWithImpl(
+      _$CollectionToolImpl _value, $Res Function(_$CollectionToolImpl) _then)
       : super(_value, _then);
 
   /// Create a copy of Tool
@@ -1303,7 +1304,7 @@ class __$$LayerToolImplCopyWithImpl<$Res>
     Object? displayIcon = null,
     Object? strokeWidth = null,
   }) {
-    return _then(_$LayerToolImpl(
+    return _then(_$CollectionToolImpl(
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -1322,17 +1323,17 @@ class __$$LayerToolImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$LayerToolImpl extends LayerTool {
-  _$LayerToolImpl(
+class _$CollectionToolImpl extends CollectionTool {
+  _$CollectionToolImpl(
       {this.name = '',
       this.displayIcon = '',
       this.strokeWidth = 5,
       final String? $type})
-      : $type = $type ?? 'layer',
+      : $type = $type ?? 'collection',
         super._();
 
-  factory _$LayerToolImpl.fromJson(Map<String, dynamic> json) =>
-      _$$LayerToolImplFromJson(json);
+  factory _$CollectionToolImpl.fromJson(Map<String, dynamic> json) =>
+      _$$CollectionToolImplFromJson(json);
 
   @override
   @JsonKey()
@@ -1349,7 +1350,7 @@ class _$LayerToolImpl extends LayerTool {
 
   @override
   String toString() {
-    return 'Tool.layer(name: $name, displayIcon: $displayIcon, strokeWidth: $strokeWidth)';
+    return 'Tool.collection(name: $name, displayIcon: $displayIcon, strokeWidth: $strokeWidth)';
   }
 
   /// Create a copy of Tool
@@ -1357,26 +1358,27 @@ class _$LayerToolImpl extends LayerTool {
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
-  _$$LayerToolImplCopyWith<_$LayerToolImpl> get copyWith =>
-      __$$LayerToolImplCopyWithImpl<_$LayerToolImpl>(this, _$identity);
+  _$$CollectionToolImplCopyWith<_$CollectionToolImpl> get copyWith =>
+      __$$CollectionToolImplCopyWithImpl<_$CollectionToolImpl>(
+          this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$LayerToolImplToJson(
+    return _$$CollectionToolImplToJson(
       this,
     );
   }
 }
 
-abstract class LayerTool extends Tool {
-  factory LayerTool(
+abstract class CollectionTool extends Tool {
+  factory CollectionTool(
       {final String name,
       final String displayIcon,
-      final double strokeWidth}) = _$LayerToolImpl;
-  LayerTool._() : super._();
+      final double strokeWidth}) = _$CollectionToolImpl;
+  CollectionTool._() : super._();
 
-  factory LayerTool.fromJson(Map<String, dynamic> json) =
-      _$LayerToolImpl.fromJson;
+  factory CollectionTool.fromJson(Map<String, dynamic> json) =
+      _$CollectionToolImpl.fromJson;
 
   @override
   String get name;
@@ -1388,7 +1390,7 @@ abstract class LayerTool extends Tool {
   /// with the given fields replaced by the non-null parameter values.
   @override
   @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$LayerToolImplCopyWith<_$LayerToolImpl> get copyWith =>
+  _$$CollectionToolImplCopyWith<_$CollectionToolImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 

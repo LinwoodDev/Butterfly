@@ -9,6 +9,7 @@ import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/cubits/transform.dart';
 import 'package:butterfly/dialogs/area/context.dart';
+import 'package:butterfly/dialogs/collections.dart';
 import 'package:butterfly/dialogs/elements.dart';
 import 'package:butterfly/dialogs/export/general.dart';
 import 'package:butterfly/helpers/element.dart';
@@ -65,7 +66,7 @@ part 'hand.dart';
 part 'import.dart';
 part 'label.dart';
 part 'laser.dart';
-part 'layer.dart';
+part 'collection.dart';
 part 'path_eraser.dart';
 part 'pen.dart';
 part 'eye_dropper.dart';
@@ -233,7 +234,7 @@ abstract class Handler<T> {
       PenTool e => PenHandler(e),
       EraserTool e => EraserHandler(e),
       PathEraserTool e => PathEraserHandler(e),
-      LayerTool e => LayerHandler(e),
+      CollectionTool e => CollectionHandler(e),
       AreaTool e => AreaHandler(e),
       LaserTool e => LaserHandler(e),
       ShapeTool e => ShapeHandler(e),
@@ -336,7 +337,7 @@ abstract class PastingHandler<T> extends Handler<T> {
   Offset? _firstPos;
   Offset? _secondPos;
   bool _aspectRatio = false, _center = false;
-  String _currentLayer = '';
+  String _currentCollection = '';
 
   PastingHandler(super.data);
 
@@ -349,7 +350,7 @@ abstract class PastingHandler<T> extends Handler<T> {
           ...getTransformed().map((e) => Renderer.fromInstance(e)),
       ];
 
-  List<PadElement> transformElements(Rect rect, String layer);
+  List<PadElement> transformElements(Rect rect, String collection);
 
   bool get shouldNormalize => true;
 
@@ -409,7 +410,7 @@ abstract class PastingHandler<T> extends Handler<T> {
       left -= width;
     }
     final rect = Rect.fromLTRB(left, top, right, bottom);
-    return transformElements(rect, _currentLayer);
+    return transformElements(rect, _currentCollection);
   }
 
   void _updateElement(PointerEvent event, EventContext context,
@@ -422,7 +423,7 @@ abstract class PastingHandler<T> extends Handler<T> {
     _secondPos = globalPos;
     _aspectRatio = context.isCtrlPressed;
     _center = context.isShiftPressed;
-    _currentLayer = context.getState()?.currentLayer ?? '';
+    _currentCollection = context.getState()?.currentCollection ?? '';
 
     context.refresh();
   }

@@ -166,26 +166,45 @@ class ElementSelection<T extends PadElement> extends Selection<Renderer<T>> {
   IconGetter get icon => PhosphorIcons.cube;
 }
 
-class OffsetPropertyView extends StatelessWidget {
+class OffsetPropertyView extends StatefulWidget {
   final Widget title;
   final Offset? value;
   final bool clearValue;
   final Function(Offset) onChanged;
-  final TextEditingController _xController;
-  final TextEditingController _yController;
   final int round;
 
-  OffsetPropertyView(
+  const OffsetPropertyView(
       {super.key,
       required this.title,
       this.clearValue = false,
       this.value,
       this.round = 4,
-      required this.onChanged})
-      : _xController = TextEditingController(
-            text: value?.dx.toPrecision(round).toString() ?? ''),
-        _yController = TextEditingController(
-            text: value?.dy.toPrecision(round).toString() ?? '');
+      required this.onChanged});
+
+  @override
+  State<OffsetPropertyView> createState() => _OffsetPropertyViewState();
+}
+
+class _OffsetPropertyViewState extends State<OffsetPropertyView> {
+  late final TextEditingController _xController;
+  late final TextEditingController _yController;
+
+  @override
+  void initState() {
+    super.initState();
+    _xController = TextEditingController(
+        text: widget.value?.dx.toPrecision(widget.round).toString() ?? '');
+    _yController = TextEditingController(
+        text: widget.value?.dy.toPrecision(widget.round).toString() ?? '');
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+
+    _xController.dispose();
+    _yController.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -193,7 +212,7 @@ class OffsetPropertyView extends StatelessWidget {
       final isRow = constrained.maxWidth > 100;
       final title = DefaultTextStyle(
           style: Theme.of(context).textTheme.titleMedium ?? const TextStyle(),
-          child: this.title);
+          child: widget.title);
       final controls = Row(mainAxisAlignment: MainAxisAlignment.end, children: [
         Expanded(
           child: TextFormField(
@@ -210,11 +229,11 @@ class OffsetPropertyView extends StatelessWidget {
               if (value.isEmpty) return;
               final dx = double.tryParse(value);
               if (dx == null) return;
-              if (clearValue) {
+              if (widget.clearValue) {
                 _xController.text = '';
                 _yController.text = '';
               }
-              onChanged(Offset(dx, this.value?.dy ?? 0));
+              widget.onChanged(Offset(dx, widget.value?.dy ?? 0));
             },
           ),
         ),
@@ -234,11 +253,11 @@ class OffsetPropertyView extends StatelessWidget {
               if (value.isEmpty) return;
               final dy = double.tryParse(value);
               if (dy == null) return;
-              if (clearValue) {
+              if (widget.clearValue) {
                 _xController.text = '';
                 _yController.text = '';
               }
-              onChanged(Offset(this.value?.dx ?? 0, dy));
+              widget.onChanged(Offset(widget.value?.dx ?? 0, dy));
             },
           ),
         ),

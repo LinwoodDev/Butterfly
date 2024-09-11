@@ -4,6 +4,7 @@ import 'package:butterfly/handlers/handler.dart';
 import 'package:butterfly/helpers/rect.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:collection/collection.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -14,9 +15,21 @@ import '../../cubits/transform.dart';
 import '../../dialogs/delete.dart';
 import '../../widgets/editable_list_tile.dart';
 
-class AreasView extends StatelessWidget {
+class AreasView extends StatefulWidget {
+  const AreasView({super.key});
+
+  @override
+  State<AreasView> createState() => _AreasViewState();
+}
+
+class _AreasViewState extends State<AreasView> {
   final TextEditingController _searchController = TextEditingController();
-  AreasView({super.key});
+
+  @override
+  void dispose() {
+    super.dispose();
+    _searchController.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -40,20 +53,29 @@ class AreasView extends StatelessWidget {
                 final current = state.currentArea;
                 Rect? getRect(int dx, int dy) {
                   if (current == null) return null;
-                  return Rect.fromLTWH(
-                    current.position.x + dx.toDouble() * current.width,
-                    current.position.y + dy.toDouble() * current.height,
-                    current.width,
-                    current.height,
-                  );
+                  final rect = current.rect;
+                  return rect.translate(
+                      dx.toDouble() * rect.width, dy.toDouble() * rect.height);
                 }
 
                 Area? overlap(Rect? rect, [bool? exact]) {
                   if (rect == null) return null;
-                  return state.page.areas.firstWhereOrNull((area) =>
-                      (exact ?? currentIndex.areaNavigatorExact)
-                          ? area.rect == rect
-                          : area.rect.overlaps(rect));
+                  return state.page.areas.firstWhereOrNull((area) {
+                    // Test for equality with precision error tolerance
+                    final current = area.rect;
+                    if (exact ?? currentIndex.areaNavigatorExact) {
+                      return (current.top - rect.top).abs() <
+                              precisionErrorTolerance &&
+                          (current.left - rect.left).abs() <
+                              precisionErrorTolerance &&
+                          (current.width - rect.width).abs() <
+                              precisionErrorTolerance &&
+                          (current.height - rect.height).abs() <
+                              precisionErrorTolerance;
+                    }
+                    return current
+                        .overlaps(rect.deflate(precisionErrorTolerance));
+                  });
                 }
 
                 bool enableButton(int dx, int dy) =>

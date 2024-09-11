@@ -122,7 +122,7 @@ class LaserHandler extends Handler<LaserTool> with ColoredHandler {
     }
     final element = elements[pointer] ??
         PenElement(
-          layer: state.currentLayer,
+          collection: state.currentCollection,
           property: PenProperty(
               strokeWidth: data.strokeWidth / transform.size,
               thinning: data.thinning,

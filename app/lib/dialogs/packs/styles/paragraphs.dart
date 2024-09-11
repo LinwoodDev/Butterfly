@@ -36,6 +36,12 @@ class _ParagraphsStyleViewState extends State<ParagraphsStyleView> {
   }
 
   @override
+  void dispose() {
+    super.dispose();
+    _controller.dispose();
+  }
+
+  @override
   void didUpdateWidget(covariant ParagraphsStyleView oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (oldWidget.value != widget.value && _currentStyle != null) {

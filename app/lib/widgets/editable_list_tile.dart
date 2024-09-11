@@ -12,6 +12,7 @@ class EditableListTile extends StatefulWidget {
   final List<Widget>? actions;
   final Widget? leading, subtitle;
   final VoidCallback? onTap;
+  final String Function(String)? textFormatter;
 
   const EditableListTile({
     super.key,
@@ -25,6 +26,7 @@ class EditableListTile extends StatefulWidget {
     this.leading,
     this.subtitle,
     this.onTap,
+    this.textFormatter,
   });
 
   @override
@@ -40,6 +42,12 @@ class _EditableListTileState extends State<EditableListTile> {
     super.initState();
     _controller =
         widget.controller ?? TextEditingController(text: widget.initialValue);
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _controller.dispose();
   }
 
   @override
@@ -112,7 +120,8 @@ class _EditableListTileState extends State<EditableListTile> {
                     child: ListenableBuilder(
                       listenable: _controller,
                       builder: (context, _) => Text(
-                        _controller.text,
+                        widget.textFormatter?.call(_controller.text) ??
+                            _controller.text,
                       ),
                     ),
                   ),

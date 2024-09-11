@@ -641,7 +641,7 @@ PadElement _$PadElementFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$PadElement {
   double get rotation => throw _privateConstructorUsedError;
-  String get layer => throw _privateConstructorUsedError;
+  String get collection => throw _privateConstructorUsedError;
   @IdJsonConverter()
   String? get id => throw _privateConstructorUsedError;
   Map<String, dynamic> get extra => throw _privateConstructorUsedError;
@@ -664,7 +664,7 @@ abstract class $PadElementCopyWith<$Res> {
   @useResult
   $Res call(
       {double rotation,
-      String layer,
+      String collection,
       @IdJsonConverter() String? id,
       Map<String, dynamic> extra});
 }
@@ -685,7 +685,7 @@ class _$PadElementCopyWithImpl<$Res, $Val extends PadElement>
   @override
   $Res call({
     Object? rotation = null,
-    Object? layer = null,
+    Object? collection = null,
     Object? id = freezed,
     Object? extra = null,
   }) {
@@ -694,9 +694,9 @@ class _$PadElementCopyWithImpl<$Res, $Val extends PadElement>
           ? _value.rotation
           : rotation // ignore: cast_nullable_to_non_nullable
               as double,
-      layer: null == layer
-          ? _value.layer
-          : layer // ignore: cast_nullable_to_non_nullable
+      collection: null == collection
+          ? _value.collection
+          : collection // ignore: cast_nullable_to_non_nullable
               as String,
       id: freezed == id
           ? _value.id
@@ -720,7 +720,7 @@ abstract class _$$PenElementImplCopyWith<$Res>
   @useResult
   $Res call(
       {double rotation,
-      String layer,
+      String collection,
       @IdJsonConverter() String? id,
       double? zoom,
       List<PathPoint> points,
@@ -742,7 +742,7 @@ class __$$PenElementImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? rotation = null,
-    Object? layer = null,
+    Object? collection = null,
     Object? id = freezed,
     Object? zoom = freezed,
     Object? points = null,
@@ -754,9 +754,9 @@ class __$$PenElementImplCopyWithImpl<$Res>
           ? _value.rotation
           : rotation // ignore: cast_nullable_to_non_nullable
               as double,
-      layer: null == layer
-          ? _value.layer
-          : layer // ignore: cast_nullable_to_non_nullable
+      collection: null == collection
+          ? _value.collection
+          : collection // ignore: cast_nullable_to_non_nullable
               as String,
       id: freezed == id
           ? _value.id
@@ -787,7 +787,7 @@ class __$$PenElementImplCopyWithImpl<$Res>
 class _$PenElementImpl extends PenElement {
   _$PenElementImpl(
       {this.rotation = 0,
-      this.layer = '',
+      this.collection = '',
       @IdJsonConverter() this.id,
       this.zoom,
       final List<PathPoint> points = const [],
@@ -807,7 +807,7 @@ class _$PenElementImpl extends PenElement {
   final double rotation;
   @override
   @JsonKey()
-  final String layer;
+  final String collection;
   @override
   @IdJsonConverter()
   final String? id;
@@ -839,7 +839,7 @@ class _$PenElementImpl extends PenElement {
 
   @override
   String toString() {
-    return 'PadElement.pen(rotation: $rotation, layer: $layer, id: $id, zoom: $zoom, points: $points, property: $property, extra: $extra)';
+    return 'PadElement.pen(rotation: $rotation, collection: $collection, id: $id, zoom: $zoom, points: $points, property: $property, extra: $extra)';
   }
 
   /// Create a copy of PadElement
@@ -861,7 +861,7 @@ class _$PenElementImpl extends PenElement {
 abstract class PenElement extends PadElement implements PathElement {
   factory PenElement(
       {final double rotation,
-      final String layer,
+      final String collection,
       @IdJsonConverter() final String? id,
       final double? zoom,
       final List<PathPoint> points,
@@ -875,7 +875,7 @@ abstract class PenElement extends PadElement implements PathElement {
   @override
   double get rotation;
   @override
-  String get layer;
+  String get collection;
   @override
   @IdJsonConverter()
   String? get id;
@@ -903,7 +903,7 @@ abstract class _$$TextElementImplCopyWith<$Res>
   @useResult
   $Res call(
       {double rotation,
-      String layer,
+      String collection,
       @IdJsonConverter() String? id,
       @DoublePointJsonConverter() Point<double> position,
       double scale,
@@ -932,7 +932,7 @@ class __$$TextElementImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? rotation = null,
-    Object? layer = null,
+    Object? collection = null,
     Object? id = freezed,
     Object? position = null,
     Object? scale = null,
@@ -947,9 +947,9 @@ class __$$TextElementImplCopyWithImpl<$Res>
           ? _value.rotation
           : rotation // ignore: cast_nullable_to_non_nullable
               as double,
-      layer: null == layer
-          ? _value.layer
-          : layer // ignore: cast_nullable_to_non_nullable
+      collection: null == collection
+          ? _value.collection
+          : collection // ignore: cast_nullable_to_non_nullable
               as String,
       id: freezed == id
           ? _value.id
@@ -1022,7 +1022,7 @@ class __$$TextElementImplCopyWithImpl<$Res>
 class _$TextElementImpl extends TextElement with LabelElement {
   _$TextElementImpl(
       {this.rotation = 0,
-      this.layer = '',
+      this.collection = '',
       @IdJsonConverter() this.id,
       @DoublePointJsonConverter() this.position = const Point(0.0, 0.0),
       this.scale = 1.0,
@@ -1044,7 +1044,7 @@ class _$TextElementImpl extends TextElement with LabelElement {
   final double rotation;
   @override
   @JsonKey()
-  final String layer;
+  final String collection;
   @override
   @IdJsonConverter()
   final String? id;
@@ -1080,7 +1080,7 @@ class _$TextElementImpl extends TextElement with LabelElement {
 
   @override
   String toString() {
-    return 'PadElement.text(rotation: $rotation, layer: $layer, id: $id, position: $position, scale: $scale, styleSheet: $styleSheet, area: $area, constraint: $constraint, foreground: $foreground, extra: $extra)';
+    return 'PadElement.text(rotation: $rotation, collection: $collection, id: $id, position: $position, scale: $scale, styleSheet: $styleSheet, area: $area, constraint: $constraint, foreground: $foreground, extra: $extra)';
   }
 
   /// Create a copy of PadElement
@@ -1102,7 +1102,7 @@ class _$TextElementImpl extends TextElement with LabelElement {
 abstract class TextElement extends PadElement implements LabelElement {
   factory TextElement(
       {final double rotation,
-      final String layer,
+      final String collection,
       @IdJsonConverter() final String? id,
       @DoublePointJsonConverter() final Point<double> position,
       final double scale,
@@ -1119,7 +1119,7 @@ abstract class TextElement extends PadElement implements LabelElement {
   @override
   double get rotation;
   @override
-  String get layer;
+  String get collection;
   @override
   @IdJsonConverter()
   String? get id;
@@ -1151,7 +1151,7 @@ abstract class _$$MarkdownElementImplCopyWith<$Res>
   @useResult
   $Res call(
       {double rotation,
-      String layer,
+      String collection,
       @IdJsonConverter() String? id,
       @DoublePointJsonConverter() Point<double> position,
       double scale,
@@ -1181,7 +1181,7 @@ class __$$MarkdownElementImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? rotation = null,
-    Object? layer = null,
+    Object? collection = null,
     Object? id = freezed,
     Object? position = null,
     Object? scale = null,
@@ -1197,9 +1197,9 @@ class __$$MarkdownElementImplCopyWithImpl<$Res>
           ? _value.rotation
           : rotation // ignore: cast_nullable_to_non_nullable
               as double,
-      layer: null == layer
-          ? _value.layer
-          : layer // ignore: cast_nullable_to_non_nullable
+      collection: null == collection
+          ? _value.collection
+          : collection // ignore: cast_nullable_to_non_nullable
               as String,
       id: freezed == id
           ? _value.id
@@ -1276,7 +1276,7 @@ class __$$MarkdownElementImplCopyWithImpl<$Res>
 class _$MarkdownElementImpl extends MarkdownElement with LabelElement {
   _$MarkdownElementImpl(
       {this.rotation = 0,
-      this.layer = '',
+      this.collection = '',
       @IdJsonConverter() this.id,
       @DoublePointJsonConverter() this.position = const Point(0.0, 0.0),
       this.scale = 1.0,
@@ -1299,7 +1299,7 @@ class _$MarkdownElementImpl extends MarkdownElement with LabelElement {
   final double rotation;
   @override
   @JsonKey()
-  final String layer;
+  final String collection;
   @override
   @IdJsonConverter()
   final String? id;
@@ -1338,7 +1338,7 @@ class _$MarkdownElementImpl extends MarkdownElement with LabelElement {
 
   @override
   String toString() {
-    return 'PadElement.markdown(rotation: $rotation, layer: $layer, id: $id, position: $position, scale: $scale, styleSheet: $styleSheet, areaProperty: $areaProperty, text: $text, constraint: $constraint, foreground: $foreground, extra: $extra)';
+    return 'PadElement.markdown(rotation: $rotation, collection: $collection, id: $id, position: $position, scale: $scale, styleSheet: $styleSheet, areaProperty: $areaProperty, text: $text, constraint: $constraint, foreground: $foreground, extra: $extra)';
   }
 
   /// Create a copy of PadElement
@@ -1361,7 +1361,7 @@ class _$MarkdownElementImpl extends MarkdownElement with LabelElement {
 abstract class MarkdownElement extends PadElement implements LabelElement {
   factory MarkdownElement(
       {final double rotation,
-      final String layer,
+      final String collection,
       @IdJsonConverter() final String? id,
       @DoublePointJsonConverter() final Point<double> position,
       final double scale,
@@ -1379,7 +1379,7 @@ abstract class MarkdownElement extends PadElement implements LabelElement {
   @override
   double get rotation;
   @override
-  String get layer;
+  String get collection;
   @override
   @IdJsonConverter()
   String? get id;
@@ -1412,7 +1412,7 @@ abstract class _$$ImageElementImplCopyWith<$Res>
   @useResult
   $Res call(
       {double rotation,
-      String layer,
+      String collection,
       @IdJsonConverter() String? id,
       @DoublePointJsonConverter() Point<double> position,
       ElementConstraints? constraints,
@@ -1438,7 +1438,7 @@ class __$$ImageElementImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? rotation = null,
-    Object? layer = null,
+    Object? collection = null,
     Object? id = freezed,
     Object? position = null,
     Object? constraints = freezed,
@@ -1452,9 +1452,9 @@ class __$$ImageElementImplCopyWithImpl<$Res>
           ? _value.rotation
           : rotation // ignore: cast_nullable_to_non_nullable
               as double,
-      layer: null == layer
-          ? _value.layer
-          : layer // ignore: cast_nullable_to_non_nullable
+      collection: null == collection
+          ? _value.collection
+          : collection // ignore: cast_nullable_to_non_nullable
               as String,
       id: freezed == id
           ? _value.id
@@ -1507,7 +1507,7 @@ class __$$ImageElementImplCopyWithImpl<$Res>
 class _$ImageElementImpl extends ImageElement {
   _$ImageElementImpl(
       {this.rotation = 0,
-      this.layer = '',
+      this.collection = '',
       @IdJsonConverter() this.id,
       @DoublePointJsonConverter() this.position = const Point(0.0, 0.0),
       this.constraints = const ScaledElementConstraints(scaleX: 1, scaleY: 1),
@@ -1528,7 +1528,7 @@ class _$ImageElementImpl extends ImageElement {
   final double rotation;
   @override
   @JsonKey()
-  final String layer;
+  final String collection;
   @override
   @IdJsonConverter()
   final String? id;
@@ -1559,7 +1559,7 @@ class _$ImageElementImpl extends ImageElement {
 
   @override
   String toString() {
-    return 'PadElement.image(rotation: $rotation, layer: $layer, id: $id, position: $position, constraints: $constraints, source: $source, width: $width, height: $height, extra: $extra)';
+    return 'PadElement.image(rotation: $rotation, collection: $collection, id: $id, position: $position, constraints: $constraints, source: $source, width: $width, height: $height, extra: $extra)';
   }
 
   /// Create a copy of PadElement
@@ -1581,7 +1581,7 @@ class _$ImageElementImpl extends ImageElement {
 abstract class ImageElement extends PadElement implements SourcedElement {
   factory ImageElement(
       {final double rotation,
-      final String layer,
+      final String collection,
       @IdJsonConverter() final String? id,
       @DoublePointJsonConverter() final Point<double> position,
       final ElementConstraints? constraints,
@@ -1597,7 +1597,7 @@ abstract class ImageElement extends PadElement implements SourcedElement {
   @override
   double get rotation;
   @override
-  String get layer;
+  String get collection;
   @override
   @IdJsonConverter()
   String? get id;
@@ -1628,7 +1628,7 @@ abstract class _$$SvgElementImplCopyWith<$Res>
   @useResult
   $Res call(
       {double rotation,
-      String layer,
+      String collection,
       @IdJsonConverter() String? id,
       @DoublePointJsonConverter() Point<double> position,
       ElementConstraints? constraints,
@@ -1654,7 +1654,7 @@ class __$$SvgElementImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? rotation = null,
-    Object? layer = null,
+    Object? collection = null,
     Object? id = freezed,
     Object? position = null,
     Object? constraints = freezed,
@@ -1668,9 +1668,9 @@ class __$$SvgElementImplCopyWithImpl<$Res>
           ? _value.rotation
           : rotation // ignore: cast_nullable_to_non_nullable
               as double,
-      layer: null == layer
-          ? _value.layer
-          : layer // ignore: cast_nullable_to_non_nullable
+      collection: null == collection
+          ? _value.collection
+          : collection // ignore: cast_nullable_to_non_nullable
               as String,
       id: freezed == id
           ? _value.id
@@ -1723,7 +1723,7 @@ class __$$SvgElementImplCopyWithImpl<$Res>
 class _$SvgElementImpl extends SvgElement {
   _$SvgElementImpl(
       {this.rotation = 0,
-      this.layer = '',
+      this.collection = '',
       @IdJsonConverter() this.id,
       @DoublePointJsonConverter() this.position = const Point(0.0, 0.0),
       this.constraints = const ScaledElementConstraints(scaleX: 1, scaleY: 1),
@@ -1744,7 +1744,7 @@ class _$SvgElementImpl extends SvgElement {
   final double rotation;
   @override
   @JsonKey()
-  final String layer;
+  final String collection;
   @override
   @IdJsonConverter()
   final String? id;
@@ -1775,7 +1775,7 @@ class _$SvgElementImpl extends SvgElement {
 
   @override
   String toString() {
-    return 'PadElement.svg(rotation: $rotation, layer: $layer, id: $id, position: $position, constraints: $constraints, source: $source, width: $width, height: $height, extra: $extra)';
+    return 'PadElement.svg(rotation: $rotation, collection: $collection, id: $id, position: $position, constraints: $constraints, source: $source, width: $width, height: $height, extra: $extra)';
   }
 
   /// Create a copy of PadElement
@@ -1797,7 +1797,7 @@ class _$SvgElementImpl extends SvgElement {
 abstract class SvgElement extends PadElement implements SourcedElement {
   factory SvgElement(
       {final double rotation,
-      final String layer,
+      final String collection,
       @IdJsonConverter() final String? id,
       @DoublePointJsonConverter() final Point<double> position,
       final ElementConstraints? constraints,
@@ -1813,7 +1813,7 @@ abstract class SvgElement extends PadElement implements SourcedElement {
   @override
   double get rotation;
   @override
-  String get layer;
+  String get collection;
   @override
   @IdJsonConverter()
   String? get id;
@@ -1844,7 +1844,7 @@ abstract class _$$ShapeElementImplCopyWith<$Res>
   @useResult
   $Res call(
       {double rotation,
-      String layer,
+      String collection,
       @IdJsonConverter() String? id,
       @DoublePointJsonConverter() Point<double> firstPosition,
       @DoublePointJsonConverter() Point<double> secondPosition,
@@ -1866,7 +1866,7 @@ class __$$ShapeElementImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? rotation = null,
-    Object? layer = null,
+    Object? collection = null,
     Object? id = freezed,
     Object? firstPosition = null,
     Object? secondPosition = null,
@@ -1878,9 +1878,9 @@ class __$$ShapeElementImplCopyWithImpl<$Res>
           ? _value.rotation
           : rotation // ignore: cast_nullable_to_non_nullable
               as double,
-      layer: null == layer
-          ? _value.layer
-          : layer // ignore: cast_nullable_to_non_nullable
+      collection: null == collection
+          ? _value.collection
+          : collection // ignore: cast_nullable_to_non_nullable
               as String,
       id: freezed == id
           ? _value.id
@@ -1911,7 +1911,7 @@ class __$$ShapeElementImplCopyWithImpl<$Res>
 class _$ShapeElementImpl extends ShapeElement {
   _$ShapeElementImpl(
       {this.rotation = 0,
-      this.layer = '',
+      this.collection = '',
       @IdJsonConverter() this.id,
       @DoublePointJsonConverter() this.firstPosition = const Point(0.0, 0.0),
       @DoublePointJsonConverter() this.secondPosition = const Point(0.0, 0.0),
@@ -1930,7 +1930,7 @@ class _$ShapeElementImpl extends ShapeElement {
   final double rotation;
   @override
   @JsonKey()
-  final String layer;
+  final String collection;
   @override
   @IdJsonConverter()
   final String? id;
@@ -1959,7 +1959,7 @@ class _$ShapeElementImpl extends ShapeElement {
 
   @override
   String toString() {
-    return 'PadElement.shape(rotation: $rotation, layer: $layer, id: $id, firstPosition: $firstPosition, secondPosition: $secondPosition, property: $property, extra: $extra)';
+    return 'PadElement.shape(rotation: $rotation, collection: $collection, id: $id, firstPosition: $firstPosition, secondPosition: $secondPosition, property: $property, extra: $extra)';
   }
 
   /// Create a copy of PadElement
@@ -1981,7 +1981,7 @@ class _$ShapeElementImpl extends ShapeElement {
 abstract class ShapeElement extends PadElement {
   factory ShapeElement(
       {final double rotation,
-      final String layer,
+      final String collection,
       @IdJsonConverter() final String? id,
       @DoublePointJsonConverter() final Point<double> firstPosition,
       @DoublePointJsonConverter() final Point<double> secondPosition,
@@ -1995,7 +1995,7 @@ abstract class ShapeElement extends PadElement {
   @override
   double get rotation;
   @override
-  String get layer;
+  String get collection;
   @override
   @IdJsonConverter()
   String? get id;
@@ -2025,7 +2025,7 @@ abstract class _$$TextureElementImplCopyWith<$Res>
   @useResult
   $Res call(
       {double rotation,
-      String layer,
+      String collection,
       @IdJsonConverter() String? id,
       SurfaceTexture texture,
       @DoublePointJsonConverter() Point<double> firstPosition,
@@ -2049,7 +2049,7 @@ class __$$TextureElementImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? rotation = null,
-    Object? layer = null,
+    Object? collection = null,
     Object? id = freezed,
     Object? texture = null,
     Object? firstPosition = null,
@@ -2061,9 +2061,9 @@ class __$$TextureElementImplCopyWithImpl<$Res>
           ? _value.rotation
           : rotation // ignore: cast_nullable_to_non_nullable
               as double,
-      layer: null == layer
-          ? _value.layer
-          : layer // ignore: cast_nullable_to_non_nullable
+      collection: null == collection
+          ? _value.collection
+          : collection // ignore: cast_nullable_to_non_nullable
               as String,
       id: freezed == id
           ? _value.id
@@ -2104,7 +2104,7 @@ class __$$TextureElementImplCopyWithImpl<$Res>
 class _$TextureElementImpl extends TextureElement {
   _$TextureElementImpl(
       {this.rotation = 0,
-      this.layer = '',
+      this.collection = '',
       @IdJsonConverter() this.id,
       this.texture = const SurfaceTexture.pattern(),
       @DoublePointJsonConverter() this.firstPosition = const Point(0.0, 0.0),
@@ -2123,7 +2123,7 @@ class _$TextureElementImpl extends TextureElement {
   final double rotation;
   @override
   @JsonKey()
-  final String layer;
+  final String collection;
   @override
   @IdJsonConverter()
   final String? id;
@@ -2152,7 +2152,7 @@ class _$TextureElementImpl extends TextureElement {
 
   @override
   String toString() {
-    return 'PadElement.texture(rotation: $rotation, layer: $layer, id: $id, texture: $texture, firstPosition: $firstPosition, secondPosition: $secondPosition, extra: $extra)';
+    return 'PadElement.texture(rotation: $rotation, collection: $collection, id: $id, texture: $texture, firstPosition: $firstPosition, secondPosition: $secondPosition, extra: $extra)';
   }
 
   /// Create a copy of PadElement
@@ -2175,7 +2175,7 @@ class _$TextureElementImpl extends TextureElement {
 abstract class TextureElement extends PadElement {
   factory TextureElement(
       {final double rotation,
-      final String layer,
+      final String collection,
       @IdJsonConverter() final String? id,
       final SurfaceTexture texture,
       @DoublePointJsonConverter() final Point<double> firstPosition,
@@ -2189,7 +2189,7 @@ abstract class TextureElement extends PadElement {
   @override
   double get rotation;
   @override
-  String get layer;
+  String get collection;
   @override
   @IdJsonConverter()
   String? get id;

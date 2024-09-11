@@ -79,6 +79,15 @@ class _GeneralExportDialogState extends State<GeneralExportDialog> {
     super.initState();
   }
 
+  @override
+  void dispose() {
+    super.dispose();
+    _xController.dispose();
+    _yController.dispose();
+    _widthController.dispose();
+    _heightController.dispose();
+  }
+
   void _applyOptions(ExportOptions options) {
     _options = options;
     _xController.text = _options.x.toString();
@@ -149,7 +158,7 @@ class _GeneralExportDialogState extends State<GeneralExportDialog> {
                 leading: const PhosphorIcon(PhosphorIconsLight.export),
                 actions: [
                   IconButton(
-                    icon: const Icon(PhosphorIconsLight.mapPin),
+                    icon: const Icon(PhosphorIconsLight.pushPin),
                     tooltip: AppLocalizations.of(context).pin,
                     onPressed: () {
                       final tool = ExportTool(options: _options);

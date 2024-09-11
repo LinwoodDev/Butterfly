@@ -66,6 +66,12 @@ class FilesViewState extends State<FilesView> {
   }
 
   @override
+  void dispose() {
+    _locationController.dispose();
+    super.dispose();
+  }
+
+  @override
   void didUpdateWidget(covariant FilesView oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (oldWidget.remote != widget.remote) {

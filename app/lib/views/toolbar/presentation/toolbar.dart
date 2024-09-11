@@ -68,6 +68,15 @@ class _PresentationToolbarViewState extends State<PresentationToolbarView> {
   }
 
   @override
+  void dispose() {
+    super.dispose();
+    _scrollController.dispose();
+    _frameController.dispose();
+    _durationController.dispose();
+    _fpsController.dispose();
+  }
+
+  @override
   void didUpdateWidget(covariant PresentationToolbarView oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (oldWidget.frame != widget.frame) {
@@ -110,15 +119,6 @@ class _PresentationToolbarViewState extends State<PresentationToolbarView> {
     final state = context.read<DocumentBloc>().state;
     if (state is! DocumentLoadSuccess) return;
     _setAnimation(state.page.animations.firstOrNull?.name);
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    _scrollController.dispose();
-    _frameController.dispose();
-    _durationController.dispose();
-    _fpsController.dispose();
   }
 
   void _setKey(AnimationKey key) {

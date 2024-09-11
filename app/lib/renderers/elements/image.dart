@@ -3,7 +3,7 @@ part of '../renderer.dart';
 class ImageRenderer extends Renderer<ImageElement> {
   ui.Image? image;
 
-  ImageRenderer(super.element, [this.image]);
+  ImageRenderer(super.element, [super.layer, this.image]);
 
   @override
   bool onAssetUpdate(NoteData document, AssetService assetService,
@@ -117,11 +117,13 @@ class ImageRenderer extends Renderer<ImageElement> {
     double scaleX = 1,
     double scaleY = 1,
   }) {
-    return ImageRenderer(element.copyWith(
-      position: position.toPoint(),
-      rotation: rotation,
-      constraints: element.constraints.scale(scaleX, scaleY),
-    ));
+    return ImageRenderer(
+        element.copyWith(
+          position: position.toPoint(),
+          rotation: rotation,
+          constraints: element.constraints.scale(scaleX, scaleY),
+        ),
+        layer);
   }
 
   @override

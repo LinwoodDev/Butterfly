@@ -381,7 +381,7 @@ class ImportService {
             ImageElement(
                 height: height,
                 width: width,
-                layer: state?.currentLayer ?? '',
+                collection: state?.currentCollection ?? '',
                 source: dataPath,
                 constraints: constraints,
                 position: firstPos.toPoint())
@@ -611,7 +611,9 @@ class ImportService {
             );
             if (spreadToPages) {
               documentPages.add(DocumentPage(
-                content: [element],
+                layers: [
+                  DocumentLayer(content: [element], id: createUniqueId())
+                ],
                 areas: [if (createAreas) area],
               ));
             } else {
@@ -730,7 +732,10 @@ class ImportService {
     for (final pack in packs) {
       bloc?.add(PackAdded(pack));
     }
-    page = page.copyWith(content: [...page.content, ...elements]);
+    page = page.copyWith(layers: [
+      DocumentLayer(
+          content: [...page.content, ...elements], id: createUniqueId())
+    ]);
     document = document.setPage(page);
     for (final page in pages) {
       (document, _) = document.addPage(page);

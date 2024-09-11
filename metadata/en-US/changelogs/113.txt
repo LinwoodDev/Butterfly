@@ -1,0 +1,15 @@
+* Refactor layer tool
+  * Renamed to collection tool
+  * Changed to action tool
+  * It now opens a menu with all collections and actions
+* Upgrade file version to 10
+  * Refactor to new layer system
+  * Rename current layer implementation to collections
+* Change layer navigator page to new layer system
+* Improve action tool visualization in edit toolbar
+* Add eye dropper docs
+* Add tolerance to area move in navigator page to fix duplicated areas
+* Update selection incorrect when transforming multiple elements
+* Fix select all shortcut
+* Fix temporary tool is not the right size in the edit toolbar
+* Fix memory leaks

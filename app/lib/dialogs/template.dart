@@ -39,6 +39,12 @@ class _TemplateDialogState extends State<TemplateDialog> {
     WidgetsBinding.instance.addPostFrameCallback((_) => load());
   }
 
+  @override
+  void dispose() {
+    super.dispose();
+    _searchController.dispose();
+  }
+
   void load() {
     setState(() {
       _templatesFuture = _templateSystem.initialize().then((value) async {
@@ -294,8 +300,7 @@ class _TemplateDialogState extends State<TemplateDialog> {
     if (state is DocumentLoaded) {
       initialName = state.metadata.name;
     }
-    final nameController = TextEditingController(text: initialName),
-        directoryController = TextEditingController();
+    String name = initialName, directory = '';
     return showDialog<void>(
         context: context,
         builder: (context) {
@@ -310,7 +315,8 @@ class _TemplateDialogState extends State<TemplateDialog> {
                   Text(AppLocalizations.of(context).createTemplateContent),
                   const SizedBox(height: 16),
                   TextFormField(
-                    controller: nameController,
+                    initialValue: name,
+                    onChanged: (e) => name = e,
                     decoration: InputDecoration(
                       labelText: AppLocalizations.of(context).name,
                       filled: true,
@@ -318,7 +324,8 @@ class _TemplateDialogState extends State<TemplateDialog> {
                   ),
                   const SizedBox(height: 8),
                   TextFormField(
-                    controller: directoryController,
+                    initialValue: directory,
+                    onChanged: (e) => directory = e,
                     decoration: InputDecoration(
                       labelText: AppLocalizations.of(context).directory,
                       filled: true,
@@ -337,8 +344,8 @@ class _TemplateDialogState extends State<TemplateDialog> {
                 onPressed: () async {
                   bloc.createTemplate(
                     _templateSystem.storage?.identifier,
-                    name: nameController.text,
-                    directory: directoryController.text,
+                    name: name,
+                    directory: directory,
                   );
                   Navigator.of(context).pop();
                   load();

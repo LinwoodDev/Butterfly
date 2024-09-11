@@ -75,7 +75,7 @@ class SelectHandler extends Handler<SelectTool> {
     Rect? rect;
     for (final element in _selected) {
       final current = element.expandedRect;
-      if (current != null) {
+      if (current != null && !current.isEmpty) {
         rect = rect?.expandToInclude(current) ?? current;
       }
     }
@@ -193,7 +193,7 @@ class SelectHandler extends Handler<SelectTool> {
     final hits = await context.getDocumentBloc().rayCast(
           globalPos,
           radius,
-          useLayer: true,
+          useCollection: true,
         );
     if (hits.isEmpty) {
       if (!context.isCtrlPressed) {
@@ -247,7 +247,7 @@ class SelectHandler extends Handler<SelectTool> {
     final hits = await bloc.rayCast(
       position,
       0.0,
-      useLayer: true,
+      useCollection: true,
     );
     final hit = hits.firstOrNull;
     final rect = hit?.expandedRect;
@@ -397,13 +397,13 @@ class SelectHandler extends Handler<SelectTool> {
     if (rectangleSelection != null && !rectangleSelection.isEmpty) {
       final hits = await context.getDocumentBloc().rayCastRect(
             rectangleSelection,
-            useLayer: true,
+            useCollection: true,
           );
       _selected.addAll(hits);
     } else if (lassoSelection != null && lassoSelection.isNotEmpty) {
       final hits = await context.getDocumentBloc().rayCastPolygon(
             lassoSelection,
-            useLayer: true,
+            useCollection: true,
           );
       _selected.addAll(hits);
     } else {
@@ -448,16 +448,18 @@ class SelectHandler extends Handler<SelectTool> {
       AssetFileType.page,
       Uint8List.fromList(
         utf8.encode(
-          json.encode(await DocumentPage(
-                  content: _selected
-                      .map((e) => (e.transform(
-                                position: -point,
-                                relative: true,
-                              ) ??
-                              e)
-                          .element)
-                      .toList())
-              .toDataJson(state.data)),
+          json.encode(await DocumentPage(layers: [
+            DocumentLayer(
+                id: createUniqueId(),
+                content: _selected
+                    .map((e) => (e.transform(
+                              position: -point,
+                              relative: true,
+                            ) ??
+                            e)
+                        .element)
+                    .toList())
+          ]).toDataJson(state.data)),
         ),
       ),
     );
@@ -465,11 +467,13 @@ class SelectHandler extends Handler<SelectTool> {
     bloc.refresh();
   }
 
-  void selectAll(DocumentBloc bloc) {
+  void selectAll(DocumentBloc bloc,
+      [bool Function(Renderer<PadElement>)? filter]) {
     final state = bloc.state;
     if (state is! DocumentLoadSuccess) return;
     _selected.clear();
-    _selected.addAll(state.renderers);
+    _selected.addAll(state.renderers.where((e) => filter?.call(e) ?? true));
+    _updateSelectionRect();
     bloc.refresh();
   }
 

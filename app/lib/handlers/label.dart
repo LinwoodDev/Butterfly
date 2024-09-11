@@ -69,8 +69,8 @@ class LabelHandler extends Handler<LabelTool>
           if (_context?.isCreating ?? false)
             switch (_context!) {
               TextContext e =>
-                TextRenderer(e.element!, e) as GenericTextRenderer,
-              MarkdownContext e => MarkdownRenderer(e.element!, e)
+                TextRenderer(e.element!, null, e) as GenericTextRenderer,
+              MarkdownContext e => MarkdownRenderer(e.element!, null, e)
             },
           LabelSelectionCursor(_context!)
         ],
@@ -154,7 +154,7 @@ class LabelHandler extends Handler<LabelTool>
       final hit = await context.getDocumentBloc().rayCast(
             globalPos,
             0.0,
-            useLayer: true,
+            useCollection: true,
           );
       final labelRenderer = hit.whereType<Renderer<LabelElement>>().firstOrNull;
       if (labelRenderer == null) {

@@ -5,7 +5,7 @@ class TextureRenderer extends Renderer<TextureElement> {
   Rect get rect => Rect.fromPoints(
       element.firstPosition.toOffset(), element.secondPosition.toOffset());
 
-  TextureRenderer(super.element);
+  TextureRenderer(super.element, [super.layer]);
 
   @override
   void build(Canvas canvas, Size size, NoteData document, DocumentPage page,
@@ -37,6 +37,7 @@ class TextureRenderer extends Renderer<TextureElement> {
         secondPosition: position.translate(sizeX, sizeY).toPoint(),
         rotation: rotation,
       ),
+      super.layer,
     );
   }
 }

@@ -7,7 +7,7 @@ abstract class PathRenderer<T extends PadElement> extends Renderer<T> {
   Rect rect = Rect.zero;
 
   PathRenderer(super.element,
-      [this.rect = Rect.zero, this.expandedRect = Rect.zero]);
+      [super.layer, this.rect = Rect.zero, this.expandedRect = Rect.zero]);
 
   double? get zoom => null;
 

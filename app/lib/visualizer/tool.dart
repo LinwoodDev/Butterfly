@@ -18,27 +18,27 @@ extension ToolVisualizer on Tool {
   String getLocalizedName(BuildContext context) {
     final loc = AppLocalizations.of(context);
     return switch (this) {
-      HandTool _ => loc.hand,
-      SelectTool _ => loc.select,
-      ImportTool _ => loc.import,
-      UndoTool _ => loc.undo,
-      RedoTool _ => loc.redo,
-      LabelTool _ => loc.label,
-      PenTool _ => loc.pen,
-      EraserTool _ => loc.eraser,
-      PathEraserTool _ => loc.pathEraser,
-      LayerTool _ => loc.layer,
-      AreaTool _ => loc.area,
-      LaserTool _ => loc.laser,
-      ShapeTool _ => loc.shape,
-      SpacerTool _ => loc.spacer,
-      StampTool _ => loc.stamp,
-      TextureTool _ => loc.texture,
-      PresentationTool _ => loc.presentation,
-      FullScreenTool _ => loc.fullScreen,
+      HandTool() => loc.hand,
+      SelectTool() => loc.select,
+      ImportTool() => loc.import,
+      UndoTool() => loc.undo,
+      RedoTool() => loc.redo,
+      LabelTool() => loc.label,
+      PenTool() => loc.pen,
+      EraserTool() => loc.eraser,
+      PathEraserTool() => loc.pathEraser,
+      CollectionTool() => loc.collection,
+      AreaTool() => loc.area,
+      LaserTool() => loc.laser,
+      ShapeTool() => loc.shape,
+      SpacerTool() => loc.spacer,
+      StampTool() => loc.stamp,
+      TextureTool() => loc.texture,
+      PresentationTool() => loc.presentation,
+      FullScreenTool() => loc.fullScreen,
       AssetTool e => e.importType.getLocalizedName(context),
-      EyeDropperTool _ => loc.eyeDropper,
-      ExportTool _ => loc.export,
+      EyeDropperTool() => loc.eyeDropper,
+      ExportTool() => loc.export,
     };
   }
 
@@ -49,67 +49,66 @@ extension ToolVisualizer on Tool {
         e.axis == Axis2D.horizontal ? loc.horizontal : loc.vertical,
       SelectTool e => e.mode == SelectMode.lasso ? loc.lasso : loc.rectangle,
       ExportTool e => switch (e.options) {
-          ImageExportOptions _ => loc.image,
-          SvgExportOptions _ => loc.svg
+          ImageExportOptions() => loc.image,
+          SvgExportOptions() => loc.svg
         },
       _ => '',
     };
   }
 
   IconGetter get icon => switch (this) {
-        HandTool _ => PhosphorIcons.hand,
+        HandTool() => PhosphorIcons.hand,
         SelectTool tool => tool.mode == SelectMode.lasso
             ? PhosphorIcons.lasso
             : PhosphorIcons.selection,
-        ImportTool _ => PhosphorIcons.arrowSquareIn,
-        UndoTool _ => PhosphorIcons.arrowCounterClockwise,
-        RedoTool _ => PhosphorIcons.arrowClockwise,
+        ImportTool() => PhosphorIcons.arrowSquareIn,
+        UndoTool() => PhosphorIcons.arrowCounterClockwise,
+        RedoTool() => PhosphorIcons.arrowClockwise,
         LabelTool tool => tool.mode == LabelMode.markdown
             ? PhosphorIcons.textbox
             : PhosphorIcons.textT,
         PenTool tool => DisplayIcons.from(tool),
-        EraserTool _ => PhosphorIcons.eraser,
-        PathEraserTool _ => PhosphorIcons.path,
-        LayerTool _ => PhosphorIcons.squaresFour,
-        AreaTool _ => PhosphorIcons.monitor,
-        LaserTool _ => PhosphorIcons.cursor,
+        EraserTool() => PhosphorIcons.eraser,
+        PathEraserTool() => PhosphorIcons.path,
+        CollectionTool() => PhosphorIcons.folder,
+        AreaTool() => PhosphorIcons.monitor,
+        LaserTool() => PhosphorIcons.cursor,
         ShapeTool tool => tool.property.shape.icon,
         SpacerTool tool => tool.axis == Axis2D.horizontal
             ? PhosphorIcons.splitHorizontal
             : PhosphorIcons.splitVertical,
-        StampTool _ => PhosphorIcons.stamp,
+        StampTool() => PhosphorIcons.stamp,
         TextureTool tool => tool.texture.icon,
-        PresentationTool _ => PhosphorIcons.presentation,
-        FullScreenTool _ => PhosphorIcons.arrowsOut,
+        PresentationTool() => PhosphorIcons.presentation,
+        FullScreenTool() => PhosphorIcons.arrowsOut,
         AssetTool tool => tool.importType.icon,
-        EyeDropperTool _ => PhosphorIcons.eyedropper,
-        ExportTool _ => PhosphorIcons.export,
+        EyeDropperTool() => PhosphorIcons.eyedropper,
+        ExportTool() => PhosphorIcons.export,
       };
 
   List<String> get help {
     final page = switch (this) {
-      RedoTool _ => 'redo',
-      UndoTool _ => 'undo',
-      PenTool _ => 'pen',
-      LaserTool _ => 'laser',
-      ShapeTool _ => 'shape',
-      StampTool _ => 'stamp',
-      EraserTool _ => 'eraser',
-      PathEraserTool _ => 'path_eraser',
-      LabelTool _ => 'label',
-      AreaTool _ => 'area',
-      HandTool _ => 'hand',
-      SelectTool _ => 'select',
-      TextureTool _ => 'texture',
-      LayerTool _ => 'layer',
-      PresentationTool _ => 'presentation',
-      FullScreenTool _ => 'full_screen',
-      ImportTool _ => null,
-      SpacerTool _ => 'spacer',
-      AssetTool _ => null,
-      ExportTool _ => null,
-      // TODO: Create eyedropper docs page
-      EyeDropperTool _ => null,
+      RedoTool() => 'redo',
+      UndoTool() => 'undo',
+      PenTool() => 'pen',
+      LaserTool() => 'laser',
+      ShapeTool() => 'shape',
+      StampTool() => 'stamp',
+      EraserTool() => 'eraser',
+      PathEraserTool() => 'path_eraser',
+      LabelTool() => 'label',
+      AreaTool() => 'area',
+      HandTool() => 'hand',
+      SelectTool() => 'select',
+      TextureTool() => 'texture',
+      CollectionTool() => 'collection',
+      PresentationTool() => 'presentation',
+      FullScreenTool() => 'full_screen',
+      ImportTool() => null,
+      SpacerTool() => 'spacer',
+      AssetTool() => null,
+      ExportTool() => null,
+      EyeDropperTool() => 'eye_dropper',
     };
     if (page == null) return [];
     return ['tools', page];
@@ -117,10 +116,12 @@ extension ToolVisualizer on Tool {
 
   bool isAction() {
     return switch (this) {
-      ImportTool _ => true,
-      UndoTool _ => true,
-      RedoTool _ => true,
-      FullScreenTool _ => true,
+      ImportTool() => true,
+      UndoTool() => true,
+      RedoTool() => true,
+      FullScreenTool() => true,
+      ExportTool() => true,
+      CollectionTool() => true,
       _ => false,
     };
   }

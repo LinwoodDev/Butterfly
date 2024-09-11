@@ -6,7 +6,7 @@ abstract class GenericTextRenderer<T extends LabelElement> extends Renderer<T> {
   TextPainter? _tp;
   LabelContext? get context;
 
-  GenericTextRenderer(super.element);
+  GenericTextRenderer(super.element, [super.layer]);
 
   double get scale => element.scale;
 
@@ -129,7 +129,7 @@ class TextRenderer extends GenericTextRenderer<TextElement> {
   @override
   final TextContext? context;
 
-  TextRenderer(super.element, [this.context]);
+  TextRenderer(super.element, [super.layer, this.context]);
 
   @override
   TextRenderer _transform({
@@ -144,6 +144,7 @@ class TextRenderer extends GenericTextRenderer<TextElement> {
             rotation: rotation,
             scale: element.scale * max(scaleX, scaleY),
           ),
+          layer,
           context);
 
   @override

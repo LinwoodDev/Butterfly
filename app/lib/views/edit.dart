@@ -48,6 +48,7 @@ class _EditToolbarState extends State<EditToolbar> {
 
   @override
   void dispose() {
+    _scrollController.dispose();
     HardwareKeyboard.instance.removeHandler(_handleKey);
     super.dispose();
   }
@@ -115,30 +116,11 @@ class _EditToolbarState extends State<EditToolbar> {
     );
   }
 
-  Widget _buildIcon(PhosphorIconData data, bool action, double size,
-          [Color? color]) =>
-      Row(
-        mainAxisSize: MainAxisSize.min,
-        mainAxisAlignment: MainAxisAlignment.end,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const SizedBox(width: 2),
-          PhosphorIcon(
-            data,
-            size: size * (6 / 16),
-            color: color,
-          ),
-          SizedBox(
-            width: 2,
-            child: action
-                ? PhosphorIcon(
-                    PhosphorIconsLight.playCircle,
-                    size: size * (1 / 6),
-                    color: color,
-                  )
-                : null,
-          ),
-        ],
+  Widget _buildIcon(PhosphorIconData data, double size, [Color? color]) =>
+      PhosphorIcon(
+        data,
+        size: size * (6 / 16),
+        color: color,
       );
   ListView _buildBody(
     DocumentLoadSuccess state,
@@ -179,8 +161,8 @@ class _EditToolbarState extends State<EditToolbar> {
                       highlighted:
                           currentIndex.selection?.selected.contains(tempData) ??
                               false,
-                      icon: PhosphorIcon(icon),
-                      selectedIcon: PhosphorIcon(iconFilled),
+                      icon: _buildIcon(icon, size),
+                      selectedIcon: _buildIcon(iconFilled, size),
                       onLongPressed: () => context
                           .read<CurrentIndexCubit>()
                           .changeSelection(tempData),
@@ -232,7 +214,7 @@ class _EditToolbarState extends State<EditToolbar> {
                                 ],
                                 child: RepositoryProvider.value(
                                   value: importService,
-                                  child: AddDialog(),
+                                  child: const AddDialog(),
                                 ),
                               ),
                             );
@@ -302,10 +284,14 @@ class _EditToolbarState extends State<EditToolbar> {
                               .changeSelection(e),
                           focussed: shortcuts.contains(i),
                           selected: selected,
+                          alwaysShowBottom: e.isAction(),
                           highlighted: highlighted,
-                          selectedIcon:
-                              _buildIcon(icon, e.isAction(), size, color),
-                          icon: _buildIcon(icon, e.isAction(), size, color),
+                          bottomIcon: e.isAction()
+                              ? const PhosphorIcon(
+                                  PhosphorIconsLight.playCircle)
+                              : null,
+                          selectedIcon: _buildIcon(icon, size, color),
+                          icon: _buildIcon(icon, size, color),
                           onPressed: () {
                             if (_mouseState == _MouseState.multi) {
                               context

@@ -34,6 +34,12 @@ class _FileSystemAssetMoveDialogState extends State<FileSystemAssetMoveDialog> {
     selectedPath = widget.asset.parent;
   }
 
+  @override
+  void dispose() {
+    super.dispose();
+    _nameController.dispose();
+  }
+
   Future<void> _move(bool duplicate) async {
     final navigator = Navigator.of(context);
     var newPath = selectedPath;

@@ -38,6 +38,7 @@ class _SearchDialogState extends State<SearchDialog> {
   @override
   dispose() {
     super.dispose();
+    _searchController.dispose();
     _focusNode.dispose();
   }
 

@@ -75,14 +75,27 @@ class PadAppBar extends StatelessWidget implements PreferredSizeWidget {
   Size get preferredSize => windowTitleBar.preferredSize;
 }
 
-class _AppBarTitle extends StatelessWidget {
-  _AppBarTitle({
+class _AppBarTitle extends StatefulWidget {
+  const _AppBarTitle({
     required this.isMobile,
   });
 
+  final bool isMobile;
+
+  @override
+  State<_AppBarTitle> createState() => _AppBarTitleState();
+}
+
+class _AppBarTitleState extends State<_AppBarTitle> {
   final TextEditingController _nameController = TextEditingController(),
       _areaController = TextEditingController();
-  final bool isMobile;
+
+  @override
+  void dispose() {
+    super.dispose();
+    _nameController.dispose();
+    _areaController.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -128,7 +141,7 @@ class _AppBarTitle extends StatelessWidget {
                     context, settings),
               ),
               const SizedBox(width: 8),
-              if (!isMobile)
+              if (!widget.isMobile)
                 Flexible(
                     child: BlocBuilder<SettingsCubit, ButterflySettings>(
                   buildWhen: (previous, current) =>

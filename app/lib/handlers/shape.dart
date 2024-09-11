@@ -4,7 +4,7 @@ class ShapeHandler extends PastingHandler<ShapeTool> with ColoredHandler {
   ShapeHandler(super.data);
 
   @override
-  List<PadElement> transformElements(Rect rect, String layer) {
+  List<PadElement> transformElements(Rect rect, String collection) {
     if (rect.top == 0 &&
         rect.left == 0 &&
         rect.right == 0 &&
@@ -17,7 +17,7 @@ class ShapeHandler extends PastingHandler<ShapeTool> with ColoredHandler {
         firstPosition: rect.topLeft.toPoint(),
         secondPosition: rect.bottomRight.toPoint(),
         property: data.property,
-        layer: layer,
+        collection: collection,
       ),
     ];
   }

@@ -17,7 +17,7 @@ class MarkdownRenderer extends GenericTextRenderer<MarkdownElement> {
   @override
   final MarkdownContext? context;
 
-  MarkdownRenderer(super.element, [this.context]);
+  MarkdownRenderer(super.element, [super.layer, this.context]);
 
   List<md.Node> _parse() => md.Document(
         extensionSet: md.ExtensionSet.gitHubWeb,
@@ -86,6 +86,7 @@ class MarkdownRenderer extends GenericTextRenderer<MarkdownElement> {
             rotation: rotation,
             scale: element.scale * max(scaleX, scaleY),
           ),
+          layer,
           context);
 
   @override

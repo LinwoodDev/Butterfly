@@ -14,12 +14,24 @@ typedef _PageEntity = ({
   bool isFile,
 });
 
-class PagesView extends StatelessWidget {
+class PagesView extends StatefulWidget {
   const PagesView({super.key});
 
   @override
+  State<PagesView> createState() => _PagesViewState();
+}
+
+class _PagesViewState extends State<PagesView> {
+  final TextEditingController _locationController = TextEditingController();
+
+  @override
+  void dispose() {
+    _locationController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final TextEditingController locationController = TextEditingController();
     return BlocBuilder<DocumentBloc, DocumentState>(
         buildWhen: (previous, current) =>
             previous.data != current.data ||
@@ -36,20 +48,20 @@ class PagesView extends StatelessWidget {
             children: [
               const SizedBox(height: 8),
               TextFormField(
-                controller: locationController,
+                controller: _locationController,
                 decoration: InputDecoration(
                   labelText: AppLocalizations.of(context).location,
                   suffixIcon: IconButton(
                     icon: const PhosphorIcon(PhosphorIconsLight.arrowUp),
                     tooltip: AppLocalizations.of(context).goUp,
                     onPressed: () {
-                      final paths = locationController.text.split('/');
+                      final paths = _locationController.text.split('/');
                       if (paths.length <= 1) {
-                        locationController.text = '';
+                        _locationController.text = '';
                         return;
                       }
                       paths.removeLast();
-                      locationController.text = paths.join('/');
+                      _locationController.text = paths.join('/');
                     },
                   ),
                   border: const OutlineInputBorder(),
@@ -58,7 +70,7 @@ class PagesView extends StatelessWidget {
               const SizedBox(height: 8),
               Expanded(
                 child: ValueListenableBuilder<TextEditingValue>(
-                  valueListenable: locationController,
+                  valueListenable: _locationController,
                   builder: (context, value, child) {
                     final query = value.text.isEmpty ? '' : '${value.text}/';
                     final queried = pages
@@ -108,7 +120,7 @@ class PagesView extends StatelessWidget {
                             return _PageEntityListTile(
                               entity: entity,
                               selected: entity.path == currentName,
-                              locationController: locationController,
+                              locationController: _locationController,
                               data: state.data,
                               key: ValueKey(entity.path),
                             );

@@ -4,7 +4,7 @@ class TextureHandler extends PastingHandler<TextureTool> {
   TextureHandler(super.data);
 
   @override
-  List<PadElement> transformElements(Rect rect, String layer) {
+  List<PadElement> transformElements(Rect rect, String collection) {
     if (rect.isEmpty) return [];
 
     return [
@@ -12,7 +12,7 @@ class TextureHandler extends PastingHandler<TextureTool> {
         firstPosition: rect.topLeft.toPoint(),
         secondPosition: rect.bottomRight.toPoint(),
         texture: data.texture,
-        layer: layer,
+        collection: collection,
       ),
     ];
   }

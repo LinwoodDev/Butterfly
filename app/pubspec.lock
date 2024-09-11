@@ -330,10 +330,10 @@ packages:
     dependency: transitive
     description:
       name: dart_style
-      sha256: "99e066ce75c89d6b29903d788a7bb9369cf754f7b24bf70bf4b6d6d6b26853b9"
+      sha256: "7856d364b589d1f08986e140938578ed36ed948581fbc3bc9aef1805039ac5ab"
       url: "https://pub.dev"
     source: hosted
-    version: "2.3.6"
+    version: "2.3.7"
   dbus:
     dependency: transitive
     description:
@@ -482,8 +482,8 @@ packages:
     dependency: "direct main"
     description:
       path: "."
-      ref: "43fe29eff33540de906e402b5a7df1ed0153ef0c"
-      resolved-ref: "43fe29eff33540de906e402b5a7df1ed0153ef0c"
+      ref: "33c3af1f9e9c65e628d80ac911c6527d1bd9aa24"
+      resolved-ref: "33c3af1f9e9c65e628d80ac911c6527d1bd9aa24"
       url: "https://github.com/CodeDoctorDE/flex_color_scheme"
     source: git
     version: "8.0.0-dev.1"
@@ -1363,18 +1363,18 @@ packages:
     dependency: "direct main"
     description:
       name: super_clipboard
-      sha256: f79df139913c6810c4ccf37a962c0995e996baef6cbe95ef99a22a8eb39182e4
+      sha256: cfeb142360fac67e0da1ca339accb892eb790c6528a218a008eef1709d96ed0f
       url: "https://pub.dev"
     source: hosted
-    version: "0.8.21"
+    version: "0.8.22"
   super_native_extensions:
     dependency: transitive
     description:
       name: super_native_extensions
-      sha256: "46d99771d50cbc37dfd4eeae90a37ca8f8eb58fd7995867b667189be2f90fed0"
+      sha256: "6a7cfb7d212da7023b86fb99c736081e9c2cd982265d15dc5fe6381a32dbc875"
       url: "https://pub.dev"
     source: hosted
-    version: "0.8.21"
+    version: "0.8.22"
   sync_http:
     dependency: transitive
     description:

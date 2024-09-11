@@ -187,8 +187,8 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
         emit,
         state: current.copyWith(
             data: data,
-            page: current.page
-                .copyWith(content: [...current.page.content, ...elements])),
+            page: current.mapLayer(
+                (e) => e.copyWith(content: [...e.content, ...elements]))),
         addedElements: renderers,
         shouldRefresh: () => current.currentIndexCubit
             .getHandler()
@@ -232,81 +232,94 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
           renderers.add(renderer);
         }
       }
-      final content = page.content
-          .expand((element) => elements[element.id] ?? [element])
-          .toList();
+      final newPage = current.page.mapLayers((e) => e.copyWith(
+            content: e.content.expand((e) {
+              final updated = elements[e.id];
+              if (updated != null) {
+                return updated;
+              }
+              return [e];
+            }).toList(),
+          ));
       _saveState(
         emit,
         state: current.copyWith(
-          page: page.copyWith(content: content),
+          page: newPage,
         ),
         replacedElements: renderers,
-        shouldRefresh: () => replacedRenderers.entries.any((element) => current
-            .currentIndexCubit
-            .getHandler()
-            .onRendererUpdated(page, element.key, element.value)),
+        shouldRefresh: () => replacedRenderers.entries
+            .map((element) => current.currentIndexCubit
+                .getHandler()
+                .onRendererUpdated(page, element.key, element.value))
+            .toList()
+            .any((e) => e),
       );
     }, transformer: sequential());
     on<ElementsArranged>((event, emit) async {
       final current = state;
       if (current is! DocumentLoadSuccess) return;
-      final content = List<PadElement>.from(current.page.content);
       final renderers = List<Renderer<PadElement>>.from(current.renderers);
-      for (final id in event.elements) {
-        final index = content.indexWhere((element) => element.id == id);
-        final element = content.removeAt(index);
-        var newIndex = index;
-        var newRendererIndex =
-            renderers.indexWhere((e) => e.element == element);
-        final renderer =
-            newRendererIndex >= 0 ? renderers.removeAt(newRendererIndex) : null;
-        if (event.arrangement == Arrangement.front) {
-          newIndex = content.length - 1;
-          newRendererIndex = renderers.length - 1;
-        } else if (event.arrangement == Arrangement.back) {
-          newIndex = 0;
-          newRendererIndex = 0;
-        } else {
-          final rect = renderer?.rect;
-          if (rect != null) {
-            final hits = (await rayCastRect(rect, useLayer: false, full: false))
-                .map((e) => e.element)
-                .toList();
-            final hitIndex = hits.indexOf(renderer!.element);
-            if (hitIndex != -1) {
-              if (event.arrangement == Arrangement.backward && hitIndex != 0) {
-                newIndex = content.indexOf(hits[hitIndex - 1]);
-              } else if (event.arrangement == Arrangement.forward &&
-                  hitIndex != hits.length - 1) {
-                newIndex = content.indexOf(hits[hitIndex + 1]) + 1;
-              }
-              if (newIndex >= 0) {
-                final element =
-                    newIndex < content.length ? content[newIndex] : null;
-                newRendererIndex = element == null
-                    ? renderers.length
-                    : renderers.indexWhere((e) => e.element == element);
+      final newPage = await current.page.mapLayersAsync((e) async {
+        final content = List<PadElement>.from(e.content);
+        for (final id in event.elements) {
+          final index = content.indexWhere((element) => element.id == id);
+          final element = content.removeAt(index);
+          var newIndex = index;
+          var newRendererIndex =
+              renderers.indexWhere((e) => e.element == element);
+          final renderer = newRendererIndex >= 0
+              ? renderers.removeAt(newRendererIndex)
+              : null;
+          if (event.arrangement == Arrangement.front) {
+            newIndex = content.length - 1;
+            newRendererIndex = renderers.length - 1;
+          } else if (event.arrangement == Arrangement.back) {
+            newIndex = 0;
+            newRendererIndex = 0;
+          } else {
+            final rect = renderer?.rect;
+            if (rect != null) {
+              final hits =
+                  (await rayCastRect(rect, useCollection: false, full: false))
+                      .map((e) => e.element)
+                      .toList();
+              final hitIndex = hits.indexOf(renderer!.element);
+              if (hitIndex != -1) {
+                if (event.arrangement == Arrangement.backward &&
+                    hitIndex != 0) {
+                  newIndex = content.indexOf(hits[hitIndex - 1]);
+                } else if (event.arrangement == Arrangement.forward &&
+                    hitIndex != hits.length - 1) {
+                  newIndex = content.indexOf(hits[hitIndex + 1]) + 1;
+                }
+                if (newIndex >= 0) {
+                  final element =
+                      newIndex < content.length ? content[newIndex] : null;
+                  newRendererIndex = element == null
+                      ? renderers.length
+                      : renderers.indexWhere((e) => e.element == element);
+                }
               }
             }
           }
-        }
-        if (newIndex >= 0) {
-          content.insert(newIndex, element);
-        } else {
-          content.add(element);
-        }
-        if (renderer != null) {
-          if (newRendererIndex >= 0) {
-            renderers.insert(newRendererIndex, renderer);
+          if (newIndex >= 0) {
+            content.insert(newIndex, element);
           } else {
-            renderers.add(renderer);
+            content.add(element);
+          }
+          if (renderer != null) {
+            if (newRendererIndex >= 0) {
+              renderers.insert(newRendererIndex, renderer);
+            } else {
+              renderers.add(renderer);
+            }
           }
         }
-      }
+        return e.copyWith(content: content);
+      });
       current.currentIndexCubit.unbake(
         unbakedElements: renderers,
       );
-      final newPage = current.page.copyWith(content: content);
       _saveState(
         emit,
         state: current.copyWith(
@@ -320,12 +333,12 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       if (current is! DocumentLoadSuccess) return;
       if (!(current.embedding?.editable ?? true)) return;
       if (event.elements.isEmpty) return;
-      final page = current.page;
-      final newContent = page.content
-          .where((element) => !event.elements.contains(element.id))
-          .toList();
+      final newPage = current.page.mapLayers((e) => e.copyWith(
+            content: e.content
+                .where((element) => !event.elements.contains(element.id))
+                .toList(),
+          ));
       current.currentIndexCubit.removeSelection(event.elements);
-      final newPage = page.copyWith(content: newContent);
       // Remove unused assets
       final unusedAssets = <String>{};
       event.elements.whereType<SourcedElement>().forEach((element) {
@@ -530,23 +543,110 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       _saveState(emit, state: current.copyWith(page: currentDocument));
     });
 
-    on<LayerRenamed>((event, emit) {
+    on<CollectionRenamed>((event, emit) {
       final current = state;
       if (current is! DocumentLoadSuccess) return;
       if (!(current.embedding?.editable ?? true)) return;
-      final content = List<PadElement>.from(current.page.content)
-          .map((e) =>
-              e.layer == event.oldName ? e.copyWith(layer: event.newName) : e)
-          .toList();
       _saveState(
         emit,
         state: current.copyWith(
-            page: current.page.copyWith(content: content),
-            currentLayer: current.currentLayer == event.oldName
+            page: current.page.mapLayers((e) => e.copyWith(
+                content: List<PadElement>.from(e.content)
+                    .map((e) => e.collection == event.oldName
+                        ? e.copyWith(collection: event.newName)
+                        : e)
+                    .toList())),
+            currentCollection: current.currentCollection == event.oldName
                 ? event.newName
-                : current.currentLayer),
+                : current.currentCollection),
         addedElements: null,
         shouldRefresh: () => true,
+      );
+    });
+
+    on<CollectionElementsRemoved>((event, emit) {
+      final current = state;
+      if (current is! DocumentLoadSuccess) return;
+      if (!(current.embedding?.editable ?? true)) return;
+      _saveState(
+        emit,
+        state: current.copyWith(
+          page: current.page.mapLayers(
+            (e) => e.copyWith(
+              content: List<PadElement>.from(e.content)
+                  .where((e) => e.collection != event.name)
+                  .toList(),
+            ),
+          ),
+          currentCollection: current.currentCollection == event.name
+              ? ''
+              : current.currentCollection,
+        ),
+        addedElements: null,
+        reset: true,
+      );
+    });
+
+    on<LayerOrderChanged>((event, emit) {
+      final current = state;
+      if (current is! DocumentLoadSuccess) return;
+      final layers = List<DocumentLayer>.from(current.page.layers);
+      final layer = layers.firstWhereOrNull((e) => e.id == event.id);
+      if (layer == null) return;
+      layers.remove(layer);
+      layers.insert(event.index, layer);
+      final currentDocument = current.page.copyWith(layers: layers);
+      _saveState(emit, state: current.copyWith(page: currentDocument));
+    });
+
+    on<LayerVisibilityChanged>((event, emit) {
+      final current = state;
+      if (current is! DocumentLoadSuccess) return;
+      final invisibleLayers = Set<String>.from(current.invisibleLayers);
+      if (event.visible) {
+        invisibleLayers.remove(event.id);
+      } else {
+        invisibleLayers.add(event.id);
+      }
+      return _saveState(
+        emit,
+        state: current.copyWith(invisibleLayers: invisibleLayers),
+        addedElements: null,
+      );
+    });
+
+    on<LayerCreated>((event, emit) {
+      final current = state;
+      if (current is! DocumentLoadSuccess) return;
+      if (!(current.embedding?.editable ?? true)) return;
+      return _saveState(
+        emit,
+        state: current.copyWith(
+          page: current.page.copyWith(layers: [
+            ...current.page.layers,
+            DocumentLayer(id: createUniqueId(), name: event.name),
+          ]),
+        ),
+      );
+    });
+
+    on<LayerChanged>((event, emit) {
+      final current = state;
+      if (current is! DocumentLoadSuccess) return;
+      if (!(current.embedding?.editable ?? true)) return;
+      return _saveState(
+        emit,
+        state: current.copyWith(
+          page: current.page.copyWith(
+            layers: current.page.layers
+                .map((e) => e.id == event.id
+                    ? e.copyWith(
+                        name: event.name ?? e.name,
+                      )
+                    : e)
+                .toList(),
+          ),
+        ),
       );
     });
 
@@ -554,54 +654,13 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       final current = state;
       if (current is! DocumentLoadSuccess) return;
       if (!(current.embedding?.editable ?? true)) return;
-      final content = <PadElement>[];
-      for (var element in current.page.content) {
-        if (element.layer == event.name) {
-          content.add(element.copyWith(layer: ''));
-        } else {
-          content.add(element);
-        }
-      }
-      _saveState(
-        emit,
-        state: current.copyWith(page: current.page.copyWith(content: content)),
-        addedElements: null,
-        reset: true,
-      );
-    });
-
-    on<LayerElementsRemoved>((event, emit) {
-      final current = state;
-      if (current is! DocumentLoadSuccess) return;
-      if (!(current.embedding?.editable ?? true)) return;
-      _saveState(
+      return _saveState(
         emit,
         state: current.copyWith(
           page: current.page.copyWith(
-            content: List<PadElement>.from(current.page.content)
-                .where((e) => e.layer != event.name)
-                .toList(),
+            layers: current.page.layers.where((e) => e.id != event.id).toList(),
           ),
         ),
-        addedElements: null,
-        reset: true,
-      );
-    });
-
-    on<LayerVisibilityChanged>((event, emit) {
-      final current = state;
-      if (current is! DocumentLoadSuccess) return;
-      var invisibleLayers = List<String>.from(current.invisibleLayers);
-      var isVisible = current.isLayerVisible(event.name);
-      if (isVisible) {
-        invisibleLayers.add(event.name);
-      } else {
-        invisibleLayers.remove(event.name);
-      }
-      return _saveState(
-        emit,
-        state: current.copyWith(invisibleLayers: invisibleLayers),
-        addedElements: null,
       );
     });
 
@@ -618,21 +677,33 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       );
     });
 
-    on<ElementsLayerChanged>((event, emit) {
+    on<CurrentCollectionChanged>((event, emit) {
       final current = state;
       if (current is! DocumentLoadSuccess) return;
       if (!(current.embedding?.editable ?? true)) return;
-      var content = List<PadElement>.from(current.page.content);
-      for (var element in event.elements) {
-        final index = content.indexWhere((e) => e.id == element);
-        content[index] = content[index].copyWith(layer: event.layer);
-      }
+      return _saveState(
+        emit,
+        state: current.copyWith(
+          currentCollection: event.name,
+        ),
+        reset: true,
+      );
+    });
+
+    on<ElementsCollectionChanged>((event, emit) {
+      final current = state;
+      if (current is! DocumentLoadSuccess) return;
+      if (!(current.embedding?.editable ?? true)) return;
       _saveState(
         emit,
         state: current.copyWith(
-          page: current.page.copyWith(
-            content: content,
-          ),
+          page: current.page.mapLayers((e) => e.copyWith(
+                  content: e.content.map((e) {
+                if (event.elements.contains(e.id)) {
+                  return e.copyWith(collection: event.collection);
+                }
+                return e;
+              }).toList())),
         ),
         addedElements: null,
         reset: true,
@@ -995,19 +1066,19 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     Offset globalPosition,
     double radius, {
     CameraTransform? transform,
-    required bool useLayer,
+    required bool useCollection,
   }) async {
     return rayCastRect(
       Rect.fromCircle(center: globalPosition, radius: radius),
       transform: transform,
-      useLayer: useLayer,
+      useCollection: useCollection,
     );
   }
 
   Future<Set<Renderer<PadElement>>> rayCastRect(
     Rect rect, {
     CameraTransform? transform,
-    required bool useLayer,
+    required bool useCollection,
     bool? full,
   }) async {
     final state = this.state;
@@ -1022,7 +1093,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
         renderers.map((e) => _SmallRenderer.fromRenderer(e)).toList(),
         rect,
         transform.size,
-        useLayer ? state.currentLayer : null,
+        useCollection ? state.currentCollection : null,
         full,
       ),
     ).then((value) => value.map((e) => renderers[e]).toSet());
@@ -1031,7 +1102,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
   Future<Set<Renderer<PadElement>>> rayCastPolygon(
     List<Offset> points, {
     CameraTransform? transform,
-    required bool useLayer,
+    required bool useCollection,
     bool? full,
   }) async {
     final state = this.state;
@@ -1046,7 +1117,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
         renderers.map((e) => _SmallRenderer.fromRenderer(e)).toList(),
         points,
         transform.size,
-        useLayer ? state.currentLayer : null,
+        useCollection ? state.currentCollection : null,
         full,
       ),
     ).then((value) => value.map((e) => renderers[e]).toSet());
@@ -1058,19 +1129,19 @@ typedef HitRequest = bool Function(Offset position, [double radius]);
 class _SmallRenderer {
   final HitCalculator hitCalc;
   final PadElement element;
+  final String? layer;
 
-  _SmallRenderer(this.hitCalc, this.element);
+  _SmallRenderer(this.hitCalc, this.element, this.layer);
   _SmallRenderer.fromRenderer(Renderer renderer)
-      : hitCalc = renderer.getHitCalculator(),
-        element = renderer.element;
+      : this(renderer.getHitCalculator(), renderer.element, renderer.layer);
 }
 
 class _RayCastParams {
-  final List<String> invisibleLayers;
+  final Set<String> invisibleLayers;
   final List<_SmallRenderer> renderers;
   final Rect rect;
   final double size;
-  final String? layer;
+  final String? collection;
   final bool full;
 
   const _RayCastParams(
@@ -1078,7 +1149,7 @@ class _RayCastParams {
     this.renderers,
     this.rect,
     this.size,
-    this.layer,
+    this.collection,
     this.full,
   );
 }
@@ -1088,34 +1159,36 @@ Set<int> _executeRayCast(_RayCastParams params) {
   return params.renderers
       .asMap()
       .entries
-      .where((e) => !params.invisibleLayers.contains(e.value.element.layer))
+      .where((e) => !params.invisibleLayers.contains(e.value.layer))
       .where((e) =>
           e.value.hitCalc.hit(rect, full: params.full) &&
-          (params.layer == null || e.value.element.layer == params.layer))
+          (params.collection == null ||
+              e.value.element.collection == params.collection))
       .map((e) => e.key)
       .toSet();
 }
 
 class _RayCastPolygonParams {
-  final List<String> invisibleLayers;
+  final Set<String> invisibleLayers;
   final List<_SmallRenderer> renderers;
   final List<Offset> polygon;
   final double size;
-  final String? layer;
+  final String? collection;
   final bool full;
 
   const _RayCastPolygonParams(this.invisibleLayers, this.renderers,
-      this.polygon, this.size, this.layer, this.full);
+      this.polygon, this.size, this.collection, this.full);
 }
 
 Set<int> _executeRayCastPolygon(_RayCastPolygonParams params) {
   return params.renderers
       .asMap()
       .entries
-      .where((e) => !params.invisibleLayers.contains(e.value.element.layer))
+      .where((e) => !params.invisibleLayers.contains(e.value.layer))
       .where((e) =>
           e.value.hitCalc.hitPolygon(params.polygon, full: params.full) &&
-          (params.layer == null || e.value.element.layer == params.layer))
+          (params.collection == null ||
+              e.value.element.collection == params.collection))
       .map((e) => e.key)
       .toSet();
 }

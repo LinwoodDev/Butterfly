@@ -79,6 +79,12 @@ class _NavigatorViewState extends State<NavigatorView>
   }
 
   @override
+  void dispose() {
+    _animationController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return BlocBuilder<SettingsCubit, ButterflySettings>(
         buildWhen: (previous, current) =>
@@ -185,7 +191,7 @@ class _DocumentNavigatorState extends State<DocumentNavigator>
             }
             final body = switch (page) {
               NavigatorPage.waypoints => const WaypointsView(),
-              NavigatorPage.areas => AreasView(),
+              NavigatorPage.areas => const AreasView(),
               NavigatorPage.layers => const LayersView(),
               NavigatorPage.pages => const PagesView(),
               NavigatorPage.files => SingleChildScrollView(

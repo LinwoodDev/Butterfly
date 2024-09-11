@@ -110,31 +110,50 @@ class DocumentEvent extends ReplayEvent with _$DocumentEvent {
     int newIndex,
   ) = WaypointReordered;
 
-  const factory DocumentEvent.layerRenamed(
+  const factory DocumentEvent.collectionRenamed(
     String oldName,
     String newName,
-  ) = LayerRenamed;
+  ) = CollectionRenamed;
 
-  const factory DocumentEvent.layerRemoved(
+  const factory DocumentEvent.collectionElementsRemoved(
     String name,
-  ) = LayerRemoved;
+  ) = CollectionElementsRemoved;
 
-  const factory DocumentEvent.layerElementsRemoved(
+  const factory DocumentEvent.currentCollectionChanged(
     String name,
-  ) = LayerElementsRemoved;
-
-  const factory DocumentEvent.layerVisibilityChanged(
-    String name,
-  ) = LayerVisibilityChanged;
+  ) = CurrentCollectionChanged;
 
   const factory DocumentEvent.currentLayerChanged(
     String name,
   ) = CurrentLayerChanged;
 
-  const factory DocumentEvent.elementsLayerChanged(
-    String layer,
+  const factory DocumentEvent.layerCreated(
+    String name,
+  ) = LayerCreated;
+
+  const factory DocumentEvent.layerChanged(
+    String id, {
+    String? name,
+  }) = LayerChanged;
+
+  const factory DocumentEvent.layerRemoved(
+    String id,
+  ) = LayerRemoved;
+
+  const factory DocumentEvent.layerOrderChanged(
+    String id,
+    int index,
+  ) = LayerOrderChanged;
+
+  const factory DocumentEvent.layerVisibilityChanged(
+    String id,
+    bool visible,
+  ) = LayerVisibilityChanged;
+
+  const factory DocumentEvent.elementsCollectionChanged(
     List<String> elements,
-  ) = ElementsLayerChanged;
+    String collection,
+  ) = ElementsCollectionChanged;
 
   const factory DocumentEvent.areasCreated(
     List<Area> areas,
@@ -212,7 +231,7 @@ class DocumentEvent extends ReplayEvent with _$DocumentEvent {
       _$DocumentEventFromJson(json);
 
   bool shouldSync() => switch (this) {
-        CurrentLayerChanged _ => false,
+        CurrentCollectionChanged _ => false,
         DocumentSaved _ => false,
         CurrentAreaChanged _ => false,
         LayerVisibilityChanged _ => false,
