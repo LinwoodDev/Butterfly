@@ -8,6 +8,7 @@
 * Change layer navigator page to new layer system
 * Improve action tool visualization in edit toolbar
 * Add eye dropper docs
+* Add invert selection to file view
 * Add tolerance to area move in navigator page to fix duplicated areas
 * Update selection incorrect when transforming multiple elements
 * Fix select all shortcut

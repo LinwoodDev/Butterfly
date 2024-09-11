@@ -52,7 +52,7 @@ class FilesViewState extends State<FilesView> {
   String _search = '';
   late final SettingsCubit _settingsCubit;
   Stream<FileSystemEntity<NoteData>?>? _filesStream;
-  final List<String> _selectedFiles = [];
+  final Set<String> _selectedFiles = {};
 
   @override
   void initState() {
@@ -501,12 +501,40 @@ class FilesViewState extends State<FilesView> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            IconButton(
-                              icon: const PhosphorIcon(
-                                  PhosphorIconsLight.selectionSlash),
-                              tooltip: AppLocalizations.of(context).deselect,
-                              onPressed: () =>
-                                  setState(() => _selectedFiles.clear()),
+                            Row(
+                              children: [
+                                IconButton(
+                                  icon: const PhosphorIcon(
+                                      PhosphorIconsLight.selectionSlash),
+                                  tooltip:
+                                      AppLocalizations.of(context).deselect,
+                                  onPressed: () =>
+                                      setState(() => _selectedFiles.clear()),
+                                ),
+                                IconButton(
+                                  icon: const PhosphorIcon(
+                                      PhosphorIconsLight.selectionInverse),
+                                  tooltip: AppLocalizations.of(context)
+                                      .invertSelection,
+                                  onPressed: () async {
+                                    final directory = await _documentSystem
+                                        .getAsset(_locationController.text,
+                                            readData: false);
+                                    if (directory
+                                        is! FileSystemDirectory<NoteData>) {
+                                      return;
+                                    }
+                                    setState(() {
+                                      final all = _selectedFiles.toSet();
+                                      _selectedFiles.clear();
+                                      _selectedFiles.addAll(directory.assets
+                                          .map((e) => e.path)
+                                          .toSet()
+                                          .difference(all));
+                                    });
+                                  },
+                                ),
+                              ],
                             ),
                             Builder(builder: (context) {
                               return IconButton(

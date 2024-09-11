@@ -43,7 +43,7 @@ void deleteEntities({
   required BuildContext context,
   required bool isMobile,
   required DocumentFileSystem documentSystem,
-  required List<String> entities,
+  required Set<String> entities,
   required VoidCallback onDelete,
 }) {
   final colorScheme = Theme.of(context).colorScheme;
@@ -140,7 +140,7 @@ class _FileEntityItemState extends State<FileEntityItem> {
           context: context,
           isMobile: widget.isMobile,
           documentSystem: documentSystem,
-          entities: [widget.entity.location.path],
+          entities: {widget.entity.location.path},
           onDelete: widget.onReload,
         );
 
