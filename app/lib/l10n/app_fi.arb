@@ -207,7 +207,6 @@
   "fullScreen": "Koko näyttö",
   "design": "Ulkoasu",
   "text": "Teksti",
-  "selectSensitivity": "Valitse herkkyys",
   "welcome": "Hei, tämä on Linwood Butterfly",
   "welcomeContent": "Vapaa ja avoimen lähdekoodin piirtotila!",
   "updated": "Sovellus päivitetty versioon {version}",
@@ -616,5 +615,6 @@
   "fullSelection": "Täysi valinta",
   "fullSelectionDescription": "Vaatii, että elementit ovat täysin valintakentän sisällä.",
   "collection": "Kokoelma",
-  "defaultCollection": "Oletus kokoelma"
+  "defaultCollection": "Oletus kokoelma",
+  "scroll": "Scroll"
 }
