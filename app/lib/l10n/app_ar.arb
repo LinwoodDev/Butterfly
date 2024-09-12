@@ -207,7 +207,6 @@
   "fullScreen": "ملء الشاشة",
   "design": "تصميم",
   "text": "نص",
-  "selectSensitivity": "حدد حساسية",
   "welcome": "مرحبا، هذه فراشة لينوود",
   "welcomeContent": "مساحة رسم مجانية ومفتوحة المصدر!",
   "updated": "تم تحديث التطبيق إلى الإصدار {version}",
@@ -616,5 +615,6 @@
   "fullSelection": "التحديد الكامل",
   "fullSelectionDescription": "يتطلب أن تكون العناصر كاملة داخل مربع الاختيار من أجل الاختيار.",
   "collection": "مجموعة",
-  "defaultCollection": "المجموعة الافتراضية"
+  "defaultCollection": "المجموعة الافتراضية",
+  "scroll": "Scroll"
 }
