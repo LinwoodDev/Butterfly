@@ -207,7 +207,6 @@
   "fullScreen": "На весь экран",
   "design": "Дизайн",
   "text": "Текст",
-  "selectSensitivity": "Выберите чувствительность",
   "welcome": "Эй, это Линвуд Бабочка",
   "welcomeContent": "Свободное место для рисования с открытым исходным кодом!",
   "updated": "Приложение обновлено до версии {version}",
@@ -616,5 +615,6 @@
   "fullSelection": "Полная выборка",
   "fullSelectionDescription": "Для выбора требуется, чтобы элементы были полностью внутри окна выбора.",
   "collection": "Коллекция",
-  "defaultCollection": "Коллекция по умолчанию"
+  "defaultCollection": "Коллекция по умолчанию",
+  "scroll": "Scroll"
 }
