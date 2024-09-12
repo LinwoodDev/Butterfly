@@ -207,7 +207,6 @@
   "fullScreen": "Tela cheia",
   "design": "Projetar",
   "text": "Texto",
-  "selectSensitivity": "Selecione a sensibilidade",
   "welcome": "Ei, esta é a Borboleta Linwood",
   "welcomeContent": "Um espaço de desenho gratuito e de código-aberto!",
   "updated": "Aplicativo atualizado para a versão {version}",
@@ -616,5 +615,6 @@
   "fullSelection": "Seleção completa",
   "fullSelectionDescription": "Requer elementos para estar totalmente dentro da caixa de seleção para a seleção.",
   "collection": "Coleção",
-  "defaultCollection": "Coleção Padrão"
+  "defaultCollection": "Coleção Padrão",
+  "scroll": "Scroll"
 }
