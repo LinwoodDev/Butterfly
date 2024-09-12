@@ -616,5 +616,5 @@
   "fullSelectionDescription": "Nécessite que les éléments soient entièrement dans la zone de sélection pour la sélection.",
   "collection": "Collecte",
   "defaultCollection": "Collection par défaut",
-  "scroll": "Scroll"
+  "scroll": "Défilement"
 }
