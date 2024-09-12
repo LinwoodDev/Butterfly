@@ -207,7 +207,6 @@
   "fullScreen": "Vollbild",
   "design": "Design",
   "text": "Text",
-  "selectSensitivity": "Empfindlichkeit auswählen",
   "welcome": "Hey, das ist Linwood Butterfly",
   "welcomeContent": "Ein freier und Open-Source-Zeichnungsraum!",
   "updated": "App aktualisiert auf Version {version}",
@@ -616,5 +615,6 @@
   "fullSelection": "Vollständige Auswahl",
   "fullSelectionDescription": "Erfordert die vollständige Auswahl der Elemente innerhalb des Auswahlfeldes.",
   "collection": "Sammlung",
-  "defaultCollection": "Standard-Sammlung"
+  "defaultCollection": "Standard-Sammlung",
+  "scroll": "Scroll"
 }
