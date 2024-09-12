@@ -482,8 +482,8 @@ packages:
     dependency: "direct main"
     description:
       path: "."
-      ref: "33c3af1f9e9c65e628d80ac911c6527d1bd9aa24"
-      resolved-ref: "33c3af1f9e9c65e628d80ac911c6527d1bd9aa24"
+      ref: "4f517bc4b4e84227099a3d3c3c56c6d84bf79801"
+      resolved-ref: "4f517bc4b4e84227099a3d3c3c56c6d84bf79801"
       url: "https://github.com/CodeDoctorDE/flex_color_scheme"
     source: git
     version: "8.0.0-dev.1"
@@ -1198,10 +1198,10 @@ packages:
     dependency: transitive
     description:
       name: sembast
-      sha256: "99f9d53ecdc75db1630797a8b9b2f2050ee5377e49f60f5f6e788431db04224d"
+      sha256: cae6c2b606226c94d9a6a9951b7b0632194077a9d7ea5e8e2300c88d8f19a823
       url: "https://pub.dev"
     source: hosted
-    version: "3.7.3+3"
+    version: "3.7.4"
   share_plus:
     dependency: "direct main"
     description:
@@ -1641,4 +1641,4 @@ packages:
     version: "3.1.2"
 sdks:
   dart: ">=3.5.0 <4.0.0"
-  flutter: ">=3.24.2"
+  flutter: ">=3.24.3"

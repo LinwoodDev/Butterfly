@@ -232,7 +232,7 @@ class _MainViewViewportState extends State<MainViewViewport>
                           var sensitivity = context
                               .read<SettingsCubit>()
                               .state
-                              .touchSensitivity;
+                              .gestureSensitivity;
                           if (details.scale == 1) {
                             cubit.move(-details.focalPointDelta /
                                 sensitivity /
@@ -251,7 +251,7 @@ class _MainViewViewportState extends State<MainViewViewport>
                             var sensitivity = context
                                 .read<SettingsCubit>()
                                 .state
-                                .touchSensitivity;
+                                .gestureSensitivity;
                             cubit.slide(
                                 details.velocity.pixelsPerSecond /
                                     sensitivity /
@@ -294,7 +294,7 @@ class _MainViewViewportState extends State<MainViewViewport>
                               var sensitivity = context
                                   .read<SettingsCubit>()
                                   .state
-                                  .mouseSensitivity;
+                                  .scrollSensitivity;
                               scale /= -sensitivity * 100;
                               scale += 1;
                               final cubit = context.read<CurrentIndexCubit>();

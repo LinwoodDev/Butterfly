@@ -321,10 +321,10 @@ mixin _$ButterflySettings {
   ThemeDensity get density => throw _privateConstructorUsedError;
   String get localeTag => throw _privateConstructorUsedError;
   String get documentPath => throw _privateConstructorUsedError;
+  double get gestureSensitivity => throw _privateConstructorUsedError;
   double get touchSensitivity => throw _privateConstructorUsedError;
-  double get mouseSensitivity => throw _privateConstructorUsedError;
-  double get penSensitivity => throw _privateConstructorUsedError;
   double get selectSensitivity => throw _privateConstructorUsedError;
+  double get scrollSensitivity => throw _privateConstructorUsedError;
   bool get penOnlyInput => throw _privateConstructorUsedError;
   bool get inputGestures => throw _privateConstructorUsedError;
   String get design => throw _privateConstructorUsedError;
@@ -381,10 +381,10 @@ abstract class $ButterflySettingsCopyWith<$Res> {
       ThemeDensity density,
       String localeTag,
       String documentPath,
+      double gestureSensitivity,
       double touchSensitivity,
-      double mouseSensitivity,
-      double penSensitivity,
       double selectSensitivity,
+      double scrollSensitivity,
       bool penOnlyInput,
       bool inputGestures,
       String design,
@@ -445,10 +445,10 @@ class _$ButterflySettingsCopyWithImpl<$Res, $Val extends ButterflySettings>
     Object? density = null,
     Object? localeTag = null,
     Object? documentPath = null,
+    Object? gestureSensitivity = null,
     Object? touchSensitivity = null,
-    Object? mouseSensitivity = null,
-    Object? penSensitivity = null,
     Object? selectSensitivity = null,
+    Object? scrollSensitivity = null,
     Object? penOnlyInput = null,
     Object? inputGestures = null,
     Object? design = null,
@@ -503,21 +503,21 @@ class _$ButterflySettingsCopyWithImpl<$Res, $Val extends ButterflySettings>
           ? _value.documentPath
           : documentPath // ignore: cast_nullable_to_non_nullable
               as String,
+      gestureSensitivity: null == gestureSensitivity
+          ? _value.gestureSensitivity
+          : gestureSensitivity // ignore: cast_nullable_to_non_nullable
+              as double,
       touchSensitivity: null == touchSensitivity
           ? _value.touchSensitivity
           : touchSensitivity // ignore: cast_nullable_to_non_nullable
               as double,
-      mouseSensitivity: null == mouseSensitivity
-          ? _value.mouseSensitivity
-          : mouseSensitivity // ignore: cast_nullable_to_non_nullable
-              as double,
-      penSensitivity: null == penSensitivity
-          ? _value.penSensitivity
-          : penSensitivity // ignore: cast_nullable_to_non_nullable
-              as double,
       selectSensitivity: null == selectSensitivity
           ? _value.selectSensitivity
           : selectSensitivity // ignore: cast_nullable_to_non_nullable
+              as double,
+      scrollSensitivity: null == scrollSensitivity
+          ? _value.scrollSensitivity
+          : scrollSensitivity // ignore: cast_nullable_to_non_nullable
               as double,
       penOnlyInput: null == penOnlyInput
           ? _value.penOnlyInput
@@ -701,10 +701,10 @@ abstract class _$$ButterflySettingsImplCopyWith<$Res>
       ThemeDensity density,
       String localeTag,
       String documentPath,
+      double gestureSensitivity,
       double touchSensitivity,
-      double mouseSensitivity,
-      double penSensitivity,
       double selectSensitivity,
+      double scrollSensitivity,
       bool penOnlyInput,
       bool inputGestures,
       String design,
@@ -765,10 +765,10 @@ class __$$ButterflySettingsImplCopyWithImpl<$Res>
     Object? density = null,
     Object? localeTag = null,
     Object? documentPath = null,
+    Object? gestureSensitivity = null,
     Object? touchSensitivity = null,
-    Object? mouseSensitivity = null,
-    Object? penSensitivity = null,
     Object? selectSensitivity = null,
+    Object? scrollSensitivity = null,
     Object? penOnlyInput = null,
     Object? inputGestures = null,
     Object? design = null,
@@ -823,21 +823,21 @@ class __$$ButterflySettingsImplCopyWithImpl<$Res>
           ? _value.documentPath
           : documentPath // ignore: cast_nullable_to_non_nullable
               as String,
+      gestureSensitivity: null == gestureSensitivity
+          ? _value.gestureSensitivity
+          : gestureSensitivity // ignore: cast_nullable_to_non_nullable
+              as double,
       touchSensitivity: null == touchSensitivity
           ? _value.touchSensitivity
           : touchSensitivity // ignore: cast_nullable_to_non_nullable
               as double,
-      mouseSensitivity: null == mouseSensitivity
-          ? _value.mouseSensitivity
-          : mouseSensitivity // ignore: cast_nullable_to_non_nullable
-              as double,
-      penSensitivity: null == penSensitivity
-          ? _value.penSensitivity
-          : penSensitivity // ignore: cast_nullable_to_non_nullable
-              as double,
       selectSensitivity: null == selectSensitivity
           ? _value.selectSensitivity
           : selectSensitivity // ignore: cast_nullable_to_non_nullable
+              as double,
+      scrollSensitivity: null == scrollSensitivity
+          ? _value.scrollSensitivity
+          : scrollSensitivity // ignore: cast_nullable_to_non_nullable
               as double,
       penOnlyInput: null == penOnlyInput
           ? _value.penOnlyInput
@@ -996,10 +996,10 @@ class _$ButterflySettingsImpl extends _ButterflySettings
       this.density = ThemeDensity.system,
       this.localeTag = '',
       this.documentPath = '',
+      this.gestureSensitivity = 1,
       this.touchSensitivity = 1,
-      this.mouseSensitivity = 1,
-      this.penSensitivity = 1,
-      this.selectSensitivity = 5,
+      this.selectSensitivity = 1,
+      this.scrollSensitivity = 1,
       this.penOnlyInput = false,
       this.inputGestures = true,
       this.design = '',
@@ -1057,16 +1057,16 @@ class _$ButterflySettingsImpl extends _ButterflySettings
   final String documentPath;
   @override
   @JsonKey()
+  final double gestureSensitivity;
+  @override
+  @JsonKey()
   final double touchSensitivity;
   @override
   @JsonKey()
-  final double mouseSensitivity;
-  @override
-  @JsonKey()
-  final double penSensitivity;
-  @override
-  @JsonKey()
   final double selectSensitivity;
+  @override
+  @JsonKey()
+  final double scrollSensitivity;
   @override
   @JsonKey()
   final bool penOnlyInput;
@@ -1207,7 +1207,7 @@ class _$ButterflySettingsImpl extends _ButterflySettings
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'ButterflySettings(theme: $theme, density: $density, localeTag: $localeTag, documentPath: $documentPath, touchSensitivity: $touchSensitivity, mouseSensitivity: $mouseSensitivity, penSensitivity: $penSensitivity, selectSensitivity: $selectSensitivity, penOnlyInput: $penOnlyInput, inputGestures: $inputGestures, design: $design, bannerVisibility: $bannerVisibility, history: $history, navigatorEnabled: $navigatorEnabled, zoomEnabled: $zoomEnabled, lastVersion: $lastVersion, connections: $connections, defaultRemote: $defaultRemote, nativeTitleBar: $nativeTitleBar, startInFullScreen: $startInFullScreen, navigationRail: $navigationRail, syncMode: $syncMode, inputConfiguration: $inputConfiguration, fallbackPack: $fallbackPack, starred: $starred, defaultTemplate: $defaultTemplate, navigatorPage: $navigatorPage, navigatorPosition: $navigatorPosition, toolbarPosition: $toolbarPosition, toolbarSize: $toolbarSize, sortBy: $sortBy, sortOrder: $sortOrder, imageScale: $imageScale, pdfQuality: $pdfQuality, platformTheme: $platformTheme, recentColors: $recentColors, flags: $flags, spreadPages: $spreadPages, highContrast: $highContrast, gridView: $gridView, autosave: $autosave, toolbarRows: $toolbarRows, hideCursorWhileDrawing: $hideCursorWhileDrawing, utilities: $utilities)';
+    return 'ButterflySettings(theme: $theme, density: $density, localeTag: $localeTag, documentPath: $documentPath, gestureSensitivity: $gestureSensitivity, touchSensitivity: $touchSensitivity, selectSensitivity: $selectSensitivity, scrollSensitivity: $scrollSensitivity, penOnlyInput: $penOnlyInput, inputGestures: $inputGestures, design: $design, bannerVisibility: $bannerVisibility, history: $history, navigatorEnabled: $navigatorEnabled, zoomEnabled: $zoomEnabled, lastVersion: $lastVersion, connections: $connections, defaultRemote: $defaultRemote, nativeTitleBar: $nativeTitleBar, startInFullScreen: $startInFullScreen, navigationRail: $navigationRail, syncMode: $syncMode, inputConfiguration: $inputConfiguration, fallbackPack: $fallbackPack, starred: $starred, defaultTemplate: $defaultTemplate, navigatorPage: $navigatorPage, navigatorPosition: $navigatorPosition, toolbarPosition: $toolbarPosition, toolbarSize: $toolbarSize, sortBy: $sortBy, sortOrder: $sortOrder, imageScale: $imageScale, pdfQuality: $pdfQuality, platformTheme: $platformTheme, recentColors: $recentColors, flags: $flags, spreadPages: $spreadPages, highContrast: $highContrast, gridView: $gridView, autosave: $autosave, toolbarRows: $toolbarRows, hideCursorWhileDrawing: $hideCursorWhileDrawing, utilities: $utilities)';
   }
 
   @override
@@ -1219,10 +1219,10 @@ class _$ButterflySettingsImpl extends _ButterflySettings
       ..add(DiagnosticsProperty('density', density))
       ..add(DiagnosticsProperty('localeTag', localeTag))
       ..add(DiagnosticsProperty('documentPath', documentPath))
+      ..add(DiagnosticsProperty('gestureSensitivity', gestureSensitivity))
       ..add(DiagnosticsProperty('touchSensitivity', touchSensitivity))
-      ..add(DiagnosticsProperty('mouseSensitivity', mouseSensitivity))
-      ..add(DiagnosticsProperty('penSensitivity', penSensitivity))
       ..add(DiagnosticsProperty('selectSensitivity', selectSensitivity))
+      ..add(DiagnosticsProperty('scrollSensitivity', scrollSensitivity))
       ..add(DiagnosticsProperty('penOnlyInput', penOnlyInput))
       ..add(DiagnosticsProperty('inputGestures', inputGestures))
       ..add(DiagnosticsProperty('design', design))
@@ -1273,14 +1273,14 @@ class _$ButterflySettingsImpl extends _ButterflySettings
                 other.localeTag == localeTag) &&
             (identical(other.documentPath, documentPath) ||
                 other.documentPath == documentPath) &&
+            (identical(other.gestureSensitivity, gestureSensitivity) ||
+                other.gestureSensitivity == gestureSensitivity) &&
             (identical(other.touchSensitivity, touchSensitivity) ||
                 other.touchSensitivity == touchSensitivity) &&
-            (identical(other.mouseSensitivity, mouseSensitivity) ||
-                other.mouseSensitivity == mouseSensitivity) &&
-            (identical(other.penSensitivity, penSensitivity) ||
-                other.penSensitivity == penSensitivity) &&
             (identical(other.selectSensitivity, selectSensitivity) ||
                 other.selectSensitivity == selectSensitivity) &&
+            (identical(other.scrollSensitivity, scrollSensitivity) ||
+                other.scrollSensitivity == scrollSensitivity) &&
             (identical(other.penOnlyInput, penOnlyInput) ||
                 other.penOnlyInput == penOnlyInput) &&
             (identical(other.inputGestures, inputGestures) ||
@@ -1357,10 +1357,10 @@ class _$ButterflySettingsImpl extends _ButterflySettings
         density,
         localeTag,
         documentPath,
+        gestureSensitivity,
         touchSensitivity,
-        mouseSensitivity,
-        penSensitivity,
         selectSensitivity,
+        scrollSensitivity,
         penOnlyInput,
         inputGestures,
         design,
@@ -1415,10 +1415,10 @@ abstract class _ButterflySettings extends ButterflySettings {
       final ThemeDensity density,
       final String localeTag,
       final String documentPath,
+      final double gestureSensitivity,
       final double touchSensitivity,
-      final double mouseSensitivity,
-      final double penSensitivity,
       final double selectSensitivity,
+      final double scrollSensitivity,
       final bool penOnlyInput,
       final bool inputGestures,
       final String design,
@@ -1466,13 +1466,13 @@ abstract class _ButterflySettings extends ButterflySettings {
   @override
   String get documentPath;
   @override
+  double get gestureSensitivity;
+  @override
   double get touchSensitivity;
   @override
-  double get mouseSensitivity;
-  @override
-  double get penSensitivity;
-  @override
   double get selectSensitivity;
+  @override
+  double get scrollSensitivity;
   @override
   bool get penOnlyInput;
   @override

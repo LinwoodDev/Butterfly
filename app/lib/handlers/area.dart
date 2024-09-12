@@ -67,7 +67,8 @@ class AreaHandler extends Handler<AreaTool> {
     final transform = context.getCameraTransform();
     _selectionManager
         .updateCurrentPosition(transform.localToGlobal(event.localPosition));
-    _selectionManager.updateCursor(transform.size);
+    _selectionManager.updateCursor(
+        transform.size, context.getSettings().touchSensitivity);
     context.refresh();
   }
 
@@ -85,7 +86,8 @@ class AreaHandler extends Handler<AreaTool> {
     final transform = context.getCameraTransform();
     final globalPos = transform.localToGlobal(details.localFocalPoint);
     if (_selectionManager.isValid) {
-      _selectionManager.startTransform(globalPos, transform.size);
+      _selectionManager.startTransform(
+          globalPos, transform.size, context.getSettings().touchSensitivity);
       context.refresh();
       return true;
     }

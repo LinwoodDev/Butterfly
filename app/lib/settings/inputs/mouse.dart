@@ -32,31 +32,6 @@ class MouseBehaviorSettings extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
-                          ExactSlider(
-                              min: 0,
-                              max: 100,
-                              value: state.mouseSensitivity,
-                              header: Row(children: [
-                                const PhosphorIcon(
-                                    PhosphorIconsLight.lightning),
-                                const SizedBox(width: 8),
-                                Text(AppLocalizations.of(context).sensitivity),
-                              ]),
-                              onChangeEnd: (value) {
-                                final cubit = context.read<SettingsCubit>();
-                                cubit.changeMouseSensitivity(value);
-                              }),
-                        ],
-                      ),
-                    ),
-                  ),
-                  Card(
-                    margin: const EdgeInsets.all(8),
-                    child: Padding(
-                      padding: const EdgeInsets.all(32),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                        children: [
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [

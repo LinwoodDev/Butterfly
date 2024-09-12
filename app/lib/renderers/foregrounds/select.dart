@@ -61,9 +61,9 @@ class RectSelectionForegroundManager {
     _currentPosition = position;
   }
 
-  void updateCursor(double scale) {
+  void updateCursor(double scale, double sensitivity) {
     if (_currentPosition == null) return;
-    _corner = getCornerHit(_currentPosition!, scale);
+    _corner = getCornerHit(_currentPosition!, scale, sensitivity);
   }
 
   void reset() {
@@ -84,7 +84,8 @@ class RectSelectionForegroundManager {
 
   void deselect() => select(null);
 
-  SelectionTransformCorner? getCornerHit(Offset position, double scale) {
+  SelectionTransformCorner? getCornerHit(
+      Offset position, double scale, double sensitivity) {
     if (!isValid) return null;
     final hits = SelectionTransformCorner.values.where((element) {
       final corner = element.getFromRect(_selection);
@@ -93,8 +94,8 @@ class RectSelectionForegroundManager {
       }
       return Rect.fromCenter(
               center: corner,
-              width: cornerSize / scale,
-              height: cornerSize / scale)
+              width: cornerSize / scale * sensitivity,
+              height: cornerSize / scale * sensitivity)
           .contains(position);
     }).toList();
     if (hits.length == SelectionTransformCorner.values.length) return null;
@@ -106,13 +107,13 @@ class RectSelectionForegroundManager {
           ? SelectionScaleMode.scaleProp
           : SelectionScaleMode.scale);
 
-  bool shouldTransform(Offset position, double scale) {
+  bool shouldTransform(Offset position, double scale, double sensitivity) {
     return _selection.contains(position) ||
-        getCornerHit(position, scale) != null;
+        getCornerHit(position, scale, sensitivity) != null;
   }
 
-  bool startTransform(Offset position, double scale) {
-    final hit = getCornerHit(position, scale);
+  bool startTransform(Offset position, double scale, double sensitivity) {
+    final hit = getCornerHit(position, scale, sensitivity);
     if (!_selection.contains(position) && hit == null) return false;
     _startPosition = position;
     _currentPosition = position;

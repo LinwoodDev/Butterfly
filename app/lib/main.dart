@@ -4,7 +4,7 @@ import 'package:args/args.dart';
 import 'package:butterfly/api/file_system.dart';
 import 'package:butterfly/api/intent.dart';
 import 'package:butterfly/services/sync.dart';
-import 'package:butterfly/settings/behaviors/mouse.dart';
+import 'package:butterfly/settings/inputs/mouse.dart';
 import 'package:butterfly/settings/experiments.dart';
 import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/foundation.dart';
@@ -24,10 +24,10 @@ import 'package:flutter_localized_locales/flutter_localized_locales.dart';
 
 import 'cubits/settings.dart';
 import 'embed/embedding.dart';
-import 'settings/behaviors/home.dart';
-import 'settings/behaviors/keyboard.dart';
-import 'settings/behaviors/pen.dart';
-import 'settings/behaviors/touch.dart';
+import 'settings/inputs/home.dart';
+import 'settings/inputs/keyboard.dart';
+import 'settings/inputs/pen.dart';
+import 'settings/inputs/touch.dart';
 import 'settings/data.dart';
 import 'settings/general.dart';
 import 'settings/home.dart';
@@ -166,8 +166,7 @@ class ButterflyApp extends StatelessWidget {
                     ),
                     GoRoute(
                       path: 'behaviors',
-                      builder: (context, state) =>
-                          const BehaviorsSettingsPage(),
+                      builder: (context, state) => const InputsSettingsPage(),
                       routes: [
                         GoRoute(
                           path: 'mouse',

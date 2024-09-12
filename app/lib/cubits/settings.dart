@@ -170,10 +170,10 @@ class ButterflySettings with _$ButterflySettings, LeapSettings {
     @Default(ThemeDensity.system) ThemeDensity density,
     @Default('') String localeTag,
     @Default('') String documentPath,
+    @Default(1) double gestureSensitivity,
     @Default(1) double touchSensitivity,
-    @Default(1) double mouseSensitivity,
-    @Default(1) double penSensitivity,
-    @Default(5) double selectSensitivity,
+    @Default(1) double selectSensitivity,
+    @Default(1) double scrollSensitivity,
     @Default(false) bool penOnlyInput,
     @Default(true) bool inputGestures,
     @Default('') String design,
@@ -230,9 +230,9 @@ class ButterflySettings with _$ButterflySettings, LeapSettings {
           ? ThemeDensity.values.byName(prefs.getString('theme_density')!)
           : ThemeDensity.system,
       touchSensitivity: prefs.getDouble('touch_sensitivity') ?? 1,
-      mouseSensitivity: prefs.getDouble('mouse_sensitivity') ?? 1,
-      penSensitivity: prefs.getDouble('pen_sensitivity') ?? 1,
-      selectSensitivity: prefs.getDouble('select_sensitivity') ?? 5,
+      gestureSensitivity: prefs.getDouble('gesture_sensitivity') ?? 1,
+      scrollSensitivity: prefs.getDouble('scroll_sensitivity') ?? 1,
+      selectSensitivity: prefs.getDouble('select_sensitivity') ?? 1,
       design: prefs.getString('design') ?? '',
       bannerVisibility: prefs.containsKey('banner_visibility')
           ? BannerVisibility.values
@@ -322,8 +322,8 @@ class ButterflySettings with _$ButterflySettings, LeapSettings {
     await prefs.setBool('move_with_two_fingers', inputGestures);
     await prefs.setString('document_path', documentPath);
     await prefs.setDouble('touch_sensitivity', touchSensitivity);
-    await prefs.setDouble('mouse_sensitivity', mouseSensitivity);
-    await prefs.setDouble('pen_sensitivity', penSensitivity);
+    await prefs.setDouble('gesture_sensitivity', gestureSensitivity);
+    await prefs.setDouble('scroll_sensitivity', scrollSensitivity);
     await prefs.setDouble('select_sensitivity', selectSensitivity);
     await prefs.setString('design', design);
     await prefs.setString('banner_visibility', bannerVisibility.name);
@@ -497,40 +497,28 @@ class SettingsCubit extends Cubit<ButterflySettings>
     return save();
   }
 
-  Future<void> resetTouchSensitivity() {
-    emit(state.copyWith(touchSensitivity: 1));
+  Future<void> resetTouchSensitivity() => changeTouchSensitivity(1);
+
+  Future<void> changeGestureSensitivity(double sensitivity) {
+    emit(state.copyWith(gestureSensitivity: sensitivity));
     return save();
   }
 
-  Future<void> changeMouseSensitivity(double sensitivity) {
-    emit(state.copyWith(mouseSensitivity: sensitivity));
+  Future<void> resetGestureSensitivity() => changeGestureSensitivity(1);
+
+  Future<void> changeScrollSensitivity(double sensitivity) {
+    emit(state.copyWith(scrollSensitivity: sensitivity));
     return save();
   }
 
-  Future<void> resetMouseSensitivity() {
-    emit(state.copyWith(mouseSensitivity: 1));
-    return save();
-  }
-
-  Future<void> changePenSensitivity(double sensitivity) {
-    emit(state.copyWith(penSensitivity: sensitivity));
-    return save();
-  }
-
-  Future<void> resetPenSensitivity() {
-    emit(state.copyWith(penSensitivity: 1));
-    return save();
-  }
+  Future<void> resetScrollSensitivity() => changeScrollSensitivity(1);
 
   Future<void> changeSelectSensitivity(double sensitivity) {
-    emit(state.copyWith(selectSensitivity: sensitivity));
+    emit(state.copyWith(scrollSensitivity: sensitivity));
     return save();
   }
 
-  Future<void> resetSelectSensitivity() {
-    emit(state.copyWith(selectSensitivity: 1));
-    return save();
-  }
+  Future<void> resetSelectSensitivity() => changeScrollSensitivity(1);
 
   Future<void> changeBannerVisibility(BannerVisibility visibility) {
     emit(state.copyWith(bannerVisibility: visibility));

@@ -33,22 +33,6 @@ class TouchBehaviorSettings extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
-                          ExactSlider(
-                              min: 0,
-                              max: 100,
-                              value: state.touchSensitivity,
-                              defaultValue: 1,
-                              header: Row(children: [
-                                const PhosphorIcon(
-                                    PhosphorIconsLight.lightning),
-                                const SizedBox(width: 8),
-                                Text(AppLocalizations.of(context).sensitivity),
-                              ]),
-                              onChangeEnd: (value) {
-                                final cubit = context.read<SettingsCubit>();
-                                cubit.changeTouchSensitivity(value);
-                              }),
-                          const SizedBox(height: 8),
                           CheckboxListTile(
                             value: state.inputGestures,
                             title: Text(

@@ -301,11 +301,13 @@ class SelectHandler extends Handler<SelectTool> {
     }
     final cameraTransform = context.getCameraTransform();
     final globalPos = cameraTransform.localToGlobal(details.localFocalPoint);
-    final shouldTransform =
-        _selectionManager.shouldTransform(globalPos, cameraTransform.size);
+    final shouldTransform = _selectionManager.shouldTransform(globalPos,
+        cameraTransform.size, context.getSettings().touchSensitivity);
     if (shouldTransform) {
-      transform(context.getDocumentBloc(),
-          _selectionManager.getCornerHit(globalPos, cameraTransform.size),
+      transform(
+          context.getDocumentBloc(),
+          _selectionManager.getCornerHit(globalPos, cameraTransform.size,
+              context.getSettings().touchSensitivity),
           position: globalPos);
       return true;
     }
@@ -420,7 +422,7 @@ class SelectHandler extends Handler<SelectTool> {
     final globalPos = transform.localToGlobal(event.localPosition);
     _selectionManager
       ..updateCurrentPosition(globalPos)
-      ..updateCursor(transform.size);
+      ..updateCursor(transform.size, context.getSettings().touchSensitivity);
     context.refresh();
   }
 

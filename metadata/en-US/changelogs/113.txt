@@ -13,6 +13,8 @@
   * Add move
 * Add tolerance to area move in navigator page to fix duplicated areas
 * Update selection incorrect when transforming multiple elements
+* Refactor sensitivity settings to be more user friendly and more descriptive and remove unused settings
+* Move inputs from behaviors settings to own page
 * Fix select all shortcut
 * Fix temporary tool is not the right size in the edit toolbar
 * Fix memory leaks
