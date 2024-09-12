@@ -207,7 +207,6 @@
   "fullScreen": "Helskärm",
   "design": "Design",
   "text": "Text",
-  "selectSensitivity": "Välj känslighet",
   "welcome": "Hej, detta är Linwood fjäril",
   "welcomeContent": "En fri och öppen källkodsritningsyta!",
   "updated": "Appen uppdaterad till version {version}",
@@ -616,5 +615,6 @@
   "fullSelection": "Fullt urval",
   "fullSelectionDescription": "Kräver element för att vara helt i urvalsrutan.",
   "collection": "Samling",
-  "defaultCollection": "Förvald samling"
+  "defaultCollection": "Förvald samling",
+  "scroll": "Scroll"
 }
