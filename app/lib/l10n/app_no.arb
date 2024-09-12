@@ -207,7 +207,6 @@
   "fullScreen": "Full skjerm",
   "design": "Utforming",
   "text": "Tekst",
-  "selectSensitivity": "Velg følsomhet",
   "welcome": "Hey, dette er Linwood Butterfly",
   "welcomeContent": "En gratis og åpen kildekode tegning plass!",
   "updated": "App oppdatert til versjon {version}",
@@ -616,5 +615,6 @@
   "fullSelection": "Fullt valg",
   "fullSelectionDescription": "Krever at elementer er fullstendig inne i avmerkingsboksen for valg.",
   "collection": "Samling",
-  "defaultCollection": "Standard samling"
+  "defaultCollection": "Standard samling",
+  "scroll": "Scroll"
 }
