@@ -616,5 +616,5 @@
   "fullSelectionDescription": "選択するには、選択ボックス内に要素を完全に含める必要があります。",
   "collection": "コレクション",
   "defaultCollection": "デフォルトのコレクション",
-  "scroll": "Scroll"
+  "scroll": "スクロール"
 }
