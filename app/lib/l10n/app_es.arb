@@ -207,7 +207,6 @@
   "fullScreen": "Pantalla completa",
   "design": "Diseño",
   "text": "Texto",
-  "selectSensitivity": "Seleccionar sensibilidad",
   "welcome": "Hola, esta es la mariposa de Linwood",
   "welcomeContent": "Un espacio de dibujo libre y de código abierto!",
   "updated": "Aplicación actualizada a la versión {version}",
@@ -616,5 +615,6 @@
   "fullSelection": "Selección completa",
   "fullSelectionDescription": "Requiere que los elementos estén completamente dentro del cuadro de selección para la selección.",
   "collection": "Colección",
-  "defaultCollection": "Colección por defecto"
+  "defaultCollection": "Colección por defecto",
+  "scroll": "Scroll"
 }
