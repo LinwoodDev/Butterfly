@@ -616,5 +616,5 @@
   "fullSelectionDescription": "Requiere que los elementos estén completamente dentro del cuadro de selección para la selección.",
   "collection": "Colección",
   "defaultCollection": "Colección por defecto",
-  "scroll": "Scroll"
+  "scroll": "Desplazar"
 }
