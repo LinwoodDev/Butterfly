@@ -207,7 +207,6 @@
   "fullScreen": "全螢幕",
   "design": "配色",
   "text": "文字",
-  "selectSensitivity": "選擇靈敏度",
   "welcome": "嗨，在下 Linwood Butterfly",
   "welcomeContent": "是一塊自由且開源的繪圖空間！",
   "updated": "App 版本已更新至 {version}",
@@ -616,5 +615,6 @@
   "fullSelection": "Full selection",
   "fullSelectionDescription": "Requires elements to be fully within the selection box for selection.",
   "collection": "Collection",
-  "defaultCollection": "Default collection"
+  "defaultCollection": "Default collection",
+  "scroll": "Scroll"
 }
