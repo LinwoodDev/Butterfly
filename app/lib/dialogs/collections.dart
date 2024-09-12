@@ -42,7 +42,9 @@ class _CollectionsDialogState extends State<CollectionsDialog> {
                       : collection),
                   selected: collection == state.currentCollection,
                   onTap: () {
-                    //context.read<DocumentBloc>().add();
+                    context
+                        .read<DocumentBloc>()
+                        .add(CurrentCollectionChanged(collection));
                   },
                 );
               },

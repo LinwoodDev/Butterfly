@@ -172,7 +172,7 @@ packages:
       path: "../api"
       relative: true
     source: path
-    version: "2.2.0-beta.4"
+    version: "2.2.0-rc.0"
   camera:
     dependency: "direct main"
     description:
@@ -823,8 +823,8 @@ packages:
     dependency: "direct main"
     description:
       path: "packages/lw_file_system"
-      ref: "6401cbb311f161230bdc162c86c5b0bc9fcd5eba"
-      resolved-ref: "6401cbb311f161230bdc162c86c5b0bc9fcd5eba"
+      ref: "85e62e7f6c3deb91ac67aefafd778b9f45d4c890"
+      resolved-ref: "85e62e7f6c3deb91ac67aefafd778b9f45d4c890"
       url: "https://github.com/LinwoodDev/dart_pkgs.git"
     source: git
     version: "1.0.0"
@@ -832,8 +832,8 @@ packages:
     dependency: transitive
     description:
       path: "packages/lw_file_system_api"
-      ref: d9fecade26792a9f79996d373a7ce269b2419fe1
-      resolved-ref: d9fecade26792a9f79996d373a7ce269b2419fe1
+      ref: b1f95ee120ecc6d23f0e8cd930c94f52e7c759a5
+      resolved-ref: b1f95ee120ecc6d23f0e8cd930c94f52e7c759a5
       url: "https://github.com/LinwoodDev/dart_pkgs"
     source: git
     version: "1.0.0"

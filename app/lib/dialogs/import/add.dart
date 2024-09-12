@@ -42,11 +42,13 @@ class _AddDialogState extends State<AddDialog> {
           state.page.backgrounds.firstOrNull?.defaultColor ?? BasicColors.white;
       final defaultTool = updateToolDefaultColor(tool, background);
       bloc.add(ToolCreated(defaultTool));
-      currentIndexCubit.changeTool(
-        bloc,
-        index: state.info.tools.length,
-        handler: Handler.fromTool(defaultTool),
-      );
+      if (!defaultTool.isAction()) {
+        currentIndexCubit.changeTool(
+          bloc,
+          index: state.info.tools.length,
+          handler: Handler.fromTool(defaultTool),
+        );
+      }
       Navigator.of(context).pop();
     }
 

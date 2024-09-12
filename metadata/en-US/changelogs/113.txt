@@ -16,3 +16,7 @@
 * Fix select all shortcut
 * Fix temporary tool is not the right size in the edit toolbar
 * Fix memory leaks
+* Fix regression bug introduced in 2.2 that caused weird behavior in webdav file system
+* Fix action tools gets selected when added
+
+Read more here: https://linwood.dev/butterfly/2.2.0-rc.0
