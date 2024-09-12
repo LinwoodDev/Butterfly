@@ -207,7 +207,6 @@
   "fullScreen": "Tam ekran",
   "design": "Tasarım",
   "text": "Metin",
-  "selectSensitivity": "Hassasiyet seçimi",
   "welcome": "Hey, bu Linwood Butterfly",
   "welcomeContent": "Ücretsiz ve açık kaynaklı bir çizim alanı!",
   "updated": "Uygulama {version} sürümüne güncellendi",
@@ -616,5 +615,6 @@
   "fullSelection": "Full selection",
   "fullSelectionDescription": "Requires elements to be fully within the selection box for selection.",
   "collection": "Collection",
-  "defaultCollection": "Default collection"
+  "defaultCollection": "Default collection",
+  "scroll": "Scroll"
 }
