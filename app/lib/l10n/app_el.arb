@@ -207,7 +207,6 @@
   "fullScreen": "Πλήρης οθόνη",
   "design": "Σχεδιασμός",
   "text": "Κείμενο",
-  "selectSensitivity": "Επιλογή ευαισθησίας",
   "welcome": "Γεια σας, αυτό είναι Linwood πεταλούδα",
   "welcomeContent": "Ένας ελεύθερος και ανοιχτού κώδικα χώρος σχεδίασης!",
   "updated": "Η εφαρμογή ενημερώθηκε στην έκδοση {version}",
@@ -616,5 +615,6 @@
   "fullSelection": "Πλήρης επιλογή",
   "fullSelectionDescription": "Απαιτεί στοιχεία να είναι πλήρως εντός του πλαισίου επιλογής για την επιλογή.",
   "collection": "Συλλογή",
-  "defaultCollection": "Προεπιλεγμένη συλλογή"
+  "defaultCollection": "Προεπιλεγμένη συλλογή",
+  "scroll": "Scroll"
 }
