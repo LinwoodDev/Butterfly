@@ -207,7 +207,6 @@
   "fullScreen": "Volledig scherm",
   "design": "Ontwerp",
   "text": "Tekstveld",
-  "selectSensitivity": "Selecteer gevoeligheid",
   "welcome": "Hé, dit is Linwood Vlinder",
   "welcomeContent": "Een vrije en open source tekenruimte!",
   "updated": "App bijgewerkt naar versie {version}",
@@ -616,5 +615,6 @@
   "fullSelection": "Volledige selectie",
   "fullSelectionDescription": "Vereist elementen om volledig in het selectievakje te zijn voor selectie.",
   "collection": "Collectie",
-  "defaultCollection": "Standaard collectie"
+  "defaultCollection": "Standaard collectie",
+  "scroll": "Scroll"
 }
