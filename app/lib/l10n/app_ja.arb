@@ -207,7 +207,6 @@
   "fullScreen": "全画面",
   "design": "デザイン",
   "text": "テキスト",
-  "selectSensitivity": "感度を選択",
   "welcome": "おい、これはLinwood Butterfly",
   "welcomeContent": "フリーでオープンソースのドローイングスペース！",
   "updated": "アプリをバージョン {version} に更新しました",
@@ -616,5 +615,6 @@
   "fullSelection": "完全な選択",
   "fullSelectionDescription": "選択するには、選択ボックス内に要素を完全に含める必要があります。",
   "collection": "コレクション",
-  "defaultCollection": "デフォルトのコレクション"
+  "defaultCollection": "デフォルトのコレクション",
+  "scroll": "Scroll"
 }
