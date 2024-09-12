@@ -207,7 +207,6 @@
   "fullScreen": "Schermo intero",
   "design": "Design",
   "text": "Testo",
-  "selectSensitivity": "Seleziona sensibilità",
   "welcome": "Hey, questa è farfalla di linwood",
   "welcomeContent": "Uno spazio di disegno libero e open-source!",
   "updated": "App aggiornata alla versione {version}",
@@ -616,5 +615,6 @@
   "fullSelection": "Selezione completa",
   "fullSelectionDescription": "Richiede elementi per essere completamente all'interno della casella di selezione per la selezione.",
   "collection": "Collezione",
-  "defaultCollection": "Collezione predefinita"
+  "defaultCollection": "Collezione predefinita",
+  "scroll": "Scroll"
 }
