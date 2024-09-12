@@ -7,8 +7,8 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import '../../cubits/settings.dart';
 
-class MouseBehaviorSettings extends StatelessWidget {
-  const MouseBehaviorSettings({super.key});
+class MouseInputSettings extends StatelessWidget {
+  const MouseInputSettings({super.key});
 
   @override
   Widget build(BuildContext context) {

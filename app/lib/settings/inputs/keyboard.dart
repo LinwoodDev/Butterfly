@@ -7,8 +7,8 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import '../../cubits/settings.dart';
 
-class KeyboardBehaviorSettings extends StatelessWidget {
-  const KeyboardBehaviorSettings({super.key});
+class KeyboardInputSettings extends StatelessWidget {
+  const KeyboardInputSettings({super.key});
 
   @override
   Widget build(BuildContext context) {

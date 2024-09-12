@@ -6,8 +6,8 @@ import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/material.dart';
 import 'package:material_leap/material_leap.dart';
 
-const cornerSize = 32.0;
-const visibleSize = cornerSize / 2;
+const cornerSize = 40.0;
+const visibleSize = cornerSize / 2.5;
 
 class LassoSelectionForegroundRenderer extends Renderer<List<Offset>> {
   final ColorScheme scheme;

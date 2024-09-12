@@ -7,8 +7,8 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 import '../../api/open.dart';
 import '../../cubits/settings.dart';
 
-class TouchBehaviorSettings extends StatelessWidget {
-  const TouchBehaviorSettings({super.key});
+class TouchInputSettings extends StatelessWidget {
+  const TouchInputSettings({super.key});
 
   @override
   Widget build(BuildContext context) {

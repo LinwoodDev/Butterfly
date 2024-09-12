@@ -171,22 +171,21 @@ class ButterflyApp extends StatelessWidget {
                         GoRoute(
                           path: 'mouse',
                           builder: (context, state) =>
-                              const MouseBehaviorSettings(),
+                              const MouseInputSettings(),
                         ),
                         GoRoute(
                           path: 'pen',
-                          builder: (context, state) =>
-                              const PenBehaviorSettings(),
+                          builder: (context, state) => const PenInputSettings(),
                         ),
                         GoRoute(
                           path: 'keyboard',
                           builder: (context, state) =>
-                              const KeyboardBehaviorSettings(),
+                              const KeyboardInputSettings(),
                         ),
                         GoRoute(
                           path: 'touch',
                           builder: (context, state) =>
-                              const TouchBehaviorSettings(),
+                              const TouchInputSettings(),
                         ),
                       ],
                     ),
