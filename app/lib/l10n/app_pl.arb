@@ -393,7 +393,6 @@
   "ruler": "Rywalizacja",
   "angle": "Kąt",
   "report": "Zgłoszenie",
-  "newFile": "Nowy plik",
   "newFolder": "Nowy folder",
   "createPack": "Utwórz pakiet",
   "editPack": "Edytuj paczkę",
@@ -610,11 +609,15 @@
   "installed": "Zainstalowane",
   "install": "Zainstaluj",
   "deselect": "Odznacz",
-  "changeLayer": "Zmień warstwę",
+  "changeCollection": "Change collection",
   "collections": "Kolekcje",
   "fullSelection": "Pełny wybór",
   "fullSelectionDescription": "Wymaga, aby elementy znajdowały się w całości w polu wyboru do wyboru.",
   "collection": "Kolekcja",
   "defaultCollection": "Domyślna kolekcja",
-  "scroll": "Przewiń"
+  "scroll": "Przewiń",
+  "onStartup": "On startup",
+  "homeScreen": "Home screen",
+  "lastNote": "Last note",
+  "newNote": "New note"
 }
