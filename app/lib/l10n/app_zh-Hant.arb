@@ -393,7 +393,6 @@
   "ruler": "標尺",
   "angle": "角度",
   "report": "報告",
-  "newFile": "建新檔案",
   "newFolder": "建新資料夾",
   "createPack": "建立素材包",
   "editPack": "編輯素材包",
@@ -610,11 +609,15 @@
   "installed": "Installed",
   "install": "Install",
   "deselect": "Deselect",
-  "changeLayer": "Change layer",
+  "changeCollection": "Change collection",
   "collections": "Collections",
   "fullSelection": "Full selection",
   "fullSelectionDescription": "Requires elements to be fully within the selection box for selection.",
   "collection": "Collection",
   "defaultCollection": "Default collection",
-  "scroll": "Scroll"
+  "scroll": "Scroll",
+  "onStartup": "On startup",
+  "homeScreen": "Home screen",
+  "lastNote": "Last note",
+  "newNote": "New note"
 }
