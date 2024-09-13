@@ -393,7 +393,6 @@
   "ruler": "Лінійка",
   "angle": "Кут",
   "report": "Доповісти",
-  "newFile": "Новий файл",
   "newFolder": "Нова папка",
   "createPack": "Створити пакет",
   "editPack": "Редагувати пакет",
@@ -610,11 +609,15 @@
   "installed": "Встановлено",
   "install": "Інсталювати",
   "deselect": "Зняти виділення",
-  "changeLayer": "Змінити шар",
+  "changeCollection": "Change collection",
   "collections": "Колекції",
   "fullSelection": "Повний вибір",
   "fullSelectionDescription": "Для вибору потрібні елементи.",
   "collection": "Колекція",
   "defaultCollection": "Типова збірка",
-  "scroll": "Прокрутка"
+  "scroll": "Прокрутка",
+  "onStartup": "On startup",
+  "homeScreen": "Home screen",
+  "lastNote": "Last note",
+  "newNote": "New note"
 }
