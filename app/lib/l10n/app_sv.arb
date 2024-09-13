@@ -393,7 +393,6 @@
   "ruler": "Linjal",
   "angle": "Vinkel",
   "report": "Rapportera",
-  "newFile": "Ny fil",
   "newFolder": "Ny mapp",
   "createPack": "Skapa paket",
   "editPack": "Redigera paket",
@@ -610,11 +609,15 @@
   "installed": "Installerad",
   "install": "Installera",
   "deselect": "Avmarkera",
-  "changeLayer": "Ändra lager",
+  "changeCollection": "Change collection",
   "collections": "Samlingar",
   "fullSelection": "Fullt urval",
   "fullSelectionDescription": "Kräver element för att vara helt i urvalsrutan.",
   "collection": "Samling",
   "defaultCollection": "Förvald samling",
-  "scroll": "Rulla"
+  "scroll": "Rulla",
+  "onStartup": "On startup",
+  "homeScreen": "Home screen",
+  "lastNote": "Last note",
+  "newNote": "New note"
 }
