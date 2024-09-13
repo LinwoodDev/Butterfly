@@ -393,7 +393,6 @@
   "ruler": "حاكم",
   "angle": "زاوية",
   "report": "تقرير",
-  "newFile": "ملف جديد",
   "newFolder": "مجلد جديد",
   "createPack": "إنشاء حزمة",
   "editPack": "تحرير الحزمة",
@@ -610,11 +609,15 @@
   "installed": "مثبت",
   "install": "تثبيت",
   "deselect": "إلغاء التحديد",
-  "changeLayer": "تغيير الطبقة",
+  "changeCollection": "Change collection",
   "collections": "مجموعات",
   "fullSelection": "التحديد الكامل",
   "fullSelectionDescription": "يتطلب أن تكون العناصر كاملة داخل مربع الاختيار من أجل الاختيار.",
   "collection": "مجموعة",
   "defaultCollection": "المجموعة الافتراضية",
-  "scroll": "تمرير"
+  "scroll": "تمرير",
+  "onStartup": "On startup",
+  "homeScreen": "Home screen",
+  "lastNote": "Last note",
+  "newNote": "New note"
 }
