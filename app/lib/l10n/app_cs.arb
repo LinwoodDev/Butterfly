@@ -393,7 +393,6 @@
   "ruler": "Řidič",
   "angle": "Úhel",
   "report": "Nahlásit",
-  "newFile": "Nový soubor",
   "newFolder": "Nová složka",
   "createPack": "Vytvořit balíček",
   "editPack": "Upravit balíček",
@@ -610,11 +609,15 @@
   "installed": "Nainstalováno",
   "install": "Instalovat",
   "deselect": "Zrušit výběr",
-  "changeLayer": "Změnit vrstvu",
+  "changeCollection": "Change collection",
   "collections": "Sbírky",
   "fullSelection": "Plný výběr",
   "fullSelectionDescription": "Vyžaduje, aby prvky byly plně ve výběrovém poli pro výběr.",
   "collection": "Sbírka",
   "defaultCollection": "Výchozí kolekce",
-  "scroll": "Posunout"
+  "scroll": "Posunout",
+  "onStartup": "On startup",
+  "homeScreen": "Home screen",
+  "lastNote": "Last note",
+  "newNote": "New note"
 }
