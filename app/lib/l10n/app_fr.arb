@@ -393,7 +393,6 @@
   "ruler": "Règle",
   "angle": "Angle",
   "report": "Rapporter",
-  "newFile": "Nouveau fichier",
   "newFolder": "Nouveau dossier",
   "createPack": "Créer un pack",
   "editPack": "Modifier le pack",
@@ -610,11 +609,15 @@
   "installed": "Installé",
   "install": "Installer",
   "deselect": "Désélectionner",
-  "changeLayer": "Changer le calque",
+  "changeCollection": "Change collection",
   "collections": "Collections",
   "fullSelection": "Sélection complète",
   "fullSelectionDescription": "Nécessite que les éléments soient entièrement dans la zone de sélection pour la sélection.",
   "collection": "Collecte",
   "defaultCollection": "Collection par défaut",
-  "scroll": "Défilement"
+  "scroll": "Défilement",
+  "onStartup": "On startup",
+  "homeScreen": "Home screen",
+  "lastNote": "Last note",
+  "newNote": "New note"
 }
