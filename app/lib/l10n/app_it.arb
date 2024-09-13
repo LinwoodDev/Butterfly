@@ -393,7 +393,6 @@
   "ruler": "Righello",
   "angle": "Angolo",
   "report": "Segnala",
-  "newFile": "Nuovo file",
   "newFolder": "Nuova cartella",
   "createPack": "Crea pacchetto",
   "editPack": "Modifica pacchetto",
@@ -610,11 +609,15 @@
   "installed": "Installato",
   "install": "Installa",
   "deselect": "Deseleziona",
-  "changeLayer": "Cambia livello",
+  "changeCollection": "Change collection",
   "collections": "Collezioni",
   "fullSelection": "Selezione completa",
   "fullSelectionDescription": "Richiede elementi per essere completamente all'interno della casella di selezione per la selezione.",
   "collection": "Collezione",
   "defaultCollection": "Collezione predefinita",
-  "scroll": "Scorrimento"
+  "scroll": "Scorrimento",
+  "onStartup": "On startup",
+  "homeScreen": "Home screen",
+  "lastNote": "Last note",
+  "newNote": "New note"
 }
