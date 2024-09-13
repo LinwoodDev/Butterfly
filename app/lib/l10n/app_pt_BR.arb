@@ -393,7 +393,6 @@
   "ruler": "Régua",
   "angle": "Ângulo",
   "report": "Denunciar",
-  "newFile": "Novo arquivo",
   "newFolder": "Adicionar Pasta",
   "createPack": "Criar pacote",
   "editPack": "Editar pacote",
@@ -610,11 +609,15 @@
   "installed": "Instalado",
   "install": "Instale",
   "deselect": "Desselecionar",
-  "changeLayer": "Alterar camada",
+  "changeCollection": "Change collection",
   "collections": "Coleções",
   "fullSelection": "Seleção completa",
   "fullSelectionDescription": "Requer elementos para estar totalmente dentro da caixa de seleção para a seleção.",
   "collection": "Coleção",
   "defaultCollection": "Coleção Padrão",
-  "scroll": "Percorrer"
+  "scroll": "Percorrer",
+  "onStartup": "On startup",
+  "homeScreen": "Home screen",
+  "lastNote": "Last note",
+  "newNote": "New note"
 }
