@@ -393,7 +393,6 @@
   "ruler": "Liniaal",
   "angle": "Hoek",
   "report": "Rapporteren",
-  "newFile": "Nieuw bestand",
   "newFolder": "Nieuwe map",
   "createPack": "Pakket aanmaken",
   "editPack": "Pakket bewerken",
@@ -610,11 +609,15 @@
   "installed": "Geinstalleerd",
   "install": "Installeren",
   "deselect": "Deselecteer",
-  "changeLayer": "Laag wijzigen",
+  "changeCollection": "Change collection",
   "collections": "Collecties",
   "fullSelection": "Volledige selectie",
   "fullSelectionDescription": "Vereist elementen om volledig in het selectievakje te zijn voor selectie.",
   "collection": "Collectie",
   "defaultCollection": "Standaard collectie",
-  "scroll": "Scrollen"
+  "scroll": "Scrollen",
+  "onStartup": "On startup",
+  "homeScreen": "Home screen",
+  "lastNote": "Last note",
+  "newNote": "New note"
 }
