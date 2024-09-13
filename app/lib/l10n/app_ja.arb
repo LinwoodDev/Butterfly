@@ -393,7 +393,6 @@
   "ruler": "ルーラー設定",
   "angle": "角度",
   "report": "レポート",
-  "newFile": "新規ファイル",
   "newFolder": "新しいフォルダ",
   "createPack": "パックを作成",
   "editPack": "パックを編集",
@@ -610,11 +609,15 @@
   "installed": "インストール済み",
   "install": "インストール",
   "deselect": "選択を解除",
-  "changeLayer": "レイヤーを変更",
+  "changeCollection": "Change collection",
   "collections": "コレクション",
   "fullSelection": "完全な選択",
   "fullSelectionDescription": "選択するには、選択ボックス内に要素を完全に含める必要があります。",
   "collection": "コレクション",
   "defaultCollection": "デフォルトのコレクション",
-  "scroll": "スクロール"
+  "scroll": "スクロール",
+  "onStartup": "On startup",
+  "homeScreen": "Home screen",
+  "lastNote": "Last note",
+  "newNote": "New note"
 }
