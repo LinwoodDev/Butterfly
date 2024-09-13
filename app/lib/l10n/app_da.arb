@@ -393,7 +393,6 @@
   "ruler": "Lineal",
   "angle": "Vinkel",
   "report": "Rapport",
-  "newFile": "Ny fil",
   "newFolder": "Ny mappe",
   "createPack": "Opret pakke",
   "editPack": "Rediger pakke",
@@ -610,11 +609,15 @@
   "installed": "Installeret",
   "install": "Installér",
   "deselect": "Fravælg",
-  "changeLayer": "Skift lag",
+  "changeCollection": "Change collection",
   "collections": "Samlinger",
   "fullSelection": "Fuld udvælgelse",
   "fullSelectionDescription": "Kræver elementer for at være helt inde i markeringsfeltet for valg.",
   "collection": "Samling",
   "defaultCollection": "Standard samling",
-  "scroll": "Rul"
+  "scroll": "Rul",
+  "onStartup": "On startup",
+  "homeScreen": "Home screen",
+  "lastNote": "Last note",
+  "newNote": "New note"
 }
