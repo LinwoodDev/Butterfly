@@ -8,9 +8,10 @@ import 'package:lw_file_system/lw_file_system.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 Future<NoteData?> checkFileChanges(
-    BuildContext context, FileSystemEntity? entity) async {
-  if (entity is! FileSystemFile) return null;
-  final data = entity.load();
+    BuildContext context, FileSystemEntity<NoteData>? entity) async {
+  if (entity is! FileSystemFile<NoteData>) return null;
+  final data = entity.data;
+  if (data == null) return null;
   final metadata = data.getMetadata();
   if (metadata == null) return null;
   final version = metadata.fileVersion;

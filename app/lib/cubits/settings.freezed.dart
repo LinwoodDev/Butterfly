@@ -362,6 +362,7 @@ mixin _$ButterflySettings {
   int get toolbarRows => throw _privateConstructorUsedError;
   bool get hideCursorWhileDrawing => throw _privateConstructorUsedError;
   UtilitiesState get utilities => throw _privateConstructorUsedError;
+  StartupBehavior get onStartup => throw _privateConstructorUsedError;
 
   /// Create a copy of ButterflySettings
   /// with the given fields replaced by the non-null parameter values.
@@ -420,7 +421,8 @@ abstract class $ButterflySettingsCopyWith<$Res> {
       bool autosave,
       int toolbarRows,
       bool hideCursorWhileDrawing,
-      UtilitiesState utilities});
+      UtilitiesState utilities,
+      StartupBehavior onStartup});
 
   $InputConfigurationCopyWith<$Res> get inputConfiguration;
   $UtilitiesStateCopyWith<$Res> get utilities;
@@ -485,6 +487,7 @@ class _$ButterflySettingsCopyWithImpl<$Res, $Val extends ButterflySettings>
     Object? toolbarRows = null,
     Object? hideCursorWhileDrawing = null,
     Object? utilities = null,
+    Object? onStartup = null,
   }) {
     return _then(_value.copyWith(
       theme: null == theme
@@ -663,6 +666,10 @@ class _$ButterflySettingsCopyWithImpl<$Res, $Val extends ButterflySettings>
           ? _value.utilities
           : utilities // ignore: cast_nullable_to_non_nullable
               as UtilitiesState,
+      onStartup: null == onStartup
+          ? _value.onStartup
+          : onStartup // ignore: cast_nullable_to_non_nullable
+              as StartupBehavior,
     ) as $Val);
   }
 
@@ -740,7 +747,8 @@ abstract class _$$ButterflySettingsImplCopyWith<$Res>
       bool autosave,
       int toolbarRows,
       bool hideCursorWhileDrawing,
-      UtilitiesState utilities});
+      UtilitiesState utilities,
+      StartupBehavior onStartup});
 
   @override
   $InputConfigurationCopyWith<$Res> get inputConfiguration;
@@ -805,6 +813,7 @@ class __$$ButterflySettingsImplCopyWithImpl<$Res>
     Object? toolbarRows = null,
     Object? hideCursorWhileDrawing = null,
     Object? utilities = null,
+    Object? onStartup = null,
   }) {
     return _then(_$ButterflySettingsImpl(
       theme: null == theme
@@ -983,6 +992,10 @@ class __$$ButterflySettingsImplCopyWithImpl<$Res>
           ? _value.utilities
           : utilities // ignore: cast_nullable_to_non_nullable
               as UtilitiesState,
+      onStartup: null == onStartup
+          ? _value.onStartup
+          : onStartup // ignore: cast_nullable_to_non_nullable
+              as StartupBehavior,
     ));
   }
 }
@@ -1035,7 +1048,8 @@ class _$ButterflySettingsImpl extends _ButterflySettings
       this.autosave = true,
       this.toolbarRows = 1,
       this.hideCursorWhileDrawing = false,
-      this.utilities = const UtilitiesState()})
+      this.utilities = const UtilitiesState(),
+      this.onStartup = StartupBehavior.openHomeScreen})
       : _history = history,
         _connections = connections,
         _starred = starred,
@@ -1204,10 +1218,13 @@ class _$ButterflySettingsImpl extends _ButterflySettings
   @override
   @JsonKey()
   final UtilitiesState utilities;
+  @override
+  @JsonKey()
+  final StartupBehavior onStartup;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'ButterflySettings(theme: $theme, density: $density, localeTag: $localeTag, documentPath: $documentPath, gestureSensitivity: $gestureSensitivity, touchSensitivity: $touchSensitivity, selectSensitivity: $selectSensitivity, scrollSensitivity: $scrollSensitivity, penOnlyInput: $penOnlyInput, inputGestures: $inputGestures, design: $design, bannerVisibility: $bannerVisibility, history: $history, navigatorEnabled: $navigatorEnabled, zoomEnabled: $zoomEnabled, lastVersion: $lastVersion, connections: $connections, defaultRemote: $defaultRemote, nativeTitleBar: $nativeTitleBar, startInFullScreen: $startInFullScreen, navigationRail: $navigationRail, syncMode: $syncMode, inputConfiguration: $inputConfiguration, fallbackPack: $fallbackPack, starred: $starred, defaultTemplate: $defaultTemplate, navigatorPage: $navigatorPage, navigatorPosition: $navigatorPosition, toolbarPosition: $toolbarPosition, toolbarSize: $toolbarSize, sortBy: $sortBy, sortOrder: $sortOrder, imageScale: $imageScale, pdfQuality: $pdfQuality, platformTheme: $platformTheme, recentColors: $recentColors, flags: $flags, spreadPages: $spreadPages, highContrast: $highContrast, gridView: $gridView, autosave: $autosave, toolbarRows: $toolbarRows, hideCursorWhileDrawing: $hideCursorWhileDrawing, utilities: $utilities)';
+    return 'ButterflySettings(theme: $theme, density: $density, localeTag: $localeTag, documentPath: $documentPath, gestureSensitivity: $gestureSensitivity, touchSensitivity: $touchSensitivity, selectSensitivity: $selectSensitivity, scrollSensitivity: $scrollSensitivity, penOnlyInput: $penOnlyInput, inputGestures: $inputGestures, design: $design, bannerVisibility: $bannerVisibility, history: $history, navigatorEnabled: $navigatorEnabled, zoomEnabled: $zoomEnabled, lastVersion: $lastVersion, connections: $connections, defaultRemote: $defaultRemote, nativeTitleBar: $nativeTitleBar, startInFullScreen: $startInFullScreen, navigationRail: $navigationRail, syncMode: $syncMode, inputConfiguration: $inputConfiguration, fallbackPack: $fallbackPack, starred: $starred, defaultTemplate: $defaultTemplate, navigatorPage: $navigatorPage, navigatorPosition: $navigatorPosition, toolbarPosition: $toolbarPosition, toolbarSize: $toolbarSize, sortBy: $sortBy, sortOrder: $sortOrder, imageScale: $imageScale, pdfQuality: $pdfQuality, platformTheme: $platformTheme, recentColors: $recentColors, flags: $flags, spreadPages: $spreadPages, highContrast: $highContrast, gridView: $gridView, autosave: $autosave, toolbarRows: $toolbarRows, hideCursorWhileDrawing: $hideCursorWhileDrawing, utilities: $utilities, onStartup: $onStartup)';
   }
 
   @override
@@ -1259,7 +1276,8 @@ class _$ButterflySettingsImpl extends _ButterflySettings
       ..add(DiagnosticsProperty('toolbarRows', toolbarRows))
       ..add(
           DiagnosticsProperty('hideCursorWhileDrawing', hideCursorWhileDrawing))
-      ..add(DiagnosticsProperty('utilities', utilities));
+      ..add(DiagnosticsProperty('utilities', utilities))
+      ..add(DiagnosticsProperty('onStartup', onStartup));
   }
 
   @override
@@ -1347,7 +1365,9 @@ class _$ButterflySettingsImpl extends _ButterflySettings
             (identical(other.hideCursorWhileDrawing, hideCursorWhileDrawing) ||
                 other.hideCursorWhileDrawing == hideCursorWhileDrawing) &&
             (identical(other.utilities, utilities) ||
-                other.utilities == utilities));
+                other.utilities == utilities) &&
+            (identical(other.onStartup, onStartup) ||
+                other.onStartup == onStartup));
   }
 
   @override
@@ -1396,7 +1416,8 @@ class _$ButterflySettingsImpl extends _ButterflySettings
         autosave,
         toolbarRows,
         hideCursorWhileDrawing,
-        utilities
+        utilities,
+        onStartup
       ]);
 
   /// Create a copy of ButterflySettings
@@ -1454,7 +1475,8 @@ abstract class _ButterflySettings extends ButterflySettings {
       final bool autosave,
       final int toolbarRows,
       final bool hideCursorWhileDrawing,
-      final UtilitiesState utilities}) = _$ButterflySettingsImpl;
+      final UtilitiesState utilities,
+      final StartupBehavior onStartup}) = _$ButterflySettingsImpl;
   const _ButterflySettings._() : super._();
 
   @override
@@ -1545,6 +1567,8 @@ abstract class _ButterflySettings extends ButterflySettings {
   bool get hideCursorWhileDrawing;
   @override
   UtilitiesState get utilities;
+  @override
+  StartupBehavior get onStartup;
 
   /// Create a copy of ButterflySettings
   /// with the given fields replaced by the non-null parameter values.

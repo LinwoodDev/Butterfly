@@ -93,15 +93,16 @@ NoteData _migrate(NoteData noteData, FileMetadata metadata) {
       final data = noteData.getAsset('$kPagesArchiveDirectory/$page');
       if (data == null) continue;
       final pageData = json.decode(utf8.decode(data)) as Map<String, dynamic>;
-      final content = pageData['content'] as List;
+      final content = pageData['content'] as List?;
       final newLayer = {
         'id': createUniqueId(),
         'content': content
-            .map((e) => {
-                  ...e,
-                  'collection': e['layer'],
-                })
-            .toList(),
+                ?.map((e) => {
+                      ...e,
+                      'collection': e['layer'],
+                    })
+                .toList() ??
+            [],
       };
       pageData['layers'] = [newLayer];
       noteData = noteData.setAsset(

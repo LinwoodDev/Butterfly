@@ -354,7 +354,7 @@ class FilesViewState extends State<FilesView> {
                               ),
                               leadingIcon: const PhosphorIcon(
                                   PhosphorIconsLight.filePlus),
-                              child: Text(AppLocalizations.of(context).newFile),
+                              child: Text(AppLocalizations.of(context).newNote),
                             ),
                             FutureBuilder<List<FileSystemFile<NoteData>>>(
                               future: _templateSystem

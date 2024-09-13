@@ -10,6 +10,14 @@ class BehaviorsSettingsPage extends StatelessWidget {
 
   const BehaviorsSettingsPage({super.key, this.inView = false});
 
+  String _getStartupBehaviorName(BuildContext context, StartupBehavior value) =>
+      switch (value) {
+        StartupBehavior.openHomeScreen =>
+          AppLocalizations.of(context).homeScreen,
+        StartupBehavior.openLastNote => AppLocalizations.of(context).lastNote,
+        StartupBehavior.openNewNote => AppLocalizations.of(context).newNote,
+      };
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -47,6 +55,13 @@ class BehaviorsSettingsPage extends StatelessWidget {
                           .read<SettingsCubit>()
                           .changeHideCursorWhileDrawing(value),
                     ),
+                    ListTile(
+                      title: Text(AppLocalizations.of(context).onStartup),
+                      subtitle: Text(
+                          _getStartupBehaviorName(context, state.onStartup)),
+                      onTap: () => _openStartupModal(context),
+                      leading: const Icon(PhosphorIconsLight.arrowRight),
+                    )
                   ]),
             ),
           ),
@@ -100,5 +115,35 @@ class BehaviorsSettingsPage extends StatelessWidget {
         ]);
       }),
     );
+  }
+
+  _openStartupModal(BuildContext context) {
+    final cubit = context.read<SettingsCubit>();
+    final currentStartup = cubit.state.onStartup;
+
+    showLeapBottomSheet(
+        context: context,
+        titleBuilder: (context) => Text(AppLocalizations.of(context).onStartup),
+        childrenBuilder: (context) {
+          void changeStartup(StartupBehavior behavior) {
+            cubit.changeStartupBehavior(behavior);
+            Navigator.of(context).pop();
+          }
+
+          return StartupBehavior.values
+              .map((e) => ListTile(
+                    title: Text(_getStartupBehaviorName(context, e)),
+                    leading: Icon(switch (e) {
+                      StartupBehavior.openHomeScreen =>
+                        PhosphorIconsLight.house,
+                      StartupBehavior.openLastNote =>
+                        PhosphorIconsLight.arrowCounterClockwise,
+                      StartupBehavior.openNewNote => PhosphorIconsLight.file,
+                    }),
+                    selected: currentStartup == e,
+                    onTap: () => changeStartup(e),
+                  ))
+              .toList();
+        });
   }
 }

@@ -75,6 +75,8 @@ enum PlatformTheme {
 
 enum SyncMode { always, noMobile, manual }
 
+enum StartupBehavior { openHomeScreen, openLastNote, openNewNote }
+
 @freezed
 class InputConfiguration with _$InputConfiguration {
   const InputConfiguration._();
@@ -210,6 +212,7 @@ class ButterflySettings with _$ButterflySettings, LeapSettings {
     @Default(1) int toolbarRows,
     @Default(false) bool hideCursorWhileDrawing,
     @Default(UtilitiesState()) UtilitiesState utilities,
+    @Default(StartupBehavior.openHomeScreen) StartupBehavior onStartup,
   }) = _ButterflySettings;
 
   factory ButterflySettings.fromPrefs(SharedPreferences prefs) {
@@ -300,6 +303,9 @@ class ButterflySettings with _$ButterflySettings, LeapSettings {
       utilities: prefs.containsKey('utilities')
           ? UtilitiesState.fromJson(json.decode(prefs.getString('utilities')!))
           : const UtilitiesState(),
+      onStartup: prefs.containsKey('on_startup')
+          ? StartupBehavior.values.byName(prefs.getString('on_startup')!)
+          : StartupBehavior.openHomeScreen,
     );
   }
 
@@ -366,6 +372,7 @@ class ButterflySettings with _$ButterflySettings, LeapSettings {
     await prefs.setBool('hide_cursor_while_drawing', hideCursorWhileDrawing);
     await prefs.setString('navigator_position', navigatorPosition.name);
     await prefs.setString('utilities', json.encode(utilities.toJson()));
+    await prefs.setString('on_startup', onStartup.name);
   }
 
   ExternalStorage? getRemote(String? identifier) {
@@ -877,6 +884,11 @@ class SettingsCubit extends Cubit<ButterflySettings>
 
   Future<void> changeUtilities(UtilitiesState utilities) {
     emit(state.copyWith(utilities: utilities));
+    return save();
+  }
+
+  Future<void> changeStartupBehavior(StartupBehavior behavior) {
+    emit(state.copyWith(onStartup: behavior));
     return save();
   }
 }

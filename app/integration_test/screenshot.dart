@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'dart:ui';
 
+import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/main.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -33,8 +34,9 @@ void main() {
       testWidgets('main', (WidgetTester tester) async {
         SharedPreferences.setMockInitialValues({});
         final prefs = await SharedPreferences.getInstance();
+        final settingsCubit = SettingsCubit(prefs);
         await tester.pumpWidget(ButterflyApp(
-          prefs: prefs,
+          settingsCubit: settingsCubit,
         ));
         await tester.pumpAndSettle();
 

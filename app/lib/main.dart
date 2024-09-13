@@ -52,6 +52,8 @@ Future<void> main([List<String> args = const []]) async {
   argParser.addOption('path', abbr: 'p');
   final result = argParser.parse(args);
   final prefs = await SharedPreferences.getInstance();
+  final settingsCubit = SettingsCubit(prefs);
+  Object? initialExtra;
   if (result.arguments.isNotEmpty && !kIsWeb) {
     var path = result.arguments[0].replaceAll('\\', '/');
     var file = File(path);
@@ -76,9 +78,7 @@ Future<void> main([List<String> args = const []]) async {
         }).toString();
       }
     }
-  }
-  Object? initialExtra;
-  if (!kIsWeb && Platform.isAndroid) {
+  } else if (!kIsWeb && Platform.isAndroid) {
     final intentType = await getIntentType();
     if (intentType != null) {
       initialLocation = Uri(
@@ -91,6 +91,21 @@ Future<void> main([List<String> args = const []]) async {
         },
       ).toString();
       initialExtra = await getIntentData();
+    }
+  } else {
+    final settings = settingsCubit.state;
+    switch (settings.onStartup) {
+      case StartupBehavior.openHomeScreen:
+        break;
+      case StartupBehavior.openLastNote:
+        final lastNote = settings.history.firstOrNull;
+        if (lastNote == null) break;
+        initialLocation = Uri(path: '/new', queryParameters: {
+          'remote': lastNote.remote,
+          'path': lastNote.path,
+        }).toString();
+      case StartupBehavior.openNewNote:
+        initialLocation = '/new';
     }
   }
 
@@ -117,7 +132,7 @@ Future<void> main([List<String> args = const []]) async {
               create: (context) => clipboardManager),
         ],
         child: ButterflyApp(
-          prefs: prefs,
+          settingsCubit: settingsCubit,
           initialLocation: initialLocation,
           initialExtra: initialExtra,
           fullScreen: await isFullScreen(),
@@ -132,13 +147,13 @@ List<Locale> getLocales() => AppLocalizations.supportedLocales;
 class ButterflyApp extends StatelessWidget {
   final String initialLocation;
   final String importedLocation;
-  final SharedPreferences prefs;
+  final SettingsCubit settingsCubit;
   final Object? initialExtra;
   final bool fullScreen;
 
   ButterflyApp(
       {super.key,
-      required this.prefs,
+      required this.settingsCubit,
       this.fullScreen = false,
       this.initialLocation = '/',
       this.initialExtra,
@@ -315,19 +330,15 @@ class ButterflyApp extends StatelessWidget {
         providers: [
           BlocProvider(
             create: (context) {
-              final cubit = SettingsCubit(prefs);
               if (!kIsWeb && isWindow) {
-                windowManager.waitUntilReadyToShow().then((_) async {
-                  await windowManager
-                      .setFullScreen(cubit.state.startInFullScreen);
-                  cubit.setTheme(MediaQuery.of(context));
-                  cubit.setNativeTitleBar();
+                windowManager.waitUntilReadyToShow(null, () async {
+                  settingsCubit.setTheme(MediaQuery.of(context));
+                  settingsCubit.setNativeTitleBar();
                   await windowManager.show();
                 });
               }
-              return cubit;
+              return settingsCubit;
             },
-            lazy: false,
           ),
           BlocProvider(
               create: (context) => WindowCubit(fullScreen: fullScreen)),
