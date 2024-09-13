@@ -393,7 +393,6 @@
   "ruler": "Κανόνας",
   "angle": "Γωνία",
   "report": "Αναφορά",
-  "newFile": "Νέο αρχείο",
   "newFolder": "Νέος φάκελος",
   "createPack": "Δημιουργία πακέτου",
   "editPack": "Επεξεργασία πακέτου",
@@ -610,11 +609,15 @@
   "installed": "Εγκατεστημένο",
   "install": "Εγκατάσταση",
   "deselect": "Αποεπιλογή",
-  "changeLayer": "Αλλαγή επιπέδου",
+  "changeCollection": "Change collection",
   "collections": "Συλλογές",
   "fullSelection": "Πλήρης επιλογή",
   "fullSelectionDescription": "Απαιτεί στοιχεία να είναι πλήρως εντός του πλαισίου επιλογής για την επιλογή.",
   "collection": "Συλλογή",
   "defaultCollection": "Προεπιλεγμένη συλλογή",
-  "scroll": "Κύλιση"
+  "scroll": "Κύλιση",
+  "onStartup": "On startup",
+  "homeScreen": "Home screen",
+  "lastNote": "Last note",
+  "newNote": "New note"
 }
