@@ -393,7 +393,6 @@
   "ruler": "Cetvel",
   "angle": "Açı",
   "report": "Rapor Et",
-  "newFile": "Yeni dosya",
   "newFolder": "Yeni klasör",
   "createPack": "Paket oluştur",
   "editPack": "Paketi düzenle",
@@ -610,11 +609,15 @@
   "installed": "Installed",
   "install": "Install",
   "deselect": "Deselect",
-  "changeLayer": "Change layer",
+  "changeCollection": "Change collection",
   "collections": "Collections",
   "fullSelection": "Full selection",
   "fullSelectionDescription": "Requires elements to be fully within the selection box for selection.",
   "collection": "Collection",
   "defaultCollection": "Default collection",
-  "scroll": "Scroll"
+  "scroll": "Scroll",
+  "onStartup": "On startup",
+  "homeScreen": "Home screen",
+  "lastNote": "Last note",
+  "newNote": "New note"
 }
