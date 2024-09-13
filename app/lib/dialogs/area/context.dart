@@ -88,8 +88,8 @@ ContextMenuBuilder buildGeneralAreaContextMenu(DocumentBloc bloc, Area area,
               bloc.add(ElementsCollectionChanged(
                   elements.map((e) => e.id).nonNulls.toList(), result));
             },
-            icon: const PhosphorIcon(PhosphorIconsLight.stack),
-            label: AppLocalizations.of(context).changeLayer,
+            icon: const PhosphorIcon(PhosphorIconsLight.folder),
+            label: AppLocalizations.of(context).changeCollection,
           ),
           ContextMenuGroup(
             icon: const PhosphorIcon(PhosphorIconsLight.export),

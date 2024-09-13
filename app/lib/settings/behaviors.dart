@@ -60,7 +60,7 @@ class BehaviorsSettingsPage extends StatelessWidget {
                       subtitle: Text(
                           _getStartupBehaviorName(context, state.onStartup)),
                       onTap: () => _openStartupModal(context),
-                      leading: const Icon(PhosphorIconsLight.arrowRight),
+                      leading: const Icon(PhosphorIconsLight.arrowFatLineUp),
                     )
                   ]),
             ),

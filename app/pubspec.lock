@@ -823,8 +823,8 @@ packages:
     dependency: "direct main"
     description:
       path: "packages/lw_file_system"
-      ref: "85e62e7f6c3deb91ac67aefafd778b9f45d4c890"
-      resolved-ref: "85e62e7f6c3deb91ac67aefafd778b9f45d4c890"
+      ref: d2bdcda48e03a69f280894c83514b9dfff0b6eff
+      resolved-ref: d2bdcda48e03a69f280894c83514b9dfff0b6eff
       url: "https://github.com/LinwoodDev/dart_pkgs.git"
     source: git
     version: "1.0.0"
@@ -1603,10 +1603,10 @@ packages:
     dependency: transitive
     description:
       name: win32_registry
-      sha256: "723b7f851e5724c55409bb3d5a32b203b3afe8587eaf5dafb93a5fed8ecda0d6"
+      sha256: "21ec76dfc731550fd3e2ce7a33a9ea90b828fdf19a5c3bcf556fa992cfa99852"
       url: "https://pub.dev"
     source: hosted
-    version: "1.1.4"
+    version: "1.1.5"
   window_manager:
     dependency: "direct main"
     description:
