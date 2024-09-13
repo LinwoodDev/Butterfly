@@ -393,7 +393,6 @@
   "ruler": "标标",
   "angle": "角度",
   "report": "报告",
-  "newFile": "新建文件",
   "newFolder": "新建文件夹",
   "createPack": "创建包",
   "editPack": "编辑包",
@@ -610,11 +609,15 @@
   "installed": "已安装",
   "install": "安装",
   "deselect": "取消选择",
-  "changeLayer": "更改图层",
+  "changeCollection": "Change collection",
   "collections": "A. 收款情况",
   "fullSelection": "完整选择",
   "fullSelectionDescription": "需要元素完全在选择框内。",
   "collection": "收藏",
   "defaultCollection": "默认收藏",
-  "scroll": "滚动"
+  "scroll": "滚动",
+  "onStartup": "On startup",
+  "homeScreen": "Home screen",
+  "lastNote": "Last note",
+  "newNote": "New note"
 }
