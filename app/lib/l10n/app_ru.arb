@@ -393,7 +393,6 @@
   "ruler": "Линейка",
   "angle": "Угол",
   "report": "Отчет",
-  "newFile": "Новый файл",
   "newFolder": "Новая папка",
   "createPack": "Создать набор",
   "editPack": "Изменить набор",
@@ -610,11 +609,15 @@
   "installed": "Установлено",
   "install": "Установить",
   "deselect": "Отменить выбор",
-  "changeLayer": "Изменить слой",
+  "changeCollection": "Change collection",
   "collections": "Коллекции",
   "fullSelection": "Полная выборка",
   "fullSelectionDescription": "Для выбора требуется, чтобы элементы были полностью внутри окна выбора.",
   "collection": "Коллекция",
   "defaultCollection": "Коллекция по умолчанию",
-  "scroll": "Прокрутка"
+  "scroll": "Прокрутка",
+  "onStartup": "On startup",
+  "homeScreen": "Home screen",
+  "lastNote": "Last note",
+  "newNote": "New note"
 }
