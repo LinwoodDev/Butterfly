@@ -393,7 +393,6 @@
   "ruler": "Viiva",
   "angle": "Kulma",
   "report": "Raportoi",
-  "newFile": "Uusi tiedosto",
   "newFolder": "Uusi kansio",
   "createPack": "Luo paketti",
   "editPack": "Muokkaa pakettia",
@@ -610,11 +609,15 @@
   "installed": "Asennettu",
   "install": "Asenna",
   "deselect": "Poista Valinta",
-  "changeLayer": "Vaihda kerros",
+  "changeCollection": "Change collection",
   "collections": "Kokoelmat",
   "fullSelection": "Täysi valinta",
   "fullSelectionDescription": "Vaatii, että elementit ovat täysin valintakentän sisällä.",
   "collection": "Kokoelma",
   "defaultCollection": "Oletus kokoelma",
-  "scroll": "Vieritä"
+  "scroll": "Vieritä",
+  "onStartup": "On startup",
+  "homeScreen": "Home screen",
+  "lastNote": "Last note",
+  "newNote": "New note"
 }
