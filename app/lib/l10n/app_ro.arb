@@ -393,7 +393,6 @@
   "ruler": "Regulă",
   "angle": "Unghiul",
   "report": "Raport",
-  "newFile": "Fișier nou",
   "newFolder": "Dosar nou",
   "createPack": "Creare pachet",
   "editPack": "Editare pachet",
@@ -610,11 +609,15 @@
   "installed": "Instalat",
   "install": "Instalează",
   "deselect": "Deselectează",
-  "changeLayer": "Schimbă stratul",
+  "changeCollection": "Change collection",
   "collections": "Colecții",
   "fullSelection": "Selecţie completă",
   "fullSelectionDescription": "Necesită ca elementele să fie complet în caseta de selecție pentru selecție.",
   "collection": "Colectare",
   "defaultCollection": "Colectare implicită",
-  "scroll": "Derulează"
+  "scroll": "Derulează",
+  "onStartup": "On startup",
+  "homeScreen": "Home screen",
+  "lastNote": "Last note",
+  "newNote": "New note"
 }
