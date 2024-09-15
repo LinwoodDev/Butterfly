@@ -609,15 +609,15 @@
   "installed": "مثبت",
   "install": "تثبيت",
   "deselect": "إلغاء التحديد",
-  "changeCollection": "Change collection",
+  "changeCollection": "تغيير المجموعة",
   "collections": "مجموعات",
   "fullSelection": "التحديد الكامل",
   "fullSelectionDescription": "يتطلب أن تكون العناصر كاملة داخل مربع الاختيار من أجل الاختيار.",
   "collection": "مجموعة",
   "defaultCollection": "المجموعة الافتراضية",
   "scroll": "تمرير",
-  "onStartup": "On startup",
-  "homeScreen": "Home screen",
-  "lastNote": "Last note",
-  "newNote": "New note"
+  "onStartup": "عند بدء التشغيل",
+  "homeScreen": "الشاشة الرئيسية",
+  "lastNote": "الملاحظة الأخيرة",
+  "newNote": "ملاحظة جديدة"
 }
