@@ -609,15 +609,15 @@
   "installed": "インストール済み",
   "install": "インストール",
   "deselect": "選択を解除",
-  "changeCollection": "Change collection",
+  "changeCollection": "コレクションを変更",
   "collections": "コレクション",
   "fullSelection": "完全な選択",
   "fullSelectionDescription": "選択するには、選択ボックス内に要素を完全に含める必要があります。",
   "collection": "コレクション",
   "defaultCollection": "デフォルトのコレクション",
   "scroll": "スクロール",
-  "onStartup": "On startup",
-  "homeScreen": "Home screen",
-  "lastNote": "Last note",
-  "newNote": "New note"
+  "onStartup": "起動時",
+  "homeScreen": "ホーム画面",
+  "lastNote": "最後のメモ",
+  "newNote": "新規ノート"
 }
