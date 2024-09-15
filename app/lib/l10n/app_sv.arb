@@ -609,15 +609,15 @@
   "installed": "Installerad",
   "install": "Installera",
   "deselect": "Avmarkera",
-  "changeCollection": "Change collection",
+  "changeCollection": "Ändra samling",
   "collections": "Samlingar",
   "fullSelection": "Fullt urval",
   "fullSelectionDescription": "Kräver element för att vara helt i urvalsrutan.",
   "collection": "Samling",
   "defaultCollection": "Förvald samling",
   "scroll": "Rulla",
-  "onStartup": "On startup",
-  "homeScreen": "Home screen",
-  "lastNote": "Last note",
-  "newNote": "New note"
+  "onStartup": "Vid uppstart",
+  "homeScreen": "Startskärmen",
+  "lastNote": "Senaste anteckning",
+  "newNote": "Ny anteckning"
 }
