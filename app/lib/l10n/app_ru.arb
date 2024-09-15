@@ -609,15 +609,15 @@
   "installed": "Установлено",
   "install": "Установить",
   "deselect": "Отменить выбор",
-  "changeCollection": "Change collection",
+  "changeCollection": "Изменить коллекцию",
   "collections": "Коллекции",
   "fullSelection": "Полная выборка",
   "fullSelectionDescription": "Для выбора требуется, чтобы элементы были полностью внутри окна выбора.",
   "collection": "Коллекция",
   "defaultCollection": "Коллекция по умолчанию",
   "scroll": "Прокрутка",
-  "onStartup": "On startup",
-  "homeScreen": "Home screen",
-  "lastNote": "Last note",
-  "newNote": "New note"
+  "onStartup": "При запуске",
+  "homeScreen": "Домашний экран",
+  "lastNote": "Последняя заметка",
+  "newNote": "Новая заметка"
 }
