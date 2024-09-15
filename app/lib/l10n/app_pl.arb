@@ -207,7 +207,6 @@
   "fullScreen": "Pełny ekran",
   "design": "Projekt",
   "text": "Tekst",
-  "selectSensitivity": "Wybierz czułość",
   "welcome": "Hej, to jest Łuskowy Motyw",
   "welcomeContent": "Wolne i otwarte miejsce na rysowanie!",
   "updated": "Aplikacja zaktualizowana do wersji {version}",
@@ -394,7 +393,6 @@
   "ruler": "Rywalizacja",
   "angle": "Kąt",
   "report": "Zgłoszenie",
-  "newFile": "Nowy plik",
   "newFolder": "Nowy folder",
   "createPack": "Utwórz pakiet",
   "editPack": "Edytuj paczkę",
@@ -611,7 +609,15 @@
   "installed": "Zainstalowane",
   "install": "Zainstaluj",
   "deselect": "Odznacz",
-  "changeLayer": "Zmień warstwę",
+  "changeCollection": "Zmień kolekcję",
+  "collections": "Kolekcje",
   "fullSelection": "Pełny wybór",
-  "fullSelectionDescription": "Wymaga, aby elementy znajdowały się w całości w polu wyboru do wyboru."
+  "fullSelectionDescription": "Wymaga, aby elementy znajdowały się w całości w polu wyboru do wyboru.",
+  "collection": "Kolekcja",
+  "defaultCollection": "Domyślna kolekcja",
+  "scroll": "Przewiń",
+  "onStartup": "Przy starcie",
+  "homeScreen": "Ekran główny",
+  "lastNote": "Ostatnia notatka",
+  "newNote": "Nowa nota"
 }

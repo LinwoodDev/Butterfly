@@ -207,7 +207,6 @@
   "fullScreen": "Full screen",
   "design": "Design",
   "text": "Text",
-  "selectSensitivity": "Select sensitivity",
   "welcome": "Hey, this is Linwood Butterfly",
   "welcomeContent": "A free and open-source drawing space!",
   "updated": "App updated to version {version}",
@@ -394,7 +393,6 @@
   "ruler": "Ruler",
   "angle": "Angle",
   "report": "Report",
-  "newFile": "New file",
   "newFolder": "New folder",
   "createPack": "Create pack",
   "editPack": "Edit pack",
@@ -611,7 +609,15 @@
   "installed": "Installed",
   "install": "Install",
   "deselect": "Deselect",
-  "changeLayer": "Change layer",
+  "changeCollection": "Change collection",
+  "collections": "Collections",
   "fullSelection": "Full selection",
-  "fullSelectionDescription": "Requires elements to be fully within the selection box for selection."
+  "fullSelectionDescription": "Requires elements to be fully within the selection box for selection.",
+  "collection": "Collection",
+  "defaultCollection": "Default collection",
+  "scroll": "Scroll",
+  "onStartup": "On startup",
+  "homeScreen": "Home screen",
+  "lastNote": "Last note",
+  "newNote": "New note"
 }

@@ -207,7 +207,6 @@
   "fullScreen": "Plein écran",
   "design": "Conception",
   "text": "Texte du texte",
-  "selectSensitivity": "Sélectionner la sensibilité",
   "welcome": "Hé, voici Linwood Butterfly",
   "welcomeContent": "Un espace de dessin libre et open-source !",
   "updated": "Application mise à jour vers la version {version}",
@@ -394,7 +393,6 @@
   "ruler": "Règle",
   "angle": "Angle",
   "report": "Rapporter",
-  "newFile": "Nouveau fichier",
   "newFolder": "Nouveau dossier",
   "createPack": "Créer un pack",
   "editPack": "Modifier le pack",
@@ -611,7 +609,15 @@
   "installed": "Installé",
   "install": "Installer",
   "deselect": "Désélectionner",
-  "changeLayer": "Changer le calque",
+  "changeCollection": "Changer de collection",
+  "collections": "Collections",
   "fullSelection": "Sélection complète",
-  "fullSelectionDescription": "Nécessite que les éléments soient entièrement dans la zone de sélection pour la sélection."
+  "fullSelectionDescription": "Nécessite que les éléments soient entièrement dans la zone de sélection pour la sélection.",
+  "collection": "Collecte",
+  "defaultCollection": "Collection par défaut",
+  "scroll": "Défilement",
+  "onStartup": "Au démarrage",
+  "homeScreen": "Écran d'accueil",
+  "lastNote": "Dernière note",
+  "newNote": "Nouvelle note"
 }

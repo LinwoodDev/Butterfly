@@ -207,7 +207,6 @@
   "fullScreen": "Toàn màn hình",
   "design": "Thiết kế",
   "text": "Text",
-  "selectSensitivity": "Chọn độ nhạy",
   "welcome": "Xin chào, đây là Linwood Butterfly",
   "welcomeContent": "Một không gian vẽ tự do và mã nguồn mở!",
   "updated": "Ứng dụng đã được cập nhật lên phiên bản {version}",
@@ -394,7 +393,6 @@
   "ruler": "Ruler",
   "angle": "Angle",
   "report": "Report",
-  "newFile": "New file",
   "newFolder": "New folder",
   "createPack": "Create pack",
   "editPack": "Edit pack",
@@ -611,7 +609,15 @@
   "installed": "Installed",
   "install": "Install",
   "deselect": "Deselect",
-  "changeLayer": "Change layer",
+  "changeCollection": "Change collection",
+  "collections": "Collections",
   "fullSelection": "Full selection",
-  "fullSelectionDescription": "Requires elements to be fully within the selection box for selection."
+  "fullSelectionDescription": "Requires elements to be fully within the selection box for selection.",
+  "collection": "Collection",
+  "defaultCollection": "Default collection",
+  "scroll": "Scroll",
+  "onStartup": "On startup",
+  "homeScreen": "Home screen",
+  "lastNote": "Last note",
+  "newNote": "New note"
 }

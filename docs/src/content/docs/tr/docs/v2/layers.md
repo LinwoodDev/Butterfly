@@ -2,7 +2,10 @@
 title: Katmanlar
 ---
 
-Katmanlar, ögeleri birlikte gruplamak için bir seçenektir. Katmanı görmek ve değiştirmek için ögeye tıklayın. Use the [layer tool](../tools/layer) to change the layers of multiple elements.
+Layers are an option to separate elements from another.
+The first layer from top will be rendered last (and would be shown above everything).
+
+Do not confuse the layer feature with the collection feature. The earlier layer system was renamed to collections and doesn't change the renderer priority and are lightweight to group some elements together. Read more about them [here](../tools/collection).
 
 ## Katmanlar iletişim kutusu
 

@@ -207,7 +207,6 @@
   "fullScreen": "全画面",
   "design": "デザイン",
   "text": "テキスト",
-  "selectSensitivity": "感度を選択",
   "welcome": "おい、これはLinwood Butterfly",
   "welcomeContent": "フリーでオープンソースのドローイングスペース！",
   "updated": "アプリをバージョン {version} に更新しました",
@@ -394,7 +393,6 @@
   "ruler": "ルーラー設定",
   "angle": "角度",
   "report": "レポート",
-  "newFile": "新規ファイル",
   "newFolder": "新しいフォルダ",
   "createPack": "パックを作成",
   "editPack": "パックを編集",
@@ -611,7 +609,15 @@
   "installed": "インストール済み",
   "install": "インストール",
   "deselect": "選択を解除",
-  "changeLayer": "レイヤーを変更",
+  "changeCollection": "コレクションを変更",
+  "collections": "コレクション",
   "fullSelection": "完全な選択",
-  "fullSelectionDescription": "選択するには、選択ボックス内に要素を完全に含める必要があります。"
+  "fullSelectionDescription": "選択するには、選択ボックス内に要素を完全に含める必要があります。",
+  "collection": "コレクション",
+  "defaultCollection": "デフォルトのコレクション",
+  "scroll": "スクロール",
+  "onStartup": "起動時",
+  "homeScreen": "ホーム画面",
+  "lastNote": "最後のメモ",
+  "newNote": "新規ノート"
 }

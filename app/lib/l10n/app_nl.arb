@@ -207,7 +207,6 @@
   "fullScreen": "Volledig scherm",
   "design": "Ontwerp",
   "text": "Tekstveld",
-  "selectSensitivity": "Selecteer gevoeligheid",
   "welcome": "Hé, dit is Linwood Vlinder",
   "welcomeContent": "Een vrije en open source tekenruimte!",
   "updated": "App bijgewerkt naar versie {version}",
@@ -394,7 +393,6 @@
   "ruler": "Liniaal",
   "angle": "Hoek",
   "report": "Rapporteren",
-  "newFile": "Nieuw bestand",
   "newFolder": "Nieuwe map",
   "createPack": "Pakket aanmaken",
   "editPack": "Pakket bewerken",
@@ -611,7 +609,15 @@
   "installed": "Geinstalleerd",
   "install": "Installeren",
   "deselect": "Deselecteer",
-  "changeLayer": "Laag wijzigen",
+  "changeCollection": "Verzameling wijzigen",
+  "collections": "Collecties",
   "fullSelection": "Volledige selectie",
-  "fullSelectionDescription": "Vereist elementen om volledig in het selectievakje te zijn voor selectie."
+  "fullSelectionDescription": "Vereist elementen om volledig in het selectievakje te zijn voor selectie.",
+  "collection": "Collectie",
+  "defaultCollection": "Standaard collectie",
+  "scroll": "Scrollen",
+  "onStartup": "Bij het opstarten",
+  "homeScreen": "Startscherm",
+  "lastNote": "Laatste opmerking",
+  "newNote": "Nieuwe notitie"
 }

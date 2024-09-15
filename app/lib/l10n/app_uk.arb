@@ -207,7 +207,6 @@
   "fullScreen": "На весь екран",
   "design": "Дизайн",
   "text": "Текст",
-  "selectSensitivity": "Виберіть чутливість",
   "welcome": "Гей, це метелик Лінвуда",
   "welcomeContent": "Вільне та відкрите місце для малювання!",
   "updated": "Додаток оновлено до версії {version}",
@@ -394,7 +393,6 @@
   "ruler": "Лінійка",
   "angle": "Кут",
   "report": "Доповісти",
-  "newFile": "Новий файл",
   "newFolder": "Нова папка",
   "createPack": "Створити пакет",
   "editPack": "Редагувати пакет",
@@ -611,7 +609,15 @@
   "installed": "Встановлено",
   "install": "Інсталювати",
   "deselect": "Зняти виділення",
-  "changeLayer": "Змінити шар",
+  "changeCollection": "Змінити збірку",
+  "collections": "Колекції",
   "fullSelection": "Повний вибір",
-  "fullSelectionDescription": "Для вибору потрібні елементи."
+  "fullSelectionDescription": "Для вибору потрібні елементи.",
+  "collection": "Колекція",
+  "defaultCollection": "Типова збірка",
+  "scroll": "Прокрутка",
+  "onStartup": "При запуску",
+  "homeScreen": "Домашній екран",
+  "lastNote": "Остання примітка",
+  "newNote": "Нова нотатка"
 }

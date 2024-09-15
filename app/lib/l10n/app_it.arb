@@ -207,7 +207,6 @@
   "fullScreen": "Schermo intero",
   "design": "Design",
   "text": "Testo",
-  "selectSensitivity": "Seleziona sensibilità",
   "welcome": "Hey, questa è farfalla di linwood",
   "welcomeContent": "Uno spazio di disegno libero e open-source!",
   "updated": "App aggiornata alla versione {version}",
@@ -394,7 +393,6 @@
   "ruler": "Righello",
   "angle": "Angolo",
   "report": "Segnala",
-  "newFile": "Nuovo file",
   "newFolder": "Nuova cartella",
   "createPack": "Crea pacchetto",
   "editPack": "Modifica pacchetto",
@@ -611,7 +609,15 @@
   "installed": "Installato",
   "install": "Installa",
   "deselect": "Deseleziona",
-  "changeLayer": "Cambia livello",
+  "changeCollection": "Cambia collezione",
+  "collections": "Collezioni",
   "fullSelection": "Selezione completa",
-  "fullSelectionDescription": "Richiede elementi per essere completamente all'interno della casella di selezione per la selezione."
+  "fullSelectionDescription": "Richiede elementi per essere completamente all'interno della casella di selezione per la selezione.",
+  "collection": "Collezione",
+  "defaultCollection": "Collezione predefinita",
+  "scroll": "Scorrimento",
+  "onStartup": "All'avvio",
+  "homeScreen": "Schermata home",
+  "lastNote": "Ultima nota",
+  "newNote": "Nuova nota"
 }

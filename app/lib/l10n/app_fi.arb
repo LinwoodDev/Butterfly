@@ -207,7 +207,6 @@
   "fullScreen": "Koko näyttö",
   "design": "Ulkoasu",
   "text": "Teksti",
-  "selectSensitivity": "Valitse herkkyys",
   "welcome": "Hei, tämä on Linwood Butterfly",
   "welcomeContent": "Vapaa ja avoimen lähdekoodin piirtotila!",
   "updated": "Sovellus päivitetty versioon {version}",
@@ -394,7 +393,6 @@
   "ruler": "Viiva",
   "angle": "Kulma",
   "report": "Raportoi",
-  "newFile": "Uusi tiedosto",
   "newFolder": "Uusi kansio",
   "createPack": "Luo paketti",
   "editPack": "Muokkaa pakettia",
@@ -611,7 +609,15 @@
   "installed": "Asennettu",
   "install": "Asenna",
   "deselect": "Poista Valinta",
-  "changeLayer": "Vaihda kerros",
+  "changeCollection": "Vaihda kokoelmaa",
+  "collections": "Kokoelmat",
   "fullSelection": "Täysi valinta",
-  "fullSelectionDescription": "Vaatii, että elementit ovat täysin valintakentän sisällä."
+  "fullSelectionDescription": "Vaatii, että elementit ovat täysin valintakentän sisällä.",
+  "collection": "Kokoelma",
+  "defaultCollection": "Oletus kokoelma",
+  "scroll": "Vieritä",
+  "onStartup": "Käynnistyksessä",
+  "homeScreen": "Kotinäyttö",
+  "lastNote": "Viimeisin merkintä",
+  "newNote": "Uusi muistiinpano"
 }

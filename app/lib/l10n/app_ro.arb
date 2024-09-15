@@ -207,7 +207,6 @@
   "fullScreen": "Ecran complet",
   "design": "Proiectare",
   "text": "Text",
-  "selectSensitivity": "Selectaţi sensibilitatea",
   "welcome": "Hei, acesta este Linwood Butterfly",
   "welcomeContent": "Un spaţiu de desenare gratuit şi open-source!",
   "updated": "Aplicație actualizată la versiunea {version}",
@@ -394,7 +393,6 @@
   "ruler": "Regulă",
   "angle": "Unghiul",
   "report": "Raport",
-  "newFile": "Fișier nou",
   "newFolder": "Dosar nou",
   "createPack": "Creare pachet",
   "editPack": "Editare pachet",
@@ -611,7 +609,15 @@
   "installed": "Instalat",
   "install": "Instalează",
   "deselect": "Deselectează",
-  "changeLayer": "Schimbă stratul",
+  "changeCollection": "Schimbă colecția",
+  "collections": "Colecții",
   "fullSelection": "Selecţie completă",
-  "fullSelectionDescription": "Necesită ca elementele să fie complet în caseta de selecție pentru selecție."
+  "fullSelectionDescription": "Necesită ca elementele să fie complet în caseta de selecție pentru selecție.",
+  "collection": "Colectare",
+  "defaultCollection": "Colectare implicită",
+  "scroll": "Derulează",
+  "onStartup": "La pornire",
+  "homeScreen": "Ecranul principal",
+  "lastNote": "Ultima notă",
+  "newNote": "Notă nouă"
 }

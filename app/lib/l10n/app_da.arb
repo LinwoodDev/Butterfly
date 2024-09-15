@@ -207,7 +207,6 @@
   "fullScreen": "Fuld skærm",
   "design": "Design",
   "text": "Tekst",
-  "selectSensitivity": "Vælg følsomhed",
   "welcome": "Hey, dette er Linwood Butterfly",
   "welcomeContent": "Et gratis og open source tegneplads!",
   "updated": "App opdateret til version {version}",
@@ -394,7 +393,6 @@
   "ruler": "Lineal",
   "angle": "Vinkel",
   "report": "Rapport",
-  "newFile": "Ny fil",
   "newFolder": "Ny mappe",
   "createPack": "Opret pakke",
   "editPack": "Rediger pakke",
@@ -611,7 +609,15 @@
   "installed": "Installeret",
   "install": "Installér",
   "deselect": "Fravælg",
-  "changeLayer": "Skift lag",
+  "changeCollection": "Skift samling",
+  "collections": "Samlinger",
   "fullSelection": "Fuld udvælgelse",
-  "fullSelectionDescription": "Kræver elementer for at være helt inde i markeringsfeltet for valg."
+  "fullSelectionDescription": "Kræver elementer for at være helt inde i markeringsfeltet for valg.",
+  "collection": "Samling",
+  "defaultCollection": "Standard samling",
+  "scroll": "Rul",
+  "onStartup": "Ved opstart",
+  "homeScreen": "Startskærm",
+  "lastNote": "Sidste note",
+  "newNote": "Ny note"
 }

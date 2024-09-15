@@ -207,7 +207,6 @@
   "fullScreen": "Tela cheia",
   "design": "Projetar",
   "text": "Texto",
-  "selectSensitivity": "Selecione a sensibilidade",
   "welcome": "Ei, esta é a Borboleta Linwood",
   "welcomeContent": "Um espaço de desenho gratuito e de código-aberto!",
   "updated": "Aplicativo atualizado para a versão {version}",
@@ -394,7 +393,6 @@
   "ruler": "Régua",
   "angle": "Ângulo",
   "report": "Denunciar",
-  "newFile": "Novo arquivo",
   "newFolder": "Adicionar Pasta",
   "createPack": "Criar pacote",
   "editPack": "Editar pacote",
@@ -611,7 +609,15 @@
   "installed": "Instalado",
   "install": "Instale",
   "deselect": "Desselecionar",
-  "changeLayer": "Alterar camada",
+  "changeCollection": "Alterar Coleção",
+  "collections": "Coleções",
   "fullSelection": "Seleção completa",
-  "fullSelectionDescription": "Requer elementos para estar totalmente dentro da caixa de seleção para a seleção."
+  "fullSelectionDescription": "Requer elementos para estar totalmente dentro da caixa de seleção para a seleção.",
+  "collection": "Coleção",
+  "defaultCollection": "Coleção Padrão",
+  "scroll": "Percorrer",
+  "onStartup": "Na inicialização",
+  "homeScreen": "Tela inicial",
+  "lastNote": "Última anotação",
+  "newNote": "Nova nota"
 }

@@ -207,7 +207,6 @@
   "fullScreen": "Helskärm",
   "design": "Design",
   "text": "Text",
-  "selectSensitivity": "Välj känslighet",
   "welcome": "Hej, detta är Linwood fjäril",
   "welcomeContent": "En fri och öppen källkodsritningsyta!",
   "updated": "Appen uppdaterad till version {version}",
@@ -394,7 +393,6 @@
   "ruler": "Linjal",
   "angle": "Vinkel",
   "report": "Rapportera",
-  "newFile": "Ny fil",
   "newFolder": "Ny mapp",
   "createPack": "Skapa paket",
   "editPack": "Redigera paket",
@@ -611,7 +609,15 @@
   "installed": "Installerad",
   "install": "Installera",
   "deselect": "Avmarkera",
-  "changeLayer": "Ändra lager",
+  "changeCollection": "Ändra samling",
+  "collections": "Samlingar",
   "fullSelection": "Fullt urval",
-  "fullSelectionDescription": "Kräver element för att vara helt i urvalsrutan."
+  "fullSelectionDescription": "Kräver element för att vara helt i urvalsrutan.",
+  "collection": "Samling",
+  "defaultCollection": "Förvald samling",
+  "scroll": "Rulla",
+  "onStartup": "Vid uppstart",
+  "homeScreen": "Startskärmen",
+  "lastNote": "Senaste anteckning",
+  "newNote": "Ny anteckning"
 }
