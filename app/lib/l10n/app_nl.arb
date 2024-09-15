@@ -609,15 +609,15 @@
   "installed": "Geinstalleerd",
   "install": "Installeren",
   "deselect": "Deselecteer",
-  "changeCollection": "Change collection",
+  "changeCollection": "Verzameling wijzigen",
   "collections": "Collecties",
   "fullSelection": "Volledige selectie",
   "fullSelectionDescription": "Vereist elementen om volledig in het selectievakje te zijn voor selectie.",
   "collection": "Collectie",
   "defaultCollection": "Standaard collectie",
   "scroll": "Scrollen",
-  "onStartup": "On startup",
-  "homeScreen": "Home screen",
-  "lastNote": "Last note",
-  "newNote": "New note"
+  "onStartup": "Bij het opstarten",
+  "homeScreen": "Startscherm",
+  "lastNote": "Laatste opmerking",
+  "newNote": "Nieuwe notitie"
 }
