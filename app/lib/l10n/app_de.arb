@@ -609,15 +609,15 @@
   "installed": "Installiert",
   "install": "Installieren",
   "deselect": "Abwählen",
-  "changeCollection": "Change collection",
+  "changeCollection": "Sammlung ändern",
   "collections": "Sammlungen",
   "fullSelection": "Vollständige Auswahl",
   "fullSelectionDescription": "Erfordert die vollständige Auswahl der Elemente innerhalb des Auswahlfeldes.",
   "collection": "Sammlung",
   "defaultCollection": "Standard-Sammlung",
   "scroll": "Scrollen",
-  "onStartup": "On startup",
-  "homeScreen": "Home screen",
-  "lastNote": "Last note",
-  "newNote": "New note"
+  "onStartup": "Beim Start",
+  "homeScreen": "Startbildschirm",
+  "lastNote": "Letzte Notiz",
+  "newNote": "Neue Notiz"
 }
