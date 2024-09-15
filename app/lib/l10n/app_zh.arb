@@ -609,15 +609,15 @@
   "installed": "已安装",
   "install": "安装",
   "deselect": "取消选择",
-  "changeCollection": "Change collection",
+  "changeCollection": "更改收藏",
   "collections": "A. 收款情况",
   "fullSelection": "完整选择",
   "fullSelectionDescription": "需要元素完全在选择框内。",
   "collection": "收藏",
   "defaultCollection": "默认收藏",
   "scroll": "滚动",
-  "onStartup": "On startup",
-  "homeScreen": "Home screen",
-  "lastNote": "Last note",
-  "newNote": "New note"
+  "onStartup": "启动时",
+  "homeScreen": "主屏幕",
+  "lastNote": "最后一个笔记",
+  "newNote": "新建笔记"
 }
