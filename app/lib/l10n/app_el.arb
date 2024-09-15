@@ -609,15 +609,15 @@
   "installed": "Εγκατεστημένο",
   "install": "Εγκατάσταση",
   "deselect": "Αποεπιλογή",
-  "changeCollection": "Change collection",
+  "changeCollection": "Αλλαγή συλλογής",
   "collections": "Συλλογές",
   "fullSelection": "Πλήρης επιλογή",
   "fullSelectionDescription": "Απαιτεί στοιχεία να είναι πλήρως εντός του πλαισίου επιλογής για την επιλογή.",
   "collection": "Συλλογή",
   "defaultCollection": "Προεπιλεγμένη συλλογή",
   "scroll": "Κύλιση",
-  "onStartup": "On startup",
-  "homeScreen": "Home screen",
-  "lastNote": "Last note",
-  "newNote": "New note"
+  "onStartup": "Κατά την εκκίνηση",
+  "homeScreen": "Αρχική οθόνη",
+  "lastNote": "Τελευταία σημείωση",
+  "newNote": "Νέα σημείωση"
 }
