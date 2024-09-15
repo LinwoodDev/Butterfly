@@ -609,15 +609,15 @@
   "installed": "Installé",
   "install": "Installer",
   "deselect": "Désélectionner",
-  "changeCollection": "Change collection",
+  "changeCollection": "Changer de collection",
   "collections": "Collections",
   "fullSelection": "Sélection complète",
   "fullSelectionDescription": "Nécessite que les éléments soient entièrement dans la zone de sélection pour la sélection.",
   "collection": "Collecte",
   "defaultCollection": "Collection par défaut",
   "scroll": "Défilement",
-  "onStartup": "On startup",
-  "homeScreen": "Home screen",
-  "lastNote": "Last note",
-  "newNote": "New note"
+  "onStartup": "Au démarrage",
+  "homeScreen": "Écran d'accueil",
+  "lastNote": "Dernière note",
+  "newNote": "Nouvelle note"
 }
