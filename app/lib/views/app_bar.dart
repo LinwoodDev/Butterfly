@@ -312,7 +312,7 @@ class _AppBarTitleState extends State<_AppBarTitle> {
                 tooltip: AppLocalizations.of(context).changeDocumentPath,
               ),
             ],
-            if (settings.flags.contains('collaboration') && !kIsWeb)
+            if (settings.hasFlag('collaboration') && !kIsWeb)
               StreamBuilder<NetworkingState?>(
                   stream: state.networkingService.stream,
                   builder: (context, snapshot) => IconButton(

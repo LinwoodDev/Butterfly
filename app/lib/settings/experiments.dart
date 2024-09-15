@@ -59,7 +59,7 @@ class ExperimentsSettingsPage extends StatelessWidget {
                   itemBuilder: (context, index) {
                     final experiment = experiments[index];
                     final currentHelp = _featureHelps[experiment.name];
-                    final enabled = state.flags.contains(experiment.name);
+                    final enabled = state.hasFlag(experiment.name);
                     return AdvancedSwitchListTile(
                       value: enabled,
                       onChanged: (value) {
