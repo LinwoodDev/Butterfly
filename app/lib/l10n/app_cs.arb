@@ -609,15 +609,15 @@
   "installed": "Nainstalováno",
   "install": "Instalovat",
   "deselect": "Zrušit výběr",
-  "changeCollection": "Change collection",
+  "changeCollection": "Změnit kolekci",
   "collections": "Sbírky",
   "fullSelection": "Plný výběr",
   "fullSelectionDescription": "Vyžaduje, aby prvky byly plně ve výběrovém poli pro výběr.",
   "collection": "Sbírka",
   "defaultCollection": "Výchozí kolekce",
   "scroll": "Posunout",
-  "onStartup": "On startup",
-  "homeScreen": "Home screen",
-  "lastNote": "Last note",
-  "newNote": "New note"
+  "onStartup": "Při startu",
+  "homeScreen": "Domovská stránka",
+  "lastNote": "Poslední poznámka",
+  "newNote": "Nová poznámka"
 }
