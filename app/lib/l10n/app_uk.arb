@@ -609,15 +609,15 @@
   "installed": "Встановлено",
   "install": "Інсталювати",
   "deselect": "Зняти виділення",
-  "changeCollection": "Change collection",
+  "changeCollection": "Змінити збірку",
   "collections": "Колекції",
   "fullSelection": "Повний вибір",
   "fullSelectionDescription": "Для вибору потрібні елементи.",
   "collection": "Колекція",
   "defaultCollection": "Типова збірка",
   "scroll": "Прокрутка",
-  "onStartup": "On startup",
-  "homeScreen": "Home screen",
-  "lastNote": "Last note",
-  "newNote": "New note"
+  "onStartup": "При запуску",
+  "homeScreen": "Домашній екран",
+  "lastNote": "Остання примітка",
+  "newNote": "Нова нотатка"
 }
