@@ -50,7 +50,7 @@ dependencies:
   flex_color_scheme:
     git:
       url: https://github.com/CodeDoctorDE/flex_color_scheme
-      ref: 4f517bc4b4e84227099a3d3c3c56c6d84bf79801
+      ref: d1fb4e2225b039bc8cd0bbadb6f3e7b459ae2fe4
   json_annotation: ^4.9.0
   path: ^1.8.3
   printing: ^5.13.1
