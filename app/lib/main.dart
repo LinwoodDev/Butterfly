@@ -4,6 +4,7 @@ import 'package:args/args.dart';
 import 'package:butterfly/api/file_system.dart';
 import 'package:butterfly/api/intent.dart';
 import 'package:butterfly/services/sync.dart';
+import 'package:butterfly/settings/behaviors.dart';
 import 'package:butterfly/settings/inputs/mouse.dart';
 import 'package:butterfly/settings/experiments.dart';
 import 'package:dynamic_color/dynamic_color.dart';
@@ -180,7 +181,7 @@ class ButterflyApp extends StatelessWidget {
                       builder: (context, state) => const GeneralSettingsPage(),
                     ),
                     GoRoute(
-                      path: 'behaviors',
+                      path: 'inputs',
                       builder: (context, state) => const InputsSettingsPage(),
                       routes: [
                         GoRoute(
@@ -203,6 +204,11 @@ class ButterflyApp extends StatelessWidget {
                               const TouchInputSettings(),
                         ),
                       ],
+                    ),
+                    GoRoute(
+                      path: 'behaviors',
+                      builder: (context, state) =>
+                          const BehaviorsSettingsPage(),
                     ),
                     GoRoute(
                       path: 'personalization',

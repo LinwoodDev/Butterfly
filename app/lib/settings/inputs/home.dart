@@ -41,28 +41,25 @@ class InputsSettingsPage extends StatelessWidget {
                             leading:
                                 const PhosphorIcon(PhosphorIconsLight.mouse),
                             title: Text(AppLocalizations.of(context).mouse),
-                            onTap: () =>
-                                context.push('/settings/behaviors/mouse'),
+                            onTap: () => context.push('/settings/inputs/mouse'),
                           ),
                           ListTile(
                             leading:
                                 const PhosphorIcon(PhosphorIconsLight.hand),
                             title: Text(AppLocalizations.of(context).touch),
-                            onTap: () =>
-                                context.push('/settings/behaviors/touch'),
+                            onTap: () => context.push('/settings/inputs/touch'),
                           ),
                           ListTile(
                             leading:
                                 const PhosphorIcon(PhosphorIconsLight.keyboard),
                             title: Text(AppLocalizations.of(context).keyboard),
                             onTap: () =>
-                                context.push('/settings/behaviors/keyboard'),
+                                context.push('/settings/inputs/keyboard'),
                           ),
                           ListTile(
                             leading: const PhosphorIcon(PhosphorIconsLight.pen),
                             title: Text(AppLocalizations.of(context).pen),
-                            onTap: () =>
-                                context.push('/settings/behaviors/pen'),
+                            onTap: () => context.push('/settings/inputs/pen'),
                           ),
                         ]),
                   )),

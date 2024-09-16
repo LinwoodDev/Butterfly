@@ -556,9 +556,9 @@ class FilesViewState extends State<FilesView> {
                                           .toList(),
                                       fileSystem: _documentSystem,
                                     ),
-                                  ).then(
-                                    (value) => reloadFileSystem(),
-                                  ),
+                                  ).then((value) {
+                                    if (value != null) reloadFileSystem();
+                                  }),
                                 ),
                                 Builder(
                                     builder: (context) => IconButton(

@@ -345,7 +345,9 @@ class FilesActionMenu extends StatelessWidget {
               assets: [entity.location],
               fileSystem: documentSystem,
             ),
-          ).then((value) => onReload()),
+          ).then((value) {
+            if (value != null) onReload();
+          }),
           leadingIcon: const PhosphorIcon(PhosphorIconsLight.arrowsDownUp),
           child: Text(AppLocalizations.of(context).move),
         ),

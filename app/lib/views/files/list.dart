@@ -240,7 +240,9 @@ class FileEntityListTile extends StatelessWidget {
                                 assets: [entity.location],
                                 fileSystem: documentSystem,
                               ),
-                            ).then((value) => onReload()),
+                            ).then((value) {
+                              if (value != null) onReload();
+                            }),
                             tooltip: AppLocalizations.of(context).move,
                             icon: const PhosphorIcon(
                                 PhosphorIconsLight.arrowsDownUp),

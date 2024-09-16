@@ -1,0 +1,4 @@
+* Fix wrong settings page of inputs and behaviors routes
+* Fix file system refreshing on cancelling moving a file
+
+Read more here: https://linwood.dev/butterfly/2.2.0-rc.1

@@ -43,9 +43,9 @@ class _FileSystemAssetMoveDialogState extends State<FileSystemAssetMoveDialog> {
 
   Future<void> _move(bool duplicate) async {
     final navigator = Navigator.of(context);
-    String newPath = '';
+    final newPaths = <String>[];
     for (final asset in widget.assets) {
-      newPath = selectedPath;
+      var newPath = selectedPath;
       if (selectedPath != '/') {
         newPath += '/';
       }
@@ -58,8 +58,9 @@ class _FileSystemAssetMoveDialogState extends State<FileSystemAssetMoveDialog> {
       } else {
         await widget.fileSystem.moveAsset(asset.path, newPath);
       }
+      newPaths.add(newPath);
     }
-    navigator.pop(newPath);
+    navigator.pop(newPaths);
   }
 
   @override
@@ -73,7 +74,7 @@ class _FileSystemAssetMoveDialogState extends State<FileSystemAssetMoveDialog> {
         actions: [
           TextButton(
             child: Text(AppLocalizations.of(context).cancel),
-            onPressed: () => Navigator.of(context).pop(),
+            onPressed: () => Navigator.of(context).pop(null),
           ),
           if (widget.moveMode != null)
             ElevatedButton(

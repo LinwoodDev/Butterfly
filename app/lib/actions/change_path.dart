@@ -29,15 +29,15 @@ class ChangePathAction extends Action<ChangePathIntent> {
     var asset = await fileSystem.getAsset(location.path);
     if (asset == null) return;
     if (context.mounted) {
-      var newPath = await showDialog<String?>(
+      var newPaths = await showDialog<List<String>>(
           context: context,
           builder: (context) => FileSystemAssetMoveDialog(
                 assets: [asset.location],
                 fileSystem: fileSystem,
               ));
-      if (newPath == null) return;
+      if (newPaths == null) return;
       state.currentIndexCubit.setSaveState(
-        location: location.copyWith(path: newPath),
+        location: location.copyWith(path: newPaths.first),
       );
       state.save();
     }
