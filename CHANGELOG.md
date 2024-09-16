@@ -2,6 +2,40 @@
 
 <!--ENTER CHANGELOG HERE-->
 
+## 2.2.0-rc.0 (2024-09-16)
+
+* Refactor layer tool ([#728](https://github.com/LinwoodDev/Butterfly/issues/728))
+  * Renamed to collection tool
+  * Changed to action tool
+  * It now opens a menu with all collections and actions
+* Upgrade file version to 10 ([#728](https://github.com/LinwoodDev/Butterfly/issues/728))
+  * Refactor to new layer system
+  * Rename current layer implementation to collections
+* Change layer navigator page to new layer system ([#728](https://github.com/LinwoodDev/Butterfly/issues/728))
+* Improve action tool visualization in edit toolbar
+* Add eye dropper docs
+* Improve multi select in file view ([#713](https://github.com/LinwoodDev/Butterfly/issues/713))
+  * Add invert selection
+  * Add move
+* Add tolerance to area move in navigator page to fix duplicated areas
+* Add startup behavior settings to open last note or new note on startup
+* Update selection incorrect when transforming multiple elements
+* Refactor sensitivity settings to be more user friendly and more descriptive and remove unused settings
+* Move inputs from behaviors settings to own page
+* Make packs dialog responsive
+* Fix select all shortcut
+* Fix temporary tool is not the right size in the edit toolbar
+* Fix memory leaks
+* Fix regression bug introduced in 2.2 that caused weird behavior in webdav file system
+* Fix action tools gets selected when added
+* Fix data directory does not update when selecting one
+* Fix export pin icon in dialog
+* Fix export tool not recognized as action tool
+* Update pdfjs on web
+* Update to flutter 3.24.3
+
+Read more here: https://linwood.dev/butterfly/2.2.0-rc.0
+
 ## 2.2.0-beta.3 (2024-09-09)
 
 * Add full selection mode ([#684](https://github.com/LinwoodDev/Butterfly/issues/684))
