@@ -163,8 +163,8 @@ export default defineConfig({
                   link: "/docs/v2/tools/stamp/",
                 },
                 {
-                  ...getSidebarTranslatedLabel("Layer"),
-                  link: "/docs/v2/tools/layer/",
+                  ...getSidebarTranslatedLabel("Collection"),
+                  link: "/docs/v2/tools/collection/",
                 },
                 {
                   ...getSidebarTranslatedLabel("Presentation"),
