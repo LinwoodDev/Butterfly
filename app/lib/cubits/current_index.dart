@@ -63,7 +63,6 @@ class CurrentIndex with _$CurrentIndex {
     @Default(AssetLocation(path: '')) AssetLocation location,
     Embedding? embedding,
     @Default(SaveState.unsaved) SaveState saved,
-    @Default(false) bool currentlySaving,
     PreferredSizeWidget? toolbar,
     PreferredSizeWidget? temporaryToolbar,
     @Default(<String, RendererState>{})
@@ -875,15 +874,16 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
       ? null
       : state.settingsCubit.state.getRemote(state.location.remote);
 
+  bool _currentlySaving = false;
+
   Future<AssetLocation> save(DocumentState blocState,
       [AssetLocation? location]) async {
     if (state.networkingService.state?.$1 is NetworkerClient) {
       return AssetLocation.empty;
     }
-    if (state.currentlySaving) {
+    if (_currentlySaving) {
       return state.location;
     }
-    emit(state.copyWith(currentlySaving: true));
     final storage = getRemoteStorage();
     final fileSystem = blocState.fileSystem.buildDocumentSystem(storage);
     while (state.saved == SaveState.saving) {}
@@ -894,8 +894,10 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
         saved: SaveState.saving, location: location ?? state.location));
     location ??= state.location;
     final currentData = blocState.saveData();
-    if (currentData == null) return AssetLocation.empty;
-    if (blocState.embedding != null) return AssetLocation.empty;
+    if (currentData == null || blocState.embedding != null) {
+      _currentlySaving = false;
+      return AssetLocation.empty;
+    }
     if (!location.path.endsWith('.bfly') ||
         state.absolute ||
         location.fileType != AssetFileType.note) {
@@ -906,8 +908,8 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
       await fileSystem.updateFile(location.path, currentData);
     }
     state.settingsCubit.addRecentHistory(location);
-    emit(state.copyWith(
-        location: location, saved: SaveState.saved, currentlySaving: false));
+    _currentlySaving = false;
+    emit(state.copyWith(location: location, saved: SaveState.saved));
     return location;
   }
 

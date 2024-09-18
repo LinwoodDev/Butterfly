@@ -192,9 +192,11 @@ class _AppBarTitleState extends State<_AppBarTitle> {
                         final location = cubit.state.location;
                         final documentSystem = fileSystem.buildDocumentSystem(
                             settings.getRemote(location.remote));
-                        await documentSystem.deleteAsset(location.path);
-                        await fileSystem.settingsCubit
-                            .removeRecentHistory(location);
+                        if (!location.isEmpty) {
+                          await documentSystem.deleteAsset(location.path);
+                          await fileSystem.settingsCubit
+                              .removeRecentHistory(location);
+                        }
                         if (state is DocumentLoadSuccess) {
                           await state.save(location.copyWith(
                             path: documentSystem.convertNameToFile(
