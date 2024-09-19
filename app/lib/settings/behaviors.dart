@@ -23,7 +23,7 @@ class BehaviorsSettingsPage extends StatelessWidget {
     return Scaffold(
       backgroundColor: inView ? Colors.transparent : null,
       appBar: WindowTitleBar<SettingsCubit, ButterflySettings>(
-        title: Text(AppLocalizations.of(context).inputs),
+        title: Text(AppLocalizations.of(context).behaviors),
         backgroundColor: inView ? Colors.transparent : null,
         inView: inView,
       ),

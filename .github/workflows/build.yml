@@ -16,7 +16,7 @@ jobs:
     defaults:
       run:
         working-directory: app
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     steps:
       - name: ⬆️ Checkout
         uses: actions/checkout@v4
@@ -140,7 +140,7 @@ jobs:
           path: |
             app/linwood-butterfly-windows-setup-x86_64.exe
   build-linux:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     defaults:
       run:
         working-directory: app
@@ -247,7 +247,7 @@ jobs:
             app/linwood-butterfly-linux-x86_64.AppImage
   build-flatpak:
     name: build-flatpak
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     defaults:
       run:
         working-directory: app
@@ -436,7 +436,7 @@ jobs:
   #         name: butterfly-snap
   #         path: ${{ steps.build.outputs.snap }}
   deploy:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     if: github.event_name != 'pull_request'
     outputs:
       version: ${{ steps.setup.outputs.BUTTERFLY_VERSION }}
@@ -593,7 +593,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   deploy-to-play-store:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     if: ${{ startsWith(github.ref, 'refs/tags/') }}
     defaults:
       run:

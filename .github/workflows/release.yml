@@ -15,7 +15,7 @@ on:
 
 jobs:
   update-changelog:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
         with:
@@ -53,7 +53,7 @@ jobs:
           git merge main --strategy-option ours
           git push origin develop
   release:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     needs:
       - update-changelog
     outputs:
@@ -118,7 +118,7 @@ jobs:
           git merge develop --strategy-option ours
           git push origin main
   set-next-version:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     needs:
       - update-changelog
       - release
@@ -159,7 +159,7 @@ jobs:
           git merge main --strategy-option ours
           git push origin develop
   bump-version:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     needs:
       - update-changelog
       - release
@@ -211,7 +211,7 @@ jobs:
           git merge main --strategy-option ours
           git push origin develop
   notify:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     needs: [release]
     steps:
       - uses: actions/checkout@v4
