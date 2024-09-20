@@ -87,10 +87,9 @@ class _AddDialogState extends State<AddDialog> {
     return LayoutBuilder(
       builder: (context, constraints) => ResponsiveDialog(
         constraints: const BoxConstraints(
-          maxWidth: 950,
-          maxHeight: 800,
+          maxWidth: 1000,
         ),
-        child: Column(children: [
+        child: Column(mainAxisSize: MainAxisSize.min, children: [
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Row(
@@ -128,7 +127,7 @@ class _AddDialogState extends State<AddDialog> {
             ),
           ),
           const SizedBox(height: 8),
-          Expanded(
+          Flexible(
             child: Material(
               type: MaterialType.transparency,
               child: ValueListenableBuilder(
@@ -202,6 +201,7 @@ class _AddDialogState extends State<AddDialog> {
                               .contains(search.toLowerCase()))
                           .toList();
                       return ListView(
+                        shrinkWrap: true,
                         children: [
                           if (imports.isNotEmpty) ...[
                             _ToolsListView(
@@ -282,6 +282,7 @@ class _AddDialogState extends State<AddDialog> {
                               title: AppLocalizations.of(context).actions,
                               children: actions.map(buildTool).toList(),
                             ),
+                            const SizedBox(height: 16),
                           ],
                         ],
                       );
@@ -344,7 +345,7 @@ class _ToolsListViewState extends State<_ToolsListView> {
           Padding(
             padding: const EdgeInsets.all(4),
             child: Wrap(
-              alignment: WrapAlignment.start,
+              alignment: WrapAlignment.center,
               children: widget.children,
             ),
           )

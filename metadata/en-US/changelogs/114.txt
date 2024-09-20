@@ -1,5 +1,6 @@
 * Add icons to position personalization settings
 * Update baking image rendering
+* Improve size of add dialog
 * Fix wrong settings page of inputs and behaviors routes
 * Fix file system refreshing on cancelling moving a file
 * Fix file not saved in certain cases
