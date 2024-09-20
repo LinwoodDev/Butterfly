@@ -226,6 +226,8 @@ class PersonalizationSettingsPage extends StatelessWidget {
                                             AppLocalizations.of(context).left),
                                         selected: state.navigatorPosition ==
                                             NavigatorPosition.left,
+                                        leading: const PhosphorIcon(
+                                            PhosphorIconsLight.arrowLineLeft),
                                         onTap: () => Navigator.of(context)
                                             .pop(NavigatorPosition.left),
                                       ),
@@ -234,6 +236,8 @@ class PersonalizationSettingsPage extends StatelessWidget {
                                             AppLocalizations.of(context).right),
                                         selected: state.navigatorPosition ==
                                             NavigatorPosition.right,
+                                        leading: const PhosphorIcon(
+                                            PhosphorIconsLight.arrowLineRight),
                                         onTap: () => Navigator.of(context)
                                             .pop(NavigatorPosition.right),
                                       ),
@@ -411,6 +415,13 @@ class PersonalizationSettingsPage extends StatelessWidget {
             .map((e) => ListTile(
                 title: Text(e.getLocalizedName(context)),
                 selected: currentPos == e,
+                leading: Icon(switch (e) {
+                  ToolbarPosition.inline => PhosphorIconsLight.appWindow,
+                  ToolbarPosition.top => PhosphorIconsLight.arrowLineUp,
+                  ToolbarPosition.bottom => PhosphorIconsLight.arrowLineDown,
+                  ToolbarPosition.left => PhosphorIconsLight.arrowLineLeft,
+                  ToolbarPosition.right => PhosphorIconsLight.arrowLineRight,
+                }),
                 onTap: () {
                   cubit.changeToolbarPosition(e);
                   Navigator.of(context).pop();
