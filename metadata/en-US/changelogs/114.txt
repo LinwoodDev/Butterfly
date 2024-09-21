@@ -1,4 +1,5 @@
 * Add icons to position personalization settings
+* Change default sorting to modified descending
 * Update baking image rendering
 * Improve size of add dialog
 * Fix wrong settings page of inputs and behaviors routes
