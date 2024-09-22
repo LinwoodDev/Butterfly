@@ -226,26 +226,34 @@ class _EditToolbarState extends State<EditToolbar> {
                         ),
                       ),
                     );
-
-                    if (widget.direction == Axis.horizontal) {
-                      return Row(
-                        mainAxisSize: MainAxisSize.min,
-                        key: const Key('add-horizontal'),
-                        children: [
-                          const VerticalDivider(),
-                          Expanded(child: add),
-                        ],
-                      );
-                    } else {
-                      return Column(
-                        mainAxisSize: MainAxisSize.min,
-                        key: const Key('add-vertical'),
-                        children: [
-                          const Divider(),
-                          Expanded(child: add),
-                        ],
-                      );
-                    }
+                    return GestureDetector(
+                      onLongPress: () {},
+                      onLongPressStart: (_) {},
+                      onLongPressMoveUpdate: (_) {},
+                      onLongPressEnd: (_) {},
+                      onLongPressUp: () {},
+                      onLongPressDown: (_) {},
+                      onLongPressCancel: () {},
+                      onScaleStart: (_) {},
+                      onScaleUpdate: (_) {},
+                      onScaleEnd: (_) {},
+                      key: const Key('add'),
+                      child: widget.direction == Axis.horizontal
+                          ? Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                const VerticalDivider(),
+                                Expanded(child: add),
+                              ],
+                            )
+                          : Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                const Divider(),
+                                Expanded(child: add),
+                              ],
+                            ),
+                    );
                   }
                   var e = tools[i];
                   final selected = i == currentIndex.index;
