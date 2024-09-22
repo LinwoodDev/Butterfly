@@ -1,6 +1,7 @@
 * Add icons to position personalization settings
-* Change default sorting to modified descending
 * Update baking image rendering
+* Change default sorting to modified descending
+* Change floating action button in toolbar to be small to improve rounded corners
 * Improve size of add dialog
 * Fix wrong settings page of inputs and behaviors routes
 * Fix file system refreshing on cancelling moving a file
