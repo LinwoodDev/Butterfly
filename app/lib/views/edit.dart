@@ -70,16 +70,15 @@ class _EditToolbarState extends State<EditToolbar> {
           buildWhen: (previous, current) =>
               previous.inputConfiguration != current.inputConfiguration ||
               previous.toolbarSize != current.toolbarSize ||
-              previous.toolbarRows != current.toolbarRows,
+              previous.toolbarRows != current.toolbarRows ||
+              previous.toolbarPosition != current.toolbarPosition,
           builder: (context, settings) {
             final shortcuts = settings.inputConfiguration.getShortcuts();
             final size = settings.toolbarSize.size;
             final fullSize = (size + 4) * settings.toolbarRows;
             return SizedBox(
                 height: widget.direction == Axis.horizontal ? fullSize : null,
-                width: widget.direction == Axis.horizontal
-                    ? null
-                    : (fullSize + 20),
+                width: widget.direction == Axis.horizontal ? null : fullSize,
                 child: BlocBuilder<DocumentBloc, DocumentState>(
                     buildWhen: (previous, current) =>
                         previous is! DocumentLoadSuccess ||
@@ -294,10 +293,19 @@ class _EditToolbarState extends State<EditToolbar> {
                           selected: selected,
                           alwaysShowBottom: e.isAction(),
                           highlighted: highlighted,
-                          bottomIcon: e.isAction()
-                              ? const PhosphorIcon(
-                                  PhosphorIconsLight.playCircle)
-                              : null,
+                          bottomIcon: PhosphorIcon(e.isAction()
+                              ? PhosphorIconsLight.playCircle
+                              : switch (settings.toolbarPosition) {
+                                  ToolbarPosition.bottom =>
+                                    PhosphorIconsLight.caretUp,
+                                  ToolbarPosition.top ||
+                                  ToolbarPosition.inline =>
+                                    PhosphorIconsLight.caretDown,
+                                  ToolbarPosition.left =>
+                                    PhosphorIconsLight.caretRight,
+                                  ToolbarPosition.right =>
+                                    PhosphorIconsLight.caretLeft,
+                                }),
                           selectedIcon: _buildIcon(icon, size, color),
                           icon: _buildIcon(icon, size, color),
                           onPressed: () {
@@ -349,102 +357,102 @@ class _EditToolbarState extends State<EditToolbar> {
               },
             ),
             BlocBuilder<WindowCubit, WindowState>(
-                builder: (context, windowState) => Row(
-                      children: [
-                        IconButton(
-                          icon: const PhosphorIcon(PhosphorIconsLight.wrench),
-                          tooltip: AppLocalizations.of(context).tools,
-                          selectedIcon:
-                              const PhosphorIcon(PhosphorIconsFill.wrench),
-                          isSelected: currentIndex.selection?.selected.any(
-                                  (element) => element is UtilitiesState) ??
-                              false,
-                          onPressed: () {
-                            final cubit = context.read<CurrentIndexCubit>();
-                            final state =
-                                cubit.state.cameraViewport.utilities.element;
-                            cubit.changeSelection(state);
-                          },
-                        ),
-                        if (windowState.fullScreen &&
-                            tools.every((e) => e is! FullScreenTool))
-                          IconButton(
-                            icon:
-                                const PhosphorIcon(PhosphorIconsLight.arrowsIn),
-                            tooltip:
-                                AppLocalizations.of(context).exitFullScreen,
-                            onPressed: () {
-                              context
-                                  .read<WindowCubit>()
-                                  .changeFullScreen(false);
-                            },
-                          ),
-                        BlocBuilder<CurrentIndexCubit, CurrentIndex>(
-                          builder: (context, currentIndex) {
-                            final utilitiesState = currentIndex.utilitiesState;
-                            Widget buildButton(
-                                    bool selected,
-                                    UtilitiesState Function() update,
-                                    PhosphorIconData icon,
-                                    String title) =>
-                                CheckboxMenuButton(
-                                  value: selected,
-                                  trailingIcon: PhosphorIcon(icon),
-                                  onChanged: (value) => context
-                                      .read<CurrentIndexCubit>()
-                                      .updateUtilities(utilities: update()),
-                                  child: Text(title),
-                                );
+                builder: (context, windowState) {
+              final children = [
+                IconButton(
+                  icon: const PhosphorIcon(PhosphorIconsLight.wrench),
+                  tooltip: AppLocalizations.of(context).tools,
+                  selectedIcon: const PhosphorIcon(PhosphorIconsFill.wrench),
+                  isSelected: currentIndex.selection?.selected
+                          .any((element) => element is UtilitiesState) ??
+                      false,
+                  onPressed: () {
+                    final cubit = context.read<CurrentIndexCubit>();
+                    final state = cubit.state.cameraViewport.utilities.element;
+                    cubit.changeSelection(state);
+                  },
+                ),
+                if (windowState.fullScreen &&
+                    tools.every((e) => e is! FullScreenTool))
+                  IconButton(
+                    icon: const PhosphorIcon(PhosphorIconsLight.arrowsIn),
+                    tooltip: AppLocalizations.of(context).exitFullScreen,
+                    onPressed: () {
+                      context.read<WindowCubit>().changeFullScreen(false);
+                    },
+                  ),
+                BlocBuilder<CurrentIndexCubit, CurrentIndex>(
+                  builder: (context, currentIndex) {
+                    final utilitiesState = currentIndex.utilitiesState;
+                    Widget buildButton(
+                            bool selected,
+                            UtilitiesState Function() update,
+                            PhosphorIconData icon,
+                            String title) =>
+                        CheckboxMenuButton(
+                          value: selected,
+                          trailingIcon: PhosphorIcon(icon),
+                          onChanged: (value) => context
+                              .read<CurrentIndexCubit>()
+                              .updateUtilities(utilities: update()),
+                          child: Text(title),
+                        );
 
-                            return MenuAnchor(
-                              menuChildren: [
-                                buildButton(
-                                  utilitiesState.lockLayer,
-                                  () => utilitiesState.copyWith(
-                                    lockLayer: !utilitiesState.lockLayer,
-                                  ),
-                                  PhosphorIconsLight.stack,
-                                  AppLocalizations.of(context).layer,
-                                ),
-                                buildButton(
-                                  utilitiesState.lockZoom,
-                                  () => utilitiesState.copyWith(
-                                    lockZoom: !utilitiesState.lockZoom,
-                                  ),
-                                  PhosphorIconsLight.magnifyingGlassPlus,
-                                  AppLocalizations.of(context).zoom,
-                                ),
-                                buildButton(
-                                  utilitiesState.lockHorizontal,
-                                  () => utilitiesState.copyWith(
-                                    lockHorizontal:
-                                        !utilitiesState.lockHorizontal,
-                                  ),
-                                  PhosphorIconsLight.arrowsHorizontal,
-                                  AppLocalizations.of(context).horizontal,
-                                ),
-                                buildButton(
-                                  utilitiesState.lockVertical,
-                                  () => utilitiesState.copyWith(
-                                    lockVertical: !utilitiesState.lockVertical,
-                                  ),
-                                  PhosphorIconsLight.arrowsVertical,
-                                  AppLocalizations.of(context).vertical,
-                                ),
-                              ],
-                              style: const MenuStyle(
-                                alignment: Alignment.bottomLeft,
-                              ),
-                              builder: defaultMenuButton(
-                                icon: const PhosphorIcon(
-                                    PhosphorIconsLight.lockKey),
-                                tooltip: AppLocalizations.of(context).lock,
-                              ),
-                            );
-                          },
+                    return MenuAnchor(
+                      menuChildren: [
+                        buildButton(
+                          utilitiesState.lockLayer,
+                          () => utilitiesState.copyWith(
+                            lockLayer: !utilitiesState.lockLayer,
+                          ),
+                          PhosphorIconsLight.stack,
+                          AppLocalizations.of(context).layer,
+                        ),
+                        buildButton(
+                          utilitiesState.lockZoom,
+                          () => utilitiesState.copyWith(
+                            lockZoom: !utilitiesState.lockZoom,
+                          ),
+                          PhosphorIconsLight.magnifyingGlassPlus,
+                          AppLocalizations.of(context).zoom,
+                        ),
+                        buildButton(
+                          utilitiesState.lockHorizontal,
+                          () => utilitiesState.copyWith(
+                            lockHorizontal: !utilitiesState.lockHorizontal,
+                          ),
+                          PhosphorIconsLight.arrowsHorizontal,
+                          AppLocalizations.of(context).horizontal,
+                        ),
+                        buildButton(
+                          utilitiesState.lockVertical,
+                          () => utilitiesState.copyWith(
+                            lockVertical: !utilitiesState.lockVertical,
+                          ),
+                          PhosphorIconsLight.arrowsVertical,
+                          AppLocalizations.of(context).vertical,
                         ),
                       ],
-                    )),
+                      style: const MenuStyle(
+                        alignment: Alignment.bottomLeft,
+                      ),
+                      builder: defaultMenuButton(
+                        icon: const PhosphorIcon(PhosphorIconsLight.lockKey),
+                        tooltip: AppLocalizations.of(context).lock,
+                      ),
+                    );
+                  },
+                ),
+              ];
+              if (widget.direction == Axis.horizontal) {
+                return Row(
+                  children: children,
+                );
+              }
+              return Column(
+                children: children,
+              );
+            }),
           ],
         ]);
   }
