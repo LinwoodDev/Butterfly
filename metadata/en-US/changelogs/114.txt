@@ -4,6 +4,7 @@
 * Change floating action button in toolbar to be small to improve rounded corners
 * Change bottom icon in toolbar items to toolbar position
 * Improve size of add dialog
+* Improve lock and tools buttons in vertical toolbar
 * Fix size of vertical toolbar position
 * Fix wrong settings page of inputs and behaviors routes
 * Fix file system refreshing on cancelling moving a file

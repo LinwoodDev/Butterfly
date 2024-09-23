@@ -62,6 +62,8 @@ class _EditToolbarState extends State<EditToolbar> {
     return false;
   }
 
+  Axis get direction => widget.isMobile ? Axis.horizontal : widget.direction;
+
   @override
   Widget build(BuildContext context) {
     return Scrollbar(
@@ -77,8 +79,8 @@ class _EditToolbarState extends State<EditToolbar> {
             final size = settings.toolbarSize.size;
             final fullSize = (size + 4) * settings.toolbarRows;
             return SizedBox(
-                height: widget.direction == Axis.horizontal ? fullSize : null,
-                width: widget.direction == Axis.horizontal ? null : fullSize,
+                height: direction == Axis.horizontal ? fullSize : null,
+                width: direction == Axis.horizontal ? null : fullSize,
                 child: BlocBuilder<DocumentBloc, DocumentState>(
                     buildWhen: (previous, current) =>
                         previous is! DocumentLoadSuccess ||
@@ -129,6 +131,7 @@ class _EditToolbarState extends State<EditToolbar> {
     Set<int> shortcuts,
     double size,
   ) {
+    final isMobile = widget.isMobile;
     final temp = currentIndex.temporaryHandler;
     final tempData = temp?.data;
     PhosphorIconData icon = PhosphorIconsLight.cube;
@@ -144,7 +147,7 @@ class _EditToolbarState extends State<EditToolbar> {
     tooltip ??= '';
     return ListView(
         controller: _scrollController,
-        scrollDirection: widget.direction,
+        scrollDirection: direction,
         shrinkWrap: true,
         children: [
           if (state.embedding?.editable ?? true) ...[
@@ -185,7 +188,7 @@ class _EditToolbarState extends State<EditToolbar> {
             ],
             ReorderableGridView.count(
               shrinkWrap: true,
-              scrollDirection: widget.direction,
+              scrollDirection: direction,
               physics: const NeverScrollableScrollPhysics(),
               crossAxisCount: settings.toolbarRows,
               childAspectRatio: 1,
@@ -237,7 +240,7 @@ class _EditToolbarState extends State<EditToolbar> {
                       onScaleUpdate: (_) {},
                       onScaleEnd: (_) {},
                       key: const Key('add'),
-                      child: widget.direction == Axis.horizontal
+                      child: direction == Axis.horizontal
                           ? Row(
                               mainAxisSize: MainAxisSize.min,
                               children: [
@@ -295,17 +298,19 @@ class _EditToolbarState extends State<EditToolbar> {
                           highlighted: highlighted,
                           bottomIcon: PhosphorIcon(e.isAction()
                               ? PhosphorIconsLight.playCircle
-                              : switch (settings.toolbarPosition) {
-                                  ToolbarPosition.bottom =>
-                                    PhosphorIconsLight.caretUp,
-                                  ToolbarPosition.top ||
-                                  ToolbarPosition.inline =>
-                                    PhosphorIconsLight.caretDown,
-                                  ToolbarPosition.left =>
-                                    PhosphorIconsLight.caretRight,
-                                  ToolbarPosition.right =>
-                                    PhosphorIconsLight.caretLeft,
-                                }),
+                              : isMobile
+                                  ? PhosphorIconsLight.caretUp
+                                  : switch (settings.toolbarPosition) {
+                                      ToolbarPosition.top ||
+                                      ToolbarPosition.inline =>
+                                        PhosphorIconsLight.caretDown,
+                                      ToolbarPosition.bottom =>
+                                        PhosphorIconsLight.caretUp,
+                                      ToolbarPosition.left =>
+                                        PhosphorIconsLight.caretRight,
+                                      ToolbarPosition.right =>
+                                        PhosphorIconsLight.caretLeft,
+                                    }),
                           selectedIcon: _buildIcon(icon, size, color),
                           icon: _buildIcon(icon, size, color),
                           onPressed: () {
@@ -444,7 +449,7 @@ class _EditToolbarState extends State<EditToolbar> {
                   },
                 ),
               ];
-              if (widget.direction == Axis.horizontal) {
+              if (direction == Axis.horizontal) {
                 return Row(
                   children: children,
                 );
