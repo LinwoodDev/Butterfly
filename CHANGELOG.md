@@ -2,6 +2,23 @@
 
 <!--ENTER CHANGELOG HERE-->
 
+## 2.2.0-rc.1 (2024-09-23)
+
+* Add icons to position personalization settings
+* Update baking image rendering
+* Change default sorting to modified descending
+* Change floating action button in toolbar to be small to improve rounded corners
+* Change bottom icon in toolbar items to toolbar position
+* Improve size of add dialog
+* Improve lock and tools buttons in vertical toolbar
+* Fix size of vertical toolbar position
+* Fix wrong settings page of inputs and behaviors routes
+* Fix file system refreshing on cancelling moving a file
+* Fix file not saved in certain cases
+* Fix add button can be moved in the toolbar
+
+Read more here: https://linwood.dev/butterfly/2.2.0-rc.1
+
 ## 2.2.0-rc.0 (2024-09-16)
 
 * Refactor layer tool ([#728](https://github.com/LinwoodDev/Butterfly/issues/728))
