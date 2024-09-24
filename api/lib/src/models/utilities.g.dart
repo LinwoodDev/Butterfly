@@ -8,7 +8,7 @@ part of 'utilities.dart';
 
 _$UtilitiesStateImpl _$$UtilitiesStateImplFromJson(Map json) =>
     _$UtilitiesStateImpl(
-      lockLayer: json['lockLayer'] as bool? ?? false,
+      lockCollection: json['lockCollection'] as bool? ?? false,
       lockZoom: json['lockZoom'] as bool? ?? false,
       lockHorizontal: json['lockHorizontal'] as bool? ?? false,
       lockVertical: json['lockVertical'] as bool? ?? false,
@@ -25,7 +25,7 @@ _$UtilitiesStateImpl _$$UtilitiesStateImplFromJson(Map json) =>
 Map<String, dynamic> _$$UtilitiesStateImplToJson(
         _$UtilitiesStateImpl instance) =>
     <String, dynamic>{
-      'lockLayer': instance.lockLayer,
+      'lockCollection': instance.lockCollection,
       'lockZoom': instance.lockZoom,
       'lockHorizontal': instance.lockHorizontal,
       'lockVertical': instance.lockVertical,

@@ -20,7 +20,7 @@ UtilitiesState _$UtilitiesStateFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$UtilitiesState {
-  bool get lockLayer => throw _privateConstructorUsedError;
+  bool get lockCollection => throw _privateConstructorUsedError;
   bool get lockZoom => throw _privateConstructorUsedError;
   bool get lockHorizontal => throw _privateConstructorUsedError;
   bool get lockVertical => throw _privateConstructorUsedError;
@@ -48,7 +48,7 @@ abstract class $UtilitiesStateCopyWith<$Res> {
       _$UtilitiesStateCopyWithImpl<$Res, UtilitiesState>;
   @useResult
   $Res call(
-      {bool lockLayer,
+      {bool lockCollection,
       bool lockZoom,
       bool lockHorizontal,
       bool lockVertical,
@@ -74,7 +74,7 @@ class _$UtilitiesStateCopyWithImpl<$Res, $Val extends UtilitiesState>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? lockLayer = null,
+    Object? lockCollection = null,
     Object? lockZoom = null,
     Object? lockHorizontal = null,
     Object? lockVertical = null,
@@ -85,9 +85,9 @@ class _$UtilitiesStateCopyWithImpl<$Res, $Val extends UtilitiesState>
     Object? rulerAngle = null,
   }) {
     return _then(_value.copyWith(
-      lockLayer: null == lockLayer
-          ? _value.lockLayer
-          : lockLayer // ignore: cast_nullable_to_non_nullable
+      lockCollection: null == lockCollection
+          ? _value.lockCollection
+          : lockCollection // ignore: cast_nullable_to_non_nullable
               as bool,
       lockZoom: null == lockZoom
           ? _value.lockZoom
@@ -134,7 +134,7 @@ abstract class _$$UtilitiesStateImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {bool lockLayer,
+      {bool lockCollection,
       bool lockZoom,
       bool lockHorizontal,
       bool lockVertical,
@@ -158,7 +158,7 @@ class __$$UtilitiesStateImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? lockLayer = null,
+    Object? lockCollection = null,
     Object? lockZoom = null,
     Object? lockHorizontal = null,
     Object? lockVertical = null,
@@ -169,9 +169,9 @@ class __$$UtilitiesStateImplCopyWithImpl<$Res>
     Object? rulerAngle = null,
   }) {
     return _then(_$UtilitiesStateImpl(
-      lockLayer: null == lockLayer
-          ? _value.lockLayer
-          : lockLayer // ignore: cast_nullable_to_non_nullable
+      lockCollection: null == lockCollection
+          ? _value.lockCollection
+          : lockCollection // ignore: cast_nullable_to_non_nullable
               as bool,
       lockZoom: null == lockZoom
           ? _value.lockZoom
@@ -213,7 +213,7 @@ class __$$UtilitiesStateImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$UtilitiesStateImpl implements _UtilitiesState {
   const _$UtilitiesStateImpl(
-      {this.lockLayer = false,
+      {this.lockCollection = false,
       this.lockZoom = false,
       this.lockHorizontal = false,
       this.lockVertical = false,
@@ -228,7 +228,7 @@ class _$UtilitiesStateImpl implements _UtilitiesState {
 
   @override
   @JsonKey()
-  final bool lockLayer;
+  final bool lockCollection;
   @override
   @JsonKey()
   final bool lockZoom;
@@ -257,7 +257,7 @@ class _$UtilitiesStateImpl implements _UtilitiesState {
 
   @override
   String toString() {
-    return 'UtilitiesState(lockLayer: $lockLayer, lockZoom: $lockZoom, lockHorizontal: $lockHorizontal, lockVertical: $lockVertical, rulerEnabled: $rulerEnabled, gridEnabled: $gridEnabled, fullSelection: $fullSelection, rulerPosition: $rulerPosition, rulerAngle: $rulerAngle)';
+    return 'UtilitiesState(lockCollection: $lockCollection, lockZoom: $lockZoom, lockHorizontal: $lockHorizontal, lockVertical: $lockVertical, rulerEnabled: $rulerEnabled, gridEnabled: $gridEnabled, fullSelection: $fullSelection, rulerPosition: $rulerPosition, rulerAngle: $rulerAngle)';
   }
 
   @override
@@ -265,8 +265,8 @@ class _$UtilitiesStateImpl implements _UtilitiesState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$UtilitiesStateImpl &&
-            (identical(other.lockLayer, lockLayer) ||
-                other.lockLayer == lockLayer) &&
+            (identical(other.lockCollection, lockCollection) ||
+                other.lockCollection == lockCollection) &&
             (identical(other.lockZoom, lockZoom) ||
                 other.lockZoom == lockZoom) &&
             (identical(other.lockHorizontal, lockHorizontal) ||
@@ -289,7 +289,7 @@ class _$UtilitiesStateImpl implements _UtilitiesState {
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      lockLayer,
+      lockCollection,
       lockZoom,
       lockHorizontal,
       lockVertical,
@@ -318,7 +318,7 @@ class _$UtilitiesStateImpl implements _UtilitiesState {
 
 abstract class _UtilitiesState implements UtilitiesState {
   const factory _UtilitiesState(
-      {final bool lockLayer,
+      {final bool lockCollection,
       final bool lockZoom,
       final bool lockHorizontal,
       final bool lockVertical,
@@ -332,7 +332,7 @@ abstract class _UtilitiesState implements UtilitiesState {
       _$UtilitiesStateImpl.fromJson;
 
   @override
-  bool get lockLayer;
+  bool get lockCollection;
   @override
   bool get lockZoom;
   @override

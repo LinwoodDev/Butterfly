@@ -36,7 +36,9 @@ class EraserHandler extends Handler<EraserTool> {
 
 //method that handles the erasing logic. It determines whether an element should be erased based on its distance from the cursor and the stroke width of the eraser.
   Future<void> _changeElement(Offset position, EventContext context) async {
-    final transform = context.getCameraTransform();
+    final currentIndex = context.getCurrentIndex();
+    final transform = currentIndex.transformCubit.state;
+    final utilities = currentIndex.utilitiesState;
     final globalPos = transform.localToGlobal(position);
     final size = data.strokeWidth;
     final shouldErase =
@@ -49,7 +51,7 @@ class EraserHandler extends Handler<EraserTool> {
     final ray = await context.getDocumentBloc().rayCast(
           globalPos,
           size,
-          useCollection: true,
+          useCollection: utilities.lockCollection,
         );
     var elements = ray.map((e) => e.element);
     if (!data.eraseElements) {

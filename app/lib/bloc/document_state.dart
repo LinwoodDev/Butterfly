@@ -31,6 +31,8 @@ abstract class DocumentState extends Equatable {
   Area? get currentArea => null;
   String? get currentCollection => null;
 
+  String? get currentLayer => null;
+
   NoteData? saveData([NoteData? current]) => data;
   List<int>? saveBytes([NoteData? current]) => saveData()?.save();
 }
@@ -129,6 +131,7 @@ class DocumentLoadSuccess extends DocumentLoaded {
   @override
   final String currentCollection;
   final String currentAreaName;
+  @override
   final String currentLayer;
   @override
   final Set<String> invisibleLayers;

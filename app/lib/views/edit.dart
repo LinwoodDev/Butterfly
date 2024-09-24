@@ -406,11 +406,11 @@ class _EditToolbarState extends State<EditToolbar> {
                     return MenuAnchor(
                       menuChildren: [
                         buildButton(
-                          utilitiesState.lockLayer,
+                          utilitiesState.lockCollection,
                           () => utilitiesState.copyWith(
-                            lockLayer: !utilitiesState.lockLayer,
+                            lockCollection: !utilitiesState.lockCollection,
                           ),
-                          PhosphorIconsLight.stack,
+                          PhosphorIconsLight.folder,
                           AppLocalizations.of(context).layer,
                         ),
                         buildButton(

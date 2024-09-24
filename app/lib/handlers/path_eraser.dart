@@ -41,7 +41,9 @@ class PathEraserHandler extends Handler<PathEraserTool> {
   Future<void> onPointerMove(
       PointerMoveEvent event, EventContext context) async {
     _currentPos = event.localPosition;
-    final transform = context.getCameraTransform();
+    final currentIndex = context.getCurrentIndex();
+    final transform = currentIndex.transformCubit.state;
+    final utilities = currentIndex.utilitiesState;
     final state = context.getState();
     final globalPos = transform.localToGlobal(event.localPosition);
     final size = data.strokeWidth;
@@ -55,7 +57,7 @@ class PathEraserHandler extends Handler<PathEraserTool> {
         await context.getDocumentBloc().rayCast(
               globalPos,
               size,
-              useCollection: true,
+              useCollection: utilities.lockCollection,
             );
     final page = state?.page;
     if (page == null) return;

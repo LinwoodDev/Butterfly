@@ -1,0 +1,2 @@
+* Fix lock collection mode not working
+* Fix elements being modifyable in different layers

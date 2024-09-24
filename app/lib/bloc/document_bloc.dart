@@ -181,7 +181,9 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
               })
           .map((e) => e.copyWith(id: e.id ?? createUniqueId()))
           .toList();
-      final renderers = elements.map((e) => Renderer.fromInstance(e)).toList();
+      final renderers = elements
+          .map((e) => Renderer.fromInstance(e, current.currentLayer))
+          .toList();
       if (renderers.isEmpty) return;
       _saveState(
         emit,
@@ -214,7 +216,8 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
           renderer.dispose();
           final updatedRenderers = <Renderer<PadElement>>[];
           for (var element in updated) {
-            final newRenderer = Renderer.fromInstance(element);
+            final newRenderer =
+                Renderer.fromInstance(element, current.currentLayer);
             renderers.add(newRenderer);
             updatedRenderers.add(newRenderer);
             var newSelection = selection?.remove(renderer);

@@ -179,6 +179,7 @@ class SelectHandler extends Handler<SelectTool> {
     if (_selectionManager.isTransforming) {
       return;
     }
+    final utilities = context.getCurrentIndex().utilitiesState;
     final transform = context.getCameraTransform();
     final globalPos = transform.localToGlobal(localPosition);
     final selectionRect = getSelectionRect();
@@ -193,7 +194,7 @@ class SelectHandler extends Handler<SelectTool> {
     final hits = await context.getDocumentBloc().rayCast(
           globalPos,
           radius,
-          useCollection: true,
+          useCollection: utilities.lockCollection,
         );
     if (hits.isEmpty) {
       if (!context.isCtrlPressed) {
@@ -378,6 +379,7 @@ class SelectHandler extends Handler<SelectTool> {
 
   @override
   void onScaleEnd(ScaleEndDetails details, EventContext context) async {
+    final utilities = context.getCurrentIndex().utilitiesState;
     final rectangleSelection = _rectangleFreeSelection?.normalized();
     final lassoSelection = _lassoFreeSelection;
     if (_rulerRotation != null) {
@@ -399,13 +401,13 @@ class SelectHandler extends Handler<SelectTool> {
     if (rectangleSelection != null && !rectangleSelection.isEmpty) {
       final hits = await context.getDocumentBloc().rayCastRect(
             rectangleSelection,
-            useCollection: true,
+            useCollection: utilities.lockCollection,
           );
       _selected.addAll(hits);
     } else if (lassoSelection != null && lassoSelection.isNotEmpty) {
       final hits = await context.getDocumentBloc().rayCastPolygon(
             lassoSelection,
-            useCollection: true,
+            useCollection: utilities.lockCollection,
           );
       _selected.addAll(hits);
     } else {
