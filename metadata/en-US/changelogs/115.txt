@@ -1,3 +1,4 @@
+* Rebuild baking system to support multiple layers
 * Add convert to layer
 * Fix layer ordering being reversed
 * Fix current layer not being changed

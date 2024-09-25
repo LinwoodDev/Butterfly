@@ -1019,8 +1019,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
   Future<void> refresh() async {
     final current = state;
     if (current is! DocumentLoadSuccess) return;
-    return current.currentIndexCubit.refresh(
-        current.data, current.assetService, current.page, current.info);
+    return current.currentIndexCubit.refresh(current);
   }
 
   Future<void> bake(

@@ -168,8 +168,7 @@ class _SearchDialogState extends State<SearchDialog> {
                                       state.transformCubit
                                           .teleport(position.toOffset());
                                     }
-                                    cubit.bake(
-                                        state.data, state.page, state.info);
+                                    cubit.bake(state);
                                     if (result is ToolResult) {
                                       cubit.resetSelection();
                                       cubit.changeTool(

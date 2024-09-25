@@ -93,8 +93,7 @@ class _ZoomViewState extends State<ZoomView> with TickerProviderStateMixin {
                           );
                           currentIndex.transformCubit.size(value, center);
                           if (bake) {
-                            currentIndexCubit.bake(
-                                state.data, state.page, state.info);
+                            currentIndexCubit.bake(state);
                           }
                           if ((!_focusNode.hasFocus && widget.isMobile) ||
                               hideZoom) {

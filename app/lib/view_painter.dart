@@ -136,19 +136,31 @@ class ViewPainter extends CustomPainter {
         e.build(canvas, size, document, page, info, transform, colorScheme);
       }
     }
+    final belowLayerImage = cameraViewport.belowLayerImage;
+    final bakedSizeDiff =
+        (transform.size - cameraViewport.scale) / cameraViewport.scale;
+    final bakedSize = cameraViewport.toSize();
+    final pos = transform.globalToLocal(cameraViewport.toOffset());
+    final bakedDst = pos & bakedSize * (1 + bakedSizeDiff);
+    if (renderBaked && belowLayerImage != null) {
+      canvas.drawImageRect(
+        belowLayerImage,
+        Offset.zero &
+            Size(belowLayerImage.width.toDouble(),
+                belowLayerImage.height.toDouble()),
+        bakedDst,
+        Paint(),
+      );
+    }
     if (cameraViewport.bakedElements.isNotEmpty && renderBaked) {
       final image = cameraViewport.image;
-      final size = cameraViewport.toSize();
-      final bakedSizeDiff =
-          (transform.size - cameraViewport.scale) / cameraViewport.scale;
-      final pos = transform.globalToLocal(cameraViewport.toOffset());
 
       // Draw our baked image, scaling it down with drawImageRect.
       if (image != null) {
         canvas.drawImageRect(
           image,
           Offset.zero & Size(image.width.toDouble(), image.height.toDouble()),
-          pos & size * (1 + bakedSizeDiff),
+          bakedDst,
           Paint(),
         );
       }
@@ -178,6 +190,17 @@ class ViewPainter extends CustomPainter {
           canvas.translate(-center.dx, -center.dy);
         }
       }
+    }
+    final aboveLayerImage = cameraViewport.aboveLayerImage;
+    if (renderBaked && aboveLayerImage != null) {
+      canvas.drawImageRect(
+        aboveLayerImage,
+        Offset.zero &
+            Size(aboveLayerImage.width.toDouble(),
+                aboveLayerImage.height.toDouble()),
+        bakedDst,
+        Paint(),
+      );
     }
   }
 

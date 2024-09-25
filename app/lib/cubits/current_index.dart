@@ -26,7 +26,6 @@ import '../embed/embedding.dart';
 import '../handlers/handler.dart';
 import '../models/viewport.dart';
 import '../selections/selection.dart';
-import '../services/asset.dart';
 import '../theme.dart';
 import '../view_painter.dart';
 
@@ -296,9 +295,12 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     }
   }
 
-  Future<void> refresh(NoteData document, AssetService assetService,
-      DocumentPage page, DocumentInfo info,
-      [Area? currentArea]) async {
+  Future<void> refresh(DocumentLoaded blocState) async {
+    final document = blocState.data;
+    final page = blocState.page;
+    final info = blocState.info;
+    final assetService = blocState.assetService;
+    final currentArea = blocState.currentArea;
     const mapEq = MapEquality();
     if (!isClosed) {
       _disposeForegrounds();
@@ -332,7 +334,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
             : state.temporaryRendererStates,
       ));
       if (shouldBake) {
-        return bake(document, page, info, reset: true);
+        return bake(blocState, reset: true);
       }
     }
   }
@@ -479,8 +481,11 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
   Renderer? getRenderer(PadElement element) =>
       renderers.firstWhereOrNull((renderer) => renderer.element == element);
 
-  Future<void> bake(NoteData document, DocumentPage page, DocumentInfo info,
-      {Size? viewportSize, double? pixelRatio, bool reset = false}) async {
+  Future<void> bake(DocumentLoaded blocState,
+      {Size? viewportSize,
+      double? pixelRatio,
+      bool reset = false,
+      bool resetAllLayers = false}) async {
     final cameraViewport = state.cameraViewport;
     var size = viewportSize ?? cameraViewport.toSize();
     final ratio = pixelRatio ?? cameraViewport.pixelRatio;
@@ -512,13 +517,18 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
       size = Size(bottomRight.dx - topLeft.dx, bottomRight.dy - topLeft.dy) *
           transform.size;
     }
-    reset = reset ||
-        cameraViewport.width != size.width.ceil() ||
+    final document = blocState.data;
+    final page = blocState.page;
+    final info = blocState.info;
+    final viewChanged = cameraViewport.width != size.width.ceil() ||
         cameraViewport.height != size.height.ceil() ||
         cameraViewport.x != transform.position.dx ||
         cameraViewport.y != transform.position.dy ||
         cameraViewport.scale != transform.size;
+    reset = reset || viewChanged;
+    resetAllLayers = resetAllLayers || viewChanged;
     if (renderers.isEmpty && !reset) return;
+    final currentLayer = blocState.currentLayer;
     List<Renderer<PadElement>> visibleElements;
     if (reset) {
       renderers = List<Renderer<PadElement>>.from(this.renderers);
@@ -542,17 +552,22 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
       states: state.allRendererStates,
       cameraViewport: reset
           ? cameraViewport.unbake(
-              unbakedElements: visibleElements,
-              visibleElements: visibleElements)
-          : cameraViewport,
+              unbakedElements: visibleElements
+                  .where((e) => currentLayer == e.layer)
+                  .toList(),
+              visibleElements: visibleElements,
+            )
+          : cameraViewport.withoutLayers(),
       renderBackground: false,
       renderBaked: !reset,
     ).paint(canvas, size);
 
     var picture = recorder.endRecording();
 
-    var newImage = await picture.toImage(
-        (size.width * ratio).ceil(), (size.height * ratio).ceil());
+    final imageWidth = (size.width * ratio).ceil();
+    final imageHeight = (size.height * ratio).ceil();
+
+    var newImage = await picture.toImage(imageWidth, imageHeight);
 
     var currentRenderers = state.cameraViewport.unbakedElements;
     if (reset) {
@@ -564,6 +579,64 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
         .whereNot((element) => renderers.contains(element))
         .toList();
     visibleElements.addAll(currentRenderers);
+
+    var belowLayerImage = cameraViewport.belowLayerImage;
+    var aboveLayerImage = cameraViewport.aboveLayerImage;
+
+    if (resetAllLayers) {
+      final belowLayerRecorder = ui.PictureRecorder();
+      final belowLayerCanvas = ui.Canvas(belowLayerRecorder);
+      final aboveLayerRecorder = ui.PictureRecorder();
+      final aboveLayerCanvas = ui.Canvas(aboveLayerRecorder);
+      final belowLayers = [], aboveLayers = [];
+      bool above = false;
+      for (final layer in page.layers) {
+        if (layer.id == currentLayer) {
+          above = true;
+          continue;
+        }
+        if (above) {
+          aboveLayers.add(layer.id);
+        } else {
+          belowLayers.add(layer.id);
+        }
+      }
+
+      ViewPainter(
+        document,
+        page,
+        info,
+        transform: transform,
+        states: state.allRendererStates,
+        cameraViewport: cameraViewport.unbake(
+            unbakedElements: visibleElements
+                .where((e) => belowLayers.contains(e.layer))
+                .toList()),
+        renderBackground: false,
+        renderBaked: false,
+      ).paint(belowLayerCanvas, size);
+      ViewPainter(
+        document,
+        page,
+        info,
+        transform: transform,
+        states: state.allRendererStates,
+        cameraViewport: cameraViewport.unbake(
+            unbakedElements: visibleElements
+                .where((e) => aboveLayers.contains(e.layer))
+                .toList()),
+        renderBackground: false,
+        renderBaked: false,
+      ).paint(aboveLayerCanvas, size);
+
+      final result = await Future.wait([
+        belowLayerRecorder.endRecording().toImage(imageWidth, imageHeight),
+        aboveLayerRecorder.endRecording().toImage(imageWidth, imageHeight),
+      ]);
+      belowLayerImage = result[0];
+      aboveLayerImage = result[1];
+    }
+
     emit(state.copyWith(
         cameraViewport: cameraViewport.bake(
             height: size.height.ceil(),
@@ -575,7 +648,9 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
             image: newImage,
             bakedElements: renderers,
             unbakedElements: currentRenderers,
-            visibleElements: visibleElements)));
+            visibleElements: visibleElements,
+            belowLayerImage: belowLayerImage,
+            aboveLayerImage: aboveLayerImage)));
   }
 
   Future<ByteData?> render(NoteData document, DocumentPage page,
@@ -645,10 +720,9 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     for (var e in state.cameraViewport.bakedElements) {
       e.dispose();
     }
-    final renderers = page.content
-        .where(
-            (element) => !docState.invisibleLayers.contains(element.collection))
-        .map((e) => Renderer.fromInstance(e))
+    final renderers = page.layers
+        .where((e) => !docState.invisibleLayers.contains(e.id))
+        .expand((e) => e.content.map((c) => Renderer.fromInstance(c, e.id)))
         .toList();
     await Future.wait(renderers
         .map((e) async => await e.setup(document, assetService, page)));
@@ -973,7 +1047,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
       loadElements(current);
     }
     if (reset || shouldRefresh?.call() == true) {
-      refresh(current.data, current.assetService, current.page, current.info);
+      refresh(current);
     }
     if (updateIndex) {
       this.updateIndex(bloc);

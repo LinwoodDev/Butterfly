@@ -122,7 +122,7 @@ abstract class DocumentLoaded extends DocumentState {
 
   Future<void> bake(
           {Size? viewportSize, double? pixelRatio, bool reset = false}) =>
-      currentIndexCubit.bake(data, page, info,
+      currentIndexCubit.bake(this,
           viewportSize: viewportSize, pixelRatio: pixelRatio, reset: reset);
 }
 
