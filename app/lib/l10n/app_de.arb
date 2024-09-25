@@ -619,5 +619,6 @@
   "onStartup": "Beim Start",
   "homeScreen": "Startbildschirm",
   "lastNote": "Letzte Notiz",
-  "newNote": "Neue Notiz"
+  "newNote": "Neue Notiz",
+  "convertToLayer": "Convert to layer"
 }
