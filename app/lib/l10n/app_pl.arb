@@ -619,5 +619,6 @@
   "onStartup": "Przy starcie",
   "homeScreen": "Ekran główny",
   "lastNote": "Ostatnia notatka",
-  "newNote": "Nowa nota"
+  "newNote": "Nowa nota",
+  "convertToLayer": "Convert to layer"
 }
