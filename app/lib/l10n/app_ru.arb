@@ -619,5 +619,6 @@
   "onStartup": "При запуске",
   "homeScreen": "Домашний экран",
   "lastNote": "Последняя заметка",
-  "newNote": "Новая заметка"
+  "newNote": "Новая заметка",
+  "convertToLayer": "Convert to layer"
 }
