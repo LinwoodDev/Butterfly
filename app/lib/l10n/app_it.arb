@@ -619,5 +619,6 @@
   "onStartup": "All'avvio",
   "homeScreen": "Schermata home",
   "lastNote": "Ultima nota",
-  "newNote": "Nuova nota"
+  "newNote": "Nuova nota",
+  "convertToLayer": "Convert to layer"
 }
