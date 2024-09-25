@@ -619,5 +619,6 @@
   "onStartup": "Κατά την εκκίνηση",
   "homeScreen": "Αρχική οθόνη",
   "lastNote": "Τελευταία σημείωση",
-  "newNote": "Νέα σημείωση"
+  "newNote": "Νέα σημείωση",
+  "convertToLayer": "Convert to layer"
 }
