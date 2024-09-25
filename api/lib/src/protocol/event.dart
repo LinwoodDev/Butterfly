@@ -227,6 +227,9 @@ class DocumentEvent extends ReplayEvent with _$DocumentEvent {
   const factory DocumentEvent.assetUpdated(String path, List<int> data) =
       AssetUpdated;
 
+  const factory DocumentEvent.elementsLayerConverted(List<String> elements,
+      [@Default('') String name]) = ElementsLayerConverted;
+
   factory DocumentEvent.fromJson(Map<String, dynamic> json) =>
       _$DocumentEventFromJson(json);
 

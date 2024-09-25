@@ -709,3 +709,18 @@ Map<String, dynamic> _$$AssetUpdatedImplToJson(_$AssetUpdatedImpl instance) =>
       'data': instance.data,
       'type': instance.$type,
     };
+
+_$ElementsLayerConvertedImpl _$$ElementsLayerConvertedImplFromJson(Map json) =>
+    _$ElementsLayerConvertedImpl(
+      (json['elements'] as List<dynamic>).map((e) => e as String).toList(),
+      json['name'] as String? ?? '',
+      json['type'] as String?,
+    );
+
+Map<String, dynamic> _$$ElementsLayerConvertedImplToJson(
+        _$ElementsLayerConvertedImpl instance) =>
+    <String, dynamic>{
+      'elements': instance.elements,
+      'name': instance.name,
+      'type': instance.$type,
+    };

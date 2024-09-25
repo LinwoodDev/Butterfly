@@ -954,6 +954,32 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
         reset: shouldRepaint,
       );
     });
+    on<ElementsLayerConverted>((event, emit) {
+      final current = state;
+      if (current is! DocumentLoadSuccess) return;
+      final layer = current.getLayer();
+      final elements = layer.content
+          .where((element) => event.elements.contains(element.id))
+          .toList();
+      final newLayer = DocumentLayer(
+        id: createUniqueId(),
+        name: event.name,
+        content: elements,
+      );
+      var newPage = current.mapLayer((e) => e.copyWith(
+          content: e.content
+              .where((element) => !event.elements.contains(element.id))
+              .toList()));
+      newPage = newPage.copyWith(layers: [newLayer, ...newPage.layers]);
+      _saveState(
+        emit,
+        state: current.copyWith(
+          page: newPage,
+        ),
+        addedElements: null,
+        reset: true,
+      );
+    });
   }
 
   void _saveState(

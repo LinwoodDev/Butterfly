@@ -118,6 +118,8 @@ DocumentEvent _$DocumentEventFromJson(Map<String, dynamic> json) {
       return PresentationTick.fromJson(json);
     case 'assetUpdated':
       return AssetUpdated.fromJson(json);
+    case 'elementsLayerConverted':
+      return ElementsLayerConverted.fromJson(json);
 
     default:
       throw CheckedFromJsonException(json, 'type', 'DocumentEvent',
@@ -5652,4 +5654,125 @@ abstract class AssetUpdated extends DocumentEvent {
   @JsonKey(includeFromJson: false, includeToJson: false)
   _$$AssetUpdatedImplCopyWith<_$AssetUpdatedImpl> get copyWith =>
       throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$ElementsLayerConvertedImplCopyWith<$Res> {
+  factory _$$ElementsLayerConvertedImplCopyWith(
+          _$ElementsLayerConvertedImpl value,
+          $Res Function(_$ElementsLayerConvertedImpl) then) =
+      __$$ElementsLayerConvertedImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({List<String> elements, String name});
+}
+
+/// @nodoc
+class __$$ElementsLayerConvertedImplCopyWithImpl<$Res>
+    extends _$DocumentEventCopyWithImpl<$Res, _$ElementsLayerConvertedImpl>
+    implements _$$ElementsLayerConvertedImplCopyWith<$Res> {
+  __$$ElementsLayerConvertedImplCopyWithImpl(
+      _$ElementsLayerConvertedImpl _value,
+      $Res Function(_$ElementsLayerConvertedImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? elements = null,
+    Object? name = null,
+  }) {
+    return _then(_$ElementsLayerConvertedImpl(
+      null == elements
+          ? _value._elements
+          : elements // ignore: cast_nullable_to_non_nullable
+              as List<String>,
+      null == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$ElementsLayerConvertedImpl extends ElementsLayerConverted {
+  const _$ElementsLayerConvertedImpl(final List<String> elements,
+      [this.name = '', final String? $type])
+      : _elements = elements,
+        $type = $type ?? 'elementsLayerConverted',
+        super._();
+
+  factory _$ElementsLayerConvertedImpl.fromJson(Map<String, dynamic> json) =>
+      _$$ElementsLayerConvertedImplFromJson(json);
+
+  final List<String> _elements;
+  @override
+  List<String> get elements {
+    if (_elements is EqualUnmodifiableListView) return _elements;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_elements);
+  }
+
+  @override
+  @JsonKey()
+  final String name;
+
+  @JsonKey(name: 'type')
+  final String $type;
+
+  @override
+  String toString() {
+    return 'DocumentEvent.elementsLayerConverted(elements: $elements, name: $name)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$ElementsLayerConvertedImpl &&
+            const DeepCollectionEquality().equals(other._elements, _elements) &&
+            (identical(other.name, name) || other.name == name));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => Object.hash(
+      runtimeType, const DeepCollectionEquality().hash(_elements), name);
+
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$ElementsLayerConvertedImplCopyWith<_$ElementsLayerConvertedImpl>
+      get copyWith => __$$ElementsLayerConvertedImplCopyWithImpl<
+          _$ElementsLayerConvertedImpl>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$ElementsLayerConvertedImplToJson(
+      this,
+    );
+  }
+}
+
+abstract class ElementsLayerConverted extends DocumentEvent {
+  const factory ElementsLayerConverted(final List<String> elements,
+      [final String name]) = _$ElementsLayerConvertedImpl;
+  const ElementsLayerConverted._() : super._();
+
+  factory ElementsLayerConverted.fromJson(Map<String, dynamic> json) =
+      _$ElementsLayerConvertedImpl.fromJson;
+
+  List<String> get elements;
+  String get name;
+
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$ElementsLayerConvertedImplCopyWith<_$ElementsLayerConvertedImpl>
+      get copyWith => throw _privateConstructorUsedError;
 }

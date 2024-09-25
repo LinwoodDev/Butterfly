@@ -154,9 +154,9 @@ class DocumentLoadSuccess extends DocumentLoaded {
       this.currentCollection = '',
       String? currentLayer,
       this.invisibleLayers = const {}})
-      : currentLayer =
+      : currentLayer = currentLayer ??
             (page ?? data.getPage(pageName))?.layers.lastOrNull?.id ??
-                createUniqueId() {
+            createUniqueId() {
     if (location != null) {
       currentIndexCubit.setSaveState(location: location, absolute: absolute);
     }
@@ -174,6 +174,7 @@ class DocumentLoadSuccess extends DocumentLoaded {
         currentAreaName,
         settingsCubit,
         currentIndexCubit,
+        currentLayer,
       ];
 
   @override
