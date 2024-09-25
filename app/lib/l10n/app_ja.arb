@@ -619,5 +619,6 @@
   "onStartup": "起動時",
   "homeScreen": "ホーム画面",
   "lastNote": "最後のメモ",
-  "newNote": "新規ノート"
+  "newNote": "新規ノート",
+  "convertToLayer": "Convert to layer"
 }
