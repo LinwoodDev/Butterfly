@@ -619,5 +619,6 @@
   "onStartup": "Ved oppstart",
   "homeScreen": "Hjem-skjerm",
   "lastNote": "Siste notat",
-  "newNote": "Nytt notat"
+  "newNote": "Nytt notat",
+  "convertToLayer": "Convert to layer"
 }
