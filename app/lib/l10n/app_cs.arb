@@ -619,5 +619,6 @@
   "onStartup": "Při startu",
   "homeScreen": "Domovská stránka",
   "lastNote": "Poslední poznámka",
-  "newNote": "Nová poznámka"
+  "newNote": "Nová poznámka",
+  "convertToLayer": "Convert to layer"
 }
