@@ -619,5 +619,6 @@
   "onStartup": "Bij het opstarten",
   "homeScreen": "Startscherm",
   "lastNote": "Laatste opmerking",
-  "newNote": "Nieuwe notitie"
+  "newNote": "Nieuwe notitie",
+  "convertToLayer": "Convert to layer"
 }
