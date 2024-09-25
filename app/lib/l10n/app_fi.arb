@@ -619,5 +619,6 @@
   "onStartup": "Käynnistyksessä",
   "homeScreen": "Kotinäyttö",
   "lastNote": "Viimeisin merkintä",
-  "newNote": "Uusi muistiinpano"
+  "newNote": "Uusi muistiinpano",
+  "convertToLayer": "Convert to layer"
 }
