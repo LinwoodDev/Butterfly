@@ -619,5 +619,6 @@
   "onStartup": "При запуску",
   "homeScreen": "Домашній екран",
   "lastNote": "Остання примітка",
-  "newNote": "Нова нотатка"
+  "newNote": "Нова нотатка",
+  "convertToLayer": "Convert to layer"
 }
