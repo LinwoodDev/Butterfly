@@ -619,5 +619,6 @@
   "onStartup": "La pornire",
   "homeScreen": "Ecranul principal",
   "lastNote": "Ultima notă",
-  "newNote": "Notă nouă"
+  "newNote": "Notă nouă",
+  "convertToLayer": "Convertește la nivel"
 }

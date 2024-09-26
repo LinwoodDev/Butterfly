@@ -619,5 +619,6 @@
   "onStartup": "Al iniciar",
   "homeScreen": "Pantalla de inicio",
   "lastNote": "Última nota",
-  "newNote": "Nueva nota"
+  "newNote": "Nueva nota",
+  "convertToLayer": "Convertir a capa"
 }

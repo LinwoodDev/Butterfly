@@ -619,5 +619,6 @@
   "onStartup": "Ved opstart",
   "homeScreen": "Startskærm",
   "lastNote": "Sidste note",
-  "newNote": "Ny note"
+  "newNote": "Ny note",
+  "convertToLayer": "Konvertér til lag"
 }

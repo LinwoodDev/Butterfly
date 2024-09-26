@@ -619,5 +619,6 @@
   "onStartup": "On startup",
   "homeScreen": "Home screen",
   "lastNote": "Last note",
-  "newNote": "New note"
+  "newNote": "New note",
+  "convertToLayer": "Convert to layer"
 }

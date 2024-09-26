@@ -619,5 +619,6 @@
   "onStartup": "Na inicialização",
   "homeScreen": "Tela inicial",
   "lastNote": "Última anotação",
-  "newNote": "Nova nota"
+  "newNote": "Nova nota",
+  "convertToLayer": "Converter para camada"
 }
