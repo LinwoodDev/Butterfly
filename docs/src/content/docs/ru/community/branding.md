@@ -10,7 +10,7 @@ These assets are licensed under the [CC-BY-SA-4.0](https://github.com/LinwoodDev
 
 [SVG](/img/logo.svg) [PNG](/img/logo.png)
 
-## Nightly Logo
+## Ночной логотип
 
 ![Logo](/img/nightly.svg)
 
@@ -30,12 +30,12 @@ These assets are licensed under the [CC-BY-SA-4.0](https://github.com/LinwoodDev
 
 ## Цвета
 
-- Primary: `#c4840d`
-- Accent: `#7b8f96`
+- Основное: `#c4840d`
+- Доступ: `#7b8f96`
 
 ## Шрифты
 
-- Website: `Barlow`
+- Веб-сайт: `Barlow`
 - App: `Comfortaa`
 
 ## Скриншот
