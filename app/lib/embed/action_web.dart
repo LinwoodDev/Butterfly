@@ -25,14 +25,13 @@ void sendEmbedMessage(String type, [Object? message]) {
 }
 
 EventListener onEmbedMessage(String type, EmbedMessageHandler callback) {
-  void listener(JSObject event) {
-    if (event is html.MessageEvent) {
-      final data = event.data;
-      if (data is JSObject) {
-        final messageType = data.getProperty('type'.toJS).toString();
-        final message = data.getProperty('message'.toJS).dartify();
-        if (type == messageType) callback(message);
-      }
+  void listener(html.MessageEvent event) {
+    final data = event.data;
+    if (data.isA<JSObject>()) {
+      final objectData = data as JSObject;
+      final messageType = objectData.getProperty('type'.toJS).toString();
+      final message = objectData.getProperty('message'.toJS).dartify();
+      if (type == messageType) callback(message);
     }
   }
 
@@ -41,6 +40,7 @@ EventListener onEmbedMessage(String type, EmbedMessageHandler callback) {
 }
 
 void removeEmbedMessageListener(EventListener listener) {
+  // ignore: invalid_runtime_check_with_js_interop_types
   if (listener is! JSFunction) return;
   html.window.removeEventListener('receive', listener);
 }

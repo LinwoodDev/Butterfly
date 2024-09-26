@@ -84,6 +84,7 @@ class LayersView extends StatelessWidget {
                 if (oldIndex < newIndex) {
                   newIndex -= 1;
                 }
+                newIndex = layers.length - 1 - newIndex;
                 context
                     .read<DocumentBloc>()
                     .add(LayerOrderChanged(layer.id ?? '', newIndex));

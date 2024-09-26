@@ -16,7 +16,7 @@ publish_to: none
 version: 2.2.0-rc.3+115
 
 environment:
-  sdk: ">=3.3.0 <4.0.0"
+  sdk: ">=3.4.0 <4.0.0"
   flutter: 3.24.3
 
 dependencies:
@@ -50,7 +50,7 @@ dependencies:
   flex_color_scheme:
     git:
       url: https://github.com/CodeDoctorDE/flex_color_scheme
-      ref: 93fdff21804ef69a2b9b09afdc8de84ea322a687
+      ref: 9ed0c93056df011c7f4e2e0c4009eadb260abd0f
   json_annotation: ^4.9.0
   path: ^1.8.3
   printing: ^5.13.1
@@ -106,7 +106,7 @@ dependencies:
 dev_dependencies:
   flutter_native_splash: ^2.4.0
   #flutter_launcher_icons: ^0.11.0
-  flutter_lints: ^4.0.0
+  flutter_lints: ^5.0.0
   flutter_test:
     sdk: flutter
   flutter_driver:
