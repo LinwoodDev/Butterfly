@@ -87,7 +87,6 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
           page: page,
           pageName: pageName,
         ),
-        addedElements: null,
         reset: true,
       );
     });
@@ -104,8 +103,6 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
           data: data,
           pageName: event.pageName,
         ),
-        addedElements: null,
-        reset: true,
       );
     });
     on<PageReordered>((event, emit) {
@@ -129,7 +126,6 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
               ? event.newName
               : current.pageName,
         ),
-        addedElements: null,
       );
     });
     on<PageRemoved>((event, emit) {
@@ -139,7 +135,6 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       _saveState(
         emit,
         state: current.copyWith(data: newData),
-        addedElements: null,
       );
     });
     on<ThumbnailCaptured>((event, emit) {
@@ -149,7 +144,6 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       _saveState(
         emit,
         state: current.copyWith(data: newData),
-        addedElements: null,
       );
     });
     on<ElementsCreated>((event, emit) {
@@ -328,7 +322,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
         state: current.copyWith(
           page: newPage,
         ),
-        addedElements: null,
+        unbake: true,
       );
     });
     on<ElementsRemoved>((event, emit) {
@@ -354,7 +348,6 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       _saveState(
         emit,
         state: current.copyWith(page: newPage, data: data),
-        addedElements: null,
         reset: true,
       );
     }, transformer: sequential());
@@ -562,7 +555,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
             currentCollection: current.currentCollection == event.oldName
                 ? event.newName
                 : current.currentCollection),
-        addedElements: null,
+        reset: true,
         shouldRefresh: () => true,
       );
     });
@@ -585,7 +578,6 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
               ? ''
               : current.currentCollection,
         ),
-        addedElements: null,
         reset: true,
       );
     });
@@ -614,7 +606,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       return _saveState(
         emit,
         state: current.copyWith(invisibleLayers: invisibleLayers),
-        addedElements: null,
+        unbake: true,
       );
     });
 
@@ -676,7 +668,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
         state: current.copyWith(
           currentLayer: event.name,
         ),
-        reset: true,
+        unbake: true,
       );
     });
 
@@ -708,7 +700,6 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
                 return e;
               }).toList())),
         ),
-        addedElements: null,
         reset: true,
       );
     });
@@ -976,8 +967,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
         state: current.copyWith(
           page: newPage,
         ),
-        addedElements: null,
-        reset: true,
+        unbake: true,
       );
     });
   }
@@ -985,14 +975,20 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
   void _saveState(
     Emitter<DocumentState> emit, {
     DocumentLoadSuccess? state,
-    List<Renderer<PadElement>>? addedElements = const [],
+    List<Renderer<PadElement>> addedElements = const [],
     List<Renderer<PadElement>>? replacedElements,
     List<Renderer<Background>>? backgrounds,
     bool reset = false,
+    bool unbake = false,
+    bool? resetAll,
     bool Function()? shouldRefresh,
     bool updateIndex = false,
   }) {
     if (this.state is! DocumentLoadSuccess && state == null) return;
+    if (resetAll != null) {
+      reset = resetAll;
+      unbake = resetAll;
+    }
     state ??= this.state as DocumentLoadSuccess;
     emit(state);
     state.currentIndexCubit.stateChanged(
@@ -1002,6 +998,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       replacedElements: replacedElements,
       backgrounds: backgrounds,
       reset: reset,
+      unbake: unbake,
       shouldRefresh: shouldRefresh,
       updateIndex: updateIndex,
     );

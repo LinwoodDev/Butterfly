@@ -1004,33 +1004,34 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
   Future<void> stateChanged(
     DocumentLoadSuccess current,
     DocumentBloc bloc, {
-    List<Renderer<PadElement>>? addedElements = const [],
+    List<Renderer<PadElement>> addedElements = const [],
     List<Renderer<PadElement>>? replacedElements,
     List<Renderer<Background>>? backgrounds,
     bool reset = false,
+    bool unbake = false,
     bool Function()? shouldRefresh,
     bool updateIndex = false,
   }) async {
     final cameraViewport = current.cameraViewport;
-    var elements = cameraViewport.unbakedElements;
+    final elements =
+        List<Renderer<PadElement>>.from(cameraViewport.unbakedElements);
     for (var renderer in {
       ...?backgrounds,
       ...?replacedElements,
-      ...?addedElements
+      ...addedElements
     }) {
       await renderer.setup(current.data, current.assetService, current.page);
     }
-    if (addedElements != null) {
-      elements = List<Renderer<PadElement>>.from(elements)
-        ..addAll(addedElements);
-    }
+    elements.addAll(addedElements);
 
-    if (replacedElements != null) {
+    if (replacedElements != null || unbake) {
       current.currentIndexCubit.unbake(
-          unbakedElements: [...replacedElements, ...?addedElements],
+          unbakedElements: replacedElements == null
+              ? null
+              : [...replacedElements, ...addedElements],
           backgrounds: backgrounds);
     } else if (backgrounds != null) {
-      unbake(backgrounds: backgrounds);
+      this.unbake(backgrounds: backgrounds);
     } else {
       withUnbaked(elements);
     }

@@ -24,7 +24,7 @@ class LayersView extends StatelessWidget {
       builder: (context, state) {
         if (state is! DocumentLoadSuccess) return const SizedBox.shrink();
         final currentIndex = state.currentLayer;
-        final layers = state.page.layers;
+        final layers = state.page.layers.reversed.toList();
         final currentLayer = state.page.getLayer(currentIndex);
         return Stack(
           children: [

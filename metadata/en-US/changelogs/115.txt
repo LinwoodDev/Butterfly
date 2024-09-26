@@ -1,6 +1,9 @@
 * Rebuild baking system to support multiple layers
-* Add convert to layer
+* Add convert to layer to collection dialog
+* Add convert to layer to general area context menu
 * Fix layer ordering being reversed
 * Fix current layer not being changed
 * Fix lock collection mode not working
 * Fix elements being modifyable in different layers
+
+Read more here: https://linwood.dev/butterfly/2.2.0-rc.2

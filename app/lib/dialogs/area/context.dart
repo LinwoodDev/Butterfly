@@ -91,6 +91,18 @@ ContextMenuBuilder buildGeneralAreaContextMenu(DocumentBloc bloc, Area area,
             icon: const PhosphorIcon(PhosphorIconsLight.folder),
             label: AppLocalizations.of(context).changeCollection,
           ),
+          ContextMenuItem(
+            onPressed: () async {
+              Navigator.of(context).pop(true);
+              final result = await showDialog<String>(
+                  builder: (context) => NameDialog(), context: context);
+              if (result == null) return;
+              bloc.add(ElementsLayerConverted(
+                  elements.map((e) => e.id).nonNulls.toList(), result));
+            },
+            icon: const PhosphorIcon(PhosphorIconsLight.stack),
+            label: AppLocalizations.of(context).convertToLayer,
+          ),
           ContextMenuGroup(
             icon: const PhosphorIcon(PhosphorIconsLight.export),
             label: AppLocalizations.of(context).export,
