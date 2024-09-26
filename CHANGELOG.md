@@ -2,6 +2,19 @@
 
 <!--ENTER CHANGELOG HERE-->
 
+## 2.2.0-rc.3 (2024-09-26)
+
+* Rebuild baking system to support multiple layers
+* Add convert to layer to collection dialog
+* Add convert to layer to general area context menu
+* Fix layer ordering being reversed
+* Fix current layer not being changed
+* Fix lock collection mode not working
+* Fix elements being modifyable in different layers
+* Fix invisible layers setting being ignored
+
+Read more here: https://linwood.dev/butterfly/2.2.0-rc.2
+
 ## 2.2.0-rc.1 (2024-09-23)
 
 * Add icons to position personalization settings
