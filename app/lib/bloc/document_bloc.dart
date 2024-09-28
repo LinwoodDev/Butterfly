@@ -961,7 +961,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
           content: e.content
               .where((element) => !event.elements.contains(element.id))
               .toList()));
-      newPage = newPage.copyWith(layers: [newLayer, ...newPage.layers]);
+      newPage = newPage.copyWith(layers: [...newPage.layers, newLayer]);
       _saveState(
         emit,
         state: current.copyWith(

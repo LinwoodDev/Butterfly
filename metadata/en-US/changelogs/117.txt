@@ -1,0 +1,4 @@
+* Add convert to layer to collection dialog
+* Improve layout of collection dialog
+
+Read more here: https://linwood.dev/butterfly/2.2.1-rc.0
