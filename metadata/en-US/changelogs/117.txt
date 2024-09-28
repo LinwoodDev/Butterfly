@@ -1,4 +1,6 @@
 * Add convert to layer to collection dialog
 * Improve layout of collection dialog
+* Change min sensitivity of inputs to 0.1
+* Fix select sensitivity slider in input settings changes scroll sensitivity
 
 Read more here: https://linwood.dev/butterfly/2.2.1-rc.0

@@ -75,7 +75,7 @@ class InputsSettingsPage extends StatelessWidget {
                       Text(AppLocalizations.of(context).sensitivityHint),
                       const SizedBox(height: 16),
                       ExactSlider(
-                          min: 0,
+                          min: 0.1,
                           max: 10,
                           defaultValue: 1,
                           value: state.selectSensitivity,
@@ -85,7 +85,7 @@ class InputsSettingsPage extends StatelessWidget {
                             cubit.changeSelectSensitivity(value);
                           }),
                       ExactSlider(
-                          min: 0,
+                          min: 0.1,
                           max: 10,
                           defaultValue: 1,
                           value: state.touchSensitivity,
@@ -95,7 +95,7 @@ class InputsSettingsPage extends StatelessWidget {
                             cubit.changeTouchSensitivity(value);
                           }),
                       ExactSlider(
-                          min: 0,
+                          min: 0.1,
                           max: 10,
                           defaultValue: 1,
                           value: state.gestureSensitivity,
@@ -106,7 +106,7 @@ class InputsSettingsPage extends StatelessWidget {
                             cubit.changeGestureSensitivity(value);
                           }),
                       ExactSlider(
-                          min: 0,
+                          min: 0.1,
                           max: 10,
                           defaultValue: 1,
                           value: state.scrollSensitivity,

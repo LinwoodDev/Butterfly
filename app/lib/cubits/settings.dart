@@ -521,7 +521,7 @@ class SettingsCubit extends Cubit<ButterflySettings>
   Future<void> resetScrollSensitivity() => changeScrollSensitivity(1);
 
   Future<void> changeSelectSensitivity(double sensitivity) {
-    emit(state.copyWith(scrollSensitivity: sensitivity));
+    emit(state.copyWith(selectSensitivity: sensitivity));
     return save();
   }
 
