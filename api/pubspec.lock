@@ -298,10 +298,10 @@ packages:
     dependency: "direct dev"
     description:
       name: lints
-      sha256: "976c774dd944a42e83e2467f4cc670daef7eed6295b10b36ae8c85bcbf828235"
+      sha256: "3315600f3fb3b135be672bf4a178c55f274bebe368325ae18462c89ac1e3b413"
       url: "https://pub.dev"
     source: hosted
-    version: "4.0.0"
+    version: "5.0.0"
   logging:
     dependency: transitive
     description:
@@ -595,10 +595,10 @@ packages:
     dependency: "direct main"
     description:
       name: uuid
-      sha256: f33d6bb662f0e4f79dcd7ada2e6170f3b3a2530c28fc41f49a411ddedd576a77
+      sha256: a5be9ef6618a7ac1e964353ef476418026db906c4facdedaa299b7a2e71690ff
       url: "https://pub.dev"
     source: hosted
-    version: "4.5.0"
+    version: "4.5.1"
   vm_service:
     dependency: transitive
     description:
@@ -664,4 +664,4 @@ packages:
     source: hosted
     version: "3.1.2"
 sdks:
-  dart: ">=3.5.0-259.0.dev <4.0.0"
+  dart: ">=3.5.0 <4.0.0"

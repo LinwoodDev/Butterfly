@@ -1,7 +1,7 @@
 /// Support for doing something awesome.
 ///
 /// More dartdocs go here.
-library butterfly_api;
+library;
 
 export 'butterfly_models.dart';
 export 'butterfly_helpers.dart';

@@ -305,6 +305,7 @@ class ImportService {
         .toList();
 
     final content = page.content
+        .map((e) => e.copyWith(id: createUniqueId()))
         .map((e) =>
             Renderer.fromInstance(e)
                 .transform(position: firstPos, relative: true)
