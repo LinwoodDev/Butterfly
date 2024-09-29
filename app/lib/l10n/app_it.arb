@@ -161,7 +161,7 @@
   "selectElements": "Seleziona elementi",
   "deleteElements": "Elimina elementi",
   "deleteElementsConfirm": "Vuoi davvero eliminare gli elementi selezionati?",
-  "selectCustomCollection": "Select a custom collection",
+  "selectCustomCollection": "Seleziona una collezione personalizzata",
   "svg": "SVG",
   "sensitivity": "Sensibilità",
   "sensitivityHint": "Più alto è il valore, più sensibile è l'input",
