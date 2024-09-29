@@ -197,8 +197,12 @@ class ButterflyFileSystem {
   DocumentFileSystem buildDefaultDocumentSystem() =>
       buildDocumentSystem(settingsCubit.state.getDefaultRemote());
 
-  Map<String, DocumentFileSystem> buildAllDocumentSystems() {
+  Map<String, DocumentFileSystem> buildAllDocumentSystems(
+      {bool includeLocal = true}) {
     final map = <String, DocumentFileSystem>{};
+    if (includeLocal) {
+      map[''] = buildDocumentSystem();
+    }
     for (final remote in settingsCubit.state.connections) {
       map[remote.identifier] = buildDocumentSystem(remote);
     }

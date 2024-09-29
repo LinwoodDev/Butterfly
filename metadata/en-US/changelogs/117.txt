@@ -7,6 +7,7 @@
 * Change sensitivity settings to percent
 * Change min sensitivity of inputs to 10%
 * Rename context menu item name to rename in area context menu
+* Use search bar in areas navigator instead of normal text field
 * Fix select sensitivity slider in input settings changes scroll sensitivity
 * Fix current collection not being shown in collection dialog
 * Fix duplicating not working correctly

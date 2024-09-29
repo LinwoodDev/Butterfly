@@ -114,15 +114,11 @@ class _AreasViewState extends State<AreasView> {
                   children: [
                     Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: TextField(
-                        decoration: const InputDecoration(
-                          filled: true,
-                          prefixIcon:
-                              PhosphorIcon(PhosphorIconsLight.magnifyingGlass),
-                        ),
-                        textAlignVertical: TextAlignVertical.center,
+                      child: SearchBar(
                         controller: _searchController,
-                        autofocus: true,
+                        hintText: AppLocalizations.of(context).search,
+                        leading: const PhosphorIcon(
+                            PhosphorIconsLight.magnifyingGlass),
                       ),
                     ),
                     const Divider(),
