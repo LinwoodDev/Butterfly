@@ -64,98 +64,88 @@ class _TemplateDialogState extends State<TemplateDialog> {
 
   @override
   Widget build(BuildContext context) {
-    return ResponsiveDialog(
-        constraints: const BoxConstraints(maxWidth: 600, maxHeight: 800),
-        child: Column(
-          children: [
-            Header(
-              title: Text(AppLocalizations.of(context).templates),
-              leading: IconButton.outlined(
-                icon: const PhosphorIcon(PhosphorIconsLight.x),
-                onPressed: () => Navigator.of(context).pop(),
-                tooltip: AppLocalizations.of(context).close,
+    return ResponsiveAlertDialog(
+      constraints: const BoxConstraints(maxWidth: 600, maxHeight: 800),
+      title: Text(AppLocalizations.of(context).templates),
+      leading: IconButton.outlined(
+        icon: const PhosphorIcon(PhosphorIconsLight.x),
+        onPressed: () => Navigator.of(context).pop(),
+        tooltip: AppLocalizations.of(context).close,
+      ),
+      headerActions: [
+        ConnectionButton(
+          currentRemote: _templateSystem.storage?.identifier ?? '',
+          onChanged: (value) {
+            _templateSystem = _fileSystem.buildTemplateSystem(value);
+            load();
+          },
+        ),
+        IconButton(
+          icon: const PhosphorIcon(PhosphorIconsLight.export),
+          tooltip: AppLocalizations.of(context).export,
+          onPressed: () async {
+            final archive = Archive();
+            for (final template in (await _templateSystem.getFiles())) {
+              final data = template.data!.save();
+              archive.addFile(
+                ArchiveFile('${template.fileName}.bfly', data.length, data),
+              );
+            }
+            final encoder = ZipEncoder();
+            final bytes = encoder.encode(archive);
+            if (bytes == null) return;
+            await exportZip(context, bytes);
+          },
+        ),
+        IconButton(
+          icon: const PhosphorIcon(PhosphorIconsLight.clockCounterClockwise),
+          tooltip: AppLocalizations.of(context).defaultTemplate,
+          onPressed: () {
+            showDialog<void>(
+              context: context,
+              builder: (context) => AlertDialog(
+                title: Text(AppLocalizations.of(context).defaultTemplate),
+                content: Text(AppLocalizations.of(context).reallyReset),
+                actions: [
+                  TextButton(
+                    child: Text(AppLocalizations.of(context).cancel),
+                    onPressed: () => Navigator.of(context).pop(),
+                  ),
+                  ElevatedButton(
+                    child: Text(AppLocalizations.of(context).ok),
+                    onPressed: () async {
+                      for (final template in await _templateSystem.getKeys()) {
+                        _templateSystem.deleteFile(template);
+                      }
+                      if (context.mounted) {
+                        await _templateSystem.initialize(force: true);
+                      }
+                      if (context.mounted) {
+                        Navigator.of(context).pop();
+                        load();
+                      }
+                    },
+                  ),
+                ],
               ),
-              actions: [
-                ConnectionButton(
-                  currentRemote: _templateSystem.storage?.identifier ?? '',
-                  onChanged: (value) {
-                    _templateSystem = _fileSystem.buildTemplateSystem(value);
-                    load();
-                  },
-                ),
+            );
+          },
+        ),
+        ...widget.bloc == null
+            ? []
+            : [
                 IconButton(
-                  icon: const PhosphorIcon(PhosphorIconsLight.export),
-                  tooltip: AppLocalizations.of(context).export,
-                  onPressed: () async {
-                    final archive = Archive();
-                    for (final template in (await _templateSystem.getFiles())) {
-                      final data = template.data!.save();
-                      archive.addFile(
-                        ArchiveFile(
-                            '${template.fileName}.bfly', data.length, data),
-                      );
-                    }
-                    final encoder = ZipEncoder();
-                    final bytes = encoder.encode(archive);
-                    if (bytes == null) return;
-                    await exportZip(context, bytes);
-                  },
-                ),
-                IconButton(
-                  icon: const PhosphorIcon(
-                      PhosphorIconsLight.clockCounterClockwise),
-                  tooltip: AppLocalizations.of(context).defaultTemplate,
-                  onPressed: () {
-                    showDialog<void>(
-                      context: context,
-                      builder: (context) => AlertDialog(
-                        title:
-                            Text(AppLocalizations.of(context).defaultTemplate),
-                        content: Text(AppLocalizations.of(context).reallyReset),
-                        actions: [
-                          TextButton(
-                            child: Text(AppLocalizations.of(context).cancel),
-                            onPressed: () => Navigator.of(context).pop(),
-                          ),
-                          ElevatedButton(
-                            child: Text(AppLocalizations.of(context).ok),
-                            onPressed: () async {
-                              for (final template
-                                  in await _templateSystem.getKeys()) {
-                                _templateSystem.deleteFile(template);
-                              }
-                              if (context.mounted) {
-                                await _templateSystem.initialize(force: true);
-                              }
-                              if (context.mounted) {
-                                Navigator.of(context).pop();
-                                load();
-                                setState(() {});
-                              }
-                            },
-                          ),
-                        ],
-                      ),
-                    );
-                  },
-                ),
-                ...widget.bloc == null
-                    ? []
-                    : [
-                        IconButton(
-                          onPressed: () => _showCreateDialog(widget.bloc!),
-                          tooltip: AppLocalizations.of(context).create,
-                          icon: const PhosphorIcon(PhosphorIconsLight.plus),
-                        )
-                      ],
+                  onPressed: () => _showCreateDialog(widget.bloc!),
+                  tooltip: AppLocalizations.of(context).create,
+                  icon: const PhosphorIcon(PhosphorIconsLight.plus),
+                )
               ],
-            ),
-            Flexible(
-              child: FutureBuilder<List<NoteData>>(
-                  future: _templatesFuture, builder: _buildBody),
-            ),
-          ],
-        ));
+      ],
+      content: FutureBuilder<List<NoteData>>(
+        future: _templatesFuture,
+        builder: _buildBody,
+      ),
+    );
   }
 
   Widget _buildBody(
@@ -167,7 +157,7 @@ class _TemplateDialogState extends State<TemplateDialog> {
       return const Center(child: CircularProgressIndicator());
     }
     var templates = snapshot.data!;
-    return Stack(children: [
+    return Stack(alignment: Alignment.topCenter, children: [
       ListView.builder(
           itemCount: templates.length,
           padding: const EdgeInsets.only(
@@ -195,24 +185,19 @@ class _TemplateDialogState extends State<TemplateDialog> {
               },
               onChanged: () {
                 load();
-                setState(() {});
               },
             );
           }),
-      Align(
-        alignment: Alignment.topCenter,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 12),
-          child: SearchBar(
-            leading: const PhosphorIcon(PhosphorIconsLight.magnifyingGlass),
-            constraints: const BoxConstraints(maxWidth: 500, minHeight: 50),
-            controller: _searchController,
-            hintText: AppLocalizations.of(context).search,
-            onChanged: (value) async {
-              load();
-              setState(() {});
-            },
-          ),
+      Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 12),
+        child: SearchBar(
+          leading: const PhosphorIcon(PhosphorIconsLight.magnifyingGlass),
+          constraints: const BoxConstraints(maxWidth: 500, minHeight: 50),
+          controller: _searchController,
+          hintText: AppLocalizations.of(context).search,
+          onChanged: (value) async {
+            load();
+          },
         ),
       ),
       if (_selectedTemplates.isNotEmpty)
@@ -280,7 +265,6 @@ class _TemplateDialogState extends State<TemplateDialog> {
                             }
                             _selectedTemplates.clear();
                             load();
-                            setState(() {});
                           },
                         ),
                       ],
@@ -349,7 +333,6 @@ class _TemplateDialogState extends State<TemplateDialog> {
                   );
                   Navigator.of(context).pop();
                   load();
-                  setState(() {});
                 },
               ),
             ],

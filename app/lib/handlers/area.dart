@@ -106,6 +106,8 @@ class AreaHandler extends Handler<AreaTool> {
       context.refresh();
       return;
     }
+    final start = _start;
+    if (start == null) return;
     if (data.constrainedWidth != 0) {
       globalPos = Offset(data.constrainedWidth + _start!.dx, globalPos.dy);
     }
@@ -114,8 +116,8 @@ class AreaHandler extends Handler<AreaTool> {
     }
     if (data.constrainedAspectRatio != 0) {
       final aspectRatio = data.constrainedAspectRatio;
-      final width = globalPos.dx - _start!.dx;
-      final height = globalPos.dy - _start!.dy;
+      final width = globalPos.dx - start.dx;
+      final height = globalPos.dy - start.dy;
       final currentAspectRatio = width / height;
       if (currentAspectRatio < aspectRatio) {
         globalPos = Offset(_start!.dx + height * aspectRatio, globalPos.dy);

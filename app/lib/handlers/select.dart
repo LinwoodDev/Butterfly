@@ -25,7 +25,7 @@ class SelectHandler extends Handler<SelectTool> {
 
   @override
   Map<String, RendererState> get rendererStates =>
-      _selectionManager.isTransforming
+      _selectionManager.isTransforming && !_duplicate
           ? Map.fromEntries(
               _selected.map((e) => MapEntry(e.id, RendererState.hidden)))
           : {};
