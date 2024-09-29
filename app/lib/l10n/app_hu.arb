@@ -161,7 +161,7 @@
   "selectElements": "Elemek kiválasztása",
   "deleteElements": "Elemek törlése",
   "deleteElementsConfirm": "Valóban törölni kívánja a kiválasztott elemeket?",
-  "selectCustomLayer": "Saját réteg kiválasztása",
+  "selectCustomCollection": "Select a custom collection",
   "svg": "SVG",
   "sensitivity": "Érzékenység",
   "sensitivityHint": "Minél nagyobb az érték, annál érzékenyebb a bemenet",
