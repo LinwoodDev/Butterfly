@@ -116,6 +116,7 @@ class ViewPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     var areaRect = currentArea?.rect;
+    final layers = page.layers;
     if (areaRect != null) {
       areaRect = Rect.fromPoints(transform.globalToLocal(areaRect.topLeft),
           transform.globalToLocal(areaRect.bottomRight));
@@ -167,7 +168,21 @@ class ViewPainter extends CustomPainter {
     }
     canvas.scale(transform.size, transform.size);
     canvas.translate(-transform.position.dx, -transform.position.dy);
-    for (final renderer in cameraViewport.unbakedElements) {
+    // Sort by layer order, if null layer is at the end.
+    final renderers = cameraViewport.unbakedElements.sorted((a, b) {
+      final aLayer = a.layer;
+      final bLayer = b.layer;
+      if (aLayer == null) {
+        return 1;
+      }
+      if (bLayer == null) {
+        return -1;
+      }
+      return layers
+          .indexWhere((e) => e.id == aLayer)
+          .compareTo(layers.indexWhere((e) => e.id == bLayer));
+    });
+    for (final renderer in renderers) {
       final state = states[renderer.id];
       if (!invisibleLayers.contains(renderer.layer) &&
           state != RendererState.hidden) {
