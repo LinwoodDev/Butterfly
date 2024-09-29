@@ -5,6 +5,7 @@
 * Improve copy to clipboard snackbar to show color
 * Change sensitivity settings to percent
 * Change min sensitivity of inputs to 10%
+* Rename context menu item name to rename in area context menu
 * Fix select sensitivity slider in input settings changes scroll sensitivity
 * Fix current collection not being shown in collection dialog
 * Fix duplicating not working correctly

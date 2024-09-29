@@ -20,7 +20,7 @@ ContextMenuBuilder buildAreaContextMenu(DocumentBloc bloc,
     (context) => [
           ContextMenuItem(
             icon: const PhosphorIcon(PhosphorIconsLight.textT),
-            label: AppLocalizations.of(context).name,
+            label: AppLocalizations.of(context).rename,
             onPressed: () async {
               Navigator.of(context).pop();
               final name = await showDialog<String>(
