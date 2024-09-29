@@ -161,7 +161,7 @@
   "selectElements": "Επιλογή στοιχείων",
   "deleteElements": "Διαγραφή στοιχείων",
   "deleteElementsConfirm": "Θέλετε πραγματικά να διαγράψετε τα επιλεγμένα στοιχεία?",
-  "selectCustomCollection": "Select a custom collection",
+  "selectCustomCollection": "Επιλέξτε μια προσαρμοσμένη συλλογή",
   "svg": "SVG",
   "sensitivity": "Ευαισθησία",
   "sensitivityHint": "Όσο υψηλότερη είναι η τιμή, τόσο πιο ευαίσθητη είναι η είσοδος",
