@@ -75,45 +75,45 @@ class InputsSettingsPage extends StatelessWidget {
                       Text(AppLocalizations.of(context).sensitivityHint),
                       const SizedBox(height: 16),
                       ExactSlider(
-                          min: 0.1,
-                          max: 10,
-                          defaultValue: 1,
-                          value: state.selectSensitivity,
+                          min: 10,
+                          max: 1000,
+                          defaultValue: 100,
+                          value: state.selectSensitivity * 100,
                           header: Text(AppLocalizations.of(context).select),
                           onChangeEnd: (value) {
                             final cubit = context.read<SettingsCubit>();
-                            cubit.changeSelectSensitivity(value);
+                            cubit.changeSelectSensitivity(value / 100);
                           }),
                       ExactSlider(
-                          min: 0.1,
-                          max: 10,
-                          defaultValue: 1,
-                          value: state.touchSensitivity,
+                          min: 10,
+                          max: 1000,
+                          defaultValue: 100,
+                          value: state.touchSensitivity * 100,
                           header: Text(AppLocalizations.of(context).touch),
                           onChangeEnd: (value) {
                             final cubit = context.read<SettingsCubit>();
-                            cubit.changeTouchSensitivity(value);
+                            cubit.changeTouchSensitivity(value / 100);
                           }),
                       ExactSlider(
-                          min: 0.1,
-                          max: 10,
-                          defaultValue: 1,
-                          value: state.gestureSensitivity,
+                          min: 10,
+                          max: 1000,
+                          defaultValue: 100,
+                          value: state.gestureSensitivity * 100,
                           header:
                               Text(AppLocalizations.of(context).inputGestures),
                           onChangeEnd: (value) {
                             final cubit = context.read<SettingsCubit>();
-                            cubit.changeGestureSensitivity(value);
+                            cubit.changeGestureSensitivity(value / 100);
                           }),
                       ExactSlider(
-                          min: 0.1,
-                          max: 10,
-                          defaultValue: 1,
-                          value: state.scrollSensitivity,
+                          min: 10,
+                          max: 1000,
+                          defaultValue: 100,
+                          value: state.scrollSensitivity * 100,
                           header: Text(AppLocalizations.of(context).scroll),
                           onChangeEnd: (value) {
                             final cubit = context.read<SettingsCubit>();
-                            cubit.changeScrollSensitivity(value);
+                            cubit.changeScrollSensitivity(value / 100);
                           }),
                     ],
                   ),

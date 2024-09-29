@@ -34,8 +34,9 @@ class _CollectionsDialogState extends State<CollectionsDialog> {
                 builder: (context, state) {
                   final collections = {
                     '',
-                    ...?state.page?.content.map((e) => e.collection)
-                  }.toList();
+                    ...?state.page?.content.map((e) => e.collection),
+                    state.currentCollection
+                  }.nonNulls.toList();
                   return ListView.separated(
                     shrinkWrap: true,
                     itemCount: collections.length,
@@ -63,7 +64,26 @@ class _CollectionsDialogState extends State<CollectionsDialog> {
               padding: const EdgeInsets.all(8.0),
               child: Wrap(
                 alignment: WrapAlignment.center,
+                crossAxisAlignment: WrapCrossAlignment.center,
                 children: [
+                  IconButton(
+                    onPressed: () async {
+                      final bloc = context.read<DocumentBloc>();
+                      final current = bloc.state.currentCollection ?? '';
+                      final name = await showDialog<String>(
+                        context: context,
+                        builder: (context) => NameDialog(
+                          value: current,
+                        ),
+                      );
+                      if (name == null) return;
+                      bloc.add(CurrentCollectionChanged(name));
+                    },
+                    icon: const PhosphorIcon(PhosphorIconsLight.cursor),
+                    tooltip:
+                        AppLocalizations.of(context).selectCustomCollection,
+                  ),
+                  const SizedBox(height: 32, child: VerticalDivider()),
                   IconButton(
                     onPressed: () async {
                       final bloc = context.read<DocumentBloc>();
