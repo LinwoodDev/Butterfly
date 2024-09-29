@@ -161,7 +161,7 @@
   "selectElements": "Выберите элементы",
   "deleteElements": "Удалить элементы",
   "deleteElementsConfirm": "Вы действительно хотите удалить выбранные элементы?",
-  "selectCustomLayer": "Выберите пользовательский слой",
+  "selectCustomCollection": "Выберите свою коллекцию",
   "svg": "SVG",
   "sensitivity": "Чувствительность",
   "sensitivityHint": "Чем больше значение, тем чувствительнее ввод",
