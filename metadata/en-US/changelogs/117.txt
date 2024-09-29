@@ -12,5 +12,6 @@
 * Fix current collection not being shown in collection dialog
 * Fix duplicating not working correctly
 * Fix layer rendering
+* Fix convert to layer not working before reopening the app
 
 Read more here: https://linwood.dev/butterfly/2.2.1-rc.0

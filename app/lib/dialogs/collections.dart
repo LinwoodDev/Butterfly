@@ -149,7 +149,9 @@ class _CollectionsDialogState extends State<CollectionsDialog> {
                       final current = bloc.state.currentCollection ?? '';
                       final name = await showDialog<String>(
                         context: context,
-                        builder: (context) => NameDialog(),
+                        builder: (context) => NameDialog(
+                          value: current,
+                        ),
                       );
                       if (name == null) return;
                       bloc.add(ElementsLayerConverted(

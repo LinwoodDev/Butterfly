@@ -967,7 +967,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
         state: current.copyWith(
           page: newPage,
         ),
-        unbake: true,
+        reset: true,
       );
     });
   }
