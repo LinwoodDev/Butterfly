@@ -12,7 +12,6 @@ class UndoHandler extends Handler<UndoTool> {
   }
 
   @override
-  ToolStatus getStatus(DocumentBloc bloc) {
-    return bloc.canUndo ? ToolStatus.normal : ToolStatus.disabled;
-  }
+  ToolStatus getStatus(DocumentBloc bloc) =>
+      bloc.canUndo ? ToolStatus.normal : ToolStatus.disabled;
 }

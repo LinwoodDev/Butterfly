@@ -1,6 +1,7 @@
 * Add convert to layer to collection dialog
 * Readd option to select custom collection
 * Update button in name dialog to context specific action
+* Use live icon in add dialog (for example on undo, redo and full screen tools)
 * Improve layout of collection dialog
 * Improve copy to clipboard snackbar to show color
 * Change sensitivity settings to percent

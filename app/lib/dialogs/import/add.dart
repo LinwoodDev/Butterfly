@@ -69,7 +69,7 @@ class _AddDialogState extends State<AddDialog> {
         icon: Padding(
           padding: const EdgeInsets.all(8.0),
           child: PhosphorIcon(
-            tool.icon(PhosphorIconsStyle.light),
+            handler.getIcon(bloc) ?? tool.icon(PhosphorIconsStyle.light),
             color: color,
           ),
         ),

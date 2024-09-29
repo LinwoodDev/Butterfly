@@ -10,9 +10,8 @@ class FullScreenHandler extends Handler<FullScreenTool> {
   }
 
   @override
-  PhosphorIconData getIcon(DocumentBloc bloc) {
-    return bloc.state.windowCubit.state.fullScreen
-        ? PhosphorIconsLight.arrowsIn
-        : PhosphorIconsLight.arrowsOut;
-  }
+  PhosphorIconData getIcon(DocumentBloc bloc) =>
+      bloc.state.windowCubit.state.fullScreen
+          ? PhosphorIconsLight.arrowsIn
+          : PhosphorIconsLight.arrowsOut;
 }
