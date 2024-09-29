@@ -161,7 +161,7 @@
   "selectElements": "Vybrat prvky",
   "deleteElements": "Odstranit prvky",
   "deleteElementsConfirm": "Opravdu chcete odstranit vybrané prvky?",
-  "selectCustomCollection": "Select a custom collection",
+  "selectCustomCollection": "Vybrat vlastní kolekci",
   "svg": "SVG",
   "sensitivity": "Citlivost",
   "sensitivityHint": "Čím vyšší hodnota, tím citlivější je vstup",
