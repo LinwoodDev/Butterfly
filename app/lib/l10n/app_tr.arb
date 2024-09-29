@@ -161,7 +161,7 @@
   "selectElements": "Ögeleri seçin",
   "deleteElements": "Ögeleri sil",
   "deleteElementsConfirm": "Seçili ögeleri gerçekten silmek istiyor musunuz?",
-  "selectCustomLayer": "Bir katman seç",
+  "selectCustomCollection": "Select a custom collection",
   "svg": "SVG",
   "sensitivity": "Hassasiyet",
   "sensitivityHint": "Değer arttıkça hassasiyet artar",
