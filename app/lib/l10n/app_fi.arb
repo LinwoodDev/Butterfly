@@ -161,7 +161,7 @@
   "selectElements": "Valitse elementit",
   "deleteElements": "Poista elementit",
   "deleteElementsConfirm": "Haluatko varmasti poistaa valitut elementit?",
-  "selectCustomLayer": "Valitse mukautettu taso",
+  "selectCustomCollection": "Select a custom collection",
   "svg": "SVG",
   "sensitivity": "Herkkyys",
   "sensitivityHint": "Mitä suurempi arvo on, sitä herkempiä syöte",
