@@ -19,6 +19,7 @@ class CollectionsDialog extends StatefulWidget {
 class _CollectionsDialogState extends State<CollectionsDialog> {
   @override
   Widget build(BuildContext context) {
+    final isMobile = MediaQuery.sizeOf(context).width < LeapBreakpoints.compact;
     return ResponsiveAlertDialog(
       title: Text(AppLocalizations.of(context).collections),
       constraints: const BoxConstraints(maxWidth: LeapBreakpoints.compact),
@@ -27,6 +28,7 @@ class _CollectionsDialogState extends State<CollectionsDialog> {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Flexible(
+            fit: isMobile ? FlexFit.tight : FlexFit.loose,
             child: BlocBuilder<DocumentBloc, DocumentState>(
                 buildWhen: (previous, current) =>
                     previous.page?.content != current.page?.content ||
@@ -35,7 +37,7 @@ class _CollectionsDialogState extends State<CollectionsDialog> {
                   final collections = {
                     '',
                     ...?state.page?.content.map((e) => e.collection),
-                    state.currentCollection
+                    state.currentCollection,
                   }.nonNulls.toList();
                   return ListView.separated(
                     shrinkWrap: true,
@@ -74,6 +76,7 @@ class _CollectionsDialogState extends State<CollectionsDialog> {
                         context: context,
                         builder: (context) => NameDialog(
                           value: current,
+                          button: AppLocalizations.of(context).select,
                         ),
                       );
                       if (name == null) return;
@@ -115,6 +118,7 @@ class _CollectionsDialogState extends State<CollectionsDialog> {
                         context: context,
                         builder: (context) => NameDialog(
                           value: current,
+                          button: AppLocalizations.of(context).rename,
                         ),
                       );
                       if (name == null) return;

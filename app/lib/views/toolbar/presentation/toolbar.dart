@@ -226,6 +226,8 @@ class _PresentationToolbarViewState extends State<PresentationToolbarView> {
                                               animations
                                                   .map((e) => e.name)
                                                   .toList()),
+                                          button: AppLocalizations.of(context)
+                                              .duplicate,
                                         ),
                                       );
                                       if (name == null) return;
@@ -255,6 +257,8 @@ class _PresentationToolbarViewState extends State<PresentationToolbarView> {
                                               animations
                                                   .map((e) => e.name)
                                                   .toList()),
+                                          button: AppLocalizations.of(context)
+                                              .rename,
                                         ),
                                       );
                                       if (name == null) return;

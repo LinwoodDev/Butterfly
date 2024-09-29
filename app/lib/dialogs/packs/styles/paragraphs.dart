@@ -144,6 +144,7 @@ class _ParagraphsStyleViewState extends State<ParagraphsStyleView> {
                       context,
                       widget.value.paragraphProperties.keys.toList(),
                     ),
+                    button: AppLocalizations.of(context).rename,
                   ),
                 );
                 if (name == null) {

@@ -31,6 +31,7 @@ ContextMenuBuilder buildAreaContextMenu(DocumentBloc bloc,
                           context,
                           state.page.getAreaNames().toList(),
                         ),
+                        button: AppLocalizations.of(context).rename,
                       ));
               if (name == null) return;
               bloc.add(
@@ -83,7 +84,10 @@ ContextMenuBuilder buildGeneralAreaContextMenu(DocumentBloc bloc, Area area,
             onPressed: () async {
               Navigator.of(context).pop(true);
               final result = await showDialog<String>(
-                  builder: (context) => NameDialog(), context: context);
+                  builder: (context) => NameDialog(
+                        button: AppLocalizations.of(context).update,
+                      ),
+                  context: context);
               if (result == null) return;
               bloc.add(ElementsCollectionChanged(
                   elements.map((e) => e.id).nonNulls.toList(), result));

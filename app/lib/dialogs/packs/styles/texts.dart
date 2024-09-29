@@ -143,6 +143,7 @@ class _TextsStyleViewState extends State<TextsStyleView> {
                         context,
                         widget.value.spanProperties.keys.toList(),
                       ),
+                      button: AppLocalizations.of(context).rename,
                     ),
                   );
                   if (name == null) {

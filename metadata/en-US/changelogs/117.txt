@@ -1,8 +1,10 @@
 * Add convert to layer to collection dialog
 * Readd option to select custom collection
+* Update button in name dialog to context specific action
 * Improve layout of collection dialog
 * Change sensitivity settings to percent
 * Change min sensitivity of inputs to 10%
 * Fix select sensitivity slider in input settings changes scroll sensitivity
+* Fix current collection not being shown in collection dialog
 
 Read more here: https://linwood.dev/butterfly/2.2.1-rc.0
