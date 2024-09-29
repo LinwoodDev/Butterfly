@@ -191,8 +191,8 @@ class ViewPainter extends CustomPainter {
         }
       }
     }
-    canvas.scale(1 / transform.size, 1 / transform.size);
     canvas.translate(transform.position.dx, transform.position.dy);
+    canvas.scale(1 / transform.size, 1 / transform.size);
     final aboveLayerImage = cameraViewport.aboveLayerImage;
     if (renderBaked && aboveLayerImage != null) {
       canvas.drawImageRect(

@@ -78,6 +78,7 @@ class InputsSettingsPage extends StatelessWidget {
                           min: 10,
                           max: 1000,
                           defaultValue: 100,
+                          fractionDigits: 0,
                           value: state.selectSensitivity * 100,
                           header: Text(AppLocalizations.of(context).select),
                           onChangeEnd: (value) {
@@ -88,6 +89,7 @@ class InputsSettingsPage extends StatelessWidget {
                           min: 10,
                           max: 1000,
                           defaultValue: 100,
+                          fractionDigits: 0,
                           value: state.touchSensitivity * 100,
                           header: Text(AppLocalizations.of(context).touch),
                           onChangeEnd: (value) {
@@ -99,6 +101,7 @@ class InputsSettingsPage extends StatelessWidget {
                           max: 1000,
                           defaultValue: 100,
                           value: state.gestureSensitivity * 100,
+                          fractionDigits: 0,
                           header:
                               Text(AppLocalizations.of(context).inputGestures),
                           onChangeEnd: (value) {
@@ -111,6 +114,7 @@ class InputsSettingsPage extends StatelessWidget {
                           defaultValue: 100,
                           value: state.scrollSensitivity * 100,
                           header: Text(AppLocalizations.of(context).scroll),
+                          fractionDigits: 0,
                           onChangeEnd: (value) {
                             final cubit = context.read<SettingsCubit>();
                             cubit.changeScrollSensitivity(value / 100);

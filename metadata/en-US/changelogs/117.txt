@@ -11,5 +11,6 @@
 * Fix select sensitivity slider in input settings changes scroll sensitivity
 * Fix current collection not being shown in collection dialog
 * Fix duplicating not working correctly
+* Fix layer rendering
 
 Read more here: https://linwood.dev/butterfly/2.2.1-rc.0
