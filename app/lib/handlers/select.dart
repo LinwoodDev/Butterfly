@@ -141,7 +141,9 @@ class SelectHandler extends Handler<SelectTool> {
     _selectionManager.deselect();
     if (current == null) return null;
     bloc.add(_duplicate
-        ? ElementsCreated(current.map((e) => e.element).toList())
+        ? ElementsCreated(current
+            .map((e) => e.element.copyWith(id: createUniqueId()))
+            .toList())
         : ElementsChanged(Map.fromEntries(current.mapIndexed((i, e) {
             final id = _selected[i].element.id;
             if (id == null) return null;

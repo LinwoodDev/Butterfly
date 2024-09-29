@@ -38,6 +38,10 @@ class EyeDropperHandler extends Handler<EyeDropperTool> {
       saveToClipboard(
         context.buildContext,
         color.toHexColor(alpha: false),
+        leading: ColorButton(
+          color: Color(color).withAlpha(255),
+          size: 32,
+        ),
       );
     }
   }
