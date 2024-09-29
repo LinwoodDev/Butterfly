@@ -161,7 +161,7 @@
   "selectElements": "Selecione elementos",
   "deleteElements": "Excluir elementos",
   "deleteElementsConfirm": "Você realmente deseja excluir os elementos selecionados?",
-  "selectCustomLayer": "Selecione uma camada personalizada",
+  "selectCustomCollection": "Selecione uma coleção personalizada",
   "svg": "Svg",
   "sensitivity": "Sensibilidade",
   "sensitivityHint": "Quanto maior o valor, mais sensível o valor de entrada",
