@@ -2,6 +2,13 @@
 
 <!--ENTER CHANGELOG HERE-->
 
+## 2.2.0 (2024-09-28)
+
+* Fix importing keeps id
+
+This is a stable release, it includes all the changes from the 2.2 nightly release.
+Read more here: https://linwood.dev/butterfly/2.2
+
 ## 2.2.0-rc.3 (2024-09-26)
 
 * Rebuild baking system to support multiple layers
