@@ -161,7 +161,7 @@
   "selectElements": "要素を選択",
   "deleteElements": "要素を削除",
   "deleteElementsConfirm": "選択した要素を本当に削除しますか？",
-  "selectCustomLayer": "カスタムレイヤーを選択",
+  "selectCustomCollection": "Select a custom collection",
   "svg": "SVG",
   "sensitivity": "感度",
   "sensitivityHint": "値が高いほど入力の感度が高くなります",
