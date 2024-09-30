@@ -2,6 +2,28 @@
 
 <!--ENTER CHANGELOG HERE-->
 
+## 2.2.1-rc.0 (2024-09-30)
+
+* Add convert to layer to collection dialog
+* Readd option to select custom collection
+* Update button in name dialog to context specific action
+* Use live icon in add dialog (for example on undo, redo and full screen tools)
+* Improve layout of collection dialog
+* Improve copy to clipboard snackbar to show color
+* Change sensitivity settings to percent
+* Change min sensitivity of inputs to 10%
+* Rename context menu item name to rename in area context menu
+* Use search bar in areas navigator instead of normal text field
+* Fix select sensitivity slider in input settings changes scroll sensitivity
+* Fix current collection not being shown in collection dialog
+* Fix duplicating not working correctly
+* Fix layer rendering
+* Fix convert to layer not working before reopening the app
+* Fix file name only supports latin characters ([#743](https://github.com/LinwoodDev/Butterfly/issues/743))
+* Fix selection not updated when elements changed
+
+Read more here: https://linwood.dev/butterfly/2.2.1-rc.0
+
 ## 2.2.0 (2024-09-28)
 
 * Fix importing keeps id
