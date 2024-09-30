@@ -199,7 +199,7 @@ class _AppBarTitleState extends State<_AppBarTitle> {
                         }
                         if (state is DocumentLoadSuccess) {
                           await state.save(location.copyWith(
-                            path: documentSystem.convertNameToFile(
+                            path: documentSystem.convertNameToFileSystem(
                                 name: value,
                                 suffix: '.bfly',
                                 directory: location.parent),

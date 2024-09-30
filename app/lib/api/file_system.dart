@@ -12,7 +12,7 @@ import 'package:lw_file_system/lw_file_system.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-Uint8List _encode(NoteData data) => Uint8List.fromList(data.save());
+Uint8List _encode(NoteData data) => Uint8List.fromList(data.exportAsBytes());
 NoteData _decode(Uint8List data) => NoteData.fromData(data);
 
 const butterflySubDirectory = '/Linwood/Butterfly';

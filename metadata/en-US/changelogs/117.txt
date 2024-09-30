@@ -13,5 +13,6 @@
 * Fix duplicating not working correctly
 * Fix layer rendering
 * Fix convert to layer not working before reopening the app
+* Fix file name only supports latin characters ([#743](https://github.com/LinwoodDev/Butterfly/issues/743))
 
 Read more here: https://linwood.dev/butterfly/2.2.1-rc.0

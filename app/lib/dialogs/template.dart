@@ -86,7 +86,7 @@ class _TemplateDialogState extends State<TemplateDialog> {
           onPressed: () async {
             final archive = Archive();
             for (final template in (await _templateSystem.getFiles())) {
-              final data = template.data!.save();
+              final data = template.data!.exportAsBytes();
               archive.addFile(
                 ArchiveFile('${template.fileName}.bfly', data.length, data),
               );

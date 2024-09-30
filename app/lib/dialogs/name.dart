@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:lw_file_system/lw_file_system.dart';
 
 class NameDialog extends StatelessWidget {
   final GlobalKey<FormState> _formKey = GlobalKey();
@@ -67,26 +68,19 @@ FormFieldValidator<String> Function(String?) defaultNameValidator(
       };
 }
 
-const fileNameRegex = r'^[a-zA-Z0-9_\-\.\s]+$';
-// fileNameRegex with slashes but only if they are not at the beginning and minimum one letter is before them
-const fileNameRegexWithSlashes =
-    r'^[a-zA-Z0-9_\-\.\s]+(?:/[a-zA-Z0-9_\-\.\s]+)*(?:.[a-zA-Z0-9_\-\.\s]+)?$';
 FormFieldValidator<String> Function(String?) defaultFileNameValidator(
-    BuildContext context,
-    [List<String> existingNames = const [],
-    bool allowSlashes = true]) {
+  BuildContext context, [
+  List<String> existingNames = const [],
+]) {
   final nameValidator = defaultNameValidator(context, existingNames);
   return (oldName) => (value) {
         final nameError = nameValidator(oldName)(value);
         if (nameError != null) return nameError;
-        if (allowSlashes) {
-          if (!RegExp(fileNameRegexWithSlashes).hasMatch(value!)) {
-            return AppLocalizations.of(context).invalidName;
-          }
-        } else {
-          if (!RegExp(fileNameRegex).hasMatch(value!)) {
-            return AppLocalizations.of(context).invalidName;
-          }
+        if (value == null || value.isEmpty) {
+          return AppLocalizations.of(context).shouldNotEmpty;
+        }
+        if (hasInvalidFileName(value)) {
+          return AppLocalizations.of(context).invalidName;
         }
         return null;
       };

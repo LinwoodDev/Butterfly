@@ -19,7 +19,7 @@ class EmbedHandler {
     getDataListener ??= onEmbedMessage('getData', (message) async {
       final state = bloc.state;
       if (state is DocumentLoadSuccess) {
-        sendEmbedMessage('getData', state.saveData().save());
+        sendEmbedMessage('getData', state.saveData().exportAsBytes());
       }
     });
     setDataListener ??= onEmbedMessage('setData', (message) async {

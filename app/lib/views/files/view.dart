@@ -413,7 +413,7 @@ class FilesViewState extends State<FilesView> {
                                 }
                                 const route =
                                     '/native?name=document.bfly&type=note';
-                                router.go(route, extra: model.save());
+                                router.go(route, extra: model.exportAsBytes());
                                 if (!widget.collapsed) {
                                   reloadFileSystem();
                                 }

@@ -365,7 +365,7 @@ class FilesActionMenu extends StatelessWidget {
             onPressed: () {
               try {
                 final data = (entity as FileSystemFile<NoteData>).data;
-                exportData(context, data?.save() ?? []);
+                exportData(context, data?.exportAsBytes() ?? []);
               } catch (e) {
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(

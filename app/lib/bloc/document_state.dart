@@ -34,7 +34,7 @@ abstract class DocumentState extends Equatable {
   String? get currentLayer => null;
 
   NoteData? saveData([NoteData? current]) => data;
-  List<int>? saveBytes([NoteData? current]) => saveData()?.save();
+  Uint8List? saveBytes([NoteData? current]) => saveData()?.exportAsBytes();
 }
 
 class DocumentLoadInProgress extends DocumentState {

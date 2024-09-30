@@ -81,7 +81,7 @@ class ImportService {
     } else if (data is String) {
       bytes = Uint8List.fromList(utf8.encode(data));
     } else if (data is FileSystemFile<NoteData>) {
-      bytes = Uint8List.fromList(data.data?.save() ?? []);
+      bytes = Uint8List.fromList(data.data?.exportAsBytes() ?? []);
     } else if (location != null) {
       bytes = await fs.loadAbsolute(location.path);
     } else if (data is List) {
@@ -659,7 +659,8 @@ class ImportService {
     final viewport = currentIndexCubit.state.cameraViewport;
     switch (fileType) {
       case AssetFileType.note:
-        exportData(context, Uint8List.fromList(state.saveData().save()));
+        exportData(
+            context, Uint8List.fromList(state.saveData().exportAsBytes()));
         break;
       case AssetFileType.image:
         return showDialog<void>(

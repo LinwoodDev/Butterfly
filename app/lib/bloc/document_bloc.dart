@@ -935,7 +935,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       if (current is! DocumentLoadSuccess) return;
       var data = current.data;
       if (!validAssetPaths.any((e) => event.path.startsWith('$e/'))) return;
-      data = data.setAsset(event.path, event.data);
+      data = data.setAsset(event.path, Uint8List.fromList(event.data));
       current.assetService.invalidateImage(event.path);
       final shouldRepaint = current.renderers.any((e) => e.onAssetUpdate(
           current.data, current.assetService, current.page, event.path));

@@ -2,42 +2,24 @@ import 'dart:convert';
 import 'dart:typed_data';
 
 import 'package:archive/archive.dart';
-import 'package:butterfly_api/src/converter/core.dart';
-import 'package:butterfly_api/src/models/info.dart';
 import 'package:collection/collection.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:lw_file_system_api/archive.dart';
 
 import '../../butterfly_text.dart';
 import '../converter/note.dart';
 import 'archive.dart';
+import 'info.dart';
 import 'meta.dart';
 import 'pack.dart';
 import 'page.dart';
 import 'palette.dart';
 
-part 'data.g.dart';
-part 'data.freezed.dart';
-
-@freezed
-class NoteDataState with _$NoteDataState {
-  const factory NoteDataState([
-    @Uint8ListJsonConverter()
-    @Default(<String, Uint8List>{})
-    Map<String, Uint8List> added,
-    @Default(<String>[]) List<String> removed,
-  ]) = _NoteDataState;
-
-  factory NoteDataState.fromJson(dynamic json) => _$NoteDataStateFromJson(json);
-}
-
 final Set<String> validAssetPaths = {kImagesArchiveDirectory};
 
 @immutable
-class NoteData {
-  final Archive archive;
-  final NoteDataState state;
-
-  NoteData(this.archive, [this.state = const NoteDataState()]);
+final class NoteData extends ArchiveData<NoteData> {
+  NoteData(super.archive, {super.state});
 
   factory NoteData.fromData(Uint8List data, {bool disableMigrations = false}) {
     if (disableMigrations) {
@@ -59,21 +41,6 @@ class NoteData {
         base64Decode(json as String),
       );
 
-  Archive export() {
-    final archive = Archive();
-    for (final file in this.archive.files) {
-      if (state.removed.contains(file.name) ||
-          state.added.containsKey(file.name)) {
-        continue;
-      }
-      archive.addFile(ArchiveFile(file.name, file.size, file.content));
-    }
-    for (final entry in state.added.entries) {
-      archive.addFile(ArchiveFile(entry.key, entry.value.length, entry.value));
-    }
-    return archive;
-  }
-
   NoteFileType? get type => getMetadata()?.type;
 
   String? get name => getMetadata()?.name;
@@ -86,51 +53,12 @@ class NoteData {
     return setMetadata(meta.copyWith(name: value));
   }
 
-  Uint8List? getAsset(String path) {
-    if (state.removed.contains(path)) {
-      return null;
-    }
-    if (state.added.containsKey(path)) {
-      return state.added[path];
-    }
-    final file = archive.findFile(path);
-    if (file == null) {
-      return null;
-    }
-    return file.content;
-  }
+  @override
+  @useResult
+  NoteData updateState(ArchiveState state) => NoteData(archive, state: state);
 
   @useResult
-  NoteData _updateState(NoteDataState state) => NoteData(archive, state);
-
-  @useResult
-  NoteData setAsset(String path, List<int> data) => _updateState(
-        state.copyWith(
-          added: {
-            ...state.added,
-            path: Uint8List.fromList(data),
-          },
-          removed: state.removed.where((element) => element != path).toList(),
-        ),
-      );
-
-  @useResult
-  NoteData removeAsset(String path) => removeAssets([path]);
-
-  @useResult
-  NoteData removeAssets(List<String> path) => _updateState(
-        state.copyWith(
-          removed: [
-            ...state.removed,
-            ...path,
-          ],
-          added: Map.of(state.added)
-            ..removeWhere((key, value) => path.contains(key)),
-        ),
-      );
-
-  @useResult
-  (NoteData, String) addAsset(String path, List<int> data, String fileExtension,
+  (NoteData, String) addAsset(String path, Uint8List data, String fileExtension,
       [String name = '']) {
     final newPath = '$path/${findUniqueName(path, fileExtension, name)}';
     return (setAsset(newPath, data), newPath);
@@ -152,21 +80,6 @@ class NoteData {
     }
     return getName();
   }
-
-  @useResult
-  Iterable<String> getAssets(String path, [bool removeExtension = false]) => {
-        ...archive.files.map((e) => e.name),
-        ...state.added.keys,
-      }
-          .where((e) => e.startsWith(path) && !state.removed.contains(e))
-          .map((e) => e.substring(path.length))
-          .map((e) {
-        if (e.startsWith('/')) e = e.substring(1);
-        if (!removeExtension) return e;
-        final startExtension = e.lastIndexOf('.');
-        if (startExtension == -1) return e;
-        return e.substring(0, startExtension);
-      });
 
   @useResult
   Uint8List? getThumbnail() => getAsset(kThumbnailArchiveFile);
@@ -388,7 +301,7 @@ class NoteData {
 
   @useResult
   NoteData setPack(NoteData pack, [String? name]) {
-    final data = pack.save();
+    final data = pack.exportAsBytes();
     return setAsset(
         '$kPacksArchiveDirectory/${name ?? pack.getMetadata()?.name}.bfly',
         data);
@@ -488,11 +401,8 @@ class NoteData {
       removeAsset('$kPalettesArchiveDirectory/$name.json');
 
   @useResult
-  List<int> save() => ZipEncoder().encode(export())!;
-
-  @useResult
   String toJson() {
-    return base64Encode(save());
+    return base64Encode(exportAsBytes());
   }
 
   (NoteData, String) addPage(DocumentPage page, [int? index]) {
@@ -505,7 +415,7 @@ class NoteData {
   }
 
   NoteData undoDelete(String path) {
-    final removed = state.removed.where((element) => element != path).toList();
-    return _updateState(state.copyWith(removed: removed));
+    final removed = Set<String>.from(state.removed)..remove(path);
+    return updateState(state.copyWith(removed: removed));
   }
 }
