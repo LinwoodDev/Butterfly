@@ -161,7 +161,7 @@
   "selectElements": "Välj element",
   "deleteElements": "Ta bort element",
   "deleteElementsConfirm": "Vill du verkligen ta bort de markerade elementen?",
-  "selectCustomLayer": "Välj ett anpassat lager",
+  "selectCustomCollection": "Välj en anpassad samling",
   "svg": "SVG",
   "sensitivity": "Känslighet",
   "sensitivityHint": "Ju högre värde, desto känsligare är inmatningen",

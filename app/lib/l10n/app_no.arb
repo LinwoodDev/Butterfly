@@ -161,7 +161,7 @@
   "selectElements": "Velg elementer",
   "deleteElements": "Slett elementer",
   "deleteElementsConfirm": "Vil du virkelig slette de valgte elementene?",
-  "selectCustomLayer": "Velg et egendefinert lag",
+  "selectCustomCollection": "Velg en egendefinert samling",
   "svg": "Svg",
   "sensitivity": "Sensitivitet",
   "sensitivityHint": "Jo høyere verdien er, desto mer følsom inndata",

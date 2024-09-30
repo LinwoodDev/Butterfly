@@ -161,7 +161,7 @@
   "selectElements": "Select elements",
   "deleteElements": "Delete elements",
   "deleteElementsConfirm": "Do you really want to delete the selected elements?",
-  "selectCustomLayer": "Chọn một lớp tùy chỉnh",
+  "selectCustomCollection": "Select a custom collection",
   "svg": "SVG",
   "sensitivity": "Độ nhạy",
   "sensitivityHint": "The higher the value, the more sensitive the input",

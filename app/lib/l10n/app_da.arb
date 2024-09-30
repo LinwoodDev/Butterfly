@@ -161,7 +161,7 @@
   "selectElements": "Vælg elementer",
   "deleteElements": "Slet elementer",
   "deleteElementsConfirm": "Vil du virkelig slette de valgte elementer?",
-  "selectCustomLayer": "Vælg et brugerdefineret lag",
+  "selectCustomCollection": "Vælg en brugerdefineret samling",
   "svg": "SVG",
   "sensitivity": "Følsomhed",
   "sensitivityHint": "Jo højere værdi, jo mere følsom input",

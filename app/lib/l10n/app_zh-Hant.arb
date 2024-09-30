@@ -161,7 +161,7 @@
   "selectElements": "選取元素",
   "deleteElements": "刪除元素",
   "deleteElementsConfirm": "確定要刪除所選元素嗎？",
-  "selectCustomLayer": "選擇自訂圖層",
+  "selectCustomCollection": "Select a custom collection",
   "svg": "SVG",
   "sensitivity": "靈敏度",
   "sensitivityHint": "數值越高，輸入越靈敏",

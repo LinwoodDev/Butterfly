@@ -161,7 +161,7 @@
   "selectElements": "Обрати елементи",
   "deleteElements": "Видалити елементи",
   "deleteElementsConfirm": "Ви дійсно бажаєте видалити вибрані елементи?",
-  "selectCustomLayer": "Виберіть користувацький шар",
+  "selectCustomCollection": "Обрати користувацьку колекцію",
   "svg": "SVG",
   "sensitivity": "Чутливість",
   "sensitivityHint": "Чим вище значення, тим більш чутливе вхідне значення",

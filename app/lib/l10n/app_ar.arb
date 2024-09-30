@@ -161,7 +161,7 @@
   "selectElements": "حدد العناصر",
   "deleteElements": "حذف العناصر",
   "deleteElementsConfirm": "هل تريد حقاً حذف العناصر المحددة؟",
-  "selectCustomLayer": "حدد طبقة مخصصة",
+  "selectCustomCollection": "حدد مجموعة مخصصة",
   "svg": "SVG",
   "sensitivity": "الحساسية",
   "sensitivityHint": "كلما ارتفعت القيمة، كلما كان الإدخال أكثر حساسية",

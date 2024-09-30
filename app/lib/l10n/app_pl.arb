@@ -161,7 +161,7 @@
   "selectElements": "Wybierz elementy",
   "deleteElements": "Usuń elementy",
   "deleteElementsConfirm": "Czy na pewno chcesz usunąć wybrane elementy?",
-  "selectCustomLayer": "Wybierz niestandardową warstwę",
+  "selectCustomCollection": "Wybierz własną kolekcję",
   "svg": "SVG",
   "sensitivity": "Czułość",
   "sensitivityHint": "Im wyższa wartość, tym bardziej wrażliwe dane wejściowe",

@@ -161,7 +161,7 @@
   "selectElements": "Selectare elemente",
   "deleteElements": "Ștergere elemente",
   "deleteElementsConfirm": "Eşti sigur că vrei să ştergi elementele selectate?",
-  "selectCustomLayer": "Selectaţi un strat personalizat",
+  "selectCustomCollection": "Selectează o colecție personalizată",
   "svg": "VSG",
   "sensitivity": "Sensibilitate",
   "sensitivityHint": "Cu cât este mai mare valoarea, cu atât mai sensibilă este aportul",
