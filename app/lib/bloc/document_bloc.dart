@@ -195,8 +195,9 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       final current = state;
       if (current is! DocumentLoadSuccess) return;
       if (!(current.embedding?.editable ?? true)) return;
+      final cubit = current.currentIndexCubit;
       final renderers = <Renderer<PadElement>>[];
-      var selection = current.currentIndexCubit.state.selection;
+      var selection = cubit.state.selection;
       final page = current.page;
       final oldRenderers = current.renderers;
       final elements = event.elements.map((key, value) => MapEntry(
@@ -238,6 +239,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
               return [e];
             }).toList(),
           ));
+      cubit.changeSelection(selection, false);
       _saveState(
         emit,
         state: current.copyWith(
@@ -245,7 +247,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
         ),
         replacedElements: renderers,
         shouldRefresh: () => replacedRenderers.entries
-            .map((element) => current.currentIndexCubit
+            .map((element) => cubit
                 .getHandler()
                 .onRendererUpdated(page, element.key, element.value))
             .toList()
