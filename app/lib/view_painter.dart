@@ -178,9 +178,14 @@ class ViewPainter extends CustomPainter {
       if (bLayer == null) {
         return -1;
       }
-      return layers
+      final compared = layers
           .indexWhere((e) => e.id == aLayer)
           .compareTo(layers.indexWhere((e) => e.id == bLayer));
+      if (compared != 0) return compared;
+      return cameraViewport.unbakedElements
+          .indexWhere((e) => e.id == a.id)
+          .compareTo(
+              cameraViewport.unbakedElements.indexWhere((e) => e.id == b.id));
     });
     for (final renderer in renderers) {
       final state = states[renderer.id];

@@ -1,0 +1,4 @@
+* Fix unstable sort algorithm if layer is the same
+
+This is a stable release, it includes all the changes from the 2.2.1 nightly release.
+Read more here: https://linwood.dev/butterfly/2.2.1
