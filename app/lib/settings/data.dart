@@ -68,7 +68,7 @@ class _DataSettingsPageState extends State<DataSettingsPage> {
                                 const PhosphorIcon(PhosphorIconsLight.folder),
                             subtitle: state.documentPath.isNotEmpty
                                 ? FutureBuilder<String>(
-                                    future: getButterflyDirectory(root: true),
+                                    future: getButterflyDirectory(),
                                     builder: (context, snapshot) {
                                       if (snapshot.hasData) {
                                         return Text(snapshot.data!);
@@ -166,8 +166,17 @@ class _DataSettingsPageState extends State<DataSettingsPage> {
   }
 
   Future<void> _changePath(SettingsCubit settingsCubit, String newPath) async {
-    final oldPath = settingsCubit.state.documentPath;
-    if (!(await _documentSystem.moveAbsolute(oldPath, newPath))) {
+    var oldPath = settingsCubit.state.documentPath;
+    final defaultPath = await getButterflyDirectory(usePrefs: false);
+    if (oldPath.isEmpty) {
+      oldPath = defaultPath;
+    }
+    var movedPath = newPath;
+    if (movedPath.isEmpty) {
+      movedPath = defaultPath;
+    }
+    if (!(await _documentSystem.moveAbsolute(oldPath, movedPath)) &&
+        newPath.isNotEmpty) {
       return;
     }
     settingsCubit.changeDocumentPath(newPath);

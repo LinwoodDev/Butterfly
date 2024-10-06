@@ -19,13 +19,15 @@ const butterflySubDirectory = '/Linwood/Butterfly';
 
 String? overrideButterflyDirectory;
 
-Future<String> getButterflyDirectory({bool root = false}) async {
+Future<String> getButterflyDirectory({bool usePrefs = true}) async {
   var directory = overrideButterflyDirectory;
   if (directory != null) return directory;
-  var prefs = await SharedPreferences.getInstance();
   String? path;
-  if (prefs.containsKey('document_path')) {
-    path = prefs.getString('document_path');
+  if (usePrefs) {
+    final prefs = await SharedPreferences.getInstance();
+    if (prefs.containsKey('document_path')) {
+      path = prefs.getString('document_path');
+    }
   }
   if (path == '') {
     path = null;
@@ -40,7 +42,7 @@ Future<String> getButterflyDirectory({bool root = false}) async {
     path ??= (await getExternalStorageDirectory())?.path;
   }
   path ??= (await getApplicationDocumentsDirectory()).path;
-  if (!root) path += butterflySubDirectory;
+  path += butterflySubDirectory;
   return path;
 }
 
