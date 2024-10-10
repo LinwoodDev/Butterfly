@@ -1,4 +1,5 @@
 * Add bit mapping of buttons in pointer test
+* Fix pasting with label tool replaces text instead of appending
 * Fix unstable sort algorithm if layer is the same
 * Fix switching data directory not working
 * Fix input button mapping not working on multiple button presses ([#748](https://github.com/LinwoodDev/Butterfly/issues/748))

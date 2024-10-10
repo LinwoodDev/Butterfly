@@ -737,7 +737,7 @@ class LabelHandler extends Handler<LabelTool>
   void _pasteText() {
     Clipboard.getData(Clipboard.kTextPlain).then((value) {
       if (value == null) return;
-      _updateText(value.text ?? '');
+      _updateText(value.text ?? '', false);
       if (_bloc != null) _refreshToolbar(_bloc!);
     });
   }
