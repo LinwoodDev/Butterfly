@@ -16,7 +16,7 @@ class InputsSettingsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     PointerDeviceKind? kind;
-    int? buttons;
+    int buttons = 0;
     double? pressure;
     Color? pressed;
     return Scaffold(
@@ -180,7 +180,8 @@ class InputsSettingsPage extends StatelessWidget {
                           ),
                           ListTile(
                             title: Text(AppLocalizations.of(context).input),
-                            subtitle: Text(buttons.toString()),
+                            subtitle:
+                                Text('$buttons (${buttons.toRadixString(2)})'),
                           ),
                           ListTile(
                             title: Text(AppLocalizations.of(context).pressure),

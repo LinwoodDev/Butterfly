@@ -125,23 +125,24 @@ class _MainViewViewportState extends State<MainViewViewport>
           final config = context.read<SettingsCubit>().state.inputConfiguration;
           final cubit = context.read<CurrentIndexCubit>();
           final bloc = context.read<DocumentBloc>();
+          // Mapped to the priority of the buttons
           switch (kind) {
             case PointerDeviceKind.touch:
               nextPointerIndex = config.touch;
             case PointerDeviceKind.mouse:
-              if (buttons == kPrimaryMouseButton) {
-                nextPointerIndex = config.leftMouse;
-              } else if (buttons == kMiddleMouseButton) {
-                nextPointerIndex = config.middleMouse;
-              } else if (buttons == kSecondaryMouseButton) {
+              if ((buttons & kSecondaryMouseButton) != 0) {
                 nextPointerIndex = config.rightMouse;
+              } else if ((buttons & kMiddleMouseButton) != 0) {
+                nextPointerIndex = config.middleMouse;
+              } else if ((buttons & kPrimaryMouseButton) != 0) {
+                nextPointerIndex = config.leftMouse;
               }
             case PointerDeviceKind.stylus:
               nextPointerIndex = config.pen;
-              if (buttons == kPrimaryStylusButton) {
-                nextPointerIndex = config.firstPenButton;
-              } else if (buttons == kSecondaryStylusButton) {
+              if ((buttons & kSecondaryStylusButton) != 0) {
                 nextPointerIndex = config.secondPenButton;
+              } else if ((buttons & kPrimaryStylusButton) != 0) {
+                nextPointerIndex = config.firstPenButton;
               }
             default:
               nextPointerIndex = null;

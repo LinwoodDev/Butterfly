@@ -1,2 +1,6 @@
+* Add bit mapping of buttons in pointer test
 * Fix unstable sort algorithm if layer is the same
 * Fix switching data directory not working
+* Fix input button mapping not working on multiple button presses ([#748](https://github.com/LinwoodDev/Butterfly/issues/748))
+
+Read more here: https://linwood.dev/butterfly/2.2.1-rc.1
