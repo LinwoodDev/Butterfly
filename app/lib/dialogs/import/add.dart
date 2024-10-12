@@ -109,6 +109,7 @@ class _AddDialogState extends State<AddDialog> {
                 Expanded(
                     child: Align(
                   child: SearchBar(
+                    autoFocus: true,
                     constraints:
                         const BoxConstraints(maxWidth: 200, minHeight: 50),
                     leading:
@@ -239,6 +240,19 @@ class _AddDialogState extends State<AddDialog> {
                             ),
                             const SizedBox(height: 16),
                           ],
+                          if (tools.isEmpty &&
+                              shapes.isEmpty &&
+                              textures.isEmpty &&
+                              actions.isEmpty)
+                            Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  vertical: 64, horizontal: 16),
+                              child: Text(
+                                AppLocalizations.of(context).noElements,
+                                textAlign: TextAlign.center,
+                                style: Theme.of(context).textTheme.bodyLarge,
+                              ),
+                            ),
                           if (tools.isNotEmpty) ...[
                             _ToolsListView(
                               isMobile: isMobile,

@@ -1,4 +1,8 @@
 * Add bit mapping of buttons in pointer test
+* Add autofocus to add dialog search bar
+* Add transition when opening add dialog
+* Add size transition to toolbar
+* Change color toolbar to not have the full width
 * Fix pasting with label tool replaces text instead of appending
 * Fix unstable sort algorithm if layer is the same
 * Fix switching data directory not working

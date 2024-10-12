@@ -45,7 +45,10 @@ class _ToolbarViewState extends State<ToolbarView> {
                       key: _animatedKey,
                       curve: Curves.fastOutSlowIn,
                       duration: const Duration(milliseconds: 200),
-                      child: child,
+                      child: AnimatedSize(
+                          duration: const Duration(milliseconds: 100),
+                          curve: Curves.fastOutSlowIn,
+                          child: child),
                     );
                   }),
             ),

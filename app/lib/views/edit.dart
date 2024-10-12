@@ -207,9 +207,9 @@ class _EditToolbarState extends State<EditToolbar> {
                             final bloc = context.read<DocumentBloc>();
                             final cubit = context.read<CurrentIndexCubit>();
                             final importService = context.read<ImportService>();
-                            showDialog(
+                            showGeneralDialog(
                               context: context,
-                              builder: (ctx) => MultiBlocProvider(
+                              pageBuilder: (ctx, _, __) => MultiBlocProvider(
                                 providers: [
                                   BlocProvider.value(value: bloc),
                                   BlocProvider.value(value: cubit),
@@ -219,6 +219,25 @@ class _EditToolbarState extends State<EditToolbar> {
                                   child: const AddDialog(),
                                 ),
                               ),
+                              barrierDismissible: true,
+                              barrierLabel: MaterialLocalizations.of(context)
+                                  .modalBarrierDismissLabel,
+                              transitionDuration:
+                                  const Duration(milliseconds: 200),
+                              transitionBuilder: (context, animation,
+                                  secondaryAnimation, child) {
+                                // Animate the dialog from bottom to center
+                                return SlideTransition(
+                                  position: Tween<Offset>(
+                                    begin: const Offset(0, 1),
+                                    end: Offset.zero,
+                                  )
+                                      .chain(CurveTween(
+                                          curve: Curves.easeOutQuart))
+                                      .animate(animation),
+                                  child: child,
+                                );
+                              },
                             );
                           },
                           child: PhosphorIcon(
