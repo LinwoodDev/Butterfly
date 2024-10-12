@@ -15,8 +15,8 @@
     "@astrojs/starlight": "^0.28.3",
     "@phosphor-icons/react": "^2.1.7",
     "@types/react": "^18.3.11",
-    "@types/react-dom": "^18.3.0",
-    "astro": "^4.16.0",
+    "@types/react-dom": "^18.3.1",
+    "astro": "^4.16.2",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "remark-gemoji": "^8.0.0",
@@ -24,8 +24,8 @@
     "sharp": "^0.33.5",
     "typescript": "^5.6.3"
   },
-  "packageManager": "pnpm@9.12.0",
+  "packageManager": "pnpm@9.12.1",
   "devDependencies": {
-    "sass": "^1.79.4"
+    "sass": "^1.79.5"
   }
 }

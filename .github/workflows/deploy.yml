@@ -1,0 +1,83 @@
+name: Deploy documentation
+
+on:
+  # Trigger the workflow every time you push to the `main` branch
+  # Using a different branch name? Replace `main` with your branch’s name
+  push:
+  # Allows you to run this workflow manually from the Actions tab on GitHub.
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: docs
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          package_json_file: docs/package.json
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: "pnpm"
+          cache-dependency-path: docs/pnpm-lock.yaml
+      - name: Install dependencies
+        run: pnpm install
+      - name: Build
+        run: pnpm build
+      - name: Deploy to SFTP
+        if: github.ref == 'refs/heads/develop'
+        env:
+          SFTP_HOST: ${{ secrets.SFTP_HOST }}
+          SFTP_USERNAME: ${{ secrets.SFTP_USERNAME }}
+          SFTP_KEY: ${{ secrets.SFTP_KEY }}
+          SFTP_KNOWN_HOSTS: ${{secrets.SFTP_KNOWN_HOSTS}}
+        run: |
+          echo "$SFTP_KEY" > sftp_key
+          chmod 600 sftp_key
+          echo "$SFTP_KNOWN_HOSTS" > known_hosts
+          chmod 600 known_hosts
+          rsync -avz --delete -e "ssh -i sftp_key -o UserKnownHostsFile=known_hosts" dist/ $SFTP_USERNAME@$SFTP_HOST:/var/www/butterfly.linwood
+  web:
+    runs-on: ubuntu-24.04
+    defaults:
+      run:
+        working-directory: app
+    steps:
+      - name: ⬆️ Checkout
+        uses: actions/checkout@v4
+      - uses: subosito/flutter-action@v2.16.0
+        with:
+          flutter-version-file: app/pubspec.yaml
+      - name: Install dependencies
+        run: |
+          flutter pub get
+      - name: Set flavor
+        if: github.ref != 'refs/heads/main'
+        run: |
+          echo "SETONIX_FLAVOR=nightly" >> $GITHUB_ENV
+          echo "WEB_DIR=preview" >> $GITHUB_ENV
+      - name: Set flavor
+        if: github.ref == 'refs/heads/main'
+        run: |
+          echo "SETONIX_FLAVOR=stable" >> $GITHUB_ENV
+          echo "WEB_DIR=web" >> $GITHUB_ENV
+      - name: Build
+        run: flutter build web --wasm --release --no-web-resources-cdn --dart-define=flavor=$SETONIX_FLAVOR
+      - name: Deploy to SFTP
+        if: github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/main'
+        env:
+          SFTP_HOST: ${{ secrets.SFTP_HOST }}
+          SFTP_USERNAME: ${{ secrets.SFTP_USERNAME }}
+          SFTP_KEY: ${{ secrets.SFTP_KEY }}
+          SFTP_KNOWN_HOSTS: ${{secrets.SFTP_KNOWN_HOSTS}}
+        run: |
+          echo "$SFTP_KEY" > sftp_key
+          chmod 600 sftp_key
+          echo "$SFTP_KNOWN_HOSTS" > known_hosts
+          chmod 600 known_hosts
+          rsync -avz --delete -e "ssh -i sftp_key -o UserKnownHostsFile=known_hosts" build/web/ $SFTP_USERNAME@$SFTP_HOST:/var/www/$WEB_DIR.butterfly.linwood
