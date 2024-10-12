@@ -32,7 +32,7 @@ class SearchAction extends Action<SearchIntent> {
           position: Tween<Offset>(
             begin: const Offset(0, -0.5),
             end: Offset.zero,
-          ).animate(animation),
+          ).chain(CurveTween(curve: Curves.easeOutQuart)).animate(animation),
           child: child,
         );
       },

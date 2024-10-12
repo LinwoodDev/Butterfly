@@ -32,14 +32,14 @@ Future<void> openSettings(BuildContext context) => showGeneralDialog<void>(
       ),
       barrierDismissible: true,
       barrierLabel: MaterialLocalizations.of(context).modalBarrierDismissLabel,
-      transitionDuration: const Duration(milliseconds: 100),
+      transitionDuration: const Duration(milliseconds: 200),
       transitionBuilder: (context, animation, secondaryAnimation, child) {
         // Animate the dialog from bottom to center
         return SlideTransition(
           position: Tween<Offset>(
             begin: const Offset(0, 1),
             end: Offset.zero,
-          ).animate(animation),
+          ).chain(CurveTween(curve: Curves.easeOutQuart)).animate(animation),
           child: child,
         );
       },
