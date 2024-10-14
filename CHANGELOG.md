@@ -2,6 +2,22 @@
 
 <!--ENTER CHANGELOG HERE-->
 
+## 2.2.1-rc.1 (2024-10-14)
+
+* Add bit mapping of buttons in pointer test
+* Add autofocus to add dialog search bar
+* Add transition when opening add dialog
+* Add size transition to toolbar
+* Improve search and settings dialog transition
+* Change color toolbar to not have the full width
+* Fix pasting with label tool replaces text instead of appending
+* Fix unstable sort algorithm if layer is the same
+* Fix switching data directory not working
+* Fix input button mapping not working on multiple button presses ([#748](https://github.com/LinwoodDev/Butterfly/issues/748))
+* Fix app link in android
+
+Read more here: https://linwood.dev/butterfly/2.2.1-rc.1
+
 ## 2.2.1-rc.0 (2024-09-30)
 
 * Add convert to layer to collection dialog
