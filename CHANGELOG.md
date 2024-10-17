@@ -2,6 +2,11 @@
 
 <!--ENTER CHANGELOG HERE-->
 
+## 2.2.1 (2024-10-17)
+
+This is a stable release, it includes all the changes from the 2.2.1 nightly releases.
+Read more here: https://linwood.dev/butterfly/2.2.1
+
 ## 2.2.1-rc.1 (2024-10-14)
 
 * Add bit mapping of buttons in pointer test
