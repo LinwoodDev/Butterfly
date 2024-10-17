@@ -16,7 +16,7 @@
     "@phosphor-icons/react": "^2.1.7",
     "@types/react": "^18.3.11",
     "@types/react-dom": "^18.3.1",
-    "astro": "^4.16.3",
+    "astro": "^4.16.5",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "remark-gemoji": "^8.0.0",
@@ -24,8 +24,8 @@
     "sharp": "^0.33.5",
     "typescript": "^5.6.3"
   },
-  "packageManager": "pnpm@9.12.1",
+  "packageManager": "pnpm@9.12.2",
   "devDependencies": {
-    "sass": "^1.79.5"
+    "sass": "^1.80.1"
   }
 }
