@@ -190,7 +190,7 @@ export default defineConfig({
             },
             {
               ...getSidebarTranslatedLabel("Changelog"),
-              link: "/community/changelog/",
+              link: "/changelog/",
             },
             {
               ...getSidebarTranslatedLabel("Contributing"),
