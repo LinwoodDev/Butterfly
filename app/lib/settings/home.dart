@@ -117,33 +117,6 @@ class _SettingsPageState extends State<SettingsPage> {
                           selected: selected,
                         );
                       }),
-                      if (kIsWeb) ...[
-                        const Divider(),
-                        Padding(
-                            padding: const EdgeInsets.all(5),
-                            child: InkWell(
-                                onTap: () => launchUrl(
-                                    Uri.https('vercel.com', '', {
-                                      'utm_source': 'Linwood',
-                                      'utm_campaign': 'oss'
-                                    }),
-                                    mode: LaunchMode.externalApplication),
-                                child: Material(
-                                  type: MaterialType.transparency,
-                                  child: SizedBox(
-                                      height: 50,
-                                      child: SvgPicture.asset(
-                                          'images/powered-by-vercel.svg',
-                                          placeholderBuilder: (BuildContext
-                                                  context) =>
-                                              Container(
-                                                  padding: const EdgeInsets.all(
-                                                      30.0),
-                                                  child:
-                                                      const CircularProgressIndicator()),
-                                          semanticsLabel: 'Powered by Vercel')),
-                                )))
-                      ],
                     ]),
               ),
             )
