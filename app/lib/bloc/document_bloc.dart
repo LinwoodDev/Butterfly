@@ -661,6 +661,30 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       );
     });
 
+    on<LayersMerged>((event, emit) {
+      final current = state;
+      if (current is! DocumentLoadSuccess) return;
+      if (!(current.embedding?.editable ?? true)) return;
+      if (event.layers.length < 2) return;
+      final mainLayer = event.layers.first;
+      final mergedLayers = event.layers.skip(1).toList();
+      var layer = current.page.getLayer(mainLayer);
+      layer = layer.copyWith(content: [
+        ...layer.content,
+        ...mergedLayers.expand((e) => current.page.getLayer(e).content)
+      ]);
+      final newLayers = current.page.layers
+          .where((e) => !mergedLayers.contains(e.id))
+          .map((e) => e.id == mainLayer ? layer : e)
+          .toList();
+      return _saveState(
+        emit,
+        state: current.copyWith(
+          page: current.page.copyWith(layers: newLayers),
+        ),
+      );
+    });
+
     on<CurrentLayerChanged>((event, emit) {
       final current = state;
       if (current is! DocumentLoadSuccess) return;

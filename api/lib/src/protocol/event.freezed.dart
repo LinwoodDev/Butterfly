@@ -76,6 +76,8 @@ DocumentEvent _$DocumentEventFromJson(Map<String, dynamic> json) {
       return LayerChanged.fromJson(json);
     case 'layerRemoved':
       return LayerRemoved.fromJson(json);
+    case 'layersMerged':
+      return LayersMerged.fromJson(json);
     case 'layerOrderChanged':
       return LayerOrderChanged.fromJson(json);
     case 'layerVisibilityChanged':
@@ -3388,6 +3390,111 @@ abstract class LayerRemoved extends DocumentEvent {
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
   _$$LayerRemovedImplCopyWith<_$LayerRemovedImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$LayersMergedImplCopyWith<$Res> {
+  factory _$$LayersMergedImplCopyWith(
+          _$LayersMergedImpl value, $Res Function(_$LayersMergedImpl) then) =
+      __$$LayersMergedImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({List<String> layers});
+}
+
+/// @nodoc
+class __$$LayersMergedImplCopyWithImpl<$Res>
+    extends _$DocumentEventCopyWithImpl<$Res, _$LayersMergedImpl>
+    implements _$$LayersMergedImplCopyWith<$Res> {
+  __$$LayersMergedImplCopyWithImpl(
+      _$LayersMergedImpl _value, $Res Function(_$LayersMergedImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? layers = null,
+  }) {
+    return _then(_$LayersMergedImpl(
+      null == layers
+          ? _value._layers
+          : layers // ignore: cast_nullable_to_non_nullable
+              as List<String>,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$LayersMergedImpl extends LayersMerged {
+  const _$LayersMergedImpl(final List<String> layers, {final String? $type})
+      : _layers = layers,
+        $type = $type ?? 'layersMerged',
+        super._();
+
+  factory _$LayersMergedImpl.fromJson(Map<String, dynamic> json) =>
+      _$$LayersMergedImplFromJson(json);
+
+  final List<String> _layers;
+  @override
+  List<String> get layers {
+    if (_layers is EqualUnmodifiableListView) return _layers;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_layers);
+  }
+
+  @JsonKey(name: 'type')
+  final String $type;
+
+  @override
+  String toString() {
+    return 'DocumentEvent.layersMerged(layers: $layers)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$LayersMergedImpl &&
+            const DeepCollectionEquality().equals(other._layers, _layers));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(_layers));
+
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$LayersMergedImplCopyWith<_$LayersMergedImpl> get copyWith =>
+      __$$LayersMergedImplCopyWithImpl<_$LayersMergedImpl>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$LayersMergedImplToJson(
+      this,
+    );
+  }
+}
+
+abstract class LayersMerged extends DocumentEvent {
+  const factory LayersMerged(final List<String> layers) = _$LayersMergedImpl;
+  const LayersMerged._() : super._();
+
+  factory LayersMerged.fromJson(Map<String, dynamic> json) =
+      _$LayersMergedImpl.fromJson;
+
+  List<String> get layers;
+
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$LayersMergedImplCopyWith<_$LayersMergedImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
