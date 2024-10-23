@@ -620,5 +620,18 @@
   "homeScreen": "主屏幕",
   "lastNote": "最后一个笔记",
   "newNote": "新建笔记",
-  "convertToLayer": "转换为图层"
+  "convertToLayer": "转换为图层",
+  "merge": "Merge",
+  "up": "Up",
+  "down": "Down",
+  "other": "Other",
+  "countElements": "{count,plural, =0{No elements} =1{1 element} other{{count} elements}}",
+  "@countElements": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "1"
+      }
+    }
+  }
 }
