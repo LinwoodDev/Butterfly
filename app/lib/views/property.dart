@@ -212,9 +212,9 @@ class _PropertyViewState extends State<PropertyView>
                                           : AppLocalizations.of(context).pin,
                                       icon: state.pinned
                                           ? const PhosphorIcon(
-                                              PhosphorIconsFill.mapPin)
+                                              PhosphorIconsFill.pushPin)
                                           : const PhosphorIcon(
-                                              PhosphorIconsLight.mapPin),
+                                              PhosphorIconsLight.pushPin),
                                       onPressed: () => context
                                           .read<CurrentIndexCubit>()
                                           .togglePin(),

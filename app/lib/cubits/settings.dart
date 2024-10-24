@@ -128,13 +128,6 @@ enum ToolbarPosition {
         ToolbarPosition.right => AppLocalizations.of(context).right
       };
 
-  Alignment get alignment => switch (this) {
-        ToolbarPosition.left => Alignment.centerLeft,
-        ToolbarPosition.right => Alignment.centerRight,
-        ToolbarPosition.top || ToolbarPosition.inline => Alignment.topCenter,
-        ToolbarPosition.bottom => Alignment.bottomCenter,
-      };
-
   Axis get axis => switch (this) {
         ToolbarPosition.left => Axis.vertical,
         ToolbarPosition.right => Axis.vertical,

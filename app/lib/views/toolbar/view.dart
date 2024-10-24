@@ -24,7 +24,6 @@ class _ToolbarViewState extends State<ToolbarView> {
           previous.toolbarPosition != current.toolbarPosition,
       builder: (context, state) {
         return Align(
-          alignment: state.toolbarPosition.alignment,
           child: SafeArea(
             child: Card(
               child: BlocBuilder<CurrentIndexCubit, CurrentIndex>(
