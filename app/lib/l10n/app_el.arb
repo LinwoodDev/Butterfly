@@ -621,11 +621,11 @@
   "lastNote": "Τελευταία σημείωση",
   "newNote": "Νέα σημείωση",
   "convertToLayer": "Μετατροπή σε επίπεδο",
-  "merge": "Merge",
-  "up": "Up",
-  "down": "Down",
-  "other": "Other",
-  "countElements": "{count,plural, =0{No elements} =1{1 element} other{{count} elements}}",
+  "merge": "Συγχώνευση",
+  "up": "Επάνω",
+  "down": "Κάτω",
+  "other": "Άλλο",
+  "countElements": "{count,plural, =0{Κανένα στοιχείο} =1{1 στοιχείο} other{{count} στοιχεία}}",
   "@countElements": {
     "placeholders": {
       "count": {
