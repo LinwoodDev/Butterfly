@@ -621,11 +621,11 @@
   "lastNote": "Ultima notă",
   "newNote": "Notă nouă",
   "convertToLayer": "Convertește la nivel",
-  "merge": "Merge",
-  "up": "Up",
-  "down": "Down",
-  "other": "Other",
-  "countElements": "{count,plural, =0{No elements} =1{1 element} other{{count} elements}}",
+  "merge": "Îmbinare",
+  "up": "Sus",
+  "down": "Jos",
+  "other": "Altele",
+  "countElements": "{count,plural, =0{Niciun element} =1{1 element} other{{count} elemente}}",
   "@countElements": {
     "placeholders": {
       "count": {
