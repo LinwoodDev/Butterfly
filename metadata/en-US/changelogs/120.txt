@@ -1,4 +1,5 @@
 * Add layer merging
+* Remove asking for name on layer creation
 * Fix layer rendering
 
 Read more here: https://linwood.dev/butterfly/2.3.0-beta.0

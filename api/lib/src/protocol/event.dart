@@ -127,9 +127,10 @@ class DocumentEvent extends ReplayEvent with _$DocumentEvent {
     String name,
   ) = CurrentLayerChanged;
 
-  const factory DocumentEvent.layerCreated(
-    String name,
-  ) = LayerCreated;
+  const factory DocumentEvent.layerCreated({
+    @Default('') String name,
+    String? id,
+  }) = LayerCreated;
 
   const factory DocumentEvent.layerChanged(
     String id, {

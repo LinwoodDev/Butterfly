@@ -153,10 +153,10 @@ class LayersView extends StatelessWidget {
                       final bloc = context.read<DocumentBloc>();
                       final state = bloc.state;
                       if (state is! DocumentLoadSuccess) return;
-                      final result = await showDialog<String>(
-                          builder: (context) => NameDialog(), context: context);
-                      if (result == null) return;
-                      bloc.add(LayerCreated(result));
+                      final id = createUniqueId();
+                      bloc
+                        ..add(LayerCreated(id: id))
+                        ..add(CurrentLayerChanged(id));
                     }),
               ),
             )

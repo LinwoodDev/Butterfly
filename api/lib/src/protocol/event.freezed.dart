@@ -3095,7 +3095,7 @@ abstract class _$$LayerCreatedImplCopyWith<$Res> {
           _$LayerCreatedImpl value, $Res Function(_$LayerCreatedImpl) then) =
       __$$LayerCreatedImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({String name});
+  $Res call({String name, String? id});
 }
 
 /// @nodoc
@@ -3112,12 +3112,17 @@ class __$$LayerCreatedImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? name = null,
+    Object? id = freezed,
   }) {
     return _then(_$LayerCreatedImpl(
-      null == name
+      name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
+      id: freezed == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -3125,7 +3130,7 @@ class __$$LayerCreatedImplCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$LayerCreatedImpl extends LayerCreated {
-  const _$LayerCreatedImpl(this.name, {final String? $type})
+  const _$LayerCreatedImpl({this.name = '', this.id, final String? $type})
       : $type = $type ?? 'layerCreated',
         super._();
 
@@ -3133,14 +3138,17 @@ class _$LayerCreatedImpl extends LayerCreated {
       _$$LayerCreatedImplFromJson(json);
 
   @override
+  @JsonKey()
   final String name;
+  @override
+  final String? id;
 
   @JsonKey(name: 'type')
   final String $type;
 
   @override
   String toString() {
-    return 'DocumentEvent.layerCreated(name: $name)';
+    return 'DocumentEvent.layerCreated(name: $name, id: $id)';
   }
 
   @override
@@ -3148,12 +3156,13 @@ class _$LayerCreatedImpl extends LayerCreated {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$LayerCreatedImpl &&
-            (identical(other.name, name) || other.name == name));
+            (identical(other.name, name) || other.name == name) &&
+            (identical(other.id, id) || other.id == id));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, name);
+  int get hashCode => Object.hash(runtimeType, name, id);
 
   /// Create a copy of DocumentEvent
   /// with the given fields replaced by the non-null parameter values.
@@ -3172,13 +3181,15 @@ class _$LayerCreatedImpl extends LayerCreated {
 }
 
 abstract class LayerCreated extends DocumentEvent {
-  const factory LayerCreated(final String name) = _$LayerCreatedImpl;
+  const factory LayerCreated({final String name, final String? id}) =
+      _$LayerCreatedImpl;
   const LayerCreated._() : super._();
 
   factory LayerCreated.fromJson(Map<String, dynamic> json) =
       _$LayerCreatedImpl.fromJson;
 
   String get name;
+  String? get id;
 
   /// Create a copy of DocumentEvent
   /// with the given fields replaced by the non-null parameter values.

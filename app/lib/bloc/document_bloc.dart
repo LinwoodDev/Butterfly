@@ -621,7 +621,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
         state: current.copyWith(
           page: current.page.copyWith(layers: [
             ...current.page.layers,
-            DocumentLayer(id: createUniqueId(), name: event.name),
+            DocumentLayer(id: event.id ?? createUniqueId(), name: event.name),
           ]),
         ),
       );
