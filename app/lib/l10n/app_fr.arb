@@ -621,11 +621,11 @@
   "lastNote": "Dernière note",
   "newNote": "Nouvelle note",
   "convertToLayer": "Convertir en calque",
-  "merge": "Merge",
-  "up": "Up",
-  "down": "Down",
-  "other": "Other",
-  "countElements": "{count,plural, =0{No elements} =1{1 element} other{{count} elements}}",
+  "merge": "Fusionner",
+  "up": "Monter",
+  "down": "Bas",
+  "other": "Autres",
+  "countElements": "{count,plural, =0{Aucun élément} =1{1 élément} other{{count} éléments}}",
   "@countElements": {
     "placeholders": {
       "count": {
