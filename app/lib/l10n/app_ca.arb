@@ -620,5 +620,18 @@
   "homeScreen": "Home screen",
   "lastNote": "Last note",
   "newNote": "New note",
-  "convertToLayer": "Convert to layer"
+  "convertToLayer": "Convert to layer",
+  "merge": "Merge",
+  "up": "Up",
+  "down": "Down",
+  "other": "Other",
+  "countElements": "{count,plural, =0{No elements} =1{1 element} other{{count} elements}}",
+  "@countElements": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "1"
+      }
+    }
+  }
 }

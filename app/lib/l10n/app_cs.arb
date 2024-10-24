@@ -620,5 +620,18 @@
   "homeScreen": "Domovská stránka",
   "lastNote": "Poslední poznámka",
   "newNote": "Nová poznámka",
-  "convertToLayer": "Převést na vrstvu"
+  "convertToLayer": "Převést na vrstvu",
+  "merge": "Sloučit",
+  "up": "Nahoru",
+  "down": "Dolů",
+  "other": "Ostatní",
+  "countElements": "{count,plural, =0{Žádné elementy} =1{1 element} other{{count} elementy}}",
+  "@countElements": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "1"
+      }
+    }
+  }
 }

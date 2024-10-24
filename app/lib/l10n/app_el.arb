@@ -620,5 +620,18 @@
   "homeScreen": "Αρχική οθόνη",
   "lastNote": "Τελευταία σημείωση",
   "newNote": "Νέα σημείωση",
-  "convertToLayer": "Μετατροπή σε επίπεδο"
+  "convertToLayer": "Μετατροπή σε επίπεδο",
+  "merge": "Συγχώνευση",
+  "up": "Επάνω",
+  "down": "Κάτω",
+  "other": "Άλλο",
+  "countElements": "{count,plural, =0{Κανένα στοιχείο} =1{1 στοιχείο} other{{count} στοιχεία}}",
+  "@countElements": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "1"
+      }
+    }
+  }
 }

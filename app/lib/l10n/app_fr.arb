@@ -620,5 +620,18 @@
   "homeScreen": "Écran d'accueil",
   "lastNote": "Dernière note",
   "newNote": "Nouvelle note",
-  "convertToLayer": "Convertir en calque"
+  "convertToLayer": "Convertir en calque",
+  "merge": "Fusionner",
+  "up": "Monter",
+  "down": "Bas",
+  "other": "Autres",
+  "countElements": "{count,plural, =0{Aucun élément} =1{1 élément} other{{count} éléments}}",
+  "@countElements": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "1"
+      }
+    }
+  }
 }

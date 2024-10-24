@@ -620,5 +620,18 @@
   "homeScreen": "Ekran główny",
   "lastNote": "Ostatnia notatka",
   "newNote": "Nowa nota",
-  "convertToLayer": "Konwertuj na warstwę"
+  "convertToLayer": "Konwertuj na warstwę",
+  "merge": "Połącz",
+  "up": "Góra",
+  "down": "W dół",
+  "other": "Inne",
+  "countElements": "{count,plural, =0{Brak elementów} =1{1 element} other{{count} elementy}}",
+  "@countElements": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "1"
+      }
+    }
+  }
 }

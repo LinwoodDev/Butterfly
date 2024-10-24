@@ -620,5 +620,18 @@
   "homeScreen": "Startbildschirm",
   "lastNote": "Letzte Notiz",
   "newNote": "Neue Notiz",
-  "convertToLayer": "In Ebene konvertieren"
+  "convertToLayer": "In Ebene konvertieren",
+  "merge": "Zusammenführen",
+  "up": "Hoch",
+  "down": "Unten",
+  "other": "Andere",
+  "countElements": "{count,plural, =0{Keine Elemente} =1{1 Element} other{{count} Elemente}}",
+  "@countElements": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "1"
+      }
+    }
+  }
 }

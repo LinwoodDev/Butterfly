@@ -620,5 +620,18 @@
   "homeScreen": "Домашній екран",
   "lastNote": "Остання примітка",
   "newNote": "Нова нотатка",
-  "convertToLayer": "Конвертувати в шар"
+  "convertToLayer": "Конвертувати в шар",
+  "merge": "Об'єднати",
+  "up": "Вгору",
+  "down": "Донизу",
+  "other": "Інше",
+  "countElements": "{count,plural, =0{Немає елементів} =1{1 елемент} other{{count} елементи}}",
+  "@countElements": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "1"
+      }
+    }
+  }
 }

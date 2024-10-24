@@ -620,5 +620,18 @@
   "homeScreen": "الشاشة الرئيسية",
   "lastNote": "الملاحظة الأخيرة",
   "newNote": "ملاحظة جديدة",
-  "convertToLayer": "تحويل إلى طبقة"
+  "convertToLayer": "تحويل إلى طبقة",
+  "merge": "دمج",
+  "up": "أعلى",
+  "down": "أسفل",
+  "other": "اخرى",
+  "countElements": "{count,plural, =0{لا عناصر} =1{عنصر 1} other{{count} عناصر}}",
+  "@countElements": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "1"
+      }
+    }
+  }
 }

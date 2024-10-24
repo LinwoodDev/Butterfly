@@ -620,5 +620,18 @@
   "homeScreen": "Startskärmen",
   "lastNote": "Senaste anteckning",
   "newNote": "Ny anteckning",
-  "convertToLayer": "Konvertera till lager"
+  "convertToLayer": "Konvertera till lager",
+  "merge": "Sammanfoga",
+  "up": "Upp",
+  "down": "Ner",
+  "other": "Annat",
+  "countElements": "{count,plural, =0{Inga element} =1{1 element} other{{count} element}}",
+  "@countElements": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "1"
+      }
+    }
+  }
 }

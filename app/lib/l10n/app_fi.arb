@@ -620,5 +620,18 @@
   "homeScreen": "Kotinäyttö",
   "lastNote": "Viimeisin merkintä",
   "newNote": "Uusi muistiinpano",
-  "convertToLayer": "Muunna tasoksi"
+  "convertToLayer": "Muunna tasoksi",
+  "merge": "Yhdistä",
+  "up": "Ylös",
+  "down": "Alas",
+  "other": "Muu",
+  "countElements": "{count,plural, =0{Ei elementtejä} =1{1 elementti} other{{count} elementtejä}}",
+  "@countElements": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "1"
+      }
+    }
+  }
 }

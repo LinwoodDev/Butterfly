@@ -620,5 +620,18 @@
   "homeScreen": "Ecranul principal",
   "lastNote": "Ultima notă",
   "newNote": "Notă nouă",
-  "convertToLayer": "Convertește la nivel"
+  "convertToLayer": "Convertește la nivel",
+  "merge": "Îmbinare",
+  "up": "Sus",
+  "down": "Jos",
+  "other": "Altele",
+  "countElements": "{count,plural, =0{Niciun element} =1{1 element} other{{count} elemente}}",
+  "@countElements": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "1"
+      }
+    }
+  }
 }
