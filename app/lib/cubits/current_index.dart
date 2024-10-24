@@ -557,9 +557,10 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
                   .toList(),
               visibleElements: visibleElements,
             )
-          : cameraViewport.withoutLayers(),
+          : cameraViewport,
       renderBackground: false,
       renderBaked: !reset,
+      renderBakedLayers: false,
     ).paint(canvas, size);
 
     var picture = recorder.endRecording();
@@ -586,8 +587,10 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     if (resetAllLayers) {
       final belowLayerRecorder = ui.PictureRecorder();
       final belowLayerCanvas = ui.Canvas(belowLayerRecorder);
+      belowLayerCanvas.scale(ratio);
       final aboveLayerRecorder = ui.PictureRecorder();
       final aboveLayerCanvas = ui.Canvas(aboveLayerRecorder);
+      aboveLayerCanvas.scale(ratio);
       final belowLayers = [], aboveLayers = [];
       bool above = false;
       for (final layer in page.layers) {

@@ -666,14 +666,25 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       if (current is! DocumentLoadSuccess) return;
       if (!(current.embedding?.editable ?? true)) return;
       if (event.layers.length < 2) return;
+      final layers = current.page.layers;
       final mainLayer = event.layers.first;
-      final mergedLayers = event.layers.skip(1).toList();
+      final mainLayerIndex =
+          layers.indexWhere((element) => element.id == mainLayer);
+      final mergedLayers = event.layers.skip(1).toList()
+        ..sort((a, b) => layers
+            .indexWhere((e) => e.id == a)
+            .compareTo(layers.indexWhere((e) => e.id == b)));
+      final belowLayers = mergedLayers.where((element) =>
+          layers.indexWhere((e) => e.id == element) < mainLayerIndex);
+      final aboveLayers = mergedLayers.where((element) =>
+          layers.indexWhere((e) => e.id == element) > mainLayerIndex);
       var layer = current.page.getLayer(mainLayer);
       layer = layer.copyWith(content: [
+        ...belowLayers.expand((e) => current.page.getLayer(e).content),
         ...layer.content,
-        ...mergedLayers.expand((e) => current.page.getLayer(e).content)
+        ...aboveLayers.expand((e) => current.page.getLayer(e).content),
       ]);
-      final newLayers = current.page.layers
+      final newLayers = layers
           .where((e) => !mergedLayers.contains(e.id))
           .map((e) => e.id == mainLayer ? layer : e)
           .toList();
@@ -681,6 +692,9 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
         emit,
         state: current.copyWith(
           page: current.page.copyWith(layers: newLayers),
+          currentLayer: mergedLayers.contains(current.currentLayer)
+              ? mainLayer
+              : current.currentLayer,
         ),
       );
     });

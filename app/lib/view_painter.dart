@@ -92,7 +92,7 @@ class ViewPainter extends CustomPainter {
   final DocumentPage page;
   final DocumentInfo info;
   final Area? currentArea;
-  final bool renderBackground, renderBaked;
+  final bool renderBackground, renderBaked, renderBakedLayers;
   final CameraViewport cameraViewport;
   final CameraTransform transform;
   final ColorScheme? colorScheme;
@@ -108,6 +108,7 @@ class ViewPainter extends CustomPainter {
     this.states = const {},
     this.renderBackground = true,
     this.renderBaked = true,
+    this.renderBakedLayers = true,
     required this.cameraViewport,
     this.colorScheme,
     this.transform = const CameraTransform(),
@@ -143,7 +144,7 @@ class ViewPainter extends CustomPainter {
     final bakedSize = cameraViewport.toSize();
     final pos = transform.globalToLocal(cameraViewport.toOffset());
     final bakedDst = pos & bakedSize * (1 + bakedSizeDiff);
-    if (renderBaked && belowLayerImage != null) {
+    if (renderBakedLayers && belowLayerImage != null) {
       canvas.drawImageRect(
         belowLayerImage,
         Offset.zero &
@@ -214,7 +215,7 @@ class ViewPainter extends CustomPainter {
     canvas.translate(transform.position.dx, transform.position.dy);
     canvas.scale(1 / transform.size, 1 / transform.size);
     final aboveLayerImage = cameraViewport.aboveLayerImage;
-    if (renderBaked && aboveLayerImage != null) {
+    if (renderBakedLayers && aboveLayerImage != null) {
       canvas.drawImageRect(
         aboveLayerImage,
         Offset.zero &

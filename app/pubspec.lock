@@ -418,10 +418,10 @@ packages:
     dependency: transitive
     description:
       name: file_selector_android
-      sha256: "00aafa9ae05a8663d0b4f17abd2a02316911ca0f46f9b9dacb9578b324d99590"
+      sha256: ec439df07c4999faad319ce8ad9e971795c2f1d7132ad5a793b9370a863c6128
       url: "https://pub.dev"
     source: hosted
-    version: "0.5.1+9"
+    version: "0.5.1+10"
   file_selector_ios:
     dependency: transitive
     description:
@@ -1450,10 +1450,10 @@ packages:
     dependency: transitive
     description:
       name: url_launcher_android
-      sha256: "8fc3bae0b68c02c47c5c86fa8bfa74471d42687b0eded01b78de87872db745e2"
+      sha256: "0dea215895a4d254401730ca0ba8204b29109a34a99fb06ae559a2b60988d2de"
       url: "https://pub.dev"
     source: hosted
-    version: "6.3.12"
+    version: "6.3.13"
   url_launcher_ios:
     dependency: transitive
     description:
