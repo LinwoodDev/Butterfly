@@ -621,11 +621,11 @@
   "lastNote": "最後のメモ",
   "newNote": "新規ノート",
   "convertToLayer": "レイヤーに変換",
-  "merge": "Merge",
-  "up": "Up",
-  "down": "Down",
-  "other": "Other",
-  "countElements": "{count,plural, =0{No elements} =1{1 element} other{{count} elements}}",
+  "merge": "結合",
+  "up": "上へ",
+  "down": "下",
+  "other": "その他",
+  "countElements": "{count,plural, =0{要素なし} =1{1 要素} other{{count} 要素}}",
   "@countElements": {
     "placeholders": {
       "count": {
