@@ -620,5 +620,18 @@
   "homeScreen": "Schermata home",
   "lastNote": "Ultima nota",
   "newNote": "Nuova nota",
-  "convertToLayer": "Converti in livello"
+  "convertToLayer": "Converti in livello",
+  "merge": "Unisci",
+  "up": "Su",
+  "down": "Giù",
+  "other": "Altro",
+  "countElements": "{count,plural, =0{Nessun elemento} =1{1 elemento} other{{count} elementi}}",
+  "@countElements": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "1"
+      }
+    }
+  }
 }

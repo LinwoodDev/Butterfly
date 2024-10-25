@@ -620,5 +620,18 @@
   "homeScreen": "Startskærm",
   "lastNote": "Sidste note",
   "newNote": "Ny note",
-  "convertToLayer": "Konvertér til lag"
+  "convertToLayer": "Konvertér til lag",
+  "merge": "Flet",
+  "up": "Op",
+  "down": "Ned",
+  "other": "Andet",
+  "countElements": "{count,plural, =0{Ingen elementer} =1{1 element} other{{count} elementer}}",
+  "@countElements": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "1"
+      }
+    }
+  }
 }

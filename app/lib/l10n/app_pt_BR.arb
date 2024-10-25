@@ -620,5 +620,18 @@
   "homeScreen": "Tela inicial",
   "lastNote": "Última anotação",
   "newNote": "Nova nota",
-  "convertToLayer": "Converter para camada"
+  "convertToLayer": "Converter para camada",
+  "merge": "Mesclar",
+  "up": "Acima",
+  "down": "Abaixo",
+  "other": "Outros",
+  "countElements": "{count,plural, =0{Sem elementos} =1{1 elemento} other{{count} elementos}}",
+  "@countElements": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "1"
+      }
+    }
+  }
 }

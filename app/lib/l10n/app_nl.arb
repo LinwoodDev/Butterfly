@@ -620,5 +620,18 @@
   "homeScreen": "Startscherm",
   "lastNote": "Laatste opmerking",
   "newNote": "Nieuwe notitie",
-  "convertToLayer": "Converteren naar laag"
+  "convertToLayer": "Converteren naar laag",
+  "merge": "Samenvoegen",
+  "up": "Omhoog",
+  "down": "Omlaag",
+  "other": "anders",
+  "countElements": "{count,plural, =0{Geen elementen} =1{1 element} other{{count} elementen}}",
+  "@countElements": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "1"
+      }
+    }
+  }
 }

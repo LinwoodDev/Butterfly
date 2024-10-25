@@ -620,5 +620,18 @@
   "homeScreen": "Pantalla de inicio",
   "lastNote": "Última nota",
   "newNote": "Nueva nota",
-  "convertToLayer": "Convertir a capa"
+  "convertToLayer": "Convertir a capa",
+  "merge": "Combinar",
+  "up": "Subir",
+  "down": "Abajo",
+  "other": "Otro",
+  "countElements": "{count,plural, =0{No hay elementos} =1{1 elemento} other{{count} Elementos}}",
+  "@countElements": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "1"
+      }
+    }
+  }
 }
