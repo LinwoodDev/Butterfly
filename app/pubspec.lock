@@ -172,7 +172,7 @@ packages:
       path: "../api"
       relative: true
     source: path
-    version: "2.3.0-beta.0"
+    version: "2.2.2-rc.0"
   camera:
     dependency: "direct main"
     description:
@@ -824,7 +824,7 @@ packages:
       path: "packages/lw_file_system"
       ref: "71ebfd76ef24a9b21b2e909d5802e9fb01357317"
       resolved-ref: "71ebfd76ef24a9b21b2e909d5802e9fb01357317"
-      url: "https://github.com/LinwoodDev/dart_pkgs.git"
+      url: "https://github.com/LinwoodDev/dart_pkgs"
     source: git
     version: "1.0.0"
   lw_file_system_api:
@@ -842,7 +842,7 @@ packages:
       path: "packages/lw_sysapi"
       ref: "21808e89bb6239f0b39367d0c00b0b14f5273992"
       resolved-ref: "21808e89bb6239f0b39367d0c00b0b14f5273992"
-      url: "https://github.com/LinwoodDev/dart_pkgs.git"
+      url: "https://github.com/LinwoodDev/dart_pkgs"
     source: git
     version: "0.0.1"
   macros:
@@ -883,7 +883,7 @@ packages:
       path: "packages/material_leap"
       ref: "18cd4cd6cb9e8663036eb59bb431f8ac65827788"
       resolved-ref: "18cd4cd6cb9e8663036eb59bb431f8ac65827788"
-      url: "https://github.com/LinwoodDev/dart_pkgs.git"
+      url: "https://github.com/LinwoodDev/dart_pkgs"
     source: git
     version: "0.0.1"
   meta:
@@ -914,18 +914,18 @@ packages:
     dependency: "direct main"
     description:
       path: "packages/networker/networker"
-      ref: "6617b9bbfb481ef59b1a6921f1676bb90d73ecf9"
-      resolved-ref: "6617b9bbfb481ef59b1a6921f1676bb90d73ecf9"
-      url: "https://github.com/LinwoodDev/dart_pkgs.git"
+      ref: "5a3658cad80fcb8594b8be6f84460e77607eb959"
+      resolved-ref: "5a3658cad80fcb8594b8be6f84460e77607eb959"
+      url: "https://github.com/LinwoodDev/dart_pkgs"
     source: git
     version: "1.0.0"
   networker_socket:
     dependency: "direct main"
     description:
       path: "packages/networker/networker_socket"
-      ref: fce8dc67ec282861bf629e32c404c52921f54bbd
-      resolved-ref: fce8dc67ec282861bf629e32c404c52921f54bbd
-      url: "https://github.com/LinwoodDev/dart_pkgs.git"
+      ref: "40b8553ab86ab4f06d9f689268a65d65ed936fda"
+      resolved-ref: "40b8553ab86ab4f06d9f689268a65d65ed936fda"
+      url: "https://github.com/LinwoodDev/dart_pkgs"
     source: git
     version: "1.0.0"
   nm:
@@ -1640,4 +1640,4 @@ packages:
     version: "3.1.2"
 sdks:
   dart: ">=3.5.0 <4.0.0"
-  flutter: ">=3.24.3"
+  flutter: ">=3.24.4"

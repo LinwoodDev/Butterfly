@@ -24,7 +24,7 @@ class ViewCollaborationDialog extends StatelessWidget {
             onTap: () => saveToClipboard(context, address),
           ),
           const Divider(),
-          StreamBuilder<Set<ConnectionId>>(
+          StreamBuilder<Set<Channel>>(
               stream: service.connectionsStream,
               builder: (context, snapshot) {
                 final connections = snapshot.data ?? {};

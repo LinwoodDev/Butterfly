@@ -10,5 +10,7 @@
 * Fix property view logic
 * Fix property view ui padding
 * Fix archive importing
+* Upgrade networking stack for collaboration experiment
+* Update flutter and agp
 
-Read more here: https://linwood.dev/butterfly/2.3.0-beta.0
+Read more here: https://linwood.dev/butterfly/2.2.2-rc.0
