@@ -64,23 +64,40 @@ class _EditableListTileState extends State<EditableListTile> {
     });
   }
 
-  @override
-  Widget build(BuildContext context) {
-    void onSaved([String? value]) {
-      widget.onSaved?.call(value ?? _controller.text);
+  void _onSaved([String? value]) {
+    widget.onSaved?.call(value ?? _controller.text);
+    setState(() {
+      _isEditing = false;
+    });
+  }
+
+  void _edit() {
+    if (widget.onSaved != null) {
       setState(() {
-        _isEditing = false;
+        _isEditing = true;
       });
     }
+  }
 
-    void edit() {
-      if (widget.onSaved != null) {
-        setState(() {
-          _isEditing = true;
-        });
-      }
+  @override
+  Widget build(BuildContext context) {
+    if (widget.actions != null) {
+      return ContextRegion(
+        builder: (context, button, controller) => _buildWidget(context, button),
+        menuChildren: [
+          MenuItemButton(
+            leadingIcon: const PhosphorIcon(PhosphorIconsLight.textT),
+            onPressed: _edit,
+            child: Text(AppLocalizations.of(context).rename),
+          ),
+          ...widget.actions!,
+        ],
+      );
     }
+    return _buildWidget(context, null);
+  }
 
+  Widget _buildWidget(BuildContext context, Widget? actionButton) {
     return ListTile(
       onTap: widget.onTap,
       selected: widget.selected,
@@ -95,10 +112,10 @@ class _EditableListTileState extends State<EditableListTile> {
                   builder: (context) => TextFormField(
                         controller: _controller,
                         onChanged: widget.onChanged,
-                        onSaved: onSaved,
+                        onSaved: _onSaved,
                         autofocus: true,
-                        onFieldSubmitted: onSaved,
-                        onTapOutside: (_) => onSaved(),
+                        onFieldSubmitted: _onSaved,
+                        onTapOutside: (_) => _onSaved(),
                         style: DefaultTextStyle.of(context).style,
                         decoration: InputDecoration(
                           filled: true,
@@ -111,7 +128,7 @@ class _EditableListTileState extends State<EditableListTile> {
                         ),
                       ))
               : GestureDetector(
-                  onDoubleTap: edit,
+                  onDoubleTap: _edit,
                   child: Padding(
                     padding: const EdgeInsets.symmetric(
                       horizontal: 8,
@@ -128,27 +145,14 @@ class _EditableListTileState extends State<EditableListTile> {
                 ),
         ),
       ),
-      trailing: widget.actions != null
-          ? MenuAnchor(
-              builder: defaultMenuButton(
-                tooltip: AppLocalizations.of(context).actions,
-              ),
-              menuChildren: [
-                MenuItemButton(
-                  leadingIcon: const PhosphorIcon(PhosphorIconsLight.textT),
-                  onPressed: edit,
-                  child: Text(AppLocalizations.of(context).rename),
-                ),
-                ...widget.actions!,
-              ],
-            )
-          : widget.onSaved == null
+      trailing: actionButton ??
+          (widget.onSaved == null
               ? null
               : IconButton(
                   icon: const PhosphorIcon(PhosphorIconsLight.pencil),
                   tooltip: AppLocalizations.of(context).rename,
-                  onPressed: edit,
-                ),
+                  onPressed: _edit,
+                )),
     );
   }
 }

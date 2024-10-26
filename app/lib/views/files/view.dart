@@ -212,6 +212,7 @@ class FilesViewState extends State<FilesView> {
                       onSelected: (value) => _setRemote(
                           value == null ? null : state.getRemote(value)),
                     ),
+                    const SizedBox(width: 2),
                     state.connections.any((e) => e is RemoteStorage)
                         ? const SyncButton()
                         : const SizedBox.shrink(),

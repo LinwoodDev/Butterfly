@@ -5,7 +5,6 @@ import 'package:butterfly/api/save.dart';
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/dialogs/file_system/move.dart';
 import 'package:butterfly/services/sync.dart';
-import 'package:butterfly/views/files/grid.dart';
 import 'package:butterfly/visualizer/connection.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:collection/collection.dart';
@@ -26,6 +25,7 @@ class FileEntityListTile extends StatelessWidget {
   final Uint8List? thumbnail;
   final FileSystemEntity<NoteData> entity;
   final TextEditingController nameController;
+  final Widget actionButton;
 
   const FileEntityListTile({
     super.key,
@@ -44,6 +44,7 @@ class FileEntityListTile extends StatelessWidget {
     this.thumbnail,
     required this.entity,
     required this.nameController,
+    required this.actionButton,
   });
 
   @override
@@ -301,21 +302,6 @@ class FileEntityListTile extends StatelessWidget {
                             ),
                         ],
                       );
-                      final actionMenu = FilesActionMenu(
-                        remote: remote,
-                        syncService: syncService,
-                        entity: entity,
-                        settingsCubit: fileSystem.settingsCubit,
-                        editable: editable,
-                        onEdit: onEdit,
-                        nameController: nameController,
-                        onDelete: onDelete,
-                        documentSystem: documentSystem,
-                        onReload: onReload,
-                        onSelect: selected == null
-                            ? () => onSelectedChanged(true)
-                            : null,
-                      );
                       final selectionCheckbox = Checkbox(
                         value: selected ?? false,
                         onChanged: (value) => onSelectedChanged(value ?? false),
@@ -343,7 +329,7 @@ class FileEntityListTile extends StatelessWidget {
                               const SizedBox(width: 32),
                               actions,
                             ] else if (collapsed)
-                              actionMenu,
+                              actionButton,
                           ],
                         );
                       } else if (isTablet) {
@@ -367,7 +353,7 @@ class FileEntityListTile extends StatelessWidget {
                               const SizedBox(width: 8),
                               edit,
                             ])),
-                            if (!collapsed) actions else actionMenu,
+                            if (!collapsed) actions else actionButton,
                           ],
                         );
                       } else {
@@ -387,7 +373,7 @@ class FileEntityListTile extends StatelessWidget {
                                 ],
                               ),
                             ),
-                            actionMenu,
+                            actionButton,
                           ],
                         );
                       }

@@ -1,16 +1,22 @@
 import 'dart:typed_data';
 
 import 'package:butterfly/api/file_system.dart';
+import 'package:butterfly/api/save.dart';
 import 'package:butterfly/cubits/settings.dart';
+import 'package:butterfly/dialogs/file_system/move.dart';
+import 'package:butterfly/services/sync.dart';
 import 'package:butterfly/views/files/grid.dart';
 import 'package:butterfly/views/files/list.dart';
 import 'package:butterfly/visualizer/asset.dart';
+import 'package:butterfly/visualizer/connection.dart';
 import 'package:butterfly_api/butterfly_api.dart';
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:intl/intl.dart';
 import 'package:lw_file_system/lw_file_system.dart';
+import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:popover/popover.dart';
 
@@ -159,41 +165,56 @@ class _FileEntityItemState extends State<FileEntityItem> {
           ),
         ),
       ),
-      child: widget.gridView
-          ? FileEntityGridItem(
-              modifiedText: modifiedText,
-              createdText: createdText,
-              icon: icon,
-              onTap: widget.onTap,
-              onDelete: onDelete,
-              onReload: widget.onReload,
-              onEdit: onEdit,
-              entity: widget.entity,
-              nameController: _nameController,
-              collapsed: widget.collapsed,
-              editable: _editable,
-              active: widget.active,
-              selected: widget.selected,
-              onSelectedChanged: widget.onSelected,
-              thumbnail: thumbnail,
-            )
-          : FileEntityListTile(
-              modifiedText: modifiedText,
-              createdText: createdText,
-              icon: icon,
-              onTap: widget.onTap,
-              onDelete: onDelete,
-              onReload: widget.onReload,
-              onEdit: onEdit,
-              entity: widget.entity,
-              nameController: _nameController,
-              collapsed: widget.collapsed,
-              editable: _editable,
-              active: widget.active,
-              selected: widget.selected,
-              onSelectedChanged: widget.onSelected,
-              thumbnail: thumbnail,
-            ),
+      child: ContextFileRegion(
+        remote: remote,
+        entity: entity,
+        settingsCubit: fileSystem.settingsCubit,
+        editable: _editable,
+        onEdit: onEdit,
+        nameController: _nameController,
+        onDelete: onDelete,
+        onReload: widget.onReload,
+        documentSystem: documentSystem,
+        onSelect:
+            widget.selected == null ? () => widget.onSelected(true) : null,
+        builder: (context, button, controller) => widget.gridView
+            ? FileEntityGridItem(
+                modifiedText: modifiedText,
+                createdText: createdText,
+                icon: icon,
+                onTap: widget.onTap,
+                onDelete: onDelete,
+                onReload: widget.onReload,
+                onEdit: onEdit,
+                entity: widget.entity,
+                nameController: _nameController,
+                collapsed: widget.collapsed,
+                editable: _editable,
+                active: widget.active,
+                selected: widget.selected,
+                onSelectedChanged: widget.onSelected,
+                thumbnail: thumbnail,
+                actionButton: button,
+              )
+            : FileEntityListTile(
+                modifiedText: modifiedText,
+                createdText: createdText,
+                icon: icon,
+                onTap: widget.onTap,
+                onDelete: onDelete,
+                onReload: widget.onReload,
+                onEdit: onEdit,
+                entity: widget.entity,
+                nameController: _nameController,
+                collapsed: widget.collapsed,
+                editable: _editable,
+                active: widget.active,
+                selected: widget.selected,
+                onSelectedChanged: widget.onSelected,
+                thumbnail: thumbnail,
+                actionButton: button,
+              ),
+      ),
     );
     if (widget.entity is FileSystemDirectory) {
       return DragTarget<String>(
@@ -211,5 +232,129 @@ class _FileEntityItemState extends State<FileEntityItem> {
       );
     }
     return draggable;
+  }
+}
+
+class ContextFileRegion extends StatelessWidget {
+  final ExternalStorage? remote;
+  final DocumentFileSystem documentSystem;
+  final FileSystemEntity<NoteData> entity;
+  final SettingsCubit settingsCubit;
+  final bool editable;
+  final ValueChanged<bool> onEdit;
+  final VoidCallback onReload, onDelete;
+  final VoidCallback? onSelect;
+  final TextEditingController nameController;
+  final ContextRegionChildBuilder builder;
+
+  const ContextFileRegion({
+    super.key,
+    required this.remote,
+    required this.entity,
+    required this.settingsCubit,
+    required this.editable,
+    required this.onEdit,
+    required this.nameController,
+    required this.onDelete,
+    required this.documentSystem,
+    required this.onReload,
+    required this.builder,
+    this.onSelect,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final syncService = context.read<SyncService>();
+    return ContextRegion(
+      menuChildren: [
+        if (remote is RemoteStorage)
+          StreamBuilder<List<SyncFile>>(
+            stream: syncService.getSync(remote!.identifier)?.filesStream,
+            builder: (context, snapshot) {
+              final currentStatus = snapshot.data
+                  ?.lastWhereOrNull((element) =>
+                      entity.location.path.startsWith(element.location.path))
+                  ?.status;
+              return MenuItemButton(
+                leadingIcon: PhosphorIcon(currentStatus.getIcon(),
+                    color:
+                        currentStatus.getColor(Theme.of(context).colorScheme)),
+                child: Text(currentStatus.getLocalizedName(context)),
+                onPressed: () {
+                  syncService.getSync(remote!.identifier)?.sync();
+                },
+              );
+            },
+          ),
+        BlocBuilder<SettingsCubit, ButterflySettings>(
+            builder: (context, state) {
+          final starred = state.isStarred(entity.location);
+          return MenuItemButton(
+            onPressed: () {
+              settingsCubit.toggleStarred(entity.location);
+            },
+            leadingIcon: starred
+                ? const PhosphorIcon(PhosphorIconsFill.star)
+                : const PhosphorIcon(PhosphorIconsLight.star),
+            child: Text(starred
+                ? AppLocalizations.of(context).unstar
+                : AppLocalizations.of(context).star),
+          );
+        }),
+        if (onSelect != null)
+          MenuItemButton(
+            onPressed: onSelect,
+            leadingIcon: const PhosphorIcon(PhosphorIconsLight.check),
+            child: Text(AppLocalizations.of(context).select),
+          ),
+        MenuItemButton(
+          onPressed: () => showDialog(
+            context: context,
+            builder: (context) => FileSystemAssetMoveDialog(
+              assets: [entity.location],
+              fileSystem: documentSystem,
+            ),
+          ).then((value) {
+            if (value != null) onReload();
+          }),
+          leadingIcon: const PhosphorIcon(PhosphorIconsLight.arrowsDownUp),
+          child: Text(AppLocalizations.of(context).move),
+        ),
+        if (!editable)
+          MenuItemButton(
+            onPressed: () {
+              onEdit(true);
+              nameController.text = entity.fileName;
+            },
+            leadingIcon: const PhosphorIcon(PhosphorIconsLight.pencil),
+            child: Text(AppLocalizations.of(context).rename),
+          ),
+        if (entity is FileSystemFile<NoteData>)
+          MenuItemButton(
+            onPressed: () {
+              try {
+                final data = (entity as FileSystemFile<NoteData>).data;
+                exportData(context, data?.exportAsBytes() ?? []);
+              } catch (e) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text(
+                      AppLocalizations.of(context).error,
+                    ),
+                  ),
+                );
+              }
+            },
+            leadingIcon: const PhosphorIcon(PhosphorIconsLight.paperPlaneRight),
+            child: Text(AppLocalizations.of(context).export),
+          ),
+        MenuItemButton(
+          onPressed: onDelete,
+          leadingIcon: const PhosphorIcon(PhosphorIconsLight.trash),
+          child: Text(AppLocalizations.of(context).delete),
+        ),
+      ],
+      builder: builder,
+    );
   }
 }

@@ -83,11 +83,7 @@ class SyncService {
   List<RemoteSync> get syncs => List.unmodifiable(_syncs);
 }
 
-enum SyncStatus {
-  synced,
-  syncing,
-  error,
-}
+enum SyncStatus { synced, syncing, error }
 
 class RemoteSync {
   final BuildContext context;
@@ -107,6 +103,18 @@ class RemoteSync {
 
   RemoteSync(this.context, this.fileSystem, this.remoteStorage) {
     _filesSubject.onListen = _onListen;
+  }
+
+  FileSyncStatus getFileStatus(AssetLocation location) {
+    final files = this.files;
+    return files
+            ?.where((file) =>
+                file.location.remote == location.remote &&
+                location.path.startsWith(file.location.path))
+            .fold<FileSyncStatus>(FileSyncStatus.offline, (value, element) {
+          return value.combine(element.status);
+        }) ??
+        FileSyncStatus.offline;
   }
 
   RemoteDirectoryFileSystem? buildRemoteSystem() =>

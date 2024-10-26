@@ -1,4 +1,5 @@
 * Add layer merging
+* Add option to open context menus with right click on desktop or long press on mobile
 * Remove asking for name on layer creation
 * Fix layer rendering
 * Fix pin icon in property view
