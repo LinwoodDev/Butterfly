@@ -105,18 +105,6 @@ class RemoteSync {
     _filesSubject.onListen = _onListen;
   }
 
-  FileSyncStatus getFileStatus(AssetLocation location) {
-    final files = this.files;
-    return files
-            ?.where((file) =>
-                file.location.remote == location.remote &&
-                location.path.startsWith(file.location.path))
-            .fold<FileSyncStatus>(FileSyncStatus.offline, (value, element) {
-          return value.combine(element.status);
-        }) ??
-        FileSyncStatus.offline;
-  }
-
   RemoteDirectoryFileSystem? buildRemoteSystem() =>
       fileSystem.buildDocumentSystem(remoteStorage).remoteSystem;
 

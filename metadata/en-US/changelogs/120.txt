@@ -1,5 +1,7 @@
 * Add layer merging
 * Add option to open context menus with right click on desktop or long press on mobile
+* Add safe area to add dialog
+* Add fade transition for property view
 * Remove asking for name on layer creation
 * Fix layer rendering
 * Fix pin icon in property view

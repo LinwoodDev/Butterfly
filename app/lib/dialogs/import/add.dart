@@ -84,227 +84,232 @@ class _AddDialogState extends State<AddDialog> {
       );
     }
 
-    return LayoutBuilder(
-      builder: (context, constraints) => ResponsiveDialog(
-        constraints: const BoxConstraints(
-          maxWidth: 1000,
-        ),
-        child: Column(mainAxisSize: MainAxisSize.min, children: [
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                IconButton.outlined(
-                  onPressed: () => Navigator.of(context).pop(),
-                  icon: const PhosphorIcon(PhosphorIconsLight.x),
-                  tooltip: AppLocalizations.of(context).close,
-                ),
-                const SizedBox(width: 16),
-                Text(
-                  AppLocalizations.of(context).add,
-                  style: Theme.of(context).textTheme.headlineSmall,
-                ),
-                const SizedBox(width: 8),
-                Expanded(
-                    child: Align(
-                  child: SearchBar(
-                    autoFocus: true,
-                    constraints:
-                        const BoxConstraints(maxWidth: 200, minHeight: 50),
-                    leading:
-                        const PhosphorIcon(PhosphorIconsLight.magnifyingGlass),
-                    hintText: AppLocalizations.of(context).search,
-                    controller: _searchController,
-                  ),
-                )),
-                const SizedBox(width: 8),
-                IconButton(
-                  onPressed: () => openHelp(['add']),
-                  icon: const PhosphorIcon(PhosphorIconsLight.sealQuestion),
-                  tooltip: AppLocalizations.of(context).help,
-                ),
-              ],
-            ),
+    return SafeArea(
+      child: LayoutBuilder(
+        builder: (context, constraints) => ResponsiveDialog(
+          constraints: const BoxConstraints(
+            maxWidth: 1000,
           ),
-          const SizedBox(height: 8),
-          Flexible(
-            child: Material(
-              type: MaterialType.transparency,
-              child: ValueListenableBuilder(
-                valueListenable: _searchController,
-                builder: (context, value, _) => FutureBuilder<List<ImportType>>(
-                    future: Future.wait(ImportType.values
-                            .map((e) async => (e, await e.isAvailable())))
-                        .then((value) =>
-                            value.where((e) => e.$2).map((e) => e.$1).toList()),
-                    builder: (context, snapshot) {
-                      final isMobile =
-                          constraints.maxWidth < LeapBreakpoints.compact;
-                      final search = value.text;
-                      final imports = (snapshot.data ?? [])
-                          .where((e) => e
-                              .getLocalizedName(context)
-                              .toLowerCase()
-                              .contains(search.toLowerCase()))
-                          .toList();
-                      final tools = [
-                        Tool.hand,
-                        () => Tool.select(mode: SelectMode.lasso),
-                        () => Tool.select(mode: SelectMode.rectangle),
-                        Tool.pen,
-                        Tool.stamp,
-                        Tool.laser,
-                        Tool.pathEraser,
-                        Tool.label,
-                        Tool.eraser,
-                        Tool.area,
-                        Tool.presentation,
-                        () => Tool.spacer(axis: Axis2D.vertical),
-                        () => Tool.spacer(axis: Axis2D.horizontal),
-                        Tool.eyeDropper,
-                      ]
-                          .map((e) => e())
-                          .where((e) => e
-                              .getLocalizedName(context)
-                              .toLowerCase()
-                              .contains(search.toLowerCase()))
-                          .toList();
-                      final shapes = [
-                        PathShape.circle,
-                        PathShape.rectangle,
-                        PathShape.line,
-                        PathShape.triangle,
-                      ]
-                          .map((e) => e())
-                          .where((e) => e
-                              .getLocalizedName(context)
-                              .toLowerCase()
-                              .contains(search.toLowerCase()))
-                          .toList();
-                      final textures = [SurfaceTexture.pattern]
-                          .map((e) => e())
-                          .where((e) => e
-                              .getLocalizedName(context)
-                              .toLowerCase()
-                              .contains(search.toLowerCase()))
-                          .toList();
-                      final actions = [
-                        Tool.undo,
-                        Tool.redo,
-                        Tool.fullScreen,
-                        Tool.collection,
-                      ]
-                          .map((e) => e())
-                          .where((e) => e
-                              .getLocalizedName(context)
-                              .toLowerCase()
-                              .contains(search.toLowerCase()))
-                          .toList();
-                      return ListView(
-                        shrinkWrap: true,
-                        children: [
-                          if (imports.isNotEmpty) ...[
-                            _ToolsListView(
-                              isMobile: isMobile,
-                              title: AppLocalizations.of(context).import,
-                              children: imports
-                                  .map(
-                                    (e) => BoxTile(
-                                      title: Text(
-                                        e.getLocalizedName(context),
-                                        textAlign: TextAlign.center,
-                                      ),
-                                      trailing: IconButton(
-                                        onPressed: () =>
-                                            addTool(Tool.asset(importType: e)),
-                                        tooltip:
-                                            AppLocalizations.of(context).pin,
-                                        icon: const PhosphorIcon(
-                                            PhosphorIconsLight.pushPin),
-                                      ),
-                                      icon: PhosphorIcon(
-                                          e.icon(PhosphorIconsStyle.light)),
-                                      onTap: () async {
-                                        final bloc =
-                                            context.read<DocumentBloc>();
-                                        final importService =
-                                            context.read<ImportService>();
-                                        Navigator.of(context).pop();
-                                        await showImportAssetWizard(
-                                            e, context, bloc, importService);
-                                      },
-                                    ),
-                                  )
-                                  .toList(),
-                            ),
-                            const SizedBox(height: 16),
-                          ],
-                          if (tools.isEmpty &&
-                              shapes.isEmpty &&
-                              textures.isEmpty &&
-                              actions.isEmpty)
-                            Padding(
-                              padding: const EdgeInsets.symmetric(
-                                  vertical: 64, horizontal: 16),
-                              child: Text(
-                                AppLocalizations.of(context).noElements,
-                                textAlign: TextAlign.center,
-                                style: Theme.of(context).textTheme.bodyLarge,
-                              ),
-                            ),
-                          if (tools.isNotEmpty) ...[
-                            _ToolsListView(
-                              isMobile: isMobile,
-                              title: AppLocalizations.of(context).tools,
-                              children: tools.map(buildTool).toList(),
-                            ),
-                            const SizedBox(height: 16),
-                          ],
-                          if (shapes.isNotEmpty || textures.isNotEmpty) ...[
-                            _ToolsListView(
-                              isMobile: isMobile,
-                              title: AppLocalizations.of(context).surface,
-                              children: [
-                                ...shapes.map((e) => BoxTile(
-                                      title: Text(
-                                        e.getLocalizedName(context),
-                                        textAlign: TextAlign.center,
-                                      ),
-                                      icon: Icon(
-                                          e.icon(PhosphorIconsStyle.light)),
-                                      onTap: () => addTool(ShapeTool(
-                                          property: ShapeProperty(shape: e))),
-                                    )),
-                                ...textures.map((e) => BoxTile(
-                                      title: Text(
-                                        e.getLocalizedName(context),
-                                        textAlign: TextAlign.center,
-                                      ),
-                                      icon: Icon(
-                                          e.icon(PhosphorIconsStyle.light)),
-                                      onTap: () =>
-                                          addTool(TextureTool(texture: e)),
-                                    )),
-                              ],
-                            ),
-                            const SizedBox(height: 16),
-                          ],
-                          if (actions.isNotEmpty) ...[
-                            _ToolsListView(
-                              isMobile: isMobile,
-                              title: AppLocalizations.of(context).actions,
-                              children: actions.map(buildTool).toList(),
-                            ),
-                            const SizedBox(height: 16),
-                          ],
-                        ],
-                      );
-                    }),
+          child: Column(mainAxisSize: MainAxisSize.min, children: [
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  IconButton.outlined(
+                    onPressed: () => Navigator.of(context).pop(),
+                    icon: const PhosphorIcon(PhosphorIconsLight.x),
+                    tooltip: AppLocalizations.of(context).close,
+                  ),
+                  const SizedBox(width: 16),
+                  Text(
+                    AppLocalizations.of(context).add,
+                    style: Theme.of(context).textTheme.headlineSmall,
+                  ),
+                  const SizedBox(width: 8),
+                  Expanded(
+                      child: Align(
+                    child: SearchBar(
+                      autoFocus: true,
+                      constraints:
+                          const BoxConstraints(maxWidth: 200, minHeight: 50),
+                      leading: const PhosphorIcon(
+                          PhosphorIconsLight.magnifyingGlass),
+                      hintText: AppLocalizations.of(context).search,
+                      controller: _searchController,
+                    ),
+                  )),
+                  const SizedBox(width: 8),
+                  IconButton(
+                    onPressed: () => openHelp(['add']),
+                    icon: const PhosphorIcon(PhosphorIconsLight.sealQuestion),
+                    tooltip: AppLocalizations.of(context).help,
+                  ),
+                ],
               ),
             ),
-          ),
-        ]),
+            const SizedBox(height: 8),
+            Flexible(
+              child: Material(
+                type: MaterialType.transparency,
+                child: ValueListenableBuilder(
+                  valueListenable: _searchController,
+                  builder: (context, value, _) => FutureBuilder<
+                          List<ImportType>>(
+                      future: Future.wait(ImportType.values
+                              .map((e) async => (e, await e.isAvailable())))
+                          .then((value) => value
+                              .where((e) => e.$2)
+                              .map((e) => e.$1)
+                              .toList()),
+                      builder: (context, snapshot) {
+                        final isMobile =
+                            constraints.maxWidth < LeapBreakpoints.compact;
+                        final search = value.text;
+                        final imports = (snapshot.data ?? [])
+                            .where((e) => e
+                                .getLocalizedName(context)
+                                .toLowerCase()
+                                .contains(search.toLowerCase()))
+                            .toList();
+                        final tools = [
+                          Tool.hand,
+                          () => Tool.select(mode: SelectMode.lasso),
+                          () => Tool.select(mode: SelectMode.rectangle),
+                          Tool.pen,
+                          Tool.stamp,
+                          Tool.laser,
+                          Tool.pathEraser,
+                          Tool.label,
+                          Tool.eraser,
+                          Tool.area,
+                          Tool.presentation,
+                          () => Tool.spacer(axis: Axis2D.vertical),
+                          () => Tool.spacer(axis: Axis2D.horizontal),
+                          Tool.eyeDropper,
+                        ]
+                            .map((e) => e())
+                            .where((e) => e
+                                .getLocalizedName(context)
+                                .toLowerCase()
+                                .contains(search.toLowerCase()))
+                            .toList();
+                        final shapes = [
+                          PathShape.circle,
+                          PathShape.rectangle,
+                          PathShape.line,
+                          PathShape.triangle,
+                        ]
+                            .map((e) => e())
+                            .where((e) => e
+                                .getLocalizedName(context)
+                                .toLowerCase()
+                                .contains(search.toLowerCase()))
+                            .toList();
+                        final textures = [SurfaceTexture.pattern]
+                            .map((e) => e())
+                            .where((e) => e
+                                .getLocalizedName(context)
+                                .toLowerCase()
+                                .contains(search.toLowerCase()))
+                            .toList();
+                        final actions = [
+                          Tool.undo,
+                          Tool.redo,
+                          Tool.fullScreen,
+                          Tool.collection,
+                        ]
+                            .map((e) => e())
+                            .where((e) => e
+                                .getLocalizedName(context)
+                                .toLowerCase()
+                                .contains(search.toLowerCase()))
+                            .toList();
+                        return ListView(
+                          shrinkWrap: true,
+                          children: [
+                            if (imports.isNotEmpty) ...[
+                              _ToolsListView(
+                                isMobile: isMobile,
+                                title: AppLocalizations.of(context).import,
+                                children: imports
+                                    .map(
+                                      (e) => BoxTile(
+                                        title: Text(
+                                          e.getLocalizedName(context),
+                                          textAlign: TextAlign.center,
+                                        ),
+                                        trailing: IconButton(
+                                          onPressed: () => addTool(
+                                              Tool.asset(importType: e)),
+                                          tooltip:
+                                              AppLocalizations.of(context).pin,
+                                          icon: const PhosphorIcon(
+                                              PhosphorIconsLight.pushPin),
+                                        ),
+                                        icon: PhosphorIcon(
+                                            e.icon(PhosphorIconsStyle.light)),
+                                        onTap: () async {
+                                          final bloc =
+                                              context.read<DocumentBloc>();
+                                          final importService =
+                                              context.read<ImportService>();
+                                          Navigator.of(context).pop();
+                                          await showImportAssetWizard(
+                                              e, context, bloc, importService);
+                                        },
+                                      ),
+                                    )
+                                    .toList(),
+                              ),
+                              const SizedBox(height: 16),
+                            ],
+                            if (tools.isEmpty &&
+                                shapes.isEmpty &&
+                                textures.isEmpty &&
+                                actions.isEmpty)
+                              Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    vertical: 64, horizontal: 16),
+                                child: Text(
+                                  AppLocalizations.of(context).noElements,
+                                  textAlign: TextAlign.center,
+                                  style: Theme.of(context).textTheme.bodyLarge,
+                                ),
+                              ),
+                            if (tools.isNotEmpty) ...[
+                              _ToolsListView(
+                                isMobile: isMobile,
+                                title: AppLocalizations.of(context).tools,
+                                children: tools.map(buildTool).toList(),
+                              ),
+                              const SizedBox(height: 16),
+                            ],
+                            if (shapes.isNotEmpty || textures.isNotEmpty) ...[
+                              _ToolsListView(
+                                isMobile: isMobile,
+                                title: AppLocalizations.of(context).surface,
+                                children: [
+                                  ...shapes.map((e) => BoxTile(
+                                        title: Text(
+                                          e.getLocalizedName(context),
+                                          textAlign: TextAlign.center,
+                                        ),
+                                        icon: Icon(
+                                            e.icon(PhosphorIconsStyle.light)),
+                                        onTap: () => addTool(ShapeTool(
+                                            property: ShapeProperty(shape: e))),
+                                      )),
+                                  ...textures.map((e) => BoxTile(
+                                        title: Text(
+                                          e.getLocalizedName(context),
+                                          textAlign: TextAlign.center,
+                                        ),
+                                        icon: Icon(
+                                            e.icon(PhosphorIconsStyle.light)),
+                                        onTap: () =>
+                                            addTool(TextureTool(texture: e)),
+                                      )),
+                                ],
+                              ),
+                              const SizedBox(height: 16),
+                            ],
+                            if (actions.isNotEmpty) ...[
+                              _ToolsListView(
+                                isMobile: isMobile,
+                                title: AppLocalizations.of(context).actions,
+                                children: actions.map(buildTool).toList(),
+                              ),
+                              const SizedBox(height: 16),
+                            ],
+                          ],
+                        );
+                      }),
+                ),
+              ),
+            ),
+          ]),
+        ),
       ),
     );
   }
