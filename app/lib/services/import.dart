@@ -764,11 +764,9 @@ class ImportService {
       for (final file in archive) {
         const fileExtension = '.bfly';
         if (!file.name.endsWith(fileExtension)) continue;
-        final document = await importBfly(file.content);
+        final document = await importBfly(file.content, advanced: false);
         if (document != null) {
-          fileSystem.createFile(
-              file.name.substring(0, file.name.length - fileExtension.length),
-              document);
+          fileSystem.createFile(file.name, document);
         }
       }
       return true;
