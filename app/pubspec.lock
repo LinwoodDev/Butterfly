@@ -822,8 +822,8 @@ packages:
     dependency: "direct main"
     description:
       path: "packages/lw_file_system"
-      ref: "49102e314ceeef0c532213411b5e233fb5732726"
-      resolved-ref: "49102e314ceeef0c532213411b5e233fb5732726"
+      ref: "71ebfd76ef24a9b21b2e909d5802e9fb01357317"
+      resolved-ref: "71ebfd76ef24a9b21b2e909d5802e9fb01357317"
       url: "https://github.com/LinwoodDev/dart_pkgs.git"
     source: git
     version: "1.0.0"
@@ -980,10 +980,10 @@ packages:
     dependency: transitive
     description:
       name: path_parsing
-      sha256: e3e67b1629e6f7e8100b367d3db6ba6af4b1f0bb80f64db18ef1fbabd2fa9ccf
+      sha256: "45f7d6bba1128761de5540f39d5ca000ea8a1f22f06b76b61094a60a2997bd0e"
       url: "https://pub.dev"
     source: hosted
-    version: "1.0.1"
+    version: "1.0.2"
   path_provider:
     dependency: "direct main"
     description:

@@ -3,5 +3,7 @@
 * Fix layer rendering
 * Fix pin icon in property view
 * Fix toolbar position
+* Fix directory deletion in native file system
+* Fix property view logic
 
 Read more here: https://linwood.dev/butterfly/2.3.0-beta.0
