@@ -73,8 +73,8 @@ class LayersView extends StatelessWidget {
                                 : () => context
                                     .read<DocumentBloc>()
                                     .add(LayersMerged([
-                                      id,
                                       layers[index - 1].id,
+                                      id,
                                     ].nonNulls.toList())),
                             child: Text(AppLocalizations.of(context).up),
                           ),
