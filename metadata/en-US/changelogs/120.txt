@@ -11,6 +11,7 @@
 * Fix property view ui padding
 * Fix archive importing
 * Fix collaboration dialog
+* Fix navigator page large constraints
 * Upgrade networking stack for collaboration experiment
 * Update flutter and agp
 

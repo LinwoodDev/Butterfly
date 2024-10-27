@@ -110,6 +110,7 @@ class _PacksDialogState extends State<PacksDialog>
                                   color: Colors.red,
                                 ),
                                 child: ContextRegion(
+                                  tooltip: AppLocalizations.of(context).actions,
                                   menuChildren: [
                                     MenuItemButton(
                                       leadingIcon: const PhosphorIcon(
@@ -222,6 +223,8 @@ class _PacksDialogState extends State<PacksDialog>
                                     color: Colors.red,
                                   ),
                                   child: ContextRegion(
+                                    tooltip:
+                                        AppLocalizations.of(context).actions,
                                     menuChildren: [
                                       MenuItemButton(
                                         leadingIcon: const PhosphorIcon(

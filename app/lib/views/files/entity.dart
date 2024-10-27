@@ -266,6 +266,7 @@ class ContextFileRegion extends StatelessWidget {
   Widget build(BuildContext context) {
     final syncService = context.read<SyncService>();
     return ContextRegion(
+      tooltip: AppLocalizations.of(context).actions,
       menuChildren: [
         if (remote is RemoteStorage)
           StreamBuilder<List<SyncFile>>(

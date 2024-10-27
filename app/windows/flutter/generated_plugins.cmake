@@ -10,7 +10,7 @@ list(APPEND FLUTTER_PLUGIN_LIST
   flutter_secure_storage_windows
   irondash_engine_context
   printing
-  screen_retriever
+  screen_retriever_windows
   share_plus
   super_native_extensions
   url_launcher_windows

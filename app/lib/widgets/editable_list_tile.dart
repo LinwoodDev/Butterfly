@@ -83,6 +83,7 @@ class _EditableListTileState extends State<EditableListTile> {
   Widget build(BuildContext context) {
     if (widget.actions != null) {
       return ContextRegion(
+        tooltip: AppLocalizations.of(context).actions,
         builder: (context, button, controller) => _buildWidget(context, button),
         menuChildren: [
           MenuItemButton(

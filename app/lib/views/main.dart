@@ -506,7 +506,8 @@ class _MainBody extends StatelessWidget {
                       final isMobile =
                           constraints.maxWidth < LeapBreakpoints.compact;
                       final isLarge =
-                          constraints.maxWidth >= LeapBreakpoints.expanded;
+                          constraints.maxWidth >= LeapBreakpoints.expanded &&
+                              constraints.maxHeight >= 400;
                       final toolbar = EditToolbar(
                         isMobile: isMobile,
                         centered: true,
