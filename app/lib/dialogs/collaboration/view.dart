@@ -46,7 +46,6 @@ class ViewCollaborationDialog extends StatelessWidget {
         OutlinedButton(
           child: Text(AppLocalizations.of(context).stop),
           onPressed: () {
-            Navigator.of(context).pop();
             service.closeNetworking();
           },
         ),

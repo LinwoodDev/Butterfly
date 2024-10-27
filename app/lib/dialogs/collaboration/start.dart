@@ -84,19 +84,18 @@ class _StartCollaborationDialogState extends State<StartCollaborationDialog>
                   ],
                 ),
           actions: [
-            TextButton(
-              onPressed: () => Navigator.of(context).pop(),
-              child: Text(AppLocalizations.of(context).close),
-            ),
             ElevatedButton(
               onPressed: kIsWeb
                   ? null
                   : () {
                       if (!(_formKey.currentState?.validate() ?? false)) return;
-                      Navigator.of(context).pop();
                       _start();
                     },
               child: Text(AppLocalizations.of(context).start),
+            ),
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(),
+              child: Text(AppLocalizations.of(context).close),
             ),
           ],
         ),

@@ -79,12 +79,12 @@ dependencies:
   networker:
     git:
       url: https://github.com/LinwoodDev/dart_pkgs
-      ref: 5a3658cad80fcb8594b8be6f84460e77607eb959
+      ref: 071e02761bf55a47bcde0cdc2a711b8ff5fbbb18
       path: packages/networker/networker
   networker_socket:
     git:
       url: https://github.com/LinwoodDev/dart_pkgs
-      ref: 40b8553ab86ab4f06d9f689268a65d65ed936fda
+      ref: 9085d42cf75c3d3edc8edb9ef22697dbbe2bf38c
       path: packages/networker/networker_socket
   lw_file_system:
     git:

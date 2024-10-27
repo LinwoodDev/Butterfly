@@ -35,7 +35,7 @@ enum NetworkingType {
 
 const kDefaultPort = 28005;
 const kTimeout = Duration(seconds: 10);
-typedef NetworkingState = (NetworkerBase, RpcNetworkerPipe);
+typedef NetworkingState = (NetworkerBase, NamedRpcNetworkerPipe<NetworkEvent>);
 
 @freezed
 class NetworkingInitMessage with _$NetworkingInitMessage {
@@ -56,11 +56,19 @@ class NetworkingUser with _$NetworkingUser {
       _$NetworkingUserFromJson(json);
 }
 
-enum NetworkEvent {
-  event,
-  init,
-  connections,
-  user,
+enum NetworkEvent with RpcFunctionName {
+  event(mode: RpcNetworkerMode.any, canRunLocally: false),
+  init(mode: RpcNetworkerMode.authority, canRunLocally: false),
+  connections(mode: RpcNetworkerMode.authority, canRunLocally: false),
+  user(mode: RpcNetworkerMode.any, canRunLocally: false);
+
+  @override
+  final RpcNetworkerMode mode;
+  @override
+  final bool canRunLocally;
+
+  const NetworkEvent(
+      {this.mode = RpcNetworkerMode.authority, this.canRunLocally = false});
 }
 
 class NetworkingService {
@@ -95,7 +103,7 @@ class NetworkingService {
             ? InternetAddress(address, type: InternetAddressType.any)
             : InternetAddress.anyIPv4,
         port ?? kDefaultPort);
-    final rpc = RpcServerNetworkerPipe();
+    final rpc = NamedRpcServerNetworkerPipe<NetworkEvent>();
     _setupRpc(rpc, server);
     void sendConnections() {
       rpc.callFunction(NetworkEvent.connections.index,
@@ -123,7 +131,7 @@ class NetworkingService {
       uri = uri.replace(port: kDefaultPort);
     }
     final client = NetworkerSocketClient(uri);
-    final rpc = RpcClientNetworkerPipe();
+    final rpc = NamedRpcClientNetworkerPipe<NetworkEvent>();
     _setupRpc(rpc, client);
     final completer = Completer<Uint8List?>();
     rpc
@@ -147,44 +155,35 @@ class NetworkingService {
     _users.add({});
   }
 
-  void _setupRpc(RpcNetworkerPipe rpc, NetworkerBase networker) {
+  void _setupRpc(
+      NamedRpcNetworkerPipe<NetworkEvent> rpc, NetworkerBase networker) {
+    rpc.registerNamedFunctions(NetworkEvent.values);
+    rpc.getNamedFunction(NetworkEvent.event)?.connect(RawJsonNetworkerPlugin()
+      ..read.listen((message) {
+        final event = DocumentEvent.fromJson(message.data);
+        onMessage(event);
+      }));
     rpc
-        .registerFunction(NetworkEvent.event.index, mode: RpcNetworkerMode.any)
-        .connect(RawJsonNetworkerPlugin()
-          ..read.listen((message) {
-            final event = DocumentEvent.fromJson(message.data);
-            onMessage(event);
-          }));
-    rpc
-        .registerFunction(
-          NetworkEvent.connections.index,
-          mode: RpcNetworkerMode.authority,
-        )
-        .connect(RawJsonNetworkerPlugin()
+        .getNamedFunction(NetworkEvent.connections)
+        ?.connect(RawJsonNetworkerPlugin()
           ..read.listen((message) {
             final ids = Set<Channel>.from(message.data);
             _connections.add(ids);
             _users.add(Map.from(_users.value)
               ..removeWhere((key, value) => !ids.contains(key)));
           }));
-    rpc
-        .registerFunction(
-          NetworkEvent.user.index,
-          mode: RpcNetworkerMode.any,
-        )
-        .connect(RawJsonNetworkerPlugin()
-          ..read.listen((message) {
-            final user = NetworkingUser.fromJson(message.data);
-            final users = Map<Channel?, NetworkingUser>.from(_users.value)
-              ..[message.channel] = user;
-            _users.add(users);
-            _bloc?.state.currentIndexCubit
-                ?.updateNetworkingState(_bloc!, users);
-          }));
+    rpc.getNamedFunction(NetworkEvent.user)?.connect(RawJsonNetworkerPlugin()
+      ..read.listen((message) {
+        final user = NetworkingUser.fromJson(message.data);
+        final users = Map<Channel?, NetworkingUser>.from(_users.value)
+          ..[message.channel] = user;
+        _users.add(users);
+        _bloc?.state.currentIndexCubit?.updateNetworkingState(_bloc!, users);
+      }));
   }
 
   void sendUser(NetworkingUser user) {
-    state?.$2.callFunction(NetworkEvent.user.index,
+    state?.$2.callNamedFunction(NetworkEvent.user,
         Uint8List.fromList(jsonEncode(user.toJson()).codeUnits));
   }
 
@@ -192,7 +191,7 @@ class NetworkingService {
 
   void onEvent(DocumentEvent event) {
     if (!event.shouldSync() || _externalEvent) return;
-    state?.$2.callFunction(NetworkEvent.event.index,
+    state?.$2.callNamedFunction(NetworkEvent.event,
         Uint8List.fromList(jsonEncode(event.toJson()).codeUnits));
   }
 
