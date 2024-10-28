@@ -573,7 +573,7 @@
   "rootDirectorySpecifiedDescription": "已指定根目录。所有高级目录路径将与此目录相对。保持空白以禁用此目录类型。",
   "rootDirectoryNotSpecifiedDescription": "未指定根目录。需要名称。所有高级目录路径将是绝对路径。保留空白以禁用此目录类型。",
   "unsecureConnectionTitle": "不安全的连接",
-  "unsecureConnectionMessage": "The connection is not secure. This can be a security risk. Please only continue if you trust the connection. The sha1 fingerprint is {fingerprint}.",
+  "unsecureConnectionMessage": "此连接不安全，有潜在风险。请确保信任此连接再继续。sha1指纹是 {fingerprint}。",
   "@unsecureConnectionMessage": {
     "placeholders": {
       "fingerprint": {
