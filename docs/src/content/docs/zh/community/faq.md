@@ -11,7 +11,7 @@ title: 常见问题
 您可以通过点击标题栏中的安装按钮来安装网页版本。
 之后您可以离线使用此应用程序。
 
-### Butterfly does not load on Brave
+### Butterfly无法在Brave浏览器中加载
 
 勇敢的用户已将“阻止指纹”设定设置为侵略，需要将其改为“标准”，或只是纯粹的“阻止指纹”。
 点击地址栏上的屏蔽图标来更改设置。
@@ -19,18 +19,18 @@ title: 常见问题
 
 ## 移动设备
 
-### S-Pen won't be recognized
+### 无法识别S-Pen
 
 > [#270](https://github.com/LinwoodDev/Butterfly/issues/270)
 
 我使用流体框架提供的输入。
-This is the issue to track it: [flutter/flutter#42846](https://github.com/flutter/flutter/issues/42846).
+查看相关issue: [flutter/flutter#42846](https://github.com/flutter/flutter/issues/42846)
 
-### iOS support
+### iOS支持
 
 > [#244](https://github.com/LinwoodDev/Butterfly/issues/244)
 
-Butterfly在iOS下有预览版。 Click [here](https://butterfly.linwood.dev/downloads/ios) to download it. See [here](https://github.com/LinwoodDev/Butterfly/issues/244#issuecomment-1935460878) why it's not available on the App Store.
+Butterfly在iOS下有预览版。 点击此[链接](https://butterfly.linwood.dev/downloads/ios)下载。 [点击](https://github.com/LinwoodDev/Butterfly/issues/244#issuecomment-1935460878)了解为什么此应用不在App Store上提供。
 
 ## 桌面
 
@@ -39,8 +39,7 @@ Butterfly在iOS下有预览版。 Click [here](https://butterfly.linwood.dev/dow
 > [#238](https://github.com/LinwoodDev/Butterfly/issues/238)
 
 我使用流体框架提供的输入。
-There are already issues to track it:
-Windows: [flutter/flutter#65248](https://github.com/flutter/flutter/issues/65248) and [flutter/flutter#102836](https://github.com/flutter/flutter/issues/102836).
+查看相关issue: Windows[flutter/flutter#65248](https://github.com/flutter/flutter/issues/65248) 以及 [flutter/flutter#102836](https://github.com/flutter/flutter/issues/102836).
 Linux: [flutter/flutter#63209](https://github.com/flutter/flutter/issues/63209)
 
 这些问题比以前更长。 网络版本现在应该很好。
