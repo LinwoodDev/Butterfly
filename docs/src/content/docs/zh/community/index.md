@@ -4,14 +4,14 @@ title: 社区
 
 欢迎来到社区部分。
 
-## Acknowledgements
+## 致谢
 
 特别感谢：
 
-- [Flutter](https://github.com/flutter/flutter) for providing this useful crossplatform ui framework
-- [window_manager](https://github.com/leanflutter/window_manager) for all this useful desktop window features
-- [Starlight](https://github.com/withastro/starlight) for an easy-to-use static react documentation framework
-- [Phosphor Icons](https://phosphoricons.com/) for the beautiful icons
+- [Flutter](https://github.com/flutter/flutter)提供了好用的跨平台UI框架
+- [window_manager](https://github.com/leanflutter/window_manager)提供了桌面应用的窗口管理功能
+- [Starlight](https://github.com/withastro/starlight)提供了易用的静态React帮助文档框架
+- [Phosphor Icons](https://phosphoricons.com/)提供了精美的图标
 
 所有其他许可都可以在设置中找到。
 
