@@ -2,6 +2,28 @@
 
 <!--ENTER CHANGELOG HERE-->
 
+## 2.2.2-rc.0 (2024-10-28)
+
+* Add layer merging
+* Add option to open context menus with right click on desktop or long press on mobile
+* Add safe area to add dialog
+* Add fade transition for property view
+* Remove asking for name on layer creation
+* Fix layer rendering
+* Fix pin icon in property view
+* Fix toolbar position
+* Fix directory deletion in native file system
+* Fix property view logic
+* Fix property view ui padding
+* Fix archive importing
+* Fix collaboration dialog
+* Fix navigator page large constraints
+* Fix root directory bug on web
+* Upgrade networking stack for collaboration experiment
+* Update flutter and agp
+
+Read more here: https://linwood.dev/butterfly/2.2.2-rc.0
+
 ## 2.2.1 (2024-10-17)
 
 This is a stable release, it includes all the changes from the 2.2.1 nightly releases.
