@@ -254,4 +254,4 @@ jobs:
             Pre-release version ${{ env.BUTTERFLY_VERSION }} released!
             Download it here: https://butterfly.linwood.dev/downloads
             Please note that this is a pre-release version and is not intended for production use.
-            Read more about it here: https://butterfly.linwood.dev/nightly
+            Read more about it here: https://butterfly.linwood.dev/community/nightly

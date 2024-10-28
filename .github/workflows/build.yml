@@ -525,6 +525,23 @@ jobs:
           git config --global user.email "actions@github.com"
           git config --global user.name "Actions"
           git pull --tags
+      - name: Add checksums
+        run: |
+          output_file="checksums.txt"
+
+          # Empty the output file if it exists
+          > "$output_file"
+
+          # Find and loop through all files starting with "linwood-butterfly" in the current directory
+          for file in linwood-butterfly*; do
+            # Check if the file exists (in case no matches were found)
+            if [ -f "$file" ]; then
+              # Append sha256sum to the output file in the format "hash  filename"
+              sha256sum "$file" >> "$output_file"
+            fi
+          done
+
+          echo "SHA256 hashes for files starting with 'linwood-butterfly' saved to $output_file"
       - name: 🚀 Deploy stable
         if: ${{ github.ref == 'refs/tags/stable' || (github.event_name == 'release' && !github.event.release.prerelease) }}
         uses: softprops/action-gh-release@v2
@@ -544,6 +561,7 @@ jobs:
             linwood-butterfly-macos.dmg
             linwood-butterfly-android.apk
             linwood-butterfly-ios.ipa
+            checksums.txt
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: 🚀 Deploy nightly
@@ -568,6 +586,7 @@ jobs:
             linwood-butterfly-android-arm64.apk
             linwood-butterfly-android-x86_64.apk
             linwood-butterfly-ios.ipa
+            checksums.txt
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Release
