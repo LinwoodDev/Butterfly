@@ -110,12 +110,13 @@ class NetworkingService {
           Uint8List.fromList(jsonEncode(connections.toList()).codeUnits));
     }
 
-    server.clientConnect.listen((event) {
+    server.clientConnect.listen((event) async {
       final state = _bloc?.state;
       rpc.callFunction(
           NetworkEvent.init.index,
           Uint8List.fromList(
-              jsonEncode(NetworkingInitMessage(state?.saveBytes())).codeUnits));
+              jsonEncode(NetworkingInitMessage((await state?.saveBytes())))
+                  .codeUnits));
       sendConnections();
     });
     server.clientDisconnect.listen((event) {

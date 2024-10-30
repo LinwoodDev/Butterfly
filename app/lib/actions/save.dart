@@ -21,7 +21,7 @@ class SaveAction extends Action<SaveIntent> {
     final state = bloc.state;
     if (state is! DocumentLoadSuccess) return;
     if (state.embedding?.save ?? false) {
-      sendEmbedMessage('save', state.saveData().exportAsBytes());
+      sendEmbedMessage('save', (await state.saveData()).exportAsBytes());
       state.currentIndexCubit.setSaveState(saved: SaveState.saved);
     } else {
       final path = await state.save();

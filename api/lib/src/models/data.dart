@@ -178,16 +178,21 @@ final class NoteData extends ArchiveData<NoteData> {
 
   @useResult
   NoteData setPage(DocumentPage page, [String name = 'default', int? index]) {
+    return setRawPage(utf8.encode(jsonEncode(page.toJson())), name, index);
+  }
+
+  @useResult
+  NoteData setRawPage(Uint8List content,
+      [String name = 'default', int? index]) {
     final pages = getPages();
     final newIndex = index ?? pages.length;
-    final content = jsonEncode(page.toJson());
     var noteData = this;
     if (index != null) {
       noteData = _realignPages(index);
     }
     return noteData.setAsset(
         '$kPagesArchiveDirectory/${_getPageFileName(name) ?? '$newIndex.$name'}.json',
-        utf8.encode(content));
+        content);
   }
 
   @useResult

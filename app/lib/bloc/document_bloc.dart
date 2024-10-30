@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:bloc_concurrency/bloc_concurrency.dart';
 import 'package:butterfly/api/file_system.dart';
@@ -1086,7 +1087,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       {String? directory, String? name}) async {
     final current = state;
     if (current is! DocumentLoadSuccess) return;
-    final data = current.saveData();
+    final data = await current.saveData();
     final render = await current.currentIndexCubit.render(
         current.data,
         current.page,

@@ -949,15 +949,10 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
       ? null
       : state.settingsCubit.state.getRemote(state.location.remote);
 
-  bool _currentlySaving = false;
-
   Future<AssetLocation> save(DocumentState blocState,
       [AssetLocation? location]) async {
     if (state.networkingService.state?.$1 is NetworkerClient) {
       return AssetLocation.empty;
-    }
-    if (_currentlySaving) {
-      return state.location;
     }
     final storage = getRemoteStorage();
     final fileSystem = blocState.fileSystem.buildDocumentSystem(storage);
@@ -968,9 +963,8 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     emit(state.copyWith(
         saved: SaveState.saving, location: location ?? state.location));
     location ??= state.location;
-    final currentData = blocState.saveData();
+    final currentData = await blocState.saveData();
     if (currentData == null || blocState.embedding != null) {
-      _currentlySaving = false;
       return AssetLocation.empty;
     }
     if (!location.path.endsWith('.bfly') ||
@@ -983,7 +977,6 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
       await fileSystem.updateFile(location.path, currentData);
     }
     state.settingsCubit.addRecentHistory(location);
-    _currentlySaving = false;
     emit(state.copyWith(location: location, saved: SaveState.saved));
     return location;
   }

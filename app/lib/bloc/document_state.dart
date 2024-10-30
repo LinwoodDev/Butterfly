@@ -33,8 +33,9 @@ abstract class DocumentState extends Equatable {
 
   String? get currentLayer => null;
 
-  NoteData? saveData([NoteData? current]) => data;
-  Uint8List? saveBytes([NoteData? current]) => saveData()?.exportAsBytes();
+  Future<NoteData?> saveData([NoteData? current]) => Future.value(data);
+  Future<Uint8List?> saveBytes([NoteData? current]) =>
+      saveData().then((e) => e?.exportAsBytes());
 }
 
 class DocumentLoadInProgress extends DocumentState {
@@ -57,6 +58,9 @@ class DocumentLoadFailure extends DocumentState {
   List<Object?> get props => [message, stackTrace];
 }
 
+Uint8List _encodePage(DocumentPage page) =>
+    utf8.encode(jsonEncode(page.toJson()));
+
 abstract class DocumentLoaded extends DocumentState {
   @override
   final NoteData data;
@@ -71,7 +75,8 @@ abstract class DocumentLoaded extends DocumentState {
   @override
   final AssetService assetService;
 
-  NoteData _updatePage(NoteData current) => current.setPage(page, pageName);
+  Future<NoteData> _updatePage(NoteData current) async =>
+      current.setRawPage(await compute(_encodePage, page), pageName);
   NoteData _updateMetadata(NoteData current) =>
       current.setMetadata(metadata.copyWith(
         updatedAt: DateTime.now().toUtc(),
@@ -112,9 +117,9 @@ abstract class DocumentLoaded extends DocumentState {
   TransformCubit get transformCubit => currentIndexCubit.state.transformCubit;
 
   @override
-  NoteData saveData([NoteData? current]) {
+  Future<NoteData> saveData([NoteData? current]) async {
     current ??= data;
-    current = _updatePage(current);
+    current = await _updatePage(current);
     current = _updateMetadata(current);
     current = _updateInfo(current);
     return current;
