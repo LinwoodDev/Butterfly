@@ -1,4 +1,4 @@
 * Add checksums to release assets ([#753](https://github.com/LinwoodDev/Butterfly/issues/753))
-* Improve scaling rotated elements ([#518](https://github.com/LinwoodDev/Butterfly/issues/518))
+* Improve scaling rotated elements ([#518](https://github.com/LinwoodDev/Butterfly/issues/518) partially, offset needs to be fixed)
 
 Read more here: https://linwood.dev/butterfly/2.2.2-rc.1

@@ -238,16 +238,16 @@ abstract class Renderer<T> {
     rotation ??= relative ? 0 : this.rotation;
     final double nextRotation =
         (relative ? rotation + this.rotation : rotation) % 360;
-    position ??= relative ? rect.topLeft : Offset.zero;
+    position ??= relative ? Offset.zero : rect.topLeft;
+    final expandedRect = this.expandedRect ?? rect;
     var nextPosition = relative ? position + rect.topLeft : position;
 
+    final radians = this.rotation * (pi / 180);
     if (rotatePosition) {
       var relativePosition = nextPosition - rect.topLeft;
-      relativePosition = relativePosition.rotate(rect.center, rotation);
+      relativePosition = relativePosition.rotate(Offset.zero, radians);
       nextPosition = relativePosition + rect.topLeft;
     }
-
-    final radians = this.rotation * (pi / 180);
 
     if (radians != 0) {
       final rotationCos = cos(radians);
@@ -257,9 +257,16 @@ abstract class Renderer<T> {
 
       scaleX = (oldScaleX * rotationCos - oldScaleY * rotationSin).abs();
       scaleY = (oldScaleX * rotationSin + oldScaleY * rotationCos).abs();
-      final offsetX = (oldScaleX - scaleX) * rect.width / 2;
-      final offsetY = (oldScaleY - scaleY) * rect.height / 2;
-      nextPosition += Offset(offsetX, offsetY);
+      // Calculate offset, please use Offset#rotate(pivot, radians)
+      // to rotate the offset around the pivot point
+      // Don't forget to use the radians and the scales to calculate the offset to keep the rectangle on the same position as if they are unrotated
+      final rotationPoint = rect.topLeft;
+      final offset = Offset(
+        (expandedRect.left - rotationPoint.dx) * scaleX / 2,
+        (expandedRect.top - rotationPoint.dy) * scaleY / 2,
+      );
+      final rotatedOffset = offset.rotate(Offset.zero, radians);
+      nextPosition -= rotatedOffset;
     }
 
     return _transform(
