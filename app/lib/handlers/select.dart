@@ -106,6 +106,7 @@ class SelectHandler extends Handler<SelectTool> {
               scaleX: transform.scaleX,
               scaleY: transform.scaleY,
               rotation: transform.rotation,
+              rotatePosition: transform.rotation != 0,
               relative: true) ??
           e;
     }).toList();

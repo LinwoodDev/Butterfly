@@ -232,19 +232,35 @@ abstract class Renderer<T> {
     double scaleY = 1,
     double? rotation,
     bool relative = true,
+    bool rotatePosition = false,
   }) {
     final rect = this.rect ?? Rect.zero;
     rotation ??= relative ? 0 : this.rotation;
-    final nextRotation = relative ? rotation + this.rotation : rotation;
-    position ??= relative ? Offset.zero : rect.topLeft;
-    final nextPosition = relative ? position + rect.topLeft : position;
+    final double nextRotation =
+        (relative ? rotation + this.rotation : rotation) % 360;
+    position ??= relative ? rect.topLeft : Offset.zero;
+    var nextPosition = relative ? position + rect.topLeft : position;
 
-    /*final radians = this.rotation * (pi / 180);
-    final cosRotation = cos(radians);
-    final sinRotation = sin(radians);
+    if (rotatePosition) {
+      var relativePosition = nextPosition - rect.topLeft;
+      relativePosition = relativePosition.rotate(rect.center, rotation);
+      nextPosition = relativePosition + rect.topLeft;
+    }
 
-    scaleX = scaleX * cosRotation - scaleY * sinRotation;
-    scaleY = scaleX * sinRotation + scaleY * cosRotation;*/
+    final radians = this.rotation * (pi / 180);
+
+    if (radians != 0) {
+      final rotationCos = cos(radians);
+      final rotationSin = sin(radians);
+      final oldScaleX = scaleX;
+      final oldScaleY = scaleY;
+
+      scaleX = (oldScaleX * rotationCos - oldScaleY * rotationSin).abs();
+      scaleY = (oldScaleX * rotationSin + oldScaleY * rotationCos).abs();
+      final offsetX = (oldScaleX - scaleX) * rect.width / 2;
+      final offsetY = (oldScaleY - scaleY) * rect.height / 2;
+      nextPosition += Offset(offsetX, offsetY);
+    }
 
     return _transform(
       position: nextPosition,

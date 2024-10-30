@@ -95,7 +95,7 @@ dependencies:
   dynamic_color: ^1.7.0
   popover: ^0.3.0
   markdown: ^7.2.2
-  device_info_plus: ^10.1.0
+  device_info_plus: ^11.1.0
   image: ^4.1.7
   one_dollar_unistroke_recognizer: ^1.2.0
   super_clipboard: ^0.8.11
@@ -113,6 +113,7 @@ dev_dependencies:
   espresso: ^0.4.0
   freezed: ^2.5.2
 dependency_overrides:
+  device_info_plus: ^11.1.0
   flutter_secure_storage_web:
     git:
       url: https://github.com/CodeDoctorDE/flutter_secure_storage.git

@@ -512,8 +512,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
         max(transform.position.dy, friction.beginPosition.dy),
       ).translate(realWidth, realHeight);
       transform = transform.withPosition(topLeft);
-      rect = Rect.fromPoints(
-          topLeft, bottomRight.translate(realWidth, realHeight));
+      rect = Rect.fromPoints(topLeft, bottomRight);
       size = Size(bottomRight.dx - topLeft.dx, bottomRight.dy - topLeft.dy) *
           transform.size;
     }
