@@ -103,35 +103,6 @@ br {
   font-weight: 800;
   font-style: italic;
 }
-/* Dark mode colors. */
-:root {
-  --sl-color-accent-low: #312007;
-  --sl-color-accent: #8f5e00;
-  --sl-color-accent-high: #dbc5a8;
-  --sl-color-white: #ffffff;
-  --sl-color-gray-1: #eceeec;
-  --sl-color-gray-2: #c0c3c0;
-  --sl-color-gray-3: #888d88;
-  --sl-color-gray-4: #555a55;
-  --sl-color-gray-5: #353a35;
-  --sl-color-gray-6: #242824;
-  --sl-color-black: #171917;
-}
-/* Light mode colors. */
-:root[data-theme="light"] {
-  --sl-color-accent-low: #e5d4bf;
-  --sl-color-accent: #916000;
-  --sl-color-accent-high: #462c00;
-  --sl-color-white: #171917;
-  --sl-color-gray-1: #242824;
-  --sl-color-gray-2: #353a35;
-  --sl-color-gray-3: #555a55;
-  --sl-color-gray-4: #888d88;
-  --sl-color-gray-5: #c0c3c0;
-  --sl-color-gray-6: #eceeec;
-  --sl-color-gray-7: #f5f7f5;
-  --sl-color-black: #ffffff;
-}
 @font-face {
   font-family: "Barlow";
   src: url("/fonts/Barlow-Black.ttf") format("truetype");

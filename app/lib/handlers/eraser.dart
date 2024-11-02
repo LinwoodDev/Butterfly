@@ -101,11 +101,4 @@ class EraserHandler extends Handler<EraserTool> {
 // Returns the mouse cursor to be used when the user interacts with the eraser tool.
   @override
   MouseCursor get cursor => SystemMouseCursors.precise;
-
-  @override
-  PreferredSizeWidget? getToolbar(DocumentBloc bloc) => EraserToolbarView(
-        eraseElements: data.eraseElements,
-        onToggleEraseElements: () =>
-            changeTool(bloc, data.copyWith(eraseElements: !data.eraseElements)),
-      );
 }

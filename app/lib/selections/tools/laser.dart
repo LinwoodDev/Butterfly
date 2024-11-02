@@ -29,6 +29,7 @@ class LaserToolSelection extends ToolSelection<LaserTool> {
           selected.map((e) => e.copyWith(thinning: value)).toList(),
         ),
       ),
+      const SizedBox(height: 4),
       ColorField(
         value: Color(selected.first.color),
         onChanged: (value) => update(

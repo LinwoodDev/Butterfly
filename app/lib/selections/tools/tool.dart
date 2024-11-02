@@ -30,6 +30,7 @@ class ToolSelection<T extends Tool> extends Selection<T> {
           initialValue: initialName,
           onChanged: (value) => update(context,
               selected.map((e) => e.copyWith(name: value) as T).toList())),
+      const SizedBox(height: 4),
     ];
   }
 

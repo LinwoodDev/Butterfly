@@ -217,10 +217,10 @@ packages:
     dependency: "direct main"
     description:
       name: camera_windows
-      sha256: "12df8bf0a8b49acd65dc07768fb2cdc9552ab46c2242de88fb208776d8d334da"
+      sha256: "33cd8fc7e4e30cfd32b63a84fa2f753da04e087dd8cc2b46672ad3f0e604fb86"
       url: "https://pub.dev"
     source: hosted
-    version: "0.2.5"
+    version: "0.2.5+1"
   characters:
     dependency: transitive
     description:
@@ -1626,10 +1626,10 @@ packages:
     dependency: transitive
     description:
       name: win32
-      sha256: "10169d3934549017f0ae278ccb07f828f9d6ea21573bab0fb77b0e1ef0fce454"
+      sha256: "84ba388638ed7a8cb3445a320c8273136ab2631cd5f2c57888335504ddab1bc2"
       url: "https://pub.dev"
     source: hosted
-    version: "5.7.2"
+    version: "5.8.0"
   win32_registry:
     dependency: transitive
     description:

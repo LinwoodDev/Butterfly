@@ -73,11 +73,4 @@ class PathEraserHandler extends Handler<PathEraserTool> {
       context.getDocumentBloc().add(ElementsRemoved(_erased.toList()));
     }
   }
-
-  @override
-  PreferredSizeWidget? getToolbar(DocumentBloc bloc) => EraserToolbarView(
-        eraseElements: data.eraseElements,
-        onToggleEraseElements: () =>
-            changeTool(bloc, data.copyWith(eraseElements: !data.eraseElements)),
-      );
 }

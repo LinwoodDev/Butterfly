@@ -68,6 +68,7 @@ class AreaToolSelection extends ToolSelection<AreaTool> {
               selected
                   .map((e) => e.copyWith(constrainedAspectRatio: value))
                   .toList())),
+      const SizedBox(height: 4),
       CheckboxListTile(
         title: Text(AppLocalizations.of(context).askForName),
         value: tool.askForName,

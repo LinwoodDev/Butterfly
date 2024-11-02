@@ -20,7 +20,6 @@ import 'package:butterfly/models/cursor.dart';
 import 'package:butterfly/renderers/foregrounds/area.dart';
 import 'package:butterfly/renderers/foregrounds/select.dart';
 import 'package:butterfly/services/export.dart';
-import 'package:butterfly/views/toolbar/eraser.dart';
 import 'package:butterfly/visualizer/tool.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:butterfly_api/butterfly_text.dart' as text;

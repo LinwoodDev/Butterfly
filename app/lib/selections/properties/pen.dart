@@ -12,6 +12,7 @@ class PenPropertySelection extends PropertySelection<PenProperty>
   ) =>
       [
         ...super.build(context, property, onChanged),
+        const SizedBox(height: 4),
         ColorField(
           value: Color(property.color),
           onChanged: (value) =>
@@ -28,6 +29,7 @@ class PenPropertySelection extends PropertySelection<PenProperty>
           onChangeEnd: (value) => onChanged(property.copyWith(
               color: convertColor(property.color, value.toInt()))),
         ),
+        const SizedBox(height: 4),
         CheckboxListTile(
             value: property.fill,
             title: Text(AppLocalizations.of(context).fill),
