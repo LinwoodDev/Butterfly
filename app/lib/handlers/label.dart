@@ -135,6 +135,11 @@ class LabelHandler extends Handler<LabelTool>
   void onDoubleTap(EventContext context) =>
       create(context, _doubleTapPos, true);
 
+  @override
+  bool canChange(PointerDownEvent event, EventContext context) =>
+      event.kind == PointerDeviceKind.mouse &&
+      event.buttons != kSecondaryMouseButton;
+
   Future<void> create(EventContext context, Offset localPosition,
       [bool forceCreate = false]) async {
     final pixelRatio = context.devicePixelRatio;
