@@ -43,9 +43,8 @@ class LabelCursor extends Renderer<LabelCursorData> {
           package: icon.fontPackage,
           fontSize: iconSize,
           color: iconColor,
-          fontStyle: property?.span.italic == true
-              ? FontStyle.italic
-              : FontStyle.normal,
+          fontStyle:
+              property.span.getItalic() ? FontStyle.italic : FontStyle.normal,
         ),
       ),
       textAlign: TextAlign.center,

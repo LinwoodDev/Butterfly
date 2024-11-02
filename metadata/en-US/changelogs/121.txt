@@ -1,4 +1,5 @@
 * Add checksums to release assets ([#753](https://github.com/LinwoodDev/Butterfly/issues/753))
+* Add documentation button to collapsed app bar
 * Move eraser tool to property view
 * Improve scaling rotated elements ([#518](https://github.com/LinwoodDev/Butterfly/issues/518) partially, offset needs to be fixed)
 * Improve performance on large pages ([#667](https://github.com/LinwoodDev/Butterfly/issues/667) partially)

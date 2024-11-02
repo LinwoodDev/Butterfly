@@ -112,12 +112,17 @@ class _HomePageState extends State<HomePage> {
                   onlyShowOnDesktop: showBanner,
                   actions: [
                     if (!showBanner) ...[
-                      _getBannerVisibilityWidget(context, settings),
+                      IconButton(
+                        icon: const PhosphorIcon(PhosphorIconsLight.bookOpen),
+                        tooltip: AppLocalizations.of(context).documentation,
+                        onPressed: () => openHelp(['intro']),
+                      ),
                       IconButton(
                         icon: const PhosphorIcon(PhosphorIconsLight.gear),
                         tooltip: AppLocalizations.of(context).settings,
                         onPressed: () => openSettings(context),
                       ),
+                      _getBannerVisibilityWidget(context, settings),
                     ],
                   ],
                 ),
