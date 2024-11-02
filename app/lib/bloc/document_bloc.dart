@@ -104,6 +104,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
           data: data,
           pageName: event.pageName,
         ),
+        reset: true,
       );
     });
     on<PageReordered>((event, emit) {

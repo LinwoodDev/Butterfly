@@ -23,11 +23,6 @@ class ExperimentsSettingsPage extends StatelessWidget {
           description: AppLocalizations.of(context).smoothNavigation,
           icon: PhosphorIcons.caretCircleDoubleDown,
         ),
-        (
-          name: 'rotation',
-          description: AppLocalizations.of(context).rotation,
-          icon: PhosphorIcons.angle,
-        )
       ];
 
   static const Map<String, String> _featureHelps = {

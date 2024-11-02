@@ -1,5 +1,6 @@
 * Add checksums to release assets ([#753](https://github.com/LinwoodDev/Butterfly/issues/753))
 * Improve scaling rotated elements ([#518](https://github.com/LinwoodDev/Butterfly/issues/518) partially, offset needs to be fixed)
 * Improve performance on large pages ([#667](https://github.com/LinwoodDev/Butterfly/issues/667) partially)
+* Fix changing page don't showing content ([#755](https://github.com/LinwoodDev/Butterfly/issues/755))
 
 Read more here: https://linwood.dev/butterfly/2.2.2-rc.1
