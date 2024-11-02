@@ -770,5 +770,5 @@ class LabelHandler extends Handler<LabelTool>
   }
 
   @override
-  MouseCursor get cursor => SystemMouseCursors.text;
+  MouseCursor get cursor => SystemMouseCursors.none;
 }

@@ -99,7 +99,7 @@ class _LabelToolbarViewState extends State<LabelToolbarView> {
       TextContext e => e.getDefinedForcedSpanProperty(document),
       _ => null
     };
-    final styleSheet = value.styleSheet;
+    final styleSheet = value.getStyleSheet(document);
     final style = styleSheet.resolveStyle(document);
     _scaleController.text =
         (value.labelElement?.scale ?? value.tool.scale).toString();

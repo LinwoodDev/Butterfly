@@ -25,13 +25,13 @@ class LabelCursor extends Renderer<LabelCursorData> {
     const icon = PhosphorIconsLight.cursorText;
     final property = switch (element.context) {
       TextContext e => e.getDefinedProperty(document),
-      _ => null
+      _ => const text.DefinedParagraphProperty(),
     };
-    final iconSize =
-        (property ?? const text.DefinedParagraphProperty()).span.getSize() *
-            (element.context?.labelElement?.scale ??
-                (element.tool.zoomDependent ? 1 / transform.size : 1));
-    final iconColor = Color(property?.span.color ??
+    final iconSize = property.span.getSize() *
+        (element.context?.labelElement?.scale ??
+            (element.tool.scale *
+                (element.tool.zoomDependent ? 1 / transform.size : 1)));
+    final iconColor = Color(property.span.color ??
         colorScheme?.primary.value ??
         Colors.black.value);
     final iconPainter = TextPainter(

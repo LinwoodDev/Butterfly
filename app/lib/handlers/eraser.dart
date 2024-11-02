@@ -100,5 +100,5 @@ class EraserHandler extends Handler<EraserTool> {
 
 // Returns the mouse cursor to be used when the user interacts with the eraser tool.
   @override
-  MouseCursor get cursor => SystemMouseCursors.precise;
+  MouseCursor get cursor => SystemMouseCursors.none;
 }

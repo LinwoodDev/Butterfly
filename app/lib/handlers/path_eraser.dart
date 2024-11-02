@@ -73,4 +73,7 @@ class PathEraserHandler extends Handler<PathEraserTool> {
       context.getDocumentBloc().add(ElementsRemoved(_erased.toList()));
     }
   }
+
+  @override
+  MouseCursor? get cursor => SystemMouseCursors.none;
 }

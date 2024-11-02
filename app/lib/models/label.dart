@@ -36,8 +36,8 @@ sealed class LabelContext with _$LabelContext {
 
   LabelElement? get labelElement => element as LabelElement?;
 
-  PackAssetLocation get styleSheet =>
-      labelElement?.styleSheet ?? tool.styleSheet;
+  PackAssetLocation getStyleSheet(NoteData document) =>
+      labelElement?.styleSheet ?? tool.styleSheet.fixStyle(document);
 
   int get length =>
       switch (this) {
@@ -108,14 +108,15 @@ extension TextContextHelper on TextContext {
         const ParagraphProperty.undefined();
   }
 
-  DefinedParagraphProperty? getDefinedProperty(NoteData document) {
+  DefinedParagraphProperty getDefinedProperty(NoteData document) {
     final property = getProperty();
     if (property is DefinedParagraphProperty) {
       return property;
     }
-    return styleSheet
-        .resolveStyle(document)
-        ?.resolveParagraphProperty(property);
+    return getStyleSheet(document)
+            .resolveStyle(document)
+            ?.resolveParagraphProperty(property) ??
+        DefinedParagraphProperty();
   }
 
   SpanProperty? getSpanProperty(NoteData document) {
@@ -123,15 +124,16 @@ extension TextContextHelper on TextContext {
     return switch (paragraph?.getSpan(index)?.property) {
       DefinedSpanProperty e => e,
       NamedSpanProperty e => e,
-      _ => getDefinedProperty(document)?.span,
+      _ => getDefinedProperty(document).span,
     };
   }
 
   DefinedSpanProperty getDefinedSpanProperty(NoteData document) {
     return switch (getSpanProperty(document)) {
           DefinedSpanProperty e => e,
-          NamedSpanProperty e =>
-            styleSheet.resolveStyle(document)?.resolveSpanProperty(e),
+          NamedSpanProperty e => getStyleSheet(document)
+              .resolveStyle(document)
+              ?.resolveSpanProperty(e),
           _ => null,
         } ??
         const DefinedSpanProperty();
@@ -140,8 +142,9 @@ extension TextContextHelper on TextContext {
   DefinedParagraphProperty getDefinedForcedProperty(NoteData document) {
     return switch (forcedProperty) {
           DefinedParagraphProperty e => e,
-          NamedParagraphProperty e =>
-            styleSheet.resolveStyle(document)?.resolveParagraphProperty(e),
+          NamedParagraphProperty e => getStyleSheet(document)
+              .resolveStyle(document)
+              ?.resolveParagraphProperty(e),
           _ => null,
         } ??
         const DefinedParagraphProperty();
@@ -151,8 +154,9 @@ extension TextContextHelper on TextContext {
       [bool fallback = true]) {
     return switch (forcedSpanProperty) {
           DefinedSpanProperty e => e,
-          NamedSpanProperty e =>
-            styleSheet.resolveStyle(document)?.resolveSpanProperty(e),
+          NamedSpanProperty e => getStyleSheet(document)
+              .resolveStyle(document)
+              ?.resolveSpanProperty(e),
           _ => null,
         } ??
         (fallback
