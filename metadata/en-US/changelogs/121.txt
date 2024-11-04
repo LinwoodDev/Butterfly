@@ -5,7 +5,7 @@
 * Improve performance on large pages ([#667](https://github.com/LinwoodDev/Butterfly/issues/667) partially)
 * Improve property view
 * Fix changing page don't showing content ([#755](https://github.com/LinwoodDev/Butterfly/issues/755))
-* Fix label cursor if not editing element
+* Fix label cursor style if not editing element
 * Remove cusor visibility on eraser, path eraser and label tool
 * Remove label tool can be changed tool to allow context menu
 

@@ -482,10 +482,10 @@ packages:
     dependency: "direct main"
     description:
       name: flex_color_scheme
-      sha256: aab8db18233d4daf03336b2c22588820509a3a5261658c4042f029e8ed920c7d
+      sha256: "03fd5e68eff346a042026577f54be0cd4507e565cd86390b12c0aca1c5d6cb0b"
       url: "https://pub.dev"
     source: hosted
-    version: "8.0.0-dev.2"
+    version: "8.0.0"
   flex_seed_scheme:
     dependency: transitive
     description:
