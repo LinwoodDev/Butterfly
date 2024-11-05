@@ -609,6 +609,7 @@ jobs:
             linwood-butterfly-android-arm64.apk
             linwood-butterfly-android-x86_64.apk
             linwood-butterfly-ios.ipa
+            checksums.txt
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   deploy-to-play-store:
