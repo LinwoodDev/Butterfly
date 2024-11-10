@@ -208,7 +208,8 @@ class _PacksDialogState extends State<PacksDialog>
                               shrinkWrap: true,
                               itemCount: globalPacks.length,
                               itemBuilder: (context, index) {
-                                final pack = globalPacks[index].data!;
+                                final file = globalPacks[index];
+                                final pack = file.data!;
                                 final metadata = pack.getMetadata();
                                 if (metadata == null) return Container();
                                 return Dismissible(
@@ -216,7 +217,7 @@ class _PacksDialogState extends State<PacksDialog>
                                   onDismissed: (direction) async {
                                     setInnerState(
                                         () => globalPacks.removeAt(index));
-                                    await _packSystem.deleteFile(metadata.name);
+                                    await _packSystem.deleteFile(file.path);
                                     if (mounted) setState(() {});
                                   },
                                   background: Container(
@@ -245,7 +246,7 @@ class _PacksDialogState extends State<PacksDialog>
                                             .delete),
                                         onPressed: () async {
                                           await _packSystem
-                                              .deleteFile(metadata.name);
+                                              .deleteFile(file.path);
                                           if (mounted) {
                                             setState(() {});
                                           }
@@ -297,10 +298,10 @@ class _PacksDialogState extends State<PacksDialog>
                                         final name = newPack.name ?? '';
                                         if (pack.name != name) {
                                           await _packSystem
-                                              .deleteFile(metadata.name);
+                                              .deleteFile(file.path);
                                         }
                                         await _packSystem.updateFile(
-                                            name, newPack);
+                                            '$name.bfly', newPack);
                                         setState(() {});
                                       },
                                       trailing: button,
@@ -418,7 +419,10 @@ class _PacksDialogState extends State<PacksDialog>
                               Navigator.of(ctx).pop();
                               final pack = await DocumentDefaults.getCorePack();
                               if (_isGlobal()) {
-                                await _packSystem.deleteFile(pack.name!);
+                                try {
+                                  await _packSystem
+                                      .deleteFile('${pack.name!}.bfly');
+                                } catch (_) {}
                               } else if (mounted) {
                                 final bloc = context.read<DocumentBloc>();
                                 bloc.add(PackRemoved(pack.name!));
@@ -444,7 +448,8 @@ class _PacksDialogState extends State<PacksDialog>
 
   Future<void> _addPack(NoteData pack, [bool? global]) async {
     if (global ?? _isGlobal()) {
-      await _packSystem.createFile(pack.name ?? '', pack);
+      await _packSystem.createFileWithName(pack,
+          name: pack.name ?? '', suffix: '.bfly');
       setState(() {});
     } else {
       context.read<DocumentBloc>().add(PackAdded(pack));

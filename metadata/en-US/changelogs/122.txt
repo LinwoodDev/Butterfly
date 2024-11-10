@@ -1,4 +1,5 @@
 * Fix loading screen showing after error
+* Fix packs dialog file system operations
 * Downgrade pdfjs on web
 
 This is a stable release, it includes all the changes from the 2.2.2 nightly releases.
