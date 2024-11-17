@@ -4,7 +4,7 @@ tableOfContents: false
 ---
 
 这是应用的隐私政策。 请仔细阅读它。
-Click [here](https://go.linwood.dev/privacypolicy) to read the privacy policy of the website.
+点击 [这里](https://go.linwood.dev/privacypolicy) 阅读网站的隐私政策。
 
 CodeDoctor构建了 Butterfight 应用作为开源应用。 这种服务由CodeDoctor免费提供，原本打算使用。
 
@@ -22,7 +22,7 @@ CodeDoctor构建了 Butterfight 应用作为开源应用。 这种服务由CodeD
 
 链接到应用程序使用的第三方服务提供商的隐私政策
 
-- [Google Play Services](https://www.google.com/policies/privacy/)
+- [Google Play 服务](https://www.google.com/policies/privacy/)
 
 **Cookies**
 
