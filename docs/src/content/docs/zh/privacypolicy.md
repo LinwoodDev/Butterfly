@@ -41,13 +41,13 @@ Cookie 是具有少量数据的文件，通常用作匿名唯一标识符。 这
 
 我想告诉该服务的用户，这些第三方可以访问您的个人信息。 原因是为了执行分配给他们的任务。 然而，他们有义务 不为任何其他目的披露或使用信息。
 
-**Security**
+**安全**
 
 我珍视你们对向我们提供个人信息的信任，因此我们正在努力使用商业上可以接受的手段来保护它。 但记得没有任何通过互联网传输的方法， 或电子存储方法100% 安全可靠，我不能保证其绝对安全。
 
 **链接到其他站点**
 
-此服务可能包含到其他站点的链接。 如果您点击第三方链接，您将被引导到该站点。 请注意这些外部站点不是由我操作的。 Therefore, I strongly advise you to review the Privacy Policy of these websites. 我对任何第三方网站或服务的内容、隐私政策或做法没有控制权，也没有任何责任。 I have no control over and assume no responsibility for the content, privacy policies, or practices of any third-party sites or services.
+此服务可能包含到其他站点的链接。 如果您点击第三方链接，您将被引导到该站点。 请注意这些外部站点不是由我操作的。 Therefore, I strongly advise you to review the Privacy Policy of these websites. 我对任何第三方网站或服务的内容、隐私政策或做法没有控制权，也没有任何责任。 我对任何第三方网站或服务的内容、隐私政策或做法没有控制权，也不承担责任。
 
 **此隐私政策的更改**
 
@@ -55,9 +55,8 @@ Cookie 是具有少量数据的文件，通常用作匿名唯一标识符。 这
 
 这项政策自2021-02-07年起生效
 
-**Contact Us**
+**联系我们**
 
 如果您对我的隐私政策有任何问题或建议，请毫不犹豫地通过contact@linwood.dev联系我。
 
-This privacy policy page was created at [privacypolicytemplate.net](https://privacypolicytemplate.net) and modified/generated
-by [App Privacy Policy Generator](https://app-privacy-policy-generator.nisrulz.com/)
+本隐私政策页面由[privacypolicytemplate.net](https://privacypolicytemplate.net) 创建，并由 [App Privacy Policy Generator](https://app-privacy-policy-generator.nisrulz.com/) 修改生成。
