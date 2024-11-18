@@ -2,6 +2,15 @@
 
 <!--ENTER CHANGELOG HERE-->
 
+## 2.2.2 (2024-11-11)
+
+* Fix loading screen showing after error
+* Fix packs dialog file system operations
+* Downgrade pdfjs on web
+
+This is a stable release, it includes all the changes from the 2.2.2 nightly releases.
+Read more here: https://linwood.dev/butterfly/2.2.2
+
 ## 2.2.2-rc.1 (2024-11-04)
 
 * Add checksums to release assets ([#753](https://github.com/LinwoodDev/Butterfly/issues/753))
