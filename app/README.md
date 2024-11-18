@@ -24,11 +24,17 @@ lib
 - helpers
 - l10n
 - models
+- selections
 - services
 - settings
 - views
 - visualizer
 - widgets
+- main.dart
+- setup_web.dart
+- setup.dart
+- theme.dart
+- view_painter.dart
 ```
 
 * The `actions` directory has all shortcuts that can be used in the app.
@@ -41,11 +47,16 @@ lib
 * The `helpers` directory stores all helper functions (extensions) that simplify the usage of base classes, like the `Rect` class.
 * The `l10n` directory stores all the strings and translations that are used in the app. Please only edit the `app_en.arb` file, the other files gets updated by Crowdin.
 * The `models` directory stores all app specific models that are not general to be added in the `api` directory.
+* The `selections` directory defines the ui for all elements and tools if they are selected.
 * The `services` directory defines all services that runs in the background while using the app.
 * The `settings` directory stores all the settings pages ui that are used in the app.
 * The `views` directory stores all the ui views that are used in the document page. For example the appbar, the toolbar or the main view.
 * The `visualizer` directory are helper methods that stores all converters between the models and the ui.
 * The `widgets` directory stores all general widget that can be reused inside the app. For example the context menu.
+* The `main.dart` file is the entry point of the app. Here the app is started and starts all other files. Here the routes are defined and the app is initialized.
+* The `setup_web.dart` file is used to define the web specific settings. Here the context menu gets disabled.
+* The `setup.dart` file is used to define the general settings. Here the licenses is defined.
+* The `theme.dart` file is used to define the general theme of the app. Here the colors and the text styles are defined of the classic theme and all themes gets fetched from here.
 
 ## Rebuilding assets
 
