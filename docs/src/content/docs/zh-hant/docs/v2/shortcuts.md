@@ -19,7 +19,7 @@ Some of them are written below the buttons.
 - `Ctrl` + `Alt` + `P`: Open packs
 - `Ctrl` + `Alt` + `S`: Open settings
 
-### Project
+### 專案
 
 - `Ctrl` + `K`: Open search
 - `Ctrl` + `Z`: Undo
