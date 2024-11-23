@@ -4,7 +4,7 @@ title: Utilities
 
 This view allows you to change the general document or the view.
 
-## Project
+## 專案
 
 Here are all globally properties that you can set like name and description.
 Additionally you can capture a thumbnail from the current viewport to see it in the home page.
