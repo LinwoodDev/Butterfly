@@ -635,5 +635,6 @@
     }
   },
   "colorToolbar": "Färg verktygsfält",
-  "yesButShowButtons": "Yes, but show buttons"
+  "yesButShowButtons": "Yes, but show buttons",
+  "optionsPanelPosition": "Options panel position"
 }
