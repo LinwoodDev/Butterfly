@@ -634,5 +634,6 @@
       }
     }
   },
-  "colorToolbar": "Färg verktygsfält"
+  "colorToolbar": "Färg verktygsfält",
+  "yesButShowButtons": "Yes, but show buttons"
 }
