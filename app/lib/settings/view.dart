@@ -79,6 +79,7 @@ class ViewSettingsPage extends StatelessWidget {
                     AdvancedSwitchListTile(
                       leading: const PhosphorIcon(PhosphorIconsLight.sidebar),
                       title: Text(AppLocalizations.of(context).navigationRail),
+                      height: 76,
                       subtitle: Column(
                         mainAxisSize: MainAxisSize.min,
                         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -132,7 +133,7 @@ class ViewSettingsPage extends StatelessWidget {
                           .changeNavigationRail(value),
                     ),
                     ListTile(
-                      leading: const PhosphorIcon(PhosphorIconsLight.toolbox),
+                      leading: const PhosphorIcon(PhosphorIconsLight.archive),
                       title: Text(
                           AppLocalizations.of(context).optionsPanelPosition),
                       subtitle: Column(
