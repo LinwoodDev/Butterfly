@@ -634,5 +634,6 @@
       }
     }
   },
-  "colorToolbar": "Панель кольорів"
+  "colorToolbar": "Панель кольорів",
+  "yesButShowButtons": "Yes, but show buttons"
 }
