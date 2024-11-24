@@ -1,5 +1,6 @@
 * Add toggle for color toolbar ([#611](https://github.com/LinwoodDev/Butterfly/issues/611))
 * Add save button indicator for autosave ([#757](https://github.com/LinwoodDev/Butterfly/issues/757))
+* Add duplicate layer button
 * Fix webdav on windows
 
 Read more here: https://linwood.dev/butterfly/2.2.3-rc.0

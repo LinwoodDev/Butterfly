@@ -687,7 +687,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
         ...aboveLayers.expand((e) => current.page.getLayer(e).content),
       ]);
       final newLayers = layers
-          .where((e) => !mergedLayers.contains(e.id))
+          .where((e) => duplicate || !mergedLayers.contains(e.id))
           .map((e) => e.id == mainLayer ? layer : e)
           .toList();
       return _saveState(

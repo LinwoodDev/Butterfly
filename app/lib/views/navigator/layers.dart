@@ -111,6 +111,14 @@ class LayersView extends StatelessWidget {
                         child: Text(AppLocalizations.of(context).merge),
                       ),
                     MenuItemButton(
+                      leadingIcon:
+                          const PhosphorIcon(PhosphorIconsLight.copySimple),
+                      onPressed: () => context
+                          .read<DocumentBloc>()
+                          .add(LayersMerged.duplicate([id])),
+                      child: Text(AppLocalizations.of(context).duplicate),
+                    ),
+                    MenuItemButton(
                       leadingIcon: const PhosphorIcon(PhosphorIconsLight.trash),
                       onPressed: currentLayer == layer
                           ? null

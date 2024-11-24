@@ -143,6 +143,7 @@ class DocumentEvent extends ReplayEvent with _$DocumentEvent {
 
   const factory DocumentEvent.layersMerged(
     List<String> layers,
+    [bool duplicate = false],
   ) = LayersMerged;
 
   const factory DocumentEvent.layerOrderChanged(
