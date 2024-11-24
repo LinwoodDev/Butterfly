@@ -634,5 +634,6 @@
       }
     }
   },
-  "colorToolbar": "Värin työkalupalkki"
+  "colorToolbar": "Värin työkalupalkki",
+  "yesButShowButtons": "Yes, but show buttons"
 }
