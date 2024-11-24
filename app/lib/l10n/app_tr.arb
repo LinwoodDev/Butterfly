@@ -634,5 +634,6 @@
       }
     }
   },
-  "colorToolbar": "Color toolbar"
+  "colorToolbar": "Color toolbar",
+  "yesButShowButtons": "Yes, but show buttons"
 }
