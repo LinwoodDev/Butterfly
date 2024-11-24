@@ -634,5 +634,6 @@
       }
     }
   },
-  "colorToolbar": "لون شريط الأدوات"
+  "colorToolbar": "لون شريط الأدوات",
+  "yesButShowButtons": "Yes, but show buttons"
 }
