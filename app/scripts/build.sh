@@ -1,3 +1,0 @@
-FLUTTER_VERSION=$(grep -oP 'flutter:\s*\K\d+\.\d+\.\d+' pubspec.yaml)
-BUTTERFLY_FLAVOR=$([[ "$BUTTERFLY_NIGHTLY" == "true" ]] && echo "nightly" || echo "stable")
-if [ "$BUTTERFLY_NIGHTLY" = "true" ]; then cp -r web_nightly/** web; fi && if cd flutter; then git pull && cd ..; else git clone https://github.com/flutter/flutter.git -b $FLUTTER_VERSION; fi && flutter/bin/flutter config --enable-web && flutter/bin/flutter build web --wasm --release --no-web-resources-cdn --dart-define=flavor=$BUTTERFLY_FLAVOR

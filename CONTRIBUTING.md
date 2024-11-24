@@ -34,10 +34,10 @@ Get started by running:
 ```bash
 cd docs
 pnpm install
-pnpm start
+pnpm dev
 ```
 
-All stable documentation can be found in the `versioned_docs` folder.
+All content is written in the `docs/src/content/docs` folder. Please do not edit the localized files directly, but the directory `docs`, `downloads`, `community` and the `index.mdx` file.
 
 Fork the project and create a pull request to add your documentation to the `develop` branch.
 
@@ -67,6 +67,14 @@ flutter pub get
 flutter run
 ```
 
-All subdirectories are documented in the `app/README.md` file.
+All subdirectories are documented in the `README.md` file of the specific project `api` or `app`.
 
 Fork the project and create a pull request to add your code to the `develop` branch.
+
+### Getting started
+
+There are two different dart projects in this repository.
+
+In the `api` folder you will find general classes that can be used to interact with Butterfly files and general classes. Read more [here](https://github.com/LinwoodDev/Butterfly/blob/develop/api/README.md).
+
+The `app` folder contains the main app code. Read more [here](https://github.com/LinwoodDev/Butterfly/blob/develop/app/README.md).

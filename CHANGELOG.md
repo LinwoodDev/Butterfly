@@ -2,6 +2,30 @@
 
 <!--ENTER CHANGELOG HERE-->
 
+## 2.2.2 (2024-11-11)
+
+* Fix loading screen showing after error
+* Fix packs dialog file system operations
+* Downgrade pdfjs on web
+
+This is a stable release, it includes all the changes from the 2.2.2 nightly releases.
+Read more here: https://linwood.dev/butterfly/2.2.2
+
+## 2.2.2-rc.1 (2024-11-04)
+
+* Add checksums to release assets ([#753](https://github.com/LinwoodDev/Butterfly/issues/753))
+* Add documentation button to collapsed app bar
+* Move eraser tool to property view
+* Improve scaling rotated elements ([#518](https://github.com/LinwoodDev/Butterfly/issues/518) partially, offset needs to be fixed)
+* Improve performance on large pages ([#667](https://github.com/LinwoodDev/Butterfly/issues/667) partially)
+* Improve property view
+* Fix changing page don't showing content ([#755](https://github.com/LinwoodDev/Butterfly/issues/755))
+* Fix label cursor style if not editing element
+* Remove cusor visibility on eraser, path eraser and label tool
+* Remove label tool can be changed tool to allow context menu
+
+Read more here: https://linwood.dev/butterfly/2.2.2-rc.1
+
 ## 2.2.2-rc.0 (2024-10-28)
 
 * Add layer merging

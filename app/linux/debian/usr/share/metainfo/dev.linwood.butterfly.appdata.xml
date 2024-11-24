@@ -38,6 +38,7 @@
 	</screenshots>
 	<launchable type="desktop-id">dev.linwood.butterfly.desktop</launchable>
 	<releases>
+		<release version="2.2.2" date="2024-11-11" />
 		<release version="2.2.1" date="2024-10-17" />
 		<release version="2.2.0" date="2024-09-28" />
 		<release version="2.1.1" date="2024-06-10" />

@@ -1,39 +1,32 @@
-<!-- 
-This README describes the package. If you publish this package to pub.dev,
-this README's contents appear on the landing page for your package.
+# Butterfly API
 
-For information about how to write a good package README, see the guide for
-[writing package pages](https://dart.dev/guides/libraries/writing-package-pages). 
+Read more [here](../README.md)
 
-For general information about developing packages, see the Dart guide for
-[creating packages](https://dart.dev/guides/libraries/create-library-packages)
-and the Flutter guide for
-[developing packages and plugins](https://flutter.dev/developing-packages). 
--->
+This library is meant to be used to interact with the Butterfly app or its files. It is written in Dart and can be used in any Dart project.
 
-TODO: Put a short description of the package here that helps potential users
-know whether this package might be useful for them.
+## Project structure
 
-## Features
+The code for this library is stored in the `lib` directory.
 
-TODO: List what your package can do. Maybe include images, gifs, or videos.
+```markdown
+lib/src
+- converter
+- helpers
+- models
+- protocol
 
-## Getting started
-
-TODO: List prerequisites and provide or point to information on how to
-start using the package.
-
-## Usage
-
-TODO: Include short and useful examples for package users. Add longer examples
-to `/example` folder. 
-
-```dart
-const like = 'sample';
+lib
+- butterfly_api.dart
+- butterfly_helpers.dart
+- butterfly_models.dart
+- butterfly_protocol.dart
+- butterfly_text.dart
 ```
 
-## Additional information
+* The `converter` directory stores all converters that converts file formats like xopp and older versions of Butterfly files to the new Butterfly file format.
+* The `helpers` directory stores all helper functions (extensions) that simplify the usage of base classes, like strings and points.
+* The `models` directory is the main part of this library. It stores all models that are used in the app. The base class of all Butterfly files is the `NoteData` class inside the `data.dart` file.
+* The `protocol` directory stores all events and messages that are used in the app. The `event.dart` file stores all events that can be sent to the app. This can be used to interact with the collaboration feature of Butterfly.
 
-TODO: Tell users more about the package: where to find more information, how to 
-contribute to the package, how to file issues, what response they can expect 
-from the package authors, and more.
+For all directories, there is a specific file that exports all files in the directory. For example, the `butterfly_models.dart` file exports all files in the `models` directory. The special `butterfly_text.dart` file only exports the text models.
+The `butterfly_api.dart` file exports all files in the `src` directory.

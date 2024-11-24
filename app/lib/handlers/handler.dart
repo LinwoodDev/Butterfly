@@ -281,19 +281,22 @@ mixin ColoredHandler<T extends Tool> on Handler<T> {
   T setColor(int color);
 
   @override
-  PreferredSizeWidget getToolbar(DocumentBloc bloc) => ColorToolbarView(
-        color: getColor(),
-        onChanged: (value) => changeToolColor(bloc, value),
-        onEyeDropper: (context) {
-          final state = bloc.state;
-          state.currentIndexCubit?.changeTemporaryHandler(
-            context,
-            EyeDropperTool(),
-            bloc: bloc,
-            temporaryClicked: true,
-          );
-        },
-      );
+  PreferredSizeWidget? getToolbar(DocumentBloc bloc) =>
+      bloc.state.settingsCubit.state.colorToolbarEnabled
+          ? ColorToolbarView(
+              color: getColor(),
+              onChanged: (value) => changeToolColor(bloc, value),
+              onEyeDropper: (context) {
+                final state = bloc.state;
+                state.currentIndexCubit?.changeTemporaryHandler(
+                  context,
+                  EyeDropperTool(),
+                  bloc: bloc,
+                  temporaryClicked: true,
+                );
+              },
+            )
+          : null;
 
   void changeToolColor(DocumentBloc bloc, int value) =>
       changeTool(bloc, setColor(value));

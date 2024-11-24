@@ -206,6 +206,7 @@ class ButterflySettings with _$ButterflySettings, LeapSettings {
     @Default(false) bool hideCursorWhileDrawing,
     @Default(UtilitiesState()) UtilitiesState utilities,
     @Default(StartupBehavior.openHomeScreen) StartupBehavior onStartup,
+    @Default(true) bool colorToolbarEnabled,
   }) = _ButterflySettings;
 
   factory ButterflySettings.fromPrefs(SharedPreferences prefs) {
@@ -299,6 +300,7 @@ class ButterflySettings with _$ButterflySettings, LeapSettings {
       onStartup: prefs.containsKey('on_startup')
           ? StartupBehavior.values.byName(prefs.getString('on_startup')!)
           : StartupBehavior.openHomeScreen,
+      colorToolbarEnabled: prefs.getBool('color_toolbar_enabled') ?? true,
     );
   }
 
@@ -366,6 +368,7 @@ class ButterflySettings with _$ButterflySettings, LeapSettings {
     await prefs.setString('navigator_position', navigatorPosition.name);
     await prefs.setString('utilities', json.encode(utilities.toJson()));
     await prefs.setString('on_startup', onStartup.name);
+    await prefs.setBool('color_toolbar_enabled', colorToolbarEnabled);
   }
 
   ExternalStorage? getRemote(String? identifier) {
@@ -884,4 +887,11 @@ class SettingsCubit extends Cubit<ButterflySettings>
     emit(state.copyWith(onStartup: behavior));
     return save();
   }
+
+  Future<void> changeColorToolbarEnabled(bool value) {
+    emit(state.copyWith(colorToolbarEnabled: value));
+    return save();
+  }
+
+  Future<void> resetColorToolbarEnabled() => changeColorToolbarEnabled(true);
 }

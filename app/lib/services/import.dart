@@ -508,8 +508,8 @@ class ImportService {
 
   Future<NoteData?> importPdf(Uint8List bytes, NoteData document,
       {Offset? position, bool advanced = true}) async {
+    final dialog = showLoadingDialog(context);
     try {
-      final dialog = showLoadingDialog(context);
       final firstPos = position ?? Offset.zero;
       final elements = <Uint8List>[];
       final localizations = AppLocalizations.of(context);
@@ -641,6 +641,7 @@ class ImportService {
         );
       }
     } catch (e) {
+      dialog?.close();
       showDialog(
         context: context,
         builder: (context) =>

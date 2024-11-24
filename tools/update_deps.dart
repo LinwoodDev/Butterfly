@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'dart:io';
 
 import 'package:http/http.dart' as http;
@@ -11,16 +10,17 @@ Future<void> updatePdfJs() async {
   final pdfFile = File('app/web/pdf.js/pdf.min.mjs');
   final pdfWorkerFile = File('app/web/pdf.js/pdf.worker.min.mjs');
   // Find latest version
-  final fetchedRelease = json.decode((await http.get(Uri.parse(
+  /*final fetchedRelease = json.decode((await http.get(Uri.parse(
           'https://api.github.com/repos/mozilla/pdf.js/releases/latest')))
       .body) as Map;
-  final latestVersion = fetchedRelease['tag_name'].toString().substring(1);
+  final latestVersion = fetchedRelease['tag_name'].toString().substring(1);*/
+  final latestVersion = '3.11.174';
   final cdnBaseUrl =
       'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/$latestVersion';
   // From cdnjs
-  final fetchedPdf = await http.get(Uri.parse('$cdnBaseUrl/pdf.min.mjs'));
+  final fetchedPdf = await http.get(Uri.parse('$cdnBaseUrl/pdf.min.js'));
   final fetchedPdfWorker =
-      await http.get(Uri.parse('$cdnBaseUrl/pdf.worker.mjs'));
+      await http.get(Uri.parse('$cdnBaseUrl/pdf.worker.js'));
   // Write to files
   await pdfFile.writeAsString(fetchedPdf.body);
   await pdfWorkerFile.writeAsString(fetchedPdfWorker.body);
