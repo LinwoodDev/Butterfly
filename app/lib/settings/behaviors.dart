@@ -37,13 +37,18 @@ class BehaviorsSettingsPage extends StatelessWidget {
               child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    SwitchListTile(
-                      value: state.autosave,
+                    ListTile(
                       title: Text(AppLocalizations.of(context).autosave),
-                      secondary:
+                      leading:
                           const PhosphorIcon(PhosphorIconsLight.floppyDisk),
-                      onChanged: (value) =>
-                          context.read<SettingsCubit>().changeAutosave(value),
+                      subtitle: Text(
+                        state.autosave
+                            ? state.showSaveButton
+                                ? AppLocalizations.of(context).yesButShowButtons
+                                : AppLocalizations.of(context).yes
+                            : AppLocalizations.of(context).no,
+                      ),
+                      onTap: () => _openAutosaveModal(context),
                     ),
                     SwitchListTile(
                       value: state.hideCursorWhileDrawing,
@@ -117,7 +122,7 @@ class BehaviorsSettingsPage extends StatelessWidget {
     );
   }
 
-  _openStartupModal(BuildContext context) {
+  void _openStartupModal(BuildContext context) {
     final cubit = context.read<SettingsCubit>();
     final currentStartup = cubit.state.onStartup;
 
@@ -144,6 +149,43 @@ class BehaviorsSettingsPage extends StatelessWidget {
                     onTap: () => changeStartup(e),
                   ))
               .toList();
+        });
+  }
+
+  void _openAutosaveModal(BuildContext context) {
+    final cubit = context.read<SettingsCubit>();
+    final autosave = cubit.state.autosave;
+    final showSaveButton = cubit.state.showSaveButton;
+
+    showLeapBottomSheet(
+        context: context,
+        titleBuilder: (context) => Text(AppLocalizations.of(context).autosave),
+        childrenBuilder: (context) {
+          void changeAutosave(bool? autosave) {
+            cubit.changeAutosave(autosave);
+            Navigator.of(context).pop();
+          }
+
+          return [
+            ListTile(
+              title: Text(AppLocalizations.of(context).yes),
+              leading: Icon(PhosphorIconsLight.check),
+              selected: autosave && showSaveButton == false,
+              onTap: () => changeAutosave(true),
+            ),
+            ListTile(
+              title: Text(AppLocalizations.of(context).yesButShowButtons),
+              leading: Icon(PhosphorIconsLight.question),
+              selected: autosave && showSaveButton,
+              onTap: () => changeAutosave(null),
+            ),
+            ListTile(
+              title: Text(AppLocalizations.of(context).no),
+              leading: Icon(PhosphorIconsLight.x),
+              selected: !autosave,
+              onTap: () => changeAutosave(false),
+            ),
+          ];
         });
   }
 }

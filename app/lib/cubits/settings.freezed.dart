@@ -359,6 +359,7 @@ mixin _$ButterflySettings {
   bool get highContrast => throw _privateConstructorUsedError;
   bool get gridView => throw _privateConstructorUsedError;
   bool get autosave => throw _privateConstructorUsedError;
+  bool get showSaveButton => throw _privateConstructorUsedError;
   int get toolbarRows => throw _privateConstructorUsedError;
   bool get hideCursorWhileDrawing => throw _privateConstructorUsedError;
   UtilitiesState get utilities => throw _privateConstructorUsedError;
@@ -420,6 +421,7 @@ abstract class $ButterflySettingsCopyWith<$Res> {
       bool highContrast,
       bool gridView,
       bool autosave,
+      bool showSaveButton,
       int toolbarRows,
       bool hideCursorWhileDrawing,
       UtilitiesState utilities,
@@ -486,6 +488,7 @@ class _$ButterflySettingsCopyWithImpl<$Res, $Val extends ButterflySettings>
     Object? highContrast = null,
     Object? gridView = null,
     Object? autosave = null,
+    Object? showSaveButton = null,
     Object? toolbarRows = null,
     Object? hideCursorWhileDrawing = null,
     Object? utilities = null,
@@ -657,6 +660,10 @@ class _$ButterflySettingsCopyWithImpl<$Res, $Val extends ButterflySettings>
           ? _value.autosave
           : autosave // ignore: cast_nullable_to_non_nullable
               as bool,
+      showSaveButton: null == showSaveButton
+          ? _value.showSaveButton
+          : showSaveButton // ignore: cast_nullable_to_non_nullable
+              as bool,
       toolbarRows: null == toolbarRows
           ? _value.toolbarRows
           : toolbarRows // ignore: cast_nullable_to_non_nullable
@@ -752,6 +759,7 @@ abstract class _$$ButterflySettingsImplCopyWith<$Res>
       bool highContrast,
       bool gridView,
       bool autosave,
+      bool showSaveButton,
       int toolbarRows,
       bool hideCursorWhileDrawing,
       UtilitiesState utilities,
@@ -818,6 +826,7 @@ class __$$ButterflySettingsImplCopyWithImpl<$Res>
     Object? highContrast = null,
     Object? gridView = null,
     Object? autosave = null,
+    Object? showSaveButton = null,
     Object? toolbarRows = null,
     Object? hideCursorWhileDrawing = null,
     Object? utilities = null,
@@ -989,6 +998,10 @@ class __$$ButterflySettingsImplCopyWithImpl<$Res>
           ? _value.autosave
           : autosave // ignore: cast_nullable_to_non_nullable
               as bool,
+      showSaveButton: null == showSaveButton
+          ? _value.showSaveButton
+          : showSaveButton // ignore: cast_nullable_to_non_nullable
+              as bool,
       toolbarRows: null == toolbarRows
           ? _value.toolbarRows
           : toolbarRows // ignore: cast_nullable_to_non_nullable
@@ -1059,6 +1072,7 @@ class _$ButterflySettingsImpl extends _ButterflySettings
       this.highContrast = false,
       this.gridView = false,
       this.autosave = true,
+      this.showSaveButton = true,
       this.toolbarRows = 1,
       this.hideCursorWhileDrawing = false,
       this.utilities = const UtilitiesState(),
@@ -1225,6 +1239,9 @@ class _$ButterflySettingsImpl extends _ButterflySettings
   final bool autosave;
   @override
   @JsonKey()
+  final bool showSaveButton;
+  @override
+  @JsonKey()
   final int toolbarRows;
   @override
   @JsonKey()
@@ -1241,7 +1258,7 @@ class _$ButterflySettingsImpl extends _ButterflySettings
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'ButterflySettings(theme: $theme, density: $density, localeTag: $localeTag, documentPath: $documentPath, gestureSensitivity: $gestureSensitivity, touchSensitivity: $touchSensitivity, selectSensitivity: $selectSensitivity, scrollSensitivity: $scrollSensitivity, penOnlyInput: $penOnlyInput, inputGestures: $inputGestures, design: $design, bannerVisibility: $bannerVisibility, history: $history, navigatorEnabled: $navigatorEnabled, zoomEnabled: $zoomEnabled, lastVersion: $lastVersion, connections: $connections, defaultRemote: $defaultRemote, nativeTitleBar: $nativeTitleBar, startInFullScreen: $startInFullScreen, navigationRail: $navigationRail, syncMode: $syncMode, inputConfiguration: $inputConfiguration, fallbackPack: $fallbackPack, starred: $starred, defaultTemplate: $defaultTemplate, navigatorPage: $navigatorPage, navigatorPosition: $navigatorPosition, toolbarPosition: $toolbarPosition, toolbarSize: $toolbarSize, sortBy: $sortBy, sortOrder: $sortOrder, imageScale: $imageScale, pdfQuality: $pdfQuality, platformTheme: $platformTheme, recentColors: $recentColors, flags: $flags, spreadPages: $spreadPages, highContrast: $highContrast, gridView: $gridView, autosave: $autosave, toolbarRows: $toolbarRows, hideCursorWhileDrawing: $hideCursorWhileDrawing, utilities: $utilities, onStartup: $onStartup, colorToolbarEnabled: $colorToolbarEnabled)';
+    return 'ButterflySettings(theme: $theme, density: $density, localeTag: $localeTag, documentPath: $documentPath, gestureSensitivity: $gestureSensitivity, touchSensitivity: $touchSensitivity, selectSensitivity: $selectSensitivity, scrollSensitivity: $scrollSensitivity, penOnlyInput: $penOnlyInput, inputGestures: $inputGestures, design: $design, bannerVisibility: $bannerVisibility, history: $history, navigatorEnabled: $navigatorEnabled, zoomEnabled: $zoomEnabled, lastVersion: $lastVersion, connections: $connections, defaultRemote: $defaultRemote, nativeTitleBar: $nativeTitleBar, startInFullScreen: $startInFullScreen, navigationRail: $navigationRail, syncMode: $syncMode, inputConfiguration: $inputConfiguration, fallbackPack: $fallbackPack, starred: $starred, defaultTemplate: $defaultTemplate, navigatorPage: $navigatorPage, navigatorPosition: $navigatorPosition, toolbarPosition: $toolbarPosition, toolbarSize: $toolbarSize, sortBy: $sortBy, sortOrder: $sortOrder, imageScale: $imageScale, pdfQuality: $pdfQuality, platformTheme: $platformTheme, recentColors: $recentColors, flags: $flags, spreadPages: $spreadPages, highContrast: $highContrast, gridView: $gridView, autosave: $autosave, showSaveButton: $showSaveButton, toolbarRows: $toolbarRows, hideCursorWhileDrawing: $hideCursorWhileDrawing, utilities: $utilities, onStartup: $onStartup, colorToolbarEnabled: $colorToolbarEnabled)';
   }
 
   @override
@@ -1290,6 +1307,7 @@ class _$ButterflySettingsImpl extends _ButterflySettings
       ..add(DiagnosticsProperty('highContrast', highContrast))
       ..add(DiagnosticsProperty('gridView', gridView))
       ..add(DiagnosticsProperty('autosave', autosave))
+      ..add(DiagnosticsProperty('showSaveButton', showSaveButton))
       ..add(DiagnosticsProperty('toolbarRows', toolbarRows))
       ..add(
           DiagnosticsProperty('hideCursorWhileDrawing', hideCursorWhileDrawing))
@@ -1378,6 +1396,8 @@ class _$ButterflySettingsImpl extends _ButterflySettings
                 other.gridView == gridView) &&
             (identical(other.autosave, autosave) ||
                 other.autosave == autosave) &&
+            (identical(other.showSaveButton, showSaveButton) ||
+                other.showSaveButton == showSaveButton) &&
             (identical(other.toolbarRows, toolbarRows) ||
                 other.toolbarRows == toolbarRows) &&
             (identical(other.hideCursorWhileDrawing, hideCursorWhileDrawing) ||
@@ -1434,6 +1454,7 @@ class _$ButterflySettingsImpl extends _ButterflySettings
         highContrast,
         gridView,
         autosave,
+        showSaveButton,
         toolbarRows,
         hideCursorWhileDrawing,
         utilities,
@@ -1494,6 +1515,7 @@ abstract class _ButterflySettings extends ButterflySettings {
       final bool highContrast,
       final bool gridView,
       final bool autosave,
+      final bool showSaveButton,
       final int toolbarRows,
       final bool hideCursorWhileDrawing,
       final UtilitiesState utilities,
@@ -1583,6 +1605,8 @@ abstract class _ButterflySettings extends ButterflySettings {
   bool get gridView;
   @override
   bool get autosave;
+  @override
+  bool get showSaveButton;
   @override
   int get toolbarRows;
   @override

@@ -202,6 +202,7 @@ class ButterflySettings with _$ButterflySettings, LeapSettings {
     @Default(false) bool highContrast,
     @Default(false) bool gridView,
     @Default(true) bool autosave,
+    @Default(true) bool showSaveButton,
     @Default(1) int toolbarRows,
     @Default(false) bool hideCursorWhileDrawing,
     @Default(UtilitiesState()) UtilitiesState utilities,
@@ -301,6 +302,7 @@ class ButterflySettings with _$ButterflySettings, LeapSettings {
           ? StartupBehavior.values.byName(prefs.getString('on_startup')!)
           : StartupBehavior.openHomeScreen,
       colorToolbarEnabled: prefs.getBool('color_toolbar_enabled') ?? true,
+      showSaveButton: prefs.getBool('show_save_button') ?? true,
     );
   }
 
@@ -369,6 +371,7 @@ class ButterflySettings with _$ButterflySettings, LeapSettings {
     await prefs.setString('utilities', json.encode(utilities.toJson()));
     await prefs.setString('on_startup', onStartup.name);
     await prefs.setBool('color_toolbar_enabled', colorToolbarEnabled);
+    await prefs.setBool('show_save_button', showSaveButton);
   }
 
   ExternalStorage? getRemote(String? identifier) {
@@ -848,8 +851,9 @@ class SettingsCubit extends Cubit<ButterflySettings>
 
   Future<void> toggleGridView() => changeGridView(!state.gridView);
 
-  Future<void> changeAutosave(bool value) {
-    emit(state.copyWith(autosave: value));
+  Future<void> changeAutosave(bool? value) {
+    emit(
+        state.copyWith(autosave: value ?? true, showSaveButton: value == null));
     return save();
   }
 

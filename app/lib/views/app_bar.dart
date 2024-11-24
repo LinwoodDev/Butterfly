@@ -130,7 +130,9 @@ class _AppBarTitleState extends State<_AppBarTitle> {
         }
         _areaController.text = area?.name ?? '';
         return BlocBuilder<SettingsCubit, ButterflySettings>(
-          buildWhen: (previous, current) => previous.flags != current.flags,
+          buildWhen: (previous, current) =>
+              previous.flags != current.flags ||
+              previous.showSaveButton != current.showSaveButton,
           builder: (context, settings) => LayoutBuilder(
             builder: (context, constraints) =>
                 Row(mainAxisAlignment: MainAxisAlignment.center, children: [
@@ -259,7 +261,7 @@ class _AppBarTitleState extends State<_AppBarTitle> {
           ),
           const SizedBox(width: 8),
           if (state is DocumentLoadSuccess) ...[
-            if (!state.hasAutosave())
+            if (!state.hasAutosave() || settings.showSaveButton)
               SizedBox(
                 width: 42,
                 child: Builder(builder: (context) {
@@ -268,7 +270,7 @@ class _AppBarTitleState extends State<_AppBarTitle> {
                     SaveState.unsaved ||
                     SaveState.absoluteRead =>
                       PhosphorIconsLight.floppyDisk,
-                    SaveState.saving => PhosphorIconsDuotone.floppyDisk,
+                    SaveState.saving => PhosphorIconsLight.download,
                   });
                   return IconButton(
                     icon: icon,
