@@ -634,5 +634,6 @@
       }
     }
   },
-  "colorToolbar": "Γραμμή εργαλείων χρωμάτων"
+  "colorToolbar": "Γραμμή εργαλείων χρωμάτων",
+  "yesButShowButtons": "Yes, but show buttons"
 }
