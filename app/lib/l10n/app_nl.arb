@@ -634,5 +634,6 @@
       }
     }
   },
-  "colorToolbar": "Kleur werkbalk"
+  "colorToolbar": "Kleur werkbalk",
+  "yesButShowButtons": "Yes, but show buttons"
 }
