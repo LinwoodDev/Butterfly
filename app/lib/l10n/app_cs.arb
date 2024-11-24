@@ -634,5 +634,6 @@
       }
     }
   },
-  "colorToolbar": "Barevný panel nástrojů"
+  "colorToolbar": "Barevný panel nástrojů",
+  "yesButShowButtons": "Yes, but show buttons"
 }
