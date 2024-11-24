@@ -634,5 +634,6 @@
       }
     }
   },
-  "colorToolbar": "Farve værktøjslinje"
+  "colorToolbar": "Farve værktøjslinje",
+  "yesButShowButtons": "Yes, but show buttons"
 }
