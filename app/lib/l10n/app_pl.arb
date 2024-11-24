@@ -634,5 +634,6 @@
       }
     }
   },
-  "colorToolbar": "Kolor paska narzędzi"
+  "colorToolbar": "Kolor paska narzędzi",
+  "yesButShowButtons": "Yes, but show buttons"
 }
