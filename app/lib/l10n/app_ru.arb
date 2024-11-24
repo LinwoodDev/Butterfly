@@ -634,5 +634,6 @@
       }
     }
   },
-  "colorToolbar": "Инструменты цвета"
+  "colorToolbar": "Инструменты цвета",
+  "yesButShowButtons": "Yes, but show buttons"
 }
