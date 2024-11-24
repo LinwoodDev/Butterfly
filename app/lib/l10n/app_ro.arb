@@ -634,5 +634,6 @@
       }
     }
   },
-  "colorToolbar": "Bară de culori"
+  "colorToolbar": "Bară de culori",
+  "yesButShowButtons": "Yes, but show buttons"
 }
