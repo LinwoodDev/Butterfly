@@ -633,5 +633,6 @@
         "example": "1"
       }
     }
-  }
+  },
+  "colorToolbar": "Color toolbar"
 }
