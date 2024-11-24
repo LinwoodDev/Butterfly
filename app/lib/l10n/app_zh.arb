@@ -634,5 +634,6 @@
       }
     }
   },
-  "colorToolbar": "颜色工具栏"
+  "colorToolbar": "颜色工具栏",
+  "yesButShowButtons": "Yes, but show buttons"
 }
