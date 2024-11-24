@@ -253,6 +253,16 @@ class PersonalizationSettingsPage extends StatelessWidget {
                               .read<SettingsCubit>()
                               .changeNavigationRail(value),
                         ),
+                        SwitchListTile(
+                          value: state.colorToolbarEnabled,
+                          onChanged: (value) => context
+                              .read<SettingsCubit>()
+                              .changeColorToolbarEnabled(value),
+                          title:
+                              Text(AppLocalizations.of(context).colorToolbar),
+                          secondary:
+                              const PhosphorIcon(PhosphorIconsLight.palette),
+                        )
                       ]),
                 ),
               ),

@@ -370,10 +370,10 @@ packages:
     dependency: "direct main"
     description:
       name: equatable
-      sha256: b35578f687b79243d39008c44d638474d93e9091e578c970efef41ce0c3fa000
+      sha256: "567c64b3cb4cf82397aac55f4f0cbd3ca20d77c6c03bedbc4ceaddc08904aef7"
       url: "https://pub.dev"
     source: hosted
-    version: "2.0.6"
+    version: "2.0.7"
   espresso:
     dependency: "direct dev"
     description:
@@ -657,10 +657,10 @@ packages:
     dependency: "direct main"
     description:
       name: go_router
-      sha256: "8ae664a70174163b9f65ea68dd8673e29db8f9095de7b5cd00e167c621f4fef5"
+      sha256: "8660b74171fafae4aa8202100fa2e55349e078281dadc73a241eb8e758534d9d"
       url: "https://pub.dev"
     source: hosted
-    version: "14.6.0"
+    version: "14.6.1"
   graphs:
     dependency: transitive
     description:
@@ -822,8 +822,8 @@ packages:
     dependency: "direct main"
     description:
       path: "packages/lw_file_system"
-      ref: "1173f5e3f737e99fe6f6e13f6a28633fe9e7c6e4"
-      resolved-ref: "1173f5e3f737e99fe6f6e13f6a28633fe9e7c6e4"
+      ref: fe6893a77b5a504a7d9632addba8510ea566563a
+      resolved-ref: fe6893a77b5a504a7d9632addba8510ea566563a
       url: "https://github.com/LinwoodDev/dart_pkgs"
     source: git
     version: "1.0.0"
@@ -831,8 +831,8 @@ packages:
     dependency: transitive
     description:
       path: "packages/lw_file_system_api"
-      ref: ec2a673e95addf558106df3f206ef1b691e48e93
-      resolved-ref: ec2a673e95addf558106df3f206ef1b691e48e93
+      ref: "44984e1e51d4ba0ed631d2d201e92ea56e112393"
+      resolved-ref: "44984e1e51d4ba0ed631d2d201e92ea56e112393"
       url: "https://github.com/LinwoodDev/dart_pkgs"
     source: git
     version: "1.0.0"
@@ -1317,10 +1317,10 @@ packages:
     dependency: transitive
     description:
       name: shelf_web_socket
-      sha256: "073c147238594ecd0d193f3456a5fe91c4b0abbcc68bf5cd95b36c4e194ac611"
+      sha256: cc36c297b52866d203dbf9332263c94becc2fe0ceaa9681d07b6ef9807023b67
       url: "https://pub.dev"
     source: hosted
-    version: "2.0.0"
+    version: "2.0.1"
   sky_engine:
     dependency: transitive
     description: flutter
