@@ -1,0 +1,216 @@
+import 'package:butterfly/cubits/settings.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:material_leap/material_leap.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
+
+class ViewSettingsPage extends StatelessWidget {
+  final bool inView;
+
+  const ViewSettingsPage({super.key, this.inView = false});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: inView ? Colors.transparent : null,
+      appBar: WindowTitleBar<SettingsCubit, ButterflySettings>(
+        title: Text(AppLocalizations.of(context).view),
+        backgroundColor: inView ? Colors.transparent : null,
+        inView: inView,
+      ),
+      body: BlocBuilder<SettingsCubit, ButterflySettings>(
+          builder: (context, state) {
+        return ListView(children: [
+          Card(
+            margin: const EdgeInsets.all(8),
+            child: Padding(
+              padding: const EdgeInsets.all(32),
+              child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    SwitchListTile(
+                      secondary: const PhosphorIcon(
+                          PhosphorIconsLight.magnifyingGlass),
+                      title: Text(AppLocalizations.of(context).zoomControl),
+                      value: state.zoomEnabled,
+                      onChanged: (value) => context
+                          .read<SettingsCubit>()
+                          .changeZoomEnabled(value),
+                    ),
+                    SwitchListTile(
+                      value: state.startInFullScreen,
+                      onChanged: (value) => context
+                          .read<SettingsCubit>()
+                          .changeStartInFullScreen(value),
+                      title:
+                          Text(AppLocalizations.of(context).startInFullScreen),
+                      secondary:
+                          const PhosphorIcon(PhosphorIconsLight.arrowsOut),
+                    ),
+                    ListTile(
+                      leading: const PhosphorIcon(PhosphorIconsLight.toolbox),
+                      title: Text(AppLocalizations.of(context).toolbarPosition),
+                      subtitle: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          Text(state.toolbarPosition.getLocalizedName(context)),
+                          Text(
+                            AppLocalizations.of(context)
+                                .onlyAvailableLargerScreen,
+                            style: Theme.of(context).textTheme.labelSmall,
+                          ),
+                        ],
+                      ),
+                      onTap: () => _openToolbarPositionModal(context),
+                    ),
+                    ExactSlider(
+                      header: Text(AppLocalizations.of(context).toolbarRows),
+                      value: state.toolbarRows.toDouble(),
+                      defaultValue: 1,
+                      min: 1,
+                      max: 4,
+                      fractionDigits: 0,
+                      onChangeEnd: (value) => context
+                          .read<SettingsCubit>()
+                          .changeToolbarRows(value.round()),
+                    ),
+                    AdvancedSwitchListTile(
+                      leading: const PhosphorIcon(PhosphorIconsLight.sidebar),
+                      title: Text(AppLocalizations.of(context).navigationRail),
+                      subtitle: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          Text(state.navigatorPosition == NavigatorPosition.left
+                              ? AppLocalizations.of(context).left
+                              : AppLocalizations.of(context).right),
+                          Text(
+                            AppLocalizations.of(context)
+                                .onlyAvailableLargerScreen,
+                            style: Theme.of(context).textTheme.labelSmall,
+                          ),
+                        ],
+                      ),
+                      onTap: () async {
+                        final position = await showLeapBottomSheet(
+                            context: context,
+                            titleBuilder: (context) =>
+                                Text(AppLocalizations.of(context).position),
+                            childrenBuilder: (context) => [
+                                  ListTile(
+                                    title:
+                                        Text(AppLocalizations.of(context).left),
+                                    selected: state.navigatorPosition ==
+                                        NavigatorPosition.left,
+                                    leading: const PhosphorIcon(
+                                        PhosphorIconsLight.arrowLineLeft),
+                                    onTap: () => Navigator.of(context)
+                                        .pop(NavigatorPosition.left),
+                                  ),
+                                  ListTile(
+                                    title: Text(
+                                        AppLocalizations.of(context).right),
+                                    selected: state.navigatorPosition ==
+                                        NavigatorPosition.right,
+                                    leading: const PhosphorIcon(
+                                        PhosphorIconsLight.arrowLineRight),
+                                    onTap: () => Navigator.of(context)
+                                        .pop(NavigatorPosition.right),
+                                  ),
+                                ]);
+                        if (position != null) {
+                          context
+                              .read<SettingsCubit>()
+                              .changeNavigatorPosition(position);
+                        }
+                      },
+                      value: state.navigationRail,
+                      onChanged: (value) => context
+                          .read<SettingsCubit>()
+                          .changeNavigationRail(value),
+                    ),
+                    ListTile(
+                      leading: const PhosphorIcon(PhosphorIconsLight.toolbox),
+                      title: Text(
+                          AppLocalizations.of(context).optionsPanelPosition),
+                      subtitle: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          Text(state.optionsPanelPosition
+                              .getLocalizedName(context)),
+                          Text(
+                            AppLocalizations.of(context)
+                                .onlyAvailableLargerScreen,
+                            style: Theme.of(context).textTheme.labelSmall,
+                          ),
+                        ],
+                      ),
+                      onTap: () => _openOptionsPanelPositionModal(context),
+                    ),
+                    SwitchListTile(
+                      value: state.colorToolbarEnabled,
+                      onChanged: (value) => context
+                          .read<SettingsCubit>()
+                          .changeColorToolbarEnabled(value),
+                      title: Text(AppLocalizations.of(context).colorToolbar),
+                      secondary: const PhosphorIcon(PhosphorIconsLight.palette),
+                    )
+                  ]),
+            ),
+          ),
+        ]);
+      }),
+    );
+  }
+
+  void _openToolbarPositionModal(BuildContext context) {
+    final cubit = context.read<SettingsCubit>();
+    var currentPos = cubit.state.toolbarPosition;
+    showLeapBottomSheet(
+        context: context,
+        titleBuilder: (context) =>
+            Text(AppLocalizations.of(context).toolbarPosition),
+        childrenBuilder: (context) => ToolbarPosition.values
+            .map((e) => ListTile(
+                title: Text(e.getLocalizedName(context)),
+                selected: currentPos == e,
+                leading: Icon(switch (e) {
+                  ToolbarPosition.inline => PhosphorIconsLight.appWindow,
+                  ToolbarPosition.top => PhosphorIconsLight.arrowLineUp,
+                  ToolbarPosition.bottom => PhosphorIconsLight.arrowLineDown,
+                  ToolbarPosition.left => PhosphorIconsLight.arrowLineLeft,
+                  ToolbarPosition.right => PhosphorIconsLight.arrowLineRight,
+                }),
+                onTap: () {
+                  cubit.changeToolbarPosition(e);
+                  Navigator.of(context).pop();
+                }))
+            .toList());
+  }
+
+  void _openOptionsPanelPositionModal(BuildContext context) {
+    final cubit = context.read<SettingsCubit>();
+    var currentPos = cubit.state.optionsPanelPosition;
+    showLeapBottomSheet(
+        context: context,
+        titleBuilder: (context) =>
+            Text(AppLocalizations.of(context).optionsPanelPosition),
+        childrenBuilder: (context) => OptionsPanelPosition.values
+            .map((e) => ListTile(
+                title: Text(e.getLocalizedName(context)),
+                selected: currentPos == e,
+                leading: Icon(switch (e) {
+                  OptionsPanelPosition.top => PhosphorIconsLight.arrowLineUp,
+                  OptionsPanelPosition.bottom =>
+                    PhosphorIconsLight.arrowLineDown,
+                }),
+                onTap: () {
+                  cubit.changeOptionsPanelPosition(e);
+                  Navigator.of(context).pop();
+                }))
+            .toList());
+  }
+}

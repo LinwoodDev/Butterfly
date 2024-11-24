@@ -115,7 +115,7 @@ class LayersView extends StatelessWidget {
                           const PhosphorIcon(PhosphorIconsLight.copySimple),
                       onPressed: () => context
                           .read<DocumentBloc>()
-                          .add(LayersMerged.duplicate([id])),
+                          .add(LayersMerged([id], true)),
                       child: Text(AppLocalizations.of(context).duplicate),
                     ),
                     MenuItemButton(

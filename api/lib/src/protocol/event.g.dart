@@ -424,12 +424,14 @@ Map<String, dynamic> _$$LayerRemovedImplToJson(_$LayerRemovedImpl instance) =>
 
 _$LayersMergedImpl _$$LayersMergedImplFromJson(Map json) => _$LayersMergedImpl(
       (json['layers'] as List<dynamic>).map((e) => e as String).toList(),
-      $type: json['type'] as String?,
+      json['duplicate'] as bool? ?? false,
+      json['type'] as String?,
     );
 
 Map<String, dynamic> _$$LayersMergedImplToJson(_$LayersMergedImpl instance) =>
     <String, dynamic>{
       'layers': instance.layers,
+      'duplicate': instance.duplicate,
       'type': instance.$type,
     };
 

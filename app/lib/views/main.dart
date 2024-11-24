@@ -499,9 +499,12 @@ class _MainBody extends StatelessWidget {
                       previous.toolbarSize != current.toolbarSize ||
                       previous.toolbarRows != current.toolbarRows ||
                       previous.navigationRail != current.navigationRail ||
-                      previous.navigatorPosition != current.navigatorPosition,
+                      previous.navigatorPosition != current.navigatorPosition ||
+                      previous.optionsPanelPosition !=
+                          current.optionsPanelPosition,
                   builder: (context, settings) {
                     final pos = settings.toolbarPosition;
+                    final optPos = settings.optionsPanelPosition;
                     return LayoutBuilder(builder: (context, constraints) {
                       final isMobile =
                           constraints.maxWidth < LeapBreakpoints.compact;
@@ -558,8 +561,7 @@ class _MainBody extends StatelessWidget {
                                         currentIndex.hideUi ==
                                             HideState.visible)
                                       toolbar,
-                                    if ((pos == ToolbarPosition.top ||
-                                            pos == ToolbarPosition.inline ||
+                                    if ((optPos == OptionsPanelPosition.top ||
                                             isMobile) &&
                                         currentIndex.hideUi ==
                                             HideState.visible)
@@ -601,8 +603,7 @@ class _MainBody extends StatelessWidget {
                                         ),
                                       ),
                                     ),
-                                    if (pos != ToolbarPosition.inline &&
-                                        pos != ToolbarPosition.top &&
+                                    if (optPos == OptionsPanelPosition.bottom &&
                                         !isMobile &&
                                         currentIndex.hideUi ==
                                             HideState.visible)

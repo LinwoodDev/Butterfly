@@ -7,6 +7,7 @@ import 'package:butterfly/services/sync.dart';
 import 'package:butterfly/settings/behaviors.dart';
 import 'package:butterfly/settings/inputs/mouse.dart';
 import 'package:butterfly/settings/experiments.dart';
+import 'package:butterfly/settings/view.dart';
 import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -214,6 +215,10 @@ class ButterflyApp extends StatelessWidget {
                       path: 'personalization',
                       builder: (context, state) =>
                           const PersonalizationSettingsPage(),
+                    ),
+                    GoRoute(
+                      path: 'view',
+                      builder: (context, state) => const ViewSettingsPage(),
                     ),
                     GoRoute(
                       path: 'data',

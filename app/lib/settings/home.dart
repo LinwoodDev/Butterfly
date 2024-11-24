@@ -3,6 +3,7 @@ import 'package:butterfly/settings/behaviors.dart';
 import 'package:butterfly/settings/inputs/home.dart';
 import 'package:butterfly/settings/data.dart';
 import 'package:butterfly/settings/personalization.dart';
+import 'package:butterfly/settings/view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:go_router/go_router.dart';
@@ -19,6 +20,7 @@ enum SettingsView {
   behaviors,
   inputs,
   personalization,
+  view,
   connections,
   experiments;
 
@@ -31,6 +33,7 @@ enum SettingsView {
         SettingsView.inputs => AppLocalizations.of(context).inputs,
         SettingsView.personalization =>
           AppLocalizations.of(context).personalization,
+        SettingsView.view => AppLocalizations.of(context).view,
         SettingsView.connections => AppLocalizations.of(context).connections,
         SettingsView.experiments => AppLocalizations.of(context).experiments,
       };
@@ -41,6 +44,7 @@ enum SettingsView {
         SettingsView.behaviors => PhosphorIcons.faders,
         SettingsView.inputs => PhosphorIcons.keyboard,
         SettingsView.personalization => PhosphorIcons.monitor,
+        SettingsView.view => PhosphorIcons.eye,
         SettingsView.connections => PhosphorIcons.cloud,
         SettingsView.experiments => PhosphorIcons.flask,
       };
@@ -128,6 +132,7 @@ class _SettingsPageState extends State<SettingsPage> {
             SettingsView.inputs => const InputsSettingsPage(inView: true),
             SettingsView.personalization =>
               const PersonalizationSettingsPage(inView: true),
+            SettingsView.view => const ViewSettingsPage(inView: true),
             SettingsView.connections =>
               const ConnectionsSettingsPage(inView: true),
             SettingsView.experiments =>

@@ -123,16 +123,6 @@ class PersonalizationSettingsPage extends StatelessWidget {
                               .read<SettingsCubit>()
                               .changeHighContrast(value),
                         ),
-                      ]),
-                ),
-              ),
-              Card(
-                margin: const EdgeInsets.all(8),
-                child: Padding(
-                  padding: const EdgeInsets.all(32),
-                  child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: [
                         if (!kIsWeb && isWindow)
                           SwitchListTile(
                             value: state.nativeTitleBar,
@@ -144,125 +134,6 @@ class PersonalizationSettingsPage extends StatelessWidget {
                                 .read<SettingsCubit>()
                                 .changeNativeTitleBar(value),
                           ),
-                        SwitchListTile(
-                          secondary: const PhosphorIcon(
-                              PhosphorIconsLight.magnifyingGlass),
-                          title: Text(AppLocalizations.of(context).zoomControl),
-                          value: state.zoomEnabled,
-                          onChanged: (value) => context
-                              .read<SettingsCubit>()
-                              .changeZoomEnabled(value),
-                        ),
-                        SwitchListTile(
-                          value: state.startInFullScreen,
-                          onChanged: (value) => context
-                              .read<SettingsCubit>()
-                              .changeStartInFullScreen(value),
-                          title: Text(
-                              AppLocalizations.of(context).startInFullScreen),
-                          secondary:
-                              const PhosphorIcon(PhosphorIconsLight.arrowsOut),
-                        ),
-                        ListTile(
-                          leading:
-                              const PhosphorIcon(PhosphorIconsLight.toolbox),
-                          title: Text(
-                              AppLocalizations.of(context).toolbarPosition),
-                          subtitle: Column(
-                            mainAxisSize: MainAxisSize.min,
-                            crossAxisAlignment: CrossAxisAlignment.stretch,
-                            children: [
-                              Text(state.toolbarPosition
-                                  .getLocalizedName(context)),
-                              Text(
-                                AppLocalizations.of(context)
-                                    .onlyAvailableLargerScreen,
-                                style: Theme.of(context).textTheme.labelSmall,
-                              ),
-                            ],
-                          ),
-                          onTap: () => _openToolbarPositionModal(context),
-                        ),
-                        ExactSlider(
-                          header:
-                              Text(AppLocalizations.of(context).toolbarRows),
-                          value: state.toolbarRows.toDouble(),
-                          defaultValue: 1,
-                          min: 1,
-                          max: 4,
-                          fractionDigits: 0,
-                          onChangeEnd: (value) => context
-                              .read<SettingsCubit>()
-                              .changeToolbarRows(value.round()),
-                        ),
-                        AdvancedSwitchListTile(
-                          leading:
-                              const PhosphorIcon(PhosphorIconsLight.sidebar),
-                          title:
-                              Text(AppLocalizations.of(context).navigationRail),
-                          subtitle: Column(
-                            mainAxisSize: MainAxisSize.min,
-                            crossAxisAlignment: CrossAxisAlignment.stretch,
-                            children: [
-                              Text(state.navigatorPosition ==
-                                      NavigatorPosition.left
-                                  ? AppLocalizations.of(context).left
-                                  : AppLocalizations.of(context).right),
-                              Text(
-                                AppLocalizations.of(context)
-                                    .onlyAvailableLargerScreen,
-                                style: Theme.of(context).textTheme.labelSmall,
-                              ),
-                            ],
-                          ),
-                          onTap: () async {
-                            final position = await showLeapBottomSheet(
-                                context: context,
-                                titleBuilder: (context) =>
-                                    Text(AppLocalizations.of(context).position),
-                                childrenBuilder: (context) => [
-                                      ListTile(
-                                        title: Text(
-                                            AppLocalizations.of(context).left),
-                                        selected: state.navigatorPosition ==
-                                            NavigatorPosition.left,
-                                        leading: const PhosphorIcon(
-                                            PhosphorIconsLight.arrowLineLeft),
-                                        onTap: () => Navigator.of(context)
-                                            .pop(NavigatorPosition.left),
-                                      ),
-                                      ListTile(
-                                        title: Text(
-                                            AppLocalizations.of(context).right),
-                                        selected: state.navigatorPosition ==
-                                            NavigatorPosition.right,
-                                        leading: const PhosphorIcon(
-                                            PhosphorIconsLight.arrowLineRight),
-                                        onTap: () => Navigator.of(context)
-                                            .pop(NavigatorPosition.right),
-                                      ),
-                                    ]);
-                            if (position != null) {
-                              context
-                                  .read<SettingsCubit>()
-                                  .changeNavigatorPosition(position);
-                            }
-                          },
-                          value: state.navigationRail,
-                          onChanged: (value) => context
-                              .read<SettingsCubit>()
-                              .changeNavigationRail(value),
-                        ),
-                        SwitchListTile(
-                          value: state.colorToolbarEnabled,
-                          onChanged: (value) => context
-                              .read<SettingsCubit>()
-                              .changeColorToolbarEnabled(value),
-                          title:
-                              Text(AppLocalizations.of(context).colorToolbar),
-                          secondary:
-                              const PhosphorIcon(PhosphorIconsLight.palette),
-                        )
                       ]),
                 ),
               ),
@@ -409,31 +280,6 @@ class PersonalizationSettingsPage extends StatelessWidget {
                 selected: currentTheme == e,
                 onTap: () {
                   cubit.changePlatformTheme(e);
-                  Navigator.of(context).pop();
-                }))
-            .toList());
-  }
-
-  void _openToolbarPositionModal(BuildContext context) {
-    final cubit = context.read<SettingsCubit>();
-    var currentPos = cubit.state.toolbarPosition;
-    showLeapBottomSheet(
-        context: context,
-        titleBuilder: (context) =>
-            Text(AppLocalizations.of(context).toolbarPosition),
-        childrenBuilder: (context) => ToolbarPosition.values
-            .map((e) => ListTile(
-                title: Text(e.getLocalizedName(context)),
-                selected: currentPos == e,
-                leading: Icon(switch (e) {
-                  ToolbarPosition.inline => PhosphorIconsLight.appWindow,
-                  ToolbarPosition.top => PhosphorIconsLight.arrowLineUp,
-                  ToolbarPosition.bottom => PhosphorIconsLight.arrowLineDown,
-                  ToolbarPosition.left => PhosphorIconsLight.arrowLineLeft,
-                  ToolbarPosition.right => PhosphorIconsLight.arrowLineRight,
-                }),
-                onTap: () {
-                  cubit.changeToolbarPosition(e);
                   Navigator.of(context).pop();
                 }))
             .toList());

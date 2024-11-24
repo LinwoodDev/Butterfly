@@ -3410,7 +3410,7 @@ abstract class _$$LayersMergedImplCopyWith<$Res> {
           _$LayersMergedImpl value, $Res Function(_$LayersMergedImpl) then) =
       __$$LayersMergedImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({List<String> layers});
+  $Res call({List<String> layers, bool duplicate});
 }
 
 /// @nodoc
@@ -3427,12 +3427,17 @@ class __$$LayersMergedImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? layers = null,
+    Object? duplicate = null,
   }) {
     return _then(_$LayersMergedImpl(
       null == layers
           ? _value._layers
           : layers // ignore: cast_nullable_to_non_nullable
               as List<String>,
+      null == duplicate
+          ? _value.duplicate
+          : duplicate // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -3440,7 +3445,8 @@ class __$$LayersMergedImplCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$LayersMergedImpl extends LayersMerged {
-  const _$LayersMergedImpl(final List<String> layers, {final String? $type})
+  const _$LayersMergedImpl(final List<String> layers,
+      [this.duplicate = false, final String? $type])
       : _layers = layers,
         $type = $type ?? 'layersMerged',
         super._();
@@ -3456,12 +3462,16 @@ class _$LayersMergedImpl extends LayersMerged {
     return EqualUnmodifiableListView(_layers);
   }
 
+  @override
+  @JsonKey()
+  final bool duplicate;
+
   @JsonKey(name: 'type')
   final String $type;
 
   @override
   String toString() {
-    return 'DocumentEvent.layersMerged(layers: $layers)';
+    return 'DocumentEvent.layersMerged(layers: $layers, duplicate: $duplicate)';
   }
 
   @override
@@ -3469,13 +3479,15 @@ class _$LayersMergedImpl extends LayersMerged {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$LayersMergedImpl &&
-            const DeepCollectionEquality().equals(other._layers, _layers));
+            const DeepCollectionEquality().equals(other._layers, _layers) &&
+            (identical(other.duplicate, duplicate) ||
+                other.duplicate == duplicate));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(_layers));
+  int get hashCode => Object.hash(
+      runtimeType, const DeepCollectionEquality().hash(_layers), duplicate);
 
   /// Create a copy of DocumentEvent
   /// with the given fields replaced by the non-null parameter values.
@@ -3494,13 +3506,15 @@ class _$LayersMergedImpl extends LayersMerged {
 }
 
 abstract class LayersMerged extends DocumentEvent {
-  const factory LayersMerged(final List<String> layers) = _$LayersMergedImpl;
+  const factory LayersMerged(final List<String> layers,
+      [final bool duplicate]) = _$LayersMergedImpl;
   const LayersMerged._() : super._();
 
   factory LayersMerged.fromJson(Map<String, dynamic> json) =
       _$LayersMergedImpl.fromJson;
 
   List<String> get layers;
+  bool get duplicate;
 
   /// Create a copy of DocumentEvent
   /// with the given fields replaced by the non-null parameter values.

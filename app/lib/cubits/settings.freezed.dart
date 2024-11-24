@@ -365,6 +365,8 @@ mixin _$ButterflySettings {
   UtilitiesState get utilities => throw _privateConstructorUsedError;
   StartupBehavior get onStartup => throw _privateConstructorUsedError;
   bool get colorToolbarEnabled => throw _privateConstructorUsedError;
+  OptionsPanelPosition get optionsPanelPosition =>
+      throw _privateConstructorUsedError;
 
   /// Create a copy of ButterflySettings
   /// with the given fields replaced by the non-null parameter values.
@@ -426,7 +428,8 @@ abstract class $ButterflySettingsCopyWith<$Res> {
       bool hideCursorWhileDrawing,
       UtilitiesState utilities,
       StartupBehavior onStartup,
-      bool colorToolbarEnabled});
+      bool colorToolbarEnabled,
+      OptionsPanelPosition optionsPanelPosition});
 
   $InputConfigurationCopyWith<$Res> get inputConfiguration;
   $UtilitiesStateCopyWith<$Res> get utilities;
@@ -494,6 +497,7 @@ class _$ButterflySettingsCopyWithImpl<$Res, $Val extends ButterflySettings>
     Object? utilities = null,
     Object? onStartup = null,
     Object? colorToolbarEnabled = null,
+    Object? optionsPanelPosition = null,
   }) {
     return _then(_value.copyWith(
       theme: null == theme
@@ -684,6 +688,10 @@ class _$ButterflySettingsCopyWithImpl<$Res, $Val extends ButterflySettings>
           ? _value.colorToolbarEnabled
           : colorToolbarEnabled // ignore: cast_nullable_to_non_nullable
               as bool,
+      optionsPanelPosition: null == optionsPanelPosition
+          ? _value.optionsPanelPosition
+          : optionsPanelPosition // ignore: cast_nullable_to_non_nullable
+              as OptionsPanelPosition,
     ) as $Val);
   }
 
@@ -764,7 +772,8 @@ abstract class _$$ButterflySettingsImplCopyWith<$Res>
       bool hideCursorWhileDrawing,
       UtilitiesState utilities,
       StartupBehavior onStartup,
-      bool colorToolbarEnabled});
+      bool colorToolbarEnabled,
+      OptionsPanelPosition optionsPanelPosition});
 
   @override
   $InputConfigurationCopyWith<$Res> get inputConfiguration;
@@ -832,6 +841,7 @@ class __$$ButterflySettingsImplCopyWithImpl<$Res>
     Object? utilities = null,
     Object? onStartup = null,
     Object? colorToolbarEnabled = null,
+    Object? optionsPanelPosition = null,
   }) {
     return _then(_$ButterflySettingsImpl(
       theme: null == theme
@@ -1022,6 +1032,10 @@ class __$$ButterflySettingsImplCopyWithImpl<$Res>
           ? _value.colorToolbarEnabled
           : colorToolbarEnabled // ignore: cast_nullable_to_non_nullable
               as bool,
+      optionsPanelPosition: null == optionsPanelPosition
+          ? _value.optionsPanelPosition
+          : optionsPanelPosition // ignore: cast_nullable_to_non_nullable
+              as OptionsPanelPosition,
     ));
   }
 }
@@ -1077,7 +1091,8 @@ class _$ButterflySettingsImpl extends _ButterflySettings
       this.hideCursorWhileDrawing = false,
       this.utilities = const UtilitiesState(),
       this.onStartup = StartupBehavior.openHomeScreen,
-      this.colorToolbarEnabled = true})
+      this.colorToolbarEnabled = true,
+      this.optionsPanelPosition = OptionsPanelPosition.top})
       : _history = history,
         _connections = connections,
         _starred = starred,
@@ -1255,10 +1270,13 @@ class _$ButterflySettingsImpl extends _ButterflySettings
   @override
   @JsonKey()
   final bool colorToolbarEnabled;
+  @override
+  @JsonKey()
+  final OptionsPanelPosition optionsPanelPosition;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'ButterflySettings(theme: $theme, density: $density, localeTag: $localeTag, documentPath: $documentPath, gestureSensitivity: $gestureSensitivity, touchSensitivity: $touchSensitivity, selectSensitivity: $selectSensitivity, scrollSensitivity: $scrollSensitivity, penOnlyInput: $penOnlyInput, inputGestures: $inputGestures, design: $design, bannerVisibility: $bannerVisibility, history: $history, navigatorEnabled: $navigatorEnabled, zoomEnabled: $zoomEnabled, lastVersion: $lastVersion, connections: $connections, defaultRemote: $defaultRemote, nativeTitleBar: $nativeTitleBar, startInFullScreen: $startInFullScreen, navigationRail: $navigationRail, syncMode: $syncMode, inputConfiguration: $inputConfiguration, fallbackPack: $fallbackPack, starred: $starred, defaultTemplate: $defaultTemplate, navigatorPage: $navigatorPage, navigatorPosition: $navigatorPosition, toolbarPosition: $toolbarPosition, toolbarSize: $toolbarSize, sortBy: $sortBy, sortOrder: $sortOrder, imageScale: $imageScale, pdfQuality: $pdfQuality, platformTheme: $platformTheme, recentColors: $recentColors, flags: $flags, spreadPages: $spreadPages, highContrast: $highContrast, gridView: $gridView, autosave: $autosave, showSaveButton: $showSaveButton, toolbarRows: $toolbarRows, hideCursorWhileDrawing: $hideCursorWhileDrawing, utilities: $utilities, onStartup: $onStartup, colorToolbarEnabled: $colorToolbarEnabled)';
+    return 'ButterflySettings(theme: $theme, density: $density, localeTag: $localeTag, documentPath: $documentPath, gestureSensitivity: $gestureSensitivity, touchSensitivity: $touchSensitivity, selectSensitivity: $selectSensitivity, scrollSensitivity: $scrollSensitivity, penOnlyInput: $penOnlyInput, inputGestures: $inputGestures, design: $design, bannerVisibility: $bannerVisibility, history: $history, navigatorEnabled: $navigatorEnabled, zoomEnabled: $zoomEnabled, lastVersion: $lastVersion, connections: $connections, defaultRemote: $defaultRemote, nativeTitleBar: $nativeTitleBar, startInFullScreen: $startInFullScreen, navigationRail: $navigationRail, syncMode: $syncMode, inputConfiguration: $inputConfiguration, fallbackPack: $fallbackPack, starred: $starred, defaultTemplate: $defaultTemplate, navigatorPage: $navigatorPage, navigatorPosition: $navigatorPosition, toolbarPosition: $toolbarPosition, toolbarSize: $toolbarSize, sortBy: $sortBy, sortOrder: $sortOrder, imageScale: $imageScale, pdfQuality: $pdfQuality, platformTheme: $platformTheme, recentColors: $recentColors, flags: $flags, spreadPages: $spreadPages, highContrast: $highContrast, gridView: $gridView, autosave: $autosave, showSaveButton: $showSaveButton, toolbarRows: $toolbarRows, hideCursorWhileDrawing: $hideCursorWhileDrawing, utilities: $utilities, onStartup: $onStartup, colorToolbarEnabled: $colorToolbarEnabled, optionsPanelPosition: $optionsPanelPosition)';
   }
 
   @override
@@ -1313,7 +1331,8 @@ class _$ButterflySettingsImpl extends _ButterflySettings
           DiagnosticsProperty('hideCursorWhileDrawing', hideCursorWhileDrawing))
       ..add(DiagnosticsProperty('utilities', utilities))
       ..add(DiagnosticsProperty('onStartup', onStartup))
-      ..add(DiagnosticsProperty('colorToolbarEnabled', colorToolbarEnabled));
+      ..add(DiagnosticsProperty('colorToolbarEnabled', colorToolbarEnabled))
+      ..add(DiagnosticsProperty('optionsPanelPosition', optionsPanelPosition));
   }
 
   @override
@@ -1407,7 +1426,9 @@ class _$ButterflySettingsImpl extends _ButterflySettings
             (identical(other.onStartup, onStartup) ||
                 other.onStartup == onStartup) &&
             (identical(other.colorToolbarEnabled, colorToolbarEnabled) ||
-                other.colorToolbarEnabled == colorToolbarEnabled));
+                other.colorToolbarEnabled == colorToolbarEnabled) &&
+            (identical(other.optionsPanelPosition, optionsPanelPosition) ||
+                other.optionsPanelPosition == optionsPanelPosition));
   }
 
   @override
@@ -1459,7 +1480,8 @@ class _$ButterflySettingsImpl extends _ButterflySettings
         hideCursorWhileDrawing,
         utilities,
         onStartup,
-        colorToolbarEnabled
+        colorToolbarEnabled,
+        optionsPanelPosition
       ]);
 
   /// Create a copy of ButterflySettings
@@ -1474,53 +1496,55 @@ class _$ButterflySettingsImpl extends _ButterflySettings
 
 abstract class _ButterflySettings extends ButterflySettings {
   const factory _ButterflySettings(
-      {final ThemeMode theme,
-      final ThemeDensity density,
-      final String localeTag,
-      final String documentPath,
-      final double gestureSensitivity,
-      final double touchSensitivity,
-      final double selectSensitivity,
-      final double scrollSensitivity,
-      final bool penOnlyInput,
-      final bool inputGestures,
-      final String design,
-      final BannerVisibility bannerVisibility,
-      final List<AssetLocation> history,
-      final bool navigatorEnabled,
-      final bool zoomEnabled,
-      final String? lastVersion,
-      final List<ExternalStorage> connections,
-      final String defaultRemote,
-      final bool nativeTitleBar,
-      final bool startInFullScreen,
-      final bool navigationRail,
-      final SyncMode syncMode,
-      final InputConfiguration inputConfiguration,
-      final String fallbackPack,
-      final List<String> starred,
-      final String defaultTemplate,
-      final NavigatorPage navigatorPage,
-      final NavigatorPosition navigatorPosition,
-      final ToolbarPosition toolbarPosition,
-      final ToolbarSize toolbarSize,
-      final SortBy sortBy,
-      final SortOrder sortOrder,
-      final double imageScale,
-      final double pdfQuality,
-      final PlatformTheme platformTheme,
-      final List<int> recentColors,
-      final List<String> flags,
-      final bool spreadPages,
-      final bool highContrast,
-      final bool gridView,
-      final bool autosave,
-      final bool showSaveButton,
-      final int toolbarRows,
-      final bool hideCursorWhileDrawing,
-      final UtilitiesState utilities,
-      final StartupBehavior onStartup,
-      final bool colorToolbarEnabled}) = _$ButterflySettingsImpl;
+          {final ThemeMode theme,
+          final ThemeDensity density,
+          final String localeTag,
+          final String documentPath,
+          final double gestureSensitivity,
+          final double touchSensitivity,
+          final double selectSensitivity,
+          final double scrollSensitivity,
+          final bool penOnlyInput,
+          final bool inputGestures,
+          final String design,
+          final BannerVisibility bannerVisibility,
+          final List<AssetLocation> history,
+          final bool navigatorEnabled,
+          final bool zoomEnabled,
+          final String? lastVersion,
+          final List<ExternalStorage> connections,
+          final String defaultRemote,
+          final bool nativeTitleBar,
+          final bool startInFullScreen,
+          final bool navigationRail,
+          final SyncMode syncMode,
+          final InputConfiguration inputConfiguration,
+          final String fallbackPack,
+          final List<String> starred,
+          final String defaultTemplate,
+          final NavigatorPage navigatorPage,
+          final NavigatorPosition navigatorPosition,
+          final ToolbarPosition toolbarPosition,
+          final ToolbarSize toolbarSize,
+          final SortBy sortBy,
+          final SortOrder sortOrder,
+          final double imageScale,
+          final double pdfQuality,
+          final PlatformTheme platformTheme,
+          final List<int> recentColors,
+          final List<String> flags,
+          final bool spreadPages,
+          final bool highContrast,
+          final bool gridView,
+          final bool autosave,
+          final bool showSaveButton,
+          final int toolbarRows,
+          final bool hideCursorWhileDrawing,
+          final UtilitiesState utilities,
+          final StartupBehavior onStartup,
+          final bool colorToolbarEnabled,
+          final OptionsPanelPosition optionsPanelPosition}) =
+      _$ButterflySettingsImpl;
   const _ButterflySettings._() : super._();
 
   @override
@@ -1617,6 +1641,8 @@ abstract class _ButterflySettings extends ButterflySettings {
   StartupBehavior get onStartup;
   @override
   bool get colorToolbarEnabled;
+  @override
+  OptionsPanelPosition get optionsPanelPosition;
 
   /// Create a copy of ButterflySettings
   /// with the given fields replaced by the non-null parameter values.

@@ -137,6 +137,16 @@ enum ToolbarPosition {
       };
 }
 
+enum OptionsPanelPosition {
+  top,
+  bottom;
+
+  String getLocalizedName(BuildContext context) => switch (this) {
+        OptionsPanelPosition.top => AppLocalizations.of(context).top,
+        OptionsPanelPosition.bottom => AppLocalizations.of(context).bottom,
+      };
+}
+
 enum ThemeDensity {
   system,
   maximize,
@@ -208,6 +218,8 @@ class ButterflySettings with _$ButterflySettings, LeapSettings {
     @Default(UtilitiesState()) UtilitiesState utilities,
     @Default(StartupBehavior.openHomeScreen) StartupBehavior onStartup,
     @Default(true) bool colorToolbarEnabled,
+    @Default(OptionsPanelPosition.top)
+    OptionsPanelPosition optionsPanelPosition,
   }) = _ButterflySettings;
 
   factory ButterflySettings.fromPrefs(SharedPreferences prefs) {
@@ -303,6 +315,10 @@ class ButterflySettings with _$ButterflySettings, LeapSettings {
           : StartupBehavior.openHomeScreen,
       colorToolbarEnabled: prefs.getBool('color_toolbar_enabled') ?? true,
       showSaveButton: prefs.getBool('show_save_button') ?? true,
+      optionsPanelPosition: prefs.containsKey('options_panel_position')
+          ? OptionsPanelPosition.values
+              .byName(prefs.getString('options_panel_position')!)
+          : OptionsPanelPosition.top,
     );
   }
 
@@ -372,6 +388,7 @@ class ButterflySettings with _$ButterflySettings, LeapSettings {
     await prefs.setString('on_startup', onStartup.name);
     await prefs.setBool('color_toolbar_enabled', colorToolbarEnabled);
     await prefs.setBool('show_save_button', showSaveButton);
+    await prefs.setString('options_panel_position', optionsPanelPosition.name);
   }
 
   ExternalStorage? getRemote(String? identifier) {
@@ -464,10 +481,15 @@ class SettingsCubit extends Cubit<ButterflySettings>
     return save();
   }
 
-  Future<void> resetToolbarSize() {
-    emit(state.copyWith(toolbarSize: ToolbarSize.normal));
+  Future<void> resetToolbarSize() => changeToolbarSize(ToolbarSize.normal);
+
+  Future<void> changeOptionsPanelPosition(OptionsPanelPosition position) {
+    emit(state.copyWith(optionsPanelPosition: position));
     return save();
   }
+
+  Future<void> resetOptionsPanelPosition() =>
+      changeOptionsPanelPosition(OptionsPanelPosition.top);
 
   void changeLocaleTemporarily(String locale) {
     emit(state.copyWith(localeTag: locale));
