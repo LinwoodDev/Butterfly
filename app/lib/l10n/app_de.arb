@@ -634,5 +634,6 @@
       }
     }
   },
-  "colorToolbar": "Farb-Werkzeugleiste"
+  "colorToolbar": "Farb-Werkzeugleiste",
+  "yesButShowButtons": "Yes, but show buttons"
 }
