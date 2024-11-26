@@ -635,6 +635,6 @@
     }
   },
   "colorToolbar": "Инструменты цвета",
-  "yesButShowButtons": "Yes, but show buttons",
-  "optionsPanelPosition": "Options panel position"
+  "yesButShowButtons": "Да, но показать кнопки",
+  "optionsPanelPosition": "Опции позиции панели"
 }
