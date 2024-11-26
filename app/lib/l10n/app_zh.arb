@@ -635,6 +635,6 @@
     }
   },
   "colorToolbar": "颜色工具栏",
-  "yesButShowButtons": "Yes, but show buttons",
-  "optionsPanelPosition": "Options panel position"
+  "yesButShowButtons": "是的，但显示按钮",
+  "optionsPanelPosition": "选项面板位置"
 }
