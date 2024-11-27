@@ -3,6 +3,7 @@ import 'dart:typed_data';
 
 import 'package:archive/archive.dart';
 import 'package:collection/collection.dart';
+import 'package:crypto/crypto.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:lw_file_system_api/archive.dart';
 
@@ -58,8 +59,10 @@ final class NoteData extends ArchiveData<NoteData> {
   NoteData updateState(ArchiveState state) => NoteData(archive, state: state);
 
   @useResult
-  (NoteData, String) addAsset(String path, Uint8List data, String fileExtension,
-      [String name = '']) {
+  (NoteData, String) importAsset(
+      String path, Uint8List data, String fileExtension) {
+    final hash = sha512256.convert(data);
+    final name = base64Encode(hash.bytes);
     final newPath = '$path/${findUniqueName(path, fileExtension, name)}';
     return (setAsset(newPath, data), newPath);
   }
@@ -287,9 +290,8 @@ final class NoteData extends ArchiveData<NoteData> {
     return setAsset(kInfoArchiveFile, utf8.encode(content));
   }
 
-  (NoteData, String) addImage(Uint8List data, String fileExtension,
-          [String name = '']) =>
-      addAsset(kImagesArchiveDirectory, data, fileExtension, name);
+  (NoteData, String) importImage(Uint8List data, String fileExtension) =>
+      importAsset(kImagesArchiveDirectory, data, fileExtension);
 
   @useResult
   Uint8List? getFont(String fontName) =>

@@ -71,7 +71,7 @@ String _exportColor(int value) {
       case 'image':
         final imageData = UriData.parse(element.innerText);
         String path;
-        (data, path) = data.addImage(imageData.contentAsBytes(), 'png');
+        (data, path) = data.importImage(imageData.contentAsBytes(), 'png');
         final left = double.parse(element.getAttribute('x')!);
         final top = double.parse(element.getAttribute('y')!);
         final right = double.parse(element.getAttribute('right')!);

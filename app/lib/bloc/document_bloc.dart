@@ -162,7 +162,8 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
           }
           return source;
         }
-        final result = data.addImage(uriData.contentAsBytes(), fileExtension);
+        final result =
+            data.importImage(uriData.contentAsBytes(), fileExtension);
         data = result.$1;
         return Uri.file(result.$2, windows: false).toString();
       }
