@@ -637,5 +637,6 @@
   "colorToolbar": "Γραμμή εργαλείων χρωμάτων",
   "yesButShowButtons": "Ναι, αλλά εμφάνιση κουμπιών",
   "optionsPanelPosition": "Θέση πίνακα επιλογών",
-  "hideDuration": "Hide duration"
+  "hideDuration": "Hide duration",
+  "animation": "Animation"
 }
