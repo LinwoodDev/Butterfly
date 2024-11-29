@@ -636,5 +636,6 @@
   },
   "colorToolbar": "颜色工具栏",
   "yesButShowButtons": "是的，但显示按钮",
-  "optionsPanelPosition": "选项面板位置"
+  "optionsPanelPosition": "选项面板位置",
+  "hideDuration": "Hide duration"
 }
