@@ -636,5 +636,6 @@
   },
   "colorToolbar": "カラーツールバー",
   "yesButShowButtons": "はい、しかしボタンを表示する",
-  "optionsPanelPosition": "オプションパネルの位置"
+  "optionsPanelPosition": "オプションパネルの位置",
+  "hideDuration": "Hide duration"
 }
