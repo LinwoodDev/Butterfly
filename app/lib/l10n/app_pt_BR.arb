@@ -636,5 +636,6 @@
   },
   "colorToolbar": "Barra de cores",
   "yesButShowButtons": "Sim, mas mostrar botões",
-  "optionsPanelPosition": "Posição do painel de opções"
+  "optionsPanelPosition": "Posição do painel de opções",
+  "hideDuration": "Hide duration"
 }
