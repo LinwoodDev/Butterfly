@@ -637,5 +637,6 @@
   "colorToolbar": "Färg verktygsfält",
   "yesButShowButtons": "Ja, men visa knappar",
   "optionsPanelPosition": "Alternativ panel position",
-  "hideDuration": "Hide duration"
+  "hideDuration": "Hide duration",
+  "animation": "Animation"
 }
