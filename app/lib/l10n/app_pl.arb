@@ -636,5 +636,6 @@
   },
   "colorToolbar": "Kolor paska narzędzi",
   "yesButShowButtons": "Tak, ale pokaż przyciski",
-  "optionsPanelPosition": "Pozycja panelu opcji"
+  "optionsPanelPosition": "Pozycja panelu opcji",
+  "hideDuration": "Hide duration"
 }
