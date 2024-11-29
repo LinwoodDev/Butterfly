@@ -136,19 +136,8 @@ class ViewSettingsPage extends StatelessWidget {
                       leading: const PhosphorIcon(PhosphorIconsLight.archive),
                       title: Text(
                           AppLocalizations.of(context).optionsPanelPosition),
-                      subtitle: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                        children: [
-                          Text(state.optionsPanelPosition
-                              .getLocalizedName(context)),
-                          Text(
-                            AppLocalizations.of(context)
-                                .onlyAvailableLargerScreen,
-                            style: Theme.of(context).textTheme.labelSmall,
-                          ),
-                        ],
-                      ),
+                      subtitle: Text(
+                          state.optionsPanelPosition.getLocalizedName(context)),
                       onTap: () => _openOptionsPanelPositionModal(context),
                     ),
                     SwitchListTile(
@@ -158,7 +147,7 @@ class ViewSettingsPage extends StatelessWidget {
                           .changeColorToolbarEnabled(value),
                       title: Text(AppLocalizations.of(context).colorToolbar),
                       secondary: const PhosphorIcon(PhosphorIconsLight.palette),
-                    )
+                    ),
                   ]),
             ),
           ),
