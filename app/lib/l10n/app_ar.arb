@@ -636,5 +636,6 @@
   },
   "colorToolbar": "لون شريط الأدوات",
   "yesButShowButtons": "نعم، لكن إظهار الأزرار",
-  "optionsPanelPosition": "موقف لوحة الخيارات"
+  "optionsPanelPosition": "موقف لوحة الخيارات",
+  "hideDuration": "Hide duration"
 }
