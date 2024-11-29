@@ -637,5 +637,6 @@
   "colorToolbar": "Farve værktøjslinje",
   "yesButShowButtons": "Ja, men vis knapper",
   "optionsPanelPosition": "Valgmuligheder panel position",
-  "hideDuration": "Hide duration"
+  "hideDuration": "Hide duration",
+  "animation": "Animation"
 }
