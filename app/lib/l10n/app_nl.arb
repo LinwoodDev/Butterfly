@@ -636,5 +636,6 @@
   },
   "colorToolbar": "Kleur werkbalk",
   "yesButShowButtons": "Ja, maar toon knoppen",
-  "optionsPanelPosition": "Opties paneel positie"
+  "optionsPanelPosition": "Opties paneel positie",
+  "hideDuration": "Hide duration"
 }
