@@ -637,5 +637,6 @@
   "colorToolbar": "Barra de colores",
   "yesButShowButtons": "Sí, pero mostrar botones",
   "optionsPanelPosition": "Posición del panel de opciones",
-  "hideDuration": "Hide duration"
+  "hideDuration": "Hide duration",
+  "animation": "Animation"
 }
