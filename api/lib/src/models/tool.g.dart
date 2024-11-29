@@ -223,9 +223,13 @@ _$LaserToolImpl _$$LaserToolImplFromJson(Map json) => _$LaserToolImpl(
       name: json['name'] as String? ?? '',
       displayIcon: json['displayIcon'] as String? ?? '',
       duration: (json['duration'] as num?)?.toDouble() ?? 5,
+      hideDuration: (json['hideDuration'] as num?)?.toDouble() ?? 0.5,
       strokeWidth: (json['strokeWidth'] as num?)?.toDouble() ?? 5,
       thinning: (json['thinning'] as num?)?.toDouble() ?? 0.4,
       color: (json['color'] as num?)?.toInt() ?? BasicColors.red,
+      animation:
+          $enumDecodeNullable(_$LaserAnimationEnumMap, json['animation']) ??
+              LaserAnimation.fade,
       $type: json['type'] as String?,
     );
 
@@ -234,11 +238,18 @@ Map<String, dynamic> _$$LaserToolImplToJson(_$LaserToolImpl instance) =>
       'name': instance.name,
       'displayIcon': instance.displayIcon,
       'duration': instance.duration,
+      'hideDuration': instance.hideDuration,
       'strokeWidth': instance.strokeWidth,
       'thinning': instance.thinning,
       'color': instance.color,
+      'animation': _$LaserAnimationEnumMap[instance.animation]!,
       'type': instance.$type,
     };
+
+const _$LaserAnimationEnumMap = {
+  LaserAnimation.fade: 'fade',
+  LaserAnimation.path: 'path',
+};
 
 _$ShapeToolImpl _$$ShapeToolImplFromJson(Map json) => _$ShapeToolImpl(
       name: json['name'] as String? ?? '',
