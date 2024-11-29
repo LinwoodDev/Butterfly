@@ -636,5 +636,6 @@
   },
   "colorToolbar": "Γραμμή εργαλείων χρωμάτων",
   "yesButShowButtons": "Ναι, αλλά εμφάνιση κουμπιών",
-  "optionsPanelPosition": "Θέση πίνακα επιλογών"
+  "optionsPanelPosition": "Θέση πίνακα επιλογών",
+  "hideDuration": "Hide duration"
 }
