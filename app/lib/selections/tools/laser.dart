@@ -61,21 +61,25 @@ class LaserToolSelection extends ToolSelection<LaserTool> {
         ),
       ),
       ListTile(
-        title: Text(AppLocalizations.of(context).shape),
-        trailing: DropdownButton<LaserAnimation>(
-          items: LaserAnimation.values
+        title: Text(AppLocalizations.of(context).animation),
+        trailing: DropdownMenu<LaserAnimation>(
+          dropdownMenuEntries: LaserAnimation.values
               .map(
-                (e) => DropdownMenuItem(
+                (e) => DropdownMenuEntry(
                   value: e,
-                  child: Text(switch (e) {
+                  label: switch (e) {
                     LaserAnimation.fade => AppLocalizations.of(context).color,
                     LaserAnimation.path => AppLocalizations.of(context).path,
+                  },
+                  leadingIcon: Icon(switch (e) {
+                    LaserAnimation.fade => PhosphorIconsLight.palette,
+                    LaserAnimation.path => PhosphorIconsLight.path,
                   }),
                 ),
               )
               .toList(),
-          value: selected.first.animation,
-          onChanged: (LaserAnimation? value) {
+          initialSelection: selected.first.animation,
+          onSelected: (value) {
             if (value != null) {
               update(
                 context,

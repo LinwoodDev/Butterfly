@@ -181,6 +181,13 @@ class _ShapeViewState extends State<ShapeView> {
   Widget build(BuildContext context) {
     Widget shapeView = _buildShapeView();
 
+    final shapes = Map.fromEntries([
+      PathShape.circle,
+      PathShape.rectangle,
+      PathShape.line,
+      PathShape.triangle
+    ].map((e) => e()).map((e) => MapEntry(e.getLocalizedName(context), e)));
+
     return ExpansionPanelList(
       expansionCallback: (index, isExpanded) {
         setState(() {
@@ -193,26 +200,22 @@ class _ShapeViewState extends State<ShapeView> {
           canTapOnHeader: true,
           headerBuilder: (context, expanded) => ListTile(
             title: Text(AppLocalizations.of(context).shape),
-            trailing: DropdownButton<String>(
-              value: _currentShape.runtimeType.toString(),
-              items: [
-                PathShape.circle,
-                PathShape.rectangle,
-                PathShape.line,
-                PathShape.triangle
-              ].map((e) {
-                var shape = e();
-                return DropdownMenuItem<String>(
-                  value: shape.runtimeType.toString(),
-                  child: Row(children: [
-                    PhosphorIcon(shape.icon(PhosphorIconsStyle.light)),
-                    const SizedBox(width: 8),
-                    Text(shape.getLocalizedName(context)),
-                  ]),
-                  onTap: () => _onShapeChanged(shape),
-                );
-              }).toList(),
-              onChanged: (value) {},
+            trailing: DropdownMenu<String>(
+              initialSelection: _currentShape.getLocalizedName(context),
+              dropdownMenuEntries: shapes.entries
+                  .map((e) => DropdownMenuEntry(
+                        label: e.key,
+                        value: e.key,
+                        leadingIcon:
+                            Icon(e.value.icon(PhosphorIconsStyle.light)),
+                      ))
+                  .toList(),
+              onSelected: (value) {
+                final shape = shapes[value];
+                if (shape != null) {
+                  _onShapeChanged(shape);
+                }
+              },
             ),
           ),
           body: shapeView,
