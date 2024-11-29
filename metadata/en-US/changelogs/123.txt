@@ -2,6 +2,7 @@
 * Add save button indicator for autosave ([#757](https://github.com/LinwoodDev/Butterfly/issues/757))
 * Add duplicate layer button
 * Add tool options panel position
+* Use long press to move tools on all platforms to improve desktop touch behavior
 * Use sha checksum for assets
 * Separate personalization settings in new view settings
 * Fix webdav on windows
