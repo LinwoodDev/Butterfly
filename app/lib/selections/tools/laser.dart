@@ -51,9 +51,9 @@ class LaserToolSelection extends ToolSelection<LaserTool> {
       ),
       ExactSlider(
         value: selected.first.hideDuration,
-        min: 1,
-        max: 20,
-        defaultValue: 5,
+        min: 0.1,
+        max: 2,
+        defaultValue: 0.5,
         header: Text(AppLocalizations.of(context).hideDuration),
         onChangeEnd: (value) => update(
           context,
