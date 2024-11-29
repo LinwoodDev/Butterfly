@@ -636,5 +636,6 @@
   },
   "colorToolbar": "Barevný panel nástrojů",
   "yesButShowButtons": "Ano, ale zobrazit tlačítka",
-  "optionsPanelPosition": "Pozice panelu Možnosti"
+  "optionsPanelPosition": "Pozice panelu Možnosti",
+  "hideDuration": "Hide duration"
 }
