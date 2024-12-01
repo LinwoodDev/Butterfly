@@ -637,6 +637,6 @@
   "colorToolbar": "Värin työkalupalkki",
   "yesButShowButtons": "Kyllä, mutta näytä painikkeet",
   "optionsPanelPosition": "Valintapaneelin sijainti",
-  "hideDuration": "Hide duration",
-  "animation": "Animation"
+  "hideDuration": "Piilota kesto",
+  "animation": "Animaatio"
 }
