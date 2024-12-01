@@ -637,6 +637,6 @@
   "colorToolbar": "Панель кольорів",
   "yesButShowButtons": "Так, але показувати кнопки",
   "optionsPanelPosition": "Позиція панелі налаштувань",
-  "hideDuration": "Hide duration",
-  "animation": "Animation"
+  "hideDuration": "Приховати тривалість",
+  "animation": "Анімація"
 }
