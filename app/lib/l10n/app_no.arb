@@ -637,6 +637,6 @@
   "colorToolbar": "Farge Verktøylinje",
   "yesButShowButtons": "Ja, men vis knapper",
   "optionsPanelPosition": "Options panel plassering",
-  "hideDuration": "Hide duration",
-  "animation": "Animation"
+  "hideDuration": "Skjul varighet",
+  "animation": "Animasjon"
 }
