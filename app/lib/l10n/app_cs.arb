@@ -637,6 +637,6 @@
   "colorToolbar": "Barevný panel nástrojů",
   "yesButShowButtons": "Ano, ale zobrazit tlačítka",
   "optionsPanelPosition": "Pozice panelu Možnosti",
-  "hideDuration": "Hide duration",
-  "animation": "Animation"
+  "hideDuration": "Doba trvání skrytí",
+  "animation": "Animace"
 }
