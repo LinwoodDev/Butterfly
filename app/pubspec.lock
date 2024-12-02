@@ -172,7 +172,7 @@ packages:
       path: "../api"
       relative: true
     source: path
-    version: "2.3.0-beta.0"
+    version: "2.2.3-rc.0"
   camera:
     dependency: "direct main"
     description:
@@ -418,10 +418,10 @@ packages:
     dependency: transitive
     description:
       name: file_selector_android
-      sha256: "934850f9702b0f9031bc331a306e7bebc62f894a6e5ca6c0681c7af17e7afb50"
+      sha256: "98ac58e878b05ea2fdb204e7f4fc4978d90406c9881874f901428e01d3b18fbc"
       url: "https://pub.dev"
     source: hosted
-    version: "0.5.1+11"
+    version: "0.5.1+12"
   file_selector_ios:
     dependency: transitive
     description:
@@ -482,10 +482,10 @@ packages:
     dependency: "direct main"
     description:
       name: flex_color_scheme
-      sha256: ad9695ebdf7e2709b0311cac6a8f887984666e56884eecafa008d236ec3fc0c7
+      sha256: "90f4fe67b9561ae8a4af117df65a8ce9988624025667c54e6d304e65cff77d52"
       url: "https://pub.dev"
     source: hosted
-    version: "8.0.1"
+    version: "8.0.2"
   flex_seed_scheme:
     dependency: transitive
     description:
@@ -1626,10 +1626,10 @@ packages:
     dependency: transitive
     description:
       name: win32
-      sha256: "84ba388638ed7a8cb3445a320c8273136ab2631cd5f2c57888335504ddab1bc2"
+      sha256: "8b338d4486ab3fbc0ba0db9f9b4f5239b6697fcee427939a40e720cbb9ee0a69"
       url: "https://pub.dev"
     source: hosted
-    version: "5.8.0"
+    version: "5.9.0"
   win32_registry:
     dependency: transitive
     description:

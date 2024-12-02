@@ -24,7 +24,7 @@
     "sharp": "^0.33.5",
     "typescript": "^5.7.2"
   },
-  "packageManager": "pnpm@9.14.2",
+  "packageManager": "pnpm@9.14.4",
   "devDependencies": {
     "sass": "^1.81.0"
   }
