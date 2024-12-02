@@ -55,6 +55,11 @@ class _ConstraintsViewState extends State<ConstraintsView> {
         ),
       _ => null,
     };
+    final all = Map.fromEntries([
+      const FixedElementConstraints(0, 0),
+      const ScaledElementConstraints(scaleX: 1, scaleY: 1),
+      const DynamicElementConstraints()
+    ].map((e) => MapEntry(e.getLocalizedName(context), e)));
     return ExpansionPanelList(
       expansionCallback: (panelIndex, isExpanded) => setState(() {
         opened = isExpanded;
@@ -70,30 +75,20 @@ class _ConstraintsViewState extends State<ConstraintsView> {
                 onTap: () => setState(() {
                   opened = !isExpanded;
                 }),
-                trailing: DropdownButton<String>(
-                  items: [
-                    ...[
-                      const FixedElementConstraints(0, 0),
-                      const ScaledElementConstraints(scaleX: 1, scaleY: 1),
-                      const DynamicElementConstraints()
-                    ].map((e) => DropdownMenuItem(
-                          value: e.runtimeType.toString(),
-                          child: Text(
-                            e.getLocalizedName(context),
-                            maxLines: 2,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                          onTap: () {
-                            setState(() {
-                              constraints = e;
-                              opened = false;
-                            });
-                            _onChanged(e);
-                          },
-                        ))
-                  ],
-                  value: constraints?.runtimeType.toString(),
-                  onChanged: (value) {},
+                trailing: DropdownMenu<String>(
+                  dropdownMenuEntries: all.entries
+                      .map((e) => DropdownMenuEntry(
+                            value: e.key,
+                            label: e.key,
+                          ))
+                      .toList(),
+                  initialSelection: constraints.getLocalizedName(context),
+                  onSelected: (value) {
+                    final constraint = all[value];
+                    if (constraint != null) {
+                      _onChanged(constraint);
+                    }
+                  },
                 ),
               ),
             ],

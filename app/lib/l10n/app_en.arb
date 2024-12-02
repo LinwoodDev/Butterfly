@@ -636,5 +636,7 @@
   },
   "colorToolbar": "Color toolbar",
   "yesButShowButtons": "Yes, but show buttons",
-  "optionsPanelPosition": "Options panel position"
+  "optionsPanelPosition": "Options panel position",
+  "hideDuration": "Hide duration",
+  "animation": "Animation"
 }

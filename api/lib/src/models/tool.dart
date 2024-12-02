@@ -39,6 +39,8 @@ enum ImportType { image, camera, svg, pdf, document, markdown, xopp }
 
 enum SelectMode { rectangle, lasso }
 
+enum LaserAnimation { fade, path }
+
 @Freezed(equal: false)
 sealed class Tool with _$Tool {
   Tool._();
@@ -123,9 +125,11 @@ sealed class Tool with _$Tool {
     @Default('') String name,
     @Default('') String displayIcon,
     @Default(5) double duration,
+    @Default(0.5) double hideDuration,
     @Default(5) double strokeWidth,
     @Default(0.4) double thinning,
     @Default(BasicColors.red) int color,
+    @Default(LaserAnimation.fade) LaserAnimation animation,
   }) = LaserTool;
 
   factory Tool.shape({

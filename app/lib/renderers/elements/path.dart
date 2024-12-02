@@ -34,6 +34,7 @@ abstract class PathRenderer<T extends PadElement> extends Renderer<T> {
       NoteData document, AssetService assetService, DocumentPage page) {
     final current = element as PathElement;
     final points = current.points;
+    if (points.isEmpty) return null;
     final property = current.property;
     var topLeftCorner = points.first.toOffset();
     var bottomRightCorner = points.first.toOffset();
@@ -68,8 +69,8 @@ abstract class PathRenderer<T extends PadElement> extends Renderer<T> {
       [ColorScheme? colorScheme, bool foreground = false]) {
     final current = element as PathElement;
     final points = current.points;
-    final paint = buildPaint(page, foreground);
     if (points.isEmpty) return;
+    final paint = buildPaint(page, foreground);
     if (paint.style == PaintingStyle.fill) {
       final path = Path();
       final first = points.first;

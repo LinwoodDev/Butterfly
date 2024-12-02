@@ -561,8 +561,7 @@ class _MainBody extends StatelessWidget {
                                         currentIndex.hideUi ==
                                             HideState.visible)
                                       toolbar,
-                                    if ((optPos == OptionsPanelPosition.top ||
-                                            isMobile) &&
+                                    if (optPos == OptionsPanelPosition.top &&
                                         currentIndex.hideUi ==
                                             HideState.visible)
                                       const ToolbarView(),
@@ -604,7 +603,6 @@ class _MainBody extends StatelessWidget {
                                       ),
                                     ),
                                     if (optPos == OptionsPanelPosition.bottom &&
-                                        !isMobile &&
                                         currentIndex.hideUi ==
                                             HideState.visible)
                                       const ToolbarView(),

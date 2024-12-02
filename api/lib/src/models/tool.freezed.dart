@@ -1560,9 +1560,11 @@ abstract class _$$LaserToolImplCopyWith<$Res> implements $ToolCopyWith<$Res> {
       {String name,
       String displayIcon,
       double duration,
+      double hideDuration,
       double strokeWidth,
       double thinning,
-      int color});
+      int color,
+      LaserAnimation animation});
 }
 
 /// @nodoc
@@ -1581,9 +1583,11 @@ class __$$LaserToolImplCopyWithImpl<$Res>
     Object? name = null,
     Object? displayIcon = null,
     Object? duration = null,
+    Object? hideDuration = null,
     Object? strokeWidth = null,
     Object? thinning = null,
     Object? color = null,
+    Object? animation = null,
   }) {
     return _then(_$LaserToolImpl(
       name: null == name
@@ -1598,6 +1602,10 @@ class __$$LaserToolImplCopyWithImpl<$Res>
           ? _value.duration
           : duration // ignore: cast_nullable_to_non_nullable
               as double,
+      hideDuration: null == hideDuration
+          ? _value.hideDuration
+          : hideDuration // ignore: cast_nullable_to_non_nullable
+              as double,
       strokeWidth: null == strokeWidth
           ? _value.strokeWidth
           : strokeWidth // ignore: cast_nullable_to_non_nullable
@@ -1610,6 +1618,10 @@ class __$$LaserToolImplCopyWithImpl<$Res>
           ? _value.color
           : color // ignore: cast_nullable_to_non_nullable
               as int,
+      animation: null == animation
+          ? _value.animation
+          : animation // ignore: cast_nullable_to_non_nullable
+              as LaserAnimation,
     ));
   }
 }
@@ -1621,9 +1633,11 @@ class _$LaserToolImpl extends LaserTool {
       {this.name = '',
       this.displayIcon = '',
       this.duration = 5,
+      this.hideDuration = 0.5,
       this.strokeWidth = 5,
       this.thinning = 0.4,
       this.color = BasicColors.red,
+      this.animation = LaserAnimation.fade,
       final String? $type})
       : $type = $type ?? 'laser',
         super._();
@@ -1642,6 +1656,9 @@ class _$LaserToolImpl extends LaserTool {
   final double duration;
   @override
   @JsonKey()
+  final double hideDuration;
+  @override
+  @JsonKey()
   final double strokeWidth;
   @override
   @JsonKey()
@@ -1649,13 +1666,16 @@ class _$LaserToolImpl extends LaserTool {
   @override
   @JsonKey()
   final int color;
+  @override
+  @JsonKey()
+  final LaserAnimation animation;
 
   @JsonKey(name: 'type')
   final String $type;
 
   @override
   String toString() {
-    return 'Tool.laser(name: $name, displayIcon: $displayIcon, duration: $duration, strokeWidth: $strokeWidth, thinning: $thinning, color: $color)';
+    return 'Tool.laser(name: $name, displayIcon: $displayIcon, duration: $duration, hideDuration: $hideDuration, strokeWidth: $strokeWidth, thinning: $thinning, color: $color, animation: $animation)';
   }
 
   /// Create a copy of Tool
@@ -1679,9 +1699,11 @@ abstract class LaserTool extends Tool {
       {final String name,
       final String displayIcon,
       final double duration,
+      final double hideDuration,
       final double strokeWidth,
       final double thinning,
-      final int color}) = _$LaserToolImpl;
+      final int color,
+      final LaserAnimation animation}) = _$LaserToolImpl;
   LaserTool._() : super._();
 
   factory LaserTool.fromJson(Map<String, dynamic> json) =
@@ -1692,9 +1714,11 @@ abstract class LaserTool extends Tool {
   @override
   String get displayIcon;
   double get duration;
+  double get hideDuration;
   double get strokeWidth;
   double get thinning;
   int get color;
+  LaserAnimation get animation;
 
   /// Create a copy of Tool
   /// with the given fields replaced by the non-null parameter values.

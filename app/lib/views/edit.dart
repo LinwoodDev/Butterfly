@@ -192,6 +192,8 @@ class _EditToolbarState extends State<EditToolbar> {
               physics: const NeverScrollableScrollPhysics(),
               crossAxisCount: settings.toolbarRows,
               childAspectRatio: 1,
+              itemDragEnable: (index) => index != tools.length,
+              buildDefaultDragHandles: false,
               children: List.generate(
                 tools.length + 1,
                 (i) {
@@ -247,34 +249,23 @@ class _EditToolbarState extends State<EditToolbar> {
                         ),
                       ),
                     );
-                    return GestureDetector(
-                      onLongPress: () {},
-                      onLongPressStart: (_) {},
-                      onLongPressMoveUpdate: (_) {},
-                      onLongPressEnd: (_) {},
-                      onLongPressUp: () {},
-                      onLongPressDown: (_) {},
-                      onLongPressCancel: () {},
-                      onScaleStart: (_) {},
-                      onScaleUpdate: (_) {},
-                      onScaleEnd: (_) {},
-                      key: const Key('add'),
-                      child: direction == Axis.horizontal
-                          ? Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                const VerticalDivider(),
-                                Expanded(child: add),
-                              ],
-                            )
-                          : Column(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                const Divider(),
-                                Expanded(child: add),
-                              ],
-                            ),
-                    );
+                    return direction == Axis.horizontal
+                        ? Row(
+                            mainAxisSize: MainAxisSize.min,
+                            key: const Key('add-row'),
+                            children: [
+                              const VerticalDivider(),
+                              Expanded(child: add),
+                            ],
+                          )
+                        : Column(
+                            mainAxisSize: MainAxisSize.min,
+                            key: const Key('add-column'),
+                            children: [
+                              const Divider(),
+                              Expanded(child: add),
+                            ],
+                          );
                   }
                   var e = tools[i];
                   final selected = i == currentIndex.index;
@@ -353,7 +344,7 @@ class _EditToolbarState extends State<EditToolbar> {
                                   .changeSelection(e, true);
                             }
                           }));
-                  return ReorderableDelayedDragStartListener(
+                  return ReorderableGridDelayedDragStartListener(
                     index: i,
                     key: ObjectKey(i),
                     enabled: selected || highlighted,

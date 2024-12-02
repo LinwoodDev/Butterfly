@@ -49,6 +49,46 @@ class LaserToolSelection extends ToolSelection<LaserTool> {
           selected.map((e) => e.copyWith(duration: value)).toList(),
         ),
       ),
+      ExactSlider(
+        value: selected.first.hideDuration,
+        min: 0.1,
+        max: 2,
+        defaultValue: 0.5,
+        header: Text(AppLocalizations.of(context).hideDuration),
+        onChangeEnd: (value) => update(
+          context,
+          selected.map((e) => e.copyWith(hideDuration: value)).toList(),
+        ),
+      ),
+      ListTile(
+        title: Text(AppLocalizations.of(context).animation),
+        trailing: DropdownMenu<LaserAnimation>(
+          dropdownMenuEntries: LaserAnimation.values
+              .map(
+                (e) => DropdownMenuEntry(
+                  value: e,
+                  label: switch (e) {
+                    LaserAnimation.fade => AppLocalizations.of(context).color,
+                    LaserAnimation.path => AppLocalizations.of(context).path,
+                  },
+                  leadingIcon: Icon(switch (e) {
+                    LaserAnimation.fade => PhosphorIconsLight.palette,
+                    LaserAnimation.path => PhosphorIconsLight.path,
+                  }),
+                ),
+              )
+              .toList(),
+          initialSelection: selected.first.animation,
+          onSelected: (value) {
+            if (value != null) {
+              update(
+                context,
+                selected.map((e) => e.copyWith(animation: value)).toList(),
+              );
+            }
+          },
+        ),
+      ),
       const SizedBox(height: 15),
     ];
   }

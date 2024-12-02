@@ -98,6 +98,9 @@ Read more here: https://linwood.dev/butterfly/2.2.1-rc.0
 This is a stable release, it includes all the changes from the 2.2 nightly release.
 Read more here: https://linwood.dev/butterfly/2.2
 
+<details>
+ <summary>2.2 Nightly Changelog</summary>
+
 ## 2.2.0-rc.3 (2024-09-26)
 
 * Rebuild baking system to support multiple layers
@@ -216,6 +219,8 @@ Read more here: https://linwood.dev/butterfly/2.2.0-beta.1
 
 Read more here: https://linwood.dev/butterfly/2.2.0-beta.0
 
+</details>
+
 ## 2.1.1 (2024-06-10)
 
 Nothing changed from the nightly build to the stable release.
@@ -281,6 +286,9 @@ Read more here: https://linwood.dev/butterfly/2.1.1-rc.0
 Nothing changed from the nightly build to the stable release.
 
 See all changes since the last stable here: https://linwood.dev/butterfly/2.1
+
+<details>
+ <summary>2.1 Nightly Changelog</summary>
 
 ## 2.1.0-rc.3 (2024-05-07)
 
@@ -461,6 +469,8 @@ Read more here: https://linwood.dev/butterfly/2.1.0-beta.1
 * Fix png export
 
 Read more here: https://linwood.dev/butterfly/2.1.0-beta.0
+
+</details>
 
 ## 2.0.3 (2024-02-19)
 
