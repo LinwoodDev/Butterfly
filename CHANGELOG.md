@@ -2,6 +2,22 @@
 
 <!--ENTER CHANGELOG HERE-->
 
+## 2.2.3-rc.0 (2024-12-02)
+
+* Add toggle for color toolbar ([#611](https://github.com/LinwoodDev/Butterfly/issues/611))
+* Add save button indicator for autosave ([#757](https://github.com/LinwoodDev/Butterfly/issues/757))
+* Add duplicate layer button
+* Add tool options panel position
+* Add path laser animation
+* Separate laser duration in normal duration and hide duration
+* Use long press to move tools on all platforms to improve desktop touch behavior
+* Use sha checksum for assets
+* Update dropdown buttons in shape and constraints to material 3
+* Separate personalization settings in new view settings
+* Fix webdav on windows
+
+Read more here: https://linwood.dev/butterfly/2.2.3-rc.0
+
 ## 2.2.2 (2024-11-11)
 
 * Fix loading screen showing after error
