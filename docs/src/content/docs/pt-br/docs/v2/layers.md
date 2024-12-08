@@ -2,10 +2,10 @@
 title: Camadas
 ---
 
-Layers are an option to separate elements from another.
-The first layer from top will be rendered last (and would be shown above everything).
+Camadas são um jeito de agrupar elementos em conjunto.
+A primeira camada a partir de cima é renderizada por último (e, portanto, é exibida sobre todas as outras).
 
-Do not confuse the layer feature with the collection feature. The earlier layer system was renamed to collections and doesn't change the renderer priority and are lightweight to group some elements together. Read more about them [here](../tools/collection).
+Não confunda o recurso de camada com a função coleção. O sistema anterior de camadas foi renomeado para coleções e não altera a prioridade do renderizador (ou seja, a ordem de exibição); é apenas uma maneira simples e rápida para agrupar alguns elementos. Leia mais sobre eles [aqui](../tools/collection).
 
 ## Diálogo de camadas
 
