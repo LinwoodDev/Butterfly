@@ -11,11 +11,11 @@ Adicione o seguinte código ao seu site:
 
 ## Opções
 
-| Alternativa | tipo                                                                                              | Padrão | Descrição                                                                                                                                                                      |
-| ----------- | ------------------------------------------------------------------------------------------------- | ------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| salvar      | Boolean (true, false)                                                          | true   | Habilitar salvamento. Se desativado, somente um botão de saída será mostrado                                                                                   |
-| editable    | Boolean (true, false)                                                          | true   | Habilitar edição. Se desativado, o documento será somente leitura                                                                                              |
-| iDIOMA      | String (..., sistema, usuário) | system | Idioma do documento. Se o sistema, o idioma será detectado do navegador. Se o usuário, o idioma será ajustado para as preferências de usuários |
+| Alternativa | Tipo                                                                                              | Default | Descrição                                                                                                                                                                      |
+| ----------- | ------------------------------------------------------------------------------------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| save        | Boolean (true, false)                                                          | true    | Habilitar salvamento. Se desativado, somente um botão de saída será mostrado                                                                                   |
+| editable    |                                                                                                   | true    | Habilitar edição. Se desativado, o documento será somente leitura                                                                                              |
+| language    | String (..., sistema, usuário) | system  | Idioma do documento. Se o sistema, o idioma será detectado do navegador. Se o usuário, o idioma será ajustado para as preferências de usuários |
 
 ## Eventos
 
@@ -30,29 +30,29 @@ embedElement.addEventListener('message', (data) => {
 });
 ```
 
-### salvar
+### save
 
-> The `save` event is emitted when the user clicks the save button.
-
-Parâmetros:
-
-- `data` (Type `List<int>`): The data of the document.
-
-### sair
-
-> The `exit` event is emitted when the user clicks the exit button.
+> O evento `save` é emitido quando o usuário clica no botão salvar.
 
 Parâmetros:
 
-- `data` (Type `List<int>`): The data of the document.
+- `data` (Tipo `List<int>`): Os dados do documento.
+
+### exit
+
+> O evento `exit` é emitido quando o usuário clica no botão de sair.
+
+Parâmetros:
+
+- `data` (Tipo `List<int>`): Os dados do documento.
 
 ### change
 
-> The `change` event is emitted when the user changes the document.
+> O evento `change` é emitido quando o usuário altera o documento.
 
 Parâmetros:
 
-- `data` (Type `List<int>`): The data of the document.
+- `data` (Tipo  `List<int>`): Os dados do documento.
 
 ## Métodos
 
@@ -70,40 +70,40 @@ embedElement.addEventListener('message', (data) => {
 
 ### getData
 
-> The `getData` method returns the data of the document.
+> O método `getData` retorna os dados do documento.
 
 Nenhum parâmetro.
-Returns: `List<int>`
+Retorna: `List<int>`
 
 ### setData
 
-> The `setData` method sets the data of the document.
+> O método `setData` define os dados do documento.
 
 Parâmetros:
 
-- `data` (Type `List<int>`): The data of the document.
+- `dados` (Tipo `List<int>`): Os dados do documento.
 
 ### render
 
-> The `render` method renders the document to a png image.
+> O método `render` renderiza o documento em uma imagem png.
 
 Parâmetros:
 
-- `width` (Type `Number`): The width of the image.
-- `height` (Type `Number`): The height of the image.
-- `scale` (Type `Number`): The scale of the image.
-- `renderBackground` (Type `Boolean`): If true, the background will be rendered.
+- `width` (Tipo  `Number`): A largura da imagem.
+- `height` (Tipo `Number`): A altura da imagem.
+- `scale` (Tipo `Number`): A escala da imagem.
+- `renderBackground` (Tipo `Boolean`): Se `true`, o plano de fundo será renderizado.
 
-Returns: `String` (Base64 encoded image)
+Retorna: `String` (imagem codificada em Base64)
 
 ### renderSVG
 
-> The `renderSVG` method renders the document to a svg image.
+> O método `renderSVG` renderiza o documento em uma imagem svg.
 
 Parâmetros:
 
-- `width` (Type `Number`): The width of the image.
-- `height` (Type `Number`): The height of the image.
-- `renderBackground` (Type `Boolean`): If true, the background will be rendered.
+- `width` (Tipo `Number`): A largura da imagem.
+- `height` (Tipo `Number`): A altura da imagem.
+- `renderBackground` (Tipo `Boolean`): Se `true`, o fundo será renderizado.
 
-Returns: `String` (SVG)
+Retorna: `String` (SVG)
