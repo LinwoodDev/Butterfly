@@ -633,5 +633,10 @@
         "example": "1"
       }
     }
-  }
+  },
+  "colorToolbar": "Barra dei colori",
+  "yesButShowButtons": "Sì, ma mostra i pulsanti",
+  "optionsPanelPosition": "Posizione pannello opzioni",
+  "hideDuration": "Nascondi durata",
+  "animation": "Animazione"
 }

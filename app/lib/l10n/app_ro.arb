@@ -633,5 +633,10 @@
         "example": "1"
       }
     }
-  }
+  },
+  "colorToolbar": "Bară de culori",
+  "yesButShowButtons": "Da, dar arată butoanele",
+  "optionsPanelPosition": "Poziția panoului de opțiuni",
+  "hideDuration": "Ascunde durata",
+  "animation": "Animaţie"
 }

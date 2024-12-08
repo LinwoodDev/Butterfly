@@ -1,6 +1,6 @@
 {
   "guides": "指南",
-  "introduction": "一. 导言",
+  "introduction": "简介",
   "areas": "地区",
   "background": "背景",
   "color_picker": "颜色选择器",
@@ -20,7 +20,7 @@
   "hand": "手",
   "path_eraser": "整笔擦除",
   "eraser": "橡皮擦",
-  "undo": "撤消操作",
+  "undo": "撤消",
   "redo": "重做",
   "shape": "形状",
   "spacer": "空格",
@@ -43,6 +43,6 @@
   "embedding": "Embedding",
   "faq": "常见问题",
   "versions": "版本",
-  "nightly": "每晚一次",
+  "nightly": "开发版",
   "privacy_policy": "隐私政策"
 }

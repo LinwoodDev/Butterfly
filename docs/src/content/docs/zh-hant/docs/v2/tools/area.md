@@ -6,7 +6,7 @@ The area tool allows you to create, edit and remove areas.
 
 ## Actions
 
-|        Mouse        |     Touch    |       Action      |
+|          滑鼠         |      觸控      |       Action      |
 | :-----------------: | :----------: | :---------------: |
 | Left click and drag | Tap and drag | Create a new area |
 |     Middle click    |  Two fingers |    Move canvas    |

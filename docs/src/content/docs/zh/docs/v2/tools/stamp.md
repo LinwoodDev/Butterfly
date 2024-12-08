@@ -7,7 +7,7 @@ The stamp tool allows you to add components to your canvas.
 
 ## 配置
 
-| 财产 | 默认设置 | 描述                         |
+| 属性 | 默认设置 | 描述                         |
 | -: | :--: | :------------------------- |
 |  包 |   无  | 组件所在的包                     |
 | 组件 |   无  | 将添加到画布的组件. |

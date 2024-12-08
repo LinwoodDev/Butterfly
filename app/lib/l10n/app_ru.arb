@@ -633,5 +633,10 @@
         "example": "1"
       }
     }
-  }
+  },
+  "colorToolbar": "Инструменты цвета",
+  "yesButShowButtons": "Да, но показать кнопки",
+  "optionsPanelPosition": "Опции позиции панели",
+  "hideDuration": "Скрыть длительность",
+  "animation": "Анимация"
 }
