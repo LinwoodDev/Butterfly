@@ -92,7 +92,7 @@ _$LabelToolImpl _$$LabelToolImplFromJson(Map json) => _$LabelToolImpl(
       displayIcon: json['displayIcon'] as String? ?? '',
       mode: $enumDecodeNullable(_$LabelModeEnumMap, json['mode']) ??
           LabelMode.text,
-      zoomDependent: json['zoomDependent'] as bool? ?? true,
+      zoomDependent: json['zoomDependent'] as bool? ?? false,
       foreground: (json['foreground'] as num?)?.toInt() ?? BasicColors.black,
       styleSheet: json['styleSheet'] == null
           ? const PackAssetLocation()
@@ -122,7 +122,7 @@ const _$LabelModeEnumMap = {
 _$PenToolImpl _$$PenToolImplFromJson(Map json) => _$PenToolImpl(
       name: json['name'] as String? ?? '',
       displayIcon: json['displayIcon'] as String? ?? '',
-      zoomDependent: json['zoomDependent'] as bool? ?? true,
+      zoomDependent: json['zoomDependent'] as bool? ?? false,
       shapeDetectionTime:
           (json['shapeDetectionTime'] as num?)?.toDouble() ?? 0.5,
       shapeDetectionEnabled: json['shapeDetectionEnabled'] as bool? ?? false,
@@ -254,7 +254,7 @@ const _$LaserAnimationEnumMap = {
 _$ShapeToolImpl _$$ShapeToolImplFromJson(Map json) => _$ShapeToolImpl(
       name: json['name'] as String? ?? '',
       displayIcon: json['displayIcon'] as String? ?? '',
-      zoomDependent: json['zoomDependent'] as bool? ?? true,
+      zoomDependent: json['zoomDependent'] as bool? ?? false,
       constrainedWidth: (json['constrainedWidth'] as num?)?.toDouble() ?? 0,
       constrainedHeight: (json['constrainedHeight'] as num?)?.toDouble() ?? 0,
       constrainedAspectRatio:
@@ -395,7 +395,7 @@ Map<String, dynamic> _$$ExportToolImplToJson(_$ExportToolImpl instance) =>
 _$TextureToolImpl _$$TextureToolImplFromJson(Map json) => _$TextureToolImpl(
       name: json['name'] as String? ?? '',
       displayIcon: json['displayIcon'] as String? ?? '',
-      zoomDependent: json['zoomDependent'] as bool? ?? true,
+      zoomDependent: json['zoomDependent'] as bool? ?? false,
       constrainedWidth: (json['constrainedWidth'] as num?)?.toDouble() ?? 0,
       constrainedHeight: (json['constrainedHeight'] as num?)?.toDouble() ?? 0,
       constrainedAspectRatio:

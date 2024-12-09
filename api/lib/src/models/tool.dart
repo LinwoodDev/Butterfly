@@ -77,7 +77,7 @@ sealed class Tool with _$Tool {
     @Default('') String name,
     @Default('') String displayIcon,
     @Default(LabelMode.text) LabelMode mode,
-    @Default(true) bool zoomDependent,
+    @Default(false) bool zoomDependent,
     @Default(BasicColors.black) int foreground,
     @Default(PackAssetLocation()) PackAssetLocation styleSheet,
     @Default(2.0) double scale,
@@ -86,7 +86,7 @@ sealed class Tool with _$Tool {
   factory Tool.pen({
     @Default('') String name,
     @Default('') String displayIcon,
-    @Default(true) bool zoomDependent,
+    @Default(false) bool zoomDependent,
     @Default(0.5) double shapeDetectionTime,
     @Default(false) bool shapeDetectionEnabled,
     @Default(PenProperty()) PenProperty property,
@@ -135,7 +135,7 @@ sealed class Tool with _$Tool {
   factory Tool.shape({
     @Default('') String name,
     @Default('') String displayIcon,
-    @Default(true) bool zoomDependent,
+    @Default(false) bool zoomDependent,
     @Default(0) double constrainedWidth,
     @Default(0) double constrainedHeight,
     @Default(0) double constrainedAspectRatio,
@@ -181,7 +181,7 @@ sealed class Tool with _$Tool {
   factory Tool.texture({
     @Default('') String name,
     @Default('') String displayIcon,
-    @Default(true) bool zoomDependent,
+    @Default(false) bool zoomDependent,
     @Default(0) double constrainedWidth,
     @Default(0) double constrainedHeight,
     @Default(0) double constrainedAspectRatio,

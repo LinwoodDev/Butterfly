@@ -1,6 +1,7 @@
 // 16:9
 const kThumbnailWidth = 640;
 const kThumbnailHeight = 360;
+const kThumbnailRatio = 16 / 9;
 
 // Archive specific
 const kMetaInfoArchiveDirectory = 'META-INF';

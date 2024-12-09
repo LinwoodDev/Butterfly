@@ -1,3 +1,10 @@
+* Improve template dialog
+  * Add override tools in context menu
+  * Add information button
+  * Add duplicate button
+  * Change create template button to save icon
+  * Improve thumbnail display to have rounded corners
+* Change zoom dependent to false by default
 * Fix zoom dependent not working correctly with the label tool ([#765](https://github.com/LinwoodDev/Butterfly/issues/765))
 
 Read more here: https://linwood.dev/butterfly/2.2.3-rc.1

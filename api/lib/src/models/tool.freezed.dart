@@ -769,7 +769,7 @@ class _$LabelToolImpl extends LabelTool {
       {this.name = '',
       this.displayIcon = '',
       this.mode = LabelMode.text,
-      this.zoomDependent = true,
+      this.zoomDependent = false,
       this.foreground = BasicColors.black,
       this.styleSheet = const PackAssetLocation(),
       this.scale = 2.0,
@@ -929,7 +929,7 @@ class _$PenToolImpl extends PenTool {
   _$PenToolImpl(
       {this.name = '',
       this.displayIcon = '',
-      this.zoomDependent = true,
+      this.zoomDependent = false,
       this.shapeDetectionTime = 0.5,
       this.shapeDetectionEnabled = false,
       this.property = const PenProperty(),
@@ -1805,7 +1805,7 @@ class _$ShapeToolImpl extends ShapeTool {
   _$ShapeToolImpl(
       {this.name = '',
       this.displayIcon = '',
-      this.zoomDependent = true,
+      this.zoomDependent = false,
       this.constrainedWidth = 0,
       this.constrainedHeight = 0,
       this.constrainedAspectRatio = 0,
@@ -2691,7 +2691,7 @@ class _$TextureToolImpl extends TextureTool {
   _$TextureToolImpl(
       {this.name = '',
       this.displayIcon = '',
-      this.zoomDependent = true,
+      this.zoomDependent = false,
       this.constrainedWidth = 0,
       this.constrainedHeight = 0,
       this.constrainedAspectRatio = 0,

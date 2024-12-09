@@ -3,9 +3,11 @@ import 'package:butterfly/actions/new.dart';
 import 'package:butterfly/api/file_system.dart';
 import 'package:butterfly/api/save.dart';
 import 'package:butterfly/cubits/settings.dart';
+import 'package:butterfly/dialogs/name.dart';
+import 'package:butterfly/visualizer/tool.dart';
 import 'package:butterfly/widgets/connection_button.dart';
+import 'package:butterfly/widgets/option_button.dart';
 import 'package:butterfly_api/butterfly_api.dart';
-import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -15,6 +17,19 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 import '../bloc/document_bloc.dart';
 import '../widgets/editable_list_tile.dart';
 import 'delete.dart';
+
+Future<void> _overrideTools(TemplateFileSystem templateSystem,
+    DocumentBloc bloc, List<NoteData> templates) async {
+  final state = bloc.state;
+  if (state is! DocumentLoaded) return;
+  final tools = state.info.tools;
+  for (var template in templates) {
+    final info = template.getInfo();
+    if (info == null) continue;
+    template = template.setInfo(info.copyWith(tools: tools));
+    await templateSystem.updateFile(template.name ?? '', template);
+  }
+}
 
 class TemplateDialog extends StatefulWidget {
   final DocumentBloc? bloc;
@@ -137,7 +152,7 @@ class _TemplateDialogState extends State<TemplateDialog> {
                 IconButton(
                   onPressed: () => _showCreateDialog(widget.bloc!),
                   tooltip: AppLocalizations.of(context).create,
-                  icon: const PhosphorIcon(PhosphorIconsLight.plus),
+                  icon: const PhosphorIcon(PhosphorIconsLight.floppyDisk),
                 )
               ],
       ],
@@ -171,7 +186,7 @@ class _TemplateDialogState extends State<TemplateDialog> {
             return _TemplateItem(
               template: template,
               fileSystem: _templateSystem,
-              replace: widget.bloc != null,
+              bloc: widget.bloc,
               selected: _selectedTemplates.contains(template.name),
               onSelected: () {
                 setState(() {
@@ -232,25 +247,15 @@ class _TemplateDialogState extends State<TemplateDialog> {
                           IconButton(
                             icon: const PhosphorIcon(PhosphorIconsLight.wrench),
                             tooltip: AppLocalizations.of(context).overrideTools,
-                            onPressed: () async {
-                              final state = widget.bloc!.state;
-                              if (state is! DocumentLoaded) return;
-                              final tools = state.info.tools;
-                              for (final name in _selectedTemplates) {
-                                var template = templates.firstWhereOrNull(
-                                    (element) => element.name == name);
-                                if (template == null) continue;
-                                final info = template.getInfo();
-                                if (info == null) continue;
-                                template = template
-                                    .setInfo(info.copyWith(tools: tools));
-                                await _templateSystem.updateFile(
-                                    name, template);
-                              }
-                              setState(() {
-                                _selectedTemplates.clear();
-                              });
-                            },
+                            onPressed: () => _overrideTools(
+                                    _templateSystem,
+                                    widget.bloc!,
+                                    templates
+                                        .where((element) => _selectedTemplates
+                                            .contains(element.name))
+                                        .toList())
+                                .then((value) =>
+                                    setState(() => _selectedTemplates.clear())),
                           ),
                         IconButton(
                           icon: const PhosphorIcon(PhosphorIconsLight.trash),
@@ -344,15 +349,16 @@ class _TemplateDialogState extends State<TemplateDialog> {
 class _TemplateItem extends StatelessWidget {
   final NoteData template;
   final TemplateFileSystem fileSystem;
+  final DocumentBloc? bloc;
   final VoidCallback onChanged, onSelected, onUnselected;
-  final bool replace, selected;
+  final bool selected;
 
   const _TemplateItem({
     required this.template,
     required this.fileSystem,
     required this.onChanged,
-    required this.replace,
     required this.selected,
+    this.bloc,
     required this.onSelected,
     required this.onUnselected,
   });
@@ -363,14 +369,28 @@ class _TemplateItem extends StatelessWidget {
     final settings = settingsCubit.state;
     final isDefault = settings.defaultTemplate == template.name;
     final metadata = template.getMetadata();
+    final info = template.getInfo();
     if (metadata == null) {
       return const SizedBox();
     }
     final thumbnail = template.getThumbnail();
-    const leading = PhosphorIcon(
+    const fallback = PhosphorIcon(
       PhosphorIconsLight.file,
       size: 48,
     );
+    final leading = thumbnail != null
+        ? AspectRatio(
+            aspectRatio: kThumbnailRatio,
+            child: ClipRRect(
+                borderRadius: BorderRadius.circular(12),
+                child: Image.memory(
+                  thumbnail,
+                  fit: BoxFit.cover,
+                  cacheHeight: kThumbnailWidth,
+                  cacheWidth: kThumbnailHeight,
+                )),
+          )
+        : fallback;
     return EditableListTile(
       initialValue: metadata.name,
       subtitle: Text(metadata.description),
@@ -378,6 +398,7 @@ class _TemplateItem extends StatelessWidget {
         height: 64,
         width: 96,
         child: Row(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Checkbox(
               value: selected,
@@ -390,17 +411,7 @@ class _TemplateItem extends StatelessWidget {
               },
             ),
             const SizedBox(width: 8),
-            Expanded(
-              child: thumbnail != null
-                  ? Image.memory(
-                      thumbnail,
-                      fit: BoxFit.contain,
-                      cacheWidth: 64,
-                      cacheHeight: 64,
-                      errorBuilder: (context, error, stackTrace) => leading,
-                    )
-                  : leading,
-            ),
+            Flexible(child: leading),
           ],
         ),
       ),
@@ -421,6 +432,79 @@ class _TemplateItem extends StatelessWidget {
             onChanged();
           },
         ),
+        if (bloc != null)
+          MenuItemButton(
+            leadingIcon: const PhosphorIcon(PhosphorIconsLight.trash),
+            child: Text(AppLocalizations.of(context).delete),
+            onPressed: () async {
+              _overrideTools(fileSystem, bloc!, [template]);
+            },
+          ),
+        MenuItemButton(
+          leadingIcon: const PhosphorIcon(PhosphorIconsLight.copy),
+          child: Text(AppLocalizations.of(context).duplicate),
+          onPressed: () async {
+            final result = await showDialog<String>(
+                context: context, builder: (ctx) => NameDialog(
+                  value: template.name,
+                ));
+            if (result == null) return;
+            if (context.mounted) {
+              await fileSystem.createFileWithName(template.setMetadata(metadata.copyWith(name: result)), name: result);
+              onChanged();
+            }
+          },
+        ),
+        MenuItemButton(
+          leadingIcon: const PhosphorIcon(PhosphorIconsLight.info),
+          child: Text(AppLocalizations.of(context).information),
+          onPressed: () async {
+            showLeapBottomSheet(
+              context: context,
+              titleBuilder: (context) => Text(metadata.name),
+              leadingBuilder: (context) => Center(child: leading),
+              leadingWidth: 128,
+              childrenBuilder: (context) => [
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Card.filled(
+                      child: Padding(
+                    padding: EdgeInsets.all(2),
+                    child: Column(children: [
+                      if (metadata.description.isNotEmpty)
+                        ListTile(
+                          title: Text(AppLocalizations.of(context).description),
+                          subtitle: Text(metadata.description),
+                        ),
+                      if (metadata.directory.isNotEmpty)
+                        ListTile(
+                          title: Text(AppLocalizations.of(context).directory),
+                          subtitle: Text(metadata.directory),
+                        ),
+                      ListTile(
+                        title: Text(AppLocalizations.of(context).tools),
+                        subtitle: Wrap(
+                          alignment: WrapAlignment.center,
+                          children: [
+                            for (final tool in info?.tools ?? <Tool>[])
+                              SizedBox.square(
+                                dimension: 64,
+                                child: OptionButton(
+                                  icon:
+                                      Icon(tool.icon(PhosphorIconsStyle.light)),
+                                  tooltip: tool.name,
+                                ),
+                              ),
+                          ],
+                        ),
+                      ),
+                    ]),
+                  )),
+                )
+              ],
+            );
+          },
+        ),
         MenuItemButton(
           leadingIcon: const PhosphorIcon(PhosphorIconsLight.trash),
           child: Text(AppLocalizations.of(context).delete),
@@ -436,7 +520,7 @@ class _TemplateItem extends StatelessWidget {
         ),
       ],
       onTap: () => openNewDocument(
-          context, replace, template, fileSystem.storage?.identifier),
+          context, bloc != null, template, fileSystem.storage?.identifier),
     );
   }
 }

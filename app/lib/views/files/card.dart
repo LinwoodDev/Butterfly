@@ -27,7 +27,7 @@ class AssetCard extends StatelessWidget {
     return ConstrainedBox(
         constraints: BoxConstraints(maxHeight: height),
         child: AspectRatio(
-          aspectRatio: 16 / 9,
+          aspectRatio: kThumbnailRatio,
           child: Card(
             elevation: 5,
             clipBehavior: Clip.hardEdge,
