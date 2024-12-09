@@ -14,9 +14,9 @@
     "@astrojs/react": "^3.6.3",
     "@astrojs/starlight": "^0.29.2",
     "@phosphor-icons/react": "^2.1.7",
-    "@types/react": "^18.3.12",
-    "@types/react-dom": "^18.3.1",
-    "astro": "^4.16.16",
+    "@types/react": "^18.3.14",
+    "@types/react-dom": "^18.3.2",
+    "astro": "^4.16.17",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "remark-gemoji": "^8.0.0",
@@ -26,6 +26,6 @@
   },
   "packageManager": "pnpm@9.14.4",
   "devDependencies": {
-    "sass": "^1.81.0"
+    "sass": "^1.82.0"
   }
 }

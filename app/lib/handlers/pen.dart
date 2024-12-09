@@ -106,7 +106,7 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
     elements[pointer] = element.copyWith(
         points: List<PathPoint>.from(element.points)
           ..add(PathPoint.fromPoint(
-              globalPos.toPoint(), (createNew ? 0 : pressure) / zoom)));
+              globalPos.toPoint(), (createNew ? 0 : pressure))));
     if (refresh) bloc.refresh();
   }
 
