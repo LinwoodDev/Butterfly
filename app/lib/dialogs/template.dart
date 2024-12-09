@@ -445,12 +445,15 @@ class _TemplateItem extends StatelessWidget {
           child: Text(AppLocalizations.of(context).duplicate),
           onPressed: () async {
             final result = await showDialog<String>(
-                context: context, builder: (ctx) => NameDialog(
-                  value: template.name,
-                ));
+                context: context,
+                builder: (ctx) => NameDialog(
+                      value: template.name,
+                    ));
             if (result == null) return;
             if (context.mounted) {
-              await fileSystem.createFileWithName(template.setMetadata(metadata.copyWith(name: result)), name: result);
+              await fileSystem.createFileWithName(
+                  template.setMetadata(metadata.copyWith(name: result)),
+                  name: result);
               onChanged();
             }
           },
