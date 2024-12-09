@@ -633,5 +633,10 @@
         "example": "1"
       }
     }
-  }
+  },
+  "colorToolbar": "Kolor paska narzędzi",
+  "yesButShowButtons": "Tak, ale pokaż przyciski",
+  "optionsPanelPosition": "Pozycja panelu opcji",
+  "hideDuration": "Ukryj czas trwania",
+  "animation": "Animacja"
 }
