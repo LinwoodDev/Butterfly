@@ -25,7 +25,7 @@ jobs:
         with:
           java-version: "17"
           distribution: "temurin"
-      - uses: subosito/flutter-action@v2.17.0
+      - uses: subosito/flutter-action@v2.18.0
         with:
           flutter-version-file: app/pubspec.yaml
       - name: 📦 Get dependencies
@@ -97,7 +97,7 @@ jobs:
         uses: actions/checkout@v4
       - name: Make yq tool available on Windows runners
         run: choco install yq
-      - uses: subosito/flutter-action@v2.17.0
+      - uses: subosito/flutter-action@v2.18.0
         with:
           flutter-version-file: app/pubspec.yaml
       - name: ✅ Enable platforms
@@ -171,7 +171,7 @@ jobs:
             libsecret-1-dev \
             libjsoncpp-dev \
             rpm
-      - uses: subosito/flutter-action@v2.17.0
+      - uses: subosito/flutter-action@v2.18.0
         with:
           flutter-version-file: app/pubspec.yaml
       - name: ✅ Enable platforms
@@ -277,7 +277,7 @@ jobs:
             alien \
             libsecret-1-dev \
             libjsoncpp-dev
-      - uses: subosito/flutter-action@v2.17.0
+      - uses: subosito/flutter-action@v2.18.0
         with:
           flutter-version-file: app/pubspec.yaml
       - name: ✅ Enable platforms
@@ -336,7 +336,7 @@ jobs:
     steps:
       - name: ⬆️ Checkout
         uses: actions/checkout@v4
-      - uses: subosito/flutter-action@v2.17.0
+      - uses: subosito/flutter-action@v2.18.0
         with:
           flutter-version-file: app/pubspec.yaml
       - uses: actions/setup-python@v5
@@ -388,7 +388,7 @@ jobs:
     steps:
       - name: ⬆️ Checkout
         uses: actions/checkout@v4
-      - uses: subosito/flutter-action@v2.17.0
+      - uses: subosito/flutter-action@v2.18.0
         with:
           flutter-version-file: app/pubspec.yaml
       - name: 📦 Get dependencies
@@ -645,7 +645,7 @@ jobs:
         with:
           java-version: "17"
           distribution: "temurin"
-      - uses: subosito/flutter-action@v2.17.0
+      - uses: subosito/flutter-action@v2.18.0
         with:
           flutter-version-file: app/pubspec.yaml
       - name: 📦 Get dependencies
