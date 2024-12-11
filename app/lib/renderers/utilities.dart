@@ -86,7 +86,7 @@ class UtilitiesRenderer extends Renderer<UtilitiesState> {
 
       // Paint ruler background
       canvas.save();
-      canvas.translate(-transform.position.dx, -transform.position.dy);
+      canvas.translate(transform.position.dx, transform.position.dy);
       canvas.scale(1 / transform.size, 1 / transform.size);
       canvas.translate(size.width / 2 + element.rulerPosition.x,
           size.height / 2 + element.rulerPosition.y);

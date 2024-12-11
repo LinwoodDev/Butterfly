@@ -8,6 +8,7 @@
 * Fix export on web
 * Fix shape detection always enabled in pen tool
 * Fix ruler not working correctly in pen tool
+* Fix ruler position is wrong when moving on the canvas
 * Fix zoom dependent not working correctly with the label tool ([#765](https://github.com/LinwoodDev/Butterfly/issues/765))
 
 Read more here: https://linwood.dev/butterfly/2.2.3-rc.1
