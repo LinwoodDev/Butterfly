@@ -58,9 +58,9 @@ Future<void> main([List<String> args = const []]) async {
   Object? initialExtra;
   if (result.arguments.isNotEmpty && !kIsWeb) {
     var path = result.arguments[0].replaceAll('\\', '/');
-    var file = File(path);
+    final file = File(path);
     if (await file.exists()) {
-      var directory = Directory(await getButterflyDocumentsDirectory());
+      final directory = Directory(await getButterflyDocumentsDirectory());
       // Test if file is in directory
       if (file.path.startsWith(directory.path)) {
         // Relative path

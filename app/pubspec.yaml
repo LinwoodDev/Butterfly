@@ -49,7 +49,6 @@ dependencies:
   window_manager: ^0.4.0
   flex_color_scheme: ^8.0.0
   json_annotation: ^4.9.0
-  path: ^1.8.3
   printing: ^5.13.1
   pdf: ^3.10.8
   http: ^1.2.1
@@ -72,7 +71,7 @@ dependencies:
   material_leap:
     git:
       url: https://github.com/LinwoodDev/dart_pkgs
-      ref: b01f6a3bf0e4e72a9c6e312d31bfa2f1d235d899
+      ref: f29b1ae0e338ec155e1c5b0a204c399232904540
       path: packages/material_leap
   lw_sysapi:
     git:
@@ -103,9 +102,8 @@ dependencies:
   one_dollar_unistroke_recognizer: ^1.2.0
   super_clipboard: ^0.9.0-dev.4
   web: ^1.0.0
-  crypto: ^3.0.6
 dev_dependencies:
-  flutter_native_splash: ^2.4.0
+  #flutter_native_splash: ^2.4.0
   flutter_lints: ^5.0.0
   flutter_test:
     sdk: flutter
@@ -113,7 +111,6 @@ dev_dependencies:
     sdk: flutter
   build_runner: ^2.4.9
   json_serializable: ^6.7.1
-  espresso: ^0.4.0
   freezed: ^2.5.2
 dependency_overrides:
   flutter_secure_storage_web:

@@ -30,14 +30,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.11"
-  ansicolor:
-    dependency: transitive
-    description:
-      name: ansicolor
-      sha256: "50e982d500bc863e1d703448afdbf9e5a72eb48840a4f766fa361ffd6877055f"
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.0.3"
   archive:
     dependency: "direct main"
     description:
@@ -294,21 +286,13 @@ packages:
     source: hosted
     version: "0.3.4+2"
   crypto:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: crypto
       sha256: "1e445881f28f22d6140f181e07737b22f1e099a5e1ff94b0af2f9e4a463f4855"
       url: "https://pub.dev"
     source: hosted
     version: "3.0.6"
-  csslib:
-    dependency: transitive
-    description:
-      name: csslib
-      sha256: "09bad715f418841f976c77db72d5398dc1253c21fb9c0c7f0b0b985860b2d58e"
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.0.2"
   dart_leap:
     dependency: transitive
     description:
@@ -374,14 +358,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.7"
-  espresso:
-    dependency: "direct dev"
-    description:
-      name: espresso
-      sha256: cbf1b4c38c9a60ec77a2b24346155918141b15bca92f308c0246e76cdf43450b
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.4.0+3"
   fake_async:
     dependency: transitive
     description:
@@ -533,14 +509,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.5"
-  flutter_native_splash:
-    dependency: "direct dev"
-    description:
-      name: flutter_native_splash
-      sha256: "1152ab0067ca5a2ebeb862fe0a762057202cceb22b7e62692dcbabf6483891bb"
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.4.3"
   flutter_plugin_android_lifecycle:
     dependency: transitive
     description:
@@ -669,14 +637,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.3.2"
-  html:
-    dependency: transitive
-    description:
-      name: html
-      sha256: "1fc58edeaec4307368c60d59b7e15b9d658b57d7f3125098b6294153c75337ec"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.15.5"
   http:
     dependency: "direct main"
     description:
@@ -881,8 +841,8 @@ packages:
     dependency: "direct main"
     description:
       path: "packages/material_leap"
-      ref: b01f6a3bf0e4e72a9c6e312d31bfa2f1d235d899
-      resolved-ref: b01f6a3bf0e4e72a9c6e312d31bfa2f1d235d899
+      ref: f29b1ae0e338ec155e1c5b0a204c399232904540
+      resolved-ref: f29b1ae0e338ec155e1c5b0a204c399232904540
       url: "https://github.com/LinwoodDev/dart_pkgs"
     source: git
     version: "0.0.1"
@@ -969,7 +929,7 @@ packages:
     source: hosted
     version: "3.0.1"
   path:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: path
       sha256: "087ce49c3f0dc39180befefc60fdb4acd8f8620e5682fe2476afd0b3688bb4af"
@@ -1463,14 +1423,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.4.0"
-  universal_io:
-    dependency: transitive
-    description:
-      name: universal_io
-      sha256: "1722b2dcc462b4b2f3ee7d188dad008b6eb4c40bbd03a3de451d82c78bba9aad"
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.2.2"
   url_launcher:
     dependency: "direct main"
     description:

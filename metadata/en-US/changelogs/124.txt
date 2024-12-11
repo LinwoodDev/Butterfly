@@ -4,6 +4,8 @@
   * Add duplicate button
   * Change create template button to save icon
   * Improve thumbnail display to have rounded corners
+* Add color wheel to color picker
+* Improve responsiveness of exact slider
 * Change zoom dependent to false by default
 * Fix export on web
 * Fix shape detection always enabled in pen tool
