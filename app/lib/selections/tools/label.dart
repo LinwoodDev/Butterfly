@@ -12,12 +12,15 @@ class LabelToolSelection extends ToolSelection<LabelTool> {
       ...super.buildProperties(context),
       ColorField(
         value: Color(selected.first.foreground),
-        onChanged: (value) => update(context,
+        onChanged: (value) => update(
+            context,
+            // ignore: deprecated_member_use
             selected.map((e) => e.copyWith(foreground: value.value)).toList()),
         title: Text(AppLocalizations.of(context).foreground),
       ),
       ExactSlider(
         header: Text(AppLocalizations.of(context).alpha),
+        // ignore: deprecated_member_use
         value: Color(selected.first.foreground).alpha.toDouble(),
         defaultValue: 255,
         min: 0,
@@ -28,6 +31,7 @@ class LabelToolSelection extends ToolSelection<LabelTool> {
             selected
                 .map((e) => e.copyWith(
                     foreground:
+                        // ignore: deprecated_member_use
                         Color(e.foreground).withAlpha(value.toInt()).value))
                 .toList()),
       ),

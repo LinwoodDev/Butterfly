@@ -108,11 +108,10 @@ class ElementSelection<T extends PadElement> extends Selection<Renderer<T>> {
     update(context, renderers);
   }
 
-  Rect? get rect =>
-      _expandRects(selected.map((e) => e.rect).whereNotNull().toList());
+  Rect? get rect => _expandRects(selected.map((e) => e.rect).nonNulls.toList());
 
   Rect? get expandedRect =>
-      _expandRects(selected.map((e) => e.expandedRect).whereNotNull().toList());
+      _expandRects(selected.map((e) => e.expandedRect).nonNulls.toList());
 
   Rect? _expandRects(List<Rect> rects) {
     var rect = rects.firstOrNull;
@@ -130,7 +129,7 @@ class ElementSelection<T extends PadElement> extends Selection<Renderer<T>> {
     final bloc = context.read<DocumentBloc>();
     final state = bloc.state;
     if (state is! DocumentLoadSuccess) return;
-    final ids = selected.map((r) => r.element.id).whereNotNull().toList();
+    final ids = selected.map((r) => r.element.id).nonNulls.toList();
     context.read<DocumentBloc>().add(ElementsRemoved(ids));
   }
 

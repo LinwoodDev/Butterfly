@@ -90,7 +90,7 @@ class SpacerHandler extends Handler<SpacerTool> {
                 );
               },
             )
-            .whereNotNull()
+            .nonNulls
             .toList() ??
         []);
     _startPosition = null;

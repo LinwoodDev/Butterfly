@@ -53,6 +53,7 @@ class _TextStyleViewState extends State<TextStyleView> {
                         widget.onChanged(widget.value.copyWith(color: null))),
             defaultColor: null,
             onChanged: (color) =>
+                // ignore: deprecated_member_use
                 widget.onChanged(widget.value.copyWith(color: color.value))),
         ColorField(
             title: Text(AppLocalizations.of(context).background),
@@ -72,6 +73,7 @@ class _TextStyleViewState extends State<TextStyleView> {
                         widget.value.copyWith(backgroundColor: null))),
             defaultColor: null,
             onChanged: (color) => widget.onChanged(
+                // ignore: deprecated_member_use
                 widget.value.copyWith(backgroundColor: color.value))),
         ExactSlider(
             header: Text(AppLocalizations.of(context).size),
@@ -216,6 +218,7 @@ class _TextStyleViewState extends State<TextStyleView> {
                                         .copyWith(decorationColor: null))),
                             defaultColor: null,
                             onChanged: (color) => widget.onChanged(widget.value
+                                // ignore: deprecated_member_use
                                 .copyWith(decorationColor: color.value))),
                         Padding(
                           padding: const EdgeInsets.all(16.0),

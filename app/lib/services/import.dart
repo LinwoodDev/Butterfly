@@ -182,7 +182,7 @@ class ImportService {
                 .firstWhereOrNull((f) => reader.canProvide(f));
             return format == null ? null : (e, format);
           })
-          .whereNotNull()
+          .nonNulls
           .firstOrNull;
       if (result == null) return null;
       if (result.$2 is FileFormat) {
@@ -267,7 +267,7 @@ class ImportService {
     } else if (bloc == null) {
       return data;
     }
-    for (final page in pages.map((e) => data.getPage(e)).whereNotNull()) {
+    for (final page in pages.map((e) => data.getPage(e)).nonNulls) {
       if (advanced) {
         document = document.addPage(page).$1;
       } else {
@@ -275,7 +275,7 @@ class ImportService {
       }
       bloc?.add(PageAdded(null, page));
     }
-    for (final packs in packs.map((e) => data.getPack(e)).whereNotNull()) {
+    for (final packs in packs.map((e) => data.getPack(e)).nonNulls) {
       document = document.setPack(packs);
       bloc?.add(PackAdded(packs));
     }

@@ -25,7 +25,7 @@ class LassoSelectionForegroundRenderer extends Renderer<List<Offset>> {
       ..strokeJoin = StrokeJoin.round
       ..isAntiAlias = true;
     final fillPaint = Paint()
-      ..color = scheme.primaryContainer.withOpacity(0.2)
+      ..color = scheme.primaryContainer.withValues(alpha: 0.2)
       ..style = PaintingStyle.fill;
     final path = Path();
     path.addPolygon(element, true);

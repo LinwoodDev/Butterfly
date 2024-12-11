@@ -15,6 +15,7 @@ class PenElementSelection extends ElementSelection<PenElement> {
             context,
             elements
                 .map((e) => e.copyWith(
+                    // ignore: deprecated_member_use
                     property: e.property.copyWith(color: color.value)))
                 .toList()),
       ),

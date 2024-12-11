@@ -40,6 +40,7 @@ class _TextureViewState extends State<TextureView> {
             title: Text(AppLocalizations.of(context).color),
             value: Color(widget.value.boxColor),
             onChanged: (value) =>
+                // ignore: deprecated_member_use
                 widget.onChanged(widget.value.copyWith(boxColor: value.value)),
           ),
           const SizedBox(height: 16),
@@ -60,6 +61,7 @@ class _TextureViewState extends State<TextureView> {
                   value: Color(widget.value.boxXColor),
                   title: Text(AppLocalizations.of(context).color),
                   onChanged: (value) => widget
+                      // ignore: deprecated_member_use
                       .onChanged(widget.value.copyWith(boxXColor: value.value)),
                 ),
                 const SizedBox(height: 16),
@@ -99,6 +101,7 @@ class _TextureViewState extends State<TextureView> {
                   title: Text(AppLocalizations.of(context).color),
                   value: Color(widget.value.boxYColor),
                   onChanged: (value) => widget
+                      // ignore: deprecated_member_use
                       .onChanged(widget.value.copyWith(boxYColor: value.value)),
                 ),
                 const SizedBox(height: 16),

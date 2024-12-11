@@ -40,7 +40,7 @@ class _PresentationTimelineViewState extends State<PresentationTimelineView> {
       height: 50,
       decoration: BoxDecoration(
         border: Border.all(
-          color: colorScheme.onSurface.withOpacity(0.2),
+          color: colorScheme.onSurface.withValues(alpha: 0.2),
         ),
         borderRadius: BorderRadius.circular(4),
       ),

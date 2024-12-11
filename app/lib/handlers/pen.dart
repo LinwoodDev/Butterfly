@@ -62,7 +62,7 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
   // Submit elements for processing and rendering.
   Future<void> submitElements(DocumentBloc bloc, List<int> indexes) async {
     final elements =
-        indexes.map((e) => this.elements.remove(e)).whereNotNull().toList();
+        indexes.map((e) => this.elements.remove(e)).nonNulls.toList();
     if (elements.isEmpty) return;
     lastPosition.removeWhere((key, value) => indexes.contains(key));
     bloc.add(ElementsCreated(elements));

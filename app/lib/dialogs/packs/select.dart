@@ -1,5 +1,4 @@
 import 'package:butterfly_api/butterfly_api.dart';
-import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -24,7 +23,7 @@ class SelectPackAssetDialog extends StatelessWidget {
   List<PackAssetLocation> _getAssets(NoteData document) => document
       .getPacks()
       .map((e) => document.getPack(e))
-      .whereNotNull()
+      .nonNulls
       .expand((pack) => switch (type) {
             PackAssetType.component => pack.getComponents(),
             PackAssetType.style => pack.getStyles(),

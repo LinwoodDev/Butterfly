@@ -69,6 +69,7 @@ class _ColorToolbarViewState extends State<ColorToolbarView> {
     final document = state.data;
     ColorPalette? palette;
     NoteData? pack;
+    // ignore: deprecated_member_use
     int color = Color(widget.color).withAlpha(255).value;
 
     void addColor() async {

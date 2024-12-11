@@ -45,10 +45,11 @@ class LaserHandler extends Handler<LaserTool> with ColoredHandler {
       return element.copyWith(points: subPoints);
     }
     var color = Color(data.color);
-    final toolOpacity = color.opacity;
+    final toolOpacity = color.a;
     final opacity = (1 - delta) * toolOpacity;
-    color = color.withOpacity(opacity.clamp(0, 1));
+    color = color.withValues(alpha: opacity.clamp(0, 1));
     return element.copyWith(
+      // ignore: deprecated_member_use
       property: element.property.copyWith(color: color.value),
     );
   }
@@ -88,8 +89,7 @@ class LaserHandler extends Handler<LaserTool> with ColoredHandler {
   }
 
   void _submit(DocumentBloc bloc, List<int> indexes) {
-    final elements =
-        indexes.map((e) => _elements.remove(e)).whereNotNull().toList();
+    final elements = indexes.map((e) => _elements.remove(e)).nonNulls.toList();
     if (elements.isEmpty) return;
     _submittedElements.addAll(elements);
     bloc.refresh();

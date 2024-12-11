@@ -53,7 +53,7 @@ class AreaHandler extends Handler<AreaTool> {
         ...[
           _currentArea,
           ...page.areas.where((element) => element.name != _currentArea?.name)
-        ].whereNotNull().map((e) => AreaForegroundRenderer(e))
+        ].nonNulls.map((e) => AreaForegroundRenderer(e))
       ],
       _selectionManager.renderer,
     ];
@@ -82,7 +82,9 @@ class AreaHandler extends Handler<AreaTool> {
   bool onScaleStart(ScaleStartDetails details, EventContext context) {
     final currentIndex = context.getCurrentIndex();
     if (currentIndex.buttons == kSecondaryMouseButton &&
-        currentIndex.temporaryHandler == null) return true;
+        currentIndex.temporaryHandler == null) {
+      return true;
+    }
     final transform = context.getCameraTransform();
     final globalPos = transform.localToGlobal(details.localFocalPoint);
     if (_selectionManager.isValid) {

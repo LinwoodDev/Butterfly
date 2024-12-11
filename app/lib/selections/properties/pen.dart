@@ -16,10 +16,12 @@ class PenPropertySelection extends PropertySelection<PenProperty>
         ColorField(
           value: Color(property.color),
           onChanged: (value) =>
+              // ignore: deprecated_member_use
               onChanged(property.copyWith(color: value.value)),
           title: Text(AppLocalizations.of(context).color),
         ),
         ExactSlider(
+          // ignore: deprecated_member_use
           value: Color(property.color).alpha.toDouble(),
           header: Text(AppLocalizations.of(context).alpha),
           fractionDigits: 0,

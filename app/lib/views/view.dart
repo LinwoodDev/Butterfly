@@ -227,7 +227,9 @@ class _MainViewViewportState extends State<MainViewViewport>
                           if (openView) openView = details.scale == 1;
                           final settings = context.read<SettingsCubit>().state;
                           if (cubit.fetchHandler<SelectHandler>() == null &&
-                              !settings.inputGestures) return;
+                              !settings.inputGestures) {
+                            return;
+                          }
                           var current = details.scale;
                           current = current - size;
                           var sensitivity = context

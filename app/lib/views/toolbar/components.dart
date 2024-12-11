@@ -67,7 +67,7 @@ class _ComponentsToolbarViewState extends State<ComponentsToolbarView> {
               if (component == null) return null;
               return (e, component);
             })
-            .whereNotNull()
+            .nonNulls
             .toList() ??
         [];
     return Row(

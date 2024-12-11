@@ -34,6 +34,7 @@ class LaserToolSelection extends ToolSelection<LaserTool> {
         value: Color(selected.first.color),
         onChanged: (value) => update(
           context,
+          // ignore: deprecated_member_use
           selected.map((e) => e.copyWith(color: value.value)).toList(),
         ),
         title: Text(AppLocalizations.of(context).color),

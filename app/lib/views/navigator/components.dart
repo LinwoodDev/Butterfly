@@ -72,7 +72,7 @@ class _ComponentsViewState extends State<ComponentsView> {
                                 if (component == null) return null;
                                 return (e, component);
                               })
-                              .whereNotNull()
+                              .nonNulls
                               .map((e) {
                                 final location = PackAssetLocation(
                                   currentPack!,

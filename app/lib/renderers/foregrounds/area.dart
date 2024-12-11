@@ -16,8 +16,8 @@ class AreaForegroundRenderer extends Renderer<Area> {
       ..color = colorScheme?.primary ?? Colors.blue;
     var backgroundPaint = Paint()
       ..style = PaintingStyle.fill
-      ..color =
-          (colorScheme?.primaryContainer ?? Colors.lightBlue).withOpacity(0.2);
+      ..color = (colorScheme?.primaryContainer ?? Colors.lightBlue)
+          .withValues(alpha: 0.2);
     canvas.drawRRect(
         RRect.fromRectAndRadius(rect, Radius.circular(5 / transform.size)),
         paint);

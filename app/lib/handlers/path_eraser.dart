@@ -62,7 +62,7 @@ class PathEraserHandler extends Handler<PathEraserTool> {
     final page = state?.page;
     if (page == null) return;
     if (!data.eraseElements) ray = ray.where((e) => e.element.isStroke());
-    var ids = ray.map((e) => e.element.id).whereNotNull();
+    var ids = ray.map((e) => e.element.id).nonNulls;
     _erased.addAll(ids);
     _currentlyErasing = false;
   }

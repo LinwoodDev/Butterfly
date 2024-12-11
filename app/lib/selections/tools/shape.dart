@@ -88,11 +88,13 @@ class ShapeToolSelection extends ToolSelection<ShapeTool> {
             context,
             selected
                 .map((e) => e.copyWith(
+                    // ignore: deprecated_member_use
                     property: e.property.copyWith(color: color.value)))
                 .toList()),
         title: Text(AppLocalizations.of(context).color),
       ),
       ExactSlider(
+        // ignore: deprecated_member_use
         value: Color(property.color).alpha.toDouble(),
         header: Text(AppLocalizations.of(context).alpha),
         fractionDigits: 0,
@@ -238,9 +240,11 @@ class _CircleShapeView extends StatelessWidget {
         title: Text(AppLocalizations.of(context).fill),
         leading: const PhosphorIcon(PhosphorIconsLight.paintBucket),
         defaultColor: Colors.transparent,
+        // ignore: deprecated_member_use
         onChanged: (color) => onChanged(shape.copyWith(fillColor: color.value)),
       ),
       ExactSlider(
+        // ignore: deprecated_member_use
         value: Color(shape.fillColor).alpha.toDouble(),
         header: Text(AppLocalizations.of(context).alpha),
         fractionDigits: 0,
@@ -267,9 +271,11 @@ class _TriangleShapeView extends StatelessWidget {
         title: Text(AppLocalizations.of(context).fill),
         leading: const PhosphorIcon(PhosphorIconsLight.paintBucket),
         defaultColor: Colors.transparent,
+        // ignore: deprecated_member_use
         onChanged: (color) => onChanged(shape.copyWith(fillColor: color.value)),
       ),
       ExactSlider(
+        // ignore: deprecated_member_use
         value: Color(shape.fillColor).alpha.toDouble(),
         header: Text(AppLocalizations.of(context).alpha),
         fractionDigits: 0,
@@ -304,9 +310,11 @@ class _RectangleShapeViewState extends State<_RectangleShapeView> {
         value: Color(widget.shape.fillColor),
         defaultColor: Colors.transparent,
         onChanged: (color) =>
+            // ignore: deprecated_member_use
             widget.onChanged(widget.shape.copyWith(fillColor: color.value)),
       ),
       ExactSlider(
+        // ignore: deprecated_member_use
         value: Color(widget.shape.fillColor).alpha.toDouble(),
         header: Text(AppLocalizations.of(context).alpha),
         fractionDigits: 0,

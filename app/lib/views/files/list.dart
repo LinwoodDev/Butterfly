@@ -412,7 +412,7 @@ class FileEntityListTile extends StatelessWidget {
                     ),
                   IconButton(
                     icon: const PhosphorIcon(PhosphorIconsLight.trash),
-                    highlightColor: colorScheme.error.withOpacity(0.2),
+                    highlightColor: colorScheme.error.withValues(alpha: 0.2),
                     tooltip: AppLocalizations.of(context).delete,
                     onPressed: () {
                       onDelete();

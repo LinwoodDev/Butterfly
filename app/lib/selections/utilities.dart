@@ -232,6 +232,7 @@ class _UtilitiesViewState extends State<_UtilitiesView>
                               title: Text(AppLocalizations.of(context).color),
                               value: Color(widget.option.gridColor),
                               onChanged: (value) => widget.onToolChanged(
+                                // ignore: deprecated_member_use
                                 widget.option.copyWith(gridColor: value.value),
                               ),
                             ),
@@ -239,6 +240,7 @@ class _UtilitiesViewState extends State<_UtilitiesView>
                             ExactSlider(
                               header: Text(AppLocalizations.of(context).alpha),
                               value: Color(widget.option.gridColor)
+                                  // ignore: deprecated_member_use
                                   .alpha
                                   .toDouble(),
                               defaultValue: 255,
@@ -249,6 +251,7 @@ class _UtilitiesViewState extends State<_UtilitiesView>
                                 widget.option.copyWith(
                                   gridColor: Color(widget.option.gridColor)
                                       .withAlpha(value.toInt())
+                                      // ignore: deprecated_member_use
                                       .value,
                                 ),
                               ),

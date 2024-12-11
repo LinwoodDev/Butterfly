@@ -249,7 +249,7 @@ class _ColorPalettePickerDialogState extends State<ColorPalettePickerDialog> {
                             child: Material(
                               color: Theme.of(context)
                                   .scaffoldBackgroundColor
-                                  .withOpacity(0.5),
+                                  .withValues(alpha: 0.5),
                               shape: const RoundedRectangleBorder(
                                   borderRadius:
                                       BorderRadius.all(Radius.circular(32))),

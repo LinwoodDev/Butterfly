@@ -580,9 +580,11 @@ class _LabelToolbarViewState extends State<LabelToolbarView> {
                                 if (result == null) return;
                                 updateSpan((value) => value.copyWith(
                                     color: Color(result)
-                                        .withAlpha(
-                                            Color(widget.value.tool.foreground)
-                                                .alpha)
+                                        .withValues(
+                                            alpha: Color(widget
+                                                    .value.tool.foreground)
+                                                .a)
+                                        // ignore: deprecated_member_use
                                         .value));
                               },
                             ),

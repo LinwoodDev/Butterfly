@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:butterfly/cubits/transform.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/material.dart';

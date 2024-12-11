@@ -59,7 +59,7 @@ class ImportHandler extends Handler<ImportTool> {
       state.page,
     ))
         .map((e) => e.transform(position: _offset, relative: true)?.element)
-        .whereNotNull()
+        .nonNulls
         .toList()));
     context
         .getCurrentIndexCubit()

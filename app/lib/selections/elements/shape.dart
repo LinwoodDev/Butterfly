@@ -15,10 +15,12 @@ class ShapeElementSelection extends ElementSelection<ShapeElement> {
             context,
             elements
                 .map((e) => e.copyWith(
+                    // ignore: deprecated_member_use
                     property: e.property.copyWith(color: color.value)))
                 .toList()),
       ),
       ExactSlider(
+        // ignore: deprecated_member_use
         value: Color(element.property.color).alpha.toDouble(),
         header: Text(AppLocalizations.of(context).alpha),
         fractionDigits: 0,

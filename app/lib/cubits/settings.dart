@@ -102,7 +102,7 @@ class InputConfiguration with _$InputConfiguration {
         firstPenButton,
         secondPenButton,
         touch
-      }.whereNotNull().toSet();
+      }.nonNulls.toSet();
 }
 
 enum SortBy { name, created, modified }

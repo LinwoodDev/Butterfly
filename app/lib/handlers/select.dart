@@ -50,7 +50,7 @@ class SelectHandler extends Handler<SelectTool> {
           changed = true;
           return renderer;
         })
-        .whereNotNull()
+        .nonNulls
         .toList();
     _updateSelectionRect();
     return changed;
@@ -149,7 +149,7 @@ class SelectHandler extends Handler<SelectTool> {
             final id = _selected[i].element.id;
             if (id == null) return null;
             return MapEntry(id, [e.element]);
-          }).whereNotNull())));
+          }).nonNulls)));
     if (_duplicate) {
       return _selected;
     }
@@ -446,7 +446,7 @@ class SelectHandler extends Handler<SelectTool> {
     if (state is! DocumentLoadSuccess) return;
     if (cut) {
       bloc.add(ElementsRemoved(
-          _selected.map((r) => r.element.id).whereNotNull().toList()));
+          _selected.map((r) => r.element.id).nonNulls.toList()));
     }
     final point = getSelectionRect()?.topLeft;
     if (point == null) return;
@@ -498,7 +498,7 @@ class SelectHandler extends Handler<SelectTool> {
         final state = bloc.state;
         if (state is! DocumentLoadSuccess) return null;
         context.read<DocumentBloc>().add(ElementsRemoved(
-            _selected.map((r) => r.element.id).whereNotNull().toList()));
+            _selected.map((r) => r.element.id).nonNulls.toList()));
         _selected.clear();
         bloc.refresh();
         return null;

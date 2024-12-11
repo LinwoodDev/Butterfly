@@ -100,7 +100,9 @@ class _PagesViewState extends State<PagesView> {
                           onReorder: (oldIndex, newIndex) {
                             if (oldIndex < 0 ||
                                 newIndex < 0 ||
-                                oldIndex >= all.length) return;
+                                oldIndex >= all.length) {
+                              return;
+                            }
                             final current = all[oldIndex];
                             final name = current.path;
                             final isFile = current.isFile;

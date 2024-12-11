@@ -5,7 +5,6 @@ import 'package:butterfly/helpers/point.dart';
 import 'package:butterfly/helpers/rect.dart';
 import 'package:butterfly/widgets/context_menu.dart';
 import 'package:butterfly_api/butterfly_api.dart';
-import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -72,7 +71,7 @@ ContextMenuBuilder buildAreaContextMenu(DocumentBloc bloc,
                 .map((e) => e.transform(
                     position: -area.position.toOffset(), relative: true))
                 .map((e) => e?.element)
-                .whereNotNull()
+                .nonNulls
                 .toList(),
           )(context)
         ];
