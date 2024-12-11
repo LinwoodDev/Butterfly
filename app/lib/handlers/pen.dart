@@ -81,13 +81,13 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
     final currentIndexCubit = context.read<CurrentIndexCubit>();
     final viewport = currentIndexCubit.state.cameraViewport;
     final transform = context.read<TransformCubit>().state;
+    localPos =
+        viewport.utilities.getPointerPosition(localPos, currentIndexCubit);
     final globalPos = transform.localToGlobal(localPos);
     if (!bloc.isInBounds(globalPos)) return;
     final state = bloc.state as DocumentLoadSuccess;
     final settings = context.read<SettingsCubit>().state;
     final penOnlyInput = settings.penOnlyInput;
-    localPos =
-        viewport.utilities.getPointerPosition(localPos, currentIndexCubit);
     if (lastPosition[pointer] == localPos) return;
     lastPosition[pointer] = localPos;
     if (penOnlyInput && kind != PointerDeviceKind.stylus) {
@@ -174,6 +174,7 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
   // Detects shapes and draws them
   void _tickShapeDetection(
       int pointer, EventContext context, Offset localPosition) {
+    if (!data.shapeDetectionEnabled) return;
     final transform = context.getCameraTransform();
     // Create recognizeUnistroke
     final recognized = recognizeUnistroke(points);
