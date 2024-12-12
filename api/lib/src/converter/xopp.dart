@@ -212,6 +212,6 @@ Uint8List xoppExporter(NoteData document) {
       });
     }
   });
-  return Uint8List.fromList(
-      GZipEncoder().encode(builder.buildDocument().toXmlString(pretty: true))!);
+  return Uint8List.fromList(GZipEncoder()
+      .encode(utf8.encode(builder.buildDocument().toXmlString(pretty: true))));
 }

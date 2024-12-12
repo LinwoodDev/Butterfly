@@ -132,9 +132,7 @@ class _DataSettingsPageState extends State<DataSettingsPage> {
                             final archive = exportDirectory(directory);
                             final encoder = ZipEncoder();
                             final bytes = encoder.encode(archive);
-                            if (bytes != null) {
-                              exportZip(context, bytes);
-                            }
+                            exportZip(context, bytes);
                           },
                         ),
                       ]),

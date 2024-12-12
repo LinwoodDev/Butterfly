@@ -49,13 +49,21 @@ dependencies:
   window_manager: ^0.4.0
   flex_color_scheme: ^8.0.0
   json_annotation: ^4.9.0
-  printing: ^5.13.1
-  pdf: ^3.10.8
+  printing:
+    git:
+      url: https://github.com/CodeDoctorDE/dart_pdf.git
+      ref: 4147fe72fcba3b271da02971171ff1ef71f3a7f7
+      path: printing
+  pdf:
+    git:
+      url: https://github.com/CodeDoctorDE/dart_pdf.git
+      ref: 4be45bf7000640f38cb62088899a0f5185b4dc89
+      path: pdf
   http: ^1.2.1
   flutter_secure_storage: ^9.0.0
   equatable: ^2.0.5
   rxdart: ^0.28.0
-  archive: ^3.5.0
+  archive: ^4.0.0
   animations: ^2.0.11
   connectivity_plus: ^6.0.3
   cross_file: ^0.3.4+1
@@ -91,7 +99,7 @@ dependencies:
   lw_file_system:
     git:
       url: https://github.com/LinwoodDev/dart_pkgs
-      ref: fe6893a77b5a504a7d9632addba8510ea566563a
+      ref: f29b1ae0e338ec155e1c5b0a204c399232904540
       path: packages/lw_file_system
   flutter_localized_locales: ^2.0.5
   dynamic_color: ^1.7.0
