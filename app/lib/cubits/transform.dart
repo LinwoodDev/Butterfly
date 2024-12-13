@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/helpers/point.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:equatable/equatable.dart';
@@ -105,6 +106,11 @@ class CameraTransform extends Equatable {
 
   CameraTransform withFrictionless(Offset position, double size) {
     return CameraTransform(this.position - position, this.size - size, null);
+  }
+
+  CameraTransform improve(RenderResolution resolution, Size size) {
+    final rect = resolution.getRect(position & size);
+    return CameraTransform(rect.topLeft, this.size, friction);
   }
 }
 

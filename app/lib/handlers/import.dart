@@ -55,7 +55,10 @@ class ImportHandler extends Handler<ImportTool> {
       state.assetService,
       state.page,
     ))
-        .map((e) => e.transform(position: _offset, relative: true)?.element.copyWith(id: createUniqueId()))
+        .map((e) => e
+            .transform(position: _offset, relative: true)
+            ?.element
+            .copyWith(id: createUniqueId()))
         .nonNulls
         .toList()));
     context.refresh();

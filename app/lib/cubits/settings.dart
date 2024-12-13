@@ -57,6 +57,26 @@ enum ToolbarSize {
       };
 }
 
+enum RenderResolution {
+  performance(1),
+  normal(1.5),
+  high(2);
+
+  final double multiplier;
+
+  const RenderResolution(this.multiplier);
+
+  Rect getRect(Rect rect) {
+    final width = rect.width * multiplier;
+    final height = rect.height * multiplier;
+    return Rect.fromCenter(
+      center: rect.center,
+      width: width,
+      height: height,
+    );
+  }
+}
+
 enum PlatformTheme {
   system,
   mobile,
@@ -220,6 +240,7 @@ class ButterflySettings with _$ButterflySettings, LeapSettings {
     @Default(true) bool colorToolbarEnabled,
     @Default(OptionsPanelPosition.top)
     OptionsPanelPosition optionsPanelPosition,
+    @Default(RenderResolution.normal) RenderResolution renderResolution,
   }) = _ButterflySettings;
 
   factory ButterflySettings.fromPrefs(SharedPreferences prefs) {
@@ -319,6 +340,7 @@ class ButterflySettings with _$ButterflySettings, LeapSettings {
           ? OptionsPanelPosition.values
               .byName(prefs.getString('options_panel_position')!)
           : OptionsPanelPosition.top,
+          renderResolution: prefs.containsKey('render_resolution') ? RenderResolution.values.byName(prefs.getString('render_resolution')!) : RenderResolution.normal,
     );
   }
 
@@ -389,6 +411,7 @@ class ButterflySettings with _$ButterflySettings, LeapSettings {
     await prefs.setBool('color_toolbar_enabled', colorToolbarEnabled);
     await prefs.setBool('show_save_button', showSaveButton);
     await prefs.setString('options_panel_position', optionsPanelPosition.name);
+    await prefs.setString('render_resolution', renderResolution.name);
   }
 
   ExternalStorage? getRemote(String? identifier) {
@@ -920,4 +943,12 @@ class SettingsCubit extends Cubit<ButterflySettings>
   }
 
   Future<void> resetColorToolbarEnabled() => changeColorToolbarEnabled(true);
+
+  Future<void> changeRenderResolution(RenderResolution value) {
+    emit(state.copyWith(renderResolution: value));
+    return save();
+  }
+
+  Future<void> resetRenderResolution() =>
+      changeRenderResolution(RenderResolution.normal);
 }

@@ -486,7 +486,8 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
       double? pixelRatio,
       bool reset = false,
       bool resetAllLayers = false}) async {
-    final cameraViewport = state.cameraViewport;
+    var cameraViewport = state.cameraViewport;
+    final resolution = state.settingsCubit.state.renderResolution;
     var size = viewportSize ?? cameraViewport.toSize();
     final ratio = pixelRatio ?? cameraViewport.pixelRatio;
     if (size.height <= 0 || size.width <= 0) {
@@ -516,6 +517,8 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
       size = Size(bottomRight.dx - topLeft.dx, bottomRight.dy - topLeft.dy) *
           transform.size;
     }
+    rect = resolution.getRect(rect);
+    final renderTransform = transform.improve(resolution, size);
     final document = blocState.data;
     final page = blocState.page;
     final info = blocState.info;
@@ -539,6 +542,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
         ..addAll(renderers);
     }
     canvas.scale(ratio);
+    size *= resolution.multiplier;
 
     // Wait one frame
     await Future.delayed(const Duration(milliseconds: 1));
@@ -547,7 +551,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
       document,
       page,
       info,
-      transform: transform,
+      transform: renderTransform,
       states: state.allRendererStates,
       cameraViewport: reset
           ? cameraViewport.unbake(
@@ -557,6 +561,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
               visibleElements: visibleElements,
             )
           : cameraViewport,
+      resolution: resolution,
       renderBackground: false,
       renderBaked: !reset,
       renderBakedLayers: false,
@@ -610,6 +615,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
         info,
         transform: transform,
         states: state.allRendererStates,
+        resolution: resolution,
         cameraViewport: cameraViewport.unbake(
             unbakedElements: visibleElements
                 .where((e) => belowLayers.contains(e.layer))
@@ -623,6 +629,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
         info,
         transform: transform,
         states: state.allRendererStates,
+        resolution: resolution,
         cameraViewport: cameraViewport.unbake(
             unbakedElements: visibleElements
                 .where((e) => aboveLayers.contains(e.layer))
@@ -645,8 +652,8 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
             width: size.width.ceil(),
             pixelRatio: ratio,
             scale: transform.size,
-            x: transform.position.dx,
-            y: transform.position.dy,
+            x: rect.left,
+            y: rect.top,
             image: newImage,
             bakedElements: renderers,
             unbakedElements: currentRenderers,

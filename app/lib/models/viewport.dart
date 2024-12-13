@@ -1,6 +1,7 @@
 import 'dart:math';
 import 'dart:ui' as ui;
 
+import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/renderers/renderer.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:equatable/equatable.dart';
@@ -61,6 +62,9 @@ class CameraViewport extends Equatable {
       (height?.toDouble() ?? 0) / (scaled ? scale : 1));
 
   ui.Rect toRect() => toOffset() & toSize(true);
+
+  ui.Rect toViewportRect(RenderResolution resolution) =>
+      resolution.getRect(toOffset() & toSize(true));
 
   Area toArea() => Area(
         name: '',

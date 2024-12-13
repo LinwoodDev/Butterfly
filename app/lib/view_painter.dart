@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:butterfly/cubits/current_index.dart';
+import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/helpers/rect.dart';
 import 'package:butterfly/models/viewport.dart';
 import 'package:butterfly/renderers/renderer.dart';
@@ -98,12 +99,14 @@ class ViewPainter extends CustomPainter {
   final ColorScheme? colorScheme;
   final Set<String> invisibleLayers;
   final Map<String, RendererState> states;
+  final RenderResolution? resolution;
 
   const ViewPainter(
     this.document,
     this.page,
     this.info, {
     this.currentArea,
+    this.resolution,
     this.invisibleLayers = const {},
     this.states = const {},
     this.renderBackground = true,
