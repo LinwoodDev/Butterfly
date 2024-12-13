@@ -633,5 +633,10 @@
         "example": "1"
       }
     }
-  }
+  },
+  "colorToolbar": "Kleur werkbalk",
+  "yesButShowButtons": "Ja, maar toon knoppen",
+  "optionsPanelPosition": "Opties paneel positie",
+  "hideDuration": "Duur verbergen",
+  "animation": "Animatie"
 }

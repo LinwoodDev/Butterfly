@@ -633,5 +633,10 @@
         "example": "1"
       }
     }
-  }
+  },
+  "colorToolbar": "Farb-Werkzeugleiste",
+  "yesButShowButtons": "Ja, aber Schaltflächen anzeigen",
+  "optionsPanelPosition": "Position des Optionen-Panels",
+  "hideDuration": "Dauer ausblenden",
+  "animation": "Animation"
 }

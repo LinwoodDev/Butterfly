@@ -633,5 +633,10 @@
         "example": "1"
       }
     }
-  }
+  },
+  "colorToolbar": "Γραμμή εργαλείων χρωμάτων",
+  "yesButShowButtons": "Ναι, αλλά εμφάνιση κουμπιών",
+  "optionsPanelPosition": "Θέση πίνακα επιλογών",
+  "hideDuration": "Διάρκεια απόκρυψης",
+  "animation": "Κίνηση"
 }

@@ -633,5 +633,10 @@
         "example": "1"
       }
     }
-  }
+  },
+  "colorToolbar": "لون شريط الأدوات",
+  "yesButShowButtons": "نعم، لكن إظهار الأزرار",
+  "optionsPanelPosition": "موقف لوحة الخيارات",
+  "hideDuration": "مدة الإخفاء",
+  "animation": "الحركة"
 }

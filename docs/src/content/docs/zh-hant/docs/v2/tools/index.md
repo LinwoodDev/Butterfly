@@ -1,5 +1,5 @@
 ---
-title: Tools
+title: 工具
 ---
 
 Tools can edit the paper.

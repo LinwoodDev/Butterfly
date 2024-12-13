@@ -633,5 +633,10 @@
         "example": "1"
       }
     }
-  }
+  },
+  "colorToolbar": "Farve værktøjslinje",
+  "yesButShowButtons": "Ja, men vis knapper",
+  "optionsPanelPosition": "Valgmuligheder panel position",
+  "hideDuration": "Skjul varighed",
+  "animation": "Animation"
 }

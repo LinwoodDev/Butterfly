@@ -633,5 +633,10 @@
         "example": "1"
       }
     }
-  }
+  },
+  "colorToolbar": "Värin työkalupalkki",
+  "yesButShowButtons": "Kyllä, mutta näytä painikkeet",
+  "optionsPanelPosition": "Valintapaneelin sijainti",
+  "hideDuration": "Piilota kesto",
+  "animation": "Animaatio"
 }

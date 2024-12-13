@@ -633,5 +633,10 @@
         "example": "1"
       }
     }
-  }
+  },
+  "colorToolbar": "Barevný panel nástrojů",
+  "yesButShowButtons": "Ano, ale zobrazit tlačítka",
+  "optionsPanelPosition": "Pozice panelu Možnosti",
+  "hideDuration": "Doba trvání skrytí",
+  "animation": "Animace"
 }
