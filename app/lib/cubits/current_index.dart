@@ -523,7 +523,8 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     if (viewportSize != null) {
       size *= resolution.multiplier;
     }
-    final renderTransform = transform.improve(resolution, size / resolution.multiplier);
+    final renderTransform =
+        transform.improve(resolution, size / resolution.multiplier);
     final viewChanged = cameraViewport.width != size.width.ceil() ||
         cameraViewport.height != size.height.ceil() ||
         cameraViewport.x != renderTransform.position.dx ||
@@ -545,7 +546,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
         ..addAll(renderers);
     }
     canvas.scale(ratio);
-    
+
     // Wait one frame
     await Future.delayed(const Duration(milliseconds: 1));
 
@@ -563,7 +564,6 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
               visibleElements: visibleElements,
             )
           : cameraViewport,
-      resolution: resolution,
       renderBackground: false,
       renderBaked: !reset,
       renderBakedLayers: false,
@@ -574,7 +574,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     final imageWidth = (size.width * ratio).ceil();
     final imageHeight = (size.height * ratio).ceil();
 
-    var newImage = await picture.toImage(imageWidth, imageHeight);
+    final newImage = await picture.toImage(imageWidth, imageHeight);
 
     var currentRenderers = state.cameraViewport.unbakedElements;
     if (reset) {
@@ -617,7 +617,6 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
         info,
         transform: renderTransform,
         states: state.allRendererStates,
-        resolution: resolution,
         cameraViewport: cameraViewport.unbake(
             unbakedElements: visibleElements
                 .where((e) => belowLayers.contains(e.layer))
@@ -631,7 +630,6 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
         info,
         transform: renderTransform,
         states: state.allRendererStates,
-        resolution: resolution,
         cameraViewport: cameraViewport.unbake(
             unbakedElements: visibleElements
                 .where((e) => aboveLayers.contains(e.layer))

@@ -247,7 +247,8 @@ class _AddDialogState extends State<AddDialog> {
                             if (tools.isEmpty &&
                                 shapes.isEmpty &&
                                 textures.isEmpty &&
-                                actions.isEmpty)
+                                actions.isEmpty &&
+                                imports.isEmpty)
                               Padding(
                                 padding: const EdgeInsets.symmetric(
                                     vertical: 64, horizontal: 16),
