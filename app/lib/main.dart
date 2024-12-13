@@ -20,6 +20,7 @@ import 'package:lw_file_system/lw_file_system.dart';
 import 'package:lw_sysapi/lw_sysapi.dart';
 import 'package:material_leap/l10n/leap_localizations.dart';
 import 'package:material_leap/material_leap.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:window_manager/window_manager.dart';
 import 'package:flutter_localized_locales/flutter_localized_locales.dart';
@@ -411,3 +412,10 @@ const isNightly =
 const shortApplicationName = isNightly ? 'Butterfly Nightly' : 'Butterfly';
 const applicationName = 'Linwood $shortApplicationName';
 const applicationMinorVersion = '2.2';
+
+Future<String> getCurrentVersion() async {
+  const envVersion = String.fromEnvironment('version');
+  if (envVersion.isNotEmpty) return envVersion;
+  final info = await PackageInfo.fromPlatform();
+  return info.version;
+}

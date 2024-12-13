@@ -2,10 +2,10 @@ import 'dart:convert';
 
 import 'package:butterfly/api/open.dart';
 import 'package:butterfly/cubits/settings.dart';
+import 'package:butterfly/main.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:material_leap/material_leap.dart';
-import 'package:package_info_plus/package_info_plus.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -38,6 +38,7 @@ class GeneralSettingsPage extends StatefulWidget {
 
 class _GeneralSettingsPageState extends State<GeneralSettingsPage> {
   Future<Meta>? _metaFuture;
+  final Future<String> _currentVersion = getCurrentVersion();
 
   void loadMeta() => setState(() {
         _metaFuture = _fetchMeta();
@@ -59,9 +60,9 @@ class _GeneralSettingsPageState extends State<GeneralSettingsPage> {
         inView: widget.inView,
       ),
       body: FutureBuilder(
-        future: PackageInfo.fromPlatform(),
+        future: _currentVersion,
         builder: (context, snapshot) {
-          final currentVersion = snapshot.data?.version ?? '?';
+          final currentVersion = snapshot.data ?? '?';
           return ListView(children: [
             Card(
               margin: const EdgeInsets.all(8),

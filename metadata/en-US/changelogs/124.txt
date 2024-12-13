@@ -15,6 +15,7 @@
 * Fix temporary import handler does not get removed after clicking
 * Fix asset hash not correctly working with filenames
 * Fix duplicated asset importing
+* Show git hash instead of version in web version
 * Upgrade to flutter 3.27
 
 Read more here: https://linwood.dev/butterfly/2.2.3-rc.1
