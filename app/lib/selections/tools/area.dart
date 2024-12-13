@@ -36,7 +36,6 @@ class AreaToolSelection extends ToolSelection<AreaTool> {
               Expanded(
                 child: Text(
                   AppLocalizations.of(context).aspectRatio,
-                  textAlign: TextAlign.center,
                 ),
               ),
               MenuAnchor(

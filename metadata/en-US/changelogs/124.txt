@@ -5,6 +5,7 @@
   * Change create template button to save icon
   * Improve thumbnail display to have rounded corners
 * Add color wheel to color picker
+* Add render resolution to improve moving on canvas
 * Improve responsiveness of exact slider
 * Change zoom dependent to false by default
 * Fix export on web
@@ -15,6 +16,7 @@
 * Fix temporary import handler does not get removed after clicking
 * Fix asset hash not correctly working with filenames
 * Fix duplicated asset importing
+* Fix aspect ratio label in area tool selection view
 * Show git hash instead of version in web version
 * Upgrade to flutter 3.27
 

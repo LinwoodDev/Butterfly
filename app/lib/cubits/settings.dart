@@ -340,7 +340,10 @@ class ButterflySettings with _$ButterflySettings, LeapSettings {
           ? OptionsPanelPosition.values
               .byName(prefs.getString('options_panel_position')!)
           : OptionsPanelPosition.top,
-          renderResolution: prefs.containsKey('render_resolution') ? RenderResolution.values.byName(prefs.getString('render_resolution')!) : RenderResolution.normal,
+      renderResolution: prefs.containsKey('render_resolution')
+          ? RenderResolution.values
+              .byName(prefs.getString('render_resolution')!)
+          : RenderResolution.normal,
     );
   }
 

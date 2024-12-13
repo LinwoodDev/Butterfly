@@ -18,9 +18,11 @@ class BehaviorsSettingsPage extends StatelessWidget {
         StartupBehavior.openNewNote => AppLocalizations.of(context).newNote,
       };
 
-  String _getRenderResolutionName(BuildContext context, RenderResolution value) =>
+  String _getRenderResolutionName(
+          BuildContext context, RenderResolution value) =>
       switch (value) {
-        RenderResolution.performance => AppLocalizations.of(context).performance,
+        RenderResolution.performance =>
+          AppLocalizations.of(context).performance,
         RenderResolution.normal => AppLocalizations.of(context).normal,
         RenderResolution.high => AppLocalizations.of(context).high,
       };
@@ -30,7 +32,8 @@ class BehaviorsSettingsPage extends StatelessWidget {
       switch (value) {
         RenderResolution.performance =>
           AppLocalizations.of(context).performanceDescription,
-        RenderResolution.normal => AppLocalizations.of(context).normalDescription,
+        RenderResolution.normal =>
+          AppLocalizations.of(context).normalDescription,
         RenderResolution.high => AppLocalizations.of(context).highDescription,
       };
 
@@ -84,9 +87,10 @@ class BehaviorsSettingsPage extends StatelessWidget {
                       leading: const Icon(PhosphorIconsLight.arrowFatLineUp),
                     ),
                     ListTile(
-                      title: Text(AppLocalizations.of(context).renderResolution),
-                      subtitle: Text(
-                          _getRenderResolutionName(context, state.renderResolution)),
+                      title:
+                          Text(AppLocalizations.of(context).renderResolution),
+                      subtitle: Text(_getRenderResolutionName(
+                          context, state.renderResolution)),
                       onTap: () => _openRenderResolutionModal(context),
                       leading: const Icon(PhosphorIconsLight.sparkle),
                     ),
@@ -181,7 +185,8 @@ class BehaviorsSettingsPage extends StatelessWidget {
 
     showLeapBottomSheet(
         context: context,
-        titleBuilder: (context) => Text(AppLocalizations.of(context).renderResolution),
+        titleBuilder: (context) =>
+            Text(AppLocalizations.of(context).renderResolution),
         childrenBuilder: (context) {
           void changeResolution(RenderResolution resolution) {
             cubit.changeRenderResolution(resolution);

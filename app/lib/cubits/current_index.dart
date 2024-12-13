@@ -613,7 +613,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
         document,
         page,
         info,
-        transform: transform,
+        transform: renderTransform,
         states: state.allRendererStates,
         resolution: resolution,
         cameraViewport: cameraViewport.unbake(
@@ -627,7 +627,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
         document,
         page,
         info,
-        transform: transform,
+        transform: renderTransform,
         states: state.allRendererStates,
         resolution: resolution,
         cameraViewport: cameraViewport.unbake(
