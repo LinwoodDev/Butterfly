@@ -9,6 +9,7 @@
 * Improve responsiveness of exact slider
 * Change zoom dependent to false by default
 * Use material blue and red as default colors
+* Improve sliders for background dialog
 * Fix export on web
 * Fix shape detection always enabled in pen tool
 * Fix ruler not working correctly in pen tool

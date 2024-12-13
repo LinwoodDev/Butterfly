@@ -84,7 +84,7 @@ class _TextureViewState extends State<TextureView> {
                     fractionDigits: 0,
                     defaultValue: 0,
                     min: 0,
-                    max: 500),
+                    max: 20),
                 const SizedBox(height: 16),
                 ExactSlider(
                     onChanged: (value) => widget
@@ -124,7 +124,7 @@ class _TextureViewState extends State<TextureView> {
                     defaultValue: 0,
                     fractionDigits: 0,
                     min: 0,
-                    max: 500),
+                    max: 20),
                 const SizedBox(height: 16),
                 ExactSlider(
                     onChanged: (value) => widget

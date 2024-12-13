@@ -517,16 +517,19 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
       size = Size(bottomRight.dx - topLeft.dx, bottomRight.dy - topLeft.dy) *
           transform.size;
     }
-    rect = resolution.getRect(rect);
-    final renderTransform = transform.improve(resolution, size);
     final document = blocState.data;
     final page = blocState.page;
     final info = blocState.info;
+    if (viewportSize != null) {
+      size *= resolution.multiplier;
+    }
+    final renderTransform = transform.improve(resolution, size / resolution.multiplier);
     final viewChanged = cameraViewport.width != size.width.ceil() ||
         cameraViewport.height != size.height.ceil() ||
-        cameraViewport.x != transform.position.dx ||
-        cameraViewport.y != transform.position.dy ||
+        cameraViewport.x != renderTransform.position.dx ||
+        cameraViewport.y != renderTransform.position.dy ||
         cameraViewport.scale != transform.size;
+    rect = resolution.getRect(rect);
     reset = reset || viewChanged;
     resetAllLayers = resetAllLayers || viewChanged;
     if (renderers.isEmpty && !reset) return;
@@ -542,8 +545,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
         ..addAll(renderers);
     }
     canvas.scale(ratio);
-    size *= resolution.multiplier;
-
+    
     // Wait one frame
     await Future.delayed(const Duration(milliseconds: 1));
 
@@ -652,8 +654,8 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
             width: size.width.ceil(),
             pixelRatio: ratio,
             scale: transform.size,
-            x: rect.left,
-            y: rect.top,
+            x: renderTransform.position.dx,
+            y: renderTransform.position.dy,
             image: newImage,
             bakedElements: renderers,
             unbakedElements: currentRenderers,
