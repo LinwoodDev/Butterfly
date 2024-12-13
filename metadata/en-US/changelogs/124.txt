@@ -12,6 +12,9 @@
 * Fix ruler not working correctly in pen tool
 * Fix ruler position is wrong when moving on the canvas
 * Fix zoom dependent not working correctly with the label tool ([#765](https://github.com/LinwoodDev/Butterfly/issues/765))
+* Fix temporary import handler does not get removed after clicking
+* Fix asset hash not correctly working with filenames
+* Fix duplicated asset importing
 * Upgrade to flutter 3.27
 
 Read more here: https://linwood.dev/butterfly/2.2.3-rc.1

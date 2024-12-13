@@ -42,9 +42,6 @@ class ImportHandler extends Handler<ImportTool> {
   }
 
   @override
-  bool canChange(PointerDownEvent event, EventContext context) => false;
-
-  @override
   Future<void> onPointerUp(PointerUpEvent event, EventContext context) async {
     final state = context.getState();
     if (state == null) return;
@@ -58,12 +55,9 @@ class ImportHandler extends Handler<ImportTool> {
       state.assetService,
       state.page,
     ))
-        .map((e) => e.transform(position: _offset, relative: true)?.element)
+        .map((e) => e.transform(position: _offset, relative: true)?.element.copyWith(id: createUniqueId()))
         .nonNulls
         .toList()));
-    context
-        .getCurrentIndexCubit()
-        .resetTemporaryHandler(context.getDocumentBloc());
     context.refresh();
     context.bake();
   }

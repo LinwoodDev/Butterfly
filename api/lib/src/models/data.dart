@@ -62,8 +62,8 @@ final class NoteData extends ArchiveData<NoteData> {
   (NoteData, String) importAsset(
       String path, Uint8List data, String fileExtension) {
     final hash = sha512256.convert(data);
-    final name = base64Encode(hash.bytes);
-    final newPath = '$path/${findUniqueName(path, fileExtension, name)}';
+    final name = hash.toString();
+    final newPath = '$path/$name.$fileExtension';
     return (setAsset(newPath, data), newPath);
   }
 
