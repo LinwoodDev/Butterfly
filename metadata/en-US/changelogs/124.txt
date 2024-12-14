@@ -21,6 +21,7 @@
 * Fix aspect ratio label in area tool selection view
 * Fix add dialog shows "No element" if there is only import search results
 * Fix document isn't saved when clicking home
+* Fix stamp don't use unique element ids
 * Show git hash instead of version in web version
 * Upgrade to flutter 3.27
 
