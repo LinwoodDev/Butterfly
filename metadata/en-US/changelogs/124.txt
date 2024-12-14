@@ -20,6 +20,7 @@
 * Fix duplicated asset importing
 * Fix aspect ratio label in area tool selection view
 * Fix add dialog shows "No element" if there is only import search results
+* Fix document isn't saved when clicking home
 * Show git hash instead of version in web version
 * Upgrade to flutter 3.27
 

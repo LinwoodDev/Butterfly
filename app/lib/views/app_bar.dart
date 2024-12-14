@@ -357,8 +357,10 @@ class _MainPopupMenu extends StatelessWidget {
                 MenuItemButton(
                   leadingIcon: const PhosphorIcon(PhosphorIconsLight.house),
                   child: Text(AppLocalizations.of(context).home),
-                  onPressed: () {
+                  onPressed: () async {
                     final router = GoRouter.of(context);
+                    final bloc = context.read<DocumentBloc>();
+                    await bloc.save();
                     if (router.canPop()) {
                       router.pop();
                     } else {
