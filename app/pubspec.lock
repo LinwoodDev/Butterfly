@@ -177,10 +177,10 @@ packages:
     dependency: transitive
     description:
       name: camera_android_camerax
-      sha256: e3627fdc2132d89212b8a8676679f5b07008c7e3d8ae00cea775c3397f9e742b
+      sha256: "2985b8e5fca62709ebb2150962b1dae0444ba0a112be888ccf21e8371a1406d9"
       url: "https://pub.dev"
     source: hosted
-    version: "0.6.10"
+    version: "0.6.10+1"
   camera_avfoundation:
     dependency: transitive
     description:
@@ -900,10 +900,10 @@ packages:
     dependency: "direct main"
     description:
       name: one_dollar_unistroke_recognizer
-      sha256: fa47695d7318542401cd29a35829011dafa0d0b3cb401803e6d78d55d382a96c
+      sha256: "459ba12aaada0e85e8f211f62fea649f246ccb74f726527593a0716bf1bcf6c4"
       url: "https://pub.dev"
     source: hosted
-    version: "1.3.2"
+    version: "1.3.3"
   package_config:
     dependency: transitive
     description:

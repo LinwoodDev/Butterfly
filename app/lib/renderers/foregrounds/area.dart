@@ -10,11 +10,11 @@ class AreaForegroundRenderer extends Renderer<Area> {
   void build(Canvas canvas, Size size, NoteData document, DocumentPage? page,
       DocumentInfo info, CameraTransform transform,
       [ColorScheme? colorScheme, bool foreground = false]) {
-    var paint = Paint()
+    final paint = Paint()
       ..style = PaintingStyle.stroke
       ..strokeWidth = 5 / transform.size
       ..color = colorScheme?.primary ?? Colors.blue;
-    var backgroundPaint = Paint()
+    final backgroundPaint = Paint()
       ..style = PaintingStyle.fill
       ..color = (colorScheme?.primaryContainer ?? Colors.lightBlue)
           .withValues(alpha: 0.2);
