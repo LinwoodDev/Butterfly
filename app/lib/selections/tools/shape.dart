@@ -83,7 +83,7 @@ class ShapeToolSelection extends ToolSelection<ShapeTool> {
                   .toList())),
       const SizedBox(height: 50),
       ColorField(
-        value: Color(property.color),
+        value: Color(property.color).withAlpha(255),
         onChanged: (color) => update(
             context,
             selected
@@ -237,7 +237,7 @@ class _CircleShapeView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(children: [
       ColorField(
-        value: Color(shape.fillColor),
+        value: Color(shape.fillColor).withAlpha(255),
         title: Text(AppLocalizations.of(context).fill),
         leading: const PhosphorIcon(PhosphorIconsLight.paintBucket),
         defaultColor: Colors.transparent,
@@ -269,7 +269,7 @@ class _TriangleShapeView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(children: [
       ColorField(
-        value: Color(shape.fillColor),
+        value: Color(shape.fillColor).withAlpha(255),
         title: Text(AppLocalizations.of(context).fill),
         leading: const PhosphorIcon(PhosphorIconsLight.paintBucket),
         defaultColor: Colors.transparent,
@@ -310,7 +310,7 @@ class _RectangleShapeViewState extends State<_RectangleShapeView> {
       ColorField(
         title: Text(AppLocalizations.of(context).fill),
         leading: const PhosphorIcon(PhosphorIconsLight.paintBucket),
-        value: Color(widget.shape.fillColor),
+        value: Color(widget.shape.fillColor).withAlpha(255),
         defaultColor: Colors.transparent,
         onChanged: (color) => widget.onChanged(widget.shape.copyWith(
             fillColor:

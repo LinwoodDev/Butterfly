@@ -230,7 +230,8 @@ class _UtilitiesViewState extends State<_UtilitiesView>
                             const SizedBox(height: 8),
                             ColorField(
                               title: Text(AppLocalizations.of(context).color),
-                              value: Color(widget.option.gridColor),
+                              value:
+                                  Color(widget.option.gridColor).withAlpha(255),
                               onChanged: (value) => widget.onToolChanged(
                                 widget.option.copyWith(
                                     gridColor: convertOldColor(

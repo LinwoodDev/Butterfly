@@ -11,7 +11,7 @@ mixin PathPropertySelection<T extends PathProperty> on PropertySelection<T> {
         ExactSlider(
             header: Text(AppLocalizations.of(context).strokeWidth),
             value: property.strokeWidth,
-            min: 0,
+            min: 0.1,
             max: 70,
             defaultValue: 25,
             onChangeEnd: (value) => onChanged(

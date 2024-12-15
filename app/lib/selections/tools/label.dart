@@ -11,7 +11,7 @@ class LabelToolSelection extends ToolSelection<LabelTool> {
     return [
       ...super.buildProperties(context),
       ColorField(
-        value: Color(selected.first.foreground),
+        value: Color(selected.first.foreground).withAlpha(255),
         onChanged: (value) => update(
             context,
             selected

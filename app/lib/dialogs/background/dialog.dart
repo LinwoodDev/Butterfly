@@ -49,7 +49,7 @@ class BackgroundDialog extends StatelessWidget {
                     tabAlignment: TabAlignment.fill,
                     tabs: [
                       (
-                        PhosphorIconsLight.globe,
+                        PhosphorIconsLight.gridFour,
                         AppLocalizations.of(context).general,
                       ),
                       (

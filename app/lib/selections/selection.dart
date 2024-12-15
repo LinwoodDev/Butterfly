@@ -70,6 +70,17 @@ abstract class Selection<T> {
     throw UnsupportedError('Unsupported selection type: $T');
   }
 
+  static Selection? fromList(List? selected) {
+    if (selected == null || selected.isEmpty) {
+      return null;
+    }
+    var current = Selection.from(selected.first);
+    for (final element in selected.sublist(1)) {
+      current = current.insert(element);
+    }
+    return current;
+  }
+
   String getLocalizedName(BuildContext context);
 
   IconGetter get icon;
