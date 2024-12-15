@@ -33,14 +33,6 @@ sealed class SearchResult with _$SearchResult {
     int index,
   ) = ToolResult;
 
-  String getDisplay() => switch (this) {
-        PageResult e => e.name,
-        ElementResult e => e.text,
-        AreaResult e => e.area.name,
-        WaypointResult e => e.waypoint.name,
-        ToolResult e => e.name,
-      };
-
   String? getPage() => switch (this) {
         PageResult e => e.name,
         ElementResult e => e.page,

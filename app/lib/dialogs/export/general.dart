@@ -260,6 +260,7 @@ class _GeneralExportDialogState extends State<GeneralExportDialog> {
                     _regeneratePreviewImage();
                   },
                   icon: const PhosphorIcon(PhosphorIconsLight.userRectangle),
+                  tooltip: AppLocalizations.of(context).view,
                   selectedIcon:
                       const PhosphorIcon(PhosphorIconsFill.userRectangle),
                   isSelected: _preset == ExportTransformPreset.view,
@@ -289,6 +290,7 @@ class _GeneralExportDialogState extends State<GeneralExportDialog> {
                     _regeneratePreviewImage();
                   },
                   icon: const PhosphorIcon(PhosphorIconsLight.file),
+                  tooltip: AppLocalizations.of(context).page,
                   selectedIcon: const PhosphorIcon(PhosphorIconsFill.file),
                   isSelected: _preset == ExportTransformPreset.page,
                 ),

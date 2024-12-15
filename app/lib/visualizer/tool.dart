@@ -15,6 +15,11 @@ import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 extension ToolVisualizer on Tool {
+  String getDisplay(BuildContext context) {
+    if (name.trim().isEmpty) return getLocalizedName(context);
+    return name;
+  }
+
   String getLocalizedName(BuildContext context) {
     final loc = AppLocalizations.of(context);
     return switch (this) {

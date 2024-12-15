@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:butterfly/actions/search.dart';
 import 'package:butterfly/api/close.dart';
 import 'package:butterfly/api/file_system.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
@@ -98,7 +97,6 @@ class _ProjectPageState extends State<ProjectPage> {
     ImageExportIntent: ImageExportAction(),
     PdfExportIntent: PdfExportAction(),
     ExportIntent: ExportAction(),
-    SearchIntent: SearchAction(),
     SettingsIntent: SettingsAction(),
     ColorPaletteIntent: ColorPaletteAction(),
     BackgroundIntent: BackgroundAction(),
@@ -366,9 +364,6 @@ class _ProjectPageState extends State<ProjectPage> {
                                   LogicalKeySet(LogicalKeyboardKey.control,
                                           LogicalKeyboardKey.keyA):
                                       SelectAllIntent(context),
-                                  LogicalKeySet(LogicalKeyboardKey.control,
-                                          LogicalKeyboardKey.keyK):
-                                      SearchIntent(context),
                                   if (widget.embedding == null) ...{
                                     LogicalKeySet(LogicalKeyboardKey.control,
                                             LogicalKeyboardKey.keyE):

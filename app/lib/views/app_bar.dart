@@ -1,7 +1,6 @@
 import 'dart:math';
 
 import 'package:butterfly/actions/change_path.dart';
-import 'package:butterfly/actions/search.dart';
 import 'package:butterfly/actions/settings.dart';
 import 'package:butterfly/actions/svg_export.dart';
 import 'package:butterfly/api/file_system.dart';
@@ -12,6 +11,7 @@ import 'package:butterfly/services/import.dart';
 import 'package:butterfly/services/network.dart';
 import 'package:butterfly/views/edit.dart';
 import 'package:butterfly/visualizer/asset.dart';
+import 'package:butterfly/widgets/search.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -298,14 +298,7 @@ class _AppBarTitleState extends State<_AppBarTitle> {
                       state.location.fileType.icon(PhosphorIconsStyle.light)),
                   tooltip: AppLocalizations.of(context).export,
                   onPressed: () => context.read<ImportService>().export()),
-            IconButton(
-              icon: const PhosphorIcon(PhosphorIconsLight.magnifyingGlass),
-              tooltip: AppLocalizations.of(context).search,
-              onPressed: () {
-                Actions.maybeInvoke<SearchIntent>(
-                    context, SearchIntent(context));
-              },
-            ),
+            SearchButton(),
             if (state.location.path != '' && state.embedding == null) ...[
               IconButton(
                 icon: const PhosphorIcon(PhosphorIconsLight.folder),
