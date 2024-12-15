@@ -15,6 +15,7 @@
 * Add additional selection ui options to the pen element
 * Add tooltip to preset icons in export dialog
 * Change general icon on background to grid
+* Limit search results to 10
 * Fix export on web
 * Fix shape detection always enabled in pen tool
 * Fix ruler not working correctly in pen tool
@@ -32,6 +33,8 @@
 * FIx color fields preview shows alpha value
 * Fix min slider value of stroke width
 * Fix selection not working correctly when editing multiple elements
+* Fix search on web
+* Fix temporary stamp
 * Show git hash instead of version in web version
 * Upgrade to flutter 3.27
 

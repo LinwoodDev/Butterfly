@@ -1,10 +1,9 @@
-import 'dart:isolate';
-
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/helpers/point.dart';
 import 'package:butterfly/visualizer/element.dart';
 import 'package:butterfly/visualizer/tool.dart';
 import 'package:butterfly_api/butterfly_api.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -17,9 +16,12 @@ class SearchIntent extends Intent {
 
 Future<List<SearchResult>> _searchIsolate(NoteData noteData, String currentPage,
         DocumentPage page, String query) =>
-    Isolate.run(() => noteData
-        .search(RegExp(query, caseSensitive: false), currentPage, page)
-        .toList());
+    compute(
+        (e) => e.$1
+            .search(RegExp(e.$2, caseSensitive: false), e.$3, e.$4)
+            .take(10)
+            .toList(),
+        (noteData, query, currentPage, page));
 
 class SearchButton extends StatelessWidget {
   final SearchController controller;

@@ -449,6 +449,9 @@ abstract class PastingHandler<T> extends Handler<T> {
     bloc.bake();
     _firstPos = null;
     _secondPos = null;
+    context
+        .getCurrentIndexCubit()
+        .resetTemporaryHandler(context.getDocumentBloc());
     context.refresh();
   }
 
