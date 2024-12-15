@@ -1,23 +1,22 @@
 part of '../selection.dart';
 
 class PenElementSelection extends ElementSelection<PenElement> {
+  final _propertySelection = PenPropertySelection();
+
   PenElementSelection(super.selected);
 
   @override
   List<Widget> buildProperties(BuildContext context) {
     final element = selected.first.element;
+    void updateProperty(PenProperty property) => updateElements(
+        context, elements.map((e) => e.copyWith(property: property)).toList());
     return [
       ...super.buildProperties(context),
-      ColorField(
-        title: Text(AppLocalizations.of(context).color),
-        value: Color(element.property.color),
-        onChanged: (color) => updateElements(
-            context,
-            elements
-                .map((e) => e.copyWith(
-                    // ignore: deprecated_member_use
-                    property: e.property.copyWith(color: color.value)))
-                .toList()),
+      SizedBox(height: 16),
+      ..._propertySelection.build(
+        context,
+        element.property,
+        updateProperty,
       ),
     ];
   }

@@ -232,8 +232,11 @@ class _UtilitiesViewState extends State<_UtilitiesView>
                               title: Text(AppLocalizations.of(context).color),
                               value: Color(widget.option.gridColor),
                               onChanged: (value) => widget.onToolChanged(
-                                // ignore: deprecated_member_use
-                                widget.option.copyWith(gridColor: value.value),
+                                widget.option.copyWith(
+                                    gridColor: convertOldColor(
+                                        // ignore: deprecated_member_use
+                                        value.value,
+                                        widget.option.gridColor)),
                               ),
                             ),
                             const SizedBox(height: 8),

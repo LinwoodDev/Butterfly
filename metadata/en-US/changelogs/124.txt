@@ -10,6 +10,7 @@
 * Change zoom dependent to false by default
 * Use material blue and red as default colors
 * Improve sliders for background dialog
+* Add additional selection ui options to the pen element
 * Fix export on web
 * Fix shape detection always enabled in pen tool
 * Fix ruler not working correctly in pen tool
@@ -23,6 +24,7 @@
 * Fix document isn't saved when clicking home
 * Fix stamp don't use unique element ids
 * Fix render order when creating multiple elements when baking
+* Fix some color fields don't keep alpha value
 * Show git hash instead of version in web version
 * Upgrade to flutter 3.27
 

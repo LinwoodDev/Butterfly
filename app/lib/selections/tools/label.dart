@@ -14,8 +14,13 @@ class LabelToolSelection extends ToolSelection<LabelTool> {
         value: Color(selected.first.foreground),
         onChanged: (value) => update(
             context,
-            // ignore: deprecated_member_use
-            selected.map((e) => e.copyWith(foreground: value.value)).toList()),
+            selected
+                .map((e) => e.copyWith(
+                    foreground: convertOldColor(
+                        // ignore: deprecated_member_use
+                        value.value,
+                        selected.first.foreground)))
+                .toList()),
         title: Text(AppLocalizations.of(context).foreground),
       ),
       ExactSlider(

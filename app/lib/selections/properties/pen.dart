@@ -14,10 +14,10 @@ class PenPropertySelection extends PropertySelection<PenProperty>
         ...super.build(context, property, onChanged),
         const SizedBox(height: 4),
         ColorField(
-          value: Color(property.color),
-          onChanged: (value) =>
+          value: Color(property.color).withAlpha(255),
+          onChanged: (value) => onChanged(property.copyWith(
               // ignore: deprecated_member_use
-              onChanged(property.copyWith(color: value.value)),
+              color: convertOldColor(value.value, property.color))),
           title: Text(AppLocalizations.of(context).color),
         ),
         ExactSlider(

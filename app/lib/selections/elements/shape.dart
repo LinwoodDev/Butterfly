@@ -10,13 +10,16 @@ class ShapeElementSelection extends ElementSelection<ShapeElement> {
       ...super.buildProperties(context),
       ColorField(
         title: Text(AppLocalizations.of(context).color),
-        value: Color(element.property.color),
+        value: Color(element.property.color).withAlpha(255),
         onChanged: (color) => updateElements(
             context,
             elements
                 .map((e) => e.copyWith(
-                    // ignore: deprecated_member_use
-                    property: e.property.copyWith(color: color.value)))
+                    property: e.property.copyWith(
+                        color: convertOldColor(
+                            // ignore: deprecated_member_use
+                            color.value,
+                            element.property.color))))
                 .toList()),
       ),
       ExactSlider(
