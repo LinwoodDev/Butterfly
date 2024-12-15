@@ -580,7 +580,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     if (reset) {
       currentRenderers = this.renderers;
     } else {
-      renderers.addAll(state.cameraViewport.bakedElements);
+      renderers.insertAll(0, state.cameraViewport.bakedElements);
     }
     currentRenderers = currentRenderers
         .whereNot((element) => renderers.contains(element))

@@ -22,6 +22,7 @@
 * Fix add dialog shows "No element" if there is only import search results
 * Fix document isn't saved when clicking home
 * Fix stamp don't use unique element ids
+* Fix render order when creating multiple elements when baking
 * Show git hash instead of version in web version
 * Upgrade to flutter 3.27
 

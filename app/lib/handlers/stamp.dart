@@ -101,7 +101,7 @@ class StampHandler extends PastingHandler<StampTool> {
                         relative: true)
                     ?.element ??
                 e.element)
-                .map((e) => e.copyWith(id: createUniqueId()))
+            .map((e) => e.copyWith(id: createUniqueId()))
             .toList() ??
         [];
   }
