@@ -37,8 +37,14 @@ import 'navigator/view.dart';
 class PadAppBar extends StatelessWidget implements PreferredSizeWidget {
   final GlobalKey viewportKey;
   final ToolbarSize size;
+  final SearchController searchController;
 
-  PadAppBar({super.key, required this.viewportKey, required this.size});
+  PadAppBar({
+    super.key,
+    required this.viewportKey,
+    required this.size,
+    required this.searchController,
+  });
 
   late final windowTitleBar = _buildWindowTitleBar();
 
@@ -67,6 +73,7 @@ class PadAppBar extends StatelessWidget implements PreferredSizeWidget {
               MediaQuery.of(context).size.width < LeapBreakpoints.compact;
           return _AppBarTitle(
             isMobile: isMobile,
+            searchController: searchController,
           );
         }),
       );
@@ -76,8 +83,11 @@ class PadAppBar extends StatelessWidget implements PreferredSizeWidget {
 }
 
 class _AppBarTitle extends StatefulWidget {
+  final SearchController searchController;
+
   const _AppBarTitle({
     required this.isMobile,
+    required this.searchController,
   });
 
   final bool isMobile;
@@ -298,7 +308,9 @@ class _AppBarTitleState extends State<_AppBarTitle> {
                       state.location.fileType.icon(PhosphorIconsStyle.light)),
                   tooltip: AppLocalizations.of(context).export,
                   onPressed: () => context.read<ImportService>().export()),
-            SearchButton(),
+            SearchButton(
+              controller: widget.searchController,
+            ),
             if (state.location.path != '' && state.embedding == null) ...[
               IconButton(
                 icon: const PhosphorIcon(PhosphorIconsLight.folder),

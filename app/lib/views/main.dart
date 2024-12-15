@@ -18,6 +18,7 @@ import 'package:butterfly/views/toolbar/view.dart';
 import 'package:butterfly/views/edit.dart';
 import 'package:butterfly/views/error.dart';
 import 'package:butterfly/views/property.dart';
+import 'package:butterfly/widgets/search.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -87,6 +88,7 @@ class _ProjectPageState extends State<ProjectPage> {
   ExternalStorage? _remote;
   ImportService? _importService;
   ExportService? _exportService;
+  final SearchController _searchController = SearchController();
   late final CloseSubscription _closeSubscription;
   final GlobalKey _viewportKey = GlobalKey();
   final _actions = <Type, Action<Intent>>{
@@ -286,6 +288,7 @@ class _ProjectPageState extends State<ProjectPage> {
     widget.embedding?.handler.unregister();
     _closeSubscription.dispose();
     _bloc?.dispose();
+    _searchController.dispose();
   }
 
   @override
@@ -331,7 +334,19 @@ class _ProjectPageState extends State<ProjectPage> {
                               previous.toolbarSize != current.toolbarSize,
                           builder: (context, settings) {
                             return Actions(
-                              actions: _actions,
+                              actions: {
+                                ..._actions,
+                                SearchIntent: CallbackAction<SearchIntent>(
+                                  onInvoke: (_) {
+                                    if (_searchController.isOpen) {
+                                      _searchController.closeView(null);
+                                      return null;
+                                    }
+                                    _searchController.openView();
+                                    return null;
+                                  },
+                                ),
+                              },
                               child: Shortcuts(
                                 shortcuts: {
                                   LogicalKeySet(LogicalKeyboardKey.control,
@@ -364,6 +379,8 @@ class _ProjectPageState extends State<ProjectPage> {
                                   LogicalKeySet(LogicalKeyboardKey.control,
                                           LogicalKeyboardKey.keyA):
                                       SelectAllIntent(context),
+                                  LogicalKeySet(LogicalKeyboardKey.control,
+                                      LogicalKeyboardKey.keyK): SearchIntent(),
                                   if (widget.embedding == null) ...{
                                     LogicalKeySet(LogicalKeyboardKey.control,
                                             LogicalKeyboardKey.keyE):
@@ -441,6 +458,8 @@ class _ProjectPageState extends State<ProjectPage> {
                                                 : PadAppBar(
                                                     viewportKey: _viewportKey,
                                                     size: settings.toolbarSize,
+                                                    searchController:
+                                                        _searchController,
                                                   ),
                                         drawer: state is DocumentLoadSuccess
                                             ? const DocumentNavigator(

@@ -11,6 +11,10 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
+class SearchIntent extends Intent {
+  const SearchIntent();
+}
+
 Future<List<SearchResult>> _searchIsolate(NoteData noteData, String currentPage,
         DocumentPage page, String query) =>
     Isolate.run(() => noteData
@@ -18,7 +22,8 @@ Future<List<SearchResult>> _searchIsolate(NoteData noteData, String currentPage,
         .toList());
 
 class SearchButton extends StatelessWidget {
-  const SearchButton({super.key});
+  final SearchController controller;
+  const SearchButton({super.key, required this.controller});
 
   IconGetter _getIcon(SearchResult item) => switch (item) {
         ElementResult e => e.element.icon,
@@ -49,13 +54,23 @@ class SearchButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final bloc = context.read<DocumentBloc>();
     return SearchAnchor(
-        builder: (BuildContext context, SearchController controller) =>
-            IconButton(
-              icon: const Icon(PhosphorIconsLight.magnifyingGlass),
-              tooltip: AppLocalizations.of(context).search,
-              onPressed: () {
-                controller.openView();
+        searchController: controller,
+        builder: (BuildContext context, SearchController controller) => Actions(
+              actions: {
+                SearchIntent: CallbackAction<SearchIntent>(
+                  onInvoke: (_) {
+                    controller.openView();
+                    return null;
+                  },
+                ),
               },
+              child: IconButton(
+                icon: const Icon(PhosphorIconsLight.magnifyingGlass),
+                tooltip: AppLocalizations.of(context).search,
+                onPressed: () {
+                  controller.openView();
+                },
+              ),
             ),
         suggestionsBuilder: (context, controller) async {
           final state = bloc.state;
