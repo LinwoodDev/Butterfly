@@ -2,6 +2,50 @@
 
 <!--ENTER CHANGELOG HERE-->
 
+## 2.2.3-rc.1 (2024-12-16)
+
+* Improve template dialog
+  * Add override tools in context menu
+  * Add information button
+  * Add duplicate button
+  * Change create template button to save icon
+  * Improve thumbnail display to have rounded corners
+* Add color wheel to color picker
+* Add render resolution to improve moving on canvas
+* Redesign search to material 3
+  * Improve tool results
+* Improve responsiveness of exact slider
+* Change zoom dependent to false by default
+* Use material blue and red as default colors
+* Improve sliders for background dialog
+* Add additional selection ui options to the pen element
+* Add tooltip to preset icons in export dialog
+* Change general icon on background to grid
+* Limit search results to 10
+* Fix export on web
+* Fix shape detection always enabled in pen tool
+* Fix ruler not working correctly in pen tool
+* Fix ruler position is wrong when moving on the canvas
+* Fix zoom dependent not working correctly with the label tool ([#765](https://github.com/LinwoodDev/Butterfly/issues/765))
+* Fix temporary import handler does not get removed after clicking
+* Fix asset hash not correctly working with filenames
+* Fix duplicated asset importing
+* Fix aspect ratio label in area tool selection view
+* Fix add dialog shows "No element" if there is only import search results
+* Fix document isn't saved when clicking home
+* Fix stamp don't use unique element ids
+* Fix render order when creating multiple elements when baking
+* Fix some color fields don't keep alpha value
+* FIx color fields preview shows alpha value
+* Fix min slider value of stroke width
+* Fix selection not working correctly when editing multiple elements
+* Fix search on web
+* Fix temporary stamp
+* Show git hash instead of version in web version
+* Upgrade to flutter 3.27
+
+Read more here: https://linwood.dev/butterfly/2.2.3-rc.1
+
 ## 2.2.3-rc.0 (2024-12-02)
 
 * Add toggle for color toolbar ([#611](https://github.com/LinwoodDev/Butterfly/issues/611))
