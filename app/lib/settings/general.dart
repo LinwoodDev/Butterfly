@@ -209,9 +209,10 @@ class _GeneralSettingsPageState extends State<GeneralSettingsPage> {
                       ListTile(
                           leading:
                               const PhosphorIcon(PhosphorIconsLight.translate),
-                          title: const Text('Crowdin'),
+                          title: Text(AppLocalizations.of(context).translate),
                           onTap: () => launchUrl(
-                              Uri.https('go.linwood.dev', 'butterfly/crowdin'),
+                              Uri.https(
+                                  'go.linwood.dev', 'butterfly/translate'),
                               mode: LaunchMode.externalApplication)),
                       ListTile(
                           leading: const PhosphorIcon(PhosphorIconsLight.code),

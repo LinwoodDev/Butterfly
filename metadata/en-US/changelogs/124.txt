@@ -30,7 +30,7 @@
 * Fix stamp don't use unique element ids
 * Fix render order when creating multiple elements when baking
 * Fix some color fields don't keep alpha value
-* FIx color fields preview shows alpha value
+* Fix color fields preview shows alpha value
 * Fix min slider value of stroke width
 * Fix selection not working correctly when editing multiple elements
 * Fix search on web
