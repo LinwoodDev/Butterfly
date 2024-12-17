@@ -1,1 +1,2 @@
 * Improve mobile color picker
+* Fix baking not working correctly when zooming in

@@ -523,14 +523,15 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     if (viewportSize != null) {
       size *= resolution.multiplier;
     }
-    final renderTransform =
-        transform.improve(resolution, size / resolution.multiplier);
+    final imageWidth = (size.width * ratio).ceil();
+    final imageHeight = (size.height * ratio).ceil();
+    rect = resolution.getRect(rect);
+    final renderTransform = transform.improve(resolution, rect.size);
     final viewChanged = cameraViewport.width != size.width.ceil() ||
         cameraViewport.height != size.height.ceil() ||
         cameraViewport.x != renderTransform.position.dx ||
         cameraViewport.y != renderTransform.position.dy ||
         cameraViewport.scale != transform.size;
-    rect = resolution.getRect(rect);
     reset = reset || viewChanged;
     resetAllLayers = resetAllLayers || viewChanged;
     if (renderers.isEmpty && !reset) return;
@@ -570,9 +571,6 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     ).paint(canvas, size);
 
     var picture = recorder.endRecording();
-
-    final imageWidth = (size.width * ratio).ceil();
-    final imageHeight = (size.height * ratio).ceil();
 
     final newImage = await picture.toImage(imageWidth, imageHeight);
 
