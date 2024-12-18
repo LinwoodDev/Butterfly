@@ -26,5 +26,7 @@ RUN flutter build web
 # Nginx Container
 FROM nginx:alpine
 
+EXPOSE 80
+
 # Copy build/web in container to /app/
 COPY --from=builder /flutter_app/app/build/web /usr/share/nginx/html
