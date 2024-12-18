@@ -1,2 +1,6 @@
+* Add area options to context menu in area navigator page
 * Improve mobile color picker
 * Fix baking not working correctly when zooming in
+* Fix docker image ([#769](https://github.com/LinwoodDev/Butterfly/pull/769))
+
+Read more here: https://linwood.dev/butterfly/2.2.3-rc.2

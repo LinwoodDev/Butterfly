@@ -76,12 +76,17 @@ ContextMenuBuilder buildAreaContextMenu(DocumentBloc bloc,
           )(context)
         ];
 
-ContextMenuBuilder buildGeneralAreaContextMenu(DocumentBloc bloc, Area area,
-        SettingsCubit settingsCubit, List<PadElement> elements) =>
+ContextMenuBuilder buildGeneralAreaContextMenu(
+  DocumentBloc bloc,
+  Area area,
+  SettingsCubit settingsCubit,
+  List<PadElement> elements, {
+  bool pop = true,
+}) =>
     (context) => [
           ContextMenuItem(
             onPressed: () async {
-              Navigator.of(context).pop(true);
+              if (pop) Navigator.of(context).pop(true);
               final result = await showDialog<String>(
                   builder: (context) => NameDialog(
                         button: AppLocalizations.of(context).update,
@@ -96,7 +101,7 @@ ContextMenuBuilder buildGeneralAreaContextMenu(DocumentBloc bloc, Area area,
           ),
           ContextMenuItem(
             onPressed: () async {
-              Navigator.of(context).pop(true);
+              if (pop) Navigator.of(context).pop(true);
               final result = await showDialog<String>(
                   builder: (context) => NameDialog(), context: context);
               if (result == null) return;
@@ -113,7 +118,7 @@ ContextMenuBuilder buildGeneralAreaContextMenu(DocumentBloc bloc, Area area,
               MenuItemButton(
                 leadingIcon: const PhosphorIcon(PhosphorIconsLight.fileSvg),
                 onPressed: () {
-                  Navigator.of(context).pop();
+                  if (pop) Navigator.of(context).pop();
                   showDialog<void>(
                       builder: (context) => BlocProvider.value(
                           value: bloc,
@@ -132,7 +137,7 @@ ContextMenuBuilder buildGeneralAreaContextMenu(DocumentBloc bloc, Area area,
               MenuItemButton(
                 leadingIcon: const PhosphorIcon(PhosphorIconsLight.fileImage),
                 onPressed: () {
-                  Navigator.of(context).pop();
+                  if (pop) Navigator.of(context).pop();
                   showDialog<void>(
                       builder: (context) => BlocProvider.value(
                             value: bloc,
@@ -153,7 +158,7 @@ ContextMenuBuilder buildGeneralAreaContextMenu(DocumentBloc bloc, Area area,
               MenuItemButton(
                 leadingIcon: const PhosphorIcon(PhosphorIconsLight.filePdf),
                 onPressed: () {
-                  Navigator.of(context).pop();
+                  if (pop) Navigator.of(context).pop();
                   showDialog<void>(
                       builder: (context) => BlocProvider.value(
                           value: bloc,
@@ -167,7 +172,7 @@ ContextMenuBuilder buildGeneralAreaContextMenu(DocumentBloc bloc, Area area,
               MenuItemButton(
                 leadingIcon: const PhosphorIcon(PhosphorIconsLight.printer),
                 onPressed: () {
-                  Navigator.of(context).pop();
+                  if (pop) Navigator.of(context).pop();
                   showDialog<void>(
                       builder: (context) => BlocProvider.value(
                             value: bloc,
@@ -186,7 +191,7 @@ ContextMenuBuilder buildGeneralAreaContextMenu(DocumentBloc bloc, Area area,
             icon: const PhosphorIcon(PhosphorIconsLight.plusCircle),
             label: AppLocalizations.of(context).addToPack,
             onPressed: () async {
-              Navigator.of(context).pop();
+              if (pop) Navigator.of(context).pop();
               addToPack(context, bloc, settingsCubit, elements, area.rect);
             },
           ),

@@ -91,7 +91,7 @@ class _ContextMenuState extends State<ContextMenu>
   Widget build(BuildContext context) {
     final isMobile =
         context.read<SettingsCubit>().state.platformTheme.isMobile(context);
-    final items = widget.builder(context);
+    final entries = widget.builder(context);
     return CustomSingleChildLayout(
       delegate: DesktopTextSelectionToolbarLayoutDelegate(
         anchor: widget.position,
@@ -112,48 +112,54 @@ class _ContextMenuState extends State<ContextMenu>
             child: ListView(
               scrollDirection: isMobile ? Axis.horizontal : Axis.vertical,
               shrinkWrap: true,
-              children: items.map((item) {
-                Widget buildItemWidget(VoidCallback? onPressed) => AspectRatio(
-                      aspectRatio: 1,
-                      child: IconButton(
-                        icon: item.icon,
-                        tooltip: item.label,
-                        onPressed: onPressed,
-                        iconSize: 30,
-                      ),
-                    );
-                return switch (item) {
-                  ContextMenuItem() => isMobile
-                      ? buildItemWidget(item.onPressed)
-                      : MenuItemButton(
-                          leadingIcon: item.icon,
-                          onPressed: item.onPressed,
-                          child: Text(item.label),
-                        ),
-                  ContextMenuGroup() => isMobile
-                      ? MenuAnchor(
-                          menuChildren: item.children,
-                          builder: (context, controller, child) =>
-                              buildItemWidget(controller.toggle),
-                        )
-                      : SubmenuButton(
-                          menuChildren: item.children,
-                          leadingIcon: item.icon,
-                          trailingIcon:
-                              const PhosphorIcon(PhosphorIconsLight.caretRight),
-                          menuStyle: const MenuStyle(
-                            alignment: Alignment.bottomRight,
-                          ),
-                          child: Text(item.label),
-                        ),
-                };
-              }).toList(),
+              children: entries
+                  .map((entry) => buildMenuItem(context, entry, isMobile, true))
+                  .toList(),
             ),
           ),
         ),
       ),
     );
   }
+}
+
+Widget buildMenuItem(
+    BuildContext context, ContextMenuEntry entry, bool isIcon, bool showCaret) {
+  Widget buildItemWidget(VoidCallback? onPressed) => AspectRatio(
+        aspectRatio: 1,
+        child: IconButton(
+          icon: entry.icon,
+          tooltip: entry.label,
+          onPressed: onPressed,
+          iconSize: 30,
+        ),
+      );
+  return switch (entry) {
+    ContextMenuItem() => isIcon
+        ? buildItemWidget(entry.onPressed)
+        : MenuItemButton(
+            leadingIcon: entry.icon,
+            onPressed: entry.onPressed,
+            child: Text(entry.label),
+          ),
+    ContextMenuGroup() => isIcon
+        ? MenuAnchor(
+            menuChildren: entry.children,
+            builder: (context, controller, child) =>
+                buildItemWidget(controller.toggle),
+          )
+        : SubmenuButton(
+            menuChildren: entry.children,
+            leadingIcon: entry.icon,
+            trailingIcon: showCaret
+                ? const PhosphorIcon(PhosphorIconsLight.caretRight)
+                : null,
+            menuStyle: const MenuStyle(
+              alignment: Alignment.bottomRight,
+            ),
+            child: Text(entry.label),
+          ),
+  };
 }
 
 Future<T?> showContextMenu<T>(

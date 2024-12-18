@@ -1,7 +1,11 @@
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/cubits/current_index.dart';
+import 'package:butterfly/cubits/settings.dart';
+import 'package:butterfly/dialogs/area/context.dart';
 import 'package:butterfly/handlers/handler.dart';
+import 'package:butterfly/helpers/point.dart';
 import 'package:butterfly/helpers/rect.dart';
+import 'package:butterfly/widgets/context_menu.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
@@ -33,6 +37,7 @@ class _AreasViewState extends State<AreasView> {
 
   @override
   Widget build(BuildContext context) {
+    final bloc = context.read<DocumentBloc>();
     return BlocBuilder<CurrentIndexCubit, CurrentIndex>(
         buildWhen: (previous, current) =>
             previous.cameraViewport != current.cameraViewport ||
@@ -104,7 +109,7 @@ class _AreasViewState extends State<AreasView> {
                     width: rect.width,
                     name: name,
                   );
-                  context.read<DocumentBloc>()
+                  bloc
                     ..add(AreasCreated([newArea]))
                     ..add(CurrentAreaChanged(name));
                 }
@@ -152,9 +157,8 @@ class _AreasViewState extends State<AreasView> {
                                             ? PhosphorIconsLight.signOut
                                             : PhosphorIconsLight.signIn),
                                         onPressed: () {
-                                          context.read<DocumentBloc>().add(
-                                              CurrentAreaChanged(
-                                                  selected ? '' : area.name));
+                                          bloc.add(CurrentAreaChanged(
+                                              selected ? '' : area.name));
                                         },
                                         tooltip: selected
                                             ? AppLocalizations.of(context)
@@ -171,8 +175,6 @@ class _AreasViewState extends State<AreasView> {
                                         context
                                             .read<TransformCubit>()
                                             .teleportToArea(area, screen);
-                                        final bloc =
-                                            context.read<DocumentBloc>();
                                         if (current != null) {
                                           bloc.add(
                                               CurrentAreaChanged(area.name));
@@ -199,14 +201,31 @@ class _AreasViewState extends State<AreasView> {
                                                         const DeleteDialog());
                                             if (result != true) return;
                                             if (context.mounted) {
-                                              context.read<DocumentBloc>().add(
+                                              bloc.add(
                                                   AreasRemoved([area.name]));
                                             }
                                           },
                                           child: Text(
                                               AppLocalizations.of(context)
                                                   .delete),
-                                        )
+                                        ),
+                                        ...buildGeneralAreaContextMenu(
+                                                bloc,
+                                                area,
+                                                context.read<SettingsCubit>(),
+                                                state.renderers
+                                                    .where(
+                                                        (e) => e.area == area)
+                                                    .map((e) => e.transform(
+                                                        position: -area.position
+                                                            .toOffset(),
+                                                        relative: true))
+                                                    .map((e) => e?.element)
+                                                    .nonNulls
+                                                    .toList(),
+                                                pop: false)(context)
+                                            .map((e) => buildMenuItem(
+                                                context, e, false, false))
                                       ],
                                     );
                                   });

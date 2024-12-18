@@ -270,7 +270,6 @@ class SelectHandler extends Handler<SelectTool> {
         builder: buildElementsContextMenu(
           bloc,
           state,
-          context.getSettingsCubit(),
           context.getImportService(),
           context.getExportService(),
           context.getClipboardManager(),

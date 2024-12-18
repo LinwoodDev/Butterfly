@@ -1,4 +1,3 @@
-import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/dialogs/area/context.dart';
 import 'package:butterfly/handlers/handler.dart';
 import 'package:butterfly/services/export.dart';
@@ -18,7 +17,6 @@ import '../services/import.dart';
 ContextMenuBuilder buildElementsContextMenu(
     DocumentBloc bloc,
     DocumentLoadSuccess state,
-    SettingsCubit settingsCubit,
     ImportService importService,
     ExportService exportService,
     ClipboardManager clipboardManager,
@@ -26,6 +24,7 @@ ContextMenuBuilder buildElementsContextMenu(
     List<Renderer<PadElement>> renderers,
     Rect? rect) {
   final cubit = state.currentIndexCubit;
+  final settingsCubit = state.settingsCubit;
   final operations = Map<Renderer<PadElement>,
           Map<RendererOperation, RendererOperationCallback>>.fromIterable(
       renderers,
