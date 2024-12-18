@@ -1,15 +1,15 @@
 # Install Operating system and dependencies
-FROM ubuntu:22.04 AS builder
+FROM ubuntu:24.04 AS builder
 
 RUN apt-get update 
-RUN apt-get install -y curl git wget unzip libgconf-2-4 gdb libstdc++6 libglu1-mesa fonts-droid-fallback lib32stdc++6 python3
+RUN apt-get install -y curl git wget unzip gdb libstdc++6 libglu1-mesa fonts-droid-fallback python3
 RUN apt-get clean
 
 RUN mkdir /app/
 COPY . /app
-WORKDIR /app
+WORKDIR /app/app
 # download Flutter SDK from Flutter Github repo
-RUN git clone https://github.com/flutter/flutter.git -b $(cat /FLUTTER_VERSION) /usr/local/flutter
+RUN git clone https://github.com/flutter/flutter.git -b $(cat /app/FLUTTER_VERSION) /usr/local/flutter
 
 # Set flutter environment path
 ENV PATH="/usr/local/flutter/bin:/usr/local/flutter/bin/cache/dart-sdk/bin:${PATH}"
@@ -25,4 +25,4 @@ FROM nginx:alpine
 
 RUN mkdir /app/
 # Copy build/web in container to /app/
-COPY --from=builder ./build/web /usr/share/nginx/html
+COPY --from=builder /app/app/build/web /usr/share/nginx/html
