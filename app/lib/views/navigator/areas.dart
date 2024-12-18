@@ -190,6 +190,23 @@ class _AreasViewState extends State<AreasView> {
                                           ? area.rect.overlaps(viewportRect)
                                           : current.name == area.name,
                                       actions: [
+                                        ...buildGeneralAreaContextMenu(
+                                                bloc,
+                                                area,
+                                                context.read<SettingsCubit>(),
+                                                state.renderers
+                                                    .where(
+                                                        (e) => e.area == area)
+                                                    .map((e) => e.transform(
+                                                        position: -area.position
+                                                            .toOffset(),
+                                                        relative: true))
+                                                    .map((e) => e?.element)
+                                                    .nonNulls
+                                                    .toList(),
+                                                pop: false)(context)
+                                            .map((e) => buildMenuItem(
+                                                context, e, false, false)),
                                         MenuItemButton(
                                           leadingIcon: const PhosphorIcon(
                                               PhosphorIconsLight.trash),
@@ -209,23 +226,6 @@ class _AreasViewState extends State<AreasView> {
                                               AppLocalizations.of(context)
                                                   .delete),
                                         ),
-                                        ...buildGeneralAreaContextMenu(
-                                                bloc,
-                                                area,
-                                                context.read<SettingsCubit>(),
-                                                state.renderers
-                                                    .where(
-                                                        (e) => e.area == area)
-                                                    .map((e) => e.transform(
-                                                        position: -area.position
-                                                            .toOffset(),
-                                                        relative: true))
-                                                    .map((e) => e?.element)
-                                                    .nonNulls
-                                                    .toList(),
-                                                pop: false)(context)
-                                            .map((e) => buildMenuItem(
-                                                context, e, false, false))
                                       ],
                                     );
                                   });

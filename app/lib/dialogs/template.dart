@@ -145,15 +145,14 @@ class _TemplateDialogState extends State<TemplateDialog> {
             );
           },
         ),
-        ...widget.bloc == null
-            ? []
-            : [
-                IconButton(
-                  onPressed: () => _showCreateDialog(widget.bloc!),
-                  tooltip: AppLocalizations.of(context).create,
-                  icon: const PhosphorIcon(PhosphorIconsLight.floppyDisk),
-                )
-              ],
+      ],
+      actions: [
+        if (widget.bloc == null)
+          ElevatedButton.icon(
+            onPressed: () => _showCreateDialog(widget.bloc!),
+            label: Text(AppLocalizations.of(context).create),
+            icon: const PhosphorIcon(PhosphorIconsLight.floppyDisk),
+          )
       ],
       content: FutureBuilder<List<NoteData>>(
         future: _templatesFuture,
@@ -381,7 +380,7 @@ class _TemplateItem extends StatelessWidget {
         ? AspectRatio(
             aspectRatio: kThumbnailRatio,
             child: ClipRRect(
-                borderRadius: BorderRadius.circular(12),
+                borderRadius: BorderRadius.circular(8),
                 child: Image.memory(
                   thumbnail,
                   fit: BoxFit.cover,
@@ -394,10 +393,9 @@ class _TemplateItem extends StatelessWidget {
       initialValue: metadata.name,
       subtitle: Text(metadata.description),
       leading: SizedBox(
-        height: 64,
-        width: 96,
+        width: 112,
         child: Row(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Checkbox(
               value: selected,
@@ -409,7 +407,7 @@ class _TemplateItem extends StatelessWidget {
                 }
               },
             ),
-            const SizedBox(width: 8),
+            const SizedBox(width: 2),
             Flexible(child: leading),
           ],
         ),

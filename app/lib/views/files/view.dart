@@ -604,6 +604,7 @@ class FilesViewState extends State<FilesView> {
             );
           }
         }),
+        const SizedBox(height: 8),
         BlocBuilder<SettingsCubit, ButterflySettings>(
           buildWhen: (previous, current) => previous.starred != current.starred,
           builder: (context, settings) =>
@@ -617,7 +618,8 @@ class FilesViewState extends State<FilesView> {
                       return const Center(child: CircularProgressIndicator());
                     }
                     if (!snapshot.hasData) {
-                      return Text(AppLocalizations.of(context).noElements);
+                      return Center(
+                          child: Text(AppLocalizations.of(context).noElements));
                     }
                     final entity = snapshot.data;
                     if (entity is! FileSystemDirectory<NoteData>) {
@@ -688,6 +690,7 @@ class FilesViewState extends State<FilesView> {
                     );
                   }),
         ),
+        const SizedBox(height: 32),
       ]),
     );
   }
