@@ -10,7 +10,7 @@ COPY . /flutter_app
 WORKDIR /flutter_app/app
 
 # download Flutter SDK from Flutter Github repo
-RUN git clone https://github.com/flutter/flutter.git -b $(echo "flutter-$(yq '.environment.flutter' /flutter_app/app/pubspec.yaml -r | cut -d'.' -f1,2)-candidate.0") /usr/local/flutter
+RUN git clone https://github.com/flutter/flutter.git -b $(yq '.environment.flutter' /flutter_app/app/pubspec.yaml -r) /usr/local/flutter
 
 # Set flutter environment path
 ENV PATH="/usr/local/flutter/bin:/usr/local/flutter/bin/cache/dart-sdk/bin:${PATH}"
