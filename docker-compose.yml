@@ -1,0 +1,8 @@
+services:
+  butterfly:
+    build:
+      context: .
+    container_name: butterfly
+    #ports:
+    #  - "3000:80"
+    restart: always
