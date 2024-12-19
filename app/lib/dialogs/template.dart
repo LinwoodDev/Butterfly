@@ -147,7 +147,7 @@ class _TemplateDialogState extends State<TemplateDialog> {
         ),
       ],
       actions: [
-        if (widget.bloc == null)
+        if (widget.bloc != null)
           ElevatedButton.icon(
             onPressed: () => _showCreateDialog(widget.bloc!),
             label: Text(AppLocalizations.of(context).create),

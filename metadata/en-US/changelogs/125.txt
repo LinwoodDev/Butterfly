@@ -2,6 +2,7 @@
 * Move create button to the top right of the template dialog
 * Improve mobile color picker
 * Align no elements text to the center
+* Fix thumbnail in files view
 * Fix spacing in home page
 * Fix baking not working correctly when zooming in
 * Fix docker image ([#769](https://github.com/LinwoodDev/Butterfly/pull/769))

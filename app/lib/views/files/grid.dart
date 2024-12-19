@@ -85,16 +85,26 @@ class FileEntityGridItem extends StatelessWidget {
                     Center(
                       child: Container(
                         height: 96,
-                        width: 96,
-                        padding: const EdgeInsets.only(top: 8),
+                        padding: const EdgeInsets.only(
+                          left: 8,
+                          right: 8,
+                          top: 16,
+                          bottom: 8,
+                        ),
                         child: thumbnail != null
-                            ? Image.memory(
-                                thumbnail!,
-                                fit: BoxFit.contain,
-                                cacheWidth: 96,
-                                cacheHeight: 96,
-                                errorBuilder: (context, error, stackTrace) =>
-                                    leading,
+                            ? AspectRatio(
+                                aspectRatio: kThumbnailRatio,
+                                child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(8),
+                                    child: Image.memory(
+                                      thumbnail!,
+                                      fit: BoxFit.cover,
+                                      cacheHeight: kThumbnailWidth,
+                                      cacheWidth: kThumbnailHeight,
+                                      errorBuilder:
+                                          (context, error, stackTrace) =>
+                                              leading,
+                                    )),
                               )
                             : leading,
                       ),

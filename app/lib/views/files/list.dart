@@ -99,17 +99,19 @@ class FileEntityListTile extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             SizedBox(
-                              width: 32,
-                              height: 32,
+                              width: 64,
                               child: thumbnail != null
-                                  ? Image.memory(
-                                      thumbnail!,
-                                      fit: BoxFit.cover,
-                                      cacheHeight: 32,
-                                      cacheWidth: 32,
-                                      errorBuilder:
-                                          (context, error, stackTrace) =>
-                                              leading,
+                                  ? AspectRatio(
+                                      aspectRatio: kThumbnailRatio,
+                                      child: ClipRRect(
+                                          borderRadius:
+                                              BorderRadius.circular(8),
+                                          child: Image.memory(
+                                            thumbnail!,
+                                            fit: BoxFit.cover,
+                                            cacheHeight: kThumbnailWidth,
+                                            cacheWidth: kThumbnailHeight,
+                                          )),
                                     )
                                   : leading,
                             ),
