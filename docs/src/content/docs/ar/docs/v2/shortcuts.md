@@ -15,7 +15,7 @@ title: الاختصارات
 - `Ctrl` + `P`: طباعة الملف
 - 'Ctrl' + 'Shift' + 'E': تصدير الملف كصورة
 - `Ctrl` + `Alt` + `E`: تصدير الملف كـ svg
-- `Ctrl` + `Alt` + `Shift` + `E`: تصدير الملف كـ svg
+- `Ctrl` + `Alt` + `Shift` + `E`: Export file as pdf
 - `Ctrl` + `Alt` + `P`: فتح الحزم
 - `Ctrl` + `Alt` + `S`: فتح الإعدادات
 
