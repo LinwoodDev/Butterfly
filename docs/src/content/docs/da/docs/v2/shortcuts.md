@@ -15,7 +15,7 @@ Nogle af dem er skrevet under knapperne.
 - `Ctrl` + `P`: Udskriv fil
 - `Ctrl` + `Shift` + `E`: Eksportér fil som billede
 - `Ctrl` + `Alt` + `E`: Eksportér fil som svg
-- `Ctrl` + `Alt` + `Shift` + `E`: Eksporter fil som svg
+- `Ctrl` + `Alt` + `Shift` + `E`: Export file as pdf
 - `Ctrl` + `Alt` + `P`: Åbn pakker
 - `Ctrl` + `Alt` + `S`: Åbn indstillinger
 
