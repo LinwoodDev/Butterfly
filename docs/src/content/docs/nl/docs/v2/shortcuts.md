@@ -15,7 +15,7 @@ Sommige ervan worden onder de knoppen geschreven.
 - `Ctrl` + `P`: bestand afdrukken
 - `Ctrl` + `Shift` + `E`: Exporteer bestand als afbeelding
 - `Ctrl` + `Alt` + `E`: Exporteer bestand als svg
-- `Ctrl` + `Alt` + `Shift` + `E`: Exporteer bestand als svg
+- `Ctrl` + `Alt` + `Shift` + `E`: Export file as pdf
 - `Ctrl` + `Alt` + `P`: Open pakketjes
 - `Ctrl` + `Alt` + `S`: Instellingen openen
 
