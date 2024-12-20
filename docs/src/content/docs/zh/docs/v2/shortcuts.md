@@ -15,7 +15,7 @@ title: 快捷键
 - `Ctrl` + `P`：打印文件
 - `Ctrl` + `Shift` + `E`: 导出文件为图像
 - `Ctrl` + `Alt` + `E`: 导出文件为 svg
-- `Ctrl` + `Alt` + `Shift` + `E`: 导出文件为 svg
+- `Ctrl` + `Alt` + `Shift` + `E`: Export file as pdf
 - `Ctrl` + `Alt` + `P`: 打开包
 - `Ctrl` + `Alt` + `S`: 打开设置
 
