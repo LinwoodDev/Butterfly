@@ -15,7 +15,7 @@ Osa niistä on kirjoitettu painikkeiden alle.
 - `Ctrl` + `P`: Tulosta tiedosto
 - `Ctrl` + `Shift` + `E`: Vie kuva kuvaksi
 - `Ctrl` + `Alt` + `E`: Vie tiedosto svg
-- `Ctrl` + `Alt` + `Shift` + `E`: Vie tiedosto svg
+- `Ctrl` + `Alt` + `Shift` + `E`: Export file as pdf
 - `Ctrl` + `Alt` + `P`: Avaa paketit
 - `Ctrl` + `Alt` + `S`: Avaa asetukset
 
