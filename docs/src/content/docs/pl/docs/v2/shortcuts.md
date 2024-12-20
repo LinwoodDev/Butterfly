@@ -15,7 +15,7 @@ Niektóre z nich są napisane pod przyciskami.
 - `Ctrl` + `P`: Drukuj plik
 - `Ctrl` + `Shift` + `E`: Eksportuj plik jako obraz
 - `Ctrl` + `Alt` + `E`: Eksportuj plik jako svg
-- `Ctrl` + `Alt` + `Shift` + `E`: Eksportuj plik jako svg
+- `Ctrl` + `Alt` + `Shift` + `E`: Export file as pdf
 - `Ctrl` + `Alt` + `P`: Otwarte paczki
 - `Ctrl` + `Alt` + `S`: Otwórz ustawienia
 

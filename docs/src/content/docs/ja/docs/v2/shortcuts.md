@@ -15,7 +15,7 @@ title: ショートカット
 - `Ctrl` + `P`: ファイルを印刷
 - `Ctrl` + `Shift` + `E`: ファイルを画像としてエクスポート
 - `Ctrl` + `Alt` + `E`: ファイルを svg としてエクスポート
-- `Ctrl` + `Alt` + `Shift` + `E`: ファイルを svg としてエクスポート
+- `Ctrl` + `Alt` + `Shift` + `E`: Export file as pdf
 - `Ctrl` + `Alt` + `P`: パックを開く
 - `Ctrl` + `Alt` + `S`: 設定を開く
 

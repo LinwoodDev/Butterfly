@@ -638,5 +638,12 @@
   "yesButShowButtons": "はい、しかしボタンを表示する",
   "optionsPanelPosition": "オプションパネルの位置",
   "hideDuration": "期間を隠す",
-  "animation": "アニメーション"
+  "animation": "アニメーション",
+  "performance": "パフォーマンス",
+  "performanceDescription": "速度とメモリ使用量に合わせて最適化されました。ノートの表示部分だけが画像に焼き付けられます。",
+  "normalDescription": "バランスの良さとパフォーマンス。可視領域の1.5倍の画像を焼き、スクロール時にスムーズなトランジションを提供します。",
+  "high": "高い",
+  "highDescription": "概要: 性能を犠牲にして品質を最大化します。 可視領域の2倍の画像を作成し、高速スクロールやズーム時でもシームレスなレンダリングを実現します。",
+  "renderResolution": "レンダリング解像度",
+  "translate": "翻訳する"
 }

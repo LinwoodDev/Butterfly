@@ -15,7 +15,7 @@ title: Ярлыки
 - `Ctrl` + `P`: Печать файла
 - `Ctrl` + `Shift` + `E`: Экспортировать файл как изображение
 - `Ctrl` + `Alt` + `E`: Экспортировать файл как svg
-- `Ctrl` + `Alt` + `Shift` + `E`: Экспортировать файл как svg
+- `Ctrl` + `Alt` + `Shift` + `E`: Export file as pdf
 - `Ctrl` + `Alt` + `P`: Открытые пакеты
 - `Ctrl` + `Alt` + `S`: Открыть настройки
 

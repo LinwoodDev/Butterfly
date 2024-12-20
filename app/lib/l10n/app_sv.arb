@@ -638,5 +638,12 @@
   "yesButShowButtons": "Ja, men visa knappar",
   "optionsPanelPosition": "Alternativ panel position",
   "hideDuration": "Dölj varaktighet",
-  "animation": "Animering"
+  "animation": "Animering",
+  "performance": "Prestation",
+  "performanceDescription": "Optimerad för hastighet och minnesanvändning. Endast den synliga delen av noten bakas in i bilden.",
+  "normalDescription": "Balanserar kvalitet och prestanda. Bakar en bild som täcker 1,5 gånger det synliga området, vilket ger jämnare övergångar vid rullning.",
+  "high": "Hög",
+  "highDescription": "Beskrivning: Maximerar kvaliteten till priset av prestanda. Bakar en bild som täcker 2 gånger det synliga området, vilket säkerställer sömlös rendering även under snabb rullning eller zoomning.",
+  "renderResolution": "Rendera upplösning",
+  "translate": "Översätt"
 }

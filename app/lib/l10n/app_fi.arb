@@ -638,5 +638,12 @@
   "yesButShowButtons": "Kyllä, mutta näytä painikkeet",
   "optionsPanelPosition": "Valintapaneelin sijainti",
   "hideDuration": "Piilota kesto",
-  "animation": "Animaatio"
+  "animation": "Animaatio",
+  "performance": "Suorituskyky",
+  "performanceDescription": "Optimoitu nopeuden ja muistin käyttöä varten. Kuvaan paistetaan vain muistin näkyvä osa.",
+  "normalDescription": "Tasapainojen laatu ja suorituskyky. Bakes kuvan, joka kattaa 1,5 kertaa näkyvän alueen, tarjoaa sujuvampia siirtymiä vierittäessä.",
+  "high": "Korkea",
+  "highDescription": "Kuvaus: Maksimoi laatua suorituskyvyn kustannuksella. Leipoo kuvan, joka peittää 2 kertaa näkyvän alueen ja varmistaa saumattoman renderöinnin myös nopean vierityksen tai zoomauksen aikana.",
+  "renderResolution": "Renderöi resoluutio",
+  "translate": "Käännä"
 }

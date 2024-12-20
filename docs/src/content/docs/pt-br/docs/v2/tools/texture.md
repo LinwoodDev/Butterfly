@@ -6,7 +6,7 @@ The texture tool allows you to add the background to a small area of the canvas.
 
 ## Configuração
 
-|         Propriedade |            Padrão            | Descrição                                                                                                                                                                                        |
+|         Propriedade |            Default           | Descrição                                                                                                                                                                                        |
 | ------------------: | :--------------------------: | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 |  Dependendo do zoom |             Falso            | Isto mudará a largura do traço com base no nível de zoom.                                                                                                                        |
 |             Textura | (pattern) | The pattern that should be added                                                                                                                                                                 |

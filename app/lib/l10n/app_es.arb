@@ -638,5 +638,12 @@
   "yesButShowButtons": "Sí, pero mostrar botones",
   "optionsPanelPosition": "Posición del panel de opciones",
   "hideDuration": "Ocultar duración",
-  "animation": "Animación"
+  "animation": "Animación",
+  "performance": "Rendimiento",
+  "performanceDescription": "Optimizada para el uso de velocidad y memoria.",
+  "normalDescription": "Equilibra calidad y rendimiento. Toma una imagen cubriendo 1,5 veces la zona visible, proporcionando transiciones más suaves cuando se desplaza.",
+  "high": "Alta",
+  "highDescription": "Descripción: Maximiza la calidad al coste del rendimiento. Hace una imagen cubriendo 2 veces la zona visible, asegurando un renderizado sin costuras incluso durante un desplazamiento rápido o zooming.",
+  "renderResolution": "Procesar resolución",
+  "translate": "Traducir"
 }

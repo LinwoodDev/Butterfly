@@ -638,5 +638,12 @@
   "yesButShowButtons": "Ja, maar toon knoppen",
   "optionsPanelPosition": "Opties paneel positie",
   "hideDuration": "Duur verbergen",
-  "animation": "Animatie"
+  "animation": "Animatie",
+  "performance": "Prestaties",
+  "performanceDescription": "Geoptimaliseerd voor snelheid en geheugengebruik. Alleen het zichtbare deel van de notitie wordt in de afbeelding gebakken.",
+  "normalDescription": "Geeft een balans van kwaliteit en prestaties. Maakt een afbeelding die 1,5 keer het zichtbare gebied beslaat en biedt betere overgangen bij het scrollen.",
+  "high": "hoog",
+  "highDescription": "Omschrijving: maximaliseert kwaliteit ten koste van de prestaties. Neemt een afbeelding die 2 keer het zichtbare gebied beslaat, waardoor naadloos wordt weergegeven, zelfs tijdens snel scrollen of zoomen",
+  "renderResolution": "Resolutie weergeven",
+  "translate": "Vertalen"
 }

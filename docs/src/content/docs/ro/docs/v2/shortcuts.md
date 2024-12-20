@@ -15,7 +15,7 @@ Unele dintre ele sunt scrise sub butoane.
 - `Ctrl` + `P`: Fişier de imprimare
 - `Ctrl` + `Shift` + `E`: Exportă fișierul ca imagine
 - `Ctrl` + `Alt` + `E`: Export fişier ca svg
-- `Ctrl` + `Alt` + `Shift` + `E`: Export file ca svg
+- `Ctrl` + `Alt` + `Shift` + `E`: Export file as pdf
 - `Ctrl` + `Alt` + `P`: Deschide pachete
 - `Ctrl` + `Alt` + `S`: Deschideți setările
 

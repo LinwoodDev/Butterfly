@@ -15,7 +15,7 @@ Alcuni di loro sono scritti sotto i pulsanti.
 - `Ctrl` + `P`: Stampa file
 - `Ctrl` + `Shift` + `E`: Esporta file come immagine
 - `Ctrl` + `Alt` + `E`: Esporta file come svg
-- `Ctrl` + `Alt` + `Shift` + `E`: Esporta file come svg
+- `Ctrl` + `Alt` + `Shift` + `E`: Export file as pdf
 - `Ctrl` + `Alt` + `P`: Apri pacchetti
 - `Ctrl` + `Alt` + `S`: Apri le impostazioni
 

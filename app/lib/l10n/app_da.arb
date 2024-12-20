@@ -638,5 +638,12 @@
   "yesButShowButtons": "Ja, men vis knapper",
   "optionsPanelPosition": "Valgmuligheder panel position",
   "hideDuration": "Skjul varighed",
-  "animation": "Animation"
+  "animation": "Animation",
+  "performance": "Ydeevne",
+  "performanceDescription": "Optimeret til hastighed og hukommelsesforbrug. Kun den synlige del af noten er bagt ind i billedet.",
+  "normalDescription": "Balancer kvalitet og ydeevne. Bager et billede, der dækker 1,5 gange det synlige område, giver glattere overgange ved rulning.",
+  "high": "Høj",
+  "highDescription": "Beskrivelse: Maksimerer kvalitet på bekostning af ydeevne. Bager et billede, der dækker 2 gange det synlige område, sikrer problemfri gengivelse selv under hurtig rulning eller zooming.",
+  "renderResolution": "Gengiv opløsning",
+  "translate": "Oversæt"
 }

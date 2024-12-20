@@ -15,7 +15,7 @@ Certaines d'entre elles sont écrites sous les boutons.
 - `Ctrl` + `P` : Imprimer le fichier
 - `Ctrl` + `Shift` + `E` : Exporter le fichier en tant qu'image
 - `Ctrl` + `Alt` + `E` : Exporter le fichier en svg
-- `Ctrl` + `Alt` + `Shift` + `E` : Exporter le fichier au format svg
+- `Ctrl` + `Alt` + `Shift` + `E`: Export file as pdf
 - `Ctrl` + `Alt` + `P` : Ouvrir les packs
 - `Ctrl` + `Alt` + `S` : Ouvrir les paramètres
 

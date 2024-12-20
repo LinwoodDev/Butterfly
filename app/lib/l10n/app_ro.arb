@@ -638,5 +638,12 @@
   "yesButShowButtons": "Da, dar arată butoanele",
   "optionsPanelPosition": "Poziția panoului de opțiuni",
   "hideDuration": "Ascunde durata",
-  "animation": "Animaţie"
+  "animation": "Animaţie",
+  "performance": "Performanță",
+  "performanceDescription": "Optimizat pentru viteză și utilizarea memoriei. Numai partea vizibilă a notei este copită în imagine.",
+  "normalDescription": "Echilibrează calitatea și performanța. Bake o imagine care acoperă de 1,5 ori zona vizibilă, oferind tranziții mai ușoare atunci când derulează.",
+  "high": "Ridicat",
+  "highDescription": "Descriere: Maximizează calitatea la costul performanței. Prinde o imagine care acoperă de 2 ori suprafaţa vizibilă, asigurând redarea fără întreruperi chiar şi în timpul derulării rapide sau al zooming-ului.",
+  "renderResolution": "Rezoluție de randare",
+  "translate": "Tradu"
 }
