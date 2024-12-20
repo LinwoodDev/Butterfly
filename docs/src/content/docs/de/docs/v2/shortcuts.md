@@ -15,7 +15,7 @@ Einige davon sind unter den Buttons geschrieben.
 - `Strg` + `P`: Datei drucken
 - `Strg` + `Shift` + `E`: Datei als Bild exportieren
 - `Strg` + `Alt` + `E`: Datei als svg exportieren
-- `Ctrl` + `Alt` + `Shift` + `E`: Datei als svg exportieren
+- `Ctrl` + `Alt` + `Shift` + `E`: Export file as pdf
 - `Strg` + `Alt` + `P`: Open Packs
 - `Strg` + `Alt` + `S`: Einstellungen öffnen
 
