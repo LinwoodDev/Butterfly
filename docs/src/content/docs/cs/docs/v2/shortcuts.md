@@ -15,7 +15,7 @@ Některé z nich jsou zapsány pod tlačítky.
 - `Ctrl` + `P`: Tisknout soubor
 - `Ctrl` + `Shift` + `E`: Exportovat soubor jako obrázek
 - `Ctrl` + `Alt` + `E`: Exportovat soubor jako svg
-- `Ctrl` + `Alt` + `Shift` + `E`: Exportovat soubor jako svg
+- `Ctrl` + `Alt` + `Shift` + `E`: Export file as pdf
 - `Ctrl` + `Alt` + `P`: Otevřené balíčky
 - `Ctrl` + `Alt` + `S`: Otevřít nastavení
 
