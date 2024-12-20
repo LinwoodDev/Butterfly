@@ -15,7 +15,7 @@ title: Συντομεύσεις
 - `Ctrl` + `P`: Αρχείο εκτύπωσης
 - `Ctrl` + `Shift` + `E`: Εξαγωγή αρχείου ως εικόνα
 - `Ctrl` + `Alt` + `E`: Εξαγωγή αρχείου ως svg
-- `Ctrl` + `Alt` + `Shift` + `E`: Εξαγωγή αρχείου ως svg
+- `Ctrl` + `Alt` + `Shift` + `E`: Export file as pdf
 - `Ctrl` + `Alt` + `P`: Ανοίξτε πακέτα
 - `Ctrl` + `Alt` + `S`: Άνοιγμα ρυθμίσεων
 
