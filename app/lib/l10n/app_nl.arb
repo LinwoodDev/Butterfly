@@ -639,11 +639,11 @@
   "optionsPanelPosition": "Opties paneel positie",
   "hideDuration": "Duur verbergen",
   "animation": "Animatie",
-  "performance": "Performance",
-  "performanceDescription": "Optimized for speed and memory usage. Only the visible portion of the note is baked into the image.",
-  "normalDescription": "Balances quality and performance. Bakes an image covering 1.5 times the visible area, providing smoother transitions when scrolling.",
-  "high": "High",
-  "highDescription": "Description: Maximizes quality at the cost of performance. Bakes an image covering 2 times the visible area, ensuring seamless rendering even during rapid scrolling or zooming.",
-  "renderResolution": "Render resolution",
-  "translate": "Translate"
+  "performance": "Prestaties",
+  "performanceDescription": "Geoptimaliseerd voor snelheid en geheugengebruik. Alleen het zichtbare deel van de notitie wordt in de afbeelding gebakken.",
+  "normalDescription": "Geeft een balans van kwaliteit en prestaties. Maakt een afbeelding die 1,5 keer het zichtbare gebied beslaat en biedt betere overgangen bij het scrollen.",
+  "high": "hoog",
+  "highDescription": "Omschrijving: maximaliseert kwaliteit ten koste van de prestaties. Neemt een afbeelding die 2 keer het zichtbare gebied beslaat, waardoor naadloos wordt weergegeven, zelfs tijdens snel scrollen of zoomen",
+  "renderResolution": "Resolutie weergeven",
+  "translate": "Vertalen"
 }
