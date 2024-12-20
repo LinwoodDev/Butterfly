@@ -639,11 +639,11 @@
   "optionsPanelPosition": "Alternativ panel position",
   "hideDuration": "Dölj varaktighet",
   "animation": "Animering",
-  "performance": "Performance",
-  "performanceDescription": "Optimized for speed and memory usage. Only the visible portion of the note is baked into the image.",
-  "normalDescription": "Balances quality and performance. Bakes an image covering 1.5 times the visible area, providing smoother transitions when scrolling.",
-  "high": "High",
-  "highDescription": "Description: Maximizes quality at the cost of performance. Bakes an image covering 2 times the visible area, ensuring seamless rendering even during rapid scrolling or zooming.",
-  "renderResolution": "Render resolution",
-  "translate": "Translate"
+  "performance": "Prestation",
+  "performanceDescription": "Optimerad för hastighet och minnesanvändning. Endast den synliga delen av noten bakas in i bilden.",
+  "normalDescription": "Balanserar kvalitet och prestanda. Bakar en bild som täcker 1,5 gånger det synliga området, vilket ger jämnare övergångar vid rullning.",
+  "high": "Hög",
+  "highDescription": "Beskrivning: Maximerar kvaliteten till priset av prestanda. Bakar en bild som täcker 2 gånger det synliga området, vilket säkerställer sömlös rendering även under snabb rullning eller zoomning.",
+  "renderResolution": "Rendera upplösning",
+  "translate": "Översätt"
 }
