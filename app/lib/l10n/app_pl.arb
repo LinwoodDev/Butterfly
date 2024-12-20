@@ -639,11 +639,11 @@
   "optionsPanelPosition": "Pozycja panelu opcji",
   "hideDuration": "Ukryj czas trwania",
   "animation": "Animacja",
-  "performance": "Performance",
-  "performanceDescription": "Optimized for speed and memory usage. Only the visible portion of the note is baked into the image.",
-  "normalDescription": "Balances quality and performance. Bakes an image covering 1.5 times the visible area, providing smoother transitions when scrolling.",
-  "high": "High",
-  "highDescription": "Description: Maximizes quality at the cost of performance. Bakes an image covering 2 times the visible area, ensuring seamless rendering even during rapid scrolling or zooming.",
-  "renderResolution": "Render resolution",
-  "translate": "Translate"
+  "performance": "Efektywność",
+  "performanceDescription": "Zoptymalizowany pod kątem prędkości i wykorzystania pamięci. Tylko widoczna część notatki jest upieczona na obrazie.",
+  "normalDescription": "Równowaga jakości i wydajności. Tworzy obraz pokrywający 1,5 razy większy od widocznego obszaru, zapewniając płynniejsze przejścia podczas przewijania.",
+  "high": "Wysoka",
+  "highDescription": "Opis: Maksymalizuje jakość kosztem wyników. Upieka obraz pokrywający 2-krotnie widoczny obszar, zapewniając płynne renderowanie nawet podczas szybkiego przewijania lub powiększenia.",
+  "renderResolution": "Rozdzielczość renderowania",
+  "translate": "Przetłumacz"
 }
