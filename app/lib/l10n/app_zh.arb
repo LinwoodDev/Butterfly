@@ -638,5 +638,12 @@
   "yesButShowButtons": "是的，但显示按钮",
   "optionsPanelPosition": "选项面板位置",
   "hideDuration": "隐藏持续时间",
-  "animation": "动画"
+  "animation": "动画",
+  "performance": "Performance",
+  "performanceDescription": "Optimized for speed and memory usage. Only the visible portion of the note is baked into the image.",
+  "normalDescription": "Balances quality and performance. Bakes an image covering 1.5 times the visible area, providing smoother transitions when scrolling.",
+  "high": "High",
+  "highDescription": "Description: Maximizes quality at the cost of performance. Bakes an image covering 2 times the visible area, ensuring seamless rendering even during rapid scrolling or zooming.",
+  "renderResolution": "Render resolution",
+  "translate": "Translate"
 }
