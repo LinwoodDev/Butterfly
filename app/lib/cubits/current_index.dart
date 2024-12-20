@@ -493,16 +493,20 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     if (size.height <= 0 || size.width <= 0) {
       return;
     }
+    if (viewportSize != null) {
+      size *= resolution.multiplier;
+    }
     var transform = state.transformCubit.state;
     final realWidth = size.width / transform.size;
     final realHeight = size.height / transform.size;
-    var rect = Rect.fromLTWH(
-        transform.position.dx, transform.position.dy, realWidth, realHeight);
+    var rect = Rect.fromLTWH(transform.position.dx, transform.position.dy,
+        realWidth / resolution.multiplier, realHeight / resolution.multiplier);
     var renderers =
         List<Renderer<PadElement>>.from(cameraViewport.unbakedElements);
     final recorder = ui.PictureRecorder();
     final canvas = ui.Canvas(recorder);
     final friction = transform.friction;
+    rect = resolution.getRect(rect);
     if (friction != null) {
       final topLeft = Offset(
         min(transform.position.dx, friction.beginPosition.dx),
@@ -511,7 +515,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
       final bottomRight = Offset(
         max(transform.position.dx, friction.beginPosition.dx),
         max(transform.position.dy, friction.beginPosition.dy),
-      ).translate(realWidth, realHeight);
+      ).translate(size.width, size.height);
       transform = transform.withPosition(topLeft);
       rect = Rect.fromPoints(topLeft, bottomRight);
       size = Size(bottomRight.dx - topLeft.dx, bottomRight.dy - topLeft.dy) *
@@ -520,12 +524,8 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     final document = blocState.data;
     final page = blocState.page;
     final info = blocState.info;
-    if (viewportSize != null) {
-      size *= resolution.multiplier;
-    }
     final imageWidth = (size.width * ratio).ceil();
     final imageHeight = (size.height * ratio).ceil();
-    rect = resolution.getRect(rect);
     final renderTransform = transform.improve(resolution, rect.size);
     final viewChanged = cameraViewport.width != size.width.ceil() ||
         cameraViewport.height != size.height.ceil() ||

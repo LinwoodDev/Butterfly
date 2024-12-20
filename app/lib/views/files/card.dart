@@ -2,6 +2,7 @@ import 'dart:typed_data';
 
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/material.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 class AssetCard extends StatelessWidget {
   const AssetCard({
@@ -40,6 +41,14 @@ class AssetCard extends StatelessWidget {
                       fit: BoxFit.cover,
                       width: 640,
                       alignment: Alignment.center,
+                      errorBuilder: (context, error, stackTrace) {
+                        return Center(
+                          child: Icon(
+                            PhosphorIconsLight.warningCircle,
+                            color: colorScheme.onSurface,
+                          ),
+                        );
+                      },
                     ),
                   ),
                 if ((metadata?.name.isNotEmpty ?? false) ||

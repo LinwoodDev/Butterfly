@@ -1,4 +1,5 @@
 * Add area options to context menu in area navigator page
+* Add error icon to asset card
 * Move create button to the top right of the template dialog
 * Improve mobile color picker
 * Align no elements text to the center
