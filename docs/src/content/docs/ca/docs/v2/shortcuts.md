@@ -15,7 +15,7 @@ Some of them are written below the buttons.
 - `Ctrl` + `P`: Print file
 - `Ctrl` + `Shift` + `E`: Export file as image
 - `Ctrl` + `Alt` + `E`: Export file as svg
-- `Ctrl` + `Alt` + `Shift` + `E`: Export file as svg
+- `Ctrl` + `Alt` + `Shift` + `E`: Export file as pdf
 - `Ctrl` + `Alt` + `P`: Open packs
 - `Ctrl` + `Alt` + `S`: Open settings
 
