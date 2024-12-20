@@ -15,7 +15,7 @@ Några av dem är skrivna under knapparna.
 - `Ctrl` + `P`: Skriv ut fil
 - `Ctrl` + `Shift` + `E`: Exportera fil som bild
 - `Ctrl` + `Alt` + `E`: Exportera fil som svg
-- `Ctrl` + `Alt` + `Shift` + `E`: Exportera fil som svg
+- `Ctrl` + `Alt` + `Shift` + `E`: Export file as pdf
 - `Ctrl` + `Alt` + `P`: Öppna paket
 - `Ctrl` + `Alt` + `S`: Öppna inställningar
 
