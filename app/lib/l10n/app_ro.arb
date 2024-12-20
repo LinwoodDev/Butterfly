@@ -639,11 +639,11 @@
   "optionsPanelPosition": "Poziția panoului de opțiuni",
   "hideDuration": "Ascunde durata",
   "animation": "Animaţie",
-  "performance": "Performance",
-  "performanceDescription": "Optimized for speed and memory usage. Only the visible portion of the note is baked into the image.",
-  "normalDescription": "Balances quality and performance. Bakes an image covering 1.5 times the visible area, providing smoother transitions when scrolling.",
-  "high": "High",
-  "highDescription": "Description: Maximizes quality at the cost of performance. Bakes an image covering 2 times the visible area, ensuring seamless rendering even during rapid scrolling or zooming.",
-  "renderResolution": "Render resolution",
-  "translate": "Translate"
+  "performance": "Performanță",
+  "performanceDescription": "Optimizat pentru viteză și utilizarea memoriei. Numai partea vizibilă a notei este copită în imagine.",
+  "normalDescription": "Echilibrează calitatea și performanța. Bake o imagine care acoperă de 1,5 ori zona vizibilă, oferind tranziții mai ușoare atunci când derulează.",
+  "high": "Ridicat",
+  "highDescription": "Descriere: Maximizează calitatea la costul performanței. Prinde o imagine care acoperă de 2 ori suprafaţa vizibilă, asigurând redarea fără întreruperi chiar şi în timpul derulării rapide sau al zooming-ului.",
+  "renderResolution": "Rezoluție de randare",
+  "translate": "Tradu"
 }
