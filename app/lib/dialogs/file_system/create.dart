@@ -62,8 +62,8 @@ class _FileSystemAssetCreateDialogState
               if (_formKey.currentState?.validate() ?? false) {
                 final newPath = '${widget.path}/${_nameController.text}';
                 if (!widget.isFolder) {
-                  await widget.fileSystem
-                      .createFile(newPath, DocumentDefaults.createDocument());
+                  await widget.fileSystem.createFile(
+                      newPath, DocumentDefaults.createDocument().toFile());
                 } else {
                   await widget.fileSystem.createDirectory(newPath);
                 }

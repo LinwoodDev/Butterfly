@@ -6,6 +6,7 @@ import 'dart:ui' as ui;
 import 'package:archive/archive.dart';
 import 'package:butterfly/api/file_system.dart';
 import 'package:butterfly/api/image.dart';
+import 'package:butterfly/dialogs/name.dart';
 import 'package:butterfly/helpers/asset.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/foundation.dart';
@@ -88,6 +89,8 @@ class ImportService {
       bytes = Uint8List.fromList(List<int>.from(data));
     } else if (data is NoteData) {
       return data;
+    } else if (data is NoteFile) {
+      bytes = data.data;
     }
     if (type.isEmpty) type = 'note';
     final fileType = AssetFileType.values.firstWhereOrNull((element) =>
@@ -221,7 +224,19 @@ class ImportService {
     try {
       final documentOpened = document != null;
       final realDocument = document ?? DocumentDefaults.createDocument();
-      final data = NoteData.fromData(bytes);
+      final file = NoteFile(bytes);
+      String? password;
+      if (file.isEncrypted()) {
+        password = await showDialog<String>(
+          context: context,
+          builder: (context) => NameDialog(
+            title: AppLocalizations.of(context).password,
+          ),
+        );
+        if (password == null) return null;
+      }
+      final data = file.load(password: password);
+      if (data == null) return null;
       if (!data.isValid) {
         await importArchive(bytes);
         return null;
@@ -758,7 +773,7 @@ class ImportService {
       if (data.isValid) {
         final document = await importBfly(bytes);
         if (document != null) {
-          fileSystem.createFile(document.name ?? '', document);
+          fileSystem.createFile(document.name ?? '', document.toFile());
         }
         return document != null;
       }
@@ -767,7 +782,7 @@ class ImportService {
         if (!file.name.endsWith(fileExtension)) continue;
         final document = await importBfly(file.content, advanced: false);
         if (document != null) {
-          fileSystem.createFile(file.name, document);
+          fileSystem.createFile(file.name, document.toFile());
         }
       }
       return true;

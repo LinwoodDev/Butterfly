@@ -209,8 +209,17 @@ class _ProjectPageState extends State<ProjectPage> {
         if (!absolute) {
           final asset = await documentSystem.getAsset(location.path);
           if (!mounted) return;
-          if (location.fileType == AssetFileType.note) {
-            document = await checkFileChanges(context, asset);
+          if (asset is FileSystemFile<NoteFile> &&
+              location.fileType == AssetFileType.note) {
+            final noteData = await globalImportService.load(
+                document: defaultDocument,
+                type: widget.type.isEmpty
+                    ? (fileType ?? widget.type)
+                    : widget.type,
+                data: asset.data);
+            if (noteData != null) {
+              document = await checkFileChanges(context, noteData);
+            }
           }
         } else {
           final data = await documentSystem.loadAbsolute(location.path);

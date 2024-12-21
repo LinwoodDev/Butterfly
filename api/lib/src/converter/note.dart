@@ -7,13 +7,13 @@ import '../../butterfly_api.dart';
 
 const kArchiveSignature = 0x50;
 
-NoteData noteDataMigrator(Uint8List data) {
+NoteData noteDataMigrator(Uint8List data, {String? password}) {
   Archive archive;
   if (data.isNotEmpty && data[0] != kArchiveSignature) {
     final map = json.decode(utf8.decode(data)) as Map<String, dynamic>;
     archive = convertLegacyDataToArchive(map);
   } else {
-    archive = ZipDecoder().decodeBytes(data);
+    archive = ZipDecoder().decodeBytes(data, password: password);
   }
   return archiveNoteDataMigrator(archive);
 }
