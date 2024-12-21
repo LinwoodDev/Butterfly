@@ -15,6 +15,9 @@ import 'package:shared_preferences/shared_preferences.dart';
 Uint8List _encode(NoteData data) => Uint8List.fromList(data.exportAsBytes());
 NoteData _decode(Uint8List data) => NoteData.fromData(data);
 
+Uint8List _encodeFile(NoteFile file) => file.data;
+NoteFile _decodeFile(Uint8List data) => NoteFile(data);
+
 const butterflySubDirectory = '/Linwood/Butterfly';
 
 String? overrideButterflyDirectory;
@@ -61,7 +64,7 @@ Future<String> Function(ExternalStorage? storage) _getRemoteDirectory(
 
 Future<String> getButterflyDocumentsDirectory([ExternalStorage? storage]) =>
     _getRemoteDirectory('Documents')(storage);
-typedef DocumentFileSystem = TypedDirectoryFileSystem<NoteData>;
+typedef DocumentFileSystem = TypedDirectoryFileSystem<NoteFile>;
 typedef TemplateFileSystem = TypedKeyFileSystem<NoteData>;
 typedef PackFileSystem = TypedKeyFileSystem<NoteData>;
 
@@ -170,12 +173,12 @@ class ButterflyFileSystem {
     await fs.createFile('${pack.name}.bfly', pack);
   }
 
-  TypedDirectoryFileSystem<NoteData> buildDocumentSystem(
+  TypedDirectoryFileSystem<NoteFile> buildDocumentSystem(
           [ExternalStorage? storage]) =>
       TypedDirectoryFileSystem.build(
         _documentConfig,
-        onEncode: _encode,
-        onDecode: _decode,
+        onEncode: _encodeFile,
+        onDecode: _decodeFile,
         storage: storage,
       );
   TypedKeyFileSystem<NoteData> buildTemplateSystem(

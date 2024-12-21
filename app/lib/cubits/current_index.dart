@@ -976,10 +976,10 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
         state.absolute ||
         location.fileType != AssetFileType.note) {
       final document = await fileSystem.createFileWithName(
-          name: currentData.name, suffix: '.bfly', currentData);
+          name: currentData.name, suffix: '.bfly', currentData.toFile());
       location = document.location;
     } else {
-      await fileSystem.updateFile(location.path, currentData);
+      await fileSystem.updateFile(location.path, currentData.toFile());
     }
     state.settingsCubit.addRecentHistory(location);
     emit(state.copyWith(location: location, saved: SaveState.saved));

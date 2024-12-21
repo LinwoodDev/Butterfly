@@ -18,16 +18,39 @@ import 'palette.dart';
 
 final Set<String> validAssetPaths = {kImagesArchiveDirectory};
 
-@immutable
-final class NoteData extends ArchiveData<NoteData> {
-  NoteData(super.archive, {super.state});
+final class NoteFile {
+  final Uint8List data;
 
-  factory NoteData.fromData(Uint8List data, {bool disableMigrations = false}) {
+  NoteFile(this.data);
+
+  bool isEncrypted() => isZipEncrypted(data);
+
+  (String?, NoteData)? _data;
+
+  NoteData? load({String? password}) {
+    if (_data != null && _data?.$1 == password) {
+      return _data?.$2;
+    }
+    try {
+      final data = NoteData.fromData(this.data, password: password);
+      _data = (password, data);
+      return data;
+    } catch (_) {
+      return null;
+    }
+  }
+}
+
+final class NoteData extends ArchiveData<NoteData> {
+  NoteData(super.archive, {super.state, super.password});
+
+  factory NoteData.fromData(Uint8List data,
+      {bool disableMigrations = false, String? password}) {
     if (disableMigrations) {
-      final archive = ZipDecoder().decodeBytes(data);
+      final archive = ZipDecoder().decodeBytes(data, password: password);
       return NoteData(archive);
     }
-    return noteDataMigrator(data);
+    return noteDataMigrator(data, password: password);
   }
 
   factory NoteData.fromArchive(Archive archive,
@@ -425,4 +448,6 @@ final class NoteData extends ArchiveData<NoteData> {
     final removed = Set<String>.from(state.removed)..remove(path);
     return updateState(state.copyWith(removed: removed));
   }
+
+  NoteFile toFile() => NoteFile(exportAsBytes());
 }
