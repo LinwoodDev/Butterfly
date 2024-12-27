@@ -78,9 +78,7 @@ class _ColorToolbarViewState extends State<ColorToolbarView> {
         context: context,
         builder: (context) => ColorPicker<ColorPickerToolbarAction>(
           value: widget.color,
-          suggested: settingsCubit.state.recentColors
-              .map((e) => SRGBColor(e))
-              .toList(),
+          suggested: settingsCubit.state.recentColors,
           secondaryActions: widget.onEyeDropper == null
               ? null
               : (close) => [
@@ -108,7 +106,7 @@ class _ColorToolbarViewState extends State<ColorToolbarView> {
         return;
       }
       if (response.action != ColorPickerToolbarAction.pin) {
-        settingsCubit.addRecentColors(srgb.value);
+        settingsCubit.addRecentColors(srgb);
         return;
       }
       var currentPalette = pack?.getPalette(colorPalette!.name);
@@ -150,9 +148,7 @@ class _ColorToolbarViewState extends State<ColorToolbarView> {
                     context: context,
                     builder: (context) => ColorPicker<ColorPickerToolbarAction>(
                       value: value,
-                      suggested: settingsCubit.state.recentColors
-                          .map((e) => SRGBColor(e))
-                          .toList(),
+                      suggested: settingsCubit.state.recentColors,
                       secondaryActions: (close) => [
                         OutlinedButton(
                           onPressed: () =>

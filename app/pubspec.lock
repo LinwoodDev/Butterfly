@@ -177,10 +177,10 @@ packages:
     dependency: transitive
     description:
       name: camera_android_camerax
-      sha256: "2985b8e5fca62709ebb2150962b1dae0444ba0a112be888ccf21e8371a1406d9"
+      sha256: abcfa1ac32bd03116b4cfda7e8223ab391f01966e65823c064afe388550d1b3d
       url: "https://pub.dev"
     source: hosted
-    version: "0.6.10+1"
+    version: "0.6.10+3"
   camera_avfoundation:
     dependency: transitive
     description:
@@ -841,8 +841,8 @@ packages:
     dependency: "direct main"
     description:
       path: "packages/material_leap"
-      ref: "65d54d2431633488e0ff76c172fbaf2f705ef8fb"
-      resolved-ref: "65d54d2431633488e0ff76c172fbaf2f705ef8fb"
+      ref: "307657c0e0b93de9af1e1aa9bd96900e0bb7d27c"
+      resolved-ref: "307657c0e0b93de9af1e1aa9bd96900e0bb7d27c"
       url: "https://github.com/LinwoodDev/dart_pkgs"
     source: git
     version: "0.0.1"

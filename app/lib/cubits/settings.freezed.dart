@@ -353,7 +353,7 @@ mixin _$ButterflySettings {
   double get imageScale => throw _privateConstructorUsedError;
   double get pdfQuality => throw _privateConstructorUsedError;
   PlatformTheme get platformTheme => throw _privateConstructorUsedError;
-  List<int> get recentColors => throw _privateConstructorUsedError;
+  List<SRGBColor> get recentColors => throw _privateConstructorUsedError;
   List<String> get flags => throw _privateConstructorUsedError;
   bool get spreadPages => throw _privateConstructorUsedError;
   bool get highContrast => throw _privateConstructorUsedError;
@@ -418,7 +418,7 @@ abstract class $ButterflySettingsCopyWith<$Res> {
       double imageScale,
       double pdfQuality,
       PlatformTheme platformTheme,
-      List<int> recentColors,
+      List<SRGBColor> recentColors,
       List<String> flags,
       bool spreadPages,
       bool highContrast,
@@ -646,7 +646,7 @@ class _$ButterflySettingsCopyWithImpl<$Res, $Val extends ButterflySettings>
       recentColors: null == recentColors
           ? _value.recentColors
           : recentColors // ignore: cast_nullable_to_non_nullable
-              as List<int>,
+              as List<SRGBColor>,
       flags: null == flags
           ? _value.flags
           : flags // ignore: cast_nullable_to_non_nullable
@@ -768,7 +768,7 @@ abstract class _$$ButterflySettingsImplCopyWith<$Res>
       double imageScale,
       double pdfQuality,
       PlatformTheme platformTheme,
-      List<int> recentColors,
+      List<SRGBColor> recentColors,
       List<String> flags,
       bool spreadPages,
       bool highContrast,
@@ -996,7 +996,7 @@ class __$$ButterflySettingsImplCopyWithImpl<$Res>
       recentColors: null == recentColors
           ? _value._recentColors
           : recentColors // ignore: cast_nullable_to_non_nullable
-              as List<int>,
+              as List<SRGBColor>,
       flags: null == flags
           ? _value._flags
           : flags // ignore: cast_nullable_to_non_nullable
@@ -1093,7 +1093,7 @@ class _$ButterflySettingsImpl extends _ButterflySettings
       this.imageScale = 0.5,
       this.pdfQuality = 2,
       this.platformTheme = PlatformTheme.system,
-      final List<int> recentColors = const [],
+      final List<SRGBColor> recentColors = const [],
       final List<String> flags = const [],
       this.spreadPages = false,
       this.highContrast = false,
@@ -1236,10 +1236,10 @@ class _$ButterflySettingsImpl extends _ButterflySettings
   @override
   @JsonKey()
   final PlatformTheme platformTheme;
-  final List<int> _recentColors;
+  final List<SRGBColor> _recentColors;
   @override
   @JsonKey()
-  List<int> get recentColors {
+  List<SRGBColor> get recentColors {
     if (_recentColors is EqualUnmodifiableListView) return _recentColors;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_recentColors);
@@ -1552,7 +1552,7 @@ abstract class _ButterflySettings extends ButterflySettings {
       final double imageScale,
       final double pdfQuality,
       final PlatformTheme platformTheme,
-      final List<int> recentColors,
+      final List<SRGBColor> recentColors,
       final List<String> flags,
       final bool spreadPages,
       final bool highContrast,
@@ -1639,7 +1639,7 @@ abstract class _ButterflySettings extends ButterflySettings {
   @override
   PlatformTheme get platformTheme;
   @override
-  List<int> get recentColors;
+  List<SRGBColor> get recentColors;
   @override
   List<String> get flags;
   @override
