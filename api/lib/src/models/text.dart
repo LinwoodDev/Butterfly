@@ -1,9 +1,9 @@
 import 'dart:math';
 
+import 'package:butterfly_api/src/converter/color.dart';
 import 'package:collection/collection.dart';
+import 'package:dart_leap/dart_leap.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-
-import 'colors.dart';
 
 part 'text.g.dart';
 part 'text.freezed.dart';
@@ -24,32 +24,32 @@ enum TextDecorationStyle { solid, double, dotted, dashed, wavy }
 sealed class SpanProperty with _$SpanProperty {
   const factory SpanProperty.defined({
     double? size,
-    int? color,
+    @ColorJsonConverter() SRGBColor? color,
     int? fontWeight,
     bool? lineThrough,
     bool? underline,
     bool? overline,
     bool? italic,
     double? letterSpacing,
-    int? decorationColor,
+    @ColorJsonConverter() SRGBColor? decorationColor,
     TextDecorationStyle? decorationStyle,
     double? decorationThickness,
-    int? backgroundColor,
+    @ColorJsonConverter() SRGBColor? backgroundColor,
   }) = DefinedSpanProperty;
 
   static const kDefault = DefinedSpanProperty(
     size: 12,
-    color: BasicColors.black,
+    color: SRGBColor.black,
     fontWeight: kFontWeightNormal,
     lineThrough: false,
     underline: false,
     overline: false,
     italic: false,
     letterSpacing: 0,
-    decorationColor: BasicColors.black,
+    decorationColor: SRGBColor.black,
     decorationStyle: TextDecorationStyle.solid,
     decorationThickness: 1,
-    backgroundColor: BasicColors.transparent,
+    backgroundColor: SRGBColor.transparent,
   );
 
   const factory SpanProperty.named(String name) = NamedSpanProperty;
@@ -385,8 +385,9 @@ extension ResolveProperty on TextStyleSheet? {
 extension SpanPropertyGetter on DefinedSpanProperty {
   double getSize([DefinedParagraphProperty? paragraphProperty]) =>
       size ?? paragraphProperty?.span.size ?? SpanProperty.kDefault.size!;
-  int getColor(
-          [DefinedParagraphProperty? paragraphProperty, int? foreground]) =>
+  SRGBColor getColor(
+          [DefinedParagraphProperty? paragraphProperty,
+          SRGBColor? foreground]) =>
       color ??
       paragraphProperty?.span.color ??
       foreground ??
@@ -413,7 +414,7 @@ extension SpanPropertyGetter on DefinedSpanProperty {
       letterSpacing ??
       paragraphProperty?.span.letterSpacing ??
       SpanProperty.kDefault.letterSpacing!;
-  int getDecorationColor([DefinedParagraphProperty? paragraphProperty]) =>
+  SRGBColor getDecorationColor([DefinedParagraphProperty? paragraphProperty]) =>
       decorationColor ??
       paragraphProperty?.span.decorationColor ??
       SpanProperty.kDefault.decorationColor!;
@@ -427,7 +428,7 @@ extension SpanPropertyGetter on DefinedSpanProperty {
       decorationThickness ??
       paragraphProperty?.span.decorationThickness ??
       SpanProperty.kDefault.decorationThickness!;
-  int getBackgroundColor([DefinedParagraphProperty? paragraphProperty]) =>
+  SRGBColor getBackgroundColor([DefinedParagraphProperty? paragraphProperty]) =>
       backgroundColor ??
       paragraphProperty?.span.backgroundColor ??
       SpanProperty.kDefault.backgroundColor!;

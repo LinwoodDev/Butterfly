@@ -9,7 +9,8 @@ part of 'palette.dart';
 _$ColorPaletteImpl _$$ColorPaletteImplFromJson(Map json) => _$ColorPaletteImpl(
       name: json['name'] as String,
       colors: (json['colors'] as List<dynamic>?)
-              ?.map((e) => (e as num).toInt())
+              ?.map((e) =>
+                  const ColorJsonConverter().fromJson((e as num).toInt()))
               .toList() ??
           const [],
     );
@@ -17,5 +18,5 @@ _$ColorPaletteImpl _$$ColorPaletteImplFromJson(Map json) => _$ColorPaletteImpl(
 Map<String, dynamic> _$$ColorPaletteImplToJson(_$ColorPaletteImpl instance) =>
     <String, dynamic>{
       'name': instance.name,
-      'colors': instance.colors,
+      'colors': instance.colors.map(const ColorJsonConverter().toJson).toList(),
     };

@@ -1,7 +1,6 @@
 import 'dart:math';
 
 import 'package:butterfly/cubits/transform.dart';
-import 'package:butterfly/dialogs/name.dart';
 import 'package:butterfly/dialogs/presentation.dart';
 import 'package:butterfly/views/toolbar/view.dart';
 import 'package:butterfly_api/butterfly_api.dart';

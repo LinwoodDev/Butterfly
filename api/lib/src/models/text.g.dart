@@ -9,18 +9,21 @@ part of 'text.dart';
 _$DefinedSpanPropertyImpl _$$DefinedSpanPropertyImplFromJson(Map json) =>
     _$DefinedSpanPropertyImpl(
       size: (json['size'] as num?)?.toDouble(),
-      color: (json['color'] as num?)?.toInt(),
+      color: _$JsonConverterFromJson<int, SRGBColor>(
+          json['color'], const ColorJsonConverter().fromJson),
       fontWeight: (json['fontWeight'] as num?)?.toInt(),
       lineThrough: json['lineThrough'] as bool?,
       underline: json['underline'] as bool?,
       overline: json['overline'] as bool?,
       italic: json['italic'] as bool?,
       letterSpacing: (json['letterSpacing'] as num?)?.toDouble(),
-      decorationColor: (json['decorationColor'] as num?)?.toInt(),
+      decorationColor: _$JsonConverterFromJson<int, SRGBColor>(
+          json['decorationColor'], const ColorJsonConverter().fromJson),
       decorationStyle: $enumDecodeNullable(
           _$TextDecorationStyleEnumMap, json['decorationStyle']),
       decorationThickness: (json['decorationThickness'] as num?)?.toDouble(),
-      backgroundColor: (json['backgroundColor'] as num?)?.toInt(),
+      backgroundColor: _$JsonConverterFromJson<int, SRGBColor>(
+          json['backgroundColor'], const ColorJsonConverter().fromJson),
       $type: json['type'] as String?,
     );
 
@@ -28,19 +31,28 @@ Map<String, dynamic> _$$DefinedSpanPropertyImplToJson(
         _$DefinedSpanPropertyImpl instance) =>
     <String, dynamic>{
       'size': instance.size,
-      'color': instance.color,
+      'color': _$JsonConverterToJson<int, SRGBColor>(
+          instance.color, const ColorJsonConverter().toJson),
       'fontWeight': instance.fontWeight,
       'lineThrough': instance.lineThrough,
       'underline': instance.underline,
       'overline': instance.overline,
       'italic': instance.italic,
       'letterSpacing': instance.letterSpacing,
-      'decorationColor': instance.decorationColor,
+      'decorationColor': _$JsonConverterToJson<int, SRGBColor>(
+          instance.decorationColor, const ColorJsonConverter().toJson),
       'decorationStyle': _$TextDecorationStyleEnumMap[instance.decorationStyle],
       'decorationThickness': instance.decorationThickness,
-      'backgroundColor': instance.backgroundColor,
+      'backgroundColor': _$JsonConverterToJson<int, SRGBColor>(
+          instance.backgroundColor, const ColorJsonConverter().toJson),
       'type': instance.$type,
     };
+
+Value? _$JsonConverterFromJson<Json, Value>(
+  Object? json,
+  Value? Function(Json json) fromJson,
+) =>
+    json == null ? null : fromJson(json as Json);
 
 const _$TextDecorationStyleEnumMap = {
   TextDecorationStyle.solid: 'solid',
@@ -49,6 +61,12 @@ const _$TextDecorationStyleEnumMap = {
   TextDecorationStyle.dashed: 'dashed',
   TextDecorationStyle.wavy: 'wavy',
 };
+
+Json? _$JsonConverterToJson<Json, Value>(
+  Value? value,
+  Json? Function(Value value) toJson,
+) =>
+    value == null ? null : toJson(value);
 
 _$NamedSpanPropertyImpl _$$NamedSpanPropertyImplFromJson(Map json) =>
     _$NamedSpanPropertyImpl(

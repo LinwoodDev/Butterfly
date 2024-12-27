@@ -1,4 +1,3 @@
-import 'package:butterfly/dialogs/name.dart';
 import 'package:butterfly/models/defaults.dart';
 import 'package:butterfly_api/butterfly_text.dart' as text;
 import 'package:collection/collection.dart';

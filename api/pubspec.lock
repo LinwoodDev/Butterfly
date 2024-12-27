@@ -174,6 +174,15 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.0.6"
+  dart_leap:
+    dependency: "direct main"
+    description:
+      path: "packages/dart_leap"
+      ref: db69a03082e6811c58dc2d0e5c23d04305e1623f
+      resolved-ref: db69a03082e6811c58dc2d0e5c23d04305e1623f
+      url: "https://github.com/LinwoodDev/dart_pkgs"
+    source: git
+    version: "1.0.0"
   dart_mappable:
     dependency: transitive
     description:

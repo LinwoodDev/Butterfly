@@ -10,21 +10,17 @@ class ShapeElementSelection extends ElementSelection<ShapeElement> {
       ...super.buildProperties(context),
       ColorField(
         title: Text(AppLocalizations.of(context).color),
-        value: Color(element.property.color).withAlpha(255),
+        value: element.property.color.withValues(a: 255),
         onChanged: (color) => updateElements(
             context,
             elements
                 .map((e) => e.copyWith(
                     property: e.property.copyWith(
-                        color: convertOldColor(
-                            // ignore: deprecated_member_use
-                            color.value,
-                            element.property.color))))
+                        color: color.withValues(a: element.property.color.a))))
                 .toList()),
       ),
       ExactSlider(
-        // ignore: deprecated_member_use
-        value: Color(element.property.color).alpha.toDouble(),
+        value: element.property.color.a.toDouble(),
         header: Text(AppLocalizations.of(context).alpha),
         fractionDigits: 0,
         max: 255,
@@ -35,7 +31,7 @@ class ShapeElementSelection extends ElementSelection<ShapeElement> {
             elements
                 .map((e) => e.copyWith(
                     property: e.property.copyWith(
-                        color: convertColor(e.property.color, value.toInt()))))
+                        color: e.property.color.withValues(a: value.toInt()))))
                 .toList()),
       ),
       ShapeView(

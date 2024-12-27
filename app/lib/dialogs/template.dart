@@ -3,7 +3,6 @@ import 'package:butterfly/actions/new.dart';
 import 'package:butterfly/api/file_system.dart';
 import 'package:butterfly/api/save.dart';
 import 'package:butterfly/cubits/settings.dart';
-import 'package:butterfly/dialogs/name.dart';
 import 'package:butterfly/visualizer/tool.dart';
 import 'package:butterfly/widgets/connection_button.dart';
 import 'package:butterfly/widgets/option_button.dart';

@@ -6,7 +6,6 @@ import 'dart:ui' as ui;
 import 'package:archive/archive.dart';
 import 'package:butterfly/api/file_system.dart';
 import 'package:butterfly/api/image.dart';
-import 'package:butterfly/dialogs/name.dart';
 import 'package:butterfly/helpers/asset.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/foundation.dart';
@@ -503,11 +502,10 @@ class ImportService {
       final contentString = String.fromCharCodes(bytes);
       final styleSheet = document.findStyle();
       final state = _getState();
-      final background = state?.page.backgrounds.firstOrNull?.defaultColor ??
-          BasicColors.white;
-      final foreground = isDarkColor(Color(background))
-          ? BasicColors.white
-          : BasicColors.black;
+      final background =
+          state?.page.backgrounds.firstOrNull?.defaultColor ?? SRGBColor.white;
+      final foreground =
+          background.toColor().isDark() ? SRGBColor.white : SRGBColor.black;
       return _submit(context, document,
           elements: [
             MarkdownElement(

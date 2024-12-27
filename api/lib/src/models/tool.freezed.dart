@@ -691,7 +691,7 @@ abstract class _$$LabelToolImplCopyWith<$Res> implements $ToolCopyWith<$Res> {
       String displayIcon,
       LabelMode mode,
       bool zoomDependent,
-      int foreground,
+      @ColorJsonConverter() SRGBColor foreground,
       PackAssetLocation styleSheet,
       double scale});
 
@@ -739,7 +739,7 @@ class __$$LabelToolImplCopyWithImpl<$Res>
       foreground: null == foreground
           ? _value.foreground
           : foreground // ignore: cast_nullable_to_non_nullable
-              as int,
+              as SRGBColor,
       styleSheet: null == styleSheet
           ? _value.styleSheet
           : styleSheet // ignore: cast_nullable_to_non_nullable
@@ -770,7 +770,7 @@ class _$LabelToolImpl extends LabelTool {
       this.displayIcon = '',
       this.mode = LabelMode.text,
       this.zoomDependent = false,
-      this.foreground = BasicColors.black,
+      @ColorJsonConverter() this.foreground = SRGBColor.black,
       this.styleSheet = const PackAssetLocation(),
       this.scale = 2.0,
       final String? $type})
@@ -794,7 +794,8 @@ class _$LabelToolImpl extends LabelTool {
   final bool zoomDependent;
   @override
   @JsonKey()
-  final int foreground;
+  @ColorJsonConverter()
+  final SRGBColor foreground;
   @override
   @JsonKey()
   final PackAssetLocation styleSheet;
@@ -832,7 +833,7 @@ abstract class LabelTool extends Tool {
       final String displayIcon,
       final LabelMode mode,
       final bool zoomDependent,
-      final int foreground,
+      @ColorJsonConverter() final SRGBColor foreground,
       final PackAssetLocation styleSheet,
       final double scale}) = _$LabelToolImpl;
   LabelTool._() : super._();
@@ -846,7 +847,8 @@ abstract class LabelTool extends Tool {
   String get displayIcon;
   LabelMode get mode;
   bool get zoomDependent;
-  int get foreground;
+  @ColorJsonConverter()
+  SRGBColor get foreground;
   PackAssetLocation get styleSheet;
   double get scale;
 
@@ -1563,7 +1565,7 @@ abstract class _$$LaserToolImplCopyWith<$Res> implements $ToolCopyWith<$Res> {
       double hideDuration,
       double strokeWidth,
       double thinning,
-      int color,
+      @ColorJsonConverter() SRGBColor color,
       LaserAnimation animation});
 }
 
@@ -1617,7 +1619,7 @@ class __$$LaserToolImplCopyWithImpl<$Res>
       color: null == color
           ? _value.color
           : color // ignore: cast_nullable_to_non_nullable
-              as int,
+              as SRGBColor,
       animation: null == animation
           ? _value.animation
           : animation // ignore: cast_nullable_to_non_nullable
@@ -1636,7 +1638,7 @@ class _$LaserToolImpl extends LaserTool {
       this.hideDuration = 0.5,
       this.strokeWidth = 5,
       this.thinning = 0.4,
-      this.color = BasicColors.red,
+      @ColorJsonConverter() this.color = BasicColors.red,
       this.animation = LaserAnimation.fade,
       final String? $type})
       : $type = $type ?? 'laser',
@@ -1665,7 +1667,8 @@ class _$LaserToolImpl extends LaserTool {
   final double thinning;
   @override
   @JsonKey()
-  final int color;
+  @ColorJsonConverter()
+  final SRGBColor color;
   @override
   @JsonKey()
   final LaserAnimation animation;
@@ -1702,7 +1705,7 @@ abstract class LaserTool extends Tool {
       final double hideDuration,
       final double strokeWidth,
       final double thinning,
-      final int color,
+      @ColorJsonConverter() final SRGBColor color,
       final LaserAnimation animation}) = _$LaserToolImpl;
   LaserTool._() : super._();
 
@@ -1717,7 +1720,8 @@ abstract class LaserTool extends Tool {
   double get hideDuration;
   double get strokeWidth;
   double get thinning;
-  int get color;
+  @ColorJsonConverter()
+  SRGBColor get color;
   LaserAnimation get animation;
 
   /// Create a copy of Tool

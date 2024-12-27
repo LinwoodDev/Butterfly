@@ -371,33 +371,25 @@ class _UtilitiesViewState extends State<_UtilitiesView>
                             const SizedBox(height: 8),
                             ColorField(
                               title: Text(AppLocalizations.of(context).color),
-                              value:
-                                  Color(widget.option.gridColor).withAlpha(255),
+                              value: widget.option.gridColor.withValues(a: 255),
                               onChanged: (value) => widget.onToolChanged(
                                 widget.option.copyWith(
-                                    gridColor: convertOldColor(
-                                        // ignore: deprecated_member_use
-                                        value.value,
-                                        widget.option.gridColor)),
+                                    gridColor: value.withValues(
+                                        a: widget.option.gridColor.a)),
                               ),
                             ),
                             const SizedBox(height: 8),
                             ExactSlider(
                               header: Text(AppLocalizations.of(context).alpha),
-                              value: Color(widget.option.gridColor)
-                                  // ignore: deprecated_member_use
-                                  .alpha
-                                  .toDouble(),
+                              value: widget.option.gridColor.a.toDouble(),
                               defaultValue: 255,
                               min: 0,
                               max: 255,
                               fractionDigits: 0,
                               onChangeEnd: (value) => widget.onToolChanged(
                                 widget.option.copyWith(
-                                  gridColor: Color(widget.option.gridColor)
-                                      .withAlpha(value.toInt())
-                                      // ignore: deprecated_member_use
-                                      .value,
+                                  gridColor: widget.option.gridColor
+                                      .withValues(a: value.toInt()),
                                 ),
                               ),
                             ),

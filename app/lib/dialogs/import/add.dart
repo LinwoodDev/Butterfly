@@ -39,7 +39,7 @@ class _AddDialogState extends State<AddDialog> {
       final state = bloc.state;
       if (state is! DocumentLoaded) return;
       final background =
-          state.page.backgrounds.firstOrNull?.defaultColor ?? BasicColors.white;
+          state.page.backgrounds.firstOrNull?.defaultColor ?? SRGBColor.white;
       final defaultTool = updateToolDefaultColor(tool, background);
       bloc.add(ToolCreated(defaultTool));
       if (!defaultTool.isAction()) {

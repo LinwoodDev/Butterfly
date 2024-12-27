@@ -5,6 +5,7 @@ import 'dart:typed_data';
 import 'package:archive/archive.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:butterfly_api/butterfly_text.dart' as text;
+import 'package:dart_leap/dart_leap.dart';
 import 'package:xml/xml.dart';
 
 List<PathPoint> toPoints(List<double> data) {
@@ -20,14 +21,12 @@ List<PathPoint> toPoints(List<double> data) {
   return points;
 }
 
-int _importColor(String value) {
-  final number = int.parse(value.substring(1), radix: 16);
-  return (number >> 8 | number << 24);
+SRGBColor _importColor(String value) {
+  return SRGBColor.parse(value);
 }
 
-String _exportColor(int value) {
-  final number = (value >> 8 | value << 24);
-  return '#${number.toRadixString(16)}';
+String _exportColor(SRGBColor value) {
+  return value.toHexString();
 }
 
 (NoteData, PadElement?) getElement(
@@ -161,8 +160,8 @@ Uint8List xoppExporter(NoteData document) {
       builder.element('page', nest: () {
         builder.element('background', attributes: {
           'type': 'solid',
-          'color':
-              _exportColor(page.backgrounds.firstOrNull?.defaultColor ?? 0),
+          'color': _exportColor(
+              page.backgrounds.firstOrNull?.defaultColor ?? SRGBColor.white),
           'style': 'plain',
         });
         builder.element('layer', nest: () {
@@ -185,7 +184,7 @@ Uint8List xoppExporter(NoteData document) {
                         ?.span
                     : styleSheet?.getParagraphProperty('p')?.span;
                 builder.element('text', attributes: {
-                  'color': _exportColor(style?.color ?? 0),
+                  'color': _exportColor(style?.color ?? SRGBColor.black),
                   'size': (style?.size ?? 12).toString(),
                   'x': e.position.x.toString(),
                   'y': e.position.y.toString(),

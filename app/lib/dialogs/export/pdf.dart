@@ -11,7 +11,6 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:printing/printing.dart';
 
 import '../../bloc/document_bloc.dart';
-import '../name.dart';
 
 class PdfExportDialog extends StatefulWidget {
   final List<AreaPreset> areas;

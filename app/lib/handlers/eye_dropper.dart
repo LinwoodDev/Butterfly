@@ -26,20 +26,19 @@ class EyeDropperHandler extends Handler<EyeDropperTool> {
     final pixel = image.getPixel(0, 0);
     final handler =
         context.getCurrentIndexCubit().getHandler(disableTemporary: true);
+    final color = SRGBColor.from(
+      r: pixel.r.toInt(),
+      g: pixel.g.toInt(),
+      b: pixel.b.toInt(),
+    );
     if (handler is ColoredHandler) {
-      final color = pixel.a.toInt() << 24 |
-          pixel.r.toInt() << 16 |
-          pixel.g.toInt() << 8 |
-          pixel.b.toInt();
       handler.changeToolColor(context.getDocumentBloc(), color);
     } else {
-      final color =
-          pixel.r.toInt() << 16 | pixel.g.toInt() << 8 | pixel.b.toInt();
       saveToClipboard(
         context.buildContext,
-        color.toHexColor(alpha: false),
+        color.toHexString(alpha: false),
         leading: ColorButton(
-          color: Color(color).withAlpha(255),
+          color: color.toColor().withAlpha(255),
           size: 32,
         ),
       );

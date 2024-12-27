@@ -297,8 +297,8 @@ packages:
     dependency: transitive
     description:
       path: "packages/dart_leap"
-      ref: dfda6c2e3cef2e29511f97e9470fd4deb8e0c573
-      resolved-ref: dfda6c2e3cef2e29511f97e9470fd4deb8e0c573
+      ref: db69a03082e6811c58dc2d0e5c23d04305e1623f
+      resolved-ref: db69a03082e6811c58dc2d0e5c23d04305e1623f
       url: "https://github.com/LinwoodDev/dart_pkgs"
     source: git
     version: "1.0.0"
@@ -841,8 +841,8 @@ packages:
     dependency: "direct main"
     description:
       path: "packages/material_leap"
-      ref: "9a142aa2aefc61c8c5ff2c70b31ea81b8485e428"
-      resolved-ref: "9a142aa2aefc61c8c5ff2c70b31ea81b8485e428"
+      ref: afa97f3caa1c85ffe567d3bc1dea7cdf0ad489dd
+      resolved-ref: afa97f3caa1c85ffe567d3bc1dea7cdf0ad489dd
       url: "https://github.com/LinwoodDev/dart_pkgs"
     source: git
     version: "0.0.1"

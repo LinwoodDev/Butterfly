@@ -20,6 +20,11 @@ dependencies:
       url: https://github.com/LinwoodDev/dart_pkgs
       path: packages/lw_file_system_api
       ref: a0752f136913f64a975cb8b20ccb16fb6ce37737
+  dart_leap:
+    git:
+      url: https://github.com/LinwoodDev/dart_pkgs
+      path: packages/dart_leap
+      ref: db69a03082e6811c58dc2d0e5c23d04305e1623f
 
 dev_dependencies:
   test: ^1.25.3

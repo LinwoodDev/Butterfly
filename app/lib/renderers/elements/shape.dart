@@ -33,7 +33,8 @@ class ShapeRenderer extends Renderer<ShapeElement> {
           bottomLeft: bottomLeftCornerRadius,
           bottomRight: bottomRightCornerRadius,
         ),
-        _buildPaint(color: Color(shape.fillColor), style: PaintingStyle.fill),
+        _buildPaint(
+            color: shape.fillColor.toColor(), style: PaintingStyle.fill),
       );
       if (strokeWidth > 0) {
         canvas.drawRRect(
@@ -51,7 +52,7 @@ class ShapeRenderer extends Renderer<ShapeElement> {
       canvas.drawOval(
           drawRect,
           _buildPaint(
-              color: Color(shape.fillColor), style: PaintingStyle.fill));
+              color: shape.fillColor.toColor(), style: PaintingStyle.fill));
       if (strokeWidth > 0) {
         canvas.drawOval(rect, paint);
       }
@@ -68,7 +69,7 @@ class ShapeRenderer extends Renderer<ShapeElement> {
       canvas.drawPath(
           path,
           _buildPaint(
-              color: Color(shape.fillColor), style: PaintingStyle.fill));
+              color: shape.fillColor.toColor(), style: PaintingStyle.fill));
       if (strokeWidth > 0) {
         canvas.drawPath(path, paint);
       }
@@ -76,7 +77,7 @@ class ShapeRenderer extends Renderer<ShapeElement> {
   }
 
   Paint _buildPaint({Color? color, PaintingStyle? style}) => Paint()
-    ..color = color ?? Color(element.property.color)
+    ..color = color ?? element.property.color.toColor()
     ..strokeWidth = element.property.strokeWidth
     ..style = style ?? PaintingStyle.stroke
     ..strokeCap = StrokeCap.round
@@ -121,8 +122,8 @@ class ShapeRenderer extends Renderer<ShapeElement> {
         'path',
         attributes: {
           'd': d,
-          'fill': shape.fillColor.toHexColor(),
-          'stroke': element.property.color.toHexColor(),
+          'fill': shape.fillColor.toHexString(),
+          'stroke': element.property.color.toHexString(),
           'stroke-width': '${element.property.strokeWidth}px',
         },
       );
@@ -134,8 +135,8 @@ class ShapeRenderer extends Renderer<ShapeElement> {
           'cy': '${drawRect.center.dy}',
           'rx': '${drawRect.width / 2}',
           'ry': '${drawRect.height / 2}',
-          'fill': shape.fillColor.toHexColor(),
-          'stroke': element.property.color.toHexColor(),
+          'fill': shape.fillColor.toHexString(),
+          'stroke': element.property.color.toHexString(),
           'stroke-width': '${element.property.strokeWidth}px',
         },
       );
@@ -148,7 +149,7 @@ class ShapeRenderer extends Renderer<ShapeElement> {
           'x2': '${element.secondPosition.x}px',
           'y2': '${element.secondPosition.y}px',
           'stroke-width': '${element.property.strokeWidth}px',
-          'stroke': element.property.color.toHexColor(),
+          'stroke': element.property.color.toHexString(),
           'fill': 'none',
         },
       );

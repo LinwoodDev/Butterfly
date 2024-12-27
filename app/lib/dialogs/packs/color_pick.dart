@@ -12,14 +12,14 @@ import 'select.dart';
 
 class ColorPalettePickerDialog extends StatefulWidget {
   final bool viewMode;
-  final Color value;
+  final SRGBColor value;
   final ColorPalette? palette;
   final ValueChanged<ColorPalette>? onChanged;
   final DocumentBloc? bloc;
 
   const ColorPalettePickerDialog({
     super.key,
-    this.value = Colors.white,
+    this.value = SRGBColor.white,
     this.viewMode = false,
     this.bloc,
     this.palette,
@@ -83,7 +83,7 @@ class _ColorPalettePickerDialogState extends State<ColorPalettePickerDialog> {
           if (_palette == null) return Container();
           if ((_palette!.colors.length) <= index) return Container();
           final color = _palette!.colors[index];
-          final colorText = color.toHexColor(alpha: false);
+          final colorText = color.toHexString(alpha: false);
           return Column(mainAxisSize: MainAxisSize.min, children: [
             Padding(
               padding: const EdgeInsets.all(8.0),
@@ -91,7 +91,7 @@ class _ColorPalettePickerDialogState extends State<ColorPalettePickerDialog> {
                 children: [
                   Container(
                     decoration: BoxDecoration(
-                      color: Color(color),
+                      color: color.toColor(),
                       borderRadius: BorderRadius.circular(16),
                     ),
                     height: 75,
@@ -116,11 +116,11 @@ class _ColorPalettePickerDialogState extends State<ColorPalettePickerDialog> {
                 onTap: () async {
                   final value = await showDialog<ColorPickerResponse>(
                       context: context,
-                      builder: (context) => ColorPicker(value: Color(color)));
+                      builder: (context) => ColorPicker(value: color));
                   if (value != null) {
                     _changePalette(_palette!.copyWith(
                         colors: List.from(_palette!.colors)
-                          ..[index] = value.color));
+                          ..[index] = value.toSRGB()));
                   }
                 }),
             ListTile(
@@ -239,7 +239,7 @@ class _ColorPalettePickerDialogState extends State<ColorPalettePickerDialog> {
                                   height: 75,
                                   margin: const EdgeInsets.all(5),
                                   decoration: BoxDecoration(
-                                      color: Color(_palette!.colors[index]),
+                                      color: _palette!.colors[index].toColor(),
                                       borderRadius: const BorderRadius.all(
                                           Radius.circular(32))),
                                 ))),
@@ -275,8 +275,9 @@ class _ColorPalettePickerDialogState extends State<ColorPalettePickerDialog> {
                                               ColorPicker(value: widget.value));
                                   if (value == null) return;
                                   _changePalette(_palette!.copyWith(
-                                      colors: List<int>.from(_palette!.colors)
-                                        ..add(value.color)));
+                                      colors:
+                                          List<SRGBColor>.from(_palette!.colors)
+                                            ..add(value.toSRGB())));
                                 },
                               ),
                             ),
@@ -294,7 +295,7 @@ class _ColorPalettePickerDialogState extends State<ColorPalettePickerDialog> {
                             context: context,
                             builder: (context) =>
                                 ColorPicker(value: widget.value));
-                        if (value != null) navigator.pop(value.color);
+                        if (value != null) navigator.pop(value.value);
                       },
                       child: Text(AppLocalizations.of(context).custom)),
               ],

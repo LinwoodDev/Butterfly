@@ -18,7 +18,6 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 import '../../api/open.dart';
 import '../../cubits/settings.dart';
 import '../../dialogs/file_system/sync.dart';
-import '../../dialogs/name.dart';
 import '../../services/import.dart';
 
 class FilesView extends StatefulWidget {

@@ -26,9 +26,12 @@ mixin _$SurfaceTexture {
   int get boxYCount => throw _privateConstructorUsedError;
   double get boxXSpace => throw _privateConstructorUsedError;
   double get boxYSpace => throw _privateConstructorUsedError;
-  int get boxXColor => throw _privateConstructorUsedError;
-  int get boxYColor => throw _privateConstructorUsedError;
-  int get boxColor => throw _privateConstructorUsedError;
+  @ColorJsonConverter()
+  SRGBColor get boxXColor => throw _privateConstructorUsedError;
+  @ColorJsonConverter()
+  SRGBColor get boxYColor => throw _privateConstructorUsedError;
+  @ColorJsonConverter()
+  SRGBColor get boxColor => throw _privateConstructorUsedError;
   double get boxXStroke => throw _privateConstructorUsedError;
   double get boxYStroke => throw _privateConstructorUsedError;
 
@@ -55,9 +58,9 @@ abstract class $SurfaceTextureCopyWith<$Res> {
       int boxYCount,
       double boxXSpace,
       double boxYSpace,
-      int boxXColor,
-      int boxYColor,
-      int boxColor,
+      @ColorJsonConverter() SRGBColor boxXColor,
+      @ColorJsonConverter() SRGBColor boxYColor,
+      @ColorJsonConverter() SRGBColor boxColor,
       double boxXStroke,
       double boxYStroke});
 }
@@ -117,15 +120,15 @@ class _$SurfaceTextureCopyWithImpl<$Res, $Val extends SurfaceTexture>
       boxXColor: null == boxXColor
           ? _value.boxXColor
           : boxXColor // ignore: cast_nullable_to_non_nullable
-              as int,
+              as SRGBColor,
       boxYColor: null == boxYColor
           ? _value.boxYColor
           : boxYColor // ignore: cast_nullable_to_non_nullable
-              as int,
+              as SRGBColor,
       boxColor: null == boxColor
           ? _value.boxColor
           : boxColor // ignore: cast_nullable_to_non_nullable
-              as int,
+              as SRGBColor,
       boxXStroke: null == boxXStroke
           ? _value.boxXStroke
           : boxXStroke // ignore: cast_nullable_to_non_nullable
@@ -153,9 +156,9 @@ abstract class _$$PatternTextureImplCopyWith<$Res>
       int boxYCount,
       double boxXSpace,
       double boxYSpace,
-      int boxXColor,
-      int boxYColor,
-      int boxColor,
+      @ColorJsonConverter() SRGBColor boxXColor,
+      @ColorJsonConverter() SRGBColor boxYColor,
+      @ColorJsonConverter() SRGBColor boxColor,
       double boxXStroke,
       double boxYStroke});
 }
@@ -213,15 +216,15 @@ class __$$PatternTextureImplCopyWithImpl<$Res>
       boxXColor: null == boxXColor
           ? _value.boxXColor
           : boxXColor // ignore: cast_nullable_to_non_nullable
-              as int,
+              as SRGBColor,
       boxYColor: null == boxYColor
           ? _value.boxYColor
           : boxYColor // ignore: cast_nullable_to_non_nullable
-              as int,
+              as SRGBColor,
       boxColor: null == boxColor
           ? _value.boxColor
           : boxColor // ignore: cast_nullable_to_non_nullable
-              as int,
+              as SRGBColor,
       boxXStroke: null == boxXStroke
           ? _value.boxXStroke
           : boxXStroke // ignore: cast_nullable_to_non_nullable
@@ -244,9 +247,9 @@ class _$PatternTextureImpl implements PatternTexture {
       this.boxYCount = 1,
       this.boxXSpace = 0,
       this.boxYSpace = 0,
-      this.boxXColor = BasicColors.blue,
-      this.boxYColor = BasicColors.red,
-      this.boxColor = BasicColors.white,
+      @ColorJsonConverter() this.boxXColor = BasicColors.blue,
+      @ColorJsonConverter() this.boxYColor = BasicColors.red,
+      @ColorJsonConverter() this.boxColor = SRGBColor.white,
       this.boxXStroke = 0.5,
       this.boxYStroke = 0.5});
 
@@ -273,13 +276,16 @@ class _$PatternTextureImpl implements PatternTexture {
   final double boxYSpace;
   @override
   @JsonKey()
-  final int boxXColor;
+  @ColorJsonConverter()
+  final SRGBColor boxXColor;
   @override
   @JsonKey()
-  final int boxYColor;
+  @ColorJsonConverter()
+  final SRGBColor boxYColor;
   @override
   @JsonKey()
-  final int boxColor;
+  @ColorJsonConverter()
+  final SRGBColor boxColor;
   @override
   @JsonKey()
   final double boxXStroke;
@@ -362,9 +368,9 @@ abstract class PatternTexture implements SurfaceTexture {
       final int boxYCount,
       final double boxXSpace,
       final double boxYSpace,
-      final int boxXColor,
-      final int boxYColor,
-      final int boxColor,
+      @ColorJsonConverter() final SRGBColor boxXColor,
+      @ColorJsonConverter() final SRGBColor boxYColor,
+      @ColorJsonConverter() final SRGBColor boxColor,
       final double boxXStroke,
       final double boxYStroke}) = _$PatternTextureImpl;
 
@@ -384,11 +390,14 @@ abstract class PatternTexture implements SurfaceTexture {
   @override
   double get boxYSpace;
   @override
-  int get boxXColor;
+  @ColorJsonConverter()
+  SRGBColor get boxXColor;
   @override
-  int get boxYColor;
+  @ColorJsonConverter()
+  SRGBColor get boxYColor;
   @override
-  int get boxColor;
+  @ColorJsonConverter()
+  SRGBColor get boxColor;
   @override
   double get boxXStroke;
   @override

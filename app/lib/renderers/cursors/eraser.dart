@@ -1,6 +1,7 @@
 import 'package:butterfly/cubits/transform.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/material.dart';
+import 'package:material_leap/material_leap.dart';
 
 import '../../models/cursor.dart';
 import '../renderer.dart';
@@ -30,9 +31,10 @@ class EraserCursor extends Renderer<ToolCursorData<EraserInfo>> {
         Paint()
           ..style = PaintingStyle.stroke
           ..color = switch (background) {
-            TextureBackground e => Color(e.texture.boxColor),
-            _ => Colors.white,
+            TextureBackground e => e.texture.boxColor,
+            _ => SRGBColor.white,
           }
+              .toColor()
           ..strokeCap = StrokeCap.round
           ..invertColors = true
           ..strokeWidth = radius / transform.size

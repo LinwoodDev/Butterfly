@@ -9,7 +9,9 @@ part of 'property.dart';
 _$PenPropertyImpl _$$PenPropertyImplFromJson(Map json) => _$PenPropertyImpl(
       strokeWidth: (json['strokeWidth'] as num?)?.toDouble() ?? 5,
       thinning: (json['thinning'] as num?)?.toDouble() ?? 0.4,
-      color: (json['color'] as num?)?.toInt() ?? BasicColors.black,
+      color: json['color'] == null
+          ? SRGBColor.black
+          : const ColorJsonConverter().fromJson((json['color'] as num).toInt()),
       fill: json['fill'] as bool? ?? false,
       smoothing: (json['smoothing'] as num?)?.toDouble() ?? 0.5,
       streamline: (json['streamline'] as num?)?.toDouble() ?? 0.3,
@@ -20,7 +22,7 @@ Map<String, dynamic> _$$PenPropertyImplToJson(_$PenPropertyImpl instance) =>
     <String, dynamic>{
       'strokeWidth': instance.strokeWidth,
       'thinning': instance.thinning,
-      'color': instance.color,
+      'color': const ColorJsonConverter().toJson(instance.color),
       'fill': instance.fill,
       'smoothing': instance.smoothing,
       'streamline': instance.streamline,
@@ -32,7 +34,9 @@ _$ShapePropertyImpl _$$ShapePropertyImplFromJson(Map json) =>
       strokeWidth: (json['strokeWidth'] as num?)?.toDouble() ?? 5,
       shape:
           PathShape.fromJson(Map<String, dynamic>.from(json['shape'] as Map)),
-      color: (json['color'] as num?)?.toInt() ?? BasicColors.black,
+      color: json['color'] == null
+          ? SRGBColor.black
+          : const ColorJsonConverter().fromJson((json['color'] as num).toInt()),
       $type: json['type'] as String?,
     );
 
@@ -40,26 +44,30 @@ Map<String, dynamic> _$$ShapePropertyImplToJson(_$ShapePropertyImpl instance) =>
     <String, dynamic>{
       'strokeWidth': instance.strokeWidth,
       'shape': instance.shape.toJson(),
-      'color': instance.color,
+      'color': const ColorJsonConverter().toJson(instance.color),
       'type': instance.$type,
     };
 
 _$CircleShapeImpl _$$CircleShapeImplFromJson(Map json) => _$CircleShapeImpl(
-      fillColor:
-          (json['fillColor'] as num?)?.toInt() ?? BasicColors.transparent,
+      fillColor: json['fillColor'] == null
+          ? SRGBColor.transparent
+          : const ColorJsonConverter()
+              .fromJson((json['fillColor'] as num).toInt()),
       $type: json['type'] as String?,
     );
 
 Map<String, dynamic> _$$CircleShapeImplToJson(_$CircleShapeImpl instance) =>
     <String, dynamic>{
-      'fillColor': instance.fillColor,
+      'fillColor': const ColorJsonConverter().toJson(instance.fillColor),
       'type': instance.$type,
     };
 
 _$RectangleShapeImpl _$$RectangleShapeImplFromJson(Map json) =>
     _$RectangleShapeImpl(
-      fillColor:
-          (json['fillColor'] as num?)?.toInt() ?? BasicColors.transparent,
+      fillColor: json['fillColor'] == null
+          ? SRGBColor.transparent
+          : const ColorJsonConverter()
+              .fromJson((json['fillColor'] as num).toInt()),
       topLeftCornerRadius:
           (json['topLeftCornerRadius'] as num?)?.toDouble() ?? 0,
       topRightCornerRadius:
@@ -74,7 +82,7 @@ _$RectangleShapeImpl _$$RectangleShapeImplFromJson(Map json) =>
 Map<String, dynamic> _$$RectangleShapeImplToJson(
         _$RectangleShapeImpl instance) =>
     <String, dynamic>{
-      'fillColor': instance.fillColor,
+      'fillColor': const ColorJsonConverter().toJson(instance.fillColor),
       'topLeftCornerRadius': instance.topLeftCornerRadius,
       'topRightCornerRadius': instance.topRightCornerRadius,
       'bottomLeftCornerRadius': instance.bottomLeftCornerRadius,
@@ -93,13 +101,15 @@ Map<String, dynamic> _$$LineShapeImplToJson(_$LineShapeImpl instance) =>
 
 _$TriangleShapeImpl _$$TriangleShapeImplFromJson(Map json) =>
     _$TriangleShapeImpl(
-      fillColor:
-          (json['fillColor'] as num?)?.toInt() ?? BasicColors.transparent,
+      fillColor: json['fillColor'] == null
+          ? SRGBColor.transparent
+          : const ColorJsonConverter()
+              .fromJson((json['fillColor'] as num).toInt()),
       $type: json['type'] as String?,
     );
 
 Map<String, dynamic> _$$TriangleShapeImplToJson(_$TriangleShapeImpl instance) =>
     <String, dynamic>{
-      'fillColor': instance.fillColor,
+      'fillColor': const ColorJsonConverter().toJson(instance.fillColor),
       'type': instance.$type,
     };

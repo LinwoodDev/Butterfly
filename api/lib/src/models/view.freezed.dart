@@ -20,7 +20,8 @@ ViewOption _$ViewOptionFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$ViewOption {
-  int get gridColor => throw _privateConstructorUsedError;
+  @ColorJsonConverter()
+  SRGBColor get gridColor => throw _privateConstructorUsedError;
   double get gridXSize => throw _privateConstructorUsedError;
   double get gridYSize => throw _privateConstructorUsedError;
 
@@ -40,7 +41,10 @@ abstract class $ViewOptionCopyWith<$Res> {
           ViewOption value, $Res Function(ViewOption) then) =
       _$ViewOptionCopyWithImpl<$Res, ViewOption>;
   @useResult
-  $Res call({int gridColor, double gridXSize, double gridYSize});
+  $Res call(
+      {@ColorJsonConverter() SRGBColor gridColor,
+      double gridXSize,
+      double gridYSize});
 }
 
 /// @nodoc
@@ -66,7 +70,7 @@ class _$ViewOptionCopyWithImpl<$Res, $Val extends ViewOption>
       gridColor: null == gridColor
           ? _value.gridColor
           : gridColor // ignore: cast_nullable_to_non_nullable
-              as int,
+              as SRGBColor,
       gridXSize: null == gridXSize
           ? _value.gridXSize
           : gridXSize // ignore: cast_nullable_to_non_nullable
@@ -87,7 +91,10 @@ abstract class _$$ViewOptionImplCopyWith<$Res>
       __$$ViewOptionImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({int gridColor, double gridXSize, double gridYSize});
+  $Res call(
+      {@ColorJsonConverter() SRGBColor gridColor,
+      double gridXSize,
+      double gridYSize});
 }
 
 /// @nodoc
@@ -111,7 +118,7 @@ class __$$ViewOptionImplCopyWithImpl<$Res>
       gridColor: null == gridColor
           ? _value.gridColor
           : gridColor // ignore: cast_nullable_to_non_nullable
-              as int,
+              as SRGBColor,
       gridXSize: null == gridXSize
           ? _value.gridXSize
           : gridXSize // ignore: cast_nullable_to_non_nullable
@@ -128,7 +135,7 @@ class __$$ViewOptionImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$ViewOptionImpl implements _ViewOption {
   const _$ViewOptionImpl(
-      {this.gridColor = BasicColors.black,
+      {@ColorJsonConverter() this.gridColor = SRGBColor.black,
       this.gridXSize = 20,
       this.gridYSize = 20});
 
@@ -137,7 +144,8 @@ class _$ViewOptionImpl implements _ViewOption {
 
   @override
   @JsonKey()
-  final int gridColor;
+  @ColorJsonConverter()
+  final SRGBColor gridColor;
   @override
   @JsonKey()
   final double gridXSize;
@@ -185,7 +193,7 @@ class _$ViewOptionImpl implements _ViewOption {
 
 abstract class _ViewOption implements ViewOption {
   const factory _ViewOption(
-      {final int gridColor,
+      {@ColorJsonConverter() final SRGBColor gridColor,
       final double gridXSize,
       final double gridYSize}) = _$ViewOptionImpl;
 
@@ -193,7 +201,8 @@ abstract class _ViewOption implements ViewOption {
       _$ViewOptionImpl.fromJson;
 
   @override
-  int get gridColor;
+  @ColorJsonConverter()
+  SRGBColor get gridColor;
   @override
   double get gridXSize;
   @override

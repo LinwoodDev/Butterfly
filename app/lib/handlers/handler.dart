@@ -42,7 +42,6 @@ import '../actions/select.dart';
 import '../api/save.dart';
 import '../cubits/current_index.dart';
 import '../dialogs/import/camera.dart';
-import '../dialogs/name.dart';
 import '../models/label.dart';
 import '../models/viewport.dart';
 import '../renderers/cursors/eraser.dart';
@@ -277,8 +276,8 @@ extension ToolHandler<T extends Tool> on Handler<T> {
 }
 
 mixin ColoredHandler<T extends Tool> on Handler<T> {
-  int getColor();
-  T setColor(int color);
+  SRGBColor getColor();
+  T setColor(SRGBColor color);
 
   @override
   PreferredSizeWidget? getToolbar(DocumentBloc bloc) =>
@@ -298,7 +297,7 @@ mixin ColoredHandler<T extends Tool> on Handler<T> {
             )
           : null;
 
-  void changeToolColor(DocumentBloc bloc, int value) =>
+  void changeToolColor(DocumentBloc bloc, SRGBColor value) =>
       changeTool(bloc, setColor(value));
 }
 

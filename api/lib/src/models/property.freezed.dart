@@ -30,7 +30,8 @@ Property _$PropertyFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$Property {
   double get strokeWidth => throw _privateConstructorUsedError;
-  int get color => throw _privateConstructorUsedError;
+  @ColorJsonConverter()
+  SRGBColor get color => throw _privateConstructorUsedError;
 
   /// Serializes this Property to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -47,7 +48,7 @@ abstract class $PropertyCopyWith<$Res> {
   factory $PropertyCopyWith(Property value, $Res Function(Property) then) =
       _$PropertyCopyWithImpl<$Res, Property>;
   @useResult
-  $Res call({double strokeWidth, int color});
+  $Res call({double strokeWidth, @ColorJsonConverter() SRGBColor color});
 }
 
 /// @nodoc
@@ -76,7 +77,7 @@ class _$PropertyCopyWithImpl<$Res, $Val extends Property>
       color: null == color
           ? _value.color
           : color // ignore: cast_nullable_to_non_nullable
-              as int,
+              as SRGBColor,
     ) as $Val);
   }
 }
@@ -92,7 +93,7 @@ abstract class _$$PenPropertyImplCopyWith<$Res>
   $Res call(
       {double strokeWidth,
       double thinning,
-      int color,
+      @ColorJsonConverter() SRGBColor color,
       bool fill,
       double smoothing,
       double streamline});
@@ -130,7 +131,7 @@ class __$$PenPropertyImplCopyWithImpl<$Res>
       color: null == color
           ? _value.color
           : color // ignore: cast_nullable_to_non_nullable
-              as int,
+              as SRGBColor,
       fill: null == fill
           ? _value.fill
           : fill // ignore: cast_nullable_to_non_nullable
@@ -153,7 +154,7 @@ class _$PenPropertyImpl implements PenProperty {
   const _$PenPropertyImpl(
       {this.strokeWidth = 5,
       this.thinning = 0.4,
-      this.color = BasicColors.black,
+      @ColorJsonConverter() this.color = SRGBColor.black,
       this.fill = false,
       this.smoothing = 0.5,
       this.streamline = 0.3,
@@ -171,7 +172,8 @@ class _$PenPropertyImpl implements PenProperty {
   final double thinning;
   @override
   @JsonKey()
-  final int color;
+  @ColorJsonConverter()
+  final SRGBColor color;
   @override
   @JsonKey()
   final bool fill;
@@ -232,7 +234,7 @@ abstract class PenProperty implements Property, PathProperty {
   const factory PenProperty(
       {final double strokeWidth,
       final double thinning,
-      final int color,
+      @ColorJsonConverter() final SRGBColor color,
       final bool fill,
       final double smoothing,
       final double streamline}) = _$PenPropertyImpl;
@@ -244,7 +246,8 @@ abstract class PenProperty implements Property, PathProperty {
   double get strokeWidth;
   double get thinning;
   @override
-  int get color;
+  @ColorJsonConverter()
+  SRGBColor get color;
   bool get fill;
   double get smoothing;
   double get streamline;
@@ -265,7 +268,10 @@ abstract class _$$ShapePropertyImplCopyWith<$Res>
       __$$ShapePropertyImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({double strokeWidth, PathShape shape, int color});
+  $Res call(
+      {double strokeWidth,
+      PathShape shape,
+      @ColorJsonConverter() SRGBColor color});
 
   $PathShapeCopyWith<$Res> get shape;
 }
@@ -299,7 +305,7 @@ class __$$ShapePropertyImplCopyWithImpl<$Res>
       color: null == color
           ? _value.color
           : color // ignore: cast_nullable_to_non_nullable
-              as int,
+              as SRGBColor,
     ));
   }
 
@@ -320,7 +326,7 @@ class _$ShapePropertyImpl implements ShapeProperty {
   const _$ShapePropertyImpl(
       {this.strokeWidth = 5,
       required this.shape,
-      this.color = BasicColors.black,
+      @ColorJsonConverter() this.color = SRGBColor.black,
       final String? $type})
       : $type = $type ?? 'shape';
 
@@ -334,7 +340,8 @@ class _$ShapePropertyImpl implements ShapeProperty {
   final PathShape shape;
   @override
   @JsonKey()
-  final int color;
+  @ColorJsonConverter()
+  final SRGBColor color;
 
   @JsonKey(name: 'type')
   final String $type;
@@ -379,7 +386,7 @@ abstract class ShapeProperty implements Property {
   const factory ShapeProperty(
       {final double strokeWidth,
       required final PathShape shape,
-      final int color}) = _$ShapePropertyImpl;
+      @ColorJsonConverter() final SRGBColor color}) = _$ShapePropertyImpl;
 
   factory ShapeProperty.fromJson(Map<String, dynamic> json) =
       _$ShapePropertyImpl.fromJson;
@@ -388,7 +395,8 @@ abstract class ShapeProperty implements Property {
   double get strokeWidth;
   PathShape get shape;
   @override
-  int get color;
+  @ColorJsonConverter()
+  SRGBColor get color;
 
   /// Create a copy of Property
   /// with the given fields replaced by the non-null parameter values.
@@ -447,7 +455,7 @@ abstract class _$$CircleShapeImplCopyWith<$Res> {
           _$CircleShapeImpl value, $Res Function(_$CircleShapeImpl) then) =
       __$$CircleShapeImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({int fillColor});
+  $Res call({@ColorJsonConverter() SRGBColor fillColor});
 }
 
 /// @nodoc
@@ -469,7 +477,7 @@ class __$$CircleShapeImplCopyWithImpl<$Res>
       fillColor: null == fillColor
           ? _value.fillColor
           : fillColor // ignore: cast_nullable_to_non_nullable
-              as int,
+              as SRGBColor,
     ));
   }
 }
@@ -478,7 +486,8 @@ class __$$CircleShapeImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$CircleShapeImpl extends CircleShape {
   const _$CircleShapeImpl(
-      {this.fillColor = BasicColors.transparent, final String? $type})
+      {@ColorJsonConverter() this.fillColor = SRGBColor.transparent,
+      final String? $type})
       : $type = $type ?? 'circle',
         super._();
 
@@ -487,7 +496,8 @@ class _$CircleShapeImpl extends CircleShape {
 
   @override
   @JsonKey()
-  final int fillColor;
+  @ColorJsonConverter()
+  final SRGBColor fillColor;
 
   @JsonKey(name: 'type')
   final String $type;
@@ -527,13 +537,15 @@ class _$CircleShapeImpl extends CircleShape {
 }
 
 abstract class CircleShape extends PathShape {
-  const factory CircleShape({final int fillColor}) = _$CircleShapeImpl;
+  const factory CircleShape({@ColorJsonConverter() final SRGBColor fillColor}) =
+      _$CircleShapeImpl;
   const CircleShape._() : super._();
 
   factory CircleShape.fromJson(Map<String, dynamic> json) =
       _$CircleShapeImpl.fromJson;
 
-  int get fillColor;
+  @ColorJsonConverter()
+  SRGBColor get fillColor;
 
   /// Create a copy of PathShape
   /// with the given fields replaced by the non-null parameter values.
@@ -549,7 +561,7 @@ abstract class _$$RectangleShapeImplCopyWith<$Res> {
       __$$RectangleShapeImplCopyWithImpl<$Res>;
   @useResult
   $Res call(
-      {int fillColor,
+      {@ColorJsonConverter() SRGBColor fillColor,
       double topLeftCornerRadius,
       double topRightCornerRadius,
       double bottomLeftCornerRadius,
@@ -579,7 +591,7 @@ class __$$RectangleShapeImplCopyWithImpl<$Res>
       fillColor: null == fillColor
           ? _value.fillColor
           : fillColor // ignore: cast_nullable_to_non_nullable
-              as int,
+              as SRGBColor,
       topLeftCornerRadius: null == topLeftCornerRadius
           ? _value.topLeftCornerRadius
           : topLeftCornerRadius // ignore: cast_nullable_to_non_nullable
@@ -604,7 +616,7 @@ class __$$RectangleShapeImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$RectangleShapeImpl extends RectangleShape {
   const _$RectangleShapeImpl(
-      {this.fillColor = BasicColors.transparent,
+      {@ColorJsonConverter() this.fillColor = SRGBColor.transparent,
       this.topLeftCornerRadius = 0,
       this.topRightCornerRadius = 0,
       this.bottomLeftCornerRadius = 0,
@@ -618,7 +630,8 @@ class _$RectangleShapeImpl extends RectangleShape {
 
   @override
   @JsonKey()
-  final int fillColor;
+  @ColorJsonConverter()
+  final SRGBColor fillColor;
   @override
   @JsonKey()
   final double topLeftCornerRadius;
@@ -682,7 +695,7 @@ class _$RectangleShapeImpl extends RectangleShape {
 
 abstract class RectangleShape extends PathShape {
   const factory RectangleShape(
-      {final int fillColor,
+      {@ColorJsonConverter() final SRGBColor fillColor,
       final double topLeftCornerRadius,
       final double topRightCornerRadius,
       final double bottomLeftCornerRadius,
@@ -692,7 +705,8 @@ abstract class RectangleShape extends PathShape {
   factory RectangleShape.fromJson(Map<String, dynamic> json) =
       _$RectangleShapeImpl.fromJson;
 
-  int get fillColor;
+  @ColorJsonConverter()
+  SRGBColor get fillColor;
   double get topLeftCornerRadius;
   double get topRightCornerRadius;
   double get bottomLeftCornerRadius;
@@ -774,7 +788,7 @@ abstract class _$$TriangleShapeImplCopyWith<$Res> {
           _$TriangleShapeImpl value, $Res Function(_$TriangleShapeImpl) then) =
       __$$TriangleShapeImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({int fillColor});
+  $Res call({@ColorJsonConverter() SRGBColor fillColor});
 }
 
 /// @nodoc
@@ -796,7 +810,7 @@ class __$$TriangleShapeImplCopyWithImpl<$Res>
       fillColor: null == fillColor
           ? _value.fillColor
           : fillColor // ignore: cast_nullable_to_non_nullable
-              as int,
+              as SRGBColor,
     ));
   }
 }
@@ -805,7 +819,8 @@ class __$$TriangleShapeImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$TriangleShapeImpl extends TriangleShape {
   const _$TriangleShapeImpl(
-      {this.fillColor = BasicColors.transparent, final String? $type})
+      {@ColorJsonConverter() this.fillColor = SRGBColor.transparent,
+      final String? $type})
       : $type = $type ?? 'triangle',
         super._();
 
@@ -814,7 +829,8 @@ class _$TriangleShapeImpl extends TriangleShape {
 
   @override
   @JsonKey()
-  final int fillColor;
+  @ColorJsonConverter()
+  final SRGBColor fillColor;
 
   @JsonKey(name: 'type')
   final String $type;
@@ -854,13 +870,15 @@ class _$TriangleShapeImpl extends TriangleShape {
 }
 
 abstract class TriangleShape extends PathShape {
-  const factory TriangleShape({final int fillColor}) = _$TriangleShapeImpl;
+  const factory TriangleShape(
+      {@ColorJsonConverter() final SRGBColor fillColor}) = _$TriangleShapeImpl;
   const TriangleShape._() : super._();
 
   factory TriangleShape.fromJson(Map<String, dynamic> json) =
       _$TriangleShapeImpl.fromJson;
 
-  int get fillColor;
+  @ColorJsonConverter()
+  SRGBColor get fillColor;
 
   /// Create a copy of PathShape
   /// with the given fields replaced by the non-null parameter values.

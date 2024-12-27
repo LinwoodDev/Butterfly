@@ -83,20 +83,18 @@ class ShapeToolSelection extends ToolSelection<ShapeTool> {
                   .toList())),
       const SizedBox(height: 50),
       ColorField(
-        value: Color(property.color).withAlpha(255),
+        value: property.color.withValues(a: 255),
         onChanged: (color) => update(
             context,
             selected
                 .map((e) => e.copyWith(
                     property: e.property.copyWith(
-                        // ignore: deprecated_member_use
-                        color: convertOldColor(color.value, property.color))))
+                        color: color.withValues(a: property.color.a))))
                 .toList()),
         title: Text(AppLocalizations.of(context).color),
       ),
       ExactSlider(
-        // ignore: deprecated_member_use
-        value: Color(property.color).alpha.toDouble(),
+        value: property.color.a.toDouble(),
         header: Text(AppLocalizations.of(context).alpha),
         fractionDigits: 0,
         max: 255,
@@ -107,7 +105,7 @@ class ShapeToolSelection extends ToolSelection<ShapeTool> {
             selected
                 .map((e) => e.copyWith(
                     property: e.property.copyWith(
-                        color: convertColor(property.color, value.toInt()))))
+                        color: property.color.withValues(a: value.toInt()))))
                 .toList()),
       ),
       ShapeView(
@@ -237,24 +235,22 @@ class _CircleShapeView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(children: [
       ColorField(
-        value: Color(shape.fillColor).withAlpha(255),
+        value: shape.fillColor.withValues(a: 255),
         title: Text(AppLocalizations.of(context).fill),
         leading: const PhosphorIcon(PhosphorIconsLight.paintBucket),
-        defaultColor: Colors.transparent,
-        onChanged: (color) => onChanged(shape.copyWith(
-            // ignore: deprecated_member_use
-            fillColor: convertOldColor(color.value, shape.fillColor))),
+        defaultColor: SRGBColor.transparent,
+        onChanged: (color) => onChanged(
+            shape.copyWith(fillColor: color.withValues(a: shape.fillColor.a))),
       ),
       ExactSlider(
-        // ignore: deprecated_member_use
-        value: Color(shape.fillColor).alpha.toDouble(),
+        value: shape.fillColor.a.toDouble(),
         header: Text(AppLocalizations.of(context).alpha),
         fractionDigits: 0,
         max: 255,
         min: 0,
         defaultValue: 255,
         onChangeEnd: (value) => onChanged(shape.copyWith(
-            fillColor: convertColor(shape.fillColor, value.toInt()))),
+            fillColor: shape.fillColor.withValues(a: value.toInt()))),
       )
     ]);
   }
@@ -269,24 +265,22 @@ class _TriangleShapeView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(children: [
       ColorField(
-        value: Color(shape.fillColor).withAlpha(255),
+        value: shape.fillColor.withValues(a: 255),
         title: Text(AppLocalizations.of(context).fill),
         leading: const PhosphorIcon(PhosphorIconsLight.paintBucket),
-        defaultColor: Colors.transparent,
-        onChanged: (color) => onChanged(shape.copyWith(
-            // ignore: deprecated_member_use
-            fillColor: convertOldColor(color.value, shape.fillColor))),
+        defaultColor: SRGBColor.transparent,
+        onChanged: (color) => onChanged(
+            shape.copyWith(fillColor: color.withValues(a: shape.fillColor.a))),
       ),
       ExactSlider(
-        // ignore: deprecated_member_use
-        value: Color(shape.fillColor).alpha.toDouble(),
+        value: shape.fillColor.a.toDouble(),
         header: Text(AppLocalizations.of(context).alpha),
         fractionDigits: 0,
         max: 255,
         min: 0,
         defaultValue: 255,
         onChangeEnd: (value) => onChanged(shape.copyWith(
-            fillColor: convertColor(shape.fillColor, value.toInt()))),
+            fillColor: shape.fillColor.withValues(a: value.toInt()))),
       )
     ]);
   }
@@ -310,23 +304,20 @@ class _RectangleShapeViewState extends State<_RectangleShapeView> {
       ColorField(
         title: Text(AppLocalizations.of(context).fill),
         leading: const PhosphorIcon(PhosphorIconsLight.paintBucket),
-        value: Color(widget.shape.fillColor).withAlpha(255),
-        defaultColor: Colors.transparent,
+        value: widget.shape.fillColor.withValues(a: 255),
+        defaultColor: SRGBColor.transparent,
         onChanged: (color) => widget.onChanged(widget.shape.copyWith(
-            fillColor:
-                // ignore: deprecated_member_use
-                convertOldColor(color.value, widget.shape.fillColor))),
+            fillColor: color.withValues(a: widget.shape.fillColor.a))),
       ),
       ExactSlider(
-        // ignore: deprecated_member_use
-        value: Color(widget.shape.fillColor).alpha.toDouble(),
+        value: widget.shape.fillColor.a.toDouble(),
         header: Text(AppLocalizations.of(context).alpha),
         fractionDigits: 0,
         max: 255,
         min: 0,
         defaultValue: 255,
         onChangeEnd: (value) => widget.onChanged(widget.shape.copyWith(
-            fillColor: convertColor(widget.shape.fillColor, value.toInt()))),
+            fillColor: widget.shape.fillColor.withValues(a: value.toInt()))),
       ),
       ExpansionPanelList(
         expansionCallback: (index, isExpanded) {

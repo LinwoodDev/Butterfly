@@ -9,17 +9,17 @@ import '../dialogs/packs/color_pick.dart';
 
 class ColorField extends StatelessWidget {
   final bool enabled, custom;
-  final Color value;
-  final Color? defaultColor;
+  final SRGBColor value;
+  final SRGBColor? defaultColor;
   final Widget? title;
   final Widget? subtitle;
   final Widget? leading;
-  final ValueChanged<Color>? onChanged;
+  final ValueChanged<SRGBColor>? onChanged;
   final VoidCallback? onOpen;
 
   const ColorField(
       {super.key,
-      this.value = Colors.white,
+      this.value = SRGBColor.white,
       this.defaultColor,
       this.custom = false,
       this.enabled = true,
@@ -34,7 +34,7 @@ class ColorField extends StatelessWidget {
     return ListTile(
       onTap: () async {
         onOpen?.call();
-        int? nextColor;
+        SRGBColor? nextColor;
         if (custom) {
           final response = await showDialog<ColorPickerResponse>(
             context: context,
@@ -42,9 +42,9 @@ class ColorField extends StatelessWidget {
               value: value,
             ),
           );
-          nextColor = response?.color;
+          nextColor = response?.toSRGB();
         } else {
-          nextColor = await showDialog<int>(
+          nextColor = await showDialog<SRGBColor>(
             context: context,
             builder: (ctx) => ColorPalettePickerDialog(
               value: value,
@@ -53,7 +53,7 @@ class ColorField extends StatelessWidget {
           );
         }
         if (nextColor != null) {
-          onChanged?.call(Color(nextColor));
+          onChanged?.call(nextColor);
         }
       },
       leading: leading,
@@ -66,7 +66,7 @@ class ColorField extends StatelessWidget {
             width: 30,
             height: 30,
             decoration: BoxDecoration(
-                color: value,
+                color: value.toColor(),
                 border:
                     Border.all(color: Theme.of(context).primaryColor, width: 2),
                 borderRadius: const BorderRadius.all(Radius.circular(32))),

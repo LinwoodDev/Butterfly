@@ -31,11 +31,10 @@ class LaserToolSelection extends ToolSelection<LaserTool> {
       ),
       const SizedBox(height: 4),
       ColorField(
-        value: Color(selected.first.color),
+        value: selected.first.color,
         onChanged: (value) => update(
           context,
-          // ignore: deprecated_member_use
-          selected.map((e) => e.copyWith(color: value.value)).toList(),
+          selected.map((e) => e.copyWith(color: value)).toList(),
         ),
         title: Text(AppLocalizations.of(context).color),
       ),

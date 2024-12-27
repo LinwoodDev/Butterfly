@@ -93,7 +93,10 @@ _$LabelToolImpl _$$LabelToolImplFromJson(Map json) => _$LabelToolImpl(
       mode: $enumDecodeNullable(_$LabelModeEnumMap, json['mode']) ??
           LabelMode.text,
       zoomDependent: json['zoomDependent'] as bool? ?? false,
-      foreground: (json['foreground'] as num?)?.toInt() ?? BasicColors.black,
+      foreground: json['foreground'] == null
+          ? SRGBColor.black
+          : const ColorJsonConverter()
+              .fromJson((json['foreground'] as num).toInt()),
       styleSheet: json['styleSheet'] == null
           ? const PackAssetLocation()
           : PackAssetLocation.fromJson(
@@ -108,7 +111,7 @@ Map<String, dynamic> _$$LabelToolImplToJson(_$LabelToolImpl instance) =>
       'displayIcon': instance.displayIcon,
       'mode': _$LabelModeEnumMap[instance.mode]!,
       'zoomDependent': instance.zoomDependent,
-      'foreground': instance.foreground,
+      'foreground': const ColorJsonConverter().toJson(instance.foreground),
       'styleSheet': instance.styleSheet.toJson(),
       'scale': instance.scale,
       'type': instance.$type,
@@ -226,7 +229,9 @@ _$LaserToolImpl _$$LaserToolImplFromJson(Map json) => _$LaserToolImpl(
       hideDuration: (json['hideDuration'] as num?)?.toDouble() ?? 0.5,
       strokeWidth: (json['strokeWidth'] as num?)?.toDouble() ?? 5,
       thinning: (json['thinning'] as num?)?.toDouble() ?? 0.4,
-      color: (json['color'] as num?)?.toInt() ?? BasicColors.red,
+      color: json['color'] == null
+          ? BasicColors.red
+          : const ColorJsonConverter().fromJson((json['color'] as num).toInt()),
       animation:
           $enumDecodeNullable(_$LaserAnimationEnumMap, json['animation']) ??
               LaserAnimation.fade,
@@ -241,7 +246,7 @@ Map<String, dynamic> _$$LaserToolImplToJson(_$LaserToolImpl instance) =>
       'hideDuration': instance.hideDuration,
       'strokeWidth': instance.strokeWidth,
       'thinning': instance.thinning,
-      'color': instance.color,
+      'color': const ColorJsonConverter().toJson(instance.color),
       'animation': _$LaserAnimationEnumMap[instance.animation]!,
       'type': instance.$type,
     };

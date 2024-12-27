@@ -910,7 +910,7 @@ abstract class _$$TextElementImplCopyWith<$Res>
       PackAssetLocation styleSheet,
       TextArea area,
       ElementConstraint constraint,
-      int foreground,
+      @ColorJsonConverter() SRGBColor foreground,
       Map<String, dynamic> extra});
 
   $PackAssetLocationCopyWith<$Res> get styleSheet;
@@ -978,7 +978,7 @@ class __$$TextElementImplCopyWithImpl<$Res>
       foreground: null == foreground
           ? _value.foreground
           : foreground // ignore: cast_nullable_to_non_nullable
-              as int,
+              as SRGBColor,
       extra: null == extra
           ? _value._extra
           : extra // ignore: cast_nullable_to_non_nullable
@@ -1029,7 +1029,7 @@ class _$TextElementImpl extends TextElement with LabelElement {
       this.styleSheet = const PackAssetLocation(),
       required this.area,
       this.constraint = const ElementConstraint(size: 1000),
-      this.foreground = BasicColors.black,
+      @ColorJsonConverter() this.foreground = SRGBColor.black,
       final Map<String, dynamic> extra = const {},
       final String? $type})
       : _extra = extra,
@@ -1065,7 +1065,8 @@ class _$TextElementImpl extends TextElement with LabelElement {
   final ElementConstraint constraint;
   @override
   @JsonKey()
-  final int foreground;
+  @ColorJsonConverter()
+  final SRGBColor foreground;
   final Map<String, dynamic> _extra;
   @override
   @JsonKey()
@@ -1109,7 +1110,7 @@ abstract class TextElement extends PadElement implements LabelElement {
       final PackAssetLocation styleSheet,
       required final TextArea area,
       final ElementConstraint constraint,
-      final int foreground,
+      @ColorJsonConverter() final SRGBColor foreground,
       final Map<String, dynamic> extra}) = _$TextElementImpl;
   TextElement._() : super._();
 
@@ -1129,7 +1130,8 @@ abstract class TextElement extends PadElement implements LabelElement {
   PackAssetLocation get styleSheet;
   TextArea get area;
   ElementConstraint get constraint;
-  int get foreground;
+  @ColorJsonConverter()
+  SRGBColor get foreground;
   @override
   Map<String, dynamic> get extra;
 
@@ -1159,7 +1161,7 @@ abstract class _$$MarkdownElementImplCopyWith<$Res>
       AreaProperty areaProperty,
       String text,
       ElementConstraint constraint,
-      int foreground,
+      @ColorJsonConverter() SRGBColor foreground,
       Map<String, dynamic> extra});
 
   $PackAssetLocationCopyWith<$Res> get styleSheet;
@@ -1232,7 +1234,7 @@ class __$$MarkdownElementImplCopyWithImpl<$Res>
       foreground: null == foreground
           ? _value.foreground
           : foreground // ignore: cast_nullable_to_non_nullable
-              as int,
+              as SRGBColor,
       extra: null == extra
           ? _value._extra
           : extra // ignore: cast_nullable_to_non_nullable
@@ -1284,7 +1286,7 @@ class _$MarkdownElementImpl extends MarkdownElement with LabelElement {
       this.areaProperty = const AreaProperty(),
       required this.text,
       this.constraint = const ElementConstraint(size: 1000),
-      this.foreground = BasicColors.black,
+      @ColorJsonConverter() this.foreground = SRGBColor.black,
       final Map<String, dynamic> extra = const {},
       final String? $type})
       : _extra = extra,
@@ -1323,7 +1325,8 @@ class _$MarkdownElementImpl extends MarkdownElement with LabelElement {
   final ElementConstraint constraint;
   @override
   @JsonKey()
-  final int foreground;
+  @ColorJsonConverter()
+  final SRGBColor foreground;
   final Map<String, dynamic> _extra;
   @override
   @JsonKey()
@@ -1369,7 +1372,7 @@ abstract class MarkdownElement extends PadElement implements LabelElement {
       final AreaProperty areaProperty,
       required final String text,
       final ElementConstraint constraint,
-      final int foreground,
+      @ColorJsonConverter() final SRGBColor foreground,
       final Map<String, dynamic> extra}) = _$MarkdownElementImpl;
   MarkdownElement._() : super._();
 
@@ -1390,7 +1393,8 @@ abstract class MarkdownElement extends PadElement implements LabelElement {
   AreaProperty get areaProperty;
   String get text;
   ElementConstraint get constraint;
-  int get foreground;
+  @ColorJsonConverter()
+  SRGBColor get foreground;
   @override
   Map<String, dynamic> get extra;
 

@@ -38,10 +38,9 @@ class _TextureViewState extends State<TextureView> {
         children: [
           ColorField(
             title: Text(AppLocalizations.of(context).color),
-            value: Color(widget.value.boxColor),
+            value: widget.value.boxColor,
             onChanged: (value) =>
-                // ignore: deprecated_member_use
-                widget.onChanged(widget.value.copyWith(boxColor: value.value)),
+                widget.onChanged(widget.value.copyWith(boxColor: value)),
           ),
           const SizedBox(height: 16),
           TabBar.secondary(tabs: [
@@ -58,11 +57,10 @@ class _TextureViewState extends State<TextureView> {
             child: TabBarView(children: [
               ListView(children: [
                 ColorField(
-                  value: Color(widget.value.boxXColor),
+                  value: widget.value.boxXColor,
                   title: Text(AppLocalizations.of(context).color),
-                  onChanged: (value) => widget
-                      // ignore: deprecated_member_use
-                      .onChanged(widget.value.copyWith(boxXColor: value.value)),
+                  onChanged: (value) =>
+                      widget.onChanged(widget.value.copyWith(boxXColor: value)),
                 ),
                 const SizedBox(height: 16),
                 ExactSlider(
@@ -99,10 +97,9 @@ class _TextureViewState extends State<TextureView> {
               ListView(children: [
                 ColorField(
                   title: Text(AppLocalizations.of(context).color),
-                  value: Color(widget.value.boxYColor),
-                  onChanged: (value) => widget
-                      // ignore: deprecated_member_use
-                      .onChanged(widget.value.copyWith(boxYColor: value.value)),
+                  value: widget.value.boxYColor,
+                  onChanged: (value) =>
+                      widget.onChanged(widget.value.copyWith(boxYColor: value)),
                 ),
                 const SizedBox(height: 16),
                 ExactSlider(

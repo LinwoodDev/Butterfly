@@ -123,7 +123,10 @@ _$TextElementImpl _$$TextElementImplFromJson(Map json) => _$TextElementImpl(
           ? const ElementConstraint(size: 1000)
           : ElementConstraint.fromJson(
               Map<String, dynamic>.from(json['constraint'] as Map)),
-      foreground: (json['foreground'] as num?)?.toInt() ?? BasicColors.black,
+      foreground: json['foreground'] == null
+          ? SRGBColor.black
+          : const ColorJsonConverter()
+              .fromJson((json['foreground'] as num).toInt()),
       extra: (json['extra'] as Map?)?.map(
             (k, e) => MapEntry(k as String, e),
           ) ??
@@ -141,7 +144,7 @@ Map<String, dynamic> _$$TextElementImplToJson(_$TextElementImpl instance) =>
       'styleSheet': instance.styleSheet.toJson(),
       'area': instance.area.toJson(),
       'constraint': instance.constraint.toJson(),
-      'foreground': instance.foreground,
+      'foreground': const ColorJsonConverter().toJson(instance.foreground),
       'extra': instance.extra,
       'type': instance.$type,
     };
@@ -168,7 +171,10 @@ _$MarkdownElementImpl _$$MarkdownElementImplFromJson(Map json) =>
           ? const ElementConstraint(size: 1000)
           : ElementConstraint.fromJson(
               Map<String, dynamic>.from(json['constraint'] as Map)),
-      foreground: (json['foreground'] as num?)?.toInt() ?? BasicColors.black,
+      foreground: json['foreground'] == null
+          ? SRGBColor.black
+          : const ColorJsonConverter()
+              .fromJson((json['foreground'] as num).toInt()),
       extra: (json['extra'] as Map?)?.map(
             (k, e) => MapEntry(k as String, e),
           ) ??
@@ -188,7 +194,7 @@ Map<String, dynamic> _$$MarkdownElementImplToJson(
       'areaProperty': instance.areaProperty.toJson(),
       'text': instance.text,
       'constraint': instance.constraint.toJson(),
-      'foreground': instance.foreground,
+      'foreground': const ColorJsonConverter().toJson(instance.foreground),
       'extra': instance.extra,
       'type': instance.$type,
     };
