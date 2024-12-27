@@ -1,0 +1,4 @@
+Merry Christmas! 🎄
+
+This is a stable release, it includes all the changes from the 2.2.3 nightly releases.
+Read more here: https://linwood.dev/butterfly/2.2.3

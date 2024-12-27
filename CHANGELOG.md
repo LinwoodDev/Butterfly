@@ -2,6 +2,27 @@
 
 <!--ENTER CHANGELOG HERE-->
 
+## 2.2.3 (2024-12-24)
+
+Merry Christmas! 🎄
+
+This is a stable release, it includes all the changes from the 2.2.3 nightly releases.
+Read more here: https://linwood.dev/butterfly/2.2.3
+
+## 2.2.3-rc.2 (2024-12-20)
+
+* Add area options to context menu in area navigator page
+* Add error icon to asset card
+* Move create button to the top right of the template dialog
+* Improve mobile color picker
+* Align no elements text to the center
+* Fix thumbnail in files view
+* Fix spacing in home page
+* Fix baking not working correctly when zooming in
+* Fix docker image ([#769](https://github.com/LinwoodDev/Butterfly/pull/769))
+
+Read more here: https://linwood.dev/butterfly/2.2.3-rc.2
+
 ## 2.2.3-rc.1 (2024-12-16)
 
 * Improve template dialog

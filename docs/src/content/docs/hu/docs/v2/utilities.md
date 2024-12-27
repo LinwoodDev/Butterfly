@@ -23,6 +23,6 @@ The grid allows you to exactly position elements. You can use it to move element
 
 The ruler allows you to measure the distance between two points. Additionally you can use it to create a line with the pen tool.
 
-## Camera
+## Kamera
 
 To jump to a specific position or zoom to a specific level you can use this tab.
