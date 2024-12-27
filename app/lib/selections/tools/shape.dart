@@ -91,7 +91,7 @@ class ShapeToolSelection extends ToolSelection<ShapeTool> {
                     property: e.property.copyWith(
                         color: color.withValues(a: property.color.a))))
                 .toList()),
-        title: Text(AppLocalizations.of(context).color),
+        title: Text(LeapLocalizations.of(context).color),
       ),
       ExactSlider(
         value: property.color.a.toDouble(),

@@ -75,7 +75,7 @@ class PalettesPackView extends StatelessWidget {
               onChanged(value.setPalette(ColorPalette(name: name)));
             },
             icon: const PhosphorIcon(PhosphorIconsLight.plus),
-            label: Text(AppLocalizations.of(context).create),
+            label: Text(LeapLocalizations.of(context).create),
           ),
         ),
       ],

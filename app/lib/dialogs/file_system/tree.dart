@@ -1,6 +1,7 @@
 import 'package:butterfly/api/file_system.dart';
 import 'package:flutter/material.dart';
 import 'package:lw_file_system/lw_file_system.dart';
+import 'package:material_leap/l10n/leap_localizations.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -139,7 +140,7 @@ class FileSystemDirectoryTreeViewState
                   autofocus: true,
                   decoration: InputDecoration(
                     border: const OutlineInputBorder(),
-                    labelText: AppLocalizations.of(context).name,
+                    labelText: LeapLocalizations.of(context).name,
                   ),
                   onChanged: (value) => name = value,
                   onFieldSubmitted: (value) {
@@ -149,10 +150,11 @@ class FileSystemDirectoryTreeViewState
                 actions: [
                   TextButton(
                       onPressed: () => Navigator.of(context).pop(false),
-                      child: Text(AppLocalizations.of(context).cancel)),
+                      child: Text(
+                          MaterialLocalizations.of(context).cancelButtonLabel)),
                   ElevatedButton(
                       onPressed: () => Navigator.of(context).pop(true),
-                      child: Text(AppLocalizations.of(context).create))
+                      child: Text(LeapLocalizations.of(context).create))
                 ],
               );
             }) ??

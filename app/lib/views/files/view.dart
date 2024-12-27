@@ -81,7 +81,7 @@ class FilesViewState extends State<FilesView> {
   }
 
   String getLocalizedNameOfSortBy(SortBy sortBy) => switch (sortBy) {
-        SortBy.name => AppLocalizations.of(context).name,
+        SortBy.name => LeapLocalizations.of(context).name,
         SortBy.created => AppLocalizations.of(context).created,
         SortBy.modified => AppLocalizations.of(context).modified,
       };
@@ -451,7 +451,7 @@ class FilesViewState extends State<FilesView> {
                               FloatingActionButton.small(
                             heroTag: null,
                             onPressed: controller.toggle,
-                            tooltip: AppLocalizations.of(context).create,
+                            tooltip: LeapLocalizations.of(context).create,
                             child: const PhosphorIcon(PhosphorIconsLight.plus),
                           ),
                         ),

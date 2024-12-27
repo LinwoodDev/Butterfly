@@ -26,7 +26,7 @@ class ToolSelection<T extends Tool> extends Selection<T> {
     return [
       TextFormField(
           decoration: InputDecoration(
-              filled: true, labelText: AppLocalizations.of(context).name),
+              filled: true, labelText: LeapLocalizations.of(context).name),
           initialValue: initialName,
           onChanged: (value) => update(context,
               selected.map((e) => e.copyWith(name: value) as T).toList())),

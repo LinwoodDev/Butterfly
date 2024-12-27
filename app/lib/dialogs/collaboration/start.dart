@@ -52,7 +52,7 @@ class _StartCollaborationDialogState extends State<StartCollaborationDialog>
                       controller: _addressController,
                       validator: (value) {
                         if (value?.isEmpty ?? true) {
-                          return AppLocalizations.of(context).shouldNotEmpty;
+                          return LeapLocalizations.of(context).shouldNotEmpty;
                         }
                         final address = InternetAddress.tryParse(value!);
                         if (address == null) {
@@ -72,7 +72,7 @@ class _StartCollaborationDialogState extends State<StartCollaborationDialog>
                       keyboardType: TextInputType.number,
                       validator: (value) {
                         if (value?.isEmpty ?? true) {
-                          return AppLocalizations.of(context).shouldNotEmpty;
+                          return LeapLocalizations.of(context).shouldNotEmpty;
                         }
                         final number = int.tryParse(value!);
                         if (number == null) {
@@ -95,7 +95,7 @@ class _StartCollaborationDialogState extends State<StartCollaborationDialog>
             ),
             TextButton(
               onPressed: () => Navigator.of(context).pop(),
-              child: Text(AppLocalizations.of(context).close),
+              child: Text(MaterialLocalizations.of(context).closeButtonLabel),
             ),
           ],
         ),

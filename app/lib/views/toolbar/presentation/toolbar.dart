@@ -208,7 +208,7 @@ class _PresentationToolbarViewState extends State<PresentationToolbarView> {
                                   _updateControllers();
                                 });
                               },
-                              child: Text(AppLocalizations.of(context).create),
+                              child: Text(LeapLocalizations.of(context).create),
                             ),
                             MenuItemButton(
                               leadingIcon:

@@ -37,10 +37,10 @@ Future<NoteData?> checkFileChanges(BuildContext context, NoteData data) async {
         actions: [
           TextButton(
               onPressed: () => Navigator.of(context).pop(false),
-              child: Text(AppLocalizations.of(context).cancel)),
+              child: Text(MaterialLocalizations.of(context).cancelButtonLabel)),
           TextButton(
               onPressed: () => Navigator.of(context).pop(true),
-              child: Text(AppLocalizations.of(context).ok)),
+              child: Text(MaterialLocalizations.of(context).okButtonLabel)),
         ],
       ),
     );

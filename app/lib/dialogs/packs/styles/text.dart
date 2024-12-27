@@ -36,7 +36,7 @@ class _TextStyleViewState extends State<TextStyleView> {
     return Column(
       children: [
         ColorField(
-            title: Text(AppLocalizations.of(context).color),
+            title: Text(LeapLocalizations.of(context).color),
             subtitle: widget.value.color == null
                 ? Text(AppLocalizations.of(context).notSet)
                 : null,
@@ -192,7 +192,7 @@ class _TextStyleViewState extends State<TextStyleView> {
                                     widget.onChanged(widget.value.copyWith(
                                         decorationStyle: decorationStyle)))),
                         ColorField(
-                            title: Text(AppLocalizations.of(context).color),
+                            title: Text(LeapLocalizations.of(context).color),
                             custom: true,
                             subtitle: widget.value.decorationColor == null
                                 ? Text(AppLocalizations.of(context).notSet)

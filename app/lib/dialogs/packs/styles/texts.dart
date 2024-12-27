@@ -188,7 +188,7 @@ class _TextsStyleViewState extends State<TextsStyleView> {
               if (currentSpan == null) {
                 return Center(
                     child: ElevatedButton(
-                  child: Text(AppLocalizations.of(context).create),
+                  child: Text(LeapLocalizations.of(context).create),
                   onPressed: () {
                     widget.onChanged(widget.value.copyWith(
                       spanProperties: {

@@ -9,7 +9,7 @@ class ShapeElementSelection extends ElementSelection<ShapeElement> {
     return [
       ...super.buildProperties(context),
       ColorField(
-        title: Text(AppLocalizations.of(context).color),
+        title: Text(LeapLocalizations.of(context).color),
         value: element.property.color.withValues(a: 255),
         onChanged: (color) => updateElements(
             context,

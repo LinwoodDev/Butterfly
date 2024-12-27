@@ -129,13 +129,13 @@ class _WaypointCreateDialogState extends State<WaypointCreateDialog> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: Text(AppLocalizations.of(context).create),
+      title: Text(LeapLocalizations.of(context).create),
       content: Column(mainAxisSize: MainAxisSize.min, children: [
         TextField(
           controller: _nameController,
           autofocus: true,
           decoration: InputDecoration(
-              filled: true, labelText: AppLocalizations.of(context).name),
+              filled: true, labelText: LeapLocalizations.of(context).name),
         ),
         const SizedBox(height: 10),
         CheckboxListTile(
@@ -148,7 +148,7 @@ class _WaypointCreateDialogState extends State<WaypointCreateDialog> {
       actions: [
         TextButton(
             onPressed: () => Navigator.of(context).pop(),
-            child: Text(AppLocalizations.of(context).cancel)),
+            child: Text(MaterialLocalizations.of(context).cancelButtonLabel)),
         ElevatedButton(
             onPressed: () {
               final bloc = context.read<DocumentBloc>();
@@ -163,7 +163,7 @@ class _WaypointCreateDialogState extends State<WaypointCreateDialog> {
                   _saveScale ? transform.size : null)));
               Navigator.of(context).pop();
             },
-            child: Text(AppLocalizations.of(context).create)),
+            child: Text(LeapLocalizations.of(context).create)),
       ],
     );
   }

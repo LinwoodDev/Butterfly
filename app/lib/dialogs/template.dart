@@ -84,7 +84,7 @@ class _TemplateDialogState extends State<TemplateDialog> {
       leading: IconButton.outlined(
         icon: const PhosphorIcon(PhosphorIconsLight.x),
         onPressed: () => Navigator.of(context).pop(),
-        tooltip: AppLocalizations.of(context).close,
+        tooltip: MaterialLocalizations.of(context).closeButtonLabel,
       ),
       headerActions: [
         ConnectionButton(
@@ -121,11 +121,13 @@ class _TemplateDialogState extends State<TemplateDialog> {
                 content: Text(AppLocalizations.of(context).reallyReset),
                 actions: [
                   TextButton(
-                    child: Text(AppLocalizations.of(context).cancel),
+                    child: Text(
+                        MaterialLocalizations.of(context).cancelButtonLabel),
                     onPressed: () => Navigator.of(context).pop(),
                   ),
                   ElevatedButton(
-                    child: Text(AppLocalizations.of(context).ok),
+                    child:
+                        Text(MaterialLocalizations.of(context).okButtonLabel),
                     onPressed: () async {
                       for (final template in await _templateSystem.getKeys()) {
                         _templateSystem.deleteFile(template);
@@ -149,7 +151,7 @@ class _TemplateDialogState extends State<TemplateDialog> {
         if (widget.bloc != null)
           ElevatedButton.icon(
             onPressed: () => _showCreateDialog(widget.bloc!),
-            label: Text(AppLocalizations.of(context).create),
+            label: Text(LeapLocalizations.of(context).create),
             icon: const PhosphorIcon(PhosphorIconsLight.floppyDisk),
           )
       ],
@@ -304,7 +306,7 @@ class _TemplateDialogState extends State<TemplateDialog> {
                     initialValue: name,
                     onChanged: (e) => name = e,
                     decoration: InputDecoration(
-                      labelText: AppLocalizations.of(context).name,
+                      labelText: LeapLocalizations.of(context).name,
                       filled: true,
                     ),
                   ),
@@ -322,11 +324,12 @@ class _TemplateDialogState extends State<TemplateDialog> {
             ),
             actions: <Widget>[
               TextButton(
-                child: Text(AppLocalizations.of(context).cancel),
+                child:
+                    Text(MaterialLocalizations.of(context).cancelButtonLabel),
                 onPressed: () => Navigator.of(context).pop(),
               ),
               ElevatedButton(
-                child: Text(AppLocalizations.of(context).create),
+                child: Text(LeapLocalizations.of(context).create),
                 onPressed: () async {
                   bloc.createTemplate(
                     _templateSystem.storage?.identifier,

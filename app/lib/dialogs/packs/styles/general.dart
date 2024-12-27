@@ -1,6 +1,6 @@
 import 'package:butterfly_api/butterfly_text.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:material_leap/l10n/leap_localizations.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 class GeneralStyleView extends StatelessWidget {
@@ -20,7 +20,7 @@ class GeneralStyleView extends StatelessWidget {
         const SizedBox(height: 8),
         TextFormField(
           decoration: InputDecoration(
-            labelText: AppLocalizations.of(context).name,
+            labelText: LeapLocalizations.of(context).name,
             icon: const PhosphorIcon(PhosphorIconsLight.textT),
             filled: true,
           ),

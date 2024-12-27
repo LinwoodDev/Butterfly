@@ -36,7 +36,7 @@ class LaserToolSelection extends ToolSelection<LaserTool> {
           context,
           selected.map((e) => e.copyWith(color: value)).toList(),
         ),
-        title: Text(AppLocalizations.of(context).color),
+        title: Text(LeapLocalizations.of(context).color),
       ),
       ExactSlider(
         value: selected.first.duration,
@@ -68,7 +68,7 @@ class LaserToolSelection extends ToolSelection<LaserTool> {
                 (e) => DropdownMenuEntry(
                   value: e,
                   label: switch (e) {
-                    LaserAnimation.fade => AppLocalizations.of(context).color,
+                    LaserAnimation.fade => LeapLocalizations.of(context).color,
                     LaserAnimation.path => AppLocalizations.of(context).path,
                   },
                   leadingIcon: Icon(switch (e) {

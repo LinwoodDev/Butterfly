@@ -391,7 +391,7 @@ class _EditToolbarState extends State<EditToolbar> {
                     tools.every((e) => e is! FullScreenTool))
                   IconButton(
                     icon: const PhosphorIcon(PhosphorIconsLight.arrowsIn),
-                    tooltip: AppLocalizations.of(context).exitFullScreen,
+                    tooltip: LeapLocalizations.of(context).exitFullScreen,
                     onPressed: () {
                       context.read<WindowCubit>().changeFullScreen(false);
                     },

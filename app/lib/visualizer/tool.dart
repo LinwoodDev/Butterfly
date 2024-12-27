@@ -40,7 +40,7 @@ extension ToolVisualizer on Tool {
       StampTool() => loc.stamp,
       TextureTool() => loc.texture,
       PresentationTool() => loc.presentation,
-      FullScreenTool() => loc.fullScreen,
+      FullScreenTool() => LeapLocalizations.of(context).fullScreen,
       AssetTool e => e.importType.getLocalizedName(context),
       EyeDropperTool() => loc.eyeDropper,
       ExportTool() => loc.export,

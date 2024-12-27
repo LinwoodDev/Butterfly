@@ -50,7 +50,7 @@ class ViewCollaborationDialog extends StatelessWidget {
           },
         ),
         TextButton(
-          child: Text(AppLocalizations.of(context).close),
+          child: Text(MaterialLocalizations.of(context).closeButtonLabel),
           onPressed: () => Navigator.of(context).pop(),
         ),
       ],

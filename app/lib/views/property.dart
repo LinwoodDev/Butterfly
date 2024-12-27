@@ -217,7 +217,8 @@ class _PropertyViewState extends State<PropertyView>
                                     ),
                                   const SizedBox(width: 8),
                                   IconButton.outlined(
-                                    tooltip: AppLocalizations.of(context).close,
+                                    tooltip: MaterialLocalizations.of(context)
+                                        .closeButtonLabel,
                                     icon: const PhosphorIcon(
                                         PhosphorIconsLight.x),
                                     onPressed: _closeView,

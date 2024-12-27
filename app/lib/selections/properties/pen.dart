@@ -17,7 +17,7 @@ class PenPropertySelection extends PropertySelection<PenProperty>
           value: property.color.withValues(a: 255),
           onChanged: (value) => onChanged(
               property.copyWith(color: value.withValues(a: property.color.a))),
-          title: Text(AppLocalizations.of(context).color),
+          title: Text(LeapLocalizations.of(context).color),
         ),
         ExactSlider(
           value: property.color.a.toDouble(),

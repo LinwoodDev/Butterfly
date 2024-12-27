@@ -114,7 +114,7 @@ class _UtilitiesViewState extends State<_UtilitiesView>
                     TextFormField(
                       controller: _nameController,
                       decoration: InputDecoration(
-                        labelText: AppLocalizations.of(context).name,
+                        labelText: LeapLocalizations.of(context).name,
                         filled: true,
                       ),
                       onChanged: (value) {
@@ -237,11 +237,22 @@ class _UtilitiesViewState extends State<_UtilitiesView>
                               builder: (context, setState) => Form(
                                 key: formKey,
                                 child: AlertDialog(
+                                  scrollable: true,
                                   title: Text(
                                       AppLocalizations.of(context).encrypt),
                                   content: Column(
                                     mainAxisSize: MainAxisSize.min,
                                     children: [
+                                      Row(children: [
+                                        Icon(PhosphorIconsLight.warning),
+                                        const SizedBox(width: 8),
+                                        Flexible(
+                                          child: Text(
+                                              AppLocalizations.of(context)
+                                                  .encryptWarning),
+                                        ),
+                                      ]),
+                                      const SizedBox(height: 16),
                                       TextFormField(
                                         decoration: InputDecoration(
                                           labelText:
@@ -263,7 +274,7 @@ class _UtilitiesViewState extends State<_UtilitiesView>
                                         onChanged: (value) => password = value,
                                         validator: (value) =>
                                             value?.isEmpty ?? true
-                                                ? AppLocalizations.of(context)
+                                                ? LeapLocalizations.of(context)
                                                     .shouldNotEmpty
                                                 : null,
                                       ),
@@ -370,7 +381,7 @@ class _UtilitiesViewState extends State<_UtilitiesView>
                             ),
                             const SizedBox(height: 8),
                             ColorField(
-                              title: Text(AppLocalizations.of(context).color),
+                              title: Text(LeapLocalizations.of(context).color),
                               value: widget.option.gridColor.withValues(a: 255),
                               onChanged: (value) => widget.onToolChanged(
                                 widget.option.copyWith(

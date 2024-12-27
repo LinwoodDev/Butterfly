@@ -540,7 +540,7 @@ class _MainPopupMenu extends StatelessWidget {
                           onPressed: () async {
                             windowCubit.toggleFullScreen();
                           },
-                          child: Text(AppLocalizations.of(context).fullScreen),
+                          child: Text(LeapLocalizations.of(context).fullScreen),
                         )),
               ],
               if (state.embedding != null) ...[

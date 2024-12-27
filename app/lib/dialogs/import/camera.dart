@@ -162,12 +162,13 @@ class _CameraDialogState extends State<CameraDialog>
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [
                               TextButton(
-                                child:
-                                    Text(AppLocalizations.of(context).cancel),
+                                child: Text(MaterialLocalizations.of(context)
+                                    .cancelButtonLabel),
                                 onPressed: () => Navigator.of(context).pop(),
                               ),
                               ElevatedButton(
-                                child: Text(AppLocalizations.of(context).ok),
+                                child: Text(MaterialLocalizations.of(context)
+                                    .okButtonLabel),
                                 // Capture image on button press.
                                 onPressed: () async {
                                   final navigator = Navigator.of(context);

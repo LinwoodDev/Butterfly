@@ -37,7 +37,7 @@ class _TextureViewState extends State<TextureView> {
       child: Column(
         children: [
           ColorField(
-            title: Text(AppLocalizations.of(context).color),
+            title: Text(LeapLocalizations.of(context).color),
             value: widget.value.boxColor,
             onChanged: (value) =>
                 widget.onChanged(widget.value.copyWith(boxColor: value)),
@@ -58,7 +58,7 @@ class _TextureViewState extends State<TextureView> {
               ListView(children: [
                 ColorField(
                   value: widget.value.boxXColor,
-                  title: Text(AppLocalizations.of(context).color),
+                  title: Text(LeapLocalizations.of(context).color),
                   onChanged: (value) =>
                       widget.onChanged(widget.value.copyWith(boxXColor: value)),
                 ),
@@ -96,7 +96,7 @@ class _TextureViewState extends State<TextureView> {
               ]),
               ListView(children: [
                 ColorField(
-                  title: Text(AppLocalizations.of(context).color),
+                  title: Text(LeapLocalizations.of(context).color),
                   value: widget.value.boxYColor,
                   onChanged: (value) =>
                       widget.onChanged(widget.value.copyWith(boxYColor: value)),

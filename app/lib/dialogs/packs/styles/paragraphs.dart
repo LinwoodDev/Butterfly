@@ -191,7 +191,7 @@ class _ParagraphsStyleViewState extends State<ParagraphsStyleView> {
             if (currentParagraph == null) {
               return Center(
                   child: ElevatedButton(
-                child: Text(AppLocalizations.of(context).create),
+                child: Text(LeapLocalizations.of(context).create),
                 onPressed: () {
                   widget.onChanged(widget.value.copyWith(
                     paragraphProperties: {

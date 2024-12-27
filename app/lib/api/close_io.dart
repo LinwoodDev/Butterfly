@@ -42,11 +42,11 @@ class IOCloseSubscription extends CloseSubscription with WindowListener {
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context).pop(false),
-            child: Text(AppLocalizations.of(context).cancel),
+            child: Text(MaterialLocalizations.of(context).cancelButtonLabel),
           ),
           ElevatedButton(
             onPressed: () => Navigator.of(context).pop(true),
-            child: Text(AppLocalizations.of(context).close),
+            child: Text(MaterialLocalizations.of(context).closeButtonLabel),
           ),
         ],
       ),

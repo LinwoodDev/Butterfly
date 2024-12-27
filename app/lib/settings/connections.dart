@@ -219,7 +219,7 @@ class __AddRemoteDialogState extends State<_AddRemoteDialog> {
             ),
             ElevatedButton(
               onPressed: () => Navigator.pop(context),
-              child: Text(AppLocalizations.of(context).cancel),
+              child: Text(MaterialLocalizations.of(context).cancelButtonLabel),
             ),
           ],
         ),
@@ -354,7 +354,7 @@ class __AddRemoteDialogState extends State<_AddRemoteDialog> {
               actions: [
                 TextButton(
                   onPressed: () => Navigator.pop(context),
-                  child: Text(AppLocalizations.of(context).ok),
+                  child: Text(MaterialLocalizations.of(context).okButtonLabel),
                 ),
               ],
             ));
@@ -443,7 +443,7 @@ class __AddRemoteDialogState extends State<_AddRemoteDialog> {
                   TextField(
                     controller: _nameController,
                     decoration: InputDecoration(
-                      labelText: AppLocalizations.of(context).name,
+                      labelText: LeapLocalizations.of(context).name,
                       filled: true,
                       icon: const PhosphorIcon(PhosphorIconsLight.textAa),
                     ),
@@ -597,7 +597,8 @@ class __AddRemoteDialogState extends State<_AddRemoteDialog> {
                     }
                     Navigator.of(context).pop();
                   },
-                  child: Text(AppLocalizations.of(context).cancel),
+                  child:
+                      Text(MaterialLocalizations.of(context).cancelButtonLabel),
                 ),
                 if (_isConnected) ...[
                   ListenableBuilder(
@@ -618,7 +619,7 @@ class __AddRemoteDialogState extends State<_AddRemoteDialog> {
                                         _packsDirectoryController.text.isEmpty
                                 ? null
                                 : _create,
-                            child: Text(AppLocalizations.of(context).create),
+                            child: Text(LeapLocalizations.of(context).create),
                           )),
                 ] else ...[
                   ElevatedButton(

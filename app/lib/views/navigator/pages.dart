@@ -3,6 +3,7 @@ import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:material_leap/l10n/leap_localizations.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import '../../dialogs/delete.dart';
@@ -139,7 +140,7 @@ class _PagesViewState extends State<PagesView> {
                       children: [
                         const PhosphorIcon(PhosphorIconsLight.plus),
                         const SizedBox(width: 8),
-                        Text(AppLocalizations.of(context).create),
+                        Text(LeapLocalizations.of(context).create),
                       ],
                     ),
                     Row(

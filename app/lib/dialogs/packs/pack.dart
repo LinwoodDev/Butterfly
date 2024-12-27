@@ -93,12 +93,12 @@ class _PackDialogState extends State<PackDialog> {
       actions: [
         TextButton(
           onPressed: () => Navigator.of(context).pop(),
-          child: Text(AppLocalizations.of(context).cancel),
+          child: Text(MaterialLocalizations.of(context).cancelButtonLabel),
         ),
         ElevatedButton(
           onPressed: () => Navigator.of(context).pop(pack),
           child: Text(widget.pack == null
-              ? AppLocalizations.of(context).create
+              ? LeapLocalizations.of(context).create
               : AppLocalizations.of(context).save),
         ),
       ],

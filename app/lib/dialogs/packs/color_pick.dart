@@ -204,7 +204,7 @@ class _ColorPalettePickerDialogState extends State<ColorPalettePickerDialog> {
                                           initialValue: _palette?.name,
                                           decoration: InputDecoration(
                                             labelText:
-                                                AppLocalizations.of(context)
+                                                LeapLocalizations.of(context)
                                                     .name,
                                             filled: true,
                                           ),

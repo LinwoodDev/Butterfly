@@ -99,7 +99,7 @@ class _AddDialogState extends State<AddDialog> {
                   IconButton.outlined(
                     onPressed: () => Navigator.of(context).pop(),
                     icon: const PhosphorIcon(PhosphorIconsLight.x),
-                    tooltip: AppLocalizations.of(context).close,
+                    tooltip: MaterialLocalizations.of(context).closeButtonLabel,
                   ),
                   const SizedBox(width: 16),
                   Text(

@@ -250,7 +250,7 @@ class _AreasViewState extends State<AreasView> {
                                           !currentIndex.areaNavigatorCreate),
                                   icon: const PhosphorIcon(
                                       PhosphorIconsLight.plusCircle),
-                                  tooltip: AppLocalizations.of(context).create,
+                                  tooltip: LeapLocalizations.of(context).create,
                                 ),
                                 IconButton(
                                   isSelected: currentIndex.areaNavigatorExact,
