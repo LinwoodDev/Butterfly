@@ -231,6 +231,7 @@ class ImportService {
           builder: (context) => NameDialog(
             title: AppLocalizations.of(context).password,
             button: AppLocalizations.of(context).open,
+            obscureText: true,
           ),
         );
         if (password == null) return null;
