@@ -1,9 +1,8 @@
-// ignore_for_file: deprecated_member_use
-
 import 'package:butterfly/cubits/transform.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/material.dart';
 import 'package:butterfly_api/butterfly_text.dart' as text;
+import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import '../../models/cursor.dart';
@@ -33,9 +32,8 @@ class LabelCursor extends Renderer<LabelCursorData> {
         (element.context?.labelElement?.scale ??
             (element.tool.scale *
                 (element.tool.zoomDependent ? 1 / transform.size : 1)));
-    final iconColor = Color(property.span.color ??
-        colorScheme?.primary.value ??
-        Colors.black.value);
+    final iconColor =
+        property.span.color ?? colorScheme?.primary.toSRGB() ?? SRGBColor.black;
     final iconPainter = TextPainter(
       textDirection: TextDirection.rtl,
       text: TextSpan(
@@ -44,7 +42,7 @@ class LabelCursor extends Renderer<LabelCursorData> {
           fontFamily: icon.fontFamily,
           package: icon.fontPackage,
           fontSize: iconSize,
-          color: iconColor,
+          color: iconColor.toColor(),
           fontStyle:
               property.span.getItalic() ? FontStyle.italic : FontStyle.normal,
         ),
@@ -80,7 +78,7 @@ class LabelSelectionCursor extends Renderer<LabelContext> {
           );
       canvas.drawRect(
         rect,
-        Paint()..color = color.withOpacity(0.5),
+        Paint()..color = color.withValues(alpha: 0.5),
       );
     }
     // Paint cursor

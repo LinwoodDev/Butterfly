@@ -4,14 +4,9 @@ import 'package:butterfly/api/open.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:lw_file_system/lw_file_system.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
-Future<NoteData?> checkFileChanges(
-    BuildContext context, FileSystemEntity<NoteData>? entity) async {
-  if (entity is! FileSystemFile<NoteData>) return null;
-  final data = entity.data;
-  if (data == null) return null;
+Future<NoteData?> checkFileChanges(BuildContext context, NoteData data) async {
   final metadata = data.getMetadata();
   if (metadata == null) return null;
   final version = metadata.fileVersion;
@@ -42,10 +37,10 @@ Future<NoteData?> checkFileChanges(
         actions: [
           TextButton(
               onPressed: () => Navigator.of(context).pop(false),
-              child: Text(AppLocalizations.of(context).cancel)),
+              child: Text(MaterialLocalizations.of(context).cancelButtonLabel)),
           TextButton(
               onPressed: () => Navigator.of(context).pop(true),
-              child: Text(AppLocalizations.of(context).ok)),
+              child: Text(MaterialLocalizations.of(context).okButtonLabel)),
         ],
       ),
     );

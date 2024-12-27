@@ -18,28 +18,56 @@ import 'palette.dart';
 
 final Set<String> validAssetPaths = {kImagesArchiveDirectory};
 
-@immutable
+final class NoteFile {
+  final Uint8List data;
+
+  NoteFile(this.data);
+
+  bool isEncrypted() => isZipEncrypted(data);
+
+  (String?, NoteData)? _data;
+
+  NoteData? load({String? password}) {
+    if (_data != null && _data?.$1 == password) {
+      return _data?.$2;
+    }
+    try {
+      final data = NoteData.fromData(this.data, password: password);
+      _data = (password, data);
+      return data;
+    } catch (_) {
+      return null;
+    }
+  }
+}
+
 final class NoteData extends ArchiveData<NoteData> {
   NoteData(super.archive, {super.state});
+  NoteData.build(super.archive, {super.password}) : super.build();
 
-  factory NoteData.fromData(Uint8List data, {bool disableMigrations = false}) {
+  factory NoteData.fromData(Uint8List data,
+      {bool disableMigrations = false, String? password}) {
     if (disableMigrations) {
-      final archive = ZipDecoder().decodeBytes(data);
-      return NoteData(archive);
+      final archive = ZipDecoder().decodeBytes(data, password: password);
+      return NoteData.build(archive, password: password);
     }
-    return noteDataMigrator(data);
+    return noteDataMigrator(data, password: password);
   }
 
   factory NoteData.fromArchive(Archive archive,
-      {bool disableMigrations = false}) {
+      {bool disableMigrations = false, String? password}) {
     if (disableMigrations) {
-      return NoteData(archive);
+      return NoteData.build(archive, password: password);
     }
     return archiveNoteDataMigrator(archive);
   }
 
-  factory NoteData.fromJson(dynamic json) => NoteData.fromData(
+  factory NoteData.fromJson(dynamic json,
+          {bool disableMigrations = false, String? password}) =>
+      NoteData.fromData(
         base64Decode(json as String),
+        disableMigrations: disableMigrations,
+        password: password,
       );
 
   NoteFileType? get type => getMetadata()?.type;
@@ -71,7 +99,7 @@ final class NoteData extends ArchiveData<NoteData> {
       '$name${fileExtension.isNotEmpty ? '.$fileExtension' : ''}';
 
   String findUniqueName(String path, String fileExtension, [String name = '']) {
-    final assets = getAssets(path);
+    final assets = getAssets('$path/');
     if (!assets.contains(_getFileName(name, fileExtension)) &&
         name.trim().isNotEmpty) {
       return _getFileName(name, fileExtension);
@@ -238,7 +266,7 @@ final class NoteData extends ArchiveData<NoteData> {
 
   @useResult
   List<(int, String, String)> _getPagesOrder() =>
-      getAssets(kPagesArchiveDirectory, true).map((e) {
+      getAssets('$kPagesArchiveDirectory/', true).map((e) {
         if (e.contains('.')) {
           final split = e.split('.');
           return (
@@ -319,13 +347,13 @@ final class NoteData extends ArchiveData<NoteData> {
       removeAsset('$kPacksArchiveDirectory/$name.bfly');
 
   @useResult
-  Iterable<String> getPacks() => getAssets(kPacksArchiveDirectory, true);
+  Iterable<String> getPacks() => getAssets('$kPacksArchiveDirectory/', true);
 
   // Pack specific
 
   @useResult
   Iterable<String> getComponents() =>
-      getAssets(kComponentsArchiveDirectory, true);
+      getAssets('$kComponentsArchiveDirectory/', true);
 
   @useResult
   ButterflyComponent? getComponent(String componentName) {
@@ -348,7 +376,7 @@ final class NoteData extends ArchiveData<NoteData> {
       removeAsset('$kComponentsArchiveDirectory/$name.json');
 
   @useResult
-  Iterable<String> getStyles() => getAssets(kStylesArchiveDirectory, true);
+  Iterable<String> getStyles() => getAssets('$kStylesArchiveDirectory/', true);
 
   @useResult
   TextStyleSheet? getStyle(String styleName) {
@@ -383,7 +411,8 @@ final class NoteData extends ArchiveData<NoteData> {
   }
 
   @useResult
-  Iterable<String> getPalettes() => getAssets(kPalettesArchiveDirectory, true);
+  Iterable<String> getPalettes() =>
+      getAssets('$kPalettesArchiveDirectory/', true);
 
   @useResult
   ColorPalette? getPalette(String paletteName) {
@@ -425,4 +454,6 @@ final class NoteData extends ArchiveData<NoteData> {
     final removed = Set<String>.from(state.removed)..remove(path);
     return updateState(state.copyWith(removed: removed));
   }
+
+  NoteFile toFile() => NoteFile(exportAsBytes());
 }

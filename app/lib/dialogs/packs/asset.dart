@@ -4,6 +4,7 @@ import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:material_leap/l10n/leap_localizations.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import '../../bloc/document_bloc.dart';
@@ -79,7 +80,7 @@ class AssetDialog extends StatelessWidget {
                 const SizedBox(height: 8),
                 TextFormField(
                   decoration: InputDecoration(
-                    labelText: AppLocalizations.of(context).name,
+                    labelText: LeapLocalizations.of(context).name,
                     filled: true,
                   ),
                   initialValue: name,
@@ -94,7 +95,8 @@ class AssetDialog extends StatelessWidget {
                 onPressed: () {
                   Navigator.of(context).pop();
                 },
-                child: Text(AppLocalizations.of(context).cancel),
+                child:
+                    Text(MaterialLocalizations.of(context).cancelButtonLabel),
               ),
               ElevatedButton(
                 onPressed: () {
@@ -104,7 +106,7 @@ class AssetDialog extends StatelessWidget {
                     name,
                   ));
                 },
-                child: Text(AppLocalizations.of(context).ok),
+                child: Text(MaterialLocalizations.of(context).okButtonLabel),
               ),
             ],
           );

@@ -26,15 +26,15 @@ extension TextDecorationStyleFlutterConverter on text.TextDecorationStyle {
 
 extension DefinedSpanPropertyFlutterConverter on text.DefinedSpanProperty {
   TextStyle toFlutter(
-      [text.DefinedParagraphProperty? parent, int? foreground]) {
+      [text.DefinedParagraphProperty? parent, SRGBColor? foreground]) {
     return TextStyle(
       fontSize: getSize(parent),
-      color: Color(getColor(parent, foreground)),
+      color: getColor(parent, foreground).toColor(),
       fontFamily: 'Roboto',
       fontStyle: getItalic(parent) ? FontStyle.italic : FontStyle.normal,
       fontWeight: FontWeight.values[getFontWeight(parent)],
       letterSpacing: getLetterSpacing(parent),
-      decorationColor: Color(getDecorationColor(parent)),
+      decorationColor: getDecorationColor(parent).toColor(),
       decorationStyle: getDecorationStyle(parent).toFlutter(),
       decorationThickness: getDecorationThickness(parent),
       decoration: TextDecoration.combine([
@@ -42,7 +42,7 @@ extension DefinedSpanPropertyFlutterConverter on text.DefinedSpanProperty {
         if (getLineThrough(parent)) TextDecoration.lineThrough,
         if (getOverline(parent)) TextDecoration.overline,
       ]),
-      backgroundColor: Color(getBackgroundColor(parent)),
+      backgroundColor: getBackgroundColor(parent).toColor(),
     );
   }
 
@@ -50,13 +50,13 @@ extension DefinedSpanPropertyFlutterConverter on text.DefinedSpanProperty {
       font-weight: ${getFontWeight(parent)};
       font-style: ${getItalic(parent) ? 'italic' : 'normal'};
       font-size: ${getSize(parent)}px;
-      color: #${getColor(parent).toRadixString(16).padLeft(8, '0')};
+      color: ${getColor(parent).toHexString()};
       letter-spacing: ${getLetterSpacing(parent)}px;
-      text-decoration-color: #${getDecorationColor(parent).toRadixString(16).padLeft(8, '0')};
+      text-decoration-color: ${getDecorationColor(parent).toHexString()};
       text-decoration-style: ${getDecorationStyle(parent).toCss()};
       text-decoration-thickness: ${getDecorationThickness(parent)}px;
       text-decoration-line: ${getUnderline(parent) ? 'underline' : 'none'} ${getLineThrough(parent) ? 'line-through' : 'none'} ${getOverline(parent) ? 'overline' : 'none'};
-      background-color: #${getBackgroundColor(parent).toHexColor()};
+      background-color: ${getBackgroundColor(parent).toHexString()};
 """;
 }
 

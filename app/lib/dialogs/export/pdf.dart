@@ -11,7 +11,6 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:printing/printing.dart';
 
 import '../../bloc/document_bloc.dart';
-import '../name.dart';
 
 class PdfExportDialog extends StatefulWidget {
   final List<AreaPreset> areas;
@@ -276,7 +275,8 @@ class _PdfExportDialogState extends State<PdfExportDialog> {
                                   Expanded(child: Container()),
                                   TextButton(
                                     child: Text(
-                                        AppLocalizations.of(context).cancel),
+                                        MaterialLocalizations.of(context)
+                                            .cancelButtonLabel),
                                     onPressed: () =>
                                         Navigator.of(context).pop(),
                                   ),
@@ -498,7 +498,7 @@ class _AreaSelectionDialogState extends State<_AreaSelectionDialog> {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: TextButton(
-              child: Text(AppLocalizations.of(context).cancel),
+              child: Text(MaterialLocalizations.of(context).cancelButtonLabel),
               onPressed: () => Navigator.of(context).pop(),
             ),
           ),
@@ -544,7 +544,7 @@ class _ExportPresetsDialogState extends State<ExportPresetsDialog> {
                   bloc.add(ExportPresetCreated(name, widget.areas!));
                 },
                 icon: const PhosphorIcon(PhosphorIconsLight.plus),
-                tooltip: AppLocalizations.of(context).create,
+                tooltip: LeapLocalizations.of(context).create,
               )
           ]),
           Padding(
@@ -601,7 +601,7 @@ class _ExportPresetsDialogState extends State<ExportPresetsDialog> {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: TextButton(
-              child: Text(AppLocalizations.of(context).cancel),
+              child: Text(MaterialLocalizations.of(context).cancelButtonLabel),
               onPressed: () => Navigator.of(context).pop(),
             ),
           ),

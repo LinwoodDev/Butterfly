@@ -3,6 +3,7 @@ import 'package:butterfly_api/butterfly_text.dart' as text;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:material_leap/l10n/leap_localizations.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import '../../../bloc/document_bloc.dart';
@@ -89,7 +90,7 @@ class StylesPackView extends StatelessWidget {
                 onChanged(value.setStyle(styleSheet));
               },
               icon: const PhosphorIcon(PhosphorIconsLight.plus),
-              label: Text(AppLocalizations.of(context).create),
+              label: Text(LeapLocalizations.of(context).create),
             ),
           ),
         ],

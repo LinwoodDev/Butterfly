@@ -64,17 +64,17 @@ abstract class _$$DefinedSpanPropertyImplCopyWith<$Res> {
   @useResult
   $Res call(
       {double? size,
-      int? color,
+      @ColorJsonConverter() SRGBColor? color,
       int? fontWeight,
       bool? lineThrough,
       bool? underline,
       bool? overline,
       bool? italic,
       double? letterSpacing,
-      int? decorationColor,
+      @ColorJsonConverter() SRGBColor? decorationColor,
       TextDecorationStyle? decorationStyle,
       double? decorationThickness,
-      int? backgroundColor});
+      @ColorJsonConverter() SRGBColor? backgroundColor});
 }
 
 /// @nodoc
@@ -111,7 +111,7 @@ class __$$DefinedSpanPropertyImplCopyWithImpl<$Res>
       color: freezed == color
           ? _value.color
           : color // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as SRGBColor?,
       fontWeight: freezed == fontWeight
           ? _value.fontWeight
           : fontWeight // ignore: cast_nullable_to_non_nullable
@@ -139,7 +139,7 @@ class __$$DefinedSpanPropertyImplCopyWithImpl<$Res>
       decorationColor: freezed == decorationColor
           ? _value.decorationColor
           : decorationColor // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as SRGBColor?,
       decorationStyle: freezed == decorationStyle
           ? _value.decorationStyle
           : decorationStyle // ignore: cast_nullable_to_non_nullable
@@ -151,7 +151,7 @@ class __$$DefinedSpanPropertyImplCopyWithImpl<$Res>
       backgroundColor: freezed == backgroundColor
           ? _value.backgroundColor
           : backgroundColor // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as SRGBColor?,
     ));
   }
 }
@@ -161,17 +161,17 @@ class __$$DefinedSpanPropertyImplCopyWithImpl<$Res>
 class _$DefinedSpanPropertyImpl implements DefinedSpanProperty {
   const _$DefinedSpanPropertyImpl(
       {this.size,
-      this.color,
+      @ColorJsonConverter() this.color,
       this.fontWeight,
       this.lineThrough,
       this.underline,
       this.overline,
       this.italic,
       this.letterSpacing,
-      this.decorationColor,
+      @ColorJsonConverter() this.decorationColor,
       this.decorationStyle,
       this.decorationThickness,
-      this.backgroundColor,
+      @ColorJsonConverter() this.backgroundColor,
       final String? $type})
       : $type = $type ?? 'defined';
 
@@ -181,7 +181,8 @@ class _$DefinedSpanPropertyImpl implements DefinedSpanProperty {
   @override
   final double? size;
   @override
-  final int? color;
+  @ColorJsonConverter()
+  final SRGBColor? color;
   @override
   final int? fontWeight;
   @override
@@ -195,13 +196,15 @@ class _$DefinedSpanPropertyImpl implements DefinedSpanProperty {
   @override
   final double? letterSpacing;
   @override
-  final int? decorationColor;
+  @ColorJsonConverter()
+  final SRGBColor? decorationColor;
   @override
   final TextDecorationStyle? decorationStyle;
   @override
   final double? decorationThickness;
   @override
-  final int? backgroundColor;
+  @ColorJsonConverter()
+  final SRGBColor? backgroundColor;
 
   @JsonKey(name: 'type')
   final String $type;
@@ -275,34 +278,38 @@ class _$DefinedSpanPropertyImpl implements DefinedSpanProperty {
 
 abstract class DefinedSpanProperty implements SpanProperty {
   const factory DefinedSpanProperty(
-      {final double? size,
-      final int? color,
-      final int? fontWeight,
-      final bool? lineThrough,
-      final bool? underline,
-      final bool? overline,
-      final bool? italic,
-      final double? letterSpacing,
-      final int? decorationColor,
-      final TextDecorationStyle? decorationStyle,
-      final double? decorationThickness,
-      final int? backgroundColor}) = _$DefinedSpanPropertyImpl;
+          {final double? size,
+          @ColorJsonConverter() final SRGBColor? color,
+          final int? fontWeight,
+          final bool? lineThrough,
+          final bool? underline,
+          final bool? overline,
+          final bool? italic,
+          final double? letterSpacing,
+          @ColorJsonConverter() final SRGBColor? decorationColor,
+          final TextDecorationStyle? decorationStyle,
+          final double? decorationThickness,
+          @ColorJsonConverter() final SRGBColor? backgroundColor}) =
+      _$DefinedSpanPropertyImpl;
 
   factory DefinedSpanProperty.fromJson(Map<String, dynamic> json) =
       _$DefinedSpanPropertyImpl.fromJson;
 
   double? get size;
-  int? get color;
+  @ColorJsonConverter()
+  SRGBColor? get color;
   int? get fontWeight;
   bool? get lineThrough;
   bool? get underline;
   bool? get overline;
   bool? get italic;
   double? get letterSpacing;
-  int? get decorationColor;
+  @ColorJsonConverter()
+  SRGBColor? get decorationColor;
   TextDecorationStyle? get decorationStyle;
   double? get decorationThickness;
-  int? get backgroundColor;
+  @ColorJsonConverter()
+  SRGBColor? get backgroundColor;
 
   /// Create a copy of SpanProperty
   /// with the given fields replaced by the non-null parameter values.

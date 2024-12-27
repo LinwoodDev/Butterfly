@@ -47,7 +47,7 @@ class PresentationControlsDialog extends StatelessWidget {
               return StatefulBuilder(
                 builder: (context, setState) => SwitchListTile(
                   value: fullscreen,
-                  title: Text(AppLocalizations.of(context).fullScreen),
+                  title: Text(LeapLocalizations.of(context).fullScreen),
                   onChanged: (value) {
                     setFullScreen(value);
                     setState(() => fullscreen = value);
@@ -61,7 +61,7 @@ class PresentationControlsDialog extends StatelessWidget {
       actions: [
         TextButton(
           onPressed: () => Navigator.of(context).pop(false),
-          child: Text(AppLocalizations.of(context).cancel),
+          child: Text(MaterialLocalizations.of(context).cancelButtonLabel),
         ),
         ElevatedButton(
           onPressed: () => Navigator.of(context).pop(true),

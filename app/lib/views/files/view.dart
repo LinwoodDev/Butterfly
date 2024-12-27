@@ -18,7 +18,6 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 import '../../api/open.dart';
 import '../../cubits/settings.dart';
 import '../../dialogs/file_system/sync.dart';
-import '../../dialogs/name.dart';
 import '../../services/import.dart';
 
 class FilesView extends StatefulWidget {
@@ -52,7 +51,7 @@ class FilesViewState extends State<FilesView> {
   ExternalStorage? _remote;
   String _search = '';
   late final SettingsCubit _settingsCubit;
-  Stream<FileSystemEntity<NoteData>?>? _filesStream;
+  Stream<FileSystemEntity<NoteFile>?>? _filesStream;
   final Set<String> _selectedFiles = {};
 
   @override
@@ -82,7 +81,7 @@ class FilesViewState extends State<FilesView> {
   }
 
   String getLocalizedNameOfSortBy(SortBy sortBy) => switch (sortBy) {
-        SortBy.name => AppLocalizations.of(context).name,
+        SortBy.name => LeapLocalizations.of(context).name,
         SortBy.created => AppLocalizations.of(context).created,
         SortBy.modified => AppLocalizations.of(context).modified,
       };
@@ -119,9 +118,11 @@ class FilesViewState extends State<FilesView> {
         directory: path,
         name: name,
         suffix: '.bfly',
-        template.createDocument(
-          name: name,
-        ));
+        template
+            .createDocument(
+              name: name,
+            )
+            .toFile());
     reloadFileSystem();
   }
 
@@ -450,7 +451,7 @@ class FilesViewState extends State<FilesView> {
                               FloatingActionButton.small(
                             heroTag: null,
                             onPressed: controller.toggle,
-                            tooltip: AppLocalizations.of(context).create,
+                            tooltip: LeapLocalizations.of(context).create,
                             child: const PhosphorIcon(PhosphorIconsLight.plus),
                           ),
                         ),
@@ -523,7 +524,7 @@ class FilesViewState extends State<FilesView> {
                                         .getAsset(_locationController.text,
                                             readData: false);
                                     if (directory
-                                        is! FileSystemDirectory<NoteData>) {
+                                        is! FileSystemDirectory<NoteFile>) {
                                       return;
                                     }
                                     setState(() {
@@ -608,7 +609,7 @@ class FilesViewState extends State<FilesView> {
         BlocBuilder<SettingsCubit, ButterflySettings>(
           buildWhen: (previous, current) => previous.starred != current.starred,
           builder: (context, settings) =>
-              StreamBuilder<FileSystemEntity<NoteData>?>(
+              StreamBuilder<FileSystemEntity<NoteFile>?>(
                   stream: _filesStream,
                   builder: (context, snapshot) {
                     if (snapshot.hasError) {
@@ -622,7 +623,7 @@ class FilesViewState extends State<FilesView> {
                           child: Text(AppLocalizations.of(context).noElements));
                     }
                     final entity = snapshot.data;
-                    if (entity is! FileSystemDirectory<NoteData>) {
+                    if (entity is! FileSystemDirectory<NoteFile>) {
                       return Container();
                     }
                     final assets = entity.assets.where((e) {
@@ -695,8 +696,8 @@ class FilesViewState extends State<FilesView> {
     );
   }
 
-  Future<void> _onFileTap(FileSystemEntity entity) async {
-    if (entity is! FileSystemFile) {
+  Future<void> _onFileTap(FileSystemEntity<NoteFile> entity) async {
+    if (entity is! FileSystemFile<NoteFile>) {
       setState(() {
         _locationController.text = entity.pathWithoutLeadingSlash;
         _setFilesStream();
@@ -704,14 +705,14 @@ class FilesViewState extends State<FilesView> {
       return;
     }
     final location = entity.location;
-    final data = entity.data;
+    final data = entity.data?.data;
     await openFile(context, widget.collapsed, location, data);
     if (!widget.collapsed) {
       reloadFileSystem();
     }
   }
 
-  int _sortAssets(FileSystemEntity<NoteData> a, FileSystemEntity<NoteData> b) {
+  int _sortAssets(FileSystemEntity<NoteFile> a, FileSystemEntity<NoteFile> b) {
     try {
       final settings = _settingsCubit.state;
       // Test if starred
@@ -723,20 +724,20 @@ class FilesViewState extends State<FilesView> {
       if (bStarred && !aStarred) {
         return 1;
       }
-      if (a is FileSystemDirectory<NoteData>) {
+      if (a is FileSystemDirectory<NoteFile>) {
         return -1;
       }
-      if (b is FileSystemDirectory<NoteData>) {
+      if (b is FileSystemDirectory<NoteFile>) {
         return 1;
       }
-      final aFile = a as FileSystemFile<NoteData>;
-      final bFile = b as FileSystemFile<NoteData>;
+      final aFile = a as FileSystemFile<NoteFile>;
+      final bFile = b as FileSystemFile<NoteFile>;
       FileMetadata? aInfo, bInfo;
       try {
-        aInfo = aFile.data?.getMetadata();
+        aInfo = aFile.data?.load()?.getMetadata();
       } catch (_) {}
       try {
-        bInfo = bFile.data?.getMetadata();
+        bInfo = bFile.data?.load()?.getMetadata();
       } catch (_) {}
       if (aInfo == null) {
         if (bInfo == null) {
@@ -791,7 +792,7 @@ class _RecentFilesView extends StatefulWidget {
 }
 
 class _RecentFilesViewState extends State<_RecentFilesView> {
-  late Stream<List<FileSystemEntity<NoteData>>> _stream;
+  late Stream<List<FileSystemEntity<NoteFile>>> _stream;
   late final ButterflyFileSystem _fileSystem;
   final ScrollController _recentScrollController = ScrollController();
 

@@ -208,7 +208,8 @@ class _GeneralExportDialogState extends State<GeneralExportDialog> {
                         children: [
                           Expanded(child: Container()),
                           TextButton(
-                            child: Text(AppLocalizations.of(context).cancel),
+                            child: Text(MaterialLocalizations.of(context)
+                                .cancelButtonLabel),
                             onPressed: () => Navigator.of(context).pop(),
                           ),
                           if (supportsShare())

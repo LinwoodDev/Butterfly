@@ -31,13 +31,12 @@ class LaserToolSelection extends ToolSelection<LaserTool> {
       ),
       const SizedBox(height: 4),
       ColorField(
-        value: Color(selected.first.color),
+        value: selected.first.color,
         onChanged: (value) => update(
           context,
-          // ignore: deprecated_member_use
-          selected.map((e) => e.copyWith(color: value.value)).toList(),
+          selected.map((e) => e.copyWith(color: value)).toList(),
         ),
-        title: Text(AppLocalizations.of(context).color),
+        title: Text(LeapLocalizations.of(context).color),
       ),
       ExactSlider(
         value: selected.first.duration,
@@ -69,7 +68,7 @@ class LaserToolSelection extends ToolSelection<LaserTool> {
                 (e) => DropdownMenuEntry(
                   value: e,
                   label: switch (e) {
-                    LaserAnimation.fade => AppLocalizations.of(context).color,
+                    LaserAnimation.fade => LeapLocalizations.of(context).color,
                     LaserAnimation.path => AppLocalizations.of(context).path,
                   },
                   leadingIcon: Icon(switch (e) {

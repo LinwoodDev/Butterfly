@@ -1,4 +1,3 @@
-import 'package:butterfly/dialogs/name.dart';
 import 'package:butterfly/models/defaults.dart';
 import 'package:butterfly_api/butterfly_text.dart' as text;
 import 'package:collection/collection.dart';
@@ -192,7 +191,7 @@ class _ParagraphsStyleViewState extends State<ParagraphsStyleView> {
             if (currentParagraph == null) {
               return Center(
                   child: ElevatedButton(
-                child: Text(AppLocalizations.of(context).create),
+                child: Text(LeapLocalizations.of(context).create),
                 onPressed: () {
                   widget.onChanged(widget.value.copyWith(
                     paragraphProperties: {

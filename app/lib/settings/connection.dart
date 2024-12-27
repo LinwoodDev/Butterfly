@@ -97,11 +97,12 @@ class _ConnectionSettingsPageState extends State<ConnectionSettingsPage>
             ),
             actions: [
               TextButton(
-                child: Text(AppLocalizations.of(context).cancel),
+                child:
+                    Text(MaterialLocalizations.of(context).cancelButtonLabel),
                 onPressed: () => Navigator.of(context).pop(false),
               ),
               ElevatedButton(
-                child: Text(AppLocalizations.of(context).create),
+                child: Text(LeapLocalizations.of(context).create),
                 onPressed: () => Navigator.of(context).pop(true),
               ),
             ],

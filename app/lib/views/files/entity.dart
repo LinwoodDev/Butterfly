@@ -21,7 +21,7 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:popover/popover.dart';
 
 class FileEntityItem extends StatefulWidget {
-  final FileSystemEntity<NoteData> entity;
+  final FileSystemEntity<NoteFile> entity;
   final bool active, collapsed, gridView;
   final bool? selected;
   final VoidCallback onTap, onReload;
@@ -125,11 +125,15 @@ class _FileEntityItemState extends State<FileEntityItem> {
     PhosphorIconData icon = PhosphorIconsLight.folder;
     final entity = widget.entity;
     try {
-      if (entity is FileSystemFile<NoteData>) {
+      if (entity is FileSystemFile<NoteFile>) {
+        final data = entity.data?.load();
         icon = entity.location.fileType.icon(PhosphorIconsStyle.light);
-        thumbnail = entity.data?.getThumbnail();
+        if (entity.data?.isEncrypted() ?? false) {
+          icon = PhosphorIconsLight.lock;
+        }
+        thumbnail = data?.getThumbnail();
         if (thumbnail?.isEmpty ?? false) thumbnail = null;
-        metadata = entity.data?.getMetadata();
+        metadata = data?.getMetadata();
         final locale = Localizations.localeOf(context).languageCode;
         final dateFormatter = DateFormat.yMd(locale);
         final timeFormatter = DateFormat.Hm(locale);
@@ -238,7 +242,7 @@ class _FileEntityItemState extends State<FileEntityItem> {
 class ContextFileRegion extends StatelessWidget {
   final ExternalStorage? remote;
   final DocumentFileSystem documentSystem;
-  final FileSystemEntity<NoteData> entity;
+  final FileSystemEntity<NoteFile> entity;
   final SettingsCubit settingsCubit;
   final bool editable;
   final ValueChanged<bool> onEdit;

@@ -114,7 +114,7 @@ class _UtilitiesViewState extends State<_UtilitiesView>
                     TextFormField(
                       controller: _nameController,
                       decoration: InputDecoration(
-                        labelText: AppLocalizations.of(context).name,
+                        labelText: LeapLocalizations.of(context).name,
                         filled: true,
                       ),
                       onChanged: (value) {
@@ -122,7 +122,7 @@ class _UtilitiesViewState extends State<_UtilitiesView>
                         state.save();
                       },
                     ),
-                    const SizedBox(height: 20),
+                    const SizedBox(height: 8),
                     TextFormField(
                       minLines: 3,
                       maxLines: 5,
@@ -182,6 +182,158 @@ class _UtilitiesViewState extends State<_UtilitiesView>
                       child:
                           Text(AppLocalizations.of(context).captureThumbnail),
                     ),
+                    MenuItemButton(
+                      leadingIcon: Tooltip(
+                        message: state.data.isEncrypted
+                            ? AppLocalizations.of(context).encrypted
+                            : AppLocalizations.of(context).unencrypted,
+                        child: Icon(
+                          state.data.isEncrypted
+                              ? PhosphorIconsLight.lock
+                              : PhosphorIconsLight.lockOpen,
+                        ),
+                      ),
+                      child: Text(
+                        state.data.isEncrypted
+                            ? AppLocalizations.of(context).unencrypt
+                            : AppLocalizations.of(context).encrypt,
+                      ),
+                      onPressed: () async {
+                        if (state.data.isEncrypted) {
+                          final result = await showDialog<bool>(
+                            context: context,
+                            builder: (context) => AlertDialog(
+                              title:
+                                  Text(AppLocalizations.of(context).unencrypt),
+                              content: Text(AppLocalizations.of(context)
+                                  .unencryptWarning),
+                              actions: [
+                                TextButton(
+                                  onPressed: () =>
+                                      Navigator.pop(context, false),
+                                  child: Text(MaterialLocalizations.of(context)
+                                      .cancelButtonLabel),
+                                ),
+                                TextButton(
+                                  onPressed: () => Navigator.pop(context, true),
+                                  child: Text(MaterialLocalizations.of(context)
+                                      .okButtonLabel),
+                                ),
+                              ],
+                            ),
+                          );
+                          if (result != true) return;
+                          context
+                              .read<DocumentBloc>()
+                              .add(EncryptionChanged(null));
+                        } else {
+                          String password = '';
+                          bool showPassword = false,
+                              showConfirmPassword = false;
+                          final formKey = GlobalKey<FormState>();
+                          final result = await showDialog<bool>(
+                            context: context,
+                            builder: (context) => StatefulBuilder(
+                              builder: (context, setState) => Form(
+                                key: formKey,
+                                child: AlertDialog(
+                                  scrollable: true,
+                                  title: Text(
+                                      AppLocalizations.of(context).encrypt),
+                                  content: Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      Row(children: [
+                                        Icon(PhosphorIconsLight.warning),
+                                        const SizedBox(width: 8),
+                                        Flexible(
+                                          child: Text(
+                                              AppLocalizations.of(context)
+                                                  .encryptWarning),
+                                        ),
+                                      ]),
+                                      const SizedBox(height: 16),
+                                      TextFormField(
+                                        decoration: InputDecoration(
+                                          labelText:
+                                              AppLocalizations.of(context)
+                                                  .password,
+                                          filled: true,
+                                          suffixIcon: IconButton(
+                                            icon: Icon(showPassword
+                                                ? PhosphorIconsLight.eye
+                                                : PhosphorIconsLight.eyeSlash),
+                                            onPressed: () => setState(
+                                              () =>
+                                                  showPassword = !showPassword,
+                                            ),
+                                          ),
+                                        ),
+                                        obscureText: !showPassword,
+                                        autofocus: true,
+                                        onChanged: (value) => password = value,
+                                        validator: (value) =>
+                                            value?.isEmpty ?? true
+                                                ? LeapLocalizations.of(context)
+                                                    .shouldNotEmpty
+                                                : null,
+                                      ),
+                                      const SizedBox(height: 8),
+                                      TextFormField(
+                                        decoration: InputDecoration(
+                                          labelText:
+                                              AppLocalizations.of(context)
+                                                  .confirmPassword,
+                                          filled: true,
+                                          suffixIcon: IconButton(
+                                            icon: Icon(showConfirmPassword
+                                                ? PhosphorIconsLight.eye
+                                                : PhosphorIconsLight.eyeSlash),
+                                            onPressed: () => setState(
+                                              () => showConfirmPassword =
+                                                  !showConfirmPassword,
+                                            ),
+                                          ),
+                                        ),
+                                        obscureText: !showConfirmPassword,
+                                        validator: (value) => value != password
+                                            ? AppLocalizations.of(context)
+                                                .passwordMismatch
+                                            : null,
+                                      ),
+                                    ],
+                                  ),
+                                  actions: [
+                                    TextButton(
+                                      onPressed: () =>
+                                          Navigator.pop(context, false),
+                                      child: Text(
+                                          MaterialLocalizations.of(context)
+                                              .cancelButtonLabel),
+                                    ),
+                                    TextButton(
+                                      onPressed: () {
+                                        if (formKey.currentState?.validate() ??
+                                            false) {
+                                          Navigator.pop(context, true);
+                                        }
+                                      },
+                                      child: Text(
+                                          MaterialLocalizations.of(context)
+                                              .okButtonLabel),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          );
+                          if (result != true) return;
+                          context
+                              .read<DocumentBloc>()
+                              .add(EncryptionChanged(password));
+                        }
+                      },
+                    )
                   ],
                 ),
                 Column(children: [
@@ -229,34 +381,26 @@ class _UtilitiesViewState extends State<_UtilitiesView>
                             ),
                             const SizedBox(height: 8),
                             ColorField(
-                              title: Text(AppLocalizations.of(context).color),
-                              value:
-                                  Color(widget.option.gridColor).withAlpha(255),
+                              title: Text(LeapLocalizations.of(context).color),
+                              value: widget.option.gridColor.withValues(a: 255),
                               onChanged: (value) => widget.onToolChanged(
                                 widget.option.copyWith(
-                                    gridColor: convertOldColor(
-                                        // ignore: deprecated_member_use
-                                        value.value,
-                                        widget.option.gridColor)),
+                                    gridColor: value.withValues(
+                                        a: widget.option.gridColor.a)),
                               ),
                             ),
                             const SizedBox(height: 8),
                             ExactSlider(
                               header: Text(AppLocalizations.of(context).alpha),
-                              value: Color(widget.option.gridColor)
-                                  // ignore: deprecated_member_use
-                                  .alpha
-                                  .toDouble(),
+                              value: widget.option.gridColor.a.toDouble(),
                               defaultValue: 255,
                               min: 0,
                               max: 255,
                               fractionDigits: 0,
                               onChangeEnd: (value) => widget.onToolChanged(
                                 widget.option.copyWith(
-                                  gridColor: Color(widget.option.gridColor)
-                                      .withAlpha(value.toInt())
-                                      // ignore: deprecated_member_use
-                                      .value,
+                                  gridColor: widget.option.gridColor
+                                      .withValues(a: value.toInt()),
                                 ),
                               ),
                             ),

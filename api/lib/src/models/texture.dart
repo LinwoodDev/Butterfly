@@ -1,3 +1,5 @@
+import 'package:butterfly_api/src/converter/color.dart';
+import 'package:dart_leap/dart_leap.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import 'colors.dart';
@@ -49,7 +51,7 @@ extension PatternTemplateExtension on PatternTemplate {
         return const PatternTexture(
             boxColor: BasicColors.light,
             boxHeight: 40,
-            boxYColor: BasicColors.black,
+            boxYColor: SRGBColor.black,
             boxYSpace: 80,
             boxYCount: 5);
       case PatternTemplate.plainDark:
@@ -67,7 +69,7 @@ extension PatternTemplateExtension on PatternTemplate {
       case PatternTemplate.musicDark:
         return const PatternTexture(
             boxColor: BasicColors.dark,
-            boxYColor: BasicColors.white,
+            boxYColor: SRGBColor.white,
             boxHeight: 40,
             boxYSpace: 80,
             boxYCount: 5);
@@ -84,9 +86,9 @@ sealed class SurfaceTexture with _$SurfaceTexture {
       @Default(1) int boxYCount,
       @Default(0) double boxXSpace,
       @Default(0) double boxYSpace,
-      @Default(BasicColors.blue) int boxXColor,
-      @Default(BasicColors.red) int boxYColor,
-      @Default(BasicColors.white) int boxColor,
+      @Default(BasicColors.blue) @ColorJsonConverter() SRGBColor boxXColor,
+      @Default(BasicColors.red) @ColorJsonConverter() SRGBColor boxYColor,
+      @Default(SRGBColor.white) @ColorJsonConverter() SRGBColor boxColor,
       @Default(0.5) double boxXStroke,
       @Default(0.5) double boxYStroke}) = PatternTexture;
 

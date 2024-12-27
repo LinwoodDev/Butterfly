@@ -1,6 +1,6 @@
+import 'package:dart_leap/dart_leap.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-import 'colors.dart';
 import 'texture.dart';
 
 part 'background.g.dart';
@@ -36,8 +36,8 @@ sealed class Background with _$Background {
   factory Background.fromJson(Map<String, dynamic> json) =>
       _$BackgroundFromJson(json);
 
-  int get defaultColor => switch (this) {
+  SRGBColor get defaultColor => switch (this) {
         TextureBackground e => e.texture.boxColor,
-        _ => BasicColors.white
+        _ => SRGBColor.white
       };
 }

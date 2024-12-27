@@ -88,6 +88,8 @@ class ImportService {
       bytes = Uint8List.fromList(List<int>.from(data));
     } else if (data is NoteData) {
       return data;
+    } else if (data is NoteFile) {
+      bytes = data.data;
     }
     if (type.isEmpty) type = 'note';
     final fileType = AssetFileType.values.firstWhereOrNull((element) =>
@@ -221,7 +223,27 @@ class ImportService {
     try {
       final documentOpened = document != null;
       final realDocument = document ?? DocumentDefaults.createDocument();
-      final data = NoteData.fromData(bytes);
+      final file = NoteFile(bytes);
+      String? password;
+      if (file.isEncrypted()) {
+        password = await showDialog<String>(
+          context: context,
+          builder: (context) => NameDialog(
+            title: AppLocalizations.of(context).password,
+            button: AppLocalizations.of(context).open,
+            obscureText: true,
+          ),
+        );
+        if (password == null) return null;
+      }
+      final data = file.load(password: password);
+      if (data == null) {
+        return showDialog(
+          context: context,
+          builder: (context) => UnknownImportConfirmationDialog(
+              message: AppLocalizations.of(context).unknownImportType),
+        ).then((value) => null);
+      }
       if (!data.isValid) {
         await importArchive(bytes);
         return null;
@@ -481,11 +503,10 @@ class ImportService {
       final contentString = String.fromCharCodes(bytes);
       final styleSheet = document.findStyle();
       final state = _getState();
-      final background = state?.page.backgrounds.firstOrNull?.defaultColor ??
-          BasicColors.white;
-      final foreground = isDarkColor(Color(background))
-          ? BasicColors.white
-          : BasicColors.black;
+      final background =
+          state?.page.backgrounds.firstOrNull?.defaultColor ?? SRGBColor.white;
+      final foreground =
+          background.toColor().isDark() ? SRGBColor.white : SRGBColor.black;
       return _submit(context, document,
           elements: [
             MarkdownElement(
@@ -758,7 +779,7 @@ class ImportService {
       if (data.isValid) {
         final document = await importBfly(bytes);
         if (document != null) {
-          fileSystem.createFile(document.name ?? '', document);
+          fileSystem.createFile(document.name ?? '', document.toFile());
         }
         return document != null;
       }
@@ -767,7 +788,7 @@ class ImportService {
         if (!file.name.endsWith(fileExtension)) continue;
         final document = await importBfly(file.content, advanced: false);
         if (document != null) {
-          fileSystem.createFile(file.name, document);
+          fileSystem.createFile(file.name, document.toFile());
         }
       }
       return true;

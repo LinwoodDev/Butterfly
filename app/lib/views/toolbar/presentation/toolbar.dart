@@ -1,7 +1,6 @@
 import 'dart:math';
 
 import 'package:butterfly/cubits/transform.dart';
-import 'package:butterfly/dialogs/name.dart';
 import 'package:butterfly/dialogs/presentation.dart';
 import 'package:butterfly/views/toolbar/view.dart';
 import 'package:butterfly_api/butterfly_api.dart';
@@ -209,7 +208,7 @@ class _PresentationToolbarViewState extends State<PresentationToolbarView> {
                                   _updateControllers();
                                 });
                               },
-                              child: Text(AppLocalizations.of(context).create),
+                              child: Text(LeapLocalizations.of(context).create),
                             ),
                             MenuItemButton(
                               leadingIcon:

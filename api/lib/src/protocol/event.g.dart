@@ -739,3 +739,16 @@ Map<String, dynamic> _$$ElementsLayerConvertedImplToJson(
       'name': instance.name,
       'type': instance.$type,
     };
+
+_$EncryptionChangedImpl _$$EncryptionChangedImplFromJson(Map json) =>
+    _$EncryptionChangedImpl(
+      json['password'] as String?,
+      $type: json['type'] as String?,
+    );
+
+Map<String, dynamic> _$$EncryptionChangedImplToJson(
+        _$EncryptionChangedImpl instance) =>
+    <String, dynamic>{
+      'password': instance.password,
+      'type': instance.$type,
+    };

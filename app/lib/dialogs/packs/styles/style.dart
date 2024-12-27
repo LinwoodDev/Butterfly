@@ -85,7 +85,7 @@ class _StyleDialogState extends State<StyleDialog> {
       actions: [
         TextButton(
           onPressed: () => Navigator.of(context).pop(false),
-          child: Text(AppLocalizations.of(context).cancel),
+          child: Text(MaterialLocalizations.of(context).cancelButtonLabel),
         ),
         ElevatedButton(
           onPressed: () {

@@ -226,7 +226,7 @@ class ButterflySettings with _$ButterflySettings, LeapSettings {
     @Default(0.5) double imageScale,
     @Default(2) double pdfQuality,
     @Default(PlatformTheme.system) PlatformTheme platformTheme,
-    @Default([]) List<int> recentColors,
+    @Default([]) List<SRGBColor> recentColors,
     @Default([]) List<String> flags,
     @Default(false) bool spreadPages,
     @Default(false) bool highContrast,
@@ -311,8 +311,11 @@ class ButterflySettings with _$ButterflySettings, LeapSettings {
       platformTheme: prefs.containsKey('platform_theme')
           ? PlatformTheme.values.byName(prefs.getString('platform_theme')!)
           : PlatformTheme.system,
-      recentColors:
-          prefs.getStringList('recent_colors')?.map(int.parse).toList() ?? [],
+      recentColors: prefs
+              .getStringList('recent_colors')
+              ?.map((e) => SRGBColor(int.parse(e)))
+              .toList() ??
+          [],
       flags: prefs.getStringList('flags') ?? [],
       spreadPages: prefs.getBool('spread_pages') ?? false,
       highContrast: prefs.getBool('high_contrast') ?? false,
@@ -399,7 +402,7 @@ class ButterflySettings with _$ButterflySettings, LeapSettings {
     await prefs.setDouble('pdf_quality', pdfQuality);
     await prefs.setString('platform_theme', platformTheme.name);
     await prefs.setStringList(
-        'recent_colors', recentColors.map((e) => e.toString()).toList());
+        'recent_colors', recentColors.map((e) => e.value.toString()).toList());
     await prefs.setStringList('flags', flags);
     await prefs.setBool('spread_pages', spreadPages);
     await prefs.setBool('high_contrast', highContrast);
@@ -834,7 +837,7 @@ class SettingsCubit extends Cubit<ButterflySettings>
   Future<void> resetPlatformTheme() =>
       changePlatformTheme(PlatformTheme.system);
 
-  Future<void> addRecentColors(int color) async {
+  Future<void> addRecentColors(SRGBColor color) async {
     final recentColors = state.recentColors.toList();
     recentColors.remove(color);
     recentColors.insert(0, color);
@@ -845,7 +848,7 @@ class SettingsCubit extends Cubit<ButterflySettings>
     return save();
   }
 
-  Future<void> removeRecentColors(int color) async {
+  Future<void> removeRecentColors(SRGBColor color) async {
     final recentColors = state.recentColors.toList();
     recentColors.remove(color);
     emit(state.copyWith(recentColors: recentColors));

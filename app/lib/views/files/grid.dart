@@ -17,7 +17,7 @@ class FileEntityGridItem extends StatelessWidget {
   final VoidCallback onTap, onDelete, onReload;
   final ValueChanged<bool> onEdit, onSelectedChanged;
   final Uint8List? thumbnail;
-  final FileSystemEntity<NoteData> entity;
+  final FileSystemEntity<NoteFile> entity;
   final TextEditingController nameController;
 
   const FileEntityGridItem({

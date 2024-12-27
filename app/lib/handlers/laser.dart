@@ -35,7 +35,7 @@ class LaserHandler extends Handler<LaserTool> with ColoredHandler {
   PenElement _updateElement(PenElement element, Duration difference) {
     final duration = _getDuration();
     final hideDuration = _getHideDuration();
-    final delta =
+    final double delta =
         ((difference - duration).inMilliseconds / hideDuration.inMilliseconds)
             .clamp(0, 1);
     if (data.animation == LaserAnimation.path) {
@@ -44,13 +44,12 @@ class LaserHandler extends Handler<LaserTool> with ColoredHandler {
           points.sublist((points.length * delta).round(), points.length);
       return element.copyWith(points: subPoints);
     }
-    var color = Color(data.color);
+    var color = data.color;
     final toolOpacity = color.a;
     final opacity = (1 - delta) * toolOpacity;
-    color = color.withValues(alpha: opacity.clamp(0, 1));
+    color = color.withValues(a: opacity.clamp(0, 1).round());
     return element.copyWith(
-      // ignore: deprecated_member_use
-      property: element.property.copyWith(color: color.value),
+      property: element.property.copyWith(color: color),
     );
   }
 
@@ -159,10 +158,10 @@ class LaserHandler extends Handler<LaserTool> with ColoredHandler {
   }
 
   @override
-  int getColor() => data.color;
+  SRGBColor getColor() => data.color;
 
   @override
-  LaserTool setColor(int color) => data.copyWith(color: color);
+  LaserTool setColor(SRGBColor color) => data.copyWith(color: color);
 
   @override
   MouseCursor get cursor => (_hideCursorWhileDrawing && _elements.isNotEmpty)

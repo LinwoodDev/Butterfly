@@ -36,14 +36,12 @@ class _TextStyleViewState extends State<TextStyleView> {
     return Column(
       children: [
         ColorField(
-            title: Text(AppLocalizations.of(context).color),
+            title: Text(LeapLocalizations.of(context).color),
             subtitle: widget.value.color == null
                 ? Text(AppLocalizations.of(context).notSet)
                 : null,
             custom: true,
-            value: widget.value.color == null
-                ? Colors.transparent
-                : Color(widget.value.color!),
+            value: widget.value.color ?? SRGBColor.transparent,
             leading: widget.value.color == null
                 ? null
                 : IconButton(
@@ -53,17 +51,14 @@ class _TextStyleViewState extends State<TextStyleView> {
                         widget.onChanged(widget.value.copyWith(color: null))),
             defaultColor: null,
             onChanged: (color) =>
-                // ignore: deprecated_member_use
-                widget.onChanged(widget.value.copyWith(color: color.value))),
+                widget.onChanged(widget.value.copyWith(color: color))),
         ColorField(
             title: Text(AppLocalizations.of(context).background),
             subtitle: widget.value.backgroundColor == null
                 ? Text(AppLocalizations.of(context).notSet)
                 : null,
             custom: true,
-            value: widget.value.backgroundColor == null
-                ? Colors.transparent
-                : Color(widget.value.backgroundColor!),
+            value: widget.value.backgroundColor ?? SRGBColor.transparent,
             leading: widget.value.color == null
                 ? null
                 : IconButton(
@@ -72,9 +67,8 @@ class _TextStyleViewState extends State<TextStyleView> {
                     onPressed: () => widget.onChanged(
                         widget.value.copyWith(backgroundColor: null))),
             defaultColor: null,
-            onChanged: (color) => widget.onChanged(
-                // ignore: deprecated_member_use
-                widget.value.copyWith(backgroundColor: color.value))),
+            onChanged: (color) => widget
+                .onChanged(widget.value.copyWith(backgroundColor: color))),
         ExactSlider(
             header: Text(AppLocalizations.of(context).size),
             bottom: widget.value.size == null
@@ -198,14 +192,13 @@ class _TextStyleViewState extends State<TextStyleView> {
                                     widget.onChanged(widget.value.copyWith(
                                         decorationStyle: decorationStyle)))),
                         ColorField(
-                            title: Text(AppLocalizations.of(context).color),
+                            title: Text(LeapLocalizations.of(context).color),
                             custom: true,
                             subtitle: widget.value.decorationColor == null
                                 ? Text(AppLocalizations.of(context).notSet)
                                 : null,
-                            value: widget.value.decorationColor == null
-                                ? Colors.transparent
-                                : Color(widget.value.decorationColor!),
+                            value: widget.value.decorationColor ??
+                                SRGBColor.transparent,
                             leading: widget.value.decorationColor == null
                                 ? null
                                 : IconButton(
@@ -217,9 +210,8 @@ class _TextStyleViewState extends State<TextStyleView> {
                                         .value
                                         .copyWith(decorationColor: null))),
                             defaultColor: null,
-                            onChanged: (color) => widget.onChanged(widget.value
-                                // ignore: deprecated_member_use
-                                .copyWith(decorationColor: color.value))),
+                            onChanged: (color) => widget.onChanged(
+                                widget.value.copyWith(decorationColor: color))),
                         Padding(
                           padding: const EdgeInsets.all(16.0),
                           child: ExactSlider(

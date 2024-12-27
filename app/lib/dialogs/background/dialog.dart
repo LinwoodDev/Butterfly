@@ -100,11 +100,12 @@ class BackgroundDialog extends StatelessWidget {
             ),
             actions: [
               TextButton(
-                child: Text(AppLocalizations.of(context).cancel),
+                child:
+                    Text(MaterialLocalizations.of(context).cancelButtonLabel),
                 onPressed: () => Navigator.of(context).pop(),
               ),
               ElevatedButton(
-                child: Text(AppLocalizations.of(context).ok),
+                child: Text(MaterialLocalizations.of(context).okButtonLabel),
                 onPressed: () {
                   context.read<DocumentBloc>().add(DocumentBackgroundsChanged(
                       [if (background != null) background!]));

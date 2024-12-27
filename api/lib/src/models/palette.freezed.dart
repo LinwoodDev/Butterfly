@@ -21,7 +21,8 @@ ColorPalette _$ColorPaletteFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$ColorPalette {
   String get name => throw _privateConstructorUsedError;
-  List<int> get colors => throw _privateConstructorUsedError;
+  @ColorJsonConverter()
+  List<SRGBColor> get colors => throw _privateConstructorUsedError;
 
   /// Serializes this ColorPalette to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -39,7 +40,7 @@ abstract class $ColorPaletteCopyWith<$Res> {
           ColorPalette value, $Res Function(ColorPalette) then) =
       _$ColorPaletteCopyWithImpl<$Res, ColorPalette>;
   @useResult
-  $Res call({String name, List<int> colors});
+  $Res call({String name, @ColorJsonConverter() List<SRGBColor> colors});
 }
 
 /// @nodoc
@@ -68,7 +69,7 @@ class _$ColorPaletteCopyWithImpl<$Res, $Val extends ColorPalette>
       colors: null == colors
           ? _value.colors
           : colors // ignore: cast_nullable_to_non_nullable
-              as List<int>,
+              as List<SRGBColor>,
     ) as $Val);
   }
 }
@@ -81,7 +82,7 @@ abstract class _$$ColorPaletteImplCopyWith<$Res>
       __$$ColorPaletteImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String name, List<int> colors});
+  $Res call({String name, @ColorJsonConverter() List<SRGBColor> colors});
 }
 
 /// @nodoc
@@ -108,7 +109,7 @@ class __$$ColorPaletteImplCopyWithImpl<$Res>
       colors: null == colors
           ? _value._colors
           : colors // ignore: cast_nullable_to_non_nullable
-              as List<int>,
+              as List<SRGBColor>,
     ));
   }
 }
@@ -117,7 +118,8 @@ class __$$ColorPaletteImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$ColorPaletteImpl implements _ColorPalette {
   const _$ColorPaletteImpl(
-      {required this.name, final List<int> colors = const []})
+      {required this.name,
+      @ColorJsonConverter() final List<SRGBColor> colors = const []})
       : _colors = colors;
 
   factory _$ColorPaletteImpl.fromJson(Map<String, dynamic> json) =>
@@ -125,10 +127,11 @@ class _$ColorPaletteImpl implements _ColorPalette {
 
   @override
   final String name;
-  final List<int> _colors;
+  final List<SRGBColor> _colors;
   @override
   @JsonKey()
-  List<int> get colors {
+  @ColorJsonConverter()
+  List<SRGBColor> get colors {
     if (_colors is EqualUnmodifiableListView) return _colors;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_colors);
@@ -172,7 +175,7 @@ class _$ColorPaletteImpl implements _ColorPalette {
 abstract class _ColorPalette implements ColorPalette {
   const factory _ColorPalette(
       {required final String name,
-      final List<int> colors}) = _$ColorPaletteImpl;
+      @ColorJsonConverter() final List<SRGBColor> colors}) = _$ColorPaletteImpl;
 
   factory _ColorPalette.fromJson(Map<String, dynamic> json) =
       _$ColorPaletteImpl.fromJson;
@@ -180,7 +183,8 @@ abstract class _ColorPalette implements ColorPalette {
   @override
   String get name;
   @override
-  List<int> get colors;
+  @ColorJsonConverter()
+  List<SRGBColor> get colors;
 
   /// Create a copy of ColorPalette
   /// with the given fields replaced by the non-null parameter values.

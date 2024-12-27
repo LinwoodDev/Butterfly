@@ -14,9 +14,18 @@ _$PatternTextureImpl _$$PatternTextureImplFromJson(Map json) =>
       boxYCount: (json['boxYCount'] as num?)?.toInt() ?? 1,
       boxXSpace: (json['boxXSpace'] as num?)?.toDouble() ?? 0,
       boxYSpace: (json['boxYSpace'] as num?)?.toDouble() ?? 0,
-      boxXColor: (json['boxXColor'] as num?)?.toInt() ?? BasicColors.blue,
-      boxYColor: (json['boxYColor'] as num?)?.toInt() ?? BasicColors.red,
-      boxColor: (json['boxColor'] as num?)?.toInt() ?? BasicColors.white,
+      boxXColor: json['boxXColor'] == null
+          ? BasicColors.blue
+          : const ColorJsonConverter()
+              .fromJson((json['boxXColor'] as num).toInt()),
+      boxYColor: json['boxYColor'] == null
+          ? BasicColors.red
+          : const ColorJsonConverter()
+              .fromJson((json['boxYColor'] as num).toInt()),
+      boxColor: json['boxColor'] == null
+          ? SRGBColor.white
+          : const ColorJsonConverter()
+              .fromJson((json['boxColor'] as num).toInt()),
       boxXStroke: (json['boxXStroke'] as num?)?.toDouble() ?? 0.5,
       boxYStroke: (json['boxYStroke'] as num?)?.toDouble() ?? 0.5,
     );
@@ -30,9 +39,9 @@ Map<String, dynamic> _$$PatternTextureImplToJson(
       'boxYCount': instance.boxYCount,
       'boxXSpace': instance.boxXSpace,
       'boxYSpace': instance.boxYSpace,
-      'boxXColor': instance.boxXColor,
-      'boxYColor': instance.boxYColor,
-      'boxColor': instance.boxColor,
+      'boxXColor': const ColorJsonConverter().toJson(instance.boxXColor),
+      'boxYColor': const ColorJsonConverter().toJson(instance.boxYColor),
+      'boxColor': const ColorJsonConverter().toJson(instance.boxColor),
       'boxXStroke': instance.boxXStroke,
       'boxYStroke': instance.boxYStroke,
     };

@@ -25,6 +25,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:go_router/go_router.dart';
 import 'package:lw_file_system/lw_file_system.dart';
 import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
@@ -188,6 +189,10 @@ class _ProjectPageState extends State<ProjectPage> {
         document ??= await globalImportService.load(
             type: widget.type.isEmpty ? (fileType ?? widget.type) : widget.type,
             data: data);
+        if (document == null) {
+          GoRouter.of(context).pop();
+          return;
+        }
       }
       final name = absolute ? location!.fileName : '';
       NoteData? defaultDocument;
@@ -209,8 +214,17 @@ class _ProjectPageState extends State<ProjectPage> {
         if (!absolute) {
           final asset = await documentSystem.getAsset(location.path);
           if (!mounted) return;
-          if (location.fileType == AssetFileType.note) {
-            document = await checkFileChanges(context, asset);
+          if (asset is FileSystemFile<NoteFile> &&
+              location.fileType == AssetFileType.note) {
+            final noteData = await globalImportService.load(
+                document: defaultDocument,
+                type: widget.type.isEmpty
+                    ? (fileType ?? widget.type)
+                    : widget.type,
+                data: asset.data);
+            if (noteData != null) {
+              document = await checkFileChanges(context, noteData);
+            }
           }
         } else {
           final data = await documentSystem.loadAbsolute(location.path);

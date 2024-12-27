@@ -3,6 +3,7 @@ import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:material_leap/l10n/leap_localizations.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import '../../dialogs/delete.dart';
@@ -152,7 +153,7 @@ class LayersView extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: FloatingActionButton.extended(
-                    label: Text(AppLocalizations.of(context).create),
+                    label: Text(LeapLocalizations.of(context).create),
                     icon: const PhosphorIcon(PhosphorIconsLight.plus),
                     backgroundColor: Theme.of(context).colorScheme.secondary,
                     foregroundColor: Theme.of(context).colorScheme.onSecondary,
@@ -236,7 +237,7 @@ class _LayerMergeDialogState extends State<_LayerMergeDialog> {
       actions: [
         TextButton(
           onPressed: () => Navigator.of(context).pop(),
-          child: Text(AppLocalizations.of(context).cancel),
+          child: Text(MaterialLocalizations.of(context).cancelButtonLabel),
         ),
         ElevatedButton(
           onPressed: () {

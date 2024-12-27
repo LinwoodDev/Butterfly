@@ -1,10 +1,12 @@
 import 'dart:math';
 
+import 'package:butterfly_api/src/converter/color.dart';
+import 'package:dart_leap/dart_leap.dart';
+
 import '../converter/core.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../converter/id.dart';
-import 'colors.dart';
 import 'pack.dart';
 import 'point.dart';
 import 'property.dart';
@@ -60,7 +62,7 @@ mixin LabelElement {
   double get scale;
   PackAssetLocation get styleSheet;
   ElementConstraint get constraint;
-  int get foreground;
+  SRGBColor get foreground;
 
   AreaProperty get areaProperty => switch (this) {
         MarkdownElement e => e.areaProperty,
@@ -102,7 +104,7 @@ sealed class PadElement with _$PadElement {
     @Default(PackAssetLocation()) PackAssetLocation styleSheet,
     required TextArea area,
     @Default(ElementConstraint(size: 1000)) ElementConstraint constraint,
-    @Default(BasicColors.black) int foreground,
+    @Default(SRGBColor.black) @ColorJsonConverter() SRGBColor foreground,
     @Default({}) Map<String, dynamic> extra,
   }) = TextElement;
 
@@ -119,7 +121,7 @@ sealed class PadElement with _$PadElement {
     @Default(AreaProperty()) AreaProperty areaProperty,
     required String text,
     @Default(ElementConstraint(size: 1000)) ElementConstraint constraint,
-    @Default(BasicColors.black) int foreground,
+    @Default(SRGBColor.black) @ColorJsonConverter() SRGBColor foreground,
     @Default({}) Map<String, dynamic> extra,
   }) = MarkdownElement;
 

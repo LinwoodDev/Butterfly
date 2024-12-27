@@ -137,11 +137,12 @@ class _PagesDialogState extends State<PagesDialog> {
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 TextButton(
-                  child: Text(AppLocalizations.of(context).cancel),
+                  child:
+                      Text(MaterialLocalizations.of(context).cancelButtonLabel),
                   onPressed: () => Navigator.of(context).pop(),
                 ),
                 ElevatedButton(
-                  child: Text(AppLocalizations.of(context).ok),
+                  child: Text(MaterialLocalizations.of(context).okButtonLabel),
                   onPressed: () => Navigator.of(context).pop(PageDialogCallback(
                       _selected,
                       _quality,

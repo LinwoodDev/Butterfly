@@ -1,5 +1,7 @@
 import 'dart:math';
 
+import 'package:butterfly_api/src/converter/color.dart';
+import 'package:dart_leap/dart_leap.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import 'area.dart';
@@ -78,7 +80,7 @@ sealed class Tool with _$Tool {
     @Default('') String displayIcon,
     @Default(LabelMode.text) LabelMode mode,
     @Default(false) bool zoomDependent,
-    @Default(BasicColors.black) int foreground,
+    @Default(SRGBColor.black) @ColorJsonConverter() SRGBColor foreground,
     @Default(PackAssetLocation()) PackAssetLocation styleSheet,
     @Default(2.0) double scale,
   }) = LabelTool;
@@ -128,7 +130,7 @@ sealed class Tool with _$Tool {
     @Default(0.5) double hideDuration,
     @Default(5) double strokeWidth,
     @Default(0.4) double thinning,
-    @Default(BasicColors.red) int color,
+    @Default(BasicColors.red) @ColorJsonConverter() SRGBColor color,
     @Default(LaserAnimation.fade) LaserAnimation animation,
   }) = LaserTool;
 

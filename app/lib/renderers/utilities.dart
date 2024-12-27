@@ -44,7 +44,7 @@ class UtilitiesRenderer extends Renderer<UtilitiesState> {
                 size.height / transform.size + transform.position.dy),
             Paint()
               ..strokeWidth = 1 / transform.size
-              ..color = Color(option.gridColor),
+              ..color = option.gridColor.toColor(),
           );
           x += option.gridXSize;
         }
@@ -59,7 +59,7 @@ class UtilitiesRenderer extends Renderer<UtilitiesState> {
                 transform.position.dy + localY),
             Paint()
               ..strokeWidth = 1 / transform.size
-              ..color = Color(option.gridColor),
+              ..color = option.gridColor.toColor(),
           );
           y += option.gridYSize;
         }

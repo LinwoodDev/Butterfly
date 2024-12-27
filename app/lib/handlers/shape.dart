@@ -33,9 +33,9 @@ class ShapeHandler extends PastingHandler<ShapeTool> with ColoredHandler {
   double get constraintedWidth => data.constrainedWidth;
 
   @override
-  int getColor() => data.property.color;
+  SRGBColor getColor() => data.property.color;
 
   @override
-  ShapeTool setColor(int color) =>
+  ShapeTool setColor(SRGBColor color) =>
       data.copyWith(property: data.property.copyWith(color: color));
 }

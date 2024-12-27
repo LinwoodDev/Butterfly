@@ -2,6 +2,7 @@ import 'package:butterfly/api/file_system.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:lw_file_system/lw_file_system.dart';
+import 'package:material_leap/l10n/leap_localizations.dart';
 
 import 'tree.dart';
 
@@ -73,12 +74,12 @@ class _FileSystemAssetMoveDialogState extends State<FileSystemAssetMoveDialog> {
     return AlertDialog(
         actions: [
           TextButton(
-            child: Text(AppLocalizations.of(context).cancel),
+            child: Text(MaterialLocalizations.of(context).cancelButtonLabel),
             onPressed: () => Navigator.of(context).pop(null),
           ),
           if (widget.moveMode != null)
             ElevatedButton(
-              child: Text(AppLocalizations.of(context).ok),
+              child: Text(MaterialLocalizations.of(context).okButtonLabel),
               onPressed: () => _move(widget.moveMode == MoveMode.duplicate),
             ),
           if (widget.moveMode == null) ...[
@@ -105,7 +106,7 @@ class _FileSystemAssetMoveDialogState extends State<FileSystemAssetMoveDialog> {
               const SizedBox(height: 16),
               TextField(
                 decoration: InputDecoration(
-                    filled: true, hintText: AppLocalizations.of(context).name),
+                    filled: true, hintText: LeapLocalizations.of(context).name),
                 autofocus: true,
                 controller: _nameController,
               ),

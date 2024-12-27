@@ -6,7 +6,7 @@ void drawPatternTextureOnCanvas(PatternTexture texture, Canvas canvas,
   canvas.drawRect(
       Rect.fromLTWH(translation.dx, translation.dy, size.width, size.height),
       Paint()
-        ..color = Color(texture.boxColor)
+        ..color = texture.boxColor.toColor()
         ..style = PaintingStyle.fill);
   if (scale <= 0) return;
   if (texture.boxWidth > 0 && texture.boxXCount > 0) {
@@ -25,7 +25,7 @@ void drawPatternTextureOnCanvas(PatternTexture texture, Canvas canvas,
           Offset(x + translation.dx, size.height + translation.dy),
           Paint()
             ..strokeWidth = texture.boxXStroke * scale
-            ..color = Color(texture.boxXColor));
+            ..color = texture.boxXColor.toColor());
       count++;
       if (count >= texture.boxXCount) {
         count = 0;
@@ -49,7 +49,7 @@ void drawPatternTextureOnCanvas(PatternTexture texture, Canvas canvas,
           Offset(size.width + translation.dx, y + translation.dy),
           Paint()
             ..strokeWidth = texture.boxYStroke * scale
-            ..color = Color(texture.boxYColor));
+            ..color = texture.boxYColor.toColor());
       count++;
       if (count >= texture.boxYCount) {
         count = 0;
@@ -71,7 +71,7 @@ void drawPatternTextureOnSvg(
     'y': '${offset.dy + translation.dy}px',
     'width': '${size.width}px',
     'height': '${size.height}px',
-    'fill': texture.boxColor.toHexColor(),
+    'fill': texture.boxColor.toHexString(),
   });
   if (texture.boxWidth > 0 && texture.boxXCount > 0) {
     final part = texture.boxWidth * texture.boxXCount + texture.boxXSpace;
@@ -85,7 +85,7 @@ void drawPatternTextureOnSvg(
         'y1': '${offset.dy + translation.dy}px',
         'x2': '${x + offset.dx + translation.dx}px',
         'y2': '${offset.dy + size.height + translation.dy}px',
-        'stroke': texture.boxXColor.toHexColor(),
+        'stroke': texture.boxXColor.toHexString(),
         'stroke-width': '${texture.boxXStroke}'
       });
       count++;
@@ -108,7 +108,7 @@ void drawPatternTextureOnSvg(
         'y1': '${y + offset.dy + translation.dy}px',
         'x2': '${offset.dx + size.width + translation.dx}px',
         'y2': '${y + offset.dy + translation.dy}px',
-        'stroke': texture.boxYColor.toHexColor(),
+        'stroke': texture.boxYColor.toHexString(),
         'stroke-width': '${texture.boxYStroke}'
       });
       count++;

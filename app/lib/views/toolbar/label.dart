@@ -559,7 +559,7 @@ class _LabelToolbarViewState extends State<LabelToolbarView> {
                                 width: 42,
                                 height: 42,
                                 decoration: BoxDecoration(
-                                  color: Color(span!.getColor(paragraph)),
+                                  color: span!.getColor(paragraph).toColor(),
                                   border: Border.all(
                                     color: Theme.of(context).primaryColor,
                                     width: 2,
@@ -570,22 +570,17 @@ class _LabelToolbarViewState extends State<LabelToolbarView> {
                                 ),
                               ),
                               onTap: () async {
-                                final result = await showDialog<int>(
+                                final result = await showDialog<SRGBColor>(
                                   context: context,
                                   builder: (_) => ColorPalettePickerDialog(
-                                    value: Color(span.getColor(paragraph)),
+                                    value: span.getColor(paragraph),
                                     bloc: context.read<DocumentBloc>(),
                                   ),
                                 );
                                 if (result == null) return;
                                 updateSpan((value) => value.copyWith(
-                                    color: Color(result)
-                                        .withValues(
-                                            alpha: Color(widget
-                                                    .value.tool.foreground)
-                                                .a)
-                                        // ignore: deprecated_member_use
-                                        .value));
+                                    color: result.withValues(
+                                        a: widget.value.tool.foreground.a)));
                               },
                             ),
                             const SizedBox(width: 16),

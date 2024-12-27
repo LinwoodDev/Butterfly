@@ -122,6 +122,8 @@ DocumentEvent _$DocumentEventFromJson(Map<String, dynamic> json) {
       return AssetUpdated.fromJson(json);
     case 'elementsLayerConverted':
       return ElementsLayerConverted.fromJson(json);
+    case 'encryptionChanged':
+      return EncryptionChanged.fromJson(json);
 
     default:
       throw CheckedFromJsonException(json, 'type', 'DocumentEvent',
@@ -5907,4 +5909,105 @@ abstract class ElementsLayerConverted extends DocumentEvent {
   @JsonKey(includeFromJson: false, includeToJson: false)
   _$$ElementsLayerConvertedImplCopyWith<_$ElementsLayerConvertedImpl>
       get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$EncryptionChangedImplCopyWith<$Res> {
+  factory _$$EncryptionChangedImplCopyWith(_$EncryptionChangedImpl value,
+          $Res Function(_$EncryptionChangedImpl) then) =
+      __$$EncryptionChangedImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String? password});
+}
+
+/// @nodoc
+class __$$EncryptionChangedImplCopyWithImpl<$Res>
+    extends _$DocumentEventCopyWithImpl<$Res, _$EncryptionChangedImpl>
+    implements _$$EncryptionChangedImplCopyWith<$Res> {
+  __$$EncryptionChangedImplCopyWithImpl(_$EncryptionChangedImpl _value,
+      $Res Function(_$EncryptionChangedImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? password = freezed,
+  }) {
+    return _then(_$EncryptionChangedImpl(
+      freezed == password
+          ? _value.password
+          : password // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$EncryptionChangedImpl extends EncryptionChanged {
+  const _$EncryptionChangedImpl(this.password, {final String? $type})
+      : $type = $type ?? 'encryptionChanged',
+        super._();
+
+  factory _$EncryptionChangedImpl.fromJson(Map<String, dynamic> json) =>
+      _$$EncryptionChangedImplFromJson(json);
+
+  @override
+  final String? password;
+
+  @JsonKey(name: 'type')
+  final String $type;
+
+  @override
+  String toString() {
+    return 'DocumentEvent.encryptionChanged(password: $password)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$EncryptionChangedImpl &&
+            (identical(other.password, password) ||
+                other.password == password));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => Object.hash(runtimeType, password);
+
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$EncryptionChangedImplCopyWith<_$EncryptionChangedImpl> get copyWith =>
+      __$$EncryptionChangedImplCopyWithImpl<_$EncryptionChangedImpl>(
+          this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$EncryptionChangedImplToJson(
+      this,
+    );
+  }
+}
+
+abstract class EncryptionChanged extends DocumentEvent {
+  const factory EncryptionChanged(final String? password) =
+      _$EncryptionChangedImpl;
+  const EncryptionChanged._() : super._();
+
+  factory EncryptionChanged.fromJson(Map<String, dynamic> json) =
+      _$EncryptionChangedImpl.fromJson;
+
+  String? get password;
+
+  /// Create a copy of DocumentEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$EncryptionChangedImplCopyWith<_$EncryptionChangedImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }

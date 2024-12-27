@@ -350,12 +350,12 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
   }
 
   @override
-  int getColor() => data.property.color;
+  SRGBColor getColor() => data.property.color;
 
   @override
-  PenTool setColor(int color) => data.copyWith(
+  PenTool setColor(SRGBColor color) => data.copyWith(
       property: data.property
-          .copyWith(color: convertOldColor(color, data.property.color)));
+          .copyWith(color: color.withValues(a: data.property.color.a)));
 
   @override
   MouseCursor get cursor => (_hideCursorWhileDrawing && elements.isNotEmpty)

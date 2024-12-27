@@ -14,8 +14,8 @@ import '../../bloc/document_bloc.dart';
 enum ColorPickerToolbarAction { delete, pin, eyeDropper }
 
 class ColorToolbarView extends StatefulWidget implements PreferredSizeWidget {
-  final int color;
-  final ValueChanged<int> onChanged;
+  final SRGBColor color;
+  final ValueChanged<SRGBColor> onChanged;
   final void Function(BuildContext)? onEyeDropper;
 
   const ColorToolbarView({
@@ -69,8 +69,7 @@ class _ColorToolbarViewState extends State<ColorToolbarView> {
     final document = state.data;
     ColorPalette? palette;
     NoteData? pack;
-    // ignore: deprecated_member_use
-    int color = Color(widget.color).withAlpha(255).value;
+    SRGBColor color = widget.color.withValues(a: 255);
 
     void addColor() async {
       final settingsCubit = context.read<SettingsCubit>();
@@ -78,9 +77,8 @@ class _ColorToolbarViewState extends State<ColorToolbarView> {
           await showDialog<ColorPickerResponse<ColorPickerToolbarAction>>(
         context: context,
         builder: (context) => ColorPicker<ColorPickerToolbarAction>(
-          value: Color(widget.color),
-          suggested:
-              settingsCubit.state.recentColors.map((e) => Color(e)).toList(),
+          value: widget.color,
+          suggested: settingsCubit.state.recentColors,
           secondaryActions: widget.onEyeDropper == null
               ? null
               : (close) => [
@@ -101,18 +99,19 @@ class _ColorToolbarViewState extends State<ColorToolbarView> {
         ),
       );
       if (response == null) return;
-      widget.onChanged(response.color);
+      final srgb = response.toSRGB();
+      widget.onChanged(srgb);
       if (response.action == ColorPickerToolbarAction.eyeDropper) {
         widget.onEyeDropper?.call(context);
         return;
       }
       if (response.action != ColorPickerToolbarAction.pin) {
-        settingsCubit.addRecentColors(response.color);
+        settingsCubit.addRecentColors(srgb);
         return;
       }
       var currentPalette = pack?.getPalette(colorPalette!.name);
       currentPalette = currentPalette?.copyWith(
-        colors: [...currentPalette.colors, response.color],
+        colors: [...currentPalette.colors, srgb],
       );
       bloc.add(
           PackUpdated(colorPalette!.pack, pack!.setPalette(currentPalette!)));
@@ -131,8 +130,8 @@ class _ColorToolbarViewState extends State<ColorToolbarView> {
           controller: _scrollController,
           children: [
             if (!(palette?.colors.contains(color) ?? false)) ...[
-              ColorButton(
-                color: Color(widget.color),
+              ColorButton.srgb(
+                color: widget.color,
                 selected: true,
                 onTap: addColor,
               ),
@@ -148,10 +147,8 @@ class _ColorToolbarViewState extends State<ColorToolbarView> {
                       ColorPickerResponse<ColorPickerToolbarAction>>(
                     context: context,
                     builder: (context) => ColorPicker<ColorPickerToolbarAction>(
-                      value: Color(value),
-                      suggested: settingsCubit.state.recentColors
-                          .map((e) => Color(e))
-                          .toList(),
+                      value: value,
+                      suggested: settingsCubit.state.recentColors,
                       secondaryActions: (close) => [
                         OutlinedButton(
                           onPressed: () =>
@@ -164,22 +161,23 @@ class _ColorToolbarViewState extends State<ColorToolbarView> {
                   if (response == null) return;
                   if (response.action == ColorPickerToolbarAction.delete) {
                     palette = palette?.copyWith(
-                      colors: List<int>.from(palette.colors)..removeAt(index),
+                      colors: List<SRGBColor>.from(palette.colors)
+                        ..removeAt(index),
                     );
                   } else {
                     palette = palette?.copyWith(
-                      colors: List<int>.from(palette.colors)
-                        ..[index] = response.color,
+                      colors: List<SRGBColor>.from(palette.colors)
+                        ..[index] = response.toSRGB(),
                     );
                   }
                   bloc.add(PackUpdated(
                       colorPalette!.pack, pack!.setPalette(palette!)));
-                  widget.onChanged(response.color);
+                  widget.onChanged(response.toSRGB());
                   setState(() {});
                 }
 
-                return ColorButton(
-                  color: Color(value),
+                return ColorButton.srgb(
+                  color: value,
                   selected: value == color,
                   onTap: () => widget.onChanged(value),
                   onSecondaryTap: changeColor,

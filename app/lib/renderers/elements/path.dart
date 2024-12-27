@@ -1,6 +1,6 @@
 part of '../renderer.dart';
 
-typedef PathVisual = ({int color, bool fill});
+typedef PathVisual = ({SRGBColor color, bool fill});
 
 abstract class PathRenderer<T extends PadElement> extends Renderer<T> {
   @override
@@ -24,7 +24,7 @@ abstract class PathRenderer<T extends PadElement> extends Renderer<T> {
   Paint buildPaint([DocumentPage? page, bool foreground = false]) {
     final visual = buildPathVisual(page, foreground);
     return Paint()
-      ..color = Color(visual.color)
+      ..color = visual.color.toColor()
       ..style = visual.fill ? PaintingStyle.fill : PaintingStyle.stroke
       ..strokeCap = StrokeCap.round;
   }
@@ -168,7 +168,7 @@ abstract class PathRenderer<T extends PadElement> extends Renderer<T> {
 
     xml.getElement('svg')?.createElement('path')
       ?..setAttribute('d', path)
-      ..setAttribute('fill', visual.color.toHexColor())
+      ..setAttribute('fill', visual.color.toHexString())
       ..setAttribute('stroke', 'none')
       ..setAttribute('stroke-linecap', 'round')
       ..setAttribute('stroke-linejoin', 'round');

@@ -7,19 +7,19 @@ import '../../butterfly_api.dart';
 
 const kArchiveSignature = 0x50;
 
-NoteData noteDataMigrator(Uint8List data) {
+NoteData noteDataMigrator(Uint8List data, {String? password}) {
   Archive archive;
   if (data.isNotEmpty && data[0] != kArchiveSignature) {
     final map = json.decode(utf8.decode(data)) as Map<String, dynamic>;
     archive = convertLegacyDataToArchive(map);
   } else {
-    archive = ZipDecoder().decodeBytes(data);
+    archive = ZipDecoder().decodeBytes(data, password: password);
   }
-  return archiveNoteDataMigrator(archive);
+  return archiveNoteDataMigrator(archive, password: password);
 }
 
-NoteData archiveNoteDataMigrator(Archive archive) {
-  var noteData = NoteData(archive);
+NoteData archiveNoteDataMigrator(Archive archive, {String? password}) {
+  var noteData = NoteData.build(archive, password: password);
   var metadata = noteData.getMetadata();
   if (metadata != null &&
       (metadata.fileVersion ?? kFileVersion) < kFileVersion) {
@@ -52,7 +52,7 @@ NoteData _migrate(NoteData noteData, FileMetadata metadata) {
     }
   }
   if (version < 10) {
-    for (final page in noteData.getAssets(kPagesArchiveDirectory)) {
+    for (final page in noteData.getAssets('$kPagesArchiveDirectory/')) {
       final data = noteData.getAsset('$kPagesArchiveDirectory/$page');
       if (data == null) continue;
       final pageData = json.decode(utf8.decode(data)) as Map<String, dynamic>;
@@ -89,7 +89,7 @@ NoteData _migrate(NoteData noteData, FileMetadata metadata) {
     }
   }
   if (version < 11) {
-    for (final page in noteData.getAssets(kPagesArchiveDirectory)) {
+    for (final page in noteData.getAssets('$kPagesArchiveDirectory/')) {
       final data = noteData.getAsset('$kPagesArchiveDirectory/$page');
       if (data == null) continue;
       final pageData = json.decode(utf8.decode(data)) as Map<String, dynamic>;

@@ -14,22 +14,20 @@ class PenPropertySelection extends PropertySelection<PenProperty>
         ...super.build(context, property, onChanged),
         const SizedBox(height: 4),
         ColorField(
-          value: Color(property.color).withAlpha(255),
-          onChanged: (value) => onChanged(property.copyWith(
-              // ignore: deprecated_member_use
-              color: convertOldColor(value.value, property.color))),
-          title: Text(AppLocalizations.of(context).color),
+          value: property.color.withValues(a: 255),
+          onChanged: (value) => onChanged(
+              property.copyWith(color: value.withValues(a: property.color.a))),
+          title: Text(LeapLocalizations.of(context).color),
         ),
         ExactSlider(
-          // ignore: deprecated_member_use
-          value: Color(property.color).alpha.toDouble(),
+          value: property.color.a.toDouble(),
           header: Text(AppLocalizations.of(context).alpha),
           fractionDigits: 0,
           max: 255,
           min: 0,
           defaultValue: 255,
           onChangeEnd: (value) => onChanged(property.copyWith(
-              color: convertColor(property.color, value.toInt()))),
+              color: property.color.withValues(a: value.toInt()))),
         ),
         const SizedBox(height: 4),
         CheckboxListTile(

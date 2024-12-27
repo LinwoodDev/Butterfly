@@ -539,7 +539,7 @@ class _QuickstartHomeViewState extends State<_QuickstartHomeView> {
                           widget.onReload();
                         },
                         child: Text(
-                          AppLocalizations.of(context).reset,
+                          LeapLocalizations.of(context).reset,
                           style: Theme.of(context).textTheme.bodyLarge,
                         ),
                       ),

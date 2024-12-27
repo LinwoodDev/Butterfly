@@ -368,8 +368,9 @@ class _PacksDialogState extends State<PacksDialog>
                                             onPressed: () =>
                                                 Navigator.of(context).pop(),
                                             child: Text(
-                                                AppLocalizations.of(context)
-                                                    .cancel),
+                                                MaterialLocalizations.of(
+                                                        context)
+                                                    .cancelButtonLabel),
                                           ),
                                           ElevatedButton(
                                             onPressed: () =>
@@ -391,7 +392,7 @@ class _PacksDialogState extends State<PacksDialog>
                             },
                           ),
                           ListTile(
-                            title: Text(AppLocalizations.of(ctx).create),
+                            title: Text(LeapLocalizations.of(ctx).create),
                             leading: const PhosphorIcon(
                                 PhosphorIconsLight.plusCircle),
                             onTap: () async {

@@ -7,18 +7,19 @@ import 'package:flutter/material.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:material_leap/material_leap.dart';
 
 class DocumentDefaults {
   static NoteData? _corePack;
 
   DocumentDefaults._();
 
-  static Future<Uint8List> _createPlainThumnail(Color color) async {
+  static Future<Uint8List> _createPlainThumnail(SRGBColor color) async {
     final size = Size(kThumbnailWidth.toDouble(), kThumbnailHeight.toDouble());
     final recorder = ui.PictureRecorder();
     final canvas = Canvas(recorder);
-    canvas.drawRect(
-        Rect.fromLTWH(0, 0, size.width, size.height), Paint()..color = color);
+    canvas.drawRect(Rect.fromLTWH(0, 0, size.width, size.height),
+        Paint()..color = color.toColor());
     final picture = recorder.endRecording();
     final image =
         await picture.toImage(size.width.toInt(), size.height.toInt());
@@ -26,7 +27,7 @@ class DocumentDefaults {
     return bytes!.buffer.asUint8List();
   }
 
-  static List<Tool> createTools([int? background]) => [
+  static List<Tool> createTools([SRGBColor? background]) => [
         SelectTool(mode: SelectMode.lasso),
         PenTool(),
         PathEraserTool(),
@@ -53,7 +54,7 @@ class DocumentDefaults {
       final color = bg.defaultColor;
       return createTemplate(
         name: e.$1,
-        thumbnail: await _createPlainThumnail(Color(color)),
+        thumbnail: await _createPlainThumnail(color),
         backgrounds: [bg],
       );
     }).toList());
@@ -119,7 +120,7 @@ class DocumentDefaults {
     ]);
   }
 
-  static DocumentInfo createInfo([int? background]) {
+  static DocumentInfo createInfo([SRGBColor? background]) {
     return DocumentInfo(tools: createTools(background));
   }
 
