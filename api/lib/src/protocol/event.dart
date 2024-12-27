@@ -234,6 +234,9 @@ class DocumentEvent extends ReplayEvent with _$DocumentEvent {
   const factory DocumentEvent.elementsLayerConverted(List<String> elements,
       [@Default('') String name]) = ElementsLayerConverted;
 
+  const factory DocumentEvent.encryptionChanged(String? password) =
+      EncryptionChanged;
+
   factory DocumentEvent.fromJson(Map<String, dynamic> json) =>
       _$DocumentEventFromJson(json);
 

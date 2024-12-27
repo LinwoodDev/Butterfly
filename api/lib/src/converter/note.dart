@@ -19,7 +19,7 @@ NoteData noteDataMigrator(Uint8List data, {String? password}) {
 }
 
 NoteData archiveNoteDataMigrator(Archive archive, {String? password}) {
-  var noteData = NoteData(archive, password: password);
+  var noteData = NoteData.build(archive, password: password);
   var metadata = noteData.getMetadata();
   if (metadata != null &&
       (metadata.fileVersion ?? kFileVersion) < kFileVersion) {

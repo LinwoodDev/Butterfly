@@ -1008,6 +1008,14 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
         reset: true,
       );
     });
+    on<EncryptionChanged>((event, emit) {
+      final current = state;
+      if (current is! DocumentLoadSuccess) return;
+      var data = current.data;
+      final password = event.password;
+      data = data.changePassword(password);
+      _saveState(emit, state: current.copyWith(data: data));
+    });
   }
 
   void _saveState(

@@ -645,5 +645,15 @@
   "high": "High",
   "highDescription": "Description: Maximizes quality at the cost of performance. Bakes an image covering 2 times the visible area, ensuring seamless rendering even during rapid scrolling or zooming.",
   "renderResolution": "Render resolution",
-  "translate": "Translate"
+  "translate": "Translate",
+  "unencrypted": "Unencrypted",
+  "encrypted": "Decrypted",
+  "encryptDocumentMessage": "Click to encrypt the document",
+  "unencryptDocumentMessage": "Click to unencrypt the document",
+  "unencrypt": "Unencrypt",
+  "encrypt": "Encrypt",
+  "encryptWarning": "This will encrypt the document. You will need to remember the password to decrypt it.",
+  "unencryptWarning": "This will unencrypt the document. The password will be removed and everyone with access will be able to open it.",
+  "confirmPassword": "Confirm password",
+  "passwordMismatch": "The passwords do not match"
 }

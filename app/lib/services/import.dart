@@ -231,12 +231,19 @@ class ImportService {
           context: context,
           builder: (context) => NameDialog(
             title: AppLocalizations.of(context).password,
+            button: AppLocalizations.of(context).open,
           ),
         );
         if (password == null) return null;
       }
       final data = file.load(password: password);
-      if (data == null) return null;
+      if (data == null) {
+        return showDialog(
+          context: context,
+          builder: (context) => UnknownImportConfirmationDialog(
+              message: AppLocalizations.of(context).unknownImportType),
+        ).then((value) => null);
+      }
       if (!data.isValid) {
         await importArchive(bytes);
         return null;

@@ -42,13 +42,14 @@ final class NoteFile {
 }
 
 final class NoteData extends ArchiveData<NoteData> {
-  NoteData(super.archive, {super.state, super.password});
+  NoteData(super.archive, {super.state});
+  NoteData.build(super.archive, {super.password}) : super.build();
 
   factory NoteData.fromData(Uint8List data,
       {bool disableMigrations = false, String? password}) {
     if (disableMigrations) {
       final archive = ZipDecoder().decodeBytes(data, password: password);
-      return NoteData(archive, password: password);
+      return NoteData.build(archive, password: password);
     }
     return noteDataMigrator(data, password: password);
   }
@@ -56,7 +57,7 @@ final class NoteData extends ArchiveData<NoteData> {
   factory NoteData.fromArchive(Archive archive,
       {bool disableMigrations = false, String? password}) {
     if (disableMigrations) {
-      return NoteData(archive, password: password);
+      return NoteData.build(archive, password: password);
     }
     return archiveNoteDataMigrator(archive);
   }
@@ -83,8 +84,7 @@ final class NoteData extends ArchiveData<NoteData> {
 
   @override
   @useResult
-  NoteData updateState(ArchiveState state) =>
-      NoteData(archive, state: state, password: password);
+  NoteData updateState(ArchiveState state) => NoteData(archive, state: state);
 
   @useResult
   (NoteData, String) importAsset(
