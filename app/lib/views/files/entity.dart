@@ -128,6 +128,9 @@ class _FileEntityItemState extends State<FileEntityItem> {
       if (entity is FileSystemFile<NoteFile>) {
         final data = entity.data?.load();
         icon = entity.location.fileType.icon(PhosphorIconsStyle.light);
+        if (entity.data?.isEncrypted() ?? false) {
+          icon = PhosphorIconsLight.lock;
+        }
         thumbnail = data?.getThumbnail();
         if (thumbnail?.isEmpty ?? false) thumbnail = null;
         metadata = data?.getMetadata();

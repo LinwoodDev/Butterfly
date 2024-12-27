@@ -697,8 +697,8 @@ class FilesViewState extends State<FilesView> {
     );
   }
 
-  Future<void> _onFileTap(FileSystemEntity entity) async {
-    if (entity is! FileSystemFile) {
+  Future<void> _onFileTap(FileSystemEntity<NoteFile> entity) async {
+    if (entity is! FileSystemFile<NoteFile>) {
       setState(() {
         _locationController.text = entity.pathWithoutLeadingSlash;
         _setFilesStream();
@@ -706,7 +706,7 @@ class FilesViewState extends State<FilesView> {
       return;
     }
     final location = entity.location;
-    final data = entity.data;
+    final data = entity.data?.data;
     await openFile(context, widget.collapsed, location, data);
     if (!widget.collapsed) {
       reloadFileSystem();
@@ -725,10 +725,10 @@ class FilesViewState extends State<FilesView> {
       if (bStarred && !aStarred) {
         return 1;
       }
-      if (a is FileSystemDirectory<NoteData>) {
+      if (a is FileSystemDirectory<NoteFile>) {
         return -1;
       }
-      if (b is FileSystemDirectory<NoteData>) {
+      if (b is FileSystemDirectory<NoteFile>) {
         return 1;
       }
       final aFile = a as FileSystemFile<NoteFile>;
