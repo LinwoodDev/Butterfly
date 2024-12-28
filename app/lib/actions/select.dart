@@ -25,7 +25,7 @@ class SelectAllAction extends Action<SelectAllIntent> {
       intent.context,
       SelectTool(),
       bloc: bloc,
-      temporaryClicked: true,
+      temporaryState: TemporaryState.removeAfterClick,
     );
     if (handler is! SelectHandler) return;
     handler.selectAll(bloc);

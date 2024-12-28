@@ -3,7 +3,7 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 class OptionButton extends StatefulWidget {
   final Widget icon;
-  final Widget? selectedIcon, bottomIcon;
+  final Widget? selectedIcon, bottomIcon, leadingIcon;
   final VoidCallback? onPressed, onSecondaryPressed, onLongPressed;
   final bool selected, highlighted, focussed, alwaysShowBottom;
   final String tooltip;
@@ -14,6 +14,7 @@ class OptionButton extends StatefulWidget {
     required this.icon,
     this.selectedIcon,
     this.bottomIcon,
+    this.leadingIcon,
     this.onPressed,
     this.onSecondaryPressed,
     this.onLongPressed,
@@ -139,9 +140,18 @@ class _OptionButtonState extends State<OptionButton>
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      widget.selected
-                          ? (widget.selectedIcon ?? widget.icon)
-                          : widget.icon,
+                      Stack(
+                        children: [
+                          if (widget.leadingIcon != null)
+                            Align(
+                              alignment: Alignment.topLeft,
+                              child: widget.leadingIcon!,
+                            ),
+                          widget.selected
+                              ? (widget.selectedIcon ?? widget.icon)
+                              : widget.icon
+                        ],
+                      ),
                       SizeTransition(
                         axisAlignment: -1,
                         axis: Axis.vertical,

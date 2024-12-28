@@ -4,7 +4,7 @@ class CollectionHandler extends Handler<CollectionTool> {
   CollectionHandler(super.data);
 
   @override
-  bool onSelected(BuildContext context) {
+  bool onSelected(BuildContext context, [bool wasAdded = true]) {
     final bloc = context.read<DocumentBloc>();
     showDialog(
       context: context,

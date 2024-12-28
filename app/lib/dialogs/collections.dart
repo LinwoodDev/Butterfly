@@ -1,4 +1,5 @@
 import 'package:butterfly/bloc/document_bloc.dart';
+import 'package:butterfly/cubits/current_index.dart';
 import 'package:butterfly/dialogs/delete.dart';
 import 'package:butterfly/handlers/handler.dart';
 import 'package:butterfly_api/butterfly_api.dart';
@@ -97,7 +98,7 @@ class _CollectionsDialogState extends State<CollectionsDialog> {
                             context,
                             SelectTool(),
                             bloc: bloc,
-                            temporaryClicked: true,
+                            temporaryState: TemporaryState.removeAfterClick,
                           );
                       if (handler is! SelectHandler) return;
                       handler.selectAll(

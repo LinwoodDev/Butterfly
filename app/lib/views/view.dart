@@ -119,12 +119,13 @@ class _MainViewViewportState extends State<MainViewViewport>
           });
         }
 
+        final bloc = context.read<DocumentBloc>();
+
         Future<void> changeTemporaryTool(
             PointerDeviceKind kind, int buttons) async {
           int? nextPointerIndex;
           final config = context.read<SettingsCubit>().state.inputConfiguration;
           final cubit = context.read<CurrentIndexCubit>();
-          final bloc = context.read<DocumentBloc>();
           // Mapped to the priority of the buttons
           switch (kind) {
             case PointerDeviceKind.touch:
@@ -157,7 +158,6 @@ class _MainViewViewportState extends State<MainViewViewport>
             await cubit.changeTemporaryHandlerIndex(
               context,
               nextPointerIndex,
-              temporaryClicked: false,
             );
           }
         }
@@ -341,11 +341,12 @@ class _MainViewViewportState extends State<MainViewViewport>
                           onPointerUp: (PointerUpEvent event) async {
                             cubit.updateLastPosition(event.localPosition);
                             if (_isScalingDisabled ?? true) {
-                              getHandler()
+                              await getHandler()
                                   .onPointerUp(event, getEventContext());
                             }
                             cubit.removePointer(event.pointer);
                             cubit.removeButtons();
+                            cubit.resetReleaseHandler(bloc);
                           },
                           behavior: HitTestBehavior.translucent,
                           onPointerHover: (event) {

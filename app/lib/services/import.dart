@@ -743,7 +743,7 @@ class ImportService {
         context,
         ImportTool(elements: elements, areas: areas),
         bloc: bloc!,
-        temporaryClicked: true,
+        temporaryState: TemporaryState.removeAfterRelease,
       );
     } else {
       bloc

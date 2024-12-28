@@ -4,7 +4,6 @@ import 'package:butterfly/helpers/color.dart';
 import 'package:butterfly/services/import.dart';
 import 'package:butterfly/visualizer/element.dart';
 import 'package:butterfly/visualizer/tool.dart';
-import 'package:butterfly/visualizer/property.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -75,7 +74,10 @@ class _AddDialogState extends State<AddDialog> {
         ),
         trailing: tool.isAction()
             ? IconButton(
-                onPressed: () => handler.onSelected(context),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                  handler.onSelected(context, false);
+                },
                 icon: const PhosphorIcon(PhosphorIconsLight.playCircle),
                 tooltip: AppLocalizations.of(context).play,
               )
@@ -157,7 +159,6 @@ class _AddDialogState extends State<AddDialog> {
                           () => Tool.select(mode: SelectMode.lasso),
                           () => Tool.select(mode: SelectMode.rectangle),
                           Tool.pen,
-                          Tool.stamp,
                           Tool.laser,
                           Tool.pathEraser,
                           Tool.label,
@@ -166,7 +167,6 @@ class _AddDialogState extends State<AddDialog> {
                           Tool.presentation,
                           () => Tool.spacer(axis: Axis2D.vertical),
                           () => Tool.spacer(axis: Axis2D.horizontal),
-                          Tool.eyeDropper,
                         ]
                             .map((e) => e())
                             .where((e) => e
@@ -174,13 +174,16 @@ class _AddDialogState extends State<AddDialog> {
                                 .toLowerCase()
                                 .contains(search.toLowerCase()))
                             .toList();
-                        final shapes = [
-                          PathShape.circle,
-                          PathShape.rectangle,
-                          PathShape.line,
-                          PathShape.triangle,
+                        final shapes = <Tool>[
+                          Tool.stamp(),
+                          ...[
+                            PathShape.circle,
+                            PathShape.rectangle,
+                            PathShape.line,
+                            PathShape.triangle
+                          ].map((e) =>
+                              Tool.shape(property: ShapeProperty(shape: e()))),
                         ]
-                            .map((e) => e())
                             .where((e) => e
                                 .getLocalizedName(context)
                                 .toLowerCase()
@@ -198,6 +201,7 @@ class _AddDialogState extends State<AddDialog> {
                           Tool.redo,
                           Tool.fullScreen,
                           Tool.collection,
+                          Tool.eyeDropper,
                         ]
                             .map((e) => e())
                             .where((e) => e
@@ -278,8 +282,7 @@ class _AddDialogState extends State<AddDialog> {
                                         ),
                                         icon: Icon(
                                             e.icon(PhosphorIconsStyle.light)),
-                                        onTap: () => addTool(ShapeTool(
-                                            property: ShapeProperty(shape: e))),
+                                        onTap: () => addTool(e),
                                       )),
                                   ...textures.map((e) => BoxTile(
                                         title: Text(

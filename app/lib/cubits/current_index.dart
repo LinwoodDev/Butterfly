@@ -37,6 +37,8 @@ enum HideState { visible, keyboard, touch }
 
 enum RendererState { visible, temporary, hidden }
 
+enum TemporaryState { allowClick, removeAfterClick, removeAfterRelease }
+
 @Freezed(equal: false)
 class CurrentIndex with _$CurrentIndex {
   const CurrentIndex._();
@@ -57,7 +59,7 @@ class CurrentIndex with _$CurrentIndex {
     @Default({}) Map<int, List<Renderer>> toggleableForegrounds,
     @Default(MouseCursor.defer) MouseCursor cursor,
     MouseCursor? temporaryCursor,
-    @Default(false) bool temporaryClicked,
+    @Default(TemporaryState.allowClick) TemporaryState temporaryState,
     Offset? lastPosition,
     @Default([]) List<int> pointers,
     int? buttons,
@@ -501,7 +503,8 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
   }
 
   Future<Handler?> changeTemporaryHandlerIndex(BuildContext context, int index,
-      {DocumentBloc? bloc, bool temporaryClicked = true}) async {
+      {DocumentBloc? bloc,
+      TemporaryState temporaryState = TemporaryState.allowClick}) async {
     bloc ??= context.read<DocumentBloc>();
     final blocState = bloc.state;
     if (blocState is! DocumentLoadSuccess) return null;
@@ -513,12 +516,14 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
       context,
       tool,
       bloc: bloc,
-      temporaryClicked: temporaryClicked,
+      temporaryState: temporaryState,
     );
   }
 
-  Future<Handler?> changeTemporaryHandler(BuildContext context, Tool tool,
-      {DocumentBloc? bloc, bool temporaryClicked = true}) async {
+  Future<Handler<T>?> changeTemporaryHandler<T extends Tool>(
+      BuildContext context, T tool,
+      {DocumentBloc? bloc,
+      TemporaryState temporaryState = TemporaryState.allowClick}) async {
     bloc ??= context.read<DocumentBloc>();
     final handler = Handler.fromTool(tool);
     final blocState = bloc.state;
@@ -541,7 +546,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
         temporaryToolbar: handler.getToolbar(bloc),
         temporaryCursor: handler.cursor,
         temporaryRendererStates: handler.rendererStates,
-        temporaryClicked: temporaryClicked,
+        temporaryState: temporaryState,
       ));
     }
     return handler;
@@ -552,14 +557,22 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
         if (networking) ...state.networkingForegrounds,
       ];
 
+  void resetReleaseHandler(DocumentBloc bloc) {
+    if (state.temporaryState == TemporaryState.removeAfterRelease) {
+      resetTemporaryHandler(bloc, true);
+    }
+  }
+
   void resetTemporaryHandler(DocumentBloc bloc, [bool force = false]) {
     if (state.temporaryHandler == null) {
       return;
     }
-    if (!force && state.temporaryClicked) {
-      emit(state.copyWith(
-        temporaryClicked: false,
-      ));
+    if (!force && state.temporaryState != TemporaryState.removeAfterClick) {
+      if (state.temporaryState == TemporaryState.allowClick) {
+        emit(state.copyWith(
+          temporaryState: TemporaryState.removeAfterClick,
+        ));
+      }
       return;
     }
     state.temporaryHandler?.dispose(bloc);
@@ -570,7 +583,6 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
       temporaryToolbar: null,
       temporaryCursor: null,
       temporaryRendererStates: null,
-      temporaryClicked: false,
     ));
   }
 
@@ -985,7 +997,6 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     emit(state.copyWith(
       temporaryHandler: HandHandler(),
       temporaryCursor: null,
-      temporaryClicked: false,
     ));
   }
 

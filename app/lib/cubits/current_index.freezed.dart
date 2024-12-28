@@ -36,7 +36,7 @@ mixin _$CurrentIndex {
       throw _privateConstructorUsedError;
   MouseCursor get cursor => throw _privateConstructorUsedError;
   MouseCursor? get temporaryCursor => throw _privateConstructorUsedError;
-  bool get temporaryClicked => throw _privateConstructorUsedError;
+  TemporaryState get temporaryState => throw _privateConstructorUsedError;
   ui.Offset? get lastPosition => throw _privateConstructorUsedError;
   List<int> get pointers => throw _privateConstructorUsedError;
   int? get buttons => throw _privateConstructorUsedError;
@@ -86,7 +86,7 @@ abstract class $CurrentIndexCopyWith<$Res> {
       Map<int, List<Renderer>> toggleableForegrounds,
       MouseCursor cursor,
       MouseCursor? temporaryCursor,
-      bool temporaryClicked,
+      TemporaryState temporaryState,
       ui.Offset? lastPosition,
       List<int> pointers,
       int? buttons,
@@ -137,7 +137,7 @@ class _$CurrentIndexCopyWithImpl<$Res, $Val extends CurrentIndex>
     Object? toggleableForegrounds = null,
     Object? cursor = null,
     Object? temporaryCursor = freezed,
-    Object? temporaryClicked = null,
+    Object? temporaryState = null,
     Object? lastPosition = freezed,
     Object? pointers = null,
     Object? buttons = freezed,
@@ -219,10 +219,10 @@ class _$CurrentIndexCopyWithImpl<$Res, $Val extends CurrentIndex>
           ? _value.temporaryCursor
           : temporaryCursor // ignore: cast_nullable_to_non_nullable
               as MouseCursor?,
-      temporaryClicked: null == temporaryClicked
-          ? _value.temporaryClicked
-          : temporaryClicked // ignore: cast_nullable_to_non_nullable
-              as bool,
+      temporaryState: null == temporaryState
+          ? _value.temporaryState
+          : temporaryState // ignore: cast_nullable_to_non_nullable
+              as TemporaryState,
       lastPosition: freezed == lastPosition
           ? _value.lastPosition
           : lastPosition // ignore: cast_nullable_to_non_nullable
@@ -322,7 +322,7 @@ abstract class _$$CurrentIndexImplCopyWith<$Res>
       Map<int, List<Renderer>> toggleableForegrounds,
       MouseCursor cursor,
       MouseCursor? temporaryCursor,
-      bool temporaryClicked,
+      TemporaryState temporaryState,
       ui.Offset? lastPosition,
       List<int> pointers,
       int? buttons,
@@ -372,7 +372,7 @@ class __$$CurrentIndexImplCopyWithImpl<$Res>
     Object? toggleableForegrounds = null,
     Object? cursor = null,
     Object? temporaryCursor = freezed,
-    Object? temporaryClicked = null,
+    Object? temporaryState = null,
     Object? lastPosition = freezed,
     Object? pointers = null,
     Object? buttons = freezed,
@@ -454,10 +454,10 @@ class __$$CurrentIndexImplCopyWithImpl<$Res>
           ? _value.temporaryCursor
           : temporaryCursor // ignore: cast_nullable_to_non_nullable
               as MouseCursor?,
-      temporaryClicked: null == temporaryClicked
-          ? _value.temporaryClicked
-          : temporaryClicked // ignore: cast_nullable_to_non_nullable
-              as bool,
+      temporaryState: null == temporaryState
+          ? _value.temporaryState
+          : temporaryState // ignore: cast_nullable_to_non_nullable
+              as TemporaryState,
       lastPosition: freezed == lastPosition
           ? _value.lastPosition
           : lastPosition // ignore: cast_nullable_to_non_nullable
@@ -537,7 +537,7 @@ class _$CurrentIndexImpl extends _CurrentIndex {
       final Map<int, List<Renderer>> toggleableForegrounds = const {},
       this.cursor = MouseCursor.defer,
       this.temporaryCursor,
-      this.temporaryClicked = false,
+      this.temporaryState = TemporaryState.allowClick,
       this.lastPosition,
       final List<int> pointers = const [],
       this.buttons,
@@ -639,7 +639,7 @@ class _$CurrentIndexImpl extends _CurrentIndex {
   final MouseCursor? temporaryCursor;
   @override
   @JsonKey()
-  final bool temporaryClicked;
+  final TemporaryState temporaryState;
   @override
   final ui.Offset? lastPosition;
   final List<int> _pointers;
@@ -704,7 +704,7 @@ class _$CurrentIndexImpl extends _CurrentIndex {
 
   @override
   String toString() {
-    return 'CurrentIndex(index: $index, handler: $handler, cameraViewport: $cameraViewport, settingsCubit: $settingsCubit, transformCubit: $transformCubit, networkingService: $networkingService, temporaryHandler: $temporaryHandler, foregrounds: $foregrounds, selection: $selection, pinned: $pinned, temporaryForegrounds: $temporaryForegrounds, toggleableHandlers: $toggleableHandlers, networkingForegrounds: $networkingForegrounds, toggleableForegrounds: $toggleableForegrounds, cursor: $cursor, temporaryCursor: $temporaryCursor, temporaryClicked: $temporaryClicked, lastPosition: $lastPosition, pointers: $pointers, buttons: $buttons, location: $location, embedding: $embedding, saved: $saved, toolbar: $toolbar, temporaryToolbar: $temporaryToolbar, rendererStates: $rendererStates, temporaryRendererStates: $temporaryRendererStates, viewOption: $viewOption, hideUi: $hideUi, areaNavigatorCreate: $areaNavigatorCreate, areaNavigatorExact: $areaNavigatorExact, areaNavigatorAsk: $areaNavigatorAsk)';
+    return 'CurrentIndex(index: $index, handler: $handler, cameraViewport: $cameraViewport, settingsCubit: $settingsCubit, transformCubit: $transformCubit, networkingService: $networkingService, temporaryHandler: $temporaryHandler, foregrounds: $foregrounds, selection: $selection, pinned: $pinned, temporaryForegrounds: $temporaryForegrounds, toggleableHandlers: $toggleableHandlers, networkingForegrounds: $networkingForegrounds, toggleableForegrounds: $toggleableForegrounds, cursor: $cursor, temporaryCursor: $temporaryCursor, temporaryState: $temporaryState, lastPosition: $lastPosition, pointers: $pointers, buttons: $buttons, location: $location, embedding: $embedding, saved: $saved, toolbar: $toolbar, temporaryToolbar: $temporaryToolbar, rendererStates: $rendererStates, temporaryRendererStates: $temporaryRendererStates, viewOption: $viewOption, hideUi: $hideUi, areaNavigatorCreate: $areaNavigatorCreate, areaNavigatorExact: $areaNavigatorExact, areaNavigatorAsk: $areaNavigatorAsk)';
   }
 
   /// Create a copy of CurrentIndex
@@ -734,7 +734,7 @@ abstract class _CurrentIndex extends CurrentIndex {
       final Map<int, List<Renderer>> toggleableForegrounds,
       final MouseCursor cursor,
       final MouseCursor? temporaryCursor,
-      final bool temporaryClicked,
+      final TemporaryState temporaryState,
       final ui.Offset? lastPosition,
       final List<int> pointers,
       final int? buttons,
@@ -785,7 +785,7 @@ abstract class _CurrentIndex extends CurrentIndex {
   @override
   MouseCursor? get temporaryCursor;
   @override
-  bool get temporaryClicked;
+  TemporaryState get temporaryState;
   @override
   ui.Offset? get lastPosition;
   @override

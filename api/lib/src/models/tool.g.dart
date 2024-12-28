@@ -424,6 +424,45 @@ Map<String, dynamic> _$$TextureToolImplToJson(_$TextureToolImpl instance) =>
       'type': instance.$type,
     };
 
+_$RulerToolImpl _$$RulerToolImplFromJson(Map json) => _$RulerToolImpl(
+      name: json['name'] as String? ?? '',
+      displayIcon: json['displayIcon'] as String? ?? '',
+      gridColor: json['gridColor'] == null
+          ? SRGBColor.black
+          : const ColorJsonConverter()
+              .fromJson((json['gridColor'] as num).toInt()),
+      $type: json['type'] as String?,
+    );
+
+Map<String, dynamic> _$$RulerToolImplToJson(_$RulerToolImpl instance) =>
+    <String, dynamic>{
+      'name': instance.name,
+      'displayIcon': instance.displayIcon,
+      'gridColor': const ColorJsonConverter().toJson(instance.gridColor),
+      'type': instance.$type,
+    };
+
+_$GridToolImpl _$$GridToolImplFromJson(Map json) => _$GridToolImpl(
+      name: json['name'] as String? ?? '',
+      displayIcon: json['displayIcon'] as String? ?? '',
+      color: json['color'] == null
+          ? SRGBColor.black
+          : const ColorJsonConverter().fromJson((json['color'] as num).toInt()),
+      xSize: (json['xSize'] as num?)?.toDouble() ?? 20,
+      ySize: (json['ySize'] as num?)?.toDouble() ?? 20,
+      $type: json['type'] as String?,
+    );
+
+Map<String, dynamic> _$$GridToolImplToJson(_$GridToolImpl instance) =>
+    <String, dynamic>{
+      'name': instance.name,
+      'displayIcon': instance.displayIcon,
+      'color': const ColorJsonConverter().toJson(instance.color),
+      'xSize': instance.xSize,
+      'ySize': instance.ySize,
+      'type': instance.$type,
+    };
+
 _$EyeDropperToolImpl _$$EyeDropperToolImplFromJson(Map json) =>
     _$EyeDropperToolImpl(
       name: json['name'] as String? ?? '',

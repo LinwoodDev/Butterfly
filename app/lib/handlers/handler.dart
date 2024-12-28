@@ -158,7 +158,7 @@ abstract class Handler<T> {
 
   const Handler(this.data);
 
-  bool onSelected(BuildContext context) => true;
+  bool onSelected(BuildContext context, [bool wasAdded = true]) => true;
 
   List<Renderer> createForegrounds(CurrentIndexCubit currentIndexCubit,
           NoteData document, DocumentPage page, DocumentInfo info,
@@ -177,7 +177,7 @@ abstract class Handler<T> {
 
   void onPointerMove(PointerMoveEvent event, EventContext context) {}
 
-  void onPointerUp(PointerUpEvent event, EventContext context) {}
+  FutureOr<void> onPointerUp(PointerUpEvent event, EventContext context) {}
 
   void onPointerHover(PointerHoverEvent event, EventContext context) {}
 
@@ -292,7 +292,7 @@ mixin ColoredHandler<T extends Tool> on Handler<T> {
                   context,
                   EyeDropperTool(),
                   bloc: bloc,
-                  temporaryClicked: true,
+                  temporaryState: TemporaryState.removeAfterRelease,
                 );
               },
             )

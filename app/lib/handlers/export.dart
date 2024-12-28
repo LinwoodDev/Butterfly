@@ -4,7 +4,7 @@ class ExportHandler extends Handler<ExportTool> {
   ExportHandler(super.data);
 
   @override
-  bool onSelected(BuildContext context) {
+  bool onSelected(BuildContext context, [bool wasAdded = true]) {
     final bloc = context.read<DocumentBloc>();
     showDialog(
         context: context,

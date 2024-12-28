@@ -266,8 +266,7 @@ class _EditToolbarState extends State<EditToolbar> {
                     final selected = i == currentIndex.index;
                     final tool = handler.data;
                     final highlighted = currentIndex.selection?.selected.any(
-                            (element) =>
-                                element.hashCode == handler.hashCode) ??
+                            (element) => element.hashCode == tool.hashCode) ??
                         false;
                     String tooltip = tool.name.trim();
                     if (tooltip.isEmpty) {

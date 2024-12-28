@@ -24,12 +24,7 @@ mixin _$UtilitiesState {
   bool get lockZoom => throw _privateConstructorUsedError;
   bool get lockHorizontal => throw _privateConstructorUsedError;
   bool get lockVertical => throw _privateConstructorUsedError;
-  bool get rulerEnabled => throw _privateConstructorUsedError;
-  bool get gridEnabled => throw _privateConstructorUsedError;
   bool get fullSelection => throw _privateConstructorUsedError;
-  @DoublePointJsonConverter()
-  Point<double> get rulerPosition => throw _privateConstructorUsedError;
-  double get rulerAngle => throw _privateConstructorUsedError;
 
   /// Serializes this UtilitiesState to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -52,11 +47,7 @@ abstract class $UtilitiesStateCopyWith<$Res> {
       bool lockZoom,
       bool lockHorizontal,
       bool lockVertical,
-      bool rulerEnabled,
-      bool gridEnabled,
-      bool fullSelection,
-      @DoublePointJsonConverter() Point<double> rulerPosition,
-      double rulerAngle});
+      bool fullSelection});
 }
 
 /// @nodoc
@@ -78,11 +69,7 @@ class _$UtilitiesStateCopyWithImpl<$Res, $Val extends UtilitiesState>
     Object? lockZoom = null,
     Object? lockHorizontal = null,
     Object? lockVertical = null,
-    Object? rulerEnabled = null,
-    Object? gridEnabled = null,
     Object? fullSelection = null,
-    Object? rulerPosition = null,
-    Object? rulerAngle = null,
   }) {
     return _then(_value.copyWith(
       lockCollection: null == lockCollection
@@ -101,26 +88,10 @@ class _$UtilitiesStateCopyWithImpl<$Res, $Val extends UtilitiesState>
           ? _value.lockVertical
           : lockVertical // ignore: cast_nullable_to_non_nullable
               as bool,
-      rulerEnabled: null == rulerEnabled
-          ? _value.rulerEnabled
-          : rulerEnabled // ignore: cast_nullable_to_non_nullable
-              as bool,
-      gridEnabled: null == gridEnabled
-          ? _value.gridEnabled
-          : gridEnabled // ignore: cast_nullable_to_non_nullable
-              as bool,
       fullSelection: null == fullSelection
           ? _value.fullSelection
           : fullSelection // ignore: cast_nullable_to_non_nullable
               as bool,
-      rulerPosition: null == rulerPosition
-          ? _value.rulerPosition
-          : rulerPosition // ignore: cast_nullable_to_non_nullable
-              as Point<double>,
-      rulerAngle: null == rulerAngle
-          ? _value.rulerAngle
-          : rulerAngle // ignore: cast_nullable_to_non_nullable
-              as double,
     ) as $Val);
   }
 }
@@ -138,11 +109,7 @@ abstract class _$$UtilitiesStateImplCopyWith<$Res>
       bool lockZoom,
       bool lockHorizontal,
       bool lockVertical,
-      bool rulerEnabled,
-      bool gridEnabled,
-      bool fullSelection,
-      @DoublePointJsonConverter() Point<double> rulerPosition,
-      double rulerAngle});
+      bool fullSelection});
 }
 
 /// @nodoc
@@ -162,11 +129,7 @@ class __$$UtilitiesStateImplCopyWithImpl<$Res>
     Object? lockZoom = null,
     Object? lockHorizontal = null,
     Object? lockVertical = null,
-    Object? rulerEnabled = null,
-    Object? gridEnabled = null,
     Object? fullSelection = null,
-    Object? rulerPosition = null,
-    Object? rulerAngle = null,
   }) {
     return _then(_$UtilitiesStateImpl(
       lockCollection: null == lockCollection
@@ -185,26 +148,10 @@ class __$$UtilitiesStateImplCopyWithImpl<$Res>
           ? _value.lockVertical
           : lockVertical // ignore: cast_nullable_to_non_nullable
               as bool,
-      rulerEnabled: null == rulerEnabled
-          ? _value.rulerEnabled
-          : rulerEnabled // ignore: cast_nullable_to_non_nullable
-              as bool,
-      gridEnabled: null == gridEnabled
-          ? _value.gridEnabled
-          : gridEnabled // ignore: cast_nullable_to_non_nullable
-              as bool,
       fullSelection: null == fullSelection
           ? _value.fullSelection
           : fullSelection // ignore: cast_nullable_to_non_nullable
               as bool,
-      rulerPosition: null == rulerPosition
-          ? _value.rulerPosition
-          : rulerPosition // ignore: cast_nullable_to_non_nullable
-              as Point<double>,
-      rulerAngle: null == rulerAngle
-          ? _value.rulerAngle
-          : rulerAngle // ignore: cast_nullable_to_non_nullable
-              as double,
     ));
   }
 }
@@ -217,11 +164,7 @@ class _$UtilitiesStateImpl implements _UtilitiesState {
       this.lockZoom = false,
       this.lockHorizontal = false,
       this.lockVertical = false,
-      this.rulerEnabled = false,
-      this.gridEnabled = false,
-      this.fullSelection = false,
-      @DoublePointJsonConverter() this.rulerPosition = const Point(0.0, 0.0),
-      this.rulerAngle = 0});
+      this.fullSelection = false});
 
   factory _$UtilitiesStateImpl.fromJson(Map<String, dynamic> json) =>
       _$$UtilitiesStateImplFromJson(json);
@@ -240,24 +183,11 @@ class _$UtilitiesStateImpl implements _UtilitiesState {
   final bool lockVertical;
   @override
   @JsonKey()
-  final bool rulerEnabled;
-  @override
-  @JsonKey()
-  final bool gridEnabled;
-  @override
-  @JsonKey()
   final bool fullSelection;
-  @override
-  @JsonKey()
-  @DoublePointJsonConverter()
-  final Point<double> rulerPosition;
-  @override
-  @JsonKey()
-  final double rulerAngle;
 
   @override
   String toString() {
-    return 'UtilitiesState(lockCollection: $lockCollection, lockZoom: $lockZoom, lockHorizontal: $lockHorizontal, lockVertical: $lockVertical, rulerEnabled: $rulerEnabled, gridEnabled: $gridEnabled, fullSelection: $fullSelection, rulerPosition: $rulerPosition, rulerAngle: $rulerAngle)';
+    return 'UtilitiesState(lockCollection: $lockCollection, lockZoom: $lockZoom, lockHorizontal: $lockHorizontal, lockVertical: $lockVertical, fullSelection: $fullSelection)';
   }
 
   @override
@@ -273,31 +203,14 @@ class _$UtilitiesStateImpl implements _UtilitiesState {
                 other.lockHorizontal == lockHorizontal) &&
             (identical(other.lockVertical, lockVertical) ||
                 other.lockVertical == lockVertical) &&
-            (identical(other.rulerEnabled, rulerEnabled) ||
-                other.rulerEnabled == rulerEnabled) &&
-            (identical(other.gridEnabled, gridEnabled) ||
-                other.gridEnabled == gridEnabled) &&
             (identical(other.fullSelection, fullSelection) ||
-                other.fullSelection == fullSelection) &&
-            (identical(other.rulerPosition, rulerPosition) ||
-                other.rulerPosition == rulerPosition) &&
-            (identical(other.rulerAngle, rulerAngle) ||
-                other.rulerAngle == rulerAngle));
+                other.fullSelection == fullSelection));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      lockCollection,
-      lockZoom,
-      lockHorizontal,
-      lockVertical,
-      rulerEnabled,
-      gridEnabled,
-      fullSelection,
-      rulerPosition,
-      rulerAngle);
+  int get hashCode => Object.hash(runtimeType, lockCollection, lockZoom,
+      lockHorizontal, lockVertical, fullSelection);
 
   /// Create a copy of UtilitiesState
   /// with the given fields replaced by the non-null parameter values.
@@ -322,11 +235,7 @@ abstract class _UtilitiesState implements UtilitiesState {
       final bool lockZoom,
       final bool lockHorizontal,
       final bool lockVertical,
-      final bool rulerEnabled,
-      final bool gridEnabled,
-      final bool fullSelection,
-      @DoublePointJsonConverter() final Point<double> rulerPosition,
-      final double rulerAngle}) = _$UtilitiesStateImpl;
+      final bool fullSelection}) = _$UtilitiesStateImpl;
 
   factory _UtilitiesState.fromJson(Map<String, dynamic> json) =
       _$UtilitiesStateImpl.fromJson;
@@ -340,16 +249,7 @@ abstract class _UtilitiesState implements UtilitiesState {
   @override
   bool get lockVertical;
   @override
-  bool get rulerEnabled;
-  @override
-  bool get gridEnabled;
-  @override
   bool get fullSelection;
-  @override
-  @DoublePointJsonConverter()
-  Point<double> get rulerPosition;
-  @override
-  double get rulerAngle;
 
   /// Create a copy of UtilitiesState
   /// with the given fields replaced by the non-null parameter values.

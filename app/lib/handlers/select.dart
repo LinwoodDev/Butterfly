@@ -323,7 +323,7 @@ class SelectHandler extends Handler<SelectTool> {
       event.kind == PointerDeviceKind.mouse &&
       event.buttons != kSecondaryMouseButton;
 
-  void _handleRuler(ScaleUpdateDetails details, EventContext context) {
+  /*void _handleRuler(ScaleUpdateDetails details, EventContext context) {
     final state = context.getState();
     if (state == null) return;
     final viewport = context.getCameraViewport();
@@ -347,7 +347,7 @@ class SelectHandler extends Handler<SelectTool> {
     _rulerRotation = currentRotation;
     _rulerPosition = currentPos;
     context.getCurrentIndexCubit().updateUtilities(utilities: utilitiesState);
-  }
+  }*/
 
   @override
   void onScaleUpdate(ScaleUpdateDetails details, EventContext context) {
@@ -355,7 +355,7 @@ class SelectHandler extends Handler<SelectTool> {
     final globalPos =
         context.getCameraTransform().localToGlobal(details.localFocalPoint);
     if (_rulerRotation != null && _rulerPosition != null) {
-      _handleRuler(details, context);
+      //_handleRuler(details, context);
       return;
     }
     if (_selectionManager.isTransforming) {

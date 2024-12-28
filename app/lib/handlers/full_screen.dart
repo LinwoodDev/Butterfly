@@ -4,7 +4,7 @@ class FullScreenHandler extends Handler<FullScreenTool> {
   FullScreenHandler(super.data);
 
   @override
-  bool onSelected(BuildContext context) {
+  bool onSelected(BuildContext context, [bool wasAdded = true]) {
     context.read<WindowCubit>().toggleFullScreen();
     return false;
   }

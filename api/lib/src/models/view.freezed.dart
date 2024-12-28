@@ -20,19 +20,8 @@ ViewOption _$ViewOptionFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$ViewOption {
-  @ColorJsonConverter()
-  SRGBColor get gridColor => throw _privateConstructorUsedError;
-  double get gridXSize => throw _privateConstructorUsedError;
-  double get gridYSize => throw _privateConstructorUsedError;
-
   /// Serializes this ViewOption to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-
-  /// Create a copy of ViewOption
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  $ViewOptionCopyWith<ViewOption> get copyWith =>
-      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -40,11 +29,6 @@ abstract class $ViewOptionCopyWith<$Res> {
   factory $ViewOptionCopyWith(
           ViewOption value, $Res Function(ViewOption) then) =
       _$ViewOptionCopyWithImpl<$Res, ViewOption>;
-  @useResult
-  $Res call(
-      {@ColorJsonConverter() SRGBColor gridColor,
-      double gridXSize,
-      double gridYSize});
 }
 
 /// @nodoc
@@ -59,42 +43,13 @@ class _$ViewOptionCopyWithImpl<$Res, $Val extends ViewOption>
 
   /// Create a copy of ViewOption
   /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? gridColor = null,
-    Object? gridXSize = null,
-    Object? gridYSize = null,
-  }) {
-    return _then(_value.copyWith(
-      gridColor: null == gridColor
-          ? _value.gridColor
-          : gridColor // ignore: cast_nullable_to_non_nullable
-              as SRGBColor,
-      gridXSize: null == gridXSize
-          ? _value.gridXSize
-          : gridXSize // ignore: cast_nullable_to_non_nullable
-              as double,
-      gridYSize: null == gridYSize
-          ? _value.gridYSize
-          : gridYSize // ignore: cast_nullable_to_non_nullable
-              as double,
-    ) as $Val);
-  }
 }
 
 /// @nodoc
-abstract class _$$ViewOptionImplCopyWith<$Res>
-    implements $ViewOptionCopyWith<$Res> {
+abstract class _$$ViewOptionImplCopyWith<$Res> {
   factory _$$ViewOptionImplCopyWith(
           _$ViewOptionImpl value, $Res Function(_$ViewOptionImpl) then) =
       __$$ViewOptionImplCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call(
-      {@ColorJsonConverter() SRGBColor gridColor,
-      double gridXSize,
-      double gridYSize});
 }
 
 /// @nodoc
@@ -107,81 +62,30 @@ class __$$ViewOptionImplCopyWithImpl<$Res>
 
   /// Create a copy of ViewOption
   /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? gridColor = null,
-    Object? gridXSize = null,
-    Object? gridYSize = null,
-  }) {
-    return _then(_$ViewOptionImpl(
-      gridColor: null == gridColor
-          ? _value.gridColor
-          : gridColor // ignore: cast_nullable_to_non_nullable
-              as SRGBColor,
-      gridXSize: null == gridXSize
-          ? _value.gridXSize
-          : gridXSize // ignore: cast_nullable_to_non_nullable
-              as double,
-      gridYSize: null == gridYSize
-          ? _value.gridYSize
-          : gridYSize // ignore: cast_nullable_to_non_nullable
-              as double,
-    ));
-  }
 }
 
 /// @nodoc
 @JsonSerializable()
 class _$ViewOptionImpl implements _ViewOption {
-  const _$ViewOptionImpl(
-      {@ColorJsonConverter() this.gridColor = SRGBColor.black,
-      this.gridXSize = 20,
-      this.gridYSize = 20});
+  const _$ViewOptionImpl();
 
   factory _$ViewOptionImpl.fromJson(Map<String, dynamic> json) =>
       _$$ViewOptionImplFromJson(json);
 
   @override
-  @JsonKey()
-  @ColorJsonConverter()
-  final SRGBColor gridColor;
-  @override
-  @JsonKey()
-  final double gridXSize;
-  @override
-  @JsonKey()
-  final double gridYSize;
-
-  @override
   String toString() {
-    return 'ViewOption(gridColor: $gridColor, gridXSize: $gridXSize, gridYSize: $gridYSize)';
+    return 'ViewOption()';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$ViewOptionImpl &&
-            (identical(other.gridColor, gridColor) ||
-                other.gridColor == gridColor) &&
-            (identical(other.gridXSize, gridXSize) ||
-                other.gridXSize == gridXSize) &&
-            (identical(other.gridYSize, gridYSize) ||
-                other.gridYSize == gridYSize));
+        (other.runtimeType == runtimeType && other is _$ViewOptionImpl);
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, gridColor, gridXSize, gridYSize);
-
-  /// Create a copy of ViewOption
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$ViewOptionImplCopyWith<_$ViewOptionImpl> get copyWith =>
-      __$$ViewOptionImplCopyWithImpl<_$ViewOptionImpl>(this, _$identity);
+  int get hashCode => runtimeType.hashCode;
 
   @override
   Map<String, dynamic> toJson() {
@@ -192,26 +96,8 @@ class _$ViewOptionImpl implements _ViewOption {
 }
 
 abstract class _ViewOption implements ViewOption {
-  const factory _ViewOption(
-      {@ColorJsonConverter() final SRGBColor gridColor,
-      final double gridXSize,
-      final double gridYSize}) = _$ViewOptionImpl;
+  const factory _ViewOption() = _$ViewOptionImpl;
 
   factory _ViewOption.fromJson(Map<String, dynamic> json) =
       _$ViewOptionImpl.fromJson;
-
-  @override
-  @ColorJsonConverter()
-  SRGBColor get gridColor;
-  @override
-  double get gridXSize;
-  @override
-  double get gridYSize;
-
-  /// Create a copy of ViewOption
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$ViewOptionImplCopyWith<_$ViewOptionImpl> get copyWith =>
-      throw _privateConstructorUsedError;
 }

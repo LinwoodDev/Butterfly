@@ -56,6 +56,10 @@ Tool _$ToolFromJson(Map<String, dynamic> json) {
       return ExportTool.fromJson(json);
     case 'texture':
       return TextureTool.fromJson(json);
+    case 'ruler':
+      return RulerTool.fromJson(json);
+    case 'grid':
+      return GridTool.fromJson(json);
     case 'eyeDropper':
       return EyeDropperTool.fromJson(json);
 
@@ -2782,6 +2786,272 @@ abstract class TextureTool extends Tool {
   @override
   @JsonKey(includeFromJson: false, includeToJson: false)
   _$$TextureToolImplCopyWith<_$TextureToolImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$RulerToolImplCopyWith<$Res> implements $ToolCopyWith<$Res> {
+  factory _$$RulerToolImplCopyWith(
+          _$RulerToolImpl value, $Res Function(_$RulerToolImpl) then) =
+      __$$RulerToolImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call(
+      {String name,
+      String displayIcon,
+      @ColorJsonConverter() SRGBColor gridColor});
+}
+
+/// @nodoc
+class __$$RulerToolImplCopyWithImpl<$Res>
+    extends _$ToolCopyWithImpl<$Res, _$RulerToolImpl>
+    implements _$$RulerToolImplCopyWith<$Res> {
+  __$$RulerToolImplCopyWithImpl(
+      _$RulerToolImpl _value, $Res Function(_$RulerToolImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of Tool
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? name = null,
+    Object? displayIcon = null,
+    Object? gridColor = null,
+  }) {
+    return _then(_$RulerToolImpl(
+      name: null == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      displayIcon: null == displayIcon
+          ? _value.displayIcon
+          : displayIcon // ignore: cast_nullable_to_non_nullable
+              as String,
+      gridColor: null == gridColor
+          ? _value.gridColor
+          : gridColor // ignore: cast_nullable_to_non_nullable
+              as SRGBColor,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$RulerToolImpl extends RulerTool {
+  _$RulerToolImpl(
+      {this.name = '',
+      this.displayIcon = '',
+      @ColorJsonConverter() this.gridColor = SRGBColor.black,
+      final String? $type})
+      : $type = $type ?? 'ruler',
+        super._();
+
+  factory _$RulerToolImpl.fromJson(Map<String, dynamic> json) =>
+      _$$RulerToolImplFromJson(json);
+
+  @override
+  @JsonKey()
+  final String name;
+  @override
+  @JsonKey()
+  final String displayIcon;
+  @override
+  @JsonKey()
+  @ColorJsonConverter()
+  final SRGBColor gridColor;
+
+  @JsonKey(name: 'type')
+  final String $type;
+
+  @override
+  String toString() {
+    return 'Tool.ruler(name: $name, displayIcon: $displayIcon, gridColor: $gridColor)';
+  }
+
+  /// Create a copy of Tool
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$RulerToolImplCopyWith<_$RulerToolImpl> get copyWith =>
+      __$$RulerToolImplCopyWithImpl<_$RulerToolImpl>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$RulerToolImplToJson(
+      this,
+    );
+  }
+}
+
+abstract class RulerTool extends Tool {
+  factory RulerTool(
+      {final String name,
+      final String displayIcon,
+      @ColorJsonConverter() final SRGBColor gridColor}) = _$RulerToolImpl;
+  RulerTool._() : super._();
+
+  factory RulerTool.fromJson(Map<String, dynamic> json) =
+      _$RulerToolImpl.fromJson;
+
+  @override
+  String get name;
+  @override
+  String get displayIcon;
+  @ColorJsonConverter()
+  SRGBColor get gridColor;
+
+  /// Create a copy of Tool
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$RulerToolImplCopyWith<_$RulerToolImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$GridToolImplCopyWith<$Res> implements $ToolCopyWith<$Res> {
+  factory _$$GridToolImplCopyWith(
+          _$GridToolImpl value, $Res Function(_$GridToolImpl) then) =
+      __$$GridToolImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call(
+      {String name,
+      String displayIcon,
+      @ColorJsonConverter() SRGBColor color,
+      double xSize,
+      double ySize});
+}
+
+/// @nodoc
+class __$$GridToolImplCopyWithImpl<$Res>
+    extends _$ToolCopyWithImpl<$Res, _$GridToolImpl>
+    implements _$$GridToolImplCopyWith<$Res> {
+  __$$GridToolImplCopyWithImpl(
+      _$GridToolImpl _value, $Res Function(_$GridToolImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of Tool
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? name = null,
+    Object? displayIcon = null,
+    Object? color = null,
+    Object? xSize = null,
+    Object? ySize = null,
+  }) {
+    return _then(_$GridToolImpl(
+      name: null == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      displayIcon: null == displayIcon
+          ? _value.displayIcon
+          : displayIcon // ignore: cast_nullable_to_non_nullable
+              as String,
+      color: null == color
+          ? _value.color
+          : color // ignore: cast_nullable_to_non_nullable
+              as SRGBColor,
+      xSize: null == xSize
+          ? _value.xSize
+          : xSize // ignore: cast_nullable_to_non_nullable
+              as double,
+      ySize: null == ySize
+          ? _value.ySize
+          : ySize // ignore: cast_nullable_to_non_nullable
+              as double,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$GridToolImpl extends GridTool {
+  _$GridToolImpl(
+      {this.name = '',
+      this.displayIcon = '',
+      @ColorJsonConverter() this.color = SRGBColor.black,
+      this.xSize = 20,
+      this.ySize = 20,
+      final String? $type})
+      : $type = $type ?? 'grid',
+        super._();
+
+  factory _$GridToolImpl.fromJson(Map<String, dynamic> json) =>
+      _$$GridToolImplFromJson(json);
+
+  @override
+  @JsonKey()
+  final String name;
+  @override
+  @JsonKey()
+  final String displayIcon;
+  @override
+  @JsonKey()
+  @ColorJsonConverter()
+  final SRGBColor color;
+  @override
+  @JsonKey()
+  final double xSize;
+  @override
+  @JsonKey()
+  final double ySize;
+
+  @JsonKey(name: 'type')
+  final String $type;
+
+  @override
+  String toString() {
+    return 'Tool.grid(name: $name, displayIcon: $displayIcon, color: $color, xSize: $xSize, ySize: $ySize)';
+  }
+
+  /// Create a copy of Tool
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$GridToolImplCopyWith<_$GridToolImpl> get copyWith =>
+      __$$GridToolImplCopyWithImpl<_$GridToolImpl>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$GridToolImplToJson(
+      this,
+    );
+  }
+}
+
+abstract class GridTool extends Tool {
+  factory GridTool(
+      {final String name,
+      final String displayIcon,
+      @ColorJsonConverter() final SRGBColor color,
+      final double xSize,
+      final double ySize}) = _$GridToolImpl;
+  GridTool._() : super._();
+
+  factory GridTool.fromJson(Map<String, dynamic> json) =
+      _$GridToolImpl.fromJson;
+
+  @override
+  String get name;
+  @override
+  String get displayIcon;
+  @ColorJsonConverter()
+  SRGBColor get color;
+  double get xSize;
+  double get ySize;
+
+  /// Create a copy of Tool
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$GridToolImplCopyWith<_$GridToolImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
