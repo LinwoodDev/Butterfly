@@ -1,0 +1,2 @@
+* Add password protected notes ([#771](https://github.com/LinwoodDev/Butterfly/issues/771))
+* Fix undo/redo tools not showing status correctly

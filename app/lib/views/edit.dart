@@ -82,37 +82,31 @@ class _EditToolbarState extends State<EditToolbar> {
                 height: direction == Axis.horizontal ? fullSize : null,
                 width: direction == Axis.horizontal ? null : fullSize,
                 child: BlocBuilder<DocumentBloc, DocumentState>(
-                    buildWhen: (previous, current) =>
-                        previous is! DocumentLoadSuccess ||
-                        current is! DocumentLoadSuccess ||
-                        previous.tool != current.tool ||
-                        previous.info.tools != current.info.tools,
                     builder: (context, state) {
-                      if (state is! DocumentLoadSuccess) return Container();
-                      final tools = state.info.tools;
+                  if (state is! DocumentLoadSuccess) return Container();
+                  final tools = state.info.tools;
 
-                      return BlocBuilder<CurrentIndexCubit, CurrentIndex>(
-                        buildWhen: (previous, current) =>
-                            previous.index != current.index ||
-                            previous.handler != current.handler ||
-                            previous.temporaryHandler !=
-                                current.temporaryHandler ||
-                            previous.selection != current.selection,
-                        builder: (context, currentIndex) {
-                          return Card(
-                            elevation: 10,
-                            child: _buildBody(
-                              state,
-                              currentIndex,
-                              settings,
-                              tools,
-                              shortcuts,
-                              size,
-                            ),
-                          );
-                        },
+                  return BlocBuilder<CurrentIndexCubit, CurrentIndex>(
+                    buildWhen: (previous, current) =>
+                        previous.index != current.index ||
+                        previous.handler != current.handler ||
+                        previous.temporaryHandler != current.temporaryHandler ||
+                        previous.selection != current.selection,
+                    builder: (context, currentIndex) {
+                      return Card(
+                        elevation: 10,
+                        child: _buildBody(
+                          state,
+                          currentIndex,
+                          settings,
+                          tools,
+                          shortcuts,
+                          size,
+                        ),
                       );
-                    }));
+                    },
+                  );
+                }));
           }),
     );
   }
@@ -169,7 +163,6 @@ class _EditToolbarState extends State<EditToolbar> {
                           .read<CurrentIndexCubit>()
                           .changeSelection(tempData),
                       onPressed: () {
-                        if (tempData == null) return;
                         if (_mouseState == _MouseState.multi) {
                           context
                               .read<CurrentIndexCubit>()
@@ -267,89 +260,90 @@ class _EditToolbarState extends State<EditToolbar> {
                             ],
                           );
                   }
-                  var e = tools[i];
-                  final selected = i == currentIndex.index;
-                  final highlighted = currentIndex.selection?.selected
-                          .any((element) => element.hashCode == e.hashCode) ??
-                      false;
-                  String tooltip = e.name.trim();
-                  if (tooltip.isEmpty) {
-                    tooltip = e.getLocalizedName(context);
-                  }
-
                   final bloc = context.read<DocumentBloc>();
+                  return context.read<CurrentIndexCubit>().useHandler(bloc, i,
+                      (handler) {
+                    final selected = i == currentIndex.index;
+                    final tool = handler.data;
+                    final highlighted = currentIndex.selection?.selected.any(
+                            (element) =>
+                                element.hashCode == handler.hashCode) ??
+                        false;
+                    String tooltip = tool.name.trim();
+                    if (tooltip.isEmpty) {
+                      tooltip = tool.getLocalizedName(context);
+                    }
 
-                  final handler = Handler.fromTool(e);
-
-                  final color =
-                      handler.getStatus(context.read<DocumentBloc>()) ==
-                              ToolStatus.disabled
-                          ? Theme.of(context).disabledColor
-                          : null;
-                  var icon = handler.getIcon(bloc) ??
-                      e.icon(selected
-                          ? PhosphorIconsStyle.fill
-                          : PhosphorIconsStyle.light);
-                  final toolWidget = Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 4.0),
-                      child: OptionButton(
-                          tooltip: tooltip,
-                          onLongPressed: selected || highlighted
-                              ? null
-                              : () => context
-                                  .read<CurrentIndexCubit>()
-                                  .insertSelection(e, true),
-                          onSecondaryPressed: () => context
-                              .read<CurrentIndexCubit>()
-                              .changeSelection(e),
-                          focussed: shortcuts.contains(i),
-                          selected: selected,
-                          alwaysShowBottom: e.isAction(),
-                          highlighted: highlighted,
-                          bottomIcon: PhosphorIcon(e.isAction()
-                              ? PhosphorIconsLight.playCircle
-                              : isMobile
-                                  ? PhosphorIconsLight.caretUp
-                                  : switch (settings.toolbarPosition) {
-                                      ToolbarPosition.top ||
-                                      ToolbarPosition.inline =>
-                                        PhosphorIconsLight.caretDown,
-                                      ToolbarPosition.bottom =>
-                                        PhosphorIconsLight.caretUp,
-                                      ToolbarPosition.left =>
-                                        PhosphorIconsLight.caretRight,
-                                      ToolbarPosition.right =>
-                                        PhosphorIconsLight.caretLeft,
-                                    }),
-                          selectedIcon: _buildIcon(icon, size, color),
-                          icon: _buildIcon(icon, size, color),
-                          onPressed: () {
-                            if (_mouseState == _MouseState.multi) {
-                              context
-                                  .read<CurrentIndexCubit>()
-                                  .insertSelection(e, true);
-                            } else if (!selected || temp != null) {
-                              context
-                                  .read<CurrentIndexCubit>()
-                                  .resetSelection();
-                              context.read<CurrentIndexCubit>().changeTool(
-                                    context.read<DocumentBloc>(),
-                                    index: i,
-                                    handler: handler,
-                                    context: context,
-                                  );
-                            } else {
-                              context
-                                  .read<CurrentIndexCubit>()
-                                  .changeSelection(e, true);
-                            }
-                          }));
-                  return ReorderableGridDelayedDragStartListener(
-                    index: i,
-                    key: ObjectKey(i),
-                    enabled: selected || highlighted,
-                    child: toolWidget,
-                  );
+                    final color =
+                        handler.getStatus(context.read<DocumentBloc>()) ==
+                                ToolStatus.disabled
+                            ? Theme.of(context).disabledColor
+                            : null;
+                    var icon = handler.getIcon(bloc) ??
+                        tool.icon(selected
+                            ? PhosphorIconsStyle.fill
+                            : PhosphorIconsStyle.light);
+                    final toolWidget = Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 4.0),
+                        child: OptionButton(
+                            tooltip: tooltip,
+                            onLongPressed: selected || highlighted
+                                ? null
+                                : () => context
+                                    .read<CurrentIndexCubit>()
+                                    .insertSelection(tool, true),
+                            onSecondaryPressed: () => context
+                                .read<CurrentIndexCubit>()
+                                .changeSelection(tool),
+                            focussed: shortcuts.contains(i),
+                            selected: selected,
+                            alwaysShowBottom: tool.isAction(),
+                            highlighted: highlighted,
+                            bottomIcon: PhosphorIcon(tool.isAction()
+                                ? PhosphorIconsLight.playCircle
+                                : isMobile
+                                    ? PhosphorIconsLight.caretUp
+                                    : switch (settings.toolbarPosition) {
+                                        ToolbarPosition.top ||
+                                        ToolbarPosition.inline =>
+                                          PhosphorIconsLight.caretDown,
+                                        ToolbarPosition.bottom =>
+                                          PhosphorIconsLight.caretUp,
+                                        ToolbarPosition.left =>
+                                          PhosphorIconsLight.caretRight,
+                                        ToolbarPosition.right =>
+                                          PhosphorIconsLight.caretLeft,
+                                      }),
+                            selectedIcon: _buildIcon(icon, size, color),
+                            icon: _buildIcon(icon, size, color),
+                            onPressed: () {
+                              if (_mouseState == _MouseState.multi) {
+                                context
+                                    .read<CurrentIndexCubit>()
+                                    .insertSelection(tool, true);
+                              } else if (!selected || temp != null) {
+                                context
+                                    .read<CurrentIndexCubit>()
+                                    .resetSelection();
+                                context.read<CurrentIndexCubit>().changeTool(
+                                      context.read<DocumentBloc>(),
+                                      index: i,
+                                      handler: handler,
+                                      context: context,
+                                    );
+                              } else {
+                                context
+                                    .read<CurrentIndexCubit>()
+                                    .changeSelection(tool, true);
+                              }
+                            }));
+                    return ReorderableGridDelayedDragStartListener(
+                      index: i,
+                      key: ObjectKey(i),
+                      enabled: selected || highlighted,
+                      child: toolWidget,
+                    );
+                  });
                 },
               ),
               onReorder: (oldIndex, newIndex) {

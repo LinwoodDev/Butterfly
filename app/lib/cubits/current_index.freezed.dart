@@ -22,13 +22,17 @@ mixin _$CurrentIndex {
   SettingsCubit get settingsCubit => throw _privateConstructorUsedError;
   TransformCubit get transformCubit => throw _privateConstructorUsedError;
   NetworkingService get networkingService => throw _privateConstructorUsedError;
-  Handler<dynamic>? get temporaryHandler => throw _privateConstructorUsedError;
+  Handler<Tool>? get temporaryHandler => throw _privateConstructorUsedError;
   List<Renderer> get foregrounds => throw _privateConstructorUsedError;
   Selection<dynamic>? get selection => throw _privateConstructorUsedError;
   bool get pinned => throw _privateConstructorUsedError;
   List<Renderer>? get temporaryForegrounds =>
       throw _privateConstructorUsedError;
+  Map<int, Handler<Tool>> get toggleableHandlers =>
+      throw _privateConstructorUsedError;
   List<Renderer> get networkingForegrounds =>
+      throw _privateConstructorUsedError;
+  Map<int, List<Renderer>> get toggleableForegrounds =>
       throw _privateConstructorUsedError;
   MouseCursor get cursor => throw _privateConstructorUsedError;
   MouseCursor? get temporaryCursor => throw _privateConstructorUsedError;
@@ -72,12 +76,14 @@ abstract class $CurrentIndexCopyWith<$Res> {
       SettingsCubit settingsCubit,
       TransformCubit transformCubit,
       NetworkingService networkingService,
-      Handler<dynamic>? temporaryHandler,
+      Handler<Tool>? temporaryHandler,
       List<Renderer> foregrounds,
       Selection<dynamic>? selection,
       bool pinned,
       List<Renderer>? temporaryForegrounds,
+      Map<int, Handler<Tool>> toggleableHandlers,
       List<Renderer> networkingForegrounds,
+      Map<int, List<Renderer>> toggleableForegrounds,
       MouseCursor cursor,
       MouseCursor? temporaryCursor,
       bool temporaryClicked,
@@ -126,7 +132,9 @@ class _$CurrentIndexCopyWithImpl<$Res, $Val extends CurrentIndex>
     Object? selection = freezed,
     Object? pinned = null,
     Object? temporaryForegrounds = freezed,
+    Object? toggleableHandlers = null,
     Object? networkingForegrounds = null,
+    Object? toggleableForegrounds = null,
     Object? cursor = null,
     Object? temporaryCursor = freezed,
     Object? temporaryClicked = null,
@@ -174,7 +182,7 @@ class _$CurrentIndexCopyWithImpl<$Res, $Val extends CurrentIndex>
       temporaryHandler: freezed == temporaryHandler
           ? _value.temporaryHandler
           : temporaryHandler // ignore: cast_nullable_to_non_nullable
-              as Handler<dynamic>?,
+              as Handler<Tool>?,
       foregrounds: null == foregrounds
           ? _value.foregrounds
           : foregrounds // ignore: cast_nullable_to_non_nullable
@@ -191,10 +199,18 @@ class _$CurrentIndexCopyWithImpl<$Res, $Val extends CurrentIndex>
           ? _value.temporaryForegrounds
           : temporaryForegrounds // ignore: cast_nullable_to_non_nullable
               as List<Renderer>?,
+      toggleableHandlers: null == toggleableHandlers
+          ? _value.toggleableHandlers
+          : toggleableHandlers // ignore: cast_nullable_to_non_nullable
+              as Map<int, Handler<Tool>>,
       networkingForegrounds: null == networkingForegrounds
           ? _value.networkingForegrounds
           : networkingForegrounds // ignore: cast_nullable_to_non_nullable
               as List<Renderer>,
+      toggleableForegrounds: null == toggleableForegrounds
+          ? _value.toggleableForegrounds
+          : toggleableForegrounds // ignore: cast_nullable_to_non_nullable
+              as Map<int, List<Renderer>>,
       cursor: null == cursor
           ? _value.cursor
           : cursor // ignore: cast_nullable_to_non_nullable
@@ -296,12 +312,14 @@ abstract class _$$CurrentIndexImplCopyWith<$Res>
       SettingsCubit settingsCubit,
       TransformCubit transformCubit,
       NetworkingService networkingService,
-      Handler<dynamic>? temporaryHandler,
+      Handler<Tool>? temporaryHandler,
       List<Renderer> foregrounds,
       Selection<dynamic>? selection,
       bool pinned,
       List<Renderer>? temporaryForegrounds,
+      Map<int, Handler<Tool>> toggleableHandlers,
       List<Renderer> networkingForegrounds,
+      Map<int, List<Renderer>> toggleableForegrounds,
       MouseCursor cursor,
       MouseCursor? temporaryCursor,
       bool temporaryClicked,
@@ -349,7 +367,9 @@ class __$$CurrentIndexImplCopyWithImpl<$Res>
     Object? selection = freezed,
     Object? pinned = null,
     Object? temporaryForegrounds = freezed,
+    Object? toggleableHandlers = null,
     Object? networkingForegrounds = null,
+    Object? toggleableForegrounds = null,
     Object? cursor = null,
     Object? temporaryCursor = freezed,
     Object? temporaryClicked = null,
@@ -397,7 +417,7 @@ class __$$CurrentIndexImplCopyWithImpl<$Res>
       temporaryHandler: freezed == temporaryHandler
           ? _value.temporaryHandler
           : temporaryHandler // ignore: cast_nullable_to_non_nullable
-              as Handler<dynamic>?,
+              as Handler<Tool>?,
       foregrounds: null == foregrounds
           ? _value._foregrounds
           : foregrounds // ignore: cast_nullable_to_non_nullable
@@ -414,10 +434,18 @@ class __$$CurrentIndexImplCopyWithImpl<$Res>
           ? _value._temporaryForegrounds
           : temporaryForegrounds // ignore: cast_nullable_to_non_nullable
               as List<Renderer>?,
+      toggleableHandlers: null == toggleableHandlers
+          ? _value._toggleableHandlers
+          : toggleableHandlers // ignore: cast_nullable_to_non_nullable
+              as Map<int, Handler<Tool>>,
       networkingForegrounds: null == networkingForegrounds
           ? _value._networkingForegrounds
           : networkingForegrounds // ignore: cast_nullable_to_non_nullable
               as List<Renderer>,
+      toggleableForegrounds: null == toggleableForegrounds
+          ? _value._toggleableForegrounds
+          : toggleableForegrounds // ignore: cast_nullable_to_non_nullable
+              as Map<int, List<Renderer>>,
       cursor: null == cursor
           ? _value.cursor
           : cursor // ignore: cast_nullable_to_non_nullable
@@ -504,7 +532,9 @@ class _$CurrentIndexImpl extends _CurrentIndex {
       this.selection,
       this.pinned = false,
       final List<Renderer>? temporaryForegrounds,
+      final Map<int, Handler<Tool>> toggleableHandlers = const {},
       final List<Renderer> networkingForegrounds = const [],
+      final Map<int, List<Renderer>> toggleableForegrounds = const {},
       this.cursor = MouseCursor.defer,
       this.temporaryCursor,
       this.temporaryClicked = false,
@@ -516,9 +546,8 @@ class _$CurrentIndexImpl extends _CurrentIndex {
       this.saved = SaveState.unsaved,
       this.toolbar,
       this.temporaryToolbar,
-      final Map<String, RendererState> rendererStates =
-          const <String, RendererState>{},
-      final Map<String, RendererState>? temporaryRendererStates,
+      final Map<String, RendererState> rendererStates = const {},
+      final Map<String, RendererState>? temporaryRendererStates = const {},
       this.viewOption = const ViewOption(),
       this.hideUi = HideState.visible,
       this.areaNavigatorCreate = true,
@@ -526,7 +555,9 @@ class _$CurrentIndexImpl extends _CurrentIndex {
       this.areaNavigatorAsk = false})
       : _foregrounds = foregrounds,
         _temporaryForegrounds = temporaryForegrounds,
+        _toggleableHandlers = toggleableHandlers,
         _networkingForegrounds = networkingForegrounds,
+        _toggleableForegrounds = toggleableForegrounds,
         _pointers = pointers,
         _rendererStates = rendererStates,
         _temporaryRendererStates = temporaryRendererStates,
@@ -545,7 +576,7 @@ class _$CurrentIndexImpl extends _CurrentIndex {
   @override
   final NetworkingService networkingService;
   @override
-  final Handler<dynamic>? temporaryHandler;
+  final Handler<Tool>? temporaryHandler;
   final List<Renderer> _foregrounds;
   @override
   @JsonKey()
@@ -571,6 +602,16 @@ class _$CurrentIndexImpl extends _CurrentIndex {
     return EqualUnmodifiableListView(value);
   }
 
+  final Map<int, Handler<Tool>> _toggleableHandlers;
+  @override
+  @JsonKey()
+  Map<int, Handler<Tool>> get toggleableHandlers {
+    if (_toggleableHandlers is EqualUnmodifiableMapView)
+      return _toggleableHandlers;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableMapView(_toggleableHandlers);
+  }
+
   final List<Renderer> _networkingForegrounds;
   @override
   @JsonKey()
@@ -579,6 +620,16 @@ class _$CurrentIndexImpl extends _CurrentIndex {
       return _networkingForegrounds;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_networkingForegrounds);
+  }
+
+  final Map<int, List<Renderer>> _toggleableForegrounds;
+  @override
+  @JsonKey()
+  Map<int, List<Renderer>> get toggleableForegrounds {
+    if (_toggleableForegrounds is EqualUnmodifiableMapView)
+      return _toggleableForegrounds;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableMapView(_toggleableForegrounds);
   }
 
   @override
@@ -625,6 +676,7 @@ class _$CurrentIndexImpl extends _CurrentIndex {
 
   final Map<String, RendererState>? _temporaryRendererStates;
   @override
+  @JsonKey()
   Map<String, RendererState>? get temporaryRendererStates {
     final value = _temporaryRendererStates;
     if (value == null) return null;
@@ -652,7 +704,7 @@ class _$CurrentIndexImpl extends _CurrentIndex {
 
   @override
   String toString() {
-    return 'CurrentIndex(index: $index, handler: $handler, cameraViewport: $cameraViewport, settingsCubit: $settingsCubit, transformCubit: $transformCubit, networkingService: $networkingService, temporaryHandler: $temporaryHandler, foregrounds: $foregrounds, selection: $selection, pinned: $pinned, temporaryForegrounds: $temporaryForegrounds, networkingForegrounds: $networkingForegrounds, cursor: $cursor, temporaryCursor: $temporaryCursor, temporaryClicked: $temporaryClicked, lastPosition: $lastPosition, pointers: $pointers, buttons: $buttons, location: $location, embedding: $embedding, saved: $saved, toolbar: $toolbar, temporaryToolbar: $temporaryToolbar, rendererStates: $rendererStates, temporaryRendererStates: $temporaryRendererStates, viewOption: $viewOption, hideUi: $hideUi, areaNavigatorCreate: $areaNavigatorCreate, areaNavigatorExact: $areaNavigatorExact, areaNavigatorAsk: $areaNavigatorAsk)';
+    return 'CurrentIndex(index: $index, handler: $handler, cameraViewport: $cameraViewport, settingsCubit: $settingsCubit, transformCubit: $transformCubit, networkingService: $networkingService, temporaryHandler: $temporaryHandler, foregrounds: $foregrounds, selection: $selection, pinned: $pinned, temporaryForegrounds: $temporaryForegrounds, toggleableHandlers: $toggleableHandlers, networkingForegrounds: $networkingForegrounds, toggleableForegrounds: $toggleableForegrounds, cursor: $cursor, temporaryCursor: $temporaryCursor, temporaryClicked: $temporaryClicked, lastPosition: $lastPosition, pointers: $pointers, buttons: $buttons, location: $location, embedding: $embedding, saved: $saved, toolbar: $toolbar, temporaryToolbar: $temporaryToolbar, rendererStates: $rendererStates, temporaryRendererStates: $temporaryRendererStates, viewOption: $viewOption, hideUi: $hideUi, areaNavigatorCreate: $areaNavigatorCreate, areaNavigatorExact: $areaNavigatorExact, areaNavigatorAsk: $areaNavigatorAsk)';
   }
 
   /// Create a copy of CurrentIndex
@@ -672,12 +724,14 @@ abstract class _CurrentIndex extends CurrentIndex {
       final SettingsCubit settingsCubit,
       final TransformCubit transformCubit,
       final NetworkingService networkingService,
-      {final Handler<dynamic>? temporaryHandler,
+      {final Handler<Tool>? temporaryHandler,
       final List<Renderer> foregrounds,
       final Selection<dynamic>? selection,
       final bool pinned,
       final List<Renderer>? temporaryForegrounds,
+      final Map<int, Handler<Tool>> toggleableHandlers,
       final List<Renderer> networkingForegrounds,
+      final Map<int, List<Renderer>> toggleableForegrounds,
       final MouseCursor cursor,
       final MouseCursor? temporaryCursor,
       final bool temporaryClicked,
@@ -711,7 +765,7 @@ abstract class _CurrentIndex extends CurrentIndex {
   @override
   NetworkingService get networkingService;
   @override
-  Handler<dynamic>? get temporaryHandler;
+  Handler<Tool>? get temporaryHandler;
   @override
   List<Renderer> get foregrounds;
   @override
@@ -721,7 +775,11 @@ abstract class _CurrentIndex extends CurrentIndex {
   @override
   List<Renderer>? get temporaryForegrounds;
   @override
+  Map<int, Handler<Tool>> get toggleableHandlers;
+  @override
   List<Renderer> get networkingForegrounds;
+  @override
+  Map<int, List<Renderer>> get toggleableForegrounds;
   @override
   MouseCursor get cursor;
   @override

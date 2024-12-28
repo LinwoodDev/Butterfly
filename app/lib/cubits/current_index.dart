@@ -47,12 +47,14 @@ class CurrentIndex with _$CurrentIndex {
     SettingsCubit settingsCubit,
     TransformCubit transformCubit,
     NetworkingService networkingService, {
-    Handler? temporaryHandler,
+    Handler<Tool>? temporaryHandler,
     @Default([]) List<Renderer> foregrounds,
     Selection? selection,
     @Default(false) bool pinned,
     List<Renderer>? temporaryForegrounds,
+    @Default({}) Map<int, Handler<Tool>> toggleableHandlers,
     @Default([]) List<Renderer> networkingForegrounds,
+    @Default({}) Map<int, List<Renderer>> toggleableForegrounds,
     @Default(MouseCursor.defer) MouseCursor cursor,
     MouseCursor? temporaryCursor,
     @Default(false) bool temporaryClicked,
@@ -64,9 +66,8 @@ class CurrentIndex with _$CurrentIndex {
     @Default(SaveState.unsaved) SaveState saved,
     PreferredSizeWidget? toolbar,
     PreferredSizeWidget? temporaryToolbar,
-    @Default(<String, RendererState>{})
-    Map<String, RendererState> rendererStates,
-    Map<String, RendererState>? temporaryRendererStates,
+    @Default({}) Map<String, RendererState> rendererStates,
+    @Default({}) Map<String, RendererState>? temporaryRendererStates,
     @Default(ViewOption()) ViewOption viewOption,
     @Default(HideState.visible) HideState hideUi,
     @Default(true) bool areaNavigatorCreate,
@@ -124,7 +125,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     DocumentBloc bloc, {
     int? index,
     BuildContext? context,
-    Handler? handler,
+    Handler<Tool>? handler,
   }) async {
     resetInput(bloc);
     final blocState = bloc.state;
@@ -236,7 +237,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     state.handler.dispose(bloc);
     final handler = Handler.fromTool(tool);
     state.handler.dispose(bloc);
-    _disposeForegrounds(false);
+    _disposeForegrounds();
     final foregrounds = handler.createForegrounds(this, docState.data,
         docState.page, docState.info, docState.currentArea);
     if (handler.setupForegrounds) {
@@ -280,12 +281,9 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     return null;
   }
 
-  void _disposeForegrounds([bool disposeTemporary = true]) {
+  void _disposeForegrounds() {
     for (final r in state.foregrounds) {
       r.dispose();
-    }
-    if (disposeTemporary) {
-      _disposeTemporaryForegrounds();
     }
   }
 
@@ -293,6 +291,52 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     for (final r in state.temporaryForegrounds ?? []) {
       r.dispose();
     }
+  }
+
+  void _disposeNetworkingForegrounds() {
+    for (final r in state.networkingForegrounds) {
+      r.dispose();
+    }
+  }
+
+  void _disposeToggleableForegrounds() {
+    for (final r in state.toggleableForegrounds.values.expand((e) => e)) {
+      r.dispose();
+    }
+  }
+
+  void _disposeAllForegrounds() {
+    _disposeForegrounds();
+    _disposeTemporaryForegrounds();
+    _disposeNetworkingForegrounds();
+    _disposeToggleableForegrounds();
+  }
+
+  R useHandler<R>(DocumentBloc bloc, int index,
+      R Function(Handler<Tool> handler) callback) {
+    Handler<Tool>? handler;
+    bool needsDispose = false;
+    if (state.index == index) {
+      handler = fetchHandler<Handler<Tool>>();
+    } else if (state.toggleableHandlers.containsKey(index)) {
+      handler = state.toggleableHandlers[index];
+    }
+    if (handler == null) {
+      List<Tool> tools = const [];
+      final blocState = bloc.state;
+      if (blocState is DocumentLoaded) tools = blocState.info.tools;
+      handler = Handler.fromTool(tools.elementAtOrNull(index));
+      needsDispose = true;
+    }
+    final result = callback(handler);
+    if (needsDispose) {
+      if (result is Future) {
+        result.then((value) => handler?.dispose(bloc));
+      } else {
+        handler.dispose(bloc);
+      }
+    }
+    return result;
   }
 
   Future<void> refresh(DocumentLoaded blocState) async {
@@ -303,7 +347,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     final currentArea = blocState.currentArea;
     const mapEq = MapEquality();
     if (!isClosed) {
-      _disposeForegrounds();
+      _disposeAllForegrounds();
       final temporaryForegrounds = state.temporaryHandler
           ?.createForegrounds(this, document, page, info, currentArea);
       if (temporaryForegrounds != null &&
@@ -317,6 +361,18 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
         await Future.wait(foregrounds
             .map((e) async => await e.setup(document, assetService, page)));
       }
+      final toggleableForegrounds = <int, List<Renderer>>{};
+      for (final entry in state.toggleableHandlers.entries) {
+        final handler = entry.value;
+        final index = entry.key;
+        final foregrounds =
+            handler.createForegrounds(this, document, page, info, currentArea);
+        if (handler.setupForegrounds) {
+          await Future.wait(foregrounds
+              .map((e) async => await e.setup(document, assetService, page)));
+        }
+        toggleableForegrounds[index] = foregrounds;
+      }
       final rendererStates = state.handler.rendererStates;
       final temporaryRendererStates = state.temporaryHandler?.rendererStates;
       final statesChanged = !mapEq.equals(state.rendererStates, rendererStates);
@@ -325,6 +381,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
       final shouldBake = statesChanged || temporaryStatesChanged;
       emit(state.copyWith(
         temporaryForegrounds: temporaryForegrounds,
+        toggleableForegrounds: toggleableForegrounds,
         foregrounds: foregrounds,
         cursor: state.handler.cursor ?? MouseCursor.defer,
         temporaryCursor: state.temporaryHandler?.cursor,
@@ -367,12 +424,55 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     return null;
   }
 
+  void enableHandler(DocumentBloc bloc, int index, Handler<Tool> handler) {
+    final blocState = bloc.state;
+    if (blocState is! DocumentLoaded) return;
+    final document = blocState.data;
+    final page = blocState.page;
+    final info = blocState.info;
+    final currentArea = blocState.currentArea;
+    final foregrounds =
+        handler.createForegrounds(this, document, page, info, currentArea);
+    if (handler.setupForegrounds) {
+      Future.wait(foregrounds.map(
+          (e) async => await e.setup(document, blocState.assetService, page)));
+    }
+    emit(state.copyWith(
+        toggleableHandlers: Map.from(state.toggleableHandlers)
+          ..[index] = handler,
+        toggleableForegrounds: Map.from(state.toggleableForegrounds)
+          ..[index] = foregrounds));
+  }
+
+  bool disableHandler(DocumentBloc bloc, int index) {
+    final handler = state.toggleableHandlers[index];
+    if (handler == null) {
+      return false;
+    }
+    handler.dispose(bloc);
+    final foregrounds = state.toggleableForegrounds[index];
+    for (final r in foregrounds ?? []) {
+      r.dispose();
+    }
+    emit(state.copyWith(
+        toggleableHandlers: Map.from(state.toggleableHandlers)..remove(index),
+        toggleableForegrounds: Map.from(state.toggleableForegrounds)
+          ..remove(index)));
+    return true;
+  }
+
+  bool isHandlerEnabled(int index) =>
+      state.toggleableHandlers.containsKey(index);
+
   void reset(DocumentBloc bloc) {
     for (final r in renderers) {
       r.dispose();
     }
     state.handler.dispose(bloc);
     state.temporaryHandler?.dispose(bloc);
+    for (var e in state.toggleableHandlers.values) {
+      e.dispose(bloc);
+    }
     _disposeForegrounds();
     emit(state.copyWith(
       index: null,

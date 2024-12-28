@@ -23,6 +23,6 @@ class GeneralHandHandler<T> extends Handler<T> {
       _moved ? SystemMouseCursors.grabbing : SystemMouseCursors.grab;
 }
 
-class HandHandler extends GeneralHandHandler<HandTool?> {
-  HandHandler([super.data]);
+class HandHandler extends GeneralHandHandler<HandTool> {
+  HandHandler([HandTool? tool]) : super(tool ?? HandTool());
 }

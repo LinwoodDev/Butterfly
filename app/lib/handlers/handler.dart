@@ -221,30 +221,31 @@ abstract class Handler<T> {
     return Handler.fromTool(tool);
   }
 
-  static Handler fromTool(Tool tool) {
+  static Handler<T> fromTool<T extends Tool>(T? tool) {
     return switch (tool) {
-      HandTool e => HandHandler(e) as Handler,
-      SelectTool e => SelectHandler(e),
-      ImportTool e => ImportHandler(e),
-      UndoTool e => UndoHandler(e),
-      RedoTool e => RedoHandler(e),
-      LabelTool e => LabelHandler(e),
-      PenTool e => PenHandler(e),
-      EraserTool e => EraserHandler(e),
-      PathEraserTool e => PathEraserHandler(e),
-      CollectionTool e => CollectionHandler(e),
-      AreaTool e => AreaHandler(e),
-      LaserTool e => LaserHandler(e),
-      ShapeTool e => ShapeHandler(e),
-      StampTool e => StampHandler(e),
-      PresentationTool e => PresentationHandler(e),
-      SpacerTool e => SpacerHandler(e),
-      FullScreenTool e => FullScreenHandler(e),
-      TextureTool e => TextureHandler(e),
-      AssetTool e => AssetHandler(e),
-      EyeDropperTool e => EyeDropperHandler(e),
-      ExportTool e => ExportHandler(e),
-    };
+      HandTool() => HandHandler(tool),
+      SelectTool() => SelectHandler(tool),
+      ImportTool() => ImportHandler(tool),
+      UndoTool() => UndoHandler(tool),
+      RedoTool() => RedoHandler(tool),
+      LabelTool() => LabelHandler(tool),
+      PenTool() => PenHandler(tool),
+      EraserTool() => EraserHandler(tool),
+      PathEraserTool() => PathEraserHandler(tool),
+      CollectionTool() => CollectionHandler(tool),
+      AreaTool() => AreaHandler(tool),
+      LaserTool() => LaserHandler(tool),
+      ShapeTool() => ShapeHandler(tool),
+      StampTool() => StampHandler(tool),
+      PresentationTool() => PresentationHandler(tool),
+      SpacerTool() => SpacerHandler(tool),
+      FullScreenTool() => FullScreenHandler(tool),
+      TextureTool() => TextureHandler(tool),
+      AssetTool() => AssetHandler(tool),
+      EyeDropperTool() => EyeDropperHandler(tool),
+      ExportTool() => ExportHandler(tool),
+      _ => GeneralHandHandler(tool),
+    } as Handler<T>;
   }
 
   PreferredSizeWidget? getToolbar(DocumentBloc bloc) => null;
