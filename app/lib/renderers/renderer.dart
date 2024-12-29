@@ -171,7 +171,8 @@ abstract class Renderer<T> {
       element is PadElement ? (element as PadElement).rotation : 0.0;
 
   String get id =>
-      (element is PadElement ? (element as PadElement).id : null) ?? '';
+      (element is PadElement ? (element as PadElement).id : null) ??
+      createUniqueId();
 
   @mustCallSuper
   FutureOr<void> setup(NoteData document, AssetService assetService,

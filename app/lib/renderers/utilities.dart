@@ -34,38 +34,7 @@ class UtilitiesRenderer extends Renderer<UtilitiesState> {
   void build(Canvas canvas, Size size, NoteData document, DocumentPage page,
       DocumentInfo info, CameraTransform transform,
       [ColorScheme? colorScheme, bool foreground = false]) {
-    /*if (element.gridEnabled) {
-      if (option.gridXSize > 0) {
-        double x = 0;
-        while (x < size.width) {
-          final localX = x / transform.size;
-          canvas.drawLine(
-            Offset(localX + transform.position.dx, transform.position.dy),
-            Offset(localX + transform.position.dx,
-                size.height / transform.size + transform.position.dy),
-            Paint()
-              ..strokeWidth = 1 / transform.size
-              ..color = option.gridColor.toColor(),
-          );
-          x += option.gridXSize;
-        }
-      }
-      if (option.gridYSize > 0) {
-        double y = 0;
-        while (y < size.height) {
-          final localY = y / transform.size;
-          canvas.drawLine(
-            Offset(transform.position.dx, transform.position.dy + localY),
-            Offset(transform.position.dx + size.width / transform.size,
-                transform.position.dy + localY),
-            Paint()
-              ..strokeWidth = 1 / transform.size
-              ..color = option.gridColor.toColor(),
-          );
-          y += option.gridYSize;
-        }
-      }
-    }
+    /*
     if (element.rulerEnabled) {
       final rulerColor = colorScheme?.primary ?? Colors.grey;
       final rulerBackgroundColor =

@@ -90,6 +90,8 @@ class _EditToolbarState extends State<EditToolbar> {
                     buildWhen: (previous, current) =>
                         previous.index != current.index ||
                         previous.handler != current.handler ||
+                        previous.toggleableHandlers !=
+                            current.toggleableHandlers ||
                         previous.temporaryHandler != current.temporaryHandler ||
                         previous.selection != current.selection,
                     builder: (context, currentIndex) {
@@ -295,24 +297,27 @@ class _EditToolbarState extends State<EditToolbar> {
                                 .read<CurrentIndexCubit>()
                                 .changeSelection(tool),
                             focussed: shortcuts.contains(i),
-                            selected: selected,
-                            alwaysShowBottom: tool.isAction(),
+                            selected: selected ||
+                                currentIndex.toggleableHandlers.containsKey(i),
+                            showBottom: selected || tool.isAction(),
                             highlighted: highlighted,
-                            bottomIcon: PhosphorIcon(tool.isAction()
-                                ? PhosphorIconsLight.playCircle
-                                : isMobile
-                                    ? PhosphorIconsLight.caretUp
-                                    : switch (settings.toolbarPosition) {
-                                        ToolbarPosition.top ||
-                                        ToolbarPosition.inline =>
-                                          PhosphorIconsLight.caretDown,
-                                        ToolbarPosition.bottom =>
-                                          PhosphorIconsLight.caretUp,
-                                        ToolbarPosition.left =>
-                                          PhosphorIconsLight.caretRight,
-                                        ToolbarPosition.right =>
-                                          PhosphorIconsLight.caretLeft,
-                                      }),
+                            bottomIcon: selected || tool.isAction()
+                                ? PhosphorIcon(tool.isAction()
+                                    ? PhosphorIconsLight.playCircle
+                                    : isMobile
+                                        ? PhosphorIconsLight.caretUp
+                                        : switch (settings.toolbarPosition) {
+                                            ToolbarPosition.top ||
+                                            ToolbarPosition.inline =>
+                                              PhosphorIconsLight.caretDown,
+                                            ToolbarPosition.bottom =>
+                                              PhosphorIconsLight.caretUp,
+                                            ToolbarPosition.left =>
+                                              PhosphorIconsLight.caretRight,
+                                            ToolbarPosition.right =>
+                                              PhosphorIconsLight.caretLeft,
+                                          })
+                                : null,
                             selectedIcon: _buildIcon(icon, size, color),
                             icon: _buildIcon(icon, size, color),
                             onPressed: () {

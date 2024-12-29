@@ -79,7 +79,7 @@ dependencies:
   material_leap:
     git:
       url: https://github.com/LinwoodDev/dart_pkgs
-      ref: 307657c0e0b93de9af1e1aa9bd96900e0bb7d27c
+      ref: 54f7ac141410938babff9539dca190f5d130a0db
       path: packages/material_leap
   lw_sysapi:
     git:
@@ -99,7 +99,7 @@ dependencies:
   lw_file_system:
     git:
       url: https://github.com/LinwoodDev/dart_pkgs
-      ref: 2325ec71be6691f64725bc78a911cabed68d901b
+      ref: 54f7ac141410938babff9539dca190f5d130a0db
       path: packages/lw_file_system
   flutter_localized_locales: ^2.0.5
   dynamic_color: ^1.7.0

@@ -70,6 +70,8 @@ part 'pen.dart';
 part 'eye_dropper.dart';
 part 'presentation.dart';
 part 'redo.dart';
+part 'ruler.dart';
+part 'grid.dart';
 part 'select.dart';
 part 'shape.dart';
 part 'spacer.dart';
@@ -153,12 +155,15 @@ class EventContext {
 
 enum ToolStatus { normal, disabled }
 
+enum SelectState { normal, none, toggle }
+
 abstract class Handler<T> {
   final T data;
 
   const Handler(this.data);
 
-  bool onSelected(BuildContext context, [bool wasAdded = true]) => true;
+  SelectState onSelected(BuildContext context, [bool wasAdded = true]) =>
+      SelectState.normal;
 
   List<Renderer> createForegrounds(CurrentIndexCubit currentIndexCubit,
           NoteData document, DocumentPage page, DocumentInfo info,
@@ -210,7 +215,7 @@ abstract class Handler<T> {
 
   bool canChange(PointerDownEvent event, EventContext context) => true;
 
-  void resetInput(DocumentBloc bloc) {}
+  FutureOr<void> resetInput(DocumentBloc bloc) {}
 
   ToolStatus getStatus(DocumentBloc bloc) => ToolStatus.normal;
 
@@ -244,7 +249,8 @@ abstract class Handler<T> {
       AssetTool() => AssetHandler(tool),
       EyeDropperTool() => EyeDropperHandler(tool),
       ExportTool() => ExportHandler(tool),
-      _ => FallbackHandler<T>(tool),
+      GridTool() => GridHandler(tool),
+      RulerTool() => RulerHandler(tool),
     } as Handler<T>;
   }
 

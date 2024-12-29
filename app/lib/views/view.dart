@@ -190,6 +190,8 @@ class _MainViewViewportState extends State<MainViewViewport>
                 previous.foregrounds != current.foregrounds ||
                 previous.handler != current.handler ||
                 previous.temporaryHandler != current.temporaryHandler ||
+                previous.toggleableForegrounds !=
+                    current.toggleableForegrounds ||
                 previous.temporaryForegrounds != current.temporaryForegrounds ||
                 previous.rendererStates != current.rendererStates ||
                 previous.networkingForegrounds !=
@@ -440,7 +442,7 @@ class _MainViewViewportState extends State<MainViewViewport>
               CustomPaint(
                 size: Size.infinite,
                 foregroundPainter: ForegroundPainter(
-                  cubit.getForegrounds(),
+                  currentIndex.getAllForegrounds(),
                   state.data,
                   state.page,
                   state.info,

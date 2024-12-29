@@ -45,6 +45,7 @@ class _AddDialogState extends State<AddDialog> {
         currentIndexCubit.changeTool(
           bloc,
           index: state.info.tools.length,
+          context: context,
           handler: Handler.fromTool(defaultTool),
         );
       }

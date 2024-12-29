@@ -406,7 +406,9 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
           }).toList())));
       final updatedCurrent = event.tools.entries.firstWhereOrNull((element) =>
           oldTools[element.key] ==
-          current.currentIndexCubit.state.handler.data);
+              current.currentIndexCubit.state.handler.data ||
+          current.currentIndexCubit.state.toggleableHandlers
+              .containsKey(element.key));
       if (updatedCurrent != null) {
         current.currentIndexCubit.updateTool(this, updatedCurrent.value);
       }

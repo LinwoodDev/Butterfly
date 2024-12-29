@@ -31,12 +31,12 @@ class SelectHandler extends Handler<SelectTool> {
           : {};
 
   @override
-  void resetInput(DocumentBloc bloc) {
+  Future<void> resetInput(DocumentBloc bloc) async {
     _submitTransform(bloc);
     _rectangleFreeSelection = null;
     _lassoFreeSelection = null;
     _selectionManager.reset();
-    bloc.refresh();
+    await bloc.refresh();
   }
 
   @override

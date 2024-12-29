@@ -5,7 +5,7 @@ class OptionButton extends StatefulWidget {
   final Widget icon;
   final Widget? selectedIcon, bottomIcon, leadingIcon;
   final VoidCallback? onPressed, onSecondaryPressed, onLongPressed;
-  final bool selected, highlighted, focussed, alwaysShowBottom;
+  final bool selected, highlighted, focussed, showBottom;
   final String tooltip;
 
   const OptionButton({
@@ -21,7 +21,7 @@ class OptionButton extends StatefulWidget {
     this.selected = false,
     this.highlighted = false,
     this.focussed = false,
-    this.alwaysShowBottom = false,
+    this.showBottom = false,
   });
 
   @override
@@ -54,8 +54,7 @@ class _OptionButtonState extends State<OptionButton>
     _animationController.dispose();
   }
 
-  double get _nextValue =>
-      widget.alwaysShowBottom || widget.selected || widget.highlighted ? 1 : 0;
+  double get _nextValue => widget.showBottom ? 1 : 0;
 
   @override
   void didUpdateWidget(covariant OptionButton oldWidget) {
