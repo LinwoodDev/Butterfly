@@ -319,7 +319,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     Handler<Tool>? handler;
     bool needsDispose = false;
     if (state.index == index) {
-      handler = fetchHandler<Handler<Tool>>();
+      handler = fetchHandler<Handler<Tool>>(disableTemporary: true);
     } else if (state.toggleableHandlers.containsKey(index)) {
       handler = state.toggleableHandlers[index];
     }
@@ -327,7 +327,8 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
       List<Tool> tools = const [];
       final blocState = bloc.state;
       if (blocState is DocumentLoaded) tools = blocState.info.tools;
-      handler = Handler.fromTool(tools.elementAtOrNull(index));
+      final tool = tools.elementAtOrNull(index) ?? HandTool();
+      handler = Handler.fromTool(tool);
       needsDispose = true;
     }
     final result = callback(handler);

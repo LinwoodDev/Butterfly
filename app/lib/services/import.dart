@@ -229,7 +229,8 @@ class ImportService {
         password = await showDialog<String>(
           context: context,
           builder: (context) => NameDialog(
-            title: AppLocalizations.of(context).password,
+            title: AppLocalizations.of(context).encrypted,
+            hint: AppLocalizations.of(context).password,
             button: AppLocalizations.of(context).open,
             obscureText: true,
           ),

@@ -427,10 +427,8 @@ Map<String, dynamic> _$$TextureToolImplToJson(_$TextureToolImpl instance) =>
 _$RulerToolImpl _$$RulerToolImplFromJson(Map json) => _$RulerToolImpl(
       name: json['name'] as String? ?? '',
       displayIcon: json['displayIcon'] as String? ?? '',
-      gridColor: json['gridColor'] == null
-          ? SRGBColor.black
-          : const ColorJsonConverter()
-              .fromJson((json['gridColor'] as num).toInt()),
+      color: _$JsonConverterFromJson<int, SRGBColor>(
+          json['color'], const ColorJsonConverter().fromJson),
       $type: json['type'] as String?,
     );
 
@@ -438,9 +436,22 @@ Map<String, dynamic> _$$RulerToolImplToJson(_$RulerToolImpl instance) =>
     <String, dynamic>{
       'name': instance.name,
       'displayIcon': instance.displayIcon,
-      'gridColor': const ColorJsonConverter().toJson(instance.gridColor),
+      'color': _$JsonConverterToJson<int, SRGBColor>(
+          instance.color, const ColorJsonConverter().toJson),
       'type': instance.$type,
     };
+
+Value? _$JsonConverterFromJson<Json, Value>(
+  Object? json,
+  Value? Function(Json json) fromJson,
+) =>
+    json == null ? null : fromJson(json as Json);
+
+Json? _$JsonConverterToJson<Json, Value>(
+  Value? value,
+  Json? Function(Value value) toJson,
+) =>
+    value == null ? null : toJson(value);
 
 _$GridToolImpl _$$GridToolImplFromJson(Map json) => _$GridToolImpl(
       name: json['name'] as String? ?? '',

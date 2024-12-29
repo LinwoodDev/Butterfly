@@ -61,8 +61,8 @@ class ImportHandler extends Handler<ImportTool> {
             .copyWith(id: createUniqueId()))
         .nonNulls
         .toList()));
-    context.refresh();
-    context.bake();
+    await context.refresh();
+    await context.bake();
   }
 
   @override

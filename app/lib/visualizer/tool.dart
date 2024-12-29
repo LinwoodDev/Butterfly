@@ -19,8 +19,15 @@ extension ToolCategoryVisualizer on ToolCategory {
         ToolCategory.normal => PhosphorIcons.paintBrush,
         ToolCategory.import => PhosphorIcons.arrowSquareIn,
         ToolCategory.surface => PhosphorIcons.monitor,
-        ToolCategory.action => PhosphorIcons.arrowClockwise,
+        ToolCategory.action => PhosphorIcons.play,
         ToolCategory.view => PhosphorIcons.eye,
+      };
+  String getLocalizedName(BuildContext context) => switch (this) {
+        ToolCategory.normal => AppLocalizations.of(context).normal,
+        ToolCategory.import => AppLocalizations.of(context).import,
+        ToolCategory.surface => AppLocalizations.of(context).surface,
+        ToolCategory.action => AppLocalizations.of(context).action,
+        ToolCategory.view => AppLocalizations.of(context).view,
       };
 }
 

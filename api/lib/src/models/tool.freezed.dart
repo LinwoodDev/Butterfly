@@ -2799,7 +2799,7 @@ abstract class _$$RulerToolImplCopyWith<$Res> implements $ToolCopyWith<$Res> {
   $Res call(
       {String name,
       String displayIcon,
-      @ColorJsonConverter() SRGBColor gridColor});
+      @ColorJsonConverter() SRGBColor? color});
 }
 
 /// @nodoc
@@ -2817,7 +2817,7 @@ class __$$RulerToolImplCopyWithImpl<$Res>
   $Res call({
     Object? name = null,
     Object? displayIcon = null,
-    Object? gridColor = null,
+    Object? color = freezed,
   }) {
     return _then(_$RulerToolImpl(
       name: null == name
@@ -2828,10 +2828,10 @@ class __$$RulerToolImplCopyWithImpl<$Res>
           ? _value.displayIcon
           : displayIcon // ignore: cast_nullable_to_non_nullable
               as String,
-      gridColor: null == gridColor
-          ? _value.gridColor
-          : gridColor // ignore: cast_nullable_to_non_nullable
-              as SRGBColor,
+      color: freezed == color
+          ? _value.color
+          : color // ignore: cast_nullable_to_non_nullable
+              as SRGBColor?,
     ));
   }
 }
@@ -2842,7 +2842,7 @@ class _$RulerToolImpl extends RulerTool {
   _$RulerToolImpl(
       {this.name = '',
       this.displayIcon = '',
-      @ColorJsonConverter() this.gridColor = SRGBColor.black,
+      @ColorJsonConverter() this.color,
       final String? $type})
       : $type = $type ?? 'ruler',
         super._();
@@ -2857,16 +2857,15 @@ class _$RulerToolImpl extends RulerTool {
   @JsonKey()
   final String displayIcon;
   @override
-  @JsonKey()
   @ColorJsonConverter()
-  final SRGBColor gridColor;
+  final SRGBColor? color;
 
   @JsonKey(name: 'type')
   final String $type;
 
   @override
   String toString() {
-    return 'Tool.ruler(name: $name, displayIcon: $displayIcon, gridColor: $gridColor)';
+    return 'Tool.ruler(name: $name, displayIcon: $displayIcon, color: $color)';
   }
 
   /// Create a copy of Tool
@@ -2889,7 +2888,7 @@ abstract class RulerTool extends Tool {
   factory RulerTool(
       {final String name,
       final String displayIcon,
-      @ColorJsonConverter() final SRGBColor gridColor}) = _$RulerToolImpl;
+      @ColorJsonConverter() final SRGBColor? color}) = _$RulerToolImpl;
   RulerTool._() : super._();
 
   factory RulerTool.fromJson(Map<String, dynamic> json) =
@@ -2900,7 +2899,7 @@ abstract class RulerTool extends Tool {
   @override
   String get displayIcon;
   @ColorJsonConverter()
-  SRGBColor get gridColor;
+  SRGBColor? get color;
 
   /// Create a copy of Tool
   /// with the given fields replaced by the non-null parameter values.

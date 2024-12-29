@@ -209,6 +209,16 @@ class _AddDialogState extends State<AddDialog> {
                                 .toLowerCase()
                                 .contains(search.toLowerCase()))
                             .toList();
+                        final view = [
+                          Tool.ruler,
+                          Tool.grid,
+                        ]
+                            .map((e) => e())
+                            .where((e) => e
+                                .getLocalizedName(context)
+                                .toLowerCase()
+                                .contains(search.toLowerCase()))
+                            .toList();
                         return ListView(
                           shrinkWrap: true,
                           children: [
@@ -303,6 +313,14 @@ class _AddDialogState extends State<AddDialog> {
                                 isMobile: isMobile,
                                 title: AppLocalizations.of(context).actions,
                                 children: actions.map(buildTool).toList(),
+                              ),
+                              const SizedBox(height: 16),
+                            ],
+                            if (view.isNotEmpty) ...[
+                              _ToolsListView(
+                                isMobile: isMobile,
+                                title: AppLocalizations.of(context).view,
+                                children: view.map(buildTool).toList(),
                               ),
                               const SizedBox(height: 16),
                             ],

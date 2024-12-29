@@ -221,7 +221,7 @@ abstract class Handler<T> {
     return Handler.fromTool(tool);
   }
 
-  static Handler<T> fromTool<T extends Tool>(T? tool) {
+  static Handler<T> fromTool<T extends Tool>(T tool) {
     return switch (tool) {
       HandTool() => HandHandler(tool),
       SelectTool() => SelectHandler(tool),
@@ -244,7 +244,7 @@ abstract class Handler<T> {
       AssetTool() => AssetHandler(tool),
       EyeDropperTool() => EyeDropperHandler(tool),
       ExportTool() => ExportHandler(tool),
-      _ => GeneralHandHandler(tool),
+      _ => FallbackHandler<T>(tool),
     } as Handler<T>;
   }
 
