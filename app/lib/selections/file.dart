@@ -1,7 +1,7 @@
 part of 'selection.dart';
 
-class UtilitiesSelection extends Selection<UtilitiesState> {
-  UtilitiesSelection(super.selected);
+class FileSelection extends Selection<Null> {
+  FileSelection() : super([null]);
 
   @override
   IconGetter get icon => PhosphorIcons.wrench;
@@ -20,7 +20,7 @@ class UtilitiesSelection extends Selection<UtilitiesState> {
     return [
       ...super.buildProperties(context),
       _UtilitiesView(
-        state: selected.first,
+        state: currentIndex.utilities,
         option: currentIndex.viewOption,
         onStateChanged: (state) => cubit.updateUtilities(utilities: state),
         onToolChanged: (option) => cubit.updateUtilities(view: option),

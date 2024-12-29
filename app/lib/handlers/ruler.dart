@@ -1,8 +1,22 @@
 part of 'handler.dart';
 
-class RulerHandler extends Handler<RulerTool> {
+Rect _getRulerRect(Size size,
+    [CameraTransform transform = const CameraTransform()]) {
+  const rulerSize = 100.0;
+  return Rect.fromLTWH(
+    transform.position.dx,
+    transform.position.dy + (size.height / 2 + -rulerSize / 2) / transform.size,
+    size.width / transform.size,
+    rulerSize / transform.size,
+  );
+}
+
+class RulerHandler extends Handler<RulerTool> with PointerManipulationHandler {
   Offset _position = Offset.zero;
   double _rotation = 0;
+
+  Offset get position => _position;
+  double get rotation => _rotation;
 
   RulerHandler(super.data);
 
@@ -19,14 +33,44 @@ class RulerHandler extends Handler<RulerTool> {
     return SelectState.toggle;
   }
 
-  void move(Offset offset, EventContext context) {
-    _position = offset;
+  void transform(
+    EventContext context, {
+    Offset? position,
+    double? rotation,
+  }) {
+    if (position != null) {
+      _position = position;
+    }
+    if (rotation != null) {
+      _rotation = rotation;
+    }
     context.refresh();
   }
 
-  void rotate(double rotation, EventContext context) {
-    _rotation = rotation;
-    context.refresh();
+  bool isPointerInside(Offset position, Size viewportSize) {
+    final rect = _getRulerRect(viewportSize);
+    // Check if the position is inside the ruler rect, consider rotation
+    final rotatedPosition = position.rotate(rect.center, -_rotation);
+    return rect.contains(rotatedPosition);
+  }
+
+  @override
+  Offset getPointerPosition(Offset position, Size viewportSize) {
+    if (!isPointerInside(position, viewportSize)) {
+      return _position;
+    }
+    final rotatedPosition = position.rotate(_position, _rotation);
+    return Offset(
+      _position.dx + (rotatedPosition.dx - _position.dx).roundToDouble(),
+      _position.dy + (rotatedPosition.dy - _position.dy).roundToDouble(),
+    );
+  }
+
+  static RulerHandler? getFirstRuler(
+      CurrentIndex index, Offset position, Size viewportSize) {
+    return index.toggleableHandlers.values
+        .whereType<RulerHandler>()
+        .firstWhereOrNull((e) => e.isPointerInside(position, viewportSize));
   }
 }
 
@@ -40,17 +84,6 @@ class RulerRenderer extends Renderer<RulerTool> {
     this.position = Offset.zero,
     this.rotation = 0,
   });
-
-  Rect getRulerRect(Size size, CameraTransform transform) {
-    const rulerSize = 100.0;
-    return Rect.fromLTWH(
-      transform.position.dx,
-      transform.position.dy +
-          (size.height / 2 + -rulerSize / 2) / transform.size,
-      size.width / transform.size,
-      rulerSize / transform.size,
-    );
-  }
 
   @override
   void build(Canvas canvas, Size size, NoteData document, DocumentPage page,
@@ -69,7 +102,7 @@ class RulerRenderer extends Renderer<RulerTool> {
       ..color = rulerBackgroundColor
       ..style = PaintingStyle.fill;
     final rulerForegroundPaint = Paint()..color = rulerForegroundColor;
-    final rulerRect = getRulerRect(size, transform);
+    final rulerRect = _getRulerRect(size, transform);
 
     // Calculate steps based on zoom level
     var steps = 50;

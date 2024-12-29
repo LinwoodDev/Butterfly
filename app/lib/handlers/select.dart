@@ -182,7 +182,7 @@ class SelectHandler extends Handler<SelectTool> {
     if (_selectionManager.isTransforming) {
       return;
     }
-    final utilities = context.getCurrentIndex().utilitiesState;
+    final utilities = context.getCurrentIndex().utilities;
     final transform = context.getCameraTransform();
     final globalPos = transform.localToGlobal(localPosition);
     final selectionRect = getSelectionRect();
@@ -285,19 +285,10 @@ class SelectHandler extends Handler<SelectTool> {
     context.refresh();
   }
 
-  double? _rulerRotation;
-  Offset? _rulerPosition;
-
   @override
   bool onScaleStart(ScaleStartDetails details, EventContext context) {
-    final viewport = context.getCameraViewport();
-    if (viewport.utilities
-        .hitRuler(details.localFocalPoint, viewport.toSize())) {
-      _rulerRotation = 0;
-      _rulerPosition = details.localFocalPoint;
-      return true;
-    }
     final currentIndex = context.getCurrentIndex();
+    _ruler = false;
     if (currentIndex.buttons == kSecondaryMouseButton &&
         currentIndex.temporaryHandler == null) {
       return false;
@@ -323,39 +314,33 @@ class SelectHandler extends Handler<SelectTool> {
       event.kind == PointerDeviceKind.mouse &&
       event.buttons != kSecondaryMouseButton;
 
-  /*void _handleRuler(ScaleUpdateDetails details, EventContext context) {
+  bool _ruler = false;
+
+  bool _handleRuler(ScaleUpdateDetails details, EventContext context) {
+    _ruler = true;
     final state = context.getState();
-    if (state == null) return;
-    final viewport = context.getCameraViewport();
-    var utilitiesState = viewport.utilities.element;
-    final currentRotation = details.rotation * 180 / pi * details.scale;
-    final delta = currentRotation - _rulerRotation!;
-    var angle = utilitiesState.rulerAngle + delta;
+    if (state == null) return false;
+    final ruler = RulerHandler.getFirstRuler(context.getCurrentIndex(),
+        details.localFocalPoint, context.viewportSize);
+    if (ruler == null) return false;
+    //final currentRotation = ruler.rotation * 180 / pi * details.scale;
+    final delta = details.rotation;
+    var angle = ruler.rotation + delta;
     while (angle < 0) {
       angle += 360;
     }
     angle %= 360;
     final currentPos = details.localFocalPoint;
-    utilitiesState = utilitiesState.copyWith(
-      rulerPosition: utilitiesState.rulerPosition +
-          Point(
-            currentPos.dx - _rulerPosition!.dx,
-            currentPos.dy - _rulerPosition!.dy,
-          ),
-      rulerAngle: angle,
-    );
-    _rulerRotation = currentRotation;
-    _rulerPosition = currentPos;
-    context.getCurrentIndexCubit().updateUtilities(utilities: utilitiesState);
-  }*/
+    ruler.transform(context, position: currentPos, rotation: angle);
+    return true;
+  }
 
   @override
   void onScaleUpdate(ScaleUpdateDetails details, EventContext context) {
     if (details.pointerCount > 1) return;
     final globalPos =
         context.getCameraTransform().localToGlobal(details.localFocalPoint);
-    if (_rulerRotation != null && _rulerPosition != null) {
-      //_handleRuler(details, context);
+    if (_handleRuler(details, context)) {
       return;
     }
     if (_selectionManager.isTransforming) {
@@ -381,11 +366,10 @@ class SelectHandler extends Handler<SelectTool> {
 
   @override
   void onScaleEnd(ScaleEndDetails details, EventContext context) async {
-    final utilities = context.getCurrentIndex().utilitiesState;
+    final utilities = context.getCurrentIndex().utilities;
     final rectangleSelection = _rectangleFreeSelection?.normalized();
     final lassoSelection = _lassoFreeSelection;
-    if (_rulerRotation != null) {
-      _rulerRotation = null;
+    if (_ruler) {
       return;
     }
     final transformed = _submitTransform(context.getDocumentBloc());

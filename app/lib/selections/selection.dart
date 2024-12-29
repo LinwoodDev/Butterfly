@@ -46,7 +46,7 @@ part 'properties/path.dart';
 part 'properties/pen.dart';
 
 part 'area.dart';
-part 'utilities.dart';
+part 'file.dart';
 
 abstract class Selection<T> {
   List<T> _selected;
@@ -65,8 +65,8 @@ abstract class Selection<T> {
     if (selected is Area) {
       return AreaSelection([selected]) as Selection<T>;
     }
-    if (selected is UtilitiesState) {
-      return UtilitiesSelection([selected]) as Selection<T>;
+    if (selected == null) {
+      return FileSelection() as Selection<T>;
     }
     throw UnsupportedError('Unsupported selection type: $T');
   }

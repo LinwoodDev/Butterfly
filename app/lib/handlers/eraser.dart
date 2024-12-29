@@ -38,7 +38,7 @@ class EraserHandler extends Handler<EraserTool> {
   Future<void> _changeElement(Offset position, EventContext context) async {
     final currentIndex = context.getCurrentIndex();
     final transform = currentIndex.transformCubit.state;
-    final utilities = currentIndex.utilitiesState;
+    final utilities = currentIndex.utilities;
     final globalPos = transform.localToGlobal(position);
     final size = data.strokeWidth;
     final shouldErase =

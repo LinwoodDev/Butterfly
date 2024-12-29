@@ -1,6 +1,6 @@
 part of 'handler.dart';
 
-class GridHandler extends Handler<GridTool> {
+class GridHandler extends Handler<GridTool> with PointerManipulationHandler {
   GridHandler(super.data);
 
   @override
@@ -12,6 +12,14 @@ class GridHandler extends Handler<GridTool> {
   @override
   SelectState onSelected(BuildContext context, [bool wasAdded = true]) {
     return SelectState.toggle;
+  }
+
+  @override
+  Offset getPointerPosition(Offset position, Size viewportSize) {
+    return Offset(
+      (position.dx / data.xSize).round() * data.xSize,
+      (position.dy / data.ySize).round() * data.ySize,
+    );
   }
 }
 

@@ -381,8 +381,7 @@ class _EditToolbarState extends State<EditToolbar> {
                       false,
                   onPressed: () {
                     final cubit = context.read<CurrentIndexCubit>();
-                    final state = cubit.state.cameraViewport.utilities.element;
-                    cubit.changeSelection(state);
+                    cubit.changeSelection(null);
                   },
                 ),
                 if (windowState.fullScreen &&
@@ -396,7 +395,7 @@ class _EditToolbarState extends State<EditToolbar> {
                   ),
                 BlocBuilder<CurrentIndexCubit, CurrentIndex>(
                   builder: (context, currentIndex) {
-                    final utilitiesState = currentIndex.utilitiesState;
+                    final utilitiesState = currentIndex.utilities;
                     Widget buildButton(
                             bool selected,
                             UtilitiesState Function() update,

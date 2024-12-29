@@ -111,8 +111,8 @@ class LaserHandler extends Handler<LaserTool> with ColoredHandler {
     final state = bloc.state as DocumentLoadSuccess;
     final settings = context.read<SettingsCubit>().state;
     final penOnlyInput = settings.penOnlyInput;
-    localPosition =
-        viewport.utilities.getPointerPosition(localPosition, currentIndexCubit);
+    localPosition = PointerManipulationHandler.calculatePointerPosition(
+        currentIndexCubit.state, localPosition, viewport.toSize());
     if (penOnlyInput && kind != PointerDeviceKind.stylus) {
       return;
     }

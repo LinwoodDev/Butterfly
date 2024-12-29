@@ -152,7 +152,7 @@ class _ProjectPageState extends State<ProjectPage> {
       setState(() {
         _transformCubit = TransformCubit();
         _currentIndexCubit = CurrentIndexCubit(settingsCubit, _transformCubit!,
-            CameraViewport.unbaked(UtilitiesRenderer()), embedding);
+            CameraViewport.unbaked(), embedding);
         _bloc = DocumentBloc(
           fileSystem,
           _currentIndexCubit!,
@@ -264,7 +264,7 @@ class _ProjectPageState extends State<ProjectPage> {
         _currentIndexCubit = CurrentIndexCubit(
           settingsCubit,
           _transformCubit!,
-          CameraViewport.unbaked(UtilitiesRenderer(), backgrounds),
+          CameraViewport.unbaked(backgrounds),
           null,
           networkingService,
         );
@@ -283,7 +283,7 @@ class _ProjectPageState extends State<ProjectPage> {
         _currentIndexCubit = CurrentIndexCubit(
           settingsCubit,
           _transformCubit!,
-          CameraViewport.unbaked(UtilitiesRenderer()),
+          CameraViewport.unbaked(),
           null,
           networkingService,
         );

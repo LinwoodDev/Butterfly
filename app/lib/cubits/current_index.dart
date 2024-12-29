@@ -49,6 +49,7 @@ class CurrentIndex with _$CurrentIndex {
     SettingsCubit settingsCubit,
     TransformCubit transformCubit,
     NetworkingService networkingService, {
+    @Default(UtilitiesState()) UtilitiesState utilities,
     Handler<Tool>? temporaryHandler,
     @Default([]) List<Renderer> foregrounds,
     Selection? selection,
@@ -83,8 +84,6 @@ class CurrentIndex with _$CurrentIndex {
   bool get absolute => saved == SaveState.absoluteRead;
 
   MouseCursor get currentCursor => temporaryCursor ?? cursor;
-
-  UtilitiesState get utilitiesState => cameraViewport.utilities.element;
 
   Map<String, RendererState> get allRendererStates => {
         ...rendererStates,
@@ -121,12 +120,6 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     } else {
       return state.temporaryHandler ?? state.handler;
     }
-  }
-
-  Offset getGridPosition(
-      Offset position, DocumentPage page, DocumentInfo info) {
-    return state.cameraViewport.utilities
-        .getGridPosition(position, page, info, this);
   }
 
   Future<Handler?> changeTool(
@@ -529,7 +522,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
       temporaryForegrounds: null,
       temporaryCursor: null,
       temporaryRendererStates: null,
-      cameraViewport: CameraViewport.unbaked(UtilitiesRenderer()),
+      cameraViewport: CameraViewport.unbaked(),
     ));
   }
 
@@ -864,13 +857,10 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
 
   void unbake(
       {List<Renderer<Background>>? backgrounds,
-      UtilitiesRenderer? tool,
       List<Renderer<PadElement>>? unbakedElements}) {
     emit(state.copyWith(
         cameraViewport: state.cameraViewport.unbake(
-            unbakedElements: unbakedElements,
-            utilities: tool,
-            backgrounds: backgrounds)));
+            unbakedElements: unbakedElements, backgrounds: backgrounds)));
   }
 
   Future<void> loadElements(DocumentState docState) async {
@@ -893,17 +883,10 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     final backgrounds = page.backgrounds.map(Renderer.fromInstance).toList();
     await Future.wait(backgrounds
         .map((e) async => await e.setup(document, assetService, page)));
-    final utilities = UtilitiesRenderer(state.settingsCubit.state.utilities);
-    await utilities.setup(
-      docState.data,
-      docState.assetService,
-      docState.page,
-    );
     emit(state.copyWith(
         cameraViewport: state.cameraViewport.unbake(
       unbakedElements: renderers,
       backgrounds: backgrounds,
-      utilities: utilities,
     )));
   }
 
@@ -1048,24 +1031,10 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
   Future<void> updateUtilities(
       {UtilitiesState? utilities, ViewOption? view}) async {
     var state = this.state;
-    final renderer = UtilitiesRenderer(
-        utilities ?? state.utilitiesState, view ?? state.viewOption);
-    if (utilities != null) {
-      var newSelection =
-          state.selection?.remove(state.cameraViewport.utilities.element);
-      if (newSelection == null && state.selection != null) {
-        newSelection = Selection.from(utilities);
-      } else if (newSelection != state.selection) {
-        newSelection = newSelection?.insert(renderer);
-      }
-      state = state.copyWith(selection: newSelection);
-    }
     state = state.copyWith(
-      cameraViewport: state.cameraViewport.withUtilities(renderer),
+      utilities: utilities ?? state.utilities,
+      viewOption: view ?? state.viewOption,
     );
-    if (view != null) {
-      state = state.copyWith(viewOption: view);
-    }
     emit(state);
     if (utilities != null) {
       return state.settingsCubit.changeUtilities(utilities);
@@ -1075,7 +1044,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
   void togglePin() => emit(state.copyWith(pinned: !state.pinned));
 
   void move(Offset delta, [bool force = false]) {
-    final utilitiesState = state.utilitiesState;
+    final utilitiesState = state.utilities;
     if (utilitiesState.lockHorizontal && !force) {
       delta = Offset(0, delta.dy);
     }
@@ -1089,7 +1058,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
   }
 
   void zoom(double delta, [Offset cursor = Offset.zero, bool force = false]) {
-    final utilitiesState = state.utilitiesState;
+    final utilitiesState = state.utilities;
     if (utilitiesState.lockZoom && !force) {
       delta = 1;
     }

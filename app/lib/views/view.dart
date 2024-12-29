@@ -449,7 +449,6 @@ class _MainViewViewportState extends State<MainViewViewport>
                   Theme.of(context).colorScheme,
                   frictionTransform,
                   cubit.state.selection,
-                  currentIndex.cameraViewport.utilities,
                 ),
                 painter: ViewPainter(
                   state.data,

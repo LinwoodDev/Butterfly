@@ -474,3 +474,19 @@ abstract class PastingHandler<T> extends Handler<T> {
 
   bool get currentlyPasting => _firstPos != null && _secondPos != null;
 }
+
+mixin PointerManipulationHandler<T> on Handler<T> {
+  Offset getPointerPosition(Offset position, Size viewportSize) {
+    return position;
+  }
+
+  static Offset calculatePointerPosition(
+      CurrentIndex index, Offset position, Size viewportSize) {
+    return index.toggleableHandlers.values
+            .whereType<PointerManipulationHandler>()
+            .map((e) => e.getPointerPosition(position, viewportSize))
+            .where((e) => e != position)
+            .firstOrNull ??
+        position;
+  }
+}
