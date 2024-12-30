@@ -37,6 +37,8 @@ enum HideState { visible, keyboard, touch }
 
 enum RendererState { visible, temporary, hidden }
 
+enum TemporaryState { allowClick, removeAfterClick, removeAfterRelease }
+
 @Freezed(equal: false)
 class CurrentIndex with _$CurrentIndex {
   const CurrentIndex._();
@@ -47,6 +49,7 @@ class CurrentIndex with _$CurrentIndex {
     SettingsCubit settingsCubit,
     TransformCubit transformCubit,
     NetworkingService networkingService, {
+    @Default(UtilitiesState()) UtilitiesState utilities,
     Handler<Tool>? temporaryHandler,
     @Default([]) List<Renderer> foregrounds,
     Selection? selection,
@@ -57,7 +60,7 @@ class CurrentIndex with _$CurrentIndex {
     @Default({}) Map<int, List<Renderer>> toggleableForegrounds,
     @Default(MouseCursor.defer) MouseCursor cursor,
     MouseCursor? temporaryCursor,
-    @Default(false) bool temporaryClicked,
+    @Default(TemporaryState.allowClick) TemporaryState temporaryState,
     Offset? lastPosition,
     @Default([]) List<int> pointers,
     int? buttons,
@@ -82,12 +85,16 @@ class CurrentIndex with _$CurrentIndex {
 
   MouseCursor get currentCursor => temporaryCursor ?? cursor;
 
-  UtilitiesState get utilitiesState => cameraViewport.utilities.element;
-
   Map<String, RendererState> get allRendererStates => {
         ...rendererStates,
         ...?temporaryRendererStates,
       };
+
+  List<Renderer> getAllForegrounds([bool networking = true]) => [
+        ...(temporaryForegrounds ?? foregrounds),
+        ...toggleableForegrounds.values.expand((e) => e),
+        if (networking) ...networkingForegrounds,
+      ];
 }
 
 class CurrentIndexCubit extends Cubit<CurrentIndex> {
@@ -115,19 +122,13 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     }
   }
 
-  Offset getGridPosition(
-      Offset position, DocumentPage page, DocumentInfo info) {
-    return state.cameraViewport.utilities
-        .getGridPosition(position, page, info, this);
-  }
-
   Future<Handler?> changeTool(
     DocumentBloc bloc, {
     int? index,
     BuildContext? context,
     Handler<Tool>? handler,
   }) async {
-    resetInput(bloc);
+    await resetInput(bloc);
     final blocState = bloc.state;
     if (blocState is! DocumentLoadSuccess) return null;
     final document = blocState.data;
@@ -137,7 +138,11 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
       return null;
     }
     handler ??= Handler.fromTool(info.tools[index]);
-    if (context == null || handler.onSelected(context)) {
+    var selectState = SelectState.normal;
+    if (context != null) {
+      selectState = handler.onSelected(context);
+    }
+    if (selectState != SelectState.none) {
       state.handler.dispose(bloc);
       state.temporaryHandler?.dispose(bloc);
       _disposeForegrounds();
@@ -147,19 +152,36 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
         await Future.wait(foregrounds.map((e) async =>
             await e.setup(document, blocState.assetService, blocState.page)));
       }
-      emit(state.copyWith(
-        index: index,
-        handler: handler,
-        cursor: handler.cursor ?? MouseCursor.defer,
-        foregrounds: foregrounds,
-        toolbar: handler.getToolbar(bloc),
-        rendererStates: handler.rendererStates,
-        temporaryForegrounds: null,
-        temporaryHandler: null,
-        temporaryToolbar: null,
-        temporaryCursor: null,
-        temporaryRendererStates: null,
-      ));
+      if (selectState == SelectState.normal) {
+        emit(state.copyWith(
+          index: index,
+          handler: handler,
+          cursor: handler.cursor ?? MouseCursor.defer,
+          foregrounds: foregrounds,
+          toolbar: handler.getToolbar(bloc),
+          rendererStates: handler.rendererStates,
+          temporaryForegrounds: null,
+          temporaryHandler: null,
+          temporaryToolbar: null,
+          temporaryCursor: null,
+          temporaryRendererStates: null,
+        ));
+      } else {
+        if (isHandlerEnabled(index)) {
+          disableHandler(bloc, index);
+        } else {
+          emit(state.copyWith(
+            toggleableHandlers: {
+              ...state.toggleableHandlers,
+              index: handler,
+            },
+            toggleableForegrounds: {
+              ...state.toggleableForegrounds,
+              index: foregrounds
+            },
+          ));
+        }
+      }
     }
     return handler;
   }
@@ -184,7 +206,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     cursor ??= state.lastPosition ?? Offset.zero;
     state.networkingService.sendUser(NetworkingUser(
       cursor: state.transformCubit.state.localToGlobal(cursor).toPoint(),
-      foreground: (foregrounds ?? getForegrounds(false))
+      foreground: (foregrounds ?? state.getAllForegrounds(false))
           .map((e) => e.element)
           .whereType<PadElement>()
           .toList(),
@@ -317,7 +339,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     Handler<Tool>? handler;
     bool needsDispose = false;
     if (state.index == index) {
-      handler = fetchHandler<Handler<Tool>>();
+      handler = fetchHandler<Handler<Tool>>(disableTemporary: true);
     } else if (state.toggleableHandlers.containsKey(index)) {
       handler = state.toggleableHandlers[index];
     }
@@ -325,7 +347,8 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
       List<Tool> tools = const [];
       final blocState = bloc.state;
       if (blocState is DocumentLoaded) tools = blocState.info.tools;
-      handler = Handler.fromTool(tools.elementAtOrNull(index));
+      final tool = tools.elementAtOrNull(index) ?? HandTool();
+      handler = Handler.fromTool(tool);
       needsDispose = true;
     }
     final result = callback(handler);
@@ -424,9 +447,22 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     return null;
   }
 
-  void enableHandler(DocumentBloc bloc, int index, Handler<Tool> handler) {
+  void toggleHandler(DocumentBloc bloc, int index) {
+    if (state.toggleableHandlers.containsKey(index)) {
+      disableHandler(bloc, index);
+    } else {
+      enableHandler(bloc, index);
+    }
+  }
+
+  Handler? enableHandler(DocumentBloc bloc, int index) {
     final blocState = bloc.state;
-    if (blocState is! DocumentLoaded) return;
+    if (blocState is! DocumentLoaded) return null;
+    if (index < 0 || index >= blocState.info.tools.length) {
+      return null;
+    }
+    final tool = blocState.info.tools[index];
+    final handler = Handler.fromTool(tool);
     final document = blocState.data;
     final page = blocState.page;
     final info = blocState.info;
@@ -442,6 +478,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
           ..[index] = handler,
         toggleableForegrounds: Map.from(state.toggleableForegrounds)
           ..[index] = foregrounds));
+    return handler;
   }
 
   bool disableHandler(DocumentBloc bloc, int index) {
@@ -450,14 +487,16 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
       return false;
     }
     handler.dispose(bloc);
-    final foregrounds = state.toggleableForegrounds[index];
-    for (final r in foregrounds ?? []) {
+    final foregrounds =
+        Map<int, List<Renderer>>.from(state.toggleableForegrounds);
+    final current = foregrounds.remove(index);
+    for (final r in current ?? []) {
       r.dispose();
     }
     emit(state.copyWith(
-        toggleableHandlers: Map.from(state.toggleableHandlers)..remove(index),
-        toggleableForegrounds: Map.from(state.toggleableForegrounds)
-          ..remove(index)));
+      toggleableHandlers: Map.from(state.toggleableHandlers)..remove(index),
+      toggleableForegrounds: foregrounds,
+    ));
     return true;
   }
 
@@ -483,7 +522,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
       temporaryForegrounds: null,
       temporaryCursor: null,
       temporaryRendererStates: null,
-      cameraViewport: CameraViewport.unbaked(UtilitiesRenderer()),
+      cameraViewport: CameraViewport.unbaked(),
     ));
   }
 
@@ -501,7 +540,8 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
   }
 
   Future<Handler?> changeTemporaryHandlerIndex(BuildContext context, int index,
-      {DocumentBloc? bloc, bool temporaryClicked = true}) async {
+      {DocumentBloc? bloc,
+      TemporaryState temporaryState = TemporaryState.allowClick}) async {
     bloc ??= context.read<DocumentBloc>();
     final blocState = bloc.state;
     if (blocState is! DocumentLoadSuccess) return null;
@@ -513,12 +553,16 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
       context,
       tool,
       bloc: bloc,
-      temporaryClicked: temporaryClicked,
+      temporaryState: temporaryState,
+      index: index,
     );
   }
 
-  Future<Handler?> changeTemporaryHandler(BuildContext context, Tool tool,
-      {DocumentBloc? bloc, bool temporaryClicked = true}) async {
+  Future<Handler<T>?> changeTemporaryHandler<T extends Tool>(
+      BuildContext context, T tool,
+      {DocumentBloc? bloc,
+      int? index,
+      TemporaryState temporaryState = TemporaryState.allowClick}) async {
     bloc ??= context.read<DocumentBloc>();
     final handler = Handler.fromTool(tool);
     final blocState = bloc.state;
@@ -527,7 +571,9 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     final page = blocState.page;
     final currentArea = blocState.currentArea;
     state.temporaryHandler?.dispose(bloc);
-    if (handler.onSelected(context)) {
+    final selectState = handler.onSelected(context);
+
+    if (selectState == SelectState.normal) {
       _disposeTemporaryForegrounds();
       final temporaryForegrounds = handler.createForegrounds(
           this, document, page, blocState.info, currentArea);
@@ -541,25 +587,30 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
         temporaryToolbar: handler.getToolbar(bloc),
         temporaryCursor: handler.cursor,
         temporaryRendererStates: handler.rendererStates,
-        temporaryClicked: temporaryClicked,
+        temporaryState: temporaryState,
       ));
+    } else if (selectState == SelectState.toggle && index != null) {
+      toggleHandler(bloc, index);
     }
     return handler;
   }
 
-  List<Renderer> getForegrounds([bool networking = true]) => [
-        ...(state.temporaryForegrounds ?? state.foregrounds),
-        if (networking) ...state.networkingForegrounds,
-      ];
+  void resetReleaseHandler(DocumentBloc bloc) {
+    if (state.temporaryState == TemporaryState.removeAfterRelease) {
+      resetTemporaryHandler(bloc, true);
+    }
+  }
 
   void resetTemporaryHandler(DocumentBloc bloc, [bool force = false]) {
     if (state.temporaryHandler == null) {
       return;
     }
-    if (!force && state.temporaryClicked) {
-      emit(state.copyWith(
-        temporaryClicked: false,
-      ));
+    if (!force && state.temporaryState != TemporaryState.removeAfterClick) {
+      if (state.temporaryState == TemporaryState.allowClick) {
+        emit(state.copyWith(
+          temporaryState: TemporaryState.removeAfterClick,
+        ));
+      }
       return;
     }
     state.temporaryHandler?.dispose(bloc);
@@ -570,7 +621,6 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
       temporaryToolbar: null,
       temporaryCursor: null,
       temporaryRendererStates: null,
-      temporaryClicked: false,
     ));
   }
 
@@ -807,13 +857,10 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
 
   void unbake(
       {List<Renderer<Background>>? backgrounds,
-      UtilitiesRenderer? tool,
       List<Renderer<PadElement>>? unbakedElements}) {
     emit(state.copyWith(
         cameraViewport: state.cameraViewport.unbake(
-            unbakedElements: unbakedElements,
-            utilities: tool,
-            backgrounds: backgrounds)));
+            unbakedElements: unbakedElements, backgrounds: backgrounds)));
   }
 
   Future<void> loadElements(DocumentState docState) async {
@@ -836,17 +883,10 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     final backgrounds = page.backgrounds.map(Renderer.fromInstance).toList();
     await Future.wait(backgrounds
         .map((e) async => await e.setup(document, assetService, page)));
-    final utilities = UtilitiesRenderer(state.settingsCubit.state.utilities);
-    await utilities.setup(
-      docState.data,
-      docState.assetService,
-      docState.page,
-    );
     emit(state.copyWith(
         cameraViewport: state.cameraViewport.unbake(
       unbakedElements: renderers,
       backgrounds: backgrounds,
-      utilities: utilities,
     )));
   }
 
@@ -976,8 +1016,8 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     emit(state.copyWith(buttons: null));
   }
 
-  void resetInput(DocumentBloc bloc) {
-    state.handler.resetInput(bloc);
+  Future<void> resetInput(DocumentBloc bloc) async {
+    await state.handler.resetInput(bloc);
     emit(state.copyWith(buttons: null, pointers: []));
   }
 
@@ -985,31 +1025,16 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     emit(state.copyWith(
       temporaryHandler: HandHandler(),
       temporaryCursor: null,
-      temporaryClicked: false,
     ));
   }
 
   Future<void> updateUtilities(
       {UtilitiesState? utilities, ViewOption? view}) async {
     var state = this.state;
-    final renderer = UtilitiesRenderer(
-        utilities ?? state.utilitiesState, view ?? state.viewOption);
-    if (utilities != null) {
-      var newSelection =
-          state.selection?.remove(state.cameraViewport.utilities.element);
-      if (newSelection == null && state.selection != null) {
-        newSelection = Selection.from(utilities);
-      } else if (newSelection != state.selection) {
-        newSelection = newSelection?.insert(renderer);
-      }
-      state = state.copyWith(selection: newSelection);
-    }
     state = state.copyWith(
-      cameraViewport: state.cameraViewport.withUtilities(renderer),
+      utilities: utilities ?? state.utilities,
+      viewOption: view ?? state.viewOption,
     );
-    if (view != null) {
-      state = state.copyWith(viewOption: view);
-    }
     emit(state);
     if (utilities != null) {
       return state.settingsCubit.changeUtilities(utilities);
@@ -1019,7 +1044,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
   void togglePin() => emit(state.copyWith(pinned: !state.pinned));
 
   void move(Offset delta, [bool force = false]) {
-    final utilitiesState = state.utilitiesState;
+    final utilitiesState = state.utilities;
     if (utilitiesState.lockHorizontal && !force) {
       delta = Offset(0, delta.dy);
     }
@@ -1033,7 +1058,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
   }
 
   void zoom(double delta, [Offset cursor = Offset.zero, bool force = false]) {
-    final utilitiesState = state.utilitiesState;
+    final utilitiesState = state.utilities;
     if (utilitiesState.lockZoom && !force) {
       delta = 1;
     }

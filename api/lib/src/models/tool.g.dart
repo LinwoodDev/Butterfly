@@ -424,6 +424,56 @@ Map<String, dynamic> _$$TextureToolImplToJson(_$TextureToolImpl instance) =>
       'type': instance.$type,
     };
 
+_$RulerToolImpl _$$RulerToolImplFromJson(Map json) => _$RulerToolImpl(
+      name: json['name'] as String? ?? '',
+      displayIcon: json['displayIcon'] as String? ?? '',
+      color: _$JsonConverterFromJson<int, SRGBColor>(
+          json['color'], const ColorJsonConverter().fromJson),
+      $type: json['type'] as String?,
+    );
+
+Map<String, dynamic> _$$RulerToolImplToJson(_$RulerToolImpl instance) =>
+    <String, dynamic>{
+      'name': instance.name,
+      'displayIcon': instance.displayIcon,
+      'color': _$JsonConverterToJson<int, SRGBColor>(
+          instance.color, const ColorJsonConverter().toJson),
+      'type': instance.$type,
+    };
+
+Value? _$JsonConverterFromJson<Json, Value>(
+  Object? json,
+  Value? Function(Json json) fromJson,
+) =>
+    json == null ? null : fromJson(json as Json);
+
+Json? _$JsonConverterToJson<Json, Value>(
+  Value? value,
+  Json? Function(Value value) toJson,
+) =>
+    value == null ? null : toJson(value);
+
+_$GridToolImpl _$$GridToolImplFromJson(Map json) => _$GridToolImpl(
+      name: json['name'] as String? ?? '',
+      displayIcon: json['displayIcon'] as String? ?? '',
+      color: json['color'] == null
+          ? SRGBColor.black
+          : const ColorJsonConverter().fromJson((json['color'] as num).toInt()),
+      xSize: (json['xSize'] as num?)?.toDouble() ?? 20,
+      ySize: (json['ySize'] as num?)?.toDouble() ?? 20,
+      $type: json['type'] as String?,
+    );
+
+Map<String, dynamic> _$$GridToolImplToJson(_$GridToolImpl instance) =>
+    <String, dynamic>{
+      'name': instance.name,
+      'displayIcon': instance.displayIcon,
+      'color': const ColorJsonConverter().toJson(instance.color),
+      'xSize': instance.xSize,
+      'ySize': instance.ySize,
+      'type': instance.$type,
+    };
+
 _$EyeDropperToolImpl _$$EyeDropperToolImplFromJson(Map json) =>
     _$EyeDropperToolImpl(
       name: json['name'] as String? ?? '',

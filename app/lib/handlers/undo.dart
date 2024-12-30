@@ -4,11 +4,11 @@ class UndoHandler extends Handler<UndoTool> {
   UndoHandler(super.data);
 
   @override
-  bool onSelected(BuildContext context) {
+  SelectState onSelected(BuildContext context, [bool wasAdded = true]) {
     final bloc = context.read<DocumentBloc>();
     bloc.undo();
     bloc.load().then((value) => bloc.bake().then((value) => bloc.save()));
-    return false;
+    return SelectState.none;
   }
 
   @override

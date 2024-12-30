@@ -2,7 +2,6 @@ import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/cubits/current_index.dart';
 import 'package:butterfly/dialogs/constraints.dart';
 import 'package:butterfly/dialogs/texture.dart';
-import 'package:butterfly/helpers/point.dart';
 import 'package:butterfly/visualizer/tool.dart';
 import 'package:butterfly/visualizer/preset.dart';
 import 'package:butterfly/visualizer/property.dart';
@@ -32,10 +31,12 @@ part 'tools/tool.dart';
 part 'tools/hand.dart';
 part 'tools/area.dart';
 part 'tools/eraser.dart';
+part 'tools/grid.dart';
 part 'tools/label.dart';
 part 'tools/laser.dart';
 part 'tools/path_eraser.dart';
 part 'tools/pen.dart';
+part 'tools/ruler.dart';
 part 'tools/shape.dart';
 part 'tools/stamp.dart';
 part 'tools/texture.dart';
@@ -45,7 +46,7 @@ part 'properties/path.dart';
 part 'properties/pen.dart';
 
 part 'area.dart';
-part 'utilities.dart';
+part 'file.dart';
 
 abstract class Selection<T> {
   List<T> _selected;
@@ -64,8 +65,8 @@ abstract class Selection<T> {
     if (selected is Area) {
       return AreaSelection([selected]) as Selection<T>;
     }
-    if (selected is UtilitiesState) {
-      return UtilitiesSelection([selected]) as Selection<T>;
+    if (selected is CurrentIndexCubit) {
+      return FileSelection(selected) as Selection<T>;
     }
     throw UnsupportedError('Unsupported selection type: $T');
   }

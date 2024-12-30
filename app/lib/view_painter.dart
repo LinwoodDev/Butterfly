@@ -19,11 +19,10 @@ class ForegroundPainter extends CustomPainter {
   final List<Renderer> renderers;
   final CameraTransform transform;
   final Selection? selection;
-  final Renderer<UtilitiesState>? tool;
 
   ForegroundPainter(
       this.renderers, this.document, this.page, this.info, this.colorScheme,
-      [this.transform = const CameraTransform(), this.selection, this.tool]);
+      [this.transform = const CameraTransform(), this.selection]);
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -60,10 +59,6 @@ class ForegroundPainter extends CustomPainter {
       */
       _drawSelection(canvas, selection);
     }
-    if (tool != null) {
-      tool!.build(
-          canvas, size, document, page, info, transform, colorScheme, true);
-    }
   }
 
   void _drawSelection(Canvas canvas, ElementSelection selection) {
@@ -83,7 +78,6 @@ class ForegroundPainter extends CustomPainter {
       oldDelegate.renderers != renderers ||
       oldDelegate.transform != transform ||
       oldDelegate.selection != selection ||
-      oldDelegate.tool != tool ||
       oldDelegate.colorScheme != colorScheme;
 }
 

@@ -43,7 +43,7 @@ class PathEraserHandler extends Handler<PathEraserTool> {
     _currentPos = event.localPosition;
     final currentIndex = context.getCurrentIndex();
     final transform = currentIndex.transformCubit.state;
-    final utilities = currentIndex.utilitiesState;
+    final utilities = currentIndex.utilities;
     final state = context.getState();
     final globalPos = transform.localToGlobal(event.localPosition);
     final size = data.strokeWidth;

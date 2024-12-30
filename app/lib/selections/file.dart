@@ -1,7 +1,7 @@
 part of 'selection.dart';
 
-class UtilitiesSelection extends Selection<UtilitiesState> {
-  UtilitiesSelection(super.selected);
+class FileSelection extends Selection<CurrentIndexCubit> {
+  FileSelection(CurrentIndexCubit cubit) : super([cubit]);
 
   @override
   IconGetter get icon => PhosphorIcons.wrench;
@@ -15,12 +15,12 @@ class UtilitiesSelection extends Selection<UtilitiesState> {
 
   @override
   List<Widget> buildProperties(BuildContext context) {
-    final cubit = context.read<CurrentIndexCubit>();
+    final cubit = selected.first;
     final currentIndex = cubit.state;
     return [
       ...super.buildProperties(context),
       _UtilitiesView(
-        state: selected.first,
+        state: currentIndex.utilities,
         option: currentIndex.viewOption,
         onStateChanged: (state) => cubit.updateUtilities(utilities: state),
         onToolChanged: (option) => cubit.updateUtilities(view: option),
@@ -50,11 +50,10 @@ class _UtilitiesViewState extends State<_UtilitiesView>
   late final TabController _tabController;
   final TextEditingController _nameController = TextEditingController(),
       _descriptionController = TextEditingController();
-  int _expandedIndex = -1;
 
   @override
   void initState() {
-    _tabController = TabController(length: 4, vsync: this);
+    _tabController = TabController(length: 3, vsync: this);
 
     _tabController.addListener(_onTabChange);
 
@@ -97,9 +96,8 @@ class _UtilitiesViewState extends State<_UtilitiesView>
         controller: _tabController,
         isScrollable: true,
         tabs: <List<dynamic>>[
-          [PhosphorIconsLight.file, AppLocalizations.of(context).project],
+          [PhosphorIconsLight.file, AppLocalizations.of(context).file],
           [PhosphorIconsLight.book, AppLocalizations.of(context).page],
-          [PhosphorIconsLight.eye, AppLocalizations.of(context).view],
           [PhosphorIconsLight.camera, AppLocalizations.of(context).camera],
         ]
             .map((e) =>
@@ -347,99 +345,6 @@ class _UtilitiesViewState extends State<_UtilitiesView>
                     },
                     child: Text(AppLocalizations.of(context).background),
                   ),
-                ]),
-                Column(children: [
-                  ExpansionPanelList(
-                      expansionCallback: (index, isExpanded) {
-                        setState(() {
-                          _expandedIndex = isExpanded ? index : -1;
-                        });
-                      },
-                      children: [
-                        ExpansionPanel(
-                          canTapOnHeader: true,
-                          isExpanded: _expandedIndex == 0,
-                          headerBuilder: (context, isExpanded) => ListTile(
-                            leading: Checkbox(
-                              value: widget.state.gridEnabled,
-                              onChanged: (value) => widget.onStateChanged(
-                                widget.state
-                                    .copyWith(gridEnabled: value ?? false),
-                              ),
-                            ),
-                            title: Text(AppLocalizations.of(context).grid),
-                          ),
-                          body: Column(children: [
-                            OffsetPropertyView(
-                              value: Offset(widget.option.gridXSize,
-                                  widget.option.gridYSize),
-                              title: Text(AppLocalizations.of(context).size),
-                              onChanged: (value) => widget.onToolChanged(
-                                widget.option.copyWith(
-                                    gridXSize: value.dx, gridYSize: value.dy),
-                              ),
-                            ),
-                            const SizedBox(height: 8),
-                            ColorField(
-                              title: Text(LeapLocalizations.of(context).color),
-                              value: widget.option.gridColor.withValues(a: 255),
-                              onChanged: (value) => widget.onToolChanged(
-                                widget.option.copyWith(
-                                    gridColor: value.withValues(
-                                        a: widget.option.gridColor.a)),
-                              ),
-                            ),
-                            const SizedBox(height: 8),
-                            ExactSlider(
-                              header: Text(AppLocalizations.of(context).alpha),
-                              value: widget.option.gridColor.a.toDouble(),
-                              defaultValue: 255,
-                              min: 0,
-                              max: 255,
-                              fractionDigits: 0,
-                              onChangeEnd: (value) => widget.onToolChanged(
-                                widget.option.copyWith(
-                                  gridColor: widget.option.gridColor
-                                      .withValues(a: value.toInt()),
-                                ),
-                              ),
-                            ),
-                          ]),
-                        ),
-                        ExpansionPanel(
-                          canTapOnHeader: true,
-                          isExpanded: _expandedIndex == 1,
-                          headerBuilder: (context, isExpanded) => ListTile(
-                            leading: Checkbox(
-                              value: widget.state.rulerEnabled,
-                              onChanged: (value) => widget.onStateChanged(widget
-                                  .state
-                                  .copyWith(rulerEnabled: value ?? false)),
-                            ),
-                            title: Text(AppLocalizations.of(context).ruler),
-                          ),
-                          body: Column(children: [
-                            OffsetPropertyView(
-                              title:
-                                  Text(AppLocalizations.of(context).position),
-                              onChanged: (value) => widget.onStateChanged(widget
-                                  .state
-                                  .copyWith(rulerPosition: value.toPoint())),
-                              value: widget.state.rulerPosition.toOffset(),
-                            ),
-                            const SizedBox(height: 8),
-                            ExactSlider(
-                              header: Text(AppLocalizations.of(context).angle),
-                              value: widget.state.rulerAngle,
-                              defaultValue: 0,
-                              min: 0,
-                              max: 360,
-                              onChangeEnd: (value) => widget.onStateChanged(
-                                  widget.state.copyWith(rulerAngle: value)),
-                            ),
-                          ]),
-                        ),
-                      ]),
                 ]),
                 Column(
                   children: [

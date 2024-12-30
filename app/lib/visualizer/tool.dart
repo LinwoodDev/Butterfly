@@ -14,6 +14,23 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
+extension ToolCategoryVisualizer on ToolCategory {
+  IconGetter get icon => switch (this) {
+        ToolCategory.normal => PhosphorIcons.paintBrush,
+        ToolCategory.import => PhosphorIcons.arrowSquareIn,
+        ToolCategory.surface => PhosphorIcons.monitor,
+        ToolCategory.action => PhosphorIcons.play,
+        ToolCategory.view => PhosphorIcons.eye,
+      };
+  String getLocalizedName(BuildContext context) => switch (this) {
+        ToolCategory.normal => AppLocalizations.of(context).normal,
+        ToolCategory.import => AppLocalizations.of(context).import,
+        ToolCategory.surface => AppLocalizations.of(context).surface,
+        ToolCategory.action => AppLocalizations.of(context).action,
+        ToolCategory.view => AppLocalizations.of(context).view,
+      };
+}
+
 extension ToolVisualizer on Tool {
   String getDisplay(BuildContext context) {
     if (name.trim().isEmpty) return getLocalizedName(context);
@@ -44,6 +61,8 @@ extension ToolVisualizer on Tool {
       AssetTool e => e.importType.getLocalizedName(context),
       EyeDropperTool() => loc.eyeDropper,
       ExportTool() => loc.export,
+      GridTool() => loc.grid,
+      RulerTool() => loc.ruler,
     };
   }
 
@@ -89,6 +108,8 @@ extension ToolVisualizer on Tool {
         AssetTool tool => tool.importType.icon,
         EyeDropperTool() => PhosphorIcons.eyedropper,
         ExportTool() => PhosphorIcons.export,
+        GridTool() => PhosphorIcons.gridFour,
+        RulerTool() => PhosphorIcons.ruler,
       };
 
   List<String> get help {
@@ -114,6 +135,8 @@ extension ToolVisualizer on Tool {
       AssetTool() => null,
       ExportTool() => null,
       EyeDropperTool() => 'eye_dropper',
+      GridTool() => 'grid',
+      RulerTool() => 'ruler',
     };
     if (page == null) return [];
     return ['tools', page];
@@ -127,6 +150,7 @@ extension ToolVisualizer on Tool {
       FullScreenTool() => true,
       ExportTool() => true,
       CollectionTool() => true,
+      EyeDropperTool() => true,
       _ => false,
     };
   }

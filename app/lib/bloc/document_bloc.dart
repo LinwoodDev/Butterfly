@@ -406,7 +406,9 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
           }).toList())));
       final updatedCurrent = event.tools.entries.firstWhereOrNull((element) =>
           oldTools[element.key] ==
-          current.currentIndexCubit.state.handler.data);
+              current.currentIndexCubit.state.handler.data ||
+          current.currentIndexCubit.state.toggleableHandlers
+              .containsKey(element.key));
       if (updatedCurrent != null) {
         current.currentIndexCubit.updateTool(this, updatedCurrent.value);
       }
@@ -1077,13 +1079,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     final current = state;
     if (current is! DocumentLoaded) return;
     final cubit = current.currentIndexCubit;
-    final document = current.data;
-    final page = current.page;
-    final assetService = current.assetService;
     cubit.setSaveState(saved: SaveState.saved);
-    final tool = UtilitiesRenderer(cubit.state.utilitiesState);
-    await tool.setup(document, assetService, page);
-    cubit.unbake(tool: tool);
     cubit.loadElements(current);
     cubit.init(this);
   }
@@ -1156,7 +1152,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     if (state is! DocumentLoadSuccess) return {};
     transform ??= state.currentIndexCubit.state.transformCubit.state;
     final renderers = state.cameraViewport.visibleElements;
-    full ??= state.cameraViewport.utilities.element.fullSelection;
+    full ??= state.currentIndexCubit.state.utilities.fullSelection;
     return compute(
       _executeRayCast,
       _RayCastParams(
@@ -1180,7 +1176,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     if (state is! DocumentLoadSuccess) return {};
     final renderers = state.cameraViewport.visibleElements;
     transform ??= state.currentIndexCubit.state.transformCubit.state;
-    full ??= state.cameraViewport.utilities.element.fullSelection;
+    full ??= state.currentIndexCubit.state.utilities.fullSelection;
     return compute(
       _executeRayCastPolygon,
       _RayCastPolygonParams(

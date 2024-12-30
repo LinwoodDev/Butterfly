@@ -90,6 +90,8 @@ class _EditToolbarState extends State<EditToolbar> {
                     buildWhen: (previous, current) =>
                         previous.index != current.index ||
                         previous.handler != current.handler ||
+                        previous.toggleableHandlers !=
+                            current.toggleableHandlers ||
                         previous.temporaryHandler != current.temporaryHandler ||
                         previous.selection != current.selection,
                     builder: (context, currentIndex) {
@@ -266,8 +268,7 @@ class _EditToolbarState extends State<EditToolbar> {
                     final selected = i == currentIndex.index;
                     final tool = handler.data;
                     final highlighted = currentIndex.selection?.selected.any(
-                            (element) =>
-                                element.hashCode == handler.hashCode) ??
+                            (element) => element.hashCode == tool.hashCode) ??
                         false;
                     String tooltip = tool.name.trim();
                     if (tooltip.isEmpty) {
@@ -296,24 +297,27 @@ class _EditToolbarState extends State<EditToolbar> {
                                 .read<CurrentIndexCubit>()
                                 .changeSelection(tool),
                             focussed: shortcuts.contains(i),
-                            selected: selected,
-                            alwaysShowBottom: tool.isAction(),
+                            selected: selected ||
+                                currentIndex.toggleableHandlers.containsKey(i),
+                            showBottom: selected || tool.isAction(),
                             highlighted: highlighted,
-                            bottomIcon: PhosphorIcon(tool.isAction()
-                                ? PhosphorIconsLight.playCircle
-                                : isMobile
-                                    ? PhosphorIconsLight.caretUp
-                                    : switch (settings.toolbarPosition) {
-                                        ToolbarPosition.top ||
-                                        ToolbarPosition.inline =>
-                                          PhosphorIconsLight.caretDown,
-                                        ToolbarPosition.bottom =>
-                                          PhosphorIconsLight.caretUp,
-                                        ToolbarPosition.left =>
-                                          PhosphorIconsLight.caretRight,
-                                        ToolbarPosition.right =>
-                                          PhosphorIconsLight.caretLeft,
-                                      }),
+                            bottomIcon: selected || tool.isAction()
+                                ? PhosphorIcon(tool.isAction()
+                                    ? PhosphorIconsLight.playCircle
+                                    : isMobile
+                                        ? PhosphorIconsLight.caretUp
+                                        : switch (settings.toolbarPosition) {
+                                            ToolbarPosition.top ||
+                                            ToolbarPosition.inline =>
+                                              PhosphorIconsLight.caretDown,
+                                            ToolbarPosition.bottom =>
+                                              PhosphorIconsLight.caretUp,
+                                            ToolbarPosition.left =>
+                                              PhosphorIconsLight.caretRight,
+                                            ToolbarPosition.right =>
+                                              PhosphorIconsLight.caretLeft,
+                                          })
+                                : null,
                             selectedIcon: _buildIcon(icon, size, color),
                             icon: _buildIcon(icon, size, color),
                             onPressed: () {
@@ -373,12 +377,11 @@ class _EditToolbarState extends State<EditToolbar> {
                   tooltip: AppLocalizations.of(context).tools,
                   selectedIcon: const PhosphorIcon(PhosphorIconsFill.wrench),
                   isSelected: currentIndex.selection?.selected
-                          .any((element) => element is UtilitiesState) ??
+                          .any((element) => element is CurrentIndexCubit) ??
                       false,
                   onPressed: () {
                     final cubit = context.read<CurrentIndexCubit>();
-                    final state = cubit.state.cameraViewport.utilities.element;
-                    cubit.changeSelection(state);
+                    cubit.changeSelection(cubit);
                   },
                 ),
                 if (windowState.fullScreen &&
@@ -392,7 +395,7 @@ class _EditToolbarState extends State<EditToolbar> {
                   ),
                 BlocBuilder<CurrentIndexCubit, CurrentIndex>(
                   builder: (context, currentIndex) {
-                    final utilitiesState = currentIndex.utilitiesState;
+                    final utilitiesState = currentIndex.utilities;
                     Widget buildButton(
                             bool selected,
                             UtilitiesState Function() update,

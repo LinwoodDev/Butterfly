@@ -43,6 +43,8 @@ enum SelectMode { rectangle, lasso }
 
 enum LaserAnimation { fade, path }
 
+enum ToolCategory { normal, import, surface, action, view }
+
 @Freezed(equal: false)
 sealed class Tool with _$Tool {
   Tool._();
@@ -190,10 +192,50 @@ sealed class Tool with _$Tool {
     @Default(SurfaceTexture.pattern()) SurfaceTexture texture,
   }) = TextureTool;
 
+  factory Tool.ruler({
+    @Default('') String name,
+    @Default('') String displayIcon,
+    @ColorJsonConverter() SRGBColor? color,
+  }) = RulerTool;
+
+  factory Tool.grid({
+    @Default('') String name,
+    @Default('') String displayIcon,
+    @Default(SRGBColor.black) @ColorJsonConverter() SRGBColor color,
+    @Default(20) double xSize,
+    @Default(20) double ySize,
+  }) = GridTool;
+
   factory Tool.eyeDropper({
     @Default('') String name,
     @Default('') String displayIcon,
   }) = EyeDropperTool;
 
   factory Tool.fromJson(Map<String, dynamic> json) => _$ToolFromJson(json);
+
+  ToolCategory get category => switch (this) {
+        SelectTool() => ToolCategory.normal,
+        HandTool() => ToolCategory.normal,
+        ImportTool() => ToolCategory.import,
+        UndoTool() => ToolCategory.action,
+        RedoTool() => ToolCategory.action,
+        LabelTool() => ToolCategory.normal,
+        PenTool() => ToolCategory.normal,
+        EraserTool() => ToolCategory.normal,
+        PathEraserTool() => ToolCategory.normal,
+        CollectionTool() => ToolCategory.normal,
+        AreaTool() => ToolCategory.normal,
+        LaserTool() => ToolCategory.normal,
+        ShapeTool() => ToolCategory.surface,
+        StampTool() => ToolCategory.surface,
+        PresentationTool() => ToolCategory.normal,
+        SpacerTool() => ToolCategory.normal,
+        FullScreenTool() => ToolCategory.action,
+        AssetTool() => ToolCategory.import,
+        ExportTool() => ToolCategory.action,
+        TextureTool() => ToolCategory.surface,
+        RulerTool() => ToolCategory.view,
+        GridTool() => ToolCategory.view,
+        EyeDropperTool() => ToolCategory.action,
+      };
 }

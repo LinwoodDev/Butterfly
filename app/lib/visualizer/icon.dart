@@ -23,7 +23,7 @@ enum DisplayIcons {
     return recommended(tool).firstOrNull?.icon ?? PhosphorIcons.question;
   }
 
-  static List<DisplayIcons> recommended(Object tool) {
+  static List<DisplayIcons> recommended(Object? tool) {
     return switch (tool) {
       PenTool _ => [
           DisplayIcons.pen,

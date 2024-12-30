@@ -4,7 +4,7 @@ class CollectionHandler extends Handler<CollectionTool> {
   CollectionHandler(super.data);
 
   @override
-  bool onSelected(BuildContext context) {
+  SelectState onSelected(BuildContext context, [bool wasAdded = true]) {
     final bloc = context.read<DocumentBloc>();
     showDialog(
       context: context,
@@ -13,6 +13,6 @@ class CollectionHandler extends Handler<CollectionTool> {
         child: const CollectionsDialog(),
       ),
     );
-    return false;
+    return SelectState.normal;
   }
 }

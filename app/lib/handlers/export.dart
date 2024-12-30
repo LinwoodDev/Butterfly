@@ -4,7 +4,7 @@ class ExportHandler extends Handler<ExportTool> {
   ExportHandler(super.data);
 
   @override
-  bool onSelected(BuildContext context) {
+  SelectState onSelected(BuildContext context, [bool wasAdded = true]) {
     final bloc = context.read<DocumentBloc>();
     showDialog(
         context: context,
@@ -14,6 +14,6 @@ class ExportHandler extends Handler<ExportTool> {
                 options: data.options,
               ),
             ));
-    return false;
+    return SelectState.none;
   }
 }

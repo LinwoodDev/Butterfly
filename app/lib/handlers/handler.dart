@@ -70,6 +70,8 @@ part 'pen.dart';
 part 'eye_dropper.dart';
 part 'presentation.dart';
 part 'redo.dart';
+part 'ruler.dart';
+part 'grid.dart';
 part 'select.dart';
 part 'shape.dart';
 part 'spacer.dart';
@@ -153,12 +155,15 @@ class EventContext {
 
 enum ToolStatus { normal, disabled }
 
+enum SelectState { normal, none, toggle }
+
 abstract class Handler<T> {
   final T data;
 
   const Handler(this.data);
 
-  bool onSelected(BuildContext context) => true;
+  SelectState onSelected(BuildContext context, [bool wasAdded = true]) =>
+      SelectState.normal;
 
   List<Renderer> createForegrounds(CurrentIndexCubit currentIndexCubit,
           NoteData document, DocumentPage page, DocumentInfo info,
@@ -177,7 +182,7 @@ abstract class Handler<T> {
 
   void onPointerMove(PointerMoveEvent event, EventContext context) {}
 
-  void onPointerUp(PointerUpEvent event, EventContext context) {}
+  FutureOr<void> onPointerUp(PointerUpEvent event, EventContext context) {}
 
   void onPointerHover(PointerHoverEvent event, EventContext context) {}
 
@@ -210,7 +215,7 @@ abstract class Handler<T> {
 
   bool canChange(PointerDownEvent event, EventContext context) => true;
 
-  void resetInput(DocumentBloc bloc) {}
+  FutureOr<void> resetInput(DocumentBloc bloc) {}
 
   ToolStatus getStatus(DocumentBloc bloc) => ToolStatus.normal;
 
@@ -221,7 +226,7 @@ abstract class Handler<T> {
     return Handler.fromTool(tool);
   }
 
-  static Handler<T> fromTool<T extends Tool>(T? tool) {
+  static Handler<T> fromTool<T extends Tool>(T tool) {
     return switch (tool) {
       HandTool() => HandHandler(tool),
       SelectTool() => SelectHandler(tool),
@@ -244,7 +249,8 @@ abstract class Handler<T> {
       AssetTool() => AssetHandler(tool),
       EyeDropperTool() => EyeDropperHandler(tool),
       ExportTool() => ExportHandler(tool),
-      _ => GeneralHandHandler(tool),
+      GridTool() => GridHandler(tool),
+      RulerTool() => RulerHandler(tool),
     } as Handler<T>;
   }
 
@@ -292,7 +298,7 @@ mixin ColoredHandler<T extends Tool> on Handler<T> {
                   context,
                   EyeDropperTool(),
                   bloc: bloc,
-                  temporaryClicked: true,
+                  temporaryState: TemporaryState.removeAfterRelease,
                 );
               },
             )
@@ -467,4 +473,18 @@ abstract class PastingHandler<T> extends Handler<T> {
   double get constraintedHeight => 0;
 
   bool get currentlyPasting => _firstPos != null && _secondPos != null;
+}
+
+mixin PointerManipulationHandler<T> on Handler<T> {
+  Offset getPointerPosition(Offset position, Size viewportSize) {
+    return position;
+  }
+
+  static Offset calculatePointerPosition(
+      CurrentIndex index, Offset position, Size viewportSize) {
+    return index.toggleableHandlers.values
+        .whereType<PointerManipulationHandler>()
+        .fold(position,
+            (pos, handler) => handler.getPointerPosition(pos, viewportSize));
+  }
 }

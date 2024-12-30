@@ -22,7 +22,6 @@ import 'package:perfect_freehand/perfect_freehand.dart' as freehand;
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:xml/xml.dart';
 
-import '../cubits/current_index.dart';
 import '../cubits/transform.dart';
 import '../helpers/xml.dart';
 import '../models/label.dart';
@@ -40,7 +39,6 @@ part 'elements/path.dart';
 part 'elements/pen.dart';
 part 'elements/shape.dart';
 part 'elements/svg.dart';
-part 'utilities.dart';
 
 class DefaultHitCalculator extends HitCalculator {
   final Rect? rect;
@@ -160,10 +158,6 @@ abstract class Renderer<T> {
       } as Renderer<T>;
     }
 
-    if (element is UtilitiesState) {
-      return UtilitiesRenderer(element) as Renderer<T>;
-    }
-
     throw Exception('Invalid instance type');
   }
 
@@ -171,7 +165,8 @@ abstract class Renderer<T> {
       element is PadElement ? (element as PadElement).rotation : 0.0;
 
   String get id =>
-      (element is PadElement ? (element as PadElement).id : null) ?? '';
+      (element is PadElement ? (element as PadElement).id : null) ??
+      createUniqueId();
 
   @mustCallSuper
   FutureOr<void> setup(NoteData document, AssetService assetService,

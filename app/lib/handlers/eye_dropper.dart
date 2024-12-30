@@ -4,6 +4,15 @@ class EyeDropperHandler extends Handler<EyeDropperTool> {
   EyeDropperHandler(super.data);
 
   @override
+  SelectState onSelected(BuildContext context, [bool wasAdded = true]) {
+    if (!wasAdded) {
+      context.read<CurrentIndexCubit>().changeTemporaryHandler(context, data,
+          temporaryState: TemporaryState.removeAfterRelease);
+    }
+    return super.onSelected(context);
+  }
+
+  @override
   void onPointerUp(PointerUpEvent event, EventContext context) async {
     final globalPos =
         context.getCameraTransform().localToGlobal(event.localPosition);

@@ -3,9 +3,9 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 class OptionButton extends StatefulWidget {
   final Widget icon;
-  final Widget? selectedIcon, bottomIcon;
+  final Widget? selectedIcon, bottomIcon, leadingIcon;
   final VoidCallback? onPressed, onSecondaryPressed, onLongPressed;
-  final bool selected, highlighted, focussed, alwaysShowBottom;
+  final bool selected, highlighted, focussed, showBottom;
   final String tooltip;
 
   const OptionButton({
@@ -14,13 +14,14 @@ class OptionButton extends StatefulWidget {
     required this.icon,
     this.selectedIcon,
     this.bottomIcon,
+    this.leadingIcon,
     this.onPressed,
     this.onSecondaryPressed,
     this.onLongPressed,
     this.selected = false,
     this.highlighted = false,
     this.focussed = false,
-    this.alwaysShowBottom = false,
+    this.showBottom = false,
   });
 
   @override
@@ -53,8 +54,7 @@ class _OptionButtonState extends State<OptionButton>
     _animationController.dispose();
   }
 
-  double get _nextValue =>
-      widget.alwaysShowBottom || widget.selected || widget.highlighted ? 1 : 0;
+  double get _nextValue => widget.showBottom ? 1 : 0;
 
   @override
   void didUpdateWidget(covariant OptionButton oldWidget) {
@@ -139,9 +139,18 @@ class _OptionButtonState extends State<OptionButton>
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      widget.selected
-                          ? (widget.selectedIcon ?? widget.icon)
-                          : widget.icon,
+                      Stack(
+                        children: [
+                          if (widget.leadingIcon != null)
+                            Align(
+                              alignment: Alignment.topLeft,
+                              child: widget.leadingIcon!,
+                            ),
+                          widget.selected
+                              ? (widget.selectedIcon ?? widget.icon)
+                              : widget.icon
+                        ],
+                      ),
                       SizeTransition(
                         axisAlignment: -1,
                         axis: Axis.vertical,

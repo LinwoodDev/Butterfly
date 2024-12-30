@@ -61,11 +61,8 @@ class ImportHandler extends Handler<ImportTool> {
             .copyWith(id: createUniqueId()))
         .nonNulls
         .toList()));
-    context
-        .getCurrentIndexCubit()
-        .resetTemporaryHandler(context.getDocumentBloc());
-    context.refresh();
-    context.bake();
+    await context.refresh();
+    await context.bake();
   }
 
   @override
