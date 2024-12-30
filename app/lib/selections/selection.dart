@@ -65,8 +65,8 @@ abstract class Selection<T> {
     if (selected is Area) {
       return AreaSelection([selected]) as Selection<T>;
     }
-    if (selected == null) {
-      return FileSelection() as Selection<T>;
+    if (selected is CurrentIndexCubit) {
+      return FileSelection(selected) as Selection<T>;
     }
     throw UnsupportedError('Unsupported selection type: $T');
   }

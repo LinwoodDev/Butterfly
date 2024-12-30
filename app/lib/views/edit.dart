@@ -377,11 +377,11 @@ class _EditToolbarState extends State<EditToolbar> {
                   tooltip: AppLocalizations.of(context).tools,
                   selectedIcon: const PhosphorIcon(PhosphorIconsFill.wrench),
                   isSelected: currentIndex.selection?.selected
-                          .any((element) => element is UtilitiesState) ??
+                          .any((element) => element is CurrentIndexCubit) ??
                       false,
                   onPressed: () {
                     final cubit = context.read<CurrentIndexCubit>();
-                    cubit.changeSelection(null);
+                    cubit.changeSelection(cubit);
                   },
                 ),
                 if (windowState.fullScreen &&

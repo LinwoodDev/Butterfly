@@ -1,7 +1,7 @@
 part of 'selection.dart';
 
-class FileSelection extends Selection<Null> {
-  FileSelection() : super([null]);
+class FileSelection extends Selection<CurrentIndexCubit> {
+  FileSelection(CurrentIndexCubit cubit) : super([cubit]);
 
   @override
   IconGetter get icon => PhosphorIcons.wrench;
@@ -15,7 +15,7 @@ class FileSelection extends Selection<Null> {
 
   @override
   List<Widget> buildProperties(BuildContext context) {
-    final cubit = context.read<CurrentIndexCubit>();
+    final cubit = selected.first;
     final currentIndex = cubit.state;
     return [
       ...super.buildProperties(context),
