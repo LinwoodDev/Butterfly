@@ -483,10 +483,8 @@ mixin PointerManipulationHandler<T> on Handler<T> {
   static Offset calculatePointerPosition(
       CurrentIndex index, Offset position, Size viewportSize) {
     return index.toggleableHandlers.values
-            .whereType<PointerManipulationHandler>()
-            .map((e) => e.getPointerPosition(position, viewportSize))
-            .where((e) => e != position)
-            .firstOrNull ??
-        position;
+        .whereType<PointerManipulationHandler>()
+        .fold(position,
+            (pos, handler) => handler.getPointerPosition(pos, viewportSize));
   }
 }

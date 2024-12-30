@@ -348,7 +348,6 @@ class SelectHandler extends Handler<SelectTool> {
 
   @override
   void onScaleUpdate(ScaleUpdateDetails details, EventContext context) {
-    print("onScaleUpdate");
     final globalPos =
         context.getCameraTransform().localToGlobal(details.localFocalPoint);
     if (_handleRuler(details, context)) {

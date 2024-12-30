@@ -7,14 +7,14 @@ Rect _getRulerRect(Size size, Offset position,
     transform.position.dx + position.dx / transform.size,
     transform.position.dy +
         (size.height / 2 + -rulerSize / 2 + position.dy) / transform.size,
-    size.width / transform.size,
+    size.width * 2 / transform.size,
     rulerSize / transform.size,
   );
 }
 
 class RulerHandler extends Handler<RulerTool> with PointerManipulationHandler {
   Offset _position = Offset.zero;
-  double _rotation = 20;
+  double _rotation = 0;
 
   Offset get position => _position;
   double get rotation => _rotation;
@@ -140,10 +140,11 @@ class RulerRenderer extends Renderer<RulerTool> {
     // Paint ruler lines
     int x = steps;
     var even = (transform.position.dx ~/ (steps / transform.size)) % 2 == 0;
-    while (x <= size.width * transform.size) {
+    while (x <= size.width * transform.size * 2) {
       final posX = x / transform.size -
           (transform.position.dx % (steps / transform.size)) -
-          size.width / 2;
+          size.width / 2 -
+          rulerRect.width / 4;
       canvas.drawLine(
         Offset(posX, rulerRect.top),
         Offset(
