@@ -28,7 +28,6 @@
   "yes": "Yes",
   "undo": "Undo",
   "redo": "Redo",
-  "project": "Project",
   "general": "General",
   "copyTitle": "Copied to clipboard",
   "loading": "Loading...",
@@ -627,7 +626,7 @@
   "renderResolution": "Render resolution",
   "translate": "Translate",
   "unencrypted": "Unencrypted",
-  "encrypted": "Decrypted",
+  "encrypted": "Encrypted",
   "encryptDocumentMessage": "Click to encrypt the document",
   "unencryptDocumentMessage": "Click to unencrypt the document",
   "unencrypt": "Unencrypt",
@@ -635,5 +634,6 @@
   "encryptWarning": "This will encrypt the document. You will need to remember the password to decrypt it.",
   "unencryptWarning": "This will unencrypt the document. The password will be removed and everyone with access will be able to open it.",
   "confirmPassword": "Confirm password",
-  "passwordMismatch": "The passwords do not match"
+  "passwordMismatch": "The passwords do not match",
+  "action": "Action"
 }
