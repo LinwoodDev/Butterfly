@@ -39,7 +39,7 @@ import 'settings/connections.dart';
 import 'setup.dart' if (dart.library.js_interop) 'setup_web.dart';
 import 'theme.dart';
 import 'views/error.dart';
-import 'views/home.dart';
+import 'views/home/page.dart';
 import 'views/main.dart';
 
 const platform = MethodChannel('linwood.dev/butterfly');

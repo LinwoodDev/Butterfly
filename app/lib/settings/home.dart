@@ -1,3 +1,4 @@
+import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/main.dart';
 import 'package:butterfly/settings/behaviors.dart';
 import 'package:butterfly/settings/inputs/home.dart';
@@ -72,78 +73,79 @@ class _SettingsPageState extends State<SettingsPage> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Material(
-        type: widget.isDialog ? MaterialType.transparency : MaterialType.canvas,
-        child: LayoutBuilder(builder: (context, constraints) {
-          final isMobile = constraints.maxWidth < 600;
-
-          void navigateTo(SettingsView view) {
-            if (isMobile) {
-              context.push(view.path);
-            } else {
-              setState(() {
-                _view = view;
-              });
-            }
-          }
-
-          var navigation = Column(mainAxisSize: MainAxisSize.min, children: [
-            Header(
-              title: Text(AppLocalizations.of(context).settings),
-              leading: IconButton.outlined(
-                icon: const PhosphorIcon(PhosphorIconsLight.x),
-                onPressed: () => Navigator.of(context).pop(),
-              ),
-            ),
-            Flexible(
-              child: Material(
-                type: widget.isDialog
-                    ? MaterialType.transparency
-                    : MaterialType.canvas,
-                child: ListView(
-                    controller: _scrollController,
-                    shrinkWrap: true,
-                    children: [
-                      ...SettingsView.values
-                          .where((e) => e.isEnabled)
-                          .map((view) {
-                        final selected = _view == view && !isMobile;
-                        return ListTile(
-                          leading: PhosphorIcon(view.icon(selected
-                              ? PhosphorIconsStyle.fill
-                              : PhosphorIconsStyle.light)),
-                          title: Text(view.getLocalizedName(context)),
-                          onTap: () => navigateTo(view),
-                          selected: selected,
-                        );
-                      }),
-                    ]),
-              ),
-            )
-          ]);
-          if (isMobile) {
-            return navigation;
-          }
-          final content = switch (_view) {
-            SettingsView.general => const GeneralSettingsPage(inView: true),
-            SettingsView.data => const DataSettingsPage(inView: true),
-            SettingsView.behaviors => const BehaviorsSettingsPage(inView: true),
-            SettingsView.inputs => const InputsSettingsPage(inView: true),
-            SettingsView.personalization =>
-              const PersonalizationSettingsPage(inView: true),
-            SettingsView.view => const ViewSettingsPage(inView: true),
-            SettingsView.connections =>
-              const ConnectionsSettingsPage(inView: true),
-            SettingsView.experiments =>
-              const ExperimentsSettingsPage(inView: true),
-          };
-          return Row(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
-            SizedBox(width: 300, child: navigation),
-            Expanded(child: content),
-          ]);
-        }),
+    final size = MediaQuery.sizeOf(context);
+    final isMobile = size.width < LeapBreakpoints.compact;
+    final body = _buildBody(context, isMobile);
+    if (widget.isDialog) {
+      return body;
+    }
+    return Scaffold(
+      appBar: WindowTitleBar<SettingsCubit, ButterflySettings>(
+        title: Text(AppLocalizations.of(context).settings),
       ),
+      body: body,
     );
+  }
+
+  Widget _buildBody(BuildContext context, bool isMobile) {
+    void navigateTo(SettingsView view) {
+      if (isMobile) {
+        context.push(view.path);
+      } else {
+        setState(() {
+          _view = view;
+        });
+      }
+    }
+
+    var navigation = Column(mainAxisSize: MainAxisSize.min, children: [
+      if (widget.isDialog)
+        Header(
+          title: Text(AppLocalizations.of(context).settings),
+          leading: IconButton.outlined(
+            icon: const PhosphorIcon(PhosphorIconsLight.x),
+            onPressed: () => Navigator.of(context).pop(),
+          ),
+        ),
+      Flexible(
+        child: Material(
+          type: MaterialType.transparency,
+          child: ListView(
+              controller: _scrollController,
+              shrinkWrap: true,
+              children: [
+                ...SettingsView.values.where((e) => e.isEnabled).map((view) {
+                  final selected = _view == view && !isMobile;
+                  return ListTile(
+                    leading: PhosphorIcon(view.icon(selected
+                        ? PhosphorIconsStyle.fill
+                        : PhosphorIconsStyle.light)),
+                    title: Text(view.getLocalizedName(context)),
+                    onTap: () => navigateTo(view),
+                    selected: selected,
+                  );
+                }),
+              ]),
+        ),
+      )
+    ]);
+    if (isMobile) {
+      return navigation;
+    }
+    final content = switch (_view) {
+      SettingsView.general => const GeneralSettingsPage(inView: true),
+      SettingsView.data => const DataSettingsPage(inView: true),
+      SettingsView.behaviors => const BehaviorsSettingsPage(inView: true),
+      SettingsView.inputs => const InputsSettingsPage(inView: true),
+      SettingsView.personalization =>
+        const PersonalizationSettingsPage(inView: true),
+      SettingsView.view => const ViewSettingsPage(inView: true),
+      SettingsView.connections => const ConnectionsSettingsPage(inView: true),
+      SettingsView.experiments => const ExperimentsSettingsPage(inView: true),
+    };
+    return Row(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
+      SizedBox(width: 300, child: navigation),
+      Expanded(child: content),
+    ]);
   }
 }

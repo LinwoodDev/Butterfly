@@ -41,6 +41,7 @@ class ExperimentsSettingsPage extends StatelessWidget {
             IconButton(
               icon:
                   const PhosphorIcon(PhosphorIconsLight.clockCounterClockwise),
+              tooltip: LeapLocalizations.of(context).reset,
               onPressed: () => context.read<SettingsCubit>().resetFlags(),
             ),
           ],

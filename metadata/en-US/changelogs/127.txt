@@ -1,2 +1,13 @@
+* Redesign mobile home page
+  * Use tabs for easier navigation
+  * Dedicated files view
+  * Move settings into a tab
+* Add toggleable tools
+* Move ruler into own tool
+  * Add color property
+* Move grid into own tool
 * Add password protected notes ([#771](https://github.com/LinwoodDev/Butterfly/issues/771))
 * Fix undo/redo tools not showing status correctly
+* Fix grid not working correctly
+
+Read more here: https://linwood.dev/butterfly/2.3.0-beta.0
