@@ -50,7 +50,7 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
     _positionCheckTimer?.cancel();
     _positionCheckTimer = null;
     addPoint(context.buildContext, event.pointer, event.localPosition,
-        _getPressure(event), event.kind,
+        context.viewportSize, _getPressure(event), event.kind,
         refresh: false);
     submitElements(context.getDocumentBloc(), [event.pointer]);
     points.clear();
@@ -75,14 +75,13 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
 
 // Add a point to the element.
   void addPoint(BuildContext context, int pointer, Offset localPos,
-      double pressure, PointerDeviceKind kind,
+      Size viewportSize, double pressure, PointerDeviceKind kind,
       {bool refresh = true, bool shouldCreate = false}) {
     final bloc = context.read<DocumentBloc>();
     final currentIndexCubit = context.read<CurrentIndexCubit>();
-    final viewport = currentIndexCubit.state.cameraViewport;
     final transform = context.read<TransformCubit>().state;
     localPos = PointerManipulationHandler.calculatePointerPosition(
-        currentIndexCubit.state, localPos, viewport.toSize());
+        currentIndexCubit.state, localPos, viewportSize);
     final globalPos = transform.localToGlobal(localPos);
     if (!bloc.isInBounds(globalPos)) return;
     final state = bloc.state as DocumentLoadSuccess;
@@ -125,7 +124,7 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
     }
     elements.remove(event.pointer);
     addPoint(context.buildContext, event.pointer, event.localPosition,
-        _getPressure(event), event.kind,
+        context.viewportSize, _getPressure(event), event.kind,
         shouldCreate: true);
   }
 
@@ -152,7 +151,7 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
     });
     // Call the addPoint function to add a point to the current brush stroke.
     addPoint(context.buildContext, event.pointer, event.localPosition,
-        _getPressure(event), event.kind);
+        context.viewportSize, _getPressure(event), event.kind);
     points.add(event.localPosition);
   }
 

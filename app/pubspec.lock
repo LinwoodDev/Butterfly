@@ -458,18 +458,18 @@ packages:
     dependency: "direct main"
     description:
       name: flex_color_scheme
-      sha256: "90f4fe67b9561ae8a4af117df65a8ce9988624025667c54e6d304e65cff77d52"
+      sha256: "09bea5d776f694c5a67f2229f2aa500cc7cce369322dc6500ab01cf9ad1b4e1a"
       url: "https://pub.dev"
     source: hosted
-    version: "8.0.2"
+    version: "8.1.0"
   flex_seed_scheme:
     dependency: transitive
     description:
       name: flex_seed_scheme
-      sha256: "7639d2c86268eff84a909026eb169f008064af0fb3696a651b24b0fa24a40334"
+      sha256: d3ba3c5c92d2d79d45e94b4c6c71d01fac3c15017da1545880c53864da5dfeb0
       url: "https://pub.dev"
     source: hosted
-    version: "3.4.1"
+    version: "3.5.0"
   flutter:
     dependency: "direct main"
     description: flutter
@@ -1366,18 +1366,18 @@ packages:
     dependency: "direct main"
     description:
       name: super_clipboard
-      sha256: "687ef5d4ceb2cb1e0e36a4af37683936609f424f0767b46fee5fc312b0aeb595"
+      sha256: "5203c881d24033c3e6154c2ae01afd94e7f0a3201280373f28e540f1defa3f40"
       url: "https://pub.dev"
     source: hosted
-    version: "0.9.0-dev.5"
+    version: "0.9.0-dev.6"
   super_native_extensions:
     dependency: transitive
     description:
       name: super_native_extensions
-      sha256: "1cb6baecf529300ae7f59974bdc33a53b947ecc4ce374c00126df064c10e4e51"
+      sha256: "09ccc40c475e6f91770eaeb2553bf4803812d7beadc3759aa57d643370619c86"
       url: "https://pub.dev"
     source: hosted
-    version: "0.9.0-dev.5"
+    version: "0.9.0-dev.6"
   sync_http:
     dependency: transitive
     description:

@@ -1,11 +1,12 @@
 part of 'handler.dart';
 
-Rect _getRulerRect(Size size,
+Rect _getRulerRect(Size size, Offset position,
     [CameraTransform transform = const CameraTransform()]) {
   const rulerSize = 100.0;
   return Rect.fromLTWH(
-    transform.position.dx,
-    transform.position.dy + (size.height / 2 + -rulerSize / 2) / transform.size,
+    transform.position.dx + position.dx / transform.size,
+    transform.position.dy +
+        (size.height / 2 + -rulerSize / 2 + position.dy) / transform.size,
     size.width / transform.size,
     rulerSize / transform.size,
   );
@@ -39,31 +40,45 @@ class RulerHandler extends Handler<RulerTool> with PointerManipulationHandler {
     double? rotation,
   }) {
     if (position != null) {
-      _position = position;
+      _position += position;
     }
     if (rotation != null) {
-      _rotation = rotation;
+      _rotation += rotation;
     }
     context.refresh();
   }
 
   bool isPointerInside(Offset position, Size viewportSize) {
-    final rect = _getRulerRect(viewportSize);
+    final rect = _getRulerRect(viewportSize, _position);
     // Check if the position is inside the ruler rect, consider rotation
-    final rotatedPosition = position.rotate(rect.center, -_rotation);
+    final rotatedPosition = position.rotate(rect.center, -_rotation * pi / 180);
     return rect.contains(rotatedPosition);
   }
 
   @override
   Offset getPointerPosition(Offset position, Size viewportSize) {
     if (!isPointerInside(position, viewportSize)) {
-      return _position;
+      return position;
     }
-    final rotatedPosition = position.rotate(_position, _rotation);
-    return Offset(
-      _position.dx + (rotatedPosition.dx - _position.dx).roundToDouble(),
-      _position.dy + (rotatedPosition.dy - _position.dy).roundToDouble(),
-    );
+    final rulerRect = _getRulerRect(viewportSize, _position);
+    final pivot = rulerRect.center;
+    final angle = _rotation * pi / 180;
+
+    final rotatedPosition = position.rotate(pivot, -angle);
+    final firstHalf =
+        rulerRect.topLeft & Size(rulerRect.width, rulerRect.height / 2);
+    final secondHalf = firstHalf.translate(0, rulerRect.height / 2);
+    final firstHalfHit = firstHalf.contains(rotatedPosition);
+    final secondHalfHit = secondHalf.contains(rotatedPosition);
+    // If the pointer is in the first half of the ruler, set the y to the top
+    // If the pointer is in the second half of the ruler, set the y to the bottom
+
+    if (firstHalfHit) {
+      return Offset(rotatedPosition.dx, rulerRect.top).rotate(pivot, angle);
+    } else if (secondHalfHit) {
+      return Offset(rotatedPosition.dx, rulerRect.bottom).rotate(pivot, angle);
+    }
+    return position;
   }
 
   static RulerHandler? getFirstRuler(
@@ -102,7 +117,7 @@ class RulerRenderer extends Renderer<RulerTool> {
       ..color = rulerBackgroundColor
       ..style = PaintingStyle.fill;
     final rulerForegroundPaint = Paint()..color = rulerForegroundColor;
-    final rulerRect = _getRulerRect(size, transform);
+    final rulerRect = _getRulerRect(size, position, transform);
 
     // Calculate steps based on zoom level
     var steps = 50;
@@ -121,12 +136,13 @@ class RulerRenderer extends Renderer<RulerTool> {
     );
 
     // Paint ruler lines
-    double x = 0;
+    int x = steps;
     var even = (transform.position.dx ~/ (steps / transform.size)) % 2 == 0;
-    while (x <= size.width / transform.size) {
-      final posX = x -
+    while (x <= size.width) {
+      final posX = x / transform.size -
           (transform.position.dx % (steps / transform.size)) +
-          transform.position.dx;
+          transform.position.dx +
+          position.dx / transform.size;
       canvas.drawLine(
         Offset(posX, rulerRect.top),
         Offset(
@@ -136,7 +152,7 @@ class RulerRenderer extends Renderer<RulerTool> {
         rulerForegroundPaint,
       );
       even = !even;
-      x += steps / transform.size;
+      x += steps;
     }
   }
 }

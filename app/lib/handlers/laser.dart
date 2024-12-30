@@ -97,22 +97,21 @@ class LaserHandler extends Handler<LaserTool> with ColoredHandler {
   @override
   void onPointerUp(PointerUpEvent event, EventContext context) {
     addPoint(context.buildContext, event.pointer, event.localPosition,
-        event.pressure, event.kind);
+        context.viewportSize, event.pressure, event.kind);
     _submit(context.getDocumentBloc(), [event.pointer]);
   }
 
   void addPoint(BuildContext context, int pointer, Offset localPosition,
-      double pressure, PointerDeviceKind kind,
+      Size viewportSize, double pressure, PointerDeviceKind kind,
       {bool forceCreate = false}) {
     final bloc = context.read<DocumentBloc>();
     final currentIndexCubit = context.read<CurrentIndexCubit>();
-    final viewport = currentIndexCubit.state.cameraViewport;
     final transform = context.read<TransformCubit>().state;
     final state = bloc.state as DocumentLoadSuccess;
     final settings = context.read<SettingsCubit>().state;
     final penOnlyInput = settings.penOnlyInput;
     localPosition = PointerManipulationHandler.calculatePointerPosition(
-        currentIndexCubit.state, localPosition, viewport.toSize());
+        currentIndexCubit.state, localPosition, viewportSize);
     if (penOnlyInput && kind != PointerDeviceKind.stylus) {
       return;
     }
@@ -146,7 +145,7 @@ class LaserHandler extends Handler<LaserTool> with ColoredHandler {
       return;
     }
     addPoint(context.buildContext, event.pointer, event.localPosition,
-        event.pressure, event.kind,
+        context.viewportSize, event.pressure, event.kind,
         forceCreate: true);
   }
 
@@ -154,7 +153,7 @@ class LaserHandler extends Handler<LaserTool> with ColoredHandler {
   Future<void> onPointerMove(
       PointerMoveEvent event, EventContext context) async {
     addPoint(context.buildContext, event.pointer, event.localPosition,
-        event.pressure, event.kind);
+        context.viewportSize, event.pressure, event.kind);
   }
 
   @override

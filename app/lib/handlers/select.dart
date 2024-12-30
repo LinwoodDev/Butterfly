@@ -288,7 +288,9 @@ class SelectHandler extends Handler<SelectTool> {
   @override
   bool onScaleStart(ScaleStartDetails details, EventContext context) {
     final currentIndex = context.getCurrentIndex();
-    _ruler = false;
+    _ruler = RulerHandler.getFirstRuler(context.getCurrentIndex(),
+        details.localFocalPoint, context.viewportSize);
+    if (_ruler == null) return true;
     if (currentIndex.buttons == kSecondaryMouseButton &&
         currentIndex.temporaryHandler == null) {
       return false;
@@ -314,14 +316,12 @@ class SelectHandler extends Handler<SelectTool> {
       event.kind == PointerDeviceKind.mouse &&
       event.buttons != kSecondaryMouseButton;
 
-  bool _ruler = false;
+  RulerHandler? _ruler;
 
   bool _handleRuler(ScaleUpdateDetails details, EventContext context) {
-    _ruler = true;
     final state = context.getState();
     if (state == null) return false;
-    final ruler = RulerHandler.getFirstRuler(context.getCurrentIndex(),
-        details.localFocalPoint, context.viewportSize);
+    final ruler = _ruler;
     if (ruler == null) return false;
     //final currentRotation = ruler.rotation * 180 / pi * details.scale;
     final delta = details.rotation;
@@ -330,7 +330,7 @@ class SelectHandler extends Handler<SelectTool> {
       angle += 360;
     }
     angle %= 360;
-    final currentPos = details.localFocalPoint;
+    final currentPos = details.focalPointDelta;
     ruler.transform(context, position: currentPos, rotation: angle);
     return true;
   }
@@ -369,7 +369,7 @@ class SelectHandler extends Handler<SelectTool> {
     final utilities = context.getCurrentIndex().utilities;
     final rectangleSelection = _rectangleFreeSelection?.normalized();
     final lassoSelection = _lassoFreeSelection;
-    if (_ruler) {
+    if (_ruler != null) {
       return;
     }
     final transformed = _submitTransform(context.getDocumentBloc());
