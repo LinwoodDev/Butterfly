@@ -14,7 +14,7 @@ Rect _getRulerRect(Size size, Offset position,
 
 class RulerHandler extends Handler<RulerTool> with PointerManipulationHandler {
   Offset _position = Offset.zero;
-  double _rotation = 0;
+  double _rotation = 20;
 
   Offset get position => _position;
   double get rotation => _rotation;
@@ -26,7 +26,7 @@ class RulerHandler extends Handler<RulerTool> with PointerManipulationHandler {
           NoteData document, DocumentPage page, DocumentInfo info,
           [Area? currentArea]) =>
       [
-        RulerRenderer(data, position: _position, rotation: _rotation),
+        RulerRenderer(data, position: _position, rulerRotation: _rotation),
       ];
 
   @override
@@ -48,8 +48,13 @@ class RulerHandler extends Handler<RulerTool> with PointerManipulationHandler {
     context.refresh();
   }
 
+  Rect getRect(Size size,
+      [CameraTransform transform = const CameraTransform()]) {
+    return _getRulerRect(size, _position, transform);
+  }
+
   bool isPointerInside(Offset position, Size viewportSize) {
-    final rect = _getRulerRect(viewportSize, _position);
+    final rect = getRect(viewportSize);
     // Check if the position is inside the ruler rect, consider rotation
     final rotatedPosition = position.rotate(rect.center, -_rotation * pi / 180);
     return rect.contains(rotatedPosition);
@@ -60,7 +65,7 @@ class RulerHandler extends Handler<RulerTool> with PointerManipulationHandler {
     if (!isPointerInside(position, viewportSize)) {
       return position;
     }
-    final rulerRect = _getRulerRect(viewportSize, _position);
+    final rulerRect = getRect(viewportSize);
     final pivot = rulerRect.center;
     final angle = _rotation * pi / 180;
 
@@ -91,58 +96,54 @@ class RulerHandler extends Handler<RulerTool> with PointerManipulationHandler {
 
 class RulerRenderer extends Renderer<RulerTool> {
   final Offset position;
-  @override
-  final double rotation;
+  final double rulerRotation;
 
   RulerRenderer(
     super.element, {
     this.position = Offset.zero,
-    this.rotation = 0,
+    this.rulerRotation = 0,
   });
 
   @override
   void build(Canvas canvas, Size size, NoteData document, DocumentPage page,
       DocumentInfo info, CameraTransform transform,
       [ColorScheme? colorScheme, bool foreground = false]) {
+    canvas.save();
+    canvas.translate(transform.position.dx, transform.position.dy);
+    canvas.scale(1 / transform.size, 1 / transform.size);
+    var rulerRect = _getRulerRect(size, position);
+    final rulerCenter = rulerRect.center;
+    canvas.translate(rulerCenter.dx, rulerCenter.dy);
+    canvas.rotate(rulerRotation * pi / 180);
+    rulerRect = rulerRect.translate(-rulerCenter.dx, -rulerCenter.dy);
     final rulerColor = colorScheme?.primary ?? Colors.grey;
     final rulerBackgroundColor = element.color?.toColor() ??
         (colorScheme?.primaryContainer ?? Colors.grey).withAlpha(200);
     final rulerForegroundColor = colorScheme?.onPrimary ?? Colors.white;
     final rulerPaint = Paint()
       ..color = rulerColor
-      ..strokeWidth = 1 / transform.size
+      ..strokeWidth = 1
       ..style = PaintingStyle.stroke
       ..strokeJoin = StrokeJoin.round;
     final rulerBackgroundPaint = Paint()
       ..color = rulerBackgroundColor
       ..style = PaintingStyle.fill;
     final rulerForegroundPaint = Paint()..color = rulerForegroundColor;
-    final rulerRect = _getRulerRect(size, position, transform);
 
     // Calculate steps based on zoom level
     var steps = 50;
 
     // Paint ruler background
     canvas.drawRect(rulerRect, rulerBackgroundPaint);
-    canvas.drawLine(
-      Offset(rulerRect.left, rulerRect.top),
-      Offset(rulerRect.right, rulerRect.top),
-      rulerPaint,
-    );
-    canvas.drawLine(
-      Offset(rulerRect.left, rulerRect.bottom),
-      Offset(rulerRect.right, rulerRect.bottom),
-      rulerPaint,
-    );
+    canvas.drawRect(rulerRect, rulerPaint);
 
     // Paint ruler lines
     int x = steps;
     var even = (transform.position.dx ~/ (steps / transform.size)) % 2 == 0;
-    while (x <= size.width) {
+    while (x <= size.width * transform.size) {
       final posX = x / transform.size -
-          (transform.position.dx % (steps / transform.size)) +
-          transform.position.dx +
-          position.dx / transform.size;
+          (transform.position.dx % (steps / transform.size)) -
+          size.width / 2;
       canvas.drawLine(
         Offset(posX, rulerRect.top),
         Offset(
@@ -154,5 +155,11 @@ class RulerRenderer extends Renderer<RulerTool> {
       even = !even;
       x += steps;
     }
+
+    canvas.rotate(-rulerRotation * pi / 180);
+    canvas.translate(-rulerCenter.dx, -rulerCenter.dy);
+    canvas.scale(transform.size, transform.size);
+    canvas.translate(-transform.position.dx, -transform.position.dy);
+    canvas.restore();
   }
 }

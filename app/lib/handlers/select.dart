@@ -290,7 +290,8 @@ class SelectHandler extends Handler<SelectTool> {
     final currentIndex = context.getCurrentIndex();
     _ruler = RulerHandler.getFirstRuler(context.getCurrentIndex(),
         details.localFocalPoint, context.viewportSize);
-    if (_ruler == null) return true;
+    _rulerRotationStart = details.localFocalPoint;
+    if (_ruler != null) return true;
     if (currentIndex.buttons == kSecondaryMouseButton &&
         currentIndex.temporaryHandler == null) {
       return false;
@@ -317,32 +318,43 @@ class SelectHandler extends Handler<SelectTool> {
       event.buttons != kSecondaryMouseButton;
 
   RulerHandler? _ruler;
+  Offset? _rulerRotationStart;
 
   bool _handleRuler(ScaleUpdateDetails details, EventContext context) {
     final state = context.getState();
     if (state == null) return false;
     final ruler = _ruler;
     if (ruler == null) return false;
-    //final currentRotation = ruler.rotation * 180 / pi * details.scale;
-    final delta = details.rotation;
-    var angle = ruler.rotation + delta;
+    final rightClick =
+        (context.getCurrentIndex().buttons ?? 0) & kSecondaryMouseButton != 0;
+    var angle = details.rotation * 180 / pi;
+    var currentPos = Offset.zero;
+    if (details.rotation == 0 && rightClick) {
+      final rulerCenter = ruler.getRect(context.viewportSize).center;
+      var start = _rulerRotationStart ?? rulerCenter;
+      final startDelta = (start - rulerCenter).direction;
+      final currentDelta = (details.localFocalPoint - rulerCenter).direction;
+      angle = (currentDelta - startDelta) * 180 / pi - ruler.rotation;
+    } else {
+      currentPos = details.focalPointDelta;
+    }
     while (angle < 0) {
       angle += 360;
     }
     angle %= 360;
-    final currentPos = details.focalPointDelta;
     ruler.transform(context, position: currentPos, rotation: angle);
     return true;
   }
 
   @override
   void onScaleUpdate(ScaleUpdateDetails details, EventContext context) {
-    if (details.pointerCount > 1) return;
+    print("onScaleUpdate");
     final globalPos =
         context.getCameraTransform().localToGlobal(details.localFocalPoint);
     if (_handleRuler(details, context)) {
       return;
     }
+    if (details.pointerCount > 1) return;
     if (_selectionManager.isTransforming) {
       _selectionManager.updateCurrentPosition(globalPos);
       context.refresh();
