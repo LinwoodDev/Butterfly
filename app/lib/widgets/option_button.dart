@@ -60,7 +60,8 @@ class _OptionButtonState extends State<OptionButton>
   void didUpdateWidget(covariant OptionButton oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (widget.selected != oldWidget.selected ||
-        widget.highlighted != oldWidget.highlighted) {
+        widget.highlighted != oldWidget.highlighted ||
+        widget.showBottom != oldWidget.showBottom) {
       setState(() {});
       _animationController.animateTo(_nextValue);
     }

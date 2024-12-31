@@ -280,10 +280,7 @@ class _EditToolbarState extends State<EditToolbar> {
                                 ToolStatus.disabled
                             ? Theme.of(context).disabledColor
                             : null;
-                    var icon = handler.getIcon(bloc) ??
-                        tool.icon(selected
-                            ? PhosphorIconsStyle.fill
-                            : PhosphorIconsStyle.light);
+                    var handlerIcon = handler.getIcon(bloc);
                     final toolWidget = Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 4.0),
                         child: OptionButton(
@@ -318,8 +315,16 @@ class _EditToolbarState extends State<EditToolbar> {
                                               PhosphorIconsLight.caretLeft,
                                           })
                                 : null,
-                            selectedIcon: _buildIcon(icon, size, color),
-                            icon: _buildIcon(icon, size, color),
+                            selectedIcon: _buildIcon(
+                                handlerIcon ??
+                                    tool.icon(PhosphorIconsStyle.fill),
+                                size,
+                                color),
+                            icon: _buildIcon(
+                                handlerIcon ??
+                                    tool.icon(PhosphorIconsStyle.light),
+                                size,
+                                color),
                             onPressed: () {
                               if (_mouseState == _MouseState.multi) {
                                 context
