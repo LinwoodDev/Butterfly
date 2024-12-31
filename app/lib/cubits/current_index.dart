@@ -1191,4 +1191,40 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
       emit(state.copyWith(areaNavigatorExact: value));
   void setAreaNavigatorAsk(bool value) =>
       emit(state.copyWith(areaNavigatorAsk: value));
+
+  void updateTogglingTools(DocumentBloc bloc, Map<int, Tool> tools) {
+    final blocState = bloc.state;
+    if (blocState is! DocumentLoadSuccess) return;
+    final newHandlers = Map<int, Handler<Tool>>.from(state.toggleableHandlers);
+    final newForegrounds =
+        Map<int, List<Renderer>>.from(state.toggleableForegrounds);
+    for (final entry in tools.entries) {
+      final index = entry.key;
+      final tool = entry.value;
+      final old = state.toggleableHandlers[index];
+      if (old == null) continue;
+      if (old.data == tool) continue;
+      old.dispose(bloc);
+      for (final r in state.toggleableForegrounds[index] ?? []) {
+        r.dispose();
+      }
+      final handler = Handler.fromTool(tool);
+      final document = blocState.data;
+      final page = blocState.page;
+      final info = blocState.info;
+      final currentArea = blocState.currentArea;
+      final foregrounds =
+          handler.createForegrounds(this, document, page, info, currentArea);
+      if (handler.setupForegrounds) {
+        Future.wait(foregrounds.map((e) async =>
+            await e.setup(document, blocState.assetService, page)));
+      }
+      newHandlers[index] = handler;
+      newForegrounds[index] = foregrounds;
+    }
+    emit(state.copyWith(
+      toggleableHandlers: newHandlers,
+      toggleableForegrounds: newForegrounds,
+    ));
+  }
 }
