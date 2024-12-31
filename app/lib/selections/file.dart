@@ -148,7 +148,7 @@ class _UtilitiesViewState extends State<_UtilitiesView>
                             kThumbnailHeight.toDouble();
                         final height =
                             width * kThumbnailHeight / kThumbnailWidth;
-                        final heightOffset = (height - realHeight) / 2;
+                        final heightOffset = (realHeight - height) / 2;
                         final quality = kThumbnailWidth / width;
                         final thumbnail = await state.currentIndexCubit.render(
                           state.data,
