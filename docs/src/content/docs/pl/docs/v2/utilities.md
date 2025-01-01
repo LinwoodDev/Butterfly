@@ -15,6 +15,16 @@ Here are all page specific properties. Currently you can find the background set
 
 ## Widok
 
+:::note
+
+This tab was removed in the nightly release.
+Please visit the tools for more information:
+
+- [Grid](/docs/v2/tools/grid)
+- [Ruler](/docs/v2/tools/ruler)
+
+:::
+
 ### Siatka
 
 Siatka pozwala na dokładne umiejscowienie elementów. Możesz go użyć do przenoszenia elementów lub tworzenia kształtów.
