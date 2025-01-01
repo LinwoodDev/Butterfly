@@ -636,5 +636,6 @@
   "confirmPassword": "Confirm password",
   "passwordMismatch": "The passwords do not match",
   "action": "Handling",
-  "svgText": "SVG Text"
+  "svgText": "SVG Text",
+  "offset": "Offset"
 }
