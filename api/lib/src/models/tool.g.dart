@@ -375,6 +375,7 @@ const _$ImportTypeEnumMap = {
   ImportType.image: 'image',
   ImportType.camera: 'camera',
   ImportType.svg: 'svg',
+  ImportType.svgText: 'svgText',
   ImportType.pdf: 'pdf',
   ImportType.document: 'document',
   ImportType.markdown: 'markdown',

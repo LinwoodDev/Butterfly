@@ -48,6 +48,47 @@ Future<void> showImportAssetWizard(ImportType type, BuildContext context,
       return importAsset(AssetFileType.image, content);
     case ImportType.svg:
       return importWithDialog(AssetFileType.svg);
+    case ImportType.svgText:
+      final controller = TextEditingController();
+      final result = await showDialog<bool>(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: Text(AppLocalizations.of(context).import),
+          scrollable: true,
+          content: TextField(
+            maxLines: null,
+            minLines: 3,
+            controller: controller,
+            autocorrect: false,
+            autofocus: true,
+            decoration: InputDecoration(
+              hintText: AppLocalizations.of(context).svgText,
+              border: OutlineInputBorder(),
+              suffixIcon: IconButton(
+                icon: const Icon(PhosphorIconsLight.clipboard),
+                onPressed: () async {
+                  final clipboard =
+                      await Clipboard.getData(Clipboard.kTextPlain);
+                  final data = clipboard?.text;
+                  if (data != null) controller.text = data;
+                },
+              ),
+            ),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(context, false),
+              child: Text(MaterialLocalizations.of(context).cancelButtonLabel),
+            ),
+            ElevatedButton(
+              onPressed: () => Navigator.pop(context, true),
+              child: Text(AppLocalizations.of(context).import),
+            ),
+          ],
+        ),
+      );
+      if (result != true) return;
+      return importAsset(AssetFileType.svg, utf8.encode(controller.text));
     case ImportType.pdf:
       return importWithDialog(AssetFileType.pdf);
     case ImportType.document:

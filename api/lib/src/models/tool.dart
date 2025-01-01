@@ -37,7 +37,7 @@ enum LabelMode { markdown, text }
 
 enum Axis2D { horizontal, vertical }
 
-enum ImportType { image, camera, svg, pdf, document, markdown, xopp }
+enum ImportType { image, camera, svg, svgText, pdf, document, markdown, xopp }
 
 enum SelectMode { rectangle, lasso }
 
