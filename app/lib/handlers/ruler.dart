@@ -1,14 +1,13 @@
 part of 'handler.dart';
 
-Rect _getRulerRect(Size size, Offset position,
+Rect _getRulerRect(RulerTool ruler, Size size, Offset position,
     [CameraTransform transform = const CameraTransform()]) {
-  const rulerSize = 100.0;
   return Rect.fromLTWH(
     transform.position.dx + position.dx / transform.size,
     transform.position.dy +
-        (size.height / 2 + -rulerSize / 2 + position.dy) / transform.size,
+        (size.height / 2 + -ruler.size / 2 + position.dy) / transform.size,
     size.width * 2 / transform.size,
-    rulerSize / transform.size,
+    ruler.size / transform.size,
   );
 }
 
@@ -50,7 +49,7 @@ class RulerHandler extends Handler<RulerTool> with PointerManipulationHandler {
 
   Rect getRect(Size size,
       [CameraTransform transform = const CameraTransform()]) {
-    return _getRulerRect(size, _position, transform);
+    return _getRulerRect(data, size, _position, transform);
   }
 
   bool isPointerInside(Offset position, Size viewportSize) {
@@ -111,7 +110,7 @@ class RulerRenderer extends Renderer<RulerTool> {
     canvas.save();
     canvas.translate(transform.position.dx, transform.position.dy);
     canvas.scale(1 / transform.size, 1 / transform.size);
-    var rulerRect = _getRulerRect(size, position);
+    var rulerRect = _getRulerRect(element, size, position);
     final rulerCenter = rulerRect.center;
     canvas.translate(rulerCenter.dx, rulerCenter.dy);
     canvas.rotate(rulerRotation * pi / 180);

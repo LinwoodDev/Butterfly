@@ -430,6 +430,7 @@ _$RulerToolImpl _$$RulerToolImplFromJson(Map json) => _$RulerToolImpl(
       displayIcon: json['displayIcon'] as String? ?? '',
       color: _$JsonConverterFromJson<int, SRGBColor>(
           json['color'], const ColorJsonConverter().fromJson),
+      size: (json['size'] as num?)?.toInt() ?? 100,
       $type: json['type'] as String?,
     );
 
@@ -439,6 +440,7 @@ Map<String, dynamic> _$$RulerToolImplToJson(_$RulerToolImpl instance) =>
       'displayIcon': instance.displayIcon,
       'color': _$JsonConverterToJson<int, SRGBColor>(
           instance.color, const ColorJsonConverter().toJson),
+      'size': instance.size,
       'type': instance.$type,
     };
 

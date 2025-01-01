@@ -2799,7 +2799,8 @@ abstract class _$$RulerToolImplCopyWith<$Res> implements $ToolCopyWith<$Res> {
   $Res call(
       {String name,
       String displayIcon,
-      @ColorJsonConverter() SRGBColor? color});
+      @ColorJsonConverter() SRGBColor? color,
+      int size});
 }
 
 /// @nodoc
@@ -2818,6 +2819,7 @@ class __$$RulerToolImplCopyWithImpl<$Res>
     Object? name = null,
     Object? displayIcon = null,
     Object? color = freezed,
+    Object? size = null,
   }) {
     return _then(_$RulerToolImpl(
       name: null == name
@@ -2832,6 +2834,10 @@ class __$$RulerToolImplCopyWithImpl<$Res>
           ? _value.color
           : color // ignore: cast_nullable_to_non_nullable
               as SRGBColor?,
+      size: null == size
+          ? _value.size
+          : size // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 }
@@ -2843,6 +2849,7 @@ class _$RulerToolImpl extends RulerTool {
       {this.name = '',
       this.displayIcon = '',
       @ColorJsonConverter() this.color,
+      this.size = 100,
       final String? $type})
       : $type = $type ?? 'ruler',
         super._();
@@ -2859,13 +2866,16 @@ class _$RulerToolImpl extends RulerTool {
   @override
   @ColorJsonConverter()
   final SRGBColor? color;
+  @override
+  @JsonKey()
+  final int size;
 
   @JsonKey(name: 'type')
   final String $type;
 
   @override
   String toString() {
-    return 'Tool.ruler(name: $name, displayIcon: $displayIcon, color: $color)';
+    return 'Tool.ruler(name: $name, displayIcon: $displayIcon, color: $color, size: $size)';
   }
 
   /// Create a copy of Tool
@@ -2888,7 +2898,8 @@ abstract class RulerTool extends Tool {
   factory RulerTool(
       {final String name,
       final String displayIcon,
-      @ColorJsonConverter() final SRGBColor? color}) = _$RulerToolImpl;
+      @ColorJsonConverter() final SRGBColor? color,
+      final int size}) = _$RulerToolImpl;
   RulerTool._() : super._();
 
   factory RulerTool.fromJson(Map<String, dynamic> json) =
@@ -2900,6 +2911,7 @@ abstract class RulerTool extends Tool {
   String get displayIcon;
   @ColorJsonConverter()
   SRGBColor? get color;
+  int get size;
 
   /// Create a copy of Tool
   /// with the given fields replaced by the non-null parameter values.

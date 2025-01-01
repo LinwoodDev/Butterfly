@@ -196,6 +196,7 @@ sealed class Tool with _$Tool {
     @Default('') String name,
     @Default('') String displayIcon,
     @ColorJsonConverter() SRGBColor? color,
+    @Default(100) int size,
   }) = RulerTool;
 
   factory Tool.grid({

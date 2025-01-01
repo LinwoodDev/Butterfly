@@ -28,6 +28,18 @@ class RulerToolSelection extends ToolSelection<RulerTool> {
           selected.map((e) => e.copyWith(color: value)).toList(),
         ),
       ),
+      ExactSlider(
+        header: Text(AppLocalizations.of(context).size),
+        value: selected.first.size.toDouble(),
+        min: 1,
+        max: 500,
+        defaultValue: 100,
+        fractionDigits: 0,
+        onChangeEnd: (value) => update(
+          context,
+          selected.map((e) => e.copyWith(size: value.toInt())).toList(),
+        ),
+      )
     ];
   }
 
