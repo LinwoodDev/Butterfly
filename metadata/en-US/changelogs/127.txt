@@ -5,7 +5,9 @@
 * Add toggleable tools
 * Move ruler into own tool
   * Add color property
+  * Add size property
 * Move grid into own tool
+  * Add offset property
 * Add password protected notes ([#771](https://github.com/LinwoodDev/Butterfly/issues/771))
 * Add option to import svg as text ([#596](https://github.com/LinwoodDev/Butterfly/issues/596))
 * Fix undo/redo tools not showing status correctly

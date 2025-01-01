@@ -205,6 +205,8 @@ sealed class Tool with _$Tool {
     @Default(SRGBColor.black) @ColorJsonConverter() SRGBColor color,
     @Default(20) double xSize,
     @Default(20) double ySize,
+    @Default(0) double xOffset,
+    @Default(0) double yOffset,
   }) = GridTool;
 
   factory Tool.eyeDropper({

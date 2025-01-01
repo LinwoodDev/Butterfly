@@ -19,6 +19,17 @@ class GridToolSelection extends ToolSelection<GridTool> {
         ),
       ),
       const SizedBox(height: 8),
+      OffsetPropertyView(
+        title: Text(AppLocalizations.of(context).offset),
+        value: Offset(selected.first.xOffset, selected.first.yOffset),
+        onChanged: (value) => update(
+          context,
+          selected
+              .map((e) => e.copyWith(xOffset: value.dx, yOffset: value.dy))
+              .toList(),
+        ),
+      ),
+      const SizedBox(height: 8),
       ColorField(
         value: selected.first.color,
         onChanged: (value) => update(

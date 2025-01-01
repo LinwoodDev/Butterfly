@@ -464,6 +464,8 @@ _$GridToolImpl _$$GridToolImplFromJson(Map json) => _$GridToolImpl(
           : const ColorJsonConverter().fromJson((json['color'] as num).toInt()),
       xSize: (json['xSize'] as num?)?.toDouble() ?? 20,
       ySize: (json['ySize'] as num?)?.toDouble() ?? 20,
+      xOffset: (json['xOffset'] as num?)?.toDouble() ?? 0,
+      yOffset: (json['yOffset'] as num?)?.toDouble() ?? 0,
       $type: json['type'] as String?,
     );
 
@@ -474,6 +476,8 @@ Map<String, dynamic> _$$GridToolImplToJson(_$GridToolImpl instance) =>
       'color': const ColorJsonConverter().toJson(instance.color),
       'xSize': instance.xSize,
       'ySize': instance.ySize,
+      'xOffset': instance.xOffset,
+      'yOffset': instance.yOffset,
       'type': instance.$type,
     };
 

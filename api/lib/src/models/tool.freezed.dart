@@ -2933,7 +2933,9 @@ abstract class _$$GridToolImplCopyWith<$Res> implements $ToolCopyWith<$Res> {
       String displayIcon,
       @ColorJsonConverter() SRGBColor color,
       double xSize,
-      double ySize});
+      double ySize,
+      double xOffset,
+      double yOffset});
 }
 
 /// @nodoc
@@ -2954,6 +2956,8 @@ class __$$GridToolImplCopyWithImpl<$Res>
     Object? color = null,
     Object? xSize = null,
     Object? ySize = null,
+    Object? xOffset = null,
+    Object? yOffset = null,
   }) {
     return _then(_$GridToolImpl(
       name: null == name
@@ -2976,6 +2980,14 @@ class __$$GridToolImplCopyWithImpl<$Res>
           ? _value.ySize
           : ySize // ignore: cast_nullable_to_non_nullable
               as double,
+      xOffset: null == xOffset
+          ? _value.xOffset
+          : xOffset // ignore: cast_nullable_to_non_nullable
+              as double,
+      yOffset: null == yOffset
+          ? _value.yOffset
+          : yOffset // ignore: cast_nullable_to_non_nullable
+              as double,
     ));
   }
 }
@@ -2989,6 +3001,8 @@ class _$GridToolImpl extends GridTool {
       @ColorJsonConverter() this.color = SRGBColor.black,
       this.xSize = 20,
       this.ySize = 20,
+      this.xOffset = 0,
+      this.yOffset = 0,
       final String? $type})
       : $type = $type ?? 'grid',
         super._();
@@ -3012,13 +3026,19 @@ class _$GridToolImpl extends GridTool {
   @override
   @JsonKey()
   final double ySize;
+  @override
+  @JsonKey()
+  final double xOffset;
+  @override
+  @JsonKey()
+  final double yOffset;
 
   @JsonKey(name: 'type')
   final String $type;
 
   @override
   String toString() {
-    return 'Tool.grid(name: $name, displayIcon: $displayIcon, color: $color, xSize: $xSize, ySize: $ySize)';
+    return 'Tool.grid(name: $name, displayIcon: $displayIcon, color: $color, xSize: $xSize, ySize: $ySize, xOffset: $xOffset, yOffset: $yOffset)';
   }
 
   /// Create a copy of Tool
@@ -3043,7 +3063,9 @@ abstract class GridTool extends Tool {
       final String displayIcon,
       @ColorJsonConverter() final SRGBColor color,
       final double xSize,
-      final double ySize}) = _$GridToolImpl;
+      final double ySize,
+      final double xOffset,
+      final double yOffset}) = _$GridToolImpl;
   GridTool._() : super._();
 
   factory GridTool.fromJson(Map<String, dynamic> json) =
@@ -3057,6 +3079,8 @@ abstract class GridTool extends Tool {
   SRGBColor get color;
   double get xSize;
   double get ySize;
+  double get xOffset;
+  double get yOffset;
 
   /// Create a copy of Tool
   /// with the given fields replaced by the non-null parameter values.

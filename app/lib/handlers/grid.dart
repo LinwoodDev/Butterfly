@@ -16,10 +16,13 @@ class GridHandler extends Handler<GridTool> with PointerManipulationHandler {
 
   @override
   Offset getPointerPosition(Offset position, Size viewportSize) {
-    return Offset(
-      (position.dx / data.xSize).round() * data.xSize,
-      (position.dy / data.ySize).round() * data.ySize,
-    );
+    final xSize = data.xSize;
+    final ySize = data.ySize;
+    final xOffset = data.xOffset;
+    final yOffset = data.yOffset;
+    final x = (position.dx - xOffset) / xSize;
+    final y = (position.dy - yOffset) / ySize;
+    return Offset(x.round() * xSize + xOffset, y.round() * ySize + yOffset);
   }
 }
 
@@ -31,7 +34,7 @@ class GridRenderer extends Renderer<GridTool> {
       DocumentInfo info, CameraTransform transform,
       [ColorScheme? colorScheme, bool foreground = false]) {
     if (element.xSize > 0) {
-      double x = 0;
+      double x = -element.xSize + element.xOffset % element.xSize;
       while (x < size.width) {
         final localX = x / transform.size;
         canvas.drawLine(
@@ -46,7 +49,7 @@ class GridRenderer extends Renderer<GridTool> {
       }
     }
     if (element.ySize > 0) {
-      double y = 0;
+      double y = -element.ySize + element.yOffset % element.ySize;
       while (y < size.height) {
         final localY = y / transform.size;
         canvas.drawLine(

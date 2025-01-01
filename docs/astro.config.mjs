@@ -87,6 +87,10 @@ export default defineConfig({
               link: "/docs/v2/add/",
             },
             {
+              ...getSidebarTranslatedLabel("Utilities"),
+              link: "/docs/v2/utilities/",
+            },
+            {
               ...getSidebarTranslatedLabel("Collaboration"),
               link: "/docs/v2/collaboration/",
             },
@@ -168,6 +172,14 @@ export default defineConfig({
                 {
                   ...getSidebarTranslatedLabel("Presentation"),
                   link: "/docs/v2/tools/presentation/",
+                },
+                {
+                  ...getSidebarTranslatedLabel("Ruler"),
+                  link: "/docs/v2/tools/ruler/",
+                },
+                {
+                  ...getSidebarTranslatedLabel("Grid"),
+                  link: "/docs/v2/tools/grid/",
                 },
               ],
             },
