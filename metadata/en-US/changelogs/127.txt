@@ -8,8 +8,10 @@
   * Add size property
 * Move grid into own tool
   * Add offset property
+* Move background button from project settings to top corner button
 * Add password protected notes ([#771](https://github.com/LinwoodDev/Butterfly/issues/771))
 * Add option to import svg as text ([#596](https://github.com/LinwoodDev/Butterfly/issues/596))
+* Improve grid files view
 * Fix undo/redo tools not showing status correctly
 * Fix grid not working correctly
 * Fix capture thumbnail uses wrong position

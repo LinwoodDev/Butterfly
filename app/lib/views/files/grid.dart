@@ -47,10 +47,13 @@ class FileEntityGridItem extends StatelessWidget {
     final settingsCubit = fileSystem.settingsCubit;
     final remote = settingsCubit.getRemote(entity.location.remote);
     final documentSystem = fileSystem.buildDocumentSystem(remote);
-    final leading = PhosphorIcon(
-      icon,
-      color: colorScheme.outline,
-      size: 48,
+    final leading = Align(
+      alignment: Alignment.bottomCenter,
+      child: PhosphorIcon(
+        icon,
+        color: colorScheme.outline,
+        size: 48,
+      ),
     );
     return Card(
         elevation: 5,
@@ -59,7 +62,7 @@ class FileEntityGridItem extends StatelessWidget {
           horizontal: 0,
         ),
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(16),
+          borderRadius: BorderRadius.circular(12),
           side: active
               ? BorderSide(
                   color: colorScheme.primaryContainer,
@@ -86,10 +89,10 @@ class FileEntityGridItem extends StatelessWidget {
                       child: Container(
                         height: 96,
                         padding: const EdgeInsets.only(
-                          left: 8,
-                          right: 8,
-                          top: 16,
-                          bottom: 8,
+                          left: 4,
+                          right: 4,
+                          top: 4,
+                          bottom: 2,
                         ),
                         child: thumbnail != null
                             ? AspectRatio(
@@ -127,7 +130,10 @@ class FileEntityGridItem extends StatelessWidget {
                 const SizedBox(height: 8),
                 Expanded(
                   child: Padding(
-                    padding: const EdgeInsets.all(8.0),
+                    padding: const EdgeInsets.symmetric(
+                      vertical: 4,
+                      horizontal: 12,
+                    ),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.end,
                       crossAxisAlignment: CrossAxisAlignment.stretch,

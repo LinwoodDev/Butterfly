@@ -53,7 +53,7 @@ class _UtilitiesViewState extends State<_UtilitiesView>
 
   @override
   void initState() {
-    _tabController = TabController(length: 3, vsync: this);
+    _tabController = TabController(length: 2, vsync: this);
 
     _tabController.addListener(_onTabChange);
 
@@ -97,7 +97,6 @@ class _UtilitiesViewState extends State<_UtilitiesView>
         isScrollable: true,
         tabs: <List<dynamic>>[
           [PhosphorIconsLight.file, AppLocalizations.of(context).file],
-          [PhosphorIconsLight.book, AppLocalizations.of(context).page],
           [PhosphorIconsLight.camera, AppLocalizations.of(context).camera],
         ]
             .map((e) =>
@@ -259,8 +258,8 @@ class _UtilitiesViewState extends State<_UtilitiesView>
                                           filled: true,
                                           suffixIcon: IconButton(
                                             icon: Icon(showPassword
-                                                ? PhosphorIconsLight.eye
-                                                : PhosphorIconsLight.eyeSlash),
+                                                ? PhosphorIconsLight.eyeSlash
+                                                : PhosphorIconsLight.eye),
                                             onPressed: () => setState(
                                               () =>
                                                   showPassword = !showPassword,
@@ -285,8 +284,8 @@ class _UtilitiesViewState extends State<_UtilitiesView>
                                           filled: true,
                                           suffixIcon: IconButton(
                                             icon: Icon(showConfirmPassword
-                                                ? PhosphorIconsLight.eye
-                                                : PhosphorIconsLight.eyeSlash),
+                                                ? PhosphorIconsLight.eyeSlash
+                                                : PhosphorIconsLight.eye),
                                             onPressed: () => setState(
                                               () => showConfirmPassword =
                                                   !showConfirmPassword,
@@ -334,18 +333,6 @@ class _UtilitiesViewState extends State<_UtilitiesView>
                     )
                   ],
                 ),
-                Column(children: [
-                  MenuItemButton(
-                    leadingIcon: const PhosphorIcon(PhosphorIconsLight.image),
-                    shortcut: const SingleActivator(LogicalKeyboardKey.keyB,
-                        control: true),
-                    onPressed: () {
-                      Actions.maybeInvoke<BackgroundIntent>(
-                          context, BackgroundIntent(context));
-                    },
-                    child: Text(AppLocalizations.of(context).background),
-                  ),
-                ]),
                 Column(
                   children: [
                     OffsetPropertyView(

@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:butterfly/actions/background.dart';
 import 'package:butterfly/actions/change_path.dart';
 import 'package:butterfly/actions/settings.dart';
 import 'package:butterfly/actions/svg_export.dart';
@@ -388,6 +389,16 @@ class _MainPopupMenu extends StatelessWidget {
                     ),
                   ),
                 const Divider(),
+                MenuItemButton(
+                  leadingIcon: const PhosphorIcon(PhosphorIconsLight.image),
+                  shortcut: const SingleActivator(LogicalKeyboardKey.keyB,
+                      control: true),
+                  onPressed: () {
+                    Actions.maybeInvoke<BackgroundIntent>(
+                        context, BackgroundIntent(context));
+                  },
+                  child: Text(AppLocalizations.of(context).background),
+                ),
                 SubmenuButton(
                   menuChildren: [
                     MenuItemButton(
