@@ -15,6 +15,16 @@ Here are all page specific properties. Currently you can find the background set
 
 ## Ansicht
 
+:::note
+
+This tab was removed in the nightly release.
+Please visit the tools for more information:
+
+- [Grid](/docs/v2/tools/grid)
+- [Ruler](/docs/v2/tools/ruler)
+
+:::
+
 ### Raster
 
 Das Raster ermöglicht die genaue Positionierung von Elementen. Sie können es verwenden, um Elemente zu verschieben oder Formen zu erstellen.
