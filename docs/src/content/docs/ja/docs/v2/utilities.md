@@ -15,6 +15,16 @@ Here are all page specific properties. Currently you can find the background set
 
 ## 表示
 
+:::note
+
+This tab was removed in the nightly release.
+Please visit the tools for more information:
+
+- [Grid](/docs/v2/tools/grid)
+- [Ruler](/docs/v2/tools/ruler)
+
+:::
+
 ### グリッド
 
 グリッドを使用すると、要素を正確に配置できます。 要素を移動したり、図形を作成したりするのに使用できます。
