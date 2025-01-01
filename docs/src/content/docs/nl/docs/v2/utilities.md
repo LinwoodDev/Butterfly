@@ -15,6 +15,16 @@ Here are all page specific properties. Currently you can find the background set
 
 ## Bekijken
 
+:::note
+
+This tab was removed in the nightly release.
+Please visit the tools for more information:
+
+- [Grid](/docs/v2/tools/grid)
+- [Ruler](/docs/v2/tools/ruler)
+
+:::
+
 ### Rooster
 
 Het raster stelt je in staat om elementen precies te positioneren. Je kunt het gebruiken om elementen te verplaatsen of vormen te maken.
