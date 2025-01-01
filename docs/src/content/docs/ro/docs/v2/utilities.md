@@ -15,6 +15,16 @@ Here are all page specific properties. Currently you can find the background set
 
 ## Vizualizare
 
+:::note
+
+This tab was removed in the nightly release.
+Please visit the tools for more information:
+
+- [Grid](/docs/v2/tools/grid)
+- [Ruler](/docs/v2/tools/ruler)
+
+:::
+
 ### Grilă
 
 Grila vă permite să poziționați exact elementele. Îl poți folosi pentru a muta elemente sau pentru a crea forme.
