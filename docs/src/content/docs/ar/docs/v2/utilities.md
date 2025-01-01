@@ -15,6 +15,16 @@ Here are all page specific properties. Currently you can find the background set
 
 ## عرض
 
+:::note
+
+This tab was removed in the nightly release.
+Please visit the tools for more information:
+
+- [Grid](/docs/v2/tools/grid)
+- [Ruler](/docs/v2/tools/ruler)
+
+:::
+
 ### الشبكة
 
 الشبكة تسمح لك بعناصر الموقع بالضبط. يمكنك استخدامه لنقل العناصر أو إنشاء الأشكال.
