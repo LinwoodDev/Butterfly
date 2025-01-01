@@ -15,6 +15,16 @@ Here are all page specific properties. Currently you can find the background set
 
 ## Vis
 
+:::note
+
+This tab was removed in the nightly release.
+Please visit the tools for more information:
+
+- [Grid](/docs/v2/tools/grid)
+- [Ruler](/docs/v2/tools/ruler)
+
+:::
+
 ### Rutenett
 
 Med rutenettet kan du posisjonere elementene. Du kan bruke den til å flytte elementer eller opprette figurer.
