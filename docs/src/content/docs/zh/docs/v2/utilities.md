@@ -15,6 +15,16 @@ Here are all page specific properties. Currently you can find the background set
 
 ## 查看
 
+:::note
+
+This tab was removed in the nightly release.
+Please visit the tools for more information:
+
+- [Grid](/docs/v2/tools/grid)
+- [Ruler](/docs/v2/tools/ruler)
+
+:::
+
 ### 网格
 
 网格允许您准确定位元素。 您可以使用它移动元素或创建形状。
