@@ -169,6 +169,26 @@ class _ColorPalettePickerDialogState extends State<ColorPalettePickerDialog> {
                                 child: Row(
                                   children: [
                                     if (widget.palette == null) ...[
+                                      Expanded(
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.stretch,
+                                          children: [
+                                            Text(
+                                              _selected?.name ?? '',
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .headlineSmall,
+                                            ),
+                                            Text(
+                                              _selected?.pack ?? '',
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .labelLarge,
+                                            ),
+                                          ],
+                                        ),
+                                      ),
                                       IconButton(
                                         onPressed: () async {
                                           final state = widget.bloc?.state;

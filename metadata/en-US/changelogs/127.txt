@@ -3,6 +3,7 @@
   * Dedicated files view
   * Move settings into a tab
 * Add toggleable tools
+* Add palette name and pack to color picker dialog
 * Move ruler into own tool
   * Add color property
   * Add size property
