@@ -44,5 +44,8 @@
   "faq": "FAQ",
   "versions": "Versionen",
   "nightly": "Nightly",
-  "privacy_policy": "Datenschutzerklärung"
+  "privacy_policy": "Datenschutzerklärung",
+  "ruler": "Lineal",
+  "grid": "Raster",
+  "utilities": "Utilities"
 }
