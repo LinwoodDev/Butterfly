@@ -8,6 +8,16 @@ class AreaToolSelection extends ToolSelection<AreaTool> {
     final tool = selected.first;
     return [
       ...super.buildProperties(context),
+      CheckboxListTile(
+        title: Text(AppLocalizations.of(context).askForName),
+        value: tool.askForName,
+        onChanged: (value) => update(
+            context,
+            selected
+                .map((e) => e.copyWith(askForName: value ?? false))
+                .toList()),
+      ),
+      const SizedBox(height: 4),
       ExactSlider(
           header: Text(AppLocalizations.of(context).width),
           value: tool.constrainedWidth,
@@ -62,21 +72,12 @@ class AreaToolSelection extends ToolSelection<AreaTool> {
           min: 0,
           max: 10,
           defaultValue: 0,
+          fractionDigits: 3,
           onChangeEnd: (value) => update(
               context,
               selected
                   .map((e) => e.copyWith(constrainedAspectRatio: value))
                   .toList())),
-      const SizedBox(height: 4),
-      CheckboxListTile(
-        title: Text(AppLocalizations.of(context).askForName),
-        value: tool.askForName,
-        onChanged: (value) => update(
-            context,
-            selected
-                .map((e) => e.copyWith(askForName: value ?? false))
-                .toList()),
-      ),
     ];
   }
 

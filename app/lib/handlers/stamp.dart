@@ -47,25 +47,15 @@ class StampHandler extends PastingHandler<StampTool> {
     _position = Offset.zero;
     _component = getComponent(document);
     if ((!force && _elements != null) || _component == null) return;
-    _elements = await Future.wait(
+    final elements = _elements = await Future.wait(
         _component?.elements.map(Renderer.fromInstance).map((e) async {
               await e.setup(document, assetService, page);
               return e;
             }) ??
             []);
-    Rect? rect;
-    for (final e in _elements!) {
-      final r = e.rect;
-      if (r == null) continue;
-      if (rect == null) {
-        rect = r;
-      } else {
-        rect = rect.expandToInclude(r);
-      }
-    }
-    if (rect != null) {
-      this.rect = rect;
-    }
+    rect = elements.map((e) => e.rect).nonNulls.fold<Rect?>(null,
+            (value, element) => value?.expandToInclude(element) ?? element) ??
+        Rect.zero;
   }
 
   @override
