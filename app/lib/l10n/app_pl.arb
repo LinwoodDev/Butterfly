@@ -635,5 +635,6 @@
   "unencryptWarning": "This will unencrypt the document. The password will be removed and everyone with access will be able to open it.",
   "confirmPassword": "Confirm password",
   "passwordMismatch": "The passwords do not match",
-  "action": "Akcja"
+  "action": "Akcja",
+  "svgText": "SVG Text"
 }
