@@ -799,6 +799,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
             height: size.height.ceil(),
             width: size.width.ceil(),
             pixelRatio: ratio,
+            resolution: resolution,
             scale: transform.size,
             x: renderTransform.position.dx,
             y: renderTransform.position.dy,

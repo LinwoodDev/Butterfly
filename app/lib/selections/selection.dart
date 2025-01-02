@@ -44,7 +44,7 @@ part 'properties/path.dart';
 part 'properties/pen.dart';
 
 part 'area.dart';
-part 'file.dart';
+part 'document.dart';
 
 abstract class Selection<T> {
   List<T> _selected;
@@ -64,7 +64,7 @@ abstract class Selection<T> {
       return AreaSelection([selected]) as Selection<T>;
     }
     if (selected is CurrentIndexCubit) {
-      return FileSelection(selected) as Selection<T>;
+      return DocumentSelection(selected) as Selection<T>;
     }
     throw UnsupportedError('Unsupported selection type: $T');
   }

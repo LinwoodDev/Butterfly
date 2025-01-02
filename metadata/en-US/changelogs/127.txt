@@ -17,5 +17,6 @@
 * Fix undo/redo tools not showing status correctly
 * Fix grid not working correctly
 * Fix capture thumbnail uses wrong position
+* Fix zoom slider is not centered
 
 Read more here: https://linwood.dev/butterfly/2.3.0-beta.0
