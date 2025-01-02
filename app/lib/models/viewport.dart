@@ -1,6 +1,7 @@
 import 'dart:math';
 import 'dart:ui' as ui;
 
+import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/renderers/renderer.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:equatable/equatable.dart';
@@ -18,6 +19,7 @@ class CameraViewport extends Equatable {
   final double pixelRatio;
   final double scale;
   final double x, y;
+  final RenderResolution resolution;
 
   const CameraViewport.unbaked(this.utilities,
       [this.backgrounds = const [],
@@ -33,7 +35,8 @@ class CameraViewport extends Equatable {
         pixelRatio = 1,
         x = 0,
         y = 0,
-        visibleElements = visibleElements ?? unbakedElements;
+        visibleElements = visibleElements ?? unbakedElements,
+        resolution = RenderResolution.performance;
 
   const CameraViewport.baked(this.utilities,
       {this.backgrounds = const [],
@@ -48,6 +51,7 @@ class CameraViewport extends Equatable {
       required this.visibleElements,
       this.scale = 1,
       this.x = 0,
+      required this.resolution,
       this.y = 0});
 
   get center => null;
@@ -61,6 +65,8 @@ class CameraViewport extends Equatable {
       (height?.toDouble() ?? 0) / (scaled ? scale : 1));
 
   ui.Rect toRect() => toOffset() & toSize(true);
+
+  ui.Size toRealSize() => toSize() / resolution.multiplier;
 
   Area toArea() => Area(
         name: '',
@@ -95,6 +101,7 @@ class CameraViewport extends Equatable {
         y: y,
         aboveLayerImage: aboveLayerImage,
         belowLayerImage: belowLayerImage,
+        resolution: resolution,
       );
 
   CameraViewport unbake({
@@ -127,6 +134,7 @@ class CameraViewport extends Equatable {
     double scale = 1,
     double x = 0,
     double y = 0,
+    required RenderResolution resolution,
   }) =>
       CameraViewport.baked(
         utilities,
@@ -143,6 +151,7 @@ class CameraViewport extends Equatable {
         visibleElements: visibleElements,
         aboveLayerImage: aboveLayerImage,
         belowLayerImage: belowLayerImage,
+        resolution: resolution,
       );
 
   CameraViewport withoutLayers() => CameraViewport.baked(
@@ -160,6 +169,7 @@ class CameraViewport extends Equatable {
         visibleElements: visibleElements,
         aboveLayerImage: null,
         belowLayerImage: null,
+        resolution: resolution,
       );
 
   CameraViewport withBackgrounds(List<Renderer<Background>> backgrounds) =>
@@ -196,6 +206,7 @@ class CameraViewport extends Equatable {
         visibleElements: visibleElements,
         aboveLayerImage: aboveLayerImage,
         belowLayerImage: belowLayerImage,
+        resolution: resolution,
       );
 
   @override
@@ -214,5 +225,6 @@ class CameraViewport extends Equatable {
         utilities,
         aboveLayerImage,
         belowLayerImage,
+        resolution,
       ];
 }

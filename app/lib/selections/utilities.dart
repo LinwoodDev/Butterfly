@@ -144,25 +144,23 @@ class _UtilitiesViewState extends State<_UtilitiesView>
                       onPressed: () async {
                         final viewport =
                             state.currentIndexCubit.state.cameraViewport;
-                        final width = viewport.width?.toDouble() ??
-                            kThumbnailWidth.toDouble();
-                        final realHeight = viewport.height?.toDouble() ??
-                            kThumbnailHeight.toDouble();
+                        final size = viewport.toRealSize();
                         final height =
-                            width * kThumbnailHeight / kThumbnailWidth;
-                        final heightOffset = (height - realHeight) / 2;
-                        final quality = kThumbnailWidth / width;
+                            size.width * kThumbnailHeight / kThumbnailWidth;
+                        final heightOffset = (size.height - height) / 2;
+                        final quality = kThumbnailWidth / size.width;
                         final thumbnail = await state.currentIndexCubit.render(
                           state.data,
                           state.page,
                           state.info,
                           ImageExportOptions(
-                            width: width,
+                            width: size.width,
                             height: height,
                             quality: quality,
                             scale: viewport.scale,
-                            x: viewport.x,
-                            y: viewport.y + heightOffset,
+                            x: viewport.x + size.width / viewport.scale,
+                            y: viewport.y +
+                                (heightOffset + size.height) / viewport.scale,
                           ),
                         );
                         if (thumbnail == null) return;
