@@ -44,5 +44,8 @@
   "faq": "FAQ",
   "versions": "Versions",
   "nightly": "Nightly",
-  "privacy_policy": "Privacy policy"
+  "privacy_policy": "Privacy policy",
+  "ruler": "Ruler",
+  "grid": "Grid",
+  "utilities": "Utilities"
 }

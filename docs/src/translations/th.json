@@ -44,5 +44,8 @@
   "faq": "FAQ",
   "versions": "Versions",
   "nightly": "Nightly",
-  "privacy_policy": "นโยบายความเป็นส่วนตัว"
+  "privacy_policy": "นโยบายความเป็นส่วนตัว",
+  "ruler": "Ruler",
+  "grid": "Grid",
+  "utilities": "Utilities"
 }

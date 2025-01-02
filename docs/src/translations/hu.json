@@ -44,5 +44,8 @@
   "faq": "FAQ",
   "versions": "Versions",
   "nightly": "Nightly",
-  "privacy_policy": "Adatvédelmi nyilatkozat"
+  "privacy_policy": "Adatvédelmi nyilatkozat",
+  "ruler": "Ruler",
+  "grid": "Grid",
+  "utilities": "Utilities"
 }

@@ -44,5 +44,8 @@
   "faq": "ЧАВО",
   "versions": "Версии",
   "nightly": "Ночной",
-  "privacy_policy": "Политика конфиденциальности"
+  "privacy_policy": "Политика конфиденциальности",
+  "ruler": "Линейка",
+  "grid": "Сетка",
+  "utilities": "Utilities"
 }
