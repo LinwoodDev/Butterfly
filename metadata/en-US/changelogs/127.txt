@@ -4,6 +4,7 @@
   * Move settings into a tab
 * Add toggleable tools
 * Add palette name and pack to color picker dialog
+* Add stroke width slider to pattern texture
 * Move ruler into own tool
   * Add color property
   * Add size property
