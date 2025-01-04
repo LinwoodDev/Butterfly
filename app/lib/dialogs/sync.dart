@@ -61,6 +61,7 @@ class _SyncDialogState extends State<SyncDialog> {
                       children: [
                         ...service.syncs.asMap().entries.map((entry) =>
                             ExpansionPanel(
+                                canTapOnHeader: true,
                                 isExpanded: _openedPanels.contains(entry.key),
                                 headerBuilder: (context, isExpanded) =>
                                     ListTile(

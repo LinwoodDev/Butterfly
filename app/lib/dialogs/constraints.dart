@@ -67,14 +67,12 @@ class _ConstraintsViewState extends State<ConstraintsView> {
       children: [
         ExpansionPanel(
           isExpanded: opened,
+          canTapOnHeader: true,
           headerBuilder: (context, isExpanded) => Wrap(
             children: [
               ListTile(
                 title: Text(AppLocalizations.of(context).constraints),
                 leading: const PhosphorIcon(PhosphorIconsLight.selection),
-                onTap: () => setState(() {
-                  opened = !isExpanded;
-                }),
                 trailing: DropdownMenu<String>(
                   dropdownMenuEntries: all.entries
                       .map((e) => DropdownMenuEntry(
