@@ -54,6 +54,7 @@ class __ShapeDetectionViewState extends State<_ShapeDetectionView> {
       },
       children: [
         ExpansionPanel(
+          canTapOnHeader: true,
           headerBuilder: (BuildContext context, bool isExpanded) {
             return ListTile(
               title: Text(AppLocalizations.of(context).shapeDetection),
