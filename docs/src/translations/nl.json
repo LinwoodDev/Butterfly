@@ -44,5 +44,8 @@
   "faq": "FAQ",
   "versions": "versies",
   "nightly": "Nachtelijk",
-  "privacy_policy": "Privacy Beleid"
+  "privacy_policy": "Privacy Beleid",
+  "ruler": "Liniaal",
+  "grid": "Rooster",
+  "utilities": "Utilities"
 }

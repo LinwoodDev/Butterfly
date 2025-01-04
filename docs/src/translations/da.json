@@ -44,5 +44,8 @@
   "faq": "OSS",
   "versions": "Versioner",
   "nightly": "Natligt",
-  "privacy_policy": "Privatliv politik"
+  "privacy_policy": "Privatliv politik",
+  "ruler": "Lineal",
+  "grid": "Gitter",
+  "utilities": "Utilities"
 }
