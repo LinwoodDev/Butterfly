@@ -714,7 +714,12 @@ class FilesViewState extends State<FilesView> {
               title: Text(AppLocalizations.of(context).files),
               actions: actionsChildren,
             ),
-            body: SingleChildScrollView(child: content),
+            body: SingleChildScrollView(
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: 8),
+                child: content,
+              ),
+            ),
           );
         }
         return content;

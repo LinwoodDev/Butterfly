@@ -58,7 +58,7 @@ class _QuickstartHomeViewState extends State<_QuickstartHomeView> {
         borderRadius: BorderRadius.circular(24),
       ),
       child: Padding(
-        padding: const EdgeInsets.all(32),
+        padding: EdgeInsets.all(widget.isMobile ? 12 : 32),
         child:
             Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
           Row(
@@ -86,7 +86,7 @@ class _QuickstartHomeViewState extends State<_QuickstartHomeView> {
               ),
             ],
           ),
-          const SizedBox(height: 16),
+          SizedBox(height: widget.isMobile ? 8 : 16),
           FutureBuilder<List<NoteData>>(
               future: _templatesFuture,
               builder: (context, snapshot) {
