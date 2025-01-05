@@ -13,7 +13,7 @@ class _SvgBackgroundPropertiesView extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListView(
       children: [
-        OffsetPropertyView(
+        OffsetListTile(
           title: Text(AppLocalizations.of(context).scale),
           value: Offset(value.scaleX, value.scaleY),
           onChanged: (value) => onChanged(

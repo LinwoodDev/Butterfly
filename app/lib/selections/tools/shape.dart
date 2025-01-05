@@ -81,7 +81,6 @@ class ShapeToolSelection extends ToolSelection<ShapeTool> {
                   .map((e) => e.copyWith(
                       property: e.property.copyWith(strokeWidth: value)))
                   .toList())),
-      const SizedBox(height: 50),
       ColorField(
         value: property.color.withValues(a: 255),
         onChanged: (color) => update(

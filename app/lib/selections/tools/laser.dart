@@ -29,7 +29,6 @@ class LaserToolSelection extends ToolSelection<LaserTool> {
           selected.map((e) => e.copyWith(thinning: value)).toList(),
         ),
       ),
-      const SizedBox(height: 4),
       ColorField(
         value: selected.first.color,
         onChanged: (value) => update(
@@ -89,7 +88,6 @@ class LaserToolSelection extends ToolSelection<LaserTool> {
           },
         ),
       ),
-      const SizedBox(height: 15),
     ];
   }
 

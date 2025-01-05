@@ -17,7 +17,6 @@ class AreaToolSelection extends ToolSelection<AreaTool> {
                 .map((e) => e.copyWith(askForName: value ?? false))
                 .toList()),
       ),
-      const SizedBox(height: 4),
       ExactSlider(
           header: Text(AppLocalizations.of(context).width),
           value: tool.constrainedWidth,

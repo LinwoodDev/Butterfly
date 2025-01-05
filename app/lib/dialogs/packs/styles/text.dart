@@ -108,7 +108,6 @@ class _TextStyleViewState extends State<TextStyleView> {
             onChangeEnd: (spacing) => widget.onChanged(
                   widget.value.copyWith(letterSpacing: spacing),
                 )),
-        const SizedBox(height: 16),
         ListTile(
             title: Text(AppLocalizations.of(context).fontWeight),
             trailing: DropdownMenu<FontWeight?>(
@@ -212,33 +211,30 @@ class _TextStyleViewState extends State<TextStyleView> {
                             defaultColor: null,
                             onChanged: (color) => widget.onChanged(
                                 widget.value.copyWith(decorationColor: color))),
-                        Padding(
-                          padding: const EdgeInsets.all(16.0),
-                          child: ExactSlider(
-                              header:
-                                  Text(AppLocalizations.of(context).thickness),
-                              defaultValue: 1,
-                              value: widget.value.decorationThickness,
-                              bottom: widget.value.decorationThickness == null
-                                  ? Text(AppLocalizations.of(context).notSet)
-                                  : null,
-                              leading: widget.value.decorationThickness == null
-                                  ? null
-                                  : IconButton(
-                                      icon: const PhosphorIcon(
-                                          PhosphorIconsLight.eraser),
-                                      tooltip:
-                                          AppLocalizations.of(context).remove,
-                                      onPressed: () => widget.onChanged(widget
-                                          .value
-                                          .copyWith(decorationThickness: null)),
-                                    ),
-                              min: 0.1,
-                              max: 4,
-                              onChangeEnd: (thickness) => widget.onChanged(
-                                  widget.value.copyWith(
-                                      decorationThickness: thickness))),
-                        ),
+                        ExactSlider(
+                            header:
+                                Text(AppLocalizations.of(context).thickness),
+                            defaultValue: 1,
+                            value: widget.value.decorationThickness,
+                            bottom: widget.value.decorationThickness == null
+                                ? Text(AppLocalizations.of(context).notSet)
+                                : null,
+                            leading: widget.value.decorationThickness == null
+                                ? null
+                                : IconButton(
+                                    icon: const PhosphorIcon(
+                                        PhosphorIconsLight.eraser),
+                                    tooltip:
+                                        AppLocalizations.of(context).remove,
+                                    onPressed: () => widget.onChanged(widget
+                                        .value
+                                        .copyWith(decorationThickness: null)),
+                                  ),
+                            min: 0.1,
+                            max: 4,
+                            onChangeEnd: (thickness) => widget.onChanged(widget
+                                .value
+                                .copyWith(decorationThickness: thickness))),
                       ]))
                 ],
               )),

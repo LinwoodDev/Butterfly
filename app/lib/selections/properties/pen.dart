@@ -12,14 +12,12 @@ class PenPropertySelection extends PropertySelection<PenProperty>
   ) =>
       [
         ...super.build(context, property, onChanged),
-        const SizedBox(height: 4),
         ColorField(
           value: property.color.withValues(a: 255),
           onChanged: (value) => onChanged(
               property.copyWith(color: value.withValues(a: property.color.a))),
           title: Text(LeapLocalizations.of(context).color),
         ),
-        const SizedBox(height: 4),
         ExactSlider(
           value: property.color.a.toDouble(),
           header: Text(AppLocalizations.of(context).alpha),
@@ -30,7 +28,6 @@ class PenPropertySelection extends PropertySelection<PenProperty>
           onChangeEnd: (value) => onChanged(property.copyWith(
               color: property.color.withValues(a: value.toInt()))),
         ),
-        const SizedBox(height: 4),
         CheckboxListTile(
             value: property.fill,
             title: Text(AppLocalizations.of(context).fill),

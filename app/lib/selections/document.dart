@@ -333,14 +333,12 @@ class _UtilitiesViewState extends State<_UtilitiesView>
                 ),
                 Column(
                   children: [
-                    OffsetPropertyView(
+                    OffsetListTile(
                       title: Text(AppLocalizations.of(context).position),
                       value: context.read<TransformCubit>().state.position,
-                      round: 2,
                       onChanged: (value) =>
                           context.read<TransformCubit>().teleport(value),
                     ),
-                    const SizedBox(height: 8),
                     ExactSlider(
                       header: Text(AppLocalizations.of(context).zoom),
                       value: context.read<TransformCubit>().state.size * 100,
@@ -358,7 +356,6 @@ class _UtilitiesViewState extends State<_UtilitiesView>
                         context.read<DocumentBloc>().bake();
                       },
                     ),
-                    const SizedBox(height: 8),
                     CheckboxListTile(
                       value: widget.state.fullSelection,
                       onChanged: (value) => widget.onStateChanged(

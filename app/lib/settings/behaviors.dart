@@ -116,7 +116,6 @@ class BehaviorsSettingsPage extends StatelessWidget {
                           .read<SettingsCubit>()
                           .changeSpreadPages(value),
                     ),
-                    const SizedBox(height: 8),
                     ExactSlider(
                       header: Text(AppLocalizations.of(context).imageScale),
                       leading:

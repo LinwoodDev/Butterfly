@@ -12,7 +12,6 @@ class PenElementSelection extends ElementSelection<PenElement> {
         context, elements.map((e) => e.copyWith(property: property)).toList());
     return [
       ...super.buildProperties(context),
-      SizedBox(height: 16),
       ..._propertySelection.build(
         context,
         element.property,

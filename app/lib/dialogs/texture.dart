@@ -62,46 +62,38 @@ class _TextureViewState extends State<TextureView> {
                   onChanged: (value) =>
                       widget.onChanged(widget.value.copyWith(boxXColor: value)),
                 ),
-                const SizedBox(height: 16),
                 ExactSlider(
                   onChanged: (value) =>
                       widget.onChanged(widget.value.copyWith(boxWidth: value)),
-                  header: Text(AppLocalizations.of(context).width,
-                      style: Theme.of(context).textTheme.titleLarge),
+                  header: Text(AppLocalizations.of(context).width),
                   value: widget.value.boxWidth,
                   defaultValue: 0,
                   min: 0,
                   max: 500,
                 ),
-                const SizedBox(height: 16),
                 ExactSlider(
                   onChanged: (value) => widget.onChanged(
                       widget.value.copyWith(boxXCount: value.round())),
-                  header: Text(AppLocalizations.of(context).count,
-                      style: Theme.of(context).textTheme.titleLarge),
+                  header: Text(AppLocalizations.of(context).count),
                   value: widget.value.boxXCount.toDouble(),
                   fractionDigits: 0,
                   defaultValue: 0,
                   min: 0,
                   max: 20,
                 ),
-                const SizedBox(height: 16),
                 ExactSlider(
                   onChanged: (value) =>
                       widget.onChanged(widget.value.copyWith(boxXSpace: value)),
-                  header: Text(AppLocalizations.of(context).space,
-                      style: Theme.of(context).textTheme.titleLarge),
+                  header: Text(AppLocalizations.of(context).space),
                   value: widget.value.boxXSpace,
                   defaultValue: 0,
                   min: 0,
                   max: 500,
                 ),
-                const SizedBox(height: 16),
                 ExactSlider(
                   onChanged: (value) => widget
                       .onChanged(widget.value.copyWith(boxXStroke: value)),
-                  header: Text(AppLocalizations.of(context).strokeWidth,
-                      style: Theme.of(context).textTheme.titleLarge),
+                  header: Text(AppLocalizations.of(context).strokeWidth),
                   value: widget.value.boxXStroke,
                   defaultValue: 0.5,
                   min: 0.1,
@@ -115,46 +107,38 @@ class _TextureViewState extends State<TextureView> {
                   onChanged: (value) =>
                       widget.onChanged(widget.value.copyWith(boxYColor: value)),
                 ),
-                const SizedBox(height: 16),
                 ExactSlider(
                   onChanged: (value) =>
                       widget.onChanged(widget.value.copyWith(boxHeight: value)),
-                  header: Text(AppLocalizations.of(context).width,
-                      style: Theme.of(context).textTheme.titleLarge),
+                  header: Text(AppLocalizations.of(context).width),
                   value: widget.value.boxHeight,
                   defaultValue: 0,
                   min: 0,
                   max: 500,
                 ),
-                const SizedBox(height: 16),
                 ExactSlider(
                   onChanged: (value) => widget.onChanged(
                       widget.value.copyWith(boxYCount: value.round())),
-                  header: Text(AppLocalizations.of(context).count,
-                      style: Theme.of(context).textTheme.titleLarge),
+                  header: Text(AppLocalizations.of(context).count),
                   value: widget.value.boxYCount.toDouble(),
                   defaultValue: 0,
                   fractionDigits: 0,
                   min: 0,
                   max: 20,
                 ),
-                const SizedBox(height: 16),
                 ExactSlider(
                   onChanged: (value) =>
                       widget.onChanged(widget.value.copyWith(boxYSpace: value)),
-                  header: Text(AppLocalizations.of(context).space,
-                      style: Theme.of(context).textTheme.titleLarge),
+                  header: Text(AppLocalizations.of(context).space),
                   value: widget.value.boxYSpace,
                   defaultValue: 0,
                   min: 0,
                   max: 500,
                 ),
-                const SizedBox(height: 16),
                 ExactSlider(
                   onChanged: (value) => widget
                       .onChanged(widget.value.copyWith(boxYStroke: value)),
-                  header: Text(AppLocalizations.of(context).strokeWidth,
-                      style: Theme.of(context).textTheme.titleLarge),
+                  header: Text(AppLocalizations.of(context).strokeWidth),
                   value: widget.value.boxYStroke,
                   defaultValue: 0.5,
                   min: 0.1,

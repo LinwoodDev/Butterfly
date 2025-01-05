@@ -377,7 +377,6 @@ class _AreaPreview extends StatelessWidget {
           const SizedBox(height: 8),
           Text(area.name),
           Text(page, style: Theme.of(context).textTheme.bodySmall),
-          const SizedBox(height: 16),
           ExactSlider(
             value: quality,
             min: 1,

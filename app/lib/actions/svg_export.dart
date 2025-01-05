@@ -22,7 +22,7 @@ class SvgExportAction extends Action<SvgExportIntent> {
         builder: (context) => BlocProvider.value(
               value: bloc,
               child: GeneralExportDialog(
-                preset: ExportTransformPreset.page,
+                preset: ExportTransformPreset.view,
                 options: getDefaultSvgExportOptions(
                   context,
                   transform: transform,

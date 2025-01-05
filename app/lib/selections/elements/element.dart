@@ -32,13 +32,14 @@ class ElementSelection<T extends PadElement> extends Selection<Renderer<T>> {
 
   @override
   List<Widget> buildProperties(BuildContext context) {
-    final position = selected.length > 1 ? null : selected.first.rect?.topLeft;
+    final position = selected.fold(
+            Offset.zero, (p, e) => p + (e.rect?.topLeft ?? Offset.zero)) /
+        selected.length.toDouble();
     return [
       ...super.buildProperties(context),
-      OffsetPropertyView(
+      OffsetListTile(
         value: position,
         title: Text(AppLocalizations.of(context).position),
-        clearValue: selected.length > 1,
         onChanged: (value) {
           updateElements(
               context,
@@ -163,124 +164,4 @@ class ElementSelection<T extends PadElement> extends Selection<Renderer<T>> {
 
   @override
   IconGetter get icon => PhosphorIcons.cube;
-}
-
-class OffsetPropertyView extends StatefulWidget {
-  final Widget title;
-  final Offset? value;
-  final bool clearValue;
-  final Function(Offset) onChanged;
-  final int round;
-
-  const OffsetPropertyView(
-      {super.key,
-      required this.title,
-      this.clearValue = false,
-      this.value,
-      this.round = 4,
-      required this.onChanged});
-
-  @override
-  State<OffsetPropertyView> createState() => _OffsetPropertyViewState();
-}
-
-class _OffsetPropertyViewState extends State<OffsetPropertyView> {
-  late final TextEditingController _xController;
-  late final TextEditingController _yController;
-
-  @override
-  void initState() {
-    super.initState();
-    _xController = TextEditingController(
-        text: widget.value?.dx.toPrecision(widget.round).toString() ?? '');
-    _yController = TextEditingController(
-        text: widget.value?.dy.toPrecision(widget.round).toString() ?? '');
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-
-    _xController.dispose();
-    _yController.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return LayoutBuilder(builder: (context, constrained) {
-      final isRow = constrained.maxWidth > 100;
-      final title = DefaultTextStyle(
-          style: Theme.of(context).textTheme.titleMedium ?? const TextStyle(),
-          child: widget.title);
-      final controls = Row(mainAxisAlignment: MainAxisAlignment.end, children: [
-        Expanded(
-          child: TextFormField(
-            controller: _xController,
-            decoration: const InputDecoration(
-              labelText: 'X',
-              alignLabelWithHint: true,
-              floatingLabelAlignment: FloatingLabelAlignment.center,
-              filled: true,
-            ),
-            textAlign: TextAlign.center,
-            keyboardType: TextInputType.number,
-            onFieldSubmitted: (value) {
-              if (value.isEmpty) return;
-              final dx = double.tryParse(value);
-              if (dx == null) return;
-              if (widget.clearValue) {
-                _xController.text = '';
-                _yController.text = '';
-              }
-              widget.onChanged(Offset(dx, widget.value?.dy ?? 0));
-            },
-          ),
-        ),
-        const SizedBox(width: 8),
-        Expanded(
-          child: TextFormField(
-            controller: _yController,
-            decoration: const InputDecoration(
-              labelText: 'Y',
-              alignLabelWithHint: true,
-              floatingLabelAlignment: FloatingLabelAlignment.center,
-              filled: true,
-            ),
-            textAlign: TextAlign.center,
-            keyboardType: TextInputType.number,
-            onFieldSubmitted: (value) {
-              if (value.isEmpty) return;
-              final dy = double.tryParse(value);
-              if (dy == null) return;
-              if (widget.clearValue) {
-                _xController.text = '';
-                _yController.text = '';
-              }
-              widget.onChanged(Offset(widget.value?.dx ?? 0, dy));
-            },
-          ),
-        ),
-      ]);
-      if (isRow) {
-        return Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16.0),
-          child: Row(
-            children: [
-              Expanded(flex: 1, child: title),
-              const SizedBox(width: 8),
-              Expanded(flex: 2, child: controls),
-            ],
-          ),
-        );
-      }
-      return Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          title,
-          const SizedBox(height: 8),
-          controls,
-        ],
-      );
-    });
-  }
 }

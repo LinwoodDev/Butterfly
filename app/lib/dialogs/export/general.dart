@@ -53,16 +53,6 @@ class GeneralExportDialog extends StatefulWidget {
 }
 
 class _GeneralExportDialogState extends State<GeneralExportDialog> {
-  final TextEditingController _xController = TextEditingController(text: '0');
-
-  final TextEditingController _yController = TextEditingController(text: '0');
-
-  final TextEditingController _widthController =
-      TextEditingController(text: '1000');
-
-  final TextEditingController _heightController =
-      TextEditingController(text: '1000');
-
   ExportTransformPreset? _preset;
 
   late ExportOptions _options;
@@ -73,27 +63,10 @@ class _GeneralExportDialogState extends State<GeneralExportDialog> {
   @override
   void initState() {
     _preset = widget.preset;
-    _applyOptions(widget.options);
+    _options = widget.options;
     _regeneratePreviewImage();
 
     super.initState();
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    _xController.dispose();
-    _yController.dispose();
-    _widthController.dispose();
-    _heightController.dispose();
-  }
-
-  void _applyOptions(ExportOptions options) {
-    _options = options;
-    _xController.text = _options.x.toString();
-    _yController.text = _options.y.toString();
-    _widthController.text = _options.width.toString();
-    _heightController.text = _options.height.toString();
   }
 
   Future<void> _regeneratePreviewImage() async {
@@ -250,14 +223,18 @@ class _GeneralExportDialogState extends State<GeneralExportDialog> {
                         ?.state
                         .transformCubit
                         .state;
-                    _applyOptions(switch (_options) {
-                      ImageExportOptions _ => getDefaultImageExportOptions(
-                          context,
-                          transform: transform),
-                      SvgExportOptions _ => getDefaultSvgExportOptions(context,
-                          transform: transform),
+
+                    setState(() {
+                      _preset = ExportTransformPreset.view;
+                      _options = (switch (_options) {
+                        ImageExportOptions _ => getDefaultImageExportOptions(
+                            context,
+                            transform: transform),
+                        SvgExportOptions _ => getDefaultSvgExportOptions(
+                            context,
+                            transform: transform),
+                      });
                     });
-                    setState(() => _preset = ExportTransformPreset.view);
                     _regeneratePreviewImage();
                   },
                   icon: const PhosphorIcon(PhosphorIconsLight.userRectangle),
@@ -272,22 +249,24 @@ class _GeneralExportDialogState extends State<GeneralExportDialog> {
                         context.read<DocumentBloc>().state.currentIndexCubit;
                     if (cubit == null) return;
                     final rect = cubit.getPageRect();
-                    _applyOptions(switch (_options) {
-                      ImageExportOptions e => e.copyWith(
-                          width: rect.width,
-                          height: rect.height,
-                          x: rect.left,
-                          y: rect.top,
-                          scale: 1,
-                        ),
-                      SvgExportOptions e => e.copyWith(
-                          width: rect.width,
-                          height: rect.height,
-                          x: rect.left,
-                          y: rect.top,
-                        ),
+                    setState(() {
+                      _preset = ExportTransformPreset.page;
+                      _options = (switch (_options) {
+                        ImageExportOptions e => e.copyWith(
+                            width: rect.width,
+                            height: rect.height,
+                            x: rect.left,
+                            y: rect.top,
+                            scale: 1,
+                          ),
+                        SvgExportOptions e => e.copyWith(
+                            width: rect.width,
+                            height: rect.height,
+                            x: rect.left,
+                            y: rect.top,
+                          ),
+                      });
                     });
-                    setState(() => _preset = ExportTransformPreset.page);
                     _regeneratePreviewImage();
                   },
                   icon: const PhosphorIcon(PhosphorIconsLight.file),
@@ -328,76 +307,30 @@ class _GeneralExportDialogState extends State<GeneralExportDialog> {
 
   Widget _buildProperties() =>
       Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-        Text(
-          AppLocalizations.of(context).position,
-          style: Theme.of(context).textTheme.titleMedium,
+        OffsetListTile(
+          value: Offset(_options.x, _options.y),
+          title: Text(AppLocalizations.of(context).position),
+          onChanged: (value) {
+            setState(
+                () => _options = _options.copyWith(x: value.dx, y: value.dy));
+            setState(() => _preset = null);
+            _regeneratePreviewImage();
+          },
         ),
-        Row(
-          children: [
-            Expanded(
-              child: TextField(
-                controller: _xController,
-                decoration: const InputDecoration(labelText: 'X', filled: true),
-                onChanged: (value) {
-                  _options = _options.copyWith(
-                      x: double.tryParse(value) ?? _options.x);
-                  setState(() => _preset = null);
-                },
-                onSubmitted: (value) => _regeneratePreviewImage(),
-              ),
-            ),
-            const SizedBox(width: 16),
-            Expanded(
-              child: TextField(
-                controller: _yController,
-                decoration: const InputDecoration(labelText: 'Y', filled: true),
-                onChanged: (value) {
-                  _options = _options.copyWith(
-                      y: double.tryParse(value) ?? _options.y);
-                  setState(() => _preset = null);
-                },
-                onSubmitted: (value) => _regeneratePreviewImage(),
-              ),
-            ),
-          ],
-        ),
-        const SizedBox(height: 16),
-        Text(
-          AppLocalizations.of(context).size,
-          style: Theme.of(context).textTheme.titleMedium,
-        ),
-        Row(
-          children: [
-            Expanded(
-              child: TextField(
-                controller: _widthController,
-                decoration: InputDecoration(
-                    labelText: AppLocalizations.of(context).width,
-                    filled: true),
-                onChanged: (value) {
-                  _options = _options.copyWith(
-                      width: double.tryParse(value) ?? _options.width);
-                  setState(() => _preset = null);
-                },
-                onSubmitted: (value) => _regeneratePreviewImage(),
-              ),
-            ),
-            const SizedBox(width: 16),
-            Expanded(
-              child: TextField(
-                controller: _heightController,
-                decoration: InputDecoration(
-                    labelText: AppLocalizations.of(context).height,
-                    filled: true),
-                onChanged: (value) {
-                  _options = _options.copyWith(
-                      height: double.tryParse(value) ?? _options.height);
-                  setState(() => _preset = null);
-                },
-                onSubmitted: (value) => _regeneratePreviewImage(),
-              ),
-            ),
-          ],
+        const SizedBox(height: 8),
+        OffsetListTile(
+          value: Offset(_options.width, _options.height),
+          title: Text(AppLocalizations.of(context).size),
+          xLabel: AppLocalizations.of(context).width,
+          yLabel: AppLocalizations.of(context).height,
+          onChanged: (value) {
+            setState(() => _options = _options.copyWith(
+                  width: value.dx,
+                  height: value.dy,
+                ));
+            setState(() => _preset = null);
+            _regeneratePreviewImage();
+          },
         ),
         if (_options is ImageExportOptions)
           ..._getImageOptions(_options as ImageExportOptions),
@@ -415,7 +348,6 @@ class _GeneralExportDialogState extends State<GeneralExportDialog> {
 
   List<Widget> _getImageOptions(ImageExportOptions options) {
     return [
-      const SizedBox(height: 8),
       ExactSlider(
           header: Text(AppLocalizations.of(context).scale),
           min: 0.1,

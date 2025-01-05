@@ -7,8 +7,7 @@ class GridToolSelection extends ToolSelection<GridTool> {
   List<Widget> buildProperties(BuildContext context) {
     return [
       ...super.buildProperties(context),
-      const SizedBox(height: 8),
-      OffsetPropertyView(
+      OffsetListTile(
         title: Text(AppLocalizations.of(context).size),
         value: Offset(selected.first.xSize, selected.first.ySize),
         onChanged: (value) => update(
@@ -18,8 +17,7 @@ class GridToolSelection extends ToolSelection<GridTool> {
               .toList(),
         ),
       ),
-      const SizedBox(height: 8),
-      OffsetPropertyView(
+      OffsetListTile(
         title: Text(AppLocalizations.of(context).offset),
         value: Offset(selected.first.xOffset, selected.first.yOffset),
         onChanged: (value) => update(
