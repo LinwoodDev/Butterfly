@@ -13,7 +13,7 @@ mixin PathPropertySelection<T extends PathProperty> on PropertySelection<T> {
             value: property.strokeWidth,
             min: 0.1,
             max: 70,
-            defaultValue: 25,
+            defaultValue: 5,
             onChangeEnd: (value) => onChanged(
                 (property as dynamic).copyWith(strokeWidth: value) as T)),
         ExactSlider(

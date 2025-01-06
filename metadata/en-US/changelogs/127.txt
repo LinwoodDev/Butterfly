@@ -22,5 +22,6 @@
 * Fix zoom slider is not centered
 * Fix shape detection list tile not clickable
 * Fix svg export shows wrong initial preset
+* Fix default stroke width ([#779](https://github.com/LinwoodDev/Butterfly/issues/779))
 
 Read more here: https://linwood.dev/butterfly/2.3.0-beta.0
