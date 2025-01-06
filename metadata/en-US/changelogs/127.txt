@@ -1,0 +1,27 @@
+* Redesign mobile home page
+  * Use tabs for easier navigation
+  * Dedicated files view
+  * Move settings into a tab
+* Add toggleable tools
+* Add palette name and pack to color picker dialog
+* Add stroke width slider to pattern texture
+* Move ruler into own tool
+  * Add color property
+  * Add size property
+* Move grid into own tool
+  * Add offset property
+* Move background button from project settings to top corner button
+* Add password protected notes ([#771](https://github.com/LinwoodDev/Butterfly/issues/771))
+* Add option to import svg as text ([#596](https://github.com/LinwoodDev/Butterfly/issues/596))
+* Improve grid files view
+* Improve slider and double input list tiles
+* Change aspect ratio to use 3 fraction digits for area
+* Fix undo/redo tools not showing status correctly
+* Fix grid not working correctly
+* Fix capture thumbnail uses wrong position
+* Fix zoom slider is not centered
+* Fix shape detection list tile not clickable
+* Fix svg export shows wrong initial preset
+* Fix default stroke width ([#779](https://github.com/LinwoodDev/Butterfly/issues/779))
+
+Read more here: https://linwood.dev/butterfly/2.3.0-beta.0

@@ -12,7 +12,7 @@ class LaserToolSelection extends ToolSelection<LaserTool> {
         value: selected.first.strokeWidth,
         min: 0,
         max: 70,
-        defaultValue: 25,
+        defaultValue: 5,
         onChangeEnd: (value) => update(
           context,
           selected.map((e) => e.copyWith(strokeWidth: value)).toList(),
