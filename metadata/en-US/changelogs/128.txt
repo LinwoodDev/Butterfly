@@ -6,5 +6,6 @@ This is a hotfix update, cherry picking some important fixes from the last 2.3.0
 * Fix zoom slider is not centered
 * Fix shape detection list tile not clickable
 * Fix corrupting files when saving ([#777](https://github.com/LinwoodDev/Butterfly/issues/777))
+* Fix export button in data settings not working
 
 Read more here: https://linwood.dev/butterfly/2.2.4

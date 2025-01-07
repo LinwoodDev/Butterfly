@@ -127,9 +127,9 @@ class _DataSettingsPageState extends State<DataSettingsPage> {
                           leading:
                               const PhosphorIcon(PhosphorIconsLight.export),
                           onTap: () async {
-                            final directory = await _documentSystem
+                            final directory = await _documentSystem.fileSystem
                                 .getRootDirectory(listLevel: allListLevel);
-                            final archive = exportDirectory(directory);
+                            final archive = _exportDirectory(directory);
                             final encoder = ZipEncoder();
                             final bytes = encoder.encode(archive);
                             exportZip(context, bytes);
@@ -141,6 +141,29 @@ class _DataSettingsPageState extends State<DataSettingsPage> {
             ],
           );
         }));
+  }
+
+  Archive _exportDirectory(FileSystemDirectory directory, {int? lastModTime}) {
+    final archive = Archive();
+    void addToArchive(FileSystemEntity asset) {
+      final path = asset.pathWithoutLeadingSlash;
+      if (asset is FileSystemFile) {
+        final data = asset.data;
+        if (data == null) return;
+        final file = ArchiveFile.bytes(path, data);
+        if (lastModTime != null) file.lastModTime = lastModTime;
+        archive.addFile(file);
+      } else if (asset is FileSystemDirectory) {
+        archive.addFile(ArchiveFile.directory(path));
+        var assets = asset.assets;
+        for (var current in assets) {
+          addToArchive(current);
+        }
+      }
+    }
+
+    addToArchive(directory);
+    return archive;
   }
 
   Future<void> _changeDataDirectory() async {
