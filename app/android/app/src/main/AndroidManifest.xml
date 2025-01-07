@@ -75,7 +75,6 @@
             android:grantUriPermissions="true">
         </provider>
     </application>
-    <uses-sdk tools:overrideLibrary="com.superlist.super_native_extensions" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 </manifest>
