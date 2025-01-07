@@ -105,7 +105,6 @@ dependencies:
   dynamic_color: ^1.7.0
   popover: ^0.3.0
   markdown: ^7.2.2
-  device_info_plus: ^11.1.0
   image: ^4.1.7
   one_dollar_unistroke_recognizer: ^1.2.0
   super_clipboard: ^0.9.0-dev.4

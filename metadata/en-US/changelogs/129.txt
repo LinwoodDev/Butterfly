@@ -1,5 +1,6 @@
 * Fix export button in data settings not working
 * Fix export button for file view not visible
 * Update secure storage dependency
+* Use minSdkVersion 23 instead of 21 (The minimum version of android is 6.0 (Marshmallow))
 
-Read more here: https://linwood.dev/butterfly/2.3.0-beta.0
+Read more here: https://linwood.dev/butterfly/2.3.0-beta.1

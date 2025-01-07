@@ -23,11 +23,7 @@ part 'settings.g.dart';
 
 const kDefaultIceServers = ['stunserver.stunprotocol.org:3478'];
 
-const secureStorage = FlutterSecureStorage(
-  aOptions: AndroidOptions(
-    encryptedSharedPreferences: true,
-  ),
-);
+const secureStorage = FlutterSecureStorage();
 const kRecentHistorySize = 5;
 
 enum ToolbarSize {

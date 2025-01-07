@@ -5,7 +5,6 @@ import 'dart:math';
 
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly_api/butterfly_api.dart';
-import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/foundation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:networker/networker.dart';
@@ -22,13 +21,9 @@ enum NetworkingSide {
 }
 
 enum NetworkingType {
-  webSocket,
-  webRtc;
+  webSocket;
 
   Future<bool> isCompatible() async => switch (this) {
-        NetworkingType.webRtc => kIsWeb ||
-            !Platform.isAndroid ||
-            (await DeviceInfoPlugin().androidInfo).version.sdkInt >= 28,
         NetworkingType.webSocket => !kIsWeb,
       };
 }

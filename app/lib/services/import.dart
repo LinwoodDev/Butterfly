@@ -1,13 +1,12 @@
 import 'dart:async';
 import 'dart:convert';
-import 'dart:io';
 import 'dart:math';
 import 'dart:ui' as ui;
+
 import 'package:archive/archive.dart';
 import 'package:butterfly/api/file_system.dart';
 import 'package:butterfly/api/image.dart';
 import 'package:butterfly/helpers/asset.dart';
-import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/foundation.dart';
 import 'package:image/image.dart' as img;
 import 'package:butterfly/bloc/document_bloc.dart';
@@ -174,10 +173,7 @@ class ImportService {
     Uint8List? data;
     AssetFileType? type;
     final clipboard = SystemClipboard.instance;
-    if (clipboard != null &&
-        !kIsWeb &&
-        (!Platform.isAndroid ||
-            (await DeviceInfoPlugin().androidInfo).version.sdkInt >= 23)) {
+    if (clipboard != null) {
       final reader = await clipboard.read();
       final result = AssetFileType.values
           .map((e) {

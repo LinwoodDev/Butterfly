@@ -1,8 +1,5 @@
-import 'dart:io';
-
 import 'package:butterfly/helpers/asset.dart';
 import 'package:butterfly_api/butterfly_api.dart';
-import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -77,10 +74,7 @@ Future<void> exportData(BuildContext context, List<int> bytes,
 Future<void> writeClipboardData(ClipboardManager clipboardManager,
     AssetFileType type, Uint8List data) async {
   final clipboard = SystemClipboard.instance;
-  if (clipboard != null &&
-      !kIsWeb &&
-      (!Platform.isAndroid ||
-          (await DeviceInfoPlugin().androidInfo).version.sdkInt >= 23)) {
+  if (clipboard != null) {
     final item = DataWriterItem();
     final format = type.getClipboardFormats().first;
     item.add(format(data));
