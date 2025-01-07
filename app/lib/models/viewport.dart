@@ -188,6 +188,7 @@ class CameraViewport extends Equatable {
         visibleElements: visibleElements,
         aboveLayerImage: aboveLayerImage,
         belowLayerImage: belowLayerImage,
+        resolution: resolution,
       );
 
   CameraViewport withUtilities(UtilitiesRenderer utilities) =>
