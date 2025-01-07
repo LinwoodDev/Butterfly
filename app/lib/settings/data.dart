@@ -127,7 +127,7 @@ class _DataSettingsPageState extends State<DataSettingsPage> {
                           leading:
                               const PhosphorIcon(PhosphorIconsLight.export),
                           onTap: () async {
-                            final directory = await _documentSystem
+                            final directory = await _documentSystem.fileSystem
                                 .getRootDirectory(listLevel: allListLevel);
                             final archive = exportDirectory(directory);
                             final encoder = ZipEncoder();

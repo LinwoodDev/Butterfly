@@ -5,10 +5,10 @@ packages:
     dependency: transitive
     description:
       name: _fe_analyzer_shared
-      sha256: "16e298750b6d0af7ce8a3ba7c18c69c3785d11b15ec83f6dcd0ad2a0009b3cab"
+      sha256: "88399e291da5f7e889359681a8f64b18c5123e03576b01f32a6a276611e511c3"
       url: "https://pub.dev"
     source: hosted
-    version: "76.0.0"
+    version: "78.0.0"
   _macros:
     dependency: transitive
     description: dart
@@ -18,10 +18,10 @@ packages:
     dependency: transitive
     description:
       name: analyzer
-      sha256: "1f14db053a8c23e260789e9b0980fa27f2680dd640932cae5e1137cce0e46e1e"
+      sha256: "62899ef43d0b962b056ed2ebac6b47ec76ffd003d5f7c4e4dc870afe63188e33"
       url: "https://pub.dev"
     source: hosted
-    version: "6.11.0"
+    version: "7.1.0"
   animations:
     dependency: "direct main"
     description:
@@ -177,10 +177,10 @@ packages:
     dependency: transitive
     description:
       name: camera_android_camerax
-      sha256: abcfa1ac32bd03116b4cfda7e8223ab391f01966e65823c064afe388550d1b3d
+      sha256: "2bb0724371bae3c0889d7e0b1665357e4aa6ba6c8d32ffa3e178098ba81ed3df"
       url: "https://pub.dev"
     source: hosted
-    version: "0.6.10+3"
+    version: "0.6.11"
   camera_avfoundation:
     dependency: transitive
     description:
@@ -314,10 +314,10 @@ packages:
     dependency: transitive
     description:
       name: dart_style
-      sha256: "7856d364b589d1f08986e140938578ed36ed948581fbc3bc9aef1805039ac5ab"
+      sha256: "27eb0ae77836989a3bc541ce55595e8ceee0992807f14511552a898ddd0d88ac"
       url: "https://pub.dev"
     source: hosted
-    version: "2.3.7"
+    version: "3.0.1"
   dbus:
     dependency: transitive
     description:
@@ -588,10 +588,10 @@ packages:
     dependency: "direct dev"
     description:
       name: freezed
-      sha256: "44c19278dd9d89292cf46e97dc0c1e52ce03275f40a97c5a348e802a924bf40e"
+      sha256: "59a584c24b3acdc5250bb856d0d3e9c0b798ed14a4af1ddb7dc1c7b41df91c9c"
       url: "https://pub.dev"
     source: hosted
-    version: "2.5.7"
+    version: "2.5.8"
   freezed_annotation:
     dependency: transitive
     description:
@@ -625,10 +625,10 @@ packages:
     dependency: "direct main"
     description:
       name: go_router
-      sha256: "2fd11229f59e23e967b0775df8d5948a519cd7e1e8b6e849729e010587b46539"
+      sha256: "7c2d40b59890a929824f30d442e810116caf5088482629c894b9e4478c67472d"
       url: "https://pub.dev"
     source: hosted
-    version: "14.6.2"
+    version: "14.6.3"
   graphs:
     dependency: transitive
     description:
@@ -734,10 +734,10 @@ packages:
     dependency: "direct dev"
     description:
       name: json_serializable
-      sha256: c2fcb3920cf2b6ae6845954186420fca40bc0a8abcc84903b7801f17d7050d7c
+      sha256: "8f52361c07497a7f2c16c13aac159f9be6fb12b1d67719eac98a21d9a205d571"
       url: "https://pub.dev"
     source: hosted
-    version: "6.9.0"
+    version: "6.9.2"
   leak_tracker:
     dependency: transitive
     description:
@@ -782,8 +782,8 @@ packages:
     dependency: "direct main"
     description:
       path: "packages/lw_file_system"
-      ref: "54f7ac141410938babff9539dca190f5d130a0db"
-      resolved-ref: "54f7ac141410938babff9539dca190f5d130a0db"
+      ref: "742b507106900b65490551d42a2ef4c7d049889a"
+      resolved-ref: "742b507106900b65490551d42a2ef4c7d049889a"
       url: "https://github.com/LinwoodDev/dart_pkgs"
     source: git
     version: "1.0.0"
@@ -791,8 +791,8 @@ packages:
     dependency: transitive
     description:
       path: "packages/lw_file_system_api"
-      ref: "5ab1b96bea6ef0e0c07629ff4e7152b4437cf8ee"
-      resolved-ref: "5ab1b96bea6ef0e0c07629ff4e7152b4437cf8ee"
+      ref: e4c17cb5e3a53c0cd02d4127458c2215f7c6e7d4
+      resolved-ref: e4c17cb5e3a53c0cd02d4127458c2215f7c6e7d4
       url: "https://github.com/LinwoodDev/dart_pkgs"
     source: git
     version: "1.0.0"
@@ -841,8 +841,8 @@ packages:
     dependency: "direct main"
     description:
       path: "packages/material_leap"
-      ref: "61131718fe2f6e9f09da75e9e9cdbe4acdf79f00"
-      resolved-ref: "61131718fe2f6e9f09da75e9e9cdbe4acdf79f00"
+      ref: "742b507106900b65490551d42a2ef4c7d049889a"
+      resolved-ref: "742b507106900b65490551d42a2ef4c7d049889a"
       url: "https://github.com/LinwoodDev/dart_pkgs"
     source: git
     version: "0.0.1"
@@ -1120,10 +1120,10 @@ packages:
     dependency: transitive
     description:
       name: pubspec_parse
-      sha256: "81876843eb50dc2e1e5b151792c9a985c5ed2536914115ed04e9c8528f6647b0"
+      sha256: "0560ba233314abbed0a48a2956f7f022cce7c3e1e73df540277da7544cad4082"
       url: "https://pub.dev"
     source: hosted
-    version: "1.4.0"
+    version: "1.5.0"
   qr:
     dependency: transitive
     description:
@@ -1201,10 +1201,10 @@ packages:
     dependency: transitive
     description:
       name: sembast
-      sha256: cf1aa59677551d54d7ed85a1c5c3396fc06d01aa9f8fabd443a9b270f8f14760
+      sha256: b3dde17154b2233d039fe3c386871d2ccddb4f31e058502c4036b03858e2ff5f
       url: "https://pub.dev"
     source: hosted
-    version: "3.8.1"
+    version: "3.8.1+1"
   share_plus:
     dependency: "direct main"
     description:
@@ -1302,10 +1302,10 @@ packages:
     dependency: transitive
     description:
       name: source_gen
-      sha256: "14658ba5f669685cd3d63701d01b31ea748310f7ab854e471962670abcf57832"
+      sha256: "35c8150ece9e8c8d263337a265153c3329667640850b9304861faea59fc98f6b"
       url: "https://pub.dev"
     source: hosted
-    version: "1.5.0"
+    version: "2.0.0"
   source_helper:
     dependency: transitive
     description:
