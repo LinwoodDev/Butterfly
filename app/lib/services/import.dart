@@ -82,6 +82,8 @@ class ImportService {
       bytes = Uint8List.fromList(utf8.encode(data));
     } else if (data is FileSystemFile<NoteData>) {
       bytes = Uint8List.fromList(data.data?.exportAsBytes() ?? []);
+    } else if (data is FileSystemFile<NoteFile>) {
+      bytes = Uint8List.fromList(data.data?.data ?? []);
     } else if (location != null) {
       bytes = await fs.loadAbsolute(location.path);
     } else if (data is List) {

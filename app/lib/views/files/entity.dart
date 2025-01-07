@@ -334,12 +334,12 @@ class ContextFileRegion extends StatelessWidget {
             leadingIcon: const PhosphorIcon(PhosphorIconsLight.pencil),
             child: Text(AppLocalizations.of(context).rename),
           ),
-        if (entity is FileSystemFile<NoteData>)
+        if (entity is FileSystemFile<NoteFile>)
           MenuItemButton(
             onPressed: () {
               try {
-                final data = (entity as FileSystemFile<NoteData>).data;
-                exportData(context, data?.exportAsBytes() ?? []);
+                final data = (entity as FileSystemFile<NoteFile>).data;
+                exportData(context, data?.data ?? []);
               } catch (e) {
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(

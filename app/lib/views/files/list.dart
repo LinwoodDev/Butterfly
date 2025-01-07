@@ -391,13 +391,13 @@ class FileEntityListTile extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.end,
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  if (entity is FileSystemFile<NoteData>)
+                  if (entity is FileSystemFile<NoteFile>)
                     IconButton(
                       onPressed: () {
                         try {
                           final data =
-                              (entity as FileSystemFile<NoteData>).data;
-                          exportData(context, data?.exportAsBytes() ?? []);
+                              (entity as FileSystemFile<NoteFile>).data;
+                          exportData(context, data?.data ?? []);
                         } catch (e) {
                           ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(
