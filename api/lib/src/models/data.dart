@@ -238,7 +238,7 @@ final class NoteData extends ArchiveData<NoteData> {
 
   @useResult
   List<(int, String, String)> _getPagesOrder() =>
-      getAssets(kPagesArchiveDirectory, true).map((e) {
+      getAssets('$kPagesArchiveDirectory/', true).map((e) {
         if (e.contains('.')) {
           final split = e.split('.');
           return (
@@ -319,13 +319,13 @@ final class NoteData extends ArchiveData<NoteData> {
       removeAsset('$kPacksArchiveDirectory/$name.bfly');
 
   @useResult
-  Iterable<String> getPacks() => getAssets(kPacksArchiveDirectory, true);
+  Iterable<String> getPacks() => getAssets('$kPacksArchiveDirectory/', true);
 
   // Pack specific
 
   @useResult
   Iterable<String> getComponents() =>
-      getAssets(kComponentsArchiveDirectory, true);
+      getAssets('$kComponentsArchiveDirectory/', true);
 
   @useResult
   ButterflyComponent? getComponent(String componentName) {
@@ -348,7 +348,7 @@ final class NoteData extends ArchiveData<NoteData> {
       removeAsset('$kComponentsArchiveDirectory/$name.json');
 
   @useResult
-  Iterable<String> getStyles() => getAssets(kStylesArchiveDirectory, true);
+  Iterable<String> getStyles() => getAssets('$kStylesArchiveDirectory/', true);
 
   @useResult
   TextStyleSheet? getStyle(String styleName) {
@@ -383,7 +383,8 @@ final class NoteData extends ArchiveData<NoteData> {
   }
 
   @useResult
-  Iterable<String> getPalettes() => getAssets(kPalettesArchiveDirectory, true);
+  Iterable<String> getPalettes() =>
+      getAssets('$kPalettesArchiveDirectory/', true);
 
   @useResult
   ColorPalette? getPalette(String paletteName) {
