@@ -1,0 +1,34 @@
+{
+  "$schema": "https://json.schemastore.org/web-manifest-combined.json",
+  "id": "linwood-butterfly-docs",
+  "name": "Linwood Butterfly Documentation",
+  "short_name": "Butterfly Docs",
+  "description": "Documentation for the opensource Linwood Butterfly project.",
+  "orientation": "any",
+  "display": "fullscreen",
+  "background_color": "#18191a",
+  "theme_color": "#F2B138",
+  "icons": [
+    {
+      "src": "pwa-64x64.png",
+      "sizes": "64x64",
+      "type": "image/png"
+    },
+    {
+      "src": "pwa-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "pwa-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "maskable-icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}
