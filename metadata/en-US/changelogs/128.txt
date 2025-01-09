@@ -1,5 +1,6 @@
 This is a hotfix update, cherry picking some important fixes from the last 2.3.0-beta.0 nightly release.
 
+* Add error boundaries for corrupted files
 * Fix default stroke width ([#779](https://github.com/LinwoodDev/Butterfly/issues/779))
 * Fix svg export shows wrong initial preset
 * Fix capture thumbnail uses wrong position

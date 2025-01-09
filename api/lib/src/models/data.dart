@@ -174,9 +174,13 @@ final class NoteData extends ArchiveData<NoteData> {
     if (data == null) {
       return null;
     }
-    final content = utf8.decode(data);
-    final json = jsonDecode(content) as Map<String, dynamic>;
-    return DocumentPage.fromJson(json);
+    try {
+      final content = utf8.decode(data);
+      final json = jsonDecode(content) as Map<String, dynamic>;
+      return DocumentPage.fromJson(json);
+    } catch (e) {
+      return null;
+    }
   }
 
   @useResult
@@ -280,8 +284,12 @@ final class NoteData extends ArchiveData<NoteData> {
       return null;
     }
     final content = utf8.decode(data);
-    final json = jsonDecode(content) as Map<String, dynamic>;
-    return DocumentInfo.fromJson(json);
+    try {
+      final json = jsonDecode(content) as Map<String, dynamic>;
+      return DocumentInfo.fromJson(json);
+    } catch (e) {
+      return null;
+    }
   }
 
   @useResult
@@ -303,7 +311,11 @@ final class NoteData extends ArchiveData<NoteData> {
     if (data == null) {
       return null;
     }
-    return NoteData.fromData(data);
+    try {
+      return NoteData.fromData(data);
+    } catch (e) {
+      return null;
+    }
   }
 
   @useResult
@@ -333,9 +345,13 @@ final class NoteData extends ArchiveData<NoteData> {
     if (data == null) {
       return null;
     }
-    final content = utf8.decode(data);
-    final json = jsonDecode(content) as Map<String, dynamic>;
-    return ButterflyComponent.fromJson(json);
+    try {
+      final content = utf8.decode(data);
+      final json = jsonDecode(content) as Map<String, dynamic>;
+      return ButterflyComponent.fromJson(json);
+    } catch (e) {
+      return null;
+    }
   }
 
   @useResult
@@ -356,9 +372,13 @@ final class NoteData extends ArchiveData<NoteData> {
     if (data == null) {
       return null;
     }
-    final content = utf8.decode(data);
-    final json = jsonDecode(content) as Map<String, dynamic>;
-    return TextStyleSheet.fromJson(json);
+    try {
+      final content = utf8.decode(data);
+      final json = jsonDecode(content) as Map<String, dynamic>;
+      return TextStyleSheet.fromJson(json);
+    } catch (e) {
+      return null;
+    }
   }
 
   @useResult
@@ -392,9 +412,13 @@ final class NoteData extends ArchiveData<NoteData> {
     if (data == null) {
       return null;
     }
-    final content = utf8.decode(data);
-    final json = jsonDecode(content) as Map<String, dynamic>;
-    return ColorPalette.fromJson(json);
+    try {
+      final content = utf8.decode(data);
+      final json = jsonDecode(content) as Map<String, dynamic>;
+      return ColorPalette.fromJson(json);
+    } catch (e) {
+      return null;
+    }
   }
 
   @useResult
