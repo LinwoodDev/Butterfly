@@ -737,7 +737,8 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     final backgrounds = page.backgrounds.map(Renderer.fromInstance).toList();
     await Future.wait(backgrounds
         .map((e) async => await e.setup(document, assetService, page)));
-    final utilities = UtilitiesRenderer(state.settingsCubit.state.utilities);
+    final utilities = UtilitiesRenderer(
+        state.settingsCubit.state.utilities, state.viewOption);
     await utilities.setup(
       docState.data,
       docState.assetService,

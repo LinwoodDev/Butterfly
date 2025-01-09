@@ -1069,13 +1069,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     final current = state;
     if (current is! DocumentLoaded) return;
     final cubit = current.currentIndexCubit;
-    final document = current.data;
-    final page = current.page;
-    final assetService = current.assetService;
     cubit.setSaveState(saved: SaveState.saved);
-    final tool = UtilitiesRenderer(cubit.state.utilitiesState);
-    await tool.setup(document, assetService, page);
-    cubit.unbake(tool: tool);
     cubit.loadElements(current);
     cubit.init(this);
   }

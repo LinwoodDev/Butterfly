@@ -82,11 +82,6 @@ class _EditToolbarState extends State<EditToolbar> {
                 height: direction == Axis.horizontal ? fullSize : null,
                 width: direction == Axis.horizontal ? null : fullSize,
                 child: BlocBuilder<DocumentBloc, DocumentState>(
-                    buildWhen: (previous, current) =>
-                        previous is! DocumentLoadSuccess ||
-                        current is! DocumentLoadSuccess ||
-                        previous.tool != current.tool ||
-                        previous.info.tools != current.info.tools,
                     builder: (context, state) {
                       if (state is! DocumentLoadSuccess) return Container();
                       final tools = state.info.tools;
