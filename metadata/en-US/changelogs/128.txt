@@ -3,6 +3,7 @@ This is a hotfix update, cherry picking some important fixes from the last 2.3.0
 * Add error boundaries for corrupted files
 * Fix export button in data settings not working
 * Fix utilties state resetted after undo
+* Fix file view showing wrong aspect ratio for thumbnails
 
 Cherry picks:
 * Fix default stroke width ([#779](https://github.com/LinwoodDev/Butterfly/issues/779))
