@@ -1,5 +1,6 @@
 import { registerSW } from 'virtual:pwa-register'
 
+console.log("registering SW")
 registerSW({
   immediate: true,
   onRegisteredSW(swScriptUrl) {
