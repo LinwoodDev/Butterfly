@@ -1013,8 +1013,8 @@ packages:
     dependency: "direct main"
     description:
       path: "."
-      ref: "6228363ff19e95aa16055dd493533d4c01fa2209"
-      resolved-ref: "6228363ff19e95aa16055dd493533d4c01fa2209"
+      ref: "85a6db5889db2916733a0f6c6914e66d06931f71"
+      resolved-ref: "85a6db5889db2916733a0f6c6914e66d06931f71"
       url: "https://github.com/CodeDoctorDE/perfect-freehand-dart.git"
     source: git
     version: "2.3.2"
