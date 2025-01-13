@@ -102,8 +102,8 @@ class FileEntityGridItem extends StatelessWidget {
                                     child: Image.memory(
                                       thumbnail!,
                                       fit: BoxFit.cover,
-                                      cacheHeight: kThumbnailWidth,
-                                      cacheWidth: kThumbnailHeight,
+                                      cacheHeight: kThumbnailHeight,
+                                      cacheWidth: kThumbnailWidth,
                                       errorBuilder:
                                           (context, error, stackTrace) =>
                                               leading,
