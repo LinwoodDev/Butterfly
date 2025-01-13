@@ -75,7 +75,7 @@ dependencies:
   perfect_freehand:
     git:
       url: https://github.com/CodeDoctorDE/perfect-freehand-dart.git
-      ref: 6228363ff19e95aa16055dd493533d4c01fa2209
+      ref: 85a6db5889db2916733a0f6c6914e66d06931f71
   material_leap:
     git:
       url: https://github.com/LinwoodDev/dart_pkgs
