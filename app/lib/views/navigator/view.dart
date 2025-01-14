@@ -34,7 +34,7 @@ enum NavigatorPage {
         NavigatorPage.components => AppLocalizations.of(context).components,
       };
 
-  (List<String>, String?) _getHelp() => switch (this) {
+  (List<String>, String?) getHelp() => switch (this) {
         NavigatorPage.waypoints => (['waypoints'], null),
         NavigatorPage.areas => (['areas'], null),
         NavigatorPage.layers => (['layers'], null),
@@ -227,7 +227,7 @@ class _DocumentNavigatorState extends State<DocumentNavigator>
                         icon:
                             const PhosphorIcon(PhosphorIconsLight.sealQuestion),
                         onPressed: () {
-                          final help = page._getHelp();
+                          final help = page.getHelp();
                           openHelp(help.$1, help.$2);
                         },
                         tooltip: AppLocalizations.of(context).help,

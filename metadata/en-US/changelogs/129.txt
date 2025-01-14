@@ -1,3 +1,4 @@
+* Add search bar for components navigator page
 * Improve document settings UI
   * Remove duplicated name field in document settings
   * Change description only on submit

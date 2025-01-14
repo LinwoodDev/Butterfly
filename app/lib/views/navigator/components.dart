@@ -4,10 +4,10 @@ import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/cubits/current_index.dart';
 import 'package:butterfly/handlers/handler.dart';
 import 'package:butterfly_api/butterfly_api.dart';
-import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import '../../helpers/element.dart';
@@ -20,15 +20,7 @@ class ComponentsView extends StatefulWidget {
 }
 
 class _ComponentsViewState extends State<ComponentsView> {
-  String? currentPack;
-
-  @override
-  void initState() {
-    super.initState();
-    final state = context.read<DocumentBloc>().state;
-    if (state is! DocumentLoadSuccess) return;
-    currentPack = state.data.getPacks().firstOrNull;
-  }
+  final List<String> selectedPacks = [];
 
   @override
   Widget build(BuildContext context) {
@@ -41,54 +33,67 @@ class _ComponentsViewState extends State<ComponentsView> {
               previous.temporaryHandler != current.temporaryHandler,
           builder: (context, currentIndex) {
             final data = state.data;
-            final pack =
-                currentPack == null ? null : data.getPack(currentPack!);
             final handler = currentIndex.temporaryHandler;
+            final packs = data.getPacks();
+            final components = packs
+                .where(
+                    (e) => selectedPacks.isEmpty || selectedPacks.contains(e))
+                .expand((p) {
+              final pack = data.getPack(p);
+              if (pack == null) {
+                return Iterable<
+                    (PackAssetLocation, NoteData, ButterflyComponent)>.empty();
+              }
+              return pack.getComponents().map((e) {
+                final component = data.getComponent(e);
+                if (component == null) return null;
+                return (
+                  PackAssetLocation(p, e),
+                  pack,
+                  component,
+                );
+              }).nonNulls;
+            }).toList();
             return Column(
               children: [
                 const SizedBox(height: 8),
-                DropdownMenu(
-                  expandedInsets: const EdgeInsets.all(4),
-                  dropdownMenuEntries: data
-                      .getPacks()
-                      .map((e) => DropdownMenuEntry(
-                            value: e,
-                            label: e,
-                          ))
-                      .toList(),
-                  onSelected: (value) => setState(() => currentPack = value),
-                  initialSelection: currentPack,
-                  label: Text(AppLocalizations.of(context).pack),
+                SearchBar(
+                  hintText: AppLocalizations.of(context).search,
+                  leading: Icon(PhosphorIconsLight.magnifyingGlass),
+                  trailing: [
+                    MenuAnchor(
+                      builder: defaultMenuButton(),
+                      menuChildren: packs
+                          .map((e) => CheckboxMenuButton(
+                                value: selectedPacks.contains(e),
+                                child: Text(e),
+                                onChanged: (value) => setState(() {
+                                  if (value ?? true) {
+                                    selectedPacks.add(e);
+                                  } else {
+                                    selectedPacks.remove(e);
+                                  }
+                                }),
+                              ))
+                          .toList(),
+                    ),
+                  ],
                 ),
                 const SizedBox(height: 8),
                 Expanded(
                   child: Material(
                     type: MaterialType.transparency,
                     child: Wrap(
-                      children: pack
-                              ?.getComponents()
-                              .map((e) {
-                                final component = pack.getComponent(e);
-                                if (component == null) return null;
-                                return (e, component);
-                              })
-                              .nonNulls
-                              .map((e) {
-                                final location = PackAssetLocation(
-                                  currentPack!,
-                                  e.$1,
-                                );
-                                return _ComponentCard(
-                                  component: e.$2,
-                                  pack: pack,
-                                  selected: handler is StampHandler &&
-                                      handler.data.component == location,
-                                  location: location,
-                                  key: ValueKey(e.$1),
-                                );
-                              })
-                              .toList() ??
-                          [],
+                      children: components.nonNulls.map((e) {
+                        return _ComponentCard(
+                          component: e.$3,
+                          pack: e.$2,
+                          selected: handler is StampHandler &&
+                              handler.data.component == e.$1,
+                          location: e.$1,
+                          key: ValueKey(e.$1),
+                        );
+                      }).toList(),
                     ),
                   ),
                 ),
