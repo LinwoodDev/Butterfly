@@ -379,7 +379,7 @@ class _EditToolbarState extends State<EditToolbar> {
               final children = [
                 IconButton(
                   icon: const PhosphorIcon(PhosphorIconsLight.wrench),
-                  tooltip: AppLocalizations.of(context).tools,
+                  tooltip: AppLocalizations.of(context).document,
                   selectedIcon: const PhosphorIcon(PhosphorIconsFill.wrench),
                   isSelected: currentIndex.selection?.selected
                           .any((element) => element is CurrentIndexCubit) ??

@@ -198,7 +198,9 @@ class _AppBarTitleState extends State<_AppBarTitle> {
                 builder: (context, snapshot) {
                   return StatefulBuilder(builder: (context, setState) {
                     Future<void> submit(String? value) async {
-                      if (value == null) return;
+                      value ??= area == null
+                          ? _nameController.text
+                          : _areaController.text;
                       if (area == null || areaName == null) {
                         final cubit = context.read<CurrentIndexCubit>();
                         final fileSystem = context.read<ButterflyFileSystem>();

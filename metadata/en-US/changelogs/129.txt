@@ -1,5 +1,11 @@
+* Improve document settings UI
+  * Remove duplicated name field in document settings
+  * Change description only on submit
+  * Improve encryption and thumbnail buttons
+* Add error boundaries for corrupted files
 * Fix export button in data settings not working
 * Fix export button for file view not visible
+* Fix file view showing wrong aspect ratio for thumbnails
 * Update secure storage dependency
 * Use minSdkVersion 23 instead of 21 (The minimum version of android is 6.0 (Marshmallow))
 

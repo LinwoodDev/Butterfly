@@ -32,6 +32,26 @@
 
 Read more here: https://linwood.dev/butterfly/2.3.0-beta.0
 
+## 2.2.4 (2025-01-13)
+
+This is a hotfix update, cherry picking some important fixes from the last 2.3.0-beta.0 nightly release.
+
+* Add error boundaries for corrupted files
+* Fix export button in data settings not working
+* Fix utilties state resetted after undo
+* Fix file view showing wrong aspect ratio for thumbnails
+
+Cherry picks:
+* Fix default stroke width ([#779](https://github.com/LinwoodDev/Butterfly/issues/779))
+* Fix svg export shows wrong initial preset
+* Fix capture thumbnail uses wrong position
+* Fix zoom slider is not centered
+* Fix shape detection list tile not clickable
+* Fix corrupting files when saving ([#777](https://github.com/LinwoodDev/Butterfly/issues/777))
+* Fix action tools not updating
+
+Read more here: https://linwood.dev/butterfly/2.2.4
+
 ## 2.2.3 (2024-12-24)
 
 Merry Christmas! 🎄

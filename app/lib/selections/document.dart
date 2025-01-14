@@ -48,8 +48,7 @@ class _UtilitiesView extends StatefulWidget {
 class _UtilitiesViewState extends State<_UtilitiesView>
     with TickerProviderStateMixin {
   late final TabController _tabController;
-  final TextEditingController _nameController = TextEditingController(),
-      _descriptionController = TextEditingController();
+  final TextEditingController _descriptionController = TextEditingController();
 
   @override
   void initState() {
@@ -65,7 +64,6 @@ class _UtilitiesViewState extends State<_UtilitiesView>
     super.dispose();
 
     _tabController.dispose();
-    _nameController.dispose();
     _descriptionController.dispose();
   }
 
@@ -85,12 +83,16 @@ class _UtilitiesViewState extends State<_UtilitiesView>
     final state = bloc.state;
     if (state is! DocumentLoadSuccess) return const SizedBox.shrink();
     final metadata = state.metadata;
-    if (_nameController.text != metadata.name) {
-      _nameController.text = metadata.name;
-    }
     if (_descriptionController.text != metadata.description) {
       _descriptionController.text = metadata.description;
     }
+    void submitDescription(String? value) {
+      value ??= _descriptionController.text;
+      if (metadata.description == value) return;
+      bloc.add(DocumentDescriptionChanged(description: value));
+      state.save();
+    }
+
     return Column(children: [
       TabBar(
         controller: _tabController,
@@ -109,18 +111,6 @@ class _UtilitiesViewState extends State<_UtilitiesView>
                 Column(
                   children: [
                     TextFormField(
-                      controller: _nameController,
-                      decoration: InputDecoration(
-                        labelText: LeapLocalizations.of(context).name,
-                        filled: true,
-                      ),
-                      onChanged: (value) {
-                        bloc.add(DocumentDescriptionChanged(name: value));
-                        state.save();
-                      },
-                    ),
-                    const SizedBox(height: 8),
-                    TextFormField(
                       minLines: 3,
                       maxLines: 5,
                       controller: _descriptionController,
@@ -128,17 +118,13 @@ class _UtilitiesViewState extends State<_UtilitiesView>
                         labelText: AppLocalizations.of(context).description,
                         border: const OutlineInputBorder(),
                       ),
-                      onChanged: (value) {
-                        bloc.add(
-                            DocumentDescriptionChanged(description: value));
-                        state.save();
-                      },
+                      onFieldSubmitted: submitDescription,
+                      onSaved: submitDescription,
                     ),
                     const SizedBox(height: 8),
-                    MenuItemButton(
-                      leadingIcon:
-                          const PhosphorIcon(PhosphorIconsLight.camera),
-                      onPressed: () async {
+                    ListTile(
+                      leading: const PhosphorIcon(PhosphorIconsLight.camera),
+                      onTap: () async {
                         final viewport =
                             state.currentIndexCubit.state.cameraViewport;
                         final size = viewport.toRealSize();
@@ -174,26 +160,26 @@ class _UtilitiesViewState extends State<_UtilitiesView>
                           );
                         }
                       },
-                      child:
+                      title:
                           Text(AppLocalizations.of(context).captureThumbnail),
                     ),
-                    MenuItemButton(
-                      leadingIcon: Tooltip(
-                        message: state.data.isEncrypted
+                    ListTile(
+                      leading: Icon(
+                        state.data.isEncrypted
+                            ? PhosphorIconsLight.lock
+                            : PhosphorIconsLight.lockOpen,
+                      ),
+                      subtitle: Text(
+                        state.data.isEncrypted
                             ? AppLocalizations.of(context).encrypted
                             : AppLocalizations.of(context).unencrypted,
-                        child: Icon(
-                          state.data.isEncrypted
-                              ? PhosphorIconsLight.lock
-                              : PhosphorIconsLight.lockOpen,
-                        ),
                       ),
-                      child: Text(
+                      title: Text(
                         state.data.isEncrypted
                             ? AppLocalizations.of(context).unencrypt
                             : AppLocalizations.of(context).encrypt,
                       ),
-                      onPressed: () async {
+                      onTap: () async {
                         if (state.data.isEncrypted) {
                           final result = await showDialog<bool>(
                             context: context,
