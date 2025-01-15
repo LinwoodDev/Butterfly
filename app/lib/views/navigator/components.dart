@@ -20,7 +20,14 @@ class ComponentsView extends StatefulWidget {
 }
 
 class _ComponentsViewState extends State<ComponentsView> {
+  final TextEditingController _searchController = TextEditingController();
   final List<String> selectedPacks = [];
+
+  @override
+  void dispose() {
+    _searchController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -39,27 +46,36 @@ class _ComponentsViewState extends State<ComponentsView> {
                 .where(
                     (e) => selectedPacks.isEmpty || selectedPacks.contains(e))
                 .expand((p) {
-              final pack = data.getPack(p);
-              if (pack == null) {
-                return Iterable<
-                    (PackAssetLocation, NoteData, ButterflyComponent)>.empty();
-              }
-              return pack.getComponents().map((e) {
-                final component = data.getComponent(e);
-                if (component == null) return null;
-                return (
-                  PackAssetLocation(p, e),
-                  pack,
-                  component,
-                );
-              }).nonNulls;
-            }).toList();
+                  final pack = data.getPack(p);
+                  if (pack == null) {
+                    return Iterable<
+                        (
+                          PackAssetLocation,
+                          NoteData,
+                          ButterflyComponent
+                        )>.empty();
+                  }
+                  return pack.getComponents().map((e) {
+                    final component = data.getComponent(e);
+                    if (component == null) return null;
+                    return (
+                      PackAssetLocation(p, e),
+                      pack,
+                      component,
+                    );
+                  }).nonNulls;
+                })
+                .where((e) => e.$1.name
+                    .toLowerCase()
+                    .contains(_searchController.text.toLowerCase()))
+                .toList();
             return Column(
               children: [
                 const SizedBox(height: 8),
                 SearchBar(
                   hintText: AppLocalizations.of(context).search,
                   leading: Icon(PhosphorIconsLight.magnifyingGlass),
+                  controller: _searchController,
                   trailing: [
                     MenuAnchor(
                       builder: defaultMenuButton(),

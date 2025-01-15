@@ -163,14 +163,15 @@ class ShapeRenderer extends Renderer<ShapeElement> {
     double scaleX = 1,
     double scaleY = 1,
   }) {
-    final sizeX =
-        (element.firstPosition.x - element.secondPosition.x).abs() * scaleX;
-    final sizeY =
-        (element.firstPosition.y - element.secondPosition.y).abs() * scaleY;
+    final rect = this.rect;
+    final previous = rect.topLeft;
+    final localFirst = element.firstPosition.toOffset() - previous;
+    final localSecond = element.secondPosition.toOffset() - previous;
     return ShapeRenderer(
       element.copyWith(
-        firstPosition: position.toPoint(),
-        secondPosition: position.translate(sizeX, sizeY).toPoint(),
+        firstPosition: (localFirst.scale(scaleX, scaleY) + position).toPoint(),
+        secondPosition:
+            (localSecond.scale(scaleX, scaleY) + position).toPoint(),
         rotation: rotation,
       ),
       layer,
