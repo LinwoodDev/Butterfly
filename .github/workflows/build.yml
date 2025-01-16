@@ -140,7 +140,14 @@ jobs:
           path: |
             app/linwood-butterfly-windows-setup-x86_64.exe
   build-linux:
-    runs-on: ubuntu-24.04
+    strategy:
+      matrix:
+        arch:
+          - image: ubuntu-24.04
+            name: x86_64
+          - image: ubuntu-24.04-arm
+            name: arm64
+    runs-on: ${{ matrix.arch.image }}
     defaults:
       run:
         working-directory: app
@@ -193,58 +200,58 @@ jobs:
           flutter build linux -v --release --dart-define=flavor=production
       - name: 🏭 Make binary executable
         run: |
-          chmod +x build/linux/x64/release/bundle/butterfly
+          chmod +x build/linux/${{ matrix.arch.name }}/release/bundle/butterfly
       - name: Build .deb executable
         run: |
-          cp -fr build/linux/x64/release/bundle linux/debian/usr/bin
+          cp -fr build/linux/${{ matrix.arch.name }}/release/bundle linux/debian/usr/bin
           dpkg-deb --build --root-owner-group linux/debian
-          cp linux/*.deb linwood-butterfly-linux-x86_64.deb
+          cp linux/*.deb linwood-butterfly-linux-${{ matrix.arch.name }}.deb
       - name: Build .rpm executable
         run: |
           bash scripts/build-rpm.sh
       - name: Build .AppImage executable
         run: |
-          wget -O appimage-builder-x86_64.AppImage https://github.com/AppImageCrafters/appimage-builder/releases/download/v1.1.0/appimage-builder-1.1.0-x86_64.AppImage
-          chmod +x appimage-builder-x86_64.AppImage
-          sudo mv appimage-builder-x86_64.AppImage /usr/local/bin/appimage-builder
+          wget -O appimage-builder-${{ matrix.arch.name }}.AppImage https://github.com/AppImageCrafters/appimage-builder/releases/download/v1.1.0/appimage-builder-1.1.0-x86_64.AppImage
+          chmod +x appimage-builder-${{ matrix.arch.name }}.AppImage
+          sudo mv appimage-builder-${{ matrix.arch.name }}.AppImage /usr/local/bin/appimage-builder
           appimage-builder --recipe AppImageBuilder.yml --skip-test
       - name: Copy nessessary files
         run: |
-          cp images/logo.svg build/linux/x64/release/bundle/dev.linwood.butterfly.svg
-          mkdir -p build/linux/x64/release/bundle/usr/share
-          cp -r linux/debian/usr/share build/linux/x64/release/bundle/usr
+          cp images/logo.svg build/linux/${{ matrix.arch.name }}/release/bundle/dev.linwood.butterfly.svg
+          mkdir -p build/linux/${{ matrix.arch.name }}/release/bundle/usr/share
+          cp -r linux/debian/usr/share build/linux/${{ matrix.arch.name }}/release/bundle/usr
       - name: Rename AppImage
         run: |
           ls
-          mv ./*.AppImage linwood-butterfly-linux-x86_64.AppImage
+          mv ./*.AppImage linwood-butterfly-linux-${{ matrix.arch.name }}.AppImage
       - name: Copy portable start script
         run: |
           chmod +x scripts/start.sh
-          cp scripts/start.sh build/linux/x64/release/bundle
+          cp scripts/start.sh build/linux/${{ matrix.arch.name }}/release/bundle
       - name: Archive
         uses: actions/upload-artifact@v4
         with:
           name: linux-build
           path: |
-            app/build/linux/x64/release/bundle/**
+            app/build/linux/${{ matrix.arch.name }}/release/bundle/**
       - name: Archive .deb
         uses: actions/upload-artifact@v4
         with:
           name: linux-deb
           path: |
-            app/linwood-butterfly-linux-x86_64.deb
+            app/linwood-butterfly-linux-${{ matrix.arch.name }}.deb
       - name: Archive .rpm
         uses: actions/upload-artifact@v4
         with:
           name: linux-rpm
           path: |
-            app/build/linwood-butterfly-linux-x86_64.rpm
+            app/build/linwood-butterfly-linux-${{ matrix.arch.name }}.rpm
       - name: Archive .AppImage
         uses: actions/upload-artifact@v4
         with:
           name: linux-appimage
           path: |
-            app/linwood-butterfly-linux-x86_64.AppImage
+            app/linwood-butterfly-linux-${{ matrix.arch.name }}.AppImage
   build-flatpak:
     name: build-flatpak
     runs-on: ubuntu-22.04
