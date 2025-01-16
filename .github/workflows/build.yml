@@ -141,6 +141,7 @@ jobs:
             app/linwood-butterfly-windows-setup-x86_64.exe
   build-linux:
     strategy:
+      fail-fast: false
       matrix:
         arch:
           - image: ubuntu-24.04
@@ -182,13 +183,16 @@ jobs:
         with:
           flutter-version-file: app/pubspec.yaml
           channel: 'master'
+          cache: true
+          cache-key: 'flutter-:os:-:channel:-:version:-:arch:-:hash:'
+          cache-path: '${{ runner.tool_cache }}/flutter/:channel:-:version:-:arch:'
       - name: ✅ Enable platforms
         run: flutter config --enable-linux-desktop
       - name: 📦 Get dependencies
         run: |
           flutter clean
-          flutter pub get
           flutter doctor -v
+          flutter pub get
       - name: 🏭 Build nightly
         if: ${{ github.ref != 'refs/tags/stable' && (github.event_name != 'release' || github.event.release.prerelease) }}
         run: |
