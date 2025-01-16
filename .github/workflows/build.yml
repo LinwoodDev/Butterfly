@@ -181,6 +181,7 @@ jobs:
       - uses: subosito/flutter-action@v2.18.0
         with:
           flutter-version-file: app/pubspec.yaml
+          channel: 'master'
       - name: ✅ Enable platforms
         run: flutter config --enable-linux-desktop
       - name: 📦 Get dependencies
