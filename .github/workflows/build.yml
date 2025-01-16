@@ -146,8 +146,10 @@ jobs:
         arch:
           - image: ubuntu-24.04
             name: x86_64
+            dir: x64
           - image: ubuntu-24.04-arm
             name: arm64
+            dir: arm64
     runs-on: ${{ matrix.arch.image }}
     defaults:
       run:
@@ -205,10 +207,10 @@ jobs:
           flutter build linux -v --release --dart-define=flavor=production
       - name: 🏭 Make binary executable
         run: |
-          chmod +x build/linux/${{ matrix.arch.name }}/release/bundle/butterfly
+          chmod +x build/linux/${{ matrix.arch.dir }}/release/bundle/butterfly
       - name: Build .deb executable
         run: |
-          cp -fr build/linux/${{ matrix.arch.name }}/release/bundle linux/debian/usr/bin
+          cp -fr build/linux/${{ matrix.arch.dir }}/release/bundle linux/debian/usr/bin
           dpkg-deb --build --root-owner-group linux/debian
           cp linux/*.deb linwood-butterfly-linux-${{ matrix.arch.name }}.deb
       - name: Build .rpm executable
@@ -222,9 +224,9 @@ jobs:
           appimage-builder --recipe AppImageBuilder.yml --skip-test
       - name: Copy nessessary files
         run: |
-          cp images/logo.svg build/linux/${{ matrix.arch.name }}/release/bundle/dev.linwood.butterfly.svg
-          mkdir -p build/linux/${{ matrix.arch.name }}/release/bundle/usr/share
-          cp -r linux/debian/usr/share build/linux/${{ matrix.arch.name }}/release/bundle/usr
+          cp images/logo.svg build/linux/${{ matrix.arch.dir }}/release/bundle/dev.linwood.butterfly.svg
+          mkdir -p build/linux/${{ matrix.arch.dir }}/release/bundle/usr/share
+          cp -r linux/debian/usr/share build/linux/${{ matrix.arch.dir }}/release/bundle/usr
       - name: Rename AppImage
         run: |
           ls
@@ -232,29 +234,29 @@ jobs:
       - name: Copy portable start script
         run: |
           chmod +x scripts/start.sh
-          cp scripts/start.sh build/linux/${{ matrix.arch.name }}/release/bundle
+          cp scripts/start.sh build/linux/${{ matrix.arch.dir }}/release/bundle
       - name: Archive
         uses: actions/upload-artifact@v4
         with:
-          name: linux-build
+          name: linux-${{ matrix.arch.name }}-build
           path: |
-            app/build/linux/${{ matrix.arch.name }}/release/bundle/**
+            app/build/linux/${{ matrix.arch.dir }}/release/bundle/**
       - name: Archive .deb
         uses: actions/upload-artifact@v4
         with:
-          name: linux-deb
+          name: linux-${{ matrix.arch.name }}-deb
           path: |
             app/linwood-butterfly-linux-${{ matrix.arch.name }}.deb
       - name: Archive .rpm
         uses: actions/upload-artifact@v4
         with:
-          name: linux-rpm
+          name: linux-${{ matrix.arch.name }}-rpm
           path: |
             app/build/linwood-butterfly-linux-${{ matrix.arch.name }}.rpm
       - name: Archive .AppImage
         uses: actions/upload-artifact@v4
         with:
-          name: linux-appimage
+          name: linux-${{ matrix.arch.name }}-appimage
           path: |
             app/linwood-butterfly-linux-${{ matrix.arch.name }}.AppImage
   build-flatpak:
@@ -498,17 +500,30 @@ jobs:
           path: windows-build/
       - uses: actions/download-artifact@v4
         with:
-          name: linux-build
-          path: linux-build/
+          name: linux-x86_64-build
+          path: linux-x86_64-build/
       - uses: actions/download-artifact@v4
         with:
-          name: linux-deb
+          name: linux-x86_64-deb
       - uses: actions/download-artifact@v4
         with:
-          name: linux-rpm
+          name: linux-x86_64-rpm
       - uses: actions/download-artifact@v4
         with:
-          name: linux-appimage
+          name: linux-x86_64-appimage
+      - uses: actions/download-artifact@v4
+        with:
+          name: linux-arm64-build
+          path: linux-arm64-build/
+      - uses: actions/download-artifact@v4
+        with:
+          name: linux-arm64-deb
+      - uses: actions/download-artifact@v4
+        with:
+          name: linux-arm64-rpm
+      - uses: actions/download-artifact@v4
+        with:
+          name: linux-arm64-appimage
       - uses: actions/download-artifact@v4
         with:
           name: linux-alternative-portable
@@ -528,7 +543,8 @@ jobs:
       - name: 📦 Zip artifacts
         run: |
           zip -r linwood-butterfly-windows-x86_64.zip windows-build/*
-          tar -C linux-build -czf linwood-butterfly-linux-x86_64.tar.gz .
+          tar -C linux-x86_64-build -czf linwood-butterfly-linux-x86_64.tar.gz .
+          tar -C linux-arm64-build -czf linwood-butterfly-linux-arm64.tar.gz .
           tar -C linux-alternative-portable -czf linwood-butterfly-linux-alternative-x86_64.tar.gz .
       - name: Configure git
         if: ${{ github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/main' }}
@@ -569,6 +585,10 @@ jobs:
             linwood-butterfly-linux-x86_64.deb
             linwood-butterfly-linux-x86_64.rpm
             linwood-butterfly-linux-x86_64.AppImage
+            linwood-butterfly-linux-arm64.tar.gz
+            linwood-butterfly-linux-arm64.deb
+            linwood-butterfly-linux-arm64.rpm
+            linwood-butterfly-linux-arm64.AppImage
             linwood-butterfly-macos.zip
             linwood-butterfly-macos.dmg
             linwood-butterfly-android.apk
@@ -591,6 +611,10 @@ jobs:
             linwood-butterfly-linux-x86_64.deb
             linwood-butterfly-linux-x86_64.rpm
             linwood-butterfly-linux-x86_64.AppImage
+            linwood-butterfly-linux-arm64.tar.gz
+            linwood-butterfly-linux-arm64.deb
+            linwood-butterfly-linux-arm64.rpm
+            linwood-butterfly-linux-arm64.AppImage
             linwood-butterfly-macos.zip
             linwood-butterfly-macos.dmg
             linwood-butterfly-android.apk
@@ -614,6 +638,10 @@ jobs:
             linwood-butterfly-linux-x86_64.deb
             linwood-butterfly-linux-x86_64.rpm
             linwood-butterfly-linux-x86_64.AppImage
+            linwood-butterfly-linux-arm64.tar.gz
+            linwood-butterfly-linux-arm64.deb
+            linwood-butterfly-linux-arm64.rpm
+            linwood-butterfly-linux-arm64.AppImage
             linwood-butterfly-macos.zip
             linwood-butterfly-macos.dmg
             linwood-butterfly-android.apk
