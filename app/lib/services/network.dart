@@ -90,23 +90,17 @@ class NetworkingService {
     void sendConnections() {
       final current = server.clientConnections;
       _connections.add(current);
-      rpc.sendMessage(RpcNetworkerPacket(
-        function: NetworkEvent.connections.index,
-        data: Uint8List.fromList(jsonEncode(current.toList()).codeUnits),
-        channel: kAuthorityChannel,
-      ));
+      rpc.sendNamedFunction(
+        NetworkEvent.connections,
+        Uint8List.fromList(jsonEncode(current.toList()).codeUnits),
+      );
     }
 
     server.clientConnect.listen((event) async {
       final state = _bloc?.state;
       if (state is! DocumentLoaded) return;
-      rpc.sendMessage(
-          RpcNetworkerPacket(
-            function: NetworkEvent.init.index,
-            data: await state.saveBytes(),
-            channel: kAuthorityChannel,
-          ),
-          event.$1);
+      rpc.sendNamedFunction(NetworkEvent.init, await state.saveBytes(),
+          channel: event.$1);
       sendConnections();
     });
     server.clientDisconnect.listen((event) {
@@ -122,7 +116,7 @@ class NetworkingService {
     if (!uri.hasPort) {
       uri = uri.replace(port: kDefaultPort);
     }
-    if(!uri.hasScheme) {
+    if (!uri.hasScheme) {
       uri = uri.replace(scheme: 'ws');
     }
     final client = NetworkerSocketClient(uri);
@@ -173,24 +167,20 @@ class NetworkingService {
   }
 
   void sendUser(NetworkingUser user) {
-    state?.$2.sendMessage(RpcNetworkerPacket(
-      function: NetworkEvent.user.index,
-      data: Uint8List.fromList(jsonEncode(user.toJson()).codeUnits),
-      channel: kAuthorityChannel,
-    ));
+    state?.$2.sendNamedFunction(NetworkEvent.user,
+        Uint8List.fromList(jsonEncode(user.toJson()).codeUnits));
   }
 
   bool _externalEvent = false;
 
   void onEvent(DocumentEvent event) {
     if (!event.shouldSync() || _externalEvent) return;
-    state?.$2.sendMessage(RpcNetworkerPacket(
-      function: NetworkEvent.event.index,
-      data: Uint8List.fromList(
+    state?.$2.sendNamedFunction(
+      NetworkEvent.event,
+      Uint8List.fromList(
         jsonEncode(event.toJson()).codeUnits,
       ),
-      channel: state?.$1 is NetworkerServer ? kAuthorityChannel : kAnyChannel,
-    ));
+    );
   }
 
   void onMessage(DocumentEvent event) {

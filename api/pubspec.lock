@@ -180,7 +180,7 @@ packages:
       path: "packages/dart_leap"
       ref: db69a03082e6811c58dc2d0e5c23d04305e1623f
       resolved-ref: db69a03082e6811c58dc2d0e5c23d04305e1623f
-      url: "https://github.com/LinwoodDev/dart_pkgs"
+      url: "https://github.com/LinwoodDev/dart_pkgs.git"
     source: git
     version: "1.0.0"
   dart_mappable:
@@ -333,7 +333,7 @@ packages:
       path: "packages/lw_file_system_api"
       ref: e4c17cb5e3a53c0cd02d4127458c2215f7c6e7d4
       resolved-ref: e4c17cb5e3a53c0cd02d4127458c2215f7c6e7d4
-      url: "https://github.com/LinwoodDev/dart_pkgs"
+      url: "https://github.com/LinwoodDev/dart_pkgs.git"
     source: git
     version: "1.0.0"
   macros:

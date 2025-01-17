@@ -78,28 +78,28 @@ dependencies:
       ref: 85a6db5889db2916733a0f6c6914e66d06931f71
   material_leap:
     git:
-      url: https://github.com/LinwoodDev/dart_pkgs
-      ref: e0bff15c46124cef83b428b3b6f566ce8726eca2
+      url: https://github.com/LinwoodDev/dart_pkgs.git
+      ref: ada8a1a9ef9624cb0c546b318247626c7514b6ea
       path: packages/material_leap
   lw_sysapi:
     git:
-      url: https://github.com/LinwoodDev/dart_pkgs
+      url: https://github.com/LinwoodDev/dart_pkgs.git
       ref: ebf47114a4d63fc06a6be0dbbfd5594ed82e7ee5
       path: packages/lw_sysapi
   networker:
     git:
-      url: https://github.com/LinwoodDev/dart_pkgs
-      ref: 4d8b20841bcfa644695963c69f3e3032b764d283
+      url: https://github.com/LinwoodDev/dart_pkgs.git
+      ref: 0bdc62d3af7f31e19a694d9cd39fe020dced8754
       path: packages/networker/networker
   networker_socket:
     git:
-      url: https://github.com/LinwoodDev/dart_pkgs
-      ref: 630928b8588064a0895e45ca91993ce05723811f
+      url: https://github.com/LinwoodDev/dart_pkgs.git
+      ref: fa036587c2a26db6455dd063701aef32b3531800
       path: packages/networker/networker_socket
   lw_file_system:
     git:
-      url: https://github.com/LinwoodDev/dart_pkgs
-      ref: 760972dc351ab9aecd3df37e8679b2b029f34e80
+      url: https://github.com/LinwoodDev/dart_pkgs.git
+      ref: ada8a1a9ef9624cb0c546b318247626c7514b6ea
       path: packages/lw_file_system
   flutter_localized_locales: ^2.0.5
   dynamic_color: ^1.7.0
