@@ -6,17 +6,6 @@ part of 'network.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$NetworkingInitMessageImpl _$$NetworkingInitMessageImplFromJson(Map json) =>
-    _$NetworkingInitMessageImpl(
-      (json['data'] as List<dynamic>?)?.map((e) => (e as num).toInt()).toList(),
-    );
-
-Map<String, dynamic> _$$NetworkingInitMessageImplToJson(
-        _$NetworkingInitMessageImpl instance) =>
-    <String, dynamic>{
-      'data': instance.data,
-    };
-
 _$NetworkingUserImpl _$$NetworkingUserImplFromJson(Map json) =>
     _$NetworkingUserImpl(
       cursor: _$JsonConverterFromJson<Map<dynamic, dynamic>, Point<double>>(

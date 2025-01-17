@@ -182,13 +182,13 @@ class _ProjectPageState extends State<ProjectPage> {
       NoteData? document;
       var data = widget.data;
       final uri = Uri.tryParse(widget.uri ?? '');
+      var type = widget.type.isEmpty ? (fileType ?? widget.type) : widget.type;
       if (widget.uri != null && uri != null) {
         data = await networkingService.createSocketClient(uri);
+        type = '';
       }
       if (data != null) {
-        document ??= await globalImportService.load(
-            type: widget.type.isEmpty ? (fileType ?? widget.type) : widget.type,
-            data: data);
+        document ??= await globalImportService.load(type: type, data: data);
         if (document == null) {
           GoRouter.of(context).pop();
           return;

@@ -15,11 +15,6 @@ import 'package:rxdart/rxdart.dart';
 part 'network.freezed.dart';
 part 'network.g.dart';
 
-enum NetworkingSide {
-  server,
-  client,
-}
-
 enum NetworkingType {
   webSocket;
 
@@ -29,16 +24,8 @@ enum NetworkingType {
 }
 
 const kDefaultPort = 28005;
-const kTimeout = Duration(seconds: 10);
+const kTimeout = Duration(minutes: 5);
 typedef NetworkingState = (NetworkerBase, NamedRpcNetworkerPipe<NetworkEvent>);
-
-@freezed
-class NetworkingInitMessage with _$NetworkingInitMessage {
-  const factory NetworkingInitMessage(List<int>? data) = _NetworkingInitMessage;
-
-  factory NetworkingInitMessage.fromJson(Map<String, dynamic> json) =>
-      _$NetworkingInitMessageFromJson(json);
-}
 
 @freezed
 class NetworkingUser with _$NetworkingUser {
@@ -101,23 +88,32 @@ class NetworkingService {
     final rpc = NamedRpcServerNetworkerPipe<NetworkEvent>();
     _setupRpc(rpc, server);
     void sendConnections() {
-      rpc.callFunction(NetworkEvent.connections.index,
-          Uint8List.fromList(jsonEncode(connections.toList()).codeUnits));
+      final current = server.clientConnections;
+      _connections.add(current);
+      rpc.sendMessage(RpcNetworkerPacket(
+        function: NetworkEvent.connections.index,
+        data: Uint8List.fromList(jsonEncode(current.toList()).codeUnits),
+        channel: kAuthorityChannel,
+      ));
     }
 
     server.clientConnect.listen((event) async {
       final state = _bloc?.state;
-      rpc.callFunction(
-          NetworkEvent.init.index,
-          Uint8List.fromList(
-              jsonEncode(NetworkingInitMessage((await state?.saveBytes())))
-                  .codeUnits));
+      if (state is! DocumentLoaded) return;
+      rpc.sendMessage(
+          RpcNetworkerPacket(
+            function: NetworkEvent.init.index,
+            data: await state.saveBytes(),
+            channel: kAuthorityChannel,
+          ),
+          event.$1);
       sendConnections();
     });
     server.clientDisconnect.listen((event) {
       sendConnections();
     });
     server.connect(rpc);
+    await server.init();
     _subject.add((server, rpc));
   }
 
@@ -126,20 +122,18 @@ class NetworkingService {
     if (!uri.hasPort) {
       uri = uri.replace(port: kDefaultPort);
     }
+    if(!uri.hasScheme) {
+      uri = uri.replace(scheme: 'ws');
+    }
     final client = NetworkerSocketClient(uri);
     final rpc = NamedRpcClientNetworkerPipe<NetworkEvent>();
     _setupRpc(rpc, client);
     final completer = Completer<Uint8List?>();
-    rpc
-        .registerFunction(NetworkEvent.init.index,
-            mode: RpcNetworkerMode.authority)
-        .connect(RawJsonNetworkerPlugin()
-          ..read.listen((message) {
-            final init = NetworkingInitMessage.fromJson(message.data);
-            completer.complete(
-                init.data == null ? null : Uint8List.fromList(init.data!));
-          }));
+    rpc.registerNamedFunction(NetworkEvent.init).read.listen((message) {
+      completer.complete(message.data);
+    });
     client.connect(rpc);
+    await client.init();
     _subject.add((client, rpc));
     return completer.future.timeout(kTimeout);
   }
@@ -179,16 +173,24 @@ class NetworkingService {
   }
 
   void sendUser(NetworkingUser user) {
-    state?.$2.callNamedFunction(NetworkEvent.user,
-        Uint8List.fromList(jsonEncode(user.toJson()).codeUnits));
+    state?.$2.sendMessage(RpcNetworkerPacket(
+      function: NetworkEvent.user.index,
+      data: Uint8List.fromList(jsonEncode(user.toJson()).codeUnits),
+      channel: kAuthorityChannel,
+    ));
   }
 
   bool _externalEvent = false;
 
   void onEvent(DocumentEvent event) {
     if (!event.shouldSync() || _externalEvent) return;
-    state?.$2.callNamedFunction(NetworkEvent.event,
-        Uint8List.fromList(jsonEncode(event.toJson()).codeUnits));
+    state?.$2.sendMessage(RpcNetworkerPacket(
+      function: NetworkEvent.event.index,
+      data: Uint8List.fromList(
+        jsonEncode(event.toJson()).codeUnits,
+      ),
+      channel: state?.$1 is NetworkerServer ? kAuthorityChannel : kAnyChannel,
+    ));
   }
 
   void onMessage(DocumentEvent event) {

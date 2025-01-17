@@ -129,6 +129,10 @@ abstract class DocumentLoaded extends DocumentState {
           {Size? viewportSize, double? pixelRatio, bool reset = false}) =>
       currentIndexCubit.bake(this,
           viewportSize: viewportSize, pixelRatio: pixelRatio, reset: reset);
+
+  @override
+  Future<Uint8List> saveBytes([NoteData? current]) =>
+      saveData().then((e) => e.exportAsBytes());
 }
 
 class DocumentLoadSuccess extends DocumentLoaded {

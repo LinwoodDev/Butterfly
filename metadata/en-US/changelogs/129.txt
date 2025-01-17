@@ -11,5 +11,10 @@
 * Fix lock collection wrongly labeled as Layer
 * Update secure storage dependency
 * Use minSdkVersion 23 instead of 21 (The minimum version of android is 6.0 (Marshmallow))
+* Improve collaboration system
+  * Use wss default if no protocol is provided
+  * Fix networking server/client not starting
+  * Fix initializaton not sent by server
+  * Improve performance when joining a room
 
 Read more here: https://linwood.dev/butterfly/2.3.0-beta.1
