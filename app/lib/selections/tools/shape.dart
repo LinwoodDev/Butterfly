@@ -57,7 +57,8 @@ class ShapeToolSelection extends ToolSelection<ShapeTool> {
                                   .toList()),
                         ))
                     .toList(),
-              )
+              ),
+              const SizedBox(width: 4),
             ],
           ),
           value: tool.constrainedAspectRatio,

@@ -7,7 +7,8 @@
 * Fix export button in data settings not working
 * Fix export button for file view not visible
 * Fix file view showing wrong aspect ratio for thumbnails
-* Fix line transform changes rotation and scaling not working correctly
+* Fix line transform changes rotation and scaling not working correctly ([#786](https://github.com/LinwoodDev/Butterfly/issues/786))
+* Fix lock collection wrongly labeled as Layer
 * Update secure storage dependency
 * Use minSdkVersion 23 instead of 21 (The minimum version of android is 6.0 (Marshmallow))
 

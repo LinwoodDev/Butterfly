@@ -423,7 +423,7 @@ class _EditToolbarState extends State<EditToolbar> {
                             lockCollection: !utilitiesState.lockCollection,
                           ),
                           PhosphorIconsLight.folder,
-                          AppLocalizations.of(context).layer,
+                          AppLocalizations.of(context).collection,
                         ),
                         buildButton(
                           utilitiesState.lockZoom,
