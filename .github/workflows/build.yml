@@ -308,6 +308,9 @@ jobs:
         with:
           flutter-version-file: app/pubspec.yaml
           channel: 'master'
+          cache: true
+          cache-key: 'flutter-:os:-:channel:-:version:-:arch:-:hash:'
+          cache-path: '${{ runner.tool_cache }}/flutter/:channel:-:version:-:arch:'
       - name: ✅ Enable platforms
         run: flutter config --enable-linux-desktop
       - name: 📦 Get dependencies
@@ -355,7 +358,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: linux-${{ matrix.arch.name }}-alternative-portable
-          path: app/build/linux/${{ matrix.arch.name }}/release/bundle
+          path: app/build/linux/${{ matrix.arch.dir }}/release/bundle
   build-macos:
     runs-on: macos-latest
     defaults:
