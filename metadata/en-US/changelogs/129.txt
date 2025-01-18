@@ -16,5 +16,7 @@
   * Fix networking server/client not starting
   * Fix initializaton not sent by server
   * Improve performance when joining a room
+* Add linux arm binaries
+* Upgrade to agb 8.8
 
 Read more here: https://linwood.dev/butterfly/2.3.0-beta.1
