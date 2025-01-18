@@ -3,6 +3,7 @@
 # Default values for architecture
 DIRECTORY_ARCH="x64"  # Default directory name
 BINARY_ARCH="x86_64"  # Default binary name
+RPM_ARCH="x86_64"     # Default RPM architecture
 
 # Parse command-line arguments
 while getopts "d:b:" opt; do
@@ -15,7 +16,12 @@ while getopts "d:b:" opt; do
       ;;
   esac
 done
+RPM_ARCH=$BINARY_ARCH
 
+# Normalize architecture names for RPM
+if [ "$RPM_ARCH" == "arm64" ]; then
+  RPM_ARCH="aarch64"
+fi
 # Read version from pubspec
 BUTTERFLY_VERSION_REGEX="version:\s(.+)\+(.+)"
 [[ $(grep -E "${BUTTERFLY_VERSION_REGEX}" pubspec.yaml) =~ ${BUTTERFLY_VERSION_REGEX} ]]
@@ -24,7 +30,7 @@ BUTTERFLY_VERSION="${BASH_REMATCH[1]}"
 # Replace - with ~ to match RPM versioning
 RPM_VERSION=$(echo $BUTTERFLY_VERSION | sed 's/-/~/g')
 CURRENT_DIR=$(pwd)
-echo "Building Butterfly $RPM_VERSION for $DIRECTORY_ARCH/$BINARY_ARCH"
+echo "Building Butterfly $RPM_VERSION for $DIRECTORY_ARCH/$BINARY_ARCH ($RPM_ARCH)"
 
 # Clean and set up build directories
 rm -rf build/{BUILD,RPMS,SOURCES,SPECS,SRPMS}
@@ -63,4 +69,4 @@ cd ../../
 QA_RPATHS=$[ 0x0001|0x0010 ] rpmbuild -bb build/SPECS/linwood-butterfly.spec --define "_topdir $(pwd)/build"
 
 # Copy the RPM to the build folder
-cp build/RPMS/${BINARY_ARCH}/linwood-butterfly-*.rpm build/linwood-butterfly-linux-${BINARY_ARCH}.rpm
+cp build/RPMS/${RPM_ARCH}/linwood-butterfly-*.rpm build/linwood-butterfly-linux-${BINARY_ARCH}.rpm
