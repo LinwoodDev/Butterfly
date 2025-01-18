@@ -261,10 +261,20 @@ jobs:
             app/linwood-butterfly-linux-${{ matrix.arch.name }}.AppImage
   build-flatpak:
     name: build-flatpak
-    runs-on: ubuntu-22.04
     defaults:
       run:
         working-directory: app
+    strategy:
+      fail-fast: false
+      matrix:
+        arch:
+          - image: ubuntu-22.04
+            name: x86_64
+            dir: x64
+          - image: ubuntu-22.04-arm
+            name: arm64
+            dir: arm64
+    runs-on: ${{ matrix.arch.image }}
     steps:
       - name: ⬆️ Checkout
         uses: actions/checkout@v4
@@ -294,6 +304,7 @@ jobs:
       - uses: subosito/flutter-action@v2.18.0
         with:
           flutter-version-file: app/pubspec.yaml
+          channel: 'master'
       - name: ✅ Enable platforms
         run: flutter config --enable-linux-desktop
       - name: 📦 Get dependencies
@@ -313,11 +324,11 @@ jobs:
           flutter build linux -v --release --dart-define=flavor=production
       - name: Copy nessessary files
         run: |
-          cp images/logo.svg build/linux/x64/release/bundle/dev.linwood.butterfly.svg
-          mkdir -p build/linux/x64/release/bundle/usr/share
-          cp -r linux/debian/usr/share build/linux/x64/release/bundle/usr
+          cp images/logo.svg build/linux/${{ matrix.arch.dir }}/release/bundle/dev.linwood.butterfly.svg
+          mkdir -p build/linux/${{ matrix.arch.dir }}/release/bundle/usr/share
+          cp -r linux/debian/usr/share build/linux/${{ matrix.arch.dir }}/release/bundle/usr
       - name: Compress Flutter build
-        run: tar -C build/linux/x64/release/bundle -czf linwood-butterfly-linux-portable-x86_64.tar.gz .
+        run: tar -C build/linux/x64/release/bundle -czf linwood-butterfly-linux-portable-${{ matrix.arch.name }}.tar.gz .
       #    - name: Install flatpak
       #      run: |
       #        sudo apt-get update
@@ -340,8 +351,8 @@ jobs:
       - name: Archive old portable
         uses: actions/upload-artifact@v4
         with:
-          name: linux-alternative-portable
-          path: app/build/linux/x64/release/bundle
+          name: linux-${{ matrix.arch.name }}-alternative-portable
+          path: app/build/linux/${{ matrix.arch.name }}/release/bundle
   build-macos:
     runs-on: macos-latest
     defaults:
@@ -513,6 +524,10 @@ jobs:
           name: linux-x86_64-appimage
       - uses: actions/download-artifact@v4
         with:
+          name: linux-x86_64-alternative-portable
+          path: linux-x86_64-alternative-portable/
+      - uses: actions/download-artifact@v4
+        with:
           name: linux-arm64-build
           path: linux-arm64-build/
       - uses: actions/download-artifact@v4
@@ -526,8 +541,8 @@ jobs:
           name: linux-arm64-appimage
       - uses: actions/download-artifact@v4
         with:
-          name: linux-alternative-portable
-          path: linux-alternative-portable/
+          name: linux-arm64-alternative-portable
+          path: linux-arm64-alternative-portable/
       - uses: actions/download-artifact@v4
         with:
           name: windows-setup
@@ -545,7 +560,8 @@ jobs:
           zip -r linwood-butterfly-windows-x86_64.zip windows-build/*
           tar -C linux-x86_64-build -czf linwood-butterfly-linux-x86_64.tar.gz .
           tar -C linux-arm64-build -czf linwood-butterfly-linux-arm64.tar.gz .
-          tar -C linux-alternative-portable -czf linwood-butterfly-linux-alternative-x86_64.tar.gz .
+          tar -C linux-x86_64-alternative-portable -czf linwood-butterfly-linux-alternative-x86_64.tar.gz .
+          tar -C linux-arm64-alternative-portable -czf linwood-butterfly-linux-alternative-arm64.tar.gz .
       - name: Configure git
         if: ${{ github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/main' }}
         run: |
@@ -586,6 +602,7 @@ jobs:
             linwood-butterfly-linux-x86_64.rpm
             linwood-butterfly-linux-x86_64.AppImage
             linwood-butterfly-linux-arm64.tar.gz
+            linwood-butterfly-linux-alternative-arm64.tar.gz
             linwood-butterfly-linux-arm64.deb
             linwood-butterfly-linux-arm64.rpm
             linwood-butterfly-linux-arm64.AppImage
@@ -612,6 +629,7 @@ jobs:
             linwood-butterfly-linux-x86_64.rpm
             linwood-butterfly-linux-x86_64.AppImage
             linwood-butterfly-linux-arm64.tar.gz
+            linwood-butterfly-linux-alternative-arm64.tar.gz
             linwood-butterfly-linux-arm64.deb
             linwood-butterfly-linux-arm64.rpm
             linwood-butterfly-linux-arm64.AppImage
@@ -639,6 +657,7 @@ jobs:
             linwood-butterfly-linux-x86_64.rpm
             linwood-butterfly-linux-x86_64.AppImage
             linwood-butterfly-linux-arm64.tar.gz
+            linwood-butterfly-linux-alternative-arm64.tar.gz
             linwood-butterfly-linux-arm64.deb
             linwood-butterfly-linux-arm64.rpm
             linwood-butterfly-linux-arm64.AppImage
