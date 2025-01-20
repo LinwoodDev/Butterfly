@@ -357,7 +357,7 @@ jobs:
       - name: Archive old portable
         uses: actions/upload-artifact@v4
         with:
-          name: linux-${{ matrix.arch.name }}-alternative-portable
+          name: linux-${{ matrix.arch.name }}-alternative-build
           path: app/build/linux/${{ matrix.arch.dir }}/release/bundle
   build-macos:
     runs-on: macos-latest
@@ -530,8 +530,8 @@ jobs:
           name: linux-x86_64-appimage
       - uses: actions/download-artifact@v4
         with:
-          name: linux-x86_64-alternative-portable
-          path: linux-x86_64-alternative-portable/
+          name: linux-x86_64-alternative-build
+          path: linux-x86_64-alternative-build/
       - uses: actions/download-artifact@v4
         with:
           name: linux-arm64-build
@@ -544,8 +544,8 @@ jobs:
           name: linux-arm64-rpm
       - uses: actions/download-artifact@v4
         with:
-          name: linux-arm64-alternative-portable
-          path: linux-arm64-alternative-portable/
+          name: linux-arm64-alternative-build
+          path: linux-arm64-alternative-build/
       - uses: actions/download-artifact@v4
         with:
           name: windows-setup
@@ -563,8 +563,8 @@ jobs:
           zip -r linwood-butterfly-windows-x86_64.zip windows-build/*
           tar -C linux-x86_64-build -czf linwood-butterfly-linux-x86_64.tar.gz .
           tar -C linux-arm64-build -czf linwood-butterfly-linux-arm64.tar.gz .
-          tar -C linux-x86_64-alternative-portable -czf linwood-butterfly-linux-alternative-x86_64.tar.gz .
-          tar -C linux-arm64-alternative-portable -czf linwood-butterfly-linux-alternative-arm64.tar.gz .
+          tar -C linux-x86_64-alternative-build -czf linwood-butterfly-linux-alternative-x86_64.tar.gz .
+          tar -C linux-arm64-alternative-build -czf linwood-butterfly-linux-alternative-arm64.tar.gz .
       - name: Configure git
         if: ${{ github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/main' }}
         run: |
@@ -611,6 +611,9 @@ jobs:
             linwood-butterfly-macos.zip
             linwood-butterfly-macos.dmg
             linwood-butterfly-android.apk
+            linwood-butterfly-android-arm.apk
+            linwood-butterfly-android-arm64.apk
+            linwood-butterfly-android-x86_64.apk
             linwood-butterfly-ios.ipa
             checksums.txt
         env:
