@@ -2,6 +2,31 @@
 
 <!--ENTER CHANGELOG HERE-->
 
+## 2.3.0-beta.1 (2025-01-20)
+
+* Add search bar for components navigator page
+* Improve document settings UI
+  * Remove duplicated name field in document settings
+  * Change description only on submit
+  * Improve encryption and thumbnail buttons
+* Add error boundaries for corrupted files
+* Fix export button in data settings not working
+* Fix export button for file view not visible
+* Fix file view showing wrong aspect ratio for thumbnails
+* Fix line transform changes rotation and scaling not working correctly ([#786](https://github.com/LinwoodDev/Butterfly/issues/786))
+* Fix lock collection wrongly labeled as Layer
+* Update secure storage dependency
+* Use minSdkVersion 23 instead of 21 (The minimum version of android is 6.0 (Marshmallow))
+* Improve collaboration system
+  * Use wss default if no protocol is provided
+  * Fix networking server/client not starting
+  * Fix initializaton not sent by server
+  * Improve performance when joining a room
+* Add linux arm binaries
+* Upgrade to agb 8.8
+
+Read more here: https://linwood.dev/butterfly/2.3.0-beta.1
+
 ## 2.3.0-beta.0 (2025-01-06)
 
 * Redesign mobile home page
