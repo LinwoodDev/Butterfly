@@ -5,6 +5,7 @@ import 'package:butterfly/renderers/renderer.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/material.dart';
 import 'package:material_leap/material_leap.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 const cornerSize = 40.0;
 const visibleSize = cornerSize / 2.5;
@@ -300,6 +301,27 @@ class RectSelectionForegroundRenderer extends Renderer<Rect> {
         );
       }
     });
+
+    final icon = transformMode == SelectionScaleMode.scaleProp
+        ? PhosphorIconsFill.lock
+        : PhosphorIconsLight.lockOpen;
+    final textPainter = TextPainter(
+      textDirection: TextDirection.ltr,
+      text: TextSpan(
+        text: String.fromCharCode(icon.codePoint),
+        style: TextStyle(
+          fontFamily: icon.fontFamily,
+          package: icon.fontPackage,
+          fontSize: realSize * 2,
+          color: color,
+        ),
+      ),
+    );
+    textPainter.layout();
+    textPainter.paint(
+      canvas,
+      element.center - Offset(textPainter.width / 2, textPainter.height / 2),
+    );
   }
 }
 
