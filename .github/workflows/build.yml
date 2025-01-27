@@ -88,7 +88,7 @@ jobs:
           name: apk-x86_64-build
           path: app/linwood-butterfly-android-x86_64.apk
   build-windows:
-    runs-on: windows-2022
+    runs-on: windows-2025
     defaults:
       run:
         working-directory: app
@@ -96,7 +96,9 @@ jobs:
       - name: ⬆️ Checkout
         uses: actions/checkout@v4
       - name: Make yq tool available on Windows runners
-        run: choco install yq
+        run: |
+          choco install yq
+          choco install innosetup
       - uses: subosito/flutter-action@v2.18.0
         with:
           flutter-version-file: app/pubspec.yaml
