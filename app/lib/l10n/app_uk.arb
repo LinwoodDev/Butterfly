@@ -195,7 +195,15 @@
   "currentArea": "Поточна область",
   "design": "Дизайн",
   "text": "Текст",
-  "welcome": "Гей, це метелик Лінвуда",
+  "welcome": "Hey, this is Linwood Butterfly {codeName}",
+  "@welcome": {
+    "placeholders": {
+      "codeName": {
+        "type": "String",
+        "example": "Dev"
+      }
+    }
+  },
   "welcomeContent": "Вільне та відкрите місце для малювання!",
   "updated": "Додаток оновлено до версії {version}",
   "@updated": {
