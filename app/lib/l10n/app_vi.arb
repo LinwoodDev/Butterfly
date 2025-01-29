@@ -195,7 +195,15 @@
   "currentArea": "Current area",
   "design": "Thiết kế",
   "text": "Text",
-  "welcome": "Xin chào, đây là Linwood Butterfly",
+  "welcome": "Hey, this is Linwood Butterfly {codeName}",
+  "@welcome": {
+    "placeholders": {
+      "codeName": {
+        "type": "String",
+        "example": "Dev"
+      }
+    }
+  },
   "welcomeContent": "Một không gian vẽ tự do và mã nguồn mở!",
   "updated": "Ứng dụng đã được cập nhật lên phiên bản {version}",
   "@updated": {
