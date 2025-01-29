@@ -195,7 +195,15 @@
   "currentArea": "Area attuale",
   "design": "Design",
   "text": "Testo",
-  "welcome": "Hey, questa è farfalla di linwood",
+  "welcome": "Hey, this is Linwood Butterfly {codeName}",
+  "@welcome": {
+    "placeholders": {
+      "codeName": {
+        "type": "String",
+        "example": "Dev"
+      }
+    }
+  },
   "welcomeContent": "Uno spazio di disegno libero e open-source!",
   "updated": "App aggiornata alla versione {version}",
   "@updated": {
