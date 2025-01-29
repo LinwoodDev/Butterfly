@@ -195,7 +195,15 @@
   "currentArea": "Zona curentă",
   "design": "Proiectare",
   "text": "Text",
-  "welcome": "Hei, acesta este Linwood Butterfly",
+  "welcome": "Hey, this is Linwood Butterfly {codeName}",
+  "@welcome": {
+    "placeholders": {
+      "codeName": {
+        "type": "String",
+        "example": "Dev"
+      }
+    }
+  },
   "welcomeContent": "Un spaţiu de desenare gratuit şi open-source!",
   "updated": "Aplicație actualizată la versiunea {version}",
   "@updated": {
