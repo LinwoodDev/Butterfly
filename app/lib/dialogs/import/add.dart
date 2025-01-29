@@ -107,7 +107,7 @@ class _AddDialogState extends State<AddDialog> {
                   const SizedBox(width: 16),
                   Text(
                     AppLocalizations.of(context).add,
-                    style: Theme.of(context).textTheme.headlineSmall,
+                    style: TextTheme.of(context).headlineSmall,
                   ),
                   const SizedBox(width: 8),
                   Expanded(
@@ -270,7 +270,7 @@ class _AddDialogState extends State<AddDialog> {
                                 child: Text(
                                   AppLocalizations.of(context).noElements,
                                   textAlign: TextAlign.center,
-                                  style: Theme.of(context).textTheme.bodyLarge,
+                                  style: TextTheme.of(context).bodyLarge,
                                 ),
                               ),
                             if (tools.isNotEmpty) ...[
@@ -368,7 +368,7 @@ class _ToolsListViewState extends State<_ToolsListView> {
       children: [
         Text(
           widget.title,
-          style: Theme.of(context).textTheme.bodyLarge,
+          style: TextTheme.of(context).bodyLarge,
           textAlign: TextAlign.center,
         ),
         if (widget.isMobile)

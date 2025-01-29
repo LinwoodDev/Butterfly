@@ -91,7 +91,7 @@ class _HeaderHomeViewState extends State<_HeaderHomeView>
 
   @override
   Widget build(BuildContext context) {
-    final colorScheme = Theme.of(context).colorScheme;
+    final colorScheme = ColorScheme.of(context);
     final actions = Row(
       mainAxisSize: MainAxisSize.min,
       mainAxisAlignment: MainAxisAlignment.center,
@@ -139,6 +139,7 @@ class _HeaderHomeViewState extends State<_HeaderHomeView>
         if (widget.hasNewerVersion)
           const SizedBox(
             height: 0,
+            width: 0,
             child: Stack(
               children: [
                 Align(
@@ -152,27 +153,28 @@ class _HeaderHomeViewState extends State<_HeaderHomeView>
     );
     final logo = Row(
       mainAxisSize: MainAxisSize.min,
+      spacing: 16,
       children: [
         Image.asset(
           'images/logo.png',
           width: 64,
         ),
-        const SizedBox(width: 16),
-        Flexible(
+        Expanded(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
             children: [
               Text(
-                AppLocalizations.of(context).welcome,
-                style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                AppLocalizations.of(context).welcome(applicationVersionName),
+                style: TextTheme.of(context).titleLarge?.copyWith(
                       color: colorScheme.onInverseSurface,
                     ),
                 overflow: TextOverflow.clip,
               ),
               Text(
                 AppLocalizations.of(context).welcomeContent,
-                style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                style: TextTheme.of(context).bodySmall?.copyWith(
                       color: colorScheme.onInverseSurface,
                     ),
               ),
@@ -189,8 +191,7 @@ class _HeaderHomeViewState extends State<_HeaderHomeView>
         );
       }
       return Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [logo, whatsNew],
+        children: [Expanded(child: logo), whatsNew],
       );
     });
     final card = Material(

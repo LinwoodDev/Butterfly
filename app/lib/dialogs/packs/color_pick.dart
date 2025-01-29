@@ -102,7 +102,7 @@ class _ColorPalettePickerDialogState extends State<ColorPalettePickerDialog> {
                       child: GestureDetector(
                     child: Text(
                       colorText,
-                      style: Theme.of(context).textTheme.headlineLarge,
+                      style: TextTheme.of(context).headlineLarge,
                     ),
                     onTap: () => saveToClipboard(context, colorText),
                   ))
@@ -176,14 +176,12 @@ class _ColorPalettePickerDialogState extends State<ColorPalettePickerDialog> {
                                           children: [
                                             Text(
                                               _selected?.name ?? '',
-                                              style: Theme.of(context)
-                                                  .textTheme
+                                              style: TextTheme.of(context)
                                                   .headlineSmall,
                                             ),
                                             Text(
                                               _selected?.pack ?? '',
-                                              style: Theme.of(context)
-                                                  .textTheme
+                                              style: TextTheme.of(context)
                                                   .labelLarge,
                                             ),
                                           ],

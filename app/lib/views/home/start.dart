@@ -66,7 +66,7 @@ class _QuickstartHomeViewState extends State<_QuickstartHomeView> {
               Expanded(
                 child: Text(
                   AppLocalizations.of(context).quickstart,
-                  style: Theme.of(context).textTheme.headlineMedium,
+                  style: TextTheme.of(context).headlineMedium,
                 ),
               ),
               IconButton(
@@ -114,7 +114,7 @@ class _QuickstartHomeViewState extends State<_QuickstartHomeView> {
                     children: [
                       Text(
                         AppLocalizations.of(context).noTemplates,
-                        style: Theme.of(context).textTheme.bodyLarge,
+                        style: TextTheme.of(context).bodyLarge,
                       ),
                       const SizedBox(height: 16),
                       FilledButton(
@@ -127,7 +127,7 @@ class _QuickstartHomeViewState extends State<_QuickstartHomeView> {
                         },
                         child: Text(
                           LeapLocalizations.of(context).reset,
-                          style: Theme.of(context).textTheme.bodyLarge,
+                          style: TextTheme.of(context).bodyLarge,
                         ),
                       ),
                     ],

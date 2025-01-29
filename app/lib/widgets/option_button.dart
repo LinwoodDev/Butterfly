@@ -72,8 +72,7 @@ class _OptionButtonState extends State<OptionButton>
     final selectedBottom = IconTheme(
       data: Theme.of(context).iconTheme.copyWith(
             size: 14,
-            color:
-                widget.selected ? Theme.of(context).colorScheme.primary : null,
+            color: widget.selected ? ColorScheme.of(context).primary : null,
           ),
       child: Align(
         child: widget.bottomIcon ??
@@ -107,7 +106,7 @@ class _OptionButtonState extends State<OptionButton>
                     ? BoxDecoration(
                         // Border
                         border: Border.all(
-                          color: Theme.of(context).colorScheme.primary,
+                          color: ColorScheme.of(context).primary,
                           width: 2 * _animation.value,
                         ),
                         borderRadius: BorderRadius.circular(12),
@@ -116,8 +115,7 @@ class _OptionButtonState extends State<OptionButton>
                         ? BoxDecoration(
                             // Border
                             border: Border.all(
-                              color:
-                                  Theme.of(context).colorScheme.outlineVariant,
+                              color: ColorScheme.of(context).outlineVariant,
                               width: 2 * _animation.value,
                             ),
                             borderRadius: BorderRadius.circular(12),
@@ -135,7 +133,7 @@ class _OptionButtonState extends State<OptionButton>
                   data: Theme.of(context).iconTheme.copyWith(
                       size: 28,
                       color: widget.selected
-                          ? Theme.of(context).colorScheme.primary
+                          ? ColorScheme.of(context).primary
                           : null),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,

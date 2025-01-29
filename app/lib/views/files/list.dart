@@ -49,7 +49,7 @@ class FileEntityListTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final colorScheme = Theme.of(context).colorScheme;
+    final colorScheme = ColorScheme.of(context);
     final fileSystem = context.read<ButterflyFileSystem>();
     final syncService = context.read<SyncService>();
     final remote = fileSystem.settingsCubit.getRemote(entity.location.remote);
@@ -121,9 +121,7 @@ class FileEntityListTile extends StatelessWidget {
                                   ? TextField(
                                       controller: nameController,
                                       autofocus: true,
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .labelLarge,
+                                      style: TextTheme.of(context).labelLarge,
                                       onSubmitted: (value) async {
                                         await documentSystem.renameAsset(
                                             entity.location.path, value);
@@ -161,9 +159,7 @@ class FileEntityListTile extends StatelessWidget {
                                         entity.fileName,
                                         maxLines: 1,
                                         overflow: TextOverflow.ellipsis,
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .labelLarge,
+                                        style: TextTheme.of(context).labelLarge,
                                       ),
                                       onDoubleTap: () {
                                         onEdit(true);
@@ -207,8 +203,8 @@ class FileEntityListTile extends StatelessWidget {
                                     ?.status;
                                 return IconButton(
                                   icon: PhosphorIcon(currentStatus.getIcon(),
-                                      color: currentStatus.getColor(
-                                          Theme.of(context).colorScheme)),
+                                      color: currentStatus
+                                          .getColor(ColorScheme.of(context))),
                                   tooltip:
                                       currentStatus.getLocalizedName(context),
                                   onPressed: () {
@@ -269,8 +265,7 @@ class FileEntityListTile extends StatelessWidget {
                                   const SizedBox(width: 8),
                                   Text(
                                     modifiedText!,
-                                    style: Theme.of(context)
-                                        .textTheme
+                                    style: TextTheme.of(context)
                                         .bodySmall
                                         ?.copyWith(
                                           color: colorScheme.outline,
@@ -292,8 +287,7 @@ class FileEntityListTile extends StatelessWidget {
                                   const SizedBox(width: 8),
                                   Text(
                                     createdText!,
-                                    style: Theme.of(context)
-                                        .textTheme
+                                    style: TextTheme.of(context)
                                         .bodySmall
                                         ?.copyWith(
                                           color: colorScheme.outline,

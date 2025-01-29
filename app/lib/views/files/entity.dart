@@ -52,7 +52,7 @@ void deleteEntities({
   required Set<String> entities,
   required VoidCallback onDelete,
 }) {
-  final colorScheme = Theme.of(context).colorScheme;
+  final colorScheme = ColorScheme.of(context);
   showPopover(
     backgroundColor: colorScheme.surface,
     context: context,
@@ -164,7 +164,7 @@ class _FileEntityItemState extends State<FileEntityItem> {
             padding: const EdgeInsets.all(8.0),
             child: Text(
               widget.entity.fileName,
-              style: Theme.of(context).textTheme.bodyMedium,
+              style: TextTheme.of(context).bodyMedium,
             ),
           ),
         ),
@@ -282,8 +282,7 @@ class ContextFileRegion extends StatelessWidget {
                   ?.status;
               return MenuItemButton(
                 leadingIcon: PhosphorIcon(currentStatus.getIcon(),
-                    color:
-                        currentStatus.getColor(Theme.of(context).colorScheme)),
+                    color: currentStatus.getColor(ColorScheme.of(context))),
                 child: Text(currentStatus.getLocalizedName(context)),
                 onPressed: () {
                   syncService.getSync(remote!.identifier)?.sync();

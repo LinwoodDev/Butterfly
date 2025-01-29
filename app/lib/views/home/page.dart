@@ -79,7 +79,16 @@ class _HomePageState extends State<HomePage> {
                               BannerVisibility.onlyOnUpdates &&
                           hasNewerVersion);
               final appBar = WindowTitleBar<SettingsCubit, ButterflySettings>(
-                title: const Text(shortApplicationName),
+                title: isMobile
+                    ? Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(shortApplicationName),
+                          Text(applicationVersionName,
+                              style: TextTheme.of(context).labelMedium),
+                        ],
+                      )
+                    : Text(applicationName),
                 onlyShowOnDesktop: showBanner && isDesktop,
                 actions: [
                   if (isMobile || !showBanner) ...[

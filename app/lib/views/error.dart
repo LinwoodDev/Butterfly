@@ -38,7 +38,7 @@ class ErrorPage extends StatelessWidget {
                           Flexible(
                             child: Text(
                               message,
-                              style: Theme.of(context).textTheme.titleLarge,
+                              style: TextTheme.of(context).titleLarge,
                               textAlign: TextAlign.center,
                             ),
                           ),

@@ -195,7 +195,15 @@
   "currentArea": "Current area",
   "design": "Design",
   "text": "Text",
-  "welcome": "Hey, this is Linwood Butterfly",
+  "welcome": "Hey, this is Linwood Butterfly {codeName}",
+  "@welcome": {
+    "placeholders": {
+      "codeName": {
+        "type": "String",
+        "example": "Dev"
+      }
+    }
+  },
   "welcomeContent": "A free and open-source drawing space!",
   "updated": "App updated to version {version}",
   "@updated": {

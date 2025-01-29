@@ -162,7 +162,7 @@ class _ComponentsButton extends StatelessWidget {
                 borderRadius: BorderRadius.circular(12),
                 border: Border.all(
                   color: component == valueLocation
-                      ? Theme.of(context).colorScheme.primary
+                      ? ColorScheme.of(context).primary
                       : Colors.transparent,
                   width: 4,
                 ),

@@ -152,7 +152,7 @@ class _ComponentCard extends StatelessWidget {
               borderRadius: BorderRadius.circular(12),
               border: Border.all(
                 color: selected
-                    ? Theme.of(context).colorScheme.primary
+                    ? ColorScheme.of(context).primary
                     : Colors.transparent,
                 width: 4,
               ),
@@ -184,7 +184,7 @@ class _ComponentCard extends StatelessWidget {
                 const SizedBox(height: 8),
                 Text(
                   component.name,
-                  style: Theme.of(context).textTheme.titleMedium,
+                  style: TextTheme.of(context).titleMedium,
                   textAlign: TextAlign.center,
                 ),
               ],

@@ -1,3 +1,4 @@
 * Add indicator for scale proportion ([#616](https://github.com/LinwoodDev/Butterfly/issues/616))
+* Add release name to home page header, appbar and version (currently Adonis Blue)
 
 Read more here: https://linwood.dev/butterfly/2.3.0-beta.2

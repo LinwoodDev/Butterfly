@@ -153,7 +153,7 @@ class FilesViewState extends State<FilesView> {
       builder: (context, state) {
         final text = Text(
           AppLocalizations.of(context).files,
-          style: Theme.of(context).textTheme.headlineMedium,
+          style: TextTheme.of(context).headlineMedium,
           textAlign: TextAlign.start,
         );
         final orderButton = IconButton(
@@ -239,7 +239,7 @@ class FilesViewState extends State<FilesView> {
             ),
           ],
         );
-        final primary = Theme.of(context).colorScheme.primary;
+        final primary = ColorScheme.of(context).primary;
         final actionsChildren = [
           if (!widget.collapsed)
             IconButton(

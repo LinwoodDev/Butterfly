@@ -21,8 +21,8 @@ class AssetCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final colorScheme = Theme.of(context).colorScheme;
-    final textStyle = Theme.of(context).textTheme.bodyLarge?.copyWith(
+    final colorScheme = ColorScheme.of(context);
+    final textStyle = TextTheme.of(context).bodyLarge?.copyWith(
           color: colorScheme.onSurface,
         );
     return ConstrainedBox(

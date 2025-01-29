@@ -59,7 +59,7 @@ class ViewSettingsPage extends StatelessWidget {
                           Text(
                             AppLocalizations.of(context)
                                 .onlyAvailableLargerScreen,
-                            style: Theme.of(context).textTheme.labelSmall,
+                            style: TextTheme.of(context).labelSmall,
                           ),
                         ],
                       ),
@@ -90,7 +90,7 @@ class ViewSettingsPage extends StatelessWidget {
                           Text(
                             AppLocalizations.of(context)
                                 .onlyAvailableLargerScreen,
-                            style: Theme.of(context).textTheme.labelSmall,
+                            style: TextTheme.of(context).labelSmall,
                           ),
                         ],
                       ),

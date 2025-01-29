@@ -241,7 +241,7 @@ class _ConstraintViewState extends State<ConstraintView> {
       child: Column(mainAxisSize: MainAxisSize.min, children: [
         Text(
           AppLocalizations.of(context).constraint,
-          style: Theme.of(context).textTheme.titleLarge,
+          style: TextTheme.of(context).titleLarge,
         ),
         const Divider(),
         ListView(

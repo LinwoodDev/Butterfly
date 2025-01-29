@@ -105,7 +105,7 @@ class BehaviorsSettingsPage extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     Text(AppLocalizations.of(context).import,
-                        style: Theme.of(context).textTheme.headlineSmall),
+                        style: TextTheme.of(context).headlineSmall),
                     const SizedBox(height: 16),
                     SwitchListTile(
                       value: state.spreadPages,

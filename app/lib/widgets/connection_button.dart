@@ -58,7 +58,7 @@ class _ConnectionButtonState extends State<ConnectionButton> {
           tooltip: AppLocalizations.of(context).refresh,
         );
       }
-      final selected = TextStyle(color: Theme.of(context).colorScheme.primary);
+      final selected = TextStyle(color: ColorScheme.of(context).primary);
       return MenuAnchor(
         builder: defaultMenuButton(
           tooltip: AppLocalizations.of(context).connection,
