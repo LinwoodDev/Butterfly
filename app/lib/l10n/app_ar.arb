@@ -195,7 +195,15 @@
   "currentArea": "المجال الحالي",
   "design": "تصميم",
   "text": "نص",
-  "welcome": "مرحبا، هذه فراشة لينوود",
+  "welcome": "Hey, this is Linwood Butterfly {codeName}",
+  "@welcome": {
+    "placeholders": {
+      "codeName": {
+        "type": "String",
+        "example": "Dev"
+      }
+    }
+  },
   "welcomeContent": "مساحة رسم مجانية ومفتوحة المصدر!",
   "updated": "تم تحديث التطبيق إلى الإصدار {version}",
   "@updated": {
