@@ -195,7 +195,15 @@
   "currentArea": "Nuvarande område",
   "design": "Design",
   "text": "Text",
-  "welcome": "Hej, detta är Linwood fjäril",
+  "welcome": "Hey, this is Linwood Butterfly {codeName}",
+  "@welcome": {
+    "placeholders": {
+      "codeName": {
+        "type": "String",
+        "example": "Dev"
+      }
+    }
+  },
   "welcomeContent": "En fri och öppen källkodsritningsyta!",
   "updated": "Appen uppdaterad till version {version}",
   "@updated": {
