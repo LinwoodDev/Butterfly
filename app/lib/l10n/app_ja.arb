@@ -195,7 +195,15 @@
   "currentArea": "現在のエリア",
   "design": "デザイン",
   "text": "テキスト",
-  "welcome": "おい、これはLinwood Butterfly",
+  "welcome": "Hey, this is Linwood Butterfly {codeName}",
+  "@welcome": {
+    "placeholders": {
+      "codeName": {
+        "type": "String",
+        "example": "Dev"
+      }
+    }
+  },
   "welcomeContent": "フリーでオープンソースのドローイングスペース！",
   "updated": "アプリをバージョン {version} に更新しました",
   "@updated": {
