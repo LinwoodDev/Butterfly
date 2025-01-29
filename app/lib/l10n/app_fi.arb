@@ -195,7 +195,15 @@
   "currentArea": "Nykyinen alue",
   "design": "Ulkoasu",
   "text": "Teksti",
-  "welcome": "Hei, tämä on Linwood Butterfly",
+  "welcome": "Hey, this is Linwood Butterfly {codeName}",
+  "@welcome": {
+    "placeholders": {
+      "codeName": {
+        "type": "String",
+        "example": "Dev"
+      }
+    }
+  },
   "welcomeContent": "Vapaa ja avoimen lähdekoodin piirtotila!",
   "updated": "Sovellus päivitetty versioon {version}",
   "@updated": {
