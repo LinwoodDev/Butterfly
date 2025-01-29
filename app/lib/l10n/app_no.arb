@@ -195,7 +195,15 @@
   "currentArea": "Gjeldende område",
   "design": "Utforming",
   "text": "Tekst",
-  "welcome": "Hey, dette er Linwood Butterfly",
+  "welcome": "Hey, this is Linwood Butterfly {codeName}",
+  "@welcome": {
+    "placeholders": {
+      "codeName": {
+        "type": "String",
+        "example": "Dev"
+      }
+    }
+  },
   "welcomeContent": "En gratis og åpen kildekode tegning plass!",
   "updated": "App oppdatert til versjon {version}",
   "@updated": {
