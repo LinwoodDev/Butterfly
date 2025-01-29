@@ -195,7 +195,15 @@
   "currentArea": "Huidig gebied",
   "design": "Ontwerp",
   "text": "Tekstveld",
-  "welcome": "Hé, dit is Linwood Vlinder",
+  "welcome": "Hey, this is Linwood Butterfly {codeName}",
+  "@welcome": {
+    "placeholders": {
+      "codeName": {
+        "type": "String",
+        "example": "Dev"
+      }
+    }
+  },
   "welcomeContent": "Een vrije en open source tekenruimte!",
   "updated": "App bijgewerkt naar versie {version}",
   "@updated": {
