@@ -195,7 +195,15 @@
   "currentArea": "Área atual",
   "design": "Projetar",
   "text": "texto",
-  "welcome": "Ei, esta é a Borboleta Linwood",
+  "welcome": "Hey, this is Linwood Butterfly {codeName}",
+  "@welcome": {
+    "placeholders": {
+      "codeName": {
+        "type": "String",
+        "example": "Dev"
+      }
+    }
+  },
   "welcomeContent": "Um espaço de desenho gratuito e de código-aberto!",
   "updated": "Aplicativo atualizado para a versão {version}",
   "@updated": {
