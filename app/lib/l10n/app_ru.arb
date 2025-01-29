@@ -195,7 +195,15 @@
   "currentArea": "Текущая область",
   "design": "Дизайн",
   "text": "Текст",
-  "welcome": "Эй, это Линвуд Бабочка",
+  "welcome": "Hey, this is Linwood Butterfly {codeName}",
+  "@welcome": {
+    "placeholders": {
+      "codeName": {
+        "type": "String",
+        "example": "Dev"
+      }
+    }
+  },
   "welcomeContent": "Свободное место для рисования с открытым исходным кодом!",
   "updated": "Приложение обновлено до версии {version}",
   "@updated": {
