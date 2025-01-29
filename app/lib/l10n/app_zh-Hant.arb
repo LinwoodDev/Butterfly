@@ -195,7 +195,15 @@
   "currentArea": "目前分區",
   "design": "配色",
   "text": "文字",
-  "welcome": "嗨，在下 Linwood Butterfly",
+  "welcome": "Hey, this is Linwood Butterfly {codeName}",
+  "@welcome": {
+    "placeholders": {
+      "codeName": {
+        "type": "String",
+        "example": "Dev"
+      }
+    }
+  },
   "welcomeContent": "是一塊自由且開源的繪圖空間！",
   "updated": "App 版本已更新至 {version}",
   "@updated": {
