@@ -195,7 +195,15 @@
   "currentArea": "Mevcut alan",
   "design": "Tasarım",
   "text": "Metin",
-  "welcome": "Hey, bu Linwood Butterfly",
+  "welcome": "Hey, this is Linwood Butterfly {codeName}",
+  "@welcome": {
+    "placeholders": {
+      "codeName": {
+        "type": "String",
+        "example": "Dev"
+      }
+    }
+  },
   "welcomeContent": "Ücretsiz ve açık kaynaklı bir çizim alanı!",
   "updated": "Uygulama {version} sürümüne güncellendi",
   "@updated": {
