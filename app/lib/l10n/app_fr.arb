@@ -195,7 +195,15 @@
   "currentArea": "Zone actuelle",
   "design": "Conception",
   "text": "Texte du texte",
-  "welcome": "Hé, voici Linwood Butterfly",
+  "welcome": "Hey, this is Linwood Butterfly {codeName}",
+  "@welcome": {
+    "placeholders": {
+      "codeName": {
+        "type": "String",
+        "example": "Dev"
+      }
+    }
+  },
   "welcomeContent": "Un espace de dessin libre et open-source !",
   "updated": "Application mise à jour vers la version {version}",
   "@updated": {
