@@ -195,7 +195,15 @@
   "currentArea": "Área actual",
   "design": "Diseño",
   "text": "Texto",
-  "welcome": "Hola, esta es la mariposa de Linwood",
+  "welcome": "Hey, this is Linwood Butterfly {codeName}",
+  "@welcome": {
+    "placeholders": {
+      "codeName": {
+        "type": "String",
+        "example": "Dev"
+      }
+    }
+  },
   "welcomeContent": "Un espacio de dibujo libre y de código abierto!",
   "updated": "Aplicación actualizada a la versión {version}",
   "@updated": {
