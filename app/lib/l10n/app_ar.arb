@@ -195,7 +195,7 @@
   "currentArea": "المجال الحالي",
   "design": "تصميم",
   "text": "نص",
-  "welcome": "Hey, this is Linwood Butterfly {codeName}",
+  "welcome": "مرحبا، هذه فراشة لينوود {codeName}",
   "@welcome": {
     "placeholders": {
       "codeName": {
