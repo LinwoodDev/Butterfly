@@ -195,7 +195,7 @@
   "currentArea": "現在のエリア",
   "design": "デザイン",
   "text": "テキスト",
-  "welcome": "Hey, this is Linwood Butterfly {codeName}",
+  "welcome": "これはLinwood Butterfly {codeName}",
   "@welcome": {
     "placeholders": {
       "codeName": {
