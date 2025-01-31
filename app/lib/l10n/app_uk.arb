@@ -195,7 +195,7 @@
   "currentArea": "Поточна область",
   "design": "Дизайн",
   "text": "Текст",
-  "welcome": "Hey, this is Linwood Butterfly {codeName}",
+  "welcome": "Гей, це метелик Лінвуда {codeName}",
   "@welcome": {
     "placeholders": {
       "codeName": {
