@@ -195,7 +195,7 @@
   "currentArea": "Zona curentă",
   "design": "Proiectare",
   "text": "Text",
-  "welcome": "Hey, this is Linwood Butterfly {codeName}",
+  "welcome": "Hei, acesta este Linwood Butterfly {codeName}",
   "@welcome": {
     "placeholders": {
       "codeName": {
