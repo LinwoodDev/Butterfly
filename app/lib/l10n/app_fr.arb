@@ -195,7 +195,7 @@
   "currentArea": "Zone actuelle",
   "design": "Conception",
   "text": "Texte du texte",
-  "welcome": "Hey, this is Linwood Butterfly {codeName}",
+  "welcome": "Hé, c'est le Papillon de bois de Linwood {codeName}",
   "@welcome": {
     "placeholders": {
       "codeName": {
