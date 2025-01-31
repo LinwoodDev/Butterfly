@@ -195,7 +195,7 @@
   "currentArea": "Huidig gebied",
   "design": "Ontwerp",
   "text": "Tekstveld",
-  "welcome": "Hey, this is Linwood Butterfly {codeName}",
+  "welcome": "Hé, dit is Linwood Vlinder {codeName}",
   "@welcome": {
     "placeholders": {
       "codeName": {
