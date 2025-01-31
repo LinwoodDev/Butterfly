@@ -195,7 +195,7 @@
   "currentArea": "Gjeldende område",
   "design": "Utforming",
   "text": "Tekst",
-  "welcome": "Hey, this is Linwood Butterfly {codeName}",
+  "welcome": "Hei, dette er Linwood Butterfly {codeName}",
   "@welcome": {
     "placeholders": {
       "codeName": {
