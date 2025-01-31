@@ -195,7 +195,7 @@
   "currentArea": "Nykyinen alue",
   "design": "Ulkoasu",
   "text": "Teksti",
-  "welcome": "Hey, this is Linwood Butterfly {codeName}",
+  "welcome": "Hei, tämä on Linwood Butterfly {codeName}",
   "@welcome": {
     "placeholders": {
       "codeName": {
