@@ -195,7 +195,7 @@
   "currentArea": "Aktuální oblast",
   "design": "Vzhled",
   "text": "Text",
-  "welcome": "Hey, this is Linwood Butterfly {codeName}",
+  "welcome": "Hej, toto je Linwood Butterfly {codeName}",
   "@welcome": {
     "placeholders": {
       "codeName": {
