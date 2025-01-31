@@ -195,7 +195,7 @@
   "currentArea": "Área atual",
   "design": "Projetar",
   "text": "Texto",
-  "welcome": "Hey, this is Linwood Butterfly {codeName}",
+  "welcome": "Ei, esta é a Borboleta Linwood {codeName}",
   "@welcome": {
     "placeholders": {
       "codeName": {
