@@ -645,5 +645,6 @@
   "passwordMismatch": "The passwords do not match",
   "action": "Eylem",
   "svgText": "SVG Text",
-  "offset": "Offset"
+  "offset": "Offset",
+  "positionDependent": "Position dependent"
 }
