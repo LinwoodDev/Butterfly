@@ -645,5 +645,6 @@
   "passwordMismatch": "Οι κωδικοί πρόσβασης δεν ταιριάζουν",
   "action": "Ενέργεια",
   "svgText": "Κείμενο SVG",
-  "offset": "Μετατόπιση"
+  "offset": "Μετατόπιση",
+  "positionDependent": "Position dependent"
 }
