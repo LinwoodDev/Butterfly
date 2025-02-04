@@ -645,5 +645,6 @@
   "passwordMismatch": "As senhas não coincidem",
   "action": "Acão",
   "svgText": "Texto SVG",
-  "offset": "Deslocamento"
+  "offset": "Deslocamento",
+  "positionDependent": "Position dependent"
 }
