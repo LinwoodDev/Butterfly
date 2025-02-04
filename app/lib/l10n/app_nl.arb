@@ -645,5 +645,6 @@
   "passwordMismatch": "De wachtwoorden komen niet overeen",
   "action": "actie",
   "svgText": "SVG tekst",
-  "offset": "Verschuiving"
+  "offset": "Verschuiving",
+  "positionDependent": "Position dependent"
 }
