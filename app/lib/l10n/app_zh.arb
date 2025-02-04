@@ -645,5 +645,6 @@
   "passwordMismatch": "密码不匹配",
   "action": "动作",
   "svgText": "SVG 文本",
-  "offset": "偏移量"
+  "offset": "偏移量",
+  "positionDependent": "Position dependent"
 }
