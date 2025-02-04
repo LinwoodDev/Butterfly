@@ -645,5 +645,6 @@
   "passwordMismatch": "Salasanat eivät täsmää",
   "action": "Toiminto",
   "svgText": "Svg- Teksti",
-  "offset": "Siirtymä"
+  "offset": "Siirtymä",
+  "positionDependent": "Position dependent"
 }
