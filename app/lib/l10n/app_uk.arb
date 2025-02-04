@@ -645,5 +645,6 @@
   "passwordMismatch": "Паролі не співпадають",
   "action": "Дія",
   "svgText": "SVG текст",
-  "offset": "Зміщення"
+  "offset": "Зміщення",
+  "positionDependent": "Position dependent"
 }
