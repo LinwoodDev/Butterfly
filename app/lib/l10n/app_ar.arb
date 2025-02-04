@@ -645,5 +645,6 @@
   "passwordMismatch": "كلمات المرور غير متطابقة",
   "action": "اجراء",
   "svgText": "نص SVG",
-  "offset": "إزاحة"
+  "offset": "إزاحة",
+  "positionDependent": "Position dependent"
 }
