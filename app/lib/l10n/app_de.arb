@@ -645,5 +645,6 @@
   "passwordMismatch": "Passwörter stimmen nicht überein",
   "action": "Aktion",
   "svgText": "SVG-Text",
-  "offset": "Versatz"
+  "offset": "Versatz",
+  "positionDependent": "Position dependent"
 }
