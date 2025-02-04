@@ -645,5 +645,6 @@
   "passwordMismatch": "Adgangskoderne er ikke ens",
   "action": "Handling",
   "svgText": "SVG Tekst",
-  "offset": "Forskydning"
+  "offset": "Forskydning",
+  "positionDependent": "Position dependent"
 }
