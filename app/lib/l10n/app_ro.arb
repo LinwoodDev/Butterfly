@@ -645,5 +645,6 @@
   "passwordMismatch": "Parolele nu se potrivesc",
   "action": "Acțiune",
   "svgText": "Text SVG",
-  "offset": "Decalaj"
+  "offset": "Decalaj",
+  "positionDependent": "Position dependent"
 }
