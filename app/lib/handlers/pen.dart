@@ -81,7 +81,7 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
     final currentIndexCubit = context.read<CurrentIndexCubit>();
     final transform = context.read<TransformCubit>().state;
     localPos = PointerManipulationHandler.calculatePointerPosition(
-        currentIndexCubit.state, localPos, viewportSize);
+        currentIndexCubit.state, localPos, viewportSize, transform);
     final globalPos = transform.localToGlobal(localPos);
     if (!bloc.isInBounds(globalPos)) return;
     final state = bloc.state as DocumentLoadSuccess;

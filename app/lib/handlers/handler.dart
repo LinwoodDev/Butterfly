@@ -476,15 +476,19 @@ abstract class PastingHandler<T> extends Handler<T> {
 }
 
 mixin PointerManipulationHandler<T> on Handler<T> {
-  Offset getPointerPosition(Offset position, Size viewportSize) {
+  Offset getPointerPosition(Offset position, Size viewportSize,
+      [CameraTransform transform = const CameraTransform()]) {
     return position;
   }
 
   static Offset calculatePointerPosition(
-      CurrentIndex index, Offset position, Size viewportSize) {
+      CurrentIndex index, Offset position, Size viewportSize,
+      [CameraTransform transform = const CameraTransform()]) {
     return index.toggleableHandlers.values
         .whereType<PointerManipulationHandler>()
-        .fold(position,
-            (pos, handler) => handler.getPointerPosition(pos, viewportSize));
+        .fold(
+            position,
+            (pos, handler) =>
+                handler.getPointerPosition(pos, viewportSize, transform));
   }
 }

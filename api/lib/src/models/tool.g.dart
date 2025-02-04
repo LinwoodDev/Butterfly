@@ -466,6 +466,9 @@ _$GridToolImpl _$$GridToolImplFromJson(Map json) => _$GridToolImpl(
       ySize: (json['ySize'] as num?)?.toDouble() ?? 20,
       xOffset: (json['xOffset'] as num?)?.toDouble() ?? 0,
       yOffset: (json['yOffset'] as num?)?.toDouble() ?? 0,
+      positionDependent: json['positionDependent'] as bool? ?? false,
+      zoomDependent: json['zoomDependent'] as bool? ?? false,
+      stroke: (json['stroke'] as num?)?.toDouble() ?? 1,
       $type: json['type'] as String?,
     );
 
@@ -478,6 +481,9 @@ Map<String, dynamic> _$$GridToolImplToJson(_$GridToolImpl instance) =>
       'ySize': instance.ySize,
       'xOffset': instance.xOffset,
       'yOffset': instance.yOffset,
+      'positionDependent': instance.positionDependent,
+      'zoomDependent': instance.zoomDependent,
+      'stroke': instance.stroke,
       'type': instance.$type,
     };
 
