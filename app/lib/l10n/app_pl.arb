@@ -645,5 +645,6 @@
   "passwordMismatch": "Hasła nie pasują",
   "action": "Akcja",
   "svgText": "Tekst SVG",
-  "offset": "Przesunięcie"
+  "offset": "Przesunięcie",
+  "positionDependent": "Position dependent"
 }
