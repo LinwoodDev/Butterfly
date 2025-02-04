@@ -645,5 +645,6 @@
   "passwordMismatch": "Hesla se neshodují",
   "action": "Akce",
   "svgText": "SVG text",
-  "offset": "Odsazení"
+  "offset": "Odsazení",
+  "positionDependent": "Position dependent"
 }
