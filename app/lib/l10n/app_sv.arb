@@ -645,5 +645,6 @@
   "passwordMismatch": "Lösenorden matchar inte",
   "action": "Åtgärd",
   "svgText": "SVG Text",
-  "offset": "Förskjutning"
+  "offset": "Förskjutning",
+  "positionDependent": "Position dependent"
 }
