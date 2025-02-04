@@ -645,5 +645,6 @@
   "passwordMismatch": "パスワードが一致しません",
   "action": "アクション",
   "svgText": "SVGテキスト",
-  "offset": "オフセット"
+  "offset": "オフセット",
+  "positionDependent": "Position dependent"
 }
