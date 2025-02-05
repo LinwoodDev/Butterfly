@@ -646,5 +646,5 @@
   "action": "Azione",
   "svgText": "Testo SVG",
   "offset": "Scostamento",
-  "positionDependent": "Position dependent"
+  "positionDependent": "Dipendente dalla posizione"
 }
