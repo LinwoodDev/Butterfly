@@ -646,5 +646,5 @@
   "action": "Действие",
   "svgText": "SVG текст",
   "offset": "Смещение",
-  "positionDependent": "Position dependent"
+  "positionDependent": "Зависит от позиции"
 }
