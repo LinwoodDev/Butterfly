@@ -646,5 +646,5 @@
   "action": "动作",
   "svgText": "SVG 文本",
   "offset": "偏移量",
-  "positionDependent": "Position dependent"
+  "positionDependent": "位置依赖关系"
 }
