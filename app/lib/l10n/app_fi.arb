@@ -646,5 +646,5 @@
   "action": "Toiminto",
   "svgText": "Svg- Teksti",
   "offset": "Siirtymä",
-  "positionDependent": "Position dependent"
+  "positionDependent": "Asema riippuu"
 }
