@@ -646,5 +646,5 @@
   "action": "Åtgärd",
   "svgText": "SVG Text",
   "offset": "Förskjutning",
-  "positionDependent": "Position dependent"
+  "positionDependent": "Beroende på position"
 }
