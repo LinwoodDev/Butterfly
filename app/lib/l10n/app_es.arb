@@ -646,5 +646,5 @@
   "action": "Accin",
   "svgText": "Texto SVG",
   "offset": "Desplazamiento",
-  "positionDependent": "Position dependent"
+  "positionDependent": "Dependiendo de posición"
 }
