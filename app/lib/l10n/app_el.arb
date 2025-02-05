@@ -646,5 +646,5 @@
   "action": "Ενέργεια",
   "svgText": "Κείμενο SVG",
   "offset": "Μετατόπιση",
-  "positionDependent": "Position dependent"
+  "positionDependent": "Εξάρτηση από τη θέση"
 }
