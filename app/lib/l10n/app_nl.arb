@@ -646,5 +646,5 @@
   "action": "actie",
   "svgText": "SVG tekst",
   "offset": "Verschuiving",
-  "positionDependent": "Position dependent"
+  "positionDependent": "Afhankelijke positie"
 }
