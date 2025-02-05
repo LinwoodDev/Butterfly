@@ -646,5 +646,5 @@
   "action": "Akce",
   "svgText": "SVG text",
   "offset": "Odsazení",
-  "positionDependent": "Position dependent"
+  "positionDependent": "Závislost na poloze"
 }
