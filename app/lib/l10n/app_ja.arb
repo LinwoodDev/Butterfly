@@ -646,5 +646,5 @@
   "action": "アクション",
   "svgText": "SVGテキスト",
   "offset": "オフセット",
-  "positionDependent": "Position dependent"
+  "positionDependent": "依存する位置"
 }
