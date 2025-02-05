@@ -646,5 +646,5 @@
   "action": "Дія",
   "svgText": "SVG текст",
   "offset": "Зміщення",
-  "positionDependent": "Position dependent"
+  "positionDependent": "Залежність від позиції"
 }
