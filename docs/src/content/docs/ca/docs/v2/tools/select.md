@@ -8,4 +8,4 @@ Amb aquesta eina pot seleccionar elements.
 
 | Property |  Default  | Description                                                     |
 | -------: | :-------: | :-------------------------------------------------------------- |
-|     mode | rectangle | Mode de selecció. Valid are rectangle and lasso |
+|     Mode | Rectangle | Mode de selecció. Valid are Rectangle and Lasso |
