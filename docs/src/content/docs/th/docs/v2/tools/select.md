@@ -8,4 +8,4 @@ With this tool you can select elements.
 
 | Property |   Default  | คำอธิบาย                                                         |
 | -------: | :--------: | :--------------------------------------------------------------- |
-|     mode | สี่เหลี่ยม | Mode of selection. Valid are rectangle and lasso |
+|     Mode | สี่เหลี่ยม | Mode of selection. Valid are Rectangle and Lasso |
