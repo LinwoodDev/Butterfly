@@ -5,6 +5,7 @@
 * Grid and ruler will now influence shape, stamp and texture tool
 * Improve ruler rotation handling
 * Improve selection change animation
+* Improve responsiveness of file list view
 * Improve grid tool
   * Add stroke width
   * Add option for position and zoom dependent
