@@ -1,11 +1,9 @@
 part of 'dialog.dart';
 
 class _GeneralBackgroundPropertiesView extends StatelessWidget {
-  final Background? value;
   final ValueChanged<Background> onChanged;
 
   const _GeneralBackgroundPropertiesView({
-    required this.value,
     required this.onChanged,
   });
 
@@ -33,8 +31,6 @@ class _GeneralBackgroundPropertiesView extends StatelessWidget {
                   onTap: () {
                     onChanged(Background.texture(texture: created));
                   },
-                  selected: (value is TextureBackground &&
-                      ((value as TextureBackground).texture == created)),
                   size: 120,
                 );
               }).toList()),
@@ -67,7 +63,6 @@ class _GeneralBackgroundPropertiesView extends StatelessWidget {
                   height: height,
                 ));
               },
-              selected: value is ImageBackground,
               size: 120,
             ),
             /*BoxTile(
