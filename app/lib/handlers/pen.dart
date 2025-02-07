@@ -155,7 +155,7 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
     points.add(event.localPosition);
   }
 
-  void showMessage(EventContext context, String recognizedshape) {
+  void showMessage(EventContext context, String recognizedShape) {
     // show SnackBar with recognized shape
     ScaffoldMessenger.of(context.buildContext).showSnackBar(
       SnackBar(
@@ -163,7 +163,7 @@ class PenHandler extends Handler<PenTool> with ColoredHandler {
         behavior: SnackBarBehavior.floating,
         content: Text(
           textAlign: TextAlign.center,
-          recognizedshape,
+          recognizedShape,
         ),
         duration: const Duration(milliseconds: 300),
       ),

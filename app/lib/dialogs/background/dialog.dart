@@ -1,3 +1,4 @@
+import 'dart:math';
 import 'dart:ui' as ui;
 
 import 'package:butterfly/api/open.dart';
@@ -24,16 +25,30 @@ class BackgroundDialog extends StatefulWidget {
   State<BackgroundDialog> createState() => _BackgroundDialogState();
 }
 
-class _BackgroundDialogState extends State<BackgroundDialog> {
+class _BackgroundDialogState extends State<BackgroundDialog>
+    with TickerProviderStateMixin {
   final List<Background> _backgrounds = [];
+  late final TabController _tabController;
   int _index = 0;
 
   @override
   void initState() {
     super.initState();
     final state = context.read<DocumentBloc>().state;
-    if (state is! DocumentLoaded) return;
-    _backgrounds.addAll(state.page.backgrounds);
+    if (state is DocumentLoaded) _backgrounds.addAll(state.page.backgrounds);
+    _updateController(false);
+  }
+
+  void _updateController([bool dispose = true]) {
+    if (dispose) _tabController.dispose();
+    _tabController = TabController(
+      length: _backgrounds.length + 1,
+      vsync: this,
+    )..addListener(() {
+        setState(() {
+          _index = _tabController.index;
+        });
+      });
   }
 
   @override
@@ -51,10 +66,13 @@ class _BackgroundDialogState extends State<BackgroundDialog> {
           value: background,
           onChanged: (value) => setState(() => _backgrounds[_index] = value)),
       Null() => _GeneralBackgroundPropertiesView(
-          onChanged: (value) => setState(() {
-            _index = _backgrounds.length;
-            _backgrounds.add(value);
-          }),
+          onChanged: (value) {
+            setState(() {
+              _backgrounds.add(value);
+            });
+            _updateController();
+            _tabController.index = _backgrounds.length - 1;
+          },
         ),
     };
     return ResponsiveAlertDialog(
@@ -73,40 +91,60 @@ class _BackgroundDialogState extends State<BackgroundDialog> {
           Row(
             children: [
               Expanded(
-                child: DefaultTabController(
-                  length: _backgrounds.length + 1,
-                  initialIndex: _index,
-                  child: TabBar(
-                    tabAlignment: TabAlignment.startOffset,
-                    isScrollable: true,
-                    onTap: (i) => setState(() => _index = i),
-                    tabs: [
-                      ..._backgrounds.map((e) => HorizontalTab(
-                          label: Text(switch (e) {
-                            TextureBackground() => loc.texture,
-                            ImageBackground() => loc.image,
-                            SvgBackground() => loc.svg,
-                          }),
-                          icon: Icon(switch (e) {
-                            TextureBackground() => PhosphorIconsLight.gridFour,
-                            ImageBackground() => PhosphorIconsLight.image,
-                            SvgBackground() => PhosphorIconsLight.fileSvg,
-                          }))),
-                      HorizontalTab(
-                        label: Text(AppLocalizations.of(context).add),
-                        icon: Icon(PhosphorIconsLight.plus),
-                      ),
-                    ],
-                  ),
+                child: TabBar(
+                  tabAlignment: TabAlignment.startOffset,
+                  isScrollable: true,
+                  controller: _tabController,
+                  onTap: (i) => setState(() => _index = i),
+                  tabs: [
+                    ..._backgrounds.map((e) => HorizontalTab(
+                        label: Text(switch (e) {
+                          TextureBackground() => loc.texture,
+                          ImageBackground() => loc.image,
+                          SvgBackground() => loc.svg,
+                        }),
+                        icon: Icon(switch (e) {
+                          TextureBackground() => PhosphorIconsLight.gridFour,
+                          ImageBackground() => PhosphorIconsLight.image,
+                          SvgBackground() => PhosphorIconsLight.fileSvg,
+                        }))),
+                    HorizontalTab(
+                      label: Text(AppLocalizations.of(context).add),
+                      icon: Icon(PhosphorIconsLight.plus),
+                    ),
+                  ],
                 ),
               ),
               const SizedBox(height: 4),
               IconButton(
                 icon: Icon(PhosphorIconsLight.trash),
                 onPressed: _index >= 0 && _index < _backgrounds.length
-                    ? () => setState(() {
+                    ? () {
+                        setState(() {
                           _backgrounds.removeAt(_index);
-                          _index--;
+                        });
+                        _updateController();
+                        _tabController.index = max(_index - 1, 0);
+                      }
+                    : null,
+              ),
+              IconButton(
+                icon: Icon(PhosphorIconsLight.arrowLeft),
+                onPressed: _index > 0 && _index < _backgrounds.length
+                    ? () => setState(() {
+                          final background = _backgrounds.removeAt(_index);
+                          _backgrounds.insert(_index - 1, background);
+                          _tabController.index = _index - 1;
+                        })
+                    : null,
+              ),
+              IconButton(
+                icon: Icon(PhosphorIconsLight.arrowRight),
+                onPressed: _index < (_backgrounds.length - 1)
+                    ? () => setState(() {
+                          final background = _backgrounds.removeAt(_index);
+                          _backgrounds.insert(_index + 1, background);
+                          _tabController.index = _index + 1;
                         })
                     : null,
               ),
