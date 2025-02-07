@@ -291,6 +291,7 @@ class SelectHandler extends Handler<SelectTool> {
     _ruler = RulerHandler.getFirstRuler(context.getCurrentIndex(),
         details.localFocalPoint, context.viewportSize);
     _rulerRotationStart = details.localFocalPoint;
+    _lastRulerRotation = _ruler?.rotation ?? 0;
     if (_ruler != null) return true;
     if (currentIndex.buttons == kSecondaryMouseButton &&
         currentIndex.temporaryHandler == null) {
@@ -319,6 +320,7 @@ class SelectHandler extends Handler<SelectTool> {
 
   RulerHandler? _ruler;
   Offset? _rulerRotationStart;
+  double _lastRulerRotation = 0;
 
   bool _handleRuler(ScaleUpdateDetails details, EventContext context) {
     final state = context.getState();
@@ -334,7 +336,9 @@ class SelectHandler extends Handler<SelectTool> {
       var start = _rulerRotationStart ?? rulerCenter;
       final startDelta = (start - rulerCenter).direction;
       final currentDelta = (details.localFocalPoint - rulerCenter).direction;
-      angle = (currentDelta - startDelta) * 180 / pi - ruler.rotation;
+      angle = (currentDelta - startDelta) * 180 / pi -
+          ruler.rotation +
+          _lastRulerRotation;
     } else {
       currentPos = details.focalPointDelta;
     }
