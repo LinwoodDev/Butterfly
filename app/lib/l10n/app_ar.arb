@@ -647,7 +647,7 @@
   "svgText": "نص SVG",
   "offset": "إزاحة",
   "positionDependent": "موقع معتمد",
-  "flipHorizontal": "Flip horizontal",
-  "flipVertical": "Flip vertical",
+  "flipHorizontal": "قلب أفقي",
+  "flipVertical": "قلب عمودي",
   "grayscale": "Grayscale"
 }
