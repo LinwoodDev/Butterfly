@@ -12,5 +12,7 @@
   * Add option for position and zoom dependent
   * Fix snap if size is 0
 * Fix offset list tile
+* Fix resolution shift issues ([#793](https://github.com/LinwoodDev/Butterfly/issues/793))
+* Fix saving issues
 
 Read more here: https://linwood.dev/butterfly/2.3.0-beta.2

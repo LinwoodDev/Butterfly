@@ -42,6 +42,7 @@ enum TemporaryState { allowClick, removeAfterClick, removeAfterRelease }
 @Freezed(equal: false)
 class CurrentIndex with _$CurrentIndex {
   const CurrentIndex._();
+
   const factory CurrentIndex(
     int? index,
     Handler handler,
@@ -1073,12 +1074,16 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
       hideUi: state.hideUi == HideState.visible
           ? HideState.keyboard
           : HideState.visible));
+
   void enterTouchHideUI() => emit(state.copyWith(hideUi: HideState.touch));
+
   void exitHideUI() => emit(state.copyWith(hideUi: HideState.visible));
 
   ExternalStorage? getRemoteStorage() => state.location.remote.isEmpty
       ? null
       : state.settingsCubit.state.getRemote(state.location.remote);
+
+  bool _currentlySaving = false;
 
   Future<AssetLocation> save(DocumentState blocState,
       [AssetLocation? location]) async {
@@ -1087,15 +1092,17 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     }
     final storage = getRemoteStorage();
     final fileSystem = blocState.fileSystem.buildDocumentSystem(storage);
-    while (state.saved == SaveState.saving) {}
-    if (state.saved == SaveState.saved) {
-      return state.location;
+    while (_currentlySaving) {
+      await Future.delayed(const Duration(milliseconds: 100));
     }
+    _currentlySaving = true;
     emit(state.copyWith(
         saved: SaveState.saving, location: location ?? state.location));
     location ??= state.location;
     final currentData = await blocState.saveData();
     if (currentData == null || blocState.embedding != null) {
+      emit(state.copyWith(saved: SaveState.saved));
+      _currentlySaving = false;
       return AssetLocation.empty;
     }
     if (!location.path.endsWith('.bfly') ||
@@ -1109,6 +1116,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     }
     state.settingsCubit.addRecentHistory(location);
     emit(state.copyWith(location: location, saved: SaveState.saved));
+    _currentlySaving = false;
     return location;
   }
 
@@ -1188,8 +1196,10 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
 
   void setAreaNavigatorCreate(bool value) =>
       emit(state.copyWith(areaNavigatorCreate: value));
+
   void setAreaNavigatorExact(bool value) =>
       emit(state.copyWith(areaNavigatorExact: value));
+
   void setAreaNavigatorAsk(bool value) =>
       emit(state.copyWith(areaNavigatorAsk: value));
 
