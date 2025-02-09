@@ -646,5 +646,8 @@
   "action": "Дія",
   "svgText": "SVG текст",
   "offset": "Зміщення",
-  "positionDependent": "Залежність від позиції"
+  "positionDependent": "Залежність від позиції",
+  "flipHorizontal": "Flip horizontal",
+  "flipVertical": "Flip vertical",
+  "grayscale": "Grayscale"
 }
