@@ -646,5 +646,8 @@
   "action": "اجراء",
   "svgText": "نص SVG",
   "offset": "إزاحة",
-  "positionDependent": "موقع معتمد"
+  "positionDependent": "موقع معتمد",
+  "flipHorizontal": "Flip horizontal",
+  "flipVertical": "Flip vertical",
+  "grayscale": "Grayscale"
 }
