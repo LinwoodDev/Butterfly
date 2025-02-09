@@ -647,7 +647,7 @@
   "svgText": "SVG Tekst",
   "offset": "Forskydning",
   "positionDependent": "Placering afhængig",
-  "flipHorizontal": "Flip horizontal",
-  "flipVertical": "Flip vertical",
+  "flipHorizontal": "Vend vandret",
+  "flipVertical": "Vend lodret",
   "grayscale": "Grayscale"
 }
