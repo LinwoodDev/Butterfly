@@ -647,7 +647,7 @@
   "svgText": "SVG текст",
   "offset": "Зміщення",
   "positionDependent": "Залежність від позиції",
-  "flipHorizontal": "Flip horizontal",
-  "flipVertical": "Flip vertical",
+  "flipHorizontal": "Віддзеркалити горизонтально",
+  "flipVertical": "Віддзеркалити вертикально",
   "grayscale": "Grayscale"
 }
