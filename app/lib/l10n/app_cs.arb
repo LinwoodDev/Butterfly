@@ -646,5 +646,8 @@
   "action": "Akce",
   "svgText": "SVG text",
   "offset": "Odsazení",
-  "positionDependent": "Závislost na poloze"
+  "positionDependent": "Závislost na poloze",
+  "flipHorizontal": "Flip horizontal",
+  "flipVertical": "Flip vertical",
+  "grayscale": "Grayscale"
 }
