@@ -647,7 +647,7 @@
   "svgText": "SVG 文本",
   "offset": "偏移量",
   "positionDependent": "位置依赖关系",
-  "flipHorizontal": "Flip horizontal",
-  "flipVertical": "Flip vertical",
+  "flipHorizontal": "水平翻转",
+  "flipVertical": "垂直翻转",
   "grayscale": "Grayscale"
 }
