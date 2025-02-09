@@ -646,5 +646,8 @@
   "action": "Acțiune",
   "svgText": "Text SVG",
   "offset": "Decalaj",
-  "positionDependent": "Depinde de poziție"
+  "positionDependent": "Depinde de poziție",
+  "flipHorizontal": "Flip horizontal",
+  "flipVertical": "Flip vertical",
+  "grayscale": "Grayscale"
 }
