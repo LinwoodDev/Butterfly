@@ -646,5 +646,8 @@
   "action": "Acão",
   "svgText": "Texto SVG",
   "offset": "Deslocamento",
-  "positionDependent": "dependente da posição"
+  "positionDependent": "dependente da posição",
+  "flipHorizontal": "Flip horizontal",
+  "flipVertical": "Flip vertical",
+  "grayscale": "Grayscale"
 }
