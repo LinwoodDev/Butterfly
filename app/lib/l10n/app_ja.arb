@@ -646,5 +646,8 @@
   "action": "アクション",
   "svgText": "SVGテキスト",
   "offset": "オフセット",
-  "positionDependent": "依存する位置"
+  "positionDependent": "依存する位置",
+  "flipHorizontal": "Flip horizontal",
+  "flipVertical": "Flip vertical",
+  "grayscale": "Grayscale"
 }
