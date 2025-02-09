@@ -14,7 +14,7 @@ Inputs get snapped to the grid.
 
 ## Configuração
 
-| Propriedade |           Default           | Descrição              |
+| Propriedade |            Padrão           | Descrição              |
 | ----------: | :-------------------------: | :--------------------- |
 |     Tamanho | (20, 20) | The size of grid cells |
 |      Offset |  (0, 0)  | The offset of the grid |
