@@ -129,8 +129,8 @@ enum RendererOperation {
         RendererOperation.invert => PhosphorIcons.circleHalf,
         RendererOperation.background => PhosphorIcons.paintBucket,
         RendererOperation.grayscale => PhosphorIcons.palette,
-        RendererOperation.flipHorizontal => PhosphorIcons.arrowsHorizontal,
-        RendererOperation.flipVertical => PhosphorIcons.arrowsVertical,
+        RendererOperation.flipHorizontal => PhosphorIcons.flipHorizontal,
+        RendererOperation.flipVertical => PhosphorIcons.flipVertical,
       };
 }
 
