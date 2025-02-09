@@ -647,7 +647,7 @@
   "svgText": "Tekst SVG",
   "offset": "Przesunięcie",
   "positionDependent": "Pozycja zależna",
-  "flipHorizontal": "Flip horizontal",
-  "flipVertical": "Flip vertical",
+  "flipHorizontal": "Odwróć poziomo",
+  "flipVertical": "Odwróć w pionie",
   "grayscale": "Grayscale"
 }
