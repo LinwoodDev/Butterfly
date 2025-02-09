@@ -646,5 +646,8 @@
   "action": "Åtgärd",
   "svgText": "SVG Text",
   "offset": "Förskjutning",
-  "positionDependent": "Beroende på position"
+  "positionDependent": "Beroende på position",
+  "flipHorizontal": "Flip horizontal",
+  "flipVertical": "Flip vertical",
+  "grayscale": "Grayscale"
 }
