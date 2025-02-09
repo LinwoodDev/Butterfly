@@ -647,7 +647,7 @@
   "svgText": "SVGテキスト",
   "offset": "オフセット",
   "positionDependent": "依存する位置",
-  "flipHorizontal": "Flip horizontal",
-  "flipVertical": "Flip vertical",
+  "flipHorizontal": "水平方向に反転",
+  "flipVertical": "垂直方向に反転",
   "grayscale": "Grayscale"
 }
