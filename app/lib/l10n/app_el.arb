@@ -646,5 +646,8 @@
   "action": "Ενέργεια",
   "svgText": "Κείμενο SVG",
   "offset": "Μετατόπιση",
-  "positionDependent": "Εξάρτηση από τη θέση"
+  "positionDependent": "Εξάρτηση από τη θέση",
+  "flipHorizontal": "Flip horizontal",
+  "flipVertical": "Flip vertical",
+  "grayscale": "Grayscale"
 }
