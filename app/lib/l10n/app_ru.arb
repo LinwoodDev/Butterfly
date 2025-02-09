@@ -646,5 +646,8 @@
   "action": "Действие",
   "svgText": "SVG текст",
   "offset": "Смещение",
-  "positionDependent": "Зависит от позиции"
+  "positionDependent": "Зависит от позиции",
+  "flipHorizontal": "Flip horizontal",
+  "flipVertical": "Flip vertical",
+  "grayscale": "Grayscale"
 }
