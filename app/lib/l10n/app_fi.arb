@@ -647,7 +647,7 @@
   "svgText": "Svg- Teksti",
   "offset": "Siirtymä",
   "positionDependent": "Asema riippuu",
-  "flipHorizontal": "Flip horizontal",
-  "flipVertical": "Flip vertical",
+  "flipHorizontal": "Käännä vaakasuora",
+  "flipVertical": "Käännä pystysuuntainen",
   "grayscale": "Grayscale"
 }
