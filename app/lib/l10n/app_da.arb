@@ -646,5 +646,8 @@
   "action": "Handling",
   "svgText": "SVG Tekst",
   "offset": "Forskydning",
-  "positionDependent": "Placering afhængig"
+  "positionDependent": "Placering afhængig",
+  "flipHorizontal": "Flip horizontal",
+  "flipVertical": "Flip vertical",
+  "grayscale": "Grayscale"
 }
