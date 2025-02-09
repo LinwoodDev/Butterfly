@@ -163,10 +163,10 @@ class ImageRenderer extends Renderer<ImageElement> {
           updateImage(bloc, (cmd) => cmd.filter(updateImageBackground())),
       RendererOperation.grayscale: (bloc, context) =>
           updateImage(bloc, (cmd) => cmd.grayscale()),
-      RendererOperation.flipHorizontal: (bloc, context) =>
-          updateImage(bloc, (cmd) => cmd.flip(direction: img.FlipDirection.horizontal)),
-      RendererOperation.flipVertical: (bloc, context) =>
-          updateImage(bloc, (cmd) => cmd.flip(direction: img.FlipDirection.vertical)),
+      RendererOperation.flipHorizontal: (bloc, context) => updateImage(
+          bloc, (cmd) => cmd.flip(direction: img.FlipDirection.horizontal)),
+      RendererOperation.flipVertical: (bloc, context) => updateImage(
+          bloc, (cmd) => cmd.flip(direction: img.FlipDirection.vertical)),
     };
   }
 }
