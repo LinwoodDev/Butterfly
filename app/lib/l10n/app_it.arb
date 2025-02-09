@@ -647,7 +647,7 @@
   "svgText": "Testo SVG",
   "offset": "Scostamento",
   "positionDependent": "Dipendente dalla posizione",
-  "flipHorizontal": "Flip horizontal",
-  "flipVertical": "Flip vertical",
+  "flipHorizontal": "Capovolgi orizzontale",
+  "flipVertical": "Capovolgi verticale",
   "grayscale": "Grayscale"
 }
