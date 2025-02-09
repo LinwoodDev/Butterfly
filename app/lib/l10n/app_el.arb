@@ -647,7 +647,7 @@
   "svgText": "Κείμενο SVG",
   "offset": "Μετατόπιση",
   "positionDependent": "Εξάρτηση από τη θέση",
-  "flipHorizontal": "Flip horizontal",
-  "flipVertical": "Flip vertical",
+  "flipHorizontal": "Οριζόντια αναστροφή",
+  "flipVertical": "Κάθετη αναστροφή",
   "grayscale": "Grayscale"
 }
