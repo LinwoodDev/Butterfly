@@ -647,7 +647,7 @@
   "svgText": "SVG text",
   "offset": "Odsazení",
   "positionDependent": "Závislost na poloze",
-  "flipHorizontal": "Flip horizontal",
-  "flipVertical": "Flip vertical",
+  "flipHorizontal": "Překlopit vodorovně",
+  "flipVertical": "Překlopit svisle",
   "grayscale": "Grayscale"
 }
