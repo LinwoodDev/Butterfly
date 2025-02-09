@@ -646,5 +646,8 @@
   "action": "Toiminto",
   "svgText": "Svg- Teksti",
   "offset": "Siirtymä",
-  "positionDependent": "Asema riippuu"
+  "positionDependent": "Asema riippuu",
+  "flipHorizontal": "Flip horizontal",
+  "flipVertical": "Flip vertical",
+  "grayscale": "Grayscale"
 }
