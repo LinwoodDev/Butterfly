@@ -646,5 +646,8 @@
   "action": "Eylem",
   "svgText": "SVG Text",
   "offset": "Offset",
-  "positionDependent": "Position dependent"
+  "positionDependent": "Position dependent",
+  "flipHorizontal": "Flip horizontal",
+  "flipVertical": "Flip vertical",
+  "grayscale": "Grayscale"
 }
