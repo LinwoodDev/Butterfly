@@ -647,7 +647,7 @@
   "svgText": "SVG tekst",
   "offset": "Verschuiving",
   "positionDependent": "Afhankelijke positie",
-  "flipHorizontal": "Flip horizontal",
-  "flipVertical": "Flip vertical",
+  "flipHorizontal": "Horizontaal spiegelen",
+  "flipVertical": "Spiegel verticaal",
   "grayscale": "Grayscale"
 }
