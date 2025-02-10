@@ -1,5 +1,3 @@
-import 'dart:typed_data';
-
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/cubits/current_index.dart';
 import 'package:butterfly/handlers/handler.dart';
@@ -138,6 +136,13 @@ class _ComponentCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final thumbnail = component.thumbnail == null || pack == null
+        ? null
+        : getDataFromSource(pack!, component.thumbnail!);
+    const fallbackWidget = AspectRatio(
+      aspectRatio: 1,
+      child: PhosphorIcon(PhosphorIconsLight.selection),
+    );
     return Card(
       clipBehavior: Clip.antiAlias,
       child: InkWell(
@@ -160,27 +165,16 @@ class _ComponentCard extends StatelessWidget {
             child: Column(
               children: [
                 Expanded(
-                  child: FutureBuilder<Uint8List?>(
-                    future: component.thumbnail == null || pack == null
-                        ? null
-                        : getDataFromSource(pack!, component.thumbnail!),
-                    builder: (context, snapshot) {
-                      const fallbackWidget = AspectRatio(
-                        aspectRatio: 1,
-                        child: PhosphorIcon(PhosphorIconsLight.selection),
-                      );
-                      if (!snapshot.hasData) return fallbackWidget;
-                      return Image.memory(
-                        snapshot.data!,
-                        width: 48,
-                        height: 48,
-                        fit: BoxFit.contain,
-                        errorBuilder: (context, error, stackTrace) =>
-                            fallbackWidget,
-                      );
-                    },
-                  ),
-                ),
+                    child: thumbnail == null
+                        ? fallbackWidget
+                        : Image.memory(
+                            thumbnail,
+                            width: 48,
+                            height: 48,
+                            fit: BoxFit.contain,
+                            errorBuilder: (context, error, stackTrace) =>
+                                fallbackWidget,
+                          )),
                 const SizedBox(height: 8),
                 Text(
                   component.name,

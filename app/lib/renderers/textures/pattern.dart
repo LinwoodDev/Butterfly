@@ -63,8 +63,10 @@ void drawPatternTextureOnCanvas(PatternTexture texture, Canvas canvas,
 void drawPatternTextureOnSvg(
     PatternTexture texture, XmlDocument xml, Offset offset, Size size,
     [Offset translation = Offset.zero]) {
-  var g =
-      xml.getOrCreateElement('svg').createElement('g', id: 'box-background');
+  final id = createUniqueId();
+  var g = xml
+      .getOrCreateElement('svg')
+      .createElement('g', id: 'pattern-texture-$id');
 
   g.createElement('rect', attributes: {
     'x': '${offset.dx + translation.dx}px',

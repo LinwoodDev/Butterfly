@@ -9,11 +9,10 @@ class SvgBackgroundRenderer extends Renderer<SvgBackground> {
   FutureOr<void> setup(
       NoteData document, AssetService assetService, DocumentPage page) async {
     super.setup(document, assetService, page);
-    final data = await getDataFromSource(document, element.source)
-        .then((value) => value == null ? null : utf8.decode(value));
-    if (data != null) {
-      _pictureInfo = await vg.loadPicture(SvgStringLoader(data), null);
-    }
+    final bytes = getDataFromSource(document, element.source);
+    if (bytes == null) return;
+    final data = utf8.decode(bytes);
+    _pictureInfo = await vg.loadPicture(SvgStringLoader(data), null);
   }
 
   @override
@@ -42,5 +41,37 @@ class SvgBackgroundRenderer extends Renderer<SvgBackground> {
         canvas.translate(-x, -y);
       }
     }
+  }
+
+  @override
+  void buildSvg(XmlDocument xml, NoteData document, DocumentPage page,
+      ui.Rect viewportRect) {
+    final height = element.height;
+    final width = element.width;
+    final id = createUniqueId();
+    // Add pattern
+    final pattern = xml
+        .getOrCreateElement('svg')
+        .getOrCreateElement('defs')
+        .createElement('pattern', attributes: {
+      'id': 'svg-background-$id',
+      'viewBox': '0,0,$width,$height',
+      'width': '$width',
+      'height': '$height',
+      'patternUnits': 'userSpaceOnUse',
+    });
+    final data = getUriDataFromSource(document, element.source, 'image/svg+xml')
+        .toString();
+    pattern.createElement('image', attributes: {
+      'xlink:href': data,
+      'width': '$width',
+      'height': '$height'
+    });
+    // Add patern to svg
+    xml.getOrCreateElement('svg').createElement('rect', attributes: {
+      'width': '100%',
+      'height': '100%',
+      'fill': 'url(#svg-background-$id)'
+    });
   }
 }

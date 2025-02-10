@@ -41,24 +41,30 @@ class ImageBackgroundRenderer extends Renderer<ImageBackground> {
       Rect viewportRect) {
     final height = element.height;
     final width = element.width;
+    final id = createUniqueId();
     // Add pattern
-    final pattern =
-        xml.getOrCreateElement('defs').createElement('pattern', attributes: {
-      'id': 'background-pattern',
+    final pattern = xml
+        .getOrCreateElement('svg')
+        .getOrCreateElement('defs')
+        .createElement('pattern', attributes: {
+      'id': 'image-background-$id',
       'viewBox': '0,0,$width,$height',
-      'width': '100%',
-      'height': '100%'
+      'width': '$width',
+      'height': '$height',
+      'patternUnits': 'userSpaceOnUse',
     });
+    final data = getUriDataFromSource(document, element.source, 'image/svg+xml')
+        .toString();
     pattern.createElement('image', attributes: {
-      'xlink:href': element.source,
+      'xlink:href': data,
       'width': '${width}px',
       'height': '${height}px'
     });
     // Add patern to svg
-    xml.createElement('rect', attributes: {
+    xml.getOrCreateElement('svg').createElement('rect', attributes: {
       'width': '100%',
       'height': '100%',
-      'fill': 'url(#background-pattern)'
+      'fill': 'url(#image-background-$id)'
     });
   }
 

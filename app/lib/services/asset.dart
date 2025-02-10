@@ -15,7 +15,7 @@ class AssetService {
       return _images[path]!.clone();
     }
     document ??= this.document;
-    var data = await getDataFromSource(document, path);
+    var data = getDataFromSource(document, path);
     if (data == null) return null;
     final codec = await ui.instantiateImageCodec(data);
     final frameInfo = await codec.getNextFrame();

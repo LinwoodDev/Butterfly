@@ -43,7 +43,7 @@ class ImageRenderer extends Renderer<ImageElement> {
       Rect viewportRect) {
     if (!rect.overlaps(rect)) return;
     // Create data url
-    final data = element.source;
+    final data = element.getUriData(document, 'image/png').toString();
     // Create image
     xml.getElement('svg')?.createElement('image', attributes: {
       'x': '${rect.left}px',

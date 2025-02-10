@@ -50,8 +50,8 @@ class ExportService {
     if (document == null) return null;
     List<int>? fromString(String? value) => value?.codeUnits;
     return switch (element) {
-      ImageElement e => await e.getData(document),
-      SvgElement e => await e.getData(document).then(fromString),
+      ImageElement e => e.getData(document),
+      SvgElement e => e.getData(document),
       MarkdownElement e => fromString(e.text),
       _ => null,
     };

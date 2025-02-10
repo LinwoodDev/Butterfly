@@ -17,5 +17,8 @@
 * Fix resolution shift issues ([#793](https://github.com/LinwoodDev/Butterfly/issues/793))
 * Fix saving issues
 * Fix background assets not removed on delete
+* Fix asset svg exports
+* Fix pattern background position
+* Remove http sources
 
 Read more here: https://linwood.dev/butterfly/2.3.0-beta.2

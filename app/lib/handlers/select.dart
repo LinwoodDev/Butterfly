@@ -453,7 +453,7 @@ class SelectHandler extends Handler<SelectTool> {
       AssetFileType.page,
       Uint8List.fromList(
         utf8.encode(
-          json.encode(await DocumentPage(layers: [
+          json.encode(DocumentPage(layers: [
             DocumentLayer(
                 id: createUniqueId(),
                 content: _selected
