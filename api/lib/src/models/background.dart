@@ -1,6 +1,7 @@
 import 'package:dart_leap/dart_leap.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
+import 'element.dart';
 import 'texture.dart';
 
 part 'background.g.dart';
@@ -15,6 +16,7 @@ sealed class Background with _$Background {
     @Default({}) Map<String, dynamic> extra,
   }) = TextureBackground;
 
+  @Implements<SourcedElement>()
   factory Background.image({
     required String source,
     required double width,
@@ -24,6 +26,7 @@ sealed class Background with _$Background {
     @Default({}) Map<String, dynamic> extra,
   }) = ImageBackground;
 
+  @Implements<SourcedElement>()
   factory Background.svg({
     required String source,
     required double width,

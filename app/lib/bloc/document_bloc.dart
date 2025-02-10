@@ -477,12 +477,19 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       if (!(current.embedding?.editable ?? true)) return;
       final List<Renderer<Background>> backgrounds =
           event.backgrounds.map(Renderer.fromInstance).toList();
+      final newPage = current.page.copyWith(backgrounds: event.backgrounds);
+      // Remove unused assets
+      final unusedAssets = <String>{};
+      current.page.backgrounds.whereType<SourcedElement>().forEach((element) {
+        final uri = Uri.tryParse(element.source);
+        if (uri?.scheme == '' && !newPage.usesSource(element.source)) {
+          unusedAssets.add(element.source);
+        }
+      });
+      final data = current.data.removeAssets(unusedAssets.toList());
       _saveState(
         emit,
-        state: current.copyWith(
-            page: current.page.copyWith(
-          backgrounds: event.backgrounds,
-        )),
+        state: current.copyWith(page: newPage, data: data),
         backgrounds: backgrounds,
       );
     });
