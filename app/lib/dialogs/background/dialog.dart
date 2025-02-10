@@ -10,6 +10,7 @@ import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
@@ -28,7 +29,7 @@ class BackgroundDialog extends StatefulWidget {
 class _BackgroundDialogState extends State<BackgroundDialog>
     with TickerProviderStateMixin {
   final List<Background> _backgrounds = [];
-  late final TabController _tabController;
+  late TabController _tabController;
   int _index = 0;
 
   @override
@@ -69,9 +70,9 @@ class _BackgroundDialogState extends State<BackgroundDialog>
           onChanged: (value) {
             setState(() {
               _backgrounds.add(value);
+              _updateController();
+              _tabController.index = _backgrounds.length - 1;
             });
-            _updateController();
-            _tabController.index = _backgrounds.length - 1;
           },
         ),
     };

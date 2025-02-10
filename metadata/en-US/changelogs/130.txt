@@ -1,9 +1,10 @@
 * Add indicator for scale proportion ([#616](https://github.com/LinwoodDev/Butterfly/issues/616))
 * Add release name to home page header, appbar and version (currently Adonis Blue)
 * Add multiple background support ([#778](https://github.com/LinwoodDev/Butterfly/issues/778))
-* Add transparent pattern colors
+* Add transparent option for pattern texture
 * Add area property view
 * Add flip horizontal, vertical and gray scale operation on images ([#794](https://github.com/LinwoodDev/Butterfly/issues/794))
+* Add svg background support
 * Grid and ruler will now influence shape, stamp, area and texture tool
 * Improve ruler rotation handling
 * Improve selection change animation

@@ -65,29 +65,21 @@ class _GeneralBackgroundPropertiesView extends StatelessWidget {
               },
               size: 120,
             ),
-            /*BoxTile(
+            BoxTile(
               title: Text(AppLocalizations.of(context).svg),
               icon: const Icon(PhosphorIconsLight.fileSvg),
               onTap: () async {
                 final state = context.read<DocumentBloc>().state;
                 if (state is! DocumentLoaded) return;
-                final files = await FilePicker.platform.pickFiles(
-                    type: FileType.custom,
-                    allowedExtensions: ['svg'],
-                    allowMultiple: false,
-                    withData: true);
-                if (files?.files.isEmpty ?? true) return;
-                final e = files!.files.first;
-                var content = e.bytes ?? Uint8List(0);
-                if (!kIsWeb) {
-                  content = await File(e.path ?? '').readAsBytes();
-                }
-                final assetPath = state.data.addImage(content, 'svg');
-                final dataPath =
-                    Uri.file(assetPath, windows: false).toString();
-                final contentString = String.fromCharCodes(content);
-                var info = await vg.loadPicture(
-                    SvgStringLoader(contentString), null);
+                final (result, _) = await importFile(
+                  context,
+                  [AssetFileType.svg],
+                );
+                if (result == null) return;
+                final dataPath = Uri.dataFromBytes(result).toString();
+                final contentString = String.fromCharCodes(result);
+                var info =
+                    await vg.loadPicture(SvgStringLoader(contentString), null);
                 final size = info.size;
                 var height = size.height, width = size.width;
                 if (!height.isFinite) height = 0;
@@ -98,9 +90,8 @@ class _GeneralBackgroundPropertiesView extends StatelessWidget {
                   height: height,
                 ));
               },
-              selected: value is SvgBackground,
               size: 120,
-            ),*/
+            ),
           ],
         ),
       ],

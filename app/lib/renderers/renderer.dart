@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 import 'dart:math';
 import 'dart:ui' as ui;
 
@@ -29,7 +30,7 @@ import '../services/asset.dart';
 import 'textures/texture.dart';
 
 part 'backgrounds/texture.dart';
-part 'backgrounds/empty.dart';
+part 'backgrounds/svg.dart';
 part 'backgrounds/image.dart';
 part 'elements/image.dart';
 part 'elements/markdown.dart';
@@ -163,7 +164,7 @@ abstract class Renderer<T> {
       return switch (element) {
         TextureBackground() => TextureBackgroundRenderer(element),
         ImageBackground() => ImageBackgroundRenderer(element),
-        SvgBackground() => EmptyBackgroundRenderer(element),
+        SvgBackground() => SvgBackgroundRenderer(element),
       } as Renderer<T>;
     }
 
