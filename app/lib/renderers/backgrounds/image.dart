@@ -53,17 +53,19 @@ class ImageBackgroundRenderer extends Renderer<ImageBackground> {
       'height': '$height',
       'patternUnits': 'userSpaceOnUse',
     });
-    final data = getUriDataFromSource(document, element.source, 'image/svg+xml')
-        .toString();
+    final data =
+        getUriDataFromSource(document, element.source, 'image/png').toString();
     pattern.createElement('image', attributes: {
       'xlink:href': data,
-      'width': '${width}px',
-      'height': '${height}px'
+      'width': '$width',
+      'height': '$height'
     });
     // Add patern to svg
     xml.getOrCreateElement('svg').createElement('rect', attributes: {
-      'width': '100%',
-      'height': '100%',
+      'x': viewportRect.left.toString(),
+      'y': viewportRect.top.toString(),
+      'width': viewportRect.width.toString(),
+      'height': viewportRect.height.toString(),
       'fill': 'url(#image-background-$id)'
     });
   }

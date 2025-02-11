@@ -43,7 +43,7 @@ class FilesView extends StatefulWidget {
 class FilesViewState extends State<FilesView> {
   final TextEditingController _locationController = TextEditingController();
   late final ButterflyFileSystem _fileSystem;
-  late final Future<List<FileSystemFile<NoteData>>> _templatesFuture;
+  late Future<List<FileSystemFile<NoteData>>> _templatesFuture;
   late DocumentFileSystem _documentSystem;
   late TemplateFileSystem _templateSystem;
 

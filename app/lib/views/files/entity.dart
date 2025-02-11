@@ -327,7 +327,7 @@ class ContextFileRegion extends StatelessWidget {
         if (!editable)
           MenuItemButton(
             onPressed: () {
-              onEdit(true);
+              if (!hasInvalidFileName(nameController.text)) onEdit(true);
               nameController.text = entity.fileName;
             },
             leadingIcon: const PhosphorIcon(PhosphorIconsLight.pencil),

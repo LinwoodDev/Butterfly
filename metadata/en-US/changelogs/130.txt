@@ -19,6 +19,9 @@
 * Fix background assets not removed on delete
 * Fix asset svg exports
 * Fix pattern background position
+* Fix conversion to hex color on svg export and color pick
+* Fix some special-characters not working for file names
+* Fix file name validator missing on file rename
 * Remove http sources
 
 Read more here: https://linwood.dev/butterfly/2.3.0-beta.2
