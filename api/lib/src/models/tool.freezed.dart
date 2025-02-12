@@ -2935,7 +2935,10 @@ abstract class _$$GridToolImplCopyWith<$Res> implements $ToolCopyWith<$Res> {
       double xSize,
       double ySize,
       double xOffset,
-      double yOffset});
+      double yOffset,
+      bool positionDependent,
+      bool zoomDependent,
+      double stroke});
 }
 
 /// @nodoc
@@ -2958,6 +2961,9 @@ class __$$GridToolImplCopyWithImpl<$Res>
     Object? ySize = null,
     Object? xOffset = null,
     Object? yOffset = null,
+    Object? positionDependent = null,
+    Object? zoomDependent = null,
+    Object? stroke = null,
   }) {
     return _then(_$GridToolImpl(
       name: null == name
@@ -2988,6 +2994,18 @@ class __$$GridToolImplCopyWithImpl<$Res>
           ? _value.yOffset
           : yOffset // ignore: cast_nullable_to_non_nullable
               as double,
+      positionDependent: null == positionDependent
+          ? _value.positionDependent
+          : positionDependent // ignore: cast_nullable_to_non_nullable
+              as bool,
+      zoomDependent: null == zoomDependent
+          ? _value.zoomDependent
+          : zoomDependent // ignore: cast_nullable_to_non_nullable
+              as bool,
+      stroke: null == stroke
+          ? _value.stroke
+          : stroke // ignore: cast_nullable_to_non_nullable
+              as double,
     ));
   }
 }
@@ -3003,6 +3021,9 @@ class _$GridToolImpl extends GridTool {
       this.ySize = 20,
       this.xOffset = 0,
       this.yOffset = 0,
+      this.positionDependent = false,
+      this.zoomDependent = false,
+      this.stroke = 1,
       final String? $type})
       : $type = $type ?? 'grid',
         super._();
@@ -3032,13 +3053,22 @@ class _$GridToolImpl extends GridTool {
   @override
   @JsonKey()
   final double yOffset;
+  @override
+  @JsonKey()
+  final bool positionDependent;
+  @override
+  @JsonKey()
+  final bool zoomDependent;
+  @override
+  @JsonKey()
+  final double stroke;
 
   @JsonKey(name: 'type')
   final String $type;
 
   @override
   String toString() {
-    return 'Tool.grid(name: $name, displayIcon: $displayIcon, color: $color, xSize: $xSize, ySize: $ySize, xOffset: $xOffset, yOffset: $yOffset)';
+    return 'Tool.grid(name: $name, displayIcon: $displayIcon, color: $color, xSize: $xSize, ySize: $ySize, xOffset: $xOffset, yOffset: $yOffset, positionDependent: $positionDependent, zoomDependent: $zoomDependent, stroke: $stroke)';
   }
 
   /// Create a copy of Tool
@@ -3065,7 +3095,10 @@ abstract class GridTool extends Tool {
       final double xSize,
       final double ySize,
       final double xOffset,
-      final double yOffset}) = _$GridToolImpl;
+      final double yOffset,
+      final bool positionDependent,
+      final bool zoomDependent,
+      final double stroke}) = _$GridToolImpl;
   GridTool._() : super._();
 
   factory GridTool.fromJson(Map<String, dynamic> json) =
@@ -3081,6 +3114,9 @@ abstract class GridTool extends Tool {
   double get ySize;
   double get xOffset;
   double get yOffset;
+  bool get positionDependent;
+  bool get zoomDependent;
+  double get stroke;
 
   /// Create a copy of Tool
   /// with the given fields replaced by the non-null parameter values.

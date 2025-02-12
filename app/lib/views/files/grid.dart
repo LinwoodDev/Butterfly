@@ -42,7 +42,7 @@ class FileEntityGridItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final colorScheme = Theme.of(context).colorScheme;
+    final colorScheme = ColorScheme.of(context);
     final fileSystem = context.read<ButterflyFileSystem>();
     final settingsCubit = fileSystem.settingsCubit;
     final remote = settingsCubit.getRemote(entity.location.remote);
@@ -155,8 +155,7 @@ class FileEntityGridItem extends StatelessWidget {
                                       const SizedBox(width: 8),
                                       Text(
                                         modifiedText!,
-                                        style: Theme.of(context)
-                                            .textTheme
+                                        style: TextTheme.of(context)
                                             .bodySmall
                                             ?.copyWith(
                                               color: colorScheme.outline,
@@ -182,8 +181,7 @@ class FileEntityGridItem extends StatelessWidget {
                                       const SizedBox(width: 8),
                                       Text(
                                         createdText!,
-                                        style: Theme.of(context)
-                                            .textTheme
+                                        style: TextTheme.of(context)
                                             .bodySmall
                                             ?.copyWith(
                                               color: colorScheme.outline,
@@ -205,8 +203,7 @@ class FileEntityGridItem extends StatelessWidget {
                                   child: TextField(
                                     controller: nameController,
                                     autofocus: true,
-                                    style:
-                                        Theme.of(context).textTheme.labelLarge,
+                                    style: TextTheme.of(context).labelLarge,
                                     onSubmitted: (value) async {
                                       await documentSystem.renameAsset(
                                           entity.location.path, value);
@@ -241,9 +238,7 @@ class FileEntityGridItem extends StatelessWidget {
                                         entity.fileName,
                                         maxLines: 1,
                                         overflow: TextOverflow.ellipsis,
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .labelLarge,
+                                        style: TextTheme.of(context).labelLarge,
                                       ),
                                       onDoubleTap: () {
                                         onEdit(true);

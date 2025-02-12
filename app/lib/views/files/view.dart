@@ -12,6 +12,7 @@ import 'package:go_router/go_router.dart';
 import 'package:lw_file_system/lw_file_system.dart';
 import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
+import 'package:rxdart/rxdart.dart';
 
 import '../../api/open.dart';
 import '../../cubits/settings.dart';
@@ -42,6 +43,7 @@ class FilesView extends StatefulWidget {
 class FilesViewState extends State<FilesView> {
   final TextEditingController _locationController = TextEditingController();
   late final ButterflyFileSystem _fileSystem;
+  late Future<List<FileSystemFile<NoteData>>> _templatesFuture;
   late DocumentFileSystem _documentSystem;
   late TemplateFileSystem _templateSystem;
 
@@ -94,9 +96,11 @@ class FilesViewState extends State<FilesView> {
   void _setFilesStream() {
     _templateSystem = _fileSystem.buildTemplateSystem(_remote);
     _documentSystem = _fileSystem.buildDocumentSystem(_remote);
-    _filesStream = _documentSystem
-        .fetchAsset(_locationController.text)
-        .asBroadcastStream();
+    _filesStream = ValueConnectableStream(
+            _documentSystem.fetchAsset(_locationController.text))
+        .autoConnect();
+    _templatesFuture =
+        _templateSystem.initialize().then((_) => _templateSystem.getFiles());
   }
 
   void reloadFileSystem() {
@@ -153,7 +157,7 @@ class FilesViewState extends State<FilesView> {
       builder: (context, state) {
         final text = Text(
           AppLocalizations.of(context).files,
-          style: Theme.of(context).textTheme.headlineMedium,
+          style: TextTheme.of(context).headlineMedium,
           textAlign: TextAlign.start,
         );
         final orderButton = IconButton(
@@ -239,7 +243,7 @@ class FilesViewState extends State<FilesView> {
             ),
           ],
         );
-        final primary = Theme.of(context).colorScheme.primary;
+        final primary = ColorScheme.of(context).primary;
         final actionsChildren = [
           if (!widget.collapsed)
             IconButton(
@@ -366,9 +370,7 @@ class FilesViewState extends State<FilesView> {
                                     Text(AppLocalizations.of(context).newNote),
                               ),
                               FutureBuilder<List<FileSystemFile<NoteData>>>(
-                                future: _templateSystem
-                                    .initialize()
-                                    .then((_) => _templateSystem.getFiles()),
+                                future: _templatesFuture,
                                 builder: (context, snapshot) => SubmenuButton(
                                   leadingIcon: const PhosphorIcon(
                                       PhosphorIconsLight.file),

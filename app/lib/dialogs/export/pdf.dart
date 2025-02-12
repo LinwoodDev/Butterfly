@@ -118,8 +118,7 @@ class _PdfExportDialogState extends State<PdfExportDialog> {
                                             AppLocalizations.of(context)
                                                 .noElements,
                                             textAlign: TextAlign.center,
-                                            style: Theme.of(context)
-                                                .textTheme
+                                            style: TextTheme.of(context)
                                                 .headlineMedium,
                                           ),
                                           Align(
@@ -132,9 +131,8 @@ class _PdfExportDialogState extends State<PdfExportDialog> {
                                           Text(
                                             AppLocalizations.of(context).addAll,
                                             textAlign: TextAlign.center,
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .bodyLarge,
+                                            style:
+                                                TextTheme.of(context).bodyLarge,
                                           ),
                                           Row(
                                             mainAxisAlignment:
@@ -376,7 +374,7 @@ class _AreaPreview extends StatelessWidget {
           ),
           const SizedBox(height: 8),
           Text(area.name),
-          Text(page, style: Theme.of(context).textTheme.bodySmall),
+          Text(page, style: TextTheme.of(context).bodySmall),
           ExactSlider(
             value: quality,
             min: 1,

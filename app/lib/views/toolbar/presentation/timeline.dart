@@ -35,7 +35,7 @@ class _PresentationTimelineViewState extends State<PresentationTimelineView> {
 
   @override
   Widget build(BuildContext context) {
-    final colorScheme = Theme.of(context).colorScheme;
+    final colorScheme = ColorScheme.of(context);
     return Container(
       height: 50,
       decoration: BoxDecoration(

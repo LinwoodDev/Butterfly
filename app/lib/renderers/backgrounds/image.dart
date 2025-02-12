@@ -41,24 +41,32 @@ class ImageBackgroundRenderer extends Renderer<ImageBackground> {
       Rect viewportRect) {
     final height = element.height;
     final width = element.width;
+    final id = createUniqueId();
     // Add pattern
-    final pattern =
-        xml.getOrCreateElement('defs').createElement('pattern', attributes: {
-      'id': 'background-pattern',
+    final pattern = xml
+        .getOrCreateElement('svg')
+        .getOrCreateElement('defs')
+        .createElement('pattern', attributes: {
+      'id': 'image-background-$id',
       'viewBox': '0,0,$width,$height',
-      'width': '100%',
-      'height': '100%'
+      'width': '$width',
+      'height': '$height',
+      'patternUnits': 'userSpaceOnUse',
     });
+    final data =
+        getUriDataFromSource(document, element.source, 'image/png').toString();
     pattern.createElement('image', attributes: {
-      'xlink:href': element.source,
-      'width': '${width}px',
-      'height': '${height}px'
+      'xlink:href': data,
+      'width': '$width',
+      'height': '$height'
     });
     // Add patern to svg
-    xml.createElement('rect', attributes: {
-      'width': '100%',
-      'height': '100%',
-      'fill': 'url(#background-pattern)'
+    xml.getOrCreateElement('svg').createElement('rect', attributes: {
+      'x': viewportRect.left.toString(),
+      'y': viewportRect.top.toString(),
+      'width': viewportRect.width.toString(),
+      'height': viewportRect.height.toString(),
+      'fill': 'url(#image-background-$id)'
     });
   }
 

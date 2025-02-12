@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 import 'dart:math';
 import 'dart:ui' as ui;
 
@@ -29,7 +30,7 @@ import '../services/asset.dart';
 import 'textures/texture.dart';
 
 part 'backgrounds/texture.dart';
-part 'backgrounds/empty.dart';
+part 'backgrounds/svg.dart';
 part 'backgrounds/image.dart';
 part 'elements/image.dart';
 part 'elements/markdown.dart';
@@ -109,19 +110,28 @@ abstract class HitCalculator {
 
 enum RendererOperation {
   invert,
-  background;
+  background,
+  grayscale,
+  flipHorizontal,
+  flipVertical;
 
   String getLocalizedName(BuildContext context) {
     final loc = AppLocalizations.of(context);
     return switch (this) {
       RendererOperation.invert => loc.invert,
       RendererOperation.background => loc.background,
+      RendererOperation.grayscale => loc.grayscale,
+      RendererOperation.flipHorizontal => loc.flipHorizontal,
+      RendererOperation.flipVertical => loc.flipVertical,
     };
   }
 
   IconGetter get icon => switch (this) {
         RendererOperation.invert => PhosphorIcons.circleHalf,
         RendererOperation.background => PhosphorIcons.paintBucket,
+        RendererOperation.grayscale => PhosphorIcons.palette,
+        RendererOperation.flipHorizontal => PhosphorIcons.flipHorizontal,
+        RendererOperation.flipVertical => PhosphorIcons.flipVertical,
       };
 }
 
@@ -154,7 +164,7 @@ abstract class Renderer<T> {
       return switch (element) {
         TextureBackground() => TextureBackgroundRenderer(element),
         ImageBackground() => ImageBackgroundRenderer(element),
-        SvgBackground() => EmptyBackgroundRenderer(element),
+        SvgBackground() => SvgBackgroundRenderer(element),
       } as Renderer<T>;
     }
 

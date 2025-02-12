@@ -1,5 +1,3 @@
-import 'dart:typed_data';
-
 import 'package:butterfly/views/toolbar/view.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:collection/collection.dart';
@@ -151,6 +149,13 @@ class _ComponentsButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    const fallbackWidget = AspectRatio(
+      aspectRatio: 1,
+      child: PhosphorIcon(PhosphorIconsLight.selection),
+    );
+    final thumbnail = value.thumbnail == null || pack == null
+        ? null
+        : getDataFromSource(pack!, value.thumbnail!);
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: InkWell(
@@ -162,31 +167,21 @@ class _ComponentsButton extends StatelessWidget {
                 borderRadius: BorderRadius.circular(12),
                 border: Border.all(
                   color: component == valueLocation
-                      ? Theme.of(context).colorScheme.primary
+                      ? ColorScheme.of(context).primary
                       : Colors.transparent,
                   width: 4,
                 ),
               ),
-              child: FutureBuilder<Uint8List?>(
-                future: value.thumbnail == null || pack == null
-                    ? null
-                    : getDataFromSource(pack!, value.thumbnail!),
-                builder: (context, snapshot) {
-                  const fallbackWidget = AspectRatio(
-                    aspectRatio: 1,
-                    child: PhosphorIcon(PhosphorIconsLight.selection),
-                  );
-                  if (!snapshot.hasData) return fallbackWidget;
-                  return Image.memory(
-                    snapshot.data!,
-                    width: 48,
-                    height: 48,
-                    fit: BoxFit.contain,
-                    errorBuilder: (context, error, stackTrace) =>
-                        fallbackWidget,
-                  );
-                },
-              ),
+              child: thumbnail == null
+                  ? fallbackWidget
+                  : Image.memory(
+                      thumbnail,
+                      width: 48,
+                      height: 48,
+                      fit: BoxFit.contain,
+                      errorBuilder: (context, error, stackTrace) =>
+                          fallbackWidget,
+                    ),
             ),
           )),
     );

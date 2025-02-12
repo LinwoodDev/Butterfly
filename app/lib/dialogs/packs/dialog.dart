@@ -355,8 +355,7 @@ class _PacksDialogState extends State<PacksDialog>
                                           mainAxisSize: MainAxisSize.min,
                                           children: [
                                             Text(metadata!.name,
-                                                style: Theme.of(context)
-                                                    .textTheme
+                                                style: TextTheme.of(context)
                                                     .titleLarge),
                                             Text(AppLocalizations.of(context)
                                                 .byAuthor(metadata.author)),

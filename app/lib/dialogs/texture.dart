@@ -37,10 +37,20 @@ class _TextureViewState extends State<TextureView> {
       child: Column(
         children: [
           ColorField(
+            value: widget.value.boxColor.withValues(a: 255),
+            onChanged: (value) => widget.onChanged(widget.value.copyWith(
+                boxColor: value.withValues(a: widget.value.boxColor.a))),
             title: Text(LeapLocalizations.of(context).color),
-            value: widget.value.boxColor,
-            onChanged: (value) =>
-                widget.onChanged(widget.value.copyWith(boxColor: value)),
+          ),
+          ExactSlider(
+            value: widget.value.boxColor.a.toDouble(),
+            header: Text(AppLocalizations.of(context).alpha),
+            fractionDigits: 0,
+            max: 255,
+            min: 0,
+            defaultValue: 255,
+            onChanged: (value) => widget.onChanged(widget.value.copyWith(
+                boxColor: widget.value.boxColor.withValues(a: value.toInt()))),
           ),
           const SizedBox(height: 16),
           TabBar.secondary(tabs: [
@@ -57,10 +67,22 @@ class _TextureViewState extends State<TextureView> {
             child: TabBarView(children: [
               ListView(children: [
                 ColorField(
-                  value: widget.value.boxXColor,
+                  value: widget.value.boxXColor.withValues(a: 255),
+                  onChanged: (value) => widget.onChanged(widget.value.copyWith(
+                      boxXColor:
+                          value.withValues(a: widget.value.boxXColor.a))),
                   title: Text(LeapLocalizations.of(context).color),
-                  onChanged: (value) =>
-                      widget.onChanged(widget.value.copyWith(boxXColor: value)),
+                ),
+                ExactSlider(
+                  value: widget.value.boxXColor.a.toDouble(),
+                  header: Text(AppLocalizations.of(context).alpha),
+                  fractionDigits: 0,
+                  max: 255,
+                  min: 0,
+                  defaultValue: 255,
+                  onChanged: (value) => widget.onChanged(widget.value.copyWith(
+                      boxXColor:
+                          widget.value.boxXColor.withValues(a: value.toInt()))),
                 ),
                 ExactSlider(
                   onChanged: (value) =>
@@ -102,10 +124,22 @@ class _TextureViewState extends State<TextureView> {
               ]),
               ListView(children: [
                 ColorField(
+                  value: widget.value.boxYColor.withValues(a: 255),
+                  onChanged: (value) => widget.onChanged(widget.value.copyWith(
+                      boxYColor:
+                          value.withValues(a: widget.value.boxYColor.a))),
                   title: Text(LeapLocalizations.of(context).color),
-                  value: widget.value.boxYColor,
-                  onChanged: (value) =>
-                      widget.onChanged(widget.value.copyWith(boxYColor: value)),
+                ),
+                ExactSlider(
+                  value: widget.value.boxYColor.a.toDouble(),
+                  header: Text(AppLocalizations.of(context).alpha),
+                  fractionDigits: 0,
+                  max: 255,
+                  min: 0,
+                  defaultValue: 255,
+                  onChanged: (value) => widget.onChanged(widget.value.copyWith(
+                      boxYColor:
+                          widget.value.boxYColor.withValues(a: value.toInt()))),
                 ),
                 ExactSlider(
                   onChanged: (value) =>

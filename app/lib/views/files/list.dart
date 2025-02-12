@@ -49,7 +49,7 @@ class FileEntityListTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final colorScheme = Theme.of(context).colorScheme;
+    final colorScheme = ColorScheme.of(context);
     final fileSystem = context.read<ButterflyFileSystem>();
     final syncService = context.read<SyncService>();
     final remote = fileSystem.settingsCubit.getRemote(entity.location.remote);
@@ -88,91 +88,148 @@ class FileEntityListTile extends StatelessWidget {
                       horizontal: 16,
                     ),
                     child: Builder(builder: (context) {
+                      final info = [
+                        if (modifiedText != null)
+                          Tooltip(
+                            message: AppLocalizations.of(context).modified,
+                            child: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                PhosphorIcon(
+                                  PhosphorIconsLight.clockCounterClockwise,
+                                  size: 12,
+                                  color: colorScheme.outline,
+                                ),
+                                const SizedBox(width: 2),
+                                Text(
+                                  modifiedText!,
+                                  style:
+                                      TextTheme.of(context).bodySmall?.copyWith(
+                                            color: colorScheme.outline,
+                                          ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        if (createdText != null)
+                          Tooltip(
+                            message: AppLocalizations.of(context).created,
+                            child: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                PhosphorIcon(
+                                  PhosphorIconsLight.plus,
+                                  size: 12,
+                                  color: colorScheme.outline,
+                                ),
+                                const SizedBox(width: 2),
+                                Text(
+                                  createdText!,
+                                  style:
+                                      TextTheme.of(context).bodySmall?.copyWith(
+                                            color: colorScheme.outline,
+                                          ),
+                                ),
+                              ],
+                            ),
+                          ),
+                      ];
                       final leading = PhosphorIcon(
                         icon,
                         color: colorScheme.outline,
                       );
-                      final fileName = SizedBox(
-                        height: 42,
-                        child: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            SizedBox(
-                              width: 64,
-                              child: thumbnail != null
-                                  ? AspectRatio(
-                                      aspectRatio: kThumbnailRatio,
-                                      child: ClipRRect(
-                                          borderRadius:
-                                              BorderRadius.circular(8),
-                                          child: Image.memory(
-                                            thumbnail!,
-                                            fit: BoxFit.cover,
-                                            cacheHeight: kThumbnailHeight,
-                                            cacheWidth: kThumbnailWidth,
-                                          )),
-                                    )
-                                  : leading,
-                            ),
-                            const SizedBox(width: 8),
-                            Flexible(
-                              child: editable
-                                  ? TextField(
-                                      controller: nameController,
-                                      autofocus: true,
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .labelLarge,
-                                      onSubmitted: (value) async {
-                                        await documentSystem.renameAsset(
-                                            entity.location.path, value);
-                                        onEdit(false);
-                                        onReload();
-                                      },
-                                      textAlignVertical:
-                                          TextAlignVertical.center,
-                                      decoration: InputDecoration(
-                                        filled: true,
-                                        constraints: BoxConstraints(
-                                          maxWidth: constraints.maxWidth,
-                                          minWidth: 100,
-                                          maxHeight: 40,
-                                        ),
-                                        hintText: AppLocalizations.of(context)
-                                            .enterText,
-                                        suffix: IconButton(
-                                          onPressed: () async {
-                                            await documentSystem.renameAsset(
-                                                entity.location.path,
-                                                nameController.text);
+                      final fileName = Row(
+                        mainAxisSize: MainAxisSize.min,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          SizedBox(
+                            width: 64,
+                            child: thumbnail != null
+                                ? AspectRatio(
+                                    aspectRatio: kThumbnailRatio,
+                                    child: ClipRRect(
+                                        borderRadius: BorderRadius.circular(8),
+                                        child: Image.memory(
+                                          thumbnail!,
+                                          fit: BoxFit.cover,
+                                          cacheHeight: kThumbnailHeight,
+                                          cacheWidth: kThumbnailWidth,
+                                        )),
+                                  )
+                                : leading,
+                          ),
+                          const SizedBox(width: 8),
+                          Flexible(
+                            child: editable
+                                ? TextField(
+                                    controller: nameController,
+                                    autofocus: true,
+                                    style: TextTheme.of(context).labelLarge,
+                                    onSubmitted: (value) async {
+                                      await documentSystem.renameAsset(
+                                          entity.location.path, value);
+                                      onEdit(false);
+                                      onReload();
+                                    },
+                                    textAlignVertical: TextAlignVertical.center,
+                                    decoration: InputDecoration(
+                                      filled: true,
+                                      constraints: BoxConstraints(
+                                        maxWidth: constraints.maxWidth,
+                                        minWidth: 100,
+                                        maxHeight: 40,
+                                      ),
+                                      hintText: AppLocalizations.of(context)
+                                          .enterText,
+                                      suffix: IconButton(
+                                        onPressed: () async {
+                                          if (nameController.text ==
+                                              entity.fileName) {
                                             onEdit(false);
-                                            onReload();
-                                          },
-                                          icon: const PhosphorIcon(
-                                              PhosphorIconsLight.check),
-                                          tooltip:
-                                              AppLocalizations.of(context).save,
-                                        ),
+                                            return;
+                                          }
+                                          await documentSystem.renameAsset(
+                                              entity.location.path,
+                                              nameController.text);
+                                          onEdit(false);
+                                          onReload();
+                                        },
+                                        icon: const PhosphorIcon(
+                                            PhosphorIconsLight.check),
+                                        tooltip:
+                                            AppLocalizations.of(context).save,
                                       ),
-                                    )
-                                  : GestureDetector(
-                                      child: Text(
-                                        entity.fileName,
-                                        maxLines: 1,
-                                        overflow: TextOverflow.ellipsis,
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .labelLarge,
-                                      ),
-                                      onDoubleTap: () {
-                                        onEdit(true);
-                                        nameController.text = entity.fileName;
-                                      },
                                     ),
-                            ),
-                          ],
-                        ),
+                                  )
+                                : GestureDetector(
+                                    onDoubleTap: () {
+                                      onEdit(true);
+                                      nameController.text = entity.fileName;
+                                    },
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        Text(
+                                          entity.fileName,
+                                          maxLines: 1,
+                                          overflow: TextOverflow.ellipsis,
+                                          style:
+                                              TextTheme.of(context).labelLarge,
+                                        ),
+                                        if (!isDesktop && !collapsed) ...[
+                                          const SizedBox(height: 6),
+                                          Wrap(
+                                            spacing: 4,
+                                            children: info,
+                                          ),
+                                        ],
+                                      ],
+                                    ),
+                                  ),
+                          ),
+                        ],
                       );
                       final edit = editable
                           ? Container()
@@ -207,8 +264,8 @@ class FileEntityListTile extends StatelessWidget {
                                     ?.status;
                                 return IconButton(
                                   icon: PhosphorIcon(currentStatus.getIcon(),
-                                      color: currentStatus.getColor(
-                                          Theme.of(context).colorScheme)),
+                                      color: currentStatus
+                                          .getColor(ColorScheme.of(context))),
                                   tooltip:
                                       currentStatus.getLocalizedName(context),
                                   onPressed: () {
@@ -252,58 +309,6 @@ class FileEntityListTile extends StatelessWidget {
                           ),
                         ],
                       );
-                      final info = Column(
-                        mainAxisSize: MainAxisSize.min,
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        children: [
-                          if (modifiedText != null)
-                            Tooltip(
-                              message: AppLocalizations.of(context).modified,
-                              child: Row(
-                                children: [
-                                  PhosphorIcon(
-                                    PhosphorIconsLight.clockCounterClockwise,
-                                    size: 12,
-                                    color: colorScheme.outline,
-                                  ),
-                                  const SizedBox(width: 8),
-                                  Text(
-                                    modifiedText!,
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .bodySmall
-                                        ?.copyWith(
-                                          color: colorScheme.outline,
-                                        ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          if (createdText != null)
-                            Tooltip(
-                              message: AppLocalizations.of(context).created,
-                              child: Row(
-                                children: [
-                                  PhosphorIcon(
-                                    PhosphorIconsLight.plus,
-                                    size: 12,
-                                    color: colorScheme.outline,
-                                  ),
-                                  const SizedBox(width: 8),
-                                  Text(
-                                    createdText!,
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .bodySmall
-                                        ?.copyWith(
-                                          color: colorScheme.outline,
-                                        ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                        ],
-                      );
                       final selectionCheckbox = Checkbox(
                         value: selected ?? false,
                         onChanged: (value) => onSelectedChanged(value ?? false),
@@ -327,7 +332,11 @@ class FileEntityListTile extends StatelessWidget {
                             ),
                             if (!collapsed) ...[
                               const SizedBox(width: 32),
-                              info,
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.end,
+                                spacing: 4,
+                                children: info,
+                              ),
                               const SizedBox(width: 32),
                               actions,
                             ] else if (collapsed)
@@ -343,15 +352,7 @@ class FileEntityListTile extends StatelessWidget {
                             const SizedBox(width: 8),
                             Expanded(
                                 child: Row(children: [
-                              Flexible(
-                                child: Wrap(
-                                  spacing: 2,
-                                  children: [
-                                    fileName,
-                                    if (!collapsed) info,
-                                  ],
-                                ),
-                              ),
+                              Flexible(child: fileName),
                               const SizedBox(width: 8),
                               edit,
                             ])),
@@ -365,16 +366,7 @@ class FileEntityListTile extends StatelessWidget {
                               selectionCheckbox,
                               const SizedBox(width: 8),
                             ],
-                            Expanded(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.stretch,
-                                children: [
-                                  fileName,
-                                  const SizedBox(height: 8),
-                                  info,
-                                ],
-                              ),
-                            ),
+                            Expanded(child: fileName),
                             actionButton,
                           ],
                         );

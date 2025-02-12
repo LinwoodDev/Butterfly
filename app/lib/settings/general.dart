@@ -62,7 +62,8 @@ class _GeneralSettingsPageState extends State<GeneralSettingsPage> {
       body: FutureBuilder(
         future: _currentVersion,
         builder: (context, snapshot) {
-          final currentVersion = snapshot.data ?? '?';
+          final currentVersion =
+              '$applicationVersionName ${snapshot.data ?? '?'}';
           return ListView(children: [
             Card(
               margin: const EdgeInsets.all(8),
@@ -73,7 +74,7 @@ class _GeneralSettingsPageState extends State<GeneralSettingsPage> {
                     children: [
                       Text(
                         AppLocalizations.of(context).update,
-                        style: Theme.of(context).textTheme.headlineSmall,
+                        style: TextTheme.of(context).headlineSmall,
                       ),
                       const SizedBox(height: 16),
                       ListTile(

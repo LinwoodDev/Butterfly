@@ -43,8 +43,12 @@ sealed class DocumentPage with _$DocumentPage {
   }
 
   bool usesSource(String source) {
-    return layers.any((e) =>
-        e.content.whereType<SourcedElement>().any((e) => e.source == source));
+    return backgrounds
+            .whereType<SourcedElement>()
+            .any((e) => e.source == source) ||
+        layers.any((e) => e.content
+            .whereType<SourcedElement>()
+            .any((e) => e.source == source));
   }
 
   DocumentLayer getLayer(String id) {

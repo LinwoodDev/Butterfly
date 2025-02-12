@@ -347,7 +347,7 @@ class __AddRemoteDialogState extends State<_AddRemoteDialog> {
                   if (e != null)
                     Text(
                       e.toString(),
-                      style: Theme.of(context).textTheme.bodyLarge,
+                      style: TextTheme.of(context).bodyLarge,
                     ),
                 ],
               ),
@@ -492,7 +492,7 @@ class __AddRemoteDialogState extends State<_AddRemoteDialog> {
                               Flexible(
                                 child: Text(
                                   AppLocalizations.of(context).information,
-                                  style: Theme.of(context).textTheme.bodyMedium,
+                                  style: TextTheme.of(context).bodyMedium,
                                 ),
                               ),
                             ]),

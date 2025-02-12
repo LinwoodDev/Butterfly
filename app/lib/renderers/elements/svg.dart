@@ -35,12 +35,13 @@ class SvgRenderer extends Renderer<SvgElement> {
   void buildSvg(XmlDocument xml, NoteData document, DocumentPage page,
       Rect viewportRect) {
     if (!rect.overlaps(rect)) return;
+    final data = element.getUriData(document, 'image/png').toString();
     xml.getElement('svg')?.createElement('image', attributes: {
       'x': '${rect.left}px',
       'y': '${rect.top}px',
       'width': '${rect.width}px',
       'height': '${rect.height}px',
-      'xlink:href': element.source,
+      'xlink:href': data,
     });
   }
 
@@ -48,9 +49,10 @@ class SvgRenderer extends Renderer<SvgElement> {
   FutureOr<void> setup(
       NoteData document, AssetService assetService, DocumentPage page) async {
     super.setup(document, assetService, page);
-    final data = await element.getData(document);
+    final data = element.getData(document);
     if (data != null) {
-      pictureInfo = await vg.loadPicture(SvgStringLoader(data), null);
+      pictureInfo =
+          await vg.loadPicture(SvgStringLoader(utf8.decode(data)), null);
     }
   }
 

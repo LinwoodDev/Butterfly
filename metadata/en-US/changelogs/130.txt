@@ -1,3 +1,27 @@
 * Add indicator for scale proportion ([#616](https://github.com/LinwoodDev/Butterfly/issues/616))
+* Add release name to home page header, appbar and version (currently Adonis Blue)
+* Add multiple background support ([#778](https://github.com/LinwoodDev/Butterfly/issues/778))
+* Add transparent option for pattern texture
+* Add area property view
+* Add flip horizontal, vertical and gray scale operation on images ([#794](https://github.com/LinwoodDev/Butterfly/issues/794))
+* Add svg background support
+* Grid and ruler will now influence shape, stamp, area and texture tool
+* Improve ruler rotation handling
+* Improve selection change animation
+* Improve responsiveness of file list view
+* Improve grid tool
+  * Add stroke width
+  * Add option for position and zoom dependent
+  * Fix snap if size is 0
+* Fix offset list tile
+* Fix resolution shift issues ([#793](https://github.com/LinwoodDev/Butterfly/issues/793))
+* Fix saving issues
+* Fix background assets not removed on delete
+* Fix asset svg exports
+* Fix pattern background position
+* Fix conversion to hex color on svg export and color pick
+* Fix some special-characters not working for file names
+* Fix file name validator missing on file rename
+* Remove http sources
 
 Read more here: https://linwood.dev/butterfly/2.3.0-beta.2

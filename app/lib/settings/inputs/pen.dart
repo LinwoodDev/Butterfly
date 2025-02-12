@@ -57,8 +57,7 @@ class PenInputSettings extends StatelessWidget {
                             children: [
                               Text(
                                 AppLocalizations.of(context).shortcuts,
-                                style:
-                                    Theme.of(context).textTheme.headlineSmall,
+                                style: TextTheme.of(context).headlineSmall,
                               ),
                               IconButton(
                                 icon: const PhosphorIcon(

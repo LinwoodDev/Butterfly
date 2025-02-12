@@ -58,10 +58,6 @@ class _PropertyViewState extends State<PropertyView>
           var selection = state.selection;
           if (selection == null) {
             _controller.forward();
-          } else if (selection.runtimeType.toString() !=
-              _lastSelection.runtimeType.toString()) {
-            _controller.reset();
-            _controller.reverse(from: 1);
           } else {
             _controller.reverse();
           }
@@ -103,142 +99,155 @@ class _PropertyViewState extends State<PropertyView>
                 constraints.maxWidth < minSize || constraints.maxHeight < 400;
             return Container(
               constraints: BoxConstraints(maxWidth: _size, maxHeight: 500),
-              child: SlideTransition(
-                position: _offsetAnimation,
-                child: FadeTransition(
-                  opacity: _fadeAnimation,
-                  child: Card(
-                    elevation: 6,
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 4, horizontal: 8),
-                      child: AnimatedSize(
-                        alignment: Alignment.topCenter,
-                        curve: Curves.easeInOut,
-                        duration: const Duration(milliseconds: 200),
-                        child: Row(children: [
-                          if (!isMobile)
-                            MouseRegion(
-                              cursor: SystemMouseCursors.resizeLeftRight,
-                              child: GestureDetector(
-                                child: const PhosphorIcon(
-                                    PhosphorIconsLight.dotsSixVertical),
-                                onPanUpdate: (details) {
-                                  final delta = details.delta.dx;
-                                  setState(() {
-                                    _size -= delta;
-                                    _size = max(_size, minSize);
-                                  });
-                                },
+              child: RepaintBoundary(
+                child: AnimatedBuilder(
+                  animation: _offsetAnimation,
+                  builder: (context, child) {
+                    final offset = _offsetAnimation.value * _size;
+                    return Transform.translate(
+                      offset: offset,
+                      child: child,
+                    );
+                  },
+                  child: FadeTransition(
+                    opacity: _fadeAnimation,
+                    child: Card(
+                      elevation: 6,
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 4, horizontal: 8),
+                        child: AnimatedSize(
+                          alignment: Alignment.topCenter,
+                          curve: Curves.easeInOut,
+                          duration: const Duration(milliseconds: 200),
+                          child: Row(children: [
+                            if (!isMobile)
+                              MouseRegion(
+                                cursor: SystemMouseCursors.resizeLeftRight,
+                                child: GestureDetector(
+                                  child: const PhosphorIcon(
+                                      PhosphorIconsLight.dotsSixVertical),
+                                  onPanUpdate: (details) {
+                                    final delta = details.delta.dx;
+                                    setState(() {
+                                      _size -= delta;
+                                      _size = max(_size, minSize);
+                                    });
+                                  },
+                                ),
                               ),
-                            ),
-                          Expanded(
-                              child: Column(
-                            mainAxisSize: MainAxisSize.min,
-                            crossAxisAlignment: CrossAxisAlignment.stretch,
-                            children: [
-                              Header(
-                                centerTitle: false,
-                                leadingWidth: 60,
-                                title: Text(showing.getLocalizedName(context)),
-                                leading: menuChildren.length <= 1
-                                    ? PhosphorIcon(
-                                        icon,
-                                        color:
-                                            Theme.of(context).iconTheme.color,
-                                      )
-                                    : MenuAnchor(
-                                        controller: controller,
-                                        builder: defaultFilledMenuButton(
-                                          iconBuilder:
-                                              (context, controller, child) =>
-                                                  Row(
-                                            children: [
-                                              PhosphorIcon(
-                                                icon,
-                                                color: Theme.of(context)
-                                                    .colorScheme
-                                                    .onPrimary,
-                                              ),
-                                              const SizedBox(width: 8),
-                                              PhosphorIcon(
-                                                controller.isOpen
-                                                    ? PhosphorIconsLight.caretUp
-                                                    : PhosphorIconsLight
-                                                        .caretDown,
-                                                color: Theme.of(context)
-                                                    .colorScheme
-                                                    .onPrimary,
-                                                size: 12,
-                                              ),
-                                            ],
+                            Expanded(
+                                child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              crossAxisAlignment: CrossAxisAlignment.stretch,
+                              children: [
+                                Header(
+                                  centerTitle: false,
+                                  leadingWidth: 60,
+                                  title:
+                                      Text(showing.getLocalizedName(context)),
+                                  leading: menuChildren.length <= 1
+                                      ? PhosphorIcon(
+                                          icon,
+                                          color:
+                                              Theme.of(context).iconTheme.color,
+                                        )
+                                      : MenuAnchor(
+                                          controller: controller,
+                                          builder: defaultFilledMenuButton(
+                                            iconBuilder:
+                                                (context, controller, child) =>
+                                                    Row(
+                                              children: [
+                                                PhosphorIcon(
+                                                  icon,
+                                                  color: Theme.of(context)
+                                                      .colorScheme
+                                                      .onPrimary,
+                                                ),
+                                                const SizedBox(width: 8),
+                                                PhosphorIcon(
+                                                  controller.isOpen
+                                                      ? PhosphorIconsLight
+                                                          .caretUp
+                                                      : PhosphorIconsLight
+                                                          .caretDown,
+                                                  color: Theme.of(context)
+                                                      .colorScheme
+                                                      .onPrimary,
+                                                  size: 12,
+                                                ),
+                                              ],
+                                            ),
+                                            tooltip:
+                                                AppLocalizations.of(context)
+                                                    .icon,
                                           ),
-                                          tooltip:
-                                              AppLocalizations.of(context).icon,
+                                          menuChildren: menuChildren,
                                         ),
-                                        menuChildren: menuChildren,
-                                      ),
-                                actions: [
-                                  if (showing.showDeleteButton)
-                                    IconButton(
-                                        icon: const PhosphorIcon(
-                                            PhosphorIconsLight.trash),
+                                  actions: [
+                                    if (showing.showDeleteButton)
+                                      IconButton(
+                                          icon: const PhosphorIcon(
+                                              PhosphorIconsLight.trash),
+                                          tooltip: AppLocalizations.of(context)
+                                              .delete,
+                                          onPressed: () {
+                                            selection?.onDelete(context);
+                                            context
+                                                .read<CurrentIndexCubit>()
+                                                .resetSelection(force: true);
+                                          }),
+                                    if (help.isNotEmpty)
+                                      IconButton(
                                         tooltip:
-                                            AppLocalizations.of(context).delete,
-                                        onPressed: () {
-                                          selection?.onDelete(context);
-                                          context
-                                              .read<CurrentIndexCubit>()
-                                              .resetSelection(force: true);
-                                        }),
-                                  if (help.isNotEmpty)
-                                    IconButton(
-                                      tooltip:
-                                          AppLocalizations.of(context).help,
+                                            AppLocalizations.of(context).help,
+                                        icon: const PhosphorIcon(
+                                            PhosphorIconsLight.sealQuestion),
+                                        onPressed: () => openHelp(help),
+                                      ),
+                                    const SizedBox(
+                                        height: 16, child: VerticalDivider()),
+                                    if (!isMobile)
+                                      IconButton(
+                                        tooltip: state.pinned
+                                            ? AppLocalizations.of(context).unpin
+                                            : AppLocalizations.of(context).pin,
+                                        icon: state.pinned
+                                            ? const PhosphorIcon(
+                                                PhosphorIconsFill.pushPin)
+                                            : const PhosphorIcon(
+                                                PhosphorIconsLight.pushPin),
+                                        onPressed: () => context
+                                            .read<CurrentIndexCubit>()
+                                            .togglePin(),
+                                      ),
+                                    const SizedBox(width: 8),
+                                    IconButton.outlined(
+                                      tooltip: MaterialLocalizations.of(context)
+                                          .closeButtonLabel,
                                       icon: const PhosphorIcon(
-                                          PhosphorIconsLight.sealQuestion),
-                                      onPressed: () => openHelp(help),
+                                          PhosphorIconsLight.x),
+                                      onPressed: _closeView,
                                     ),
-                                  const SizedBox(
-                                      height: 16, child: VerticalDivider()),
-                                  if (!isMobile)
-                                    IconButton(
-                                      tooltip: state.pinned
-                                          ? AppLocalizations.of(context).unpin
-                                          : AppLocalizations.of(context).pin,
-                                      icon: state.pinned
-                                          ? const PhosphorIcon(
-                                              PhosphorIconsFill.pushPin)
-                                          : const PhosphorIcon(
-                                              PhosphorIconsLight.pushPin),
-                                      onPressed: () => context
-                                          .read<CurrentIndexCubit>()
-                                          .togglePin(),
-                                    ),
-                                  const SizedBox(width: 8),
-                                  IconButton.outlined(
-                                    tooltip: MaterialLocalizations.of(context)
-                                        .closeButtonLabel,
-                                    icon: const PhosphorIcon(
-                                        PhosphorIconsLight.x),
-                                    onPressed: _closeView,
-                                  ),
-                                ],
-                              ),
-                              Flexible(
-                                child: Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 16, vertical: 16),
-                                  child: ListView(
+                                  ],
+                                ),
+                                Flexible(
+                                  child: Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 16, vertical: 16),
+                                    child: ListView(
                                       shrinkWrap: true,
                                       primary: true,
                                       children:
-                                          showing.buildProperties(context)),
+                                          showing.buildProperties(context),
+                                    ),
+                                  ),
                                 ),
-                              ),
-                            ],
-                          )),
-                        ]),
+                              ],
+                            )),
+                          ]),
+                        ),
                       ),
                     ),
                   ),

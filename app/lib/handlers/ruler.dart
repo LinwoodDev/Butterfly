@@ -60,7 +60,8 @@ class RulerHandler extends Handler<RulerTool> with PointerManipulationHandler {
   }
 
   @override
-  Offset getPointerPosition(Offset position, Size viewportSize) {
+  Offset getPointerPosition(Offset position, Size viewportSize,
+      [CameraTransform transform = const CameraTransform()]) {
     if (!isPointerInside(position, viewportSize)) {
       return position;
     }

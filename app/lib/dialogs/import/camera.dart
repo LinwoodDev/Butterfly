@@ -88,7 +88,7 @@ class _CameraDialogState extends State<CameraDialog>
               : PhosphorIconsLight.image,
           // Test if camera is selected
           color: _controller?.description == camera
-              ? Theme.of(context).colorScheme.primary
+              ? ColorScheme.of(context).primary
               : null,
         ),
         tooltip: camera.name,

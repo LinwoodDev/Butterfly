@@ -250,7 +250,7 @@ class _AppBarTitleState extends State<_AppBarTitle> {
                           if (snapshot.data?.$1 is NetworkerClient) ...[
                             Text(
                               AppLocalizations.of(context).collaboration,
-                              style: Theme.of(context).textTheme.bodySmall,
+                              style: TextTheme.of(context).bodySmall,
                             ),
                           ] else if (currentIndex.location.path != '' &&
                               area == null)
@@ -264,7 +264,7 @@ class _AppBarTitleState extends State<_AppBarTitle> {
                                         : currentIndex.location
                                             .pathWithoutLeadingSlash) ??
                                     AppLocalizations.of(context).document,
-                                style: Theme.of(context).textTheme.bodySmall,
+                                style: TextTheme.of(context).bodySmall,
                               ),
                             )
                         ]);
@@ -335,7 +335,7 @@ class _AppBarTitleState extends State<_AppBarTitle> {
                         isSelected: snapshot.data != null,
                         selectedIcon: PhosphorIcon(
                           PhosphorIconsFill.shareNetwork,
-                          color: Theme.of(context).colorScheme.primary,
+                          color: ColorScheme.of(context).primary,
                         ),
                       )),
           ],
@@ -583,7 +583,7 @@ class _MainPopupMenu extends StatelessWidget {
                   ),
                   style: IconButton.styleFrom(
                     backgroundColor: controller.isOpen
-                        ? Theme.of(context).colorScheme.surfaceContainerHighest
+                        ? ColorScheme.of(context).surfaceContainerHighest
                         : null,
                   ),
                   tooltip: AppLocalizations.of(context).actions,

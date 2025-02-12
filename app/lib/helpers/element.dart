@@ -1,10 +1,8 @@
-import 'dart:convert';
 import 'dart:typed_data';
 
 import 'package:butterfly_api/butterfly_api.dart';
-import 'package:http/http.dart' as http;
 
-Future<Uint8List?> getDataFromSource(NoteData document, String source) async {
+Uint8List? getDataFromSource(NoteData document, String source) {
   if (source.isEmpty) {
     return null;
   }
@@ -17,33 +15,28 @@ Future<Uint8List?> getDataFromSource(NoteData document, String source) async {
     return Uint8List.fromList(data);
   }
   final data = uri.data;
-  if (data != null) {
-    return data.contentAsBytes();
-  }
-  try {
-    final response = await http.get(uri);
-    return response.bodyBytes;
-  } catch (e) {
+  return data?.contentAsBytes();
+}
+
+UriData? getUriDataFromSource(
+    NoteData document, String source, String mimeType) {
+  final data = getDataFromSource(document, source);
+  if (data == null) {
     return null;
   }
+  return UriData.fromBytes(data, mimeType: mimeType);
 }
 
-extension ImageElementDataExtension on ImageElement {
-  Future<Uint8List?> getData(NoteData document) =>
-      getDataFromSource(document, source);
-}
-
-extension SvgElementDataExtension on SvgElement {
-  Future<String?> getData(NoteData document) =>
-      getDataFromSource(document, source)
-          .then((value) => value == null ? null : utf8.decode(value));
+extension ImageElementDataExtension on SourcedElement {
+  Uint8List? getData(NoteData document) => getDataFromSource(document, source);
+  UriData? getUriData(NoteData document, String mimeType) =>
+      getUriDataFromSource(document, source, mimeType);
 }
 
 extension PadElementDataExtension on PadElement {
-  Future<Map<String, dynamic>> toDataJson(NoteData document) async {
-    Future<String> getUriData(String source, String mimeType) async =>
-        UriData.fromBytes(
-          await getDataFromSource(document, source) ?? [],
+  Map<String, dynamic> toDataJson(NoteData document) {
+    String getUriData(String source, String mimeType) => UriData.fromBytes(
+          getDataFromSource(document, source) ?? [],
           mimeType: mimeType,
         ).toString();
 
@@ -51,10 +44,10 @@ extension PadElementDataExtension on PadElement {
       ...toJson(),
       ...switch (this) {
         ImageElement e => {
-            'source': await getUriData(e.source, 'image/png'),
+            'source': getUriData(e.source, 'image/png'),
           },
         SvgElement e => {
-            'source': await getUriData(e.source, 'image/svg+xml'),
+            'source': getUriData(e.source, 'image/svg+xml'),
           },
         _ => {},
       },
@@ -63,10 +56,8 @@ extension PadElementDataExtension on PadElement {
 }
 
 extension DocumentPageDataExtension on DocumentPage {
-  Future<Map<String, dynamic>> toDataJson(NoteData document) async => {
+  Map<String, dynamic> toDataJson(NoteData document) => {
         ...toJson(),
-        'content': await Future.wait(
-          content.map((e) => e.toDataJson(document)),
-        ),
+        'content': content.map((e) => e.toDataJson(document)),
       };
 }

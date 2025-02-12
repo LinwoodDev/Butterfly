@@ -331,7 +331,7 @@ class _$ImageBackgroundImpl extends ImageBackground {
   }
 }
 
-abstract class ImageBackground extends Background {
+abstract class ImageBackground extends Background implements SourcedElement {
   factory ImageBackground(
       {required final String source,
       required final double width,
@@ -489,7 +489,7 @@ class _$SvgBackgroundImpl extends SvgBackground {
   }
 }
 
-abstract class SvgBackground extends Background {
+abstract class SvgBackground extends Background implements SourcedElement {
   factory SvgBackground(
       {required final String source,
       required final double width,

@@ -71,7 +71,7 @@ class InputsSettingsPage extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
                       Text(AppLocalizations.of(context).sensitivity,
-                          style: Theme.of(context).textTheme.headlineSmall),
+                          style: TextTheme.of(context).headlineSmall),
                       Text(AppLocalizations.of(context).sensitivityHint),
                       const SizedBox(height: 16),
                       ExactSlider(
@@ -141,7 +141,7 @@ class InputsSettingsPage extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
                           Text(AppLocalizations.of(context).pointerTest,
-                              style: Theme.of(context).textTheme.headlineSmall),
+                              style: TextTheme.of(context).headlineSmall),
                           const SizedBox(height: 16),
                           SizedBox(
                             height: 150,

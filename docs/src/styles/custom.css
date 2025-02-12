@@ -12,7 +12,7 @@
   --sl-color-gray-5: #323b32;
   --sl-color-gray-6: #212921;
   --sl-color-black: #151915;
-  --sl-font-system: "Barlow", sans-serif;
+  --sl-font-system: "Inter", sans-serif;
 }
 /* Light mode colors. */
 :root[data-theme="light"] {
@@ -42,115 +42,127 @@ br {
 }
 
 @font-face {
-  font-family: "Barlow";
-  src: url("/fonts/Barlow-Regular.ttf") format("truetype");
-}
-
-@font-face {
-  font-family: "Barlow";
-  src: url("/fonts/Barlow-Bold.ttf") format("truetype");
-  font-weight: bold;
-}
-
-@font-face {
-  font-family: "Barlow";
-  src: url("/fonts/Barlow-Italic.ttf") format("truetype");
-  font-style: italic;
-}
-
-@font-face {
-  font-family: "Barlow";
-  src: url("/fonts/Barlow-BoldItalic.ttf") format("truetype");
-  font-weight: bold;
-  font-style: italic;
-}
-
-@font-face {
-  font-family: "Barlow";
-  src: url("/fonts/Barlow-Light.ttf") format("truetype");
-  font-weight: 300;
-}
-
-@font-face {
-  font-family: "Barlow";
-  src: url("/fonts/Barlow-LightItalic.ttf") format("truetype");
-  font-weight: 300;
-  font-style: italic;
-}
-
-@font-face {
-  font-family: "Barlow";
-  src: url("/fonts/Barlow-SemiBold.ttf") format("truetype");
-  font-weight: 600;
-}
-
-@font-face {
-  font-family: "Barlow";
-  src: url("/fonts/Barlow-SemiBoldItalic.ttf") format("truetype");
-  font-weight: 600;
-  font-style: italic;
-}
-
-@font-face {
-  font-family: "Barlow";
-  src: url("/fonts/Barlow-ExtraBold.ttf") format("truetype");
-  font-weight: 800;
-}
-
-@font-face {
-  font-family: "Barlow";
-  src: url("/fonts/Barlow-ExtraBoldItalic.ttf") format("truetype");
-  font-weight: 800;
-  font-style: italic;
-}
-@font-face {
-  font-family: "Barlow";
-  src: url("/fonts/Barlow-Black.ttf") format("truetype");
-  font-weight: 900;
-}
-
-@font-face {
-  font-family: "Barlow";
-  src: url("/fonts/Barlow-BlackItalic.ttf") format("truetype");
+  font-family: "Inter";
+  src: url("/fonts/Inter/Inter_18pt-BlackItalic.ttf") format("truetype");
   font-weight: 900;
   font-style: italic;
 }
 
 @font-face {
-  font-family: "Barlow";
-  src: url("/fonts/Barlow-Thin.ttf") format("truetype");
-  font-weight: 100;
+  font-family: "Inter";
+  src: url("/fonts/Inter/Inter_18pt-Black.ttf") format("truetype");
+  font-weight: 900;
+  font-style: normal;
 }
 
 @font-face {
-  font-family: "Barlow";
-  src: url("/fonts/Barlow-ThinItalic.ttf") format("truetype");
-  font-weight: 100;
+  font-family: "Inter";
+  src: url("/fonts/Inter/Inter_18pt-BoldItalic.ttf") format("truetype");
+  font-weight: 700;
   font-style: italic;
 }
 
 @font-face {
-  font-family: "Barlow";
-  src: url("/fonts/Barlow-ExtraLight.ttf") format("truetype");
+  font-family: "Inter";
+  src: url("/fonts/Inter/Inter_18pt-Bold.ttf") format("truetype");
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url("/fonts/Inter/Inter_18pt-ExtraBoldItalic.ttf") format("truetype");
+  font-weight: 800;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url("/fonts/Inter/Inter_18pt-ExtraBold.ttf") format("truetype");
+  font-weight: 800;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url("/fonts/Inter/Inter_18pt-ExtraLightItalic.ttf") format("truetype");
   font-weight: 200;
+  font-style: italic;
 }
 
 @font-face {
-  font-family: "Barlow";
-  src: url("/fonts/Barlow-ExtraLightItalic.ttf") format("truetype");
+  font-family: "Inter";
+  src: url("/fonts/Inter/Inter_18pt-ExtraLight.ttf") format("truetype");
   font-weight: 200;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url("/fonts/Inter/Inter_18pt-Italic.ttf") format("truetype");
+  font-weight: 400;
   font-style: italic;
 }
 
 @font-face {
-  font-family: "Barlow";
-  src: url("/fonts/Barlow-Medium.ttf") format("truetype");
-  font-weight: 500;
+  font-family: "Inter";
+  src: url("/fonts/Inter/Inter_18pt-LightItalic.ttf") format("truetype");
+  font-weight: 300;
+  font-style: italic;
 }
 
 @font-face {
-  font-family: "Barlow";
-  src: url("/fonts/Barlow-MediumItalic.ttf") format("truetype");
+  font-family: "Inter";
+  src: url("/fonts/Inter/Inter_18pt-Light.ttf") format("truetype");
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url("/fonts/Inter/Inter_18pt-MediumItalic.ttf") format("truetype");
   font-weight: 500;
   font-style: italic;
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url("/fonts/Inter/Inter_18pt-Medium.ttf") format("truetype");
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url("/fonts/Inter/Inter_18pt-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url("/fonts/Inter/Inter_18pt-SemiBoldItalic.ttf") format("truetype");
+  font-weight: 600;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url("/fonts/Inter/Inter_18pt-SemiBold.ttf") format("truetype");
+  font-weight: 600;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url("/fonts/Inter/Inter_18pt-ThinItalic.ttf") format("truetype");
+  font-weight: 100;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url("/fonts/Inter/Inter_18pt-Thin.ttf") format("truetype");
+  font-weight: 100;
+  font-style: normal;
 }

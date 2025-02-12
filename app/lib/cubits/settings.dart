@@ -63,8 +63,8 @@ enum RenderResolution {
   const RenderResolution(this.multiplier);
 
   Rect getRect(Rect rect) {
-    final width = rect.width * multiplier;
-    final height = rect.height * multiplier;
+    final width = (rect.width * multiplier).ceilToDouble();
+    final height = (rect.height * multiplier).ceilToDouble();
     return Rect.fromCenter(
       center: rect.center,
       width: width,

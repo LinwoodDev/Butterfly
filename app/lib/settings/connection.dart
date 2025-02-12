@@ -137,7 +137,7 @@ class _GeneralConnectionSettingsView extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     Text(AppLocalizations.of(context).manage,
-                        style: Theme.of(context).textTheme.headlineSmall),
+                        style: TextTheme.of(context).headlineSmall),
                     const SizedBox(height: 16),
                     if (storage is RemoteStorage) ...[
                       BlocBuilder<SettingsCubit, ButterflySettings>(

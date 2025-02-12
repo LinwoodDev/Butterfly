@@ -138,7 +138,7 @@ class _PresentationToolbarViewState extends State<PresentationToolbarView> {
 
   @override
   Widget build(BuildContext context) {
-    final colorScheme = Theme.of(context).colorScheme;
+    final colorScheme = ColorScheme.of(context);
     final defaultKey = _key ?? const AnimationKey();
     final keyframeEnabled = defaultKey.cameraPosition != null &&
         defaultKey.cameraZoom != null &&

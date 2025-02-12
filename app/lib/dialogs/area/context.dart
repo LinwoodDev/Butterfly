@@ -16,65 +16,76 @@ import '../export/pdf.dart';
 
 ContextMenuBuilder buildAreaContextMenu(DocumentBloc bloc,
         DocumentLoadSuccess state, Area area, SettingsCubit settingsCubit) =>
-    (context) => [
-          ContextMenuItem(
-            icon: const PhosphorIcon(PhosphorIconsLight.textT),
-            label: AppLocalizations.of(context).rename,
-            onPressed: () async {
-              Navigator.of(context).pop();
-              final name = await showDialog<String>(
-                  context: context,
-                  builder: (context) => NameDialog(
-                        value: area.name,
-                        validator: defaultNameValidator(
-                          context,
-                          state.page.getAreaNames().toList(),
-                        ),
-                        button: AppLocalizations.of(context).rename,
-                      ));
-              if (name == null) return;
-              bloc.add(
-                AreaChanged(
-                  area.name,
-                  area.copyWith(name: name),
-                ),
-              );
-            },
-          ),
-          ContextMenuItem(
-            icon: area.name == state.currentAreaName
-                ? const PhosphorIcon(PhosphorIconsLight.signIn)
-                : const PhosphorIcon(PhosphorIconsLight.signOut),
-            label: area.name == state.currentAreaName
-                ? AppLocalizations.of(context).exitArea
-                : AppLocalizations.of(context).enterArea,
-            onPressed: () {
-              Navigator.of(context).pop();
-              bloc.add(CurrentAreaChanged(
-                  area.name == state.currentAreaName ? '' : area.name));
-            },
-          ),
-          ContextMenuItem(
-            icon: const PhosphorIcon(PhosphorIconsLight.trash),
-            label: AppLocalizations.of(context).delete,
-            onPressed: () {
-              Navigator.of(context).pop();
-              bloc.add(AreasRemoved([area.name]));
-            },
-          ),
-          ...buildGeneralAreaContextMenu(
-            bloc,
-            area,
-            settingsCubit,
-            state.renderers
-                .where((e) => e.area == area)
-                .map((e) => e.transform(
-                    position: -area.position.toOffset(), relative: true))
-                .map((e) => e?.element)
-                .nonNulls
-                .toList(),
-          )(context)
-        ];
+    (context) {
+      final cubit = state.currentIndexCubit;
+      return [
+        ContextMenuItem(
+          icon: const PhosphorIcon(PhosphorIconsLight.textT),
+          label: AppLocalizations.of(context).rename,
+          onPressed: () async {
+            Navigator.of(context).pop();
+            final name = await showDialog<String>(
+                context: context,
+                builder: (context) => NameDialog(
+                      value: area.name,
+                      validator: defaultNameValidator(
+                        context,
+                        state.page.getAreaNames().toList(),
+                      ),
+                      button: AppLocalizations.of(context).rename,
+                    ));
+            if (name == null) return;
+            bloc.add(
+              AreaChanged(
+                area.name,
+                area.copyWith(name: name),
+              ),
+            );
+          },
+        ),
+        ContextMenuItem(
+          icon: area.name == state.currentAreaName
+              ? const PhosphorIcon(PhosphorIconsLight.signIn)
+              : const PhosphorIcon(PhosphorIconsLight.signOut),
+          label: area.name == state.currentAreaName
+              ? AppLocalizations.of(context).exitArea
+              : AppLocalizations.of(context).enterArea,
+          onPressed: () {
+            Navigator.of(context).pop();
+            bloc.add(CurrentAreaChanged(
+                area.name == state.currentAreaName ? '' : area.name));
+          },
+        ),
+        ContextMenuItem(
+          icon: const PhosphorIcon(PhosphorIconsLight.trash),
+          label: AppLocalizations.of(context).delete,
+          onPressed: () {
+            Navigator.of(context).pop();
+            bloc.add(AreasRemoved([area.name]));
+          },
+        ),
+        ContextMenuItem(
+          onPressed: () {
+            Navigator.of(context).pop(true);
+            cubit.changeSelection(area);
+          },
+          icon: const PhosphorIcon(PhosphorIconsLight.faders),
+          label: AppLocalizations.of(context).properties,
+        ),
+        ...buildGeneralAreaContextMenu(
+          bloc,
+          area,
+          settingsCubit,
+          state.renderers
+              .where((e) => e.area == area)
+              .map((e) => e.transform(
+                  position: -area.position.toOffset(), relative: true))
+              .map((e) => e?.element)
+              .nonNulls
+              .toList(),
+        )(context)
+      ];
+    };
 
 ContextMenuBuilder buildGeneralAreaContextMenu(
   DocumentBloc bloc,

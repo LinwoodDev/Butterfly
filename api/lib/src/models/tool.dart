@@ -207,6 +207,9 @@ sealed class Tool with _$Tool {
     @Default(20) double ySize,
     @Default(0) double xOffset,
     @Default(0) double yOffset,
+    @Default(false) bool positionDependent,
+    @Default(false) bool zoomDependent,
+    @Default(1) double stroke,
   }) = GridTool;
 
   factory Tool.eyeDropper({

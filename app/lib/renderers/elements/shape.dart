@@ -133,8 +133,8 @@ class ShapeRenderer extends Renderer<ShapeElement> {
         attributes: {
           'cx': '${drawRect.center.dx}',
           'cy': '${drawRect.center.dy}',
-          'rx': '${drawRect.width / 2}',
-          'ry': '${drawRect.height / 2}',
+          'rx': '${(drawRect.width / 2).abs()}',
+          'ry': '${(drawRect.height / 2).abs()}',
           'fill': shape.fillColor.toHexString(),
           'stroke': element.property.color.toHexString(),
           'stroke-width': '${element.property.strokeWidth}px',

@@ -424,9 +424,14 @@ abstract class PastingHandler<T> extends Handler<T> {
   void _updateElement(PointerEvent event, EventContext context,
       [bool first = false]) {
     final transform = context.getCameraTransform();
-    final globalPos = transform.localToGlobal(event.localPosition);
+    var localPos = event.localPosition;
+    final currentIndex = context.getCurrentIndex();
+    final viewportSize = context.viewportSize;
+    localPos = PointerManipulationHandler.calculatePointerPosition(
+        currentIndex, localPos, viewportSize, transform);
+    final globalPos = transform.localToGlobal(localPos);
     if (!context.getDocumentBloc().isInBounds(globalPos)) return;
-    if (first) _firstPos = transform.localToGlobal(event.localPosition);
+    if (first) _firstPos = globalPos;
     if (!first && _firstPos == null) return;
     _secondPos = globalPos;
     _aspectRatio = context.isCtrlPressed;
@@ -476,15 +481,19 @@ abstract class PastingHandler<T> extends Handler<T> {
 }
 
 mixin PointerManipulationHandler<T> on Handler<T> {
-  Offset getPointerPosition(Offset position, Size viewportSize) {
+  Offset getPointerPosition(Offset position, Size viewportSize,
+      [CameraTransform transform = const CameraTransform()]) {
     return position;
   }
 
   static Offset calculatePointerPosition(
-      CurrentIndex index, Offset position, Size viewportSize) {
+      CurrentIndex index, Offset position, Size viewportSize,
+      [CameraTransform transform = const CameraTransform()]) {
     return index.toggleableHandlers.values
         .whereType<PointerManipulationHandler>()
-        .fold(position,
-            (pos, handler) => handler.getPointerPosition(pos, viewportSize));
+        .fold(
+            position,
+            (pos, handler) =>
+                handler.getPointerPosition(pos, viewportSize, transform));
   }
 }
