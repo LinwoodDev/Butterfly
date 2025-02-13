@@ -33,7 +33,7 @@ jobs:
         run: |
           flutter analyze --fatal-infos
       - name: Run flutter gen-l10n
-        if: matrix.projects == 'tools'
+        if: matrix.projects == 'app'
         run: flutter gen-l10n
       - name: Run build_runner
         if: matrix.projects != 'tools'

@@ -659,10 +659,10 @@ packages:
     dependency: "direct main"
     description:
       name: idb_shim
-      sha256: "9e7ec816139bfafb69ae4b3668ad29dbd43c53428d6eb31f9332d42bd4fa7205"
+      sha256: "2fe625a67b693ae9b7d02bc8f3ff7c5176ab6be5c9e4ac2cd11924fbb54b5a6c"
       url: "https://pub.dev"
     source: hosted
-    version: "2.6.1+7"
+    version: "2.6.2"
   image:
     dependency: "direct main"
     description:
@@ -981,20 +981,18 @@ packages:
   pdf:
     dependency: "direct main"
     description:
-      path: pdf
-      ref: "4be45bf7000640f38cb62088899a0f5185b4dc89"
-      resolved-ref: "4be45bf7000640f38cb62088899a0f5185b4dc89"
-      url: "https://github.com/CodeDoctorDE/dart_pdf.git"
-    source: git
-    version: "3.11.2"
+      name: pdf
+      sha256: "28eacad99bffcce2e05bba24e50153890ad0255294f4dd78a17075a2ba5c8416"
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.11.3"
   pdf_widget_wrapper:
     dependency: transitive
     description:
-      path: widget_wrapper
-      ref: c2b5d2b932ee1a4544db4ff8a9b218151b404c5c
-      resolved-ref: c2b5d2b932ee1a4544db4ff8a9b218151b404c5c
-      url: "https://github.com/CodeDoctorDE/dart_pdf.git"
-    source: git
+      name: pdf_widget_wrapper
+      sha256: c930860d987213a3d58c7ec3b7ecf8085c3897f773e8dc23da9cae60a5d6d0f5
+      url: "https://pub.dev"
+    source: hosted
     version: "1.0.4"
   perfect_freehand:
     dependency: "direct main"
@@ -1072,12 +1070,11 @@ packages:
   printing:
     dependency: "direct main"
     description:
-      path: printing
-      ref: "4147fe72fcba3b271da02971171ff1ef71f3a7f7"
-      resolved-ref: "4147fe72fcba3b271da02971171ff1ef71f3a7f7"
-      url: "https://github.com/CodeDoctorDE/dart_pdf.git"
-    source: git
-    version: "5.14.0"
+      name: printing
+      sha256: "482cd5a5196008f984bb43ed0e47cbfdca7373490b62f3b27b3299275bf22a93"
+      url: "https://pub.dev"
+    source: hosted
+    version: "5.14.2"
   process:
     dependency: transitive
     description:
@@ -1187,10 +1184,10 @@ packages:
     dependency: transitive
     description:
       name: sembast
-      sha256: "9026ea34aa3a0f26a966529ef80b57b6fe40f810cadeadd1b208202d1bf153e7"
+      sha256: f90377eb5ef66ac5a42d7afd72f4f900c436a2528d6b67b318fb2b9f5484bbe5
       url: "https://pub.dev"
     source: hosted
-    version: "3.8.3"
+    version: "3.8.4"
   share_plus:
     dependency: "direct main"
     description:
@@ -1376,10 +1373,10 @@ packages:
     dependency: transitive
     description:
       name: synchronized
-      sha256: "69fe30f3a8b04a0be0c15ae6490fc859a78ef4c43ae2dd5e8a623d45bfcf9225"
+      sha256: "0669c70faae6270521ee4f05bffd2919892d42d1276e6c495be80174b6bc0ef6"
       url: "https://pub.dev"
     source: hosted
-    version: "3.3.0+3"
+    version: "3.3.1"
   term_glyph:
     dependency: transitive
     description:
@@ -1621,5 +1618,5 @@ packages:
     source: hosted
     version: "3.1.3"
 sdks:
-  dart: ">=3.7.0-0 <4.0.0"
+  dart: ">=3.7.0 <4.0.0"
   flutter: ">=3.29.0"
