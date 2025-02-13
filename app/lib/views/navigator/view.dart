@@ -7,7 +7,7 @@ import 'package:butterfly/views/files/view.dart';
 import 'package:butterfly/views/navigator/waypoints.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:butterfly/src/generated/i18n/app_localizations.dart';
 import 'package:lw_file_system/lw_file_system.dart';
 import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
@@ -87,72 +87,68 @@ class _NavigatorViewState extends State<NavigatorView>
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<SettingsCubit, ButterflySettings>(
-        buildWhen: (previous, current) =>
-            previous.navigatorEnabled != current.navigatorEnabled ||
-            previous.navigatorPage != current.navigatorPage ||
-            previous.navigatorPosition != current.navigatorPosition,
-        builder: (context, settings) {
-          final selected = NavigatorPage.values.indexOf(settings.navigatorPage);
-          if (settings.navigatorEnabled) {
-            _animationController.forward();
-          } else {
-            _animationController.reverse();
-          }
-          return Row(
-            textDirection: settings.navigatorPosition == NavigatorPosition.left
-                ? TextDirection.rtl
-                : TextDirection.ltr,
-            mainAxisAlignment:
-                settings.navigatorPosition == NavigatorPosition.left
-                    ? MainAxisAlignment.start
-                    : MainAxisAlignment.end,
-            children: [
-              SizeTransition(
-                sizeFactor: _animation,
-                axis: Axis.horizontal,
-                axisAlignment: 1,
-                child: const SizedBox(
-                  width: drawerWidth,
-                  child: Card(child: DocumentNavigator(asDrawer: false)),
-                ),
+      buildWhen: (previous, current) =>
+          previous.navigatorEnabled != current.navigatorEnabled ||
+          previous.navigatorPage != current.navigatorPage ||
+          previous.navigatorPosition != current.navigatorPosition,
+      builder: (context, settings) {
+        final selected = NavigatorPage.values.indexOf(settings.navigatorPage);
+        if (settings.navigatorEnabled) {
+          _animationController.forward();
+        } else {
+          _animationController.reverse();
+        }
+        return Row(
+          textDirection: settings.navigatorPosition == NavigatorPosition.left
+              ? TextDirection.rtl
+              : TextDirection.ltr,
+          mainAxisAlignment:
+              settings.navigatorPosition == NavigatorPosition.left
+                  ? MainAxisAlignment.start
+                  : MainAxisAlignment.end,
+          children: [
+            SizeTransition(
+              sizeFactor: _animation,
+              axis: Axis.horizontal,
+              axisAlignment: 1,
+              child: const SizedBox(
+                width: drawerWidth,
+                child: Card(child: DocumentNavigator(asDrawer: false)),
               ),
-              NavigationRail(
-                minWidth: 110,
-                destinations: NavigatorPage.values
-                    .map(
-                      (e) => NavigationRailDestination(
-                        icon: PhosphorIcon(e.icon(PhosphorIconsStyle.light)),
-                        label: Text(
-                          e.getLocalizedName(context),
-                        ),
-                      ),
-                    )
-                    .toList(),
-                labelType: NavigationRailLabelType.none,
-                selectedIndex: settings.navigatorEnabled ? selected : null,
-                groupAlignment: 0,
-                onDestinationSelected: (index) {
-                  final cubit = context.read<SettingsCubit>();
-                  if (selected == index) {
-                    cubit.changeNavigatorEnabled(!settings.navigatorEnabled);
-                    return;
-                  }
-                  cubit.setNavigatorPage(NavigatorPage.values[index]);
-                  cubit.changeNavigatorEnabled(true);
-                },
-              ),
-            ],
-          );
-        });
+            ),
+            NavigationRail(
+              minWidth: 110,
+              destinations: NavigatorPage.values
+                  .map(
+                    (e) => NavigationRailDestination(
+                      icon: PhosphorIcon(e.icon(PhosphorIconsStyle.light)),
+                      label: Text(e.getLocalizedName(context)),
+                    ),
+                  )
+                  .toList(),
+              labelType: NavigationRailLabelType.none,
+              selectedIndex: settings.navigatorEnabled ? selected : null,
+              groupAlignment: 0,
+              onDestinationSelected: (index) {
+                final cubit = context.read<SettingsCubit>();
+                if (selected == index) {
+                  cubit.changeNavigatorEnabled(!settings.navigatorEnabled);
+                  return;
+                }
+                cubit.setNavigatorPage(NavigatorPage.values[index]);
+                cubit.changeNavigatorEnabled(true);
+              },
+            ),
+          ],
+        );
+      },
+    );
   }
 }
 
 class DocumentNavigator extends StatefulWidget {
   final bool asDrawer;
-  const DocumentNavigator({
-    super.key,
-    this.asDrawer = false,
-  });
+  const DocumentNavigator({super.key, this.asDrawer = false});
 
   @override
   State<DocumentNavigator> createState() => _DocumentNavigatorState();
@@ -217,15 +213,17 @@ class _DocumentNavigatorState extends State<DocumentNavigator>
                         ? IconButton.outlined(
                             icon: const PhosphorIcon(PhosphorIconsLight.x),
                             onPressed: () => Navigator.of(context).pop(),
-                            tooltip: MaterialLocalizations.of(context)
-                                .closeButtonLabel,
+                            tooltip: MaterialLocalizations.of(
+                              context,
+                            ).closeButtonLabel,
                           )
                         : null,
                     title: Text(page.getLocalizedName(context)),
                     actions: [
                       IconButton(
-                        icon:
-                            const PhosphorIcon(PhosphorIconsLight.sealQuestion),
+                        icon: const PhosphorIcon(
+                          PhosphorIconsLight.sealQuestion,
+                        ),
                         onPressed: () {
                           final help = page.getHelp();
                           openHelp(help.$1, help.$2);
@@ -240,10 +238,7 @@ class _DocumentNavigatorState extends State<DocumentNavigator>
               ),
             );
             if (widget.asDrawer) {
-              return Drawer(
-                width: 400,
-                child: content,
-              );
+              return Drawer(width: 400, child: content);
             } else {
               return content;
             }

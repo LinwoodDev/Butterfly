@@ -13,7 +13,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:butterfly/src/generated/i18n/app_localizations.dart';
 import 'package:flutter_web_plugins/url_strategy.dart';
 import 'package:go_router/go_router.dart';
 import 'package:lw_file_system/lw_file_system.dart';
@@ -72,25 +72,18 @@ Future<void> main([List<String> args = const []]) async {
           ],
         ).toString();
       } else {
-        initialLocation = Uri(pathSegments: [
-          '',
-          'native',
-        ], queryParameters: {
-          'path': file.path,
-        }).toString();
+        initialLocation = Uri(
+          pathSegments: ['', 'native'],
+          queryParameters: {'path': file.path},
+        ).toString();
       }
     }
   } else if (!kIsWeb && Platform.isAndroid) {
     final intentType = await getIntentType();
     if (intentType != null) {
       initialLocation = Uri(
-        pathSegments: [
-          '',
-          'native',
-        ],
-        queryParameters: {
-          'type': intentType,
-        },
+        pathSegments: ['', 'native'],
+        queryParameters: {'type': intentType},
       ).toString();
       initialExtra = await getIntentData();
     }
@@ -102,10 +95,13 @@ Future<void> main([List<String> args = const []]) async {
       case StartupBehavior.openLastNote:
         final lastNote = settings.history.firstOrNull;
         if (lastNote == null) break;
-        initialLocation = Uri(path: '/new', queryParameters: {
-          'remote': lastNote.remote,
-          'path': lastNote.path,
-        }).toString();
+        initialLocation = Uri(
+          path: '/new',
+          queryParameters: {
+            'remote': lastNote.remote,
+            'path': lastNote.path,
+          },
+        ).toString();
       case StartupBehavior.openNewNote:
         initialLocation = '/new';
     }
@@ -129,16 +125,18 @@ Future<void> main([List<String> args = const []]) async {
   overrideButterflyDirectory = result['path'];
   runApp(
     MultiRepositoryProvider(
-        providers: [
-          RepositoryProvider<ClipboardManager>(
-              create: (context) => clipboardManager),
-        ],
-        child: ButterflyApp(
-          settingsCubit: settingsCubit,
-          initialLocation: initialLocation,
-          initialExtra: initialExtra,
-          fullScreen: await isFullScreen(),
-        )),
+      providers: [
+        RepositoryProvider<ClipboardManager>(
+          create: (context) => clipboardManager,
+        ),
+      ],
+      child: ButterflyApp(
+        settingsCubit: settingsCubit,
+        initialLocation: initialLocation,
+        initialExtra: initialExtra,
+        fullScreen: await isFullScreen(),
+      ),
+    ),
   );
 }
 
@@ -153,14 +151,14 @@ class ButterflyApp extends StatelessWidget {
   final Object? initialExtra;
   final bool fullScreen;
 
-  ButterflyApp(
-      {super.key,
-      required this.settingsCubit,
-      this.fullScreen = false,
-      this.initialLocation = '/',
-      this.initialExtra,
-      this.importedLocation = ''})
-      : _router = GoRouter(
+  ButterflyApp({
+    super.key,
+    required this.settingsCubit,
+    this.fullScreen = false,
+    this.initialLocation = '/',
+    this.initialExtra,
+    this.importedLocation = '',
+  }) : _router = GoRouter(
           initialLocation: initialLocation,
           initialExtra: initialExtra,
           errorBuilder: (context, state) =>
@@ -238,8 +236,9 @@ class ButterflyApp extends StatelessWidget {
                           path: ':id',
                           name: 'connection',
                           builder: (context, state) => ConnectionSettingsPage(
-                              remote: state.pathParameters['id']!),
-                        )
+                            remote: state.pathParameters['id']!,
+                          ),
+                        ),
                       ],
                     ),
                   ],
@@ -265,10 +264,7 @@ class ButterflyApp extends StatelessWidget {
                   path: 'connect',
                   builder: (context, state) {
                     final url = state.uri.queryParameters['url'];
-                    return ProjectPage(
-                      data: state.extra,
-                      uri: url,
-                    );
+                    return ProjectPage(data: state.extra, uri: url);
                   },
                 ),
                 GoRoute(
@@ -277,9 +273,10 @@ class ButterflyApp extends StatelessWidget {
                   builder: (context, state) {
                     final path = state.pathParameters['path'];
                     return ProjectPage(
-                        data: state.extra,
-                        type: state.uri.queryParameters['type'] ?? '',
-                        location: AssetLocation.local(path ?? ''));
+                      data: state.extra,
+                      type: state.uri.queryParameters['type'] ?? '',
+                      location: AssetLocation.local(path ?? ''),
+                    );
                   },
                 ),
                 GoRoute(
@@ -287,13 +284,14 @@ class ButterflyApp extends StatelessWidget {
                   path: 'remote/:remote/:path(.*)',
                   builder: (context, state) {
                     final remote = Uri.decodeComponent(
-                        state.pathParameters['remote'] ?? '');
+                      state.pathParameters['remote'] ?? '',
+                    );
                     final path = state.pathParameters['path'];
                     return ProjectPage(
-                        data: state.extra,
-                        type: state.uri.queryParameters['type'] ?? '',
-                        location:
-                            AssetLocation(remote: remote, path: path ?? ''));
+                      data: state.extra,
+                      type: state.uri.queryParameters['type'] ?? '',
+                      location: AssetLocation(remote: remote, path: path ?? ''),
+                    );
                   },
                 ),
                 GoRoute(
@@ -317,7 +315,8 @@ class ButterflyApp extends StatelessWidget {
                   builder: (context, state) {
                     final path = state.pathParameters['path'] ?? '';
                     return ProjectPage(
-                        location: AssetLocation.local(path, true));
+                      location: AssetLocation.local(path, true),
+                    );
                   },
                 ),
               ],
@@ -327,7 +326,8 @@ class ButterflyApp extends StatelessWidget {
               path: '/embed',
               builder: (context, state) {
                 return ProjectPage(
-                    embedding: Embedding.fromQuery(state.uri.queryParameters));
+                  embedding: Embedding.fromQuery(state.uri.queryParameters),
+                );
               },
             ),
           ],
@@ -352,7 +352,8 @@ class ButterflyApp extends StatelessWidget {
             },
           ),
           BlocProvider(
-              create: (context) => WindowCubit(fullScreen: fullScreen)),
+            create: (context) => WindowCubit(fullScreen: fullScreen),
+          ),
         ],
         child: _buildApp(lightDynamic, darkDynamic),
       ),
@@ -362,44 +363,57 @@ class ButterflyApp extends StatelessWidget {
   Widget _buildApp(ColorScheme? lightDynamic, ColorScheme? darkDynamic) {
     final virtualWindowFrameBuilder = VirtualWindowFrameInit();
     return BlocBuilder<SettingsCubit, ButterflySettings>(
-        buildWhen: (previous, current) =>
-            previous.theme != current.theme ||
-            previous.localeTag != current.localeTag ||
-            previous.design != current.design ||
-            previous.density != current.density ||
-            previous.highContrast != current.highContrast,
-        builder: (context, state) => MaterialApp.router(
-              locale: state.locale,
-              title: applicationName,
-              routeInformationProvider: _router.routeInformationProvider,
-              routeInformationParser: _router.routeInformationParser,
-              routerDelegate: _router.routerDelegate,
-              localizationsDelegates: const [
-                ...AppLocalizations.localizationsDelegates,
-                LocaleNamesLocalizationsDelegate(),
-                LeapLocalizations.delegate,
-              ],
-              builder: (context, child) {
-                if (!state.nativeTitleBar) {
-                  child = virtualWindowFrameBuilder(context, child);
-                }
-                return RepositoryProvider(
-                  create: ButterflyFileSystem.build,
-                  child: RepositoryProvider(
-                    create: (context) => SyncService(
-                        context, context.read<ButterflyFileSystem>()),
-                    lazy: false,
-                    child: child ?? Container(),
-                  ),
-                );
-              },
-              supportedLocales: getLocales(),
-              themeMode: state.theme,
-              theme: getThemeData(state.design, false,
-                  state.density.toFlutter(), lightDynamic, state.highContrast),
-              darkTheme: getThemeData(state.design, true,
-                  state.density.toFlutter(), darkDynamic, state.highContrast),
-            ));
+      buildWhen: (previous, current) =>
+          previous.theme != current.theme ||
+          previous.localeTag != current.localeTag ||
+          previous.design != current.design ||
+          previous.density != current.density ||
+          previous.highContrast != current.highContrast,
+      builder: (context, state) => MaterialApp.router(
+        locale: state.locale,
+        title: applicationName,
+        routeInformationProvider: _router.routeInformationProvider,
+        routeInformationParser: _router.routeInformationParser,
+        routerDelegate: _router.routerDelegate,
+        localizationsDelegates: const [
+          ...AppLocalizations.localizationsDelegates,
+          LocaleNamesLocalizationsDelegate(),
+          LeapLocalizations.delegate,
+        ],
+        builder: (context, child) {
+          if (!state.nativeTitleBar) {
+            child = virtualWindowFrameBuilder(context, child);
+          }
+          return RepositoryProvider(
+            create: ButterflyFileSystem.build,
+            child: RepositoryProvider(
+              create: (context) => SyncService(
+                context,
+                context.read<ButterflyFileSystem>(),
+              ),
+              lazy: false,
+              child: child ?? Container(),
+            ),
+          );
+        },
+        supportedLocales: getLocales(),
+        themeMode: state.theme,
+        theme: getThemeData(
+          state.design,
+          false,
+          state.density.toFlutter(),
+          lightDynamic,
+          state.highContrast,
+        ),
+        darkTheme: getThemeData(
+          state.design,
+          true,
+          state.density.toFlutter(),
+          darkDynamic,
+          state.highContrast,
+        ),
+      ),
+    );
   }
 
   final GoRouter _router;

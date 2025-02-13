@@ -7,7 +7,7 @@ import 'package:butterfly/visualizer/tool.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:butterfly/src/generated/i18n/app_localizations.dart';
 import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
@@ -90,75 +90,95 @@ class _AddDialogState extends State<AddDialog> {
     return SafeArea(
       child: LayoutBuilder(
         builder: (context, constraints) => ResponsiveDialog(
-          constraints: const BoxConstraints(
-            maxWidth: 1000,
-          ),
-          child: Column(mainAxisSize: MainAxisSize.min, children: [
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  IconButton.outlined(
-                    onPressed: () => Navigator.of(context).pop(),
-                    icon: const PhosphorIcon(PhosphorIconsLight.x),
-                    tooltip: MaterialLocalizations.of(context).closeButtonLabel,
-                  ),
-                  const SizedBox(width: 16),
-                  Text(
-                    AppLocalizations.of(context).add,
-                    style: TextTheme.of(context).headlineSmall,
-                  ),
-                  const SizedBox(width: 8),
-                  Expanded(
-                      child: Align(
-                    child: SearchBar(
-                      autoFocus: true,
-                      constraints:
-                          const BoxConstraints(maxWidth: 200, minHeight: 50),
-                      leading: const PhosphorIcon(
-                          PhosphorIconsLight.magnifyingGlass),
-                      hintText: AppLocalizations.of(context).search,
-                      controller: _searchController,
+          constraints: const BoxConstraints(maxWidth: 1000),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    IconButton.outlined(
+                      onPressed: () => Navigator.of(context).pop(),
+                      icon: const PhosphorIcon(PhosphorIconsLight.x),
+                      tooltip: MaterialLocalizations.of(
+                        context,
+                      ).closeButtonLabel,
                     ),
-                  )),
-                  const SizedBox(width: 8),
-                  IconButton(
-                    onPressed: () => openHelp(['add']),
-                    icon: const PhosphorIcon(PhosphorIconsLight.sealQuestion),
-                    tooltip: AppLocalizations.of(context).help,
-                  ),
-                ],
+                    const SizedBox(width: 16),
+                    Text(
+                      AppLocalizations.of(context).add,
+                      style: TextTheme.of(context).headlineSmall,
+                    ),
+                    const SizedBox(width: 8),
+                    Expanded(
+                      child: Align(
+                        child: SearchBar(
+                          autoFocus: true,
+                          constraints: const BoxConstraints(
+                            maxWidth: 200,
+                            minHeight: 50,
+                          ),
+                          leading: const PhosphorIcon(
+                            PhosphorIconsLight.magnifyingGlass,
+                          ),
+                          hintText: AppLocalizations.of(context).search,
+                          controller: _searchController,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(width: 8),
+                    IconButton(
+                      onPressed: () => openHelp(['add']),
+                      icon: const PhosphorIcon(
+                        PhosphorIconsLight.sealQuestion,
+                      ),
+                      tooltip: AppLocalizations.of(context).help,
+                    ),
+                  ],
+                ),
               ),
-            ),
-            const SizedBox(height: 8),
-            Flexible(
-              child: Material(
-                type: MaterialType.transparency,
-                child: ValueListenableBuilder(
-                  valueListenable: _searchController,
-                  builder: (context, value, _) => FutureBuilder<
-                          List<ImportType>>(
-                      future: Future.wait(ImportType.values
-                              .map((e) async => (e, await e.isAvailable())))
-                          .then((value) => value
-                              .where((e) => e.$2)
-                              .map((e) => e.$1)
-                              .toList()),
+              const SizedBox(height: 8),
+              Flexible(
+                child: Material(
+                  type: MaterialType.transparency,
+                  child: ValueListenableBuilder(
+                    valueListenable: _searchController,
+                    builder: (
+                      context,
+                      value,
+                      _,
+                    ) =>
+                        FutureBuilder<List<ImportType>>(
+                      future: Future.wait(
+                        ImportType.values.map(
+                          (e) async => (e, await e.isAvailable()),
+                        ),
+                      ).then(
+                        (value) =>
+                            value.where((e) => e.$2).map((e) => e.$1).toList(),
+                      ),
                       builder: (context, snapshot) {
                         final isMobile =
                             constraints.maxWidth < LeapBreakpoints.compact;
                         final search = value.text;
                         final imports = (snapshot.data ?? [])
-                            .where((e) => e
-                                .getLocalizedName(context)
-                                .toLowerCase()
-                                .contains(search.toLowerCase()))
+                            .where(
+                              (e) => e
+                                  .getLocalizedName(context)
+                                  .toLowerCase()
+                                  .contains(search.toLowerCase()),
+                            )
                             .toList();
                         final tools = [
                           Tool.hand,
-                          () => Tool.select(mode: SelectMode.lasso),
-                          () => Tool.select(mode: SelectMode.rectangle),
+                          () => Tool.select(
+                                mode: SelectMode.lasso,
+                              ),
+                          () => Tool.select(
+                                mode: SelectMode.rectangle,
+                              ),
                           Tool.pen,
                           Tool.laser,
                           Tool.pathEraser,
@@ -166,14 +186,20 @@ class _AddDialogState extends State<AddDialog> {
                           Tool.eraser,
                           Tool.area,
                           Tool.presentation,
-                          () => Tool.spacer(axis: Axis2D.vertical),
-                          () => Tool.spacer(axis: Axis2D.horizontal),
+                          () => Tool.spacer(
+                                axis: Axis2D.vertical,
+                              ),
+                          () => Tool.spacer(
+                                axis: Axis2D.horizontal,
+                              ),
                         ]
                             .map((e) => e())
-                            .where((e) => e
-                                .getLocalizedName(context)
-                                .toLowerCase()
-                                .contains(search.toLowerCase()))
+                            .where(
+                              (e) => e
+                                  .getLocalizedName(context)
+                                  .toLowerCase()
+                                  .contains(search.toLowerCase()),
+                            )
                             .toList();
                         final shapes = <Tool>[
                           Tool.stamp(),
@@ -181,21 +207,30 @@ class _AddDialogState extends State<AddDialog> {
                             PathShape.circle,
                             PathShape.rectangle,
                             PathShape.line,
-                            PathShape.triangle
-                          ].map((e) =>
-                              Tool.shape(property: ShapeProperty(shape: e()))),
+                            PathShape.triangle,
+                          ].map(
+                            (e) => Tool.shape(
+                              property: ShapeProperty(
+                                shape: e(),
+                              ),
+                            ),
+                          ),
                         ]
-                            .where((e) => e
-                                .getLocalizedName(context)
-                                .toLowerCase()
-                                .contains(search.toLowerCase()))
+                            .where(
+                              (e) => e
+                                  .getLocalizedName(context)
+                                  .toLowerCase()
+                                  .contains(search.toLowerCase()),
+                            )
                             .toList();
                         final textures = [SurfaceTexture.pattern]
                             .map((e) => e())
-                            .where((e) => e
-                                .getLocalizedName(context)
-                                .toLowerCase()
-                                .contains(search.toLowerCase()))
+                            .where(
+                              (e) => e
+                                  .getLocalizedName(context)
+                                  .toLowerCase()
+                                  .contains(search.toLowerCase()),
+                            )
                             .toList();
                         final actions = [
                           Tool.undo,
@@ -205,20 +240,21 @@ class _AddDialogState extends State<AddDialog> {
                           Tool.eyeDropper,
                         ]
                             .map((e) => e())
-                            .where((e) => e
-                                .getLocalizedName(context)
-                                .toLowerCase()
-                                .contains(search.toLowerCase()))
+                            .where(
+                              (e) => e
+                                  .getLocalizedName(context)
+                                  .toLowerCase()
+                                  .contains(search.toLowerCase()),
+                            )
                             .toList();
-                        final view = [
-                          Tool.ruler,
-                          Tool.grid,
-                        ]
+                        final view = [Tool.ruler, Tool.grid]
                             .map((e) => e())
-                            .where((e) => e
-                                .getLocalizedName(context)
-                                .toLowerCase()
-                                .contains(search.toLowerCase()))
+                            .where(
+                              (e) => e
+                                  .getLocalizedName(context)
+                                  .toLowerCase()
+                                  .contains(search.toLowerCase()),
+                            )
                             .toList();
                         return ListView(
                           shrinkWrap: true,
@@ -231,27 +267,43 @@ class _AddDialogState extends State<AddDialog> {
                                     .map(
                                       (e) => BoxTile(
                                         title: Text(
-                                          e.getLocalizedName(context),
+                                          e.getLocalizedName(
+                                            context,
+                                          ),
                                           textAlign: TextAlign.center,
                                         ),
                                         trailing: IconButton(
                                           onPressed: () => addTool(
-                                              Tool.asset(importType: e)),
-                                          tooltip:
-                                              AppLocalizations.of(context).pin,
+                                            Tool.asset(
+                                              importType: e,
+                                            ),
+                                          ),
+                                          tooltip: AppLocalizations.of(
+                                            context,
+                                          ).pin,
                                           icon: const PhosphorIcon(
-                                              PhosphorIconsLight.pushPin),
+                                            PhosphorIconsLight.pushPin,
+                                          ),
                                         ),
                                         icon: PhosphorIcon(
-                                            e.icon(PhosphorIconsStyle.light)),
+                                          e.icon(
+                                            PhosphorIconsStyle.light,
+                                          ),
+                                        ),
                                         onTap: () async {
                                           final bloc =
                                               context.read<DocumentBloc>();
                                           final importService =
                                               context.read<ImportService>();
-                                          Navigator.of(context).pop();
+                                          Navigator.of(
+                                            context,
+                                          ).pop();
                                           await showImportAssetWizard(
-                                              e, context, bloc, importService);
+                                            e,
+                                            context,
+                                            bloc,
+                                            importService,
+                                          );
                                         },
                                       ),
                                     )
@@ -266,9 +318,13 @@ class _AddDialogState extends State<AddDialog> {
                                 imports.isEmpty)
                               Padding(
                                 padding: const EdgeInsets.symmetric(
-                                    vertical: 64, horizontal: 16),
+                                  vertical: 64,
+                                  horizontal: 16,
+                                ),
                                 child: Text(
-                                  AppLocalizations.of(context).noElements,
+                                  AppLocalizations.of(
+                                    context,
+                                  ).noElements,
                                   textAlign: TextAlign.center,
                                   style: TextTheme.of(context).bodyLarge,
                                 ),
@@ -284,27 +340,40 @@ class _AddDialogState extends State<AddDialog> {
                             if (shapes.isNotEmpty || textures.isNotEmpty) ...[
                               _ToolsListView(
                                 isMobile: isMobile,
-                                title: AppLocalizations.of(context).surface,
+                                title: AppLocalizations.of(
+                                  context,
+                                ).surface,
                                 children: [
-                                  ...shapes.map((e) => BoxTile(
-                                        title: Text(
-                                          e.getLocalizedName(context),
-                                          textAlign: TextAlign.center,
+                                  ...shapes.map(
+                                    (e) => BoxTile(
+                                      title: Text(
+                                        e.getLocalizedName(context),
+                                        textAlign: TextAlign.center,
+                                      ),
+                                      icon: Icon(
+                                        e.icon(
+                                          PhosphorIconsStyle.light,
                                         ),
-                                        icon: Icon(
-                                            e.icon(PhosphorIconsStyle.light)),
-                                        onTap: () => addTool(e),
-                                      )),
-                                  ...textures.map((e) => BoxTile(
-                                        title: Text(
-                                          e.getLocalizedName(context),
-                                          textAlign: TextAlign.center,
+                                      ),
+                                      onTap: () => addTool(e),
+                                    ),
+                                  ),
+                                  ...textures.map(
+                                    (e) => BoxTile(
+                                      title: Text(
+                                        e.getLocalizedName(context),
+                                        textAlign: TextAlign.center,
+                                      ),
+                                      icon: Icon(
+                                        e.icon(
+                                          PhosphorIconsStyle.light,
                                         ),
-                                        icon: Icon(
-                                            e.icon(PhosphorIconsStyle.light)),
-                                        onTap: () =>
-                                            addTool(TextureTool(texture: e)),
-                                      )),
+                                      ),
+                                      onTap: () => addTool(
+                                        TextureTool(texture: e),
+                                      ),
+                                    ),
+                                  ),
                                 ],
                               ),
                               const SizedBox(height: 16),
@@ -312,7 +381,9 @@ class _AddDialogState extends State<AddDialog> {
                             if (actions.isNotEmpty) ...[
                               _ToolsListView(
                                 isMobile: isMobile,
-                                title: AppLocalizations.of(context).actions,
+                                title: AppLocalizations.of(
+                                  context,
+                                ).actions,
                                 children: actions.map(buildTool).toList(),
                               ),
                               const SizedBox(height: 16),
@@ -327,11 +398,13 @@ class _AddDialogState extends State<AddDialog> {
                             ],
                           ],
                         );
-                      }),
+                      },
+                    ),
+                  ),
                 ),
               ),
-            ),
-          ]),
+            ],
+          ),
         ),
       ),
     );
@@ -390,7 +463,7 @@ class _ToolsListViewState extends State<_ToolsListView> {
               alignment: WrapAlignment.center,
               children: widget.children,
             ),
-          )
+          ),
       ],
     );
   }

@@ -9,7 +9,7 @@ import 'package:butterfly_api/butterfly_api.dart';
 import 'package:butterfly_api/butterfly_models.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:butterfly/src/generated/i18n/app_localizations.dart';
 import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
@@ -73,7 +73,7 @@ extension ToolVisualizer on Tool {
       SelectTool e => e.mode == SelectMode.lasso ? loc.lasso : loc.rectangle,
       ExportTool e => switch (e.options) {
           ImageExportOptions() => loc.image,
-          SvgExportOptions() => loc.svg
+          SvgExportOptions() => loc.svg,
         },
       _ => '',
     };

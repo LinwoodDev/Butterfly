@@ -1,6 +1,6 @@
 import 'package:butterfly/cubits/settings.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:butterfly/src/generated/i18n/app_localizations.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:lw_file_system/lw_file_system.dart';
@@ -41,7 +41,7 @@ class _ConnectionSettingsPageState extends State<ConnectionSettingsPage>
           onPressed: _showCreateDialog,
           label: Text(AppLocalizations.of(context).createCache),
           icon: const PhosphorIcon(PhosphorIconsLight.plus),
-        )
+        ),
       ];
   @override
   Widget build(BuildContext context) {
@@ -74,7 +74,8 @@ class _ConnectionSettingsPageState extends State<ConnectionSettingsPage>
                 _GeneralConnectionSettingsView(storage: storage!),
                 if (_isRemote)
                   _CachesConnectionSettingsView(
-                      storage: storage as RemoteStorage),
+                    storage: storage as RemoteStorage,
+                  ),
               ],
             ),
       floatingActionButton: _createFab()[_tabController.index],
@@ -97,8 +98,9 @@ class _ConnectionSettingsPageState extends State<ConnectionSettingsPage>
             ),
             actions: [
               TextButton(
-                child:
-                    Text(MaterialLocalizations.of(context).cancelButtonLabel),
+                child: Text(
+                  MaterialLocalizations.of(context).cancelButtonLabel,
+                ),
                 onPressed: () => Navigator.of(context).pop(false),
               ),
               ElevatedButton(
@@ -111,10 +113,7 @@ class _ConnectionSettingsPageState extends State<ConnectionSettingsPage>
         false;
     if (!success) return;
 
-    settingsCubit.addCache(
-      widget.remote,
-      pathController.text,
-    );
+    settingsCubit.addCache(widget.remote, pathController.text);
   }
 }
 
@@ -128,46 +127,54 @@ class _GeneralConnectionSettingsView extends StatelessWidget {
       alignment: Alignment.center,
       child: ConstrainedBox(
         constraints: const BoxConstraints(maxWidth: LeapBreakpoints.compact),
-        child: ListView(children: [
-          Card(
-            margin: const EdgeInsets.all(8),
-            child: Padding(
-              padding: const EdgeInsets.all(32),
-              child: Column(
+        child: ListView(
+          children: [
+            Card(
+              margin: const EdgeInsets.all(8),
+              child: Padding(
+                padding: const EdgeInsets.all(32),
+                child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    Text(AppLocalizations.of(context).manage,
-                        style: TextTheme.of(context).headlineSmall),
+                    Text(
+                      AppLocalizations.of(context).manage,
+                      style: TextTheme.of(context).headlineSmall,
+                    ),
                     const SizedBox(height: 16),
                     if (storage is RemoteStorage) ...[
                       BlocBuilder<SettingsCubit, ButterflySettings>(
-                          builder: (context, state) {
-                        final storage = state.getRemote(this.storage.identifier)
-                            as RemoteStorage?;
-                        return CheckboxListTile(
-                          value: storage?.cachedDocuments['']?.contains('/') ??
-                              false,
-                          onChanged: (value) {
-                            if (storage == null) return;
-                            if (storage.cachedDocuments['']?.contains('/') ??
-                                false) {
-                              context.read<SettingsCubit>().removeCache(
-                                    storage.identifier,
-                                    '/',
-                                  );
-                            } else {
-                              context.read<SettingsCubit>().addCache(
-                                    storage.identifier,
-                                    '/',
-                                  );
-                            }
-                          },
-                          title: Text(
-                              AppLocalizations.of(context).syncRootDirectory),
-                          secondary:
-                              const PhosphorIcon(PhosphorIconsLight.folder),
-                        );
-                      }),
+                        builder: (context, state) {
+                          final storage =
+                              state.getRemote(this.storage.identifier)
+                                  as RemoteStorage?;
+                          return CheckboxListTile(
+                            value:
+                                storage?.cachedDocuments['']?.contains('/') ??
+                                    false,
+                            onChanged: (value) {
+                              if (storage == null) return;
+                              if (storage.cachedDocuments['']?.contains('/') ??
+                                  false) {
+                                context.read<SettingsCubit>().removeCache(
+                                      storage.identifier,
+                                      '/',
+                                    );
+                              } else {
+                                context.read<SettingsCubit>().addCache(
+                                      storage.identifier,
+                                      '/',
+                                    );
+                              }
+                            },
+                            title: Text(
+                              AppLocalizations.of(context).syncRootDirectory,
+                            ),
+                            secondary: const PhosphorIcon(
+                              PhosphorIconsLight.folder,
+                            ),
+                          );
+                        },
+                      ),
                       ListTile(
                         title: Text(AppLocalizations.of(context).clearCaches),
                         leading: const PhosphorIcon(PhosphorIconsLight.fileX),
@@ -180,16 +187,18 @@ class _GeneralConnectionSettingsView extends StatelessWidget {
                       title: Text(AppLocalizations.of(context).delete),
                       leading: const PhosphorIcon(PhosphorIconsLight.trash),
                       onTap: () {
-                        context
-                            .read<SettingsCubit>()
-                            .deleteRemote(storage.identifier);
+                        context.read<SettingsCubit>().deleteRemote(
+                              storage.identifier,
+                            );
                         GoRouter.of(context).pop();
                       },
                     ),
-                  ]),
+                  ],
+                ),
+              ),
             ),
-          ),
-        ]),
+          ],
+        ),
       ),
     );
   }
@@ -202,30 +211,32 @@ class _CachesConnectionSettingsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<SettingsCubit, ButterflySettings>(
-        builder: (context, state) {
-      return Align(
-        alignment: Alignment.center,
-        child: ConstrainedBox(
-          constraints: const BoxConstraints(maxWidth: LeapBreakpoints.compact),
-          child: ListView.builder(
-            itemCount: storage.cachedDocuments['']?.length,
-            itemBuilder: (context, index) {
-              final current = storage.cachedDocuments['']![index];
-              return Dismissible(
-                key: Key(current),
-                onDismissed: (_) {
-                  context
-                      .read<SettingsCubit>()
-                      .removeCache(storage.identifier, current);
-                },
-                child: ListTile(
-                  title: Text(current),
-                ),
-              );
-            },
+      builder: (context, state) {
+        return Align(
+          alignment: Alignment.center,
+          child: ConstrainedBox(
+            constraints: const BoxConstraints(
+              maxWidth: LeapBreakpoints.compact,
+            ),
+            child: ListView.builder(
+              itemCount: storage.cachedDocuments['']?.length,
+              itemBuilder: (context, index) {
+                final current = storage.cachedDocuments['']![index];
+                return Dismissible(
+                  key: Key(current),
+                  onDismissed: (_) {
+                    context.read<SettingsCubit>().removeCache(
+                          storage.identifier,
+                          current,
+                        );
+                  },
+                  child: ListTile(title: Text(current)),
+                );
+              },
+            ),
           ),
-        ),
-      );
-    });
+        );
+      },
+    );
   }
 }

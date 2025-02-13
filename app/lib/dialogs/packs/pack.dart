@@ -1,7 +1,7 @@
 import 'package:butterfly/models/defaults.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:butterfly/src/generated/i18n/app_localizations.dart';
 import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
@@ -31,18 +31,20 @@ class _PackDialogState extends State<PackDialog> {
 
   void _onChanged(NoteData pack) {
     setState(() {
-      this.pack = pack.setMetadata(pack.getMetadata()!.copyWith(
-            updatedAt: DateTime.now().toUtc(),
-          ));
+      this.pack = pack.setMetadata(
+        pack.getMetadata()!.copyWith(updatedAt: DateTime.now().toUtc()),
+      );
     });
   }
 
   @override
   Widget build(BuildContext context) {
     return ResponsiveAlertDialog(
-      title: Text(widget.pack == null
-          ? AppLocalizations.of(context).createPack
-          : AppLocalizations.of(context).editPack),
+      title: Text(
+        widget.pack == null
+            ? AppLocalizations.of(context).createPack
+            : AppLocalizations.of(context).editPack,
+      ),
       constraints: const BoxConstraints(maxWidth: 700, maxHeight: 800),
       content: DefaultTabController(
         length: widget.pack == null ? 1 : 4,
@@ -50,30 +52,33 @@ class _PackDialogState extends State<PackDialog> {
           children: [
             if (widget.pack != null)
               TabBar(
-                  isScrollable: true,
-                  tabs: [
-                    (
-                      PhosphorIconsLight.gear,
-                      AppLocalizations.of(context).general
-                    ),
-                    (
-                      PhosphorIconsLight.puzzlePiece,
-                      AppLocalizations.of(context).components
-                    ),
-                    (
-                      PhosphorIconsLight.pencilCircle,
-                      AppLocalizations.of(context).styles
-                    ),
-                    (
-                      PhosphorIconsLight.palette,
-                      AppLocalizations.of(context).palettes
+                isScrollable: true,
+                tabs: [
+                  (
+                    PhosphorIconsLight.gear,
+                    AppLocalizations.of(context).general,
+                  ),
+                  (
+                    PhosphorIconsLight.puzzlePiece,
+                    AppLocalizations.of(context).components,
+                  ),
+                  (
+                    PhosphorIconsLight.pencilCircle,
+                    AppLocalizations.of(context).styles,
+                  ),
+                  (
+                    PhosphorIconsLight.palette,
+                    AppLocalizations.of(context).palettes,
+                  ),
+                ]
+                    .map(
+                      (e) => HorizontalTab(
+                        icon: PhosphorIcon(e.$1),
+                        label: Text(e.$2),
+                      ),
                     )
-                  ]
-                      .map((e) => HorizontalTab(
-                            icon: PhosphorIcon(e.$1),
-                            label: Text(e.$2),
-                          ))
-                      .toList()),
+                    .toList(),
+              ),
             const SizedBox(height: 8),
             Expanded(
               child: TabBarView(
@@ -97,9 +102,11 @@ class _PackDialogState extends State<PackDialog> {
         ),
         ElevatedButton(
           onPressed: () => Navigator.of(context).pop(pack),
-          child: Text(widget.pack == null
-              ? LeapLocalizations.of(context).create
-              : AppLocalizations.of(context).save),
+          child: Text(
+            widget.pack == null
+                ? LeapLocalizations.of(context).create
+                : AppLocalizations.of(context).save,
+          ),
         ),
       ],
     );

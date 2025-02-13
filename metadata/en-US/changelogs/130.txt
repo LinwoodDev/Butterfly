@@ -23,5 +23,6 @@
 * Fix some special-characters not working for file names
 * Fix file name validator missing on file rename
 * Remove http sources
+* Upgrade to flutter 3.29
 
 Read more here: https://linwood.dev/butterfly/2.3.0-beta.2

@@ -6,7 +6,7 @@ import 'package:butterfly/settings/data.dart';
 import 'package:butterfly/settings/personalization.dart';
 import 'package:butterfly/settings/view.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:butterfly/src/generated/i18n/app_localizations.dart';
 import 'package:go_router/go_router.dart';
 import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
@@ -98,37 +98,45 @@ class _SettingsPageState extends State<SettingsPage> {
       }
     }
 
-    var navigation = Column(mainAxisSize: MainAxisSize.min, children: [
-      if (widget.isDialog)
-        Header(
-          title: Text(AppLocalizations.of(context).settings),
-          leading: IconButton.outlined(
-            icon: const PhosphorIcon(PhosphorIconsLight.x),
-            onPressed: () => Navigator.of(context).pop(),
+    var navigation = Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        if (widget.isDialog)
+          Header(
+            title: Text(AppLocalizations.of(context).settings),
+            leading: IconButton.outlined(
+              icon: const PhosphorIcon(PhosphorIconsLight.x),
+              onPressed: () => Navigator.of(context).pop(),
+            ),
           ),
-        ),
-      Flexible(
-        child: Material(
-          type: MaterialType.transparency,
-          child: ListView(
+        Flexible(
+          child: Material(
+            type: MaterialType.transparency,
+            child: ListView(
               controller: _scrollController,
               shrinkWrap: true,
               children: [
                 ...SettingsView.values.where((e) => e.isEnabled).map((view) {
                   final selected = _view == view && !isMobile;
                   return ListTile(
-                    leading: PhosphorIcon(view.icon(selected
-                        ? PhosphorIconsStyle.fill
-                        : PhosphorIconsStyle.light)),
+                    leading: PhosphorIcon(
+                      view.icon(
+                        selected
+                            ? PhosphorIconsStyle.fill
+                            : PhosphorIconsStyle.light,
+                      ),
+                    ),
                     title: Text(view.getLocalizedName(context)),
                     onTap: () => navigateTo(view),
                     selected: selected,
                   );
                 }),
-              ]),
+              ],
+            ),
+          ),
         ),
-      )
-    ]);
+      ],
+    );
     if (isMobile) {
       return navigation;
     }
@@ -137,15 +145,19 @@ class _SettingsPageState extends State<SettingsPage> {
       SettingsView.data => const DataSettingsPage(inView: true),
       SettingsView.behaviors => const BehaviorsSettingsPage(inView: true),
       SettingsView.inputs => const InputsSettingsPage(inView: true),
-      SettingsView.personalization =>
-        const PersonalizationSettingsPage(inView: true),
+      SettingsView.personalization => const PersonalizationSettingsPage(
+          inView: true,
+        ),
       SettingsView.view => const ViewSettingsPage(inView: true),
       SettingsView.connections => const ConnectionsSettingsPage(inView: true),
       SettingsView.experiments => const ExperimentsSettingsPage(inView: true),
     };
-    return Row(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
-      SizedBox(width: 300, child: navigation),
-      Expanded(child: content),
-    ]);
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        SizedBox(width: 300, child: navigation),
+        Expanded(child: content),
+      ],
+    );
   }
 }

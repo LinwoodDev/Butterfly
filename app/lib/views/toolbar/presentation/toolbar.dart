@@ -9,7 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:butterfly/src/generated/i18n/app_localizations.dart';
 
 import '../../../bloc/document_bloc.dart';
 import '../../../dialogs/export/pdf.dart';
@@ -124,12 +124,7 @@ class _PresentationToolbarViewState extends State<PresentationToolbarView> {
     final updated = _animation!.copyWith(
       keys: Map.of(_animation!.keys)..[_frame] = key,
     );
-    _bloc.add(
-      AnimationUpdated(
-        _animation!.name,
-        updated,
-      ),
-    );
+    _bloc.add(AnimationUpdated(_animation!.name, updated));
     setState(() {
       _animation = updated;
       _key = key;
@@ -174,22 +169,27 @@ class _PresentationToolbarViewState extends State<PresentationToolbarView> {
                           inputDecorationTheme:
                               const InputDecorationTheme(filled: true),
                           dropdownMenuEntries: animations
-                              .map((e) => DropdownMenuEntry(
-                                    value: e.name,
-                                    label: e.name,
-                                  ))
+                              .map(
+                                (e) => DropdownMenuEntry(
+                                  value: e.name,
+                                  label: e.name,
+                                ),
+                              )
                               .toList(),
                           onSelected: _setAnimation,
                           initialSelection: _selected,
                         ),
                         MenuAnchor(
                           builder: defaultMenuButton(
-                            tooltip: AppLocalizations.of(context).presentation,
+                            tooltip: AppLocalizations.of(
+                              context,
+                            ).presentation,
                           ),
                           menuChildren: [
                             MenuItemButton(
-                              leadingIcon:
-                                  const PhosphorIcon(PhosphorIconsLight.plus),
+                              leadingIcon: const PhosphorIcon(
+                                PhosphorIconsLight.plus,
+                              ),
                               onPressed: () async {
                                 final bloc = context.read<DocumentBloc>();
                                 final name = await showDialog<String>(
@@ -200,19 +200,20 @@ class _PresentationToolbarViewState extends State<PresentationToolbarView> {
                                 final track = AnimationTrack(
                                   name: name,
                                 );
-                                bloc.add(
-                                  AnimationAdded(track),
-                                );
+                                bloc.add(AnimationAdded(track));
                                 setState(() {
                                   _animation = track;
                                   _updateControllers();
                                 });
                               },
-                              child: Text(LeapLocalizations.of(context).create),
+                              child: Text(
+                                LeapLocalizations.of(context).create,
+                              ),
                             ),
                             MenuItemButton(
-                              leadingIcon:
-                                  const PhosphorIcon(PhosphorIconsLight.copy),
+                              leadingIcon: const PhosphorIcon(
+                                PhosphorIconsLight.copy,
+                              ),
                               onPressed: _animation == null
                                   ? null
                                   : () async {
@@ -221,28 +222,37 @@ class _PresentationToolbarViewState extends State<PresentationToolbarView> {
                                         context: context,
                                         builder: (context) => NameDialog(
                                           validator: defaultFileNameValidator(
-                                              context,
-                                              animations
-                                                  .map((e) => e.name)
-                                                  .toList()),
-                                          button: AppLocalizations.of(context)
-                                              .duplicate,
+                                            context,
+                                            animations
+                                                .map(
+                                                  (e) => e.name,
+                                                )
+                                                .toList(),
+                                          ),
+                                          button: AppLocalizations.of(
+                                            context,
+                                          ).duplicate,
                                         ),
                                       );
                                       if (name == null) return;
                                       bloc.add(
                                         AnimationAdded(
-                                            _animation!.copyWith(name: name)),
+                                          _animation!.copyWith(
+                                            name: name,
+                                          ),
+                                        ),
                                       );
                                       _setAnimation(name);
                                       _setFrame(0);
                                     },
-                              child:
-                                  Text(AppLocalizations.of(context).duplicate),
+                              child: Text(
+                                AppLocalizations.of(context).duplicate,
+                              ),
                             ),
                             MenuItemButton(
-                              leadingIcon:
-                                  const PhosphorIcon(PhosphorIconsLight.pencil),
+                              leadingIcon: const PhosphorIcon(
+                                PhosphorIconsLight.pencil,
+                              ),
                               onPressed: _animation == null
                                   ? null
                                   : () async {
@@ -252,49 +262,65 @@ class _PresentationToolbarViewState extends State<PresentationToolbarView> {
                                         builder: (context) => NameDialog(
                                           value: _animation!.name,
                                           validator: defaultNameValidator(
-                                              context,
-                                              animations
-                                                  .map((e) => e.name)
-                                                  .toList()),
-                                          button: AppLocalizations.of(context)
-                                              .rename,
+                                            context,
+                                            animations
+                                                .map(
+                                                  (e) => e.name,
+                                                )
+                                                .toList(),
+                                          ),
+                                          button: AppLocalizations.of(
+                                            context,
+                                          ).rename,
                                         ),
                                       );
                                       if (name == null) return;
                                       bloc.add(
                                         AnimationUpdated(
-                                            _animation!.name,
-                                            _animation!.copyWith(
-                                              name: name,
-                                            )),
+                                          _animation!.name,
+                                          _animation!.copyWith(
+                                            name: name,
+                                          ),
+                                        ),
                                       );
                                       _setAnimation(name);
                                     },
-                              child: Text(AppLocalizations.of(context).rename),
+                              child: Text(
+                                AppLocalizations.of(context).rename,
+                              ),
                             ),
                             MenuItemButton(
-                              leadingIcon:
-                                  const PhosphorIcon(PhosphorIconsLight.trash),
+                              leadingIcon: const PhosphorIcon(
+                                PhosphorIconsLight.trash,
+                              ),
                               onPressed: _animation == null
                                   ? null
                                   : () {
                                       final bloc = context.read<DocumentBloc>();
                                       bloc.add(
-                                        AnimationRemoved(_animation!.name),
+                                        AnimationRemoved(
+                                          _animation!.name,
+                                        ),
                                       );
                                       setState(() {
                                         _resetSelection();
                                       });
                                     },
-                              child: Text(AppLocalizations.of(context).delete),
+                              child: Text(
+                                AppLocalizations.of(context).delete,
+                              ),
                             ),
                           ],
                         ),
                         IconButton(
                           icon: widget.runningState !=
                                   PresentationRunningState.running
-                              ? const PhosphorIcon(PhosphorIconsLight.play)
-                              : const PhosphorIcon(PhosphorIconsLight.pause),
+                              ? const PhosphorIcon(
+                                  PhosphorIconsLight.play,
+                                )
+                              : const PhosphorIcon(
+                                  PhosphorIconsLight.pause,
+                                ),
                           tooltip: widget.runningState !=
                                   PresentationRunningState.running
                               ? AppLocalizations.of(context).play
@@ -304,37 +330,45 @@ class _PresentationToolbarViewState extends State<PresentationToolbarView> {
                               : () {
                                   if (widget.runningState ==
                                       PresentationRunningState.running) {
-                                    widget.onRunningStateChanged
-                                        ?.call(PresentationRunningState.paused);
+                                    widget.onRunningStateChanged?.call(
+                                      PresentationRunningState.paused,
+                                    );
                                   } else {
                                     if (_animation!.duration <= _frame) {
                                       _setFrame(0);
                                     }
                                     widget.onRunningStateChanged?.call(
-                                        PresentationRunningState.running);
+                                      PresentationRunningState.running,
+                                    );
                                   }
                                 },
                         ),
                         IconButton(
-                          icon: const PhosphorIcon(PhosphorIconsLight.stop),
+                          icon: const PhosphorIcon(
+                            PhosphorIconsLight.stop,
+                          ),
                           tooltip: AppLocalizations.of(context).stop,
                           onPressed: _animation == null
                               ? null
                               : () {
                                   _setFrame(0);
-                                  widget.onRunningStateChanged
-                                      ?.call(PresentationRunningState.paused);
+                                  widget.onRunningStateChanged?.call(
+                                    PresentationRunningState.paused,
+                                  );
                                 },
                         ),
                         MenuAnchor(
                           builder: defaultMenuButton(
-                            icon: const PhosphorIcon(PhosphorIconsLight.record),
+                            icon: const PhosphorIcon(
+                              PhosphorIconsLight.record,
+                            ),
                             tooltip: AppLocalizations.of(context).keyframe,
                           ),
                           menuChildren: [
                             MenuItemButton(
-                              leadingIcon:
-                                  const PhosphorIcon(PhosphorIconsLight.record),
+                              leadingIcon: const PhosphorIcon(
+                                PhosphorIconsLight.record,
+                              ),
                               child: Text(
                                 AppLocalizations.of(context).keyframe,
                                 style: TextStyle(
@@ -343,23 +377,26 @@ class _PresentationToolbarViewState extends State<PresentationToolbarView> {
                                       : null,
                                 ),
                               ),
-                              onPressed: () => _setKey(keyframeEnabled
-                                  ? defaultKey.copyWith(
-                                      cameraPosition: null,
-                                      cameraZoom: null,
-                                      breakpoint: false,
-                                    )
-                                  : defaultKey.copyWith(
-                                      cameraPosition:
-                                          transform.position.toPoint(),
-                                      cameraZoom: transform.size,
-                                      breakpoint: true,
-                                    )),
+                              onPressed: () => _setKey(
+                                keyframeEnabled
+                                    ? defaultKey.copyWith(
+                                        cameraPosition: null,
+                                        cameraZoom: null,
+                                        breakpoint: false,
+                                      )
+                                    : defaultKey.copyWith(
+                                        cameraPosition:
+                                            transform.position.toPoint(),
+                                        cameraZoom: transform.size,
+                                        breakpoint: true,
+                                      ),
+                              ),
                             ),
                             const Divider(),
                             MenuItemButton(
                               leadingIcon: const PhosphorIcon(
-                                  PhosphorIconsLight.flowArrow),
+                                PhosphorIconsLight.flowArrow,
+                              ),
                               child: Text(
                                 AppLocalizations.of(context).camera,
                                 style: TextStyle(
@@ -368,20 +405,23 @@ class _PresentationToolbarViewState extends State<PresentationToolbarView> {
                                       : null,
                                 ),
                               ),
-                              onPressed: () => _setKey(cameraEnabled
-                                  ? defaultKey.copyWith(
-                                      cameraPosition: null,
-                                      cameraZoom: null,
-                                    )
-                                  : defaultKey.copyWith(
-                                      cameraPosition:
-                                          transform.position.toPoint(),
-                                      cameraZoom: transform.size,
-                                    )),
+                              onPressed: () => _setKey(
+                                cameraEnabled
+                                    ? defaultKey.copyWith(
+                                        cameraPosition: null,
+                                        cameraZoom: null,
+                                      )
+                                    : defaultKey.copyWith(
+                                        cameraPosition:
+                                            transform.position.toPoint(),
+                                        cameraZoom: transform.size,
+                                      ),
+                              ),
                             ),
                             MenuItemButton(
-                              leadingIcon:
-                                  const PhosphorIcon(PhosphorIconsLight.camera),
+                              leadingIcon: const PhosphorIcon(
+                                PhosphorIconsLight.camera,
+                              ),
                               child: Text(
                                 AppLocalizations.of(context).breakpoint,
                                 style: TextStyle(
@@ -390,14 +430,17 @@ class _PresentationToolbarViewState extends State<PresentationToolbarView> {
                                       : null,
                                 ),
                               ),
-                              onPressed: () => _setKey(defaultKey.copyWith(
-                                breakpoint: !defaultKey.breakpoint,
-                              )),
+                              onPressed: () => _setKey(
+                                defaultKey.copyWith(
+                                  breakpoint: !defaultKey.breakpoint,
+                                ),
+                              ),
                             ),
                             const Divider(),
                             MenuItemButton(
                               leadingIcon: const PhosphorIcon(
-                                  PhosphorIconsLight.arrowsOutCardinal),
+                                PhosphorIconsLight.arrowsOutCardinal,
+                              ),
                               child: Text(
                                 AppLocalizations.of(context).position,
                                 style: TextStyle(
@@ -406,13 +449,16 @@ class _PresentationToolbarViewState extends State<PresentationToolbarView> {
                                       : null,
                                 ),
                               ),
-                              onPressed: () => _setKey(defaultKey.copyWith(
-                                cameraPosition: transform.position.toPoint(),
-                              )),
+                              onPressed: () => _setKey(
+                                defaultKey.copyWith(
+                                  cameraPosition: transform.position.toPoint(),
+                                ),
+                              ),
                             ),
                             MenuItemButton(
                               leadingIcon: const PhosphorIcon(
-                                  PhosphorIconsLight.magnifyingGlass),
+                                PhosphorIconsLight.magnifyingGlass,
+                              ),
                               child: Text(
                                 AppLocalizations.of(context).zoom,
                                 style: TextStyle(
@@ -421,24 +467,31 @@ class _PresentationToolbarViewState extends State<PresentationToolbarView> {
                                       : null,
                                 ),
                               ),
-                              onPressed: () => _setKey(defaultKey.copyWith(
-                                cameraZoom: transform.size,
-                              )),
+                              onPressed: () => _setKey(
+                                defaultKey.copyWith(
+                                  cameraZoom: transform.size,
+                                ),
+                              ),
                             ),
                             const Divider(),
                             MenuItemButton(
-                              leadingIcon:
-                                  const PhosphorIcon(PhosphorIconsLight.trash),
+                              leadingIcon: const PhosphorIcon(
+                                PhosphorIconsLight.trash,
+                              ),
                               onPressed: _key == null
                                   ? null
                                   : () {
                                       final bloc = context.read<DocumentBloc>();
-                                      bloc.add(AnimationUpdated(
+                                      bloc.add(
+                                        AnimationUpdated(
                                           _animation!.name,
                                           _animation!.copyWith(
-                                            keys: Map.from(_animation!.keys)
-                                              ..remove(_frame),
-                                          )));
+                                            keys: Map.from(
+                                              _animation!.keys,
+                                            )..remove(_frame),
+                                          ),
+                                        ),
+                                      );
                                     },
                               child: Text(
                                 AppLocalizations.of(context).delete,
@@ -480,7 +533,9 @@ class _PresentationToolbarViewState extends State<PresentationToolbarView> {
                               controller: _frameController,
                               textAlign: TextAlign.center,
                               onFieldSubmitted: (value) {
-                                final frame = int.tryParse(value.trim());
+                                final frame = int.tryParse(
+                                  value.trim(),
+                                );
                                 if (frame != null) {
                                   _setFrame(frame);
                                 }
@@ -489,7 +544,10 @@ class _PresentationToolbarViewState extends State<PresentationToolbarView> {
                           ),
                           const SizedBox(width: 8),
                           SizedBox(
-                            width: max(200, constraints.maxWidth * 0.25),
+                            width: max(
+                              200,
+                              constraints.maxWidth * 0.25,
+                            ),
                             child: PresentationTimelineView(
                               animationKeys: _animation!.keys.keys.toList(),
                               currentFrame: _frame,
@@ -503,18 +561,22 @@ class _PresentationToolbarViewState extends State<PresentationToolbarView> {
                             child: TextFormField(
                               decoration: InputDecoration(
                                 filled: true,
-                                labelText:
-                                    AppLocalizations.of(context).duration,
+                                labelText: AppLocalizations.of(
+                                  context,
+                                ).duration,
                                 floatingLabelAlignment:
                                     FloatingLabelAlignment.center,
                               ),
                               controller: _durationController,
                               textAlign: TextAlign.center,
                               onFieldSubmitted: (value) {
-                                final duration = int.tryParse(value.trim());
+                                final duration = int.tryParse(
+                                  value.trim(),
+                                );
                                 if (duration != null && duration > 0) {
-                                  final updated =
-                                      _animation!.copyWith(duration: duration);
+                                  final updated = _animation!.copyWith(
+                                    duration: duration,
+                                  );
                                   context.read<DocumentBloc>().add(
                                         AnimationUpdated(
                                           _animation!.name,
@@ -532,14 +594,18 @@ class _PresentationToolbarViewState extends State<PresentationToolbarView> {
                           MenuAnchor(
                             builder: defaultMenuButton(
                               icon: const PhosphorIcon(
-                                  PhosphorIconsLight.presentation),
+                                PhosphorIconsLight.presentation,
+                              ),
                               tooltip: AppLocalizations.of(context).export,
                             ),
                             menuChildren: [
                               MenuItemButton(
                                 leadingIcon: const PhosphorIcon(
-                                    PhosphorIconsLight.playCircle),
-                                child: Text(AppLocalizations.of(context).play),
+                                  PhosphorIconsLight.playCircle,
+                                ),
+                                child: Text(
+                                  AppLocalizations.of(context).play,
+                                ),
                                 onPressed: () async {
                                   final bloc = context.read<DocumentBloc>();
                                   final fullScreen = await isFullScreen();
@@ -550,8 +616,12 @@ class _PresentationToolbarViewState extends State<PresentationToolbarView> {
                                           const PresentationControlsDialog(),
                                     );
                                     if (result != true) return;
-                                    bloc.add(PresentationModeEntered(
-                                        _animation!, fullScreen));
+                                    bloc.add(
+                                      PresentationModeEntered(
+                                        _animation!,
+                                        fullScreen,
+                                      ),
+                                    );
                                   }
                                 },
                               ),
@@ -568,9 +638,12 @@ class _PresentationToolbarViewState extends State<PresentationToolbarView> {
                                 child: Text(AppLocalizations.of(context).image),
                               ),*/
                               MenuItemButton(
-                                leadingIcon:
-                                    const PhosphorIcon(PhosphorIconsLight.file),
-                                child: Text(AppLocalizations.of(context).pdf),
+                                leadingIcon: const PhosphorIcon(
+                                  PhosphorIconsLight.file,
+                                ),
+                                child: Text(
+                                  AppLocalizations.of(context).pdf,
+                                ),
                                 onPressed: () {
                                   final size = MediaQuery.of(context).size;
                                   showDialog(
@@ -581,30 +654,37 @@ class _PresentationToolbarViewState extends State<PresentationToolbarView> {
                                         areas: {
                                           0,
                                           ..._animation!.keys.entries
-                                              .where((element) =>
-                                                  element.value.breakpoint)
+                                              .where(
+                                                (element) =>
+                                                    element.value.breakpoint,
+                                              )
                                               .map((e) => e.key)
-                                              .sorted((a, b) => a.compareTo(b))
-                                        }.map(
-                                          (e) {
-                                            final zoom = _animation!
-                                                    .interpolateCameraZoom(e) ??
-                                                transform.size;
-                                            final position = _animation!
-                                                    .interpolateCameraPosition(
-                                                        e) ??
-                                                transform.position.toPoint();
-                                            return AreaPreset(
-                                              name: e.toString(),
-                                              area: Area(
-                                                position: -position,
-                                                height: size.height / zoom,
-                                                width: size.width / zoom,
+                                              .sorted(
+                                                (a, b) => a.compareTo(
+                                                  b,
+                                                ),
                                               ),
-                                              quality: zoom,
-                                            );
-                                          },
-                                        ).toList(),
+                                        }.map((e) {
+                                          final zoom =
+                                              _animation!.interpolateCameraZoom(
+                                                    e,
+                                                  ) ??
+                                                  transform.size;
+                                          final position = _animation!
+                                                  .interpolateCameraPosition(
+                                                e,
+                                              ) ??
+                                              transform.position.toPoint();
+                                          return AreaPreset(
+                                            name: e.toString(),
+                                            area: Area(
+                                              position: -position,
+                                              height: size.height / zoom,
+                                              width: size.width / zoom,
+                                            ),
+                                            quality: zoom,
+                                          );
+                                        }).toList(),
                                       ),
                                     ),
                                   );

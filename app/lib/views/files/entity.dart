@@ -13,7 +13,7 @@ import 'package:butterfly_api/butterfly_api.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:butterfly/src/generated/i18n/app_localizations.dart';
 import 'package:intl/intl.dart';
 import 'package:lw_file_system/lw_file_system.dart';
 import 'package:material_leap/material_leap.dart';
@@ -87,9 +87,12 @@ void deleteEntities({
                   Navigator.of(ctx).pop();
                   for (final entity in entities) {
                     await documentSystem.deleteAsset(entity);
-                    await settingsCubit.removeRecentHistory(AssetLocation(
+                    await settingsCubit.removeRecentHistory(
+                      AssetLocation(
                         path: entity,
-                        remote: documentSystem.storage?.identifier ?? ''));
+                        remote: documentSystem.storage?.identifier ?? '',
+                      ),
+                    );
                   }
                   onDelete();
                 },
@@ -116,8 +119,9 @@ class _FileEntityItemState extends State<FileEntityItem> {
   @override
   Widget build(BuildContext context) {
     final fileSystem = context.read<ButterflyFileSystem>();
-    final remote =
-        fileSystem.settingsCubit.getRemote(widget.entity.location.remote);
+    final remote = fileSystem.settingsCubit.getRemote(
+      widget.entity.location.remote,
+    );
     final documentSystem = fileSystem.buildDocumentSystem(remote);
     FileMetadata? metadata;
     Uint8List? thumbnail;
@@ -229,8 +233,10 @@ class _FileEntityItemState extends State<FileEntityItem> {
           return data.data != widget.entity.location.path;
         },
         onAcceptWithDetails: (data) async {
-          await documentSystem.moveAsset(data.data,
-              '${widget.entity.location.path}/${data.data.split('/').last}');
+          await documentSystem.moveAsset(
+            data.data,
+            '${widget.entity.location.path}/${data.data.split('/').last}',
+          );
           widget.onReload();
         },
       );
@@ -277,12 +283,17 @@ class ContextFileRegion extends StatelessWidget {
             stream: syncService.getSync(remote!.identifier)?.filesStream,
             builder: (context, snapshot) {
               final currentStatus = snapshot.data
-                  ?.lastWhereOrNull((element) =>
-                      entity.location.path.startsWith(element.location.path))
+                  ?.lastWhereOrNull(
+                    (element) => entity.location.path.startsWith(
+                      element.location.path,
+                    ),
+                  )
                   ?.status;
               return MenuItemButton(
-                leadingIcon: PhosphorIcon(currentStatus.getIcon(),
-                    color: currentStatus.getColor(ColorScheme.of(context))),
+                leadingIcon: PhosphorIcon(
+                  currentStatus.getIcon(),
+                  color: currentStatus.getColor(ColorScheme.of(context)),
+                ),
                 child: Text(currentStatus.getLocalizedName(context)),
                 onPressed: () {
                   syncService.getSync(remote!.identifier)?.sync();
@@ -291,20 +302,23 @@ class ContextFileRegion extends StatelessWidget {
             },
           ),
         BlocBuilder<SettingsCubit, ButterflySettings>(
-            builder: (context, state) {
-          final starred = state.isStarred(entity.location);
-          return MenuItemButton(
-            onPressed: () {
-              settingsCubit.toggleStarred(entity.location);
-            },
-            leadingIcon: starred
-                ? const PhosphorIcon(PhosphorIconsFill.star)
-                : const PhosphorIcon(PhosphorIconsLight.star),
-            child: Text(starred
-                ? AppLocalizations.of(context).unstar
-                : AppLocalizations.of(context).star),
-          );
-        }),
+          builder: (context, state) {
+            final starred = state.isStarred(entity.location);
+            return MenuItemButton(
+              onPressed: () {
+                settingsCubit.toggleStarred(entity.location);
+              },
+              leadingIcon: starred
+                  ? const PhosphorIcon(PhosphorIconsFill.star)
+                  : const PhosphorIcon(PhosphorIconsLight.star),
+              child: Text(
+                starred
+                    ? AppLocalizations.of(context).unstar
+                    : AppLocalizations.of(context).star,
+              ),
+            );
+          },
+        ),
         if (onSelect != null)
           MenuItemButton(
             onPressed: onSelect,
@@ -341,11 +355,7 @@ class ContextFileRegion extends StatelessWidget {
                 exportData(context, data?.data ?? []);
               } catch (e) {
                 ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                    content: Text(
-                      AppLocalizations.of(context).error,
-                    ),
-                  ),
+                  SnackBar(content: Text(AppLocalizations.of(context).error)),
                 );
               }
             },

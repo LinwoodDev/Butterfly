@@ -6,7 +6,7 @@ import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:butterfly/src/generated/i18n/app_localizations.dart';
 import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
@@ -14,14 +14,19 @@ class SearchIntent extends Intent {
   const SearchIntent();
 }
 
-Future<List<SearchResult>> _searchIsolate(NoteData noteData, String currentPage,
-        DocumentPage page, String query) =>
+Future<List<SearchResult>> _searchIsolate(
+  NoteData noteData,
+  String currentPage,
+  DocumentPage page,
+  String query,
+) =>
     compute(
-        (e) => e.$1
-            .search(RegExp(e.$2, caseSensitive: false), e.$3, e.$4)
-            .take(10)
-            .toList(),
-        (noteData, query, currentPage, page));
+      (e) => e.$1
+          .search(RegExp(e.$2, caseSensitive: false), e.$3, e.$4)
+          .take(10)
+          .toList(),
+      (noteData, query, currentPage, page),
+    );
 
 class SearchButton extends StatelessWidget {
   final SearchController controller;
@@ -56,64 +61,62 @@ class SearchButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final bloc = context.read<DocumentBloc>();
     return SearchAnchor(
-        searchController: controller,
-        builder: (BuildContext context, SearchController controller) => Actions(
-              actions: {
-                SearchIntent: CallbackAction<SearchIntent>(
-                  onInvoke: (_) {
-                    controller.openView();
-                    return null;
-                  },
-                ),
-              },
-              child: IconButton(
-                icon: const Icon(PhosphorIconsLight.magnifyingGlass),
-                tooltip: AppLocalizations.of(context).search,
-                onPressed: () {
-                  controller.openView();
-                },
-              ),
-            ),
-        suggestionsBuilder: (context, controller) async {
-          final state = bloc.state;
-          List<SearchResult> results = [];
-          if (state is DocumentLoaded) {
-            results = await _searchIsolate(
-                state.data, state.pageName, state.page, controller.text);
-          }
-          return results.map(
-            (result) {
-              return ListTile(
-                leading:
-                    PhosphorIcon(_getIcon(result)(PhosphorIconsStyle.light)),
-                title: Text(_getLocalizedName(result, context)),
-                subtitle: Text(_getDisplay(result, context)),
-                onTap: () {
-                  final state = bloc.state;
-                  if (state is! DocumentLoaded) return;
-                  final cubit = state.currentIndexCubit;
-                  final position = result.getPosition();
-                  final page = result.getPage();
-                  if (page != null) {
-                    bloc.add(PageChanged(page));
-                  }
-                  if (position != null) {
-                    state.transformCubit.teleport(position.toOffset());
-                  }
-                  cubit.bake(state);
-                  if (result is ToolResult) {
-                    cubit.resetSelection();
-                    cubit.changeTool(
-                      bloc,
-                      index: result.index,
-                      context: context,
-                    );
-                  }
-                  Navigator.pop(context);
-                },
-              );
+      searchController: controller,
+      builder: (BuildContext context, SearchController controller) => Actions(
+        actions: {
+          SearchIntent: CallbackAction<SearchIntent>(
+            onInvoke: (_) {
+              controller.openView();
+              return null;
+            },
+          ),
+        },
+        child: IconButton(
+          icon: const Icon(PhosphorIconsLight.magnifyingGlass),
+          tooltip: AppLocalizations.of(context).search,
+          onPressed: () {
+            controller.openView();
+          },
+        ),
+      ),
+      suggestionsBuilder: (context, controller) async {
+        final state = bloc.state;
+        List<SearchResult> results = [];
+        if (state is DocumentLoaded) {
+          results = await _searchIsolate(
+            state.data,
+            state.pageName,
+            state.page,
+            controller.text,
+          );
+        }
+        return results.map((result) {
+          return ListTile(
+            leading: PhosphorIcon(_getIcon(result)(PhosphorIconsStyle.light)),
+            title: Text(_getLocalizedName(result, context)),
+            subtitle: Text(_getDisplay(result, context)),
+            onTap: () {
+              final state = bloc.state;
+              if (state is! DocumentLoaded) return;
+              final cubit = state.currentIndexCubit;
+              final position = result.getPosition();
+              final page = result.getPage();
+              if (page != null) {
+                bloc.add(PageChanged(page));
+              }
+              if (position != null) {
+                state.transformCubit.teleport(position.toOffset());
+              }
+              cubit.bake(state);
+              if (result is ToolResult) {
+                cubit.resetSelection();
+                cubit.changeTool(bloc, index: result.index, context: context);
+              }
+              Navigator.pop(context);
             },
           );
         });
+      },
+    );
   }
 }

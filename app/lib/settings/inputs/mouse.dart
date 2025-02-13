@@ -1,7 +1,7 @@
 import 'package:butterfly/api/open.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:butterfly/src/generated/i18n/app_localizations.dart';
 import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
@@ -41,7 +41,8 @@ class MouseInputSettings extends StatelessWidget {
                               ),
                               IconButton(
                                 icon: const PhosphorIcon(
-                                    PhosphorIconsLight.sealQuestion),
+                                  PhosphorIconsLight.sealQuestion,
+                                ),
                                 tooltip: AppLocalizations.of(context).help,
                                 onPressed: () =>
                                     openHelp(['shortcuts'], 'configure'),
@@ -54,11 +55,15 @@ class MouseInputSettings extends StatelessWidget {
                                 config.leftMouse?.add(1)?.toString() ?? '',
                             label: AppLocalizations.of(context).left,
                             icon: const PhosphorIcon(
-                                PhosphorIconsLight.arrowLeft),
+                              PhosphorIconsLight.arrowLeft,
+                            ),
                             onChanged: (value) {
                               final cubit = context.read<SettingsCubit>();
-                              cubit.changeInputConfiguration(config.copyWith(
-                                  leftMouse: int.tryParse(value)?.subtract(1)));
+                              cubit.changeInputConfiguration(
+                                config.copyWith(
+                                  leftMouse: int.tryParse(value)?.subtract(1),
+                                ),
+                              );
                             },
                           ),
                           const SizedBox(height: 8),
@@ -66,13 +71,16 @@ class MouseInputSettings extends StatelessWidget {
                             initialValue:
                                 config.middleMouse?.add(1)?.toString() ?? '',
                             label: AppLocalizations.of(context).middle,
-                            icon:
-                                const PhosphorIcon(PhosphorIconsLight.arrowUp),
+                            icon: const PhosphorIcon(
+                              PhosphorIconsLight.arrowUp,
+                            ),
                             onChanged: (value) {
                               final cubit = context.read<SettingsCubit>();
-                              cubit.changeInputConfiguration(config.copyWith(
-                                  middleMouse:
-                                      int.tryParse(value)?.subtract(1)));
+                              cubit.changeInputConfiguration(
+                                config.copyWith(
+                                  middleMouse: int.tryParse(value)?.subtract(1),
+                                ),
+                              );
                             },
                           ),
                           const SizedBox(height: 8),
@@ -81,12 +89,15 @@ class MouseInputSettings extends StatelessWidget {
                                 config.rightMouse?.add(1)?.toString() ?? '',
                             label: AppLocalizations.of(context).right,
                             icon: const PhosphorIcon(
-                                PhosphorIconsLight.arrowRight),
+                              PhosphorIconsLight.arrowRight,
+                            ),
                             onChanged: (value) {
                               final cubit = context.read<SettingsCubit>();
-                              cubit.changeInputConfiguration(config.copyWith(
-                                  rightMouse:
-                                      int.tryParse(value)?.subtract(1)));
+                              cubit.changeInputConfiguration(
+                                config.copyWith(
+                                  rightMouse: int.tryParse(value)?.subtract(1),
+                                ),
+                              );
                             },
                           ),
                         ],

@@ -2,12 +2,15 @@ import 'package:butterfly/helpers/asset.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:butterfly/src/generated/i18n/app_localizations.dart';
 import 'package:lw_sysapi/lw_sysapi.dart';
 import 'package:super_clipboard/super_clipboard.dart';
 
-Future<void> exportSvg(BuildContext context, String data,
-        [bool share = false]) =>
+Future<void> exportSvg(
+  BuildContext context,
+  String data, [
+  bool share = false,
+]) =>
     exportFile(
       context: context,
       bytes: data.codeUnits,
@@ -19,8 +22,11 @@ Future<void> exportSvg(BuildContext context, String data,
       label: AppLocalizations.of(context).export,
     );
 
-Future<void> exportImage(BuildContext context, List<int> bytes,
-        [bool share = false]) =>
+Future<void> exportImage(
+  BuildContext context,
+  List<int> bytes, [
+  bool share = false,
+]) =>
     exportFile(
       context: context,
       bytes: bytes,
@@ -32,8 +38,11 @@ Future<void> exportImage(BuildContext context, List<int> bytes,
       label: AppLocalizations.of(context).export,
     );
 
-Future<void> exportPdf(BuildContext context, List<int> bytes,
-        [bool share = false]) =>
+Future<void> exportPdf(
+  BuildContext context,
+  List<int> bytes, [
+  bool share = false,
+]) =>
     exportFile(
       context: context,
       bytes: bytes,
@@ -45,8 +54,11 @@ Future<void> exportPdf(BuildContext context, List<int> bytes,
       label: AppLocalizations.of(context).export,
     );
 
-Future<void> exportZip(BuildContext context, List<int> bytes,
-        [bool share = false]) =>
+Future<void> exportZip(
+  BuildContext context,
+  List<int> bytes, [
+  bool share = false,
+]) =>
     exportFile(
       context: context,
       bytes: bytes,
@@ -58,8 +70,11 @@ Future<void> exportZip(BuildContext context, List<int> bytes,
       label: AppLocalizations.of(context).export,
     );
 
-Future<void> exportData(BuildContext context, List<int> bytes,
-        [bool share = false]) =>
+Future<void> exportData(
+  BuildContext context,
+  List<int> bytes, [
+  bool share = false,
+]) =>
     exportFile(
       context: context,
       bytes: bytes,
@@ -71,8 +86,11 @@ Future<void> exportData(BuildContext context, List<int> bytes,
       label: AppLocalizations.of(context).export,
     );
 
-Future<void> writeClipboardData(ClipboardManager clipboardManager,
-    AssetFileType type, Uint8List data) async {
+Future<void> writeClipboardData(
+  ClipboardManager clipboardManager,
+  AssetFileType type,
+  Uint8List data,
+) async {
   final clipboard = SystemClipboard.instance;
   if (clipboard != null) {
     final item = DataWriterItem();

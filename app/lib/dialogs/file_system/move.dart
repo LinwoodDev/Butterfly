@@ -1,6 +1,6 @@
 import 'package:butterfly/api/file_system.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:butterfly/src/generated/i18n/app_localizations.dart';
 import 'package:lw_file_system/lw_file_system.dart';
 import 'package:material_leap/l10n/leap_localizations.dart';
 
@@ -12,11 +12,12 @@ class FileSystemAssetMoveDialog extends StatefulWidget {
   final MoveMode? moveMode;
   final List<AssetLocation> assets;
   final DocumentFileSystem fileSystem;
-  const FileSystemAssetMoveDialog(
-      {super.key,
-      this.moveMode,
-      required this.assets,
-      required this.fileSystem});
+  const FileSystemAssetMoveDialog({
+    super.key,
+    this.moveMode,
+    required this.assets,
+    required this.fileSystem,
+  });
 
   @override
   State<FileSystemAssetMoveDialog> createState() =>
@@ -72,46 +73,51 @@ class _FileSystemAssetMoveDialogState extends State<FileSystemAssetMoveDialog> {
       _ => AppLocalizations.of(context).changeDocumentPath,
     };
     return AlertDialog(
-        actions: [
-          TextButton(
-            child: Text(MaterialLocalizations.of(context).cancelButtonLabel),
-            onPressed: () => Navigator.of(context).pop(null),
+      actions: [
+        TextButton(
+          child: Text(MaterialLocalizations.of(context).cancelButtonLabel),
+          onPressed: () => Navigator.of(context).pop(null),
+        ),
+        if (widget.moveMode != null)
+          ElevatedButton(
+            child: Text(MaterialLocalizations.of(context).okButtonLabel),
+            onPressed: () => _move(widget.moveMode == MoveMode.duplicate),
           ),
-          if (widget.moveMode != null)
-            ElevatedButton(
-              child: Text(MaterialLocalizations.of(context).okButtonLabel),
-              onPressed: () => _move(widget.moveMode == MoveMode.duplicate),
-            ),
-          if (widget.moveMode == null) ...[
-            ElevatedButton(
-                onPressed: () => _move(true),
-                child: Text(AppLocalizations.of(context).duplicate)),
-            ElevatedButton(
-                onPressed: () => _move(false),
-                child: Text(AppLocalizations.of(context).move)),
-          ]
+        if (widget.moveMode == null) ...[
+          ElevatedButton(
+            onPressed: () => _move(true),
+            child: Text(AppLocalizations.of(context).duplicate),
+          ),
+          ElevatedButton(
+            onPressed: () => _move(false),
+            child: Text(AppLocalizations.of(context).move),
+          ),
         ],
-        title: Text(title),
-        scrollable: true,
-        content: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            FileSystemDirectoryTreeView(
-              fileSystem: widget.fileSystem,
-              path: '/',
-              onPathSelected: (path) => selectedPath = path,
-              initialExpanded: true,
-            ),
-            if (isSingleFile()) ...[
-              const SizedBox(height: 16),
-              TextField(
-                decoration: InputDecoration(
-                    filled: true, hintText: LeapLocalizations.of(context).name),
-                autofocus: true,
-                controller: _nameController,
+      ],
+      title: Text(title),
+      scrollable: true,
+      content: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          FileSystemDirectoryTreeView(
+            fileSystem: widget.fileSystem,
+            path: '/',
+            onPathSelected: (path) => selectedPath = path,
+            initialExpanded: true,
+          ),
+          if (isSingleFile()) ...[
+            const SizedBox(height: 16),
+            TextField(
+              decoration: InputDecoration(
+                filled: true,
+                hintText: LeapLocalizations.of(context).name,
               ),
-            ],
+              autofocus: true,
+              controller: _nameController,
+            ),
           ],
-        ));
+        ],
+      ),
+    );
   }
 }

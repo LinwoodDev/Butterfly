@@ -6,7 +6,7 @@ import 'package:butterfly/helpers/color.dart';
 import 'package:flutter/material.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/services.dart' show rootBundle;
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:butterfly/src/generated/i18n/app_localizations.dart';
 import 'package:material_leap/material_leap.dart';
 
 class DocumentDefaults {
@@ -18,11 +18,15 @@ class DocumentDefaults {
     final size = Size(kThumbnailWidth.toDouble(), kThumbnailHeight.toDouble());
     final recorder = ui.PictureRecorder();
     final canvas = Canvas(recorder);
-    canvas.drawRect(Rect.fromLTWH(0, 0, size.width, size.height),
-        Paint()..color = color.toColor());
+    canvas.drawRect(
+      Rect.fromLTWH(0, 0, size.width, size.height),
+      Paint()..color = color.toColor(),
+    );
     final picture = recorder.endRecording();
-    final image =
-        await picture.toImage(size.width.toInt(), size.height.toInt());
+    final image = await picture.toImage(
+      size.width.toInt(),
+      size.height.toInt(),
+    );
     final bytes = await image.toByteData(format: ui.ImageByteFormat.png);
     return bytes!.buffer.asUint8List();
   }
@@ -33,36 +37,35 @@ class DocumentDefaults {
         PathEraserTool(),
         UndoTool(),
         RedoTool(),
-        HandTool()
+        HandTool(),
       ]
-          .map((e) =>
-              background == null ? e : updateToolDefaultColor(e, background))
+          .map(
+            (e) =>
+                background == null ? e : updateToolDefaultColor(e, background),
+          )
           .toList();
 
   static Future<List<NoteData>> getDefaults(BuildContext context) async {
-    return Future.wait([
-      (
-        AppLocalizations.of(context).light,
-        PatternTemplate.plain.create(),
-      ),
-      (
-        AppLocalizations.of(context).dark,
-        PatternTemplate.plainDark.create(),
-      ),
-    ].map((e) async {
-      final bg = Background.texture(texture: e.$2);
-      final color = bg.defaultColor;
-      return createTemplate(
-        name: e.$1,
-        thumbnail: await _createPlainThumnail(color),
-        backgrounds: [bg],
-      );
-    }).toList());
+    return Future.wait(
+      [
+        (AppLocalizations.of(context).light, PatternTemplate.plain.create()),
+        (AppLocalizations.of(context).dark, PatternTemplate.plainDark.create()),
+      ].map((e) async {
+        final bg = Background.texture(texture: e.$2);
+        final color = bg.defaultColor;
+        return createTemplate(
+          name: e.$1,
+          thumbnail: await _createPlainThumnail(color),
+          backgrounds: [bg],
+        );
+      }).toList(),
+    );
   }
 
   static Future<NoteData> getCorePack() async {
     _corePack ??= NoteData.fromData(
-        Uint8List.sublistView(await rootBundle.load('defaults/pack.bfly')));
+      Uint8List.sublistView(await rootBundle.load('defaults/pack.bfly')),
+    );
     return _corePack!;
   }
 
@@ -101,23 +104,21 @@ class DocumentDefaults {
   static String translateBlock(String key, BuildContext context) =>
       translate(key, getSpanTranslations(context));
 
-  static NoteData createDocument({
-    String name = '',
-    DocumentPage? page,
-  }) {
+  static NoteData createDocument({String name = '', DocumentPage? page}) {
     page ??= createPage();
     final metadata = createMetadata(name: name);
-    final data = NoteData(Archive())
-        .setMetadata(metadata)
-        .setPage(page)
-        .setInfo(createInfo());
+    final data = NoteData(
+      Archive(),
+    ).setMetadata(metadata).setPage(page).setInfo(createInfo());
     return data;
   }
 
   static DocumentPage createPage() {
-    return DocumentPage(backgrounds: [
-      Background.texture(texture: PatternTemplate.plain.create())
-    ]);
+    return DocumentPage(
+      backgrounds: [
+        Background.texture(texture: PatternTemplate.plain.create()),
+      ],
+    );
   }
 
   static DocumentInfo createInfo([SRGBColor? background]) {
@@ -125,24 +126,18 @@ class DocumentDefaults {
   }
 
   static NoteData createPack() {
-    final metadata = createMetadata(
-      type: NoteFileType.pack,
-    );
+    final metadata = createMetadata(type: NoteFileType.pack);
     final data = NoteData(Archive()).setMetadata(metadata);
     return data;
   }
 
-  static Future<NoteData> createTemplate(
-      {String name = '',
-      Uint8List? thumbnail,
-      List<Background> backgrounds = const []}) async {
-    final metadata = createMetadata(
-      type: NoteFileType.template,
-      name: name,
-    );
-    final page = DocumentPage(
-      backgrounds: backgrounds,
-    );
+  static Future<NoteData> createTemplate({
+    String name = '',
+    Uint8List? thumbnail,
+    List<Background> backgrounds = const [],
+  }) async {
+    final metadata = createMetadata(type: NoteFileType.template, name: name);
+    final page = DocumentPage(backgrounds: backgrounds);
     var data = NoteData(Archive())
         .setMetadata(metadata)
         .setInfo(createInfo(backgrounds.firstOrNull?.defaultColor))
@@ -152,8 +147,10 @@ class DocumentDefaults {
     return data;
   }
 
-  static createMetadata(
-          {NoteFileType type = NoteFileType.document, String name = ''}) =>
+  static createMetadata({
+    NoteFileType type = NoteFileType.document,
+    String name = '',
+  }) =>
       FileMetadata(
         name: name,
         createdAt: DateTime.now().toUtc(),

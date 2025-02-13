@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:butterfly/src/generated/i18n/app_localizations.dart';
 import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
@@ -111,23 +111,24 @@ class _EditableListTileState extends State<EditableListTile> {
           child: _isEditing
               ? Builder(
                   builder: (context) => TextFormField(
-                        controller: _controller,
-                        onChanged: widget.onChanged,
-                        onSaved: _onSaved,
-                        autofocus: true,
-                        onFieldSubmitted: _onSaved,
-                        onTapOutside: (_) => _onSaved(),
-                        style: DefaultTextStyle.of(context).style,
-                        decoration: InputDecoration(
-                          filled: true,
-                          border: const OutlineInputBorder(),
-                          contentPadding: const EdgeInsets.symmetric(
-                            horizontal: 8,
-                            vertical: 10,
-                          ),
-                          hintText: AppLocalizations.of(context).enterText,
-                        ),
-                      ))
+                    controller: _controller,
+                    onChanged: widget.onChanged,
+                    onSaved: _onSaved,
+                    autofocus: true,
+                    onFieldSubmitted: _onSaved,
+                    onTapOutside: (_) => _onSaved(),
+                    style: DefaultTextStyle.of(context).style,
+                    decoration: InputDecoration(
+                      filled: true,
+                      border: const OutlineInputBorder(),
+                      contentPadding: const EdgeInsets.symmetric(
+                        horizontal: 8,
+                        vertical: 10,
+                      ),
+                      hintText: AppLocalizations.of(context).enterText,
+                    ),
+                  ),
+                )
               : GestureDetector(
                   onDoubleTap: _edit,
                   child: Padding(

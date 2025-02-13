@@ -6,7 +6,7 @@ import 'package:butterfly/widgets/context_menu.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:butterfly/src/generated/i18n/app_localizations.dart';
 import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
@@ -14,8 +14,12 @@ import '../export/general.dart';
 import '../packs/asset.dart';
 import '../export/pdf.dart';
 
-ContextMenuBuilder buildAreaContextMenu(DocumentBloc bloc,
-        DocumentLoadSuccess state, Area area, SettingsCubit settingsCubit) =>
+ContextMenuBuilder buildAreaContextMenu(
+  DocumentBloc bloc,
+  DocumentLoadSuccess state,
+  Area area,
+  SettingsCubit settingsCubit,
+) =>
     (context) {
       final cubit = state.currentIndexCubit;
       return [
@@ -25,22 +29,18 @@ ContextMenuBuilder buildAreaContextMenu(DocumentBloc bloc,
           onPressed: () async {
             Navigator.of(context).pop();
             final name = await showDialog<String>(
-                context: context,
-                builder: (context) => NameDialog(
-                      value: area.name,
-                      validator: defaultNameValidator(
-                        context,
-                        state.page.getAreaNames().toList(),
-                      ),
-                      button: AppLocalizations.of(context).rename,
-                    ));
-            if (name == null) return;
-            bloc.add(
-              AreaChanged(
-                area.name,
-                area.copyWith(name: name),
+              context: context,
+              builder: (context) => NameDialog(
+                value: area.name,
+                validator: defaultNameValidator(
+                  context,
+                  state.page.getAreaNames().toList(),
+                ),
+                button: AppLocalizations.of(context).rename,
               ),
             );
+            if (name == null) return;
+            bloc.add(AreaChanged(area.name, area.copyWith(name: name)));
           },
         ),
         ContextMenuItem(
@@ -52,8 +52,11 @@ ContextMenuBuilder buildAreaContextMenu(DocumentBloc bloc,
               : AppLocalizations.of(context).enterArea,
           onPressed: () {
             Navigator.of(context).pop();
-            bloc.add(CurrentAreaChanged(
-                area.name == state.currentAreaName ? '' : area.name));
+            bloc.add(
+              CurrentAreaChanged(
+                area.name == state.currentAreaName ? '' : area.name,
+              ),
+            );
           },
         ),
         ContextMenuItem(
@@ -78,12 +81,16 @@ ContextMenuBuilder buildAreaContextMenu(DocumentBloc bloc,
           settingsCubit,
           state.renderers
               .where((e) => e.area == area)
-              .map((e) => e.transform(
-                  position: -area.position.toOffset(), relative: true))
+              .map(
+                (e) => e.transform(
+                  position: -area.position.toOffset(),
+                  relative: true,
+                ),
+              )
               .map((e) => e?.element)
               .nonNulls
               .toList(),
-        )(context)
+        )(context),
       ];
     };
 
@@ -99,13 +106,17 @@ ContextMenuBuilder buildGeneralAreaContextMenu(
             onPressed: () async {
               if (pop) Navigator.of(context).pop(true);
               final result = await showDialog<String>(
-                  builder: (context) => NameDialog(
-                        button: AppLocalizations.of(context).update,
-                      ),
-                  context: context);
+                builder: (context) =>
+                    NameDialog(button: AppLocalizations.of(context).update),
+                context: context,
+              );
               if (result == null) return;
-              bloc.add(ElementsCollectionChanged(
-                  elements.map((e) => e.id).nonNulls.toList(), result));
+              bloc.add(
+                ElementsCollectionChanged(
+                  elements.map((e) => e.id).nonNulls.toList(),
+                  result,
+                ),
+              );
             },
             icon: const PhosphorIcon(PhosphorIconsLight.folder),
             label: AppLocalizations.of(context).changeCollection,
@@ -114,10 +125,16 @@ ContextMenuBuilder buildGeneralAreaContextMenu(
             onPressed: () async {
               if (pop) Navigator.of(context).pop(true);
               final result = await showDialog<String>(
-                  builder: (context) => NameDialog(), context: context);
+                builder: (context) => NameDialog(),
+                context: context,
+              );
               if (result == null) return;
-              bloc.add(ElementsLayerConverted(
-                  elements.map((e) => e.id).nonNulls.toList(), result));
+              bloc.add(
+                ElementsLayerConverted(
+                  elements.map((e) => e.id).nonNulls.toList(),
+                  result,
+                ),
+              );
             },
             icon: const PhosphorIcon(PhosphorIconsLight.stack),
             label: AppLocalizations.of(context).convertToLayer,
@@ -131,17 +148,19 @@ ContextMenuBuilder buildGeneralAreaContextMenu(
                 onPressed: () {
                   if (pop) Navigator.of(context).pop();
                   showDialog<void>(
-                      builder: (context) => BlocProvider.value(
-                          value: bloc,
-                          child: GeneralExportDialog(
-                            options: SvgExportOptions(
-                              width: area.width,
-                              height: area.height,
-                              x: area.position.x,
-                              y: area.position.y,
-                            ),
-                          )),
-                      context: context);
+                    builder: (context) => BlocProvider.value(
+                      value: bloc,
+                      child: GeneralExportDialog(
+                        options: SvgExportOptions(
+                          width: area.width,
+                          height: area.height,
+                          x: area.position.x,
+                          y: area.position.y,
+                        ),
+                      ),
+                    ),
+                    context: context,
+                  );
                 },
                 child: Text(AppLocalizations.of(context).svg),
               ),
@@ -150,19 +169,20 @@ ContextMenuBuilder buildGeneralAreaContextMenu(
                 onPressed: () {
                   if (pop) Navigator.of(context).pop();
                   showDialog<void>(
-                      builder: (context) => BlocProvider.value(
-                            value: bloc,
-                            child: GeneralExportDialog(
-                              options: ImageExportOptions(
-                                width: area.width,
-                                height: area.height,
-                                x: area.position.x,
-                                y: area.position.y,
-                                scale: 1,
-                              ),
-                            ),
-                          ),
-                      context: context);
+                    builder: (context) => BlocProvider.value(
+                      value: bloc,
+                      child: GeneralExportDialog(
+                        options: ImageExportOptions(
+                          width: area.width,
+                          height: area.height,
+                          x: area.position.x,
+                          y: area.position.y,
+                          scale: 1,
+                        ),
+                      ),
+                    ),
+                    context: context,
+                  );
                 },
                 child: Text(AppLocalizations.of(context).image),
               ),
@@ -171,12 +191,14 @@ ContextMenuBuilder buildGeneralAreaContextMenu(
                 onPressed: () {
                   if (pop) Navigator.of(context).pop();
                   showDialog<void>(
-                      builder: (context) => BlocProvider.value(
-                          value: bloc,
-                          child: PdfExportDialog(areas: [
-                            AreaPreset(area: area, name: area.name)
-                          ])),
-                      context: context);
+                    builder: (context) => BlocProvider.value(
+                      value: bloc,
+                      child: PdfExportDialog(
+                        areas: [AreaPreset(area: area, name: area.name)],
+                      ),
+                    ),
+                    context: context,
+                  );
                 },
                 child: Text(AppLocalizations.of(context).pdf),
               ),
@@ -185,14 +207,15 @@ ContextMenuBuilder buildGeneralAreaContextMenu(
                 onPressed: () {
                   if (pop) Navigator.of(context).pop();
                   showDialog<void>(
-                      builder: (context) => BlocProvider.value(
-                            value: bloc,
-                            child: PdfExportDialog(
-                              areas: [AreaPreset(area: area, name: area.name)],
-                              print: true,
-                            ),
-                          ),
-                      context: context);
+                    builder: (context) => BlocProvider.value(
+                      value: bloc,
+                      child: PdfExportDialog(
+                        areas: [AreaPreset(area: area, name: area.name)],
+                        print: true,
+                      ),
+                    ),
+                    context: context,
+                  );
                 },
                 child: Text(AppLocalizations.of(context).print),
               ),

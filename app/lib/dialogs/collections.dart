@@ -5,7 +5,7 @@ import 'package:butterfly/handlers/handler.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:butterfly/src/generated/i18n/app_localizations.dart';
 import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
@@ -30,36 +30,39 @@ class _CollectionsDialogState extends State<CollectionsDialog> {
           Flexible(
             fit: isMobile ? FlexFit.tight : FlexFit.loose,
             child: BlocBuilder<DocumentBloc, DocumentState>(
-                buildWhen: (previous, current) =>
-                    previous.page?.content != current.page?.content ||
-                    previous.currentCollection != current.currentCollection,
-                builder: (context, state) {
-                  final collections = {
-                    '',
-                    ...?state.page?.content.map((e) => e.collection),
-                    state.currentCollection,
-                  }.nonNulls.toList();
-                  return ListView.separated(
-                    shrinkWrap: true,
-                    itemCount: collections.length,
-                    separatorBuilder: (context, index) =>
-                        index == 0 ? const Divider() : const SizedBox(),
-                    itemBuilder: (context, index) {
-                      final collection = collections[index];
-                      return ListTile(
-                        title: Text(collection.isEmpty
+              buildWhen: (previous, current) =>
+                  previous.page?.content != current.page?.content ||
+                  previous.currentCollection != current.currentCollection,
+              builder: (context, state) {
+                final collections = {
+                  '',
+                  ...?state.page?.content.map((e) => e.collection),
+                  state.currentCollection,
+                }.nonNulls.toList();
+                return ListView.separated(
+                  shrinkWrap: true,
+                  itemCount: collections.length,
+                  separatorBuilder: (context, index) =>
+                      index == 0 ? const Divider() : const SizedBox(),
+                  itemBuilder: (context, index) {
+                    final collection = collections[index];
+                    return ListTile(
+                      title: Text(
+                        collection.isEmpty
                             ? AppLocalizations.of(context).defaultCollection
-                            : collection),
-                        selected: collection == state.currentCollection,
-                        onTap: () {
-                          context
-                              .read<DocumentBloc>()
-                              .add(CurrentCollectionChanged(collection));
-                        },
-                      );
-                    },
-                  );
-                }),
+                            : collection,
+                      ),
+                      selected: collection == state.currentCollection,
+                      onTap: () {
+                        context.read<DocumentBloc>().add(
+                              CurrentCollectionChanged(collection),
+                            );
+                      },
+                    );
+                  },
+                );
+              },
+            ),
           ),
           Card(
             child: Padding(
@@ -102,10 +105,11 @@ class _CollectionsDialogState extends State<CollectionsDialog> {
                           );
                       if (handler is! SelectHandler) return;
                       handler.selectAll(
-                          bloc,
-                          (e) =>
-                              e.element.collection ==
-                              bloc.state.currentCollection);
+                        bloc,
+                        (e) =>
+                            e.element.collection ==
+                            bloc.state.currentCollection,
+                      );
                     },
                     tooltip: AppLocalizations.of(context).select,
                     icon: const PhosphorIcon(PhosphorIconsLight.selection),
@@ -132,8 +136,9 @@ class _CollectionsDialogState extends State<CollectionsDialog> {
                       final bloc = context.read<DocumentBloc>();
                       final current = bloc.state.currentCollection ?? '';
                       final result = await showDialog<bool>(
-                          context: context,
-                          builder: (context) => const DeleteDialog());
+                        context: context,
+                        builder: (context) => const DeleteDialog(),
+                      );
                       if (result != true) return;
                       bloc.add(CollectionElementsRemoved(current));
                       if (context.mounted) Navigator.pop(context);
@@ -149,12 +154,11 @@ class _CollectionsDialogState extends State<CollectionsDialog> {
                       final current = bloc.state.currentCollection ?? '';
                       final name = await showDialog<String>(
                         context: context,
-                        builder: (context) => NameDialog(
-                          value: current,
-                        ),
+                        builder: (context) => NameDialog(value: current),
                       );
                       if (name == null) return;
-                      bloc.add(ElementsLayerConverted(
+                      bloc.add(
+                        ElementsLayerConverted(
                           state
                               .getLayer()
                               .content
@@ -162,7 +166,9 @@ class _CollectionsDialogState extends State<CollectionsDialog> {
                               .map((e) => e.id)
                               .nonNulls
                               .toList(),
-                          name));
+                          name,
+                        ),
+                      );
                       if (context.mounted) Navigator.pop(context);
                     },
                     tooltip: AppLocalizations.of(context).convertToLayer,

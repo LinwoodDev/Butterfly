@@ -32,6 +32,9 @@ jobs:
       - name: Analyze project source
         run: |
           flutter analyze --fatal-infos
+      - name: Run flutter gen-l10n
+        if: matrix.projects == 'tools'
+        run: flutter gen-l10n
       - name: Run build_runner
         if: matrix.projects != 'tools'
         run: dart run build_runner build --delete-conflicting-outputs

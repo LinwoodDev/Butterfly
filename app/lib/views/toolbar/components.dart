@@ -3,7 +3,7 @@ import 'package:butterfly_api/butterfly_api.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:butterfly/src/generated/i18n/app_localizations.dart';
 import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
@@ -84,18 +84,15 @@ class _ComponentsToolbarViewState extends State<ComponentsToolbarView> {
           const VerticalDivider(),
         ],
         Expanded(
-            child: Scrollbar(
-          controller: _scrollController,
-          child: ListView(
+          child: Scrollbar(
+            controller: _scrollController,
+            child: ListView(
               controller: _scrollController,
               scrollDirection: Axis.horizontal,
               children: [
                 ...List.generate(components.length, (index) {
                   final current = components[index];
-                  final location = PackAssetLocation(
-                    currentPack,
-                    current.$1,
-                  );
+                  final location = PackAssetLocation(currentPack, current.$1);
                   return _ComponentsButton(
                     bloc: bloc,
                     component: widget.component,
@@ -107,8 +104,10 @@ class _ComponentsToolbarViewState extends State<ComponentsToolbarView> {
                     },
                   );
                 }),
-              ]),
-        )),
+              ],
+            ),
+          ),
+        ),
         Padding(
           padding: const EdgeInsets.all(8.0),
           child: MenuAnchor(
@@ -117,12 +116,15 @@ class _ComponentsToolbarViewState extends State<ComponentsToolbarView> {
             ),
             menuChildren: document
                 .getPacks()
-                .map((e) => RadioMenuButton(
+                .map(
+                  (e) => RadioMenuButton(
                     value: e,
                     groupValue: currentPack,
                     onChanged: (value) =>
                         setState(() => currentPack = value ?? e),
-                    child: Text(e)))
+                    child: Text(e),
+                  ),
+                )
                 .toList(),
           ),
         ),
@@ -159,31 +161,32 @@ class _ComponentsButton extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: InkWell(
-          onTap: onChanged,
-          child: Tooltip(
-            message: value.name,
-            child: Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(12),
-                border: Border.all(
-                  color: component == valueLocation
-                      ? ColorScheme.of(context).primary
-                      : Colors.transparent,
-                  width: 4,
-                ),
+        onTap: onChanged,
+        child: Tooltip(
+          message: value.name,
+          child: Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(12),
+              border: Border.all(
+                color: component == valueLocation
+                    ? ColorScheme.of(context).primary
+                    : Colors.transparent,
+                width: 4,
               ),
-              child: thumbnail == null
-                  ? fallbackWidget
-                  : Image.memory(
-                      thumbnail,
-                      width: 48,
-                      height: 48,
-                      fit: BoxFit.contain,
-                      errorBuilder: (context, error, stackTrace) =>
-                          fallbackWidget,
-                    ),
             ),
-          )),
+            child: thumbnail == null
+                ? fallbackWidget
+                : Image.memory(
+                    thumbnail,
+                    width: 48,
+                    height: 48,
+                    fit: BoxFit.contain,
+                    errorBuilder: (context, error, stackTrace) =>
+                        fallbackWidget,
+                  ),
+          ),
+        ),
+      ),
     );
   }
 }

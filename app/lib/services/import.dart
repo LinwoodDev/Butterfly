@@ -25,7 +25,7 @@ import 'package:lw_sysapi/lw_sysapi.dart';
 import 'package:material_leap/material_leap.dart';
 import 'package:pdf/pdf.dart';
 import 'package:printing/printing.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:butterfly/src/generated/i18n/app_localizations.dart';
 import 'package:super_clipboard/super_clipboard.dart';
 
 import '../api/save.dart';
@@ -65,8 +65,11 @@ class ImportService {
       ? getFileSystem().buildDefaultPackSystem()
       : getFileSystem().buildPackSystem(storage);
 
-  Future<NoteData?> load(
-      {String type = '', Object? data, NoteData? document}) async {
+  Future<NoteData?> load({
+    String type = '',
+    Object? data,
+    NoteData? document,
+  }) async {
     final state = bloc?.state is DocumentLoadSuccess
         ? (bloc?.state as DocumentLoadSuccess)
         : null;
@@ -93,10 +96,12 @@ class ImportService {
       bytes = data.data;
     }
     if (type.isEmpty) type = 'note';
-    final fileType = AssetFileType.values.firstWhereOrNull((element) =>
-        element.isMimeType(type) ||
-        element.getFileExtensions().contains(type) ||
-        element.name == type);
+    final fileType = AssetFileType.values.firstWhereOrNull(
+      (element) =>
+          element.isMimeType(type) ||
+          element.getFileExtensions().contains(type) ||
+          element.name == type,
+    );
     if (fileType == null) {
       showDialog(
         context: context,
@@ -107,12 +112,7 @@ class ImportService {
       return null;
     }
     if (bytes == null) return null;
-    return import(
-      fileType,
-      bytes,
-      document: document,
-      advanced: false,
-    );
+    return import(fileType, bytes, document: document, advanced: false);
   }
 
   Future<NoteData?> import(
@@ -135,41 +135,62 @@ class ImportService {
           templateSystem: templateSystem,
           packSystem: packSystem,
         ),
-      AssetFileType.image =>
-        importImage(bytes, realDocument, position: position),
+      AssetFileType.image => importImage(
+          bytes,
+          realDocument,
+          position: position,
+        ),
       AssetFileType.svg => importSvg(bytes, realDocument, position: position),
-      AssetFileType.markdown =>
-        importMarkdown(bytes, realDocument, position: position),
-      AssetFileType.pdf =>
-        importPdf(bytes, realDocument, position: position, advanced: advanced),
+      AssetFileType.markdown => importMarkdown(
+          bytes,
+          realDocument,
+          position: position,
+        ),
+      AssetFileType.pdf => importPdf(
+          bytes,
+          realDocument,
+          position: position,
+          advanced: advanced,
+        ),
       AssetFileType.page => importPage(bytes, realDocument, position: position),
       AssetFileType.xopp => importXopp(bytes, realDocument, position: position),
-      AssetFileType.archive =>
-        importArchive(bytes, fileSystem: fileSystem).then((value) => null),
+      AssetFileType.archive => importArchive(
+          bytes,
+          fileSystem: fileSystem,
+        ).then((value) => null),
     };
   }
 
   Future<Uint8List?>? _readFileFromClipboard(
-      DataReader reader, FileFormat format) {
+    DataReader reader,
+    FileFormat format,
+  ) {
     final c = Completer<Uint8List?>();
-    final progress = reader.getFile(format, (file) async {
-      try {
-        final all = await file.readAll();
-        c.complete(all);
-      } catch (e) {
+    final progress = reader.getFile(
+      format,
+      (file) async {
+        try {
+          final all = await file.readAll();
+          c.complete(all);
+        } catch (e) {
+          c.completeError(e);
+        }
+      },
+      onError: (e) {
         c.completeError(e);
-      }
-    }, onError: (e) {
-      c.completeError(e);
-    });
+      },
+    );
     if (progress == null) {
       c.complete(null);
     }
     return c.future;
   }
 
-  Future<NoteData?> importClipboard(NoteData document,
-      {Offset? position, bool advanced = true}) async {
+  Future<NoteData?> importClipboard(
+    NoteData document, {
+    Offset? position,
+    bool advanced = true,
+  }) async {
     Uint8List? data;
     AssetFileType? type;
     final clipboard = SystemClipboard.instance;
@@ -177,9 +198,9 @@ class ImportService {
       final reader = await clipboard.read();
       final result = AssetFileType.values
           .map((e) {
-            final format = e
-                .getClipboardFormats()
-                .firstWhereOrNull((f) => reader.canProvide(f));
+            final format = e.getClipboardFormats().firstWhereOrNull(
+                  (f) => reader.canProvide(f),
+                );
             return format == null ? null : (e, format);
           })
           .nonNulls
@@ -206,8 +227,13 @@ class ImportService {
       }
     }
     if (data == null || type == null) return null;
-    return import(type, data,
-        document: document, position: position, advanced: advanced);
+    return import(
+      type,
+      data,
+      document: document,
+      position: position,
+      advanced: advanced,
+    );
   }
 
   FutureOr<NoteData?> importBfly(
@@ -240,7 +266,8 @@ class ImportService {
         return showDialog(
           context: context,
           builder: (context) => UnknownImportConfirmationDialog(
-              message: AppLocalizations.of(context).unknownImportType),
+            message: AppLocalizations.of(context).unknownImportType,
+          ),
         ).then((value) => null);
       }
       if (!data.isValid) {
@@ -249,16 +276,25 @@ class ImportService {
       }
       final type = data.getMetadata()?.type;
       return switch (type) {
-        NoteFileType.document =>
-          _importDocument(data, realDocument, advanced: advanced),
-        NoteFileType.template when documentOpened =>
-          _importTemplate(data, templateSystem),
-        NoteFileType.pack when documentOpened =>
-          _importPack(data, document, packSystem).then((value) => null),
+        NoteFileType.document => _importDocument(
+            data,
+            realDocument,
+            advanced: advanced,
+          ),
+        NoteFileType.template when documentOpened => _importTemplate(
+            data,
+            templateSystem,
+          ),
+        NoteFileType.pack when documentOpened => _importPack(
+            data,
+            document,
+            packSystem,
+          ).then((value) => null),
         _ => showDialog(
             context: context,
             builder: (context) => UnknownImportConfirmationDialog(
-                message: AppLocalizations.of(context).unknownImportType),
+              message: AppLocalizations.of(context).unknownImportType,
+            ),
           ).then((value) => null),
       };
     } catch (e) {
@@ -271,17 +307,18 @@ class ImportService {
     return null;
   }
 
-  Future<NoteData>? _importDocument(NoteData data, NoteData document,
-      {bool advanced = true}) async {
+  Future<NoteData>? _importDocument(
+    NoteData data,
+    NoteData document, {
+    bool advanced = true,
+  }) async {
     var pages = data.getPages();
     var packs = data.getPacks().toList();
     if (advanced) {
       final callback = await showDialog<NoteDialogCallback>(
-          context: context,
-          builder: (context) => NoteImportDialog(
-                pages: pages,
-                packs: packs,
-              ));
+        context: context,
+        builder: (context) => NoteImportDialog(pages: pages, packs: packs),
+      );
       if (callback == null) return document;
       pages = callback.pages;
       packs = callback.packs;
@@ -317,8 +354,11 @@ class ImportService {
     return null;
   }
 
-  NoteData? _importPage(DocumentPage? page, NoteData document,
-      [Offset? position]) {
+  NoteData? _importPage(
+    DocumentPage? page,
+    NoteData document, [
+    Offset? position,
+  ]) {
     final firstPos = position ?? Offset.zero;
     if (page == null) return null;
     final areas = page.areas
@@ -327,18 +367,27 @@ class ImportService {
 
     final content = page.content
         .map((e) => e.copyWith(id: createUniqueId()))
-        .map((e) =>
-            Renderer.fromInstance(e)
-                .transform(position: firstPos, relative: true)
-                ?.element ??
-            e)
+        .map(
+          (e) =>
+              Renderer.fromInstance(
+                e,
+              ).transform(position: firstPos, relative: true)?.element ??
+              e,
+        )
         .toList();
-    return _submit(context, document,
-        elements: content, areas: areas, choosePosition: position == null);
+    return _submit(
+      context,
+      document,
+      elements: content,
+      areas: areas,
+      choosePosition: position == null,
+    );
   }
 
-  Future<NoteData?> _importTemplate(NoteData template,
-      [TemplateFileSystem? templateSystem]) async {
+  Future<NoteData?> _importTemplate(
+    NoteData template, [
+    TemplateFileSystem? templateSystem,
+  ]) async {
     final metadata = template.getMetadata();
     templateSystem ??= getTemplateFileSystem();
     if (metadata == null) return null;
@@ -353,8 +402,11 @@ class ImportService {
     return template.createDocument();
   }
 
-  Future<bool> _importPack(NoteData pack,
-      [NoteData? document, PackFileSystem? packSystem]) async {
+  Future<bool> _importPack(
+    NoteData pack, [
+    NoteData? document,
+    PackFileSystem? packSystem,
+  ]) async {
     packSystem ??= getPackFileSystem();
     final metadata = pack.getMetadata();
     if (metadata == null) return false;
@@ -373,8 +425,11 @@ class ImportService {
     return true;
   }
 
-  Future<NoteData?> importImage(Uint8List bytes, NoteData document,
-      {Offset? position}) async {
+  Future<NoteData?> importImage(
+    Uint8List bytes,
+    NoteData document, {
+    Offset? position,
+  }) async {
     try {
       final screen = MediaQuery.of(context).size;
       final firstPos = position ?? Offset.zero;
@@ -393,22 +448,28 @@ class ImportService {
       final settingsScale = getSettingsCubit().state.imageScale;
       ElementConstraints? constraints;
       if (position == null && currentIndexCubit != null && settingsScale > 0) {
-        final scale = min((screen.width * settingsScale) / width,
-                (screen.height * settingsScale) / height) /
+        final scale = min(
+              (screen.width * settingsScale) / width,
+              (screen.height * settingsScale) / height,
+            ) /
             currentIndexCubit!.state.cameraViewport.scale;
         constraints = ElementConstraints.scaled(scaleX: scale, scaleY: scale);
       }
-      return _submit(context, document,
-          elements: [
-            ImageElement(
-                height: height,
-                width: width,
-                collection: state?.currentCollection ?? '',
-                source: dataPath,
-                constraints: constraints,
-                position: firstPos.toPoint())
-          ],
-          choosePosition: position == null);
+      return _submit(
+        context,
+        document,
+        elements: [
+          ImageElement(
+            height: height,
+            width: width,
+            collection: state?.currentCollection ?? '',
+            source: dataPath,
+            constraints: constraints,
+            position: firstPos.toPoint(),
+          ),
+        ],
+        choosePosition: position == null,
+      );
     } catch (e) {
       showDialog(
         context: context,
@@ -419,8 +480,11 @@ class ImportService {
     return null;
   }
 
-  Future<NoteData?> importXopp(Uint8List bytes, NoteData document,
-      {Offset? position}) async {
+  Future<NoteData?> importXopp(
+    Uint8List bytes,
+    NoteData document, {
+    Offset? position,
+  }) async {
     try {
       final data = xoppMigrator(bytes);
       return _importDocument(data, document);
@@ -434,8 +498,11 @@ class ImportService {
     return null;
   }
 
-  Future<NoteData?> importSvg(Uint8List bytes, NoteData document,
-      {Offset? position}) async {
+  Future<NoteData?> importSvg(
+    Uint8List bytes,
+    NoteData document, {
+    Offset? position,
+  }) async {
     try {
       final screen = MediaQuery.of(context).size;
       final firstPos = position ?? Offset.zero;
@@ -452,38 +519,41 @@ class ImportService {
           dataPath =
               Uri.dataFromBytes(bytes, mimeType: 'image/svg+xml').toString();
         } else {
-          dataPath = UriData.fromBytes(
-            bytes,
-            mimeType: 'image/svg+xml',
-          ).toString();
+          dataPath =
+              UriData.fromBytes(bytes, mimeType: 'image/svg+xml').toString();
         }
         final settingsScale = getSettingsCubit().state.imageScale;
         ElementConstraints? constraints;
         if (position == null &&
             currentIndexCubit != null &&
             settingsScale > 0) {
-          final scale = min((screen.width * settingsScale) / width,
-                  (screen.height * settingsScale) / height) /
+          final scale = min(
+                (screen.width * settingsScale) / width,
+                (screen.height * settingsScale) / height,
+              ) /
               currentIndexCubit!.state.cameraViewport.scale;
           constraints = ElementConstraints.scaled(scaleX: scale, scaleY: scale);
         }
-        return _submit(context, document,
-            elements: [
-              SvgElement(
-                width: width,
-                height: height,
-                source: dataPath,
-                constraints: constraints,
-                position: firstPos.toPoint(),
-              ),
-            ],
-            choosePosition: position == null);
+        return _submit(
+          context,
+          document,
+          elements: [
+            SvgElement(
+              width: width,
+              height: height,
+              source: dataPath,
+              constraints: constraints,
+              position: firstPos.toPoint(),
+            ),
+          ],
+          choosePosition: position == null,
+        );
       } catch (e) {
         showDialog<void>(
-            context: context,
-            builder: (context) => UnknownImportConfirmationDialog(
-                  message: e.toString(),
-                ));
+          context: context,
+          builder: (context) =>
+              UnknownImportConfirmationDialog(message: e.toString()),
+        );
       }
     } catch (e) {
       showDialog(
@@ -495,8 +565,11 @@ class ImportService {
     return null;
   }
 
-  Future<NoteData?> importMarkdown(Uint8List bytes, NoteData document,
-      {Offset? position}) async {
+  Future<NoteData?> importMarkdown(
+    Uint8List bytes,
+    NoteData document, {
+    Offset? position,
+  }) async {
     try {
       final firstPos = position ?? Offset.zero;
       final contentString = String.fromCharCodes(bytes);
@@ -506,16 +579,19 @@ class ImportService {
           state?.page.backgrounds.firstOrNull?.defaultColor ?? SRGBColor.white;
       final foreground =
           background.toColor().isDark() ? SRGBColor.white : SRGBColor.black;
-      return _submit(context, document,
-          elements: [
-            MarkdownElement(
-              position: firstPos.toPoint(),
-              text: contentString,
-              styleSheet: styleSheet,
-              foreground: foreground,
-            ),
-          ],
-          choosePosition: position == null);
+      return _submit(
+        context,
+        document,
+        elements: [
+          MarkdownElement(
+            position: firstPos.toPoint(),
+            text: contentString,
+            styleSheet: styleSheet,
+            foreground: foreground,
+          ),
+        ],
+        choosePosition: position == null,
+      );
     } catch (e) {
       showDialog(
         context: context,
@@ -526,8 +602,12 @@ class ImportService {
     return null;
   }
 
-  Future<NoteData?> importPdf(Uint8List bytes, NoteData document,
-      {Offset? position, bool advanced = true}) async {
+  Future<NoteData?> importPdf(
+    Uint8List bytes,
+    NoteData document, {
+    Offset? position,
+    bool advanced = true,
+  }) async {
     final dialog = showLoadingDialog(context);
     try {
       final firstPos = position ?? Offset.zero;
@@ -544,10 +624,7 @@ class ImportService {
       int totalPages = await Printing.raster(bytes).length;
       double quality = context.read<SettingsCubit>().state.pdfQuality;
       double dpi = PdfPageFormat.inch * quality;
-      await for (var page in Printing.raster(
-        bytes,
-        dpi: dpi,
-      )) {
+      await for (var page in Printing.raster(bytes, dpi: dpi)) {
         final image = page.asImage();
         try {
           decodedImagesCount++;
@@ -583,8 +660,9 @@ class ImportService {
             invert = false;
         if (advanced) {
           final callback = await showDialog<PageDialogCallback>(
-              context: context,
-              builder: (context) => PagesDialog(pages: elements));
+            context: context,
+            builder: (context) => PagesDialog(pages: elements),
+          );
           if (callback == null) return document;
           pages = callback.pages;
           quality = callback.quality;
@@ -618,12 +696,15 @@ class ImportService {
             final width = image.width;
             final dataPath = Uri.dataFromBytes(png).toString();
             final element = ImageElement(
-                height: height.toDouble(),
-                width: width.toDouble(),
-                source: dataPath,
-                constraints:
-                    ElementConstraints.scaled(scaleX: scale, scaleY: scale),
-                position: Point(firstPos.dx, y));
+              height: height.toDouble(),
+              width: width.toDouble(),
+              source: dataPath,
+              constraints: ElementConstraints.scaled(
+                scaleX: scale,
+                scaleY: scale,
+              ),
+              position: Point(firstPos.dx, y),
+            );
             final area = Area(
               height: height * scale,
               width: width * scale,
@@ -631,12 +712,14 @@ class ImportService {
               name: localizations.pageIndex(areas.length + 1),
             );
             if (spreadToPages) {
-              documentPages.add(DocumentPage(
-                layers: [
-                  DocumentLayer(content: [element], id: createUniqueId())
-                ],
-                areas: [if (createAreas) area],
-              ));
+              documentPages.add(
+                DocumentPage(
+                  layers: [
+                    DocumentLayer(content: [element], id: createUniqueId()),
+                  ],
+                  areas: [if (createAreas) area],
+                ),
+              );
             } else {
               selectedElements.add(element);
               areas.add(area);
@@ -680,44 +763,54 @@ class ImportService {
     final viewport = currentIndexCubit.state.cameraViewport;
     switch (fileType) {
       case AssetFileType.note:
-        exportData(context,
-            Uint8List.fromList((await state.saveData()).exportAsBytes()));
+        exportData(
+          context,
+          Uint8List.fromList((await state.saveData()).exportAsBytes()),
+        );
         break;
       case AssetFileType.image:
         return showDialog<void>(
-            context: context,
-            builder: (context) => BlocProvider.value(
-                value: bloc!,
-                child: GeneralExportDialog(
-                  options: ImageExportOptions(
-                    height: viewport.height?.toDouble() ?? 1000.0,
-                    width: viewport.width?.toDouble() ?? 1000.0,
-                    scale: viewport.scale,
-                    x: viewport.x,
-                    y: viewport.y,
-                  ),
-                )));
+          context: context,
+          builder: (context) => BlocProvider.value(
+            value: bloc!,
+            child: GeneralExportDialog(
+              options: ImageExportOptions(
+                height: viewport.height?.toDouble() ?? 1000.0,
+                width: viewport.width?.toDouble() ?? 1000.0,
+                scale: viewport.scale,
+                x: viewport.x,
+                y: viewport.y,
+              ),
+            ),
+          ),
+        );
       case AssetFileType.pdf:
         return showDialog<void>(
-            context: context,
-            builder: (context) => BlocProvider.value(
-                value: bloc!,
-                child: PdfExportDialog(
-                    areas: state.page.areas
-                        .map((e) => AreaPreset(name: e.name, area: e))
-                        .toList())));
+          context: context,
+          builder: (context) => BlocProvider.value(
+            value: bloc!,
+            child: PdfExportDialog(
+              areas: state.page.areas
+                  .map((e) => AreaPreset(name: e.name, area: e))
+                  .toList(),
+            ),
+          ),
+        );
       case AssetFileType.svg:
         return showDialog<void>(
-            context: context,
-            builder: (context) => BlocProvider.value(
-                value: bloc!,
-                child: GeneralExportDialog(
-                    options: SvgExportOptions(
-                  width: (viewport.width ?? 1000) / viewport.scale,
-                  height: (viewport.height ?? 1000) / viewport.scale,
-                  x: viewport.x,
-                  y: viewport.y,
-                ))));
+          context: context,
+          builder: (context) => BlocProvider.value(
+            value: bloc!,
+            child: GeneralExportDialog(
+              options: SvgExportOptions(
+                width: (viewport.width ?? 1000) / viewport.scale,
+                height: (viewport.height ?? 1000) / viewport.scale,
+                x: viewport.x,
+                y: viewport.y,
+              ),
+            ),
+          ),
+        );
       default:
         return;
     }
@@ -755,10 +848,14 @@ class ImportService {
     for (final pack in packs) {
       bloc?.add(PackAdded(pack));
     }
-    page = page.copyWith(layers: [
-      DocumentLayer(
-          content: [...page.content, ...elements], id: createUniqueId())
-    ]);
+    page = page.copyWith(
+      layers: [
+        DocumentLayer(
+          content: [...page.content, ...elements],
+          id: createUniqueId(),
+        ),
+      ],
+    );
     document = document.setPage(page);
     for (final page in pages) {
       (document, _) = document.addPage(page);
@@ -769,8 +866,10 @@ class ImportService {
     return document;
   }
 
-  Future<bool> importArchive(Uint8List bytes,
-      {DocumentFileSystem? fileSystem}) async {
+  Future<bool> importArchive(
+    Uint8List bytes, {
+    DocumentFileSystem? fileSystem,
+  }) async {
     try {
       fileSystem ??= getDocumentSystem();
       final archive = ZipDecoder().decodeBytes(bytes);

@@ -9,7 +9,7 @@ import 'package:file_selector/file_selector.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:butterfly/src/generated/i18n/app_localizations.dart';
 import 'package:lw_file_system/lw_file_system.dart';
 import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
@@ -36,14 +36,14 @@ class _DataSettingsPageState extends State<DataSettingsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: widget.inView ? Colors.transparent : null,
+      appBar: WindowTitleBar<SettingsCubit, ButterflySettings>(
+        inView: widget.inView,
         backgroundColor: widget.inView ? Colors.transparent : null,
-        appBar: WindowTitleBar<SettingsCubit, ButterflySettings>(
-          inView: widget.inView,
-          backgroundColor: widget.inView ? Colors.transparent : null,
-          title: Text(AppLocalizations.of(context).data),
-        ),
-        body: BlocBuilder<SettingsCubit, ButterflySettings>(
-            builder: (context, state) {
+        title: Text(AppLocalizations.of(context).data),
+      ),
+      body: BlocBuilder<SettingsCubit, ButterflySettings>(
+        builder: (context, state) {
           return ListView(
             children: [
               Card(
@@ -51,96 +51,106 @@ class _DataSettingsPageState extends State<DataSettingsPage> {
                 child: Padding(
                   padding: const EdgeInsets.all(32),
                   child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: [
-                        if (!kIsWeb) ...[
-                          ListTile(
-                            title: Text(AppLocalizations.of(context).syncMode),
-                            leading: PhosphorIcon(state.syncMode.getIcon()),
-                            subtitle:
-                                Text(state.syncMode.getLocalizedName(context)),
-                            onTap: () => _openSyncModeModal(context),
-                          ),
-                          ListTile(
-                            title: Text(
-                                AppLocalizations.of(context).dataDirectory),
-                            leading:
-                                const PhosphorIcon(PhosphorIconsLight.folder),
-                            subtitle: state.documentPath.isNotEmpty
-                                ? FutureBuilder<String>(
-                                    future: getButterflyDirectory(),
-                                    builder: (context, snapshot) {
-                                      if (snapshot.hasData) {
-                                        return Text(snapshot.data!);
-                                      }
-                                      return const SizedBox(
-                                        height: 16,
-                                        width: 16,
-                                        child: CircularProgressIndicator(),
-                                      );
-                                    },
-                                  )
-                                : Text(
-                                    AppLocalizations.of(context).defaultPath),
-                            onTap: _changeDataDirectory,
-                            trailing: state.documentPath.isNotEmpty
-                                ? IconButton(
-                                    icon: const PhosphorIcon(
-                                        PhosphorIconsLight.clockClockwise),
-                                    tooltip: AppLocalizations.of(context)
-                                        .defaultPath,
-                                    onPressed: () => _changePath(
-                                        context.read<SettingsCubit>(), ''),
-                                  )
-                                : null,
-                          ),
-                        ],
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      if (!kIsWeb) ...[
                         ListTile(
-                          title: Text(AppLocalizations.of(context).templates),
-                          leading: const PhosphorIcon(PhosphorIconsLight.file),
-                          onTap: () => showDialog(
-                            context: context,
-                            builder: (ctx) => const TemplateDialog(),
+                          title: Text(AppLocalizations.of(context).syncMode),
+                          leading: PhosphorIcon(state.syncMode.getIcon()),
+                          subtitle: Text(
+                            state.syncMode.getLocalizedName(context),
                           ),
+                          onTap: () => _openSyncModeModal(context),
                         ),
                         ListTile(
-                          title: Text(AppLocalizations.of(context).packs),
-                          leading:
-                              const PhosphorIcon(PhosphorIconsLight.package),
-                          onTap: () => showDialog(
-                            context: context,
-                            builder: (ctx) => MultiBlocProvider(
-                              providers: [
-                                BlocProvider(
-                                  lazy: false,
-                                  create: (ctx) => DocumentBloc.placeholder(
-                                      context.read<ButterflyFileSystem>(),
-                                      context.read<WindowCubit>()),
+                          title: Text(
+                            AppLocalizations.of(context).dataDirectory,
+                          ),
+                          leading: const PhosphorIcon(
+                            PhosphorIconsLight.folder,
+                          ),
+                          subtitle: state.documentPath.isNotEmpty
+                              ? FutureBuilder<String>(
+                                  future: getButterflyDirectory(),
+                                  builder: (context, snapshot) {
+                                    if (snapshot.hasData) {
+                                      return Text(snapshot.data!);
+                                    }
+                                    return const SizedBox(
+                                      height: 16,
+                                      width: 16,
+                                      child: CircularProgressIndicator(),
+                                    );
+                                  },
+                                )
+                              : Text(
+                                  AppLocalizations.of(context).defaultPath,
                                 ),
-                              ],
-                              child: const PacksDialog(globalOnly: true),
-                            ),
+                          onTap: _changeDataDirectory,
+                          trailing: state.documentPath.isNotEmpty
+                              ? IconButton(
+                                  icon: const PhosphorIcon(
+                                    PhosphorIconsLight.clockClockwise,
+                                  ),
+                                  tooltip: AppLocalizations.of(
+                                    context,
+                                  ).defaultPath,
+                                  onPressed: () => _changePath(
+                                    context.read<SettingsCubit>(),
+                                    '',
+                                  ),
+                                )
+                              : null,
+                        ),
+                      ],
+                      ListTile(
+                        title: Text(AppLocalizations.of(context).templates),
+                        leading: const PhosphorIcon(PhosphorIconsLight.file),
+                        onTap: () => showDialog(
+                          context: context,
+                          builder: (ctx) => const TemplateDialog(),
+                        ),
+                      ),
+                      ListTile(
+                        title: Text(AppLocalizations.of(context).packs),
+                        leading: const PhosphorIcon(PhosphorIconsLight.package),
+                        onTap: () => showDialog(
+                          context: context,
+                          builder: (ctx) => MultiBlocProvider(
+                            providers: [
+                              BlocProvider(
+                                lazy: false,
+                                create: (ctx) => DocumentBloc.placeholder(
+                                  context.read<ButterflyFileSystem>(),
+                                  context.read<WindowCubit>(),
+                                ),
+                              ),
+                            ],
+                            child: const PacksDialog(globalOnly: true),
                           ),
                         ),
-                        ListTile(
-                          title: Text(AppLocalizations.of(context).export),
-                          leading:
-                              const PhosphorIcon(PhosphorIconsLight.export),
-                          onTap: () async {
-                            final directory = await _documentSystem.fileSystem
-                                .getRootDirectory(listLevel: allListLevel);
-                            final archive = exportDirectory(directory);
-                            final encoder = ZipEncoder();
-                            final bytes = encoder.encode(archive);
-                            exportZip(context, bytes);
-                          },
-                        ),
-                      ]),
+                      ),
+                      ListTile(
+                        title: Text(AppLocalizations.of(context).export),
+                        leading: const PhosphorIcon(PhosphorIconsLight.export),
+                        onTap: () async {
+                          final directory = await _documentSystem.fileSystem
+                              .getRootDirectory(listLevel: allListLevel);
+                          final archive = exportDirectory(directory);
+                          final encoder = ZipEncoder();
+                          final bytes = encoder.encode(archive);
+                          exportZip(context, bytes);
+                        },
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ],
           );
-        }));
+        },
+      ),
+    );
   }
 
   Future<void> _changeDataDirectory() async {
@@ -155,9 +165,7 @@ class _DataSettingsPageState extends State<DataSettingsPage> {
         context: context,
         builder: (context) => AlertDialog(
           title: Text(AppLocalizations.of(context).error),
-          content: Text(
-            e.toString(),
-          ),
+          content: Text(e.toString()),
         ),
       );
     }
@@ -181,29 +189,30 @@ class _DataSettingsPageState extends State<DataSettingsPage> {
   }
 
   Future<void> _openSyncModeModal(BuildContext context) => showLeapBottomSheet(
-      context: context,
-      titleBuilder: (ctx) => Text(AppLocalizations.of(ctx).syncMode),
-      childrenBuilder: (ctx) {
-        final settingsCubit = context.read<SettingsCubit>();
-        void changeSyncMode(SyncMode syncMode) {
-          settingsCubit.changeSyncMode(syncMode);
-          Navigator.of(context).pop();
-        }
+        context: context,
+        titleBuilder: (ctx) => Text(AppLocalizations.of(ctx).syncMode),
+        childrenBuilder: (ctx) {
+          final settingsCubit = context.read<SettingsCubit>();
+          void changeSyncMode(SyncMode syncMode) {
+            settingsCubit.changeSyncMode(syncMode);
+            Navigator.of(context).pop();
+          }
 
-        return [
-          ...SyncMode.values.map((syncMode) {
-            return ListTile(
-              title: Text(syncMode.getLocalizedName(context)),
-              leading: PhosphorIcon(syncMode.getIcon()),
-              selected: syncMode == settingsCubit.state.syncMode,
-              onTap: () => changeSyncMode(syncMode),
-            );
-          }),
-          const SizedBox(height: 32),
-        ];
-      });
+          return [
+            ...SyncMode.values.map((syncMode) {
+              return ListTile(
+                title: Text(syncMode.getLocalizedName(context)),
+                leading: PhosphorIcon(syncMode.getIcon()),
+                selected: syncMode == settingsCubit.state.syncMode,
+                onTap: () => changeSyncMode(syncMode),
+              );
+            }),
+            const SizedBox(height: 32),
+          ];
+        },
+      );
 
-/* 
+  /* 
   Future<void> _openIceServersModal(BuildContext context) {
     final settingsCubit = context.read<SettingsCubit>();
     return showLeapBottomSheet(

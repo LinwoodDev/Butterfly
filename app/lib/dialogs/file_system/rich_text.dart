@@ -1,6 +1,6 @@
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:butterfly/src/generated/i18n/app_localizations.dart';
 import 'package:lw_file_system/lw_file_system.dart';
 
 class FileSystemFileRichText extends StatelessWidget {
@@ -14,13 +14,14 @@ class FileSystemFileRichText extends StatelessWidget {
       return Container();
     }
     return Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          if (metadata.createdAt != null)
-            Text(AppLocalizations.of(context).createdAt(metadata.createdAt!)),
-          if (metadata.updatedAt != null)
-            Text(AppLocalizations.of(context).updatedAt(metadata.updatedAt!)),
-        ]);
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        if (metadata.createdAt != null)
+          Text(AppLocalizations.of(context).createdAt(metadata.createdAt!)),
+        if (metadata.updatedAt != null)
+          Text(AppLocalizations.of(context).updatedAt(metadata.updatedAt!)),
+      ],
+    );
   }
 }
