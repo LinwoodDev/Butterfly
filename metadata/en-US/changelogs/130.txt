@@ -13,6 +13,7 @@
   * Add stroke width
   * Add option for position and zoom dependent
   * Fix snap if size is 0
+* Improve add dialog with filters
 * Fix offset list tile
 * Fix resolution shift issues ([#793](https://github.com/LinwoodDev/Butterfly/issues/793))
 * Fix saving issues

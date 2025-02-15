@@ -31,6 +31,7 @@
 .pub/
 /build/
 /butterfly.app/
+/lib/src/generated
 
 # Web related
 
