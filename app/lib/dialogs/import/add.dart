@@ -48,7 +48,7 @@ class _AddDialogState extends State<AddDialog> {
           return ResponsiveDialog(
             constraints: const BoxConstraints(
               maxWidth: 1000,
-              maxHeight: 820,
+              maxHeight: 800,
             ),
             child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -89,7 +89,7 @@ class _AddDialogState extends State<AddDialog> {
                       ),
                       child: search,
                     ),
-                  const SizedBox(height: 8),
+                  const SizedBox(height: 4),
                   Scrollbar(
                     controller: _filterScrollController,
                     child: Center(
@@ -123,7 +123,6 @@ class _AddDialogState extends State<AddDialog> {
                       ),
                     ),
                   ),
-                  const SizedBox(height: 8),
                   Expanded(
                     child: AnimatedSwitcher(
                       duration: const Duration(milliseconds: 200),
@@ -258,6 +257,7 @@ class _AddDialogState extends State<AddDialog> {
                       children: imports
                           .map(
                             (e) => BoxTile(
+                              size: 120,
                               title: Text(
                                 e.getLocalizedName(context),
                                 textAlign: TextAlign.center,

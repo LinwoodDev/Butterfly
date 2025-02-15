@@ -195,7 +195,7 @@ class _UtilitiesViewState extends State<_UtilitiesView>
                                   child: Text(MaterialLocalizations.of(context)
                                       .cancelButtonLabel),
                                 ),
-                                TextButton(
+                                ElevatedButton(
                                   onPressed: () => Navigator.pop(context, true),
                                   child: Text(MaterialLocalizations.of(context)
                                       .okButtonLabel),
@@ -292,7 +292,7 @@ class _UtilitiesViewState extends State<_UtilitiesView>
                                           MaterialLocalizations.of(context)
                                               .cancelButtonLabel),
                                     ),
-                                    TextButton(
+                                    ElevatedButton(
                                       onPressed: () {
                                         if (formKey.currentState?.validate() ??
                                             false) {

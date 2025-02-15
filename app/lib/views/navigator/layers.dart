@@ -42,6 +42,9 @@ class LayersView extends StatelessWidget {
                   onTap: () => context.read<DocumentBloc>().add(
                         CurrentLayerChanged(id),
                       ),
+                  subtitle: Text(AppLocalizations.of(
+                    context,
+                  ).countElements(layer.content.length)),
                   leading: IconButton(
                     icon: PhosphorIcon(
                       visible

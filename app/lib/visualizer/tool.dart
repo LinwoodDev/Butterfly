@@ -51,7 +51,7 @@ extension ToolVisualizer on Tool {
       CollectionTool() => loc.collection,
       AreaTool() => loc.area,
       LaserTool() => loc.laser,
-      ShapeTool e => e.property.shape.getLocalizedName(context),
+      ShapeTool() => loc.shape,
       SpacerTool() => loc.spacer,
       StampTool() => loc.stamp,
       TextureTool() => loc.texture,
@@ -75,6 +75,7 @@ extension ToolVisualizer on Tool {
           ImageExportOptions() => loc.image,
           SvgExportOptions() => loc.svg,
         },
+      ShapeTool e => e.property.shape.getLocalizedName(context),
       _ => '',
     };
   }

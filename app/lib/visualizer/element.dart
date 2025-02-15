@@ -87,6 +87,6 @@ extension SurfaceTextureVisualizer on SurfaceTexture {
       };
 
   IconGetter get icon => switch (this) {
-        PatternTexture() => PhosphorIcons.gridFour,
+        PatternTexture() => PhosphorIcons.blueprint,
       };
 }

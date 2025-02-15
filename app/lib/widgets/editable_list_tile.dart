@@ -99,62 +99,55 @@ class _EditableListTileState extends State<EditableListTile> {
   }
 
   Widget _buildWidget(BuildContext context, Widget? actionButton) {
-    return ListTile(
-      onTap: widget.onTap,
-      selected: widget.selected,
-      leading: widget.leading,
-      subtitle: widget.subtitle,
-      title: SizedBox(
-        height: 48,
-        child: Align(
-          alignment: Alignment.centerLeft,
-          child: _isEditing
-              ? Builder(
-                  builder: (context) => TextFormField(
-                    controller: _controller,
-                    onChanged: widget.onChanged,
-                    onSaved: _onSaved,
-                    autofocus: true,
-                    onFieldSubmitted: _onSaved,
-                    onTapOutside: (_) => _onSaved(),
-                    style: DefaultTextStyle.of(context).style,
-                    decoration: InputDecoration(
-                      filled: true,
-                      border: const OutlineInputBorder(),
-                      contentPadding: const EdgeInsets.symmetric(
-                        horizontal: 8,
-                        vertical: 10,
+    return GestureDetector(
+      onDoubleTap: _edit,
+      child: ListTile(
+          onTap: widget.onTap,
+          selected: widget.selected,
+          leading: widget.leading,
+          subtitle: widget.subtitle,
+          title: SizedBox(
+            height: 48,
+            child: Align(
+              alignment: Alignment.centerLeft,
+              child: _isEditing
+                  ? Builder(
+                      builder: (context) => TextFormField(
+                        controller: _controller,
+                        onChanged: widget.onChanged,
+                        onSaved: _onSaved,
+                        autofocus: true,
+                        onFieldSubmitted: _onSaved,
+                        onTapOutside: (_) => _onSaved(),
+                        style: DefaultTextStyle.of(context).style,
+                        decoration: InputDecoration(
+                          filled: true,
+                          border: const OutlineInputBorder(),
+                          contentPadding: const EdgeInsets.symmetric(
+                            horizontal: 8,
+                            vertical: 10,
+                          ),
+                          hintText: AppLocalizations.of(context).enterText,
+                        ),
                       ),
-                      hintText: AppLocalizations.of(context).enterText,
-                    ),
-                  ),
-                )
-              : GestureDetector(
-                  onDoubleTap: _edit,
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 8,
-                      vertical: 13,
-                    ),
-                    child: ListenableBuilder(
+                    )
+                  : ListenableBuilder(
                       listenable: _controller,
                       builder: (context, _) => Text(
                         widget.textFormatter?.call(_controller.text) ??
                             _controller.text,
                       ),
                     ),
-                  ),
-                ),
-        ),
-      ),
-      trailing: actionButton ??
-          (widget.onSaved == null
-              ? null
-              : IconButton(
-                  icon: const PhosphorIcon(PhosphorIconsLight.pencil),
-                  tooltip: AppLocalizations.of(context).rename,
-                  onPressed: _edit,
-                )),
+            ),
+          ),
+          trailing: actionButton ??
+              (widget.onSaved == null
+                  ? null
+                  : IconButton(
+                      icon: const PhosphorIcon(PhosphorIconsLight.pencil),
+                      tooltip: AppLocalizations.of(context).rename,
+                      onPressed: _edit,
+                    ))),
     );
   }
 }

@@ -5,6 +5,7 @@
 * Add area property view
 * Add flip horizontal, vertical and gray scale operation on images ([#794](https://github.com/LinwoodDev/Butterfly/issues/794))
 * Add svg background support
+* Add element count to layer list
 * Grid and ruler will now influence shape, stamp, area and texture tool
 * Improve ruler rotation handling
 * Improve selection change animation
@@ -15,6 +16,7 @@
   * Fix snap if size is 0
 * Improve add dialog with filters
 * Use random colors for cursors in collaboration mode
+* Change texture tool icon since it was the same as the grid tool
 * Fix offset list tile
 * Fix resolution shift issues ([#793](https://github.com/LinwoodDev/Butterfly/issues/793))
 * Fix saving issues
