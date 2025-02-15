@@ -48,7 +48,7 @@ class _AddDialogState extends State<AddDialog> {
           return ResponsiveDialog(
             constraints: const BoxConstraints(
               maxWidth: 1000,
-              maxHeight: 900,
+              maxHeight: 820,
             ),
             child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -56,7 +56,7 @@ class _AddDialogState extends State<AddDialog> {
                   Padding(
                     padding: const EdgeInsets.all(8),
                     child: SizedBox(
-                      height: 42,
+                      height: 48,
                       child: NavigationToolbar(
                         leading: Row(mainAxisSize: MainAxisSize.min, children: [
                           IconButton.outlined(
@@ -123,8 +123,12 @@ class _AddDialogState extends State<AddDialog> {
                       ),
                     ),
                   ),
-                  Flexible(
-                    child: _buildBody(isMobile),
+                  const SizedBox(height: 8),
+                  Expanded(
+                    child: AnimatedSwitcher(
+                      duration: const Duration(milliseconds: 200),
+                      child: _buildBody(isMobile),
+                    ),
                   ),
                 ]),
           );
@@ -191,6 +195,7 @@ class _AddDialogState extends State<AddDialog> {
 
     return Material(
       type: MaterialType.transparency,
+      key: ValueKey(('add-dialog-body', _category)),
       child: ValueListenableBuilder(
         valueListenable: _searchController,
         builder: (context, value, _) => FutureBuilder<List<ImportType>>(
@@ -245,7 +250,6 @@ class _AddDialogState extends State<AddDialog> {
                       .contains(search.toLowerCase()))
                   .toList();
               return ListView(
-                shrinkWrap: true,
                 children: [
                   if ((_category == null || _category == ToolCategory.import) &&
                       imports.isNotEmpty) ...[

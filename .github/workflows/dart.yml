@@ -25,14 +25,14 @@ jobs:
       - name: Install dependencies
         run: |
           flutter pub get
-      # Uncomment this step to verify the use of 'dart format' on each commit.
-      - name: Verify formatting
-        run: dart format --output=none --set-exit-if-changed lib
       - name: Run flutter gen-l10n
         if: matrix.projects == 'app'
         run: |
           flutter gen-l10n
-          dart format lib
+          dart format lib/src/generated
+      # Uncomment this step to verify the use of 'dart format' on each commit.
+      - name: Verify formatting
+        run: dart format --output=none --set-exit-if-changed lib
       # Consider passing '--fatal-infos' for slightly stricter analysis.
       - name: Analyze project source
         run: |

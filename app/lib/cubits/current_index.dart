@@ -218,12 +218,12 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
       [Map<Channel?, NetworkingUser>? current]) async {
     final blocState = bloc.state;
     if (blocState is! DocumentLoadSuccess) return;
-    final users = (current ?? state.networkingService.users).values.toList();
+    final users = (current ?? state.networkingService.users).entries.toList();
 
     final foregrounds = state.networkingForegrounds.toList();
     foregrounds.removeWhere((element) {
       final shouldRemove = !users.any((user) =>
-          user.foreground?.contains(element.element) ??
+          user.value.foreground?.contains(element.element) ??
           false || user != element.element);
       if (shouldRemove) {
         element.dispose();
@@ -232,13 +232,13 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     });
     final elements = foregrounds.map((e) => e.element).toList();
     final added = users
-        .expand((user) => user.foreground ?? [])
+        .expand((user) => user.value.foreground ?? [])
         .where((e) => !elements.contains(e))
         .map((e) => Renderer.fromInstance(e))
         .toList();
     added.addAll(users
         .where((element) => !elements.contains(element))
-        .map((e) => UserCursor(e)));
+        .map((e) => UserCursor(e.value, e.key)));
     await Future.wait(added.map((e) async =>
         await e.setup(blocState.data, blocState.assetService, blocState.page)));
     foregrounds.addAll(added);

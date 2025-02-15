@@ -51,7 +51,7 @@ extension ToolVisualizer on Tool {
       CollectionTool() => loc.collection,
       AreaTool() => loc.area,
       LaserTool() => loc.laser,
-      ShapeTool() => loc.shape,
+      ShapeTool e => e.property.shape.getLocalizedName(context),
       SpacerTool() => loc.spacer,
       StampTool() => loc.stamp,
       TextureTool() => loc.texture,

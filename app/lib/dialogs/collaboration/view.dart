@@ -35,6 +35,10 @@ class ViewCollaborationDialog extends StatelessWidget {
                   children: [
                     for (final connection in connections)
                       ListTile(
+                        leading: ColorButton.srgb(
+                          color: getRandomColor(connection),
+                          size: 24,
+                        ),
                         title: Text(connection.toString()),
                       ),
                   ],

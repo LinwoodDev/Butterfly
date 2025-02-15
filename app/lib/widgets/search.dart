@@ -93,8 +93,8 @@ class SearchButton extends StatelessWidget {
         return results.map((result) {
           return ListTile(
             leading: PhosphorIcon(_getIcon(result)(PhosphorIconsStyle.light)),
-            title: Text(_getLocalizedName(result, context)),
-            subtitle: Text(_getDisplay(result, context)),
+            title: Text(_getDisplay(result, context)),
+            subtitle: Text(_getLocalizedName(result, context)),
             onTap: () {
               final state = bloc.state;
               if (state is! DocumentLoaded) return;

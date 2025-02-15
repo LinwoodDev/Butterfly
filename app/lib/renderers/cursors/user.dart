@@ -3,12 +3,15 @@ import 'package:butterfly/helpers/point.dart';
 import 'package:butterfly/services/network.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/material.dart';
+import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import '../renderer.dart';
 
 class UserCursor extends Renderer<NetworkingUser> {
-  UserCursor(super.element);
+  final int? userId;
+
+  UserCursor(super.element, this.userId);
 
   @override
   void build(Canvas canvas, Size size, NoteData document, DocumentPage page,
@@ -20,7 +23,7 @@ class UserCursor extends Renderer<NetworkingUser> {
     }
     const icon = PhosphorIconsFill.cursor;
     final iconSize = 16 / transform.size;
-    const iconColor = Colors.black;
+    final iconColor = getRandomColor(userId ?? 0);
     final iconPainter = TextPainter(
       textDirection: TextDirection.rtl,
       text: TextSpan(
@@ -29,7 +32,7 @@ class UserCursor extends Renderer<NetworkingUser> {
           fontFamily: icon.fontFamily,
           package: icon.fontPackage,
           fontSize: iconSize,
-          color: iconColor,
+          color: iconColor.toColor(),
           fontStyle: FontStyle.normal,
         ),
       ),

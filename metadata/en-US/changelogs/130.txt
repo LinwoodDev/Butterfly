@@ -14,6 +14,7 @@
   * Add option for position and zoom dependent
   * Fix snap if size is 0
 * Improve add dialog with filters
+* Use random colors for cursors in collaboration mode
 * Fix offset list tile
 * Fix resolution shift issues ([#793](https://github.com/LinwoodDev/Butterfly/issues/793))
 * Fix saving issues
@@ -23,6 +24,7 @@
 * Fix conversion to hex color on svg export and color pick
 * Fix some special-characters not working for file names
 * Fix file name validator missing on file rename
+* Fix flipped title and subtitle in search results
 * Remove http sources
 * Upgrade to flutter 3.29
 
