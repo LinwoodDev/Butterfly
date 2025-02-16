@@ -111,10 +111,20 @@ class _NavigatorViewState extends State<NavigatorView>
               sizeFactor: _animation,
               axis: Axis.horizontal,
               axisAlignment: 1,
-              child: const SizedBox(
-                width: drawerWidth,
-                child: Card(child: DocumentNavigator(asDrawer: false)),
-              ),
+              child: AnimatedBuilder(
+                  animation: _animation,
+                  child: SizedBox(
+                    width: drawerWidth,
+                    child: Card(
+                      child: DocumentNavigator(asDrawer: false),
+                    ),
+                  ),
+                  builder: (context, child) {
+                    if (_animation.value == 0) {
+                      return const SizedBox();
+                    }
+                    return child!;
+                  }),
             ),
             NavigationRail(
               minWidth: 110,
@@ -206,6 +216,7 @@ class _DocumentNavigatorState extends State<DocumentNavigator>
             };
             final content = Padding(
               padding: const EdgeInsets.all(12),
+              key: ValueKey(('navigator', page)),
               child: Column(
                 children: [
                   Header(
@@ -240,7 +251,10 @@ class _DocumentNavigatorState extends State<DocumentNavigator>
             if (widget.asDrawer) {
               return Drawer(width: 400, child: content);
             } else {
-              return content;
+              return AnimatedSwitcher(
+                duration: const Duration(milliseconds: 200),
+                child: content,
+              );
             }
           },
         );

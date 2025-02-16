@@ -562,7 +562,9 @@ jobs:
           name: ipa-build
       - name: 📦 Zip artifacts
         run: |
-          zip -r linwood-butterfly-windows-x86_64.zip windows-build/*
+          cd windows-build
+          zip -r ../linwood-butterfly-windows-x86_64.zip *
+          cd ..
           tar -C linux-x86_64-build -czf linwood-butterfly-linux-x86_64.tar.gz .
           tar -C linux-arm64-build -czf linwood-butterfly-linux-arm64.tar.gz .
           tar -C linux-x86_64-alternative-build -czf linwood-butterfly-linux-alternative-x86_64.tar.gz .

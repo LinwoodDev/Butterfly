@@ -17,6 +17,7 @@
 * Improve add dialog with filters
 * Use random colors for cursors in collaboration mode
 * Change texture tool icon since it was the same as the grid tool
+* Add switch animation in navigator drawer
 * Fix offset list tile
 * Fix resolution shift issues ([#793](https://github.com/LinwoodDev/Butterfly/issues/793))
 * Fix saving issues
@@ -27,6 +28,7 @@
 * Fix some special-characters not working for file names
 * Fix file name validator missing on file rename
 * Fix flipped title and subtitle in search results
+* Fix windows portable archive
 * Remove http sources
 * Upgrade to flutter 3.29
 
