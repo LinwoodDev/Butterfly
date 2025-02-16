@@ -3,7 +3,7 @@ import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/material.dart';
 import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:butterfly/src/generated/i18n/app_localizations.dart';
 
 class PalettesPackView extends StatelessWidget {
   final NoteData value;
@@ -47,7 +47,9 @@ class PalettesPackView extends StatelessWidget {
                           );
                         },
                         trailing: IconButton(
-                          icon: const PhosphorIcon(PhosphorIconsLight.trash),
+                          icon: const PhosphorIcon(
+                            PhosphorIconsLight.trash,
+                          ),
                           onPressed: () async {
                             onChanged(value.removePalette(e));
                           },
@@ -68,7 +70,9 @@ class PalettesPackView extends StatelessWidget {
                 context: context,
                 builder: (context) => NameDialog(
                   validator: defaultFileNameValidator(
-                      context, value.getPalettes().toList()),
+                    context,
+                    value.getPalettes().toList(),
+                  ),
                 ),
               );
               if (name == null) return;

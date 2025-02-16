@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:butterfly/src/generated/i18n/app_localizations.dart';
 import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
@@ -34,12 +34,14 @@ class PresentationControlsDialog extends StatelessWidget {
               PhosphorIconsLight.door,
               AppLocalizations.of(context).exitPresentation,
               AppLocalizations.of(context).exitPresentationDescription,
-            )
-          ].map((e) => ListTile(
-                leading: PhosphorIcon(e.$1),
-                title: Text(e.$2),
-                subtitle: Text(e.$3),
-              )),
+            ),
+          ].map(
+            (e) => ListTile(
+              leading: PhosphorIcon(e.$1),
+              title: Text(e.$2),
+              subtitle: Text(e.$3),
+            ),
+          ),
           FutureBuilder<bool>(
             future: Future.value(isFullScreen()),
             builder: (context, snapshot) {

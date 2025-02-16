@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:butterfly/src/generated/i18n/app_localizations.dart';
 import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
@@ -13,16 +13,15 @@ class TouchInputSettings extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: WindowTitleBar<SettingsCubit, ButterflySettings>(
-          title: Text(AppLocalizations.of(context).touch),
-        ),
-        body: Align(
-          alignment: Alignment.center,
-          child: ConstrainedBox(
-            constraints:
-                const BoxConstraints(maxWidth: LeapBreakpoints.compact),
-            child: BlocBuilder<SettingsCubit, ButterflySettings>(
-                builder: (context, state) {
+      appBar: WindowTitleBar<SettingsCubit, ButterflySettings>(
+        title: Text(AppLocalizations.of(context).touch),
+      ),
+      body: Align(
+        alignment: Alignment.center,
+        child: ConstrainedBox(
+          constraints: const BoxConstraints(maxWidth: LeapBreakpoints.compact),
+          child: BlocBuilder<SettingsCubit, ButterflySettings>(
+            builder: (context, state) {
               final config = state.inputConfiguration;
               return ListView(
                 children: [
@@ -36,7 +35,8 @@ class TouchInputSettings extends StatelessWidget {
                           CheckboxListTile(
                             value: state.inputGestures,
                             title: Text(
-                                AppLocalizations.of(context).inputGestures),
+                              AppLocalizations.of(context).inputGestures,
+                            ),
                             onChanged: (value) => context
                                 .read<SettingsCubit>()
                                 .changeInputGestures(value ?? true),
@@ -61,7 +61,8 @@ class TouchInputSettings extends StatelessWidget {
                               ),
                               IconButton(
                                 icon: const PhosphorIcon(
-                                    PhosphorIconsLight.sealQuestion),
+                                  PhosphorIconsLight.sealQuestion,
+                                ),
                                 tooltip: AppLocalizations.of(context).help,
                                 onPressed: () =>
                                     openHelp(['shortcuts'], 'configure'),
@@ -76,8 +77,11 @@ class TouchInputSettings extends StatelessWidget {
                             icon: const PhosphorIcon(PhosphorIconsLight.hand),
                             onChanged: (value) {
                               final cubit = context.read<SettingsCubit>();
-                              cubit.changeInputConfiguration(config.copyWith(
-                                  touch: int.tryParse(value)?.subtract(1)));
+                              cubit.changeInputConfiguration(
+                                config.copyWith(
+                                  touch: int.tryParse(value)?.subtract(1),
+                                ),
+                              );
                             },
                           ),
                         ],
@@ -86,8 +90,10 @@ class TouchInputSettings extends StatelessWidget {
                   ),
                 ],
               );
-            }),
+            },
           ),
-        ));
+        ),
+      ),
+    );
   }
 }

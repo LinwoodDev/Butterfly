@@ -1,7 +1,7 @@
 import 'package:butterfly_api/butterfly_text.dart' as text;
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:butterfly/src/generated/i18n/app_localizations.dart';
 import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
@@ -54,10 +54,11 @@ class _TextsStyleViewState extends State<TextsStyleView> {
 
   @override
   Widget build(BuildContext context) {
-    final translations = DocumentDefaults.getSpanTranslations(context)
-        .entries
-        .where(
-            (element) => !widget.value.spanProperties.containsKey(element.key));
+    final translations = DocumentDefaults.getSpanTranslations(
+      context,
+    ).entries.where(
+          (element) => !widget.value.spanProperties.containsKey(element.key),
+        );
     return Column(
       children: [
         Row(
@@ -68,10 +69,8 @@ class _TextsStyleViewState extends State<TextsStyleView> {
                 expandedInsets: const EdgeInsets.all(4),
                 dropdownMenuEntries: [
                   ...widget.value.spanProperties.entries.map(
-                    (style) => DropdownMenuEntry(
-                      value: style.key,
-                      label: style.key,
-                    ),
+                    (style) =>
+                        DropdownMenuEntry(value: style.key, label: style.key),
                   ),
                 ],
                 initialSelection: _currentStyle,
@@ -99,12 +98,14 @@ class _TextsStyleViewState extends State<TextsStyleView> {
                 if (name == null) {
                   return;
                 }
-                widget.onChanged(widget.value.copyWith(
-                  spanProperties: {
-                    ...widget.value.spanProperties,
-                    name: const text.DefinedSpanProperty(),
-                  },
-                ));
+                widget.onChanged(
+                  widget.value.copyWith(
+                    spanProperties: {
+                      ...widget.value.spanProperties,
+                      name: const text.DefinedSpanProperty(),
+                    },
+                  ),
+                );
               },
             ),
             MenuAnchor(
@@ -117,12 +118,14 @@ class _TextsStyleViewState extends State<TextsStyleView> {
                     (e) => MenuItemButton(
                       child: Text(e.value),
                       onPressed: () {
-                        widget.onChanged(widget.value.copyWith(
-                          spanProperties: {
-                            ...widget.value.spanProperties,
-                            e.key: const text.DefinedSpanProperty(),
-                          },
-                        ));
+                        widget.onChanged(
+                          widget.value.copyWith(
+                            spanProperties: {
+                              ...widget.value.spanProperties,
+                              e.key: const text.DefinedSpanProperty(),
+                            },
+                          ),
+                        );
                       },
                     ),
                   )
@@ -150,12 +153,16 @@ class _TextsStyleViewState extends State<TextsStyleView> {
                   }
                   final lastStyle = _currentStyle;
                   _currentStyle = name;
-                  widget.onChanged(widget.value.copyWith(
-                    spanProperties: Map<String, text.DefinedSpanProperty>.from(
-                        widget.value.spanProperties)
-                      ..remove(lastStyle)
-                      ..[name] = widget.value.spanProperties[lastStyle]!,
-                  ));
+                  widget.onChanged(
+                    widget.value.copyWith(
+                      spanProperties:
+                          Map<String, text.DefinedSpanProperty>.from(
+                        widget.value.spanProperties,
+                      )
+                            ..remove(lastStyle)
+                            ..[name] = widget.value.spanProperties[lastStyle]!,
+                    ),
+                  );
                 },
               ),
               IconButton(
@@ -163,21 +170,25 @@ class _TextsStyleViewState extends State<TextsStyleView> {
                 tooltip: AppLocalizations.of(context).delete,
                 onPressed: () async {
                   final result = await showDialog<bool>(
-                      context: context, builder: (ctx) => const DeleteDialog());
+                    context: context,
+                    builder: (ctx) => const DeleteDialog(),
+                  );
                   if (result != true) return;
                   if (context.mounted) {
                     final lastStyle = _currentStyle;
                     _currentStyle = null;
-                    widget.onChanged(widget.value.copyWith(
-                      spanProperties:
-                          Map<String, text.DefinedSpanProperty>.from(
-                              widget.value.spanProperties)
-                            ..remove(lastStyle),
-                    ));
+                    widget.onChanged(
+                      widget.value.copyWith(
+                        spanProperties:
+                            Map<String, text.DefinedSpanProperty>.from(
+                          widget.value.spanProperties,
+                        )..remove(lastStyle),
+                      ),
+                    );
                   }
                 },
               ),
-            ]
+            ],
           ],
         ),
         const SizedBox(height: 8),
@@ -187,20 +198,23 @@ class _TextsStyleViewState extends State<TextsStyleView> {
               final currentSpan = widget.value.spanProperties[_currentStyle];
               if (currentSpan == null) {
                 return Center(
-                    child: ElevatedButton(
-                  child: Text(LeapLocalizations.of(context).create),
-                  onPressed: () {
-                    widget.onChanged(widget.value.copyWith(
-                      spanProperties: {
-                        ...widget.value.spanProperties,
-                        _controller.text: const text.DefinedSpanProperty(),
-                      },
-                    ));
-                    setState(() {
-                      _currentStyle = _controller.text;
-                    });
-                  },
-                ));
+                  child: ElevatedButton(
+                    child: Text(LeapLocalizations.of(context).create),
+                    onPressed: () {
+                      widget.onChanged(
+                        widget.value.copyWith(
+                          spanProperties: {
+                            ...widget.value.spanProperties,
+                            _controller.text: const text.DefinedSpanProperty(),
+                          },
+                        ),
+                      );
+                      setState(() {
+                        _currentStyle = _controller.text;
+                      });
+                    },
+                  ),
+                );
               }
               return Card(
                 child: Padding(
@@ -209,12 +223,14 @@ class _TextsStyleViewState extends State<TextsStyleView> {
                     child: TextStyleView(
                       value: currentSpan,
                       onChanged: (span) {
-                        widget.onChanged(widget.value.copyWith(
-                          spanProperties: {
-                            ...widget.value.spanProperties,
-                            _currentStyle!: span,
-                          },
-                        ));
+                        widget.onChanged(
+                          widget.value.copyWith(
+                            spanProperties: {
+                              ...widget.value.spanProperties,
+                              _currentStyle!: span,
+                            },
+                          ),
+                        );
                       },
                     ),
                   ),

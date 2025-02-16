@@ -1,7 +1,7 @@
 import 'package:butterfly/api/open.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:butterfly/src/generated/i18n/app_localizations.dart';
 import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
@@ -13,25 +13,26 @@ class KeyboardInputSettings extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: WindowTitleBar<SettingsCubit, ButterflySettings>(
-          title: Text(AppLocalizations.of(context).keyboard),
-        ),
-        body: Align(
-          alignment: Alignment.center,
-          child: ConstrainedBox(
-            constraints:
-                const BoxConstraints(maxWidth: LeapBreakpoints.compact),
-            child: BlocBuilder<SettingsCubit, ButterflySettings>(
-              builder: (context, state) => ListView(
-                children: [
-                  ListTile(
-                      title: Text(AppLocalizations.of(context).shortcuts),
-                      leading: const PhosphorIcon(PhosphorIconsLight.keyboard),
-                      onTap: () => openHelp(['shortcuts'], 'keyboard')),
-                ],
-              ),
+      appBar: WindowTitleBar<SettingsCubit, ButterflySettings>(
+        title: Text(AppLocalizations.of(context).keyboard),
+      ),
+      body: Align(
+        alignment: Alignment.center,
+        child: ConstrainedBox(
+          constraints: const BoxConstraints(maxWidth: LeapBreakpoints.compact),
+          child: BlocBuilder<SettingsCubit, ButterflySettings>(
+            builder: (context, state) => ListView(
+              children: [
+                ListTile(
+                  title: Text(AppLocalizations.of(context).shortcuts),
+                  leading: const PhosphorIcon(PhosphorIconsLight.keyboard),
+                  onTap: () => openHelp(['shortcuts'], 'keyboard'),
+                ),
+              ],
             ),
           ),
-        ));
+        ),
+      ),
+    );
   }
 }

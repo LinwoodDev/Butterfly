@@ -3,10 +3,11 @@ import 'dart:io';
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/cubits/current_index.dart';
 import 'package:butterfly/services/network.dart';
+import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:butterfly/src/generated/i18n/app_localizations.dart';
 import 'package:material_leap/material_leap.dart';
 import 'package:networker/networker.dart';
 
@@ -41,7 +42,9 @@ class CollaborationDialog extends StatelessWidget {
         final isActive = snapshot.data != null;
         if (isActive) {
           return ViewCollaborationDialog(
-              state: snapshot.data!, service: service);
+            state: snapshot.data!,
+            service: service,
+          );
         } else {
           return StartCollaborationDialog(service: service);
         }

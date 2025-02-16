@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:butterfly/src/generated/i18n/app_localizations.dart';
 import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
@@ -35,8 +35,9 @@ class PenInputSettings extends StatelessWidget {
                           const SizedBox(height: 8),
                           CheckboxListTile(
                             value: state.penOnlyInput,
-                            title:
-                                Text(AppLocalizations.of(context).penOnlyInput),
+                            title: Text(
+                              AppLocalizations.of(context).penOnlyInput,
+                            ),
                             onChanged: (value) => context
                                 .read<SettingsCubit>()
                                 .changePenOnlyInput(value ?? false),
@@ -61,7 +62,8 @@ class PenInputSettings extends StatelessWidget {
                               ),
                               IconButton(
                                 icon: const PhosphorIcon(
-                                    PhosphorIconsLight.sealQuestion),
+                                  PhosphorIconsLight.sealQuestion,
+                                ),
                                 tooltip: AppLocalizations.of(context).help,
                                 onPressed: () =>
                                     openHelp(['shortcuts'], 'configure'),
@@ -75,8 +77,11 @@ class PenInputSettings extends StatelessWidget {
                             icon: const PhosphorIcon(PhosphorIconsLight.pen),
                             onChanged: (value) {
                               final cubit = context.read<SettingsCubit>();
-                              cubit.changeInputConfiguration(config.copyWith(
-                                  pen: int.tryParse(value)?.subtract(1)));
+                              cubit.changeInputConfiguration(
+                                config.copyWith(
+                                  pen: int.tryParse(value)?.subtract(1),
+                                ),
+                              );
                             },
                           ),
                           const SizedBox(height: 8),
@@ -85,12 +90,17 @@ class PenInputSettings extends StatelessWidget {
                                 config.firstPenButton?.add(1)?.toString() ?? '',
                             label: AppLocalizations.of(context).first,
                             icon: const PhosphorIcon(
-                                PhosphorIconsLight.numberCircleOne),
+                              PhosphorIconsLight.numberCircleOne,
+                            ),
                             onChanged: (value) {
                               final cubit = context.read<SettingsCubit>();
-                              cubit.changeInputConfiguration(config.copyWith(
-                                  firstPenButton:
-                                      int.tryParse(value)?.subtract(1)));
+                              cubit.changeInputConfiguration(
+                                config.copyWith(
+                                  firstPenButton: int.tryParse(
+                                    value,
+                                  )?.subtract(1),
+                                ),
+                              );
                             },
                           ),
                           const SizedBox(height: 8),
@@ -100,12 +110,17 @@ class PenInputSettings extends StatelessWidget {
                                     '',
                             label: AppLocalizations.of(context).second,
                             icon: const PhosphorIcon(
-                                PhosphorIconsLight.numberCircleTwo),
+                              PhosphorIconsLight.numberCircleTwo,
+                            ),
                             onChanged: (value) {
                               final cubit = context.read<SettingsCubit>();
-                              cubit.changeInputConfiguration(config.copyWith(
-                                  secondPenButton:
-                                      int.tryParse(value)?.subtract(1)));
+                              cubit.changeInputConfiguration(
+                                config.copyWith(
+                                  secondPenButton: int.tryParse(
+                                    value,
+                                  )?.subtract(1),
+                                ),
+                              );
                             },
                           ),
                         ],

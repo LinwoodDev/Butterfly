@@ -12,6 +12,7 @@ analyzer:
   exclude:
     - "**/*.g.dart"
     - "**/*.freezed.dart"
+    - 'lib/src/generated/**/*.dart'
   errors:
     invalid_annotation_target: ignore
 linter:

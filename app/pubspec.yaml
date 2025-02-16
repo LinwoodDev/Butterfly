@@ -17,7 +17,7 @@ version: 2.3.0-beta.2+130
 
 environment:
   sdk: ">=3.4.0 <4.0.0"
-  flutter: 3.27.4
+  flutter: 3.29.0
 
 dependencies:
   flutter:
@@ -49,16 +49,8 @@ dependencies:
   window_manager: ^0.4.0
   flex_color_scheme: ^8.0.0
   json_annotation: ^4.9.0
-  printing:
-    git:
-      url: https://github.com/CodeDoctorDE/dart_pdf.git
-      ref: 4147fe72fcba3b271da02971171ff1ef71f3a7f7
-      path: printing
-  pdf:
-    git:
-      url: https://github.com/CodeDoctorDE/dart_pdf.git
-      ref: 4be45bf7000640f38cb62088899a0f5185b4dc89
-      path: pdf
+  printing: ^5.14.2
+  pdf: ^3.11.3
   http: ^1.2.1
   flutter_secure_storage: ^10.0.0-beta.2
   equatable: ^2.0.5

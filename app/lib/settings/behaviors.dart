@@ -1,7 +1,7 @@
 import 'package:butterfly/cubits/settings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:butterfly/src/generated/i18n/app_localizations.dart';
 import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
@@ -10,7 +10,10 @@ class BehaviorsSettingsPage extends StatelessWidget {
 
   const BehaviorsSettingsPage({super.key, this.inView = false});
 
-  String _getStartupBehaviorName(BuildContext context, StartupBehavior value) =>
+  String _getStartupBehaviorName(
+    BuildContext context,
+    StartupBehavior value,
+  ) =>
       switch (value) {
         StartupBehavior.openHomeScreen =>
           AppLocalizations.of(context).homeScreen,
@@ -19,7 +22,9 @@ class BehaviorsSettingsPage extends StatelessWidget {
       };
 
   String _getRenderResolutionName(
-          BuildContext context, RenderResolution value) =>
+    BuildContext context,
+    RenderResolution value,
+  ) =>
       switch (value) {
         RenderResolution.performance =>
           AppLocalizations.of(context).performance,
@@ -28,7 +33,9 @@ class BehaviorsSettingsPage extends StatelessWidget {
       };
 
   String _getRenderResolutionDescription(
-          BuildContext context, RenderResolution value) =>
+    BuildContext context,
+    RenderResolution value,
+  ) =>
       switch (value) {
         RenderResolution.performance =>
           AppLocalizations.of(context).performanceDescription,
@@ -47,104 +54,126 @@ class BehaviorsSettingsPage extends StatelessWidget {
         inView: inView,
       ),
       body: BlocBuilder<SettingsCubit, ButterflySettings>(
-          builder: (context, state) {
-        return ListView(children: [
-          Card(
-            margin: const EdgeInsets.all(8),
-            child: Padding(
-              padding: const EdgeInsets.all(32),
-              child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    ListTile(
-                      title: Text(AppLocalizations.of(context).autosave),
-                      leading:
-                          const PhosphorIcon(PhosphorIconsLight.floppyDisk),
-                      subtitle: Text(
-                        state.autosave
-                            ? state.showSaveButton
-                                ? AppLocalizations.of(context).yesButShowButtons
-                                : AppLocalizations.of(context).yes
-                            : AppLocalizations.of(context).no,
+        builder: (context, state) {
+          return ListView(
+            children: [
+              Card(
+                margin: const EdgeInsets.all(8),
+                child: Padding(
+                  padding: const EdgeInsets.all(32),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      ListTile(
+                        title: Text(AppLocalizations.of(context).autosave),
+                        leading: const PhosphorIcon(
+                          PhosphorIconsLight.floppyDisk,
+                        ),
+                        subtitle: Text(
+                          state.autosave
+                              ? state.showSaveButton
+                                  ? AppLocalizations.of(
+                                      context,
+                                    ).yesButShowButtons
+                                  : AppLocalizations.of(context).yes
+                              : AppLocalizations.of(context).no,
+                        ),
+                        onTap: () => _openAutosaveModal(context),
                       ),
-                      onTap: () => _openAutosaveModal(context),
-                    ),
-                    SwitchListTile(
-                      value: state.hideCursorWhileDrawing,
-                      title: Text(
-                          AppLocalizations.of(context).hideCursorWhileDrawing),
-                      secondary:
-                          const PhosphorIcon(PhosphorIconsLight.cursorClick),
-                      onChanged: (value) => context
-                          .read<SettingsCubit>()
-                          .changeHideCursorWhileDrawing(value),
-                    ),
-                    ListTile(
-                      title: Text(AppLocalizations.of(context).onStartup),
-                      subtitle: Text(
-                          _getStartupBehaviorName(context, state.onStartup)),
-                      onTap: () => _openStartupModal(context),
-                      leading: const Icon(PhosphorIconsLight.arrowFatLineUp),
-                    ),
-                    ListTile(
-                      title:
-                          Text(AppLocalizations.of(context).renderResolution),
-                      subtitle: Text(_getRenderResolutionName(
-                          context, state.renderResolution)),
-                      onTap: () => _openRenderResolutionModal(context),
-                      leading: const Icon(PhosphorIconsLight.sparkle),
-                    ),
-                  ]),
-            ),
-          ),
-          Card(
-            margin: const EdgeInsets.all(8),
-            child: Padding(
-              padding: const EdgeInsets.all(32),
-              child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    Text(AppLocalizations.of(context).import,
-                        style: TextTheme.of(context).headlineSmall),
-                    const SizedBox(height: 16),
-                    SwitchListTile(
-                      value: state.spreadPages,
-                      secondary: const PhosphorIcon(
-                          PhosphorIconsLight.arrowsOutSimple),
-                      title: Text(AppLocalizations.of(context).spreadToPages),
-                      onChanged: (value) => context
-                          .read<SettingsCubit>()
-                          .changeSpreadPages(value),
-                    ),
-                    ExactSlider(
-                      header: Text(AppLocalizations.of(context).imageScale),
-                      leading:
-                          const PhosphorIcon(PhosphorIconsLight.frameCorners),
-                      value: state.imageScale * 100,
-                      min: 0,
-                      max: 100,
-                      defaultValue: 50,
-                      fractionDigits: 0,
-                      onChangeEnd: (value) => context
-                          .read<SettingsCubit>()
-                          .changeImageScale(value / 100),
-                    ),
-                    ExactSlider(
-                      leading:
-                          const PhosphorIcon(PhosphorIconsLight.flowerLotus),
-                      header: Text(AppLocalizations.of(context).pdfQuality),
-                      value: state.pdfQuality,
-                      min: 0.5,
-                      max: 10,
-                      defaultValue: 2,
-                      onChangeEnd: (value) =>
-                          context.read<SettingsCubit>().changePdfQuality(value),
-                    ),
-                  ]),
-            ),
-          ),
-        ]);
-      }),
+                      SwitchListTile(
+                        value: state.hideCursorWhileDrawing,
+                        title: Text(
+                          AppLocalizations.of(context).hideCursorWhileDrawing,
+                        ),
+                        secondary: const PhosphorIcon(
+                          PhosphorIconsLight.cursorClick,
+                        ),
+                        onChanged: (value) => context
+                            .read<SettingsCubit>()
+                            .changeHideCursorWhileDrawing(value),
+                      ),
+                      ListTile(
+                        title: Text(AppLocalizations.of(context).onStartup),
+                        subtitle: Text(
+                          _getStartupBehaviorName(context, state.onStartup),
+                        ),
+                        onTap: () => _openStartupModal(context),
+                        leading: const Icon(PhosphorIconsLight.arrowFatLineUp),
+                      ),
+                      ListTile(
+                        title: Text(
+                          AppLocalizations.of(context).renderResolution,
+                        ),
+                        subtitle: Text(
+                          _getRenderResolutionName(
+                            context,
+                            state.renderResolution,
+                          ),
+                        ),
+                        onTap: () => _openRenderResolutionModal(context),
+                        leading: const Icon(PhosphorIconsLight.sparkle),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              Card(
+                margin: const EdgeInsets.all(8),
+                child: Padding(
+                  padding: const EdgeInsets.all(32),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      Text(
+                        AppLocalizations.of(context).import,
+                        style: TextTheme.of(context).headlineSmall,
+                      ),
+                      const SizedBox(height: 16),
+                      SwitchListTile(
+                        value: state.spreadPages,
+                        secondary: const PhosphorIcon(
+                          PhosphorIconsLight.arrowsOutSimple,
+                        ),
+                        title: Text(AppLocalizations.of(context).spreadToPages),
+                        onChanged: (value) => context
+                            .read<SettingsCubit>()
+                            .changeSpreadPages(value),
+                      ),
+                      ExactSlider(
+                        header: Text(AppLocalizations.of(context).imageScale),
+                        leading: const PhosphorIcon(
+                          PhosphorIconsLight.frameCorners,
+                        ),
+                        value: state.imageScale * 100,
+                        min: 0,
+                        max: 100,
+                        defaultValue: 50,
+                        fractionDigits: 0,
+                        onChangeEnd: (value) => context
+                            .read<SettingsCubit>()
+                            .changeImageScale(value / 100),
+                      ),
+                      ExactSlider(
+                        leading: const PhosphorIcon(
+                          PhosphorIconsLight.flowerLotus,
+                        ),
+                        header: Text(AppLocalizations.of(context).pdfQuality),
+                        value: state.pdfQuality,
+                        min: 0.5,
+                        max: 10,
+                        defaultValue: 2,
+                        onChangeEnd: (value) => context
+                            .read<SettingsCubit>()
+                            .changePdfQuality(value),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          );
+        },
+      ),
     );
   }
 
@@ -153,29 +182,31 @@ class BehaviorsSettingsPage extends StatelessWidget {
     final currentStartup = cubit.state.onStartup;
 
     showLeapBottomSheet(
-        context: context,
-        titleBuilder: (context) => Text(AppLocalizations.of(context).onStartup),
-        childrenBuilder: (context) {
-          void changeStartup(StartupBehavior behavior) {
-            cubit.changeStartupBehavior(behavior);
-            Navigator.of(context).pop();
-          }
+      context: context,
+      titleBuilder: (context) => Text(AppLocalizations.of(context).onStartup),
+      childrenBuilder: (context) {
+        void changeStartup(StartupBehavior behavior) {
+          cubit.changeStartupBehavior(behavior);
+          Navigator.of(context).pop();
+        }
 
-          return StartupBehavior.values
-              .map((e) => ListTile(
-                    title: Text(_getStartupBehaviorName(context, e)),
-                    leading: Icon(switch (e) {
-                      StartupBehavior.openHomeScreen =>
-                        PhosphorIconsLight.house,
-                      StartupBehavior.openLastNote =>
-                        PhosphorIconsLight.arrowCounterClockwise,
-                      StartupBehavior.openNewNote => PhosphorIconsLight.file,
-                    }),
-                    selected: currentStartup == e,
-                    onTap: () => changeStartup(e),
-                  ))
-              .toList();
-        });
+        return StartupBehavior.values
+            .map(
+              (e) => ListTile(
+                title: Text(_getStartupBehaviorName(context, e)),
+                leading: Icon(switch (e) {
+                  StartupBehavior.openHomeScreen => PhosphorIconsLight.house,
+                  StartupBehavior.openLastNote =>
+                    PhosphorIconsLight.arrowCounterClockwise,
+                  StartupBehavior.openNewNote => PhosphorIconsLight.file,
+                }),
+                selected: currentStartup == e,
+                onTap: () => changeStartup(e),
+              ),
+            )
+            .toList();
+      },
+    );
   }
 
   void _openRenderResolutionModal(BuildContext context) {
@@ -183,24 +214,27 @@ class BehaviorsSettingsPage extends StatelessWidget {
     final currentResolution = cubit.state.renderResolution;
 
     showLeapBottomSheet(
-        context: context,
-        titleBuilder: (context) =>
-            Text(AppLocalizations.of(context).renderResolution),
-        childrenBuilder: (context) {
-          void changeResolution(RenderResolution resolution) {
-            cubit.changeRenderResolution(resolution);
-            Navigator.of(context).pop();
-          }
+      context: context,
+      titleBuilder: (context) =>
+          Text(AppLocalizations.of(context).renderResolution),
+      childrenBuilder: (context) {
+        void changeResolution(RenderResolution resolution) {
+          cubit.changeRenderResolution(resolution);
+          Navigator.of(context).pop();
+        }
 
-          return RenderResolution.values
-              .map((e) => ListTile(
-                    title: Text(_getRenderResolutionName(context, e)),
-                    subtitle: Text(_getRenderResolutionDescription(context, e)),
-                    selected: currentResolution == e,
-                    onTap: () => changeResolution(e),
-                  ))
-              .toList();
-        });
+        return RenderResolution.values
+            .map(
+              (e) => ListTile(
+                title: Text(_getRenderResolutionName(context, e)),
+                subtitle: Text(_getRenderResolutionDescription(context, e)),
+                selected: currentResolution == e,
+                onTap: () => changeResolution(e),
+              ),
+            )
+            .toList();
+      },
+    );
   }
 
   void _openAutosaveModal(BuildContext context) {
@@ -209,34 +243,35 @@ class BehaviorsSettingsPage extends StatelessWidget {
     final showSaveButton = cubit.state.showSaveButton;
 
     showLeapBottomSheet(
-        context: context,
-        titleBuilder: (context) => Text(AppLocalizations.of(context).autosave),
-        childrenBuilder: (context) {
-          void changeAutosave(bool? autosave) {
-            cubit.changeAutosave(autosave);
-            Navigator.of(context).pop();
-          }
+      context: context,
+      titleBuilder: (context) => Text(AppLocalizations.of(context).autosave),
+      childrenBuilder: (context) {
+        void changeAutosave(bool? autosave) {
+          cubit.changeAutosave(autosave);
+          Navigator.of(context).pop();
+        }
 
-          return [
-            ListTile(
-              title: Text(AppLocalizations.of(context).yes),
-              leading: Icon(PhosphorIconsLight.check),
-              selected: autosave && showSaveButton == false,
-              onTap: () => changeAutosave(true),
-            ),
-            ListTile(
-              title: Text(AppLocalizations.of(context).yesButShowButtons),
-              leading: Icon(PhosphorIconsLight.question),
-              selected: autosave && showSaveButton,
-              onTap: () => changeAutosave(null),
-            ),
-            ListTile(
-              title: Text(AppLocalizations.of(context).no),
-              leading: Icon(PhosphorIconsLight.x),
-              selected: !autosave,
-              onTap: () => changeAutosave(false),
-            ),
-          ];
-        });
+        return [
+          ListTile(
+            title: Text(AppLocalizations.of(context).yes),
+            leading: Icon(PhosphorIconsLight.check),
+            selected: autosave && showSaveButton == false,
+            onTap: () => changeAutosave(true),
+          ),
+          ListTile(
+            title: Text(AppLocalizations.of(context).yesButShowButtons),
+            leading: Icon(PhosphorIconsLight.question),
+            selected: autosave && showSaveButton,
+            onTap: () => changeAutosave(null),
+          ),
+          ListTile(
+            title: Text(AppLocalizations.of(context).no),
+            leading: Icon(PhosphorIconsLight.x),
+            selected: !autosave,
+            onTap: () => changeAutosave(false),
+          ),
+        ];
+      },
+    );
   }
 }

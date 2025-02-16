@@ -1,12 +1,14 @@
 import 'package:butterfly/api/close.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:butterfly/src/generated/i18n/app_localizations.dart';
 import 'package:material_leap/material_leap.dart';
 import 'package:window_manager/window_manager.dart';
 
 CloseSubscription onPreventClose(
-    BuildContext context, OnCloseCallback onClose) {
+  BuildContext context,
+  OnCloseCallback onClose,
+) {
   return IOCloseSubscription(context, onClose);
 }
 
@@ -42,7 +44,9 @@ class IOCloseSubscription extends CloseSubscription with WindowListener {
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context).pop(false),
-            child: Text(MaterialLocalizations.of(context).cancelButtonLabel),
+            child: Text(
+              MaterialLocalizations.of(context).cancelButtonLabel,
+            ),
           ),
           ElevatedButton(
             onPressed: () => Navigator.of(context).pop(true),

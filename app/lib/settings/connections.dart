@@ -10,7 +10,7 @@ import 'package:file_selector/file_selector.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:butterfly/src/generated/i18n/app_localizations.dart';
 import 'package:go_router/go_router.dart';
 import 'package:http/http.dart' as http;
 import 'package:lw_file_system/lw_file_system.dart';
@@ -24,19 +24,19 @@ class ConnectionsSettingsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: inView ? Colors.transparent : null,
+      appBar: WindowTitleBar<SettingsCubit, ButterflySettings>(
+        title: Text(AppLocalizations.of(context).connections),
         backgroundColor: inView ? Colors.transparent : null,
-        appBar: WindowTitleBar<SettingsCubit, ButterflySettings>(
-          title: Text(AppLocalizations.of(context).connections),
-          backgroundColor: inView ? Colors.transparent : null,
-          inView: inView,
-          actions: [
-            IconButton(
-              icon: const PhosphorIcon(PhosphorIconsLight.sealQuestion),
-              tooltip: AppLocalizations.of(context).help,
-              onPressed: () => openHelp(['storage'], 'remote'),
-            ),
-            BlocBuilder<SettingsCubit, ButterflySettings>(
-                builder: (context, settings) {
+        inView: inView,
+        actions: [
+          IconButton(
+            icon: const PhosphorIcon(PhosphorIconsLight.sealQuestion),
+            tooltip: AppLocalizations.of(context).help,
+            onPressed: () => openHelp(['storage'], 'remote'),
+          ),
+          BlocBuilder<SettingsCubit, ButterflySettings>(
+            builder: (context, settings) {
               return IconButton(
                 icon: settings.defaultRemote.isEmpty
                     ? const PhosphorIcon(PhosphorIconsFill.house)
@@ -48,86 +48,110 @@ class ConnectionsSettingsPage extends StatelessWidget {
                   BlocProvider.of<SettingsCubit>(context).setDefaultRemote('');
                 },
               );
-            }),
-          ],
-        ),
-        floatingActionButton: kIsWeb
-            ? null
-            : FloatingActionButton.extended(
-                onPressed: () => showLeapBottomSheet<ExternalStorage>(
-                    context: context,
-                    titleBuilder: (context) =>
-                        Text(AppLocalizations.of(context).addConnection),
-                    childrenBuilder: (context) => getSupportedStorages()
-                        .whereNot(
-                            (e) => e is LocalStorage && Platform.isAndroid)
-                        .map((e) => ListTile(
-                              title: Text(e.getLocalizedTypeName(context)),
-                              leading: PhosphorIcon(
-                                  e.typeIcon(PhosphorIconsStyle.light)),
-                              onTap: () => Navigator.pop(context, e),
-                            ))
-                        .toList()).then((value) {
-                  if (value == null) return;
-                  showDialog<void>(
-                    context: context,
-                    builder: (context) => _AddRemoteDialog(storage: value),
-                  );
-                }),
-                label: Text(AppLocalizations.of(context).addConnection),
-                icon: const PhosphorIcon(PhosphorIconsLight.plus),
-              ),
-        body: Builder(builder: (context) {
+            },
+          ),
+        ],
+      ),
+      floatingActionButton: kIsWeb
+          ? null
+          : FloatingActionButton.extended(
+              onPressed: () => showLeapBottomSheet<ExternalStorage>(
+                context: context,
+                titleBuilder: (context) =>
+                    Text(AppLocalizations.of(context).addConnection),
+                childrenBuilder: (context) => getSupportedStorages()
+                    .whereNot(
+                      (e) => e is LocalStorage && Platform.isAndroid,
+                    )
+                    .map(
+                      (e) => ListTile(
+                        title: Text(
+                          e.getLocalizedTypeName(context),
+                        ),
+                        leading: PhosphorIcon(
+                          e.typeIcon(PhosphorIconsStyle.light),
+                        ),
+                        onTap: () => Navigator.pop(context, e),
+                      ),
+                    )
+                    .toList(),
+              ).then((value) {
+                if (value == null) return;
+                showDialog<void>(
+                  context: context,
+                  builder: (context) => _AddRemoteDialog(storage: value),
+                );
+              }),
+              label: Text(AppLocalizations.of(context).addConnection),
+              icon: const PhosphorIcon(PhosphorIconsLight.plus),
+            ),
+      body: Builder(
+        builder: (context) {
           if (kIsWeb) {
             return Center(
-                child: Text(AppLocalizations.of(context).webNotSupported));
+              child: Text(AppLocalizations.of(context).webNotSupported),
+            );
           }
           return BlocBuilder<SettingsCubit, ButterflySettings>(
-              builder: (context, state) {
-            if (state.connections.isEmpty) {
-              return Center(
-                child: Text(AppLocalizations.of(context).noConnections),
-              );
-            }
-            return Material(
-              type: MaterialType.transparency,
-              child: ListView.builder(
+            builder: (context, state) {
+              if (state.connections.isEmpty) {
+                return Center(
+                  child: Text(AppLocalizations.of(context).noConnections),
+                );
+              }
+              return Material(
+                type: MaterialType.transparency,
+                child: ListView.builder(
                   itemCount: state.connections.length,
                   itemBuilder: (context, index) {
                     final remote = state.connections[index];
                     return Dismissible(
                       key: Key(remote.identifier),
                       onDismissed: (details) {
-                        BlocProvider.of<SettingsCubit>(context)
-                            .deleteRemote(remote.identifier);
+                        BlocProvider.of<SettingsCubit>(
+                          context,
+                        ).deleteRemote(remote.identifier);
                       },
                       child: ListTile(
                         title: Text(remote.label),
                         leading: remote.icon?.isEmpty ?? true
                             ? PhosphorIcon(
-                                remote.typeIcon(PhosphorIconsStyle.light))
+                                remote.typeIcon(PhosphorIconsStyle.light),
+                              )
                             : Image.memory(remote.icon!),
-                        onTap: () => context.pushNamed('connection',
-                            pathParameters: {'id': remote.identifier}),
+                        onTap: () => context.pushNamed(
+                          'connection',
+                          pathParameters: {'id': remote.identifier},
+                        ),
                         trailing: IconButton(
                           icon: remote.identifier == state.defaultRemote
                               ? const PhosphorIcon(PhosphorIconsFill.cloud)
-                              : const PhosphorIcon(PhosphorIconsLight.cloud),
+                              : const PhosphorIcon(
+                                  PhosphorIconsLight.cloud,
+                                ),
                           tooltip: remote.identifier == state.defaultRemote
-                              ? AppLocalizations.of(context).defaultConnection
-                              : AppLocalizations.of(context)
-                                  .notDefaultConnection,
+                              ? AppLocalizations.of(
+                                  context,
+                                ).defaultConnection
+                              : AppLocalizations.of(
+                                  context,
+                                ).notDefaultConnection,
                           onPressed: () {
-                            BlocProvider.of<SettingsCubit>(context)
-                                .setDefaultRemote(remote.identifier);
+                            BlocProvider.of<SettingsCubit>(
+                              context,
+                            ).setDefaultRemote(remote.identifier);
                           },
                         ),
                       ),
                     );
-                  }),
-            );
-          });
-        }));
+                  },
+                ),
+              );
+            },
+          );
+        },
+      ),
+    );
   }
 }
 
@@ -206,8 +230,11 @@ class __AddRemoteDialogState extends State<_AddRemoteDialog> {
         context: context,
         builder: (context) => AlertDialog(
           title: Text(AppLocalizations.of(context).unsecureConnectionTitle),
-          content: Text(AppLocalizations.of(context)
-              .unsecureConnectionMessage(_formatSha1Uint8List(cert.sha1))),
+          content: Text(
+            AppLocalizations.of(
+              context,
+            ).unsecureConnectionMessage(_formatSha1Uint8List(cert.sha1)),
+          ),
           actions: [
             TextButton(
               onPressed: () {
@@ -219,7 +246,9 @@ class __AddRemoteDialogState extends State<_AddRemoteDialog> {
             ),
             ElevatedButton(
               onPressed: () => Navigator.pop(context),
-              child: Text(MaterialLocalizations.of(context).cancelButtonLabel),
+              child: Text(
+                MaterialLocalizations.of(context).cancelButtonLabel,
+              ),
             ),
           ],
         ),
@@ -239,8 +268,10 @@ class __AddRemoteDialogState extends State<_AddRemoteDialog> {
       }
       final request = await _httpClient.getUrl(url);
       request.headers.add('Accept', 'application/json');
-      request.headers.add('Authorization',
-          'Basic ${base64Encode(utf8.encode('${_usernameController.text}:${_passwordController.text}'))}');
+      request.headers.add(
+        'Authorization',
+        'Basic ${base64Encode(utf8.encode('${_usernameController.text}:${_passwordController.text}'))}',
+      );
       final response = await request.close();
       if (response.statusCode != 200) {
         _showCreatingError(loc.cannotConnect);
@@ -262,8 +293,9 @@ class __AddRemoteDialogState extends State<_AddRemoteDialog> {
       var url = Uri.tryParse(_iconController.text.trim());
 
       if (!(url?.isAbsolute ?? true)) {
-        url = Uri.tryParse(_urlController.text.trim())
-            ?.resolve(_iconController.text.trim());
+        url = Uri.tryParse(
+          _urlController.text.trim(),
+        )?.resolve(_iconController.text.trim());
       }
       if (url == null) {
         return null;
@@ -275,7 +307,9 @@ class __AddRemoteDialogState extends State<_AddRemoteDialog> {
       }
       try {
         final image = await decodeImageFromList(response.bodyBytes);
-        final imageBytes = (await image.toByteData(format: ImageByteFormat.png))
+        final imageBytes = (await image.toByteData(
+          format: ImageByteFormat.png,
+        ))
             ?.buffer
             .asUint8List();
         if (imageBytes?.isNotEmpty ?? false) {
@@ -313,7 +347,7 @@ class __AddRemoteDialogState extends State<_AddRemoteDialog> {
           certificateSha1: _certificateSha1,
           icon: icon,
           cachedDocuments: {
-            '': [if (_syncRootDirectory) '/']
+            '': [if (_syncRootDirectory) '/'],
           },
         ),
       LocalStorage() => LocalStorage(
@@ -336,28 +370,27 @@ class __AddRemoteDialogState extends State<_AddRemoteDialog> {
 
   Future<void> _showCreatingError(String error, [dynamic e]) {
     return showDialog<void>(
-        context: context,
-        builder: (context) => AlertDialog(
-              title: Text(
-                  AppLocalizations.of(context).errorWhileCreatingConnection),
-              content: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Text(error),
-                  if (e != null)
-                    Text(
-                      e.toString(),
-                      style: TextTheme.of(context).bodyLarge,
-                    ),
-                ],
-              ),
-              actions: [
-                TextButton(
-                  onPressed: () => Navigator.pop(context),
-                  child: Text(MaterialLocalizations.of(context).okButtonLabel),
-                ),
-              ],
-            ));
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text(
+          AppLocalizations.of(context).errorWhileCreatingConnection,
+        ),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(error),
+            if (e != null)
+              Text(e.toString(), style: TextTheme.of(context).bodyLarge),
+          ],
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: Text(MaterialLocalizations.of(context).okButtonLabel),
+          ),
+        ],
+      ),
+    );
   }
 
   @override
@@ -367,167 +400,188 @@ class __AddRemoteDialogState extends State<_AddRemoteDialog> {
         constraints: const BoxConstraints(maxWidth: 500, maxHeight: 500),
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 24.0),
-          child: Column(children: [
-            Header(
-              title: Text(AppLocalizations.of(context).addConnection),
-            ),
-            const SizedBox(height: 16.0),
-            Flexible(
-              child: ListView(children: [
-                if (_isRemote) ...[
-                  TextField(
-                    controller: _urlController,
-                    readOnly: _isConnected,
-                    keyboardType: TextInputType.url,
-                    decoration: InputDecoration(
-                      labelText: AppLocalizations.of(context).url,
-                      filled: true,
-                      icon: const PhosphorIcon(PhosphorIconsLight.link),
-                    ),
-                  ),
-                  const SizedBox(height: 8.0),
-                  TextField(
-                    controller: _iconController,
-                    keyboardType: TextInputType.url,
-                    decoration: InputDecoration(
-                      labelText: AppLocalizations.of(context).icon,
-                      filled: true,
-                      icon: const PhosphorIcon(PhosphorIconsLight.image),
-                    ),
-                  ),
-                  const Divider(
-                    height: 32,
-                  ),
-                ],
-                if (!_isConnected) ...[
-                  TextField(
-                    controller: _usernameController,
-                    decoration: InputDecoration(
-                      labelText: AppLocalizations.of(context).username,
-                      filled: true,
-                      icon: const PhosphorIcon(PhosphorIconsLight.user),
-                    ),
-                  ),
-                  const SizedBox(height: 8),
-                  TextField(
-                    controller: _passwordController,
-                    obscureText: !_showPassword,
-                    keyboardType: _showPassword
-                        ? TextInputType.visiblePassword
-                        : TextInputType.text,
-                    decoration: InputDecoration(
-                      labelText: AppLocalizations.of(context).password,
-                      filled: true,
-                      suffixIcon: IconButton(
-                        icon: PhosphorIcon(
-                          _showPassword
-                              ? PhosphorIconsLight.eye
-                              : PhosphorIconsLight.eyeSlash,
+          child: Column(
+            children: [
+              Header(title: Text(AppLocalizations.of(context).addConnection)),
+              const SizedBox(height: 16.0),
+              Flexible(
+                child: ListView(
+                  children: [
+                    if (_isRemote) ...[
+                      TextField(
+                        controller: _urlController,
+                        readOnly: _isConnected,
+                        keyboardType: TextInputType.url,
+                        decoration: InputDecoration(
+                          labelText: AppLocalizations.of(context).url,
+                          filled: true,
+                          icon: const PhosphorIcon(PhosphorIconsLight.link),
                         ),
-                        tooltip: _showPassword
-                            ? AppLocalizations.of(context).hide
-                            : AppLocalizations.of(context).show,
-                        onPressed: () =>
-                            setState(() => _showPassword = !_showPassword),
                       ),
-                      icon: const PhosphorIcon(PhosphorIconsLight.lock),
-                    ),
-                  ),
-                  CheckboxListTile(
-                    value: _syncRootDirectory,
-                    onChanged: (value) => setState(
-                        () => _syncRootDirectory = value ?? _syncRootDirectory),
-                    title: Text(AppLocalizations.of(context).syncRootDirectory),
-                  ),
-                ] else ...[
-                  TextField(
-                    controller: _nameController,
-                    decoration: InputDecoration(
-                      labelText: LeapLocalizations.of(context).name,
-                      filled: true,
-                      icon: const PhosphorIcon(PhosphorIconsLight.textAa),
-                    ),
-                  ),
-                  ListenableBuilder(
-                    listenable: Listenable.merge([
-                      _documentsDirectoryController,
-                      _templatesDirectoryController,
-                      _packsDirectoryController,
-                    ]),
-                    builder: (context, _) {
-                      final shouldShowPicker = !_isRemote &&
-                          (!Directory(_documentsDirectoryController.text)
-                                  .isAbsolute ||
-                              !Directory(_templatesDirectoryController.text)
-                                  .isAbsolute ||
-                              !Directory(_packsDirectoryController.text)
-                                  .isAbsolute);
-                      return _DirectoryField(
-                        controller: _directoryController,
-                        label: AppLocalizations.of(context).directory,
-                        icon: const PhosphorIcon(PhosphorIconsLight.folder),
-                        onPick: shouldShowPicker
-                            ? () async {
-                                final result = await getDirectoryPath();
-                                if (result != null) {
-                                  _directoryController.text = result;
-                                }
-                              }
-                            : null,
-                      );
-                    },
-                  ),
-                  const SizedBox(height: 8),
-                  ListenableBuilder(
-                    listenable: _directoryController,
-                    builder: (context, _) => Card(
-                      child: Padding(
-                        padding: const EdgeInsets.all(4),
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Row(children: [
-                              const PhosphorIcon(PhosphorIconsLight.info),
-                              const SizedBox(width: 8),
-                              Flexible(
-                                child: Text(
-                                  AppLocalizations.of(context).information,
-                                  style: TextTheme.of(context).bodyMedium,
-                                ),
-                              ),
-                            ]),
-                            const SizedBox(height: 8),
-                            Text(
-                              _directoryController.text.isEmpty
-                                  ? AppLocalizations.of(context)
-                                      .rootDirectoryNotSpecifiedDescription
-                                  : AppLocalizations.of(context)
-                                      .rootDirectorySpecifiedDescription,
+                      const SizedBox(height: 8.0),
+                      TextField(
+                        controller: _iconController,
+                        keyboardType: TextInputType.url,
+                        decoration: InputDecoration(
+                          labelText: AppLocalizations.of(context).icon,
+                          filled: true,
+                          icon: const PhosphorIcon(PhosphorIconsLight.image),
+                        ),
+                      ),
+                      const Divider(height: 32),
+                    ],
+                    if (!_isConnected) ...[
+                      TextField(
+                        controller: _usernameController,
+                        decoration: InputDecoration(
+                          labelText: AppLocalizations.of(context).username,
+                          filled: true,
+                          icon: const PhosphorIcon(PhosphorIconsLight.user),
+                        ),
+                      ),
+                      const SizedBox(height: 8),
+                      TextField(
+                        controller: _passwordController,
+                        obscureText: !_showPassword,
+                        keyboardType: _showPassword
+                            ? TextInputType.visiblePassword
+                            : TextInputType.text,
+                        decoration: InputDecoration(
+                          labelText: AppLocalizations.of(context).password,
+                          filled: true,
+                          suffixIcon: IconButton(
+                            icon: PhosphorIcon(
+                              _showPassword
+                                  ? PhosphorIconsLight.eye
+                                  : PhosphorIconsLight.eyeSlash,
                             ),
-                          ],
+                            tooltip: _showPassword
+                                ? AppLocalizations.of(context).hide
+                                : AppLocalizations.of(context).show,
+                            onPressed: () => setState(
+                              () => _showPassword = !_showPassword,
+                            ),
+                          ),
+                          icon: const PhosphorIcon(PhosphorIconsLight.lock),
                         ),
                       ),
-                    ),
-                  ),
-                  ExpansionPanelList(
-                    expansionCallback: (index, isExpanded) =>
-                        setState(() => _advanced = isExpanded),
-                    children: [
-                      ExpansionPanel(
-                        headerBuilder: (context, isExpanded) => ListTile(
-                          title: Text(AppLocalizations.of(context).advanced),
+                      CheckboxListTile(
+                        value: _syncRootDirectory,
+                        onChanged: (value) => setState(
+                          () =>
+                              _syncRootDirectory = value ?? _syncRootDirectory,
                         ),
-                        canTapOnHeader: true,
-                        isExpanded: _advanced,
-                        body: ListenableBuilder(
-                            listenable: _directoryController,
-                            builder: (context, _) => Column(children: [
+                        title: Text(
+                          AppLocalizations.of(context).syncRootDirectory,
+                        ),
+                      ),
+                    ] else ...[
+                      TextField(
+                        controller: _nameController,
+                        decoration: InputDecoration(
+                          labelText: LeapLocalizations.of(context).name,
+                          filled: true,
+                          icon: const PhosphorIcon(PhosphorIconsLight.textAa),
+                        ),
+                      ),
+                      ListenableBuilder(
+                        listenable: Listenable.merge([
+                          _documentsDirectoryController,
+                          _templatesDirectoryController,
+                          _packsDirectoryController,
+                        ]),
+                        builder: (context, _) {
+                          final shouldShowPicker = !_isRemote &&
+                              (!Directory(
+                                    _documentsDirectoryController.text,
+                                  ).isAbsolute ||
+                                  !Directory(
+                                    _templatesDirectoryController.text,
+                                  ).isAbsolute ||
+                                  !Directory(
+                                    _packsDirectoryController.text,
+                                  ).isAbsolute);
+                          return _DirectoryField(
+                            controller: _directoryController,
+                            label: AppLocalizations.of(context).directory,
+                            icon: const PhosphorIcon(PhosphorIconsLight.folder),
+                            onPick: shouldShowPicker
+                                ? () async {
+                                    final result = await getDirectoryPath();
+                                    if (result != null) {
+                                      _directoryController.text = result;
+                                    }
+                                  }
+                                : null,
+                          );
+                        },
+                      ),
+                      const SizedBox(height: 8),
+                      ListenableBuilder(
+                        listenable: _directoryController,
+                        builder: (context, _) => Card(
+                          child: Padding(
+                            padding: const EdgeInsets.all(4),
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Row(
+                                  children: [
+                                    const PhosphorIcon(
+                                      PhosphorIconsLight.info,
+                                    ),
+                                    const SizedBox(width: 8),
+                                    Flexible(
+                                      child: Text(
+                                        AppLocalizations.of(
+                                          context,
+                                        ).information,
+                                        style: TextTheme.of(
+                                          context,
+                                        ).bodyMedium,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                const SizedBox(height: 8),
+                                Text(
+                                  _directoryController.text.isEmpty
+                                      ? AppLocalizations.of(
+                                          context,
+                                        ).rootDirectoryNotSpecifiedDescription
+                                      : AppLocalizations.of(
+                                          context,
+                                        ).rootDirectorySpecifiedDescription,
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                      ExpansionPanelList(
+                        expansionCallback: (index, isExpanded) =>
+                            setState(() => _advanced = isExpanded),
+                        children: [
+                          ExpansionPanel(
+                            headerBuilder: (context, isExpanded) => ListTile(
+                              title: Text(
+                                AppLocalizations.of(context).advanced,
+                              ),
+                            ),
+                            canTapOnHeader: true,
+                            isExpanded: _advanced,
+                            body: ListenableBuilder(
+                              listenable: _directoryController,
+                              builder: (context, _) => Column(
+                                children: [
                                   _DirectoryField(
                                     controller: _documentsDirectoryController,
-                                    label: AppLocalizations.of(context)
-                                        .documentsDirectory,
+                                    label: AppLocalizations.of(
+                                      context,
+                                    ).documentsDirectory,
                                     icon: const PhosphorIcon(
-                                        PhosphorIconsLight.file),
+                                      PhosphorIconsLight.file,
+                                    ),
                                     onPick: _directoryController.text.isEmpty
                                         ? () async {
                                             final result =
@@ -542,10 +596,12 @@ class __AddRemoteDialogState extends State<_AddRemoteDialog> {
                                   const SizedBox(height: 8),
                                   _DirectoryField(
                                     controller: _templatesDirectoryController,
-                                    label: AppLocalizations.of(context)
-                                        .templatesDirectory,
+                                    label: AppLocalizations.of(
+                                      context,
+                                    ).templatesDirectory,
                                     icon: const PhosphorIcon(
-                                        PhosphorIconsLight.fileDashed),
+                                      PhosphorIconsLight.fileDashed,
+                                    ),
                                     onPick: _directoryController.text.isEmpty
                                         ? () async {
                                             final result =
@@ -560,10 +616,12 @@ class __AddRemoteDialogState extends State<_AddRemoteDialog> {
                                   const SizedBox(height: 8),
                                   _DirectoryField(
                                     controller: _packsDirectoryController,
-                                    label: AppLocalizations.of(context)
-                                        .packsDirectory,
+                                    label: AppLocalizations.of(
+                                      context,
+                                    ).packsDirectory,
                                     icon: const PhosphorIcon(
-                                        PhosphorIconsLight.package),
+                                      PhosphorIconsLight.package,
+                                    ),
                                     onPick: _directoryController.text.isEmpty
                                         ? () async {
                                             final result =
@@ -575,33 +633,37 @@ class __AddRemoteDialogState extends State<_AddRemoteDialog> {
                                           }
                                         : null,
                                   ),
-                                ])),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
                     ],
-                  ),
-                ]
-              ]),
-            ),
-            const SizedBox(height: 16),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                TextButton(
-                  onPressed: () {
-                    if (_isConnected && _isRemote) {
-                      setState(() {
-                        _isConnected = false;
-                        _certificateSha1 = null;
-                      });
-                      return;
-                    }
-                    Navigator.of(context).pop();
-                  },
-                  child:
-                      Text(MaterialLocalizations.of(context).cancelButtonLabel),
+                  ],
                 ),
-                if (_isConnected) ...[
-                  ListenableBuilder(
+              ),
+              const SizedBox(height: 16),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  TextButton(
+                    onPressed: () {
+                      if (_isConnected && _isRemote) {
+                        setState(() {
+                          _isConnected = false;
+                          _certificateSha1 = null;
+                        });
+                        return;
+                      }
+                      Navigator.of(context).pop();
+                    },
+                    child: Text(
+                      MaterialLocalizations.of(context).cancelButtonLabel,
+                    ),
+                  ),
+                  if (_isConnected) ...[
+                    ListenableBuilder(
                       listenable: Listenable.merge([
                         _nameController,
                         _directoryController,
@@ -610,26 +672,27 @@ class __AddRemoteDialogState extends State<_AddRemoteDialog> {
                         _packsDirectoryController,
                       ]),
                       builder: (context, _) => ElevatedButton(
-                            onPressed: _nameController.text.isEmpty &&
-                                        _directoryController.text.isEmpty ||
-                                    _documentsDirectoryController
-                                            .text.isEmpty &&
-                                        _templatesDirectoryController
-                                            .text.isEmpty &&
-                                        _packsDirectoryController.text.isEmpty
-                                ? null
-                                : _create,
-                            child: Text(LeapLocalizations.of(context).create),
-                          )),
-                ] else ...[
-                  ElevatedButton(
-                    onPressed: _connect,
-                    child: Text(AppLocalizations.of(context).connect),
-                  ),
-                ]
-              ],
-            ),
-          ]),
+                        onPressed: _nameController.text.isEmpty &&
+                                    _directoryController.text.isEmpty ||
+                                _documentsDirectoryController.text.isEmpty &&
+                                    _templatesDirectoryController
+                                        .text.isEmpty &&
+                                    _packsDirectoryController.text.isEmpty
+                            ? null
+                            : _create,
+                        child: Text(LeapLocalizations.of(context).create),
+                      ),
+                    ),
+                  ] else ...[
+                    ElevatedButton(
+                      onPressed: _connect,
+                      child: Text(AppLocalizations.of(context).connect),
+                    ),
+                  ],
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -642,12 +705,7 @@ class _DirectoryField extends StatelessWidget {
   final Widget? icon;
   final VoidCallback? onPick;
 
-  const _DirectoryField({
-    this.controller,
-    this.label,
-    this.onPick,
-    this.icon,
-  });
+  const _DirectoryField({this.controller, this.label, this.onPick, this.icon});
 
   @override
   Widget build(BuildContext context) {

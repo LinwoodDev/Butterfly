@@ -5,15 +5,17 @@ import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:butterfly/src/generated/i18n/app_localizations.dart';
 import 'package:lw_sysapi/lw_sysapi.dart';
 import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 enum ExportTransformPreset { page, view }
 
-ImageExportOptions getDefaultImageExportOptions(BuildContext context,
-    {CameraTransform? transform}) {
+ImageExportOptions getDefaultImageExportOptions(
+  BuildContext context, {
+  CameraTransform? transform,
+}) {
   transform ??= context.read<TransformCubit>().state;
   final size = MediaQuery.of(context).size;
   return ImageExportOptions(
@@ -25,8 +27,10 @@ ImageExportOptions getDefaultImageExportOptions(BuildContext context,
   );
 }
 
-SvgExportOptions getDefaultSvgExportOptions(BuildContext context,
-    {CameraTransform? transform}) {
+SvgExportOptions getDefaultSvgExportOptions(
+  BuildContext context, {
+  CameraTransform? transform,
+}) {
   transform ??= context.read<TransformCubit>().state;
   final size = MediaQuery.of(context).size;
   final scale = transform.size;
@@ -42,11 +46,7 @@ class GeneralExportDialog extends StatefulWidget {
   final ExportOptions options;
   final ExportTransformPreset? preset;
 
-  const GeneralExportDialog({
-    super.key,
-    required this.options,
-    this.preset,
-  });
+  const GeneralExportDialog({super.key, required this.options, this.preset});
 
   @override
   State<GeneralExportDialog> createState() => _GeneralExportDialogState();
@@ -83,8 +83,12 @@ class _GeneralExportDialogState extends State<GeneralExportDialog> {
     final bloc = context.read<DocumentBloc>();
     final state = bloc.state;
     if (state is! DocumentLoaded) return null;
-    return state.currentIndexCubit
-        .render(state.data, state.page, state.info, _options.toImageOptions());
+    return state.currentIndexCubit.render(
+      state.data,
+      state.page,
+      state.info,
+      _options.toImageOptions(),
+    );
   }
 
   Future<String?> generateSVG(SvgExportOptions options) async {
@@ -120,91 +124,99 @@ class _GeneralExportDialogState extends State<GeneralExportDialog> {
 
   @override
   Widget build(BuildContext context) {
-    return Builder(builder: (context) {
-      return Dialog(
-        child: ConstrainedBox(
-          constraints: const BoxConstraints(maxHeight: 600, maxWidth: 1000),
-          child: Column(
-            children: [
-              Header(
-                title: Text(AppLocalizations.of(context).export),
-                leading: const PhosphorIcon(PhosphorIconsLight.export),
-                actions: [
-                  IconButton(
-                    icon: const Icon(PhosphorIconsLight.pushPin),
-                    tooltip: AppLocalizations.of(context).pin,
-                    onPressed: () {
-                      final tool = ExportTool(options: _options);
-                      context.read<DocumentBloc>().add(ToolCreated(tool));
-                      Navigator.of(context).pop();
-                    },
-                  ),
-                ],
-              ),
-              Flexible(
-                child: Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
-                  child: Column(
-                    children: [
-                      Expanded(
-                        child: LayoutBuilder(builder: (context, constraints) {
-                          var isMobile =
-                              constraints.maxWidth < LeapBreakpoints.compact;
-                          if (isMobile) {
-                            return ListView(
-                              children: [
-                                SizedBox(
-                                  height: 500,
-                                  child: _buildPreview(),
-                                ),
-                                _buildProperties()
-                              ],
-                            );
-                          }
-                          return Row(
-                              crossAxisAlignment: CrossAxisAlignment.stretch,
-                              children: [
-                                Expanded(
-                                  child: _buildPreview(),
-                                ),
-                                Expanded(
-                                  child: SingleChildScrollView(
-                                    child: _buildProperties(),
+    return Builder(
+      builder: (context) {
+        return Dialog(
+          child: ConstrainedBox(
+            constraints: const BoxConstraints(maxHeight: 600, maxWidth: 1000),
+            child: Column(
+              children: [
+                Header(
+                  title: Text(AppLocalizations.of(context).export),
+                  leading: const PhosphorIcon(PhosphorIconsLight.export),
+                  actions: [
+                    IconButton(
+                      icon: const Icon(PhosphorIconsLight.pushPin),
+                      tooltip: AppLocalizations.of(context).pin,
+                      onPressed: () {
+                        final tool = ExportTool(options: _options);
+                        context.read<DocumentBloc>().add(ToolCreated(tool));
+                        Navigator.of(context).pop();
+                      },
+                    ),
+                  ],
+                ),
+                Flexible(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 20,
+                      vertical: 15,
+                    ),
+                    child: Column(
+                      children: [
+                        Expanded(
+                          child: LayoutBuilder(
+                            builder: (context, constraints) {
+                              var isMobile = constraints.maxWidth <
+                                  LeapBreakpoints.compact;
+                              if (isMobile) {
+                                return ListView(
+                                  children: [
+                                    SizedBox(
+                                      height: 500,
+                                      child: _buildPreview(),
+                                    ),
+                                    _buildProperties(),
+                                  ],
+                                );
+                              }
+                              return Row(
+                                crossAxisAlignment: CrossAxisAlignment.stretch,
+                                children: [
+                                  Expanded(child: _buildPreview()),
+                                  Expanded(
+                                    child: SingleChildScrollView(
+                                      child: _buildProperties(),
+                                    ),
                                   ),
-                                )
-                              ]);
-                        }),
-                      ),
-                      const Divider(),
-                      Row(
-                        children: [
-                          Expanded(child: Container()),
-                          TextButton(
-                            child: Text(MaterialLocalizations.of(context)
-                                .cancelButtonLabel),
-                            onPressed: () => Navigator.of(context).pop(),
+                                ],
+                              );
+                            },
                           ),
-                          if (supportsShare())
-                            ElevatedButton(
-                              child: Text(AppLocalizations.of(context).share),
-                              onPressed: () => export(true),
+                        ),
+                        const Divider(),
+                        Row(
+                          children: [
+                            Expanded(child: Container()),
+                            TextButton(
+                              child: Text(
+                                MaterialLocalizations.of(
+                                  context,
+                                ).cancelButtonLabel,
+                              ),
+                              onPressed: () => Navigator.of(context).pop(),
                             ),
-                          ElevatedButton(
-                            child: Text(AppLocalizations.of(context).export),
-                            onPressed: () => export(false),
-                          ),
-                        ],
-                      )
-                    ],
+                            if (supportsShare())
+                              ElevatedButton(
+                                child: Text(AppLocalizations.of(context).share),
+                                onPressed: () => export(true),
+                              ),
+                            ElevatedButton(
+                              child: Text(AppLocalizations.of(context).export),
+                              onPressed: () => export(false),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
-        ),
-      );
-    });
+        );
+      },
+    );
   }
 
   Widget _buildPreview() => Padding(
@@ -229,10 +241,12 @@ class _GeneralExportDialogState extends State<GeneralExportDialog> {
                       _options = (switch (_options) {
                         ImageExportOptions _ => getDefaultImageExportOptions(
                             context,
-                            transform: transform),
+                            transform: transform,
+                          ),
                         SvgExportOptions _ => getDefaultSvgExportOptions(
                             context,
-                            transform: transform),
+                            transform: transform,
+                          ),
                       });
                     });
                     _regeneratePreviewImage();
@@ -278,99 +292,109 @@ class _GeneralExportDialogState extends State<GeneralExportDialog> {
             ),
             const SizedBox(height: 16),
             Expanded(
-              child: Builder(builder: (context) {
-                if (_previewImage == null) {
-                  return const Center(child: CircularProgressIndicator());
-                }
-                return Image(
-                  fit: BoxFit.contain,
-                  image: MemoryImage(_previewImage!.buffer.asUint8List()),
-                  loadingBuilder: (context, child, loadingProgress) {
-                    if (loadingProgress == null) {
-                      return child;
-                    }
-                    return Center(
-                      child: CircularProgressIndicator(
-                        value: loadingProgress.expectedTotalBytes != null
-                            ? loadingProgress.cumulativeBytesLoaded /
-                                loadingProgress.expectedTotalBytes!
-                            : null,
-                      ),
-                    );
-                  },
-                );
-              }),
+              child: Builder(
+                builder: (context) {
+                  if (_previewImage == null) {
+                    return const Center(child: CircularProgressIndicator());
+                  }
+                  return Image(
+                    fit: BoxFit.contain,
+                    image: MemoryImage(_previewImage!.buffer.asUint8List()),
+                    loadingBuilder: (context, child, loadingProgress) {
+                      if (loadingProgress == null) {
+                        return child;
+                      }
+                      return Center(
+                        child: CircularProgressIndicator(
+                          value: loadingProgress.expectedTotalBytes != null
+                              ? loadingProgress.cumulativeBytesLoaded /
+                                  loadingProgress.expectedTotalBytes!
+                              : null,
+                        ),
+                      );
+                    },
+                  );
+                },
+              ),
             ),
           ],
         ),
       );
 
-  Widget _buildProperties() =>
-      Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-        OffsetListTile(
-          value: Offset(_options.x, _options.y),
-          title: Text(AppLocalizations.of(context).position),
-          onChanged: (value) {
-            setState(
-                () => _options = _options.copyWith(x: value.dx, y: value.dy));
-            setState(() => _preset = null);
-            _regeneratePreviewImage();
-          },
-        ),
-        const SizedBox(height: 8),
-        OffsetListTile(
-          value: Offset(_options.width, _options.height),
-          title: Text(AppLocalizations.of(context).size),
-          xLabel: AppLocalizations.of(context).width,
-          yLabel: AppLocalizations.of(context).height,
-          onChanged: (value) {
-            setState(() => _options = _options.copyWith(
-                  width: value.dx,
-                  height: value.dy,
-                ));
-            setState(() => _preset = null);
-            _regeneratePreviewImage();
-          },
-        ),
-        if (_options is ImageExportOptions)
-          ..._getImageOptions(_options as ImageExportOptions),
-        const SizedBox(height: 8),
-        CheckboxListTile(
+  Widget _buildProperties() => Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          OffsetListTile(
+            value: Offset(_options.x, _options.y),
+            title: Text(AppLocalizations.of(context).position),
+            onChanged: (value) {
+              setState(
+                () => _options = _options.copyWith(x: value.dx, y: value.dy),
+              );
+              setState(() => _preset = null);
+              _regeneratePreviewImage();
+            },
+          ),
+          const SizedBox(height: 8),
+          OffsetListTile(
+            value: Offset(_options.width, _options.height),
+            title: Text(AppLocalizations.of(context).size),
+            xLabel: AppLocalizations.of(context).width,
+            yLabel: AppLocalizations.of(context).height,
+            onChanged: (value) {
+              setState(
+                () => _options =
+                    _options.copyWith(width: value.dx, height: value.dy),
+              );
+              setState(() => _preset = null);
+              _regeneratePreviewImage();
+            },
+          ),
+          if (_options is ImageExportOptions)
+            ..._getImageOptions(_options as ImageExportOptions),
+          const SizedBox(height: 8),
+          CheckboxListTile(
             value: _options.renderBackground,
             title: Text(AppLocalizations.of(context).background),
             onChanged: (value) {
-              setState(() => _options = _options.copyWith(
-                    renderBackground: value ?? !_options.renderBackground,
-                  ));
+              setState(
+                () => _options = _options.copyWith(
+                  renderBackground: value ?? !_options.renderBackground,
+                ),
+              );
               _regeneratePreviewImage();
-            })
-      ]);
+            },
+          ),
+        ],
+      );
 
   List<Widget> _getImageOptions(ImageExportOptions options) {
     return [
       ExactSlider(
-          header: Text(AppLocalizations.of(context).scale),
-          min: 0.1,
-          max: 10,
-          value: options.scale,
-          defaultValue: 1,
-          onChangeEnd: (value) {
-            _options = options.copyWith(scale: value);
-            setState(() => _preset = null);
-            _regeneratePreviewImage();
-          }),
+        header: Text(AppLocalizations.of(context).scale),
+        min: 0.1,
+        max: 10,
+        value: options.scale,
+        defaultValue: 1,
+        onChangeEnd: (value) {
+          _options = options.copyWith(scale: value);
+          setState(() => _preset = null);
+          _regeneratePreviewImage();
+        },
+      ),
       const SizedBox(height: 8),
       ExactSlider(
-          header: Text(AppLocalizations.of(context).quality),
-          min: 0.1,
-          max: 10,
-          value: options.quality,
-          defaultValue: 1,
-          onChangeEnd: (value) {
-            _options = options.copyWith(quality: value);
-            setState(() => _preset = null);
-            _regeneratePreviewImage();
-          }),
+        header: Text(AppLocalizations.of(context).quality),
+        min: 0.1,
+        max: 10,
+        value: options.quality,
+        defaultValue: 1,
+        onChangeEnd: (value) {
+          _options = options.copyWith(quality: value);
+          setState(() => _preset = null);
+          _regeneratePreviewImage();
+        },
+      ),
     ];
   }
 }

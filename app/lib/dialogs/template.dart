@@ -9,7 +9,7 @@ import 'package:butterfly/widgets/option_button.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:butterfly/src/generated/i18n/app_localizations.dart';
 import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
@@ -17,8 +17,11 @@ import '../bloc/document_bloc.dart';
 import '../widgets/editable_list_tile.dart';
 import 'delete.dart';
 
-Future<void> _overrideTools(TemplateFileSystem templateSystem,
-    DocumentBloc bloc, List<NoteData> templates) async {
+Future<void> _overrideTools(
+  TemplateFileSystem templateSystem,
+  DocumentBloc bloc,
+  List<NoteData> templates,
+) async {
   final state = bloc.state;
   if (state is! DocumentLoaded) return;
   final tools = state.info.tools;
@@ -65,11 +68,13 @@ class _TemplateDialogState extends State<TemplateDialog> {
         var templates =
             (await _templateSystem.getFiles()).map((e) => e.data!).toList();
         templates = templates
-            .where((element) =>
-                element.name
-                    ?.toLowerCase()
-                    .contains(_searchController.text.toLowerCase()) ??
-                true)
+            .where(
+              (element) =>
+                  element.name?.toLowerCase().contains(
+                        _searchController.text.toLowerCase(),
+                      ) ??
+                  true,
+            )
             .toList();
         return templates;
       });
@@ -122,12 +127,14 @@ class _TemplateDialogState extends State<TemplateDialog> {
                 actions: [
                   TextButton(
                     child: Text(
-                        MaterialLocalizations.of(context).cancelButtonLabel),
+                      MaterialLocalizations.of(context).cancelButtonLabel,
+                    ),
                     onPressed: () => Navigator.of(context).pop(),
                   ),
                   ElevatedButton(
-                    child:
-                        Text(MaterialLocalizations.of(context).okButtonLabel),
+                    child: Text(
+                      MaterialLocalizations.of(context).okButtonLabel,
+                    ),
                     onPressed: () async {
                       for (final template in await _templateSystem.getKeys()) {
                         _templateSystem.deleteFile(template);
@@ -153,7 +160,7 @@ class _TemplateDialogState extends State<TemplateDialog> {
             onPressed: () => _showCreateDialog(widget.bloc!),
             label: Text(LeapLocalizations.of(context).create),
             icon: const PhosphorIcon(PhosphorIconsLight.floppyDisk),
-          )
+          ),
       ],
       content: FutureBuilder<List<NoteData>>(
         future: _templatesFuture,
@@ -163,7 +170,9 @@ class _TemplateDialogState extends State<TemplateDialog> {
   }
 
   Widget _buildBody(
-      BuildContext context, AsyncSnapshot<List<NoteData>> snapshot) {
+    BuildContext context,
+    AsyncSnapshot<List<NoteData>> snapshot,
+  ) {
     if (snapshot.hasError) {
       return Text(snapshot.error.toString());
     }
@@ -171,8 +180,10 @@ class _TemplateDialogState extends State<TemplateDialog> {
       return const Center(child: CircularProgressIndicator());
     }
     var templates = snapshot.data!;
-    return Stack(alignment: Alignment.topCenter, children: [
-      ListView.builder(
+    return Stack(
+      alignment: Alignment.topCenter,
+      children: [
+        ListView.builder(
           itemCount: templates.length,
           padding: const EdgeInsets.only(
             top: 64,
@@ -201,85 +212,97 @@ class _TemplateDialogState extends State<TemplateDialog> {
                 load();
               },
             );
-          }),
-      Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 12),
-        child: SearchBar(
-          leading: const PhosphorIcon(PhosphorIconsLight.magnifyingGlass),
-          constraints: const BoxConstraints(maxWidth: 500, minHeight: 50),
-          controller: _searchController,
-          hintText: AppLocalizations.of(context).search,
-          onChanged: (value) async {
-            load();
           },
         ),
-      ),
-      if (_selectedTemplates.isNotEmpty)
-        Align(
-          alignment: Alignment.bottomCenter,
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 12),
-            child: Card(
-              child: Padding(
-                padding: const EdgeInsets.all(8),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    IconButton(
-                      icon: const PhosphorIcon(
-                          PhosphorIconsLight.selectionInverse),
-                      tooltip: AppLocalizations.of(context).invertSelection,
-                      onPressed: () {
-                        setState(() {
-                          final inverted = templates
-                              .map((e) => e.name!)
-                              .toSet()
-                              .difference(_selectedTemplates.toSet());
-                          _selectedTemplates.clear();
-                          _selectedTemplates.addAll(inverted);
-                        });
-                      },
-                    ),
-                    Row(
-                      children: [
-                        if (widget.bloc != null)
-                          IconButton(
-                            icon: const PhosphorIcon(PhosphorIconsLight.wrench),
-                            tooltip: AppLocalizations.of(context).overrideTools,
-                            onPressed: () => _overrideTools(
-                                    _templateSystem,
-                                    widget.bloc!,
-                                    templates
-                                        .where((element) => _selectedTemplates
-                                            .contains(element.name))
-                                        .toList())
-                                .then((value) =>
-                                    setState(() => _selectedTemplates.clear())),
-                          ),
-                        IconButton(
-                          icon: const PhosphorIcon(PhosphorIconsLight.trash),
-                          tooltip: AppLocalizations.of(context).delete,
-                          onPressed: () async {
-                            final result = await showDialog<bool>(
-                                context: context,
-                                builder: (ctx) => const DeleteDialog());
-                            if (result != true) return;
-                            for (final template in _selectedTemplates) {
-                              await _templateSystem.deleteFile(template);
-                            }
-                            _selectedTemplates.clear();
-                            load();
-                          },
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 12),
+          child: SearchBar(
+            leading: const PhosphorIcon(PhosphorIconsLight.magnifyingGlass),
+            constraints: const BoxConstraints(maxWidth: 500, minHeight: 50),
+            controller: _searchController,
+            hintText: AppLocalizations.of(context).search,
+            onChanged: (value) async {
+              load();
+            },
+          ),
+        ),
+        if (_selectedTemplates.isNotEmpty)
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 12),
+              child: Card(
+                child: Padding(
+                  padding: const EdgeInsets.all(8),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      IconButton(
+                        icon: const PhosphorIcon(
+                          PhosphorIconsLight.selectionInverse,
                         ),
-                      ],
-                    ),
-                  ],
+                        tooltip: AppLocalizations.of(context).invertSelection,
+                        onPressed: () {
+                          setState(() {
+                            final inverted = templates
+                                .map((e) => e.name!)
+                                .toSet()
+                                .difference(_selectedTemplates.toSet());
+                            _selectedTemplates.clear();
+                            _selectedTemplates.addAll(inverted);
+                          });
+                        },
+                      ),
+                      Row(
+                        children: [
+                          if (widget.bloc != null)
+                            IconButton(
+                              icon: const PhosphorIcon(
+                                PhosphorIconsLight.wrench,
+                              ),
+                              tooltip:
+                                  AppLocalizations.of(context).overrideTools,
+                              onPressed: () => _overrideTools(
+                                _templateSystem,
+                                widget.bloc!,
+                                templates
+                                    .where(
+                                      (element) => _selectedTemplates
+                                          .contains(element.name),
+                                    )
+                                    .toList(),
+                              ).then(
+                                (value) => setState(
+                                  () => _selectedTemplates.clear(),
+                                ),
+                              ),
+                            ),
+                          IconButton(
+                            icon: const PhosphorIcon(PhosphorIconsLight.trash),
+                            tooltip: AppLocalizations.of(context).delete,
+                            onPressed: () async {
+                              final result = await showDialog<bool>(
+                                context: context,
+                                builder: (ctx) => const DeleteDialog(),
+                              );
+                              if (result != true) return;
+                              for (final template in _selectedTemplates) {
+                                await _templateSystem.deleteFile(template);
+                              }
+                              _selectedTemplates.clear();
+                              load();
+                            },
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),
           ),
-        ),
-    ]);
+      ],
+    );
   }
 
   Future<void> _showCreateDialog(DocumentBloc bloc) {
@@ -290,59 +313,59 @@ class _TemplateDialogState extends State<TemplateDialog> {
     }
     String name = initialName, directory = '';
     return showDialog<void>(
-        context: context,
-        builder: (context) {
-          return AlertDialog(
-            title: Text(AppLocalizations.of(context).createTemplate),
-            scrollable: true,
-            content: SizedBox(
-              width: 500,
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Text(AppLocalizations.of(context).createTemplateContent),
-                  const SizedBox(height: 16),
-                  TextFormField(
-                    initialValue: name,
-                    onChanged: (e) => name = e,
-                    decoration: InputDecoration(
-                      labelText: LeapLocalizations.of(context).name,
-                      filled: true,
-                    ),
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text(AppLocalizations.of(context).createTemplate),
+          scrollable: true,
+          content: SizedBox(
+            width: 500,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(AppLocalizations.of(context).createTemplateContent),
+                const SizedBox(height: 16),
+                TextFormField(
+                  initialValue: name,
+                  onChanged: (e) => name = e,
+                  decoration: InputDecoration(
+                    labelText: LeapLocalizations.of(context).name,
+                    filled: true,
                   ),
-                  const SizedBox(height: 8),
-                  TextFormField(
-                    initialValue: directory,
-                    onChanged: (e) => directory = e,
-                    decoration: InputDecoration(
-                      labelText: AppLocalizations.of(context).directory,
-                      filled: true,
-                    ),
+                ),
+                const SizedBox(height: 8),
+                TextFormField(
+                  initialValue: directory,
+                  onChanged: (e) => directory = e,
+                  decoration: InputDecoration(
+                    labelText: AppLocalizations.of(context).directory,
+                    filled: true,
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
-            actions: <Widget>[
-              TextButton(
-                child:
-                    Text(MaterialLocalizations.of(context).cancelButtonLabel),
-                onPressed: () => Navigator.of(context).pop(),
-              ),
-              ElevatedButton(
-                child: Text(LeapLocalizations.of(context).create),
-                onPressed: () async {
-                  bloc.createTemplate(
-                    _templateSystem.storage?.identifier,
-                    name: name,
-                    directory: directory,
-                  );
-                  Navigator.of(context).pop();
-                  load();
-                },
-              ),
-            ],
-          );
-        });
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: Text(MaterialLocalizations.of(context).cancelButtonLabel),
+              onPressed: () => Navigator.of(context).pop(),
+            ),
+            ElevatedButton(
+              child: Text(LeapLocalizations.of(context).create),
+              onPressed: () async {
+                bloc.createTemplate(
+                  _templateSystem.storage?.identifier,
+                  name: name,
+                  directory: directory,
+                );
+                Navigator.of(context).pop();
+                load();
+              },
+            ),
+          ],
+        );
+      },
+    );
   }
 }
 
@@ -374,21 +397,19 @@ class _TemplateItem extends StatelessWidget {
       return const SizedBox();
     }
     final thumbnail = template.getThumbnail();
-    const fallback = PhosphorIcon(
-      PhosphorIconsLight.file,
-      size: 48,
-    );
+    const fallback = PhosphorIcon(PhosphorIconsLight.file, size: 48);
     final leading = thumbnail != null
         ? AspectRatio(
             aspectRatio: kThumbnailRatio,
             child: ClipRRect(
-                borderRadius: BorderRadius.circular(8),
-                child: Image.memory(
-                  thumbnail,
-                  fit: BoxFit.cover,
-                  cacheHeight: kThumbnailWidth,
-                  cacheWidth: kThumbnailHeight,
-                )),
+              borderRadius: BorderRadius.circular(8),
+              child: Image.memory(
+                thumbnail,
+                fit: BoxFit.cover,
+                cacheHeight: kThumbnailWidth,
+                cacheWidth: kThumbnailHeight,
+              ),
+            ),
           )
         : fallback;
     return EditableListTile(
@@ -418,7 +439,9 @@ class _TemplateItem extends StatelessWidget {
         if (value == metadata.name) return;
         await fileSystem.deleteFile(metadata.name);
         await fileSystem.createFile(
-            value, template.setMetadata(metadata.copyWith(name: value)));
+          value,
+          template.setMetadata(metadata.copyWith(name: value)),
+        );
         onChanged();
       },
       actions: [
@@ -444,15 +467,15 @@ class _TemplateItem extends StatelessWidget {
           child: Text(AppLocalizations.of(context).duplicate),
           onPressed: () async {
             final result = await showDialog<String>(
-                context: context,
-                builder: (ctx) => NameDialog(
-                      value: template.name,
-                    ));
+              context: context,
+              builder: (ctx) => NameDialog(value: template.name),
+            );
             if (result == null) return;
             if (context.mounted) {
               await fileSystem.createFileWithName(
-                  template.setMetadata(metadata.copyWith(name: result)),
-                  name: result);
+                template.setMetadata(metadata.copyWith(name: result)),
+                name: result,
+              );
               onChanged();
             }
           },
@@ -470,39 +493,47 @@ class _TemplateItem extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Card.filled(
-                      child: Padding(
-                    padding: EdgeInsets.all(2),
-                    child: Column(children: [
-                      if (metadata.description.isNotEmpty)
-                        ListTile(
-                          title: Text(AppLocalizations.of(context).description),
-                          subtitle: Text(metadata.description),
-                        ),
-                      if (metadata.directory.isNotEmpty)
-                        ListTile(
-                          title: Text(AppLocalizations.of(context).directory),
-                          subtitle: Text(metadata.directory),
-                        ),
-                      ListTile(
-                        title: Text(AppLocalizations.of(context).tools),
-                        subtitle: Wrap(
-                          alignment: WrapAlignment.center,
-                          children: [
-                            for (final tool in info?.tools ?? <Tool>[])
-                              SizedBox.square(
-                                dimension: 64,
-                                child: OptionButton(
-                                  icon:
-                                      Icon(tool.icon(PhosphorIconsStyle.light)),
-                                  tooltip: tool.name,
-                                ),
+                    child: Padding(
+                      padding: EdgeInsets.all(2),
+                      child: Column(
+                        children: [
+                          if (metadata.description.isNotEmpty)
+                            ListTile(
+                              title: Text(
+                                AppLocalizations.of(context).description,
                               ),
-                          ],
-                        ),
+                              subtitle: Text(metadata.description),
+                            ),
+                          if (metadata.directory.isNotEmpty)
+                            ListTile(
+                              title: Text(
+                                AppLocalizations.of(context).directory,
+                              ),
+                              subtitle: Text(metadata.directory),
+                            ),
+                          ListTile(
+                            title: Text(AppLocalizations.of(context).tools),
+                            subtitle: Wrap(
+                              alignment: WrapAlignment.center,
+                              children: [
+                                for (final tool in info?.tools ?? <Tool>[])
+                                  SizedBox.square(
+                                    dimension: 64,
+                                    child: OptionButton(
+                                      icon: Icon(
+                                        tool.icon(PhosphorIconsStyle.light),
+                                      ),
+                                      tooltip: tool.name,
+                                    ),
+                                  ),
+                              ],
+                            ),
+                          ),
+                        ],
                       ),
-                    ]),
-                  )),
-                )
+                    ),
+                  ),
+                ),
               ],
             );
           },
@@ -512,7 +543,9 @@ class _TemplateItem extends StatelessWidget {
           child: Text(AppLocalizations.of(context).delete),
           onPressed: () async {
             final result = await showDialog<bool>(
-                context: context, builder: (ctx) => const DeleteDialog());
+              context: context,
+              builder: (ctx) => const DeleteDialog(),
+            );
             if (result != true) return;
             if (context.mounted) {
               await fileSystem.deleteFile(metadata.name);
@@ -522,7 +555,11 @@ class _TemplateItem extends StatelessWidget {
         ),
       ],
       onTap: () => openNewDocument(
-          context, bloc != null, template, fileSystem.storage?.identifier),
+        context,
+        bloc != null,
+        template,
+        fileSystem.storage?.identifier,
+      ),
     );
   }
 }

@@ -5,6 +5,7 @@
 * Add area property view
 * Add flip horizontal, vertical and gray scale operation on images ([#794](https://github.com/LinwoodDev/Butterfly/issues/794))
 * Add svg background support
+* Add element count to layer list
 * Grid and ruler will now influence shape, stamp, area and texture tool
 * Improve ruler rotation handling
 * Improve selection change animation
@@ -13,6 +14,9 @@
   * Add stroke width
   * Add option for position and zoom dependent
   * Fix snap if size is 0
+* Improve add dialog with filters
+* Use random colors for cursors in collaboration mode
+* Change texture tool icon since it was the same as the grid tool
 * Fix offset list tile
 * Fix resolution shift issues ([#793](https://github.com/LinwoodDev/Butterfly/issues/793))
 * Fix saving issues
@@ -22,6 +26,8 @@
 * Fix conversion to hex color on svg export and color pick
 * Fix some special-characters not working for file names
 * Fix file name validator missing on file rename
+* Fix flipped title and subtitle in search results
 * Remove http sources
+* Upgrade to flutter 3.29
 
 Read more here: https://linwood.dev/butterfly/2.3.0-beta.2

@@ -9,7 +9,7 @@ import 'package:butterfly_api/butterfly_api.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:butterfly/src/generated/i18n/app_localizations.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
@@ -42,10 +42,8 @@ class _BackgroundDialogState extends State<BackgroundDialog>
 
   void _updateController([bool dispose = true]) {
     if (dispose) _tabController.dispose();
-    _tabController = TabController(
-      length: _backgrounds.length + 1,
-      vsync: this,
-    )..addListener(() {
+    _tabController = TabController(length: _backgrounds.length + 1, vsync: this)
+      ..addListener(() {
         setState(() {
           _index = _tabController.index;
         });
@@ -59,13 +57,16 @@ class _BackgroundDialogState extends State<BackgroundDialog>
     final content = switch (background) {
       TextureBackground() => _TextureBackgroundPropertiesView(
           value: background,
-          onChanged: (value) => setState(() => _backgrounds[_index] = value)),
+          onChanged: (value) => setState(() => _backgrounds[_index] = value),
+        ),
       ImageBackground() => _ImageBackgroundPropertiesView(
           value: background,
-          onChanged: (value) => setState(() => _backgrounds[_index] = value)),
+          onChanged: (value) => setState(() => _backgrounds[_index] = value),
+        ),
       SvgBackground() => _SvgBackgroundPropertiesView(
           value: background,
-          onChanged: (value) => setState(() => _backgrounds[_index] = value)),
+          onChanged: (value) => setState(() => _backgrounds[_index] = value),
+        ),
       Null() => _GeneralBackgroundPropertiesView(
           onChanged: (value) {
             setState(() {
@@ -98,7 +99,8 @@ class _BackgroundDialogState extends State<BackgroundDialog>
                   controller: _tabController,
                   onTap: (i) => setState(() => _index = i),
                   tabs: [
-                    ..._backgrounds.map((e) => HorizontalTab(
+                    ..._backgrounds.map(
+                      (e) => HorizontalTab(
                         label: Text(switch (e) {
                           TextureBackground() => loc.texture,
                           ImageBackground() => loc.image,
@@ -108,7 +110,9 @@ class _BackgroundDialogState extends State<BackgroundDialog>
                           TextureBackground() => PhosphorIconsLight.gridFour,
                           ImageBackground() => PhosphorIconsLight.image,
                           SvgBackground() => PhosphorIconsLight.fileSvg,
-                        }))),
+                        }),
+                      ),
+                    ),
                     HorizontalTab(
                       label: Text(AppLocalizations.of(context).add),
                       icon: Icon(PhosphorIconsLight.plus),
@@ -163,9 +167,9 @@ class _BackgroundDialogState extends State<BackgroundDialog>
         ElevatedButton(
           child: Text(AppLocalizations.of(context).save),
           onPressed: () {
-            context
-                .read<DocumentBloc>()
-                .add(DocumentBackgroundsChanged(_backgrounds));
+            context.read<DocumentBloc>().add(
+                  DocumentBackgroundsChanged(_backgrounds),
+                );
             Navigator.of(context).pop();
           },
         ),

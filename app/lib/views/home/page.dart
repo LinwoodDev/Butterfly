@@ -11,7 +11,7 @@ import 'package:butterfly/views/files/recently.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:butterfly/src/generated/i18n/app_localizations.dart';
 import 'package:lw_file_system/lw_file_system.dart';
 import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
@@ -49,8 +49,11 @@ class _HomePageState extends State<HomePage> {
   void updateRemote(ExternalStorage? remote) {
     setState(() {
       _remote = remote;
-      _importService =
-          ImportService(context, storage: _remote, useDefaultStorage: false);
+      _importService = ImportService(
+        context,
+        storage: _remote,
+        useDefaultStorage: false,
+      );
     });
   }
 
@@ -61,9 +64,7 @@ class _HomePageState extends State<HomePage> {
     final isMobile = size.width < LeapBreakpoints.compact;
     return MultiRepositoryProvider(
       providers: [
-        RepositoryProvider<ImportService>.value(
-          value: _importService,
-        ),
+        RepositoryProvider<ImportService>.value(value: _importService),
       ],
       child: BlocBuilder<SettingsCubit, ButterflySettings>(
         buildWhen: (previous, current) =>
@@ -84,8 +85,10 @@ class _HomePageState extends State<HomePage> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(shortApplicationName),
-                          Text(applicationVersionName,
-                              style: TextTheme.of(context).labelMedium),
+                          Text(
+                            applicationVersionName,
+                            style: TextTheme.of(context).labelMedium,
+                          ),
                         ],
                       )
                     : Text(applicationName),
@@ -94,10 +97,12 @@ class _HomePageState extends State<HomePage> {
                   if (isMobile || !showBanner) ...[
                     if (isMobile)
                       IconButton(
-                        icon:
-                            const PhosphorIcon(PhosphorIconsLight.shootingStar),
-                        selectedIcon:
-                            const PhosphorIcon(PhosphorIconsFill.shootingStar),
+                        icon: const PhosphorIcon(
+                          PhosphorIconsLight.shootingStar,
+                        ),
+                        selectedIcon: const PhosphorIcon(
+                          PhosphorIconsFill.shootingStar,
+                        ),
                         tooltip: AppLocalizations.of(context).whatsNew,
                         isSelected: hasNewerVersion,
                         onPressed: () {
@@ -133,7 +138,9 @@ class _HomePageState extends State<HomePage> {
                           ),
                           NavigationDestination(
                             icon: const Icon(PhosphorIconsLight.folder),
-                            selectedIcon: const Icon(PhosphorIconsFill.folder),
+                            selectedIcon: const Icon(
+                              PhosphorIconsFill.folder,
+                            ),
                             label: AppLocalizations.of(context).files,
                           ),
                           NavigationDestination(
@@ -161,14 +168,12 @@ class _HomePageState extends State<HomePage> {
                                   _QuickstartHomeView(
                                     remote: _remote,
                                     isMobile: true,
-                                    onReload: () => setState(() => _filesViewKey
-                                        .currentState
-                                        ?.reloadFileSystem()),
+                                    onReload: () => setState(
+                                      () => _filesViewKey.currentState
+                                          ?.reloadFileSystem(),
+                                    ),
                                   ),
-                                  RecentFilesView(
-                                    replace: false,
-                                    asGrid: true,
-                                  ),
+                                  RecentFilesView(replace: false, asGrid: true),
                                 ],
                               ),
                             ),
@@ -181,12 +186,15 @@ class _HomePageState extends State<HomePage> {
                               onRemoteChanged: (value) => updateRemote(value),
                             ),
                           _MobileTab.settings => SettingsPage(),
-                        })
+                        },
+                      )
                     : SingleChildScrollView(
                         child: Align(
                           alignment: Alignment.topCenter,
                           child: Container(
-                            margin: const EdgeInsets.symmetric(horizontal: 16),
+                            margin: const EdgeInsets.symmetric(
+                              horizontal: 16,
+                            ),
                             constraints: const BoxConstraints(maxWidth: 1400),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -203,22 +211,24 @@ class _HomePageState extends State<HomePage> {
                                         CrossAxisAlignment.start,
                                     children: [
                                       Expanded(
-                                          child: FilesView(
-                                        activeAsset: widget.selectedAsset,
-                                        remote: _remote,
-                                        isMobile: false,
-                                        onRemoteChanged: (value) =>
-                                            updateRemote(value),
-                                      )),
+                                        child: FilesView(
+                                          activeAsset: widget.selectedAsset,
+                                          remote: _remote,
+                                          isMobile: false,
+                                          onRemoteChanged: (value) =>
+                                              updateRemote(value),
+                                        ),
+                                      ),
                                       const SizedBox(width: 16),
                                       SizedBox(
                                         width: 350,
                                         child: _QuickstartHomeView(
                                           remote: _remote,
                                           isMobile: false,
-                                          onReload: () => setState(() =>
-                                              _filesViewKey.currentState
-                                                  ?.reloadFileSystem()),
+                                          onReload: () => setState(
+                                            () => _filesViewKey.currentState
+                                                ?.reloadFileSystem(),
+                                          ),
                                         ),
                                       ),
                                     ],
@@ -229,9 +239,10 @@ class _HomePageState extends State<HomePage> {
                                       _QuickstartHomeView(
                                         remote: _remote,
                                         isMobile: true,
-                                        onReload: () => setState(() =>
-                                            _filesViewKey.currentState
-                                                ?.reloadFileSystem()),
+                                        onReload: () => setState(
+                                          () => _filesViewKey.currentState
+                                              ?.reloadFileSystem(),
+                                        ),
                                       ),
                                       const SizedBox(height: 32),
                                       FilesView(

@@ -3,7 +3,7 @@ import 'package:butterfly/dialogs/packs/styles/paragraphs.dart';
 import 'package:butterfly/dialogs/packs/styles/texts.dart';
 import 'package:butterfly_api/butterfly_text.dart' as text;
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:butterfly/src/generated/i18n/app_localizations.dart';
 import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
@@ -11,11 +11,7 @@ class StyleDialog extends StatefulWidget {
   final text.TextStyleSheet value;
   final ValueChanged<text.TextStyleSheet> onChanged;
 
-  const StyleDialog({
-    super.key,
-    required this.value,
-    required this.onChanged,
-  });
+  const StyleDialog({super.key, required this.value, required this.onChanged});
 
   @override
   State<StyleDialog> createState() => _StyleDialogState();
@@ -52,23 +48,29 @@ class _StyleDialogState extends State<StyleDialog> {
         child: Column(
           children: [
             TabBar(
-                isScrollable: true,
-                tabs: [
-                  (
-                    PhosphorIconsLight.gear,
-                    AppLocalizations.of(context).general
-                  ),
-                  (
-                    PhosphorIconsLight.article,
-                    AppLocalizations.of(context).paragraph
-                  ),
-                  (PhosphorIconsLight.textT, AppLocalizations.of(context).text)
-                ]
-                    .map((e) => HorizontalTab(
-                          icon: PhosphorIcon(e.$1),
-                          label: Text(e.$2),
-                        ))
-                    .toList()),
+              isScrollable: true,
+              tabs: [
+                (
+                  PhosphorIconsLight.gear,
+                  AppLocalizations.of(context).general,
+                ),
+                (
+                  PhosphorIconsLight.article,
+                  AppLocalizations.of(context).paragraph,
+                ),
+                (
+                  PhosphorIconsLight.textT,
+                  AppLocalizations.of(context).text,
+                ),
+              ]
+                  .map(
+                    (e) => HorizontalTab(
+                      icon: PhosphorIcon(e.$1),
+                      label: Text(e.$2),
+                    ),
+                  )
+                  .toList(),
+            ),
             const SizedBox(height: 8),
             Expanded(
               child: TabBarView(

@@ -294,10 +294,10 @@ packages:
     dependency: transitive
     description:
       name: js
-      sha256: c1b2e9b5ea78c45e1a0788d29606ba27dc5f71f019f32ca5140f61ef071838cf
+      sha256: "53385261521cc4a0c4658fd0ad07a7d14591cf8fc33abbceae306ddb974888dc"
       url: "https://pub.dev"
     source: hosted
-    version: "0.7.1"
+    version: "0.7.2"
   json_annotation:
     dependency: "direct main"
     description:
@@ -310,10 +310,10 @@ packages:
     dependency: "direct dev"
     description:
       name: json_serializable
-      sha256: b0a98230538fe5d0b60a22fb6bf1b6cb03471b53e3324ff6069c591679dd59c9
+      sha256: "81f04dee10969f89f604e1249382d46b97a1ccad53872875369622b5bfc9e58a"
       url: "https://pub.dev"
     source: hosted
-    version: "6.9.3"
+    version: "6.9.4"
   lints:
     dependency: "direct dev"
     description:
@@ -684,4 +684,4 @@ packages:
     source: hosted
     version: "3.1.3"
 sdks:
-  dart: ">=3.6.0 <4.0.0"
+  dart: ">=3.7.0-0 <4.0.0"

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:butterfly/src/generated/i18n/app_localizations.dart';
 import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
@@ -99,18 +99,20 @@ class _EditableListTileState extends State<EditableListTile> {
   }
 
   Widget _buildWidget(BuildContext context, Widget? actionButton) {
-    return ListTile(
-      onTap: widget.onTap,
-      selected: widget.selected,
-      leading: widget.leading,
-      subtitle: widget.subtitle,
-      title: SizedBox(
-        height: 48,
-        child: Align(
-          alignment: Alignment.centerLeft,
-          child: _isEditing
-              ? Builder(
-                  builder: (context) => TextFormField(
+    return GestureDetector(
+      onDoubleTap: _edit,
+      child: ListTile(
+          onTap: widget.onTap,
+          selected: widget.selected,
+          leading: widget.leading,
+          subtitle: widget.subtitle,
+          title: SizedBox(
+            height: 48,
+            child: Align(
+              alignment: Alignment.centerLeft,
+              child: _isEditing
+                  ? Builder(
+                      builder: (context) => TextFormField(
                         controller: _controller,
                         onChanged: widget.onChanged,
                         onSaved: _onSaved,
@@ -127,33 +129,25 @@ class _EditableListTileState extends State<EditableListTile> {
                           ),
                           hintText: AppLocalizations.of(context).enterText,
                         ),
-                      ))
-              : GestureDetector(
-                  onDoubleTap: _edit,
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 8,
-                      vertical: 13,
-                    ),
-                    child: ListenableBuilder(
+                      ),
+                    )
+                  : ListenableBuilder(
                       listenable: _controller,
                       builder: (context, _) => Text(
                         widget.textFormatter?.call(_controller.text) ??
                             _controller.text,
                       ),
                     ),
-                  ),
-                ),
-        ),
-      ),
-      trailing: actionButton ??
-          (widget.onSaved == null
-              ? null
-              : IconButton(
-                  icon: const PhosphorIcon(PhosphorIconsLight.pencil),
-                  tooltip: AppLocalizations.of(context).rename,
-                  onPressed: _edit,
-                )),
+            ),
+          ),
+          trailing: actionButton ??
+              (widget.onSaved == null
+                  ? null
+                  : IconButton(
+                      icon: const PhosphorIcon(PhosphorIconsLight.pencil),
+                      tooltip: AppLocalizations.of(context).rename,
+                      onPressed: _edit,
+                    ))),
     );
   }
 }

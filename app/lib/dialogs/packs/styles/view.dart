@@ -2,7 +2,7 @@ import 'package:butterfly_api/butterfly_api.dart';
 import 'package:butterfly_api/butterfly_text.dart' as text;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:butterfly/src/generated/i18n/app_localizations.dart';
 import 'package:material_leap/l10n/leap_localizations.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
@@ -59,7 +59,9 @@ class StylesPackView extends StatelessWidget {
                             onChanged(value.setStyle(styleSheet!));
                           },
                           trailing: IconButton(
-                            icon: const PhosphorIcon(PhosphorIconsLight.trash),
+                            icon: const PhosphorIcon(
+                              PhosphorIconsLight.trash,
+                            ),
                             tooltip: AppLocalizations.of(context).delete,
                             onPressed: () async {
                               onChanged(value.removeStyle(e));

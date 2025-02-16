@@ -1,6 +1,6 @@
 import 'package:butterfly_api/butterfly_text.dart' as text;
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:butterfly/src/generated/i18n/app_localizations.dart';
 import 'package:material_leap/material_leap.dart';
 
 extension HorizontalTextAlignmentFlutterConverter on text.HorizontalAlignment {
@@ -25,8 +25,10 @@ extension TextDecorationStyleFlutterConverter on text.TextDecorationStyle {
 }
 
 extension DefinedSpanPropertyFlutterConverter on text.DefinedSpanProperty {
-  TextStyle toFlutter(
-      [text.DefinedParagraphProperty? parent, SRGBColor? foreground]) {
+  TextStyle toFlutter([
+    text.DefinedParagraphProperty? parent,
+    SRGBColor? foreground,
+  ]) {
     return TextStyle(
       fontSize: getSize(parent),
       color: getColor(parent, foreground).toColor(),
@@ -76,10 +78,12 @@ extension StyleSheetVisualizer on text.TextStyleSheet {
     String spanPrefix = kStyleSpanPrefix,
   }) =>
       [
-        ...paragraphProperties.entries
-            .map((e) => '$paragraphPrefix${e.key}{\n${e.value.toCss()}}'),
-        ...spanProperties.entries
-            .map((e) => '$spanPrefix${e.key}{\n${e.value.toCss()}}')
+        ...paragraphProperties.entries.map(
+          (e) => '$paragraphPrefix${e.key}{\n${e.value.toCss()}}',
+        ),
+        ...spanProperties.entries.map(
+          (e) => '$spanPrefix${e.key}{\n${e.value.toCss()}}',
+        ),
       ].join('\n');
 }
 

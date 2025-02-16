@@ -43,7 +43,7 @@ enum SelectMode { rectangle, lasso }
 
 enum LaserAnimation { fade, path }
 
-enum ToolCategory { normal, import, surface, action, view }
+enum ToolCategory { import, normal, surface, action, view }
 
 @Freezed(equal: false)
 sealed class Tool with _$Tool {

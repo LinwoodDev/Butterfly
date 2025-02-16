@@ -6,7 +6,7 @@ import 'package:butterfly_api/butterfly_api.dart';
 import 'package:butterfly_api/butterfly_text.dart' as text;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:butterfly/src/generated/i18n/app_localizations.dart';
 import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
@@ -66,12 +66,14 @@ class _LabelToolbarViewState extends State<LabelToolbarView> {
         PhosphorIcons.textHThree,
         PhosphorIcons.textHFour,
         PhosphorIcons.textHFive,
-        PhosphorIcons.textHSix
-      ].asMap().entries.map((e) => (
-            e.value,
-            AppLocalizations.of(context).headline(e.key + 1),
-            '#' * (e.key + 1)
-          )),
+        PhosphorIcons.textHSix,
+      ].asMap().entries.map(
+            (e) => (
+              e.value,
+              AppLocalizations.of(context).headline(e.key + 1),
+              '#' * (e.key + 1),
+            ),
+          ),
       (PhosphorIcons.quotes, AppLocalizations.of(context).quote, '>'),
       (PhosphorIcons.codeBlock, AppLocalizations.of(context).code, '```'),
     ];
@@ -81,7 +83,7 @@ class _LabelToolbarViewState extends State<LabelToolbarView> {
       (
         PhosphorIcons.textStrikethrough,
         AppLocalizations.of(context).strikethrough,
-        '~~'
+        '~~',
       ),
       (PhosphorIcons.code, AppLocalizations.of(context).code, '`'),
     ];
@@ -92,12 +94,12 @@ class _LabelToolbarViewState extends State<LabelToolbarView> {
     final value = widget.value;
     final paragraph = switch (value) {
           TextContext e => e.getDefinedProperty(document),
-          _ => null
+          _ => null,
         } ??
         const text.DefinedParagraphProperty();
     final span = switch (value) {
       TextContext e => e.getDefinedForcedSpanProperty(document),
-      _ => null
+      _ => null,
     };
     final styleSheet = value.getStyleSheet(document);
     final style = styleSheet.resolveStyle(document);
@@ -106,14 +108,15 @@ class _LabelToolbarViewState extends State<LabelToolbarView> {
     _sizeController.text = span?.getSize(paragraph).toString() ?? '';
     var paragraphSelection = switch (paragraph) {
       text.NamedParagraphProperty e => e.name,
-      _ => null
+      _ => null,
     };
     final paragraphSelections = [
       ...style?.paragraphProperties.keys ?? <String>[],
-      ''
+      '',
     ];
     final lineIndex = value.previousLineIndex(
-        value.selection.baseOffset.clamp(0, value.text?.length ?? 0));
+      value.selection.baseOffset.clamp(0, value.text?.length ?? 0),
+    );
     final linePrefix =
         value.text?.substring(min(lineIndex + 1, value.text!.length)) ?? '';
     final mode = value.tool.mode;
@@ -124,7 +127,7 @@ class _LabelToolbarViewState extends State<LabelToolbarView> {
     var spanSelection = switch (value) {
       TextContext e => switch (e.getSpanProperty(document)) {
           text.NamedSpanProperty e => e.name,
-          _ => ''
+          _ => '',
         },
       _ => null,
     };
@@ -134,19 +137,20 @@ class _LabelToolbarViewState extends State<LabelToolbarView> {
     }
 
     void updateSpan(
-        text.DefinedSpanProperty Function(text.DefinedSpanProperty) update) {
+      text.DefinedSpanProperty Function(text.DefinedSpanProperty) update,
+    ) {
       final value = widget.value;
       if (value is! TextContext) return;
       final selection = value.selection;
       var element = value.element;
       if (element == null) {
         final newSpan = update(span!);
-        widget.onChanged(value.copyWith(
-          forcedProperty: text.ParagraphProperty.defined(
-            span: newSpan,
+        widget.onChanged(
+          value.copyWith(
+            forcedProperty: text.ParagraphProperty.defined(span: newSpan),
+            forcedSpanProperty: newSpan,
           ),
-          forcedSpanProperty: newSpan,
-        ));
+        );
         return;
       }
       if (value.isParagraph()) {
@@ -167,179 +171,213 @@ class _LabelToolbarViewState extends State<LabelToolbarView> {
         element = element.copyWith(
           area: element.area.copyWith(
             paragraph: element.area.paragraph.updateSpans(
-                (span) => span.copyWith(
-                    property: update(style.resolveSpanProperty(span.property) ??
-                        const text.DefinedSpanProperty())),
-                selection.start,
-                selection.end - selection.start),
+              (span) => span.copyWith(
+                property: update(
+                  style.resolveSpanProperty(span.property) ??
+                      const text.DefinedSpanProperty(),
+                ),
+              ),
+              selection.start,
+              selection.end - selection.start,
+            ),
           ),
         );
       }
-      widget.onChanged(value.copyWith(
-        element: element,
-        forcedSpanProperty: update(span!),
-      ));
+      widget.onChanged(
+        value.copyWith(element: element, forcedSpanProperty: update(span!)),
+      );
     }
 
     return LayoutBuilder(
       builder: (context, constraints) => Scrollbar(
         controller: _scrollController,
         child: SingleChildScrollView(
-            controller: _scrollController,
-            scrollDirection: Axis.horizontal,
-            child: ConstrainedBox(
-              constraints: BoxConstraints(
-                  minWidth: constraints.maxWidth,
-                  minHeight: constraints.maxHeight),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 4.0),
-                    child: Row(
-                      children: [
-                        IconButton(
-                          icon: const PhosphorIcon(PhosphorIconsLight.package),
-                          tooltip: AppLocalizations.of(context).selectAsset,
-                          onPressed: () async {
-                            final bloc = context.read<DocumentBloc>();
-                            final result = await showDialog<PackAssetLocation>(
-                              context: context,
-                              builder: (context) => BlocProvider.value(
-                                value: bloc,
-                                child: SelectPackAssetDialog(
-                                  type: PackAssetType.style,
-                                  selected: styleSheet,
-                                ),
+          controller: _scrollController,
+          scrollDirection: Axis.horizontal,
+          child: ConstrainedBox(
+            constraints: BoxConstraints(
+              minWidth: constraints.maxWidth,
+              minHeight: constraints.maxHeight,
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 4.0),
+                  child: Row(
+                    children: [
+                      IconButton(
+                        icon: const PhosphorIcon(
+                          PhosphorIconsLight.package,
+                        ),
+                        tooltip: AppLocalizations.of(context).selectAsset,
+                        onPressed: () async {
+                          final bloc = context.read<DocumentBloc>();
+                          final result = await showDialog<PackAssetLocation>(
+                            context: context,
+                            builder: (context) => BlocProvider.value(
+                              value: bloc,
+                              child: SelectPackAssetDialog(
+                                type: PackAssetType.style,
+                                selected: styleSheet,
                               ),
-                            );
-                            if (result == null) return;
-                            if (value.element == null) {
-                              widget.onChanged(value.copyWith(
+                            ),
+                          );
+                          if (result == null) return;
+                          if (value.element == null) {
+                            widget.onChanged(
+                              value.copyWith(
                                 tool: value.tool.copyWith(
                                   styleSheet: result,
                                 ),
-                              ));
-                              return;
-                            }
-                            var newValue = value.copyWith(
-                              tool: value.tool.copyWith(
-                                styleSheet: result,
                               ),
                             );
-                            newValue = switch (value) {
-                              TextContext e => e.copyWith(
-                                  element:
-                                      e.element?.copyWith(styleSheet: result)),
-                              MarkdownContext e => e.copyWith(
-                                  element:
-                                      e.element?.copyWith(styleSheet: result))
-                            };
-                            widget.onChanged(newValue);
-                          },
+                            return;
+                          }
+                          var newValue = value.copyWith(
+                            tool: value.tool.copyWith(styleSheet: result),
+                          );
+                          newValue = switch (value) {
+                            TextContext e => e.copyWith(
+                                element: e.element?.copyWith(
+                                  styleSheet: result,
+                                ),
+                              ),
+                            MarkdownContext e => e.copyWith(
+                                element: e.element?.copyWith(
+                                  styleSheet: result,
+                                ),
+                              ),
+                          };
+                          widget.onChanged(newValue);
+                        },
+                      ),
+                      const SizedBox(width: 8),
+                      IconButton(
+                        icon: const PhosphorIcon(
+                          PhosphorIconsLight.magnifyingGlass,
                         ),
-                        const SizedBox(width: 8),
-                        IconButton(
-                          icon: const PhosphorIcon(
-                              PhosphorIconsLight.magnifyingGlass),
-                          selectedIcon: const PhosphorIcon(
-                              PhosphorIconsFill.magnifyingGlass),
-                          isSelected: value.tool.zoomDependent,
-                          tooltip: AppLocalizations.of(context).zoomDependent,
-                          onPressed: () => widget.onChanged(value.copyWith(
-                              tool: value.tool.copyWith(
-                                  zoomDependent:
-                                      !widget.value.tool.zoomDependent))),
+                        selectedIcon: const PhosphorIcon(
+                          PhosphorIconsFill.magnifyingGlass,
                         ),
-                        const SizedBox(width: 8),
-                        MenuAnchor(
-                          menuChildren: LabelMode.values
-                              .map(
-                                (e) => MenuItemButton(
-                                    leadingIcon:
-                                        Icon(e.icon(PhosphorIconsStyle.light)),
-                                    child: Text(
-                                      e.getLocalizedName(context),
-                                    ),
-                                    onPressed: () => widget.onChanged(
-                                        value.copyWith(
-                                            tool:
-                                                value.tool.copyWith(mode: e)))),
-                              )
-                              .toList(),
-                          builder: defaultMenuButton(
-                            icon: PhosphorIcon(
-                                mode.icon(PhosphorIconsStyle.light)),
-                            tooltip:
-                                AppLocalizations.of(context).chooseLabelMode,
+                        isSelected: value.tool.zoomDependent,
+                        tooltip: AppLocalizations.of(context).zoomDependent,
+                        onPressed: () => widget.onChanged(
+                          value.copyWith(
+                            tool: value.tool.copyWith(
+                              zoomDependent: !widget.value.tool.zoomDependent,
+                            ),
                           ),
                         ),
-                        const SizedBox(width: 16),
-                        SizedBox(
-                          width: 100,
-                          child: TextFormField(
-                            decoration: InputDecoration(
-                              labelText: AppLocalizations.of(context).scale,
-                              filled: true,
-                              floatingLabelAlignment:
-                                  FloatingLabelAlignment.center,
-                              alignLabelWithHint: true,
-                            ),
-                            textAlign: TextAlign.center,
-                            keyboardType: TextInputType.number,
-                            controller: _scaleController,
-                            onFieldSubmitted: (current) {
-                              final newScale = double.tryParse(current);
-                              if (newScale == null) return;
-                              final element = value.element;
-                              if (element == null) {
-                                widget.onChanged(value.copyWith(
+                      ),
+                      const SizedBox(width: 8),
+                      MenuAnchor(
+                        menuChildren: LabelMode.values
+                            .map(
+                              (e) => MenuItemButton(
+                                leadingIcon: Icon(
+                                  e.icon(PhosphorIconsStyle.light),
+                                ),
+                                child: Text(
+                                  e.getLocalizedName(context),
+                                ),
+                                onPressed: () => widget.onChanged(
+                                  value.copyWith(
+                                    tool: value.tool.copyWith(
+                                      mode: e,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            )
+                            .toList(),
+                        builder: defaultMenuButton(
+                          icon: PhosphorIcon(
+                            mode.icon(PhosphorIconsStyle.light),
+                          ),
+                          tooltip: AppLocalizations.of(context).chooseLabelMode,
+                        ),
+                      ),
+                      const SizedBox(width: 16),
+                      SizedBox(
+                        width: 100,
+                        child: TextFormField(
+                          decoration: InputDecoration(
+                            labelText: AppLocalizations.of(context).scale,
+                            filled: true,
+                            floatingLabelAlignment:
+                                FloatingLabelAlignment.center,
+                            alignLabelWithHint: true,
+                          ),
+                          textAlign: TextAlign.center,
+                          keyboardType: TextInputType.number,
+                          controller: _scaleController,
+                          onFieldSubmitted: (current) {
+                            final newScale = double.tryParse(current);
+                            if (newScale == null) return;
+                            final element = value.element;
+                            if (element == null) {
+                              widget.onChanged(
+                                value.copyWith(
                                   tool: value.tool.copyWith(
                                     scale: newScale,
                                   ),
-                                ));
-                                return;
-                              }
-                              widget.onChanged(switch (value) {
-                                TextContext e => e.copyWith(
-                                    element:
-                                        e.element!.copyWith(scale: newScale)),
-                                MarkdownContext e => e.copyWith(
-                                    element:
-                                        e.element!.copyWith(scale: newScale))
-                              });
-                            },
-                          ),
+                                ),
+                              );
+                              return;
+                            }
+                            widget.onChanged(switch (value) {
+                              TextContext e => e.copyWith(
+                                  element: e.element!.copyWith(
+                                    scale: newScale,
+                                  ),
+                                ),
+                              MarkdownContext e => e.copyWith(
+                                  element: e.element!.copyWith(
+                                    scale: newScale,
+                                  ),
+                                ),
+                            });
+                          },
                         ),
-                        if (value is TextContext) ...[
-                          const SizedBox(width: 8),
-                          IconButton(
-                            icon:
-                                const PhosphorIcon(PhosphorIconsLight.article),
-                            selectedIcon:
-                                const PhosphorIcon(PhosphorIconsFill.article),
-                            tooltip: AppLocalizations.of(context).paragraph,
-                            isSelected: value.isParagraph(),
-                            onPressed: value.area == null
-                                ? null
-                                : () => widget.onChanged(value.copyWith(
-                                    forceParagraph: !value.isParagraph())),
+                      ),
+                      if (value is TextContext) ...[
+                        const SizedBox(width: 8),
+                        IconButton(
+                          icon: const PhosphorIcon(
+                            PhosphorIconsLight.article,
                           ),
-                          const SizedBox(width: 8),
-                          value.isParagraph()
-                              ? DropdownMenu<String>(
-                                  key: _paragraphKey,
-                                  dropdownMenuEntries: paragraphSelections
-                                      .map((e) => DropdownMenuEntry<String>(
-                                            value: e,
-                                            label: e,
-                                          ))
-                                      .toList(),
-                                  initialSelection: paragraphSelection,
-                                  onSelected: (name) {
-                                    if (name == null) return;
-                                    widget.onChanged(value.copyWith(
+                          selectedIcon: const PhosphorIcon(
+                            PhosphorIconsFill.article,
+                          ),
+                          tooltip: AppLocalizations.of(context).paragraph,
+                          isSelected: value.isParagraph(),
+                          onPressed: value.area == null
+                              ? null
+                              : () => widget.onChanged(
+                                    value.copyWith(
+                                      forceParagraph: !value.isParagraph(),
+                                    ),
+                                  ),
+                        ),
+                        const SizedBox(width: 8),
+                        value.isParagraph()
+                            ? DropdownMenu<String>(
+                                key: _paragraphKey,
+                                dropdownMenuEntries: paragraphSelections
+                                    .map(
+                                      (e) => DropdownMenuEntry<String>(
+                                        value: e,
+                                        label: e,
+                                      ),
+                                    )
+                                    .toList(),
+                                initialSelection: paragraphSelection,
+                                onSelected: (name) {
+                                  if (name == null) return;
+                                  widget.onChanged(
+                                    value.copyWith(
                                       forcedProperty:
                                           text.ParagraphProperty.named(name),
                                       element: value.element?.copyWith(
@@ -349,35 +387,40 @@ class _LabelToolbarViewState extends State<LabelToolbarView> {
                                               .copyWith(
                                             property:
                                                 text.ParagraphProperty.named(
-                                                    name),
+                                              name,
+                                            ),
                                           ),
                                         ),
                                       ),
-                                    ));
-                                  },
-                                  label:
-                                      Text(AppLocalizations.of(context).style),
-                                  trailingIcon: value.modified(document)
-                                      ? const PhosphorIcon(
-                                          PhosphorIconsLight.star)
-                                      : null,
-                                )
-                              : DropdownMenu<String>(
-                                  key: _spanKey,
-                                  dropdownMenuEntries: spanSelections
-                                      .map((e) => DropdownMenuEntry<String>(
-                                            value: e,
-                                            label: e,
-                                          ))
-                                      .toList(),
-                                  initialSelection: spanSelection,
-                                  onSelected: (name) {
-                                    if (name == null) return;
-                                    widget.onChanged(value.copyWith(
-                                      forcedSpanProperty:
-                                          text.SpanProperty.named(
-                                        name,
+                                    ),
+                                  );
+                                },
+                                label: Text(
+                                  AppLocalizations.of(context).style,
+                                ),
+                                trailingIcon: value.modified(document)
+                                    ? const PhosphorIcon(
+                                        PhosphorIconsLight.star,
+                                      )
+                                    : null,
+                              )
+                            : DropdownMenu<String>(
+                                key: _spanKey,
+                                dropdownMenuEntries: spanSelections
+                                    .map(
+                                      (e) => DropdownMenuEntry<String>(
+                                        value: e,
+                                        label: e,
                                       ),
+                                    )
+                                    .toList(),
+                                initialSelection: spanSelection,
+                                onSelected: (name) {
+                                  if (name == null) return;
+                                  widget.onChanged(
+                                    value.copyWith(
+                                      forcedSpanProperty:
+                                          text.SpanProperty.named(name),
                                       element: value.element?.copyWith.area(
                                         paragraph: value.element!.area.paragraph
                                             .applyStyle(
@@ -387,44 +430,53 @@ class _LabelToolbarViewState extends State<LabelToolbarView> {
                                               value.selection.start,
                                         ),
                                       ),
-                                    ));
-                                  },
-                                  label:
-                                      Text(AppLocalizations.of(context).style),
-                                  trailingIcon: value.modified(document)
-                                      ? const PhosphorIcon(
-                                          PhosphorIconsLight.star)
-                                      : null,
+                                    ),
+                                  );
+                                },
+                                label: Text(
+                                  AppLocalizations.of(context).style,
                                 ),
-                          const SizedBox(width: 8),
-                          IconButton(
-                            icon: const PhosphorIcon(PhosphorIconsLight.eraser),
-                            selectedIcon:
-                                const PhosphorIcon(PhosphorIconsFill.eraser),
-                            tooltip: AppLocalizations.of(context).clearStyle,
-                            isSelected: value.isParagraph()
-                                ? switch (value.getProperty()) {
-                                    text.UndefinedParagraphProperty _ => true,
-                                    _ => false,
-                                  }
-                                : switch (value.paragraph
-                                    ?.getSpan(value.selection.start)
-                                    ?.property) {
-                                    text.UndefinedSpanProperty _ => true,
-                                    _ => false,
-                                  },
-                            onPressed: () async {
-                              if (value.isParagraph()) {
-                                widget.onChanged(value.copyWith(
+                                trailingIcon: value.modified(document)
+                                    ? const PhosphorIcon(
+                                        PhosphorIconsLight.star,
+                                      )
+                                    : null,
+                              ),
+                        const SizedBox(width: 8),
+                        IconButton(
+                          icon: const PhosphorIcon(
+                            PhosphorIconsLight.eraser,
+                          ),
+                          selectedIcon: const PhosphorIcon(
+                            PhosphorIconsFill.eraser,
+                          ),
+                          tooltip: AppLocalizations.of(context).clearStyle,
+                          isSelected: value.isParagraph()
+                              ? switch (value.getProperty()) {
+                                  text.UndefinedParagraphProperty _ => true,
+                                  _ => false,
+                                }
+                              : switch (value.paragraph
+                                  ?.getSpan(value.selection.start)
+                                  ?.property) {
+                                  text.UndefinedSpanProperty _ => true,
+                                  _ => false,
+                                },
+                          onPressed: () async {
+                            if (value.isParagraph()) {
+                              widget.onChanged(
+                                value.copyWith(
                                   forcedProperty: null,
                                   element:
                                       value.element?.copyWith.area.paragraph(
                                     property: const text
                                         .ParagraphProperty.undefined(),
                                   ),
-                                ));
-                              } else {
-                                widget.onChanged(value.copyWith(
+                                ),
+                              );
+                            } else {
+                              widget.onChanged(
+                                value.copyWith(
                                   forcedSpanProperty: null,
                                   element: value.element?.copyWith.area(
                                     paragraph: value.element!.area.paragraph
@@ -435,20 +487,21 @@ class _LabelToolbarViewState extends State<LabelToolbarView> {
                                           value.selection.start,
                                     ),
                                   ),
-                                ));
-                              }
-                            },
-                          ),
-                        ],
+                                ),
+                              );
+                            }
+                          },
+                        ),
                       ],
-                    ),
+                    ],
                   ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 4.0),
-                    child: switch (value) {
-                      TextContext value => Row(
-                          children: [
-                            /*ToggleButtons(
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 4.0),
+                  child: switch (value) {
+                    TextContext value => Row(
+                        children: [
+                          /*ToggleButtons(
                           isSelected: text.VerticalAlignment.values
                               .map((e) =>
                                   e == value.area?.areaProperty.alignment)
@@ -476,32 +529,36 @@ class _LabelToolbarViewState extends State<LabelToolbarView> {
                           ],
                         ),
                         const SizedBox(width: 16),*/
-                            ToggleButtons(
-                              isSelected: text.HorizontalAlignment.values
-                                  .map((e) => e == paragraph.alignment)
-                                  .toList(),
-                              children: const [
-                                PhosphorIcon(PhosphorIconsLight.textAlignLeft),
-                                PhosphorIcon(
-                                    PhosphorIconsLight.textAlignCenter),
-                                PhosphorIcon(PhosphorIconsLight.textAlignRight),
-                                PhosphorIcon(
-                                    PhosphorIconsLight.textAlignJustify),
-                              ],
-                              onPressed: (current) {
-                                final newParagraph = paragraph.copyWith(
-                                  alignment:
-                                      text.HorizontalAlignment.values[current],
-                                );
-                                widget.onChanged(value.copyWith(
+                          ToggleButtons(
+                            isSelected: text.HorizontalAlignment.values
+                                .map((e) => e == paragraph.alignment)
+                                .toList(),
+                            children: const [
+                              PhosphorIcon(PhosphorIconsLight.textAlignLeft),
+                              PhosphorIcon(
+                                PhosphorIconsLight.textAlignCenter,
+                              ),
+                              PhosphorIcon(PhosphorIconsLight.textAlignRight),
+                              PhosphorIcon(
+                                PhosphorIconsLight.textAlignJustify,
+                              ),
+                            ],
+                            onPressed: (current) {
+                              final newParagraph = paragraph.copyWith(
+                                alignment:
+                                    text.HorizontalAlignment.values[current],
+                              );
+                              widget.onChanged(
+                                value.copyWith(
                                   forcedProperty: newParagraph,
                                   element: value.element?.copyWith.area
                                       .paragraph(property: newParagraph),
-                                ));
-                              },
-                            ),
-                            const SizedBox(width: 32),
-                            /*FutureBuilder<List<String>?>(
+                                ),
+                              );
+                            },
+                          ),
+                          const SizedBox(width: 32),
+                          /*FutureBuilder<List<String>?>(
                           future: Future.value(SysInfo.getFonts()),
                           builder: (context, snapshot) {
                             return DropdownMenu<String>(
@@ -527,240 +584,285 @@ class _LabelToolbarViewState extends State<LabelToolbarView> {
                           },
                         ),
                         const SizedBox(width: 8),*/
-                            SizedBox(
-                              width: 100,
-                              child: TextFormField(
-                                decoration: InputDecoration(
-                                  labelText: AppLocalizations.of(context).size,
-                                  filled: true,
-                                  floatingLabelAlignment:
-                                      FloatingLabelAlignment.center,
-                                  alignLabelWithHint: true,
+                          SizedBox(
+                            width: 100,
+                            child: TextFormField(
+                              decoration: InputDecoration(
+                                labelText: AppLocalizations.of(context).size,
+                                filled: true,
+                                floatingLabelAlignment:
+                                    FloatingLabelAlignment.center,
+                                alignLabelWithHint: true,
+                              ),
+                              textAlign: TextAlign.center,
+                              keyboardType: TextInputType.number,
+                              controller: _sizeController,
+                              onFieldSubmitted: (current) {
+                                updateSpan(
+                                  (value) => value.copyWith(
+                                    size:
+                                        double.tryParse(current) ?? span?.size,
+                                  ),
+                                );
+                              },
+                            ),
+                          ),
+                          const SizedBox(width: 16),
+                          InkWell(
+                            borderRadius: const BorderRadius.all(
+                              Radius.circular(32),
+                            ),
+                            child: Container(
+                              width: 42,
+                              height: 42,
+                              decoration: BoxDecoration(
+                                color: span!.getColor(paragraph).toColor(),
+                                border: Border.all(
+                                  color: Theme.of(context).primaryColor,
+                                  width: 2,
                                 ),
-                                textAlign: TextAlign.center,
-                                keyboardType: TextInputType.number,
-                                controller: _sizeController,
-                                onFieldSubmitted: (current) {
-                                  updateSpan(
-                                    (value) => value.copyWith(
-                                      size: double.tryParse(current) ??
-                                          span?.size,
+                                borderRadius: const BorderRadius.all(
+                                  Radius.circular(32),
+                                ),
+                              ),
+                            ),
+                            onTap: () async {
+                              final result = await showDialog<SRGBColor>(
+                                context: context,
+                                builder: (_) => ColorPalettePickerDialog(
+                                  value: span.getColor(paragraph),
+                                  bloc: context.read<DocumentBloc>(),
+                                ),
+                              );
+                              if (result == null) return;
+                              updateSpan(
+                                (value) => value.copyWith(
+                                  color: result.withValues(
+                                    a: widget.value.tool.foreground.a,
+                                  ),
+                                ),
+                              );
+                            },
+                          ),
+                          const SizedBox(width: 16),
+                          ToggleButtons(
+                            isSelected: [
+                              span.getFontWeight(paragraph) !=
+                                  text.kFontWeightNormal,
+                              span.getItalic(paragraph),
+                              span.getUnderline(paragraph),
+                            ],
+                            children: [
+                              GestureDetector(
+                                child: const PhosphorIcon(
+                                  PhosphorIconsLight.textB,
+                                ),
+                                onLongPressEnd: (details) {
+                                  final RenderObject? overlay = Overlay.of(
+                                    context,
+                                  ).context.findRenderObject();
+                                  final RenderBox referenceBox =
+                                      context.findRenderObject() as RenderBox;
+                                  var tapPosition = referenceBox
+                                      .globalToLocal(details.globalPosition);
+                                  showMenu(
+                                    context: context,
+                                    position: RelativeRect.fromRect(
+                                      Rect.fromLTWH(
+                                        tapPosition.dx,
+                                        tapPosition.dy,
+                                        30,
+                                        30,
+                                      ),
+                                      Rect.fromLTWH(
+                                        0,
+                                        0,
+                                        overlay!.paintBounds.size.width,
+                                        overlay.paintBounds.size.height,
+                                      ),
+                                    ),
+                                    initialValue:
+                                        FontWeight.values[span.getFontWeight(
+                                      paragraph,
+                                    )],
+                                    items: List.generate(
+                                      FontWeight.values.length,
+                                      (index) {
+                                        var text =
+                                            ((index + 1) * 100).toString();
+                                        if (index == 3) {
+                                          text = AppLocalizations.of(
+                                            context,
+                                          ).normal;
+                                        } else if (index == 6) {
+                                          text = AppLocalizations.of(
+                                            context,
+                                          ).bold;
+                                        }
+                                        return PopupMenuItem(
+                                          value: FontWeight.values[index],
+                                          child: Text(text),
+                                          onTap: () {
+                                            updateSpan(
+                                              (value) => value.copyWith(
+                                                fontWeight: index,
+                                              ),
+                                            );
+                                            Navigator.pop(context);
+                                          },
+                                        );
+                                      },
                                     ),
                                   );
                                 },
                               ),
-                            ),
-                            const SizedBox(width: 16),
-                            InkWell(
-                              borderRadius: const BorderRadius.all(
-                                Radius.circular(32),
+                              const PhosphorIcon(
+                                PhosphorIconsLight.textItalic,
                               ),
-                              child: Container(
-                                width: 42,
-                                height: 42,
-                                decoration: BoxDecoration(
-                                  color: span!.getColor(paragraph).toColor(),
-                                  border: Border.all(
-                                    color: Theme.of(context).primaryColor,
-                                    width: 2,
-                                  ),
-                                  borderRadius: const BorderRadius.all(
-                                    Radius.circular(32),
+                              const PhosphorIcon(
+                                PhosphorIconsLight.textUnderline,
+                              ),
+                            ],
+                            onPressed: (current) => switch (current) {
+                              0 => updateSpan(
+                                  (value) => value.copyWith(
+                                    fontWeight: span.fontWeight ==
+                                            text.kFontWeightNormal
+                                        ? text.kFontWeightBold
+                                        : text.kFontWeightNormal,
                                   ),
                                 ),
-                              ),
-                              onTap: () async {
-                                final result = await showDialog<SRGBColor>(
-                                  context: context,
-                                  builder: (_) => ColorPalettePickerDialog(
-                                    value: span.getColor(paragraph),
-                                    bloc: context.read<DocumentBloc>(),
+                              1 => updateSpan(
+                                  (value) => value.copyWith(
+                                    italic: !span.getItalic(paragraph),
                                   ),
-                                );
-                                if (result == null) return;
-                                updateSpan((value) => value.copyWith(
-                                    color: result.withValues(
-                                        a: widget.value.tool.foreground.a)));
-                              },
-                            ),
-                            const SizedBox(width: 16),
-                            ToggleButtons(
-                              isSelected: [
-                                span.getFontWeight(paragraph) !=
-                                    text.kFontWeightNormal,
-                                span.getItalic(paragraph),
-                                span.getUnderline(paragraph),
-                              ],
-                              children: [
-                                GestureDetector(
-                                  child: const PhosphorIcon(
-                                      PhosphorIconsLight.textB),
-                                  onLongPressEnd: (details) {
-                                    final RenderObject? overlay =
-                                        Overlay.of(context)
-                                            .context
-                                            .findRenderObject();
-                                    final RenderBox referenceBox =
-                                        context.findRenderObject() as RenderBox;
-                                    var tapPosition = referenceBox
-                                        .globalToLocal(details.globalPosition);
-                                    showMenu(
-                                      context: context,
-                                      position: RelativeRect.fromRect(
-                                          Rect.fromLTWH(tapPosition.dx,
-                                              tapPosition.dy, 30, 30),
-                                          Rect.fromLTWH(
-                                              0,
-                                              0,
-                                              overlay!.paintBounds.size.width,
-                                              overlay.paintBounds.size.height)),
-                                      initialValue: FontWeight.values[
-                                          span.getFontWeight(paragraph)],
-                                      items: List.generate(
-                                          FontWeight.values.length, (index) {
-                                        var text =
-                                            ((index + 1) * 100).toString();
-                                        if (index == 3) {
-                                          text = AppLocalizations.of(context)
-                                              .normal;
-                                        } else if (index == 6) {
-                                          text =
-                                              AppLocalizations.of(context).bold;
-                                        }
-                                        return PopupMenuItem(
-                                            value: FontWeight.values[index],
-                                            child: Text(text),
-                                            onTap: () {
-                                              updateSpan(
-                                                (value) => value.copyWith(
-                                                  fontWeight: index,
-                                                ),
-                                              );
-                                              Navigator.pop(context);
-                                            });
-                                      }),
+                                ),
+                              2 => updateSpan(
+                                  (value) => value.copyWith(
+                                    underline: !span.getUnderline(paragraph),
+                                  ),
+                                ),
+                              _ => null,
+                            },
+                          ),
+                        ],
+                      ),
+                    MarkdownContext value => Row(
+                        children: [
+                          ToggleButtons(
+                            isSelected: markdownParagraphTools
+                                .map(
+                                  (e) => linePrefix.startsWith('${e.$3} '),
+                                )
+                                .toList(),
+                            onPressed: value.element == null
+                                ? null
+                                : (index) {
+                                    final current =
+                                        markdownParagraphTools[index];
+                                    final prefix = current.$3;
+                                    final text = value.text;
+                                    if (text == null) return;
+                                    final enabled = linePrefix.startsWith(
+                                      '$prefix ',
+                                    );
+                                    final newText = enabled
+                                        ? text.replaceRange(
+                                            lineIndex + 1,
+                                            lineIndex + 2 + prefix.length,
+                                            '',
+                                          )
+                                        : text.replaceRange(
+                                            lineIndex + 1,
+                                            lineIndex + 1,
+                                            '$prefix ',
+                                          );
+                                    var newSelection = value.selection.start +
+                                        (prefix.length + 1) *
+                                            (enabled ? -1 : 1);
+                                    widget.onChanged(
+                                      value.copyWith(
+                                        element: value.element?.copyWith(
+                                          text: newText,
+                                        ),
+                                        selection: TextSelection.collapsed(
+                                          offset: newSelection,
+                                        ),
+                                      ),
                                     );
                                   },
-                                ),
-                                const PhosphorIcon(
-                                    PhosphorIconsLight.textItalic),
-                                const PhosphorIcon(
-                                    PhosphorIconsLight.textUnderline),
-                              ],
-                              onPressed: (current) => switch (current) {
-                                0 => updateSpan(
-                                    (value) => value.copyWith(
-                                      fontWeight: span.fontWeight ==
-                                              text.kFontWeightNormal
-                                          ? text.kFontWeightBold
-                                          : text.kFontWeightNormal,
+                            children: markdownParagraphTools
+                                .map(
+                                  (e) => Tooltip(
+                                    message: e.$2,
+                                    child: Icon(
+                                      e.$1(PhosphorIconsStyle.light),
                                     ),
                                   ),
-                                1 => updateSpan(
-                                    (value) => value.copyWith(
-                                      italic: !span.getItalic(paragraph),
-                                    ),
-                                  ),
-                                2 => updateSpan(
-                                    (value) => value.copyWith(
-                                      underline: !span.getUnderline(paragraph),
-                                    ),
-                                  ),
-                                _ => null,
-                              },
-                            ),
-                          ],
-                        ),
-                      MarkdownContext value => Row(children: [
-                          ToggleButtons(
-                              isSelected: markdownParagraphTools
-                                  .map((e) => linePrefix.startsWith('${e.$3} '))
-                                  .toList(),
-                              onPressed: value.element == null
-                                  ? null
-                                  : (index) {
-                                      final current =
-                                          markdownParagraphTools[index];
-                                      final prefix = current.$3;
-                                      final text = value.text;
-                                      if (text == null) return;
-                                      final enabled =
-                                          linePrefix.startsWith('$prefix ');
-                                      final newText = enabled
-                                          ? text.replaceRange(lineIndex + 1,
-                                              lineIndex + 2 + prefix.length, '')
-                                          : text.replaceRange(lineIndex + 1,
-                                              lineIndex + 1, '$prefix ');
-                                      var newSelection = value.selection.start +
-                                          (prefix.length + 1) *
-                                              (enabled ? -1 : 1);
-                                      widget.onChanged(
-                                        value.copyWith(
-                                          element: value.element
-                                              ?.copyWith(text: newText),
-                                          selection: TextSelection.collapsed(
-                                              offset: newSelection),
-                                        ),
-                                      );
-                                    },
-                              children: markdownParagraphTools
-                                  .map((e) => Tooltip(
-                                        message: e.$2,
-                                        child: Icon(
-                                            e.$1(PhosphorIconsStyle.light)),
-                                      ))
-                                  .toList()),
+                                )
+                                .toList(),
+                          ),
                           const SizedBox(width: 16),
                           ToggleButtons(
-                              isSelected:
-                                  markdownSpanTools.map((e) => false).toList(),
-                              onPressed: value.element == null
-                                  ? null
-                                  : (index) {
-                                      final current = markdownSpanTools[index];
-                                      final prefix = current.$3;
-                                      final selection = value.selection;
-                                      final text = value.text;
-                                      if (text == null) return;
-                                      final newText =
-                                          text.substring(0, selection.start) +
-                                              prefix +
-                                              text.substring(selection.start,
-                                                  value.selection.end) +
-                                              prefix +
-                                              text.substring(selection.end);
-                                      widget.onChanged(
-                                        value.copyWith(
-                                          element: value.element
-                                              ?.copyWith(text: newText),
-                                          selection: selection.isCollapsed
-                                              ? TextSelection.collapsed(
-                                                  offset: selection.start +
-                                                      prefix.length)
-                                              : TextSelection(
-                                                  baseOffset: selection.start,
-                                                  extentOffset: selection.end +
-                                                      prefix.length * 2,
-                                                  affinity: selection.affinity,
-                                                  isDirectional:
-                                                      selection.isDirectional,
-                                                ),
+                            isSelected:
+                                markdownSpanTools.map((e) => false).toList(),
+                            onPressed: value.element == null
+                                ? null
+                                : (index) {
+                                    final current = markdownSpanTools[index];
+                                    final prefix = current.$3;
+                                    final selection = value.selection;
+                                    final text = value.text;
+                                    if (text == null) return;
+                                    final newText =
+                                        text.substring(0, selection.start) +
+                                            prefix +
+                                            text.substring(
+                                              selection.start,
+                                              value.selection.end,
+                                            ) +
+                                            prefix +
+                                            text.substring(selection.end);
+                                    widget.onChanged(
+                                      value.copyWith(
+                                        element: value.element?.copyWith(
+                                          text: newText,
                                         ),
-                                      );
-                                    },
-                              children: markdownSpanTools
-                                  .map((e) => Tooltip(
-                                        message: e.$2,
-                                        child: Icon(
-                                            e.$1(PhosphorIconsStyle.light)),
-                                      ))
-                                  .toList())
-                        ]),
-                    },
-                  ),
-                ],
-              ),
-            )),
+                                        selection: selection.isCollapsed
+                                            ? TextSelection.collapsed(
+                                                offset: selection.start +
+                                                    prefix.length,
+                                              )
+                                            : TextSelection(
+                                                baseOffset: selection.start,
+                                                extentOffset: selection.end +
+                                                    prefix.length * 2,
+                                                affinity: selection.affinity,
+                                                isDirectional:
+                                                    selection.isDirectional,
+                                              ),
+                                      ),
+                                    );
+                                  },
+                            children: markdownSpanTools
+                                .map(
+                                  (e) => Tooltip(
+                                    message: e.$2,
+                                    child: Icon(
+                                      e.$1(PhosphorIconsStyle.light),
+                                    ),
+                                  ),
+                                )
+                                .toList(),
+                          ),
+                        ],
+                      ),
+                  },
+                ),
+              ],
+            ),
+          ),
+        ),
       ),
     );
   }

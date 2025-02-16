@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:butterfly/src/generated/i18n/app_localizations.dart';
 import 'package:go_router/go_router.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -13,9 +13,7 @@ class ErrorPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(AppLocalizations.of(context).error),
-      ),
+      appBar: AppBar(title: Text(AppLocalizations.of(context).error)),
       body: LayoutBuilder(
         builder: (context, constraints) {
           return SingleChildScrollView(
@@ -46,9 +44,7 @@ class ErrorPage extends StatelessWidget {
                             icon: const PhosphorIcon(PhosphorIconsLight.copy),
                             tooltip: AppLocalizations.of(context).copy,
                             onPressed: () {
-                              Clipboard.setData(
-                                ClipboardData(text: message),
-                              );
+                              Clipboard.setData(ClipboardData(text: message));
                             },
                           ),
                         ],
@@ -59,11 +55,7 @@ class ErrorPage extends StatelessWidget {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Flexible(
-                            child: Text(
-                              stackTrace.toString(),
-                            ),
-                          ),
+                          Flexible(child: Text(stackTrace.toString())),
                           IconButton(
                             icon: const PhosphorIcon(PhosphorIconsLight.copy),
                             tooltip: AppLocalizations.of(context).copy,
@@ -81,7 +73,11 @@ class ErrorPage extends StatelessWidget {
                       children: [
                         OutlinedButton(
                           onPressed: () => launchUrl(
-                              Uri.https('go.linwood.dev', '/butterfly/report')),
+                            Uri.https(
+                              'go.linwood.dev',
+                              '/butterfly/report',
+                            ),
+                          ),
                           child: Text(AppLocalizations.of(context).report),
                         ),
                         const SizedBox(width: 8),

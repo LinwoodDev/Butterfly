@@ -5,7 +5,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:butterfly/src/generated/i18n/app_localizations.dart';
 
 class CameraDialog extends StatefulWidget {
   const CameraDialog({super.key});
@@ -106,8 +106,9 @@ class _CameraDialogState extends State<CameraDialog>
         },
       );
   Widget _buildCameraPreview() => _controller != null
-      ? Builder(builder: (context) {
-          return Container(
+      ? Builder(
+          builder: (context) {
+            return Container(
               child: (!kIsWeb && (Platform.isAndroid || Platform.isIOS))
                   ? AspectRatio(
                       aspectRatio: _controller!.value.aspectRatio,
@@ -115,76 +116,90 @@ class _CameraDialogState extends State<CameraDialog>
                     )
                   : Align(
                       alignment: Alignment.center,
-                      child: Text(_controller!.description.name.toString())));
-        })
+                      child: Text(_controller!.description.name.toString()),
+                    ),
+            );
+          },
+        )
       : Align(
           alignment: Alignment.center,
-          child: Text(AppLocalizations.of(context).selectCamera));
+          child: Text(AppLocalizations.of(context).selectCamera),
+        );
 
   @override
   Widget build(BuildContext context) {
     return Dialog(
       child: ConstrainedBox(
         constraints: const BoxConstraints(
-            maxHeight: 600, maxWidth: LeapBreakpoints.compact),
+          maxHeight: 600,
+          maxWidth: LeapBreakpoints.compact,
+        ),
         child: Column(
           children: [
             Header(
-                title: Text(AppLocalizations.of(context).camera),
-                leading: const PhosphorIcon(PhosphorIconsLight.camera)),
+              title: Text(AppLocalizations.of(context).camera),
+              leading: const PhosphorIcon(PhosphorIconsLight.camera),
+            ),
             Flexible(
               child: Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 20,
+                  vertical: 15,
+                ),
                 child: FutureBuilder<List<CameraDescription>>(
-                    future: availableCameras(),
-                    builder: (context, snapshot) {
-                      if (snapshot.hasError) {
-                        return Align(
-                          alignment: Alignment.center,
-                          child: Text(snapshot.error.toString()),
-                        );
-                      }
-                      if (!snapshot.hasData) {
-                        return const Align(
-                          alignment: Alignment.center,
-                          child: CircularProgressIndicator(),
-                        );
-                      }
-                      return Column(
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                        children: [
-                          Expanded(child: _buildCameraPreview()),
-                          const Divider(),
-                          _buildCameraToggles(snapshot.data!),
-                          const Divider(),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: [
-                              TextButton(
-                                child: Text(MaterialLocalizations.of(context)
-                                    .cancelButtonLabel),
-                                onPressed: () => Navigator.of(context).pop(),
-                              ),
-                              ElevatedButton(
-                                child: Text(MaterialLocalizations.of(context)
-                                    .okButtonLabel),
-                                // Capture image on button press.
-                                onPressed: () async {
-                                  final navigator = Navigator.of(context);
-                                  final imageFile =
-                                      await _controller?.takePicture();
-                                  if (imageFile != null) {
-                                    var content = await imageFile.readAsBytes();
-                                    return navigator.pop(content);
-                                  }
-                                },
-                              ),
-                            ],
-                          )
-                        ],
+                  future: availableCameras(),
+                  builder: (context, snapshot) {
+                    if (snapshot.hasError) {
+                      return Align(
+                        alignment: Alignment.center,
+                        child: Text(snapshot.error.toString()),
                       );
-                    }),
+                    }
+                    if (!snapshot.hasData) {
+                      return const Align(
+                        alignment: Alignment.center,
+                        child: CircularProgressIndicator(),
+                      );
+                    }
+                    return Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        Expanded(child: _buildCameraPreview()),
+                        const Divider(),
+                        _buildCameraToggles(snapshot.data!),
+                        const Divider(),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            TextButton(
+                              child: Text(
+                                MaterialLocalizations.of(
+                                  context,
+                                ).cancelButtonLabel,
+                              ),
+                              onPressed: () => Navigator.of(context).pop(),
+                            ),
+                            ElevatedButton(
+                              child: Text(
+                                MaterialLocalizations.of(context).okButtonLabel,
+                              ),
+                              // Capture image on button press.
+                              onPressed: () async {
+                                final navigator = Navigator.of(context);
+                                final imageFile =
+                                    await _controller?.takePicture();
+                                if (imageFile != null) {
+                                  var content = await imageFile.readAsBytes();
+                                  return navigator.pop(content);
+                                }
+                              },
+                            ),
+                          ],
+                        ),
+                      ],
+                    );
+                  },
+                ),
               ),
             ),
           ],

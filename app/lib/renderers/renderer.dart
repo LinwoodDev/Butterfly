@@ -14,7 +14,7 @@ import 'package:butterfly_api/butterfly_api.dart';
 import 'package:butterfly_api/butterfly_text.dart' as text;
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart' hide Image;
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:butterfly/src/generated/i18n/app_localizations.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:image/image.dart' as img;
 import 'package:markdown/markdown.dart' as md;
@@ -65,14 +65,22 @@ class DefaultHitCalculator extends HitCalculator {
     if (rect == null) return false;
     final center = rect!.center;
     final isCenter = isPointInPolygon(polygon, center);
-    final isTopLeft =
-        isPointInPolygon(polygon, rect!.topLeft.rotate(center, rotation));
-    final isTopRight =
-        isPointInPolygon(polygon, rect!.topRight.rotate(center, rotation));
-    final isBottomLeft =
-        isPointInPolygon(polygon, rect!.bottomLeft.rotate(center, rotation));
-    final isBottomRight =
-        isPointInPolygon(polygon, rect!.bottomRight.rotate(center, rotation));
+    final isTopLeft = isPointInPolygon(
+      polygon,
+      rect!.topLeft.rotate(center, rotation),
+    );
+    final isTopRight = isPointInPolygon(
+      polygon,
+      rect!.topRight.rotate(center, rotation),
+    );
+    final isBottomLeft = isPointInPolygon(
+      polygon,
+      rect!.bottomLeft.rotate(center, rotation),
+    );
+    final isBottomRight = isPointInPolygon(
+      polygon,
+      rect!.bottomRight.rotate(center, rotation),
+    );
     if (full) {
       return isCenter &&
           isTopLeft &&
@@ -179,15 +187,20 @@ abstract class Renderer<T> {
       createUniqueId();
 
   @mustCallSuper
-  FutureOr<void> setup(NoteData document, AssetService assetService,
-          DocumentPage page) async =>
+  FutureOr<void> setup(
+    NoteData document,
+    AssetService assetService,
+    DocumentPage page,
+  ) async =>
       _updateArea(page);
 
   void dispose() {}
 
   void _updateArea(DocumentPage page) => area = rect == null
       ? null
-      : page.areas.firstWhereOrNull((area) => area.rect.overlaps(rect!));
+      : page.areas.firstWhereOrNull(
+          (area) => area.rect.overlaps(rect!),
+        );
   bool onAreaUpdate(NoteData document, DocumentPage page, Area? area) {
     if (area?.rect.overlaps(rect!) ?? false) {
       this.area = area;
@@ -195,8 +208,12 @@ abstract class Renderer<T> {
     return false;
   }
 
-  bool onAssetUpdate(NoteData document, AssetService assetService,
-          DocumentPage page, String path) =>
+  bool onAssetUpdate(
+    NoteData document,
+    AssetService assetService,
+    DocumentPage page,
+    String path,
+  ) =>
       false;
 
   Rect? get rect => null;
@@ -221,15 +238,26 @@ abstract class Renderer<T> {
     return Rect.fromLTRB(left, top, right, bottom);
   }
 
-  void build(Canvas canvas, Size size, NoteData document, DocumentPage page,
-      DocumentInfo info, CameraTransform transform,
-      [ColorScheme? colorScheme, bool foreground = false]);
+  void build(
+    Canvas canvas,
+    Size size,
+    NoteData document,
+    DocumentPage page,
+    DocumentInfo info,
+    CameraTransform transform, [
+    ColorScheme? colorScheme,
+    bool foreground = false,
+  ]);
 
   HitCalculator getHitCalculator() =>
       DefaultHitCalculator(rect, this.rotation * (pi / 180));
 
-  void buildSvg(XmlDocument xml, NoteData document, DocumentPage page,
-      Rect viewportRect) {}
+  void buildSvg(
+    XmlDocument xml,
+    NoteData document,
+    DocumentPage page,
+    Rect viewportRect,
+  ) {}
 
   Renderer<T>? transform({
     Offset? position,

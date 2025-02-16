@@ -3,7 +3,7 @@ import 'package:butterfly/cubits/current_index.dart';
 import 'package:butterfly/helpers/element.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:butterfly/src/generated/i18n/app_localizations.dart';
 import 'package:lw_sysapi/lw_sysapi.dart';
 
 class ExportService {

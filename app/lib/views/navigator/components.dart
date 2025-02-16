@@ -3,7 +3,7 @@ import 'package:butterfly/cubits/current_index.dart';
 import 'package:butterfly/handlers/handler.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:butterfly/src/generated/i18n/app_localizations.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
@@ -42,7 +42,8 @@ class _ComponentsViewState extends State<ComponentsView> {
             final packs = data.getPacks();
             final components = packs
                 .where(
-                    (e) => selectedPacks.isEmpty || selectedPacks.contains(e))
+                  (e) => selectedPacks.isEmpty || selectedPacks.contains(e),
+                )
                 .expand((p) {
                   final pack = data.getPack(p);
                   if (pack == null) {
@@ -56,16 +57,14 @@ class _ComponentsViewState extends State<ComponentsView> {
                   return pack.getComponents().map((e) {
                     final component = data.getComponent(e);
                     if (component == null) return null;
-                    return (
-                      PackAssetLocation(p, e),
-                      pack,
-                      component,
-                    );
+                    return (PackAssetLocation(p, e), pack, component);
                   }).nonNulls;
                 })
-                .where((e) => e.$1.name
-                    .toLowerCase()
-                    .contains(_searchController.text.toLowerCase()))
+                .where(
+                  (e) => e.$1.name.toLowerCase().contains(
+                        _searchController.text.toLowerCase(),
+                      ),
+                )
                 .toList();
             return Column(
               children: [
@@ -78,17 +77,19 @@ class _ComponentsViewState extends State<ComponentsView> {
                     MenuAnchor(
                       builder: defaultMenuButton(),
                       menuChildren: packs
-                          .map((e) => CheckboxMenuButton(
-                                value: selectedPacks.contains(e),
-                                child: Text(e),
-                                onChanged: (value) => setState(() {
-                                  if (value ?? true) {
-                                    selectedPacks.add(e);
-                                  } else {
-                                    selectedPacks.remove(e);
-                                  }
-                                }),
-                              ))
+                          .map(
+                            (e) => CheckboxMenuButton(
+                              value: selectedPacks.contains(e),
+                              child: Text(e),
+                              onChanged: (value) => setState(() {
+                                if (value ?? true) {
+                                  selectedPacks.add(e);
+                                } else {
+                                  selectedPacks.remove(e);
+                                }
+                              }),
+                            ),
+                          )
                           .toList(),
                     ),
                   ],
@@ -146,43 +147,46 @@ class _ComponentCard extends StatelessWidget {
     return Card(
       clipBehavior: Clip.antiAlias,
       child: InkWell(
-        onTap: () => context
-            .read<CurrentIndexCubit>()
-            .changeTemporaryHandler(context, StampTool(component: location)),
-        child: Container(
-            height: 150,
-            width: 150,
-            padding: const EdgeInsets.all(8),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(12),
-              border: Border.all(
-                color: selected
-                    ? ColorScheme.of(context).primary
-                    : Colors.transparent,
-                width: 4,
-              ),
+        onTap: () => context.read<CurrentIndexCubit>().changeTemporaryHandler(
+              context,
+              StampTool(component: location),
             ),
-            child: Column(
-              children: [
-                Expanded(
-                    child: thumbnail == null
-                        ? fallbackWidget
-                        : Image.memory(
-                            thumbnail,
-                            width: 48,
-                            height: 48,
-                            fit: BoxFit.contain,
-                            errorBuilder: (context, error, stackTrace) =>
-                                fallbackWidget,
-                          )),
-                const SizedBox(height: 8),
-                Text(
-                  component.name,
-                  style: TextTheme.of(context).titleMedium,
-                  textAlign: TextAlign.center,
-                ),
-              ],
-            )),
+        child: Container(
+          height: 150,
+          width: 150,
+          padding: const EdgeInsets.all(8),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(12),
+            border: Border.all(
+              color: selected
+                  ? ColorScheme.of(context).primary
+                  : Colors.transparent,
+              width: 4,
+            ),
+          ),
+          child: Column(
+            children: [
+              Expanded(
+                child: thumbnail == null
+                    ? fallbackWidget
+                    : Image.memory(
+                        thumbnail,
+                        width: 48,
+                        height: 48,
+                        fit: BoxFit.contain,
+                        errorBuilder: (context, error, stackTrace) =>
+                            fallbackWidget,
+                      ),
+              ),
+              const SizedBox(height: 8),
+              Text(
+                component.name,
+                style: TextTheme.of(context).titleMedium,
+                textAlign: TextAlign.center,
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }

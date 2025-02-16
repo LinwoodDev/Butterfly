@@ -5,7 +5,7 @@ import 'package:butterfly_api/butterfly_api.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:butterfly/src/generated/i18n/app_localizations.dart';
 import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
@@ -114,7 +114,8 @@ class _ColorToolbarViewState extends State<ColorToolbarView> {
         colors: [...currentPalette.colors, srgb],
       );
       bloc.add(
-          PackUpdated(colorPalette!.pack, pack!.setPalette(currentPalette!)));
+        PackUpdated(colorPalette!.pack, pack!.setPalette(currentPalette!)),
+      );
     }
 
     try {
@@ -151,9 +152,12 @@ class _ColorToolbarViewState extends State<ColorToolbarView> {
                       suggested: settingsCubit.state.recentColors,
                       secondaryActions: (close) => [
                         OutlinedButton(
-                          onPressed: () =>
-                              close(ColorPickerToolbarAction.delete),
-                          child: Text(AppLocalizations.of(context).delete),
+                          onPressed: () => close(
+                            ColorPickerToolbarAction.delete,
+                          ),
+                          child: Text(
+                            AppLocalizations.of(context).delete,
+                          ),
                         ),
                       ],
                     ),
@@ -170,8 +174,9 @@ class _ColorToolbarViewState extends State<ColorToolbarView> {
                         ..[index] = response.toSRGB(),
                     );
                   }
-                  bloc.add(PackUpdated(
-                      colorPalette!.pack, pack!.setPalette(palette!)));
+                  bloc.add(
+                    PackUpdated(colorPalette!.pack, pack!.setPalette(palette!)),
+                  );
                   widget.onChanged(response.toSRGB());
                   setState(() {});
                 }
@@ -201,14 +206,15 @@ class _ColorToolbarViewState extends State<ColorToolbarView> {
               child: IconButton(
                 onPressed: () async {
                   final result = await showDialog<PackAssetLocation>(
-                      context: context,
-                      builder: (context) => BlocProvider.value(
-                            value: bloc,
-                            child: SelectPackAssetDialog(
-                              type: PackAssetType.palette,
-                              selected: colorPalette,
-                            ),
-                          ));
+                    context: context,
+                    builder: (context) => BlocProvider.value(
+                      value: bloc,
+                      child: SelectPackAssetDialog(
+                        type: PackAssetType.palette,
+                        selected: colorPalette,
+                      ),
+                    ),
+                  );
 
                   if (result == null) return;
                   setState(() {
