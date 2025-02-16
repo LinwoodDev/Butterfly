@@ -195,7 +195,15 @@
   "currentArea": "当前区域",
   "design": "设计",
   "text": "文本",
-  "welcome": "嘿，它是 Linwood Butterflight",
+  "welcome": "Hey, this is Linwood Butterfly {codeName}",
+  "@welcome": {
+    "placeholders": {
+      "codeName": {
+        "type": "String",
+        "example": "Dev"
+      }
+    }
+  },
   "welcomeContent": "一个自由和开源的绘图空间！",
   "updated": "应用程序更新到版本 {version}",
   "@updated": {
@@ -637,5 +645,9 @@
   "passwordMismatch": "密码不匹配",
   "action": "动作",
   "svgText": "SVG 文本",
-  "offset": "偏移量"
+  "offset": "偏移量",
+  "positionDependent": "位置依赖关系",
+  "flipHorizontal": "水平翻转",
+  "flipVertical": "垂直翻转",
+  "grayscale": "Grayscale"
 }

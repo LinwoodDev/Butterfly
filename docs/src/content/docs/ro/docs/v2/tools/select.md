@@ -8,4 +8,4 @@ With this tool you can select elements.
 
 | Proprietate |  Implicit  | Descriere                                                        |
 | ----------: | :--------: | :--------------------------------------------------------------- |
-|        mode | dreptunghi | Mode of selection. Valid are rectangle and lasso |
+|        Mode | Dreptunghi | Mode of selection. Valid are Rectangle and Lasso |

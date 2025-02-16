@@ -195,7 +195,15 @@
   "currentArea": "Área atual",
   "design": "Projetar",
   "text": "texto",
-  "welcome": "Ei, esta é a Borboleta Linwood",
+  "welcome": "Ei, esta é a Borboleta Linwood {codeName}",
+  "@welcome": {
+    "placeholders": {
+      "codeName": {
+        "type": "String",
+        "example": "Dev"
+      }
+    }
+  },
   "welcomeContent": "Um espaço de desenho gratuito e de código-aberto!",
   "updated": "Aplicativo atualizado para a versão {version}",
   "@updated": {
@@ -637,5 +645,9 @@
   "passwordMismatch": "As senhas não coincidem",
   "action": "Acão",
   "svgText": "Texto SVG",
-  "offset": "Deslocamento"
+  "offset": "Deslocamento",
+  "positionDependent": "dependente da posição",
+  "flipHorizontal": "Inverter horizontalmente",
+  "flipVertical": "Inverter verticalmente",
+  "grayscale": "Grayscale"
 }

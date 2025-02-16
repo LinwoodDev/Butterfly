@@ -195,7 +195,15 @@
   "currentArea": "Zona curentă",
   "design": "Proiectare",
   "text": "Text",
-  "welcome": "Hei, acesta este Linwood Butterfly",
+  "welcome": "Hei, acesta este Linwood Butterfly {codeName}",
+  "@welcome": {
+    "placeholders": {
+      "codeName": {
+        "type": "String",
+        "example": "Dev"
+      }
+    }
+  },
   "welcomeContent": "Un spaţiu de desenare gratuit şi open-source!",
   "updated": "Aplicație actualizată la versiunea {version}",
   "@updated": {
@@ -637,5 +645,9 @@
   "passwordMismatch": "Parolele nu se potrivesc",
   "action": "Acțiune",
   "svgText": "Text SVG",
-  "offset": "Decalaj"
+  "offset": "Decalaj",
+  "positionDependent": "Depinde de poziție",
+  "flipHorizontal": "Rotire orizontală",
+  "flipVertical": "Întoarce vertical",
+  "grayscale": "Grayscale"
 }

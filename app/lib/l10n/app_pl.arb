@@ -195,7 +195,15 @@
   "currentArea": "Bieżący obszar",
   "design": "Projekt",
   "text": "Tekst",
-  "welcome": "Hej, to jest Łuskowy Motyw",
+  "welcome": "Hej, to jest Linwood Butterfly {codeName}",
+  "@welcome": {
+    "placeholders": {
+      "codeName": {
+        "type": "String",
+        "example": "Dev"
+      }
+    }
+  },
   "welcomeContent": "Wolne i otwarte miejsce na rysowanie!",
   "updated": "Aplikacja zaktualizowana do wersji {version}",
   "@updated": {
@@ -637,5 +645,9 @@
   "passwordMismatch": "Hasła nie pasują",
   "action": "Akcja",
   "svgText": "Tekst SVG",
-  "offset": "Przesunięcie"
+  "offset": "Przesunięcie",
+  "positionDependent": "Pozycja zależna",
+  "flipHorizontal": "Odwróć poziomo",
+  "flipVertical": "Odwróć w pionie",
+  "grayscale": "Grayscale"
 }

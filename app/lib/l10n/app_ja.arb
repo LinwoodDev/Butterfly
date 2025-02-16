@@ -195,7 +195,15 @@
   "currentArea": "現在のエリア",
   "design": "デザイン",
   "text": "テキスト",
-  "welcome": "おい、これはLinwood Butterfly",
+  "welcome": "これはLinwood Butterfly {codeName}",
+  "@welcome": {
+    "placeholders": {
+      "codeName": {
+        "type": "String",
+        "example": "Dev"
+      }
+    }
+  },
   "welcomeContent": "フリーでオープンソースのドローイングスペース！",
   "updated": "アプリをバージョン {version} に更新しました",
   "@updated": {
@@ -637,5 +645,9 @@
   "passwordMismatch": "パスワードが一致しません",
   "action": "アクション",
   "svgText": "SVGテキスト",
-  "offset": "オフセット"
+  "offset": "オフセット",
+  "positionDependent": "依存する位置",
+  "flipHorizontal": "水平方向に反転",
+  "flipVertical": "垂直方向に反転",
+  "grayscale": "Grayscale"
 }

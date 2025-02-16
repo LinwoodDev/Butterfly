@@ -195,7 +195,15 @@
   "currentArea": "Huidig gebied",
   "design": "Ontwerp",
   "text": "Tekstveld",
-  "welcome": "Hé, dit is Linwood Vlinder",
+  "welcome": "Hé, dit is Linwood Vlinder {codeName}",
+  "@welcome": {
+    "placeholders": {
+      "codeName": {
+        "type": "String",
+        "example": "Dev"
+      }
+    }
+  },
   "welcomeContent": "Een vrije en open source tekenruimte!",
   "updated": "App bijgewerkt naar versie {version}",
   "@updated": {
@@ -637,5 +645,9 @@
   "passwordMismatch": "De wachtwoorden komen niet overeen",
   "action": "actie",
   "svgText": "SVG tekst",
-  "offset": "Verschuiving"
+  "offset": "Verschuiving",
+  "positionDependent": "Afhankelijke positie",
+  "flipHorizontal": "Horizontaal spiegelen",
+  "flipVertical": "Spiegel verticaal",
+  "grayscale": "Grayscale"
 }

@@ -195,7 +195,15 @@
   "currentArea": "Текущая область",
   "design": "Дизайн",
   "text": "Текст",
-  "welcome": "Эй, это Линвуд Бабочка",
+  "welcome": "Эй, это Linwood Butterfly {codeName}",
+  "@welcome": {
+    "placeholders": {
+      "codeName": {
+        "type": "String",
+        "example": "Dev"
+      }
+    }
+  },
   "welcomeContent": "Свободное место для рисования с открытым исходным кодом!",
   "updated": "Приложение обновлено до версии {version}",
   "@updated": {
@@ -637,5 +645,9 @@
   "passwordMismatch": "Пароли не совпадают",
   "action": "Действие",
   "svgText": "SVG текст",
-  "offset": "Смещение"
+  "offset": "Смещение",
+  "positionDependent": "Зависит от позиции",
+  "flipHorizontal": "Отразить по горизонтали",
+  "flipVertical": "Отразить вертикально",
+  "grayscale": "Grayscale"
 }

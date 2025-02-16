@@ -9,7 +9,7 @@ Use `ctrl` to have the same height and width and `shift` to draw from the center
 
 ## Configuração
 
-|         Propriedade |  Default  | Descrição                                                                                                                                                                                        |
+|         Propriedade |   Padrão  | Descrição                                                                                                                                                                                        |
 | ------------------: | :-------: | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 |                 Cor |   Preto   | A cor que será desenhada                                                                                                                                                                         |
 |  Espessura do traço |     5     | A largura do traço                                                                                                                                                                               |
@@ -23,14 +23,14 @@ Use `ctrl` to have the same height and width and `shift` to draw from the center
 
 #### Retângulo
 
-|     Propriedade |    Default   | Descrição                                    |
+|     Propriedade |    Padrão    | Descrição                                    |
 | --------------: | :----------: | :------------------------------------------- |
 |       Preencher | Transparente | A cor que será desenhada dentro do retângulo |
 | Raio das bordas |  0, 0, 0, 0  | O raio dos cantos do retângulo               |
 
 #### Círculo
 
-| Propriedade |    Default   | Descrição                                    |
+| Propriedade |    Padrão    | Descrição                                    |
 | ----------: | :----------: | :------------------------------------------- |
 |   Preencher | Transparente | A cor que será desenhada dentro do retângulo |
 

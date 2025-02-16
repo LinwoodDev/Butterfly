@@ -195,7 +195,15 @@
   "currentArea": "Aktuální oblast",
   "design": "Vzhled",
   "text": "Text",
-  "welcome": "Hey, tohle je Linwood Butterfly",
+  "welcome": "Hej, toto je Linwood Butterfly {codeName}",
+  "@welcome": {
+    "placeholders": {
+      "codeName": {
+        "type": "String",
+        "example": "Dev"
+      }
+    }
+  },
   "welcomeContent": "Volný a open-source prostor pro kreslení!",
   "updated": "Aplikace byla aktualizována na verzi {version}",
   "@updated": {
@@ -637,5 +645,9 @@
   "passwordMismatch": "Hesla se neshodují",
   "action": "Akce",
   "svgText": "SVG text",
-  "offset": "Odsazení"
+  "offset": "Odsazení",
+  "positionDependent": "Závislost na poloze",
+  "flipHorizontal": "Překlopit vodorovně",
+  "flipVertical": "Překlopit svisle",
+  "grayscale": "Grayscale"
 }

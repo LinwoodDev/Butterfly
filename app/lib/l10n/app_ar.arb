@@ -195,7 +195,15 @@
   "currentArea": "المجال الحالي",
   "design": "تصميم",
   "text": "نص",
-  "welcome": "مرحبا، هذه فراشة لينوود",
+  "welcome": "مرحبا، هذه فراشة لينوود {codeName}",
+  "@welcome": {
+    "placeholders": {
+      "codeName": {
+        "type": "String",
+        "example": "Dev"
+      }
+    }
+  },
   "welcomeContent": "مساحة رسم مجانية ومفتوحة المصدر!",
   "updated": "تم تحديث التطبيق إلى الإصدار {version}",
   "@updated": {
@@ -637,5 +645,9 @@
   "passwordMismatch": "كلمات المرور غير متطابقة",
   "action": "اجراء",
   "svgText": "نص SVG",
-  "offset": "إزاحة"
+  "offset": "إزاحة",
+  "positionDependent": "موقع معتمد",
+  "flipHorizontal": "قلب أفقي",
+  "flipVertical": "قلب عمودي",
+  "grayscale": "Grayscale"
 }

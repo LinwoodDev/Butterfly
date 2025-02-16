@@ -8,4 +8,4 @@ With this tool you can select elements.
 
 | Властивість |    Типово   | Опис                                                             |
 | ----------: | :---------: | :--------------------------------------------------------------- |
-|        mode | прямокутник | Mode of selection. Valid are rectangle and lasso |
+|        Mode | Прямокутник | Mode of selection. Valid are Rectangle and Lasso |

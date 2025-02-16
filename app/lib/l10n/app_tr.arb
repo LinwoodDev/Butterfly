@@ -195,7 +195,15 @@
   "currentArea": "Mevcut alan",
   "design": "Tasarım",
   "text": "Metin",
-  "welcome": "Hey, bu Linwood Butterfly",
+  "welcome": "Hey, this is Linwood Butterfly {codeName}",
+  "@welcome": {
+    "placeholders": {
+      "codeName": {
+        "type": "String",
+        "example": "Dev"
+      }
+    }
+  },
   "welcomeContent": "Ücretsiz ve açık kaynaklı bir çizim alanı!",
   "updated": "Uygulama {version} sürümüne güncellendi",
   "@updated": {
@@ -637,5 +645,9 @@
   "passwordMismatch": "The passwords do not match",
   "action": "Eylem",
   "svgText": "SVG Text",
-  "offset": "Offset"
+  "offset": "Offset",
+  "positionDependent": "Position dependent",
+  "flipHorizontal": "Flip horizontal",
+  "flipVertical": "Flip vertical",
+  "grayscale": "Grayscale"
 }

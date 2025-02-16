@@ -8,4 +8,4 @@ With this tool you can select elements.
 
 | Özellik | Varsayılan | Tanım                                                            |
 | ------: | :--------: | :--------------------------------------------------------------- |
-|    mode | dikdörtgen | Mode of selection. Valid are rectangle and lasso |
+|    Mode | Dikdörtgen | Mode of selection. Valid are Rectangle and Lasso |

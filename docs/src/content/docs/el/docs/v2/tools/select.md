@@ -8,4 +8,4 @@ With this tool you can select elements.
 
 | Ιδιότητα | Προεπιλογή | Περιγραφή                                                        |
 | -------: | :--------: | :--------------------------------------------------------------- |
-|     mode |  ορθογώνιο | Mode of selection. Valid are rectangle and lasso |
+|     Mode |  Ορθογώνιο | Mode of selection. Valid are Rectangle and Lasso |

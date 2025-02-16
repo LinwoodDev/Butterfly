@@ -8,4 +8,4 @@ With this tool you can select elements.
 
 | الممتلكات | الافتراضي | الوصف                                                            |
 | --------: | :-------: | :--------------------------------------------------------------- |
-|      mode |   مستطيل  | Mode of selection. Valid are rectangle and lasso |
+|      Mode |   مستطيل  | Mode of selection. Valid are Rectangle and Lasso |

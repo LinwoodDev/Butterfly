@@ -195,7 +195,15 @@
   "currentArea": "Zone actuelle",
   "design": "Conception",
   "text": "Texte du texte",
-  "welcome": "Hé, voici Linwood Butterfly",
+  "welcome": "Hé, c'est le Papillon de bois de Linwood {codeName}",
+  "@welcome": {
+    "placeholders": {
+      "codeName": {
+        "type": "String",
+        "example": "Dev"
+      }
+    }
+  },
   "welcomeContent": "Un espace de dessin libre et open-source !",
   "updated": "Application mise à jour vers la version {version}",
   "@updated": {
@@ -637,5 +645,9 @@
   "passwordMismatch": "Les mots de passe ne correspondent pas",
   "action": "Action",
   "svgText": "Texte SVG",
-  "offset": "Décalage"
+  "offset": "Décalage",
+  "positionDependent": "Dépendant de la position",
+  "flipHorizontal": "Retourner horizontale",
+  "flipVertical": "Retourner verticalement",
+  "grayscale": "Grayscale"
 }

@@ -195,7 +195,15 @@
   "currentArea": "Nuvarande område",
   "design": "Design",
   "text": "Text",
-  "welcome": "Hej, detta är Linwood fjäril",
+  "welcome": "Hej, detta är Linwood fjäril {codeName}",
+  "@welcome": {
+    "placeholders": {
+      "codeName": {
+        "type": "String",
+        "example": "Dev"
+      }
+    }
+  },
   "welcomeContent": "En fri och öppen källkodsritningsyta!",
   "updated": "Appen uppdaterad till version {version}",
   "@updated": {
@@ -637,5 +645,9 @@
   "passwordMismatch": "Lösenorden matchar inte",
   "action": "Åtgärd",
   "svgText": "SVG Text",
-  "offset": "Förskjutning"
+  "offset": "Förskjutning",
+  "positionDependent": "Beroende på position",
+  "flipHorizontal": "Vänd horisontell",
+  "flipVertical": "Vänd vertikalt",
+  "grayscale": "Grayscale"
 }

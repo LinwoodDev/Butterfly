@@ -195,7 +195,15 @@
   "currentArea": "Τρέχουσα περιοχή",
   "design": "Σχεδιασμός",
   "text": "Κείμενο",
-  "welcome": "Γεια σας, αυτό είναι Linwood πεταλούδα",
+  "welcome": "Hey, this is Linwood Butterfly {codeName}",
+  "@welcome": {
+    "placeholders": {
+      "codeName": {
+        "type": "String",
+        "example": "Dev"
+      }
+    }
+  },
   "welcomeContent": "Ένας ελεύθερος και ανοιχτού κώδικα χώρος σχεδίασης!",
   "updated": "Η εφαρμογή ενημερώθηκε στην έκδοση {version}",
   "@updated": {
@@ -637,5 +645,9 @@
   "passwordMismatch": "Οι κωδικοί πρόσβασης δεν ταιριάζουν",
   "action": "Ενέργεια",
   "svgText": "Κείμενο SVG",
-  "offset": "Μετατόπιση"
+  "offset": "Μετατόπιση",
+  "positionDependent": "Εξάρτηση από τη θέση",
+  "flipHorizontal": "Οριζόντια αναστροφή",
+  "flipVertical": "Κάθετη αναστροφή",
+  "grayscale": "Grayscale"
 }

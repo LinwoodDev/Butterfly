@@ -195,7 +195,15 @@
   "currentArea": "Gjeldende område",
   "design": "Utforming",
   "text": "Tekst",
-  "welcome": "Hey, dette er Linwood Butterfly",
+  "welcome": "Hei, dette er Linwood Butterfly {codeName}",
+  "@welcome": {
+    "placeholders": {
+      "codeName": {
+        "type": "String",
+        "example": "Dev"
+      }
+    }
+  },
   "welcomeContent": "En gratis og åpen kildekode tegning plass!",
   "updated": "App oppdatert til versjon {version}",
   "@updated": {
@@ -637,5 +645,9 @@
   "passwordMismatch": "Passordene samsvarer ikke",
   "action": "Handling",
   "svgText": "SVG tekst",
-  "offset": "Forskyvning"
+  "offset": "Forskyvning",
+  "positionDependent": "Posisjon avhengig",
+  "flipHorizontal": "Vend horisontalt",
+  "flipVertical": "Vend vertikalt",
+  "grayscale": "Grayscale"
 }
