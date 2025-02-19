@@ -87,6 +87,15 @@ class ToolSelection<T extends Tool> extends Selection<T> {
   }
 
   @override
+  String getLocalizedCaption(BuildContext context) {
+    final type = selected.first.runtimeType;
+    if (selected.every((e) => e.runtimeType == type)) {
+      return selected.first.getLocalizedCaption(context);
+    }
+    return '';
+  }
+
+  @override
   IconGetter get icon {
     final type = selected.first.runtimeType;
     if (selected.every((e) => e.runtimeType == type)) {

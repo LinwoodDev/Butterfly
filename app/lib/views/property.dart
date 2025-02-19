@@ -69,6 +69,7 @@ class _PropertyViewState extends State<PropertyView>
         final help = showing.help;
         final multi = showing.selected.length != 1;
         final selected = showing.selected.first;
+        final caption = showing.getLocalizedCaption(context);
         final controller = MenuController();
         final menuChildren = multi
             ? <Widget>[]
@@ -153,8 +154,25 @@ class _PropertyViewState extends State<PropertyView>
                                     Header(
                                       centerTitle: false,
                                       leadingWidth: 60,
-                                      title: Text(
-                                        showing.getLocalizedName(context),
+                                      title: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.stretch,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Flexible(
+                                            child: Text(
+                                              showing.getLocalizedName(context),
+                                            ),
+                                          ),
+                                          if (caption.isNotEmpty)
+                                            Text(
+                                              caption,
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .labelLarge,
+                                            ),
+                                        ],
                                       ),
                                       leading: menuChildren.length <= 1
                                           ? PhosphorIcon(

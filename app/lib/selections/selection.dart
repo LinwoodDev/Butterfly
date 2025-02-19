@@ -83,6 +83,8 @@ abstract class Selection<T> {
 
   String getLocalizedName(BuildContext context);
 
+  String getLocalizedCaption(BuildContext context) => '';
+
   IconGetter get icon;
 
   List<Widget> buildProperties(BuildContext context) => [];

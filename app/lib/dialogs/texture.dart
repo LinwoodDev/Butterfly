@@ -70,151 +70,154 @@ class _TextureViewState extends State<TextureView> {
             ],
           ),
           Expanded(
-            child: TabBarView(
-              children: [
-                ListView(
-                  children: [
-                    ColorField(
-                      value: widget.value.boxXColor.withValues(a: 255),
-                      onChanged: (value) => widget.onChanged(
-                        widget.value.copyWith(
-                          boxXColor: value.withValues(
-                            a: widget.value.boxXColor.a,
+            child: Material(
+              type: MaterialType.transparency,
+              child: TabBarView(
+                children: [
+                  ListView(
+                    children: [
+                      ColorField(
+                        value: widget.value.boxXColor.withValues(a: 255),
+                        onChanged: (value) => widget.onChanged(
+                          widget.value.copyWith(
+                            boxXColor: value.withValues(
+                              a: widget.value.boxXColor.a,
+                            ),
+                          ),
+                        ),
+                        title: Text(LeapLocalizations.of(context).color),
+                      ),
+                      ExactSlider(
+                        value: widget.value.boxXColor.a.toDouble(),
+                        header: Text(AppLocalizations.of(context).alpha),
+                        fractionDigits: 0,
+                        max: 255,
+                        min: 0,
+                        defaultValue: 255,
+                        onChanged: (value) => widget.onChanged(
+                          widget.value.copyWith(
+                            boxXColor: widget.value.boxXColor.withValues(
+                              a: value.toInt(),
+                            ),
                           ),
                         ),
                       ),
-                      title: Text(LeapLocalizations.of(context).color),
-                    ),
-                    ExactSlider(
-                      value: widget.value.boxXColor.a.toDouble(),
-                      header: Text(AppLocalizations.of(context).alpha),
-                      fractionDigits: 0,
-                      max: 255,
-                      min: 0,
-                      defaultValue: 255,
-                      onChanged: (value) => widget.onChanged(
-                        widget.value.copyWith(
-                          boxXColor: widget.value.boxXColor.withValues(
-                            a: value.toInt(),
+                      ExactSlider(
+                        onChanged: (value) => widget.onChanged(
+                          widget.value.copyWith(boxWidth: value),
+                        ),
+                        header: Text(AppLocalizations.of(context).width),
+                        value: widget.value.boxWidth,
+                        defaultValue: 0,
+                        min: 0,
+                        max: 500,
+                      ),
+                      ExactSlider(
+                        onChanged: (value) => widget.onChanged(
+                          widget.value.copyWith(boxXCount: value.round()),
+                        ),
+                        header: Text(AppLocalizations.of(context).count),
+                        value: widget.value.boxXCount.toDouble(),
+                        fractionDigits: 0,
+                        defaultValue: 0,
+                        min: 0,
+                        max: 20,
+                      ),
+                      ExactSlider(
+                        onChanged: (value) => widget.onChanged(
+                          widget.value.copyWith(boxXSpace: value),
+                        ),
+                        header: Text(AppLocalizations.of(context).space),
+                        value: widget.value.boxXSpace,
+                        defaultValue: 0,
+                        min: 0,
+                        max: 500,
+                      ),
+                      ExactSlider(
+                        onChanged: (value) => widget.onChanged(
+                          widget.value.copyWith(boxXStroke: value),
+                        ),
+                        header: Text(AppLocalizations.of(context).strokeWidth),
+                        value: widget.value.boxXStroke,
+                        defaultValue: 0.5,
+                        min: 0.1,
+                        max: 50,
+                      ),
+                    ],
+                  ),
+                  ListView(
+                    children: [
+                      ColorField(
+                        value: widget.value.boxYColor.withValues(a: 255),
+                        onChanged: (value) => widget.onChanged(
+                          widget.value.copyWith(
+                            boxYColor: value.withValues(
+                              a: widget.value.boxYColor.a,
+                            ),
+                          ),
+                        ),
+                        title: Text(LeapLocalizations.of(context).color),
+                      ),
+                      ExactSlider(
+                        value: widget.value.boxYColor.a.toDouble(),
+                        header: Text(AppLocalizations.of(context).alpha),
+                        fractionDigits: 0,
+                        max: 255,
+                        min: 0,
+                        defaultValue: 255,
+                        onChanged: (value) => widget.onChanged(
+                          widget.value.copyWith(
+                            boxYColor: widget.value.boxYColor.withValues(
+                              a: value.toInt(),
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                    ExactSlider(
-                      onChanged: (value) => widget.onChanged(
-                        widget.value.copyWith(boxWidth: value),
-                      ),
-                      header: Text(AppLocalizations.of(context).width),
-                      value: widget.value.boxWidth,
-                      defaultValue: 0,
-                      min: 0,
-                      max: 500,
-                    ),
-                    ExactSlider(
-                      onChanged: (value) => widget.onChanged(
-                        widget.value.copyWith(boxXCount: value.round()),
-                      ),
-                      header: Text(AppLocalizations.of(context).count),
-                      value: widget.value.boxXCount.toDouble(),
-                      fractionDigits: 0,
-                      defaultValue: 0,
-                      min: 0,
-                      max: 20,
-                    ),
-                    ExactSlider(
-                      onChanged: (value) => widget.onChanged(
-                        widget.value.copyWith(boxXSpace: value),
-                      ),
-                      header: Text(AppLocalizations.of(context).space),
-                      value: widget.value.boxXSpace,
-                      defaultValue: 0,
-                      min: 0,
-                      max: 500,
-                    ),
-                    ExactSlider(
-                      onChanged: (value) => widget.onChanged(
-                        widget.value.copyWith(boxXStroke: value),
-                      ),
-                      header: Text(AppLocalizations.of(context).strokeWidth),
-                      value: widget.value.boxXStroke,
-                      defaultValue: 0.5,
-                      min: 0.1,
-                      max: 50,
-                    ),
-                  ],
-                ),
-                ListView(
-                  children: [
-                    ColorField(
-                      value: widget.value.boxYColor.withValues(a: 255),
-                      onChanged: (value) => widget.onChanged(
-                        widget.value.copyWith(
-                          boxYColor: value.withValues(
-                            a: widget.value.boxYColor.a,
-                          ),
+                      ExactSlider(
+                        onChanged: (value) => widget.onChanged(
+                          widget.value.copyWith(boxHeight: value),
                         ),
+                        header: Text(AppLocalizations.of(context).width),
+                        value: widget.value.boxHeight,
+                        defaultValue: 0,
+                        min: 0,
+                        max: 500,
                       ),
-                      title: Text(LeapLocalizations.of(context).color),
-                    ),
-                    ExactSlider(
-                      value: widget.value.boxYColor.a.toDouble(),
-                      header: Text(AppLocalizations.of(context).alpha),
-                      fractionDigits: 0,
-                      max: 255,
-                      min: 0,
-                      defaultValue: 255,
-                      onChanged: (value) => widget.onChanged(
-                        widget.value.copyWith(
-                          boxYColor: widget.value.boxYColor.withValues(
-                            a: value.toInt(),
-                          ),
+                      ExactSlider(
+                        onChanged: (value) => widget.onChanged(
+                          widget.value.copyWith(boxYCount: value.round()),
                         ),
+                        header: Text(AppLocalizations.of(context).count),
+                        value: widget.value.boxYCount.toDouble(),
+                        defaultValue: 0,
+                        fractionDigits: 0,
+                        min: 0,
+                        max: 20,
                       ),
-                    ),
-                    ExactSlider(
-                      onChanged: (value) => widget.onChanged(
-                        widget.value.copyWith(boxHeight: value),
+                      ExactSlider(
+                        onChanged: (value) => widget.onChanged(
+                          widget.value.copyWith(boxYSpace: value),
+                        ),
+                        header: Text(AppLocalizations.of(context).space),
+                        value: widget.value.boxYSpace,
+                        defaultValue: 0,
+                        min: 0,
+                        max: 500,
                       ),
-                      header: Text(AppLocalizations.of(context).width),
-                      value: widget.value.boxHeight,
-                      defaultValue: 0,
-                      min: 0,
-                      max: 500,
-                    ),
-                    ExactSlider(
-                      onChanged: (value) => widget.onChanged(
-                        widget.value.copyWith(boxYCount: value.round()),
+                      ExactSlider(
+                        onChanged: (value) => widget.onChanged(
+                          widget.value.copyWith(boxYStroke: value),
+                        ),
+                        header: Text(AppLocalizations.of(context).strokeWidth),
+                        value: widget.value.boxYStroke,
+                        defaultValue: 0.5,
+                        min: 0.1,
+                        max: 50,
                       ),
-                      header: Text(AppLocalizations.of(context).count),
-                      value: widget.value.boxYCount.toDouble(),
-                      defaultValue: 0,
-                      fractionDigits: 0,
-                      min: 0,
-                      max: 20,
-                    ),
-                    ExactSlider(
-                      onChanged: (value) => widget.onChanged(
-                        widget.value.copyWith(boxYSpace: value),
-                      ),
-                      header: Text(AppLocalizations.of(context).space),
-                      value: widget.value.boxYSpace,
-                      defaultValue: 0,
-                      min: 0,
-                      max: 500,
-                    ),
-                    ExactSlider(
-                      onChanged: (value) => widget.onChanged(
-                        widget.value.copyWith(boxYStroke: value),
-                      ),
-                      header: Text(AppLocalizations.of(context).strokeWidth),
-                      value: widget.value.boxYStroke,
-                      defaultValue: 0.5,
-                      min: 0.1,
-                      max: 50,
-                    ),
-                  ],
-                ),
-              ],
+                    ],
+                  ),
+                ],
+              ),
             ),
           ),
         ],

@@ -6,6 +6,7 @@
 * Add flip horizontal, vertical and gray scale operation on images ([#794](https://github.com/LinwoodDev/Butterfly/issues/794))
 * Add svg background support
 * Add element count to layer list
+* Add subtitle to property view for tools
 * Grid and ruler will now influence shape, stamp, area and texture tool
 * Improve ruler rotation handling
 * Improve selection change animation
@@ -29,6 +30,7 @@
 * Fix file name validator missing on file rename
 * Fix flipped title and subtitle in search results
 * Fix windows portable archive
+* Fix hover in pattern texture view
 * Remove http sources
 * Upgrade to flutter 3.29
 
