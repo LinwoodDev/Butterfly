@@ -555,6 +555,7 @@
   "eyeDropper": "Σταγονόμετρο ματιών",
   "users": "Χρήστες",
   "experiments": "Πειράματα",
+  "experimentsWarning": "These features are experimental and may change, break, or disappear at any time. Enabling them may cause instability or data loss. Proceed with caution. Please report any bugs.",
   "address": "Διεύθυνση",
   "spreadToPages": "Διαδώστε στις σελίδες",
   "rootDirectorySpecifiedDescription": "Ο ριζικός κατάλογος έχει καθοριστεί. Όλες οι προχωρημένες διαδρομές καταλόγου θα είναι σχετικές με αυτόν τον κατάλογο. Κρατήστε τον κενό για να απενεργοποιήσετε αυτόν τον τύπο καταλόγου.",
