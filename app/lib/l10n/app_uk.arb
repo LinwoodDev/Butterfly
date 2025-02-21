@@ -555,6 +555,7 @@
   "eyeDropper": "Піпетка",
   "users": "Спільноти",
   "experiments": "Експерименти",
+  "experimentsWarning": "These features are experimental and may change, break, or disappear at any time. Enabling them may cause instability or data loss. Proceed with caution. Please report any bugs.",
   "address": "Адреса",
   "spreadToPages": "Поширення на сторінки",
   "rootDirectorySpecifiedDescription": "Кореневий каталог вказаний. Всі просунуті шляхи будуть відносно цієї теки. Залиште порожнім, щоб вимкнути цей тип каталогу.",
