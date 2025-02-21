@@ -1087,7 +1087,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
 
   Future<AssetLocation> save(DocumentState blocState,
       [AssetLocation? location]) async {
-    if (state.networkingService.state?.$1 is NetworkerClient) {
+    if (state.networkingService.isClient) {
       return AssetLocation.empty;
     }
     final storage = getRemoteStorage();

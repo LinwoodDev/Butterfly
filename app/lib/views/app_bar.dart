@@ -211,7 +211,7 @@ class _AppBarTitleState extends State<_AppBarTitle> {
       Row(
         children: [
           Flexible(
-            child: StreamBuilder<NetworkingState?>(
+            child: StreamBuilder<NetworkState?>(
               stream: state.networkingService?.stream,
               builder: (context, snapshot) {
                 return StatefulBuilder(
@@ -269,7 +269,7 @@ class _AppBarTitleState extends State<_AppBarTitle> {
                             ),
                           ),
                         ),
-                        if (snapshot.data?.$1 is NetworkerClient) ...[
+                        if (snapshot.data?.connection is NetworkerClient) ...[
                           Text(
                             AppLocalizations.of(context).collaboration,
                             style: TextTheme.of(context).bodySmall,
@@ -356,7 +356,7 @@ class _AppBarTitleState extends State<_AppBarTitle> {
               ),
             ],
             if (settings.hasFlag('collaboration') && !kIsWeb)
-              StreamBuilder<NetworkingState?>(
+              StreamBuilder<NetworkState?>(
                 stream: state.networkingService.stream,
                 builder: (context, snapshot) => IconButton(
                   icon: const PhosphorIcon(PhosphorIconsLight.shareNetwork),

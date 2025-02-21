@@ -6,6 +6,7 @@ import 'dart:math';
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:networker/networker.dart';
 import 'package:networker_socket/client.dart';
@@ -24,8 +25,38 @@ enum NetworkingType {
 }
 
 const kDefaultPort = 28005;
+const kBroadcastPort = kDefaultPort + 1;
 const kTimeout = Duration(minutes: 5);
-typedef NetworkingState = (NetworkerBase, NamedRpcNetworkerPipe<NetworkEvent>);
+
+sealed class NetworkState {
+  NetworkerBase get connection;
+  final NamedRpcNetworkerPipe<NetworkEvent> pipe;
+
+  NetworkState({
+    required this.pipe,
+  });
+}
+
+final class ServerNetworkState extends NetworkState {
+  @override
+  final NetworkerServer connection;
+  final bool queue;
+  final String password;
+
+  ServerNetworkState({
+    required super.pipe,
+    required this.connection,
+    this.queue = true,
+    this.password = '',
+  });
+}
+
+final class ClientNetworkState extends NetworkState {
+  @override
+  final NetworkerClient connection;
+
+  ClientNetworkState({required super.pipe, required this.connection});
+}
 
 @freezed
 class NetworkingUser with _$NetworkingUser {
@@ -53,16 +84,11 @@ enum NetworkEvent with RpcFunctionName {
       {this.mode = RpcNetworkerMode.authority, this.canRunLocally = false});
 }
 
-class NetworkingService {
+class NetworkingService extends Cubit<NetworkState?> {
   DocumentBloc? _bloc;
-  final BehaviorSubject<NetworkingState?> _subject =
-      BehaviorSubject.seeded(null);
   final BehaviorSubject<Set<Channel>> _connections = BehaviorSubject.seeded({});
   final BehaviorSubject<Map<Channel?, NetworkingUser>> _users =
       BehaviorSubject.seeded({});
-
-  Stream<NetworkingState?> get stream => _subject.stream;
-  NetworkingState? get state => _subject.value;
 
   Stream<Set<Channel>> get connectionsStream => _connections.stream;
   Set<Channel> get connections => _connections.value;
@@ -70,7 +96,7 @@ class NetworkingService {
   Stream<Map<Channel?, NetworkingUser>> get usersStream => _users.stream;
   Map<Channel?, NetworkingUser> get users => _users.value;
 
-  NetworkingService();
+  NetworkingService() : super(null);
 
   bool get isActive => state != null;
 
@@ -108,7 +134,7 @@ class NetworkingService {
     });
     server.connect(rpc);
     await server.init();
-    _subject.add((server, rpc));
+    emit(ServerNetworkState(connection: server, pipe: rpc));
   }
 
   Future<Uint8List?> createSocketClient(Uri uri) async {
@@ -128,13 +154,13 @@ class NetworkingService {
     });
     client.connect(rpc);
     await client.init();
-    _subject.add((client, rpc));
+    emit(ClientNetworkState(connection: client, pipe: rpc));
     return completer.future.timeout(kTimeout);
   }
 
   void closeNetworking() {
-    state?.$1.close();
-    _subject.add(null);
+    state?.connection.close();
+    emit(null);
     _connections.add({});
     _users.add({});
   }
@@ -167,15 +193,18 @@ class NetworkingService {
   }
 
   void sendUser(NetworkingUser user) {
-    state?.$2.sendNamedFunction(NetworkEvent.user,
+    state?.pipe.sendNamedFunction(NetworkEvent.user,
         Uint8List.fromList(jsonEncode(user.toJson()).codeUnits));
   }
 
   bool _externalEvent = false;
 
+  bool get isClient => state is ClientNetworkState;
+  bool get isServer => state is ServerNetworkState;
+
   void onEvent(DocumentEvent event) {
     if (!event.shouldSync() || _externalEvent) return;
-    state?.$2.sendNamedFunction(
+    state?.pipe.sendNamedFunction(
       NetworkEvent.event,
       Uint8List.fromList(
         jsonEncode(event.toJson()).codeUnits,

@@ -2,7 +2,7 @@ part of 'dialog.dart';
 
 class ViewCollaborationDialog extends StatelessWidget {
   final NetworkingService service;
-  final NetworkingState state;
+  final NetworkState state;
 
   const ViewCollaborationDialog({
     super.key,
@@ -12,7 +12,7 @@ class ViewCollaborationDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final address = state.$1.address.toString();
+    final address = state.connection.address.toString();
     return AlertDialog(
       title: Text(AppLocalizations.of(context).collaboration),
       scrollable: true,
