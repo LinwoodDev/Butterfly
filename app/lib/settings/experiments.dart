@@ -53,30 +53,54 @@ class ExperimentsSettingsPage extends StatelessWidget {
           if (experiments.isEmpty) {
             return Center(child: Text(AppLocalizations.of(context).noElements));
           }
-          return ListView.builder(
-            itemCount: experiments.length,
-            itemBuilder: (context, index) {
-              final experiment = experiments[index];
-              final currentHelp = _featureHelps[experiment.name];
-              final enabled = state.hasFlag(experiment.name);
-              return AdvancedSwitchListTile(
-                value: enabled,
-                onChanged: (value) {
-                  final cubit = context.read<SettingsCubit>();
-                  if (value == true) {
-                    cubit.addFlag(experiment.name);
-                  } else {
-                    cubit.removeFlag(experiment.name);
-                  }
-                },
-                title: Text(experiment.description),
-                leading: PhosphorIcon(
-                  experiment.icon(PhosphorIconsStyle.light),
+          return ListView(
+            children: [
+              Center(
+                child: Card(
+                  child: Padding(
+                    padding: const EdgeInsets.all(24),
+                    child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        spacing: 16,
+                        children: [
+                          Icon(PhosphorIconsLight.warning),
+                          Flexible(
+                            child: Text(AppLocalizations.of(context)
+                                .experimentsWarning),
+                          ),
+                        ]),
+                  ),
                 ),
-                onTap:
-                    currentHelp == null ? null : () => openHelp([currentHelp]),
-              );
-            },
+              ),
+              ListView.builder(
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                itemCount: experiments.length,
+                itemBuilder: (context, index) {
+                  final experiment = experiments[index];
+                  final currentHelp = _featureHelps[experiment.name];
+                  final enabled = state.hasFlag(experiment.name);
+                  return AdvancedSwitchListTile(
+                    value: enabled,
+                    onChanged: (value) {
+                      final cubit = context.read<SettingsCubit>();
+                      if (value == true) {
+                        cubit.addFlag(experiment.name);
+                      } else {
+                        cubit.removeFlag(experiment.name);
+                      }
+                    },
+                    title: Text(experiment.description),
+                    leading: PhosphorIcon(
+                      experiment.icon(PhosphorIconsStyle.light),
+                    ),
+                    onTap: currentHelp == null
+                        ? null
+                        : () => openHelp([currentHelp]),
+                  );
+                },
+              ),
+            ],
           );
         },
       ),

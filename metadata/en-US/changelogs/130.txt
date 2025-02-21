@@ -7,6 +7,7 @@
 * Add svg background support
 * Add element count to layer list
 * Add subtitle to property view for tools
+* Add warning to experiments settings page and allow using them on stable
 * Grid and ruler will now influence shape, stamp, area and texture tool
 * Improve ruler rotation handling
 * Improve selection change animation

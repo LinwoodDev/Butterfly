@@ -25,7 +25,7 @@ enum SettingsView {
   connections,
   experiments;
 
-  bool get isEnabled => isNightly || this != SettingsView.experiments;
+  bool get isEnabled => true;
 
   String getLocalizedName(BuildContext context) => switch (this) {
         SettingsView.general => AppLocalizations.of(context).general,

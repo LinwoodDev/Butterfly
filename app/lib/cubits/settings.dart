@@ -440,7 +440,7 @@ class ButterflySettings with _$ButterflySettings, LeapSettings {
         false;
   }
 
-  bool hasFlag(String s) => flags.contains(s) && isNightly;
+  bool hasFlag(String s) => flags.contains(s);
 }
 
 class SettingsCubit extends Cubit<ButterflySettings>
