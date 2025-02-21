@@ -555,6 +555,7 @@
   "eyeDropper": "Selettore Colore",
   "users": "Utenti",
   "experiments": "Esperimenti",
+  "experimentsWarning": "These features are experimental and may change, break, or disappear at any time. Enabling them may cause instability or data loss. Proceed with caution. Please report any bugs.",
   "address": "Indirizzo",
   "spreadToPages": "Dividi in pagine",
   "rootDirectorySpecifiedDescription": "La directory radice è specificata. Tutti i percorsi di directory avanzati saranno relativi a questa directory. Tienila vuota per disabilitare questo tipo di directory.",
