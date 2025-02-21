@@ -555,6 +555,7 @@
   "eyeDropper": "Eye dropper",
   "users": "Users",
   "experiments": "Experiments",
+  "experimentsWarning": "These features are experimental and may change, break, or disappear at any time. Enabling them may cause instability or data loss. Proceed with caution. Please report any bugs.",
   "address": "Address",
   "spreadToPages": "Spread to pages",
   "rootDirectorySpecifiedDescription": "The root directory is specified. All advanced directory paths will be relative to this directory. Keep it empty to disable this directory type.",
