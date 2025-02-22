@@ -555,7 +555,7 @@
   "eyeDropper": "Soltador de ojos",
   "users": "Usuarios",
   "experiments": "Experimentos",
-  "experimentsWarning": "These features are experimental and may change, break, or disappear at any time. Enabling them may cause instability or data loss. Proceed with caution. Please report any bugs.",
+  "experimentsWarning": "Estas características son experimentales y pueden cambiar, romperse o desaparecer en cualquier momento. Habilitarlos puede causar inestabilidad o pérdida de datos. Proceda con precaución. Por favor, informe de cualquier error.",
   "address": "Dirección",
   "spreadToPages": "Difundir en páginas",
   "rootDirectorySpecifiedDescription": "Se ha especificado el directorio raíz. Todas las rutas de directorios avanzados serán relativas a este directorio. Manténgalo vacío para desactivar este tipo de directorio.",
