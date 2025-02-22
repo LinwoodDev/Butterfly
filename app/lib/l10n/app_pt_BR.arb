@@ -555,7 +555,7 @@
   "eyeDropper": "Conta-gotas",
   "users": "Utilizadores",
   "experiments": "Experimentos",
-  "experimentsWarning": "These features are experimental and may change, break, or disappear at any time. Enabling them may cause instability or data loss. Proceed with caution. Please report any bugs.",
+  "experimentsWarning": "Esses recursos são experimentais e podem mudar, quebrar ou desaparecer a qualquer momento. Ativá-los pode causar instabilidade ou perda de dados. Prossiga com cautela. Por favor, reporte quaisquer erros.",
   "address": "Endereço",
   "spreadToPages": "Espalhar em páginas",
   "rootDirectorySpecifiedDescription": "O diretório raiz é especificado. Todos os caminhos avançados do diretório serão relativos a este diretório. Mantenha-o vazio para desativar este tipo de diretório.",
