@@ -555,7 +555,7 @@
   "eyeDropper": "Крушитель глаз",
   "users": "Пользователи",
   "experiments": "Эксперимент",
-  "experimentsWarning": "These features are experimental and may change, break, or disappear at any time. Enabling them may cause instability or data loss. Proceed with caution. Please report any bugs.",
+  "experimentsWarning": "Эти функции являются экспериментальными и могут изменить, прервать или исчезнуть в любое время. Включение их может привести к нестабильности или потере данных. Будьте осторожны. Пожалуйста, сообщите о любых ошибках.",
   "address": "Адрес",
   "spreadToPages": "Распространять на страницы",
   "rootDirectorySpecifiedDescription": "Указан корневой каталог. Все дополнительные пути будут относительно этой директории. Оставьте пустым, чтобы отключить этот тип каталога.",
