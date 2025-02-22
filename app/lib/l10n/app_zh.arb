@@ -555,7 +555,7 @@
   "eyeDropper": "眼睛投射器",
   "users": "用户",
   "experiments": "实验",
-  "experimentsWarning": "These features are experimental and may change, break, or disappear at any time. Enabling them may cause instability or data loss. Proceed with caution. Please report any bugs.",
+  "experimentsWarning": "这些功能是实验性的，可能随时更改、中断或消失。 启用它们可能导致不稳定或数据丢失。请谨慎行事。请报告任何漏洞。",
   "address": "地址",
   "spreadToPages": "扩展到页面",
   "rootDirectorySpecifiedDescription": "已指定根目录。所有高级目录路径将与此目录相对。保持空白以禁用此目录类型。",
