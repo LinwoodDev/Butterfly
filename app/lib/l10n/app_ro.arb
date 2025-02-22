@@ -555,7 +555,7 @@
   "eyeDropper": "Picături oftalmice",
   "users": "Utilizatori",
   "experiments": "Experimente",
-  "experimentsWarning": "These features are experimental and may change, break, or disappear at any time. Enabling them may cause instability or data loss. Proceed with caution. Please report any bugs.",
+  "experimentsWarning": "Aceste funcții sunt experimentale și pot să se schimbe, să se blocheze sau să dispară în orice moment. Activarea lor poate provoca instabilitate sau pierderi de date. Continuați cu prudență. Vă rugăm să raportați orice erori.",
   "address": "Adresa",
   "spreadToPages": "Răspândește la pagini",
   "rootDirectorySpecifiedDescription": "Directorul rădăcină este specificat. Toate directoarele avansate vor fi relative la acest director. Păstrați-l gol pentru a dezactiva acest tip de directoriu.",
