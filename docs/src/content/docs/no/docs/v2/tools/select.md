@@ -8,4 +8,4 @@ With this tool you can select elements.
 
 | Egenskap |  Standard | Beskrivelse                                                      |
 | -------: | :-------: | :--------------------------------------------------------------- |
-|     mode | rektangel | Mode of selection. Valid are rectangle and lasso |
+|     Mode | Rektangel | Mode of selection. Valid are Rectangle and Lasso |

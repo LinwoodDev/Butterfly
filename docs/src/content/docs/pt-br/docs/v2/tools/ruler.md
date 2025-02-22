@@ -14,7 +14,7 @@ Inputs get snapped to the ruler.
 
 ## Configuração
 
-| Propriedade |  Default  | Descrição                                                                                    |
+| Propriedade |   Padrão  | Descrição                                                                                    |
 | ----------: | :-------: | :------------------------------------------------------------------------------------------- |
 |     Tamanho |    100    | The size of the ruler                                                                        |
 |         Cor | _Not set_ | The color of the ruler. If not set, it uses the theme color. |

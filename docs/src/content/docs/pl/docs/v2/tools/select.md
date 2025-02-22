@@ -8,4 +8,4 @@ With this tool you can select elements.
 
 | Własność |  Domyślny | Opis                                                             |
 | -------: | :-------: | :--------------------------------------------------------------- |
-|     mode | prostokąt | Mode of selection. Valid are rectangle and lasso |
+|     Mode | Prostokąt | Mode of selection. Valid are Rectangle and Lasso |

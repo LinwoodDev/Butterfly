@@ -8,4 +8,4 @@ With this tool you can select elements.
 
 | Propriété | Par défaut | Libellé                                                          |
 | --------: | :--------: | :--------------------------------------------------------------- |
-|      mode |  rectangle | Mode of selection. Valid are rectangle and lasso |
+|      Mode |  Rectangle | Mode of selection. Valid are Rectangle and Lasso |
