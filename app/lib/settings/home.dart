@@ -1,5 +1,4 @@
 import 'package:butterfly/cubits/settings.dart';
-import 'package:butterfly/main.dart';
 import 'package:butterfly/settings/behaviors.dart';
 import 'package:butterfly/settings/inputs/home.dart';
 import 'package:butterfly/settings/data.dart';

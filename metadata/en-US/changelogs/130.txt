@@ -17,6 +17,8 @@
   * Add option for position and zoom dependent
   * Fix snap if size is 0
 * Improve add dialog with filters
+* Improve hit calculation for circles on rectangle selection
+* Improve hit calculation for lines on rectangle selection
 * Use random colors for cursors in collaboration mode
 * Change texture tool icon since it was the same as the grid tool
 * Add switch animation in navigator drawer
@@ -32,6 +34,7 @@
 * Fix flipped title and subtitle in search results
 * Fix windows portable archive
 * Fix hover in pattern texture view
+* Fix rectangle selection preview wrongly having a rotation handle line
 * Remove http sources
 * Upgrade to flutter 3.29
 

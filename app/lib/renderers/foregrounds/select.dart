@@ -254,11 +254,11 @@ class RectSelectionForegroundRenderer extends Renderer<Rect> {
       ..strokeJoin = StrokeJoin.round
       ..isAntiAlias = true;
     canvas.drawRect(element, paint);
+    if (transformMode == null) return;
     if (enableRotation) {
       canvas.drawLine(element.topCenter,
           SelectionTransformCorner.center.getFromRect(element), paint);
     }
-    if (transformMode == null) return;
     final color = transformMode == SelectionScaleMode.scaleProp
         ? Colors.red
         : Colors.blue;

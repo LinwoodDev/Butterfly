@@ -197,31 +197,40 @@ class ShapeHitCalculator extends HitCalculator {
     }
     final shape = element.property.shape;
     final center = this.rect.center;
-    final tl = this.rect.topLeft.rotate(center, rotation);
-    final tr = this.rect.topRight.rotate(center, rotation);
-    final bl = this.rect.bottomLeft.rotate(center, rotation);
-    final br = this.rect.bottomRight.rotate(center, rotation);
-    bool containsRect() {
-      final lrt = rect.containsLine(
-        tl,
-        tr,
-      );
-      final tbr = rect.containsLine(
-        tr,
-        br,
-      );
-      final lrb = rect.containsLine(
-        bl,
-        br,
-      );
-      final tbl = rect.containsLine(
-        tl,
-        bl,
-      );
+
+    bool hitCircle() {
+      final radius = this.rect.shortestSide / 2;
+      final circleCenter = this.rect.center;
+      final rectCenter = rect.center;
+      final dx = (circleCenter.dx - rectCenter.dx).abs();
+      final dy = (circleCenter.dy - rectCenter.dy).abs();
+      final halfWidth = rect.width / 2;
+      final halfHeight = rect.height / 2;
+
       if (full) {
-        return lrt && tbr && lrb && tbl;
+        return dx + radius <= halfWidth && dy + radius <= halfHeight;
+      } else {
+        final cornerDistanceSq = (dx - halfWidth).clamp(0, radius) *
+                (dx - halfWidth).clamp(0, radius) +
+            (dy - halfHeight).clamp(0, radius) *
+                (dy - halfHeight).clamp(0, radius);
+        return cornerDistanceSq <= radius * radius;
       }
-      return lrt || tbr || lrb || tbl;
+    }
+
+    bool hitRect() {
+      final topLeft = rect.topLeft;
+      final topRight = rect.topRight;
+      final bottomLeft = rect.bottomLeft;
+      final bottomRight = rect.bottomRight;
+      final isTopLeft = rect.contains(topLeft.rotate(center, rotation));
+      final isTopRight = rect.contains(topRight.rotate(center, rotation));
+      final isBottomLeft = rect.contains(bottomLeft.rotate(center, rotation));
+      final isBottomRight = rect.contains(bottomRight.rotate(center, rotation));
+      if (full) {
+        return isTopLeft && isTopRight && isBottomLeft && isBottomRight;
+      }
+      return isTopLeft || isTopRight || isBottomLeft || isBottomRight;
     }
 
     bool hitLine() {
@@ -231,14 +240,15 @@ class ShapeHitCalculator extends HitCalculator {
       final secondY = max(element.firstPosition.y, element.secondPosition.y);
       final firstPos = Offset(firstX, firstY);
       final secondPos = Offset(secondX, secondY);
-      return rect.containsLine(firstPos.rotate(center, rotation),
-          secondPos.rotate(center, rotation));
+      return rect.containsLine(
+          firstPos.rotate(center, rotation), secondPos.rotate(center, rotation),
+          full: full);
     }
 
     return switch (shape) {
-      CircleShape _ => containsRect(),
-      RectangleShape _ => containsRect(),
-      TriangleShape _ => containsRect(),
+      CircleShape _ => hitCircle(),
+      RectangleShape _ => hitRect(),
+      TriangleShape _ => hitRect(),
       LineShape _ => hitLine(),
     };
   }
@@ -248,7 +258,7 @@ class ShapeHitCalculator extends HitCalculator {
     final center = rect.center;
     // use isPointInPolygon
     switch (element.property.shape) {
-      case CircleShape _:
+      case CircleShape():
         final top = Offset(center.dx, rect.top).rotate(center, rotation);
         final right = Offset(rect.right, center.dy).rotate(center, rotation);
         final bottom = Offset(center.dx, rect.bottom).rotate(center, rotation);
@@ -262,7 +272,7 @@ class ShapeHitCalculator extends HitCalculator {
           return isTop && isRight && isBottom && isLeft && isCenter;
         }
         return isTop || isRight || isBottom || isLeft || isCenter;
-      case LineShape _:
+      case LineShape():
         final isFirst = isPointInPolygon(
             polygon, element.firstPosition.toOffset().rotate(center, rotation));
         final isSecond = isPointInPolygon(polygon,
@@ -271,7 +281,7 @@ class ShapeHitCalculator extends HitCalculator {
           return isFirst && isSecond;
         }
         return isFirst || isSecond;
-      case RectangleShape _:
+      case RectangleShape():
         final topLeft = rect.topLeft.rotate(center, rotation);
         final topRight = rect.topRight.rotate(center, rotation);
         final bottomLeft = rect.bottomLeft.rotate(center, rotation);
@@ -284,7 +294,7 @@ class ShapeHitCalculator extends HitCalculator {
           return isTopLeft && isTopRight && isBottomLeft && isBottomRight;
         }
         return isTopLeft || isTopRight || isBottomLeft || isBottomRight;
-      case TriangleShape _:
+      case TriangleShape():
         final firstPosition =
             element.firstPosition.toOffset().rotate(center, rotation);
         final secondPosition =
