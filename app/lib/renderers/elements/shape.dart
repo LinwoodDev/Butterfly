@@ -291,54 +291,66 @@ class ShapeHitCalculator extends HitCalculator {
     final center = rect.center;
     // use isPointInPolygon
     switch (element.property.shape) {
-      case CircleShape():
-        final top = Offset(center.dx, rect.top).rotate(center, rotation);
-        final right = Offset(rect.right, center.dy).rotate(center, rotation);
-        final bottom = Offset(center.dx, rect.bottom).rotate(center, rotation);
-        final left = Offset(rect.left, center.dy).rotate(center, rotation);
-        final isTop = isPointInPolygon(polygon, top);
-        final isRight = isPointInPolygon(polygon, right);
-        final isBottom = isPointInPolygon(polygon, bottom);
-        final isLeft = isPointInPolygon(polygon, left);
-        final isCenter = isPointInPolygon(polygon, center);
-        if (full) {
-          return isTop && isRight && isBottom && isLeft && isCenter;
-        }
-        return isTop || isRight || isBottom || isLeft || isCenter;
       case LineShape():
-        final isFirst = isPointInPolygon(
-            polygon, element.firstPosition.toOffset().rotate(center, rotation));
-        final isSecond = isPointInPolygon(polygon,
-            element.secondPosition.toOffset().rotate(center, rotation));
+        final firstPosition =
+            element.firstPosition.toOffset().rotate(center, rotation);
+        final secondPosition =
+            element.secondPosition.toOffset().rotate(center, rotation);
         if (full) {
-          return isFirst && isSecond;
+          return isPolygonInPolygon(polygon, [firstPosition, secondPosition]) &&
+              isPointInPolygon(polygon, center) &&
+              isPointInPolygon(polygon, firstPosition) &&
+              isPointInPolygon(polygon, secondPosition);
         }
-        return isFirst || isSecond;
+        return isPolygonInPolygon(polygon, [firstPosition, secondPosition]);
+      case CircleShape():
+        final radius = rect.shortestSide / 2;
+        final radiusSquared = radius * radius;
+        final circleCenter = rect.center;
+        final isCenter = isPointInPolygon(polygon, circleCenter);
+        bool isInside = false;
+        for (final point in polygon) {
+          if ((point - circleCenter).distanceSquared <= radiusSquared) {
+            isInside = true;
+            break;
+          }
+        }
+        if (full) {
+          return (isCenter || isInside) &&
+              isPointInPolygon(polygon, rect.topCenter) &&
+              isPointInPolygon(polygon, rect.centerLeft) &&
+              isPointInPolygon(polygon, rect.centerRight) &&
+              isPointInPolygon(polygon, rect.bottomCenter);
+        }
+        return isCenter || isInside;
       case RectangleShape():
         final topLeft = rect.topLeft.rotate(center, rotation);
         final topRight = rect.topRight.rotate(center, rotation);
         final bottomLeft = rect.bottomLeft.rotate(center, rotation);
         final bottomRight = rect.bottomRight.rotate(center, rotation);
-        final isTopLeft = isPointInPolygon(polygon, topLeft);
-        final isTopRight = isPointInPolygon(polygon, topRight);
-        final isBottomLeft = isPointInPolygon(polygon, bottomLeft);
-        final isBottomRight = isPointInPolygon(polygon, bottomRight);
+        final polygonInPolygon = isPolygonInPolygon(
+            polygon, [topLeft, topRight, bottomRight, bottomLeft]);
         if (full) {
-          return isTopLeft && isTopRight && isBottomLeft && isBottomRight;
+          return polygonInPolygon &&
+              isPointInPolygon(polygon, rect.topLeft) &&
+              isPointInPolygon(polygon, rect.topRight) &&
+              isPointInPolygon(polygon, rect.bottomRight) &&
+              isPointInPolygon(polygon, rect.bottomLeft);
         }
-        return isTopLeft || isTopRight || isBottomLeft || isBottomRight;
+        return polygonInPolygon;
       case TriangleShape():
-        final firstPosition =
-            element.firstPosition.toOffset().rotate(center, rotation);
-        final secondPosition =
-            element.secondPosition.toOffset().rotate(center, rotation);
-        final isFirst = isPointInPolygon(polygon, firstPosition);
-        final isSecond = isPointInPolygon(polygon, secondPosition);
-        final isCenter = isPointInPolygon(polygon, center);
+        final topCenter = rect.topCenter.rotate(center, rotation);
+        final bottomLeft = rect.bottomLeft.rotate(center, rotation);
+        final bottomRight = rect.bottomRight.rotate(center, rotation);
+        final polygonInPolygon =
+            isPolygonInPolygon(polygon, [topCenter, bottomLeft, bottomRight]);
         if (full) {
-          return isFirst && isSecond && isCenter;
+          return polygonInPolygon &&
+              isPointInPolygon(polygon, rect.topCenter) &&
+              isPointInPolygon(polygon, rect.bottomLeft) &&
+              isPointInPolygon(polygon, rect.bottomRight);
         }
-        return isFirst || isSecond || isCenter;
+        return polygonInPolygon;
     }
   }
 }

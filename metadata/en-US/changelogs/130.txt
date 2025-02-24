@@ -17,7 +17,7 @@
   * Add option for position and zoom dependent
   * Fix snap if size is 0
 * Improve add dialog with filters
-* Improve hit calculations in rectangle mode ([#799](https://github.com/LinwoodDev/Butterfly/issues/799))
+* Improve hit calculations in rectangle and polygon mode ([#799](https://github.com/LinwoodDev/Butterfly/issues/799))
   * Circle
   * Lines
   * Triangles
