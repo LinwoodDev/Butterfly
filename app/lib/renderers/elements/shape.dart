@@ -219,18 +219,33 @@ class ShapeHitCalculator extends HitCalculator {
     }
 
     bool hitRect() {
-      final topLeft = rect.topLeft;
-      final topRight = rect.topRight;
-      final bottomLeft = rect.bottomLeft;
-      final bottomRight = rect.bottomRight;
-      final isTopLeft = rect.contains(topLeft.rotate(center, rotation));
-      final isTopRight = rect.contains(topRight.rotate(center, rotation));
-      final isBottomLeft = rect.contains(bottomLeft.rotate(center, rotation));
-      final isBottomRight = rect.contains(bottomRight.rotate(center, rotation));
+      final topLeft = rect.topLeft.rotate(center, rotation);
+      final topRight = rect.topRight.rotate(center, rotation);
+      final bottomLeft = rect.bottomLeft.rotate(center, rotation);
+      final bottomRight = rect.bottomRight.rotate(center, rotation);
       if (full) {
+        final isTopLeft = isPointInPolygon(
+            [topLeft, topRight, bottomRight, bottomLeft], this.rect.topLeft);
+        final isTopRight = isPointInPolygon(
+            [topLeft, topRight, bottomRight, bottomLeft], this.rect.topRight);
+        final isBottomLeft = isPointInPolygon(
+            [topLeft, topRight, bottomRight, bottomLeft], this.rect.bottomLeft);
+        final isBottomRight = isPointInPolygon(
+            [topLeft, topRight, bottomRight, bottomLeft],
+            this.rect.bottomRight);
         return isTopLeft && isTopRight && isBottomLeft && isBottomRight;
       }
-      return isTopLeft || isTopRight || isBottomLeft || isBottomRight;
+      return isPolygonInPolygon([
+        topLeft,
+        topRight,
+        bottomRight,
+        bottomLeft
+      ], [
+        this.rect.topLeft,
+        this.rect.topRight,
+        this.rect.bottomRight,
+        this.rect.bottomLeft
+      ]);
     }
 
     bool hitLine() {
@@ -245,11 +260,29 @@ class ShapeHitCalculator extends HitCalculator {
           full: full);
     }
 
+    bool hitTriangle() {
+      final topCenter = this.rect.topCenter.rotate(center, rotation);
+      final bottomLeft = this.rect.bottomLeft.rotate(center, rotation);
+      final bottomRight = this.rect.bottomRight.rotate(center, rotation);
+      if (full) {
+        final isTopCenter = isPointInPolygon(
+            [topCenter, bottomLeft, bottomRight], this.rect.topCenter);
+        final isBottomLeft = isPointInPolygon(
+            [topCenter, bottomLeft, bottomRight], this.rect.bottomLeft);
+        final isBottomRight = isPointInPolygon(
+            [topCenter, bottomLeft, bottomRight], this.rect.bottomRight);
+        return isTopCenter && isBottomLeft && isBottomRight;
+      }
+      return isPolygonInPolygon(
+          [rect.topLeft, rect.topRight, rect.bottomRight, rect.bottomLeft],
+          [topCenter, bottomLeft, bottomRight]);
+    }
+
     return switch (shape) {
-      CircleShape _ => hitCircle(),
-      RectangleShape _ => hitRect(),
-      TriangleShape _ => hitRect(),
-      LineShape _ => hitLine(),
+      CircleShape() => hitCircle(),
+      RectangleShape() => hitRect(),
+      TriangleShape() => hitTriangle(),
+      LineShape() => hitLine(),
     };
   }
 

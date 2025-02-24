@@ -92,6 +92,32 @@ class DefaultHitCalculator extends HitCalculator {
   }
 }
 
+/// A helper class to represent the projection of a polygon onto an axis.
+class Projection {
+  double min;
+  double max;
+  Projection(this.min, this.max);
+}
+
+double dotProduct(Offset a, Offset b) => a.dx * b.dx + a.dy * b.dy;
+
+/// Projects the polygon onto the given axis and returns the min and max values.
+Projection projectPolygon(Offset axis, List<Offset> polygon) {
+  double min = dotProduct(polygon[0], axis);
+  double max = min;
+
+  for (int i = 1; i < polygon.length; i++) {
+    final double p = dotProduct(polygon[i], axis);
+    if (p < min) {
+      min = p;
+    }
+    if (p > max) {
+      max = p;
+    }
+  }
+  return Projection(min, max);
+}
+
 abstract class HitCalculator {
   bool hit(Rect rect, {bool full = false});
   bool hitPolygon(List<Offset> polygon, {bool full = false});
@@ -113,6 +139,45 @@ abstract class HitCalculator {
       j = i;
     }
     return result;
+  }
+
+  List<Offset> getAxesOfPolygon(List<Offset> polygon) {
+    List<Offset> axes = [];
+    for (int i = 0; i < polygon.length; i++) {
+      final Offset p1 = polygon[i];
+      final Offset p2 = polygon[(i + 1) % polygon.length];
+
+      // Edge vector from p1 to p2.
+      final Offset edge = p2 - p1;
+
+      // The normal (perpendicular) to the edge.
+      final Offset normal = Offset(-edge.dy, edge.dx);
+
+      // Normalize the axis.
+      final double length = normal.distance;
+      axes.add(normal / length);
+    }
+    return axes;
+  }
+
+  bool isPolygonInPolygon(List<Offset> poly1, List<Offset> poly2) {
+    // Get the axes from both polygons.
+    final List<Offset> axes = [
+      ...getAxesOfPolygon(poly1),
+      ...getAxesOfPolygon(poly2)
+    ];
+
+    // For each axis, project both polygons.
+    for (final axis in axes) {
+      final Projection proj1 = projectPolygon(axis, poly1);
+      final Projection proj2 = projectPolygon(axis, poly2);
+
+      // If there is a gap on this axis, then there is a separating axis.
+      if (proj1.max < proj2.min || proj2.max < proj1.min) {
+        return false;
+      }
+    }
+    return true;
   }
 }
 
