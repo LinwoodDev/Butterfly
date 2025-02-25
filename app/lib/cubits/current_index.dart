@@ -901,10 +901,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
           {AssetLocation? location, SaveState? saved, bool absolute = false}) =>
       emit(state.copyWith(
           location: location ?? state.location,
-          saved: absolute
-              ? SaveState.absoluteRead
-              : (saved ??
-                  (location != null ? SaveState.unsaved : state.saved))));
+          saved: absolute ? SaveState.absoluteRead : saved ?? state.saved));
 
   Future<pw.Document> renderPDF(
     NoteData document,

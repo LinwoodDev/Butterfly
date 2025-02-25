@@ -611,11 +611,8 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       } else {
         invisibleLayers.add(event.id);
       }
-      return _saveState(
-        emit,
-        state: current.copyWith(invisibleLayers: invisibleLayers),
-        unbake: true,
-      );
+      emit(current.copyWith(invisibleLayers: invisibleLayers));
+      current.currentIndexCubit.unbake();
     });
 
     on<LayerCreated>((event, emit) {
@@ -709,26 +706,14 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       final current = state;
       if (current is! DocumentLoadSuccess) return;
       if (!(current.embedding?.editable ?? true)) return;
-      return _saveState(
-        emit,
-        state: current.copyWith(
-          currentLayer: event.name,
-        ),
-        unbake: true,
-      );
+      emit(current.copyWith(currentLayer: event.name));
     });
 
     on<CurrentCollectionChanged>((event, emit) {
       final current = state;
       if (current is! DocumentLoadSuccess) return;
       if (!(current.embedding?.editable ?? true)) return;
-      return _saveState(
-        emit,
-        state: current.copyWith(
-          currentCollection: event.name,
-        ),
-        reset: true,
-      );
+      emit(current.copyWith(currentCollection: event.name));
     });
 
     on<ElementsCollectionChanged>((event, emit) {
@@ -1085,7 +1070,9 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     final current = state;
     if (current is! DocumentLoaded) return;
     final cubit = current.currentIndexCubit;
-    cubit.setSaveState(saved: SaveState.saved);
+    if (!current.location.isEmpty) {
+      cubit.setSaveState(saved: SaveState.saved);
+    }
     cubit.loadElements(current);
     cubit.init(this);
   }
