@@ -304,25 +304,20 @@ class ShapeHitCalculator extends HitCalculator {
         }
         return isPolygonInPolygon(polygon, [firstPosition, secondPosition]);
       case CircleShape():
-        final radius = rect.shortestSide / 2;
-        final radiusSquared = radius * radius;
-        final circleCenter = rect.center;
-        final isCenter = isPointInPolygon(polygon, circleCenter);
-        bool isInside = false;
-        for (final point in polygon) {
-          if ((point - circleCenter).distanceSquared <= radiusSquared) {
-            isInside = true;
-            break;
-          }
-        }
+        final steps = 36;
+        final ellipsePoints = List.generate(steps, (i) {
+          final angle = (2 * pi * i) / steps;
+          final rx = rect.width / 2;
+          final ry = rect.height / 2;
+          final offset = Offset(rx * cos(angle), ry * sin(angle));
+          return (center + offset).rotate(center, rotation);
+        });
+        final inside = isPolygonInPolygon(polygon, ellipsePoints);
         if (full) {
-          return (isCenter || isInside) &&
-              isPointInPolygon(polygon, rect.topCenter) &&
-              isPointInPolygon(polygon, rect.centerLeft) &&
-              isPointInPolygon(polygon, rect.centerRight) &&
-              isPointInPolygon(polygon, rect.bottomCenter);
+          return inside &&
+              ellipsePoints.every((p) => isPointInPolygon(polygon, p));
         }
-        return isCenter || isInside;
+        return inside;
       case RectangleShape():
         final topLeft = rect.topLeft.rotate(center, rotation);
         final topRight = rect.topRight.rotate(center, rotation);

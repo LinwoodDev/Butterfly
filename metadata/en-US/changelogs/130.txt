@@ -20,7 +20,11 @@
 * Improve hit calculations in rectangle and polygon mode ([#799](https://github.com/LinwoodDev/Butterfly/issues/799))
   * Circle
   * Lines
+  * Rectangle
   * Triangles
+* Improve template dialog
+  * Add select all and deselect button
+  * Change create button to floating action button
 * Use random colors for cursors in collaboration mode
 * Change texture tool icon since it was the same as the grid tool
 * Add switch animation in navigator drawer

@@ -154,14 +154,6 @@ class _TemplateDialogState extends State<TemplateDialog> {
           },
         ),
       ],
-      actions: [
-        if (widget.bloc != null)
-          ElevatedButton.icon(
-            onPressed: () => _showCreateDialog(widget.bloc!),
-            label: Text(LeapLocalizations.of(context).create),
-            icon: const PhosphorIcon(PhosphorIconsLight.floppyDisk),
-          ),
-      ],
       content: FutureBuilder<List<NoteData>>(
         future: _templatesFuture,
         builder: _buildBody,
@@ -180,6 +172,7 @@ class _TemplateDialogState extends State<TemplateDialog> {
       return const Center(child: CircularProgressIndicator());
     }
     var templates = snapshot.data!;
+    final everythingSelected = _selectedTemplates.length == templates.length;
     return Stack(
       alignment: Alignment.topCenter,
       children: [
@@ -226,79 +219,124 @@ class _TemplateDialogState extends State<TemplateDialog> {
             },
           ),
         ),
-        if (_selectedTemplates.isNotEmpty)
+        if (widget.bloc != null)
           Align(
             alignment: Alignment.bottomCenter,
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 12),
-              child: Card(
-                child: Padding(
-                  padding: const EdgeInsets.all(8),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      IconButton(
-                        icon: const PhosphorIcon(
-                          PhosphorIconsLight.selectionInverse,
-                        ),
-                        tooltip: AppLocalizations.of(context).invertSelection,
-                        onPressed: () {
-                          setState(() {
-                            final inverted = templates
-                                .map((e) => e.name!)
-                                .toSet()
-                                .difference(_selectedTemplates.toSet());
-                            _selectedTemplates.clear();
-                            _selectedTemplates.addAll(inverted);
-                          });
-                        },
-                      ),
-                      Row(
-                        children: [
-                          if (widget.bloc != null)
-                            IconButton(
-                              icon: const PhosphorIcon(
-                                PhosphorIconsLight.wrench,
-                              ),
-                              tooltip:
-                                  AppLocalizations.of(context).overrideTools,
-                              onPressed: () => _overrideTools(
-                                _templateSystem,
-                                widget.bloc!,
-                                templates
-                                    .where(
-                                      (element) => _selectedTemplates
-                                          .contains(element.name),
-                                    )
-                                    .toList(),
-                              ).then(
-                                (value) => setState(
-                                  () => _selectedTemplates.clear(),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              spacing: 8,
+              children: [
+                AnimatedSwitcher(
+                  duration: const Duration(milliseconds: 100),
+                  child: _selectedTemplates.isEmpty
+                      ? FloatingActionButton.extended(
+                          onPressed: () => _showCreateDialog(widget.bloc!),
+                          label: Text(LeapLocalizations.of(context).create),
+                          icon:
+                              const PhosphorIcon(PhosphorIconsLight.floppyDisk),
+                        )
+                      : Card(
+                          child: Padding(
+                            padding: const EdgeInsets.all(8),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Row(
+                                  children: [
+                                    IconButton(
+                                      icon: const PhosphorIcon(
+                                        PhosphorIconsLight.selectionInverse,
+                                      ),
+                                      tooltip: AppLocalizations.of(context)
+                                          .invertSelection,
+                                      onPressed: () {
+                                        setState(() {
+                                          final inverted = templates
+                                              .map((e) => e.name!)
+                                              .toSet()
+                                              .difference(
+                                                  _selectedTemplates.toSet());
+                                          _selectedTemplates.clear();
+                                          _selectedTemplates.addAll(inverted);
+                                        });
+                                      },
+                                    ),
+                                    IconButton(
+                                      icon: PhosphorIcon(
+                                        everythingSelected
+                                            ? PhosphorIconsLight.selectionSlash
+                                            : PhosphorIconsLight.selectionAll,
+                                      ),
+                                      tooltip: everythingSelected
+                                          ? AppLocalizations.of(context)
+                                              .deselect
+                                          : AppLocalizations.of(context)
+                                              .selectAll,
+                                      onPressed: () {
+                                        setState(() {
+                                          _selectedTemplates.clear();
+                                          if (!everythingSelected) {
+                                            _selectedTemplates.addAll(
+                                                templates.map((e) => e.name!));
+                                          }
+                                        });
+                                      },
+                                    ),
+                                  ],
                                 ),
-                              ),
+                                Row(
+                                  children: [
+                                    if (widget.bloc != null)
+                                      IconButton(
+                                        icon: const PhosphorIcon(
+                                          PhosphorIconsLight.wrench,
+                                        ),
+                                        tooltip: AppLocalizations.of(context)
+                                            .overrideTools,
+                                        onPressed: () => _overrideTools(
+                                          _templateSystem,
+                                          widget.bloc!,
+                                          templates
+                                              .where(
+                                                (element) => _selectedTemplates
+                                                    .contains(element.name),
+                                              )
+                                              .toList(),
+                                        ).then(
+                                          (value) => setState(
+                                            () => _selectedTemplates.clear(),
+                                          ),
+                                        ),
+                                      ),
+                                    IconButton(
+                                      icon: const PhosphorIcon(
+                                          PhosphorIconsLight.trash),
+                                      tooltip:
+                                          AppLocalizations.of(context).delete,
+                                      onPressed: () async {
+                                        final result = await showDialog<bool>(
+                                          context: context,
+                                          builder: (ctx) =>
+                                              const DeleteDialog(),
+                                        );
+                                        if (result != true) return;
+                                        for (final template
+                                            in _selectedTemplates) {
+                                          await _templateSystem
+                                              .deleteFile(template);
+                                        }
+                                        _selectedTemplates.clear();
+                                        load();
+                                      },
+                                    ),
+                                  ],
+                                ),
+                              ],
                             ),
-                          IconButton(
-                            icon: const PhosphorIcon(PhosphorIconsLight.trash),
-                            tooltip: AppLocalizations.of(context).delete,
-                            onPressed: () async {
-                              final result = await showDialog<bool>(
-                                context: context,
-                                builder: (ctx) => const DeleteDialog(),
-                              );
-                              if (result != true) return;
-                              for (final template in _selectedTemplates) {
-                                await _templateSystem.deleteFile(template);
-                              }
-                              _selectedTemplates.clear();
-                              load();
-                            },
                           ),
-                        ],
-                      ),
-                    ],
-                  ),
+                        ),
                 ),
-              ),
+              ],
             ),
           ),
       ],
